@@ -20,7 +20,9 @@
 (defmethod initialize-instance :after ((layer layer) &key size)
   (unless (tiles layer)
     (setf (tiles layer) (make-array (apply #'* size) :element-type '(unsigned-byte 8)
-                                                     :initial-element 0))))
+                                                     :initial-element 0))
+    (dotimes (i (length (tiles layer)))
+      (setf (aref (tiles layer) i) i))))
 
 (defmethod bake ((layer layer))
   (let* ((t-s (coerce (tile-size layer) 'single-float))
@@ -58,9 +60,10 @@ out vec2 uv;
 
 void main(){
   int tileset_width = textureSize(tileset, 0).x / tile_size;
-  vec2 tile_pos = vec2(gl_InstanceID % layer_width, gl_InstanceID / layer_width) * tile_size;
   vec2 tile_tex = vec2(tile_id % tileset_width, tile_id / tileset_width) * tile_size;
   uv = vertex + tile_tex;
+
+  vec2 tile_pos = vec2(gl_InstanceID % layer_width, gl_InstanceID / layer_width) * tile_size;
   gl_Position = projection_matrix * view_matrix * vec4(vertex+tile_pos, level, 1);
 }")
 
@@ -72,21 +75,24 @@ out vec4 color;
 
 void main(){
   color = texelFetch(tileset, ivec2(uv), 0);
-  color = vec4(1,0,0,1);
 }")
 
 (defun tile (location layer)
-  (aref (tiles layer)
-        (+ (floor (vx location) (tile-size layer))
-           (* (first (size layer))
-              (floor (vx location) (tile-size layer))))))
+  (let ((x (floor (vx location) (tile-size layer)))
+        (y (floor (vy location) (tile-size layer))))
+    (when (and (< -1 x (first (size layer)))
+               (< -1 y (second (size layer))))
+      (let ((pos (+ x (* y (first (size layer))))))
+        (aref (tiles layer) pos)))))
 
 (defun (setf tile) (value location layer)
-  (let ((pos (+ (floor (vx location) (tile-size layer))
-                (* (first (size layer))
-                   (floor (vx location) (tile-size layer))))))
-    (setf (aref (tiles layer) pos) value)
-    (update-buffer-data (caar (bindings (vertex-array layer))) (tiles layer)
-                        :buffer-start pos :buffer-end (1+ pos)
-                        :data-start pos :data-end (1+ pos))
-    value))
+  (let ((x (floor (vx location) (tile-size layer)))
+        (y (floor (vy location) (tile-size layer))))
+    (when (and (< -1 x (first (size layer)))
+               (< -1 y (second (size layer))))
+      (let ((pos (+ x (* y (first (size layer))))))
+        (setf (aref (tiles layer) pos) value)
+        (update-buffer-data (caar (bindings (vertex-array layer))) (tiles layer)
+                            :buffer-start pos :buffer-end (1+ pos)
+                            :data-start pos :data-end (1+ pos))
+        value))))
