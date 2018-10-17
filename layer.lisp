@@ -20,9 +20,7 @@
 (defmethod initialize-instance :after ((layer layer) &key size)
   (unless (tiles layer)
     (setf (tiles layer) (make-array (apply #'* size) :element-type '(unsigned-byte 8)
-                                                     :initial-element 0))
-    (dotimes (i (length (tiles layer)))
-      (setf (aref (tiles layer) i) i))))
+                                                     :initial-element 0))))
 
 (defmethod bake ((layer layer))
   (let* ((t-s (coerce (tile-size layer) 'single-float))
