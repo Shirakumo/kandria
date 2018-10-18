@@ -77,7 +77,7 @@
            (let ((hit (scan scene (nv+ (nv/ (vx__ size) -2) loc) vel)))
              (when hit
                (setf (vx vel) 0)
-               (setf (vx loc) (+ (vx (first hit)) (/ (vx size) 2)))))))
+               (setf (vx loc) (+ (vx (first hit)) (* (vx size) 3/2)))))))
     (incf (vx loc) (vx vel))
     ;; Step Y
     (cond ((< 0 (vy vel)))
