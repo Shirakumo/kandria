@@ -6,11 +6,20 @@
   (:default-initargs
    :vertex-array (asset 'leaf 'square)))
 
+(defmethod (setf layer) :after (value (editor editor))
+  (v:info :leaf.editor "Switched layer to ~a" value))
+
 (define-retention mouse (ev)
   (when (typep ev 'mouse-press)
     (setf (retained 'mouse (button ev)) T))
   (when (typep ev 'mouse-release)
     (setf (retained 'mouse (button ev)) NIL)))
+
+(define-action next-layer ()
+  (key-press (one-of key :page-down)))
+
+(define-action prev-layer ()
+  (key-press (one-of key :page-up)))
 
 (defmethod enter :after ((editor editor) (scene scene))
   (setf (layer editor) (unit :surface scene)))
@@ -40,6 +49,20 @@
          (decf (tile-to-place editor))))
   (setf (tile-to-place editor)
         (max 0 (min 255 (tile-to-place editor)))))
+
+(define-handler (editor next-layer) (ev)
+  (let ((layers (for:for ((entity over (scene (handler *context*)))
+                          (list when (typep entity 'layer) collect entity)))))
+    (setf (layer editor) (nth (mod (1+ (position (layer editor) layers))
+                                   (length layers))
+                              layers))))
+
+(define-handler (editor prev-layer) (ev)
+  (let ((layers (for:for ((entity over (scene (handler *context*)))
+                          (list when (typep entity 'layer) collect entity)))))
+    (setf (layer editor) (nth (mod (1- (position (layer editor) layers))
+                                   (length layers))
+                              layers))))
 
 (define-handler (editor save-game) (ev)
   (format *query-io* "~&Map save location [~a]:~%> " (file (scene (handler *context*))))

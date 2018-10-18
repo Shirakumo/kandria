@@ -80,8 +80,16 @@
                (setf (vx loc) (+ (vx (first hit)) (* (vx size) 3/2)))))))
     (incf (vx loc) (vx vel))
     ;; Step Y
-    (cond ((< 0 (vy vel)))
-          ((< (vy vel) 0)))
+    (cond ((< 0 (vy vel))
+           (let ((hit (scan scene (nv+ (v_y_ size) loc) vel)))
+             (when hit
+               (setf (vy vel) 0)
+               (setf (vy loc) (- (vy (first hit)) (vy size))))))
+          ((< (vy vel) 0)
+           (let ((hit (scan scene loc vel)))
+             (when hit
+               (setf (vy vel) 0)
+               (setf (vy loc) (+ (vy (first hit)) (vy size)))))))
     (incf (vy loc) (vy vel))))
 
 (define-shader-subject player (vertex-entity moving)
@@ -97,4 +105,7 @@
         ((retained 'movement :right)
          (setf (vx (velocity player)) +2))
         (T
-         (setf (vx (velocity player))  0))))
+         (setf (vx (velocity player))  0)))
+  (when (retained 'movement :jump)
+    (setf (vy (velocity player)) 10))
+  (decf (vy (velocity player)) 1))
