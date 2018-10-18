@@ -1,6 +1,7 @@
 (asdf:defsystem leaf
   :components ((:file "package")
                (:file "layer")
+               (:file "surface")
                (:file "player")
                (:file "level")
                (:file "editor")

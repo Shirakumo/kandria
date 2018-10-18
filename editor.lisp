@@ -13,7 +13,7 @@
     (setf (retained 'mouse (button ev)) NIL)))
 
 (defmethod enter :after ((editor editor) (scene scene))
-  (setf (layer editor) (unit :layer-0 scene)))
+  (setf (layer editor) (unit :surface scene)))
 
 (define-handler (editor mouse-move) (ev pos)
   (setf (vxy (location editor)) (v+ pos (vxy (location (unit :camera (scene (handler *context*)))))))
@@ -53,7 +53,7 @@
   (let* ((line (read-line *query-io*))
          (scene (make-instance 'level :file (if (string= "" line)
                                                 (file (scene (handler *context*)))
-                                                line))))
+                                                (pool-path 'leaf line)))))
     (change-scene (handler *context*) scene)))
 
 (defmethod paint :before ((editor editor) (pass shader-pass))
