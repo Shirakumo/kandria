@@ -63,7 +63,7 @@
   (< (abs (v. a dir)) (abs (v. b dir))))
 
 (defmethod tick ((moving moving) ev)
-  (let ((scene (handler *context*))
+  (let ((scene (scene (handler *context*)))
         (loc (location moving))
         (vel (velocity moving))
         (size (size moving)))
@@ -72,16 +72,17 @@
            (let ((hit (scan scene (nv+ (nv/ (vx__ size) 2) loc) vel)))
              (when hit
                (setf (vx vel) 0)
-               (setf (vx loc) (vx (- (vx (first hit)) (/ (vx size) 2)))))))
+               (setf (vx loc) (- (vx (first hit)) (/ (vx size) 2))))))
           ((< (vx vel) 0)
            (let ((hit (scan scene (nv+ (nv/ (vx__ size) -2) loc) vel)))
              (when hit
                (setf (vx vel) 0)
-               (setf (vx loc) (vx (+ (vx (first hit)) (/ (vx size) 2))))))))
+               (setf (vx loc) (+ (vx (first hit)) (/ (vx size) 2)))))))
     (incf (vx loc) (vx vel))
     ;; Step Y
     (cond ((< 0 (vy vel)))
-          ((< (vy vel) 0)))))
+          ((< (vy vel) 0)))
+    (incf (vy loc) (vy vel))))
 
 (define-shader-subject player (vertex-entity moving)
   ()
