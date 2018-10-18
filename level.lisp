@@ -15,8 +15,7 @@
             (entity over level)
             (hit = (scan entity start dir)))
     (for:returning result)
-    (when (or (null result)
-              (closer (car hit) (car result) dir))
+    (when (and hit (or (null result) (closer (car hit) (car result) dir)))
       (setf result hit))))
 
 (defun type->id (type-ish)
