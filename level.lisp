@@ -1,10 +1,32 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defvar *id-type-map* '((player 1)
+                        (layer 2)
+                        (surface 3)))
+
 (defclass level (pipelined-scene)
   ((file :initform NIL :initarg :file :accessor file)))
 
 (defmethod initialize-instance :after ((level level) &key file)
   (when file (load-level level file)))
+
+(defmethod scan ((level level) start dir)
+  (for:for ((result as NIL)
+            (entity over level)
+            (hit = (scan entity start dir)))
+    (for:returning result)
+    (when (or (null result)
+              (closer (car hit) (car result) dir))
+      (setf result hit))))
+
+(defun type->id (type-ish)
+  (second (find (etypecase type-ish
+                  (standard-object (class-name (class-of type-ish)))
+                  (symbol type-ish))
+                *id-type-map* :key #'first)))
+
+(defun id->type (id)
+  (first (find id *id-type-map* :key #'second)))
 
 (defmethod save-level ((level level) (target (eql T)))
   (save-level level (file level)))
@@ -45,31 +67,31 @@
     (load-level object buffer)))
 
 (defmethod save-level ((scene scene) (buffer fast-io:output-buffer))
-  (for:for ((entity over scene))
-    (save-level entity buffer)))
+  (for:for ((entity over scene)
+            (id = (type->id entity)))
+    (when id
+      (fast-io:writeu16-le id)
+      (save-level entity buffer))))
 
 (defmethod load-level ((scene scene) (buffer fast-io:input-buffer))
   (handler-case
-      (loop for id = (fast-io:readu16-le buffer)
-            do (enter (load-level id buffer) scene))
+      (loop for type = (id->type (fast-io:readu16-le buffer))
+            do (enter (load-level type buffer) scene))
     (end-of-file (e)
       scene)))
 
-(defmethod save-level (thing (buffer fast-io:output-buffer)))
-
 (defmethod save-level ((player player) (buffer fast-io:output-buffer))
   ;; FIXME: Change this to a spawner that can handle intro transitions
-  (fast-io:writeu16-le 1 buffer)
   (fast-io:writeu32-le (ieee-floats:encode-float32 (vx (location player))) buffer)
   (fast-io:writeu32-le (ieee-floats:encode-float32 (vy (location player))) buffer))
 
-(defmethod load-level ((id (eql 1)) (buffer fast-io:input-buffer))
+(defmethod load-level ((type (eql 'player)) (buffer fast-io:input-buffer))
   (make-instance 'player :location (vec (ieee-floats:decode-float32 (fast-io:readu32-le buffer))
                                         (ieee-floats:decode-float32 (fast-io:readu32-le buffer))
                                         0)))
 
 (defmethod save-level ((layer layer) (buffer fast-io:output-buffer))
-  (fast-io:writeu16-le 2 buffer)
+  (save-level (name layer) buffer)
   (fast-io:writeu16-le (first (size layer)) buffer)
   (fast-io:writeu16-le (second (size layer)) buffer)
   (fast-io:writeu16-le (level layer) buffer)
@@ -78,9 +100,10 @@
   (fast-io:writeu32-le (length (tiles layer)) buffer)
   (fast-io:fast-write-sequence (tiles layer) buffer))
 
-(defmethod load-level ((id (eql 2)) (buffer fast-io:input-buffer))
+(defmethod load-level ((type (eql 'layer)) (buffer fast-io:input-buffer))
   (make-instance
-   'layer :size (list (fast-io:readu16-le buffer)
+   'layer ;:name (load-level 'symbol buffer)
+          :size (list (fast-io:readu16-le buffer)
                       (fast-io:readu16-le buffer))
           :level (fast-io:readu16-le buffer)
           :tile-size (fast-io:readu16-le buffer)
@@ -93,12 +116,18 @@
                    tiles)))
 
 (defmethod save-level ((asset asset) (buffer fast-io:output-buffer))
-  (fast-io:fast-write-sequence (babel:string-to-octets (package-name (symbol-package (name asset))) :encoding :utf-8) buffer)
+  (save-level (name asset) buffer))
+
+(defmethod load-level ((type (eql 'asset)) (buffer fast-io:input-buffer))
+  (asset 'leaf (load-level 'symbol buffer)))
+
+(defmethod save-level ((symbol symbol) (buffer fast-io:output-buffer))
+  (fast-io:fast-write-sequence (babel:string-to-octets (package-name (symbol-package symbol)) :encoding :utf-8) buffer)
   (fast-io:fast-write-byte 0 buffer)
-  (fast-io:fast-write-sequence (babel:string-to-octets (symbol-name (name asset)) :encoding :utf-8) buffer)
+  (fast-io:fast-write-sequence (babel:string-to-octets (symbol-name symbol) :encoding :utf-8) buffer)
   (fast-io:fast-write-byte 0 buffer))
 
-(defmethod load-level ((asset (eql 'asset)) (buffer fast-io:input-buffer))
+(defmethod load-level ((type (eql 'symbol)) (buffer fast-io:input-buffer))
   (let ((vector (make-array 0 :element-type '(unsigned-byte 8) :adjustable T :fill-pointer 0)))
     (loop for b = (fast-io:fast-read-byte buffer)
           until (= 0 b)
@@ -109,4 +138,10 @@
             until (= 0 b)
             do (vector-push-extend b vector))
       (let ((name (babel:octets-to-string vector :encoding :utf-8)))
-        (asset 'leaf (find-symbol name package))))))
+        (find-symbol name package)))))
+
+(defmethod save-level ((surface surface) (buffer fast-io:output-buffer))
+  (call-next-method))
+
+(defmethod load-level ((type (eql 'surface)) (buffer fast-io:input-buffer))
+  (change-class (load-level 'layer buffer) 'surface))

@@ -4,9 +4,10 @@
   :base :leaf)
 
 (define-asset (leaf ground) image
-    #p"ground.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
+    #p"ground.png")
+
+(define-asset (leaf surface) image
+    #p"surface.png")
 
 (define-asset (leaf player) mesh
     (make-sphere 16 :segments 8))
@@ -15,7 +16,7 @@
     (make-rectangle 32 32 :align :topleft))
 
 (defclass main (trial:main)
-  ((scene :initform (make-instance 'level :file (pool-path 'leaf "empty.map"))))
+  ((scene :initform (make-instance 'editor-level)))
   (:default-initargs :clear-color (vec 0 0 0)
                      :title "Leaf - 0.0.0"))
 
@@ -23,16 +24,14 @@
   (apply #'trial:launch 'main initargs))
 
 (defmethod setup-scene ((main main) scene)
-  (enter (make-instance 'editor) scene)
   (enter (make-instance '2d-camera :name :camera) scene)
   (enter (make-instance 'render-pass) scene))
 
-;; Solids
-(defclass surface (entity)
-  ((tiles :initarg :tiles :accessor tiles)
-   (blocks :initarg :blocks :accessor blocks))
-  (:default-initargs
-   :tiles (make-array 0 :element-type '(unsigned-byte 8))
-   :blocks (vector (vec2 0 0)
-                   (vec2 0 *default-tile-size*)
-                   (vec2 *default-tile-size* 0))))
+(defclass editor-level (level)
+  ())
+
+(defmethod initialize-instance :after ((level editor-level) &key)
+  (enter (make-instance 'layer :size '(32 32) :texture (asset 'leaf 'ground)) level)
+  (enter (make-instance 'player) level)
+  (enter (make-instance 'surface :size '(32 32)) level)
+  (enter (make-instance 'editor) level))
