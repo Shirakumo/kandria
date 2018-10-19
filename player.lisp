@@ -49,15 +49,24 @@
     (end-up (setf (retained 'movement :up) NIL))
     (end-down (setf (retained 'movement :down) NIL))))
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defclass located-entity (entity)
+    ((location :initarg :location :initform (vec 0 0) :accessor location))))
+
+(defmethod paint :around ((obj located-entity) target)
+  (with-pushed-matrix ()
+    (translate (vxy_ (location obj)))
+    (call-next-method)))
+
 (define-subject moving (located-entity)
   ((velocity :initarg :velocity :accessor velocity)
    (size :initarg :size :accessor size))
-  (:default-initargs :velocity (vec 0 0 0)
+  (:default-initargs :velocity (vec 0 0)
                      :size (vec *default-tile-size* *default-tile-size*)))
 
 (define-generic-handler (moving tick trial:tick))
 
-(defmethod scan (entity start dir))
+(defmethod scan (entity size start dir))
 
 (defun closer (a b dir)
   (< (abs (v. a dir)) (abs (v. b dir))))
@@ -67,37 +76,30 @@
         (loc (location moving))
         (vel (velocity moving))
         (size (size moving)))
-    ;; Step X
-    (cond ((< 0 (vx vel))
-           (let ((hit (scan scene (nv+ (nv/ (vx__ size) 2) loc) vel)))
-             (when hit
-               (setf (vx vel) 0)
-               (setf (vx loc) (- (vx (first hit)) (/ (vx size) 2))))))
-          ((< (vx vel) 0)
-           (let ((hit (scan scene (nv+ (nv/ (vx__ size) -2) loc) vel)))
-             (when hit
-               (setf (vx vel) 0)
-               (setf (vx loc) (+ (vx (first hit)) (* (vx size) 3/2)))))))
-    (incf (vx loc) (vx vel))
-    ;; Step Y
-    (cond ((< 0 (vy vel))
-           (let ((hit (scan scene (nv+ (v_y_ size) loc) vel)))
-             (when hit
-               (setf (vy vel) 0)
-               (setf (vy loc) (- (vy (first hit)) (vy size))))))
-          ((< (vy vel) 0)
-           (let ((hit (scan scene loc vel)))
-             (when hit
-               (setf (vy vel) 0)
-               (setf (vy loc) (+ (vy (first hit)) (vy size)))))))
-    (incf (vy loc) (vy vel))))
+    ;; Scan for hits until we run out of velocity or hits.
+    (loop while (or (/= 0 (vx vel)) (/= 0 (vy vel)))
+          for hit = (scan scene size loc vel)
+          while hit
+          do (collide moving (hit-object hit) hit))
+    ;; Remaining velocity (if any) can be added safely.
+    (nv+ loc vel)))
+
+(defmethod collide ((moving moving) (block block) hit)
+  (let* ((loc (location moving))
+         (vel (velocity moving))
+         (normal (hit-normal hit)))
+    (vsetf loc (round (vx (hit-location hit))) (round (vy (hit-location hit))))
+    (nv- vel (v* normal (v. vel normal)))))
 
 (define-shader-subject player (vertex-entity moving)
   ()
   (:default-initargs
    :vertex-array (asset 'leaf 'player)
-   :location (vec 32 32 0)
+   :location (vec 32 32)
    :name :player))
+
+(define-handler (player jump) (ev)
+  (setf (vy (velocity player)) 6))
 
 (defmethod tick :before ((player player) ev)
   (cond ((retained 'movement :left)
@@ -106,6 +108,6 @@
          (setf (vx (velocity player)) +2))
         (T
          (setf (vx (velocity player))  0)))
-  (when (retained 'movement :jump)
-    (setf (vy (velocity player)) 10))
-  (decf (vy (velocity player)) 1))
+  (decf (vy (velocity player)) 0.2)
+  (when (< (vy (location player)) 0)
+    (setf (vy (location player)) 64)))
