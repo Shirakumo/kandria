@@ -82,13 +82,14 @@
           while hit
           do (collide moving (hit-object hit) hit))
     ;; Remaining velocity (if any) can be added safely.
-    (nv+ loc vel)))
+    (nv+ loc vel)
+    (vsetf loc (round (vx loc)) (round (vy loc)))))
 
 (defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))
          (vel (velocity moving))
          (normal (hit-normal hit)))
-    (vsetf loc (round (vx (hit-location hit))) (round (vy (hit-location hit))))
+    (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))))
 
 (define-shader-subject player (vertex-entity moving)
@@ -110,4 +111,5 @@
          (setf (vx (velocity player))  0)))
   (decf (vy (velocity player)) 0.2)
   (when (< (vy (location player)) 0)
-    (setf (vy (location player)) 64)))
+    (setf (vy (location player)) 64)
+    (setf (vy (velocity player)) 0)))
