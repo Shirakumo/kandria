@@ -4,6 +4,7 @@
   ((layer :initform NIL :accessor layer)
    (tile :initform 1 :accessor tile-to-place))
   (:default-initargs
+   :name :editor
    :vertex-array (asset 'leaf 'square)))
 
 (defmethod (setf layer) :after (value (editor editor))
