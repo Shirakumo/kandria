@@ -7,6 +7,9 @@
    :name :editor
    :vertex-array (asset 'leaf 'square)))
 
+(defmethod banned-slots append ((editor editor))
+  '(layer))
+
 (defmethod (setf layer) :after (value (editor editor))
   (v:info :leaf.editor "Switched layer to ~a" value))
 
@@ -68,19 +71,25 @@
                               layers))))
 
 (define-handler (editor save-game) (ev)
-  (format *query-io* "~&Map save location [~a]:~%> " (file (scene (handler *context*))))
+  (format *query-io* "~&Map save location~@[ [~a]~]:~%> " (file (scene (handler *context*))))
   (let* ((line (read-line *query-io*))
-         (file (uiop:parse-native-namestring (or (string= "" line) line))))
-    (setf (file (scene (handler *context*))) file)
-    (save-level (scene (handler *context*)) T)))
+         (file (if (string= "" line)
+                   (file (scene (handler *context*)))
+                   (pool-path 'leaf (uiop:parse-native-namestring line)))))
+    (when file
+      (setf (file (scene (handler *context*))) file)
+      (save-level (scene (handler *context*)) T))))
 
 (define-handler (editor load-game) (ev)
-  (format *query-io* "~&Map load location [~a]:~%> " (file (scene (handler *context*))))
+  (format *query-io* "~&Map load location~@[ [~a]~]:~%> " (file (scene (handler *context*))))
   (let* ((line (read-line *query-io*))
-         (scene (make-instance 'level :file (if (string= "" line)
-                                                (file (scene (handler *context*)))
-                                                (pool-path 'leaf line)))))
-    (change-scene (handler *context*) scene)))
+         (file (if (string= "" line)
+                   (file (scene (handler *context*)))
+                   (pool-path 'leaf (uiop:parse-native-namestring line)))))
+    (when file
+      (let ((scene (make-instance 'level :file file)))
+        (enter editor scene)
+        (change-scene (handler *context*) scene)))))
 
 (defmethod paint :before ((editor editor) (pass shader-pass))
   (let ((program (shader-program-for-pass pass editor))
