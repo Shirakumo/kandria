@@ -69,7 +69,7 @@
   (for:for ((entity over scene)
             (id = (type->id entity)))
     (when id
-      (fast-io:writeu16-le id)
+      (fast-io:writeu16-le id buffer)
       (save-level entity buffer))))
 
 (defmethod load-level ((scene scene) (buffer fast-io:input-buffer))
@@ -86,8 +86,7 @@
 
 (defmethod load-level ((type (eql 'player)) (buffer fast-io:input-buffer))
   (make-instance 'player :location (vec (ieee-floats:decode-float32 (fast-io:readu32-le buffer))
-                                        (ieee-floats:decode-float32 (fast-io:readu32-le buffer))
-                                        0)))
+                                        (ieee-floats:decode-float32 (fast-io:readu32-le buffer)))))
 
 (defmethod save-level ((layer layer) (buffer fast-io:output-buffer))
   (save-level (name layer) buffer)
@@ -101,7 +100,7 @@
 
 (defmethod load-level ((type (eql 'layer)) (buffer fast-io:input-buffer))
   (make-instance
-   'layer ;:name (load-level 'symbol buffer)
+   'layer :name (load-level 'symbol buffer)
           :size (list (fast-io:readu16-le buffer)
                       (fast-io:readu16-le buffer))
           :level (fast-io:readu16-le buffer)
@@ -143,4 +142,5 @@
   (call-next-method))
 
 (defmethod load-level ((type (eql 'surface)) (buffer fast-io:input-buffer))
-  (change-class (load-level 'layer buffer) 'surface))
+  (change-class (load-level 'layer buffer) 'surface
+                :blocks *default-surface-blocks*))
