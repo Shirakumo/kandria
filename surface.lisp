@@ -40,8 +40,14 @@
   "out vec4 color;
 
 void main(){
-  color.a = 0.1;
-  color = clamp(color + 0.1, 0, 1);
+  if(color.a == 0){
+    float r = (int(gl_FragCoord.x+0.5)%5==0)?1:0.5;
+    r *= (int(gl_FragCoord.y+0.5)%5==0)?1:0.5;
+    r *= 0.5;
+    color = vec4(r,r,r,0.5);
+  }else{
+    color.a = 0.1;
+  }
 }")
 
 (defstruct (hit (:constructor make-hit (object time location normal)))
