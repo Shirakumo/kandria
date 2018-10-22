@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defstruct (block (:constructor make-block (l r)))
+(defstruct (block (:constructor make-block (s l r)))
+  (s 0 :type (unsigned-byte 16))
   (l 0 :type (unsigned-byte 16))
   (r 0 :type (unsigned-byte 16)))
 
@@ -8,7 +9,7 @@
   (let ((blocks (make-array (+ 2 (* 2 (reduce #'+ steps)))))
         (i -1))
     (flet ((make (l r)
-             (setf (aref blocks (incf i)) (make-block l r))))
+             (setf (aref blocks (incf i)) (make-block t-s l r))))
       (make t-s t-s)
       (make 0 0)
       (loop for steps in '(1 2 3)
@@ -22,7 +23,7 @@
                      do (make (floor l) (floor r))))
       blocks)))
 
-(defvar *default-surface-blocks* (make-surface-blocks *default-tile-size* '(1 2 3)))
+(defparameter *default-surface-blocks* (make-surface-blocks *default-tile-size* '(1 2 3)))
 
 (define-shader-entity surface (layer)
   ((blocks :initarg :blocks :accessor blocks))
@@ -39,7 +40,8 @@
 
 (defmethod paint :around ((surface surface) target)
   (when (unit :editor (scene (handler *context*)))
-    (call-next-method)))
+    (call-next-method)
+    ))
 
 (defun aabb (seg-pos seg-vel aabb-pos aabb-size)
   (declare (type vec2 seg-pos seg-vel aabb-pos aabb-size))

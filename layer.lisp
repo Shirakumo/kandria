@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defvar *default-tile-size* 32)
+(defparameter *default-tile-size* 8)
 
 (define-shader-entity layer (bakable)
   ((vertex-array :initform NIL :accessor vertex-array)

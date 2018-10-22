@@ -4,39 +4,43 @@
 
 (define-action jump (movement)
   (key-press (one-of key :space))
-  (gamepad-press (one-of button :x :a)))
+  (gamepad-press (one-of button :a)))
+
+(define-action dash (movement)
+  (key-press (one-of key :left-shift))
+  (gamepad-press (one-of button :x)))
 
 (define-action start-left (movement)
   (key-press (one-of key :a :left))
-  (gamepad-move (eql axis :left-h) (< pos -0.2 old-pos)))
+  (gamepad-move (one-of axis :l-h :dpad-h) (< pos -0.2 old-pos)))
 
 (define-action start-right (movement)
   (key-press (one-of key :d :e :right))
-  (gamepad-move (eql axis :left-h) (< old-pos 0.2 pos)))
+  (gamepad-move (one-of axis :l-h :dpad-h) (< old-pos 0.2 pos)))
 
 (define-action start-up (movement)
   (key-press (one-of key :w :\, :up))
-  (gamepad-move (eql axis :left-v) (< pos -0.2 old-pos)))
+  (gamepad-move (one-of axis :l-v :dpad-v) (< pos -0.2 old-pos)))
 
 (define-action start-down (movement)
   (key-press (one-of key :s :o :down))
-  (gamepad-move (eql axis :left-v) (< old-pos 0.2 pos)))
+  (gamepad-move (one-of axis :l-v :dpad-v) (< old-pos 0.2 pos)))
 
 (define-action end-left (movement)
   (key-release (one-of key :a :left))
-  (gamepad-move (eql axis :left-h) (< old-pos -0.2 pos)))
+  (gamepad-move (one-of axis :l-h :dpad-h) (< old-pos -0.2 pos)))
 
 (define-action end-right (movement)
   (key-release (one-of key :d :e :right))
-  (gamepad-move (eql axis :left-h) (< pos 0.2 old-pos)))
+  (gamepad-move (one-of axis :l-h :dpad-h) (< pos 0.2 old-pos)))
 
 (define-action end-up (movement)
   (key-release (one-of key :w :\, :up))
-  (gamepad-move (eql axis :left-v) (< old-pos -0.2 pos)))
+  (gamepad-move (one-of axis :l-v :dpad-v) (< old-pos -0.2 pos)))
 
 (define-action end-down (movement)
   (key-release (one-of key :s :o :down))
-  (gamepad-move (eql axis :left-v) (< pos 0.2 old-pos)))
+  (gamepad-move (one-of axis :l-v :dpad-v) (< pos 0.2 old-pos)))
 
 (define-retention movement (ev)
   (typecase ev
@@ -99,30 +103,51 @@
            (nv+ loc vel)
            (setf (vx vel) 0)
            (let* ((y (vy loc))
-                  (tt (max 0 (min 1 (/ (- (vx loc) (- (vx pos) 16)) 32))))
-                  (sy (+ (vy pos) l (* (- r l) tt))))
+                  (t-s (block-s block))
+                  (tt (max 0 (min 1 (/ (- (vx loc) (- (vx pos) (/ t-s 2))) t-s))))
+                  (sy (+ (- (vy pos) (/ t-s 2)) (/ (vy (size moving)) 2) l (* (- r l) tt))))
+             (print (list tt sy loc))
              (when (< y sy)
                (setf (vy loc) sy)
                (setf (vy vel) 0)))))))
 
 (define-shader-subject player (vertex-entity moving)
-  ()
+  ((vlim :initform (vec 2 10) :accessor vlim)
+   (vacc :initform (vec 0.2 4) :accessor vacc)
+   (vdcc :initform (vec 1 0.1) :accessor vdcc))
   (:default-initargs
    :vertex-array (asset 'leaf 'player)
    :location (vec 32 32)
+   :size (vec 8 16)
    :name :player))
 
 (define-handler (player jump) (ev)
-  (setf (vy (velocity player)) 6))
+  (incf (vy (velocity player)) (vy (vacc player))))
+
+(define-handler (player dash) (ev)
+  (let ((vel (velocity player)))
+    (vsetf vel
+           (cond ((retained 'movement :left)  -8)
+                 ((retained 'movement :right) +8)
+                 (T                            0))
+           (cond ((retained 'movement :up)    +8)
+                 ((retained 'movement :down)  -8)
+                 (T                            0)))))
 
 (defmethod tick :before ((player player) ev)
-  (cond ((retained 'movement :left)
-         (setf (vx (velocity player)) -2))
-        ((retained 'movement :right)
-         (setf (vx (velocity player)) +2))
-        (T
-         (setf (vx (velocity player))  0)))
-  (decf (vy (velocity player)) 0.2)
+  (let ((vel (velocity player)))
+    (cond ((retained 'movement :left)
+           (when (< (- (vx (vlim player))) (vx vel))
+             (decf (vx vel) (vx (vacc player)))))
+          ((retained 'movement :right)
+           (when (< (vx vel) (vx (vlim player)))
+             (incf (vx vel) (vx (vacc player)))))
+          ((< (vx (vdcc player)) (abs (vx vel)))
+           (decf (vx vel) (* (signum (vx vel)) (vx (vdcc player)))))
+          (T
+           (setf (vx vel) 0)))
+    (decf (vy vel) 0.2))
+  ;; OOB
   (when (< (vy (location player)) 0)
     (setf (vy (location player)) 64)
     (setf (vy (velocity player)) 0)))
