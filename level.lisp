@@ -70,7 +70,8 @@
             (id = (type->id entity)))
     (when id
       (fast-io:writeu16-le id buffer)
-      (save-level entity buffer))))
+      (save-level entity buffer)))
+  scene)
 
 (defmethod load-level ((scene scene) (buffer fast-io:input-buffer))
   (handler-case

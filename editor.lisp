@@ -30,8 +30,10 @@
 
 (define-handler (editor mouse-move) (ev pos)
   (let ((loc (location editor))
-        (cloc (location (unit :camera (scene (handler *context*))))))
-    (vsetf loc (+ (vx pos) (vx cloc)) (+ (vy pos) (vy cloc)))
+        (camera (unit :camera (scene (handler *context*)))))
+    (vsetf loc
+           (+ (/ (vx pos) (zoom camera)) (vx (location camera)))
+           (+ (/ (vy pos) (zoom camera)) (vy (location camera))))
     (when (layer editor)
       (let ((t-s (tile-size (layer editor))))
         (setf (vx loc) (* t-s (floor (vx loc) t-s)))
