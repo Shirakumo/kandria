@@ -1,10 +1,17 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(define-action editor-command ())
+
+(define-action toggle-editor (editor-command)
+  (key-press (one-of key :section)))
+
 (define-shader-subject editor (vertex-entity located-entity)
-  ((layer :initform NIL :accessor layer)
+  ((active-p :initarg :active-p :accessor active-p)
+   (layer :initform NIL :accessor layer)
    (tile :initform 1 :accessor tile-to-place))
   (:default-initargs
    :name :editor
+   :active-p T
    :vertex-array (asset 'leaf 'square)))
 
 (defmethod banned-slots append ((editor editor))
@@ -27,6 +34,8 @@
 
 (defmethod enter :after ((editor editor) (scene scene))
   (setf (layer editor) (unit :surface scene)))
+
+;; FIXME: don't handle events when inactive
 
 (define-handler (editor mouse-move) (ev pos)
   (let ((loc (location editor))
@@ -72,6 +81,9 @@
                                    (length layers))
                               layers))))
 
+(define-handler (editor toggle-editor) (ev)
+  (setf (active-p editor) (not (active-p editor))))
+
 (define-handler (editor save-game) (ev)
   (format *query-io* "~&Map save location~@[ [~a]~]:~%> " (file (scene (handler *context*))))
   (let* ((line (read-line *query-io*))
@@ -90,8 +102,11 @@
                    (pool-path 'leaf (uiop:parse-native-namestring line)))))
     (when file
       (let ((scene (make-instance 'level :file file)))
-        (enter editor scene)
         (change-scene (handler *context*) scene)))))
+
+(defmethod paint :around ((editor editor) target)
+  (when (active-p editor)
+    (call-next-method)))
 
 (defmethod paint :before ((editor editor) (pass shader-pass))
   (let ((program (shader-program-for-pass pass editor))

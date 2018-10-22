@@ -47,20 +47,20 @@
   (setf (scene main)
         (if map
             (make-instance 'level :file (pool-path 'leaf map))
-            (make-instance 'editor-level))))
+            (make-instance 'empty-level))))
 
 (defun launch (&rest initargs)
   (apply #'trial:launch 'main initargs))
 
 (defmethod setup-scene ((main main) scene)
+  (enter (make-instance 'editor) scene)
   (enter (make-instance 'camera :name :camera) scene)
   (enter (make-instance 'render-pass) scene))
 
-(defclass editor-level (level)
+(defclass empty-level (level)
   ())
 
-(defmethod initialize-instance :after ((level editor-level) &key)
+(defmethod initialize-instance :after ((level empty-level) &key)
   (enter (make-instance 'layer :size '(512 512) :texture (asset 'leaf 'ground) :tile-size 8) level)
   (enter (make-instance 'player :size (vec 8 16)) level)
-  (enter (make-instance 'surface :size '(512 512) :tile-size 8) level)
-  (enter (make-instance 'editor) level))
+  (enter (make-instance 'surface :size '(512 512) :tile-size 8) level))

@@ -32,16 +32,23 @@
    :name :surface
    :blocks *default-surface-blocks*))
 
+(defmethod paint :around ((surface surface) target)
+  (when (active-p (unit :editor (scene (handler *context*))))
+    (call-next-method)))
+
+(define-class-shader (surface :fragment-shader -1)
+  "out vec4 color;
+
+void main(){
+  color.a = 0.1;
+  color = clamp(color + 0.1, 0, 1);
+}")
+
 (defstruct (hit (:constructor make-hit (object time location normal)))
   (object NIL)
   (time 0.0 :type single-float)
   (location NIL :type vec2)
   (normal NIL :type vec2))
-
-(defmethod paint :around ((surface surface) target)
-  (when (unit :editor (scene (handler *context*)))
-    (call-next-method)
-    ))
 
 (defun aabb (seg-pos seg-vel aabb-pos aabb-size)
   (declare (type vec2 seg-pos seg-vel aabb-pos aabb-size))
