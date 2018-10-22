@@ -4,7 +4,8 @@
   :base :leaf)
 
 (define-asset (leaf ground) image
-    #p"ground.png")
+    #p"ground.png"
+  :wrapping )
 
 (define-asset (leaf surface) image
     #p"surface.png")
@@ -17,8 +18,11 @@
 
 (define-subject camera (trial:2d-camera)
   ((zoom :initarg :zoom :initform 2 :accessor zoom)
+   (target-size :initarg :target-size :accessor target-size)
    (target :initarg :target :initform NIL :accessor target))
-  (:default-initargs :location (vec 0 0)))
+  (:default-initargs
+   :location (vec 0 0)
+   :target-size (* 8 70)))
 
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit :player scene)))
@@ -30,6 +34,9 @@
         (vsetf loc (vx tar) (vy tar))
         (nv- loc (vec 100 100))))
     (nvclamp (vec 0 0) loc 64)))
+
+(define-handler (camera resize) (ev)
+  (setf (zoom camera) (print (float (/ (width ev) (target-size camera))))))
 
 (defmethod project-view ((camera camera) ev)
   (let ((z (zoom camera)))
