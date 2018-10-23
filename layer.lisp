@@ -31,6 +31,25 @@
     (push (list tbuf :index 1 :offset 0 :size 1 :stride (gl-type-size :unsigned-byte) :instancing 1) (bindings vao))
     (setf (vertex-array layer) vao)))
 
+(defmethod resize ((layer layer) width height)
+  (setf (size layer) (list width height)))
+
+(defmethod (setf size) :before (size (layer layer))
+  (destructuring-bind (width height) size
+    (let ((buffer (caar (bindings (vertex-array layer))))
+          (new (make-array (* width height) :element-type '(unsigned-byte 8)
+                                            :initial-element 0)))
+      (destructuring-bind (w h) (size layer)
+        (dotimes (y (min height h))
+          (dotimes (x (min width w))
+            (setf (aref new (+ x (* y width)))
+                  (aref (tiles layer) (+ x (* y w)))))))
+      (setf (buffer-data buffer) new)
+      (setf (tiles layer) new)
+      (when (gl-name buffer)
+        (setf (size buffer) (length new))
+        (update-buffer-data buffer (tiles layer))))))
+
 (defmethod paint ((layer layer) (pass shader-pass))
   (let ((program (shader-program-for-pass pass layer)))
     (setf (uniform program "view_matrix") (view-matrix))

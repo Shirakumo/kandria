@@ -1,9 +1,26 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defun query (message &key default parse)
+  (format *query-io* "~&~a~@[ [~a]~]:~%> " message default)
+  (let ((read (read-line *query-io* NIL)))
+    (cond ((not read))
+          ((string= "" read)
+           default)
+          (T
+           (if parse (funcall parse read) read)))))
+
+(defmacro with-query ((value message &key default parse) &body body)
+  `(let ((,value (query ,message :default ,default :parse ,parse)))
+     (when ,value
+       ,@body)))
+
 (define-action editor-command ())
 
 (define-action toggle-editor (editor-command)
   (key-press (one-of key :section)))
+
+(define-action resize-level (editor-command)
+  (key-press (one-of key :f5)))
 
 (define-shader-subject editor (vertex-entity located-entity)
   ((active-p :initarg :active-p :accessor active-p)
@@ -20,6 +37,9 @@
 (defmethod (setf layer) :after (value (editor editor))
   (v:info :leaf.editor "Switched layer to ~a" value))
 
+(defmethod enter :after ((editor editor) (scene scene))
+  (setf (layer editor) (unit :surface scene)))
+
 (define-retention mouse (ev)
   (when (typep ev 'mouse-press)
     (setf (retained 'mouse (button ev)) T))
@@ -31,9 +51,6 @@
 
 (define-action prev-layer ()
   (key-press (one-of key :page-up)))
-
-(defmethod enter :after ((editor editor) (scene scene))
-  (setf (layer editor) (unit :surface scene)))
 
 ;; FIXME: don't handle events when inactive
 
@@ -84,25 +101,25 @@
 (define-handler (editor toggle-editor) (ev)
   (setf (active-p editor) (not (active-p editor))))
 
+(define-handler (editor resize-level) (ev)
+  (with-query (size "New map size" :parse #'read-from-string)
+    (for:for ((entity over (scene (handler *context*))))
+      (when (typep entity 'layer)
+        (setf (size entity) size)))))
+
 (define-handler (editor save-game) (ev)
-  (format *query-io* "~&Map save location~@[ [~a]~]:~%> " (file (scene (handler *context*))))
-  (let* ((line (read-line *query-io*))
-         (file (if (string= "" line)
-                   (file (scene (handler *context*)))
-                   (pool-path 'leaf (uiop:parse-native-namestring line)))))
-    (when file
-      (setf (file (scene (handler *context*))) file)
-      (save-level (scene (handler *context*)) T))))
+  (with-query (file "Map save location"
+               :default (file (scene (handler *context*)))
+               :parse #'uiop:parse-native-namestring)
+    (setf (file (scene (handler *context*))) (pool-path 'leaf file))
+    (save-level (scene (handler *context*)) T)))
 
 (define-handler (editor load-game) (ev)
-  (format *query-io* "~&Map load location~@[ [~a]~]:~%> " (file (scene (handler *context*))))
-  (let* ((line (read-line *query-io*))
-         (file (if (string= "" line)
-                   (file (scene (handler *context*)))
-                   (pool-path 'leaf (uiop:parse-native-namestring line)))))
-    (when file
-      (let ((scene (make-instance 'level :file file)))
-        (change-scene (handler *context*) scene)))))
+  (with-query (file "Map load location"
+               :default (file (scene (handler *context*)))
+               :parse #'uiop:parse-native-namestring)
+    (let ((scene (make-instance 'level :file (pool-path 'leaf file))))
+      (change-scene (handler *context*) scene))))
 
 (defmethod paint :around ((editor editor) target)
   (when (active-p editor)
