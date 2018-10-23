@@ -99,7 +99,7 @@
         (size (size moving)))
     ;; Scan for hits until we run out of velocity or hits.
     (fill (collisions moving) 0)
-    (catch 'a
+    (catch 'end-collisions
       (loop while (or (/= 0 (vx vel)) (/= 0 (vy vel)))
             for hit = (scan scene size loc vel)
             while hit
@@ -151,8 +151,11 @@
                   (sy (+ (- (vy pos) t-s) height l (* (- r l) tt))))
              (when (< (vy loc) sy)
                (setf (vy loc) sy)
-               (setf (vy vel) 0)))
-           (throw 'a NIL)))))
+               (setf (vy vel) 0)
+               ;; FIXME: not perfect slowdown, dashes are fucked up
+               (setf (vx vel) (* 0.25 (vx vel)))))
+           ;; Early out
+           (throw 'end-collisions NIL)))))
 
 (progn
   (define-shader-subject player (vertex-entity colored-entity moving)
