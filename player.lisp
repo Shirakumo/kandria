@@ -110,6 +110,7 @@
            (nv- vel (v* normal (v. vel normal)))
            ;; Zip out of ground in case of clipping
            (when (and (/= 0 (vy normal))
+                      (< (vy pos) (vy loc))
                       (< (- (vy loc) height)
                          (+ (vy pos) t-s)))
              (setf (vy loc) (+ (vy pos) t-s height))))
