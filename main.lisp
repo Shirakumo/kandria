@@ -4,8 +4,7 @@
   :base :leaf)
 
 (define-asset (leaf ground) image
-    #p"ground.png"
-  :wrapping )
+    #p"ground.png")
 
 (define-asset (leaf surface) image
     #p"surface.png")
@@ -36,7 +35,7 @@
     (nvclamp (vec 0 0) loc 64)))
 
 (define-handler (camera resize) (ev)
-  (setf (zoom camera) (print (float (/ (width ev) (target-size camera))))))
+  (setf (zoom camera) (float (/ (width ev) (target-size camera)))))
 
 (defmethod project-view ((camera camera) ev)
   (let ((z (zoom camera)))
