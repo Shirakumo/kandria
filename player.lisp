@@ -152,7 +152,7 @@
       (incf (dash-count player) 0.001))))
 
 (defmethod collide :after ((player player) (block block) hit)
-  (when (/= 0 (vy (hit-normal hit)))
+  (when (= 1 (vy (hit-normal hit)))
     (setf (jmp-count player) 0)
     (when (< 20 (dash-count player))
       (setf (dash-count player) 0))))
