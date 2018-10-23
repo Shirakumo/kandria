@@ -22,7 +22,7 @@
    (surface :initform NIL :accessor surface))
   (:default-initargs
    :location (vec 0 0)
-   :target-size (vec (* 8 70) 0)))
+   :target-size (vec (* 8 40) 0)))
 
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit :player scene))
@@ -55,7 +55,7 @@
 
 (defclass main (trial:main)
   ((scene :initform NIL))
-  (:default-initargs :clear-color (vec 0 0 0)
+  (:default-initargs :clear-color (vec 61/255 202/255 245/255)
                      :title "Leaf - 0.0.0"))
 
 (defmethod initialize-instance ((main main) &key map)
@@ -77,6 +77,7 @@
   ())
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  (enter (make-instance 'layer :size '(512 512) :texture (asset 'leaf 'ground) :tile-size 8) level)
-  (enter (make-instance 'player :size (vec 8 16)) level)
-  (enter (make-instance 'surface :size '(512 512) :tile-size 8) level))
+  (let ((size (list 512 64)))
+    (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :tile-size 8) level)
+    (enter (make-instance 'player :size (vec 8 16)) level)
+    (enter (make-instance 'surface :size size :tile-size 8) level)))
