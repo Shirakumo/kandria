@@ -51,7 +51,7 @@
   (let ((z (zoom camera)))
     (reset-matrix *view-matrix*)
     (scale-by z z z *view-matrix*)
-    (translate (v- (vxy_ (location camera))) *view-matrix*)))
+    (translate (nv- (vxy_ (location camera))) *view-matrix*)))
 
 (defclass main (trial:main)
   ((scene :initform NIL))
