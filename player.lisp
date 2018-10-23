@@ -233,14 +233,14 @@
         (vjump (vjump player))
         (vdash (vdash player)))
     
-    (setf (vx (color player)) 0)
-    (setf (vy (color player)) (if (= 0 (dash-count player)) 1 0))
+    (setf (vy (color player)) 0)
+    (setf (vz (color player)) (if (= 0 (dash-count player)) 1 0))
     ;; Movement
     (cond ((< 0 (dash-count player) 20)
            ;; Dash in progress
            (incf (dash-count player))
            (nv* vel (vy vdash))
-           (setf (vx (color player)) 1))
+           (setf (vy (color player)) 1))
           ((and (or (bitp collisions 1)
                     (bitp collisions 3))
                 (retained 'movement :climb)

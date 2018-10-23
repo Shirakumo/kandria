@@ -28,7 +28,7 @@
    (tile :initform 1 :accessor tile-to-place))
   (:default-initargs
    :name :editor
-   :active-p T
+   :active-p NIL
    :vertex-array (asset 'leaf 'square)))
 
 (defmethod banned-slots append ((editor editor))
@@ -151,5 +151,4 @@ out vec4 color;
 
 void main(){
   color = texelFetch(tileset, ivec2(uv), 0);
-  color *= 0.75;
 }")
