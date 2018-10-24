@@ -22,7 +22,7 @@
    (surface :initform NIL :accessor surface))
   (:default-initargs
    :location (vec 0 0)
-   :target-size (vec (* 8 40) 0)))
+   :target-size (vec (* 8 60) 0)))
 
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit :player scene))
@@ -71,7 +71,10 @@
 (defmethod setup-scene ((main main) scene)
   (enter (make-instance 'editor) scene)
   (enter (make-instance 'camera :name :camera) scene)
-  (enter (make-instance 'render-pass) scene))
+  (let* ((render (make-instance 'render-pass))
+         (blink-pass (make-instance 'blink-pass)))
+    (connect (flow:port render 'color) (flow:port blink-pass 'previous-pass) scene)
+    (apply-bokeh scene (flow:port blink-pass 'color))))
 
 (defclass empty-level (level)
   ())

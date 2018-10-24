@@ -5,7 +5,8 @@
                (:file "player")
                (:file "level")
                (:file "editor")
-               (:file "main"))
+               (:file "main")
+               (:file "effects"))
   :depends-on (:trial-glfw
                :fast-io
                :ieee-floats
