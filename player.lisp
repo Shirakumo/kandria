@@ -157,21 +157,19 @@
            ;; Early out
            (throw 'end-collisions NIL)))))
 
-(progn
-  (define-shader-subject player (vertex-entity colored-entity moving)
-    ((vlim  :initform (vec 10 10) :accessor vlim)
-     (vmove :initform (vec2 0.5 0.1) :accessor vmove)
-     (vclim :initform (vec2 0.75 1.5) :accessor vclim)
-     (vjump :initform (vec4 2 3.5 3 2) :accessor vjump)
-     (vdash :initform (vec2 5 0.95) :accessor vdash)
-     (jump-count :initform 0 :accessor jump-count)
-     (dash-count :initform 0 :accessor dash-count))
-    (:default-initargs
-     :vertex-array (asset 'leaf 'player)
-     :location (vec 32 32)
-     :size (vec 8 16)
-     :name :player))
-  (update-instance-initforms (find-class 'player)))
+(define-shader-subject player (vertex-entity colored-entity moving)
+  ((vlim  :initform (vec 10 10) :accessor vlim)
+   (vmove :initform (vec2 0.5 0.1) :accessor vmove)
+   (vclim :initform (vec2 0.75 1.5) :accessor vclim)
+   (vjump :initform (vec4 2 3.5 3 2) :accessor vjump)
+   (vdash :initform (vec2 5 0.95) :accessor vdash)
+   (jump-count :initform 0 :accessor jump-count)
+   (dash-count :initform 0 :accessor dash-count))
+  (:default-initargs
+   :vertex-array (asset 'leaf 'player)
+   :location (vec 32 32)
+   :size (vec 8 16)
+   :name :player))
 
 (defun update-instance-initforms (class)
   (flet ((update (instance)

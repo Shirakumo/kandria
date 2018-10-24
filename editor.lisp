@@ -22,6 +22,17 @@
 (define-action resize-level (editor-command)
   (key-press (one-of key :f5)))
 
+(define-action control-down (editor-command)
+  (key-press (one-of key :left-control :right-control)))
+
+(define-action control-up (editor-command)
+  (key-release (one-of key :left-control :right-control)))
+
+(define-retention modifiers (ev)
+  (typecase ev
+    (control-down (setf (retained 'modifiers :control) T))
+    (control-up (setf (retained 'modifiers :control) NIL))))
+
 (define-shader-subject editor (vertex-entity located-entity)
   ((active-p :initarg :active-p :accessor active-p)
    (layer :initform NIL :accessor layer)
@@ -72,9 +83,16 @@
 (define-handler (editor mouse-press) (ev button)
   (let ((layer (layer editor)))
     (when layer
-      (case button
-        (:left (setf (tile (location editor) layer) (tile-to-place editor)))
-        (:right (setf (tile (location editor) layer) 0))))))
+      (cond ((retained 'modifiers :control)
+             (flood-fill layer (location editor)
+                         (case button
+                           (:left (tile-to-place editor))
+                           (:right 0))))
+            (T
+             (setf (tile (location editor) layer)
+                   (case button
+                     (:left (tile-to-place editor))
+                     (:right 0))))))))
 
 (define-handler (editor mouse-scroll) (ev delta)
   (cond ((< 0 delta)
