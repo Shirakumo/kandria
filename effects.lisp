@@ -10,7 +10,7 @@
   ((parent :initarg :parent :accessor parent)))
 
 (defmethod paint-with :before ((pass %hex-bokeh-pass) target)
-  (setf (uniform (shader-program pass) "strength") (strength (parent pass))))
+  (setf (uniform (shader-program pass) "strength") (coerce (strength (parent pass)) 'single-float)))
 
 (define-shader-pass hex-bokeh-pass-1 (simple-post-effect-pass %hex-bokeh-pass)
   ())
@@ -31,7 +31,8 @@
    (color :port-type output)
    (children :initform NIL :accessor children)
    (strength :initarg :strength :accessor strength))
-  (:default-initargs :strength 1.0))
+  (:default-initargs :strength 0.0
+                     :name :bokeh))
 
 (defmethod initialize-instance :after ((pass hex-bokeh-pass) &key)
   (setf (children pass)
@@ -41,7 +42,7 @@
               (make-instance 'hex-bokeh-pass-2 :parent pass :uniforms `(("blurdir" ,(vec 1.0 -0.577350269189626)))))))
 
 (defmethod paint-with :before ((pass hex-bokeh-pass) target)
-  (setf (uniform (shader-program pass) "strength") (strength pass)))
+  (setf (uniform (shader-program pass) "strength") (coerce (strength pass) 'single-float)))
 
 (defclass hex-bokeh-pass-node ()
   ((parent :initarg :parent :accessor parent)))
@@ -132,28 +133,14 @@ void main(){
 }")
 
 (define-shader-pass blink-pass (simple-post-effect-pass)
-  ((strength :initform 0.5 :accessor strength)
-   (middle :initform 96 :accessor middle)))
+  ((strength :initform 0.0 :accessor strength)
+   (middle :initform 0 :accessor middle))
+  (:default-initargs :name :blink))
 
 (defmethod paint-with :before ((pass blink-pass) thing)
   (let ((program (shader-program pass)))
-    (setf (uniform program "strength") (strength pass))
-    (setf (uniform program "middle") (middle pass))))
-
-(define-handler (blink-pass trial:tick) (ev tt)
-  ;; FIXME: move somewhere else
-  (let ((tt (mod tt (* PI 4))))
-    (setf (strength blink-pass)
-          (coerce
-           (cond ((< tt PI)
-                  (+ 1 (/ (cos tt) 2)))
-                 ((< tt (* PI 20/16))
-                  (+ 1 (/ (cos (+ PI (* 16 tt))) 2)))
-                 (T 0.0))
-           'single-float))
-    (loop for pass across (passes (scene (handler *context*)))
-          do (when (typep pass 'hex-bokeh-pass)
-               (setf (strength pass) (* (strength blink-pass) 100))))))
+    (setf (uniform program "strength") (coerce (strength pass) 'single-float))
+    (setf (uniform program "middle") (round (middle pass)))))
 
 (define-class-shader (blink-pass :fragment-shader)
   "uniform sampler2D previous_pass;
@@ -166,6 +153,8 @@ void main(){
   float percentage = abs(gl_FragCoord.y - middle)/height;
   if(percentage < (1-strength)){
     color = texelFetch(previous_pass, ivec2(gl_FragCoord.xy), 0);
+    color.a = 1;
+    color.rgb *= clamp((1-strength), 0.5, 1);
   }else{
     color = vec4(0,0,0,1);
   }
