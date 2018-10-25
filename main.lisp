@@ -72,9 +72,11 @@
   (enter (make-instance 'editor) scene)
   (enter (make-instance 'camera :name :camera) scene)
   (let* ((render (make-instance 'render-pass))
-         (blink-pass (make-instance 'blink-pass)))
+         (blink-pass (make-instance 'blink-pass))
+         (bokeh-pass (make-instance 'hex-bokeh-pass)))
     (connect (flow:port render 'color) (flow:port blink-pass 'previous-pass) scene)
-    (apply-bokeh scene (flow:port blink-pass 'color))))
+    (connect (flow:port blink-pass 'color) (flow:port bokeh-pass 'previous-pass) scene)
+    ))
 
 (defclass empty-level (level)
   ())

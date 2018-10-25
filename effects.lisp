@@ -1,82 +1,68 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-pass bokeh-pass (simple-post-effect-pass)
+(define-shader-pass radial-bokeh-pass (simple-post-effect-pass)
   ())
 
-(define-class-shader (bokeh-pass :fragment-shader)
-  "
-#define GOLDEN_ANGLE 2.39996
-#define ITERATIONS 150
+(define-class-shader (radial-bokeh-pass :fragment-shader)
+  '(leaf "radial-bokeh.frag"))
 
-uniform sampler2D previous_pass;
-uniform float strength = 1.0;
-out vec4 color;
+(define-shader-pass %hex-bokeh-pass (post-effect-pass)
+  ((parent :initarg :parent :accessor parent)))
 
-mat2 rot = mat2(cos(GOLDEN_ANGLE), sin(GOLDEN_ANGLE), -sin(GOLDEN_ANGLE), cos(GOLDEN_ANGLE));
+(defmethod paint-with :before ((pass %hex-bokeh-pass) target)
+  (setf (uniform (shader-program pass) "strength") (strength (parent pass))))
 
-vec3 bokeh(sampler2D tex, vec2 uv, float radius){
-    vec3 acc = vec3(0), div = acc;
-    float r = 1.;
-    vec2 vangle = vec2(0.0,radius*.01 / sqrt(float(ITERATIONS)));
-    
-    for (int j = 0; j < ITERATIONS; j++){
-        r += 1. / r;
-        vangle = rot * vangle;
-        vec3 col = texture(tex, uv + (r-1.) * vangle).xyz;
-        col = col * col *1.8;
-        vec3 bokeh = pow(col, vec3(4));
-        acc += col * bokeh;
-        div += bokeh;
-    }
-    return acc / div;
-}
-
-void main(){
-  vec2 uv = gl_FragCoord.xy / textureSize(previous_pass, 0).x;
-  color = vec4(bokeh(previous_pass, uv, strength), 1);
-}")
-
-(define-shader-pass bokeh-pass (post-effect-pass)
-  ((strength :initform 1.0 :accessor strength)))
-
-(defmethod paint-with :before ((pass bokeh-pass) target)
-  (setf (uniform (shader-program pass) "strength") (strength pass)))
-
-(define-shader-pass bokeh-hex-pass-1 (simple-post-effect-pass bokeh-pass)
+(define-shader-pass hex-bokeh-pass-1 (simple-post-effect-pass %hex-bokeh-pass)
   ())
 
-(define-class-shader (bokeh-hex-pass-1 :fragment-shader)
+(define-class-shader (hex-bokeh-pass-1 :fragment-shader)
   '(leaf "bokeh-1.frag"))
 
-(define-shader-pass bokeh-hex-pass-2 (simple-post-effect-pass bokeh-pass)
+(define-shader-pass hex-bokeh-pass-2 (simple-post-effect-pass %hex-bokeh-pass)
   ())
 
-(define-class-shader (bokeh-hex-pass-2 :fragment-shader)
+(define-class-shader (hex-bokeh-pass-2 :fragment-shader)
   '(leaf "bokeh-2.frag"))
 
-(define-shader-pass bokeh-hex-pass (bokeh-pass)
+(define-shader-pass hex-bokeh-pass (post-effect-pass)
   ((bokeh-b :port-type input)
    (bokeh-c :port-type input)
    (bokeh-d :port-type input)
-   (color :port-type output)))
+   (color :port-type output)
+   (children :initform NIL :accessor children)
+   (strength :initarg :strength :accessor strength))
+  (:default-initargs :strength 1.0))
 
-(define-class-shader (bokeh-hex-pass :fragment-shader)
+(defmethod initialize-instance :after ((pass hex-bokeh-pass) &key)
+  (setf (children pass)
+        (list (make-instance 'hex-bokeh-pass-1 :parent pass :uniforms `(("blurdir" ,(vec 0 1))))
+              (make-instance 'hex-bokeh-pass-1 :parent pass :uniforms `(("blurdir" ,(vec 1.0 -0.577350269189626))))
+              (make-instance 'hex-bokeh-pass-2 :parent pass :uniforms `(("blurdir" ,(vec -1.0 -0.577350269189626))))
+              (make-instance 'hex-bokeh-pass-2 :parent pass :uniforms `(("blurdir" ,(vec 1.0 -0.577350269189626)))))))
+
+(defmethod paint-with :before ((pass hex-bokeh-pass) target)
+  (setf (uniform (shader-program pass) "strength") (strength pass)))
+
+(defclass hex-bokeh-pass-node ()
+  ((parent :initarg :parent :accessor parent)))
+
+(defmethod connect (source (port hex-bokeh-pass-node) pipeline)
+  (let ((pass (parent port)))
+    (enter pass pipeline)
+    (destructuring-bind (a b c d) (children pass)
+      (connect source (flow:port a 'previous-pass) pipeline)
+      (connect source (flow:port b 'previous-pass) pipeline)
+      (connect (flow:port a 'color) (flow:port c 'previous-pass) pipeline)
+      (connect (flow:port a 'color) (flow:port d 'previous-pass) pipeline)
+      (connect (flow:port b 'color) (flow:port pass 'bokeh-b) pipeline)
+      (connect (flow:port c 'color) (flow:port pass 'bokeh-c) pipeline)
+      (connect (flow:port d 'color) (flow:port pass 'bokeh-d) pipeline))))
+
+(defmethod flow:port ((pass hex-bokeh-pass) (name (eql 'previous-pass)))
+  (make-instance 'hex-bokeh-pass-node :parent pass))
+
+(define-class-shader (hex-bokeh-pass :fragment-shader)
   '(leaf "bokeh-3.frag"))
-
-(defun apply-bokeh (scene source)
-  (let* ((bokeh-a (make-instance 'bokeh-hex-pass-1 :uniforms `(("blurdir" ,(vec 0 1)))))
-         (bokeh-b (make-instance 'bokeh-hex-pass-1 :uniforms `(("blurdir" ,(vec 1.0 -0.577350269189626)))))
-         (bokeh-c (make-instance 'bokeh-hex-pass-2 :uniforms `(("blurdir" ,(vec -1.0 -0.577350269189626)))))
-         (bokeh-d (make-instance 'bokeh-hex-pass-2 :uniforms `(("blurdir" ,(vec 1.0 -0.577350269189626)))))
-         (bokeh (make-instance 'bokeh-hex-pass)))
-    (connect source (flow:port bokeh-a 'previous-pass) scene)
-    (connect source (flow:port bokeh-b 'previous-pass) scene)
-    (connect (flow:port bokeh-a 'color) (flow:port bokeh-c 'previous-pass) scene)
-    (connect (flow:port bokeh-a 'color) (flow:port bokeh-d 'previous-pass) scene)
-    (connect (flow:port bokeh-b 'color) (flow:port bokeh 'bokeh-b) scene)
-    (connect (flow:port bokeh-c 'color) (flow:port bokeh 'bokeh-c) scene)
-    (connect (flow:port bokeh-d 'color) (flow:port bokeh 'bokeh-d) scene)
-    (flow:port bokeh-d 'color)))
 
 (define-shader-pass blur-pass (simple-post-effect-pass)
   ())
@@ -166,7 +152,7 @@ void main(){
                  (T 0.0))
            'single-float))
     (loop for pass across (passes (scene (handler *context*)))
-          do (when (typep pass 'bokeh-pass)
+          do (when (typep pass 'hex-bokeh-pass)
                (setf (strength pass) (* (strength blink-pass) 100))))))
 
 (define-class-shader (blink-pass :fragment-shader)
