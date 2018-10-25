@@ -118,7 +118,9 @@
          (height (/ (vy (size moving)) 2))
          (t-s (/ (block-s block) 2)))
     (cond ((= +1 (vy normal)) (setf (bit (collisions moving) 2) 1))
-          ((= -1 (vy normal)) (setf (bit (collisions moving) 0) 1)))
+          ((= -1 (vy normal)) (setf (bit (collisions moving) 0) 1))
+          ((= +1 (vx normal)) (setf (bit (collisions moving) 3) 1))
+          ((= -1 (vx normal)) (setf (bit (collisions moving) 1) 1)))
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
     ;; Zip out of ground in case of clipping
@@ -279,6 +281,7 @@
     (die player)))
 
 (defmethod enter :after ((player player) (scene scene))
+  (start (add-progression (progression-definition 'intro) scene))
   (add-progression (progression-definition 'revive) scene)
   (add-progression (progression-definition 'die) scene))
 
@@ -294,21 +297,22 @@
   (setf (vy (velocity player)) 0))
 
 (define-progression intro
-  0.0 0.0 (:blink (calc middle :to (- (vy (location (unit :player T))) (vy (location (unit :camera T))))))
-  0.0 2.0 (:blink (set strength :from 1.0 :to 0.9 :ease cubic-in-out))
+  0.0 0.1 (:blink (calc middle :to (- (vy (location (unit :player T))) (vy (location (unit :camera T)))))
+                  (set strength :from 1.0 :to 1.0))
+  2.0 4.0 (:blink (set strength :from 1.0 :to 0.9 :ease cubic-in-out))
           (:bokeh (set strength :from 100.0 :to 80.0 :ease cubic-in-out))
-  2.0 3.0 (:blink (set strength :to 1.0 :ease cubic-in-out))
-  3.0 4.0 (:blink (set strength :to 0.7 :ease cubic-in-out))
-  4.0 4.5 (:blink (set strength :to 1.0 :ease cubic-in))
-  3.0 5.0 (:bokeh (set strength :to 0.0 :ease circ-in))
-  4.5 4.7 (:blink (set strength :to 0.0 :ease cubic-in-out))
-  4.7 4.8 (:blink (set strength :to 1.0 :ease cubic-in))
-  4.8 4.9 (:blink (set strength :to 0.0 :ease cubic-in))
-  4.9 5.0 (:blink (set strength :to 1.0 :ease cubic-in))
-  5.0 5.1 (:blink (set strength :to 0.0 :ease cubic-in)))
+  4.0 5.0 (:blink (set strength :to 1.0 :ease cubic-in-out))
+  5.0 6.0 (:blink (set strength :to 0.7 :ease cubic-in-out))
+  6.0 6.5 (:blink (set strength :to 1.0 :ease cubic-in))
+  5.0 7.0 (:bokeh (set strength :to 0.0 :ease circ-in))
+  6.5 6.7 (:blink (set strength :to 0.0 :ease cubic-in-out))
+  6.7 6.8 (:blink (set strength :to 1.0 :ease cubic-in))
+  6.8 6.9 (:blink (set strength :to 0.0 :ease cubic-in))
+  6.9 7.0 (:blink (set strength :to 1.0 :ease cubic-in))
+  7.0 7.1 (:blink (set strength :to 0.0 :ease cubic-in)))
 
 (define-progression revive
-  0.0 0.0 (:blink (calc middle :to (- (vy (location (unit :player T))) (vy (location (unit :camera T))))))
+  0.0 0.1 (:blink (calc middle :to (- (vy (location (unit :player T))) (vy (location (unit :camera T))))))
   0.0 1.0 (:blink (set strength :from 1.0 :to 0.3 :ease cubic-in-out))
           (:bokeh (set strength :from 100.0 :to 10.0 :ease cubic-in-out))
   1.0 1.1 (:blink (set strength :to 1.0 :ease cubic-in))
@@ -316,7 +320,7 @@
   1.0 1.2 (:bokeh (set strength :to 0.0 :ease cubic-out)))
 
 (define-progression die
-  0.0 0.0 (:blink (calc middle :to (max 0 (- (vy (location (unit :player T))) (vy (location (unit :camera T)))))))
+  0.0 0.1 (:blink (calc middle :to (max 0 (- (vy (location (unit :player T))) (vy (location (unit :camera T)))))))
   0.0 0.5 (:blink (set strength :from 0.0 :to 1.0 :ease cubic-in))
           (:bokeh (set strength :from 0.0 :to 10.0))
   0.5 0.5 (T (call (lambda (&rest _) (death (unit :player T))))))
