@@ -6,12 +6,13 @@
   (r 0 :type (unsigned-byte 16)))
 
 (defun make-surface-blocks (t-s steps)
-  (let ((blocks (make-array (+ 2 (* 2 (reduce #'+ steps)))))
+  (let ((blocks (make-array (+ 3 (* 2 (reduce #'+ steps)))))
         (i -1))
     (flet ((make (l r)
              (setf (aref blocks (incf i)) (make-block t-s l r))))
       (make t-s t-s)
       (make 0 0)
+      (make 1 1)
       (loop for steps in '(1 2 3)
             do (loop for i from 0 below steps
                      for l = (* (/ i steps) *default-tile-size*)
@@ -33,7 +34,7 @@
    :blocks *default-surface-blocks*))
 
 (defmethod paint :around ((surface surface) target)
-  (when (active-p (unit :editor (scene (handler *context*))))
+  (when (active-p (unit :editor T))
     (call-next-method)))
 
 (define-class-shader (surface :fragment-shader -1)
@@ -115,5 +116,9 @@ void main(){
                                                 (< (vsqrdist2 loc (hit-location hit))
                                                    (vsqrdist2 loc (hit-location result))))))
                           (setf (hit-object hit) (aref (blocks surface) tile))
-                          (setf result hit))))
+                          ;; Handle jump-through platforms
+                          (when (or (not (= 1 (block-l (hit-object hit)) (block-r (hit-object hit))))
+                                    (and (= 1 (vy (hit-normal hit)))
+                                         (<= (vy (hit-location hit)) (- (vy loc) (vy size)))))
+                            (setf result hit)))))
       result)))

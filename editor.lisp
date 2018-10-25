@@ -67,7 +67,7 @@
 
 (define-handler (editor mouse-move) (ev pos)
   (let ((loc (location editor))
-        (camera (unit :camera (scene (handler *context*)))))
+        (camera (unit :camera T)))
     (vsetf loc
            (+ (/ (vx pos) (zoom camera)) (vx (location camera)))
            (+ (/ (vy pos) (zoom camera)) (vy (location camera))))

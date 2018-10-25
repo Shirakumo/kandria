@@ -113,10 +113,7 @@
       (when (and l (= 1 l))
         (setf (bit (collisions moving) 3) 1))
       (when (and r (= 1 r))
-        (setf (bit (collisions moving) 1) 1)))
-    ;; FIXME: make drawing pixel aligned.
-    ;;(vsetf loc (round (vx loc)) (round (vy loc)))
-    ))
+        (setf (bit (collisions moving) 1) 1)))))
 
 (defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))
@@ -145,6 +142,10 @@
                       (< (- (vy loc) height)
                          (+ (vy pos) t-s)))
              (setf (vy loc) (+ (vy pos) t-s height))))
+          ((= 1 l r)
+           (when (= 1 (vy normal))
+             (nv+ loc (v* vel (hit-time hit)))
+             (nv- vel (v* normal (v. vel normal)))))
           (T
            (nv+ loc vel)
            (let* ((tt (max 0 (min 1 (/ (- (vx loc) (- (vx pos) t-s)) (* 2 t-s)))))
@@ -315,7 +316,7 @@
   1.0 1.2 (:bokeh (set strength :to 0.0 :ease cubic-out)))
 
 (define-progression die
-  0.0 0.0 (:blink (calc middle :to 0))
+  0.0 0.0 (:blink (calc middle :to (max 0 (- (vy (location (unit :player T))) (vy (location (unit :camera T)))))))
   0.0 0.5 (:blink (set strength :from 0.0 :to 1.0 :ease cubic-in))
           (:bokeh (set strength :from 0.0 :to 10.0))
   0.5 0.5 (T (call (lambda (&rest _) (death (unit :player T))))))
