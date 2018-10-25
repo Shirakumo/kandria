@@ -275,5 +275,47 @@
            (nvclamp (v- vlim) vel vlim))))
   ;; OOB
   (when (< (vy (location player)) 0)
-    (setf (vy (location player)) 128)
-    (setf (vy (velocity player)) 0)))
+    (die player)))
+
+(defmethod enter :after ((player player) (scene scene))
+  (add-progression (progression-definition 'revive) scene)
+  (add-progression (progression-definition 'die) scene))
+
+(defmethod die ((player player))
+  (let ((prog (progression 'die (scene (handler *context*)))))
+    (unless (running prog)
+      (start (reset prog)))))
+
+(defmethod death ((player player))
+  (start (reset (progression 'revive (scene (handler *context*)))))
+  (setf (vx (location player)) 128)
+  (setf (vy (location player)) 128)
+  (setf (vy (velocity player)) 0))
+
+(define-progression intro
+  0.0 0.0 (:blink (calc middle :to (- (vy (location (unit :player T))) (vy (location (unit :camera T))))))
+  0.0 2.0 (:blink (set strength :from 1.0 :to 0.9 :ease cubic-in-out))
+          (:bokeh (set strength :from 100.0 :to 80.0 :ease cubic-in-out))
+  2.0 3.0 (:blink (set strength :to 1.0 :ease cubic-in-out))
+  3.0 4.0 (:blink (set strength :to 0.7 :ease cubic-in-out))
+  4.0 4.5 (:blink (set strength :to 1.0 :ease cubic-in))
+  3.0 5.0 (:bokeh (set strength :to 0.0 :ease circ-in))
+  4.5 4.7 (:blink (set strength :to 0.0 :ease cubic-in-out))
+  4.7 4.8 (:blink (set strength :to 1.0 :ease cubic-in))
+  4.8 4.9 (:blink (set strength :to 0.0 :ease cubic-in))
+  4.9 5.0 (:blink (set strength :to 1.0 :ease cubic-in))
+  5.0 5.1 (:blink (set strength :to 0.0 :ease cubic-in)))
+
+(define-progression revive
+  0.0 0.0 (:blink (calc middle :to (- (vy (location (unit :player T))) (vy (location (unit :camera T))))))
+  0.0 1.0 (:blink (set strength :from 1.0 :to 0.3 :ease cubic-in-out))
+          (:bokeh (set strength :from 100.0 :to 10.0 :ease cubic-in-out))
+  1.0 1.1 (:blink (set strength :to 1.0 :ease cubic-in))
+  1.1 1.2 (:blink (set strength :to 0.0 :ease cubic-out))
+  1.0 1.2 (:bokeh (set strength :to 0.0 :ease cubic-out)))
+
+(define-progression die
+  0.0 0.0 (:blink (calc middle :to 0))
+  0.0 0.5 (:blink (set strength :from 0.0 :to 1.0 :ease cubic-in))
+          (:bokeh (set strength :from 0.0 :to 10.0))
+  0.5 0.5 (T (call (lambda (&rest _) (death (unit :player T))))))

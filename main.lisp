@@ -1,5 +1,9 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defmethod unit (thing (target (eql T)))
+  (when *context*
+    (unit thing (scene (handler *context*)))))
+
 (define-pool leaf
   :base :leaf)
 

@@ -7,7 +7,6 @@ out vec4 color;
 
 const int NUM_SAMPLES = 16;
 const float THRESHOLD = 0.0;
-const float MULT = 0.5;
 
 vec3 srgb2lin(vec3 c) { return c*c; }
 vec3 lin2srgb(vec3 c) { return sqrt(c); }
@@ -29,6 +28,9 @@ void main(){
   vec2 blurvec = normalize(blurdir) / iResolution.xx;
   vec2 uv = fragCoord / iResolution.xy;
   float aspect = iResolution.x/iResolution.y;
+  
+  float mult = mix(0.25, 2.0, strength/100.0);
+  float threshold = mix(0.0, 0.3, strength/100.0);
     
   vec2 p0 = uv;
   vec2 p1 = uv + strength * blurvec;
@@ -38,12 +40,12 @@ void main(){
     
   vec3 sumcol = vec3(0.0);
   for (int i=0;i<NUM_SAMPLES;++i){
-    vec3 smpl = (sampletex(p) - THRESHOLD ) / (1.0-THRESHOLD);
+    vec3 smpl = (sampletex(p) - threshold ) / (1.0-threshold);
     sumcol += smpl;
     p += stepvec;
   }
   sumcol /= float(NUM_SAMPLES);
   sumcol = max( sumcol, 0.0 );
-    
-  color = vec4( lin2srgb( sumcol * MULT ), 1.0 );
+  
+  color = vec4( lin2srgb( sumcol * mult ), 1.0 );
 }
