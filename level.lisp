@@ -10,13 +10,9 @@
 (defmethod initialize-instance :after ((level level) &key file)
   (when file (load-level level file)))
 
-(defmethod scan ((level level) size start dir)
-  (for:for ((result as NIL)
-            (entity over level)
-            (hit = (scan entity size start dir)))
-    (for:returning result)
-    (when (and hit (or (null result) (closer (car hit) (car result) dir)))
-      (setf result hit))))
+(defmethod scan ((level level) target)
+  (for:for ((entity over level))
+    (when (scan entity target) (return T))))
 
 (defun type->id (type-ish)
   (second (find (etypecase type-ish
