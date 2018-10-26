@@ -14,10 +14,12 @@
     #p"surface.png")
 
 (define-asset (leaf player) image
-    #p"player.png")
+    #p"player.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
 
-(define-asset (leaf player) mesh
-    (make-rectangle 8 16))
+(define-asset (leaf player-mesh) mesh
+    (make-rectangle 16 16))
 
 (define-asset (leaf square) mesh
     (make-rectangle 8 8 :align :topleft))
@@ -65,6 +67,9 @@
   (:default-initargs :clear-color (vec 61/255 202/255 245/255)
                      :title "Leaf - 0.0.0"))
 
+(defmethod setup-rendering :after ((main main))
+  (disable :cull-face))
+
 (defmethod initialize-instance ((main main) &key map)
   (call-next-method)
   (setf (scene main)
@@ -82,14 +87,13 @@
          (blink-pass (make-instance 'blink-pass))
          (bokeh-pass (make-instance 'hex-bokeh-pass)))
     (connect (flow:port render 'color) (flow:port blink-pass 'previous-pass) scene)
-    (connect (flow:port blink-pass 'color) (flow:port bokeh-pass 'previous-pass) scene)
-    ))
+    (connect (flow:port blink-pass 'color) (flow:port bokeh-pass 'previous-pass) scene)))
 
 (defclass empty-level (level)
   ())
 
 (defmethod initialize-instance :after ((level empty-level) &key)
   (let ((size (list 512 64)))
-    (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :tile-size 8) level)
     (enter (make-instance 'player :size (vec 8 16)) level)
+    (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :tile-size 8) level)
     (enter (make-instance 'surface :size size :tile-size 8) level)))

@@ -107,7 +107,7 @@ void main(){
 (defmethod scan ((surface surface) target)
   (let* ((t-s (tile-size surface))
          (x- 0) (y- 0) (x+ 0) (y+ 0)
-         (size (v/ (v+ (size target) t-s) 2))
+         (size (v/ (v+ (bsize target) t-s) 2))
          (loc (location target))
          (vel (velocity target))
          (declined ()) (result))

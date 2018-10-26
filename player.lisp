@@ -71,19 +71,27 @@
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defclass located-entity (entity)
-    ((location :initarg :location :initform (vec 0 0) :accessor location))))
+    ((location :initarg :location :initform (vec 0 0) :accessor location)))
+
+  (defclass facing-entity (entity)
+    ((direction :initarg :direction :initform -1 :accessor direction))))
 
 (defmethod paint :around ((obj located-entity) target)
   (with-pushed-matrix ()
-    (translate (vxy_ (location obj)))
+    (translate-by (round (vx (location obj))) (round (vy (location obj))) 0)
+    (call-next-method)))
+
+(defmethod paint :around ((obj facing-entity) target)
+  (with-pushed-matrix ()
+    (scale-by (direction obj) 1 1)
     (call-next-method)))
 
 (define-subject moving (located-entity)
   ((velocity :initarg :velocity :accessor velocity)
    (collisions :initform (make-array 4 :element-type 'bit :initial-element 0) :reader collisions)
-   (size :initarg :size :accessor size))
+   (bsize :initarg :bsize :accessor bsize))
   (:default-initargs :velocity (vec 0 0)
-                     :size (vec *default-tile-size* *default-tile-size*)))
+                     :bsize (vec *default-tile-size* *default-tile-size*)))
 
 (define-generic-handler (moving tick trial:tick))
 
@@ -97,7 +105,7 @@
          (surface (unit :surface scene))
          (loc (location moving))
          (vel (velocity moving))
-         (size (size moving)))
+         (size (bsize moving)))
     ;; Scan for hits until we run out of velocity or hits.
     (fill (collisions moving) 0)
     (loop while (and (or (/= 0 (vx vel)) (/= 0 (vy vel)))
@@ -105,17 +113,19 @@
     ;; Remaining velocity (if any) can be added safely.
     (nv+ loc vel)
     ;; Point test for adjacent walls
-    (let ((l (tile (vec (- (vx loc) (/ (vx size) 2) 1) (vy loc)) surface))
-          (r (tile (vec (+ (vx loc) (/ (vx size) 2) 1) (vy loc)) surface)))
-      (when (and l (= 1 l)) (setf (bit (collisions moving) 3) 1))
-      (when (and r (= 1 r)) (setf (bit (collisions moving) 1) 1)))))
+    (let ((tl (tile (vec (- (vx loc) (/ (vx size) 2) 1) (+ (vy loc) (/ (vy size) 2) -1)) surface))
+          (bl (tile (vec (- (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1)) surface))
+          (tr (tile (vec (+ (vx loc) (/ (vx size) 2) 1) (+ (vy loc) (/ (vy size) 2) -1)) surface))
+          (br (tile (vec (+ (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1)) surface)))
+      (when (or (eql 1 tl) (eql 1 bl)) (setf (bit (collisions moving) 3) 1))
+      (when (or (eql 1 tr) (eql 1 br)) (setf (bit (collisions moving) 1) 1)))))
 
 (defmethod collide ((moving moving) (block ground) hit)
   (let* ((loc (location moving))
          (vel (velocity moving))
          (pos (hit-location hit))
          (normal (hit-normal hit))
-         (height (/ (vy (size moving)) 2))
+         (height (/ (vy (bsize moving)) 2))
          (t-s (/ (block-s block) 2)))
     (cond ((= +1 (vy normal)) (setf (bit (collisions moving) 2) 1))
           ((= -1 (vy normal)) (setf (bit (collisions moving) 0) 1))
@@ -135,7 +145,7 @@
          (vel (velocity moving))
          (pos (hit-location hit))
          (normal (hit-normal hit))
-         (height (/ (vy (size moving)) 2))
+         (height (/ (vy (bsize moving)) 2))
          (t-s (/ (block-s block) 2)))
     (unless (and (= 1 (vy normal))
                  (<= (vy pos) (- (vy loc) t-s height)))
@@ -152,7 +162,7 @@
   (let* ((loc (location moving))
          (vel (velocity moving))
          (pos (hit-location hit))
-         (height (/ (vy (size moving)) 2))
+         (height (/ (vy (bsize moving)) 2))
          (t-s (/ (block-s block) 2))
          (l (slope-l block))
          (r (slope-r block)))
@@ -160,7 +170,7 @@
     ;; FIXME: slopes lol
     ))
 
-(define-shader-subject player (vertex-entity colored-entity moving)
+(define-shader-subject player (animated-sprite-subject moving facing-entity)
   ((vlim  :initform (vec 10 10) :accessor vlim)
    (vmove :initform (vec2 0.5 0.1) :accessor vmove)
    (vclim :initform (vec2 0.75 1.5) :accessor vclim)
@@ -169,10 +179,18 @@
    (jump-count :initform 0 :accessor jump-count)
    (dash-count :initform 0 :accessor dash-count))
   (:default-initargs
-   :vertex-array (asset 'leaf 'player)
+   :name :player
+   :vertex-array (asset 'leaf 'player-mesh)
+   :texture (asset 'leaf 'player)
    :location (vec 32 32)
-   :size (vec 8 16)
-   :name :player))
+   :bsize (vec 8 16)
+   :size (vec 16 16)
+   :animation 0
+   :animations '((1.0 4)
+                 (0.8 10)
+                 (0.5 5 :loop-to 4)
+                 (0.5 3 :loop-to 2)
+                 (0.5 4))))
 
 (defun update-instance-initforms (class)
   (flet ((update (instance)
@@ -233,15 +251,25 @@
         (vclim (vclim player))
         (vjump (vjump player))
         (vdash (vdash player)))
-    
-    (setf (vy (color player)) 0)
-    (setf (vz (color player)) (if (= 0 (dash-count player)) 1 0))
+    ;; Animations
+    (cond ((and (/= 0 (jump-count player))
+                (retained 'movement :jump))
+           (setf (animation player) 2))
+          ((and (or (bitp collisions 1)
+                    (bitp collisions 3))
+                (retained 'movement :climb))
+           (setf (animation player) 4)
+           (when (<= (vy vel) 0)
+             (setf (frame player) 0)))
+          ((bitp collisions 2)
+           (setf (animation player) (if (v= 0 vel) 0 1)))
+          (T
+           (setf (animation player) 3)))
     ;; Movement
     (cond ((< 0 (dash-count player) 20)
            ;; Dash in progress
            (incf (dash-count player))
-           (nv* vel (vy vdash))
-           (setf (vy (color player)) 1))
+           (nv* vel (vy vdash)))
           ((and (or (bitp collisions 1)
                     (bitp collisions 3))
                 (retained 'movement :climb)
@@ -256,9 +284,11 @@
           (T
            ;; Movement (air, ground)
            (cond ((retained 'movement :left)
+                  (setf (direction player) -1)
                   (when (< (- (vx vmove)) (vx vel))
                     (decf (vx vel) (vx vmove))))
                  ((retained 'movement :right)
+                  (setf (direction player) +1)
                   (when (< (vx vel) (vx vmove))
                     (incf (vx vel) (vx vmove)))))
            (cond ((<= (vx vel) (- (vy vmove)))
@@ -281,7 +311,7 @@
     (die player)))
 
 (defmethod enter :after ((player player) (scene scene))
-  (start (add-progression (progression-definition 'intro) scene))
+  (add-progression (progression-definition 'intro) scene)
   (add-progression (progression-definition 'revive) scene)
   (add-progression (progression-definition 'die) scene))
 
@@ -296,8 +326,12 @@
   (setf (vy (location player)) 128)
   (setf (vy (velocity player)) 0))
 
+(defun player-screen-y ()
+  (* (- (vy (location (unit :player T))) (vy (location (unit :camera T))))
+     (zoom (unit :camera T))))
+
 (define-progression intro
-  0.0 0.1 (:blink (calc middle :to (- (vy (location (unit :player T))) (vy (location (unit :camera T)))))
+  0.0 0.1 (:blink (calc middle :to (player-screen-y))
                   (set strength :from 1.0 :to 1.0))
   2.0 4.0 (:blink (set strength :from 1.0 :to 0.9 :ease cubic-in-out))
           (:bokeh (set strength :from 100.0 :to 80.0 :ease cubic-in-out))
@@ -312,15 +346,15 @@
   7.0 7.1 (:blink (set strength :to 0.0 :ease cubic-in)))
 
 (define-progression revive
-  0.0 0.1 (:blink (calc middle :to (- (vy (location (unit :player T))) (vy (location (unit :camera T))))))
-  0.0 1.0 (:blink (set strength :from 1.0 :to 0.3 :ease cubic-in-out))
+  0.0 0.1 (:blink (calc middle :to (player-screen-y)))
+  0.0 0.8 (:blink (set strength :from 1.0 :to 0.3 :ease cubic-in-out))
           (:bokeh (set strength :from 100.0 :to 10.0 :ease cubic-in-out))
-  1.0 1.1 (:blink (set strength :to 1.0 :ease cubic-in))
-  1.1 1.2 (:blink (set strength :to 0.0 :ease cubic-out))
-  1.0 1.2 (:bokeh (set strength :to 0.0 :ease cubic-out)))
+  0.8 0.9 (:blink (set strength :to 1.0 :ease cubic-in))
+  0.9 1.0 (:blink (set strength :to 0.0 :ease cubic-out))
+  0.8 1.0 (:bokeh (set strength :to 0.0 :ease cubic-out)))
 
 (define-progression die
-  0.0 0.1 (:blink (calc middle :to (max 0 (- (vy (location (unit :player T))) (vy (location (unit :camera T)))))))
-  0.0 0.5 (:blink (set strength :from 0.0 :to 1.0 :ease cubic-in))
+  0.0 0.1 (:blink (calc middle :to (player-screen-y)))
+  0.0 0.8 (:blink (set strength :from 0.0 :to 1.0 :ease cubic-in))
           (:bokeh (set strength :from 0.0 :to 10.0))
-  0.5 0.5 (T (call (lambda (&rest _) (death (unit :player T))))))
+  0.8 0.8 (T (call (lambda (&rest _) (death (unit :player T))))))
