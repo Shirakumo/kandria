@@ -322,8 +322,8 @@
 
 (defmethod death ((player player))
   (start (reset (progression 'revive (scene (handler *context*)))))
-  (setf (vx (location player)) 128)
-  (setf (vy (location player)) 128)
+  (setf (vx (location player)) 96)
+  (setf (vy (location player)) 64)
   (setf (vy (velocity player)) 0))
 
 (defun player-screen-y ()
