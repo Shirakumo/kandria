@@ -154,7 +154,7 @@ void main(){
   if(percentage < (1-strength)){
     color = texelFetch(previous_pass, ivec2(gl_FragCoord.xy), 0);
     color.a = 1;
-    color.rgb *= clamp((1-strength), 0.5, 1);
+    color.rgb *= (1-strength*0.6);
   }else{
     color = vec4(0,0,0,1);
   }
