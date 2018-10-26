@@ -13,6 +13,9 @@
 (define-asset (leaf surface) image
     #p"surface.png")
 
+(define-asset (leaf player) image
+    #p"player.png")
+
 (define-asset (leaf player) mesh
     (make-rectangle 8 16))
 
