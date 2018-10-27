@@ -225,7 +225,9 @@
     (cond ((bitp collisions 2)
            ;; Ground jump
            (setf (vy vel) (vx vjump))
-           (incf (jump-count player)))
+           (incf (jump-count player))
+           (enter (make-instance 'dust-cloud :location (vcopy (location player)))
+                  (scene (handler *context*))))
           ((or (bitp collisions 1)
                (bitp collisions 3))
            ;; Wall jump
@@ -236,6 +238,12 @@
 (declaim (inline bitp))
 (defun bitp (bitarr bit)
   (= 1 (bit bitarr bit)))
+
+(defmethod collide :before ((player player) (block ground) hit)
+  (when (and (= +1 (vy (hit-normal hit)))
+             (< (vy (velocity player)) -2))
+    (enter (make-instance 'dust-cloud :location (nv+ (v* (velocity player) (hit-time hit)) (location player)))
+           (scene (handler *context*)))))
 
 (defmethod tick :after ((player player) ev)
   (when (bitp (collisions player) 2)
