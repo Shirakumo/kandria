@@ -159,3 +159,51 @@ void main(){
     color = vec4(0,0,0,1);
   }
 }")
+
+(define-shader-subject dust-cloud (vertex-entity located-entity)
+  ((frame :initform 0 :accessor frame)
+   (seed :initform (random 1.0) :accessor seed))
+  (:default-initargs :vertex-array (asset 'leaf 'player-mesh)))
+
+(define-handler (dust-cloud trial:tick) (ev)
+  (incf (frame dust-cloud))
+  (when (< 50 (frame dust-cloud))
+    (leave dust-cloud (scene (handler *context*)))))
+
+(defmethod paint :before ((dust-cloud dust-cloud) (pass shader-pass))
+  (let ((program (shader-program-for-pass pass dust-cloud)))
+    (setf (uniform program "seed") (seed dust-cloud))
+    (setf (uniform program "frame") (frame dust-cloud))))
+
+(define-class-shader (dust-cloud :vertex-shader)
+  "layout (location = 1) in vec2 in_texcoord;
+out vec2 texcoord;
+
+void main(){
+  texcoord = in_texcoord;
+}")
+
+(define-class-shader (dust-cloud :fragment-shader)
+  "
+uniform int frame = 0;
+uniform float seed = 1.0;
+in vec2 texcoord;
+out vec4 color;
+
+float hash12n(vec2 p){
+  p  = fract(p * vec2(5.3987, 5.4421));
+  p += dot(p.yx, p.xy + vec2(21.5351, 14.3137));
+  return fract(p.x * p.y * 95.4307);
+}
+
+void main(){
+  float ftime = (1-(frame/50.0))*2;
+  vec2 pos = floor(texcoord*16)/16.0;
+  float cdist = 1-length(vec2((pos.x-0.5)/2,pos.y+ftime/3-0.5))*4;
+
+  float rng = hash12n(pos+seed);
+  float prob = rng * ftime * cdist;
+  if(prob < 0.3) color.a = 0;
+  //color = vec4(cdist,0,0,1);
+}"
+  )
