@@ -116,9 +116,11 @@
     (let ((tl (tile (vec (- (vx loc) (/ (vx size) 2) 1) (+ (vy loc) (/ (vy size) 2) -1)) surface))
           (bl (tile (vec (- (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1)) surface))
           (tr (tile (vec (+ (vx loc) (/ (vx size) 2) 1) (+ (vy loc) (/ (vy size) 2) -1)) surface))
-          (br (tile (vec (+ (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1)) surface)))
+          (br (tile (vec (+ (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1)) surface))
+          (b  (tile (vec (vx loc) (- (vy loc) (/ (vy size) 2) 1)) surface)))
       (when (or (eql 1 tl) (eql 1 bl)) (setf (bit (collisions moving) 3) 1))
-      (when (or (eql 1 tr) (eql 1 br)) (setf (bit (collisions moving) 1) 1)))))
+      (when (or (eql 1 tr) (eql 1 br)) (setf (bit (collisions moving) 1) 1))
+      (unless (eqla 0 b) (setf (bit (collisions moving) 2) 1)))))
 
 (defmethod collide ((moving moving) (block ground) hit)
   (let* ((loc (location moving))
@@ -176,7 +178,7 @@
    (vmove :initform (vec2 0.5 0.1) :accessor vmove)
    (vclim :initform (vec2 0.75 1.5) :accessor vclim)
    (vjump :initform (vec4 2 3.5 3 2) :accessor vjump)
-   (vdash :initform (vec2 5 0.95) :accessor vdash)
+   (vdash :initform (vec2 8 0.8) :accessor vdash)
    (jump-count :initform 0 :accessor jump-count)
    (dash-count :initform 0 :accessor dash-count))
   (:default-initargs
@@ -194,7 +196,8 @@
                  (0.5 4)
                  (0.5 5 :loop-to 4)
                  (1.0 1)
-                 (1.0 7 :start 33 :loop-to 6))))
+                 (1.0 7 :start 33 :loop-to 6)
+                 (0.2 8 :loop-to 7))))
 
 (defun update-instance-initforms (class)
   (flet ((update (instance)
@@ -208,8 +211,7 @@
           (update entity))))))
 
 (define-handler (player dash) (ev)
-  (let ((vel (velocity player))
-        (vdash (vdash player)))
+  (let ((vel (velocity player)))
     (when (= 0 (dash-count player))
       (vsetf vel
              (cond ((retained 'movement :left)  -1)
@@ -219,8 +221,9 @@
                    ((retained 'movement :down)  -1)
                    (T                            0)))
       (setf (status player) :dashing)
+      (setf (animation player) 8)
       (when (v= 0 vel) (setf (vx vel) 1))
-      (nv* vel (/ (vx vdash) (vlength vel))))))
+      (nvunit vel))))
 
 (define-handler (player start-jump) (ev)
   (let ((collisions (collisions player))
@@ -256,6 +259,10 @@
     (when (< 20 (dash-count player))
       (setf (dash-count player) 0))))
 
+(defun vrand (min max)
+  (vec (+ min (random (- max min)))
+       (+ min (random (- max min)))))
+
 (defmethod tick :before ((player player) ev)
   (let ((collisions (collisions player))
         (vel (velocity player))
@@ -266,10 +273,19 @@
         (vdash (vdash player)))
     (case (status player)
       (:dashing
-       (when (< 20 (dash-count player))
-         (setf (status player) NIL))
        (incf (dash-count player))
-       (nv* vel (vy vdash)))
+       (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
+              (scene (handler *context*)))
+       (when (and (bitp (collisions player) 2)
+                  (= 0 (mod (dash-count player) 3)))
+         (enter (make-instance 'dust-cloud :location (vcopy (location player)))
+                (scene (handler *context*))))
+       (cond ((< 20 (dash-count player))
+              (setf (status player) NIL))
+             ((< 15 (dash-count player))
+              (nv* vel (vy vdash)))
+             ((= 10 (dash-count player))
+              (nv* vel (vx vdash)))))
       (:dying
        (nv* vel 0.9))
       (T
@@ -333,8 +349,12 @@
   (add-progression (progression-definition 'revive) scene)
   (add-progression (progression-definition 'die) scene))
 
+(defmethod compute-resources :after ((player player) resources ready cache)
+  (vector-push-extend (asset 'leaf 'particle) resources))
+
 (defmethod register-object-for-pass :after (pass (player player))
-  (register-object-for-pass pass (find-class 'dust-cloud)))
+  (register-object-for-pass pass (find-class 'dust-cloud))
+  (register-object-for-pass pass (find-class 'particle)))
 
 (defmethod die ((player player))
   (unless (eql (status player) :dying)

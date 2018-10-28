@@ -160,28 +160,36 @@ void main(){
   }
 }")
 
-(define-shader-subject dust-cloud (vertex-entity located-entity)
+(define-shader-subject particle (vertex-entity located-entity)
   ((frame :initform 0 :accessor frame)
    (seed :initform (random 1.0) :accessor seed))
-  (:default-initargs :vertex-array (asset 'leaf 'player-mesh)))
+  (:default-initargs :vertex-array (asset 'leaf 'particle)))
 
-(define-handler (dust-cloud trial:tick) (ev)
-  (incf (frame dust-cloud))
-  (when (< 50 (frame dust-cloud))
-    (leave dust-cloud (scene (handler *context*)))))
+(defmethod lifetime ((particle particle)) 20)
 
-(defmethod paint :before ((dust-cloud dust-cloud) (pass shader-pass))
-  (let ((program (shader-program-for-pass pass dust-cloud)))
-    (setf (uniform program "seed") (seed dust-cloud))
-    (setf (uniform program "frame") (frame dust-cloud))))
+(define-handler (particle trial:tick) (ev)
+  (incf (frame particle))
+  (when (< (lifetime particle) (frame particle))
+    (leave particle (scene (handler *context*)))))
 
-(define-class-shader (dust-cloud :vertex-shader)
+(defmethod paint :before ((particle particle) (pass shader-pass))
+  (let ((program (shader-program-for-pass pass particle)))
+    (setf (uniform program "seed") (seed particle))
+    (setf (uniform program "frame") (frame particle))))
+
+(define-class-shader (particle :vertex-shader)
   "layout (location = 1) in vec2 in_texcoord;
 out vec2 texcoord;
 
 void main(){
   texcoord = in_texcoord;
 }")
+
+(define-shader-subject dust-cloud (particle)
+  ()
+  (:default-initargs :vertex-array (asset 'leaf 'player-mesh)))
+
+(defmethod lifetime ((dust-cloud dust-cloud)) 50)
 
 (define-class-shader (dust-cloud :fragment-shader)
   "
