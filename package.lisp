@@ -2,6 +2,6 @@
   (:nicknames #:org.shirakumo.fraf.leaf)
   (:use #:cl+trial)
   (:shadow #:main #:launch #:layer #:tile #:tick #:block
-           #:located-entity #:camera)
+           #:located-entity #:camera #:particle)
   (:export
    #:launch))

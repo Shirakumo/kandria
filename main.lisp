@@ -10,6 +10,9 @@
 (define-asset (leaf ground) image
     #p"ground.png")
 
+(define-asset (leaf decals) image
+    #p"decals.png")
+
 (define-asset (leaf surface) image
     #p"surface.png")
 
@@ -17,6 +20,9 @@
     #p"player.png"
   :min-filter :nearest
   :mag-filter :nearest)
+
+(define-asset (leaf particle) mesh
+    (make-rectangle 1 1))
 
 (define-asset (leaf player-mesh) mesh
     (make-rectangle 16 16))
@@ -94,6 +100,8 @@
 
 (defmethod initialize-instance :after ((level empty-level) &key)
   (let ((size (list 512 64)))
-    (enter (make-instance 'player :size (vec 8 16)) level)
-    (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :tile-size 8) level)
-    (enter (make-instance 'surface :size size :tile-size 8) level)))
+    (enter (make-instance 'layer :size size :texture (asset 'leaf 'decals) :level -1) level)
+    (enter (make-instance 'player) level)
+    (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :level  0) level)
+    (enter (make-instance 'layer :size size :texture (asset 'leaf 'decals) :level +1) level)
+    (enter (make-instance 'surface :size size) level)))

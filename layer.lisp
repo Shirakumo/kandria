@@ -14,10 +14,11 @@
    :tiles NIL
    :size (error "SIZE required")
    :tile-size *default-tile-size*
-   :name :layer-0
    :level 0))
 
-(defmethod initialize-instance :after ((layer layer) &key size)
+(defmethod initialize-instance :after ((layer layer) &key size name level)
+  (unless (symbol-package name)
+    (setf (slot-value layer 'name) (intern (format NIL "LAYER-~d" level) "KEYWORD")))
   (unless (tiles layer)
     (setf (tiles layer) (make-array (apply #'* size) :element-type '(unsigned-byte 8)
                                                      :initial-element 0))))
