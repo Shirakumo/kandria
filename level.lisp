@@ -1,8 +1,9 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defvar *id-type-map* '((player 1)
-                        (layer 2)
-                        (surface 3)))
+(defparameter *id-type-map* '((player 1)
+                              (layer 2)
+                              (surface 3)
+                              (parallax 4)))
 
 (defclass level (pipelined-scene)
   ((file :initform NIL :initarg :file :accessor file)))
@@ -11,8 +12,9 @@
   (when file (load-level level file)))
 
 (defmethod scan ((level level) target)
-  (for:for ((entity over level))
-    (when (scan entity target) (return T))))
+  (for:for ((result as NIL)
+            (entity flare-queue:in-queue (objects level)))
+    (when (scan entity target) (setf result T))))
 
 (defun type->id (type-ish)
   (second (find (etypecase type-ish
@@ -84,6 +86,13 @@
 (defmethod load-level ((type (eql 'player)) (buffer fast-io:input-buffer))
   (make-instance 'player :location (vec (ieee-floats:decode-float32 (fast-io:readu32-le buffer))
                                         (ieee-floats:decode-float32 (fast-io:readu32-le buffer)))))
+
+(defmethod save-level ((parallax parallax) (buffer fast-io:output-buffer))
+  (save-level (texture parallax) buffer))
+
+(defmethod load-level ((type (eql 'parallax)) (buffer fast-io:input-buffer))
+  (make-instance
+   'parallax :texture (load-level 'asset buffer)))
 
 (defmethod save-level ((layer layer) (buffer fast-io:output-buffer))
   (save-level (name layer) buffer)
