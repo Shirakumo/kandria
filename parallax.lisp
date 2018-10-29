@@ -15,7 +15,7 @@
       (setf (uniform program "parallax") 0)
       (gl:active-texture :texture0)
       (gl:bind-texture :texture-2d (gl-name (texture parallax)))
-      (gl:bind-vertex-array (gl-name vao))a
+      (gl:bind-vertex-array (gl-name vao))
       (%gl:draw-elements :triangles (size vao) :unsigned-int (cffi:null-pointer))
       (gl:bind-vertex-array 0))))
 

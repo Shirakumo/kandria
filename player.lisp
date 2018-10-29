@@ -69,31 +69,10 @@
     (end-up (setf (retained 'movement :up) NIL))
     (end-down (setf (retained 'movement :down) NIL))))
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defclass located-entity (entity)
-    ((location :initarg :location :initform (vec 0 0) :accessor location)))
-
-  (defclass facing-entity (entity)
-    ((direction :initarg :direction :initform -1 :accessor direction))))
-
-(defmethod paint :around ((obj located-entity) target)
-  (with-pushed-matrix ()
-    (translate-by (round (vx (location obj))) (round (vy (location obj))) 0)
-    (call-next-method)))
-
-(defmethod paint :around ((obj facing-entity) target)
-  (with-pushed-matrix ()
-    (scale-by (direction obj) 1 1)
-    (call-next-method)))
-
-(define-subject moving (located-entity)
-  ((velocity :initarg :velocity :accessor velocity)
-   (collisions :initform (make-array 4 :element-type 'bit :initial-element 0) :reader collisions)
-   (bsize :initarg :bsize :accessor bsize))
+(define-subject moving (game-entity)
+  ((collisions :initform (make-array 4 :element-type 'bit :initial-element 0) :reader collisions))
   (:default-initargs :velocity (vec 0 0)
                      :bsize (vec *default-tile-size* *default-tile-size*)))
-
-(define-generic-handler (moving tick trial:tick))
 
 (defmethod scan (entity target))
 
