@@ -1,5 +1,6 @@
 (asdf:defsystem leaf
   :components ((:file "package")
+               (:file "parallax")
                (:file "layer")
                (:file "surface")
                (:file "player")

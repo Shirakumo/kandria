@@ -21,6 +21,12 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
+(define-asset (leaf background) image
+    #p"background.png"
+  :min-filter :nearest
+  :mag-filter :nearest
+  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
+
 (define-asset (leaf particle) mesh
     (make-rectangle 1 1))
 
@@ -100,8 +106,10 @@
 
 (defmethod initialize-instance :after ((level empty-level) &key)
   (let ((size (list 512 64)))
+    (enter (make-instance 'parallax) level)
     (enter (make-instance 'layer :size size :texture (asset 'leaf 'decals) :level -1) level)
     (enter (make-instance 'player) level)
     (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :level  0) level)
     (enter (make-instance 'layer :size size :texture (asset 'leaf 'decals) :level +1) level)
-    (enter (make-instance 'surface :size size) level)))
+    (enter (make-instance 'surface :size size) level)
+    (enter (make-instance 'moving-platform :location (vec 64 16)) level)))

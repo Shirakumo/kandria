@@ -104,7 +104,12 @@ void main(){
   (+ (expt (- (vx2 a) (vx2 b)) 2)
      (expt (- (vy2 a) (vy2 b)) 2)))
 
-(defmethod scan ((surface surface) target)
+(defmethod scan ((surface surface) (target vec2))
+  (let ((tile (tile target surface)))
+    (when (and tile (or (= tile 1) (= tile 2)))
+      (aref (blocks surface) tile))))
+
+(defmethod scan ((surface surface) (target moving))
   (let* ((t-s (tile-size surface))
          (x- 0) (y- 0) (x+ 0) (y+ 0)
          (size (v/ (v+ (bsize target) t-s) 2))
@@ -146,3 +151,29 @@ void main(){
              :report "Decline handling the hit."
              (push (hit-location result) declined)
              (setf result NIL)))))))
+
+(define-shader-subject moving-platform (vertex-entity located-entity)
+  ((velocity :initform (vec 0 0) :accessor velocity)
+   (bsize :initform (vec 16 16) :accessor bsize))
+  (:default-initargs :vertex-array (asset 'leaf 'player-mesh)))
+
+(defmethod scan ((platform moving-platform) (target vec2))
+  (let ((w (/ (vx (bsize platform)) 2))
+        (h (/ (vy (bsize platform)) 2))
+        (loc (location platform)))
+    (when (and (< (- (vx loc) w) (vx target) (+ (vx loc) w))
+               (< (- (vy loc) h) (vy target) (+ (vy loc) h)))
+      platform)))
+
+(defmethod scan ((platform moving-platform) (target moving))
+  (let ((hit (aabb (location target) (v+ (velocity target) (velocity platform))
+                   (location platform) (nv/ (v+ (size target) (bsize target)) 2))))
+    (when hit
+      (setf (hit-object hit) platform)
+      (collide target platform hit))))
+
+(define-handler (moving-platform trial:tick) (ev tt)
+  (let ((vel (velocity moving-platform))
+        (loc (location moving-platform)))
+    (nv+ loc vel)
+    (setf (vx vel) (sin tt))))

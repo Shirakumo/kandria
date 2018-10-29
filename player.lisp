@@ -102,25 +102,24 @@
 
 (defmethod tick ((moving moving) ev)
   (let* ((scene (scene (handler *context*)))
-         (surface (unit :surface scene))
          (loc (location moving))
          (vel (velocity moving))
          (size (bsize moving)))
     ;; Scan for hits until we run out of velocity or hits.
     (fill (collisions moving) 0)
     (loop while (and (or (/= 0 (vx vel)) (/= 0 (vy vel)))
-                     (scan surface moving)))
+                     (scan scene moving)))
     ;; Remaining velocity (if any) can be added safely.
     (nv+ loc vel)
     ;; Point test for adjacent walls
-    (let ((tl (tile (vec (- (vx loc) (/ (vx size) 2) 1) (+ (vy loc) (/ (vy size) 2) -1)) surface))
-          (bl (tile (vec (- (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1)) surface))
-          (tr (tile (vec (+ (vx loc) (/ (vx size) 2) 1) (+ (vy loc) (/ (vy size) 2) -1)) surface))
-          (br (tile (vec (+ (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1)) surface))
-          (b  (tile (vec (vx loc) (- (vy loc) (/ (vy size) 2) 1)) surface)))
-      (when (or (eql 1 tl) (eql 1 bl)) (setf (bit (collisions moving) 3) 1))
-      (when (or (eql 1 tr) (eql 1 br)) (setf (bit (collisions moving) 1) 1))
-      (unless (eqla 0 b) (setf (bit (collisions moving) 2) 1)))))
+    (let ((tl (scan scene (vec (- (vx loc) (/ (vx size) 2) 1) (+ (vy loc) (/ (vy size) 2) -1))))
+          (bl (scan scene (vec (- (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1))))
+          (tr (scan scene (vec (+ (vx loc) (/ (vx size) 2) 1) (+ (vy loc) (/ (vy size) 2) -1))))
+          (br (scan scene (vec (+ (vx loc) (/ (vx size) 2) 1) (- (vy loc) (/ (vy size) 2) -1))))
+          (b  (scan scene (vec (vx loc) (- (vy loc) (/ (vy size) 2) 1)))))
+      (when (or tl bl) (setf (bit (collisions moving) 3) 1))
+      (when (or tr br) (setf (bit (collisions moving) 1) 1))
+      (when b (setf (bit (collisions moving) 2) 1)))))
 
 (defmethod collide ((moving moving) (block ground) hit)
   (let* ((loc (location moving))
@@ -171,6 +170,18 @@
     (decline)
     ;; FIXME: slopes lol
     ))
+
+(defmethod collide ((moving moving) (platform moving-platform) hit)
+  (let* ((loc (location moving))
+         (vel (velocity moving))
+         (normal (hit-normal hit)))
+    (cond ((= +1 (vy normal)) (setf (bit (collisions moving) 2) 1))
+          ((= -1 (vy normal)) (setf (bit (collisions moving) 0) 1))
+          ((= +1 (vx normal)) (setf (bit (collisions moving) 3) 1))
+          ((= -1 (vx normal)) (setf (bit (collisions moving) 1) 1)))
+    (nv+ loc (v* vel (hit-time hit)))
+    (nv+ loc (velocity platform))
+    (nv- vel (v* normal (v. vel normal)))))
 
 (define-shader-subject player (animated-sprite-subject moving facing-entity)
   ((status :initform NIL :accessor status)
