@@ -109,7 +109,7 @@ void main(){
     (when (and tile (or (= tile 1) (= tile 2)))
       (aref (blocks surface) tile))))
 
-(defmethod scan ((surface surface) (target moving))
+(defmethod scan ((surface surface) (target game-entity))
   (let* ((t-s (tile-size surface))
          (x- 0) (y- 0) (x+ 0) (y+ 0)
          (size (v/ (v+ (bsize target) t-s) 2))
@@ -152,9 +152,8 @@ void main(){
              (push (hit-location result) declined)
              (setf result NIL)))))))
 
-(define-shader-subject moving-platform (vertex-entity located-entity)
-  ((velocity :initform (vec 0 0) :accessor velocity)
-   (bsize :initform (vec 16 16) :accessor bsize))
+(define-shader-subject moving-platform (vertex-entity game-entity)
+  ()
   (:default-initargs :vertex-array (asset 'leaf 'player-mesh)))
 
 (defmethod scan ((platform moving-platform) (target vec2))
@@ -165,15 +164,15 @@ void main(){
                (< (- (vy loc) h) (vy target) (+ (vy loc) h)))
       platform)))
 
-(defmethod scan ((platform moving-platform) (target moving))
+(defmethod scan ((platform moving-platform) (target game-entity))
   (let ((hit (aabb (location target) (v+ (velocity target) (velocity platform))
                    (location platform) (nv/ (v+ (size target) (bsize target)) 2))))
     (when hit
       (setf (hit-object hit) platform)
       (collide target platform hit))))
 
-(define-handler (moving-platform trial:tick) (ev tt)
-  (let ((vel (velocity moving-platform))
-        (loc (location moving-platform)))
+(defmethod tick ((platform moving-platform) ev)
+  (let ((vel (velocity platform))
+        (loc (location platform)))
     (nv+ loc vel)
-    (setf (vx vel) (sin tt))))
+    (setf (vx vel) (sin (tt ev)))))
