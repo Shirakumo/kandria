@@ -53,14 +53,20 @@
   (when (active-p (unit :editor T))
     (call-next-method)))
 
+(defmethod paint :before ((surface surface) (pass shader-pass))
+  (let ((program (shader-program-for-pass pass surface)))
+    (setf (uniform program "zoom") (zoom (unit :camera T)))
+    (setf (uniform program "offset") (location (unit :camera T)))))
+
 (define-class-shader (surface :fragment-shader -1)
   "out vec4 color;
+uniform vec2 offset = vec2(0);
+uniform float zoom = 1.0;
 
 void main(){
   if(color.a == 0){
-    float r = (int(gl_FragCoord.x+0.5)%5==0)?1:0.5;
-    r *= (int(gl_FragCoord.y+0.5)%5==0)?1:0.5;
-    r *= 0.5;
+    ivec2 grid = ivec2((gl_FragCoord.xy+0.5)/zoom+offset);
+    float r = (grid.x%8==0 || grid.y%8==0)?0.25:0;
     color = vec4(r,r,r,0.5);
   }else{
     color.a = 0.1;
