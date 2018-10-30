@@ -142,7 +142,7 @@
             until (= 0 b)
             do (vector-push-extend b vector))
       (let ((name (babel:octets-to-string vector :encoding :utf-8)))
-        (find-symbol name package)))))
+        (intern name package)))))
 
 (defmethod save-level ((surface surface) (buffer fast-io:output-buffer))
   (call-next-method))
