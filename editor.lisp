@@ -103,14 +103,14 @@
         (max 0 (min 255 (tile-to-place editor)))))
 
 (define-handler (editor next-layer) (ev)
-  (let ((layers (for:for ((entity over (scene (handler *context*)))
+  (let ((layers (for:for ((entity over +level+)
                           (list when (typep entity 'layer) collect entity)))))
     (setf (layer editor) (nth (mod (1+ (position (layer editor) layers))
                                    (length layers))
                               layers))))
 
 (define-handler (editor prev-layer) (ev)
-  (let ((layers (for:for ((entity over (scene (handler *context*)))
+  (let ((layers (for:for ((entity over +level+)
                           (list when (typep entity 'layer) collect entity)))))
     (setf (layer editor) (nth (mod (1- (position (layer editor) layers))
                                    (length layers))
@@ -121,23 +121,23 @@
 
 (define-handler (editor resize-level) (ev)
   (with-query (size "New map size" :parse #'read-from-string)
-    (for:for ((entity over (scene (handler *context*))))
+    (for:for ((entity over +level+))
       (when (typep entity 'layer)
         (setf (size entity) size)))))
 
 (define-handler (editor save-game) (ev)
   (with-query (file "Map save location"
-               :default (file (scene (handler *context*)))
-               :parse #'uiop:parse-native-namestring)
-    (setf (file (scene (handler *context*))) (pool-path 'leaf file))
-    (save-level (scene (handler *context*)) T)))
+                    :default (file +level+)
+                    :parse #'uiop:parse-native-namestring)
+    (setf (file +level+) (pool-path 'leaf file))
+    (save-level +level+ T)))
 
 (define-handler (editor load-game) (ev)
   (with-query (file "Map load location"
-               :default (file (scene (handler *context*)))
-               :parse #'uiop:parse-native-namestring)
-    (let ((scene (make-instance 'level :file (pool-path 'leaf file))))
-      (change-scene (handler *context*) scene))))
+                    :default (file +level+)
+                    :parse #'uiop:parse-native-namestring)
+    (let ((level (make-instance 'level :file (pool-path 'leaf file))))
+      (change-scene (handler *context*) level))))
 
 (defmethod paint :around ((editor editor) target)
   (when (active-p editor)

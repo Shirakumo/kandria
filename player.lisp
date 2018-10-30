@@ -80,7 +80,7 @@
   (< (abs (v. a dir)) (abs (v. b dir))))
 
 (defmethod tick ((moving moving) ev)
-  (let* ((scene (scene (handler *context*)))
+  (let* ((scene +level+)
          (loc (location moving))
          (vel (velocity moving))
          (size (bsize moving)))
@@ -224,7 +224,7 @@
            (setf (vy vel) (vx vjump))
            (incf (jump-count player))
            (enter (make-instance 'dust-cloud :location (vcopy (location player)))
-                  (scene (handler *context*))))
+                  +level+))
           ((or (bitp collisions 1)
                (bitp collisions 3))
            ;; Wall jump
@@ -241,7 +241,7 @@
     (when (and (= +1 (vy (hit-normal hit)))
                (< (vy (velocity player)) -2))
       (enter (make-instance 'dust-cloud :location (nv+ (v* (velocity player) (hit-time hit)) (location player)))
-             (scene (handler *context*))))))
+             +level+))))
 
 (defmethod tick :after ((player player) ev)
   (when (bitp (collisions player) 2)
@@ -265,11 +265,11 @@
       (:dashing
        (incf (dash-count player))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
-              (scene (handler *context*)))
+              +level+)
        (when (and (bitp (collisions player) 2)
                   (= 0 (mod (dash-count player) 3)))
          (enter (make-instance 'dust-cloud :location (vcopy (location player)))
-                (scene (handler *context*))))
+                +level+))
        (cond ((< 20 (dash-count player))
               (setf (status player) NIL))
              ((< 15 (dash-count player))
@@ -351,10 +351,10 @@
     (setf (status player) :dying)
     (setf (animation player) 5)
     (nv* (velocity player) -1)
-    (start (reset (progression 'die (scene (handler *context*)))))))
+    (start (reset (progression 'die +level+)))))
 
 (defmethod death ((player player))
-  (start (reset (progression 'revive (scene (handler *context*)))))
+  (start (reset (progression 'revive +level+)))
   (setf (animation player) 6)
   (setf (vx (location player)) 96)
   (setf (vy (location player)) 32))

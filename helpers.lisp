@@ -1,5 +1,14 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(sb-ext:defglobal +level+ NIL)
+
+(defmethod unit (thing (target (eql T)))
+  (when +level+
+    (unit thing +level+)))
+
+(define-pool leaf
+  :base :leaf)
+
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defclass located-entity (entity)
     ((location :initarg :location :initform (vec 0 0) :accessor location))))

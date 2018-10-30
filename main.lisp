@@ -1,12 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defmethod unit (thing (target (eql T)))
-  (when *context*
-    (unit thing (scene (handler *context*)))))
-
-(define-pool leaf
-  :base :leaf)
-
 (define-asset (leaf ground) image
     #p"ground.png")
 
@@ -88,6 +81,12 @@
         (if map
             (make-instance 'level :file (pool-path 'leaf map))
             (make-instance 'empty-level))))
+
+(defmethod (setf scene) :after (scene (main main))
+  (setf +level+ scene))
+
+(defmethod finalize :after ((main main))
+  (setf +level+ NIL))
 
 (defun launch (&rest initargs)
   (apply #'trial:launch 'main initargs))

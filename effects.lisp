@@ -170,7 +170,7 @@ void main(){
 (define-handler (particle trial:tick) (ev)
   (incf (frame particle))
   (when (< (lifetime particle) (frame particle))
-    (leave particle (scene (handler *context*)))))
+    (leave particle +level+)))
 
 (defmethod paint :before ((particle particle) (pass shader-pass))
   (let ((program (shader-program-for-pass pass particle)))
