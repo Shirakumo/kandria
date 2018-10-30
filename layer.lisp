@@ -18,7 +18,7 @@
 
 (defmethod initialize-instance :after ((layer layer) &key size name level)
   (unless (symbol-package name)
-    (setf (slot-value layer 'name) (intern (format NIL "LAYER-~d" level) "KEYWORD")))
+    (setf (slot-value layer 'name) (intern (format NIL "LAYER~@d" level) "KEYWORD")))
   (unless (tiles layer)
     (setf (tiles layer) (make-array (apply #'* size) :element-type '(unsigned-byte 8)
                                                      :initial-element 0))))
