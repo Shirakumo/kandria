@@ -66,8 +66,8 @@ uniform float zoom = 1.0;
 void main(){
   if(color.a == 0){
     ivec2 grid = ivec2((gl_FragCoord.xy+0.5)/zoom+offset);
-    float r = (grid.x%8==0 || grid.y%8==0)?0.25:0;
-    color = vec4(r,r,r,0.5);
+    float r = (grid.x%8==0 || grid.y%8==0)?0.1:0;
+    color = vec4(1,1,1,r);
   }else{
     color.a = 0.1;
   }
