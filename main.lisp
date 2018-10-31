@@ -26,6 +26,9 @@
 (define-asset (leaf player-mesh) mesh
     (make-rectangle 16 16))
 
+(define-asset (leaf big) mesh
+    (make-rectangle 64 64))
+
 (define-asset (leaf square) mesh
     (make-rectangle 8 8 :align :topleft))
 
@@ -111,4 +114,5 @@
     (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :level  0) level)
     (enter (make-instance 'layer :size size :texture (asset 'leaf 'decals) :level +1) level)
     (enter (make-instance 'surface :size size) level)
-    (enter (make-instance 'moving-platform :location (vec 64 16)) level)))
+    (enter (make-instance 'falling-platform :location (vec 256 256) :size '(3 4)) level)))
+

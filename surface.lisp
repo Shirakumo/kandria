@@ -158,9 +158,12 @@ void main(){
              (push (hit-location result) declined)
              (setf result NIL)))))))
 
-(define-shader-subject moving-platform (vertex-entity game-entity)
-  ()
-  (:default-initargs :vertex-array (asset 'leaf 'player-mesh)))
+(define-shader-subject moving-platform (layer game-entity)
+  ())
+
+(defmethod initialize-instance :after ((platform moving-platform) &key size tile-size)
+  (setf (bsize platform) (vec (* tile-size (first size))
+                              (* tile-size (second size)))))
 
 (defmethod scan ((platform moving-platform) (target vec2))
   (let ((w (/ (vx (bsize platform)) 2))
@@ -171,14 +174,35 @@ void main(){
       platform)))
 
 (defmethod scan ((platform moving-platform) (target game-entity))
-  (let ((hit (aabb (location target) (v+ (velocity target) (velocity platform))
-                   (location platform) (nv/ (v+ (size target) (bsize target)) 2))))
-    (when hit
-      (setf (hit-object hit) platform)
-      (collide target platform hit))))
+  (unless (eq platform target)
+    (let ((hit (aabb (location target) (v- (velocity target) (velocity platform))
+                     (location platform) (nv/ (v+ (bsize platform) (bsize target)) 2))))
+      (when hit
+        (setf (hit-object hit) platform)
+        (collide target platform hit)))))
 
 (defmethod tick ((platform moving-platform) ev)
-  (let ((vel (velocity platform))
-        (loc (location platform)))
-    (nv+ loc vel)
-    (setf (vx vel) (sin (tt ev)))))
+  (let ((vel (velocity platform)))
+    (loop while (and (or (/= 0 (vx vel)) (/= 0 (vy vel)))
+                     (scan +level+ platform)))
+    (nv+ (location platform) vel)))
+
+(defmethod paint ((platform moving-platform) target)
+  (translate (vxy_ (v/ (bsize platform) -2)))
+  (call-next-method))
+
+(define-shader-subject falling-platform (moving-platform)
+  ((status :initform :hanging :accessor status)
+   (dt :initform 0.0 :accessor dt))
+  (:default-initargs :texture (asset 'leaf 'ground)))
+
+(defmethod tick :before ((platform falling-platform) ev)
+  (when (eq :falling (status platform))
+    (incf (dt platform) (dt ev))
+    (setf (vy (velocity platform))
+          (flare:ease (/ (dt platform) 1) 'flare:quint-in 0 -3))))
+
+(defmethod collide ((platform moving-platform) object hit)
+  (nv+ (location platform) (v* (velocity platform) (hit-time hit)))
+  (setf (status platform) :stopped)
+  (vsetf (velocity platform) 0 0))

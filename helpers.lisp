@@ -11,6 +11,13 @@
   (when +level+
     (unit thing +level+)))
 
+(defun vrand (min max)
+  (vec (+ min (random (- max min)))
+       (+ min (random (- max min)))))
+
+(defun closer (a b dir)
+  (< (abs (v. a dir)) (abs (v. b dir))))
+
 (define-pool leaf
   :base :leaf)
 
