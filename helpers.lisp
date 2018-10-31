@@ -2,6 +2,11 @@
 
 (sb-ext:defglobal +level+ NIL)
 
+(defun maybe-finalize-inheritance (class)
+  (unless (c2mop:class-finalized-p class)
+    (c2mop:finalize-inheritance class))
+  class)
+
 (defmethod unit (thing (target (eql T)))
   (when +level+
     (unit thing +level+)))

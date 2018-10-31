@@ -343,8 +343,8 @@
   (vector-push-extend (asset 'leaf 'particle) resources))
 
 (defmethod register-object-for-pass :after (pass (player player))
-  (register-object-for-pass pass (find-class 'dust-cloud))
-  (register-object-for-pass pass (find-class 'particle)))
+  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'dust-cloud)))
+  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'particle))))
 
 (defmethod die ((player player))
   (unless (eql (status player) :dying)
