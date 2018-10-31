@@ -3,7 +3,8 @@
 (defparameter *id-type-map* '((player 1)
                               (layer 2)
                               (surface 3)
-                              (parallax 4)))
+                              (parallax 4)
+                              (falling-platform 5)))
 
 (defclass level (pipelined-scene)
   ((file :initform NIL :initarg :file :accessor file)))
@@ -13,8 +14,10 @@
 
 (defmethod scan ((level level) target)
   (for:for ((result as NIL)
-            (entity flare-queue:in-queue (objects level)))
-    (when (scan entity target) (setf result T))))
+            (entity flare-queue:in-queue (objects level))
+            (hit = (scan entity target)))
+    (with-simple-restart (decline "")
+      (when hit (setf result hit)))))
 
 (defun type->id (type-ish)
   (second (find (etypecase type-ish
@@ -80,12 +83,10 @@
 
 (defmethod save-level ((player player) (buffer fast-io:output-buffer))
   ;; FIXME: Change this to a spawner that can handle intro transitions
-  (fast-io:writeu32-le (ieee-floats:encode-float32 (vx (location player))) buffer)
-  (fast-io:writeu32-le (ieee-floats:encode-float32 (vy (location player))) buffer))
+  (save-level (location player) buffer))
 
 (defmethod load-level ((type (eql 'player)) (buffer fast-io:input-buffer))
-  (make-instance 'player :location (vec (ieee-floats:decode-float32 (fast-io:readu32-le buffer))
-                                        (ieee-floats:decode-float32 (fast-io:readu32-le buffer)))))
+  (make-instance 'player :location (load-level 'vec2 buffer)))
 
 (defmethod save-level ((parallax parallax) (buffer fast-io:output-buffer))
   (save-level (texture parallax) buffer))
@@ -93,6 +94,18 @@
 (defmethod load-level ((type (eql 'parallax)) (buffer fast-io:input-buffer))
   (make-instance
    'parallax :texture (load-level 'asset buffer)))
+
+(defmethod save-level ((platform falling-platform) (buffer fast-io:output-buffer))
+  (call-next-method)
+  (save-level (location platform) buffer))
+
+(defmethod load-level ((type (eql 'falling-platform)) (buffer fast-io:input-buffer))
+  (let ((layer (load-level 'layer buffer)))
+    (change-class layer 'falling-platform
+                  :bsize (vec (* (tile-size layer) (first (size layer)))
+                              (* (tile-size layer) (second (size layer))))
+                  :location (load-level 'vec2 buffer)
+                  :velocity (vec 0 0))))
 
 (defmethod save-level ((layer layer) (buffer fast-io:output-buffer))
   (save-level (name layer) buffer)
@@ -118,6 +131,14 @@
                          for read = (fast-io:fast-read-sequence tiles buffer start)
                          while (< read (length tiles)))
                    tiles)))
+
+(defmethod save-level ((vec vec2) (buffer fast-io:output-buffer))
+  (fast-io:writeu32-le (ieee-floats:encode-float32 (vx2 vec)) buffer)
+  (fast-io:writeu32-le (ieee-floats:encode-float32 (vy2 vec)) buffer))
+
+(defmethod load-level ((type (eql 'vec2)) (buffer fast-io:input-buffer))
+  (vec2 (ieee-floats:decode-float32 (fast-io:readu32-le buffer))
+        (ieee-floats:decode-float32 (fast-io:readu32-le buffer))))
 
 (defmethod save-level ((asset asset) (buffer fast-io:output-buffer))
   (save-level (name asset) buffer))

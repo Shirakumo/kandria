@@ -96,6 +96,7 @@
 
 (defmethod paint ((layer layer) (pass shader-pass))
   (let ((program (shader-program-for-pass pass layer)))
+    (setf (uniform program "model_matrix") (model-matrix))
     (setf (uniform program "view_matrix") (view-matrix))
     (setf (uniform program "projection_matrix") (projection-matrix))
     (setf (uniform program "level") (level layer))
@@ -114,6 +115,7 @@ layout (location = 1) in int tile_id;
 uniform sampler2D tileset;
 uniform mat4 projection_matrix;
 uniform mat4 view_matrix;
+uniform mat4 model_matrix;
 uniform int layer_width;
 uniform int tile_size = 32;
 uniform int level = 0;
@@ -125,7 +127,7 @@ void main(){
   uv = vertex + tile_tex;
 
   vec2 tile_pos = vec2(gl_InstanceID % layer_width, gl_InstanceID / layer_width) * tile_size;
-  gl_Position = projection_matrix * view_matrix * vec4(vertex+tile_pos, level, 1);
+  gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertex+tile_pos, level, 1);
 }")
 
 (define-class-shader (layer :fragment-shader)
