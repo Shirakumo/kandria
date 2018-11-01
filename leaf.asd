@@ -8,6 +8,7 @@
                (:file "player")
                (:file "level")
                (:file "editor")
+               (:file "camera")
                (:file "main")
                (:file "effects"))
   :depends-on (:trial-glfw

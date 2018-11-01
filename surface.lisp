@@ -214,6 +214,13 @@ void main(){
           (flare:ease (/ (dt platform) 1) 'flare:quint-in 0 -3))))
 
 (defmethod collide ((platform moving-platform) object hit)
-  (nv+ (location platform) (v* (velocity platform) (hit-time hit)))
-  (setf (status platform) :stopped)
-  (vsetf (velocity platform) 0 0))
+  (let ((loc (location platform))
+        (vel (velocity platform))
+        (size (bsize platform)))
+    (nv+ loc (v* vel (hit-time hit)))
+    (setf (status platform) :stopped)
+    (vsetf vel 0 0)
+    (loop for x from (- (vx loc) (vx size)) to (+ (vx loc) (vx size)) by 8
+          do (enter (make-instance 'dust-cloud :location (vec x (- (vy loc) (vx size) -8)))
+                    +level+))
+    (setf (shake-counter (unit :camera T)) 20)))
