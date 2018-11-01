@@ -32,6 +32,9 @@
 (define-pool leaf
   :base :leaf)
 
+(defclass post-tick (event)
+  ())
+
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defclass located-entity (entity)
     ((location :initarg :location :initform (vec 0 0) :accessor location))))
