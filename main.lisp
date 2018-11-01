@@ -37,15 +37,20 @@
   (:default-initargs :clear-color (vec 61/255 202/255 245/255)
                      :title "Leaf - 0.0.0"))
 
-(defmethod setup-rendering :after ((main main))
-  (disable :cull-face))
-
 (defmethod initialize-instance ((main main) &key map)
   (call-next-method)
   (setf (scene main)
         (if map
             (make-instance 'level :file (pool-path 'leaf map))
             (make-instance 'empty-level))))
+
+(defmethod setup-rendering :after ((main main))
+  (disable :cull-face))
+
+(defmethod update ((main main) tt dt)
+  (issue (scene main) 'trial:tick :tt tt :dt dt)
+  (issue (scene main) 'post-tick)
+  (process (scene main)))
 
 (defmethod (setf scene) :after (scene (main main))
   (setf +level+ scene))
@@ -62,8 +67,10 @@
   (let* ((render (make-instance 'render-pass))
          (blink-pass (make-instance 'blink-pass))
          (bokeh-pass (make-instance 'hex-bokeh-pass)))
-    (connect (flow:port render 'color) (flow:port blink-pass 'previous-pass) scene)
-    (connect (flow:port blink-pass 'color) (flow:port bokeh-pass 'previous-pass) scene)))
+    (enter render scene)
+    ;(connect (flow:port render 'color) (flow:port blink-pass 'previous-pass) scene)
+    ;(connect (flow:port blink-pass 'color) (flow:port bokeh-pass 'previous-pass) scene)
+    ))
 
 (defclass empty-level (level)
   ())

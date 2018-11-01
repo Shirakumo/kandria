@@ -88,9 +88,12 @@
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
     (nv+ loc (velocity platform))
-    ;; Zip out of ground in case of clipping
-    (when (and (/= 0 (vy normal))
-               (< (vy pos) (vy loc))
-               (< (- (vy loc) (vy (bsize moving)))
-                  (+ (vy pos) (vy (bsize platform)))))
+    ;; Zip onto ground if standing
+    (when (= 1 (vy normal))
       (setf (vy loc) (+ (vy pos) (vy (bsize moving)) (vy (bsize platform)))))))
+
+(define-handler (moving post-tick) (ev)
+  ;; Compensate for block movement
+  (let ((b (svref (collisions moving) 2)))
+    (when (typep b 'moving-platform)
+      (setf (vy (location moving)) (+ (vy (location b)) (vy (bsize moving)) (vy (bsize b)))))))

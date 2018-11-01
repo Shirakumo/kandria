@@ -126,18 +126,23 @@
         (setf (size entity) size)))))
 
 (define-handler (editor save-game) (ev)
-  (with-query (file "Map save location"
-                    :default (file +level+)
-                    :parse #'uiop:parse-native-namestring)
-    (setf (file +level+) (pool-path 'leaf file))
-    (save-level +level+ T)))
+  (if (retained 'modifiers :control)
+      (save-level +level+ T)
+      (with-query (file "Map save location"
+                   :default (file +level+)
+                   :parse #'uiop:parse-native-namestring)
+        (setf (file +level+) (pool-path 'leaf file))
+        (save-level +level+ T))))
 
 (define-handler (editor load-game) (ev)
-  (with-query (file "Map load location"
-                    :default (file +level+)
-                    :parse #'uiop:parse-native-namestring)
-    (let ((level (make-instance 'level :file (pool-path 'leaf file))))
-      (change-scene (handler *context*) level))))
+  (if (retained 'modifiers :control)
+      (let ((level (make-instance 'level :file (file +level+))))
+        (change-scene (handler *context*) level))
+      (with-query (file "Map load location"
+                   :default (file +level+)
+                   :parse #'uiop:parse-native-namestring)
+        (let ((level (make-instance 'level :file (pool-path 'leaf file))))
+          (change-scene (handler *context*) level)))))
 
 (defmethod paint :around ((editor editor) target)
   (when (active-p editor)
