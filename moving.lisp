@@ -87,4 +87,10 @@
           ((= -1 (vx normal)) (setf (svref (collisions moving) 1) platform)))
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
-    (nv+ loc (velocity platform))))
+    (nv+ loc (velocity platform))
+    ;; Zip out of ground in case of clipping
+    (when (and (/= 0 (vy normal))
+               (< (vy pos) (vy loc))
+               (< (- (vy loc) (vy (bsize moving)))
+                  (+ (vy pos) (vy (bsize platform)))))
+      (setf (vy loc) (+ (vy pos) (vy (bsize moving)) (vy (bsize platform)))))))
