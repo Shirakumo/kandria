@@ -210,8 +210,8 @@ void main(){
 (defmethod tick :before ((platform falling-platform) ev)
   (when (eq :falling (status platform))
     (incf (dt platform) (dt ev))
-    (setf (vy (velocity platform))
-          (flare:ease (/ (dt platform) 1) 'flare:quint-in 0 -6))))
+    (setf (vx (velocity platform))
+          (flare:ease (/ (dt platform) 1) 'flare:quint-in 0 6))))
 
 (defmethod collide ((platform falling-platform) object hit)
   (let ((loc (location platform))
@@ -221,7 +221,11 @@ void main(){
     (nv+ loc (v* vel (hit-time hit)))
     (cond ((= +1 (vy normal))
            (loop for x from (- (vx loc) (vx size)) to (+ (vx loc) (vx size)) by 8
-                 do (enter (make-instance 'dust-cloud :location (vec x (- (vy loc) (vx size) -8)))
+                 do (enter (make-instance 'dust-cloud :location (vec x (- (vy loc) (vy size) -8)))
+                           +level+)))
+          ((= -1 (vx normal))
+           (loop for y from (- (vy loc) (vy size)) to (+ (vy loc) (vy size)) by 8
+                 do (enter (make-instance 'dust-cloud :location (vec (+ (vx loc) (vx size) -8) y) :direction normal)
                            +level+))))
     (setf (shake-counter (unit :camera T)) 20)
     (stop platform)))

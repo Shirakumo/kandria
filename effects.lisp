@@ -186,15 +186,21 @@ void main(){
 }")
 
 (define-shader-subject dust-cloud (particle)
-  ()
-  (:default-initargs :vertex-array (asset 'leaf 'player-mesh)))
+  ((direction :initarg :direction :accessor direction))
+  (:default-initargs :vertex-array (asset 'leaf 'player-mesh)
+                     :direction (vec2 0 1)))
 
 (defmethod lifetime ((dust-cloud dust-cloud)) 50)
+
+(defmethod paint :before ((particle dust-cloud) (pass shader-pass))
+  (let ((program (shader-program-for-pass pass particle)))
+    (setf (uniform program "direction") (direction particle))))
 
 (define-class-shader (dust-cloud :fragment-shader)
   "
 uniform int frame = 0;
 uniform float seed = 1.0;
+uniform vec2 direction = vec2(0,1);
 in vec2 texcoord;
 out vec4 color;
 
@@ -207,7 +213,9 @@ float hash12n(vec2 p){
 void main(){
   float ftime = (1-(frame/50.0))*2;
   vec2 pos = floor(texcoord*16)/16.0;
-  float cdist = 1-length(vec2((pos.x-0.5)/2,pos.y+ftime/3-0.5))*4;
+  vec2 off = vec2(ftime/3.0)*direction;
+  vec2 skew = abs(direction.yx)+1;
+  float cdist = 1-length(vec2(pos.x-0.5,pos.y-0.5)/skew+off)*4;
 
   float rng = hash12n(pos+seed);
   float prob = rng * ftime * cdist;
