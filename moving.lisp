@@ -76,6 +76,7 @@
     ;; FIXME: slopes lol
     ))
 
+(defvar *recursive-check* NIL)
 (defmethod collide ((moving moving) (platform moving-platform) hit)
   (let* ((loc (location moving))
          (pos (location platform))
@@ -87,7 +88,18 @@
           ((= -1 (vx normal)) (setf (svref (collisions moving) 1) platform)))
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
-    (nv+ loc (velocity platform))
+    ;; Recursive collisions mean we're being squashed
+    (when *recursive-check*
+      (die moving)
+      (decline))
+    ;; Move along platform while scanning for hits
+    (let ((vel (vcopy2 (velocity platform)))
+          (*recursive-check* T))
+      (setf (velocity moving) vel)
+      (loop while (and (or (/= 0 (vx vel)) (/= 0 (vy vel)))
+                       (scan +level+ moving)))
+      (nv+ loc vel))
+    (setf (velocity moving) vel)
     ;; Zip onto ground if standing
     (when (= 1 (vy normal))
       (setf (vy loc) (+ (vy pos) (vy (bsize moving)) (vy (bsize platform)))))))
