@@ -114,5 +114,5 @@
     (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :level  0) level)
     (enter (make-instance 'layer :size size :texture (asset 'leaf 'decals) :level +1) level)
     (enter (make-instance 'surface :size size) level)
-    (enter (make-instance 'falling-platform :location (vec 256 256) :size '(3 4)) level)))
+    (enter (make-instance 'falling-platform :location (vec 64 64) :size '(4 4)) level)))
 

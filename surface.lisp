@@ -118,7 +118,7 @@ void main(){
 (defmethod scan ((surface surface) (target game-entity))
   (let* ((t-s (tile-size surface))
          (x- 0) (y- 0) (x+ 0) (y+ 0)
-         (size (v/ (v+ (bsize target) t-s) 2))
+         (size (v+ (bsize target) (/ t-s 2)))
          (loc (location target))
          (vel (velocity target))
          (declined ()) (result))
@@ -161,13 +161,15 @@ void main(){
 (define-shader-subject moving-platform (layer game-entity)
   ())
 
-(defmethod initialize-instance :after ((platform moving-platform) &key size tile-size)
-  (setf (bsize platform) (vec (* tile-size (first size))
-                              (* tile-size (second size)))))
+(defmethod shared-initialize :after ((platform moving-platform) slots &key)
+  (destructuring-bind (w h) (size platform)
+    (setf (bsize platform) (nv/ (vec (* (tile-size platform) w)
+                                     (* (tile-size platform) h))
+                                2))))
 
 (defmethod scan ((platform moving-platform) (target vec2))
-  (let ((w (/ (vx (bsize platform)) 2))
-        (h (/ (vy (bsize platform)) 2))
+  (let ((w (vx (bsize platform)))
+        (h (vy (bsize platform)))
         (loc (location platform)))
     (when (and (< (- (vx loc) w) (vx target) (+ (vx loc) w))
                (< (- (vy loc) h) (vy target) (+ (vy loc) h)))
@@ -176,7 +178,7 @@ void main(){
 (defmethod scan ((platform moving-platform) (target game-entity))
   (unless (eq platform target)
     (let ((hit (aabb (location target) (v- (velocity target) (velocity platform))
-                     (location platform) (nv/ (v+ (bsize platform) (bsize target)) 2))))
+                     (location platform) (v+ (bsize platform) (bsize target)))))
       (when hit
         (setf (hit-object hit) platform)
         (collide target platform hit)))))
@@ -188,8 +190,17 @@ void main(){
     (nv+ (location platform) vel)))
 
 (defmethod paint ((platform moving-platform) target)
-  (translate (vxy_ (v/ (bsize platform) -2)))
+  (translate (nv- (vxy_ (bsize platform))))
   (call-next-method))
+
+(defmethod tile (location (platform moving-platform))
+  (call-next-method (v+ location (bsize platform)) platform))
+
+(defmethod (setf tile) (value location (platform moving-platform))
+  (call-next-method value (v+ location (bsize platform)) platform))
+
+(defmethod flood-fill ((platform moving-platform) location fill)
+  (call-next-method platform (v+ location (bsize platform)) fill))
 
 (define-shader-subject falling-platform (moving-platform)
   ((status :initform :hanging :accessor status)

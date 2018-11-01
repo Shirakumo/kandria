@@ -96,21 +96,17 @@
    'parallax :texture (load-level 'asset buffer)))
 
 (defmethod save-level ((platform falling-platform) (buffer fast-io:output-buffer))
-  (call-next-method)
-  (save-level (location platform) buffer))
+  (call-next-method))
 
 (defmethod load-level ((type (eql 'falling-platform)) (buffer fast-io:input-buffer))
   (let ((layer (load-level 'layer buffer)))
-    (change-class layer 'falling-platform
-                  :bsize (vec (* (tile-size layer) (first (size layer)))
-                              (* (tile-size layer) (second (size layer))))
-                  :location (load-level 'vec2 buffer)
-                  :velocity (vec 0 0))))
+    (change-class layer 'falling-platform :velocity (vec 0 0))))
 
 (defmethod save-level ((layer layer) (buffer fast-io:output-buffer))
   (save-level (name layer) buffer)
   (fast-io:writeu16-le (first (size layer)) buffer)
   (fast-io:writeu16-le (second (size layer)) buffer)
+  (save-level (location layer) buffer)
   (fast-io:write16-le (level layer) buffer)
   (fast-io:writeu16-le (tile-size layer) buffer)
   (save-level (texture layer) buffer)
@@ -122,6 +118,7 @@
    'layer :name (load-level 'symbol buffer)
           :size (list (fast-io:readu16-le buffer)
                       (fast-io:readu16-le buffer))
+          :location (load-level 'vec2 buffer)
           :level (fast-io:read16-le buffer)
           :tile-size (fast-io:readu16-le buffer)
           :texture (load-level 'asset buffer)

@@ -18,6 +18,17 @@
 (defun closer (a b dir)
   (< (abs (v. a dir)) (abs (v. b dir))))
 
+(defun update-instance-initforms (class)
+  (flet ((update (instance)
+           (loop for slot in (c2mop:class-direct-slots class)
+                 for name = (c2mop:slot-definition-name slot)
+                 for init = (c2mop:slot-definition-initform slot)
+                 when init do (setf (slot-value instance name) (eval init)))))
+    (when (window :main NIL)
+      (for:for ((entity over (scene (window :main))))
+               (when (typep entity class)
+                 (update entity))))))
+
 (define-pool leaf
   :base :leaf)
 
@@ -42,6 +53,6 @@
   ((velocity :initarg :velocity :accessor velocity)
    (bsize :initarg :bsize :accessor bsize))
   (:default-initargs :velocity (vec 0 0)
-                     :bsize (vec *default-tile-size* *default-tile-size*)))
+                     :bsize (nv/ (vec *default-tile-size* *default-tile-size*) 2)))
 
 (define-generic-handler (game-entity tick trial:tick))

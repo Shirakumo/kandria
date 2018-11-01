@@ -2,7 +2,7 @@
 
 (defparameter *default-tile-size* 8)
 
-(define-shader-entity layer (bakable)
+(define-shader-entity layer (located-entity bakable)
   ((vertex-array :initform NIL :accessor vertex-array)
    (texture :initarg :texture :accessor texture)
    (tiles :initarg :tiles :accessor tiles)
@@ -52,18 +52,18 @@
         (update-buffer-data buffer (tiles layer))))))
 
 (defmacro %with-layer-xy ((location) &body body)
-  `(let ((x (floor (vx ,location) (tile-size layer)))
-         (y (floor (vy ,location) (tile-size layer))))
+  `(let ((x (floor (- (vx ,location) (vx (location layer))) (tile-size layer)))
+         (y (floor (- (vy ,location) (vy (location layer))) (tile-size layer))))
      (when (and (< -1 x (first (size layer)))
                 (< -1 y (second (size layer))))
        ,@body)))
 
-(defun tile (location layer)
+(defmethod tile (location (layer layer))
   (%with-layer-xy (location)
     (let ((pos (+ x (* y (first (size layer))))))
       (aref (tiles layer) pos))))
 
-(defun (setf tile) (value location layer)
+(defmethod (setf tile) (value location (layer layer))
   (%with-layer-xy (location)
     (let ((pos (+ x (* y (first (size layer))))))
       (setf (aref (tiles layer) pos) value)
