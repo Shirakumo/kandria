@@ -72,10 +72,11 @@
 (define-shader-subject player (animated-sprite-subject moving facing-entity)
   ((status :initform NIL :accessor status)
    (vlim  :initform (vec 10 10) :accessor vlim)
-   (vmove :initform (vec2 0.5 0.1) :accessor vmove)
+   (vmove :initform (vec2 0.6 0.1) :accessor vmove)
+   (vair  :initform (vec2 0.3 0.1) :accessor vair)
    (vclim :initform (vec2 0.75 1.5) :accessor vclim)
    (vjump :initform (vec4 2 3.5 3 2) :accessor vjump)
-   (vdash :initform (vec2 8 0.8) :accessor vdash)
+   (vdash :initform (vec2 8 0.7) :accessor vdash)
    (jump-count :initform 0 :accessor jump-count)
    (dash-count :initform 0 :accessor dash-count))
   (:default-initargs
@@ -133,6 +134,8 @@
            (let ((dir (if (svref collisions 1) -1.0 1.0)))
              (setf (vx vel) (* dir (vz vjump)))
              (setf (vy vel) (vw vjump))
+             (when (typep colliding 'moving-platform)
+               (nv+ vel (velocity colliding)))
              (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 4)) (vy loc))
                                                :direction (vec2 dir 0))
                     +level+))))))
@@ -152,7 +155,7 @@
 (defmethod tick :after ((player player) ev)
   (when (svref (collisions player) 2)
     (setf (jump-count player) 0)
-    (when (< 20 (dash-count player))
+    (unless (eql :dashing (status player))
       (setf (dash-count player) 0))))
 
 (defmethod tick :before ((player player) ev)
@@ -172,11 +175,11 @@
                   (= 0 (mod (dash-count player) 3)))
          (enter (make-instance 'dust-cloud :location (vcopy (location player)))
                 +level+))
-       (cond ((< 20 (dash-count player))
+       (cond ((< 15 (dash-count player))
               (setf (status player) NIL))
-             ((< 15 (dash-count player))
+             ((< 12 (dash-count player))
               (nv* vel (vy vdash)))
-             ((= 10 (dash-count player))
+             ((= 8 (dash-count player))
               (nv* vel (vx vdash)))))
       (:dying
        (nv* vel 0.9))
@@ -199,6 +202,8 @@
                    (retained 'movement :climb)
                    (not (retained 'movement :jump)))
               ;; Climbing
+              (setf (direction player)
+                    (if (svref collisions 1) +1 -1))
               (cond ((retained 'movement :up)
                      (setf (vy vel) (vx vclim)))
                     ((retained 'movement :down)
@@ -211,7 +216,7 @@
                 (when (typep wall 'moving-platform)
                   (nv+ vel (velocity wall)))))
              (T
-              ;; Movement (air, ground)
+              ;; Movement
               (cond ((retained 'movement :left)
                      (setf (direction player) -1)
                      (when (< (- (vx vmove)) (vx vel))
@@ -219,11 +224,13 @@
                     ((retained 'movement :right)
                      (setf (direction player) +1)
                      (when (< (vx vel) (vx vmove))
-                       (incf (vx vel) (vx vmove)))))
-              (cond ((<= (vx vel) (- (vy vmove)))
-                     (incf (vx vel) (vy vmove)))
-                    ((<= (vy vmove) (vx vel))
+                       (incf (vx vel) (vx vmove))))
+                    (T
+                     (setf (vx vel) 0)))
+              (cond ((<= (vy vmove) (vx vel))
                      (decf (vx vel) (vy vmove)))
+                    ((<= (vx vel) (- (vy vmove)))
+                     (incf (vx vel) (vy vmove)))
                     (T
                      (setf (vx vel) 0)))
               ;; Jump progress
@@ -233,8 +240,8 @@
                   (setf (vy vel) (* (vy vjump) (vy vel))))
                 (incf (jump-count player)))
               ;; FIXME: Hard-coded gravity
-              (decf (vy vel) 0.1)
-              (nvclamp (v- vlim) vel vlim))))))
+              (decf (vy vel) 0.1)))))
+    (nvclamp (v- vlim) vel vlim))
   ;; OOB
   (when (< (vy (location player)) 0)
     (die player)))
