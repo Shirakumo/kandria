@@ -96,11 +96,14 @@
    'parallax :texture (load-level 'asset buffer)))
 
 (defmethod save-level ((platform falling-platform) (buffer fast-io:output-buffer))
-  (call-next-method))
+  (call-next-method)
+  (save-level (direction platform) buffer))
 
 (defmethod load-level ((type (eql 'falling-platform)) (buffer fast-io:input-buffer))
   (let ((layer (load-level 'layer buffer)))
-    (change-class layer 'falling-platform :velocity (vec 0 0))))
+    (change-class layer 'falling-platform
+                  :velocity (vec 0 0)
+                  :direction (load-level 'vec2 buffer))))
 
 (defmethod save-level ((layer layer) (buffer fast-io:output-buffer))
   (save-level (name layer) buffer)

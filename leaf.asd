@@ -4,6 +4,7 @@
                (:file "parallax")
                (:file "layer")
                (:file "surface")
+               (:file "moving-platform")
                (:file "moving")
                (:file "player")
                (:file "level")
