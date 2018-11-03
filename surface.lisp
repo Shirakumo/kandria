@@ -152,7 +152,7 @@ void main(){
          (unless result (return))
          (restart-case
              (progn (collide target (hit-object result) result)
-                    (return T))
+                    (return result))
            (decline ()
              :report "Decline handling the hit."
              (push (hit-location result) declined)

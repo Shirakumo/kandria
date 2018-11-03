@@ -10,12 +10,11 @@
                                 2))))
 
 (defmethod scan ((platform moving-platform) (target game-entity))
-  (unless (eq platform target)
-    (let ((hit (aabb (location target) (v- (velocity target) (velocity platform))
-                     (location platform) (v+ (bsize platform) (bsize target)))))
-      (when hit
-        (setf (hit-object hit) platform)
-        (collide target platform hit)))))
+  (let ((hit (aabb (location target) (v- (velocity target) (velocity platform))
+                   (location platform) (v+ (bsize platform) (bsize target)))))
+    (when hit
+      (setf (hit-object hit) platform)
+      (collide target platform hit))))
 
 (defmethod tick ((platform moving-platform) ev)
   (let ((vel (velocity platform)))

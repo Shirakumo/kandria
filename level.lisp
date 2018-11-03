@@ -14,10 +14,11 @@
 
 (defmethod scan ((level level) target)
   (for:for ((result as NIL)
-            (entity flare-queue:in-queue (objects level))
-            (hit = (with-simple-restart (decline "Decline handling the collision.")
-                     (scan entity target))))
-    (when hit (setf result hit))))
+            (entity flare-queue:in-queue (objects level)))
+    (unless (eq entity target)
+      (let ((hit (with-simple-restart (decline "Decline handling the collision.")
+                   (scan entity target))))
+        (when hit (setf result hit))))))
 
 (defun type->id (type-ish)
   (second (find (etypecase type-ish
