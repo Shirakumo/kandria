@@ -9,14 +9,6 @@
                                      (* (tile-size platform) h))
                                 2))))
 
-(defmethod scan ((platform moving-platform) (target vec2))
-  (let ((w (vx (bsize platform)))
-        (h (vy (bsize platform)))
-        (loc (location platform)))
-    (when (and (< (- (vx loc) w) (vx target) (+ (vx loc) w))
-               (< (- (vy loc) h) (vy target) (+ (vy loc) h)))
-      platform)))
-
 (defmethod scan ((platform moving-platform) (target game-entity))
   (unless (eq platform target)
     (let ((hit (aabb (location target) (v- (velocity target) (velocity platform))

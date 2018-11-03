@@ -29,6 +29,20 @@
                (when (typep entity class)
                  (update entity))))))
 
+(defun query (message &key default parse)
+  (format *query-io* "~&~a~@[ [~a]~]:~%> " message default)
+  (let ((read (read-line *query-io* NIL)))
+    (cond ((not read))
+          ((string= "" read)
+           default)
+          (T
+           (if parse (funcall parse read) read)))))
+
+(defmacro with-query ((value message &key default parse) &body body)
+  `(let ((,value (query ,message :default ,default :parse ,parse)))
+     (when ,value
+       ,@body)))
+
 (define-pool leaf
   :base :leaf)
 
@@ -59,3 +73,17 @@
                      :bsize (nv/ (vec *default-tile-size* *default-tile-size*) 2)))
 
 (define-generic-handler (game-entity tick trial:tick))
+
+(defmethod scan ((entity game-entity) (target vec2))
+  (let ((w (vx (bsize entity)))
+        (h (vy (bsize entity)))
+        (loc (location entity)))
+    (when (and (< (- (vx loc) w) (vx target) (+ (vx loc) w))
+               (< (- (vy loc) h) (vy target) (+ (vy loc) h)))
+      entity)))
+
+(defmethod contained-p ((target vec2) (entity game-entity))
+  (scan entity target))
+
+(defmethod contained-p ((target vec2) thing)
+  NIL)

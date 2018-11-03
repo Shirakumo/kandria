@@ -94,6 +94,15 @@
                                 (push (cons i (1- y)) q))))
             (update-buffer-data (caar (bindings (vertex-array layer))) (tiles layer))))))))
 
+(defmethod bsize ((layer layer))
+  (destructuring-bind (w h) (size layer)
+    (vec2 (* w (tile-size layer))
+          (* h (tile-size layer)))))
+
+(defmethod contained-p ((target vec2) (layer layer))
+  (%with-layer-xy (target)
+    layer))
+
 (defmethod paint ((layer layer) (pass shader-pass))
   (let ((program (shader-program-for-pass pass layer)))
     (setf (uniform program "model_matrix") (model-matrix))

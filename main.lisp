@@ -62,8 +62,8 @@
   (apply #'trial:launch 'main initargs))
 
 (defmethod setup-scene ((main main) scene)
-  (enter (make-instance 'editor) scene)
-  (enter (make-instance 'camera :name :camera) scene)
+  (enter (make-instance 'inactive-editor) scene)
+  (enter (make-instance 'camera) scene)
   (let* ((render (make-instance 'render-pass))
          (blink-pass (make-instance 'blink-pass))
          (bokeh-pass (make-instance 'hex-bokeh-pass)))
