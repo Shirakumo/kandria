@@ -1,6 +1,7 @@
 (asdf:defsystem leaf
   :components ((:file "package")
                (:file "helpers")
+               (:file "keys")
                (:file "parallax")
                (:file "layer")
                (:file "surface")
