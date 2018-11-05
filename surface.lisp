@@ -53,26 +53,6 @@
   (when (active-p (unit :editor T))
     (call-next-method)))
 
-(defmethod paint :before ((surface surface) (pass shader-pass))
-  (let ((program (shader-program-for-pass pass surface)))
-    (setf (uniform program "scale") (view-scale (unit :camera T)))
-    (setf (uniform program "offset") (location (unit :camera T)))))
-
-(define-class-shader (surface :fragment-shader -1)
-  "out vec4 color;
-uniform vec2 offset = vec2(0);
-uniform float scale = 1.0;
-
-void main(){
-  if(color.a == 0){
-    ivec2 grid = ivec2((gl_FragCoord.xy+0.5)/scale+offset);
-    float r = (grid.x%8==0 || grid.y%8==0)?0.1:0;
-    color = vec4(1,1,1,r);
-  }else{
-    color.a = 0.1;
-  }
-}")
-
 (defstruct (hit (:constructor make-hit (object time location normal)))
   (object NIL)
   (time 0.0 :type single-float)
@@ -103,12 +83,6 @@ void main(){
                 (unless (and (/= 0 (vy normal))
                              (<= (vx aabb-size) (abs (- (vx aabb-pos) (vx seg-pos)))))
                   (make-hit NIL time aabb-pos normal))))))))))
-
-(defun vsqrdist2 (a b)
-  (declare (type vec2 a b))
-  (declare (optimize speed))
-  (+ (expt (- (vx2 a) (vx2 b)) 2)
-     (expt (- (vy2 a) (vy2 b)) 2)))
 
 (defmethod scan ((surface surface) (target vec2))
   (let ((tile (tile target surface)))

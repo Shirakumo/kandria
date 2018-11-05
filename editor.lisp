@@ -1,8 +1,41 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(define-shader-subject entity-marker (vertex-entity)
+  ((vertex-array :initform (asset 'leaf 'particle))
+   (editor :initarg :editor :accessor editor)))
+
+(defmethod paint ((marker entity-marker) (pass shader-pass))
+  (let ((entity (entity (editor marker))))
+    (when (typep entity '(or game-entity layer))
+      (let ((program (shader-program-for-pass pass marker))
+            (camera (unit :camera T)))
+        (setf (uniform program "scale") (view-scale camera))
+        (setf (uniform program "offset") (v- (location camera) (target-size camera))))
+      (with-pushed-matrix ()
+        (translate (vxy_ (location entity)))
+        (scale-by (* 2 (vx (bsize entity))) (* 2 (vy (bsize entity))) 1.0)
+        (when (typep entity 'layer)
+          (translate-by 0.5 0.5 0))
+        (call-next-method)))))
+
+(define-class-shader (entity-marker :fragment-shader)
+  "out vec4 color;
+uniform vec2 offset = vec2(0);
+uniform float scale = 1.0;
+
+void main(){
+    ivec2 grid = ivec2((gl_FragCoord.xy+0.5)/scale+offset);
+    float r = (grid.x%8==0 || grid.y%8==0)?0.2:0.05;
+    color = vec4(1,1,1,r);
+}")
+
 (define-shader-subject inactive-editor (located-entity)
   ((flare:name :initform :editor)
-   (entity :initform NIL :accessor entity)))
+   (entity :initform NIL :accessor entity)
+   (marker :accessor entity-marker)))
+
+(defmethod initialize-instance :after ((editor inactive-editor) &key)
+  (setf (entity-marker editor) (make-instance 'entity-marker :editor editor)))
 
 (defmethod editor-class (thing) 'editor)
 
@@ -22,6 +55,7 @@
   (vector-push-extend (asset 'leaf 'square) resources))
 
 (defmethod register-object-for-pass :after (pass (editor inactive-editor))
+  (register-object-for-pass pass (entity-marker editor))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'editor)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'moving-editor)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'layer-editor))))
@@ -41,6 +75,10 @@
 (defmethod enter :after ((editor editor) (scene scene))
   (setf (entity editor) (unit :surface scene)))
 
+(defmethod paint :around ((editor editor) target)
+  (call-next-method)
+  (paint (entity-marker editor) target))
+
 ;; FIXME: Autosaves in lieu of undo
 
 (define-handler (editor insert-entity) (ev)
@@ -57,9 +95,8 @@
 (define-handler (editor mouse-move-pos mouse-move) (ev pos)
   (let ((loc (location editor))
         (camera (unit :camera T)))
-    (vsetf loc
-           (+ (/ (vx pos) (view-scale camera)) (vx (location camera)))
-           (+ (/ (vy pos) (view-scale camera)) (vy (location camera))))
+    (vsetf loc (vx pos) (vy pos))
+    (nv- (nv+ (nv/ loc (view-scale camera)) (location camera)) (target-size camera))
     (let ((t-s *default-tile-size*))
       (setf (vx loc) (* t-s (floor (vx loc) t-s)))
       (setf (vy loc) (* t-s (floor (vy loc) t-s))))))

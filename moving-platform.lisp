@@ -22,19 +22,6 @@
                      (scan +level+ platform)))
     (nv+ (location platform) vel)))
 
-(defmethod paint ((platform moving-platform) target)
-  (translate (nv- (vxy_ (bsize platform))))
-  (call-next-method))
-
-(defmethod tile (location (platform moving-platform))
-  (call-next-method (v+ location (bsize platform)) platform))
-
-(defmethod (setf tile) (value location (platform moving-platform))
-  (call-next-method value (v+ location (bsize platform)) platform))
-
-(defmethod flood-fill ((platform moving-platform) location fill)
-  (call-next-method platform (v+ location (bsize platform)) fill))
-
 (define-shader-subject falling-platform (moving-platform)
   ((status :initform :hanging :accessor status)
    (direction :initarg :direction :accessor direction)
