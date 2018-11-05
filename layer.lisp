@@ -96,8 +96,8 @@
 
 (defmethod bsize ((layer layer))
   (destructuring-bind (w h) (size layer)
-    (vec2 (* w (tile-size layer))
-          (* h (tile-size layer)))))
+    (vec2 (* w 0.5 (tile-size layer))
+          (* h 0.5 (tile-size layer)))))
 
 (defmethod contained-p ((target vec2) (layer layer))
   (%with-layer-xy (target)

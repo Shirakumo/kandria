@@ -44,8 +44,7 @@
 (define-handler (camera resize) (ev)
   (setf (view-scale camera) (* (float (/ (width ev) (* 2 (vx (target-size camera)))))
                                (zoom camera)))
-  (setf (vy (target-size camera)) (/ (height ev) (view-scale camera) 2))
-  (print (target-size camera)))
+  (setf (vy (target-size camera)) (/ (height ev) (view-scale camera) 2)))
 
 (defmethod project-view ((camera camera) ev)
   (let ((z (view-scale camera)))

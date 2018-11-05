@@ -76,12 +76,9 @@
   ())
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  (let ((size (list 512 64)))
+  (let ((size (list 1 1)))
     (enter (make-instance 'parallax) level)
-    (enter (make-instance 'layer :size size :texture (asset 'leaf 'decals) :level -1) level)
     (enter (make-instance 'player) level)
-    (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :level  0) level)
-    (enter (make-instance 'layer :size size :texture (asset 'leaf 'decals) :level +1) level)
-    (enter (make-instance 'surface :size size) level)
-    (enter (make-instance 'falling-platform :location (vec 64 64) :size '(4 4)) level)))
+    (enter (make-instance 'layer :size size :texture (asset 'leaf 'ground) :level 0) level)
+    (enter (make-instance 'surface :size size) level)))
 

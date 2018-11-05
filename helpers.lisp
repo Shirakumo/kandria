@@ -15,6 +15,12 @@
   (vec (+ min (random (- max min)))
        (+ min (random (- max min)))))
 
+(defun vsqrdist2 (a b)
+  (declare (type vec2 a b))
+  (declare (optimize speed))
+  (+ (expt (- (vx2 a) (vx2 b)) 2)
+     (expt (- (vy2 a) (vy2 b)) 2)))
+
 (defun closer (a b dir)
   (< (abs (v. a dir)) (abs (v. b dir))))
 
