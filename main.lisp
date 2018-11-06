@@ -3,12 +3,6 @@
 (define-asset (leaf ground) image
     #p"ground.png")
 
-(define-asset (leaf decals) image
-    #p"decals.png")
-
-(define-asset (leaf surface) image
-    #p"surface.png")
-
 (define-asset (leaf player) image
     #p"player.png"
   :min-filter :nearest
@@ -76,6 +70,6 @@
   ())
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  (let ((size (list 1 1)))
-    (enter (make-instance 'chunk :size size) level)))
+  (enter (make-instance 'player :location (vec 8 8)) level)
+  (enter (make-instance 'chunk :size (cons 8 8) :location (vec 32 32)) level))
 
