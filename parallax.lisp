@@ -11,8 +11,7 @@
     (with-pushed-attribs
       (setf (uniform program "aspect") (float (/ (width *context*)
                                                  (height *context*))))
-      (setf (uniform program "offset") (nv- (vapply (location (unit :camera T)) floor)
-                                            (target-size (unit :camera T))))
+      (setf (uniform program "offset") (vapply (location (unit :camera T)) floor))
       (setf (uniform program "parallax") 0)
       (gl:active-texture :texture0)
       (gl:bind-texture :texture-2d (gl-name (texture parallax)))
