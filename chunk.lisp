@@ -41,7 +41,7 @@
     (setf (uniform program "tile_size") (tile-size chunk))
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "view_scale") (/ (view-scale camera)))
-    (setf (uniform program "view_offset") (nv+ (nv- (v- (location camera) (target-size camera)) (location chunk))
+    (setf (uniform program "view_offset") (nv+ (v- (location camera) (location chunk))
                                                (bsize chunk)))
     (setf (uniform program "tileset") 0)
     (setf (uniform program "tilemap") 1)
