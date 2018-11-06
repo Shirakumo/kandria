@@ -41,7 +41,7 @@
     (setf (uniform program "tile_size") (tile-size chunk))
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "view_scale") (/ (view-scale camera)))
-    (setf (uniform program "view_offset") (nv+ (v- (location camera) (location chunk))
+    (setf (uniform program "view_offset") (nv+ (nv- (v- (location camera) (target-size camera)) (location chunk))
                                                (bsize chunk)))
     (setf (uniform program "tileset") 0)
     (setf (uniform program "tilemap") 1)
@@ -186,8 +186,8 @@ void main(){
               y+ (ceiling (vy loc) t-s)))
     ;; Sweep AABB through tiles
     (loop
-       (loop for x from (max x- 0) to (min x+ w)
-             do (loop for y from (max y- 0) to (min y+ h)
+       (loop for x from (max x- 0) to (min x+ (1- w))
+             do (loop for y from (max y- 0) to (min y+ (1- h))
                       for tile = (aref tilemap (* (+ x (* y w)) 4))
                       for hit = (when (/= 0 tile) (aabb loc vel (vec (+ (/ t-s 2) (* t-s x)) (+ (/ t-s 2) (* t-s y))) size))
                       do (when (and hit

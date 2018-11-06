@@ -84,8 +84,8 @@
   (let ((w (vx (bsize entity)))
         (h (vy (bsize entity)))
         (loc (location entity)))
-    (when (and (< (- (vx loc) w) (vx target) (+ (vx loc) w))
-               (< (- (vy loc) h) (vy target) (+ (vy loc) h)))
+    (when (and (<= (- (vx loc) w) (vx target) (+ (vx loc) w))
+               (<= (- (vy loc) h) (vy target) (+ (vy loc) h)))
       entity)))
 
 (defmethod contained-p ((target vec2) (entity game-entity))

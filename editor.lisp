@@ -14,8 +14,6 @@
       (with-pushed-matrix ()
         (translate (vxy_ (location entity)))
         (scale-by (* 2 (vx (bsize entity))) (* 2 (vy (bsize entity))) 1.0)
-        (when (typep entity 'layer)
-          (translate-by 0.5 0.5 0))
         (call-next-method)))))
 
 (define-class-shader (entity-marker :fragment-shader)
@@ -96,7 +94,7 @@ void main(){
   (let ((loc (location editor))
         (camera (unit :camera T)))
     (vsetf loc (vx pos) (vy pos))
-    (nv+ (nv/ loc (view-scale camera)) (location camera))
+    (nv- (nv+ (nv/ loc (view-scale camera)) (location camera)) (target-size camera))
     (let ((t-s *default-tile-size*))
       (setf (vx loc) (* t-s (floor (vx loc) t-s)))
       (setf (vy loc) (* t-s (floor (vy loc) t-s))))))
@@ -148,10 +146,7 @@ void main(){
 
 (defmethod paint :around ((editor editor) target)
   (when (active-p editor)
-    (with-pushed-matrix ()
-      (let ((off (target-size (unit :camera T))))
-        (translate-by (- (vx off)) (- (vy off)) 0))
-      (call-next-method))))
+    (call-next-method)))
 
 (define-shader-subject moving-editor (editor)
   ((dragging :initform NIL :accessor dragging)))

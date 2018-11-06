@@ -199,8 +199,8 @@
 (defmethod death ((player player))
   (start (reset (progression 'revive +level+)))
   (setf (animation player) 6)
-  (setf (vx (location player)) 96)
-  (setf (vy (location player)) 32))
+  (setf (vx (location player)) 16)
+  (setf (vy (location player)) 16))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit :player T))) (vy (location (unit :camera T))))
