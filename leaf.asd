@@ -5,6 +5,7 @@
                (:file "parallax")
                (:file "layer")
                (:file "surface")
+               (:file "chunk")
                (:file "moving-platform")
                (:file "moving")
                (:file "player")

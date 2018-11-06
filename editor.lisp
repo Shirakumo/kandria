@@ -96,7 +96,7 @@ void main(){
   (let ((loc (location editor))
         (camera (unit :camera T)))
     (vsetf loc (vx pos) (vy pos))
-    (nv- (nv+ (nv/ loc (view-scale camera)) (location camera)) (target-size camera))
+    (nv+ (nv/ loc (view-scale camera)) (location camera))
     (let ((t-s *default-tile-size*))
       (setf (vx loc) (* t-s (floor (vx loc) t-s)))
       (setf (vy loc) (* t-s (floor (vy loc) t-s))))))
@@ -148,7 +148,10 @@ void main(){
 
 (defmethod paint :around ((editor editor) target)
   (when (active-p editor)
-    (call-next-method)))
+    (with-pushed-matrix ()
+      (let ((off (target-size (unit :camera T))))
+        (translate-by (- (vx off)) (- (vy off)) 0))
+      (call-next-method))))
 
 (define-shader-subject moving-editor (editor)
   ((dragging :initform NIL :accessor dragging)))
@@ -219,8 +222,7 @@ void main(){
   (let ((program (shader-program-for-pass pass editor))
         (layer (entity editor)))
     (gl:bind-texture :texture-2d (gl-name (texture layer)))
-    (multiple-value-bind (y x) (floor (* (tile-size layer) (tile-to-place editor)) (width (texture layer)))
-      (setf (uniform program "tile") (vec2 x (* (tile-size layer) y))))))
+    (setf (uniform program "tile") (vec2 (* (tile-size layer) (tile-to-place editor)) 0))))
 
 (define-class-shader (layer-editor :vertex-shader)
   "
@@ -241,3 +243,43 @@ out vec4 color;
 void main(){
   color = texelFetch(tileset, ivec2(uv), 0);
 }")
+
+(define-shader-subject chunk-editor (layer-editor)
+  ((level :initform 0 :accessor level)))
+
+(defmethod editor-class ((chunk chunk)) 'chunk-editor)
+
+(define-handler (chunk-editor key-press) (ev key)
+  (case key
+    (:1 (setf (level chunk-editor) 0))
+    (:2 (setf (level chunk-editor) 1))
+    (:3 (setf (level chunk-editor) 2))
+    (:4 (setf (level chunk-editor) 3))))
+
+(defmethod paint ((editor chunk-editor) (pass shader-pass))
+  (let ((program (shader-program-for-pass pass editor))
+        (chunk (entity editor)))
+    (setf (uniform program "tile") (vec2 (* (tile-size chunk) (tile-to-place editor))
+                                         (ecase (level editor)
+                                           (0     (* 2 (tile-size chunk)))
+                                           ((1 3) (* 1 (tile-size chunk)))
+                                           (2     (* 0 (tile-size chunk)))))))
+  (call-next-method))
+
+(define-handler (chunk-editor mouse-press) (ev button)
+  (let ((chunk (entity chunk-editor))
+        (tile (case button
+                (:left (tile-to-place chunk-editor))
+                (:right 0)))
+        (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor))))
+    (when tile
+      (if (retained 'modifiers :control)
+          (flood-fill chunk loc tile)
+          (setf (tile loc chunk) tile)))))
+
+(define-handler (chunk-editor mouse-move) (ev)
+  (let ((loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor))))
+    (when (retained 'mouse :left)
+      (setf (tile loc (entity chunk-editor)) (tile-to-place chunk-editor)))
+    (when (retained 'mouse :right)
+      (setf (tile loc (entity chunk-editor)) 0))))

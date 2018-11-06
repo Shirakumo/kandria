@@ -10,7 +10,8 @@
    (tile-size :initarg :tile-size :accessor tile-size)
    (level :initarg :level :accessor level))
   (:default-initargs
-   :texture (error "TEXTURE required")
+   :name :surface
+   :texture (asset 'leaf 'ground)
    :tiles NIL
    :size (error "SIZE required")
    :tile-size *default-tile-size*

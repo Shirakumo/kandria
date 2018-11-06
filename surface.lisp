@@ -40,14 +40,15 @@
                      do (make 'slope (floor l) (floor r))))
       blocks)))
 
-(defparameter *default-surface-blocks* (make-surface-blocks *default-tile-size* '(1 2 3)))
+(sb-ext:defglobal +surface-blocks+ NIL)
+(setf +surface-blocks+ (make-surface-blocks *default-tile-size* '(1 2 3)))
 
 (define-shader-entity surface (layer)
   ((blocks :initarg :blocks :accessor blocks))
   (:default-initargs
    :texture (asset 'leaf 'surface)
    :name :surface
-   :blocks *default-surface-blocks*))
+   :blocks +surface-blocks+))
 
 (defmethod paint :around ((surface surface) target)
   (when (active-p (unit :editor T))
