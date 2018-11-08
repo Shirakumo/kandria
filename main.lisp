@@ -67,9 +67,10 @@
     ))
 
 (defclass empty-level (level)
-  ())
+  ()
+  (:default-initargs :name :untitled))
 
 (defmethod initialize-instance :after ((level empty-level) &key)
   (enter (make-instance 'player :location (vec 8 8)) level)
-  (enter (make-instance 'chunk :size (cons 8 8) :location (vec 32 32)) level))
+  (enter (make-instance 'chunk :size (cons 16 16)) level))
 

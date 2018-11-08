@@ -6,15 +6,17 @@
 
 (defmethod paint ((marker entity-marker) (pass shader-pass))
   (let ((entity (entity (editor marker))))
-    (when (typep entity '(or game-entity layer))
+    (when (typep entity '(or game-entity chunk))
       (let ((program (shader-program-for-pass pass marker))
             (camera (unit :camera T)))
         (setf (uniform program "scale") (view-scale camera))
         (setf (uniform program "offset") (location camera)))
+      (gl:blend-func :one-minus-dst-color :src-alpha)
       (with-pushed-matrix ()
         (translate (vxy_ (location entity)))
         (scale-by (* 2 (vx (bsize entity))) (* 2 (vy (bsize entity))) 1.0)
-        (call-next-method)))))
+        (call-next-method))
+      (gl:blend-func :src-alpha :one-minus-src-alpha))))
 
 (define-class-shader (entity-marker :fragment-shader)
   "out vec4 color;
@@ -22,9 +24,9 @@ uniform vec2 offset = vec2(0);
 uniform float scale = 1.0;
 
 void main(){
-    ivec2 grid = ivec2((gl_FragCoord.xy+0.5)/scale+offset);
-    float r = (grid.x%8==0 || grid.y%8==0)?0.2:0.05;
-    color = vec4(1,1,1,r);
+    ivec2 grid = ivec2(floor((gl_FragCoord.xy+0.5)/scale+offset));
+    float r = (grid.x%8==0 || grid.y%8==0)?1.0:0.0;
+    color = vec4(r,r,r,1-r);
 }")
 
 (define-shader-subject inactive-editor (located-entity)
@@ -56,7 +58,7 @@ void main(){
   (register-object-for-pass pass (entity-marker editor))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'editor)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'moving-editor)))
-  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'layer-editor))))
+  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'chunk-editor))))
 
 (define-shader-subject editor (inactive-editor)
   ())
@@ -69,9 +71,6 @@ void main(){
 (defmethod (setf entity) :after (value (editor editor))
   (change-class editor (editor-class value))
   (v:info :leaf.editor "Switched entity to ~a (~a)" value (type-of editor)))
-
-(defmethod enter :after ((editor editor) (scene scene))
-  (setf (entity editor) (unit :surface scene)))
 
 (defmethod paint :around ((editor editor) target)
   (call-next-method)
@@ -89,6 +88,9 @@ void main(){
 
 (define-handler (editor standard-entity) (ev)
   (setf (entity editor) (unit :surface scene)))
+
+(define-handler (editor mouse-press) (ev)
+  (setf (entity editor) (entity-at-point (location editor) +level+)))
 
 (define-handler (editor mouse-move-pos mouse-move) (ev pos)
   (let ((loc (location editor))
@@ -144,24 +146,13 @@ void main(){
     (cond ((retained 'movement :down) (decf (vy loc) 1))
           ((retained 'movement :up) (incf (vy loc) 1)))))
 
-(defmethod paint :around ((editor editor) target)
-  (when (active-p editor)
-    (call-next-method)))
-
 (define-shader-subject moving-editor (editor)
   ((dragging :initform NIL :accessor dragging)))
 
 (defmethod editor-class ((moving moving)) 'moving-editor)
 
 (define-handler (moving-editor mouse-press) (ev)
-  (let ((hit (for:for ((result as NIL)
-                       (entity over +level+))
-               (when (and (typep entity 'located-entity)
-                          (contained-p (location moving-editor) entity)
-                          (or (null result)
-                              (< (vlength (bsize entity))
-                                 (vlength (bsize result)))))
-                 (setf result entity)))))
+  (let ((hit (entity-at-point (location moving-editor) +level+)))
     (cond ((not hit))
           ((eq hit (entity moving-editor))
            (setf (dragging moving-editor) T))
@@ -177,72 +168,16 @@ void main(){
            (vx (location moving-editor))
            (vy (location moving-editor)))))
 
-(define-shader-subject layer-editor (editor vertex-entity)
+(define-shader-subject chunk-editor (editor vertex-entity)
   ((tile :initform 1 :accessor tile-to-place)
+   (level :initform 0 :accessor level)
    (vertex-array :initform (asset 'leaf 'square))))
 
-(defmethod editor-class ((layer layer)) 'layer-editor)
-
-(define-handler (layer-editor resize-layer) (ev)
-  (with-query (size "New layer size" :parse #'read-from-string)
-    (setf (size (entity editor)) size)))
-
-(define-handler (layer-editor change-tile mouse-scroll) (ev delta)
-  (unless (retained 'modifiers :control)
-    (cond ((< 0 delta)
-           (incf (tile-to-place layer-editor)))
-          ((< delta 0)
-           (decf (tile-to-place layer-editor))))
-    (setf (tile-to-place layer-editor)
-          (max 0 (min 255 (tile-to-place layer-editor))))))
-
-(define-handler (layer-editor mouse-press) (ev button)
-  (let ((layer (entity layer-editor))
-        (tile (case button
-                (:left (tile-to-place layer-editor))
-                (:right 0))))
-    (when tile
-      (if (retained 'modifiers :control)
-          (flood-fill layer (location layer-editor) tile)
-          (setf (tile (location layer-editor) layer) tile)))))
-
-(define-handler (layer-editor mouse-move) (ev)
-  (let ((loc (location layer-editor)))
-    (when (retained 'mouse :left)
-      (setf (tile loc (entity layer-editor)) (tile-to-place layer-editor)))
-    (when (retained 'mouse :right)
-      (setf (tile loc (entity layer-editor)) 0))))
-
-(defmethod paint :before ((editor layer-editor) (pass shader-pass))
-  (let ((program (shader-program-for-pass pass editor))
-        (layer (entity editor)))
-    (gl:bind-texture :texture-2d (gl-name (texture layer)))
-    (setf (uniform program "tile") (vec2 (* (tile-size layer) (tile-to-place editor)) 0))))
-
-(define-class-shader (layer-editor :vertex-shader)
-  "
-layout (location = 0) in vec3 vertex;
-uniform vec2 tile;
-out vec2 uv;
-
-void main(){
-  uv = vertex.xy + tile;
-}")
-
-(define-class-shader (layer-editor :fragment-shader)
-  "
-uniform sampler2D tileset;
-in vec2 uv;
-out vec4 color;
-
-void main(){
-  color = texelFetch(tileset, ivec2(uv), 0);
-}")
-
-(define-shader-subject chunk-editor (layer-editor)
-  ((level :initform 0 :accessor level)))
-
 (defmethod editor-class ((chunk chunk)) 'chunk-editor)
+
+(define-handler (chunk-editor resize-chunk) (ev)
+  (with-query (size "New chunk size" :parse #'read-from-string)
+    (setf (size (entity chunk-editor)) size)))
 
 (define-handler (chunk-editor key-press) (ev key)
   (case key
@@ -250,16 +185,6 @@ void main(){
     (:2 (setf (level chunk-editor) 1))
     (:3 (setf (level chunk-editor) 2))
     (:4 (setf (level chunk-editor) 3))))
-
-(defmethod paint ((editor chunk-editor) (pass shader-pass))
-  (let ((program (shader-program-for-pass pass editor))
-        (chunk (entity editor)))
-    (setf (uniform program "tile") (vec2 (* (tile-size chunk) (tile-to-place editor))
-                                         (ecase (level editor)
-                                           (0     (* 2 (tile-size chunk)))
-                                           ((1 3) (* 1 (tile-size chunk)))
-                                           (2     (* 0 (tile-size chunk)))))))
-  (call-next-method))
 
 (define-handler (chunk-editor mouse-press) (ev button)
   (let ((chunk (entity chunk-editor))
@@ -278,3 +203,43 @@ void main(){
       (setf (tile loc (entity chunk-editor)) (tile-to-place chunk-editor)))
     (when (retained 'mouse :right)
       (setf (tile loc (entity chunk-editor)) 0))))
+
+(define-handler (chunk-editor change-tile mouse-scroll) (ev delta)
+  (unless (retained 'modifiers :control)
+    (cond ((< 0 delta)
+           (incf (tile-to-place chunk-editor)))
+          ((< delta 0)
+           (decf (tile-to-place chunk-editor))))
+    (setf (tile-to-place chunk-editor)
+          (max 0 (min 255 (tile-to-place chunk-editor))))))
+
+(defmethod paint :before ((editor chunk-editor) (pass shader-pass))
+  (let ((program (shader-program-for-pass pass editor))
+        (chunk (entity editor)))
+    (gl:bind-texture :texture-2d (gl-name (texture chunk)))
+    (setf (uniform program "tile") (vec2 (* (tile-size chunk) (tile-to-place editor))
+                                         (ecase (level editor)
+                                           (0     (* 2 (tile-size chunk)))
+                                           ((1 3) (* 1 (tile-size chunk)))
+                                           (2     (* 0 (tile-size chunk))))))))
+
+(define-class-shader (chunk-editor :vertex-shader)
+  "
+layout (location = 0) in vec3 vertex;
+uniform vec2 tile;
+out vec2 uv;
+
+void main(){
+  uv = vertex.xy + tile;
+}")
+
+(define-class-shader (chunk-editor :fragment-shader)
+  "
+uniform sampler2D tileset;
+in vec2 uv;
+out vec4 color;
+
+void main(){
+  color = texelFetch(tileset, ivec2(uv), 0);
+}")
+

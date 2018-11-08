@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defparameter *default-tile-size* 8)
+
 (sb-ext:defglobal +level+ NIL)
 
 (defun maybe-finalize-inheritance (class)
@@ -23,6 +25,9 @@
 
 (defun closer (a b dir)
   (< (abs (v. a dir)) (abs (v. b dir))))
+
+(defun clamp (low mid high)
+  (max low (min mid high)))
 
 (defun update-instance-initforms (class)
   (flet ((update (instance)
@@ -49,6 +54,16 @@
      (when ,value
        ,@body)))
 
+(defun entity-at-point (point level)
+  (for:for ((result as NIL)
+            (entity over level))
+    (when (and (typep (print entity) 'base-entity)
+               (contained-p point entity)
+               (or (null result)
+                   (< (vlength (bsize entity))
+                      (vlength (bsize result)))))
+      (setf result entity))))
+
 (define-pool leaf
   :base :leaf)
 
@@ -56,7 +71,10 @@
   ())
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (defclass located-entity (entity)
+  (defclass base-entity (entity)
+    ())
+  
+  (defclass located-entity (base-entity)
     ((location :initarg :location :initform (vec 0 0) :accessor location))))
 
 (defmethod paint :around ((obj located-entity) target)
@@ -64,7 +82,7 @@
     (translate-by (round (vx (location obj))) (round (vy (location obj))) 0)
     (call-next-method)))
 
-(defclass facing-entity (entity)
+(defclass facing-entity (base-entity)
   ((direction :initarg :direction :initform -1 :accessor direction)))
 
 (defmethod paint :around ((obj facing-entity) target)

@@ -1,16 +1,18 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defparameter *id-type-map* '((player 1)
-                              (layer 2)
-                              (surface 3)
-                              (parallax 4)
-                              (falling-platform 5)))
+                              (parallax 2)
+                              (chunk 3)
+                              (falling-platform 4)))
 
 (defclass level (pipelined-scene)
   ((file :initform NIL :initarg :file :accessor file)))
 
-(defmethod initialize-instance :after ((level level) &key file)
-  (when file (load-level level file)))
+(defmethod initialize-instance :after ((level level) &key)
+  (when (and (name level) (not (file level)))
+    (setf (file level) (pool-path 'leaf (format NIL "~a.map" (symbol-name (name level))))))
+  (when (and (file level) (probe-file (file level)))
+    (load-level level (file level))))
 
 (defmethod scan ((level level) target)
   (for:for ((result as NIL)
@@ -45,12 +47,14 @@
   (with-open-file (out file :direction :output
                             :element-type '(unsigned-byte 8)
                             :if-exists :supersede)
-    (save-level object out)))
+    (let ((*default-pathname-defaults* file))
+      (save-level object out))))
 
 (defmethod load-level (object (file pathname))
   (with-open-file (in file :direction :input
                            :element-type '(unsigned-byte 8))
-    (load-level object in)))
+    (let ((*default-pathname-defaults* file))
+      (load-level object in))))
 
 (defmethod save-level (object (stream stream))
   (fast-io:with-fast-output (buffer stream)
@@ -68,6 +72,7 @@
     (load-level object buffer)))
 
 (defmethod save-level ((scene scene) (buffer fast-io:output-buffer))
+  (save-level (name scene) buffer)
   (for:for ((entity over scene)
             (id = (type->id entity)))
     (when id
@@ -77,8 +82,10 @@
 
 (defmethod load-level ((scene scene) (buffer fast-io:input-buffer))
   (handler-case
-      (loop for type = (id->type (fast-io:readu16-le buffer))
-            do (enter (load-level type buffer) scene))
+      (progn
+        (setf (name scene) (load-level 'symbol buffer))
+        (loop for type = (id->type (fast-io:readu16-le buffer))
+              do (enter (load-level type buffer) scene)))
     (end-of-file (e)
       scene)))
 
@@ -101,37 +108,37 @@
   (save-level (direction platform) buffer))
 
 (defmethod load-level ((type (eql 'falling-platform)) (buffer fast-io:input-buffer))
-  (let ((layer (load-level 'layer buffer)))
+  (let ((layer (load-level 'chunk buffer)))
     (change-class layer 'falling-platform
                   :velocity (vec 0 0)
                   :direction (load-level 'vec2 buffer))))
 
-(defmethod save-level ((layer layer) (buffer fast-io:output-buffer))
-  (save-level (name layer) buffer)
-  (fast-io:writeu16-le (first (size layer)) buffer)
-  (fast-io:writeu16-le (second (size layer)) buffer)
-  (save-level (location layer) buffer)
-  (fast-io:write16-le (level layer) buffer)
-  (fast-io:writeu16-le (tile-size layer) buffer)
-  (save-level (texture layer) buffer)
-  (fast-io:writeu32-le (length (tiles layer)) buffer)
-  (fast-io:fast-write-sequence (tiles layer) buffer))
+(defmethod save-level ((chunk chunk) (buffer fast-io:output-buffer))
+  (save-level (name chunk) buffer)
+  (save-level (location chunk) buffer)
+  (fast-io:writeu16-le (car (size chunk)) buffer)
+  (fast-io:writeu16-le (cdr (size chunk)) buffer)
+  (fast-io:writeu16-le (tile-size chunk) buffer)
+  (save-level (tileset chunk) buffer)
+  (let ((path (format NIL "~a.~a.raw"
+                      (symbol-name (or (name +level+) :chunk))
+                      (symbol-name (name chunk)))))
+    (with-open-file (stream path :direction :output
+                                 :element-type '(unsigned-byte 8)
+                                 :if-exists :supersede)
+      (write-sequence (tilemap chunk) stream))
+    (save-level path buffer)))
 
-(defmethod load-level ((type (eql 'layer)) (buffer fast-io:input-buffer))
+(defmethod load-level ((chunk (eql 'chunk)) (buffer fast-io:input-buffer))
   (make-instance
-   'layer :name (load-level 'symbol buffer)
-          :size (list (fast-io:readu16-le buffer)
-                      (fast-io:readu16-le buffer))
+   'chunk :name (load-level 'symbol buffer)
           :location (load-level 'vec2 buffer)
-          :level (fast-io:read16-le buffer)
+          :size (cons (fast-io:readu16-le buffer)
+                      (fast-io:readu16-le buffer))
           :tile-size (fast-io:readu16-le buffer)
-          :texture (load-level 'asset buffer)
-          :tiles (let* ((size (fast-io:readu32-le buffer))
-                        (tiles (make-array size :element-type '(unsigned-byte 8))))
-                   (loop for start = 0 then read
-                         for read = (fast-io:fast-read-sequence tiles buffer start)
-                         while (< read (length tiles)))
-                   tiles)))
+          :tileset (load-level 'asset buffer)
+          :tilemap (merge-pathnames (load-level 'string buffer)
+                                    *default-pathname-defaults*)))
 
 (defmethod save-level ((vec vec2) (buffer fast-io:output-buffer))
   (fast-io:writeu32-le (ieee-floats:encode-float32 (vx2 vec)) buffer)
@@ -148,27 +155,21 @@
   (asset 'leaf (load-level 'symbol buffer)))
 
 (defmethod save-level ((symbol symbol) (buffer fast-io:output-buffer))
-  (fast-io:fast-write-sequence (babel:string-to-octets (package-name (symbol-package symbol)) :encoding :utf-8) buffer)
-  (fast-io:fast-write-byte 0 buffer)
-  (fast-io:fast-write-sequence (babel:string-to-octets (symbol-name symbol) :encoding :utf-8) buffer)
-  (fast-io:fast-write-byte 0 buffer))
+  (save-level (package-name (symbol-package symbol)) buffer)
+  (save-level (symbol-name symbol) buffer))
 
 (defmethod load-level ((type (eql 'symbol)) (buffer fast-io:input-buffer))
-  (let ((vector (make-array 0 :element-type '(unsigned-byte 8) :adjustable T :fill-pointer 0)))
+  (let ((package (load-level 'string buffer))
+        (name (load-level 'name buffer)))
+    (intern name package)))
+
+(defmethod save-level ((string string) (buffer fast-io:output-buffer))
+  (fast-io:fast-write-sequence (babel:string-to-octets string :encoding :utf-8) buffer)
+  (fast-io:fast-write-byte 0 buffer))
+
+(defmethod load-level ((type (eql 'string)) (buffer fast-io:input-buffer))
+  (let ((vector (make-array 32 :element-type '(unsigned-byte 8) :adjustable T :fill-pointer 0)))
     (loop for b = (fast-io:fast-read-byte buffer)
           until (= 0 b)
           do (vector-push-extend b vector))
-    (let ((package (babel:octets-to-string vector :encoding :utf-8)))
-      (setf (fill-pointer vector) 0)
-      (loop for b = (fast-io:fast-read-byte buffer)
-            until (= 0 b)
-            do (vector-push-extend b vector))
-      (let ((name (babel:octets-to-string vector :encoding :utf-8)))
-        (intern name package)))))
-
-(defmethod save-level ((surface surface) (buffer fast-io:output-buffer))
-  (call-next-method))
-
-(defmethod load-level ((type (eql 'surface)) (buffer fast-io:input-buffer))
-  (change-class (load-level 'layer buffer) 'surface
-                :blocks *default-surface-blocks*))
+    (babel:octets-to-string vector :encoding :utf-8)))
