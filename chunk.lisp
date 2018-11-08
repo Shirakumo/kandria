@@ -31,8 +31,7 @@
                                                 :pixel-format :rgba-integer
                                                 :internal-format :rgba8ui
                                                 :min-filter :nearest
-                                                :mag-filter :nearest
-                                                :wrapping :clamp-to-border)))
+                                                :mag-filter :nearest)))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
@@ -77,9 +76,11 @@ in vec2 map_coord;
 out vec4 color;
 
 void main(){
-  ivec2 map_wh = textureSize(tilemap, 0);
-  vec2 map_xy = floor(map_coord);
-  ivec4 layers = ivec4(texture(tilemap, map_xy/(map_wh*tile_size)));
+  ivec2 map_wh = textureSize(tilemap, 0)*tile_size;
+  ivec2 map_xy = ivec2(floor(map_coord));
+  ivec4 layers = ivec4(0);
+  if(0 <= map_xy.x && 0 <= map_xy.y && map_xy.x < map_wh.x && map_xy.y < map_wh.y)
+    layers = ivec4(texelFetch(tilemap, map_xy/tile_size, 0));
   ivec2 set_xy = ivec2(mod(map_xy.x, tile_size), mod(map_xy.y, tile_size));
   vec4 l__ = texelFetch(tileset, set_xy+ivec2(layers.r, 2)*tile_size, 0);
   vec4 ln1 = texelFetch(tileset, set_xy+ivec2(layers.g, 1)*tile_size, 0);
