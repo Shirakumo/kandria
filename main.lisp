@@ -71,6 +71,7 @@
   (:default-initargs :name :untitled))
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  (enter (make-instance 'player :location (vec 8 8)) level)
-  (enter (make-instance 'chunk :size (cons 16 16)) level))
+  (enter (make-instance 'parallax) level)
+  (enter (make-instance 'player :location (vec 64 64)) level)
+  (enter (make-instance 'chunk :size (cons 64 64)) level))
 
