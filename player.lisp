@@ -173,8 +173,9 @@
               (decf (vy vel) 0.1)))))
     (nvclamp (v- vlim) vel vlim))
   ;; OOB
-  (when (< (vy (location player)) 0)
-    (die player)))
+  ;; (when (< (vy (location player)) 0)
+  ;;   (die player))
+  )
 
 (defmethod enter :after ((player player) (scene scene))
   (add-progression (progression-definition 'intro) scene)

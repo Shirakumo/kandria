@@ -24,8 +24,8 @@ uniform vec2 offset = vec2(0);
 uniform float scale = 1.0;
 
 void main(){
-    ivec2 grid = ivec2(floor((gl_FragCoord.xy+0.5)/scale+offset));
-    float r = (grid.x%8==0 || grid.y%8==0)?1.0:0.0;
+    ivec2 grid = ivec2(floor((gl_FragCoord.xy+0.5)+offset*scale));
+    float r = (floor(mod(grid.x, 8*scale))==0.0 || floor(mod(grid.y, 8*scale))==0)?1.0:0.0;
     color = vec4(r,r,r,1-r);
 }")
 
@@ -57,11 +57,10 @@ void main(){
 (defmethod register-object-for-pass :after (pass (editor inactive-editor))
   (register-object-for-pass pass (entity-marker editor))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'editor)))
-  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'moving-editor)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'chunk-editor))))
 
 (define-shader-subject editor (inactive-editor)
-  ())
+  ((status :initform NIL :accessor status)))
 
 (defmethod active-p ((editor editor)) T)
 
@@ -89,17 +88,27 @@ void main(){
 (define-handler (editor standard-entity) (ev)
   (setf (entity editor) (unit :surface scene)))
 
-(define-handler (editor mouse-press) (ev)
-  (setf (entity editor) (entity-at-point (location editor) +level+)))
-
-(define-handler (editor mouse-move-pos mouse-move) (ev pos)
-  (let ((loc (location editor))
-        (camera (unit :camera T)))
+(define-handler (editor mouse-press) (ev pos)
+  (let ((loc (location editor)))
     (vsetf loc (vx pos) (vy pos))
-    (nv+ (nv/ loc (view-scale camera)) (location camera))
-    (let ((t-s *default-tile-size*))
-      (setf (vx loc) (* t-s (floor (vx loc) t-s)))
-      (setf (vy loc) (* t-s (floor (vy loc) t-s))))))
+    (nv+ (nv/ loc (view-scale (unit :camera T))) (location (unit :camera T)))
+    (nvalign loc *default-tile-size*)
+    (unless (entity editor)
+      (setf (entity editor) (entity-at-point loc +level+)))
+    (when (retained 'modifiers :alt)
+      (setf (status editor) :dragging))))
+
+(define-handler (editor mouse-release) (ev)
+  (setf (status editor) NIL))
+
+(define-handler (editor mouse-move) (ev pos)
+  (let ((loc (location editor)))
+    (vsetf loc (vx pos) (vy pos))
+    (nv+ (nv/ loc (view-scale (unit :camera T))) (location (unit :camera T)))
+    (nvalign loc *default-tile-size*)
+    (case (status editor)
+      (:dragging
+       (vsetf (location (entity editor)) (vx loc) (vy loc))))))
 
 (define-handler (editor mouse-scroll) (ev delta)
   (when (retained 'modifiers :control)
@@ -146,28 +155,6 @@ void main(){
     (cond ((retained 'movement :down) (decf (vy loc) 1))
           ((retained 'movement :up) (incf (vy loc) 1)))))
 
-(define-shader-subject moving-editor (editor)
-  ((dragging :initform NIL :accessor dragging)))
-
-(defmethod editor-class ((moving moving)) 'moving-editor)
-
-(define-handler (moving-editor mouse-press) (ev)
-  (let ((hit (entity-at-point (location moving-editor) +level+)))
-    (cond ((not hit))
-          ((eq hit (entity moving-editor))
-           (setf (dragging moving-editor) T))
-          (T
-           (setf (entity moving-editor) hit)))))
-
-(define-handler (moving-editor mouse-release) (ev)
-  (setf (dragging moving-editor) NIL))
-
-(define-handler (moving-editor mouse-move) (ev)
-  (when (dragging moving-editor)
-    (vsetf (location (entity moving-editor))
-           (vx (location moving-editor))
-           (vy (location moving-editor)))))
-
 (define-shader-subject chunk-editor (editor vertex-entity)
   ((tile :initform 1 :accessor tile-to-place)
    (level :initform 0 :accessor level)
@@ -186,23 +173,27 @@ void main(){
     (:3 (setf (level chunk-editor) 2))
     (:4 (setf (level chunk-editor) 3))))
 
-(define-handler (chunk-editor mouse-press) (ev button)
+(define-handler (chunk-editor chunk-press mouse-press) (ev button)
   (let ((chunk (entity chunk-editor))
         (tile (case button
                 (:left (tile-to-place chunk-editor))
                 (:right 0)))
         (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor))))
     (when tile
-      (if (retained 'modifiers :control)
-          (flood-fill chunk loc tile)
-          (setf (tile loc chunk) tile)))))
+      (cond ((retained 'modifiers :control)
+             (flood-fill chunk loc tile))
+            ((not (retained 'modifiers :alt))
+             (setf (status chunk-editor) :placing)
+             (setf (tile loc chunk) tile))))))
 
-(define-handler (chunk-editor mouse-move) (ev)
+(define-handler (chunk-editor chunk-move mouse-move) (ev)
   (let ((loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor))))
-    (when (retained 'mouse :left)
-      (setf (tile loc (entity chunk-editor)) (tile-to-place chunk-editor)))
-    (when (retained 'mouse :right)
-      (setf (tile loc (entity chunk-editor)) 0))))
+    (case (status chunk-editor)
+      (:placing
+       (cond ((retained 'mouse :left)
+              (setf (tile loc (entity chunk-editor)) (tile-to-place chunk-editor)))
+             ((retained 'mouse :right)
+               (setf (tile loc (entity chunk-editor)) 0)))))))
 
 (define-handler (chunk-editor change-tile mouse-scroll) (ev delta)
   (unless (retained 'modifiers :control)
