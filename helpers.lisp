@@ -17,6 +17,11 @@
   (vec (+ min (random (- max min)))
        (+ min (random (- max min)))))
 
+(defun nvalign (vec grid)
+  (vsetf vec
+         (* grid (floor (vx vec) grid))
+         (* grid (floor (vy vec) grid))))
+
 (defun vsqrdist2 (a b)
   (declare (type vec2 a b))
   (declare (optimize speed))
@@ -57,8 +62,8 @@
 (defun entity-at-point (point level)
   (for:for ((result as NIL)
             (entity over level))
-    (when (and (typep (print entity) 'base-entity)
-               (contained-p point entity)
+    (when (and (typep entity 'base-entity)
+               (print (contained-p point entity))
                (or (null result)
                    (< (vlength (bsize entity))
                       (vlength (bsize result)))))
