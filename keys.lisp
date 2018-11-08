@@ -20,7 +20,7 @@
 (define-action prev-entity (editor-command)
   (key-press (one-of key :page-up)))
 
-(define-action resize-layer (editor-command)
+(define-action resize-chunk (editor-command)
   (key-press (one-of key :f5)))
 
 (define-action control-down (editor-command)

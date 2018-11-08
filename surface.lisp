@@ -43,17 +43,6 @@
 (sb-ext:defglobal +surface-blocks+ NIL)
 (setf +surface-blocks+ (make-surface-blocks *default-tile-size* '(1 2 3)))
 
-(define-shader-entity surface (layer)
-  ((blocks :initarg :blocks :accessor blocks))
-  (:default-initargs
-   :texture (asset 'leaf 'surface)
-   :name :surface
-   :blocks +surface-blocks+))
-
-(defmethod paint :around ((surface surface) target)
-  (when (active-p (unit :editor T))
-    (call-next-method)))
-
 (defstruct (hit (:constructor make-hit (object time location normal)))
   (object NIL)
   (time 0.0 :type single-float)
@@ -84,52 +73,3 @@
                 (unless (and (/= 0 (vy normal))
                              (<= (vx aabb-size) (abs (- (vx aabb-pos) (vx seg-pos)))))
                   (make-hit NIL time aabb-pos normal))))))))))
-
-(defmethod scan ((surface surface) (target vec2))
-  (let ((tile (tile target surface)))
-    (when (and tile (or (= tile 1) (= tile 2)))
-      (aref (blocks surface) tile))))
-
-(defmethod scan ((surface surface) (target game-entity))
-  (let* ((t-s (tile-size surface))
-         (x- 0) (y- 0) (x+ 0) (y+ 0)
-         (size (v+ (bsize target) (/ t-s 2)))
-         (loc (location target))
-         (vel (velocity target))
-         (declined ()) (result))
-    ;; Figure out bounding region
-    (if (< 0 (vx vel))
-        (setf x- (floor (- (vx loc) (vx size)) t-s)
-              x+ (ceiling (+ (vx loc) (vx vel)) t-s))
-        (setf x- (floor (- (+ (vx loc) (vx vel)) (vx size)) t-s)
-              x+ (ceiling (vx loc) t-s)))
-    (if (< 0 (vy vel))
-        (setf y- (floor (- (vy loc) (vy size)) t-s)
-              y+ (ceiling (+ (vy loc) (vy vel)) t-s))
-        (setf y- (floor (- (+ (vy loc) (vy vel)) (vy size)) t-s)
-              y+ (ceiling (vy loc) t-s)))
-    ;; Sweep AABB through tiles
-    (destructuring-bind (w h) (size surface)
-      (loop
-         (loop for x from (max 0 x-) to (min x+ (1- w))
-               do (loop for y from (max 0 y-) to (min y+ (1- h))
-                        for tile = (aref (tiles surface) (+ x (* y w)))
-                        for hit = (when (/= 0 tile) (aabb loc vel (vec (+ (/ t-s 2) (* t-s x)) (+ (/ t-s 2) (* t-s y))) size))
-                        do (when (and hit
-                                      (not (find (hit-location hit) declined :test #'v=))
-                                      (or (not result)
-                                          (< (hit-time hit) (hit-time result))
-                                          (and (= (hit-time hit) (hit-time result))
-                                               (< (vsqrdist2 loc (hit-location hit))
-                                                  (vsqrdist2 loc (hit-location result))))))
-                             (setf (hit-object hit) (aref (blocks surface) tile))
-                             (setf result hit))))
-         (unless result (return))
-         (restart-case
-             (progn (collide target (hit-object result) result)
-                    (return result))
-           (decline ()
-             :report "Decline handling the hit."
-             (push (hit-location result) declined)
-             (setf result NIL)))))))
-

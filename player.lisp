@@ -4,7 +4,6 @@
   ((status :initform NIL :accessor status)
    (vlim  :initform (vec 10 10) :accessor vlim)
    (vmove :initform (vec2 0.6 0.1) :accessor vmove)
-   (vair  :initform (vec2 0.3 0.1) :accessor vair)
    (vclim :initform (vec2 0.75 1.5) :accessor vclim)
    (vjump :initform (vec4 2 3.5 3 2) :accessor vjump)
    (vdash :initform (vec2 8 0.7) :accessor vdash)

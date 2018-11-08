@@ -1,13 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject moving-platform (layer game-entity)
+(define-shader-subject moving-platform (chunk game-entity)
   ())
-
-(defmethod shared-initialize :after ((platform moving-platform) slots &key)
-  (destructuring-bind (w h) (size platform)
-    (setf (bsize platform) (nv/ (vec (* (tile-size platform) w)
-                                     (* (tile-size platform) h))
-                                2))))
 
 (defmethod scan ((platform moving-platform) (target game-entity))
   (let ((hit (aabb (location target) (v- (velocity target) (velocity platform))

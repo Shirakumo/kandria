@@ -1,8 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk ()
-  ((flare:name :initform :surface)
-   (vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
+(define-shader-entity chunk (base-entity)
+  ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (location :initarg :location :initform (vec 0 0) :accessor location)
    (tileset :initarg :tileset :accessor tileset)
    (tilemap :accessor tilemap)
@@ -43,6 +42,7 @@
     (setf (uniform program "view_scale") (/ (view-scale camera)))
     (setf (uniform program "view_offset") (nv+ (v- (location camera) (location chunk))
                                                (bsize chunk)))
+    (setf (uniform program "surface_visible") (if (active-p (unit :editor T)) 1 0))
     (setf (uniform program "tileset") 0)
     (setf (uniform program "tilemap") 1)
     (gl:active-texture :texture0)
@@ -63,7 +63,7 @@ out vec2 map_coord;
 
 void main(){
   map_coord = vertex_uv * view_size * view_scale + view_offset;
-  gl_Position = vec4(vertex, 1.0f);
+  gl_Position = vec4(vertex.xy, -1.0f, 1.0f);
 }")
 
 (define-class-shader (chunk :fragment-shader)
@@ -71,6 +71,7 @@ void main(){
 uniform sampler2D tileset;
 uniform usampler2D tilemap;
 uniform int tile_size = 8;
+uniform int surface_visible = 0;
 in vec2 map_coord;
 out vec4 color;
 
@@ -86,8 +87,35 @@ void main(){
   vec4 lp1 = texelFetch(tileset, set_xy+ivec2(layers.a, 1)*tile_size, 0);
   color = mix(ln1, l_0, l_0.a);
   color = mix(color, lp1, lp1.a);
-  color = mix(color, l__, l__.a);
+  if(surface_visible != 0)
+    color = mix(color, l__, l__.a);
 }")
+
+(defmethod resize ((chunk chunk) w h)
+  (setf (size cuhnk) (cons w h)))
+
+(defmethod (setf size) :before (value (chunk chunk))
+  (let* ((nw (car value))
+         (nh (cdr value))
+         (ow (car (size chunk)))
+         (oh (cdr (size chunk)))
+         (tilemap (tilemap chunk))
+         (texture (texture chunk))
+         (new (make-array (* 4 nw nh) :element-type (array-element-type tilemap))))
+    (dotimes (y (min nh oh))
+      (dotimes (x (min nw ow))
+        (let ((npos (* 4 (+ x (* y nw))))
+              (opos (* 4 (+ x (* y ow)))))
+          (dotimes (c 4)
+            (setf (aref new (+ npos c)) (aref tilemap (+ opos c)))))))
+    (when (gl-name texture)
+      (sb-sys:with-pinned-objects (tilemap)
+        (%gl:tex-image-2d :texture-2d 0 (internal-format texture) nw nh 0 (pixel-format texture) (pixel-type texture)
+                          (sb-sys:vector-sap tilemap))))
+    (setf (pixel-data texture) new)
+    (setf (width texture) nw)
+    (setf (height texture) nh)
+    (setf (tilemap chunk) new)))
 
 (defmacro %with-chunk-xy ((chunk location) &body body)
   `(let ((x (floor (+ (- (vx ,location) (vx2 (location ,chunk))) (vx2 (bsize ,chunk))) (tile-size ,chunk)))
@@ -170,7 +198,7 @@ void main(){
          (w (car (size chunk)))
          (h (cdr (size chunk)))
          (size (v+ (bsize target) (/ t-s 2)))
-         (loc (location target))
+         (loc (nv+ (v- (location target) (location chunk)) (bsize chunk)))
          (vel (velocity target))
          (declined ()) (result))
     ;; Figure out bounding region

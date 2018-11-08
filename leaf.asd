@@ -3,7 +3,6 @@
                (:file "helpers")
                (:file "keys")
                (:file "parallax")
-               (:file "layer")
                (:file "surface")
                (:file "chunk")
                (:file "moving-platform")
