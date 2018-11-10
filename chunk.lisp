@@ -10,6 +10,7 @@
    (bsize :accessor bsize)
    (tile-size :initarg :tile-size :accessor tile-size))
   (:default-initargs
+   :size (cons 4 4)
    :tileset (asset 'leaf 'ground)
    :tile-size *default-tile-size*))
 
@@ -82,14 +83,14 @@ void main(){
   if(0 <= map_xy.x && 0 <= map_xy.y && map_xy.x < map_wh.x && map_xy.y < map_wh.y)
     layers = ivec4(texelFetch(tilemap, map_xy/tile_size, 0));
   ivec2 set_xy = ivec2(mod(map_xy.x, tile_size), mod(map_xy.y, tile_size));
-  vec4 l__ = texelFetch(tileset, set_xy+ivec2(layers.r, 2)*tile_size, 0);
+  vec4 l_s = texelFetch(tileset, set_xy+ivec2(layers.r, 2)*tile_size, 0);
   vec4 ln1 = texelFetch(tileset, set_xy+ivec2(layers.g, 1)*tile_size, 0);
   vec4 l_0 = texelFetch(tileset, set_xy+ivec2(layers.b, 0)*tile_size, 0);
   vec4 lp1 = texelFetch(tileset, set_xy+ivec2(layers.a, 1)*tile_size, 0);
   color = mix(ln1, l_0, l_0.a);
   color = mix(color, lp1, lp1.a);
   if(surface_visible != 0)
-    color = mix(color, l__, l__.a);
+    color = mix(color, l_s, l_s.a);
 }")
 
 (defmethod resize ((chunk chunk) w h)
