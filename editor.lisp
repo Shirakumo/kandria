@@ -77,17 +77,6 @@ void main(){
 
 ;; FIXME: Autosaves in lieu of undo
 
-(define-handler (editor insert-entity) (ev)
-  ;; FIXME
-  )
-
-(define-handler (editor delete-entity) (ev)
-  (leave (entity editor) +level+)
-  (setf (entity editor) NIL))
-
-(define-handler (editor standard-entity) (ev)
-  (setf (entity editor) (unit :surface scene)))
-
 (define-handler (editor mouse-press) (ev pos)
   (let ((loc (location editor)))
     (vsetf loc (vx pos) (vy pos))
@@ -150,6 +139,22 @@ void main(){
                    :parse #'uiop:parse-native-namestring)
         (let ((level (make-instance 'level :file (pool-path 'leaf file))))
           (change-scene (handler *context*) level)))))
+
+(define-handler (editor insert-entity) (ev)
+  (let ((*package* #.*package*))
+    (with-query (class "Class name"
+                       :parse #'read-from-string)
+      (let ((entity (make-instance class :location (vcopy (location editor)))))
+        (transition entity +level+)
+        (enter entity +level+)
+        (setf (entity editor) entity)))))
+
+(define-handler (editor delete-entity) (ev)
+  (leave (entity editor) +level+)
+  (setf (entity editor) NIL))
+
+(define-handler (editor standard-entity) (ev)
+  (setf (entity editor) (unit :surface scene)))
 
 (define-handler (editor trial:tick) (ev)
   (let ((loc (location (unit :camera +level+))))
