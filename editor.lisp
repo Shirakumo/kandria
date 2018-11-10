@@ -102,13 +102,16 @@ void main(){
   (setf (status editor) NIL))
 
 (define-handler (editor mouse-move) (ev pos)
-  (let ((loc (location editor)))
+  (let ((loc (location editor))
+        (entity (entity editor)))
     (vsetf loc (vx pos) (vy pos))
     (nv+ (nv/ loc (view-scale (unit :camera T))) (location (unit :camera T)))
     (nvalign loc *default-tile-size*)
     (case (status editor)
       (:dragging
-       (vsetf (location (entity editor)) (vx loc) (vy loc))))))
+       (vsetf (location entity)
+              (- (vx loc) (mod (vx (bsize entity)) *default-tile-size*))
+              (- (vy loc) (mod (vy (bsize entity)) *default-tile-size*)))))))
 
 (define-handler (editor mouse-scroll) (ev delta)
   (when (retained 'modifiers :control)
