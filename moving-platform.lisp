@@ -20,8 +20,7 @@
   ((status :initform :hanging :accessor status)
    (direction :initarg :direction :accessor direction)
    (dt :initform 0.0 :accessor dt))
-  (:default-initargs :texture (asset 'leaf 'ground)
-                     :direction (vec -1 0)))
+  (:default-initargs :direction (vec -1 0)))
 
 (defmethod tick :before ((platform falling-platform) ev)
   (when (eq :falling (status platform))
