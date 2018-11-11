@@ -3,6 +3,15 @@
 (define-shader-subject moving-platform (chunk game-entity)
   ())
 
+;; KLUDGE: For now we only support square platforms
+(defmethod scan ((platform moving-platform) (target vec2))
+  (let ((w (vx (bsize platform)))
+        (h (vy (bsize platform)))
+        (loc (location platform)))
+    (when (and (<= (- (vx loc) w) (vx target) (+ (vx loc) w))
+               (<= (- (vy loc) h) (vy target) (+ (vy loc) h)))
+      platform)))
+
 (defmethod scan ((platform moving-platform) (target game-entity))
   (let ((hit (aabb (location target) (v- (velocity target) (velocity platform))
                    (location platform) (v+ (bsize platform) (bsize target)))))
