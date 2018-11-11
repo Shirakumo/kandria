@@ -59,11 +59,15 @@
          (height (vy (bsize moving)))
          (t-s (/ (block-s block) 2)))
     (unless (and (= 1 (vy normal))
-                 (<= (vy pos) (- (vy loc) t-s height)))
+                 (<= (+ (vy pos) (/ t-s 2)) (- (vy loc) height)))
       (decline))
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
-    (nv- vel (v* normal (v. vel normal)))))
+    (nv- vel (v* normal (v. vel normal)))
+    ;; Zip
+    (when (< (- (vy loc) height)
+             (+ (vy pos) t-s))
+      (setf (vy loc) (+ (vy pos) t-s height)))))
 
 (defmethod collide ((moving moving) (block spike) hit)
   (die moving)

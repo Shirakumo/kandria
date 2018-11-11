@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject entity-marker (vertex-entity)
+(define-shader-entity entity-marker (vertex-entity)
   ((vertex-array :initform (asset 'leaf 'particle))
    (editor :initarg :editor :accessor editor)))
 
@@ -24,9 +24,9 @@ uniform vec2 offset = vec2(0);
 uniform float scale = 1.0;
 
 void main(){
-    ivec2 grid = ivec2(floor((gl_FragCoord.xy+0.5)+offset*scale));
-    float r = (floor(mod(grid.x, 8*scale))==0.0 || floor(mod(grid.y, 8*scale))==0)?1.0:0.0;
-    color = vec4(r,r,r,1-r);
+  ivec2 grid = ivec2(floor((gl_FragCoord.xy+0.5)+offset*scale));
+  float r = (floor(mod(grid.x, 8*scale))==0.0 || floor(mod(grid.y, 8*scale))==0)?1.0:0.0;
+  color = vec4(r,r,r,1-r);
 }")
 
 (define-shader-subject inactive-editor (located-entity)
@@ -52,10 +52,12 @@ void main(){
   (setf (active-p inactive-editor) (not (active-p inactive-editor))))
 
 (defmethod compute-resources :after ((editor inactive-editor) resources ready cache)
-  (vector-push-extend (asset 'leaf 'square) resources))
+  (vector-push-extend (asset 'leaf 'square) resources)
+  (vector-push-extend (asset 'leaf 'tile-picker) resources))
 
 (defmethod register-object-for-pass :after (pass (editor inactive-editor))
-  (register-object-for-pass pass (entity-marker editor))
+  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'entity-marker)))
+  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'tile-picker)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'editor)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'chunk-editor))))
 
@@ -106,6 +108,9 @@ void main(){
   (when (retained 'modifiers :control)
     (setf (zoom (unit :camera T)) (* (zoom (unit :camera T))
                                      (if (< 0 delta) 2.0 (/ 2.0))))))
+
+(define-handler (editor select-entity) (ev)
+  (setf (entity editor) NIL))
 
 (define-handler (editor next-entity) (ev)
   (let* ((set (objects +level+))
@@ -166,7 +171,11 @@ void main(){
 (define-shader-subject chunk-editor (editor vertex-entity)
   ((tile :initform 1 :accessor tile-to-place)
    (level :initform 0 :accessor level)
-   (vertex-array :initform (asset 'leaf 'square))))
+   (vertex-array :initform (asset 'leaf 'square))
+   (tile-picker :initform NIL :accessor tile-picker)))
+
+(defmethod shared-initialize :after ((editor chunk-editor) slots &key)
+  (setf (tile-picker editor) (make-instance 'tile-picker :editor editor)))
 
 (defmethod editor-class ((chunk chunk)) 'chunk-editor)
 
@@ -181,14 +190,19 @@ void main(){
     (:3 (setf (level chunk-editor) 2))
     (:4 (setf (level chunk-editor) 3))))
 
-(define-handler (chunk-editor chunk-press mouse-press) (ev button)
+(define-handler (chunk-editor chunk-press mouse-press) (ev pos button)
   (let ((chunk (entity chunk-editor))
         (tile (case button
                 (:left (tile-to-place chunk-editor))
                 (:right 0)))
-        (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor))))
+        (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor)))
+        (s (/ (width *context*) (* 64 *default-tile-size*))))
     (when tile
-      (cond ((retained 'modifiers :control)
+      (cond ((<= (vy pos) (* 4 *default-tile-size* s))
+             (let ((i (+ (floor (/ (vx pos) s 8))
+                         (* 64 (- 3 (floor (/ (vy pos) s 8)))))))
+               (setf (tile-to-place chunk-editor) i)))
+            ((retained 'modifiers :control)
              (flood-fill chunk loc tile))
             ((not (retained 'modifiers :alt))
              (setf (status chunk-editor) :placing)
@@ -217,10 +231,11 @@ void main(){
         (chunk (entity editor)))
     (gl:bind-texture :texture-2d (gl-name (texture chunk)))
     (setf (uniform program "tile") (vec2 (* (tile-size chunk) (tile-to-place editor))
-                                         (ecase (level editor)
-                                           (0     (* 2 (tile-size chunk)))
-                                           ((1 3) (* 1 (tile-size chunk)))
-                                           (2     (* 0 (tile-size chunk))))))))
+                                         (* (level editor) (tile-size chunk))))))
+
+(defmethod paint :around ((editor chunk-editor) (target shader-pass))
+  (call-next-method)
+  (paint (tile-picker editor) target))
 
 (define-class-shader (chunk-editor :vertex-shader)
   "
@@ -242,3 +257,42 @@ void main(){
   color = texelFetch(tileset, ivec2(uv), 0);
 }")
 
+(define-asset (leaf tile-picker) mesh
+    (make-rectangle (* 64 *default-tile-size*) (* 4 *default-tile-size*) :align :bottomleft))
+
+(define-shader-entity tile-picker (vertex-entity textured-entity)
+  ((vertex-array :initform (asset 'leaf 'tile-picker))
+   (texture :initform (asset 'leaf 'ground))
+   (editor :initarg :editor :accessor editor))
+  (:inhibit-shaders (textured-entity :fragment-shader)))
+
+(defmethod paint :around ((picker tile-picker) target)
+  (with-pushed-matrix ((*model-matrix* :identity)
+                       (*view-matrix* :identity))
+    (let ((s (/ (width *context*) (* 64 *default-tile-size*))))
+      (translate-by 0 (* 4 *default-tile-size* s) 4)
+      (scale-by s s 1))
+    (call-next-method)))
+
+(defmethod paint :before ((picker tile-picker) (pass shader-pass))
+  (let ((program (shader-program-for-pass pass picker)))
+    (setf (uniform program "level") (level (editor picker)))))
+
+(define-class-shader (tile-picker :fragment-shader)
+  "in vec2 texcoord;
+out vec4 color;
+uniform sampler2D texture_image;
+uniform int level = 0;
+
+void main(){
+  vec2 tile = texcoord * vec2(64, 4);
+  vec2 tile_uv = mod(tile, 1);
+  tile.y = 4-tile.y;
+  tile = floor(tile);
+  ivec2 uv = ivec2(floor(8.0*(tile_uv+vec2(tile.x+tile.y*64.0, level))));
+
+  vec4 texel = texelFetch(texture_image, uv, 0);
+  color.rgb = vec3((mod(floor((texcoord.x*64+texcoord.y*4)*2), 2.0) <= 0.0)? 0.1 : 0.2);
+  color.a = 1.0;
+  color = mix(color, texel, texel.a);
+}")

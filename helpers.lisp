@@ -63,7 +63,7 @@
   (for:for ((result as NIL)
             (entity over level))
     (when (and (typep entity 'base-entity)
-               (print (contained-p point entity))
+               (contained-p point entity)
                (or (null result)
                    (< (vlength (bsize entity))
                       (vlength (bsize result)))))

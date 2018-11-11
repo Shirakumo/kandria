@@ -83,10 +83,10 @@ void main(){
   if(0 <= map_xy.x && 0 <= map_xy.y && map_xy.x < map_wh.x && map_xy.y < map_wh.y)
     layers = ivec4(texelFetch(tilemap, map_xy/tile_size, 0));
   ivec2 set_xy = ivec2(mod(map_xy.x, tile_size), mod(map_xy.y, tile_size));
-  vec4 l_s = texelFetch(tileset, set_xy+ivec2(layers.r, 2)*tile_size, 0);
+  vec4 l_s = texelFetch(tileset, set_xy+ivec2(layers.r, 0)*tile_size, 0);
   vec4 ln1 = texelFetch(tileset, set_xy+ivec2(layers.g, 1)*tile_size, 0);
-  vec4 l_0 = texelFetch(tileset, set_xy+ivec2(layers.b, 0)*tile_size, 0);
-  vec4 lp1 = texelFetch(tileset, set_xy+ivec2(layers.a, 1)*tile_size, 0);
+  vec4 l_0 = texelFetch(tileset, set_xy+ivec2(layers.b, 2)*tile_size, 0);
+  vec4 lp1 = texelFetch(tileset, set_xy+ivec2(layers.a, 3)*tile_size, 0);
   color = mix(ln1, l_0, l_0.a);
   color = mix(color, lp1, lp1.a);
   if(surface_visible != 0)
@@ -203,26 +203,29 @@ void main(){
          (w (car (size chunk)))
          (h (cdr (size chunk)))
          (size (v+ (bsize target) (/ t-s 2)))
-         (loc (nv+ (v- (location target) (location chunk)) (bsize chunk)))
+         (pos (location target))
+         (lloc (nv+ (v- (location target) (location chunk)) (bsize chunk)))
          (vel (velocity target))
          (declined ()) (result))
     ;; Figure out bounding region
     (if (< 0 (vx vel))
-        (setf x- (floor (- (vx loc) (vx size)) t-s)
-              x+ (ceiling (+ (vx loc) (vx vel)) t-s))
-        (setf x- (floor (- (+ (vx loc) (vx vel)) (vx size)) t-s)
-              x+ (ceiling (vx loc) t-s)))
+        (setf x- (floor (- (vx lloc) (vx size)) t-s)
+              x+ (ceiling (+ (vx lloc) (vx vel)) t-s))
+        (setf x- (floor (- (+ (vx lloc) (vx vel)) (vx size)) t-s)
+              x+ (ceiling (vx lloc) t-s)))
     (if (< 0 (vy vel))
-        (setf y- (floor (- (vy loc) (vy size)) t-s)
-              y+ (ceiling (+ (vy loc) (vy vel)) t-s))
-        (setf y- (floor (- (+ (vy loc) (vy vel)) (vy size)) t-s)
-              y+ (ceiling (vy loc) t-s)))
+        (setf y- (floor (- (vy lloc) (vy size)) t-s)
+              y+ (ceiling (+ (vy lloc) (vy vel)) t-s))
+        (setf y- (floor (- (+ (vy lloc) (vy vel)) (vy size)) t-s)
+              y+ (ceiling (vy lloc) t-s)))
     ;; Sweep AABB through tiles
     (loop
        (loop for x from (max x- 0) to (min x+ (1- w))
              do (loop for y from (max y- 0) to (min y+ (1- h))
                       for tile = (aref tilemap (* (+ x (* y w)) 4))
-                      for hit = (when (/= 0 tile) (aabb loc vel (vec (+ (/ t-s 2) (* t-s x)) (+ (/ t-s 2) (* t-s y))) size))
+                      for loc = (vec2 (+ (* x t-s) (/ t-s 2) (- (vx (location chunk)) (vx (bsize chunk))))
+                                      (+ (* y t-s) (/ t-s 2) (- (vy (location chunk)) (vy (bsize chunk)))))
+                      for hit = (when (/= 0 tile) (aabb pos vel loc size))
                       do (when (and hit
                                     (not (find (hit-location hit) declined :test #'v=))
                                     (or (not result)
