@@ -1,7 +1,9 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-asset (leaf ground) image
-    #p"ground.png")
+    #p"ground.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
 
 (define-asset (leaf player) image
     #p"player.png"

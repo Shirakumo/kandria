@@ -14,6 +14,9 @@
 (define-action standard-entity (editor-command)
   (key-press (one-of key :home)))
 
+(define-action select-entity (editor-command)
+  (key-press (one-of key :tab)))
+
 (define-action next-entity (editor-command)
   (key-press (one-of key :page-down)))
 
