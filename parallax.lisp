@@ -7,11 +7,13 @@
 
 (defmethod paint ((parallax parallax) (pass shader-pass))
   (let ((vao (vertex-array parallax))
-        (program (shader-program-for-pass pass parallax)))
+        (program (shader-program-for-pass pass parallax))
+        (loc (location (unit :camera T))))
     (with-pushed-attribs
       (setf (uniform program "aspect") (float (/ (width *context*)
                                                  (height *context*))))
-      (setf (uniform program "offset") (vmax 0 (vapply (location (unit :camera T)) floor)))
+      (setf (uniform program "offset") (vec (floor (vx loc))
+                                            (max 0 (floor (vy loc)))))
       (setf (uniform program "parallax") 0)
       (gl:active-texture :texture0)
       (gl:bind-texture :texture-2d (gl-name (texture parallax)))
