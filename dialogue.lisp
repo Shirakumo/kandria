@@ -2,7 +2,7 @@
 
 (define-shader-entity profile (sprite-entity)
   ((vertex-array :initform (asset 'leaf 'profile-mesh)))
-  (:default-initargs :size (vec 128 128)
+  (:default-initargs :size (vec 256 256)
                      :texture (asset 'leaf 'profile)))
 
 (define-asset (leaf textbox) mesh
@@ -15,19 +15,24 @@
     #p"Kemco Pixel Bold.ttf"
   :size 42)
 
-(define-shader-entity textbox (vertex-entity)
-  ((vertex-array :initform (asset 'leaf 'textbox))
+(define-shader-subject textbox (vertex-entity)
+  ((flare:name :initform :textbox)
+   (vertex-array :initform (asset 'leaf 'textbox))
    (profile :initform (make-instance 'profile) :reader profile)
    (paragraph :initform (make-instance 'text :font (asset 'leaf 'text)
                                              :size 18 :width 710 :wrap T
-                                             :color (vec 1 1 1 1) :text "This is a longish test text for the textbox that I just typed out on my thinkpad here oh yes man alive is this good sample text I just wish I could type a bit faster with dvorak I guess I'm still not anywhere near where I used to be with qwerty, blast.") :reader paragraph)))
+                                             :color (vec 1 1 1 1) :text "") :reader paragraph)
+   (start-time :initform 0.0 :accessor start-time)
+   (true-size :initform 0 :accessor true-size)))
 
 (defmethod register-object-for-pass :after (pass (textbox textbox))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'profile)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'text))))
 
 (defmethod (setf text) (string (textbox textbox))
-  (setf (text (paragraph textbox)) string))
+  (setf (text (paragraph textbox)) string)
+  (shiftf (true-size textbox) (size (vertex-array (paragraph textbox))) 0)
+  (setf (start-time textbox) 0))
 
 (defmethod paint :around ((textbox textbox) target)
   (with-pushed-matrix ((*model-matrix* :identity)
@@ -45,6 +50,15 @@
         (enable :scissor-test)
         (gl:scissor (* s 40) (* s 40) (* s 720) (* s 80))
         (paint (paragraph textbox) target)))))
+
+(with-context (*context*)
+  (setf (text (unit :textbox T)) "Oh boy, this sure is a dialogue box."))
+
+(define-handler (textbox trial:tick) (ev tt)
+  (when (= 0 (start-time textbox)) (setf (start-time textbox) tt))
+  (setf (size (vertex-array (paragraph textbox)))
+        (min (* 6 (floor (* 30 (- tt (start-time textbox)))))
+             (true-size textbox))))
 
 (define-class-shader (textbox :fragment-shader)
   "out vec4 color;
