@@ -160,6 +160,9 @@ void main(){
   }
 }")
 
+(define-asset (leaf particle) mesh
+    (make-rectangle 1 1))
+
 (define-shader-subject particle (vertex-entity located-entity)
   ((frame :initform 0 :accessor frame)
    (seed :initform (random 1.0) :accessor seed))

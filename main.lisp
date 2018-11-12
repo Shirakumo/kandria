@@ -10,23 +10,26 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
+(define-asset (leaf profile) image
+    #p"profile.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
 (define-asset (leaf background) image
     #p"background.png"
   :min-filter :nearest
   :mag-filter :nearest
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
 
-(define-asset (leaf particle) mesh
-    (make-rectangle 1 1))
+(defclass empty-level (level)
+  ()
+  (:default-initargs :name :untitled))
 
-(define-asset (leaf player-mesh) mesh
-    (make-rectangle 16 16))
-
-(define-asset (leaf big) mesh
-    (make-rectangle 64 64))
-
-(define-asset (leaf square) mesh
-    (make-rectangle 8 8 :align :topleft))
+(defmethod initialize-instance :after ((level empty-level) &key)
+  (enter (make-instance 'parallax) level)
+  (enter (make-instance 'player) level)
+  (enter (make-instance 'chunk :size (cons 64 64)) level)
+  (enter (make-instance 'textbox) level))
 
 (defclass main (trial:main)
   ((scene :initform NIL))
@@ -41,7 +44,8 @@
             (make-instance 'empty-level))))
 
 (defmethod setup-rendering :after ((main main))
-  (disable :cull-face))
+  (disable :cull-face)
+  (disable :scissor-test))
 
 (defmethod update ((main main) tt dt)
   (issue (scene main) 'trial:tick :tt tt :dt dt)
@@ -67,13 +71,4 @@
     ;(connect (flow:port render 'color) (flow:port blink-pass 'previous-pass) scene)
     ;(connect (flow:port blink-pass 'color) (flow:port bokeh-pass 'previous-pass) scene)
     ))
-
-(defclass empty-level (level)
-  ()
-  (:default-initargs :name :untitled))
-
-(defmethod initialize-instance :after ((level empty-level) &key)
-  (enter (make-instance 'parallax) level)
-  (enter (make-instance 'player :location (vec 64 64)) level)
-  (enter (make-instance 'chunk :size (cons 64 64)) level))
 

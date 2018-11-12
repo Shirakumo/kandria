@@ -1,7 +1,11 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(define-asset (leaf player-mesh) mesh
+    (make-rectangle 16 16))
+
 (define-shader-subject player (animated-sprite-subject moving facing-entity)
-  ((status :initform NIL :accessor status)
+  ((vectex-array :initform (asset 'leaf 'player-mesh))
+   (status :initform NIL :accessor status)
    (vlim  :initform (vec 10 10) :accessor vlim)
    (vmove :initform (vec2 0.6 0.1) :accessor vmove)
    (vclim :initform (vec2 0.75 1.5) :accessor vclim)
@@ -11,9 +15,7 @@
    (dash-count :initform 0 :accessor dash-count))
   (:default-initargs
    :name :player
-   :vertex-array (asset 'leaf 'player-mesh)
    :texture (asset 'leaf 'player)
-   :location (vec 32 32)
    :bsize (nv/ (vec 8 16) 2)
    :size (vec 16 16)
    :animation 0

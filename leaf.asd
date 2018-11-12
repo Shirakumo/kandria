@@ -2,6 +2,7 @@
   :components ((:file "package")
                (:file "helpers")
                (:file "keys")
+               (:file "dialogue")
                (:file "parallax")
                (:file "surface")
                (:file "chunk")

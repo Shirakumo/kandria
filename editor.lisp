@@ -168,6 +168,9 @@ void main(){
     (cond ((retained 'movement :down) (decf (vy loc) 1))
           ((retained 'movement :up) (incf (vy loc) 1)))))
 
+(define-asset (leaf square) mesh
+    (make-rectangle 8 8 :align :topleft))
+
 (define-shader-subject chunk-editor (editor vertex-entity)
   ((tile :initform 1 :accessor tile-to-place)
    (level :initform 0 :accessor level)
@@ -229,9 +232,11 @@ void main(){
 (defmethod paint :before ((editor chunk-editor) (pass shader-pass))
   (let ((program (shader-program-for-pass pass editor))
         (chunk (entity editor)))
+    (gl:active-texture :texture0)
     (gl:bind-texture :texture-2d (gl-name (texture chunk)))
+    (setf (uniform program "tileset") 0)
     (setf (uniform program "tile") (vec2 (* (tile-size chunk) (tile-to-place editor))
-                                         (* (level editor) (tile-size chunk))))))
+                                         (* (tile-size chunk) (level editor))))))
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
   (call-next-method)
