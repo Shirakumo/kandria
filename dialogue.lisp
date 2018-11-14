@@ -2,7 +2,7 @@
 
 (define-shader-entity profile (sprite-entity)
   ((vertex-array :initform (asset 'leaf 'profile-mesh)))
-  (:default-initargs :size (vec 256 256)
+  (:default-initargs :size (vec 512 512)
                      :texture (asset 'leaf 'profile)))
 
 (define-asset (leaf textbox) mesh
@@ -39,11 +39,11 @@
                        (*view-matrix* :identity))
     (let ((s (/ (width *context*) 800)))
       (scale-by s s 1)
-      (translate-by 25 (+ 256 128) 5)
+      (translate-by 500 (+ 256 128) 5)
       (scale-by 2 2 1)
       (paint (profile textbox) target)
       (scale-by 1/2 1/2 1)
-      (translate-by 0 -256 0)
+      (translate-by -475 -256 0)
       (call-next-method)
       (translate-by 20 -32 0)
       (with-pushed-attribs
@@ -52,7 +52,29 @@
         (paint (paragraph textbox) target)))))
 
 (with-context (*context*)
-  (setf (text (unit :textbox T)) "Oh boy, this sure is a dialogue box."))
+  (setf (text (unit :textbox T)) "")
+  (setf (vx (trial:tile (profile (unit :textbox T)))) 0))
+
+(with-context (*context*)
+  (setf (text (unit :textbox T)) "Hmm, so this is a dialogue box, eh.")
+  (setf (vx (trial:tile (profile (unit :textbox T)))) 2))
+
+(with-context (*context*)
+  (setf (text (unit :textbox T)) "Not sure if I like it quite yet.")
+  (setf (vx (trial:tile (profile (unit :textbox T)))) 1))
+
+(with-context (*context*)
+  (setf (text (unit :textbox T)) "You better get off your lazy bum and put some more work into it.")
+  (setf (vx (trial:tile (profile (unit :textbox T)))) 3))
+
+(define-handler (textbox skip) (ev)
+  (setf (size (vertex-array (paragraph textbox)))
+        (true-size textbox)))
+
+(define-handler (textbox next) (ev)
+  (when (= (size (vertex-array (paragraph textbox)))
+           (true-size textbox))
+    ))
 
 (define-handler (textbox trial:tick) (ev tt)
   (when (= 0 (start-time textbox)) (setf (start-time textbox) tt))

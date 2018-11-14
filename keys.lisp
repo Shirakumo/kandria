@@ -51,6 +51,14 @@
     (alt-down (setf (retained 'modifiers :alt) T))
     (alt-up (setf (retained 'modifiers :alt) NIL))))
 
+(define-action skip ()
+  (key-press (one-of key :enter :space))
+  (gamepad-press (one-of button :b)))
+
+(define-action next ()
+  (key-press (one-of key :enter :space))
+  (gamepad-press (one-of button :a :b)))
+
 (define-action movement ())
 
 (define-action dash (movement)
