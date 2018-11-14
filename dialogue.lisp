@@ -6,7 +6,8 @@
                      :texture (asset 'leaf 'profile)))
 
 (define-asset (leaf textbox) mesh
-    (make-rectangle 750 100 :align :bottomleft))
+    (make-rectangle 200 25 :align :bottomleft :y 15 :x 0
+                           :mesh (make-rectangle 750 100 :align :bottomleft)))
 
 (define-asset (leaf profile-mesh) mesh
     (make-rectangle 128 128 :align :bottomleft))
@@ -22,6 +23,8 @@
    (paragraph :initform (make-instance 'text :font (asset 'leaf 'text)
                                              :size 18 :width 710 :wrap T
                                              :color (vec 1 1 1 1) :text "") :reader paragraph)
+   (title :initform (make-instance 'text :font (asset 'leaf 'text)
+                                         :size 22 :color (vec 0 0 0 1) :text "Test") :reader title)
    (start-time :initform 0.0 :accessor start-time)
    (true-size :initform 0 :accessor true-size)))
 
@@ -45,46 +48,25 @@
       (scale-by 1/2 1/2 1)
       (translate-by -475 -256 0)
       (call-next-method)
-      (translate-by 20 -32 0)
+      (translate-by 10 -5 0)
+      (paint (title textbox) target)
+      (translate-by 10 -22 0)
       (with-pushed-attribs
         (enable :scissor-test)
         (gl:scissor (* s 40) (* s 40) (* s 720) (* s 80))
         (paint (paragraph textbox) target)))))
 
-(with-context (*context*)
-  (setf (text (unit :textbox T)) "")
-  (setf (vx (trial:tile (profile (unit :textbox T)))) 0))
+(define-class-shader (textbox :vertex-shader)
+  "out vec4 vcolor;
 
-(with-context (*context*)
-  (setf (text (unit :textbox T)) "Hmm, so this is a dialogue box, eh.")
-  (setf (vx (trial:tile (profile (unit :textbox T)))) 2))
-
-(with-context (*context*)
-  (setf (text (unit :textbox T)) "Not sure if I like it quite yet.")
-  (setf (vx (trial:tile (profile (unit :textbox T)))) 1))
-
-(with-context (*context*)
-  (setf (text (unit :textbox T)) "You better get off your lazy bum and put some more work into it.")
-  (setf (vx (trial:tile (profile (unit :textbox T)))) 3))
-
-(define-handler (textbox skip) (ev)
-  (setf (size (vertex-array (paragraph textbox)))
-        (true-size textbox)))
-
-(define-handler (textbox next) (ev)
-  (when (= (size (vertex-array (paragraph textbox)))
-           (true-size textbox))
-    ))
-
-(define-handler (textbox trial:tick) (ev tt)
-  (when (= 0 (start-time textbox)) (setf (start-time textbox) tt))
-  (setf (size (vertex-array (paragraph textbox)))
-        (min (* 6 (floor (* 30 (- tt (start-time textbox)))))
-             (true-size textbox))))
+void main(){
+  vcolor = (gl_VertexID < 6)? vec4(0,0,0,1): vec4(1,0.9,0,1);
+}")
 
 (define-class-shader (textbox :fragment-shader)
   "out vec4 color;
+in vec4 vcolor;
 
 void main(){
-  color.rgb *= 0;
+  color = vcolor;
 }")
