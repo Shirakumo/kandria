@@ -2,7 +2,8 @@
   :components ((:file "package")
                (:file "helpers")
                (:file "keys")
-               (:file "dialogue")
+               (:file "dialog")
+               (:file "textbox")
                (:file "parallax")
                (:file "surface")
                (:file "chunk")
@@ -17,4 +18,7 @@
   :depends-on (:trial-glfw
                :fast-io
                :ieee-floats
-               :babel))
+               :babel
+               :form-fiddle
+               :lambda-fiddle
+               :trivial-arguments))
