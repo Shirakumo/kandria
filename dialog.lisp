@@ -1,96 +1,10 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defclass dialog-entity ()
-  ((emotes :initarg :emotes :accessor emotes)
-   (profile :initarg :profile :accessor profile))
-  (:default-initargs
-   :emotes '(:default)
-   :profile (error "PROFILE required.")))
-
-(defvar *storyline-table* (make-hash-table :test 'eql))
-
-(defclass storyline () ())
-(defclass dialog () ())
-
-(defmethod storyline ((name symbol))
-  (gethash name *storyline-table*))
-
-(defmethod (setf storyline) ((storyline storyline) (name symbol))
-  (setf (gethash name *storyline-table*) value))
-
-(defun remove-storyline (name)
-  (remhash name *storyline-table*))
-
-(defun list-storylines ()
-  (loop for storyline being the hash-values of *storyline-table*
-        collect storyline))
-
-(defclass storyline ()
-  ((name :initarg :name :accessor name)
-   (title :initarg :title :accessor title)
-   (description :initarg :description :accessor description)
-   (initial-state :initarg :initial-state :accessor initial-state)
-   (state-table :initform '() :accessor state-table)
-   (dialogs :initform (make-hash-table :test 'eq) :accessor dialogs)
-   (active-p :initform NIL :accessor active-p))
-  (:default-initargs
-   :name (error "NAME required.")
-   :title (error "TITLE required.")
-   :description ""
-   :initial-state '()))
-
-(defmethod initialize-instance :after ((storyline storyline) &key)
-  (reset storyline))
-
-(defmethod print-object ((storyline storyline) stream)
-  (print-unreadable-object (storyline stream :type T)
-    (format stream "~s ~:[INACTIVE~;ACTIVE~]" (name storyline) (active-p storyline))))
-
-(defmethod state (key (storyline storyline))
-  (gethash key (state-table storyline)))
-
-(defmethod (setf state) (value key (storyline storyline))
-  (setf (gethash key (state-table storyline)) value))
-
-(defmethod reset ((storyline storyline))
-  (setf (active-p storyline) NIL)
-  (clrhash (state-table storyline))
-  (loop for (k v) on initial-state by #'cddr
-        do (setf (state k storyline) v)))
-
-(defmethod compute-applicable-dialogs (event (all (eql T)))
-  (loop for storyline in (list-storylines)
-        append (compute-applicable-dialogs event storyline)))
-
-(defmethod compute-applicable-dialogs (event (storyline storyline))
-  (when (active-p storyline)
-    (loop for dialog being the hash-values of (dialogs storyline)
-          when (dialog-applicable-p dialog event)
-          collect dialog)))
-
-(defmethod dialog (name (storyline symbol))
-  (dialog name (storyline storyline)))
-
-(defmethod dialog (name (storyline storyline))
-  (gethash name (dialogs storyline)))
-
-(defmethod (setf dialog) (value name (storyline symbol))
-  (setf (dialog name (storyline storyline)) value))
-
-(defmethod (setf dialog) ((dialog dialog) name (storyline storyline))
-  (setf (gethash name (dialogs storyline)) dialog))
-
-(defmethod remove-dialog (name (storyline symbol))
-  (remove-dialog name (storyline storyline)))
-
-(defmethod remove-dialog (name (storyline storyline))
-  (remhash name (dialogs storyline)))
-
 (defvar *dialog-function-table* (make-hash-table :test 'eql))
 
 (defun dialog-function (name)
   (or (gethash name *dialog-function-table*)
-      (error "No dialog function named ~s" name)))
+      (error "No dialog function named ~s exists." name)))
 
 (defun (setf dialog-function) (fun name)
   (setf (gethash name *dialog-function-table*) fun))
@@ -112,7 +26,7 @@
         (position emote (emotes (target box)))))
 
 (define-dialog-function :shake (box)
-  (setf (shake-counter (unit :camera T)) 20))
+  (setf (shake-counter (unit :camera T)) 30))
 
 (define-dialog-function :text (box text)
   (setf (text box) text))
@@ -131,7 +45,112 @@
 (define-dialog-function :end (box)
   (funcall (state-change (current-dialog box))
            (storyline (current-dialog box)))
-  (setf (current-dialog box) NIL))
+  (setf (current-dialog box) NIL)
+  (throw 'stop NIL))
+
+(defclass dialog-entity (entity)
+  ((emotes :initarg :emotes :accessor emotes)
+   (profile :initarg :profile :accessor profile))
+  (:default-initargs
+   :emotes '(:default)
+   :profile (error "PROFILE required.")))
+
+(defvar *storyline-table* (make-hash-table :test 'eql))
+
+(defclass storyline () ())
+(defclass dialog () ())
+
+(defmethod storyline ((name symbol))
+  (or (gethash name *storyline-table*)
+      (error "No storyline named ~s exists." name)))
+
+(defmethod (setf storyline) ((storyline storyline) (name symbol))
+  (setf (gethash name *storyline-table*) storyline))
+
+(defun remove-storyline (name)
+  (remhash name *storyline-table*))
+
+(defun list-storylines ()
+  (loop for storyline being the hash-values of *storyline-table*
+        collect storyline))
+
+(defclass storyline ()
+  ((name :initarg :name :accessor name)
+   (title :initarg :title :accessor title)
+   (description :initarg :description :accessor description)
+   (initial-state :initarg :initial-state :accessor initial-state)
+   (state-table :initform (make-hash-table :test 'eq) :accessor state-table)
+   (dialogs :initform (make-hash-table :test 'eq) :accessor dialogs)
+   (active-p :initarg :active-p :accessor active-p))
+  (:default-initargs
+   :name (error "NAME required.")
+   :title (error "TITLE required.")
+   :description ""
+   :initial-state '()
+   :active-p NIL))
+
+(defmethod initialize-instance :after ((storyline storyline) &key)
+  (check-type (title storyline) string)
+  (reset storyline))
+
+(defmethod print-object ((storyline storyline) stream)
+  (print-unreadable-object (storyline stream :type T)
+    (format stream "~s ~:[INACTIVE~;ACTIVE~]" (name storyline) (active-p storyline))))
+
+(defmacro define-storyline (name &body body)
+  (form-fiddle:with-body-options (dialogs options title description initial-state) body
+    (assert (null options))
+    `(progn
+       (setf (storyline ',name)
+             (make-instance 'storyline
+                            :name ',name
+                            :title ,title
+                            :description ,(or description "")
+                            :initial-state ',initial-state))
+       ,@(loop for (dialog . body) in dialogs
+               collect `(define-dialog (,name ,dialog)
+                          ,@body)))))
+
+(defmethod state (key (storyline storyline))
+  (gethash key (state-table storyline)))
+
+(defmethod (setf state) (value key (storyline storyline))
+  (setf (gethash key (state-table storyline)) value))
+
+(defmethod reset ((storyline storyline))
+  (setf (active-p storyline) NIL)
+  (clrhash (state-table storyline))
+  (loop for (k v) on (initial-state storyline) by #'cddr
+        do (setf (state k storyline) v)))
+
+(defmethod compute-applicable-dialogs (event (all (eql T)))
+  (loop for storyline in (list-storylines)
+        append (when (active-p storyline)
+                 (compute-applicable-dialogs event storyline))))
+
+(defmethod compute-applicable-dialogs (event (storyline storyline))
+  (loop for dialog being the hash-values of (dialogs storyline)
+        when (dialog-applicable-p dialog event)
+        collect dialog))
+
+(defmethod dialog (name (storyline symbol))
+  (dialog name (storyline storyline)))
+
+(defmethod dialog (name (storyline storyline))
+  (or (gethash name (dialogs storyline))
+      (error "No dialog named ~s found in ~a." name storyline)))
+
+(defmethod (setf dialog) (value name (storyline symbol))
+  (setf (dialog name (storyline storyline)) value))
+
+(defmethod (setf dialog) ((dialog dialog) name (storyline storyline))
+  (setf (gethash name (dialogs storyline)) dialog))
+
+(defmethod remove-dialog (name (storyline symbol))
+  (remove-dialog name (storyline storyline)))
+
+(defmethod remove-dialog (name (storyline storyline))
+  (remhash name (dialogs storyline)))
 
 (defclass dialog ()
   ((name :initarg :name :accessor name)
@@ -201,6 +220,7 @@
                   `(state ',form ,storyline))
                  (atom form))))
       `(lambda (,storyline)
+         (declare (ignorable ,storyline))
          ,(compile-form form)))))
 
 (defun compile-dialog-predicate (form)
@@ -217,6 +237,7 @@
                   `(state ',form ,storyline))
                  (atom form))))
       `(lambda (ev ,storyline)
+         (declare (ignorable ev ,storyline))
          ,(compile-form form)))))
 
 (defmacro define-dialog ((storyline name) &body body)

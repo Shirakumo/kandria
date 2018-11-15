@@ -1,13 +1,11 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk (base-entity)
+(define-shader-entity chunk (sized-entity)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
-   (location :initarg :location :initform (vec 0 0) :accessor location)
    (tileset :initarg :tileset :accessor tileset)
    (tilemap :accessor tilemap)
    (texture :accessor texture)
    (size :initarg :size :accessor size)
-   (bsize :accessor bsize)
    (tile-size :initarg :tile-size :accessor tile-size))
   (:default-initargs
    :size (cons 4 4)

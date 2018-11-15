@@ -27,9 +27,10 @@
 
 (defmethod initialize-instance :after ((level empty-level) &key)
   (enter (make-instance 'parallax) level)
-  (enter (make-instance 'player) level)
+  (enter (make-instance 'player :location (vec 64 64)) level)
   (enter (make-instance 'chunk :size (cons 64 64)) level)
-  (enter (make-instance 'textbox) level))
+  (enter (make-instance 'textbox) level)
+  (enter (make-instance 'trigger :event-type 'enter-area :event-initargs '(:area test)) level))
 
 (defclass main (trial:main)
   ((scene :initform NIL))
@@ -51,6 +52,18 @@
   (issue (scene main) 'trial:tick :tt tt :dt dt)
   (issue (scene main) 'post-tick)
   (process (scene main)))
+
+(defmethod pause ((main main))
+  (let ((scene (scene main)))
+    (for:for ((entity over scene))
+      (when (typep entity 'game-entity)
+        (remove-handler (handlers entity) scene)))))
+
+(defmethod unpause ((main main))
+  (let ((scene (scene main)))
+    (for:for ((entity over scene))
+      (when (typep entity 'game-entity)
+        (add-handler (handlers entity) scene)))))
 
 (defmethod (setf scene) :after (scene (main main))
   (setf +level+ scene))

@@ -3,7 +3,7 @@
 (define-asset (leaf player-mesh) mesh
     (make-rectangle 16 16))
 
-(define-shader-subject player (animated-sprite-subject moving facing-entity)
+(define-shader-subject player (animated-sprite-subject moving facing-entity dialog-entity)
   ((vertex-array :initform (asset 'leaf 'player-mesh))
    (status :initform NIL :accessor status)
    (vlim  :initform (vec 10 10) :accessor vlim)
@@ -15,6 +15,8 @@
    (dash-count :initform 0 :accessor dash-count))
   (:default-initargs
    :name :player
+   :emotes '(:default concerned thinking cheeky)
+   :profile (asset 'leaf 'profile)
    :texture (asset 'leaf 'player)
    :bsize (nv/ (vec 8 16) 2)
    :size (vec 16 16)
@@ -83,6 +85,11 @@
                (< (vy (velocity player)) -2))
       (enter (make-instance 'dust-cloud :location (nv+ (v* (velocity player) (hit-time hit)) (location player)))
              +level+))))
+
+(defmethod collide ((player player) (trigger trigger) hit)
+  (when (active-p trigger)
+    (fire trigger))
+  (decline))
 
 (defmethod tick :after ((player player) ev)
   (when (svref (collisions player) 2)

@@ -51,11 +51,43 @@
   (setf (texture (profile textbox)) (profile entity))
   (setf (vx (trial:tile (profile textbox))) 0))
 
+(defmethod (setf current-dialog) :after ((dialog dialog) (textbox textbox))
+  (pause (handler *context*))
+  (setf (dialog-index textbox) -1)
+  (advance textbox))
+
+(defmethod (setf current-dialog) :after ((null null) (textbox textbox))
+  (unpause (handler *context*)))
+
 (defmethod advance ((textbox textbox))
-  (catch 'stop
-    (loop for (fun . args) = (dialog (incf (dialog-index textbox)) (current-dialog textbox))
-          while fun
-          do (apply (dialog-function fun) textbox args))))
+  (when (current-dialog textbox)
+    (catch 'stop
+      (loop for (fun . args) = (dialog (incf (dialog-index textbox)) (current-dialog textbox))
+            while fun
+            do (apply (dialog-function fun) textbox args)))))
+
+(define-handler (textbox skip) (ev)
+  (setf (size (vertex-array (paragraph textbox)))
+        (true-size textbox)))
+
+(define-handler (textbox next) (ev)
+  (when (= (size (vertex-array (paragraph textbox)))
+           (true-size textbox))
+    (advance textbox)))
+
+(define-handler (textbox trial:tick) (ev tt)
+  (when (= 0 (start-time textbox)) (setf (start-time textbox) tt))
+  (setf (size (vertex-array (paragraph textbox)))
+        (min (* 6 (floor (* 30 (- tt (start-time textbox)))))
+             (true-size textbox))))
+
+(define-handler (textbox check-storyline event) (ev)
+  
+  (let ((diags (compute-applicable-dialogs ev T)))
+    (cond ((cdr diags)
+           (error "FIXME: Menu for multiple dialogs"))
+          (diags
+           (setf (current-dialog textbox) (first diags))))))
 
 (defmethod paint :around ((textbox textbox) target)
   (when (current-dialog textbox)
