@@ -39,7 +39,7 @@
    :description ""
    :initial-state '()))
 
-(defmethod initialize-instance :after ((storyline storyline) &key initial-state)
+(defmethod initialize-instance :after ((storyline storyline) &key)
   (reset storyline))
 
 (defmethod print-object ((storyline storyline) stream)
@@ -148,6 +148,12 @@
    :storyline (error "STORYLINE required")
    :dialog-sequence (error "DIALOG-SEQUENCE required.")))
 
+(defmethod initialize-instance :after ((dialog dialog) &key)
+  (check-type (predicate dialog) function)
+  (check-type (state-change dialog) function)
+  (check-type (storyline dialog) storyline)
+  (check-type (dialog-sequence dialog) vector))
+
 (defmethod print-object ((dialog dialog) stream)
   (print-unreadable-object (dialog stream :type T)
     (format stream "~s" (name dialog))))
@@ -179,7 +185,7 @@
                 (push `(:text ,(pop dialog)) sequence)
                 (push '(:stop) sequence))))
     (push '(:end) sequence)
-    (nreverse sequence)))
+    (coerce (nreverse sequence) 'simple-vector)))
 
 (defun compile-dialog-state-change (form)
   (let ((storyline (gensym "STORYLINE")))
@@ -222,4 +228,4 @@
                           :predicate ,(compile-dialog-predicate predicate)
                           :state-change ,(compile-dialog-state-change state-change)
                           :title ,title
-                          :dialog-sequence ',(compile-dialog-sequence (append other body))))))
+                          :dialog-sequence ,(compile-dialog-sequence (append other body))))))
