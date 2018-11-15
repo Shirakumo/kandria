@@ -69,6 +69,9 @@
                       (vlength (bsize result)))))
       (setf result entity))))
 
+(defmethod contained-p ((target vec2) thing)
+  NIL)
+
 (define-pool leaf
   :base :leaf)
 
@@ -95,15 +98,11 @@
     (scale-by (direction obj) 1 1)
     (call-next-method)))
 
-(define-subject game-entity (located-entity)
-  ((velocity :initarg :velocity :accessor velocity)
-   (bsize :initarg :bsize :accessor bsize))
-  (:default-initargs :velocity (vec 0 0)
-                     :bsize (nv/ (vec *default-tile-size* *default-tile-size*) 2)))
+(defclass sized-entity (located-entity)
+  ((bsize :initarg :bsize :accessor bsize))
+  (:default-initargs :bsize (nv/ (vec *default-tile-size* *default-tile-size*) 2)))
 
-(define-generic-handler (game-entity tick trial:tick))
-
-(defmethod scan ((entity game-entity) (target vec2))
+(defmethod scan ((entity sized-entity) (target vec2))
   (let ((w (vx (bsize entity)))
         (h (vy (bsize entity)))
         (loc (location entity)))
@@ -111,8 +110,38 @@
                (<= (- (vy loc) h) (vy target) (+ (vy loc) h)))
       entity)))
 
-(defmethod contained-p ((target vec2) (entity game-entity))
+(defmethod contained-p ((target vec2) (entity sized-entity))
   (scan entity target))
 
-(defmethod contained-p ((target vec2) thing)
-  NIL)
+(define-subject game-entity (sized-entity)
+  ((velocity :initarg :velocity :accessor velocity))
+  (:default-initargs :velocity (vec2 0 0)))
+
+(define-generic-handler (game-entity tick trial:tick))
+
+(defmethod scan ((entity sized-entity) (target game-entity))
+  (let ((hit (aabb (location target) (velocity target)
+                   (location entity) (v+ (bsize entity) (bsize target)))))
+    (when hit
+      (setf (hit-object hit) entity)
+      (collide target entity hit))))
+
+(defclass trigger (sized-entity)
+  ((event-type :initarg :event-type :accessor event-type)
+   (event-initargs :initarg :event-initargs :accessor event-initargs)
+   (active-p :initarg :active-p :accessor active-p))
+  (:default-initargs :event-type (error "EVENT-TYPE required.")
+                     :event-initargs ()
+                     :active-p T
+                     :bsize (vec2 16 16)))
+
+(defmethod fire ((trigger trigger))
+  (apply #'issue +level+ (event-type trigger) (event-initargs trigger))
+  (setf (active-p trigger) NIL))
+
+(defclass enter-area (event)
+  ((area :initarg :area :reader area)))
+
+(setf (active-p (for:for ((entity over +level+))
+                  (when (typep entity 'trigger) (return entity)))) T)
+(print (compute-applicable-dialogs (make-instance 'enter-area) T))

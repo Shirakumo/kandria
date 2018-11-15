@@ -6,7 +6,7 @@
 
 (defmethod paint ((marker entity-marker) (pass shader-pass))
   (let ((entity (entity (editor marker))))
-    (when (typep entity '(or game-entity chunk))
+    (when (typep entity 'sized-entity)
       (let ((program (shader-program-for-pass pass marker))
             (camera (unit :camera T)))
         (setf (uniform program "scale") (view-scale camera))
@@ -43,10 +43,10 @@ void main(){
 (defmethod (setf active-p) (value (editor inactive-editor))
   (cond (value
          (change-class editor (editor-class (entity editor)))
-         (remove-handler (handlers (unit :player T)) +level+))
+         (pause (handler *context*)))
         (T
          (change-class editor 'inactive-editor)
-         (add-handler (handlers (unit :player T)) +level+))))
+         (unpause (handler *context*)))))
 
 (define-handler (inactive-editor toggle-editor) (ev)
   (setf (active-p inactive-editor) (not (active-p inactive-editor))))
@@ -159,7 +159,7 @@ void main(){
   (setf (entity editor) NIL))
 
 (define-handler (editor standard-entity) (ev)
-  (setf (entity editor) (unit :surface scene)))
+  (setf (entity editor) (unit :surface T)))
 
 (define-handler (editor trial:tick) (ev)
   (let ((loc (location (unit :camera +level+))))
