@@ -14,6 +14,7 @@
                (:file "editor")
                (:file "camera")
                (:file "main")
+               (:file "save-state")
                (:file "effects"))
   :depends-on (:trial-glfw
                :fast-io

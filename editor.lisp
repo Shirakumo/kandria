@@ -126,6 +126,12 @@ void main(){
                            (mod (1- pos) (flare-indexed-set:set-size set))
                            set))))
 
+(define-handler (editor save-state) (ev)
+  (save-state (handler *context*) T))
+
+(define-handler (editor save-state) (ev)
+  (load-state (handler *context*) T))
+
 (define-handler (editor save-game) (ev)
   (if (retained 'modifiers :control)
       (save-level +level+ T)

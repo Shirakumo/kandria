@@ -4,6 +4,10 @@
 
 (sb-ext:defglobal +level+ NIL)
 
+(defun format-absolute-time (time)
+  (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
+    (format NIL "~4,'0d.~2,'0d.~2,'0d ~2,'0d:~2,'0d:~2,'0d" yy mm dd h m s)))
+
 (defun maybe-finalize-inheritance (class)
   (unless (c2mop:class-finalized-p class)
     (c2mop:finalize-inheritance class))
@@ -141,7 +145,3 @@
 
 (defclass enter-area (event)
   ((area :initarg :area :reader area)))
-
-(setf (active-p (for:for ((entity over +level+))
-                  (when (typep entity 'trigger) (return entity)))) T)
-(print (compute-applicable-dialogs (make-instance 'enter-area) T))
