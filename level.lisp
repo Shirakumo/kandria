@@ -6,13 +6,11 @@
                               (falling-platform 4)))
 
 (defclass level (pipelined-scene)
-  ((file :initform NIL :initarg :file :accessor file)))
+  ((name :accessor name)))
 
-(defmethod initialize-instance :after ((level level) &key)
-  (when (and (name level) (not (file level)))
-    (setf (file level) (pool-path 'leaf (format NIL "~a.map" (symbol-name (name level))))))
-  (when (and (file level) (probe-file (file level)))
-    (load-level level (file level))))
+(defmethod file ((level level))
+  (pool-path 'leaf (make-pathname :name (format NIL "~(~a~)" (name level)) :type "map"
+                                  :directory '(:relative "map"))))
 
 (defmethod scan ((level level) target)
   (for:for ((result as NIL)
@@ -120,9 +118,10 @@
   (fast-io:writeu16-le (cdr (size chunk)) buffer)
   (fast-io:writeu16-le (tile-size chunk) buffer)
   (save-level (tileset chunk) buffer)
-  (let ((path (format NIL "~a.~a.raw"
-                      (symbol-name (or (name +level+) :chunk))
-                      (symbol-name (name chunk)))))
+  (let* ((*print-case* :downcase)
+         (path (format NIL "~a.~a.raw"
+                       (symbol-name (or (name +level+) :chunk))
+                       (symbol-name (name chunk)))))
     (with-open-file (stream path :direction :output
                                  :element-type '(unsigned-byte 8)
                                  :if-exists :supersede)
@@ -160,7 +159,7 @@
 
 (defmethod load-level ((type (eql 'symbol)) (buffer fast-io:input-buffer))
   (let ((package (load-level 'string buffer))
-        (name (load-level 'name buffer)))
+        (name (load-level 'string buffer)))
     (intern name package)))
 
 (defmethod save-level ((string string) (buffer fast-io:output-buffer))

@@ -129,7 +129,7 @@ void main(){
 (define-handler (editor save-state) (ev)
   (save-state (handler *context*) T))
 
-(define-handler (editor save-state) (ev)
+(define-handler (editor load-state) (ev)
   (load-state (handler *context*) T))
 
 (define-handler (editor save-game) (ev)
@@ -138,8 +138,8 @@ void main(){
       (with-query (file "Map save location"
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
-        (setf (file +level+) (pool-path 'leaf file))
-        (save-level +level+ T))))
+        (setf (name +level+) (kw (pathname-name (file +level+))))
+        (save-level +level+ (pool-path 'leaf file)))))
 
 (define-handler (editor load-game) (ev)
   (if (retained 'modifiers :control)
@@ -148,7 +148,8 @@ void main(){
       (with-query (file "Map load location"
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
-        (let ((level (make-instance 'level :file (pool-path 'leaf file))))
+        (let ((level (make-instance 'level)))
+          (load-level level file)
           (change-scene (handler *context*) level)))))
 
 (define-handler (editor insert-entity) (ev)
@@ -239,23 +240,24 @@ void main(){
   (let ((program (shader-program-for-pass pass editor))
         (chunk (entity editor)))
     (gl:active-texture :texture0)
-    (gl:bind-texture :texture-2d (gl-name (texture chunk)))
+    (gl:bind-texture :texture-2d (gl-name (tileset chunk)))
     (setf (uniform program "tileset") 0)
     (setf (uniform program "tile") (vec2 (* (tile-size chunk) (tile-to-place editor))
                                          (* (tile-size chunk) (level editor))))))
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
-  (call-next-method)
+  (with-pushed-matrix ()
+    (call-next-method))
   (paint (tile-picker editor) target))
 
 (define-class-shader (chunk-editor :vertex-shader)
   "
-layout (location = 0) in vec3 vertex;
+layout (location = 0) in vec3 position;
 uniform vec2 tile;
 out vec2 uv;
 
 void main(){
-  uv = vertex.xy + tile;
+  uv = position.xy + tile;
 }")
 
 (define-class-shader (chunk-editor :fragment-shader)

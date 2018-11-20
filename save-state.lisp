@@ -9,7 +9,7 @@
                    (user-homedir-pathname)))
 
 (defun save-state-path (name)
-  (make-pathname :name (princ-to-string name) :type "save"
+  (make-pathname :name (format NIL "~(~a~)" name) :type "save"
                  :defaults (config-directory)))
 
 (defclass save ()
@@ -41,11 +41,14 @@
 
 (defmethod save-state ((main main) (save save))
   (v:info :leaf.state "Saving state ~a" save)
-  (with-open-file (out (file save)
+  (with-open-file (out (ensure-directories-exist (file save))
                        :direction :output
                        :element-type 'character
                        :if-exists :supersede)
-    (let ((*default-pathname-defaults* file))
+    (let ((*default-pathname-defaults* (file save))
+          (*print-case* :downcase)
+          (*package* #.*package*))
+      (format out ";; -*- Mode: common-lisp -*-~%")
       (save-state save out)
       (save-state main out))))
 
@@ -54,7 +57,9 @@
   (with-open-file (in (file save)
                       :direction :input
                       :element-type 'character)
-    (let ((*default-pathname-defaults* file))
+    (let ((*default-pathname-defaults* (file save))
+          (*read-eval* NIL)
+          (*package* #.*package*))
       (load-state save in)
       (load-state main in))))
 
@@ -65,7 +70,7 @@
   (destructuring-bind (type &rest data) (read stream)
     (load-state-into object type data)))
 
-(defmethod state-data ((save save) (stream stream))
+(defmethod state-data ((save save))
   (list :username (username save)
         :timestamp (timestamp save)))
 
@@ -108,17 +113,19 @@
 
 (defmethod load-state-into ((main main) (type (eql 'level)) (data cons))
   (destructuring-bind (name &rest entries) data
-    (let ((level (make-instance 'level :name name)))
+    (let ((level (if (eq name (name (scene main)))
+                     (scene main)
+                     (make-instance 'level :name name))))
       (loop for (type . data) in entries
             do (load-state-into level type data))
       (change-scene main level))))
 
 (defmethod state-data ((player player))
-  (list (name player) (location player)))
+  (list (name player) (vapply (location player) floor)))
 
 (defmethod load-state-into ((level level) (type (eql 'player)) data)
   (destructuring-bind (name location) data
     (let ((player (unit name level)))
       (vsetf (location player)
-             (vx2 location)
-             (vy2 location)))))
+             (second location)
+             (third location)))))

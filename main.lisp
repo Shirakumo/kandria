@@ -29,12 +29,11 @@
   (enter (make-instance 'parallax) level)
   (enter (make-instance 'player :location (vec 64 64)) level)
   (enter (make-instance 'chunk :size (cons 64 64)) level)
-  (enter (make-instance 'textbox) level)
-  (enter (make-instance 'trigger :event-type 'enter-area :event-initargs '(:area test)) level))
+  (enter (make-instance 'textbox) level))
 
 (defclass main (trial:main)
   ((scene :initform NIL)
-   (save :initform NIL :accessor save))
+   (save :initform (make-instance 'save :name "test") :accessor save))
   (:default-initargs :clear-color (vec 61/255 202/255 245/255)
                      :title "Leaf - 0.0.0"))
 
