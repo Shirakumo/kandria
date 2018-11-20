@@ -33,7 +33,8 @@
   (enter (make-instance 'trigger :event-type 'enter-area :event-initargs '(:area test)) level))
 
 (defclass main (trial:main)
-  ((scene :initform NIL))
+  ((scene :initform NIL)
+   (save :initform NIL :accessor save))
   (:default-initargs :clear-color (vec 61/255 202/255 245/255)
                      :title "Leaf - 0.0.0"))
 
@@ -64,6 +65,12 @@
     (for:for ((entity over scene))
       (when (typep entity 'game-entity)
         (add-handler (handlers entity) scene)))))
+
+(defmethod save-state ((main main) (_ (eql T)))
+  (save-state main (save main)))
+
+(defmethod load-state ((main main) (_ (eql T)))
+  (load-state main (save main)))
 
 (defmethod (setf scene) :after (scene (main main))
   (setf +level+ scene))

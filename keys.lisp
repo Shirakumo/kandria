@@ -24,7 +24,13 @@
   (key-press (one-of key :page-up)))
 
 (define-action resize-chunk (editor-command)
+  (key-press (one-of key :f9)))
+
+(define-action save-state (editor-command)
   (key-press (one-of key :f5)))
+
+(define-action load-state (editor-command)
+  (key-press (one-of key :f6)))
 
 (define-action control-down (editor-command)
   (key-press (one-of key :left-control :right-control)))
