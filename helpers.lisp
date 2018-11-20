@@ -13,6 +13,9 @@
     (c2mop:finalize-inheritance class))
   class)
 
+(defun kw (thing)
+  (intern (string-upcase thing) "KEYWORD"))
+
 (defmethod unit (thing (target (eql T)))
   (when +level+
     (unit thing +level+)))
@@ -25,6 +28,9 @@
   (vsetf vec
          (* grid (floor (vx vec) grid))
          (* grid (floor (vy vec) grid))))
+
+(defun vfloor (vec)
+  (vapply vec floor))
 
 (defun vsqrdist2 (a b)
   (declare (type vec2 a b))
