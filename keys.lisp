@@ -11,9 +11,6 @@
 (define-action insert-entity (editor-command)
   (key-press (one-of key :insert)))
 
-(define-action standard-entity (editor-command)
-  (key-press (one-of key :home)))
-
 (define-action select-entity (editor-command)
   (key-press (one-of key :tab)))
 

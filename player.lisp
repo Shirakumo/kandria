@@ -4,7 +4,8 @@
     (make-rectangle 16 16))
 
 (define-shader-subject player (animated-sprite-subject moving facing-entity dialog-entity)
-  ((vertex-array :initform (asset 'leaf 'player-mesh))
+  ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
+   (vertex-array :initform (asset 'leaf 'player-mesh))
    (status :initform NIL :accessor status)
    (vlim  :initform (vec 10 10) :accessor vlim)
    (vmove :initform (vec2 0.6 0.1) :accessor vmove)
@@ -30,6 +31,9 @@
                  (1.0 1)
                  (1.0 7 :start 33 :loop-to 6)
                  (0.2 8 :loop-to 7))))
+
+(defmethod initialize-instance :after ((player player) &key)
+  (setf (spawn-location player) (vcopy (location player))))
 
 (define-handler (player dash) (ev)
   (let ((vel (velocity player)))
@@ -208,8 +212,9 @@
 (defmethod death ((player player))
   (start (reset (progression 'revive +level+)))
   (setf (animation player) 6)
-  (setf (vx (location player)) 16)
-  (setf (vy (location player)) 16))
+  (vsetf (location player)
+         (vx (spawn-location player))
+         (vy (spawn-location player))))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit :player T))) (vy (location (unit :camera T))))

@@ -30,13 +30,15 @@
 
 (defun list-saves ()
   (mapcar #'minimal-load-state
-          (directory (make-pathname :name :* :type "save" :defaults (config-directory)))))
+          (directory (make-pathname :name :wild :type "save" :defaults (config-directory)))))
 
 (defmethod minimal-load-state (file)
   (with-open-file (in file
                       :direction :input
                       :element-type 'character)
-    (let ((*default-pathname-defaults* file))
+    (let ((*default-pathname-defaults* file)
+          (*read-eval* NIL)
+          (*package* #.*package*))
       (load-state (make-instance 'save :name (pathname-name file)) in))))
 
 (defmethod save-state ((main main) (save save))
@@ -69,6 +71,10 @@
 (defmethod load-state (object (stream stream))
   (destructuring-bind (type &rest data) (read stream)
     (load-state-into object type data)))
+
+(defmethod load-state-into :around (object type data)
+  (call-next-method)
+  object)
 
 (defmethod state-data ((save save))
   (list :username (username save)
@@ -115,17 +121,17 @@
   (destructuring-bind (name &rest entries) data
     (let ((level (if (eq name (name (scene main)))
                      (scene main)
-                     (make-instance 'level :name name))))
+                     (load-level (make-instance 'level :name name) T))))
       (loop for (type . data) in entries
             do (load-state-into level type data))
       (change-scene main level))))
 
 (defmethod state-data ((player player))
-  (list (name player) (vapply (location player) floor)))
+  (list (name player) (vapply (spawn-location player) floor)))
 
 (defmethod load-state-into ((level level) (type (eql 'player)) data)
-  (destructuring-bind (name location) data
+  (destructuring-bind (name (_ x y)) data
+    (declare (ignore _))
     (let ((player (unit name level)))
-      (vsetf (location player)
-             (second location)
-             (third location)))))
+      (vsetf (location player) x y)
+      (vsetf (spawn-location player) x y))))

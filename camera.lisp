@@ -16,15 +16,14 @@
   (setf (target camera) (unit :player scene))
   (setf (surface camera) (unit :surface scene)))
 
-(define-handler (camera trial:tick) (ev)
+(define-handler (camera trial:tick) (ev tt)
   (let ((loc (location camera))
         (surface (surface camera))
         (size (target-size camera)))
     (unless (active-p (unit :editor +level+))
       (when (target camera)
         (let ((tar (location (target camera))))
-          (vsetf loc (vx tar) (vy tar))
-          (nv- loc (target-size camera))))
+          (vsetf loc (vx tar) (vy tar))))
       (when surface
         (setf (vx loc) (clamp (- (vx (location surface))
                                  (vx (bsize surface)))
@@ -55,4 +54,4 @@
   (let ((z (view-scale camera)))
     (reset-matrix *view-matrix*)
     (scale-by z z z *view-matrix*)
-    (translate (nv- (vxy_ (location camera))) *view-matrix*)))
+    (translate (vxy_ (v- (v/ (target-size camera) (zoom camera)) (location camera))) *view-matrix*)))

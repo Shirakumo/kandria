@@ -88,8 +88,7 @@
       scene)))
 
 (defmethod save-level ((player player) (buffer fast-io:output-buffer))
-  ;; FIXME: Change this to a spawner that can handle intro transitions
-  (save-level (location player) buffer))
+  (save-level (spawn-location player) buffer))
 
 (defmethod load-level ((type (eql 'player)) (buffer fast-io:input-buffer))
   (make-instance 'player :location (load-level 'vec2 buffer)))

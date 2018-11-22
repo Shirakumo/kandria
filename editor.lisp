@@ -10,11 +10,12 @@
       (let ((program (shader-program-for-pass pass marker))
             (camera (unit :camera T)))
         (setf (uniform program "scale") (view-scale camera))
-        (setf (uniform program "offset") (location camera)))
+        (setf (uniform program "offset") (v- (location camera)
+                                             (v/ (target-size camera) (zoom camera)))))
       (gl:blend-func :one-minus-dst-color :src-alpha)
       (with-pushed-matrix ()
         (translate (vxy_ (location entity)))
-        (scale-by (* 2 (vx (bsize entity))) (* 2 (vy (bsize entity))) 1.0)
+        (scale-by (* 2 (vx2 (bsize entity))) (* 2 (vy2 (bsize entity))) 1.0)
         (call-next-method))
       (gl:blend-func :src-alpha :one-minus-src-alpha))))
 
@@ -94,9 +95,11 @@ void main(){
 
 (define-handler (editor mouse-move) (ev pos)
   (let ((loc (location editor))
-        (entity (entity editor)))
+        (entity (entity editor))
+        (camera (unit :camera T)))
     (vsetf loc (vx pos) (vy pos))
-    (nv+ (nv/ loc (view-scale (unit :camera T))) (location (unit :camera T)))
+    (nv+ (nv/ loc (view-scale camera)) (location camera))
+    (nv- loc (target-size camera))
     (nvalign loc *default-tile-size*)
     (case (status editor)
       (:dragging
@@ -138,7 +141,7 @@ void main(){
       (with-query (file "Map save location"
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
-        (setf (name +level+) (kw (pathname-name (file +level+))))
+        (setf (name +level+) (kw (pathname-name file)))
         (save-level +level+ (pool-path 'leaf file)))))
 
 (define-handler (editor load-game) (ev)
@@ -148,7 +151,7 @@ void main(){
       (with-query (file "Map load location"
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
-        (let ((level (make-instance 'level)))
+        (let ((level (make-instance 'level :name (kw (pathname-name file)))))
           (load-level level file)
           (change-scene (handler *context*) level)))))
 
@@ -164,9 +167,6 @@ void main(){
 (define-handler (editor delete-entity) (ev)
   (leave (entity editor) +level+)
   (setf (entity editor) NIL))
-
-(define-handler (editor standard-entity) (ev)
-  (setf (entity editor) (unit :surface T)))
 
 (define-handler (editor trial:tick) (ev)
   (let ((loc (location (unit :camera +level+))))

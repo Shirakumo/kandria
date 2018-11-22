@@ -8,12 +8,14 @@
 (defmethod paint ((parallax parallax) (pass shader-pass))
   (let ((vao (vertex-array parallax))
         (program (shader-program-for-pass pass parallax))
-        (loc (location (unit :camera T))))
+        (camera (unit :camera T)))
     (with-pushed-attribs
       (setf (uniform program "aspect") (float (/ (width *context*)
                                                  (height *context*))))
-      (setf (uniform program "offset") (vec (floor (vx loc))
-                                            (max 0 (floor (vy loc)))))
+      (setf (uniform program "offset") (vec (floor (vx (location camera)))
+                                            (max 0 (floor (vy (location camera))))))
+      ;; FIXME: zooming is not quite right yet
+      (setf (uniform program "zoom") (view-scale camera))
       (setf (uniform program "parallax") 0)
       (gl:active-texture :texture0)
       (gl:bind-texture :texture-2d (gl-name (texture parallax)))
@@ -23,15 +25,17 @@
 
 (define-class-shader (parallax :vertex-shader)
   "
+#define SCALE 1000
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 in_tex_coord;
 uniform float aspect;
+uniform float zoom = 1.0;
 uniform vec2 offset;
 out vec2 tex_coord;
 
 void main(){
   gl_Position = vec4(position, 1.0f);
-  tex_coord = vec2(in_tex_coord.x, in_tex_coord.y/aspect)+offset/1000;
+  tex_coord = (vec2(in_tex_coord.x, in_tex_coord.y/aspect)+offset/SCALE)/zoom;
 }")
 
 (define-class-shader (parallax :fragment-shader)
