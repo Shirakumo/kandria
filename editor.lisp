@@ -81,10 +81,11 @@ void main(){
 ;; FIXME: Autosaves in lieu of undo
 
 (define-handler (editor mouse-press) (ev pos)
-  (let ((loc (location editor)))
+  (let ((loc (location editor))
+        (camera (unit :camera T)))
     (vsetf loc (vx pos) (vy pos))
-    (nv+ (nv/ loc (view-scale (unit :camera T))) (location (unit :camera T)))
-    (nvalign loc *default-tile-size*)
+    (nv+ (nv/ loc (view-scale camera)) (location camera))
+    (nv- loc (target-size camera))
     (unless (entity editor)
       (setf (entity editor) (entity-at-point loc +level+)))
     (when (retained 'modifiers :alt)
