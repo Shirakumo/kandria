@@ -15,7 +15,7 @@
       (setf (uniform program "offset") (vec (floor (vx (location camera)))
                                             (max 0 (floor (vy (location camera))))))
       ;; FIXME: zooming is not quite right yet
-      (setf (uniform program "zoom") (view-scale camera))
+      (setf (uniform program "zoom") (zoom camera))
       (setf (uniform program "parallax") 0)
       (gl:active-texture :texture0)
       (gl:bind-texture :texture-2d (gl-name (texture parallax)))

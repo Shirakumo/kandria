@@ -1,10 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-asset (leaf ground) image
-    #p"ground.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
 (define-asset (leaf player) image
     #p"player.png"
   :min-filter :nearest
@@ -20,6 +15,16 @@
   :min-filter :nearest
   :mag-filter :nearest
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
+
+(define-asset (leaf ground) image
+    #p"ground.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
+(define-asset (leaf facility) image
+    #p"facility.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
 
 (defclass empty-level (level)
   ()

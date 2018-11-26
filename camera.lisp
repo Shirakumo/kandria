@@ -64,7 +64,8 @@
   (setf (vy (target-size camera)) (/ (height ev) (view-scale camera) 2)))
 
 (defmethod project-view ((camera camera) ev)
-  (let ((z (view-scale camera)))
+  (let* ((z (view-scale camera))
+         (v (nv- (v/ (target-size camera) (zoom camera)) (location camera))))
     (reset-matrix *view-matrix*)
     (scale-by z z z *view-matrix*)
-    (translate (vxy_ (v- (v/ (target-size camera) (zoom camera)) (location camera))) *view-matrix*)))
+    (translate-by (vx v) (vy v) 100 *view-matrix*)))
