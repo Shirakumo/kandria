@@ -244,7 +244,7 @@ void main(){
     (gl:bind-texture :texture-2d (gl-name (tileset chunk)))
     (setf (uniform program "tileset") 0)
     (setf (uniform program "tile") (vec2 (* (tile-size chunk) (tile-to-place editor))
-                                         (* (tile-size chunk) (level editor))))))
+                                         (* (tile-size chunk) (max 0 (1- (level editor))))))))
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
   (with-pushed-matrix ()
@@ -276,13 +276,18 @@ void main(){
 
 (define-shader-entity tile-picker (vertex-entity textured-entity)
   ((vertex-array :initform (asset 'leaf 'tile-picker))
-   (texture :initform (asset 'leaf 'ground))
+   (texture :initform NIL)
    (editor :initarg :editor :accessor editor))
   (:inhibit-shaders (textured-entity :fragment-shader)))
 
 (defmethod paint :around ((picker tile-picker) target)
   (with-pushed-matrix ((*model-matrix* :identity)
                        (*view-matrix* :identity))
+    (let ((editor (editor picker)))
+      (setf (texture picker)
+            (if (= 0 (level editor))
+                (surface (entity editor))
+                (tileset (entity editor)))))
     (let ((s (/ (width *context*) (* 64 *default-tile-size*))))
       (translate-by 0 (* 4 *default-tile-size* s) 4)
       (scale-by s s 1))
@@ -290,7 +295,7 @@ void main(){
 
 (defmethod paint :before ((picker tile-picker) (pass shader-pass))
   (let ((program (shader-program-for-pass pass picker)))
-    (setf (uniform program "level") (level (editor picker)))))
+    (setf (uniform program "level") (max 0 (1- (level (editor picker)))))))
 
 (define-class-shader (tile-picker :fragment-shader)
   "in vec2 texcoord;
