@@ -10,14 +10,14 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
-(define-asset (leaf background) image
-    #p"background.png"
+(define-asset (leaf forest-background) image
+    #p"forest-background.png"
   :min-filter :nearest
   :mag-filter :nearest
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
 
-(define-asset (leaf ground) image
-    #p"ground.png"
+(define-asset (leaf forest) image
+    #p"forest.png"
   :min-filter :nearest
   :mag-filter :nearest)
 
@@ -25,6 +25,12 @@
     #p"facility.png"
   :min-filter :nearest
   :mag-filter :nearest)
+
+(define-asset (leaf facility-background) image
+    #p"facility-background.png"
+  :min-filter :nearest
+  :mag-filter :nearest
+  :wrapping :repeat)
 
 (defclass empty-level (level)
   ()

@@ -3,7 +3,7 @@
 (define-shader-subject parallax ()
   ((texture :initarg :texture :accessor texture)
    (vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array))
-  (:default-initargs :texture (asset 'leaf 'background)))
+  (:default-initargs :texture (asset 'leaf 'facility-background)))
 
 (defmethod paint ((parallax parallax) (pass shader-pass))
   (let ((vao (vertex-array parallax))
