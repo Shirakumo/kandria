@@ -55,19 +55,28 @@
                (when (typep entity class)
                  (update entity))))))
 
-(defun query (message &key default parse)
-  (format *query-io* "~&~a~@[ [~a]~]:~%> " message default)
-  (let ((read (read-line *query-io* NIL)))
-    (cond ((not read))
-          ((string= "" read)
-           default)
-          (T
-           (if parse (funcall parse read) read)))))
+(defun query (message on-yes &key default parse)
+  (flet ((parse (string)
+           (cond ((not string))
+                 ((string= "" string)
+                  default)
+                 (T
+                  (if parse (funcall parse string) string)))))
+    (let ((message (format NIL "~a~@[ [~a]~]:" message default)))
+      (cond (*context*
+             (with-context (*context*)
+               (flet ((callback (string) (funcall on-yes (parse string))))
+                 (let ((input (make-instance 'text-input :title message :callback #'callback)))
+                   (transition input +level+)
+                   (enter input +level+)))))
+            (T
+             (format *query-io* "~&~a~%> " message)
+             (parse (read-line *query-io* NIL)))))))
 
 (defmacro with-query ((value message &key default parse) &body body)
-  `(let ((,value (query ,message :default ,default :parse ,parse)))
-     (when ,value
-       ,@body)))
+  `(query ,message
+          (lambda (,value) ,@body)
+          :default ,default :parse ,parse))
 
 (defun entity-at-point (point level)
   (for:for ((result as NIL)
