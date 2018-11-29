@@ -8,6 +8,12 @@
 (defclass level (pipelined-scene)
   ((name :accessor name)))
 
+(defmethod paint :before ((level level) target)
+  (let ((*paint-background-p* T))
+    (for:for ((entity flare-queue:in-queue (objects level)))
+      (when (typep entity 'chunk)
+        (paint entity target)))))
+
 (defmethod file ((level level))
   (pool-path 'leaf (make-pathname :name (format NIL "~(~a~)" (name level)) :type "map"
                                   :directory '(:relative "map"))))
@@ -42,6 +48,7 @@
   (load-level object (uiop:parse-native-namestring file)))
 
 (defmethod save-level (object (file pathname))
+  (ensure-directories-exist file)
   (with-open-file (out file :direction :output
                             :element-type '(unsigned-byte 8)
                             :if-exists :supersede)
