@@ -41,6 +41,12 @@
 (define-action alt-up (editor-command)
   (key-release (one-of key :left-alt :right-alt)))
 
+(define-action shift-down (editor-command)
+  (key-press (one-of key :left-shift :right-shift)))
+
+(define-action shift-up (editor-command)
+  (key-release (one-of key :left-shift :right-shift)))
+
 (define-retention mouse (ev)
   (when (typep ev 'mouse-press)
     (setf (retained 'mouse (button ev)) T))
@@ -52,7 +58,9 @@
     (control-down (setf (retained 'modifiers :control) T))
     (control-up (setf (retained 'modifiers :control) NIL))
     (alt-down (setf (retained 'modifiers :alt) T))
-    (alt-up (setf (retained 'modifiers :alt) NIL))))
+    (alt-up (setf (retained 'modifiers :alt) NIL))
+    (shift-down (setf (retained 'modifiers :shift) T))
+    (shift-up (setf (retained 'modifiers :shift) NIL))))
 
 (define-action skip ()
   (key-press (one-of key :enter :space))

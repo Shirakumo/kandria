@@ -80,12 +80,17 @@ void main(){
 
 ;; FIXME: Autosaves in lieu of undo
 
-(define-handler (editor mouse-press) (ev pos)
+(defun update-editor-pos (editor pos)
   (let ((loc (location editor))
         (camera (unit :camera T)))
     (vsetf loc (vx pos) (vy pos))
     (nv+ (nv/ loc (view-scale camera)) (location camera))
-    (nv- loc (target-size camera))
+    (nv- loc (v/ (target-size camera) (zoom camera)))
+    (nvalign loc *default-tile-size*)))
+
+(define-handler (editor mouse-press) (ev pos)
+  (let ((loc (location editor)))
+    (update-editor-pos editor pos)
     (unless (entity editor)
       (setf (entity editor) (entity-at-point loc +level+)))
     (when (retained 'modifiers :alt)
@@ -96,12 +101,8 @@ void main(){
 
 (define-handler (editor mouse-move) (ev pos)
   (let ((loc (location editor))
-        (entity (entity editor))
-        (camera (unit :camera T)))
-    (vsetf loc (vx pos) (vy pos))
-    (nv+ (nv/ loc (view-scale camera)) (location camera))
-    (nv- loc (target-size camera))
-    (nvalign loc *default-tile-size*)
+        (entity (entity editor)))
+    (update-editor-pos editor pos)
     (case (status editor)
       (:dragging
        (vsetf (location entity)
@@ -170,11 +171,12 @@ void main(){
   (setf (entity editor) NIL))
 
 (define-handler (editor trial:tick) (ev)
-  (let ((loc (location (unit :camera +level+))))
-    (cond ((retained 'movement :left) (decf (vx loc) 1))
-          ((retained 'movement :right) (incf (vx loc) 1)))
-    (cond ((retained 'movement :down) (decf (vy loc) 1))
-          ((retained 'movement :up) (incf (vy loc) 1)))))
+  (let ((loc (location (unit :camera +level+)))
+        (spd (if (retained 'modifiers :shift) 4 1)))
+    (cond ((retained 'movement :left) (decf (vx loc) spd))
+          ((retained 'movement :right) (incf (vx loc) spd)))
+    (cond ((retained 'movement :down) (decf (vy loc) spd))
+          ((retained 'movement :up) (incf (vy loc) spd)))))
 
 (define-asset (leaf square) mesh
     (make-rectangle 8 8 :align :topleft))
@@ -314,4 +316,65 @@ void main(){
   color.rgb = vec3((mod(floor((texcoord.x*64+texcoord.y*4)*2), 2.0) <= 0.0)? 0.1 : 0.2);
   color.a = 1.0;
   color = mix(color, texel, texel.a);
+}")
+
+(define-shader-subject text-input ()
+  ((vertex-array :initform (asset 'trial 'trial::fullscreen-square) :accessor vertex-array)
+   (title :initform (make-instance 'text :color (vec 1 1 1 1) :font (asset 'trial 'trial::noto-mono) :size 20) :accessor title)
+   (label :initform (make-instance 'text :color (vec 1 1 1 1) :font (asset 'trial 'trial::noto-mono) :size 32) :accessor label)
+   (callback :initarg :callback :accessor callback)))
+
+(defmethod initialize-instance :after ((text-input text-input) &key title default)
+  (setf (text (label text-input)) (or default ""))
+  (setf (text (title text-input)) (or title "")))
+
+(defmethod register-object-for-pass :after (pass (text-input text-input))
+  (register-object-for-pass pass (label text-input)))
+
+(define-handler (text-input key-press) (ev key)
+  (case key
+    ((:enter :return)
+     (funcall (callback text-input) (text (label text-input)))
+     (leave text-input +level+))
+    ((:esc :escape)
+     (leave text-input +level+))
+    ((:backspace)
+     (let ((label (label text-input)))
+       (when (< 0 (length (text label)))
+         (setf (text label) (subseq (text label) 0 (1- (length (text label))))))))))
+
+(define-handler (text-input text-entered) (ev text)
+  (let ((label (label text-input)))
+    (setf (text label) (concatenate 'string (text label) text))))
+
+(defmethod paint ((text-input text-input) target)
+  (let ((vao (vertex-array text-input)))
+    (with-pushed-attribs
+      (disable :depth-test)
+      (gl:bind-vertex-array (gl-name vao))
+      (%gl:draw-elements :triangles (size vao) :unsigned-int (cffi:null-pointer))
+      (gl:bind-vertex-array 0)))
+  (with-pushed-matrix ((view-matrix :identity)
+                       (model-matrix :identity))
+    (let ((label (label text-input))
+          (title (title text-input)))
+      (translate-by (/ (- (width *context*) 600) 2)
+                    (+ (/ (height *context*) 2) (height label) (* 2 (height title)))
+                    0)
+      (paint title target)
+      (translate-by 0 (- (* 2 (height title))) 0)
+      (paint label target))))
+
+(define-class-shader (text-input :vertex-shader)
+  "layout (location = 0) in vec3 position;
+
+void main(){
+  gl_Position = vec4(position, 1);
+}")
+
+(define-class-shader (text-input :fragment-shader)
+  "out vec4 color;
+
+void main(){
+  color = vec4(0,0,0,0.75);
 }")
