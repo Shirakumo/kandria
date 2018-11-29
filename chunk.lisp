@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defvar *paint-background-p* NIL)
+
 (define-asset (leaf surface) image
     #p"surface.png"
   :min-filter :nearest
@@ -49,7 +51,6 @@
     (setf (uniform program "view_offset") (nv+ (v- (location camera) (location chunk)
                                                    (v/ (target-size camera) (zoom camera)))
                                                (bsize chunk)))
-    (setf (uniform program "surface_visible") (if (active-p (unit :editor T)) 1 0))
     (setf (uniform program "tileset") 0)
     (setf (uniform program "tilemap") 1)
     (setf (uniform program "surface") 2)
@@ -60,6 +61,11 @@
     (gl:active-texture :texture2)
     (gl:bind-texture :texture-2d (gl-name (surface chunk)))
     (gl:bind-vertex-array (gl-name vao))
+    ;; This sucks
+    (setf (uniform program "level")
+          (cond (*paint-background-p*        -1)
+                ((active-p (unit :editor T))  0)
+                (T                            1)))
     (%gl:draw-elements :triangles (size vao) :unsigned-int 0)))
 
 (define-class-shader (chunk :vertex-shader)
@@ -82,7 +88,7 @@ uniform sampler2D tileset;
 uniform usampler2D tilemap;
 uniform usampler2D surface;
 uniform int tile_size = 8;
-uniform int surface_visible = 0;
+uniform int level = 0;
 in vec2 map_coord;
 out vec4 color;
 
@@ -93,13 +99,23 @@ void main(){
   if(0 <= map_xy.x && 0 <= map_xy.y && map_xy.x < map_wh.x && map_xy.y < map_wh.y)
     layers = ivec4(texelFetch(tilemap, map_xy/tile_size, 0));
   ivec2 set_xy = ivec2(mod(map_xy.x, tile_size), mod(map_xy.y, tile_size));
-  vec4 ln1 = texelFetch(tileset, set_xy+ivec2(layers.g, 0)*tile_size, 0);
-  vec4 l_0 = texelFetch(tileset, set_xy+ivec2(layers.b, 1)*tile_size, 0);
-  vec4 lp1 = texelFetch(tileset, set_xy+ivec2(layers.a, 2)*tile_size, 0);
-  color = mix(mix(ln1, l_0, l_0.a), lp1, lp1.a);
-  if(surface_visible != 0){
-    vec4 l_s = texelFetch(surface, set_xy+ivec2(layers.r, 0)*tile_size, 0);
-    color += l_s;
+  vec4 texel;
+  color = vec4(0);
+
+  switch(level){
+  case -1:
+    texel = texelFetch(tileset, set_xy+ivec2(layers[1], 0)*tile_size, 0);
+    color = mix(color, texel, texel.a);
+    break;
+  case  0:
+    texel = texelFetch(surface, set_xy+ivec2(layers[0], 0)*tile_size, 0);
+    color = mix(color, texel, texel.a);
+  case +1:
+    texel = texelFetch(tileset, set_xy+ivec2(layers[2], 1)*tile_size, 0);
+    color = mix(color, texel, texel.a);
+  case +2:
+    texel = texelFetch(tileset, set_xy+ivec2(layers[3], 2)*tile_size, 0);
+    color = mix(color, texel, texel.a);
   }
 }")
 
