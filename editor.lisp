@@ -144,7 +144,7 @@ void main(){
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
         (setf (name +level+) (kw (pathname-name file)))
-        (save-level +level+ (pool-path 'leaf file)))))
+        (save-level +level+ (pool-path 'leaf (merge-pathnames file "map/"))))))
 
 (define-handler (editor load-game) (ev)
   (if (retained 'modifiers :control)
@@ -154,7 +154,7 @@ void main(){
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
         (let ((level (make-instance 'level :name (kw (pathname-name file)))))
-          (load-level level (pool-path 'leaf file))
+          (load-level level (pool-path 'leaf (merge-pathnames file "map/")))
           (change-scene (handler *context*) level)))))
 
 (define-handler (editor insert-entity) (ev)
