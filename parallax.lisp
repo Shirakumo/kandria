@@ -34,7 +34,7 @@ uniform vec2 offset;
 out vec2 tex_coord;
 
 void main(){
-  gl_Position = vec4(position, 1.0f);
+  gl_Position = vec4(position.x, position.y, 1.0f, 1.0f);
   tex_coord = (vec2(in_tex_coord.x, in_tex_coord.y/aspect)+offset/SCALE)/zoom;
 }")
 

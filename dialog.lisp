@@ -39,12 +39,16 @@
   ;; FIXME
   )
 
+(define-dialog-function :eval (box form)
+  (eval form))
+
 (define-dialog-function :stop (box)
   (throw 'stop NIL))
 
 (define-dialog-function :end (box)
-  (funcall (state-change (current-dialog box))
-           (storyline (current-dialog box)))
+  (let ((diag (current-dialog box)))
+    (setf (state (name diag) (storyline diag)) T)
+    (funcall (state-change diag) (storyline diag)))
   (setf (current-dialog box) NIL)
   (throw 'stop NIL))
 

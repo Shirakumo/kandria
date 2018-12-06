@@ -25,9 +25,9 @@
                                              :color (vec 1 1 1 1) :text "") :reader paragraph)
    (title :initform (make-instance 'text :font (asset 'leaf 'text)
                                          :size 22 :color (vec 0 0 0 1) :text "Test") :reader title)
-   (target :initarg :target :accessor target) 
-   (start-time :initform 0.0 :accessor start-time)
-   (true-size :initform 0 :accessor true-size)
+   (target :initarg :target :accessor target)
+   (clock :initform 0.0 :accessor clock)
+   (cursor :initform 0 :accessor cursor)
    (current-dialog :initform NIL :accessor current-dialog)
    (dialog-index :initform 0 :accessor dialog-index)))
 
@@ -40,8 +40,13 @@
 
 (defmethod (setf text) (string (textbox textbox))
   (setf (text (paragraph textbox)) string)
-  (shiftf (true-size textbox) (size (vertex-array (paragraph textbox))) 0)
-  (setf (start-time textbox) 0))
+  (setf (clock textbox) 0.0)
+  (setf (cursor textbox) 0))
+
+(defmethod (setf cursor) :after (index (textbox textbox))
+  (setf (size (vertex-array (paragraph textbox)))
+        (* 6 (min index
+                  (length (text (paragraph textbox)))))))
 
 (defmethod trial:tile ((textbox textbox))
   (trial:tile (profile textbox)))
@@ -67,27 +72,27 @@
             do (apply (dialog-function fun) textbox args)))))
 
 (define-handler (textbox skip) (ev)
-  (setf (size (vertex-array (paragraph textbox)))
-        (true-size textbox)))
+  (unless (< (length (text (paragraph textbox))) (cursor textbox))
+    (setf (cursor textbox) (length (text (paragraph textbox))))))
 
 (define-handler (textbox next) (ev)
-  (when (= (size (vertex-array (paragraph textbox)))
-           (true-size textbox))
+  (when (< (length (text (paragraph textbox))) (cursor textbox))
     (advance textbox)))
 
-(define-handler (textbox trial:tick) (ev tt)
-  (when (= 0 (start-time textbox)) (setf (start-time textbox) tt))
-  (setf (size (vertex-array (paragraph textbox)))
-        (min (* 6 (floor (* 30 (- tt (start-time textbox)))))
-             (true-size textbox))))
+(define-handler (textbox trial:tick) (ev dt)
+  (incf (clock textbox) dt)
+  ;; FIXME: Configurable text speed
+  (when (< .02 (clock textbox))
+    (setf (clock textbox) 0)
+    (incf (cursor textbox))))
 
 (define-handler (textbox check-storyline event) (ev)
-  
-  (let ((diags (compute-applicable-dialogs ev T)))
-    (cond ((cdr diags)
-           (error "FIXME: Menu for multiple dialogs"))
-          (diags
-           (setf (current-dialog textbox) (first diags))))))
+  (unless (current-dialog textbox)
+    (let ((diags (compute-applicable-dialogs ev T)))
+      (cond ((cdr diags)
+             (error "FIXME: Menu for multiple dialogs"))
+            (diags
+             (setf (current-dialog textbox) (first diags)))))))
 
 (defmethod paint :around ((textbox textbox) target)
   (when (current-dialog textbox)
@@ -95,6 +100,8 @@
                          (*view-matrix* :identity))
       (let ((s (/ (width *context*) 800)))
         (scale-by s s 1)
+        (when (< 0 (shake-counter (unit :camera T)))
+          (translate (vxy_ (vrand -3 +3))))
         (translate-by 500 (+ 256 128) 5)
         (scale-by 2 2 1)
         (paint (profile textbox) target)
