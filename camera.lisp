@@ -49,7 +49,7 @@
         (nv* dir (/ ease len))
         (if (< 1 (vlength dir))
             (nv+ loc dir)
-            (vsetf loc (floor (vx loc)) (floor (vy loc))))))
+            (vsetf loc (round (vx loc)) (round (vy loc))))))
     (when (< 0 (shake-counter camera))
       (decf (shake-counter camera))
       (nv+ loc (vrand -3 +3)))))

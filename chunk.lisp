@@ -79,7 +79,7 @@ out vec2 map_coord;
 
 void main(){
   map_coord = vertex_uv * view_size * view_scale + view_offset;
-  gl_Position = vec4(vertex.xy, -1.0f, 1.0f);
+  gl_Position = vec4(vertex.xy, 0.0f, 1.0f);
 }")
 
 (define-class-shader (chunk :fragment-shader)
