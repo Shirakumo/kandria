@@ -62,13 +62,37 @@
     (shift-down (setf (retained 'modifiers :shift) T))
     (shift-up (setf (retained 'modifiers :shift) NIL))))
 
-(define-action skip ()
+(define-action menuing ())
+
+(define-action skip (menuing)
   (key-press (one-of key :enter :space))
   (gamepad-press (one-of button :b)))
 
-(define-action next ()
+(define-action advance (menuing)
   (key-press (one-of key :enter :space))
   (gamepad-press (one-of button :a :b)))
+
+(define-action previous (menuing)
+  (key-press (one-of key :left :up :w :a))
+  (gamepad-press (one-of button :dpad-l :dpad-u))
+  (gamepad-move (one-of axis :l-v :dpad-v :l-h :dpad-h) (< pos -0.5 old-pos)))
+
+(define-action next (menuing)
+  (key-press (one-of key :right :down :s :d))
+  (gamepad-press (one-of button :dpad-r :dpad-d))
+  (gamepad-move (one-of axis :l-v :dpad-v :l-h :dpad-h) (< pos +0.5 old-pos)))
+
+(define-action accept (menuing)
+  (key-press (one-of key :enter))
+  (gamepad-press (one-of button :a)))
+
+(define-action back (menuing)
+  (key-press (one-of key :esc :escape :backspace))
+  (gamepad-press (one-of button :b)))
+
+(define-action pause (menuing)
+  (key-press (one-of key :esc :escape))
+  (gamepad-press (one-of button :home)))
 
 (define-action movement ())
 

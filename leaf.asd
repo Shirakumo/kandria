@@ -12,6 +12,7 @@
                (:file "player")
                (:file "level")
                (:file "editor")
+               (:file "menu")
                (:file "camera")
                (:file "main")
                (:file "save-state")
@@ -22,4 +23,5 @@
                :babel
                :form-fiddle
                :lambda-fiddle
-               :trivial-arguments))
+               :trivial-arguments
+               :stealth-mixin))
