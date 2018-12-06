@@ -57,12 +57,12 @@
   (setf (vx (trial:tile (profile textbox))) 0))
 
 (defmethod (setf current-dialog) :after ((dialog dialog) (textbox textbox))
-  (pause (handler *context*))
+  (pause (handler *context*) textbox)
   (setf (dialog-index textbox) -1)
   (advance textbox))
 
 (defmethod (setf current-dialog) :after ((null null) (textbox textbox))
-  (unpause (handler *context*)))
+  (unpause (handler *context*) textbox))
 
 (defmethod advance ((textbox textbox))
   (when (current-dialog textbox)
@@ -75,7 +75,7 @@
   (unless (< (length (text (paragraph textbox))) (cursor textbox))
     (setf (cursor textbox) (length (text (paragraph textbox))))))
 
-(define-handler (textbox next) (ev)
+(define-handler (textbox advance) (ev)
   (when (< (length (text (paragraph textbox))) (cursor textbox))
     (advance textbox)))
 

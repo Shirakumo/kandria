@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-subject camera (trial:2d-camera)
+(define-subject camera (trial:2d-camera unpausable)
   ((flare:name :initform :camera)
    (zoom :initarg :zoom :initform 1.0 :accessor zoom)
    (scale :initform 1.0 :accessor view-scale)

@@ -40,7 +40,8 @@
   (enter (make-instance 'parallax) level)
   (enter (make-instance 'player :location (vec 64 64)) level)
   (enter (make-instance 'chunk :size (cons 64 64)) level)
-  (enter (make-instance 'textbox) level))
+  (enter (make-instance 'textbox) level)
+  (enter (make-instance 'inactive-pause-menu) level))
 
 (defclass main (trial:main)
   ((scene :initform NIL)
@@ -64,16 +65,18 @@
   (issue (scene main) 'post-tick)
   (process (scene main)))
 
-(defmethod pause ((main main))
+(defmethod pause ((main main) excluded)
   (let ((scene (scene main)))
     (for:for ((entity over scene))
-      (when (typep entity 'game-entity)
+      (when (and (typep entity '(and subject (not unpausable)))
+                 (not (eql entity excluded)))
         (remove-handler (handlers entity) scene)))))
 
-(defmethod unpause ((main main))
+(defmethod unpause ((main main) excluded)
   (let ((scene (scene main)))
     (for:for ((entity over scene))
-      (when (typep entity 'game-entity)
+      (when (and (typep entity '(and subject (not unpausable)))
+                 (not (eql entity excluded)))
         (add-handler (handlers entity) scene)))))
 
 (defmethod save-state ((main main) (_ (eql T)))

@@ -160,3 +160,5 @@
 
 (defclass enter-area (event)
   ((area :initarg :area :reader area)))
+
+(stealth-mixin:define-stealth-mixin unpausable () controller ())
