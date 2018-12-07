@@ -9,6 +9,7 @@
                (:file "chunk")
                (:file "moving-platform")
                (:file "moving")
+               (:file "interactable")
                (:file "player")
                (:file "level")
                (:file "editor")

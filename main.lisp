@@ -26,6 +26,11 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
+(define-asset (leaf facility-items) image
+  #p"facility-items.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
 (define-asset (leaf facility-background) image
     #p"facility-background.png"
   :min-filter :nearest
