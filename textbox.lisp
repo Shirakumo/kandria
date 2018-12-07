@@ -24,7 +24,7 @@
                                              :size 18 :width 710 :wrap T
                                              :color (vec 1 1 1 1) :text "") :reader paragraph)
    (title :initform (make-instance 'text :font (asset 'leaf 'text)
-                                         :size 22 :color (vec 0 0 0 1) :text "Test") :reader title)
+                                         :size 22 :color (vec 0 0 0 1) :text "") :reader title)
    (target :initarg :target :accessor target)
    (clock :initform 0.0 :accessor clock)
    (cursor :initform 0 :accessor cursor)
@@ -40,7 +40,6 @@
 
 (defmethod (setf text) (string (textbox textbox))
   (setf (text (paragraph textbox)) string)
-  (setf (clock textbox) 0.0)
   (setf (cursor textbox) 0))
 
 (defmethod (setf cursor) :after (index (textbox textbox))
