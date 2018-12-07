@@ -21,6 +21,10 @@
 (define-shader-subject active-pause-menu (pause-menu)
   ((vertex-array :initform (asset 'trial 'trial::fullscreen-square) :accessor vertex-array)))
 
+(define-handler (active-pause-menu back) (ev)
+  (change-class active-pause-menu 'inactive-pause-menu)
+  (unpause (handler *context*) active-pause-menu))
+
 (defmethod paint ((active-pause-menu active-pause-menu) target)
   (let ((vao (vertex-array active-pause-menu)))
     (with-pushed-attribs

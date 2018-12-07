@@ -96,6 +96,10 @@
 
 (define-action movement ())
 
+(define-action interact (movement)
+  (key-press (one-of key :enter :e))
+  (gamepad-press (one-of button :y)))
+
 (define-action dash (movement)
   (key-press (one-of key :left-shift))
   (gamepad-press (one-of button :x)))
