@@ -32,12 +32,11 @@
   (setf (text box) text))
 
 (define-dialog-function :append (box text)
-  ;; FIXME
-  )
+  (setf (text box) (format NIL "~a~a" (text box) text))
+  (setf (cursor box) (- (length (text box)) (length text))))
 
 (define-dialog-function :pause (box duration)
-  ;; FIXME
-  )
+  (setf (clock box) (- duration)))
 
 (define-dialog-function :eval (box form)
   (eval form))

@@ -5,10 +5,12 @@
 
 (define-dialog (test a)
   :predicate T
-  :character player
-  "Hello this is a robbery put up your hands"
+  :character :player
+  "Hello"
+  :pause 1
+  :append ", this is a robbery!"
+  :stop
   :shake
-  "Oh my goooooood")
+  "Oh my goooooood!!!")
 
-(print (compute-applicable-dialogs (make-instance 'trial:tick) T))
-(print (dialog 'a (storyline 'test)))
+(setf (active-p (storyline 'test)) T)
