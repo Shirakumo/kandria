@@ -117,15 +117,15 @@
   (gamepad-move (one-of axis :l-h :dpad-h) (< pos -0.2 old-pos)))
 
 (define-action start-right (movement)
-  (key-press (one-of key :d :e :right))
+  (key-press (one-of key :d :right))
   (gamepad-move (one-of axis :l-h :dpad-h) (< old-pos 0.2 pos)))
 
 (define-action start-up (movement)
-  (key-press (one-of key :w :\, :up))
+  (key-press (one-of key :w :up))
   (gamepad-move (one-of axis :l-v :dpad-v) (< pos -0.2 old-pos)))
 
 (define-action start-down (movement)
-  (key-press (one-of key :s :o :down))
+  (key-press (one-of key :s :down))
   (gamepad-move (one-of axis :l-v :dpad-v) (< old-pos 0.2 pos)))
 
 (define-action end-jump (movement)
@@ -141,15 +141,15 @@
   (gamepad-move (one-of axis :l-h :dpad-h) (< old-pos -0.2 pos)))
 
 (define-action end-right (movement)
-  (key-release (one-of key :d :e :right))
+  (key-release (one-of key :d :right))
   (gamepad-move (one-of axis :l-h :dpad-h) (< pos 0.2 old-pos)))
 
 (define-action end-up (movement)
-  (key-release (one-of key :w :\, :up))
+  (key-release (one-of key :w :up))
   (gamepad-move (one-of axis :l-v :dpad-v) (< old-pos -0.2 pos)))
 
 (define-action end-down (movement)
-  (key-release (one-of key :s :o :down))
+  (key-release (one-of key :s :down))
   (gamepad-move (one-of axis :l-v :dpad-v) (< pos 0.2 old-pos)))
 
 (define-retention movement (ev)
