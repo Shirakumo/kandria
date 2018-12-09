@@ -4,13 +4,15 @@
   :title "Test")
 
 (define-dialog (test a)
-  :predicate T
+  :predicate (and (typep ev 'interaction)
+                  (eql (with ev) :pc))
   :character :player
-  "Hello"
-  :pause 1
-  :append ", this is a robbery!"
-  :stop
+  "An old computer. Seems it's still running."
+  :emote cheeky
+  "Let's see what's on here ..."
   :shake
-  "Oh my goooooood!!!")
+  :emote concerned
+  "Huh! It says here that this entire world is..."
+  :append " just a video game!" :stop)
 
 (setf (active-p (storyline 'test)) T)

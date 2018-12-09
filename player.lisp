@@ -5,6 +5,8 @@
 
 (define-shader-subject player (animated-sprite-subject moving facing-entity dialog-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
+   (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
+   (interactable :initform NIL :accessor interactable)
    (vertex-array :initform (asset 'leaf 'player-mesh))
    (status :initform NIL :accessor status)
    (vlim  :initform (vec 10 10) :accessor vlim)
@@ -34,6 +36,10 @@
 
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
+
+(define-handler (player interact) (ev)
+  (when (interactable player)
+    (issue +level+ 'interaction :with (name (interactable player)))))
 
 (define-handler (player dash) (ev)
   (let ((vel (velocity player)))
@@ -95,6 +101,13 @@
     (fire trigger))
   (decline))
 
+(defmethod collide ((player player) (interactable interactable) hit)
+  (when (or (null (interactable player))
+            (< (vsqrdist2 (location player) (location interactable))
+               (vsqrdist2 (location player) (location (interactable player)))))
+    (setf (interactable player) interactable))
+  (decline))
+
 (defmethod tick :after ((player player) ev)
   (when (svref (collisions player) 2)
     (setf (jump-count player) 0)
@@ -109,6 +122,7 @@
         (vclim (vclim player))
         (vjump (vjump player))
         (vdash (vdash player)))
+    (setf (interactable player) NIL)
     (case (status player)
       (:dashing
        (incf (dash-count player))
@@ -219,6 +233,17 @@
 (defun player-screen-y ()
   (* (- (vy (location (unit :player T))) (vy (location (unit :camera T))))
      (view-scale (unit :camera T))))
+
+(defmethod paint :around ((player player) target)
+  (call-next-method)
+  (when (interactable player)
+    (let ((prompt (prompt player))
+          (interactable (interactable player)))
+      (setf (vx (location prompt))
+            (+ (vx (location interactable)) (/ (- (vx (size interactable)) (width prompt)) 2)))
+      (setf (vy (location prompt))
+            (+ (vy (location interactable)) (- (vy (size interactable)) (height prompt))))
+      (paint prompt target))))
 
 (define-progression intro
   0.0 0.1 (:blink (calc middle :to (player-screen-y))
