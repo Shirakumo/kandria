@@ -15,7 +15,7 @@
   ())
 
 (define-handler (inactive-pause-menu pause) (ev)
-  (pause (handler *context*) inactive-pause-menu)
+  (pause-game T inactive-pause-menu)
   (change-class inactive-pause-menu 'active-pause-menu))
 
 (define-shader-subject active-pause-menu (pause-menu)
@@ -23,7 +23,7 @@
 
 (define-handler (active-pause-menu back) (ev)
   (change-class active-pause-menu 'inactive-pause-menu)
-  (unpause (handler *context*) active-pause-menu))
+  (unpause-game T active-pause-menu))
 
 (defmethod paint ((active-pause-menu active-pause-menu) target)
   (let ((vao (vertex-array active-pause-menu)))

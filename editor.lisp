@@ -44,10 +44,10 @@ void main(){
 (defmethod (setf active-p) (value (editor inactive-editor))
   (cond (value
          (change-class editor (editor-class (entity editor)))
-         (pause (handler *context*) editor))
+         (pause-game T editor))
         (T
          (change-class editor 'inactive-editor)
-         (unpause (handler *context*) editor))))
+         (unpause-game T editor))))
 
 (define-handler (inactive-editor toggle-editor) (ev)
   (setf (active-p inactive-editor) (not (active-p inactive-editor))))

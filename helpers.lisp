@@ -161,4 +161,18 @@
 (defclass enter-area (event)
   ((area :initarg :area :reader area)))
 
-(stealth-mixin:define-stealth-mixin unpausable () controller ())
+(defclass unpausable () ())
+
+(defmethod pause :around ((unpausable unpausable)))
+(defmethod unpause :around ((unpausable unpausable)))
+
+(defmethod pause ((entity entity)))
+(defmethod unpause ((entity entity)))
+
+(defmethod pause ((subject subject))
+  (remove-handler (handlers subject) +level+))
+(defmethod unpause ((subject subject))
+  (add-handler (handlers subject) +level+))
+
+(defmethod pause ((controller controller)))
+(defmethod unpause ((controller controller)))
