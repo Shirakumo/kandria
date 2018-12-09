@@ -24,5 +24,4 @@
                :babel
                :form-fiddle
                :lambda-fiddle
-               :trivial-arguments
-               :stealth-mixin))
+               :trivial-arguments))
