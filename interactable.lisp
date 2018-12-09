@@ -10,7 +10,7 @@
    :bsize (vec 16 16)
    :size (vec 16 16)))
 
-(define-hander (interactable trial:tick) (ev)
+(define-handler (interactable trial:tick) (ev)
   (when (< (vsqrdist2 (location interactable)
                       (location (unit :player T)))
            (expt 8 2))
