@@ -10,16 +10,19 @@
 (define-shader-entity chunk (sized-entity)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (surface :initform (asset 'leaf 'surface) :accessor surface)
-   (tileset :initarg :tileset :accessor tileset)
    (tilemap :accessor tilemap)
    (texture :accessor texture)
-   (size :initarg :size :accessor size)
+   (tileset :initarg :tileset :initform (error "TILESET required.") :accessor tileset
+            :type asset :documentation "The tileset texture for the chunk.")
+   (size :initarg :size :initform (error "SIZE required.") :accessor size
+         :type cons :documentation "The size of the chunk in tiles.")
    (tile-size :initarg :tile-size :accessor tile-size))
   (:inhibit-shaders (shader-entity :fragment-shader))
   (:default-initargs
-   :size (cons 4 4)
-   :tileset (asset 'leaf 'facility)
    :tile-size *default-tile-size*))
+
+(defmethod initargs append ((entity sized-entity))
+  `(:size :tileset))
 
 (defmethod initialize-instance :after ((chunk chunk) &key size tilemap tile-size)
   (setf (bsize chunk) (v* (vec (car size) (cdr size)) tile-size .5))

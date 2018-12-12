@@ -2,32 +2,12 @@
 
 (define-action editor-command ())
 
-(define-action toggle-editor (editor-command)
-  (key-press (one-of key :section)))
-
-(define-action delete-entity (editor-command)
-  (key-press (one-of key :delete)))
-
-(define-action insert-entity (editor-command)
-  (key-press (one-of key :insert)))
-
+;;; Left Block
 (define-action select-entity (editor-command)
   (key-press (one-of key :tab)))
 
-(define-action next-entity (editor-command)
-  (key-press (one-of key :page-down)))
-
-(define-action prev-entity (editor-command)
-  (key-press (one-of key :page-up)))
-
-(define-action resize-chunk (editor-command)
-  (key-press (one-of key :f9)))
-
-(define-action save-state (editor-command)
-  (key-press (one-of key :f5)))
-
-(define-action load-state (editor-command)
-  (key-press (one-of key :f6)))
+(define-action toggle-editor (editor-command)
+  (key-press (one-of key :section)))
 
 (define-action control-down (editor-command)
   (key-press (one-of key :left-control :right-control)))
@@ -46,6 +26,40 @@
 
 (define-action shift-up (editor-command)
   (key-release (one-of key :left-shift :right-shift)))
+
+;;; F Group 1
+(define-action save-level (editor-command)
+  (key-press (one-of key :f1)))
+
+(define-action load-level (editor-command)
+  (key-press (one-of key :f2)))
+
+(define-action save-state (editor-command)
+  (key-press (one-of key :f3)))
+
+(define-action load-state (editor-command)
+  (key-press (one-of key :f4)))
+
+;;; F Group 2
+(define-action resize-entity (editor-command)
+  (key-press (one-of key :f5)))
+
+;;; F Group 3
+(define-action inspect-entity (editor-command)
+  (key-press (one-of key :f12)))
+
+;;; Action Block
+(define-action delete-entity (editor-command)
+  (key-press (one-of key :delete)))
+
+(define-action insert-entity (editor-command)
+  (key-press (one-of key :insert)))
+
+(define-action next-entity (editor-command)
+  (key-press (one-of key :page-down)))
+
+(define-action prev-entity (editor-command)
+  (key-press (one-of key :page-up)))
 
 (define-retention mouse (ev)
   (when (typep ev 'mouse-press)
