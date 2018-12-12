@@ -108,12 +108,6 @@
     (setf (interactable player) interactable))
   (decline))
 
-(defmethod tick :after ((player player) ev)
-  (when (svref (collisions player) 2)
-    (setf (jump-count player) 0)
-    (unless (eql :dashing (status player))
-      (setf (dash-count player) 0))))
-
 (defmethod tick :before ((player player) ev)
   (let ((collisions (collisions player))
         (vel (velocity player))
@@ -204,6 +198,12 @@
   ;;   (die player))
   )
 
+(defmethod tick :after ((player player) ev)
+  (when (svref (collisions player) 2)
+    (setf (jump-count player) 0)
+    (unless (eql :dashing (status player))
+      (setf (dash-count player) 0))))
+
 (defmethod enter :after ((player player) (scene scene))
   (add-progression (progression-definition 'intro) scene)
   (add-progression (progression-definition 'revive) scene)
@@ -240,9 +240,12 @@
     (let ((prompt (prompt player))
           (interactable (interactable player)))
       (setf (vx (location prompt))
-            (+ (vx (location interactable)) (- (width prompt))))
+            (+ (vx (location interactable)) (- (/ (width prompt) 2))))
       (setf (vy (location prompt))
-            (+ (vy (location interactable)) (- (vy (size interactable)) (height prompt))))
+            (+ (vy (location interactable))
+               (vy (size player))
+               (height prompt)
+               (/ (vy (size interactable)) -2)))
       (paint prompt target))))
 
 (define-progression intro

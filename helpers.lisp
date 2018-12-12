@@ -165,6 +165,9 @@
 (define-pool leaf
   :base :leaf)
 
+(define-asset (leaf 1x) mesh
+    (make-rectangle 1 1 :align :bottomleft))
+
 (defgeneric initargs (object)
   (:method-combination append))
 
@@ -216,7 +219,8 @@
   (scan entity target))
 
 (define-shader-entity sprite-entity (trial:sprite-entity sized-entity facing-entity)
-  ((tile :initform (vec2 0 0)
+  ((vertex-array :initform (asset 'leaf '1x))
+   (tile :initform (vec2 0 0)
          :type vec2 :documentation "The tile to display from the sprite sheet.")
    (texture :initform (error "TEXTURE required.")
             :type asset :documentation "The tileset to display the sprite from.")
@@ -227,6 +231,14 @@
 
 (defmethod initialize-instance :after ((sprite sprite-entity) &key bsize size)
   (unless size (setf (size sprite) (v* bsize 2))))
+
+(defmethod (setf bsize) :after (value (sprite sprite-entity))
+  (setf (size sprite) value))
+
+(defmethod paint :before ((sprite sprite-entity) target)
+  (let ((size (size sprite)))
+    (translate-by (/ (vx size) -2) (/ (vy size) 2) 0)
+    (scale (vxy_ size))))
 
 (define-subject game-entity (sized-entity)
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity)))
