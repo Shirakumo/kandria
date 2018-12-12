@@ -42,10 +42,9 @@
   (:default-initargs :name :untitled))
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  (enter (make-instance 'parallax) level)
-  (enter (make-instance 'interactable :name :pc) level)
+  (enter (make-instance 'parallax :texture (asset 'leaf 'facility-background)) level)
   (enter (make-instance 'player :location (vec 64 64)) level)
-  (enter (make-instance 'chunk :size (cons 64 64)) level)
+  (enter (make-instance 'chunk :tileset (asset 'leaf 'facility) :size (cons 64 64)) level)
   (enter (make-instance 'textbox) level)
   (enter (make-instance 'inactive-pause-menu) level))
 

@@ -240,7 +240,7 @@
     (let ((prompt (prompt player))
           (interactable (interactable player)))
       (setf (vx (location prompt))
-            (+ (vx (location interactable)) (/ (- (vx (size interactable)) (width prompt)) 2)))
+            (+ (vx (location interactable)) (- (width prompt))))
       (setf (vy (location prompt))
             (+ (vy (location interactable)) (- (vy (size interactable)) (height prompt))))
       (paint prompt target))))

@@ -62,10 +62,13 @@
                   default)
                  (T
                   (if parse (funcall parse string) string)))))
-    (let ((message (format NIL "~a~@[ [~a]~]:" message default)))
+    (let ((message (format NIL "~a~@[ [~a]~]:" message default))
+          (package *package*))
       (cond (*context*
              (with-context (*context*)
-               (flet ((callback (string) (funcall on-yes (parse string))))
+               (flet ((callback (string)
+                        (let ((*package* package))
+                          (funcall on-yes (parse string)))))
                  (let ((input (make-instance 'text-input :title message :callback #'callback)))
                    (transition input +level+)
                    (enter input +level+)))))
@@ -77,6 +80,74 @@
   `(query ,message
           (lambda (,value) ,@body)
           :default ,default :parse ,parse))
+
+(defun initarg-slot (class initarg)
+  (let ((class (etypecase class
+                 (class class)
+                 (symbol (find-class class)))))
+    (find (list initarg) (c2mop:class-slots class)
+          :key #'c2mop:slot-definition-initargs
+          :test #'subsetp)))
+
+(defmethod parse-string-for-type (string type)
+  (read-from-string string))
+
+(defmethod parse-string-for-type (string (type (eql 'vec2)))
+  (with-input-from-string (stream string)
+    (vec2 (read stream) (read stream))))
+
+(defmethod parse-string-for-type (string (type (eql 'vec3)))
+  (with-input-from-string (stream string)
+    (vec3 (read stream) (read stream) (read stream))))
+
+(defmethod parse-string-for-type (string (type (eql 'asset)))
+  (with-input-from-string (stream string)
+    (asset (read stream) (read stream) T)))
+
+(defmethod parse-string-for-type :around (string type)
+  (let ((value (call-next-method)))
+    (with-new-value-restart (value) (new-value "Specify a new value")
+      (unless (typep value type)
+        (error 'type-error :expected-type type :datum value)))
+    value))
+
+(defun query-initarg (class initarg callback &optional (default NIL default-p))
+  (let ((slot (initarg-slot class initarg)))
+    (unless default-p
+      (ignore-errors
+       (setf default (funcall (c2mop:slot-definition-initfunction slot)))
+       (setf default-p T)))
+    (flet ((on-yes (string)
+             (let ((value (cond (string
+                                 (parse-string-for-type string (c2mop:slot-definition-type slot)))
+                                (default-p
+                                 default)
+                                (T
+                                 (error "A value for ~s is required." initarg)))))
+               (funcall callback value))))
+      (query (format NIL "~s <~a> [~:[REQUIRED~*~;~a~]]~@[~%~a~]"
+                     initarg
+                     (c2mop:slot-definition-type slot)
+                     default-p default
+                     (documentation slot T))
+             #'on-yes))))
+
+(defun query-instance (callback &optional defaults)
+  (with-query (class "Class name" :parse #'read-from-string)
+    (let* ((class (maybe-finalize-inheritance (find-class class)))
+           (initargs (initargs (c2mop:class-prototype class)))
+           (initlist ()))
+      (labels ((invoke-next (initarg)
+                 (if (getf defaults initarg)
+                     (query-initarg class initarg #'query-next (getf defaults initarg))
+                     (query-initarg class initarg #'query-next)))
+               (query-next (value)
+                 (push (pop initargs) initlist)
+                 (push value initlist)
+                 (if initargs
+                     (invoke-next (car initargs))
+                     (funcall callback (apply #'make-instance class (nreverse initlist))))))
+        (invoke-next (car initargs))))))
 
 (defun entity-at-point (point level)
   (for:for ((result as NIL)
@@ -103,11 +174,14 @@
 (defclass base-entity (entity)
   ())
 
+(defmethod initargs append ((_ base-entity))
+  ())
+
 (defclass located-entity (base-entity)
   ((location :initarg :location :initform (vec 0 0) :accessor location
              :type vec2 :documentation "The location in 2D space.")))
 
-(defmethod initargs append ((entity located-entity))
+(defmethod initargs append ((_ located-entity))
   `(:location))
 
 (defmethod paint :around ((obj located-entity) target)
@@ -125,10 +199,9 @@
 
 (defclass sized-entity (located-entity)
   ((bsize :initarg :bsize :initform (nv/ (vec *default-tile-size* *default-tile-size*) 2) :accessor bsize
-          :type vec2 :documentation "The bounding box half size."))
-  )
+          :type vec2 :documentation "The bounding box half size.")))
 
-(defmethod initargs append ((entity sized-entity))
+(defmethod initargs append ((_ sized-entity))
   `(:bsize))
 
 (defmethod scan ((entity sized-entity) (target vec2))
@@ -141,6 +214,19 @@
 
 (defmethod contained-p ((target vec2) (entity sized-entity))
   (scan entity target))
+
+(define-shader-entity sprite-entity (trial:sprite-entity sized-entity facing-entity)
+  ((tile :initform (vec2 0 0)
+         :type vec2 :documentation "The tile to display from the sprite sheet.")
+   (texture :initform (error "TEXTURE required.")
+            :type asset :documentation "The tileset to display the sprite from.")
+   (size :initform NIL)))
+
+(defmethod initargs append ((_ sprite-entity))
+  '(:tile :texture))
+
+(defmethod initialize-instance :after ((sprite sprite-entity) &key bsize size)
+  (unless size (setf (size sprite) (v* bsize 2))))
 
 (define-subject game-entity (sized-entity)
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity)))
@@ -159,13 +245,9 @@
                :type class :documentation "The type of the event that should be triggered.")
    (event-initargs :initarg :event-initargs :initform () :accessor event-initargs
                    :type list :documentation "The list of initargs for the triggered event.")
-   (active-p :initarg :active-p :accessor active-p))
-  (:default-initargs :event-type 
-                     :event-initargs ()
-                     :active-p T
-                     :bsize (vec2 16 16)))
+   (active-p :initarg :active-p :initform T :accessor active-p)))
 
-(defmethod initargs append ((entity trigger))
+(defmethod initargs append ((_ trigger))
   `(:event-type :event-initargs))
 
 (defmethod fire ((trigger trigger))
