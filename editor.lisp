@@ -190,7 +190,7 @@ void main(){
 (define-shader-subject sprite-editor (editor)
   ())
 
-(defmethod editor-class ((entity sprite-entity)) 'sprite-editor)
+(defmethod editor-class ((_ sprite-entity)) 'sprite-editor)
 
 (define-handler (sprite-editor change-tile mouse-scroll) (ev delta)
   (unless (retained 'modifiers :control)
@@ -214,7 +214,7 @@ void main(){
 (defmethod shared-initialize :after ((editor chunk-editor) slots &key)
   (setf (tile-picker editor) (make-instance 'tile-picker :editor editor)))
 
-(defmethod editor-class ((chunk chunk)) 'chunk-editor)
+(defmethod editor-class ((_ chunk)) 'chunk-editor)
 
 (define-handler (chunk-editor resize-entity) (ev)
   (with-query (size "New chunk size" :parse #'read-from-string)
