@@ -94,15 +94,21 @@
 (define-pool leaf
   :base :leaf)
 
+(defgeneric initargs (object)
+  (:method-combination append))
+
 (defclass post-tick (event)
   ())
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defclass base-entity (entity)
-    ())
-  
-  (defclass located-entity (base-entity)
-    ((location :initarg :location :initform (vec 0 0) :accessor location))))
+(defclass base-entity (entity)
+  ())
+
+(defclass located-entity (base-entity)
+  ((location :initarg :location :initform (vec 0 0) :accessor location
+             :type vec2 :documentation "The location in 2D space.")))
+
+(defmethod initargs append ((entity located-entity))
+  `(:location))
 
 (defmethod paint :around ((obj located-entity) target)
   (with-pushed-matrix ()
@@ -118,8 +124,12 @@
     (call-next-method)))
 
 (defclass sized-entity (located-entity)
-  ((bsize :initarg :bsize :accessor bsize))
-  (:default-initargs :bsize (nv/ (vec *default-tile-size* *default-tile-size*) 2)))
+  ((bsize :initarg :bsize :initform (nv/ (vec *default-tile-size* *default-tile-size*) 2) :accessor bsize
+          :type vec2 :documentation "The bounding box half size."))
+  )
+
+(defmethod initargs append ((entity sized-entity))
+  `(:bsize))
 
 (defmethod scan ((entity sized-entity) (target vec2))
   (let ((w (vx (bsize entity)))
@@ -133,8 +143,7 @@
   (scan entity target))
 
 (define-subject game-entity (sized-entity)
-  ((velocity :initarg :velocity :accessor velocity))
-  (:default-initargs :velocity (vec2 0 0)))
+  ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity)))
 
 (define-generic-handler (game-entity tick trial:tick))
 
@@ -146,13 +155,18 @@
       (collide target entity hit))))
 
 (defclass trigger (sized-entity)
-  ((event-type :initarg :event-type :accessor event-type)
-   (event-initargs :initarg :event-initargs :accessor event-initargs)
+  ((event-type :initarg :event-type :initform (error "EVENT-TYPE required.") :accessor event-type
+               :type class :documentation "The type of the event that should be triggered.")
+   (event-initargs :initarg :event-initargs :initform () :accessor event-initargs
+                   :type list :documentation "The list of initargs for the triggered event.")
    (active-p :initarg :active-p :accessor active-p))
-  (:default-initargs :event-type (error "EVENT-TYPE required.")
+  (:default-initargs :event-type 
                      :event-initargs ()
                      :active-p T
                      :bsize (vec2 16 16)))
+
+(defmethod initargs append ((entity trigger))
+  `(:event-type :event-initargs))
 
 (defmethod fire ((trigger trigger))
   (apply #'issue +level+ (event-type trigger) (event-initargs trigger))

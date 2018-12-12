@@ -131,13 +131,7 @@ void main(){
                            (mod (1- pos) (flare-indexed-set:set-size set))
                            set))))
 
-(define-handler (editor save-state) (ev)
-  (save-state (handler *context*) T))
-
-(define-handler (editor load-state) (ev)
-  (load-state (handler *context*) T))
-
-(define-handler (editor save-game) (ev)
+(define-handler (editor save-level) (ev)
   (if (retained 'modifiers :control)
       (save-level +level+ T)
       (with-query (file "Map save location"
@@ -146,7 +140,7 @@ void main(){
         (setf (name +level+) (kw (pathname-name file)))
         (save-level +level+ (pool-path 'leaf (merge-pathnames file "map/"))))))
 
-(define-handler (editor load-game) (ev)
+(define-handler (editor load-level) (ev)
   (if (retained 'modifiers :control)
       (let ((level (make-instance 'level :file (file +level+))))
         (change-scene (handler *context*) level))
@@ -156,6 +150,12 @@ void main(){
         (let ((level (make-instance 'level :name (kw (pathname-name file)))))
           (load-level level (pool-path 'leaf (merge-pathnames file "map/")))
           (change-scene (handler *context*) level)))))
+
+(define-handler (editor save-state) (ev)
+  (save-state (handler *context*) T))
+
+(define-handler (editor load-state) (ev)
+  (load-state (handler *context*) T))
 
 (define-handler (editor insert-entity) (ev)
   (let ((*package* #.*package*))
@@ -192,7 +192,7 @@ void main(){
 
 (defmethod editor-class ((chunk chunk)) 'chunk-editor)
 
-(define-handler (chunk-editor resize-chunk) (ev)
+(define-handler (chunk-editor resize-entity) (ev)
   (with-query (size "New chunk size" :parse #'read-from-string)
     (setf (size (entity chunk-editor)) size)))
 
