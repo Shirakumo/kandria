@@ -187,6 +187,24 @@ void main(){
 (define-asset (leaf square) mesh
     (make-rectangle 8 8 :align :topleft))
 
+(define-shader-subject sprite-editor (editor)
+  ())
+
+(defmethod editor-class ((entity sprite-entity)) 'sprite-editor)
+
+(define-handler (sprite-editor change-tile mouse-scroll) (ev delta)
+  (unless (retained 'modifiers :control)
+    (let* ((entity (entity sprite-editor))
+           (tile (trial:tile entity))
+           (w (/ (width (texture entity)) (vx (size entity))))
+           (h (/ (height (texture entity)) (vy (size entity))))
+           (idx (+ (vx tile) (* w (vy tile)))))
+      (setf idx (mod (cond ((< 0 delta) (1+ idx))
+                           ((< delta 0) (1- idx))
+                           (T idx)) (* w h)))
+      (setf (vx tile) (mod idx w))
+      (setf (vy tile) (floor idx w)))))
+
 (define-shader-subject chunk-editor (editor vertex-entity)
   ((tile :initform 1 :accessor tile-to-place)
    (level :initform 0 :accessor level)

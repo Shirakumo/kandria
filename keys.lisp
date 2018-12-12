@@ -44,9 +44,6 @@
 (define-action resize-entity (editor-command)
   (key-press (one-of key :f5)))
 
-(define-action change-tile (editor-command)
-  (key-press (one-of key :f6)))
-
 ;;; F Group 3
 (define-action inspect-entity (editor-command)
   (key-press (one-of key :f12)))
