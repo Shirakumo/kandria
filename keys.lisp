@@ -44,7 +44,7 @@
 (define-action resize-entity (editor-command)
   (key-press (one-of key :f5)))
 
-(define-action change-sprite (editor-command)
+(define-action change-tile (editor-command)
   (key-press (one-of key :f6)))
 
 ;;; F Group 3

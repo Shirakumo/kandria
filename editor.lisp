@@ -171,6 +171,11 @@ void main(){
   (leave (entity editor) +level+)
   (setf (entity editor) NIL))
 
+(define-handler (editor resize-entity) (ev)
+  (when (typep (entity editor) 'sized-entity)
+    (with-query (size "New entity size" :parse (lambda (s) (parse-string-for-type s 'vec2)))
+      (setf (bsize (entity editor)) size))))
+
 (define-handler (editor trial:tick) (ev)
   (let ((loc (location (unit :camera +level+)))
         (spd (if (retained 'modifiers :shift) 4 1)))
