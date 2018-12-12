@@ -159,12 +159,13 @@ void main(){
 
 (define-handler (editor insert-entity) (ev)
   (let ((*package* #.*package*))
-    (with-query (class "Class name"
-                       :parse #'read-from-string)
-      (let ((entity (make-instance class :location (vcopy (location editor)))))
-        (transition entity +level+)
-        (enter entity +level+)
-        (setf (entity editor) entity)))))
+    (query-instance
+     (lambda (entity)
+       (transition entity +level+)
+       ;; FIXME: the ordering business in general is a clusterfuck.
+       (enter entity +level+)
+       (setf (entity editor) entity))
+     (list :location (vcopy (location editor))))))
 
 (define-handler (editor delete-entity) (ev)
   (leave (entity editor) +level+)
@@ -322,7 +323,7 @@ void main(){
 
 (define-shader-subject text-input ()
   ((vertex-array :initform (asset 'trial 'trial::fullscreen-square) :accessor vertex-array)
-   (title :initform (make-instance 'text :color (vec 1 1 1 1) :font (asset 'trial 'trial::noto-mono) :size 20) :accessor title)
+   (title :initform (make-instance 'text :color (vec 1 1 1 1) :font (asset 'trial 'trial::noto-mono) :size 20 :width 800 :wrap T) :accessor title)
    (label :initform (make-instance 'text :color (vec 1 1 1 1) :font (asset 'trial 'trial::noto-mono) :size 32) :accessor label)
    (callback :initarg :callback :accessor callback)))
 

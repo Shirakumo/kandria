@@ -1,9 +1,12 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-shader-subject parallax ()
-  ((texture :initarg :texture :accessor texture)
-   (vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array))
-  (:default-initargs :texture (asset 'leaf 'facility-background)))
+  ((texture :initarg :texture :initform (error "TEXTURE required.") :accessor texture
+            :type asset :documentation "The texture to display as the parallax background.")
+   (vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)))
+
+(defmethod initargs append ((parallax parallax))
+  '(:texture))
 
 (defmethod paint ((parallax parallax) (pass shader-pass))
   (let ((vao (vertex-array parallax))

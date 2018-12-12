@@ -27,9 +27,12 @@
 
 (define-shader-subject falling-platform (moving-platform)
   ((status :initform :hanging :accessor status)
-   (direction :initarg :direction :accessor direction)
-   (dt :initform 0.0 :accessor dt))
-  (:default-initargs :direction (vec 0 -1)))
+   (direction :initarg :direction :initform (vec 0 -1) :accessor direction
+              :type vec2 :documentation "The direction vector in which the platform will fall.")
+   (dt :initform 0.0 :accessor dt)))
+
+(defmethod initargs append ((_ falling-platform))
+  '(:direction))
 
 (defmethod tick :before ((platform falling-platform) ev)
   (when (eq :falling (status platform))

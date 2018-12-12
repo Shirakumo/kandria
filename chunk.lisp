@@ -16,16 +16,14 @@
             :type asset :documentation "The tileset texture for the chunk.")
    (size :initarg :size :initform (error "SIZE required.") :accessor size
          :type cons :documentation "The size of the chunk in tiles.")
-   (tile-size :initarg :tile-size :accessor tile-size))
-  (:inhibit-shaders (shader-entity :fragment-shader))
-  (:default-initargs
-   :tile-size *default-tile-size*))
+   (tile-size :initarg :tile-size :initform *default-tile-size* :accessor tile-size))
+  (:inhibit-shaders (shader-entity :fragment-shader)))
 
-(defmethod initargs append ((entity sized-entity))
+(defmethod initargs append ((_ chunk))
   `(:size :tileset))
 
-(defmethod initialize-instance :after ((chunk chunk) &key size tilemap tile-size)
-  (setf (bsize chunk) (v* (vec (car size) (cdr size)) tile-size .5))
+(defmethod initialize-instance :after ((chunk chunk) &key size tilemap)
+  (setf (bsize chunk) (v* (vec (car size) (cdr size)) (tile-size chunk) .5))
   (setf (tilemap chunk) (make-array (round (* (car size) (cdr size) 4)) :element-type '(unsigned-byte 8)))
   (etypecase tilemap
     (null
