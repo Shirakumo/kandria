@@ -18,10 +18,19 @@
   (pool-path 'leaf (make-pathname :name (format NIL "~(~a~)" (name level)) :type "map"
                                   :directory '(:relative "map"))))
 
+(defun scan-for (type level target)
+  (for:for ((result as NIL)
+            (entity flare-queue:in-queue (objects level)))
+    (when (and (not (eq entity target))
+               (typep entity type))
+      (let ((hit (with-simple-restart (decline "Decline handling the collision.")
+                   (scan entity target))))
+        (when hit (setf result hit))))))
+
 (defmethod scan ((level level) target)
   (for:for ((result as NIL)
             (entity flare-queue:in-queue (objects level)))
-    (unless (eq entity target)
+    (when (not (eq entity target))
       (let ((hit (with-simple-restart (decline "Decline handling the collision.")
                    (scan entity target))))
         (when hit (setf result hit))))))

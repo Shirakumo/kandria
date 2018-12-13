@@ -209,6 +209,8 @@
 (defmethod initargs append ((_ base-entity))
   '(:name))
 
+(defclass solid () ())
+
 (defclass located-entity (base-entity)
   ((location :initarg :location :initform (vec 0 0) :accessor location
              :type vec2 :documentation "The location in 2D space.")))
