@@ -3,10 +3,31 @@
 (defparameter *id-type-map* '((player 1)
                               (parallax 2)
                               (chunk 3)
-                              (falling-platform 4)))
+                              (falling-platform 4)
+                              (interactable 5)))
 
 (defclass level (pipelined-scene)
-  ((name :accessor name)))
+  ((name :accessor name)
+   (pause-stack :initform () :accessor pause-stack)))
+
+(defmethod pause-game ((_ (eql T)) pauser)
+  (pause-game +level+ pauser))
+
+(defmethod unpause-game ((_ (eql T)) pauser)
+  (unpause-game +level+ pauser))
+
+(defmethod pause-game ((level level) pauser)
+  (push (handlers level) (pause-stack level))
+  (setf (handlers level) ())
+  (for:for ((entity flare-queue:in-queue (objects level)))
+    (when (or (typep entity 'unpausable)
+              (typep entity 'controller)
+              (eq entity pauser))
+      (add-handler (handlers entity) level))))
+
+(defmethod unpause-game ((level level) pauser)
+  (when (pause-stack level)
+    (setf (handlers level) (pop (pause-stack level)))))
 
 (defmethod paint :before ((level level) target)
   (let ((*paint-background-p* T))
@@ -95,24 +116,26 @@
   scene)
 
 (defmethod load-level ((scene scene) (buffer fast-io:input-buffer))
-  (handler-case
-      (progn
-        (setf (name scene) (load-level 'symbol buffer))
-        (loop for type = (id->type (fast-io:readu16-le buffer))
-              do (enter (load-level type buffer) scene)))
-    (end-of-file (e)
-      scene)))
+  (setf (name scene) (load-level 'symbol buffer))
+  (loop for type = (handler-case (id->type (fast-io:readu16-le buffer))
+                     (end-of-file (e)
+                       (declare (ignore e))
+                       (return)))
+        for class = (maybe-finalize-inheritance (find-class type))
+        for entity = (load-level (c2mop:class-prototype class) buffer)
+        do (enter entity scene))
+  scene)
 
 (defmethod save-level ((player player) (buffer fast-io:output-buffer))
   (save-level (spawn-location player) buffer))
 
-(defmethod load-level ((type (eql 'player)) (buffer fast-io:input-buffer))
+(defmethod load-level ((player player) (buffer fast-io:input-buffer))
   (make-instance 'player :location (load-level 'vec2 buffer)))
 
 (defmethod save-level ((parallax parallax) (buffer fast-io:output-buffer))
   (save-level (texture parallax) buffer))
 
-(defmethod load-level ((type (eql 'parallax)) (buffer fast-io:input-buffer))
+(defmethod load-level ((parallax parallax) (buffer fast-io:input-buffer))
   (make-instance
    'parallax :texture (load-level 'asset buffer)))
 
@@ -120,8 +143,8 @@
   (call-next-method)
   (save-level (direction platform) buffer))
 
-(defmethod load-level ((type (eql 'falling-platform)) (buffer fast-io:input-buffer))
-  (let ((layer (load-level 'chunk buffer)))
+(defmethod load-level ((platform falling-platform) (buffer fast-io:input-buffer))
+  (let ((layer (call-next-method)))
     (change-class layer 'falling-platform
                   :velocity (vec 0 0)
                   :direction (load-level 'vec2 buffer))))
@@ -143,7 +166,7 @@
       (write-sequence (tilemap chunk) stream))
     (save-level path buffer)))
 
-(defmethod load-level ((chunk (eql 'chunk)) (buffer fast-io:input-buffer))
+(defmethod load-level ((chunk chunk) (buffer fast-io:input-buffer))
   (make-instance
    'chunk :name (load-level 'symbol buffer)
           :location (load-level 'vec2 buffer)
@@ -153,6 +176,23 @@
           :tileset (load-level 'asset buffer)
           :tilemap (merge-pathnames (load-level 'string buffer)
                                     *default-pathname-defaults*)))
+
+(defmethod save-level ((entity sprite-entity) (buffer fast-io:output-buffer))
+  (save-level (name entity) buffer)
+  (save-level (location entity) buffer)
+  (save-level (bsize entity) buffer)
+  (fast-io:write8-le (direction entity) buffer)
+  (save-level (texture entity) buffer)
+  (save-level (trial:tile entity) buffer))
+
+(defmethod load-level ((sprite sprite-entity) (buffer fast-io:input-buffer))
+  (make-instance
+   'sprite-entity :name (load-level 'symbol buffer)
+                  :location (load-level 'vec2 buffer)
+                  :bsize (load-level 'vec2 buffer)
+                  :direction (fast-io:read8-le buffer)
+                  :texture (load-level 'asset buffer)
+                  :tile (load-level 'vec2 buffer)))
 
 (defmethod save-level ((vec vec2) (buffer fast-io:output-buffer))
   (fast-io:writeu32-le (ieee-floats:encode-float32 (vx2 vec)) buffer)

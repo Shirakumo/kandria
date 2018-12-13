@@ -370,6 +370,12 @@ void main(){
 (defmethod register-object-for-pass :after (pass (text-input text-input))
   (register-object-for-pass pass (label text-input)))
 
+(defmethod enter :after ((input text-input) (level level))
+  (pause-game level input))
+
+(defmethod leave :before ((input text-input) (level level))
+  (unpause-game level input))
+
 (define-handler (text-input key-press) (ev key)
   (case key
     ((:enter :return)

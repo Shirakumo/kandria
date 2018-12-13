@@ -56,12 +56,12 @@
   (setf (vx (trial:tile (profile textbox))) 0))
 
 (defmethod (setf current-dialog) :after ((dialog dialog) (textbox textbox))
-  (pause-game (handler *context*) textbox)
+  (pause-game T textbox)
   (setf (dialog-index textbox) -1)
   (advance textbox))
 
 (defmethod (setf current-dialog) :after ((null null) (textbox textbox))
-  (unpause-game (handler *context*) textbox))
+  (unpause-game T))
 
 (defmethod advance ((textbox textbox))
   (when (current-dialog textbox)

@@ -68,22 +68,6 @@
   (issue (scene main) 'post-tick)
   (process (scene main)))
 
-(defmethod pause-game ((main main) excluded)
-  (for:for ((entity over (scene main)))
-    (unless (eql entity excluded)
-      (pause entity))))
-
-(defmethod unpause-game ((main main) excluded)
-  (for:for ((entity over (scene main)))
-    (unless (eql entity excluded)
-      (unpause entity))))
-
-(defmethod pause-game ((main (eql T)) excluded)
-  (pause-game (handler *context*) excluded))
-
-(defmethod unpause-game ((main (eql T)) excluded)
-  (unpause-game (handler *context*) excluded))
-
 (defmethod save-state ((main main) (_ (eql T)))
   (save-state main (save main)))
 

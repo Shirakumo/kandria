@@ -224,7 +224,11 @@
     (call-next-method)))
 
 (defclass facing-entity (base-entity)
-  ((direction :initarg :direction :initform 1 :accessor direction)))
+  ((direction :initarg :direction :initform 1 :accessor direction
+              :type (integer -1 1) :documentation "The direction the entity is facing. -1 for left, +1 for right.")))
+
+(defmethod initargs append ((_ facing-entity))
+  '(:direction))
 
 (defmethod paint :around ((obj facing-entity) target)
   (with-pushed-matrix ()
@@ -305,17 +309,3 @@
   ((area :initarg :area :reader area)))
 
 (defclass unpausable () ())
-
-(defmethod pause :around ((unpausable unpausable)))
-(defmethod unpause :around ((unpausable unpausable)))
-
-(defmethod pause ((entity entity)))
-(defmethod unpause ((entity entity)))
-
-(defmethod pause ((subject subject))
-  (remove-handler (handlers subject) +level+))
-(defmethod unpause ((subject subject))
-  (add-handler (handlers subject) +level+))
-
-(defmethod pause ((controller controller)))
-(defmethod unpause ((controller controller)))
