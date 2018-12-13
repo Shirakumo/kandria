@@ -162,7 +162,7 @@
                     ((retained 'movement :down)
                      (setf (vy vel) (* (vy vclim) -1)))
                     (T
-                     (setf (frame player) 24)
+                     (setf (frame player) 0)
                      (setf (vy vel) 0)))
               (let ((wall (or (svref collisions 1)
                               (svref collisions 3))))
