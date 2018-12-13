@@ -121,7 +121,9 @@ void main(){
 }")
 
 (defmethod resize ((chunk chunk) w h)
-  (setf (size cuhnk) (cons w h)))
+  (let ((size (cons (floor w (tile-size chunk)) (floor h (tile-size chunk)))))
+    (unless (equal size (size chunk))
+      (setf (size chunk) size))))
 
 (defmethod (setf size) :before (value (chunk chunk))
   (let* ((nw (car value))
