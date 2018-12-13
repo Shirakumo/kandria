@@ -198,7 +198,7 @@
     (make-rectangle 1 1 :align :bottomleft))
 
 (defgeneric initargs (object)
-  (:method-combination append))
+  (:method-combination append :most-specific-last))
 
 (defclass post-tick (event)
   ())

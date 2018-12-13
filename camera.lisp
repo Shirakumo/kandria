@@ -44,7 +44,7 @@
                                  (vy (bsize surface))))))
       ;; Smooth camera movement
       (let* ((dir (v- int loc))
-             (len (vlength dir))
+             (len (max 1 (vlength dir)))
              (ease (clamp 0 (/ (expt len 1.5) 100) 10)))
         (nv* dir (/ ease len))
         (if (< 1 (vlength dir))
