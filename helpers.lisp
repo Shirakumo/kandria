@@ -162,6 +162,35 @@
 (defmethod contained-p ((target vec2) thing)
   NIL)
 
+(defmethod clone (thing)
+  thing)
+
+(defmethod clone ((vec vec2)) (vcopy2 vec))
+(defmethod clone ((vec vec3)) (vcopy3 vec))
+(defmethod clone ((vec vec4)) (vcopy4 vec))
+(defmethod clone ((mat mat2)) (mcopy2 mat))
+(defmethod clone ((mat mat3)) (mcopy3 mat))
+(defmethod clone ((mat mat4)) (mcopy4 mat))
+(defmethod clone ((mat matn)) (mcopyn mat))
+
+(defmethod clone ((cons cons))
+  (cons (clone (car cons)) (clone (cdr cons))))
+
+(defmethod clone ((array array))
+  (make-array (array-dimensions array)
+              :element-type (array-element-type array)
+              :adjustable (adjustable-array-p array)
+              :fill-pointer (fill-pointer array)
+              :initial-contents array))
+
+(defmethod clone ((entity entity))
+  (let ((initvalues ()))
+    (loop for initarg in (initargs entity)
+          for slot = (initarg-slot (class-of entity) initarg)
+          do (push initarg initvalues)
+             (push (clone (slot-value entity (c2mop:slot-definition-name slot))) initvalues))
+    (apply #'make-instance (class-of entity) (nreverse initvalues))))
+
 (define-pool leaf
   :base :leaf)
 
@@ -193,7 +222,7 @@
     (call-next-method)))
 
 (defclass facing-entity (base-entity)
-  ((direction :initarg :direction :initform -1 :accessor direction)))
+  ((direction :initarg :direction :initform 1 :accessor direction)))
 
 (defmethod paint :around ((obj facing-entity) target)
   (with-pushed-matrix ()
@@ -233,12 +262,16 @@
   (unless size (setf (size sprite) (v* bsize 2))))
 
 (defmethod (setf bsize) :after (value (sprite sprite-entity))
-  (setf (size sprite) value))
+  (setf (size sprite) (v* size 2)))
 
 (defmethod paint :before ((sprite sprite-entity) target)
   (let ((size (size sprite)))
     (translate-by (/ (vx size) -2) (/ (vy size) 2) 0)
     (scale (vxy_ size))))
+
+(defmethod resize ((sprite sprite-entity) width height)
+  (vsetf (size sprite) width height)
+  (vsetf (bsize sprite) (/ width 2) (/ height 2)))
 
 (define-subject game-entity (sized-entity)
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity)))

@@ -44,9 +44,7 @@
 (defmethod initialize-instance :after ((level empty-level) &key)
   (enter (make-instance 'parallax :texture (asset 'leaf 'facility-background)) level)
   (enter (make-instance 'player :location (vec 64 64)) level)
-  (enter (make-instance 'chunk :tileset (asset 'leaf 'facility) :size (cons 64 64)) level)
-  (enter (make-instance 'textbox) level)
-  (enter (make-instance 'inactive-pause-menu) level))
+  (enter (make-instance 'chunk :tileset (asset 'leaf 'facility) :size (cons 64 64)) level))
 
 (defclass main (trial:main)
   ((scene :initform NIL)
@@ -102,6 +100,8 @@
   (apply #'trial:launch 'main initargs))
 
 (defmethod setup-scene ((main main) scene)
+  (enter (make-instance 'textbox) scene)
+  (enter (make-instance 'inactive-pause-menu) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
   (let* ((render (make-instance 'render-pass))

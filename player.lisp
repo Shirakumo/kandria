@@ -37,6 +37,8 @@
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
 
+(defmethod resize ((player player) w h))
+
 (define-handler (player interact) (ev)
   (when (interactable player)
     (issue +level+ 'interaction :with (name (interactable player)))))

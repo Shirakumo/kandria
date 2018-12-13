@@ -63,7 +63,8 @@ void main(){
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'chunk-editor))))
 
 (define-shader-subject editor (inactive-editor)
-  ((status :initform NIL :accessor status)))
+  ((status :initform NIL :accessor status)
+   (start-pos :initform (vec 0 0) :accessor start-pos)))
 
 (defmethod active-p ((editor editor)) T)
 
@@ -94,6 +95,7 @@ void main(){
     (unless (entity editor)
       (setf (entity editor) (entity-at-point loc +level+)))
     (when (retained 'modifiers :alt)
+      (setf (start-pos editor) pos)
       (setf (status editor) :dragging))))
 
 (define-handler (editor mouse-release) (ev)
@@ -101,13 +103,19 @@ void main(){
 
 (define-handler (editor mouse-move) (ev pos)
   (let ((loc (location editor))
+        (old (start-pos editor))
         (entity (entity editor)))
     (update-editor-pos editor pos)
     (case (status editor)
       (:dragging
        (vsetf (location entity)
               (- (vx loc) (mod (vx (bsize entity)) *default-tile-size*))
-              (- (vy loc) (mod (vy (bsize entity)) *default-tile-size*)))))))
+              (- (vy loc) (mod (vy (bsize entity)) *default-tile-size*))))
+      (:resizing
+       (let* ((size (vmax (v- loc old) (vec *default-tile-size* *default-tile-size*)))
+              (loc (v+ old (v/ size 2))))
+         (resize entity (vx size) (vy size))
+         (vsetf (location entity) (vx loc) (vy loc)))))))
 
 (define-handler (editor mouse-scroll) (ev delta)
   (when (retained 'modifiers :control)
@@ -164,7 +172,9 @@ void main(){
        (transition entity +level+)
        ;; FIXME: the ordering business in general is a clusterfuck.
        (enter entity +level+)
-       (setf (entity editor) entity))
+       (setf (entity editor) entity)
+       (setf (start-pos editor) (vcopy (location editor)))
+       (setf (status editor) :dragging))
      (list :location (vcopy (location editor))))))
 
 (define-handler (editor delete-entity) (ev)
@@ -172,9 +182,9 @@ void main(){
   (setf (entity editor) NIL))
 
 (define-handler (editor resize-entity) (ev)
-  (when (typep (entity editor) 'sized-entity)
-    (with-query (size "New entity size" :parse (lambda (s) (parse-string-for-type s 'vec2)))
-      (setf (bsize (entity editor)) size))))
+  (setf (status editor) :resizing)
+  (setf (start-pos editor) (v- (location (entity editor))
+                               (bsize (entity editor)))))
 
 (define-handler (editor trial:tick) (ev)
   (let ((loc (location (unit :camera +level+)))
@@ -215,10 +225,6 @@ void main(){
   (setf (tile-picker editor) (make-instance 'tile-picker :editor editor)))
 
 (defmethod editor-class ((_ chunk)) 'chunk-editor)
-
-(define-handler (chunk-editor resize-entity) (ev)
-  (with-query (size "New chunk size" :parse #'read-from-string)
-    (setf (size (entity chunk-editor)) size)))
 
 (define-handler (chunk-editor key-press) (ev key)
   (case key
