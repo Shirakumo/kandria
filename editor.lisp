@@ -186,6 +186,13 @@ void main(){
   (setf (start-pos editor) (v- (location (entity editor))
                                (bsize (entity editor)))))
 
+(define-handler (editor clone-entity) (ev)
+  (setf (status editor) :dragging)
+  (let ((clone (clone (entity editor))))
+    (transition clone +level+)
+    (enter clone +level+)
+    (setf (entity editor) clone)))
+
 (define-handler (editor trial:tick) (ev)
   (let ((loc (location (unit :camera +level+)))
         (spd (if (retained 'modifiers :shift) 4 1)))

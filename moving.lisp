@@ -13,15 +13,15 @@
     ;; Scan for hits until we run out of velocity or hits.
     (fill (collisions moving) NIL)
     (loop while (and (or (/= 0 (vx vel)) (/= 0 (vy vel)))
-                     (scan scene moving)))
+                     (scan-for 'solid scene moving)))
     ;; Remaining velocity (if any) can be added safely.
     (nv+ loc vel)
     ;; Point test for adjacent walls
-    (let ((tl (scan scene (vec (- (vx loc) (vx size) 1) (+ (vy loc) (vy size) -1))))
-          (bl (scan scene (vec (- (vx loc) (vx size) 1) (- (vy loc) (vy size) -1))))
-          (tr (scan scene (vec (+ (vx loc) (vx size) 1) (+ (vy loc) (vy size) -1))))
-          (br (scan scene (vec (+ (vx loc) (vx size) 1) (- (vy loc) (vy size) -1))))
-          (b  (scan scene (vec (vx loc) (- (vy loc) (vy size) 1)))))
+    (let ((tl (scan-for 'solid scene (vec (- (vx loc) (vx size) 1) (+ (vy loc) (vy size) -1))))
+          (bl (scan-for 'solid scene (vec (- (vx loc) (vx size) 1) (- (vy loc) (vy size) -1))))
+          (tr (scan-for 'solid scene (vec (+ (vx loc) (vx size) 1) (+ (vy loc) (vy size) -1))))
+          (br (scan-for 'solid scene (vec (+ (vx loc) (vx size) 1) (- (vy loc) (vy size) -1))))
+          (b  (scan-for 'solid scene (vec (vx loc) (- (vy loc) (vy size) 1)))))
       (when (or tl bl) (setf (aref (collisions moving) 3) (or tl bl)))
       (when (or tr br) (setf (aref (collisions moving) 1) (or tr br)))
       (when b (setf (aref (collisions moving) 2) b)))
