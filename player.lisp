@@ -15,7 +15,8 @@
    (vjump :initform (vec4 2 3.5 3 2) :accessor vjump)
    (vdash :initform (vec2 8 0.7) :accessor vdash)
    (jump-count :initform 0 :accessor jump-count)
-   (dash-count :initform 0 :accessor dash-count))
+   (dash-count :initform 0 :accessor dash-count)
+   (surface :initform NIL :accessor surface))
   (:default-initargs
    :name :player
    :emotes '(:default concerned thinking cheeky)
@@ -196,9 +197,15 @@
               (decf (vy vel) 0.1)))))
     (nvclamp (v- vlim) vel vlim))
   ;; OOB
-  ;; (when (< (vy (location player)) 0)
-  ;;   (die player))
-  )
+  (when (surface player)
+    (unless (contained-p (location player) (surface player))
+      (let ((other (for:for ((entity flare-queue:in-queue (objects +level+)))
+                     (when (and (typep entity 'chunk)
+                                (contained-p (location player) entity))
+                       (return entity)))))
+        (if other
+            (issue +level+ 'switch-chunk :chunk other)
+            (die player))))))
 
 (defmethod tick :after ((player player) ev)
   (when (svref (collisions player) 2)
@@ -210,6 +217,10 @@
   (add-progression (progression-definition 'intro) scene)
   (add-progression (progression-definition 'revive) scene)
   (add-progression (progression-definition 'die) scene))
+
+(define-handler (player switch-chunk) (ev chunk)
+  (setf (surface player) chunk)
+  (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod compute-resources :after ((player player) resources ready cache)
   (vector-push-extend (asset 'leaf 'particle) resources))

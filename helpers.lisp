@@ -308,5 +308,8 @@
 (defclass enter-area (event)
   ((area :initarg :area :reader area)))
 
+(defclass switch-chunk (event)
+  ((chunk :initarg :chunk :reader chunk)))
+
 (defclass unpausable () ())
 (defclass background () ())

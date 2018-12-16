@@ -14,7 +14,7 @@
    (texture :accessor texture)
    (tileset :initarg :tileset :initform (error "TILESET required.") :accessor tileset
             :type asset :documentation "The tileset texture for the chunk.")
-   (size :initarg :size :initform (error "SIZE required.") :accessor size
+   (size :initarg :size :initform (cons 20 20) :accessor size
          :type cons :documentation "The size of the chunk in tiles.")
    (tile-size :initarg :tile-size :initform *default-tile-size* :accessor tile-size))
   (:inhibit-shaders (shader-entity :fragment-shader)))
@@ -106,17 +106,18 @@ void main(){
   switch(level){
   case -1:
     texel = texelFetch(tileset, set_xy+ivec2(layers[1], 0)*tile_size, 0);
-    color = mix(color, texel, texel.a);
+    color = texel;
     break;
   case  0:
     texel = texelFetch(surface, set_xy+ivec2(layers[0], 0)*tile_size, 0);
-    color = mix(color, texel, texel.a);
+    color = texel;
   case +1:
     texel = texelFetch(tileset, set_xy+ivec2(layers[2], 1)*tile_size, 0);
-    color = mix(color, texel, texel.a);
+    // IDK why the fuck, but suddenly, using MIX here gives me weird results.
+    color = color*(1-texel.a)+texel*texel.a;
   case +2:
     texel = texelFetch(tileset, set_xy+ivec2(layers[3], 2)*tile_size, 0);
-    color = mix(color, texel, texel.a);
+    color = color*(1-texel.a)+texel*texel.a;
   }
 }")
 
@@ -141,6 +142,7 @@ void main(){
             (setf (aref new (+ npos c)) (aref tilemap (+ opos c)))))))
     (when (gl-name texture)
       (sb-sys:with-pinned-objects (tilemap)
+        (gl:bind-texture :texture-2d (gl-name texture))
         (gl:tex-image-2d :texture-2d 0 (internal-format texture) nw nh 0 (pixel-format texture) (pixel-type texture)
                          (sb-sys:vector-sap tilemap))))
     (setf (pixel-data texture) new)
