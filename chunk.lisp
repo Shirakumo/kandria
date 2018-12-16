@@ -7,7 +7,7 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
-(define-shader-entity chunk (sized-entity solid)
+(define-shader-entity chunk (sized-entity solid background)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (surface :initform (asset 'leaf 'surface) :accessor surface)
    (tilemap :accessor tilemap)

@@ -32,7 +32,7 @@
 (defmethod paint :before ((level level) target)
   (let ((*paint-background-p* T))
     (for:for ((entity flare-queue:in-queue (objects level)))
-      (when (typep entity 'chunk)
+      (when (typep entity 'background)
         (paint entity target)))))
 
 (defmethod file ((level level))

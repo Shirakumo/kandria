@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject parallax ()
+(define-shader-subject parallax (background)
   ((texture :initarg :texture :initform (error "TEXTURE required.") :accessor texture
             :type asset :documentation "The texture to display as the parallax background.")
    (vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)))
@@ -9,22 +9,23 @@
   '(:texture))
 
 (defmethod paint ((parallax parallax) (pass shader-pass))
-  (let ((vao (vertex-array parallax))
-        (program (shader-program-for-pass pass parallax))
-        (camera (unit :camera T)))
-    (with-pushed-attribs
-      (setf (uniform program "aspect") (float (/ (width *context*)
-                                                 (height *context*))))
-      (setf (uniform program "offset") (vec (floor (vx (location camera)))
-                                            (max 0 (floor (vy (location camera))))))
-      ;; FIXME: zooming is not quite right yet
-      (setf (uniform program "zoom") (zoom camera))
-      (setf (uniform program "parallax") 0)
-      (gl:active-texture :texture0)
-      (gl:bind-texture :texture-2d (gl-name (texture parallax)))
-      (gl:bind-vertex-array (gl-name vao))
-      (%gl:draw-elements :triangles (size vao) :unsigned-int (cffi:null-pointer))
-      (gl:bind-vertex-array 0))))
+  (when *paint-background-p*
+    (let ((vao (vertex-array parallax))
+          (program (shader-program-for-pass pass parallax))
+          (camera (unit :camera T)))
+      (with-pushed-attribs
+          (setf (uniform program "aspect") (float (/ (width *context*)
+                                                     (height *context*))))
+        (setf (uniform program "offset") (vec (floor (vx (location camera)))
+                                              (max 0 (floor (vy (location camera))))))
+        ;; FIXME: zooming is not quite right yet
+        (setf (uniform program "zoom") (zoom camera))
+        (setf (uniform program "parallax") 0)
+        (gl:active-texture :texture0)
+        (gl:bind-texture :texture-2d (gl-name (texture parallax)))
+        (gl:bind-vertex-array (gl-name vao))
+        (%gl:draw-elements :triangles (size vao) :unsigned-int (cffi:null-pointer))
+        (gl:bind-vertex-array 0)))))
 
 (define-class-shader (parallax :vertex-shader)
   "
