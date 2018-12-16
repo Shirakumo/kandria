@@ -12,12 +12,10 @@
         (setf (uniform program "scale") (view-scale camera))
         (setf (uniform program "offset") (v- (location camera)
                                              (v/ (target-size camera) (zoom camera)))))
-      (gl:blend-func :one-minus-dst-color :src-alpha)
       (with-pushed-matrix ()
         (translate (vxy_ (location entity)))
         (scale-by (* 2 (vx2 (bsize entity))) (* 2 (vy2 (bsize entity))) 1.0)
-        (call-next-method))
-      (gl:blend-func :src-alpha :one-minus-src-alpha))))
+        (call-next-method)))))
 
 (define-class-shader (entity-marker :fragment-shader)
   "out vec4 color;
@@ -27,7 +25,7 @@ uniform float scale = 1.0;
 void main(){
   ivec2 grid = ivec2(floor((gl_FragCoord.xy+0.5)+offset*scale));
   float r = (floor(mod(grid.x, 8*scale))==0.0 || floor(mod(grid.y, 8*scale))==0)?1.0:0.0;
-  color = vec4(r,r,r,1-r);
+  color = vec4(1,1,1,r*0.2);
 }")
 
 (define-shader-subject inactive-editor (located-entity)
@@ -43,8 +41,8 @@ void main(){
 (defmethod active-p ((editor inactive-editor)) NIL)
 (defmethod (setf active-p) (value (editor inactive-editor))
   (cond (value
-         (change-class editor (editor-class (entity editor)))
-         (pause-game T editor))
+         (pause-game T editor)
+         (change-class editor (editor-class (entity editor))))
         (T
          (change-class editor 'inactive-editor)
          (unpause-game T editor))))
@@ -193,6 +191,11 @@ void main(){
     (enter clone +level+)
     (setf (entity editor) clone)))
 
+(define-handler (editor inspect-entity) (ev)
+  (let ((swank::*buffer-package* *package*)
+        (swank::*buffer-readtable* *readtable*))
+    (swank:inspect-in-emacs (entity editor) :wait NIL)))
+
 (define-handler (editor trial:tick) (ev)
   (let ((loc (location (unit :camera +level+)))
         (spd (if (retained 'modifiers :shift) 4 1)))
@@ -313,7 +316,7 @@ void main(){
 }")
 
 (define-asset (leaf tile-picker) mesh
-    (make-rectangle (* 64 *default-tile-size*) (* 4 *default-tile-size*) :align :bottomleft))
+    (make-rectangle (* 64 *default-tile-size*) (* 4 *default-tile-size*) :align :bottomleft :z 10))
 
 (define-shader-entity tile-picker (vertex-entity textured-entity)
   ((vertex-array :initform (asset 'leaf 'tile-picker))
