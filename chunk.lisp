@@ -6,7 +6,8 @@
     #p"surface.png"
   :min-filter :nearest
   :mag-filter :nearest)
-
+;; FIXME: Roll parallax behaviour into chunk to let out-of-chunk
+;;        be the default fill in colour. Also saves on another render.
 (define-shader-entity chunk (sized-entity solid background)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (surface :initform (asset 'leaf 'surface) :accessor surface)
