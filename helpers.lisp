@@ -309,3 +309,4 @@
   ((area :initarg :area :reader area)))
 
 (defclass unpausable () ())
+(defclass background () ())
