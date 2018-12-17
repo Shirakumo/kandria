@@ -26,7 +26,7 @@
       (when (or tr br) (setf (aref (collisions moving) 1) (or tr br)))
       (when b (setf (aref (collisions moving) 2) b)))
     ;; Point test for interactables. Pretty stupid.
-    (let ((m (scan scene loc)))
+    (let ((m (scan-for 'interactable scene loc)))
       (with-simple-restart (decline "")
         (when (and m (not (eq m moving)))
           (collide moving m (make-hit m 0.0 loc (vec 0 0))))))))
