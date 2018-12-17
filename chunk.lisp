@@ -15,7 +15,7 @@
    (texture :accessor texture)
    (tileset :initarg :tileset :initform (error "TILESET required.") :accessor tileset
             :type asset :documentation "The tileset texture for the chunk.")
-   (size :initarg :size :initform (cons 20 20) :accessor size
+   (size :initarg :size :initform (copy-list *tiles-in-view*) :accessor size
          :type cons :documentation "The size of the chunk in tiles.")
    (tile-size :initarg :tile-size :initform *default-tile-size* :accessor tile-size))
   (:inhibit-shaders (shader-entity :fragment-shader)))
