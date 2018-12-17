@@ -219,6 +219,17 @@
   (add-progression (progression-definition 'revive) scene)
   (add-progression (progression-definition 'die) scene))
 
+(define-handler (player switch-level) (ev level)
+  (let ((other (for:for ((entity flare-queue:in-queue (objects level)))
+                 (when (and (typep entity 'chunk)
+                            (contained-p (location player) entity))
+                   (return entity)))))
+    (unless other
+      (warn "Player is somehow outside all chunks, picking first chunk we can get.")
+      (setf other (for:for ((entity flare-queue:in-queue (objects level)))
+                    (when (typep entity 'chunk) (return entity)))))
+    (issue level 'switch-chunk :chunk other)))
+
 (define-handler (player switch-chunk) (ev chunk)
   (setf (surface player) chunk)
   (setf (spawn-location player) (vcopy (location player))))
