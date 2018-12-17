@@ -313,3 +313,26 @@
 
 (defclass unpausable () ())
 (defclass background () ())
+(defclass foreground () ())
+
+(defun sort-queue (queue predicate &key (key #'identity))
+  (let ((sorted (stable-sort (flare-queue:coerce-queue queue 'list) predicate :key key)))
+    (for:for ((cell flare-queue:of-queue queue)
+              (item in sorted))
+      (setf (flare-queue:value cell) item))
+    queue))
+
+(defun sort-level (level)
+  (sort-queue (objects level) #'entity<)
+  level)
+
+(defmethod entity< ((a entity) (b entity)) NIL)
+
+(defmacro define-order-precedence (before after)
+  `(progn
+     (defmethod entity< ((a ,before) (b ,after)) T)
+     (defmethod entity< ((a ,after) (b ,before)) NIL)))
+
+(define-order-precedence background entity)
+(define-order-precedence entity foreground)
+(define-order-precedence entity controller)

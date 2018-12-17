@@ -16,6 +16,8 @@
    :target-size (v* (vec (car *tiles-in-view*) (cdr *tiles-in-view*))
                     (/ *default-tile-size* 2))))
 
+(define-order-precedence camera entity)
+
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit :player scene))
   (setf (surface camera) (unit :chunk scene)))

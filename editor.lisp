@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity entity-marker (vertex-entity)
+(define-shader-entity entity-marker (vertex-entity foreground)
   ((vertex-array :initform (asset 'leaf 'particle))
    (editor :initarg :editor :accessor editor)))
 
@@ -28,7 +28,7 @@ void main(){
   color = vec4(1,1,1,r*0.2);
 }")
 
-(define-shader-subject inactive-editor (located-entity)
+(define-shader-subject inactive-editor (located-entity foreground)
   ((flare:name :initform :editor)
    (entity :initform NIL :accessor entity)
    (marker :accessor entity-marker)))
@@ -168,8 +168,8 @@ void main(){
     (query-instance
      (lambda (entity)
        (transition entity +level+)
-       ;; FIXME: the ordering business in general is a clusterfuck.
        (enter entity +level+)
+       (sort-level +level+)
        (setf (entity editor) entity)
        (setf (start-pos editor) (vcopy (location editor)))
        (setf (status editor) :dragging))
@@ -189,6 +189,7 @@ void main(){
   (let ((clone (clone (entity editor))))
     (transition clone +level+)
     (enter clone +level+)
+    (sort-level +level+)
     (setf (entity editor) clone)))
 
 (define-handler (editor inspect-entity) (ev)
@@ -318,11 +319,14 @@ void main(){
 (define-asset (leaf tile-picker) mesh
     (make-rectangle (* 64 *default-tile-size*) (* 4 *default-tile-size*) :align :bottomleft :z 10))
 
-(define-shader-entity tile-picker (vertex-entity textured-entity)
+(define-shader-entity tile-picker (vertex-entity textured-entity foreground)
   ((vertex-array :initform (asset 'leaf 'tile-picker))
    (texture :initform NIL)
    (editor :initarg :editor :accessor editor))
   (:inhibit-shaders (textured-entity :fragment-shader)))
+
+(define-order-precedence inactive-editor tile-picker)
+(define-order-precedence entity-marker tile-picker)
 
 (defmethod paint :around ((picker tile-picker) target)
   (with-pushed-matrix ((*model-matrix* :identity)
@@ -360,11 +364,13 @@ void main(){
   color = mix(color, texel, texel.a);
 }")
 
-(define-shader-subject text-input ()
+(define-shader-subject text-input (foreground)
   ((vertex-array :initform (asset 'trial 'trial::fullscreen-square) :accessor vertex-array)
    (title :initform (make-instance 'text :color (vec 1 1 1 1) :font (asset 'trial 'trial::noto-mono) :size 20 :width 800 :wrap T) :accessor title)
    (label :initform (make-instance 'text :color (vec 1 1 1 1) :font (asset 'trial 'trial::noto-mono) :size 32) :accessor label)
    (callback :initarg :callback :accessor callback)))
+
+(define-order-precedence inactive-editor text-input)
 
 (defmethod initialize-instance :after ((text-input text-input) &key title default)
   (setf (text (label text-input)) (or default ""))
@@ -382,8 +388,8 @@ void main(){
 (define-handler (text-input key-press) (ev key)
   (case key
     ((:enter :return)
-     (funcall (callback text-input) (text (label text-input)))
-     (leave text-input +level+))
+     (leave text-input +level+)
+     (funcall (callback text-input) (text (label text-input))))
     ((:esc :escape)
      (leave text-input +level+))
     ((:backspace)

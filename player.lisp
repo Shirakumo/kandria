@@ -36,10 +36,12 @@
                  (0.2 8 :loop-to 7))))
 
 (defmethod initialize-instance :after ((player player) &key)
-  ;; FIXME: figure out SURFACE default
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod resize ((player player) w h))
+
+(define-order-precedence player chunk)
+(define-order-precedence interactable player)
 
 (define-handler (player interact) (ev)
   (when (interactable player)
