@@ -10,6 +10,9 @@
   ((name :accessor name)
    (pause-stack :initform () :accessor pause-stack)))
 
+(defmethod initialize-instance :after ((level level) &key)
+  (issue level 'switch-level :level level))
+
 (defmethod pause-game ((_ (eql T)) pauser)
   (pause-game +level+ pauser))
 

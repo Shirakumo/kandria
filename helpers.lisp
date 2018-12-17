@@ -305,8 +305,8 @@
   (apply #'issue +level+ (event-type trigger) (event-initargs trigger))
   (setf (active-p trigger) NIL))
 
-(defclass enter-area (event)
-  ((area :initarg :area :reader area)))
+(defclass switch-level (event)
+  ((level :initarg :level :reader level)))
 
 (defclass switch-chunk (event)
   ((chunk :initarg :chunk :reader chunk)))
