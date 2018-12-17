@@ -6,13 +6,14 @@
     #p"surface.png"
   :min-filter :nearest
   :mag-filter :nearest)
-;; FIXME: Roll parallax behaviour into chunk to let out-of-chunk
-;;        be the default fill in colour. Also saves on another render.
+
 (define-shader-entity chunk (sized-entity solid background)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (surface :initform (asset 'leaf 'surface) :accessor surface)
    (tilemap :accessor tilemap)
    (texture :accessor texture)
+   (background :initarg :background :initform (error "BACKGROUND required.") :accessor background
+               :type asset :documentation "The parallax background texture.")
    (tileset :initarg :tileset :initform (error "TILESET required.") :accessor tileset
             :type asset :documentation "The tileset texture for the chunk.")
    (size :initarg :size :initform (copy-list *tiles-in-view*) :accessor size
@@ -23,25 +24,33 @@
 (defmethod initargs append ((_ chunk))
   `(:size :tileset))
 
-(defmethod initialize-instance :after ((chunk chunk) &key size tilemap)
-  (setf (bsize chunk) (v* (vec (car size) (cdr size)) (tile-size chunk) .5))
-  (setf (tilemap chunk) (make-array (round (* (car size) (cdr size) 4)) :element-type '(unsigned-byte 8)))
-  (etypecase tilemap
-    (null
-     (fill (tilemap chunk) 0))
-    ((or string pathname)
-     (with-open-file (stream tilemap :element-type '(unsigned-byte 8))
-       (read-sequence (tilemap chunk) stream)))
-    (vector
-     (replace (tilemap chunk) tilemap)))
-  (setf (texture chunk) (make-instance 'texture :width (car size)
-                                                :height (cdr size)
-                                                :pixel-data (tilemap chunk)
-                                                :pixel-type :unsigned-byte
-                                                :pixel-format :rgba-integer
-                                                :internal-format :rgba8ui
-                                                :min-filter :nearest
-                                                :mag-filter :nearest)))
+(defmethod initialize-instance :after ((chunk chunk) &key tilemap)
+  (let ((size (size chunk)))
+    (setf (bsize chunk) (v* (vec (car size) (cdr size)) (tile-size chunk) .5))
+    (setf (tilemap chunk) (make-array (round (* (car size) (cdr size) 4)) :element-type '(unsigned-byte 8)))
+    (etypecase tilemap
+      (null
+       (fill (tilemap chunk) 0))
+      ((or string pathname)
+       (with-open-file (stream tilemap :element-type '(unsigned-byte 8))
+         (read-sequence (tilemap chunk) stream)))
+      (vector
+       (replace (tilemap chunk) tilemap)))
+    (setf (texture chunk) (make-instance 'texture :width (car size)
+                                                  :height (cdr size)
+                                                  :pixel-data (tilemap chunk)
+                                                  :pixel-type :unsigned-byte
+                                                  :pixel-format :rgba-integer
+                                                  :internal-format :rgba8ui
+                                                  :min-filter :nearest
+                                                  :mag-filter :nearest))))
+
+(defmethod clone ((chunk chunk))
+  (make-instance (class-of chunk)
+                 :size (copy-list (size chunk))
+                 :background (background chunk)
+                 :tileset (tileset chunk)
+                 :tile-size (tile-size chunk)))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
@@ -53,19 +62,22 @@
     (setf (uniform program "view_offset") (nv+ (v- (location camera) (location chunk)
                                                    (v/ (target-size camera) (zoom camera)))
                                                (bsize chunk)))
-    (setf (uniform program "tileset") 0)
-    (setf (uniform program "tilemap") 1)
-    (setf (uniform program "surface") 2)
+    (setf (uniform program "background") 0)
+    (setf (uniform program "tileset") 1)
+    (setf (uniform program "tilemap") 2)
+    (setf (uniform program "surface") 3)
     (gl:active-texture :texture0)
-    (gl:bind-texture :texture-2d (gl-name (tileset chunk)))
+    (gl:bind-texture :texture-2d (gl-name (background chunk)))
     (gl:active-texture :texture1)
-    (gl:bind-texture :texture-2d (gl-name (texture chunk)))
+    (gl:bind-texture :texture-2d (gl-name (tileset chunk)))
     (gl:active-texture :texture2)
+    (gl:bind-texture :texture-2d (gl-name (texture chunk)))
+    (gl:active-texture :texture3)
     (gl:bind-texture :texture-2d (gl-name (surface chunk)))
     (gl:bind-vertex-array (gl-name vao))
     ;; This sucks
     (setf (uniform program "level")
-          (cond (*paint-background-p*        -1)
+          (cond (*paint-background-p*        -2)
                 ((active-p (unit :editor T))  0)
                 (T                            1)))
     (%gl:draw-elements :triangles (size vao) :unsigned-int 0)))
@@ -86,35 +98,40 @@ void main(){
 
 (define-class-shader (chunk :fragment-shader)
   "#version 330 core
+uniform sampler2D background;
 uniform sampler2D tileset;
 uniform usampler2D tilemap;
 uniform usampler2D surface;
 uniform int tile_size = 8;
 uniform int level = 0;
+uniform vec2 view_offset;
 in vec2 map_coord;
 out vec4 color;
 
 void main(){
   ivec2 map_wh = textureSize(tilemap, 0)*tile_size;
   ivec2 map_xy = ivec2(floor(map_coord));
-  ivec4 layers = ivec4(0);
-  if(0 <= map_xy.x && 0 <= map_xy.y && map_xy.x < map_wh.x && map_xy.y < map_wh.y)
-    layers = ivec4(texelFetch(tilemap, map_xy/tile_size, 0));
-  ivec2 set_xy = ivec2(mod(map_xy.x, tile_size), mod(map_xy.y, tile_size));
-  vec4 texel;
   color = vec4(0);
 
+  if(map_xy.x < 0 || map_xy.y < 0 || map_wh.x <= map_xy.x || map_wh.y <= map_xy.y)
+    return;
+
+  ivec4 layers = ivec4(texelFetch(tilemap, map_xy/tile_size, 0));
+  ivec2 set_xy = ivec2(mod(map_xy.x, tile_size), mod(map_xy.y, tile_size));
+  vec4 texel;
+
+  // IDK why the fuck, but suddenly, using MIX here gives me weird results.
   switch(level){
+  case -2:
+    color = texture(background, (map_coord+view_offset/4)/textureSize(background, 0));
   case -1:
     texel = texelFetch(tileset, set_xy+ivec2(layers[1], 0)*tile_size, 0);
-    color = texel;
+    color = color*(1-texel.a)+texel*texel.a;
     break;
   case  0:
-    texel = texelFetch(surface, set_xy+ivec2(layers[0], 0)*tile_size, 0);
-    color = texel;
+    color = texelFetch(surface, set_xy+ivec2(layers[0], 0)*tile_size, 0);
   case +1:
     texel = texelFetch(tileset, set_xy+ivec2(layers[2], 1)*tile_size, 0);
-    // IDK why the fuck, but suddenly, using MIX here gives me weird results.
     color = color*(1-texel.a)+texel*texel.a;
   case +2:
     texel = texelFetch(tileset, set_xy+ivec2(layers[3], 2)*tile_size, 0);

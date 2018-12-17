@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defparameter *tiles-in-view* (cons 40 25))
+(defparameter *tiles-in-view* (cons 40 26))
 
 (define-subject camera (trial:2d-camera unpausable)
   ((flare:name :initform :camera)

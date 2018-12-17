@@ -153,6 +153,8 @@
                   :direction (load-level 'vec2 buffer))))
 
 (defmethod save-level ((chunk chunk) (buffer fast-io:output-buffer))
+  (with-new-value-restart ((name chunk)) (set-value "Set the name.")
+    (unless (name chunk) (error "Cannot save nameless chunks!")))
   (save-level (name chunk) buffer)
   (save-level (location chunk) buffer)
   (fast-io:writeu16-le (car (size chunk)) buffer)
