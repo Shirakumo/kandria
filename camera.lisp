@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defparameter *tiles-in-view* (cons 40 25))
+
 (define-subject camera (trial:2d-camera unpausable)
   ((flare:name :initform :camera)
    (zoom :initarg :zoom :initform 1.0 :accessor zoom)
@@ -11,12 +13,15 @@
    (shake-counter :initform 0 :accessor shake-counter))
   (:default-initargs
    :location (vec 0 0)
-   :target-size (vec (* 8 20) 0)))
+   :target-size (v* (vec (car *tiles-in-view*) (cdr *tiles-in-view*))
+                    (/ *default-tile-size* 2))))
 
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit :player scene))
   (setf (surface camera) (unit :chunk scene)))
-
+(setf (surface (unit :camera T))
+      (for:for ((entity over +level+))
+        (when (typep entity 'chunk) (return entity))))
 (define-handler (camera trial:tick) (ev tt)
   (let ((loc (location camera))
         (int (intended-location camera))
@@ -42,10 +47,9 @@
       ;; Smooth camera movement
       (let* ((dir (v- int loc))
              (len (max 1 (vlength dir)))
-             (ease (clamp 0 (/ (expt len 1.5) 100) 20)))
+             (ease (clamp 0 (+ 0.2 (/ (expt len 1.5) 100)) 20)))
         (nv* dir (/ ease len))
-        (when (< 0.1 (vlength dir))
-          (nv+ loc dir))))
+        (nv+ loc dir)))
     (when (< 0 (shake-counter camera))
       (decf (shake-counter camera))
       (nv+ loc (vrand -3 +3)))))

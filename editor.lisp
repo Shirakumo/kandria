@@ -198,7 +198,7 @@ void main(){
 
 (define-handler (editor trial:tick) (ev)
   (let ((loc (location (unit :camera +level+)))
-        (spd (if (retained 'modifiers :shift) 4 1)))
+        (spd (if (retained 'modifiers :shift) 10 1)))
     (cond ((retained 'movement :left) (decf (vx loc) spd))
           ((retained 'movement :right) (incf (vx loc) spd)))
     (cond ((retained 'movement :down) (decf (vy loc) spd))

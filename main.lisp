@@ -50,7 +50,9 @@
   ((scene :initform NIL)
    (save :initform (make-instance 'save :name "test") :accessor save))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17)
-                     :title "Leaf - 0.0.0"))
+                     :title "Leaf - 0.0.0"
+                     :width 1280
+                     :height 720))
 
 (defmethod initialize-instance ((main main) &key map)
   (call-next-method)
