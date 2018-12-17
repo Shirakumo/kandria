@@ -42,9 +42,8 @@
   (:default-initargs :name :untitled))
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  (enter (make-instance 'parallax :texture (asset 'leaf 'facility-background)) level)
   (enter (make-instance 'player :location (vec 64 64)) level)
-  (enter (make-instance 'chunk :tileset (asset 'leaf 'facility) :size (cons 64 64)) level))
+  (enter (make-instance 'chunk :tileset (asset 'leaf 'facility) :background (asset 'leaf 'facility-background)) level))
 
 (defclass main (trial:main)
   ((scene :initform NIL)

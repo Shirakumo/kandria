@@ -4,7 +4,6 @@
                (:file "keys")
                (:file "dialog")
                (:file "textbox")
-               (:file "parallax")
                (:file "surface")
                (:file "chunk")
                (:file "moving-platform")

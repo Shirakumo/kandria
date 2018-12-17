@@ -23,7 +23,7 @@ uniform vec2 offset = vec2(0);
 uniform float scale = 1.0;
 
 void main(){
-  ivec2 grid = ivec2(floor((gl_FragCoord.xy+0.5)+offset*scale));
+  ivec2 grid = ivec2(floor((gl_FragCoord.xy)+offset*scale));
   float r = (floor(mod(grid.x, 8*scale))==0.0 || floor(mod(grid.y, 8*scale))==0)?1.0:0.0;
   color = vec4(1,1,1,r*0.2);
 }")
