@@ -1,7 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defparameter *id-type-map* '((player 1)
-                              (parallax 2)
                               (chunk 3)
                               (falling-platform 4)
                               (interactable 5)))
@@ -134,13 +133,6 @@
 
 (defmethod load-level ((player player) (buffer fast-io:input-buffer))
   (make-instance 'player :location (load-level 'vec2 buffer)))
-
-(defmethod save-level ((parallax parallax) (buffer fast-io:output-buffer))
-  (save-level (texture parallax) buffer))
-
-(defmethod load-level ((parallax parallax) (buffer fast-io:input-buffer))
-  (make-instance
-   'parallax :texture (load-level 'asset buffer)))
 
 (defmethod save-level ((platform falling-platform) (buffer fast-io:output-buffer))
   (call-next-method)

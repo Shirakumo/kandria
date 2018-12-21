@@ -21,9 +21,7 @@
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit :player scene))
   (setf (surface camera) (unit :chunk scene)))
-(setf (surface (unit :camera T))
-      (for:for ((entity over +level+))
-        (when (typep entity 'chunk) (return entity))))
+
 (define-handler (camera trial:tick) (ev tt)
   (let ((loc (location camera))
         (int (intended-location camera))
