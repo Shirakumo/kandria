@@ -5,6 +5,7 @@
                (:file "dialog")
                (:file "textbox")
                (:file "surface")
+               (:file "lighting")
                (:file "chunk")
                (:file "moving-platform")
                (:file "moving")
