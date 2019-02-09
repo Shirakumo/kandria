@@ -16,13 +16,13 @@
   ())
 
 (define-class-shader (hex-bokeh-pass-1 :fragment-shader)
-  '(leaf "bokeh-1.frag"))
+  (pool-path 'leaf "bokeh-1.frag"))
 
 (define-shader-pass hex-bokeh-pass-2 (simple-post-effect-pass %hex-bokeh-pass)
   ())
 
 (define-class-shader (hex-bokeh-pass-2 :fragment-shader)
-  '(leaf "bokeh-2.frag"))
+  (pool-path 'leaf "bokeh-2.frag"))
 
 (define-shader-pass hex-bokeh-pass (post-effect-pass)
   ((bokeh-b :port-type input)
@@ -63,7 +63,7 @@
   (make-instance 'hex-bokeh-pass-node :parent pass))
 
 (define-class-shader (hex-bokeh-pass :fragment-shader)
-  '(leaf "bokeh-3.frag"))
+  (pool-path 'leaf "bokeh-3.frag"))
 
 (define-shader-pass blur-pass (simple-post-effect-pass)
   ())
