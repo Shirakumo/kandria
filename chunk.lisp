@@ -22,7 +22,7 @@
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initargs append ((_ chunk))
-  `(:size :tileset))
+  `(:size :tileset :background))
 
 (defmethod initialize-instance :after ((chunk chunk) &key tilemap)
   (let ((size (size chunk)))
