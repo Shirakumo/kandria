@@ -121,7 +121,7 @@
   (destructuring-bind (name &rest entries) data
     (let ((level (if (eq name (name (scene main)))
                      (scene main)
-                     (load-level (make-instance 'level :name name) T))))
+                     (load T (make-instance 'level :name name) T))))
       (loop for (type . data) in entries
             do (load-state-into level type data))
       (change-scene main level))))

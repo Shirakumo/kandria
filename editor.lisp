@@ -139,12 +139,12 @@ void main(){
 
 (define-handler (editor save-level) (ev)
   (if (retained 'modifiers :control)
-      (save-level +level+ T)
+      (save-map +level+ T T)
       (with-query (file "Map save location"
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
         (setf (name +level+) (kw (pathname-name file)))
-        (save-level +level+ (pool-path 'leaf (merge-pathnames file "map/"))))))
+        (save-map +level+ (pool-path 'leaf (merge-pathnames file "map/")) T))))
 
 (define-handler (editor load-level) (ev)
   (if (retained 'modifiers :control)
@@ -154,7 +154,7 @@ void main(){
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
         (let ((level (make-instance 'level :name (kw (pathname-name file)))))
-          (load-level level (pool-path 'leaf (merge-pathnames file "map/")))
+          (load-map (pool-path 'leaf (merge-pathnames file "map/")) level T)
           (change-scene (handler *context*) level)))))
 
 (define-handler (editor save-state) (ev)
