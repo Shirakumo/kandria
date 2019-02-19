@@ -16,6 +16,19 @@
 (defun kw (thing)
   (intern (string-upcase thing) "KEYWORD"))
 
+(defun type-prototype (type)
+  (case type
+    (integer 0)
+    (float 0.0)
+    (complex #c(0 0))
+    (symbol #:symbol)
+    (string "string")
+    (vector #(vector))
+    (package #.*package*)
+    (cons '(NIL . NIL))
+    (null NIL)
+    (T (c2mop:class-prototype (find-class type)))))
+
 (defmethod unit (thing (target (eql T)))
   (when +level+
     (unit thing +level+)))

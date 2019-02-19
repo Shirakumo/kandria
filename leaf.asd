@@ -12,6 +12,7 @@
                (:file "interactable")
                (:file "player")
                (:file "level")
+               (:file "map")
                (:file "editor")
                (:file "menu")
                (:file "camera")
@@ -24,4 +25,5 @@
                :babel
                :form-fiddle
                :lambda-fiddle
-               :trivial-arguments))
+               :trivial-arguments
+               :trivial-indent))
