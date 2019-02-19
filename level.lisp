@@ -152,6 +152,7 @@
   (fast-io:writeu16-le (car (size chunk)) buffer)
   (fast-io:writeu16-le (cdr (size chunk)) buffer)
   (fast-io:writeu16-le (tile-size chunk) buffer)
+  (save-level (background chunk) buffer)
   (save-level (tileset chunk) buffer)
   (let* ((*print-case* :downcase)
          (path (format NIL "~a.~a.raw"
@@ -170,6 +171,7 @@
           :size (cons (fast-io:readu16-le buffer)
                       (fast-io:readu16-le buffer))
           :tile-size (fast-io:readu16-le buffer)
+          :background (load-level 'asset buffer)
           :tileset (load-level 'asset buffer)
           :tilemap (merge-pathnames (load-level 'string buffer)
                                     *default-pathname-defaults*)))
