@@ -1,9 +1,11 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defparameter *id-type-map* '((player 1)
-                              (chunk 3)
-                              (falling-platform 4)
-                              (interactable 5)))
+(defparameter *id-type-map* '(;; Scenery
+                              (chunk            #x0011)
+                              (falling-platform #x0012)
+                              ;; Items / Characters
+                              (player           #x0021)
+                              (interactable     #x0022)))
 (defvar *version* 'v0)
 
 (defun type->id (type-ish)

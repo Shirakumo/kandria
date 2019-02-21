@@ -144,6 +144,12 @@ void main(){
     (unless (equal size (size chunk))
       (setf (size chunk) size))))
 
+(defmethod (setf size) :around (value (chunk chunk))
+  ;; Ensure the size is never lower than a screen.
+  (let ((size (cons (max (car value) (car *tiles-in-view*))
+                    (max (cdr value) (cdr *tiles-in-view*)))))
+    (call-next-method size chunk)))
+
 (defmethod (setf size) :before (value (chunk chunk))
   (let* ((nw (car value))
          (nh (cdr value))

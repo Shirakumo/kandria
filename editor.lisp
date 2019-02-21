@@ -110,10 +110,10 @@ void main(){
               (- (vx loc) (mod (vx (bsize entity)) *default-tile-size*))
               (- (vy loc) (mod (vy (bsize entity)) *default-tile-size*))))
       (:resizing
-       (let* ((size (vmax (v- loc old) (vec *default-tile-size* *default-tile-size*)))
-              (loc (v+ old (v/ size 2))))
+       (let ((size (vmax (v- loc old) (vec *default-tile-size* *default-tile-size*))))
          (resize entity (vx size) (vy size))
-         (vsetf (location entity) (vx loc) (vy loc)))))))
+         (let ((loc (v+ old (bsize entity))))
+           (vsetf (location entity) (vx loc) (vy loc))))))))
 
 (define-handler (editor mouse-scroll) (ev delta)
   (when (retained 'modifiers :control)
