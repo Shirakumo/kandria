@@ -20,10 +20,10 @@
   ((flare:name :initform :textbox)
    (vertex-array :initform (asset 'leaf 'textbox))
    (profile :initform (make-instance 'profile) :reader profile)
-   (paragraph :initform (make-instance 'text :font (asset 'leaf 'text)
+   (paragraph :initform (make-instance 'text :font (asset 'trial 'prompt-font)
                                              :size 18 :width 710 :wrap T
                                              :color (vec 1 1 1 1) :text "") :reader paragraph)
-   (title :initform (make-instance 'text :font (asset 'leaf 'text)
+   (title :initform (make-instance 'text :font (asset 'trial 'prompt-font)
                                          :size 22 :color (vec 0 0 0 1) :text "") :reader title)
    (target :initarg :target :accessor target)
    (clock :initform 0.0 :accessor clock)
