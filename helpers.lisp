@@ -32,7 +32,7 @@
     (readtable (load-time-value (copy-readtable)))
     (stream (load-time-value (make-broadcast-stream)))
     (string "string")
-    (symbol #:symbol)
+    (symbol '#:symbol)
     (vector #(vector))
     (T (c2mop:class-prototype (find-class type)))))
 
