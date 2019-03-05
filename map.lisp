@@ -112,7 +112,7 @@
 (define-loader (version v0) (buffer)
   (let ((version-name (load 'string)))
     (flet ((bail () (error "No such version ~s." version-name)))
-      (let* ((symbol (or (find-symbol version-name) (bail)))
+      (let* ((symbol (or (find-symbol version-name #.*package*) (bail)))
              (class (or (find-class symbol NIL) (bail))))
         (unless (subtypep class 'version) (bail))
         (make-instance class)))))
@@ -142,7 +142,7 @@
   (make-instance 'player :location (load 'vec2)))
 
 (define-saver (chunk v0) (buffer)
-  (with-new-value-restart ((name chunk)) (set-value "Set the name.")
+  (with-new-value-restart ((slot-value chunk 'name)) (set-value "Set the name.")
     (unless (name chunk) (error "Cannot save nameless chunks!")))
   (save (name chunk))
   (save (location chunk))

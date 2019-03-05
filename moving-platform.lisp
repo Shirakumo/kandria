@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 ;; FIXME: chunk does not work for this (no background, no size constraint, no entrance, etc)
-(define-shader-subject moving-platform (game-entity)
+(define-shader-subject moving-platform (game-entity sprite-entity)
   ())
 
 ;; KLUDGE: For now we only support square platforms
