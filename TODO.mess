@@ -1,0 +1,25 @@
+# Things to do
+These are some, but not all, of the features that I want to add still. It's mostly a list of reminders so I don't forget.
+
+## Specular mapping
+Adding specular maps to the tilesets would allow reflecting surface as well as environment mapping.
+
+## Revise tilemaps
+Should do this like the GPL game, using multiple rects at different regions and using an RG texture for the tile index.
+
+## Revise level format
+Should use the same ZIP format as in the GPL game.
+
+## Doors and keys/levels
+
+## Lighting
+We need to have dynamic lighting for extra mood.
+
+## Editor enhancements
+### Layer selector and visibility
+Might need to wait with this one until I have a UI library.
+
+### Line drawing
+A line tool would be very useful
+
+### Undo history
