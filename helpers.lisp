@@ -13,6 +13,12 @@
     (c2mop:finalize-inheritance class))
   class)
 
+(defmacro with-leaf-io-syntax (&body body)
+  `(with-standard-io-syntax
+     (let ((*package* #.*package*)
+           (*print-case* :downcase))
+       ,@body)))
+
 (defun kw (thing)
   (intern (string-upcase thing) "KEYWORD"))
 

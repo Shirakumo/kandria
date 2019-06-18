@@ -12,7 +12,7 @@
                (:file "interactable")
                (:file "player")
                (:file "level")
-               (:file "map")
+               (:file "region")
                (:file "editor")
                (:file "menu")
                (:file "camera")
@@ -20,6 +20,7 @@
                (:file "save-state")
                (:file "effects"))
   :depends-on (:trial-glfw
+               :zip
                :fast-io
                :ieee-floats
                :babel

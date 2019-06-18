@@ -48,7 +48,7 @@ scene: {
   entities: [ entity ]
 }
 
-entity: ( player | chunk | entity )
+entity: ( player | chunk | instance )
 
 player: {
   location: vector
@@ -58,17 +58,22 @@ chunk: {
   name: symbol,
   location: vector,
   size: vector,
-  background: symbol,
-  tileset: symbol,
+  background: asset,
+  tileset: asset,
   layers: [ pathname ]
 }
 
-entity: {
+instance: {
   class: symbol,
   initargs: [ initarg ]
 }
 
 initarg: [ symbol, T ]
+
+asset: {
+  pool: symbol,
+  name: symbol
+}
 
 vector: {
   x: real,
