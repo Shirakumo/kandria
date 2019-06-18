@@ -1,0 +1,82 @@
+# Abstract Definition Language
+This document specifies a concise, simple abstract definition language to describe the structure of data, independent of the format used to encode the data. As such, specifications written in ADL are purely concerned with data types and relations.
+
+## Base Syntax
+The basic syntax of ADF is described here using the standard Extended Backus-Naur Form.
+
+:: BNF
+definition      ::= type-definition+
+type-definition ::= type-name ':' (relation | sequence | one-of-type)
+relation        ::= '{' field (',' field)* '}'
+field           ::= field-name ':' type
+sequence        ::= '[' type (',' type)* ']'
+type            ::= type-name | base-type | compound-type
+base-type       ::= 'null' | 'boolean' | 'integer' | 'real' | 'string' | 'symbol' | 'pathname'
+compound-type   ::= array-type | table-type | optional-type | one-of-type | any-type
+array-type      ::= '[' type ']'
+table-type      ::= '{' type ':' type '}'
+optional-type   ::= '_' type
+one-of-type     ::= '(' type ('|' type)* ')'
+any-type        ::= 'T'
+type-name       --- A sequence of characters to name a new type.
+::
+
+White space may be inserted between any of the tokens as desired.
+
+The ``type-name``s occurring in the definition cannot contain whitespace characters, or one of the following characters: ``{}[]:,``. When a ``type-name`` is part of a ``type`` rather than part of a ``type-definition``, then there must be a ``type-definition`` within the ``definition`` with the same ``type-name``.
+
+A valid ADL definition must be composed solely of a ``definition``.
+
+The value of an ``optional-type`` may either be of the specified ``type``, or ``null``.
+
+If the ``type`` of a ``field`` is an ``optional-type``, the ``field`` may be omitted entirely, in which case the field's value is always of type ``null``.
+
+## Base Types
+The base-types describe the following kind of types of data:
+
+- ``null`` A non-value.
+- ``boolean`` A binary "true" or "false" value.
+- ``integer`` An unbounded integer that may be positive or negative.
+- ``real`` An unbounded real number.
+- ``string`` A sequence of Unicode codepoints.
+- ``symbol`` A name for a named resource.
+- ``pathname`` A designator for a file on disk as a relative path.
+
+## Example
+An example ADL definition follows:
+
+:: ADL
+player: {
+  location: vector,
+  items: [ symbol ],
+  status: { symbol: boolean }
+}
+
+vector: {
+  x: real,
+  y: real
+}
+::
+
+## S-Expression Format
+The following section describes the encoding of ADL types in a format known as "s-expression" or "sexp".
+
+:: BNF
+relation      ::= '(' entry+ ')'
+entry         ::= field-name value
+sequence      ::= value*
+null          ::= 'NIL'
+boolean       ::= 'NIL' | 'T'
+integer       ::= '\d'+
+rational      ::= '\d'+ ('.' \d*)?
+string        ::= '"' ('\"' | '\'? [^"]*)* '"'
+symbol        ::= (package ':')? name
+package       ::= name
+pathname      ::= '#p' string
+array-type    ::= '(' value* ')'
+table-type    ::= '(' ('(' value '.' value ')')* ')'
+optional-type ::= value | 'NIL'
+field-name    --- The name of the field as a keyword symbol.
+value         --- A value of the type described in the ADL definition.
+name          --- A name composed of characters that are neither whitespace, nor any of the following characters: .:#"()
+::
