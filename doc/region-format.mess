@@ -60,7 +60,7 @@ chunk: {
   size: vector,
   background: symbol,
   tileset: symbol,
-  tilemap: pathname
+  layers: [ pathname ]
 }
 
 entity: {
