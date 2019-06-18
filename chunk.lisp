@@ -92,7 +92,7 @@ uniform float view_scale;
 out vec2 map_coord;
 
 void main(){
-  map_coord = vertex_uv * view_size * view_scale + view_offset;
+  map_coord = vec2(vertex_uv.x, 1-vertex_uv.y) * view_size * view_scale + view_offset;
   gl_Position = vec4(vertex.xy, -1.0f, 1.0f);
 }")
 
@@ -117,7 +117,7 @@ void main(){
     return;
 
   ivec4 layers = ivec4(texelFetch(tilemap, map_xy/tile_size, 0));
-  ivec2 set_xy = ivec2(mod(map_xy.x, tile_size), mod(map_xy.y, tile_size));
+  ivec2 set_xy = ivec2(mod(map_xy.x, tile_size), (tile_size-1)-mod(map_xy.y, tile_size));
   vec4 texel;
 
   // IDK why the fuck, but suddenly, using MIX here gives me weird results.

@@ -191,7 +191,7 @@ void main(){
 (define-shader-subject dust-cloud (particle)
   ((direction :initarg :direction :accessor direction))
   (:default-initargs :vertex-array (asset 'leaf 'player-mesh)
-                     :direction (vec2 0 1)))
+                     :direction (vec2 0 -1)))
 
 (defmethod lifetime ((dust-cloud dust-cloud)) 50)
 
@@ -203,7 +203,7 @@ void main(){
   "
 uniform int frame = 0;
 uniform float seed = 1.0;
-uniform vec2 direction = vec2(0,1);
+uniform vec2 direction = vec2(0,-1);
 in vec2 texcoord;
 out vec4 color;
 
