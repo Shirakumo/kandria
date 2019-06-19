@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defvar *current-layer*)
+
 (defclass region (container-unit)
   ((objects :initform NIL)
    (author :initform "Anonymous" :initarg :author :accessor author)
@@ -38,6 +40,14 @@
     (array-utils:vector-pop-position*
      (aref (objects region) layer)
      (position chunk (aref (objects region) layer)))))
+
+(defmethod paint ((region region) target)
+  (let ((layers (objects region)))
+    (dotimes (i (length layers))
+      (let ((layer (aref layers i))
+            (*current-layer* (- i (floor (length layers) 2))))
+        (loop for unit across layer
+              do (paint unit target))))))
 
 (defclass region-iterator (for:iterator)
   ((layer :initarg :layer :accessor layer)
