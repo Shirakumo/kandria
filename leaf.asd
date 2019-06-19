@@ -13,6 +13,7 @@
                (:file "player")
                (:file "level")
                (:file "region")
+               (:file "versions/v0")
                (:file "editor")
                (:file "menu")
                (:file "camera")
@@ -25,6 +26,7 @@
                :ieee-floats
                :babel
                :form-fiddle
+               :array-utils
                :lambda-fiddle
                :trivial-arguments
                :trivial-indent))
