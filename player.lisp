@@ -40,9 +40,6 @@
 
 (defmethod resize ((player player) w h))
 
-(define-order-precedence player chunk)
-(define-order-precedence interactable player)
-
 (define-handler (player interact) (ev)
   (when (interactable player)
     (issue +level+ 'interaction :with (name (interactable player)))))
