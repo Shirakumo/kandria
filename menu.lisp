@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject pause-menu (foreground)
+(define-shader-subject pause-menu ()
   ())
 
 (defmethod compute-resources :after ((editor pause-menu) resources ready cache)

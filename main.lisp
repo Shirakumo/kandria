@@ -10,40 +10,20 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
-(define-asset (leaf forest-background) image
-    #p"forest-background.png"
-  :min-filter :nearest
-  :mag-filter :nearest
-  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
-
-(define-asset (leaf forest) image
-    #p"forest.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
-(define-asset (leaf facility) image
-    #p"facility.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
-(define-asset (leaf facility-items) image
-  #p"facility-items.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
-(define-asset (leaf facility-background) image
-    #p"facility-background.png"
-  :min-filter :nearest
-  :mag-filter :nearest
-  :wrapping :repeat)
+(define-asset (leaf debug) image
+  #p"debug.png")
 
 (defclass empty-level (level)
   ()
   (:default-initargs :name :untitled))
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  (enter (make-instance 'player :location (vec 64 64)) level)
-  (enter (make-instance 'chunk :tileset (asset 'leaf 'facility) :background (asset 'leaf 'facility-background)) level))
+  ;; (enter (make-instance 'player :location (vec 64 64)) level)
+  (let ((region (make-instance 'region :layers 1)))
+    (enter region level)
+    (enter (make-instance 'chunk :tileset (asset 'leaf 'debug)
+                                 :tilemap (list (pool-path 'leaf "test.png")))
+           region)))
 
 (defclass main (trial:main)
   ((scene :initform NIL)

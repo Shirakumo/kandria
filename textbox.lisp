@@ -16,7 +16,7 @@
   (:default-initargs :size (vec 512 512)
                      :texture (asset 'leaf 'profile)))
 
-(define-shader-subject textbox (vertex-entity foreground)
+(define-shader-subject textbox (vertex-entity)
   ((flare:name :initform :textbox)
    (vertex-array :initform (asset 'leaf 'textbox))
    (profile :initform (make-instance 'profile) :reader profile)

@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defparameter *tiles-in-view* (cons 40 26))
+(defparameter *tiles-in-view* (vec2 40 26))
 
 (define-subject camera (trial:2d-camera unpausable)
   ((flare:name :initform :camera)
@@ -13,10 +13,7 @@
    (shake-counter :initform 0 :accessor shake-counter))
   (:default-initargs
    :location (vec 0 0)
-   :target-size (v* (vec (car *tiles-in-view*) (cdr *tiles-in-view*))
-                    (/ *default-tile-size* 2))))
-
-(define-order-precedence camera entity)
+   :target-size (v* *tiles-in-view* *default-tile-size* .5)))
 
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit :player scene))

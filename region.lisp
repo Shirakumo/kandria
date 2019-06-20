@@ -2,7 +2,7 @@
 
 (defvar *current-layer*)
 
-(defclass region (container-unit)
+(defclass region (container-unit entity)
   ((objects :initform NIL)
    (author :initform "Anonymous" :initarg :author :accessor author)
    (version :initform "0.0.0" :initarg :version :accessor version)
