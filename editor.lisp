@@ -144,7 +144,7 @@ void main(){
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
         (setf (name +level+) (kw (pathname-name file)))
-        (save-map +level+ (pool-path 'leaf (merge-pathnames file "map/"))))))
+        (save-region +level+ (pool-path 'leaf (merge-pathnames file "map/"))))))
 
 (define-handler (editor load-level) (ev)
   (if (retained 'modifiers :control)
@@ -258,7 +258,6 @@ void main(){
              (flood-fill chunk loc tile))
             ((not (retained 'modifiers :alt))
              (setf (status chunk-editor) :placing)
-             (print loc)
              (setf (tile loc chunk) tile))))))
 
 (define-handler (chunk-editor chunk-move mouse-move) (ev)

@@ -14,39 +14,40 @@
   (let ((data (apply #'make-sexp-stream
                (for:for ((entity over region)
                          (_ collecting (encode entity)))))))
-    (zip:write-zipentry packet "data" data :file-write-data (get-universal-time)))
+    (zip:write-zipentry packet "data" data :file-write-date (get-universal-time)))
   (list :name (name region)
         :author (author region)
         :version (version region)
         :description (description region)))
 
 (define-decoder (player v0) (initargs _p)
-  (destructuring-bind (x y) (getf initargs :location)
-    (make-instance 'player :location (vec2 x y))))
+  (destructuring-bind (&key location) initargs
+    (make-instance 'player :location (decode 'vec2 location))))
 
 (define-encoder (player v0) (_b _p)
   `(player :location ,(encode (location player))))
 
 (define-decoder (chunk v0) (initargs packet)
-  (destructuring-bind (&key name location size background tileset layers) initargs
+  (destructuring-bind (&key name location size tileset layers) initargs
     (make-instance 'chunk :name name
-                          :location (decode 'vec2)
-                          :size (decode 'vec2)
-                          :tileset (decode 'asset)
+                          :location (decode 'vec2 location)
+                          :size (decode 'vec2 size)
+                          :tileset (decode 'asset tileset)
                           :layers (loop for file in layers collect (load-packet-file packet file T)))))
 
 (define-encoder (chunk v0) (_b packet)
   (let ((layers (loop for i from 0
-                      for layer in (layers chunk)
+                      for layer across (layers chunk)
                       ;; KLUDGE: no png saving lib handy. Hope ZIP compression is Good Enough
                       for path = (format NIL "resources/~a-~d.raw" (name chunk) i)
-                      do (zip:write-zipentry packet path layer :file-write-date (get-universal-time))
-                      collect path))))
-  `(chunk :name ,(name chunk)
-          :location ,(encode (location chunk))
-          :size ,(encode (size chunk))
-          :tileset ,(encode (tileset chunk))
-          :layers layers))
+                      for stream = (make-instance 'fast-io:fast-input-stream :vector layer)
+                      do (zip:write-zipentry packet path stream :file-write-date (get-universal-time))
+                      collect path)))
+    `(chunk :name ,(name chunk)
+            :location ,(encode (location chunk))
+            :size ,(encode (size chunk))
+            :tileset ,(encode (tileset chunk))
+            :layers ,layers)))
 
 (define-decoder (vec2 v0) (data _p)
   (destructuring-bind (x y) data
