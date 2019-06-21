@@ -45,7 +45,6 @@
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
         (vao (vertex-array chunk)))
-    
     (setf (uniform program "layer") *current-layer*)
     (setf (uniform program "tile_size") *default-tile-size*)
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))

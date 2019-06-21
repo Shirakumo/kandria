@@ -85,10 +85,10 @@
       (unless (subtypep class 'version) (bail))
       (make-instance class))))
 
-(defgeneric load-region (source scene))
-(defgeneric save-region (region target &key version &allow-other-keys))
-(defgeneric decode-region-payload (source target version))
-(defgeneric encode-region-payload (source target version))
+(defgeneric load-region (packet scene))
+(defgeneric save-region (region packet &key version &allow-other-keys))
+(defgeneric decode-region-payload (payload target packet version))
+(defgeneric encode-region-payload (source payload packet version))
 
 (defmethod save-region :around (region target &rest args &key (version T))
   (cond ((eql T version)
@@ -100,40 +100,37 @@
          (error "VERSION must be an instance of VERSION or T."))))
 
 (defmethod save-region (region (pathname pathname) &key version (if-exists :supersede))
-  (zip:with-output-to-zipfile (file pathname :if-exists if-exists)
-    (save-region region file :version version)))
+  (cond ((equal "zip" (pathname-type pathname))
+         (zip:with-output-to-zipfile (file pathname :if-exists if-exists)
+           (save-region region file :version version)))
+        (T
+         (error "Unknown packet type: ~a" (pathname-type pathname)))))
 
 (defmethod save-region (region (file zip::zipwriter) &key version)
-  ;; FIXME: preview
   (let ((meta (make-sexp-stream (list :identifier 'region
                                       :version (type-of version))
-                                (list :author (author region)
-                                      :version (version region)
-                                      :description (description region))))
-        (data (string-binary-stream (with-output-to-string (stream)
-                                      (encode-region-payload region stream version)))))
-    (zip:write-zipentry file "meta.lisp" meta :file-write-date (get-universal-time))
-    (zip:write-zipentry file "data" data :file-write-date (get-universal-time))))
+                                (encode-region-payload region _ file version))))
+    (zip:write-zipentry file "meta.lisp" meta :file-write-date (get-universal-time))))
 
 (defmethod load-region ((pathname pathname) scene)
-  (zip:with-zipfile (file pathname)
-    (load-region file scene)))
+  (cond ((equal "zip" (pathname-type pathname))
+         (zip:with-zipfile (file pathname)
+           (load-region file scene)))
+        (T
+         (error "Unknown packet type: ~a" (pathname-type pathname)))))
 
 (defmethod load-region ((file zip:zipfile) scene)
-  (let ((meta (zip:get-zipfile-entry "meta.lisp" file))
-        (data (zip:get-zipfile-entry "data" file)))
-    (unless (or meta data)
+  (let ((meta (zip:get-zipfile-entry "meta.lisp" file)))
+    (unless meta
       (error "Malformed region file."))
-    (destructuring-bind (header information)
-        (parse-sexp-vector (zip:zipfile-entry-contents meta))
-      (let ((region (apply #'make-instance 'region information)))
-        (enter region scene)
-        (decode-region-payload
-         (zip:zipfile-entry-contents data)
-         region
-         (destructuring-bind (&key identifier version) header
-           (assert (eql 'region identifier))
-           (coerce-version version)))))))
+    (destructuring-bind (header info) (parse-sexp-vector (zip:zipfile-entry-contents meta))
+      (enter
+       (decode-region-payload
+        info (type-prototype 'region) file
+        (destructuring-bind (&key identifier version) header
+          (assert (eql 'region identifier))
+          (coerce-version version)))
+       scene))))
 
 (defun parse-sexp-vector (vector)
   (loop with eof = (make-symbol "EOF")
@@ -161,10 +158,13 @@
         (method-combination (loop for option = (car args)
                                   until (listp option)
                                   collect (pop args))))
-    (destructuring-bind ((buffer) &rest body) args
-      `(defmethod encode-region-payload ,@method-combination ((,type ,type) ,buffer (,version-instance ,version))
+    (destructuring-bind ((buffer packet) &rest body) args
+      `(defmethod encode-region-payload ,@method-combination ((,type ,type) ,buffer ,packet (,version-instance ,version))
          (flet ((encode (,object)
-                  (encode-region-payload ,object ,buffer ,version-instance)))
+                  (encode-region-payload ,object
+                                         ,(delist buffer)
+                                         ,(delist packet)
+                                         ,version-instance)))
            (declare (ignorable #'encode))
            ,@body)))))
 
@@ -176,13 +176,14 @@
         (method-combination (loop for option = (car args)
                                   until (listp option)
                                   collect (pop args))))
-    (destructuring-bind ((buffer) &rest body) args
-      `(defmethod decode-region-payload ,@method-combination (,buffer (,type ,type) (,version-instance ,version))
+    (destructuring-bind ((buffer packet) &rest body) args
+      `(defmethod decode-region-payload ,@method-combination (,buffer (,type ,type) ,packet (,version-instance ,version))
          (flet ((decode (,object &optional (,buffer ,buffer))
-                  (decode-region-payload ,buffer
+                  (decode-region-payload ,(delist buffer)
                                          (if (symbolp ,object)
                                              (type-prototype ,object)
                                              ,object)
+                                         ,(delist packet)
                                          ,version-instance)))
            (declare (ignorable #'decode))
            ,@body)))))
