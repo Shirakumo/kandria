@@ -55,8 +55,8 @@
          (* grid (floor (vx vec) grid))
          (* grid (floor (vy vec) grid))))
 
-(defun vfloor (vec)
-  (vapply vec floor))
+(defun vfloor (vec &optional (divisor 1))
+  (vapply vec floor divisor divisor divisor divisor))
 
 (defun vsqrdist2 (a b)
   (declare (type vec2 a b))
@@ -176,8 +176,10 @@
         (invoke-next (car initargs))))))
 
 (defun entity-at-point (point level)
+  (print (unit 'region level))
   (for:for ((result as NIL)
-            (entity over level))
+            (entity over (unit 'region level)))
+    (print entity)
     (when (and (typep entity 'base-entity)
                (contained-p point entity)
                (or (null result)

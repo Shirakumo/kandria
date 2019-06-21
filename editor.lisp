@@ -220,13 +220,14 @@ void main(){
            (idx (+ (vx tile) (* w (vy tile)))))
       (setf idx (mod (cond ((< 0 delta) (1+ idx))
                            ((< delta 0) (1- idx))
-                           (T idx)) (* w h)))
+                           (T idx))
+                     (* w h)))
       (setf (vx tile) (mod idx w))
       (setf (vy tile) (floor idx w)))))
 
 (define-shader-subject chunk-editor (editor vertex-entity)
-  ((tile :initform 1 :accessor tile-to-place)
-   (level :initform 0 :accessor level)
+  ((tile :initform (vec2 1 0) :accessor tile-to-place)
+   (layer :initform 0 :accessor layer)
    (vertex-array :initform (asset 'leaf 'square))
    (tile-picker :initform NIL :accessor tile-picker)))
 
@@ -237,57 +238,58 @@ void main(){
 
 (define-handler (chunk-editor key-press) (ev key)
   (case key
-    (:1 (setf (level chunk-editor) 0))
-    (:2 (setf (level chunk-editor) 1))
-    (:3 (setf (level chunk-editor) 2))
-    (:4 (setf (level chunk-editor) 3))))
+    (:1 (setf (layer chunk-editor) 0))
+    (:2 (setf (layer chunk-editor) 1))
+    (:3 (setf (layer chunk-editor) 2))
+    (:4 (setf (layer chunk-editor) 3))))
 
 (define-handler (chunk-editor chunk-press mouse-press) (ev pos button)
   (let ((chunk (entity chunk-editor))
         (tile (case button
                 (:left (tile-to-place chunk-editor))
-                (:right 0)))
-        (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor)))
+                (:right (vec2 0 0))))
+        (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor)))
         (s (/ (width *context*) (* 64 +tile-size+))))
     (when tile
       (cond ((<= (vy pos) (* 4 +tile-size+ s))
-             (let ((i (+ (floor (/ (vx pos) s 8))
-                         (* 64 (- 3 (floor (/ (vy pos) s 8)))))))
-               (setf (tile-to-place chunk-editor) i)))
+             (setf (tile-to-place chunk-editor)
+                   (vfloor pos +tile-size+)))
             ((retained 'modifiers :control)
              (flood-fill chunk loc tile))
             ((not (retained 'modifiers :alt))
              (setf (status chunk-editor) :placing)
+             (print loc)
              (setf (tile loc chunk) tile))))))
 
 (define-handler (chunk-editor chunk-move mouse-move) (ev)
-  (let ((loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor))))
+  (let ((loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor))))
     (case (status chunk-editor)
       (:placing
        (cond ((retained 'mouse :left)
               (setf (tile loc (entity chunk-editor)) (tile-to-place chunk-editor)))
              ((retained 'mouse :right)
-               (setf (tile loc (entity chunk-editor)) 0)))))))
+              (setf (tile loc (entity chunk-editor)) (vec2 0 0))))))))
 
 (define-handler (chunk-editor change-tile mouse-scroll) (ev delta)
   (unless (retained 'modifiers :control)
-    (cond ((< 0 delta)
-           (incf (tile-to-place chunk-editor)))
-          ((< delta 0)
-           (decf (tile-to-place chunk-editor))))
-    (setf (tile-to-place chunk-editor)
-          (max 0 (min 255 (tile-to-place chunk-editor))))))
+    (let* ((width (floor (width (tileset (entity chunk-editor))) +tile-size+))
+           (height (floor (height (tileset (entity chunk-editor))) +tile-size+))
+           (i (+ (vx (tile-to-place chunk-editor))
+                 (* (vy (tile-to-place chunk-editor))
+                    width))))
+      (cond ((< 0 delta) (incf i))
+            ((< delta 0) (decf i)))
+      (setf i (mod i (* width height)))
+      (setf (tile-to-place chunk-editor)
+            (vec2 (mod i width) (floor i width))))))
 
 (defmethod paint :before ((editor chunk-editor) (pass shader-pass))
   (let ((program (shader-program-for-pass pass editor))
         (chunk (entity editor)))
     (gl:active-texture :texture0)
-    (gl:bind-texture :texture-2d (gl-name (if (= 0 (level editor))
-                                              (surface chunk)
-                                              (tileset chunk))))
+    (gl:bind-texture :texture-2d (gl-name (tileset chunk)))
     (setf (uniform program "tileset") 0)
-    (setf (uniform program "tile") (vec2 (* +tile-size+ (tile-to-place editor))
-                                         (* +tile-size+ (max 0 (1- (level editor))))))))
+    (setf (uniform program "tile") (v* (tile-to-place editor) +tile-size+))))
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
   (with-pushed-matrix ()
@@ -315,7 +317,7 @@ void main(){
 }")
 
 (define-asset (leaf tile-picker) mesh
-    (make-rectangle (* 64 +tile-size+) (* 4 +tile-size+) :align :bottomleft :z 10))
+    (make-rectangle 1 1 :align :bottomleft :z 10))
 
 (define-shader-entity tile-picker (vertex-entity textured-entity)
   ((vertex-array :initform (asset 'leaf 'tile-picker))
@@ -326,34 +328,20 @@ void main(){
 (defmethod paint :around ((picker tile-picker) target)
   (with-pushed-matrix ((*model-matrix* :identity)
                        (*view-matrix* :identity))
-    (let ((editor (editor picker)))
-      (setf (texture picker)
-            (if (= 0 (level editor))
-                (surface (entity editor))
-                (tileset (entity editor)))))
-    (let ((s (/ (width *context*) (* 64 +tile-size+))))
-      (translate-by 0 (* 4 +tile-size+ s) 4)
-      (scale-by s s 1))
+    (let* ((tileset (tileset (entity (editor picker))))
+           (ratio (/ (width *context*) (width tileset))))
+      (setf (texture picker) tileset)
+      (translate-by 0 (* 4 +tile-size+ ratio) 4)
+      (scale-by (width *context*) (* ratio (height tileset)) 1))
     (call-next-method)))
-
-(defmethod paint :before ((picker tile-picker) (pass shader-pass))
-  (let ((program (shader-program-for-pass pass picker)))
-    (setf (uniform program "level") (max 0 (1- (level (editor picker)))))))
 
 (define-class-shader (tile-picker :fragment-shader)
   "in vec2 texcoord;
 out vec4 color;
 uniform sampler2D texture_image;
-uniform int level = 0;
 
 void main(){
-  vec2 tile = texcoord * vec2(64, 4);
-  vec2 tile_uv = mod(tile, 1);
-  tile.y = 4-tile.y;
-  tile = floor(tile);
-  ivec2 uv = ivec2(floor(8.0*(tile_uv+vec2(tile.x+tile.y*64.0, level))));
-
-  vec4 texel = texelFetch(texture_image, uv, 0);
+  vec4 texel = texture(texture_image, texcoord);
   color.rgb = vec3((mod(floor((texcoord.x*64+texcoord.y*4)*2), 2.0) <= 0.0)? 0.1 : 0.2);
   color.a = 1.0;
   color = mix(color, texel, texel.a);

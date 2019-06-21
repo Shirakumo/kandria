@@ -55,6 +55,7 @@
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
         (vao (vertex-array chunk)))
+    (translate (nv- (vxy_ (bsize chunk))))
     (setf (uniform program "layer") *current-layer*)
     (setf (uniform program "tile_size") +tile-size+)
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
@@ -97,9 +98,6 @@ out vec4 color;
 void main(){
   ivec2 map_wh = ivec2(map_size)*tile_size;
   ivec2 map_xy = ivec2(map_coord);
-
-  // Invert so that we're looking things up bottom to top.
-  map_xy.y = map_wh.y - map_xy.y;
   
   // Bounds check to avoid bad lookups
   if(map_xy.x < 0 || map_xy.y < 0 || map_wh.x <= map_xy.x || map_wh.y <= map_xy.y){
@@ -117,7 +115,7 @@ void main(){
 }")
 
 (defmethod resize ((chunk chunk) w h)
-  (let ((size (vec2 (floor w (tile-size chunk)) (floor h (tile-size chunk)))))
+  (let ((size (vec2 (floor w +tile-size+) (floor h +tile-size+))))
     (unless (v= size (size chunk))
       (setf (size chunk) size))))
 
@@ -141,9 +139,9 @@ void main(){
           do (setf (aref new-layers i) tilemap)
              (dotimes (y (min nh oh))
                (dotimes (x (min nw ow))
-                 (let ((npos (* 4 (+ x (* y nw))))
-                       (opos (* 4 (+ x (* y ow)))))
-                   (dotimes (c 4)
+                 (let ((npos (* 2 (+ x (* y nw))))
+                       (opos (* 2 (+ x (* y ow)))))
+                   (dotimes (c 2)
                      (setf (aref tilemap (+ npos c)) (aref old (+ opos c))))))))
     ;; Resize the texture. Internal mechanisms should take care of re-mapping the pixel data.
     (when (gl-name texture)
