@@ -31,17 +31,17 @@
       (make 'spike)
       (loop for steps in slope-steps
             do (loop for i from 0 below steps
-                     for l = (* (/ i steps) *default-tile-size*)
-                     for r = (* (/ (1+ i) steps) *default-tile-size*)
+                     for l = (* (/ i steps) +tile-size+)
+                     for r = (* (/ (1+ i) steps) +tile-size+)
                      do (make 'slope (floor l) (floor r)))
             do (loop for i downfrom steps above 0
-                     for l = (* (/ i steps) *default-tile-size*)
-                     for r = (* (/ (1- i) steps) *default-tile-size*)
+                     for l = (* (/ i steps) +tile-size+)
+                     for r = (* (/ (1- i) steps) +tile-size+)
                      do (make 'slope (floor l) (floor r))))
       blocks)))
 
 (sb-ext:defglobal +surface-blocks+ NIL)
-(setf +surface-blocks+ (make-surface-blocks *default-tile-size* '(1 2 3)))
+(setf +surface-blocks+ (make-surface-blocks +tile-size+ '(1 2 3)))
 
 (defstruct (hit (:constructor make-hit (object time location normal)))
   (object NIL)

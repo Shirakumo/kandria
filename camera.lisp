@@ -1,7 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defparameter *tiles-in-view* (vec2 40 26))
-
 (define-subject camera (trial:2d-camera unpausable)
   ((flare:name :initform :camera)
    (zoom :initarg :zoom :initform 1.0 :accessor zoom)
@@ -13,7 +11,7 @@
    (shake-counter :initform 0 :accessor shake-counter))
   (:default-initargs
    :location (vec 0 0)
-   :target-size (v* *tiles-in-view* *default-tile-size* .5)))
+   :target-size (v* +tiles-in-view+ +tile-size+ .5)))
 
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit :player scene))
