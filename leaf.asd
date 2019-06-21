@@ -1,6 +1,8 @@
 (asdf:defsystem leaf
   :components ((:file "package")
                (:file "helpers")
+               (:file "packet")
+               (:file "region")
                (:file "keys")
                (:file "dialog")
                (:file "textbox")
@@ -12,7 +14,6 @@
                (:file "interactable")
                (:file "player")
                (:file "level")
-               (:file "region")
                (:file "versions/v0")
                (:file "editor")
                (:file "menu")

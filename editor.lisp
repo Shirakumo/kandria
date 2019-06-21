@@ -85,7 +85,7 @@ void main(){
     (vsetf loc (vx pos) (vy pos))
     (nv+ (nv/ loc (view-scale camera)) (location camera))
     (nv- loc (v/ (target-size camera) (zoom camera)))
-    (nvalign loc *default-tile-size*)))
+    (nvalign loc +tile-size+)))
 
 (define-handler (editor mouse-press) (ev pos)
   (let ((loc (location editor)))
@@ -107,10 +107,10 @@ void main(){
     (case (status editor)
       (:dragging
        (vsetf (location entity)
-              (- (vx loc) (mod (vx (bsize entity)) *default-tile-size*))
-              (- (vy loc) (mod (vy (bsize entity)) *default-tile-size*))))
+              (- (vx loc) (mod (vx (bsize entity)) +tile-size+))
+              (- (vy loc) (mod (vy (bsize entity)) +tile-size+))))
       (:resizing
-       (let ((size (vmax (v- loc old) (vec *default-tile-size* *default-tile-size*))))
+       (let ((size (vmax (v- loc old) (vec +tile-size+ +tile-size+))))
          (resize entity (vx size) (vy size))
          (let ((loc (v+ old (bsize entity))))
            (vsetf (location entity) (vx loc) (vy loc))))))))
@@ -139,12 +139,12 @@ void main(){
 
 (define-handler (editor save-level) (ev)
   (if (retained 'modifiers :control)
-      (save-map +level+ T T)
+      (save-region +level+ T)
       (with-query (file "Map save location"
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
         (setf (name +level+) (kw (pathname-name file)))
-        (save-map +level+ (pool-path 'leaf (merge-pathnames file "map/")) T))))
+        (save-map +level+ (pool-path 'leaf (merge-pathnames file "map/"))))))
 
 (define-handler (editor load-level) (ev)
   (if (retained 'modifiers :control)
@@ -154,7 +154,7 @@ void main(){
                    :default (file +level+)
                    :parse #'uiop:parse-native-namestring)
         (let ((level (make-instance 'level :name (kw (pathname-name file)))))
-          (load-map (pool-path 'leaf (merge-pathnames file "map/")) level T)
+          (load-region (pool-path 'leaf (merge-pathnames file "map/")) level)
           (change-scene (handler *context*) level)))))
 
 (define-handler (editor save-state) (ev)
@@ -248,9 +248,9 @@ void main(){
                 (:left (tile-to-place chunk-editor))
                 (:right 0)))
         (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (level chunk-editor)))
-        (s (/ (width *context*) (* 64 *default-tile-size*))))
+        (s (/ (width *context*) (* 64 +tile-size+))))
     (when tile
-      (cond ((<= (vy pos) (* 4 *default-tile-size* s))
+      (cond ((<= (vy pos) (* 4 +tile-size+ s))
              (let ((i (+ (floor (/ (vx pos) s 8))
                          (* 64 (- 3 (floor (/ (vy pos) s 8)))))))
                (setf (tile-to-place chunk-editor) i)))
@@ -286,8 +286,8 @@ void main(){
                                               (surface chunk)
                                               (tileset chunk))))
     (setf (uniform program "tileset") 0)
-    (setf (uniform program "tile") (vec2 (* (tile-size chunk) (tile-to-place editor))
-                                         (* (tile-size chunk) (max 0 (1- (level editor))))))))
+    (setf (uniform program "tile") (vec2 (* +tile-size+ (tile-to-place editor))
+                                         (* +tile-size+ (max 0 (1- (level editor))))))))
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
   (with-pushed-matrix ()
@@ -315,7 +315,7 @@ void main(){
 }")
 
 (define-asset (leaf tile-picker) mesh
-    (make-rectangle (* 64 *default-tile-size*) (* 4 *default-tile-size*) :align :bottomleft :z 10))
+    (make-rectangle (* 64 +tile-size+) (* 4 +tile-size+) :align :bottomleft :z 10))
 
 (define-shader-entity tile-picker (vertex-entity textured-entity)
   ((vertex-array :initform (asset 'leaf 'tile-picker))
@@ -331,8 +331,8 @@ void main(){
             (if (= 0 (level editor))
                 (surface (entity editor))
                 (tileset (entity editor)))))
-    (let ((s (/ (width *context*) (* 64 *default-tile-size*))))
-      (translate-by 0 (* 4 *default-tile-size* s) 4)
+    (let ((s (/ (width *context*) (* 64 +tile-size+))))
+      (translate-by 0 (* 4 +tile-size+ s) 4)
       (scale-by s s 1))
     (call-next-method)))
 

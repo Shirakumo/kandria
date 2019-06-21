@@ -24,22 +24,12 @@
                   (floor (length (objects region)) 2))))
     (vector-push-extend unit (aref (objects region) layer))))
 
-(defmethod enter ((chunk chunk) (region region))
-  (dotimes (layer (length (objects region)))
-    (vector-push-extend chunk (aref (objects region) layer))))
-
 (defmethod leave ((unit unit) (region region))
   (let ((layer (+ (layer-index unit)
                   (floor (length (objects region)) 2))))
     (array-utils:vector-pop-position*
      (aref (objects region) layer)
      (position unit (aref (objects region) layer)))))
-
-(defmethod leave ((chunk chunk) (region region))
-  (dotimes (layer (length (objects region)))
-    (array-utils:vector-pop-position*
-     (aref (objects region) layer)
-     (position chunk (aref (objects region) layer)))))
 
 (defmethod paint ((region region) target)
   (let ((layers (objects region)))
@@ -109,7 +99,7 @@
 (defmethod save-region (region (file zip::zipwriter) &key version)
   (let ((meta (make-sexp-stream (list :identifier 'region
                                       :version (type-of version))
-                                (encode-region-payload region _ file version))))
+                                (encode-region-payload region NIL file version))))
     (zip:write-zipentry file "meta.lisp" meta :file-write-date (get-universal-time))))
 
 (defmethod load-region ((pathname pathname) scene)
@@ -132,26 +122,6 @@
           (coerce-version version)))
        scene))))
 
-(defun parse-sexp-vector (vector)
-  (loop with eof = (make-symbol "EOF")
-        with string = (babel:octets-to-string vector :encoding :utf-8)
-        with i = 0
-        collect (multiple-value-bind (data next) (read-from-string string NIL EOF :start i)
-                  (setf i next)
-                  (if (eql data EOF)
-                      (loop-finish)
-                      data))))
-
-(defun string-binary-stream (string)
-  (make-instance 'fast-io:fast-input-stream
-                 :vector (babel:string-to-octets string :encoding :utf-8)))
-
-(defun make-sexp-stream (&rest expressions)
-  (string-binary-stream (with-output-to-string (stream)
-                          (with-leaf-io-syntax
-                            (dolist (expr expressions)
-                              (write expr :stream stream :case :downcase))))))
-
 (defmacro define-encoder ((type version) &rest args)
   (let ((version-instance (gensym "VERSION"))
         (object (gensym "OBJECT"))
@@ -159,14 +129,15 @@
                                   until (listp option)
                                   collect (pop args))))
     (destructuring-bind ((buffer packet) &rest body) args
-      `(defmethod encode-region-payload ,@method-combination ((,type ,type) ,buffer ,packet (,version-instance ,version))
-         (flet ((encode (,object)
-                  (encode-region-payload ,object
-                                         ,(delist buffer)
-                                         ,(delist packet)
-                                         ,version-instance)))
-           (declare (ignorable #'encode))
-           ,@body)))))
+      (let ((buffer-name (unlist buffer)))
+        `(defmethod encode-region-payload ,@method-combination ((,type ,type) ,buffer ,packet (,version-instance ,version))
+           (flet ((encode (,object &optional (,buffer-name ,buffer-name))
+                    (encode-region-payload ,object
+                                           ,buffer-name
+                                           ,(unlist packet)
+                                           ,version-instance)))
+             (declare (ignorable #'encode))
+             ,@body))))))
 
 (trivial-indent:define-indentation define-encoder (4 4 &body))
 
@@ -177,15 +148,16 @@
                                   until (listp option)
                                   collect (pop args))))
     (destructuring-bind ((buffer packet) &rest body) args
-      `(defmethod decode-region-payload ,@method-combination (,buffer (,type ,type) ,packet (,version-instance ,version))
-         (flet ((decode (,object &optional (,buffer ,buffer))
-                  (decode-region-payload ,(delist buffer)
-                                         (if (symbolp ,object)
-                                             (type-prototype ,object)
-                                             ,object)
-                                         ,(delist packet)
-                                         ,version-instance)))
-           (declare (ignorable #'decode))
-           ,@body)))))
+      (let ((buffer-name (unlist buffer)))
+        `(defmethod decode-region-payload ,@method-combination (,buffer (,type ,type) ,packet (,version-instance ,version))
+           (flet ((decode (,object &optional (,buffer-name ,buffer-name))
+                    (decode-region-payload ,buffer-name
+                                           (if (symbolp ,object)
+                                               (type-prototype ,object)
+                                               ,object)
+                                           ,(unlist packet)
+                                           ,version-instance)))
+             (declare (ignorable #'decode))
+             ,@body))))))
 
 (trivial-indent:define-indentation define-decoder (4 4 &body))

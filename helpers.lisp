@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defparameter *default-tile-size* 8)
-
+(sb-ext:defglobal +tile-size+ 8)
+(sb-ext:defglobal +tiles-in-view+ (vec2 40 26))
 (sb-ext:defglobal +level+ NIL)
 
 (defun format-absolute-time (time)
@@ -262,7 +262,7 @@
     (call-next-method)))
 
 (defclass sized-entity (located-entity)
-  ((bsize :initarg :bsize :initform (nv/ (vec *default-tile-size* *default-tile-size*) 2) :accessor bsize
+  ((bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize
           :type vec2 :documentation "The bounding box half size.")))
 
 (defmethod initargs append ((_ sized-entity))
@@ -294,7 +294,7 @@
   (unless size (setf (size sprite) (v* bsize 2))))
 
 (defmethod (setf bsize) :after (value (sprite sprite-entity))
-  (setf (size sprite) (v* size 2)))
+  (setf (size sprite) (v* value 2)))
 
 (defmethod paint :before ((sprite sprite-entity) target)
   (let ((size (size sprite)))

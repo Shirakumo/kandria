@@ -27,25 +27,38 @@
 (define-encoder (player v0) (_b _p)
   `(player :location ,(encode (location player))))
 
-(define-decoder (chunk v0) (initargs _p)
+(define-decoder (chunk v0) (initargs packet)
   (destructuring-bind (&key name location size background tileset layers) initargs
     (make-instance 'chunk :name name
-                          :location (vec2 (first location) (second location))
-                          :size (cons (first size) (second size))
-                          :tileset (asset (first tileset) (second tileset))
-                          :background (asset (first tileset) (second tileset)))))
+                          :location (decode 'vec2)
+                          :size (decode 'vec2)
+                          :tileset (decode 'asset)
+                          :layers (loop for file in layers collect (load-packet-file packet file T)))))
 
-(define-encoder (chunk v0) (_b _p)
+(define-encoder (chunk v0) (_b packet)
+  (let ((layers (loop for i from 0
+                      for layer in (layers chunk)
+                      ;; KLUDGE: no png saving lib handy. Hope ZIP compression is Good Enough
+                      for path = (format NIL "resources/~a-~d.raw" (name chunk) i)
+                      do (zip:write-zipentry packet path layer :file-write-date (get-universal-time))
+                      collect path))))
   `(chunk :name ,(name chunk)
           :location ,(encode (location chunk))
-          :size (,(car (size chunk)) ,(cdr (size chunk)))
+          :size ,(encode (size chunk))
           :tileset ,(encode (tileset chunk))
-          :background ,(encode (background chunk))
-          :layers ()))
+          :layers layers))
+
+(define-decoder (vec2 v0) (data _p)
+  (destructuring-bind (x y) data
+    (vec2 x y)))
 
 (define-encoder (vec2 v0) (_b _p)
   (list (vx vec2)
         (vy vec2)))
+
+(define-decoder (asset v0) (data _p)
+  (destructuring-bind (pool name) data
+    (asset pool name)))
 
 (define-encoder (asset v0) (_b _p)
   (list (name (pool asset))
