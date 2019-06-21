@@ -83,6 +83,9 @@
 (defgeneric decode-region-payload (payload target packet version))
 (defgeneric encode-region-payload (source payload packet version))
 
+(defmethod save-region ((scene scene) target &rest args)
+  (apply #'save-region (unit 'region scene) target args))
+
 (defmethod save-region :around (region target &rest args &key (version T))
   (cond ((eql T version)
          ;; KLUDGE: latest version should be determined automatically.
@@ -94,6 +97,7 @@
 
 (defmethod save-region (region (pathname pathname) &key version (if-exists :supersede))
   (cond ((equal "zip" (pathname-type pathname))
+         (ensure-directories-exist pathname)
          (zip:with-output-to-zipfile (file pathname :if-exists if-exists)
            (save-region region file :version version)))
         (T

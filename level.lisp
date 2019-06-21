@@ -27,7 +27,7 @@
     (setf (handlers level) (pop (pause-stack level)))))
 
 (defmethod file ((level level))
-  (pool-path 'leaf (make-pathname :name (format NIL "~(~a~)" (name level)) :type "map"
+  (pool-path 'leaf (make-pathname :name (format NIL "~(~a~)" (name level)) :type "zip"
                                   :directory '(:relative "map"))))
 
 (defun scan-for (type level target)

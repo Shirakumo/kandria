@@ -16,7 +16,8 @@
 (defmacro with-leaf-io-syntax (&body body)
   `(with-standard-io-syntax
      (let ((*package* #.*package*)
-           (*print-case* :downcase))
+           (*print-case* :downcase)
+           (*print-readably* NIL))
        ,@body)))
 
 (defun kw (thing)
@@ -176,10 +177,8 @@
         (invoke-next (car initargs))))))
 
 (defun entity-at-point (point level)
-  (print (unit 'region level))
   (for:for ((result as NIL)
             (entity over (unit 'region level)))
-    (print entity)
     (when (and (typep entity 'base-entity)
                (contained-p point entity)
                (or (null result)

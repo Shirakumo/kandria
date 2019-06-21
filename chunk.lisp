@@ -13,16 +13,8 @@
 (defmethod initargs append ((_ chunk))
   `(:size :tileset))
 
-(defmethod initialize-instance :after ((chunk chunk) &key tilemap)
-  (let* ((size (size chunk))
-         (layers (loop for path in tilemap
-                       for image = (pngload:load-file path :flatten T)
-                       do (when (or (/= (pngload:width image) (vx size))
-                                    (/= (pngload:height image) (vy size)))
-                            (error "Size discrepancy: ~ax~a, expected ~ax~a."
-                                   (pngload:width image) (pngload:height image)
-                                   (vx size) (vy size)))
-                       collect (pngload:data image))))
+(defmethod initialize-instance :after ((chunk chunk) &key layers)
+  (let* ((size (size chunk)))
     (setf (layers chunk) (coerce layers 'vector))
     (setf (bsize chunk) (v* size +tile-size+ .5))
     (setf (texture chunk) (make-instance 'texture :target :texture-2d-array
