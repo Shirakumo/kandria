@@ -19,6 +19,9 @@
 
 (defmethod layer-index ((unit unit)) 0)
 
+(defmethod enter :after ((region region) (scene scene))
+  (setf (gethash 'region (name-map scene)) region))
+
 (defmethod enter ((unit unit) (region region))
   (let ((layer (+ (layer-index unit)
                   (floor (length (objects region)) 2))))
@@ -109,18 +112,17 @@
         (T
          (error "Unknown packet type: ~a" (pathname-type pathname)))))
 
-(defmethod load-region ((file zip:zipfile) scene)
+(defmethod load-region ((file zip:zipfile) (scene scene))
   (let ((meta (zip:get-zipfile-entry "meta.lisp" file)))
     (unless meta
       (error "Malformed region file."))
     (destructuring-bind (header info) (parse-sexp-vector (zip:zipfile-entry-contents meta))
-      (enter
-       (decode-region-payload
-        info (type-prototype 'region) file
-        (destructuring-bind (&key identifier version) header
-          (assert (eql 'region identifier))
-          (coerce-version version)))
-       scene))))
+      (let ((region (decode-region-payload
+                     info (type-prototype 'region) file
+                     (destructuring-bind (&key identifier version) header
+                       (assert (eql 'region identifier))
+                       (coerce-version version)))))
+        (enter region scene)))))
 
 (defmacro define-encoder ((type version) &rest args)
   (let ((version-instance (gensym "VERSION"))
