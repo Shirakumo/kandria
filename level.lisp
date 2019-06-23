@@ -20,7 +20,9 @@
     (when (or (typep entity 'unpausable)
               (typep entity 'controller)
               (eq entity pauser))
-      (add-handler (handlers entity) level))))
+      (add-handler (handlers entity) level)))
+  (for:for ((pass across (passes level)))
+    (add-handler (handlers pass) level)))
 
 (defmethod unpause-game ((level level) pauser)
   (when (pause-stack level)
