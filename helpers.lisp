@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(sb-ext:defglobal +tile-size+ 8)
+(sb-ext:defglobal +tile-size+ 16)
 (sb-ext:defglobal +tiles-in-view+ (vec2 40 26))
 (sb-ext:defglobal +level+ NIL)
 

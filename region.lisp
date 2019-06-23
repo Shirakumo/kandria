@@ -42,6 +42,9 @@
         (loop for unit across layer
               do (paint unit target))))))
 
+(defmethod layer-count ((region region))
+  (length (objects region)))
+
 (defclass region-iterator (for:iterator)
   ((layer :initarg :layer :accessor layer)
    (start :initform 0 :accessor start)))

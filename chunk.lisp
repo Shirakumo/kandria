@@ -15,6 +15,11 @@
 
 (defmethod initialize-instance :after ((chunk chunk) &key layers)
   (let* ((size (size chunk)))
+    (etypecase layers
+      (sequence)
+      ((integer 1) (setf layers (loop repeat layers
+                                      collect (make-array (floor (* (vx size) (vy size) 2))
+                                                          :element-type '(unsigned-byte 8))))))
     (setf (layers chunk) (coerce layers 'vector))
     (setf (bsize chunk) (v* size +tile-size+ .5))
     (setf (texture chunk) (make-instance 'texture :target :texture-2d-array
@@ -100,6 +105,7 @@ void main(){
   // Calculate tilemap index and pixel offset within tile.
   ivec2 tile_xy  = ivec2(map_xy.x / tile_size, map_xy.y / tile_size);
   ivec2 pixel_xy = ivec2(map_xy.x % tile_size, map_xy.y % tile_size);
+  pixel_xy.y = tile_size - pixel_xy.y + 1;
 
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, ivec3(tile_xy, layer), 0).rg;
@@ -156,8 +162,10 @@ void main(){
 
 (defmethod tile ((location vec3) (chunk chunk))
   (%with-chunk-xy (chunk location)
-    (let ((layer (aref (layers chunk) (truncate (vz location))))
-          (pos (* 2 (+ x (* y (truncate (vx (size chunk))))))))
+    (let* ((z (+ (truncate (vz location))
+                 (floor (length (layers chunk)) 2)))
+           (layer (aref (layers chunk) z))
+           (pos (* 2 (+ x (* y (truncate (vx (size chunk))))))))
       (vec2 (aref layer pos) (aref layer (1+ pos))))))
 
 (defmethod (setf tile) (value (location vec2) (chunk chunk))
@@ -170,7 +178,7 @@ void main(){
            (layer (aref (layers chunk) z))
            (pos (* 2 (+ x (* y (truncate (vx (size chunk))))))))
       (setf (aref layer (+ 0 pos)) (truncate (vx2 value)))
-      (setf (aref layer (+ 1 pos)) (truncate (vx2 value)))
+      (setf (aref layer (+ 1 pos)) (truncate (vy2 value)))
       (sb-sys:with-pinned-objects (layer)
         (let ((texture (texture chunk)))
           (gl:bind-texture :texture-2d-array (gl-name texture))

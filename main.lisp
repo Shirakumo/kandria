@@ -10,8 +10,8 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
-(define-asset (leaf debug) image
-    #p"debug.png"
+(define-asset (leaf ice) image
+    #p"ice.png"
   :min-filter :nearest
   :mag-filter :nearest)
 
@@ -21,11 +21,10 @@
 
 (defmethod initialize-instance :after ((level empty-level) &key)
   ;; (enter (make-instance 'player :location (vec 64 64)) level)
-  (let ((region (make-instance 'region :layers 1)))
-    
+  (let ((region (make-instance 'region :layers 5)))
     (enter region level)
-    (enter (make-instance 'chunk :tileset (asset 'leaf 'debug)
-                                 :tilemap (list (pool-path 'leaf "test.png")))
+    (enter (make-instance 'chunk :tileset (asset 'leaf 'ice)
+                                 :layers (layer-count region))
            region)))
 
 (defclass main (trial:main)
