@@ -11,7 +11,8 @@
             (camera (unit :camera T)))
         (setf (uniform program "scale") (view-scale camera))
         (setf (uniform program "offset") (v- (location camera)
-                                             (v/ (target-size camera) (zoom camera)))))
+                                             (v/ (target-size camera) (zoom camera))))
+        (setf (uniform program "tile_size") +tile-size+))
       (with-pushed-matrix ()
         (translate (vxy_ (location entity)))
         (scale-by (* 2 (vx2 (bsize entity))) (* 2 (vy2 (bsize entity))) 1.0)
@@ -21,10 +22,11 @@
   "out vec4 color;
 uniform vec2 offset = vec2(0);
 uniform float scale = 1.0;
+uniform int tile_size = 16;
 
 void main(){
   ivec2 grid = ivec2(floor((gl_FragCoord.xy)+offset*scale));
-  float r = (floor(mod(grid.x, 8*scale))==0.0 || floor(mod(grid.y, 8*scale))==0)?1.0:0.0;
+  float r = (floor(mod(grid.x, tile_size*scale))==0.0 || floor(mod(grid.y, tile_size*scale))==0)?1.0:0.0;
   color = vec4(1,1,1,r*0.2);
 }")
 
@@ -92,9 +94,10 @@ void main(){
     (update-editor-pos editor pos)
     (unless (entity editor)
       (setf (entity editor) (entity-at-point loc +level+)))
-    (when (retained 'modifiers :alt)
-      (setf (start-pos editor) pos)
-      (setf (status editor) :dragging))))
+    ;; (when (retained 'modifiers :alt)
+    ;;   (setf (start-pos editor) pos)
+    ;;   (setf (status editor) :dragging))
+    ))
 
 (define-handler (editor mouse-release) (ev)
   (setf (status editor) NIL))
@@ -204,7 +207,7 @@ void main(){
           ((retained 'movement :up) (incf (vy loc) spd)))))
 
 (define-asset (leaf square) mesh
-    (make-rectangle 8 8 :align :topleft))
+    (make-rectangle +tile-size+ +tile-size+ :align :topleft))
 
 (define-shader-subject sprite-editor (editor)
   ())
@@ -256,7 +259,9 @@ void main(){
                    (vfloor pos +tile-size+)))
             ((retained 'modifiers :control)
              (flood-fill chunk loc tile))
-            ((not (retained 'modifiers :alt))
+            ((retained 'modifiers :alt)
+             (setf (tile-to-place chunk-editor) (print (tile loc chunk))))
+            (T
              (setf (status chunk-editor) :placing)
              (setf (tile loc chunk) tile))))))
 
@@ -278,7 +283,7 @@ void main(){
                     width))))
       (cond ((< 0 delta) (incf i))
             ((< delta 0) (decf i)))
-      (setf i (mod i (* width height)))
+      (setf i (clamp 0 i (1- (* width height))))
       (setf (tile-to-place chunk-editor)
             (vec2 (mod i width) (floor i width))))))
 
@@ -288,7 +293,8 @@ void main(){
     (gl:active-texture :texture0)
     (gl:bind-texture :texture-2d (gl-name (tileset chunk)))
     (setf (uniform program "tileset") 0)
-    (setf (uniform program "tile") (v* (tile-to-place editor) +tile-size+))))
+    (setf (uniform program "tile_size") +tile-size+)
+    (setf (uniform program "tile") (tile-to-place editor))))
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
   (with-pushed-matrix ()
@@ -297,12 +303,13 @@ void main(){
 
 (define-class-shader (chunk-editor :vertex-shader)
   "
-layout (location = 0) in vec3 position;
+layout (location = 1) in vec2 vertex_uv;
+uniform int tile_size;
 uniform vec2 tile;
 out vec2 uv;
 
 void main(){
-  uv = position.xy + tile;
+  uv = (vertex_uv + tile)*tile_size;
 }")
 
 (define-class-shader (chunk-editor :fragment-shader)
@@ -341,7 +348,7 @@ uniform sampler2D texture_image;
 
 void main(){
   vec4 texel = texture(texture_image, texcoord);
-  color.rgb = vec3((mod(floor((texcoord.x*64+texcoord.y*4)*2), 2.0) <= 0.0)? 0.1 : 0.2);
+  color.rgb = vec3((mod(floor((texcoord.x*64+texcoord.y*4)*2), 64.0) <= 0.0)? 0.1 : 0.2);
   color.a = 1.0;
   color = mix(color, texel, texel.a);
 }")

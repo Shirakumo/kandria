@@ -4,4 +4,4 @@
   ((with :initarg :with :accessor with)))
 
 (define-shader-subject interactable (sprite-entity)
-  ((bsize :initform (vec 8 8))))
+  ((bsize :initform (vec +tile-size+ +tile-size+))))
