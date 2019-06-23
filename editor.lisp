@@ -89,15 +89,14 @@ void main(){
     (nv- loc (v/ (target-size camera) (zoom camera)))
     (nvalign loc +tile-size+)))
 
-(define-handler (editor mouse-press) (ev pos)
+(define-handler (editor mouse-press) (ev pos button)
   (let ((loc (location editor)))
     (update-editor-pos editor pos)
     (unless (entity editor)
       (setf (entity editor) (entity-at-point loc +level+)))
-    ;; (when (retained 'modifiers :alt)
-    ;;   (setf (start-pos editor) pos)
-    ;;   (setf (status editor) :dragging))
-    ))
+    (when (eql :middle button)
+      (setf (start-pos editor) pos)
+      (setf (status editor) :dragging))))
 
 (define-handler (editor mouse-release) (ev)
   (setf (status editor) NIL))
@@ -248,23 +247,24 @@ void main(){
     (:5 (setf (layer chunk-editor) +2))))
 
 (define-handler (chunk-editor chunk-press mouse-press) (ev pos button)
-  (let ((chunk (entity chunk-editor))
-        (tile (case button
-                (:left (tile-to-place chunk-editor))
-                (:right (vec2 0 0))))
-        (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor)))
-        (s (/ (width *context*) (* 64 +tile-size+))))
-    (when tile
-      (cond ((<= (vy pos) (* 4 +tile-size+ s))
-             (setf (tile-to-place chunk-editor)
-                   (vfloor pos +tile-size+)))
-            ((retained 'modifiers :control)
-             (flood-fill chunk loc tile))
-            ((retained 'modifiers :alt)
-             (setf (tile-to-place chunk-editor) (print (tile loc chunk))))
-            (T
-             (setf (status chunk-editor) :placing)
-             (setf (tile loc chunk) tile))))))
+  (unless (eql button :middle)
+    (let ((chunk (entity chunk-editor))
+          (tile (case button
+                  (:left (tile-to-place chunk-editor))
+                  (:right (vec2 0 0))))
+          (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor)))
+          (s (/ (width *context*) (* 64 +tile-size+))))
+      (when tile
+        (cond ((<= (vy pos) (* 4 +tile-size+ s))
+               (setf (tile-to-place chunk-editor)
+                     (vfloor pos +tile-size+)))
+              ((retained 'modifiers :control)
+               (flood-fill chunk loc tile))
+              ((retained 'modifiers :alt)
+               (setf (tile-to-place chunk-editor) (tile loc chunk)))
+              (T
+               (setf (status chunk-editor) :placing)
+               (setf (tile loc chunk) tile)))))))
 
 (define-handler (chunk-editor chunk-move mouse-move) (ev)
   (let ((loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor))))
