@@ -241,10 +241,11 @@ void main(){
 
 (define-handler (chunk-editor key-press) (ev key)
   (case key
-    (:1 (setf (layer chunk-editor) 0))
-    (:2 (setf (layer chunk-editor) 1))
-    (:3 (setf (layer chunk-editor) 2))
-    (:4 (setf (layer chunk-editor) 3))))
+    (:1 (setf (layer chunk-editor) -2))
+    (:2 (setf (layer chunk-editor) -1))
+    (:3 (setf (layer chunk-editor)  0))
+    (:4 (setf (layer chunk-editor) +1))
+    (:5 (setf (layer chunk-editor) +2))))
 
 (define-handler (chunk-editor chunk-press mouse-press) (ev pos button)
   (let ((chunk (entity chunk-editor))
@@ -348,9 +349,10 @@ uniform sampler2D texture_image;
 
 void main(){
   vec4 texel = texture(texture_image, texcoord);
-  color.rgb = vec3((mod(floor((texcoord.x*64+texcoord.y*4)*2), 64.0) <= 0.0)? 0.1 : 0.2);
-  color.a = 1.0;
+  ivec2 real = ivec2(texcoord * vec2(32, 32));
+  color.rgb = vec3((mod(real.x,2)+mod(real.y, 2) == 1)? 0.1 : 0.2);
   color = mix(color, texel, texel.a);
+  color.a = 1.0;
 }")
 
 (define-shader-subject text-input ()

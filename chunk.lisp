@@ -53,7 +53,7 @@
   (let ((program (shader-program-for-pass pass chunk))
         (vao (vertex-array chunk)))
     (translate (nv- (vxy_ (bsize chunk))))
-    (setf (uniform program "layer") *current-layer*)
+    (setf (uniform program "layer") (+ *current-layer* (floor (length (layers chunk)) 2)))
     (setf (uniform program "tile_size") +tile-size+)
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "map_size") (size chunk))
