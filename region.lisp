@@ -7,9 +7,10 @@
    (author :initform "Anonymous" :initarg :author :accessor author)
    (version :initform "0.0.0" :initarg :version :accessor version)
    (description :initform "" :initarg :description :accessor description)
-   (preview :initform NIL :initarg :preview :accessor preview)))
+   (preview :initform NIL :initarg :preview :accessor preview))
+  (:default-initargs :layers +layer-count+))
 
-(defmethod initialize-instance :after ((region region) &key (layers 5))
+(defmethod initialize-instance :after ((region region) &key layers)
   (let ((objects (make-array layers)))
     (dotimes (i layers)
       (setf (aref objects i) (make-array 0 :adjustable T :fill-pointer T)))
