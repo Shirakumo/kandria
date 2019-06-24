@@ -21,11 +21,9 @@
 
 (defmethod initialize-instance :after ((level empty-level) &key)
   ;; (enter (make-instance 'player :location (vec 64 64)) level)
-  (let ((region (make-instance 'region :layers 5)))
+  (let ((region (make-instance 'region)))
     (enter region level)
-    (enter (make-instance 'chunk :tileset (asset 'leaf 'ice)
-                                 :layers (layer-count region))
-           region)))
+    (enter (make-instance 'chunk :tileset (asset 'leaf 'ice)) region)))
 
 (defclass main (trial:main)
   ((scene :initform NIL)

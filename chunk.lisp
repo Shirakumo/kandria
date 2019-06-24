@@ -8,16 +8,17 @@
             :type asset :documentation "The tileset texture for the chunk.")
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
-  (:inhibit-shaders (shader-entity :fragment-shader)))
+  (:inhibit-shaders (shader-entity :fragment-shader))
+  (:default-initargs :layers +layer-count+))
 
 (defmethod initargs append ((_ chunk))
   `(:size :tileset))
 
 (defmethod initialize-instance :after ((chunk chunk) &key layers)
   (let* ((size (size chunk)))
-    (etypecase layers
-      (sequence)
-      ((integer 1) (setf layers (loop repeat layers
+    (etypecase layers ;; We add one layer for the solids.
+      (list)
+      ((integer 1) (setf layers (loop repeat (1+ layers)
                                       collect (make-array (floor (* (vx size) (vy size) 2))
                                                           :element-type '(unsigned-byte 8))))))
     (setf (layers chunk) (coerce layers 'vector))
@@ -53,7 +54,7 @@
   (let ((program (shader-program-for-pass pass chunk))
         (vao (vertex-array chunk)))
     (translate (nv- (vxy_ (bsize chunk))))
-    (setf (uniform program "layer") (+ *current-layer* (floor (length (layers chunk)) 2)))
+    (setf (uniform program "layer") (+ *current-layer* (floor +layer-count+ 2)))
     (setf (uniform program "tile_size") +tile-size+)
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "map_size") (size chunk))
@@ -162,7 +163,7 @@ void main(){
 (defmethod tile ((location vec3) (chunk chunk))
   (%with-chunk-xy (chunk location)
     (let* ((z (+ (truncate (vz location))
-                 (floor (length (layers chunk)) 2)))
+                 (floor +layer-count+ 2)))
            (layer (aref (layers chunk) z))
            (pos (* 2 (+ x (* y (truncate (vx (size chunk))))))))
       (vec2 (aref layer pos) (aref layer (1+ pos))))))
@@ -173,7 +174,7 @@ void main(){
 (defmethod (setf tile) (value (location vec3) (chunk chunk))
   (%with-chunk-xy (chunk location)
     (let* ((z (+ (truncate (vz location))
-                 (floor (length (layers chunk)) 2)))
+                 (floor +layer-count+ 2)))
            (layer (aref (layers chunk) z))
            (pos (* 2 (+ x (* y (truncate (vx (size chunk))))))))
       (setf (aref layer (+ 0 pos)) (truncate (vx2 value)))
@@ -188,7 +189,7 @@ void main(){
 (defmethod flood-fill ((chunk chunk) (location vec3) fill)
   (%with-chunk-xy (chunk location)
     (let* ((z (+ (truncate (vz location))
-                 (floor (length (layers chunk)) 2)))
+                 (floor +layer-count+ 2)))
            (layer (aref (layers chunk) z))
            (width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk))))
@@ -236,7 +237,7 @@ void main(){
       (aref +surface-blocks+ (truncate (vx tile))))))
 
 (defmethod scan ((chunk chunk) (target game-entity))
-  (let* ((tilemap (aref (layers chunk) (floor (length (layers chunk)) 2)))
+  (let* ((tilemap (aref (layers chunk) +layer-count+))
          (t-s +tile-size+)
          (x- 0) (y- 0) (x+ 0) (y+ 0)
          (w (truncate (vx (size chunk))))

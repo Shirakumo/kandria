@@ -235,7 +235,8 @@ void main(){
    (tile-picker :initform NIL :accessor tile-picker)))
 
 (defmethod shared-initialize :after ((editor chunk-editor) slots &key)
-  (setf (tile-picker editor) (make-instance 'tile-picker :editor editor)))
+  (setf (tile-picker editor) (make-instance 'tile-picker :editor editor))
+  (setf (tile-to-place editor) (vec2 0 most-positive-fixnum)))
 
 (defmethod editor-class ((_ chunk)) 'chunk-editor)
 
@@ -243,18 +244,20 @@ void main(){
   (let ((width (floor (width (tileset (entity chunk-editor))) +tile-size+))
         (height (floor (height (tileset (entity chunk-editor))) +tile-size+)))
     (setf (vx value) (clamp 0 (vx value) (1- width)))
-    (if (= 0 (layer chunk-editor))
+    (if (= +3 (layer chunk-editor))
         (setf (vy value) (- height 1))
         (setf (vy value) (clamp 0 (vy value) (- height 2))))
     (setf (slot-value chunk-editor 'tile) value)))
 
 (define-handler (chunk-editor key-press) (ev key)
-  (case key
-    (:1 (setf (layer chunk-editor) -2))
-    (:2 (setf (layer chunk-editor) -1))
-    (:3 (setf (layer chunk-editor)  0))
-    (:4 (setf (layer chunk-editor) +1))
-    (:5 (setf (layer chunk-editor) +2)))
+  (when (case key
+          (:1 (setf (layer chunk-editor) -2))
+          (:2 (setf (layer chunk-editor) -1))
+          (:3 (setf (layer chunk-editor)  0))
+          (:4 (setf (layer chunk-editor) +1))
+          (:5 (setf (layer chunk-editor) +2))
+          (:0 (setf (layer chunk-editor) +3)))
+    (v:info :leaf.editor "Switched layer to ~d" (layer chunk-editor)))
   (setf (tile-to-place chunk-editor) (tile-to-place chunk-editor)))
 
 (define-handler (chunk-editor chunk-press mouse-press) (ev pos button)
@@ -306,6 +309,8 @@ void main(){
     (setf (uniform program "tile") (tile-to-place editor))))
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
+  (let ((*current-layer* 3))
+    (paint (entity editor) target))
   (with-pushed-matrix ()
     (call-next-method))
   (paint (tile-picker editor) target))
