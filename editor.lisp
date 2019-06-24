@@ -193,6 +193,7 @@ void main(){
     (setf (entity editor) clone)))
 
 (define-handler (editor inspect-entity) (ev)
+  #+swank
   (let ((swank::*buffer-package* *package*)
         (swank::*buffer-readtable* *readtable*))
     (swank:inspect-in-emacs (entity editor) :wait NIL)))
@@ -206,7 +207,7 @@ void main(){
           ((retained 'movement :up) (incf (vy loc) spd)))))
 
 (define-asset (leaf square) mesh
-    (make-rectangle +tile-size+ +tile-size+ :align :topleft))
+    (make-rectangle +tile-size+ +tile-size+ :align :bottomleft))
 
 (define-shader-subject sprite-editor (editor)
   ())
@@ -238,33 +239,42 @@ void main(){
 
 (defmethod editor-class ((_ chunk)) 'chunk-editor)
 
+(defmethod (setf tile-to-place) (value (chunk-editor chunk-editor))
+  (let ((width (floor (width (tileset (entity chunk-editor))) +tile-size+))
+        (height (floor (height (tileset (entity chunk-editor))) +tile-size+)))
+    (setf (vx value) (clamp 0 (vx value) (1- width)))
+    (if (= 0 (layer chunk-editor))
+        (setf (vy value) (- height 1))
+        (setf (vy value) (clamp 0 (vy value) (- height 2))))
+    (setf (slot-value chunk-editor 'tile) value)))
+
 (define-handler (chunk-editor key-press) (ev key)
   (case key
     (:1 (setf (layer chunk-editor) -2))
     (:2 (setf (layer chunk-editor) -1))
     (:3 (setf (layer chunk-editor)  0))
     (:4 (setf (layer chunk-editor) +1))
-    (:5 (setf (layer chunk-editor) +2))))
+    (:5 (setf (layer chunk-editor) +2)))
+  (setf (tile-to-place chunk-editor) (tile-to-place chunk-editor)))
 
 (define-handler (chunk-editor chunk-press mouse-press) (ev pos button)
   (unless (eql button :middle)
-    (let ((chunk (entity chunk-editor))
-          (tile (case button
-                  (:left (tile-to-place chunk-editor))
-                  (:right (vec2 0 0))))
-          (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor)))
-          (s (/ (width *context*) (* 64 +tile-size+))))
-      (when tile
-        (cond ((<= (vy pos) (* 4 +tile-size+ s))
-               (setf (tile-to-place chunk-editor)
-                     (vfloor pos +tile-size+)))
-              ((retained 'modifiers :control)
-               (flood-fill chunk loc tile))
-              ((retained 'modifiers :alt)
-               (setf (tile-to-place chunk-editor) (tile loc chunk)))
-              (T
-               (setf (status chunk-editor) :placing)
-               (setf (tile loc chunk) tile)))))))
+    (let* ((chunk (entity chunk-editor))
+           (tile (case button
+                   (:left (tile-to-place chunk-editor))
+                   (:right (vec2 0 0))))
+           (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor))))
+      (cond ((and (<= (vx pos) (width (tileset chunk)))
+                  (<= (vy pos) (height (tileset chunk))))
+             (setf (tile-to-place chunk-editor)
+                   (vfloor pos +tile-size+)))
+            ((retained 'modifiers :control)
+             (flood-fill chunk loc tile))
+            ((retained 'modifiers :alt)
+             (setf (tile-to-place chunk-editor) (tile loc chunk)))
+            (T
+             (setf (status chunk-editor) :placing)
+             (setf (tile loc chunk) tile))))))
 
 (define-handler (chunk-editor chunk-move mouse-move) (ev)
   (let ((loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor))))
@@ -278,13 +288,11 @@ void main(){
 (define-handler (chunk-editor change-tile mouse-scroll) (ev delta)
   (unless (retained 'modifiers :control)
     (let* ((width (floor (width (tileset (entity chunk-editor))) +tile-size+))
-           (height (floor (height (tileset (entity chunk-editor))) +tile-size+))
            (i (+ (vx (tile-to-place chunk-editor))
                  (* (vy (tile-to-place chunk-editor))
                     width))))
       (cond ((< 0 delta) (incf i))
             ((< delta 0) (decf i)))
-      (setf i (clamp 0 i (1- (* width height))))
       (setf (tile-to-place chunk-editor)
             (vec2 (mod i width) (floor i width))))))
 
@@ -335,11 +343,10 @@ void main(){
 (defmethod paint :around ((picker tile-picker) target)
   (with-pushed-matrix ((*model-matrix* :identity)
                        (*view-matrix* :identity))
-    (let* ((tileset (tileset (entity (editor picker))))
-           (ratio (/ (width *context*) (width tileset))))
+    (let* ((tileset (tileset (entity (editor picker)))))
       (setf (texture picker) tileset)
-      (translate-by 0 (* 4 +tile-size+ ratio) 4)
-      (scale-by (width *context*) (* ratio (height tileset)) 1))
+      (translate-by 0 0 4)
+      (scale-by (width tileset) (height tileset) 1))
     (call-next-method)))
 
 (define-class-shader (tile-picker :fragment-shader)

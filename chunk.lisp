@@ -105,7 +105,6 @@ void main(){
   // Calculate tilemap index and pixel offset within tile.
   ivec2 tile_xy  = ivec2(map_xy.x / tile_size, map_xy.y / tile_size);
   ivec2 pixel_xy = ivec2(map_xy.x % tile_size, map_xy.y % tile_size);
-  pixel_xy.y = tile_size - pixel_xy.y + 1;
 
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, ivec3(tile_xy, layer), 0).rg;
