@@ -3,17 +3,22 @@
 (define-asset (leaf player-mesh) mesh
     (make-rectangle 32 40))
 
+(define-global +vlim+ (vec2  1.75    10))
+;;                           GRD-ACC AIR-DCC AIR-ACC
+(define-global +vmove+ (vec3 0.3     0.98    0.1))
+;;                           CLIMB   SLIDE
+(define-global +vclim+ (vec2 1.5     3.0))
+;;                           JUMP    LONGJMP WALL-VX WALL-VY
+(define-global +vjump+ (vec4 2.5     1.1     6       4))
+;;                           ACC     DCC
+(define-global +vdash+ (vec2 10      0.8))
+
 (define-shader-subject player (animated-sprite-subject moving facing-entity dialog-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
    (vertex-array :initform (asset 'leaf 'player-mesh))
    (status :initform NIL :accessor status)
-   (vlim  :initform (vec2 20 20) :accessor vlim)
-   (vmove :initform (vec2 1.2 0.2) :accessor vmove)
-   (vclim :initform (vec2 1.5 3.0) :accessor vclim)
-   (vjump :initform (vec4 4 7 6 4) :accessor vjump)
-   (vdash :initform (vec2 16 1.4) :accessor vdash)
    (jump-count :initform 0 :accessor jump-count)
    (dash-count :initform 0 :accessor dash-count)
    (surface :initform NIL :accessor surface))
@@ -58,13 +63,12 @@
   (let* ((collisions (collisions player))
          (loc (location player))
          (vel (velocity player))
-         (vjump (vjump player))
          (colliding (or (svref collisions 1)
                         (svref collisions 2)
                         (svref collisions 3))))
     (cond ((svref collisions 2)
            ;; Ground jump
-           (setf (vy vel) (vx vjump))
+           (setf (vy vel) (vx +vjump+))
            (when (typep colliding 'moving-platform)
              (nv+ vel (velocity colliding)))
            (incf (jump-count player))
@@ -74,8 +78,8 @@
                (svref collisions 3))
            ;; Wall jump
            (let ((dir (if (svref collisions 1) -1.0 1.0)))
-             (setf (vx vel) (* dir (vz vjump)))
-             (setf (vy vel) (vw vjump))
+             (setf (vx vel) (* dir (vz +vjump+)))
+             (setf (vy vel) (vw +vjump+))
              (when (typep colliding 'moving-platform)
                (nv+ vel (velocity colliding)))
              (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 4)) (vy loc))
@@ -108,12 +112,7 @@
 
 (defmethod tick :before ((player player) ev)
   (let ((collisions (collisions player))
-        (vel (velocity player))
-        (vlim  (vlim  player))
-        (vmove (vmove player))
-        (vclim (vclim player))
-        (vjump (vjump player))
-        (vdash (vdash player)))
+        (vel (velocity player)))
     (setf (interactable player) NIL)
     (case (status player)
       (:dashing
@@ -127,9 +126,9 @@
        (cond ((< 15 (dash-count player))
               (setf (status player) NIL))
              ((< 12 (dash-count player))
-              (nv* vel (vy vdash)))
+              (nv* vel (vy +vdash+)))
              ((= 8 (dash-count player))
-              (nv* vel (vx vdash)))))
+              (nv* vel (vx +vdash+)))))
       (:dying
        (nv* vel 0.9))
       (T
@@ -155,9 +154,9 @@
               (setf (direction player)
                     (if (svref collisions 1) +1 -1))
               (cond ((retained 'movement :up)
-                     (setf (vy vel) (vx vclim)))
+                     (setf (vy vel) (vx +vclim+)))
                     ((retained 'movement :down)
-                     (setf (vy vel) (* (vy vclim) -1)))
+                     (setf (vy vel) (* (vy +vclim+) -1)))
                     (T
                      (setf (frame player) 0)
                      (setf (vy vel) 0)))
@@ -167,31 +166,38 @@
                   (nv+ vel (velocity wall)))))
              (T
               ;; Movement
-              (cond ((retained 'movement :left)
-                     (setf (direction player) -1)
-                     (when (< (- (vx vmove)) (vx vel))
-                       (decf (vx vel) (vx vmove))))
-                    ((retained 'movement :right)
-                     (setf (direction player) +1)
-                     (when (< (vx vel) (vx vmove))
-                       (incf (vx vel) (vx vmove))))
-                    (T
-                     (setf (vx vel) 0)))
-              (cond ((<= (vy vmove) (vx vel))
-                     (decf (vx vel) (vy vmove)))
-                    ((<= (vx vel) (- (vy vmove)))
-                     (incf (vx vel) (vy vmove)))
-                    (T
-                     (setf (vx vel) 0)))
+              (if (svref collisions 2)
+                  (cond ((retained 'movement :left)
+                         (setf (direction player) -1)
+                         ;; Quick turns on the ground.
+                         (when (< 0 (vx vel))
+                           (setf (vx vel) 0))
+                         (decf (vx vel) (vx +vmove+)))
+                        ((retained 'movement :right)
+                         (setf (direction player) +1)
+                         ;; Quick turns on the ground.
+                         (when (< (vx vel) 0)
+                           (setf (vx vel) 0))
+                         (incf (vx vel) (vx +vmove+)))
+                        (T
+                         (setf (vx vel) 0)))
+                  (cond ((retained 'movement :left)
+                         (setf (direction player) -1)
+                         (decf (vx vel) (vz +vmove+)))
+                        ((retained 'movement :right)
+                         (setf (direction player) +1)
+                         (incf (vx vel) (vz +vmove+)))
+                        (T
+                         (setf (vx vel) (* (vx vel) (vy +vmove+))))))
               ;; Jump progress
               (when (< 0 (jump-count player))
                 (when (and (retained 'movement :jump)
-                           (= 15 (jump-count player)))
-                  (setf (vy vel) (* (vy vjump) (vy vel))))
+                           (<= 5 (jump-count player) 15))
+                  (setf (vy vel) (* (vy +vjump+) (vy vel))))
                 (incf (jump-count player)))
               ;; FIXME: Hard-coded gravity
-              (decf (vy vel) 0.15)))))
-    (nvclamp (v- vlim) vel vlim))
+              (decf (vy vel) 0.15)
+              (nvclamp (v- +vlim+) vel +vlim+))))))
   ;; OOB
   (when (surface player)
     (unless (contained-p (location player) (surface player))
@@ -237,11 +243,12 @@
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'particle))))
 
 (defmethod die ((player player))
-  (unless (eql (status player) :dying)
-    (setf (status player) :dying)
-    ;;(setf (animation player) 5)
-    (nv* (velocity player) -1)
-    (start (reset (progression 'die +level+)))))
+  ;; (unless (eql (status player) :dying)
+  ;;   (setf (status player) :dying)
+  ;;   ;;(setf (animation player) 5)
+  ;;   (nv* (velocity player) -1)
+  ;;   (start (reset (progression 'die +level+))))
+  )
 
 (defmethod death ((player player))
   (start (reset (progression 'revive +level+)))

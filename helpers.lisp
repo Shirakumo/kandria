@@ -1,9 +1,14 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(sb-ext:defglobal +tile-size+ 16)
-(sb-ext:defglobal +layer-count+ 5)
-(sb-ext:defglobal +tiles-in-view+ (vec2 40 26))
-(sb-ext:defglobal +level+ NIL)
+(defmacro define-global (name value)
+  `(if (boundp ',name)
+       (setf ,name ,value)
+       (sb-ext:defglobal ,name ,value)))
+
+(define-global +tile-size+ 16)
+(define-global +layer-count+ 5)
+(define-global +tiles-in-view+ (vec2 40 26))
+(define-global +level+ NIL)
 
 (defun format-absolute-time (time)
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
