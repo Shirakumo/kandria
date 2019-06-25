@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk (sized-entity solid)
+(define-shader-entity chunk (container-unit sized-entity solid)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
@@ -40,6 +40,11 @@
                  :tileset (tileset chunk)
                  :tile-size (tile-size chunk)))
 
+(defmethod entity-at-point (point (chunk chunk))
+  (or (call-next-method)
+      (when (contained-p point chunk)
+        chunk)))
+
 (defmethod enter ((chunk chunk) (region region))
   (dotimes (layer (length (objects region)))
     (vector-push-extend chunk (aref (objects region) layer))))
@@ -49,6 +54,11 @@
     (array-utils:vector-pop-position*
      (aref (objects region) layer)
      (position chunk (aref (objects region) layer)))))
+
+(defmethod paint :around ((chunk chunk) target)
+  (call-next-method)
+  (for:for ((entity flare-queue:in-queue (objects chunk)))
+    (paint entity target)))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
@@ -122,6 +132,7 @@ void main(){
   (call-next-method (vmax value +tiles-in-view+) chunk))
 
 (defmethod (setf size) :before (value (chunk chunk))
+  ;; FIXME: Check that all entities are within new chunk bounds and shift if necessary.
   (let* ((nw (floor (vx2 value)))
          (nh (floor (vy2 value)))
          (ow (floor (vx2 (size chunk))))
@@ -233,8 +244,12 @@ void main(){
 
 (defmethod scan ((chunk chunk) (target vec2))
   (let ((tile (tile target chunk)))
-    (when (and tile (= 0 (vy tile)) (< 0 (vx tile)))
-      (aref +surface-blocks+ (truncate (vx tile))))))
+    (if (and tile (= 0 (vy tile)) (< 0 (vx tile)))
+        (aref +surface-blocks+ (truncate (vx tile)))
+        (for:for ((entity flare-queue:in-queue (objects chunk)))
+          (when (and (typep entity 'solid)
+                     (scan entity target))
+            (return entity))))))
 
 (defmethod scan ((chunk chunk) (target game-entity))
   (let* ((tilemap (aref (layers chunk) +layer-count+))
@@ -246,7 +261,7 @@ void main(){
          (pos (location target))
          (lloc (nv+ (v- (location target) (location chunk)) (bsize chunk)))
          (vel (velocity target))
-         (declined ()) (result))
+         (result))
     ;; Figure out bounding region
     (if (< 0 (vx vel))
         (setf x- (floor (- (vx lloc) (vx size)) t-s)
@@ -259,30 +274,32 @@ void main(){
         (setf y- (floor (- (+ (vy lloc) (vy vel)) (vy size)) t-s)
               y+ (ceiling (vy lloc) t-s)))
     ;; Sweep AABB through tiles
-    (loop
-       (loop for x from (max x- 0) to (min x+ (1- w))
-             do (loop for y from (max y- 0) to (min y+ (1- h))
-                      for idx = (* (+ x (* y w)) 2)
-                      for tile = (aref tilemap (+ 0 idx))
-                      do (when (and (= 0 (aref tilemap (+ 1 idx)))
-                                    (< 0 tile))
-                           (let* ((loc (vec2 (+ (* x t-s) (/ t-s 2) (- (vx (location chunk)) (vx (bsize chunk))))
-                                             (+ (* y t-s) (/ t-s 2) (- (vy (location chunk)) (vy (bsize chunk))))))
-                                  (hit (aabb pos vel loc size)))
-                             (when (and hit
-                                        (not (find (hit-location hit) declined :test #'v=))
-                                        (or (not result)
-                                            (< (hit-time hit) (hit-time result))
-                                            (and (= (hit-time hit) (hit-time result))
-                                                 (< (vsqrdist2 loc (hit-location hit))
-                                                    (vsqrdist2 loc (hit-location result))))))
-                               (setf (hit-object hit) (aref +surface-blocks+ tile))
-                               (setf result hit))))))
-       (unless result (return))
-       (restart-case
-           (progn (collide target (hit-object result) result)
-                  (return result))
-         (decline ()
-           :report "Decline handling the hit."
-           (push (hit-location result) declined)
-           (setf result NIL))))))
+    (loop for x from (max x- 0) to (min x+ (1- w))
+          do (loop for y from (max y- 0) to (min y+ (1- h))
+                   for idx = (* (+ x (* y w)) 2)
+                   for tile = (aref tilemap (+ 0 idx))
+                   do (when (and (= 0 (aref tilemap (+ 1 idx)))
+                                 (< 0 tile))
+                        (let* ((loc (vec2 (+ (* x t-s) (/ t-s 2) (- (vx (location chunk)) (vx (bsize chunk))))
+                                          (+ (* y t-s) (/ t-s 2) (- (vy (location chunk)) (vy (bsize chunk))))))
+                               (hit (aabb pos vel loc size)))
+                          (when (and hit
+                                     (collides-p target (aref +surface-blocks+ tile) hit)
+                                     (or (not result)
+                                         (< (hit-time hit) (hit-time result))
+                                         (and (= (hit-time hit) (hit-time result))
+                                              (< (vsqrdist2 loc (hit-location hit))
+                                                 (vsqrdist2 loc (hit-location result))))))
+                            (setf (hit-object hit) (aref +surface-blocks+ tile))
+                            (setf result hit))))))
+    ;; Scan through entities
+    (for:for ((entity flare-queue:in-queue (objects chunk)))
+      (when (and (not (eq entity target))
+                 (typep entity 'solid))
+        (let ((hit (scan entity target)))
+          (when (and hit (< (vsqrdist2 pos (hit-location hit))
+                            (vsqrdist2 pos (hit-location result))))
+            (setf result hit)))))
+    (when result
+      (collide target (hit-object result) result)
+      result)))

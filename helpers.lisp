@@ -182,15 +182,18 @@
                      (funcall callback (apply #'make-instance class (nreverse initlist))))))
         (invoke-next (car initargs))))))
 
-(defun entity-at-point (point level)
+(defmethod entity-at-point (point thing)
+  NIL)
+
+(defmethod entity-at-point (point (container container))
   (for:for ((result as NIL)
-            (entity over (unit 'region level)))
-    (when (and (typep entity 'base-entity)
-               (contained-p point entity)
+            (entity over container)
+            (at-point = (entity-at-point point entity)))
+    (when (and at-point
                (or (null result)
-                   (< (vlength (bsize entity))
+                   (< (vlength (bsize at-point))
                       (vlength (bsize result)))))
-      (setf result entity))))
+      (setf result at-point))))
 
 (defmethod contained-p ((target vec2) thing)
   NIL)
@@ -238,6 +241,10 @@
 
 (defclass base-entity (entity)
   ())
+
+(defmethod entity-at-point (point (entity base-entity))
+  (when (contained-p point entity)
+    entity))
 
 (defmethod initargs append ((_ base-entity))
   '(:name))
