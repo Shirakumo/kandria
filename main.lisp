@@ -42,7 +42,8 @@
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face)
-  (disable :scissor-test))
+  (disable :scissor-test)
+  (disable :depth-test))
 
 (defmethod update ((main main) tt dt)
   (issue (scene main) 'trial:tick :tt tt :dt dt)

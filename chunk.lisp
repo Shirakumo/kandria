@@ -233,7 +233,7 @@ void main(){
 
 (defmethod scan ((chunk chunk) (target vec2))
   (let ((tile (tile target chunk)))
-    (when (and tile (= 0 (vy tile)))
+    (when (and tile (= 0 (vy tile)) (< 0 (vx tile)))
       (aref +surface-blocks+ (truncate (vx tile))))))
 
 (defmethod scan ((chunk chunk) (target game-entity))

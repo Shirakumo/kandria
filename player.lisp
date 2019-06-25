@@ -26,7 +26,9 @@
    :size (vec 32 40)
    :animation 0
    :animations '((stand 0 8 :step 0.1)
-                 (run 8 24 :step 0.05))))
+                 (run 8 24 :step 0.05)
+                 (jump 24 27 :step 0.1 :next fall)
+                 (fall 27 33 :step 0.1 :loop-to 29))))
 
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
@@ -134,8 +136,7 @@
        ;; Animations
        (cond ((and (/= 0 (jump-count player))
                    (retained 'movement :jump))
-              ;;(setf (animation player) 2)
-              )
+              (setf (animation player) 'jump))
              ((and (or (svref collisions 1)
                        (svref collisions 3))
                    (retained 'movement :climb))
@@ -144,8 +145,7 @@
              ((svref collisions 2)
               (setf (animation player) (if (= 0 (vx vel)) 'stand 'run)))
              (T
-              ;;(setf (animation player) 3)
-              ))
+              (setf (animation player) 'fall)))
        ;; Movement
        (cond ((and (or (svref collisions 1)
                        (svref collisions 3))
@@ -190,12 +190,12 @@
                   (setf (vy vel) (* (vy vjump) (vy vel))))
                 (incf (jump-count player)))
               ;; FIXME: Hard-coded gravity
-              (decf (vy vel) 0.1)))))
+              (decf (vy vel) 0.15)))))
     (nvclamp (v- vlim) vel vlim))
   ;; OOB
   (when (surface player)
     (unless (contained-p (location player) (surface player))
-      (let ((other (for:for ((entity flare-queue:in-queue (objects +level+)))
+      (let ((other (for:for ((entity over (unit 'region +level+)))
                      (when (and (typep entity 'chunk)
                                 (contained-p (location player) entity))
                        (return entity)))))
