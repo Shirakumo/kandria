@@ -69,8 +69,6 @@
     (cond ((svref collisions 2)
            ;; Ground jump
            (setf (vy vel) (vx +vjump+))
-           (when (typep colliding 'moving-platform)
-             (nv+ vel (velocity colliding)))
            (incf (jump-count player))
            (enter (make-instance 'dust-cloud :location (vcopy loc))
                   +level+))
@@ -80,16 +78,9 @@
            (let ((dir (if (svref collisions 1) -1.0 1.0)))
              (setf (vx vel) (* dir (vz +vjump+)))
              (setf (vy vel) (vw +vjump+))
-             (when (typep colliding 'moving-platform)
-               (nv+ vel (velocity colliding)))
              (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 4)) (vy loc))
                                                :direction (vec2 dir 0))
                     +level+))))))
-
-(defmethod collide :after ((player player) (platform falling-platform) hit)
-  (when (and (eq :hanging (status platform))
-             (/= -1 (vy (hit-normal hit))))
-    (setf (status platform) :falling)))
 
 (defmethod collide :before ((player player) (block block) hit)
   (unless (typep block 'spike)
@@ -100,15 +91,13 @@
 
 (defmethod collide ((player player) (trigger trigger) hit)
   (when (active-p trigger)
-    (fire trigger))
-  (decline))
+    (fire trigger)))
 
 (defmethod collide ((player player) (interactable interactable) hit)
   (when (or (null (interactable player))
             (< (vsqrdist2 (location player) (location interactable))
                (vsqrdist2 (location player) (location (interactable player)))))
-    (setf (interactable player) interactable))
-  (decline))
+    (setf (interactable player) interactable)))
 
 (defmethod tick :before ((player player) ev)
   (let ((collisions (collisions player))
@@ -159,11 +148,7 @@
                      (setf (vy vel) (* (vy +vclim+) -1)))
                     (T
                      (setf (frame player) 0)
-                     (setf (vy vel) 0)))
-              (let ((wall (or (svref collisions 1)
-                              (svref collisions 3))))
-                (when (typep wall 'moving-platform)
-                  (nv+ vel (velocity wall)))))
+                     (setf (vy vel) 0))))
              (T
               ;; Movement
               (if (svref collisions 2)
@@ -199,15 +184,14 @@
               (decf (vy vel) 0.15)
               (nvclamp (v- +vlim+) vel +vlim+))))))
   ;; OOB
-  (when (surface player)
-    (unless (contained-p (location player) (surface player))
-      (let ((other (for:for ((entity over (unit 'region +level+)))
-                     (when (and (typep entity 'chunk)
-                                (contained-p (location player) entity))
-                       (return entity)))))
-        (if other
-            (issue +level+ 'switch-chunk :chunk other)
-            (die player))))))
+  (unless (contained-p (location player) (surface player))
+    (let ((other (for:for ((entity over (unit 'region +level+)))
+                   (when (and (typep entity 'chunk)
+                              (contained-p (location player) entity))
+                     (return entity)))))
+      (if other
+          (issue +level+ 'switch-chunk :chunk other)
+          (die player)))))
 
 (defmethod tick :after ((player player) ev)
   (when (svref (collisions player) 2)
@@ -243,6 +227,8 @@
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'particle))))
 
 (defmethod die ((player player))
+  (vsetf (velocity player) 0 0)
+  (vsetf (location player) 0 0)
   ;; (unless (eql (status player) :dying)
   ;;   (setf (status player) :dying)
   ;;   ;;(setf (animation player) 5)

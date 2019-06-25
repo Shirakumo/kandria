@@ -21,7 +21,7 @@
   (let ((loc (location camera))
         (int (intended-location camera))
         (surface (surface camera)))
-    (unless (active-p (unit :editor +level+))
+    (unless (active-p (unit :editor T))
       (when (target camera)
         (let ((tar (location (target camera))))
           (vsetf int (vx tar) (vy tar))))

@@ -246,7 +246,7 @@ void main(){
     (setf (vx value) (clamp 0 (vx value) (1- width)))
     (if (= +3 (layer chunk-editor))
         (setf (vy value) 0)
-        (setf (vy value) (clamp 1 (vy value) (1- height))))
+        (setf (vy value) (clamp 0 (vy value) (1- height))))
     (setf (slot-value chunk-editor 'tile) value)))
 
 (define-handler (chunk-editor key-press) (ev key)

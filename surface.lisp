@@ -1,8 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defun decline ()
-  (invoke-restart 'decline))
-
 (defstruct (block (:constructor make-block (s)))
   (s 0 :type (unsigned-byte 16)))
 
@@ -48,6 +45,9 @@
   (time 0.0 :type single-float)
   (location NIL :type vec2)
   (normal NIL :type vec2))
+
+(defmethod collides-p (object target hit)
+  T)
 
 (defun aabb (seg-pos seg-vel aabb-pos aabb-size)
   (declare (type vec2 seg-pos seg-vel aabb-pos aabb-size))
