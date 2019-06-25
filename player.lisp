@@ -7,9 +7,9 @@
 ;;                           GRD-ACC AIR-DCC AIR-ACC
 (define-global +vmove+ (vec3 0.3     0.98    0.1))
 ;;                           CLIMB   SLIDE
-(define-global +vclim+ (vec2 1.5     3.0))
+(define-global +vclim+ (vec2 1.0     1.5))
 ;;                           JUMP    LONGJMP WALL-VX WALL-VY
-(define-global +vjump+ (vec4 2.5     1.1     6       4))
+(define-global +vjump+ (vec4 2.5     1.1     6       3))
 ;;                           ACC     DCC
 (define-global +vdash+ (vec2 10      0.8))
 
