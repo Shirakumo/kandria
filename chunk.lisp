@@ -169,7 +169,7 @@ void main(){
        ,@body)))
 
 (defmethod tile ((location vec2) (chunk chunk))
-  (tile (vec3 (vx2 location) (vy2 location) 0) chunk))
+  (tile (vec3 (vx2 location) (vy2 location) 3) chunk))
 
 (defmethod tile ((location vec3) (chunk chunk))
   (%with-chunk-xy (chunk location)
