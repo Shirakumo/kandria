@@ -233,7 +233,7 @@ void main(){
 
 (defmethod scan ((chunk chunk) (target vec2))
   (let ((tile (tile target chunk)))
-    (when (and tile (= 1 (vy tile)))
+    (when (and tile (= 0 (vy tile)))
       (aref +surface-blocks+ (truncate (vx tile))))))
 
 (defmethod scan ((chunk chunk) (target game-entity))
@@ -262,9 +262,11 @@ void main(){
     (loop
        (loop for x from (max x- 0) to (min x+ (1- w))
              do (loop for y from (max y- 0) to (min y+ (1- h))
-                      do (when (= 1 (aref tilemap (+ 1 (* (+ x (* y w)) 2))))
-                           (let* ((tile (aref tilemap (* (+ x (* y w)) 2)))
-                                  (loc (vec2 (+ (* x t-s) (/ t-s 2) (- (vx (location chunk)) (vx (bsize chunk))))
+                      for idx = (* (+ x (* y w)) 2)
+                      for tile = (aref tilemap (+ 0 idx))
+                      do (when (and (= 0 (aref tilemap (+ 1 idx)))
+                                    (< 0 tile))
+                           (let* ((loc (vec2 (+ (* x t-s) (/ t-s 2) (- (vx (location chunk)) (vx (bsize chunk))))
                                              (+ (* y t-s) (/ t-s 2) (- (vy (location chunk)) (vy (bsize chunk))))))
                                   (hit (aabb pos vel loc size)))
                              (when (and hit

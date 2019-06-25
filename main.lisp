@@ -20,10 +20,10 @@
   (:default-initargs :name :untitled))
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  ;; (enter (make-instance 'player :location (vec 64 64)) level)
   (let ((region (make-instance 'region)))
     (enter region level)
-    (enter (make-instance 'chunk :tileset (asset 'leaf 'ice)) region)))
+    (enter (make-instance 'chunk :tileset (asset 'leaf 'ice)) region)
+    (enter (make-instance 'player :location (vec 64 64)) region)))
 
 (defclass main (trial:main)
   ((scene :initform NIL)

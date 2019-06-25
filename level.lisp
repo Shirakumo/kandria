@@ -34,7 +34,7 @@
 
 (defun scan-for (type level target)
   (for:for ((result as NIL)
-            (entity flare-queue:in-queue (objects level)))
+            (entity over level))
     (when (and (not (eq entity target))
                (typep entity type))
       (let ((hit (with-simple-restart (decline "Decline handling the collision.")
@@ -43,7 +43,7 @@
 
 (defmethod scan ((level level) target)
   (for:for ((result as NIL)
-            (entity flare-queue:in-queue (objects level)))
+            (entity over (unit 'region level)))
     (when (not (eq entity target))
       (let ((hit (with-simple-restart (decline "Decline handling the collision.")
                    (scan entity target))))
