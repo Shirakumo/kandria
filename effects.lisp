@@ -193,10 +193,11 @@ void main(){
   (:default-initargs :vertex-array (asset 'leaf 'player-mesh)
                      :direction (vec2 0 1)))
 
-(defmethod lifetime ((dust-cloud dust-cloud)) 50)
+(defmethod lifetime ((dust-cloud dust-cloud)) 40)
 
 (defmethod paint :before ((particle dust-cloud) (pass shader-pass))
   (let ((program (shader-program-for-pass pass particle)))
+    (translate-by 0 4 0)
     (setf (uniform program "direction") (direction particle))))
 
 (define-class-shader (dust-cloud :fragment-shader)
@@ -214,7 +215,7 @@ float hash12n(vec2 p){
 }
 
 void main(){
-  float ftime = (1-(frame/50.0))*2;
+  float ftime = (1-(frame/40.0))*2;
   vec2 pos = floor(texcoord*32)/32.0;
   vec2 off = vec2(ftime/3.0)*direction;
   vec2 skew = abs(direction.yx)+1;
