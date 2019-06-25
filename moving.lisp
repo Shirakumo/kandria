@@ -6,7 +6,7 @@
 (defmethod scan (entity target))
 
 (defmethod tick ((moving moving) ev)
-  (let* ((scene +level+)
+  (let* ((scene (unit 'region +level+))
          (loc (location moving))
          (vel (velocity moving))
          (size (bsize moving)))

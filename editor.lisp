@@ -245,8 +245,8 @@ void main(){
         (height (floor (height (tileset (entity chunk-editor))) +tile-size+)))
     (setf (vx value) (clamp 0 (vx value) (1- width)))
     (if (= +3 (layer chunk-editor))
-        (setf (vy value) (- height 1))
-        (setf (vy value) (clamp 0 (vy value) (- height 2))))
+        (setf (vy value) 0)
+        (setf (vy value) (clamp 1 (vy value) (1- height))))
     (setf (slot-value chunk-editor 'tile) value)))
 
 (define-handler (chunk-editor key-press) (ev key)
@@ -310,7 +310,7 @@ void main(){
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
   (let ((*current-layer* 3))
-    (paint (entity editor) target))
+    (paint-with target (entity editor)))
   (with-pushed-matrix ()
     (call-next-method))
   (paint (tile-picker editor) target))
