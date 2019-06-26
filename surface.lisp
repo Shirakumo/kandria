@@ -14,8 +14,8 @@
 
 (defstruct (slope (:include block)
                   (:constructor make-slope (s l r)))
-  (l 0 :type (unsigned-byte 16))
-  (r 0 :type (unsigned-byte 16)))
+  (l NIL :type vec2)
+  (r NIL :type vec2))
 
 (defun make-surface-blocks (t-s slope-steps)
   (let ((blocks (make-array (+ 4 (* 2 (reduce #'+ slope-steps)))))
@@ -28,13 +28,17 @@
       (make 'spike)
       (loop for steps in slope-steps
             do (loop for i from 0 below steps
-                     for l = (* (/ i steps) +tile-size+)
-                     for r = (* (/ (1+ i) steps) +tile-size+)
-                     do (make 'slope (floor l) (floor r)))
+                     for l = (* (/ i steps) t-s)
+                     for r = (* (/ (1+ i) steps) t-s)
+                     do (make 'slope
+                              (vec2 (/ t-s -2) (- (floor l) (/ t-s 2)))
+                              (vec2 (/ t-s +2) (- (floor r) (/ t-s 2)))))
             do (loop for i downfrom steps above 0
-                     for l = (* (/ i steps) +tile-size+)
-                     for r = (* (/ (1- i) steps) +tile-size+)
-                     do (make 'slope (floor l) (floor r))))
+                     for l = (* (/ i steps) t-s)
+                     for r = (* (/ (1- i) steps) t-s)
+                     do (make 'slope
+                              (vec2 (/ t-s -2) (- (floor l) (/ t-s 2)))
+                              (vec2 (/ t-s +2) (- (floor r) (/ t-s 2))))))
       blocks)))
 
 (sb-ext:defglobal +surface-blocks+ NIL)
@@ -73,3 +77,28 @@
                 (unless (and (/= 0 (vy normal))
                              (<= (vx aabb-size) (abs (- (vx aabb-pos) (vx seg-pos)))))
                   (make-hit NIL time aabb-pos normal))))))))))
+
+(defun rayline (ray dir a b)
+  (declare (type vec2 ray dir a b))
+  (let* ((lin (v- b a))
+         (div (+ (* (- (vx2 lin)) (vy2 dir))
+                 (* (+ (vx2 dir)) (vy2 lin)))))
+    (when (/= 0.0 div)
+      (let ((r (/ (+ (* (- (vy2 dir)) (- (vx2 ray) (vx2 a)))
+                     (* (+ (vx2 dir)) (- (vy2 ray) (vy2 a))))
+                  div))
+            (l (/ (- (* (vx2 lin) (- (vy2 ray) (vy2 a)))
+                     (* (vy2 lin) (- (vx2 ray) (vx2 a))))
+                  div)))
+        (when (and (<= 0 r 1) (<= 0 l 1))
+          l)))))
+
+(defun slope (pos vel size slope loc)
+  (let* ((l (slope-l slope))
+         (r (slope-r slope))
+         (dir (signum (- (vy l) (vy r)))))
+    (rayline pos vel
+             (vec2 (+ (vx loc) (vx l) (* dir (vx size)))
+                   (+ (vy loc) (vy l) (vy size)))
+             (vec2 (+ (vx loc) (vx r) (* dir (vx size)))
+                   (+ (vy loc) (vy r) (vy size))))))

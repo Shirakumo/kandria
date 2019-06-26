@@ -63,7 +63,9 @@
            (setf (vy loc) (- (vy pos) t-s height))))))
 
 (defmethod collides-p ((moving moving) (block platform) hit)
-  (< (vy (velocity moving)) 0))
+  (and (< (vy (velocity moving)) 0)
+       (<= (+ (vy (hit-location hit)) (floor +tile-size+ 2))
+           (- (vy (location moving)) (vy (bsize moving))))))
 
 (defmethod collide ((moving moving) (block platform) hit)
   (let* ((loc (location moving))
@@ -84,22 +86,22 @@
   (die moving))
 
 (defmethod collides-p ((moving moving) (block slope) hit)
-  (and (if (< (slope-l block) (slope-r block))
-           (<= 0 (vx (velocity moving)))
-           (< (vx (velocity moving)) 0))
-       (<= (+ (vy (location moving))
-              (vy (velocity moving)))
-           (+ (vy (hit-location hit))
-              (- (/ +tile-size+ 2))
-              (max (slope-l block) (slope-r block))))))
+  (let ((tt (slope (location moving) (velocity moving) (bsize moving) block (hit-location hit))))
+    (when tt
+      (setf (hit-time hit) tt)
+      (setf (hit-normal hit) (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
+                                           (- (vx2 (slope-r block)) (vx2 (slope-l block)))))))))
 
 (defmethod collide ((moving moving) (block slope) hit)
   (let* ((loc (location moving))
          (vel (velocity moving))
-         (pos (hit-location hit))
-         (height (vy (bsize moving)))
-         (t-s (/ (block-s block) 2))
-         (l (slope-l block))
-         (r (slope-r block)))
-    ;; FIXME: slopes lol
-    ))
+         (normal (hit-normal hit))
+         (slope (vec2 (vy normal) (- (vx normal)))))
+    (setf (svref (collisions moving) 2) block)
+    (nv+ loc (v* vel (hit-time hit)))
+    ;; FIXME: not great yet.
+    (incf (vy loc) 0.01)
+    (let ((vel2 (v* slope (v. vel slope))))
+      (if (< 0.1 (vlength vel2))
+          (vsetf vel (vx vel2) (vy vel2))
+          (vsetf vel 0 0)))))
