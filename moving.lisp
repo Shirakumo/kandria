@@ -99,9 +99,10 @@
          (slope (vec2 (vy normal) (- (vx normal)))))
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
-    ;; FIXME: not great yet.
-    (incf (vy loc) 0.01)
+    ;; KLUDGE: not great yet.
+    (incf (vy loc) 0.001)
     (let ((vel2 (v* slope (v. vel slope))))
-      (if (< 0.1 (vlength vel2))
-          (vsetf vel (vx vel2) (vy vel2))
-          (vsetf vel 0 0)))))
+      (if (and (< (vlength vel2) 0.3)
+               (= (signum (vx vel2)) (signum (vx normal))))
+          (vsetf vel 0 0)
+          (vsetf vel (vx vel2) (vy vel2))))))
