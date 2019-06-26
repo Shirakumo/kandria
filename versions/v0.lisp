@@ -11,14 +11,19 @@
     region))
 
 (define-encoder (region v0) (_b packet)
-  (let ((data (apply #'make-sexp-stream
-               (for:for ((entity over region)
-                         (_ collecting (encode entity)))))))
-    (zip:write-zipentry packet "data" data :file-write-date (get-universal-time)))
-  (list :name (name region)
-        :author (author region)
-        :version (version region)
-        :description (description region)))
+  (let ((entities ()))
+    (for:for ((entity over region))
+      (unless (typep entity 'chunk)
+        (push (encode entity) entities)))
+    (for:for ((entity across (aref (objects region) 0)))
+      (when (typep entity 'chunk)
+        (push (encode entity) entities)))
+    (let ((data (apply #'make-sexp-stream entities)))
+      (zip:write-zipentry packet "data" data :file-write-date (get-universal-time)))
+    (list :name (name region)
+          :author (author region)
+          :version (version region)
+          :description (description region))))
 
 (define-decoder (player v0) (initargs _p)
   (destructuring-bind (&key location) initargs

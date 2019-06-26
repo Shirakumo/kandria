@@ -3,15 +3,15 @@
 (define-asset (leaf player-mesh) mesh
     (make-rectangle 32 40))
 
-(define-global +vlim+ (vec2  1.75    10))
-;;                           GRD-ACC AIR-DCC AIR-ACC
-(define-global +vmove+ (vec3 0.3     0.98    0.1))
-;;                           CLIMB   SLIDE
-(define-global +vclim+ (vec2 1.0     1.5))
-;;                           JUMP    LONGJMP WALL-VX WALL-VY
-(define-global +vjump+ (vec4 2.5     1.1     6       3))
-;;                           ACC     DCC
-(define-global +vdash+ (vec2 10      0.8))
+(define-global +vlim+ (vec  10      10))
+;;                          GRD-ACC AIR-DCC AIR-ACC GRD-LIM
+(define-global +vmove+ (vec 0.3     0.97    0.08    1.75))
+;;                          CLIMB   DOWN    SLIDE
+(define-global +vclim+ (vec 0.8     1.5     -1.2))
+;;                          JUMP    LONGJMP WALL-VX WALL-VY
+(define-global +vjump+ (vec 2.5     1.1     2.75     3.5))
+;;                          ACC     DCC
+(define-global +vdash+ (vec 20      0.7))
 
 (define-shader-subject player (animated-sprite-subject moving facing-entity dialog-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
@@ -101,7 +101,9 @@
 
 (defmethod tick :before ((player player) ev)
   (let ((collisions (collisions player))
-        (vel (velocity player)))
+        (loc (location player))
+        (vel (velocity player))
+        (size (bsize player)))
     (setf (interactable player) NIL)
     (case (status player)
       (:dashing
@@ -112,9 +114,9 @@
                   (= 0 (mod (dash-count player) 3)))
          (enter (make-instance 'dust-cloud :location (vcopy (location player)))
                 +level+))
-       (cond ((< 15 (dash-count player))
+       (cond ((< 20 (dash-count player))
               (setf (status player) NIL))
-             ((< 12 (dash-count player))
+             ((< 15 (dash-count player))
               (nv* vel (vy +vdash+)))
              ((= 8 (dash-count player))
               (nv* vel (vx +vdash+)))))
@@ -135,54 +137,74 @@
              (T
               (setf (animation player) 'fall)))
        ;; Movement
-       (cond ((and (or (svref collisions 1)
-                       (svref collisions 3))
-                   (retained 'movement :climb)
-                   (not (retained 'movement :jump)))
-              ;; Climbing
-              (setf (direction player)
-                    (if (svref collisions 1) +1 -1))
-              (cond ((retained 'movement :up)
-                     (setf (vy vel) (vx +vclim+)))
-                    ((retained 'movement :down)
-                     (setf (vy vel) (* (vy +vclim+) -1)))
-                    (T
-                     (setf (frame player) 0)
-                     (setf (vy vel) 0))))
-             (T
-              ;; Movement
-              (if (svref collisions 2)
-                  (cond ((retained 'movement :left)
-                         (setf (direction player) -1)
-                         ;; Quick turns on the ground.
-                         (when (< 0 (vx vel))
-                           (setf (vx vel) 0))
-                         (decf (vx vel) (vx +vmove+)))
-                        ((retained 'movement :right)
-                         (setf (direction player) +1)
-                         ;; Quick turns on the ground.
-                         (when (< (vx vel) 0)
-                           (setf (vx vel) 0))
-                         (incf (vx vel) (vx +vmove+)))
-                        (T
-                         (setf (vx vel) 0)))
-                  (cond ((retained 'movement :left)
-                         (setf (direction player) -1)
-                         (decf (vx vel) (vz +vmove+)))
-                        ((retained 'movement :right)
-                         (setf (direction player) +1)
-                         (incf (vx vel) (vz +vmove+)))
-                        (T
-                         (setf (vx vel) (* (vx vel) (vy +vmove+))))))
-              ;; Jump progress
-              (when (< 0 (jump-count player))
-                (when (and (retained 'movement :jump)
-                           (<= 5 (jump-count player) 15))
-                  (setf (vy vel) (* (vy +vjump+) (vy vel))))
-                (incf (jump-count player)))
-              ;; FIXME: Hard-coded gravity
-              (decf (vy vel) 0.15)
-              (nvclamp (v- +vlim+) vel +vlim+))))))
+       (let ((l (scan (surface player) (vec (- (vx loc) (vx size) 2) (- (vy loc) (vy size) 2))))
+             (r (scan (surface player) (vec (+ (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))))
+         (cond ((and (retained 'movement :climb)
+                     (not (retained 'movement :jump))
+                     (or (svref collisions 1)
+                         (svref collisions 3)
+                         (and (eql :climbing (status player))
+                              (or l r))))
+                ;; Climbing
+                (setf (status player) :climbing)
+                (setf (direction player)
+                      (if (or (svref collisions 1) r) +1 -1))
+                (cond ((and l (null r) (null (svref collisions 3)))
+                       (setf (vy vel) (vx +vclim+))
+                       (setf (vx vel) (- (vx +vclim+))))
+                      ((and r (null l) (null (svref collisions 1)))
+                       (setf (vy vel) (vx +vclim+))
+                       (setf (vx vel) (vx +vclim+)))
+                      ((retained 'movement :up)
+                       (setf (vy vel) (vx +vclim+)))
+                      ((retained 'movement :down)
+                       (setf (vy vel) (* (vy +vclim+) -1)))
+                      (T
+                       (setf (frame player) 0)
+                       (setf (vy vel) 0))))
+               (T
+                (setf (status player) :normal)
+                ;; Movement
+                (setf (vx vel) (* (vx vel) (vy +vmove+)))
+                (if (svref collisions 2)
+                    (cond ((retained 'movement :left)
+                           (setf (direction player) -1)
+                           ;; Quick turns on the ground.
+                           (when (< 0 (vx vel))
+                             (setf (vx vel) 0))
+                           (when (< (- (vw +vmove+)) (vx vel))
+                             (decf (vx vel) (vx +vmove+))))
+                          ((retained 'movement :right)
+                           (setf (direction player) +1)
+                           ;; Quick turns on the ground.
+                           (when (< (vx vel) 0)
+                             (setf (vx vel) 0))
+                           (when (< (vx vel) (vw +vmove+))
+                             (incf (vx vel) (vx +vmove+))))
+                          (T
+                           (setf (vx vel) 0)))
+                    (cond ((retained 'movement :left)
+                           (setf (direction player) -1)
+                           (when (< (- (vw +vmove+)) (vx vel))
+                             (decf (vx vel) (vz +vmove+))))
+                          ((retained 'movement :right)
+                           (setf (direction player) +1)
+                           (when (< (vx vel) (vw +vmove+))
+                             (incf (vx vel) (vz +vmove+))))))
+                ;; Jump progress
+                (when (< 0 (jump-count player))
+                  (when (and (retained 'movement :jump)
+                             (<= 5 (jump-count player) 15))
+                    (setf (vy vel) (* (vy +vjump+) (vy vel))))
+                  (incf (jump-count player)))
+                ;; FIXME: Hard-coded gravity
+                (decf (vy vel) 0.15)
+                ;; Limit when sliding down wall
+                (when (and (or (svref collisions 1)
+                               (svref collisions 3))
+                           (< (vy vel) (vz +vclim+)))
+                  (setf (vy vel) (vz +vclim+))))))))
+    (nvclamp (v- +vlim+) vel +vlim+))
   ;; OOB
   (unless (contained-p (location player) (surface player))
     (let ((other (for:for ((entity over (unit 'region +level+)))
