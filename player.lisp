@@ -33,7 +33,9 @@
    :animations '((stand 0 8 :step 0.1)
                  (run 8 24 :step 0.05)
                  (jump 24 27 :step 0.1 :next fall)
-                 (fall 27 33 :step 0.1 :loop-to 29))))
+                 (fall 27 33 :step 0.1 :loop-to 29)
+                 (slide 33 39 :step 0.075 :loop-to 38)
+                 (climb 39 51 :step 0.1))))
 
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
@@ -78,7 +80,9 @@
            (let ((dir (if (svref collisions 1) -1.0 1.0)))
              (setf (vx vel) (* dir (vz +vjump+)))
              (setf (vy vel) (vw +vjump+))
-             (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 4)) (vy loc))
+             (setf (direction player) dir)
+             (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
+                                                               (vy loc))
                                                :direction (vec2 dir 0))
                     +level+))))))
 
@@ -123,22 +127,33 @@
       (:dying
        (nv* vel 0.9))
       (T
-       ;; Animations
-       (cond ((and (/= 0 (jump-count player))
-                   (retained 'movement :jump))
-              (setf (animation player) 'jump))
-             ((and (or (svref collisions 1)
-                       (svref collisions 3))
-                   (retained 'movement :climb))
-              ;;(setf (animation player) 4)
-              )
-             ((svref collisions 2)
-              (setf (animation player) (if (= 0 (vx vel)) 'stand 'run)))
-             (T
-              (setf (animation player) 'fall)))
-       ;; Movement
        (let ((l (scan (surface player) (vec (- (vx loc) (vx size) 2) (- (vy loc) (vy size) 2))))
              (r (scan (surface player) (vec (+ (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))))
+         ;; Animations
+         (cond ((and (/= 0 (jump-count player))
+                     (retained 'movement :jump))
+                (setf (animation player) 'jump))
+               ((and (or (svref collisions 1)
+                         (svref collisions 3) l r)
+                     (not (svref collisions 2)))
+                (cond ((not (retained 'movement :climb))
+                       (setf (animation player) 'slide))
+                      (T (setf (animation player) 'climb)
+                         (cond
+                           ((< 0 (vy vel))
+                            (setf (playback-direction player) +1)
+                            (setf (playback-speed player) 1.0))
+                           ((< (vy vel) 0)
+                            (setf (playback-direction player) -1)
+                            (setf (playback-speed player) 1.5))
+                           (T
+                            (reset-animation player))))))
+               ((svref collisions 2)
+                (setf (animation player) (if (= 0 (vx vel)) 'stand 'run)))
+               (T
+                (setf (animation player) 'fall)))
+         
+         ;; Movement
          (cond ((and (retained 'movement :climb)
                      (not (retained 'movement :jump))
                      (or (svref collisions 1)
@@ -160,7 +175,6 @@
                       ((retained 'movement :down)
                        (setf (vy vel) (* (vy +vclim+) -1)))
                       (T
-                       (setf (frame player) 0)
                        (setf (vy vel) 0))))
                (T
                 (setf (status player) :normal)
