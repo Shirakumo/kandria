@@ -15,8 +15,10 @@
   ())
 
 (define-handler (inactive-pause-menu pause) (ev)
-  (pause-game T inactive-pause-menu)
-  (change-class inactive-pause-menu 'active-pause-menu))
+  ;; FIXME: BROKEN
+  ;(pause-game T inactive-pause-menu)
+  ;(change-class inactive-pause-menu 'active-pause-menu)
+  )
 
 (define-shader-subject active-pause-menu (pause-menu)
   ((vertex-array :initform (asset 'trial 'trial::fullscreen-square) :accessor vertex-array)))

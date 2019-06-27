@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk (container-unit sized-entity solid)
+(define-shader-entity chunk (container-unit sized-entity solid lighted-entity)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
@@ -120,7 +120,25 @@ void main(){
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, ivec3(tile_xy, layer), 0).rg;
   color = texelFetch(tileset, ivec2(tile)*tile_size+pixel_xy, 0);
+  color.rgb = shade_lights(color.rgb, map_coord-map_wh/2);
 }")
+
+(defmethod activate ((chunk chunk))
+  (let ((lights (asset 'leaf 'lights)))
+    (macrolet ((define-lights (&body lights)
+                 `(progn
+                    (setf (buffer-field lights "Lights.count") ,(length lights))
+                    ,@(loop for light in lights
+                            for i from 0
+                            append (destructuring-bind (position radius &optional (color (vec 1 1 1)) (intensity 0.5)) light
+                                     `((setf (buffer-field lights ,(format NIL "Lights.point_lights[~d].position" i)) ,position)
+                                       (setf (buffer-field lights ,(format NIL "Lights.point_lights[~d].radius" i)) ,(float radius))
+                                       (setf (buffer-field lights ,(format NIL "Lights.point_lights[~d].color" i)) ,color)
+                                       (setf (buffer-field lights ,(format NIL "Lights.point_lights[~d].intensity" i)) ,(float intensity))))))))
+      (define-lights
+        ((vec -48 0) 64 (vec 1 0 0))
+        ((vec 0 48) 64 (vec 0 1 0))
+        ((vec 48 0) 64 (vec 0 0 1))))))
 
 (defmethod resize ((chunk chunk) w h)
   (let ((size (vec2 (floor w +tile-size+) (floor h +tile-size+))))
