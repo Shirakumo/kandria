@@ -253,6 +253,7 @@
 
 (define-handler (player switch-chunk) (ev chunk)
   (setf (surface player) chunk)
+  (activate chunk)
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod compute-resources :after ((player player) resources ready cache)
