@@ -104,6 +104,7 @@
     (setf (interactable player) interactable)))
 
 (defmethod tick :before ((player player) ev)
+  (activate (surface player))
   (let ((collisions (collisions player))
         (loc (location player))
         (vel (velocity player))
