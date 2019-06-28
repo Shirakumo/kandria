@@ -120,7 +120,7 @@ void main(){
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, ivec3(tile_xy, layer), 0).rg;
   color = texelFetch(tileset, ivec2(tile)*tile_size+pixel_xy, 0);
-  color.rgb = shade_lights(color.rgb, map_coord-map_wh/2);
+  color.rgb = shade_lights(color.rgb, map_xy-map_wh/2);
 }")
 
 (defmethod activate ((chunk chunk))
