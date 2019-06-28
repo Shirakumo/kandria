@@ -23,7 +23,7 @@
 (define-class-shader (lighted-entity :fragment-shader)
   (gl-source (asset 'leaf 'lights))
   "
-uniform float global_illumination = 0.15;
+uniform float global_illumination = 0.3;
 
 vec3 add(vec3 a, vec3 b){
   return a+b;
@@ -61,7 +61,7 @@ float trapezoid_light_sdf(vec2 p, vec4 dimensions){
   p.y += t;
   
   float m = length(p-c*max(dot(p,c),0.0));
-  return max(max(max(0,m*sign(c.y*p.x-c.x*p.y)), t-h), -(b+t+(-h)));
+  return max(max(m*sign(c.y*p.x-c.x*p.y), -h), -(b+(-h)));
 }
 
 float cone_light_sdf(vec2 p, vec4 dimensions){
@@ -91,8 +91,9 @@ vec3 shade_lights(vec3 albedo, vec2 position){
     Light light = lights.lights[i];
     vec2 relative_position = light.position - position;
     float sdf = evaluate_light(relative_position, light);
-    if(sdf <= 0)
-      color += add(albedo.rgb, light.color)*light.intensity;
+    if(sdf <= 0){
+      color += add(albedo.rgb, light.color)*light.intensity*clamp(-sdf/2, 0, 1);
+    }
   }
   color += global_illumination * albedo;
   return color;

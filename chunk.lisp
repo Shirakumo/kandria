@@ -136,11 +136,11 @@ void main(){
                                        (setf (buffer-field lights ,(format NIL "Lights.lights[~d].dimensions" i)) ,dimensions)
                                        (setf (buffer-field lights ,(format NIL "Lights.lights[~d].color" i)) ,color)
                                        (setf (buffer-field lights ,(format NIL "Lights.lights[~d].intensity" i)) ,(float intensity))))))))
-      (define-lights
-        (1 (vec -48 0) (vec4 64 0 0 0) (vec 1 0 0))
-        (1 (vec 0 48) (vec4 64 0 0 0) (vec 0 1 0))
-        (1 (vec 48 0) (vec4 64 0 0 0) (vec 0 0 1))
-        (2 (vec 0 0) (vec4 (->rad 30) 16 128 (/ (sin (clock +level+)) 4)) (vec 1 1 1))))))
+      (flet ((r (o) (/ (sin (+ o (clock +level+))) 20)))
+        (define-lights
+          (2 (vec -80 -14) (vec4 (->rad 30) 62 132 (r 1)) (vec 0.95 1 0.8) 0.3)
+            (2 (vec 80 -14) (vec4 (->rad 30) 62 132 (r 0)) (vec 1 0.95 0.8) 0.3)
+          (2 (vec 0 -14) (vec4 (->rad 30) 62 132 (r 2)) (vec 1 1 0.8) 0.3))))))
 
 (defmethod resize ((chunk chunk) w h)
   (let ((size (vec2 (floor w +tile-size+) (floor h +tile-size+))))
