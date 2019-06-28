@@ -234,7 +234,8 @@ void main(){
                ((setf tile) (f x y)
                  (setf (aref layer (+ 0 (pos x y))) (truncate (vx f))
                        (aref layer (+ 1 (pos x y))) (truncate (vy f)))))
-        (let ((q ()) (find (tile x y)))
+        (let ((q ()) (find (vec2 (aref layer (+ 0 (pos x y)))
+                                 (aref layer (+ 1 (pos x y))))))
           (unless (v= fill find)
             (push (cons x y) q)
             (loop while q for (n . y) = (pop q)
@@ -246,13 +247,14 @@ void main(){
                      (loop for i from w to e
                            do (setf (tile i y) fill)
                               (when (and (< y (1- height)) (v= (tile i (1+ y)) find))
-                                (push (cons i (1+ y)) q))
+                                (pushnew (cons i (1+ y)) q))
                               (when (and (< 0 y) (v= (tile i (1- y)) find))
-                                (push (cons i (1- y)) q))))
+                                (pushnew (cons i (1- y)) q))))
             (sb-sys:with-pinned-objects (layer)
               (let ((texture (texture chunk)))
-                (gl:bind-texture :texture-2d (gl-name texture))
-                (%gl:tex-sub-image-2d :texture-2d 0 0 0 width height (pixel-format texture) (pixel-type texture)
+                (gl:bind-texture :texture-2d-array (gl-name texture))
+                (%gl:tex-sub-image-3d :texture-2d-array 0 0 0 z width height 1
+                                      (pixel-format texture) (pixel-type texture)
                                       (sb-sys:vector-sap layer))))))))))
 
 (defmethod flood-fill ((chunk chunk) (location vec2) fill)
