@@ -2,14 +2,15 @@
 
 (define-global +light-count+ 16)
 
-(define-gl-struct point-light
+(define-gl-struct light
+  (type :int)
   (position :vec2)
-  (radius :float)
+  (dimensions :vec4)
   (color :vec3)
   (intensity :float))
 
 (define-gl-struct lights
-  (point-lights (:struct point-light) :array-size +light-count+)
+  (lights (:struct light) :array-size +light-count+)
   (count :int))
 
 (define-asset (leaf lights) uniform-buffer
@@ -40,19 +41,58 @@ vec3 soft_light(vec3 a, vec3 b){
   return (1-2*b)*a*a + 2*b*a;
 }
 
-vec3 shade_point_light(vec3 color, vec2 position, struct PointLight light){
-  float falloff = distance(position, light.position) / light.radius;
-  if(falloff <= 1){
-    return add(color.rgb, light.color)*light.intensity*(1-falloff);
-  }else{
-    return vec3(0);
+float point_light_sdf(vec2 position, vec4 dimensions){
+  return length(position) - dimensions.x;
+}
+
+float trapezoid_light_sdf(vec2 p, vec4 dimensions){
+  vec2 c = vec2(sin(dimensions.x/2), cos(dimensions.x/2));
+  float t = dimensions.y;
+  float b = dimensions.z;
+  float theta = dimensions.w;
+  float h = p.y;
+
+  mat2 rot;
+  rot[0] = vec2(cos(theta), -sin(theta));
+  rot[1] = vec2(sin(theta), cos(theta));
+  p = rot*p;
+
+  p.x = abs(p.x);
+  p.y += t;
+  
+  float m = length(p-c*max(dot(p,c),0.0));
+  return max(max(max(0,m*sign(c.y*p.x-c.x*p.y)), t-h), -(b+t+(-h)));
+}
+
+float cone_light_sdf(vec2 p, vec4 dimensions){
+  vec2 c = vec2(sin(dimensions.x/2), cos(dimensions.x/2));
+  float r = dimensions.y + dimensions.z;
+  float t = dimensions.z;
+
+  p.x = abs(p.x);
+  p.y += t;
+  float l = length(p) - r;
+  float m = length(p-c*clamp(dot(p,c),0.0,r));
+  return max(max(l,m*sign(c.y*p.x-c.x*p.y)), t-p.y);
+}
+
+float evaluate_light(vec2 position, struct Light light){
+  switch(light.type){
+  case 1: return point_light_sdf(position, light.dimensions);
+  case 2: return trapezoid_light_sdf(position, light.dimensions);
+  case 3: return cone_light_sdf(position, light.dimensions);
+  default: return 1;
   }
 }
 
 vec3 shade_lights(vec3 albedo, vec2 position){
   vec3 color = vec3(0);
   for(int i=0; i<lights.count; ++i){
-    color += shade_point_light(albedo, position, lights.point_lights[i]);
+    Light light = lights.lights[i];
+    vec2 relative_position = light.position - position;
+    float sdf = evaluate_light(relative_position, light);
+    if(sdf <= 0)
+      color += add(albedo.rgb, light.color)*light.intensity;
   }
   color += global_illumination * albedo;
   return color;

@@ -77,6 +77,9 @@
 (defun clamp (low mid high)
   (max low (min mid high)))
 
+(defun ->rad (deg)
+  (* PI (/ deg 180)))
+
 (defun update-instance-initforms (class)
   (flet ((update (instance)
            (loop for slot in (c2mop:class-direct-slots class)

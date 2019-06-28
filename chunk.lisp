@@ -130,15 +130,17 @@ void main(){
                     (setf (buffer-field lights "Lights.count") ,(length lights))
                     ,@(loop for light in lights
                             for i from 0
-                            append (destructuring-bind (position radius &optional (color (vec 1 1 1)) (intensity 0.5)) light
-                                     `((setf (buffer-field lights ,(format NIL "Lights.point_lights[~d].position" i)) ,position)
-                                       (setf (buffer-field lights ,(format NIL "Lights.point_lights[~d].radius" i)) ,(float radius))
-                                       (setf (buffer-field lights ,(format NIL "Lights.point_lights[~d].color" i)) ,color)
-                                       (setf (buffer-field lights ,(format NIL "Lights.point_lights[~d].intensity" i)) ,(float intensity))))))))
+                            append (destructuring-bind (type position dimensions &optional (color (vec 1 1 1)) (intensity 0.5)) light
+                                     `((setf (buffer-field lights ,(format NIL "Lights.lights[~d].type" i)) ,type)
+                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].position" i)) ,position)
+                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].dimensions" i)) ,dimensions)
+                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].color" i)) ,color)
+                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].intensity" i)) ,(float intensity))))))))
       (define-lights
-        ((vec -48 0) 64 (vec 1 0 0))
-        ((vec 0 48) 64 (vec 0 1 0))
-        ((vec 48 0) 64 (vec 0 0 1))))))
+        (1 (vec -48 0) (vec4 64 0 0 0) (vec 1 0 0))
+        (1 (vec 0 48) (vec4 64 0 0 0) (vec 0 1 0))
+        (1 (vec 48 0) (vec4 64 0 0 0) (vec 0 0 1))
+        (2 (vec 0 0) (vec4 (->rad 30) 16 128 (/ (sin (clock +level+)) 4)) (vec 1 1 1))))))
 
 (defmethod resize ((chunk chunk) w h)
   (let ((size (vec2 (floor w +tile-size+) (floor h +tile-size+))))
