@@ -63,11 +63,11 @@
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
         (vao (vertex-array chunk)))
-    (translate (nv- (vxy_ (bsize chunk))))
     (setf (uniform program "layer") (+ *current-layer* (floor +layer-count+ 2)))
     (setf (uniform program "tile_size") +tile-size+)
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "map_size") (size chunk))
+    (setf (uniform program "map_position") (location chunk))
     (setf (uniform program "view_matrix") (minv *view-matrix*))
     (setf (uniform program "model_matrix") (minv *model-matrix*))
     (setf (uniform program "tileset") 0)
@@ -98,6 +98,7 @@ void main(){
 uniform usampler2DArray tilemap;
 uniform sampler2D tileset;
 uniform vec2 map_size;
+uniform vec2 map_position;
 uniform int tile_size;
 uniform int layer;
 in vec2 map_coord;
@@ -105,7 +106,7 @@ out vec4 color;
 
 void main(){
   ivec2 map_wh = ivec2(map_size)*tile_size;
-  ivec2 map_xy = ivec2(map_coord);
+  ivec2 map_xy = ivec2(map_coord)+map_wh/2-1;
   
   // Bounds check to avoid bad lookups
   if(map_xy.x < 0 || map_xy.y < 0 || map_wh.x <= map_xy.x || map_wh.y <= map_xy.y){
@@ -120,7 +121,7 @@ void main(){
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, ivec3(tile_xy, layer), 0).rg;
   color = texelFetch(tileset, ivec2(tile)*tile_size+pixel_xy, 0);
-  color.rgb = shade_lights(color.rgb, map_xy-map_wh/2);
+  color.rgb = shade_lights(color.rgb, map_xy+map_position-map_wh/2);
 }")
 
 (defmethod activate ((chunk chunk))
@@ -132,14 +133,14 @@ void main(){
                             for i from 0
                             append (destructuring-bind (type position dimensions &optional (color (vec 1 1 1)) (intensity 0.5)) light
                                      `((setf (buffer-field lights ,(format NIL "Lights.lights[~d].type" i)) ,type)
-                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].position" i)) ,position)
+                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].position" i)) (v+ ,position (location chunk)))
                                        (setf (buffer-field lights ,(format NIL "Lights.lights[~d].dimensions" i)) ,dimensions)
                                        (setf (buffer-field lights ,(format NIL "Lights.lights[~d].color" i)) ,color)
                                        (setf (buffer-field lights ,(format NIL "Lights.lights[~d].intensity" i)) ,(float intensity))))))))
       (flet ((r (o) (/ (sin (+ o (clock +level+))) 20)))
         (define-lights
           (2 (vec -80 -14) (vec4 (->rad 30) 62 132 (r 1)) (vec 0.95 1 0.8) 0.3)
-            (2 (vec 80 -14) (vec4 (->rad 30) 62 132 (r 0)) (vec 1 0.95 0.8) 0.3)
+          (2 (vec 80 -14) (vec4 (->rad 30) 62 132 (r 0)) (vec 1 0.95 0.8) 0.3)
           (2 (vec 0 -14) (vec4 (->rad 30) 62 132 (r 2)) (vec 1 1 0.8) 0.3))))))
 
 (defmethod resize ((chunk chunk) w h)

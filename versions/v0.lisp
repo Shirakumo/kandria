@@ -54,6 +54,13 @@
             :tileset ,(encode (tileset chunk))
             :layers ,layers)))
 
+(define-decoder (background v0) (initargs _)
+  (destructuring-bind (&key texture) initargs
+    (make-instance 'background :texture (decode 'asset texture))))
+
+(define-encoder (background v0) (_b _p)
+  `(background :texture ,(encode (texture background))))
+
 (define-decoder (vec2 v0) (data _p)
   (destructuring-bind (x y) data
     (vec2 x y)))
