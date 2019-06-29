@@ -15,6 +15,11 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
+(define-asset (leaf icey-mountains) image
+    #p "icey-mountains.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
 (defclass empty-level (level)
   ()
   (:default-initargs :name :untitled))
@@ -22,6 +27,7 @@
 (defmethod initialize-instance :after ((level empty-level) &key)
   (let ((region (make-instance 'region)))
     (enter region level)
+    (enter (make-instance 'background :texture (asset 'leaf 'icey-mountains)) region)
     (enter (make-instance 'chunk :tileset (asset 'leaf 'ice)) region)
     (enter (make-instance 'player :location (vec 64 64)) region)))
 

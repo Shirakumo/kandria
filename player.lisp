@@ -13,7 +13,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 20      0.7))
 
-(define-shader-subject player (animated-sprite-subject moving facing-entity dialog-entity)
+(define-shader-subject player (animated-sprite-subject moving facing-entity dialog-entity lighted-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
@@ -41,6 +41,24 @@
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod resize ((player player) w h))
+
+(define-class-shader (player :vertex-shader)
+  "layout (location = 0) in vec3 vertex;
+out vec2 world_pos;
+uniform mat4 model_matrix;
+
+void main(){
+  world_pos = (model_matrix * vec4(vertex, 1)).xy;
+}")
+
+(define-class-shader (player :fragment-shader)
+  "in vec2 world_pos;
+out vec4 color;
+
+void main(){
+  color.rgb = shade_lights(color.rgb, ivec2(world_pos)+2);
+}")
+
 
 (define-handler (player interact) (ev)
   (when (interactable player)

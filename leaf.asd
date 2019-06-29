@@ -8,6 +8,7 @@
                (:file "textbox")
                (:file "surface")
                (:file "lighting")
+               (:file "background")
                (:file "chunk")
                (:file "moving-platform")
                (:file "moving")
