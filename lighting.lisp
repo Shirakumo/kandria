@@ -10,7 +10,7 @@
   (intensity :float))
 
 (define-gl-struct lights
-  (lights (:struct light) :array-size +light-count+)
+  (lights (:struct light) :count +light-count+)
   (count :int))
 
 (define-asset (leaf lights) uniform-buffer
@@ -76,12 +76,12 @@ float cone_light_sdf(vec2 p, vec4 dimensions){
   return max(max(l,m*sign(c.y*p.x-c.x*p.y)), t-p.y);
 }
 
-float evaluate_light(vec2 position, struct Light light){
+float evaluate_light(vec2 position, Light light){
   switch(light.type){
   case 1: return point_light_sdf(position, light.dimensions);
   case 2: return trapezoid_light_sdf(position, light.dimensions);
   case 3: return cone_light_sdf(position, light.dimensions);
-  default: return 1;
+  default: return 1.0;
   }
 }
 
