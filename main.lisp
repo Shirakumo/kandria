@@ -25,10 +25,16 @@
   (:default-initargs :name :untitled))
 
 (defmethod initialize-instance :after ((level empty-level) &key)
-  (let ((region (make-instance 'region)))
+  (let ((region (make-instance 'region))
+        (chunk (make-instance 'chunk :tileset (asset 'leaf 'ice))))
     (enter region level)
     (enter (make-instance 'background :texture (asset 'leaf 'icey-mountains)) region)
-    (enter (make-instance 'chunk :tileset (asset 'leaf 'ice)) region)
+    (enter chunk region)
+    (enter (make-instance 'moving-platform :texture (asset 'leaf 'ice)
+                                           :tile (vec 0 4)
+                                           :size (vec 48 48)
+                                           :bsize (vec 24 24))
+           chunk)
     (enter (make-instance 'player :location (vec 64 64)) region)))
 
 (defclass main (trial:main)
