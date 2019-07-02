@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk (container-unit sized-entity solid lighted-entity)
+(define-shader-entity chunk (container-unit sized-entity solid lighted-entity light-environment)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
@@ -121,27 +121,8 @@ void main(){
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, ivec3(tile_xy, layer), 0).rg;
   color = texelFetch(tileset, ivec2(tile)*tile_size+pixel_xy, 0);
-  color.rgb = shade_lights(color.rgb, map_xy+map_position-map_wh/2);
+  color.rgb = shade_lights(color.rgb, vec3(map_xy+map_position-map_wh/2, layer-2));
 }")
-
-(defmethod activate ((chunk chunk))
-  (let ((lights (asset 'leaf 'lights)))
-    (macrolet ((define-lights (&body lights)
-                 `(progn
-                    (setf (buffer-field lights "Lights.count") ,(length lights))
-                    ,@(loop for light in lights
-                            for i from 0
-                            append (destructuring-bind (type position dimensions &optional (color (vec 1 1 1)) (intensity 0.5)) light
-                                     `((setf (buffer-field lights ,(format NIL "Lights.lights[~d].type" i)) ,type)
-                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].position" i)) (v+ ,position (location chunk)))
-                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].dimensions" i)) ,dimensions)
-                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].color" i)) ,color)
-                                       (setf (buffer-field lights ,(format NIL "Lights.lights[~d].intensity" i)) ,(float intensity))))))))
-      (flet ((r (o) (/ (sin (+ o (clock +level+))) 20)))
-        (define-lights
-          (2 (vec -80 -14) (vec4 (->rad 30) 62 132 (r 1)) (vec 0.95 1 0.8) 0.3)
-          (2 (vec 80 -14) (vec4 (->rad 30) 62 132 (r 0)) (vec 1 0.95 0.8) 0.3)
-          (2 (vec 0 -14) (vec4 (->rad 30) 62 132 (r 2)) (vec 1 1 0.8) 0.3))))))
 
 (defmethod resize ((chunk chunk) w h)
   (let ((size (vec2 (floor w +tile-size+) (floor h +tile-size+))))

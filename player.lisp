@@ -56,7 +56,7 @@ void main(){
 out vec4 color;
 
 void main(){
-  color.rgb = shade_lights(color.rgb, ivec2(world_pos)+2);
+  color.rgb = shade_lights(color.rgb, ivec3(world_pos+2, 0));
 }")
 
 
@@ -122,7 +122,6 @@ void main(){
     (setf (interactable player) interactable)))
 
 (defmethod tick :before ((player player) ev)
-  (activate (surface player))
   (let ((collisions (collisions player))
         (loc (location player))
         (vel (velocity player))
@@ -271,8 +270,10 @@ void main(){
     (issue level 'switch-chunk :chunk other)))
 
 (define-handler (player switch-chunk) (ev chunk)
-  (setf (surface player) chunk)
+  (when (surface player)
+    (deactivate (surface player)))
   (activate chunk)
+  (setf (surface player) chunk)
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod compute-resources :after ((player player) resources ready cache)
