@@ -315,7 +315,7 @@
 
 (defmethod paint :before ((sprite sprite-entity) target)
   (let ((size (size sprite)))
-    (translate-by (/ (vx size) -2) (/ (vy size) 2) 0)
+    (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
     (scale (vxy_ size))))
 
 (defmethod resize ((sprite sprite-entity) width height)
@@ -332,7 +332,14 @@
                    (location entity) (v+ (bsize entity) (bsize target)))))
     (when hit
       (setf (hit-object hit) entity)
-      (collide target entity hit))))
+      hit)))
+
+(defmethod scan ((entity game-entity) (target game-entity))
+  (let ((hit (aabb (location target) (v+ (velocity target) (velocity entity))
+                   (location entity) (v+ (bsize entity) (bsize target)))))
+    (when hit
+      (setf (hit-object hit) entity)
+      hit)))
 
 (defclass trigger (sized-entity)
   ((event-type :initarg :event-type :initform (error "EVENT-TYPE required.") :accessor event-type

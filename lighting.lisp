@@ -157,7 +157,7 @@
         (setf (index light) i)
         (activate light)
         (incf i)))
-    (setf (buffer-field lights "Lights.count") (print i))
+    (setf (buffer-field lights "Lights.count") i)
     (setf (buffer-field lights "Lights.global_illumination") (global-illumination environment))))
 
 (defmethod activate :after ((environment light-environment))
