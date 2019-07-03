@@ -335,7 +335,7 @@
       hit)))
 
 (defmethod scan ((entity game-entity) (target game-entity))
-  (let ((hit (aabb (location target) (v+ (velocity target) (velocity entity))
+  (let ((hit (aabb (location target) (v- (velocity target) (velocity entity))
                    (location entity) (v+ (bsize entity) (bsize target)))))
     (when hit
       (setf (hit-object hit) entity)

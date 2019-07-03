@@ -17,10 +17,9 @@
          (loc (location moving))
          (vel (velocity moving))
          (size (bsize moving)))
-    ;; Scan for hits until we run out of velocity or hits.
+    ;; Scan for hits
     (fill (collisions moving) NIL)
-    (loop while (and (or (/= 0 (vx vel)) (/= 0 (vy vel)))
-                     (scan surface moving)))
+    (loop repeat 10 while (scan surface moving))
     ;; Remaining velocity (if any) can be added safely.
     (nv+ loc vel)
     ;; Point test for adjacent walls
@@ -117,18 +116,19 @@
     (cond ((= +1 (vy normal)) (setf (svref (collisions moving) 2) platform)
            (nv+ loc (velocity platform)))
           ((= -1 (vy normal)) (setf (svref (collisions moving) 0) platform))
-          ((= +1 (vx normal)) (setf (svref (collisions moving) 3) platform))
-          ((= -1 (vx normal)) (setf (svref (collisions moving) 1) platform)))
-    (nv+ loc (v* vel (hit-time hit)))
+          ((= +1 (vx normal)) (setf (svref (collisions moving) 3) platform)
+           (nv+ loc (velocity platform)))
+          ((= -1 (vx normal)) (setf (svref (collisions moving) 1) platform)
+           (nv+ loc (velocity platform))))
+    ;;(nv+ loc (v* (v- vel (velocity platform)) (hit-time hit)))
     (cond ((< (* (vy vel) (vy normal)) 0) (setf (vy vel) 0))
           ((< (* (vx vel) (vx normal)) 0) (setf (vx vel) 0)))
-    (break)
     ;; Zip out of ground in case of clipping
     (cond ((and (/= 0 (vy normal))
                 (< (vy pos) (vy loc))
                 (< (- (vy loc) (vy bsize))
                    (+ (vy pos) (vy psize))))
-           (setf (vy loc) (+ (vy pos) (vy psize) (vy bsize))))
+           (setf (vy loc) (+ (vy pos) (vy psize) (vy bsize) (max 0 (vy (velocity platform))))))
           ((and (/= 0 (vy normal))
                 (< (vy loc) (vy pos))
                 (< (- (vy pos) (vy psize))
