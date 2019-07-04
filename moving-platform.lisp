@@ -6,4 +6,4 @@
 (defmethod tick ((moving-platform moving-platform) ev)
   (nv+ (location moving-platform) (velocity moving-platform))
   (vsetf (velocity moving-platform)
-         0 (/ (sin (tt ev)) 4)))
+         (/ (sin (tt ev)) 4) 0))
