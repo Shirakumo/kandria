@@ -1,9 +1,10 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defmacro define-global (name value)
-  `(if (boundp ',name)
-       (setf ,name ,value)
-       (sb-ext:defglobal ,name ,value)))
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (if (boundp ',name)
+         (setf ,name ,value)
+         (sb-ext:defglobal ,name ,value))))
 
 (define-global +tile-size+ 16)
 (define-global +layer-count+ 5)
@@ -238,9 +239,6 @@
 
 (defgeneric initargs (object)
   (:method-combination append :most-specific-last))
-
-(defclass post-tick (event)
-  ())
 
 (defclass base-entity (entity)
   ())

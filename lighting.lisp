@@ -17,7 +17,7 @@
 (define-asset (leaf lights) uniform-buffer
     'lights)
 
-(defclass light (located-entity)
+(defclass lisp-light (located-entity)
   ((index :initform NIL :accessor index)
    (location :initarg :location :initform (vec 0 0 0) :accessor location
              :type vec3 :documentation "The location in 3D space.")
@@ -27,19 +27,19 @@
               :type single-float :documentation "The light intensity.")
    (light-dimensions :initform (vec 0 0 0 0) :accessor light-dimensions)))
 
-(defmethod active-p ((light light))
+(defmethod active-p ((light lisp-light))
   (not (null (index light))))
 
-(defmethod (setf location) :after (_ (light light))
+(defmethod (setf location) :after (_ (light lisp-light))
   (activate light))
 
-(defmethod (setf color) :after (_ (light light))
+(defmethod (setf color) :after (_ (light lisp-light))
   (activate light))
 
-(defmethod (setf intensity) :after (_ (light light))
+(defmethod (setf intensity) :after (_ (light lisp-light))
   (activate light))
 
-(defmethod activate ((entity light))
+(defmethod activate ((entity lisp-light))
   (when (active-p entity)
     (with-buffer-tx (struct (asset 'leaf 'lights))
       (let ((light (elt (lights struct) (index entity))))
@@ -49,12 +49,12 @@
         (setf (color light) (color entity))
         (setf (intensity light) (intensity entity))))))
 
-(defmethod deactivate ((entity light))
+(defmethod deactivate ((entity lisp-light))
   (when (active-p entity)
     (with-buffer-tx (struct (asset 'leaf 'lights))
       (setf (light-type (elt (lights struct) (index entity))) 0))))
 
-(defclass point-light (light)
+(defclass point-light (lisp-light)
   ())
 
 (defmethod shared-initialize :after ((light point-light) slots &key radius)
@@ -69,7 +69,7 @@
   (setf (vx4 (light-dimensions light)) value)
   (activate light))
 
-(defclass cone-light (light)
+(defclass cone-light (lisp-light)
   ())
 
 (defmethod shared-initialize :after ((light cone-light) slots &key aperture radius angle)
@@ -100,7 +100,7 @@
   (setf (vz4 (light-dimensions light)) value)
   (activate light))
 
-(defclass trapezoid-light (light)
+(defclass trapezoid-light (lisp-light)
   ())
 
 (defmethod shared-initialize :after ((light trapezoid-light) slots &key aperture top height angle)
@@ -167,18 +167,18 @@
     (for:for ((light over environment))
       (when (typep light 'light)
         (setf (index light) NIL)))
-    (setf (slot-value struct 'count) i)
+    (setf (slot-value struct 'count) 0)
     (setf (global-illumination struct) (global-illumination environment))))
 
 (defmethod deactivate :before ((environment light-environment))
   (setf (slot-value environment 'active-p) NIL))
 
 ;; Refresh environment to remove/add lights dynamically
-(defmethod enter :after ((light light) (environment light-environment))
+(defmethod enter :after ((light lisp-light) (environment light-environment))
   (when (active-p environment)
     (activate environment)))
 
-(defmethod leave :after ((light light) (environment light-environment))
+(defmethod leave :after ((light lisp-light) (environment light-environment))
   (when (active-p environment)
     (activate environment)))
 
