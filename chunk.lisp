@@ -106,7 +106,7 @@ out vec4 color;
 
 void main(){
   ivec2 map_wh = ivec2(map_size)*tile_size;
-  ivec2 map_xy = ivec2(map_coord)+map_wh/2-1;
+  ivec2 map_xy = ivec2(map_coord+map_wh/2.);
   
   // Bounds check to avoid bad lookups
   if(map_xy.x < 0 || map_xy.y < 0 || map_wh.x <= map_xy.x || map_wh.y <= map_xy.y){
