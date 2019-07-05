@@ -269,14 +269,14 @@ void main(){
     ;; Figure out bounding region
     (if (< 0 (vx vel))
         (setf x- (floor (- (vx lloc) (vx size)) t-s)
-              x+ (ceiling (+ (vx lloc) (vx vel)) t-s))
+              x+ (ceiling (+ (vx lloc) (vx vel) (vx size)) t-s))
         (setf x- (floor (- (+ (vx lloc) (vx vel)) (vx size)) t-s)
-              x+ (ceiling (vx lloc) t-s)))
+              x+ (ceiling (+ (vx lloc) (vx size)) t-s)))
     (if (< 0 (vy vel))
         (setf y- (floor (- (vy lloc) (vy size)) t-s)
-              y+ (ceiling (+ (vy lloc) (vy vel)) t-s))
+              y+ (ceiling (+ (vy lloc) (vy vel) (vy size)) t-s))
         (setf y- (floor (- (+ (vy lloc) (vy vel)) (vy size)) t-s)
-              y+ (ceiling (vy lloc) t-s)))
+              y+ (ceiling (+ (vy lloc) (vy size)) t-s)))
     ;; Sweep AABB through tiles
     (loop for x from (max x- 0) to (min x+ (1- w))
           do (loop for y from (max y- 0) to (min y+ (1- h))
