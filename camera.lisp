@@ -68,3 +68,6 @@
     (reset-matrix *view-matrix*)
     (scale-by z z z *view-matrix*)
     (translate-by (vx v) (vy v) 100 *view-matrix*)))
+
+(defmethod shake-camera (&optional (intensity 20))
+  (setf (shake-counter (unit :camera +level+)) intensity))

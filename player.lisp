@@ -59,7 +59,6 @@ void main(){
   color.rgb = shade_lights(color.rgb, ivec3(world_pos+2, 0));
 }")
 
-
 (define-handler (player interact) (ev)
   (when (interactable player)
     (issue +level+ 'interaction :with (name (interactable player)))))
