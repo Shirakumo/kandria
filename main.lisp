@@ -59,7 +59,6 @@
 
 (defmethod update ((main main) tt dt)
   (issue (scene main) 'trial:tick :tt tt :dt dt)
-  (issue (scene main) 'post-tick)
   (process (scene main)))
 
 (defmethod save-state ((main main) (_ (eql T)))
