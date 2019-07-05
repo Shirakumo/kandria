@@ -85,7 +85,8 @@ void main(){
          (acc (acceleration player)))
     (cond ((svref collisions 2)
            ;; Ground jump
-           (setf (vy acc) (vx +vjump+))
+           (setf (vy acc) (+ (vx +vjump+)
+                             (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))))
            (incf (jump-count player))
            (enter (make-instance 'dust-cloud :location (vcopy loc))
                   +level+))
@@ -200,6 +201,7 @@ void main(){
        (setf (vx acc) (* (vx acc) (vy +vmove+)))
        (cond ((svref collisions 2)
               (setf (vy acc) (max 0 (vy acc)))
+              (incf (vy acc) (min 0 (vy (velocity (svref collisions 2)))))
               (cond ((retained 'movement :left)
                      (setf (direction player) -1)
                      ;; Quick turns on the ground.
