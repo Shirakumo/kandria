@@ -50,6 +50,9 @@
   (location NIL :type vec2)
   (normal NIL :type vec2))
 
+(defmethod velocity ((block block))
+  #.(vec2 0 0))
+
 (defmethod collides-p (object target hit)
   T)
 
