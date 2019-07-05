@@ -3,15 +3,15 @@
 (define-global +light-count+ 32)
 
 (define-gl-struct light
-  (type :int)
-  (position :vec3)
-  (dimensions :vec4)
-  (color :vec3)
-  (intensity :float))
+  (type :int :accessor light-type)
+  (location :vec3 :accessor location)
+  (dimensions :vec4 :accessor light-dimensions)
+  (color :vec3 :accessor color)
+  (intensity :float :accessor intensity))
 
 (define-gl-struct lights
-  (global-illumination :vec3)
-  (lights (:struct light) :count +light-count+)
+  (global-illumination :vec3 :accessor global-illumination)
+  (lights (:array (:struct light) #.+light-count+) :reader lights)
   (count :int))
 
 (define-asset (leaf lights) uniform-buffer
@@ -39,21 +39,20 @@
 (defmethod (setf intensity) :after (_ (light light))
   (activate light))
 
-(defmethod activate ((light light))
-  (when (active-p light)
-    (let ((i (index light))
-          (lights (asset 'leaf 'lights)))
-      (setf (buffer-field lights (format NIL "Lights.lights[~d].type" i)) (light-type light))
-      (setf (buffer-field lights (format NIL "Lights.lights[~d].position" i)) (location light))
-      (setf (buffer-field lights (format NIL "Lights.lights[~d].dimensions" i)) (light-dimensions light))
-      (setf (buffer-field lights (format NIL "Lights.lights[~d].color" i)) (color light))
-      (setf (buffer-field lights (format NIL "Lights.lights[~d].intensity" i)) (intensity light)))))
+(defmethod activate ((entity light))
+  (when (active-p entity)
+    (with-buffer-tx (struct (asset 'leaf 'lights))
+      (let ((light (elt (lights struct) (index entity))))
+        (setf (light-type light) (light-type entity))
+        (setf (location light) (location entity))
+        (setf (light-dimensions light) (light-dimensions entity))
+        (setf (color light) (color entity))
+        (setf (intensity light) (intensity entity))))))
 
-(defmethod deactivate ((light light))
-  (let ((i (index light)))
-    (when i
-      (let ((lights (asset 'leaf 'lights)))
-        (setf (buffer-field lights (format NIL "Lights.lights[~d].type" i)) 0)))))
+(defmethod deactivate ((entity light))
+  (when (active-p entity)
+    (with-buffer-tx (struct (asset 'leaf 'lights))
+      (setf (light-type (elt (lights struct) (index entity))) 0))))
 
 (defclass point-light (light)
   ())
@@ -146,30 +145,30 @@
 
 (defmethod (setf global-illumination) :after (value (environment light-environment))
   (when (active-p environment)
-    (let ((lights (asset 'leaf 'lights)))
-      (setf (buffer-field lights "Lights.global_illumination") value))))
+    (with-buffer-tx (struct (asset 'leaf 'lights))
+      (setf (global-illumination struct) (global-illumination environment)))))
 
 (defmethod activate ((environment light-environment))
-  (let ((lights (asset 'leaf 'lights))
-        (i 0))
-    (for:for ((light over environment))
-      (when (typep light 'light)
-        (setf (index light) i)
-        (activate light)
-        (incf i)))
-    (setf (buffer-field lights "Lights.count") i)
-    (setf (buffer-field lights "Lights.global_illumination") (global-illumination environment))))
+  (with-buffer-tx (struct (asset 'leaf 'lights))
+    (let ((i 0))
+      (for:for ((light over environment))
+        (when (typep light 'light)
+          (setf (index light) i)
+          (activate light)
+          (incf i)))
+      (setf (slot-value struct 'count) i)
+      (setf (global-illumination struct) (global-illumination environment)))))
 
 (defmethod activate :after ((environment light-environment))
   (setf (slot-value environment 'active-p) T))
 
 (defmethod deactivate ((environment light-environment))
-  (let ((lights (asset 'leaf 'lights)))
+  (with-buffer-tx (struct (asset 'leaf 'lights))
     (for:for ((light over environment))
       (when (typep light 'light)
         (setf (index light) NIL)))
-    (setf (buffer-field lights "Lights.count") 0)
-    (setf (buffer-field lights "Lights.global_illumination") (vec 1 1 1))))
+    (setf (slot-value struct 'count) i)
+    (setf (global-illumination struct) (global-illumination environment))))
 
 (defmethod deactivate :before ((environment light-environment))
   (setf (slot-value environment 'active-p) NIL))
@@ -261,7 +260,7 @@ vec3 shade_lights(vec3 albedo, vec3 position){
   vec3 color = lights.global_illumination * albedo;
   for(int i=0; i<lights.count; ++i){
     Light light = lights.lights[i];
-    vec3 relative_position = light.position - position;
+    vec3 relative_position = light.location - position;
 
     // Don't light layers that are more than one away from the light.
     if(1 < abs(relative_position.z)) continue;
