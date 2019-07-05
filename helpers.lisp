@@ -368,3 +368,5 @@
   ((chunk :initarg :chunk :reader chunk)))
 
 (defclass unpausable () ())
+
+(define-shader-subject player () ())
