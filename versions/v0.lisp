@@ -33,12 +33,15 @@
   `(player :location ,(encode (location player))))
 
 (define-decoder (chunk v0) (initargs packet)
-  (destructuring-bind (&key name location size tileset layers) initargs
-    (make-instance 'chunk :name name
-                          :location (decode 'vec2 location)
-                          :size (decode 'vec2 size)
-                          :tileset (decode 'asset tileset)
-                          :layers (loop for file in layers collect (load-packet-file packet file T)))))
+  (destructuring-bind (&key name location size tileset layers children) initargs
+    (let ((chunk (make-instance 'chunk :name name
+                                       :location (decode 'vec2 location)
+                                       :size (decode 'vec2 size)
+                                       :tileset (decode 'asset tileset)
+                                       :layers (loop for file in layers collect (load-packet-file packet file T)))))
+      (loop for (type . initargs) in children
+            do (enter (decode type initargs) chunk))
+      chunk)))
 
 (define-encoder (chunk v0) (_b packet)
   (let ((layers (loop for i from 0
@@ -47,12 +50,15 @@
                       for path = (format NIL "resources/~a-~d.raw" (name chunk) i)
                       for stream = (make-instance 'fast-io:fast-input-stream :vector layer)
                       do (zip:write-zipentry packet path stream :file-write-date (get-universal-time))
-                      collect path)))
+                      collect path))
+        (children (for:for ((entity over chunk)
+                            (_ collect (encode entity))))))
     `(chunk :name ,(name chunk)
             :location ,(encode (location chunk))
             :size ,(encode (size chunk))
             :tileset ,(encode (tileset chunk))
-            :layers ,layers)))
+            :layers ,layers
+            :children ,children)))
 
 (define-decoder (background v0) (initargs _)
   (destructuring-bind (&key texture) initargs
@@ -60,6 +66,18 @@
 
 (define-encoder (background v0) (_b _p)
   `(background :texture ,(encode (texture background))))
+
+(define-decoder (falling-platform v0) (initargs _)
+  (destructuring-bind (&key texture acceleration location) initargs
+    (make-instance 'falling-platform
+                   :texture (decode 'asset texture)
+                   :acceleration (decode 'vec2 acceleration)
+                   :location (decode 'vec2 location))))
+
+(define-encoder (falling-platform v0) (_b _p)
+  `(falling-platform :texture ,(encode (texture falling-platform))
+                     :acceleration ,(encode (acceleration falling-platform))
+                     :location ,(encode (location falling-platform))))
 
 (define-decoder (vec2 v0) (data _p)
   (destructuring-bind (x y) data
