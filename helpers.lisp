@@ -321,9 +321,17 @@
   (vsetf (bsize sprite) (/ width 2) (/ height 2)))
 
 (define-subject game-entity (sized-entity)
-  ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity)))
+  ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity)
+   (surface :initform NIL :accessor surface)
+   (state :initform :normal :accessor state)))
 
 (define-generic-handler (game-entity tick trial:tick))
+
+(defmethod enter :after ((entity game-entity) (container container))
+  (setf (surface entity) container))
+
+(defmethod leave :after ((entity game-entity) (container container))
+  (setf (surface entity) NIL))
 
 (defmethod scan ((entity sized-entity) (target game-entity))
   (let ((hit (aabb (location target) (velocity target)

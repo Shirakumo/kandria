@@ -63,7 +63,7 @@ void main(){
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'chunk-editor))))
 
 (define-shader-subject editor (inactive-editor)
-  ((status :initform NIL :accessor status)
+  ((state :initform NIL :accessor state)
    (start-pos :initform (vec 0 0) :accessor start-pos)))
 
 (defmethod active-p ((editor editor)) T)
@@ -96,17 +96,17 @@ void main(){
       (setf (entity editor) (entity-at-point loc +level+)))
     (when (eql :middle button)
       (setf (start-pos editor) pos)
-      (setf (status editor) :dragging))))
+      (setf (state editor) :dragging))))
 
 (define-handler (editor mouse-release) (ev)
-  (setf (status editor) NIL))
+  (setf (state editor) NIL))
 
 (define-handler (editor mouse-move) (ev pos)
   (let ((loc (location editor))
         (old (start-pos editor))
         (entity (entity editor)))
     (update-editor-pos editor pos)
-    (case (status editor)
+    (case (state editor)
       (:dragging
        ;; FIXME: for chunks (and other containers) we should also move
        ;;        contained units by the same delta.
@@ -175,7 +175,7 @@ void main(){
        (enter entity +level+)
        (setf (entity editor) entity)
        (setf (start-pos editor) (vcopy (location editor)))
-       (setf (status editor) :dragging))
+       (setf (state editor) :dragging))
      (list :location (vcopy (location editor))))))
 
 (define-handler (editor delete-entity) (ev)
@@ -183,12 +183,12 @@ void main(){
   (setf (entity editor) NIL))
 
 (define-handler (editor resize-entity) (ev)
-  (setf (status editor) :resizing)
+  (setf (state editor) :resizing)
   (setf (start-pos editor) (v- (location (entity editor))
                                (bsize (entity editor)))))
 
 (define-handler (editor clone-entity) (ev)
-  (setf (status editor) :dragging)
+  (setf (state editor) :dragging)
   (let ((clone (clone (entity editor))))
     (transition clone +level+)
     (enter clone +level+)
@@ -278,12 +278,12 @@ void main(){
             ((retained 'modifiers :alt)
              (setf (tile-to-place chunk-editor) (tile loc chunk)))
             (T
-             (setf (status chunk-editor) :placing)
+             (setf (state chunk-editor) :placing)
              (setf (tile loc chunk) tile))))))
 
 (define-handler (chunk-editor chunk-move mouse-move) (ev)
   (let ((loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor))))
-    (case (status chunk-editor)
+    (case (state chunk-editor)
       (:placing
        (cond ((retained 'mouse :left)
               (setf (tile loc (entity chunk-editor)) (tile-to-place chunk-editor)))
