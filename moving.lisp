@@ -15,6 +15,7 @@
     (loop repeat 10 while (scan surface moving))
     ;; Remaining velocity (if any) can be added safely.
     (nv+ loc vel)
+    (vsetf vel 0 0)
     ;; Point test for adjacent walls
     (let ((l (scan surface (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan surface (vec (+ (vx loc) (vx size) 1) (vy loc))))
@@ -110,10 +111,10 @@
           ((= -1 (vy normal)) (setf (svref (collisions moving) 0) platform))
           ((= +1 (vx normal)) (setf (svref (collisions moving) 3) platform))
           ((= -1 (vx normal)) (setf (svref (collisions moving) 1) platform)))
-    (nv+ loc (velocity platform))
     (nv+ loc (v* (v- vel (velocity platform)) 0.9 (hit-time hit)))
     (cond ((< (* (vy vel) (vy normal)) 0) (setf (vy vel) 0))
           ((< (* (vx vel) (vx normal)) 0) (setf (vx vel) 0)))
+    (nv+ vel (velocity platform))
     ;; Zip out of ground in case of clipping
     (cond ((and (/= 0 (vy normal))
                 (< (vy pos) (vy loc))
