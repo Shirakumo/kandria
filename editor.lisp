@@ -232,13 +232,13 @@ void main(){
 
 (define-shader-subject chunk-editor (editor vertex-entity)
   ((tile :initform (vec2 1 0) :accessor tile-to-place)
-   (layer :initform 0 :accessor layer)
+   (layer :initform +3 :accessor layer)
    (vertex-array :initform (asset 'leaf 'square))
    (tile-picker :initform NIL :accessor tile-picker)))
 
 (defmethod shared-initialize :after ((editor chunk-editor) slots &key)
   (setf (tile-picker editor) (make-instance 'tile-picker :editor editor))
-  (setf (tile-to-place editor) (vec2 0 most-positive-fixnum)))
+  (setf (tile-to-place editor) (vec2 1 0)))
 
 (defmethod editor-class ((_ chunk)) 'chunk-editor)
 
