@@ -46,7 +46,7 @@
 
 (define-dialog-function :end (box)
   (let ((diag (current-dialog box)))
-    (setf (state (name diag) (storyline diag)) T)
+    (setf (story-state (name diag) (storyline diag)) T)
     (funcall (state-change diag) (storyline diag)))
   (setf (current-dialog box) NIL)
   (throw 'stop NIL))
@@ -114,17 +114,17 @@
                collect `(define-dialog (,name ,dialog)
                           ,@body)))))
 
-(defmethod state (key (storyline storyline))
+(defmethod story-state (key (storyline storyline))
   (gethash key (state-table storyline)))
 
-(defmethod (setf state) (value key (storyline storyline))
+(defmethod (setf story-state) (value key (storyline storyline))
   (setf (gethash key (state-table storyline)) value))
 
 (defmethod reset ((storyline storyline))
   (setf (active-p storyline) NIL)
   (clrhash (state-table storyline))
   (loop for (k v) on (initial-state storyline) by #'cddr
-        do (setf (state k storyline) v)))
+        do (setf (story-state k storyline) v)))
 
 (defmethod compute-applicable-dialogs (event (all (eql T)))
   (loop for storyline in (list-storylines)
@@ -220,7 +220,7 @@
                               (loop for sub in (cdr form)
                                     collect (compile-form sub))))))
                  ((and symbol (not keyword) (not (member NIL T)))
-                  `(state ',form ,storyline))
+                  `(story-state ',form ,storyline))
                  (atom form))))
       `(lambda (,storyline)
          (declare (ignorable ,storyline))
@@ -237,7 +237,7 @@
                               (loop for sub in (cdr form)
                                     collect (compile-form sub))))))
                  ((and symbol (not keyword) (not (member ev NIL T)))
-                  `(state ',form ,storyline))
+                  `(story-state ',form ,storyline))
                  (atom form))))
       `(lambda (ev ,storyline)
          (declare (ignorable ev ,storyline))

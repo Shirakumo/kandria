@@ -1,14 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-subject moving (game-entity)
-  ((surface :initform NIL :accessor surface)
-   (collisions :initform (make-array 4) :reader collisions)))
-
-(defmethod enter :after ((moving moving) (chunk chunk))
-  (setf (surface moving) chunk))
-
-(defmethod leave :after ((moving moving) (chunk chunk))
-  (setf (surface moving) NIL))
+  ((collisions :initform (make-array 4) :reader collisions)))
 
 (defmethod scan (entity target))
 
