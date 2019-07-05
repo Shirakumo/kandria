@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-subject moving (game-entity)
-  ((collisions :initform (make-array 4) :reader collisions)))
+  ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)))
 
 (defmethod scan (entity target))
 
@@ -12,7 +12,11 @@
          (size (bsize moving)))
     ;; Scan for hits
     (fill (collisions moving) NIL)
-    (loop repeat 10 while (scan surface moving))
+    (loop repeat 10
+          do (unless (scan surface moving) (return))
+             ;; KLUDGE: If we have too many collisions in a frame, we assume
+             ;;         we're stuck somewhere, so just die.
+          finally (die moving))
     ;; Remaining velocity (if any) can be added safely.
     (nv+ loc vel)
     (vsetf vel 0 0)
