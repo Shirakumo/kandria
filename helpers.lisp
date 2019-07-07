@@ -149,14 +149,21 @@
     value))
 
 (defun query-initarg (class initarg callback &optional (default NIL default-p))
-  (let ((slot (initarg-slot class initarg)))
+  (destructuring-bind (initarg type &optional documentation initfunction)
+      (if (listp initarg)
+          initarg
+          (let ((slot (initarg-slot class initarg)))
+            (list initarg
+                  (c2mop:slot-definition-type slot)
+                  (documentation slot T)
+                  (c2mop:slot-definition-initfunction slot))))
     (unless default-p
-      (ignore-errors
-       (setf default (funcall (c2mop:slot-definition-initfunction slot)))
-       (setf default-p T)))
+      (when initfunction
+        (setf default (funcall initfunction))
+        (setf default-p T)))
     (flet ((on-yes (string)
              (let ((value (cond (string
-                                 (parse-string-for-type string (c2mop:slot-definition-type slot)))
+                                 (parse-string-for-type string type))
                                 (default-p
                                  default)
                                 (T
@@ -164,9 +171,9 @@
                (funcall callback value))))
       (query (format NIL "~s <~a> [~:[REQUIRED~*~;~a~]]~@[~%~a~]"
                      initarg
-                     (c2mop:slot-definition-type slot)
+                     type
                      default-p default
-                     (documentation slot T))
+                     documentation)
              #'on-yes))))
 
 (defun query-instance (callback &optional defaults)
@@ -179,7 +186,7 @@
                      (query-initarg class initarg #'query-next (getf defaults initarg))
                      (query-initarg class initarg #'query-next)))
                (query-next (value)
-                 (push (pop initargs) initlist)
+                 (push (unlist (pop initargs)) initlist)
                  (push value initlist)
                  (if initargs
                      (invoke-next (car initargs))
@@ -258,6 +265,10 @@
 
 (defmethod initargs append ((_ located-entity))
   `(:location))
+
+(defmethod print-object ((entity located-entity) stream)
+  (print-unreadable-object (entity stream :type T :identity T)
+    (format stream "~a" (location entity))))
 
 (defmethod paint :around ((obj located-entity) target)
   (with-pushed-matrix ()

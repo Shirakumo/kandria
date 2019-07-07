@@ -61,7 +61,7 @@ void main(){
 
 (define-handler (player interact) (ev)
   (when (interactable player)
-    (issue +level+ 'interaction :with (name (interactable player)))))
+    (issue +level+ 'interaction :with (interactable player))))
 
 (define-handler (player dash) (ev)
   (let ((acc (acceleration player)))
@@ -323,8 +323,7 @@ void main(){
       (setf (vy (location prompt))
             (+ (vy (location interactable))
                (vy (size player))
-               (height prompt)
-               (/ (vy (size interactable)) -2)))
+               (height prompt)))
       (paint prompt target))))
 
 (define-progression intro

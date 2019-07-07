@@ -1,7 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defvar *current-layer*)
-
 (defclass region (layered-container entity)
   ((author :initform "Anonymous" :initarg :author :accessor author)
    (version :initform "0.0.0" :initarg :version :accessor version)

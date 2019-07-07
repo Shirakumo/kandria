@@ -27,6 +27,9 @@
               :type single-float :documentation "The light intensity.")
    (light-dimensions :initform (vec 0 0 0 0) :accessor light-dimensions)))
 
+(defmethod initargs append ((_ lisp-light))
+  `(:color :intensity))
+
 (defmethod active-p ((light lisp-light))
   (not (null (index light))))
 
@@ -43,6 +46,7 @@
   (when (active-p entity)
     (with-buffer-tx (struct (asset 'leaf 'lights))
       (let ((light (elt (lights struct) (index entity))))
+        (print (index entity))
         (setf (light-type light) (light-type entity))
         (setf (location light) (location entity))
         (setf (light-dimensions light) (light-dimensions entity))
@@ -57,8 +61,13 @@
 (defclass point-light (lisp-light)
   ())
 
+(defmethod initargs append ((_ point-light))
+  `((:radius float "The radius of the light in px.")))
+
 (defmethod shared-initialize :after ((light point-light) slots &key radius)
   (when radius (setf (radius light) radius)))
+
+(defmethod bsize ((light point-light)) (vec (radius light) (radius light)))
 
 (defmethod light-type ((light point-light)) 1)
 
@@ -71,6 +80,9 @@
 
 (defclass cone-light (lisp-light)
   ())
+
+(defmethod initargs append ((_ cone-light))
+  `(:aperture :radius :angle))
 
 (defmethod shared-initialize :after ((light cone-light) slots &key aperture radius angle)
   (when aperture (setf (aperture light) aperture))
@@ -102,6 +114,9 @@
 
 (defclass trapezoid-light (lisp-light)
   ())
+
+(defmethod initargs append ((_ trapezoid-light))
+  `(:aperture :top :height :angle))
 
 (defmethod shared-initialize :after ((light trapezoid-light) slots &key aperture top height angle)
   (when aperture (setf (aperture light) aperture))
@@ -141,7 +156,7 @@
 
 (defclass light-environment ()
   ((active-p :initform NIL :reader active-p)
-   (global-illumination :initarg :global-illumination :initform (vec 0.5 0.5 0.5) :accessor global-illumination)))
+   (global-illumination :initarg :global-illumination :initform (vec 1 1 1) :accessor global-illumination)))
 
 (defmethod (setf global-illumination) :after (value (environment light-environment))
   (when (active-p environment)
@@ -152,7 +167,7 @@
   (with-buffer-tx (struct (asset 'leaf 'lights))
     (let ((i 0))
       (for:for ((light over environment))
-        (when (typep light 'light)
+        (when (typep light 'lisp-light)
           (setf (index light) i)
           (activate light)
           (incf i)))
@@ -261,15 +276,11 @@ vec3 shade_lights(vec3 albedo, vec3 position){
   for(int i=0; i<lights.count; ++i){
     Light light = lights.lights[i];
     vec3 relative_position = light.location - position;
-
-    // Don't light layers that are more than one away from the light.
-    if(1 < abs(relative_position.z)) continue;
     
     float sdf = evaluate_light(relative_position.xy, light);
     if(sdf <= 0){
       color += add(albedo.rgb, light.color)
-            * light.intensity
-            * light_shading(sdf);
+            * light.intensity;
     }
   }
   return color;

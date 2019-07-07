@@ -17,8 +17,11 @@
   (l NIL :type vec2)
   (r NIL :type vec2))
 
+(defstruct (stopper (:include block)
+                    (:constructor make-stopper (s))))
+
 (defun make-surface-blocks (t-s slope-steps)
-  (let ((blocks (make-array (+ 4 (* 2 (reduce #'+ slope-steps)))))
+  (let ((blocks (make-array (+ 5 (* 2 (reduce #'+ slope-steps)))))
         (i -1))
     (flet ((make (c &rest args)
              (setf (aref blocks (incf i)) (apply (find-symbol (format NIL "MAKE-~a" c)) t-s args))))
@@ -39,6 +42,7 @@
                      do (make 'slope
                               (vec2 (/ t-s -2) (- (floor l) (/ t-s 2)))
                               (vec2 (/ t-s +2) (- (floor r) (/ t-s 2))))))
+      (make 'stopper)
       blocks)))
 
 (sb-ext:defglobal +surface-blocks+ NIL)

@@ -35,3 +35,39 @@
     (setf (state platform) :normal)
     (nv+ (location platform) (v* vel (hit-time hit)))
     (vsetf vel 0 0)))
+
+(define-shader-subject elevator (moving-platform)
+  ()
+  (:default-initargs :bsize (nv/ (vec 32 16) 2)))
+
+(defmethod tick ((elevator elevator) ev)
+  (ecase (state elevator)
+    (:normal)
+    (:going-up
+     (vsetf (velocity elevator) 0 +10))
+    (:going-down
+     (vsetf (velocity elevator) 0 -10))
+    (:broken))
+  (loop repeat 10 while (scan (surface elevator) elevator))
+  (nv+ (location elevator) (velocity elevator)))
+
+(defmethod collide :before ((player player) (elevator elevator) hit)
+  (setf (interactable player) elevator))
+
+(defmethod collide ((elevator elevator) (block block) hit)
+  (let ((vel (velocity elevator)))
+    (setf (state elevator) :normal)
+    (nv+ (location elevator) (v* vel (hit-time hit)))
+    (vsetf vel 0 0)))
+
+(define-handler (elevator interaction) (ev with)
+  (when (and (eq elevator with)
+             (eql :normal (state elevator)))
+    (cond ((null (scan (surface elevator) (v+ (location elevator)
+                                              (v_y (bsize elevator))
+                                              1)))
+           (setf (state elevator) :going-up))
+          ((null (scan (surface elevator) (v- (location elevator)
+                                              (v_y (bsize elevator))
+                                              1)))
+           (setf (state elevator) :going-down)))))
