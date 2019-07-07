@@ -58,7 +58,8 @@
 (defmethod paint :around ((chunk chunk) target)
   (call-next-method)
   (for:for ((entity flare-queue:in-queue (objects chunk)))
-    (paint entity target)))
+    (when (= *current-layer (layer entity))
+      (paint entity target))))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
