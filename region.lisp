@@ -2,77 +2,15 @@
 
 (defvar *current-layer*)
 
-(defclass region (container-unit entity)
-  ((objects :initform NIL)
-   (author :initform "Anonymous" :initarg :author :accessor author)
+(defclass region (layered-container entity)
+  ((author :initform "Anonymous" :initarg :author :accessor author)
    (version :initform "0.0.0" :initarg :version :accessor version)
    (description :initform "" :initarg :description :accessor description)
    (preview :initform NIL :initarg :preview :accessor preview))
   (:default-initargs :layers +layer-count+))
 
-(defmethod initialize-instance :after ((region region) &key layers)
-  (let ((objects (make-array layers)))
-    (dotimes (i layers)
-      (setf (aref objects i) (make-array 0 :adjustable T :fill-pointer T)))
-    (setf (objects region) objects)))
-
-(defgeneric layer-index (unit))
-
-(defmethod layer-index ((unit unit)) 0)
-
 (defmethod enter :after ((region region) (scene scene))
   (setf (gethash 'region (name-map scene)) region))
-
-(defmethod enter ((unit unit) (region region))
-  (let ((layer (+ (layer-index unit)
-                  (floor (length (objects region)) 2))))
-    (vector-push-extend unit (aref (objects region) layer))))
-
-(defmethod leave ((unit unit) (region region))
-  (let ((layer (+ (layer-index unit)
-                  (floor (length (objects region)) 2))))
-    (array-utils:vector-pop-position*
-     (aref (objects region) layer)
-     (position unit (aref (objects region) layer)))))
-
-(defmethod paint ((region region) target)
-  (let ((layers (objects region)))
-    (dotimes (i (length layers))
-      (let ((layer (aref layers i))
-            (*current-layer* (- i (floor (length layers) 2))))
-        (loop for unit across layer
-              do (paint unit target))))))
-
-(defmethod layer-count ((region region))
-  (length (objects region)))
-
-(defclass region-iterator (for:iterator)
-  ((layer :initarg :layer :accessor layer)
-   (start :initform 0 :accessor start)))
-
-(defmethod for:has-more ((iterator region-iterator))
-  (< (layer iterator) (length (for:object iterator))))
-
-(defmethod for:next ((iterator region-iterator))
-  (let ((layer (aref (for:object iterator) (layer iterator))))
-    (prog1 (aref layer (start iterator))
-      (incf (start iterator))
-      (when (<= (length layer) (start iterator))
-        (setf (start iterator) 0)
-        (loop for i from (1+ (layer iterator)) below (length (for:object iterator))
-              while (= 0 (length (aref (for:object iterator) i)))
-              finally (setf (layer iterator) i))))))
-
-(defmethod (setf for:current) ((unit unit) (iterator region-iterator))
-  (setf (aref (aref (for:object iterator) (layer iterator))
-              (start iterator))
-        unit))
-
-(defmethod for:make-iterator ((region region) &key)
-  (make-instance 'region-iterator
-                 :object (objects region)
-                 :layer (or (position 0 (objects region) :key #'length :test-not #'=)
-                            MOST-POSITIVE-FIXNUM)))
 
 (defclass version () ())
 

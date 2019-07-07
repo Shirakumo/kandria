@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk (container-unit sized-entity solid lighted-entity light-environment)
+(define-shader-entity chunk (layered-container sized-entity solid lighted-entity light-environment)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
@@ -8,8 +8,7 @@
             :type asset :documentation "The tileset texture for the chunk.")
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
-  (:inhibit-shaders (shader-entity :fragment-shader))
-  (:default-initargs :layers +layer-count+))
+  (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initargs append ((_ chunk))
   `(:size :tileset))
@@ -57,14 +56,14 @@
 
 (defmethod paint :around ((chunk chunk) target)
   (call-next-method)
-  (for:for ((entity flare-queue:in-queue (objects chunk)))
-    (when (= *current-layer (layer entity))
-      (paint entity target))))
+  (when (< *current-layer* (length (objects chunk)))
+    (loop for unit across (aref (objects chunk) *current-layer*)
+          do (paint unit target))))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
         (vao (vertex-array chunk)))
-    (setf (uniform program "layer") (+ *current-layer* (floor +layer-count+ 2)))
+    (setf (uniform program "layer") *current-layer*)
     (setf (uniform program "tile_size") +tile-size+)
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "map_size") (size chunk))
@@ -251,7 +250,7 @@ void main(){
   (let ((tile (tile target chunk)))
     (if (and tile (= 0 (vy tile)) (< 0 (vx tile)))
         (aref +surface-blocks+ (truncate (vx tile)))
-        (for:for ((entity flare-queue:in-queue (objects chunk)))
+        (do-layered-container (entity chunk)
           (when (and (typep entity 'solid)
                      (scan entity target))
             (return entity))))))
@@ -298,7 +297,7 @@ void main(){
                             (setf (hit-object hit) (aref +surface-blocks+ tile))
                             (setf result hit))))))
     ;; Scan through entities
-    (for:for ((entity flare-queue:in-queue (objects chunk)))
+    (do-layered-container (entity chunk)
       (when (and (not (eq entity target))
                  (typep entity 'solid))
         (let ((hit (scan entity target)))

@@ -311,7 +311,7 @@ void main(){
     (setf (uniform program "tile") (tile-to-place editor))))
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
-  (let ((*current-layer* 3))
+  (let ((*current-layer* +layer-count+))
     (paint-with target (entity editor)))
   (with-pushed-matrix ()
     (call-next-method))

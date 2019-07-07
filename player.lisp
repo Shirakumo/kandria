@@ -263,13 +263,16 @@ void main(){
 
 (define-handler (player switch-level) (ev level)
   (let ((other (for:for ((entity over (unit 'region level)))
+                 (print (list entity (contained-p (location player) entity)))
                  (when (and (typep entity 'chunk)
                             (contained-p (location player) entity))
                    (return entity)))))
     (unless other
       (warn "Player is somehow outside all chunks, picking first chunk we can get.")
-      (setf other (for:for ((entity flare-queue:in-queue (objects level)))
-                    (when (typep entity 'chunk) (return entity)))))
+      (setf other (for:for ((entity over (unit 'region level)))
+                    (when (typep entity 'chunk) (return entity))))
+      (unless other
+        (error "What the fuck? Could not find any chunks.")))
     (issue level 'switch-chunk :chunk other)))
 
 (define-handler (player switch-chunk) (ev chunk)
