@@ -301,9 +301,11 @@ void main(){
       (when (and (not (eq entity target))
                  (typep entity 'solid))
         (let ((hit (scan entity target)))
-          (when (and hit (or (null result)
-                             (< (vsqrdist2 pos (hit-location hit))
-                                (vsqrdist2 pos (hit-location result)))))
+          (when (and hit
+                     (collides-p target entity hit)
+                     (or (null result)
+                         (< (vsqrdist2 pos (hit-location hit))
+                            (vsqrdist2 pos (hit-location result)))))
             (setf result hit)))))
     (when result
       (collide target (hit-object result) result)
