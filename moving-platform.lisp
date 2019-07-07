@@ -1,7 +1,9 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-shader-subject moving-platform (lighted-sprite-entity game-entity solid)
-  ())
+  ()
+  (:default-initargs
+   :bsize (vec2 32 32)))
 
 (defmethod collides-p ((platform moving-platform) thing hit) NIL)
 (defmethod collides-p ((platform moving-platform) (block block) hit) T)
