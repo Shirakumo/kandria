@@ -90,10 +90,13 @@ void main(){
     (nvalign loc +tile-size+)))
 
 (define-handler (editor mouse-press) (ev pos button)
-  (let ((loc (location editor)))
+  (let* ((camera (unit :camera T))
+         ;; Calculate here to avoid nvalign of update-editor-pos
+         (wpos (nv- (nv+ (v/ pos (view-scale camera)) (location camera))
+                    (v/ (target-size camera) (zoom camera)))))
     (update-editor-pos editor pos)
     (unless (entity editor)
-      (setf (entity editor) (entity-at-point loc +level+)))
+      (setf (entity editor) (entity-at-point wpos +level+)))
     (when (eql :middle button)
       (setf (start-pos editor) pos)
       (setf (state editor) :dragging))))
@@ -300,6 +303,17 @@ void main(){
             ((< delta 0) (decf i)))
       (setf (tile-to-place chunk-editor)
             (vec2 (mod i width) (floor i width))))))
+
+(define-handler ((editor chunk-editor) insert-entity) (ev)
+  (let ((*package* #.*package*))
+    (query-instance
+     (lambda (entity)
+       (transition entity +level+)
+       (enter entity (entity editor))
+       (setf (entity editor) entity)
+       (setf (start-pos editor) (vcopy (location editor)))
+       (setf (state editor) :dragging))
+     (list :location (vcopy (location editor))))))
 
 (defmethod paint :before ((editor chunk-editor) (pass shader-pass))
   (let ((program (shader-program-for-pass pass editor))

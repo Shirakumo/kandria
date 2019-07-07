@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defvar *current-layer*)
+
 (defclass layered-container (container-unit)
   ((objects :initform NIL))
   (:default-initargs :layers +layer-count+))

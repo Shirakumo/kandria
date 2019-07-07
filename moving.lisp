@@ -138,3 +138,5 @@
                 (< (- (vx pos) (vx psize))
                    (+ (vx loc) (vx bsize))))
            (setf (vx loc) (- (vx pos) (vx psize) (vx bsize)))))))
+
+(defmethod collides-p ((moving moving) (stopper stopper) hit) NIL)

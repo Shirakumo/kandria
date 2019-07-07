@@ -29,7 +29,8 @@
         (chunk (make-instance 'chunk :tileset (asset 'leaf 'ice))))
     (enter region level)
     (enter chunk region)
-    (enter (make-instance 'falling-platform :texture (asset 'leaf 'ice)) chunk)
+    (enter (make-instance 'point-light :radius 64.0) chunk)
+    (enter (make-instance 'elevator :texture (asset 'leaf 'ice)) chunk)
     (enter (make-instance 'player :location (vec 64 64)) region)))
 
 (defclass main (trial:main)
