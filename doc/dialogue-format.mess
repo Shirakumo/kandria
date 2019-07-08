@@ -1,0 +1,168 @@
+# Leaf Dialogue Format
+This document describes the markup syntax used for dialogues in Leaf. The basis of the syntax is "Markless"(link http://shirakumo.github.io/markless/), though several domain-specific extensions are included.
+
+; TODO: Note which environment forms are evaluated in
+; TODO: Describe execution semantics
+
+## Syntax
+### Speech Source
+The source, if any, of who's speaking a piece of dialogue is denoted via the blockquote header directive (§5.2)
+
+### Speech
+Actual speech and text is denoted via blockquote bodies (§5.2), wherein each textbox entry is denoted by a single line of text within the body. Each line must be automatically line wrapped, but cannot be scrolled.
+
+### Tags
+Specific parts of the dialogue can be marked by tags to allow jumps. Tags correspond directly to Markless' labels (§4.1). When jumping to a tag, the system must resume with the textual component associated with the label, and restore all state leading up to that component (source, emote, etc.).
+
+### Jumps
+A jump to a tag allows the dialog flow to loop or skip certain sections. A jump must designate a jump target, which must be the name of a label that is defined somewhere within the document. A jump can be denoted in two ways:
+
+#### Jump Instruction
+:::
+! go <label .*>
+:::
+
+#### Jump Directive
+The jump directive is a singular line directive (§5.0.1)
+:::
+\< <label .*>
+:::
+
+### Choices
+A choice can be presented to the player in the form of an unordered list (§5.3). The textual component immediately preceding the list is used as the choice's prompt text. The first textual component within a list item is used as the choice's label, after expanding conditionals. The system must take care to eliminate choices that would be empty as a result of conditional blocks.
+
+### Conditional Blocks
+Conditional blocks allow dynamic dialog. When a conditional header or branch is executed, the conditional predicate is evaluated. If the predicate passes, the immediately following blockquote body is executed and all following conditional branches and blockquote bodies will be skipped. If it fails, the immediately following blockquote body is skipped.
+
+#### Conditional Block Header Directive
+The conditional block header is a singular line directive (§5.0.1)
+:::
+\? <predicate .*>
+:::
+
+#### Conditional Block Branch Directive
+The conditional block branch is a singular line directive (§5.0.1)
+:::
+\|\?( <predicate .*>)?
+:::
+
+### Conditional Parts
+The conditional part allows the dynamic splicing of a part of text. When a conditional part is executed, the predicate is evaluated. If the predicate evaluates to a true value, the first content is executed. If it evaluates to a false value, the second content is executed. If it evaluates to an integer, the content with the indicated index is picked, where each content is numbered starting from zero. If the integer denotes a content that does not exist, an error is signalled.
+
+#### Conditional Part Directive
+The conditional part is a surrounding inline directive (§6.0.1)
+:::
+\[<predicate .*> <content ![|]*>(|<content ![|]*>)+\]
+:::
+
+### Placeholders
+The placeholder allows splicing dynamic text dependent on the current state. When the placeholder is executed, the form is evaluated, and the resulting string is inserted into the current textual component.
+
+#### Placeholder Directive
+The placeholder is an inline directive (§6)
+::
+\{<form .*>\}
+::
+
+### Effects
+Certain inline directives defined by Markless are assigned new meanings through an alternate style.
+
+#### Clue
+The underline directive denotes a clue. Particularly, if the content contains a ``|`` bar sign, the displayed text is everything preceding the bar, and the clue associated is everything following the bar.
+
+#### Shake
+The italic directive denotes shaking text. Th text should visually shake.
+
+#### Pause
+The en and em dash directives denote temporal pauses.
+
+### Scroll Speed
+The scroll speed instruction changes how fast text scrolls relative to the base text scroll speed.
+
+#### Speed Instruction
+:::
+! speed <float .*>
+:::
+
+### Camera Movement
+The camera movement instructions change camera properties in order to allow framing a scene. The camera must transition smoothly between the current and the requested state.
+
+#### Shake Instruction
+:::
+! shake <duration .*>?
+:::
+#### Move Instruction
+:::
+! move <x .*> <y .*> <duration .*>?
+:::
+#### Zoom Instruction
+The zoom is absolute, in relative scale.
+:::
+! zoom <factor .*> <duration .*>?
+:::
+#### Roll Instruction
+The angle is absolute, in degrees.
+:::
+! roll <angle .*> <duration .*>?
+:::
+#### Show Instruction
+Shows a completely different map.
+:::
+! show <map .*> <x .*>? <y .*>? <zoom .*>? <angle .*>?
+:::
+
+### Emotes
+The emote directive allows changing the displayed portrait of the current character to allow the portrait to follow the current mood of the character.
+
+#### Emote Directive
+The emote is an inline directive (§6)
+:::
+\(:<emote ![)]+>\)
+:::
+
+### State Change
+The state change instruction allows changing arbitrary internal game state.
+
+#### State Change Instruction
+:::
+! setf <place .*> <value-form .*>
+:::
+
+### Inline Instruction
+The inline code directive is repurposed to an inline instruction. The content binding of the code directive is interpreted as the instruction binding of an instruction directive.
+
+## Future Ideas
+- Cutscene Direction (animations, movement, etc.)
+
+
+## Example
+:::
+~ Einstime
+| Gravity is the gravins.
+| [1] line 2
+
+~ Person
+| some [(seen 'shit) **shit**|cool stuff]
+| Is that a {item} you got there?
+| I'll buy it for a high price!
+| Heh heh, thank ye.
+< 1
+
+Who's your daddy?
+- ? (seen 'einstime)
+  | Einstime
+  | ~ Him
+  | | Oh, ok.
+  |?
+  | Nobody
+  | ~ Him
+  | | Whaaaat.
+- Nicolas Cage
+  ~ Him
+  | Uuuh, no
+  < 2
+- Eric the Legend
+
+! setf foo x
+! go tag
+:::
