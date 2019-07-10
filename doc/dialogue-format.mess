@@ -81,7 +81,7 @@ The scroll speed instruction changes how fast text scrolls relative to the base 
 
 #### Speed Instruction
 :::
-! speed <float .*>
+! speed <speed .*>
 :::
 
 ### Camera Movement
@@ -98,7 +98,7 @@ The camera movement instructions change camera properties in order to allow fram
 #### Zoom Instruction
 The zoom is absolute, in relative scale.
 :::
-! zoom <factor .*> <duration .*>?
+! zoom <zoom .*> <duration .*>?
 :::
 #### Roll Instruction
 The angle is absolute, in degrees.
@@ -108,7 +108,7 @@ The angle is absolute, in degrees.
 #### Show Instruction
 Shows a completely different map.
 :::
-! show <map .*> <x .*>? <y .*>? <zoom .*>? <angle .*>?
+! show <map .*> <x .*>? <y .*>? <zoom .*>? <angle .*>? <duration .*>?
 :::
 
 ### Emotes
