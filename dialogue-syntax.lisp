@@ -9,7 +9,21 @@
    #:choices
    #:conditional
    #:clauses
-   #:go))
+   #:go
+   #:speed
+   #:camera-instruction
+   #:duration
+   #:shake
+   #:move
+   #:location
+   #:zoom
+   #:roll
+   #:angle
+   #:show
+   #:map
+   #:location
+   #:setf
+   #:place))
 
 (defpackage #:org.shirakumo.fraf.leaf.dialogue
   (:use #:cl)
@@ -34,10 +48,7 @@
                                         markless:*default-directives*)))
 
 (defclass components:jump (components::block-component)
-  ((components::target
-    :initarg :target
-    :initform (cl:error "TARGET required")
-    :accessor components::target)))
+  ((components::target :initarg :target :initform (cl:error "TARGET required") :accessor components::target)))
 
 (defclass jump (markless:singular-line-directive)
   ())
@@ -51,9 +62,7 @@
   (length line))
 
 (defclass components:conditional (components::block-component)
-  ((components:clauses
-    :initform (make-array 0 :adjustable T :fill-pointer T)
-    :accessor components:clauses)))
+  ((components:clauses :initform (make-array 0 :adjustable T :fill-pointer T) :accessor components:clauses)))
 
 (defmethod components::children ((_ components:conditional))
   (cdr (aref (components:clauses _) (1- (length (components:clauses _))))))
@@ -97,10 +106,7 @@
         (length line))))
 
 (defclass components:placeholder (components::inline-component)
-  ((components:form
-    :initarg :form
-    :initform (error "FORM required")
-    :accessor components:form)))
+  ((components:form :initarg :form :initform (error "FORM required") :accessor components:form)))
 
 (defvar *placeholder-readtable* (copy-readtable))
 
@@ -126,10 +132,7 @@
         (+ 1 cursor)))))
 
 (defclass components:emote (components::inline-component)
-  ((components:emote
-    :initarg :emote
-    :initform (error "EMOTE required")
-    :accessor components:emote)))
+  ((components:emote :initarg :emote :initform (error "EMOTE required") :accessor components:emote)))
 
 (defclass emote (markless:inline-directive)
   ())
@@ -149,13 +152,8 @@
     (+ 1 end)))
 
 (defclass components:conditional-part (components::inline-component)
-  ((components:form
-    :initarg :form
-    :initform (error "FORM required")
-    :accessor components:form)
-   (components:choices
-    :initform (make-array 0 :adjustable T :fill-pointer T)
-    :accessor components:choices)))
+  ((components:form :initarg :form :initform (error "FORM required") :accessor components:form)
+   (components:choices :initform (make-array 0 :adjustable T :fill-pointer T) :accessor components:choices)))
 
 (defmethod components::children ((_ components:conditional-part))
   (aref (components:choices _) (1- (length (components:choices _)))))
@@ -205,14 +203,77 @@
   ;; FIXME
   (markless::vector-push-front "[" (components::children component)))
 
+(defclass components::fake-instruction (components::instruction) ())
 
-(defclass components:go (components::instruction)
-  ((components::target
-    :initarg :target
-    :initform (cl:error "TARGET required")
-    :accessor components::target)))
+(defmethod markless:evaluate-instruction ((instruction components::fake-instruction) parser))
+
+(defclass components:go (components::fake-instruction)
+  ((components::target :initarg :target :initform (error "TARGET required") :accessor components::target)))
 
 (defmethod markless:parse-instruction ((proto components:go) line cursor)
   (make-instance (class-of proto) :target (subseq line cursor)))
 
-(defmethod markless:evaluate-instruction ((instruction components:go) parser))
+(defclass components:speed (components::fake-instruction)
+  ((components:speed :initarg :speed :initform (error "SPEED required") :accessor components:speed)))
+
+(defmethod markless:parse-instruction ((proto components:speed) line cursor)
+  (make-instance (class-of proto) :speed (cl-markless::parse-float line cursor)))
+
+(defclass components:camera-instruction (components::fake-instruction)
+  ((components:duration :initarg :duration :initform (error "DURATION required") :accessor components:duration)))
+
+(defclass components:shake (components:camera-instruction)
+  ())
+
+(defmethod markless:parse-instruction ((proto components:shake) line cursor)
+  (make-instance (class-of proto) :duration (cl-markless::parse-float line cursor)))
+
+(defclass components:move (components:camera-instruction)
+  ((components:location :initarg :location :initform (error "LOCATION required") :accessor components:location)))
+
+(defmethod markless:parse-instruction ((proto components:move) line cursor)
+  (destructuring-bind (x y duration) (cl-markless::split-string cursor #\Space cursor)
+    (make-instance (class-of proto) :duration (cl-markless::parse-float duration)
+                                    :location (3d-vectors:vec2
+                                               (cl-markless::parse-float x)
+                                               (cl-markless::parse-float y)))))
+
+(defclass components:zoom (components:camera-instruction)
+  ((components:zoom :initarg :zoom :initform (error "ZOOM required") :accessor components:zoom)))
+
+(defmethod markless:parse-instruction ((proto components:zoom) line cursor)
+  (destructuring-bind (zoom duration) (cl-markless::split-string cursor #\Space cursor)
+    (make-instance (class-of proto) :duration (cl-markless::parse-float duration)
+                                    :zoom (cl-markless::parse-float zoom))))
+
+(defclass components:roll (components:camera-instruction)
+  ((components:angle :initarg :angle :initform (error "ANGLE required") :accessor components:angle)))
+
+(defmethod markless:parse-instruction ((proto components:roll) line cursor)
+  (destructuring-bind (angle duration) (cl-markless::split-string cursor #\Space cursor)
+    (make-instance (class-of proto) :duration (cl-markless::parse-float duration)
+                                    :angle (cl-markless::parse-float angle))))
+
+(defclass components:show (components:roll components:zoom components:move)
+  ((components:map :initarg :map :initform (error "MAP required") :accessor components:map)))
+
+(defmethod markless:parse-instruction ((proto components:show) line cursor)
+  (destructuring-bind (map &optional x y zoom angle duration) (cl-markless::split-string cursor #\Space cursor)
+    (make-instance (class-of proto) :duration (cl-markless::parse-float duration)
+                                    :location (3d-vectors:vec2
+                                               (if x (cl-markless::parse-float x) 0)
+                                               (if y (cl-markless::parse-float y) 0))
+                                    :zoom (if zoom (cl-markless::parse-float zoom) 1.0)
+                                    :angle (if angle (cl-markless::parse-float angle) 0.0)
+                                    :map map)))
+
+(defclass components:setf (components::fake-instruction)
+  ((components:place :initarg :place :initform (error "PLACE required") :accessor components:place)
+   (components:form :initarg :form :initform (error "FORM required") :accessor components:form)))
+
+(defmethod markless:parse-instruction ((proto components:setf) line cursor)
+  (multiple-value-bind (place cursor) (read-from-string line T NIL :start cursor)
+    (multiple-value-bind (form cursor) (read-from-string line T NIL :start cursor)
+      (when (< cursor (length line))
+        (error 'markless:parser-error :cursor cursor))
+      (make-instance (class-of proto) :place place :form form))))
