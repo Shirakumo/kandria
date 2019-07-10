@@ -33,4 +33,5 @@
                :array-utils
                :lambda-fiddle
                :trivial-arguments
-               :trivial-indent))
+               :trivial-indent
+               :leaf-dialogue))

@@ -1,9 +1,6 @@
 # Leaf Dialogue Format
 This document describes the markup syntax used for dialogues in Leaf. The basis of the syntax is "Markless"(link http://shirakumo.github.io/markless/), though several domain-specific extensions are included.
 
-; TODO: Note which environment forms are evaluated in
-; TODO: Describe execution semantics
-
 ## Syntax
 ### Speech Source
 The source, if any, of who's speaking a piece of dialogue is denoted via the blockquote header directive (§5.2)
@@ -131,9 +128,75 @@ The state change instruction allows changing arbitrary internal game state.
 ### Inline Instruction
 The inline code directive is repurposed to an inline instruction. The content binding of the code directive is interpreted as the instruction binding of an instruction directive.
 
+## Semantics
+The semantics of the dialogue format are structured in terms of an "execution" of each textual component. Execution can be temporarily suspended at points to allow for user interaction. Execution flow generally follows the depth-first traversal of the component tree. If at any point the execution has no further components to execute, the dialog is ended. This also happens if the execution ever reaches the component associated with the label "end".
+
+When this specification talks about "evaluation" as opposed to "execution", it refers to the standard term of evaluation used for common lisp, as in the evaluation of Lisp forms. The evaluation happens within a null lexical environment, and forms are read in a special package that offers functions dedicated to the dialog system.
+
+The semantics of executing textual components is as follows, described by type of the component. If a component should be executed whose type is not covered by any of the following sections, an error is signalled.
+
+### String
+Strings are displayed in the text box as regular text, with the exception of the new line. When a new line is encountered, execution is halted until the user presses a button to continue. Once pressed, the text box is cleared and execution is continued.
+
+### Parent-Component
+The children are executed in sequence.
+
+### Blockquote
+When a blockquote is executed, the currently speaking character is changed to that of the blockquote header associated with the blockquote. Otherwise execution proceeds as normal.
+
+### Footnote
+Footnotes have no semantic meaning beyond being a parent-component and establishing a label.
+
+### Unordered List
+When an unordered list is executed, the player is presented with a choice, where each of the options correspond to one of the items in the list. The text displayed for an option must be what would be displayed in the text box if the first textual component in the list item were executed. If no text would be displayed, the choice should not be presented. Once the player chooses a particular option, the execution is directed to the textual component after the first one in the corresponding list item.
+
+### Text Styling Components
+Most text styling components, such as bold, strikethrough, colouring, etc. should be displayed in the text box as dictated by the Markless standard.
+
+### Jump
+When a jump is executed, execution continues at the textual component associated with the label named by the jump's target. If no such component or label exists, an error is signalled.
+
+### Conditional
+When a conditional is executed, each of its clauses is handled in sequence by evaluating its predicate. If the predicate returns a true value, each of the clauses children is executed in sequence. If execution of the children completes, the execution of the conditional completes immediately and no further clauses are examined.
+
+### Placeholder
+When a placeholder is executed, its form is evaluated, the resulting value is turned into a string via ``princ-to-string``, and then executed.
+
+### Emote
+When an emote is executed, the displayed profile of the current character is changed to that corresponding to the emote. If no such profile exists, a continuable error is signalled.
+
+### Conditional Part
+When a conditional part is executed, its form is evaluated. If the returned value is an integer, the choice at the index indicated by the integer is executed. If the returned value is not-NIL, then the choice at index 0 is executed. If the returned value is NIL, then the choice at index 1 is executed. If an index is requested for which no choice exists, a continuable error is signalled.
+
+### Clue
+When a clue is executed, its children are executed in sequence, but must be displayed with emphasis to be clearly distinguished from normal text. Furthermore, the clue is added to the player's list of known clues.
+
+### Roll
+When a roll instruction is executed, the camera's roll angle is changed to the one indicated, by smoothly transitioning within the time indicated by the duration.
+
+### Zoom
+When a zoom instruction is executed, the camera's zoom level is changed to the one indicated, by smoothly transitioning within the time indicated by the duration.
+
+### Move
+When a move instruction is executed, the camera's location is moved to the one indicated, by smoothly transitioning within the time indicated by the duration.
+
+### Shake
+When a shake instruction is executed, the camera's view is shook randomly for the indicated duration.
+
+### Speed
+When a speed instruction is executed, the text scrolling speed is multiplied by the indicated factor. The standard text scrolling speed must be restored when the text box is scrolled.
+
+### Go
+When a go instruction is executed, execution continues at the textual component associated with the label named by the target. If no such component or label exists, an error is signalled.
+
+### Setf
+When a setf instruction is executed, the form composed by ``(setf ,place ,form)`` is evaluated.
+
+### Eval
+When an eval instruction is executed, the indicated form is evaluated.
+
 ## Future Ideas
 - Cutscene Direction (animations, movement, etc.)
-
 
 ## Example
 :::
