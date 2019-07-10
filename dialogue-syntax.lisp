@@ -1,4 +1,5 @@
 (defpackage #:org.shirakumo.fraf.leaf.dialogue.components
+  (:use #:org.shirakumo.markless.components)
   (:export
    #:jump
    #:placeholder
@@ -6,15 +7,14 @@
    #:emote
    #:conditional-part
    #:choices
-   #:conditional-header
-   #:conditional-branch
+   #:conditional
+   #:clauses
    #:go))
 
 (defpackage #:org.shirakumo.fraf.leaf.dialogue
   (:use #:cl)
   (:local-nicknames
    (#:components #:org.shirakumo.fraf.leaf.dialogue.components)
-   (#:markless-components #:org.shirakumo.markless.components)
    (#:markless #:org.shirakumo.markless))
   (:export
    #:parser
@@ -22,24 +22,22 @@
    #:placeholder
    #:emote
    #:conditional-part
-   #:conditional-header
-   #:conditional-branch))
+   #:conditional))
 
 (in-package #:org.shirakumo.fraf.leaf.dialogue)
 
 (defclass parser (markless:parser)
   ()
-  (:default-initargs :directives (list* 'jump 'placeholder 'emote 'conditional-part
-                                        'conditional-part-separator
-                                        'conditional-header
-                                        'conditional-branch
+  (:default-initargs :directives (list* 'placeholder 'emote
+                                        'conditional-part 'conditional-part-separator
+                                        'jump 'conditional
                                         markless:*default-directives*)))
 
-(defclass components:jump (markless-components:block-component)
-  ((markless-components:target
+(defclass components:jump (components::block-component)
+  ((components::target
     :initarg :target
     :initform (cl:error "TARGET required")
-    :accessor markless-components:target)))
+    :accessor components::target)))
 
 (defclass jump (markless:singular-line-directive)
   ())
@@ -52,49 +50,53 @@
     (markless:commit _ component parser))
   (length line))
 
-(defclass components:conditional-header (markless-components:block-component)
-  ((components:form
-    :initarg :form
-    :initform (error "FORM required")
-    :accessor components:form)))
+(defclass components:conditional (components::block-component)
+  ((components:clauses
+    :initform (make-array 0 :adjustable T :fill-pointer T)
+    :accessor components:clauses)))
 
-(defclass conditional-header (markless:singular-line-directive)
+(defmethod components::children ((_ components:conditional))
+  (cdr (aref (components:clauses _) (1- (length (components:clauses _))))))
+
+(defmethod markless:output-component ((c components:conditional) (s stream) (f markless:debug))
+  (format s "/~a" (type-of c))
+  (let ((markless::*level* (1+ markless::*level*)))
+    (loop for (predicate . children) across (components:clauses c)
+          do (let ((markless::*level* (1- markless::*level*)))
+               (markless:output-component (format NIL "-- ~s" predicate) s f))
+             (loop for child across children
+                   do (markless:output-component child s f)))))
+
+(defclass conditional (markless:singular-line-directive)
   ())
 
-(defmethod markless:prefix ((_ conditional-header))
+(defmethod markless:prefix ((_ conditional))
   #("?" " "))
 
-(defmethod markless:begin ((_ conditional-header) parser line cursor)
+(defmethod markless:begin ((_ conditional) parser line cursor)
   (multiple-value-bind (form cursor) (read-from-string line T NIL :start (+ 2 cursor))
     (when (< cursor (length line))
       (error 'markless:parser-error :cursor cursor))
-    (let ((component (make-instance 'components:conditional-header :form form)))
+    (let ((component (make-instance 'components:conditional)))
+      (vector-push-extend (cons form (make-array 0 :adjustable T :fill-pointer T))
+                          (components:clauses component))
       (markless:commit _ component parser)))
   (length line))
 
-(defclass components:conditional-branch (markless-components:block-component)
-  ((components:form
-    :initarg :form
-    :accessor components:form)))
+(defmethod markless:consume-prefix ((_ conditional) component parser line cursor)
+  (or (markless:match! "| " line cursor)
+      (when (markless:match! "|?" line cursor)
+        (if (< (+ 2 cursor) (length line))
+            (multiple-value-bind (form cursor) (read-from-string line T NIL :start (+ 2 cursor))
+              (when (< cursor (length line))
+                (error 'markless:parser-error :cursor cursor))
+              (vector-push-extend (cons form (make-array 0 :adjustable T :fill-pointer T))
+                                  (components:clauses component)))
+            (vector-push-extend (cons T (make-array 0 :adjustable T :fill-pointer T))
+                                (components:clauses component)))
+        (length line))))
 
-(defclass conditional-branch (markless:singular-line-directive)
-  ())
-
-(defmethod markless:prefix ((_ conditional-branch))
-  #("|" "?"))
-
-(defmethod markless:begin ((_ conditional-branch) parser line cursor)
-  (if (< (+ 2 cursor) (length line))
-      (multiple-value-bind (form cursor) (read-from-string line T NIL :start (+ 2 cursor))
-        (when (< cursor (length line))
-          (error 'markless:parser-error :cursor cursor))
-        (let ((component (make-instance 'components:conditional-branch :form form)))
-          (markless:commit _ component parser)))
-      (let ((component (make-instance 'components:conditional-branch)))
-        (markless:commit _ component parser)))
-  (length line))
-
-(defclass components:placeholder (markless-components:inline-component)
+(defclass components:placeholder (components::inline-component)
   ((components:form
     :initarg :form
     :initform (error "FORM required")
@@ -117,13 +119,13 @@
   (let ((*readtable* *placeholder-readtable*))
     (multiple-value-bind (form cursor) (read-from-string line T NIL :start (1+ cursor))
       (let* ((entry (markless:stack-top (markless:stack parser)))
-             (children (markless-components:children (markless:stack-entry-component entry))))
+             (children (components::children (markless:stack-entry-component entry))))
         (vector-push-extend (make-instance 'components:placeholder :form form) children)
         (unless (char= #\} (aref line cursor))
           (error 'markless:parser-error :cursor cursor))
         (+ 1 cursor)))))
 
-(defclass components:emote (markless-components:inline-component)
+(defclass components:emote (components::inline-component)
   ((components:emote
     :initarg :emote
     :initform (error "EMOTE required")
@@ -137,7 +139,7 @@
 
 (defmethod markless:begin ((_ emote) parser line cursor)
   (let* ((entry (markless:stack-top (markless:stack parser)))
-         (children (markless-components:children (markless:stack-entry-component entry)))
+         (children (components::children (markless:stack-entry-component entry)))
          (end (loop for i from (+ 2 cursor) below (length line)
                     do (when (char= #\) (char line i))
                          (return i)))))
@@ -146,7 +148,7 @@
     (vector-push-extend (make-instance 'components:emote :emote (subseq line cursor end)) children)
     (+ 1 end)))
 
-(defclass components:conditional-part (markless-components:inline-component)
+(defclass components:conditional-part (components::inline-component)
   ((components:form
     :initarg :form
     :initform (error "FORM required")
@@ -155,7 +157,7 @@
     :initform (make-array 0 :adjustable T :fill-pointer T)
     :accessor components:choices)))
 
-(defmethod markless-components:children ((_ components:conditional-part))
+(defmethod components::children ((_ components:conditional-part))
   (aref (components:choices _) (1- (length (components:choices _)))))
 
 (defmethod markless:output-component ((c components:conditional-part) (s stream) (f markless:debug))
@@ -177,7 +179,7 @@
   (let* ((component (markless:stack-entry-component (markless:stack-top (markless:stack parser)))))
     (if (typep component 'components:conditional-part)
         (vector-push-extend (make-array 0 :adjustable T :fill-pointer T) (components:choices component))
-        (vector-push-extend "|" (markless-components:children component)))
+        (vector-push-extend "|" (components::children component)))
     (+ 1 cursor)))
 
 (defclass conditional-part (markless:inline-directive)
@@ -201,14 +203,14 @@
 
 (defmethod markless:end :after ((_ conditional-part) component parser)
   ;; FIXME
-  (markless::vector-push-front "[" (markless-components:children component)))
+  (markless::vector-push-front "[" (components::children component)))
 
 
-(defclass components:go (markless-components:instruction)
-  ((markless-components:target
+(defclass components:go (components::instruction)
+  ((components::target
     :initarg :target
     :initform (cl:error "TARGET required")
-    :accessor markless-components:target)))
+    :accessor components::target)))
 
 (defmethod markless:parse-instruction ((proto components:go) line cursor)
   (make-instance (class-of proto) :target (subseq line cursor)))
