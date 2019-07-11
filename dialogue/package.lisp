@@ -48,6 +48,7 @@
 
 (defpackage #:org.shirakumo.fraf.leaf.dialogue.vm
   (:use #:cl)
+  (:shadow #:compile)
   (:local-nicknames
    (#:components #:org.shirakumo.fraf.leaf.dialogue.components))
   (:export))
