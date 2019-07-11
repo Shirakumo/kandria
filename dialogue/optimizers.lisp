@@ -18,6 +18,9 @@
         do (run-pass pass assembly))
   assembly)
 
+(defun compile* (thing)
+  (optimize-instructions (compile thing)))
+
 (defclass jump-resolution-pass (pass)
   ((label-map :initform (make-hash-table :test 'eq) :reader label-map)))
 

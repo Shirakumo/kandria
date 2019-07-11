@@ -63,10 +63,11 @@
 (defmethod walk ((component components::blockquote-header) (assembly assembly)))
 
 (defmethod walk :before ((component components::blockquote) (assembly assembly))
-  (loop for child across (components::children (components::source component))
-        do (walk child assembly))
-  (emit (make-instance 'source :label component)
-        assembly))
+  (when (components::source component)
+    (loop for child across (components::children (components::source component))
+          do (walk child assembly))
+    (emit (make-instance 'source :label component)
+          assembly)))
 
 (defmethod walk :after ((component components::blockquote) (assembly assembly))
   (emit (make-instance 'confirm) assembly))

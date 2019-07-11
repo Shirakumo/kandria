@@ -13,7 +13,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 20      0.7))
 
-(define-shader-subject player (animated-sprite-subject moving facing-entity dialog-entity lighted-entity)
+(define-shader-subject player (animated-sprite-subject moving facing-entity lighted-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (acceleration :initform (vec2 0 0) :accessor acceleration)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
@@ -24,8 +24,6 @@
    (surface :initform NIL :accessor surface))
   (:default-initargs
    :name :player
-   :emotes '(:default concerned thinking cheeky)
-   :profile (asset 'leaf 'profile)
    :texture (asset 'leaf 'player)
    :bsize (nv/ (vec 16 32) 2)
    :size (vec 32 40)
@@ -263,7 +261,7 @@ void main(){
 
 (define-handler (player switch-level) (ev level)
   (let ((other (for:for ((entity over (unit 'region level)))
-                 (print (list entity (contained-p (location player) entity)))
+                 (list entity (contained-p (location player) entity))
                  (when (and (typep entity 'chunk)
                             (contained-p (location player) entity))
                    (return entity)))))

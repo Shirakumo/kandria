@@ -86,8 +86,6 @@
     (setf (timestamp save) timestamp)))
 
 (defmethod save-state ((main main) (stream stream))
-  (dolist (storyline (list-storylines))
-    (save-state storyline stream))
   (save-state (scene main) stream))
 
 (defmethod load-state ((main main) (stream stream))
@@ -95,19 +93,6 @@
       (loop (call-next-method))
     (end-of-file (e)
       (declare (ignore e)))))
-
-(defmethod state-data ((storyline storyline))
-  (list* (name storyline) (active-p storyline)
-         (loop for k being the hash-keys of (state-table storyline)
-               for v being the hash-values of (state-table storyline)
-               collect k collect v)))
-
-(defmethod load-state-into (main (type (eql 'storyline)) (data cons))
-  (destructuring-bind (name active-p &rest state) data
-    (let ((storyline (storyline name)))
-      (setf (active-p storyline) active-p)
-      (loop for (k v) on state by #'cddr
-            do (setf (state k storyline) v)))))
 
 (defmethod state-data ((level level))
   (let ((entries ()))
