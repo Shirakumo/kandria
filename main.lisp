@@ -84,4 +84,3 @@
     ;(connect (flow:port render 'color) (flow:port blink-pass 'previous-pass) scene)
     ;(connect (flow:port blink-pass 'color) (flow:port bokeh-pass 'previous-pass) scene)
     ))
-

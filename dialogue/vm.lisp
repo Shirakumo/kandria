@@ -23,7 +23,7 @@
   (print-unreadable-object (request stream :type T :identity T)
     (format stream "~s" (choices request))))
 
-(defclass confirm-request (target-request text-request input-request)
+(defclass confirm-request (input-request target-request text-request)
   ())
 
 (defclass emote-request (text-request target-request)
@@ -63,15 +63,18 @@
   (values (get-output-stream-string (text-buffer vm))
           (shiftf (markup vm) ())))
 
+(defmethod run (assembly (vm (eql T)))
+  (run assembly (make-instance 'vm)))
+
 (defmethod run ((assembly assembly) (vm vm))
   (setf (instructions vm) (instructions assembly))
-  (reset vm)
-  (resume vm 0))
+  (reset vm))
 
 (defmethod reset ((vm vm))
   (get-output-stream-string (text-buffer vm))
   (setf (markup vm) ())
-  (setf (choices vm) ()))
+  (setf (choices vm) ())
+  vm)
 
 (defmethod resume ((vm vm) ip)
   (catch 'suspend
@@ -106,7 +109,7 @@
              (return target))))
 
 (defmethod execute ((instruction choose) (vm vm) ip)
-  (let ((choices (shiftf (choices vm) ())))
+  (let ((choices (nreverse (shiftf (choices vm) ()))))
     (suspend vm (make-instance 'choice-request
                                :choices (mapcar #'car choices)
                                :targets (mapcar #'cdr choices)))))

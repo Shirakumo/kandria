@@ -46,7 +46,6 @@
   (when (active-p entity)
     (with-buffer-tx (struct (asset 'leaf 'lights))
       (let ((light (elt (lights struct) (index entity))))
-        (print (index entity))
         (setf (light-type light) (light-type entity))
         (setf (location light) (location entity))
         (setf (light-dimensions light) (light-dimensions entity))

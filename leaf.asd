@@ -5,7 +5,6 @@
                (:file "packet")
                (:file "region")
                (:file "keys")
-               (:file "dialog")
                (:file "textbox")
                (:file "surface")
                (:file "lighting")

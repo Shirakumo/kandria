@@ -88,6 +88,7 @@
   (:export
    #:pass
    #:run-pass
+   #:compile*
    #:optimize-instructions
    #:jump-resolution-pass
    #:noop-elimination-pass)
