@@ -70,3 +70,4 @@
 
 ;; TODO: dead code elimination
 ;; TODO: ensure all jump targets are in-bounds
+;; TODO: consistency checkers

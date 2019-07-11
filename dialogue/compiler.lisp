@@ -36,6 +36,21 @@
   (loop for child across (components::children component)
         do (walk child assembly)))
 
+(defmacro define-simple-walker (component instruction &rest initargs)
+  `(defmethod walk ((component ,component) (assembly assembly))
+     (emit (make-instance ',instruction
+                          :label component
+                          ,@initargs)
+           assembly)))
+
+(defmacro define-markup-walker (component &body markup)
+  `(progn (defmethod walk :before ((component ,component) (assembly assembly))
+            (emit (make-instance 'begin-mark :label component
+                                             :markup (progn ,@markup))
+                  assembly))
+          (defmethod walk :after ((component ,component) (assembly assembly))
+            (emit (make-instance 'end-mark) assembly))))
+
 (defun resolved-target (component)
   (or (components::label (components::target component) *root*)
       (error "Label ~s cannot be resolved to any target component."
@@ -48,17 +63,13 @@
 (defmethod walk ((component components::blockquote-header) (assembly assembly)))
 
 (defmethod walk :before ((component components::blockquote) (assembly assembly))
-  (emit (make-instance 'source :source (components::source component)
-                               :label component)
+  (loop for child across (components::children (components::source component))
+        do (walk child assembly))
+  (emit (make-instance 'source :label component)
         assembly))
 
 (defmethod walk :after ((component components::blockquote) (assembly assembly))
   (emit (make-instance 'confirm) assembly))
-
-(defmethod walk ((component components:jump) (assembly assembly))
-  (emit (make-instance 'jump :target (resolved-target component)
-                             :label component)
-        assembly))
 
 (defmethod walk ((component components:conditional) (assembly assembly))
   (let ((conditional (make-instance 'conditional :label component)))
@@ -75,6 +86,7 @@
 
 (defmethod walk ((component components::unordered-list) (assembly assembly))
   (let ((choose (make-instance 'choose))
+        (end (make-instance 'noop))
         (items (components::children component)))
     (loop for i from 0 below (length items)
           for item = (aref items i)
@@ -89,25 +101,13 @@
                      assembly)
                (emit (make-instance 'noop :label children) assembly)
                (loop for i from 1 below (length children)
-                     do (walk (aref children i) assembly))))
-    (emit choose assembly)))
-
-(defmethod walk ((component components::label) (assembly assembly))
-  (emit (make-instance 'noop :label component) assembly))
-
-(defmethod walk :before ((component components::footnote) (assembly assembly))
-  (emit (make-instance 'noop :label component) assembly))
-
-(defmethod walk ((component components:go) (assembly assembly))
-  (emit (make-instance 'jump :target (resolved-target component)
-                             :label component)
-        assembly))
+                     do (walk (aref children i) assembly))
+               (emit (make-instance 'jump :target end) assembly)))
+    (emit choose assembly)
+    (emit end assembly)))
 
 (defmethod walk ((string string) (assembly assembly))
   (emit (make-instance 'text :text string) assembly))
-
-(defmethod walk ((component components::newline) (assembly assembly))
-  (emit (make-instance 'confirm :label component) assembly))
 
 (defmethod walk ((component components:conditional-part) (assembly assembly))
   (let ((dispatch (make-instance 'dispatch :form (components:form component)
@@ -123,26 +123,72 @@
       (setf (targets dispatch) targets)
       (emit end assembly))))
 
-(defmethod walk ((component components:eval) (assembly assembly))
-  (emit (make-instance 'eval :form (components:form component)
-                             :label component)
-        assembly))
+(define-markup-walker components:clue
+  (list :clue (components:clue component)))
 
-(defmethod walk ((component components:setf) (assembly assembly))
-  (emit (make-instance 'eval :form `(setf ,(components:place component)
-                                          ,(components:form component))
-                             :label component)
-        assembly))
+(define-markup-walker components::bold
+  (list :bold T))
 
-;; placeholder
-;; emote
-;; clue
+(define-markup-walker components::italic
+  (list :italic T))
+
+(define-markup-walker components::strikethrough
+  (list :strikethrough T))
+
+(define-markup-walker components::supertext
+  (list :supertext T))
+
+(define-markup-walker components::subtext
+  (list :subtext T))
+
+(define-markup-walker components::compound
+  (loop for option in (components::options component)
+        append (etypecase option
+                 (components::bold-option '(:bold T))
+                 (components::italic-option '(:italic T))
+                 (components::underline-option '(:underline T))
+                 (components::strikethrough-option '(:strikethrough T))
+                 (components::spoiler-option '(:spoiler T))
+                 (components::font-option (list :font (components::font-family option)))
+                 (components::color-option (list :color (3d-vectors:vec3
+                                                         (components::red option)
+                                                         (components::green option)
+                                                         (components::blue option))))
+                 (components::size-option (list :size (components::size option))))))
+
+(define-simple-walker components:jump jump
+  :target (resolved-target component))
+
+(define-simple-walker components::label noop)
+
+(define-simple-walker components::footnote noop)
+
+(define-simple-walker components:go jump
+  :target (resolved-target component))
+
+(define-simple-walker components::newline confirm)
+
+(define-simple-walker components:eval eval
+  :form (components:form component))
+
+(define-simple-walker components:setf eval
+  :form `(setf ,(components:place component)
+               ,(components:form component)))
+
+(define-simple-walker components:emote emote
+  :emote (components:emote component))
+
+(define-simple-walker components::en-dash pause
+  :duration 0.5)
+
+(define-simple-walker components::em-dash pause
+  :duration 1.0)
+
+(define-simple-walker components:placeholder placeholder
+  :form (components:form component))
+
 ;; speed
 ;; move
 ;; zoom
 ;; roll
 ;; show
-;; setf
-;; eval
-;; en-dash
-;; em-dash
