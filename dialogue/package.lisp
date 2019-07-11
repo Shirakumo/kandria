@@ -51,4 +51,74 @@
   (:shadow #:compile #:eval)
   (:local-nicknames
    (#:components #:org.shirakumo.fraf.leaf.dialogue.components))
-  (:export))
+  ;; instructions.lisp
+  (:export
+   #:instruction
+   #:index
+   #:label
+   #:noop
+   #:source
+   #:jump
+   #:target
+   #:conditional
+   #:clauses
+   #:emote
+   #:pause
+   #:placeholder
+   #:choose
+   #:commit-choice
+   #:confirm
+   #:begin-mark
+   #:end-mark
+   #:text
+   #:eval)
+  ;; compiler.lisp
+  (:export
+   #:parse
+   #:compile
+   #:assembly
+   #:instructions
+   #:next-index
+   #:emit
+   #:walk
+   #:define-simple-walker
+   #:define-markup-walker
+   #:resolved-target)
+  ;; optimizers.lisp
+  (:export
+   #:pass
+   #:run-pass
+   #:optimize-instructions
+   #:jump-resolution-pass
+   #:noop-elimination-pass)
+  ;; vm.lisp
+  (:export
+   #:request
+   #:input-request
+   #:target-request
+   #:target
+   #:text-request
+   #:text
+   #:markup
+   #:choice-request
+   #:choices
+   #:targets
+   #:confirm-request
+   #:emote-request
+   #:emote
+   #:pause-request
+   #:duration
+   #:source-request
+   #:end-request
+   #:vm
+   #:instructions
+   #:text-buffer
+   #:choices
+   #:markup
+   #:execute
+   #:text
+   #:pop-text
+   #:run
+   #:reset
+   #:resume
+   #:suspend))
