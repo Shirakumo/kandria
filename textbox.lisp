@@ -99,7 +99,10 @@
 
 (defmethod handle-request ((request dialogue:choice-request) (textbox textbox))
   (setf (choice textbox) 0)
-  (setf (text textbox) (format NIL "~{- ~a~^~%~}" (dialogue:choices request))))
+  (setf (text textbox) (with-output-to-string (stream)
+                         (loop for i from 0
+                               for label in (dialogue:choices request)
+                               do (format stream "~:[-~;>~] ~a~%" (= i (choice textbox)) label)))))
 
 (defmethod handle-request ((request dialogue:end-request) (textbox textbox))
   (setf (current-dialog textbox) NIL))
@@ -119,10 +122,22 @@
     T))
 
 (define-handler (textbox next) (ev)
-  (incf (choice textbox)))
+  (when (typep (request textbox) 'dialogue:choice-request)
+    (setf (choice textbox) (mod (1+ (choice textbox)) (length (dialogue:choices (request textbox)))))
+    (setf (text (paragraph textbox))
+          (with-output-to-string (stream)
+            (loop for i from 0
+                  for label in (dialogue:choices (request textbox))
+                  do (format stream "~:[-~;>~] ~a~%" (= i (choice textbox)) label))))))
 
 (define-handler (textbox previous) (ev)
-  (setf (choice textbox) (max 0 (1- (choice textbox)))))
+  (when (typep (request textbox) 'dialogue:choice-request)
+    (setf (choice textbox) (mod (1- (choice textbox)) (length (dialogue:choices (request textbox)))))
+    (setf (text (paragraph textbox))
+          (with-output-to-string (stream)
+            (loop for i from 0
+                  for label in (dialogue:choices (request textbox))
+                  do (format stream "~:[-~;>~] ~a~%" (= i (choice textbox)) label))))))
 
 (define-handler (textbox skip) (ev)
   )
