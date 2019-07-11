@@ -32,10 +32,6 @@
   (call-next-method)
   assembly)
 
-(defmethod walk ((component components::parent-component) (assembly assembly))
-  (loop for child across (components::children component)
-        do (walk child assembly)))
-
 (defmacro define-simple-walker (component instruction &rest initargs)
   `(defmethod walk ((component ,component) (assembly assembly))
      (emit (make-instance ',instruction
@@ -50,6 +46,10 @@
                   assembly))
           (defmethod walk :after ((component ,component) (assembly assembly))
             (emit (make-instance 'end-mark) assembly))))
+
+(defmethod walk ((component components::parent-component) (assembly assembly))
+  (loop for child across (components::children component)
+        do (walk child assembly)))
 
 (defun resolved-target (component)
   (or (components::label (components::target component) *root*)
@@ -187,6 +187,7 @@
 (define-simple-walker components:placeholder placeholder
   :form (components:form component))
 
+;; TODO: implement the following
 ;; speed
 ;; move
 ;; zoom
