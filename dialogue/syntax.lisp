@@ -22,7 +22,7 @@
 (defmethod components::children ((_ components:conditional))
   (cdr (aref (components:clauses _) (1- (length (components:clauses _))))))
 
-(defclass conditional (markless:singular-line-directive)
+(defclass conditional (markless:block-directive)
   ())
 
 (defmethod markless:prefix ((_ conditional))
@@ -122,7 +122,7 @@
   #("["))
 
 (defmethod markless:begin ((_ conditional-part) parser line cursor)
-  (multiple-value-bind (form cursor) (read-from-string line T NIL :start cursor)
+  (multiple-value-bind (form cursor) (read-from-string line T NIL :start (1+ cursor))
     (let ((component (make-instance 'components:conditional-part :form form)))
       (vector-push-extend (make-array 0 :adjustable T :fill-pointer T) (components:choices component))
       (markless:commit _ component parser))
