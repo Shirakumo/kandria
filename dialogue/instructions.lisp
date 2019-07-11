@@ -67,6 +67,15 @@
             (form dispatch)
             (targets dispatch))))
 
+(defclass emote (instruction)
+  ((emote :initarg :emote :accessor emote)))
+
+(defclass pause (instruction)
+  ((duration :initarg :duration :accessor duration)))
+
+(defclass placeholder (instruction)
+  ((form :initarg :form :accessor form)))
+
 (defclass choose (instruction)
   ())
 
@@ -80,7 +89,7 @@
   ((markup :initarg :markup :accessor markup)))
 
 (defclass end-mark (instruction)
-  ((markup :initarg :markup :accessor markup)))
+  ())
 
 (defclass text (instruction)
   ((text :initarg :text :accessor text)))
