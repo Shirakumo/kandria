@@ -13,6 +13,8 @@
    #:choices
    #:conditional
    #:clauses
+   #:source
+   #:name
    #:clue
    #:go
    #:speed
@@ -40,6 +42,7 @@
    #:parser
    #:jump
    #:conditional
+   #:source
    #:placeholder
    #:emote
    #:part-separator
@@ -58,6 +61,7 @@
    #:label
    #:noop
    #:source
+   #:name
    #:jump
    #:target
    #:conditional

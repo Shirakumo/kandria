@@ -64,9 +64,8 @@
 
 (defmethod walk :before ((component components::blockquote) (assembly assembly))
   (when (components::source component)
-    (loop for child across (components::children (components::source component))
-          do (walk child assembly))
-    (emit (make-instance 'source :label component)
+    (emit (make-instance 'source :label component
+                                 :name (components:name (components::source component)))
           assembly)))
 
 (defmethod walk :after ((component components::blockquote) (assembly assembly))
