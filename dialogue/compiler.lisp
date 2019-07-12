@@ -81,9 +81,9 @@
            (clauses (loop for (predicate . children) across (components:clauses component)
                           for index = (next-index assembly)
                           do (loop for child across children
-                                   do (walk child assembly)
-                                      (emit (make-instance 'jump :target end) assembly))
-                          collect (cons predicate index))))
+                                   do (walk child assembly))
+                             (emit (make-instance 'jump :target end) assembly)
+                          collect (cons (compile-form predicate) index))))
       (setf (clauses conditional) (append clauses (list (cons T (next-index assembly)))))
       (emit end assembly))))
 
