@@ -13,7 +13,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 20      0.7))
 
-(define-shader-subject player (animated-sprite-subject moving facing-entity lighted-entity)
+(define-shader-subject player (animated-sprite-subject moving facing-entity lighted-entity profile-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (acceleration :initform (vec2 0 0) :accessor acceleration)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
@@ -33,7 +33,17 @@
                  (jump 24 27 :step 0.1 :next fall)
                  (fall 27 33 :step 0.1 :loop-to 29)
                  (slide 33 39 :step 0.075 :loop-to 38)
-                 (climb 39 51 :step 0.1))))
+                 (climb 39 51 :step 0.1))
+   :profile-title "The Stranger"
+   :profile-texture (asset 'leaf 'player-profile)
+   :profile-animations '((normal 0 1)
+                         (normal-blink 0 3 :step 0.1 :next normal)
+                         (happy 3 4)
+                         (happy-blink 3 4 :next happy)
+                         (skeptical 4 5)
+                         (skeptical-blink 4 7 :step 0.1 :next skeptical)
+                         (grin 7 8)
+                         (grin-blink 7 10 :step 0.1 :next grin))))
 
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))

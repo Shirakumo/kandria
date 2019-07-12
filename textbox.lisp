@@ -1,20 +1,46 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-asset (leaf textbox) mesh
-    (make-rectangle 200 25 :align :topleft :y 15 :x 0
-                           :mesh (make-rectangle 750 100 :align :topleft)))
+    (make-rectangle 200 25 :align :topleft
+                           :mesh (make-rectangle 750 125 :align :topleft)))
 
 (define-asset (leaf profile-mesh) mesh
     (make-rectangle 128 128 :align :topleft))
 
 (define-asset (leaf text) font
-    #p"Kemco Pixel Bold.ttf"
+    #p"Xolonium-Regular.ttf"
   :size 42)
 
-(define-shader-entity profile (sprite-entity)
-  ((vertex-array :initform (asset 'leaf 'profile-mesh)))
-  (:default-initargs :size (vec 512 512)
-                     :texture (asset 'leaf 'profile)))
+(defclass profile-entity (entity)
+  ((profile-title :initarg :profile-title :accessor profile-title)
+   (profile-texture :initarg :profile-texture :accessor profile-texture)
+   (profile-animations :initarg :profile-animations :accessor profile-animations)))
+
+(define-shader-subject profile (animated-sprite-subject)
+  ((profile :initform NIL :accessor profile)
+   (emote :initform NIL :accessor emote)
+   (vertex-array :initform (asset 'leaf 'profile-mesh))
+   (next-blink :initform NIL :accessor next-blink))
+  (:default-initargs :size (vec 128 128)
+                     :animations '((none 0 1))
+                     :texture (make-instance 'texture :width 0 :height 0
+                                                      :pixel-format :rgba)))
+
+(defmethod (setf profile) :after ((entity profile-entity) (profile profile))
+  (setf (texture profile) (profile-texture entity))
+  (setf (animations profile) (profile-animations entity))
+  (setf (next-blink profile) NIL)
+  entity)
+
+(defmethod (setf emote) :after ((name symbol) (profile profile))
+  (setf (animation profile) name))
+
+(define-handler (profile tick trial:tick) (ev tt)
+  (cond ((null (next-blink profile))
+         (setf (next-blink profile) (+ tt 1.0 (random 5.0))))
+        ((< (next-blink profile) tt)
+         (setf (animation profile) (1+ (position (animation profile) (animations profile))))
+         (setf (next-blink profile) (+ tt 1.0 (random 5.0))))))
 
 (define-shader-subject textbox (vertex-entity)
   ((flare:name :initform :textbox)
@@ -23,7 +49,7 @@
    (paragraph :initform (make-instance 'text :font (asset 'leaf 'text)
                                              :size 18 :width 710 :wrap T
                                              :color (vec 1 1 1 1) :text "") :reader paragraph)
-   (title :initform (make-instance 'text :font (asset 'trial 'prompt-font)
+   (title :initform (make-instance 'text :font (asset 'leaf 'text)
                                          :size 22 :color (vec 0 0 0 1) :text "") :reader title)
    (clock :initform 0.0 :accessor clock)
    (cursor :initform 0 :accessor cursor)
@@ -51,11 +77,6 @@
 (defmethod trial:tile ((textbox textbox))
   (trial:tile (profile textbox)))
 
-;; (defmethod (setf target) :after ((entity dialog-entity) (textbox textbox))
-;;   (setf (text (title textbox)) (string-capitalize (name entity)))
-;;   (setf (texture (profile textbox)) (profile entity))
-;;   (setf (vx (trial:tile (profile textbox))) 0))
-
 (defmethod (setf current-dialog) ((assembly dialogue:assembly) (textbox textbox))
   (pause-game T textbox)
   (setf (vm textbox) (dialogue:run assembly T))
@@ -68,17 +89,14 @@
   (setf (text textbox) "")
   (unpause-game T textbox))
 
-#+ ()
-(with-context (*context*)
-  (setf (current-dialog (unit :textbox +level+))
-        (dialogue:compile* "! label start
-- foo
-  | woah!
-- bar
-  | weuh
-- baz
-  | eachu?
-< start")))
+(when *context*
+  (with-context (*context*)
+    (setf (current-dialog (unit :textbox +level+))
+          (dialogue:compile* "
+~ :player
+| Ayyyy---(:happy) man 
+| (:skeptical)So what's all this here?
+| Some kinda--.--.(:grin)--. clown show?"))))
 
 (defmethod advance ((textbox textbox) &optional ip)
   (let* ((ip (or ip (dialogue:target (request textbox))))
@@ -91,11 +109,16 @@
   (setf (text (paragraph textbox))
         (with-output-to-string (stream)
           (write-string (text (paragraph textbox)) stream)
-          (write-string (dialogue:text request) stream))))
+          (write-string (dialogue:text request) stream)))
+  (setf (cursor textbox) (cursor textbox)))
 
 (defmethod handle-request ((request dialogue:source-request) (textbox textbox))
   ;; FIXME: handle proper profile, etc.
-  (setf (text (title textbox)) (dialogue:text request)))
+  (let ((unit (unit (dialogue:name request) +level+)))
+    (unless unit
+      (error "No unit named ~s found!" (dialogue:name request)))
+    (setf (text (title textbox)) (profile-title unit))
+    (setf (profile (profile textbox)) unit)))
 
 (defmethod handle-request ((request dialogue:choice-request) (textbox textbox))
   (setf (choice textbox) 0)
@@ -116,9 +139,12 @@
   (and (call-next-method)
        (<= (dialogue:duration request) (clock textbox))))
 
+(defmethod fulfilled-p ((request dialogue:source-request) (textbox textbox))
+  T)
+
 (defmethod fulfilled-p ((request dialogue:emote-request) (textbox textbox))
   (when (call-next-method)
-    (setf (emote textbox) (dialogue:emote request))
+    (setf (emote (profile textbox)) (dialogue:emote request))
     T))
 
 (define-handler (textbox next) (ev)
@@ -143,27 +169,29 @@
   )
 
 (define-handler (textbox advance) (ev)
-  (let ((request (request textbox)))
-    (when request
-      (unless (typep request 'dialogue:input-request)
-        (loop until (typep request 'dialogue:input-request)
-              do (advance textbox)))
-      (cond ((<= (length (text textbox)) (cursor textbox))
-             (setf (text textbox) "")
-             (if (typep request 'dialogue:choice-request)
-                 (advance textbox (elt (dialogue:targets request) (choice textbox)))
-                 (advance textbox)))
-            (T
-             (setf (cursor textbox) (length (text textbox))))))))
+  (when (request textbox)
+    (unless (typep (request textbox) 'dialogue:input-request)
+      (loop until (typep (request textbox) 'dialogue:input-request)
+            do (setf (cursor textbox) (length (text textbox)))
+               (fulfilled-p (request textbox) textbox)
+               (advance textbox)))
+    (cond ((<= (length (text textbox)) (cursor textbox))
+           (setf (text textbox) "")
+           (if (typep (request textbox) 'dialogue:choice-request)
+               (advance textbox (elt (dialogue:targets (request textbox)) (choice textbox)))
+               (advance textbox)))
+          (T
+           (setf (cursor textbox) (length (text textbox)))))))
 
 (define-handler (textbox trial:tick) (ev dt)
   (when (request textbox)
+    (handle ev (profile textbox))
     (incf (clock textbox) dt)
     ;; FIXME: Configurable text speed
     (when (fulfilled-p (request textbox) textbox)
       (advance textbox))
     (when (and (< (cursor textbox) (length (text textbox)))
-               (< .02 (clock textbox)))
+               (< .03 (clock textbox)))
       (setf (clock textbox) 0)
       (incf (cursor textbox)))))
 
@@ -175,15 +203,19 @@
         (scale-by s s 1)
         (when (< 0 (shake-counter (unit :camera T)))
           (translate (vxy_ (vrand -3 +3))))
-        (translate-by 500 (+ 256 128) 5)
-        (scale-by 2 2 1)
-        (paint (profile textbox) target)
-        (scale-by 1/2 1/2 1)
-        (translate-by -475 -256 0)
+        (with-pushed-matrix ((*model-matrix* :identity))
+          (cond ((eql :player (name (profile (profile textbox))))
+                 (translate-by 0 586 5)
+                 (scale-by 3 3 1))
+                (T
+                 (translate-by 1000 618 5)
+                 (scale-by -3 3 1)))
+          (paint (profile textbox) target))
+        (translate-by 25 146 0)
         (call-next-method)
-        (translate-by 10 -5 0)
+        (translate-by 10 -18 0)
         (paint (title textbox) target)
-        (translate-by 10 -22 0)
+        (translate-by 10 -24 0)
         (with-pushed-attribs
           (enable :scissor-test)
           (gl:scissor (* s 40) (* s 40) (* s 720) (* s 80))
