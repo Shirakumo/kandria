@@ -5,8 +5,8 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
-(define-asset (leaf profile) image
-    #p"profile.png"
+(define-asset (leaf player-profile) image
+    #p"player-profile.png"
   :min-filter :nearest
   :mag-filter :nearest)
 
