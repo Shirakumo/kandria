@@ -11,6 +11,9 @@
 (defmethod compile ((thing string))
   (compile (parse thing)))
 
+(defun compile-form (form)
+  (cl:compile NIL `(lambda () (progn ,form))))
+
 (defclass assembly ()
   ((instructions :initform (make-array 0 :adjustable T :fill-pointer T) :accessor instructions)))
 
@@ -110,7 +113,7 @@
   (emit (make-instance 'text :text string) assembly))
 
 (defmethod walk ((component components:conditional-part) (assembly assembly))
-  (let ((dispatch (make-instance 'dispatch :form (components:form component)
+  (let ((dispatch (make-instance 'dispatch :func (compile-form (components:form component)) 
                                            :label component)))
     (emit dispatch assembly)
     (let* ((end (make-instance 'noop))
@@ -169,11 +172,11 @@
 (define-simple-walker components::newline confirm)
 
 (define-simple-walker components:eval eval
-  :form (components:form component))
+  :func (compile-form (components:form component)))
 
 (define-simple-walker components:setf eval
-  :form `(setf ,(components:place component)
-               ,(components:form component)))
+  :func (compile-form `(setf ,(components:place component)
+                             ,(components:form component))))
 
 (define-simple-walker components:emote emote
   :emote (components:emote component))
@@ -185,7 +188,7 @@
   :duration 1.0)
 
 (define-simple-walker components:placeholder placeholder
-  :form (components:form component))
+  :func (compile-form (components:form component)))
 
 ;; TODO: implement the following
 ;; speed

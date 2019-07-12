@@ -104,8 +104,8 @@
                                :text text))))
 
 (defmethod execute ((instruction conditional) (vm vm) ip)
-  (loop for (form . target) in (clauses instruction)
-        do (when (cl:eval form)
+  (loop for (func . target) in (clauses instruction)
+        do (when (funcall func)
              (return target))))
 
 (defmethod execute ((instruction choose) (vm vm) ip)
@@ -122,7 +122,7 @@
   (1+ ip))
 
 (defmethod execute ((instruction eval) (vm vm) ip)
-  (cl:eval (form instruction))
+  (funcall (func instruction))
   (1+ ip))
 
 (defmethod execute ((instruction begin-mark) (vm vm) ip)
@@ -136,7 +136,7 @@
   (1+ ip))
 
 (defmethod execute ((instruction placeholder) (vm vm) ip)
-  (princ (cl:eval (form instruction))
+  (princ (funcall (func instruction))
          (text-buffer vm))
   (1+ ip))
 

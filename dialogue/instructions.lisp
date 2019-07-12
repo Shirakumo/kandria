@@ -51,10 +51,10 @@
             (type-of conditional)
             (unless (eq conditional (label conditional))
               (label conditional))
-            (clauses conditional))))
+            (mapcar #'cdr (clauses conditional)))))
 
 (defclass dispatch (instruction)
-  ((form :initarg :form :accessor form)
+  ((func :initarg :func :accessor func)
    (targets :initarg :targets :accessor targets)))
 
 (defmethod print-object ((dispatch dispatch) stream)
@@ -74,7 +74,7 @@
   ((duration :initarg :duration :accessor duration)))
 
 (defclass placeholder (instruction)
-  ((form :initarg :form :accessor form)))
+  ((func :initarg :func :accessor func)))
 
 (defclass choose (instruction)
   ())
@@ -102,7 +102,7 @@
             (text text))))
 
 (defclass eval (instruction)
-  ((form :initarg :form :accessor form)))
+  ((func :initarg :func :accessor func)))
 
 (defmethod print-object ((eval eval) stream)
   (print-unreadable-object (eval stream)
