@@ -40,8 +40,8 @@
   (print-unreadable-object (request stream :type T :identity T)
     (format stream "~fs" (duration request))))
 
-(defclass source-request (text-request target-request)
-  ())
+(defclass source-request (target-request)
+  ((name :initarg :name :reader name)))
 
 (defclass end-request (request)
   ())
@@ -157,8 +157,6 @@
                                :text text))))
 
 (defmethod execute ((instruction source) (vm vm) ip)
-  (multiple-value-bind (text markup) (pop-text vm)
-    (suspend vm (make-instance 'source-request
-                               :target (1+ ip)
-                               :markup markup
-                               :text text))))
+  (suspend vm (make-instance 'source-request
+                             :target (1+ ip)
+                             :name (name instruction))))

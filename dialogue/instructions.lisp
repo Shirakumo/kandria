@@ -20,14 +20,14 @@
   ())
 
 (defclass source (instruction)
-  ((source :initarg :source :accessor source)))
+  ((name :initarg :name :accessor name)))
 
 (defmethod print-object ((source source) stream)
   (print-unreadable-object (source stream)
     (format stream "~3d ~s ~s"
             (index source)
             (type-of source)
-            (source source))))
+            (name source))))
 
 (defclass jump (instruction)
   ((target :initarg :target :initform (error "TARGET required.") :accessor target)))

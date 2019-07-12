@@ -15,6 +15,9 @@
              (loop for child across children
                    do (markless:output-component child s f)))))
 
+(defclass source (blockquote-header)
+  ((name :initarg :name :initform (cl:error "NAME required") :accessor name)))
+
 (defclass placeholder (inline-component)
   ((form :initarg :form :initform (cl:error "FORM required") :accessor form)))
 

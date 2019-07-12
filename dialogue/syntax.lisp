@@ -4,8 +4,8 @@
   ()
   (:default-initargs :directives (list* 'placeholder 'emote 'clue
                                         'conditional-part 'part-separator
-                                        'jump 'conditional
-                                        (remove-if (lambda (s) (find s '(markless:underline markless:code)))
+                                        'jump 'conditional 'source
+                                        (remove-if (lambda (s) (find s '(markless:underline markless:code markless:blockquote-header)))
                                                    markless:*default-directives*))))
 
 (defclass jump (markless:singular-line-directive)
@@ -51,6 +51,25 @@
                                 (components:clauses component)))
         (length line))))
 
+(defclass source (markless:blockquote-header)
+  ())
+
+(defmethod markless:begin ((_ source) parser line cursor)
+  (multiple-value-bind (name cursor) (read-from-string line T NIL :start (+ 2 cursor))
+    (when (< cursor (length line))
+      (error 'markless:parser-error :cursor cursor))
+    (check-type name symbol)
+    (let* ((top (markless:stack-top (markless:stack parser)))
+           (children (components::children (markless:stack-entry-component top)))
+           (predecessor (when (< 0 (length children))
+                          (aref children (1- (length children)))))
+           (component (make-instance 'components:source :name name)))
+      (when (and (typep predecessor 'components::blockquote)
+                 (null (components::source predecessor)))
+        (setf (components::source predecessor) component))
+      (vector-push-extend component children)
+      cursor)))
+
 (defvar *placeholder-readtable* (copy-readtable))
 
 (set-macro-character #\} (lambda (stream char)
@@ -88,8 +107,11 @@
                          (return i)))))
     (unless end
       (error 'markless:parser-error :cursor cursor))
-    (vector-push-extend (make-instance 'components:emote :emote (subseq line cursor end)) children)
-    (+ 1 end)))
+    (multiple-value-bind (emote cursor) (read-from-string line T NIL :start (+ 2 cursor) :end end)
+      (when (< cursor end)
+        (error 'markless:parser-error :cursor cursor))
+      (vector-push-extend (make-instance 'components:emote :emote emote) children)
+      (+ 1 end))))
 
 (defclass part-separator (markless:inline-directive)
   ())
