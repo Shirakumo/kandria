@@ -14,7 +14,11 @@
 (defclass profile-entity (entity)
   ((profile-title :initarg :profile-title :accessor profile-title)
    (profile-texture :initarg :profile-texture :accessor profile-texture)
-   (profile-animations :initarg :profile-animations :accessor profile-animations)))
+   (profile-animations :initarg :profile-animations :accessor profile-animations))
+  (:default-initargs
+   :profile-title "?"
+   :profile-texture (error "PROFILE-TEXTURE required.")
+   :profile-animations '((normal 0 1))))
 
 (define-shader-subject profile (animated-sprite-subject)
   ((profile :initform NIL :accessor profile)
@@ -88,15 +92,6 @@
   (setf (request textbox) NIL)
   (setf (text textbox) "")
   (unpause-game T textbox))
-
-(when *context*
-  (with-context (*context*)
-    (setf (current-dialog (unit :textbox +level+))
-          (dialogue:compile* "
-~ :player
-| Ayyyy---(:happy) man 
-| (:skeptical)So what's all this here?
-| Some kinda--.--.(:grin)--. clown show?"))))
 
 (defmethod advance ((textbox textbox) &optional ip)
   (let* ((ip (or ip (dialogue:target (request textbox))))
