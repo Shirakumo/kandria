@@ -1,0 +1,134 @@
+# Leaf Quest System
+
+
+1. **Storyline**
+  - **Quests**
+    Multiple quests in sequence, sometimes multiple in parallel.
+  - **Fixed Order**
+    Typically quests follow fixed, pre-planned order to serve story purposes.
+  - **Automatically Initiated**
+    Main story quests are typically automatically initiated.
+2. **Side Quests**
+  - **Time sensitive**
+    Can only happen during designated points in the primary storyline.
+  - **Manually initiated**
+    Player talks to someone or finds something that starts the quest.
+  - **Self-contained**
+    Usually bear no relevance to main story or each other.
+  - **World-Building, Character-Building, or Item Rewards**
+    Rewards do not directly contribute to reaching end of primary story.
+  - **Branching / Player Agency**
+    Due to self-contained nature, branching is more feasible.
+3. **Quest**
+  - **One or more tasks**
+    Quest describes goals or tasks to complete in order to finish quest.
+  - **Task Sequence**
+    Quest might have multiple tasks that need to be performed in sequence.
+  - **NPC Interaction**
+    Quest might open up additional interactions with NPCs or items over its course.
+  - **Quest Completion**
+    Quest may either complete automatically, or needs to be "handed in" by interacting with an NPC or item.
+  - **One-Time Only**
+    Quests can typically only be completed once.
+
+1. Beginning of game starts first storyline quest.
+2. Quest gives you number of tasks to complete.
+3. Completion of tasks leads to starting side-quests or further storyline quests.
+4. Starting a quest or completing a task adds interactions to NPCs and Items.
+5. Task completion criterion is very free-form.
+   Could be gathering x items, talking to NPCs, choosing dialog option, going to a place, inspecting an item, etc.
+6. Completing a task removes interactions from NPCs and items.
+
+
+## Quest
+Defines:
+- Description of the overall "problem".
+- Starting task which is initiated on quest start.
+- (optional) Item reward on completion.
+
+## Task
+Defines:
+- Description of minor "problem".
+- Trigger to completion of task.
+- Further tasks to spawn on completion.
+- Interactions to add or remove from NPCs and items.
+- Five states:
+  0. Inactive
+  1. Unresolved
+  2. Completed
+  3. Failed
+  4. Obsolete
+
+## Interactable
+- A list of "interactions" (dialogs that can be started)
+
+## Example
+
+# Save the Catte
+Save the poor catte from atop the tree! The old lady is worried sick!
+! start :ladder :axe
+
+## :ladder Get a Ladder
+Finding a ladder would allow you to get up there easily.
+
+? (at 'tree 'ladder)
+| ! spawn :get
+| ! complete
+| ! bypass :axe
+
+## :axe Get an Axe
+You could take that tree down with an axe. Sounds safe to me!
+
+? (not (exists 'tree))
+| ! spawn :get
+| ! complete
+| ! bypass :ladder
+
+## :get Get the Cat
+! spawn :grab
+
+? (have 'cat)
+| ! spawn :return
+| ! complete
+
+### :grab cat
+~ :player
+| Get over here, kitty!
+! despawn
+! stash 'cat
+
+## :return Return the Cat
+! spawn :return-cat
+
+? (not (have 'cat))
+| ! complete
+
+### :return-cat lady
+~ :player
+| here you go!
+~ lady
+| thanks a lot, kiddo!
+! give 'cat 'lady
+! despawn
+
+
+
+## Runtime
+- On interaction:
+  1. Check list of interactions on interactable, and present choice.
+  2. Execute chosen interaction.
+  
+- On story event:
+  1. Go through list of active tasks. For each task:
+     1. If invariant violated:
+        1. Mark as failed.
+        2. Remove from active tasks.
+     2. If condition passed:
+        1. Mark as succeeded.
+        2. Remove from active tasks.
+        3. For all effected tasks:
+           1. Mark all cause tasks that are unresolved, and for which the current task is in the only path to the end node, as obsolete.
+           2. If end task, mark quest as complete.
+           3. Otherwise, activate task.
+           4. Activate all triggers.
+
