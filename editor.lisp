@@ -114,8 +114,8 @@ void main(){
        ;; FIXME: for chunks (and other containers) we should also move
        ;;        contained units by the same delta.
        (vsetf (location entity)
-              (- (vx loc) (mod (vx (bsize entity)) +tile-size+))
-              (- (vy loc) (mod (vy (bsize entity)) +tile-size+))))
+              (+ (vx loc) (floor (vx (size entity)) 2))
+              (+ (vy loc) (floor (vy (size entity)) 2))))
       (:resizing
        (let ((size (vmax (v- loc old) (vec +tile-size+ +tile-size+))))
          (resize entity (vx size) (vy size))
