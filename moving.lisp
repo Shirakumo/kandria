@@ -29,7 +29,7 @@
     (for:for ((entity over surface))
       (when (and (not (eq entity moving))
                  (typep entity 'interactable)
-                 (contained-p entity loc))
+                 (contained-p loc entity))
         (collide moving entity (make-hit entity 0.0 loc (vec 0 0)))))))
 
 (defmethod collide ((moving moving) (block ground) hit)

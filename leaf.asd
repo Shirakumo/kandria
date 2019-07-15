@@ -16,6 +16,7 @@
                (:file "interactable")
                (:file "player")
                (:file "level")
+               (:file "world")
                (:file "versions/v0")
                (:file "editor")
                (:file "menu")
@@ -33,4 +34,5 @@
                :lambda-fiddle
                :trivial-arguments
                :trivial-indent
-               :leaf-dialogue))
+               :leaf-dialogue
+               :leaf-quest))

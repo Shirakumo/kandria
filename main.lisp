@@ -1,5 +1,15 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(define-asset (leaf fi) image
+    #p"fi.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
+(define-asset (leaf fi-profile) image
+    #p "player-profile.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
 (define-asset (leaf player) image
     #p"player.png"
   :min-filter :nearest
@@ -24,13 +34,31 @@
   ()
   (:default-initargs :name :untitled))
 
+(defvar *complete* NIL)
 (defmethod initialize-instance :after ((level empty-level) &key)
   (let ((region (make-instance 'region))
         (chunk (make-instance 'chunk :tileset (asset 'leaf 'ice))))
     (enter region level)
     (enter chunk region)
-    (enter (make-instance 'point-light :radius 64.0) chunk)
-    (enter (make-instance 'player :location (vec 64 64)) region)))
+    (enter (make-instance 'fi) chunk)
+    (enter (make-instance 'player :location (vec 64 64)) region)
+    (let ((start (make-instance 'quest-graph:start :title "Test"))
+          (task (make-instance 'quest-graph:task :title "Talk"
+                                                 :condition '*complete*))
+          (dial (make-instance 'quest-graph:interaction
+                               :interactable :fi
+                               :dialogue "
+~ :player
+| Hey Fi, how are you holding up?
+~ :fi
+| It's freezing here, how do you stand this?
+! setf *complete* T"))
+          (end (make-instance 'quest-graph:end)))
+      (quest-graph:connect start task)
+      (quest-graph:connect task end)
+      (quest-graph:connect task dial)
+      (let ((storyline (quest:make-storyline (list start))))
+        (enter (make-instance 'world :storyline storyline) level)))))
 
 (defclass main (trial:main)
   ((scene :initform NIL)
@@ -48,13 +76,7 @@
             (make-instance 'empty-level))))
 
 (defmethod setup-rendering :after ((main main))
-  (disable :cull-face)
-  (disable :scissor-test)
-  (disable :depth-test))
-
-(defmethod update ((main main) tt dt)
-  (issue (scene main) 'trial:tick :tt tt :dt dt)
-  (process (scene main)))
+  (disable :cull-face :scissor-test :depth-test))
 
 (defmethod save-state ((main main) (_ (eql T)))
   (save-state main (save main)))
@@ -76,10 +98,6 @@
   (enter (make-instance 'inactive-pause-menu) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
-  (let* ((render (make-instance 'render-pass))
-         (blink-pass (make-instance 'blink-pass))
-         (bokeh-pass (make-instance 'hex-bokeh-pass)))
-    (enter render scene)
-    ;(connect (flow:port render 'color) (flow:port blink-pass 'previous-pass) scene)
-    ;(connect (flow:port blink-pass 'color) (flow:port bokeh-pass 'previous-pass) scene)
-    ))
+  (enter (make-instance 'render-pass) scene)
+  ;; FIXME: fucked up
+  (quest:activate (quest:find-quest "Test" (storyline (unit :world scene)))))

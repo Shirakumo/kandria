@@ -372,6 +372,9 @@
   (apply #'issue +level+ (event-type trigger) (event-initargs trigger))
   (setf (active-p trigger) NIL))
 
+(defclass request-level (event)
+  ((level :initarg :level :reader level)))
+
 (defclass switch-level (event)
   ((level :initarg :level :reader level)))
 
