@@ -49,7 +49,7 @@
    #:conditional-part
    #:clue))
 
-(defpackage #:org.shirakumo.fraf.leaf.dialogue.vm
+(defpackage #:org.shirakumo.fraf.leaf.dialogue
   (:use #:cl)
   (:shadow #:compile #:eval)
   (:local-nicknames

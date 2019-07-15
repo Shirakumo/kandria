@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf.dialogue.vm)
+(in-package #:org.shirakumo.fraf.leaf.dialogue)
 
 (defclass instruction ()
   ((index :initarg :index :accessor index)
