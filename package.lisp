@@ -5,6 +5,8 @@
            #:located-entity #:sized-entity #:sprite-entity
            #:camera #:particle)
   (:local-nicknames
-   (#:dialogue #:org.shirakumo.fraf.leaf.dialogue.vm))
+   (#:dialogue #:org.shirakumo.fraf.leaf.dialogue)
+   (#:quest #:org.shirakumo.fraf.leaf.quest)
+   (#:quest-graph #:org.shirakumo.fraf.leaf.quest.graph))
   (:export
    #:launch))

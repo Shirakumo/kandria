@@ -200,10 +200,10 @@
           (translate (vxy_ (vrand -3 +3))))
         (with-pushed-matrix ((*model-matrix* :identity))
           (cond ((eql :player (name (profile (profile textbox))))
-                 (translate-by 0 586 5)
+                 (translate-by 0 645 5)
                  (scale-by 3 3 1))
                 (T
-                 (translate-by 1000 618 5)
+                 (translate-by 1000 645 5)
                  (scale-by -3 3 1)))
           (paint (profile textbox) target))
         (translate-by 25 146 0)
