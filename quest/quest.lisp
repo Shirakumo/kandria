@@ -3,13 +3,32 @@
 (defun compile-form (form)
   (compile NIL `(lambda () (progn ,form))))
 
-(defclass storyline ()
-  ((quests :initform () :accessor quests)
-   (known-quests :initform () :accessor known-quests)))
-
+(defgeneric active-p (thing))
 (defgeneric activate (thing))
 (defgeneric complete (thing))
 (defgeneric try (task))
+
+(defclass storyline ()
+  ((quests :initform (make-hash-table :test 'equalp) :reader quests)
+   (known-quests :initform () :accessor known-quests)))
+
+(defmethod try ((storyline storyline))
+  (loop for quest in (known-quests storyline)
+        while (active-p quest)
+        do (try quest)))
+
+(defmethod find-quest (name (storyline storyline) &optional (error T))
+  (or (gethash name (quests storyline))
+      (when error (error "No quest named ~s found." name))))
+
+(defmethod (setf find-quest) (quest name (storyline storyline))
+  (setf (gethash name (quests storyline)) quest))
+
+(defun make-storyline (quests)
+  (let ((storyline (make-instance 'storyline)))
+    (dolist (start quests storyline)
+      (let ((quest (make-instance 'quest :start start :storyline storyline)))
+        (setf (find-quest (title quest) storyline) quest)))))
 
 (defclass quest (describable)
   ((status :initarg :status :accessor status)
@@ -17,13 +36,18 @@
    (effects :reader effects)
    (tasks :initform () :reader tasks)
    (active-tasks :initform () :accessor active-tasks))
-  (:default-initargs :status :inactive))
+  (:default-initargs :status :inactive
+                     :title NIL))
 
 (defmethod initialize-instance :after ((quest quest) &key start storyline)
   (check-type storyline storyline)
   (multiple-value-bind (effects tasks) (transform start quest)
     (setf (slot-value quest 'effects) effects)
     (setf (slot-value quest 'tasks) tasks)))
+
+(defmethod print-object ((quest quest) stream)
+  (print-unreadable-object (quest stream :type T)
+    (format stream "~s ~s" (title quest) (status quest))))
 
 (defun sort-quests (quests)
   (sort quests (lambda (a b)
@@ -62,7 +86,7 @@
     (try task)))
 
 (defclass end ()
-  (quest :initarg :quest :reader quest))
+  ((quest :initarg :quest :reader quest)))
 
 (defmethod activate ((end end))
   (complete (quest end)))
@@ -76,6 +100,10 @@
    (invariant :initarg :invariant :reader invariant)
    (condition :initarg :condition :reader condition))
   (:default-initargs :status :inactive))
+
+(defmethod print-object ((task task) stream)
+  (print-unreadable-object (task stream :type T)
+    (format stream "~s ~s" (title task) (status task))))
 
 (defun sort-tasks (tasks)
   (sort tasks #'string< :key #'title))
@@ -94,7 +122,7 @@
 (defmethod (setf status) :after (status (task task))
   (setf (active-tasks (quest task))
         (if (eql status :unresolved)
-            (sort-tasks (list task (active-tasks (quest task))))
+            (sort-tasks (list* task (active-tasks (quest task))))
             (remove task (active-tasks (quest task))))))
 
 (defmethod activate ((task task))
@@ -137,19 +165,28 @@
             (loop for task being the hash-values of cache
                   collect task))))
 
-(defmethod %transform :around (thing cache)
+(defmethod %transform :around (thing cache _)
   (or (gethash thing cache)
       (setf (gethash thing cache)
             (call-next-method))))
 
+(defmethod %transform ((start graph:start) cache quest)
+  (setf (gethash start cache) quest)
+  (setf (description quest) (description start))
+  (setf (title quest) (title start))
+  (loop for task in (graph:effects start)
+        do (%transform task cache quest)))
+
 (defmethod %transform ((task graph:task) _ quest)
   (flet ((%transform (thing)
-           (%transform thing _)))
+           (%transform thing _ quest)))
     (make-instance 'task
                    :quest quest
                    :title (graph:title task)
                    :description (graph:description task)
-                   :causes (mapcar #'%transform (graph:causes task))
+                   :causes (loop for cause in (graph:causes task)
+                                 when (typep cause 'graph:task)
+                                 collect (%transform cause))
                    :effects (mapcar #'%transform (graph:effects task))
                    :triggers (mapcar #'%transform (graph:triggers task))
                    :invariant (compile-form (graph:invariant task))
