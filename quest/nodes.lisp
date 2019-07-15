@@ -31,7 +31,7 @@
   ())
 
 (defmethod flow:check-connection-accepted progn (connection (port triggers))
-  (etypecase (flow:left connection)
+  (etypecase (flow:node (flow:left connection))
     (task (check-type (flow:node (flow:right connection)) trigger))
     (trigger (check-type (flow:node (flow:right connection)) task))))
 
@@ -39,7 +39,7 @@
   ())
 
 (defmethod flow:check-connection-accepted progn (connection (port tasks))
-  (etypecase (flow:left connection)
+  (etypecase (flow:node (flow:left connection))
     (task (check-type (flow:node (flow:right connection)) trigger))
     (trigger (check-type (flow:node (flow:right connection)) task))))
 
@@ -48,7 +48,10 @@
    (effects :port-type effects)
    (triggers :port-type triggers)
    (invariant :initarg :invariant :accessor invariant)
-   (condition :initarg :condition :accessor condition)))
+   (condition :initarg :condition :accessor condition))
+  (:default-initargs
+   :invariant T
+   :condition (error "CONDITION required.")))
 
 (defmethod causes ((task task))
   (loop for connection in (slot-value task 'causes)
@@ -75,13 +78,24 @@
 
 (flow:define-node interaction (trigger)
   ((interactable :initarg :interactable :accessor interactable)
-   (dialogue :initarg :dialogue :accessor dialogue)))
+   (dialogue :initarg :dialogue :accessor dialogue))
+  (:default-initargs
+   :interactable (error "INTERACTABLE required")
+   :dialogue (error "DIALOGUE required")))
 
-(flow:define-node start ()
+(flow:define-node start (describable)
   ((effects :port-type effects)))
+
+(defmethod effects ((start start))
+  (loop for connection in (slot-value start 'effects)
+        collect (flow:node (flow:right connection))))
 
 (flow:define-node end ()
   ((causes :port-type causes)))
+
+(defmethod causes ((end end))
+  (loop for connection in (slot-value end 'causes)
+        collect (flow:node (flow:left connection))))
 
 (defmethod connect ((cause start) (effect task))
   (flow:connect (flow:port cause 'effects) (flow:port effect 'causes)
