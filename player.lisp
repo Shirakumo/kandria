@@ -330,7 +330,7 @@ void main(){
             (+ (vx (location interactable)) (- (/ (width prompt) 2))))
       (setf (vy (location prompt))
             (+ (vy (location interactable))
-               (vy (size player))
+               (vy (bsize player))
                (height prompt)))
       (paint prompt target))))
 
