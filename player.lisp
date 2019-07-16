@@ -23,7 +23,7 @@
    (dash-count :initform 0 :accessor dash-count)
    (surface :initform NIL :accessor surface))
   (:default-initargs
-   :name :player
+   :name 'player
    :texture (asset 'leaf 'player)
    :bsize (nv/ (vec 16 32) 2)
    :size (vec 32 40)
@@ -315,7 +315,7 @@ void main(){
          (vy (spawn-location player))))
 
 (defun player-screen-y ()
-  (* (- (vy (location (unit :player T))) (vy (location (unit :camera T))))
+  (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
      (view-scale (unit :camera T))))
 
 (defmethod paint :before ((player player) target)
@@ -353,15 +353,15 @@ void main(){
   0.0 1.5 (:blink (calc middle :to (player-screen-y)))
   0.0 0.6 (:blink (set strength :from 1.0 :to 0.3 :ease cubic-in-out))
           (:bokeh (set strength :from 100.0 :to 10.0 :ease cubic-in-out))
-  0.4 0.4 (:player (call (lambda (player tt dt) ;;(setf (animation player) 7)
-                           )))
+  0.4 0.4 (player (call (lambda (player tt dt) ;;(setf (animation player) 7)
+                          )))
   0.6 0.8 (:blink (set strength :to 1.0 :ease cubic-in))
           (:bokeh (set strength :to 0.0 :ease cubic-out))
   0.9 1.0 (:blink (set strength :to 0.0 :ease cubic-out))
-  1.5 1.5 (:player (call (lambda (player tt dt) (setf (state player) :normal)))))
+  1.5 1.5 (player (call (lambda (player tt dt) (setf (state player) :normal)))))
 
 (define-progression die
   0.0 0.8 (:blink (calc middle :to (player-screen-y)))
   0.0 0.8 (:blink (set strength :from 0.0 :to 1.0 :ease cubic-in))
           (:bokeh (set strength :from 0.0 :to 10.0))
-  0.8 0.8 (:player (call (lambda (player tt dt) (death player)))))
+  0.8 0.8 (player (call (lambda (player tt dt) (death player)))))

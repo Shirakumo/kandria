@@ -1,8 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf.quest)
 
-(defun compile-form (form)
-  (compile NIL `(lambda () (progn ,form))))
-
 (defgeneric active-p (thing))
 (defgeneric activate (thing))
 (defgeneric complete (thing))
@@ -24,10 +21,10 @@
 (defmethod (setf find-quest) (quest name (storyline storyline))
   (setf (gethash name (quests storyline)) quest))
 
-(defun make-storyline (quests)
+(defun make-storyline (quests &key (quest-type 'quest))
   (let ((storyline (make-instance 'storyline)))
     (dolist (start quests storyline)
-      (let ((quest (make-instance 'quest :start start :storyline storyline)))
+      (let ((quest (make-instance quest-type :start start :storyline storyline)))
         (setf (find-quest (title quest) storyline) quest)))))
 
 (defclass quest (describable)
@@ -48,6 +45,9 @@
 (defmethod print-object ((quest quest) stream)
   (print-unreadable-object (quest stream :type T)
     (format stream "~s ~s" (title quest) (status quest))))
+
+(defmethod make-assembly ((quest quest))
+  (make-instance 'dialogue:assembly))
 
 (defun sort-quests (quests)
   (sort quests (lambda (a b)
@@ -189,13 +189,16 @@
                                  collect (%transform cause))
                    :effects (mapcar #'%transform (graph:effects task))
                    :triggers (mapcar #'%transform (graph:triggers task))
-                   :invariant (compile-form (graph:invariant task))
-                   :condition (compile-form (graph:condition task)))))
+                   :invariant (dialogue::compile-form (make-assembly quest)
+                                                      (graph:invariant task))
+                   :condition (dialogue::compile-form (make-assembly quest)
+                                                      (graph:condition task)))))
 
-(defmethod %transform ((interaction graph:interaction) _ __)
+(defmethod %transform ((interaction graph:interaction) _ quest)
   (make-instance 'interaction
                  :interactable (graph:interactable interaction)
-                 :dialogue (dialogue:compile* (graph:dialogue interaction))))
+                 :dialogue (dialogue:compile* (graph:dialogue interaction)
+                                              (make-assembly quest))))
 
 (defmethod %transform ((end graph:end) _ quest)
   (make-instance 'end

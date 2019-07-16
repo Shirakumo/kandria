@@ -30,6 +30,19 @@
 (defun kw (thing)
   (intern (string-upcase thing) "KEYWORD"))
 
+(defmacro with-memo (bindings &body body)
+  (let ((funs (loop for binding in bindings
+                    collect (cons (car binding) (gensym (string (car binding)))))))
+    `(let ,(mapcar #'car bindings)
+       (flet ,(loop for (var value) in bindings
+                    for fun = (cdr (assoc var funs))
+                    collect `(,fun ()
+                               (or ,var (setf ,var ,value))))
+         (symbol-macrolet ,(loop for binding in bindings
+                                 for fun = (cdr (assoc (car binding) funs))
+                                 collect `(,(car binding) (,fun)))
+           ,@body)))))
+
 (defun type-prototype (type)
   (case type
     (character #\Nul)

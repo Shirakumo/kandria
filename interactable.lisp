@@ -1,5 +1,21 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defclass quest (quest:quest)
+  ())
+
+(defmethod quest:make-assembly ((_ quest))
+  (make-instance 'assembly))
+
+(defclass assembly (dialogue:assembly)
+  ())
+
+(defmethod dialogue:wrap-lexenv ((_ assembly) form)
+  `(with-memo ((world (unit 'world +level+))
+               (player (unit 'player +level+))
+               (region (unit 'region +level+))
+               (chunk (surface (unit 'player +level+))))
+     ,form))
+
 (defclass interaction (event)
   ((with :initarg :with :accessor with)))
 
@@ -22,7 +38,7 @@
 (define-shader-subject fi (npc)
   ()
   (:default-initargs
-   :name :fi
+   :name 'fi
    :bsize (nv/ (vec 16 32) 2)
    :size (vec 32 40)
    :texture (asset 'leaf 'fi)

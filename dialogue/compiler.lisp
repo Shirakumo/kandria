@@ -5,14 +5,18 @@
 (defun parse (thing)
   (cl-markless:parse thing (make-instance 'org.shirakumo.fraf.leaf.dialogue.syntax:parser)))
 
-(defmethod compile ((thing components::component))
-  (walk thing T))
+(defmethod compile ((thing components::component) assembly)
+  (walk thing assembly))
 
-(defmethod compile ((thing string))
-  (compile (parse thing)))
+(defmethod compile ((thing string) assembly)
+  (compile (parse thing) assembly))
 
-(defun compile-form (form)
-  (cl:compile NIL `(lambda () (progn ,form))))
+(defgeneric wrap-lexenv (assembly form)
+  (:method (_ form)
+    `(progn ,form)))
+
+(defun compile-form (assembly form)
+  (cl:compile NIL `(lambda () ,(wrap-lexenv assembly form))))
 
 (defclass assembly ()
   ((instructions :initform (make-array 0 :adjustable T :fill-pointer T) :accessor instructions)))
@@ -83,7 +87,7 @@
                           do (loop for child across children
                                    do (walk child assembly))
                              (emit (make-instance 'jump :target end) assembly)
-                          collect (cons (compile-form predicate) index))))
+                          collect (cons (compile-form assembly predicate) index))))
       (setf (clauses conditional) (append clauses (list (cons T (next-index assembly)))))
       (emit end assembly))))
 
@@ -113,7 +117,7 @@
   (emit (make-instance 'text :text string) assembly))
 
 (defmethod walk ((component components:conditional-part) (assembly assembly))
-  (let ((dispatch (make-instance 'dispatch :func (compile-form (components:form component)) 
+  (let ((dispatch (make-instance 'dispatch :func (compile-form assembly (components:form component)) 
                                            :label component)))
     (emit dispatch assembly)
     (let* ((end (make-instance 'noop))
@@ -172,11 +176,11 @@
 (define-simple-walker components::newline confirm)
 
 (define-simple-walker components:eval eval
-  :func (compile-form (components:form component)))
+  :func (compile-form assembly (components:form component)))
 
 (define-simple-walker components:setf eval
-  :func (compile-form `(setf ,(components:place component)
-                             ,(components:form component))))
+  :func (compile-form assembly `(setf ,(components:place component)
+                                      ,(components:form component))))
 
 (define-simple-walker components:emote emote
   :emote (components:emote component))
@@ -188,7 +192,7 @@
   :duration 1.0)
 
 (define-simple-walker components:placeholder placeholder
-  :func (compile-form (components:form component)))
+  :func (compile-form assembly (components:form component)))
 
 ;; TODO: implement the following
 ;; speed
