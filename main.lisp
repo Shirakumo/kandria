@@ -6,7 +6,7 @@
   :mag-filter :nearest)
 
 (define-asset (leaf fi-profile) image
-    #p "player-profile.png"
+    #p "fi-profile.png"
   :min-filter :nearest
   :mag-filter :nearest)
 
@@ -49,7 +49,7 @@
                                :interactable :fi
                                :dialogue "
 ~ :player
-| Hey Fi, how are you holding up?
+| A full month of work on the game! (:happy)
 ~ :fi
 | It's freezing here, how do you stand this?
 ! setf *complete* T"))
@@ -57,7 +57,8 @@
       (quest-graph:connect start task)
       (quest-graph:connect task end)
       (quest-graph:connect task dial)
-      (let ((storyline (quest:make-storyline (list start))))
+      (let* ((*package* #.*package*)
+             (storyline (quest:make-storyline (list start))))
         (enter (make-instance 'world :storyline storyline) level)))))
 
 (defclass main (trial:main)
