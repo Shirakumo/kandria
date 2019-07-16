@@ -44,6 +44,7 @@
    #:tasks
    #:active-tasks
    #:active-p
+   #:make-assembly
    #:task
    #:status
    #:quest

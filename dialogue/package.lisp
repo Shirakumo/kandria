@@ -80,6 +80,7 @@
   (:export
    #:parse
    #:compile
+   #:wrap-lexenv
    #:assembly
    #:instructions
    #:next-index

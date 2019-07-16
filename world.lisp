@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-subject world ()
-  ((flare:name :initform :world)
+  ((flare:name :initform 'world)
    (storyline :initarg :storyline :accessor storyline)
    (maps :initarg :maps :accessor maps)))
 

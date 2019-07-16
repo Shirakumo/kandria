@@ -199,7 +199,7 @@
         (when (< 0 (shake-counter (unit :camera T)))
           (translate (vxy_ (vrand -3 +3))))
         (with-pushed-matrix (*model-matrix*)
-          (cond ((eql :player (name (profile (profile textbox))))
+          (cond ((eql 'player (name (profile (profile textbox))))
                  (translate-by 0 402 5)
                  (scale-by 2 2 1))
                 (T

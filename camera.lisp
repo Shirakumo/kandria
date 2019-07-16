@@ -14,7 +14,7 @@
    :target-size (v* +tiles-in-view+ +tile-size+ .5)))
 
 (defmethod enter :after ((camera camera) (scene scene))
-  (setf (target camera) (unit :player scene))
+  (setf (target camera) (unit 'player scene))
   (setf (surface camera) (unit :chunk scene)))
 
 (define-handler (camera trial:tick) (ev tt)

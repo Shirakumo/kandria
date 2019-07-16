@@ -46,19 +46,19 @@
           (task (make-instance 'quest-graph:task :title "Talk"
                                                  :condition '*complete*))
           (dial (make-instance 'quest-graph:interaction
-                               :interactable :fi
+                               :interactable 'fi
                                :dialogue "
-~ :player
+~ player
 | A full month of work on the game! (:happy)
-~ :fi
+~ fi
 | It's freezing here, how do you stand this?
-! setf *complete* T"))
+! setf (location player) (vec 100 100)"))
           (end (make-instance 'quest-graph:end)))
       (quest-graph:connect start task)
       (quest-graph:connect task end)
       (quest-graph:connect task dial)
       (let* ((*package* #.*package*)
-             (storyline (quest:make-storyline (list start))))
+             (storyline (quest:make-storyline (list start) :quest-type 'quest)))
         (enter (make-instance 'world :storyline storyline) level)))))
 
 (defclass main (trial:main)
@@ -101,4 +101,22 @@
   (enter (make-instance 'camera) scene)
   (enter (make-instance 'render-pass) scene)
   ;; FIXME: fucked up
-  (quest:activate (quest:find-quest "Test" (storyline (unit :world scene)))))
+  (quest:activate (quest:find-quest "Test" (storyline (unit 'world scene)))))
+
+#+leaf-inspector
+(progn
+  (sb-ext:defglobal +inspector+ NIL)
+  
+  (defmethod initialize-instance :after ((main main) &key)
+    (setf +inspector+ (nth-value 1 (clouseau:inspect main :new-process t))))
+
+  (defmethod finalize :after ((main main))
+    (setf +level+ NIL)
+    (setf +inspector+ NIL))
+
+  (defmethod update :after ((main main) tt dt fc)
+    (when (= 0 (mod fc 10))
+      (let* ((pane (clim:find-pane-named +inspector+ 'clouseau::inspector))
+             (state (clouseau::state pane)))
+        (setf (clouseau:root-object state :run-hook-p t)
+              (clouseau:root-object state))))))
