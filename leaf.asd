@@ -15,7 +15,6 @@
                (:file "moving")
                (:file "interactable")
                (:file "player")
-               (:file "level")
                (:file "world")
                (:file "versions/v0")
                (:file "editor")

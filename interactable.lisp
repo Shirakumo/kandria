@@ -9,7 +9,7 @@
 
 (defmethod quest:activate ((trigger quest:interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
-    (let ((interactable (unit (quest:interactable trigger) +level+)))
+    (let ((interactable (unit (quest:interactable trigger) +world+)))
       (with-new-value-restart (interactable) (new-value "Supply a new interactable to use.")
         (unless (typep interactable 'interactable)
           (error "Failed to find interactable for trigger: ~s"

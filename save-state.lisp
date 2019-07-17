@@ -94,29 +94,29 @@
     (end-of-file (e)
       (declare (ignore e)))))
 
-(defmethod state-data ((level level))
+(defmethod state-data ((world world))
   (let ((entries ()))
-    (for:for ((entity over level))
+    (for:for ((entity over world))
       (when (find-method #'state-data () (list (class-of entity)) NIL)
         (push (list* (type-of entity) (state-data entity)) entries)))
-    (list* (name level)
+    (list* (name world)
            (nreverse entries))))
 
-(defmethod load-state-into ((main main) (type (eql 'level)) (data cons))
+(defmethod load-state-into ((main main) (type (eql 'world)) (data cons))
   (destructuring-bind (name &rest entries) data
-    (let ((level (if (eq name (name (scene main)))
+    (let ((world (if (eq name (name (scene main)))
                      (scene main)
-                     (load T (make-instance 'level :name name) T))))
+                     (load T (make-instance 'world :name name) T))))
       (loop for (type . data) in entries
-            do (load-state-into level type data))
-      (change-scene main level))))
+            do (load-state-into world type data))
+      (change-scene main world))))
 
 (defmethod state-data ((player player))
   (list (name player) (vapply (spawn-location player) floor)))
 
-(defmethod load-state-into ((level level) (type (eql 'player)) data)
+(defmethod load-state-into ((world world) (type (eql 'player)) data)
   (destructuring-bind (name (_ x y)) data
     (declare (ignore _))
-    (let ((player (unit name level)))
+    (let ((player (unit name world)))
       (vsetf (location player) x y)
       (vsetf (spawn-location player) x y))))

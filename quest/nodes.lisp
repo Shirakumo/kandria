@@ -1,9 +1,11 @@
 (in-package #:org.shirakumo.fraf.leaf.quest.graph)
 
 (defclass describable ()
-  ((title :initarg :title :accessor title)
+  ((name :initarg :name :accessor name)
+   (title :initarg :title :accessor title)
    (description :initarg :description :accessor description))
   (:default-initargs
+   :name (error "NAME required")
    :title (error "TITLE required")
    :description ""))
 
@@ -16,7 +18,7 @@
 
 (defmethod flow:check-connection-accepted progn (connection (port causes))
   (check-type connection flow:directed-connection)
-  (check-type (flow:node (flow:left connection)) (or task start))
+  (check-type (flow:node (flow:left connection)) (or task quest))
   (check-type (flow:node (flow:right connection)) (or task end)))
 
 (defclass effects (flow:out-port flow:n-port)
@@ -24,7 +26,7 @@
 
 (defmethod flow:check-connection-accepted progn (connection (port effects))
   (check-type connection flow:directed-connection)
-  (check-type (flow:node (flow:left connection)) (or task start))
+  (check-type (flow:node (flow:left connection)) (or task quest))
   (check-type (flow:node (flow:right connection)) (or task end)))
 
 (defclass triggers (flow:n-port)
@@ -42,6 +44,13 @@
   (etypecase (flow:node (flow:left connection))
     (task (check-type (flow:node (flow:right connection)) trigger))
     (trigger (check-type (flow:node (flow:right connection)) task))))
+
+(flow:define-node quest (describable)
+  ((effects :port-type effects)))
+
+(defmethod effects ((quest quest))
+  (loop for connection in (slot-value quest 'effects)
+        collect (flow:node (flow:right connection))))
 
 (flow:define-node task (describable)
   ((causes :port-type causes)
@@ -68,7 +77,10 @@
                                (flow:left connection)))))
 
 (flow:define-node trigger ()
-  ((tasks :port-type tasks)))
+  ((name :initarg :name :accessor name)
+   (tasks :port-type tasks))
+  (:default-initargs
+   :name (error "NAME required.")))
 
 (defmethod tasks ((trigger trigger))
   (loop for connection in (slot-value trigger 'tasks)
@@ -83,13 +95,6 @@
    :interactable (error "INTERACTABLE required")
    :dialogue (error "DIALOGUE required")))
 
-(flow:define-node start (describable)
-  ((effects :port-type effects)))
-
-(defmethod effects ((start start))
-  (loop for connection in (slot-value start 'effects)
-        collect (flow:node (flow:right connection))))
-
 (flow:define-node end ()
   ((causes :port-type causes)))
 
@@ -97,7 +102,7 @@
   (loop for connection in (slot-value end 'causes)
         collect (flow:node (flow:left connection))))
 
-(defmethod connect ((cause start) (effect task))
+(defmethod connect ((cause quest) (effect task))
   (flow:connect (flow:port cause 'effects) (flow:port effect 'causes)
                 'flow:directed-connection))
 

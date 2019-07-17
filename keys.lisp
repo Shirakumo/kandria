@@ -28,10 +28,10 @@
   (key-release (one-of key :left-shift :right-shift)))
 
 ;;; F Group 1
-(define-action save-level (editor-command)
+(define-action save-world (editor-command)
   (key-press (one-of key :f1)))
 
-(define-action load-level (editor-command)
+(define-action load-world (editor-command)
   (key-press (one-of key :f2)))
 
 (define-action save-state (editor-command)
