@@ -4,8 +4,7 @@
 
 (define-decoder (region v0) (info packet)
   (let* ((region (apply #'make-instance 'region info))
-         (data (zip:get-zipfile-entry "data" packet))
-         (content (parse-sexp-vector (zip:zipfile-entry-contents data))))
+         (content (parse-sexps (packet-entry "data" packet))))
     (loop for (type . initargs) in content
           do (enter (decode type initargs) region))
     region))
@@ -19,7 +18,7 @@
       (when (typep entity 'chunk)
         (push (encode entity) entities)))
     (let ((data (apply #'make-sexp-stream entities)))
-      (zip:write-zipentry packet "data" data :file-write-date (get-universal-time)))
+      (setf (packet-entry "data" packet) data))
     (list :name (name region)
           :author (author region)
           :version (version region)
@@ -48,8 +47,7 @@
                       for layer across (layers chunk)
                       ;; KLUDGE: no png saving lib handy. Hope ZIP compression is Good Enough
                       for path = (format NIL "resources/~a-~d.raw" (name chunk) i)
-                      for stream = (make-instance 'fast-io:fast-input-stream :vector layer)
-                      do (zip:write-zipentry packet path stream :file-write-date (get-universal-time))
+                      do (setf (packet-entry path packet) layer)
                       collect path))
         (children (for:for ((entity over chunk)
                             (_ collect (encode entity))))))

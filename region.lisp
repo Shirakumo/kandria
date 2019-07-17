@@ -36,37 +36,27 @@
          (error "VERSION must be an instance of VERSION or T."))))
 
 (defmethod save-region (region (pathname pathname) &key version (if-exists :supersede))
-  (cond ((equal "zip" (pathname-type pathname))
-         (ensure-directories-exist pathname)
-         (zip:with-output-to-zipfile (file pathname :if-exists if-exists)
-           (save-region region file :version version)))
-        (T
-         (error "Unknown packet type: ~a" (pathname-type pathname)))))
+  (with-packet (packet pathname :direction :output :if-exists if-exists)
+    (save-region region packet :version version)))
 
-(defmethod save-region (region (file zip::zipwriter) &key version)
+(defmethod save-region (region (packet packet) &key version)
   (let ((meta (make-sexp-stream (list :identifier 'region
                                       :version (type-of version))
-                                (encode-region-payload region NIL file version))))
-    (zip:write-zipentry file "meta.lisp" meta :file-write-date (get-universal-time))))
+                                (encode-region-payload region NIL packet version))))
+    (setf (packet-entry "meta.lisp" packet) meta)))
 
 (defmethod load-region ((pathname pathname) scene)
-  (cond ((equal "zip" (pathname-type pathname))
-         (zip:with-zipfile (file pathname)
-           (load-region file scene)))
-        (T
-         (error "Unknown packet type: ~a" (pathname-type pathname)))))
+  (with-packet (packet pathname :direction :input)
+    (load-region packet scene)))
 
-(defmethod load-region ((file zip:zipfile) (scene scene))
-  (let ((meta (zip:get-zipfile-entry "meta.lisp" file)))
-    (unless meta
-      (error "Malformed region file."))
-    (destructuring-bind (header info) (parse-sexp-vector (zip:zipfile-entry-contents meta))
-      (let ((region (decode-region-payload
-                     info (type-prototype 'region) file
-                     (destructuring-bind (&key identifier version) header
-                       (assert (eql 'region identifier))
-                       (coerce-version version)))))
-        (enter region scene)))))
+(defmethod load-region ((packet packet) (scene scene))
+  (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
+    (let ((region (decode-region-payload
+                   info (type-prototype 'region) packet
+                   (destructuring-bind (&key identifier version) header
+                     (assert (eql 'region identifier))
+                     (coerce-version version)))))
+      (enter region scene))))
 
 (defmacro define-encoder ((type version) &rest args)
   (let ((version-instance (gensym "VERSION"))
