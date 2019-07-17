@@ -2,7 +2,7 @@
 This document is the specification for Leaf's region file format. The format is defined by a combination of textual and ADL descriptions. A more formal definition of ADL can be found in the "adl"(link adl.mess) file.
 
 ## Container
-Regions are typically delivered through a DEFLATE compressed ZIP archive. Such an archive must have the following file structure:
+Regions are typically delivered through a DEFLATE compressed ZIP archive, though they can also be present in a singular directory on disk. In any case, the file structure must be as follows:
 
 ::
 meta.lisp
