@@ -20,3 +20,27 @@
         (level (make-instance 'level :name level)))
     (load-region (pool-path 'leaf map) level)
     (change-scene (handler *context*) level)))
+
+(defclass quest (quest:quest)
+  ())
+
+(defmethod quest:make-assembly ((_ quest))
+  (make-instance 'assembly))
+
+(defclass assembly (dialogue:assembly)
+  ())
+
+(defmethod dialogue:wrap-lexenv ((_ assembly) form)
+  `(with-memo ((world (unit 'world +level+))
+               (player (unit 'player +level+))
+               (region (unit 'region +level+))
+               (chunk (surface (unit 'player +level+))))
+     ,form))
+
+(defmethod load-world ((pathname pathname) scene)
+  (cond ((equal "" (pathname-type pathname))
+         ())
+        (T
+         (error "Unknown packet type: ~a" (pathname-type pathname)))))
+
+
