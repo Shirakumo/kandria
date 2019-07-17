@@ -1,21 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defclass quest (quest:quest)
-  ())
-
-(defmethod quest:make-assembly ((_ quest))
-  (make-instance 'assembly))
-
-(defclass assembly (dialogue:assembly)
-  ())
-
-(defmethod dialogue:wrap-lexenv ((_ assembly) form)
-  `(with-memo ((world (unit 'world +level+))
-               (player (unit 'player +level+))
-               (region (unit 'region +level+))
-               (chunk (surface (unit 'player +level+))))
-     ,form))
-
 (defclass interaction (event)
   ((with :initarg :with :accessor with)))
 

@@ -108,7 +108,6 @@
   (setf (cursor textbox) (cursor textbox)))
 
 (defmethod handle-request ((request dialogue:source-request) (textbox textbox))
-  ;; FIXME: handle proper profile, etc.
   (let ((unit (unit (dialogue:name request) +level+)))
     (unless unit
       (error "No unit named ~s found!" (dialogue:name request)))
