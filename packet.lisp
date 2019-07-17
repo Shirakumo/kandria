@@ -1,9 +1,11 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defclass packet ()
-  (storage))
+  ((storage :initarg :storage :reader storage)
+   (offset :initarg :offset :initform "" :accessor offset)))
 
-(defgeneric call-with-packet (function storage &key direction if-exists if-does-not-exist))
+(defgeneric entry-path (entry packet))
+(defgeneric call-with-packet (function storage &key offset direction if-exists if-does-not-exist))
 (defgeneric call-with-packet-entry (function entry packet &key element-type))
 (defgeneric packet-entry (entry packet &key element-type))
 (defgeneric (setf packet-entry) (data entry packet))
@@ -20,7 +22,7 @@
               ,@body))
        (call-with-packet-entry #',thunk ,entry ,packet ,@args))))
 
-(defmethod call-with-packet (function (pathname pathname) &key direction (if-exists :error) (if-does-not-exist :create))
+(defmethod call-with-packet (function (pathname pathname) &key offset direction (if-exists :error) (if-does-not-exist :create))
   (let ((direction (or direction :input)))
     (ecase direction
       (:input
@@ -31,9 +33,14 @@
            (:create
             (cond ((equal "zip" (pathname-type pathname))
                    (zip:with-zipfile (zip pathname)
-                     (funcall function (make-instance 'zip-read-packet :storage zip))))
+                     (funcall function (make-instance 'zip-read-packet
+                                                      :storage zip
+                                                      :offset offset))))
                   ((pathname-utils:directory-p pathname)
-                   (funcall function (make-instance 'dir-packet :storage pathname)))
+                   (funcall function (make-instance 'dir-packet
+                                                    :direction :input
+                                                    :storage pathname
+                                                    :offset offset)))
                   (T
                    (error "Don't know how to open ~s" pathname)))))))
       (:output
@@ -44,13 +51,18 @@
            ((:new-version :rename :rename-and-delete :overwrite :append :supersede)
             (cond ((equal "zip" (pathname-type pathname))
                    (zip:with-output-to-zipfile (zip pathname :if-exists if-exists)
-                     (funcall function (make-instance 'zip-write-packet :storage zip))))
+                     (funcall function (make-instance 'zip-write-packet
+                                                      :storage zip
+                                                      :offset offset))))
                   ((pathname-utils:directory-p pathname)
-                   (funcall function (make-instance 'dir-packet :storage pathname)))
+                   (funcall function (make-instance 'dir-packet
+                                                    :direction :output
+                                                    :storage pathname
+                                                    :offset offset)))
                   (T
                    (error "Don't know how to write ~s" pathname))))))))))
 
-(defmethod packet-entry (name packet &key element-type)
+(defmethod packet-entry (name (packet packet) &key element-type)
   (with-packet-entry (stream name packet :element-type element-type)
     (let ((sequence (make-array (file-length stream) :element-type (stream-element-type stream))))
       (loop for start = 0 then read
@@ -73,9 +85,16 @@
 (defclass zip-packet ()
   ())
 
-(defmethod packet-entry (name (packet zip-packet) &key element-type)
+(defmethod call-with-packet (function (packet zip-packet) &key offset)
+  (make-instance (class-of packet) :offset (format NIL "~a/~a" (offset packet) offset)
+                                   :storage (storage packet)))
+
+(defmethod entry-path (entry (packet zip-packet))
+  (format NIL "~a/~a" (offset packet) entry))
+
+(defmethod packet-entry (entry (packet zip-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8)))
-        (file (zip:get-zipfile-entry name (storage packet))))
+        (file (zip:get-zipfile-entry (entry-path entry packet) (storage packet))))
     (unless file (error "No such entry ~s" name))
     (let ((content (zip:zipfile-entry-contents file)))
       (cond ((eql '(unsigned-byte 8) element-type)
@@ -84,22 +103,22 @@
              (babel:octets-to-string content :encoding :utf-8))
             (T (error "Element-type ~s is unsupported." element-type))))))
 
-(defmethod (setf packet-entry) ((data stream) name (packet zip-packet))
-  (zip:write-zipentry (storage packet) name data :file-write-date (get-universal-time)))
+(defmethod (setf packet-entry) ((data stream) entry (packet zip-packet))
+  (zip:write-zipentry (storage packet) (entry-path entry packet) data :file-write-date (get-universal-time)))
 
-(defmethod (setf packet-entry) ((data vector) name (packet zip-packet))
-  (setf (packet-entry name packet) (make-instance 'fast-io:fast-input-stream :vector data)))
+(defmethod (setf packet-entry) ((data vector) entry (packet zip-packet))
+  (setf (packet-entry entry packet) (make-instance 'fast-io:fast-input-stream :vector data)))
 
-(defmethod (setf packet-entry) ((data string) name (packet zip-packet))
-  (setf (packet-entry name packet) (babel:string-to-octets data :encoding :utf-8)))
+(defmethod (setf packet-entry) ((data string) entry (packet zip-packet))
+  (setf (packet-entry entry packet) (babel:string-to-octets data :encoding :utf-8)))
 
 (defclass zip-write-packet (zip-packet)
   ())
 
-(defmethod call-with-packet-entry (function name (packet zip-write-packet) &key element-type)
+(defmethod call-with-packet-entry (function entry (packet zip-write-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8))))
     (zip:write-zipentry
-     (storage packet) name
+     (storage packet) (entry-path entry packet)
      (cond ((eql '(unsigned-byte 8) element-type)
             (let ((stream (make-instance 'fast-io:fast-output-stream)))
               (funcall function stream)
@@ -114,9 +133,9 @@
 (defclass zip-read-packet (zip-packet)
   ())
 
-(defmethod call-with-packet-entry (function name (packet zip-read-packet) &key element-type)
+(defmethod call-with-packet-entry (function entry (packet zip-read-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8)))
-        (entry (zip:get-zipfile-entry name (storage packet))))
+        (entry (zip:get-zipfile-entry (entry-path entry packet) (storage packet))))
     (unless entry (error 'file-error :pathname name))
     (let ((contents (zip:zipfile-entry-contents entry)))
       (cond ((eql '(unsigned-byte 8) element-type)
@@ -129,8 +148,16 @@
 (defclass dir-packet ()
   ((direction :initarg :direction :reader direction)))
 
-(defmethod call-with-packet-entry (function name (packet dir-packet) &key element-type)
-  (with-open-file (stream (merge-pathnames name (storage packet))
+(defmethod call-with-packet (function (packet dir-packet) &key offset)
+  (make-instance (class-of packet) :offset (format NIL "~a/~a/" (offset packet) offset)
+                                   :direction (direction packet)
+                                   :storage (storage packet)))
+
+(defmethod entry-path (entry (packet dir-packet))
+  (merge-pathnames entry (merge-pathnames (offset packet) (storage packet))))
+
+(defmethod call-with-packet-entry (function entry (packet dir-packet) &key element-type)
+  (with-open-file (stream (entry-path entry packet)
                           :direction (direction packet)
                           :element-type (or element-type '(unsigned-byte 8))
                           :if-exists :supersede)
