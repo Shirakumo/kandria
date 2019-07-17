@@ -270,7 +270,7 @@ void main(){
   (add-progression (progression-definition 'die) scene))
 
 (define-handler (player switch-region) (ev region)
-  (let ((other (for:for ((entity over (unit 'region region)))
+  (let ((other (for:for ((entity over region))
                  (list entity (contained-p (location player) entity))
                  (when (and (typep entity 'chunk)
                             (contained-p (location player) entity))

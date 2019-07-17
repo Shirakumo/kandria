@@ -59,6 +59,7 @@
    (invariant :initarg :invariant :accessor invariant)
    (condition :initarg :condition :accessor condition))
   (:default-initargs
+   :name (gensym)
    :invariant T
    :condition (error "CONDITION required.")))
 
@@ -80,7 +81,7 @@
   ((name :initarg :name :accessor name)
    (tasks :port-type tasks))
   (:default-initargs
-   :name (error "NAME required.")))
+   :name (gensym)))
 
 (defmethod tasks ((trigger trigger))
   (loop for connection in (slot-value trigger 'tasks)

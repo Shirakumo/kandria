@@ -42,7 +42,8 @@
     (enter chunk region)
     (enter (make-instance 'fi) chunk)
     (enter (make-instance 'player :location (vec 64 64)) region)
-    (let ((quest (make-instance 'quest-graph:quest :name :quest :title "Test"))
+    (let ((*package* #.*package*)
+          (quest (make-instance 'quest-graph:quest :name :test :title "Test"))
           (task (make-instance 'quest-graph:task :title "Talk"
                                                  :condition '*complete*))
           (dial (make-instance 'quest-graph:interaction
@@ -57,9 +58,7 @@
       (quest-graph:connect quest task)
       (quest-graph:connect task end)
       (quest-graph:connect task dial)
-      (let* ((*package* #.*package*)
-             (storyline (quest:make-storyline (list quest) :quest-type 'quest)))
-        (enter (make-instance 'world :storyline storyline) world)))))
+      (setf (storyline world) (quest:make-storyline (list quest) :quest-type 'quest)))))
 
 (defclass main (trial:main)
   ((scene :initform NIL)
@@ -101,7 +100,7 @@
   (enter (make-instance 'camera) scene)
   (enter (make-instance 'render-pass) scene)
   ;; FIXME: fucked up
-  (quest:activate (quest:find-quest "Test" (storyline (unit 'world scene)))))
+  (quest:activate (quest:find-quest :test (storyline scene))))
 
 #+leaf-inspector
 (progn
