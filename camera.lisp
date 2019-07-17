@@ -70,4 +70,4 @@
     (translate-by (vx v) (vy v) 100 *view-matrix*)))
 
 (defmethod shake-camera (&optional (intensity 20))
-  (setf (shake-counter (unit :camera +level+)) intensity))
+  (setf (shake-counter (unit :camera +world+)) intensity))

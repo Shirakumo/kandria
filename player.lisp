@@ -69,7 +69,7 @@ void main(){
 
 (define-handler (player interact) (ev)
   (when (interactable player)
-    (issue +level+ 'interaction :with (interactable player))))
+    (issue +world+ 'interaction :with (interactable player))))
 
 (define-handler (player dash) (ev)
   (let ((acc (acceleration player)))
@@ -96,7 +96,7 @@ void main(){
                              (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))))
            (incf (jump-count player))
            (enter (make-instance 'dust-cloud :location (vcopy loc))
-                  +level+))
+                  +world+))
           ((or (svref collisions 1)
                (svref collisions 3))
            ;; Wall jump
@@ -107,14 +107,14 @@ void main(){
              (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
                                                                (vy loc))
                                                :direction (vec2 dir 0))
-                    +level+))))))
+                    +world+))))))
 
 (defmethod collide :before ((player player) (block block) hit)
   (unless (typep block 'spike)
     (when (and (= +1 (vy (hit-normal hit)))
                (< (vy (velocity player)) -2))
       (enter (make-instance 'dust-cloud :location (nv+ (v* (velocity player) (hit-time hit)) (location player)))
-             +level+))))
+             +world+))))
 
 (defmethod collide ((player player) (trigger trigger) hit)
   (when (active-p trigger)
@@ -137,11 +137,11 @@ void main(){
       (:dashing
        (incf (dash-count player))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
-              +level+)
+              +world+)
        (when (and (svref (collisions player) 2)
                   (= 0 (mod (dash-count player) 3)))
          (enter (make-instance 'dust-cloud :location (vcopy (location player)))
-                +level+))
+                +world+))
        (cond ((< 20 (dash-count player))
               (setf (state player) :normal))
              ((< 15 (dash-count player))
@@ -250,12 +250,12 @@ void main(){
     (nv+ vel acc))
   ;; OOB
   (unless (contained-p (location player) (surface player))
-    (let ((other (for:for ((entity over (unit 'region +level+)))
+    (let ((other (for:for ((entity over (unit 'region +world+)))
                    (when (and (typep entity 'chunk)
                               (contained-p (location player) entity))
                      (return entity)))))
       (if other
-          (issue +level+ 'switch-chunk :chunk other)
+          (issue +world+ 'switch-chunk :chunk other)
           (die player)))))
 
 (defmethod tick :after ((player player) ev)
@@ -269,19 +269,19 @@ void main(){
   (add-progression (progression-definition 'revive) scene)
   (add-progression (progression-definition 'die) scene))
 
-(define-handler (player switch-level) (ev level)
-  (let ((other (for:for ((entity over (unit 'region level)))
+(define-handler (player switch-region) (ev region)
+  (let ((other (for:for ((entity over (unit 'region region)))
                  (list entity (contained-p (location player) entity))
                  (when (and (typep entity 'chunk)
                             (contained-p (location player) entity))
                    (return entity)))))
     (unless other
       (warn "Player is somehow outside all chunks, picking first chunk we can get.")
-      (setf other (for:for ((entity over (unit 'region level)))
+      (setf other (for:for ((entity over (unit 'region region)))
                     (when (typep entity 'chunk) (return entity))))
       (unless other
         (error "What the fuck? Could not find any chunks.")))
-    (issue level 'switch-chunk :chunk other)))
+    (issue +world+ 'switch-chunk :chunk other)))
 
 (define-handler (player switch-chunk) (ev chunk)
   (when (typep (surface player) 'chunk)
@@ -304,11 +304,11 @@ void main(){
   ;;   (setf (state player) :dying)
   ;;   ;;(setf (animation player) 5)
   ;;   (nv* (velocity player) -1)
-  ;;   (start (reset (progression 'die +level+))))
+  ;;   (start (reset (progression 'die +world+))))
   )
 
 (defmethod death ((player player))
-  (start (reset (progression 'revive +level+)))
+  (start (reset (progression 'revive +world+)))
   ;;(setf (animation player) 6)
   (vsetf (location player)
          (vx (spawn-location player))

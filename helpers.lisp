@@ -9,7 +9,7 @@
 (define-global +tile-size+ 16)
 (define-global +layer-count+ 5)
 (define-global +tiles-in-view+ (vec2 40 26))
-(define-global +level+ NIL)
+(define-global +world+ NIL)
 
 (defun format-absolute-time (time)
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
@@ -64,8 +64,8 @@
     (T (c2mop:class-prototype (find-class type)))))
 
 (defmethod unit (thing (target (eql T)))
-  (when +level+
-    (unit thing +level+)))
+  (when +world+
+    (unit thing +world+)))
 
 (defun vrand (min max)
   (vec (+ min (random (- max min)))
@@ -120,8 +120,8 @@
                         (let ((*package* package))
                           (funcall on-yes (parse string)))))
                  (let ((input (make-instance 'text-input :title message :callback #'callback)))
-                   (transition input +level+)
-                   (enter input +level+)))))
+                   (transition input +world+)
+                   (enter input +world+)))))
             (T
              (format *query-io* "~&~a~%> " message)
              (parse (read-line *query-io* NIL)))))))
@@ -382,14 +382,14 @@
   `(:event-type :event-initargs))
 
 (defmethod fire ((trigger trigger))
-  (apply #'issue +level+ (event-type trigger) (event-initargs trigger))
+  (apply #'issue +world+ (event-type trigger) (event-initargs trigger))
   (setf (active-p trigger) NIL))
 
-(defclass request-level (event)
-  ((level :initarg :level :reader level)))
+(defclass request-region (event)
+  ((region :initarg :region :reader region)))
 
-(defclass switch-level (event)
-  ((level :initarg :level :reader level)))
+(defclass switch-region (event)
+  ((region :initarg :region :reader region)))
 
 (defclass switch-chunk (event)
   ((chunk :initarg :chunk :reader chunk)))

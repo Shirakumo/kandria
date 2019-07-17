@@ -36,8 +36,7 @@
 (defmethod clone ((chunk chunk))
   (make-instance (class-of chunk)
                  :size (clone (size chunk))
-                 :tileset (tileset chunk)
-                 :tile-size (tile-size chunk)))
+                 :tileset (tileset chunk)))
 
 (defmethod entity-at-point (point (chunk chunk))
   (or (call-next-method)

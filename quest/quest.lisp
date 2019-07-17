@@ -6,7 +6,7 @@
 (defgeneric try (task))
 
 (defclass storyline ()
-  ((quests :initform (make-hash-table :test 'equalp) :reader quests)
+  ((quests :initform (make-hash-table :test 'eql) :reader quests)
    (known-quests :initform () :accessor known-quests)))
 
 (defmethod try ((storyline storyline))
@@ -23,9 +23,9 @@
 
 (defun make-storyline (quests &key (quest-type 'quest))
   (let ((storyline (make-instance 'storyline)))
-    (dolist (start quests storyline)
-      (let ((quest (make-instance quest-type :start start :storyline storyline)))
-        (setf (find-quest (title quest) storyline) quest)))))
+    (dolist (quest quests storyline)
+      (let ((quest (make-instance quest-type :quest quest :storyline storyline)))
+        (setf (find-quest (graph:name quest) storyline) quest)))))
 
 (defclass quest (describable)
   ((status :initarg :status :accessor status)
@@ -36,11 +36,11 @@
   (:default-initargs :status :inactive
                      :title NIL))
 
-(defmethod initialize-instance :after ((quest quest) &key start storyline)
+(defmethod initialize-instance :after ((self quest) &key quest storyline)
   (check-type storyline storyline)
-  (multiple-value-bind (effects tasks) (transform start quest)
-    (setf (slot-value quest 'effects) effects)
-    (setf (slot-value quest 'tasks) tasks)))
+  (multiple-value-bind (effects tasks) (transform quest self)
+    (setf (slot-value self 'effects) effects)
+    (setf (slot-value self 'tasks) tasks)))
 
 (defmethod print-object ((quest quest) stream)
   (print-unreadable-object (quest stream :type T)
@@ -125,6 +125,10 @@
             (sort-tasks (list* task (active-tasks (quest task))))
             (remove task (active-tasks (quest task))))))
 
+(defun required-for-completion (task cause)
+  ;; TODO: implement this
+  T)
+
 (defmethod activate ((task task))
   (when (eql (status task) :inactive)
     (setf (status task) :unresolved)
@@ -157,10 +161,10 @@
   ((interactable :initarg :interactable :reader interactable)
    (dialogue :initarg :dialogue :reader dialogue)))
 
-(defmethod transform ((start graph:start) quest)
+(defmethod transform ((node graph:quest) quest)
   (let ((cache (make-hash-table :test 'eq)))
-    (%transform start cache quest)
-    (values (loop for effect in (graph:effects start)
+    (%transform node cache quest)
+    (values (loop for effect in (graph:effects node)
                   collect (gethash effect cache))
             (loop for task being the hash-values of cache
                   collect task))))
@@ -170,11 +174,11 @@
       (setf (gethash thing cache)
             (call-next-method))))
 
-(defmethod %transform ((start graph:start) cache quest)
-  (setf (gethash start cache) quest)
-  (setf (description quest) (description start))
-  (setf (title quest) (title start))
-  (loop for task in (graph:effects start)
+(defmethod %transform ((node graph:quest) cache quest)
+  (setf (gethash node cache) quest)
+  (setf (description quest) (description node))
+  (setf (title quest) (title node))
+  (loop for task in (graph:effects node)
         do (%transform task cache quest)))
 
 (defmethod %transform ((task graph:task) _ quest)

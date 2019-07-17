@@ -3,6 +3,7 @@
   (:shadow #:condition)
   (:export
    #:describable
+   #:name
    #:title
    #:description
    #:causes
@@ -16,7 +17,7 @@
    #:interaction
    #:interactable
    #:dialogue
-   #:start
+   #:quest
    #:end
    #:connect))
 

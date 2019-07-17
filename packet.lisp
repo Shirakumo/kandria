@@ -85,7 +85,8 @@
 (defclass zip-packet ()
   ())
 
-(defmethod call-with-packet (function (packet zip-packet) &key offset)
+(defmethod call-with-packet (function (packet zip-packet) &key offset direction if-exists if-does-not-exist)
+  (declare (ignore direction if-exists if-does-not-exist))
   (make-instance (class-of packet) :offset (format NIL "~a/~a" (offset packet) offset)
                                    :storage (storage packet)))
 
@@ -95,7 +96,7 @@
 (defmethod packet-entry (entry (packet zip-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8)))
         (file (zip:get-zipfile-entry (entry-path entry packet) (storage packet))))
-    (unless file (error "No such entry ~s" name))
+    (unless file (error "No such entry ~s" entry))
     (let ((content (zip:zipfile-entry-contents file)))
       (cond ((eql '(unsigned-byte 8) element-type)
              content)
@@ -136,7 +137,7 @@
 (defmethod call-with-packet-entry (function entry (packet zip-read-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8)))
         (entry (zip:get-zipfile-entry (entry-path entry packet) (storage packet))))
-    (unless entry (error 'file-error :pathname name))
+    (unless entry (error 'file-error :pathname entry))
     (let ((contents (zip:zipfile-entry-contents entry)))
       (cond ((eql '(unsigned-byte 8) element-type)
              (funcall function (make-instance 'fast-io:fast-input-stream :vector contents)))
@@ -148,7 +149,8 @@
 (defclass dir-packet ()
   ((direction :initarg :direction :reader direction)))
 
-(defmethod call-with-packet (function (packet dir-packet) &key offset)
+(defmethod call-with-packet (function (packet dir-packet) &key offset direction if-exists if-does-not-exist)
+  (declare (ignore direction if-exists if-does-not-exist))
   (make-instance (class-of packet) :offset (format NIL "~a/~a/" (offset packet) offset)
                                    :direction (direction packet)
                                    :storage (storage packet)))
@@ -173,40 +175,61 @@
                           (loop-finish)
                           data)))))
 
-(defun string-binary-stream (string)
-  (make-instance 'fast-io:fast-input-stream
-                 :vector (babel:string-to-octets string :encoding :utf-8)))
+(defun princ-to-string* (&rest expressions)
+  (with-output-to-string (stream)
+    (with-leaf-io-syntax
+      (dolist (expr expressions)
+        (write expr :stream stream :case :downcase)
+        (fresh-line stream)))))
 
-(defun make-sexp-stream (&rest expressions)
-  (string-binary-stream (with-output-to-string (stream)
-                          (with-leaf-io-syntax
-                              (dolist (expr expressions)
-                                (write expr :stream stream :case :downcase)
-                                (fresh-line stream))))))
+(defun current-version ()
+  ;; KLUDGE: latest version should be determined automatically.
+  (make-instance 'v0))
 
-(defmethod load-packet-file :around (packet name (type (eql T)))
-  (load-packet-file packet name (kw (pathname-type name))))
+(defun ensure-version (version)
+  (etypecase version
+    (version version)
+    ((eql T) (current-version))))
 
-(defmethod load-packet-file (packet name type)
-  (error "Don't know how to load a file of type ~d." type))
+(defgeneric decode-payload (payload target packet version))
+(defgeneric encode-payload (source payload packet version))
 
-(defmethod load-packet-file ((dir pathname) name type)
-  (with-open-file (stream (merge-pathnames name dir) :element-type '(unsigned-byte 8))
-    (load-packet-file stream name type)))
+(defmacro define-encoder ((type version) &rest args)
+  (let ((version-instance (gensym "VERSION"))
+        (object (gensym "OBJECT"))
+        (method-combination (loop for option = (car args)
+                                  until (listp option)
+                                  collect (pop args))))
+    (destructuring-bind ((buffer packet) &rest body) args
+      (let ((buffer-name (unlist buffer)))
+        `(defmethod encode-payload ,@method-combination ((,type ,type) ,buffer ,packet (,version-instance ,version))
+           (flet ((encode (,object &optional (,buffer-name ,buffer-name))
+                    (encode-payload ,object
+                                           ,buffer-name
+                                           ,(unlist packet)
+                                           ,version-instance)))
+             (declare (ignorable #'encode))
+             ,@body))))))
 
-(defmethod load-packet-file ((zip zip:zipfile) name type)
-  (load-packet-file (or (zip:get-zipfile-entry name zip)
-                        (error "No such file in packet: ~a" name))
-                    name type))
+(trivial-indent:define-indentation define-encoder (4 4 &body))
 
-(defmethod load-packet-file ((zip zip::zipfile-entry) name type)
-  (load-packet-file (zip:zipfile-entry-contents zip) name type))
+(defmacro define-decoder ((type version) &rest args)
+  (let ((version-instance (gensym "VERSION"))
+        (object (gensym "OBJECT"))
+        (method-combination (loop for option = (car args)
+                                  until (listp option)
+                                  collect (pop args))))
+    (destructuring-bind ((buffer packet) &rest body) args
+      (let ((buffer-name (unlist buffer)))
+        `(defmethod decode-payload ,@method-combination (,buffer (,type ,type) ,packet (,version-instance ,version))
+           (flet ((decode (,object &optional (,buffer-name ,buffer-name))
+                    (decode-payload ,buffer-name
+                                           (if (symbolp ,object)
+                                               (type-prototype ,object)
+                                               ,object)
+                                           ,(unlist packet)
+                                           ,version-instance)))
+             (declare (ignorable #'decode))
+             ,@body))))))
 
-(defmethod load-packet-file ((vector vector) name type)
-  (load-packet-file (make-instance 'fast-io:fast-input-stream :vector vector) name type))
-
-(defmethod load-packet-file ((stream stream) name (type (eql :png)))
-  (pngload:data (pngload:load-stream stream :flatten T)))
-
-(defmethod load-packet-file ((vector vector) name (type (eql :raw)))
-  vector)
+(trivial-indent:define-indentation define-decoder (4 4 &body))

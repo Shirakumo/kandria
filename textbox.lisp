@@ -108,7 +108,7 @@
   (setf (cursor textbox) (cursor textbox)))
 
 (defmethod handle-request ((request dialogue:source-request) (textbox textbox))
-  (let ((unit (unit (dialogue:name request) +level+)))
+  (let ((unit (unit (dialogue:name request) +world+)))
     (unless unit
       (error "No unit named ~s found!" (dialogue:name request)))
     (setf (text (title textbox)) (profile-title unit))

@@ -2,6 +2,18 @@
 
 (defclass v0 (version) ())
 
+(define-decoder (world v0) (info packet)
+  (let ((world (apply #'make-instance 'world info)))
+    ;; FIXME: this
+    world))
+
+(define-encoder (world v0) (_b packet)
+  ;; FIXME: this
+  (list :name (name world)
+        :author (author world)
+        :version (version world)
+        :description (description world)))
+
 (define-decoder (region v0) (info packet)
   (let* ((region (apply #'make-instance 'region info))
          (content (parse-sexps (packet-entry "data" packet))))
@@ -17,7 +29,7 @@
     (for:for ((entity across (aref (objects region) 0)))
       (when (typep entity 'chunk)
         (push (encode entity) entities)))
-    (let ((data (apply #'make-sexp-stream entities)))
+    (let ((data (apply #'princ-to-string* entities)))
       (setf (packet-entry "data" packet) data))
     (list :name (name region)
           :author (author region)
@@ -37,7 +49,8 @@
                                        :location (decode 'vec2 location)
                                        :size (decode 'vec2 size)
                                        :tileset (decode 'asset tileset)
-                                       :layers (loop for file in layers collect (load-packet-file packet file T)))))
+                                       :layers (loop for file in layers
+                                                     collect (packet-entry file packet)))))
       (loop for (type . initargs) in children
             do (enter (decode type initargs) chunk))
       chunk)))
