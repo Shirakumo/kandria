@@ -315,7 +315,17 @@
                (<= (- (vy loc) h) (vy target) (+ (vy loc) h)))
       entity)))
 
+(defmethod scan ((entity sized-entity) (target vec4))
+  (let ((bsize (bsize entity))
+        (loc (location entity)))
+    (when (and (< (abs (- (vx loc) (vx target))) (+ (vx bsize) (vz target)))
+               (< (abs (- (vy loc) (vy target))) (+ (vy bsize) (vw target))))
+      entity)))
+
 (defmethod contained-p ((target vec2) (entity sized-entity))
+  (scan entity target))
+
+(defmethod contained-p ((target vec4) (entity sized-entity))
   (scan entity target))
 
 (define-shader-entity sprite-entity (trial:sprite-entity sized-entity facing-entity)

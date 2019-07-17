@@ -120,12 +120,6 @@ void main(){
   (when (active-p trigger)
     (fire trigger)))
 
-(defmethod collide ((player player) (interactable interactable) hit)
-  (when (or (null (interactable player))
-            (< (vsqrdist2 (location player) (location interactable))
-               (vsqrdist2 (location player) (location (interactable player)))))
-    (setf (interactable player) interactable)))
-
 (defmethod tick :before ((player player) ev)
   (let ((collisions (collisions player))
         (loc (location player))
@@ -133,6 +127,12 @@ void main(){
         (acc (acceleration player))
         (size (bsize player)))
     (setf (interactable player) NIL)
+    ;; Point test for interactables. Pretty stupid.
+    (for:for ((entity over (surface player)))
+      (when (and (not (eq entity player))
+                 (typep entity 'interactable)
+                 (contained-p (vec4 (vx loc) (vy loc) (* 1.5 (vx size)) (vy size)) entity))
+        (setf (interactable player) entity)))
     (ecase (state player)
       (:dashing
        (incf (dash-count player))

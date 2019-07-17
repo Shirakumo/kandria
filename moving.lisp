@@ -24,13 +24,7 @@
     (let ((l (scan surface (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan surface (vec (+ (vx loc) (vx size) 1) (vy loc)))))
       (when l (setf (aref (collisions moving) 3) l))
-      (when r (setf (aref (collisions moving) 1) r)))
-    ;; Point test for interactables. Pretty stupid.
-    (for:for ((entity over surface))
-      (when (and (not (eq entity moving))
-                 (typep entity 'interactable)
-                 (contained-p loc entity))
-        (collide moving entity (make-hit entity 0.0 loc (vec 0 0)))))))
+      (when r (setf (aref (collisions moving) 1) r)))))
 
 (defmethod collide ((moving moving) (block ground) hit)
   (let* ((loc (location moving))
