@@ -25,7 +25,7 @@
   (:use #:cl)
   (:shadow #:condition)
   (:import-from #:org.shirakumo.fraf.leaf.quest.graph
-                #:describable #:title #:description)
+                #:describable #:name #:title #:description)
   (:local-nicknames
    (#:graph #:org.shirakumo.fraf.leaf.quest.graph)
    (#:dialogue #:org.shirakumo.fraf.leaf.dialogue))

@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defclass world (pipelined-scene)
-  ((name :accessor name)
+  ((name :initarg :name :accessor name)
    (author :initform "Anonymous" :initarg :author :accessor author)
    (version :initform "0.0.0" :initarg :version :accessor version)
    (storyline :initarg :storyline :accessor storyline)

@@ -24,8 +24,11 @@
 (defun make-storyline (quests &key (quest-type 'quest))
   (let ((storyline (make-instance 'storyline)))
     (dolist (quest quests storyline)
-      (let ((quest (make-instance quest-type :quest quest :storyline storyline)))
-        (setf (find-quest (graph:name quest) storyline) quest)))))
+      (let ((quest (make-instance quest-type
+                                  :name (graph:name quest)
+                                  :quest quest
+                                  :storyline storyline)))
+        (setf (find-quest (name quest) storyline) quest)))))
 
 (defclass quest (describable)
   ((status :initarg :status :accessor status)
@@ -186,6 +189,7 @@
            (%transform thing _ quest)))
     (make-instance 'task
                    :quest quest
+                   :name (name task)
                    :title (graph:title task)
                    :description (graph:description task)
                    :causes (loop for cause in (graph:causes task)
