@@ -1,2 +1,3 @@
-(:identifier 'world :version 'v0)
-(:author "Nicolas Hafner" :version "0")
+(:identifier world :version v0)
+(:author "Nicolas Hafner"
+ :version "0")

@@ -9,7 +9,7 @@
          (*load-world* world))
     ;; Load world extensions
     (destructuring-bind (&key sources initial-state)
-        (parse-sexps (packet-entry "system.lisp" packet :element-type 'character))
+        (first (parse-sexps (packet-entry "system.lisp" packet :element-type 'character)))
       ;; Fixup world pool
       (reinitialize-instance (find-pool 'world) :base (entry-path "data/" packet))
       ;; Register regions
@@ -20,7 +20,7 @@
           (setf (gethash (subseq entry slash dot) (regions world)) entry)))
       ;; Load sources
       (dolist (source sources)
-        (with-packet-entry (stream source packet)
+        (with-packet-entry (stream source packet :element-type 'character)
           ;; FIXME: Compile sources somehow (write out to disk first?)
           (cl:load stream :verbose NIL :print NIL)))
       ;; Load storyline
@@ -28,8 +28,9 @@
         (setf (storyline world) (decode 'quest:storyline storyline)))
       ;; Load save to set up initial state
       ;; FIXME: How do we know what to restore if we're loading a save?
-      (with-packet-entry (stream initial-state packet)
-        (load-state world stream)))
+      (when initial-state
+        (with-packet-entry (stream initial-state packet)
+          (load-state world stream))))
     world))
 
 (define-encoder (world v0) (_b packet)
@@ -91,6 +92,7 @@
 
 (define-encoder (region v0) (_b packet)
   (let ((entities ()))
+    ;; Do two passes to avoid chunks being duped.
     (for:for ((entity over region))
       (unless (typep entity 'chunk)
         (push (encode entity) entities)))
@@ -127,7 +129,7 @@
   (let ((layers (loop for i from 0
                       for layer across (layers chunk)
                       ;; KLUDGE: no png saving lib handy. Hope ZIP compression is Good Enough
-                      for path = (format NIL "resources/~a-~d.raw" (name chunk) i)
+                      for path = (format NIL "data/~a-~d.raw" (name chunk) i)
                       do (setf (packet-entry path packet) layer)
                       collect path))
         (children (for:for ((entity over chunk)
