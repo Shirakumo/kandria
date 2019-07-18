@@ -10,7 +10,7 @@
   (:default-initargs
    :packet (error "PACKET required.")
    :storyline (quest:make-storyline ())
-   :regions (make-hash-table :test 'equalp)))
+   :regions (make-hash-table :test 'eq)))
 
 (defmethod pause-game ((_ (eql T)) pauser)
   (pause-game +world+ pauser))
@@ -34,17 +34,15 @@
     (setf (handlers world) (pop (pause-stack world)))))
 
 (defmethod region-entry ((name symbol) (world world))
-  (region-entry (string name) world))
-
-(defmethod region-entry ((name string) (world world))
-  (gethash name (regions world)))
+  (or (gethash name (regions world))
+      (error "No such region ~s" name)))
 
 (defmethod enter :after ((region region) (world world))
   (setf (gethash 'region (name-map world)) region)
   ;; Register region in region table if the region is new.
-  (unless (gethash (string (name region)) (regions world))
-    (setf (gethash (string (name region)) (regions world))
-          (format NIL "regions/~a/" (string (name region)))))
+  (unless (gethash (name region) (regions world))
+    (setf (gethash (name region) (regions world))
+          (format NIL "regions/~a/" (string-downcase (name region)))))
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
@@ -96,7 +94,6 @@
     (setf (packet-entry "meta.lisp" packet) meta)))
 
 (defmethod load-world ((world world))
-  ;; FIXME: Similarly to the REGION request this is wrong.
   (load-world (packet world)))
 
 (defmethod load-world ((pathname pathname))
@@ -122,13 +119,8 @@
   (apply #'save-region (unit 'region world) world args))
 
 (defmethod load-region ((name symbol) (world world))
-  (load-region (string name) world))
-
-(defmethod load-region ((name string) (world world))
-  (let ((entry (or (gethash name (regions world))
-                   (error "Cannot switch to unknown world ~s" world))))
-    (with-packet (packet (packet world) :offset entry)
-      (load-region packet world))))
+  (with-packet (packet (packet world) :offset (region-entry name world))
+    (load-region packet world)))
 
 (defmethod load-region (region (world (eql T)))
   (load-region region +world+))

@@ -14,10 +14,10 @@
       (reinitialize-instance (find-pool 'world) :base (entry-path "data/" packet))
       ;; Register regions
       (dolist (entry (list-entries "regions/" packet))
-        (let* ((slash (position #\/ entry :from-end T))
-               (dot (or (position #\. entry :from-end T :start slash)
-                        (length entry))))
-          (setf (gethash (subseq entry slash dot) (regions world)) entry)))
+        (with-packet (packet packet :offset entry)
+          (let ((name (getf (second (parse-sexps (packet-entry packet "meta.lisp" :element-type 'character)))
+                            :name)))
+            (setf (gethash name (regions world)) entry))))
       ;; Load sources
       (dolist (source sources)
         (with-packet-entry (stream source packet :element-type 'character)

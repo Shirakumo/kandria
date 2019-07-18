@@ -77,7 +77,7 @@ The ``source`` type refers to a valid Common Lisp source form. Each ``pathname``
 
 The system must recognise a pool with the name ``leaf:world``, the base of which is the prefix ``data/`` under the packet. This pool must exist and be properly based before the ``sources`` are loaded.
 
-Map data for regions may be stored under the prefix ``regions/`` in the packet. Each entry under that prefix must have the name (with prefix and potential file extensions stripped) of the region it defines. Every such entry must be added to the world's region index.
+Map data for regions may be stored under the prefix ``regions/`` in the packet. Every entry under that prefix must be added to the world's region index.
 
 Pathnames used for ``dialogue`` must be prefixed with ``dialogue/``.
 
