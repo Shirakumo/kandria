@@ -195,41 +195,41 @@
 (defgeneric encode-payload (source payload packet version))
 
 (defmacro define-encoder ((type version) &rest args)
-  (let ((version-instance (gensym "VERSION"))
-        (object (gensym "OBJECT"))
+  (let ((object (gensym "OBJECT"))
         (method-combination (loop for option = (car args)
                                   until (listp option)
                                   collect (pop args))))
-    (destructuring-bind ((buffer packet) &rest body) args
-      (let ((buffer-name (unlist buffer)))
-        `(defmethod encode-payload ,@method-combination ((,type ,type) ,buffer ,packet (,version-instance ,version))
-           (flet ((encode (,object &optional (,buffer-name ,buffer-name))
-                    (encode-payload ,object
-                                           ,buffer-name
-                                           ,(unlist packet)
-                                           ,version-instance)))
-             (declare (ignorable #'encode))
-             ,@body))))))
+    (destructuring-bind (version-instance version) (enlist version version)
+      (destructuring-bind ((buffer packet) &rest body) args
+        (let ((buffer-name (unlist buffer)))
+          `(defmethod encode-payload ,@method-combination ((,type ,type) ,buffer ,packet (,version-instance ,version))
+             (flet ((encode (,object &optional (,buffer-name ,buffer-name))
+                      (encode-payload ,object
+                                      ,buffer-name
+                                      ,(unlist packet)
+                                      ,version-instance)))
+               (declare (ignorable #'encode))
+               ,@body)))))))
 
 (trivial-indent:define-indentation define-encoder (4 4 &body))
 
 (defmacro define-decoder ((type version) &rest args)
-  (let ((version-instance (gensym "VERSION"))
-        (object (gensym "OBJECT"))
+  (let ((object (gensym "OBJECT"))
         (method-combination (loop for option = (car args)
                                   until (listp option)
                                   collect (pop args))))
-    (destructuring-bind ((buffer packet) &rest body) args
-      (let ((buffer-name (unlist buffer)))
-        `(defmethod decode-payload ,@method-combination (,buffer (,type ,type) ,packet (,version-instance ,version))
-           (flet ((decode (,object &optional (,buffer-name ,buffer-name))
-                    (decode-payload ,buffer-name
-                                           (if (symbolp ,object)
-                                               (type-prototype ,object)
-                                               ,object)
-                                           ,(unlist packet)
-                                           ,version-instance)))
-             (declare (ignorable #'decode))
-             ,@body))))))
+    (destructuring-bind (version-instance version) (enlist version version)
+      (destructuring-bind ((buffer packet) &rest body) args
+        (let ((buffer-name (unlist buffer)))
+          `(defmethod decode-payload ,@method-combination (,buffer (,type ,type) ,packet (,version-instance ,version))
+             (flet ((decode (,object &optional (,buffer-name ,buffer-name))
+                      (decode-payload ,buffer-name
+                                      (if (symbolp ,object)
+                                          (type-prototype ,object)
+                                          ,object)
+                                      ,(unlist packet)
+                                      ,version-instance)))
+               (declare (ignorable #'decode))
+               ,@body)))))))
 
 (trivial-indent:define-indentation define-decoder (4 4 &body))

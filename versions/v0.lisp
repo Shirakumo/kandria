@@ -5,12 +5,19 @@
 (define-decoder (world v0) (info packet)
   (let ((world (apply #'make-instance 'world :packet packet info)))
     ;; Load world extensions
-    (dolist (entry (parse-sexps (packet-entry "system.lisp" packet :element-type 'character)))
-      ;; FIXME: what about if the files are in a zip or something?
-      (load (entry-path entry packet) :verbose NIL :print NIL))
-    ;; Load storyline
-    (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
-      (setf (storyline world) (decode 'quest:storyline storyline)))
+    (destructuring-bind (&key sources initial-state)
+        (parse-sexps (packet-entry "system.lisp" packet :element-type 'character))
+      (dolist (source sources)
+        (with-packet-entry (stream source packet)
+          ;; FIXME: Compile sources somehow (write out to disk first?)
+          (cl:load stream :verbose NIL :print NIL)))
+      ;; Load storyline
+      (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
+        (setf (storyline world) (decode 'quest:storyline storyline)))
+      ;; Load save to set up initial state
+      ;; FIXME: How do we know what to restore if we're loading a save?
+      (with-packet-entry (stream initial-state packet)
+        (load-state world stream)))
     world))
 
 (define-encoder (world v0) (_b packet)
@@ -21,38 +28,41 @@
 
 (define-decoder (quest:storyline v0) (info _p)
   (destructuring-bind (&key quests triggers) (first info)
-    (let ((quests (loop for info in quests
-                        collect (decode 'quest:quest info)))
-          (triggers (make-hash-table :test 'eq)))
+    (let ((trigger-table (make-hash-table :test 'eq)))
       (loop for info in triggers
             for trigger = (decode 'quest:trigger info)
-            do (setf (gethash (quest:name trigger) triggers) trigger))
-      ;; Patch up triggers... somehow?
-      (dolist (quest quests)
-        )
+            do (setf (gethash (quest:name trigger) trigger-table) trigger))
       ;; Compile storyline
-      (quest:make-storyline quests :quest-type 'quest))))
+      (let ((quests (loop for info in quests
+                          ;; KLUDGE: We substitute the packet for the triggers table here so we can
+                          ;;         resolve triggers in the task decoder.
+                          collect (decode-payload info (type-prototype 'quest:quest) trigger-table v0))))
+        (quest:make-storyline quests :quest-type 'quest)))))
 
 (define-decoder (quest:quest v0) (info _p)
   (destructuring-bind (&key name title description effects tasks) info
     (let ((quest (make-instance 'quest-graph:quest :name name :title title :description description))
-          (tasks (make-hash-table :test 'eq)))
+          (task-table (make-hash-table :test 'eq)))
       (setf (gethash :end tasks) (make-instance 'quest-graph:end))
       (loop for (name . info) in tasks
-            do (setf (gethash name tasks) (decode 'quest:task info)))
+            do (setf (gethash name task-table) (decode 'quest:task info)))
       ;; Connect effects together
       (dolist (effect effects)
         (quest-graph:connect quest (gethash effect tasks)))
       (loop for (name . info) in tasks
-            for task = (gethash name tasks)
+            for task = (gethash name task-table)
             do (dolist (effect (getf info :effects))
                  (quest-graph:connect task (gethash effect tasks))))
       quest)))
 
-(define-decoder (quest:task v0) (info _p)
-  (destructuring-bind (&key name title description invariant condition &allow-other-keys) info
-    (make-instance 'quest-graph:task :name name :title title :description description
-                                     :invariant invariant :condition condition)))
+(define-decoder (quest:task v0) (info triggers)
+  (destructuring-bind (&key name title description invariant condition triggers &allow-other-keys) info
+    (let ((task (make-instance 'quest-graph:task :name name :title title :description description
+                                                 :invariant invariant :condition condition)))
+      (loop for name in triggers
+            for trigger = (gethash name triggers)
+            do (quest-graph:connect task trigger))
+      task)))
 
 (define-decoder (quest:trigger v0) (info packet)
   (destructuring-bind (&key name interactable dialogue) info

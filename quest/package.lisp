@@ -39,6 +39,9 @@
    #:complete
    #:try
    #:quest
+   #:name
+   #:title
+   #:description
    #:status
    #:storyline
    #:effects
