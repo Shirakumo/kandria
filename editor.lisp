@@ -150,7 +150,6 @@ void main(){
       (with-query (file "Map save location"
                    :default (file +world+)
                    :parse #'uiop:parse-native-namestring)
-        (setf (name +world+) (kw (pathname-name file)))
         (save-world +world+ (pool-path 'leaf file)))))
 
 (define-handler (editor load-world) (ev)

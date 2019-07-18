@@ -99,8 +99,7 @@
     (for:for ((entity over world))
       (when (find-method #'state-data () (list (class-of entity)) NIL)
         (push (list* (type-of entity) (state-data entity)) entries)))
-    (list* (name world)
-           (nreverse entries))))
+    (list (nreverse entries))))
 
 (defmethod load-state-into ((main main) (type (eql 'world)) (data cons))
   (destructuring-bind (name &rest entries) data

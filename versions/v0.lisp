@@ -3,16 +3,61 @@
 (defclass v0 (version) ())
 
 (define-decoder (world v0) (info packet)
-  (let ((world (apply #'make-instance 'world info)))
-    ;; FIXME: this
+  (let ((world (apply #'make-instance 'world :packet packet info)))
+    ;; Load world extensions
+    (dolist (entry (parse-sexps (packet-entry "system.lisp" packet :element-type 'character)))
+      ;; FIXME: what about if the files are in a zip or something?
+      (load (entry-path entry packet) :verbose NIL :print NIL))
+    ;; Load storyline
+    (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
+      (setf (storyline world) (decode 'quest:storyline storyline)))
     world))
 
 (define-encoder (world v0) (_b packet)
-  ;; FIXME: this
-  (list :name (name world)
-        :author (author world)
-        :version (version world)
-        :description (description world)))
+  ;; KLUDGE: Can't save any more than this as we lost the info during compilation.
+  ;;         External tools are necessary to edit the source.
+  (list :author (author world)
+        :version (version world)))
+
+(define-decoder (quest:storyline v0) (info _p)
+  (destructuring-bind (&key quests triggers) (first info)
+    (let ((quests (loop for info in quests
+                        collect (decode 'quest:quest info)))
+          (triggers (make-hash-table :test 'eq)))
+      (loop for info in triggers
+            for trigger = (decode 'quest:trigger info)
+            do (setf (gethash (quest:name trigger) triggers) trigger))
+      ;; Patch up triggers... somehow?
+      (dolist (quest quests)
+        )
+      ;; Compile storyline
+      (quest:make-storyline quests :quest-type 'quest))))
+
+(define-decoder (quest:quest v0) (info _p)
+  (destructuring-bind (&key name title description effects tasks) info
+    (let ((quest (make-instance 'quest-graph:quest :name name :title title :description description))
+          (tasks (make-hash-table :test 'eq)))
+      (setf (gethash :end tasks) (make-instance 'quest-graph:end))
+      (loop for (name . info) in tasks
+            do (setf (gethash name tasks) (decode 'quest:task info)))
+      ;; Connect effects together
+      (dolist (effect effects)
+        (quest-graph:connect quest (gethash effect tasks)))
+      (loop for (name . info) in tasks
+            for task = (gethash name tasks)
+            do (dolist (effect (getf info :effects))
+                 (quest-graph:connect task (gethash effect tasks))))
+      quest)))
+
+(define-decoder (quest:task v0) (info _p)
+  (destructuring-bind (&key name title description invariant condition &allow-other-keys) info
+    (make-instance 'quest-graph:task :name name :title title :description description
+                                     :invariant invariant :condition condition)))
+
+(define-decoder (quest:trigger v0) (info packet)
+  (destructuring-bind (&key name interactable dialogue) info
+    (let ((dialogue (packet-entry dialogue packet :element-type 'character)))
+      (make-instance 'quest-graph:interaction :name name :interactable interactable :dialogue dialogue))))
 
 (define-decoder (region v0) (info packet)
   (let* ((region (apply #'make-instance 'region info))

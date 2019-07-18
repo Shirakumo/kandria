@@ -41,7 +41,10 @@ Each ``pathname`` must refer to an entry within the packet.
 The packet must contain an entry named ``storyline.lisp``, the contents of which are encoded in standard s-expression format and follow this structure:
 
 :: ADL
-file: [ quest*, trigger* ]
+file: {
+  quests: [ quest ],
+  triggers: [ trigger ]
+}
 
 quest: {
   name: symbol,
