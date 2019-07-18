@@ -90,6 +90,7 @@
 
 (defmethod call-with-packet (function (packet zip-packet) &key offset direction if-exists if-does-not-exist)
   (declare (ignore direction if-exists if-does-not-exist))
+  ;; FIXME: what if offset is another packet?
   (make-instance (class-of packet) :offset (format NIL "~a/~a" (offset packet) offset)
                                    :storage (storage packet)))
 
@@ -153,7 +154,7 @@
             (T (error "Element-type ~s is unsupported." element-type))))))
 
 (defmethod list-entries (offset (packet zip-read-packet))
-  (loop with base = (entry-path offset packet)
+  (loop with base = (offset packet)
         for entry in (zip:zipfile-entries (storage packet))
         for name = (zip:zipfile-entry-name entry)
         when (and (< (length base) (length name))
@@ -165,6 +166,7 @@
 
 (defmethod call-with-packet (function (packet dir-packet) &key offset direction if-exists if-does-not-exist)
   (declare (ignore direction if-exists if-does-not-exist))
+  ;; FIXME: what if offset is another packet?
   (make-instance (class-of packet) :offset (format NIL "~a/~a/" (offset packet) offset)
                                    :direction (direction packet)
                                    :storage (storage packet)))
@@ -182,7 +184,7 @@
 (defmethod list-entries (offset (packet dir-packet))
   (let ((base (entry-path offset packet)))
     (loop for path in (directory (merge-pathnames base pathname-utils:*wild-path*))
-          collect (enough-namestring path base))))
+          collect (enough-namestring path (storage packet)))))
 
 (defun current-version ()
   ;; KLUDGE: latest version should be determined automatically.
