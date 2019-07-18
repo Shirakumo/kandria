@@ -41,17 +41,17 @@ Each ``pathname`` must refer to an entry within the packet.
 The packet must contain an entry named ``storyline.lisp``, the contents of which are encoded in standard s-expression format and follow this structure:
 
 :: ADL
-file: {
-  quests: [ quest ],
-  triggers: [ trigger ]
-}
+file: ( { type: entry } )
+
+type: ( symbol )
+
+entry: ( quest | trigger | task )
 
 quest: {
   name: symbol,
   title: string,
   description: string,
-  effects: [ symbol ],
-  tasks: { symbol: task }
+  effects: [ symbol ]
 }
 
 task: {
@@ -75,8 +75,10 @@ interaction: {
 
 The ``source`` type refers to a valid Common Lisp source form. Each ``pathname`` must refer to an entry within the packet.
 
-The system must recognise a pool, the base of which is the prefix ``data/`` under the packet.
+The system must recognise a pool with the name ``leaf:world``, the base of which is the prefix ``data/`` under the packet. This pool must exist and be properly based before the ``sources`` are loaded.
 
-Map data for regions may be stored under the prefix ``regions/`` in the packet. Each entry under that prefix must have the name (with prefix and potential file extensions stripped) of the region it defines.
+Map data for regions may be stored under the prefix ``regions/`` in the packet. Each entry under that prefix must have the name (with prefix and potential file extensions stripped) of the region it defines. Every such entry must be added to the world's region index.
 
 Pathnames used for ``dialogue`` must be prefixed with ``dialogue/``.
+
+When the world is loaded, it must go through each path listed in ``sources`` and load the referenced entries in that order. During this loading, the dynamic variable ``leaf:*load-world*`` must be bound to the instance of the ``world`` currently being loaded.

@@ -9,6 +9,7 @@
 (defgeneric call-with-packet-entry (function entry packet &key element-type))
 (defgeneric packet-entry (entry packet &key element-type))
 (defgeneric (setf packet-entry) (data entry packet))
+(defgeneric list-entries (offset packet))
 
 (defmacro with-packet ((packet storage &rest args) &body body)
   (let ((thunk (gensym "THUNK")))
@@ -91,7 +92,10 @@
                                    :storage (storage packet)))
 
 (defmethod entry-path (entry (packet zip-packet))
-  (format NIL "~a/~a" (offset packet) entry))
+  (format NIL "~a/~a" (offset packet)
+          (etypecase entry
+            (pathname (namestring entry))
+            (string entry))))
 
 (defmethod packet-entry (entry (packet zip-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8)))
@@ -146,6 +150,14 @@
                (funcall function stream)))
             (T (error "Element-type ~s is unsupported." element-type))))))
 
+(defmethod list-entries (offset (packet zip-read-packet))
+  (loop with base = (entry-path offset packet)
+        for entry in (zip:zipfile-entries (storage packet))
+        for name = (zip:zipfile-entry-name entry)
+        when (and (< (length base) (length name))
+                  (string= base name :end2 (length base)))
+        collect name))
+
 (defclass dir-packet ()
   ((direction :initarg :direction :reader direction)))
 
@@ -165,22 +177,10 @@
                           :if-exists :supersede)
     (funcall function stream)))
 
-(defun parse-sexps (string)
-  (with-leaf-io-syntax
-      (loop with eof = (make-symbol "EOF")
-            with i = 0
-            collect (multiple-value-bind (data next) (read-from-string string NIL EOF :start i)
-                      (setf i next)
-                      (if (eql data EOF)
-                          (loop-finish)
-                          data)))))
-
-(defun princ-to-string* (&rest expressions)
-  (with-output-to-string (stream)
-    (with-leaf-io-syntax
-      (dolist (expr expressions)
-        (write expr :stream stream :case :downcase)
-        (fresh-line stream)))))
+(defmethod list-entries (offset (packet dir-packet))
+  (let ((base (entry-path offset packet)))
+    (loop for path in (directory (merge-pathnames base pathname-utils:*wild-path*))
+          collect (enough-namestring path base))))
 
 (defun current-version ()
   ;; KLUDGE: latest version should be determined automatically.

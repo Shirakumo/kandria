@@ -5,10 +5,9 @@
    (version :initform "0.0.0" :initarg :version :accessor version)
    (description :initform "" :initarg :description :accessor description)
    (preview :initform NIL :initarg :preview :accessor preview))
-  (:default-initargs :layers +layer-count+))
-
-(defmethod enter :after ((region region) (scene scene))
-  (setf (gethash 'region (name-map scene)) region))
+  (:default-initargs
+   :name (error "NAME required.")
+   :layers +layer-count+))
 
 (defclass version () ())
 
@@ -49,5 +48,3 @@
                      (assert (eql 'region identifier))
                      (coerce-version version)))))
       (enter region scene))))
-
-

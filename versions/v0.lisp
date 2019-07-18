@@ -2,11 +2,23 @@
 
 (defclass v0 (version) ())
 
+(defvar *load-world*)
+
 (define-decoder (world v0) (info packet)
-  (let ((world (apply #'make-instance 'world :packet packet info)))
+  (let* ((world (apply #'make-instance 'world :packet packet info))
+         (*load-world* world))
     ;; Load world extensions
     (destructuring-bind (&key sources initial-state)
         (parse-sexps (packet-entry "system.lisp" packet :element-type 'character))
+      ;; Fixup world pool
+      (reinitialize-instance (find-pool 'world) :base (entry-path "data/" packet))
+      ;; Register regions
+      (dolist (entry (list-entries "regions/" packet))
+        (let* ((slash (position #\/ entry :from-end T))
+               (dot (or (position #\. entry :from-end T :start slash)
+                        (length entry))))
+          (setf (gethash (subseq entry slash dot) (regions world)) entry)))
+      ;; Load sources
       (dolist (source sources)
         (with-packet-entry (stream source packet)
           ;; FIXME: Compile sources somehow (write out to disk first?)
@@ -27,51 +39,52 @@
         :version (version world)))
 
 (define-decoder (quest:storyline v0) (info _p)
-  (destructuring-bind (&key quests triggers) (first info)
-    (let ((trigger-table (make-hash-table :test 'eq)))
-      (loop for info in triggers
-            for trigger = (decode 'quest:trigger info)
-            do (setf (gethash (quest:name trigger) trigger-table) trigger))
-      ;; Compile storyline
-      (let ((quests (loop for info in quests
-                          ;; KLUDGE: We substitute the packet for the triggers table here so we can
-                          ;;         resolve triggers in the task decoder.
-                          collect (decode-payload info (type-prototype 'quest:quest) trigger-table v0))))
-        (quest:make-storyline quests :quest-type 'quest)))))
+  (let ((table (make-hash-table :test 'eq)))
+    ;; Read in things
+    (loop for (type . initargs) in info
+          for entry = (decode type initargs)
+          do (setf (gethash (name entry) table) entry))
+    ;; Connect them up
+    (loop for (type . initargs) in info
+          for entry = (gethash (getf initargs :name) table)
+          do (etypecase entry
+               (quest-graph:quest
+                (dolist (effect (getf initargs :effects))
+                  (quest-graph:connect entry (gethash effect table))))
+               (quest-graph:task
+                (dolist (effect (getf initargs :effects))
+                  (quest-graph:connect entry (gethash effect table)))
+                (dolist (trigger (getf initargs :triggers))
+                  (quest-graph:connect entry (gethash trigger table))))
+               (quest-graph:trigger)))
+    ;; Compile storyline
+    ;; TODO: We can do this ahead of time into an optimised format by taking out
+    ;;       conditions and invariants into a separate file, giving each a unique
+    ;;       name. We can then COMPILE-FILE this and refer directly to the functions
+    ;;       in the optimised format.
+    (quest:make-storyline
+     (loop for entry being the hash-values of table
+           when (typep entry 'quest-graph:quest)
+           collect entry)
+     :quest-type 'quest)))
 
-(define-decoder (quest:quest v0) (info _p)
-  (destructuring-bind (&key name title description effects tasks) info
-    (let ((quest (make-instance 'quest-graph:quest :name name :title title :description description))
-          (task-table (make-hash-table :test 'eq)))
-      (setf (gethash :end tasks) (make-instance 'quest-graph:end))
-      (loop for (name . info) in tasks
-            do (setf (gethash name task-table) (decode 'quest:task info)))
-      ;; Connect effects together
-      (dolist (effect effects)
-        (quest-graph:connect quest (gethash effect tasks)))
-      (loop for (name . info) in tasks
-            for task = (gethash name task-table)
-            do (dolist (effect (getf info :effects))
-                 (quest-graph:connect task (gethash effect tasks))))
-      quest)))
+(define-decoder (quest-graph:quest v0) (info _p)
+  (destructuring-bind (&key name title description &allow-other-keys) info
+    (make-instance 'quest-graph:quest :name name :title title :description description)))
 
-(define-decoder (quest:task v0) (info triggers)
-  (destructuring-bind (&key name title description invariant condition triggers &allow-other-keys) info
-    (let ((task (make-instance 'quest-graph:task :name name :title title :description description
-                                                 :invariant invariant :condition condition)))
-      (loop for name in triggers
-            for trigger = (gethash name triggers)
-            do (quest-graph:connect task trigger))
-      task)))
+(define-decoder (quest-graph:task v0) (info _p)
+  (destructuring-bind (&key name title description invariant condition &allow-other-keys) info
+    (make-instance 'quest-graph:task :name name :title title :description description
+                                     :invariant invariant :condition condition)))
 
-(define-decoder (quest:trigger v0) (info packet)
+(define-decoder (quest-graph:interaction v0) (info packet)
   (destructuring-bind (&key name interactable dialogue) info
     (let ((dialogue (packet-entry dialogue packet :element-type 'character)))
       (make-instance 'quest-graph:interaction :name name :interactable interactable :dialogue dialogue))))
 
 (define-decoder (region v0) (info packet)
   (let* ((region (apply #'make-instance 'region info))
-         (content (parse-sexps (packet-entry "data" packet))))
+         (content (parse-sexps (packet-entry "data.lisp" packet))))
     (loop for (type . initargs) in content
           do (enter (decode type initargs) region))
     region))
@@ -85,7 +98,7 @@
       (when (typep entity 'chunk)
         (push (encode entity) entities)))
     (let ((data (apply #'princ-to-string* entities)))
-      (setf (packet-entry "data" packet) data))
+      (setf (packet-entry "data.lisp" packet) data))
     (list :name (name region)
           :author (author region)
           :version (version region)
