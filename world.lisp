@@ -1,11 +1,11 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defclass world (pipelined-scene)
-  ((name :initarg :name :accessor name)
+  ((packet :initarg :packet :accessor packet)
    (author :initform "Anonymous" :initarg :author :accessor author)
    (version :initform "0.0.0" :initarg :version :accessor version)
    (storyline :initarg :storyline :accessor storyline)
-   (maps :initarg :maps :accessor maps)
+   (regions :initarg :regions :accessor regions)
    (pause-stack :initform () :accessor pause-stack)))
 
 (defmethod pause-game ((_ (eql T)) pauser)
@@ -42,10 +42,14 @@
           (quest:dialogue (first (interactions (with ev)))))))
 
 (defmethod handle :after ((ev request-region) (world world))
-  (let ((map (or (gethash (region ev) (maps world))
-                 (error "Cannot switch to unknown world ~s" world))))
-    ;; FIXME: think about this, it's broken.
-    (load-region (pool-path 'leaf map) world)
+  (let ((region (or (gethash (region ev) (regions world))
+                    (error "Cannot switch to unknown world ~s" world))))
+    ;; FIXME: think about this, it's broken:
+    ;;        1) we need to remove the current region
+    ;;        2) we need to switch assets for the new region
+    ;;        3) we need to know where the region is relative to the world
+    ;;        4) this may be inside a packet somewhere...
+    (load-region (pool-path 'leaf region) world)
     (change-scene (handler *context*) world)))
 
 (defclass quest (quest:quest)
@@ -84,7 +88,8 @@
     (setf (packet-entry "meta.lisp" packet) meta)))
 
 (defmethod load-world ((world world))
-  (load-world (pool-path 'leaf (string-downcase (name world)))))
+  ;; FIXME: Similarly to the REGION request this is wrong.
+  (load-world (packet world)))
 
 (defmethod load-world ((pathname pathname))
   (with-packet (packet pathname :direction :input)
