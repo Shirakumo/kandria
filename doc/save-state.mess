@@ -1,0 +1,67 @@
+# Leaf Save State File Format
+This document describes the save state file format used in Leaf. The spec is formulated using both natural language descriptions and the ADL language, described in "adl"(link adl.mess).
+
+## Container
+The save state file format is represented through a multitude of files in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a ``meta.lisp`` entry at its toplevel. If the ``meta.lisp`` entry is missing or malformed, the packet is considered invalid.
+
+## Metadata
+The ``meta.lisp`` entry must contain data as follows, encoded in standard s-expression format.
+
+:: ADL
+file: [ header, information ]
+
+header: {
+  identifier: symbol,
+  version: symbol
+}
+
+information: {
+  author: string,
+  start-time: integer,
+  save-time: integer
+}
+::
+
+The ``identifier`` must always be the symbol ``leaf:save-state``. The ``version`` must be a symbol designating a subclass of ``leaf:version``.
+
+## Payload
+The contents of the packet otherwise are version dependent. The following subsections define the format for each version.
+
+### ``save-v0``
+The contents of the payload follow immediately after the header and are formatted in standard s-expression format. The structure must be as follows.
+
+The packet must contain an entry named ``global.lisp``, the contents of which are encoded in standard s-expression format and follow this structure:
+
+:: ADL
+global: {
+  region: symbol
+}
+::
+
+Each ``pathname`` must refer to an entry in the packet.
+
+The packet must contain an entry named ``storyline.lisp``, the contents of which are encoded in standard s-expression format and follow this structure:
+
+:: ADL
+storyline: [ quest* ]
+
+quest: {
+  name: symbol,
+  status: symbol,
+  tasks: { symbol: task }
+}
+
+task: {
+  status: symbol
+}
+::
+
+The packet must contain an entry for each region in the world, named after the region's symbol-name, with the prefix ``regions/``. The contents of such a region file are encoded in standard s-expression format and follow this structure:
+
+:: ADL
+region: {
+  deletions: [ symbol ],
+  additions: [ entity ],
+  state: { symbol: state }
+}
+::

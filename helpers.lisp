@@ -60,12 +60,10 @@
                         (loop-finish)
                         data)))))
 
-(defun princ-to-string* (&rest expressions)
-  (with-output-to-string (stream)
-    (with-leaf-io-syntax
-      (dolist (expr expressions)
-        (write expr :stream stream :case :downcase)
-        (fresh-line stream)))))
+(defun princ* (expression &optional (stream *standard-output*))
+  (with-leaf-io-syntax
+    (write expression :stream stream :case :downcase)
+    (fresh-line stream)))
 
 (defun type-prototype (type)
   (case type

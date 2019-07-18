@@ -12,110 +12,60 @@
   (make-pathname :name (format NIL "~(~a~)" name) :type "save"
                  :defaults (config-directory)))
 
-(defclass save ()
-  ((name :initarg :name :accessor name)
-   (username :initarg :username :accessor username)
-   (timestamp :initarg :timestamp :accessor timestamp))
+(defclass save-state ()
+  ((author :initarg :author :accessor author)
+   (start-time :initarg :start-time :accessor start-time)
+   (save-time :initarg :save-time :accessor save-time))
   (:default-initargs
-   :name (error "NAME required.")
-   :username NIL
-   :timestamp (get-universal-time)))
+   :author (pathname-utils:directory-name (user-homedir-pathname))
+   :start-time (get-universal-time)
+   :save-time (get-universal-time)))
 
-(defmethod print-object ((save save) stream)
-  (print-unreadable-object (save stream :type T)
-    (format stream "~s ~a" (name save) (format-absolute-time (timestamp save)))))
+(defmethod print-object ((save-state save-state) stream)
+  (print-unreadable-object (save-state stream :type T)
+    (format stream "~s ~a" (name save-state) (format-absolute-time (save-time save-state)))))
 
-(defmethod file ((save save))
-  (save-state-path (name save)))
+(defmethod file ((save-state save-state))
+  (save-state-path (start-time save-state)))
 
 (defun list-saves ()
-  (mapcar #'minimal-load-state
-          (directory (make-pathname :name :wild :type "save" :defaults (config-directory)))))
+  (loop for file in (directory (make-pathname :name :wild :type "save" :defaults (config-directory)))
+        collect (minimal-load-state file)))
 
-(defmethod minimal-load-state (file)
-  (with-open-file (in file
-                      :direction :input
-                      :element-type 'character)
-    (let ((*default-pathname-defaults* file)
-          (*read-eval* NIL)
-          (*package* #.*package*))
-      (load-state (make-instance 'save :name (pathname-name file)) in))))
+(defun minimal-load-state (file)
+  (with-packet (packet file)
+    (destructuring-bind (header initargs)
+        (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
+      (assert (eq 'save-state (getf header :identifier)))
+      (apply #'make-instance 'save-state initargs))))
 
-(defmethod save-state ((main main) (save save))
-  (v:info :leaf.state "Saving state ~a" save)
-  (with-open-file (out (ensure-directories-exist (file save))
-                       :direction :output
-                       :element-type 'character
-                       :if-exists :supersede)
-    (let ((*default-pathname-defaults* (file save))
-          (*print-case* :downcase)
-          (*package* #.*package*))
-      (format out ";; -*- Mode: common-lisp -*-~%")
-      (save-state save out)
-      (save-state main out))))
+(defun current-save-version ()
+  (make-instance 'save-v0))
 
-(defmethod load-state ((main main) (save save))
-  (v:info :leaf.state "Loading state ~a" save)
-  (with-open-file (in (file save)
-                      :direction :input
-                      :element-type 'character)
-    (let ((*default-pathname-defaults* (file save))
-          (*read-eval* NIL)
-          (*package* #.*package*))
-      (load-state save in)
-      (load-state main in))))
+(defmethod save-state ((world (eql T)) save &rest args)
+  (apply #'call-next-method +world+ save args))
 
-(defmethod save-state (object (stream stream))
-  (format stream "~&~s~%" (list* (type-of object) (state-data object))))
+(defmethod save-state :around (world target &rest args &key (version T))
+  (apply #'call-next-method world target :version (ensure-version version (current-save-version)) args))
 
-(defmethod load-state (object (stream stream))
-  (destructuring-bind (type &rest data) (read stream)
-    (load-state-into object type data)))
+(defmethod save-state ((world world) (save-state save-state) &key version)
+  (with-packet (packet (file save-state) :direction :output :if-exists :supersede)
+    (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
+      (princ* (list :identifier 'save-state :version (type-of version)) stream)
+      (princ* (list :author (author save-state)
+                    :start-time (start-time save-state)
+                    :save-time (save-time save-state))
+              stream)
+      (encode-payload world NIL packet version))))
 
-(defmethod load-state-into :around (object type data)
-  (call-next-method)
-  object)
+(defmethod load-state (world (save-state save-state))
+  (with-packet (packet (file save-state))
+    (load-state world packet)))
 
-(defmethod state-data ((save save))
-  (list :username (username save)
-        :timestamp (timestamp save)))
-
-(defmethod load-state-into ((save save) (type (eql 'save)) (data cons))
-  (destructuring-bind (&key username timestamp) data
-    (setf (username save) username)
-    (setf (timestamp save) timestamp)))
-
-(defmethod save-state ((main main) (stream stream))
-  (save-state (scene main) stream))
-
-(defmethod load-state ((main main) (stream stream))
-  (handler-case
-      (loop (call-next-method))
-    (end-of-file (e)
-      (declare (ignore e)))))
-
-(defmethod state-data ((world world))
-  (let ((entries ()))
-    (for:for ((entity over world))
-      (when (find-method #'state-data () (list (class-of entity)) NIL)
-        (push (list* (type-of entity) (state-data entity)) entries)))
-    (list (nreverse entries))))
-
-(defmethod load-state-into ((main main) (type (eql 'world)) (data cons))
-  (destructuring-bind (name &rest entries) data
-    (let ((world (if (eq name (name (scene main)))
-                     (scene main)
-                     (load T (make-instance 'world :name name) T))))
-      (loop for (type . data) in entries
-            do (load-state-into world type data))
-      (change-scene main world))))
-
-(defmethod state-data ((player player))
-  (list (name player) (vapply (spawn-location player) floor)))
-
-(defmethod load-state-into ((world world) (type (eql 'player)) data)
-  (destructuring-bind (name (_ x y)) data
-    (declare (ignore _))
-    (let ((player (unit name world)))
-      (vsetf (location player) x y)
-      (vsetf (spawn-location player) x y))))
+(defmethod load-state ((world world) (packet packet))
+  (destructuring-bind (header initargs)
+      (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
+    (assert (eq 'save-state (getf header :identifier)))
+    (let ((version (coerce-version (getf header :version))))
+      (decode-payload world NIL packet version)
+      (apply #'make-instance 'save-state initargs))))

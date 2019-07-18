@@ -175,7 +175,7 @@
   (merge-pathnames entry (merge-pathnames (offset packet) (storage packet))))
 
 (defmethod call-with-packet-entry (function entry (packet dir-packet) &key element-type)
-  (with-open-file (stream (entry-path entry packet)
+  (with-open-file (stream (ensure-directories-exist (entry-path entry packet))
                           :direction (direction packet)
                           :element-type (or element-type '(unsigned-byte 8))
                           :if-exists :supersede)
@@ -190,10 +190,17 @@
   ;; KLUDGE: latest version should be determined automatically.
   (make-instance 'v0))
 
-(defun ensure-version (version)
+(defun coerce-version (symbol)
+  (flet ((bail () (error "No such version ~s." symbol)))
+    (let* ((class (or (find-class symbol NIL) (bail))))
+      (unless (subtypep class 'version) (bail))
+      (make-instance class))))
+
+(defun ensure-version (version &optional (default (current-version)))
   (etypecase version
     (version version)
-    ((eql T) (current-version))))
+    ((eql T) default)
+    (symbol (coerce-version version))))
 
 (defgeneric decode-payload (payload target packet version))
 (defgeneric encode-payload (source payload packet version))
