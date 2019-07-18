@@ -23,45 +23,47 @@
               ,@body))
        (call-with-packet-entry #',thunk ,entry ,packet ,@args))))
 
-(defmethod call-with-packet (function (pathname pathname) &key offset direction (if-exists :error) (if-does-not-exist :create))
+(defmethod call-with-packet (function (pathname pathname) &key (offset "") direction (if-exists :error) (if-does-not-exist :create))
   (let ((direction (or direction :input)))
     (ecase direction
       (:input
-       (unless (probe-file pathname)
-         (ecase if-does-not-exist
-           (:error (error 'file-error :pathname pathname))
-           ((NIL) (funcall function NIL))
-           (:create
-            (cond ((equal "zip" (pathname-type pathname))
-                   (zip:with-zipfile (zip pathname)
-                     (funcall function (make-instance 'zip-read-packet
-                                                      :storage zip
-                                                      :offset offset))))
-                  ((pathname-utils:directory-p pathname)
-                   (funcall function (make-instance 'dir-packet
-                                                    :direction :input
-                                                    :storage pathname
-                                                    :offset offset)))
-                  (T
-                   (error "Don't know how to open ~s" pathname)))))))
+       (ecase (if (probe-file pathname)
+                  :create
+                  if-does-not-exist)
+         (:error (error 'file-error :pathname pathname))
+         ((NIL) (funcall function NIL))
+         (:create
+          (cond ((equal "zip" (pathname-type pathname))
+                 (zip:with-zipfile (zip pathname)
+                   (funcall function (make-instance 'zip-read-packet
+                                                    :storage zip
+                                                    :offset offset))))
+                ((pathname-utils:directory-p pathname)
+                 (funcall function (make-instance 'dir-packet
+                                                  :direction :input
+                                                  :storage pathname
+                                                  :offset offset)))
+                (T
+                 (error "Don't know how to open ~s" pathname))))))
       (:output
-       (when (probe-file pathname)
-         (ecase if-exists
-           (:error (error 'file-error :pathname pathname))
-           ((NIL) (funcall function NIL))
-           ((:new-version :rename :rename-and-delete :overwrite :append :supersede)
-            (cond ((equal "zip" (pathname-type pathname))
-                   (zip:with-output-to-zipfile (zip pathname :if-exists if-exists)
-                     (funcall function (make-instance 'zip-write-packet
-                                                      :storage zip
-                                                      :offset offset))))
-                  ((pathname-utils:directory-p pathname)
-                   (funcall function (make-instance 'dir-packet
-                                                    :direction :output
-                                                    :storage pathname
-                                                    :offset offset)))
-                  (T
-                   (error "Don't know how to write ~s" pathname))))))))))
+       (ecase (if (probe-file pathname)
+                  if-exists
+                  :supersede)
+         (:error (error 'file-error :pathname pathname))
+         ((NIL) (funcall function NIL))
+         ((:new-version :rename :rename-and-delete :overwrite :append :supersede)
+          (cond ((equal "zip" (pathname-type pathname))
+                 (zip:with-output-to-zipfile (zip pathname :if-exists if-exists)
+                   (funcall function (make-instance 'zip-write-packet
+                                                    :storage zip
+                                                    :offset offset))))
+                ((pathname-utils:directory-p pathname)
+                 (funcall function (make-instance 'dir-packet
+                                                  :direction :output
+                                                  :storage pathname
+                                                  :offset offset)))
+                (T
+                 (error "Don't know how to write ~s" pathname)))))))))
 
 (defmethod packet-entry (name (packet packet) &key element-type)
   (with-packet-entry (stream name packet :element-type element-type)
@@ -83,7 +85,7 @@
   (with-packet-entry (stream name packet :element-type (array-element-type data))
     (write-sequence data stream)))
 
-(defclass zip-packet ()
+(defclass zip-packet (packet)
   ())
 
 (defmethod call-with-packet (function (packet zip-packet) &key offset direction if-exists if-does-not-exist)
@@ -158,7 +160,7 @@
                   (string= base name :end2 (length base)))
         collect name))
 
-(defclass dir-packet ()
+(defclass dir-packet (packet)
   ((direction :initarg :direction :reader direction)))
 
 (defmethod call-with-packet (function (packet dir-packet) &key offset direction if-exists if-does-not-exist)

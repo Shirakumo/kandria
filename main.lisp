@@ -11,7 +11,7 @@
 
 (unless (find-pool 'world)
   (define-pool world
-    :base NIL))
+    :base :leaf))
 
 (defclass empty-world (world)
   ()
@@ -19,7 +19,7 @@
    :packet (new-world-packet)))
 
 (defmethod initialize-instance :after ((world empty-world) &key)
-  (let ((region (make-instance 'region :name "base"))
+  (let ((region (make-instance 'region :name 'base))
         (chunk (make-instance 'chunk :tileset (asset 'leaf 'debug))))
     (enter region world)
     (enter chunk region)
@@ -37,7 +37,7 @@
   (call-next-method)
   (setf (scene main)
         (if world
-            (load-world (pool-path 'leaf world))
+            (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world))
             (make-instance 'empty-world))))
 
 (defmethod setup-rendering :after ((main main))
