@@ -1,64 +1,29 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-asset (leaf fi) image
-    #p"fi.png"
+(defun new-world-packet ()
+  (with-packet (packet (find-new-directory "world" (pool-path 'leaf "/")))
+    packet))
+
+(define-asset (leaf debug) image
+    #p"debug.png"
   :min-filter :nearest
   :mag-filter :nearest)
 
-(define-asset (leaf fi-profile) image
-    #p "fi-profile.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
-(define-asset (leaf player) image
-    #p"player.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
-(define-asset (leaf player-profile) image
-    #p"player-profile.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
-(define-asset (leaf ice) image
-    #p"ice.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
-(define-asset (leaf icey-mountains) image
-    #p "icey-mountains.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
+(unless (find-pool 'world)
+  (define-pool world
+    :base NIL))
 
 (defclass empty-world (world)
   ()
-  (:default-initargs :name :untitled))
+  (:default-initargs
+   :packet (new-world-packet)))
 
-(defvar *complete* NIL)
 (defmethod initialize-instance :after ((world empty-world) &key)
-  (let ((region (make-instance 'region))
-        (chunk (make-instance 'chunk :tileset (asset 'leaf 'ice))))
+  (let ((region (make-instance 'region :name "base"))
+        (chunk (make-instance 'chunk :tileset (asset 'leaf 'debug))))
     (enter region world)
     (enter chunk region)
-    (enter (make-instance 'fi) chunk)
-    (enter (make-instance 'player :location (vec 64 64)) region)
-    (let ((*package* #.*package*)
-          (quest (make-instance 'quest-graph:quest :name :test :title "Test"))
-          (task (make-instance 'quest-graph:task :title "Talk"
-                                                 :condition '*complete*))
-          (dial (make-instance 'quest-graph:interaction
-                               :interactable 'fi
-                               :dialogue "
-~ player
-| A full month of work on the game! (:happy)
-~ fi
-| It's freezing here, how do you stand this?
-! setf (location player) (vec 100 100)"))
-          (end (make-instance 'quest-graph:end)))
-      (quest-graph:connect quest task)
-      (quest-graph:connect task end)
-      (quest-graph:connect task dial)
-      (setf (storyline world) (quest:make-storyline (list quest) :quest-type 'quest)))))
+    (enter (make-instance 'player :location (vec 64 64)) region)))
 
 (defclass main (trial:main)
   ((scene :initform NIL)
@@ -98,9 +63,7 @@
   (enter (make-instance 'inactive-pause-menu) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
-  (enter (make-instance 'render-pass) scene)
-  ;; FIXME: fucked up
-  (quest:activate (quest:find-quest :test (storyline scene))))
+  (enter (make-instance 'render-pass) scene))
 
 #+leaf-inspector
 (progn

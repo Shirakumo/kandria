@@ -24,10 +24,9 @@
    (surface :initform NIL :accessor surface))
   (:default-initargs
    :name 'player
-   :texture (asset 'leaf 'player)
    :bsize (nv/ (vec 16 32) 2)
    :size (vec 32 40)
-   :animation 0
+   :texture (asset 'world 'player)
    :animations '((stand 0 8 :step 0.1)
                  (run 8 24 :step 0.05)
                  (jump 24 27 :step 0.1 :next fall)
@@ -35,7 +34,7 @@
                  (slide 33 39 :step 0.075 :loop-to 38)
                  (climb 39 51 :step 0.1))
    :profile-title "The Stranger"
-   :profile-texture (asset 'leaf 'player-profile)
+   :profile-texture (asset 'world 'player-profile)
    :profile-animations '((normal 0 1)
                          (normal-blink 0 3 :step 0.1 :next normal)
                          (happy 3 4)

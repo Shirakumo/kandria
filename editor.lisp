@@ -144,29 +144,30 @@ void main(){
                            (mod (1- pos) (flare-indexed-set:set-size set))
                            set))))
 
-(define-handler (editor save-world) (ev)
-  (if (retained 'modifiers :control)
-      (save-world +world+ T)
-      (with-query (file "Map save location"
-                   :default (file +world+)
-                   :parse #'uiop:parse-native-namestring)
-        (save-world +world+ (pool-path 'leaf file)))))
-
 (define-handler (editor load-world) (ev)
   (if (retained 'modifiers :control)
       (let ((world (load-world +world+)))
         (change-scene (handler *context*) world))
-      (with-query (file "Map load location"
-                   :default (file +world+)
-                   :parse #'uiop:parse-native-namestring)
+      (with-query (file "World load location"
+                        :default (storage (packet +world+))
+                        :parse #'uiop:parse-native-namestring)
         (let ((world (load-world (pool-path 'leaf file))))
           (change-scene (handler *context*) world)))))
 
-(define-handler (editor save-state) (ev)
-  (save-state (handler *context*) T))
+(define-handler (editor save-region) (ev)
+  (save-region T T))
 
-(define-handler (editor load-state) (ev)
-  (load-state (handler *context*) T))
+(define-handler (editor load-region) (ev)
+  (if (retained 'modifiers :control)
+      (load-region T T)
+      (with-query (region "Region name")
+        (load-region region T))))
+
+;; (define-handler (editor save-state) (ev)
+;;   (save-state (handler *context*) T))
+
+;; (define-handler (editor load-state) (ev)
+;;   (load-state (handler *context*) T))
 
 (define-handler (editor insert-entity) (ev)
   (let ((*package* #.*package*))

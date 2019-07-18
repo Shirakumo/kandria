@@ -6,7 +6,11 @@
    (version :initform "0.0.0" :initarg :version :accessor version)
    (storyline :initarg :storyline :accessor storyline)
    (regions :initarg :regions :accessor regions)
-   (pause-stack :initform () :accessor pause-stack)))
+   (pause-stack :initform () :accessor pause-stack))
+  (:default-initargs
+   :packet (error "PACKET required.")
+   :storyline (quest:make-storyline ())
+   :regions (make-hash-table :test 'equalp)))
 
 (defmethod pause-game ((_ (eql T)) pauser)
   (pause-game +world+ pauser))
@@ -29,7 +33,19 @@
   (when (pause-stack world)
     (setf (handlers world) (pop (pause-stack world)))))
 
+(defmethod region-entry ((name symbol) (world world))
+  (region-entry (string name) world))
+
+(defmethod region-entry ((name string) (world world))
+  (gethash name (regions world)))
+
 (defmethod enter :after ((region region) (world world))
+  (setf (gethash 'region (name-map world)) region)
+  ;; Register region in region table if the region is new.
+  (unless (gethash (string (name region)) (regions world))
+    (setf (gethash (string (name region)) (regions world))
+          (format NIL "regions/~a/" (string (name region)))))
+  ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
 (defmethod handle :after ((ev trial:tick) (world world))
@@ -42,15 +58,7 @@
           (quest:dialogue (first (interactions (with ev)))))))
 
 (defmethod handle :after ((ev request-region) (world world))
-  (let ((region (or (gethash (region ev) (regions world))
-                    (error "Cannot switch to unknown world ~s" world))))
-    ;; FIXME: think about this, it's broken:
-    ;;        1) we need to remove the current region
-    ;;        2) we need to switch assets for the new region
-    ;;        3) we need to know where the region is relative to the world
-    ;;        4) this may be inside a packet somewhere...
-    (load-region (pool-path 'leaf region) world)
-    (change-scene (handler *context*) world)))
+  (load-region (region ev) world))
 
 (defclass quest (quest:quest)
   ())
@@ -102,3 +110,42 @@
      (destructuring-bind (&key identifier version) header
        (assert (eql 'world identifier))
        (coerce-version version)))))
+
+(defmethod save-region (region (world world) &rest args)
+  (with-packet (packet (packet world) :offset (region-entry region world))
+    (apply #'save-region region packet args)))
+
+(defmethod save-region (region (world (eql T)) &rest args)
+  (apply #'save-region region +world+ args))
+
+(defmethod save-region ((region (eql T)) (world world) &rest args)
+  (apply #'save-region (unit 'region world) world args))
+
+(defmethod load-region ((name symbol) (world world))
+  (load-region (string name) world))
+
+(defmethod load-region ((name string) (world world))
+  (let ((entry (or (gethash name (regions world))
+                   (error "Cannot switch to unknown world ~s" world))))
+    (with-packet (packet (packet world) :offset entry)
+      (load-region packet world))))
+
+(defmethod load-region (region (world (eql T)))
+  (load-region region +world+))
+
+(defmethod load-region ((region (eql T)) (world world))
+  (load-region (unit 'region world) world))
+
+(defmethod load-region :around ((packet packet) (world world))
+  (let ((old-region (unit 'region world)))
+    (restart-case
+        (progn
+          (load-region packet world)
+          (when old-region
+            (leave old-region world)))
+      (abort ()
+        :report "Give up changing the region and continue with the old."
+        (when old-region
+          (enter old-region world))))
+    ;; Force resource update
+    (change-scene world world)))

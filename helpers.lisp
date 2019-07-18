@@ -43,6 +43,30 @@
                                  collect `(,(car binding) (,fun)))
            ,@body)))))
 
+(defun find-new-directory (dir base)
+  (loop for i from 0
+        for sub = dir then (format NIL "~a-~d" dir i)
+        for path = (pathname-utils:subdirectory base sub)
+        do (unless (uiop:directory-exists-p path)
+             (return path))))
+
+(defun parse-sexps (string)
+  (with-leaf-io-syntax
+    (loop with eof = (make-symbol "EOF")
+          with i = 0
+          collect (multiple-value-bind (data next) (read-from-string string NIL EOF :start i)
+                    (setf i next)
+                    (if (eql data EOF)
+                        (loop-finish)
+                        data)))))
+
+(defun princ-to-string* (&rest expressions)
+  (with-output-to-string (stream)
+    (with-leaf-io-syntax
+      (dolist (expr expressions)
+        (write expr :stream stream :case :downcase)
+        (fresh-line stream)))))
+
 (defun type-prototype (type)
   (case type
     (character #\Nul)
