@@ -37,6 +37,9 @@
   (or (gethash name (regions world))
       (error "No such region ~s" name)))
 
+(defmethod region-entry ((region region) (world world))
+  (region-entry (name region) world))
+
 (defmethod enter :after ((region region) (world world))
   (setf (gethash 'region (name-map world)) region)
   ;; Register region in region table if the region is new.
@@ -77,8 +80,8 @@
 (defgeneric load-world (packet))
 (defgeneric save-world (world packet &key version &allow-other-keys))
 
-(defmethod save-world ((world world) target &rest args)
-  (apply #'save-world (unit 'world world) target args))
+(defmethod save-world ((world (eql T)) target &rest args)
+  (apply #'save-world +world+ target args))
 
 (defmethod save-world :around (world target &rest args &key (version T))
   (apply #'call-next-method world target :version (ensure-version version) args))
@@ -88,10 +91,9 @@
     (save-world world packet :version version)))
 
 (defmethod save-world (world (packet packet) &key version)
-  (let ((meta (princ-to-string* (list :identifier 'world
-                                      :version (type-of version))
-                                (encode-payload world NIL packet version))))
-    (setf (packet-entry "meta.lisp" packet) meta)))
+  (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
+    (princ* (list :identifier 'world :version (type-of version)) stream)
+    (princ* (encode-payload world NIL packet version) stream)))
 
 (defmethod load-world ((world world))
   (load-world (packet world)))

@@ -29,8 +29,8 @@
       ;; Load save to set up initial state
       ;; FIXME: How do we know what to restore if we're loading a save?
       (when initial-state
-        (with-packet-entry (stream initial-state packet)
-          (load-state world stream))))
+        (with-packet (packet packet :offset initial-state)
+          (load-state world packet))))
     world))
 
 (define-encoder (world v0) (_b packet)
@@ -91,20 +91,18 @@
     region))
 
 (define-encoder (region v0) (_b packet)
-  (let ((entities ()))
+  (with-packet-entry (stream "data.lisp" packet :element-type 'character)
     ;; Do two passes to avoid chunks being duped.
     (for:for ((entity over region))
       (unless (typep entity 'chunk)
-        (push (encode entity) entities)))
+        (princ* (encode entity) stream)))
     (for:for ((entity across (aref (objects region) 0)))
       (when (typep entity 'chunk)
-        (push (encode entity) entities)))
-    (let ((data (apply #'princ-to-string* entities)))
-      (setf (packet-entry "data.lisp" packet) data))
-    (list :name (name region)
-          :author (author region)
-          :version (version region)
-          :description (description region))))
+        (princ* (encode entity) stream))))
+  (list :name (name region)
+        :author (author region)
+        :version (version region)
+        :description (description region)))
 
 (define-decoder (player v0) (initargs _p)
   (destructuring-bind (&key location) initargs

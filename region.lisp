@@ -11,12 +11,6 @@
 
 (defclass version () ())
 
-(defun coerce-version (symbol)
-  (flet ((bail () (error "No such version ~s." symbol)))
-    (let* ((class (or (find-class symbol NIL) (bail))))
-      (unless (subtypep class 'version) (bail))
-      (make-instance class))))
-
 (defgeneric load-region (packet scene))
 (defgeneric save-region (region packet &key version &allow-other-keys))
 
@@ -31,10 +25,9 @@
     (save-region region packet :version version)))
 
 (defmethod save-region (region (packet packet) &key version)
-  (let ((meta (princ-to-string* (list :identifier 'region
-                                      :version (type-of version))
-                                (encode-payload region NIL packet version))))
-    (setf (packet-entry "meta.lisp" packet) meta)))
+  (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
+    (princ* (list :identifier 'region :version (type-of version)) stream)
+    (princ* (encode-payload region NIL packet version) stream)))
 
 (defmethod load-region ((pathname pathname) scene)
   (with-packet (packet pathname :direction :input)
