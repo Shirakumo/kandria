@@ -59,9 +59,8 @@
           (quest:dialogue (first (interactions (with ev)))))))
 
 (defmethod handle :after ((ev request-region) (world world))
-  (load-region (region ev) world)
-  ;; Force resource update
-  (transition world world))
+  (let ((old (unit 'region world)))
+    (transition old (load-region (region ev) world))))
 
 (defclass quest (quest:quest)
   ())

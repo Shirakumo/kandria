@@ -164,6 +164,10 @@
 (defclass dir-packet (packet)
   ((direction :initarg :direction :reader direction)))
 
+(defmethod print-object ((packet dir-packet) stream)
+  (print-unreadable-object (packet stream :type T)
+    (format stream "~s ~s" (entry-path "" packet) (direction packet))))
+
 (defmethod call-with-packet (function (packet dir-packet) &key offset direction if-exists if-does-not-exist)
   (declare (ignore if-exists if-does-not-exist))
   ;; FIXME: what if offset is another type of packet?
