@@ -69,6 +69,9 @@
 (defmethod load-state (state (world (eql T)))
   (load-state state +world+))
 
+(defmethod load-state ((integer integer) world)
+  (load-state (save-state-path integer) world))
+
 (defmethod load-state ((pathname pathname) world)
   (with-packet (packet pathname)
     (load-state packet world)))

@@ -39,9 +39,10 @@
         (if world
             (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world))
             (make-instance 'empty-world)))
-  (if state
-      (load-state state (scene main))
-      (setf (state main) (make-instance 'save-state))))
+  (setf (state main)
+        (if state
+            (load-state state (scene main))
+            (make-instance 'save-state))))
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test))

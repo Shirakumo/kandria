@@ -5,6 +5,7 @@
 (define-decoder (world save-v0) (_b packet)
   (destructuring-bind (&key region)
       (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
+    ;; FIXME: Avoid reloading the entire region when loading state.
     (let ((region (load-region region world)))
       (decode (storyline world))
       (decode region))))
@@ -31,6 +32,7 @@
 (define-decoder (quest:quest save-v0) (initargs packet)
   (destructuring-bind (&key status tasks) initargs
     (setf (quest:status quest:quest) status)
+    ;; FIXME: Quests not saved in the state won't be reset to initial state.
     (loop for (name . initargs) in tasks
           for task = (quest:find-task name quest:quest)
           do (decode task initargs))))
