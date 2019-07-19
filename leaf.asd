@@ -22,6 +22,7 @@
                (:file "camera")
                (:file "main")
                (:file "save-state")
+               (:file "versions/save-v0")
                (:file "effects"))
   :depends-on (:trial-glfw
                :zip

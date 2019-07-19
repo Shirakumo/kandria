@@ -34,7 +34,7 @@
   ((status :initarg :status :accessor status)
    (storyline :initarg :storyline :reader storyline)
    (effects :reader effects)
-   (tasks :initform () :reader tasks)
+   (tasks :initform (make-hash-table :test 'eq) :reader tasks)
    (active-tasks :initform () :accessor active-tasks))
   (:default-initargs :status :inactive
                      :title NIL))
@@ -52,6 +52,13 @@
 (defmethod make-assembly ((quest quest))
   (make-instance 'dialogue:assembly))
 
+(defmethod find-task (name (quest quest) &optional (error T))
+  (or (gethash name (tasks quest))
+      (when error (error "No task named ~s found." name))))
+
+(defmethod (setf find-task) (task name (quest quest))
+  (setf (gethash name (tasks quest)) task))
+
 (defun sort-quests (quests)
   (sort quests (lambda (a b)
                  (if (eql (status a) (status b))
@@ -63,9 +70,9 @@
 
 (defmethod (setf status) :before (status (quest quest))
   (ecase status
-    (:active (assert (eql :inactive (status quest))))
-    (:complete (assert (eql :active (status quest))))
-    (:failed (assert (eql :active (status quest))))))
+    (:active)
+    (:complete)
+    (:failed)))
 
 (defmethod (setf status) :after (status (quest quest))
   (setf (known-quests (storyline quest))
@@ -169,8 +176,10 @@
     (%transform node cache quest)
     (values (loop for effect in (graph:effects node)
                   collect (gethash effect cache))
-            (loop for task being the hash-values of cache
-                  collect task))))
+            (loop with tasks = (make-hash-table :test 'eq)
+                  for task being the hash-values of cache
+                  do (setf (gethash (name task) tasks) task)
+                  finally (return tasks)))))
 
 (defmethod %transform :around (thing cache _)
   (or (gethash thing cache)

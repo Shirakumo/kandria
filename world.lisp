@@ -59,7 +59,9 @@
           (quest:dialogue (first (interactions (with ev)))))))
 
 (defmethod handle :after ((ev request-region) (world world))
-  (load-region (region ev) world))
+  (load-region (region ev) world)
+  ;; Force resource update
+  (transition world world))
 
 (defclass quest (quest:quest)
   ())
@@ -90,7 +92,8 @@
   (with-packet (packet pathname :direction :output :if-exists if-exists)
     (save-world world packet :version version)))
 
-(defmethod save-world (world (packet packet) &key version)
+(defmethod save-world ((world world) (packet packet) &key version)
+  (v:info :leaf.world "Saving ~a to ~a" world packet)
   (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
     (princ* (list :identifier 'world :version (type-of version)) stream)
     (princ* (encode-payload world NIL packet version) stream)))
@@ -103,6 +106,7 @@
     (load-world packet)))
 
 (defmethod load-world ((packet packet))
+  (v:info :leaf.world "Loading ~a" packet)
   (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
     (decode-payload
      info (type-prototype 'world) packet
@@ -111,7 +115,8 @@
        (coerce-version version)))))
 
 (defmethod save-region (region (world world) &rest args)
-  (with-packet (packet (packet world) :offset (region-entry region world))
+  (with-packet (packet (packet world) :offset (region-entry region world)
+                                      :direction :output)
     (apply #'save-region region packet args)))
 
 (defmethod save-region (region (world (eql T)) &rest args)
@@ -128,18 +133,15 @@
   (load-region region +world+))
 
 (defmethod load-region ((region (eql T)) (world world))
-  (load-region (unit 'region world) world))
+  (load-region (name (unit 'region world)) world))
 
 (defmethod load-region :around ((packet packet) (world world))
   (let ((old-region (unit 'region world)))
     (restart-case
-        (progn
-          (load-region packet world)
+        (prog1 (call-next-method)
           (when old-region
             (leave old-region world)))
       (abort ()
         :report "Give up changing the region and continue with the old."
         (when old-region
-          (enter old-region world))))
-    ;; Force resource update
-    (change-scene world world)))
+          (enter old-region world))))))

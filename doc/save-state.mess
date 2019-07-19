@@ -43,10 +43,9 @@ Each ``pathname`` must refer to an entry in the packet.
 The packet must contain an entry named ``storyline.lisp``, the contents of which are encoded in standard s-expression format and follow this structure:
 
 :: ADL
-storyline: [ quest* ]
+storyline: [ { symbol: quest* } ]
 
 quest: {
-  name: symbol,
   status: symbol,
   tasks: { symbol: task }
 }
@@ -61,7 +60,14 @@ The packet must contain an entry for each region in the world, named after the r
 :: ADL
 region: {
   deletions: [ symbol ],
-  additions: [ entity ],
+  additions: [ addition ],
   state: { symbol: state }
 }
+
+addition: {
+  container: symbol,
+  init: { type: entity } 
+}
 ::
+
+The ``entity`` type is defined in the "Region File Format"(link region-format.mess) for ``v0``.

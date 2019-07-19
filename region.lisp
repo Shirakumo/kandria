@@ -6,12 +6,9 @@
    (description :initform "" :initarg :description :accessor description)
    (preview :initform NIL :initarg :preview :accessor preview))
   (:default-initargs
-   :name (error "NAME required.")
-   :layers +layer-count+))
+   :name (error "NAME required.")))
 
-(defclass version () ())
-
-(defgeneric load-region (packet scene))
+(defgeneric load-region (packet region))
 (defgeneric save-region (region packet &key version &allow-other-keys))
 
 (defmethod save-region ((scene scene) target &rest args)
@@ -24,7 +21,8 @@
   (with-packet (packet pathname :direction :output :if-exists if-exists)
     (save-region region packet :version version)))
 
-(defmethod save-region (region (packet packet) &key version)
+(defmethod save-region ((region region) (packet packet) &key version)
+  (v:info :leaf.region "Saving ~a to ~a" region packet)
   (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
     (princ* (list :identifier 'region :version (type-of version)) stream)
     (princ* (encode-payload region NIL packet version) stream)))
@@ -33,11 +31,14 @@
   (with-packet (packet pathname :direction :input)
     (load-region packet scene)))
 
-(defmethod load-region ((packet packet) (scene scene))
+(defmethod load-region (thing (scene scene))
+  (enter (load-region thing NIL) scene))
+
+(defmethod load-region ((packet packet) (null null))
+  (v:info :leaf.region "Loading ~a" packet)
   (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
-    (let ((region (decode-payload
-                   info (type-prototype 'region) packet
-                   (destructuring-bind (&key identifier version) header
-                     (assert (eql 'region identifier))
-                     (coerce-version version)))))
-      (enter region scene))))
+    (decode-payload
+     info (type-prototype 'region) packet
+     (destructuring-bind (&key identifier version) header
+       (assert (eql 'region identifier))
+       (coerce-version version)))))
