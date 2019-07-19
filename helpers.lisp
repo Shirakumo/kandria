@@ -83,7 +83,10 @@
     (string "string")
     (symbol '#:symbol)
     (vector #(vector))
-    (T (c2mop:class-prototype (find-class type)))))
+    (T (let ((class (find-class type)))
+         (unless (c2mop:class-finalized-p class)
+           (c2mop:finalize-inheritance class))
+         (c2mop:class-prototype class)))))
 
 (defmethod unit (thing (target (eql T)))
   (when +world+

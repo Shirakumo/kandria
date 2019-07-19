@@ -2,7 +2,7 @@
 
 (defclass packet ()
   ((storage :initarg :storage :reader storage)
-   (offset :initarg :offset :initform "" :accessor offset)))
+   (offset :initarg :offset :initform NIL :accessor offset)))
 
 (defgeneric entry-path (entry packet))
 (defgeneric call-with-packet (function storage &key offset direction if-exists if-does-not-exist))
@@ -23,7 +23,7 @@
               ,@body))
        (call-with-packet-entry #',thunk ,entry ,packet ,@args))))
 
-(defmethod call-with-packet (function (pathname pathname) &key (offset "") direction (if-exists :error) (if-does-not-exist :create))
+(defmethod call-with-packet (function (pathname pathname) &key offset direction (if-exists :error) (if-does-not-exist :create))
   (let ((direction (or direction :input)))
     (ecase direction
       (:input
@@ -90,12 +90,12 @@
 
 (defmethod call-with-packet (function (packet zip-packet) &key offset direction if-exists if-does-not-exist)
   (declare (ignore direction if-exists if-does-not-exist))
-  ;; FIXME: what if offset is another packet?
-  (make-instance (class-of packet) :offset (format NIL "~a/~a" (offset packet) offset)
-                                   :storage (storage packet)))
+  ;; FIXME: what if offset is another type of packet, or the direction is different?
+  (funcall function (make-instance (class-of packet) :offset (format NIL "~@[~a/~]~a" (offset packet) offset)
+                                                     :storage (storage packet))))
 
 (defmethod entry-path (entry (packet zip-packet))
-  (format NIL "~a/~a" (offset packet)
+  (format NIL "~@[~a/~]~a" (offset packet)
           (etypecase entry
             (pathname (namestring entry))
             (string entry))))
@@ -134,7 +134,7 @@
            ((subtypep element-type 'character)
             (let ((string (with-output-to-string (stream NIL :element-type element-type)
                             (funcall function stream))))
-              (make-string-input-stream string)))
+              (make-instance 'fast-io:fast-input-stream :vector (babel:string-to-octets string :encoding :utf-8))))
            (T (error "Element-type ~s is unsupported." element-type)))
      :file-write-date (get-universal-time))))
 
@@ -165,14 +165,16 @@
   ((direction :initarg :direction :reader direction)))
 
 (defmethod call-with-packet (function (packet dir-packet) &key offset direction if-exists if-does-not-exist)
-  (declare (ignore direction if-exists if-does-not-exist))
-  ;; FIXME: what if offset is another packet?
-  (make-instance (class-of packet) :offset (format NIL "~a/~a/" (offset packet) offset)
-                                   :direction (direction packet)
-                                   :storage (storage packet)))
+  (declare (ignore if-exists if-does-not-exist))
+  ;; FIXME: what if offset is another type of packet?
+  (funcall function (make-instance (class-of packet) :offset (format NIL "~@[~a/~]~a" (offset packet) offset)
+                                                     :direction (or direction (direction packet))
+                                                     :storage (storage packet))))
 
 (defmethod entry-path (entry (packet dir-packet))
-  (merge-pathnames entry (merge-pathnames (offset packet) (storage packet))))
+  (merge-pathnames entry (if (offset packet)
+                             (merge-pathnames (offset packet) (storage packet))
+                             (storage packet))))
 
 (defmethod call-with-packet-entry (function entry (packet dir-packet) &key element-type)
   (with-open-file (stream (ensure-directories-exist (entry-path entry packet))
@@ -185,6 +187,21 @@
   (let ((base (entry-path offset packet)))
     (loop for path in (directory (merge-pathnames base pathname-utils:*wild-path*))
           collect (enough-namestring path (storage packet)))))
+
+(defclass version () ())
+
+(define-condition serializer-error ()
+  ((version :initarg :version :reader version)))
+
+(define-condition no-applicable-decoder (serializer-error)
+  ((target :initarg :target :reader target))
+  (:report (lambda (c s) (format s "No decoder for the target under ~a~%  ~a"
+                                 (version c) (target c)))))
+
+(define-condition no-applicable-encoder (serializer-error)
+  ((source :initarg :source :reader source))
+  (:report (lambda (c s) (format s "No encoder for the source under ~a~%  ~a"
+                                 (version c) (source c)))))
 
 (defun current-version ()
   ;; KLUDGE: latest version should be determined automatically.
@@ -204,6 +221,12 @@
 
 (defgeneric decode-payload (payload target packet version))
 (defgeneric encode-payload (source payload packet version))
+
+(defmethod decode-payload (payload target packet (version version))
+  (error 'no-applicable-decoder :target target :version version))
+
+(defmethod encode-payload (source payload packet (version version))
+  (error 'no-applicable-encoder :source source :version version))
 
 (defmacro define-encoder ((type version) &rest args)
   (let ((object (gensym "OBJECT"))

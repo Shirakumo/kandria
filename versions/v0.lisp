@@ -15,7 +15,7 @@
       ;; Register regions
       (dolist (entry (list-entries "regions/" packet))
         (with-packet (packet packet :offset entry)
-          (let ((name (getf (second (parse-sexps (packet-entry packet "meta.lisp" :element-type 'character)))
+          (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))
                             :name)))
             (setf (gethash name (regions world)) entry))))
       ;; Load sources
@@ -28,9 +28,8 @@
         (setf (storyline world) (decode 'quest:storyline storyline)))
       ;; Load save to set up initial state
       ;; FIXME: How do we know what to restore if we're loading a save?
-      (when initial-state
-        (with-packet (packet packet :offset initial-state)
-          (load-state world packet))))
+      (with-packet (packet packet :offset initial-state)
+        (load-state packet world)))
     world))
 
 (define-encoder (world v0) (_b packet)
@@ -85,7 +84,7 @@
 
 (define-decoder (region v0) (info packet)
   (let* ((region (apply #'make-instance 'region info))
-         (content (parse-sexps (packet-entry "data.lisp" packet))))
+         (content (parse-sexps (packet-entry "data.lisp" packet :element-type 'character))))
     (loop for (type . initargs) in content
           do (enter (decode type initargs) region))
     region))

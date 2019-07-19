@@ -28,20 +28,19 @@
   (key-release (one-of key :left-shift :right-shift)))
 
 ;;; F Group 1
-(define-action load-world (editor-command)
-  (key-press (one-of key :f1)))
+(define-action load-world (editor-command))
 
 (define-action save-region (editor-command)
-  (key-press (one-of key :f2)))
+  (key-press (one-of key :f1)))
 
 (define-action load-region (editor-command)
+  (key-press (one-of key :f2)))
+
+(define-action save-game (editor-command)
   (key-press (one-of key :f3)))
 
-;; (define-action save-state (editor-command)
-;;   (key-press (one-of key :f3)))
-
-;; (define-action load-state (editor-command)
-;;   (key-press (one-of key :f4)))
+(define-action load-game (editor-command)
+  (key-press (one-of key :f4)))
 
 ;;; F Group 2
 (define-action resize-entity (editor-command)

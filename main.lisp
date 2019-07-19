@@ -27,33 +27,36 @@
 
 (defclass main (trial:main)
   ((scene :initform NIL)
-   (save :initform (make-instance 'save :name "test") :accessor save))
+   (state :initarg :state :accessor state))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17)
                      :title "Leaf - 0.0.0"
                      :width 1280
                      :height 720))
 
-(defmethod initialize-instance ((main main) &key world)
+(defmethod initialize-instance ((main main) &key world state)
   (call-next-method)
   (setf (scene main)
         (if world
             (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world))
-            (make-instance 'empty-world))))
+            (make-instance 'empty-world)))
+  (if state
+      (load-state state (scene main))
+      (setf (state main) (make-instance 'save-state))))
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test))
-
-(defmethod save-state ((main main) (_ (eql T)))
-  (save-state main (save main)))
-
-(defmethod load-state ((main main) (_ (eql T)))
-  (load-state main (save main)))
 
 (defmethod (setf scene) :after (scene (main main))
   (setf +world+ scene))
 
 (defmethod finalize :after ((main main))
   (setf +world+ NIL))
+
+(defmethod save-state (world (state (eql T)) &rest args)
+  (apply #'save-state world (state (handler *context*)) args))
+
+(defmethod load-state ((state (eql T)) world)
+  (load-state (state (handler *context*)) world))
 
 (defun launch (&rest initargs)
   (apply #'trial:launch 'main initargs))

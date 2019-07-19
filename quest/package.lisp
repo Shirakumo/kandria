@@ -46,6 +46,7 @@
    #:storyline
    #:effects
    #:tasks
+   #:find-task
    #:active-tasks
    #:active-p
    #:make-assembly

@@ -158,16 +158,20 @@ void main(){
   (save-region T T))
 
 (define-handler (editor load-region) (ev)
-  (if (retained 'modifiers :control)
-      (load-region T T)
-      (with-query (region "Region name")
-        (load-region region T))))
+  (let ((old (unit 'region +world+)))
+    (cond ((retained 'modifiers :control)
+           (unpause-game T editor)
+           (transition old (load-region T T))
+           (pause-game T editor))
+          (T
+           (with-query (region "Region name")
+             (transition old (load-region region T)))))))
 
-;; (define-handler (editor save-state) (ev)
-;;   (save-state (handler *context*) T))
+(define-handler (editor save-game) (ev)
+  (save-state T T))
 
-;; (define-handler (editor load-state) (ev)
-;;   (load-state (handler *context*) T))
+(define-handler (editor load-game) (ev)
+  (load-state T T))
 
 (define-handler (editor insert-entity) (ev)
   (let ((*package* #.*package*))

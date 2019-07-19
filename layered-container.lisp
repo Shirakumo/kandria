@@ -4,11 +4,11 @@
 
 (defclass layered-container (container-unit)
   ((objects :initform NIL))
-  (:default-initargs :layers +layer-count+))
+  (:default-initargs :layer-count +layer-count+))
 
-(defmethod initialize-instance :after ((container layered-container) &key layers)
-  (let ((objects (make-array layers)))
-    (dotimes (i layers)
+(defmethod initialize-instance :after ((container layered-container) &key layer-count)
+  (let ((objects (make-array layer-count)))
+    (dotimes (i layer-count)
       (setf (aref objects i) (make-array 0 :adjustable T :fill-pointer T)))
     (setf (objects container) objects)))
 
