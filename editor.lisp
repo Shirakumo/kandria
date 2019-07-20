@@ -79,6 +79,10 @@ void main(){
   (call-next-method)
   (paint (entity-marker editor) target))
 
+(defmethod handle :before (event (editor editor))
+  (handle event (controller (handler *context*)))
+  (handle event (unit :camera +world+)))
+
 ;; FIXME: Autosaves in lieu of undo
 
 (defun update-editor-pos (editor pos)
@@ -159,13 +163,11 @@ void main(){
 
 (define-handler (editor load-region) (ev)
   (let ((old (unit 'region +world+)))
-    (flet ((load! (region)
-             (unpause-game T editor)
-             (transition old (load-region region T))
-             (pause-game T editor)))
-      (cond ((retained 'modifiers :control) (load! T))
-            (T (with-query (region "Region name")
-                 (load! region)))))))
+    (cond ((retained 'modifiers :control)
+           (transition old (load-region T T)))
+          (T
+           (with-query (region "Region name")
+             (transition old (load-region region T)))))))
 
 (define-handler (editor save-game) (ev)
   (save-state T T))
@@ -173,10 +175,8 @@ void main(){
 (define-handler (editor load-game) (ev)
   (let ((old (unit 'region +world+)))
     (flet ((load! (state)
-             (unpause-game T editor)
              (load-state state T)
-             (transition old (unit 'region +world+))
-             (pause-game T editor)))
+             (transition old (unit 'region +world+))))
       (cond ((retained 'modifiers :control) (load! T))
             (T (with-query (region "State name")
                  (load! region)))))))

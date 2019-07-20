@@ -6,7 +6,7 @@
    (version :initform "0.0.0" :initarg :version :accessor version)
    (storyline :initarg :storyline :accessor storyline)
    (regions :initarg :regions :accessor regions)
-   (pause-stack :initform () :accessor pause-stack))
+   (handler-stack :initform () :accessor handler-stack))
   (:default-initargs
    :packet (error "PACKET required.")
    :storyline (quest:make-storyline ())
@@ -19,19 +19,11 @@
   (unpause-game +world+ pauser))
 
 (defmethod pause-game ((world world) pauser)
-  (push (handlers world) (pause-stack world))
-  (setf (handlers world) ())
-  (for:for ((entity flare-queue:in-queue (objects world)))
-    (when (or (typep entity 'unpausable)
-              (typep entity 'controller)
-              (eq entity pauser))
-      (add-handler (handlers entity) world)))
-  (for:for ((pass across (passes world)))
-    (add-handler (handlers pass) world)))
+  (push pauser (handler-stack world)))
 
 (defmethod unpause-game ((world world) pauser)
-  (when (pause-stack world)
-    (setf (handlers world) (pop (pause-stack world)))))
+  (loop for handler = (pop (handler-stack world))
+        until (eq handler pauser)))
 
 (defmethod region-entry ((name symbol) (world world))
   (or (gethash name (regions world))
@@ -48,6 +40,12 @@
           (format NIL "regions/~a/" (string-downcase (name region)))))
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
+
+(defmethod handle (event (world world))
+  (let ((handler (car (handler-stack world))))
+    (if handler
+        (handle event handler)
+        (call-next-method))))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (when (= 0 (mod (fc ev) 10))
