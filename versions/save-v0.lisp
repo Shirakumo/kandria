@@ -6,6 +6,7 @@
   (destructuring-bind (&key region)
       (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
     ;; FIXME: Avoid reloading the entire region when loading state.
+    ;;        Particularly, avoid changing assets for chunks.
     (let ((region (load-region region world)))
       (decode (storyline world))
       (decode region))))

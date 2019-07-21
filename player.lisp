@@ -32,7 +32,8 @@
                  (jump 24 27 :step 0.1 :next fall)
                  (fall 27 33 :step 0.1 :loop-to 29)
                  (slide 33 39 :step 0.075 :loop-to 38)
-                 (climb 39 51 :step 0.1))
+                 (climb 39 51 :step 0.1)
+                 (crawl 51 59 :step 0.12))
    :profile-title "The Stranger"
    :profile-texture (asset 'world 'player-profile)
    :profile-animations '((normal 0 1)
@@ -89,24 +90,25 @@ void main(){
   (let* ((collisions (collisions player))
          (loc (location player))
          (acc (acceleration player)))
-    (cond ((svref collisions 2)
-           ;; Ground jump
-           (setf (vy acc) (+ (vx +vjump+)
-                             (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))))
-           (incf (jump-count player))
-           (enter (make-instance 'dust-cloud :location (vcopy loc))
-                  +world+))
-          ((or (svref collisions 1)
-               (svref collisions 3))
-           ;; Wall jump
-           (let ((dir (if (svref collisions 1) -1.0 1.0)))
-             (setf (vx acc) (* dir (vz +vjump+)))
-             (setf (vy acc) (vw +vjump+))
-             (setf (direction player) dir)
-             (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
-                                                               (vy loc))
-                                               :direction (vec2 dir 0))
-                    +world+))))))
+    (unless (eql :crawling (state player))
+      (cond ((svref collisions 2)
+             ;; Ground jump
+             (setf (vy acc) (+ (vx +vjump+)
+                               (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))))
+             (incf (jump-count player))
+             (enter (make-instance 'dust-cloud :location (vcopy loc))
+                    +world+))
+            ((or (svref collisions 1)
+                 (svref collisions 3))
+             ;; Wall jump
+             (let ((dir (if (svref collisions 1) -1.0 1.0)))
+               (setf (vx acc) (* dir (vz +vjump+)))
+               (setf (vy acc) (vw +vjump+))
+               (setf (direction player) dir)
+               (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
+                                                                 (vy loc))
+                                                 :direction (vec2 dir 0))
+                      +world+)))))))
 
 (defmethod collide :before ((player player) (block block) hit)
   (unless (typep block 'spike)
@@ -178,6 +180,23 @@ void main(){
                   (setf (vy acc) (* (vy +vclim+) -1)))
                  (T
                   (setf (vy acc) 0))))))
+      (:crawling
+       ;; Uncrawl on ground loss, or if we request it and aren't cramped.
+       (unless (and (svref collisions 2)
+                    (or (retained 'movement :down)
+                        (svref collisions 0)))
+         (setf (vy (bsize player)) 16)
+         (setf (state player) :normal))
+       
+       (cond ((retained 'movement :left)
+              (setf (direction player) -1)
+              (setf (vx acc) (- 0.5)))
+             ((retained 'movement :right)
+              (setf (direction player) +1)
+              (setf (vx acc) (+ 0.5)))
+             (T
+              (setf (vx acc) 0)
+              (setf (clock player) 0.0d0))))
       (:normal
        ;; Animations
        (cond ((and (/= 0 (jump-count player))
@@ -202,6 +221,14 @@ void main(){
          (setf (state player) :climbing)
          (setf (animation player) 'climb)
          (setf (direction player) (if (svref collisions 1) +1 -1)))
+
+       ;; Test for crawling
+       (when (and (retained 'movement :down)
+                  (svref collisions 2))
+         (setf (state player) :crawling)
+         (setf (animation player) 'crawl)
+         (decf (vy (location player)) 8)
+         (setf (vy (bsize player)) 8))
 
        ;; Movement
        (setf (vx acc) (* (vx acc) (vy +vmove+)))
@@ -318,7 +345,9 @@ void main(){
      (view-scale (unit :camera T))))
 
 (defmethod paint :before ((player player) target)
-  (translate-by 0 4 0))
+  (case (state player)
+    (:crawling (translate-by 0 12 0))
+    (T (translate-by 0 4 0))))
 
 (defmethod paint :around ((player player) target)
   (call-next-method)
