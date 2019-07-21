@@ -125,6 +125,9 @@
 
 (defmethod light-type ((light trapezoid-light)) 3)
 
+(defmethod bsize ((light trapezoid-light))
+  (vec (height light) (height light)))
+
 (defmethod aperture ((light trapezoid-light))
   (vx4 (light-dimensions light)))
 
