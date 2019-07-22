@@ -185,6 +185,7 @@ void main(){
        (unless (and (svref collisions 2)
                     (or (retained 'movement :down)
                         (svref collisions 0)))
+         (incf (vy (location player)) 8)
          (setf (vy (bsize player)) 16)
          (setf (state player) :normal))
        
