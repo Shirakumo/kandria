@@ -288,7 +288,8 @@ void main(){
              (setf (tile-to-place chunk-editor)
                    (vfloor pos +tile-size+)))
             ((retained 'modifiers :control)
-             (flood-fill chunk loc tile))
+             ;;(flood-fill chunk loc tile)
+             (auto-tile chunk loc))
             ((retained 'modifiers :alt)
              (setf (tile-to-place chunk-editor) (tile loc chunk)))
             (T
