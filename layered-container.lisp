@@ -3,40 +3,46 @@
 (defvar *current-layer*)
 
 (defclass layered-container (container-unit)
-  ((objects :initform NIL))
+  ((objects :initform NIL)
+   (layer-count :initarg :layer-count :reader layer-count))
   (:default-initargs :layer-count +layer-count+))
 
 (defmethod initialize-instance :after ((container layered-container) &key layer-count)
-  (let ((objects (make-array layer-count)))
-    (dotimes (i layer-count)
+  (let ((objects (make-array (1+ layer-count))))
+    (dotimes (i (length objects))
       (setf (aref objects i) (make-array 0 :adjustable T :fill-pointer T)))
     (setf (objects container) objects)))
 
 (defgeneric layer-index (unit))
 
-(defmethod layer-index ((unit unit)) 0)
+(defmethod layer-index ((_ unit)) 0)
+
+(defmethod layer-index ((_ layered-container)) T)
 
 (defmethod enter ((unit unit) (container layered-container))
-  (let ((layer (+ (layer-index unit)
-                  (floor (length (objects container)) 2))))
+  (let ((layer (if (eql T (layer-index unit))
+                   (layer-count container)
+                   (+ (layer-index unit)
+                      (floor (layer-count container) 2)))))
     (vector-push-extend unit (aref (objects container) layer))))
 
 (defmethod leave ((unit unit) (container layered-container))
-  (let ((layer (+ (layer-index unit)
-                  (floor (length (objects container)) 2))))
+  (let ((layer (if (eql T (layer-index unit))
+                   (layer-count container)
+                   (+ (layer-index unit)
+                      (floor (layer-count container) 2)))))
     (array-utils:vector-pop-position*
      (aref (objects container) layer)
      (position unit (aref (objects container) layer)))))
 
 (defmethod paint ((container layered-container) target)
   (let ((layers (objects container)))
-    (dotimes (i (length layers))
+    (dotimes (i (1- (length layers)))
       (let ((*current-layer* i))
         (loop for unit across (aref layers i)
+              do (paint unit target))
+        (loop for unit across (aref layers (1- (length layers)))
               do (paint unit target))))))
-
-(defmethod layer-count ((container layered-container))
-  (length (objects container)))
 
 (defmacro do-layered-container ((entity container &optional result) &body body)
   (let ((layer (gensym "LAYER")))
