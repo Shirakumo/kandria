@@ -43,16 +43,6 @@
       (when (contained-p point chunk)
         chunk)))
 
-(defmethod enter ((chunk chunk) (region region))
-  (dotimes (layer (length (objects region)))
-    (vector-push-extend chunk (aref (objects region) layer))))
-
-(defmethod leave ((chunk chunk) (region region))
-  (dotimes (layer (length (objects region)))
-    (array-utils:vector-pop-position*
-     (aref (objects region) layer)
-     (position chunk (aref (objects region) layer)))))
-
 (defmethod paint :around ((chunk chunk) target)
   (call-next-method)
   (when (< *current-layer* (length (objects chunk)))
