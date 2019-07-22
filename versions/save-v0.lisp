@@ -83,7 +83,7 @@
                                                      :init (encode-payload entity NIL packet v0)))
                       :state state)
                 stream)))))
-(untrace encode-payload)
+
 (define-decoder (player save-v0) (initargs _p)
   (destructuring-bind (&key location) initargs
     (setf (location player) (decode 'vec2 location))))

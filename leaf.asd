@@ -2,6 +2,7 @@
   :components ((:file "package")
                (:file "helpers")
                (:file "layered-container")
+               (:file "serialization")
                (:file "packet")
                (:file "region")
                (:file "keys")

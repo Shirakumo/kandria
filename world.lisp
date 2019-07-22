@@ -6,7 +6,8 @@
    (version :initform "0.0.0" :initarg :version :accessor version)
    (storyline :initarg :storyline :accessor storyline)
    (regions :initarg :regions :accessor regions)
-   (handler-stack :initform () :accessor handler-stack))
+   (handler-stack :initform () :accessor handler-stack)
+   (initial-state :initform NIL :accessor initial-state))
   (:default-initargs
    :packet (error "PACKET required.")
    :storyline (quest:make-storyline ())
