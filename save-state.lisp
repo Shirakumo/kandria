@@ -16,18 +16,20 @@
 (defclass save-state ()
   ((author :initarg :author :accessor author)
    (start-time :initarg :start-time :accessor start-time)
-   (save-time :initarg :save-time :accessor save-time))
+   (save-time :initarg :save-time :accessor save-time)
+   (file :initarg :file :accessor file))
   (:default-initargs
    :author (pathname-utils:directory-name (user-homedir-pathname))
    :start-time (get-universal-time)
    :save-time (get-universal-time)))
 
+(defmethod initialize-instance :after ((save-state save-state) &key file)
+  (unless file
+    (setf (file save-state) (save-state-path (start-time save-state)))))
+
 (defmethod print-object ((save-state save-state) stream)
   (print-unreadable-object (save-state stream :type T)
     (format stream "~s ~a" (author save-state) (format-absolute-time (save-time save-state)))))
-
-(defmethod file ((save-state save-state))
-  (save-state-path (start-time save-state)))
 
 (defun list-saves ()
   (loop for file in (directory (make-pathname :name :wild :type "save" :defaults (config-directory)))
@@ -38,7 +40,7 @@
     (destructuring-bind (header initargs)
         (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
       (assert (eq 'save-state (getf header :identifier)))
-      (apply #'make-instance 'save-state initargs))))
+      (apply #'make-instance 'save-state :file file initargs))))
 
 (defun current-save-version ()
   (make-instance 'save-v0))

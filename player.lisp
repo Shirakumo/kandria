@@ -8,6 +8,8 @@
 (define-global +vmove+ (vec 0.3     0.97    0.08    1.75))
 ;;                          CLIMB   DOWN    SLIDE
 (define-global +vclim+ (vec 0.8     1.5     -1.2))
+;;                          CRAWL
+(define-global +vcraw+ (vec 0.5     0.0))
 ;;                          JUMP    LONGJMP WALL-VX WALL-VY
 (define-global +vjump+ (vec 2.5     1.1     2.75     3.5))
 ;;                          ACC     DCC
@@ -191,10 +193,10 @@ void main(){
        
        (cond ((retained 'movement :left)
               (setf (direction player) -1)
-              (setf (vx acc) (- 0.5)))
+              (setf (vx acc) (- (vx +vcraw+))))
              ((retained 'movement :right)
               (setf (direction player) +1)
-              (setf (vx acc) (+ 0.5)))
+              (setf (vx acc) (+ (vx +vcraw+))))
              (T
               (setf (vx acc) 0)
               (setf (clock player) 0.0d0))))

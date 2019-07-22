@@ -27,9 +27,10 @@
 
 (defclass main (trial:main)
   ((scene :initform NIL)
-   (state :initarg :state :accessor state))
+   (state :accessor state))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17)
                      :title "Leaf - 0.0.0"
+                     :world "world"
                      :width 1280
                      :height 720))
 
@@ -39,10 +40,13 @@
         (if world
             (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world))
             (make-instance 'empty-world)))
+  ;; Load initial state
   (setf (state main)
-        (if state
-            (load-state state (scene main))
-            (make-instance 'save-state))))
+        (cond (state
+               (load-state state (scene main)))
+              (T
+               (load-state (initial-state (scene main)) (scene main))
+               (make-instance 'save-state)))))
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test))

@@ -26,10 +26,9 @@
       ;; Load storyline
       (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
         (setf (storyline world) (decode 'quest:storyline storyline)))
-      ;; Load save to set up initial state
-      ;; FIXME: How do we know what to restore if we're loading a save?
-      (with-packet (packet packet :offset initial-state)
-        (load-state packet world)))
+      ;; Set initial state without loading it
+      (setf (initial-state world)
+            (minimal-load-state (entry-path initial-state packet))))
     world))
 
 (define-encoder (world v0) (_b packet)
@@ -91,13 +90,8 @@
 
 (define-encoder (region v0) (_b packet)
   (with-packet-entry (stream "data.lisp" packet :element-type 'character)
-    ;; Do two passes to avoid chunks being duped.
     (for:for ((entity over region))
-      (unless (typep entity 'chunk)
-        (princ* (encode entity) stream)))
-    (for:for ((entity across (aref (objects region) 0)))
-      (when (typep entity 'chunk)
-        (princ* (encode entity) stream))))
+      (princ* (encode entity) stream)))
   (list :name (name region)
         :author (author region)
         :version (version region)
