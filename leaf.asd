@@ -37,4 +37,5 @@
                :trivial-arguments
                :trivial-indent
                :leaf-dialogue
-               :leaf-quest))
+               :leaf-quest
+               :alexandria))

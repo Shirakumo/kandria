@@ -110,6 +110,10 @@
   (+ (expt (- (vx2 a) (vx2 b)) 2)
      (expt (- (vy2 a) (vy2 b)) 2)))
 
+(defun mindist (pos candidates)
+  (loop for candidate in candidates
+        minimize (vdistance pos candidate)))
+
 (defun closer (a b dir)
   (< (abs (v. a dir)) (abs (v. b dir))))
 
