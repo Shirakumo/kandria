@@ -3,7 +3,8 @@
 (define-asset (leaf player-mesh) mesh
     (make-rectangle 32 40))
 
-(define-global +vlim+ (vec  10      10))
+(define-global +vgrav+ 0.15)
+(define-global +vlim+  (vec 10      10))
 ;;                          GRD-ACC AIR-DCC AIR-ACC GRD-LIM
 (define-global +vmove+ (vec 0.3     0.97    0.08    1.75))
 ;;                          CLIMB   DOWN    SLIDE
@@ -268,8 +269,7 @@ void main(){
                     (<= 5 (jump-count player) 15))
            (setf (vy acc) (* (vy +vjump+) (vy acc))))
          (incf (jump-count player)))
-       ;; FIXME: Hard-coded gravity
-       (decf (vy acc) 0.15)
+       (decf (vy acc) +vgrav+)
        ;; Limit when sliding down wall
        (when (and (or (svref collisions 1)
                       (svref collisions 3))
