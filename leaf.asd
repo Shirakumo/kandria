@@ -11,6 +11,7 @@
                (:file "surface")
                (:file "lighting")
                (:file "background")
+               (:file "move-to")
                (:file "chunk")
                (:file "lighted-sprite-entity")
                (:file "moving-platform")
