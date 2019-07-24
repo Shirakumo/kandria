@@ -204,6 +204,7 @@ void main(){
            (width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk)))))
       (%flood-fill layer width height x y fill)
+      ;; (reinitialize-instance (node-graph chunk) :solids layer)
       (sb-sys:with-pinned-objects (layer)
         (let ((texture (texture chunk)))
           (gl:bind-texture :texture-2d-array (gl-name texture))
@@ -220,12 +221,18 @@ void main(){
       (%auto-tile (aref (layers chunk) +layer-count+)
                   (aref (layers chunk) z)
                   width height x y)
+      ;; (reinitialize-instance (node-graph chunk) :solids layer)
       (sb-sys:with-pinned-objects (layer)
         (let ((texture (texture chunk)))
           (gl:bind-texture :texture-2d-array (gl-name texture))
           (%gl:tex-sub-image-3d :texture-2d-array 0 0 0 z width height 1
                                 (pixel-format texture) (pixel-type texture)
                                 (sb-sys:vector-sap layer)))))))
+
+(defmethod shortest-path ((chunk chunk) start goal)
+  (flet ((local-pos (pos)
+           (vfloor (nv+ (v- pos (location chunk)) (bsize chunk)) +tile-size+)))
+    (shortest-path (node-graph chunk) (local-pos start) (local-pos goal))))
 
 (defmethod contained-p ((location vec2) (chunk chunk))
   (%with-chunk-xy (chunk location)
