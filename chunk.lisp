@@ -7,7 +7,8 @@
    (tileset :initarg :tileset :initform (error "TILESET required.") :accessor tileset
             :type asset :documentation "The tileset texture for the chunk.")
    (size :initarg :size :initform +tiles-in-view+ :accessor size
-         :type vec2 :documentation "The size of the chunk in tiles."))
+         :type vec2 :documentation "The size of the chunk in tiles.")
+   (node-graph :accessor node-graph))
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initargs append ((_ chunk))
@@ -31,7 +32,11 @@
                                                   :pixel-format :rg-integer
                                                   :internal-format :rg8ui
                                                   :min-filter :nearest
-                                                  :mag-filter :nearest))))
+                                                  :mag-filter :nearest))
+    (setf (node-graph chunk) (make-instance 'node-graph :size size :solids (car (last layers))))))
+
+(defmethod register-object-for-pass :after (pass (chunk chunk))
+  (register-object-for-pass pass (node-graph chunk)))
 
 (defmethod clone ((chunk chunk))
   (make-instance (class-of chunk)
@@ -47,7 +52,10 @@
   (call-next-method)
   (when (< *current-layer* (length (objects chunk)))
     (loop for unit across (aref (objects chunk) *current-layer*)
-          do (paint unit target))))
+          do (paint unit target)))
+  (with-pushed-matrix (model-matrix)
+    (translate-by (+ (- (vx (bsize chunk))) 8) (+ (- (vy (bsize chunk))) 6) 0)
+    (paint (node-graph chunk) target)))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
