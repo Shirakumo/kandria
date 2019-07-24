@@ -98,7 +98,7 @@
 (defun create-jump-connections-at (node ox oy solids node-grid width height)
   (let ((g (- +vgrav+))
         (j 5.0)
-        (v 4.0))
+        (v 1.75))
     (loop for jf from 1 to 3
           for jv = (* j (/ jf 3))
           do (loop for vf from -3 to 3
@@ -118,7 +118,7 @@
                                      (return))
                                    (let ((nnode (aref node-grid i)))
                                      (when (and nnode (not (eq node nnode)) (not (reachable-p nnode node)))
-                                       (connect-platforms node nnode 'jump-edge :strength (vec jv vv)))))))))))
+                                       (connect-platforms node nnode 'jump-edge :strength (vec vv jv)))))))))))
 
 (defun create-jump-connections (solids node-grid width height)
   (loop for y downfrom (1- height) to 0
@@ -178,19 +178,31 @@
    (size :initarg :size :accessor size))
   (:default-initargs :vertex-form :lines))
 
-(defmethod initialize-instance :after ((graph node-graph) &key solids size)
-  (let ((w (truncate (vx size)))
-        (h (truncate (vy size))))
+(defmethod shared-initialize :after ((graph node-graph) slots &key solids)
+  (declare (ignore slots))
+  (let ((w (truncate (vx (size graph))))
+        (h (truncate (vy (size graph)))))
     (when solids
-      (setf (node-grid graph) (compute-node-grid solids w h)))
-    (setf (vertex-array graph)
-          (change-class (node-graph-mesh (node-grid graph) w h) 'vertex-array))))
+      (setf (node-grid graph) (compute-node-grid solids w h))
+      (setf (vertex-array graph)
+            (change-class (node-graph-mesh (node-grid graph) w h) 'vertex-array)))))
 
 (defmethod (setf node-grid) :after (node-grid (graph node-graph))
   (let ((w (truncate (vx (size graph))))
         (h (truncate (vy (size graph)))))
     (setf (vertex-array graph)
           (change-class (node-graph-mesh node-grid w h) 'vertex-array))))
+
+(defmethod shortest-path ((graph node-graph) start goal)
+  (let ((node-grid (node-grid graph))
+        (width (floor (vx (size graph)))))
+    (flet ((node (pos)
+             (aref node-grid (+ (round (vx pos))
+                                (* (round (vy pos)) width))))
+           (cost (a b)
+             (vsqrdist2 (location a) (location b))))
+      (values (flow:a* (node start) (node goal) #'cost)
+              (node start)))))
 
 (define-class-shader (node-graph :vertex-shader)
   "layout (location = 1) in vec4 in_vertexcolor;
@@ -207,3 +219,52 @@ out vec4 color;
 void main(){
   color = vertexcolor;
 }")
+
+(define-subject movable (moving)
+  ((current-node :initform NIL :accessor current-node)
+   (path :initform NIL :accessor path)))
+
+(defmethod move-to ((target vec2) (movable movable))
+  (multiple-value-bind (path start) (shortest-path (surface movable)
+                                                   (nv+ (v- (location movable)
+                                                            (bsize movable))
+                                                        (/ +tile-size+ 2))
+                                                   target)
+    (v:info :leaf.moving "Moving along~{~%  ~a~}" path)
+    (setf (current-node movable) start)
+    (setf (path movable) path)))
+
+(defmethod tick :before ((movable movable) ev)
+  (when (path movable)
+    (let* ((surface (surface movable))
+           (loc (location movable))
+           (acc (acceleration movable))
+           (con (car (path movable)))
+           (node (current-node movable))
+           (target (flow:target-node node con)))
+      (cond ((< (vsqrdist2 
+                 (v/ (nv+ (v- loc (location surface)) (bsize surface)) +tile-size+)
+                 (location target))
+                1.1)
+             (pop (path movable))
+             (setf (current-node movable) target)
+             ;; Handle initial jump
+             (let ((next (car (path movable))))
+               (typecase next
+                 (jump-edge
+                  (vsetf acc
+                         (vx (strength next))
+                         (vy (strength next))))
+                 (null
+                  (vsetf acc 0 0)))))
+            ((typep con 'walk-edge)
+             (setf (vx acc) (if (< (vx (location target))
+                                   (vx (location node)))
+                                -1.75
+                                +1.75)))
+            ((typep con 'fall-edge)
+             )
+            ((typep con 'jump-edge)
+             ))
+      (decf (vy acc) +vgrav+)
+      (nv+ (velocity movable) acc))))

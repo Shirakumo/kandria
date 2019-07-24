@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-subject moving (game-entity)
-  ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)))
+  ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
+   (acceleration :initform (vec2 0 0) :accessor acceleration)))
 
 (defmethod scan (entity target))
 

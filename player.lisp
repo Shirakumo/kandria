@@ -16,9 +16,8 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 20      0.7))
 
-(define-shader-subject player (animated-sprite-subject moving facing-entity lighted-entity profile-entity)
+(define-shader-subject player (animated-sprite-subject movable facing-entity lighted-entity profile-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
-   (acceleration :initform (vec2 0 0) :accessor acceleration)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
    (vertex-array :initform (asset 'leaf 'player-mesh))
@@ -125,6 +124,8 @@ void main(){
     (fire trigger)))
 
 (defmethod tick :before ((player player) ev)
+  (when (path player)
+    (return-from tick))
   (let ((collisions (collisions player))
         (loc (location player))
         (vel (velocity player))

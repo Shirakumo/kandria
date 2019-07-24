@@ -225,6 +225,16 @@ void main(){
 (define-asset (leaf square) mesh
     (make-rectangle +tile-size+ +tile-size+ :align :bottomleft))
 
+(define-shader-subject movable-editor (editor)
+  ())
+
+(defmethod editor-class ((_ movable)) 'movable-editor)
+
+(define-handler (movable-editor move-to mouse-press -1) (ev button)
+  (case button
+    (:right
+     (move-to (location movable-editor) (entity movable-editor)))))
+
 (define-shader-subject sprite-editor (editor)
   ())
 
