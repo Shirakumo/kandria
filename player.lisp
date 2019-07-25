@@ -123,6 +123,19 @@ void main(){
   (when (active-p trigger)
     (fire trigger)))
 
+(defmethod (setf state) :before (state (player player))
+  (unless (eq state (state player))
+    (case state
+      (:crawling
+       (decf (vy (location player)) 8)
+       (setf (vy (bsize player)) 8))
+      (:climbing
+       (setf (direction player) (if (svref (collisions player) 1) +1 -1))))
+    (case (state player)
+      (:crawling
+       (incf (vy (location player)) 8)
+       (setf (vy (bsize player)) 16)))))
+
 (defmethod tick :before ((player player) ev)
   (when (path player)
     (return-from tick))
@@ -156,16 +169,6 @@ void main(){
       (:dying
        (nv* vel 0.9))
       (:climbing
-       ;; Animations
-       (cond
-         ((retained 'movement :up)
-          (setf (playback-direction player) +1)
-          (setf (playback-speed player) 1.0))
-         ((retained 'movement :down)
-          (setf (playback-direction player) -1)
-          (setf (playback-speed player) 1.5))
-         (T
-          (setf (clock player) 0.0d0)))
        ;; Movement
        (let* ((top (if (= -1 (direction player))
                        (scan (surface player) (vec (- (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))
@@ -189,51 +192,26 @@ void main(){
        (unless (and (svref collisions 2)
                     (or (retained 'movement :down)
                         (svref collisions 0)))
-         (incf (vy (location player)) 8)
-         (setf (vy (bsize player)) 16)
          (setf (state player) :normal))
        
        (cond ((retained 'movement :left)
-              (setf (direction player) -1)
               (setf (vx acc) (- (vx +vcraw+))))
              ((retained 'movement :right)
-              (setf (direction player) +1)
               (setf (vx acc) (+ (vx +vcraw+))))
              (T
-              (setf (vx acc) 0)
-              (setf (clock player) 0.0d0))))
+              (setf (vx acc) 0))))
       (:normal
-       ;; Animations
-       (cond ((and (/= 0 (jump-count player))
-                   (retained 'movement :jump))
-              (setf (animation player) 'jump))
-             ((and (or (svref collisions 1)
-                       (svref collisions 3))
-                   (not (svref collisions 2)))
-              (setf (animation player) 'slide))
-             ((svref collisions 2)
-              (setf (animation player) (if (or (retained 'movement :left)
-                                               (retained 'movement :right))
-                                           'run 'stand)))
-             (T
-              (setf (animation player) 'fall)))
-       
        ;; Test for climbing
        (when (and (retained 'movement :climb)
                   (not (retained 'movement :jump))
                   (or (svref collisions 1)
                       (svref collisions 3)))
-         (setf (state player) :climbing)
-         (setf (animation player) 'climb)
-         (setf (direction player) (if (svref collisions 1) +1 -1)))
+         (setf (state player) :climbing))
 
        ;; Test for crawling
        (when (and (retained 'movement :down)
                   (svref collisions 2))
-         (setf (state player) :crawling)
-         (setf (animation player) 'crawl)
-         (decf (vy (location player)) 8)
-         (setf (vy (bsize player)) 8))
+         (setf (state player) :crawling))
 
        ;; Movement
        (setf (vx acc) (* (vx acc) (vy +vmove+)))
@@ -277,7 +255,13 @@ void main(){
                   (< (vy acc) (vz +vclim+)))
          (setf (vy acc) (vz +vclim+)))))
     (nvclamp (v- +vlim+) acc +vlim+)
-    (nv+ vel acc))
+    (nv+ vel acc)))
+
+(defmethod tick :after ((player player) ev)
+  (when (svref (collisions player) 2)
+    (setf (jump-count player) 0)
+    (unless (eql :dashing (state player))
+      (setf (dash-count player) 0)))
   ;; OOB
   (unless (contained-p (location player) (surface player))
     (let ((other (for:for ((entity over (unit 'region +world+)))
@@ -286,13 +270,50 @@ void main(){
                      (return entity)))))
       (if other
           (issue +world+ 'switch-chunk :chunk other)
-          (die player)))))
-
-(defmethod tick :after ((player player) ev)
-  (when (svref (collisions player) 2)
-    (setf (jump-count player) 0)
-    (unless (eql :dashing (state player))
-      (setf (dash-count player) 0))))
+          (die player))))
+  ;; Animations
+  (let ((acc (acceleration player))
+        (collisions (collisions player)))
+    (case (state player)
+      (:climbing
+       (setf (animation player) 'climb)
+       (cond
+         ((< 0 (vy acc))
+          (setf (playback-direction player) +1)
+          (setf (playback-speed player) 1.0))
+         ((< (vy acc) 0)
+          (setf (playback-direction player) -1)
+          (setf (playback-speed player) 1.5))
+         (T
+          (setf (clock player) 0.0d0))))
+      (:crawling
+       (setf (animation player) 'crawl)
+       (cond ((< 0 (vx acc))
+              (setf (direction player) +1))
+             ((< (vx acc) 0)
+              (setf (direction player) -1))
+             (T
+              (setf (clock player) 0.0d0))))
+      (:normal
+       (cond ((< 0 (vy acc))
+              (setf (animation player) 'jump))
+             ((null (svref collisions 2))
+              (cond ((svref collisions 1)
+                     (setf (animation player) 'slide)
+                     (setf (direction player) +1))
+                    ((svref collisions 3)
+                     (setf (animation player) 'slide)
+                     (setf (direction player) -1))
+                    (T
+                     (setf (animation player) 'fall))))
+             ((< 0 (vx acc))
+              (setf (animation player) 'run)
+              (setf (direction player) +1))
+             ((< (vx acc) 0)
+              (setf (animation player) 'run)
+              (setf (direction player) -1))
+             (T
+              (setf (animation player) 'stand)))))))
 
 (defmethod enter :after ((player player) (scene scene))
   (add-progression (progression-definition 'intro) scene)
