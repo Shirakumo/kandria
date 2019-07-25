@@ -348,7 +348,10 @@ void main(){
 
 (defmethod paint :around ((editor chunk-editor) (target shader-pass))
   (let ((*current-layer* +layer-count+))
-    (paint-with target (entity editor)))
+    (paint-with target (entity editor))
+    (with-pushed-matrix (model-matrix)
+      (translate-by 8 8 0)
+      (paint (node-graph (entity editor)) target)))
   (with-pushed-matrix ()
     (call-next-method))
   (paint (tile-picker editor) target))
