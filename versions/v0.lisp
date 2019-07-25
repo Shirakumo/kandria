@@ -105,11 +105,12 @@
   `(player :location ,(encode (location player))))
 
 (define-decoder (chunk v0) (initargs packet)
-  (destructuring-bind (&key name location size tileset layers children) initargs
+  (destructuring-bind (&key name location size tileset illumination layers children) initargs
     (let ((chunk (make-instance 'chunk :name name
                                        :location (decode 'vec2 location)
                                        :size (decode 'vec2 size)
                                        :tileset (decode 'asset tileset)
+                                       :global-illumination (decode 'vec3 illumination)
                                        :layers (loop for file in layers
                                                      collect (packet-entry file packet)))))
       (loop for (type . initargs) in children
@@ -129,6 +130,7 @@
             :location ,(encode (location chunk))
             :size ,(encode (size chunk))
             :tileset ,(encode (tileset chunk))
+            :illumination ,(encode (global-illumination chunk))
             :layers ,layers
             :children ,children)))
 
@@ -151,6 +153,20 @@
                      :acceleration ,(encode (acceleration falling-platform))
                      :location ,(encode (location falling-platform))))
 
+(define-decoder (lisp-light v0) (initargs _)
+  (destructuring-bind (&key location color intensity dimensions) initargs
+    (make-instance (class-of lisp-light)
+                   :location (decode 'vec3 location)
+                   :color (decode 'vec3 color)
+                   :intensity intensity
+                   :dimensions (decode 'vec4 dimensions))))
+
+(define-encoder (lisp-light v0) (initargs _)
+  `(,(type-of lisp-light) :location ,(encode (location lisp-light))
+                          :color ,(encode (color lisp-light))
+                          :intensity ,(intensity lisp-light)
+                          :dimensions ,(encode (light-dimensions lisp-light))))
+
 (define-decoder (vec2 v0) (data _p)
   (destructuring-bind (x y) data
     (vec2 x y)))
@@ -158,6 +174,25 @@
 (define-encoder (vec2 v0) (_b _p)
   (list (vx vec2)
         (vy vec2)))
+
+(define-decoder (vec3 v0) (data _p)
+  (destructuring-bind (x y z) data
+    (vec3 x y z)))
+
+(define-encoder (vec3 v0) (_b _p)
+  (list (vx vec3)
+        (vy vec3)
+        (vz vec3)))
+
+(define-decoder (vec4 v0) (data _p)
+  (destructuring-bind (x y z w) data
+    (vec4 x y z w)))
+
+(define-encoder (vec4 v0) (_b _p)
+  (list (vx vec4)
+        (vy vec4)
+        (vz vec4)
+        (vw vec4)))
 
 (define-decoder (asset v0) (data _p)
   (destructuring-bind (pool name) data
