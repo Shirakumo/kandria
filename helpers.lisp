@@ -123,6 +123,12 @@
 (defun ->rad (deg)
   (* PI (/ deg 180)))
 
+(defun ->deg (rad)
+  (/ (* rad 180) PI))
+
+(defun point-angle (point)
+  (atan (vy point) (vx point)))
+
 (defun update-instance-initforms (class)
   (flet ((update (instance)
            (loop for slot in (c2mop:class-direct-slots class)
