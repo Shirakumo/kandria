@@ -33,7 +33,9 @@
                                                   :internal-format :rg8ui
                                                   :min-filter :nearest
                                                   :mag-filter :nearest))
-    (setf (node-graph chunk) (make-instance 'node-graph :size size :solids (car (last layers))))))
+    (setf (node-graph chunk) (make-instance 'node-graph :size size
+                                                        :solids (car (last layers))
+                                                        :offset (v- (location chunk) (bsize chunk))))))
 
 (defmethod register-object-for-pass :after (pass (chunk chunk))
   (register-object-for-pass pass (node-graph chunk)))
@@ -54,7 +56,7 @@
     (loop for unit across (aref (objects chunk) *current-layer*)
           do (paint unit target)))
   (with-pushed-matrix (model-matrix)
-    (translate-by (+ (- (vx (bsize chunk))) 8) (+ (- (vy (bsize chunk))) 6) 0)
+    (translate-by 8 8 0)
     (paint (node-graph chunk) target)))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))

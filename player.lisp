@@ -143,7 +143,7 @@ void main(){
        (incf (dash-count player))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
               +world+)
-       (when (and (svref (collisions player) 2)
+       (when (and (svref collisions 2)
                   (= 0 (mod (dash-count player) 3)))
          (enter (make-instance 'dust-cloud :location (vcopy (location player)))
                 +world+))
