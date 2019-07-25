@@ -65,23 +65,36 @@
            (aref node-grid (+ x (* y width))))
          (tile (x y)
            (aref solids (* (+ x (* y width)) 2))))
-    (loop for y downfrom (1- height) to 0
+    (loop for y downfrom (1- height) above 0
           do (loop for x from 0 below width
                    for node = (node x y)
-                   do (when (and (typep node 'left-edge-node)
-                                 (= 0 (tile (1- x) y)))
-                        (loop for yy downfrom y to 0
-                              for nnode = (node (1- x) yy)
-                              do (when nnode
-                                   (connect-platforms node nnode 'fall-edge)
-                                   (return))))
-                      (when (and (typep node 'right-edge-node)
-                                 (= 0 (tile (1+ x) y)))
-                        (loop for yy downfrom y to 0
-                              for nnode = (node (1+ x) yy)
-                              do (when nnode
-                                   (connect-platforms node nnode 'fall-edge)
-                                   (return))))))))
+                   do ;; FIXME: Slopes at edges
+                      (when (or (< 0 (tile x (1- y)) 3))
+                        (when (and (typep node 'left-edge-node)
+                                   (= 0 (tile (1- x) y)))
+                          (loop for yy downfrom y to 0
+                                for nnode = (node (1- x) yy)
+                                do (when nnode
+                                     (connect-platforms node nnode 'fall-edge)
+                                     (return))))
+                        (when (and (typep node 'right-edge-node)
+                                   (= 0 (tile (1+ x) y)))
+                          (loop for yy downfrom y to 0
+                                for nnode = (node (1+ x) yy)
+                                do (when nnode
+                                     (connect-platforms node nnode 'fall-edge)
+                                     (return)))))))))
+
+(defun create-slope-connections (solids node-grid width height)
+  (flet ((node (x y)
+           (aref node-grid (+ x (* y width))))
+         (tile (x y)
+           (aref solids (* (+ x (* y width)) 2))))
+    (loop for y downfrom (1- height) to 0
+          do (loop for x from 0 below width
+                   do (case (tile x y)
+                        ((4 6 10) (connect-platforms (node x (1+ y)) (node (1- x) y) 'walk-edge))
+                        ((5 9 15) (connect-platforms (node x (1+ y)) (node (1+ x) y) 'walk-edge)))))))
 
 (defun reachable-p (nnode node)
   (let ((hash (make-hash-table :test 'eq)))
@@ -122,7 +135,10 @@
                                        (return))
                                      (let ((nnode (aref node-grid i)))
                                        (when (and nnode (not (eq node nnode)) (not (reachable-p nnode node)))
-                                         (connect-platforms node nnode 'jump-edge :strength (vec vv jv))))))))))))
+                                         (handler-case
+                                             (connect-platforms node nnode 'jump-edge :strength (vec vv jv))
+                                           (flow:connection-already-exists (e)
+                                             (declare (ignore e))))))))))))))
 
 (defun create-jump-connections (solids node-grid width height)
   (loop for y downfrom (1- height) to 0
@@ -135,6 +151,7 @@
   (let ((node-grid (make-array (/ (length solids) 2) :initial-element NIL)))
     (create-platform-nodes solids node-grid width height offset)
     (create-fall-connections solids node-grid width height)
+    (create-slope-connections solids node-grid width height)
     (create-jump-connections solids node-grid width height)
     node-grid))
 
@@ -266,8 +283,11 @@ void main(){
                  (setf (state movable) :normal))
                (let ((diff (- (vx (location target)) (- (vx loc) (vx size)))))
                  (setf (vx acc) (* (signum diff) (min spd (abs diff)))))))
-        (when (< (sqrt (vsqrdist2 (v- loc size) (location target)))
-                 1.5)
+        (when (or (< (sqrt (vsqrdist2 (v- loc size) (location target)))
+                     1.5)
+                  (and (typep (svref collisions 2) 'slope)
+                       (< (abs (- (vx loc) (vx size) (vx (location target))))
+                          1.1)))
           (pop (path movable))
           (setf (current-node movable) target)
           (setf con (car (path movable)))
