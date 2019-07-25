@@ -17,7 +17,7 @@
 (define-asset (leaf lights) uniform-buffer
     'lights)
 
-(defclass lisp-light (located-entity)
+(defclass lisp-light (located-entity base-entity)
   ((index :initform NIL :accessor index)
    (location :initarg :location :initform (vec 0 0 0) :accessor location
              :type vec3 :documentation "The location in 3D space.")
@@ -25,7 +25,7 @@
           :type vec3 :documentation "The light colour.")
    (intensity :initarg :intensity :initform 0.5 :accessor intensity
               :type single-float :documentation "The light intensity.")
-   (light-dimensions :initform (vec 0 0 0 0) :accessor light-dimensions)))
+   (light-dimensions :initform (vec 0 0 0 0) :initarg :dimensions :accessor light-dimensions)))
 
 (defmethod initargs append ((_ lisp-light))
   `(:color :intensity))
@@ -66,6 +66,9 @@
 (defmethod shared-initialize :after ((light point-light) slots &key radius)
   (when radius (setf (radius light) radius)))
 
+(defmethod contained-p ((point vec2) (light point-light))
+  (<= (vdistance point (vxy light)) (radius light)))
+
 (defmethod bsize ((light point-light)) (vec (radius light) (radius light)))
 
 (defmethod light-type ((light point-light)) 1)
@@ -75,7 +78,8 @@
 
 (defmethod (setf radius) (value (light point-light))
   (setf (vx4 (light-dimensions light)) value)
-  (activate light))
+  (activate light)
+  value)
 
 (defclass cone-light (lisp-light)
   ())
@@ -90,26 +94,37 @@
 
 (defmethod light-type ((light cone-light)) 2)
 
+(defmethod contained-p ((point vec2) (light cone-light))
+  (and (<= (vdistance point (vxy (location light)))
+           (radius light))
+       (<= (- (angle light) (point-angle (v- point (vxy (location light)))))
+           (aperture light))))
+
 (defmethod aperture ((light cone-light))
   (vx4 (light-dimensions light)))
 
 (defmethod (setf aperture) (value (light cone-light))
   (setf (vx4 (light-dimensions light)) value)
-  (activate light))
+  (activate light)
+  value)
 
 (defmethod radius ((light cone-light))
   (vy4 (light-dimensions light)))
 
 (defmethod (setf radius) (value (light cone-light))
   (setf (vy4 (light-dimensions light)) value)
-  (activate light))
+  (activate light)
+  value)
 
 (defmethod angle ((light cone-light))
-  (vz4 (light-dimensions light)))
+  (- (vz4 (light-dimensions light))
+     (/ PI 2)))
 
 (defmethod (setf angle) (value (light cone-light))
-  (setf (vz4 (light-dimensions light)) value)
-  (activate light))
+  (setf (vz4 (light-dimensions light))
+        (+ value (/ PI 2)))
+  (activate light)
+  value)
 
 (defclass trapezoid-light (lisp-light)
   ())
@@ -125,6 +140,13 @@
 
 (defmethod light-type ((light trapezoid-light)) 3)
 
+(defmethod contained-p ((point vec2) (light trapezoid-light))
+  (and (print (<= (- (vy (location light)) (height light))
+                  (vy point)
+                  (- (vy (location light)) (top light))))
+       (<= (- (angle light) (point-angle (v- point (vxy (location light)))))
+           (aperture light))))
+
 (defmethod bsize ((light trapezoid-light))
   (vec (height light) (height light)))
 
@@ -133,28 +155,33 @@
 
 (defmethod (setf aperture) (value (light trapezoid-light))
   (setf (vx4 (light-dimensions light)) value)
-  (activate light))
+  (activate light)
+  value)
 
 (defmethod top ((light trapezoid-light))
   (vy4 (light-dimensions light)))
 
 (defmethod (setf top) (value (light trapezoid-light))
   (setf (vy4 (light-dimensions light)) value)
-  (activate light))
+  (activate light)
+  value)
 
 (defmethod height ((light trapezoid-light))
   (vz4 (light-dimensions light)))
 
 (defmethod (setf height) (value (light trapezoid-light))
   (setf (vz4 (light-dimensions light)) value)
-  (activate light))
+  (activate light)
+  value)
 
 (defmethod angle ((light trapezoid-light))
-  (vw4 (light-dimensions light)))
+  (- (vw4 (light-dimensions light))
+     (/ PI 2)))
 
 (defmethod (setf angle) (value (light trapezoid-light))
-  (setf (vw4 (light-dimensions light)) value)
-  (activate light))
+  (setf (vw4 (light-dimensions light)) (+ value (/ PI 2)))
+  (activate light)
+  value)
 
 (defclass light-environment ()
   ((active-p :initform NIL :reader active-p)
@@ -182,13 +209,19 @@
 (defmethod deactivate ((environment light-environment))
   (with-buffer-tx (struct (asset 'leaf 'lights))
     (for:for ((light over environment))
-      (when (typep light 'light)
+      (when (typep light 'lisp-light)
         (setf (index light) NIL)))
     (setf (slot-value struct 'count) 0)
     (setf (global-illumination struct) (global-illumination environment))))
 
 (defmethod deactivate :before ((environment light-environment))
   (setf (slot-value environment 'active-p) NIL))
+
+(defmethod find-light ((index integer) (environment light-environment))
+  (for:for ((light over environment))
+    (when (and (typep light 'lisp-light)
+               (= index (index light)))
+      (return light))))
 
 ;; Refresh environment to remove/add lights dynamically
 (defmethod enter :after ((light lisp-light) (environment light-environment))
@@ -233,6 +266,18 @@ vec2 rotate_point(vec2 p, float theta){
   return rot*p;
 }
 
+float cone_light_sdf(vec2 p, vec4 dimensions){
+  vec2 c = vec2(sin(dimensions.x/2), cos(dimensions.x/2));
+  float r = dimensions.y;
+  float theta = dimensions.z;
+
+  p = rotate_point(p, theta);
+  p.x = abs(p.x);
+  float l = length(p) - r;
+  float m = length(p-c*clamp(dot(p,c),0.0,r));
+  return max(l,m*sign(c.y*p.x-c.x*p.y));
+}
+
 float trapezoid_light_sdf(vec2 p, vec4 dimensions){
   vec2 c = vec2(sin(dimensions.x/2), cos(dimensions.x/2));
   float t = dimensions.y;
@@ -246,18 +291,6 @@ float trapezoid_light_sdf(vec2 p, vec4 dimensions){
   
   float m = length(p-c*max(dot(p,c),0.0));
   return max(max(m*sign(c.y*p.x-c.x*p.y), -h), -(b+(-h)));
-}
-
-float cone_light_sdf(vec2 p, vec4 dimensions){
-  vec2 c = vec2(sin(dimensions.x/2), cos(dimensions.x/2));
-  float r = dimensions.y;
-  float theta = dimensions.z;
-
-  p = rotate_point(p, theta);
-  p.x = abs(p.x);
-  float l = length(p) - r;
-  float m = length(p-c*clamp(dot(p,c),0.0,r));
-  return max(l,m*sign(c.y*p.x-c.x*p.y));
 }
 
 float evaluate_light(vec2 position, Light light){

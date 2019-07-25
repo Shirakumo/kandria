@@ -117,9 +117,14 @@ void main(){
       (:dragging
        ;; FIXME: for chunks (and other containers) we should also move
        ;;        contained units by the same delta.
+       ;; FIXME: should note the offset on drag start to move precisely
+       ;; FIXME: should only grid-snap on certain entities, not others.
        (vsetf (location entity)
-              (+ (vx loc) (floor (vx (size entity)) 2))
-              (+ (vy loc) (floor (vy (size entity)) 2))))
+              (+ (vx loc) ;; (floor (vx (size entity)) 2)
+                 )
+              (+ (vy loc) ;; (floor (vy (size entity)) 2)
+                 ))
+       (setf (location entity) (location entity)))
       (:resizing
        (let ((size (vmax (v- loc old) (vec +tile-size+ +tile-size+))))
          (resize entity (vx size) (vy size))
