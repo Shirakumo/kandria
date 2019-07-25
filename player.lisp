@@ -274,6 +274,10 @@ void main(){
   ;; Animations
   (let ((acc (acceleration player))
         (collisions (collisions player)))
+    (cond ((< 0 (vx acc))
+           (setf (direction player) +1))
+          ((< (vx acc) 0)
+           (setf (direction player) -1)))
     (case (state player)
       (:climbing
        (setf (animation player) 'climb)
@@ -288,12 +292,8 @@ void main(){
           (setf (clock player) 0.0d0))))
       (:crawling
        (setf (animation player) 'crawl)
-       (cond ((< 0 (vx acc))
-              (setf (direction player) +1))
-             ((< (vx acc) 0)
-              (setf (direction player) -1))
-             (T
-              (setf (clock player) 0.0d0))))
+       (when (= 0 (vx acc))
+         (setf (clock player) 0.0d0)))
       (:normal
        (cond ((< 0 (vy acc))
               (setf (animation player) 'jump))
@@ -307,11 +307,9 @@ void main(){
                     (T
                      (setf (animation player) 'fall))))
              ((< 0 (vx acc))
-              (setf (animation player) 'run)
-              (setf (direction player) +1))
+              (setf (animation player) 'run))
              ((< (vx acc) 0)
-              (setf (animation player) 'run)
-              (setf (direction player) -1))
+              (setf (animation player) 'run))
              (T
               (setf (animation player) 'stand)))))))
 
