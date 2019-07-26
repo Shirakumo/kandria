@@ -71,6 +71,9 @@
 
 (defmethod bsize ((light point-light)) (vec (radius light) (radius light)))
 
+(defmethod resize ((light point-light) width height)
+  (setf (radius light) (vlength (vec2 width height))))
+
 (defmethod light-type ((light point-light)) 1)
 
 (defmethod radius ((light point-light))
@@ -99,6 +102,11 @@
            (radius light))
        (<= (- (angle light) (point-angle (v- point (vxy (location light)))))
            (aperture light))))
+
+(defmethod resize ((light cone-light) width height)
+  (let ((point (vec2 width height)))
+    (setf (radius light) (vlength point))
+    (setf (angle light) (point-angle point))))
 
 (defmethod aperture ((light cone-light))
   (vx4 (light-dimensions light)))
@@ -141,14 +149,19 @@
 (defmethod light-type ((light trapezoid-light)) 3)
 
 (defmethod contained-p ((point vec2) (light trapezoid-light))
-  (and (print (<= (- (vy (location light)) (height light))
-                  (vy point)
-                  (- (vy (location light)) (top light))))
+  (and (<= (- (vy (location light)) (height light))
+           (vy point)
+           (- (vy (location light)) (top light)))
        (<= (- (angle light) (point-angle (v- point (vxy (location light)))))
            (aperture light))))
 
 (defmethod bsize ((light trapezoid-light))
   (vec (height light) (height light)))
+
+(defmethod resize ((light trapezoid-light) width height)
+  (let ((point (vec2 width height)))
+    (setf (height light) (- (vy point)))
+    (setf (angle light) (point-angle point))))
 
 (defmethod aperture ((light trapezoid-light))
   (vx4 (light-dimensions light)))

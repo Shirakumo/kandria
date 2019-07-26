@@ -43,11 +43,14 @@
   (key-press (one-of key :f4)))
 
 ;;; F Group 2
-(define-action resize-entity (editor-command)
+(define-action move-entity (editor-command)
   (key-press (one-of key :f5)))
 
-(define-action clone-entity (editor-command)
+(define-action resize-entity (editor-command)
   (key-press (one-of key :f6)))
+
+(define-action clone-entity (editor-command)
+  (key-press (one-of key :f7)))
 
 ;;; F Group 3
 (define-action inspect-entity (editor-command)
