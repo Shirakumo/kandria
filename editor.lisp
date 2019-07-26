@@ -90,20 +90,13 @@ void main(){
         (camera (unit :camera T)))
     (vsetf loc (vx pos) (vy pos))
     (nv+ (nv/ loc (view-scale camera)) (location camera))
-    (nv- loc (v/ (target-size camera) (zoom camera)))
-    (nvalign loc +tile-size+)))
+    (nv- loc (v/ (target-size camera) (zoom camera)))))
 
 (define-handler (editor mouse-press) (ev pos button)
-  (let* ((camera (unit :camera T))
-         ;; Calculate here to avoid nvalign of update-editor-pos
-         (wpos (nv- (nv+ (v/ pos (view-scale camera)) (location camera))
-                    (v/ (target-size camera) (zoom camera)))))
-    (update-editor-pos editor pos)
+  (update-editor-pos editor pos)
+  (let ((loc (location editor)))
     (unless (entity editor)
-      (setf (entity editor) (entity-at-point wpos +world+)))
-    (when (eql :middle button)
-      (setf (start-pos editor) pos)
-      (setf (state editor) :dragging))))
+      (setf (entity editor) (entity-at-point loc +world+)))))
 
 (define-handler (editor mouse-release) (ev)
   (setf (state editor) NIL))
@@ -117,19 +110,17 @@ void main(){
       (:dragging
        ;; FIXME: for chunks (and other containers) we should also move
        ;;        contained units by the same delta.
-       ;; FIXME: should note the offset on drag start to move precisely
-       ;; FIXME: should only grid-snap on certain entities, not others.
        (vsetf (location entity)
-              (+ (vx loc) ;; (floor (vx (size entity)) 2)
-                 )
-              (+ (vy loc) ;; (floor (vy (size entity)) 2)
-                 ))
+              (- (vx loc) (vx old))
+              (- (vy loc) (vy old)))
+       (nvalign (location entity) (/ +tile-size+ 2))
        (setf (location entity) (location entity)))
       (:resizing
-       (let ((size (vmax (v- loc old) (vec +tile-size+ +tile-size+))))
-         (resize entity (vx size) (vy size))
-         (let ((loc (v+ old (bsize entity))))
-           (vsetf (location entity) (vx loc) (vy loc))))))))
+       (let ((size (nvalign (v- loc (location entity)) (/ +tile-size+ 2))))
+         (resize editor (vx size) (vy size)))))))
+
+(defmethod resize ((editor editor) w h)
+  (resize (entity editor) w h))
 
 (define-handler (editor mouse-scroll) (ev delta)
   (when (retained 'modifiers :control)
@@ -201,10 +192,14 @@ void main(){
   (leave (entity editor) +world+)
   (setf (entity editor) NIL))
 
+(define-handler (editor move-entity) (ev)
+  (setf (state editor) :dragging)
+  (setf (start-pos editor) (v- (location editor)
+                               (vxy (location (entity editor))))))
+
 (define-handler (editor resize-entity) (ev)
   (setf (state editor) :resizing)
-  (setf (start-pos editor) (v- (location (entity editor))
-                               (bsize (entity editor)))))
+  (setf (start-pos editor) (location (entity editor))))
 
 (define-handler (editor clone-entity) (ev)
   (setf (state editor) :dragging)
@@ -280,6 +275,14 @@ void main(){
         (setf (vy value) (clamp 0 (vy value) (1- height))))
     (setf (slot-value chunk-editor 'tile) value)))
 
+(defmethod resize ((editor chunk-editor) w h)
+  (let* ((entity (entity editor))
+         (old (v- (start-pos editor) (bsize entity)))
+         (size (vmax (v- (location editor) old) (vec +tile-size+ +tile-size+))))
+    (resize entity (vx size) (vy size))
+    (let ((loc (v+ old (bsize entity))))
+      (vsetf (location entity) (vx loc) (vy loc)))))
+
 (define-handler (chunk-editor key-press) (ev key)
   (when (case key
           (:1 (setf (layer chunk-editor) -2))
@@ -303,8 +306,9 @@ void main(){
              (setf (tile-to-place chunk-editor)
                    (vfloor pos +tile-size+)))
             ((retained 'modifiers :control)
-             ;;(flood-fill chunk loc tile)
-             (auto-tile chunk loc))
+             (if (= (layer chunk-editor) 3)
+                 (auto-tile chunk loc)
+                 (flood-fill chunk loc tile)))
             ((retained 'modifiers :alt)
              (setf (tile-to-place chunk-editor) (tile loc chunk)))
             (T
