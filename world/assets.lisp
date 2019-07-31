@@ -20,6 +20,16 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
+(define-asset (world tundra) image
+    #p"tundra.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
+(define-asset (world tundra-bg) image
+    #p"tundra-bg.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
 (define-asset (world fi) image
     #p"fi.png"
   :min-filter :nearest
