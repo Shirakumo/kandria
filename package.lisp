@@ -3,7 +3,7 @@
   (:use #:cl+trial)
   (:shadow #:main #:launch #:tile #:tick #:block
            #:located-entity #:sized-entity #:sprite-entity
-           #:camera #:particle)
+           #:camera #:particle #:light)
   (:local-nicknames
    (#:dialogue #:org.shirakumo.fraf.leaf.dialogue)
    (#:quest #:org.shirakumo.fraf.leaf.quest)

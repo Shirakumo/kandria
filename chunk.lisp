@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk (layered-container sized-entity solid lighted-entity light-environment)
+(define-shader-entity chunk (layered-container sized-entity solid)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
@@ -117,7 +117,6 @@ void main(){
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, ivec3(tile_xy, layer), 0).rg;
   color = texelFetch(tileset, ivec2(tile)*tile_size+pixel_xy, 0);
-  color.rgb = shade_lights(color.rgb, vec3(map_xy+map_position-map_wh/2, layer-2));
 }")
 
 (defmethod resize ((chunk chunk) w h)

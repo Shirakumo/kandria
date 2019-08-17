@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject moving-platform (lighted-sprite-entity game-entity solid)
+(define-shader-subject moving-platform (game-entity solid)
   ()
   (:default-initargs
    :bsize (vec2 32 32)))

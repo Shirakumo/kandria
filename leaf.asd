@@ -12,7 +12,6 @@
                (:file "lighting")
                (:file "background")
                (:file "chunk")
-               (:file "lighted-sprite-entity")
                (:file "moving-platform")
                (:file "moving")
                (:file "move-to")

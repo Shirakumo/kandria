@@ -28,7 +28,7 @@
 (defclass main (trial:main)
   ((scene :initform NIL)
    (state :accessor state))
-  (:default-initargs :clear-color (vec 2/17 2/17 2/17)
+  (:default-initargs :clear-color (vec 2/17 2/17 2/17 0)
                      :title "Leaf - 0.0.0"
                      :world "world"
                      :width 1280
@@ -71,7 +71,10 @@
   (enter (make-instance 'inactive-pause-menu) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
-  (enter (make-instance 'render-pass) scene))
+  
+  (let ((lighting (make-instance 'lighting-pass))
+        (rendering (make-instance 'rendering-pass)))
+    (connect (port lighting 'color) (port rendering 'lighting) scene)))
 
 #+leaf-inspector
 (progn
