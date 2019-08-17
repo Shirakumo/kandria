@@ -199,7 +199,6 @@
    (size :initarg :size :accessor size)
    (offset :initarg :offset :accessor offset))
   (:default-initargs
-   :vertex-form :lines
    :offset (vec 0 0)))
 
 (defmethod shared-initialize :after ((graph node-graph) slots &key solids)
@@ -223,7 +222,7 @@
             (trial:resize-buffer ebo (* (length (buffer-data ebo)) (gl-type-size :float))
                                  :data (buffer-data ebo))
             (setf (size (vertex-array graph)) (length (faces mesh))))
-          (setf (vertex-array graph) (change-class mesh 'vertex-array))))))
+          (setf (vertex-array graph) (change-class mesh 'vertex-array :vertex-form :lines))))))
 
 (defmethod shortest-path ((graph node-graph) start goal)
   (let ((node-grid (node-grid graph))

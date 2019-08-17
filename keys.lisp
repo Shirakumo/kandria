@@ -52,6 +52,10 @@
 (define-action clone-entity (editor-command)
   (key-press (one-of key :f7)))
 
+;; KLUDGE: this key.
+(define-action make-light (editor-command)
+  (key-press (one-of key :f8)))
+
 ;;; F Group 3
 (define-action inspect-entity (editor-command)
   (key-press (one-of key :f12)))

@@ -2,11 +2,13 @@
 
 (define-asset (world player) image
     #p"player.png"
+  :internal-format :srgb-alpha
   :min-filter :nearest
   :mag-filter :nearest)
 
 (define-asset (world player-profile) image
     #p"player-profile.png"
+  :internal-format :srgb-alpha
   :min-filter :nearest
   :mag-filter :nearest)
 
@@ -22,11 +24,13 @@
 
 (define-asset (world tundra) image
     #p"tundra.png"
+  :internal-format :srgb-alpha
   :min-filter :nearest
   :mag-filter :nearest)
 
 (define-asset (world tundra-bg) image
     #p"tundra-bg.png"
+  :internal-format :srgb-alpha
   :min-filter :nearest
   :mag-filter :nearest)
 
