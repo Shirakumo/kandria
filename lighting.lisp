@@ -24,6 +24,16 @@
 (defmethod register-object-for-pass ((pass rendering-pass) (light light)))
 (defmethod paint-with ((pass rendering-pass) (light light)))
 
+(define-class-shader (rendering-pass :fragment-shader -100)
+  "out vec4 color;
+uniform float gamma = 2.2;
+uniform float exposure = 1.0;
+
+void main(){
+  vec3 mapped = vec3(1.0) - exp((-color.rgb) * exposure);
+  color.rgb = pow(mapped, vec3(1.0 / gamma));
+}")
+
 (define-shader-entity lit-entity ()
   ())
 
@@ -37,29 +47,15 @@ vec4 apply_lighting(vec4 color, vec2 offset){
   return color;
 }")
 
-(define-class-shader (rendering-pass :fragment-shader -100)
+(define-shader-subject lit-animated-sprite (lit-entity animated-sprite-subject)
+  ())
+
+(define-class-shader (lit-animated-sprite :fragment-shader)
   "out vec4 color;
-uniform float gamma = 2.2;
-uniform float exposure = 1.0;
 
 void main(){
-  vec3 mapped = vec3(1.0) - exp((-color.rgb) * exposure);
-  color.rgb = pow(mapped, vec3(1.0 / gamma));
+  color = apply_lighting(color, vec2(0, -5));
 }")
-
-(define-asset (leaf sphere) mesh
-    (make-disc 100))
-
-(define-asset (leaf radial-gradient) mesh
-    (let ((inner (vec4 1 1 1 1))
-          (outer (vec4 0 0 0 1)))
-      (with-vertex-filling ((make-instance 'vertex-mesh :vertex-type 'colored-vertex) :pack T)
-        (loop with step = (/ (* 2 PI) 32)
-              for i1 = (- step) then i2
-              for i2 from 0 to (* 2 PI) by step
-              do (vertex :position (vec 0 0 0) :color inner)
-                 (vertex :position (vec (* 100 (cos i1)) (* 100 (sin i1)) 0) :color outer)
-                 (vertex :position (vec (* 100 (cos i2)) (* 100 (sin i2)) 0) :color outer)))))
 
 (define-shader-entity basic-light (light colored-entity)
   ((color :initform (vec4 0.3 0.25 0.1 1.0))))
