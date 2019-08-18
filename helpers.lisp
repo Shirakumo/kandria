@@ -98,8 +98,8 @@
 
 (defun nvalign (vec grid)
   (vsetf vec
-         (* grid (floor (vx vec) grid))
-         (* grid (floor (vy vec) grid))))
+         (* grid (floor (+ (vx vec) (/ grid 2)) grid))
+         (* grid (floor (+ (vy vec) (/ grid 2)) grid))))
 
 (defun vfloor (vec &optional (divisor 1))
   (vapply vec floor divisor divisor divisor divisor))

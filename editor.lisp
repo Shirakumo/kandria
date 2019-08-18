@@ -60,8 +60,7 @@ void main(){
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'entity-marker)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'tile-picker)))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'editor)))
-  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'chunk-editor)))
-  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'light-creation-editor))))
+  (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'chunk-editor))))
 
 (define-shader-subject editor (inactive-editor)
   ((state :initform NIL :accessor state)
@@ -420,30 +419,19 @@ void main(){
 
 ;;; FIXME: BROKEN BROKEN BROKEN
 (define-handler (editor make-light) (ev)
-  (change-class editor 'light-creation-editor))
+  (let ((light (make-instance 'basic-light)))
+    (transition light +world+)
+    (enter light +world+)
+    (setf (entity editor) light)))
 
-(define-shader-subject light-creation-editor (editor)
+(defmethod editor-class ((_ light)) 'light-editor)
+
+(define-shader-subject light-editor (editor)
   ())
 
-(defmethod shared-initialize :after ((editor light-creation-editor) slots &key)
-  (let* ((vbo (make-instance 'vertex-buffer :data-usage :dynamic-draw :buffer-data (make-array 0 :adjustable T :fill-pointer T :element-type 'single-float)))
-         (vao (make-instance 'vertex-array :vertex-form :triangle-fan
-                                           :bindings `((,vbo :size 2 :offset 8 :stride 8))
-                                           :size 0)))
-    (allocate vbo)
-    (allocate vao)
-    (setf (vertex-array editor) vao)))
-
-(define-handler (light-creation-editor add-light-vertex mouse-press) (ev button)
+(define-handler (light-editor add-light-vertex mouse-press) (ev button)
   (when (eql button :middle)
-    (let* ((vao (vertex-array light-creation-editor))
-           (vbo (caar (bindings vao)))
-           (loc (location light-creation-editor)))
-      (vector-push-extend (vx loc) (buffer-data vbo))
-      (vector-push-extend (vy loc) (buffer-data vbo))
-      (when (< 6 (length (buffer-data vbo)))
-        (resize-buffer vbo (length (buffer-data vbo)) :data (buffer-data vbo))
-        (setf (size vao) (/ (length (buffer-data vbo)) 2))))))
+    (add-vertex (entity light-editor) :location (nvalign (vcopy (location light-editor)) +tile-size+))))
 
 (define-shader-subject text-input ()
   ((vertex-array :initform (asset 'trial 'trial::fullscreen-square) :accessor vertex-array)

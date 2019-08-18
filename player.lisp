@@ -16,7 +16,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 20      0.7))
 
-(define-shader-subject player (animated-sprite-subject movable facing-entity profile-entity)
+(define-shader-subject player (animated-sprite-subject movable facing-entity profile-entity lit-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
@@ -59,6 +59,13 @@ uniform mat4 model_matrix;
 
 void main(){
   world_pos = (model_matrix * vec4(vertex, 1)).xy;
+}")
+
+(define-class-shader (player :fragment-shader)
+  "out vec4 color;
+
+void main(){
+  color = apply_lighting(color, vec2(0, -5));
 }")
 
 (define-handler (player interact) (ev)
