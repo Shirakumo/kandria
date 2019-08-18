@@ -38,6 +38,12 @@ ivec2 shadow_map_position(ivec2 pos, ivec2 size, vec2 dir){
   ((shadow :port-type trial::image-out :texspec (:internal-format :r8)))
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
+(defmethod paint-with :around ((target shadow-map-pass) (world world))
+  (let ((texture (slot-value target 'shadow)))
+    (%gl:clear-tex-image (gl-name texture) 0 (internal-format texture) :unsigned-byte (cffi:null-pointer))
+    (call-next-method)
+    (%gl:memory-barrier :shader-image-access-barrier)))
+
 (defmethod paint ((container layered-container) (target shadow-map-pass))
   (let ((*current-layer* (floor +layer-count+ 2))
         (layers (objects container)))
@@ -47,7 +53,7 @@ ivec2 shadow_map_position(ivec2 pos, ivec2 size, vec2 dir){
           do (paint unit target))))
 
 (define-class-shader (shadow-map-pass :fragment-shader -150)
-  "uniform layout(binding = 0, r8) writeonly image2D shadow_map;
+  "layout(binding = 0, r8) uniform writeonly image2D shadow_map;
 uniform vec2 light_direction = vec2(0, -1);
 
 void main(){
@@ -62,7 +68,7 @@ void main(){
   ((shadow :port-type trial::image-in :texspec (:internal-format :r8))))
 
 (define-class-shader (shadow-render-pass :fragment-shader -150)
-  "uniform layout(binding = 0, r8) readonly image2D shadow_map;
+  "layout(binding = 0, r8) uniform readonly image2D shadow_map;
 uniform vec2 light_direction = vec2(0, -1);
 out vec4 color;
 
