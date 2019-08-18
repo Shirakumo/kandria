@@ -18,7 +18,7 @@
   (when (typep entity 'light)
     (call-next-method)))
 
-(define-shader-pass rendering-pass (render-pass)
+(define-shader-pass rendering-pass (render-pass shadow-render-pass)
   ((lighting :port-type input :texspec (:target :texture-2D :internal-format :rgba16f))))
 
 (defmethod register-object-for-pass ((pass rendering-pass) (light light)))
