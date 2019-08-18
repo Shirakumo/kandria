@@ -156,7 +156,7 @@
     node-grid))
 
 (defun node-graph-mesh (node-grid width height)
-  (with-vertex-filling ((make-instance 'vertex-mesh :vertex-type 'colored-vertex))
+  (with-vertex-filling ((make-instance 'vertex-mesh :vertex-type 'colored-vertex :face-length 2))
     (loop for y downfrom (1- height) to 0
           do (loop for x from 0 below width
                    for node = (aref node-grid (+ x (* y width)))
@@ -222,7 +222,7 @@
             (trial:resize-buffer ebo (* (length (buffer-data ebo)) (gl-type-size :float))
                                  :data (buffer-data ebo))
             (setf (size (vertex-array graph)) (length (faces mesh))))
-          (setf (vertex-array graph) (change-class mesh 'vertex-array :vertex-form :lines))))))
+          (setf (vertex-array graph) (change-class mesh 'vertex-array))))))
 
 (defmethod shortest-path ((graph node-graph) start goal)
   (let ((node-grid (node-grid graph))
