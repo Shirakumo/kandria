@@ -71,9 +71,11 @@
   (enter (make-instance 'inactive-pause-menu) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
-  
-  (let ((lighting (make-instance 'lighting-pass))
+
+  (let ((shadow (make-instance 'shadow-map-pass))
+        (lighting (make-instance 'lighting-pass))
         (rendering (make-instance 'rendering-pass)))
+    (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
     (connect (port lighting 'color) (port rendering 'lighting) scene)))
 
 #+leaf-inspector

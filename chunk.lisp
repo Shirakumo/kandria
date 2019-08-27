@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk (layered-container sized-entity lit-entity solid)
+(define-shader-entity chunk (layered-container sized-entity lit-entity shadow-caster solid)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
