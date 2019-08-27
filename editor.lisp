@@ -306,7 +306,7 @@ void main(){
              (setf (tile-to-place chunk-editor)
                    (vfloor pos +tile-size+)))
             ((retained 'modifiers :control)
-             (if (= (layer chunk-editor) 3)
+             (if (= (layer chunk-editor) 0)
                  (auto-tile chunk loc)
                  (flood-fill chunk loc tile)))
             ((retained 'modifiers :alt)
