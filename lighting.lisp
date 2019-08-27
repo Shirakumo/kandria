@@ -19,7 +19,8 @@
     (call-next-method)))
 
 (define-shader-pass rendering-pass (render-pass)
-  ((lighting :port-type input :texspec (:target :texture-2D :internal-format :rgba16f))))
+  ((lighting :port-type input :texspec (:internal-format :rgba16f))
+   (shadow-map :port-type input)))
 
 (defmethod register-object-for-pass ((pass rendering-pass) (light light)))
 (defmethod paint-with ((pass rendering-pass) (light light)))
@@ -39,12 +40,20 @@ void main(){
 
 (define-class-shader (lit-entity :fragment-shader 100)
   "uniform sampler2D lighting;
+uniform sampler2D shadow_map;
+uniform vec3 sun_light = vec3(0.8);
+uniform vec3 ambient_light = vec3(0.2);
 
 vec4 apply_lighting(vec4 color, vec2 offset){
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
+  float shade = 1-texelFetch(shadow_map, pos, 0).r;
   vec4 light = texelFetch(lighting, pos, 0);
-  color.rgb += light.rgb*light.a;
-  return color;
+
+  vec3 truecolor = vec3(0);
+  truecolor += ambient_light*color.rgb;
+  truecolor += sun_light*shade*color.rgb;
+  truecolor += light.rgb*light.a*color.rgb;
+  return vec4(truecolor, color.a);
 }")
 
 (define-shader-subject lit-animated-sprite (lit-entity animated-sprite-subject)
@@ -68,8 +77,6 @@ void main(){
            (vao (make-instance 'vertex-array :vertex-form :triangle-fan
                                              :bindings `((,vbo :size 2 :offset 0 :stride 8))
                                              :size (/ (length data) 2))))
-      (allocate vbo)
-      (allocate vao)
       (setf (vertex-array light) vao))))
 
 (defmethod update-bounding-box ((light basic-light))
