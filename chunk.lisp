@@ -35,7 +35,8 @@
                                                   :mag-filter :nearest))
     (setf (node-graph chunk) (make-instance 'node-graph :size size
                                                         :solids (car (last layers))
-                                                        :offset (v- (location chunk) (bsize chunk))))))
+                                                        :offset (v- (location chunk) (bsize chunk))))
+    (compute-shadow-map chunk)))
 
 (defmethod register-object-for-pass :after (pass (chunk chunk))
   (register-object-for-pass pass (node-graph chunk)))
@@ -190,8 +191,9 @@ void main(){
                 (/= (vy value) (aref layer (+ 1 pos))))
         (setf (aref layer (+ 0 pos)) (truncate (vx2 value)))
         (setf (aref layer (+ 1 pos)) (truncate (vy2 value)))
-        (when (= z +layer-count+)
-          (reinitialize-instance (node-graph chunk) :solids layer))
+        ;;;; FIXME: This slows things down way too much in the editor.
+        ;; (when (= z +layer-count+)
+        ;;   (reinitialize-instance (node-graph chunk) :solids layer))
         (sb-sys:with-pinned-objects (layer)
           (let ((texture (texture chunk)))
             (gl:bind-texture :texture-2d-array (gl-name texture))
@@ -207,8 +209,6 @@ void main(){
            (width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk)))))
       (%flood-fill layer width height x y fill)
-      (when (= z +layer-count+)
-        (reinitialize-instance (node-graph chunk) :solids layer))
       (sb-sys:with-pinned-objects (layer)
         (let ((texture (texture chunk)))
           (gl:bind-texture :texture-2d-array (gl-name texture))
@@ -231,6 +231,16 @@ void main(){
           (%gl:tex-sub-image-3d :texture-2d-array 0 0 0 z width height 1
                                 (pixel-format texture) (pixel-type texture)
                                 (sb-sys:vector-sap layer)))))))
+
+(defmethod compute-shadow-map ((chunk chunk))
+  (let ((w (truncate (vx (size chunk))))
+        (h (truncate (vy (size chunk))))
+        (layer (aref (layers chunk) +layer-count+)))
+    (dotimes (y h)
+      (dotimes (x w)
+        (when (= 1 (aref layer (+ 0 (* 2 (+ x (* y w))))))
+          (add-shadow-cube chunk (vec (* (- x (/ w 2)) +tile-size+)
+                                      (* (- y (/ h 2)) +tile-size+))))))))
 
 (defmethod shortest-path ((chunk chunk) start goal)
   (flet ((local-pos (pos)
