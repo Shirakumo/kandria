@@ -7,28 +7,45 @@
   (let* ((data (make-array (length data) :adjustable T :fill-pointer T :element-type 'single-float
                                          :initial-contents data))
          (vbo (make-instance 'vertex-buffer :data-usage :dynamic-draw :buffer-data data))
-         (vao (make-instance 'vertex-array :vertex-form :triangle-strip
+         (vao (make-instance 'vertex-array :vertex-form :triangles
                                            :bindings `((,vbo :size 2 :offset 0 :stride 8))
                                            :size (/ (length data) 2))))
-    (setf (shadow-geometry caster) vao)
-    (add-vertex caster :location (vec2 0 0))
-    (add-vertex caster :location (vec2 32 0))))
+    (setf (shadow-geometry caster) vao)))
 
-(defmethod add-vertex ((caster shadow-caster) &key location)
+(defmethod add-shadow-line ((caster shadow-caster) a b)
   (let* ((vao (shadow-geometry caster))
          (vbo (caar (bindings vao)))
-         (data (buffer-data vbo))
-         (loc (v- location (location caster))))
-    ;; Add twice to produce triangle.
-    (vector-push-extend (vx loc) data)
-    (vector-push-extend (vy loc) data)
-    (vector-push-extend (vx loc) data)
-    (vector-push-extend (vy loc) data)
+         (data (buffer-data vbo)))
+    ;; Vertices arranged in the following manner, such that
+    ;; bottom vertices that should be moved are always at an
+    ;; even modulus, for easy testing in the vertex shader.
+    ;; 0  _1 2
+    ;; _3 4 _5
+    (vector-push-extend (vx a) data)
+    (vector-push-extend (vy a) data)
+    (vector-push-extend (vx a) data)
+    (vector-push-extend (vy a) data)
+    (vector-push-extend (vx b) data)
+    (vector-push-extend (vy b) data)
+    (vector-push-extend (vx b) data)
+    (vector-push-extend (vy b) data)
+    (vector-push-extend (vx b) data)
+    (vector-push-extend (vy b) data)
+    (vector-push-extend (vx a) data)
+    (vector-push-extend (vy a) data)
     (when (allocated-p vbo)
       (resize-buffer vbo (* (length data) 4) :data data))
-    (setf (size vao) (if (<= 6 (length data))
-                         (/ (length data) 2)
-                         0))))
+    (setf (size vao) (/ (length data) 2))))
+
+(defmethod add-shadow-cube ((caster shadow-caster) loc)
+  (let ((r (nv+ (vec +tile-size+ 0) loc))
+        (l (nv+ (vec 0 +tile-size+) loc))
+        (u (nv+ (vec +tile-size+ +tile-size+) loc)))
+    (add-shadow-line caster loc l)
+    (add-shadow-line caster loc r)
+    (add-shadow-line caster l u)
+    (add-shadow-line caster r u)))
+
 
 (define-shader-pass shadow-map-pass (single-shader-pass)
   ((shadow-map :port-type output :texspec (:internal-format :r8))))
@@ -45,11 +62,13 @@
 (defmethod paint :around ((subject shadow-caster) (pass shadow-map-pass))
   (let ((program (shader-program-for-pass pass subject))
         (vao (shadow-geometry subject)))
-    (setf (uniform program "model_matrix") (model-matrix))
-    (setf (uniform program "view_matrix") (view-matrix))
-    (setf (uniform program "projection_matrix") (projection-matrix))
-    (gl:bind-vertex-array (gl-name vao))
-    (gl:draw-arrays (vertex-form vao) 0 (size vao))))
+    (with-pushed-matrix (model-matrix)
+      (translate-by (vx (location subject)) (vy (location subject)) 0)
+      (setf (uniform program "model_matrix") (model-matrix))
+      (setf (uniform program "view_matrix") (view-matrix))
+      (setf (uniform program "projection_matrix") (projection-matrix))
+      (gl:bind-vertex-array (gl-name vao))
+      (gl:draw-arrays (vertex-form vao) 0 (size vao)))))
 
 (define-class-shader (shadow-map-pass :vertex-shader)
   "layout(location = 0) in vec2 vertex_position;
