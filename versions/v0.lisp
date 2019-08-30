@@ -151,6 +151,16 @@
                      :acceleration ,(encode (acceleration falling-platform))
                      :location ,(encode (location falling-platform))))
 
+(define-decoder (basic-light v0) (initargs _)
+  (destructuring-bind (&key color data) initargs
+    (make-instance 'basic-light
+                   :color (decode 'vec4 color)
+                   :data data)))
+
+(define-encoder (basic-light v0) (_b _p)
+  `(basic-light :color ,(encode (color basic-light))
+                :data ,(buffer-data (caar (bindings (vertex-array light))))))
+
 (define-decoder (vec2 v0) (data _p)
   (destructuring-bind (x y) data
     (vec2 x y)))
