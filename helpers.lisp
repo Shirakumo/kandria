@@ -88,6 +88,12 @@
            (c2mop:finalize-inheritance class))
          (c2mop:class-prototype class)))))
 
+(defun similar-asset (asset suffix)
+  (with-standard-io-syntax
+    (asset (pool asset)
+           (find-symbol (format NIL "~a~a" (name asset) suffix)
+                        (symbol-package (name asset))))))
+
 (defmethod unit (thing (target (eql T)))
   (when +world+
     (unit thing +world+)))

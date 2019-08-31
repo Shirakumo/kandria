@@ -110,6 +110,7 @@
                                        :location (decode 'vec2 location)
                                        :size (decode 'vec2 size)
                                        :tileset (decode 'asset tileset)
+                                       :absorption-map (similar-asset (decode 'asset tileset) '-absorption)
                                        :layers (loop for file in layers
                                                      collect (packet-entry file packet)))))
       (loop for (type . initargs) in children

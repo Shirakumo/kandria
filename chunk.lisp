@@ -6,6 +6,8 @@
    (layers :accessor layers)
    (tileset :initarg :tileset :initform (error "TILESET required.") :accessor tileset
             :type asset :documentation "The tileset texture for the chunk.")
+   (absorption-map :initarg :absorption-map :initform (error "ABSORPTION-MAP required") :accessor absorption-map
+                   :type asset :documentation "The absorption map for the chunk.")
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles.")
    (node-graph :accessor node-graph))
@@ -69,10 +71,13 @@
     (setf (uniform program "model_matrix") (minv *model-matrix*))
     (setf (uniform program "tileset") 0)
     (setf (uniform program "tilemap") 1)
+    (setf (uniform program "absorption") 2)
     (gl:active-texture :texture0)
     (gl:bind-texture :texture-2d (gl-name (tileset chunk)))
     (gl:active-texture :texture1)
     (gl:bind-texture :texture-2d-array (gl-name (texture chunk)))
+    (gl:active-texture :texture2)
+    (gl:bind-texture :texture-2d (gl-name (absorption-map chunk)))
     (gl:bind-vertex-array (gl-name vao))
     (%gl:draw-elements :triangles (size vao) :unsigned-int 0)))
 
@@ -94,6 +99,7 @@ void main(){
   "
 uniform usampler2DArray tilemap;
 uniform sampler2D tileset;
+uniform sampler2D absorption;
 uniform vec2 map_size;
 uniform vec2 map_position;
 uniform int tile_size;
@@ -117,8 +123,10 @@ void main(){
 
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, ivec3(tile_xy, layer), 0).rg;
-  color = texelFetch(tileset, ivec2(tile)*tile_size+pixel_xy, 0);
-  color = apply_lighting(color, vec2(0));
+  tile_xy = ivec2(tile)*tile_size+pixel_xy;
+  color = texelFetch(tileset, tile_xy, 0);
+  float absor = texelFetch(absorption, tile_xy, 0).r;
+  color = apply_lighting(color, vec2(0), 1-absor);
 }")
 
 (defmethod resize ((chunk chunk) w h)
@@ -263,6 +271,10 @@ void main(){
                      (add-shadow-line chunk (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+)))
                      (add-shadow-line chunk (v+ loc (vec +tile-size+ 0)) (v+ loc (vec +tile-size+ +tile-size+))))
                     ((and (= 1 (sfaref (1+ x) y))
+                          (= 1 (sfaref x (1+ y))))
+                     (add-shadow-line chunk loc (v+ loc (vec +tile-size+ 0)))
+                     (add-shadow-line chunk loc (v+ loc (vec 0 +tile-size+))))
+                    ((and (= 1 (sfaref (1- x) y))
                           (= 1 (sfaref x (1+ y))))
                      (add-shadow-line chunk loc (v+ loc (vec +tile-size+ 0)))
                      (add-shadow-line chunk loc (v+ loc (vec 0 +tile-size+))))))))))))

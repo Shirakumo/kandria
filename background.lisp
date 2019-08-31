@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity background (textured-entity)
+(define-shader-entity background (lit-entity textured-entity)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (parallax-speed :initform (vec 2 1) :initarg :parallax-speed :accessor parallax-speed)
    (parallax-direction :initform 1 :initarg :parallax-direction :accessor parallax-direction)
@@ -76,4 +76,11 @@ void main(){
   }
   
   color = texelFetch(background, map_xy, 0);
+  color = mix(color, apply_lighting(color, vec2(0, 0), 0), 0.5);
+}")
+
+(define-class-shader (lit-animated-sprite :fragment-shader)
+  "out vec4 color;
+
+void main(){
 }")
