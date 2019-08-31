@@ -46,7 +46,7 @@ uniform vec3 ambient_light = vec3(0.2);
 
 vec4 apply_lighting(vec4 color, vec2 offset){
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
-  float shade = 1-texelFetch(shadow_map, pos, 0).r;
+  float shade = (0.4 < texelFetch(shadow_map, pos, 0).r)? 0 : 1;
   vec4 light = texelFetch(lighting, pos, 0);
 
   vec3 truecolor = vec3(0);

@@ -34,6 +34,11 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
+(define-asset (world tundra-abs) image
+    #p"tundra-absorption.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
 (define-asset (world fi) image
     #p"fi.png"
   :min-filter :nearest
