@@ -47,6 +47,7 @@
     (loop for unit across (aref layers (1- (length layers)))
           do (paint unit target))))
 
+;; KLUDGE: This sucks man.
 (defmethod paint :around ((thing shader-entity) (target shadow-map-pass)))
 
 (defmethod paint :around ((subject shadow-caster) (pass shadow-map-pass))
