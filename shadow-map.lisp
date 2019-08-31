@@ -1,5 +1,13 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(define-gl-struct light-info
+  (sun-position :vec2 :accessor sun-position)
+  (sun-light :vec3 :accessor sun-light)
+  (ambient-light :vec3 :accessor ambient-light))
+
+(define-asset (leaf light-info) uniform-buffer
+    'light-info)
+
 (define-shader-entity shadow-caster (located-entity)
   ((shadow-geometry :accessor shadow-geometry)))
 
@@ -38,7 +46,8 @@
     (setf (size vao) (/ (length data) 2))))
 
 (define-shader-pass shadow-map-pass (single-shader-pass)
-  ((shadow-map :port-type output :texspec (:internal-format :r8))))
+  ((shadow-map :port-type output :texspec (:internal-format :r8)))
+  (:buffers (leaf light-info)))
 
 (defmethod paint ((container layered-container) (target shadow-map-pass))
   ;; KLUDGE: Bypass layering, only render chunks at layer 0.
@@ -62,9 +71,9 @@
       (gl:draw-arrays (vertex-form vao) 0 (size vao)))))
 
 (define-class-shader (shadow-map-pass :vertex-shader)
+  (gl-source (asset 'leaf 'light-info))
   "layout(location = 0) in vec2 vertex_position;
 
-uniform vec2 light_position = vec2(1000000,1000000);
 uniform mat4 model_matrix;
 uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
@@ -72,7 +81,7 @@ uniform mat4 projection_matrix;
 void main(){
   vec2 vertex = vertex_position;
   if(gl_VertexID % 2 != 0){
-    vec2 direction = light_position - vertex;
+    vec2 direction = light_info.sun_position - vertex;
     vertex = vertex - direction * 100;
   }
   gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertex, 0, 1);

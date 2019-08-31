@@ -3,6 +3,12 @@
 (define-shader-pass lighting-pass (per-object-pass hdr-output-pass)
   ())
 
+(define-handler (lighting-pass trial:tick) (ev tt)
+  (with-buffer-tx (light (asset 'leaf 'light-info))
+    (setf (sun-position light) (vec2 (* 10000 (sin tt)) (* 10000 (cos tt))))
+    (setf (sun-light light) (v* (vec3 2.0 1.5 0.5) (max 0 (cos tt))))
+    (setf (ambient-light light) (vec3 0.1 0.1 0.1))))
+
 (define-shader-entity light (vertex-entity sized-entity)
   ())
 
@@ -36,23 +42,23 @@ void main(){
 }")
 
 (define-shader-entity lit-entity ()
-  ())
+  ()
+  (:buffers (leaf light-info)))
 
 (define-class-shader (lit-entity :fragment-shader 100)
+  (gl-source (asset 'leaf 'light-info))
   "uniform sampler2D lighting;
 uniform sampler2D shadow_map;
-uniform vec3 sun_light = vec3(0.8);
-uniform vec3 ambient_light = vec3(0.2);
 
-vec4 apply_lighting(vec4 color, vec2 offset){
+vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
   float shade = (0.4 < texelFetch(shadow_map, pos, 0).r)? 0 : 1;
   vec4 light = texelFetch(lighting, pos, 0);
 
   vec3 truecolor = vec3(0);
-  truecolor += ambient_light*color.rgb;
-  truecolor += sun_light*shade*color.rgb;
-  truecolor += light.rgb*light.a*color.rgb;
+  truecolor += light_info.ambient_light*color.rgb;
+  truecolor += light_info.sun_light*max(0, shade-absorption)*color.rgb;
+  truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
   return vec4(truecolor, color.a);
 }")
 
@@ -63,7 +69,7 @@ vec4 apply_lighting(vec4 color, vec2 offset){
   "out vec4 color;
 
 void main(){
-  color = apply_lighting(color, vec2(0, -5));
+  color = apply_lighting(color, vec2(0, -5), 0);
 }")
 
 (define-shader-entity basic-light (light colored-entity)
