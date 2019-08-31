@@ -37,16 +37,6 @@
       (resize-buffer vbo (* (length data) 4) :data data))
     (setf (size vao) (/ (length data) 2))))
 
-(defmethod add-shadow-cube ((caster shadow-caster) loc)
-  (let ((r (nv+ (vec +tile-size+ 0) loc))
-        (l (nv+ (vec 0 +tile-size+) loc))
-        (u (nv+ (vec +tile-size+ +tile-size+) loc)))
-    (add-shadow-line caster loc l)
-    (add-shadow-line caster loc r)
-    (add-shadow-line caster l u)
-    (add-shadow-line caster r u)))
-
-
 (define-shader-pass shadow-map-pass (single-shader-pass)
   ((shadow-map :port-type output :texspec (:internal-format :r8))))
 
@@ -91,5 +81,5 @@ void main(){
   "out vec4 color;
 
 void main(){
-  color = vec4(1);
+  color = vec4(0.5);
 }")
