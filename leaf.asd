@@ -1,6 +1,7 @@
 (asdf:defsystem leaf
   :components ((:file "package")
                (:file "helpers")
+               (:file "color-temperature")
                (:file "auto-fill")
                (:file "layered-container")
                (:file "serialization")

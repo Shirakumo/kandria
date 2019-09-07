@@ -76,5 +76,5 @@ void main(){
   }
   
   color = texelFetch(background, map_xy, 0);
-  color = mix(color, apply_lighting(color, vec2(0, 0), 0), 0.5);
+  color = mix(color, apply_lighting(color, vec2(0, 0), 0), 1);
 }")
