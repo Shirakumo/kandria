@@ -24,7 +24,7 @@
     ;; Point test for adjacent walls
     (let ((l (scan surface (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan surface (vec (+ (vx loc) (vx size) 1) (vy loc))))
-          (u (scan surface (vec (vx loc) (+ (vy loc) (vy size)) (vx size) 1))))
+          (u (scan surface (vec (vx loc) (+ (vy loc) (vy size) 1) (vx size) 1))))
       (when l (setf (aref (collisions moving) 3) l))
       (when r (setf (aref (collisions moving) 1) r))
       (when u (setf (aref (collisions moving) 0) u)))))
