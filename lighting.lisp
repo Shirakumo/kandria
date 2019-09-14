@@ -4,7 +4,7 @@
   ())
 
 (define-handler (lighting-pass trial:tick) (ev)
-  (let ((tt (- (/ (clock +world+) 2) (/ PI 2))))
+  (let ((tt (/ (clock +world+) 300)))
     (with-buffer-tx (light (asset 'leaf 'light-info))
       (setf (sun-position light) (vec2 (* 10000 (sin tt)) (* 10000 (cos tt))))
       (setf (sun-light light)
