@@ -10,13 +10,13 @@
 ;;                          Hard velocity caps
 (define-global +vlim+  (vec 10      10))
 ;;                          GRD-ACC AIR-DCC AIR-ACC GRD-LIM
-(define-global +vmove+ (vec 0.3     0.97    0.08    1.75))
+(define-global +vmove+ (vec 0.1     0.97    0.08    1.9))
 ;;                          CLIMB   DOWN    SLIDE
 (define-global +vclim+ (vec 0.8     1.5     -1.2))
 ;;                          CRAWL
 (define-global +vcraw+ (vec 0.5     0.0))
 ;;                          JUMP    LONGJMP WALL-VX WALL-VY
-(define-global +vjump+ (vec 2.5     1.1     2.75     3.5))
+(define-global +vjump+ (vec 2.5     1.1     2.75     2.5))
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 20      0.7))
 
@@ -89,14 +89,16 @@ void main(){
     (setf (jump-count player) (- +coyote+))))
 
 (defmethod collide :before ((player player) (block block) hit)
-  (setf (air-count player) 0)
-  (unless (eql :dashing (state player))
-    (setf (dash-count player) 0))
   (unless (typep block 'spike)
     (when (and (= +1 (vy (hit-normal hit)))
-               (< (vy (velocity player)) -2))
+               (< (vy (velocity player)) -5))
+      (when (< 30 (air-count player))
+        (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy +vlim+)))))
       (enter (make-instance 'dust-cloud :location (nv+ (v* (velocity player) (hit-time hit)) (location player)))
-             +world+))))
+             +world+)))
+  (setf (air-count player) 0)
+  (unless (eql :dashing (state player))
+    (setf (dash-count player) 0)))
 
 (defmethod collide ((player player) (trigger trigger) hit)
   (when (active-p trigger)
@@ -132,7 +134,19 @@ void main(){
         (setf (interactable player) entity)))
     ;; Handle jumps
     (when (< (jump-count player) 0)
-      (cond ((< (air-count player) +coyote+)
+      (cond ((or (svref collisions 1)
+                 (svref collisions 3))
+             ;; Wall jump
+             (let ((dir (if (svref collisions 1) -1.0 1.0)))
+               (setf (vx acc) (* dir (vz +vjump+)))
+               (setf (vy acc) (vw +vjump+))
+               (setf (direction player) dir)
+               (setf (jump-count player) 0)
+               (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
+                                                                 (vy loc))
+                                                 :direction (vec2 dir 0))
+                      +world+)))
+            ((< (air-count player) +coyote+)
              ;; Ground jump
              (setf (vy acc) (+ (vx +vjump+)
                                (if (svref collisions 2)
@@ -140,18 +154,7 @@ void main(){
                                    0)))
              (setf (jump-count player) 0)
              (enter (make-instance 'dust-cloud :location (vcopy loc))
-                    +world+))
-            ((or (svref collisions 1)
-                 (svref collisions 3))
-             ;; Wall jump
-             (let ((dir (if (svref collisions 1) -1.0 1.0)))
-               (setf (vx acc) (* dir (vz +vjump+)))
-               (setf (vy acc) (vw +vjump+))
-               (setf (direction player) dir)
-               (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
-                                                                 (vy loc))
-                                                 :direction (vec2 dir 0))
-                      +world+)))))
+                    +world+))))
     (ecase (state player)
       (:dashing
        (incf (dash-count player))
@@ -205,8 +208,8 @@ void main(){
        ;; Test for climbing
        (when (and (retained 'movement :climb)
                   (not (retained 'movement :jump))
-                  (or (svref collisions 1)
-                      (svref collisions 3)))
+                  (or (typep (svref collisions 1) '(and (not null) (not platform)))
+                      (typep (svref collisions 3) '(and (not null) (not platform)))))
          (setf (state player) :climbing))
 
        ;; Test for crawling

@@ -8,7 +8,8 @@
    (target :initarg :target :initform NIL :accessor target)
    (intended-location :initform (vec2 0 0) :accessor intended-location)
    (surface :initform NIL :accessor surface)
-   (shake-counter :initform 0 :accessor shake-counter))
+   (shake-counter :initform 0 :accessor shake-counter)
+   (shake-intensity :initform 3 :accessor shake-intensity))
   (:default-initargs
    :location (vec 0 0)
    :target-size (v* +tiles-in-view+ +tile-size+ .5)))
@@ -48,7 +49,7 @@
         (nv+ loc dir)))
     (when (< 0 (shake-counter camera))
       (decf (shake-counter camera))
-      (nv+ loc (vrand -3 +3)))))
+      (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera))))))
 
 (defmethod (setf zoom) :after (zoom (camera camera))
   (setf (view-scale camera) (* (float (/ (width *context*) (* 2 (vx (target-size camera)))))
@@ -69,5 +70,7 @@
     (scale-by z z z *view-matrix*)
     (translate-by (vx v) (vy v) 100 *view-matrix*)))
 
-(defmethod shake-camera (&optional (intensity 20))
-  (setf (shake-counter (unit :camera +world+)) intensity))
+(defun shake-camera (&key (duration 20) (intensity 3))
+  (let ((camera (unit :camera +world+)))
+    (setf (shake-counter camera) duration)
+    (setf (shake-intensity camera) intensity)))

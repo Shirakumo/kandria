@@ -102,6 +102,12 @@
   (vec (+ min (random (- max min)))
        (+ min (random (- max min)))))
 
+(defun vrandr (min max)
+  (let ((r (+ min (random (- max min))))
+        (phi (random (* 2 PI))))
+    (vec (* r (cos phi))
+         (* r (sin phi)))))
+
 (defun nvalign (vec grid)
   (vsetf vec
          (* grid (floor (+ (vx vec) (/ grid 2)) grid))
