@@ -81,7 +81,6 @@ void main(){
                    ((retained 'movement :down)  -1)
                    (T                            0)))
       (setf (state player) :dashing)
-      ;; (setf (animation player) 8)
       (when (v= 0 acc) (setf (vx acc) 1))
       (nvunit acc))))
 
