@@ -3,7 +3,11 @@
 (define-asset (leaf player-mesh) mesh
     (make-rectangle 32 40))
 
+;;                          Gravity pulling down
 (define-global +vgrav+ 0.15)
+;;                          How many frames to stay "grounded"
+(define-global +coyote+ 4)
+;;                          Hard velocity caps
 (define-global +vlim+  (vec 10      10))
 ;;                          GRD-ACC AIR-DCC AIR-ACC GRD-LIM
 (define-global +vmove+ (vec 0.3     0.97    0.08    1.75))
@@ -21,8 +25,9 @@
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
    (vertex-array :initform (asset 'leaf 'player-mesh))
-   (jump-count :initform 0 :accessor jump-count)
-   (dash-count :initform 0 :accessor dash-count)
+   (jump-count :initform 100 :accessor jump-count)
+   (dash-count :initform 100 :accessor dash-count)
+   (air-count :initform 100 :accessor air-count)
    (surface :initform NIL :accessor surface))
   (:default-initargs
    :name 'player
@@ -81,30 +86,13 @@ void main(){
       (nvunit acc))))
 
 (define-handler (player start-jump) (ev)
-  (let* ((collisions (collisions player))
-         (loc (location player))
-         (acc (acceleration player)))
-    (unless (eql :crawling (state player))
-      (cond ((svref collisions 2)
-             ;; Ground jump
-             (setf (vy acc) (+ (vx +vjump+)
-                               (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))))
-             (incf (jump-count player))
-             (enter (make-instance 'dust-cloud :location (vcopy loc))
-                    +world+))
-            ((or (svref collisions 1)
-                 (svref collisions 3))
-             ;; Wall jump
-             (let ((dir (if (svref collisions 1) -1.0 1.0)))
-               (setf (vx acc) (* dir (vz +vjump+)))
-               (setf (vy acc) (vw +vjump+))
-               (setf (direction player) dir)
-               (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
-                                                                 (vy loc))
-                                                 :direction (vec2 dir 0))
-                      +world+)))))))
+  (unless (eql :crawling (state player))
+    (setf (jump-count player) (- +coyote+))))
 
 (defmethod collide :before ((player player) (block block) hit)
+  (setf (air-count player) 0)
+  (unless (eql :dashing (state player))
+    (setf (dash-count player) 0))
   (unless (typep block 'spike)
     (when (and (= +1 (vy (hit-normal hit)))
                (< (vy (velocity player)) -2))
@@ -143,6 +131,28 @@ void main(){
                  (typep entity 'interactable)
                  (contained-p (vec4 (vx loc) (vy loc) (* 1.5 (vx size)) (vy size)) entity))
         (setf (interactable player) entity)))
+    ;; Handle jumps
+    (when (< (jump-count player) 0)
+      (cond ((< (air-count player) +coyote+)
+             ;; Ground jump
+             (setf (vy acc) (+ (vx +vjump+)
+                               (if (svref collisions 2)
+                                   (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
+                                   0)))
+             (setf (jump-count player) 0)
+             (enter (make-instance 'dust-cloud :location (vcopy loc))
+                    +world+))
+            ((or (svref collisions 1)
+                 (svref collisions 3))
+             ;; Wall jump
+             (let ((dir (if (svref collisions 1) -1.0 1.0)))
+               (setf (vx acc) (* dir (vz +vjump+)))
+               (setf (vy acc) (vw +vjump+))
+               (setf (direction player) dir)
+               (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
+                                                                 (vy loc))
+                                                 :direction (vec2 dir 0))
+                      +world+)))))
     (ecase (state player)
       (:dashing
        (incf (dash-count player))
@@ -238,8 +248,7 @@ void main(){
        (when (< 0 (jump-count player))
          (when (and (retained 'movement :jump)
                     (<= 5 (jump-count player) 15))
-           (setf (vy acc) (* (vy +vjump+) (vy acc))))
-         (incf (jump-count player)))
+           (setf (vy acc) (* (vy +vjump+) (vy acc)))))
        (decf (vy acc) +vgrav+)
        ;; Limit when sliding down wall
        (when (and (or (svref collisions 1)
@@ -250,16 +259,14 @@ void main(){
     (nv+ vel acc)))
 
 (defmethod tick :after ((player player) ev)
-  (when (svref (collisions player) 2)
-    (setf (jump-count player) 0)
-    (unless (eql :dashing (state player))
-      (setf (dash-count player) 0)))
+  (incf (jump-count player))
+  (incf (air-count player))
   ;; OOB
   (unless (contained-p (location player) (surface player))
     (let ((other (for:for ((entity over (unit 'region +world+)))
-                   (when (and (typep entity 'chunk)
-                              (contained-p (location player) entity))
-                     (return entity)))))
+                          (when (and (typep entity 'chunk)
+                                     (contained-p (location player) entity))
+                            (return entity)))))
       (if other
           (issue +world+ 'switch-chunk :chunk other)
           (die player))))
