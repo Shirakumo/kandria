@@ -91,8 +91,12 @@
 (defun similar-asset (asset suffix)
   (with-standard-io-syntax
     (asset (pool asset)
-           (find-symbol (format NIL "~a~a" (name asset) suffix)
-                        (symbol-package (name asset))))))
+           (or (find-symbol (format NIL "~a~a" (name asset) suffix)
+                            (symbol-package (name asset)))
+               (find-symbol (format NIL "~a~a" (name asset) suffix)
+                            (symbol-package (name (pool asset))))
+               (error "No similar asset for ~s found with name ~s found in ~s"
+                      asset (format NIL "~a~a" (name asset) suffix) (symbol-package (name asset)))))))
 
 (defmethod unit (thing (target (eql T)))
   (when +world+
