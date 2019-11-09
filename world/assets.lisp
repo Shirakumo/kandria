@@ -1,50 +1,44 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-asset (world player) image
-    #p"player.png"
-  :internal-format :srgb-alpha
-  :min-filter :nearest
-  :mag-filter :nearest)
+(defmacro define-sprite (name path)
+  `(define-asset (world ,name) image
+       ,path
+     :internal-format :srgb-alpha
+     :min-filter :nearest
+     :mag-filter :nearest))
 
-(define-asset (world player-profile) image
-    #p"player-profile.png"
-  :internal-format :srgb-alpha
-  :min-filter :nearest
-  :mag-filter :nearest)
+(define-sprite player
+  #p"player.png")
 
-(define-asset (world ice) image
-    #p"ice.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
+(define-sprite player-profile
+  #p"player-profile.png")
 
-(define-asset (world icey-mountains) image
-    #p "icey-mountains.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
+(define-sprite ice
+  #p"ice.png")
 
-(define-asset (world tundra) image
-    #p"tundra.png"
-  :internal-format :srgb-alpha
-  :min-filter :nearest
-  :mag-filter :nearest)
+(define-sprite icey-mountains
+  #p "icey-mountains.png")
 
-(define-asset (world tundra-bg) image
-    #p"tundra-bg.png"
-  :internal-format :srgb-alpha
-  :min-filter :nearest
-  :mag-filter :nearest)
+(define-sprite tundra
+  #p"tundra.png")
 
-(define-asset (world tundra-absorption) image
-    #p"tundra-absorption.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
+(define-sprite tundra-bg
+  #p"tundra-bg.png")
 
-(define-asset (world fi) image
-    #p"fi.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
+(define-sprite tundra-absorption
+  #p"tundra-absorption.png")
 
-(define-asset (world fi-profile) image
-    #p "fi-profile.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
+(define-sprite debug
+  #p"debug.png")
+
+(define-sprite debug-bg
+  #p"debug-bg.png")
+
+(define-sprite debug-absorption
+  #p"debug-absorption.png")
+
+(define-sprite fi
+  #p"fi.png")
+
+(define-sprite fi-profile
+  #p "fi-profile.png")
