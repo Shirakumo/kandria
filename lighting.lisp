@@ -4,14 +4,11 @@
   ())
 
 (define-handler (lighting-pass trial:tick) (ev)
-  (let ((tt (/ (clock +world+) 300)))
+  (let ((tt (/ (clock +world+) 1)))
     (with-buffer-tx (light (asset 'leaf 'light-info))
-      (setf (sun-position light) (vec2 (* 10000 (sin tt)) (* 10000 (cos tt))))
-      (setf (sun-light light)
-            (v* (temperature-color (+ 2500 (* 10000 (max 0 (cos tt)))))
-                (if (< 0 (cos tt)) 1 (expt (+ 1 (cos tt)) 4))))
-      (setf (ambient-light light)
-            (v* (vec3 1 1 1) (/ (+ (cos tt) 1.2) 4))))))
+      (setf (sun-position light) (vec2 (* -10000 (sin tt)) (* 10000 (- (cos tt)))))
+      (setf (sun-light light) (v* (clock-color (/ (* tt 180) PI 15)) 2))
+      (setf (ambient-light light) (v* (sun-light light) 0.2)))))
 
 (define-shader-entity light (vertex-entity sized-entity)
   ())
@@ -58,6 +55,8 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
   float shade = (0.4 < texelFetch(shadow_map, pos, 0).r)? 0 : 1;
   vec4 light = texelFetch(lighting, pos, 0);
+
+  shade *= light_info.ambient_light.r;
 
   vec3 truecolor = vec3(0);
   truecolor += light_info.ambient_light*color.rgb;
