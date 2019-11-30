@@ -16,9 +16,12 @@
     (format NIL "~4,'0d.~2,'0d.~2,'0d ~2,'0d:~2,'0d:~2,'0d" yy mm dd h m s)))
 
 (defun maybe-finalize-inheritance (class)
-  (unless (c2mop:class-finalized-p class)
-    (c2mop:finalize-inheritance class))
-  class)
+  (let ((class (etypecase class
+                 (class class)
+                 (symbol (find-class class)))))
+    (unless (c2mop:class-finalized-p class)
+      (c2mop:finalize-inheritance class))
+    class))
 
 (defmacro with-leaf-io-syntax (&body body)
   `(with-standard-io-syntax

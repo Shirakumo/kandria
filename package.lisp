@@ -8,6 +8,12 @@
   (:local-nicknames
    (#:dialogue #:org.shirakumo.fraf.leaf.dialogue)
    (#:quest #:org.shirakumo.fraf.leaf.quest)
-   (#:quest-graph #:org.shirakumo.fraf.leaf.quest.graph))
+   (#:quest-graph #:org.shirakumo.fraf.leaf.quest.graph)
+   (#:alloy #:org.shirakumo.alloy)
+   (#:simple #:org.shirakumo.alloy.renderers.simple)
+   (#:presentations #:org.shirakumo.alloy.renderers.simple.presentations)
+   (#:opengl #:org.shirakumo.alloy.renderers.opengl)
+   (#:colored #:org.shirakumo.alloy.colored)
+   (#:colors #:org.shirakumo.alloy.colored.colors))
   (:export
    #:launch))

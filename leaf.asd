@@ -22,13 +22,13 @@
                (:file "world")
                (:file "versions/v0")
                (:file "editor")
-               (:file "menu")
                (:file "camera")
                (:file "main")
                (:file "save-state")
                (:file "versions/save-v0")
                (:file "effects"))
   :depends-on (:trial-glfw
+               :trial-alloy
                :zip
                :fast-io
                :ieee-floats
