@@ -68,7 +68,6 @@
 
 (defmethod setup-scene ((main main) scene)
   (enter (make-instance 'textbox) scene)
-  (enter (make-instance 'inactive-pause-menu) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
 
