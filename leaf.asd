@@ -26,7 +26,12 @@
                (:file "main")
                (:file "save-state")
                (:file "versions/save-v0")
-               (:file "effects"))
+               (:file "effects")
+               (:module "ui"
+                :components ((:file "general")
+                             (:file "editmenu")
+                             (:file "chunk")
+                             (:file "entity"))))
   :depends-on (:trial-glfw
                :trial-alloy
                :zip

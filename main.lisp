@@ -66,6 +66,8 @@
 (defun launch (&rest initargs)
   (apply #'trial:launch 'main initargs))
 
+(defmethod paint ((controller controller) (pass shader-pass)))
+
 (defmethod setup-scene ((main main) scene)
   (enter (make-instance 'textbox) scene)
   (enter (make-instance 'inactive-editor) scene)
