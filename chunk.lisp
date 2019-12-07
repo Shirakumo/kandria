@@ -10,7 +10,8 @@
                    :type asset :documentation "The absorption map for the chunk.")
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles.")
-   (node-graph :accessor node-graph))
+   (node-graph :accessor node-graph)
+   (target-layer :initform NIL :accessor target-layer))
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initargs append ((_ chunk))
@@ -57,12 +58,17 @@
   (call-next-method)
   (when (< *current-layer* (length (objects chunk)))
     (loop for unit across (aref (objects chunk) *current-layer*)
-          do (paint unit target))))
+          do (paint unit target)))
+  (when (and (target-layer chunk)
+             (= *current-layer* (1- +layer-count+)))
+    (let ((*current-layer* +layer-count+))
+      (call-next-method))))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
         (vao (vertex-array chunk)))
     (setf (uniform program "layer") *current-layer*)
+    (setf (uniform program "target_layer") (or (target-layer chunk) -1))
     (setf (uniform program "tile_size") +tile-size+)
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "map_size") (size chunk))
@@ -104,6 +110,7 @@ uniform vec2 map_size;
 uniform vec2 map_position;
 uniform int tile_size;
 uniform int layer;
+uniform int target_layer = -1;
 in vec2 map_coord;
 out vec4 color;
 
@@ -127,6 +134,8 @@ void main(){
   color = texelFetch(tileset, tile_xy, 0);
   float absor = texelFetch(absorption, tile_xy, 0).r;
   color = apply_lighting(color, vec2(0), 1-absor);
+  if(0 <= target_layer && layer != target_layer)
+    color *= 0.25;
 }")
 
 (defmethod resize ((chunk chunk) w h)

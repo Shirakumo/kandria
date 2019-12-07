@@ -1,11 +1,11 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defmacro define-sprite (name path)
+(defmacro define-sprite (name path &body args)
   `(define-asset (world ,name) image
        ,path
-     :internal-format :srgb-alpha
      :min-filter :nearest
-     :mag-filter :nearest))
+     :mag-filter :nearest
+     ,@args))
 
 (define-sprite player
   #p"player.png")
@@ -26,7 +26,8 @@
   #p"tundra-bg.png")
 
 (define-sprite tundra-absorption
-  #p"tundra-absorption.png")
+    #p"tundra-absorption.png"
+  :internal-format :red)
 
 (define-sprite debug
   #p"debug.png")

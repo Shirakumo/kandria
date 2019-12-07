@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-gl-struct light-info
+  (activep :int :accessor active-p)
   (sun-position :vec2 :accessor sun-position)
   (sun-light :vec3 :accessor sun-light)
   (ambient-light :vec3 :accessor ambient-light))

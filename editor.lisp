@@ -1,8 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-
-
-
 (define-subject base-editor (located-entity alloy:observable-object)
   ((flare:name :initform :editor)
    (alloy:target-resolution :initform (alloy:size 1280 720))
@@ -13,9 +10,16 @@
   (vector-push-extend (ui editor) resources))
 
 (defmethod initialize-instance :after ((editor base-editor) &key)
-  (let* ((ui (ui editor)))
-    (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree ui))
-    (make-instance 'alloy:fixed-layout :layout-parent (alloy:layout-tree ui))
+  (let* ((ui (ui editor))
+         (focus (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree ui)))
+         (layout (make-instance 'alloy:border-layout :layout-parent (alloy:layout-tree ui)))
+         (menu (make-instance 'editmenu))
+         (entity (make-instance 'entity-widget :side :west)))
+    (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
+    (alloy:enter menu layout :place :north)
+    (alloy:enter menu focus)
+    (alloy:enter entity layout :place :west :size (alloy:un 200))
+    (alloy:enter entity focus)
     (alloy:register ui ui)))
 
 (defmethod register-object-for-pass :after ((pass per-object-pass) (editor base-editor))
@@ -26,8 +30,12 @@
   (setf (active-p base-editor) (not (active-p base-editor))))
 
 (defmethod (setf active-p) (value (editor base-editor))
+  (with-buffer-tx (light (asset 'leaf 'light-info))
+    (setf (active-p light) (if value 0 1)))
   (cond (value
          (pause-game T editor)
+         (handle (make-instance 'resize :width (width *context*) :height (height *context*))
+                 (ui editor))
          (change-class editor (editor-class (entity editor))))
         (T
          (change-class editor 'inactive-editor)
@@ -42,7 +50,27 @@
 
 (define-subject editor (base-editor)
   ((state :initform NIL :accessor state)
-   (start-pos :initform (vec 0 0) :accessor start-pos)))
+   (start-pos :initform (vec 0 0) :accessor start-pos)
+   (sidebar :initform NIL :accessor sidebar)))
+
+(defmethod update-instance-for-different-class :around ((editor editor) current &key)
+  (when (sidebar editor)
+    (let ((layout (alloy:root (alloy:layout-tree (ui editor))))
+          (focus (alloy:root (alloy:focus-tree (ui editor)))))
+      (alloy:leave (sidebar editor) layout)
+      (alloy:leave (sidebar editor) focus))
+    (when (typep current 'editor)
+      (setf (sidebar current) NIL)))
+  (call-next-method))
+
+(defmethod update-instance-for-different-class :around (previous (editor editor) &key)
+  (call-next-method)
+  (when (sidebar editor)
+    (let ((layout (alloy:root (alloy:layout-tree (ui editor))))
+          (focus (alloy:root (alloy:focus-tree (ui editor)))))
+      (alloy:enter (sidebar editor) layout :place :east :size (alloy:un 300))
+      (alloy:enter (sidebar editor) focus)
+      (alloy:register (sidebar editor) (ui editor)))))
 
 (defmethod active-p ((editor editor)) T)
 
@@ -207,17 +235,16 @@
 
 (define-subject chunk-editor (editor)
   ((tile :initform (vec2 1 0) :accessor tile-to-place)
-   (layer :initform +3 :accessor layer)
-   (widget :initform NIL :accessor widget)))
+   (layer :initform +3 :accessor layer)))
 
 (defmethod shared-initialize :after ((editor chunk-editor) slots &key)
-  (setf (tile-to-place editor) (vec2 1 0))
-  (let ((layout (alloy:root (alloy:layout-tree (ui editor))))
-        (focus (alloy:root (alloy:focus-tree (ui editor))))
-        (widget (or (widget editor)
-                    (setf (widget editor) (make-instance 'chunk-widget :entity (entity editor))))))
-    (alloy:enter (slot-value widget 'window) layout :x 0 :y 0 :w (alloy:px 300) :h (alloy:px 500))
-    (alloy:enter (slot-value widget 'window) focus)))
+  (setf (tile-to-place editor) (vec2 1 0)))
+
+(defmethod update-instance-for-different-class :after (previous (editor chunk-editor) &key)
+  (setf (sidebar editor) (make-instance 'chunk-widget :entity (entity editor) :side :east)))
+
+(defmethod (setf entity) :before (new (editor chunk-editor))
+  (setf (target-layer (entity editor)) NIL))
 
 (defmethod editor-class ((_ chunk)) 'chunk-editor)
 
@@ -253,16 +280,16 @@
   (unless (eql button :middle)
     (let* ((chunk (entity chunk-editor))
            (tile (case button
-                   (:left (tile-to-place (widget chunk-editor)))
+                   (:left (tile-to-place (sidebar chunk-editor)))
                    (:right (vec2 0 0))))
            (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor))
-                      (layer (widget chunk-editor)))))
+                      (layer (sidebar chunk-editor)))))
       (cond ((retained 'modifiers :control)
              (if (= (layer chunk-editor) 0)
                  (auto-tile chunk loc)
                  (flood-fill chunk loc tile)))
             ((retained 'modifiers :alt)
-             (setf (tile-to-place (widget chunk-editor)) (tile loc chunk)))
+             (setf (tile-to-place (sidebar chunk-editor)) (tile loc chunk)))
             (T
              (setf (state chunk-editor) :placing)
              (setf (tile loc chunk) tile))))))
