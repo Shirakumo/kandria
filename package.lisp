@@ -14,6 +14,7 @@
    (#:presentations #:org.shirakumo.alloy.renderers.simple.presentations)
    (#:opengl #:org.shirakumo.alloy.renderers.opengl)
    (#:colored #:org.shirakumo.alloy.colored)
-   (#:colors #:org.shirakumo.alloy.colored.colors))
+   (#:colors #:org.shirakumo.alloy.colored.colors)
+   (#:file-select #:org.shirakumo.file-select))
   (:export
    #:launch))

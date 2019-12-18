@@ -37,8 +37,7 @@
     (alloy:finish-structure structure scroll scroll)))
 
 (alloy:define-widget chunk-widget (sidebar)
-  ((entity :initarg :entity :initform NIL :accessor entity)
-   (show-all :initform T :accessor show-all :representation (alloy:switch))
+  ((show-all :initform T :accessor show-all :representation (alloy:switch))
    (layer :initform 0 :accessor layer :representation (alloy:ranged-slider :range '(-2 . +3) :grid 1))
    (tile :initform (vec2 1 0) :accessor tile-to-place)
    (type :initform NIL :accessor tile-type :representation (alloy:combo-set :value-set '(NIL :t :r :b :l :tl> :tr> :br> :bl> :tl< :tr< :br< :bl< 1 2 3 4 T)))))
@@ -54,9 +53,10 @@
 (alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (tileset (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption-map (entity chunk-widget))))
 (alloy::define-subbutton (chunk-widget pick) ()
-  )
+  (setf (state (editor chunk-widget)) :picking))
 (alloy::define-subbutton (chunk-widget clear) ()
-  )
+  ;; FIXME: add confirmation
+  (clear (entity chunk-widget)))
 (alloy::define-subbutton (chunk-widget compute) ()
   (let ((chunk (entity chunk-widget)))
     (compute-shadow-map chunk)

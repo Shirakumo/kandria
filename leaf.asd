@@ -45,4 +45,5 @@
                :trivial-indent
                :leaf-dialogue
                :leaf-quest
-               :alexandria))
+               :alexandria
+               :file-select))
