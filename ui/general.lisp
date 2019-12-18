@@ -21,8 +21,13 @@
   (alloy:register (slot-value widget 'representation) target))
 
 (defclass sidebar (single-widget)
-  ((side :initarg :side :accessor side))
+  ((side :initarg :side :accessor side)
+   (entity :initform NIL :accessor entity)
+   (editor :initarg :editor :initform (alloy:arg! :editor) :accessor editor))
   (:metaclass alloy:widget-class))
+
+(defmethod initialize-instance :before ((sidebar sidebar) &key editor)
+  (setf (slot-value sidebar 'entity) (entity editor)))
 
 (alloy:define-subobject (sidebar representation -100) ('alloy:sidebar :side (side sidebar))
   (alloy:enter (slot-value sidebar 'layout) representation)

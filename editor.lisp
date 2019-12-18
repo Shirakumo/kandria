@@ -1,5 +1,9 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+;; TODO: Switch to using a tools-based system, where the tool governs the
+;;       interaction and the editor class governs the set of available tools
+;;       and the UI presentation that's visible to allow selecting the tools.
+
 (define-subject base-editor (located-entity alloy:observable-object)
   ((flare:name :initform :editor)
    (alloy:target-resolution :initform (alloy:size 1280 720))
@@ -14,7 +18,7 @@
          (focus (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree ui)))
          (layout (make-instance 'alloy:border-layout :layout-parent (alloy:layout-tree ui)))
          (menu (make-instance 'editmenu))
-         (entity (make-instance 'entity-widget :side :west)))
+         (entity (make-instance 'entity-widget :editor editor :side :west)))
     (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
     (alloy:enter menu layout :place :north)
     (alloy:enter menu focus)
@@ -154,22 +158,22 @@
   (if (retained 'modifiers :control)
       (let ((world (load-world +world+)))
         (change-scene (handler *context*) world))
-      (with-query (file "World load location"
-                        :default (storage (packet +world+))
-                        :parse #'uiop:parse-native-namestring)
-        (let ((world (load-world (pool-path 'leaf file))))
-          (change-scene (handler *context*) world)))))
+      (let ((path (file-select:existing :title "Select World File" :default (storage (packet +world+)))))
+        (when path (change-scene (handler *context*) (load-world path))))))
 
 (define-handler (editor save-region) (ev)
-  (save-region T T))
+  (if (retained 'modifiers :control)
+      (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)))))
+        (save-region T path))
+      (save-region T T)))
 
 (define-handler (editor load-region) (ev)
   (let ((old (unit 'region +world+)))
     (cond ((retained 'modifiers :control)
            (transition old (load-region T T)))
           (T
-           (with-query (region "Region name")
-             (transition old (load-region region T)))))))
+           (let ((path (file-select:existing :title "Select Region File")))
+             (when path (transition old (load-region path T))))))))
 
 (define-handler (editor save-game) (ev)
   (save-state T T))
@@ -180,8 +184,8 @@
              (load-state state T)
              (transition old (unit 'region +world+))))
       (cond ((retained 'modifiers :control) (load! T))
-            (T (with-query (region "State name")
-                 (load! region)))))))
+            (T (let ((path (file-select:existing :title "Select Save File" :default (file (state (handler *context*))))))
+                 (load! path)))))))
 
 (define-handler (editor insert-entity) (ev)
   )
@@ -234,28 +238,15 @@
      (move-to (location movable-editor) (entity movable-editor)))))
 
 (define-subject chunk-editor (editor)
-  ((tile :initform (vec2 1 0) :accessor tile-to-place)
-   (layer :initform +3 :accessor layer)))
-
-(defmethod shared-initialize :after ((editor chunk-editor) slots &key)
-  (setf (tile-to-place editor) (vec2 1 0)))
+  ())
 
 (defmethod update-instance-for-different-class :after (previous (editor chunk-editor) &key)
-  (setf (sidebar editor) (make-instance 'chunk-widget :entity (entity editor) :side :east)))
+  (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
 
 (defmethod (setf entity) :before (new (editor chunk-editor))
   (setf (target-layer (entity editor)) NIL))
 
 (defmethod editor-class ((_ chunk)) 'chunk-editor)
-
-(defmethod (setf tile-to-place) (value (chunk-editor chunk-editor))
-  (let ((width (floor (width (tileset (entity chunk-editor))) +tile-size+))
-        (height (floor (height (tileset (entity chunk-editor))) +tile-size+)))
-    (setf (vx value) (clamp 0 (vx value) (1- width)))
-    (if (= +3 (layer chunk-editor))
-        (setf (vy value) 0)
-        (setf (vy value) (clamp 0 (vy value) (1- height))))
-    (setf (slot-value chunk-editor 'tile) value)))
 
 (defmethod resize ((editor chunk-editor) w h)
   (let* ((entity (entity editor))
@@ -266,15 +257,19 @@
       (vsetf (location entity) (vx loc) (vy loc)))))
 
 (define-handler (chunk-editor key-press) (ev key)
-  (when (case key
-          (:1 (setf (layer chunk-editor) -2))
-          (:2 (setf (layer chunk-editor) -1))
-          (:3 (setf (layer chunk-editor)  0))
-          (:4 (setf (layer chunk-editor) +1))
-          (:5 (setf (layer chunk-editor) +2))
-          (:0 (setf (layer chunk-editor) +3)))
-    (v:info :leaf.editor "Switched layer to ~d" (layer chunk-editor)))
-  (setf (tile-to-place chunk-editor) (tile-to-place chunk-editor)))
+  (case key
+    (:1 (setf (layer (sidebar chunk-editor)) -2))
+    (:2 (setf (layer (sidebar chunk-editor)) -1))
+    (:3 (setf (layer (sidebar chunk-editor))  0))
+    (:4 (setf (layer (sidebar chunk-editor)) +1))
+    (:5 (setf (layer (sidebar chunk-editor)) +2))
+    (:0 (setf (layer (sidebar chunk-editor)) +3))
+    (:left-alt (setf (state chunk-editor) :picking))))
+
+(define-handler (chunk-editor key-release) (ev key)
+  (case key
+    (:left-alt (when (eq (state chunk-editor) :picking)
+                 (setf (state chunk-editor) NIL)))))
 
 (define-handler (chunk-editor chunk-press mouse-press) (ev pos button)
   (unless (eql button :middle)
@@ -284,22 +279,24 @@
                    (:right (vec2 0 0))))
            (loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor))
                       (layer (sidebar chunk-editor)))))
-      (cond ((retained 'modifiers :control)
+      (cond ((eq :picking (state chunk-editor))
+             (setf (tile-to-place (sidebar chunk-editor)) (tile loc chunk)))
+            ((retained 'modifiers :control)
              (if (= (layer chunk-editor) 0)
                  (auto-tile chunk loc)
                  (flood-fill chunk loc tile)))
-            ((retained 'modifiers :alt)
-             (setf (tile-to-place (sidebar chunk-editor)) (tile loc chunk)))
             (T
              (setf (state chunk-editor) :placing)
              (setf (tile loc chunk) tile))))))
 
 (define-handler (chunk-editor chunk-move mouse-move) (ev)
-  (let ((loc (vec3 (vx (location chunk-editor)) (vy (location chunk-editor)) (layer chunk-editor))))
+  (let ((loc (vec3 (vx (location chunk-editor))
+                   (vy (location chunk-editor))
+                   (layer (sidebar chunk-editor)))))
     (case (state chunk-editor)
       (:placing
        (cond ((retained 'mouse :left)
-              (setf (tile loc (entity chunk-editor)) (tile-to-place chunk-editor)))
+              (setf (tile loc (entity chunk-editor)) (tile-to-place (sidebar chunk-editor))))
              ((retained 'mouse :right)
               (setf (tile loc (entity chunk-editor)) (vec2 0 0))))))))
 
@@ -311,5 +308,5 @@
                     width))))
       (cond ((< 0 delta) (incf i))
             ((< delta 0) (decf i)))
-      (setf (tile-to-place chunk-editor)
+      (setf (tile-to-place (sidebar chunk-editor))
             (vec2 (mod i width) (floor i width))))))

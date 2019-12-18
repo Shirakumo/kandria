@@ -6,9 +6,11 @@
 
 (alloy:define-subcomponent (entity-widget region) ((name (unit 'region T)) alloy:label))
 (alloy::define-subbutton (entity-widget move) ()
-  )
+  (issue +world+ (make-instance 'move-entity)))
+(alloy::define-subbutton (entity-widget resize) ()
+  (issue +world+ (make-instance 'resize-entity)))
 (alloy::define-subbutton (entity-widget clone) ()
-  )
+  (issue +world+ (make-instance 'clone-entity)))
 (alloy::define-subbutton (entity-widget delete) ()
   (leave (entity entity-widget) (unit 'region T)))
 
@@ -17,9 +19,9 @@
   region entity
   (alloy:build-ui
    (alloy:grid-layout
-    :col-sizes '(T T T) :row-sizes '(30)
-    move clone delete)))
+    :col-sizes '(T T T T) :row-sizes '(30) :cell-margins (alloy:margins 1 0 0 0)
+    move resize clone delete)))
 
 (alloy:define-subcontainer (entity-widget focus)
     (alloy:focus-list)
-  move clone delete)
+  move resize clone delete)
