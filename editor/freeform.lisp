@@ -31,9 +31,22 @@
 (defmethod handle ((event mouse-move) (tool freeform))
   (case (state tool)
     (:moving
-     (let ((new (nv+ (nv- (mouse-world-pos (pos event)) (start-pos tool))
-                     (original-loc tool))))
-       (vsetf (location (entity tool)) (vx new) (vy new))))
+     (let ((new (nvalign (nv+ (nv- (mouse-world-pos (pos event)) (start-pos tool))
+                              (original-loc tool))
+                         +tile-size+))
+           (entity (entity tool)))
+       (when (v/= new (location entity))
+         (commit (capture-action (location entity) new) tool))))
     (:resizing
-     (let ((bsize (nvabs (nv- (mouse-world-pos (pos event)) (original-loc tool)))))
-       (resize (entity tool) (* 2 (vx bsize)) (* 2 (vy bsize)))))))
+     (let ((new (vmax (nvalign (nvabs (nv- (mouse-world-pos (pos event)) (original-loc tool))) (/ +tile-size+ 2)) +tile-size+))
+           (old (vcopy (bsize (entity tool))))
+           (orig (original-loc tool))
+           (entity (entity tool)))
+       (when (v/= new old)
+         (commit (make-instance 'closure-action
+                                :redo (lambda (_)
+                                        (resize entity (* 2 (vx new)) (* 2 (vy new)))
+                                        ;; FIXME: Not quite right yet.
+                                        (setf (location entity) (v+ orig (v- new old))))
+                                :undo (lambda (_) (resize entity (* 2 (vx old)) (* 2 (vy old)))))
+                 tool))))))
