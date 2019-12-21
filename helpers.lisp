@@ -159,32 +159,6 @@
                (when (typep entity class)
                  (update entity))))))
 
-(defun query (message on-yes &key default parse)
-  (flet ((parse (string)
-           (cond ((not string))
-                 ((string= "" string)
-                  default)
-                 (T
-                  (if parse (funcall parse string) string)))))
-    (let ((message (format NIL "~a~@[ [~a]~]:" message default))
-          (package *package*))
-      (cond (*context*
-             (with-context (*context*)
-               (flet ((callback (string)
-                        (let ((*package* package))
-                          (funcall on-yes (parse string)))))
-                 (let ((input (make-instance 'text-input :title message :callback #'callback)))
-                   (transition input +world+)
-                   (enter input +world+)))))
-            (T
-             (format *query-io* "~&~a~%> " message)
-             (parse (read-line *query-io* NIL)))))))
-
-(defmacro with-query ((value message &key default parse) &body body)
-  `(query ,message
-          (lambda (,value) ,@body)
-          :default ,default :parse ,parse))
-
 (defun initarg-slot (class initarg)
   (let ((class (etypecase class
                  (class class)
@@ -214,51 +188,6 @@
       (unless (typep value type)
         (error 'type-error :expected-type type :datum value)))
     value))
-
-(defun query-initarg (class initarg callback &optional (default NIL default-p))
-  (destructuring-bind (initarg type &optional documentation initfunction)
-      (if (listp initarg)
-          initarg
-          (let ((slot (initarg-slot class initarg)))
-            (list initarg
-                  (c2mop:slot-definition-type slot)
-                  (documentation slot T)
-                  (c2mop:slot-definition-initfunction slot))))
-    (unless default-p
-      (when initfunction
-        (setf default (funcall initfunction))
-        (setf default-p T)))
-    (flet ((on-yes (string)
-             (let ((value (cond (string
-                                 (parse-string-for-type string type))
-                                (default-p
-                                 default)
-                                (T
-                                 (error "A value for ~s is required." initarg)))))
-               (funcall callback value))))
-      (query (format NIL "~s <~a> [~:[REQUIRED~*~;~a~]]~@[~%~a~]"
-                     initarg
-                     type
-                     default-p default
-                     documentation)
-             #'on-yes))))
-
-(defun query-instance (callback &optional defaults)
-  (with-query (class "Class name" :parse #'read-from-string)
-    (let* ((class (maybe-finalize-inheritance (find-class class)))
-           (initargs (initargs (c2mop:class-prototype class)))
-           (initlist ()))
-      (labels ((invoke-next (initarg)
-                 (if (getf defaults initarg)
-                     (query-initarg class initarg #'query-next (getf defaults initarg))
-                     (query-initarg class initarg #'query-next)))
-               (query-next (value)
-                 (push (unlist (pop initargs)) initlist)
-                 (push value initlist)
-                 (if initargs
-                     (invoke-next (car initargs))
-                     (funcall callback (apply #'make-instance class (nreverse initlist))))))
-        (invoke-next (car initargs))))))
 
 (defmethod entity-at-point (point thing)
   NIL)
