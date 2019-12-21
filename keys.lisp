@@ -27,6 +27,14 @@
 (define-action shift-up (editor-command)
   (key-release (one-of key :left-shift :right-shift)))
 
+(define-action undo (editor-command)
+  (key-press (and (one-of key :z)
+                  (retained 'modifiers :control))))
+
+(define-action redo (editor-command)
+  (key-press (and (one-of key :y)
+                  (retained 'modifiers :control))))
+
 ;;; F Group 1
 (define-action load-world (editor-command))
 

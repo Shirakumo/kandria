@@ -5,10 +5,8 @@
            :representation (alloy:label))))
 
 (alloy:define-subcomponent (entity-widget region) ((name (unit 'region T)) alloy:label))
-(alloy::define-subbutton (entity-widget move) ()
-  (issue +world+ (make-instance 'move-entity)))
-(alloy::define-subbutton (entity-widget resize) ()
-  (issue +world+ (make-instance 'resize-entity)))
+(alloy::define-subbutton (entity-widget insert) ()
+  (issue +world+ (make-instance 'insert-entity)))
 (alloy::define-subbutton (entity-widget clone) ()
   (issue +world+ (make-instance 'clone-entity)))
 (alloy::define-subbutton (entity-widget delete) ()
@@ -20,8 +18,8 @@
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T T T T) :row-sizes '(30) :cell-margins (alloy:margins 1 0 0 0)
-    move resize clone delete)))
+    insert clone delete)))
 
 (alloy:define-subcontainer (entity-widget focus)
     (alloy:focus-list)
-  move resize clone delete)
+  insert clone delete)

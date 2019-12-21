@@ -8,6 +8,8 @@
 (alloy:define-subcomponent (editmenu zoom) ((zoom (unit :camera T)) alloy:ranged-slider
                                             :range '(0.1 . 3.0) :step 0.1 :grid 0.1
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
+(alloy::define-subbutton (editmenu undo) () (issue +world+ (make-instance 'undo)))
+(alloy::define-subbutton (editmenu redo) () (issue +world+ (make-instance 'redo)))
 (alloy:define-subcomponent (editmenu lighting) ((active-p (struct (asset 'leaf 'light-info))) alloy:switch
                                                 :off 0 :on 1 :ideal-bounds (alloy:extent 0 0 50 20)))
 (alloy:define-subcomponent (editmenu time) ((clock +world+) alloy:ranged-slider
@@ -19,11 +21,11 @@
                                     :shapes (list (make-instance 'simple:filled-rectangle :bounds (alloy:margins)
                                                                                           :name :background))
                                     :style `((:background :pattern ,(colored:color 0.1 0.1 0.1))))
-  save load zoom lighting time)
+  save load zoom undo redo lighting time)
 
 (alloy:define-subcontainer (editmenu focus :if-exists :supersede)
     (alloy:focus-list)
-  save load zoom lighting time)
+  save load zoom undo redo lighting time)
 
 (defmethod initialize-instance :after ((menu editmenu) &key)
   (alloy:on (setf alloy:value) (value (slot-value menu 'lighting))
