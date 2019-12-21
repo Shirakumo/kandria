@@ -234,6 +234,11 @@
              (push (clone (slot-value entity (c2mop:slot-definition-name slot))) initvalues))
     (apply #'make-instance (class-of entity) (nreverse initvalues))))
 
+(defun mouse-world-pos (pos)
+  (let ((camera (unit :camera T)))
+    (let ((pos (nv+ (v/ pos (view-scale camera)) (location camera))))
+      (nv- pos (v/ (target-size camera) (zoom camera))))))
+
 (define-pool leaf
   :base :leaf)
 

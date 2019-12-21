@@ -21,17 +21,25 @@
                (:file "player")
                (:file "world")
                (:file "versions/v0")
-               (:file "editor")
                (:file "camera")
                (:file "main")
                (:file "save-state")
                (:file "versions/save-v0")
                (:file "effects")
                (:module "ui"
-                :components ((:file "general")
+                :components ((:file "general")))
+               (:module "editor"
+                :components ((:file "history")
+                             (:file "tool")
+                             (:file "browser")
+                             (:file "paint")
+                             (:file "freeform")
+                             (:file "base")
+                             (:file "editor")
                              (:file "editmenu")
                              (:file "chunk")
                              (:file "entity"))))
+  :serial T
   :depends-on (:trial-glfw
                :trial-alloy
                :zip

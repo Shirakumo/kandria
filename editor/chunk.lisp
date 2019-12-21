@@ -84,3 +84,21 @@
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
   layer show-all tiles type pick clear compute)
+
+(define-subject chunk-editor (editor)
+  ())
+
+(defmethod update-instance-for-different-class :after (previous (editor chunk-editor) &key)
+  (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
+
+(defmethod (setf entity) :before (new (editor chunk-editor))
+  (setf (target-layer (entity editor)) NIL))
+
+(defmethod editor-class ((_ chunk))
+  'chunk-editor)
+
+(defmethod applicable-tools append ((_ chunk))
+  '(paint))
+
+(defmethod default-tool ((editor chunk-editor))
+  'paint)
