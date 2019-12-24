@@ -16,6 +16,17 @@
 
 (defmethod update-instance-for-different-class :around (previous (editor editor) &key)
   (call-next-method)
+  (cond ((typep (entity editor) 'sized-entity)
+         ;; FIXME: This change also needs to happen when the entity is resized or moved.
+         (let* ((p (location (entity editor)))
+                (s (bsize (entity editor)))
+                (ul (vec3 (- (vx p) (vx s)) (+ (vy p) (vy s)) 0))
+                (ur (vec3 (+ (vx p) (vx s)) (+ (vy p) (vy s)) 0))
+                (br (vec3 (+ (vx p) (vx s)) (- (vy p) (vy s)) 0))
+                (bl (vec3 (- (vx p) (vx s)) (- (vy p) (vy s)) 0)))
+           (replace-vertex-data (marker editor) (list ul ur ur br br bl bl ul) :default-color (vec 1 1 1 1))))
+        (T
+         (replace-vertex-data (marker editor) ())))
   (when (sidebar editor)
     (let ((layout (alloy:root (alloy:layout-tree (ui editor))))
           (focus (alloy:root (alloy:focus-tree (ui editor)))))
@@ -36,9 +47,13 @@
 (defmethod handle ((event event) (editor editor))
   (unless (handle event (ui editor))
     (call-next-method)
-    (handle event (tool editor))))
+    (handle event (cond ((retained 'modifiers :alt) (alt-tool editor))
+                        (T (tool editor))))))
 
 (defmethod paint ((editor editor) (target rendering-pass))
+  (gl:blend-func :one-minus-dst-color :zero)
+  (paint (marker editor) target)
+  (gl:blend-func :src-alpha :one-minus-src-alpha)
   (paint (ui editor) target))
 
 (define-handler (editor mouse-release) (ev pos)

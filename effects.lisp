@@ -4,7 +4,7 @@
   ())
 
 (define-class-shader (radial-bokeh-pass :fragment-shader)
-  '(leaf "radial-bokeh.frag"))
+  (pool-path 'leaf "radial-bokeh.frag"))
 
 (define-shader-pass %hex-bokeh-pass (post-effect-pass)
   ((parent :initarg :parent :accessor parent)))
