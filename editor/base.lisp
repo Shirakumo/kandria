@@ -3,9 +3,11 @@
 (define-subject base-editor (alloy:observable-object)
   ((flare:name :initform :editor)
    (alloy:target-resolution :initform (alloy:size 1280 720))
+   (marker :initform (make-instance 'trial::lines) :accessor marker)
    (ui :initform (make-instance 'ui) :accessor ui)
    (entity :initform NIL :accessor entity)
    (tool :accessor tool)
+   (alt-tool :accessor alt-tool)
    (toolbar :accessor toolbar)
    (history :initform (make-instance 'linear-history) :accessor history)))
 
@@ -19,6 +21,7 @@
          (menu (make-instance 'editmenu))
          (toolbar (make-instance 'toolbar :editor editor :entity NIL))
          (entity (make-instance 'entity-widget :editor editor :side :west)))
+    (setf (alt-tool editor) (make-instance 'browser :editor editor))
     (setf (toolbar editor) toolbar)
     (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
     (alloy:enter menu layout :place :north)
@@ -31,7 +34,8 @@
 
 (defmethod register-object-for-pass :after ((pass per-object-pass) (editor base-editor))
   (register-object-for-pass pass (maybe-finalize-inheritance 'editor))
-  (register-object-for-pass pass (maybe-finalize-inheritance 'chunk-editor)))
+  (register-object-for-pass pass (maybe-finalize-inheritance 'chunk-editor))
+  (register-object-for-pass pass (maybe-finalize-inheritance 'trial::lines)))
 
 (defmethod update-instance-for-different-class :after (previous (editor base-editor) &key)
   (reinitialize-instance (toolbar editor) :editor editor :entity (entity editor))

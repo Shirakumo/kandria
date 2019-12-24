@@ -37,6 +37,7 @@
                              (:file "base")
                              (:file "editor")
                              (:file "editmenu")
+                             (:file "toolbar")
                              (:file "chunk")
                              (:file "entity"))))
   :serial T

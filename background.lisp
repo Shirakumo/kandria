@@ -26,8 +26,6 @@
     (setf (uniform program "parallax_direction") (parallax-direction background))
     (setf (uniform program "background_scale") (background-scale background))
     (setf (uniform program "background") 0)
-    (gl:active-texture :texture0)
-    (gl:bind-texture :texture-2d (gl-name (texture background)))
     (gl:bind-vertex-array (gl-name vao))
     (%gl:draw-elements :triangles (size vao) :unsigned-int 0)))
 
