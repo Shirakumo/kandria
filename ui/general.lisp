@@ -1,8 +1,9 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defclass ui (org.shirakumo.fraf.trial.alloy:ui
+              org.shirakumo.alloy:lock-step-scaling-ui
               org.shirakumo.alloy.renderers.simple.presentations:default-look-and-feel)
-  ())
+  ((alloy:target-resolution :initform (alloy:px-size 1280 720))))
 
 (defclass single-widget (alloy:widget)
   ()
