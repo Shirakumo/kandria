@@ -2,7 +2,6 @@
 
 (define-subject base-editor (alloy:observable-object)
   ((flare:name :initform :editor)
-   (alloy:target-resolution :initform (alloy:size 1280 720))
    (marker :initform (make-instance 'trial::lines) :accessor marker)
    (ui :initform (make-instance 'ui) :accessor ui)
    (entity :initform NIL :accessor entity)
