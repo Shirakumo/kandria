@@ -112,7 +112,6 @@
   (setf (entity editor) NIL))
 
 (define-handler (editor clone-entity) (ev)
-  (setf (state editor) :dragging)
   (let ((clone (clone (entity editor))))
     (transition clone +world+)
     (enter clone +world+)

@@ -32,6 +32,7 @@
     (update-buffer-data (asset 'leaf 'light-info) T))
   (alloy:on (setf alloy:value) (value (slot-value menu 'time))
     (setf (alloy:value (slot-value menu 'lighting)) 1)
+    (synchronize +world+ value)
     (update-lighting value))
   ;; KLUDGE: This appears necessary because the slots get reordered after
   ;;         creation again to put the superclass' structure slots before

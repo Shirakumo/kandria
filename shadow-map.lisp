@@ -69,7 +69,9 @@
       (setf (uniform program "view_matrix") (view-matrix))
       (setf (uniform program "projection_matrix") (projection-matrix))
       (gl:bind-vertex-array (gl-name vao))
-      (gl:draw-arrays (vertex-form vao) 0 (size vao)))))
+      (unwind-protect
+           (gl:draw-arrays (vertex-form vao) 0 (size vao))
+        (gl:bind-vertex-array 0)))))
 
 (define-class-shader (shadow-map-pass :vertex-shader)
   (gl-source (asset 'leaf 'light-info))

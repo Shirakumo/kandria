@@ -10,6 +10,8 @@
    (toolbar :accessor toolbar)
    (history :initform (make-instance 'linear-history) :accessor history)))
 
+(alloy:define-observable (setf entity) (entity alloy:observable))
+
 (defmethod compute-resources :after ((editor base-editor) resources readying traversal)
   (vector-push-extend (ui editor) resources))
 
@@ -25,7 +27,7 @@
     (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
     (alloy:enter menu layout :place :north)
     (alloy:enter menu focus)
-    (alloy:enter toolbar layout :place :south :size (alloy:un 20))
+    (alloy:enter toolbar layout :place :south)
     (alloy:enter toolbar focus)
     (alloy:enter entity layout :place :west :size (alloy:un 200))
     (alloy:enter entity focus)

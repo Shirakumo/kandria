@@ -1,4 +1,7 @@
 (asdf:defsystem leaf
+  :build-operation "deploy-op"
+  :build-pathname "leaf"
+  :entry-point "org.shirakumo.fraf.leaf:launch"
   :components ((:file "package")
                (:file "helpers")
                (:file "color-temperature")
@@ -41,6 +44,7 @@
                              (:file "chunk")
                              (:file "entity"))))
   :serial T
+  :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
                :trial-alloy
                :zip
