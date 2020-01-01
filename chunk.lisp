@@ -85,7 +85,9 @@
     (gl:active-texture :texture2)
     (gl:bind-texture :texture-2d (gl-name (absorption-map chunk)))
     (gl:bind-vertex-array (gl-name vao))
-    (%gl:draw-elements :triangles (size vao) :unsigned-int 0)))
+    (unwind-protect
+         (%gl:draw-elements :triangles (size vao) :unsigned-int 0)
+      (gl:bind-vertex-array 0))))
 
 (define-class-shader (chunk :vertex-shader)
   "layout (location = 0) in vec3 vertex;
