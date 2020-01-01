@@ -47,8 +47,19 @@
     (setf (size vao) (/ (length data) 2))))
 
 (define-shader-pass shadow-map-pass (single-shader-pass)
-  ((shadow-map :port-type output :texspec (:internal-format :r8)))
+  ((shadow-map :port-type output :texspec (:internal-format :r8))
+   (local-shade :initform 0.0 :accessor local-shade))
   (:buffers (leaf light-info)))
+
+(defmethod paint-with :after ((pass shadow-map-pass) (world scene))
+  (let ((player (unit 'player world)))
+    (when player
+      (let* ((pos (m* (projection-matrix) (view-matrix) (vec (vx (location player)) (+ (vy (location player)) 8) 0 1)))
+             (px (nv/ (nv+ pos 1) 2)))
+        (cffi:with-foreign-object (pixel :uint8)
+          (%gl:read-pixels (floor (* (vx px) (width pass))) (floor (* (vy px) (height pass)))
+                           1 1 :red :unsigned-byte pixel)
+          (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 255.0)))))))
 
 (defmethod paint ((container layered-container) (target shadow-map-pass))
   ;; KLUDGE: Bypass layering, only render chunks at layer 0.

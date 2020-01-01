@@ -10,7 +10,7 @@
   (let ((tt (* (/ hour 24) 2 PI)))
     (with-buffer-tx (light (asset 'leaf 'light-info))
       (setf (sun-position light) (vec2 (* -10000 (sin tt)) (* 10000 (- (cos tt)))))
-      (setf (sun-light light) (v* (clock-color (/ (* tt 180) PI 15)) 2))
+      (setf (sun-light light) (v* (clock-color (/ (* tt 180) PI 15)) 10))
       (setf (ambient-light light) (v* (sun-light light) 0.2)))))
 
 (define-shader-entity light (vertex-entity sized-entity)
@@ -30,15 +30,27 @@
 
 (define-shader-pass rendering-pass (render-pass)
   ((lighting :port-type input :texspec (:internal-format :rgba16f))
+   (local-shade :initform 0.0 :accessor local-shade)
    (shadow-map :port-type input)))
 
 (defmethod register-object-for-pass ((pass rendering-pass) (light light)))
 (defmethod paint-with ((pass rendering-pass) (light light)))
 
+(defmethod paint-with :before ((pass rendering-pass) (world scene))
+  (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
+         (shade (local-shade pass))
+         (exposure (- (* shade 2) 0.15))
+         (gamma (+ shade 1.5)))
+    (let* ((dir (- target shade))
+           (ease (/ (expt (abs dir) 1.1) 30)))
+      (incf (local-shade pass) (* ease (signum dir))))
+    (setf (uniforms pass) `(("exposure" ,exposure)
+                            ("gamma" ,gamma)))))
+
 (define-class-shader (rendering-pass :fragment-shader -100)
   "out vec4 color;
 uniform float gamma = 2.2;
-uniform float exposure = 1.0;
+uniform float exposure = 0.075;
 
 void main(){
   vec3 mapped = vec3(1.0) - exp((-color.rgb) * exposure);
@@ -60,7 +72,6 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
   if(light_info.activep != 0){
     ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
     float shade = (0.4 < texelFetch(shadow_map, pos, 0).r)? 0 : 1;
-    shade *= light_info.ambient_light.r;
     vec4 light = texelFetch(lighting, pos, 0);
     truecolor *= light_info.ambient_light;
     truecolor += light_info.sun_light*max(0, shade-absorption)*color.rgb;
