@@ -4,7 +4,7 @@
   ())
 
 (define-handler (lighting-pass trial:tick) (ev)
-  (update-lighting (/ (clock +world+) 60)))
+  (update-lighting 10 #++(/ (clock +world+) 60)))
 
 (defun update-lighting (hour)
   (let ((tt (* (/ hour 24) 2 PI)))
@@ -30,7 +30,7 @@
 
 (define-shader-pass rendering-pass (render-pass)
   ((lighting :port-type input :texspec (:internal-format :rgba16f))
-   (local-shade :initform 0.0 :accessor local-shade)
+   (local-shade :initform 0.15 :accessor local-shade)
    (shadow-map :port-type input)))
 
 (defmethod register-object-for-pass ((pass rendering-pass) (light light)))
