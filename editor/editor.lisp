@@ -42,11 +42,11 @@
   (v:info :leaf.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
 (defmethod handle :before (event (editor editor))
-  (handle event (controller (handler *context*)))
   (handle event (unit :camera +world+)))
 
 (defmethod handle ((event event) (editor editor))
   (unless (handle event (ui editor))
+    (handle event (controller (handler *context*)))
     (call-next-method)
     (handle event (cond ((retained 'modifiers :alt) (alt-tool editor))
                         (T (tool editor))))))
