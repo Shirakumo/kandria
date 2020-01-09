@@ -2,10 +2,6 @@
 
 (define-action editor-command ())
 
-;;; Left Block
-(define-action select-entity (editor-command)
-  (key-press (one-of key :tab)))
-
 (define-action toggle-editor (editor-command)
   (key-press (one-of key :section)))
 
@@ -34,52 +30,6 @@
 (define-action redo (editor-command)
   (key-press (and (one-of key :y)
                   (retained 'modifiers :control))))
-
-;;; F Group 1
-(define-action load-world (editor-command))
-
-(define-action save-region (editor-command)
-  (key-press (one-of key :f1)))
-
-(define-action load-region (editor-command)
-  (key-press (one-of key :f2)))
-
-(define-action save-game (editor-command)
-  (key-press (one-of key :f3)))
-
-(define-action load-game (editor-command)
-  (key-press (one-of key :f4)))
-
-;;; F Group 2
-(define-action move-entity (editor-command)
-  (key-press (one-of key :f5)))
-
-(define-action resize-entity (editor-command)
-  (key-press (one-of key :f6)))
-
-(define-action clone-entity (editor-command)
-  (key-press (one-of key :f7)))
-
-;; KLUDGE: this key.
-(define-action make-light (editor-command)
-  (key-press (one-of key :f8)))
-
-;;; F Group 3
-(define-action inspect-entity (editor-command)
-  (key-press (one-of key :f12)))
-
-;;; Action Block
-(define-action delete-entity (editor-command)
-  (key-press (one-of key :delete)))
-
-(define-action insert-entity (editor-command)
-  (key-press (one-of key :insert)))
-
-(define-action next-entity (editor-command)
-  (key-press (one-of key :page-down)))
-
-(define-action prev-entity (editor-command)
-  (key-press (one-of key :page-up)))
 
 (define-retention mouse (ev)
   (when (typep ev 'mouse-press)

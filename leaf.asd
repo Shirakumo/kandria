@@ -42,7 +42,8 @@
                              (:file "editmenu")
                              (:file "toolbar")
                              (:file "chunk")
-                             (:file "entity"))))
+                             (:file "entity")
+                             (:file "creator"))))
   :serial T
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw

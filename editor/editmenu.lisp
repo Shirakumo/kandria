@@ -3,13 +3,13 @@
 (alloy:define-widget editmenu (alloy:structure)
   ())
 
-(alloy::define-subbutton (editmenu save) () (issue +world+ (make-instance 'save-region)))
-(alloy::define-subbutton (editmenu load) () (issue +world+ (make-instance 'load-region)))
+(alloy::define-subbutton (editmenu save) () (edit 'save-region T))
+(alloy::define-subbutton (editmenu load) () (edit 'load-region T))
 (alloy:define-subcomponent (editmenu zoom) ((zoom (unit :camera T)) alloy:ranged-slider
                                             :range '(0.1 . 3.0) :step 0.1 :grid 0.1
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
-(alloy::define-subbutton (editmenu undo) () (issue +world+ (make-instance 'undo)))
-(alloy::define-subbutton (editmenu redo) () (issue +world+ (make-instance 'redo)))
+(alloy::define-subbutton (editmenu undo) () (edit 'undo T))
+(alloy::define-subbutton (editmenu redo) () (edit 'redo T))
 (alloy:define-subcomponent (editmenu lighting) ((active-p (struct (asset 'leaf 'light-info))) alloy:switch
                                                 :off 0 :on 1 :ideal-bounds (alloy:extent 0 0 50 20)))
 (alloy:define-subcomponent (editmenu time) ((clock +world+) alloy:ranged-slider
