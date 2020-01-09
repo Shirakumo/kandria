@@ -1,9 +1,12 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-subject base-editor (alloy:observable-object)
+(defclass editor-ui (ui)
+  ())
+
+(defclass base-editor (alloy:observable-object trial:entity)
   ((flare:name :initform :editor)
    (marker :initform (make-instance 'trial::lines) :accessor marker)
-   (ui :initform (make-instance 'ui) :accessor ui)
+   (ui :initform (make-instance 'editor-ui) :accessor ui)
    (entity :initform NIL :accessor entity)
    (tool :accessor tool)
    (alt-tool :accessor alt-tool)
@@ -29,7 +32,7 @@
     (alloy:enter menu focus)
     (alloy:enter toolbar layout :place :south)
     (alloy:enter toolbar focus)
-    (alloy:enter entity layout :place :west :size (alloy:un 200))
+    (alloy:enter entity layout :place :west :size (alloy:un 300))
     (alloy:enter entity focus)
     (alloy:register ui ui)))
 
@@ -67,10 +70,15 @@
 (defmethod redo ((editor base-editor) region)
   (redo (history editor) region))
 
-(define-handler (base-editor toggle-editor) (ev)
-  (setf (active-p base-editor) (not (active-p base-editor))))
+(defmethod register :after ((editor base-editor) (scene scene))
+  (add-handler editor scene))
 
-(define-subject inactive-editor (base-editor)
+(defmethod handle ((event event) (editor base-editor)))
+
+(defmethod handle ((event toggle-editor) (editor base-editor))
+  (setf (active-p editor) (not (active-p editor))))
+
+(defclass inactive-editor (base-editor)
   ())
 
 (defmethod active-p ((editor inactive-editor)) NIL)
