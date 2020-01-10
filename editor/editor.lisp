@@ -84,13 +84,11 @@
 (defmethod alloy:handle ((event alloy:pointer-up) (ui editor-ui))
   (restart-case (call-next-method)
     (alloy:decline ()
-      (case (alloy:kind event)
-        (:left
-         (unless (entity (unit :editor T))
-           (let* ((pos (alloy:location event))
-                  (pos (mouse-world-pos (vec (alloy:pxx pos) (alloy:pxy pos)))))
-             (setf (entity (unit :editor T)) (entity-at-point pos +world+)))))
-        (T (alloy:decline))))))
+      (if (and (null (entity (unit :editor T))) (eq :left (alloy:kind event)))
+          (let* ((pos (alloy:location event))
+                 (pos (mouse-world-pos (vec (alloy:pxx pos) (alloy:pxy pos)))))
+            (setf (entity (unit :editor T)) (entity-at-point pos +world+)))
+          (alloy:decline)))))
 
 (defmethod edit (action (editor (eql T)))
   (edit action (unit :editor T)))
@@ -150,11 +148,11 @@
         (swank::*buffer-readtable* *readtable*))
     (swank:inspect-in-emacs (entity editor) :wait NIL)))
 
-(defclass add-entity () ((entity :initarg :entity :initform (alloy:arg! :entity) :accessor entity)))
+(defclass insert-entity () ((entity :initarg :entity :initform (alloy:arg! :entity) :accessor entity)))
 
-(defmethod edit ((action add-entity) (editor editor))
+(defmethod edit ((action insert-entity) (editor editor))
   (let ((entity (entity action)))
     (transition entity +world+)
-    (enter entity +world+)
+    (enter entity (unit 'region T))
     (setf (entity editor) entity)
     (setf (tool editor) (make-instance 'freeform :editor editor))))
