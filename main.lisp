@@ -4,11 +4,6 @@
   (with-packet (packet (find-new-directory "world" (pool-path 'leaf "/")))
     packet))
 
-(define-asset (leaf debug) image
-    #p"debug.png"
-  :min-filter :nearest
-  :mag-filter :nearest)
-
 (unless (find-pool 'world)
   (define-pool world
     :base :leaf))
@@ -20,7 +15,7 @@
 
 (defmethod initialize-instance :after ((world empty-world) &key)
   (let ((region (make-instance 'region :name 'base))
-        (chunk (make-instance 'chunk :tileset (asset 'leaf 'debug))))
+        (chunk (make-instance 'chunk)))
     (enter region world)
     (enter chunk region)
     (enter (make-instance 'player :location (vec 64 64)) region)))
