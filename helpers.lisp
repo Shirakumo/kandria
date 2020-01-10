@@ -99,8 +99,9 @@
 (defun list-leaf-classes (root)
   (let ((sub (c2mop:class-direct-subclasses (ensure-class root))))
     (if sub
-        (loop for class in sub
-              nconc (list-leaf-classes class))
+        (remove-duplicates
+         (loop for class in sub
+               nconc (list-leaf-classes class)))
         (list (ensure-class root)))))
 
 (defun similar-asset (asset suffix)
