@@ -1,23 +1,29 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity chunk (layered-container sized-entity lit-entity shadow-caster solid)
+(define-asset (leaf debug) image
+    #p"debug.png"
+  :min-filter :nearest
+  :mag-filter :nearest)
+
+(defclass chunk (sized-entity lit-entity shadow-caster solid shader-entity layered-container)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
-   (tileset :initarg :tileset :initform (error "TILESET required.") :accessor tileset
+   (tileset :initarg :tileset :initform (asset 'leaf 'debug) :accessor tileset
             :type asset :documentation "The tileset texture for the chunk.")
-   (absorption-map :initarg :absorption-map :initform (error "ABSORPTION-MAP required") :accessor absorption-map
+   (absorption-map :initarg :absorption-map :initform (asset 'leaf 'debug) :accessor absorption-map
                    :type asset :documentation "The absorption map for the chunk.")
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles.")
    (node-graph :accessor node-graph)
    (target-layer :initform NIL :accessor target-layer))
+  (:metaclass shader-entity-class)
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initargs append ((_ chunk))
   `(:size :tileset))
 
-(defmethod initialize-instance :after ((chunk chunk) &key layers)
+(defmethod initialize-instance :after ((chunk chunk) &key (layers +layer-count+))
   (let* ((size (size chunk)))
     (etypecase layers ;; We add one layer for the solids.
       (list)
