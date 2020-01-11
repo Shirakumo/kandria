@@ -43,6 +43,10 @@
                (load-state (initial-state (scene main)) (scene main))
                (make-instance 'save-state)))))
 
+(defmethod update ((main main) tt dt fc)
+  (issue (scene main) 'trial:tick :tt tt :dt (* (time-scale (scene main)) dt) :fc fc)
+  (process (scene main)))
+
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test))
 
