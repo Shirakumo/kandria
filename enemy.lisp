@@ -1,0 +1,21 @@
+(in-package #:org.shirakumo.fraf.leaf)
+
+(define-shader-subject enemy (lit-animated-sprite movable facing-entity solid)
+  ((vertex-array :initform (asset 'leaf '16x))
+   (bsize :initform (nv/ (vec 16 16) 2))
+   (size :initform (vec 16 16))
+   (texture :initform (asset 'leaf 'placeholder)))
+  (:default-initargs
+   :animations '((idle 0 1 :step 0.1))))
+
+(defmethod tick :before ((enemy enemy) ev)
+  (let ((collisions (collisions enemy))
+        (loc (location enemy))
+        (vel (velocity enemy))
+        (acc (acceleration enemy)))
+    (if (svref collisions 2)
+        (nv* acc 0.9)
+        (decf (vy acc) +vgrav+))
+    (when (<= (vlength acc) 0.1)
+      (vsetf acc 0 0))
+    (nv+ vel acc)))

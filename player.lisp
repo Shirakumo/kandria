@@ -104,6 +104,11 @@ void main(){
   (when (active-p trigger)
     (fire trigger)))
 
+(defmethod collide :after ((player player) (enemy enemy) hit)
+  (when (eql :dashing (state player))
+    (nv+ (acceleration enemy) (v* 0.3 (acceleration player)))
+    (setf (vx (acceleration player)) (float-sign (vx (hit-normal hit)) (vx (acceleration player))))))
+
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
     (case state

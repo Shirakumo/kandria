@@ -97,12 +97,12 @@
         :version (version region)
         :description (description region)))
 
-(define-decoder (player v0) (initargs _p)
+(define-decoder (movable v0) (initargs _p)
   (destructuring-bind (&key location) initargs
-    (make-instance 'player :location (decode 'vec2 location))))
+    (make-instance (class-of movable) :location (decode 'vec2 location))))
 
-(define-encoder (player v0) (_b _p)
-  `(player :location ,(encode (location player))))
+(define-encoder (movable v0) (_b _p)
+  `(,(type-of movable) :location ,(encode (location movable))))
 
 (define-decoder (chunk v0) (initargs packet)
   (destructuring-bind (&key name location size tileset layers children) initargs

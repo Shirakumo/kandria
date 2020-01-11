@@ -258,6 +258,12 @@
 (define-asset (leaf 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))
 
+(define-asset (leaf 16x) mesh
+    (make-rectangle 16 16))
+
+(define-asset (leaf placeholder) image
+    #p"placeholder.png")
+
 (defgeneric initargs (object)
   (:method-combination append :most-specific-last))
 
@@ -272,6 +278,7 @@
   '(:name))
 
 (defclass solid () ())
+(defclass resizable () ())
 
 (defclass located-entity (base-entity)
   ((location :initarg :location :initform (vec 0 0) :accessor location
