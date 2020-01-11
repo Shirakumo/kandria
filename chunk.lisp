@@ -5,7 +5,7 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
-(defclass chunk (sized-entity lit-entity shadow-caster solid shader-entity layered-container)
+(defclass chunk (sized-entity lit-entity shadow-caster shader-entity layered-container solid resizable )
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)

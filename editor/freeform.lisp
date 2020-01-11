@@ -8,7 +8,7 @@
 
 (defmethod handle ((event mouse-press) (tool freeform))
   (etypecase (entity tool)
-    (sized-entity
+    (resizable
      (let* ((p (nv- (mouse-world-pos (pos event))
                     (location (entity tool))))
             (b (bsize (entity tool)))
