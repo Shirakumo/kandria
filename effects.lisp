@@ -164,21 +164,21 @@ void main(){
     (make-rectangle 1 1))
 
 (define-shader-subject particle (vertex-entity located-entity)
-  ((frame :initform 0 :accessor frame)
+  ((timer :initform 0.0f0 :accessor timer)
    (seed :initform (random 1.0) :accessor seed))
   (:default-initargs :vertex-array (asset 'leaf 'particle)))
 
-(defmethod lifetime ((particle particle)) 20)
+(defmethod lifetime ((particle particle)) 0.20)
 
-(define-handler (particle trial:tick) (ev)
-  (incf (frame particle))
-  (when (< (lifetime particle) (frame particle))
+(define-handler (particle trial:tick) (ev dt)
+  (incf (timer particle) (float dt 0f0))
+  (when (< (lifetime particle) (timer particle))
     (leave particle +world+)))
 
 (defmethod paint :before ((particle particle) (pass shader-pass))
   (let ((program (shader-program-for-pass pass particle)))
     (setf (uniform program "seed") (seed particle))
-    (setf (uniform program "frame") (frame particle))))
+    (setf (uniform program "timer") (timer particle))))
 
 (define-class-shader (particle :vertex-shader)
   "layout (location = 1) in vec2 in_texcoord;
@@ -193,7 +193,7 @@ void main(){
   (:default-initargs :vertex-array (asset 'leaf 'player-mesh)
                      :direction (vec2 0 1)))
 
-(defmethod lifetime ((dust-cloud dust-cloud)) 40)
+(defmethod lifetime ((dust-cloud dust-cloud)) 0.40)
 
 (defmethod paint :before ((particle dust-cloud) (pass shader-pass))
   (let ((program (shader-program-for-pass pass particle)))
@@ -202,7 +202,7 @@ void main(){
 
 (define-class-shader (dust-cloud :fragment-shader)
   "
-uniform int frame = 0;
+uniform float timer = 0;
 uniform float seed = 1.0;
 uniform vec2 direction = vec2(0,1);
 in vec2 texcoord;
@@ -215,7 +215,7 @@ float hash12n(vec2 p){
 }
 
 void main(){
-  float ftime = (1-(frame/40.0))*2;
+  float ftime = (1-timer*2)*2;
   vec2 pos = floor(texcoord*32)/32.0;
   vec2 off = vec2(ftime/3.0)*direction;
   vec2 skew = abs(direction.yx)+1;

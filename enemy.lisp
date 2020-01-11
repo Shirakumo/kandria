@@ -10,12 +10,11 @@
 
 (defmethod tick :before ((enemy enemy) ev)
   (let ((collisions (collisions enemy))
-        (loc (location enemy))
         (vel (velocity enemy))
         (acc (acceleration enemy)))
     (if (svref collisions 2)
         (nv* acc 0.9)
-        (decf (vy acc) +vgrav+))
+        (decf (vy acc) (* (dt ev) 100 +vgrav+)))
     (when (<= (vlength acc) 0.1)
       (vsetf acc 0 0))
     (nv+ vel acc)))

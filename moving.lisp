@@ -19,7 +19,7 @@
              ;;         we're stuck somewhere, so just die.
           finally (die moving))
     ;; Remaining velocity (if any) can be added safely.
-    (nv+ loc vel)
+    (nv+ loc (v* vel (* 100 (dt ev))))
     (vsetf vel 0 0)
     ;; Point test for adjacent walls
     (let ((l (scan surface (vec (- (vx loc) (vx size) 1) (vy loc))))
