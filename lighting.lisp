@@ -37,20 +37,19 @@
 (defmethod paint-with ((pass rendering-pass) (light light)))
 
 (defmethod paint-with :before ((pass rendering-pass) (world scene))
-  (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
-         (shade (local-shade pass))
-         (exposure (- (* shade 2) 0.15))
-         (gamma (+ shade 1.5)))
-    (let* ((dir (- target shade))
-           (ease (/ (expt (abs dir) 1.1) 30)))
-      (incf (local-shade pass) (* ease (signum dir))))
-    (setf (uniforms pass) `(("exposure" ,exposure)
-                            ("gamma" ,gamma)))))
+  (when (= 1 (active-p (struct (asset 'leaf 'light-info))))
+    (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
+           (shade (local-shade pass))
+           (exposure (- (* shade 2) 0.15)))
+      (let* ((dir (- target shade))
+             (ease (/ (expt (abs dir) 1.1) 30)))
+        (incf (local-shade pass) (* ease (signum dir))))
+      (setf (uniforms pass) `(("exposure" ,exposure))))))
 
 (define-class-shader (rendering-pass :fragment-shader -100)
   "out vec4 color;
 uniform float gamma = 2.2;
-uniform float exposure = 0.075;
+uniform float exposure = 0.5;
 
 void main(){
   vec3 mapped = vec3(1.0) - exp((-color.rgb) * exposure);
