@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defclass paint (tool)
-  ((previous :initform () :accessor previous)))
+  ())
 
 (defmethod label ((tool paint)) "Paint")
 
@@ -34,6 +34,5 @@
                       (tile-to-place (sidebar (editor tool))))
                      (T
                       (vec 0 0)))))
-    (unless (equalp (list loc entity tile) (previous tool))
-      (setf (previous tool) (list loc entity tile))
+    (unless (v= tile (tile loc entity))
       (commit (capture-action (tile loc entity) tile) tool))))
