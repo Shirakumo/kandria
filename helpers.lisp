@@ -392,7 +392,7 @@
       hit)))
 
 (defclass trigger (sized-entity)
-  ((event-type :initarg :event-type :initform (error "EVENT-TYPE required.") :accessor event-type
+  ((event-type :initarg :event-type :initform () :accessor event-type
                :type class :documentation "The type of the event that should be triggered.")
    (event-initargs :initarg :event-initargs :initform () :accessor event-initargs
                    :type list :documentation "The list of initargs for the triggered event.")
