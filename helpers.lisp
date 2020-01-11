@@ -152,6 +152,12 @@
 (defun clamp (low mid high)
   (max low (min mid high)))
 
+(defun damp* (damp &rest factors)
+  (- 1 (apply #'* (- 1 damp) factors)))
+
+(define-compiler-macro damp* (damp &rest factors)
+  `(- 1 (* (- 1 ,damp) ,@factors)))
+
 (defun ->rad (deg)
   (* PI (/ deg 180)))
 
