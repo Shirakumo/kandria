@@ -6,7 +6,7 @@
 ;;                          Gravity pulling down
 (define-global +vgrav+ 0.15)
 ;;                          How many frames to stay "grounded"
-(define-global +coyote+ 0.04)
+(define-global +coyote+ 0.08)
 ;;                          Hard velocity caps
 (define-global +vlim+  (vec 10      10))
 ;;                          GRD-ACC AIR-DCC AIR-ACC GRD-LIM
@@ -73,13 +73,17 @@ void main(){
 (define-handler (player dash) (ev)
   (let ((acc (acceleration player)))
     (when (= 0 (dash-time player))
-      (vsetf acc
-             (cond ((retained 'movement :left)  -1)
-                   ((retained 'movement :right) +1)
-                   (T                            0))
-             (cond ((retained 'movement :up)    +1)
-                   ((retained 'movement :down)  -1)
-                   (T                            0)))
+      (if (typep (trial::source-event ev) 'gamepad-event)
+          (vsetf acc ;; FIXME: this won't work yet
+                 (cl-gamepad:axis (device (trial::source-event ev)) :l-h)
+                 (cl-gamepad:axis (device (trial::source-event ev)) :l-v))
+          (vsetf acc
+                 (cond ((retained 'movement :left)  -1)
+                       ((retained 'movement :right) +1)
+                       (T                            0))
+                 (cond ((retained 'movement :up)    +1)
+                       ((retained 'movement :down)  -1)
+                       (T                            0))))
       (setf (state player) :dashing)
       (when (v= 0 acc) (setf (vx acc) 1))
       (nvunit acc))))
@@ -111,8 +115,10 @@ void main(){
 
 (defmethod collide :after ((player player) (enemy enemy) hit)
   (when (eql :dashing (state player))
-    (nv+ (acceleration enemy) (v* 0.3 (acceleration player)))
-    (setf (vx (acceleration player)) (float-sign (vx (hit-normal hit)) (vx (acceleration player))))))
+    (nv+ (acceleration enemy) (nv* (vunit (acceleration player)) 2))
+    (incf (vy (acceleration enemy)) 1.0)
+    (nv* (acceleration player) -0.1)
+    (setf (state player) :normal)))
 
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
@@ -131,6 +137,7 @@ void main(){
   (when (path player)
     (return-from tick))
   (let ((collisions (collisions player))
+        (dt (* 100 (dt ev)))
         (loc (location player))
         (acc (acceleration player))
         (size (bsize player)))
@@ -172,7 +179,7 @@ void main(){
        (cond ((< 0.10 (dash-time player) 0.18)
               (nv* (nvunit acc) (vx +vdash+)))
              ((< 0.18 (dash-time player) 0.20)
-              (nv* acc (damp* (vy +vdash+) 100 (dt ev))))
+              (nv* acc (damp* (vy +vdash+) dt)))
              ((< 0.20 (dash-time player))
               (setf (state player) :normal))))
       (:dying
@@ -223,7 +230,7 @@ void main(){
          (setf (state player) :crawling))
 
        ;; Movement
-       ;;(setf (vx acc) (* (vx acc) (vy +vmove+)))
+       (setf (vx acc) (* (vx acc) (damp* (vy +vmove+) dt)))
        (cond ((svref collisions 2)
               (setf (vy acc) (max 0 (vy acc)))
               (incf (vy acc) (min 0 (vy (velocity (svref collisions 2)))))
@@ -255,8 +262,8 @@ void main(){
        (when (< 0 (jump-time player))
          (when (and (retained 'movement :jump)
                     (<= 0.05 (jump-time player) 0.15))
-           (setf (vy acc) (* (vy acc) (damp* (vy +vjump+) 100 (dt ev))))))
-       (decf (vy acc) (* (dt ev) 100 +vgrav+))
+           (setf (vy acc) (* (vy acc) (damp* (vy +vjump+) dt)))))
+       (decf (vy acc) (* +vgrav+ dt))
        ;; Limit when sliding down wall
        (when (and (or (typep (svref collisions 1) 'ground)
                       (typep (svref collisions 3) 'ground))
@@ -274,9 +281,16 @@ void main(){
                           (when (and (typep entity 'chunk)
                                      (contained-p (location player) entity))
                             (return entity)))))
-      (if other
-          (issue +world+ 'switch-chunk :chunk other)
-          (die player))))
+      (cond (other
+             (issue +world+ 'switch-chunk :chunk other))
+            ((< (vy (location player)) (vy (location (surface player))))
+             (die player))
+            (T
+             (setf (vx (location player)) (clamp (- (vx (location (surface player)))
+                                                    (bsize (surface player)))
+                                                 (vx (location player))
+                                                 (+ (vx (location (surface player)))
+                                                    (bsize (surface player)))))))))
   ;; Animations
   (let ((acc (acceleration player))
         (collisions (collisions player)))
