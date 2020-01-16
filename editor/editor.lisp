@@ -134,7 +134,7 @@
   (make-instance 'creator :ui (ui editor)))
 
 (defmethod edit ((action (eql 'clone-entity)) (editor editor))
-  (edit (make-instance 'add-entity :entity (clone (entity editor))) editor))
+  (edit (make-instance 'insert-entity :entity (clone (entity editor))) editor))
 
 (defmethod edit ((action (eql 'undo)) (editor editor))
   (undo editor (unit 'region T)))
@@ -152,7 +152,10 @@
 
 (defmethod edit ((action insert-entity) (editor editor))
   (let ((entity (entity action)))
+    (register-object-for-pass +world+ entity)
     (transition entity +world+)
-    (enter entity (unit 'region T))
+    (if (typep entity 'chunk)
+        (enter entity (unit 'region T))
+        (enter entity (surface (unit 'player T))))
     (setf (entity editor) entity)
     (setf (tool editor) (make-instance 'freeform :editor editor))))
