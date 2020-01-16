@@ -212,14 +212,15 @@
   NIL)
 
 (defmethod entity-at-point (point (container container))
-  (for:for ((result as NIL)
-            (entity over container)
-            (at-point = (entity-at-point point entity)))
-    (when (and at-point
-               (or (null result)
-                   (< (vlength (bsize at-point))
-                      (vlength (bsize result)))))
-      (setf result at-point))))
+  (or (call-next-method)
+      (for:for ((result as NIL)
+                (entity over container)
+                (at-point = (entity-at-point point entity)))
+        (when (and at-point
+                   (or (null result)
+                       (< (vlength (bsize at-point))
+                          (vlength (bsize result)))))
+          (setf result at-point)))))
 
 (defmethod contained-p ((target vec2) thing)
   NIL)
@@ -277,8 +278,9 @@
   ())
 
 (defmethod entity-at-point (point (entity base-entity))
-  (when (contained-p point entity)
-    entity))
+  (or (call-next-method)
+      (when (contained-p point entity)
+        entity)))
 
 (defmethod initargs append ((_ base-entity))
   '(:name))
@@ -346,7 +348,7 @@
   ((vertex-array :initform (asset 'leaf '1x))
    (trial:tile :initform (vec2 0 0)
                :type vec2 :documentation "The tile to display from the sprite sheet.")
-   (texture :initform (error "TEXTURE required.")
+   (texture :initform (asset 'leaf 'placeholder)
             :type asset :documentation "The tileset to display the sprite from.")
    (size :initform NIL)))
 

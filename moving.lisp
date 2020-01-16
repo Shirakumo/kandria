@@ -10,9 +10,10 @@
   (let* ((surface (surface moving))
          (loc (location moving))
          (vel (velocity moving))
-         (size (bsize moving)))
+         (size (bsize moving))
+         (collisions (collisions moving)))
     ;; Scan for hits
-    (fill (collisions moving) NIL)
+    (fill collisions NIL)
     (loop repeat 10
           do (unless (scan surface moving) (return))
              ;; KLUDGE: If we have too many collisions in a frame, we assume
@@ -25,9 +26,9 @@
     (let ((l (scan surface (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan surface (vec (+ (vx loc) (vx size) 1) (vy loc))))
           (u (scan surface (vec (vx loc) (+ (vy loc) (vy size) 1) (vx size) 1))))
-      (when l (setf (aref (collisions moving) 3) l))
-      (when r (setf (aref (collisions moving) 1) r))
-      (when u (setf (aref (collisions moving) 0) u)))))
+      (when l (setf (aref collisions 3) l))
+      (when r (setf (aref collisions 1) r))
+      (when u (setf (aref collisions 0) u)))))
 
 (defmethod collide ((moving moving) (block ground) hit)
   (let* ((loc (location moving))
