@@ -1,18 +1,23 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject moving-platform (game-entity solid)
+(define-shader-subject moving-platform (game-entity resizable solid)
   ()
   (:default-initargs
    :bsize (vec2 32 32)))
 
 (defmethod collides-p ((platform moving-platform) thing hit) NIL)
 (defmethod collides-p ((platform moving-platform) (block block) hit) T)
+(defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
-(define-shader-subject falling-platform (moving-platform)
+(define-shader-subject falling-platform (sprite-entity moving-platform)
   ((acceleration :initform (vec 0 -0.075) :accessor acceleration)))
+
+(defmethod (setf location) :after (location (platform falling-platform))
+  (setf (state platform) :normal))
 
 (defmethod tick ((platform falling-platform) ev)
   (ecase (state platform)
+    (:blocked)
     (:normal
      (loop repeat 10 while (scan (surface platform) platform)))
     (:falling
@@ -22,21 +27,39 @@
 
 (defmethod collide :before ((player player) (platform falling-platform) hit)
   (when (< 0 (vy (hit-normal hit)))
-    (unless (scan (surface platform) (v+ (location platform)
-                                         (v* (bsize platform)
-                                             (vec2 (signum (vx (acceleration platform)))
-                                                   (signum (vy (acceleration platform))))
-                                             1.1)))
+    (nv+ (velocity platform) (acceleration platform))
+    (if (scan (surface platform) platform)
+        (vsetf (velocity platform) 0 0)
         (setf (state platform) :falling))))
 
-(defmethod collide ((platform falling-platform) (block block) hit)
-  (let ((vel (velocity platform)))
-    (shake-camera)
-    (setf (state platform) :normal)
-    (nv+ (location platform) (v* vel (hit-time hit)))
-    (vsetf vel 0 0)))
+(defmethod collide ((platform falling-platform) (other falling-platform) hit)
+  (when (and (eq :falling (state platform))
+             (< 0 (vy (hit-normal hit))))
+    (let ((vel (velocity platform)))
+      (shake-camera)
+      (nv+ (location platform) (v* vel (hit-time hit)))
+      (vsetf vel (vx (velocity other)) (vy (velocity other)))
+      (if (eq :blocked (state other))
+          (setf (state platform) :blocked)
+          (setf (state other) :falling)))))
 
-(define-shader-subject elevator (moving-platform)
+(defmethod collide ((platform falling-platform) (solid solid) hit)
+  (when (eq :falling (state platform))
+    (let ((vel (velocity platform)))
+      (shake-camera)
+      (setf (state platform) :blocked)
+      (nv+ (location platform) (v* vel (hit-time hit)))
+      (vsetf vel 0 0))))
+
+(defmethod collide ((platform falling-platform) (block block) hit)
+  (when (eq :falling (state platform))
+    (let ((vel (velocity platform)))
+      (shake-camera)
+      (setf (state platform) :blocked)
+      (nv+ (location platform) (v* vel (hit-time hit)))
+      (vsetf vel 0 0))))
+
+(define-shader-subject elevator (sprite-entity moving-platform)
   ()
   (:default-initargs :bsize (nv/ (vec 32 16) 2)))
 

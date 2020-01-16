@@ -99,7 +99,7 @@
           (vsetf vel 0 0)
           (vsetf vel (vx vel2) (vy vel2))))))
 
-(defmethod collide ((moving moving) (other moving) hit)
+(defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))
          (vel (velocity moving))
          (pos (location other))
