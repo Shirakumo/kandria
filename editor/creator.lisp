@@ -14,7 +14,7 @@
 (defmethod initialize-instance :after ((creator creator) &key)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T) :layout-parent creator))
          (focus (make-instance 'alloy:focus-list :focus-parent creator))
-         (classes (list-leaf-classes 'base-entity))
+         (classes (sort (mapcar #'class-name (list-leaf-classes 'base-entity)) #'string<))
          (class (first classes))
          (combo (alloy:represent class 'alloy:combo-set :value-set classes :layout-parent layout :focus-parent focus))
          (inspector (make-instance 'alloy::inspector :object (entity creator)))
