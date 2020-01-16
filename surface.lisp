@@ -75,16 +75,24 @@
               (t-far (min (vx far) (vy far))))
           (when (and (< t-near 1)
                      (< 0 t-far))
-            (let* ((time (alexandria:clamp t-near 0.0 1.0))
-                   (normal (if (< (vy near) (vx near))
-                               (vec (- (vx sign)) 0)
-                               (vec 0 (- (vy sign))))))
+            (let ((normal (cond ((< t-near 0)
+                                 (let ((dist (v- seg-pos aabb-pos)))
+                                   (if (< (abs (vy dist)) (abs (vx dist)))
+                                       (vec (signum (vx dist)) 0)
+                                       (vec 0 (signum (vy dist))))))
+                                ((< (vy near) (vx near))
+                                 (vec (- (vx sign)) 0))
+                                (T
+                                 (vec 0 (- (vy sign)))))))
               (unless (= 0 (v. normal seg-vel))
                 ;; KLUDGE: This test is necessary in order to ignore vertical edges
                 ;;         that seem to stick out of the blocks. I have no idea why.
                 (unless (and (/= 0 (vy normal))
                              (<= (vx aabb-size) (abs (- (vx aabb-pos) (vx seg-pos)))))
-                  (make-hit NIL time aabb-pos normal))))))))))
+                  (make-hit NIL
+                            (alexandria:clamp t-near 0.0 1.0)
+                            aabb-pos
+                            normal))))))))))
 
 (defun rayline (ray dir a b)
   (declare (type vec2 ray dir a b))
