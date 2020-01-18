@@ -79,7 +79,7 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
   return vec4(truecolor, color.a);
 }")
 
-(define-shader-subject lit-animated-sprite (lit-entity animated-sprite-subject)
+(define-shader-subject lit-animated-sprite (lit-entity animated-sprite-subject facing-entity)
   ())
 
 (define-class-shader (lit-animated-sprite :fragment-shader)

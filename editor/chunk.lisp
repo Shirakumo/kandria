@@ -39,8 +39,7 @@
 (alloy:define-widget chunk-widget (sidebar)
   ((show-all :initform T :accessor show-all :representation (alloy:switch))
    (layer :initform 0 :accessor layer :representation (alloy:ranged-slider :range '(-2 . +3) :grid 1))
-   (tile :initform (vec2 1 0) :accessor tile-to-place)
-   (type :initform NIL :accessor tile-type :representation (alloy:combo-set :value-set '(NIL :t :r :b :l :tl> :tr> :br> :bl> :tl< :tr< :br< :bl< 1 2 3 4 T)))))
+   (tile :initform (vec2 1 0) :accessor tile-to-place)))
 
 (defmethod initialize-instance :after ((widget chunk-widget) &key)
   (alloy:on (setf alloy:value) (value (alloy:representation 'layer widget))
@@ -74,7 +73,7 @@
    (alloy:grid-layout
     :col-sizes '(64 64 T)
     :row-sizes '(64)
-    albedo absorption type))
+    albedo absorption))
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T T T)
@@ -83,7 +82,7 @@
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
-  layer show-all tiles type pick clear compute)
+  layer show-all tiles pick clear compute)
 
 (define-subject chunk-editor (editor)
   ())

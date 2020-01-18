@@ -86,7 +86,15 @@
 
 (define-action dash (movement)
   (key-press (one-of key :left-shift))
-  (gamepad-press (one-of button :x)))
+  (gamepad-press (one-of button :r2)))
+
+(define-action quick-attack (movement)
+  (mouse-press (one-of :left))
+  (gamepad-press (one-of button :b)))
+
+(define-action heavy-attack (movement)
+  (mouse-press (one-of :right))
+  (gamepad-press (one-of button :y)))
 
 (define-action start-jump (movement)
   (key-press (one-of key :space))
@@ -94,7 +102,7 @@
 
 (define-action start-climb (movement)
   (key-press (one-of key :left-control))
-  (gamepad-press (one-of button :r2 :l2)))
+  (gamepad-press (one-of button :l2)))
 
 (define-action start-left (movement)
   (key-press (one-of key :a :left))
@@ -106,11 +114,11 @@
 
 (define-action start-up (movement)
   (key-press (one-of key :w :up))
-  (gamepad-move (one-of axis :l-v :dpad-v) (< pos -0.4 old-pos)))
+  (gamepad-move (one-of axis :l-v :dpad-v) (< old-pos 0.4 pos)))
 
 (define-action start-down (movement)
   (key-press (one-of key :s :down))
-  (gamepad-move (one-of axis :l-v :dpad-v) (< old-pos 0.8 pos)))
+  (gamepad-move (one-of axis :l-v :dpad-v) (< pos -0.8 old-pos)))
 
 (define-action end-jump (movement)
   (key-release (one-of key :space))
@@ -118,7 +126,7 @@
 
 (define-action end-climb (movement)
   (key-release (one-of key :left-control))
-  (gamepad-release (one-of button :r2 :l2)))
+  (gamepad-release (one-of button :l2)))
 
 (define-action end-left (movement)
   (key-release (one-of key :a :left))
@@ -130,11 +138,11 @@
 
 (define-action end-up (movement)
   (key-release (one-of key :w :up))
-  (gamepad-move (one-of axis :l-v :dpad-v) (< old-pos -0.4 pos)))
+  (gamepad-move (one-of axis :l-v :dpad-v) (< pos 0.4 old-pos)))
 
 (define-action end-down (movement)
   (key-release (one-of key :s :down))
-  (gamepad-move (one-of axis :l-v :dpad-v) (< pos 0.8 old-pos)))
+  (gamepad-move (one-of axis :l-v :dpad-v) (< old-pos -0.8 pos)))
 
 (define-retention movement (ev)
   (typecase ev
