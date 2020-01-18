@@ -152,6 +152,14 @@
 (defun clamp (low mid high)
   (max low (min mid high)))
 
+(defun invclamp (low mid high)
+  (cond ((< mid low) 0.0)
+        ((< high mid) 1.0)
+        (T (/ (- mid low) (- high low)))))
+
+(defun absinvclamp (low mid high)
+  (* (signum mid) (invclamp low (abs mid) high)))
+
 (defun damp* (damp &rest factors)
   (- 1 (apply #'* (- 1 damp) factors)))
 

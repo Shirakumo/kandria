@@ -20,7 +20,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 10      0.7))
 
-(define-shader-subject player (lit-animated-sprite movable facing-entity profile-entity)
+(define-shader-subject player (movable lit-animated-sprite profile-entity)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
@@ -28,6 +28,7 @@
    (jump-time :initform 1.0d0 :accessor jump-time)
    (dash-time :initform 1.0d0 :accessor dash-time)
    (air-time :initform 1.0d0 :accessor air-time)
+   (stun-time :initform 1.0d0 :accessor stun-time)
    (surface :initform NIL :accessor surface))
   (:default-initargs
    :name 'player
@@ -72,11 +73,13 @@ void main(){
 
 (define-handler (player dash) (ev)
   (let ((acc (acceleration player)))
-    (when (= 0 (dash-time player))
+    (when (and (= 0 (dash-time player))
+               (eq :normal (state player)))
       (if (typep (trial::source-event ev) 'gamepad-event)
-          (vsetf acc ;; FIXME: this won't work yet
-                 (cl-gamepad:axis (device (trial::source-event ev)) :l-h)
-                 (cl-gamepad:axis (device (trial::source-event ev)) :l-v))
+          (let ((dev (device (trial::source-event ev))))
+            (vsetf acc
+                   (absinvclamp 0.3 (cl-gamepad:axis dev :l-h) 0.8)
+                   (absinvclamp 0.3 (cl-gamepad:axis dev :l-v) 0.8)))
           (vsetf acc
                  (cond ((retained 'movement :left)  -1)
                        ((retained 'movement :right) +1)
@@ -117,8 +120,10 @@ void main(){
   (when (eql :dashing (state player))
     (nv+ (acceleration enemy) (nv* (vunit (acceleration player)) 2))
     (incf (vy (acceleration enemy)) 1.0)
-    (nv* (acceleration player) -0.1)
-    (setf (state player) :normal)))
+    (nv* (nvunit (acceleration player)) -0.3)
+    (incf (vy (acceleration player)) 0.1)
+    (setf (stun-time player) 0.2d0)
+    (setf (state player) :stunned)))
 
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
@@ -172,15 +177,19 @@ void main(){
              (enter (make-instance 'dust-cloud :location (vcopy loc))
                     +world+))))
     (ecase (state player)
+      (:stunned
+       (decf (stun-time player) (dt ev))
+       (when (<= (stun-time player) 0)
+         (setf (state player) :normal)))
       (:dashing
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
               +world+)
-       (cond ((< 0.10 (dash-time player) 0.18)
+       (cond ((< 0.10 (dash-time player) 0.125)
               (nv* (nvunit acc) (vx +vdash+)))
-             ((< 0.18 (dash-time player) 0.20)
+             ((< 0.125 (dash-time player) 0.15)
               (nv* acc (damp* (vy +vdash+) dt)))
-             ((< 0.20 (dash-time player))
+             ((< 0.15 (dash-time player))
               (setf (state player) :normal))))
       (:dying
        (nv* (velocity player) 0.9))
@@ -321,7 +330,7 @@ void main(){
               (cond ((typep (svref collisions 1) 'ground)
                      (setf (animation player) 'slide)
                      (setf (direction player) +1))
-                    ((typep (svref collisions 1) 'ground)
+                    ((typep (svref collisions 3) 'ground)
                      (setf (animation player) 'slide)
                      (setf (direction player) -1))
                     (T

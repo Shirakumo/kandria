@@ -90,7 +90,7 @@
                 (unless (and (/= 0 (vy normal))
                              (<= (vx aabb-size) (abs (- (vx aabb-pos) (vx seg-pos)))))
                   (make-hit NIL
-                            (alexandria:clamp t-near 0.0 1.0)
+                            t-near
                             aabb-pos
                             normal))))))))))
 
@@ -118,3 +118,13 @@
                    (+ (vy loc) (vy l) (vy size)))
              (vec2 (+ (vx loc) (vx r) (* dir (vx size)))
                    (+ (vy loc) (vy r) (vy size))))))
+
+#++ ;; Something's fucked with slopes and I don't know what.
+(progn
+  (assert (slope (vec 0 0) (vec  1 0) (vec 8 8) (aref +surface-blocks+ 4) (vec 16   0)))
+  (assert (slope (vec 0 0) (vec  8 0) (vec 8 8) (aref +surface-blocks+ 4) (vec 16  -8)))
+  (assert (slope (vec 0 0) (vec 16 0) (vec 8 8) (aref +surface-blocks+ 4) (vec 16 -16)))
+
+  (assert (slope (vec 0 0) (vec 0  -1) (vec 8 8) (aref +surface-blocks+ 4) (vec  0 -16)))
+  (assert (slope (vec 0 0) (vec 0  -8) (vec 8 8) (aref +surface-blocks+ 4) (vec  8 -16)))
+  (assert (slope (vec 0 0) (vec 0 -16) (vec 8 8) (aref +surface-blocks+ 4) (vec 16 -16))))

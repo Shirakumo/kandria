@@ -34,5 +34,5 @@
                       (tile-to-place (sidebar (editor tool))))
                      (T
                       (vec 0 0)))))
-    (unless (v= tile (tile loc entity))
+    (when (and (tile loc entity) (v/= tile (tile loc entity)))
       (commit (capture-action (tile loc entity) tile) tool))))
