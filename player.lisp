@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-asset (leaf player-mesh) mesh
-    (make-rectangle 32 40))
+    (make-rectangle 64 50))
 
 ;;                          Gravity pulling down
 (define-global +vgrav+ 0.15)
@@ -33,15 +33,23 @@
   (:default-initargs
    :name 'player
    :bsize (nv/ (vec 16 32) 2)
-   :size (vec 32 40)
+   :size (vec 64 50)
    :texture (asset 'world 'player)
-   :animations '((stand 0 8 :step 0.1)
-                 (run 8 24 :step 0.05)
-                 (jump 24 27 :step 0.1 :next fall)
-                 (fall 27 33 :step 0.1 :loop-to 29)
-                 (slide 33 39 :step 0.075 :loop-to 38)
-                 (climb 39 51 :step 0.1)
-                 (crawl 51 59 :step 0.12))
+   :animations '((stand           0   8 :step 0.1)
+                 (run             8  24 :step 0.05)
+                 (jump           24  27 :step 0.1 :next fall)
+                 (fall           27  33 :step 0.1 :loop-to 29)
+                 (slide          33  39 :step 0.075 :loop-to 38)
+                 (climb          39  51 :step 0.1)
+                 (crawl          51  59 :step 0.12)
+                 (dash           59  68 :step 0.03 :next fall)
+                 (evade-left     68  79 :step 0.1 :next stand)
+                 (evade-right    79  90 :step 0.1 :next stand)
+                 (pull-gun       90 102 :step 0.1 :loop-to 101)
+                 (shoot         102 106 :step 0.1)
+                 (pull-sword    106 112 :step 0.1 :loop-to 111)
+                 (light-ground  112 144 :step 0.1)
+                 (heavy-ground  144 178 :step 0.1))
    :profile-title "The Stranger"
    :profile-texture (asset 'world 'player-profile)
    :profile-animations '((normal 0 1)
@@ -88,7 +96,8 @@ void main(){
                        ((retained 'movement :down)  -1)
                        (T                            0))))
       (setf (state player) :dashing)
-      (when (v= 0 acc) (setf (vx acc) 1))
+      (setf (animation player) 'dash)
+      (when (v= 0 acc) (setf (vx acc) (direction player)))
       (nvunit acc))))
 
 (define-handler (player start-jump) (ev)
@@ -185,12 +194,12 @@ void main(){
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
               +world+)
-       (cond ((< 0.10 (dash-time player) 0.125)
+       (cond ((not (eql 'dash (trial::sprite-animation-name (animation player))))
+              (setf (state player) :normal))
+             ((< 0.10 (dash-time player) 0.125)
               (nv* (nvunit acc) (vx +vdash+)))
              ((< 0.125 (dash-time player) 0.15)
-              (nv* acc (damp* (vy +vdash+) dt)))
-             ((< 0.15 (dash-time player))
-              (setf (state player) :normal))))
+              (nv* acc (damp* (vy +vdash+) dt)))))
       (:dying
        (nv* (velocity player) 0.9))
       (:climbing
@@ -395,8 +404,8 @@ void main(){
 
 (defmethod paint :before ((player player) target)
   (case (state player)
-    (:crawling (translate-by 0 12 0))
-    (T (translate-by 0 4 0))))
+    (:crawling (translate-by 0 17 0))
+    (T (translate-by 0 9 0))))
 
 (defmethod paint :around ((player player) target)
   (call-next-method)
@@ -410,35 +419,3 @@ void main(){
                (vy (bsize player))
                (height prompt)))
       (paint prompt target))))
-
-(define-progression intro
-  0.0 0.1 (:blink (calc middle :to (player-screen-y))
-                  (set strength :from 1.0 :to 1.0))
-  2.0 4.0 (:blink (set strength :from 1.0 :to 0.9 :ease cubic-in-out))
-          (:bokeh (set strength :from 100.0 :to 80.0 :ease cubic-in-out))
-  4.0 5.0 (:blink (set strength :to 1.0 :ease cubic-in-out))
-  5.0 6.0 (:blink (set strength :to 0.7 :ease cubic-in-out))
-  6.0 6.5 (:blink (set strength :to 1.0 :ease cubic-in))
-  5.0 7.0 (:bokeh (set strength :to 0.0 :ease circ-in))
-  6.5 6.7 (:blink (set strength :to 0.0 :ease cubic-in-out))
-  6.7 6.8 (:blink (set strength :to 1.0 :ease cubic-in))
-  6.8 6.9 (:blink (set strength :to 0.0 :ease cubic-in))
-  6.9 7.0 (:blink (set strength :to 1.0 :ease cubic-in))
-  7.0 7.1 (:blink (set strength :to 0.0 :ease cubic-in)))
-
-(define-progression revive
-  0.0 1.5 (:blink (calc middle :to (player-screen-y)))
-  0.0 0.6 (:blink (set strength :from 1.0 :to 0.3 :ease cubic-in-out))
-          (:bokeh (set strength :from 100.0 :to 10.0 :ease cubic-in-out))
-  0.4 0.4 (player (call (lambda (player tt dt) ;;(setf (animation player) 7)
-                          )))
-  0.6 0.8 (:blink (set strength :to 1.0 :ease cubic-in))
-          (:bokeh (set strength :to 0.0 :ease cubic-out))
-  0.9 1.0 (:blink (set strength :to 0.0 :ease cubic-out))
-  1.5 1.5 (player (call (lambda (player tt dt) (setf (state player) :normal)))))
-
-(define-progression die
-  0.0 0.8 (:blink (calc middle :to (player-screen-y)))
-  0.0 0.8 (:blink (set strength :from 0.0 :to 1.0 :ease cubic-in))
-          (:bokeh (set strength :from 0.0 :to 10.0))
-  0.8 0.8 (player (call (lambda (player tt dt) (death player)))))
