@@ -42,8 +42,6 @@
     (vector-push-extend (vy b) data)
     (vector-push-extend (vx a) data)
     (vector-push-extend (vy a) data)
-    (when (allocated-p vbo)
-      (resize-buffer vbo (* (length data) 4) :data data))
     (setf (size vao) (/ (length data) 2))))
 
 (define-shader-pass shadow-map-pass (single-shader-pass)
@@ -59,7 +57,7 @@
         (cffi:with-foreign-object (pixel :uint8)
           (%gl:read-pixels (floor (* (vx px) (width pass))) (floor (* (vy px) (height pass)))
                            1 1 :red :unsigned-byte pixel)
-          (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 255.0)))))))
+          (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 128.0)))))))
 
 (defmethod paint ((container layered-container) (target shadow-map-pass))
   ;; KLUDGE: Bypass layering, only render chunks at layer 0.

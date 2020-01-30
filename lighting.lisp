@@ -40,11 +40,13 @@
   (when (= 1 (active-p (struct (asset 'leaf 'light-info))))
     (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
            (shade (local-shade pass))
-           (exposure (- (* shade 2) 0.15)))
+           (exposure (* 1.5 shade))
+           (gamma (* 2.5 shade)))
       (let* ((dir (- target shade))
              (ease (/ (expt (abs dir) 1.1) 30)))
         (incf (local-shade pass) (* ease (signum dir))))
-      (setf (uniforms pass) `(("exposure" ,exposure))))))
+      (setf (uniforms pass) `(("exposure" ,(clamp 0f0 exposure 10f0))
+                              ("gamma" ,(clamp 1f0 gamma 3f0)))))))
 
 (define-class-shader (rendering-pass :fragment-shader -100)
   "out vec4 color;
