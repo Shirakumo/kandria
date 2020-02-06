@@ -20,7 +20,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 10      0.7))
 
-(define-shader-subject player (movable lit-animated-sprite profile-entity)
+(define-shader-subject player (movable lit-animated-sprite)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
@@ -35,31 +35,7 @@
    :bsize (nv/ (vec 16 32) 2)
    :size (vec 64 50)
    :texture (asset 'world 'player)
-   :animations '((stand           0   8 :step 0.1)
-                 (run             8  24 :step 0.05)
-                 (jump           24  27 :step 0.1 :next fall)
-                 (fall           27  33 :step 0.1 :loop-to 29)
-                 (slide          33  39 :step 0.075 :loop-to 38)
-                 (climb          39  51 :step 0.1)
-                 (crawl          51  59 :step 0.12)
-                 (dash           59  68 :step 0.03 :next fall)
-                 (evade-left     68  79 :step 0.1 :next stand)
-                 (evade-right    79  90 :step 0.1 :next stand)
-                 (pull-gun       90 102 :step 0.1 :loop-to 101)
-                 (shoot         102 106 :step 0.1)
-                 (pull-sword    106 112 :step 0.1 :loop-to 111)
-                 (light-ground  112 144 :step 0.1)
-                 (heavy-ground  144 178 :step 0.1))
-   :profile-title "The Stranger"
-   :profile-texture (asset 'world 'player-profile)
-   :profile-animations '((normal 0 1)
-                         (normal-blink 0 3 :step 0.1 :next normal)
-                         (happy 3 4)
-                         (happy-blink 3 4 :next happy)
-                         (skeptical 4 5)
-                         (skeptical-blink 4 7 :step 0.1 :next skeptical)
-                         (grin 7 8)
-                         (grin-blink 7 10 :step 0.1 :next grin))))
+   :animations "player-animations.lisp"))
 
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
@@ -103,6 +79,16 @@ void main(){
 (define-handler (player start-jump) (ev)
   (unless (eql :crawling (state player))
     (setf (jump-time player) (- +coyote+))))
+
+(define-handler (player light-attack) (ev)
+  (when (aref (collisions player) 2)
+    (setf (animation player) 'light-ground)
+    (setf (state player) :attacking)))
+
+(define-handler (player heavy-attack) (ev)
+  (when (aref (collisions player) 2)
+    (setf (animation player) 'heavy-ground)
+    (setf (state player) :attacking)))
 
 (flet ((handle-solid (player hit)
          (when (and (= +1 (vy (hit-normal hit)))
@@ -200,6 +186,9 @@ void main(){
               (nv* (nvunit acc) (vx +vdash+)))
              ((< 0.125 (dash-time player) 0.15)
               (nv* acc (damp* (vy +vdash+) dt)))))
+      (:attacking
+       (when (eql 'stand (trial::sprite-animation-name (animation player)))
+         (setf (state player) :normal)))
       (:dying
        (nv* (velocity player) 0.9))
       (:climbing

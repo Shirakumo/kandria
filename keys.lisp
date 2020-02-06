@@ -88,12 +88,12 @@
   (key-press (one-of key :left-shift))
   (gamepad-press (one-of button :r2)))
 
-(define-action quick-attack (movement)
-  (mouse-press (one-of :left))
+(define-action light-attack (movement)
+  (mouse-press (one-of button :left))
   (gamepad-press (one-of button :b)))
 
 (define-action heavy-attack (movement)
-  (mouse-press (one-of :right))
+  (mouse-press (one-of button :right))
   (gamepad-press (one-of button :y)))
 
 (define-action start-jump (movement)

@@ -6,7 +6,7 @@
    (size :initform (vec 16 16))
    (texture :initform (asset 'leaf 'placeholder)))
   (:default-initargs
-   :animations '((idle 0 1 :step 0.1))))
+   :animations '((idle :start 0 :end 1 :step 0.1))))
 
 (defmethod die ((enemy enemy))
   (leave enemy (surface enemy)))
