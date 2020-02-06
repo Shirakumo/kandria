@@ -10,6 +10,7 @@
    (#:quest #:org.shirakumo.fraf.leaf.quest)
    (#:quest-graph #:org.shirakumo.fraf.leaf.quest.graph)
    (#:alloy #:org.shirakumo.alloy)
+   (#:trial-alloy #:org.shirakumo.fraf.trial.alloy)
    (#:simple #:org.shirakumo.alloy.renderers.simple)
    (#:presentations #:org.shirakumo.alloy.renderers.simple.presentations)
    (#:opengl #:org.shirakumo.alloy.renderers.opengl)
@@ -17,4 +18,5 @@
    (#:colors #:org.shirakumo.alloy.colored.colors)
    (#:file-select #:org.shirakumo.file-select))
   (:export
-   #:launch))
+   #:launch
+   #:launch-animation-editor))

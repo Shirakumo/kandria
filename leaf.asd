@@ -4,6 +4,7 @@
   :entry-point "org.shirakumo.fraf.leaf:launch"
   :components ((:file "package")
                (:file "helpers")
+               (:file "animation")
                (:file "color-temperature")
                (:file "auto-fill")
                (:file "layered-container")
@@ -44,7 +45,8 @@
                              (:file "toolbar")
                              (:file "chunk")
                              (:file "entity")
-                             (:file "creator"))))
+                             (:file "creator")
+                             (:file "animation"))))
   :serial T
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
