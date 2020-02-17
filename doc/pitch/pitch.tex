@@ -1,0 +1,68 @@
+\documentclass[twoside,12pt]{extarticle}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage[left=1.8cm,right=3cm,top=1cm,bottom=1cm,headheight=0cm,headsep=2.5cm,includehead,includefoot]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{background}
+
+\setmainfont{Equity Text A}
+\setsansfont{Concourse T3}
+\setmonofont{Triplicate T4}
+\renewcommand{\familydefault}{\sfdefault}
+
+\titleformat{\section}{\normalfont\fontsize{50}{60}\selectfont\bfseries}{}{1cm}{}
+\titlespacing{\section}{0cm}{2cm}{0.5cm}
+\newcommand{\sectionbreak}{\clearpage}
+\titleformat{\subsection}{\normalfont\huge\bfseries}{}{0pt}{}
+\titleformat{\subsubsection}{\normalfont\large\bfseries}{}{0pt}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textcolor{white}{\bfseries\rightmark}}
+\rfoot{\textcolor{white}{\bfseries\thepage}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\subsectionmark}[1]{}
+
+\backgroundsetup{
+  scale=1,
+  color=black,
+  opacity=1.0,
+  angle=0
+}
+
+\newcommand{\coverpage}[1]{
+  \clearpage
+  \thispagestyle{empty}
+  \SetBgContents{\includegraphics{#1}}
+  \null
+  \thispagestyle{empty}%
+  \addtocounter{page}{-1}%
+  \newpage
+  \SetBgContents{\includegraphics[width=\paperwidth,height=\paperheight]{background}}
+}
+
+\begin{document}
+\coverpage{cover}
+\coverpage{logo}
+%% Main content
+\section{About XXX}
+A
+\section{Current Status}
+A
+\section{Future Development}
+A
+\section{Grant Use}
+A
+\section{Budget}
+A
+\coverpage{thanks}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-engine: luatex
+%%% End:
