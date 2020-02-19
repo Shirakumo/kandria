@@ -39,7 +39,8 @@
        y1="350.02121"
        x2="162.42603"
        y2="-33.243279"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(3.7795276)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -48,17 +49,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="155.26773"
-     inkscape:cy="580.60022"
+     inkscape:zoom="0.7"
+     inkscape:cx="340.36332"
+     inkscape:cy="582.36568"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-object-midpoints="false"
      inkscape:snap-page="true"
-     inkscape:window-width="1916"
-     inkscape:window-height="1029"
-     inkscape:window-x="0"
+     inkscape:window-width="1125"
+     inkscape:window-height="2109"
+     inkscape:window-x="2880"
      inkscape:window-y="49"
      inkscape:window-maximized="0" />
   <metadata
@@ -78,10 +79,11 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
+       style="fill:url(#linearGradient4554);fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 0,0 v 22.164341 h 492.14341 l 38.57143,35.210382 H 793.70117 V 0 Z m 0,1069.6621 v 52.8574 h 793.70117 v -24.6442 H 88.992455 l -4.82375,-28.2132 z"
+       transform="scale(0.26458333)"
        id="path4543"
-       style="fill:url(#linearGradient4554);fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 0,290.09359 210,-8.29974 V 297 H 0 Z M 0,28.726192 210,17.386906 V 0 H 0 Z"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccc" />
+       sodipodi:nodetypes="cccccccccccccc" />
   </g>
 </svg>

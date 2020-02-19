@@ -1,18 +1,24 @@
-\documentclass[twoside,12pt]{extarticle}
+\documentclass[14pt]{extarticle}
 \usepackage{fontspec}
 \usepackage{xcolor}
 \usepackage{titlesec}
-\usepackage[left=1.8cm,right=3cm,top=1cm,bottom=1cm,headheight=0cm,headsep=2.5cm,includehead,includefoot]{geometry}
+\usepackage[left=1.8cm,right=3.7cm,top=0.75cm,bottom=0.75cm,headheight=15pt,headsep=0.5cm,includehead,includefoot]{geometry}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{background}
+\usepackage{zref-savepos}
+\usepackage[colorlinks,
+linkcolor={red!50!black},
+citecolor={blue!50!black},
+urlcolor={blue!80!black}]{hyperref}
 
 \setmainfont{Equity Text A}
 \setsansfont{Concourse T3}
 \setmonofont{Triplicate T4}
 \renewcommand{\familydefault}{\sfdefault}
+\newfontfamily\sectionfont{Concourse C3}
 
-\titleformat{\section}{\normalfont\fontsize{50}{60}\selectfont\bfseries}{}{1cm}{}
+\titleformat{\section}{\sectionfont\Huge\selectfont\bfseries}{}{0pt}{}[]
 \titlespacing{\section}{0cm}{2cm}{0.5cm}
 \newcommand{\sectionbreak}{\clearpage}
 \titleformat{\subsection}{\normalfont\huge\bfseries}{}{0pt}{}
@@ -21,10 +27,25 @@
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{\textcolor{white}{\bfseries\rightmark}}
-\rfoot{\textcolor{white}{\bfseries\thepage}}
+\lfoot{\textcolor{white}{\bfseries\thepage}}
 \renewcommand{\sectionmark}[1]{\markright{#1}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\subsectionmark}[1]{}
+
+\makeatletter
+\def\@afterheading{%
+  \@nobreaktrue
+  \everypar{%
+    \if@nobreak
+    \@nobreakfalse
+    \clubpenalty \@M
+    \hspace*{1em}%
+    \else
+    \clubpenalty \@clubpenalty
+    \everypar{}%
+    \fi}}
+\makeatother
+\setlength{\parindent}{0pt}
 
 \backgroundsetup{
   scale=1,
@@ -36,7 +57,7 @@
 \newcommand{\coverpage}[1]{
   \clearpage
   \thispagestyle{empty}
-  \SetBgContents{\includegraphics{#1}}
+  \SetBgContents{\includegraphics[width=\paperwidth,height=\paperheight]{#1}}
   \null
   \thispagestyle{empty}%
   \addtocounter{page}{-1}%
@@ -44,20 +65,21 @@
   \SetBgContents{\includegraphics[width=\paperwidth,height=\paperheight]{background}}
 }
 
+\newcommand{\fillgraphics}[2][]{%
+  \par
+  \zsaveposy{top-\thepage}% Mark (baseline of) top of image
+  \vfill
+  \zsaveposy{bottom-\thepage}% Mark (baseline of) bottom of image
+  \smash{\includegraphics[height=\dimexpr\zposy{top-\thepage}sp-\zposy{bottom-\thepage}sp\relax,#1]{#2}}%
+  \par
+}
+
 \begin{document}
 \coverpage{cover}
-\coverpage{logo}
-%% Main content
-\section{About XXX}
-A
-\section{Current Status}
-A
-\section{Future Development}
-A
-\section{Grant Use}
-A
-\section{Budget}
-A
+\include{about}
+\include{status}
+\include{future}
+\include{budget}
 \coverpage{thanks}
 \end{document}
 
