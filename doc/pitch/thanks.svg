@@ -7,6 +7,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
@@ -17,7 +18,29 @@
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
    sodipodi:docname="thanks.svg">
   <defs
-     id="defs4575" />
+     id="defs4575">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient5331">
+      <stop
+         style="stop-color:#342255;stop-opacity:1"
+         offset="0"
+         id="stop5327" />
+      <stop
+         style="stop-color:#1043bb;stop-opacity:1"
+         offset="1"
+         id="stop5329" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5331"
+       id="linearGradient5333"
+       x1="40.065475"
+       y1="344.29166"
+       x2="145.74405"
+       y2="-54.851192"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,16 +48,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="312.96903"
-     inkscape:cy="560"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="292.82314"
+     inkscape:cy="742.85065"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-page="true"
-     inkscape:window-width="956"
-     inkscape:window-height="1029"
-     inkscape:window-x="960"
+     inkscape:window-width="1761"
+     inkscape:window-height="2109"
+     inkscape:window-x="1920"
      inkscape:window-y="49"
      inkscape:window-maximized="0" />
   <metadata
@@ -54,7 +77,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#0f5282;fill-opacity:1;stroke:none;stroke-width:0.2581875"
+       style="fill:url(#linearGradient5333);fill-opacity:1;stroke:none;stroke-width:0.2581875"
        id="rect4583"
        width="210"
        height="297"
@@ -72,5 +95,5 @@
            x="248.57143"
            y="499.66254" /></flowRegion><flowPara
          id="flowPara5134"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:40px;font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1">Thank you for reading</flowPara></flowRoot>  </g>
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:40px;font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1">Thank you for reading!</flowPara></flowRoot>  </g>
 </svg>
