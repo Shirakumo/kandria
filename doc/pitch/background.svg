@@ -57,10 +57,10 @@
      showgrid="false"
      inkscape:snap-object-midpoints="false"
      inkscape:snap-page="true"
-     inkscape:window-width="1125"
-     inkscape:window-height="2109"
-     inkscape:window-x="2880"
-     inkscape:window-y="49"
+     inkscape:window-width="1407"
+     inkscape:window-height="1152"
+     inkscape:window-x="509"
+     inkscape:window-y="46"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
@@ -70,7 +70,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -80,7 +80,7 @@
      id="layer1">
     <path
        style="fill:url(#linearGradient4554);fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 0,0 v 22.164341 h 492.14341 l 38.57143,35.210382 H 793.70117 V 0 Z m 0,1069.6621 v 52.8574 h 793.70117 v -24.6442 H 88.992455 l -4.82375,-28.2132 z"
+       d="m 0,0 v 22.164341 l 426.42912,0 38.57143,35.210382 328.70062,0 V 0 Z m 0,1069.6621 v 52.8574 h 793.70117 v -24.6442 H 88.992455 l -4.82375,-28.2132 z"
        transform="scale(0.26458333)"
        id="path4543"
        inkscape:connector-curvature="0"
