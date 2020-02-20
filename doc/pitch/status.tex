@@ -4,7 +4,6 @@ Proper development on the game started in Summer of 2019. The game is built upon
 \subsection{Engine Features}
 At the time of writing, the game has the following features fully implemented:
 
-% Split up into larger sections and include screenshots?
 \begin{itemize}
 \item \textbf{2D Platformer Mechanics}\quad
   The player has full 2D movement on sloped terrain, including wall jumps, climbing, crawling, dashing, and moving platforms.
@@ -23,10 +22,73 @@ At the time of writing, the game has the following features fully implemented:
 This sets a solid precedent for building most of the game. There are a few important features that are still missing, which are discussed in the next section.
 
 \clearpage
-\subsection{Content}
-% How to show animations?
-% Concept art
+\subsection{Visuals}
+In terms of visuals most of the work has been on the player character's design and animations. These are now mostly complete for the currently planned scope. Please see a few of the animations \hyperref[fig:animations]{included below}.
 
+\begin{figure}[h]
+  \centering
+  \includemovie{run}{Running}
+  \includemovie{climb}{Climbing}
+  \includemovie{crawl}{Crawling}
+  \includemovie{evade}{Forward evade}
+  \includemovie{light}{Light ground attack}
+  \includemovie{heavy}{Heavy ground attack}
+  \caption{Player character animation set. Please click the image to view.}
+  \label{fig:animations}
+\end{figure}
+
+The design of the player character has evolved quite a bit throughout the development of the game. A lot of variations were produced to try and find the proper fit for the character, setting, and overall tone of the story. See \hyperref[fig:designs]{the below figure} for a summary of the protagonist's design process.
+\clearpage
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{character design2.png}
+    \caption{Early version}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{character design5.png}
+    \caption{Custome design run \#1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{character design4.png}
+    \caption{Custome design run \#2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{character design3.png}
+    \caption{Custome design run \#3}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.7\textwidth}
+    \includegraphics[width=\textwidth]{character design.png}
+    \caption{Finalised character design.}
+  \end{subfigure}
+  \label{fig:designs}
+  \caption{Design evolution of ``The Stranger'' player character.}
+\end{figure}
+
+Finally, some simple tilesets were made as well, though none of them are complete or fit into any specific areas of the story. An example scene of the most developed tileset is shown in the trailer and demo. A screenshot for completeness is \hyperref[fig:tileset]{included below}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{tileset.png}
+  \label{fig:tileset}
+  \caption{The ``tundra'' tileset.}
+\end{figure}
+
+\subsection{Story and World}
+The broad world building is mostly complete. The separation of the world into underground and above ground sections allows for very different visuals, but also for very different gameplay environments, with the surface areas focusing more on exploration and the underground areas focusing more on combat. The overall history of the world to explain the setting is based on common traits from science fiction, cyberpunk, and post-apocalypse genres, which easily lends itself to many interesting scenarios and character traits. This should also help a lot to expand on the world outside of the scope of the game via flavour text and side conversations with NPCs. \\
+
+The dry, hot, and mostly devoid of life areas of the surface should make it easy to focus on the platforming angles and allow for far-ranging exploration and narrative delivery with various relics that the player can discover among the ruins. Certain parts of the surface could also be gated off by untraverseable desert sections, and can only be reached via undergound routes, giving certain quests the possibility of diving between the two sections. \\
+
+The underground will have a stronger focus on very moody, dark, and bleak environments. Since the surface area is mostly uninhabitable almost all of the wildlife will also be found here, along with malfunctioning robots and human looters, giving way for a very different pacing focused much more on combat than on platforming. This is also where most of the resources for the above ground settlement's survival need to be found, or people can be rescued to join the group. Since the underground tunnels can grow rather unrestricted in both dimensions, movement will also focus a lot more on verticality than in the surface sections. \\
+
+While this setting easily gets the creative ideas flowing, knowing what to cut and how to restrict the scope to remain manageable has been a problem, and will probably continue to be. The main areas to cut in would be in enemy types and interactable characters. Tilesets can be expanded rather quickly and repurposed a lot, and dialogue and flavour text can be created without too much overhead. Enemies and characters on the other hand require a lot of animation, which is rather time intensive. \\
+
+At the time of writing the story has not been worked out to a great extent. The current idea is to try and fit a story about finding a lost link between the player character and the old world into a standard hero's journey framework. Along this journey the player should have to deal with several key questions surrounding living machines and the ethics of survival. \\
+
+One of the ideas for this link would be a memory of an old-world research facility or bunker, which is obviously of great value to the survivors. A key question built around that would be whether it is objectionable to forcefully pry the information out of an android, even if it would potentially incur damage. Another question is whether it would be moral to disassemble an uncooperative android and repurpose the parts for human augmentation instead. \\
+
+Another angle to androids in general that would be interesting to explore in writing is the idea of segregation and phobia. People of certain backgrounds would be predisposed to distrusting androids, or even being violently opposed to their existence.  \\
 
 %%% Local Variables:
 %%% mode: latex

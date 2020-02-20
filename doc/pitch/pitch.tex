@@ -11,6 +11,8 @@
 linkcolor={red!50!black},
 citecolor={blue!50!black},
 urlcolor={blue!80!black}]{hyperref}
+\usepackage{subcaption}
+\usepackage{float}
 
 \setmainfont{Equity Text A}
 \setsansfont{Concourse T3}
@@ -30,6 +32,7 @@ urlcolor={blue!80!black}]{hyperref}
 \renewcommand{\sectionmark}[1]{\markright{#1}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\subsectionmark}[1]{}
+\captionsetup[subfigure]{labelformat=empty}
 
 \makeatletter
 \def\@afterheading{%
@@ -71,6 +74,15 @@ urlcolor={blue!80!black}]{hyperref}
   \zsaveposy{bottom-\thepage}% Mark (baseline of) bottom of image
   \smash{\includegraphics[height=\dimexpr\zposy{top-\thepage}sp-\zposy{bottom-\thepage}sp\relax,#1]{#2}}%
   \par
+}
+
+\newcommand{\includemovie}[2]{
+  \begin{subfigure}[b]{0.3\textwidth}
+    \begin{center}
+      \href{https://media.githubusercontent.com/media/Shinmera/leaf/master/doc/pitch/#1.gif}{\includegraphics[width=\textwidth]{#1}}
+    \end{center}
+    \caption{#2}
+  \end{subfigure}
 }
 
 \begin{document}
