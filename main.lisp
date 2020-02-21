@@ -29,11 +29,22 @@
                      :width 1280
                      :height 720))
 
+(defun world-path (world)
+  (if *standalone*
+      (pathname-utils:subdirectory (deploy:data-directory) world)
+      (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world)))
+
+(deploy:define-hook (:deploy leaf) (directory)
+  (deploy:status 1 "Copying world")
+  ;; FIXME: This fucking sucks man
+  (reinitialize-instance (find-pool 'world) :base (pathname-utils:subdirectory (world-path "world") "data"))
+  (deploy:copy-directory-tree (world-path "world") directory :copy-root T))
+
 (defmethod initialize-instance ((main main) &key world state)
   (call-next-method)
   (setf (scene main)
         (if world
-            (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world))
+            (load-world (world-path world))
             (make-instance 'empty-world)))
   ;; Load initial state
   (setf (state main)
