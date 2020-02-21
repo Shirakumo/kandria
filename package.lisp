@@ -16,7 +16,8 @@
    (#:opengl #:org.shirakumo.alloy.renderers.opengl)
    (#:colored #:org.shirakumo.alloy.colored)
    (#:colors #:org.shirakumo.alloy.colored.colors)
-   (#:file-select #:org.shirakumo.file-select))
+   (#:file-select #:org.shirakumo.file-select)
+   (#:gamepad #:org.shirakumo.fraf.gamepad))
   (:export
    #:launch
    #:launch-animation-editor))

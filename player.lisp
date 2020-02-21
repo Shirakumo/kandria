@@ -62,8 +62,8 @@ void main(){
       (if (typep (trial::source-event ev) 'gamepad-event)
           (let ((dev (device (trial::source-event ev))))
             (vsetf acc
-                   (absinvclamp 0.3 (cl-gamepad:axis dev :l-h) 0.8)
-                   (absinvclamp 0.3 (cl-gamepad:axis dev :l-v) 0.8)))
+                   (absinvclamp 0.3 (gamepad:axis :l-h dev) 0.8)
+                   (absinvclamp 0.3 (gamepad:axis :l-v dev) 0.8)))
           (vsetf acc
                  (cond ((retained 'movement :left)  -1)
                        ((retained 'movement :right) +1)
@@ -340,11 +340,6 @@ void main(){
              (T
               (setf (animation player) 'stand)))))))
 
-(defmethod enter :after ((player player) (scene scene))
-  (add-progression (progression-definition 'intro) scene)
-  (add-progression (progression-definition 'revive) scene)
-  (add-progression (progression-definition 'die) scene))
-
 (define-handler (player switch-region) (ev region)
   (let ((other (for:for ((entity over region))
                  (list entity (contained-p (location player) entity))
@@ -372,17 +367,9 @@ void main(){
 
 (defmethod die ((player player))
   (vsetf (acceleration player) 0 0)
-  (vsetf (location player) 0 0)
-  ;; (unless (eql (state player) :dying)
-  ;;   (setf (state player) :dying)
-  ;;   ;;(setf (animation player) 5)
-  ;;   (nv* (velocity player) -1)
-  ;;   (start (reset (progression 'die +world+))))
-  )
+  (vsetf (location player) 0 0))
 
 (defmethod death ((player player))
-  (start (reset (progression 'revive +world+)))
-  ;;(setf (animation player) 6)
   (vsetf (location player)
          (vx (spawn-location player))
          (vy (spawn-location player))))
