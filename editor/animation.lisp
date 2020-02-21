@@ -5,28 +5,36 @@
    (sprite :accessor sprite)
    (timeline :accessor timeline)
    (animation-edit :accessor animation-edit))
-  (:default-initargs :clear-color (vec 0.25 0.25 0.25)))
+  (:default-initargs :clear-color (vec 0.25 0.25 0.25)
+                     :width 1280
+                     :height 720
+                     :sprite 'player))
 
 (defmethod initialize-instance ((editor animation-editor) &key sprite)
   (call-next-method)
+  (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) "world"))
   (setf (sprite editor) (etypecase sprite
-                          (symbol (make-instance sprite))
+                          (symbol
+                           (change-class (make-instance sprite) 'animated-sprite))
                           (animated-sprite sprite))))
 
 (defmethod setup-scene ((editor animation-editor) scene)
   (let* ((ui (ui editor))
          (focus (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree ui)))
          (layout (make-instance 'alloy:border-layout :layout-parent (alloy:layout-tree ui)))
-         (pane (make-instance 'alloy:sidebar :side :west :layout-parent layout :focus-parent focus))
-         (time (make-instance 'alloy:sidebar :side :south :layout-parent layout :focus-parent focus))
+         (pane (make-instance 'alloy:sidebar :side :west :focus-parent focus))
+         (time (make-instance 'alloy:sidebar :side :south :focus-parent focus))
          (anim (make-instance 'animation-edit :sprite (sprite editor)))
          (line (make-instance 'timeline-edit :sprite (sprite editor))))
     (alloy:enter line time)
     (alloy:enter anim pane)
+    (alloy:enter pane layout :place :west :size (alloy:un 200))
+    (alloy:enter time layout :place :south :size (alloy:un 200))
     (setf (animation-edit editor) anim)
     (setf (timeline editor) line)
     (alloy:register ui ui)
     (enter ui scene))
+  (enter (sprite editor) scene)
   (enter (make-instance '2d-camera) scene)
   (enter (make-instance 'trial:render-pass) scene))
 
@@ -41,12 +49,23 @@
 (defmethod initialize-instance :after ((edit animation-edit) &key)
   (let ((animations (coerce (animations (sprite edit)) 'list)))
     (setf (alloy:value-set (alloy:representation 'animation edit)) animations)
-    (setf (animation edit) (first animations)))
+    (setf (animation edit) (first animations))
+    (alloy:on (setf alloy:value) (value (alloy:representation 'animation edit))
+      (dolist (slot '(start end step next loop))
+        (alloy:refresh (slot-value edit slot)))))
   (alloy:finish-structure edit (slot-value edit 'layout) (slot-value edit 'focus)))
+
+(defclass attack-combo-item (alloy:combo-item) ())
+
+(defmethod alloy:combo-item ((animation attack-animation) combo)
+  (make-instance 'attack-combo-item :value animation))
+
+(defmethod alloy:text ((item attack-combo-item))
+  (string (trial::sprite-animation-name (alloy:value item))))
 
 (alloy:define-subcomponent (animation-edit start) ((trial::sprite-animation-start (animation animation-edit)) alloy:wheel))
 (alloy:define-subcomponent (animation-edit end) ((trial::sprite-animation-end (animation animation-edit)) alloy:wheel))
-(alloy:define-subcomponent (animation-edit step) ((trial::sprite-animation-step (animation animation-edit)) alloy:wheel))
+(alloy:define-subcomponent (animation-edit step) ((trial::sprite-animation-step (animation animation-edit)) alloy:wheel :step 0.01))
 (alloy:define-subcomponent (animation-edit next) ((trial::sprite-animation-next (animation animation-edit)) alloy:wheel))
 (alloy:define-subcomponent (animation-edit loop) ((trial::sprite-animation-loop (animation animation-edit)) alloy:wheel))
 
@@ -67,18 +86,23 @@
   ((sprite :initarg :sprite :accessor sprite)))
 
 (defmethod initialize-instance :after ((edit timeline-edit) &key sprite)
-  (let* ((layout (make-instance 'alloy:horizontal-linear-layout
+  (let* ((frames (make-instance 'alloy:horizontal-linear-layout
                                 :cell-margins (alloy:margins)
                                 :min-size (alloy:size 100 300)))
          (focus (make-instance 'alloy:focus-list))
-         (scroll (make-instance 'alloy:scroll-view :scroll :x :focus focus :layout layout :focus focus)))
+         (layout (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(T)))
+         (scroll (make-instance 'alloy:scroll-view :scroll :x :focus focus :layout frames)))
+    (alloy:build-ui
+     (alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :layout-parent layout
+       "Frame" "Velocity" "Hurtbox" "Damage" "Interruptable" "Invincible" "Cancelable"))
+    (alloy:enter scroll layout)
     (loop for animation across (animations sprite)
           do (loop for i from (trial::sprite-animation-start animation)
                    below (trial::sprite-animation-end animation)
                    for frame = (make-instance 'frame-edit :animation animation :frame i)
-                   do (alloy:enter frame layout)
+                   do (alloy:enter frame frames)
                       (alloy:enter frame focus)))
-    (alloy:finish-structure edit (alloy:layout-element scroll) (alloy:focus-element scroll))))
+    (alloy:finish-structure edit layout (alloy:focus-element scroll))))
 
 (alloy:define-widget frame-edit (alloy:structure)
   ((frame-idx :initarg :frame :representation (alloy:button) :reader frame-idx)
