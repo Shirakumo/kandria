@@ -1,6 +1,6 @@
 \documentclass[14pt]{extarticle}
 \usepackage{fontspec}
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{titlesec}
 \usepackage[left=1.8cm,right=3.7cm,top=0.75cm,bottom=0.75cm,headheight=15pt,headsep=0.5cm,includehead,includefoot]{geometry}
 \usepackage{fancyhdr}
@@ -13,6 +13,7 @@ citecolor={blue!50!black},
 urlcolor={blue!80!black}]{hyperref}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{tabularx}
 
 \setmainfont{Equity Text A}
 \setsansfont{Concourse T3}
@@ -79,11 +80,16 @@ urlcolor={blue!80!black}]{hyperref}
 \newcommand{\includemovie}[2]{
   \begin{subfigure}[b]{0.3\textwidth}
     \begin{center}
-      \href{https://media.githubusercontent.com/media/Shinmera/leaf/master/doc/pitch/#1.gif}{\includegraphics[width=\textwidth]{#1}}
+      \href{https://raw.githubusercontent.com/Shinmera/kandria/master/doc/pitch/#1.gif}{\includegraphics[width=\textwidth]{#1}}
     \end{center}
     \caption{#2}
   \end{subfigure}
 }
+
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
+\clearrow
 
 \begin{document}
 \coverpage{cover}
