@@ -148,29 +148,6 @@ void main(){
                  (typep entity 'interactable)
                  (contained-p (vec4 (vx loc) (vy loc) (* 1.5 (vx size)) (vy size)) entity))
         (setf (interactable player) entity)))
-    ;; Handle jumps
-    (when (< (jump-time player) 0.0d0)
-      (cond ((or (svref collisions 1)
-                 (svref collisions 3))
-             ;; Wall jump
-             (let ((dir (if (svref collisions 1) -1.0 1.0)))
-               (setf (vx acc) (* dir (vz +vjump+)))
-               (setf (vy acc) (vw +vjump+))
-               (setf (direction player) dir)
-               (setf (jump-time player) 0.0d0)
-               (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 0.5 +tile-size+))
-                                                                 (vy loc))
-                                                 :direction (vec2 dir 0))
-                      +world+)))
-            ((< (air-time player) +coyote+)
-             ;; Ground jump
-             (setf (vy acc) (+ (vx +vjump+)
-                               (if (svref collisions 2)
-                                   (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
-                                   0)))
-             (setf (jump-time player) 0.0d0)
-             (enter (make-instance 'dust-cloud :location (vcopy loc))
-                    +world+))))
     (ecase (state player)
       (:stunned
        (decf (stun-time player) (dt ev))
@@ -187,6 +164,7 @@ void main(){
              ((< 0.125 (dash-time player) 0.15)
               (nv* acc (damp* (vy +vdash+) dt)))))
       (:attacking
+       (nv* acc 0)
        (when (eql 'stand (trial::sprite-animation-name (animation player)))
          (setf (state player) :normal)))
       (:dying
@@ -200,16 +178,17 @@ void main(){
                             top)))
          (unless (and (retained 'movement :climb) attached)
            (setf (state player) :normal))
-         (unless (retained 'movement :jump)
-           (cond ((null (svref collisions (if (< 0 (direction player)) 1 3)))
-                  (setf (vy acc) (vx +vclim+))
-                  (setf (vx acc) (* (direction player) (vx +vclim+))))
-                 ((retained 'movement :up)
-                  (setf (vy acc) (vx +vclim+)))
-                 ((retained 'movement :down)
-                  (setf (vy acc) (* (vy +vclim+) -1)))
-                 (T
-                  (setf (vy acc) 0))))))
+         (cond ((retained 'movement :jump)
+                (setf (state player) :normal))
+               ((null (svref collisions (if (< 0 (direction player)) 1 3)))
+                (setf (vy acc) (vx +vclim+))
+                (setf (vx acc) (* (direction player) (vx +vclim+))))
+               ((retained 'movement :up)
+                (setf (vy acc) (vx +vclim+)))
+               ((retained 'movement :down)
+                (setf (vy acc) (* (vy +vclim+) -1)))
+               (T
+                (setf (vy acc) 0)))))
       (:crawling
        ;; Uncrawl on ground loss, or if we request it and aren't cramped.
        (unless (and (svref collisions 2)
@@ -224,6 +203,30 @@ void main(){
              (T
               (setf (vx acc) 0))))
       (:normal
+       ;; Handle jumps
+       (when (< (jump-time player) 0.0d0)
+         (cond ((or (svref collisions 1)
+                    (svref collisions 3))
+                ;; Wall jump
+                (let ((dir (if (svref collisions 1) -1.0 1.0)))
+                  (setf (vx acc) (* dir (vz +vjump+)))
+                  (setf (vy acc) (vw +vjump+))
+                  (setf (direction player) dir)
+                  (setf (jump-time player) 0.0d0)
+                  (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 24))
+                                                                    (vy loc))
+                                                    :direction (vec2 dir 0))
+                         +world+)))
+               ((< (air-time player) +coyote+)
+                ;; Ground jump
+                (setf (vy acc) (+ (vx +vjump+)
+                                  (if (svref collisions 2)
+                                      (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
+                                      0)))
+                (setf (jump-time player) 0.0d0)
+                (enter (make-instance 'dust-cloud :location (vcopy loc))
+                       +world+))))
+       
        ;; Test for climbing
        (when (and (retained 'movement :climb)
                   (not (retained 'movement :jump))

@@ -86,7 +86,8 @@
 
 (define-action dash (movement)
   (key-press (one-of key :left-shift))
-  (gamepad-press (one-of button :r2)))
+  (gamepad-press (one-of button :r2))
+  (gamepad-move (one-of axis :r2) (< old-pos 0.4 pos)))
 
 (define-action light-attack (movement)
   (mouse-press (one-of button :left))

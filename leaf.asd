@@ -51,6 +51,7 @@
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
                :trial-alloy
+               :trial-steam
                :zip
                :fast-io
                :ieee-floats

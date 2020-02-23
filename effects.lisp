@@ -197,7 +197,7 @@ void main(){
 
 (defmethod paint :before ((particle dust-cloud) (pass shader-pass))
   (let ((program (shader-program-for-pass pass particle)))
-    (translate-by 0 4 0)
+    (translate-by 0 8 0)
     (setf (uniform program "direction") (direction particle))))
 
 (define-class-shader (dust-cloud :fragment-shader)
@@ -216,7 +216,7 @@ float hash12n(vec2 p){
 
 void main(){
   float ftime = (1-timer*2)*2;
-  vec2 pos = floor(texcoord*32)/32.0;
+  vec2 pos = floor(texcoord*64)/64.0;
   vec2 off = vec2(ftime/3.0)*direction;
   vec2 skew = abs(direction.yx)+1;
   float cdist = 1-length(vec2(pos.x-0.5,pos.y-0.5)/skew+off)*4;

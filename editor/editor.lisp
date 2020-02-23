@@ -148,6 +148,7 @@
 (defmethod edit ((action (eql 'redo)) (editor editor))
   (redo editor (unit 'region T)))
 
+#+(OR)
 (defmethod edit ((action (eql 'inspect)) (editor editor))
   #+swank
   (let ((swank::*buffer-package* *package*)
