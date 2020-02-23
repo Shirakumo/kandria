@@ -1,5 +1,19 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(define-subject editor-camera (trial:2d-camera)
+  ((zoom :initarg :zoom :initform 1.0 :accessor zoom)))
+
+(defmethod project-view ((camera editor-camera) ev)
+  (reset-matrix *view-matrix*)
+  (let ((z 4))
+    (scale-by z z z)
+    (translate-by (+ (vx (location camera)) (/ (width *context*) 2))
+                  (+ (vy (location camera)) (/ (height *context*) 2))
+                  100 *view-matrix*)))
+
+;; FIXME: create observable animation class so we don't have to futz around with stuff not being
+;;        observable or stored in multiple places.
+
 (defclass animation-editor (trial:main)
   ((ui :initform (make-instance 'ui) :reader ui)
    (sprite :accessor sprite)
@@ -16,7 +30,11 @@
   (setf (sprite editor) (etypecase sprite
                           (symbol
                            (change-class (make-instance sprite) 'animated-sprite))
-                          (animated-sprite sprite))))
+                          (animated-sprite sprite)))
+  (setf (playback-speed (sprite editor)) 0f0))
+
+(defmethod setup-rendering :after ((editor animation-editor))
+  (disable :cull-face :scissor-test :depth-test))
 
 (defmethod setup-scene ((editor animation-editor) scene)
   (let* ((ui (ui editor))
@@ -35,7 +53,7 @@
     (alloy:register ui ui)
     (enter ui scene))
   (enter (sprite editor) scene)
-  (enter (make-instance '2d-camera) scene)
+  (enter (make-instance 'editor-camera) scene)
   (enter (make-instance 'trial:render-pass) scene))
 
 (defun launch-animation-editor (&rest initargs)
@@ -52,8 +70,10 @@
     (setf (animation edit) (first animations))
     (alloy:on (setf alloy:value) (value (alloy:representation 'animation edit))
       (dolist (slot '(start end step next loop))
-        (alloy:refresh (slot-value edit slot)))))
-  (alloy:finish-structure edit (slot-value edit 'layout) (slot-value edit 'focus)))
+        (alloy:refresh (slot-value edit slot)))
+      (setf (animation (sprite edit)) value)
+      (setf (playback-speed (sprite edit)) 0f0))
+  (alloy:finish-structure edit (slot-value edit 'layout) (slot-value edit 'focus))))
 
 (defclass attack-combo-item (alloy:combo-item) ())
 
@@ -101,7 +121,12 @@
                    below (trial::sprite-animation-end animation)
                    for frame = (make-instance 'frame-edit :animation animation :frame i)
                    do (alloy:enter frame frames)
-                      (alloy:enter frame focus)))
+                      (alloy:enter frame focus)
+                      (let ((animation animation))
+                        (alloy:on alloy:activate ((alloy:representation 'frame-idx frame))
+                          (setf (animation sprite) animation)
+                          (setf (frame sprite) (alloy:value alloy:observable))
+                          (setf (playback-speed sprite) 0f0)))))
     (alloy:finish-structure edit layout (alloy:focus-element scroll))))
 
 (alloy:define-widget frame-edit (alloy:structure)
