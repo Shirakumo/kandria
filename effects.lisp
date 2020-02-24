@@ -217,6 +217,7 @@ float hash12n(vec2 p){
 void main(){
   float ftime = (1-timer*2)*2;
   vec2 pos = floor(texcoord*64)/64.0;
+  pos.x = pos.x*2-0.5;
   vec2 off = vec2(ftime/3.0)*direction;
   vec2 skew = abs(direction.yx)+1;
   float cdist = 1-length(vec2(pos.x-0.5,pos.y-0.5)/skew+off)*4;
@@ -225,5 +226,4 @@ void main(){
   float prob = rng * ftime * cdist;
   if(prob < 0.5) color.a = 0;
   //color = vec4(cdist,0,0,1);
-}"
-  )
+}")
