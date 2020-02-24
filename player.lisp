@@ -158,6 +158,15 @@ void main(){
               (nv* acc (damp* (vy +vdash+) dt)))))
       (:attacking
        (nv* acc 0)
+       (when (if (eq 'heavy-ground (trial::sprite-animation-name (animation player)))
+                 (= 12 (frame-idx player))
+                 (= 6 (frame-idx player)))
+         (let ((other (scan (surface player) (hurtbox player))))
+           (when (typep other 'enemy)
+             (let ((dir (nvunit (v- (location other) (location player)))))
+               (if (eq 'heavy-ground (trial::sprite-animation-name (animation player)))
+                   (vsetf (acceleration other) (* (vx dir) 5) 2)
+                   (vsetf (acceleration other) (* (vx dir) 3) 1))))))
        (when (eql 'stand (trial::sprite-animation-name (animation player)))
          (setf (state player) :normal)))
       (:dying
