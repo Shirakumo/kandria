@@ -1,3 +1,5 @@
+(world player)
+(64 50)
 (stand         :start   0 :end   8 :step 0.1   :loop-to   0 :next stand :frame-data ())
 (run           :start   8 :end  24 :step 0.05  :loop-to   8 :next run :frame-data ())
 (jump          :start  24 :end  27 :step 0.1   :loop-to  24 :next fall :frame-data ())
