@@ -124,7 +124,7 @@
           (trial::sprite-animation-next animation))
   (loop for frame across (attack-animation-frame-data animation)
         do (write-animation frame stream))
-  (format stream ")~%"))
+  (format stream "))~%"))
 
 (defmethod write-animation ((frame frame) &optional (stream T))
   (format stream "~& (:damage ~3a :stun ~3f :flags #b~4,'0b :velocity (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f))"

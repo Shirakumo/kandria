@@ -27,7 +27,7 @@
 
 (defmethod initialize-instance ((editor animation-editor) &key file)
   (call-next-method)
-  (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) "world"))
+  (setf +world+ (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) "world")))
   (setf (sprite editor) (make-instance 'editor-sprite :animations file))
   (setf (playback-speed (sprite editor)) 0f0))
 
@@ -41,7 +41,7 @@
          (layout (make-instance 'alloy:border-layout :layout-parent (alloy:layout-tree ui)))
          (pane (make-instance 'alloy:sidebar :side :west :focus-parent focus :layout-parent layout))
          (time (make-instance 'alloy:sidebar :side :south :focus-parent focus :layout-parent layout))
-         (anim (make-instance 'animation-edit :sprite (sprite editor)))
+         (anim (make-instance 'animation-edit :sprite (sprite editor) :file (file editor)))
          (line (make-instance 'timeline-edit :sprite (sprite editor))))
     (alloy:enter line time)
     (alloy:enter anim pane)
@@ -56,7 +56,8 @@
   (apply #'trial:launch 'animation-editor initargs))
 
 (alloy:define-widget animation-edit (alloy:structure)
-  ((sprite :initarg :sprite :accessor sprite)))
+  ((sprite :initarg :sprite :accessor sprite)
+   (file :initarg :file :accessor file)))
 
 (defmethod initialize-instance :after ((edit animation-edit) &key)
   (alloy:on (setf alloy:value) (value (slot-value edit 'animation))
@@ -83,7 +84,8 @@
 (alloy:define-subcomponent (animation-edit next) ((trial::sprite-animation-next (animation animation-edit)) alloy:wheel))
 (alloy:define-subcomponent (animation-edit loop) ((trial::sprite-animation-loop (animation animation-edit)) alloy:wheel))
 (alloy:define-subbutton (animation-edit save) ("Save")
-  (with-open-file (stream (file animation-edit)
+  (write-animation (sprite animation-edit))
+  (with-open-file (stream (entry-path (format NIL "data/~a" (file animation-edit)) (packet +world+))
                           :direction :output
                           :if-exists :supersede)
     (write-animation (sprite animation-edit) stream)))
