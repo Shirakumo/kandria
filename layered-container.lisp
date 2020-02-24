@@ -45,10 +45,24 @@
               do (paint unit target))))))
 
 (defmacro do-layered-container ((entity container &optional result) &body body)
-  (let ((layer (gensym "LAYER")))
-    `(loop for ,layer across (objects ,container)
-           do (loop for ,entity across ,layer
-                    do (progn ,@body))
+  (let ((layer (gensym "LAYER"))
+        (loop (gensym "LOOP"))
+        (finish (gensym "FINISH"))
+        (idx (gensym "IDX")))
+    ;; NOTE: We manually do a LOOP ACROSS to avoid the implicit block generation.
+    `(loop with ,idx = 0
+           with ,entity = NIL
+           for ,layer across (objects ,container)
+           do (tagbody
+                 ,loop
+                 (when (<= (length ,layer) ,idx)
+                   (go ,finish))
+                 (setf ,entity (aref ,layer ,idx))
+                 (progn ,@body)
+                 (incf ,idx)
+                 (go ,loop)
+                 ,finish
+                 (setf ,idx 0))
            finally (return ,result))))
 
 (defclass layered-container-iterator (for:iterator)
