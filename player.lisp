@@ -1,8 +1,4 @@
 (in-package #:org.shirakumo.fraf.leaf)
-
-(define-asset (leaf player-mesh) mesh
-    (make-rectangle 64 50))
-
 ;;                          Gravity pulling down
 (define-global +vgrav+ 0.15)
 ;;                          How many frames to stay "grounded"
@@ -24,7 +20,6 @@
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
-   (vertex-array :initform (asset 'leaf 'player-mesh))
    (jump-time :initform 1.0d0 :accessor jump-time)
    (dash-time :initform 1.0d0 :accessor dash-time)
    (air-time :initform 1.0d0 :accessor air-time)
@@ -33,8 +28,6 @@
   (:default-initargs
    :name 'player
    :bsize (nv/ (vec 16 32) 2)
-   :size (vec 64 50)
-   :texture (asset 'world 'player)
    :animations "player-animations.lisp"))
 
 (defmethod initialize-instance :after ((player player) &key)
