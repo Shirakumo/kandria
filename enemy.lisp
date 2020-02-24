@@ -1,8 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-shader-subject enemy (lit-animated-sprite movable facing-entity solid)
-  ((vertex-array :initform (asset 'leaf '16x))
-   (bsize :initform (nv/ (vec 16 16) 2))
+  ((bsize :initform (nv/ (vec 16 16) 2))
    (size :initform (vec 16 16))
    (texture :initform (asset 'leaf 'placeholder)))
   (:default-initargs

@@ -190,14 +190,14 @@ void main(){
 
 (define-shader-subject dust-cloud (particle)
   ((direction :initarg :direction :accessor direction))
-  (:default-initargs :vertex-array (asset 'leaf 'player-mesh)
-                     :direction (vec2 0 1)))
+  (:default-initargs :direction (vec2 0 1)))
 
 (defmethod lifetime ((dust-cloud dust-cloud)) 0.40)
 
 (defmethod paint :before ((particle dust-cloud) (pass shader-pass))
   (let ((program (shader-program-for-pass pass particle)))
-    (translate-by 0 8 0)
+    (translate-by 0 16 0)
+    (scale-by 64 64 1)
     (setf (uniform program "direction") (direction particle))))
 
 (define-class-shader (dust-cloud :fragment-shader)
