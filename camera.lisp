@@ -49,6 +49,10 @@
         (nv+ loc dir)))
     (when (< 0 (shake-counter camera))
       (decf (shake-counter camera))
+      (dolist (device (gamepad:list-devices))
+        (gamepad:rumble device (if (< 0 (shake-counter camera))
+                                   (shake-intensity camera)
+                                   0)))
       (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera))))))
 
 (defmethod (setf zoom) :after (zoom (camera camera))
