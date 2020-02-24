@@ -4,7 +4,7 @@
   ())
 
 (define-handler (lighting-pass trial:tick) (ev)
-  (update-lighting 10 #++(/ (clock +world+) 60)))
+  (update-lighting (/ (clock +world+) 60)))
 
 (defun update-lighting (hour)
   (let ((tt (* (/ hour 24) 2 PI)))
@@ -79,6 +79,16 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
     truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
   }
   return vec4(truecolor, color.a);
+}")
+
+(define-shader-subject lit-sprite (lit-entity sprite-entity)
+  ())
+
+(define-class-shader (lit-sprite :fragment-shader)
+  "out vec4 color;
+
+void main(){
+  color = apply_lighting(color, vec2(0, -5), 0);
 }")
 
 (define-shader-subject lit-animated-sprite (lit-entity animated-sprite facing-entity)

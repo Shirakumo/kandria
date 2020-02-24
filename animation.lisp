@@ -2,10 +2,11 @@
 
 (define-shader-subject animated-sprite (animated-sprite-subject)
   ((size :initform (vec 32 32))
-   (vertex-array :initform (asset 'leaf 'particle))))
+   (vertex-array :initform (asset 'leaf '1x))))
 
 (defmethod paint ((sprite animated-sprite) target)
   (scale-by (vx (size sprite)) (vy (size sprite)) 1)
+  (translate-by -0.5 -0.5 0)
   (call-next-method))
 
 (defstruct (frame (:constructor make-frame (hurtbox velocity knockback damage stun flags)))

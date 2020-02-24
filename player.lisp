@@ -215,7 +215,7 @@ void main(){
                   (setf (vy acc) (vw +vjump+))
                   (setf (direction player) dir)
                   (setf (jump-time player) 0.0d0)
-                  (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 20))
+                  (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 8))
                                                                     (vy loc))
                                                     :direction (vec2 dir 0))
                          +world+)))
@@ -295,14 +295,16 @@ void main(){
                             (return entity)))))
       (cond (other
              (issue +world+ 'switch-chunk :chunk other))
-            ((< (vy (location player)) (vy (location (surface player))))
+            ((< (vy (location player))
+                (- (vy (location (surface player)))
+                   (vy (bsize (surface player)))))
              (die player))
             (T
              (setf (vx (location player)) (clamp (- (vx (location (surface player)))
-                                                    (bsize (surface player)))
+                                                    (vx (bsize (surface player))))
                                                  (vx (location player))
                                                  (+ (vx (location (surface player)))
-                                                    (bsize (surface player)))))))))
+                                                    (vx (bsize (surface player))))))))))
   ;; Animations
   (let ((acc (acceleration player))
         (collisions (collisions player)))
@@ -362,9 +364,6 @@ void main(){
 (define-handler (player switch-chunk) (ev chunk)
   (setf (surface player) chunk)
   (setf (spawn-location player) (vcopy (location player))))
-
-(defmethod compute-resources :after ((player player) resources ready cache)
-  (vector-push-extend (asset 'leaf 'particle) resources))
 
 (defmethod register-object-for-pass :after (pass (player player))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'dust-cloud)))
