@@ -4,7 +4,7 @@
   ())
 
 (define-handler (lighting-pass trial:tick) (ev)
-  (update-lighting (/ (clock +world+) 60)))
+  (update-lighting (+ (/ (clock +world+) 60) 10)))
 
 (defun update-lighting (hour)
   (let ((tt (* (/ hour 24) 2 PI)))
