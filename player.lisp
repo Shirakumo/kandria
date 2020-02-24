@@ -206,7 +206,7 @@ void main(){
                   (setf (vy acc) (vw +vjump+))
                   (setf (direction player) dir)
                   (setf (jump-time player) 0.0d0)
-                  (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 24))
+                  (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 20))
                                                                     (vy loc))
                                                     :direction (vec2 dir 0))
                          +world+)))
