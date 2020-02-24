@@ -141,10 +141,10 @@
   `(background :texture ,(encode (texture background))))
 
 (define-decoder (falling-platform v0) (initargs _)
-  (destructuring-bind (&key texture acceleration location) initargs
+  (destructuring-bind (&key texture gravity location) initargs
     (make-instance 'falling-platform
                    :texture (decode 'asset texture)
-                   :acceleration (decode 'vec2 acceleration)
+                   :gravity (decode 'vec2 gravity)
                    :location (decode 'vec2 location))))
 
 (define-encoder (falling-platform v0) (_b _p)

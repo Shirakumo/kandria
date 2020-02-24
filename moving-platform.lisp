@@ -10,7 +10,8 @@
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
 (define-shader-subject falling-platform (lit-sprite moving-platform)
-  ((acceleration :initform (vec 0 -0.5) :initarg :acceleration :accessor acceleration)))
+  ((acceleration :initform (vec2 0 0) :accessor acceleration)
+   (gravity :initform (vec2 0 (- +vgrav+)) :initarg :gravity :accessor gravity)))
 
 (defmethod (setf location) :after (location (platform falling-platform))
   (setf (state platform) :normal))
@@ -21,9 +22,10 @@
     (:normal
      (loop repeat 10 while (scan (surface platform) platform)))
     (:falling
+     (nv+ (acceleration platform) (v* (gravity platform) (dt ev)))
      (nv+ (velocity platform) (acceleration platform))
      (loop repeat 10 while (scan (surface platform) platform))
-     (nv+ (location platform) (v* (print (velocity platform)) (* 100 (dt ev)))))))
+     (nv+ (location platform) (v* (velocity platform) (* 100 (dt ev)))))))
 
 (defmethod collide :before ((player player) (platform falling-platform) hit)
   (when (< 0 (vy (hit-normal hit)))
