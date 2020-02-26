@@ -363,7 +363,8 @@ void main(){
 
 (define-handler (player switch-chunk) (ev chunk)
   (setf (surface player) chunk)
-  (setf (spawn-location player) (vcopy (location player))))
+  (setf (spawn-location player) (v+ (location player)
+                                    (v* (vunit (acceleration player)) +tile-size+))))
 
 (defmethod register-object-for-pass :after (pass (player player))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'dust-cloud)))
@@ -371,7 +372,7 @@ void main(){
 
 (defmethod die ((player player))
   (vsetf (acceleration player) 0 0)
-  (vsetf (location player) 0 0))
+  (setf (location player) (vcopy (spawn-location player))))
 
 (defmethod death ((player player))
   (vsetf (location player)

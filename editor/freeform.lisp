@@ -33,7 +33,7 @@
     (:moving
      (let ((new (nvalign (nv+ (nv- (mouse-world-pos (pos event)) (start-pos tool))
                               (original-loc tool))
-                         +tile-size+))
+                         (/ +tile-size+ 2)))
            (entity (entity tool)))
        (when (v/= new (location entity))
          (commit (capture-action (location entity) new) tool))))
