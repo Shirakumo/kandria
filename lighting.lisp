@@ -6,6 +6,12 @@
 (define-handler (lighting-pass trial:tick) (ev)
   (update-lighting (+ (/ (clock +world+) 60) 10)))
 
+(define-handler (lighting-pass switch-chunk) (ev)
+  ;; FIXME: Actually apply chunk lighting settings
+  ;;        Probably even gonna have to tween between them
+  (with-buffer-tx (light (asset 'leaf 'light-info))
+    (setf (active-p light) 1)))
+
 (defun update-lighting (hour)
   (let ((tt (* (/ hour 24) 2 PI)))
     (with-buffer-tx (light (asset 'leaf 'light-info))
