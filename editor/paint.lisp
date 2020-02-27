@@ -34,5 +34,9 @@
                       (tile-to-place (sidebar (editor tool))))
                      (T
                       (vec 0 0)))))
-    (when (and (tile loc entity) (v/= tile (tile loc entity)))
-      (commit (capture-action (tile loc entity) tile) tool))))
+    (cond ((retained 'modifiers :control)
+           (auto-tile entity loc))
+          ((retained 'modifiers :shift)
+           (flood-fill entity loc tile))
+          ((and (tile loc entity) (v/= tile (tile loc entity)))
+           (commit (capture-action (tile loc entity) tile) tool)))))
