@@ -149,7 +149,7 @@
 
 (define-encoder (falling-platform v0) (_b _p)
   `(falling-platform :texture ,(encode (texture falling-platform))
-                     :acceleration ,(encode (acceleration falling-platform))
+                     :gravity ,(encode (gravity falling-platform))
                      :location ,(encode (location falling-platform))))
 
 (define-decoder (basic-light v0) (initargs _)
