@@ -163,6 +163,9 @@
     (transition entity +world+)
     (if (typep entity 'chunk)
         (enter entity (unit 'region T))
+        ;; FIXME: This is not great.
         (enter entity (surface (unit 'player T))))
+    (when (typep entity 'located-entity)
+      (setf (location entity) (vcopy (location (unit :camera T)))))
     (setf (entity editor) entity)
     (setf (tool editor) (make-instance 'freeform :editor editor))))
