@@ -3,23 +3,24 @@
 ;; TODO: do on a per-tileset basis, with sets inferred
 ;;       from a tile-type-map image.
 (defparameter *tile-map*
-  '((:t (1 15))
-    (:r (2 14))
-    (:b (1 13))
-    (:l (0 14))
+  '((:t (1 15) (2 15) (3 15) (4 15) (5 15) (6 15))
+    (:r (7 14) (7 13) (7 12) (7 11) (7 10) (7  9))
+    (:b (1  8) (2  8) (3  8) (4  8) (5  8) (6  8))
+    (:l (0 14) (0 13) (0 12) (0 11) (0 10) (0  9))
     (:tl> (0 15))
-    (:tr> (2 15))
-    (:br> (2 13))
-    (:bl> (0 13))
-    (:tl< (6 13))
-    (:tr< (5 13))
-    (:br< (5 14))
-    (:bl< (6 14))
-    (1 (3 10) (3 11) (3 12) (4 10) (4 11) (4 12))
-    (2 (4 10) (4 11) (4 12) (5 10) (5 11) (5 12))
-    (3 (5 10) (5 11) (5 12) (6 10) (6 11) (6 12))
-    (4 (6 10) (6 11) (6 12))
-    (T (6 12))))
+    (:tr> (7 15))
+    (:br> (7  8))
+    (:bl> (0  8))
+    (:tl< (9 15))
+    (:tr< (9 15))
+    (:br< (8 14))
+    (:bl< (8 14))
+    (1 (1 9) (1 10) (1 11) (1 12) (1 13) (1 14))
+    (2 (2 9) (2 10) (2 11) (2 12) (2 13) (2 14))
+    (3 (1 9) (3 9) (3 10) (3 11) (3 12) (3 13) (3 14))
+    (4 (1 9) (1 9) (4 9) (4 10) (4 11) (4 12) (4 13) (4 14))
+    (5 (1 9) (1 9) (1 9) (5 9) (5 10) (5 11) (5 12) (5 13) (5 14))
+    (T (1 9))))
 
 (defun %flood-fill (layer width height x y fill)
   (let* ((tmp (vec2 0 0)))
@@ -77,31 +78,88 @@
                   (error "There is no edge.")))))
     (values x y)))
 
+(defparameter *tile-filters*
+  '((:t
+     _ o _
+     s s s
+     x i x)
+    (:b
+     x i x
+     s s s
+     _ o _)
+    (:l
+     _ s x
+     o s i
+     _ s x)
+    (:r
+     x s _
+     i s o
+     x s _)
+    (:tr>
+     _ _ o
+     s s _
+     x s _)
+    (:tl>
+     o _ _
+     _ s s
+     _ s x)
+    (:br>
+     x s _
+     s s _
+     _ _ o)
+    (:bl>
+     _ s x
+     _ s s
+     o _ _)
+    (:tr<
+     x x x
+     s s x
+     o s x)
+    (:tl<
+     x x x
+     x s s
+     x s o)
+    (:br<
+     o s x
+     s s x
+     x x x)
+    (:bl<
+     x s o
+     x s s
+     x x x)))
+
 (defun filter-edge (solids width height x y)
   (labels ((pos (x y)
              (* (+ x (* y width)) 2))
-           (tile (x y)
-             (let ((pos (pos x y)))
+           (tile (ox oy)
+             (let* ((x (+ ox x))
+                    (y (+ oy y))
+                    (pos (pos x y)))
                (cond ((or (= -1 x) (= -1 y) (= width x) (= height y)) 1)
-                     ((<= 0 pos (1- (length solids))) (aref solids pos))
-                     (T 0))))
-           (i (ox oy)
-             (= 255 (tile (+ x ox) (+ y oy))))
-           (e (ox oy)
-             (< 0 (tile (+ x ox) (+ y oy)) 255)))
-    (cond ((and (i +1 -1) (e +0 -1) (e +1 +0)) :tl>)
-          ((and (i -1 -1) (e +0 -1) (e -1 +0)) :tr>)
-          ((and (i -1 +1) (e +0 +1) (e -1 +0)) :br>)
-          ((and (i +1 +1) (e +0 +1) (e +1 +0)) :bl>)
-          ((and (i -1 +1) (e +0 -1) (e +1 +0)) :tl<)
-          ((and (i +1 +1) (e +0 -1) (e -1 +0)) :tr<)
-          ((and (i +1 -1) (e +0 +1) (e -1 +0)) :br<)
-          ((and (i -1 -1) (e +0 +1) (e +1 +0)) :bl<)
-          ((and (i +0 -1)) :t)
-          ((and (i -1 +0)) :r)
-          ((and (i +0 +1)) :b)
-          ((and (i +1 +0)) :l)
-          (T (error "Unknown tile configuration at ~d,~d." x y)))))
+                     ((or (< x -1) (< y -1) (< width x) (< height y)) 0)
+                     (T (aref solids pos))))))
+    (loop for (type . filter) in *tile-filters*
+          do (when (loop for i from 0 below 9
+                         for v in filter
+                         for x = (- (mod i 3) 1)
+                         for y = (- 1 (floor i 3))
+                         for tile = (tile x y)
+                         always (case v
+                                  (o (= 0 tile))
+                                  (s (<= 1 tile 254))
+                                  (x (< 0 tile))
+                                  (i (= 255 tile))
+                                  (_ T)))
+               #+(OR)
+               (warn "~a at ~3d,~3d:~%~3d ~3d ~3d~%~3d ~3d ~3d~%~3d ~3d ~3d" type x y
+                     (tile -1 +1) (tile 0 +1) (tile +1 +1)
+                     (tile -1 0) (tile 0 0) (tile +1 0)
+                     (tile -1 -1) (tile 0 -1) (tile +1 -1))
+               (return type))
+          finally (error "Unknown tile configuration at ~3d,~3d:~%~3d ~3d ~3d~%~3d ~3d ~3d~%~3d ~3d ~3d" x y
+                         (tile -1 +1) (tile 0 +1) (tile +1 +1)
+                         (tile -1 0) (tile 0 0) (tile +1 0)
+                         (tile -1 -1) (tile 0 -1) (tile +1 -1)))))
 
 (defun fill-edge (solids tiles width height ox oy)
   (labels ((pos (x y)
