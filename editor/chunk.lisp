@@ -17,6 +17,14 @@
 (defmethod simple:icon ((renderer ui) bounds (image texture) &rest initargs)
   (apply #'make-instance 'simple:icon :image image initargs))
 
+(defclass tile-info (alloy:label)
+  ())
+
+(defmethod alloy:text ((info tile-info))
+  (format NIL "~3d / ~3d"
+          (floor (vx (alloy:value info)))
+          (floor (vy (alloy:value info)))))
+
 (defclass tile-picker (alloy:structure)
   ())
 
@@ -51,6 +59,7 @@
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
 (alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (tileset (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption-map (entity chunk-widget))))
+(alloy:define-subcomponent (chunk-widget tile-info) ((slot-value chunk-widget 'tile) tile-info))
 (alloy::define-subbutton (chunk-widget pick) ()
   (setf (state (editor chunk-widget)) :picking))
 (alloy::define-subbutton (chunk-widget clear) ()
@@ -73,7 +82,7 @@
    (alloy:grid-layout
     :col-sizes '(64 64 T)
     :row-sizes '(64)
-    albedo absorption))
+    albedo absorption tile-info))
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T T T)
