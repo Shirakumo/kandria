@@ -16,7 +16,9 @@
 
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit 'player scene))
-  (setf (surface camera) (unit :chunk scene)))
+  (setf (surface camera) (unit :chunk scene))
+  (when (target camera)
+    (setf (location camera) (vcopy (location (target camera))))))
 
 (define-handler (camera trial:tick) (ev tt)
   (let ((loc (location camera))

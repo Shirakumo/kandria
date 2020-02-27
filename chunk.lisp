@@ -6,7 +6,8 @@
   :mag-filter :nearest)
 
 (defclass chunk (sized-entity lit-entity shadow-caster shader-entity layered-container solid resizable)
-  ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
+  ((flare:name :initform (gensym))
+   (vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
    (tileset :initarg :tileset :initform (asset 'leaf 'debug) :accessor tileset
@@ -223,6 +224,18 @@ void main(){
                                   (cffi:inc-pointer (sb-sys:vector-sap layer) pos)))))
       value)))
 
+(defun update-chunk-layer (chunk z)
+  (let ((layer (aref (layers chunk) z)))
+    (sb-sys:with-pinned-objects (layer)
+      (let ((texture (texture chunk))
+            (width (truncate (vx (size chunk))))
+            (height (truncate (vy (size chunk)))))
+        (gl:bind-texture :texture-2d-array (gl-name texture))
+        (%gl:tex-sub-image-3d :texture-2d-array 0 0 0 z width height 1
+                              (pixel-format texture) (pixel-type texture)
+                              (sb-sys:vector-sap layer))
+        (gl:bind-texture :texture-2d-array 0)))))
+
 (defmethod clear :after ((chunk chunk))
   (dotimes (l (1+ +layer-count+))
     (let ((layer (aref (layers chunk) l))
@@ -231,12 +244,7 @@ void main(){
       (dotimes (i (* 2 width height))
         (setf (aref layer i) 0))
       (compute-shadow-map chunk)
-      (sb-sys:with-pinned-objects (layer)
-        (let ((texture (texture chunk)))
-          (gl:bind-texture :texture-2d-array (gl-name texture))
-          (%gl:tex-sub-image-3d :texture-2d-array 0 0 0 l width height 1
-                                (pixel-format texture) (pixel-type texture)
-                                (sb-sys:vector-sap layer)))))))
+      (update-chunk-layer chunk l))))
 
 (defmethod flood-fill ((chunk chunk) (location vec3) fill)
   (%with-chunk-xy (chunk location)
@@ -246,28 +254,17 @@ void main(){
            (width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk)))))
       (%flood-fill layer width height x y fill)
-      (sb-sys:with-pinned-objects (layer)
-        (let ((texture (texture chunk)))
-          (gl:bind-texture :texture-2d-array (gl-name texture))
-          (%gl:tex-sub-image-3d :texture-2d-array 0 0 0 z width height 1
-                                (pixel-format texture) (pixel-type texture)
-                                (sb-sys:vector-sap layer)))))))
+      (update-chunk-layer chunk z))))
 
 (defmethod auto-tile ((chunk chunk) (location vec3))
   (%with-chunk-xy (chunk location)
     (let* ((z (floor +layer-count+ 2))
-           (layer (aref (layers chunk) z))
            (width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk)))))
       (%auto-tile (aref (layers chunk) +layer-count+)
                   (aref (layers chunk) z)
                   width height x y)
-      (sb-sys:with-pinned-objects (layer)
-        (let ((texture (texture chunk)))
-          (gl:bind-texture :texture-2d-array (gl-name texture))
-          (%gl:tex-sub-image-3d :texture-2d-array 0 0 0 z width height 1
-                                (pixel-format texture) (pixel-type texture)
-                                (sb-sys:vector-sap layer)))))))
+      (update-chunk-layer chunk z))))
 
 (defmethod compute-shadow-map ((chunk chunk))
   (let* ((w (truncate (vx (size chunk))))
