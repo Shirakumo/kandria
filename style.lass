@@ -1,0 +1,64 @@
+(body
+ :margin 0
+ :font-family sans-serif
+ :font-size 14pt
+ (>header
+  :background-color (hex 303030)
+  :background-image (url "header.jpg")
+  :background-size cover
+  :min-height 20em
+  :display flex
+  :flex-direction column
+  :justify-content flex-end
+  :align-items center
+  (h1
+   :color white
+   :font-size 4em)
+  (nav
+   :background white
+   :border-radius 0.5em 0.5em 0 0
+   :overflow hidden
+   :display flex
+   :font-size 1.5em
+   (a
+    :display inline-block
+    :padding 0.3em 0.5em
+    :color black
+    :font-weight bold
+    :text-decoration none)
+   ((:and a :hover)
+    :background black
+    :color white)))
+ (>main
+  :margin 2em 0
+  (a[href]
+   :text-decoration none
+   :color (hex 0088EE))
+  ((:and a[href] :hover)
+   :font-weight bold)
+  (section
+   :max-width 1024px
+   :margin 0 auto
+   :padding 1em
+   (h2
+    :margin 0 0 0 1em))
+  ("#subscribe"
+   :padding 1em
+   :text-align center
+   (input
+    :font-size 1.5em
+    :border 1px solid (hex 808080)
+    :background (hex F5F5F5))
+   (input[type=submit]
+    :border-color (hex 0055AA)
+    :background (hex 0088EE)
+    :color (hex FFFFFF)
+    :cursor pointer)
+   ((:and input[type=submit] :hover)
+    :border-color (hex 001133)
+    :background (hex 0055AA)
+    :color (hex AAAAAA))))
+ (>footer
+  :text-align center
+  :font-size 0.7em
+  :color (hex 303030)))
