@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" value="application/xhtml+xml; charset=utf-8">
     <title>Kandria</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!"/>
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@shinmera">
     <meta name="twitter:title" content="Kandria">
@@ -22,10 +22,10 @@
   </head>
   <body>
     <header>
-      <video poster="media/leaf.jpg" loop="" muted="" autoplay="">
-        <source src="media/leaf.webm" type="video/webm">
-        <source src="media/leaf.mp4" type="video/mp4">
-        <img src="media/leaf.jpg">
+      <video poster="media/leaf.jpg" loop muted autoplay>
+        <source src="media/leaf.webm" type="video/webm"/>
+        <source src="media/leaf.mp4" type="video/mp4"/>
+        <img src="media/leaf.jpg"/>
       </video>
       <div class="fader"></div>
       <h1>Kandria</h1>
@@ -39,8 +39,8 @@
       <section id="about">
         <form id="subscribe" action="#" method="get">
           <p class="description">Subscribe to email updates for news and exclusive development insights!</p>
-          <input type="email" name="email" placeholder="my@email.com" autofocus="" required="">
-          <input type="submit" value="Subscribe">
+          <input type="email" name="email" placeholder="my@email.com" autofocus required/>
+          <input type="submit" value="Subscribe"/>
         </form>
         <h2>About Kandria</h2>
         <p>
@@ -52,8 +52,18 @@
       </section>
       <section id="updates">
         <h2>Latest Updates</h2>
-        
-        <br style="clear:both">
+        <c:splice iterate="updates">
+          <article class="update">
+            <header>
+              <h3><a href="#" lquery="(attr :href url) (text title)">Status Update</a></h3>
+              <time lquery="(text time)">2020.02</time>
+            </header>
+            <p class="excerpt" lquery="(html excerpt)">
+            </p>
+            <a class="read-more button" href="#" lquery="(attr :href url)">Read more</a>
+          </article>
+        </c:splice>
+        <br style="clear:both"/>
         <a class="button" href="#subscribe">Subscribe for future updates</a>
       </section>
       <section id="media">
@@ -71,7 +81,7 @@
         </ul>
       </section>
       <footer>
-        © 2020 <a rel="author" href="https://shinmera.com">Nicolas Hafner</a>, Shirakumo
+        &copy; 2020 <a rel="author" href="https://shinmera.com">Nicolas Hafner</a>, Shirakumo
       </footer>
     </main>
   </body>
