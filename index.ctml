@@ -37,14 +37,14 @@
     </header>
     <main>
       <section id="about">
-        <form id="subscribe" action="#" method="get">
+        <form id="subscribe" action="https://shirakumo.us19.list-manage.com/subscribe/post?u=ecd3151559a806bf165bfe5c2&amp;id=7776e18e10" target="_blank" method="post">
           <p class="description">Subscribe to email updates for news and exclusive development insights!</p>
-          <input type="email" name="email" placeholder="my@email.com" autofocus required/>
-          <input type="submit" value="Subscribe"/>
+          <input type="email" name="EMAIL" placeholder="my@email.com" autofocus required/>
+          <input type="submit" name="subscribe" value="Subscribe"/>
         </form>
         <h2>About Kandria</h2>
         <p>
-          Kandria is a 2D hack and slash platformer set in the post apocalyptic future.
+          Kandria is a 2D hack and slash platformer, set in the post apocalyptic future. You take on the role of a lone android and join a small group of survivors. In order to help them out you are sent on a variety of missions to explore, gather, and fight. Along this journey you are confronted with various ethical questions about transhumanism and the treatment of androids.
         </p>
         <p>
           Kandria is currently in alpha.
@@ -69,14 +69,14 @@
       <section id="media">
         <h2>Media</h2>
         <ul class="icons">
-          <li><a href="#">
+          <li><a href="https://discord.gg/WNTygau" title="Join the Discord">
             <i class="fab fa-discord fa-fw"></i>
           </a></li>
-          <li><a href="https://twitter.com/shinmera">
+          <li><a href="https://twitter.com/shinmera" title="Follow news on Twitter">
             <i class="fab fa-twitter fa-fw"></i>
           </a></li>
-          <li><a href="https://youtube.com/shinmera">
-            <i class="fa fa-play fa-fw"></i>
+          <li><a href="https://www.youtube.com/playlist?list=PLkDl6Irujx9NUeqnEkRsFZ6bLS24B-6lT" title="Watch development videos on YouTube">
+            <i class="fab fa-youtube fa-fw"></i>
           </a></li>
         </ul>
       </section>

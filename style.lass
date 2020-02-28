@@ -130,9 +130,8 @@
      :background (hex 0088EE)
      :padding 0.2em
      :margin 0.2em
-     :font-size 5em
+     :font-size 2.5em
      :border 0.0em solid (hex 0088EE)
-     :width 1em :height 1em
      :text-align center
      :border-radius 5em
      :transition "background 0.2s, color 0.2s, border-width 0.2s, margin 0.2s")
