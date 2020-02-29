@@ -23,10 +23,11 @@
 (flow:define-node both-edge-node (right-edge-node left-edge-node) ())
 
 (defun connect-platforms (a b type &rest initargs)
-  (apply #'flow:connect
-         (flow:port a 'options)
-         (flow:port b 'options)
-         type initargs))
+  (when (and a b)
+    (apply #'flow:connect
+           (flow:port a 'options)
+           (flow:port b 'options)
+           type initargs)))
 
 (defun create-platform-nodes (solids node-grid width height offset)
   (labels ((tile (x y)
