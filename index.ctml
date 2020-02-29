@@ -37,6 +37,9 @@
     </header>
     <main>
       <section id="about">
+        <div style="position:relative;padding-top:56.25%;">
+          <iframe src="https://www.youtube.com/embed/H2ySVyMybeQ" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" allowfullscreen></iframe>
+        </div>
         <form id="subscribe" action="https://shirakumo.us19.list-manage.com/subscribe/post?u=ecd3151559a806bf165bfe5c2&amp;id=7776e18e10" target="_blank" method="post">
           <p class="description">Subscribe to email updates for news and exclusive development insights!</p>
           <input type="email" name="EMAIL" placeholder="my@email.com" autofocus required/>

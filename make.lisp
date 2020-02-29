@@ -10,7 +10,8 @@
 (defun process (in out &rest args)
   (with-open-file (stream out :direction :output
                               :if-exists :supersede)
-    (let ((*package* #.*package*))
+    (let ((*package* #.*package*)
+          (plump:*tag-dispatchers* plump:*xml-tags*))
       (plump:serialize (apply #'clip:process in args) stream))))
 
 (defun process-content (content)
@@ -34,7 +35,7 @@
                            :excerpt (process-content (lquery:$1 entry "content" (text)))))))))
 
 (defun make ()
-  (process (file "index" "ctml") (file "index" "html")
+  (process (file "index" "ctml") (file "index" "xhtml")
            :updates (handler-case (max-array (fetch-updates) 3)
                       (usocket:ns-try-again-condition ()))))
 
