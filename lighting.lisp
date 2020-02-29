@@ -41,6 +41,7 @@
 
 (defmethod register-object-for-pass ((pass rendering-pass) (light light)))
 (defmethod paint-with ((pass rendering-pass) (light light)))
+(defmethod paint :around ((light light) (pass rendering-pass)))
 
 (defmethod paint-with :before ((pass rendering-pass) (world scene))
   (if (= 1 (active-p (struct (asset 'leaf 'light-info))))
@@ -110,7 +111,8 @@ void main(){
 }")
 
 (define-shader-entity basic-light (light colored-entity)
-  ((color :initform (vec4 0.3 0.25 0.1 1.0))))
+  ((color :initform (vec4 0.3 0.25 0.1 1.0)
+          :type vec4 :documentation "The color of the light")))
 
 (defmethod initialize-instance :after ((light basic-light) &key data)
   (unless (slot-boundp light 'vertex-array)
@@ -164,5 +166,17 @@ void main(){
 (define-shader-entity per-vertex-light (light vertex-colored-entity)
   ())
 
-(define-shader-entity textured-light (light textured-entity)
-  ())
+(define-shader-entity textured-light (light sprite-entity)
+  ((multiplier :initform 1.0f0 :initarg :multiplier :accessor multiplier
+               :type single-float :documentation "Light intensity multiplier")))
+
+(defmethod paint :before ((light textured-light) (pass lighting-pass))
+  (setf (uniform (shader-program-for-pass pass light) "multiplier") (multiplier light)))
+
+(define-class-shader (textured-light :fragment-shader)
+  "uniform float multiplier = 1.0;
+out vec4 color;
+
+void main(){
+  color *= multiplier;
+}")

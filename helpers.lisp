@@ -358,19 +358,21 @@
                :type vec2 :documentation "The tile to display from the sprite sheet.")
    (texture :initform (asset 'leaf 'placeholder)
             :type asset :documentation "The tileset to display the sprite from.")
-   (size :initform NIL)))
+   (size :initform NIL
+         :type vec2 :documentation "The size of the tile to display.")))
 
 (defmethod initargs append ((_ sprite-entity))
   '(:tile :texture))
 
-(defmethod initialize-instance :after ((sprite sprite-entity) &key bsize size)
-  (unless size (setf (size sprite) (v* bsize 2))))
+(defmethod initialize-instance :after ((sprite sprite-entity) &key)
+  (unless (size sprite)
+    (setf (size sprite) (v* (bsize sprite) 2))))
 
 (defmethod (setf bsize) :after (value (sprite sprite-entity))
   (setf (size sprite) (v* value 2)))
 
 (defmethod paint :before ((sprite sprite-entity) target)
-  (let ((size (size sprite)))
+  (let ((size (v* 2 (bsize sprite))))
     (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
     (scale (vxy_ size))))
 
