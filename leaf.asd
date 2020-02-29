@@ -1,6 +1,6 @@
 (asdf:defsystem leaf
   :build-operation "deploy-op"
-  :build-pathname "leaf"
+  :build-pathname "kandria"
   :entry-point "org.shirakumo.fraf.leaf:launch"
   :components ((:file "package")
                (:file "helpers")
@@ -51,7 +51,7 @@
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
                :trial-alloy
-               :trial-steam
+               ;;:trial-steam
                :zip
                :fast-io
                :ieee-floats
