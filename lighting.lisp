@@ -4,7 +4,7 @@
   ())
 
 (define-handler (lighting-pass trial:tick) (ev)
-  (update-lighting (+ (/ (clock +world+) 60) 10)))
+  (update-lighting (+ (/ (clock +world+) 20) 7)))
 
 (define-handler (lighting-pass switch-chunk) (ev)
   ;; FIXME: Actually apply chunk lighting settings
