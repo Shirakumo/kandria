@@ -103,7 +103,8 @@
 
 (define-action start-climb (movement)
   (key-press (one-of key :left-control))
-  (gamepad-press (one-of button :l2)))
+  (gamepad-press (one-of button :l2))
+  (gamepad-move (one-of axis :l2) (< old-pos 0.4 pos)))
 
 (define-action start-left (movement)
   (key-press (one-of key :a :left))
@@ -127,7 +128,8 @@
 
 (define-action end-climb (movement)
   (key-release (one-of key :left-control))
-  (gamepad-release (one-of button :l2)))
+  (gamepad-release (one-of button :l2))
+  (gamepad-move (one-of axis :l2) (< pos 0.4 old-pos)))
 
 (define-action end-left (movement)
   (key-release (one-of key :a :left))
