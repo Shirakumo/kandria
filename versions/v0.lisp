@@ -162,6 +162,24 @@
   `(basic-light :color ,(encode (color basic-light))
                 :data ,(buffer-data (caar (bindings (vertex-array light))))))
 
+(define-decoder (textured-light v0) (initargs _)
+  (destructuring-bind (&key multiplier texture location size bsize tile) initargs
+    (make-instance 'textured-light
+                   :multiplier multiplier
+                   :texture (decode 'asset texture)
+                   :location (decode 'vec2 location)
+                   :size (decode 'vec2 size)
+                   :bsize (decode 'vec2 bsize)
+                   :tile (decode 'vec2 tile))))
+
+(define-encoder (textured-light v0) (_b _p)
+  `(textured-light :multiplier ,(multiplier textured-light)
+                   :texture ,(encode (texture textured-light))
+                   :location ,(encode (location textured-light))
+                   :size ,(encode (size textured-light))
+                   :bsize ,(encode (bsize textured-light))
+                   :tile ,(encode (trial:tile textured-light))))
+
 (define-decoder (vec2 v0) (data _p)
   (destructuring-bind (x y) data
     (vec2 x y)))
