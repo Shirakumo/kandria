@@ -63,11 +63,10 @@
             </header>
             <p class="excerpt" lquery="(html excerpt)">
             </p>
-            <a class="read-more button" href="#" lquery="(attr :href url)">Read more</a>
+            <div class="read-more"><a class="button" href="#" lquery="(attr :href url)">Read more</a></div>
           </article>
         </c:splice>
-        <br style="clear:both"/>
-        <a class="button" href="#subscribe">Subscribe for future updates</a>
+        <a class="button" href="#subscribe">Subscribe to future updates</a>
       </section>
       <section id="media">
         <h2>Media</h2>

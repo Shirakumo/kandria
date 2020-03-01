@@ -17,14 +17,14 @@
 (defun process-content (content)
   (let ((plump:*tag-dispatchers* plump:*html-tags*))
     (lquery:$1 (inline (plump:parse content))
-      "p" (html))))
+      "p")))
 
 (defun max-array (array n)
   (if (<= (length array) n)
       array
       (subseq array 0 n)))
 
-(defun fetch-updates (&optional (url "https://tymoon.eu/api/reader/atom?tag=leaf"))
+(defun fetch-updates (&optional (url "https://tymoon.eu/api/reader/atom?tag=kandria"))
   (let ((plump:*tag-dispatchers* plump:*xml-tags*)
         (drakma:*text-content-types* '(("application" . "atom+xml"))))
     (lquery:$ (initialize (drakma:http-request url))
