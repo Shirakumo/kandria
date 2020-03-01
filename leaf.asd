@@ -1,5 +1,5 @@
 (asdf:defsystem leaf
-  :build-operation "deploy-op"
+  :build-operation #-darwin "deploy-op" #+darwin "osx-app-deploy-op"
   :build-pathname "kandria"
   :entry-point "org.shirakumo.fraf.leaf:launch"
   :components ((:file "package")
