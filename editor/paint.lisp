@@ -26,6 +26,11 @@
     (:5 (setf (layer (sidebar (editor tool))) +2))
     (:0 (setf (layer (sidebar (editor tool))) +3))))
 
+(defmethod handle ((event mouse-scroll) (tool paint))
+  (let ((tile (tile-to-place (sidebar (editor tool)))))
+    (setf (tile-to-place (sidebar (editor tool)))
+          (vec (+ (vx tile) (signum (delta event))) (vy tile)))))
+
 (defun paint-tile (tool event)
   (let* ((loc (nvalign (nv- (mouse-world-pos (pos event)) (/ +tile-size+ 2)) +tile-size+))
          (loc (vec (vx loc) (vy loc) (layer (sidebar (editor tool)))))
