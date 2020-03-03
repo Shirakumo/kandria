@@ -56,6 +56,13 @@
   (alloy:on (setf alloy:value) (value (alloy:representation 'show-all widget))
     (setf (target-layer (entity widget)) (unless value (+ (layer widget) 2)))))
 
+(defmethod (setf tile-to-place) :around ((tile vec2) (widget chunk-widget))
+  (let* ((w (/ (width (tileset (entity widget))) +tile-size+))
+         (h (/ (height (tileset (entity widget))) +tile-size+))
+         (x (mod (vx tile) w))
+         (y (mod (+ (vy tile) (floor (vx tile) w)) h)))
+    (call-next-method (vec x y) widget)))
+
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
 (alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (tileset (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption-map (entity chunk-widget))))
