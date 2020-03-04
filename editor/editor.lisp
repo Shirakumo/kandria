@@ -133,7 +133,16 @@
                  (load! path)))))))
 
 (defmethod edit ((action (eql 'delete-entity)) (editor editor))
-  (leave (entity editor) (unit 'region +world+))
+  (cl:block traverse
+    (labels ((traverse (parent)
+               (for:for ((unit over parent))
+                 (print unit)
+                 (cond ((eql unit (entity editor))
+                        (leave (entity editor) parent)
+                        (return-from traverse))
+                       ((typep unit 'container)
+                        (traverse unit))))))
+      (traverse +world+)))
   (setf (entity editor) NIL))
 
 (defmethod edit ((action (eql 'insert-entity)) (editor editor))
