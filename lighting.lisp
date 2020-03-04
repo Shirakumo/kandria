@@ -166,12 +166,15 @@ void main(){
 (define-shader-entity per-vertex-light (light vertex-colored-entity)
   ())
 
-(define-shader-entity textured-light (light sprite-entity)
+(define-shader-entity textured-light (light sprite-entity resizable)
   ((multiplier :initform 1.0f0 :initarg :multiplier :accessor multiplier
                :type single-float :documentation "Light intensity multiplier")))
 
 (defmethod paint :before ((light textured-light) (pass lighting-pass))
   (setf (uniform (shader-program-for-pass pass light) "multiplier") (multiplier light)))
+
+(defmethod resize ((sprite sprite-entity) width height)
+  (vsetf (bsize sprite) (/ width 2) (/ height 2)))
 
 (define-class-shader (textured-light :fragment-shader)
   "uniform float multiplier = 1.0;
