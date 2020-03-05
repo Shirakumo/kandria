@@ -31,7 +31,7 @@
                      :app-id 1261430))
 
 (defun world-path (world)
-  (if *standalone*
+  (if (deploy:deployed-p)
       (pathname-utils:subdirectory (deploy:data-directory) world)
       (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world)))
 
