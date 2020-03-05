@@ -74,12 +74,14 @@ void main(){
     (setf (jump-time player) (- +coyote+))))
 
 (define-handler (player light-attack) (ev)
-  (when (aref (collisions player) 2)
+  (when (and (aref (collisions player) 2)
+             (not (eql :crawling (state player))))
     (setf (animation player) 'light-ground)
     (setf (state player) :attacking)))
 
 (define-handler (player heavy-attack) (ev)
-  (when (aref (collisions player) 2)
+  (when (and (aref (collisions player) 2)
+             (not (eql :crawling (state player))))
     (setf (animation player) 'heavy-ground)
     (setf (state player) :attacking)))
 
@@ -282,7 +284,15 @@ void main(){
                   (< (vy acc) (vz +vclim+)))
          (setf (vy acc) (vz +vclim+)))))
     (nvclamp (v- +vlim+) acc +vlim+)
-    (nv+ (velocity player) acc)))
+    (nv+ (velocity player) acc)
+    ;; Slope sticky
+    (when (typep (svref collisions 2) 'slope)
+      (let* ((block (svref collisions 2))
+             (normal (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
+                                   (- (vx2 (slope-r block)) (vx2 (slope-l block))))))
+             (slope (vec (- (vy normal)) (vx normal))))
+        (when (= (signum (vx slope)) (signum (vx acc)))
+          (incf (vy (velocity player)) (vy (v* slope (v. acc slope)))))))))
 
 (defmethod tick :after ((player player) ev)
   (incf (jump-time player) (dt ev))
