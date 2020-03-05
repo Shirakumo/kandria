@@ -388,6 +388,7 @@ void main(){
                                               (< (vsqrdist2 loc (hit-location hit))
                                                  (vsqrdist2 loc (hit-location result))))))
                             (setf (hit-object hit) (aref +surface-blocks+ tile))
+                            (setf (hit-tile hit) loc)
                             (setf result hit))))))
     ;; Scan through entities
     (do-layered-container (entity chunk)
