@@ -52,8 +52,7 @@
   (object NIL)
   (time 0.0 :type single-float)
   (location NIL :type vec2)
-  (normal NIL :type vec2)
-  (tile (vec2 0 0) :type vec2))
+  (normal NIL :type vec2))
 
 (defmethod velocity ((block block))
   #.(vec2 0 0))
