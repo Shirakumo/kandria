@@ -18,7 +18,8 @@
           do (unless (scan surface moving) (return))
              ;; KLUDGE: If we have too many collisions in a frame, we assume
              ;;         we're stuck somewhere, so just die.
-          finally (die moving))
+          finally (+); (die moving)
+          )
     ;; Remaining velocity (if any) can be added safely.
     (nv+ loc (v* vel (* 100 (dt ev))))
     (vsetf vel 0 0)
@@ -30,7 +31,13 @@
       (when r (setf (aref collisions 1) r))
       (when u (setf (aref collisions 0) u)))))
 
-(defmethod collide ((moving moving) (block ground) hit)
+(defmethod collides-p ((moving moving) (block block) hit)
+  ;; KLUDGE: Ignore topmost edge pixel when we hit sides to allow better interaction with slopes
+  (or (= 0 (vx (hit-normal hit)))
+      (< (- (vy (location moving)) (vy (hit-location hit)))
+         (1- (+ (vy (bsize moving)) (/ +tile-size+ 2))))))
+
+(defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))
          (vel (velocity moving))
          (pos (hit-location hit))
@@ -92,14 +99,10 @@
          (slope (vec2 (vy normal) (- (vx normal)))))
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
-    ;; (let* ((tt (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
-    ;;   (print tt))
-    (incf (vy loc) 0.01)
-    (let ((vel2 (v* slope (v. vel slope))))
-      (if (and (< (vlength vel2) 0.3)
-               (= (signum (vx vel2)) (signum (vx normal))))
-          (vsetf vel 0 0)
-          (vsetf vel (vx vel2) (vy vel2))))))
+    ;; Zip
+    (let* ((xrel (1+ (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
+           (yrel (+ (vy (slope-l block)) (* xrel (- (vy (slope-r block)) (vy (slope-l block)))))))
+      (setf (vy loc) (max (vy loc) (+ yrel (vy (bsize moving)) (vy (hit-location hit))))))))
 
 (defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))
