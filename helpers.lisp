@@ -136,6 +136,12 @@
 (defun vfloor (vec &optional (divisor 1))
   (vapply vec floor divisor divisor divisor divisor))
 
+(defun vsqrlen2 (a)
+  (declare (type vec2 a))
+  (declare (optimize speed))
+  (+ (expt (vx2 a) 2)
+     (expt (vy2 a) 2)))
+
 (defun vsqrdist2 (a b)
   (declare (type vec2 a b))
   (declare (optimize speed))
