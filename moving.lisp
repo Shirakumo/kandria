@@ -18,8 +18,7 @@
           do (unless (scan surface moving) (return))
              ;; KLUDGE: If we have too many collisions in a frame, we assume
              ;;         we're stuck somewhere, so just die.
-          finally (+); (die moving)
-          )
+          finally (die moving))
     ;; Remaining velocity (if any) can be added safely.
     (nv+ loc (v* vel (* 100 (dt ev))))
     (vsetf vel 0 0)
@@ -94,13 +93,16 @@
 
 (defmethod collide ((moving moving) (block slope) hit)
   (let* ((loc (location moving))
-         (vel (velocity moving)))
+         (vel (velocity moving))
+         (normal (hit-normal hit)))
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
+    (nv- vel (v* normal (v. vel normal)))
     ;; Zip
     (let* ((xrel (1+ (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
            (yrel (+ (vy (slope-l block)) (* xrel (- (vy (slope-r block)) (vy (slope-l block)))))))
-      (setf (vy loc) (max (vy loc) (+ yrel (vy (bsize moving)) (vy (hit-location hit))))))))
+      ;; KLUDGE: we add a bias of 0.1 here to ensure we stop colliding with the slope.
+      (setf (vy loc) (max (vy loc) (+ 0.1 yrel (vy (bsize moving)) (vy (hit-location hit))))))))
 
 (defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))
