@@ -89,6 +89,11 @@
   (gamepad-press (one-of button :r2))
   (gamepad-move (one-of axis :r2) (< old-pos 0.4 pos)))
 
+(define-action crawl (movement)
+  (key-press (one-of key :q))
+  (mouse-press (one-of button :middle))
+  (gamepad-press (one-of button :l3)))
+
 (define-action light-attack (movement)
   (mouse-press (one-of button :left))
   (gamepad-press (one-of button :b)))

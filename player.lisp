@@ -73,6 +73,12 @@ void main(){
   (unless (eql :crawling (state player))
     (setf (jump-time player) (- +coyote+))))
 
+(define-handler (player crawl) (ev)
+  (unless (svref (collisions player) 0)
+    (case (state player)
+      (:normal (setf (state player) :crawling))
+      (:crawling (setf (state player) :normal)))))
+
 (define-handler (player light-attack) (ev)
   (when (and (aref (collisions player) 2)
              (not (eql :crawling (state player))))
@@ -203,10 +209,9 @@ void main(){
                (T
                 (setf (vy acc) 0)))))
       (:crawling
-       ;; Uncrawl on ground loss, or if we request it and aren't cramped.
-       (unless (and (svref collisions 2)
-                    (or (retained 'movement :down)
-                        (svref collisions 0)))
+       ;; Uncrawl on ground loss
+       (when (and (not (svref collisions 2))
+                  (not (svref collisions 0)))
          (setf (state player) :normal))
        
        (cond ((retained 'movement :left)
@@ -246,11 +251,6 @@ void main(){
                   (or (typep (svref collisions 1) 'ground)
                       (typep (svref collisions 3) 'ground)))
          (setf (state player) :climbing))
-
-       ;; Test for crawling
-       (when (and (retained 'movement :down)
-                  (svref collisions 2))
-         (setf (state player) :crawling))
 
        ;; Movement
        (setf (vx acc) (* (vx acc) (damp* (vy +vmove+) dt)))
