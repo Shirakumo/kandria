@@ -157,7 +157,16 @@ void main(){
              ((< 0.10 (dash-time player) 0.125)
               (nv* (nvunit acc) (vx +vdash+)))
              ((< 0.125 (dash-time player) 0.15)
-              (nv* acc (damp* (vy +vdash+) dt)))))
+              (nv* acc (damp* (vy +vdash+) dt))))
+       ;; Adapt acceleration if we are on sloped terrain
+       ;; I'm not sure why this is necessary, but it is.
+       (when (typep (svref collisions 2) 'slope)
+         (let* ((block (svref collisions 2))
+                (normal (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
+                                      (- (vx2 (slope-r block)) (vx2 (slope-l block))))))
+                (slope (vec (- (vy normal)) (vx normal)))
+                (proj (v* slope (v. slope acc))))
+           (vsetf acc (vx proj) (vy proj)))))
       (:attacking
        (nv* acc 0)
        (when (if (eq 'heavy-ground (trial::sprite-animation-name (animation player)))
@@ -284,15 +293,7 @@ void main(){
                   (< (vy acc) (vz +vclim+)))
          (setf (vy acc) (vz +vclim+)))))
     (nvclamp (v- +vlim+) acc +vlim+)
-    (nv+ (velocity player) acc)
-    ;; Slope sticky
-    (when (typep (svref collisions 2) 'slope)
-      (let* ((block (svref collisions 2))
-             (normal (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
-                                   (- (vx2 (slope-r block)) (vx2 (slope-l block))))))
-             (slope (vec (- (vy normal)) (vx normal))))
-        (when (= (signum (vx slope)) (signum (vx acc)))
-          (incf (vy (velocity player)) (vy (v* slope (v. acc slope)))))))))
+    (nv+ (velocity player) acc)))
 
 (defmethod tick :after ((player player) ev)
   (incf (jump-time player) (dt ev))

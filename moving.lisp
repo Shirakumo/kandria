@@ -94,9 +94,7 @@
 
 (defmethod collide ((moving moving) (block slope) hit)
   (let* ((loc (location moving))
-         (vel (velocity moving))
-         (normal (hit-normal hit))
-         (slope (vec2 (vy normal) (- (vx normal)))))
+         (vel (velocity moving)))
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
     ;; Zip
