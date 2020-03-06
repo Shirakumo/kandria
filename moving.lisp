@@ -99,10 +99,11 @@
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
     ;; Zip
-    (let* ((xrel (1+ (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
-           (yrel (+ (vy (slope-l block)) (* xrel (- (vy (slope-r block)) (vy (slope-l block)))))))
+    (let* ((xrel (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
+      (when (< (vx normal) 0) (incf xrel))
       ;; KLUDGE: we add a bias of 0.1 here to ensure we stop colliding with the slope.
-      (setf (vy loc) (max (vy loc) (+ 0.1 yrel (vy (bsize moving)) (vy (hit-location hit))))))))
+      (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) xrel)))
+        (setf (vy loc) (+ 0.1 yrel (vy (bsize moving)) (vy (hit-location hit))))))))
 
 (defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))

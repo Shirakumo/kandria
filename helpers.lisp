@@ -172,6 +172,9 @@
 (define-compiler-macro damp* (damp &rest factors)
   `(- 1 (* (- 1 ,damp) ,@factors)))
 
+(defun lerp (from to n)
+  (+ (* from (- 1 n)) (* to n)))
+
 (defun ->rad (deg)
   (* PI (/ deg 180)))
 
