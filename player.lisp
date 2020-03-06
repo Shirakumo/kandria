@@ -243,8 +243,8 @@ void main(){
        ;; Test for climbing
        (when (and (retained 'movement :climb)
                   (not (retained 'movement :jump))
-                  (or (typep (svref collisions 1) '(and (not null) (not platform)))
-                      (typep (svref collisions 3) '(and (not null) (not platform)))))
+                  (or (typep (svref collisions 1) 'ground)
+                      (typep (svref collisions 3) 'ground)))
          (setf (state player) :climbing))
 
        ;; Test for crawling
