@@ -30,12 +30,6 @@
       (when r (setf (aref collisions 1) r))
       (when u (setf (aref collisions 0) u)))))
 
-(defmethod collides-p ((moving moving) (block block) hit)
-  ;; KLUDGE: Ignore topmost edge pixel when we hit sides to allow better interaction with slopes
-  (or (= 0 (vx (hit-normal hit)))
-      (< (- (vy (location moving)) (vy (hit-location hit)))
-         (1- (+ (vy (bsize moving)) (/ +tile-size+ 2))))))
-
 (defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))
          (vel (velocity moving))
@@ -94,16 +88,20 @@
 (defmethod collide ((moving moving) (block slope) hit)
   (let* ((loc (location moving))
          (vel (velocity moving))
-         (normal (hit-normal hit)))
+         (normal (hit-normal hit))
+         (slope (vec (- (vy normal)) (vx normal))))
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
+    ;; Make sure we stop sliding down the slope.
+    (when (< (abs (vx vel)) 0.1)
+      (setf (vx vel) 0))
     ;; Zip
     (let* ((xrel (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
       (when (< (vx normal) 0) (incf xrel))
       ;; KLUDGE: we add a bias of 0.1 here to ensure we stop colliding with the slope.
-      (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) xrel)))
-        (setf (vy loc) (+ 0.1 yrel (vy (bsize moving)) (vy (hit-location hit))))))))
+      (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
+        (setf (vy loc) (+ 0.05 yrel (vy (bsize moving)) (vy (hit-location hit))))))))
 
 (defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))
