@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject animated-sprite (animated-sprite-subject)
+(define-shader-subject animated-sprite (animated-sprite-subject sized-entity)
   ((size :initform (vec 32 32))
    (vertex-array :initform (asset 'leaf '1x))))
 
@@ -76,6 +76,8 @@
       (destructuring-bind (pool name) (read stream)
         (setf (texture subject) (asset pool name)))
       (destructuring-bind (w h) (read stream)
+        (setf (bsize subject) (vec w h)))
+      (destructuring-bind (w h) (read stream)
         (setf (size subject) (vec w h)))
       (setf (animations subject) (loop for expr = (read stream NIL NIL)
                                        while expr
@@ -107,9 +109,11 @@
 
 (defmethod write-animation ((sprite animated-sprite) &optional (stream T))
   (let ((*package* #.*package*))
-    (format stream "(~s ~s)~%(~f ~f)~%"
+    (format stream "(~s ~s)~%(~f ~f) (~f ~f)~%"
             (name (pool (texture sprite)))
             (name (texture sprite))
+            (vx (bsize sprite))
+            (vy (bsize sprite))
             (vx (size sprite))
             (vy (size sprite)))
     (loop for animation across (animations sprite)
