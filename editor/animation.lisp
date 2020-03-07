@@ -1,18 +1,72 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-subject editor-camera (trial:2d-camera)
-  ((zoom :initarg :zoom :initform 1.0 :accessor zoom)))
+  ((zoom :initarg :zoom :initform 4.0 :accessor zoom)))
 
 (defmethod project-view ((camera editor-camera) ev)
   (reset-matrix *view-matrix*)
-  (let ((z 4))
-    (scale-by z z z)
+  (let ((z (zoom camera)))
     (translate-by (+ (vx (location camera)) (/ (width *context*) 2))
                   (+ (vy (location camera)) (/ (height *context*) 2))
-                  100 *view-matrix*)))
+                  100 *view-matrix*)
+    (scale-by z z z *view-matrix*)))
+
+(define-shader-entity rectangle (vertex-entity colored-entity sized-entity)
+  ((vertex-array :initform (asset 'leaf '1x))
+   (color :initform (vec 1 0 0 0.5))))
+
+(defmethod paint :before ((rectangle rectangle) target)
+  (let ((size (v* 2 (bsize rectangle))))
+    (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
+    (scale (vxy_ size))))
 
 (define-shader-subject editor-sprite (alloy:observable-object animated-sprite)
-  ())
+  ((hurtbox :initform (make-instance 'rectangle) :reader hurtbox)
+   (start-pos :initform NIL :accessor start-pos)))
+
+(defmethod register-object-for-pass :after ((pass per-object-pass) (sprite editor-sprite))
+  (register-object-for-pass pass (hurtbox sprite)))
+
+(defmethod paint :around ((sprite editor-sprite) pass)
+  (with-pushed-matrix ()
+    ;; KLUDGE: IDK why the fuck this is required.
+    (translate-by 0 (- (/ (vy (size sprite)) 2) (vy (bsize sprite))) 0)
+    (call-next-method))
+  (let ((frame (frame-hurtbox (frame-data sprite)))
+        (hurtbox (hurtbox sprite)))
+    (setf (bsize hurtbox) (vzw frame))
+    (setf (location hurtbox) (vxy frame))
+    (paint hurtbox pass)))
+
+(defun to-world-pos (pos)
+  (let ((vec (vcopy pos))
+        (camera (unit :camera (scene (handler *context*)))))
+    (decf (vx vec) (+ (vx (location camera)) (/ (width *context*) 2)))
+    (decf (vy vec) (+ (vy (location camera)) (/ (height *context*) 2)))
+    (vapplyf (nv/ vec 4) floor)))
+
+(defun update-frame (sprite start end)
+  (let* ((frame (frame-hurtbox (frame-data sprite)))
+         (bsize (nv/ (v- end start) 2))
+         (loc (v+ start bsize)))
+    (setf (vx frame) (vx loc))
+    (setf (vy frame) (vy loc))
+    (setf (vz frame) (vx bsize))
+    (setf (vw frame) (vy bsize))))
+
+(define-handler (editor-sprite mouse-press) (ev pos button)
+  (when (eql button :middle)
+    (setf (start-pos editor-sprite) (to-world-pos pos))
+    (update-frame editor-sprite (to-world-pos pos) (to-world-pos pos))))
+
+(define-handler (editor-sprite mouse-release) (ev pos button)
+  (when (eql button :middle)
+    (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))
+    (setf (start-pos editor-sprite) NIL)))
+
+(define-handler (editor-sprite mouse-move) (ev pos button)
+  (when (start-pos editor-sprite)
+    (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))))
 
 (defclass animation-editor (trial:main)
   ((ui :initform (make-instance 'ui) :reader ui)
@@ -91,7 +145,7 @@
     (write-animation (sprite animation-edit) stream)))
 
 (alloy:define-subcontainer (animation-edit layout)
-    (alloy:grid-layout :col-sizes '(75 100) :row-sizes '(30))
+    (alloy:grid-layout :col-sizes '(75 T) :row-sizes '(30))
   "Anim" animation
   "Start" start
   "End" end
@@ -112,7 +166,7 @@
                                 :cell-margins (alloy:margins)
                                 :min-size (alloy:size 100 300)))
          (focus (make-instance 'alloy:focus-list))
-         (layout (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(300)))
+         (layout (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(T)))
          (scroll (make-instance 'alloy:scroll-view :scroll :x :focus focus :layout frames)))
     
     (alloy:build-ui

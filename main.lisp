@@ -77,7 +77,9 @@
 (defun launch (&rest initargs)
   (apply #'trial:launch 'main initargs))
 
-(defmethod paint ((controller controller) (pass shader-pass)))
+(defmethod paint ((controller controller) (pass shader-pass))
+  ;;(setf (show-overlay controller) T)
+  (call-next-method))
 
 (defmethod setup-scene ((main main) scene)
   (enter (make-instance 'textbox) scene)

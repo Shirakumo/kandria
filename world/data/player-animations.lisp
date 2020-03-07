@@ -1,7 +1,7 @@
 (WORLD PLAYER)
-(64.0 50.0)
+(8.0 16.0) (64.0 50.0)
 (STAND                :start 0   :end 8   :step   0.1 :loop-to 0   :next 0 :frame-data (
- (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
+ (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  2.0  0.0  0.0))
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
@@ -183,7 +183,7 @@
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
- (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
+ (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox (12.0 -1.5 16.0 16.5))
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))
  (:damage 0   :stun 0.0 :flags #b0001 :velocity ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0))

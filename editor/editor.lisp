@@ -19,7 +19,7 @@
   (when (sidebar editor)
     (let ((layout (alloy:root (alloy:layout-tree (ui editor))))
           (focus (alloy:root (alloy:focus-tree (ui editor)))))
-      (alloy:enter (sidebar editor) layout :place :east :size (alloy:un 300))
+      (alloy:enter (sidebar editor) layout :place :east)
       (alloy:enter (sidebar editor) focus)
       (alloy:register (sidebar editor) (ui editor)))))
 
