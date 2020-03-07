@@ -27,7 +27,6 @@
    (surface :initform NIL :accessor surface))
   (:default-initargs
    :name 'player
-   :bsize (nv/ (vec 16 32) 2)
    :animations "player-animations.lisp"))
 
 (defmethod initialize-instance :after ((player player) &key)
