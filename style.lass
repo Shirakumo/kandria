@@ -80,6 +80,8 @@
   ("#subscribe"
    :padding 1em
    :text-align center
+   (.description
+    :font-size 1.2em)
    (input
     :font-size 1.5em
     :padding 0.2em 0.3em
