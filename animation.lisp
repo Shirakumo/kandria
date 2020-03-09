@@ -38,6 +38,24 @@
 ;; Whether the frame can be cancelled
 (define-frame-flag 2 cancelable-p)
 
+(defun transfer-frame (target source)
+  (setf (frame-hurtbox target) (vcopy (frame-hurtbox source)))
+  (setf (frame-velocity target) (vcopy (frame-velocity source)))
+  (setf (frame-knockback target) (vcopy (frame-knockback source)))
+  (setf (frame-damage target) (frame-damage source))
+  (setf (frame-stun target) (frame-stun source))
+  (setf (frame-flags target) (frame-flags source))
+  target)
+
+(defmethod clear ((target frame))
+  (setf (frame-hurtbox target) (vec 0 0 0 0))
+  (setf (frame-velocity target) (vec 0 0))
+  (setf (frame-knockback target) (vec 0 0))
+  (setf (frame-damage target) 0)
+  (setf (frame-stun target) 0f0)
+  (setf (frame-flags target) #b001)
+  target)
+
 (defstruct (attack-animation (:include trial::sprite-animation)
                              (:constructor make-attack-animation (name start end step next loop frame-data)))
   (frame-data #() :type simple-vector))

@@ -21,13 +21,17 @@
     (scale (vxy_ size))))
 
 (define-shader-subject editor-sprite (alloy:observable-object animated-sprite)
-  ((hurtbox :initform (make-instance 'rectangle) :reader hurtbox)
+  ((flare:name :initform 'sprite)
+   (hurtbox :initform (make-instance 'rectangle) :reader hurtbox)
    (start-pos :initform NIL :accessor start-pos)))
 
 (defmethod register-object-for-pass :after ((pass per-object-pass) (sprite editor-sprite))
   (register-object-for-pass pass (hurtbox sprite)))
 
 (defmethod paint :around ((sprite editor-sprite) pass)
+  ;; FIXME: move player according to animation velocity
+  ;; FIXME: show axes as grid lines
+  ;; FIXME: show sprite extents
   (with-pushed-matrix ()
     ;; KLUDGE: IDK why the fuck this is required.
     (translate-by 0 (- (/ (vy (size sprite)) 2) (vy (bsize sprite))) 0)
@@ -68,8 +72,31 @@
   (when (start-pos editor-sprite)
     (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))))
 
+(defclass animation-editor-ui (ui)
+  ((editor :initarg :editor :accessor editor)))
+
+(defmethod alloy:handle ((event alloy:key-up) (ui animation-editor-ui))
+  ;; FIXME: refresh frame representation in editor on change
+  (let* ((editor (editor ui))
+         (sprite (sprite editor))
+         (frame (frame-data sprite)))
+    (restart-case (call-next-method)
+      (alloy:decline ()
+        (case (alloy:key event)
+          (:delete
+           (clear frame))
+          ((:a :n :left)
+           (decf (frame sprite))
+           (when (find :shift (alloy:modifiers event))
+             (transfer-frame (frame-data sprite) frame)))
+          ((:d :p :right)
+           (incf (frame sprite))
+           (when (find :shift (alloy:modifiers event))
+             (transfer-frame (frame-data sprite) frame)))
+          (T (alloy:decline)))))))
+
 (defclass animation-editor (trial:main)
-  ((ui :initform (make-instance 'ui) :reader ui)
+  ((ui :accessor ui)
    (file :initarg :file :accessor file)
    (sprite :accessor sprite)
    (timeline :accessor timeline)
@@ -81,6 +108,7 @@
 
 (defmethod initialize-instance ((editor animation-editor) &key file)
   (call-next-method)
+  (setf (ui editor) (make-instance 'animation-editor-ui :editor editor))
   (setf +world+ (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) "world")))
   (setf (sprite editor) (make-instance 'editor-sprite :animations file))
   (setf (playback-speed (sprite editor)) 0f0))
