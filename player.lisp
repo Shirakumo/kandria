@@ -148,7 +148,7 @@ void main(){
         (setf (interactable player) entity)))
     (ecase (state player)
       ((:dyping :attacking :stunned)
-       (handle-attack-states player))
+       (handle-attack-states player ev))
       (:dashing
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))

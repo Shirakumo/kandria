@@ -48,7 +48,7 @@
     (setf (quest:status quest:task) status)))
 
 (define-encoder (quest:task save-v0) (_b _p)
-  (cons (quest:name quest:quest)
+  (cons (quest:name quest:task)
         (list :status (quest:status quest:task))))
 
 (define-decoder (region save-v0) (_b packet)
