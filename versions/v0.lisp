@@ -160,7 +160,7 @@
 
 (define-encoder (basic-light v0) (_b _p)
   `(basic-light :color ,(encode (color basic-light))
-                :data ,(buffer-data (caar (bindings (vertex-array light))))))
+                :data ,(buffer-data (caar (bindings (vertex-array basic-light))))))
 
 (define-decoder (textured-light v0) (initargs _)
   (destructuring-bind (&key multiplier texture location size bsize tile) initargs

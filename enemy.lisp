@@ -25,7 +25,7 @@
       (vsetf acc 0 0))
     (ecase (state enemy)
       ((:attacking :stunned :dying)
-       (handle-attack-states enemy))
+       (handle-attack-states enemy ev))
       (:normal))
     (nvclamp (v- +vlim+) acc +vlim+)
     (nv+ vel acc)))
