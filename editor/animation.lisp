@@ -28,26 +28,41 @@
 (defmethod register-object-for-pass :after ((pass per-object-pass) (sprite editor-sprite))
   (register-object-for-pass pass (hurtbox sprite)))
 
+(defun compute-frame-location (animation frame)
+  (let ((step (sprite-animation-step animation))
+        (frame-data (attack-animation-frame-data animation))
+        (location (vec 0 0)))
+    (loop for i from 0 below frame
+          for data = (svref frame-data i)
+          for vel = (frame-velocity data)
+          for offset = (v* vel step 100)
+          do (nv+ location offset))
+    (nv+ location (v* (frame-velocity (svref frame-data frame)) step 100 0.5))
+    location))
+
 (defmethod paint :around ((sprite editor-sprite) pass)
   ;; FIXME: move player according to animation velocity
-  ;; FIXME: show axes as grid lines
   ;; FIXME: show sprite extents
+  (translate (vxy_ (compute-frame-location (animation sprite) (frame-idx sprite))))
   (with-pushed-matrix ()
-    ;; KLUDGE: IDK why the fuck this is required.
-    (translate-by 0 (- (/ (vy (size sprite)) 2) (vy (bsize sprite))) 0)
+    (translate-by 0 (/ (vy (size sprite)) 2) 0)
     (call-next-method))
   (let ((frame (frame-hurtbox (frame-data sprite)))
         (hurtbox (hurtbox sprite)))
     (setf (bsize hurtbox) (vzw frame))
     (setf (location hurtbox) (vxy frame))
+    (incf (vy (location hurtbox)) (vy (bsize sprite)))
     (paint hurtbox pass)))
 
 (defun to-world-pos (pos)
   (let ((vec (vcopy pos))
+        (sprite (unit 'sprite (scene (handler *context*))))
         (camera (unit :camera (scene (handler *context*)))))
     (decf (vx vec) (+ (vx (location camera)) (/ (width *context*) 2)))
     (decf (vy vec) (+ (vy (location camera)) (/ (height *context*) 2)))
-    (vapplyf (nv/ vec 4) floor)))
+    (vapplyf (nv/ vec (zoom camera)) floor)
+    (decf (vy vec) (vy (bsize sprite)))
+    vec))
 
 (defun update-frame (sprite start end)
   (let* ((frame (frame-hurtbox (frame-data sprite)))
@@ -72,6 +87,10 @@
   (when (start-pos editor-sprite)
     (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))))
 
+(defmethod switch-animation ((sprite editor-sprite) animation)
+  (setf (vx (trial:tile sprite)) (sprite-animation-start (animation sprite)))
+  (setf (clock sprite) 0.0d0))
+
 (defclass animation-editor-ui (ui)
   ((editor :initarg :editor :accessor editor)))
 
@@ -83,6 +102,10 @@
     (restart-case (call-next-method)
       (alloy:decline ()
         (case (alloy:key event)
+          (:space
+           (if (= (playback-speed sprite) 0f0)
+               (setf (playback-speed sprite) 1f0)
+               (setf (playback-speed sprite) 0f0)))
           (:delete
            (clear frame))
           ((:a :n :left)
@@ -117,6 +140,7 @@
   (disable :cull-face :scissor-test :depth-test))
 
 (defmethod setup-scene ((editor animation-editor) scene)
+  (enter (make-instance 'vertex-entity :vertex-array (asset 'trial 'trial::2d-axes)) scene)
   (enter (sprite editor) scene)
   (let* ((ui (ui editor))
          (focus (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree ui)))
@@ -131,7 +155,7 @@
     (setf (timeline editor) line)
     (alloy:register ui ui)
     (enter ui scene))
-  (enter (make-instance 'editor-camera :location (vec 0 100)) scene)
+  (enter (make-instance 'editor-camera :location (vec -200 70)) scene)
   (enter (make-instance 'trial:render-pass) scene))
 
 (defun launch-animation-editor (&rest initargs)
