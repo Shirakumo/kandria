@@ -16,14 +16,13 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 10      0.7))
 
-(define-shader-subject player (movable lit-animated-sprite)
+(define-shader-subject player (attackable)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
    (jump-time :initform 1.0d0 :accessor jump-time)
    (dash-time :initform 1.0d0 :accessor dash-time)
    (air-time :initform 1.0d0 :accessor air-time)
-   (stun-time :initform 1.0d0 :accessor stun-time)
    (surface :initform NIL :accessor surface))
   (:default-initargs
    :name 'player
@@ -117,8 +116,7 @@ void main(){
     (incf (vy (acceleration enemy)) 1.0)
     (nv* (nvunit (acceleration player)) -0.3)
     (incf (vy (acceleration player)) 0.1)
-    (setf (stun-time player) 0.2d0)
-    (setf (state player) :stunned)))
+    (stun player 0.2d0)))
 
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
@@ -149,10 +147,8 @@ void main(){
                  (contained-p (vec4 (vx loc) (vy loc) (* 1.5 (vx size)) (vy size)) entity))
         (setf (interactable player) entity)))
     (ecase (state player)
-      (:stunned
-       (decf (stun-time player) (dt ev))
-       (when (<= (stun-time player) 0)
-         (setf (state player) :normal)))
+      ((:dyping :attacking :stunned)
+       (handle-attack-states player))
       (:dashing
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
@@ -172,14 +168,6 @@ void main(){
                 (slope (vec (- (vy normal)) (vx normal)))
                 (proj (v* slope (v. slope acc))))
            (vsetf acc (vx proj) (vy proj)))))
-      (:attacking
-       (nv* acc 0)
-       (let ((frame (frame-data player)))
-         (nv+ acc (frame-velocity frame)))
-       (when (eql 'stand (trial::sprite-animation-name (animation player)))
-         (setf (state player) :normal)))
-      (:dying
-       (nv* (velocity player) 0.9))
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
