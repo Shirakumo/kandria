@@ -24,7 +24,7 @@
                (:file "moving")
                (:file "move-to")
                (:file "interactable")
-               (:file "attackable")
+               (:file "animatable")
                (:file "enemy")
                (:file "player")
                (:file "world")

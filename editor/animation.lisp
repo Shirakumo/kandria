@@ -149,6 +149,8 @@
          (time (make-instance 'alloy:sidebar :side :south :focus-parent focus :layout-parent layout))
          (anim (make-instance 'animation-edit :sprite (sprite editor) :file (file editor)))
          (line (make-instance 'timeline-edit :sprite (sprite editor))))
+    (setf (alloy:bounds pane) (alloy:extent 0 0 200 0))
+    (setf (alloy:bounds time) (alloy:extent 0 0 0 300))
     (alloy:enter line time)
     (alloy:enter anim pane)
     (setf (animation-edit editor) anim)
