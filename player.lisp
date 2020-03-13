@@ -16,7 +16,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 10      0.7))
 
-(define-shader-subject player (attackable)
+(define-shader-subject player (animatable)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
@@ -48,24 +48,29 @@ void main(){
 
 (define-handler (player dash) (ev)
   (let ((acc (acceleration player)))
-    (when (and (= 0 (dash-time player))
-               (eq :normal (state player)))
-      (if (typep (trial::source-event ev) 'gamepad-event)
-          (let ((dev (device (trial::source-event ev))))
-            (vsetf acc
-                   (absinvclamp 0.3 (gamepad:axis :l-h dev) 0.8)
-                   (absinvclamp 0.3 (gamepad:axis :l-v dev) 0.8)))
-          (vsetf acc
-                 (cond ((retained 'movement :left)  -1)
-                       ((retained 'movement :right) +1)
-                       (T                            0))
-                 (cond ((retained 'movement :up)    +1)
-                       ((retained 'movement :down)  -1)
-                       (T                            0))))
-      (setf (state player) :dashing)
-      (setf (animation player) 'dash)
-      (when (v= 0 acc) (setf (vx acc) (direction player)))
-      (nvunit acc))))
+    (cond ((in-danger-p player)
+           ;; FIXME: If we are holding the opposite of what
+           ;;        we are facing, we should evade left.
+           ;;        to do this, need to buffer for a while.
+           (start-animation 'evade-right player))
+          ((and (= 0 (dash-time player))
+                (eq :normal (state player)))
+           (if (typep (trial::source-event ev) 'gamepad-event)
+               (let ((dev (device (trial::source-event ev))))
+                 (vsetf acc
+                        (absinvclamp 0.3 (gamepad:axis :l-h dev) 0.8)
+                        (absinvclamp 0.3 (gamepad:axis :l-v dev) 0.8)))
+               (vsetf acc
+                      (cond ((retained 'movement :left)  -1)
+                            ((retained 'movement :right) +1)
+                            (T                            0))
+                      (cond ((retained 'movement :up)    +1)
+                            ((retained 'movement :down)  -1)
+                            (T                            0))))
+           (setf (state player) :dashing)
+           (setf (animation player) 'dash)
+           (when (v= 0 acc) (setf (vx acc) (direction player)))
+           (nvunit acc)))))
 
 (define-handler (player start-jump) (ev)
   (unless (eql :crawling (state player))
@@ -80,14 +85,12 @@ void main(){
 (define-handler (player light-attack) (ev)
   (when (and (aref (collisions player) 2)
              (not (eql :crawling (state player))))
-    (setf (animation player) 'light-ground)
-    (setf (state player) :attacking)))
+    (start-animation 'light-ground player)))
 
 (define-handler (player heavy-attack) (ev)
   (when (and (aref (collisions player) 2)
              (not (eql :crawling (state player))))
-    (setf (animation player) 'heavy-ground)
-    (setf (state player) :attacking)))
+    (start-animation 'heavy-ground player)))
 
 (flet ((handle-solid (player hit)
          (when (and (= +1 (vy (hit-normal hit)))
@@ -147,8 +150,8 @@ void main(){
                  (contained-p (vec4 (vx loc) (vy loc) (* 1.5 (vx size)) (vy size)) entity))
         (setf (interactable player) entity)))
     (ecase (state player)
-      ((:dyping :attacking :stunned)
-       (handle-attack-states player ev))
+      ((:dying :animated :stunned)
+       (handle-animation-states player ev))
       (:dashing
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))

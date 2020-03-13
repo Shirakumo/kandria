@@ -78,7 +78,9 @@
   (apply #'trial:launch 'main initargs))
 
 (defmethod paint ((controller controller) (pass shader-pass))
-  ;;(setf (show-overlay controller) T)
+  (let ((editor (unit :editor T)))
+    (when editor
+      (setf (show-overlay controller) (not (active-p editor)))))
   (call-next-method))
 
 (defmethod setup-scene ((main main) scene)
