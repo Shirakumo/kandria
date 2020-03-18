@@ -1,8 +1,8 @@
 (asdf:defsystem leaf
   :build-operation "deploy-op"
-  :build-pathname #+linux "kandria.run"
-                  #+darwin "kandria.macos"
-                  #-(or linux darwin) "kandria"
+  :build-pathname #+linux "kandria-linux.run"
+                  #+darwin "kandria-macos"
+                  #-(or linux darwin) "kandria-windows"
   :entry-point "org.shirakumo.fraf.leaf:launch"
   :components ((:file "package")
                (:file "helpers")
