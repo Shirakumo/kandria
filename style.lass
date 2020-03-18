@@ -78,8 +78,11 @@
     :font-size 2em
     :margin 0 0 0.5em 1em))
   ("#subscribe"
+   :text-align center)
+  (((:and "#subscribe" :target))
+   :border solid 0.2em (hex FFAA33))
+  ((:or "#subscribe" "#prototype")
    :padding 1em
-   :text-align center
    (.description
     :font-size 1.2em)
    (input
@@ -96,6 +99,12 @@
    ((:and input[type=submit] :hover)
     :border-color (hex 0055AA)
     :background (hex 0055AA)))
+  (a.button.important
+   :font-size 1.5em
+   :margin 0 auto
+   :display block
+   :width 10em
+   :text-align center)
   (a.button
    :font-size 1.2em
    :background (hex 0088EE)
