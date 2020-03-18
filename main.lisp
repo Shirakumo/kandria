@@ -20,9 +20,11 @@
     (enter chunk region)
     (enter (make-instance 'player :location (vec 64 64)) region)))
 
-(defclass main (org.shirakumo.fraf.trial.steam:main)
+(defclass main (#+steam org.shirakumo.fraf.trial.steam:main
+                #-steam org.shirakumo.fraf.trial:main)
   ((scene :initform NIL)
-   (state :accessor state))
+   (state :accessor state)
+   #-steam (app-id :initarg :app-id))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17 0)
                      :title "Kandria - 0.0.0"
                      :world "world"
