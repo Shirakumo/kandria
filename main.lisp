@@ -82,7 +82,7 @@
 (defmethod paint ((controller controller) (pass shader-pass))
   (let ((editor (unit :editor T)))
     (when editor
-      (setf (show-overlay controller) (not (active-p editor)))))
+      (setf (show-overlay controller) NIL #++(not (active-p editor)))))
   (call-next-method))
 
 (defmethod setup-scene ((main main) scene)
