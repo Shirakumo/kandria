@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB">
+<html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" value="application/xhtml+xml; charset=utf-8">
     <title>Kandria</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"/>
@@ -31,6 +30,7 @@
       <h1>Kandria</h1>
       <nav>
         <a href="#about">About</a>
+        <a href="prototype.html">Demo</a>
         <a href="#updates">Updates</a>
         <a href="#media">Media</a>
       </nav>
@@ -40,11 +40,6 @@
         <div style="position:relative;padding-top:56.25%;">
           <iframe src="https://www.youtube.com/embed/H2ySVyMybeQ" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" allowfullscreen></iframe>
         </div>
-        <form id="subscribe" action="https://shirakumo.us19.list-manage.com/subscribe/post?u=ecd3151559a806bf165bfe5c2&amp;id=7776e18e10" target="_blank" method="post">
-          <p class="description">Subscribe for a <b>free demo of the porototype!</b></p>
-          <input type="email" name="EMAIL" placeholder="my@email.com" autofocus required/>
-          <input type="submit" name="subscribe" value="Subscribe"/>
-        </form>
         <h2>About Kandria</h2>
         <p>
           Kandria is a 2D hack and slash platformer, set in the post apocalyptic future. You take on the role of a lone android and join a small group of survivors. In order to help them out you are sent on a variety of missions to explore, gather, and fight. Along this journey you are confronted with various ethical questions about transhumanism and the treatment of androids.
@@ -52,6 +47,7 @@
         <p>
           Kandria is currently in alpha.
         </p>
+        <a class="button important" href="prototype.html">Download Prototype</a>
       </section>
       <section id="updates">
         <h2>Latest Updates</h2>
@@ -66,7 +62,11 @@
             <div class="read-more"><a class="button" href="#" lquery="(attr :href url)">Read more</a></div>
           </article>
         </c:splice>
-        <a class="button" href="#subscribe">Subscribe to future updates</a>
+        <form id="subscribe" action="https://shirakumo.us19.list-manage.com/subscribe/post?u=ecd3151559a806bf165bfe5c2&amp;id=7776e18e10" target="_blank" method="post">
+          <p class="description">Subscribe to the mailing list!</p>
+          <input type="email" name="EMAIL" placeholder="my@email.com" autofocus required/>
+          <input type="submit" name="subscribe" value="Subscribe"/>
+        </form>
       </section>
       <section id="media">
         <h2>Media</h2>
