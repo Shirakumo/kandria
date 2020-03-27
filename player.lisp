@@ -23,7 +23,7 @@
    (jump-time :initform 1.0d0 :accessor jump-time)
    (dash-time :initform 1.0d0 :accessor dash-time)
    (air-time :initform 1.0d0 :accessor air-time)
-   (surface :initform NIL :accessor surface))
+   (buffer :initform NIL :accessor buffer))
   (:default-initargs
    :name 'player
    :animations "player-animations.lisp"))
@@ -70,11 +70,15 @@ void main(){
            (setf (state player) :dashing)
            (setf (animation player) 'dash)
            (when (v= 0 acc) (setf (vx acc) (direction player)))
-           (nvunit acc)))))
+           (nvunit acc))
+          ((eq :animated (state player))
+           (setf (buffer player) 'dash)))))
 
 (define-handler (player start-jump) (ev)
-  (unless (eql :crawling (state player))
-    (setf (jump-time player) (- +coyote+))))
+  (cond ((eql :animated (state player))
+         (setf (buffer player) 'jump))
+        ((not (eql :crawling (state player)))
+         (setf (jump-time player) (- +coyote+)))))
 
 (define-handler (player crawl) (ev)
   (unless (svref (collisions player) 0)
@@ -83,14 +87,18 @@ void main(){
       (:crawling (setf (state player) :normal)))))
 
 (define-handler (player light-attack) (ev)
-  (when (and (aref (collisions player) 2)
-             (not (eql :crawling (state player))))
-    (start-animation 'light-ground player)))
+  (cond ((and (aref (collisions player) 2)
+              (not (eql :crawling (state player))))
+         (start-animation 'light-ground-1 player))
+        ((eql :animated (state player))
+          (setf (buffer player) 'light-attack))))
 
 (define-handler (player heavy-attack) (ev)
-  (when (and (aref (collisions player) 2)
-             (not (eql :crawling (state player))))
-    (start-animation 'heavy-ground player)))
+  (cond ((and (aref (collisions player) 2)
+              (not (eql :crawling (state player))))
+         (start-animation 'heavy-ground-1 player))
+        ((eql :animated (state player))
+          (setf (buffer player) 'heavy-attack))))
 
 (flet ((handle-solid (player hit)
          (when (and (= +1 (vy (hit-normal hit)))
@@ -151,6 +159,21 @@ void main(){
         (setf (interactable player) entity)))
     (ecase (state player)
       ((:dying :animated :stunned)
+       (let ((buffer (buffer player)))
+         (when (and buffer (cancelable-p (frame-data player)))
+           (case buffer
+             (light-attack
+              (case (sprite-animation-name (animation player))
+                (light-ground-1 (start-animation 'light-ground-2 player))
+                (light-ground-2 (start-animation 'light-ground-3 player))
+                (T (start-animation 'light-ground-1 player))))
+             (heavy-attack
+              (case (sprite-animation-name (animation player))
+                (heavy-ground-1 (start-animation 'heavy-ground-2 player))
+                (T (start-animation 'heavy-ground-1 player))))
+             (dash (handle (make-instance 'dash) player))
+             (jump (handle (make-instance 'start-jump) player)))
+           (setf (buffer player) NIL)))
        (handle-animation-states player ev))
       (:dashing
        (incf (dash-time player) (dt ev))
@@ -307,10 +330,6 @@ void main(){
   ;; Animations
   (let ((acc (acceleration player))
         (collisions (collisions player)))
-    (cond ((< 0 (vx acc))
-           (setf (direction player) +1))
-          ((< (vx acc) 0)
-           (setf (direction player) -1)))
     (case (state player)
       (:climbing
        (setf (animation player) 'climb)
@@ -324,10 +343,18 @@ void main(){
          (T
           (setf (clock player) 0.0d0))))
       (:crawling
+       (cond ((< 0 (vx acc))
+              (setf (direction player) +1))
+             ((< (vx acc) 0)
+              (setf (direction player) -1)))
        (setf (animation player) 'crawl)
        (when (= 0 (vx acc))
          (setf (clock player) 0.0d0)))
       (:normal
+       (cond ((< 0 (vx acc))
+              (setf (direction player) +1))
+             ((< (vx acc) 0)
+              (setf (direction player) -1)))
        (cond ((< 0 (vy acc))
               (setf (animation player) 'jump))
              ((null (svref collisions 2))
@@ -381,11 +408,6 @@ void main(){
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
      (view-scale (unit :camera T))))
-
-(defmethod paint :before ((player player) target)
-  (case (state player)
-    (:crawling (translate-by 0 17 0))
-    (T (translate-by 0 9 0))))
 
 (defmethod paint :around ((player player) target)
   (call-next-method)

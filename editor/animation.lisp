@@ -45,7 +45,7 @@
   ;; FIXME: show sprite extents
   (translate (vxy_ (compute-frame-location (animation sprite) (frame-idx sprite))))
   (with-pushed-matrix ()
-    (translate-by 0 (/ (vy (size sprite)) 2) 0)
+    (translate-by 0 (vy (bsize sprite)) 0)
     (call-next-method))
   (let ((frame (frame-hurtbox (frame-data sprite)))
         (hurtbox (hurtbox sprite)))
@@ -65,13 +65,13 @@
     vec))
 
 (defun update-frame (sprite start end)
-  (let* ((frame (frame-hurtbox (frame-data sprite)))
-         (bsize (nv/ (v- end start) 2))
-         (loc (v+ start bsize)))
-    (setf (vx frame) (vx loc))
-    (setf (vy frame) (vy loc))
-    (setf (vz frame) (vx bsize))
-    (setf (vw frame) (vy bsize))))
+  (let* ((hurtbox (frame-hurtbox (frame-data sprite)))
+         (bsize (nvabs (nv/ (v- end start) 2)))
+         (loc (nv- (v+ start bsize) (compute-frame-location (animation sprite) (frame-idx sprite)))))
+    (setf (vx hurtbox) (vx loc))
+    (setf (vy hurtbox) (vy loc))
+    (setf (vz hurtbox) (vx bsize))
+    (setf (vw hurtbox) (vy bsize))))
 
 (define-handler (editor-sprite mouse-press) (ev pos button)
   (when (eql button :middle)
@@ -192,7 +192,6 @@
 (alloy:define-subcomponent (animation-edit next) ((trial::sprite-animation-next (animation animation-edit)) alloy:wheel))
 (alloy:define-subcomponent (animation-edit loop) ((trial::sprite-animation-loop (animation animation-edit)) alloy:wheel))
 (alloy:define-subbutton (animation-edit save) ("Save")
-  (write-animation (sprite animation-edit))
   (with-open-file (stream (entry-path (format NIL "data/~a" (file animation-edit)) (packet +world+))
                           :direction :output
                           :if-exists :supersede)
