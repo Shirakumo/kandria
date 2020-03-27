@@ -5,8 +5,10 @@
    (vertex-array :initform (asset 'leaf '1x))))
 
 (defmethod paint ((sprite animated-sprite) target)
-  (scale-by (vx (size sprite)) (vy (size sprite)) 1)
-  (translate-by -0.5 -0.5 0)
+  (let ((size (size sprite))
+        (bsize (bsize sprite)))
+    (translate-by (- (/ (vx size) 2)) (- (vy bsize)) 0)
+    (scale-by (vx size) (vy size) 1))
   (call-next-method))
 
 (defstruct (frame (:constructor make-frame (hurtbox velocity knockback damage stun flags)))

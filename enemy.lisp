@@ -1,16 +1,9 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-asset (leaf placeholder-anim) image
-      #p"placeholder-anim.png")
-
 (define-shader-subject enemy (animatable solid)
-  ((bsize :initform (nv/ (vec 16 16) 2))
-   (size :initform (vec 16 16))
-   (texture :initform (asset 'leaf 'placeholder-anim)))
+  ()
   (:default-initargs
-   :animations '((idle :start 0 :end 1 :step 0.1)
-                 (hurt :start 1 :end 2 :step 0.1)
-                 (die :start 2 :end 3 :step 0.1))))
+   :animations "player-animations.lisp"))
 
 (defmethod tick :before ((enemy enemy) ev)
   (let ((collisions (collisions enemy))
@@ -32,7 +25,7 @@
       ((:dying :animated :stunned)
        (handle-animation-states enemy ev))
       (:normal
-       (setf (animation enemy) 'idle)))
+       (setf (animation enemy) 'stand)))
     (nvclamp (v- +vlim+) acc +vlim+)
     (nv+ vel acc)))
 

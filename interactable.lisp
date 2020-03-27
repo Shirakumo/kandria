@@ -16,5 +16,5 @@
                  (quest:interactable trigger))))
       (pushnew trigger (interactions interactable)))))
 
-(define-shader-subject npc (lit-animated-sprite profile-entity interactable)
-  ())
+;; (define-shader-subject npc (lit-animated-sprite profile-entity interactable)
+;;   ())
