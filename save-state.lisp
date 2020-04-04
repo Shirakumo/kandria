@@ -2,10 +2,10 @@
 
 (defun config-directory ()
   #+(or windows win32 mswindows)
-  (merge-pathnames (make-pathname :directory '(:relative "AppData" "Local" "shirakumo" "leaf"))
+  (merge-pathnames (make-pathname :directory '(:relative "AppData" "Local" "shirakumo" "kandria"))
                    (user-homedir-pathname))
   #-(or windows win32 mswindows)
-  (merge-pathnames (make-pathname :directory '(:relative ".config" "shirakumo" "leaf"))
+  (merge-pathnames (make-pathname :directory '(:relative ".config" "shirakumo" "kandria"))
                    (user-homedir-pathname)))
 
 (defun save-state-path (name)
@@ -23,9 +23,9 @@
    :start-time (get-universal-time)
    :save-time (get-universal-time)))
 
-(defmethod initialize-instance :after ((save-state save-state) &key file)
-  (unless file
-    (setf (file save-state) (save-state-path (start-time save-state)))))
+(defmethod initialize-instance :after ((save-state save-state) &key (filename ""))
+  (unless (slot-boundp save-state 'file)
+    (setf (file save-state) (merge-pathnames filename (save-state-path (start-time save-state))))))
 
 (defmethod print-object ((save-state save-state) stream)
   (print-unreadable-object (save-state stream :type T)
@@ -86,22 +86,3 @@
     (let ((version (coerce-version (getf header :version))))
       (decode-payload NIL world packet version)
       (apply #'make-instance 'save-state initargs))))
-
-(defmethod compute-entity-delta ((current region) (world world))
-  (let ((initial (with-packet (packet (packet world) :offset (region-entry (name current) world))
-                   (load-region packet NIL)))
-        (set-initial (cons NIL NIL))
-        (set-current (cons NIL NIL)))
-    (labels ((traverse (container set)
-               (for:for ((item over container))
-                 (push (cons container item) (cdr set))
-                 (when (typep item 'container)
-                   (traverse item set))))
-             (cmp (a b)
-               (eql (name a) (name b))))
-      (traverse initial set-initial)
-      (traverse current set-current)
-      (setf set-initial (cdr set-initial))
-      (setf set-current (cdr set-current))
-      (values (set-difference set-current set-initial :test #'cmp :key #'cdr)
-              (set-difference set-initial set-current :test #'cmp :key #'cdr)))))

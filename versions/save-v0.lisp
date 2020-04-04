@@ -1,34 +1,82 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defclass save-v0 (version) ())
-
-(define-decoder (world save-v0) (_b packet)
-  (destructuring-bind (&key region)
-      (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
-    ;; FIXME: Avoid reloading the entire region when loading state.
-    ;;        Particularly, avoid changing assets for chunks.
-    (let ((region (load-region region world)))
-      (decode (storyline world))
-      (decode region))))
+(defclass save-v0 (v0) ())
 
 (define-encoder (world save-v0) (_b packet)
   (encode (storyline world))
   (encode (unit 'region world))
   (with-packet-entry (stream "global.lisp" packet
                              :element-type 'character)
-    (princ* (list :region (name (unit 'region world))) stream)))
-
-(define-decoder (quest:storyline save-v0) (_b packet)
-  (loop for (name . initargs) in (parse-sexps (packet-entry "storyline.lisp" packet
-                                                            :element-type 'character))
-        for quest = (quest:find-quest name quest:storyline)
-        do (decode quest initargs)))
+    (princ* (list :region (name (region world))) stream)))
 
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
                              :element-type 'character)
     (loop for quest being the hash-values of (quest:quests quest:storyline)
           do (princ* (encode quest) stream))))
+
+(define-encoder (quest:quest save-v0) (buffer _p)
+  (cons (quest:name quest:quest)
+        (list :status (quest:status quest:quest)
+              :tasks (mapcar #'encode (quest:tasks quest:quest)))))
+
+(define-encoder (quest:task save-v0) (_b _p)
+  (cons (quest:name quest:task)
+        (list :status (quest:status quest:task))))
+
+(define-encoder (region save-v0) (_b packet)
+  (with-packet-entry (stream (format NIL "regions/~(~a~).lisp" (name region)) packet
+                             :element-type 'character)
+    (let ((create-new (list NIL))
+          (ephemeral (list NIL)))
+      (labels ((payload (named entity target)
+                 (handler-case
+                     (setf (cdr target) (list* (cons (name named) (encode entity)) (cdr target)))
+                   (no-applicable-encoder (e)
+                     (declare (ignore e)))))
+               (recurse (parent)
+                 (for:for ((entity over parent))
+                   (cond ((typep entity 'ephemeral)
+                          (payload entity entity ephemeral)
+                          (when (typep entity 'container)
+                            (recurse entity)))
+                         (T
+                          (payload parent entity create-new))))))
+        (recurse region))
+      (princ* (list :create-new (rest create-new)
+                    :ephemeral (rest ephemeral))
+              stream))))
+
+(define-encoder (player save-v0) (_b _p)
+  (rest (call-next-method)))
+
+(define-encoder (animatable save-v0) (_b _p)
+  `(,(type-of animatable)
+    :location ,(encode (location animatable))
+    :direction ,(direction animatable)
+    :state ,(state animatable)
+    :animation ,(sprite-animation-name (animation animatable))
+    :frame ,(frame animatable)
+    :health ,(health animatable)
+    :stun-time ,(stun-time animatable)))
+
+(define-decoder (world save-v0) (_b packet)
+  (destructuring-bind (&key region)
+      (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
+    (let ((region (cond ((and (region world) (eql region (name (region world))))
+                         ;; Ensure we trigger necessary region reset events even if we're still in the same region.
+                         (issue world 'switch-region :region (region world))
+                         (region world))
+                        (T
+                         (load-region region world)))))
+      (decode (storyline world))
+      (decode region))))
+
+(define-decoder (quest:storyline save-v0) (_b packet)
+  (loop for (name . initargs) in (parse-sexps (packet-entry "storyline.lisp" packet
+                                                            :element-type 'character))
+        for quest = (quest:find-quest name quest:storyline)
+        do (decode quest initargs)))
 
 (define-decoder (quest:quest save-v0) (initargs packet)
   (destructuring-bind (&key status tasks) initargs
@@ -38,71 +86,43 @@
           for task = (quest:find-task name quest:quest)
           do (decode task initargs))))
 
-(define-encoder (quest:quest save-v0) (buffer _p)
-  (cons (quest:name quest:quest)
-        (list :status (quest:status quest:quest)
-              :tasks (mapcar #'encode (quest:tasks quest:quest)))))
-
 (define-decoder (quest:task save-v0) (initargs packet)
   (destructuring-bind (&key status) initargs
     (setf (quest:status quest:task) status)))
 
-(define-encoder (quest:task save-v0) (_b _p)
-  (cons (quest:name quest:task)
-        (list :status (quest:status quest:task))))
-
-(define-decoder (region save-v0) (_b packet)
-  (destructuring-bind (&key deletions additions state)
+(define-decoder (region save-v0) (initargs packet)
+  (destructuring-bind (&key create-new ephemeral)
       (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
                                         packet :element-type 'character)))
-    (let ((v0 (make-instance 'v0)))
-      (dolist (name deletions)
-        (leave (unit name region) region))
-      (dolist (addition additions)
-        (destructuring-bind (&key container init) addition
-          (enter (decode-payload (cdr init) (car init) packet v0)
-                 (unit container region))))
-      (loop for (name . state) in state
-            for unit = (unit name (scene-graph region))
-            do (decode unit state)))))
+    ;; Remove all entities that are not ephemeral
+    (labels ((recurse (parent)
+               (for:for ((entity over parent))
+                 (typecase entity
+                   ((not ephemeral) (leave entity parent))
+                   (container (recurse entity))))))
+      (recurse region))
+    ;; Add new entities that exist in the state
+    (loop for (name . state) in create-new
+          for parent = (unit name (scene-graph region))
+          do (enter (decode-payload (cdr state) (make-instance (car state)) packet save-v0) parent))
+    ;; Update state on ephemeral ones
+    (loop for (name . state) in ephemeral
+          for unit = (unit name (scene-graph region))
+          do (if unit
+                 (decode unit state)
+                 (error "Unit named ~s referenced but not found." name)))))
 
-(define-encoder (region save-v0) (_b packet)
-  (with-packet-entry (stream (format NIL "regions/~(~a~).lisp" (name region)) packet
-                             :element-type 'character)
-    (multiple-value-bind (additions deletions) (compute-entity-delta region (scene-graph region))
-      (let ((v0 (make-instance 'v0))
-            (state ()))
-        (flare:do-container-tree (entity region) 
-          (handler-case (push (encode entity) state)
-            (no-applicable-encoder (e)
-              (declare (ignore e)))))
-        (princ* (list :deletions (loop for entity in deletions
-                                       collect (name (cdr entity)))
-                      :additions (loop for (container . entity) in additions
-                                       collect (list :container (name container)
-                                                     :init (encode-payload entity NIL packet v0)))
-                      :state state)
-                stream)))))
+(define-decoder (player save-v0) (_i _p)
+  (call-next-method)
+  (snap-to-target (unit :camera T) player))
 
-(define-decoder (player save-v0) (initargs _p)
-  (destructuring-bind (&key location) initargs
-    (setf (location player) (decode 'vec2 location))))
-
-(define-encoder (player save-v0) (_b _p)
-  `(player :location ,(encode (location player))))
-
-(define-decoder (vec2 save-v0) (data _p)
-  (destructuring-bind (x y) data
-    (vec2 x y)))
-
-(define-encoder (vec2 save-v0) (_b _p)
-  (list (vx vec2)
-        (vy vec2)))
-
-(define-decoder (asset save-v0) (data _p)
-  (destructuring-bind (pool name) data
-    (asset pool name)))
-
-(define-encoder (asset save-v0) (_b _p)
-  (list (name (pool asset))
-        (name asset)))
+(define-decoder (animatable save-v0) (initargs _p)
+  (destructuring-bind (&key location direction state animation frame health stun-time) initargs
+    (setf (location animatable) (decode 'vec2 location))
+    (setf (direction animatable) direction)
+    (setf (state animatable) state)
+    (setf (animation animatable) animation)
+    (setf (frame animatable) frame)
+    (setf (health animatable) health)
+    (setf (stun-time animatable) stun-time)
+    animatable))

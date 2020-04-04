@@ -17,7 +17,7 @@
 
 (defun current-version ()
   ;; KLUDGE: latest version should be determined automatically.
-  (make-instance 'v0))
+  (make-instance 'world-v0))
 
 (defun coerce-version (symbol)
   (flet ((bail () (error "No such version ~s." symbol)))

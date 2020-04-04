@@ -5,9 +5,8 @@
   :min-filter :nearest
   :mag-filter :nearest)
 
-(defclass chunk (sized-entity lit-entity shadow-caster shader-entity layered-container solid resizable)
-  ((flare:name :initform (gensym))
-   (vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
+(defclass chunk (sized-entity lit-entity shadow-caster shader-entity layered-container solid resizable ephemeral)
+  ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture :accessor texture)
    (layers :accessor layers)
    (tileset :initarg :tileset :initform (asset 'leaf 'debug) :accessor tileset
