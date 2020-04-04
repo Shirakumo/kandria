@@ -433,6 +433,9 @@
   (apply #'issue +world+ (event-type trigger) (event-initargs trigger))
   (setf (active-p trigger) NIL))
 
+(defun generate-name (&optional indicator)
+  (intern (format NIL "~a-~d" (or indicator "ENTITY") (incf *gensym-counter*)) #.*package*))
+
 (defclass request-region (event)
   ((region :initarg :region :reader region)))
 
@@ -442,6 +445,12 @@
 (defclass switch-chunk (event)
   ((chunk :initarg :chunk :reader chunk)))
 
+(defun switch-chunk (chunk)
+  (issue +world+ 'switch-chunk :chunk chunk))
+
 (defclass unpausable () ())
+
+(defclass ephemeral (entity)
+  ((flare:name :initform (generate-name))))
 
 (define-shader-subject player () ())

@@ -78,6 +78,12 @@
   (key-press (one-of key :esc :escape))
   (gamepad-press (one-of button :home)))
 
+(define-action quicksave (menuing)
+  (key-press (one-of key :f5)))
+
+(define-action quickload (menuing)
+  (key-press (one-of key :f9)))
+
 (define-action movement ())
 
 (define-action interact (movement)

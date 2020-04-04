@@ -24,6 +24,7 @@
                 #-steam org.shirakumo.fraf.trial:main)
   ((scene :initform NIL)
    (state :accessor state)
+   (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave)
    #-steam (app-id :initarg :app-id))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17 0)
                      :title "Kandria - 0.0.0"
@@ -73,8 +74,14 @@
 (defmethod save-state (world (state (eql T)) &rest args)
   (apply #'save-state world (state (handler *context*)) args))
 
+(defmethod save-state (world (state (eql :quick)) &rest args)
+  (apply #'save-state world (quicksave (handler *context*)) args))
+
 (defmethod load-state ((state (eql T)) world)
   (load-state (state (handler *context*)) world))
+
+(defmethod load-state ((state (eql :quick)) world)
+  (load-state (quicksave (handler *context*)) world))
 
 (defun launch (&rest initargs)
   (apply #'trial:launch 'main initargs))

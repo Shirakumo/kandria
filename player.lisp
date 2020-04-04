@@ -16,7 +16,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 10      0.7))
 
-(define-shader-subject player (animatable)
+(define-shader-subject player (animatable ephemeral)
   ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
@@ -389,8 +389,10 @@ void main(){
 
 (define-handler (player switch-chunk) (ev chunk)
   (setf (surface player) chunk)
-  (setf (spawn-location player) (v+ (location player)
-                                    (v* (vunit (acceleration player)) +tile-size+))))
+  (let ((loc (vcopy (location player))))
+    (when (v/= 0 (acceleration player))
+      (nv+ loc (v* (vunit (acceleration player)) +tile-size+)))
+    (setf (spawn-location player) loc)))
 
 (defmethod register-object-for-pass :after (pass (player player))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'dust-cloud)))
@@ -403,7 +405,8 @@ void main(){
 (defmethod death ((player player))
   (vsetf (location player)
          (vx (spawn-location player))
-         (vy (spawn-location player))))
+         (vy (spawn-location player)))
+  (snap-to-target (unit :camera T) player))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))

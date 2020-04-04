@@ -1,6 +1,8 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity background (lit-entity textured-entity)
+;; FIXME: integrate into chunk
+
+(define-shader-entity background (lit-entity textured-entity ephemeral)
   ((vertex-array :initform (asset 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (parallax-speed :initform (vec 2 1) :initarg :parallax-speed :accessor parallax-speed)
    (parallax-direction :initform 1 :initarg :parallax-direction :accessor parallax-direction)

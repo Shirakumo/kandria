@@ -84,6 +84,3 @@
       (:dying))
     (incf (vx acc) (* (direction animatable) (vx (frame-velocity frame))))
     (incf (vy acc) (vy (frame-velocity frame)))))
-
-(defmethod (setf direction) :around (direction (enemy enemy))
-  (call-next-method))

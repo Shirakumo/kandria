@@ -43,11 +43,20 @@
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
+(defmethod region ((world world))
+  (gethash 'region (name-map world)))
+
 (defmethod handle (event (world world))
   (let ((handler (car (handler-stack world))))
     (if handler
         (handle event handler)
         (call-next-method))))
+
+(defmethod handle :after ((ev quicksave) (world world))
+  (save-state world :quick))
+
+(defmethod handle :after ((ev quickload) (world world))
+  (load-state :quick world))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (when (= 0 (mod (fc ev) 10))

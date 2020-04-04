@@ -1,3 +1,2 @@
-(:deletions ()
- :additions ()
- :state ())
+(:create-new ()
+ :ephemeral ())
