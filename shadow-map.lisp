@@ -55,7 +55,8 @@
       (let* ((pos (m* (projection-matrix) (view-matrix) (vec (vx (location player)) (+ (vy (location player)) 8) 0 1)))
              (px (nv/ (nv+ pos 1) 2)))
         (cffi:with-foreign-object (pixel :uint8)
-          (%gl:read-pixels (floor (* (clamp 0 (vx px) 1) (width pass))) (floor (* (clamp 0 (vy px) 1) (height pass)))
+          (%gl:read-pixels (floor (clamp 0 (* (vx px) (width pass)) (1- (width pass))))
+                           (floor (clamp 0 (* (vy px) (height pass)) (1- (height pass))))
                            1 1 :red :unsigned-byte pixel)
           (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 128.0)))))))
 
