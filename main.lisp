@@ -27,7 +27,7 @@
    (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave)
    #-steam (app-id :initarg :app-id))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17 0)
-                     :title "Kandria - 0.0.0"
+                     :title (format NIL "Kandria - ~a" (asdf:system-version "leaf"))
                      :world "world"
                      :width 1280
                      :height 720
