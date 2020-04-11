@@ -1,4 +1,5 @@
 (asdf:defsystem leaf
+  :version "0.0.1"
   :build-operation "deploy-op"
   :build-pathname #+linux "kandria-linux.run"
                   #+darwin "kandria-macos"
