@@ -1,0 +1,13 @@
+# Kandria Public Feedback Changes
+These are changes to Kandria that were realised thanks to public feedback.
+A big thanks to everyone for trying it out and reporting problems!
+
+## 0.0.1
+- Fix jumping right after dashing extending the dash distance
+  Reported by Leo Schlosser
+- Fix jumping while climbing causing the player to jump away from the wall rather than up the wall
+  Reported by Daniel Pinc
+- Fix out of bounds shadow map access when at the border of a chunk resulting in a black screen
+  Reported by Janne Pakarinen
+- Prevent hitting ceilings from recovering the jump, and prevent hitting ceilings and walls from recovering the dash
+  Reported by Janne Pakarinen
