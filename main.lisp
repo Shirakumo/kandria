@@ -39,6 +39,8 @@
       (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world)))
 
 (deploy:define-hook (:deploy leaf) (directory)
+  (uiop:copy-file (asdf:system-relative-pathname :leaf "CHANGES.mess")
+                  (make-pathname :name "CHANGES" :type "mess" :defaults directory))
   (deploy:status 1 "Copying world")
   ;; FIXME: This fucking sucks man
   (reinitialize-instance (find-pool 'world) :base (pathname-utils:subdirectory (world-path "world") "data"))
