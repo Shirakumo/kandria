@@ -1,8 +1,29 @@
 # About Leaf
 This is a game project.
 
-## Repository note.
-The project uses "Git LFS"(https://git-lfs.github.com/). Please ensure git-lfs is installed. After cloning the repository, run ``git lfs install``, ``git lfs fetch`` and ``git lfs checkout`` to properly set up the data files and tracking.
-
 ## Public Feedback
 Changes that are realised thanks to public feedback will be noted in the "CHANGES.mess"(link CHANGES.mess) file.
+
+## Controls
+You can use a keyboard or a gamepad to control the game. The standard key / button bindings are as follows:
+
+- WASD / left stick
+  Move
+- Space / A
+  Jump
+- Shift / R2
+  Dash (hold direction to dash in)
+- Ctrl / L2
+  Climb walls
+- Q / L3
+  Toggle crawl
+- Left Mouse / B
+  Light attack
+- Right Mouse / Y
+  Heavy attack
+- F5
+  Quick save
+- F9
+  Quick load
+- \~ / §
+  Toggle editor
