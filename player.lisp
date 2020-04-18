@@ -395,6 +395,8 @@ void main(){
                     (when (typep entity 'chunk) (return entity))))
       (unless other
         (error "What the fuck? Could not find any chunks.")))
+    (setf (surface player) other)
+    (snap-to-target (unit :camera T) player)
     (issue +world+ 'switch-chunk :chunk other)))
 
 (define-handler (player switch-chunk) (ev chunk)
