@@ -27,7 +27,7 @@
    (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave)
    #-steam (app-id :initarg :app-id))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17 0)
-                     :title (format NIL "Kandria - ~a" (asdf:system-version "leaf"))
+                     :title (format NIL "Kandria - ~a" (asdf:component-version (asdf:find-system "leaf")))
                      :world "world"
                      :width 1280
                      :height 720
@@ -58,6 +58,7 @@
                (load-state state (scene main)))
               (T
                (load-state (initial-state (scene main)) (scene main))
+               (save-state (scene main) (quicksave main))
                (make-instance 'save-state)))))
 
 (defmethod update ((main main) tt dt fc)
