@@ -141,16 +141,18 @@
   `(background :texture ,(encode (texture background))))
 
 (define-decoder (falling-platform world-v0) (initargs _)
-  (destructuring-bind (&key texture gravity location) initargs
+  (destructuring-bind (&key texture gravity location bsize) initargs
     (make-instance 'falling-platform
                    :texture (decode 'asset texture)
                    :gravity (decode 'vec2 gravity)
-                   :location (decode 'vec2 location))))
+                   :location (decode 'vec2 location)
+                   :bsize (decode 'vec2 bsize))))
 
 (define-encoder (falling-platform world-v0) (_b _p)
   `(falling-platform :texture ,(encode (texture falling-platform))
                      :gravity ,(encode (gravity falling-platform))
-                     :location ,(encode (location falling-platform))))
+                     :location ,(encode (location falling-platform))
+                     :bsize ,(encode (bsize falling-platform))))
 
 (define-decoder (basic-light world-v0) (initargs _)
   (destructuring-bind (&key color data) initargs

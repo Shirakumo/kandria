@@ -1,2 +1,3 @@
 (:create-new ()
- :ephemeral ())
+ :ephemeral ()
+ :delete-existing NIL)
