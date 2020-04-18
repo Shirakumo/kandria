@@ -67,6 +67,9 @@
   (setf (location camera) (vcopy (location target)))
   (clamp-camera-target camera (location camera)))
 
+(defmethod (setf target) :after ((target game-entity) (camera camera))
+  (setf (surface camera) (surface target)))
+
 (define-handler (camera resize) (ev)
   (setf (view-scale camera) (* (float (/ (width ev) (* 2 (vx (target-size camera)))))
                                (zoom camera)))
