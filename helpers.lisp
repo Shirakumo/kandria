@@ -381,10 +381,9 @@
   (setf (size sprite) (v* value 2)))
 
 (defmethod paint :before ((sprite sprite-entity) target)
-  (with-pushed-matrix ()
-    (let ((size (v* 2 (bsize sprite))))
-      (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
-      (scale (vxy_ size)))))
+  (let ((size (v* 2 (bsize sprite))))
+    (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
+    (scale (vxy_ size))))
 
 (defmethod resize ((sprite sprite-entity) width height)
   (vsetf (size sprite) width height)
