@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject moving-platform (game-entity resizable solid)
+(define-shader-subject moving-platform (game-entity resizable solid ephemeral)
   ()
   (:default-initargs
    :bsize (vec2 32 32)))
@@ -61,7 +61,7 @@
       (nv+ (location platform) (v* vel (hit-time hit)))
       (vsetf vel 0 0))))
 
-(define-shader-subject elevator (sprite-entity moving-platform)
+(define-shader-subject elevator (lit-sprite moving-platform)
   ()
   (:default-initargs :bsize (nv/ (vec 32 16) 2)))
 
