@@ -88,14 +88,16 @@ void main(){
 
 (define-handler (player light-attack) (ev)
   (cond ((and (aref (collisions player) 2)
-              (not (eql :crawling (state player))))
+              (not (or (eql :crawling (state player))
+                       (eql :animated (state player)))))
          (start-animation 'light-ground-1 player))
         ((eql :animated (state player))
           (setf (buffer player) 'light-attack))))
 
 (define-handler (player heavy-attack) (ev)
   (cond ((and (aref (collisions player) 2)
-              (not (eql :crawling (state player))))
+              (not (or (eql :crawling (state player))
+                       (eql :animated (state player)))))
          (start-animation 'heavy-ground-1 player))
         ((eql :animated (state player))
           (setf (buffer player) 'heavy-attack))))

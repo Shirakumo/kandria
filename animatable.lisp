@@ -5,6 +5,7 @@
 
 (define-shader-subject animatable (movable lit-animated-sprite)
   ((health :initarg :health :initform 1000 :accessor health)
+   (start-acc :initform (vec2 0 0) :accessor start-acc)
    (stun-time :initform 0d0 :accessor stun-time)))
 
 (defgeneric die (animatable))
@@ -56,14 +57,19 @@
   (when (or (not (eql :animating (state animatable)))
             (cancelable-p (frame-data animatable)))
     (setf (animation animatable) name)
-    (setf (state animatable) :animated)))
+    (setf (state animatable) :animated)
+    (vsetf (start-acc animatable)
+           (vx (acceleration animatable))
+           (vy (acceleration animatable)))))
 
 (defmethod handle-animation-states ((animatable animatable) ev)
   (let ((acc (acceleration animatable))
+        (sacc (start-acc animatable))
         (frame (frame-data animatable)))
     (case (state animatable)
       (:animated
-       (nv* acc 0)
+       (setf (vx sacc) (* (vx sacc) (damp* -5 (dt ev))))
+       (vsetf acc (vx sacc) (vy sacc))
        (let ((hurtbox (hurtbox animatable)))
          (do-layered-container (entity (surface animatable))
            (when (and (typep entity 'animatable)
