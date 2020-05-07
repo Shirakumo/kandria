@@ -112,8 +112,8 @@
 
 (defun create-jump-connections-at (node ox oy solids node-grid width height)
   (let ((g +vgrav+)
-        (j 4.0)
-        (v 1.75))
+        (j 3.0)
+        (v (* 10 (vx +vmove+))))
     (loop for jf from 1 to 3
           for jv = (* j (/ jf 3))
           do (loop for vf from -3 to 3
@@ -231,7 +231,10 @@
     (flet ((node (pos)
              (loop with x = (round (vx pos))
                    with y = (round (vy pos))
-                   for node = (aref node-grid (+ x (* y width)))
+                   for idx = (+ x (* y width))
+                   for node = (if (<= 0 idx (1- (length node-grid)))
+                                  (aref node-grid idx)
+                                  (error "Position outside possible node grid!"))
                    do (when node (return node))
                       (decf y)))
            (cost (a b)
@@ -259,6 +262,16 @@ void main(){
   ((current-node :initform NIL :accessor current-node)
    (path :initform NIL :accessor path)))
 
+(defmethod path-available-p ((target vec2) (movable movable))
+  (ignore-errors (shortest-path (surface movable)
+                                (nv+ (v- (location movable)
+                                         (bsize movable))
+                                     (/ +tile-size+ 2))
+                                target)))
+
+(defmethod path-available-p ((target located-entity) (movable movable))
+  (path-available-p (location target) movable))
+
 (defmethod move-to ((target vec2) (movable movable))
   (multiple-value-bind (path start) (shortest-path (surface movable)
                                                    (nv+ (v- (location movable)
@@ -268,6 +281,9 @@ void main(){
     (v:info :trial.move-to "Moving ~a along~{~%  ~a~}" movable path)
     (setf (current-node movable) start)
     (setf (path movable) path)))
+
+(defmethod move-to ((target located-entity) (movable movable))
+  (move-to (location target) movable))
 
 (defmethod tick :before ((movable movable) ev)
   (when (path movable)
@@ -280,12 +296,12 @@ void main(){
            (target (flow:target-node node con)))
       (when (svref collisions 2)
         (vsetf acc (max 0 (vy acc)) 0))
-      (flet ((move-towards (&optional (spd 1.75))
+      (flet ((move-towards (&optional (spd 1))
                (when (and (eql :crawling (state movable))
                           (null (svref collisions 0)))
                  (setf (state movable) :normal))
                (let ((diff (- (vx (location target)) (- (vx loc) (vx size)))))
-                 (setf (vx acc) (* (signum diff) (min spd (abs diff)))))))
+                 (setf (vx acc) (* (signum diff) (min (* spd 10 (vx +vmove+)) (abs diff)))))))
         (when (or (< (sqrt (vsqrdist2 (v- loc size) (location target)))
                      1.5)
                   (and (typep (svref collisions 2) 'slope)
