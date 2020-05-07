@@ -16,8 +16,13 @@
 (defgeneric in-danger-p (animatable))
 
 (defmethod in-danger-p ((animatable animatable))
-  ;; TODO: implement in-danger-p based on projected hurtbox?
-  NIL)
+  (do-layered-container (entity (surface animatable))
+    (when (and (typep entity 'animatable)
+               (not (eql animatable entity))
+               (/= 0 (vw (hurtbox entity)))
+               ;; KLUDGE: this sucks
+               (< (vdistance (location entity) (location animatable)) (* 2 +tile-size+)))
+      (return T))))
 
 (defmethod damage ((animatable animatable) damage)
   (when (and (< 0 damage)
@@ -75,10 +80,11 @@
            (when (and (typep entity 'animatable)
                       (not (eql animatable entity))
                       (scan entity hurtbox))
-             (setf (direction entity) (float-sign (- (vx (location animatable)) (vx (location entity)))))
-             (incf (vx (acceleration entity)) (* (direction animatable) (vx (frame-knockback frame))))
-             (incf (vy (acceleration entity)) (vy (frame-knockback frame)))
-             (stun entity (frame-stun frame))
+             (when (interruptable-p (frame-data entity))
+               (setf (direction entity) (float-sign (- (vx (location animatable)) (vx (location entity)))))
+               (incf (vx (acceleration entity)) (* (direction animatable) (vx (frame-knockback frame))))
+               (incf (vy (acceleration entity)) (vy (frame-knockback frame)))
+               (stun entity (frame-stun frame)))
              (damage entity (frame-damage frame)))))
        (when (eql 'stand (sprite-animation-name (animation animatable)))
          (setf (state animatable) :normal)))
