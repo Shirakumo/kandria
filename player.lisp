@@ -402,7 +402,10 @@ void main(){
     (issue +world+ 'switch-chunk :chunk other)))
 
 (define-handler (player switch-chunk) (ev chunk)
+  (when (surface player)
+    (leave player (surface player)))
   (setf (surface player) chunk)
+  (enter player chunk)
   (let ((loc (vcopy (location player))))
     (when (v/= 0 (acceleration player))
       (nv+ loc (v* (vunit (acceleration player)) +tile-size+)))
