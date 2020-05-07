@@ -68,7 +68,8 @@
   (when (and (target-layer chunk)
              (= *current-layer* (1- +layer-count+)))
     (let ((*current-layer* +layer-count+))
-      (call-next-method))))
+      (call-next-method)))
+  (paint (node-graph chunk) target))
 
 (defmethod paint ((chunk chunk) (pass shader-pass))
   (let ((program (shader-program-for-pass pass chunk))
