@@ -13,6 +13,9 @@
 (define-sprite player
   #p"player.png")
 
+(define-sprite wolf
+  #p"wolf.png")
+
 (define-sprite player-profile
   #p"player-profile.png")
 

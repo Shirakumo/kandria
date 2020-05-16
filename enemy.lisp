@@ -3,7 +3,7 @@
 (define-shader-subject enemy (animatable)
   ((cooldown :initform 0.0 :accessor cooldown))
   (:default-initargs
-   :animations "player-animations.lisp"))
+   :animations "wolf-animations.lisp"))
 
 (defmethod tick :before ((enemy enemy) ev)
   (let ((collisions (collisions enemy))
@@ -26,7 +26,7 @@
        (cond ((<= (vsqrdist2 (location enemy) (location player)) 2000)
               (cond ((<= (cooldown enemy) 0)
                      (setf (direction enemy) (signum (- (vx (location player)) (vx (location enemy)))))
-                     (start-animation 'light-ground-1 enemy))
+                     (start-animation 'tackle enemy))
                     (T
                      (decf (cooldown enemy) (dt ev)))))
              ((null (path enemy))
@@ -49,10 +49,6 @@
     (nv+ vel acc)))
 
 (defmethod tick :after ((enemy enemy) ev)
-  (unless (contained-p (location enemy) (surface enemy))
-    (vsetf (location enemy)
-           (vx (location (surface enemy)))
-           (vy (location (surface enemy)))))
   ;; Animations
   (let ((acc (acceleration enemy))
         (collisions (collisions enemy)))
@@ -63,19 +59,14 @@
              ((< (vx acc) 0)
               (setf (direction enemy) -1)))
        (cond ((< 0 (vy acc))
-              (setf (animation enemy) 'jump))
+              ;(setf (animation enemy) 'jump)
+              )
              ((null (svref collisions 2))
-              (cond ((typep (svref collisions 1) 'ground)
-                     (setf (animation enemy) 'slide)
-                     (setf (direction enemy) +1))
-                    ((typep (svref collisions 3) 'ground)
-                     (setf (animation enemy) 'slide)
-                     (setf (direction enemy) -1))
-                    (T
-                     (setf (animation enemy) 'fall))))
-             ((< 0 (vx acc))
-              (setf (animation enemy) 'run))
-             ((< (vx acc) 0)
+              ;(setf (animation enemy) 'fall)
+              )
+             ((< 0 (abs (vx acc)) 1.0)
+              (setf (animation enemy) 'walk))
+             ((<= 1.0 (abs (vx acc)))
               (setf (animation enemy) 'run))
              (T
               (setf (animation enemy) 'stand)))))))
