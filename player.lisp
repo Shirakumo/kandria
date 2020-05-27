@@ -17,7 +17,8 @@
 (define-global +vdash+ (vec 10      0.7))
 
 (define-shader-subject player (animatable ephemeral)
-  ((spawn-location :initform (vec2 0 0) :accessor spawn-location)
+  ((bsize :initform (vec 8.0 16.0))
+   (spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
    (jump-time :initform 1.0d0 :accessor jump-time)
@@ -26,7 +27,7 @@
    (buffer :initform NIL :accessor buffer))
   (:default-initargs
    :name 'player
-   :animations "player-animations.lisp"))
+   :sprite-data (asset 'world 'player)))
 
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
@@ -164,15 +165,15 @@ void main(){
     (ecase (state player)
       ((:dying :animated :stunned)
        (let ((buffer (buffer player)))
-         (when (and buffer (cancelable-p (frame-data player)))
+         (when (and buffer (cancelable-p (frame player)))
            (case buffer
              (light-attack
-              (case (sprite-animation-name (animation player))
+              (case (name (animation player))
                 (light-ground-1 (start-animation 'light-ground-2 player))
                 (light-ground-2 (start-animation 'light-ground-3 player))
                 (T (start-animation 'light-ground-1 player))))
              (heavy-attack
-              (case (sprite-animation-name (animation player))
+              (case (name (animation player))
                 (heavy-ground-1 (start-animation 'heavy-ground-2 player))
                 (T (start-animation 'heavy-ground-1 player))))
              (dash (handle (make-instance 'dash) player))
@@ -184,7 +185,7 @@ void main(){
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
               +world+)
        (setf (jump-time player) 100.0)
-       (cond ((not (eql 'dash (trial::sprite-animation-name (animation player))))
+       (cond ((not (eql 'dash (name (animation player))))
               (setf (state player) :normal))
              ((< 0.10 (dash-time player) 0.125)
               (nv* (nvunit acc) (vx +vdash+)))

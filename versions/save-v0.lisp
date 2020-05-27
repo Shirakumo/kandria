@@ -51,7 +51,7 @@
   `(:location ,(encode (location animatable))
     :direction ,(direction animatable)
     :state ,(state animatable)
-    :animation ,(sprite-animation-name (animation animatable))
+    :animation ,(name (animation animatable))
     :frame ,(frame animatable)
     :health ,(health animatable)
     :stun-time ,(stun-time animatable)))

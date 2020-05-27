@@ -60,7 +60,7 @@
                (load-state state (scene main)))
               (T
                (load-state (initial-state (scene main)) (scene main))
-               (save-state (scene main) (quicksave main))
+               ;(save-state (scene main) (quicksave main))
                (make-instance 'save-state)))))
 
 (defmethod update ((main main) tt dt fc)
@@ -89,7 +89,8 @@
   (load-state (quicksave (handler *context*)) world))
 
 (defun launch (&rest initargs)
-  (apply #'trial:launch 'main initargs))
+  (let ((*package* #.*package*))
+    (apply #'trial:launch 'main initargs)))
 
 (defmethod paint ((controller controller) (pass shader-pass))
   (let ((editor (unit :editor T)))
@@ -98,7 +99,6 @@
   (call-next-method))
 
 (defmethod setup-scene ((main main) scene)
-  (enter (make-instance 'textbox) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
 

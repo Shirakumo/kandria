@@ -5,7 +5,7 @@
            #:located-entity #:sized-entity #:sprite-entity
            #:camera #:particle #:light #:shadow-map-pass
            #:shadow-render-pass #:action #:editor-camera
-           #:animatable)
+           #:animatable #:sprite-data)
   (:local-nicknames
    (#:dialogue #:org.shirakumo.fraf.leaf.dialogue)
    (#:quest #:org.shirakumo.fraf.leaf.quest)
