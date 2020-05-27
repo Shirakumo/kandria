@@ -1,0 +1,647 @@
+{ "frames": [
+   {
+    "filename": "wolf 0.ase",
+    "frame": { "x": 162, "y": 21, "w": 38, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 30, "w": 38, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 1.ase",
+    "frame": { "x": 287, "y": 0, "w": 38, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 30, "w": 38, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 2.ase",
+    "frame": { "x": 82, "y": 0, "w": 40, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 30, "w": 40, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 3.ase",
+    "frame": { "x": 0, "y": 0, "w": 40, "h": 22 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 28, "w": 40, "h": 22 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 4.ase",
+    "frame": { "x": 241, "y": 61, "w": 34, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 30, "w": 34, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 5.ase",
+    "frame": { "x": 40, "y": 42, "w": 35, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 30, "w": 35, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 6.ase",
+    "frame": { "x": 243, "y": 41, "w": 38, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 31, "w": 38, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 7.ase",
+    "frame": { "x": 0, "y": 23, "w": 39, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 31, "w": 39, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 8.ase",
+    "frame": { "x": 123, "y": 21, "w": 38, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 30, "w": 38, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 9.ase",
+    "frame": { "x": 163, "y": 0, "w": 39, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 30, "w": 39, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 10.ase",
+    "frame": { "x": 41, "y": 22, "w": 39, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 31, "w": 39, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 11.ase",
+    "frame": { "x": 283, "y": 21, "w": 39, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 31, "w": 39, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 12.ase",
+    "frame": { "x": 82, "y": 21, "w": 40, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 4, "y": 31, "w": 40, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 13.ase",
+    "frame": { "x": 81, "y": 41, "w": 38, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 31, "w": 38, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 14.ase",
+    "frame": { "x": 244, "y": 20, "w": 38, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 30, "w": 38, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 15.ase",
+    "frame": { "x": 123, "y": 0, "w": 39, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 30, "w": 39, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 16.ase",
+    "frame": { "x": 245, "y": 0, "w": 41, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 3, "y": 31, "w": 41, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 17.ase",
+    "frame": { "x": 203, "y": 20, "w": 40, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 4, "y": 31, "w": 40, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 18.ase",
+    "frame": { "x": 120, "y": 77, "w": 42, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 32, "w": 42, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 50
+   },
+   {
+    "filename": "wolf 19.ase",
+    "frame": { "x": 201, "y": 40, "w": 41, "h": 18 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 32, "w": 41, "h": 18 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 50
+   },
+   {
+    "filename": "wolf 20.ase",
+    "frame": { "x": 203, "y": 0, "w": 41, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 31, "w": 41, "h": 19 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 50
+   },
+   {
+    "filename": "wolf 21.ase",
+    "frame": { "x": 282, "y": 41, "w": 40, "h": 18 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 32, "w": 40, "h": 18 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 50
+   },
+   {
+    "filename": "wolf 22.ase",
+    "frame": { "x": 67, "y": 95, "w": 40, "h": 15 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 34, "w": 40, "h": 15 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 50
+   },
+   {
+    "filename": "wolf 23.ase",
+    "frame": { "x": 28, "y": 95, "w": 38, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 33, "w": 38, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 50
+   },
+   {
+    "filename": "wolf 24.ase",
+    "frame": { "x": 282, "y": 92, "w": 38, "h": 17 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 33, "w": 38, "h": 17 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 50
+   },
+   {
+    "filename": "wolf 25.ase",
+    "frame": { "x": 79, "y": 78, "w": 41, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 34, "w": 41, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 50
+   },
+   {
+    "filename": "wolf 26.ase",
+    "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 30, "w": 35, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 27.ase",
+    "frame": { "x": 188, "y": 111, "w": 35, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 34, "w": 35, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 28.ase",
+    "frame": { "x": 93, "y": 124, "w": 36, "h": 13 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 37, "w": 36, "h": 13 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 29.ase",
+    "frame": { "x": 221, "y": 133, "w": 36, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 38, "w": 36, "h": 12 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 30.ase",
+    "frame": { "x": 184, "y": 128, "w": 36, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 38, "w": 36, "h": 12 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 31.ase",
+    "frame": { "x": 258, "y": 133, "w": 36, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 38, "w": 36, "h": 12 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 32.ase",
+    "frame": { "x": 38, "y": 136, "w": 36, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 38, "w": 36, "h": 12 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 33.ase",
+    "frame": { "x": 0, "y": 125, "w": 37, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 38, "w": 37, "h": 12 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 34.ase",
+    "frame": { "x": 121, "y": 94, "w": 39, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 34, "w": 39, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 35.ase",
+    "frame": { "x": 197, "y": 77, "w": 42, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 31, "w": 42, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 36.ase",
+    "frame": { "x": 31, "y": 80, "w": 47, "h": 14 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 4, "y": 31, "w": 47, "h": 14 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 37.ase",
+    "frame": { "x": 67, "y": 111, "w": 47, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 4, "y": 31, "w": 47, "h": 12 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 38.ase",
+    "frame": { "x": 0, "y": 113, "w": 47, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 4, "y": 31, "w": 47, "h": 11 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 39.ase",
+    "frame": { "x": 48, "y": 124, "w": 44, "h": 11 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 32, "w": 44, "h": 11 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 40.ase",
+    "frame": { "x": 76, "y": 61, "w": 43, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 31, "w": 43, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 41.ase",
+    "frame": { "x": 41, "y": 0, "w": 40, "h": 21 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 29, "w": 40, "h": 21 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 42.ase",
+    "frame": { "x": 120, "y": 42, "w": 42, "h": 17 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 33, "w": 42, "h": 17 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 43.ase",
+    "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 30, "w": 35, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 44.ase",
+    "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 30, "w": 35, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 45.ase",
+    "frame": { "x": 0, "y": 43, "w": 31, "h": 22 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 28, "w": 31, "h": 22 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 46.ase",
+    "frame": { "x": 0, "y": 89, "w": 27, "h": 23 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 14, "y": 27, "w": 27, "h": 23 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 47.ase",
+    "frame": { "x": 228, "y": 109, "w": 25, "h": 23 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 15, "y": 27, "w": 25, "h": 23 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 48.ase",
+    "frame": { "x": 254, "y": 109, "w": 25, "h": 23 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 27, "w": 25, "h": 23 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 49.ase",
+    "frame": { "x": 280, "y": 110, "w": 26, "h": 22 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 17, "y": 28, "w": 26, "h": 22 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 50.ase",
+    "frame": { "x": 164, "y": 63, "w": 32, "h": 21 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 12, "y": 29, "w": 32, "h": 21 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 51.ase",
+    "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 30, "w": 35, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 52.ase",
+    "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 30, "w": 35, "h": 20 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 75
+   },
+   {
+    "filename": "wolf 53.ase",
+    "frame": { "x": 0, "y": 66, "w": 30, "h": 22 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 28, "w": 30, "h": 22 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 75
+   },
+   {
+    "filename": "wolf 54.ase",
+    "frame": { "x": 163, "y": 85, "w": 24, "h": 27 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 14, "y": 22, "w": 24, "h": 27 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 75
+   },
+   {
+    "filename": "wolf 55.ase",
+    "frame": { "x": 307, "y": 110, "w": 19, "h": 26 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 18, "y": 22, "w": 19, "h": 26 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 75
+   },
+   {
+    "filename": "wolf 56.ase",
+    "frame": { "x": 163, "y": 113, "w": 20, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 20, "y": 24, "w": 20, "h": 24 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 75
+   },
+   {
+    "filename": "wolf 57.ase",
+    "frame": { "x": 130, "y": 124, "w": 27, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 31, "w": 27, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 75
+   },
+   {
+    "filename": "wolf 58.ase",
+    "frame": { "x": 240, "y": 82, "w": 31, "h": 8 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 14, "y": 42, "w": 31, "h": 8 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 75
+   },
+   {
+    "filename": "wolf 59.ase",
+    "frame": { "x": 295, "y": 137, "w": 33, "h": 6 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 15, "y": 44, "w": 33, "h": 6 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 75
+   },
+   {
+    "filename": "wolf 60.ase",
+    "frame": { "x": 0, "y": 138, "w": 33, "h": 6 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 15, "y": 44, "w": 33, "h": 6 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 500
+   },
+   {
+    "filename": "wolf 61.ase",
+    "frame": { "x": 188, "y": 94, "w": 39, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 8, "y": 34, "w": 39, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 62.ase",
+    "frame": { "x": 32, "y": 63, "w": 42, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 31, "w": 42, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 63.ase",
+    "frame": { "x": 276, "y": 77, "w": 47, "h": 14 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 4, "y": 31, "w": 47, "h": 14 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 64.ase",
+    "frame": { "x": 115, "y": 111, "w": 47, "h": 12 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 4, "y": 31, "w": 47, "h": 12 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 65.ase",
+    "frame": { "x": 282, "y": 60, "w": 43, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 31, "w": 43, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 66.ase",
+    "frame": { "x": 240, "y": 92, "w": 41, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 32, "w": 41, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 67.ase",
+    "frame": { "x": 120, "y": 60, "w": 43, "h": 16 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 5, "y": 32, "w": 43, "h": 16 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 68.ase",
+    "frame": { "x": 199, "y": 59, "w": 41, "h": 17 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 7, "y": 31, "w": 41, "h": 17 },
+    "sourceSize": { "w": 64, "h": 50 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.18-x64",
+  "image": "wolf.png",
+  "format": "RGBA8888",
+  "size": { "w": 328, "h": 148 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Stand", "from": 0, "to": 5, "direction": "forward" },
+   { "name": "Walk", "from": 6, "to": 17, "direction": "forward" },
+   { "name": "Run", "from": 18, "to": 25, "direction": "forward" },
+   { "name": "Tackle", "from": 26, "to": 43, "direction": "forward" },
+   { "name": "Light Hit", "from": 44, "to": 51, "direction": "forward" },
+   { "name": "Die", "from": 52, "to": 60, "direction": "forward" },
+   { "name": "Jump", "from": 61, "to": 64, "direction": "forward" },
+   { "name": "Fall", "from": 65, "to": 68, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

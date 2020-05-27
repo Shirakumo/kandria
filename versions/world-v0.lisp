@@ -141,19 +141,19 @@
   `(background :texture ,(encode (texture background))))
 
 (define-decoder (falling-platform world-v0) (initargs _)
-  (destructuring-bind (&key texture gravity location bsize tile) initargs
+  (destructuring-bind (&key texture gravity location bsize frame) initargs
     (make-instance 'falling-platform
                    :texture (decode 'asset texture)
                    :gravity (decode 'vec2 gravity)
                    :location (decode 'vec2 location)
-                   :tile (decode 'vec2 tile)
+                   :frame-idx (decode 'vec2 frame)
                    :bsize (decode 'vec2 bsize))))
 
 (define-encoder (falling-platform world-v0) (_b _p)
   `(falling-platform :texture ,(encode (texture falling-platform))
                      :gravity ,(encode (gravity falling-platform))
                      :location ,(encode (location falling-platform))
-                     :tile ,(encode (trial:tile falling-platform))
+                     :frame ,(encode (frame-idx falling-platform))
                      :bsize ,(encode (bsize falling-platform))))
 
 (define-decoder (basic-light world-v0) (initargs _)
@@ -167,14 +167,14 @@
                 :data ,(buffer-data (caar (bindings (vertex-array basic-light))))))
 
 (define-decoder (textured-light world-v0) (initargs _)
-  (destructuring-bind (&key multiplier texture location size bsize tile) initargs
+  (destructuring-bind (&key multiplier texture location size bsize frame) initargs
     (make-instance 'textured-light
                    :multiplier multiplier
                    :texture (decode 'asset texture)
                    :location (decode 'vec2 location)
                    :size (decode 'vec2 size)
                    :bsize (decode 'vec2 bsize)
-                   :tile (decode 'vec2 tile))))
+                   :frame (decode 'vec2 frame))))
 
 (define-encoder (textured-light world-v0) (_b _p)
   `(textured-light :multiplier ,(multiplier textured-light)
@@ -182,4 +182,4 @@
                    :location ,(encode (location textured-light))
                    :size ,(encode (size textured-light))
                    :bsize ,(encode (bsize textured-light))
-                   :tile ,(encode (trial:tile textured-light))))
+                   :frame ,(encode (frame-idx textured-light))))

@@ -10,15 +10,6 @@
 (define-sprite lights
   #p"lights.png")
 
-(define-sprite player
-  #p"player.png")
-
-(define-sprite wolf
-  #p"wolf.png")
-
-(define-sprite player-profile
-  #p"player-profile.png")
-
 (define-sprite ice
   #p"ice.png")
 
@@ -44,8 +35,8 @@
 (define-sprite debug-absorption
   #p"debug-absorption.png")
 
-(define-sprite fi
-  #p"fi.png")
+(define-asset (world player) sprite-data
+    #p"player.lisp")
 
-(define-sprite fi-profile
-  #p "fi-profile.png")
+(define-asset (world wolf) sprite-data
+    #p"wolf.lisp")

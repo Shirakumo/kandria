@@ -1,9 +1,10 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-shader-subject enemy (animatable)
-  ((cooldown :initform 0.0 :accessor cooldown))
+  ((bsize :initform (vec 12.0 8.0))
+   (cooldown :initform 0.0 :accessor cooldown))
   (:default-initargs
-   :animations "wolf-animations.lisp"))
+   :sprite-data (asset 'world 'wolf)))
 
 (defmethod tick :before ((enemy enemy) ev)
   (let ((collisions (collisions enemy))
@@ -59,11 +60,9 @@
              ((< (vx acc) 0)
               (setf (direction enemy) -1)))
        (cond ((< 0 (vy acc))
-              ;(setf (animation enemy) 'jump)
-              )
+              (setf (animation enemy) 'jump))
              ((null (svref collisions 2))
-              ;(setf (animation enemy) 'fall)
-              )
+              (setf (animation enemy) 'fall))
              ((< 0 (abs (vx acc)) 1.0)
               (setf (animation enemy) 'walk))
              ((<= 1.0 (abs (vx acc)))

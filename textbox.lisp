@@ -78,9 +78,6 @@
 (defmethod (setf cursor) :after (index (textbox textbox))
   (setf (size (vertex-array (paragraph textbox))) (* 6 index)))
 
-(defmethod trial:tile ((textbox textbox))
-  (trial:tile (profile textbox)))
-
 (defmethod (setf current-dialog) ((assembly dialogue:assembly) (textbox textbox))
   (pause-game T textbox)
   (setf (vm textbox) (dialogue:run assembly T))

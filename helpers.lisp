@@ -363,8 +363,8 @@
 
 (define-shader-entity sprite-entity (trial:sprite-entity sized-entity facing-entity)
   ((vertex-array :initform (asset 'leaf '1x))
-   (trial:tile :initform (vec2 0 0)
-               :type vec2 :documentation "The tile to display from the sprite sheet.")
+   (frame :initform 0
+          :type integer :documentation "The tile to display from the sprite sheet.")
    (texture :initform (asset 'leaf 'placeholder)
             :type asset :documentation "The tileset to display the sprite from.")
    (size :initform NIL

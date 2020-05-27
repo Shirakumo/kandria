@@ -88,7 +88,7 @@
     (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))))
 
 (defmethod switch-animation ((sprite editor-sprite) animation)
-  (setf (vx (trial:tile sprite)) (sprite-animation-start (animation sprite)))
+  (setf (frame-idx sprite) (sprite-animation-start (animation sprite)))
   (setf (clock sprite) 0.0d0))
 
 (defclass animation-editor-ui (ui)
@@ -176,7 +176,7 @@
 
 (defclass attack-combo-item (alloy:combo-item) ())
 
-(defmethod alloy:combo-item ((animation attack-animation) combo)
+(defmethod alloy:combo-item ((animation sprite-animation) combo)
   (make-instance 'attack-combo-item :value animation))
 
 (defmethod alloy:text ((item attack-combo-item))
