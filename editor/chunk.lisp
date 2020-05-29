@@ -45,16 +45,8 @@
     (alloy:finish-structure structure scroll scroll)))
 
 (alloy:define-widget chunk-widget (sidebar)
-  ((show-all :initform T :accessor show-all :representation (alloy:switch))
-   (layer :initform 0 :accessor layer :representation (alloy:ranged-slider :range '(-2 . +3) :grid 1))
+  ((layer :initform +base-layer+ :accessor layer :representation (alloy:ranged-slider :range '(0 . 5) :grid 1))
    (tile :initform (vec2 1 0) :accessor tile-to-place)))
-
-(defmethod initialize-instance :after ((widget chunk-widget) &key)
-  (alloy:on (setf alloy:value) (value (alloy:representation 'layer widget))
-    (unless (show-all widget)
-      (setf (target-layer (entity widget)) (+ value 2))))
-  (alloy:on (setf alloy:value) (value (alloy:representation 'show-all widget))
-    (setf (target-layer (entity widget)) (unless value (+ (layer widget) 2)))))
 
 (defmethod (setf tile-to-place) :around ((tile vec2) (widget chunk-widget))
   (let* ((w (/ (width (tileset (entity widget))) +tile-size+))
@@ -63,6 +55,7 @@
          (y (mod (+ (vy tile) (floor (vx tile) w)) h)))
     (call-next-method (vec x y) widget)))
 
+(alloy:define-subcomponent (chunk-widget show-solids) ((show-solids (entity chunk-widget)) alloy:switch))
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
 (alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (tileset (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption-map (entity chunk-widget))))
@@ -75,7 +68,7 @@
 (alloy::define-subbutton (chunk-widget compute) ()
   (let ((chunk (entity chunk-widget)))
     (compute-shadow-map chunk)
-    (reinitialize-instance (node-graph chunk) :solids (aref (layers chunk) +layer-count+))))
+    (reinitialize-instance (node-graph chunk) :solids (aref (layers chunk) +solid-layer+))))
 
 (alloy:define-subcontainer (chunk-widget layout)
     (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T 60))
@@ -83,7 +76,7 @@
    (alloy:grid-layout
     :col-sizes '(T 30)
     :row-sizes '(30)
-    layer show-all))
+    layer show-solids))
   tiles
   (alloy:build-ui
    (alloy:grid-layout
@@ -98,7 +91,7 @@
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
-  layer show-all tiles pick clear compute)
+  layer show-solids tiles pick clear compute)
 
 (define-subject chunk-editor (editor)
   ())

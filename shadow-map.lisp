@@ -60,13 +60,6 @@
                            1 1 :red :unsigned-byte pixel)
           (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 128.0)))))))
 
-(defmethod paint ((container layered-container) (target shadow-map-pass))
-  ;; KLUDGE: Bypass layering, only render chunks at layer 0.
-  (let ((*current-layer* (floor +layer-count+ 2))
-        (layers (objects container)))
-    (loop for unit across (aref layers (1- (length layers)))
-          do (paint unit target))))
-
 ;; KLUDGE: This sucks man.
 (defmethod paint :around ((thing shader-entity) (target shadow-map-pass)))
 

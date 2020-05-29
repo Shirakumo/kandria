@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defclass region (layered-container ephemeral)
+(defclass region (container ephemeral)
   ((author :initform "Anonymous" :initarg :author :accessor author)
    (version :initform "0.0.0" :initarg :version :accessor version)
    (description :initform "" :initarg :description :accessor description)
