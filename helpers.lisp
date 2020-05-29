@@ -7,7 +7,9 @@
          (sb-ext:defglobal ,name ,value))))
 
 (define-global +tile-size+ 16)
-(define-global +layer-count+ 5)
+(define-global +layer-count+ 6)
+(define-global +base-layer+ 3)
+(define-global +solid-layer+ 0)
 (define-global +tiles-in-view+ (vec2 40 26))
 (define-global +world+ NIL)
 

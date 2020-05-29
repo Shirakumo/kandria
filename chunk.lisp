@@ -16,7 +16,7 @@
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles.")
    (node-graph :accessor node-graph)
-   (target-layer :initform NIL :accessor target-layer))
+   (show-solids :initform NIL :accessor show-solids))
   (:metaclass shader-entity-class)
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
@@ -24,12 +24,11 @@
   `(:size :tileset))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers +layer-count+))
-  (let* ((size (size chunk)))
-    (etypecase layers ;; We add one layer for the solids.
-      (list)
-      ((integer 1) (setf layers (loop repeat (1+ layers)
-                                      collect (make-array (floor (* (vx size) (vy size) 2))
-                                                          :element-type '(unsigned-byte 8))))))
+  (let* ((size (size chunk))
+         (layers (or layers
+                     (loop repeat +layer-count+
+                           collect (make-array (floor (* (vx size) (vy size) 2))
+                                               :element-type '(unsigned-byte 8))))))
     (setf (layers chunk) (coerce layers 'vector))
     (setf (bsize chunk) (v* size +tile-size+ .5))
     (setf (texture chunk) (make-instance 'texture :target :texture-2d-array
@@ -60,23 +59,22 @@
       (when (contained-p point chunk)
         chunk)))
 
-(defmethod paint :around ((chunk chunk) target)
-  (call-next-method)
-  (when (< *current-layer* (length (objects chunk)))
-    (loop for unit across (aref (objects chunk) *current-layer*)
-          do (paint unit target)))
-  (when (and (target-layer chunk)
-             (= *current-layer* (1- +layer-count+)))
-    (let ((*current-layer* +layer-count+))
-      (call-next-method)))
-  ;(paint (node-graph chunk) target)
-  )
+(defmethod paint :around ((chunk chunk) (pass shader-pass))
+  (loop with layers = (objects chunk)
+        for i from 1 below (length layers)
+        for layer = (aref layers i)
+        do (loop for entity across layer
+                 do (paint (print entity) pass))
+           (paint-chunk-layer chunk pass i))
+  (when (show-solids chunk)
+    (paint-chunk-layer chunk pass 0)
+    (translate-by (- (vx (location chunk))) (- (vy (location chunk))) 0)
+    (paint (node-graph chunk) pass)))
 
-(defmethod paint ((chunk chunk) (pass shader-pass))
+(defmethod paint-chunk-layer ((chunk chunk) (pass shader-pass) layer)
   (let ((program (shader-program-for-pass pass chunk))
         (vao (vertex-array chunk)))
-    (setf (uniform program "layer") *current-layer*)
-    (setf (uniform program "target_layer") (or (target-layer chunk) -1))
+    (setf (uniform program "layer") layer)
     (setf (uniform program "tile_size") +tile-size+)
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "map_size") (size chunk))
@@ -120,7 +118,6 @@ uniform vec2 map_size;
 uniform vec2 map_position;
 uniform int tile_size;
 uniform int layer;
-uniform int target_layer = -1;
 in vec2 map_coord;
 out vec4 color;
 
@@ -144,8 +141,6 @@ void main(){
   color = texelFetch(tileset, tile_xy, 0);
   float absor = texelFetch(absorption, tile_xy, 0).r;
   color = apply_lighting(color, vec2(0), 1-absor);
-  if(0 <= target_layer && layer != target_layer)
-    color *= 0.25;
 }")
 
 (defmethod resize ((chunk chunk) w h)
@@ -199,8 +194,7 @@ void main(){
 
 (defmethod tile ((location vec3) (chunk chunk))
   (%with-chunk-xy (chunk location)
-    (let* ((z (+ (truncate (vz location))
-                 (floor +layer-count+ 2)))
+    (let* ((z (truncate (vz location)))
            (layer (aref (layers chunk) z))
            (pos (* 2 (+ x (* y (truncate (vx (size chunk))))))))
       (vec2 (aref layer pos) (aref layer (1+ pos))))))
@@ -210,8 +204,7 @@ void main(){
 
 (defmethod (setf tile) (value (location vec3) (chunk chunk))
   (%with-chunk-xy (chunk location)
-    (let* ((z (+ (truncate (vz location))
-                 (floor +layer-count+ 2)))
+    (let* ((z (truncate (vz location)))
            (layer (aref (layers chunk) z))
            (pos (* 2 (+ x (* y (truncate (vx (size chunk))))))))
       (when (or (/= (vx value) (aref layer (+ 0 pos)))
@@ -238,19 +231,16 @@ void main(){
         (gl:bind-texture :texture-2d-array 0)))))
 
 (defmethod clear :after ((chunk chunk))
-  (dotimes (l (1+ +layer-count+))
-    (let ((layer (aref (layers chunk) l))
-          (width (truncate (vx (size chunk))))
-          (height (truncate (vy (size chunk)))))
-      (dotimes (i (* 2 width height))
-        (setf (aref layer i) 0))
-      (compute-shadow-map chunk)
-      (update-chunk-layer chunk l))))
+  (loop for l from 0
+        for layer across (layers chunk)
+        do (dotimes (i (truncate (* 2 (vx (size chunk)) (vy (size chunk)))))
+             (setf (aref layer i) 0))
+           (compute-shadow-map chunk)
+           (update-chunk-layer chunk l)))
 
 (defmethod flood-fill ((chunk chunk) (location vec3) fill)
   (%with-chunk-xy (chunk location)
-    (let* ((z (+ (truncate (vz location))
-                 (floor +layer-count+ 2)))
+    (let* ((z (truncate (vz location)))
            (layer (aref (layers chunk) z))
            (width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk)))))
@@ -259,10 +249,10 @@ void main(){
 
 (defmethod auto-tile ((chunk chunk) (location vec3))
   (%with-chunk-xy (chunk location)
-    (let* ((z (floor +layer-count+ 2))
+    (let* ((z (truncate (vz location)))
            (width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk)))))
-      (%auto-tile (aref (layers chunk) +layer-count+)
+      (%auto-tile (aref (layers chunk) +solid-layer+)
                   (aref (layers chunk) z)
                   width height x y)
       (update-chunk-layer chunk z))))
@@ -270,7 +260,7 @@ void main(){
 (defmethod compute-shadow-map ((chunk chunk))
   (let* ((w (truncate (vx (size chunk))))
          (h (truncate (vy (size chunk))))
-         (layer (aref (layers chunk) +layer-count+))
+         (layer (aref (layers chunk) +solid-layer+))
          (vbo (caar (bindings (shadow-geometry chunk))))
          (data (buffer-data vbo)))
     (flet ((sfaref (x y)
@@ -330,7 +320,7 @@ void main(){
             (return entity))))))
 
 (defmethod scan ((chunk chunk) (target vec4))
-  (let* ((tilemap (aref (layers chunk) +layer-count+))
+  (let* ((tilemap (aref (layers chunk) +solid-layer+))
          (w (truncate (vx (size chunk))))
          (h (truncate (vy (size chunk))))
          (lloc (nv+ (nv- (vxy target) (location chunk)) (bsize chunk)))
@@ -350,7 +340,7 @@ void main(){
         (return entity)))))
 
 (defmethod scan ((chunk chunk) (target game-entity))
-  (let* ((tilemap (aref (layers chunk) +layer-count+))
+  (let* ((tilemap (aref (layers chunk) +solid-layer+))
          (t-s +tile-size+)
          (x- 0) (y- 0) (x+ 0) (y+ 0)
          (w (truncate (vx (size chunk))))
