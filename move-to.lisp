@@ -258,7 +258,7 @@ void main(){
   color = vertexcolor;
 }")
 
-(define-subject movable (moving)
+(defclass movable (moving)
   ((current-node :initform NIL :accessor current-node)
    (path :initform NIL :accessor path)))
 
@@ -285,7 +285,7 @@ void main(){
 (defmethod move-to ((target located-entity) (movable movable))
   (move-to (location target) movable))
 
-(defmethod tick :before ((movable movable) ev)
+(defmethod handle :before ((ev tick) (movable movable))
   (when (path movable)
     (let* ((collisions (collisions movable))
            (loc (location movable))

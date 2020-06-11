@@ -93,7 +93,7 @@
     (alloy:focus-list)
   layer show-solids tiles pick clear compute)
 
-(define-subject chunk-editor (editor)
+(defclass chunk-editor (editor)
   ())
 
 (defmethod update-instance-for-different-class :after (previous (editor chunk-editor) &key)

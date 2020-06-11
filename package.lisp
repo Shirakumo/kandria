@@ -1,7 +1,7 @@
 (defpackage #:leaf
   (:nicknames #:org.shirakumo.fraf.leaf)
   (:use #:cl+trial)
-  (:shadow #:main #:launch #:tile #:tick #:block
+  (:shadow #:main #:launch #:tile #:block
            #:located-entity #:sized-entity #:sprite-entity
            #:camera #:particle #:light #:shadow-map-pass
            #:shadow-render-pass #:action #:editor-camera

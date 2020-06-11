@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-subject editor-camera (trial:2d-camera)
+(defclass editor-camera (trial:2d-camera)
   ((zoom :initarg :zoom :initform 4.0 :accessor zoom)))
 
 (defmethod project-view ((camera editor-camera) ev)
@@ -20,7 +20,7 @@
     (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
     (scale (vxy_ size))))
 
-(define-shader-subject editor-sprite (alloy:observable-object animated-sprite)
+(define-shader-entity editor-sprite (alloy:observable-object animated-sprite)
   ((flare:name :initform 'sprite)
    (hurtbox :initform (make-instance 'rectangle) :reader hurtbox)
    (start-pos :initform NIL :accessor start-pos)
@@ -75,17 +75,17 @@
     (setf (vz hurtbox) (vx bsize))
     (setf (vw hurtbox) (vy bsize))))
 
-(define-handler (editor-sprite mouse-press) (ev pos button)
+(define-handler (editor-sprite mouse-press) (pos button)
   (when (eql button :middle)
     (setf (start-pos editor-sprite) (to-world-pos pos))
     (update-frame editor-sprite (to-world-pos pos) (to-world-pos pos))))
 
-(define-handler (editor-sprite mouse-release) (ev pos button)
+(define-handler (editor-sprite mouse-release) (pos button)
   (when (eql button :middle)
     (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))
     (setf (start-pos editor-sprite) NIL)))
 
-(define-handler (editor-sprite mouse-move) (ev pos button)
+(define-handler (editor-sprite mouse-move) (pos button)
   (when (start-pos editor-sprite)
     (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))))
 

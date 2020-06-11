@@ -1,12 +1,12 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject enemy (animatable)
+(define-shader-entity enemy (animatable)
   ((bsize :initform (vec 12.0 8.0))
    (cooldown :initform 0.0 :accessor cooldown))
   (:default-initargs
    :sprite-data (asset 'world 'wolf)))
 
-(defmethod tick :before ((enemy enemy) ev)
+(defmethod handle :before ((ev tick) (enemy enemy))
   (let ((collisions (collisions enemy))
         (vel (velocity enemy))
         (acc (acceleration enemy))
@@ -49,7 +49,7 @@
     (nvclamp (v- +vlim+) acc +vlim+)
     (nv+ vel acc)))
 
-(defmethod tick :after ((enemy enemy) ev)
+(defmethod handle :after ((ev tick) (enemy enemy))
   ;; Animations
   (let ((acc (acceleration enemy))
         (collisions (collisions enemy)))
