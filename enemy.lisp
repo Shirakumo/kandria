@@ -42,7 +42,7 @@
        (when (null (path enemy))
          (cond ((<= (cooldown enemy) 0)
                 (ignore-errors
-                 (move-to (print (v+ (location enemy) (vrand -128 +128))) enemy))
+                 (move-to (v+ (location enemy) (vrand -128 +128)) enemy))
                 (setf (cooldown enemy) (+ 1 (random 3))))
                (T
                 (decf (cooldown enemy) (dt ev)))))))

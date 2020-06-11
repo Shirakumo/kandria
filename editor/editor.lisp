@@ -136,7 +136,6 @@
   (cl:block traverse
     (labels ((traverse (parent)
                (for:for ((unit over parent))
-                 (print unit)
                  (cond ((eql unit (entity editor))
                         (leave (entity editor) parent)
                         (return-from traverse))
