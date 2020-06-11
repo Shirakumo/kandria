@@ -99,13 +99,6 @@
 (defmethod edit (action (editor (eql T)))
   (edit action (unit :editor T)))
 
-(defmethod edit ((action (eql 'load-world)) (editor editor))
-  (if (retained 'modifiers :control)
-      (let ((world (load-world +world+)))
-        (change-scene (handler *context*) world))
-      (let ((path (file-select:existing :title "Select World File" :default (storage (packet +world+)))))
-        (when path (change-scene (handler *context*) (load-world path))))))
-
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (let ((old (unit 'region +world+)))
     (cond ((retained 'modifiers :control)

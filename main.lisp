@@ -1,25 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defun new-world-packet ()
-  (with-packet (packet (find-new-directory "world" (pool-path 'leaf "/")))
-    packet))
-
-(unless (find-pool 'world)
-  (define-pool world
-    :base :leaf))
-
-(defclass empty-world (world)
-  ()
-  (:default-initargs
-   :packet (new-world-packet)))
-
-(defmethod initialize-instance :after ((world empty-world) &key)
-  (let ((region (make-instance 'region :name 'base))
-        (chunk (make-instance 'chunk)))
-    (enter region world)
-    (enter chunk region)
-    (enter (make-instance 'player :location (vec 64 64)) region)))
-
 (defclass main (#+steam org.shirakumo.fraf.trial.steam:main
                 #-steam org.shirakumo.fraf.trial:main)
   ((scene :initform NIL)
@@ -28,39 +8,27 @@
    #-steam (app-id :initarg :app-id))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17 0)
                      :title #.(format NIL "Kandria - ~a" (asdf:component-version (asdf:find-system "leaf")))
-                     :world "world"
                      :width 1280
                      :height 720
                      :app-id 1261430))
-
-(defun world-path (world)
-  (if (deploy:deployed-p)
-      (pathname-utils:subdirectory (deploy:data-directory) world)
-      (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) world)))
 
 (deploy:define-hook (:deploy leaf) (directory)
   (uiop:copy-file (asdf:system-relative-pathname :leaf "CHANGES.mess")
                   (make-pathname :name "CHANGES" :type "mess" :defaults directory))
   (uiop:copy-file (asdf:system-relative-pathname :leaf "README.mess")
-                  (make-pathname :name "README" :type "mess" :defaults directory))
-  (deploy:status 1 "Copying world")
-  ;; FIXME: This fucking sucks man
-  (reinitialize-instance (find-pool 'world) :base (pathname-utils:subdirectory (world-path "world") "data"))
-  (deploy:copy-directory-tree (world-path "world") directory :copy-root T))
+                  (make-pathname :name "README" :type "mess" :defaults directory)))
 
 (defmethod initialize-instance ((main main) &key world state)
   (call-next-method)
-  (setf (scene main)
-        (if world
-            (load-world (world-path world))
-            (make-instance 'empty-world)))
+  (with-packet (packet (asdf:system-source-directory 'leaf) :direction :input)
+    (setf (scene main) (make-instance 'world :packet (make-packet))))
   ;; Load initial state
   (setf (state main)
         (cond (state
                (load-state state (scene main)))
               (T
                (load-state (initial-state (scene main)) (scene main))
-               ;(save-state (scene main) (quicksave main))
+               ;;(save-state (scene main) (quicksave main))
                (make-instance 'save-state)))))
 
 (defmethod update ((main main) tt dt fc)

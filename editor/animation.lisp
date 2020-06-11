@@ -3,7 +3,7 @@
 (defclass editor-camera (trial:2d-camera)
   ((zoom :initarg :zoom :initform 4.0 :accessor zoom)))
 
-(defmethod project-view ((camera editor-camera) ev)
+(defmethod project-view ((camera editor-camera))
   (reset-matrix *view-matrix*)
   (let ((z (zoom camera)))
     (translate-by (+ (vx (location camera)) (/ (width *context*) 2))
@@ -128,7 +128,7 @@
   (:default-initargs :clear-color (vec 0.25 0.25 0.25)
                      :width 1280
                      :height 720
-                     :sprite-data (asset 'world 'player)))
+                     :sprite-data (asset 'leaf 'player)))
 
 (defmethod initialize-instance ((editor animation-editor) &key sprite-data)
   (call-next-method)
@@ -162,7 +162,6 @@
   (enter (make-instance 'trial:render-pass) scene))
 
 (defun launch-animation-editor (&rest initargs)
-  (setf +world+ (load-world (pathname-utils:subdirectory (asdf:system-source-directory 'leaf) "world")))
   (apply #'trial:launch 'animation-editor initargs))
 
 (alloy:define-widget animation-edit (alloy:structure)

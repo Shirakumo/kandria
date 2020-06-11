@@ -2,8 +2,6 @@
 
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
-   (author :initform "Anonymous" :initarg :author :accessor author)
-   (version :initform "0.0.0" :initarg :version :accessor version)
    (storyline :initarg :storyline :accessor storyline)
    (regions :initarg :regions :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
@@ -13,6 +11,16 @@
    :packet (error "PACKET required.")
    :storyline (quest:make-storyline ())
    :regions (make-hash-table :test 'eq)))
+
+(defmethod initialize-instance :after ((world world) &key packet)
+  (dolist (entry (list-entries "regions/" packet))
+    (with-packet (packet packet :offset entry)
+      (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))
+                        :name)))
+        (setf (gethash name (regions world)) entry)))
+    (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
+      (setf (storyline world) (decode 'quest:storyline storyline)))
+    (setf (initial-state world) (minimal-load-state (entry-path "init/" packet)))))
 
 (defmethod pause-game ((_ (eql T)) pauser)
   (pause-game +world+ pauser))
@@ -86,41 +94,6 @@
                (region (unit 'region +world+))
                (chunk (surface (unit 'player +world+))))
      ,form))
-
-(defgeneric load-world (packet))
-(defgeneric save-world (world packet &key version &allow-other-keys))
-
-(defmethod save-world ((world (eql T)) target &rest args)
-  (apply #'save-world +world+ target args))
-
-(defmethod save-world :around (world target &rest args &key (version T))
-  (apply #'call-next-method world target :version (ensure-version version) args))
-
-(defmethod save-world (world (pathname pathname) &key version (if-exists :supersede))
-  (with-packet (packet pathname :direction :output :if-exists if-exists)
-    (save-world world packet :version version)))
-
-(defmethod save-world ((world world) (packet packet) &key version)
-  (v:info :leaf.world "Saving ~a to ~a" world packet)
-  (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
-    (princ* (list :identifier 'world :version (type-of version)) stream)
-    (princ* (encode-payload world NIL packet version) stream)))
-
-(defmethod load-world ((world world))
-  (load-world (packet world)))
-
-(defmethod load-world ((pathname pathname))
-  (with-packet (packet pathname :direction :input)
-    (load-world packet)))
-
-(defmethod load-world ((packet packet))
-  (v:info :leaf.world "Loading ~a" packet)
-  (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
-    (decode-payload
-     info (type-prototype 'world) packet
-     (destructuring-bind (&key identifier version) header
-       (assert (eql 'world identifier))
-       (coerce-version version)))))
 
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)

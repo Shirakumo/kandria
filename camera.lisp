@@ -78,7 +78,7 @@
 (defmethod handle ((ev switch-chunk) (camera camera))
   (setf (surface camera) (slot-value ev 'chunk)))
 
-(defmethod project-view ((camera camera) ev)
+(defmethod project-view ((camera camera))
   (let* ((z (view-scale camera))
          (v (nv- (v/ (target-size camera) (zoom camera)) (location camera))))
     (reset-matrix *view-matrix*)
