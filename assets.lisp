@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defmacro define-sprite (name path &body args)
-  `(define-asset (world ,name) image
+  `(define-asset (leaf ,name) image
        ,path
      :min-filter :nearest
      :mag-filter :nearest
@@ -23,7 +23,7 @@
   #p"tundra-bg.png")
 
 (define-sprite tundra-absorption
-    #p"tundra-absorption.png"
+  #p"tundra-absorption.png"
   :internal-format :red)
 
 (define-sprite debug
@@ -35,8 +35,8 @@
 (define-sprite debug-absorption
   #p"debug-absorption.png")
 
-(define-asset (world player) sprite-data
+(define-asset (leaf player) sprite-data
     #p"player.lisp")
 
-(define-asset (world wolf) sprite-data
+(define-asset (leaf wolf) sprite-data
     #p"wolf.lisp")

@@ -2,41 +2,6 @@
 
 (defclass world-v0 (v0) ())
 
-(defvar *load-world*)
-
-(define-decoder (world world-v0) (info packet)
-  (let* ((world (apply #'make-instance 'world :packet packet info))
-         (*load-world* world))
-    ;; Load world extensions
-    (destructuring-bind (&key sources initial-state)
-        (first (parse-sexps (packet-entry "system.lisp" packet :element-type 'character)))
-      ;; Fixup world pool
-      (reinitialize-instance (find-pool 'world) :base (entry-path "data/" packet))
-      ;; Register regions
-      (dolist (entry (list-entries "regions/" packet))
-        (with-packet (packet packet :offset entry)
-          (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))
-                            :name)))
-            (setf (gethash name (regions world)) entry))))
-      ;; Load sources
-      (dolist (source sources)
-        (with-packet-entry (stream source packet :element-type 'character)
-          ;; FIXME: Compile sources somehow (write out to disk first?)
-          (cl:load stream :verbose NIL :print NIL)))
-      ;; Load storyline
-      (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
-        (setf (storyline world) (decode 'quest:storyline storyline)))
-      ;; Set initial state without loading it
-      (setf (initial-state world)
-            (minimal-load-state (entry-path initial-state packet))))
-    world))
-
-(define-encoder (world world-v0) (_b packet)
-  ;; KLUDGE: Can't save any more than this as we lost the info during compilation.
-  ;;         External tools are necessary to edit the source.
-  (list :author (author world)
-        :version (version world)))
-
 (define-decoder (quest:storyline world-v0) (info _p)
   (let ((table (make-hash-table :test 'eq)))
     ;; Read in things

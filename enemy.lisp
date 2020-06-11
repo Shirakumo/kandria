@@ -4,7 +4,7 @@
   ((bsize :initform (vec 12.0 8.0))
    (cooldown :initform 0.0 :accessor cooldown))
   (:default-initargs
-   :sprite-data (asset 'world 'wolf)))
+   :sprite-data (asset 'leaf 'wolf)))
 
 (defmethod handle :before ((ev tick) (enemy enemy))
   (let ((collisions (collisions enemy))

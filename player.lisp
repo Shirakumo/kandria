@@ -27,7 +27,7 @@
    (buffer :initform NIL :accessor buffer))
   (:default-initargs
    :name 'player
-   :sprite-data (asset 'world 'player)))
+   :sprite-data (asset 'leaf 'player)))
 
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
