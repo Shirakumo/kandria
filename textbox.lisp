@@ -20,7 +20,7 @@
    :profile-texture (error "PROFILE-TEXTURE required.")
    :profile-animations '((normal 0 1))))
 
-(define-shader-subject profile (animated-sprite-subject)
+(define-shader-entity profile (animated-sprite-subject)
   ((profile :initform NIL :accessor profile)
    (emote :initform NIL :accessor emote)
    (vertex-array :initform (asset 'leaf 'profile-mesh))
@@ -39,14 +39,15 @@
 (defmethod (setf emote) :after ((name symbol) (profile profile))
   (setf (animation profile) name))
 
-(define-handler (profile tick trial:tick) (ev tt)
-  (cond ((null (next-blink profile))
-         (setf (next-blink profile) (+ tt 1.0 (random 5.0))))
-        ((< (next-blink profile) tt)
-         (setf (animation profile) (1+ (position (animation profile) (animations profile))))
-         (setf (next-blink profile) (+ tt 1.0 (random 5.0))))))
+(defmethod handle ((ev tick) (profile profile))
+  (let ((tt (slot-value ev 'tt)))
+    (cond ((null (next-blink profile))
+           (setf (next-blink profile) (+ tt 1.0 (random 5.0))))
+          ((< (next-blink profile) tt)
+           (setf (animation profile) (1+ (position (animation profile) (animations profile))))
+           (setf (next-blink profile) (+ tt 1.0 (random 5.0)))))))
 
-(define-shader-subject textbox (vertex-entity)
+(define-shader-entity textbox (vertex-entity)
   ((flare:name :initform :textbox)
    (vertex-array :initform (asset 'leaf 'textbox))
    (profile :initform (make-instance 'profile) :reader profile)
@@ -138,7 +139,7 @@
     (setf (emote (profile textbox)) (dialogue:emote request))
     T))
 
-(define-handler (textbox next) (ev)
+(defmethod handle ((ev next) (textbox textbox))
   (when (typep (request textbox) 'dialogue:choice-request)
     (setf (choice textbox) (mod (1+ (choice textbox)) (length (dialogue:choices (request textbox)))))
     (setf (text (paragraph textbox))
@@ -147,7 +148,7 @@
                   for label in (dialogue:choices (request textbox))
                   do (format stream "~:[-~;>~] ~a~%" (= i (choice textbox)) label))))))
 
-(define-handler (textbox previous) (ev)
+(defmethod handle ((ev previous) (textbox textbox))
   (when (typep (request textbox) 'dialogue:choice-request)
     (setf (choice textbox) (mod (1- (choice textbox)) (length (dialogue:choices (request textbox)))))
     (setf (text (paragraph textbox))
@@ -156,10 +157,10 @@
                   for label in (dialogue:choices (request textbox))
                   do (format stream "~:[-~;>~] ~a~%" (= i (choice textbox)) label))))))
 
-(define-handler (textbox skip) (ev)
+(defmethod handle ((ev skip) (textbox textbox))
   )
 
-(define-handler (textbox advance) (ev)
+(defmethod handle ((ev advance) (textbox textbox))
   (when (request textbox)
     (unless (typep (request textbox) 'dialogue:input-request)
       (loop until (typep (request textbox) 'dialogue:input-request)
@@ -174,10 +175,10 @@
           (T
            (setf (cursor textbox) (length (text textbox)))))))
 
-(define-handler (textbox trial:tick) (ev dt)
+(defmethod handle ((ev tick) (textbox textbox))
   (when (request textbox)
     (handle ev (profile textbox))
-    (incf (clock textbox) dt)
+    (incf (clock textbox) (slot-value ev 'dt))
     ;; FIXME: Configurable text speed
     (when (fulfilled-p (request textbox) textbox)
       (advance textbox))

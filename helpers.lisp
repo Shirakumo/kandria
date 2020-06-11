@@ -391,14 +391,12 @@
   (vsetf (size sprite) width height)
   (vsetf (bsize sprite) (/ width 2) (/ height 2)))
 
-(define-subject game-entity (sized-entity)
+(defclass game-entity (sized-entity)
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity
              :type vec2 :documentation "The velocity of the entity.")
    (state :initform :normal :accessor state
           :type symbol :documentation "The current state of the entity.")
    (surface :initform NIL :accessor surface)))
-
-(define-generic-handler (game-entity tick trial:tick))
 
 (defmethod enter :after ((entity game-entity) (container container))
   (setf (surface entity) container))
@@ -454,4 +452,4 @@
 (defclass ephemeral (entity)
   ((flare:name :initform (generate-name))))
 
-(define-shader-subject player () ())
+(define-shader-entity player () ())

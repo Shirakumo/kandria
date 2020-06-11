@@ -3,11 +3,11 @@
 (define-shader-pass lighting-pass (per-object-pass hdr-output-pass)
   ())
 
-(define-handler (lighting-pass trial:tick) (ev)
+(defmethod handle ((ev trial:tick) (pass lighting-pass))
   (update-lighting 9 ;(+ (/ (clock +world+) 20) 7)
    ))
 
-(define-handler (lighting-pass switch-chunk) (ev)
+(defmethod handle ((ev switch-chunk) (pass lighting-pass))
   ;; FIXME: Actually apply chunk lighting settings
   ;;        Probably even gonna have to tween between them
   (with-buffer-tx (light (asset 'leaf 'light-info))
@@ -91,7 +91,7 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
   return vec4(truecolor, color.a);
 }")
 
-(define-shader-subject lit-sprite (lit-entity sprite-entity)
+(define-shader-entity lit-sprite (lit-entity sprite-entity)
   ())
 
 (define-class-shader (lit-sprite :fragment-shader)
@@ -101,7 +101,7 @@ void main(){
   color = apply_lighting(color, vec2(0, -5), 0);
 }")
 
-(define-shader-subject lit-animated-sprite (lit-entity animated-sprite facing-entity)
+(define-shader-entity lit-animated-sprite (lit-entity animated-sprite facing-entity)
   ())
 
 (define-class-shader (lit-animated-sprite :fragment-shader)

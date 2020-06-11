@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject animated-sprite (animated-sprite-subject sized-entity)
+(define-shader-entity animated-sprite (animated-sprite-subject sized-entity)
   ())
 
 (defmethod paint :around ((sprite animated-sprite) target)

@@ -16,7 +16,7 @@
 ;;                          ACC     DCC
 (define-global +vdash+ (vec 10      0.7))
 
-(define-shader-subject player (animatable ephemeral)
+(define-shader-entity player (animatable ephemeral)
   ((bsize :initform (vec 8.0 16.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
@@ -43,11 +43,11 @@ void main(){
   world_pos = (model_matrix * vec4(vertex, 1)).xy;
 }")
 
-(define-handler (player interact) (ev)
+(defmethod handle ((ev interact) (player player))
   (when (interactable player)
     (issue +world+ 'interaction :with (interactable player))))
 
-(define-handler (player dash) (ev)
+(defmethod handle ((ev dash) (player player))
   (let ((acc (acceleration player)))
     (cond ((in-danger-p player)
            ;; FIXME: If we are holding the opposite of what
@@ -75,19 +75,19 @@ void main(){
           ((eq :animated (state player))
            (setf (buffer player) 'dash)))))
 
-(define-handler (player start-jump) (ev)
+(defmethod handle ((ev start-jump) (player player))
   (cond ((eql :animated (state player))
          (setf (buffer player) 'jump))
         ((not (eql :crawling (state player)))
          (setf (jump-time player) (- +coyote+)))))
 
-(define-handler (player crawl) (ev)
+(defmethod handle ((ev crawl) (player player))
   (unless (svref (collisions player) 0)
     (case (state player)
       (:normal (setf (state player) :crawling))
       (:crawling (setf (state player) :normal)))))
 
-(define-handler (player light-attack) (ev)
+(defmethod handle ((ev light-attack) (player player))
   (cond ((and (aref (collisions player) 2)
               (not (or (eql :crawling (state player))
                        (eql :animated (state player)))))
@@ -95,7 +95,7 @@ void main(){
         ((eql :animated (state player))
           (setf (buffer player) 'light-attack))))
 
-(define-handler (player heavy-attack) (ev)
+(defmethod handle ((ev heavy-attack) (player player))
   (cond ((and (aref (collisions player) 2)
               (not (or (eql :crawling (state player))
                        (eql :animated (state player)))))
@@ -147,9 +147,9 @@ void main(){
        (incf (vy (location player)) 8)
        (setf (vy (bsize player)) 16)))))
 
-(defmethod tick :before ((player player) ev)
+(defmethod handle :before ((ev tick) (player player))
   (when (path player)
-    (return-from tick))
+    (return-from handle))
   (let ((collisions (collisions player))
         (dt (* 100 (dt ev)))
         (loc (location player))
@@ -319,7 +319,7 @@ void main(){
     (nvclamp (v- +vlim+) acc +vlim+)
     (nv+ (velocity player) acc)))
 
-(defmethod tick :after ((player player) ev)
+(defmethod handle :after ((ev tick) (player player))
   (incf (jump-time player) (dt ev))
   (incf (air-time player) (dt ev))
   ;; OOB
@@ -386,12 +386,13 @@ void main(){
              (T
               (setf (animation player) 'stand)))))))
 
-(define-handler (player switch-region) (ev region)
-  (let ((other (for:for ((entity over region))
-                 (list entity (contained-p (location player) entity))
-                 (when (and (typep entity 'chunk)
-                            (contained-p (location player) entity))
-                   (return entity)))))
+(defmethod handle ((ev switch-region) (player player))
+  (let* ((region (slot-value ev 'region))
+         (other (for:for ((entity over region))
+                  (list entity (contained-p (location player) entity))
+                  (when (and (typep entity 'chunk)
+                             (contained-p (location player) entity))
+                    (return entity)))))
     (unless other
       (warn "Player is somehow outside all chunks, picking first chunk we can get.")
       (setf other (for:for ((entity over (unit 'region region)))
@@ -402,15 +403,16 @@ void main(){
     (snap-to-target (unit :camera T) player)
     (issue +world+ 'switch-chunk :chunk other)))
 
-(define-handler (player switch-chunk) (ev chunk)
-  (when (surface player)
-    (leave player (surface player)))
-  (setf (surface player) chunk)
-  (enter player chunk)
-  (let ((loc (vcopy (location player))))
-    (when (v/= 0 (acceleration player))
-      (nv+ loc (v* (vunit (acceleration player)) +tile-size+)))
-    (setf (spawn-location player) loc)))
+(defmethod handle ((ev switch-chunk) (player player))
+  (let ((chunk (slot-value ev 'chunk)))
+    (when (surface player)
+      (leave player (surface player)))
+    (setf (surface player) chunk)
+    (enter player chunk)
+    (let ((loc (vcopy (location player))))
+      (when (v/= 0 (acceleration player))
+        (nv+ loc (v* (vunit (acceleration player)) +tile-size+)))
+      (setf (spawn-location player) loc))))
 
 (defmethod register-object-for-pass :after (pass (player player))
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'dust-cloud)))

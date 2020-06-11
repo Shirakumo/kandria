@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-subject camera (trial:2d-camera unpausable)
+(defclass camera (trial:2d-camera unpausable)
   ((flare:name :initform :camera)
    (zoom :initarg :zoom :initform 1.0 :accessor zoom)
    (scale :initform 1.0 :accessor view-scale)
@@ -36,7 +36,7 @@
                                  (vy target)
                                  (+ ly (- ch) lh)))))))
 
-(define-handler (camera trial:tick) (ev tt)
+(defmethod handle ((ev tick) (camera camera))
   (let ((loc (location camera))
         (int (intended-location camera)))
     (unless (active-p (unit :editor T))
@@ -70,13 +70,13 @@
 (defmethod (setf target) :after ((target game-entity) (camera camera))
   (setf (surface camera) (surface target)))
 
-(define-handler (camera resize) (ev)
+(defmethod handle ((ev resize) (camera camera))
   (setf (view-scale camera) (* (float (/ (width ev) (* 2 (vx (target-size camera)))))
                                (zoom camera)))
   (setf (vy (target-size camera)) (/ (height ev) (view-scale camera) 2)))
 
-(define-handler (camera switch-chunk) (ev chunk)
-  (setf (surface camera) chunk))
+(defmethod handle ((ev switch-chunk) (camera camera))
+  (setf (surface camera) (slot-value ev 'chunk)))
 
 (defmethod project-view ((camera camera) ev)
   (let* ((z (view-scale camera))

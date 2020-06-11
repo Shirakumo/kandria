@@ -64,7 +64,7 @@
                (make-instance 'save-state)))))
 
 (defmethod update ((main main) tt dt fc)
-  (issue (scene main) 'trial:tick :tt tt :dt (* (time-scale (scene main)) dt) :fc fc)
+  (issue (scene main) 'tick :tt tt :dt (* (time-scale (scene main)) dt) :fc fc)
   (process (scene main)))
 
 (defmethod setup-rendering :after ((main main))
@@ -101,12 +101,13 @@
 (defmethod setup-scene ((main main) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
-
-  (let ((shadow (make-instance 'shadow-map-pass))
-        (lighting (make-instance 'lighting-pass))
-        (rendering (make-instance 'rendering-pass)))
-    (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
-    (connect (port lighting 'color) (port rendering 'lighting) scene)))
+  (enter (make-instance 'render-pass) scene)
+  ;; (let ((shadow (make-instance 'shadow-map-pass))
+  ;;       (lighting (make-instance 'lighting-pass))
+  ;;       (rendering (make-instance 'rendering-pass)))
+  ;;   (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
+  ;;   (connect (port lighting 'color) (port rendering 'lighting) scene))
+  )
 
 #+leaf-inspector
 (progn

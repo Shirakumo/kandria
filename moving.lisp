@@ -1,12 +1,12 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-subject moving (game-entity)
+(defclass moving (game-entity)
   ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
    (acceleration :initform (vec2 0 0) :accessor acceleration)))
 
 (defmethod scan (entity target))
 
-(defmethod tick ((moving moving) ev)
+(defmethod handle ((ev tick) (moving moving))
   (let* ((surface (surface moving))
          (loc (location moving))
          (vel (velocity moving))

@@ -1,14 +1,14 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject particle (vertex-entity located-entity)
+(define-shader-entity particle (vertex-entity located-entity)
   ((timer :initform 0.0f0 :accessor timer)
    (seed :initform (random 1.0) :accessor seed))
   (:default-initargs :vertex-array (asset 'leaf '1x)))
 
 (defmethod lifetime ((particle particle)) 0.20)
 
-(define-handler (particle trial:tick) (ev dt)
-  (incf (timer particle) (float dt 0f0))
+(defmethod handle ((ev tick) (particle particle))
+  (incf (timer particle) (float (slot-value ev 'dt) 0f0))
   (when (< (lifetime particle) (timer particle))
     (leave particle +world+)))
 
@@ -25,7 +25,7 @@ void main(){
   texcoord = in_texcoord;
 }")
 
-(define-shader-subject dust-cloud (particle)
+(define-shader-entity dust-cloud (particle)
   ((direction :initarg :direction :accessor direction))
   (:default-initargs :direction (vec2 0 1)))
 

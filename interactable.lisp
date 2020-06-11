@@ -3,7 +3,7 @@
 (defclass interaction (event)
   ((with :initarg :with :accessor with)))
 
-(define-shader-subject interactable (sprite-entity)
+(define-shader-entity interactable (sprite-entity)
   ((bsize :initform (vec +tile-size+ +tile-size+))
    (interactions :initform () :accessor interactions)))
 
@@ -16,5 +16,5 @@
                  (quest:interactable trigger))))
       (pushnew trigger (interactions interactable)))))
 
-;; (define-shader-subject npc (lit-animated-sprite profile-entity interactable)
+;; (define-shader-entity npc (lit-animated-sprite profile-entity interactable)
 ;;   ())

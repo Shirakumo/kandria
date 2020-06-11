@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-subject moving-platform (game-entity resizable solid ephemeral)
+(define-shader-entity moving-platform (game-entity resizable solid ephemeral)
   ()
   (:default-initargs
    :bsize (vec2 32 32)))
@@ -9,14 +9,14 @@
 (defmethod collides-p ((platform moving-platform) (block block) hit) T)
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
-(define-shader-subject falling-platform (lit-sprite moving-platform)
+(define-shader-entity falling-platform (lit-sprite moving-platform)
   ((acceleration :initform (vec2 0 0) :accessor acceleration)
    (gravity :initform (vec2 0 (- +vgrav+)) :initarg :gravity :accessor gravity)))
 
 (defmethod (setf location) :after (location (platform falling-platform))
   (setf (state platform) :normal))
 
-(defmethod tick ((platform falling-platform) ev)
+(defmethod handle ((ev tick) (platform falling-platform))
   (ecase (state platform)
     (:blocked)
     (:normal
@@ -61,11 +61,11 @@
       (nv+ (location platform) (v* vel (hit-time hit)))
       (vsetf vel 0 0))))
 
-(define-shader-subject elevator (lit-sprite moving-platform)
+(define-shader-entity elevator (lit-sprite moving-platform)
   ()
   (:default-initargs :bsize (nv/ (vec 32 16) 2)))
 
-(defmethod tick ((elevator elevator) ev)
+(defmethod handle ((ev tick) (elevator elevator))
   (ecase (state elevator)
     (:normal)
     (:going-up
@@ -85,8 +85,8 @@
     (nv+ (location elevator) (v* vel (hit-time hit)))
     (vsetf vel 0 0)))
 
-(define-handler (elevator interaction) (ev with)
-  (when (and (eq elevator with)
+(defmethod handle ((ev interaction) (elevator elevator))
+  (when (and (eq elevator (slot-value ev 'with))
              (eql :normal (state elevator)))
     (cond ((null (scan (surface elevator) (v+ (location elevator)
                                               (v_y (bsize elevator))

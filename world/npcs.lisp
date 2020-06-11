@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-;; (define-shader-subject fi (npc)
+;; (define-shader-entity fi (npc)
 ;;   ()
 ;;   (:default-initargs
 ;;    :name 'fi
