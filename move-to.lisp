@@ -278,7 +278,7 @@ void main(){
                                                             (bsize movable))
                                                         (/ +tile-size+ 2))
                                                    target)
-    (v:info :trial.move-to "Moving ~a along~{~%  ~a~}" movable path)
+    ;; (v:info :trial.move-to "Moving ~a along~{~%  ~a~}" movable path)
     (setf (current-node movable) start)
     (setf (path movable) path)))
 
