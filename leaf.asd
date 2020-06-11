@@ -15,7 +15,6 @@
                (:file "packet")
                (:file "region")
                (:file "keys")
-               (:file "textbox")
                (:file "surface")
                (:file "shadow-map")
                (:file "lighting")
