@@ -78,20 +78,3 @@
   ;;   (connect (port lighting 'color) (port rendering 'lighting) scene))
   )
 
-#+leaf-inspector
-(progn
-  (sb-ext:defglobal +inspector+ NIL)
-  
-  (defmethod initialize-instance :after ((main main) &key)
-    (setf +inspector+ (nth-value 1 (clouseau:inspect main :new-process t))))
-
-  (defmethod finalize :after ((main main))
-    (setf +world+ NIL)
-    (setf +inspector+ NIL))
-
-  (defmethod update :after ((main main) tt dt fc)
-    (when (= 0 (mod fc 10))
-      (let* ((pane (clim:find-pane-named +inspector+ 'clouseau::inspector))
-             (state (clouseau::state pane)))
-        (setf (clouseau:root-object state :run-hook-p t)
-              (clouseau:root-object state))))))
