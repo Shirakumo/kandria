@@ -1,7 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-pool leaf
-  :base :leaf)
+(define-pool leaf)
 
 (define-asset (leaf 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))

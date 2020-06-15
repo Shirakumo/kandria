@@ -20,7 +20,8 @@
 
 (defmethod initialize-instance ((main main) &key state)
   (call-next-method)
-  (with-packet (packet (asdf:system-source-directory 'leaf) :direction :input)
+  ;; FIXME: This won't work deployed.
+  (with-packet (packet (pathname-utils:parent (base (find-pool 'leaf))) :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; Load initial state
   (setf (state main)
