@@ -12,7 +12,7 @@
 (defmethod initargs append ((_ background))
   `(:texture))
 
-(defmethod layer-index ((_ background)) -2)
+(defmethod layer-index ((_ background)) 0)
 
 (defmethod clone ((background background))
   (make-instance (class-of background)

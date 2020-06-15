@@ -3,7 +3,7 @@
 (defclass editor-ui (ui)
   ())
 
-(defclass base-editor (alloy:observable-object trial:entity)
+(defclass base-editor (alloy:observable-object trial:entity listener)
   ((flare:name :initform :editor)
    (marker :initform (make-instance 'trial::lines) :accessor marker)
    (ui :initform (make-instance 'editor-ui) :accessor ui)
@@ -69,9 +69,6 @@
 
 (defmethod redo ((editor base-editor) region)
   (redo (history editor) region))
-
-(defmethod register :after ((editor base-editor) (scene scene))
-  (add-handler editor scene))
 
 (defmethod handle ((event event) (editor base-editor)))
 
