@@ -12,10 +12,9 @@
   (when (< (lifetime particle) (timer particle))
     (leave particle +world+)))
 
-(defmethod paint :before ((particle particle) (pass shader-pass))
-  (let ((program (shader-program-for-pass pass particle)))
-    (setf (uniform program "seed") (seed particle))
-    (setf (uniform program "timer") (timer particle))))
+(defmethod render :before ((particle particle) (program shader-program))
+  (setf (uniform program "seed") (seed particle))
+  (setf (uniform program "timer") (timer particle)))
 
 (define-class-shader (particle :vertex-shader)
   "layout (location = 1) in vec2 in_texcoord;
@@ -25,17 +24,18 @@ void main(){
   texcoord = in_texcoord;
 }")
 
-(define-shader-entity dust-cloud (particle)
+(define-shader-entity dust-cloud (particle transformed)
   ((direction :initarg :direction :accessor direction))
   (:default-initargs :direction (vec2 0 1)))
 
 (defmethod lifetime ((dust-cloud dust-cloud)) 0.40)
 
-(defmethod paint :before ((particle dust-cloud) (pass shader-pass))
-  (let ((program (shader-program-for-pass pass particle)))
-    (scale-by 32 32 1)
-    (translate-by -0.5 -0.5 0)
-    (setf (uniform program "direction") (direction particle))))
+(defmethod apply-transforms progn ((particle particle))
+  (scale-by 32 32 1)
+  (translate-by -0.5 -0.5 0))
+
+(defmethod render :before ((particle dust-cloud) (program shader-program))
+  (setf (uniform program "direction") (direction particle)))
 
 (define-class-shader (dust-cloud :fragment-shader)
   "

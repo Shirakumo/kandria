@@ -18,9 +18,8 @@
   (make-instance (class-of background)
                  :texture (texture background)))
 
-(defmethod paint ((background background) (pass shader-pass))
-  (let ((program (shader-program-for-pass pass background))
-        (vao (vertex-array background)))
+(defmethod render ((background background) (program shader-program))
+  (let ((vao (vertex-array background)))
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "view_matrix") (minv *view-matrix*))
     (setf (uniform program "model_matrix") (minv *model-matrix*))

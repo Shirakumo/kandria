@@ -3,11 +3,6 @@
 (define-shader-entity animated-sprite (trial:animated-sprite sized-entity)
   ())
 
-(defmethod paint :around ((sprite animated-sprite) target)
-  (with-pushed-matrix ()
-    (translate-by 0 (- (vy (bsize sprite))) 0)
-    (call-next-method)))
-
 (defclass frame (sprite-frame)
   ((hurtbox :initform (vec 0 0 0 0) :accessor hurtbox)
    (velocity :initform (vec 0 0) :accessor velocity)

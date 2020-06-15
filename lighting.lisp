@@ -74,7 +74,7 @@ void main(){
 
 (define-class-shader (lit-entity :fragment-shader 100)
   ;; FIXME: This is broken now.
-  ;;(gl-source (asset 'leaf 'light-info))
+  (gl-source (asset 'leaf 'light-info))
   "uniform sampler2D lighting;
 uniform sampler2D shadow_map;
 

@@ -6,8 +6,8 @@
   (sun-light :vec3 :accessor sun-light)
   (ambient-light :vec3 :accessor ambient-light))
 
-(define-asset (leaf light-info) static
-    (make-instance 'uniform-buffer :struct-class 'light-info))
+(define-asset (leaf light-info) uniform-block
+    'light-info)
 
 (define-shader-entity shadow-caster (located-entity)
   ((shadow-geometry :accessor shadow-geometry)))
@@ -78,7 +78,7 @@
 
 (define-class-shader (shadow-map-pass :vertex-shader)
   ;; FIXME: This is broken now.
-  ;;(gl-source (asset 'leaf 'light-info))
+  (gl-source (asset 'leaf 'light-info))
   "layout(location = 0) in vec2 vertex_position;
 
 uniform mat4 model_matrix;
