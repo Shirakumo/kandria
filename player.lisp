@@ -157,7 +157,8 @@ void main(){
         (size (bsize player)))
     (setf (interactable player) NIL)
     ;; Point test for interactables. Pretty stupid.
-    (for:for ((entity over (surface player)))
+    (when (()))
+    (for:for ((entity over +world+))
       (when (and (not (eq entity player))
                  (typep entity 'interactable)
                  (contained-p (vec4 (vx loc) (vy loc) (* 1.5 (vx size)) (vy size)) entity))
@@ -203,8 +204,8 @@ void main(){
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
-                       (scan (surface player) (vec (- (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))
-                       (scan (surface player) (vec (+ (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))))
+                       (scan-collision +world+ (vec (- (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))
+                       (scan-collision +world+ (vec (+ (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))))
               (attached (or (svref collisions (if (< 0 (direction player)) 1 3))
                             top)))
          (unless (and (retained 'movement :climb) attached)
@@ -324,10 +325,10 @@ void main(){
   (incf (air-time player) (dt ev))
   ;; OOB
   (unless (contained-p (location player) (surface player))
-    (let ((other (for:for ((entity over (unit 'region +world+)))
-                          (when (and (typep entity 'chunk)
-                                     (contained-p (location player) entity))
-                            (return entity)))))
+    (let ((other (for:for ((entity over (region +world+)))
+                   (when (and (typep entity 'chunk)
+                              (contained-p (location player) entity))
+                     (return entity)))))
       (cond (other
              (issue +world+ 'switch-chunk :chunk other))
             ((< (vy (location player))

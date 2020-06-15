@@ -40,6 +40,12 @@
 (defmethod encode-payload (source payload packet (version version))
   (error 'no-applicable-encoder :source source :version version))
 
+(defmethod decode-payload (payload (target symbol) packet version)
+  (decode-payload payload (type-prototype target) packet version))
+
+(defmethod decode-payload (payload target packet (version symbol))
+  (decode-payload payload target packet (ensure-version version)))
+
 (defmacro define-encoder ((type version) &rest args)
   (let ((object (gensym "OBJECT"))
         (method-combination (loop for option = (car args)

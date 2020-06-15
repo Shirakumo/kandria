@@ -1,11 +1,12 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defclass region (container ephemeral)
+(defclass region (layered-container ephemeral)
   ((author :initform "Anonymous" :initarg :author :accessor author)
    (version :initform "0.0.0" :initarg :version :accessor version)
    (description :initform "" :initarg :description :accessor description)
    (preview :initform NIL :initarg :preview :accessor preview))
   (:default-initargs
+   :layer-count +layer-count+
    :name (error "NAME required.")))
 
 (defgeneric load-region (packet region))
@@ -42,3 +43,8 @@
      (destructuring-bind (&key identifier version) header
        (assert (eql 'region identifier))
        (coerce-version version)))))
+
+(defmethod scan ((region region) target on-hit)
+  (for:for ((entity over region)
+            (hit = (scan entity target on-hit)))
+    (when hit (return hit))))

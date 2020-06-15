@@ -48,17 +48,8 @@
 (sb-ext:defglobal +surface-blocks+ NIL)
 (setf +surface-blocks+ (make-surface-blocks +tile-size+ '(1 2 3)))
 
-(defstruct (hit (:constructor make-hit (object time location normal)))
-  (object NIL)
-  (time 0.0 :type single-float)
-  (location NIL :type vec2)
-  (normal NIL :type vec2))
-
 (defmethod velocity ((block block))
   #.(vec2 0 0))
-
-(defmethod collides-p (object target hit)
-  T)
 
 (defun aabb (seg-pos seg-vel aabb-pos aabb-size)
   (declare (type vec2 seg-pos seg-vel aabb-pos aabb-size))
@@ -91,8 +82,8 @@
                 (unless (and (/= 0 (vy normal))
                              (<= (vx aabb-size) (abs (- (vx aabb-pos) (vx seg-pos)))))
                   (make-hit NIL
-                            t-near
                             aabb-pos
+                            t-near
                             normal))))))))))
 
 (defun slope (pos vel size slope loc)

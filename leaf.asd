@@ -6,12 +6,12 @@
                   #-(or linux darwin) "kandria-windows"
   :entry-point "org.shirakumo.fraf.leaf:launch"
   :components ((:file "package")
+               (:file "toolkit")
                (:file "helpers")
-               (:file "assets")
                (:file "animation")
+               (:file "assets")
                (:file "color-temperature")
                (:file "auto-fill")
-               (:file "layered-container")
                (:file "serialization")
                (:file "packet")
                (:file "region")

@@ -4,18 +4,15 @@
   ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
    (acceleration :initform (vec2 0 0) :accessor acceleration)))
 
-(defmethod scan (entity target))
-
 (defmethod handle ((ev tick) (moving moving))
-  (let* ((surface (surface moving))
-         (loc (location moving))
-         (vel (velocity moving))
-         (size (bsize moving))
-         (collisions (collisions moving)))
+  (let ((loc (location moving))
+        (vel (velocity moving))
+        (size (bsize moving))
+        (collisions (collisions moving)))
     ;; Scan for hits
     (fill collisions NIL)
     (loop repeat 10
-          do (unless (scan surface moving) (return))
+          while (handle-collisions +world+ moving)
              ;; KLUDGE: If we have too many collisions in a frame, we assume
              ;;         we're stuck somewhere, so just die.
           finally (die moving))
@@ -23,9 +20,9 @@
     (nv+ loc (v* vel (* 100 (dt ev))))
     (vsetf vel 0 0)
     ;; Point test for adjacent walls
-    (let ((l (scan surface (vec (- (vx loc) (vx size) 1) (vy loc))))
-          (r (scan surface (vec (+ (vx loc) (vx size) 1) (vy loc))))
-          (u (scan surface (vec (vx loc) (+ (vy loc) (vy size) 1) (vx size) 1))))
+    (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc))))
+          (r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc))))
+          (u (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy size) 1) (vx size) 1))))
       (when l (setf (aref collisions 3) l))
       (when r (setf (aref collisions 1) r))
       (when u (setf (aref collisions 0) u)))))

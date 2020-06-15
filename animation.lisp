@@ -99,10 +99,10 @@
           (vx (knockback frame)) (vy (knockback frame))
           (vx (hurtbox frame)) (vy (hurtbox frame)) (vz (hurtbox frame)) (vw (hurtbox frame))))
 
-(defmethod load-animations ((path pathname) (sprite sprite-data))
+(defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
   (with-open-file (stream path :direction :input)
     (setf (json-file sprite) (read stream))
-    (call-next-method (merge-pathnames (json-file sprite) path) sprite)
+    (call-next-method sprite (merge-pathnames (json-file sprite) path))
     (loop for expr = (read stream NIL NIL)
           while expr
           do (destructuring-bind (name &key loop-to next frame-data) expr

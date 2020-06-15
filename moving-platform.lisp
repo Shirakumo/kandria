@@ -20,17 +20,17 @@
   (ecase (state platform)
     (:blocked)
     (:normal
-     (loop repeat 10 while (scan (surface platform) platform)))
+     (loop repeat 10 while (handle-collisions +world+ platform)))
     (:falling
      (nv+ (acceleration platform) (v* (gravity platform) (dt ev)))
      (nv+ (velocity platform) (acceleration platform))
-     (loop repeat 10 while (scan (surface platform) platform))
+     (loop repeat 10 while (handle-collisions +world+ platform))
      (nv+ (location platform) (v* (velocity platform) (* 100 (dt ev)))))))
 
 (defmethod collide :before ((player player) (platform falling-platform) hit)
   (when (< 0 (vy (hit-normal hit)))
     (nv+ (velocity platform) (acceleration platform))
-    (if (scan (surface platform) platform)
+    (if (scan-collision +world+ platform)
         (vsetf (velocity platform) 0 0)
         (setf (state platform) :falling))))
 
@@ -73,7 +73,7 @@
     (:going-down
      (vsetf (velocity elevator) 0 -10))
     (:broken))
-  (loop repeat 10 while (scan (surface elevator) elevator))
+  (loop repeat 10 while (handle-collisions +world+ elevator))
   (nv+ (location elevator) (velocity elevator)))
 
 (defmethod collide :before ((player player) (elevator elevator) hit)
@@ -88,11 +88,11 @@
 (defmethod handle ((ev interaction) (elevator elevator))
   (when (and (eq elevator (slot-value ev 'with))
              (eql :normal (state elevator)))
-    (cond ((null (scan (surface elevator) (v+ (location elevator)
+    (cond ((null (scan-collisions +world+ (v+ (location elevator)
                                               (v_y (bsize elevator))
                                               1)))
            (setf (state elevator) :going-up))
-          ((null (scan (surface elevator) (v- (location elevator)
+          ((null (scan-collisions +world+ (v- (location elevator)
                                               (v_y (bsize elevator))
                                               1)))
            (setf (state elevator) :going-down)))))

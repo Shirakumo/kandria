@@ -11,3 +11,7 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Janne Pakarinen
 - Prevent hitting ceilings from recovering the jump, and prevent hitting ceilings and walls from recovering the dash
   Reported by Janne Pakarinen
+
+## 0.0.2
+- Fix sprite atlases being giant and thus preventing loading on older graphics cards
+  Reported by 

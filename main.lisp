@@ -18,10 +18,10 @@
   (uiop:copy-file (asdf:system-relative-pathname :leaf "README.mess")
                   (make-pathname :name "README" :type "mess" :defaults directory)))
 
-(defmethod initialize-instance ((main main) &key world state)
+(defmethod initialize-instance ((main main) &key state)
   (call-next-method)
   (with-packet (packet (asdf:system-source-directory 'leaf) :direction :input)
-    (setf (scene main) (make-instance 'world :packet (make-packet))))
+    (setf (scene main) (make-instance 'world :packet packet)))
   ;; Load initial state
   (setf (state main)
         (cond (state
