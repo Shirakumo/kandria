@@ -61,11 +61,10 @@
   (let ((*package* #.*package*))
     (apply #'trial:launch 'main initargs)))
 
-(defmethod paint ((controller controller) (pass shader-pass))
+(defmethod render :before ((controller controller) program)
   (let ((editor (unit :editor T)))
     (when editor
-      (setf (show-overlay controller) NIL #++(not (active-p editor)))))
-  (call-next-method))
+      (setf (show-overlay controller) NIL #++(not (active-p editor))))))
 
 (defmethod setup-scene ((main main) scene)
   (enter (make-instance 'inactive-editor) scene)

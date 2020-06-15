@@ -14,7 +14,7 @@
 (defgeneric initargs (object)
   (:method-combination append :most-specific-last))
 
-(defclass base-entity (entity)
+(defclass base-entity (renderable entity)
   ())
 
 (defmethod entity-at-point (point (entity base-entity))
@@ -25,7 +25,7 @@
 (defmethod initargs append ((_ base-entity))
   '(:name))
 
-(defclass located-entity (base-entity)
+(defclass located-entity (base-entity transformed)
   ((location :initarg :location :initform (vec 0 0) :accessor location
              :type vec2 :documentation "The location in 2D space.")))
 
@@ -36,22 +36,18 @@
   (print-unreadable-object (entity stream :type T :identity T)
     (format stream "~a" (location entity))))
 
-(defmethod paint :around ((obj located-entity) target)
-  (with-pushed-matrix ()
-    (translate-by (round (vx (location obj))) (round (vy (location obj))) 0)
-    (call-next-method)))
+(defmethod apply-transforms progn ((obj located-entity))
+  (translate-by (round (vx (location obj))) (round (vy (location obj))) 0))
 
-(defclass facing-entity (base-entity)
+(defclass facing-entity (base-entity transformed)
   ((direction :initarg :direction :initform 1 :accessor direction
               :type (integer -1 1) :documentation "The direction the entity is facing. -1 for left, +1 for right.")))
 
 (defmethod initargs append ((_ facing-entity))
   '(:direction))
 
-(defmethod paint :around ((obj facing-entity) target)
-  (with-pushed-matrix ()
-    (scale-by (direction obj) 1 1)
-    (call-next-method)))
+(defmethod apply-transforms :around ((obj facing-entity))
+  (scale-by (direction obj) 1 1))
 
 (defclass sized-entity (located-entity)
   ((bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize
@@ -116,7 +112,7 @@
 (defmethod (setf bsize) :after (value (sprite sprite-entity))
   (setf (size sprite) (v* value 2)))
 
-(defmethod paint :before ((sprite sprite-entity) target)
+(defmethod apply-transforms ((sprite sprite-entity))
   (let ((size (v* 2 (bsize sprite))))
     (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
     (scale (vxy_ size))))

@@ -36,3 +36,10 @@
 (define-encoder (asset v0) (_b _p)
   (list (name (pool asset))
         (name asset)))
+
+(define-decoder (resource v0) (data _p)
+  (destructuring-bind (pool name &optional id) data
+    (// pool name id)))
+
+(define-encoder (resource v0) (_b _p)
+  (error "Don't know how to get the asset that generated the resource."))

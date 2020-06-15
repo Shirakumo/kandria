@@ -74,7 +74,8 @@
     (let ((chunk (make-instance 'chunk :name name
                                        :location (decode 'vec2 location)
                                        :size (decode 'vec2 size)
-                                       :tileset (decode 'asset tileset)
+                                ;; FIXME: this, and the tile type info, should be encoded in a custom asset.
+                                       :tileset (decode 'resource tileset)
                                        :absorption-map (similar-asset (decode 'asset tileset) '-absorption)
                                        :layers (loop for file in layers
                                                      collect (packet-entry file packet)))))
@@ -100,7 +101,7 @@
 
 (define-decoder (background world-v0) (initargs _)
   (destructuring-bind (&key texture) initargs
-    (make-instance 'background :texture (decode 'asset texture))))
+    (make-instance 'background :texture (decode 'resource texture))))
 
 (define-encoder (background world-v0) (_b _p)
   `(background :texture ,(encode (texture background))))
@@ -108,7 +109,7 @@
 (define-decoder (falling-platform world-v0) (initargs _)
   (destructuring-bind (&key texture gravity location bsize frame) initargs
     (make-instance 'falling-platform
-                   :texture (decode 'asset texture)
+                   :texture (decode 'resource texture)
                    :gravity (decode 'vec2 gravity)
                    :location (decode 'vec2 location)
                    :frame-idx (decode 'vec2 frame)
@@ -135,7 +136,7 @@
   (destructuring-bind (&key multiplier texture location size bsize frame) initargs
     (make-instance 'textured-light
                    :multiplier multiplier
-                   :texture (decode 'asset texture)
+                   :texture (decode 'resource texture)
                    :location (decode 'vec2 location)
                    :size (decode 'vec2 size)
                    :bsize (decode 'vec2 bsize)
