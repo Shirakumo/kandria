@@ -1,27 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-;; TODO: do on a per-tileset basis, with sets inferred
-;;       from a tile-type-map image.
-(defparameter *tile-map*
-  '((:t (1 15) (2 15) (3 15) (4 15) (5 15) (6 15))
-    (:r (7 14) (7 13) (7 12) (7 11) (7 10) (7  9))
-    (:b (1  8) (2  8) (3  8) (4  8) (5  8) (6  8))
-    (:l (0 14) (0 13) (0 12) (0 11) (0 10) (0  9))
-    (:tl> (0 15))
-    (:tr> (7 15))
-    (:br> (7  8))
-    (:bl> (0  8))
-    (:tl< (9 15))
-    (:tr< (9 15))
-    (:br< (8 14))
-    (:bl< (8 14))
-    (1 (1 9) (1 10) (1 11) (1 12) (1 13) (1 14))
-    (2 (2 9) (2 10) (2 11) (2 12) (2 13) (2 14))
-    (3 (1 9) (3 9) (3 10) (3 11) (3 12) (3 13) (3 14))
-    (4 (1 9) (1 9) (4 9) (4 10) (4 11) (4 12) (4 13) (4 14))
-    (5 (1 9) (1 9) (1 9) (5 9) (5 10) (5 11) (5 12) (5 13) (5 14))
-    (T (1 9))))
-
 (defun %flood-fill (layer width height x y fill)
   (let* ((tmp (vec2 0 0)))
     (labels ((pos (x y)
@@ -161,7 +139,7 @@
                          (tile -1 0) (tile 0 0) (tile +1 0)
                          (tile -1 -1) (tile 0 -1) (tile +1 -1)))))
 
-(defun fill-edge (solids tiles width height ox oy)
+(defun fill-edge (solids tiles width height ox oy map)
   (labels ((pos (x y)
              (* (+ x (* y width)) 2))
            ((setf tile) (f x y)
@@ -173,7 +151,7 @@
                        (aref tiles (+ 1 pos)) (second f))))))
     (loop with x = ox with y = oy
           for edge = (filter-edge solids width height x y)
-          do (setf (tile x y) (cdr (assoc edge *tile-map*)))
+          do (setf (tile x y) (cdr (assoc edge map)))
              (ecase edge
                (:l (incf y))
                (:r (decf y))
@@ -191,7 +169,7 @@
                (loop-finish))
           collect (vec x y))))
 
-(defun fill-innards (solids tiles edge width height x- x+ y- y+)
+(defun fill-innards (solids tiles edge width height x- x+ y- y+ map)
   (labels ((pos (x y)
              (* (+ x (* y width)) 2))
            (tile (x y)
@@ -204,16 +182,16 @@
           do (loop for x from (max 0 x-) to (min x+ width)
                    do (when (= 255 (tile x y))
                         (setf (tile x y)
-                              (cdr (or (assoc (round (mindist (vec x y) edge)) *tile-map*)
-                                       (assoc T *tile-map*)))))))))
+                              (cdr (or (assoc (round (mindist (vec x y) edge)) map)
+                                       (assoc T map)))))))))
 
-(defun %auto-tile (solids tiles width height x y)
+(defun %auto-tile (solids tiles width height x y map)
   (let ((solids (copy-seq solids)))
     (%flood-fill solids width height x y (vec2 255 0))
     (multiple-value-bind (x y) (find-edge solids width height x y)
-      (let* ((edge (fill-edge solids tiles width height x y))
+      (let* ((edge (fill-edge solids tiles width height x y map))
              (x- (truncate (loop for pos in edge minimize (vx pos))))
              (x+ (truncate (loop for pos in edge maximize (vx pos))))
              (y- (truncate (loop for pos in edge minimize (vy pos))))
              (y+ (truncate (loop for pos in edge maximize (vy pos)))))
-        (fill-innards solids tiles edge width height x- x+ y- y+)))))
+        (fill-innards solids tiles edge width height x- x+ y- y+ map)))))
