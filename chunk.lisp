@@ -3,13 +3,17 @@
 (define-shader-entity layer (sized-entity resizable ephemeral)
   ((vertex-array :initform (// 'trial 'fullscreen-square) :accessor vertex-array)
    (tilemap :accessor tilemap)
+   (layer-index :initarg :layer-index :initform 0 :accessor layer-index)
    (albedo :initarg :albedo :initform (asset 'leaf 'debug) :accessor albedo
-            :type asset :documentation "The tileset texture for the chunk.")
+           :type asset :documentation "The tileset texture for the chunk.")
    (absorption :initarg :absorption :initform (asset 'leaf 'debug) :accessor absorption
                :type asset :documentation "The absorption map for the chunk.")
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
   (:inhibit-shaders (shader-entity :fragment-shader)))
+
+(defmethod render :around ((layer layer) pass)
+  )
 
 (defmethod initialize-instance :after ((layer layer) &key pixel-data tile-data)
   (let* ((size (size layer))
@@ -80,7 +84,7 @@
 (defmethod tile ((location vec2) (layer layer))
   (%with-layer-xy (layer location)
     (let ((pos (* 2 (+ x (* y (truncate (vx (size layer))))))))
-      (vec2 (aref (pixel-data layer) pos) (aref layer (1+ pos))))))
+      (vec2 (aref (pixel-data layer) pos) (aref (pixel-data layer) (1+ pos))))))
 
 (defmethod (setf tile) (value (location vec2) (layer layer))
   (%with-layer-xy (layer location)
@@ -189,7 +193,7 @@ void main(){
   //color = apply_lighting(color, vec2(0), 1-absor);
 }")
 
-(define-shader-entity chunk (layer)
+(define-shader-entity chunk (layer solid)
   ((size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles.")
    (layers :accessor layers)
@@ -197,16 +201,29 @@ void main(){
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data)))
 
-(defmethod initialize-instance :after ((chunk chunk) &key (layers +layer-count+) tile-data)
-  (let* ((size (size chunk)))
-    (when (integerp layers)
-      (setf layers (loop repeat layers collect NIL)))
-    (setf (layers chunk) (map 'vector (lambda (d) (make-instance 'layer :size size :tile-data tile-data :pixel-data d)) layers))
+(defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
+  (let* ((size (size chunk))
+         (layers (loop for i from 0
+                       for data in layers
+                       collect (make-instance 'layer :size size
+                                                     :location (location chunk)
+                                                     :tile-data tile-data
+                                                     :pixel-data data
+                                                     :layer-index i))))
+    (setf (layers chunk) (coerce layers 'vector))
     (setf (node-graph chunk) (make-instance 'node-graph :size size
                                                         :solids (pixel-data chunk)
                                                         :offset (v- (location chunk) (bsize chunk))))
     ;; (compute-shadow-map chunk)
     ))
+
+(defmethod enter :after ((chunk chunk) (container container))
+  (loop for layer across (layers chunk)
+        do (enter layer container)))
+
+(defmethod leave :after ((chunk chunk) (container container))
+  (loop for layer across (layers chunk)
+        do (leave layer container)))
 
 (defmethod register-object-for-pass :after (pass (chunk chunk))
   (register-object-for-pass pass (node-graph chunk)))
@@ -291,6 +308,9 @@ void main(){
   (flet ((local-pos (pos)
            (vfloor (nv+ (v- pos (location chunk)) (bsize chunk)) +tile-size+)))
     (shortest-path (node-graph chunk) (local-pos start) (local-pos goal))))
+
+(defmethod contained-p ((entity located-entity) (chunk chunk))
+  (contained-p (location entity) chunk))
 
 (defmethod contained-p ((location vec2) (chunk chunk))
   (%with-layer-xy (chunk location)

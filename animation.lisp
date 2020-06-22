@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity animated-sprite (trial:animated-sprite sized-entity)
+(define-shader-entity animated-sprite (trial:animated-sprite sized-entity facing-entity)
   ())
 
 (defclass frame (sprite-frame)

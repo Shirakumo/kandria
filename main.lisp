@@ -70,6 +70,7 @@
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
   (enter (make-instance 'render-pass) scene)
+  (print-container-tree scene)
   ;; (let ((shadow (make-instance 'shadow-map-pass))
   ;;       (lighting (make-instance 'lighting-pass))
   ;;       (rendering (make-instance 'rendering-pass)))

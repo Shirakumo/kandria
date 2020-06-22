@@ -7,7 +7,7 @@
    (target-size :initarg :target-size :accessor target-size)
    (target :initarg :target :initform NIL :accessor target)
    (intended-location :initform (vec2 0 0) :accessor intended-location)
-   (surface :initform NIL :accessor surface)
+   (region :initform NIL :accessor region)
    (shake-counter :initform 0 :accessor shake-counter)
    (shake-intensity :initform 3 :accessor shake-intensity))
   (:default-initargs
@@ -16,17 +16,16 @@
 
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit 'player scene))
-  (setf (surface camera) (unit :chunk scene))
   (when (target camera)
     (setf (location camera) (vcopy (location (target camera))))))
 
 (defun clamp-camera-target (camera target)
-  (let ((surface (surface camera)))
-    (when surface
-      (let ((lx (vx2 (location surface)))
-            (ly (vy2 (location surface)))
-            (lw (vx2 (bsize surface)))
-            (lh (vy2 (bsize surface)))
+  (let ((region (region camera)))
+    (when region
+      (let ((lx (vx2 (location region)))
+            (ly (vy2 (location region)))
+            (lw (vx2 (bsize region)))
+            (lh (vy2 (bsize region)))
             (cw (/ (vx2 (target-size camera)) (zoom camera)))
             (ch (/ (vy2 (target-size camera)) (zoom camera))))
         (setf (vx target) (clamp (+ lx cw (- lw))
@@ -56,7 +55,8 @@
         (gamepad:rumble device (if (< 0 (shake-counter camera))
                                    (shake-intensity camera)
                                    0)))
-      (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera))))))
+      (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera))))
+    (project-view camera)))
 
 (defmethod (setf zoom) :after (zoom (camera camera))
   (setf (view-scale camera) (* (float (/ (width *context*) (* 2 (vx (target-size camera)))))
@@ -68,7 +68,7 @@
   (clamp-camera-target camera (location camera)))
 
 (defmethod (setf target) :after ((target game-entity) (camera camera))
-  (setf (surface camera) (surface target)))
+  (setf (region camera) (find-containing target (region +world+))))
 
 (defmethod handle ((ev resize) (camera camera))
   (setf (view-scale camera) (* (float (/ (width ev) (* 2 (vx (target-size camera)))))
@@ -76,7 +76,7 @@
   (setf (vy (target-size camera)) (/ (height ev) (view-scale camera) 2)))
 
 (defmethod handle ((ev switch-chunk) (camera camera))
-  (setf (surface camera) (slot-value ev 'chunk)))
+  (setf (region camera) (slot-value ev 'chunk)))
 
 (defmethod project-view ((camera camera))
   (let* ((z (view-scale camera))

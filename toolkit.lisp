@@ -2,8 +2,7 @@
 
 (define-global +tile-size+ 16)
 (define-global +layer-count+ 6)
-(define-global +base-layer+ 3)
-(define-global +solid-layer+ 0)
+(define-global +base-layer+ 2)
 (define-global +tiles-in-view+ (vec2 40 26))
 (define-global +world+ NIL)
 
@@ -223,13 +222,13 @@
 (defmethod collides-p (object (target solid) hit) T)
 
 (defmethod scan-collision (target region)
-  (scan target region (type-tester 'solid)))
+  (scan target region (lambda (hit) (unless (typep (hit-object hit) 'solid) T))))
 
 ;; Handle common collision operations. Uses SCAN-COLLISION to find the closest
 ;; valid HIT, then invokes COLLIDE using that hit, if any. Returns the closest
 ;; HIT, if any.
 (defun handle-collisions (target object)
-  (let ((hit (scan-collision target region)))
+  (let ((hit (scan-collision target object)))
     (when hit
       (collide object (hit-object hit) hit)
       hit)))
@@ -254,6 +253,12 @@
 
 (defmethod contained-p (thing target)
   (scan target thing (constantly T)))
+
+(defun find-containing (thing container)
+  (for:for ((entity over container))
+    (when (and (typep entity 'chunk)
+               (contained-p thing entity))
+      (return entity))))
 
 (defmethod clone (thing)
   thing)

@@ -3,7 +3,7 @@
 (define-global +max-stun+ 3d0)
 (define-global +hard-hit+ 20)
 
-(define-shader-entity animatable (movable lit-animated-sprite)
+(define-shader-entity animatable (movable animated-sprite)
   ((health :initarg :health :initform 1000 :accessor health)
    (start-acc :initform (vec2 0 0) :accessor start-acc)
    (stun-time :initform 0d0 :accessor stun-time)))
@@ -43,7 +43,7 @@
 (defmethod switch-animation :before ((animatable animatable) next)
   ;; Remove selves when death animation completes
   (when (eql (name (animation animatable)) 'die)
-    (leave animatable (surface animatable))))
+    (leave animatable (container animatable))))
 
 (defmethod interrupt ((animatable animatable))
   (when (interruptable-p (frame animatable))
