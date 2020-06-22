@@ -159,13 +159,11 @@
 (defclass insert-entity () ((entity :initarg :entity :initform (alloy:arg! :entity) :accessor entity)))
 
 (defmethod edit ((action insert-entity) (editor editor))
+  ;; FIXME: This will not work anymore.
   (let ((entity (entity action)))
     (register-object-for-pass +world+ entity)
     (transition entity +world+)
-    (if (typep entity 'chunk)
-        (enter entity (unit 'region T))
-        ;; FIXME: This is not great.
-        (enter entity (surface (unit 'player T))))
+    (enter entity (unit 'region T))
     (when (typep entity 'located-entity)
       (setf (location entity) (vcopy (location (unit :camera T)))))
     (setf (entity editor) entity)

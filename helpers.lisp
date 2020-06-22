@@ -46,7 +46,7 @@
 (defmethod initargs append ((_ facing-entity))
   '(:direction))
 
-(defmethod apply-transforms :around ((obj facing-entity))
+(defmethod apply-transforms progn ((obj facing-entity))
   (scale-by (direction obj) 1 1))
 
 (defclass sized-entity (located-entity)
@@ -90,7 +90,7 @@
                                 (< dist best-dist)))
                    (setf best-hit hit best-dist dist))))
              T))
-      (scan target region #'on-find)
+      (scan target entity #'on-find)
       best-hit)))
 
 (define-shader-entity sprite-entity (trial:sprite-entity sized-entity facing-entity)
@@ -112,7 +112,7 @@
 (defmethod (setf bsize) :after (value (sprite sprite-entity))
   (setf (size sprite) (v* value 2)))
 
-(defmethod apply-transforms ((sprite sprite-entity))
+(defmethod apply-transforms progn ((sprite sprite-entity))
   (let ((size (v* 2 (bsize sprite))))
     (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
     (scale (vxy_ size))))
@@ -125,16 +125,9 @@
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity
              :type vec2 :documentation "The velocity of the entity.")
    (state :initform :normal :accessor state
-          :type symbol :documentation "The current state of the entity.")
-   (surface :initform NIL :accessor surface)))
+          :type symbol :documentation "The current state of the entity.")))
 
-(defmethod layer-index ((_ game-entity)) 2)
-
-(defmethod enter :after ((entity game-entity) (container container))
-  (setf (surface entity) container))
-
-(defmethod leave :after ((entity game-entity) (container container))
-  (setf (surface entity) NIL))
+(defmethod layer-index ((_ game-entity)) +base-layer+)
 
 (defmethod scan ((entity sized-entity) (target game-entity) on-hit)
   (let ((hit (aabb (location target) (velocity target)

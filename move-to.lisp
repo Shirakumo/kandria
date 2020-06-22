@@ -263,7 +263,7 @@ void main(){
    (path :initform NIL :accessor path)))
 
 (defmethod path-available-p ((target vec2) (movable movable))
-  (ignore-errors (shortest-path (surface movable)
+  (ignore-errors (shortest-path +world+
                                 (nv+ (v- (location movable)
                                          (bsize movable))
                                      (/ +tile-size+ 2))
@@ -273,7 +273,7 @@ void main(){
   (path-available-p (location target) movable))
 
 (defmethod move-to ((target vec2) (movable movable))
-  (multiple-value-bind (path start) (shortest-path (surface movable)
+  (multiple-value-bind (path start) (shortest-path +world+
                                                    (nv+ (v- (location movable)
                                                             (bsize movable))
                                                         (/ +tile-size+ 2))

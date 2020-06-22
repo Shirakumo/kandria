@@ -102,7 +102,7 @@ void main(){
   color = apply_lighting(color, vec2(0, -5), 0);
 }")
 
-(define-shader-entity lit-animated-sprite (lit-entity animated-sprite facing-entity)
+(define-shader-entity lit-animated-sprite (lit-entity animated-sprite)
   ())
 
 (define-class-shader (lit-animated-sprite :fragment-shader)

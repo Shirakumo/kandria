@@ -91,8 +91,7 @@
 (defmethod dialogue:wrap-lexenv ((_ assembly) form)
   `(with-memo ((world +world+)
                (player (unit 'player +world+))
-               (region (unit 'region +world+))
-               (chunk (surface (unit 'player +world+))))
+               (region (unit 'region +world+)))
      ,form))
 
 (defmethod save-region (region (world world) &rest args)
