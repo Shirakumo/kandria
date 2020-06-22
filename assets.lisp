@@ -1,5 +1,20 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defclass tile-data (multi-resource-asset file-input-asset)
+  ((tile-types :initform () :accessor tile-types)))
+
+(defmethod generate-resources ((data tile-data) (path pathname) &key)
+  (with-leaf-io-syntax
+    (with-open-file (stream path)
+      (destructuring-bind (&key albedo absorption tile-types) (read stream)
+        (setf (tile-types data) tile-types)
+        (generate-resources 'image-loader (merge-pathnames albedo path)
+                            :resource (resource data 'albedo))
+        (generate-resources 'image-loader (merge-pathnames absorption path)
+                            :resource (resource data 'absorption))
+        (list (resource data 'albedo)
+              (resource data 'absorption))))))
+
 (defmacro define-sprite (name path &body args)
   `(define-asset (leaf ,name) image
        ,path
@@ -10,33 +25,17 @@
 (define-sprite lights
   #p"lights.png")
 
-(define-sprite ice
-  #p"ice.png")
-
-(define-sprite icey-mountains
-  #p "icey-mountains.png")
-
-(define-sprite tundra
-  #p"tundra.png")
-
 (define-sprite tundra-bg
   #p"tundra-bg.png")
-
-(define-sprite tundra-absorption
-  #p"tundra-absorption.png"
-  :internal-format :red)
-
-(define-sprite debug
-  #p"debug.png")
-
-(define-sprite debug-bg
-  #p"debug-bg.png")
-
-(define-sprite debug-absorption
-  #p"debug-absorption.png")
 
 (define-asset (leaf player) sprite-data
     #p"player.lisp")
 
 (define-asset (leaf wolf) sprite-data
     #p"wolf.lisp")
+
+(define-asset (leaf tundra) tile-data
+    #p"tundra.lisp")
+ 
+(define-asset (leaf debug) tile-data
+    #p"debug.lisp")

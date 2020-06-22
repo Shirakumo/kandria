@@ -70,34 +70,30 @@
   `(,(type-of movable) :location ,(encode (location movable))))
 
 (define-decoder (chunk world-v0) (initargs packet)
-  (destructuring-bind (&key name location size tileset layers children) initargs
-    (let ((chunk (make-instance 'chunk :name name
-                                       :location (decode 'vec2 location)
-                                       :size (decode 'vec2 size)
-                                ;; FIXME: this, and the tile type info, should be encoded in a custom asset.
-                                       :tileset (decode 'resource tileset)
-                                       :absorption-map (similar-asset (decode 'asset tileset) '-absorption)
-                                       :layers (loop for file in layers
-                                                     collect (packet-entry file packet)))))
-      (loop for (type . initargs) in children
-            do (enter (decode type initargs) chunk))
-      chunk)))
+  (destructuring-bind (&key name location size tile-data pixel-data layers) initargs
+    (make-instance 'chunk :name name
+                          :location (decode 'vec2 location)
+                          :size (decode 'vec2 size)
+                          :tile-data (decode 'asset tile-data)
+                          :pixel-data (packet-entry pixel-data packet)
+                          :layers (loop for file in layers
+                                        collect (packet-entry file packet)))))
 
 (define-encoder (chunk world-v0) (_b packet)
   (let ((layers (loop for i from 0
                       for layer across (layers chunk)
                       ;; KLUDGE: no png saving lib handy. Hope ZIP compression is Good Enough
                       for path = (format NIL "data/~a-~d.raw" (name chunk) i)
-                      do (setf (packet-entry path packet) layer)
+                      do (setf (packet-entry path packet) (pixel-data layer))
                       collect path))
-        (children (for:for ((entity over chunk)
-                            (_ collect (encode entity))))))
+        (pixel-data (format NIL "data/~a.raw" (name chunk))))
+    (setf (packet-entry pixel-data packet) (pixel-data layer))
     `(chunk :name ,(name chunk)
             :location ,(encode (location chunk))
             :size ,(encode (size chunk))
-            :tileset ,(encode (tileset chunk))
-            :layers ,layers
-            :children ,children)))
+            :tile-data ,(encode (tile-data chunk))
+            :pixel-data ,(encode pixel-data)
+            :layers ,layers)))
 
 (define-decoder (background world-v0) (initargs _)
   (destructuring-bind (&key texture) initargs

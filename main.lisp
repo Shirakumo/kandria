@@ -4,8 +4,7 @@
                 #-steam org.shirakumo.fraf.trial:main)
   ((scene :initform NIL)
    (state :accessor state)
-   (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave)
-   #-steam (app-id :initarg :app-id))
+   (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave))
   (:default-initargs :clear-color (vec 2/17 2/17 2/17 0)
                      :title #.(format NIL "Kandria - ~a" (asdf:component-version (asdf:find-system "leaf")))
                      :width 1280
@@ -18,7 +17,8 @@
   (uiop:copy-file (asdf:system-relative-pathname :leaf "README.mess")
                   (make-pathname :name "README" :type "mess" :defaults directory)))
 
-(defmethod initialize-instance ((main main) &key state)
+(defmethod initialize-instance ((main main) &key state app-id)
+  (declare (ignore app-id))
   (call-next-method)
   ;; FIXME: This won't work deployed.
   (with-packet (packet (pathname-utils:parent (base (find-pool 'leaf))) :direction :input)

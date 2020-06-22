@@ -38,7 +38,7 @@
         (name asset)))
 
 (define-decoder (resource v0) (data _p)
-  (destructuring-bind (pool name &optional id) data
+  (destructuring-bind (pool name &optional (id T)) data
     (// pool name id)))
 
 (define-encoder (resource v0) (_b _p)
