@@ -1,8 +1,5 @@
-# About Leaf
+# About Kandria
 This is a game project.
-
-## Public Feedback
-Changes that are realised thanks to public feedback will be noted in the "CHANGES.mess"(link CHANGES.mess) file.
 
 ## Controls
 You can use a keyboard or a gamepad to control the game. The standard key / button bindings are as follows:
@@ -27,3 +24,15 @@ You can use a keyboard or a gamepad to control the game. The standard key / butt
   Quick load
 - \~ / §
   Toggle editor
+
+## Minimum Requirements
+In order to play Kandria you need an x86-64 Windows, Linux, or macOS system with at least 1GB RAM and a video driver capable of OpenGL 3.3 or higher.
+
+Due to a known bug, the game currently does not run properly on AMD graphics cards on Windows. Any other system and video card combination should work, however.
+
+## Reporting Problems and Feedback
+If you encounter a problem with Kandria, first of all, apologies! The best way to report the problem is to reply to the email you got the download link from and attach the ``trial.log`` file that should be in the game directory after you've launched the game. Please also describe what you did and observed to get a better idea of the circumstances.
+
+If you have feedback about the game itself or encountered weird bugs or glitches while playing, please let me know about that as well! An email would be much appreciated.
+
+Changes that are realised thanks to public feedback like this will be noted in the "CHANGES.mess"(link CHANGES.mess) file.
