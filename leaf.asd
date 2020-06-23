@@ -1,9 +1,11 @@
 (asdf:defsystem leaf
-  :version "0.0.1"
+  :version "0.0.2"
   :build-operation "deploy-op"
   :build-pathname #+linux "kandria-linux.run"
                   #+darwin "kandria-macos"
-                  #-(or linux darwin) "kandria-windows"
+                  #+win32 "kandria-windows"
+                  #+(and bsd (not darwin)) "kandria-bsd.run"
+                  #-(or linux bsd win32) "kandria"
   :entry-point "org.shirakumo.fraf.leaf:launch"
   :components ((:file "package")
                (:file "toolkit")
