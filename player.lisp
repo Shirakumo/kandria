@@ -34,15 +34,6 @@
 
 (defmethod resize ((player player) w h))
 
-(define-class-shader (player :vertex-shader)
-  "layout (location = 0) in vec3 vertex;
-out vec2 world_pos;
-uniform mat4 model_matrix;
-
-void main(){
-  world_pos = (model_matrix * vec4(vertex, 1)).xy;
-}")
-
 (defmethod handle ((ev interact) (player player))
   (when (interactable player)
     (issue +world+ 'interaction :with (interactable player))))

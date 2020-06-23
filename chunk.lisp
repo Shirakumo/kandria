@@ -12,9 +12,6 @@
          :type vec2 :documentation "The size of the chunk in tiles."))
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
-(defmethod render :around ((layer layer) pass)
-  )
-
 (defmethod initialize-instance :after ((layer layer) &key pixel-data tile-data)
   (let* ((size (size layer))
          (data (or pixel-data

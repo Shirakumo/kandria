@@ -35,10 +35,10 @@
                                  (vy target)
                                  (+ ly (- ch) lh)))))))
 
-(defmethod handle ((ev tick) (camera camera))
+(defmethod handle :before ((ev tick) (camera camera))
   (let ((loc (location camera))
         (int (intended-location camera)))
-    (unless (active-p (unit :editor T))
+    (unless (and (unit :editor T) (active-p (unit :editor T)))
       (when (target camera)
         (let ((tar (location (target camera))))
           (vsetf int (vx tar) (vy tar))
@@ -55,8 +55,7 @@
         (gamepad:rumble device (if (< 0 (shake-counter camera))
                                    (shake-intensity camera)
                                    0)))
-      (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera))))
-    (project-view camera)))
+      (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera))))))
 
 (defmethod (setf zoom) :after (zoom (camera camera))
   (setf (view-scale camera) (* (float (/ (width *context*) (* 2 (vx (target-size camera)))))
@@ -70,7 +69,7 @@
 (defmethod (setf target) :after ((target game-entity) (camera camera))
   (setf (region camera) (find-containing target (region +world+))))
 
-(defmethod handle ((ev resize) (camera camera))
+(defmethod handle :before ((ev resize) (camera camera))
   (setf (view-scale camera) (* (float (/ (width ev) (* 2 (vx (target-size camera)))))
                                (zoom camera)))
   (setf (vy (target-size camera)) (/ (height ev) (view-scale camera) 2)))
