@@ -67,7 +67,7 @@
       (setf (show-overlay controller) NIL #++(not (active-p editor))))))
 
 (defmethod setup-scene ((main main) scene)
-  (enter (make-instance 'inactive-editor) scene)
+  ;;(enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
   (enter (make-instance 'render-pass) scene)
   (print-container-tree scene)
@@ -77,4 +77,7 @@
   ;;   (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
   ;;   (connect (port lighting 'color) (port rendering 'lighting) scene))
   )
+
+;;(observe (lambda (e) (location (unit 'player T))) :title :player)
+;;(observe (lambda (e) (location (unit :camera T))) :title :camera)
 
