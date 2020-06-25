@@ -3,7 +3,7 @@
 (defclass editor-ui (ui)
   ())
 
-(defclass base-editor (alloy:observable-object trial:entity listener)
+(defclass base-editor (alloy:observable-object renderable trial:entity listener)
   ((flare:name :initform :editor)
    (marker :initform (make-instance 'trial::lines) :accessor marker)
    (ui :initform (make-instance 'editor-ui) :accessor ui)
@@ -14,6 +14,9 @@
    (history :initform (make-instance 'linear-history) :accessor history)))
 
 (alloy:define-observable (setf entity) (entity alloy:observable))
+
+(defmethod register-object-for-pass (pass (editor base-editor))
+  (register-object-for-pass pass (maybe-finalize-inheritance 'trial::lines)))
 
 (defmethod compute-resources :after ((editor base-editor) resources readying traversal)
   (vector-push-extend (ui editor) resources))
@@ -36,17 +39,12 @@
     (alloy:enter entity focus)
     (alloy:register ui ui)))
 
-(defmethod register-object-for-pass :after ((pass per-object-pass) (editor base-editor))
-  (register-object-for-pass pass (maybe-finalize-inheritance 'editor))
-  (register-object-for-pass pass (maybe-finalize-inheritance 'chunk-editor))
-  (register-object-for-pass pass (maybe-finalize-inheritance 'trial::lines)))
-
 (defmethod update-instance-for-different-class :after (previous (editor base-editor) &key)
   (reinitialize-instance (toolbar editor) :editor editor :entity (entity editor))
   (setf (tool editor) (make-instance (default-tool editor) :editor editor)))
 
 (defmethod (setf active-p) (value (editor base-editor))
-  (with-buffer-tx (light (asset 'leaf 'light-info))
+  (with-buffer-tx (light (// 'leaf 'light-info))
     (setf (active-p light) (if value 0 1)))
   (cond (value
          (pause-game T editor)
@@ -69,6 +67,12 @@
 
 (defmethod redo ((editor base-editor) region)
   (redo (history editor) region))
+
+(defmethod stage ((editor base-editor) (area staging-area))
+  (stage (ui editor) area)
+  (stage (marker editor) area))
+
+(defmethod render ((editor base-editor) target))
 
 (defmethod handle ((event event) (editor base-editor)))
 

@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity layer (sized-entity resizable ephemeral)
+(define-shader-entity layer (lit-entity sized-entity resizable ephemeral)
   ((vertex-array :initform (// 'trial 'fullscreen-square) :accessor vertex-array)
    (tilemap :accessor tilemap)
    (layer-index :initarg :layer-index :initform 0 :accessor layer-index)
@@ -186,16 +186,17 @@ void main(){
   uvec2 tile = texelFetch(tilemap, tile_xy, 0).rg;
   tile_xy = ivec2(tile)*tile_size+pixel_xy;
   color = texelFetch(albedo, tile_xy, 0);
-  //float absor = texelFetch(absorption, tile_xy, 0).r;
-  //color = apply_lighting(color, vec2(0), 1-absor);
+  float absor = texelFetch(absorption, tile_xy, 0).r;
+  color = apply_lighting(color, vec2(0), 1-absor);
 }")
 
-(define-shader-entity chunk (layer solid)
+(define-shader-entity chunk (layer solid shadow-caster)
   ((size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles.")
    (layers :accessor layers)
    (node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
+   (shadow-caster :initform (make-instance 'shadow-caster) :accessor shadow-caster)
    (tile-data :initarg :tile-data :accessor tile-data)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
@@ -211,8 +212,7 @@ void main(){
     (setf (node-graph chunk) (make-instance 'node-graph :size size
                                                         :solids (pixel-data chunk)
                                                         :offset (v- (location chunk) (bsize chunk))))
-    ;; (compute-shadow-map chunk)
-    ))
+    (compute-shadow-geometry chunk T)))
 
 (defmethod enter :after ((chunk chunk) (container container))
   (loop for layer across (layers chunk)
@@ -257,11 +257,10 @@ void main(){
                   width height x y (tile-types (tile-data chunk)))
       (update-layer (aref (layers chunk) z)))))
 
-(defmethod compute-shadow-map ((chunk chunk))
+(defmethod compute-shadow-geometry ((chunk chunk) (vbo vertex-buffer))
   (let* ((w (truncate (vx (size chunk))))
          (h (truncate (vy (size chunk))))
          (layer (pixel-data chunk))
-         (vbo (caar (bindings (shadow-geometry chunk))))
          (data (buffer-data vbo)))
     (flet ((sfaref (x y)
              (if (and (<= 0 x (1- w))
@@ -276,30 +275,28 @@ void main(){
                             (* (- y (/ h 2)) +tile-size+))))
               (cond ((and (= 1 (sfaref (1+ x) y))
                           (= 1 (sfaref (1- x) y)))
-                     (add-shadow-line chunk loc (v+ loc (vec +tile-size+ 0)))
-                     (add-shadow-line chunk (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+))))
+                     (add-shadow-line vbo loc (v+ loc (vec +tile-size+ 0)))
+                     (add-shadow-line vbo (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+))))
                     ((and (= 1 (sfaref x (1+ y)))
                           (= 1 (sfaref x (1- y))))
-                     (add-shadow-line chunk loc (v+ loc (vec 0 +tile-size+)))
-                     (add-shadow-line chunk (v+ loc (vec +tile-size+ 0)) (v+ loc (vec +tile-size+ +tile-size+))))
+                     (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+)))
+                     (add-shadow-line vbo (v+ loc (vec +tile-size+ 0)) (v+ loc (vec +tile-size+ +tile-size+))))
                     ((and (= 1 (sfaref (1+ x) y))
                           (= 1 (sfaref x (1- y))))
-                     (add-shadow-line chunk (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+)))
-                     (add-shadow-line chunk loc (v+ loc (vec 0 +tile-size+))))
+                     (add-shadow-line vbo (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+)))
+                     (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+))))
                     ((and (= 1 (sfaref (1- x) y))
                           (= 1 (sfaref x (1- y))))
-                     (add-shadow-line chunk (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+)))
-                     (add-shadow-line chunk (v+ loc (vec +tile-size+ 0)) (v+ loc (vec +tile-size+ +tile-size+))))
+                     (add-shadow-line vbo (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+)))
+                     (add-shadow-line vbo (v+ loc (vec +tile-size+ 0)) (v+ loc (vec +tile-size+ +tile-size+))))
                     ((and (= 1 (sfaref (1+ x) y))
                           (= 1 (sfaref x (1+ y))))
-                     (add-shadow-line chunk loc (v+ loc (vec +tile-size+ 0)))
-                     (add-shadow-line chunk loc (v+ loc (vec 0 +tile-size+))))
+                     (add-shadow-line vbo loc (v+ loc (vec +tile-size+ 0)))
+                     (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+))))
                     ((and (= 1 (sfaref (1- x) y))
                           (= 1 (sfaref x (1+ y))))
-                     (add-shadow-line chunk loc (v+ loc (vec +tile-size+ 0)))
-                     (add-shadow-line chunk loc (v+ loc (vec 0 +tile-size+)))))))))
-      (when (allocated-p vbo)
-        (resize-buffer vbo (* (length data) 4) :data data)))))
+                     (add-shadow-line vbo loc (v+ loc (vec +tile-size+ 0)))
+                     (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+))))))))))))
 
 (defmethod shortest-path ((chunk chunk) start goal)
   (flet ((local-pos (pos)

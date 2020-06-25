@@ -49,12 +49,12 @@
     (handle event (cond ((retained 'modifiers :alt) (alt-tool editor))
                         (T (tool editor))))))
 
-(defmethod paint ((editor editor) (target rendering-pass))
-  (gl:blend-func :one-minus-dst-color :zero)
-  (update-marker editor)
-  (paint (marker editor) target)
-  (gl:blend-func :src-alpha :one-minus-src-alpha)
-  (paint (ui editor) target))
+(defmethod render ((editor editor) target)
+  ;; (gl:blend-func :one-minus-dst-color :zero)
+  ;; (update-marker editor)
+  ;; (render (marker editor) target)
+  ;; (gl:blend-func :src-alpha :one-minus-src-alpha)
+  (render (ui editor) target))
 
 (defmethod alloy:handle ((event alloy:key-up) (ui editor-ui))
   (restart-case (call-next-method)
