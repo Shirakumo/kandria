@@ -3,6 +3,8 @@
 (defstruct (block (:constructor make-block (s)))
   (s 0 :type (unsigned-byte 16)))
 
+(defmethod collides-p ((block block) (entity game-entity) hit) T)
+
 (defstruct (ground (:include block)
                    (:constructor make-ground (s))))
 
