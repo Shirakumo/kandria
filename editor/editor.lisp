@@ -50,10 +50,10 @@
                         (T (tool editor))))))
 
 (defmethod render ((editor editor) target)
-  ;; (gl:blend-func :one-minus-dst-color :zero)
-  ;; (update-marker editor)
-  ;; (render (marker editor) target)
-  ;; (gl:blend-func :src-alpha :one-minus-src-alpha)
+  (gl:blend-func :one-minus-dst-color :zero)
+  (update-marker editor)
+  (render (marker editor) target)
+  (gl:blend-func :src-alpha :one-minus-src-alpha)
   (render (ui editor) target))
 
 (defmethod alloy:handle ((event alloy:key-up) (ui editor-ui))
@@ -159,12 +159,9 @@
 (defclass insert-entity () ((entity :initarg :entity :initform (alloy:arg! :entity) :accessor entity)))
 
 (defmethod edit ((action insert-entity) (editor editor))
-  ;; FIXME: This will not work anymore.
   (let ((entity (entity action)))
-    (register-object-for-pass +world+ entity)
-    (transition entity +world+)
-    (enter entity (unit 'region T))
     (when (typep entity 'located-entity)
       (setf (location entity) (vcopy (location (unit :camera T)))))
+    (enter-and-load entity (unit 'region T) (handler *context*))
     (setf (entity editor) entity)
     (setf (tool editor) (make-instance 'freeform :editor editor))))
