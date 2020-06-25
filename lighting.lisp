@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-pass lighting-pass (per-object-pass hdr-output-pass)
+(define-shader-pass lighting-pass (scene-pass per-object-pass hdr-output-pass)
   ())
 
 (defmethod handle ((ev trial:tick) (pass lighting-pass))
@@ -10,12 +10,12 @@
 (defmethod handle ((ev switch-chunk) (pass lighting-pass))
   ;; FIXME: Actually apply chunk lighting settings
   ;;        Probably even gonna have to tween between them
-  (with-buffer-tx (light (asset 'leaf 'light-info))
+  (with-buffer-tx (light (// 'leaf 'light-info))
     (setf (active-p light) 1)))
 
 (defun update-lighting (hour)
   (let ((tt (* (/ hour 24) 2 PI)))
-    (with-buffer-tx (light (asset 'leaf 'light-info))
+    (with-buffer-tx (light (// 'leaf 'light-info))
       (setf (sun-position light) (vec2 (* -10000 (sin tt)) (* 10000 (- (cos tt)))))
       (setf (sun-light light) (v* (clock-color (/ (* tt 180) PI 15)) 10))
       (setf (ambient-light light) (v* (sun-light light) 0.2)))))
@@ -23,40 +23,28 @@
 (define-shader-entity light (vertex-entity sized-entity)
   ())
 
-(defmethod register-object-for-pass ((pass lighting-pass) (entity shader-entity))
-  (when (typep entity 'light)
-    (call-next-method)))
-
-(defmethod paint-with ((pass lighting-pass) (entity shader-entity))
-  (when (typep entity 'light)
-    (call-next-method)))
-
-(defmethod paint :around ((entity shader-entity) (pass lighting-pass))
-  (when (typep entity 'light)
-    (call-next-method)))
+(defmethod object-renderable-p ((light light) (pass lighting-pass)) T)
+(defmethod object-renderable-p ((renderable renderable) (pass lighting-pass)) NIL)
 
 (define-shader-pass rendering-pass (render-pass)
   ((lighting :port-type input :texspec (:internal-format :rgba16f))
    (local-shade :initform 0.15 :accessor local-shade)
    (shadow-map :port-type input)))
 
-(defmethod register-object-for-pass ((pass rendering-pass) (light light)))
-(defmethod paint-with ((pass rendering-pass) (light light)))
-(defmethod paint :around ((light light) (pass rendering-pass)))
-
-(defmethod paint-with :before ((pass rendering-pass) (world scene))
-  (if (= 1 (active-p (struct (asset 'leaf 'light-info))))
-      (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
-             (shade (local-shade pass))
-             (exposure (* 1.5 shade))
-             (gamma (* 2.5 shade)))
-        (let* ((dir (- target shade))
-               (ease (/ (expt (abs dir) 1.1) 30)))
-          (incf (local-shade pass) (* ease (signum dir))))
-        (setf (uniforms pass) `(("exposure" ,(clamp 0f0 exposure 10f0))
-                                ("gamma" ,(clamp 1f0 gamma 3f0)))))
-      (setf (uniforms pass) `(("exposure" 0.5)
-                              ("gamma" 2.2)))))
+;; FIXME: This is broken now.
+;; (defmethod render :before ((pass rendering-pass) target)
+;;   (if (= 1 (active-p (struct (asset 'leaf 'light-info))))
+;;       (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
+;;              (shade (local-shade pass))
+;;              (exposure (* 1.5 shade))
+;;              (gamma (* 2.5 shade)))
+;;         (let* ((dir (- target shade))
+;;                (ease (/ (expt (abs dir) 1.1) 30)))
+;;           (incf (local-shade pass) (* ease (signum dir))))
+;;         (setf (uniforms pass) `(("exposure" ,(clamp 0f0 exposure 10f0))
+;;                                 ("gamma" ,(clamp 1f0 gamma 3f0)))))
+;;       (setf (uniforms pass) `(("exposure" 0.5)
+;;                               ("gamma" 2.2)))))
 
 (define-class-shader (rendering-pass :fragment-shader -100)
   "out vec4 color;
@@ -73,7 +61,6 @@ void main(){
   (:buffers (leaf light-info)))
 
 (define-class-shader (lit-entity :fragment-shader 100)
-  ;; FIXME: This is broken now.
   (gl-source (asset 'leaf 'light-info))
   "uniform sampler2D lighting;
 uniform sampler2D shadow_map;
@@ -172,8 +159,8 @@ void main(){
   ((multiplier :initform 1.0f0 :initarg :multiplier :accessor multiplier
                :type single-float :documentation "Light intensity multiplier")))
 
-(defmethod paint :before ((light textured-light) (pass lighting-pass))
-  (setf (uniform (shader-program-for-pass pass light) "multiplier") (multiplier light)))
+(defmethod render :before ((light textured-light) (program shader-program))
+  (setf (uniform program "multiplier") (multiplier light)))
 
 (defmethod resize ((sprite sprite-entity) width height)
   (vsetf (bsize sprite) (/ width 2) (/ height 2)))

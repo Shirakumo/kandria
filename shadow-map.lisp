@@ -9,22 +9,20 @@
 (define-asset (leaf light-info) uniform-block
     'light-info)
 
-(define-shader-entity shadow-caster (located-entity)
-  ((shadow-geometry :accessor shadow-geometry)))
+(define-shader-entity shadow-geometry (vertex-entity)
+  ())
 
-(defmethod initialize-instance :after ((caster shadow-caster) &key data)
+(defmethod initialize-instance :after ((caster shadow-geometry) &key data)
   (let* ((data (make-array (length data) :adjustable T :fill-pointer T :element-type 'single-float
                                          :initial-contents data))
          (vbo (make-instance 'vertex-buffer :data-usage :dynamic-draw :buffer-data data))
          (vao (make-instance 'vertex-array :vertex-form :triangles
                                            :bindings `((,vbo :size 2 :offset 0 :stride 8))
                                            :size (/ (length data) 2))))
-    (setf (shadow-geometry caster) vao)))
+    (setf (vertex-array caster) vao)))
 
-(defmethod add-shadow-line ((caster shadow-caster) a b)
-  (let* ((vao (shadow-geometry caster))
-         (vbo (caar (bindings vao)))
-         (data (buffer-data vbo)))
+(defmethod add-shadow-line ((vbo vertex-buffer) a b)
+  (let* ((data (buffer-data vbo)))
     ;; Vertices arranged in the following manner, such that
     ;; bottom vertices that should be moved are always at an
     ;; even modulus, for easy testing in the vertex shader.
@@ -41,16 +39,43 @@
     (vector-push-extend (vx b) data)
     (vector-push-extend (vy b) data)
     (vector-push-extend (vx a) data)
-    (vector-push-extend (vy a) data)
-    (setf (size vao) (/ (length data) 2))))
+    (vector-push-extend (vy a) data)))
 
-(define-shader-pass shadow-map-pass (single-shader-pass)
+(defclass shadow-caster ()
+  ((shadow-geometry :initform (make-instance 'shadow-geometry) :accessor shadow-geometry)))
+
+(defmethod stage :after ((caster shadow-caster) (area staging-area))
+  (stage (shadow-geometry caster) area))
+
+(defgeneric compute-shadow-geometry (caster geometry))
+
+(defmethod compute-shadow-geometry ((caster shadow-caster) (_ (eql T)))
+  (compute-shadow-geometry caster (shadow-geometry caster)))
+
+(defmethod compute-shadow-geometry ((caster shadow-caster) (geometry shadow-geometry))
+  (compute-shadow-geometry caster (caar (bindings (vertex-array geometry)))))
+
+(defmethod compute-shadow-geometry :after (caster (vbo vertex-buffer))
+  (when (allocated-p vbo)
+    (resize-buffer vbo (* 4 (length (buffer-data vbo))) :data (buffer-data vbo))))
+
+(defmethod compute-shadow-geometry :after (caster (geometry shadow-geometry))
+  (setf (size (vertex-array geometry))
+        (/ (length (buffer-data (caar (bindings (vertex-array geometry))))) 2)))
+
+(define-shader-pass shadow-map-pass (single-shader-scene-pass)
   ((shadow-map :port-type output :texspec (:internal-format :r8))
    (local-shade :initform 0.0 :accessor local-shade))
   (:buffers (leaf light-info)))
 
-(defmethod paint-with :after ((pass shadow-map-pass) (world scene))
-  (let ((player (unit 'player world)))
+(defmethod object-renderable-p ((object renderable) (pass shadow-map-pass)) NIL)
+(defmethod object-renderable-p ((object shadow-geometry) (pass shadow-map-pass)) T)
+
+(defmethod compile-to-pass ((caster shadow-caster) (pass shadow-map-pass))
+  (compile-to-pass (shadow-geometry caster) pass))
+
+(defmethod render :after ((pass shadow-map-pass) target)
+  (let ((player (unit 'player T)))
     (when player
       (let* ((pos (m* (projection-matrix) (view-matrix) (vec (vx (location player)) (+ (vy (location player)) 8) 0 1)))
              (px (nv/ (nv+ pos 1) 2)))
@@ -60,24 +85,7 @@
                            1 1 :red :unsigned-byte pixel)
           (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 128.0)))))))
 
-;; KLUDGE: This sucks man.
-(defmethod paint :around ((thing shader-entity) (target shadow-map-pass)))
-
-(defmethod paint :around ((subject shadow-caster) (pass shadow-map-pass))
-  (let ((program (shader-program-for-pass pass subject))
-        (vao (shadow-geometry subject)))
-    (with-pushed-matrix (model-matrix)
-      (translate-by (vx (location subject)) (vy (location subject)) 0)
-      (setf (uniform program "model_matrix") (model-matrix))
-      (setf (uniform program "view_matrix") (view-matrix))
-      (setf (uniform program "projection_matrix") (projection-matrix))
-      (gl:bind-vertex-array (gl-name vao))
-      (unwind-protect
-           (gl:draw-arrays (vertex-form vao) 0 (size vao))
-        (gl:bind-vertex-array 0)))))
-
 (define-class-shader (shadow-map-pass :vertex-shader)
-  ;; FIXME: This is broken now.
   (gl-source (asset 'leaf 'light-info))
   "layout(location = 0) in vec2 vertex_position;
 
