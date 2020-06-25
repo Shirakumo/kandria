@@ -5,6 +5,7 @@
    (acceleration :initform (vec2 0 0) :accessor acceleration)))
 
 (defmethod handle ((ev tick) (moving moving))
+  (when (next-method-p) (call-next-method))
   (let ((loc (location moving))
         (vel (velocity moving))
         (size (bsize moving))
@@ -12,7 +13,8 @@
     ;; Scan for hits
     (fill collisions NIL)
     (loop repeat 10
-          while (handle-collisions +world+ moving)
+          do (unless (handle-collisions +world+ moving)
+               (return))
              ;; KLUDGE: If we have too many collisions in a frame, we assume
              ;;         we're stuck somewhere, so just die.
           finally (die moving))

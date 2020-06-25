@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-shader-entity animated-sprite (trial:animated-sprite sized-entity facing-entity)
+(define-shader-entity animated-sprite (trial:animated-sprite facing-entity sized-entity)
   ())
 
 (defclass frame (sprite-frame)
@@ -65,6 +65,9 @@
           (+ (vy location) (vy hurtbox))
           (vz hurtbox)
           (vw hurtbox))))
+
+(defmethod render :before ((subject animated-sprite) target)
+  (translate-by 0 (- (vy (bsize subject))) 0))
 
 (defclass sprite-data (trial:sprite-data)
   ((json-file :initform NIL :accessor json-file)))
