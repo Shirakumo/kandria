@@ -10,7 +10,7 @@
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
 (alloy::define-subbutton (editmenu undo) () (edit 'undo T))
 (alloy::define-subbutton (editmenu redo) () (edit 'redo T))
-(alloy:define-subcomponent (editmenu lighting) ((active-p (struct (asset 'leaf 'light-info))) alloy:switch
+(alloy:define-subcomponent (editmenu lighting) ((active-p (struct (// 'leaf 'light-info))) alloy:switch
                                                 :off 0 :on 1 :ideal-bounds (alloy:extent 0 0 50 20)))
 (alloy:define-subcomponent (editmenu time) ((clock +world+) alloy:ranged-slider
                                             :range `(0 . 24)
@@ -29,7 +29,7 @@
 
 (defmethod initialize-instance :after ((menu editmenu) &key)
   (alloy:on (setf alloy:value) (value (slot-value menu 'lighting))
-    (update-buffer-data (asset 'leaf 'light-info) T))
+    (update-buffer-data (// 'leaf 'light-info) T))
   (alloy:on (setf alloy:value) (value (slot-value menu 'time))
     (setf (alloy:value (slot-value menu 'lighting)) 1)
     (synchronize +world+ value)

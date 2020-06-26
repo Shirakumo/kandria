@@ -29,7 +29,7 @@
   ())
 
 (defmethod initialize-instance :after ((structure tile-picker) &key widget)
-  (let* ((tileset (tileset (entity widget)))
+  (let* ((tileset (albedo (entity widget)))
          (layout (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 1)
                                                    :col-sizes (loop repeat (/ (width tileset) +tile-size+) collect 18)
                                                    :row-sizes (loop repeat (/ (height tileset) +tile-size+) collect 18)))
@@ -45,20 +45,20 @@
     (alloy:finish-structure structure scroll scroll)))
 
 (alloy:define-widget chunk-widget (sidebar)
-  ((layer :initform +base-layer+ :accessor layer :representation (alloy:ranged-slider :range '(0 . 5) :grid 1))
+  ((layer :initform +base-layer+ :accessor layer :representation (alloy:ranged-slider :range '(0 . 4) :grid 1))
    (tile :initform (vec2 1 0) :accessor tile-to-place)))
 
 (defmethod (setf tile-to-place) :around ((tile vec2) (widget chunk-widget))
-  (let* ((w (/ (width (tileset (entity widget))) +tile-size+))
-         (h (/ (height (tileset (entity widget))) +tile-size+))
+  (let* ((w (/ (width (albedo (entity widget))) +tile-size+))
+         (h (/ (height (albedo (entity widget))) +tile-size+))
          (x (mod (vx tile) w))
          (y (mod (+ (vy tile) (floor (vx tile) w)) h)))
     (call-next-method (vec x y) widget)))
 
 (alloy:define-subcomponent (chunk-widget show-solids) ((show-solids (entity chunk-widget)) alloy:switch))
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
-(alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (tileset (entity chunk-widget))))
-(alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption-map (entity chunk-widget))))
+(alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (albedo (entity chunk-widget))))
+(alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget tile-info) ((slot-value chunk-widget 'tile) tile-info))
 (alloy::define-subbutton (chunk-widget pick) ()
   (setf (state (editor chunk-widget)) :picking))
@@ -99,8 +99,7 @@
 (defmethod update-instance-for-different-class :after (previous (editor chunk-editor) &key)
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
 
-(defmethod (setf entity) :before (new (editor chunk-editor))
-  (setf (target-layer (entity editor)) NIL))
+(defmethod (setf entity) :before (new (editor chunk-editor)))
 
 (defmethod editor-class ((_ chunk))
   'chunk-editor)

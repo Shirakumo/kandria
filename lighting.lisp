@@ -33,7 +33,7 @@
 
 ;; FIXME: This is broken now.
 ;; (defmethod render :before ((pass rendering-pass) target)
-;;   (if (= 1 (active-p (struct (asset 'leaf 'light-info))))
+;;   (if (= 1 (active-p (struct (// 'leaf 'light-info))))
 ;;       (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
 ;;              (shade (local-shade pass))
 ;;              (exposure (* 1.5 shade))
