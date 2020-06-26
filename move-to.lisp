@@ -1,10 +1,17 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defclass walk-edge (flow:connection) ())
-(defclass crawl-edge (flow:connection) ())
-(defclass fall-edge (flow:directed-connection) ())
-(defclass jump-edge (flow:directed-connection)
+(defclass move-edge (flow:connection) ())
+(defclass walk-edge (move-edge) ())
+(defclass crawl-edge (move-edge) ())
+(defclass fall-edge (move-edge flow:directed-connection) ())
+(defclass jump-edge (move-edge flow:directed-connection)
   ((strength :initarg :strength :accessor strength)))
+
+(defgeneric capable-p (thing edge))
+
+(defmethod capable-p (thing (edge move-edge)) NIL)
+(defmethod capable-p (thing (edge walk-edge)) T)
+(defmethod capable-p (thing (edge fall-edge)) T)
 
 (defmethod flow:connection= ((a jump-edge) (b jump-edge))
   (and (call-next-method)
@@ -223,10 +230,13 @@
             (trial:resize-buffer ebo (* (length (buffer-data ebo)) (gl-type-size :float))
                                  :data (buffer-data ebo))
             (setf (size (vertex-array graph)) (length (faces mesh))))
-          (setf (vertex-array graph) (change-class mesh 'vertex-array))))))
+          (setf (vertex-array graph) (generate-resources 'mesh-loader mesh))))))
 
-(defmethod shortest-path ((graph node-graph) start goal)
+(defmethod shortest-path ((graph node-graph) (entity sized-entity) goal)
   (let ((node-grid (node-grid graph))
+        (start (nv+ (v- (location entity)
+                        (bsize entity))
+                    (/ +tile-size+ 2)))
         (width (floor (vx (size graph)))))
     (flet ((node (pos)
              (loop with x = (round (vx pos))
@@ -239,7 +249,7 @@
                       (decf y)))
            (cost (a b)
              (vsqrdist2 (location a) (location b))))
-      (values (flow:a* (node start) (node goal) #'cost)
+      (values (flow:a* (node start) (node goal) #'cost :test (lambda (c) (capable-p entity c)))
               (node start)))))
 
 (define-class-shader (node-graph :vertex-shader)
@@ -263,21 +273,13 @@ void main(){
    (path :initform NIL :accessor path)))
 
 (defmethod path-available-p ((target vec2) (movable movable))
-  (ignore-errors (shortest-path +world+
-                                (nv+ (v- (location movable)
-                                         (bsize movable))
-                                     (/ +tile-size+ 2))
-                                target)))
+  (ignore-errors (shortest-path (find-containing target (region +world+)) movable target)))
 
 (defmethod path-available-p ((target located-entity) (movable movable))
   (path-available-p (location target) movable))
 
 (defmethod move-to ((target vec2) (movable movable))
-  (multiple-value-bind (path start) (shortest-path +world+
-                                                   (nv+ (v- (location movable)
-                                                            (bsize movable))
-                                                        (/ +tile-size+ 2))
-                                                   target)
+  (multiple-value-bind (path start) (shortest-path (find-containing target (region +world+)) movable target)
     ;; (v:info :trial.move-to "Moving ~a along~{~%  ~a~}" movable path)
     (setf (current-node movable) start)
     (setf (path movable) path)))

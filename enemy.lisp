@@ -6,6 +6,8 @@
   (:default-initargs
    :sprite-data (asset 'leaf 'wolf)))
 
+(defmethod capable-p ((enemy enemy) (edge jump-edge)) T)
+
 (defmethod handle :before ((ev tick) (enemy enemy))
   (let ((collisions (collisions enemy))
         (vel (velocity enemy))

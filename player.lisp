@@ -34,6 +34,9 @@
 
 (defmethod resize ((player player) w h))
 
+(defmethod capable-p ((player player) (edge jump-edge)) T)
+(defmethod capable-p ((player player) (edge crawl-edge)) T)
+
 (defmethod handle ((ev interact) (player player))
   (when (interactable player)
     (issue +world+ 'interaction :with (interactable player))))
