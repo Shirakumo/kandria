@@ -253,7 +253,7 @@
           (setf result at-point)))))
 
 (defmethod contained-p (thing target)
-  (scan target thing (constantly T)))
+  (scan target thing (constantly NIL)))
 
 (defun find-containing (thing container)
   (for:for ((entity over container))
