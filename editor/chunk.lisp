@@ -68,8 +68,7 @@
 (alloy::define-subbutton (chunk-widget compute) ()
   (let ((chunk (entity chunk-widget)))
     (compute-shadow-geometry chunk T)
-    ;(reinitialize-instance (node-graph chunk) :solids (pixel-data chunk))
-    ))
+    (reinitialize-instance (node-graph chunk) :solids (pixel-data chunk))))
 
 (alloy:define-subcontainer (chunk-widget layout)
     (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T 60))

@@ -228,6 +228,9 @@ void main(){
 (defmethod register-object-for-pass :after (pass (chunk chunk))
   (register-object-for-pass pass (node-graph chunk)))
 
+(defmethod stage :after ((chunk chunk) (area staging-area))
+  (stage (node-graph chunk) area))
+
 (defmethod clone ((chunk chunk))
   (make-instance (class-of chunk)
                  :size (clone (size chunk))
