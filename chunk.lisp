@@ -4,10 +4,8 @@
   ((vertex-array :initform (// 'trial 'fullscreen-square) :accessor vertex-array)
    (tilemap :accessor tilemap)
    (layer-index :initarg :layer-index :initform 0 :accessor layer-index)
-   (albedo :initarg :albedo :initform (// 'leaf 'debug) :accessor albedo
-           :type resource :documentation "The tileset texture for the chunk.")
-   (absorption :initarg :absorption :initform (// 'leaf 'debug) :accessor absorption
-               :type resource :documentation "The absorption map for the chunk.")
+   (albedo :initarg :albedo :initform (// 'leaf 'debug) :accessor albedo)
+   (absorption :initarg :absorption :initform (// 'leaf 'debug) :accessor absorption)
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
   (:inhibit-shaders (shader-entity :fragment-shader)))
@@ -197,7 +195,8 @@ void main(){
    (node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
    (shadow-caster :initform (make-instance 'shadow-caster) :accessor shadow-caster)
-   (tile-data :initarg :tile-data :accessor tile-data)))
+   (tile-data :initarg :tile-data :accessor tile-data
+              :type tile-data :documentation "The tile data used to display the chunk.")))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
   (let* ((size (size chunk))
@@ -213,6 +212,10 @@ void main(){
                                                         :solids (pixel-data chunk)
                                                         :offset (v- (location chunk) (bsize chunk))))
     (compute-shadow-geometry chunk T)))
+
+(defmethod render :around ((chunk chunk) target)
+  (when (show-solids chunk)
+    (call-next-method)))
 
 (defmethod enter :after ((chunk chunk) (container container))
   (loop for layer across (layers chunk)
@@ -231,6 +234,14 @@ void main(){
                  :tile-data (tile-data chunk)
                  :pixel-data (clone (pixel-data chunk))
                  :layers (mapcar #'clone (map 'list #'pixel-data (layers chunk)))))
+
+(defmethod (setf tile-data) :after ((data tile-data) (chunk chunk))
+  (trial:commit data (loader (handler *context*)) :unload NIL)
+  (flet ((update-layer (layer)
+           (setf (albedo layer) (resource data 'albedo))
+           (setf (absorption layer) (resource data 'absorption))))
+    (update-layer chunk)
+    (map NIL #'update-layer (layers chunk))))
 
 (defmethod tile ((location vec3) (chunk chunk))
   (if (= (vz location) 0)
