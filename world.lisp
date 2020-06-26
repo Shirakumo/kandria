@@ -58,7 +58,7 @@
 (defmethod region ((world world))
   (gethash 'region (name-map world)))
 
-(defmethod handle (event (world world))
+(defmethod handle ((event event) (world world))
   (let ((handler (car (handler-stack world))))
     (if handler
         (handle event handler)

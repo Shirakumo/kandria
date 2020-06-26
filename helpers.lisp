@@ -98,7 +98,7 @@
    (frame :initform 0
           :type integer :documentation "The tile to display from the sprite sheet.")
    (texture :initform (asset 'leaf 'placeholder)
-            :type asset :documentation "The tileset to display the sprite from.")
+            :type resource :documentation "The tileset to display the sprite from.")
    (size :initform NIL
          :type vec2 :documentation "The size of the tile to display.")))
 

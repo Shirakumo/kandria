@@ -4,10 +4,10 @@
   ((vertex-array :initform (// 'trial 'fullscreen-square) :accessor vertex-array)
    (tilemap :accessor tilemap)
    (layer-index :initarg :layer-index :initform 0 :accessor layer-index)
-   (albedo :initarg :albedo :initform (asset 'leaf 'debug) :accessor albedo
-           :type asset :documentation "The tileset texture for the chunk.")
-   (absorption :initarg :absorption :initform (asset 'leaf 'debug) :accessor absorption
-               :type asset :documentation "The absorption map for the chunk.")
+   (albedo :initarg :albedo :initform (// 'leaf 'debug) :accessor albedo
+           :type resource :documentation "The tileset texture for the chunk.")
+   (absorption :initarg :absorption :initform (// 'leaf 'debug) :accessor absorption
+               :type resource :documentation "The absorption map for the chunk.")
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
   (:inhibit-shaders (shader-entity :fragment-shader)))
@@ -86,13 +86,14 @@
 (defmethod (setf tile) (value (location vec2) (layer layer))
   (%with-layer-xy (layer location)
     (let ((dat (pixel-data layer))
-          (pos (* 2 (+ x (* y (truncate (vx (size layer))))))))
+          (pos (* 2 (+ x (* y (truncate (vx (size layer)))))))
+          (texture (tilemap layer)))
       (when (or (/= (vx value) (aref dat (+ 0 pos)))
                 (/= (vy value) (aref dat (+ 1 pos))))
         (setf (aref dat (+ 0 pos)) (truncate (vx2 value)))
         (setf (aref dat (+ 1 pos)) (truncate (vy2 value)))
         (sb-sys:with-pinned-objects (dat)
-          (gl:bind-texture :texture-2d (gl-name (tilemap layer)))
+          (gl:bind-texture :texture-2d (gl-name texture))
           (%gl:tex-sub-image-2d :texture-2d 0 x y 1 1 (pixel-format texture) (pixel-type texture)
                                 (cffi:inc-pointer (sb-sys:vector-sap dat) pos))
           (gl:bind-texture :texture-2d 0)))
@@ -191,8 +192,7 @@ void main(){
 }")
 
 (define-shader-entity chunk (layer solid shadow-caster)
-  ((size :initarg :size :initform +tiles-in-view+ :accessor size
-         :type vec2 :documentation "The size of the chunk in tiles.")
+  ((layer-index :initform 0)
    (layers :accessor layers)
    (node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)

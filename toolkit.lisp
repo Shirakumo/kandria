@@ -218,6 +218,7 @@
 ;; Returns T if TARGET is contained in THING.
 (defgeneric contained-p (target thing))
 
+(defmethod scan (target region on-hit))
 (defmethod collides-p (object target hit) NIL)
 (defmethod collides-p (object (target solid) hit) T)
 
@@ -240,7 +241,7 @@
 (defmethod entity-at-point (point thing)
   NIL)
 
-(defmethod entity-at-point (point (container container))
+(defmethod entity-at-point (point (container flare:container))
   (or (call-next-method)
       (for:for ((result as NIL)
                 (entity over container)
