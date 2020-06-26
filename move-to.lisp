@@ -36,73 +36,75 @@
            (flow:port b 'options)
            type initargs)))
 
+(defmacro %do-grid ((x y w h) &body body)
+  `(loop for ,y downfrom (1- ,h) above 0
+         do (loop for ,x from 0 below ,w
+                  do (progn ,@body))))
+
 (defun create-platform-nodes (solids node-grid width height offset)
   (labels ((tile (x y)
              (aref solids (* (+ x (* y width)) 2)))
            ((setf node) (node x y)
              (setf (aref node-grid (+ x (* y width))) node)))
     (let ((prev-node NIL))
-      (loop for y downfrom (1- height) above 0
-            do (loop for x from 0 below width
-                     do (cond ((and (< 0 (tile x (1- y)))
-                                    (not (< 0 (tile x y))))
-                               (let* ((loc (nv+ (nv* (vec2 x y) +tile-size+) offset))
-                                      (new (if (or prev-node (= 0 x) (< 1 (tile (1- x) y)))
-                                               (make-instance 'platform-node :location loc)
-                                               (make-instance 'left-edge-node :location loc))))
-                                 (when prev-node
-                                   (connect-platforms prev-node new
-                                                      (if (or (< 0 (tile x (1+ y)))
-                                                              (< 0 (tile (1- x) (1+ y))))
-                                                          'crawl-edge
-                                                          'walk-edge)))
-                                 (setf (node x y) new)
-                                 (setf prev-node new)))
-                              ((< 0 (tile x y))
-                               (setf prev-node NIL))
-                              ((typep prev-node 'left-edge-node)
-                               (change-class prev-node 'both-edge-node)
-                               (setf prev-node NIL))
-                              ((typep prev-node 'platform-node)
-                               (change-class prev-node 'right-edge-node)
-                               (setf prev-node NIL))))
-               (setf prev-node NIL)))))
+      (%do-grid (x y height width)
+        ;; FIXME: clear prev-node on line wrap
+        (cond ((and (< 0 (tile x (1- y)))
+                    (not (< 0 (tile x y))))
+               (let* ((loc (nv+ (nv* (vec2 x y) +tile-size+) offset))
+                      (new (if (or prev-node (= 0 x) (< 1 (tile (1- x) y)))
+                               (make-instance 'platform-node :location loc)
+                               (make-instance 'left-edge-node :location loc))))
+                 (when prev-node
+                   (connect-platforms prev-node new
+                                      (if (or (< 0 (tile x (1+ y)))
+                                              (< 0 (tile (1- x) (1+ y))))
+                                          'crawl-edge
+                                          'walk-edge)))
+                 (setf (node x y) new)
+                 (setf prev-node new)))
+              ((< 0 (tile x y))
+               (setf prev-node NIL))
+              ((typep prev-node 'left-edge-node)
+               (change-class prev-node 'both-edge-node)
+               (setf prev-node NIL))
+              ((typep prev-node 'platform-node)
+               (change-class prev-node 'right-edge-node)
+               (setf prev-node NIL)))))))
 
 (defun create-fall-connections (solids node-grid width height)
   (flet ((node (x y)
            (aref node-grid (+ x (* y width))))
          (tile (x y)
            (aref solids (* (+ x (* y width)) 2))))
-    (loop for y downfrom (1- height) above 0
-          do (loop for x from 0 below width
-                   for node = (node x y)
-                   do ;; FIXME: Slopes at edges
-                      (when (or (< 0 (tile x (1- y)) 3))
-                        (when (and (typep node 'left-edge-node)
-                                   (= 0 (tile (1- x) y)))
-                          (loop for yy downfrom y to 0
-                                for nnode = (node (1- x) yy)
-                                do (when nnode
-                                     (connect-platforms node nnode 'fall-edge)
-                                     (return))))
-                        (when (and (typep node 'right-edge-node)
-                                   (= 0 (tile (1+ x) y)))
-                          (loop for yy downfrom y to 0
-                                for nnode = (node (1+ x) yy)
-                                do (when nnode
-                                     (connect-platforms node nnode 'fall-edge)
-                                     (return)))))))))
+    (%do-grid (x y width height)
+      ;; FIXME: Slopes at edges
+      (let ((node (node x y)))
+        (when (or (< 0 (tile x (1- y)) 3))
+          (when (and (typep node 'left-edge-node)
+                     (= 0 (tile (1- x) y)))
+            (loop for yy downfrom y to 0
+                  for nnode = (node (1- x) yy)
+                  do (when nnode
+                       (connect-platforms node nnode 'fall-edge)
+                       (return))))
+          (when (and (typep node 'right-edge-node)
+                     (= 0 (tile (1+ x) y)))
+            (loop for yy downfrom y to 0
+                  for nnode = (node (1+ x) yy)
+                  do (when nnode
+                       (connect-platforms node nnode 'fall-edge)
+                       (return)))))))))
 
 (defun create-slope-connections (solids node-grid width height)
   (flet ((node (x y)
            (aref node-grid (+ x (* y width))))
          (tile (x y)
            (aref solids (* (+ x (* y width)) 2))))
-    (loop for y downfrom (1- height) to 0
-          do (loop for x from 0 below width
-                   do (case (tile x y)
-                        ((4 6 10) (connect-platforms (node x (1+ y)) (node (1- x) y) 'walk-edge))
-                        ((5 9 15) (connect-platforms (node x (1+ y)) (node (1+ x) y) 'walk-edge)))))))
+    (%do-grid (x y width height)
+      (case (tile x y)
+        ((4 6 10) (connect-platforms (node x (1+ y)) (node (1- x) y) 'walk-edge))
+        ((5 9 15) (connect-platforms (node x (1+ y)) (node (1+ x) y) 'walk-edge))))))
 
 (defun reachable-p (nnode node)
   (let ((hash (make-hash-table :test 'eq)))
@@ -165,42 +167,19 @@
 
 (defun node-graph-mesh (node-grid width height)
   (with-vertex-filling ((make-instance 'vertex-mesh :vertex-type 'colored-vertex :face-length 2))
-    (loop for y downfrom (1- height) to 0
-          do (loop for x from 0 below width
-                   for node = (aref node-grid (+ x (* y width)))
-                   do (when node
-                        (loop for out in (slot-value node 'options)
-                              for target = (flow:target-node node out)
-                              for color = (etypecase out
-                                            (walk-edge (vec 0 1 0 1))
-                                            (crawl-edge (vec 0.6 0.3 0 1))
-                                            (jump-edge (vec 1 0 0 1))
-                                            (fall-edge (vec 0 0 1 1)))
-                              when target
-                              do (vertex :position (vxy_ (location node)) :color color)
-                                 (vertex :position (vxy_ (location target)) :color (v* color 0.1))))))))
-
-(defun format-node-graph (node-grid width height)
-  (let ((*print-right-margin* most-positive-fixnum))
-    (flet ((node (x y)
-             (aref node-grid (+ x (* y width)))))
-      (loop for y downfrom (1- height) to 0
-            do (loop for x from 0 below width
-                     do (format T (etypecase (node x y)
-                                    (null " ")
-                                    (both-edge-node "^")
-                                    (left-edge-node "<")
-                                    (right-edge-node ">")
-                                    (platform-node "-"))))
-               (format T "~&"))
-      (format T "~% ===== ~%")
-      (loop for y downfrom (1- height) to 0
-            do (loop for x from 0 below width
-                     for node = (node x y)
-                     do (when node
-                          (loop for con in (slot-value node 'options)
-                                do (format T "~a~%" con))))
-               (format T "~&")))))
+    (%do-grid (x y width height)
+      (let ((node (aref node-grid (+ x (* y width)))))
+        (when node
+          (loop for out in (slot-value node 'options)
+                for target = (flow:target-node node out)
+                for color = (etypecase out
+                              (walk-edge (vec 0 1 0 1))
+                              (crawl-edge (vec 0.6 0.3 0 1))
+                              (jump-edge (vec 1 0 0 1))
+                              (fall-edge (vec 0 0 1 1)))
+                when target
+                do (vertex :position (vxy_ (location node)) :color color)
+                   (vertex :position (vxy_ (location target)) :color (v* color 0.1))))))))
 
 (define-shader-entity node-graph (vertex-entity)
   ((node-grid :initarg :node-grid :accessor node-grid)
