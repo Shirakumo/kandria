@@ -63,8 +63,7 @@
 
 (defmethod render :before ((controller controller) program)
   (let ((editor (unit :editor T)))
-    (when editor
-      (setf (show-overlay controller) NIL #++(not (active-p editor))))))
+    (setf (show-overlay controller) (not (active-p editor)))))
 
 (defmethod setup-scene ((main main) scene)
   (enter (make-instance 'inactive-editor) scene)

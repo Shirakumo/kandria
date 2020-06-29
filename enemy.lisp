@@ -18,7 +18,7 @@
           (T
            (when (<= 2 (vx acc))
              (setf (vx acc) (* (vx acc) (damp* 0.95 100 (dt ev)))))
-           (decf (vy acc) (* +vgrav+ 20 (dt ev)))))
+           (nv+ acc (v* +vgrav+ (dt ev)))))
     (when (svref collisions 0) (setf (vy acc) (min 0 (vy acc))))
     (when (svref collisions 1) (setf (vx acc) (min 0 (vx acc))))
     (when (svref collisions 3) (setf (vx acc) (max 0 (vx acc))))

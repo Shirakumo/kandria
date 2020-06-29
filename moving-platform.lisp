@@ -11,7 +11,7 @@
 
 (define-shader-entity falling-platform (lit-sprite moving-platform)
   ((acceleration :initform (vec2 0 0) :accessor acceleration)
-   (gravity :initform (vec2 0 (- +vgrav+)) :initarg :gravity :accessor gravity)))
+   (gravity :initform +vgrav+ :initarg :gravity :accessor gravity)))
 
 (defmethod (setf location) :after (location (platform falling-platform))
   (setf (state platform) :normal))
