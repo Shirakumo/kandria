@@ -315,12 +315,6 @@
     (nvclamp (v- +vlim+) acc +vlim+)
     (nv+ (velocity player) acc)))
 
-(defmethod handle ((ev mouse-release) (player player))
-  (handler-case
-      (move-to (mouse-world-pos (pos ev)) player)
-    (error (e)
-      (v:info :leaf e))))
-
 (defmethod handle :after ((ev tick) (player player))
   (incf (jump-time player) (dt ev))
   (incf (air-time player) (dt ev))
