@@ -63,9 +63,15 @@
 
 (defmethod render :before ((controller controller) program)
   (let ((editor (unit :editor T)))
-    (setf (show-overlay controller) (not (active-p editor)))))
+    (when editor
+      (setf (show-overlay controller) (not (active-p editor))))))
 
 (defmethod setup-scene ((main main) scene)
+  (observe (lambda (e) (location (unit 'player scene))) :title :loc)
+  (observe (lambda (e) (acceleration (unit 'player scene))) :title :vel)
+  (observe (lambda (e) (collisions (unit 'player scene))) :title :col)
+  (observe (lambda (e) (state (unit 'player scene))) :title :state)
+  
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
   (let ((shadow (make-instance 'shadow-map-pass))
@@ -73,8 +79,3 @@
         (rendering (make-instance 'rendering-pass)))
     (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
     (connect (port lighting 'color) (port rendering 'lighting) scene)))
-
-(observe (lambda (e) (location (unit 'player T))) :title :loc)
-(observe (lambda (e) (acceleration (unit 'player T))) :title :vel)
-(observe (lambda (e) (collisions (unit 'player T))) :title :col)
-(observe (lambda (e) (state (unit 'player T))) :title :state)

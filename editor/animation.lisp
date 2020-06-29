@@ -12,10 +12,10 @@
     (scale-by z z z *view-matrix*)))
 
 (define-shader-entity rectangle (vertex-entity colored-entity sized-entity)
-  ((vertex-array :initform (asset 'leaf '1x))
+  ((vertex-array :initform (// 'leaf '1x))
    (color :initform (vec 1 0 0 0.5))))
 
-(defmethod paint :before ((rectangle rectangle) target)
+(defmethod apply-transforms progn ((rectangle rectangle))
   (let ((size (v* 2 (bsize rectangle))))
     (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
     (scale (vxy_ size))))
@@ -26,14 +26,23 @@
    (start-pos :initform NIL :accessor start-pos)
    (sprite-data :initarg :sprite-data :accessor sprite-data)))
 
-(defmethod register-object-for-pass :after ((pass per-object-pass) (sprite editor-sprite))
-  (register-object-for-pass pass (hurtbox sprite)))
+(defmethod (setf frame-idx) :after (value (sprite editor-sprite))
+  (cond ((< value (start (animation sprite)))
+         (setf (frame-idx sprite) (1- (end (animation sprite)))))
+        ((< (1- (end (animation sprite))) value)
+         (setf (frame-idx sprite) (start (animation sprite))))))
 
-(defun compute-frame-location (animation frame-idx)
+(defmethod stage :after ((sprite editor-sprite) (area staging-area))
+  (stage (hurtbox sprite) area))
+
+(defmethod compile-to-pass :after ((sprite editor-sprite) (pass shader-pass))
+  (compile-to-pass (hurtbox sprite) pass))
+
+(defun compute-frame-location (animation frames frame-idx)
   (let ((location (vec 0 0))
-        (frame (svref (frames animation) frame-idx)))
+        (frame (svref frames frame-idx)))
     (loop for i from (start animation) below frame-idx
-          for frame = (svref (frames animation) i)
+          for frame = (svref frames i)
           for vel = (velocity frame)
           for offset = (v* vel (duration frame) 100)
           do (nv+ location offset))
@@ -42,19 +51,16 @@
                       100 0.5))
     location))
 
-(defmethod paint :around ((sprite editor-sprite) pass)
+(defmethod apply-transforms progn ((sprite editor-sprite))
   ;; FIXME: move player according to animation velocity
   ;; FIXME: show sprite extents
-  (translate (vxy_ (compute-frame-location (animation sprite) (frame-idx sprite))))
-  (with-pushed-matrix ()
-    (translate-by 0 (vy (bsize sprite)) 0)
-    (call-next-method))
+  (translate (vxy_ (compute-frame-location (animation sprite) (frames sprite) (frame-idx sprite))))
+  (translate-by 0 (vy (bsize sprite)) 0)
   (let ((frame (hurtbox (frame sprite)))
         (hurtbox (hurtbox sprite)))
     (setf (bsize hurtbox) (vzw frame))
     (setf (location hurtbox) (vxy frame))
-    (incf (vy (location hurtbox)) (vy (bsize sprite)))
-    (paint hurtbox pass)))
+    (incf (vy (location hurtbox)) (vy (bsize sprite)))))
 
 (defun to-world-pos (pos)
   (let ((vec (vcopy pos))
@@ -69,7 +75,7 @@
 (defun update-frame (sprite start end)
   (let* ((hurtbox (hurtbox (frame sprite)))
          (bsize (nvabs (nv/ (v- end start) 2)))
-         (loc (nv- (v+ start bsize) (compute-frame-location (animation sprite) (frame-idx sprite)))))
+         (loc (nv- (v+ start bsize) (compute-frame-location (animation sprite) (frames sprite) (frame-idx sprite)))))
     (setf (vx hurtbox) (vx loc))
     (setf (vy hurtbox) (vy loc))
     (setf (vz hurtbox) (vx bsize))
@@ -85,7 +91,7 @@
     (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))
     (setf (start-pos editor-sprite) NIL)))
 
-(define-handler (editor-sprite mouse-move) (pos button)
+(define-handler (editor-sprite mouse-move) (pos)
   (when (start-pos editor-sprite)
     (update-frame editor-sprite (start-pos editor-sprite) (to-world-pos pos))))
 
@@ -132,16 +138,16 @@
 
 (defmethod initialize-instance ((editor animation-editor) &key sprite-data)
   (call-next-method)
-  (load-animations (input* sprite-data) sprite-data)
   (setf (ui editor) (make-instance 'animation-editor-ui :editor editor))
   (setf (sprite editor) (make-instance 'editor-sprite :sprite-data sprite-data))
-  (setf (playback-speed (sprite editor)) 0f0))
+  (setf (playback-speed (sprite editor)) 0f0)
+  (load sprite-data))
 
 (defmethod setup-rendering :after ((editor animation-editor))
   (disable :cull-face :scissor-test :depth-test))
 
 (defmethod setup-scene ((editor animation-editor) scene)
-  (enter (make-instance 'vertex-entity :vertex-array (asset 'trial 'trial::2d-axes)) scene)
+  (enter (make-instance 'vertex-entity :vertex-array (// 'trial 'trial::2d-axes)) scene)
   (enter (sprite editor) scene)
   (let* ((ui (ui editor))
          (focus (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree ui)))
@@ -159,7 +165,7 @@
     (alloy:register ui ui)
     (enter ui scene))
   (enter (make-instance 'editor-camera :location (vec -200 70)) scene)
-  (enter (make-instance 'trial:render-pass) scene))
+  (enter (make-instance 'render-pass) scene))
 
 (defun launch-animation-editor (&rest initargs)
   (apply #'trial:launch 'animation-editor initargs))
@@ -221,10 +227,10 @@
        "Frame" "Hurtbox" "Velocity" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable"))
     (alloy:enter scroll layout)
     (loop for i from 0 below (length (frames sprite))
-          do (let* ((animation (loop for animation in (animations sprite)
-                                     do (when (<= (start animation) i (end frame))
+          do (let* ((animation (loop for animation across (animations sprite)
+                                     do (when (<= (start animation) i (end animation))
                                           (return animation))))
-                    (frame (make-instance 'frame-edit :animation animation :frame i)))
+                    (frame (make-instance 'frame-edit :frame (aref (frames sprite) i) :idx i)))
                (alloy:enter frame frames)
                (alloy:enter frame focus)
                (alloy:on alloy:activate ((alloy:representation 'frame-idx frame))
@@ -234,14 +240,11 @@
     (alloy:finish-structure edit layout (alloy:focus-element scroll))))
 
 (alloy:define-widget frame-edit (alloy:structure)
-  ((frame-idx :initarg :frame :representation (alloy:button) :reader frame-idx)
-   (animation :initarg :animation :reader animation)))
+  ((frame-idx :initarg :idx :representation (alloy:button) :reader frame-idx)
+   (frame :initarg :frame :reader frame)))
 
 (defmethod initialize-instance :after ((edit frame-edit) &key)
   (alloy:finish-structure edit (slot-value edit 'layout) (slot-value edit 'focus)))
-
-(defmethod frame ((widget frame-edit))
-  (svref (frames (animation widget)) (frame-idx widget)))
 
 (alloy:define-subcomponent (frame-edit hurtbox) ((hurtbox (frame frame-edit)) trial-alloy::vec4))
 (alloy:define-subcomponent (frame-edit velocity) ((velocity (frame frame-edit)) trial-alloy::vec2))
