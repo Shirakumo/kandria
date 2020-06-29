@@ -223,7 +223,7 @@
 (defmethod collides-p (object (target solid) hit) T)
 
 (defmethod scan-collision (target region)
-  (scan target region (lambda (hit) (unless (typep (hit-object hit) 'solid) T))))
+  (scan target region (lambda (hit) (unless (typep (hit-object hit) '(or block solid)) T))))
 
 ;; Handle common collision operations. Uses SCAN-COLLISION to find the closest
 ;; valid HIT, then invokes COLLIDE using that hit, if any. Returns the closest
@@ -247,6 +247,8 @@
                 (entity over container)
                 (at-point = (entity-at-point point entity)))
         (when (and at-point
+                   ;; FIXME: this is terrible
+                   (typep entity '(or chunk (not layer)))
                    (or (null result)
                        (< (vlength (bsize at-point))
                           (vlength (bsize result)))))

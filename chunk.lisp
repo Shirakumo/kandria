@@ -190,11 +190,10 @@ void main(){
 }")
 
 (define-shader-entity chunk (layer solid shadow-caster)
-  ((layer-index :initform 0)
+  ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
    (node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
-   (shadow-caster :initform (make-instance 'shadow-caster) :accessor shadow-caster)
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")))
 
@@ -213,6 +212,10 @@ void main(){
                                                         :offset (v- (location chunk) (bsize chunk))))
     (compute-shadow-geometry chunk T)))
 
+(defmethod compile-to-pass ((chunk chunk) (pass shader-pass))
+  (call-next-method)
+  (compile-to-pass (node-graph chunk) pass))
+
 (defmethod render :around ((chunk chunk) target)
   (when (show-solids chunk)
     (call-next-method)))
@@ -224,9 +227,6 @@ void main(){
 (defmethod leave :after ((chunk chunk) (container container))
   (loop for layer across (layers chunk)
         do (leave layer container)))
-
-(defmethod register-object-for-pass :after (pass (chunk chunk))
-  (register-object-for-pass pass (node-graph chunk)))
 
 (defmethod stage :after ((chunk chunk) (area staging-area))
   (stage (node-graph chunk) area))
@@ -312,10 +312,14 @@ void main(){
                      (add-shadow-line vbo loc (v+ loc (vec +tile-size+ 0)))
                      (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+))))))))))))
 
-(defmethod shortest-path ((chunk chunk) start goal)
+(defmethod shortest-path ((chunk chunk) (start vec2) (goal vec2) &rest args &key test)
+  (declare (ignore test))
   (flet ((local-pos (pos)
            (vfloor (nv+ (v- pos (location chunk)) (bsize chunk)) +tile-size+)))
-    (shortest-path (node-graph chunk) (local-pos start) (local-pos goal))))
+    (apply #'shortest-path (node-graph chunk) (local-pos start) (local-pos goal) args)))
+
+(defmethod shortest-path ((chunk chunk) (start sized-entity) goal &key test)
+  (shortest-path chunk (location start) goal :test (or test (lambda (edge) (capable-p start edge)))))
 
 (defmethod contained-p ((entity located-entity) (chunk chunk))
   (contained-p (location entity) chunk))

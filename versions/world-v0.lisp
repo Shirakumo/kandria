@@ -56,7 +56,9 @@
 (define-encoder (region world-v0) (_b packet)
   (with-packet-entry (stream "data.lisp" packet :element-type 'character)
     (for:for ((entity over region))
-      (princ* (encode entity) stream)))
+      (handler-case
+          (princ* (encode entity) stream)
+        (no-applicable-encoder ()))))
   (list :name (name region)
         :author (author region)
         :version (version region)
@@ -87,12 +89,12 @@
                       do (setf (packet-entry path packet) (pixel-data layer))
                       collect path))
         (pixel-data (format NIL "data/~a.raw" (name chunk))))
-    (setf (packet-entry pixel-data packet) (pixel-data layer))
+    (setf (packet-entry pixel-data packet) (pixel-data chunk))
     `(chunk :name ,(name chunk)
             :location ,(encode (location chunk))
             :size ,(encode (size chunk))
             :tile-data ,(encode (tile-data chunk))
-            :pixel-data ,(encode pixel-data)
+            :pixel-data ,pixel-data
             :layers ,layers)))
 
 (define-decoder (background world-v0) (initargs _)

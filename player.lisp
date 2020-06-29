@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 ;;                          Gravity pulling down
-(define-global +vgrav+ 0.15)
+(define-global +vgrav+ (vec 0 -0.15))
 ;;                          How many frames to stay "grounded"
 (define-global +coyote+ 0.08)
 ;;                          Hard velocity caps
@@ -36,6 +36,7 @@
 
 (defmethod capable-p ((player player) (edge jump-edge)) T)
 (defmethod capable-p ((player player) (edge crawl-edge)) T)
+(defmethod capable-p ((player player) (edge climb-edge)) T)
 
 (defmethod handle ((ev interact) (player player))
   (when (interactable player)
@@ -90,12 +91,13 @@
           (setf (buffer player) 'light-attack))))
 
 (defmethod handle ((ev heavy-attack) (player player))
-  (cond ((and (aref (collisions player) 2)
-              (not (or (eql :crawling (state player))
-                       (eql :animated (state player)))))
-         (start-animation 'heavy-ground-1 player))
-        ((eql :animated (state player))
-          (setf (buffer player) 'heavy-attack))))
+  ;; (cond ((and (aref (collisions player) 2)
+  ;;             (not (or (eql :crawling (state player))
+  ;;                      (eql :animated (state player)))))
+  ;;        (start-animation 'heavy-ground-1 player))
+  ;;       ((eql :animated (state player))
+  ;;         (setf (buffer player) 'heavy-attack)))
+  )
 
 (flet ((handle-solid (player hit)
          (when (and (= +1 (vy (hit-normal hit)))
@@ -304,7 +306,7 @@
        (when (and (retained 'movement :jump)
                   (<= 0.05 (jump-time player) 0.15))
          (setf (vy acc) (* (vy acc) (damp* (vy +vjump+) dt))))
-       (decf (vy acc) (* +vgrav+ dt))
+       (nv+ acc (v* +vgrav+ dt))
        ;; Limit when sliding down wall
        (when (and (or (typep (svref collisions 1) 'ground)
                       (typep (svref collisions 3) 'ground))
@@ -312,6 +314,12 @@
          (setf (vy acc) (vz +vclim+)))))
     (nvclamp (v- +vlim+) acc +vlim+)
     (nv+ (velocity player) acc)))
+
+(defmethod handle ((ev mouse-release) (player player))
+  (handler-case
+      (move-to (mouse-world-pos (pos ev)) player)
+    (error (e)
+      (v:info :leaf e))))
 
 (defmethod handle :after ((ev tick) (player player))
   (incf (jump-time player) (dt ev))

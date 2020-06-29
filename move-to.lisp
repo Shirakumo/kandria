@@ -3,6 +3,7 @@
 (defclass move-edge (flow:connection) ())
 (defclass walk-edge (move-edge) ())
 (defclass crawl-edge (move-edge) ())
+(defclass climb-edge (move-edg) ())
 (defclass fall-edge (move-edge flow:directed-connection) ())
 (defclass jump-edge (move-edge flow:directed-connection)
   ((strength :initarg :strength :accessor strength)))
@@ -47,7 +48,7 @@
            ((setf node) (node x y)
              (setf (aref node-grid (+ x (* y width))) node)))
     (let ((prev-node NIL))
-      (%do-grid (x y height width)
+      (%do-grid (x y width height)
         ;; FIXME: clear prev-node on line wrap
         (cond ((and (< 0 (tile x (1- y)))
                     (not (< 0 (tile x y))))
@@ -71,6 +72,8 @@
               ((typep prev-node 'platform-node)
                (change-class prev-node 'right-edge-node)
                (setf prev-node NIL)))))))
+
+(defun create-climb-connections (solids node-grid width height))
 
 (defun create-fall-connections (solids node-grid width height)
   (flet ((node (x y)
@@ -119,43 +122,40 @@
                             (traverse other))))))
       (traverse node))))
 
+(defun compute-jump-configurations (&key (vmax (vec 1.9 3.9)))
+  (loop for xfrac from -1 to 1 by 0.1d0
+        nconc (loop for yfrac from 0.1 to 1 by 0.1d0
+                    collect (vec (* xfrac (vx vmax)) (* yfrac (vy vmax))))))
+
+(defun jump-to-reach (start end gravity tt)
+  (print
+   (vec (/ (- (vx end) (vx start)) tt)
+        0)))
+
 (defun create-jump-connections-at (node ox oy solids node-grid width height)
-  (let ((g +vgrav+)
-        (j 3.0)
-        (v (* 10 (vx +vmove+))))
-    (loop for jf from 1 to 3
-          for jv = (* j (/ jf 3))
-          do (loop for vf from -3 to 3
-                   for vv = (* v (/ vf 3))
-                   do (let ((px 0) (py 0) (pos (vec 0 0)) (vel (vec vv jv)))
-                        (loop for tt from 0 to 1 by 0.01
-                              do (nv+ pos vel)
-                                 (decf (vy vel) g)
-                                 (let* ((x (+ ox (round (vx pos) +tile-size+)))
-                                        (y (+ oy (round (vy pos) +tile-size+)))
-                                        (i (+ x (* y width))))
-                                   (unless (and (< -1 x width)
-                                                (< -1 y height))
-                                     (return))
-                                   (when (or (/= px x) (/= py y))
-                                     (setf px x py y)
-                                     ;; FIXME: Not great.
-                                     (when (or (= 1 (aref solids (* 2 i)))
-                                               (< 2 (aref solids (* 2 i))))
-                                       (return))
-                                     (let ((nnode (aref node-grid i)))
-                                       (when (and nnode (not (eq node nnode)) (not (reachable-p nnode node)))
-                                         (handler-case
-                                             (connect-platforms node nnode 'jump-edge :strength (vec vv jv))
-                                           (flow:connection-already-exists (e)
-                                             (declare (ignore e))))))))))))))
+  (let ((g (v/ +vgrav+ +tile-size+))
+        (size (vec width height)))
+    (loop for vel in (compute-jump-configurations)
+          for prev = 0
+          do (loop for tt from 0 by 0.01
+                   for pos = (vec ox oy) then (v+ pos acc)
+                   for idx = (+ (round (vx pos)) (* width (floor (vy pos))))
+                   for acc = (v/ vel +tile-size+) then (v+ acc g)
+                   do (when (or (not (v< 0 pos size))
+                                (< 0 (aref solids (* 2 idx))))
+                        (return))
+                      (when (/= prev idx)
+                        (setf prev idx)
+                        (let ((nnode (aref node-grid idx)))
+                          (when (and nnode (not (eq node nnode)) (not (reachable-p nnode node)))
+                            (handler-case (connect-platforms node nnode 'jump-edge :strength vel)
+                              (flow:connection-already-exists ())))))))))
 
 (defun create-jump-connections (solids node-grid width height)
-  (loop for y downfrom (1- height) to 0
-        do (loop for x from 0 below width
-                 for node = (aref node-grid (+ x (* y width)))
-                 do (when (typep node 'platform-node)
-                      (create-jump-connections-at node x y solids node-grid width height)))))
+  (%do-grid (x y width height)
+    (let ((node (aref node-grid (+ x (* y width)))))
+      (when (typep node 'platform-node)
+        (create-jump-connections-at node x y solids node-grid width height)))))
 
 (defun compute-node-grid (solids width height offset)
   (let ((node-grid (make-array (/ (length solids) 2) :initial-element NIL)))
@@ -164,6 +164,8 @@
     (create-slope-connections solids node-grid width height)
     (create-jump-connections solids node-grid width height)
     node-grid))
+
+;; FIXME: incremental recomputation to account for dynamic changes in level
 
 (defun node-graph-mesh (node-grid width height)
   (with-vertex-filling ((make-instance 'vertex-mesh :vertex-type 'colored-vertex :face-length 2))
@@ -195,6 +197,9 @@
     (when solids
       (setf (node-grid graph) (compute-node-grid solids w h (offset graph))))))
 
+(defmethod render :before ((graph node-graph) (program shader-program))
+  (translate-by 8 8 0))
+
 (defmethod (setf node-grid) :after (node-grid (graph node-graph))
   (let ((w (truncate (vx (size graph))))
         (h (truncate (vy (size graph)))))
@@ -211,11 +216,8 @@
             (setf (size (vertex-array graph)) (length (faces mesh))))
           (setf (vertex-array graph) (generate-resources 'mesh-loader mesh))))))
 
-(defmethod shortest-path ((graph node-graph) (entity sized-entity) goal)
+(defmethod shortest-path ((graph node-graph) (start vec2) (goal vec2) &key (test (constantly T)))
   (let ((node-grid (node-grid graph))
-        (start (nv+ (v- (location entity)
-                        (bsize entity))
-                    (/ +tile-size+ 2)))
         (width (floor (vx (size graph)))))
     (flet ((node (pos)
              (loop with x = (round (vx pos))
@@ -228,7 +230,7 @@
                       (decf y)))
            (cost (a b)
              (vsqrdist2 (location a) (location b))))
-      (values (flow:a* (node start) (node goal) #'cost :test (lambda (c) (capable-p entity c)))
+      (values (flow:a* (node start) (node goal) #'cost :test test)
               (node start)))))
 
 (define-class-shader (node-graph :vertex-shader)
@@ -277,14 +279,14 @@ void main(){
            (target (flow:target-node node con)))
       (when (svref collisions 2)
         (vsetf acc (max 0 (vy acc)) 0))
-      (flet ((move-towards (&optional (spd 1))
+      (flet ((move-towards (&optional (target (location target)) (spd (vw +vmove+)))
                (when (and (eql :crawling (state movable))
                           (null (svref collisions 0)))
                  (setf (state movable) :normal))
-               (let ((diff (- (vx (location target)) (- (vx loc) (vx size)))))
+               (let ((diff (- (vx target) (- (vx loc) (vx size)))))
                  (setf (vx acc) (* (signum diff) (min (* spd 10 (vx +vmove+)) (abs diff)))))))
-        (when (or (< (sqrt (vsqrdist2 (v- loc size) (location target)))
-                     1.5)
+        (when (or (< (vsqrdist2 (v- loc size) (location target))
+                     (expt 1.5 2))
                   (and (typep (svref collisions 2) 'slope)
                        (< (abs (- (vx loc) (vx size) (vx (location target))))
                           1.1)))
@@ -305,14 +307,18 @@ void main(){
                (setf (vx acc) 0)))
           (jump-edge
            (when (svref collisions 2)
-             (if (< (sqrt (vsqrdist2 (v- loc size) (location node)))
-                    1.5)
-                 (vsetf acc
-                        (vx (strength con))
-                        (vy (strength con)))
-                 (move-towards))))
+             (let ((node-dist (vsqrdist2 (v- loc size) (location node)))
+                   (targ-dist (vsqrdist2 (v- loc size) (location target))))
+               (cond ((< node-dist (expt 1.0 2))
+                      (vsetf acc
+                             (vx (strength con))
+                             (vy (strength con))))
+                     ((< node-dist targ-dist)
+                      (move-towards (location node)))
+                     (T
+                      (move-towards (location target)))))))
           (crawl-edge
-           (move-towards 0.5)
+           (move-towards (location target) (vx +vcraw+))
            (setf (state movable) :crawling))))
-      (decf (vy acc) +vgrav+)
+      (nv+ acc +vgrav+)
       (nv+ (velocity movable) acc))))
