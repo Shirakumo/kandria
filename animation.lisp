@@ -74,19 +74,20 @@
 
 (defmethod write-animation ((sprite sprite-data) &optional (stream T))
   (let ((*package* #.*package*))
-    (format stream "~s~%" (json-file sprite))
+    (format stream "(:source ~s~%" (json-file sprite))
+    (format stream " :animations~%  (")
     (loop for animation across (animations sprite)
-          do (write-animation animation stream))))
+          do (write-animation animation stream))
+    (format stream ")~% :frames~%  (")
+    (loop for frame across (frames sprite)
+          do (write-animation frame stream))
+    (format stream ")~%")))
 
 (defmethod write-animation ((animation sprite-animation) &optional (stream T))
-  (format stream "~&(~20a :loop-to ~3a :next ~s :frame-data ("
+  (format stream "~&   (~20a :loop-to ~3a :next ~s)"
           (name animation)
           (loop-to animation)
-          (next-animation animation))
-  (loop for i from (start animation) below (end animation)
-        for frame = (aref (frames sprite) i)
-        do (write-animation frame stream))
-  (format stream "))~%"))
+          (next-animation animation)))
 
 (defmethod write-animation ((frame frame) &optional (stream T))
   (format stream "~& (:damage ~3a :stun-time ~3f :flags #b~4,'0b :velocity (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f))"
@@ -99,15 +100,15 @@
 
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
   (with-open-file (stream path :direction :input)
-    (setf (json-file sprite) (read stream))
-    (call-next-method sprite (merge-pathnames (json-file sprite) path))
-    (loop for expr = (read stream NIL NIL)
-          while expr
-          do (destructuring-bind (name &key loop-to next frame-data) expr
-               (let ((animation (find name (animations sprite) :key #'name)))
-                 (setf (loop-to animation) loop-to)
-                 (setf (next-animation animation) next)
-                 (loop for i from (start animation) below (end animation)
-                       for data in frame-data
-                       for frame = (aref (frames sprite) i)
-                       do (change-class frame 'frame :sexp data)))))))
+    (destructuring-bind (&key source animations frames) (read stream)
+      (setf (json-file sprite) source)
+      (call-next-method sprite (merge-pathnames (json-file sprite) path))
+      (loop for expr in animations
+            do (destructuring-bind (name &key loop-to next) expr
+                 (let ((animation (find name (animations sprite) :key #'name)))
+                   (setf (loop-to animation) loop-to)
+                   (setf (next-animation animation) next))))
+      ;; Note: using POP instead of IN here to still change-class frames at the tail with no spec.
+      (loop for expr = (pop frames)
+            for frame across (frames sprite)
+            do (change-class frame 'frame :sexp expr)))))
