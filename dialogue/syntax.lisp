@@ -6,7 +6,8 @@
                                         'conditional-part 'part-separator
                                         'jump 'conditional 'source
                                         (remove-if (lambda (s) (find s '(markless:underline markless:code markless:blockquote-header)))
-                                                   markless:*default-directives*))))
+                                                   markless:*default-directives*))
+                     :instruction-types (list* 'go 'speed 'shake 'zoom 'roll 'show 'setf 'eval markless:*default-instruction-types*)))
 
 (defclass jump (markless:singular-line-directive)
   ())
