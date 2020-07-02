@@ -424,3 +424,8 @@
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
      (view-scale (unit :camera T))))
+
+(defmethod handle ((ev mouse-release) (player player))
+  (case (button ev)
+    (:middle (move-to (mouse-world-pos (pos ev)) player))
+    (:right (move-to (mouse-world-pos (pos ev)) (unit :wolf T)))))

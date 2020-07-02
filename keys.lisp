@@ -97,7 +97,6 @@
 
 (define-action crawl (movement)
   (key-press (one-of key :q))
-  (mouse-press (one-of button :middle))
   (gamepad-press (one-of button :l3)))
 
 (define-action light-attack (movement)
