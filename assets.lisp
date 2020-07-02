@@ -23,10 +23,13 @@
      ,@args))
 
 (define-sprite lights
-  #p"lights.png")
+    #p"lights.png")
 
 (define-sprite tundra-bg
-  #p"tundra-bg.png")
+    #p"tundra-bg.png")
+
+(define-sprite debug-bg
+    #p"debug-bg.png")
 
 (define-asset (leaf player) sprite-data
     #p"player.lisp")
