@@ -65,7 +65,7 @@ void main(){
       break;
     case 1: 
       map_xy.x %= map_wh.x;
-      map_xy.y = clamp(map_xy.y, 0, map_wh.y-1);
+      map_xy.y = clamp(map_xy.y+map_wh.y/2, 0, map_wh.y-1);
       break;
     case 2: 
       map_xy.x = clamp(map_xy.x, 0, map_wh.x-1);
