@@ -9,54 +9,37 @@
 (defmethod capable-p ((enemy enemy) (edge jump-edge)) T)
 
 (defmethod handle :before ((ev tick) (enemy enemy))
+  (when (path enemy)
+    (return-from handle))
   (let ((collisions (collisions enemy))
-        (vel (velocity enemy))
         (acc (acceleration enemy))
-        (player (unit 'player T)))
+        (dt (* 100 (dt ev))))
+    (setf (vx acc) (* (vx acc) (damp* (vy +vmove+) dt)))
+    (nv+ acc (v* +vgrav+ dt))
     (cond ((svref collisions 2)
-           (nv* acc (damp* 0.9 100 (dt ev))))
+           (when (<= -0.1 (vx acc) 0.1)
+             (setf (vx acc) 0)))
           (T
            (when (<= 2 (vx acc))
-             (setf (vx acc) (* (vx acc) (damp* 0.95 100 (dt ev)))))
-           (nv+ acc (v* +vgrav+ (dt ev)))))
+             (setf (vx acc) (* (vx acc) (damp* 0.90 dt))))))
     (when (svref collisions 0) (setf (vy acc) (min 0 (vy acc))))
     (when (svref collisions 1) (setf (vx acc) (min 0 (vx acc))))
     (when (svref collisions 3) (setf (vx acc) (max 0 (vx acc))))
-    (ecase (state enemy)
+    (case (state enemy)
       ((:dying :animated :stunned)
        (handle-animation-states enemy ev))
-      (:chasing
-       (cond ((<= (vsqrdist2 (location enemy) (location player)) 2000)
-              (cond ((<= (cooldown enemy) 0)
-                     (setf (direction enemy) (signum (- (vx (location player)) (vx (location enemy)))))
-                     (start-animation 'tackle enemy))
-                    (T
-                     (decf (cooldown enemy) (dt ev)))))
-             ((null (path enemy))
-              (handler-case (move-to player enemy)
-                (error ()
-                  (setf (state enemy) :normal))))))
-      (:normal
-       (when (and (<= (vsqrdist2 (location enemy) (location player)) 30000)
-                  (path-available-p player enemy))
-         (setf (state enemy) :chasing)
-         (setf (cooldown enemy) (+ 0.5 (random 1))))
-       (when (null (path enemy))
-         (cond ((<= (cooldown enemy) 0)
-                (ignore-errors
-                 (move-to (v+ (location enemy) (vrand -128 +128)) enemy))
-                (setf (cooldown enemy) (+ 1 (random 3))))
-               (T
-                (decf (cooldown enemy) (dt ev)))))))
+      (T
+       (handle-ai-states enemy ev)))
     (nvclamp (v- +vlim+) acc +vlim+)
-    (nv+ vel acc)))
+    (nv+ (velocity enemy) acc)))
 
 (defmethod handle :after ((ev tick) (enemy enemy))
   ;; Animations
   (let ((acc (acceleration enemy))
         (collisions (collisions enemy)))
     (case (state enemy)
-      ((:chasing :normal)
+      (:dying :animated :stunned)
+      (T
        (cond ((< 0 (vx acc))
               (setf (direction enemy) +1))
              ((< (vx acc) 0)
@@ -71,3 +54,34 @@
               (setf (animation enemy) 'run))
              (T
               (setf (animation enemy) 'stand)))))))
+
+(define-shader-entity wolf (enemy)
+  ())
+
+(defmethod handle-ai-states ((enemy wolf) ev)
+  (let ((player (unit 'player T)))
+    (ecase (state enemy)
+      (:chasing
+       (cond ((<= (vsqrdist2 (location enemy) (location player)) 2000)
+              (cond ((<= (cooldown enemy) 0)
+                     (setf (direction enemy) (signum (- (vx (location player)) (vx (location enemy)))))
+                     (start-animation 'tackle enemy))
+                    (T
+                     (decf (cooldown enemy) (dt ev)))))
+             ((null (path enemy))
+              (handler-case (move-to player enemy)
+                (error ()
+                  (setf (state enemy) :normal))))))
+      (:normal
+       ;; (when (and (<= (vsqrdist2 (location enemy) (location player)) 30000)
+       ;;            (path-available-p player enemy))
+       ;;   (setf (state enemy) :chasing)
+       ;;   (setf (cooldown enemy) (+ 0.5 (random 1))))
+       ;; (when (null (path enemy))
+       ;;   (cond ((<= (cooldown enemy) 0)
+       ;;          (ignore-errors
+       ;;           (move-to (v+ (location enemy) (vrand -128 +128)) enemy))
+       ;;          (setf (cooldown enemy) (+ 1 (random 3))))
+       ;;         (T
+       ;;          (decf (cooldown enemy) (dt ev)))))
+       ))))

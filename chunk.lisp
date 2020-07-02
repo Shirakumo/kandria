@@ -256,6 +256,11 @@ void main(){
       (setf (tile (vxy location) chunk) value)
       (setf (tile (vxy location) (aref (layers chunk) (floor (vz location)))) value)))
 
+(defmethod flood-fill ((chunk chunk) (location vec3) fill)
+  (if (= (vz location) 0)
+      (flood-fill chunk (vxy location) fill)
+      (flood-fill (aref (layers chunk) (floor (vz location))) (vxy location) fill)))
+
 (defmethod entity-at-point (point (chunk chunk))
   (or (call-next-method)
       (when (contained-p point chunk)
