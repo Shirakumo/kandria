@@ -71,9 +71,12 @@
            (setf (state enemy) :approach)
            (ignore-errors (move-to (vec (+ (vx (location enemy)) (- (random 100) 50)) (vy (location enemy))) enemy))))
       (:approach
-       (if (< distance 200)
-           (setf (state enemy) :attack)
-           (ignore-errors (move-to (location player) enemy))))
+       ;; FIXME: This should be reached even when there is a path being executed right now.
+       (cond ((< distance 200)
+              (setf (path enemy) ())
+              (setf (state enemy) :attack))
+             ((null (path enemy))
+              (ignore-errors (move-to (location player) enemy)))))
       (:evade
        (if (< 100 distance)
            (setf (state enemy) :attack)
