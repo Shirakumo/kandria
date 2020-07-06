@@ -91,13 +91,12 @@
           (setf (buffer player) 'light-attack))))
 
 (defmethod handle ((ev heavy-attack) (player player))
-  ;; (cond ((and (aref (collisions player) 2)
-  ;;             (not (or (eql :crawling (state player))
-  ;;                      (eql :animated (state player)))))
-  ;;        (start-animation 'heavy-ground-1 player))
-  ;;       ((eql :animated (state player))
-  ;;         (setf (buffer player) 'heavy-attack)))
-  )
+  (cond ((and (aref (collisions player) 2)
+              (not (or (eql :crawling (state player))
+                       (eql :animated (state player)))))
+         (start-animation 'heavy-ground-1 player))
+        ((eql :animated (state player))
+          (setf (buffer player) 'heavy-attack))))
 
 (flet ((handle-solid (player hit)
          (when (and (= +1 (vy (hit-normal hit)))
@@ -424,8 +423,3 @@
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
      (view-scale (unit :camera T))))
-
-(defmethod handle ((ev mouse-release) (player player))
-  (case (button ev)
-    (:middle (move-to (mouse-world-pos (pos ev)) player))
-    (:right (move-to (mouse-world-pos (pos ev)) (unit :wolf T)))))

@@ -214,7 +214,7 @@ void main(){
 
 (defmethod compile-to-pass ((chunk chunk) (pass shader-pass))
   (call-next-method)
-  (compile-to-pass (node-graph chunk) pass))
+  #++(compile-to-pass (node-graph chunk) pass))
 
 (defmethod render :around ((chunk chunk) target)
   (when (show-solids chunk)
