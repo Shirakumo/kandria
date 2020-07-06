@@ -71,6 +71,7 @@
   (observe (lambda (e) (acceleration (unit 'player scene))) :title :vel)
   (observe (lambda (e) (collisions (unit 'player scene))) :title :col)
   (observe (lambda (e) (state (unit 'player scene))) :title :state)
+  (observe (lambda (e) (state (unit :wolf scene))) :title :wolf)
   
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)

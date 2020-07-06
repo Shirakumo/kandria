@@ -74,6 +74,8 @@
     (case (state animatable)
       (:animated
        (setf (vx sacc) (* (vx sacc) (damp* -5 (dt ev))))
+       ;; FIXME: flag for whether animation follows gravity or not?
+       (nv+ sacc (v* +vgrav+ (* 50 (dt ev))))
        (vsetf acc (vx sacc) (vy sacc))
        (let ((hurtbox (hurtbox animatable)))
          (for:for ((entity over +world+))
