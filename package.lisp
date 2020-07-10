@@ -3,7 +3,7 @@
   (:use #:cl+trial)
   (:shadow #:main #:launch #:tile #:block
            #:located-entity #:sized-entity #:sprite-entity
-           #:camera #:particle #:light #:shadow-map-pass
+           #:camera #:light #:shadow-map-pass
            #:shadow-render-pass #:action #:editor-camera
            #:animatable #:animated-sprite #:sprite-data
            #:commit)

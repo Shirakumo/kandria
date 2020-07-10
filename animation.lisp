@@ -6,23 +6,36 @@
 (defclass frame (sprite-frame)
   ((hurtbox :initform (vec 0 0 0 0) :accessor hurtbox)
    (velocity :initform (vec 0 0) :accessor velocity)
+   (multiplier :initform (vec 0 0) :accessor multiplier)
    (knockback :initform (vec 0 0) :accessor knockback)
    (damage :initform 0 :accessor damage)
    (stun-time :initform 0f0 :accessor stun-time)
-   (flags :initform #b001 :accessor flags)))
+   (flags :initform #b001 :accessor flags)
+   (effect :initform NIL :accessor effect)))
 
 (defmethod shared-initialize :after ((frame frame) slots &key sexp)
   (when sexp
-    (destructuring-bind (&key (hurtbox '(0 0 0 0)) (velocity '(0 0)) (knockback '(0 0)) (damage 0) (stun-time 0) (flags 1)) sexp
+    (destructuring-bind (&key (hurtbox '(0 0 0 0))
+                              (velocity '(0 0))
+                              (multiplier '(1 1))
+                              (knockback '(0 0))
+                              (damage 0)
+                              (stun-time 0)
+                              (flags 1)
+                              (effect NIL))
+        sexp
       (destructuring-bind (vx vy) velocity
         (setf (velocity frame) (vec vx vy)))
+      (destructuring-bind (vx vy) multiplier
+        (setf (multiplier frame) (vec vx vy)))
       (destructuring-bind (kx ky) knockback
         (setf (knockback frame) (vec kx ky)))
       (destructuring-bind (x y w h) hurtbox
         (setf (hurtbox frame) (vec x y w h)))
       (setf (damage frame) damage)
       (setf (stun-time frame) (float stun-time))
-      (setf (flags frame) flags))))
+      (setf (flags frame) flags)
+      (setf (effect frame) effect))))
 
 (defmacro define-frame-flag (id name)
   `(progn
@@ -41,19 +54,23 @@
 (defun transfer-frame (target source)
   (setf (hurtbox target) (vcopy (hurtbox source)))
   (setf (velocity target) (vcopy (velocity source)))
+  (setf (multiplier target) (vcopy (multiplier source)))
   (setf (knockback target) (vcopy (knockback source)))
   (setf (damage target) (damage source))
   (setf (stun-time target) (stun-time source))
   (setf (flags target) (flags source))
+  (setf (effect target) (effect source))
   target)
 
 (defmethod clear ((target frame))
   (setf (hurtbox target) (vec 0 0 0 0))
   (setf (velocity target) (vec 0 0))
+  (setf (multiplier target) (vec 0 0))
   (setf (knockback target) (vec 0 0))
   (setf (damage target) 0)
   (setf (stun-time target) 0f0)
   (setf (flags target) #b001)
+  (setf (effect target) NIL)
   target)
 
 (defmethod hurtbox ((subject animated-sprite))
@@ -90,11 +107,13 @@
           (next-animation animation)))
 
 (defmethod write-animation ((frame frame) &optional (stream T))
-  (format stream "~& (:damage ~3a :stun-time ~3f :flags #b~4,'0b :velocity (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f))"
+  (format stream "~& (:damage ~3a :stun-time ~3f :flags #b~4,'0b :effect ~s :velocity (~4f ~4f) :multiplier (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f))"
           (damage frame)
           (stun-time frame)
           (flags frame)
+          (effect frame)
           (vx (velocity frame)) (vy (velocity frame))
+          (vx (multiplier frame)) (vy (multiplier frame))
           (vx (knockback frame)) (vy (knockback frame))
           (vx (hurtbox frame)) (vy (hurtbox frame)) (vz (hurtbox frame)) (vw (hurtbox frame))))
 

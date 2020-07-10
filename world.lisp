@@ -55,6 +55,14 @@
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
+;; Preloading
+(defmethod stage :after ((world world) (area staging-area))
+  (stage (// 'leaf 'effects 'texture) area)
+  (stage (// 'leaf 'effects 'vertex-array) area))
+
+(defmethod compile-to-pass ((world world) (pass shader-pass))
+  (register-object-for-pass pass (find-class 'effect)))
+
 (defmethod region ((world world))
   (gethash 'region (name-map world)))
 
