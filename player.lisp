@@ -24,7 +24,8 @@
    (jump-time :initform 1.0d0 :accessor jump-time)
    (dash-time :initform 1.0d0 :accessor dash-time)
    (air-time :initform 1.0d0 :accessor air-time)
-   (buffer :initform NIL :accessor buffer))
+   (buffer :initform NIL :accessor buffer)
+   (chunk :initform NIL :accessor chunk))
   (:default-initargs
    :name 'player
    :sprite-data (asset 'leaf 'player)))
@@ -150,13 +151,6 @@
         (loc (location player))
         (vel (velocity player))
         (size (bsize player)))
-    (setf (interactable player) NIL)
-    ;; Point test for interactables. Pretty stupid.
-    (for:for ((entity over +world+))
-      (when (and (not (eq entity player))
-                 (typep entity 'interactable)
-                 (contained-p (vec4 (vx loc) (vy loc) (* 1.5 (vx size)) (vy size)) entity))
-        (setf (interactable player) entity)))
     (ecase (state player)
       ((:dying :animated :stunned)
        (let ((buffer (buffer player)))
@@ -174,7 +168,10 @@
              (dash (handle (make-instance 'dash) player))
              (jump (handle (make-instance 'start-jump) player)))
            (setf (buffer player) NIL)))
-       (handle-animation-states player ev))
+       (handle-animation-states player ev)
+       (when (svref collisions 2)
+         (setf (vy vel) (max (vy vel) 0)))
+       (nv+ vel (v* +vgrav+ dt)))
       (:dashing
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
@@ -318,26 +315,20 @@
   (incf (jump-time player) (dt ev))
   (incf (air-time player) (dt ev))
   ;; OOB
-  (let ((container (find-containing player (region +world+))))
-    (unless container
-      (die player)))
-  ;; (unless (contained-p (location player) (surface player))
-  ;;   (let ((other (for:for ((entity over (region +world+)))
-  ;;                  (when (and (typep entity 'chunk)
-  ;;                             (contained-p (location player) entity))
-  ;;                    (return entity)))))
-  ;;     (cond (other
-  ;;            (issue +world+ 'switch-chunk :chunk other))
-  ;;           ((< (vy (location player))
-  ;;               (- (vy (location (surface player)))
-  ;;                  (vy (bsize (surface player)))))
-  ;;            (die player))
-  ;;           (T
-  ;;            (setf (vx (location player)) (clamp (- (vx (location (surface player)))
-  ;;                                                   (vx (bsize (surface player))))
-  ;;                                                (vx (location player))
-  ;;                                                (+ (vx (location (surface player)))
-  ;;                                                   (vx (bsize (surface player))))))))))
+  (unless (contained-p (location player) (chunk player))
+    (let ((other (find-containing player (region +world+))))
+      (cond (other
+             (issue +world+ 'switch-chunk :chunk other))
+            ((< (vy (location player))
+                (- (vy (location (chunk player)))
+                   (vy (bsize (chunk player)))))
+             (die player))
+            (T
+             (setf (vx (location player)) (clamp (- (vx (location (chunk player)))
+                                                    (vx (bsize (chunk player))))
+                                                 (vx (location player))
+                                                 (+ (vx (location (chunk player)))
+                                                    (vx (bsize (chunk player))))))))))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
@@ -386,11 +377,7 @@
 
 (defmethod handle ((ev switch-region) (player player))
   (let* ((region (slot-value ev 'region))
-         (other (for:for ((entity over region))
-                  (list entity (contained-p (location player) entity))
-                  (when (and (typep entity 'chunk)
-                             (contained-p (location player) entity))
-                    (return entity)))))
+         (other (find-containing player (region +world+))))
     (unless other
       (warn "Player is somehow outside all chunks, picking first chunk we can get.")
       (setf other (for:for ((entity over region))
@@ -404,6 +391,7 @@
   (let ((loc (vcopy (location player))))
     (when (v/= 0 (velocity player))
       (nv+ loc (v* (vunit (velocity player)) +tile-size+)))
+    (setf (chunk player) (chunk ev))
     (setf (spawn-location player) loc)))
 
 (defmethod register-object-for-pass :after (pass (player player))

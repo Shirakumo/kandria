@@ -75,7 +75,7 @@
   (setf (vy (target-size camera)) (/ (height ev) (view-scale camera) 2)))
 
 (defmethod handle ((ev switch-chunk) (camera camera))
-  (setf (region camera) (slot-value ev 'chunk)))
+  (setf (region camera) (chunk ev)))
 
 (defmethod project-view ((camera camera))
   (let* ((z (view-scale camera))
