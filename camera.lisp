@@ -70,9 +70,18 @@
   (setf (region camera) (find-containing target (region +world+))))
 
 (defmethod handle :before ((ev resize) (camera camera))
-  (setf (view-scale camera) (* (float (/ (width ev) (* 2 (vx (target-size camera)))))
-                               (zoom camera)))
-  (setf (vy (target-size camera)) (/ (height ev) (view-scale camera) 2)))
+  ;; Ensure we scale to fit width as much as possible without showing space
+  ;; outside the chunk.
+  (let* ((optimal-scale (* (float (/ (width ev) (* 2 (vx (target-size camera)))))
+                           (zoom camera)))
+         (max-fit-scale (/ (height ev) (vy (bsize (region camera))) 2))
+         (scale (max optimal-scale max-fit-scale)))
+    (setf (view-scale camera) scale)
+    (setf (vy (target-size camera)) (/ (height ev) scale 2))))
+
+(defmethod (setf region) :after (region (camera camera))
+  ;; Optimal bounds might have changed, update.
+  (handle (make-instance 'resize :width (width *context*) :height (height *context*)) camera))
 
 (defmethod handle ((ev switch-chunk) (camera camera))
   (setf (region camera) (chunk ev)))
