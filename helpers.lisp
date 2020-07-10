@@ -82,7 +82,7 @@
   (let ((best-hit NIL) (best-dist NIL))
     (flet ((on-find (hit)
              (when (and (not (eql entity (hit-object hit)))
-                        (collides-p (hit-object hit) entity hit))
+                        (collides-p entity (hit-object hit) hit))
                (let ((dist (vsqrdist2 (hit-location hit) (location entity))))
                  (when (or (null best-hit)
                            (< (hit-time hit) (hit-time best-hit))
