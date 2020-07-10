@@ -10,6 +10,7 @@
 
 (defmethod handle :before ((ev tick) (enemy enemy))
   (when (path enemy)
+    (handle-ai-states enemy ev)
     (return-from handle))
   (let ((collisions (collisions enemy))
         (vel (velocity enemy))
@@ -59,6 +60,11 @@
 (define-shader-entity wolf (enemy)
   ())
 
+(defmethod movement-speed ((enemy wolf))
+  (case (state enemy)
+    (:normal 0.9)
+    (T 2.0)))
+
 (defmethod handle-ai-states ((enemy wolf) ev)
   (let* ((player (unit 'player T))
          (ploc (location player))
@@ -68,9 +74,10 @@
          (vel (velocity enemy)))
     (ecase (state enemy)
       (:normal
-       (if (< distance 400)
-           (setf (state enemy) :approach)
-           (ignore-errors (move-to (vec (+ (vx (location enemy)) (- (random 100) 50)) (vy (location enemy))) enemy))))
+       (cond ((< distance 400)
+              (setf (state enemy) :approach))
+             ((null (path enemy))
+              (ignore-errors (move-to (vec (+ (vx (location enemy)) (- (random 100) 50)) (vy (location enemy))) enemy)))))
       (:approach
        ;; FIXME: This should be reached even when there is a path being executed right now.
        (cond ((< distance 200)

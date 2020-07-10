@@ -39,6 +39,11 @@
 (defmethod capable-p ((player player) (edge crawl-edge)) T)
 (defmethod capable-p ((player player) (edge climb-edge)) T)
 
+(defmethod movement-speed ((player player))
+  (case (state player)
+    (:crawling 1.0)
+    (T 1.9)))
+
 (defmethod handle ((ev interact) (player player))
   (when (interactable player)
     (issue +world+ 'interaction :with (interactable player))))
