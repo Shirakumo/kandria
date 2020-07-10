@@ -250,6 +250,8 @@ void main(){
   ((current-node :initform NIL :accessor current-node)
    (path :initform NIL :accessor path)))
 
+(defgeneric movement-speed (movable))
+
 (defmethod path-available-p ((target vec2) (movable movable))
   (ignore-errors (shortest-path (find-containing target (region +world+)) movable target)))
 
@@ -280,13 +282,13 @@ void main(){
            (con (car (path movable)))
            (node (current-node movable))
            (target (flow:target-node node con)))
-      (flet ((move-towards (source target &optional (spd (vw +vmove+)))
+      (flet ((move-towards (source target)
                (when (and (eql :crawling (state movable))
                           (null (svref collisions 0)))
                  (setf (state movable) :normal))
                (let ((dir (signum (- (vx target) (vx source))))
                      (diff (abs (- (vx target) (vx loc)))))
-                 (setf (vx vel) (* dir (max 1 (min diff (* 10 spd (vx +vmove+)))))))))
+                 (setf (vx vel) (* dir (max 1 (min diff (movement-speed movable))))))))
         ;; Handle current step
         (typecase con
           (null
@@ -312,8 +314,8 @@ void main(){
                         (move-towards (location node) (location target)))))
                (setf (vx vel) (vx (strength con)))))
           (crawl-edge
-           (move-towards (location node) (location target) (vx +vcraw+))
-           (setf (state movable) :crawling)))
+           (setf (state movable) :crawling)
+           (move-towards (location node) (location target))))
         ;; Check whether to move on to the next step
         (when (moved-beyond-target-p loc (location node) (location target))
           (pop (path movable))
