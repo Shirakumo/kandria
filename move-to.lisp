@@ -280,8 +280,6 @@ void main(){
            (con (car (path movable)))
            (node (current-node movable))
            (target (flow:target-node node con)))
-      (when (svref collisions 2)
-        (vsetf vel (max 0 (vy vel)) 0))
       (flet ((move-towards (source target &optional (spd (vw +vmove+)))
                (when (and (eql :crawling (state movable))
                           (null (svref collisions 0)))
@@ -323,5 +321,6 @@ void main(){
           (setf con (car (path movable)))
           (when con
             (shiftf node target (flow:target-node node con)))))
-      (nv+ vel (v* +vgrav+ dt))
-      (nv+ (velocity movable) vel))))
+      (when (svref collisions 2)
+        (vsetf vel 0 (max 0 (vy vel))))
+      (nv+ vel (v* +vgrav+ dt)))))

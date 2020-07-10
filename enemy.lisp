@@ -18,7 +18,8 @@
     (nv+ vel (v* +vgrav+ dt))
     (cond ((svref collisions 2)
            (when (<= -0.1 (vx vel) 0.1)
-             (setf (vx vel) 0)))
+             (setf (vx vel) 0))
+           (setf (vy vel) (max 0 (vy vel))))
           (T
            (when (<= 2 (vx vel))
              (setf (vx vel) (* (vx vel) (damp* 0.90 dt))))))

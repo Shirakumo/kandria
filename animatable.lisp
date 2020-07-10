@@ -64,7 +64,7 @@
     (setf (state animatable) :animated)))
 
 (defmethod handle-animation-states ((animatable animatable) ev)
-  (let ((vel (velocity animatable))
+  (let ((vel (frame-velocity animatable))
         (frame (frame animatable)))
     (case (state animatable)
       (:animated
