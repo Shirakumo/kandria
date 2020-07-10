@@ -1,13 +1,11 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defclass moving (game-entity)
-  ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
-   (acceleration :initform (vec2 0 0) :accessor acceleration)))
+  ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)))
 
 (defmethod handle ((ev tick) (moving moving))
   (when (next-method-p) (call-next-method))
   (let ((loc (location moving))
-        (vel (velocity moving))
         (size (bsize moving))
         (collisions (collisions moving)))
     ;; Scan for hits
@@ -18,9 +16,6 @@
              ;; KLUDGE: If we have too many collisions in a frame, we assume
              ;;         we're stuck somewhere, so just die.
           finally (die moving))
-    ;; Remaining velocity (if any) can be added safely.
-    (nv+ loc (v* vel (* 100 (dt ev))))
-    (vsetf vel 0 0)
     ;; Point test for adjacent walls
     (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc))))
@@ -31,7 +26,7 @@
 
 (defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))
-         (vel (velocity moving))
+         (vel (frame-velocity moving))
          (pos (hit-location hit))
          (normal (hit-normal hit))
          (height (vy (bsize moving)))
@@ -55,13 +50,13 @@
            (setf (vy loc) (- (vy pos) t-s height))))))
 
 (defmethod collides-p ((moving moving) (block platform) hit)
-  (and (< (vy (velocity moving)) 0)
+  (and (< (vy (frame-velocity moving)) 0)
        (<= (+ (vy (hit-location hit)) (floor +tile-size+ 2))
            (- (vy (location moving)) (vy (bsize moving))))))
 
 (defmethod collide ((moving moving) (block platform) hit)
   (let* ((loc (location moving))
-         (vel (velocity moving))
+         (vel (frame-velocity moving))
          (pos (hit-location hit))
          (normal (hit-normal hit))
          (height (vy (bsize moving)))
@@ -78,7 +73,7 @@
   (die moving))
 
 (defmethod collides-p ((moving moving) (block slope) hit)
-  (let ((tt (slope (location moving) (velocity moving) (bsize moving) block (hit-location hit))))
+  (let ((tt (slope (location moving) (frame-velocity moving) (bsize moving) block (hit-location hit))))
     (when tt
       (setf (hit-time hit) tt)
       (setf (hit-normal hit) (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
@@ -86,9 +81,8 @@
 
 (defmethod collide ((moving moving) (block slope) hit)
   (let* ((loc (location moving))
-         (vel (velocity moving))
-         (normal (hit-normal hit))
-         (slope (vec (- (vy normal)) (vx normal))))
+         (vel (frame-velocity moving))
+         (normal (hit-normal hit)))
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
@@ -104,7 +98,7 @@
 
 (defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))
-         (vel (velocity moving))
+         (vel (frame-velocity moving))
          (pos (location other))
          (normal (hit-normal hit))
          (bsize (bsize moving))

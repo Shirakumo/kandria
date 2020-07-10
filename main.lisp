@@ -68,7 +68,7 @@
 
 (defmethod setup-scene ((main main) scene)
   (observe (lambda (e) (location (unit 'player scene))) :title :loc)
-  (observe (lambda (e) (acceleration (unit 'player scene))) :title :vel)
+  (observe (lambda (e) (velocity (unit 'player scene))) :title :vel)
   (observe (lambda (e) (collisions (unit 'player scene))) :title :col)
   (observe (lambda (e) (state (unit 'player scene))) :title :state)
   (observe (lambda (e) (state (unit :wolf scene))) :title :wolf)

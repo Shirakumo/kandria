@@ -125,23 +125,29 @@
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity
              :type vec2 :documentation "The velocity of the entity.")
    (state :initform :normal :accessor state
-          :type symbol :documentation "The current state of the entity.")))
+          :type symbol :documentation "The current state of the entity.")
+   (frame-velocity :initform (vec2 0 0) :accessor frame-velocity)))
 
 (defmethod layer-index ((_ game-entity)) +base-layer+)
 
 (defmethod scan ((entity sized-entity) (target game-entity) on-hit)
-  (let ((hit (aabb (location target) (velocity target)
+  (let ((hit (aabb (location target) (frame-velocity target)
                    (location entity) (v+ (bsize entity) (bsize target)))))
     (when hit
       (setf (hit-object hit) entity)
       (unless (funcall on-hit hit) hit))))
 
 (defmethod scan ((entity game-entity) (target game-entity) on-hit)
-  (let ((hit (aabb (location target) (v- (velocity target) (velocity entity))
+  (let ((hit (aabb (location target) (v- (frame-velocity target) (frame-velocity entity))
                    (location entity) (v+ (bsize entity) (bsize target)))))
     (when hit
       (setf (hit-object hit) entity)
       (unless (funcall on-hit hit) hit))))
+
+(defmethod handle :after ((ev tick) (entity game-entity))
+  (let ((vel (frame-velocity entity)))
+    (nv+ (location entity) (v* vel (* 100 (dt ev))))
+    (vsetf vel 0 0)))
 
 (defclass trigger (sized-entity)
   ((event-type :initarg :event-type :initform () :accessor event-type

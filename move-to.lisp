@@ -276,43 +276,43 @@ void main(){
     (let* ((collisions (collisions movable))
            (dt (* 100 (dt ev)))
            (loc (location movable))
-           (acc (acceleration movable))
+           (vel (velocity movable))
            (con (car (path movable)))
            (node (current-node movable))
            (target (flow:target-node node con)))
       (when (svref collisions 2)
-        (vsetf acc (max 0 (vy acc)) 0))
+        (vsetf vel (max 0 (vy vel)) 0))
       (flet ((move-towards (source target &optional (spd (vw +vmove+)))
                (when (and (eql :crawling (state movable))
                           (null (svref collisions 0)))
                  (setf (state movable) :normal))
                (let ((dir (signum (- (vx target) (vx source))))
                      (diff (abs (- (vx target) (vx loc)))))
-                 (setf (vx acc) (* dir (max 1 (min diff (* 10 spd (vx +vmove+)))))))))
+                 (setf (vx vel) (* dir (max 1 (min diff (* 10 spd (vx +vmove+)))))))))
         ;; Handle current step
         (typecase con
           (null
-           (vsetf acc 0 0))
+           (vsetf vel 0 0))
           (walk-edge
            (move-towards (location node) (location target)))
           (fall-edge
            (if (svref collisions 2)
                (move-towards (location node)
                              (location target))
-               (setf (vx acc) 0)))
+               (setf (vx vel) 0)))
           (jump-edge
            (if (svref collisions 2)
                (let ((node-dist (vsqrdist2 loc (location node)))
                      (targ-dist (vsqrdist2 loc (location target))))
                  (cond ((<= node-dist (expt 8 2))
-                        (vsetf acc
+                        (vsetf vel
                                (vx (strength con))
                                (vy (strength con))))
                        ((< node-dist targ-dist)
                         (move-towards (location movable) (location node)))
                        (T
                         (move-towards (location node) (location target)))))
-               (setf (vx acc) (vx (strength con)))))
+               (setf (vx vel) (vx (strength con)))))
           (crawl-edge
            (move-towards (location node) (location target) (vx +vcraw+))
            (setf (state movable) :crawling)))
@@ -323,5 +323,5 @@ void main(){
           (setf con (car (path movable)))
           (when con
             (shiftf node target (flow:target-node node con)))))
-      (nv+ acc (v* +vgrav+ dt))
-      (nv+ (velocity movable) acc))))
+      (nv+ vel (v* +vgrav+ dt))
+      (nv+ (velocity movable) vel))))
