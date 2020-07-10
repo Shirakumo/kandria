@@ -103,7 +103,10 @@
     (make-instance 'background :texture (decode 'resource texture))))
 
 (define-encoder (background world-v0) (_b _p)
-  `(background :texture ,(encode (texture background))))
+  `(background :texture (leaf tundra-bg)
+               ;; FIXME: this sucks
+               ;;,(encode (texture background))
+               ))
 
 (define-decoder (falling-platform world-v0) (initargs _)
   (destructuring-bind (&key texture gravity location bsize frame) initargs

@@ -288,7 +288,7 @@ void main(){
                  (setf (state movable) :normal))
                (let ((dir (signum (- (vx target) (vx source))))
                      (diff (abs (- (vx target) (vx loc)))))
-                 (setf (vx vel) (* dir (max 1 (min diff (movement-speed movable))))))))
+                 (setf (vx vel) (* dir (max 0.5 (min diff (movement-speed movable))))))))
         ;; Handle current step
         (typecase con
           (null
@@ -324,5 +324,6 @@ void main(){
           (when con
             (shiftf node target (flow:target-node node con)))))
       (when (svref collisions 2)
-        (vsetf vel 0 (max 0 (vy vel))))
-      (nv+ vel (v* +vgrav+ dt)))))
+        (setf (vy vel) (max 0 (vy vel))))
+      (nv+ vel (v* +vgrav+ dt))
+      (nv+ (frame-velocity movable) vel))))
