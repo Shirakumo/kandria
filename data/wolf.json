@@ -634,6 +634,7 @@
    { "name": "Run", "from": 18, "to": 25, "direction": "forward" },
    { "name": "Tackle", "from": 26, "to": 43, "direction": "forward" },
    { "name": "Light Hit", "from": 44, "to": 51, "direction": "forward" },
+   { "name": "Hard Hit", "from": 52, "to": 60, "direction": "forward" },
    { "name": "Die", "from": 52, "to": 60, "direction": "forward" },
    { "name": "Jump", "from": 61, "to": 64, "direction": "forward" },
    { "name": "Fall", "from": 65, "to": 68, "direction": "forward" }

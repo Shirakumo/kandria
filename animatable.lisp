@@ -69,7 +69,7 @@
     (case (state animatable)
       (:animated
        (let ((hurtbox (hurtbox animatable)))
-         (for:for ((entity over +world+))
+         (for:for ((entity over (region +world+)))
            (when (and (typep entity 'animatable)
                       (not (eql animatable entity))
                       (contained-p hurtbox entity))
