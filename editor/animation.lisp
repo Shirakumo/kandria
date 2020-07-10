@@ -224,7 +224,7 @@
     
     (alloy:build-ui
      (alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :layout-parent layout
-       "Frame" "Hurtbox" "Velocity" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable"))
+       "Frame" "Hurtbox" "Velocity" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Effect"))
     (alloy:enter scroll layout)
     (loop for i from 0 below (length (frames sprite))
           do (let* ((animation (loop for animation across (animations sprite)
@@ -248,17 +248,19 @@
 
 (alloy:define-subcomponent (frame-edit hurtbox) ((hurtbox (frame frame-edit)) trial-alloy::vec4))
 (alloy:define-subcomponent (frame-edit velocity) ((velocity (frame frame-edit)) trial-alloy::vec2))
+(alloy:define-subcomponent (frame-edit multiplier) ((multiplier (frame frame-edit)) trial-alloy::vec2))
 (alloy:define-subcomponent (frame-edit knockback) ((knockback (frame frame-edit)) trial-alloy::vec2))
 (alloy:define-subcomponent (frame-edit damage) ((damage (frame frame-edit)) alloy:wheel))
 (alloy:define-subcomponent (frame-edit stun) ((stun-time (frame frame-edit)) alloy:wheel))
 (alloy:define-subcomponent (frame-edit interruptable) ((interruptable-p (frame frame-edit)) alloy:checkbox))
 (alloy:define-subcomponent (frame-edit invincible) ((invincible-p (frame frame-edit)) alloy:checkbox))
 (alloy:define-subcomponent (frame-edit cancelable) ((cancelable-p (frame frame-edit)) alloy:checkbox))
+(alloy:define-subcomponent (frame-edit effect) ((effect (frame frame-edit)) alloy:combo-set :value-set '(NIL)))
 
 (alloy:define-subcontainer (frame-edit layout)
     (alloy:vertical-linear-layout :cell-margins (alloy:margins 1))
-  frame-idx hurtbox velocity knockback damage stun interruptable invincible cancelable)
+  frame-idx hurtbox velocity multiplier knockback damage stun interruptable invincible cancelable effect)
 
 (alloy:define-subcontainer (frame-edit focus)
     (alloy:focus-list)
-  frame-idx hurtbox velocity knockback damage stun interruptable invincible cancelable)
+  frame-idx hurtbox velocity multiplier knockback damage stun interruptable invincible cancelable effect)

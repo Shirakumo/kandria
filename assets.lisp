@@ -42,3 +42,6 @@
  
 (define-asset (leaf debug) tile-data
     #p"debug.lisp")
+
+(define-asset (leaf effects) trial:sprite-data
+    #p"effects.json")

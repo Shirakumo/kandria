@@ -87,5 +87,8 @@
        (when (<= (stun-time animatable) 0)
          (setf (state animatable) :normal)))
       (:dying))
+    (when (effect frame)
+      )
+    (nv* (velocity animatable) (multiplier frame))
     (incf (vx vel) (* (direction animatable) (vx (velocity frame))))
     (incf (vy vel) (vy (velocity frame)))))
