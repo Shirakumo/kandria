@@ -10,8 +10,7 @@
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
 (define-shader-entity falling-platform (lit-sprite moving-platform)
-  ((acceleration :initform (vec2 0 0) :accessor acceleration)
-   (gravity :initform +vgrav+ :initarg :gravity :accessor gravity)))
+  ((gravity :initform +vgrav+ :initarg :gravity :accessor gravity)))
 
 (defmethod (setf location) :after (location (platform falling-platform))
   (setf (state platform) :normal))
@@ -22,14 +21,13 @@
     (:normal
      (loop repeat 10 while (handle-collisions +world+ platform)))
     (:falling
-     (nv+ (acceleration platform) (v* (gravity platform) (dt ev)))
-     (nv+ (velocity platform) (acceleration platform))
-     (loop repeat 10 while (handle-collisions +world+ platform))
-     (nv+ (location platform) (v* (velocity platform) (* 100 (dt ev)))))))
+     (nv+ (velocity platform) (v* (gravity platform) (dt ev)))
+     (nv+ (frame-velocity platform) (velocity platform))
+     (loop repeat 10 while (handle-collisions +world+ platform)))))
 
 (defmethod collide :before ((player player) (platform falling-platform) hit)
   (when (< 0 (vy (hit-normal hit)))
-    (nv+ (velocity platform) (acceleration platform))
+    (nv+ (frame-velocity platform) (velocity platform))
     (if (scan-collision +world+ platform)
         (vsetf (velocity platform) 0 0)
         (setf (state platform) :falling))))
@@ -37,7 +35,7 @@
 (defmethod collide ((platform falling-platform) (other falling-platform) hit)
   (when (and (eq :falling (state platform))
              (< 0 (vy (hit-normal hit))))
-    (let ((vel (velocity platform)))
+    (let ((vel (frame-velocity platform)))
       (shake-camera)
       (nv+ (location platform) (v* vel (hit-time hit)))
       (vsetf vel (vx (velocity other)) (vy (velocity other)))
@@ -47,7 +45,7 @@
 
 (defmethod collide ((platform falling-platform) (solid solid) hit)
   (when (eq :falling (state platform))
-    (let ((vel (velocity platform)))
+    (let ((vel (frame-velocity platform)))
       (shake-camera)
       (setf (state platform) :blocked)
       (nv+ (location platform) (v* vel (hit-time hit)))
@@ -55,7 +53,7 @@
 
 (defmethod collide ((platform falling-platform) (block block) hit)
   (when (eq :falling (state platform))
-    (let ((vel (velocity platform)))
+    (let ((vel (frame-velocity platform)))
       (shake-camera)
       (setf (state platform) :blocked)
       (nv+ (location platform) (v* vel (hit-time hit)))
@@ -73,14 +71,14 @@
     (:going-down
      (vsetf (velocity elevator) 0 -10))
     (:broken))
-  (loop repeat 10 while (handle-collisions +world+ elevator))
-  (nv+ (location elevator) (velocity elevator)))
+  (nv+ (frame-velocity elevator) (velocity elevator))
+  (loop repeat 10 while (handle-collisions +world+ elevator)))
 
 (defmethod collide :before ((player player) (elevator elevator) hit)
   (setf (interactable player) elevator))
 
 (defmethod collide ((elevator elevator) (block block) hit)
-  (let ((vel (velocity elevator)))
+  (let ((vel (frame-velocity elevator)))
     (setf (state elevator) :normal)
     (nv+ (location elevator) (v* vel (hit-time hit)))
     (vsetf vel 0 0)))

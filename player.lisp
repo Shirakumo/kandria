@@ -43,7 +43,7 @@
     (issue +world+ 'interaction :with (interactable player))))
 
 (defmethod handle ((ev dash) (player player))
-  (let ((acc (acceleration player)))
+  (let ((vel (velocity player)))
     (cond ((in-danger-p player)
            ;; FIXME: If we are holding the opposite of what
            ;;        we are facing, we should evade left.
@@ -53,10 +53,10 @@
                 (eq :normal (state player)))
            (if (typep (trial::source-event ev) 'gamepad-event)
                (let ((dev (device (trial::source-event ev))))
-                 (vsetf acc
+                 (vsetf vel
                         (absinvclamp 0.3 (gamepad:axis :l-h dev) 0.8)
                         (absinvclamp 0.3 (gamepad:axis :l-v dev) 0.8)))
-               (vsetf acc
+               (vsetf vel
                       (cond ((retained 'movement :left)  -1)
                             ((retained 'movement :right) +1)
                             (T                            0))
@@ -65,8 +65,8 @@
                             (T                            0))))
            (setf (state player) :dashing)
            (setf (animation player) 'dash)
-           (when (v= 0 acc) (setf (vx acc) (direction player)))
-           (nvunit acc))
+           (when (v= 0 vel) (setf (vx vel) (direction player)))
+           (nvunit vel))
           ((eq :animated (state player))
            (setf (buffer player) 'dash)))))
 
@@ -123,10 +123,10 @@
 
 (defmethod collide :after ((player player) (enemy enemy) hit)
   (when (eql :dashing (state player))
-    (nv+ (acceleration enemy) (nv* (vunit (acceleration player)) 2))
-    (incf (vy (acceleration enemy)) 1.0)
-    (nv* (nvunit (acceleration player)) -0.3)
-    (incf (vy (acceleration player)) 0.1)
+    (nv+ (velocity enemy) (nv* (vunit (velocity player)) 2))
+    (incf (vy (velocity enemy)) 1.0)
+    (nv* (nvunit (velocity player)) -0.3)
+    (incf (vy (velocity player)) 0.1)
     (stun player 0.2d0)))
 
 (defmethod (setf state) :before (state (player player))
@@ -148,7 +148,7 @@
   (let ((collisions (collisions player))
         (dt (* 100 (dt ev)))
         (loc (location player))
-        (acc (acceleration player))
+        (vel (velocity player))
         (size (bsize player)))
     (setf (interactable player) NIL)
     ;; Point test for interactables. Pretty stupid.
@@ -183,18 +183,18 @@
        (cond ((not (eql 'dash (name (animation player))))
               (setf (state player) :normal))
              ((< 0.10 (dash-time player) 0.125)
-              (nv* (nvunit acc) (vx +vdash+)))
+              (nv* (nvunit vel) (vx +vdash+)))
              ((< 0.125 (dash-time player) 0.15)
-              (nv* acc (damp* (vy +vdash+) dt))))
-       ;; Adapt acceleration if we are on sloped terrain
+              (nv* vel (damp* (vy +vdash+) dt))))
+       ;; Adapt velocity if we are on sloped terrain
        ;; I'm not sure why this is necessary, but it is.
        (when (typep (svref collisions 2) 'slope)
          (let* ((block (svref collisions 2))
                 (normal (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
                                       (- (vx2 (slope-r block)) (vx2 (slope-l block))))))
                 (slope (vec (- (vy normal)) (vx normal)))
-                (proj (v* slope (v. slope acc))))
-           (vsetf acc (vx proj) (vy proj)))))
+                (proj (v* slope (v. slope vel))))
+           (vsetf vel (vx proj) (vy proj)))))
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
@@ -207,16 +207,16 @@
          (cond ((retained 'movement :jump)
                 (setf (state player) :normal))
                ((null (svref collisions (if (< 0 (direction player)) 1 3)))
-                (setf (vy acc) (vx +vclim+))
-                (setf (vx acc) (* (direction player) (vx +vclim+))))
+                (setf (vy vel) (vx +vclim+))
+                (setf (vx vel) (* (direction player) (vx +vclim+))))
                ((retained 'movement :up)
-                (if (< (vy acc) (vx +vclim+))
-                    (setf (vy acc) (vx +vclim+))
-                    (decf (vy acc) 0.1)))
+                (if (< (vy vel) (vx +vclim+))
+                    (setf (vy vel) (vx +vclim+))
+                    (decf (vy vel) 0.1)))
                ((retained 'movement :down)
-                (setf (vy acc) (* (vy +vclim+) -1)))
+                (setf (vy vel) (* (vy +vclim+) -1)))
                (T
-                (setf (vy acc) 0)))))
+                (setf (vy vel) 0)))))
       (:crawling
        ;; Uncrawl on ground loss
        (when (and (not (svref collisions 2))
@@ -224,11 +224,11 @@
          (setf (state player) :normal))
        
        (cond ((retained 'movement :left)
-              (setf (vx acc) (- (vx +vcraw+))))
+              (setf (vx vel) (- (vx +vcraw+))))
              ((retained 'movement :right)
-              (setf (vx acc) (+ (vx +vcraw+))))
+              (setf (vx vel) (+ (vx +vcraw+))))
              (T
-              (setf (vx acc) 0))))
+              (setf (vx vel) 0))))
       (:normal
        ;; Handle jumps
        (when (< (jump-time player) 0.0d0)
@@ -239,11 +239,11 @@
                       (mov-dir (cond ((retained 'movement :left) -1)
                                      ((retained 'movement :right) +1)
                                      (T 0))))
-                  (setf (vy acc) (vw +vjump+))
+                  (setf (vy vel) (vw +vjump+))
                   (if (or (= dir mov-dir)
                           (not (retained 'movement :climb)))
-                      (setf (vx acc) (* dir (vz +vjump+)))
-                      (incf (vy acc) 0.3))
+                      (setf (vx vel) (* dir (vz +vjump+)))
+                      (incf (vy vel) 0.3))
                   (setf (direction player) dir)
                   (setf (jump-time player) 0.0d0)
                   (enter (make-instance 'dust-cloud :location (vec2 (+ (vx loc) (* dir 8))
@@ -252,7 +252,7 @@
                          +world+)))
                ((< (air-time player) +coyote+)
                 ;; Ground jump
-                (setf (vy acc) (+ (vx +vjump+)
+                (setf (vy vel) (+ (vx +vjump+)
                                   (if (svref collisions 2)
                                       (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
                                       0)))
@@ -268,51 +268,51 @@
          (setf (state player) :climbing))
 
        ;; Movement
-       (setf (vx acc) (* (vx acc) (damp* (vy +vmove+) dt)))
+       (setf (vx vel) (* (vx vel) (damp* (vy +vmove+) dt)))
        (cond ((svref collisions 2)
-              (setf (vy acc) (max 0 (vy acc)))
-              (incf (vy acc) (min 0 (vy (velocity (svref collisions 2)))))
+              (setf (vy vel) (max 0 (vy vel)))
+              (incf (vy vel) (min 0 (vy (velocity (svref collisions 2)))))
               (cond ((retained 'movement :left)
                      (setf (direction player) -1)
                      ;; Quick turns on the ground.
-                     (when (< 0 (vx acc))
-                       (setf (vx acc) 0))
-                     (when (< (- (vw +vmove+)) (vx acc))
-                       (decf (vx acc) (vx +vmove+))))
+                     (when (< 0 (vx vel))
+                       (setf (vx vel) 0))
+                     (when (< (- (vw +vmove+)) (vx vel))
+                       (decf (vx vel) (vx +vmove+))))
                     ((retained 'movement :right)
                      (setf (direction player) +1)
                      ;; Quick turns on the ground.
-                     (when (< (vx acc) 0)
-                       (setf (vx acc) 0))
-                     (when (< (vx acc) (vw +vmove+))
-                       (incf (vx acc) (vx +vmove+))))
+                     (when (< (vx vel) 0)
+                       (setf (vx vel) 0))
+                     (when (< (vx vel) (vw +vmove+))
+                       (incf (vx vel) (vx +vmove+))))
                     (T
-                     (setf (vx acc) 0)))
+                     (setf (vx vel) 0)))
               (when (typep (svref collisions 2) 'slope)
                 (let ((incline (- (vy (slope-l (svref collisions 2)))
                                   (vy (slope-r (svref collisions 2))))))
-                  (when (= (signum (vx acc)) (signum incline))
-                    (decf (vy acc) (/ (abs incline) 8))))))
+                  (when (= (signum (vx vel)) (signum incline))
+                    (decf (vy vel) (/ (abs incline) 8))))))
              ((retained 'movement :left)
               (setf (direction player) -1)
-              (when (< (- (vw +vmove+)) (vx acc))
-                (decf (vx acc) (vz +vmove+))))
+              (when (< (- (vw +vmove+)) (vx vel))
+                (decf (vx vel) (vz +vmove+))))
              ((retained 'movement :right)
               (setf (direction player) +1)
-              (when (< (vx acc) (vw +vmove+))
-                (incf (vx acc) (vz +vmove+)))))
+              (when (< (vx vel) (vw +vmove+))
+                (incf (vx vel) (vz +vmove+)))))
        ;; Jump progress
        (when (and (retained 'movement :jump)
                   (<= 0.05 (jump-time player) 0.15))
-         (setf (vy acc) (* (vy acc) (damp* (vy +vjump+) dt))))
-       (nv+ acc (v* +vgrav+ dt))
+         (setf (vy vel) (* (vy vel) (damp* (vy +vjump+) dt))))
+       (nv+ vel (v* +vgrav+ dt))
        ;; Limit when sliding down wall
        (when (and (or (typep (svref collisions 1) 'ground)
                       (typep (svref collisions 3) 'ground))
-                  (< (vy acc) (vz +vclim+)))
-         (setf (vy acc) (vz +vclim+)))))
-    (nvclamp (v- +vlim+) acc +vlim+)
-    (nv+ (velocity player) acc)))
+                  (< (vy vel) (vz +vclim+)))
+         (setf (vy vel) (vz +vclim+)))))
+    (nvclamp (v- +vlim+) vel +vlim+)
+    (nv+ (frame-velocity player) vel)))
 
 (defmethod handle :after ((ev tick) (player player))
   (incf (jump-time player) (dt ev))
@@ -339,34 +339,34 @@
   ;;                                                (+ (vx (location (surface player)))
   ;;                                                   (vx (bsize (surface player))))))))))
   ;; Animations
-  (let ((acc (acceleration player))
+  (let ((vel (velocity player))
         (collisions (collisions player)))
     (case (state player)
       (:climbing
        (setf (animation player) 'climb)
        (cond
-         ((< 0 (vy acc))
+         ((< 0 (vy vel))
           (setf (playback-direction player) +1)
           (setf (playback-speed player) 1.0))
-         ((< (vy acc) 0)
+         ((< (vy vel) 0)
           (setf (playback-direction player) -1)
           (setf (playback-speed player) 1.5))
          (T
           (setf (clock player) 0.0d0))))
       (:crawling
-       (cond ((< 0 (vx acc))
+       (cond ((< 0 (vx vel))
               (setf (direction player) +1))
-             ((< (vx acc) 0)
+             ((< (vx vel) 0)
               (setf (direction player) -1)))
        (setf (animation player) 'crawl)
-       (when (= 0 (vx acc))
+       (when (= 0 (vx vel))
          (setf (clock player) 0.0d0)))
       (:normal
-       (cond ((< 0 (vx acc))
+       (cond ((< 0 (vx vel))
               (setf (direction player) +1))
-             ((< (vx acc) 0)
+             ((< (vx vel) 0)
               (setf (direction player) -1)))
-       (cond ((< 0 (vy acc))
+       (cond ((< 0 (vy vel))
               (setf (animation player) 'jump))
              ((null (svref collisions 2))
               (cond ((typep (svref collisions 1) 'ground)
@@ -377,9 +377,9 @@
                      (setf (direction player) -1))
                     (T
                      (setf (animation player) 'fall))))
-             ((< 0 (vx acc))
+             ((< 0 (vx vel))
               (setf (animation player) 'run))
-             ((< (vx acc) 0)
+             ((< (vx vel) 0)
               (setf (animation player) 'run))
              (T
               (setf (animation player) 'stand)))))))
@@ -402,8 +402,8 @@
 
 (defmethod handle ((ev switch-chunk) (player player))
   (let ((loc (vcopy (location player))))
-    (when (v/= 0 (acceleration player))
-      (nv+ loc (v* (vunit (acceleration player)) +tile-size+)))
+    (when (v/= 0 (velocity player))
+      (nv+ loc (v* (vunit (velocity player)) +tile-size+)))
     (setf (spawn-location player) loc)))
 
 (defmethod register-object-for-pass :after (pass (player player))
@@ -411,7 +411,7 @@
   (register-object-for-pass pass (maybe-finalize-inheritance (find-class 'particle))))
 
 (defmethod die ((player player))
-  (vsetf (acceleration player) 0 0)
+  (vsetf (velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player))))
 
 (defmethod death ((player player))

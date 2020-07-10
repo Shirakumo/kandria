@@ -238,6 +238,10 @@ void main(){
                  :pixel-data (clone (pixel-data chunk))
                  :layers (mapcar #'clone (map 'list #'pixel-data (layers chunk)))))
 
+(defmethod resize :after ((chunk chunk) w h)
+  (loop for layer across (layers chunk)
+        do (resize layer w h)))
+
 (defmethod (setf tile-data) :after ((data tile-data) (chunk chunk))
   (trial:commit data (loader (handler *context*)) :unload NIL)
   (flet ((update-layer (layer)
@@ -370,7 +374,7 @@ void main(){
          (size (v+ (bsize target) (/ t-s 2)))
          (pos (location target))
          (lloc (nv+ (v- (location target) (location chunk)) (bsize chunk)))
-         (vel (velocity target)))
+         (vel (frame-velocity target)))
     ;; Figure out bounding region
     (if (< 0 (vx vel))
         (setf x- (floor (- (vx lloc) (vx size)) t-s)
