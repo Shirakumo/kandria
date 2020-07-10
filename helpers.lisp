@@ -15,7 +15,7 @@
   (:method-combination append :most-specific-last))
 
 (defclass base-entity (renderable entity)
-  ())
+  ((name :initarg :name :initform NIL :type symbol :documentation "The name of the entity")))
 
 (defmethod entity-at-point (point (entity base-entity))
   (or (call-next-method)

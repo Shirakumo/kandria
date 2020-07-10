@@ -242,6 +242,10 @@ void main(){
   (loop for layer across (layers chunk)
         do (resize layer w h)))
 
+(defmethod (setf location) :after (location (chunk chunk))
+  (loop for layer across (layers chunk)
+        do (setf (location layer) location)))
+
 (defmethod (setf tile-data) :after ((data tile-data) (chunk chunk))
   (trial:commit data (loader (handler *context*)) :unload NIL)
   (flet ((update-layer (layer)
