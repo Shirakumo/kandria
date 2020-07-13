@@ -1,3 +1,15 @@
 (:albedo "debug.png"
  :absorption "debug-absorption.png"
- :tile-types ())
+ :tile-types ((:l (0 14))
+              (:r (2 14))
+              (:t (1 15))
+              (:b (1 13))
+              (:tl> (0 15))
+              (:tr> (2 15))
+              (:br> (2 13))
+              (:bl> (0 13))
+              (:tl< (3 15))
+              (:tr< (5 15))
+              (:br< (5 13))
+              (:bl< (3 13))
+              (T (1 14))))

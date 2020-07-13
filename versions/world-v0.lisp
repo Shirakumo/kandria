@@ -73,14 +73,15 @@
                        :name ,(name movable)))
 
 (define-decoder (chunk world-v0) (initargs packet)
-  (destructuring-bind (&key name location size tile-data pixel-data layers) initargs
+  (destructuring-bind (&key name location size tile-data pixel-data layers lighting) initargs
     (make-instance 'chunk :name name
                           :location (decode 'vec2 location)
                           :size (decode 'vec2 size)
                           :tile-data (decode 'asset tile-data)
                           :pixel-data (packet-entry pixel-data packet)
                           :layers (loop for file in layers
-                                        collect (packet-entry file packet)))))
+                                        collect (packet-entry file packet))
+                          :lighting lighting)))
 
 (define-encoder (chunk world-v0) (_b packet)
   (let ((layers (loop for i from 0
@@ -96,6 +97,7 @@
             :size ,(encode (size chunk))
             :tile-data ,(encode (tile-data chunk))
             :pixel-data ,pixel-data
+            :lighting ,(lighting chunk)
             :layers ,layers)))
 
 (define-decoder (background world-v0) (initargs _)

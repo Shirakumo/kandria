@@ -168,7 +168,8 @@
   (enter (make-instance 'render-pass) scene))
 
 (defun launch-animation-editor (&rest initargs)
-  (apply #'trial:launch 'animation-editor initargs))
+  (let ((*package* #.*package*))
+    (apply #'trial:launch 'animation-editor initargs)))
 
 (alloy:define-widget animation-edit (alloy:structure)
   ((sprite :initarg :sprite :accessor sprite)))
@@ -198,7 +199,7 @@
   (with-open-file (stream (input* (sprite-data (sprite animation-edit)))
                           :direction :output
                           :if-exists :supersede)
-    (write-animation (sprite animation-edit) stream)))
+    (write-animation (sprite-data (sprite animation-edit)) stream)))
 
 (alloy:define-subcontainer (animation-edit layout)
     (alloy:grid-layout :col-sizes '(75 T) :row-sizes '(30))

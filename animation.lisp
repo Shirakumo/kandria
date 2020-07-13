@@ -98,7 +98,7 @@
     (format stream ")~% :frames~%  (")
     (loop for frame across (frames sprite)
           do (write-animation frame stream))
-    (format stream ")~%")))
+    (format stream "))~%")))
 
 (defmethod write-animation ((animation sprite-animation) &optional (stream T))
   (format stream "~&   (~20a :loop-to ~3a :next ~s)"

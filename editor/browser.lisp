@@ -19,8 +19,8 @@
     (case (state tool)
       (:drag
        (let ((loc (location camera)))
-         (incf (vx loc) (/ (- (vx (old-pos event)) (vx (pos event))) (view-scale camera)))
-         (incf (vy loc) (/ (- (vy (old-pos event)) (vy (pos event))) (view-scale camera)))))
+         (incf (vx loc) (/ (- (vx (old-pos event)) (vx (pos event))) (view-scale camera) (zoom camera)))
+         (incf (vy loc) (/ (- (vy (old-pos event)) (vy (pos event))) (view-scale camera) (zoom camera)))))
       (:zoom
        (let ((dp (+ (- (vx (pos event)) (vx (old-pos event)))
                     (- (vy (pos event)) (vy (old-pos event))))))
