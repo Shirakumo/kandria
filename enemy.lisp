@@ -14,7 +14,7 @@
   (let ((collisions (collisions enemy))
         (vel (velocity enemy))
         (dt (* 100 (dt ev))))
-    (setf (vx vel) (* (vx vel) (damp* (vy +vmove+) dt)))
+    (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) dt)))
     (nv+ vel (v* +vgrav+ dt))
     (cond ((svref collisions 2)
            (when (<= -0.1 (vx vel) 0.1)
@@ -30,7 +30,7 @@
        (handle-animation-states enemy ev))
       (T
        (handle-ai-states enemy ev)))
-    (nvclamp (v- +vlim+) vel +vlim+)
+    (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
     (nv+ (frame-velocity enemy) vel)))
 
 (defmethod handle :after ((ev tick) (enemy enemy))

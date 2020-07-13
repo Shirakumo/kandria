@@ -1,17 +1,22 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-shader-pass lighting-pass (scene-pass per-object-pass hdr-output-pass)
-  ())
+  ((lighting :initform T :accessor lighting)))
 
 (defmethod handle ((ev trial:tick) (pass lighting-pass))
-  (update-lighting 9 ;(+ (/ (clock +world+) 20) 7)
-   ))
+  (etypecase (lighting pass)
+    (real (update-lighting (lighting pass)))
+    ((eql T) (update-lighting (+ (/ (clock +world+) 20) 7)))
+    ((eql NIL))))
 
 (defmethod handle ((ev switch-chunk) (pass lighting-pass))
   ;; FIXME: Actually apply chunk lighting settings
   ;;        Probably even gonna have to tween between them
+  (setf (lighting pass) (lighting (chunk ev))))
+
+(defmethod (setf lighting) :after (value (pass lighting-pass))
   (with-buffer-tx (light (// 'leaf 'light-info))
-    (setf (active-p light) 1)))
+    (setf (active-p light) (if value 1 0))))
 
 (defun update-lighting (hour)
   (let ((tt (* (/ hour 24) 2 PI)))

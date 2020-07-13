@@ -1,5 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(define-global +vgrav+ (vec 0 -0.15))
 (define-global +tile-size+ 16)
 (define-global +layer-count+ 6)
 (define-global +base-layer+ 2)
@@ -17,6 +18,12 @@
     (unless (c2mop:class-finalized-p class)
       (c2mop:finalize-inheritance class))
     class))
+
+(defun mktab (&rest entries)
+  (let ((table (make-hash-table :size (length entries))))
+    (loop for (key val) in entries
+          do (setf (gethash key table) val))
+    table))
 
 (defmacro with-leaf-io-syntax (&body body)
   `(with-standard-io-syntax

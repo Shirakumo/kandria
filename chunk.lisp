@@ -195,7 +195,8 @@ void main(){
    (node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
-              :type tile-data :documentation "The tile data used to display the chunk.")))
+              :type tile-data :documentation "The tile data used to display the chunk.")
+   (lighting :initform T :initarg :lighting :accessor lighting)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
   (let* ((size (size chunk))
