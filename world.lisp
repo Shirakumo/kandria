@@ -60,8 +60,8 @@
   (stage (// 'leaf 'effects 'texture) area)
   (stage (// 'leaf 'effects 'vertex-array) area))
 
-(defmethod compile-to-pass ((world world) (pass shader-pass))
-  (register-object-for-pass pass (find-class 'effect)))
+(defmethod compile-to-pass :after ((world world) (pass shader-pass))
+  (register-object-for-pass pass (c2mop:ensure-finalized (find-class 'effect))))
 
 (defmethod region ((world world))
   (gethash 'region (name-map world)))
