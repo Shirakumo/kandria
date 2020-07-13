@@ -37,6 +37,9 @@
 (define-asset (leaf wolf) sprite-data
     #p"wolf.lisp")
 
+(define-asset (leaf dummy) sprite-data
+    #p"dummy.lisp")
+
 (define-asset (leaf tundra) tile-data
     #p"tundra.lisp")
  

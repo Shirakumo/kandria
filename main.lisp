@@ -67,11 +67,10 @@
       (setf (show-overlay controller) (not (active-p editor))))))
 
 (defmethod setup-scene ((main main) scene)
-  (observe (lambda (e) (location (unit 'player scene))) :title :loc)
-  (observe (lambda (e) (velocity (unit 'player scene))) :title :vel)
-  (observe (lambda (e) (collisions (unit 'player scene))) :title :col)
-  (observe (lambda (e) (state (unit 'player scene))) :title :state)
-  (observe (lambda (e) (state (unit :wolf scene))) :title :wolf)
+  (observe! (location (unit 'player scene)) :title :loc)
+  (observe! (velocity (unit 'player scene)) :title :vel)
+  (observe! (collisions (unit 'player scene)) :title :col)
+  (observe! (state (unit 'player scene)) :title :state)
   
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
