@@ -2,9 +2,7 @@
 
 (define-shader-entity enemy (animatable)
   ((bsize :initform (vec 8.0 8.0))
-   (cooldown :initform 0.0 :accessor cooldown))
-  (:default-initargs
-   :sprite-data (asset 'leaf 'wolf)))
+   (cooldown :initform 0.0 :accessor cooldown)))
 
 (defmethod capable-p ((enemy enemy) (edge crawl-edge)) T)
 (defmethod capable-p ((enemy enemy) (edge jump-edge)) T)
@@ -57,8 +55,19 @@
              (T
               (setf (animation enemy) 'stand)))))))
 
+(define-shader-entity dummy (enemy)
+  ()
+  (:default-initargs
+   :sprite-data (asset 'leaf 'dummy)))
+
+(defmethod capable-p ((enemy dummy) (edge move-edge)) NIL)
+(defmethod handle-ai-states ((enemy dummy) ev)
+  (setf (vx (velocity enemy)) 0))
+
 (define-shader-entity wolf (enemy)
-  ())
+  ()
+  (:default-initargs
+   :sprite-data (asset 'leaf 'wolf)))
 
 (defmethod movement-speed ((enemy wolf))
   (case (state enemy)
