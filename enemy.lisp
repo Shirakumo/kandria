@@ -61,6 +61,7 @@
    :sprite-data (asset 'leaf 'dummy)))
 
 (defmethod capable-p ((enemy dummy) (edge move-edge)) NIL)
+(defmethod handle-ai-states ((enemy dummy) ev))
 (defmethod (setf animation) ((animation symbol) (enemy dummy))
   (if (find animation '(STAND JUMP FALL LIGHT-HIT HARD-HIT DIE))
       (call-next-method)
