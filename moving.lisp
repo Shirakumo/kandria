@@ -19,10 +19,12 @@
     ;; Point test for adjacent walls
     (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc))))
-          (u (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy size) 1) (vx size) 1))))
+          (u (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy size) 1) (vx size) 1)))
+          (b (scan-collision +world+ (vec (vx loc) (- (vy loc) (vy size) 1) (vx size) 1))))
       (when l (setf (aref collisions 3) (hit-object l)))
       (when r (setf (aref collisions 1) (hit-object r)))
-      (when u (setf (aref collisions 0) (hit-object u))))))
+      (when u (setf (aref collisions 0) (hit-object u)))
+      (when b (setf (aref collisions 2) (hit-object b))))))
 
 (defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))
@@ -31,7 +33,8 @@
          (normal (hit-normal hit))
          (height (vy (bsize moving)))
          (t-s (/ (block-s block) 2)))
-    (cond ((= +1 (vy normal)) (setf (svref (collisions moving) 2) block))
+    (cond ((= +1 (vy normal)) (setf (svref (collisions moving) 2) block)
+           (setf (vy (velocity moving)) (max 0 (vy (velocity moving)))))
           ((= -1 (vy normal)) (setf (svref (collisions moving) 0) block))
           ((= +1 (vx normal)) (setf (svref (collisions moving) 3) block))
           ((= -1 (vx normal)) (setf (svref (collisions moving) 1) block)))
@@ -87,6 +90,7 @@
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
     ;; Make sure we stop sliding down the slope.
+    (setf (vy (velocity moving)) 0)
     (when (< (abs (vx vel)) 0.1)
       (setf (vx vel) 0))
     ;; Zip

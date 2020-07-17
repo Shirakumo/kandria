@@ -71,7 +71,7 @@
   (observe! (velocity (unit 'player scene)) :title :vel)
   (observe! (collisions (unit 'player scene)) :title :col)
   (observe! (state (unit 'player scene)) :title :state)
-  (observe! (animation (unit 'player scene)) :title :anim)
+  (observe! (name (animation (unit 'player scene))) :title :anim)
   (observe! (multiplier (frame (unit 'player scene))) :title :mult)
   
   (enter (make-instance 'inactive-editor) scene)
