@@ -217,9 +217,20 @@ void main(){
   (call-next-method)
   #++(compile-to-pass (node-graph chunk) pass))
 
-(defmethod render :around ((chunk chunk) target)
-  (when (show-solids chunk)
-    (call-next-method)))
+(defmethod render :around ((chunk chunk) (program shader-program))
+  (cond ((show-solids chunk)
+         (setf (uniform program "visibility") 1.0)
+         (call-next-method))
+        ((active-p (unit :editor T))
+         (setf (uniform program "visibility") 0.3)
+         (call-next-method))))
+
+(define-class-shader (chunk :fragment-shader)
+  "uniform float visibility = 1.0;
+out vec4 color;
+void main(){
+  color *= visibility;
+}")
 
 (defmethod enter :after ((chunk chunk) (container container))
   (loop for layer across (layers chunk)
