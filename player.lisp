@@ -141,13 +141,13 @@
   (when (active-p trigger)
     (fire trigger)))
 
-(defmethod collide :after ((player player) (enemy enemy) hit)
-  (when (eql :dashing (state player))
-    (nv+ (velocity enemy) (nv* (vunit (velocity player)) 2))
-    (incf (vy (velocity enemy)) 1.0)
-    (nv* (nvunit (velocity player)) -0.3)
-    (incf (vy (velocity player)) 0.1)
-    (stun player 0.2d0)))
+;; (defmethod collide :after ((player player) (enemy enemy) hit)
+;;   (when (eql :dashing (state player))
+;;     (nv+ (velocity enemy) (nv* (vunit (velocity player)) 2))
+;;     (incf (vy (velocity enemy)) 1.0)
+;;     (nv* (nvunit (velocity player)) -0.3)
+;;     (incf (vy (velocity player)) 0.1)
+;;     (stun player 0.2d0)))
 
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
@@ -362,17 +362,16 @@
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
+    (setf (playback-direction player) +1)
+    (setf (playback-speed player) 1.0)
     (case (state player)
       (:climbing
        (setf (animation player) 'climb)
        (cond
-         ((< 0 (vy vel))
-          (setf (playback-direction player) +1)
-          (setf (playback-speed player) 1.0))
          ((< (vy vel) 0)
           (setf (playback-direction player) -1)
           (setf (playback-speed player) 1.5))
-         (T
+         ((= 0 (vy vel))
           (setf (clock player) 0.0d0))))
       (:crawling
        (cond ((< 0 (vx vel))
