@@ -56,13 +56,15 @@
               (setf (animation enemy) 'stand)))))))
 
 (define-shader-entity dummy (enemy)
-  ()
+  ((bsize :initform (vec 8 16)))
   (:default-initargs
    :sprite-data (asset 'leaf 'dummy)))
 
 (defmethod capable-p ((enemy dummy) (edge move-edge)) NIL)
-(defmethod handle-ai-states ((enemy dummy) ev)
-  (setf (vx (velocity enemy)) 0))
+(defmethod (setf animation) ((animation symbol) (enemy dummy))
+  (if (find animation '(STAND JUMP FALL LIGHT-HIT HARD-HIT DIE))
+      (call-next-method)
+      (call-next-method 'stand enemy)))
 
 (define-shader-entity wolf (enemy)
   ()
