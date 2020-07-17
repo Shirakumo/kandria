@@ -325,3 +325,4 @@
   ((flare:name :initform (generate-name))))
 
 (define-shader-entity player () ())
+(define-shader-entity enemy () ())
