@@ -60,9 +60,9 @@
   '((:t
      _ o _
      s s s
-     x i x)
+     x x x)
     (:b
-     x i x
+     x x _
      s s s
      _ o _)
     (:l
@@ -83,8 +83,8 @@
      _ s x)
     (:br>
      x s _
-     s s _
-     _ _ o)
+     s s o
+     _ o o)
     (:bl>
      _ s x
      _ s s
@@ -104,7 +104,43 @@
     (:bl<
      x s o
      x s s
-     x x x)))
+     x x x)
+    (:ct
+     o s o
+     s s s
+     x i x)
+    (:ct
+     o s o
+     s s s
+     _ i _)
+    (:cb
+     _ i _
+     s s s
+     o s o)
+    (:h
+     _ o _
+     s s s
+     _ o _)
+    (:v
+     _ s _
+     o s o
+     _ s _)
+    (:hl
+     _ o _
+     o s s
+     _ o _)
+    (:hr
+     _ o _
+     s s o
+     _ o _)
+    (:vt
+     _ o _
+     o s o
+     _ s _)
+    (:vb
+     _ s _
+     o s o
+     _ o _)))
 
 (defun filter-edge (solids width height x y)
   (labels ((pos (x y)
@@ -142,6 +178,10 @@
 (defun fill-edge (solids tiles width height ox oy map)
   (labels ((pos (x y)
              (* (+ x (* y width)) 2))
+           (solid (x y)
+             (when (and (<= 0 x (1- width))
+                        (<= 0 y (1- height)))
+               (aref solids (pos x y))))
            ((setf tile) (f x y)
              (when (and (<= 0 x (1- width))
                         (<= 0 y (1- height)))
@@ -149,22 +189,55 @@
                      (pos (pos x y)))
                  (setf (aref tiles (+ 0 pos)) (first f)
                        (aref tiles (+ 1 pos)) (second f))))))
-    (loop with x = ox with y = oy
+    (loop with x = ox with y = oy with px = x with py = y
+          for i from 0 below 1000
           for edge = (filter-edge solids width height x y)
-          do (setf (tile x y) (cdr (assoc edge map)))
-             (ecase edge
-               (:l (incf y))
-               (:r (decf y))
-               (:t (incf x))
-               (:b (decf x))
-               (:tl> (incf x))
-               (:tr> (decf y))
-               (:br> (decf x))
-               (:bl> (incf y))
-               (:tl< (decf y))
-               (:tr< (decf x))
-               (:br< (incf y))
-               (:bl< (incf x)))
+          for solid = (solid x y)
+          for tile = (case solid
+                       (2 :platform)
+                       (3 :spike)
+                       ((4 5) `(:slope 1 ,(- solid 4)))
+                       ((6 7 8 9) `(:slope 2 ,(- solid 6)))
+                       ((10 11 12 13 14 15) `(:slope 3 ,(- solid 10)))
+                       (T edge))
+          do (setf (tile x y) (cdr (assoc tile map :test 'equal)))
+             (let ((ox x) (oy y))
+               (ecase edge
+                 (:l (incf y))
+                 (:r (decf y))
+                 (:t (incf x))
+                 (:b (decf x))
+                 (:tl> (incf x))
+                 (:tr> (decf y))
+                 (:br> (decf x))
+                 (:bl> (incf y))
+                 (:tl< (decf y))
+                 (:tr< (decf x))
+                 (:br< (incf y))
+                 (:bl< (incf x))
+                 (:ct (if (= px x)
+                          (incf x)
+                          (incf y)))
+                 (:cb (if (= px x)
+                          (decf x)
+                          (decf y)))
+                 (:cl (if (= py y)
+                          (incf y)
+                          (decf x)))
+                 (:cr (if (= py y)
+                          (decf y)
+                          (incf x)))
+                 (:h (if (< px x)
+                         (incf x)
+                         (decf x)))
+                 (:v (if (< py y)
+                         (incf y)
+                         (decf y)))
+                 (:hl (incf x))
+                 (:hr (decf x))
+                 (:vt (decf y))
+                 (:vb (incf y)))
+               (setf px ox py oy))
              (when (and (= x ox) (= y oy))
                (loop-finish))
           collect (vec x y))))
