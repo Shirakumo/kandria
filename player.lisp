@@ -142,13 +142,16 @@
   (when (active-p trigger)
     (fire trigger)))
 
-;; (defmethod collide :after ((player player) (enemy enemy) hit)
-;;   (when (eql :dashing (state player))
-;;     (nv+ (velocity enemy) (nv* (vunit (velocity player)) 2))
-;;     (incf (vy (velocity enemy)) 1.0)
-;;     (nv* (nvunit (velocity player)) -0.3)
-;;     (incf (vy (velocity player)) 0.1)
-;;     (stun player 0.2d0)))
+(defmethod collides-p ((player player) (enemy enemy) hit)
+  (eql :dashing (state player)))
+
+(defmethod collide :after ((player player) (enemy enemy) hit)
+  (when (eql :dashing (state player))
+    (nv+ (velocity enemy) (v* (velocity player) 0.8))
+    (incf (vy (velocity enemy)) 3.0)
+    (nv* (velocity player) -0.25)
+    (incf (vy (velocity player)) 2.0)
+    (stun player 0.27)))
 
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
