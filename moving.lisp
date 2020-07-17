@@ -10,12 +10,13 @@
         (collisions (collisions moving)))
     ;; Scan for hits
     (fill collisions NIL)
-    (loop repeat 10
+    (loop for i from 0
           do (unless (handle-collisions +world+ moving)
                (return))
              ;; KLUDGE: If we have too many collisions in a frame, we assume
              ;;         we're stuck somewhere, so just die.
-          finally (die moving))
+             (cond ((< 11 i) (die moving))
+                   ((< 10 i) (vsetf (frame-velocity moving) 0 0))))
     ;; Point test for adjacent walls
     (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc))))
@@ -90,7 +91,7 @@
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
     ;; Make sure we stop sliding down the slope.
-    (setf (vy (velocity moving)) 0)
+    (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
     (when (< (abs (vx vel)) 0.1)
       (setf (vx vel) 0))
     ;; Zip
