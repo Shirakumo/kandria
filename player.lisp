@@ -22,11 +22,12 @@
               (walljump-acc    (vec 2.75 2.5))
               (dash-acc        1.2)
               (dash-dcc        0.875)
+              (dash-air-dcc    0.98)
               (dash-acc-start  0.05)
               (dash-dcc-start  0.2)
               (dash-dcc-end    0.3)
-              (dash-min-time   0.3)
-              (dash-max-time   0.6))))
+              (dash-min-time   0.25)
+              (dash-max-time   0.675))))
 
 (defmacro p! (name)
   `(gethash ',name +player-movement-data+))
@@ -217,13 +218,16 @@
               (nv* vel (p! dash-acc))))
        ;; Adapt velocity if we are on sloped terrain
        ;; I'm not sure why this is necessary, but it is.
-       (when (typep (svref collisions 2) 'slope)
-         (let* ((block (svref collisions 2))
-                (normal (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
-                                      (- (vx2 (slope-r block)) (vx2 (slope-l block))))))
-                (slope (vec (- (vy normal)) (vx normal)))
-                (proj (v* slope (v. slope vel))))
-           (vsetf vel (vx proj) (vy proj)))))
+       (typecase (svref collisions 2)
+         (slope
+          (let* ((block (svref collisions 2))
+                 (normal (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
+                                       (- (vx2 (slope-r block)) (vx2 (slope-l block))))))
+                 (slope (vec (- (vy normal)) (vx normal)))
+                 (proj (v* slope (v. slope vel))))
+            (vsetf vel (vx proj) (vy proj))))
+         (null
+          (nv* vel (damp* (p! dash-air-dcc) dt)))))
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
@@ -292,7 +296,6 @@
 
        ;; Movement
        (cond ((svref collisions 2)
-              (setf (vy vel) (max 0 (vy vel)))
               (incf (vy vel) (min 0 (vy (velocity (svref collisions 2)))))
               (cond ((retained 'movement :left)
                      (setf (direction player) -1)
