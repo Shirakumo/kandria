@@ -74,7 +74,7 @@
                         (not (eql animatable entity))
                         (contained-p hurtbox entity))
                (when (interruptable-p (frame entity))
-                 (setf (direction entity) (float-sign (- (vx (location animatable)) (vx (location entity)))))
+                 (setf (direction entity) (- (direction animatable)))
                  (incf (vx (velocity entity)) (* (direction animatable) (vx (knockback frame))))
                  (incf (vy (velocity entity)) (vy (knockback frame)))
                  (stun entity (stun-time frame)))
