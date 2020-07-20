@@ -64,13 +64,13 @@
         :version (version region)
         :description (description region)))
 
-(define-decoder (movable world-v0) (initargs _p)
+(define-decoder (game-entity world-v0) (initargs _p)
   (destructuring-bind (&key name location) initargs
-    (make-instance (class-of movable) :location (decode 'vec2 location) :name name)))
+    (make-instance (class-of game-entity) :location (decode 'vec2 location) :name name)))
 
-(define-encoder (movable world-v0) (_b _p)
-  `(,(type-of movable) :location ,(encode (location movable))
-                       :name ,(name movable)))
+(define-encoder (game-entity world-v0) (_b _p)
+  `(,(type-of game-entity) :location ,(encode (location game-entity))
+                       :name ,(name game-entity)))
 
 (define-decoder (chunk world-v0) (initargs packet)
   (destructuring-bind (&key name location size tile-data pixel-data layers lighting) initargs

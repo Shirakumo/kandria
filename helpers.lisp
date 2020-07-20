@@ -56,6 +56,9 @@
 (defmethod initargs append ((_ sized-entity))
   `(:bsize))
 
+(defmethod size ((entity sized-entity))
+  (v* (bsize entity) 2))
+
 (defmethod scan ((entity sized-entity) (target vec2) on-hit)
   (let ((w (vx (bsize entity)))
         (h (vy (bsize entity)))
@@ -94,12 +97,11 @@
       best-hit)))
 
 (define-shader-entity sprite-entity (trial:sprite-entity sized-entity facing-entity)
-  ((vertex-array :initform (asset 'leaf '1x))
-   (frame :initform 0
-          :type integer :documentation "The tile to display from the sprite sheet.")
+  ((frame-idx :initform 0
+              :type integer :documentation "The tile to display from the sprite sheet.")
    (texture :initform (asset 'leaf 'placeholder)
             :type resource :documentation "The tileset to display the sprite from.")
-   (size :initform NIL
+   (size :initform NIL :accessor size
          :type vec2 :documentation "The size of the tile to display.")))
 
 (defmethod initargs append ((_ sprite-entity))
@@ -121,7 +123,7 @@
   (vsetf (size sprite) width height)
   (vsetf (bsize sprite) (/ width 2) (/ height 2)))
 
-(defclass game-entity (sized-entity)
+(defclass game-entity (sized-entity listener)
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity
              :type vec2 :documentation "The velocity of the entity.")
    (state :initform :normal :accessor state
