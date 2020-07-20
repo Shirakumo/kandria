@@ -82,8 +82,9 @@
 
 (defmethod collide ((player player) (ball ball) hit)
   (nv+ (velocity ball) (v* (velocity player) 0.8))
-  (incf (vy (velocity ball)) 0.25)
-  (nv* (velocity player) 0.2))
+  (incf (vy (velocity ball)) 2.0)
+  (vsetf (frame-velocity player) 0 0)
+  (nv* (velocity player) 0.8))
 
 (defmethod handle :before ((ev tick) (ball ball))
   (let* ((dt (* 100 (dt ev)))
@@ -106,6 +107,15 @@
              (if (< (abs (vx ref)) 0.2) 0 (vx ref))
              (if (< (abs (vy ref)) 0.2) 0 (* 0.8 (vy ref)))))
     (nv+ loc (v* 0.1 normal))))
+
+(defmethod collide :after ((ball ball) (block slope) hit)
+  (let* ((loc (location ball))
+         (normal (hit-normal hit))
+         (xrel (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
+    (when (< (vx normal) 0) (incf xrel))
+    ;; KLUDGE: we add a bias of 0.1 here to ensure we stop colliding with the slope.
+    (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
+      (setf (vy loc) (+ 0.05 yrel (vy (bsize ball)) (vy (hit-location hit)))))))
 
 (define-shader-entity balloon (game-entity lit-animated-sprite ephemeral)
   ()
