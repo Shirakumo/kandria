@@ -46,11 +46,14 @@
 (define-asset (leaf balloon) trial:sprite-data
     #p"balloon.json")
 
+(define-asset (leaf debug-door) trial:sprite-data
+    #p"debug-door.json")
+
+(define-asset (leaf effects) trial:sprite-data
+    #p"effects.json")
+
 (define-asset (leaf tundra) tile-data
     #p"tundra.lisp")
  
 (define-asset (leaf debug) tile-data
     #p"debug.lisp")
-
-(define-asset (leaf effects) trial:sprite-data
-    #p"effects.json")

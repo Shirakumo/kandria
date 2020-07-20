@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (define-shader-pass lighting-pass (scene-pass per-object-pass hdr-output-pass)
-  ((lighting :initform T :accessor lighting)))
+  ((lighting :initform T :accessor lighting)
+   (name :initform 'lighting-pass)))
 
 (defmethod handle ((ev trial:tick) (pass lighting-pass))
   (etypecase (lighting pass)

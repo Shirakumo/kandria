@@ -45,6 +45,7 @@
                              (:file "tool")
                              (:file "browser")
                              (:file "paint")
+                             (:file "line")
                              (:file "freeform")
                              (:file "base")
                              (:file "editor")
