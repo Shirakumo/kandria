@@ -1,0 +1,201 @@
+{ "frames": [
+   {
+    "filename": "balloon 0.ase",
+    "frame": { "x": 54, "y": 36, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 1.ase",
+    "frame": { "x": 0, "y": 70, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 2.ase",
+    "frame": { "x": 122, "y": 68, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 3.ase",
+    "frame": { "x": 20, "y": 68, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 4.ase",
+    "frame": { "x": 54, "y": 70, "w": 16, "h": 32 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 32 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 5.ase",
+    "frame": { "x": 105, "y": 38, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 14, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 6.ase",
+    "frame": { "x": 88, "y": 38, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 14, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 7.ase",
+    "frame": { "x": 71, "y": 38, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 14, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 8.ase",
+    "frame": { "x": 37, "y": 70, "w": 16, "h": 32 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 32 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 9.ase",
+    "frame": { "x": 131, "y": 0, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 50
+   },
+   {
+    "filename": "balloon 10.ase",
+    "frame": { "x": 0, "y": 34, "w": 19, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 15, "y": 13, "w": 19, "h": 35 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 50
+   },
+   {
+    "filename": "balloon 11.ase",
+    "frame": { "x": 103, "y": 0, "w": 27, "h": 37 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 10, "y": 11, "w": 27, "h": 37 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 50
+   },
+   {
+    "filename": "balloon 12.ase",
+    "frame": { "x": 72, "y": 0, "w": 30, "h": 37 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 11, "w": 30, "h": 37 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 50
+   },
+   {
+    "filename": "balloon 13.ase",
+    "frame": { "x": 38, "y": 0, "w": 33, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 9, "y": 13, "w": 33, "h": 35 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 50
+   },
+   {
+    "filename": "balloon 14.ase",
+    "frame": { "x": 0, "y": 0, "w": 37, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 15, "w": 37, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 50
+   },
+   {
+    "filename": "balloon 15.ase",
+    "frame": { "x": 37, "y": 34, "w": 1, "h": 1 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1, "h": 1 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 1000
+   },
+   {
+    "filename": "balloon 16.ase",
+    "frame": { "x": 37, "y": 36, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 17.ase",
+    "frame": { "x": 131, "y": 34, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 18.ase",
+    "frame": { "x": 20, "y": 34, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "balloon 19.ase",
+    "frame": { "x": 54, "y": 36, "w": 16, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 16, "y": 15, "w": 16, "h": 33 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.21-x64",
+  "image": "balloon.png",
+  "format": "RGBA8888",
+  "size": { "w": 147, "h": 103 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Stand", "from": 0, "to": 8, "direction": "forward" },
+   { "name": "Die", "from": 9, "to": 14, "direction": "forward" },
+   { "name": "Revive", "from": 15, "to": 19, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

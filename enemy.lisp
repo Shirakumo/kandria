@@ -55,6 +55,87 @@
              (T
               (setf (animation enemy) 'stand)))))))
 
+(defmethod collides-p ((player player) (enemy enemy) hit)
+  (eql :dashing (state player)))
+
+(defmethod collide :after ((player player) (enemy enemy) hit)
+  (when (eql :dashing (state player))
+    (nv+ (velocity enemy) (v* (velocity player) 0.8))
+    (incf (vy (velocity enemy)) 3.0)
+    (nv* (velocity player) -0.25)
+    (incf (vy (velocity player)) 2.0)
+    (stun player 0.27)))
+
+(define-shader-entity ball (axis-rotated-entity moving vertex-entity textured-entity)
+  ((vertex-array :initform (// 'leaf '1x))
+   (texture :initform (// 'leaf 'ball))
+   (bsize :initform (vec 6 6))
+   (axis :initform (vec 0 0 1))))
+
+(defmethod apply-transforms progn ((ball ball))
+  (let ((size (v* 2 (bsize ball))))
+    (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
+    (scale (vxy_ size))))
+
+(defmethod collides-p ((player player) (ball ball) hit)
+  (eql :dashing (state player)))
+
+(defmethod collide ((player player) (ball ball) hit)
+  (nv+ (velocity ball) (v* (velocity player) 0.8))
+  (incf (vy (velocity ball)) 0.25)
+  (nv* (velocity player) 0.2))
+
+(defmethod handle :before ((ev tick) (ball ball))
+  (let* ((dt (* 100 (dt ev)))
+         (vel (velocity ball))
+         (vlen (vlength vel)))
+    (when (< 0 vlen)
+      (decf (angle ball) (* 0.1 (vx vel)))
+      (nv* vel (* (min vlen 10) (/ 0.99 vlen))))
+    (nv+ vel (v* +vgrav+ dt))
+    (nv+ (frame-velocity ball) vel)))
+
+(defmethod collide ((ball ball) (block block) hit)
+  (nv+ (location ball) (v* (frame-velocity ball) (hit-time hit)))
+  (vsetf (frame-velocity ball) 0 0)
+  (let ((vel (velocity ball))
+        (normal (hit-normal hit))
+        (loc (location ball)))
+    (let ((ref (nv+ (v* 2 normal (v. normal (v- vel))) vel)))
+      (vsetf vel
+             (if (< (abs (vx ref)) 0.2) 0 (vx ref))
+             (if (< (abs (vy ref)) 0.2) 0 (* 0.8 (vy ref)))))
+    (nv+ loc (v* 0.1 normal))))
+
+(define-shader-entity balloon (game-entity lit-animated-sprite)
+  ()
+  (:default-initargs
+   :sprite-data (asset 'leaf 'balloon)))
+
+(defmethod collides-p ((player player) (balloon balloon) hit)
+  (eql :normal (state balloon)))
+
+(defmethod collide ((player player) (balloon balloon) hit)
+  (kill balloon)
+  (setf (vy (velocity player)) 4.0)
+  (case (state player)
+    (:dashing
+     (setf (vx (velocity player)) (* 1.1 (vx (velocity player)))))))
+
+(defmethod kill ((balloon balloon))
+  (setf (animation balloon) 'die)
+  (setf (state balloon) :dying))
+
+(defmethod reset-animation :before ((balloon balloon))
+  (case (state balloon)
+    (:dying (setf (animation balloon) 'revive)
+     (setf (state balloon) :reviving))
+    (:reviving (setf (animation balloon) 'stand)
+     (setf (state balloon) :normal))))
+
+(defmethod apply-transforms progn ((baloon balloon))
+  (translate-by 0 -16 0))
+
 (define-shader-entity dummy (enemy)
   ((bsize :initform (vec 8 16)))
   (:default-initargs

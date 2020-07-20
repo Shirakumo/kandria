@@ -159,7 +159,8 @@
 (defclass insert-entity () ((entity :initarg :entity :initform (alloy:arg! :entity) :accessor entity)))
 
 (defmethod edit ((action insert-entity) (editor editor))
-  (let ((entity (entity action)))
+  (let ((entity (entity action))
+        (*package* #.*package*))
     (when (typep entity 'located-entity)
       (setf (location entity) (vcopy (location (unit :camera T)))))
     (enter-and-load entity (unit 'region T) (handler *context*))

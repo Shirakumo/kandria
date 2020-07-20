@@ -31,6 +31,9 @@
 (define-sprite debug-bg
     #p"debug-bg.png")
 
+(define-sprite ball
+    #p"ball.png")
+
 (define-asset (leaf player) sprite-data
     #p"player.lisp")
 
@@ -39,6 +42,9 @@
 
 (define-asset (leaf dummy) sprite-data
     #p"dummy.lisp")
+
+(define-asset (leaf balloon) trial:sprite-data
+    #p"balloon.json")
 
 (define-asset (leaf tundra) tile-data
     #p"tundra.lisp")

@@ -77,11 +77,12 @@
   (die moving))
 
 (defmethod collides-p ((moving moving) (block slope) hit)
-  (let ((tt (slope (location moving) (frame-velocity moving) (bsize moving) block (hit-location hit))))
-    (when tt
-      (setf (hit-time hit) tt)
-      (setf (hit-normal hit) (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
-                                           (- (vx2 (slope-r block)) (vx2 (slope-l block)))))))))
+  (ignore-errors
+   (let ((tt (slope (location moving) (frame-velocity moving) (bsize moving) block (hit-location hit))))
+     (when tt
+       (setf (hit-time hit) tt)
+       (setf (hit-normal hit) (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
+                                            (- (vx2 (slope-r block)) (vx2 (slope-l block))))))))))
 
 (defmethod collide ((moving moving) (block slope) hit)
   (let* ((loc (location moving))

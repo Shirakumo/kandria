@@ -7,6 +7,7 @@
   ((health :initarg :health :initform 1000 :accessor health)
    (stun-time :initform 0d0 :accessor stun-time)))
 
+(defgeneric kill (animatable))
 (defgeneric die (animatable))
 (defgeneric interrupt (animatable))
 (defgeneric hurt (animatable damage))
@@ -31,17 +32,20 @@
         (setf (animation animatable) 'hard-hit)))
     (decf (health animatable) damage)
     (when (<= (health animatable) 0)
-      (die animatable))))
+      (kill animatable))))
 
-(defmethod die ((animatable animatable))
+(defmethod kill ((animatable animatable))
   (setf (health animatable) 0)
   (setf (state animatable) :dying)
   (setf (animation animatable) 'die))
 
+(defmethod die ((animatable animatable))
+  (leave animatable T))
+
 (defmethod switch-animation :before ((animatable animatable) next)
   ;; Remove selves when death animation completes
   (when (eql (name (animation animatable)) 'die)
-    (leave animatable (container animatable))))
+    (die animatable)))
 
 (defmethod interrupt ((animatable animatable))
   (when (interruptable-p (frame animatable))
