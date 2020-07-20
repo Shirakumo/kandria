@@ -64,6 +64,19 @@
         :version (version region)
         :description (description region)))
 
+(define-decoder (door world-v0) (initargs _p)
+  (destructuring-bind (&key name location target) initargs
+    (make-instance (class-of door) :location (decode 'vec2 location)
+                                   :target (decode 'vec2 target)
+                                   :name name)))
+
+(define-encoder (door world-v0) (_b _p)
+  (if (primary door)
+      `(,(type-of door) :location ,(encode (location door))
+                        :target ,(encode (location (target door)))
+                        :name ,(name door))
+      (error 'no-applicable-encoder :source door)))
+
 (define-decoder (game-entity world-v0) (initargs _p)
   (destructuring-bind (&key name location) initargs
     (make-instance (class-of game-entity) :location (decode 'vec2 location) :name name)))

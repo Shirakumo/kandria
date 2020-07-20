@@ -109,7 +109,7 @@
                               (sb-sys:vector-sap dat))
         (gl:bind-texture :texture-2d 0)))))
 
-(defmethod clear :after ((layer layer))
+(defmethod clear ((layer layer))
   (let ((dat (pixel-data layer)))
     (dotimes (i (truncate (* 2 (vx (size layer)) (vy (size layer)))))
       (setf (aref dat i) 0))
@@ -196,7 +196,8 @@ void main(){
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")
-   (lighting :initform T :initarg :lighting :accessor lighting)))
+   (lighting :initform T :initarg :lighting :accessor lighting))
+  (:default-initargs :tile-data (asset 'leaf 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
   (let* ((size (size chunk))
@@ -250,13 +251,17 @@ void main(){
                  :pixel-data (clone (pixel-data chunk))
                  :layers (mapcar #'clone (map 'list #'pixel-data (layers chunk)))))
 
-(defmethod resize :after ((chunk chunk) w h)
+(defmethod (setf size) :after (size (chunk chunk))
   (loop for layer across (layers chunk)
-        do (resize layer w h)))
+        do (setf (size layer) size)))
 
 (defmethod (setf location) :after (location (chunk chunk))
   (loop for layer across (layers chunk)
         do (setf (location layer) location)))
+
+(defmethod clear :after ((chunk chunk))
+  (loop for layer across (layers chunk)
+        do (clear layer)))
 
 (defmethod (setf tile-data) :after ((data tile-data) (chunk chunk))
   (trial:commit data (loader (handler *context*)) :unload NIL)

@@ -107,7 +107,7 @@
              (if (< (abs (vy ref)) 0.2) 0 (* 0.8 (vy ref)))))
     (nv+ loc (v* 0.1 normal))))
 
-(define-shader-entity balloon (game-entity lit-animated-sprite)
+(define-shader-entity balloon (game-entity lit-animated-sprite ephemeral)
   ()
   (:default-initargs
    :sprite-data (asset 'leaf 'balloon)))

@@ -62,8 +62,14 @@
     (T 1.9)))
 
 (defmethod handle ((ev interact) (player player))
-  (when (interactable player)
-    (issue +world+ 'interaction :with (interactable player))))
+  (typecase (interactable player)
+    (null)
+    (door
+     (let ((location (location (target (interactable player)))))
+       (vsetf (location player) (vx location) (- (vy location) 8))
+       (snap-to-target (unit :camera T) player)))
+    (T
+     (issue +world+ 'interaction :with (interactable player)))))
 
 (defmethod handle ((ev start-dash) (player player))
   (let ((vel (velocity player)))
@@ -255,6 +261,10 @@
              (T
               (setf (vx vel) 0))))
       (:normal
+       (for:for ((entity over (region +world+)))
+         (when (and (typep entity 'interactable)
+                    (contained-p entity player))
+           (setf (interactable player) entity)))
        ;; Handle jumps
        (when (< (jump-time player) 0.0d0)
          (cond ((or (svref collisions 1)

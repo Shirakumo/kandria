@@ -105,7 +105,7 @@
   'chunk-editor)
 
 (defmethod applicable-tools append ((_ chunk))
-  '(paint))
+  '(paint line))
 
 (defmethod default-tool ((editor chunk-editor))
   'paint)

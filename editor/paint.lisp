@@ -32,7 +32,7 @@
 
 (defun paint-tile (tool event)
   (let* ((entity (entity tool))
-         (loc (nvalign (nv- (mouse-world-pos (pos event)) (/ +tile-size+ 2)) +tile-size+))
+         (loc (mouse-tile-pos (pos event)))
          (loc (if (show-solids entity)
                   loc
                   (vec (vx loc) (vy loc) (layer (sidebar (editor tool))))))

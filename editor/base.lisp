@@ -44,14 +44,14 @@
   (setf (tool editor) (make-instance (default-tool editor) :editor editor)))
 
 (defmethod (setf active-p) (value (editor base-editor))
-  (with-buffer-tx (light (// 'leaf 'light-info))
-    (setf (active-p light) (if value 0 1)))
   (cond (value
+         (setf (lighting (unit 'lighting-pass T)) NIL)
          (pause-game T editor)
          (handle (make-instance 'resize :width (width *context*) :height (height *context*))
                  (ui editor))
          (change-class editor (editor-class (entity editor))))
         (T
+         (setf (lighting (unit 'lighting-pass T)) (lighting (region (unit :camera T))))
          (change-class editor 'inactive-editor)
          (unpause-game T editor))))
 

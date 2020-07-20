@@ -83,8 +83,8 @@
      _ s x)
     (:br>
      x s _
-     s s o
-     _ o o)
+     s s _
+     _ _ o)
     (:bl>
      _ s x
      _ s s

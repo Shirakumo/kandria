@@ -28,12 +28,17 @@
 (defmethod handle ((event mouse-release) (tool freeform))
   (setf (state tool) NIL))
 
+(defun nvalign-corner (loc bsize grid)
+  (nv+ (nvalign (v- loc bsize) grid) bsize))
+
 (defmethod handle ((event mouse-move) (tool freeform))
   (case (state tool)
     (:moving
-     (let ((new (nvalign (nv+ (nv- (mouse-world-pos (pos event)) (start-pos tool))
-                              (original-loc tool))
-                         (/ +tile-size+ 2)))
+     (let ((new (nvalign-corner
+                 (nv+ (nv- (mouse-world-pos (pos event)) (start-pos tool))
+                      (original-loc tool))
+                 (bsize (entity tool))
+                 (/ +tile-size+ 2)))
            (entity (entity tool)))
        (when (v/= new (location entity))
          (commit (capture-action (location entity) new) tool))))
