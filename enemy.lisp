@@ -112,8 +112,12 @@
   (:default-initargs
    :sprite-data (asset 'leaf 'balloon)))
 
+(defmethod (setf animations) :after (animations (balloon balloon))
+  (setf (next-animation (find 'die (animations balloon) :key #'name)) 'revive)
+  (setf (next-animation (find 'revive (animations balloon) :key #'name)) 'stand))
+
 (defmethod collides-p ((player player) (balloon balloon) hit)
-  (eql :normal (state balloon)))
+  (eql 'stand (name (animation balloon))))
 
 (defmethod collide ((player player) (balloon balloon) hit)
   (kill balloon)
@@ -123,15 +127,7 @@
      (setf (vx (velocity player)) (* 1.1 (vx (velocity player)))))))
 
 (defmethod kill ((balloon balloon))
-  (setf (animation balloon) 'die)
-  (setf (state balloon) :dying))
-
-(defmethod reset-animation :before ((balloon balloon))
-  (case (state balloon)
-    (:dying (setf (animation balloon) 'revive)
-     (setf (state balloon) :reviving))
-    (:reviving (setf (animation balloon) 'stand)
-     (setf (state balloon) :normal))))
+  (setf (animation balloon) 'die))
 
 (defmethod apply-transforms progn ((baloon balloon))
   (translate-by 0 -16 0))
