@@ -164,3 +164,15 @@
 (defmethod fire ((trigger trigger))
   (apply #'issue +world+ (event-type trigger) (event-initargs trigger))
   (setf (active-p trigger) NIL))
+
+(defclass transition-event (event)
+  ((direction :initarg :direction :reader direction)
+   (on-complete :initarg :on-complete :initform NIL :reader on-complete)))
+
+(defmacro transition (&body on-blank)
+  `(issue +world+ 'transition-event
+          :direction :to-blank
+          :on-complete (lambda ()
+                         ,@on-blank
+                         (issue +world+ 'transition-event
+                                :direction :from-blank))))

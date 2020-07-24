@@ -102,10 +102,15 @@
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (let ((old (unit 'region +world+)))
     (cond ((retained 'modifiers :control)
-           (transition old (load-region T T)))
+           ;; FIXME: 
+           ;; (transition old (load-region T T))
+           )
           (T
            (let ((path (file-select:existing :title "Select Region File")))
-             (when path (transition old (load-region path T))))))))
+             (when path
+               ;; FIXME:
+               ;; (transition old (load-region path T))
+               ))))))
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
   (if (retained 'modifiers :control)
@@ -120,7 +125,9 @@
   (let ((old (unit 'region +world+)))
     (flet ((load! (state)
              (load-state state T)
-             (transition old (unit 'region +world+))))
+             ;; FIXME:
+             ;; (transition old (unit 'region +world+))
+             ))
       (cond ((retained 'modifiers :control) (load! T))
             (T (let ((path (file-select:existing :title "Select Save File" :default (file (state (handler *context*))))))
                  (load! path)))))))

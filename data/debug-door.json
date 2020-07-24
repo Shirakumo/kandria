@@ -60,7 +60,7 @@
     "trimmed": true,
     "spriteSourceSize": { "x": 21, "y": 25, "w": 22, "h": 39 },
     "sourceSize": { "w": 64, "h": 64 },
-    "duration": 100
+    "duration": 500
    }
  ],
  "meta": {
