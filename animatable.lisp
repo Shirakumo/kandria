@@ -34,6 +34,10 @@
     (when (<= (health animatable) 0)
       (kill animatable))))
 
+(defmethod kill :around ((animatable animatable))
+  (unless (eql :dying (state animatable))
+    (call-next-method)))
+
 (defmethod kill ((animatable animatable))
   (setf (health animatable) 0)
   (setf (state animatable) :dying)

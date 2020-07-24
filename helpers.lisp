@@ -151,9 +151,9 @@
     (nv+ (location entity) (v* vel (* 100 (dt ev))))
     (vsetf vel 0 0)))
 
-(defclass trigger (sized-entity)
+(defclass trigger (listener sized-entity)
   ((event-type :initarg :event-type :initform () :accessor event-type
-               :type class :documentation "The type of the event that should be triggered.")
+               :type symbol :documentation "The type of the event that should be triggered.")
    (event-initargs :initarg :event-initargs :initform () :accessor event-initargs
                    :type list :documentation "The list of initargs for the triggered event.")
    (active-p :initarg :active-p :initform T :accessor active-p)))
@@ -161,7 +161,12 @@
 (defmethod initargs append ((_ trigger))
   `(:event-type :event-initargs))
 
+(defmethod handle ((ev tick) (trigger trigger))
+  (when (contained-p (location (unit :player T)) trigger)
+    (fire trigger)))
+
 (defmethod fire ((trigger trigger))
+  (v:info :leaf.trigger "Firing (~a~{ ~a~})" (event-type trigger) (event-initargs trigger))
   (apply #'issue +world+ (event-type trigger) (event-initargs trigger))
   (setf (active-p trigger) NIL))
 

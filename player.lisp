@@ -33,7 +33,7 @@
   `(gethash ',name +player-movement-data+))
 
 (define-shader-entity player (animatable ephemeral)
-  ((bsize :initform (vec 8.0 16.0))
+  ((bsize :initform (vec 7.0 15.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
@@ -361,7 +361,7 @@
             ((< (vy (location player))
                 (- (vy (location (chunk player)))
                    (vy (bsize (chunk player)))))
-             (die player))
+             (kill player))
             (T
              (setf (vx (location player)) (clamp (- (vx (location (chunk player)))
                                                     (vx (bsize (chunk player))))
@@ -432,14 +432,13 @@
     (setf (spawn-location player) loc)))
 
 (defmethod die ((player player))
-  (vsetf (velocity player) 0 0)
-  (setf (location player) (vcopy (spawn-location player))))
-
-(defmethod death ((player player))
-  (vsetf (location player)
-         (vx (spawn-location player))
-         (vy (spawn-location player)))
-  (snap-to-target (unit :camera T) player))
+  (transition
+    (vsetf (velocity player) 0 0)
+    (vsetf (location player)
+           (vx (spawn-location player))
+           (vy (spawn-location player)))
+    (setf (state player) :normal)
+    (snap-to-target (unit :camera T) player)))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
