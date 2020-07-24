@@ -86,6 +86,8 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
     truecolor *= light_info.ambient_light;
     truecolor += light_info.sun_light*max(0, shade-absorption)*color.rgb;
     truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
+  } else {
+    truecolor *= 5;
   }
   return vec4(truecolor, color.a);
 }")
