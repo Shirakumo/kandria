@@ -41,6 +41,12 @@
           ((= -1 (vx normal)) (setf (svref (collisions moving) 1) block)))
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
+    ;; If we're just bumping the edge, move us up.
+    (when (and (< -1 (- (vy loc) height (+ t-s (vy pos))) 1)
+               (/= 0 (vx normal))
+               (not (scan-collision +world+ (v+ pos (vec 0 t-s)))))
+      (setf (svref (collisions moving) 2) block)
+      (incf (vy loc)))
     ;; Zip out of ground in case of clipping
     (cond ((and (/= 0 (vy normal))
                  (< (vy pos) (vy loc))
