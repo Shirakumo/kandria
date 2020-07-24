@@ -1967,6 +1967,7 @@
    { "name": "Heavy Ground 1 Release", "from": 166, "to": 176, "direction": "forward" },
    { "name": "Heavy Ground 2", "from": 177, "to": 195, "direction": "forward" },
    { "name": "Hard Hit", "from": 196, "to": 206, "direction": "forward" },
+   { "name": "Die", "from": 196, "to": 206, "direction": "forward" },
    { "name": "Light hit", "from": 207, "to": 214, "direction": "forward" }
   ],
   "layers": [
