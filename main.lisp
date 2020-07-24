@@ -74,6 +74,7 @@
   (observe! (name (animation (unit 'player scene))) :title :anim)
   (observe! (multiplier (frame (unit 'player scene))) :title :mult)
   
+  (enter (make-instance 'sweep) scene)
   (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
   (let ((shadow (make-instance 'shadow-map-pass))

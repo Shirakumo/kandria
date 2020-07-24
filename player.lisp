@@ -65,9 +65,12 @@
   (typecase (interactable player)
     (null)
     (door
+     (setf (animation (interactable player)) 'open)
      (let ((location (location (target (interactable player)))))
-       (vsetf (location player) (vx location) (- (vy location) 8))
-       (snap-to-target (unit :camera T) player)))
+       (transition
+         (setf (animation (target (interactable player))) 'open)
+         (vsetf (location player) (vx location) (- (vy location) 8))
+         (snap-to-target (unit :camera T) player))))
     (T
      (issue +world+ 'interaction :with (interactable player)))))
 
@@ -178,6 +181,7 @@
     (when (< (abs (vx vel)) (/ (p! walk-limit) 2))
       (setf (run-time player) 0.0d0))
     (incf (run-time player) (dt ev))
+    (setf (interactable player) NIL)
     (ecase (state player)
       ((:dying :animated :stunned)
        (let ((buffer (buffer player)))

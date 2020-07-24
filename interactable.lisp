@@ -24,6 +24,9 @@
    (primary :initform T :accessor primary))
   (:default-initargs :sprite-data (asset 'leaf 'debug-door)))
 
+(defmethod (setf animations) :after (animations (door door))
+  (setf (next-animation (find 'open (animations door) :key #'name)) 'idle))
+
 (defmethod enter :after ((door door) (region region))
   (when (typep (target door) 'vec)
     (let ((other (clone door)))
