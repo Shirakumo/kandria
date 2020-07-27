@@ -18,13 +18,31 @@
 
 (deploy:define-hook (:deploy leaf -1) (directory)
   (let ((root (root)))
-    (uiop:copy-file (make-pathname :name "CHANGES" :type "mess" :defaults root)
-                    (make-pathname :name "CHANGES" :type "mess" :defaults directory))
-    (uiop:copy-file (make-pathname :name "README" :type "mess" :defaults root)
-                    (make-pathname :name "README" :type "mess" :defaults directory))
-    (deploy:copy-directory-tree (pathname-utils:subdirectory root "world") directory)
-    ;; Prune undesired assets.
-    (mapcar #'delete-file (directory (make-pathname :name :wild :type "ase" :defaults (merge-pathnames pathname-utils:*wild-inferiors* directory))))))
+    (labels ((prune (file)
+               (cond ((listp file)
+                      (mapc #'prune file))
+                     ((wild-pathname-p file)
+                      (prune (directory file)))
+                     ((pathname-utils:directory-p file)
+                      (uiop:delete-directory-tree file :validate (constantly T)))
+                     (T
+                      (delete-file file)))))
+      (uiop:copy-file (make-pathname :name "CHANGES" :type "mess" :defaults root)
+                      (make-pathname :name "CHANGES" :type "mess" :defaults directory))
+      (uiop:copy-file (make-pathname :name "README" :type "mess" :defaults root)
+                      (make-pathname :name "README" :type "mess" :defaults directory))
+      (deploy:copy-directory-tree (pathname-utils:subdirectory root "world") directory)
+      (deploy:status 1 "Pruning assets")
+      ;; Prune undesired assets. This sucks, an automated, declarative way would be much better.
+      (prune (pathname-utils:subdirectory directory "pool" "EFFECTS"))
+      (prune (pathname-utils:subdirectory directory "pool" "WORKBENCH"))
+      (prune (pathname-utils:subdirectory directory "pool" "TRIAL" "nissi-beach"))
+      (prune (pathname-utils:subdirectory directory "pool" "TRIAL" "masko-naive"))
+      (prune (make-pathname :name :wild :type "png" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
+      (prune (make-pathname :name :wild :type "svg" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
+      (prune (make-pathname :name :wild :type "jpg" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
+      (prune (make-pathname :name :wild :type "frag" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
+      (prune (make-pathname :name :wild :type "ase" :defaults (pathname-utils:subdirectory directory "pool" "LEAF"))))))
 
 (defmethod initialize-instance ((main main) &key state app-id)
   (declare (ignore app-id))
@@ -72,7 +90,8 @@
 (defmethod render :before ((controller controller) program)
   (let ((editor (unit :editor T)))
     (when editor
-      (setf (show-overlay controller) (not (active-p editor))))))
+      (setf (show-overlay controller) (and (not (deploy:deployed-p))
+                                           (not (active-p editor)))))))
 
 (defmethod setup-scene ((main main) scene)
   (observe! (location (unit 'player scene)) :title :loc)
