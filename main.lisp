@@ -1,5 +1,10 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defun root ()
+  (if (deploy:deployed-p)
+      (deploy:runtime-directory)
+      (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*))))
+
 (defclass main (#+steam org.shirakumo.fraf.trial.steam:main
                 #-steam org.shirakumo.fraf.trial:main)
   ((scene :initform NIL)
@@ -11,17 +16,20 @@
                      :height 720
                      :app-id 1261430))
 
-(deploy:define-hook (:deploy leaf) (directory)
-  (uiop:copy-file (asdf:system-relative-pathname :leaf "CHANGES.mess")
-                  (make-pathname :name "CHANGES" :type "mess" :defaults directory))
-  (uiop:copy-file (asdf:system-relative-pathname :leaf "README.mess")
-                  (make-pathname :name "README" :type "mess" :defaults directory)))
+(deploy:define-hook (:deploy leaf -1) (directory)
+  (let ((root (root)))
+    (uiop:copy-file (make-pathname :name "CHANGES" :type "mess" :defaults root)
+                    (make-pathname :name "CHANGES" :type "mess" :defaults directory))
+    (uiop:copy-file (make-pathname :name "README" :type "mess" :defaults root)
+                    (make-pathname :name "README" :type "mess" :defaults directory))
+    (deploy:copy-directory-tree (pathname-utils:subdirectory root "world") directory)
+    ;; Prune undesired assets.
+    (mapcar #'delete-file (directory (make-pathname :name :wild :type "ase" :defaults (merge-pathnames pathname-utils:*wild-inferiors* directory))))))
 
 (defmethod initialize-instance ((main main) &key state app-id)
   (declare (ignore app-id))
   (call-next-method)
-  ;; FIXME: This won't work deployed.
-  (with-packet (packet (pathname-utils:parent (base (find-pool 'leaf))) :direction :input)
+  (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; Load initial state
   (setf (state main)

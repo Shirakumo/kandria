@@ -17,10 +17,10 @@
     (with-packet (packet packet :offset entry)
       (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))
                         :name)))
-        (setf (gethash name (regions world)) entry)))
-    (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
-      (setf (storyline world) (decode-payload storyline 'quest:storyline packet 'world-v0)))
-    (setf (initial-state world) (minimal-load-state (entry-path "init/" packet)))))
+        (setf (gethash name (regions world)) entry))))
+  (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
+    (setf (storyline world) (decode-payload storyline 'quest:storyline packet 'world-v0)))
+  (setf (initial-state world) (minimal-load-state (entry-path "init/" packet))))
 
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
