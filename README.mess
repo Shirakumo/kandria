@@ -4,19 +4,21 @@ This is a game project. Please see the official website at https://kandria.com f
 ## Controls
 You can use a keyboard or a gamepad to control the game. The standard key / button bindings are as follows:
 
-- WASD / left stick
+- W A S D      [L]
   Move
-- Space / A
+- Space        [A]
   Jump
-- Shift / R2
+- Shift       [R2]
   Dash (hold direction to dash in)
-- Ctrl / L2
+- Ctrl        [L2]
   Climb walls
-- Q / L3
+- Q           [L3]
   Toggle crawl
-- Left Mouse / B
+- E            [Y]
+  Interact
+- Left Mouse   [B]
   Light attack
-- Right Mouse / Y
+- Right Mouse  [Y]
   Heavy attack
 - F5
   Quick save
