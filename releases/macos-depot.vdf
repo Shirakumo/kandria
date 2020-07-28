@@ -1,0 +1,11 @@
+"DepotBuildConfig"{
+  "DepotID" "1261433"
+  "FileMapping"{
+    "LocalPath" "kandria-macos"
+    "DepotPath" "."
+  }
+  "FileMapping"{
+    "LocalPath" "*.dylib"
+    "DepotPath" "."
+  }
+}

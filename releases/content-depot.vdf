@@ -1,0 +1,13 @@
+"DepotBuildConfig"{
+  "DepotID" "1261434"
+  "FileMapping"{
+    "LocalPath" "pool/*"
+    "DepotPath" "pool/"
+    "recursive" "1"
+  }
+  "FileMapping"{
+    "LocalPath" "world/*"
+    "DepotPath" "world/"
+    "recursive" "1"
+  }
+}

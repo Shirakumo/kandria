@@ -1,0 +1,11 @@
+"DepotBuildConfig"{
+  "DepotID" "1261432"
+  "FileMapping"{
+    "LocalPath" "kandria-linux.run"
+    "DepotPath" "."
+  }
+  "FileMapping"{
+    "LocalPath" "*.so"
+    "DepotPath" "."
+  }
+}
