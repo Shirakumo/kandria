@@ -22,14 +22,14 @@
 (defun file-replace (in out replacements)
   (let ((content (alexandria:read-file-into-string in)))
     (loop for (search replace) in replacements
-          do (setf content (cl-ppcre:regex-replace search content replace)))
+          do (setf content (cl-ppcre:regex-replace-all search content replace)))
     (alexandria:write-string-into-file content out :if-exists :supersede)))
 
 (defun build ()
   (with-simple-restart (continue "Treat build as successful")
     (sb-ext:run-program "sbcl" (list "--eval" "(asdf:make :leaf :force T)"
                                      "--quit")
-                        :search T :output T :input NIL)))
+                        :search T :output *standard-output*)))
 
 (defun deploy ()
   (let* ((vername (format NIL "leaf-~a" (version)))
@@ -60,16 +60,16 @@
   (sb-ext:run-program "butler" (list "push" (uiop:native-namestring release)
                                      (format NIL "Shinmera/kandria:~{~a~^-~}" (release-systems release))
                                      "--userversion" (version))
-                      :search T :output T))
+                      :search T :output *standard-output*))
 
-(defun steam (release &key (branch "developer") (preview 1) &allow-other-keys)
+(defun steam (release &key (branch "developer") (preview T) password &allow-other-keys)
   (let ((template (make-pathname :name "app-build" :type "vdf" :defaults (output)))
         (build (make-pathname :name "app-build" :type "vdf" :defaults release)))
-    (file-replace template build `(("$CONTENT" ,(uiop:native-namestring release))
-                                   ("$BRANCH" ,(or branch ""))
-                                   ("$PREVIEW" ,(if preview "1" "0"))))
-    (sb-ext:run-program "steamcmd.sh" (list "+login" "shinmera" (query-pass) "+run_app_build" (uiop:native-namestring build) "+quit")
-                        :search T :output T)))
+    (file-replace template build `(("\\$CONTENT" ,(uiop:native-namestring release))
+                                   ("\\$BRANCH" ,(or branch ""))
+                                   ("\\$PREVIEW" ,(if preview "1" "0"))))
+    (sb-ext:run-program "steamcmd.sh" (list "+login" "shinmera" (or password (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")
+                        :search T :output *standard-output*)))
 
 (defun upload (release &rest args &key (services T))
   (case services ((T :itch) (apply #'itch release args)))

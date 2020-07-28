@@ -1,15 +1,15 @@
 "appbuild"{
   "appid" "1261430"
   "desc" "Kandria developer build"
-  "buildoutput" "steam/"
+  "buildoutput" "../steam/"
   "contentroot" "$CONTENT"
   "setlive" "$BRANCH"
   "preview" "$PREVIEW"
   "local" ""
   "depots"{
-    "1261431" "windows-depot.vdf"
-    "1261432" "linux-depot.vdf"
-    "1261433" "macos-depot.vdf"
-    "1261434" "content-depot.vdf"
+    "1261431" "../windows-depot.vdf"
+    "1261432" "../linux-depot.vdf"
+    "1261433" "../macos-depot.vdf"
+    "1261434" "../content-depot.vdf"
   }
 }
