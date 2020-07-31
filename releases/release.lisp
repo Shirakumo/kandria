@@ -32,7 +32,7 @@
                         :search T :output *standard-output*)))
 
 (defun deploy ()
-  (let* ((vername (format NIL "leaf-~a" (version)))
+  (let* ((vername (format NIL "kandria-~a" (version)))
          (bindir (pathname-utils:subdirectory (asdf:system-source-directory "leaf") "bin"))
          (verdir (pathname-utils:subdirectory (output) vername)))
     (ensure-directories-exist verdir)
