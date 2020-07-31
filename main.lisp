@@ -5,8 +5,7 @@
       (deploy:runtime-directory)
       (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*))))
 
-(defclass main (#+steam org.shirakumo.fraf.trial.steam:main
-                #-steam org.shirakumo.fraf.trial:main)
+(defclass main (org.shirakumo.fraf.trial.steam:main)
   ((scene :initform NIL)
    (state :accessor state)
    (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave))
