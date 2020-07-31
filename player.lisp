@@ -155,14 +155,14 @@
   (unless (eq state (state player))
     (case state
       (:crawling
-       (decf (vy (location player)) 8)
-       (setf (vy (bsize player)) 8))
+       (setf (vy (bsize player)) (/ (vy (bsize player)) 2))
+       (decf (vy (location player)) (vy (bsize player))))
       (:climbing
        (setf (direction player) (if (svref (collisions player) 1) +1 -1))))
     (case (state player)
       (:crawling
-       (incf (vy (location player)) 8)
-       (setf (vy (bsize player)) 16)))))
+       (incf (vy (location player)) (vy (bsize player)))
+       (setf (vy (bsize player)) (* (vy (bsize player)) 2))))))
 
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
