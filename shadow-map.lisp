@@ -65,7 +65,8 @@
 
 (define-shader-pass shadow-map-pass (single-shader-scene-pass)
   ((shadow-map :port-type output :texspec (:internal-format :r8))
-   (local-shade :initform 0.0 :accessor local-shade))
+   (local-shade :initform 0.0 :accessor local-shade)
+   (frame-counter :initform 0 :accessor frame-counter))
   (:buffers (leaf light-info)))
 
 (defmethod object-renderable-p ((object renderable) (pass shadow-map-pass)) NIL)
@@ -76,7 +77,8 @@
 
 (defmethod render :after ((pass shadow-map-pass) target)
   (let ((player (unit 'player T)))
-    (when player
+    (setf (frame-counter pass) (mod (+ (frame-counter pass) 1) 60))
+    (when (and player (= 0 (frame-counter pass)))
       (let* ((pos (m* (projection-matrix) (view-matrix) (vec (vx (location player)) (+ (vy (location player)) 8) 0 1)))
              (px (nv/ (nv+ pos 1) 2)))
         (cffi:with-foreign-object (pixel :uint8)
