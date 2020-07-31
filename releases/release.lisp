@@ -62,7 +62,7 @@
                                      "--userversion" (version))
                       :search T :output *standard-output*))
 
-(defun steam (release &key (branch "developer") (preview T) password &allow-other-keys)
+(defun steam (release &key (branch "developer") preview password &allow-other-keys)
   (let ((template (make-pathname :name "app-build" :type "vdf" :defaults (output)))
         (build (make-pathname :name "app-build" :type "vdf" :defaults release)))
     (file-replace template build `(("\\$CONTENT" ,(uiop:native-namestring release))
