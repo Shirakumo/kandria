@@ -196,7 +196,7 @@
               (case (name (animation player))
                 (heavy-ground-1 (start-animation 'heavy-ground-2 player))
                 (T (start-animation 'heavy-ground-1 player))))
-             (dash (handle (make-instance 'dash) player))
+             (dash (handle (make-instance 'start-dash) player))
              (jump (handle (make-instance 'start-jump) player)))
            (setf (buffer player) NIL)))
        (handle-animation-states player ev)
