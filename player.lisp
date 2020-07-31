@@ -196,8 +196,12 @@
               (case (name (animation player))
                 (heavy-ground-1 (start-animation 'heavy-ground-2 player))
                 (T (start-animation 'heavy-ground-1 player))))
-             (dash (handle (make-instance 'start-dash) player))
-             (jump (handle (make-instance 'start-jump) player)))
+             (dash
+              (setf (state player) :normal)
+              (handle (make-instance 'start-dash) player))
+             (jump
+              (setf (state player) :normal)
+              (handle (make-instance 'start-jump) player)))
            (setf (buffer player) NIL)))
        (handle-animation-states player ev)
        (when (svref collisions 2)
