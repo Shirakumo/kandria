@@ -15,3 +15,5 @@ A big thanks to everyone for trying it out and reporting problems!
 ## 0.0.2
 - Fix sprite atlases being giant and thus preventing loading on older graphics cards
   Reported by José Ronquillo
+- Fix dash buffering leading to a hard crash
+  Reported by Selwyn Simsek
