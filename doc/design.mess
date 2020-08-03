@@ -8,6 +8,8 @@ Kandria features a cast of main characters, as well as several factions that are
 
 All of the main cast is part of a faction of people trying to lead a peaceful cooperative existence on the surface world. Other factions exist, mostly dwelling underground, many of them either isolationist, or aggressive.
 
+The cast might need to be extended or shortened depending on how the exact story needs develop as time goes on.
+
 ### The Stranger
 The stranger is a detective model android. As such she excels in investigation and combat. She's rather uncouth and can be pretty snarky and rude when she loses her patience. Being an android she can be rather reckless and unaware of the true dangers of a situation. She tends to be impatient and wants to jump to action right away. The Stranger should show relatively little personality in the beginning, and come out of her shell slowly as the game advances.
 
@@ -29,6 +31,17 @@ The story takes place in a post apocalyptic world, ruined and almost entirely de
 ### Themes
 Central themes of the story should be ethics, humanity, and survival in a ruined world. The story should be set between beats of drama and peace, with a final act that amps up the tension and conflict.
 
+### Setting
+The story is set in the future. An unknown calamity has wiped almost all civilisation off the face of the earth, and transformed most of the surface into dry desert. Most of the remaining life is underground, in vast tunnel and cave systems that were dug prior to the calamity. With most of the upper class gone, resources on how to build and maintain infrastructure and machinery are very scarce. Most of the existing machiner factions make use of were lucky finds that happened to still work, or didn't require expertise to get working again. As such, the world has stepped back from a very high-tech, advanced civilisation back to a more primitive state.
+
+For now, deep underground machinery still manages to pump water and electricity upwards to some regions of the tunnels. Camps were set up around these regions, and are defended viciously. Most did not attempt to return to the surface, as only ruins remained. The lack of water access combined with the intense heat and desertification made it a very difficult spot to live.
+
+However, survival inside the tunnels isn't easy either, as animals and broken robots have invaded them and taken them for their homes as well. Many of the tunnels and rooms have also collapsed, and there is no accurate mapping of the area readily available either. This means that outside of faction territory, the tunnels are hazardous and difficult to navigate. The lack of sunlight and proper ventilation only adds to the problem.
+
+The most contended resources are food sources and functioning old-world technology or research. One extremist faction in specific attempts to gather as much old-world tech as possible to augment themselves with and turn themselves into super-humans.
+
+The faction the player spends the most time with is a small settlement above ground that have found a set of mostly intact ruins among the rubble of a former city. They manually set up water piping from underground and have started an agriculture farm to stay self-sufficient on food. This places them in a much more independent position, and allows them to stay away from most of the dangers of the underground tunnel system.
+
 ### Progression
 The game opens with Jack and Catherine finding The Stranger buried under rubble somewhere deep underground. Catherine decides to fumble around and manages to reactivate The Stranger. The stranger gets is then lead through a tutorial area back up to the camp, where the rest of the main cast is introduced.
 
@@ -37,11 +50,11 @@ From there the game opens up to a semi-nonlinear narrative, with the player bein
 These quests will take the player to explore remote areas both underground and above-ground. This includes abandoned and ruined homes, research facilities, large caverns, and abandoned posts. Eventually rumour about an old-world android roaming about will spread to other factions, leading them to investigate. Some factions will turn more hostile, while others will want to capture the android and disassemble it for parts.
 
 ! todo Not sure yet how to proceed from here. Here's some ideas:
-; - Get ambushed and captured, have to wait for rescue party or free self
-; - Camp gets raided and friends get captured, have to try and rescue them
-; - Friend betrays you and sells you out to another camp
-; But how to end any of these? How to build tension for this?
-; Need help with this for sure.
+  - Get ambushed and captured, have to wait for rescue party or free self
+  - Camp gets raided and friends get captured, have to try and rescue them
+  - Friend betrays you and sells you out to another camp
+  But how to end any of these? How to build tension for this?
+  Need help with this for sure.
 
 ## Gameplay
 Overall the game follows fairly standard ARGP mechanics, with the twist addition of platformer challenges for exploration segments.
