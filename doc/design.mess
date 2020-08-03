@@ -1,0 +1,198 @@
+# Kandria Design Document
+This document should serve as an overview for the design goals of Kandria. It is not meant as a strict rule or goal document, but rather as an inspiration and general guideline.
+
+Kandria is a 2D hybrid of a side-scrolling platformer and a hack and slash action rpg. It is heavy on story and exploration, and features a post-apocalyptic sci-fi setting.
+
+## Characters
+Kandria features a cast of main characters, as well as several factions that are relevant to the story. The protagonist the player plays as is called 'the stranger'; one of very few remaining androids from the old world. The main cast otherwise consists of Fi, Jack, Catherine, and Alex.
+
+All of the main cast is part of a faction of people trying to lead a peaceful cooperative existence on the surface world. Other factions exist, mostly dwelling underground, many of them either isolationist, or aggressive.
+
+### The Stranger
+The stranger is a detective model android. As such she excels in investigation and combat. She's rather uncouth and can be pretty snarky and rude when she loses her patience. Being an android she can be rather reckless and unaware of the true dangers of a situation. She tends to be impatient and wants to jump to action right away. The Stranger should show relatively little personality in the beginning, and come out of her shell slowly as the game advances.
+
+### Fi
+Fi is the unofficial leader of the main faction. She maintains the main housing block, a repurposed hotel. She is strong-willed, but quiet for the most part. She detests fights, and avoids speaking about herself. For the most part she tries to stay in the background and let people sort out their problems on their own, though people rely on her to make a decision if no common ground can be reached.
+
+### Jack
+Jack is the head engineer and is responsible for the maintenance of infrastructure in the settlement. He is burly, straight-forward, and generally a no-nonsense kind of guy. He's very invested in his work, to the point where he can't take a break and relax. He cares a lot about his apprentice, Catherine, but is unable to express it directly.
+
+### Catherine
+Catherine is the apprentice engineer and general energetic busybody. She's very enthusiastic about her work, but is often overconfident about her abilities. She sees Jack almost as a father figure and keeps trying to outdo him.
+
+### Alex
+Alex is a scavenger and messenger. He's responsible for scouting below the surface, finding new resources and materials, and delivering messages between the different factions. Alex is aloof and easy-going. He's very easy to get along with, which he knows and uses to get himself out of work. He doesn't have an allegiance to any faction in particular and prefers to stay out of struggles.
+
+## Story
+The story takes place in a post apocalyptic world, ruined and almost entirely destroyed by an unknown calamity. A vast tunnel network spans underground, filled with old world remnants, dangerous machinery, and feral animals. Several factions have established camps in larger underground caverns to take refuge from the dry heat above ground. Survival is harsh, as old-world tech is rare and often broken, the areas outside the camps are dangerous, and there is little in the way of economic stability. Some factions even struggle to get enough food to survive due to it being difficult to grow anything underground.
+
+### Themes
+Central themes of the story should be ethics, humanity, and survival in a ruined world. The story should be set between beats of drama and peace, with a final act that amps up the tension and conflict.
+
+### Progression
+The game opens with Jack and Catherine finding The Stranger buried under rubble somewhere deep underground. Catherine decides to fumble around and manages to reactivate The Stranger. The stranger gets is then lead through a tutorial area back up to the camp, where the rest of the main cast is introduced.
+
+From there the game opens up to a semi-nonlinear narrative, with the player being offered several quests that they can take on (see below).
+
+These quests will take the player to explore remote areas both underground and above-ground. This includes abandoned and ruined homes, research facilities, large caverns, and abandoned posts. Eventually rumour about an old-world android roaming about will spread to other factions, leading them to investigate. Some factions will turn more hostile, while others will want to capture the android and disassemble it for parts.
+
+! todo Not sure yet how to proceed from here. Here's some ideas:
+; - Get ambushed and captured, have to wait for rescue party or free self
+; - Camp gets raided and friends get captured, have to try and rescue them
+; - Friend betrays you and sells you out to another camp
+; But how to end any of these? How to build tension for this?
+; Need help with this for sure.
+
+## Gameplay
+Overall the game follows fairly standard ARGP mechanics, with the twist addition of platformer challenges for exploration segments.
+
+### Goals
+Long term goals: learn about the world, figure out the story.
+
+Short term goals: overcome platforming challenge, defeat enemies, scavenge for items, find clues, read dialogue.
+
+### Player Skills
+The player must be able to perform precision platforming manoeuvres, manage combat via attack combos, well timed evasions, and general enemy mob management. There should not be any item based progression, so the player must be able to learn and improve their platforming and combat skills as the game goes on. The primary input method will be a standard gamepad, so the user must be familiar with that and must be able to perform simultaneous inputs.
+
+### Mechanics
+Since the game is a mash-up, the mechanics will be described in two separate sections. There is overlap between the two, though the focus on utilising a shared mechanic will be very different, so describing them separately still makes sense.
+
+#### Platforming
+The platforming in the game will follow standard 2D fare, though with two exceptions: a ground and aerial directional dash allows the player to extend their jump distance and increases the general agility in air, and straight walls can be climbed.
+
+Jumps come in two fashions, a short hop and a long-press high jump. The jump will still not provide a lot of air, as the dash fills that purpose. The player can also jump from walls, which allows rapid movement in tight vertical corridors.
+
+The dash is single-use and requires the player to land on the ground to recharge. The current dash status should be indicated clearly visible somehow to avoid confusing the player. The dash can be extended by holding the button for longer, but will have diminishing speed and reach the longer it goes on. The dash speed is the highest in the beginning, and skilled timing of the dash can be used to reach farther places than using the full dash length.
+
+Climbing should have a strength limit, though it should be generous enough to allow the player to linger at times and plan their move without feeling stressed. The climb limit should reset once landing on the ground, just like the dash. This should limit the total vertical movement.
+
+When climbing using the jump will simply jump straight up, at the cost of more climbing stamina. This means the player can speed up certain climbing sections as long as they are sure that they can make the distance. Jump climbing should strictly allow less reach than climbing normally.
+
+Platforming challenges will consist primarily of manoeuvring in air to land precise jumps, and to get the timing correct when falling or destructible platforms are involved.
+
+Hazards such as spikes or dangerous chemicals can provide impassable obstacles, and when hit should reset the player to the last known 'safe spot', designated by the designer of the level. Hitting a platforming hazard should not decrease health, as having to redo the challenge is punishment enough on its own, and resetting to an earlier save would only lead the player to save excessively or lose too much progress.
+
+Additional mechanics might need to be introduced to make the platforming more challenging later and introduce a puzzle-like element as is present in Celeste. Ideas for such mechanics would be springs, sticky surfaces, vertical and horizontal lifts.
+
+It might also be interesting to combine platforming with enemies, though this might be too difficult to achieve without frustrating the player or limiting enemy movement too severely.
+
+The level design will definitely need clear separation between puzzle/platforming, exploration, and combat sections in order to properly account for every aspect of the game. Later stages might get the different areas closer together to increase difficulty.
+
+A chase mechanic might also be useful to contextualise story beats in gameplay, and allow the player to experience a previous area in a new way. More difficult stages could then also combine the chase with an unknown area to create a time pressure element.
+
+The player movement //must// be fun on its own, as this is what the player will spend the majority of their time doing even when there is no particular challenge involved.
+
+#### Combat
+The player should have a close-range sword that allows them to use a set of heavy and light attacks on the ground, and an additional set of attacks in the air. The player is also given additional dodges that make them impervious, but only trigger when the player hits the dash button in the correct timing before being hit.
+
+Attacks are chosen by a button deciding on the attack form (heavy or light), the current placement of the player (ground or air), and an optional direction. The following distinct attacks are planned:
+
+- light* (light ground)
+- heavy* (heavy ground)
+- up slash (light up ground)
+- upshoot (heavy up ground)
+- side* (light air)
+- slam down (heavy air)
+- throw (heavy side air)
+
+The attacks marked with an asterisk can be chained, meaning that inputting the attack multiple times will transition the attack into a secondary and third form. After the third form a brief timeout prevents further chaining. If not chained, each of the three variants must have its own stop animation that returns the player to neutral state.
+
+Attack inputs should be buffered so that the player doesn't have to hit precise timings to execute chains. The main challenge should lie in avoiding damage by knowing the timing of attacks and when to dodge.
+
+Each attack animation has its own timings for when the player can cancel, can be interrupted, can be damaged, and how much damage is dealt to a hit enemy. Each animation also has its own movement mechanics that move the player or hit enemies. To this end light attacks should not move the player much and should generally have a very short wind-up time and fast execution time. Heavy attacks may have long execution times and may move the player a large deal. For chained animations, each subsequent animation should be longer than the last, and may move the player farther than before.
+
+The attacks must be fluid and pleasant to look at. They should be fun to execute and the movement should flow smoothly between normal platforming movement and the more canned movement of the attack animations. It is //vital// that the player have fun executing the attacks on their own. Most of the fun should come from being able to execute flawless attack chains and dodges that allow you to destroy enemies fast and in a spectacular manner.
+
+Since ground movement can be very fast, and the player could encounter enemies at any moment, transitioning between normal movement and an attack should look natural.
+
+The player and every enemy has a health bar that is decreased when they get hit. When zero, the entity will cause them to play a death animation. It might be interesting if enemies have to be 'disintegrated' with an explicit, slow move or they'll resurrect again after a while. Player health will regenerate slowly after a period of not getting hit. This needs to be carefully balanced however to reduce the risk of the player falling into a repeat pattern of engaging and falling back to wait and heal.
+
+There are a few distinct enemy types in the game, each with their own distinct AI pattern:
+
+- Wolves will try to tackle the player and thus must seek a mid-ground before attacking.
+- Broken androids will always try to walk to the player directly and execute a slow close-range attack.
+- Broken machines will move in random, unpredictable patterns and attack via electrocution when touched.
+- Turrets and gunners will try to run away and keep their distance to take a shot, with turrets being static on the ground.
+
+Each of these enemy types should have very distinct and clearly recognisable looks and animation sets to allow the player to quickly recognise them and make decisions. Enemy animations should always include long wind-up times to clearly choreograph their actions. Too short of a wind-up would make the attack appear too sudden and not let the player react in time. To further aid recognition, each type of attack should have a unique sound byte and should be marked by a clearly visible effect such as their eyes flaring up.
+
+Difficulty in the combat should arise from different amounts and different combinations of the enemy types. Occasionally different variants (scaled up, powered up) could also be employed to add some additional variety to the combat and to increase challenge.
+
+Enemy AI should be smart enough to deal with some platforming obstacles, but not able to traverse everything the player can, in order to allow the player to still get away if they feel cornered.
+
+The level design needs to take combat arenas into account, as enemy AI patterns and player attacks can only deal with certain types of terrain. Introducing too many slopes or too many pits or small holes can severely hamper things and disrupt the combat flow, leading to frustration.
+
+A ranged attack should be considered for the player in order to increase variety. However, designing such a ranged attack might prove difficult to implement. Analog aiming in a side-scroller can often be frustrating and awkward.
+
+### Progression
+Progression will be by way of increasing enemy and platforming difficulty, and thereby forcing the player to improve their skill. In particular, individual enemy strength should not increase, but the configuration of enemies, their number, their type, and the design of the level will change to increase difficulty.
+
+The world should immediately be open to the player, though certain areas might be gated off until select story events change the environment. This could be facilitated through guards, erosion, or blasting of tunnels.
+
+New missions will be unlocked by completing old ones. There should be a set of missions available at almost all times to give the player choices on what to do next, though the linearity of the story might force doing certain missions at times to progress.
+
+Certain missions will require beating a unique boss, with its own arena and fighting patterns.
+
+### Fail-States
+The player loses if they run out of health. Health can be lost by falling into pits, or hazards, or getting hit by enemies.
+
+On death the player shows a death animation, and the screen then fuzzes out to black with a game over screen prompting to load the last save.
+
+## Art Style
+The game will be in a low-resolution pixel art style with static tilesets for the map, and intricate animations for characters and enemies. Lots of decorative elements will be necessary to make the map interesting to look at despite its low resolution. Dynamic lighting including shadows and parallax backgrounds allow for a strong atmosphere.
+
+Most of the time for art assets will be spent making detail tiles and animations for the various characters and enemy types.
+
+## Music & Sound Design
+Since the player will spend a lot of their time exploring, the primary music should be quiet, somber and should be able to loop smoothly for a long time without becoming grating. Having different variants depending on the current region would be great. The music should smoothly transition (vertical mixing) to a battle variant whenever the player enters combat to emphasise the action. Special tracks might be needed to accentuate certain story beats and boss battles.
+
+Most of the sounds will be required for combat, and there should be several variants for each type to avoid it appearing repetitive. Sounds should be played with stereo positional audio, with some distance attenuation.
+
+In order to enhance the believability of the music and sounds, dynamic reverb should be applied depending on the surrounding geometry of the player. Other effects such as distortion when low on health would also be great.
+
+## Technical Specs
+The game will be developed for PC using the custom Trial engine. A future port to Switch would be great, though is currently completely in the air and would depend on a large enough success on PC first.
+
+Being a 2D game the performance requirements should be kept appropriately low. As such, sufficient optimisation needs to be performed later to make it run well on lower-end hardware.
+
+A google doc is used for planning and execution tracking of features and ideas.
+
+## Finance
+This section will briefly discuss finances. A more detailed financing plan will need to be put together separately.
+
+### Funding
+Primary funding will be private out of savings. Funding will be required to hire additional team members and commission art and music. Another application for a grant at ProHelvetia will be attempted in 2021, this time for the larger production grant.
+
+A kickstarter could also be considered if enough progress can be made to show a substantial game, and enough attention can be garnered to ensure the kickstarter will be successful. An unsuccessful kickstarter would do more damage than good.
+
+### Demographics
+The game will target the 'hard core' demographic of late teens and upwards. The game handles mature topics that the player will need to understand, but it should not talk about sex and other topics in that area. Violence will be prominent, but in a less recognisable, cartoony way, which should keep it in the Teens/PG13 rating area.
+
+### Localisation
+The game will be written in English, with possible localisation to German, Spanish, and Japanese. Localisation will be very late in the development, though should be done before release provided the game garners enough attention from foreign communities to warrant the extra cost.
+
+### Marketing
+Marketing during the production will proceed primarily through an email marketing campaign with weekly development updates, and monthly public updates to get more people into the mailing list. Twitter, Discord, and RSS Feeds are used to announce public updates. The Discord server also allows people to directly interact with the development team. Occasionally short update videos are posted to YouTube to showcase a particular change.
+
+Should also change the mailing list to move people (and more annoyingly the archive) to Courier.
+
+At some point an updated trailer should be produced to serve as a better introduction to the game than the pitch trailer.
+
+It might also be worth it to spread out further and create threads on TIG and SA to get some attention from there.
+
+In order to expand into non-English markets, consultation might also be necessary.
+
+### Sales and Market Research
+Initially the game will be sold primarily through steam. For this it'll be important to have a good store page and trailer, which will most definitely require professional consultation.
+
+The game will be put up for sale for 10-15$ initially. Projected sales according to similar titles in the same genres lies somewhere between 2'000-10'000 units.
+
+## Misc
+### References
+The following games should be closely investigated for reference:
+
+- Celeste
+- Nier:Automata
+- Dead Cells
+- Katana Zero
+- ICEY
