@@ -11,19 +11,59 @@ All of the main cast is part of a faction of people trying to lead a peaceful co
 The cast might need to be extended or shortened depending on how the exact story needs develop as time goes on.
 
 ### The Stranger
-The stranger is a detective model android. As such she excels in investigation and combat. She's rather uncouth and can be pretty snarky and rude when she loses her patience. Being an android she can be rather reckless and unaware of the true dangers of a situation. She tends to be impatient and wants to jump to action right away. The Stranger has show relatively little personality in the beginning, and come out of her shell slowly as the game advances.
+The stranger is a detective model android. As such she excels in investigation and combat. She's rather uncouth and can be pretty snarky and rude when she loses her patience. Being an android she can be rather reckless and unaware of the true dangers of a situation. She tends to be impatient and wants to jump to action right away. The Stranger has show relatively little personality in the beginning, and comes out of her shell slowly as the game advances.
+
+The Stranger's personality is almost entirely fixed during dialogue with the exception of occasional dialogue choices that can be made. The choices do not influence the story, but simply provide a way for the player to make The Stranger act a bit more according to how they would, making the role-playing easier.
+
+| Okey, got it.
+| 
+| Oh come on, it's not that difficult.
+| 
+| *whistle* Now what do we have here...
+| 
+| That doesn't really add up, does it? Think about it, if they had actually come through here, wouldn't they have noticed the bots?
+| 
+| What do I look like to you, a toaster?
+| 
+| No, and I really don't care about this at all.
 
 ### Fi
 Fi is the unofficial leader of the main faction. She maintains the main housing block, a repurposed hotel. She is strong-willed, but quiet for the most part. She detests fights, and avoids speaking about herself. For the most part she tries to stay in the background and let people sort out their problems on their own, though people rely on her to make a decision if no common ground can be reached.
 
+| Good morning, Jack. The usual for today?
+| 
+| No.
+| 
+| That's not really...
+| 
+| Okey, fine. I'll have to think about it, so give me some time, alright?
+
 ### Jack
 Jack is the head engineer and is responsible for the maintenance of infrastructure in the settlement. He is burly, straight-forward, and generally a no-nonsense kind of guy. He's very invested in his work, to the point where he can't take a break and relax. He cares a lot about his apprentice, Catherine, but is unable to express it directly.
+
+| We have to get this done stat. If we don't, the water supply's fucked, and in turn we are too.
+| 
+| No, Catherine, it won't do. Just -- just leave this to me alright? You'll just end up hurting yourself.
+| 
+| I don't have time for this, and neither do you. Just do it as I said, it'll be easier for everyone.
 
 ### Catherine
 Catherine is the apprentice engineer and general energetic busybody. She's very enthusiastic about her work, but is often overconfident about her abilities. She sees Jack almost as a father figure and keeps trying to outdo him.
 
+| This is absolutely amazing, I've never seen anything like this before!
+| 
+| Hey, no problem, just leave it to me. I'll have it done in a jiffy!
+| 
+| Huh? That's odd. I don't think it should do that.
+
 ### Alex
 Alex is a scavenger and messenger. He's responsible for scouting below the surface, finding new resources and materials, and delivering messages between the different factions. Alex is aloof and easy-going. He's very easy to get along with, which he knows and uses to get himself out of work. He doesn't have an allegiance to any faction in particular and prefers to stay out of struggles.
+
+| Listen, I'm just here to deliver the message, OK?
+| 
+| You guys can hash this one out, I'll see myself out.
+| 
+| Don't sweat it, you can get me a nice drink sometime in exchange!
 
 ## Story
 The story takes place in a post apocalyptic world, ruined and almost entirely destroyed by an unknown calamity. A vast tunnel network spans underground, filled with old world remnants, dangerous machinery, and feral animals. Several factions have established camps in larger underground caverns to take refuge from the dry heat above ground. Survival is harsh, as old-world tech is rare and often broken, the areas outside the camps are dangerous, and there is little in the way of economic stability. Some factions even struggle to get enough food to survive due to it being difficult to grow anything underground.
@@ -49,10 +89,16 @@ From there the game opens up to a semi-nonlinear narrative, with the player bein
 
 These quests will take the player to explore remote areas both underground and above-ground. This includes abandoned and ruined homes, research facilities, large caverns, and abandoned posts. Eventually rumour about an old-world android roaming about will spread to other factions, leading them to investigate. Some factions will turn more hostile, while others will want to capture the android and disassemble it for parts.
 
+Many characters, especially minor ones, refuse to regard The Stranger as their own person, and instead interpret her as a much more advanced servant. It's important that most of them are not outright dismissive or abusive, but rather that they treat The Stranger differently without even realising it. One or two characters are outright hostile towards androids, as they believe they are responsible for the calamity.
+
+Each of the main cast has their own initial disposition to The Stranger, which changes as the game goes on. Catherine starts out as being amazed by the technological marvel of The Stranger, and explicitly treats her like an object to be studied. Over time she'll learn to respect The Stranger as a person of their own (idea: Stranger saves Catherine out of her own will). Alex starts out uncertain and slightly scared of The Stranger. Over time this fear grows and he starts to feel threatened by The Stranger's abilities. He refuses to accept The Stranger as an equal, and instead actively starts to work against her. Jack initially does not want to let The Stranger into the settlement as he is concerned about the risks imposed by bringing her here, and especially housing her. He is begrudgingly convinced by Catherine begging to allow her in for study. He then learns to appreciate her capabilities and utility in both helping the settlement out and defending it from dangers. He then reverses again when the lowest point of the story is reached and the settlement is attacked directly, though he manages to overcome his fears and ultimately ends up siding with The Stranger in the end. Fi acts indifferent to The Stranger in the beginning, treating her as anyone else. Over time she grows more and more fond of The Stranger and warms up to her, sharing more of her own personality with her (possible romantic hints here?).
+
 ! todo Not sure yet how to proceed from here. Here's some ideas:
   - Get ambushed and captured, have to wait for rescue party or free self
   - Camp gets raided and friends get captured, have to try and rescue them
   - Friend betrays you and sells you out to another camp
+  - Disassembling The Stranger provides parts to save someone else
+  - Invading The Stranger's mind reveals the location of an android manufacturing facility, but has a high risk of frying her brain.
   But how to end any of these? How to build tension for this?
   Need help with this for sure.
 
