@@ -36,13 +36,13 @@
          (loc (if (show-solids entity)
                   loc
                   (vec (vx loc) (vy loc) (layer (sidebar (editor tool))))))
-         (tile (cond ((retained 'mouse :left)
+         (tile (cond ((retained :left)
                       (tile-to-place (sidebar (editor tool))))
                      (T
                       (vec 0 0)))))
-    (cond ((retained 'modifiers :control)
+    (cond ((retained :control)
            (auto-tile entity loc))
-          ((retained 'modifiers :shift)
+          ((retained :shift)
            (flood-fill entity loc tile))
           ((and (tile loc entity) (v/= tile (tile loc entity)))
            (commit (capture-action (tile loc entity) tile) tool)))))

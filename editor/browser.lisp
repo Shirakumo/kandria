@@ -6,7 +6,7 @@
 (defmethod label ((tool browser)) "Browse")
 
 (defmethod handle ((event mouse-press) (tool browser))
-  (cond ((retained 'modifiers :shift)
+  (cond ((retained :shift)
          (setf (state tool) :zoom))
         (T
          (setf (state tool) :drag))))
