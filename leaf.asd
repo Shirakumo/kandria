@@ -17,7 +17,7 @@
                (:file "serialization")
                (:file "packet")
                (:file "region")
-               (:file "keys")
+               (:file "actions")
                (:file "surface")
                (:file "shadow-map")
                (:file "lighting")
