@@ -46,7 +46,7 @@
   (handle event (unit :camera +world+))
   (unless (handle event (ui editor))
     (call-next-method)
-    (handle event (cond ((retained 'modifiers :alt) (alt-tool editor))
+    (handle event (cond ((retained :alt) (alt-tool editor))
                         (T (tool editor))))))
 
 (defmethod render ((editor editor) target)
@@ -101,7 +101,7 @@
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (let ((old (unit 'region +world+)))
-    (cond ((retained 'modifiers :control)
+    (cond ((retained :control)
            ;; FIXME: 
            ;; (transition old (load-region T T))
            )
@@ -113,7 +113,7 @@
                ))))))
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
-  (if (retained 'modifiers :control)
+  (if (retained :control)
       (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)))))
         (save-region T path))
       (save-region T T)))
@@ -128,7 +128,7 @@
              ;; FIXME:
              ;; (transition old (unit 'region +world+))
              ))
-      (cond ((retained 'modifiers :control) (load! T))
+      (cond ((retained :control) (load! T))
             (T (let ((path (file-select:existing :title "Select Save File" :default (file (state (handler *context*))))))
                  (load! path)))))))
 

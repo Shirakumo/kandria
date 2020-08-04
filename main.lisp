@@ -49,6 +49,7 @@
   (call-next-method)
   (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
+  (load-mapping (merge-pathnames "keymap.lisp" (root)))
   ;; Load initial state
   (setf (state main)
         (cond (state
