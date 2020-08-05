@@ -183,6 +183,33 @@ The level design needs to take combat arenas into account, as enemy AI patterns 
 
 A ranged attack should be considered for the player in order to increase variety. However, designing such a ranged attack might prove difficult to implement. Analog aiming in a side-scroller can often be frustrating and awkward.
 
+When defeated enemies can drop items. These items may, rarely, be health, damage-up, or defence-up items, but usually are nondescript scrap parts that can be exchanged for other items, or used for quests at the colony. The player is able to use restorative/support items from a quick menu during battle, which while open causes time to slow down to allow the player more time to select the appropriate item without having to worry about safety.
+
+#### Quests
+Quests are initiated by talking to the correct NPC. Generally each quest can either be relevant to the main story line, or be side content that expands on the quest giver's character or the world lore. Each quest is in the form of one or more tasks, that can either be:
+
+1. Talk to a character
+2. Go to a location
+3. Find a specific item
+4. Defeat enemies in a location
+
+Naturally the tasks are explained away in a more natural manner in the dialogue to make it appear less bland and give the player a proper reason to perform the task.
+
+Rewards for completing a quest are additional dialogue, lore, and occasionally items.
+
+Multiple quests can be in flight at the same time, though some quests will fail if the story advances too far and causes a change that makes the quest impossible to complete. Whether a quest is available depends on the set of completed quests, the locations the player has discovered, and the people the player has talked to.
+
+#### Dialogue
+Dialogue comes in the form of a standard RPG textbox, with detailed character profiles appearing above the box, showing the current speaker. The profiles will have animations and variants to fit the character's current expression.
+
+Occasionally the player can be offered with a choice between multiple dialogue responses. The responses to choose from must be clearly visible and unabbreviated so that it is clear to the player what The Stranger is going to say. These choices will not have a branching effect on the story, but may be referenced by character dialogue later.
+
+Text can be customised to dynamically reflect player actions, such as making characters react differently depending on current player health, performance, quest completion count, past choices, etc.
+
+Dialogue is played out as a series of text blocks that automatically scroll out, though the player can prompt the text box to complete immediately to skip through dialogue quickly. During scrolling, various effects can be applied, such as screen shake, changing the expression of the character profile, playing a sound effect, etc.
+
+! todo Add some images here
+
 ### Progression
 Progression will be by way of increasing enemy and platforming difficulty, and thereby forcing the player to improve their skill. In particular, individual enemy strength does not increase, but the configuration of enemies, their number, their type, and the design of the level will change to increase difficulty.
 
