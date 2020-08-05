@@ -102,6 +102,23 @@ Each of the main cast has their own initial disposition to The Stranger, which c
   But how to end any of these? How to build tension for this?
   Need help with this for sure.
 
+### Locations
+This section discusses major locations that are important to the story.
+
+! todo Add more depending on story needs.
+
+#### The Fall
+This is a large underground cavern that collapsed and is where The Stranger is initially found. It is only accessible through a set of narrow and steep cliffs from one of the upper abandoned tunnels. The cavern is completely sealed off and does not have any natural light.
+
+#### The Camp
+The camp is the primary location in the game and where most of the quests are handed out or concluded. It serves as the home base and is where most of the main cast are most of the time. The camp is comprised of three buildings and a large stretch of irrigated farmland. The three buildings are patched up remnants of the former city. Outside of the farmland a large stretch of abandoned and ruined buildings remain, and even further out seemingly endless desert provides no way out.
+
+The three buildings at the camp are a repurposed hotel to serve for housing and dining, a storage shack for farming equipment, and a workshop for engineering. Produce and other food is stored in the bunker below the hotel to keep it cool.
+
+! todo Better name
+
+#### Abandoned Outpost
+
 ## Gameplay
 Overall the game follows fairly standard ARGP mechanics, with the twist addition of platformer challenges for exploration segments.
 
@@ -199,6 +216,8 @@ Rewards for completing a quest are additional dialogue, lore, and occasionally i
 
 Multiple quests can be in flight at the same time, though some quests will fail if the story advances too far and causes a change that makes the quest impossible to complete. Whether a quest is available depends on the set of completed quests, the locations the player has discovered, and the people the player has talked to.
 
+Currently active quests, including hints on what to do, are listed in a separate logbook menu that the player can access whenever they aren't in combat. The logbook also tracks completed quests, items, and player stats.
+
 #### Dialogue
 Dialogue comes in the form of a standard RPG textbox, with detailed character profiles appearing above the box, showing the current speaker. The profiles will have animations and variants to fit the character's current expression.
 
@@ -209,6 +228,11 @@ Text can be customised to dynamically reflect player actions, such as making cha
 Dialogue is played out as a series of text blocks that automatically scroll out, though the player can prompt the text box to complete immediately to skip through dialogue quickly. During scrolling, various effects can be applied, such as screen shake, changing the expression of the character profile, playing a sound effect, etc.
 
 ! todo Add some images here
+
+When talking to a character again the last dialogue is repeated to allow the player to catch up on dialogue they might have accidentally skipped.
+
+#### Misc
+Depending on the number of areas there's going to be, a fast travel system has to be considered. The primary issue with this is to make it work in the setting -- as in, how can the fast travel system be introduced while preventing the player to travel to areas before they should reasonably have access to them. Or in other words: how can the system be realised without causing the plothole of just being able to go anywhere immediately with the fast travel system?
 
 ### Progression
 Progression will be by way of increasing enemy and platforming difficulty, and thereby forcing the player to improve their skill. In particular, individual enemy strength does not increase, but the configuration of enemies, their number, their type, and the design of the level will change to increase difficulty.
