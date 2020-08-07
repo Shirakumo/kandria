@@ -15,6 +15,8 @@
               (air-dcc         0.97)
               (climb-up        0.8)
               (climb-down      1.5)
+              (climb-strength  7.0)
+              (climb-jump-cost 1.5)
               (slide-limit    -1.2)
               (crawl           0.5)
               (jump-acc        2.5)
@@ -41,6 +43,7 @@
    (dash-time :initform 1.0d0 :accessor dash-time)
    (run-time :initform 1.0d0 :accessor run-time)
    (air-time :initform 1.0d0 :accessor air-time)
+   (climb-strength :initform 1.0d0 :accessor climb-strength)
    (buffer :initform NIL :accessor buffer)
    (chunk :initform NIL :accessor chunk))
   (:default-initargs
@@ -212,7 +215,7 @@
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
               +world+)
        (setf (jump-time player) 100.0)
-       (setf (run-time player) 100.0)
+       (setf (run-time player) 0.0)
        (cond ((or (< (p! dash-max-time) (dash-time player))
                   (and (< (p! dash-min-time) (dash-time player))
                        (not (retained 'dash))))
@@ -241,14 +244,18 @@
                        (scan-collision +world+ (vec (+ (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))))
               (attached (or (svref collisions (if (< 0 (direction player)) 1 3))
                             top)))
-         (unless (and (retained 'climb) attached)
+         (when (or (not (retained 'climb))
+                   (not attached)
+                   (<= (climb-strength player) 0))
            (setf (state player) :normal))
          (cond ((retained 'jump)
+                (decf (climb-strength player) (p! climb-jump-cost))
                 (setf (state player) :normal))
                ((null (svref collisions (if (< 0 (direction player)) 1 3)))
                 (setf (vy vel) (p! climb-up))
                 (setf (vx vel) (* (direction player) (p! climb-up))))
                ((retained 'up)
+                (decf (climb-strength player) (dt ev))
                 (if (< (vy vel) (p! climb-up))
                     (setf (vy vel) (p! climb-up))
                     (decf (vy vel) 0.1)))
@@ -284,7 +291,8 @@
                                      (T 0))))
                   (setf (vy vel) (vy (p! walljump-acc)))
                   (if (or (= dir mov-dir)
-                          (not (retained 'climb)))
+                          (not (retained 'climb))
+                          (<= (climb-strength player) 0))
                       (setf (vx vel) (* dir (vx (p! walljump-acc))))
                       (incf (vy vel) 0.3))
                   (setf (direction player) dir)
@@ -301,11 +309,13 @@
        (when (and (retained 'climb)
                   (not (retained 'jump))
                   (or (typep (svref collisions 1) '(or ground solid))
-                      (typep (svref collisions 3) '(or ground solid))))
+                      (typep (svref collisions 3) '(or ground solid)))
+                  (< 0 (climb-strength player)))
          (setf (state player) :climbing))
 
        ;; Movement
        (cond ((svref collisions 2)
+              (setf (climb-strength player) (p! climb-strength))
               (incf (vy vel) (min 0 (vy (velocity (svref collisions 2)))))
               (cond ((retained 'left)
                      (setf (direction player) -1)
@@ -447,3 +457,17 @@
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
      (view-scale (unit :camera T))))
+
+(defmethod render :before ((player player) (program shader-program))
+  (setf (uniform program "flash") (if (and (<= (climb-strength player) 2)
+                                           (<= (mod (clock (scene (handler *context*))) 0.2) 0.08))
+                                      1 0)))
+
+(define-class-shader (player :fragment-shader)
+  "uniform int flash = 0;
+out vec4 color;
+
+void main(){
+  if(flash == 1)
+    color = vec4(10, 0, 0, color.a);
+}")
