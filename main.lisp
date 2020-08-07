@@ -58,7 +58,7 @@
                (load-state state (scene main)))
               (T
                (load-state (initial-state (scene main)) (scene main))
-               ;;(save-state (scene main) (quicksave main))
+               (save-state (scene main) (quicksave main))
                (make-instance 'save-state)))))
 
 (defmethod update ((main main) tt dt fc)
