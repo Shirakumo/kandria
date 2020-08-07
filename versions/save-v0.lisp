@@ -7,7 +7,9 @@
   (encode (unit 'region world))
   (with-packet-entry (stream "global.lisp" packet
                              :element-type 'character)
-    (princ* (list :region (name (region world))) stream)))
+    (princ* (list :region (name (region world))
+                  :clock (clock world))
+            stream)))
 
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
@@ -48,13 +50,14 @@
               stream))))
 
 (define-encoder (animatable save-v0) (_b _p)
-  `(:location ,(encode (location animatable))
-    :direction ,(direction animatable)
-    :state ,(state animatable)
-    :animation ,(name (animation animatable))
-    :frame ,(frame animatable)
-    :health ,(health animatable)
-    :stun-time ,(stun-time animatable)))
+  (let ((animation (animation animatable)))
+    `(:location ,(encode (location animatable))
+      :direction ,(direction animatable)
+      :state ,(state animatable)
+      :animation ,(when animation (name animation))
+      :frame ,(when animation (frame-idx animatable))
+      :health ,(health animatable)
+      :stun-time ,(stun-time animatable))))
 
 (define-encoder (moving-platform save-v0) (_b _p)
   `(:location ,(encode (location moving-platform))
@@ -62,8 +65,9 @@
     :state ,(state moving-platform)))
 
 (define-decoder (world save-v0) (_b packet)
-  (destructuring-bind (&key region)
+  (destructuring-bind (&key region clock)
       (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
+    (setf (clock world) clock)
     (let ((region (cond ((and (region world) (eql region (name (region world))))
                          ;; Ensure we trigger necessary region reset events even if we're still in the same region.
                          (issue world 'switch-region :region (region world))
@@ -123,8 +127,9 @@
     (setf (location animatable) (decode 'vec2 location))
     (setf (direction animatable) direction)
     (setf (state animatable) state)
-    (setf (animation animatable) animation)
-    (setf (frame animatable) frame)
+    (when animation
+      (setf (animation animatable) animation)
+      (setf (frame animatable) frame))
     (setf (health animatable) health)
     (setf (stun-time animatable) stun-time)
     animatable))
