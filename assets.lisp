@@ -25,6 +25,9 @@
 (define-sprite lights
     #p"lights.png")
 
+(define-sprite pixelfont
+    #p"pixelfont.png")
+
 (define-sprite tundra-bg
     #p"tundra-bg.png")
 
