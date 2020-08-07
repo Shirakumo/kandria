@@ -65,3 +65,20 @@
 (define-class-shader (sweep :fragment-shader)
   "out vec4 color;
 void main(){ color = vec4(0,0,0,1); }")
+
+(define-shader-pass pixelfont (textured-entity simple-post-effect-pass)
+  ((texture :initform (// 'leaf 'pixelfont))))
+
+(defmethod handle ((event event) (font pixelfont)))
+
+(define-class-shader (pixelfont :fragment-shader)
+  "uniform sampler2D pixelfont;
+uniform sampler2D previous_pass;
+in vec2 tex_coord;
+out vec4 color;
+
+void main(){
+  ivec2 xy = ivec2(mod(gl_FragCoord.xy, 70));
+  float r = texelFetch(pixelfont, xy, 0).r;
+  color = vec4(r,r,r,1);
+}")
