@@ -62,7 +62,7 @@
                (make-instance 'save-state)))))
 
 (defmethod update ((main main) tt dt fc)
-  (issue (scene main) 'tick :tt tt :dt (* (time-scale (scene main)) dt) :fc fc)
+  (issue (scene main) 'tick :tt tt :dt (* (time-scale (scene main)) (float dt 1.0)) :fc fc)
   (process (scene main)))
 
 (defmethod setup-rendering :after ((main main))
@@ -97,13 +97,15 @@
                                            (not (active-p editor)))))))
 
 (defmethod setup-scene ((main main) scene)
-  (observe! (location (unit 'player scene)) :title :loc)
-  (observe! (velocity (unit 'player scene)) :title :vel)
-  (observe! (collisions (unit 'player scene)) :title :col)
-  (observe! (state (unit 'player scene)) :title :state)
-  (observe! (name (animation (unit 'player scene))) :title :anim)
-  (observe! (multiplier (frame (unit 'player scene))) :title :mult)
-  (observe! (climb-strength (unit 'player scene)) :title :climb)
+  (flet ((observe (func)
+           (observe! (funcall func (unit 'player scene)) :title func)))
+    (observe 'location)
+    (observe 'velocity)
+    (observe 'state)
+    (observe 'name)
+    (observe 'climb-strength)
+    (observe 'jump-time)
+    (observe 'air-time))
   
   (enter (make-instance 'sweep) scene)
   (enter (make-instance 'inactive-editor) scene)

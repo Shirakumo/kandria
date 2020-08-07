@@ -6,7 +6,7 @@
    (regions :initarg :regions :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
-   (time-scale :initform 1.0d0 :accessor time-scale))
+   (time-scale :initform 1.0 :accessor time-scale))
   (:default-initargs
    :packet (error "PACKET required.")
    :storyline (quest:make-storyline ())

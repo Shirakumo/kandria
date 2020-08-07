@@ -37,7 +37,11 @@
    (local-shade :initform 0.15 :accessor local-shade)
    (shadow-map :port-type input)
    (exposure :initform 0.5 :accessor exposure)
-   (gamma :initform 2.2 :accessor gamma)))
+   (gamma :initform 2.2 :accessor gamma)
+   #++(color :port-type output :attachment :color-attachment0
+          :texspec (:width 640 :height 416))
+   #++(depth :port-type output :attachment :depth-stencil-attachment
+          :texspec (:width 640 :height 416))))
 
 (defmethod prepare-pass-program :after ((pass rendering-pass) (program shader-program))
   (setf (uniform program "exposure") (exposure pass))
