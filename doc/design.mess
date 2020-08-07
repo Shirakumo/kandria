@@ -1,7 +1,7 @@
 # Kandria Design Document
 This document should serve as an overview for the design goals of Kandria. It is not meant as a strict rule or goal document, but rather as an inspiration and general guideline.
 
-Kandria is a 2D hybrid of a side-scrolling platformer and a hack and slash action rpg. It is heavy on story and exploration, and features a post-apocalyptic sci-fi setting.
+Kandria is a hybrid of a side-scrolling platformer and a hack and slash action rpg. It is heavy on story and exploration, and features a post-apocalyptic sci-fi setting.
 
 ## Characters
 Kandria features a cast of main characters, as well as several factions that are relevant to the story. The protagonist the player plays as is called 'the stranger'; one of very few remaining androids from the old world. The main cast otherwise consists of Fi, Jack, Catherine, and Alex.
@@ -11,7 +11,7 @@ All of the main cast is part of a faction of people trying to lead a peaceful co
 The cast might need to be extended or shortened depending on how the exact story needs develop as time goes on.
 
 ### The Stranger
-The stranger is a detective model android. As such she excels in investigation and combat. She's rather uncouth and can be pretty snarky and rude when she loses her patience. Being an android she can be rather reckless and unaware of the true dangers of a situation. She tends to be impatient and wants to jump to action right away. The Stranger has show relatively little personality in the beginning, and comes out of her shell slowly as the game advances.
+The stranger is a detective model android. As such she excels in investigation and combat. She's rather uncouth and can be pretty snarky and rude when she loses her patience. Being an android she can be rather reckless and unaware of the true dangers of a situation. She tends to be impatient and wants to jump to action right away. The Stranger shows relatively little personality in the beginning, but comes out of her shell slowly as the game advances.
 
 The Stranger's personality is almost entirely fixed during dialogue with the exception of occasional dialogue choices that can be made. The choices do not influence the story, but simply provide a way for the player to make The Stranger act a bit more according to how they would, making the role-playing easier.
 
@@ -69,10 +69,10 @@ Alex is a scavenger and messenger. He's responsible for scouting below the surfa
 The story takes place in a post apocalyptic world, ruined and almost entirely destroyed by an unknown calamity. A vast tunnel network spans underground, filled with old world remnants, dangerous machinery, and feral animals. Several factions have established camps in larger underground caverns to take refuge from the dry heat above ground. Survival is harsh, as old-world tech is rare and often broken, the areas outside the camps are dangerous, and there is little in the way of economic stability. Some factions even struggle to get enough food to survive due to it being difficult to grow anything underground.
 
 ### Themes
-Central themes of the story are ethics, humanity, and survival in a ruined world. The story is set between beats of drama and peace, with a final act that amps up the tension and conflict.
+Central themes of the story are ethics, humanity, and survival in a ruined world. The story is set between beats of drama and peace, with a final act that amps up the tension and conflict. Ethics and humanity are primarily explored via interactions with The Stranger and how characters deal with her being an android.
 
 ### Setting
-The story is set in the future. An unknown calamity has wiped almost all civilisation off the face of the earth, and transformed most of the surface into dry desert. Most of the remaining life is underground, in vast tunnel and cave systems that were dug prior to the calamity. With most of the upper class gone, resources on how to build and maintain infrastructure and machinery are very scarce. Most of the existing machiner factions make use of were lucky finds that happened to still work, or didn't require expertise to get working again. As such, the world has stepped back from a very high-tech, advanced civilisation back to a more primitive state.
+The story is set in the future. An unknown calamity has wiped almost all civilisation off the face of the earth, and transformed most of the surface into dry desert. Most of the remaining life is underground, in vast tunnel and cave systems that were dug prior to the calamity. With most of the upper class gone, resources on how to build and maintain infrastructure and machinery are very scarce. Most of the existing machines people make use of were lucky finds that happened to still work, or didn't require expertise to get working again. As such, the world has stepped back from a very high-tech, advanced civilisation back to a more primitive state.
 
 For now, deep underground machinery still manages to pump water and electricity upwards to some regions of the tunnels. Camps were set up around these regions, and are defended viciously. Most did not attempt to return to the surface, as only ruins remained. The lack of water access combined with the intense heat and desertification made it a very difficult spot to live.
 
@@ -118,6 +118,9 @@ The three buildings at the camp are a repurposed hotel to serve for housing and 
 ! todo Better name
 
 #### Abandoned Outpost
+An abandoned gang outpost in the mountain area. This spot is only reachable via underground tunnels and a long climb up the mountain. The mountain is surrounded by steep, unclimbable cliffs on either side. This is an optional area that contains lore and background on one of the factions, and in specific its leader.
+
+A single hermit NPC can be found here, though they won't have much to talk to you about, and mostly just ask you to leave again.
 
 ## Gameplay
 Overall the game follows fairly standard ARGP mechanics, with the twist addition of platformer challenges for exploration segments.
