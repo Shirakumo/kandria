@@ -101,6 +101,7 @@
   (observe! (state (unit 'player scene)) :title :state)
   (observe! (name (animation (unit 'player scene))) :title :anim)
   (observe! (multiplier (frame (unit 'player scene))) :title :mult)
+  (observe! (climb-strength (unit 'player scene)) :title :climb)
   
   (enter (make-instance 'sweep) scene)
   (enter (make-instance 'inactive-editor) scene)
