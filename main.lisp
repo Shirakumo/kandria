@@ -26,11 +26,13 @@
                      ((pathname-utils:directory-p file)
                       (uiop:delete-directory-tree file :validate (constantly T)))
                      (T
-                      (delete-file file)))))
-      (uiop:copy-file (make-pathname :name "CHANGES" :type "mess" :defaults root)
-                      (make-pathname :name "CHANGES" :type "mess" :defaults directory))
-      (uiop:copy-file (make-pathname :name "README" :type "mess" :defaults root)
-                      (make-pathname :name "README" :type "mess" :defaults directory))
+                      (delete-file file))))
+             (copy-file (file)
+               (uiop:copy-file (merge-pathnames file root)
+                               (merge-pathnames file directory))))
+      (copy-file "CHANGES.mess")
+      (copy-file "README.mess")
+      (copy-file "keymap.lisp")
       (deploy:copy-directory-tree (pathname-utils:subdirectory root "world") directory)
       (deploy:status 1 "Pruning assets")
       ;; Prune undesired assets. This sucks, an automated, declarative way would be much better.
