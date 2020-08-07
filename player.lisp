@@ -39,11 +39,11 @@
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
-   (jump-time :initform 1.0d0 :accessor jump-time)
-   (dash-time :initform 1.0d0 :accessor dash-time)
-   (run-time :initform 1.0d0 :accessor run-time)
-   (air-time :initform 1.0d0 :accessor air-time)
-   (climb-strength :initform 1.0d0 :accessor climb-strength)
+   (jump-time :initform 1.0 :accessor jump-time)
+   (dash-time :initform 1.0 :accessor dash-time)
+   (run-time :initform 1.0 :accessor run-time)
+   (air-time :initform 1.0 :accessor air-time)
+   (climb-strength :initform 1.0 :accessor climb-strength)
    (buffer :initform NIL :accessor buffer)
    (chunk :initform NIL :accessor chunk))
   (:default-initargs
@@ -139,7 +139,7 @@
            (when (< 0.5 (air-time player))
              (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit)))))))
          (when (<= 0 (vy (hit-normal hit)))
-           (setf (air-time player) 0.0d0))
+           (setf (air-time player) 0.0))
          (when (and (< 0 (vy (hit-normal hit)))
                     (not (eql :dashing (state player))))
            (setf (dash-time player) 0.0))))
@@ -182,7 +182,7 @@
                         (p! run-acc)
                         (p! walk-acc))))
     (when (< (abs (vx vel)) (/ (p! walk-limit) 2))
-      (setf (run-time player) 0.0d0))
+      (setf (run-time player) 0.0))
     (incf (run-time player) (dt ev))
     (setf (interactable player) NIL)
     (ecase (state player)
@@ -249,7 +249,6 @@
                    (<= (climb-strength player) 0))
            (setf (state player) :normal))
          (cond ((retained 'jump)
-                (decf (climb-strength player) (p! climb-jump-cost))
                 (setf (state player) :normal))
                ((null (svref collisions (if (< 0 (direction player)) 1 3)))
                 (setf (vy vel) (p! climb-up))
@@ -281,7 +280,7 @@
                     (contained-p entity player))
            (setf (interactable player) entity)))
        ;; Handle jumps
-       (when (< (jump-time player) 0.0d0)
+       (when (< (jump-time player) 0.0)
          (cond ((or (svref collisions 1)
                     (svref collisions 3))
                 ;; Wall jump
@@ -289,21 +288,22 @@
                       (mov-dir (cond ((retained 'left) -1)
                                      ((retained 'right) +1)
                                      (T 0))))
-                  (setf (vy vel) (vy (p! walljump-acc)))
-                  (if (or (= dir mov-dir)
-                          (not (retained 'climb))
-                          (<= (climb-strength player) 0))
-                      (setf (vx vel) (* dir (vx (p! walljump-acc))))
-                      (incf (vy vel) 0.3))
-                  (setf (direction player) dir)
-                  (setf (jump-time player) 0.0d0)))
+                  (setf (jump-time player) 0.0)
+                  (cond ((or (= dir mov-dir)
+                             (not (retained 'climb)))
+                         (setf (direction player) dir)
+                         (setf (vy vel) (vy (p! walljump-acc)))
+                         (setf (vx vel) (* dir (vx (p! walljump-acc)))))
+                        ((<= -0.1 (climb-strength player))
+                         (decf (climb-strength player) (p! climb-jump-cost))
+                         (setf (vy vel) (+ 0.3 (vy (p! walljump-acc))))))))
                ((< (air-time player) (p! coyote-time))
                 ;; Ground jump
                 (setf (vy vel) (+ (p! jump-acc)
                                   (if (svref collisions 2)
                                       (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
                                       0)))
-                (setf (jump-time player) 0.0d0))))
+                (setf (jump-time player) 0.0))))
        
        ;; Test for climbing
        (when (and (retained 'climb)
@@ -395,7 +395,7 @@
           (setf (playback-direction player) -1)
           (setf (playback-speed player) 1.5))
          ((= 0 (vy vel))
-          (setf (clock player) 0.0d0))))
+          (setf (clock player) 0.0))))
       (:crawling
        (cond ((< 0 (vx vel))
               (setf (direction player) +1))
@@ -403,7 +403,7 @@
               (setf (direction player) -1)))
        (setf (animation player) 'crawl)
        (when (= 0 (vx vel))
-         (setf (clock player) 0.0d0)))
+         (setf (clock player) 0.0)))
       (:normal
        (cond ((< 0 (vx vel))
               (setf (direction player) +1))
@@ -459,15 +459,21 @@
      (view-scale (unit :camera T))))
 
 (defmethod render :before ((player player) (program shader-program))
-  (setf (uniform program "flash") (if (and (<= (climb-strength player) 2)
-                                           (<= (mod (clock (scene (handler *context*))) 0.2) 0.08))
-                                      1 0)))
+  (setf (uniform program "flash") (cond ((<= (climb-strength player) 0)
+                                         (if (<= (mod (clock (scene (handler *context*))) 0.5) 0.2) 0.8 0.0))
+                                        ((<= (climb-strength player) 1)
+                                         (if (<= (mod (clock (scene (handler *context*))) 0.15) 0.08) 1.0 0.0))
+                                        ((<= (climb-strength player) 2)
+                                         (if (<= (mod (clock (scene (handler *context*))) 0.3) 0.12) 0.8 0.0))
+                                        ((<= (climb-strength player) 3)
+                                         (if (<= (mod (clock (scene (handler *context*))) 0.4) 0.15) 0.5 0.0))
+                                        (T
+                                         0.0))))
 
 (define-class-shader (player :fragment-shader)
-  "uniform int flash = 0;
+  "uniform float flash = 0;
 out vec4 color;
 
 void main(){
-  if(flash == 1)
-    color = vec4(10, 0, 0, color.a);
+  color = mix(color, vec4(10, 0, 0, color.a), flash);
 }")
