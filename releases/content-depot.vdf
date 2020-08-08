@@ -10,4 +10,8 @@
     "DepotPath" "world/"
     "recursive" "1"
   }
+  "FileMapping"{
+    "LocalPath" "keymap.lisp"
+    "DepotPath" "."
+  }
 }
