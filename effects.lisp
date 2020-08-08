@@ -66,19 +66,46 @@
   "out vec4 color;
 void main(){ color = vec4(0,0,0,1); }")
 
-(define-shader-pass pixelfont (textured-entity simple-post-effect-pass)
-  ((texture :initform (// 'leaf 'pixelfont))))
+(define-shader-pass pixelfont (simple-post-effect-pass)
+  ((texture :initform (// 'leaf 'pixelfont) :accessor texture)))
+
+(defmethod stage :after ((font pixelfont) (area staging-area))
+  (stage (texture font) area))
+
+(defmethod render :before ((font pixelfont) (program shader-program))
+  (gl:active-texture :texture0)
+  (gl:bind-texture :texture-2d (gl-name (texture font)))
+  (setf (uniform program "pixelfont") 0)
+  (setf (uniform program "seed") (logxor #xA1 (floor (* 10 (current-time))))))
 
 (defmethod handle ((event event) (font pixelfont)))
 
 (define-class-shader (pixelfont :fragment-shader)
   "uniform sampler2D pixelfont;
 uniform sampler2D previous_pass;
+uniform int seed = 0;
 in vec2 tex_coord;
 out vec4 color;
 
+float rand(vec2 co){
+    float a = 12.9898;
+    float b = 78.233;
+    float c = 43758.5453;
+    float dt= dot(co.xy ,vec2(a,b));
+    float sn= mod(dt,3.14);
+    return fract(sin(sn) * c);
+}
+
 void main(){
-  ivec2 xy = ivec2(mod(gl_FragCoord.xy, 70));
-  float r = texelFetch(pixelfont, xy, 0).r;
-  color = vec4(r,r,r,1);
+  vec2 num = vec2(40, 26)*2;
+  vec2 pos = floor(tex_coord*num);
+  int r = int(rand(pos+seed)*100);
+  vec2 idx = vec2(r%10, r/10)/10;
+  vec2 sub = mod(tex_coord*num, 1)/10;
+  sub.x -= 0.02;
+  float val = texture(pixelfont, idx+sub).r;
+  if(val == 1)
+    color = texture(previous_pass, tex_coord);
+  else
+    color = texture(previous_pass, (pos+1)/num)*0.99;
 }")
