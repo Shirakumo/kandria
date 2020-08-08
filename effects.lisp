@@ -102,10 +102,9 @@ void main(){
   int r = int(rand(pos+seed)*100);
   vec2 idx = vec2(r%10, r/10)/10;
   vec2 sub = mod(tex_coord*num, 1)/10;
-  sub.x -= 0.02;
   float val = texture(pixelfont, idx+sub).r;
   if(val == 1)
-    color = texture(previous_pass, tex_coord);
+    color = texture(previous_pass, pos/num);
   else
     color = texture(previous_pass, (pos+1)/num)*0.99;
 }")
