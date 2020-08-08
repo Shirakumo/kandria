@@ -6,7 +6,7 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix jumping right after dashing extending the dash distance
   Reported by Leo Schlosser
 - Fix jumping while climbing causing the player to jump away from the wall rather than up the wall
-  Reported by Daniel Pinc
+  Reported by PincerAttack
 - Fix out of bounds shadow map access when at the border of a chunk resulting in a black screen
   Reported by Janne Pakarinen
 - Prevent hitting ceilings from recovering the jump, and prevent hitting ceilings and walls from recovering the dash
@@ -21,3 +21,11 @@ A big thanks to everyone for trying it out and reporting problems!
 ## 0.0.3
 - Fix dpad input on gamepads not being recognised as directional inputs
   Reported by Gnuxie
+- Fix quicksaves and quickloads breaking the game
+  Reported by PincerAttack
+- TODO: Fix slopes with ceilings above allowing clipping
+  Reported by PincerAttack
+- TODO: Fix attacking an enemy while both at the corner causing clipping
+  Reported by Janne Pakarinen
+- Don't let errors in the render loop hang the game
+  Reported by Selwyn Simsek
