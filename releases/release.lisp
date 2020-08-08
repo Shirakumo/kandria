@@ -4,6 +4,7 @@
    (#:putils #:org.shirakumo.pathname-utils)
    (#:zippy #:org.shirakumo.zippy))
   (:export
+   #:build
    #:deploy
    #:bundle
    #:release))
@@ -25,11 +26,25 @@
           do (setf content (cl-ppcre:regex-replace-all search content replace)))
     (alexandria:write-string-into-file content out :if-exists :supersede)))
 
-(defun build ()
+(defun run (program &rest args)
+  (sb-ext:run-program program args :search T :output *standard-output*))
+
+(defmethod build :around (target)
   (with-simple-restart (continue "Treat build as successful")
-    (sb-ext:run-program "sbcl" (list "--eval" "(asdf:make :leaf :force T)"
-                                     "--quit")
-                        :search T :output *standard-output*)))
+    (call-next-method)))
+
+(defmethod build ((target (eql :linux)))
+  (run "sbcl-lin" "--eval" "(asdf:make :leaf :force T)" "--quit"))
+
+(defmethod build ((target (eql :windows)))
+  (run "sbcl-win" "--eval" "(asdf:make :leaf :force T)" "--quit"))
+
+(defmethod build ((target (eql :macos)))
+  (run "sbcl-mac" "--eval" "(asdf:make :leaf :force T)" "--quit"))
+
+(defmethod build ((target (eql T)))
+  (build :linux)
+  (build :windows))
 
 (defun deploy ()
   (let* ((vername (format NIL "kandria-~a" (version)))
@@ -57,10 +72,9 @@
     systems))
 
 (defun itch (release &key &allow-other-keys)
-  (sb-ext:run-program "butler" (list "push" (uiop:native-namestring release)
-                                     (format NIL "Shinmera/kandria:~{~a~^-~}" (release-systems release))
-                                     "--userversion" (version))
-                      :search T :output *standard-output*))
+  (run "butler" "push" (uiop:native-namestring release)
+       (format NIL "Shinmera/kandria:~{~a~^-~}" (release-systems release))
+       "--userversion" (version)))
 
 (defun steam (release &key (branch "developer") preview password &allow-other-keys)
   (let ((template (make-pathname :name "app-build" :type "vdf" :defaults (output)))
@@ -68,8 +82,7 @@
     (file-replace template build `(("\\$CONTENT" ,(uiop:native-namestring release))
                                    ("\\$BRANCH" ,(or branch ""))
                                    ("\\$PREVIEW" ,(if preview "1" "0"))))
-    (sb-ext:run-program "steamcmd.sh" (list "+login" "shinmera" (or password (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")
-                        :search T :output *standard-output*)))
+    (run "steamcmd.sh" "+login" "shinmera" (or password (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")))
 
 (defun upload (release &rest args &key (services T))
   (case services ((T :itch) (apply #'itch release args)))
