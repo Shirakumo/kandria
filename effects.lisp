@@ -66,26 +66,33 @@
   "out vec4 color;
 void main(){ color = vec4(0,0,0,1); }")
 
-(define-shader-pass pixelfont (simple-post-effect-pass)
-  ((texture :initform (// 'leaf 'pixelfont) :accessor texture)))
+(define-shader-pass distortion-pass (simple-post-effect-pass)
+  ((texture :initform (// 'leaf 'pixelfont) :accessor texture)
+   (strength :initform 0f0 :accessor strength)))
 
-(defmethod stage :after ((font pixelfont) (area staging-area))
-  (stage (texture font) area))
+(defmethod stage :after ((pass distortion-pass) (area staging-area))
+  (stage (texture pass) area))
 
-(defmethod render :before ((font pixelfont) (program shader-program))
+(defmethod prepare-pass-program :after ((pass distortion-pass) (program shader-program))
   (gl:active-texture :texture0)
-  (gl:bind-texture :texture-2d (gl-name (texture font)))
+  (gl:bind-texture :texture-2d (gl-name (texture pass)))
   (setf (uniform program "pixelfont") 0)
-  (setf (uniform program "seed") (logxor #xA1 (floor (* 10 (current-time))))))
+  (setf (uniform program "seed") (logand #xFFFF (sxhash (floor (* 10 (current-time))))))
+  (setf (uniform program "strength") (strength pass)))
 
-(defmethod handle ((event event) (font pixelfont)))
+(defmethod handle ((event event) (pass distortion-pass)))
 
-(define-class-shader (pixelfont :fragment-shader)
+(define-class-shader (distortion-pass :fragment-shader)
   "uniform sampler2D pixelfont;
 uniform sampler2D previous_pass;
 uniform int seed = 0;
+uniform float strength = 0.0;
 in vec2 tex_coord;
 out vec4 color;
+
+const vec2 num = vec2(40, 26)*2;
+const ivec2 glyphs = ivec2(10, 13);
+const int glyph_count = 10*13;
 
 float rand(vec2 co){
     float a = 12.9898;
@@ -97,14 +104,20 @@ float rand(vec2 co){
 }
 
 void main(){
-  vec2 num = vec2(40, 26)*2;
+  float scalar = 1-clamp(strength,0,1);
   vec2 pos = floor(tex_coord*num);
-  int r = int(rand(pos+seed)*100);
-  vec2 idx = vec2(r%10, r/10)/10;
-  vec2 sub = mod(tex_coord*num, 1)/10;
-  float val = texture(pixelfont, idx+sub).r;
-  if(val == 1)
+  int r = int(rand(pos+seed)*glyph_count);
+  float val = 1;
+  if(scalar*glyph_count < r){
+    vec2 idx = vec2(r%glyphs.x, r/glyphs.x);
+    vec2 sub = mod(tex_coord*num, 1);
+    val = texelFetch(pixelfont, ivec2((sub+idx)*7), 0).r;
+  }
+  float scale = clamp(r,scalar*30,glyph_count)*scalar*scalar;
+  pos = floor(tex_coord*num*scale)/scale;
+  if(val == 1){
     color = texture(previous_pass, pos/num);
-  else
-    color = texture(previous_pass, (pos+1)/num)*0.99;
+  }else{
+    color = texture(previous_pass, (pos+1)/num);
+  }
 }")
