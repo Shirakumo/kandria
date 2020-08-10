@@ -107,10 +107,6 @@
     (setf (shake-counter camera) duration)
     (setf (shake-intensity camera) intensity)))
 
-(defmethod handle ((ev mouse-press) (camera camera))
-  (print (pos ev))
-  (print (mouse-world-pos (pos ev))))
-
 (defun in-view-p (loc bsize)
   (let* ((camera (unit :camera T)))
     (let ((- (vec 0 0))
