@@ -13,6 +13,9 @@
    :regions (make-hash-table :test 'eq)))
 
 (defmethod initialize-instance :after ((world world) &key packet)
+  (enter (progression-instance 'death) world)
+  (enter (progression-instance 'hurt) world)
+  (enter (progression-instance 'transition) world)
   (dolist (entry (list-entries "regions/" packet))
     (with-packet (packet packet :offset entry)
       (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))

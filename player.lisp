@@ -445,14 +445,19 @@
     (setf (chunk player) (chunk ev))
     (setf (spawn-location player) loc)))
 
-(defmethod die ((player player))
-  (transition
-    (vsetf (velocity player) 0 0)
-    (vsetf (location player)
-           (vx (spawn-location player))
-           (vy (spawn-location player)))
-    (setf (state player) :normal)
-    (snap-to-target (unit :camera T) player)))
+(defmethod respawn ((player player))
+  (vsetf (velocity player) 0 0)
+  (vsetf (location player)
+         (vx (spawn-location player))
+         (vy (spawn-location player)))
+  (setf (state player) :normal)
+  (snap-to-target (unit :camera T) player))
+
+(defmethod kill :after ((player player))
+  (setf (clock (progression 'death +world+)) 0f0)
+  (start (progression 'death +world+)))
+
+(defmethod die ((player player)))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
