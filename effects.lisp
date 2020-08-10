@@ -18,57 +18,52 @@
     (loop for pass across (passes +world+)
           do (compile-into-pass effect region pass))))
 
-(define-asset (leaf sweeper) mesh
-    (make-rectangle 2.0 0.25 :align :bottomleft))
+(define-shader-entity fade (transformed listener vertex-entity)
+  ((name :initform 'fade)
+   (vertex-array :initform (// 'trial 'fullscreen-square))
+   (on-complete :initform NIL :accessor on-complete)
+   (strength :initform 0.0 :accessor strength)))
 
-(define-shader-entity sweep (transformed listener vertex-entity)
-  ((name :initform :sweep)
-   (vertex-array :initform (// 'leaf 'sweeper))
-   (clock :initform 0f0 :accessor clock)
-   (direction :initform :from-blank :accessor direction)
-   (on-complete :initform NIL :accessor on-complete)))
+(defmethod handle ((ev transition-event) (fade fade))
+  (setf (on-complete fade) (on-complete ev))
+  (setf (clock (progression 'transition +world+)) 0f0)
+  (start (progression 'transition +world+)))
 
-(defmethod (setf direction) :after (dir (sweep sweep))
-  (setf (clock sweep) 0.0))
-
-(defmethod handle ((ev tick) (sweep sweep))
-  (setf (clock sweep) (min (+ (clock sweep) (* 3 (dt ev))) 2.0))
-  (when (and (on-complete sweep) (<= 2.0 (clock sweep)))
-    (funcall (on-complete sweep))
-    (setf (on-complete sweep) NIL)))
-
-(defmethod handle ((ev transition-event) (sweep sweep))
-  (setf (on-complete sweep) (on-complete ev))
-  (setf (direction sweep) (direction ev)))
-
-(defmethod apply-transforms progn ((sweep sweep))
+(defmethod apply-transforms progn ((fade fade))
   (setf *projection-matrix*
-        (setf *view-matrix* (meye 4)))
-  (setf *model-matrix* (meye 4)))
+        (setf *view-matrix*
+              (setf *model-matrix* (meye 4)))))
 
-(defmethod render ((sweep sweep) (program shader-program))
-  (let (y dy)
-    (ecase (direction sweep)
-      (:to-blank
-       (translate-by -3 1 0)
-       (setf y +1 dy -0.25))
-      (:from-blank
-       (translate-by -1 -1.25 0)
-       (setf y -1 dy +0.25)))
-    (loop repeat 8
-          for tt from (- (clock sweep) 1.0) by 0.125
-          for xprev = -1 then x
-          for x = (ease (clamp 0 tt 1) 'quad-in -1 +1)
-          do (translate-by (- x xprev) dy 0)
-             (call-next-method))))
+(defmethod render :before ((fade fade) (program shader-program))
+  (setf (uniform program "strength") (strength fade)))
 
-(define-class-shader (sweep :fragment-shader)
-  "out vec4 color;
-void main(){ color = vec4(0,0,0,1); }")
+(define-class-shader (fade :fragment-shader)
+  "uniform float strength = 0.0;
+out vec4 color;
+void main(){ color = vec4(0,0,0,strength); }")
+
+(define-progression death
+  0 1.0 (distortion (set strength :from 0.0 :to 1.0))
+  1.0 1.0 (player (call (lambda (player clock step) (respawn player))))  
+  1.5 2.5 (distortion (set strength :from 1.0 :to 0.0 :ease circ-in)))
+
+(define-progression hurt
+  0.0 0.1 (distortion (set strength :from 0.0 :to 0.8))
+  0.1 0.2 (distortion (set strength :from 0.8 :to 0.0)))
+
+(define-progression transition
+  0.0 0.5 (fade (set strength :from 0.0 :to 1.0 :ease quint-in))
+  0.5 0.5 (fade (call (lambda (fade clock step) (funcall (on-complete fade)))))
+  0.5 1.0 (fade (set strength :from 1.0 :to 0.0 :ease quint-out)))
 
 (define-shader-pass distortion-pass (simple-post-effect-pass)
-  ((texture :initform (// 'leaf 'pixelfont) :accessor texture)
+  ((name :initform 'distortion)
+   (active-p :initform NIL)
+   (texture :initform (// 'leaf 'pixelfont) :accessor texture)
    (strength :initform 0f0 :accessor strength)))
+
+(defmethod (setf strength) :after (strength (pass distortion-pass))
+  (setf (active-p pass) (< 0 strength)))
 
 (defmethod stage :after ((pass distortion-pass) (area staging-area))
   (stage (texture pass) area))
@@ -117,7 +112,9 @@ void main(){
   pos = floor(tex_coord*num*scale)/scale;
   if(val == 1){
     color = texture(previous_pass, pos/num);
+    color = mix(color, vec4(0.2,0.3,0.7,1), clamp(strength*4-3,0,1));
   }else{
     color = texture(previous_pass, (pos+1)/num);
+    color = mix(color, vec4(1), clamp(strength*4-3,0,1));
   }
 }")
