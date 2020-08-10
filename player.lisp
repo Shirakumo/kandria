@@ -453,6 +453,11 @@
   (setf (state player) :normal)
   (snap-to-target (unit :camera T) player))
 
+(defmethod hurt :after ((player player) damage)
+  (setf (clock (progression 'hurt +world+)) 0)
+  (start (progression 'hurt +world+))
+  (shake-camera :intensity 10))
+
 (defmethod kill :after ((player player))
   (setf (clock (progression 'death +world+)) 0f0)
   (start (progression 'death +world+)))
