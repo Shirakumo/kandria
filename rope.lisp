@@ -34,7 +34,11 @@
     (loop for (pos prev) across chain
           do (let ((d (v* (v- pos prev) drag)))
                (vsetf prev (vx pos) (vy pos))
-               (nv+ pos d (v* g (dt ev)))))
+               (nv+ pos d (v* g (dt ev)))
+               (let ((real (v+ pos (location rope))))
+                 (incf (vy real) (vy (bsize rope)))
+                 (when (scan-collision +world+ real)
+                   (setf (vx pos) (- (vx prev) (* 0.25 (vx d))))))))
     (vsetf (first (aref chain 0)) 0 0)
     (dotimes (r 50)
       (loop for i from 1 below (length chain)
