@@ -7,6 +7,7 @@
    #:build
    #:deploy
    #:bundle
+   #:upload
    #:release))
 (in-package #:release)
 
@@ -45,6 +46,8 @@
 (defmethod build ((target (eql T)))
   (build :linux)
   (build :windows))
+
+(defmethod build ((target null)))
 
 (defun deploy ()
   (let* ((vername (format NIL "kandria-~a" (version)))
@@ -88,8 +91,9 @@
   (case services ((T :itch) (apply #'itch release args)))
   (case services ((T :steam) (apply #'steam release args))))
 
-(defun release (&key upload)
-  (deploy:status 0 "Releasing ~a" (version))
+(defun release (&key (build T) upload)
+  (deploy:status 0 "Building ~a" (version))
+  (build build)
   (deploy:status 1 "Deploying to release directory")
   (let ((release (deploy)))
     (deploy:status 1 "Creating bundle zip")
