@@ -139,6 +139,16 @@
                      :frame ,(encode (frame-idx falling-platform))
                      :bsize ,(encode (bsize falling-platform))))
 
+(define-decoder (rope world-v0) (initargs _)
+  (destructuring-bind (&key location bsize) initargs
+    (make-instance 'rope
+                   :location (decode 'vec2 location)
+                   :bsize (decode 'vec2 bsize))))
+
+(define-encoder (rope world-v0) (_b _p)
+  `(rope :location ,(encode (location rope))
+         :bsize ,(encode (bsize rope))))
+
 (define-decoder (basic-light world-v0) (initargs _)
   (destructuring-bind (&key color data) initargs
     (make-instance 'basic-light

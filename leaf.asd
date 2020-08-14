@@ -28,6 +28,7 @@
                (:file "moving")
                (:file "move-to")
                (:file "animatable")
+               (:file "rope")
                (:file "player")
                (:file "enemy")
                (:file "world")

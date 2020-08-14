@@ -59,6 +59,9 @@
 (defmethod size ((entity sized-entity))
   (v* (bsize entity) 2))
 
+(defmethod resize ((entity sized-entity) width height)
+  (vsetf (bsize entity) (/ width 2) (/ height 2)))
+
 (defmethod scan ((entity sized-entity) (target vec2) on-hit)
   (let ((w (vx (bsize entity)))
         (h (vy (bsize entity)))
