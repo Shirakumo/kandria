@@ -15,7 +15,7 @@
         (vel (velocity enemy))
         (dt (* 100 (dt ev))))
     (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) dt)))
-    (nv+ vel (v* +vgrav+ dt))
+    (nv+ vel (v* (gravity (medium enemy)) dt))
     (cond ((svref collisions 2)
            (when (<= -0.1 (vx vel) 0.1)
              (setf (vx vel) 0)))
@@ -93,7 +93,7 @@
     (when (< 0 vlen)
       (decf (angle ball) (* 0.1 (vx vel)))
       (nv* vel (* (min vlen 10) (/ 0.99 vlen))))
-    (nv+ vel (v* +vgrav+ dt))
+    (nv+ vel (v* (gravity (medium ball)) dt))
     (nv+ (frame-velocity ball) vel)))
 
 (defmethod collide ((ball ball) (block block) hit)

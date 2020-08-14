@@ -1,13 +1,24 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(define-global +default-medium+ (make-instance 'air))
+
 (defclass moving (game-entity)
-  ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)))
+  ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
+   (medium :initform +default-medium+ :accessor medium)))
 
 (defmethod handle ((ev tick) (moving moving))
   (when (next-method-p) (call-next-method))
   (let ((loc (location moving))
         (size (bsize moving))
         (collisions (collisions moving)))
+    ;; Scan for medium
+    (for:for ((entity over (region +world+)))
+      (when (and (typep entity 'medium)
+                 (contained-p entity moving))
+        (setf (medium moving) entity)
+        (return))
+      (returning (setf (medium moving) +default-medium+)))
+    (nv* (velocity moving) (drag (medium moving)))
     ;; Scan for hits
     (fill collisions NIL)
     (loop for i from 0

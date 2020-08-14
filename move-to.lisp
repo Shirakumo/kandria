@@ -130,7 +130,7 @@
                     collect (vec (* xfrac (vx vmax)) (* yfrac (vy vmax))))))
 
 (defun create-jump-connections-at (node ox oy solids node-grid width height)
-  (let ((g (v/ +vgrav+ +tile-size+))
+  (let ((g (v/ (gravity (make-instance 'air)) +tile-size+))
         (size (vec width height)))
     (loop for vel in (compute-jump-configurations)
           for prev = 0
@@ -325,5 +325,5 @@ void main(){
             (shiftf node target (flow:target-node node con)))))
       (when (svref collisions 2)
         (setf (vy vel) (max 0 (vy vel))))
-      (nv+ vel (v* +vgrav+ dt))
+      (nv+ vel (v* (gravity (medium movable)) dt))
       (nv+ (frame-velocity movable) vel))))

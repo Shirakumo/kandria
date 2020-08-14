@@ -74,6 +74,7 @@
          (setf (animation (target (interactable player))) 'open)
          (vsetf (location player) (vx location) (- (vy location) 8))
          (snap-to-target (unit :camera T) player))))
+    (rope)
     (T
      (issue +world+ 'interaction :with (interactable player)))))
 
@@ -211,7 +212,7 @@
        (handle-animation-states player ev)
        (when (svref collisions 2)
          (setf (vy vel) (max (vy vel) 0)))
-       (nv+ vel (v* +vgrav+ dt)))
+       (nv+ vel (v* (gravity (medium player)) dt)))
       (:dashing
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
@@ -369,7 +370,7 @@
        (when (and (retained 'jump)
                   (<= 0.05 (jump-time player) 0.15))
          (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) dt))))
-       (nv+ vel (v* +vgrav+ dt))
+       (nv+ vel (v* (gravity (medium player)) dt))
        ;; Limit when sliding down wall
        (when (and (or (typep (svref collisions 1) 'ground)
                       (typep (svref collisions 3) 'ground))
