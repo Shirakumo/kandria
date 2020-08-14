@@ -1,6 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(define-global +vgrav+ (vec 0 -0.15))
 (define-global +tile-size+ 16)
 (define-global +layer-count+ 6)
 (define-global +base-layer+ 2)

@@ -25,6 +25,8 @@
                (:file "chunk")
                (:file "interactable")
                (:file "moving-platform")
+               (:file "medium")
+               (:file "water")
                (:file "moving")
                (:file "move-to")
                (:file "animatable")

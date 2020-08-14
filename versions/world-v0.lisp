@@ -149,6 +149,16 @@
   `(rope :location ,(encode (location rope))
          :bsize ,(encode (bsize rope))))
 
+(define-decoder (water world-v0) (initargs _)
+  (destructuring-bind (&key location bsize) initargs
+    (make-instance 'water
+                   :location (decode 'vec2 location)
+                   :bsize (decode 'vec2 bsize))))
+
+(define-encoder (water world-v0) (_b _p)
+  `(water :location ,(encode (location water))
+         :bsize ,(encode (bsize water))))
+
 (define-decoder (basic-light world-v0) (initargs _)
   (destructuring-bind (&key color data) initargs
     (make-instance 'basic-light

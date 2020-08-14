@@ -5,10 +5,12 @@
    (name :initform 'lighting-pass)))
 
 (defmethod handle ((ev trial:tick) (pass lighting-pass))
-  (etypecase (lighting pass)
-    (real (update-lighting (lighting pass)))
-    ((eql T) (update-lighting (+ (/ (clock +world+) 20) 7)))
-    ((eql NIL))))
+  (update-lighting 12)
+  ;; (etypecase (lighting pass)
+  ;;   (real (update-lighting (lighting pass)))
+  ;;   ((eql T) (update-lighting (+ (/ (clock +world+) 20) 7)))
+  ;;   ((eql NIL)))
+  )
 
 (defmethod handle ((ev switch-chunk) (pass lighting-pass))
   ;; FIXME: Actually apply chunk lighting settings
