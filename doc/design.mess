@@ -235,7 +235,7 @@ Dialogue is played out as a series of text blocks that automatically scroll out,
 When talking to a character again the last dialogue is repeated to allow the player to catch up on dialogue they might have accidentally skipped.
 
 #### Misc
-Depending on the number of areas there's going to be, a fast travel system has to be considered. The primary issue with this is to make it work in the setting -- as in, how can the fast travel system be introduced while preventing the player to travel to areas before they should reasonably have access to them. Or in other words: how can the system be realised without causing the plothole of just being able to go anywhere immediately with the fast travel system?
+Depending on the number of areas there's going to be, a fast travel system has to be considered. The system would consist of an underground metro line. New areas need to be connected to the metro network by opening structural safety doors that were automatically dropped in the calamity. In order to open these doors the next metro station needs to be reached first, meaning the player cannot travel to an unknown location without discovering it first.
 
 ### Progression
 Progression will be by way of increasing enemy and platforming difficulty, and thereby forcing the player to improve their skill. In particular, individual enemy strength does not increase, but the configuration of enemies, their number, their type, and the design of the level will change to increase difficulty.
