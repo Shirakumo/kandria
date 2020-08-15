@@ -11,11 +11,26 @@
    #:release))
 (in-package #:release)
 
+(defun run (program &rest args)
+  (sb-ext:run-program program args :search T :output *standard-output*))
+
+(defun run* (program &rest args)
+  (with-output-to-string (out)
+    (sb-ext:run-program program args :search T :output out)))
+
 (defun version ()
   (asdf:component-version (asdf:find-system "leaf")))
 
 (defun output ()
   (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*)))
+
+(defun get-pass (name)
+  (ignore-errors
+   (let ((candidates (cl-ppcre:split "\\n+" (run* "pass" "find" name))))
+     (when (cdr candidates)
+       (let* ((entry (subseq (second candidates) (length "├── ")))
+              (data (run* "pass" "show" entry)))
+         (first (cl-ppcre:split "\\n+" data)))))))
 
 (defun query-pass ()
   (format *query-io* "~&Enter Steam password:~%> ")
@@ -26,9 +41,6 @@
     (loop for (search replace) in replacements
           do (setf content (cl-ppcre:regex-replace-all search content replace)))
     (alexandria:write-string-into-file content out :if-exists :supersede)))
-
-(defun run (program &rest args)
-  (sb-ext:run-program program args :search T :output *standard-output*))
 
 (defmethod build :around (target)
   (with-simple-restart (continue "Treat build as successful")
@@ -79,13 +91,13 @@
        (format NIL "Shinmera/kandria:~{~a~^-~}" (release-systems release))
        "--userversion" (version)))
 
-(defun steam (release &key (branch "developer") preview password &allow-other-keys)
+(defun steam (release &key (branch "developer") preview (user "shirakumo_org") password &allow-other-keys)
   (let ((template (make-pathname :name "app-build" :type "vdf" :defaults (output)))
         (build (make-pathname :name "app-build" :type "vdf" :defaults release)))
     (file-replace template build `(("\\$CONTENT" ,(uiop:native-namestring release))
                                    ("\\$BRANCH" ,(or branch ""))
                                    ("\\$PREVIEW" ,(if preview "1" "0"))))
-    (run "steamcmd.sh" "+login" "shinmera" (or password (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")))
+    (run "steamcmd.sh" "+login" user (or password (get-pass user) (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")))
 
 (defun upload (release &rest args &key (services T))
   (case services ((T :itch) (apply #'itch release args)))
