@@ -23,6 +23,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Gnuxie
 - Fix quicksaves and quickloads breaking the game
   Reported by PincerAttack
+- Fix DirectInput controllers not being detected
+  Reported by PincerAttack
 - TODO: Fix slopes with ceilings above allowing clipping
   Reported by PincerAttack
 - TODO: Fix attacking an enemy while both at the corner causing clipping
