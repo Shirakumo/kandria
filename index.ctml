@@ -27,7 +27,7 @@
         <img src="media/leaf.jpg"/>
       </video>
       <div class="fader"></div>
-      <h1><img alt="Kandria" src="logo.gif" style="background:white" /></h1>
+      <h1><img alt="Kandria" src="logo.gif" /></h1>
       <nav>
         <a href="#about">About</a>
         <a href="prototype.html">Demo</a>
