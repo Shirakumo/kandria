@@ -18,9 +18,6 @@
 (defmethod register-object-for-pass (pass (editor base-editor))
   (register-object-for-pass pass (maybe-finalize-inheritance 'trial::lines)))
 
-(defmethod compute-resources :after ((editor base-editor) resources readying traversal)
-  (vector-push-extend (ui editor) resources))
-
 (defmethod initialize-instance :after ((editor base-editor) &key)
   (let* ((ui (ui editor))
          (focus (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree ui)))

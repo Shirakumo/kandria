@@ -41,7 +41,9 @@
    #++(color :port-type output :attachment :color-attachment0
           :texspec (:width 640 :height 416))
    #++(depth :port-type output :attachment :depth-stencil-attachment
-          :texspec (:width 640 :height 416))))
+             :texspec (:width 640 :height 416))))
+
+(defmethod object-renderable-p ((controller controller) (pass rendering-pass)) NIL)
 
 (defmethod prepare-pass-program :after ((pass rendering-pass) (program shader-program))
   (setf (uniform program "exposure") (exposure pass))

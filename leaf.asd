@@ -42,7 +42,8 @@
                (:file "main")
                (:file "effects")
                (:module "ui"
-                :components ((:file "general")))
+                :components ((:file "general")
+                             (:file "dialog")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
@@ -62,6 +63,7 @@
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
                :trial-alloy
+               :alloy-constraint
                (:feature (:not :darwin) :trial-steam)
                :zip
                :fast-io
