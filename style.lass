@@ -38,13 +38,15 @@
   (h1
    :color white
    :font-size 4em
-   :transition opacity 0.5s 0.75s)
+   :transition opacity 0.5s 0.75s
+   (img :max-width 100%))
   (nav
    :margin-bottom -1px ; Fix weird 1px gap when the header expands in chrome
    :background (hex FAFAFA)
    :border-radius 0.5em 0.5em 0 0
    :overflow hidden
    :display flex
+   :flex-wrap wrap
    :font-size 1.5em
    (a
     :display inline-block
@@ -84,12 +86,15 @@
   ((:or "#subscribe" "#prototype")
    :padding 1em
    (.description
-    :font-size 1.2em)
+    :font-size 1.2em
+    :margin-top 0)
    (input
     :font-size 1.5em
     :padding 0.2em 0.3em
     :border 1px solid (hex 808080)
-    :background (hex F5F5F5))
+    :background (hex F5F5F5)
+    :box-sizing border-box
+    :max-width 100%)
    (input[type=submit]
     :margin-left -0.2em
     :border-color (hex 0088EE)
