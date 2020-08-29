@@ -1,68 +1,127 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defclass dialog (ui entity listener alloy:observable)
+(defclass nametag (alloy:label) ())
+
+(presentations:define-realization (presentations:default-look-and-feel nametag)
+  ((:background simple:rectangle)
+   (alloy:margins))
+  ((:label simple:text)
+   (alloy:margins)
+   alloy:text
+   :valign :bottom
+   :size (alloy:un 20)))
+
+(presentations:define-update (presentations:default-look-and-feel nametag)
+  (:background
+   :pattern (colored:color 0 136/255 238/255))
+  (:label
+   :pattern (colored:color 0 0 0)))
+
+(defclass textbox (alloy:label) ())
+
+(presentations:define-realization (presentations:default-look-and-feel textbox)
+  ((:background simple:rectangle)
+   (alloy:margins))
+  ((:label simple:text)
+   (alloy:margins 15 20 50 20)
+   alloy:text
+   :valign :top
+   :halign :left
+   :size (alloy:un 25)))
+
+(defclass combined-list (alloy:vertical-linear-layout alloy:focus-chain)
+  ())
+
+(defun fill-pointer-string (string)
+  (make-array (length string) :fill-pointer 0 :element-type 'character :initial-contents string))
+
+(defclass dialog (ui entity renderable listener alloy:observable)
   ((vm :initform (make-instance 'dialogue:vm) :reader vm)
    (ip :initform 0 :accessor ip)
-   (tick :initform 0 :accessor tick)
-   (pause :initform 0 :accessor pause)
-   (text :initform "" :accessor text)
-   (source :initform "" :accessor source)
+   (char-timer :initform 0.1 :accessor char-timer)
+   (pause-timer :initform 0 :accessor pause-timer)
+   (choices :initform NIL :accessor choices)
+   (text :initform (fill-pointer-string "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam risus est, suscipit in lorem quis, malesuada fermentum nisi. Etiam a nibh quis nunc rutrum egestas nec quis dui. Integer ullamcorper ultricies ligula, quis feugiat turpis fermentum ut. Proin sed ligula ornare, placerat turpis in, consequat nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent molestie, magna in rutrum luctus, arcu lacus tincidunt dui, eu semper libero est id lacus. Vestibulum sodales vehicula dapibus. Etiam sed luctus odio.") :accessor text)
+   (source :initform "Name" :accessor source)
    (emote :initform NIL :accessor emote)
-   (per-letter-tick :initform 0.1 :accessor per-letter-tick)))
+   (per-letter-tick :initform 0.02 :accessor per-letter-tick)
+   (active-p :initform T :accessor active-p)))
 
 (defmethod initialize-instance :after ((dialog dialog) &key)
-  (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout :layout-parent dialog))
-        (focus (make-instance 'alloy:focus-list :focus-parent dialog))
-        (choices (make-instance 'alloy:vertical-linear-layout)))
-    (alloy:enter (alloy:represent (text dialog) 'alloy:label)
-                 :constraints '((:left 10) (:right 10) (:bottom 10) (:height 300)))
-    (alloy:enter choices
-                 :constraints '((:right 5) (:bottom 300) (:width 100)))))
+  (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout :layout-parent (alloy:layout-tree dialog)))
+        (choices (setf (choices dialog) (make-instance 'combined-list :focus-parent (alloy:focus-tree dialog)))))
+    (alloy:enter (alloy:represent (text dialog) 'textbox) layout
+                 :constraints '((:left 10) (:right 10) (:bottom 10) (:height 250)))
+    (alloy:enter (alloy:represent (source dialog) 'nametag) layout
+                 :constraints '((:left 20) (:bottom 250) (:height 30) (:width 300)))
+    (alloy:enter choices layout
+                 :constraints '((:right 5) (:bottom 300) (:width 100) (:min-height 0) (:max-height 300)))
+    (alloy:register dialog dialog)))
+
+(defmethod (setf active-p) :after (value (dialog dialog))
+  (if value
+      (pause-game T dialog)
+      (unpause-game T dialog)))
 
 (defmethod at-end-p ((dialog dialog))
   (<= (array-total-size (text dialog))
       (fill-pointer (text dialog))))
 
+(defmethod alloy:render ((renderer dialog) (dialog dialog))
+  (when (active-p dialog)
+    (call-next-method)))
+
 (defmethod handle ((ev interaction) (dialog dialog))
-  (let ((interactions (interactions (with ev))))
-    (when interactions
-      (pause-game T dialog)
+  (let ((interaction (first (interactions (with ev)))))
+    (when interaction
+      (setf (active-p interaction) T)
       (dialogue:reset (vm dialog))
-      (dialogue:run (first interactions) (vm dialog)))))
+      (dialogue:run interaction (vm dialog)))))
+
+(defmethod scroll-text ((dialog dialog) to)
+  (setf (fill-pointer (text dialog)) to)
+  (alloy:do-elements (e (alloy:root (alloy:layout-tree dialog)))
+    (when (typep e 'textbox)
+      (alloy:mark-for-render e))))
 
 (defmethod handle ((ev tick) (dialog dialog))
-  (if (at-end-p dialog)
-      ;; Process pausing
-      (when (< 0 (pause dialog))
-        (decf (pause dialog) (dt ev))
-        (when (<= (pause dialog) 0)
-          (advance dialog)))
-      ;; Process text scrolling
-      (when (< 0 (tick dialog))
-        (decf (tick dialog) (dt ev))
-        (when (<= (tick dialog) 0)
-          (incf (fill-pointer (text dialog)))
-          (setf (tick dialog) (per-letter-tick dialog))))))
+  (when (active-p dialog)
+    (handle ev (unit :camera +world+))
+    (if (at-end-p dialog)
+        ;; Process pausing
+        (when (< 0 (pause-timer dialog))
+          (decf (pause-timer dialog) (dt ev))
+          (when (<= (pause-timer dialog) 0)
+            (advance dialog)))
+        ;; Process text scrolling
+        (when (< 0 (char-timer dialog))
+          (decf (char-timer dialog) (dt ev))
+          (when (<= (char-timer dialog) 0)
+            (scroll-text dialog (1+ (fill-pointer (text dialog))))
+            (setf (char-timer dialog) (per-letter-tick dialog)))))))
 
 (defmethod handle ((ev advance) (dialog dialog))
-  (if (at-end-p dialog)
-      (advance dialog)
-      (setf (fill-pointer (text dialog))
-            (array-total-size (text dialog)))))
+  (when (active-p dialog)
+    (cond ((null (at-end-p dialog))
+           (scroll-text dialog (array-total-size (text dialog))))
+          ((/= 0 (alloy:element-count (choices dialog)))
+           (alloy:activate (choices dialog)))
+          (T
+           (advance dialog)))))
 
 (defmethod advance ((dialog dialog))
   (alloy:clear (choices dialog))
   (handle (dialogue:resume (vm dialog) (ip dialog)) dialog))
 
 (defmethod handle ((rq dialogue:end-request) (dialog dialog))
-  (unpause-game T dialog))
+  (setf (active-p dialog) NIL))
 
 (defmethod handle ((rq dialogue:choice-request) (dialog dialog))
   (loop for choice in (dialogue:choices rq)
         for target in (dialogue:targets rq)
         do (let* ((choice choice) (target target)
                   (button (alloy:represent choice 'alloy:button)))
-             (alloy:on (alloy:activate button)
+             (alloy:on alloy:activate (button)
                (setf (ip dialog) target)
                (advance dialog))
              (alloy:enter button (choices dialog)))))
@@ -76,12 +135,10 @@
   (setf (emote dialog) (dialogue:emote rq)))
 
 (defmethod handle ((rq dialogue:pause-request) (dialog dialog))
-  (setf (pause dialog) (dialogue:duration rq)))
+  (setf (pause-timer dialog) (dialogue:duration rq)))
 
 (defmethod handle :after ((rq dialogue:text-request) (dialog dialog))
-  (let* ((orig (dialogue:text rq))
-         (text (make-array (length orig) :fill-pointer 0 :element-type 'character :initial-content orig)))
-    (setf (alloy:text dialog) text)))
+  (setf (alloy:text dialog) (fill-pointer-string (dialogue:text rq))))
 
 (defmethod handle :after ((rq dialogue:target-request) (dialog dialog))
   (setf (ip dialog) (dialogue:target rq)))

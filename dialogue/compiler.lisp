@@ -11,6 +11,9 @@
 (defmethod compile ((thing string) assembly)
   (compile (parse thing) assembly))
 
+(defmethod compile (thing (assembly (eql T)))
+  (compile thing (make-instance 'assembly)))
+
 (defgeneric wrap-lexenv (assembly form)
   (:method (_ form)
     `(progn ,form)))
