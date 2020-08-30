@@ -14,7 +14,8 @@
                      :title #.(format NIL "Kandria - ~a" (asdf:component-version (asdf:find-system "leaf")))
                      :width 1280
                      :height 720
-                     :app-id 1261430))
+                     :app-id 1261430
+                     :vsync T))
 
 (deploy:define-hook (:deploy leaf -1) (directory)
   (let ((root (root)))

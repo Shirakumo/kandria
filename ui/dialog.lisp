@@ -27,6 +27,7 @@
    alloy:text
    :valign :top
    :halign :left
+   :wrap T
    :size (alloy:un 25)))
 
 (defclass combined-list (alloy:vertical-linear-layout alloy:focus-chain)
