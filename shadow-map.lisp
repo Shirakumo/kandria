@@ -70,7 +70,7 @@
   (:buffers (leaf light-info)))
 
 (defmethod object-renderable-p ((object renderable) (pass shadow-map-pass)) NIL)
-(defmethod object-renderable-p ((object shadow-geometry) (pass shadow-map-pass)) T)
+(defmethod object-renderable-p ((object shadow-caster) (pass shadow-map-pass)) T)
 
 (defmethod compile-to-pass ((caster shadow-caster) (pass shadow-map-pass))
   (compile-to-pass (shadow-geometry caster) pass))

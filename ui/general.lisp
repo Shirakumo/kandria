@@ -44,7 +44,7 @@
   ())
 
 (defmethod render :before ((pass ui-pass) target)
-  (gl:clear-color 0.5 0.5 0.5 0))
+  (gl:clear-color 0 0 0 0))
 
 (defmethod object-renderable-p ((renderable renderable) (pass ui-pass)) NIL)
 (defmethod object-renderable-p ((ui ui) (pass shader-pass)) NIL)

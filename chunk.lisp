@@ -184,7 +184,7 @@ void main(){
   color = apply_lighting(color, vec2(0), 1-absor);
 }")
 
-(define-shader-entity chunk (layer solid shadow-caster)
+(define-shader-entity chunk (shadow-caster layer solid)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
    (node-graph :accessor node-graph)
