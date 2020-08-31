@@ -7,7 +7,9 @@
                                         'jump 'conditional 'source
                                         (remove-if (lambda (s) (find s '(markless:underline markless:code markless:blockquote-header)))
                                                    markless:*default-directives*))
-                     :instruction-types (list* 'go 'speed 'shake 'zoom 'roll 'show 'setf 'eval markless:*default-instruction-types*)))
+                     :instruction-types (list* 'components:go 'components:speed 'components:shake 'components:zoom
+                                               'components:roll 'components:show 'components:setf 'components:eval
+                                               markless:*default-instruction-types*)))
 
 (defclass jump (markless:singular-line-directive)
   ())
@@ -20,7 +22,7 @@
     (markless:commit _ component parser))
   (length line))
 
-(defmethod components::children ((_ components:conditional))
+(defmethod mcomponents:children ((_ components:conditional))
   (cdr (aref (components:clauses _) (1- (length (components:clauses _))))))
 
 (defclass conditional (markless:block-directive)
@@ -61,13 +63,13 @@
       (error 'markless:parser-error :cursor cursor))
     (check-type name symbol)
     (let* ((top (markless:stack-top (markless:stack parser)))
-           (children (components::children (markless:stack-entry-component top)))
+           (children (mcomponents:children (markless:stack-entry-component top)))
            (predecessor (when (< 0 (length children))
                           (aref children (1- (length children)))))
            (component (make-instance 'components:source :name name)))
-      (when (and (typep predecessor 'components::blockquote)
-                 (null (components::source predecessor)))
-        (setf (components::source predecessor) component))
+      (when (and (typep predecessor 'mcomponents:blockquote)
+                 (null (mcomponents:source predecessor)))
+        (setf (mcomponents:source predecessor) component))
       (vector-push-extend component children)
       cursor)))
 
@@ -88,7 +90,7 @@
   (let ((*readtable* *placeholder-readtable*))
     (multiple-value-bind (form cursor) (read-from-string line T NIL :start (1+ cursor))
       (let* ((entry (markless:stack-top (markless:stack parser)))
-             (children (components::children (markless:stack-entry-component entry))))
+             (children (mcomponents:children (markless:stack-entry-component entry))))
         (vector-push-extend (make-instance 'components:placeholder :form form) children)
         (unless (char= #\} (aref line cursor))
           (error 'markless:parser-error :cursor cursor))
@@ -102,7 +104,7 @@
 
 (defmethod markless:begin ((_ emote) parser line cursor)
   (let* ((entry (markless:stack-top (markless:stack parser)))
-         (children (components::children (markless:stack-entry-component entry)))
+         (children (mcomponents:children (markless:stack-entry-component entry)))
          (end (loop for i from (+ 2 cursor) below (length line)
                     do (when (char= #\) (char line i))
                          (return i)))))
@@ -135,7 +137,7 @@
                   (return (1- i)))
              finally (error 'markless:parser-error :cursor i)))
       (T
-       (vector-push-extend "|" (components::children component))
+       (vector-push-extend "|" (mcomponents:children component))
        cursor))))
 
 (defclass conditional-part (markless:inline-directive)
@@ -159,7 +161,7 @@
 
 (defmethod markless:end :after ((_ conditional-part) component parser)
   ;; FIXME
-  (markless::vector-push-front "[" (components::children component)))
+  (markless::vector-push-front "[" (mcomponents:children component)))
 
 (defclass clue (markless:surrounding-inline-directive)
   ())
@@ -172,7 +174,7 @@
   (+ 2 cursor))
 
 (defmethod markless:end :after ((_ clue) component parser)
-  (markless::vector-push-front "__" (components::children component)))
+  (markless::vector-push-front "__" (mcomponents:children component)))
 
 ;; FIXME
 
@@ -182,10 +184,10 @@
   (make-instance (class-of proto) :target (subseq line cursor)))
 
 (defmethod markless:parse-instruction ((proto components:speed) line cursor)
-  (make-instance (class-of proto) :speed (cl-markless::parse-float line cursor)))
+  (make-instance (class-of proto) :speed (cl-markless::parse-float line :start cursor)))
 
 (defmethod markless:parse-instruction ((proto components:shake) line cursor)
-  (make-instance (class-of proto) :duration (cl-markless::parse-float line cursor)))
+  (make-instance (class-of proto) :duration (cl-markless::parse-float line :start cursor)))
 
 (defmethod markless:parse-instruction ((proto components:move) line cursor)
   (destructuring-bind (x y duration) (cl-markless::split-string cursor #\Space cursor)
