@@ -6,9 +6,10 @@
   ((:background simple:rectangle)
    (alloy:margins))
   ((:label simple:text)
-   (alloy:margins)
+   (alloy:margins 10 0 10 0)
    alloy:text
    :valign :bottom
+   :font "PromptFont"
    :size (alloy:un 20)))
 
 (presentations:define-update (presentations:default-look-and-feel nametag)
@@ -23,11 +24,12 @@
   ((:background simple:rectangle)
    (alloy:margins))
   ((:label simple:text)
-   (alloy:margins 15 20 50 20)
+   (alloy:margins 30 40 60 30)
    alloy:text
    :valign :top
    :halign :left
    :wrap T
+   :font "PromptFont"
    :size (alloy:un 25)))
 
 (defclass combined-list (alloy:vertical-linear-layout alloy:focus-chain)
@@ -42,7 +44,7 @@
    (char-timer :initform 0.1 :accessor char-timer)
    (pause-timer :initform 0 :accessor pause-timer)
    (choices :initform NIL :accessor choices)
-   (text :initform (fill-pointer-string "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam risus est, suscipit in lorem quis, malesuada fermentum nisi. Etiam a nibh quis nunc rutrum egestas nec quis dui. Integer ullamcorper ultricies ligula, quis feugiat turpis fermentum ut. Proin sed ligula ornare, placerat turpis in, consequat nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent molestie, magna in rutrum luctus, arcu lacus tincidunt dui, eu semper libero est id lacus. Vestibulum sodales vehicula dapibus. Etiam sed luctus odio.") :accessor text)
+   (text :initform (fill-pointer-string "") :accessor text)
    (source :initform "Name" :accessor source)
    (emote :initform NIL :accessor emote)
    (per-letter-tick :initform 0.02 :accessor per-letter-tick)
@@ -52,12 +54,15 @@
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout :layout-parent (alloy:layout-tree dialog)))
         (choices (setf (choices dialog) (make-instance 'combined-list :focus-parent (alloy:focus-tree dialog)))))
     (alloy:enter (alloy:represent (text dialog) 'textbox) layout
-                 :constraints '((:left 10) (:right 10) (:bottom 10) (:height 250)))
+                 :constraints '((:left 20) (:right 20) (:bottom 20) (:height 200)))
     (alloy:enter (alloy:represent (source dialog) 'nametag) layout
-                 :constraints '((:left 20) (:bottom 250) (:height 30) (:width 300)))
+                 :constraints '((:left 30) (:bottom 210) (:height 30) (:width 300)))
     (alloy:enter choices layout
                  :constraints '((:right 5) (:bottom 300) (:width 100) (:min-height 0) (:max-height 300)))
-    (alloy:register dialog dialog)))
+    (alloy:register dialog dialog)
+
+    (dialogue:run "~ Test
+| Hello there." (vm dialog))))
 
 (defmethod (setf active-p) :after (value (dialog dialog))
   (if value
@@ -139,7 +144,7 @@
   (setf (pause-timer dialog) (dialogue:duration rq)))
 
 (defmethod handle :after ((rq dialogue:text-request) (dialog dialog))
-  (setf (alloy:text dialog) (fill-pointer-string (dialogue:text rq))))
+  (setf (text dialog) (fill-pointer-string (dialogue:text rq))))
 
 (defmethod handle :after ((rq dialogue:target-request) (dialog dialog))
   (setf (ip dialog) (dialogue:target rq)))

@@ -1,9 +1,9 @@
 (defpackage #:org.shirakumo.fraf.leaf.dialogue.components
-  (:use #:cl #:org.shirakumo.markless.components)
-  (:shadowing-import-from #:cl #:list #:number #:set #:variable #:warning #:error #:float #:labels)
-  (:shadow #:setf #:go #:speed #:map #:eval)
+  (:use #:cl)
+  (:shadow #:go #:speed #:setf #:eval #:map)
   (:local-nicknames
-   (#:markless #:org.shirakumo.markless))
+   (#:markless #:org.shirakumo.markless)
+   (#:components #:org.shirakumo.markless.components))
   (:export
    #:jump
    #:placeholder
@@ -37,6 +37,7 @@
   (:use #:cl)
   (:local-nicknames
    (#:components #:org.shirakumo.fraf.leaf.dialogue.components)
+   (#:mcomponents #:org.shirakumo.markless.components)
    (#:markless #:org.shirakumo.markless))
   (:export
    #:parser
