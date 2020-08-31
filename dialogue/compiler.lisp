@@ -5,7 +5,7 @@
 (defun parse (thing)
   (cl-markless:parse thing (make-instance 'org.shirakumo.fraf.leaf.dialogue.syntax:parser)))
 
-(defmethod compile ((thing components::component) assembly)
+(defmethod compile ((thing mcomponents:component) assembly)
   (walk thing assembly))
 
 (defmethod compile ((thing string) assembly)
@@ -57,28 +57,28 @@
           (defmethod walk :after ((component ,component) (assembly assembly))
             (emit (make-instance 'end-mark) assembly))))
 
-(defmethod walk ((component components::parent-component) (assembly assembly))
-  (loop for child across (components::children component)
+(defmethod walk ((component mcomponents:parent-component) (assembly assembly))
+  (loop for child across (mcomponents:children component)
         do (walk child assembly)))
 
 (defun resolved-target (component)
-  (or (components::label (components::target component) *root*)
+  (or (mcomponents:label (mcomponents:target component) *root*)
       (error "Label ~s cannot be resolved to any target component."
-             (components::target component))))
+             (mcomponents:target component))))
 
-(defmethod walk ((component components::root-component) (assembly assembly))
+(defmethod walk ((component mcomponents:root-component) (assembly assembly))
   (let ((*root* component))
     (call-next-method)))
 
-(defmethod walk ((component components::blockquote-header) (assembly assembly)))
+(defmethod walk ((component mcomponents:blockquote-header) (assembly assembly)))
 
-(defmethod walk :before ((component components::blockquote) (assembly assembly))
-  (when (components::source component)
+(defmethod walk :before ((component mcomponents:blockquote) (assembly assembly))
+  (when (mcomponents:source component)
     (emit (make-instance 'source :label component
-                                 :name (components:name (components::source component)))
+                                 :name (components:name (mcomponents:source component)))
           assembly)))
 
-(defmethod walk :after ((component components::blockquote) (assembly assembly))
+(defmethod walk :after ((component mcomponents:blockquote) (assembly assembly))
   (emit (make-instance 'confirm) assembly))
 
 (defmethod walk ((component components:conditional) (assembly assembly))
@@ -94,13 +94,13 @@
       (setf (clauses conditional) (append clauses (list (cons T (next-index assembly)))))
       (emit end assembly))))
 
-(defmethod walk ((component components::unordered-list) (assembly assembly))
+(defmethod walk ((component mcomponents:unordered-list) (assembly assembly))
   (let ((choose (make-instance 'choose))
         (end (make-instance 'noop))
-        (items (components::children component)))
+        (items (mcomponents:children component)))
     (loop for i from 0 below (length items)
           for item = (aref items i)
-          for children = (components::children item)
+          for children = (mcomponents:children item)
           do (when (/= 0 (length children))
                (emit (make-instance 'noop :label item) assembly)
                (walk (aref children 0) assembly)
@@ -136,47 +136,47 @@
 (define-markup-walker components:clue
   (list :clue (components:clue component)))
 
-(define-markup-walker components::bold
+(define-markup-walker mcomponents:bold
   (list :bold T))
 
-(define-markup-walker components::italic
+(define-markup-walker mcomponents:italic
   (list :italic T))
 
-(define-markup-walker components::strikethrough
+(define-markup-walker mcomponents:strikethrough
   (list :strikethrough T))
 
-(define-markup-walker components::supertext
+(define-markup-walker mcomponents:supertext
   (list :supertext T))
 
-(define-markup-walker components::subtext
+(define-markup-walker mcomponents:subtext
   (list :subtext T))
 
-(define-markup-walker components::compound
-  (loop for option in (components::options component)
+(define-markup-walker mcomponents:compound
+  (loop for option in (mcomponents:options component)
         append (etypecase option
-                 (components::bold-option '(:bold T))
-                 (components::italic-option '(:italic T))
-                 (components::underline-option '(:underline T))
-                 (components::strikethrough-option '(:strikethrough T))
-                 (components::spoiler-option '(:spoiler T))
-                 (components::font-option (list :font (components::font-family option)))
-                 (components::color-option (list :color (3d-vectors:vec3
-                                                         (components::red option)
-                                                         (components::green option)
-                                                         (components::blue option))))
-                 (components::size-option (list :size (components::size option))))))
+                 (mcomponents:bold-option '(:bold T))
+                 (mcomponents:italic-option '(:italic T))
+                 (mcomponents:underline-option '(:underline T))
+                 (mcomponents:strikethrough-option '(:strikethrough T))
+                 (mcomponents:spoiler-option '(:spoiler T))
+                 (mcomponents:font-option (list :font (mcomponents:font-family option)))
+                 (mcomponents:color-option (list :color (3d-vectors:vec3
+                                                         (mcomponents:red option)
+                                                         (mcomponents:green option)
+                                                         (mcomponents:blue option))))
+                 (mcomponents:size-option (list :size (mcomponents:size option))))))
 
 (define-simple-walker components:jump jump
   :target (resolved-target component))
 
-(define-simple-walker components::label noop)
+(define-simple-walker mcomponents:label noop)
 
-(define-simple-walker components::footnote noop)
+(define-simple-walker mcomponents:footnote noop)
 
 (define-simple-walker components:go jump
   :target (resolved-target component))
 
-(define-simple-walker components::newline confirm)
+(define-simple-walker mcomponents:newline confirm)
 
 (define-simple-walker components:eval eval
   :func (compile-form assembly (components:form component)))
@@ -188,10 +188,10 @@
 (define-simple-walker components:emote emote
   :emote (components:emote component))
 
-(define-simple-walker components::en-dash pause
+(define-simple-walker mcomponents:en-dash pause
   :duration 0.5)
 
-(define-simple-walker components::em-dash pause
+(define-simple-walker mcomponents:em-dash pause
   :duration 1.0)
 
 (define-simple-walker components:placeholder placeholder
