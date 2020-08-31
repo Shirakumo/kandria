@@ -8,7 +8,8 @@
   (:label :text alloy:text))
 
 (define-shader-entity profile-picture (trial:animated-sprite alloy:layout-element)
-  ())
+  ()
+  (:default-initargs :sprite-data (asset 'leaf 'player-profile)))
 
 (defmethod alloy:render (target (picture profile-picture))
   (let* ((pass (unit 'ui-pass T))
@@ -123,8 +124,7 @@
   | Boo!
 - C
   | Fuckh you.
-" (vm dialog))
-    (advance dialog)))
+" (vm dialog))))
 
 (defmethod (setf active-p) :after (value (dialog dialog))
   (if value
