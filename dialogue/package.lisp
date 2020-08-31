@@ -54,7 +54,8 @@
   (:use #:cl)
   (:shadow #:compile #:eval)
   (:local-nicknames
-   (#:components #:org.shirakumo.fraf.leaf.dialogue.components))
+   (#:components #:org.shirakumo.fraf.leaf.dialogue.components)
+   (#:mcomponents #:org.shirakumo.markless.components))
   ;; instructions.lisp
   (:export
    #:instruction

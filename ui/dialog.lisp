@@ -62,7 +62,12 @@
     (alloy:register dialog dialog)
 
     (dialogue:run "~ Test
-| Hello there." (vm dialog))))
+| Hello there.
+| - A
+|   | Hah
+| - B
+|   | Boo!
+" (vm dialog))))
 
 (defmethod (setf active-p) :after (value (dialog dialog))
   (if value

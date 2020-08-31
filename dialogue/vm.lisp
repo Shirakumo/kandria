@@ -71,7 +71,7 @@
   (reset vm))
 
 (defmethod run ((string string) (vm vm))
-  (run (compile string T) vm))
+  (run (compile* string T) vm))
 
 (defmethod reset ((vm vm))
   (get-output-stream-string (text-buffer vm))
