@@ -1,8 +1,7 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
 (defclass ui (org.shirakumo.fraf.trial.alloy:ui
-              org.shirakumo.alloy:fixed-scaling-ui
-              org.shirakumo.alloy.renderers.simple.presentations:default-look-and-feel)
+              org.shirakumo.alloy:fixed-scaling-ui)
   ((alloy:target-resolution :initform (alloy:px-size 1280 720))
    (alloy:scales :initform '((3840 T 2.5)
                              (2800 T 2.0)
@@ -41,7 +40,7 @@
   (alloy:enter (slot-value sidebar 'focus) representation))
 
 (define-shader-pass ui-pass (render-pass)
-  ())
+  ((name :initform 'ui-pass)))
 
 (defmethod render :before ((pass ui-pass) target)
   (gl:clear-color 0 0 0 0))
