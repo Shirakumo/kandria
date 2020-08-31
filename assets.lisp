@@ -40,6 +40,9 @@
 (define-asset (leaf player) sprite-data
     #p"player.lisp")
 
+(define-asset (leaf player-profile) trial:sprite-data
+    #p"player-profile.json")
+
 (define-asset (leaf wolf) sprite-data
     #p"wolf.lisp")
 

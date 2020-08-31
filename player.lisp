@@ -34,7 +34,7 @@
 (defmacro p! (name)
   `(gethash ',name +player-movement-data+))
 
-(define-shader-entity player (animatable ephemeral)
+(define-shader-entity player (animatable profile ephemeral)
   ((bsize :initform (vec 7.0 15.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
@@ -45,7 +45,9 @@
    (air-time :initform 1.0 :accessor air-time)
    (climb-strength :initform 1.0 :accessor climb-strength)
    (buffer :initform NIL :accessor buffer)
-   (chunk :initform NIL :accessor chunk))
+   (chunk :initform NIL :accessor chunk)
+   (profile-sprite-data :initform (asset 'leaf 'player-profile))
+   (nametag :initform "The Stranger"))
   (:default-initargs
    :name 'player
    :sprite-data (asset 'leaf 'player)))

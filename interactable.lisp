@@ -6,6 +6,13 @@
 (defclass interactable ()
   ((interactions :initform () :accessor interactions)))
 
+(defclass profile ()
+  ((profile-sprite-data :initform (error "PROFILE-SPRITE-DATA not set.") :accessor profile-sprite-data)
+   (nametag :initform (error "NAMETAG not set.") :accessor nametag)))
+
+(defmethod stage :after ((profile profile) (area staging-area))
+  (stage (profile-sprite-data profile) area))
+
 (defmethod quest:activate ((trigger quest:interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
     (let ((interactable (unit (quest:interactable trigger) +world+)))
@@ -14,9 +21,6 @@
           (error "Failed to find interactable for trigger: ~s"
                  (quest:interactable trigger))))
       (pushnew trigger (interactions interactable)))))
-
-;; (define-shader-entity npc (lit-animated-sprite profile-entity interactable)
-;;   ())
 
 (define-shader-entity door (lit-animated-sprite interactable ephemeral)
   ((target :initform NIL :initarg :target :accessor target)
