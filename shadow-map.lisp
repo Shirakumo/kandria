@@ -76,6 +76,9 @@
 (defmethod compile-to-pass ((caster shadow-caster) (pass shadow-map-pass))
   (compile-to-pass (shadow-geometry caster) pass))
 
+(defmethod render :before ((pass shadow-map-pass) target)
+  (gl:clear-color 0.1 0.1 0.1 1))
+
 (defmethod render :after ((pass shadow-map-pass) target)
   (let ((player (unit 'player T)))
     (setf (frame-counter pass) (mod (+ (frame-counter pass) 1) 60))

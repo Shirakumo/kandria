@@ -7,6 +7,7 @@
 
 (trigger advance
  (key :one-of (:enter :space))
+ (mouse :one-of (:left))
  (button :one-of (:a :b)))
 
 (trigger previous

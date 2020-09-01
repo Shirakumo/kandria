@@ -55,16 +55,16 @@
 (defclass advance-prompt (alloy:label) ())
 
 (presentations:define-realization (dialog-look-and-feel advance-prompt)
-  ((:background simple:ellipse)
+  ((:background simple:rectangle)
    (alloy:margins)
    :pattern (colored:color 0 136/255 238/255))
   ((:label simple:text)
    (alloy:margins 1)
    alloy:text
    :valign :middle
-   :halign :middle
+   :halign :right
    :font "PromptFont"
-   :size (alloy:pw 0.6)
+   :size (alloy:ph 0.8)
    :pattern colors:white))
 
 (presentations:define-update (dialog-look-and-feel advance-prompt)
@@ -126,7 +126,7 @@
    (pending :initform NIL :accessor pending)
    (profile :initform (make-instance 'profile-picture) :accessor profile)
    (per-letter-tick :initform 0.02 :accessor per-letter-tick)
-   (active-p :initform T :accessor active-p)))
+   (active-p :initform NIL :accessor active-p)))
 
 (defmethod initialize-instance :after ((dialog dialog) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout :layout-parent (alloy:layout-tree dialog)))
@@ -138,18 +138,8 @@
     (alloy:enter (profile dialog) layout :constraints `((:left 80) (:above ,textbox) (:width 400) (:height 400)))
     (alloy:enter nametag layout :constraints `((:left 30) (:above ,textbox -10) (:height 30) (:width 300)))
     (alloy:enter choices layout :constraints `((:right 50) (:above ,textbox 10) (:width 400)))
-    (alloy:enter prompt layout :constraints `((:right 40) (:bottom 40) (:size 50)))
-    (alloy:register dialog dialog)
-
-    (dialogue:run "~ Player
-| Hello there... (: skeptical) This is a test message to make sure that your stuff works correctly and doesn't really mean anything in itself.
-- A
-  | Hah
-- B
-  | Boo!
-- C
-  | Fuckh you.
-| Okey now this is a longer line to see whether the prompt properly disappears again..." (vm dialog))))
+    (alloy:enter prompt layout :constraints `((:right 20) (:bottom 20) (:size 100 30)))
+    (alloy:register dialog dialog)))
 
 (defmethod (setf active-p) :after (value (dialog dialog))
   (setf (prompt dialog) NIL)
@@ -246,10 +236,10 @@
                (alloy:clear (choices dialog))
                (advance dialog))
              (alloy:enter button (choices dialog))))
-  (setf (prompt dialog) (string (prompt-char :a))))
+  (setf (prompt dialog) (string (prompt-char :right :bank :keyboard))))
 
 (defmethod handle ((rq dialogue:confirm-request) (dialog dialog))
-  (setf (pending dialog) (list :prompt (string (prompt-char :a)))))
+  (setf (pending dialog) (list :prompt (string (prompt-char :right :bank :keyboard)))))
 
 (defmethod handle ((rq dialogue:source-request) (dialog dialog))
   (let ((unit (unit (dialogue:name rq) T)))
