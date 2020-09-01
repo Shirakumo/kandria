@@ -258,6 +258,11 @@ The game will be in a low-resolution pixel art style with static tilesets for th
 
 Most of the time for art assets will be spent making detail tiles and animations for the various characters and enemy types.
 
+For a more detailed mood board for the art style, see the "art document"(link art.mess).
+
+[ image https://filebox.tymoon.eu//file/TWpBek5nPT0= ]
+[ image https://filebox.tymoon.eu//file/TVRreU13PT0= ]
+
 ## Music & Sound Design
 Since the player will spend a lot of their time exploring, the primary music has to be quiet, somber and has to be able to loop smoothly for a long time without becoming grating. Having different variants depending on the current region would be great. The music has to smoothly transition (vertical mixing) to a battle variant whenever the player enters combat to emphasise the action. Special tracks might be needed to accentuate certain story beats and boss battles.
 
