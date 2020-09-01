@@ -52,6 +52,28 @@
    :size (alloy:un 25)
    :pattern colors:white))
 
+(defclass advance-prompt (alloy:label) ())
+
+(presentations:define-realization (dialog-look-and-feel advance-prompt)
+  ((:background simple:ellipse)
+   (alloy:margins)
+   :pattern (colored:color 0 136/255 238/255))
+  ((:label simple:text)
+   (alloy:margins 1)
+   alloy:text
+   :valign :middle
+   :halign :middle
+   :font "PromptFont"
+   :size (alloy:pw 0.6)
+   :pattern colors:white))
+
+(presentations:define-update (dialog-look-and-feel advance-prompt)
+  (:background
+   :hidden-p (null alloy:value))
+  (:label
+   :text alloy:text
+   :hidden-p (null alloy:value)))
+
 (defclass dialog-choice (alloy:button) ())
 
 (presentations:define-realization (dialog-look-and-feel dialog-choice)
@@ -92,41 +114,47 @@
 (defun clear-text-string ()
   (make-array 0 :fill-pointer 0 :element-type 'character))
 
-(defclass dialog (dialog-look-and-feel ui entity renderable listener alloy:observable)
+(defclass dialog (dialog-look-and-feel ui entity renderable listener alloy:observable-object)
   ((vm :initform (make-instance 'dialogue:vm) :reader vm)
    (ip :initform 0 :accessor ip)
    (char-timer :initform 0.1 :accessor char-timer)
    (pause-timer :initform 0 :accessor pause-timer)
    (choices :initform NIL :accessor choices)
-   (need-prompt :initform NIL :accessor need-prompt)
+   (prompt :initform NIL :accessor prompt)
    (text :initform (clear-text-string) :accessor text)
    (source :initform 'player :accessor source)
+   (pending :initform NIL :accessor pending)
    (profile :initform (make-instance 'profile-picture) :accessor profile)
    (per-letter-tick :initform 0.02 :accessor per-letter-tick)
    (active-p :initform T :accessor active-p)))
 
 (defmethod initialize-instance :after ((dialog dialog) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout :layout-parent (alloy:layout-tree dialog)))
-        (textbox (alloy:represent (text dialog) 'textbox))
-        (nametag (alloy:represent (source dialog) 'nametag))
+        (textbox (alloy:represent (slot-value dialog 'text) 'textbox))
+        (nametag (alloy:represent (slot-value dialog 'source) 'nametag))
+        (prompt (alloy:represent (slot-value dialog 'prompt) 'advance-prompt))
         (choices (setf (choices dialog) (make-instance 'dialog-choice-list :focus-parent (alloy:focus-tree dialog)))))
     (alloy:enter textbox layout :constraints `((:left 20) (:right 20) (:bottom 20) (:height 200)))
     (alloy:enter (profile dialog) layout :constraints `((:left 80) (:above ,textbox) (:width 400) (:height 400)))
     (alloy:enter nametag layout :constraints `((:left 30) (:above ,textbox -10) (:height 30) (:width 300)))
     (alloy:enter choices layout :constraints `((:right 50) (:above ,textbox 10) (:width 400)))
+    (alloy:enter prompt layout :constraints `((:right 40) (:bottom 40) (:size 50)))
     (alloy:register dialog dialog)
 
     (dialogue:run "~ Player
-| Hello there................ (: skeptical) This is a test message to make sure that your stuff works correctly and doesn't really mean anything in itself.
+| Hello there... (: skeptical) This is a test message to make sure that your stuff works correctly and doesn't really mean anything in itself.
 - A
   | Hah
 - B
   | Boo!
 - C
   | Fuckh you.
-" (vm dialog))))
+| Okey now this is a longer line to see whether the prompt properly disappears again..." (vm dialog))))
 
 (defmethod (setf active-p) :after (value (dialog dialog))
+  (setf (prompt dialog) NIL)
+  (setf (pending dialog) NIL)
+  (setf (text dialog) (clear-text-string))
   (if value
       (pause-game T dialog)
       (unpause-game T dialog)))
@@ -156,19 +184,24 @@
 (defmethod scroll-text ((dialog dialog) to)
   (when (<= to (array-total-size (text dialog)))
     (setf (fill-pointer (text dialog)) to)
-    (alloy:do-elements (e (alloy:root (alloy:layout-tree dialog)))
-      (when (typep e 'textbox)
-        (alloy:mark-for-render e)))))
+    (setf (text dialog) (text dialog))))
 
 (defmethod handle ((ev tick) (dialog dialog))
   (when (active-p dialog)
     (handle ev (unit :camera +world+))
     (handle ev (profile dialog))
-    (cond ((< 0 (pause-timer dialog))
-           (decf (pause-timer dialog) (dt ev)))
-          ((and (at-end-p dialog)
-                (not (need-prompt dialog)))
-           (advance dialog))
+    (cond ((and (at-end-p dialog)
+                (not (prompt dialog)))
+           (cond ((< 0 (pause-timer dialog))
+                  (decf (pause-timer dialog) (dt ev)))
+                 ((pending dialog)
+                  (ecase (first (pending dialog))
+                    (:emote (setf (animation (profile dialog)) (second (pending dialog))))
+                    (:prompt (setf (prompt dialog) (second (pending dialog))))
+                    (:end (setf (active-p dialog) NIL)))
+                  (setf (pending dialog) NIL))
+                 (T
+                  (advance dialog))))
           ((< 0 (char-timer dialog))
            (decf (char-timer dialog) (dt ev)))
           ((< 0 (array-total-size (text dialog)))
@@ -183,15 +216,16 @@
 (defmethod handle ((ev advance) (dialog dialog))
   (when (active-p dialog)
     (cond ((/= 0 (alloy:element-count (choices dialog)))
-           (setf (need-prompt dialog) NIL)
+           (setf (prompt dialog) NIL)
            (alloy:activate (choices dialog)))
-          ((need-prompt dialog)
-           (setf (need-prompt dialog) NIL)
+          ((prompt dialog)
+           (setf (prompt dialog) NIL)
            (setf (text dialog) (clear-text-string))
            (advance dialog))
           (T
-           (loop until (need-prompt dialog)
-                 do (advance dialog))))))
+           (loop until (prompt dialog)
+                 do (advance dialog))
+           (scroll-text dialog (array-total-size (text dialog)))))))
 
 (defmethod advance ((dialog dialog))
   (handle (dialogue:resume (vm dialog) (ip dialog)) dialog))
@@ -199,7 +233,7 @@
 (defmethod handle ((rq dialogue:request) (dialog dialog)))
 
 (defmethod handle ((rq dialogue:end-request) (dialog dialog))
-  (setf (active-p dialog) NIL))
+  (setf (pending dialog) (list :end)))
 
 (defmethod handle ((rq dialogue:choice-request) (dialog dialog))
   (loop for choice in (dialogue:choices rq)
@@ -212,10 +246,10 @@
                (alloy:clear (choices dialog))
                (advance dialog))
              (alloy:enter button (choices dialog))))
-  (setf (need-prompt dialog) T))
+  (setf (prompt dialog) (string (prompt-char :a))))
 
 (defmethod handle ((rq dialogue:confirm-request) (dialog dialog))
-  (setf (need-prompt dialog) T))
+  (setf (pending dialog) (list :prompt (string (prompt-char :a)))))
 
 (defmethod handle ((rq dialogue:source-request) (dialog dialog))
   (let ((unit (unit (dialogue:name rq) T)))
@@ -223,7 +257,7 @@
     (setf (trial:sprite-data (profile dialog)) (profile-sprite-data unit))))
 
 (defmethod handle ((rq dialogue:emote-request) (dialog dialog))
-  (setf (animation (profile dialog)) (dialogue:emote rq)))
+  (setf (pending dialog) (list :emote (dialogue:emote rq))))
 
 (defmethod handle ((rq dialogue:pause-request) (dialog dialog))
   (setf (pause-timer dialog) (dialogue:duration rq)))
