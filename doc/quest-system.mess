@@ -63,7 +63,7 @@ Defines:
 - A list of "interactions" (dialogs that can be started)
 
 ## Example
-
+:: markless
 # Save the Catte
 Save the poor catte from atop the tree! The old lady is worried sick!
 ! start :ladder :axe
@@ -110,8 +110,7 @@ You could take that tree down with an axe. Sounds safe to me!
 | thanks a lot, kiddo!
 ! give 'cat 'lady
 ! despawn
-
-
+::
 
 ## Runtime
 - On interaction:
