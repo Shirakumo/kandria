@@ -13,11 +13,15 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
       :text-align center
       :font-size 2em)
      (img
+      :margin 0 auto
       :max-width 100%)
      (blockquote
       :border-left 0.2em solid gray
       :margin-left 1em
-      :padding-left 1em))))
+      :padding-left 1em)
+     (figcaption
+      :padding 0.2em 1em
+      :background (hex E0E0E0)))))
 
 (defun generate (file)
   (handler-bind ((file-exists (lambda (e)
