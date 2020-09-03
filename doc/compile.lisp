@@ -2,7 +2,7 @@
 sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
 |#
 
-(ql:quickload '(cl-markless-plump lass) :silent T)
+(ql:quickload '(cl-markless-plump lass lquery) :silent T)
 
 (defun style ()
   (lass:compile-and-write
@@ -23,14 +23,26 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
       :padding 0.2em 1em
       :background (hex E0E0E0)))))
 
+(defun suffix-p (suffix string)
+  (and (<= (length suffix) (length string))
+       (string= string suffix :start1 (- (length string) (length suffix)))))
+
+(defun fixup-href (node)
+  (let ((href (plump:attribute node "href")))
+    (when (suffix-p ".mess" href)
+      (setf (plump:attribute node "href") (format NIL "~a.html" (subseq href 0 (- (length href) (length ".mess"))))))))
+
 (defun generate (file)
-  (handler-bind ((file-exists (lambda (e)
-                                (declare (ignore e))
-                                (invoke-restart 'supersede))))
+  (let ((dom (plump:make-root)))
     (cl-markless:output (cl-markless:parse file T)
-                        :target (make-pathname :type "html" :defaults file)
+                        :target dom
                         :format (make-instance 'org.shirakumo.markless.plump:plump
-                                               :css (style)))))
+                                               :css (style)))
+    (lquery:$ dom "a[href]" (each #'fixup-href))
+    (with-open-file (stream (make-pathname :type "html" :defaults file)
+                            :direction :output
+                            :if-exists :supersede)
+      (plump:serialize dom stream))))
 
 (defun generate-all ()
   (dolist (file (directory (make-pathname :name :wild :type "mess"
