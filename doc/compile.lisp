@@ -8,7 +8,8 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
   (lass:compile-and-write
    '(article
      :max-width 800px
-     :margin 0 auto
+     :font-size 12pt
+     :margin 3em auto
      (h1
       :text-align center
       :font-size 2em)
