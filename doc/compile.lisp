@@ -31,7 +31,8 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
 (defun fixup-href (node)
   (let ((href (plump:attribute node "href")))
     (when (suffix-p ".mess" href)
-      (setf (plump:attribute node "href") (format NIL "~a.html" (subseq href 0 (- (length href) (length ".mess"))))))))
+      (setf (plump:attribute node "href") (format NIL "~a.html" (subseq href 0 (- (length href) (length ".mess"))))))
+    node))
 
 (defun generate (file)
   (let ((dom (plump:make-root)))
