@@ -39,6 +39,7 @@
                (:file "versions/world-v0")
                (:file "versions/save-v0")
                (:file "camera")
+               (:file "report")
                (:file "main")
                (:file "effects")
                (:module "ui"
@@ -77,4 +78,6 @@
                :leaf-dialogue
                :leaf-quest
                :alexandria
-               :file-select))
+               :file-select
+               :feedback-client
+               :zpng))
