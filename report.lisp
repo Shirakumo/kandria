@@ -31,5 +31,5 @@
    :attachments files
    :key "A61C1370-B410-4BE5-96DB-1A2744628063"
    :secret "0533AD22-7729-4D91-AD4B-3967F74AA078"
-   :token ""
-   :token-secret ""))
+   :token "D794637E-314B-4CE3-9FCA-55A3CF95146D"
+   :token-secret "B9743038-1661-49E2-B363-C174D0761289"))
