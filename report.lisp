@@ -1,18 +1,10 @@
 (in-package #:leaf)
 
-(defun capture-screenshot (file &key (x 0) (y 0) (width (width *context*)) (height (height *context*)))
-  (let ((data (gl:read-pixels x y width height :rgb :unsigned-byte)))
-    (zpng:write-png (make-instance 'zpng:png :color-type :truecolor
-                                             :width width
-                                             :height height
-                                             :image-data data)
-                    file)))
-
 (defun generate-report-files ()
   (let ((save (make-instance 'save-state :filename "report")))
     (save-state +world+ save)
     `(("log" ,(trial:logfile))
-      ("screenshot" ,(capture-screenshot (tempfile)))
+      ("screenshot" ,(capture NIL :file (tempfile)))
       ("savestate" ,(file save)))))
 
 (defun find-user-id ()
