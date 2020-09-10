@@ -92,18 +92,20 @@
     (setf (alloy:root (alloy:focus-tree ui)) (first (panels ui)))
     panel))
 
-(defclass messagebox (alloy:popup alloy:focus-list org.shirakumo.alloy.layouts.constraint:layout alloy:observable)
-  ((message :initarg :message :accessor message)))
+(defclass messagebox (alloy:popup alloy:focus-list alloy:grid-layout alloy:observable)
+  ((message :initarg :message :accessor message))
+  (:default-initargs :row-sizes '(T 30) :col-sizes '(T)))
 
 (defmethod initialize-instance :after ((box messagebox) &key)
-  (let ((message (alloy:represent (message box) 'alloy:label))
+  (let ((message (alloy:represent (message box) 'alloy:label :style '((:label :wrap T))))
         (button (alloy:represent "Ok" 'alloy:button)))
-    (alloy:enter message box :constraint `((:margin 10 10 10 40)))
-    (alloy:enter button box :constraint `((:below ,message) (:height 30)))
+    (alloy:enter message box)
+    (alloy:enter button box)
     (alloy:on alloy:activate (button)
       (alloy:activate box))))
 
 (defmethod alloy:activate ((box messagebox))
+  (print :a)
   (alloy:leave box T))
 
 (presentations:define-realization (ui messagebox)
@@ -113,3 +115,10 @@
   ((:background simple:rectangle)
    (alloy:margins)
    :pattern (colored:color 0.2 0.2 0.2)))
+
+(defun messagebox (message &rest format-args)
+  (alloy:with-unit-parent (unit 'ui-pass T)
+    (alloy:enter (make-instance 'messagebox :message (apply #'format NIL message format-args)) (unit 'ui-pass T)
+                 :w (alloy:un 400) :h (alloy:un 200)
+                 :x (alloy:u- (alloy:vw 0.5) (alloy:un 200))
+                 :y (alloy:u- (alloy:vh 0.5) (alloy:un 100)))))
