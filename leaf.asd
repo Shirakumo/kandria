@@ -39,12 +39,12 @@
                (:file "versions/world-v0")
                (:file "versions/save-v0")
                (:file "camera")
-               (:file "report")
                (:file "main")
                (:file "effects")
                (:module "ui"
                 :components ((:file "general")
-                             (:file "dialog")))
+                             (:file "dialog")
+                             (:file "report")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

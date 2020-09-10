@@ -4,6 +4,8 @@
 
 (define-action toggle-editor (editor-command))
 
+(define-action report-bug (editor-command))
+
 (define-action undo (editor-command)
   (key-press (and (one-of key :z)
                   (retained :control))))

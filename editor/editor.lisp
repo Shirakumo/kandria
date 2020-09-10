@@ -74,7 +74,7 @@
           (:f9)
           (:f10)
           (:f11)
-          (:f12 (edit 'inspect T))
+          ;(:f12 (edit 'inspect T))
           (:c (edit 'clone-entity T))
           (:delete (edit 'delete-entity T))
           (:insert (edit 'insert-entity T))
