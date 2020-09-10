@@ -63,7 +63,7 @@
   (stage (// 'leaf 'effects 'texture) area)
   (stage (// 'leaf 'effects 'vertex-array) area))
 
-(defmethod compile-to-pass :after ((world world) (pass shader-pass))
+(defmethod compile-to-pass :after ((world world) (pass render-pass))
   (register-object-for-pass pass (c2mop:ensure-finalized (find-class 'effect))))
 
 (defmethod region ((world world))
@@ -80,6 +80,9 @@
 
 (defmethod handle :after ((ev quickload) (world world))
   (load-state :quick world))
+
+(defmethod handle ((ev report-bug) (world world))
+  (make-instance 'report-input :ui (unit 'ui-pass world)))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (when (= 0 (mod (fc ev) 10))

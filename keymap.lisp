@@ -1,6 +1,9 @@
 (trigger toggle-editor
  (key :one-of (:section)))
 
+(trigger report-bug
+ (key :one-of (:f12)))
+
 (trigger skip
  (key :one-of (:enter :space))
  (button :one-of (:b)))

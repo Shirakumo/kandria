@@ -1,7 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defclass editor-ui (ui
-                     org.shirakumo.alloy.renderers.simple.presentations:default-look-and-feel)
+(defclass editor-ui (ui)
   ())
 
 (defclass base-editor (alloy:observable-object renderable trial:entity listener)
