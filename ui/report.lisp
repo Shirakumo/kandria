@@ -3,9 +3,10 @@
 (defun generate-report-files ()
   (let ((save (make-instance 'save-state :filename "report")))
     (save-state +world+ save)
-    `(("log" ,(trial:logfile))
-      ("screenshot" ,(capture NIL :file (tempfile)))
-      ("savestate" ,(file save)))))
+    (remove-if-not (lambda (a) (probe-file (second a)))
+                   `(("log" ,(trial:logfile))
+                     ("screenshot" ,(capture NIL :file (tempfile)))
+                     ("savestate" ,(file save))))))
 
 (defun find-user-id ()
   (macrolet ((c ((p s) &rest args)
@@ -35,12 +36,10 @@
 (defmethod alloy:accept ((input report-input))
   (handler-case
       (progn (submit-report :description (description input))
-             (alloy:enter (make-instance 'messagebox :message "Report submitted. Thank you!")
-                          (unit 'ui-pass T)))
+             (messagebox "Report submitted. Thank you!"))
     (error (e)
       (v:error :leaf.report e)
-      (alloy:enter (make-instance 'messagebox :message (format NIL "Failed to gather and submit report:~%~a" e))
-                   (unit 'ui-pass T)))))
+      (messagebox "Failed to gather and submit report:~%~a" e))))
 
 (defmethod initialize-instance :after ((input report-input) &key)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 30) :layout-parent input))
