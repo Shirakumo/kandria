@@ -77,6 +77,7 @@
          (vsetf (location player) (vx location) (- (vy location) 8))
          (snap-to-target (unit :camera T) player))))
     (rope)
+    ;; Trigger dialogue interactions somehow.
     (T
      (issue +world+ 'interaction :with (interactable player)))))
 
