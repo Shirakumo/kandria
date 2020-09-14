@@ -74,13 +74,13 @@
 
 (defmethod handle ((ev event) (panel panel)))
 
-(defmethod show ((panel panel) &key)
-  ;; First stage and load
-  (trial:commit panel (loader (handler *context*)) :unload NIL)
+(defmethod show ((panel panel) &key ui)
+  (when *context*
+    ;; First stage and load
+    (trial:commit panel (loader (handler *context*)) :unload NIL))
   ;; Then attach to the UI
-  (let ((ui (unit 'ui-pass T)))
+  (let ((ui (or ui (unit 'ui-pass T))))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
-    (setf (alloy:root (alloy:focus-tree ui)) panel)
     (alloy:register panel ui)
     (push panel (panels ui))
     panel))
@@ -89,7 +89,6 @@
   (let ((ui (unit 'ui-pass T)))
     (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
     (setf (panels ui) (remove panel (panels ui)))
-    (setf (alloy:root (alloy:focus-tree ui)) (first (panels ui)))
     panel))
 
 (defclass messagebox (alloy:popup alloy:focus-list alloy:grid-layout alloy:observable)
@@ -105,7 +104,6 @@
       (alloy:activate box))))
 
 (defmethod alloy:activate ((box messagebox))
-  (print :a)
   (alloy:leave box T))
 
 (presentations:define-realization (ui messagebox)
