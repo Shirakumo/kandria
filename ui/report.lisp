@@ -27,9 +27,12 @@
    :token "D794637E-314B-4CE3-9FCA-55A3CF95146D"
    :token-secret "B9743038-1661-49E2-B363-C174D0761289"))
 
-(defclass report-input (alloy:dialog)
+(defclass report-input (alloy:window)
   ((description :initform "" :accessor description))
-  (:default-initargs :accept NIL :reject NIL :title "Report a bug"))
+  (:default-initargs :title "Report a bug"
+                     :extent (alloy:extent 0 0 500 300)
+                     :minimizable NIL
+                     :maximizable NIL))
 
 (defmethod alloy:reject ((input report-input)))
 
