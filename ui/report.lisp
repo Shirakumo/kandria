@@ -34,6 +34,10 @@
                      :minimizable NIL
                      :maximizable NIL))
 
+(defmethod alloy:close ((input report-input))
+  (unpause-game T (unit 'ui-pass T))
+  (call-next-method))
+
 (defmethod alloy:accept ((input report-input))
   (handler-bind ((error (lambda (e)
                           (v:error :leaf.report e)
@@ -41,7 +45,7 @@
                           (continue e))))
     (with-simple-restart (continue "Ignore the failed report.")
       (submit-report :description (description input))
-      (alloy:leave input T))))
+      (alloy:close input))))
 
 (defmethod initialize-instance :after ((input report-input) &key)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 30) :layout-parent input))

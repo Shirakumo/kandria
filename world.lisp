@@ -82,6 +82,7 @@
   (load-state :quick world))
 
 (defmethod handle ((ev report-bug) (world world))
+  (pause-game world (unit 'ui-pass world))
   (make-instance 'report-input :ui (unit 'ui-pass world)))
 
 (defmethod handle :after ((ev trial:tick) (world world))
