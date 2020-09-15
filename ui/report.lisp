@@ -34,15 +34,14 @@
                      :minimizable NIL
                      :maximizable NIL))
 
-(defmethod alloy:reject ((input report-input)))
-
 (defmethod alloy:accept ((input report-input))
-  (handler-case
-      (progn (submit-report :description (description input))
-             (messagebox "Report submitted. Thank you!"))
-    (error (e)
-      (v:error :leaf.report e)
-      (messagebox "Failed to gather and submit report:~%~a" e))))
+  (handler-bind ((error (lambda (e)
+                          (v:error :leaf.report e)
+                          (messagebox "Failed to gather and submit report:~%~a" e)
+                          (continue e))))
+    (with-simple-restart (continue "Ignore the failed report.")
+      (submit-report :description (description input))
+      (alloy:leave input T))))
 
 (defmethod initialize-instance :after ((input report-input) &key)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 30) :layout-parent input))
