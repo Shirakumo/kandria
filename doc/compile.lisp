@@ -9,6 +9,7 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
    '(article
      :max-width 800px
      :font-size 12pt
+     :font-family sans-serif
      :margin 3em auto
      (h1
       :text-align center
