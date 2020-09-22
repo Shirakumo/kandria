@@ -19,7 +19,8 @@
    (#:colored #:org.shirakumo.alloy.colored)
    (#:colors #:org.shirakumo.alloy.colored.colors)
    (#:file-select #:org.shirakumo.file-select)
-   (#:gamepad #:org.shirakumo.fraf.gamepad))
+   (#:gamepad #:org.shirakumo.fraf.gamepad)
+   (#:harmony #:org.shirakumo.fraf.harmony.user))
   (:export
    #:launch
    #:launch-animation-editor))

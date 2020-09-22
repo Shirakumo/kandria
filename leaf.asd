@@ -80,4 +80,5 @@
                :alexandria
                :file-select
                :feedback-client
+               :harmony
                :zpng))
