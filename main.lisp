@@ -53,6 +53,7 @@
   (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   (load-mapping (merge-pathnames "keymap.lisp" (root)))
+  (harmony:start (harmony:make-simple-server :name "Kandria"))
   ;; Load initial state
   (setf (state main)
         (cond (state
@@ -73,7 +74,8 @@
   (setf +world+ scene))
 
 (defmethod finalize :after ((main main))
-  (setf +world+ NIL))
+  (setf +world+ NIL)
+  (harmony:free harmony:*server*))
 
 (defmethod save-state (world (state (eql T)) &rest args)
   (apply #'save-state world (state (handler *context*)) args))
