@@ -83,6 +83,8 @@
 
 (defmethod handle ((ev dash) (player player))
   (let ((vel (velocity player)))
+    (harmony:play (pool-path 'leaf "sound/dash.wav")
+                  :volume 0.15 :name :dash :if-exists :restart)
     (cond ((in-danger-p player)
            ;; FIXME: If we are holding the opposite of what
            ;;        we are facing, we should evade left.
@@ -139,9 +141,14 @@
 
 (flet ((handle-solid (player hit)
          (when (and (= +1 (vy (hit-normal hit)))
-                    (< (vy (velocity player)) -5))
-           (when (< 0.5 (air-time player))
-             (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit)))))))
+                    (< (vy (velocity player)) -0.5))
+           (cond ((< 0.5 (air-time player))
+                  (harmony:play (pool-path 'leaf "sound/land.wav")
+                                :volume 0.15 :name :land :if-exists :restart)
+                  (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
+                 (T
+                  (harmony:play (pool-path 'leaf "sound/land.wav")
+                                :volume 0.05 :name :land :if-exists :restart))))
          (when (<= 0 (vy (hit-normal hit)))
            (setf (air-time player) 0.0))
          (when (and (< 0 (vy (hit-normal hit)))
@@ -299,6 +306,8 @@
                                      ((retained 'right) +1)
                                      (T 0))))
                   (setf (jump-time player) 0.0)
+                  (harmony:play (pool-path 'leaf "sound/jump.wav")
+                                :volume 0.05 :name :jump :if-exists :restart)
                   (cond ((or (= dir mov-dir)
                              (not (retained 'climb)))
                          (setf (direction player) dir)
@@ -310,6 +319,8 @@
                          (setf (vy vel) (+ 0.3 (vy (p! walljump-acc))))))))
                ((< (air-time player) (p! coyote-time))
                 ;; Ground jump
+                (harmony:play (pool-path 'leaf "sound/jump.wav")
+                              :volume 0.05 :name :jump :if-exists :restart)
                 (setf (vy vel) (+ (p! jump-acc)
                                   (if (svref collisions 2)
                                       (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
@@ -406,6 +417,13 @@
     (setf (playback-direction player) +1)
     (setf (playback-speed player) 1.0)
     (case (state player)
+      ((:animated :stunned :dying))
+      (T
+       (let ((effect (effect (frame player))))
+         (when effect
+           (harmony:play (pool-path 'leaf (format NIL "sound/~a.wav" effect))
+                         :volume 0.05 :name :step :if-exists :ignore)))))
+    (case (state player)
       (:climbing
        (setf (animation player) 'climb)
        (cond
@@ -442,7 +460,15 @@
               (setf (playback-speed player) (/ (abs (vx vel)) (p! walk-limit)))
               (setf (animation player) 'run))
              (T
-              (setf (animation player) 'stand)))))))
+              (setf (animation player) 'stand)))))
+    (cond ((eql (name (animation player)) 'slide)
+           (harmony:play (pool-path 'leaf "sound/slide.wav")
+                         :volume 0.2 :name :slide :if-exists :ignore :repeat T))
+          (T
+           (let ((segment (harmony:segment :slide T NIL)))
+             (when segment
+               (setf (harmony:repeat segment) NIL)
+               (setf (harmony:done-p segment) T)))))))
 
 (defmethod handle ((ev switch-region) (player player))
   (let* ((region (slot-value ev 'region))

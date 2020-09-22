@@ -81,4 +81,6 @@
                :file-select
                :feedback-client
                :harmony
+               :cl-mixed-wav
+               :cl-mixed-mpg123
                :zpng))

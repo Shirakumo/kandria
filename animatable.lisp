@@ -99,7 +99,7 @@
          (setf (state animatable) :normal)))
       (:dying))
     (when (effect frame)
-      )
+      (harmony:play (pool-path 'leaf (format NIL "sound/~a.wav" (effect frame)))))
     (nv* (velocity animatable) (multiplier frame))
     (incf (vx vel) (* (direction animatable) (vx (velocity frame))))
     (incf (vy vel) (vy (velocity frame)))))
