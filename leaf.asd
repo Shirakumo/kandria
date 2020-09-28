@@ -64,6 +64,7 @@
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
                :trial-alloy
+               :trial-harmony
                :alloy-constraint
                (:feature (:not :darwin) :trial-steam)
                :zip
@@ -80,7 +81,6 @@
                :alexandria
                :file-select
                :feedback-client
-               :harmony
                :cl-mixed-wav
                :cl-mixed-mpg123
                :zpng))

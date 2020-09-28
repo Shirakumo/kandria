@@ -171,7 +171,7 @@
                 (ecase (first (pending dialog))
                   (:emote (setf (animation (profile dialog)) (second (pending dialog))))
                   (:prompt (setf (prompt dialog) (second (pending dialog))))
-                  (:end (print :a) (hide dialog)))
+                  (:end (hide dialog)))
                 (setf (pending dialog) NIL))
                (T
                 (advance dialog))))
@@ -200,7 +200,7 @@
          (scroll-text dialog (array-total-size (text dialog))))))
 
 (defmethod advance ((dialog dialog))
-  (handle (print (dialogue:resume (vm dialog) (ip dialog))) dialog))
+  (handle (dialogue:resume (vm dialog) (ip dialog)) dialog))
 
 (defmethod handle ((rq dialogue:request) (dialog dialog)))
 

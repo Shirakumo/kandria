@@ -66,6 +66,10 @@
     (:crawling 1.0)
     (T 1.9)))
 
+(defmethod stage :after ((player player) (area staging-area))
+  (dolist (sound '(dash jump land slide step))
+    (stage (// 'leaf sound) area)))
+
 (defmethod handle ((ev interact) (player player))
   (typecase (interactable player)
     (null)
@@ -83,8 +87,7 @@
 
 (defmethod handle ((ev dash) (player player))
   (let ((vel (velocity player)))
-    (harmony:play (pool-path 'leaf "sound/dash.wav")
-                  :volume 0.15 :name :dash :if-exists :restart)
+    (harmony:play (// 'leaf 'dash))
     (cond ((in-danger-p player)
            ;; FIXME: If we are holding the opposite of what
            ;;        we are facing, we should evade left.
@@ -143,12 +146,10 @@
          (when (and (= +1 (vy (hit-normal hit)))
                     (< (vy (velocity player)) -0.5))
            (cond ((< 0.5 (air-time player))
-                  (harmony:play (pool-path 'leaf "sound/land.wav")
-                                :volume 0.15 :name :land :if-exists :restart)
+                  (harmony:play (// 'leaf 'land))
                   (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  (T
-                  (harmony:play (pool-path 'leaf "sound/land.wav")
-                                :volume 0.05 :name :land :if-exists :restart))))
+                  (harmony:play (// 'leaf 'land)))))
          (when (<= 0 (vy (hit-normal hit)))
            (setf (air-time player) 0.0))
          (when (and (< 0 (vy (hit-normal hit)))
@@ -306,8 +307,7 @@
                                      ((retained 'right) +1)
                                      (T 0))))
                   (setf (jump-time player) 0.0)
-                  (harmony:play (pool-path 'leaf "sound/jump.wav")
-                                :volume 0.05 :name :jump :if-exists :restart)
+                  (harmony:play (// 'leaf 'jump))
                   (cond ((or (= dir mov-dir)
                              (not (retained 'climb)))
                          (setf (direction player) dir)
@@ -319,8 +319,7 @@
                          (setf (vy vel) (+ 0.3 (vy (p! walljump-acc))))))))
                ((< (air-time player) (p! coyote-time))
                 ;; Ground jump
-                (harmony:play (pool-path 'leaf "sound/jump.wav")
-                              :volume 0.05 :name :jump :if-exists :restart)
+                (harmony:play (// 'leaf 'jump))
                 (setf (vy vel) (+ (p! jump-acc)
                                   (if (svref collisions 2)
                                       (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
@@ -421,8 +420,7 @@
       (T
        (let ((effect (effect (frame player))))
          (when effect
-           (harmony:play (pool-path 'leaf (format NIL "sound/~a.wav" effect))
-                         :volume 0.05 :name :step :if-exists :ignore)))))
+           (harmony:play (// 'leaf 'step))))))
     (case (state player)
       (:climbing
        (setf (animation player) 'climb)
@@ -462,13 +460,9 @@
              (T
               (setf (animation player) 'stand)))))
     (cond ((eql (name (animation player)) 'slide)
-           (harmony:play (pool-path 'leaf "sound/slide.wav")
-                         :volume 0.2 :name :slide :if-exists :ignore :repeat T))
+           (harmony:play (// 'leaf 'slide)))
           (T
-           (let ((segment (harmony:segment :slide T NIL)))
-             (when segment
-               (setf (harmony:repeat segment) NIL)
-               (setf (harmony:done-p segment) T)))))))
+           (harmony:stop (// 'leaf 'slide))))))
 
 (defmethod handle ((ev switch-region) (player player))
   (let* ((region (slot-value ev 'region))
@@ -513,16 +507,17 @@
      (view-scale (unit :camera T))))
 
 (defmethod render :before ((player player) (program shader-program))
-  (setf (uniform program "flash") (cond ((<= (climb-strength player) 0)
-                                         (if (<= (mod (clock (scene (handler *context*))) 0.5) 0.2) 0.8 0.0))
-                                        ((<= (climb-strength player) 1)
-                                         (if (<= (mod (clock (scene (handler *context*))) 0.15) 0.08) 1.0 0.0))
-                                        ((<= (climb-strength player) 2)
-                                         (if (<= (mod (clock (scene (handler *context*))) 0.3) 0.12) 0.8 0.0))
-                                        ((<= (climb-strength player) 3)
-                                         (if (<= (mod (clock (scene (handler *context*))) 0.4) 0.15) 0.5 0.0))
-                                        (T
-                                         0.0))))
+  (setf (uniform program "flash")
+        (cond ((<= (climb-strength player) 0)
+               (if (<= (mod (clock (scene (handler *context*))) 0.5) 0.2) 0.8 0.0))
+              ((<= (climb-strength player) 1)
+               (if (<= (mod (clock (scene (handler *context*))) 0.15) 0.08) 1.0 0.0))
+              ((<= (climb-strength player) 2)
+               (if (<= (mod (clock (scene (handler *context*))) 0.3) 0.12) 0.8 0.0))
+              ((<= (climb-strength player) 3)
+               (if (<= (mod (clock (scene (handler *context*))) 0.4) 0.15) 0.5 0.0))
+              (T
+               0.0))))
 
 (define-class-shader (player :fragment-shader)
   "uniform float flash = 0;
