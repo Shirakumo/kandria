@@ -1,6 +1,7 @@
 (defpackage #:leaf
   (:nicknames #:org.shirakumo.fraf.leaf)
   (:use #:cl+trial)
+  (:import-from #:org.shirakumo.fraf.trial.harmony #:sound)
   (:shadow #:main #:launch #:tile #:block
            #:located-entity #:sized-entity #:sprite-entity
            #:camera #:light #:shadow-map-pass
