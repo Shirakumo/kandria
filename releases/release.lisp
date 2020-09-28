@@ -12,11 +12,11 @@
 (in-package #:release)
 
 (defun run (program &rest args)
-  (sb-ext:run-program program args :search T :output *standard-output*))
+  (assert (= 0 (sb-ext:process-exit-code (sb-ext:run-program program args :search T :output *standard-output*)))))
 
 (defun run* (program &rest args)
   (with-output-to-string (out)
-    (sb-ext:run-program program args :search T :output out)))
+    (assert (= 0 (sb-ext:process-exit-code (sb-ext:run-program program args :search T :output out))))))
 
 (defun version ()
   (asdf:component-version (asdf:find-system "leaf")))
