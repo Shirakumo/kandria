@@ -25,7 +25,7 @@
                      ((wild-pathname-p file)
                       (prune (directory file)))
                      ((pathname-utils:directory-p file)
-                      (uiop:delete-directory-tree file :validate (constantly T)))
+                      (uiop:delete-directory-tree file :validate (constantly T) :if-does-not-exist :ignore))
                      (T
                       (delete-file file))))
              (copy-file (file)
