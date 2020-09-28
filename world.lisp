@@ -25,6 +25,9 @@
     (setf (storyline world) (decode-payload storyline 'quest:storyline packet 'world-v0)))
   (setf (initial-state world) (minimal-load-state (entry-path "init/" packet))))
 
+(defmethod start :after ((world world))
+  (harmony:play (// 'leaf 'music)))
+
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
   (scan (region world) target on-hit))
@@ -60,6 +63,7 @@
 
 ;; Preloading
 (defmethod stage :after ((world world) (area staging-area))
+  (stage (// 'leaf 'music) area)
   (stage (// 'leaf 'effects 'texture) area)
   (stage (// 'leaf 'effects 'vertex-array) area))
 
