@@ -64,23 +64,29 @@
 (define-asset (leaf debug) tile-data
     #p"debug.lisp")
 
+(define-asset (leaf music) sound
+    #p "sound/music.mp3"
+  :volume 0.3
+  :repeat T
+  :mixer :music)
+
 (define-asset (leaf dash) sound
-  #p"sound/dash.wav"
-  :volume 0.15)
+    #p"sound/dash.wav"
+  :volume 0.1)
 
 (define-asset (leaf jump) sound
-  #p"sound/jump.wav"
-  :volume 0.05)
+    #p"sound/jump.wav"
+  :volume 0.025)
 
 (define-asset (leaf land) sound
-  #p"sound/land.wav"
-  :volume 0.075)
+    #p"sound/land.wav"
+  :volume 0.05)
 
 (define-asset (leaf slide) sound
-  #p"sound/slide.wav"
-  :volume 0.1
+    #p"sound/slide.wav"
+  :volume 0.075
   :repeat T)
 
 (define-asset (leaf step) sound
-  #p"sound/step.wav"
-  :volume 0.05)
+    #p"sound/step.wav"
+  :volume 0.025)
