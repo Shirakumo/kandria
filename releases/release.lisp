@@ -4,11 +4,12 @@
    (#:putils #:org.shirakumo.pathname-utils)
    (#:zippy #:org.shirakumo.zippy))
   (:export
+   #:release
    #:build
    #:deploy
    #:bundle
    #:upload
-   #:release))
+   #:make))
 (in-package #:release)
 
 (defun run (program &rest args)
@@ -61,14 +62,17 @@
 
 (defmethod build ((target null)))
 
-(defun deploy ()
+(defun release ()
   (let* ((vername (format NIL "kandria-~a" (version)))
-         (bindir (pathname-utils:subdirectory (asdf:system-source-directory "leaf") "bin"))
-         (verdir (pathname-utils:subdirectory (output) vername)))
-    (ensure-directories-exist verdir)
-    (deploy:copy-directory-tree bindir verdir :copy-root NIL)
-    (uiop:delete-file-if-exists (merge-pathnames "trial.log" verdir))
-    verdir))
+         (bindir (pathname-utils:subdirectory (asdf:system-source-directory "leaf") "bin")))
+    (pathname-utils:subdirectory (output) vername)))
+
+(defun deploy ()
+  (let* ((release (release)))
+    (ensure-directories-exist release)
+    (deploy:copy-directory-tree bindir release :copy-root NIL)
+    (uiop:delete-file-if-exists (merge-pathnames "trial.log" release))
+    release))
 
 (defun bundle (release)
   (let ((bundle (make-pathname :name (pathname-utils:directory-name release) :type "zip"
@@ -99,11 +103,11 @@
                                    ("\\$PREVIEW" ,(if preview "1" "0"))))
     (run "steamcmd.sh" "+login" user (or password (get-pass user) (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")))
 
-(defun upload (release &rest args &key (services T))
+(defun upload (&optional (release (release)) &rest args &key (services T))
   (case services ((T :itch) (apply #'itch release args)))
   (case services ((T :steam) (apply #'steam release args))))
 
-(defun release (&key (build T) upload)
+(defun make (&key (build T) upload)
   (deploy:status 0 "Building ~a" (version))
   (build build)
   (deploy:status 1 "Deploying to release directory")
