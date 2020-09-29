@@ -19,7 +19,7 @@
 (defun submit-report (&key (user (find-user-id)) (files (generate-report-files)) description)
   (org.shirakumo.feedback.client:submit
    "kandria" user
-   :version #.(asdf:component-version (asdf:find-system "leaf"))
+   :version (version :kandria)
    :description description
    :attachments files
    :key "A61C1370-B410-4BE5-96DB-1A2744628063"
@@ -57,3 +57,18 @@
                                   :layout-parent layout :focus-parent focus)))
     (alloy:on alloy:activate (submit)
       (alloy:accept input))))
+
+(defun standalone-error-handler (err)
+  (when (deploy:deployed-p)
+    (v:error :trial err)
+    (v:fatal :trial "Encountered unhandled error in ~a, bailing." (bt:current-thread))
+    (cond ((string/= "" (or (uiop:getenv "DEPLOY_DEBUG_BOOT") ""))
+           (invoke-debugger err))
+          ((ignore-errors (submit-report))
+           (org.shirakumo.messagebox:show (format NIL "An unhandled error occurred. A log has been sent to the developers. Sorry for the inconvenience!")
+                                          :title "Unhandled Error" :type :error :modal T))
+          (T
+           (org.shirakumo.messagebox:show (format NIL "An unhandled error occurred. Please send the application logfile to the developers. You can find it here:~%~%~a"
+                                                  (uiop:native-namestring (logfile)))
+                                          :title "Unhandled Error" :type :error :modal T)))
+    (deploy:quit)))
