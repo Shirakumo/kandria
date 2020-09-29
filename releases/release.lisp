@@ -47,13 +47,13 @@
     (call-next-method)))
 
 (defmethod build ((target (eql :linux)))
-  (run "sbcl-lin" "--eval" "(asdf:make :leaf :force T)" "--quit"))
+  (run "sbcl-lin" "--eval" "(asdf:make :leaf :force T)" "--disable-debugger" "--quit"))
 
 (defmethod build ((target (eql :windows)))
-  (run "sbcl-win" "--eval" "(asdf:make :leaf :force T)" "--quit"))
+  (run "sbcl-win" "--eval" "(asdf:make :leaf :force T)" "--disable-debugger" "--quit"))
 
 (defmethod build ((target (eql :macos)))
-  (run "sbcl-mac" "--eval" "(asdf:make :leaf :force T)" "--quit"))
+  (run "sbcl-mac" "--eval" "(asdf:make :leaf :force T)" "--disable-debugger" "--quit"))
 
 (defmethod build ((target (eql T)))
   (build :linux)
