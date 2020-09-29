@@ -144,8 +144,8 @@
 
 (flet ((handle-solid (player hit)
          (when (and (= +1 (vy (hit-normal hit)))
-                    (< (vy (velocity player)) -0.5))
-           (cond ((< 0.5 (air-time player))
+                    (< 0.1 (air-time player)))
+           (cond ((< 0.7 (air-time player))
                   (harmony:play (// 'leaf 'land))
                   (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  (T
