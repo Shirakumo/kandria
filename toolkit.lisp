@@ -6,6 +6,23 @@
 (define-global +tiles-in-view+ (vec2 40 26))
 (define-global +world+ NIL)
 
+(defmethod version ((_ (eql :kandria)))
+  #.(flet ((file (p)
+             (merge-pathnames p (pathname-utils:to-directory (or *compile-file-pathname* *load-pathname*))))
+           (trim (s)
+             (string-trim '(#\Return #\Linefeed #\Space) s)))
+      (let* ((head (trim (alexandria:read-file-into-string (file ".git/HEAD"))))
+             (path (subseq head (1+ (position #\  head))))
+             (commit (trim (alexandria:read-file-into-string (file (merge-pathnames path ".git/"))))))
+        (format NIL "~a-~a"
+                (asdf:component-version (asdf:find-system "leaf"))
+                commit))))
+
+(defun root ()
+  (if (deploy:deployed-p)
+      (deploy:runtime-directory)
+      (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*))))
+
 (defun format-absolute-time (time)
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
     (format NIL "~4,'0d.~2,'0d.~2,'0d ~2,'0d:~2,'0d:~2,'0d" yy mm dd h m s)))

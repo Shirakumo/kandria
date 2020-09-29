@@ -1,21 +1,17 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defun root ()
-  (if (deploy:deployed-p)
-      (deploy:runtime-directory)
-      (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*))))
-
 (defclass main (#-darwin org.shirakumo.fraf.trial.steam:main
                 #+darwin org.shirakumo.fraf.trial:main)
   ((scene :initform NIL)
    (state :accessor state)
    (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave))
-  (:default-initargs :clear-color (vec 2/17 2/17 2/17 0)
-                     :title #.(format NIL "Kandria - ~a" (asdf:component-version (asdf:find-system "leaf")))
-                     :width 1280
-                     :height 720
-                     :app-id 1261430
-                     :vsync T))
+  (:default-initargs
+   :clear-color (vec 2/17 2/17 2/17 0)
+   :title #.(format NIL "Kandria - ~a" (version :kandria))
+   :width 1280
+   :height 720
+   :app-id 1261430
+   :vsync T))
 
 (deploy:define-hook (:deploy leaf -1) (directory)
   (let ((root (root)))
@@ -91,6 +87,7 @@
 
 (defun launch (&rest initargs)
   (let ((*package* #.*package*))
+    (v:info :kandria "Launching version ~a" (version :kandria))
     (apply #'trial:launch 'main initargs)))
 
 (defmethod render :before ((controller controller) program)
