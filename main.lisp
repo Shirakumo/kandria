@@ -49,7 +49,7 @@
   (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   (load-mapping (merge-pathnames "keymap.lisp" (root)))
-  (harmony:start (harmony:make-simple-server :name "Kandria"))
+  (harmony:start (harmony:make-simple-server :name "Kandria" :latency 0.05))
   ;; Load initial state
   (setf (state main)
         (cond (state
