@@ -87,6 +87,7 @@
 (defun launch (&rest initargs)
   (let ((*package* #.*package*))
     (v:info :kandria "Launching version ~a" (version :kandria))
+    (load-settings)
     (apply #'trial:launch 'main
            :width (setting :display :width)
            :height (setting :display :height)
