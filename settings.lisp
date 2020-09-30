@@ -15,6 +15,8 @@
   (make-pathname :name "settings" :type "lisp"
                  :defaults (config-directory)))
 
+;; TODO: nicer setting restore by overriding existing settings
+;;       instead of bulk-replacing.
 (defun load-settings (&optional (path (settings-path)))
   (with-error-logging (:kandria.settings)
     (v:info :kandria.settings "Loading settings from ~a" path)
