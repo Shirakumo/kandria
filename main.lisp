@@ -8,10 +8,7 @@
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
    :title #.(format NIL "Kandria - ~a" (version :kandria))
-   :width 1280
-   :height 720
-   :app-id 1261430
-   :vsync T))
+   :app-id 1261430))
 
 (deploy:define-hook (:deploy leaf -1) (directory)
   (let ((root (root)))
@@ -49,7 +46,9 @@
   (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   (load-mapping (merge-pathnames "keymap.lisp" (root)))
-  (harmony:start (harmony:make-simple-server :name "Kandria" :latency 0.05))
+  (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)))
+  (loop for (k v) on (setting :audio :volume) by #'cddr
+        do (setf (harmony:volume k) v))
   ;; Load initial state
   (setf (state main)
         (cond (state
@@ -88,7 +87,12 @@
 (defun launch (&rest initargs)
   (let ((*package* #.*package*))
     (v:info :kandria "Launching version ~a" (version :kandria))
-    (apply #'trial:launch 'main initargs)))
+    (apply #'trial:launch 'main
+           :width (setting :display :width)
+           :height (setting :display :height)
+           :vsync (setting :display :vsync)
+           ;;:fullscreen (setting :display :fullscreen)
+           initargs)))
 
 (defmethod render :before ((controller controller) program)
   (let ((editor (unit :editor T)))

@@ -1,13 +1,5 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
-(defun config-directory ()
-  #+(or windows win32 mswindows)
-  (merge-pathnames (make-pathname :directory '(:relative "AppData" "Local" "shirakumo" "kandria"))
-                   (user-homedir-pathname))
-  #-(or windows win32 mswindows)
-  (merge-pathnames (make-pathname :directory '(:relative ".config" "shirakumo" "kandria"))
-                   (user-homedir-pathname)))
-
 (defun save-state-path (name)
   (ensure-directories-exist
    (make-pathname :name (format NIL "~(~a~)" name) :type "zip"
