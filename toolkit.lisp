@@ -23,6 +23,9 @@
       (deploy:runtime-directory)
       (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*))))
 
+(defun config-directory ()
+  (trial:config-directory "shirakumo" "kandria"))
+
 (defun format-absolute-time (time)
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
     (format NIL "~4,'0d.~2,'0d.~2,'0d ~2,'0d:~2,'0d:~2,'0d" yy mm dd h m s)))

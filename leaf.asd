@@ -10,6 +10,7 @@
   :components ((:file "package")
                (:file "toolkit")
                (:file "helpers")
+               (:file "settings")
                (:file "animation")
                (:file "assets")
                (:file "color-temperature")
