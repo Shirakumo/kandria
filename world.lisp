@@ -97,6 +97,12 @@
   (when (typep (with ev) 'interactable)
     (show (make-instance 'dialog :dialogue (quest:dialogue (first (interactions (with ev))))))))
 
+(defmethod handle :after ((ev keyboard-event) (world world))
+  (setf +input-source+ :keyboard))
+
+(defmethod handle :after ((ev gamepad-event) (world world))
+  (setf +input-source+ :gamepad))
+
 (defclass quest (quest:quest)
   ())
 
