@@ -323,6 +323,11 @@
     (let ((pos (nv+ (v/ pos (view-scale camera) (zoom camera)) (location camera))))
       (nv- pos (v/ (target-size camera) (zoom camera))))))
 
+(defun world-screen-pos (pos)
+  (let ((camera (unit :camera T)))
+    (let ((pos (v+ pos (v/ (target-size camera) (zoom camera)))))
+      (v* (nv- pos (location camera)) (view-scale camera) (zoom camera)))))
+
 (defun mouse-tile-pos (pos)
   (nvalign (mouse-world-pos (v- pos (vec 0 (/ +tile-size+ 2)))) +tile-size+))
 

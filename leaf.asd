@@ -45,7 +45,8 @@
                (:module "ui"
                 :components ((:file "general")
                              (:file "dialog")
-                             (:file "report")))
+                             (:file "report")
+                             (:file "prompt")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
