@@ -18,7 +18,7 @@
 
 (presentations:define-update (ui prompt))
 
-(defmethod show ((prompt prompt) &key button (input :gamepad) location)
+(defmethod show ((prompt prompt) &key button (input +input-source+) location)
   (when button
     (setf (alloy:value prompt) (prompt-char button :bank input)))
   (if location

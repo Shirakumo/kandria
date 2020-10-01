@@ -204,7 +204,7 @@
     (if (interactable player)
         (let ((loc (vec (vx (location (interactable player)))
                         (+ (vy loc) (vy (bsize player))))))
-          (show (prompt player) :button :a :location loc))
+          (show (prompt player) :button 'interact :location loc))
         (hide (prompt player)))
     (ecase (state player)
       ((:dying :animated :stunned)
