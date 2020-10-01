@@ -88,11 +88,12 @@
   (let ((*package* #.*package*))
     (v:info :kandria "Launching version ~a" (version :kandria))
     (load-settings)
+    (save-settings)
     (apply #'trial:launch 'main
            :width (setting :display :width)
            :height (setting :display :height)
            :vsync (setting :display :vsync)
-           ;;:fullscreen (setting :display :fullscreen)
+           :fullscreen (setting :display :fullscreen)
            initargs)))
 
 (defmethod render :before ((controller controller) program)
