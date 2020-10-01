@@ -70,7 +70,7 @@
 (defun deploy ()
   (let* ((release (release)))
     (ensure-directories-exist release)
-    (deploy:copy-directory-tree bindir release :copy-root NIL)
+    (deploy:copy-directory-tree release release :copy-root NIL)
     (uiop:delete-file-if-exists (merge-pathnames "trial.log" release))
     release))
 
@@ -104,10 +104,13 @@
     (run "steamcmd.sh" "+login" user (or password (get-pass user) (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")))
 
 (defun upload (&optional (release (release)) &rest args &key (services T))
-  (case services ((T :itch) (apply #'itch release args)))
-  (case services ((T :steam) (apply #'steam release args))))
+  (dolist (service (etypecase services
+                     ((eql T) '(itch steam))
+                     (list services)
+                     (T (list services))))
+    (apply service release args)))
 
-(defun make (&key (build T) upload)
+(defun make (&key (build T) (upload 'steam))
   (deploy:status 0 "Building ~a" (version))
   (build build)
   (deploy:status 1 "Deploying to release directory")
