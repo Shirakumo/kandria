@@ -42,4 +42,6 @@
     (// pool name id)))
 
 (define-encoder (resource v0) (_b _p)
-  (error "Don't know how to get the asset that generated the resource."))
+  (list (name (pool (generator resource)))
+        (name (generator resource))
+        (name resource)))

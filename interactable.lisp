@@ -6,12 +6,23 @@
 (defclass interactable ()
   ((interactions :initform () :accessor interactions)))
 
+(define-shader-entity interactable-sprite (lit-entity sprite-entity interactable)
+  ())
+
+(define-class-shader (interactable-sprite :fragment-shader)
+  "
+out vec4 color;
+void main(){
+  color = apply_lighting(color, vec2(0,0), 0.0);
+}")
+
 (defclass profile ()
   ((profile-sprite-data :initform (error "PROFILE-SPRITE-DATA not set.") :accessor profile-sprite-data)
    (nametag :initform (error "NAMETAG not set.") :accessor nametag)))
 
 (defmethod stage :after ((profile profile) (area staging-area))
-  (stage (profile-sprite-data profile) area))
+  (stage (resource (profile-sprite-data profile) 'texture) area)
+  (stage (resource (profile-sprite-data profile) 'vertex-array) area))
 
 (defmethod quest:activate ((trigger quest:interaction))
   (with-simple-restart (abort "Don't activate the interaction.")

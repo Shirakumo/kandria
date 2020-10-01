@@ -85,7 +85,24 @@
 
 (define-encoder (game-entity world-v0) (_b _p)
   `(,(type-of game-entity) :location ,(encode (location game-entity))
-                       :name ,(name game-entity)))
+                           :name ,(name game-entity)))
+
+(define-decoder (interactable-sprite world-v0) (initargs _p)
+  (destructuring-bind (&key name location size offset layer texture) initargs
+    (make-instance (class-of interactable-sprite) :location (decode 'vec2 location)
+                                                  :texture (decode 'texture texture)
+                                                  :size (decode 'vec2 size)
+                                                  :offset (decode 'vec2 offset)
+                                                  :layer layer
+                                                  :name name)))
+
+(define-encoder (interactable-sprite world-v0) (_b _p)
+  `(,(type-of interactable-sprite) :location ,(encode (location interactable-sprite))
+                                   :texture ,(encode (texture interactable-sprite))
+                                   :size ,(encode (size interactable-sprite))
+                                   :offset ,(encode (offset interactable-sprite))
+                                   :layer ,(layer-index interactable-sprite)
+                                   :name ,(name interactable-sprite)))
 
 (define-decoder (chunk world-v0) (initargs packet)
   (destructuring-bind (&key name location size tile-data pixel-data layers lighting) initargs
@@ -120,10 +137,7 @@
     (make-instance 'background :texture (decode 'resource texture))))
 
 (define-encoder (background world-v0) (_b _p)
-  `(background :texture (leaf tundra-bg)
-               ;; FIXME: this sucks
-               ;;,(encode (texture background))
-               ))
+  `(background :texture ,(encode (texture background))))
 
 (define-decoder (falling-platform world-v0) (initargs _)
   (destructuring-bind (&key texture gravity location bsize frame) initargs

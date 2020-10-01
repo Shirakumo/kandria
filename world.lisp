@@ -95,8 +95,7 @@
 
 (defmethod handle :after ((ev interaction) (world world))
   (when (typep (with ev) 'interactable)
-    (setf (current-dialog (unit :textbox +world+))
-          (quest:dialogue (first (interactions (with ev)))))))
+    (show (make-instance 'dialog :dialogue (quest:dialogue (first (interactions (with ev))))))))
 
 (defclass quest (quest:quest)
   ())
