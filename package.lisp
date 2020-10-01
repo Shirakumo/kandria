@@ -7,7 +7,7 @@
            #:camera #:light #:shadow-map-pass
            #:shadow-render-pass #:action #:editor-camera
            #:animatable #:animated-sprite #:sprite-data
-           #:commit #:config-directory)
+           #:commit #:config-directory #:prompt)
   (:local-nicknames
    (#:dialogue #:org.shirakumo.fraf.leaf.dialogue)
    (#:quest #:org.shirakumo.fraf.leaf.quest)

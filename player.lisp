@@ -37,7 +37,6 @@
 (define-shader-entity player (animatable profile ephemeral)
   ((bsize :initform (vec 7.0 15.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
-   (prompt :initform (make-instance 'prompt :text :y :size 16 :color (vec 1 1 1 1)) :accessor prompt)
    (interactable :initform NIL :accessor interactable)
    (jump-time :initform 1.0 :accessor jump-time)
    (dash-time :initform 1.0 :accessor dash-time)
@@ -47,6 +46,7 @@
    (buffer :initform NIL :accessor buffer)
    (chunk :initform NIL :accessor chunk)
    (profile-sprite-data :initform (asset 'leaf 'player-profile))
+   (prompt :initform (make-instance 'prompt) :reader prompt)
    (nametag :initform "The Stranger"))
   (:default-initargs
    :name 'player
@@ -68,7 +68,8 @@
 
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(dash jump land slide step))
-    (stage (// 'leaf sound) area)))
+    (stage (// 'leaf sound) area))
+  (stage (prompt player) area))
 
 (defmethod handle ((ev interact) (player player))
   (typecase (interactable player)
@@ -83,6 +84,7 @@
     (rope)
     ;; Trigger dialogue interactions somehow.
     (T
+     (hide (prompt player))
      (issue +world+ 'interaction :with (interactable player)))))
 
 (defmethod handle ((ev dash) (player player))
@@ -199,6 +201,11 @@
       (when (and (typep entity 'interactable)
                  (contained-p entity player))
         (setf (interactable player) entity)))
+    (if (interactable player)
+        (let ((loc (vec (vx (location (interactable player)))
+                        (+ (vy loc) (vy (bsize player))))))
+          (show (prompt player) :button :a :location loc))
+        (hide (prompt player)))
     (ecase (state player)
       ((:dying :animated :stunned)
        (let ((buffer (buffer player)))
