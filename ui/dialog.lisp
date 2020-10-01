@@ -195,7 +195,7 @@
          (setf (text dialog) (clear-text-string))
          (advance dialog))
         (T
-         (loop until (prompt dialog)
+         (loop until (or (pending dialog) (prompt dialog))
                do (advance dialog))
          (scroll-text dialog (array-total-size (text dialog))))))
 
