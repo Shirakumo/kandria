@@ -52,6 +52,13 @@
 (defmethod make-assembly ((quest quest))
   (make-instance 'dialogue:assembly))
 
+(defgeneric make-task (quest &rest initargs))
+(defmethod make-task ((quest quest) &rest initargs &key invariant condition)
+  (apply #'make-instance 'task
+         :invariant (dialogue::compile-form (make-assembly quest) invariant)
+         :condition (dialogue::compile-form (make-assembly quest) condition)
+         initargs))
+
 (defmethod find-task (name (quest quest) &optional (error T))
   (or (gethash name (tasks quest))
       (when error (error "No task named ~s found." name))))
@@ -82,11 +89,14 @@
              (known-quests (storyline quest))))))
 
 (defmethod activate ((quest quest))
-  (setf (status quest) :active)
-  (mapcar #'activate (effects quest))
+  (when (eql :inactive (status quest))
+    (v:info :kandria.quest "Activating ~a" quest)
+    (setf (status quest) :active)
+    (mapcar #'activate (effects quest)))
   quest)
 
 (defmethod complete ((quest quest))
+  (v:info :kandria.quest "Completing ~a" quest)
   (setf (status quest) :complete)
   (setf (active-tasks quest) ())
   quest)
@@ -141,6 +151,7 @@
 
 (defmethod activate ((task task))
   (when (eql (status task) :inactive)
+    (v:info :kandria.quest "Activating ~a" task)
     (setf (status task) :unresolved)
     (dolist (cause (causes task))
       (when (and (active-p cause)
@@ -153,6 +164,7 @@
 (defmethod complete ((task task))
   (unless (active-p task)
     (error "Cannot complete done task."))
+  (v:info :kandria.quest "Completing ~a" task)
   (setf (status task) :complete)
   (dolist (effect (effects task))
     (activate effect))
@@ -165,11 +177,11 @@
          (complete task))))
 
 (defclass trigger ()
-  ())
+  ((status :initarg :status :initform :inactive :accessor status)))
 
 (defclass interaction (trigger)
   ((interactable :initarg :interactable :reader interactable)
-   (dialogue :initarg :dialogue :reader dialogue)))
+   (dialogue :initarg :dialogue :initform :inactive :reader dialogue)))
 
 (defmethod transform ((node graph:quest) quest)
   (let ((cache (make-hash-table :test 'eq)))
@@ -178,6 +190,7 @@
                   collect (gethash effect cache))
             (loop with tasks = (make-hash-table :test 'eq)
                   for task being the hash-values of cache
+                  when (typep task 'task)
                   do (setf (gethash (name task) tasks) task)
                   finally (return tasks)))))
 
@@ -191,25 +204,24 @@
   (setf (description quest) (description node))
   (setf (title quest) (title node))
   (loop for task in (graph:effects node)
-        do (%transform task cache quest)))
+        do (%transform task cache quest))
+  quest)
 
 (defmethod %transform ((task graph:task) _ quest)
   (flet ((%transform (thing)
            (%transform thing _ quest)))
-    (make-instance 'task
-                   :quest quest
-                   :name (name task)
-                   :title (graph:title task)
-                   :description (graph:description task)
-                   :causes (loop for cause in (graph:causes task)
-                                 when (typep cause 'graph:task)
-                                 collect (%transform cause))
-                   :effects (mapcar #'%transform (graph:effects task))
-                   :triggers (mapcar #'%transform (graph:triggers task))
-                   :invariant (dialogue::compile-form (make-assembly quest)
-                                                      (graph:invariant task))
-                   :condition (dialogue::compile-form (make-assembly quest)
-                                                      (graph:condition task)))))
+    (make-task quest
+               :quest quest
+               :name (name task)
+               :title (graph:title task)
+               :description (graph:description task)
+               :causes (loop for cause in (graph:causes task)
+                             when (typep cause 'graph:task)
+                             collect (%transform cause))
+               :effects (mapcar #'%transform (graph:effects task))
+               :triggers (mapcar #'%transform (graph:triggers task))
+               :invariant (graph:invariant task)
+               :condition (graph:condition task))))
 
 (defmethod %transform ((interaction graph:interaction) _ quest)
   (make-instance 'interaction

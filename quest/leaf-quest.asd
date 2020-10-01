@@ -3,4 +3,5 @@
                (:file "nodes")
                (:file "quest"))
   :depends-on (:flow
-               :leaf-dialogue))
+               :leaf-dialogue
+               :verbose))

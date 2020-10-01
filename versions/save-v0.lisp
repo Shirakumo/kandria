@@ -20,7 +20,8 @@
 (define-encoder (quest:quest save-v0) (buffer _p)
   (cons (quest:name quest:quest)
         (list :status (quest:status quest:quest)
-              :tasks (mapcar #'encode (quest:tasks quest:quest)))))
+              :tasks (loop for quest being the hash-values of (quest:tasks quest:quest)
+                           collect (encode quest)))))
 
 (define-encoder (quest:task save-v0) (_b _p)
   (cons (quest:name quest:task)
@@ -93,7 +94,10 @@
 
 (define-decoder (quest:task save-v0) (initargs packet)
   (destructuring-bind (&key status) initargs
-    (setf (quest:status quest:task) status)))
+    (setf (quest:status quest:task) status)
+    (when (eql :unresolved status)
+      (dolist (trigger (quest:triggers quest:task))
+        (quest:activate trigger)))))
 
 (define-decoder (region save-v0) (initargs packet)
   (destructuring-bind (&key create-new ephemeral (delete-existing T))

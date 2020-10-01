@@ -49,6 +49,7 @@
    #:find-task
    #:active-tasks
    #:active-p
+   #:make-task
    #:make-assembly
    #:task
    #:status
