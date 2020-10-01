@@ -104,6 +104,28 @@
 (defmethod quest:make-assembly ((_ quest))
   (make-instance 'assembly))
 
+(defmethod quest:make-task ((_ quest) &rest initargs &key invariant condition)
+  (flet ((comp (form)
+           (compile NIL `(lambda (task)
+                           (with-memo ((quest (quest:quest task))
+                                       (triggers (quest:triggers task))
+                                       (all-triggered (every (lambda (trig) (eql :complete (quest:status trig)))
+                                                             (quest:triggers task))))
+                             ,form)))))
+    (apply #'make-instance 'task
+           :invariant (comp invariant)
+           :condition (comp condition)
+           initargs)))
+
+(defclass task (quest:task)
+  ())
+
+(defmethod quest:try ((task task))
+  (cond ((not (funcall (quest:invariant task) task))
+         (setf (quest:status task) :failed))
+        ((funcall (quest:condition task) task)
+         (quest:complete task))))
+
 (defclass assembly (dialogue:assembly)
   ())
 

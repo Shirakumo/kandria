@@ -7,7 +7,7 @@
     ;; Read in things
     (loop for (type . initargs) in info
           for entry = (decode type initargs)
-          do (setf (gethash (name entry) table) entry))
+          do (setf (gethash (quest-graph:name entry) table) entry))
     ;; Connect them up
     (loop for (type . initargs) in info
           for entry = (gethash (getf initargs :name) table)
@@ -43,7 +43,9 @@
 
 (define-decoder (quest-graph:interaction world-v0) (info packet)
   (destructuring-bind (&key name interactable dialogue) info
-    (let ((dialogue (packet-entry dialogue packet :element-type 'character)))
+    (let ((dialogue (etypecase dialogue
+                      (pathname (packet-entry dialogue packet :element-type 'character))
+                      (string dialogue))))
       (make-instance 'quest-graph:interaction :name name :interactable interactable :dialogue dialogue))))
 
 (define-decoder (region world-v0) (info packet)
