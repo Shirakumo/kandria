@@ -99,32 +99,50 @@
       (scan target entity #'on-find)
       best-hit)))
 
-(define-shader-entity sprite-entity (trial:sprite-entity sized-entity facing-entity)
-  ((frame-idx :initform 0
-              :type integer :documentation "The tile to display from the sprite sheet.")
-   (texture :initform (asset 'leaf 'placeholder)
+(define-shader-entity sprite-entity (vertex-entity textured-entity sized-entity facing-entity)
+  ((vertex-array :initform (// 'leaf '1x))
+   (texture :initform (// 'leaf 'placeholder) :initarg :texture
             :type resource :documentation "The tileset to display the sprite from.")
-   (size :initform NIL :accessor size
-         :type vec2 :documentation "The size of the tile to display.")))
+   (size :initform (vec 16 16) :initarg :size :accessor size
+         :type vec2 :documentation "The size of the tile to display (in px).")
+   (offset :initform (vec 0 0) :initarg :offset :accessor offset
+           :type vec2 :documentation "The offset in the tile map (in px).")
+   (layer-index :initform (1- +base-layer+) :initarg :layer :accessor layer-index
+                :type integer :documentation "The layer the sprite should be on."))
+  (:inhibit-shaders (textured-entity :fragment-shader)))
 
 (defmethod initargs append ((_ sprite-entity))
-  '(:tile :texture))
+  '(:texture :size :offset :layer))
 
-(defmethod initialize-instance :after ((sprite sprite-entity) &key)
+(defmethod initialize-instance :after ((sprite sprite-entity) &key bsize)
   (unless (size sprite)
-    (setf (size sprite) (v* (bsize sprite) 2))))
-
-(defmethod (setf bsize) :after (value (sprite sprite-entity))
-  (setf (size sprite) (v* value 2)))
+    (setf (size sprite) (v* (bsize sprite) 2)))
+  (unless bsize
+    (setf (bsize sprite) (v/ (size sprite) 2))))
 
 (defmethod apply-transforms progn ((sprite sprite-entity))
   (let ((size (v* 2 (bsize sprite))))
     (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
     (scale (vxy_ size))))
 
+(defmethod render :before ((entity sprite-entity) (program shader-program))
+  (setf (uniform program "size") (size entity))
+  (setf (uniform program "offset") (offset entity)))
+
 (defmethod resize ((sprite sprite-entity) width height)
   (vsetf (size sprite) width height)
   (vsetf (bsize sprite) (/ width 2) (/ height 2)))
+
+(define-class-shader (sprite-entity :fragment-shader)
+  "in vec2 texcoord;
+out vec4 color;
+uniform sampler2D texture_image;
+uniform vec2 size;
+uniform vec2 offset;
+
+void main(){
+  color = texelFetch(texture_image, ivec2(offset+(texcoord*size)), 0);
+}")
 
 (defclass game-entity (sized-entity listener)
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity
