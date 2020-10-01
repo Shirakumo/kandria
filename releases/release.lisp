@@ -63,14 +63,13 @@
 (defmethod build ((target null)))
 
 (defun release ()
-  (let* ((vername (format NIL "kandria-~a" (version)))
-         (bindir (pathname-utils:subdirectory (asdf:system-source-directory "leaf") "bin")))
-    (pathname-utils:subdirectory (output) vername)))
+  (pathname-utils:subdirectory (output) (format NIL "kandria-~a" (version))))
 
 (defun deploy ()
-  (let* ((release (release)))
+  (let* ((release (release))
+         (bindir (pathname-utils:subdirectory (asdf:system-source-directory "leaf") "bin")))
     (ensure-directories-exist release)
-    (deploy:copy-directory-tree release release :copy-root NIL)
+    (deploy:copy-directory-tree bindir release :copy-root NIL)
     (uiop:delete-file-if-exists (merge-pathnames "trial.log" release))
     release))
 
