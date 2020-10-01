@@ -1,5 +1,6 @@
 (in-package #:org.shirakumo.fraf.leaf)
 
+(defvar *save-settings* T)
 (define-global +settings+
     (copy-tree '(:audio (:latency 0.05
                          :volume (:master 0.5
@@ -15,47 +16,57 @@
   (make-pathname :name "settings" :type "lisp"
                  :defaults (config-directory)))
 
-;; TODO: nicer setting restore by overriding existing settings
-;;       instead of bulk-replacing.
+(defun map-leaf-settings (function &optional (settings +settings+))
+  (labels ((recurse (node rpath)
+             (loop for (k v) on node by #'cddr
+                   do (if (and (consp v) (keywordp (car v)))
+                          (recurse v (list* k rpath))
+                          (funcall function (reverse (list* k rpath)) v)))))
+    (recurse settings ())))
+
 (defun load-settings (&optional (path (settings-path)))
-  (with-error-logging (:kandria.settings)
-    (v:info :kandria.settings "Loading settings from ~a" path)
-    (ignore-errors
+  (ignore-errors
+   (with-error-logging (:kandria.settings)
+     (v:info :kandria.settings "Loading settings from ~a" path)
      (with-open-file (stream path :direction :input
                                   :element-type 'character
-                                  :if-does-not-exist NIL)
-       (when stream
-         (with-leaf-io-syntax
-           (setf +settings+ (loop for k = (read stream NIL '#1=#:eof)
-                                  until (eq k '#1#)
-                                  collect k)))))))
+                                  :if-does-not-exist :error)
+       (with-leaf-io-syntax
+         (let ((*save-settings* NIL))
+           (map-leaf-settings
+            (lambda (path value)
+              (apply #'(setf setting) value path))
+            (loop for k = (read stream NIL '#1=#:eof)
+                  until (eq k '#1#)
+                  collect k)))))))
   +settings+)
 
 (defun save-settings (&optional (path (settings-path)))
-  (with-error-logging (:kandria.settings)
-    (v:info :kandria.settings "Saving settings to ~a" path)
-    (with-open-file (stream path :direction :output
-                                 :element-type 'character
-                                 :if-exists :supersede)
-      (with-leaf-io-syntax
-        (labels ((plist (indent part)
-                   (loop for (k v) on part by #'cddr
-                         do (format stream "~&~v{ ~}~s " (* indent 2) '(0) k)
-                            (serialise indent v)))
-                 (serialise (indent part)
-                   (typecase part
-                     (cons
-                      (cond ((keywordp (car part))
-                             (format stream "(")
-                             (plist (1+ indent) part)
-                             (format stream ")"))
-                            (T
-                             (prin1 part stream))))
-                     (null
-                      (format stream "NIL"))
-                     (T
-                      (prin1 part stream)))))
-          (plist 0 +settings+)))))
+  (ignore-errors
+   (with-error-logging (:kandria.settings)
+     (v:info :kandria.settings "Saving settings to ~a" path)
+     (with-open-file (stream path :direction :output
+                                  :element-type 'character
+                                  :if-exists :supersede)
+       (with-leaf-io-syntax
+         (labels ((plist (indent part)
+                    (loop for (k v) on part by #'cddr
+                          do (format stream "~&~v{ ~}~s " (* indent 2) '(0) k)
+                             (serialise indent v)))
+                  (serialise (indent part)
+                    (typecase part
+                      (cons
+                       (cond ((keywordp (car part))
+                              (format stream "(")
+                              (plist (1+ indent) part)
+                              (format stream ")"))
+                             (T
+                              (prin1 part stream))))
+                      (null
+                       (format stream "NIL"))
+                      (T
+                       (prin1 part stream)))))
+           (plist 0 +settings+))))))
   +settings+)
 
 (defun setting (&rest path)
@@ -75,5 +86,6 @@
                        value))
              node))
     (setf +settings+ (update +settings+ (first path) (rest path)))
-    (save-settings)
+    (when *save-settings*
+      (save-settings))
     value))
