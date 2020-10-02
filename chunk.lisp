@@ -239,12 +239,14 @@ void main(){
 (defmethod stage :after ((chunk chunk) (area staging-area))
   (stage (node-graph chunk) area))
 
-(defmethod clone ((chunk chunk))
-  (make-instance (class-of chunk)
-                 :size (clone (size chunk))
-                 :tile-data (tile-data chunk)
-                 :pixel-data (clone (pixel-data chunk))
-                 :layers (mapcar #'clone (map 'list #'pixel-data (layers chunk)))))
+(defmethod clone ((chunk chunk) &key initargs)
+  (apply #'make-instance (class-of chunk)
+         (append initargs
+                 (list
+                  :size (clone (size chunk))
+                  :tile-data (tile-data chunk)
+                  :pixel-data (clone (pixel-data chunk))
+                  :layers (mapcar #'clone (map 'list #'pixel-data (layers chunk)))))))
 
 (defmethod (setf size) :after (size (chunk chunk))
   (loop for layer across (layers chunk)
