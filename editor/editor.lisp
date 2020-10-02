@@ -23,21 +23,23 @@
       (alloy:enter (sidebar editor) focus)
       (alloy:register (sidebar editor) (ui editor)))))
 
-(defun update-marker (editor)
-  (cond ((typep (entity editor) 'sized-entity)
-         (let* ((p (location (entity editor)))
-                (s (bsize (entity editor)))
-                (ul (vec3 (- (vx p) (vx s)) (+ (vy p) (vy s)) 0))
-                (ur (vec3 (+ (vx p) (vx s)) (+ (vy p) (vy s)) 0))
-                (br (vec3 (+ (vx p) (vx s)) (- (vy p) (vy s)) 0))
-                (bl (vec3 (- (vx p) (vx s)) (- (vy p) (vy s)) 0)))
-           (replace-vertex-data (marker editor) (list ul ur ur br br bl bl ul) :default-color (vec 1 1 1 1))))
-        (T
-         (replace-vertex-data (marker editor) ()))))
+(defun update-marker (editor entity)
+  (let* ((p (location entity))
+         (s (bsize entity))
+         (ul (vec3 (- (vx p) (vx s)) (+ (vy p) (vy s)) 0))
+         (ur (vec3 (+ (vx p) (vx s)) (+ (vy p) (vy s)) 0))
+         (br (vec3 (+ (vx p) (vx s)) (- (vy p) (vy s)) 0))
+         (bl (vec3 (- (vx p) (vx s)) (- (vy p) (vy s)) 0)))
+    (replace-vertex-data (marker editor) (list ul ur ur br br bl bl ul) :default-color (vec 1 1 1 1))))
 
 (defmethod active-p ((editor editor)) T)
 
 (defmethod (setf entity) :after (value (editor editor))
+  (typecase value
+    (sized-entity
+     (update-marker editor value))
+    (T
+     (replace-vertex-data (marker editor) ())))
   (change-class editor (editor-class value))
   (v:info :leaf.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
@@ -51,7 +53,6 @@
 
 (defmethod render ((editor editor) target)
   (gl:blend-func :one-minus-dst-color :zero)
-  (update-marker editor)
   (render (marker editor) target)
   (gl:blend-func :src-alpha :one-minus-src-alpha)
   (render (ui editor) target))
@@ -95,6 +96,12 @@
                  (pos (mouse-world-pos (vec (alloy:pxx pos) (alloy:pxy pos)))))
             (setf (entity (unit :editor T)) (entity-at-point pos +world+)))
           (alloy:decline)))))
+
+(defmethod alloy:handle :before ((event alloy:pointer-move) (ui editor-ui))
+  (when (null (entity (unit :editor T)))
+    (let* ((pos (alloy:location event))
+           (pos (mouse-world-pos (vec (alloy:pxx pos) (alloy:pxy pos)))))
+      (update-marker (unit :editor T) (entity-at-point pos +world+)))))
 
 (defmethod edit (action (editor (eql T)))
   (edit action (unit :editor T)))
