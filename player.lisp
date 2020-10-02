@@ -201,7 +201,7 @@
       (when (and (typep entity 'interactable)
                  (contained-p entity player))
         (setf (interactable player) entity)))
-    (if (interactable player)
+    (if (typep (interactable player) '(and interactable (not rope)))
         (let ((loc (vec (vx (location (interactable player)))
                         (+ (vy loc) (vy (bsize player))))))
           (show (prompt player) :button 'interact :location loc))

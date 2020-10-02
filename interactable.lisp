@@ -3,10 +3,13 @@
 (defclass interaction (event)
   ((with :initarg :with :accessor with)))
 
-(defclass interactable ()
+(defclass interactable (entity)
+  ())
+
+(defclass dialog-entity (interactable)
   ((interactions :initform () :accessor interactions)))
 
-(define-shader-entity interactable-sprite (lit-entity sprite-entity interactable)
+(define-shader-entity interactable-sprite (lit-entity sprite-entity dialog-entity)
   ())
 
 (define-class-shader (interactable-sprite :fragment-shader)

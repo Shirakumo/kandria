@@ -25,9 +25,13 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by PincerAttack
 - Fix DirectInput controllers not being detected
   Reported by PincerAttack
-- TODO: Fix slopes with ceilings above allowing clipping
-  Reported by PincerAttack
-- TODO: Fix attacking an enemy while both at the corner causing clipping
-  Reported by Janne Pakarinen
 - Don't let errors in the render loop hang the game
   Reported by Selwyn Simsek
+
+## TODO
+- Fix slopes with ceilings above allowing clipping
+  Reported by PincerAttack
+- Fix attacking an enemy while both at the corner causing clipping
+  Reported by Janne Pakarinen
+- Fix audio stutter on lower end systems
+  Reported by PincerAttack
