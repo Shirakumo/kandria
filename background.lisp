@@ -14,10 +14,6 @@
 
 (defmethod layer-index ((_ background)) 0)
 
-(defmethod clone ((background background))
-  (make-instance (class-of background)
-                 :texture (texture background)))
-
 (defmethod render ((background background) (program shader-program))
   (let ((vao (vertex-array background)))
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))

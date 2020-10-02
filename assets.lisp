@@ -55,6 +55,9 @@
 (define-asset (leaf debug-door) trial:sprite-data
     #p"debug-door.json")
 
+(define-asset (leaf passage) trial:sprite-data
+    #p"passage.json")
+
 (define-asset (leaf effects) trial:sprite-data
     #p"effects.json")
 
