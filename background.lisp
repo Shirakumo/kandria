@@ -16,7 +16,7 @@
 
 (defmethod render ((background background) (program shader-program))
   (let ((vao (vertex-array background)))
-    (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
+    (setf (uniform program "view_size") (vec2 (max 1 (width *context*)) (max 1 (height *context*))))
     (setf (uniform program "view_matrix") (minv *view-matrix*))
     (setf (uniform program "model_matrix") (minv *model-matrix*))
     (setf (uniform program "parallax_speed") (parallax-speed background))

@@ -95,8 +95,13 @@
 (defmethod handle ((ev switch-chunk) (camera camera))
   (setf (region camera) (chunk ev)))
 
+(defmethod handle ((ev window-shown) (camera camera))
+  (if (target camera)
+      (snap-to-target camera (target camera))
+      (vsetf (location camera) 0 0)))
+
 (defmethod project-view ((camera camera))
-  (let* ((z (* (view-scale camera) (zoom camera)))
+  (let* ((z (max 0.0001 (* (view-scale camera) (zoom camera))))
          (v (nv- (v/ (target-size camera) (zoom camera)) (location camera))))
     (reset-matrix *view-matrix*)
     (scale-by z z z *view-matrix*)
