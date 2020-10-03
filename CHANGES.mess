@@ -27,6 +27,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by PincerAttack
 - Don't let errors in the render loop hang the game
   Reported by Selwyn Simsek
+- Fix minimising the window crashing the game
+  Reported by PincerAttack
 
 ## TODO
 - Fix slopes with ceilings above allowing clipping
