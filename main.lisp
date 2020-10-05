@@ -46,7 +46,8 @@
   (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   (load-mapping (merge-pathnames "keymap.lisp" (root)))
-  (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)))
+  (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)
+                                             :effects `((mixed:frequency-pass :cutoff 500 :bypass T :name low-pass))))
   (loop for (k v) on (setting :audio :volume) by #'cddr
         do (setf (harmony:volume k) v))
   ;; Load initial state
