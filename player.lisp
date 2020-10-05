@@ -67,7 +67,7 @@
     (T 1.9)))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(dash jump land slide step))
+  (dolist (sound '(dash jump land slide step death))
     (stage (// 'leaf sound) area))
   (stage (prompt player) area))
 
@@ -511,6 +511,7 @@
   (shake-camera :intensity 10))
 
 (defmethod kill :after ((player player))
+  (harmony:play (// 'leaf 'death))
   (setf (clock (progression 'death +world+)) 0f0)
   (start (progression 'death +world+)))
 

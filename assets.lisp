@@ -93,3 +93,7 @@
 (define-asset (leaf step) sound
     #p"sound/step.wav"
   :volume 0.025)
+
+(define-asset (leaf death) sound
+    #p"sound/death.wav"
+  :volume 0.1)
