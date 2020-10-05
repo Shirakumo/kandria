@@ -24,13 +24,15 @@
       (alloy:register (sidebar editor) (ui editor)))))
 
 (defun update-marker (editor entity)
-  (let* ((p (location entity))
-         (s (bsize entity))
-         (ul (vec3 (- (vx p) (vx s)) (+ (vy p) (vy s)) 0))
-         (ur (vec3 (+ (vx p) (vx s)) (+ (vy p) (vy s)) 0))
-         (br (vec3 (+ (vx p) (vx s)) (- (vy p) (vy s)) 0))
-         (bl (vec3 (- (vx p) (vx s)) (- (vy p) (vy s)) 0)))
-    (replace-vertex-data (marker editor) (list ul ur ur br br bl bl ul) :default-color (vec 1 1 1 1))))
+  (if entity
+      (let* ((p (location entity))
+             (s (bsize entity))
+             (ul (vec3 (- (vx p) (vx s)) (+ (vy p) (vy s)) 0))
+             (ur (vec3 (+ (vx p) (vx s)) (+ (vy p) (vy s)) 0))
+             (br (vec3 (+ (vx p) (vx s)) (- (vy p) (vy s)) 0))
+             (bl (vec3 (- (vx p) (vx s)) (- (vy p) (vy s)) 0)))
+        (replace-vertex-data (marker editor) (list ul ur ur br br bl bl ul) :default-color (vec 1 1 1 1)))
+      (replace-vertex-data (marker editor) ())))
 
 (defmethod active-p ((editor editor)) T)
 
@@ -39,7 +41,7 @@
     (sized-entity
      (update-marker editor value))
     (T
-     (replace-vertex-data (marker editor) ())))
+     (update-marker editor NIL)))
   (change-class editor (editor-class value))
   (v:info :leaf.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
@@ -52,6 +54,8 @@
                         (T (tool editor))))))
 
 (defmethod render ((editor editor) target)
+  (when (entity editor)
+    (update-marker editor (entity editor)))
   (gl:blend-func :one-minus-dst-color :zero)
   (render (marker editor) target)
   (gl:blend-func :src-alpha :one-minus-src-alpha)
@@ -100,8 +104,9 @@
 (defmethod alloy:handle :before ((event alloy:pointer-move) (ui editor-ui))
   (when (null (entity (unit :editor T)))
     (let* ((pos (alloy:location event))
-           (pos (mouse-world-pos (vec (alloy:pxx pos) (alloy:pxy pos)))))
-      (update-marker (unit :editor T) (entity-at-point pos +world+)))))
+           (pos (mouse-world-pos (vec (alloy:pxx pos) (alloy:pxy pos))))
+           (entity (entity-at-point pos +world+)))
+      (update-marker (unit :editor T) entity))))
 
 (defmethod edit (action (editor (eql T)))
   (edit action (unit :editor T)))
