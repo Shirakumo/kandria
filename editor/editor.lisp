@@ -23,25 +23,33 @@
       (alloy:enter (sidebar editor) focus)
       (alloy:register (sidebar editor) (ui editor)))))
 
-(defun update-marker (editor entity)
-  (if entity
-      (let* ((p (location entity))
-             (s (bsize entity))
-             (ul (vec3 (- (vx p) (vx s)) (+ (vy p) (vy s)) 0))
-             (ur (vec3 (+ (vx p) (vx s)) (+ (vy p) (vy s)) 0))
-             (br (vec3 (+ (vx p) (vx s)) (- (vy p) (vy s)) 0))
-             (bl (vec3 (- (vx p) (vx s)) (- (vy p) (vy s)) 0)))
-        (replace-vertex-data (marker editor) (list ul ur ur br br bl bl ul) :default-color (vec 1 1 1 1)))
-      (replace-vertex-data (marker editor) ())))
+(defun update-marker (editor entity &optional (color (vec 1 1 1 1)))
+  (flet ((coordinates (entity)
+           (let* ((p (location entity))
+                  (s (bsize entity))
+                  (ul (vec3 (- (vx p) (vx s)) (+ (vy p) (vy s)) 0))
+                  (ur (vec3 (+ (vx p) (vx s)) (+ (vy p) (vy s)) 0))
+                  (br (vec3 (+ (vx p) (vx s)) (- (vy p) (vy s)) 0))
+                  (bl (vec3 (- (vx p) (vx s)) (- (vy p) (vy s)) 0)))
+             (list ul ur ur br br bl bl ul))))
+    (etypecase entity
+      (sized-entity
+       (replace-vertex-data (marker editor) (coordinates entity)
+                            :default-color color))
+      (cons
+       (replace-vertex-data (marker editor) (loop for e in entity nconc (coordinates e))
+                            :default-color color))
+      (null
+       (replace-vertex-data (marker editor) ())))))
 
 (defmethod active-p ((editor editor)) T)
 
 (defmethod (setf entity) :after (value (editor editor))
-  (typecase value
-    (sized-entity
-     (update-marker editor value))
-    (T
-     (update-marker editor NIL)))
+  (let ((entities ()))
+    (for:for ((entity over (region +world+)))
+      (when (typep entity '(and sized-entity (or chunk (not layer))))
+        (push entity entities)))
+    (update-marker (unit :editor T) (if (typep value 'sized-entity) (list* value entities) entities)))
   (change-class editor (editor-class value))
   (v:info :leaf.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
@@ -54,8 +62,8 @@
                         (T (tool editor))))))
 
 (defmethod render ((editor editor) target)
-  (when (entity editor)
-    (update-marker editor (entity editor)))
+  ;; (when (entity editor)
+  ;;   (update-marker editor (entity editor)))
   (gl:blend-func :one-minus-dst-color :zero)
   (render (marker editor) target)
   (gl:blend-func :src-alpha :one-minus-src-alpha)
@@ -86,6 +94,7 @@
           (:b (setf (tool editor) (make-instance 'browser :editor editor)))
           (:f (setf (tool editor) (make-instance 'freeform :editor editor)))
           (:p (setf (tool editor) (make-instance 'paint :editor editor)))
+          (:l (setf (tool editor) (make-instance 'line :editor editor)))
           ((:w :up) (incf (vy (location camera)) 5))
           ((:a :left) (decf (vx (location camera)) 5))
           ((:s :down) (decf (vy (location camera)) 5))
@@ -100,13 +109,6 @@
                  (pos (mouse-world-pos (vec (alloy:pxx pos) (alloy:pxy pos)))))
             (setf (entity (unit :editor T)) (entity-at-point pos +world+)))
           (alloy:decline)))))
-
-(defmethod alloy:handle :before ((event alloy:pointer-move) (ui editor-ui))
-  (when (null (entity (unit :editor T)))
-    (let* ((pos (alloy:location event))
-           (pos (mouse-world-pos (vec (alloy:pxx pos) (alloy:pxy pos))))
-           (entity (entity-at-point pos +world+)))
-      (update-marker (unit :editor T) entity))))
 
 (defmethod edit (action (editor (eql T)))
   (edit action (unit :editor T)))
