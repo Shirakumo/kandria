@@ -9,8 +9,7 @@
 (defmethod handle ((event event) (tool tool)))
 
 (defmethod commit ((action action) (tool tool))
-  (redo action (unit 'region T))
-  (commit action (history (editor tool))))
+  (edit action (editor tool)))
 
 (defmethod entity ((tool tool))
   (entity (editor tool)))
