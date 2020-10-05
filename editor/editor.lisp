@@ -40,16 +40,19 @@
        (replace-vertex-data (marker editor) (loop for e in entity nconc (coordinates e))
                             :default-color color))
       (null
-       (replace-vertex-data (marker editor) ())))))
+       (replace-vertex-data (marker editor) ()))
+      ((eql T)
+       (let ((entities ())
+             (entity (entity editor)))
+         (for:for ((entity over (region +world+)))
+           (when (typep entity '(and sized-entity (or chunk (not layer))))
+             (push entity entities)))
+         (update-marker (unit :editor T) (if (typep entity 'sized-entity) (list* entity entities) entities)))))))
 
 (defmethod active-p ((editor editor)) T)
 
 (defmethod (setf entity) :after (value (editor editor))
-  (let ((entities ()))
-    (for:for ((entity over (region +world+)))
-      (when (typep entity '(and sized-entity (or chunk (not layer))))
-        (push entity entities)))
-    (update-marker (unit :editor T) (if (typep value 'sized-entity) (list* value entities) entities)))
+  (update-marker editor T)
   (change-class editor (editor-class value))
   (v:info :leaf.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
@@ -62,8 +65,6 @@
                         (T (tool editor))))))
 
 (defmethod render ((editor editor) target)
-  ;; (when (entity editor)
-  ;;   (update-marker editor (entity editor)))
   (gl:blend-func :one-minus-dst-color :zero)
   (render (marker editor) target)
   (gl:blend-func :src-alpha :one-minus-src-alpha)
@@ -110,8 +111,15 @@
             (setf (entity (unit :editor T)) (entity-at-point pos +world+)))
           (alloy:decline)))))
 
+(defmethod edit :after (action (editor editor))
+  (update-marker editor T))
+
 (defmethod edit (action (editor (eql T)))
   (edit action (unit :editor T)))
+
+(defmethod edit ((action action) (editor editor))
+  (redo action (unit 'region T))
+  (commit action (history editor)))
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (let ((old (unit 'region +world+)))
