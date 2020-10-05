@@ -213,6 +213,10 @@ void main(){
   (call-next-method)
   #++(compile-to-pass (node-graph chunk) pass))
 
+(defmethod compile-into-pass :after ((chunk chunk) container (pass shader-pass))
+  (loop for layer across (layers chunk)
+        do (compile-into-pass layer container pass)))
+
 (defmethod render :around ((chunk chunk) (program shader-program))
   (cond ((show-solids chunk)
          (setf (uniform program "visibility") 1.0)
@@ -237,6 +241,8 @@ void main(){
         do (leave layer container)))
 
 (defmethod stage :after ((chunk chunk) (area staging-area))
+  (loop for layer across (layers chunk)
+        do (stage layer area))
   (stage (node-graph chunk) area))
 
 (defmethod clone ((chunk chunk) &key initargs)
