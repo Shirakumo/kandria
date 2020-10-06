@@ -54,7 +54,7 @@
            (flood-fill entity loc tile))
           ((and (typep event 'mouse-press) (eql :middle (button event)))
            (setf (tile-to-place (sidebar (editor tool)))
-                 (print (tile loc entity))))
+                 (tile loc entity)))
           ((and (tile loc entity) (v/= tile (tile loc entity)))
            (setf (state tool) :placing)
            (commit (capture-action (tile loc entity) tile) tool)))))
