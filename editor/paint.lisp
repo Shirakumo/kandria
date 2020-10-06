@@ -34,7 +34,9 @@
 (defmethod handle ((event mouse-scroll) (tool paint))
   (let ((tile (tile-to-place (sidebar (editor tool)))))
     (setf (tile-to-place (sidebar (editor tool)))
-          (vec (+ (vx tile) (signum (delta event))) (vy tile)))))
+          (if (retained :shift)
+              (vec (vx tile) (+ (vy tile) (signum (delta event))))
+              (vec (+ (vx tile) (signum (delta event))) (vy tile))))))
 
 (defun paint-tile (tool event)
   (let* ((entity (entity tool))
