@@ -410,7 +410,8 @@
   (incf (jump-time player) (dt ev))
   (incf (air-time player) (dt ev))
   ;; OOB
-  (unless (contained-p (location player) (chunk player))
+  (when (and (not (eql :dying (state player)))
+             (not (contained-p (location player) (chunk player))))
     (let ((other (find-containing player (region +world+))))
       (cond (other
              (issue +world+ 'switch-chunk :chunk other))
