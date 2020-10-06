@@ -45,6 +45,8 @@ void main(){
 (defmethod (setf animations) :after (animations (door door))
   (setf (next-animation (find 'open (animations door) :key #'name)) 'idle))
 
+(defmethod default-tool ((door door)) (find-class 'freeform))
+
 (defmethod enter :after ((door door) (region region))
   (when (primary door)
     (let* ((location (etypecase (target door)

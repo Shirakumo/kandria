@@ -6,7 +6,6 @@
 (defmethod label ((tool paint)) "Paint")
 
 (defmethod handle ((event mouse-press) (tool paint))
-  (setf (state tool) :placing)
   (paint-tile tool event))
 
 (defmethod handle ((event mouse-release) (tool paint))
@@ -44,5 +43,9 @@
            (auto-tile entity loc))
           ((retained :shift)
            (flood-fill entity loc tile))
+          ((and (typep event 'mouse-press) (eql :middle (button event)))
+           (setf (tile-to-place (sidebar (editor tool)))
+                 (print (tile loc entity))))
           ((and (tile loc entity) (v/= tile (tile loc entity)))
+           (setf (state tool) :placing)
            (commit (capture-action (tile loc entity) tile) tool)))))

@@ -20,7 +20,7 @@
     (setf (active-p light) (if value 1 0))))
 
 (defun update-lighting (hour)
-  (let ((tt (* (/ hour 24) 2 PI)))
+  (let ((tt (* (/ 9 24) 2 PI)))
     (with-buffer-tx (light (// 'leaf 'light-info))
       (setf (sun-position light) (vec2 (* -10000 (sin tt)) (* 10000 (- (cos tt)))))
       (setf (sun-light light) (v* (clock-color (/ (* tt 180) PI 15)) 10))

@@ -142,6 +142,19 @@
      o s o
      _ o _)))
 
+(defun tile-type-p (tile type)
+  (ecase type
+    ;; Tiles that are "outside"
+    (o (or (= 0 tile) (= 3 tile)))
+    ;; Tiles that are edges
+    (s (or (= 1 tile) (= 2 tile) (<= 4 tile 254)))
+    ;; Tiles that are edges or inside
+    (x (< 0 tile))
+    ;; Tiles that are empty but inside
+    (i (= 255 tile))
+    ;; Any tile at all (don't care)
+    (_ T)))
+
 (defun filter-edge (solids width height x y)
   (labels ((pos (x y)
              (* (+ x (* y width)) 2))
@@ -158,12 +171,7 @@
                          for x = (- (mod i 3) 1)
                          for y = (- 1 (floor i 3))
                          for tile = (tile x y)
-                         always (case v
-                                  (o (= 0 tile))
-                                  (s (<= 1 tile 254))
-                                  (x (< 0 tile))
-                                  (i (= 255 tile))
-                                  (_ T)))
+                         always (tile-type-p tile v) )
                #+(OR)
                (warn "~a at ~3d,~3d:~%~3d ~3d ~3d~%~3d ~3d ~3d~%~3d ~3d ~3d" type x y
                      (tile -1 +1) (tile 0 +1) (tile +1 +1)

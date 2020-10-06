@@ -90,6 +90,11 @@
              (+ (vy pos) t-s))
       (setf (vy loc) (+ (vy pos) t-s height)))))
 
+(defmethod collides-p ((moving moving) (block spike) hit)
+  ;; Switch to using circular mask for more lenient detection.
+  (let ((sqrdist (vsqrdist2 (location moving) (hit-location hit))))
+    (< sqrdist (1- (expt +tile-size+ 2)))))
+
 (defmethod collide ((moving moving) (block spike) hit)
   (die moving))
 

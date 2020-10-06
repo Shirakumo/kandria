@@ -515,7 +515,8 @@
   (setf (clock (progression 'death +world+)) 0f0)
   (start (progression 'death +world+)))
 
-(defmethod die ((player player)))
+(defmethod die ((player player))
+  (kill player))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
