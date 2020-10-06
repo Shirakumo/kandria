@@ -223,10 +223,10 @@ void main(){
 
 (defmethod render :around ((chunk chunk) (program shader-program))
   (cond ((show-solids chunk)
-         (setf (uniform program "visibility") 1.0)
+         (setf (visibility chunk) 1.0)
          (call-next-method))
         ((active-p (unit :editor T))
-         (setf (uniform program "visibility") 0.3)
+         (setf (visibility chunk) 0.3)
          (call-next-method))))
 
 (defmethod enter :after ((chunk chunk) (container container))
