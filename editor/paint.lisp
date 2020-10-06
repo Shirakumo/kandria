@@ -6,10 +6,17 @@
 (defmethod label ((tool paint)) "Paint")
 
 (defmethod handle ((event mouse-press) (tool paint))
-  (paint-tile tool event))
+  (paint-tile tool event)
+  (loop for layer across (layers (entity tool))
+        for i from 0
+        do (if (= i (layer (sidebar (editor tool))))
+               (setf (visibility layer) 1.0)
+               (setf (visibility layer) 0.5))))
 
 (defmethod handle ((event mouse-release) (tool paint))
-  (setf (state tool) NIL))
+  (setf (state tool) NIL)
+  (loop for layer across (layers (entity tool))
+        do (setf (visibility layer) 1.0)))
 
 (defmethod handle ((event mouse-move) (tool paint))
   (case (state tool)

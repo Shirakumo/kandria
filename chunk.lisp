@@ -6,6 +6,7 @@
    (layer-index :initarg :layer-index :initform 0 :accessor layer-index)
    (albedo :initarg :albedo :initform (// 'leaf 'debug) :accessor albedo)
    (absorption :initarg :absorption :initform (// 'leaf 'debug) :accessor absorption)
+   (visibility :initform 1.0 :accessor visibility)
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
   (:inhibit-shaders (shader-entity :fragment-shader)))
@@ -124,6 +125,7 @@
 
 (defmethod render ((layer layer) (program shader-program))
   (when (in-view-p (location layer) (bsize layer))
+    (setf (uniform program "visibility") (visibility layer))
     (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "map_size") (size layer))
     (setf (uniform program "map_position") (location layer))
@@ -165,6 +167,7 @@ uniform sampler2D absorption;
 uniform vec2 map_size;
 uniform vec2 map_position;
 uniform int tile_size = 16;
+uniform float visibility = 1.0;
 in vec2 map_coord;
 out vec4 color;
 
@@ -181,7 +184,7 @@ void main(){
   tile_xy = ivec2(tile)*tile_size+pixel_xy;
   color = texelFetch(albedo, tile_xy, 0);
   float absor = texelFetch(absorption, tile_xy, 0).r;
-  color = apply_lighting(color, vec2(0), 1-absor);
+  color = apply_lighting(color, vec2(0), 1-absor) * visibility;
 }")
 
 (define-shader-entity chunk (shadow-caster layer solid)
@@ -225,13 +228,6 @@ void main(){
         ((active-p (unit :editor T))
          (setf (uniform program "visibility") 0.3)
          (call-next-method))))
-
-(define-class-shader (chunk :fragment-shader)
-  "uniform float visibility = 1.0;
-out vec4 color;
-void main(){
-  color *= visibility;
-}")
 
 (defmethod enter :after ((chunk chunk) (container container))
   (loop for layer across (layers chunk)
