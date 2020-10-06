@@ -85,6 +85,8 @@
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
+    ;; Force clamp velocity to zero to avoid "speeding up while on ground"
+    (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
     ;; Zip
     (when (< (- (vy loc) height)
              (+ (vy pos) t-s))
@@ -113,8 +115,9 @@
     (setf (svref (collisions moving) 2) block)
     (nv+ loc (v* vel (hit-time hit)))
     (nv- vel (v* normal (v. vel normal)))
-    ;; Make sure we stop sliding down the slope.
+    ;; Force clamp velocity to zero to avoid "speeding up while on ground"
     (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
+    ;; Make sure we stop sliding down the slope.
     (when (< (abs (vx vel)) 0.1)
       (setf (vx vel) 0))
     ;; Zip
