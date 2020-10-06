@@ -376,12 +376,7 @@
                          (incf (vx vel) ground-acc)
                          (setf (vx vel) ground-limit)))
                     (T
-                     (setf (vx vel) 0)))
-              (when (typep (svref collisions 2) 'slope)
-                (let ((incline (- (vy (slope-l (svref collisions 2)))
-                                  (vy (slope-r (svref collisions 2))))))
-                  (when (= (signum (vx vel)) (signum incline))
-                    (decf (vy vel) (/ (abs incline) 8))))))
+                     (setf (vx vel) 0))))
              ((retained 'left)
               (setf (direction player) -1)
               (when (< (- ground-limit) (vx vel))
