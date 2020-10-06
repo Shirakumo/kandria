@@ -72,20 +72,21 @@
   (stage (prompt player) area))
 
 (defmethod handle ((ev interact) (player player))
-  (typecase (interactable player)
-    (null)
-    (door
-     (setf (animation (interactable player)) 'open)
-     (let ((location (location (target (interactable player)))))
-       (transition
-         (setf (animation (target (interactable player))) 'open)
-         (vsetf (location player) (vx location) (- (vy location) 8))
-         (snap-to-target (unit :camera T) player))))
-    (rope)
-    ;; Trigger dialogue interactions somehow.
-    (T
-     (hide (prompt player))
-     (issue +world+ 'interaction :with (interactable player)))))
+  (let ((interactable (interactable player)))
+    (typecase interactable
+      (null)
+      (door
+       (setf (animation interactable) 'open)
+       (let ((location (location (target interactable))))
+         (transition
+           (setf (animation (target interactable)) 'open)
+           (vsetf (location player) (vx location) (- (vy location) 8))
+           (snap-to-target (unit :camera T) player))))
+      (rope)
+      ;; Trigger dialogue interactions somehow.
+      (T
+       (hide (prompt player))
+       (issue +world+ 'interaction :with interactable)))))
 
 (defmethod handle ((ev dash) (player player))
   (let ((vel (velocity player)))
