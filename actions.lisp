@@ -3,6 +3,7 @@
 (define-action editor-command ())
 
 (define-action toggle-editor (editor-command))
+(define-action toggle-diagnostics (editor-command))
 
 (define-action report-bug (editor-command))
 

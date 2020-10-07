@@ -1,6 +1,9 @@
 (trigger toggle-editor
  (key :one-of (:section)))
 
+(trigger toggle-diagnostics
+ (key :one-of (:f11)))
+
 (trigger report-bug
  (key :one-of (:f12)))
 
