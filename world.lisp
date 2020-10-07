@@ -95,6 +95,12 @@
   (pause-game world (unit 'ui-pass world))
   (make-instance 'report-input :ui (unit 'ui-pass world)))
 
+(defmethod handle ((ev toggle-diagnostics) (world world))
+  (let ((panel (find 'diagnostics (panels (unit 'ui-pass world)) :key #'type-of)))
+    (if panel
+        (hide panel)
+        (show (make-instance 'diagnostics)))))
+
 (defmethod handle :after ((ev trial:tick) (world world))
   (when (= 0 (mod (fc ev) 10))
     (quest:try (storyline world))))

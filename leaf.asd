@@ -46,7 +46,8 @@
                 :components ((:file "general")
                              (:file "dialog")
                              (:file "report")
-                             (:file "prompt")))
+                             (:file "prompt")
+                             (:file "diagnostics")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
