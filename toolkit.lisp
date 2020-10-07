@@ -17,7 +17,7 @@
              (commit (trim (alexandria:read-file-into-string (file (merge-pathnames path ".git/"))))))
         (format NIL "~a-~a"
                 (asdf:component-version (asdf:find-system "leaf"))
-                commit))))
+                (subseq commit 0 7)))))
 
 (defun root ()
   (if (deploy:deployed-p)
