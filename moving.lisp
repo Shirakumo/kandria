@@ -95,7 +95,7 @@
 (defmethod collides-p ((moving moving) (block spike) hit)
   ;; Switch to using circular mask for more lenient detection.
   (let ((sqrdist (vsqrdist2 (location moving) (hit-location hit))))
-    (< sqrdist (1- (expt +tile-size+ 2)))))
+    (< sqrdist (expt +tile-size+ 2))))
 
 (defmethod collide ((moving moving) (block spike) hit)
   (die moving))
@@ -134,11 +134,14 @@
          (normal (hit-normal hit))
          (bsize (bsize moving))
          (psize (bsize other)))
-    (cond ((= +1 (vy normal)) (setf (svref (collisions moving) 2) other))
+    (cond ((= +1 (vy normal)) (setf (svref (collisions moving) 2) other)
+           (setf (vy (velocity moving)) (max (vy (velocity other)) (vy (velocity moving)))))
           ((= -1 (vy normal)) (setf (svref (collisions moving) 0) other))
           ((= +1 (vx normal)) (setf (svref (collisions moving) 3) other))
           ((= -1 (vx normal)) (setf (svref (collisions moving) 1) other)))
-    (nv+ loc (v* (v- vel (velocity other)) 0.9 (hit-time hit)))
+    ;; I know not doing this seems very wrong, but doing it
+    ;; causes weirdly slow movement on falling platforms.
+    ;;(nv+ loc (v* (v+ vel (frame-velocity other)) (hit-time hit)))
     (cond ((< (* (vy vel) (vy normal)) 0) (setf (vy vel) 0))
           ((< (* (vx vel) (vx normal)) 0) (setf (vx vel) 0)))
     (nv+ vel (velocity other))
