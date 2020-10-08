@@ -13,7 +13,7 @@
 (falling-platform :location (10472.0 -256.0) :texture (leaf tundra albedo) :size (80.0 80.0) :offset (0.0 48.0) :layer 1 :name entity-4768)
 (interactable-sprite :location (9256.0 -152.0) :texture (leaf tundra albedo) :size (16.0 16.0) :offset (0.0 0.0) :layer 1 :name sign)
 (rope :location (5296.0 -24.0) :bsize (8.0 136.0))
-(player :location (10546.703 -201.0) :name player)
+(player :location (7359.0 -97.0) :name player)
 (balloon :location (160.0 48.0) :name nil)
 (balloon :location (224.0 80.0) :name nil)
 (balloon :location (280.0 120.0) :name nil)

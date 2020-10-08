@@ -13,7 +13,7 @@
 (quest-graph:interaction :name sign-check :interactable sign :dialogue "
 ~ player
 | The lettering is withered and worn down. It's hard to make the writing out. Let's see...
-| \"Don't leave your trash around here! If I catch another one of you pieces doing it I'll throw you off the cliff myself like the piece of garbage you are.\"
+| \"Don't leave your trash around here! If I catch another one of you doing it I'll throw you off the cliff myself like the piece of garbage you are.\"
 | Signed \"Harris\". (:giggle)Charming fellow!")
 (quest-graph:interaction :name corpse-check :interactable corpse :dialogue "
 ~ player
