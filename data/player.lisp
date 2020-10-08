@@ -26,7 +26,9 @@
    (HEAVY-GROUND-2       :loop-to 196 :next STAND)
    (HARD-HIT             :loop-to 207 :next STAND)
    (LIGHT-HIT            :loop-to 207 :next STAND)
-   (DIE                  :next STAND))
+   (DIE                  :next STAND)
+   (ENTER                :next ENTER)
+   (EXIT                 :next STAND))
  :frames
   (
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  2.0  0.0  0.0))

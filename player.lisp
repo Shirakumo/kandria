@@ -78,7 +78,9 @@
       (door
        (setf (animation interactable) 'open)
        (let ((location (location (target interactable))))
+         (start-animation 'enter player)
          (transition
+           (start-animation 'exit player)
            (setf (animation (target interactable)) 'open)
            (vsetf (location player) (vx location) (- (vy location) 8))
            (snap-to-target (unit :camera T) player))))

@@ -1933,11 +1933,29 @@
     "spriteSourceSize": { "x": 41, "y": 31, "w": 13, "h": 33 },
     "sourceSize": { "w": 96, "h": 64 },
     "duration": 200
+   },
+   {
+    "filename": "player 215.ase",
+    "frame": { "x": 14, "y": 325, "w": 13, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 41, "y": 31, "w": 13, "h": 33 },
+    "sourceSize": { "w": 96, "h": 64 },
+    "duration": 200
+   },
+   {
+    "filename": "player 216.ase",
+    "frame": { "x": 14, "y": 325, "w": 13, "h": 33 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 41, "y": 31, "w": 13, "h": 33 },
+    "sourceSize": { "w": 96, "h": 64 },
+    "duration": 200
    }
  ],
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.2.21-x64",
+  "version": "1.2.25-x64",
   "image": "player.png",
   "format": "RGBA8888",
   "size": { "w": 441, "h": 388 },
@@ -1968,7 +1986,9 @@
    { "name": "Heavy Ground 2", "from": 177, "to": 195, "direction": "forward" },
    { "name": "Hard Hit", "from": 196, "to": 206, "direction": "forward" },
    { "name": "Die", "from": 196, "to": 206, "direction": "forward" },
-   { "name": "Light hit", "from": 207, "to": 214, "direction": "forward" }
+   { "name": "Light hit", "from": 207, "to": 214, "direction": "forward" },
+   { "name": "Enter", "from": 215, "to": 215, "direction": "forward" },
+   { "name": "Exit", "from": 216, "to": 216, "direction": "forward" }
   ],
   "layers": [
    { "name": "Base", "opacity": 255, "blendMode": "normal" },
