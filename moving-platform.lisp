@@ -10,27 +10,27 @@
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
 (define-shader-entity falling-platform (lit-sprite moving-platform)
-  ((gravity :initform +vgrav+ :initarg :gravity :accessor gravity)))
+  ())
 
 (defmethod (setf location) :after (location (platform falling-platform))
   (setf (state platform) :normal))
 
 (defmethod handle ((ev tick) (platform falling-platform))
   (ecase (state platform)
-    (:blocked)
+    (:blocked
+     (vsetf (velocity platform) 0 0))
     (:normal
      (loop repeat 10 while (handle-collisions +world+ platform)))
     (:falling
-     (nv+ (velocity platform) (v* (gravity platform) (dt ev)))
+     (nv+ (velocity platform) (nv* (vec 0 -0.10) (* 100 (dt ev))))
      (nv+ (frame-velocity platform) (velocity platform))
      (loop repeat 10 while (handle-collisions +world+ platform)))))
 
 (defmethod collide :before ((player player) (platform falling-platform) hit)
   (when (< 0 (vy (hit-normal hit)))
-    (nv+ (frame-velocity platform) (velocity platform))
-    (if (scan-collision +world+ platform)
-        (vsetf (velocity platform) 0 0)
-        (setf (state platform) :falling))))
+    (case (state platform)
+      (:normal
+       (setf (state platform) :falling)))))
 
 (defmethod collide ((platform falling-platform) (other falling-platform) hit)
   (when (and (eq :falling (state platform))
@@ -46,7 +46,7 @@
 (defmethod collide ((platform falling-platform) (solid solid) hit)
   (when (eq :falling (state platform))
     (let ((vel (frame-velocity platform)))
-      (shake-camera)
+      (shake-camera :intensity 5)
       (setf (state platform) :blocked)
       (nv+ (location platform) (v* vel (hit-time hit)))
       (vsetf vel 0 0))))
@@ -54,7 +54,7 @@
 (defmethod collide ((platform falling-platform) (block block) hit)
   (when (eq :falling (state platform))
     (let ((vel (frame-velocity platform)))
-      (shake-camera)
+      (shake-camera :intensity 5)
       (setf (state platform) :blocked)
       (nv+ (location platform) (v* vel (hit-time hit)))
       (vsetf vel 0 0))))

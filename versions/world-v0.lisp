@@ -87,22 +87,22 @@
   `(,(type-of game-entity) :location ,(encode (location game-entity))
                            :name ,(name game-entity)))
 
-(define-decoder (interactable-sprite world-v0) (initargs _p)
+(define-decoder (sprite-entity world-v0) (initargs _p)
   (destructuring-bind (&key name location size offset layer texture) initargs
-    (make-instance (class-of interactable-sprite) :location (decode 'vec2 location)
-                                                  :texture (decode 'texture texture)
-                                                  :size (decode 'vec2 size)
-                                                  :offset (decode 'vec2 offset)
-                                                  :layer layer
-                                                  :name name)))
+    (make-instance (class-of sprite-entity) :location (decode 'vec2 location)
+                                            :texture (decode 'texture texture)
+                                            :size (decode 'vec2 size)
+                                            :offset (decode 'vec2 offset)
+                                            :layer layer
+                                            :name name)))
 
-(define-encoder (interactable-sprite world-v0) (_b _p)
-  `(,(type-of interactable-sprite) :location ,(encode (location interactable-sprite))
-                                   :texture ,(encode (texture interactable-sprite))
-                                   :size ,(encode (size interactable-sprite))
-                                   :offset ,(encode (offset interactable-sprite))
-                                   :layer ,(layer-index interactable-sprite)
-                                   :name ,(name interactable-sprite)))
+(define-encoder (sprite-entity world-v0) (_b _p)
+  `(,(type-of sprite-entity) :location ,(encode (location sprite-entity))
+                             :texture ,(encode (texture sprite-entity))
+                             :size ,(encode (size sprite-entity))
+                             :offset ,(encode (offset sprite-entity))
+                             :layer ,(layer-index sprite-entity)
+                             :name ,(name sprite-entity)))
 
 (define-decoder (chunk world-v0) (initargs packet)
   (destructuring-bind (&key name location size tile-data pixel-data layers lighting) initargs
@@ -138,22 +138,6 @@
 
 (define-encoder (background world-v0) (_b _p)
   `(background :texture ,(encode (texture background))))
-
-(define-decoder (falling-platform world-v0) (initargs _)
-  (destructuring-bind (&key texture gravity location bsize frame) initargs
-    (make-instance 'falling-platform
-                   :texture (decode 'resource texture)
-                   :gravity (decode 'vec2 gravity)
-                   :location (decode 'vec2 location)
-                   :frame-idx (decode 'vec2 frame)
-                   :bsize (decode 'vec2 bsize))))
-
-(define-encoder (falling-platform world-v0) (_b _p)
-  `(falling-platform :texture ,(encode (texture falling-platform))
-                     :gravity ,(encode (gravity falling-platform))
-                     :location ,(encode (location falling-platform))
-                     :frame ,(encode (frame-idx falling-platform))
-                     :bsize ,(encode (bsize falling-platform))))
 
 (define-decoder (rope world-v0) (initargs _)
   (destructuring-bind (&key location bsize) initargs
