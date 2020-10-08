@@ -127,8 +127,10 @@
       (loop for expr in animations
             do (destructuring-bind (name &key loop-to next) expr
                  (let ((animation (find name (animations sprite) :key #'name)))
-                   (setf (loop-to animation) loop-to)
-                   (setf (next-animation animation) next))))
+                   (when loop-to
+                     (setf (loop-to animation) loop-to))
+                   (when next
+                     (setf (next-animation animation) next)))))
       ;; Note: using POP instead of IN here to still change-class frames at the tail with no spec.
       (loop for expr = (pop frames)
             for frame across (frames sprite)
