@@ -155,15 +155,8 @@
                  (load! path)))))))
 
 (defmethod edit ((action (eql 'delete-entity)) (editor editor))
-  (cl:block traverse
-    (labels ((traverse (parent)
-               (for:for ((unit over parent))
-                 (cond ((eql unit (entity editor))
-                        (leave (entity editor) parent)
-                        (return-from traverse))
-                       ((typep unit 'container)
-                        (traverse unit))))))
-      (traverse +world+)))
+  ;; FIXME: Clean up stale data files from region packet.
+  (leave (entity editor) (container (entity editor)))
   (setf (entity editor) NIL))
 
 (defmethod edit ((action (eql 'insert-entity)) (editor editor))
