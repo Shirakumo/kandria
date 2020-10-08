@@ -64,9 +64,8 @@
           (gamepad:rumble device (if (< 0 (shake-counter camera))
                                      (shake-intensity camera)
                                      0)))
-        (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera))))
-      ;; Fit camera inside range
-      #++(clamp-camera-target camera loc))))
+        (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera)))
+        (clamp-camera-target camera loc)))))
 
 (defmethod (setf zoom) :after (zoom (camera camera))
   (setf (view-scale camera) (float (/ (width *context*) (* 2 (vx (target-size camera)))))))
