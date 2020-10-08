@@ -100,6 +100,9 @@
       (+ (rusage-inblock rusage)
          (rusage-oublock rusage)))))
 
+#-(or windows linux)
+(defun io-bytes () 0)
+
 (defclass diagnostics (panel alloy:observable-object)
   ((fps :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
    (ram :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
@@ -118,7 +121,7 @@
         (vram (alloy:represent (slot-value panel 'vram) 'alloy:plot
                                :y-range `(0 . ,(nth-value 1 (gpu-room))) :style `((:curve :line-width ,(alloy:un 2)))))
         (io (alloy:represent (slot-value panel 'io) 'alloy:plot
-                             :y-range `(0 . ,#+windows 1024 #+linux 100) :style `((:curve :line-width ,(alloy:un 2)))))
+                             :y-range `(0 . 1024) :style `((:curve :line-width ,(alloy:un 2)))))
         (gc (alloy:represent (slot-value panel 'gc) 'alloy:plot
                              :y-range `(0 . 100) :style `((:curve :line-width ,(alloy:un 2))))))
     (alloy:enter fps layout :constraints `((:size 300 120) (:left 10) (:top 10)))
