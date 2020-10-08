@@ -63,7 +63,8 @@ void main(){ color = vec4(0,0,0,strength); }")
    (strength :initform 0f0 :accessor strength)))
 
 (defmethod (setf strength) :after (strength (pass distortion-pass))
-  (setf (active-p pass) (< 0 strength)))
+  (unless (eq (active-p pass) (< 0 strength))
+    (setf (active-p pass) (< 0 strength))))
 
 (defmethod stage :after ((pass distortion-pass) (area staging-area))
   (stage (texture pass) area))
