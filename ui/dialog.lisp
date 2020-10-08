@@ -182,7 +182,7 @@
          (setf (char-timer dialog)
                (* (per-letter-tick dialog)
                   (case (char (text dialog) (1- (length (text dialog))))
-                    ((#\. #\! #\? #\: #\;) 5)
+                    ((#\. #\! #\? #\: #\;) 7.5)
                     ((#\,) 2.5)
                     (T 1)))))))
 
