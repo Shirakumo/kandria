@@ -54,8 +54,8 @@
       (princ* (list :author (author save-state)
                     :start-time (start-time save-state)
                     :save-time (save-time save-state))
-              stream)
-      (encode-payload world NIL packet version))))
+              stream))
+    (encode-payload world NIL packet version)))
 
 (defmethod load-state ((save-state save-state) world)
   (load-state (file save-state) world))
