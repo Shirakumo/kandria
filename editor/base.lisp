@@ -52,6 +52,12 @@
          (change-class editor 'inactive-editor)
          (unpause-game T editor))))
 
+(defmethod (setf tool) :around ((tool tool) (editor base-editor))
+  (let ((entity (entity editor)))
+    (if (find (type-of tool) (applicable-tools entity))
+        (call-next-method)
+        (v:info :kandria.editor "Refusing to set unapplicable tool ~a for entity ~a" tool entity))))
+
 (defmethod default-tool :around ((editor base-editor))
   (or (default-tool (entity editor))
       (call-next-method)))

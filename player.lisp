@@ -247,6 +247,8 @@
               (nv* vel (damp* (p! dash-dcc) dt)))
              ((< (p! dash-acc-start) (dash-time player))
               (nv* vel (p! dash-acc))))
+       (when (typep (interactable player) 'rope)
+         (nudge (interactable player) loc (* (direction player) 20)))
        ;; Adapt velocity if we are on sloped terrain
        ;; I'm not sure why this is necessary, but it is.
        (typecase (svref collisions 2)
@@ -262,8 +264,8 @@
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
-                       (scan-collision +world+ (vec (- (vx loc) (vx size) 2) (- (vy loc) (vy size) 8)))
-                       (scan-collision +world+ (vec (+ (vx loc) (vx size) 2) (- (vy loc) (vy size) 8)))))
+                       (scan-collision +world+ (vec (- (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))
+                       (scan-collision +world+ (vec (+ (vx loc) (vx size) 2) (- (vy loc) (vy size) 2)))))
               (attached (or (svref collisions (if (< 0 (direction player)) 1 3))
                             (interactable player)
                             top)))
@@ -303,8 +305,9 @@
                 (setf (vy vel) 0)))))
       (:crawling
        ;; Uncrawl on ground loss
-       (when (and (not (svref collisions 2))
-                  (not (svref collisions 0)))
+       (when (not (svref collisions 2))
+         (when (svref collisions 0)
+           (decf (vy loc) 16))
          (setf (state player) :normal))
        
        (cond ((retained 'left)
@@ -356,11 +359,13 @@
                        (target-x (+ (vx (location (interactable player))) (* direction -8))))
                   (unless (scan-collision +world+ (vec target-x (vy loc) (vx size) (vy size)))
                     (setf (direction player) direction)
-                    (setf (vx loc) target-x))))
+                    (setf (vx loc) target-x)
+                    (setf (state player) :climbing)
+                    (return-from handle))))
                (T
-                (setf (direction player) (if (svref (collisions player) 1) +1 -1))))
-         (setf (state player) :climbing)
-         (return-from handle))
+                (setf (direction player) (if (svref (collisions player) 1) +1 -1))
+                (setf (state player) :climbing)
+                (return-from handle))))
 
        ;; Movement
        (cond ((svref collisions 2)

@@ -49,7 +49,7 @@
               for (p2) = (aref chain i)
               for d = (v- p2 p1)
               for dist = (vlength d)
-              for frac = (/ (- 8 dist) dist 2)
+              for frac = (/ (- 8 dist) (max 0.1 dist) 2)
               do (nv* d frac)
                  (nv- p1 d)
                  (nv+ p2 d))))))
