@@ -9,7 +9,7 @@
 (defclass dialog-entity (interactable)
   ((interactions :initform () :accessor interactions)))
 
-(define-shader-entity interactable-sprite (lit-entity sprite-entity dialog-entity ephemeral)
+(define-shader-entity interactable-sprite (ephemeral lit-entity sprite-entity dialog-entity)
   ())
 
 (define-class-shader (interactable-sprite :fragment-shader)
