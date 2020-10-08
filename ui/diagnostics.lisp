@@ -12,14 +12,7 @@
   (cffi:defcfun (current-process "GetCurrentProcess") :pointer)
   (cffi:defcfun (process-io-counters "GetProcessIoCounters") :bool
     (process :pointer)
-    (counters :pointer))
-
-  (defun io-bytes ()
-    (cffi:with-foreign-object (io-counters '(:struct io-counters))
-      (process-io-counters (current-process) io-counters)
-      (+ (io-counters-read-bytes io-counters)
-         (io-counters-write-bytes io-counters)
-         (io-counters-other-bytes io-counters)))))
+    (counters :pointer)))
 
 #+linux
 (progn
@@ -93,15 +86,21 @@
     (nivcsw :long))
   (cffi:defcfun (rusage "getrusage") :int
     (who :int)
-    (struct :pointer))
-  (defun io-bytes ()
-    (cffi:with-foreign-object (rusage '(:struct rusage))
-      (rusage 0 rusage)
-      (+ (rusage-inblock rusage)
-         (rusage-oublock rusage)))))
+    (struct :pointer)))
 
-#-(or windows linux)
-(defun io-bytes () 0)
+(defun io-bytes ()
+  0
+  #+windows
+  (cffi:with-foreign-object (io-counters '(:struct io-counters))
+    (process-io-counters (current-process) io-counters)
+    (+ (io-counters-read-bytes io-counters)
+       (io-counters-write-bytes io-counters)
+       (io-counters-other-bytes io-counters)))
+  #+linux
+  (cffi:with-foreign-object (rusage '(:struct rusage))
+    (rusage 0 rusage)
+    (+ (rusage-inblock rusage)
+       (rusage-oublock rusage))))
 
 (defclass diagnostics (panel alloy:observable-object)
   ((fps :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
