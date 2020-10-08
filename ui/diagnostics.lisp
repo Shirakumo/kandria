@@ -105,7 +105,9 @@
    (ram :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
    (vram :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
    (io :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
-   (last-io :initform 0)))
+   (gc :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
+   (last-io :initform 0)
+   (last-gc :initform 0)))
 
 (defmethod initialize-instance :after ((panel diagnostics) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
@@ -116,19 +118,23 @@
         (vram (alloy:represent (slot-value panel 'vram) 'alloy:plot
                                :y-range `(0 . ,(nth-value 1 (gpu-room))) :style `((:curve :line-width ,(alloy:un 2)))))
         (io (alloy:represent (slot-value panel 'io) 'alloy:plot
-                             :y-range `(0 . ,#+windows (expt 1024 2) #+linux 100) :style `((:curve :line-width ,(alloy:un 2))))))
-    (alloy:enter fps layout :constraints `((:size 300 150) (:left 10) (:top 10)))
-    (alloy:enter ram layout :constraints `((:size 300 150) (:left 10) (:below ,fps 10)))
-    (alloy:enter vram layout :constraints `((:size 300 150) (:left 10) (:below ,ram 10)))
-    (alloy:enter io layout :constraints `((:size 300 150) (:left 10) (:below ,vram 10)))
+                             :y-range `(0 . ,#+windows 1024 #+linux 100) :style `((:curve :line-width ,(alloy:un 2)))))
+        (gc (alloy:represent (slot-value panel 'gc) 'alloy:plot
+                             :y-range `(0 . 100) :style `((:curve :line-width ,(alloy:un 2))))))
+    (alloy:enter fps layout :constraints `((:size 300 120) (:left 10) (:top 10)))
+    (alloy:enter ram layout :constraints `((:size 300 120) (:left 10) (:below ,fps 10)))
+    (alloy:enter vram layout :constraints `((:size 300 120) (:left 10) (:below ,ram 10)))
+    (alloy:enter io layout :constraints `((:size 300 120) (:left 10) (:below ,vram 10)))
+    (alloy:enter gc layout :constraints `((:size 300 120) (:left 10) (:below ,io 10)))
     (alloy:enter "FPS" layout :constraints `((:size 100 20) (:inside ,fps :halign :left :valign :top :margin 5)))
     (alloy:enter "RAM" layout :constraints `((:size 100 20) (:inside ,ram :halign :left :valign :top :margin 5)))
     (alloy:enter "VRAM" layout :constraints `((:size 100 20) (:inside ,vram :halign :left :valign :top :margin 5)))
     (alloy:enter "IO" layout :constraints `((:size 100 20) (:inside ,io :halign :left :valign :top :margin 5)))
+    (alloy:enter "GC Pause" layout :constraints `((:size 100 20) (:inside ,gc :halign :left :valign :top :margin 5)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod handle ((ev tick) (panel diagnostics))
-  (with-slots (fps ram vram io last-io) panel
+  (with-slots (fps ram vram io last-io gc last-gc) panel
     (flet ((push-value (value array)
              (declare (type (simple-array single-float (*)) array))
              (loop for i from 1 below (length array)
@@ -147,4 +153,9 @@
         (when (< 0 last-io)
           (push-value (- total last-io) io))
         (setf last-io total))
-      (alloy:notify-observers 'io panel io panel))))
+      (alloy:notify-observers 'io panel io panel)
+      (let ((total sb-ext:*gc-run-time*))
+        (when (< 0 last-gc)
+          (push-value (- total last-gc) gc))
+        (setf last-gc total))
+      (alloy:notify-observers 'gc panel gc panel))))
