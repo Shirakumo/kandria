@@ -20,7 +20,7 @@
     (assert (= 0 (sb-ext:process-exit-code (sb-ext:run-program program args :search T :output out))))))
 
 (defun version ()
-  (asdf:component-version (asdf:find-system "leaf")))
+  (asdf:component-version (asdf:find-system "kandria")))
 
 (defun output ()
   (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*)))
@@ -48,13 +48,13 @@
     (call-next-method)))
 
 (defmethod build ((target (eql :linux)))
-  (run "sbcl-lin" "--eval" "(asdf:make :leaf :force T)" "--disable-debugger" "--quit"))
+  (run "sbcl-lin" "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
 
 (defmethod build ((target (eql :windows)))
-  (run "sbcl-win" "--eval" "(asdf:make :leaf :force T)" "--disable-debugger" "--quit"))
+  (run "sbcl-win" "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
 
 (defmethod build ((target (eql :macos)))
-  (run "sbcl-mac" "--eval" "(asdf:make :leaf :force T)" "--disable-debugger" "--quit"))
+  (run "sbcl-mac" "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
 
 (defmethod build ((target (eql T)))
   (build :linux)
@@ -67,7 +67,7 @@
 
 (defun deploy ()
   (let* ((release (release))
-         (bindir (pathname-utils:subdirectory (asdf:system-source-directory "leaf") "bin")))
+         (bindir (pathname-utils:subdirectory (asdf:system-source-directory "kandria") "bin")))
     (ensure-directories-exist release)
     (deploy:copy-directory-tree bindir release :copy-root NIL)
     (uiop:delete-file-if-exists (merge-pathnames "trial.log" release))

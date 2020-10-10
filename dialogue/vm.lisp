@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf.dialogue)
+(in-package #:org.shirakumo.fraf.kandria.dialogue)
 
 (defclass request () ())
 

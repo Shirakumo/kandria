@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass region (layered-container ephemeral)
   ((author :initform "Anonymous" :initarg :author :accessor author)
@@ -23,7 +23,7 @@
     (save-region region packet :version version)))
 
 (defmethod save-region ((region region) (packet packet) &key version)
-  (v:info :leaf.region "Saving ~a to ~a" region packet)
+  (v:info :kandria.region "Saving ~a to ~a" region packet)
   (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
     (princ* (list :identifier 'region :version (type-of version)) stream)
     (princ* (encode-payload region NIL packet version) stream)))
@@ -36,7 +36,7 @@
   (enter (load-region thing NIL) scene))
 
 (defmethod load-region ((packet packet) (null null))
-  (v:info :leaf.region "Loading ~a" packet)
+  (v:info :kandria.region "Loading ~a" packet)
   (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
     (decode-payload
      info (type-prototype 'region) packet

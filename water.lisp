@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity water (lit-entity vertex-entity sized-entity listener resizable ephemeral medium)
   ((vertex-buffer :accessor vertex-buffer)

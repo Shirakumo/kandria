@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass interaction (event)
   ((with :initarg :with :accessor with)))
@@ -40,7 +40,7 @@ void main(){
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary))
-  (:default-initargs :sprite-data (asset 'leaf 'debug-door)))
+  (:default-initargs :sprite-data (asset 'kandria 'debug-door)))
 
 (defmethod (setf animations) :after (animations (door door))
   (setf (next-animation (find 'open (animations door) :key #'name)) 'idle))
@@ -62,4 +62,4 @@ void main(){
 
 (define-shader-entity passage (door)
   ()
-  (:default-initargs :sprite-data (asset 'leaf 'passage)))
+  (:default-initargs :sprite-data (asset 'kandria 'passage)))

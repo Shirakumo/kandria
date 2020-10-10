@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass prompt (alloy:popup alloy:label*)
   () (:default-initargs :value ""))

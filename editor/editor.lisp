@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass editor (base-editor)
   ((sidebar :initform NIL :accessor sidebar)))
@@ -54,7 +54,7 @@
 (defmethod (setf entity) :after (value (editor editor))
   (update-marker editor T)
   (change-class editor (editor-class value))
-  (v:info :leaf.editor "Switched entity to ~a (~a)" value (type-of editor)))
+  (v:info :kandria.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
 (defmethod handle ((event event) (editor editor))
   (handle event (controller (handler *context*)))

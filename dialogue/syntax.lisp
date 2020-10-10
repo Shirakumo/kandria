@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf.dialogue.syntax)
+(in-package #:org.shirakumo.fraf.kandria.dialogue.syntax)
 
 (defclass parser (markless:parser)
   ()

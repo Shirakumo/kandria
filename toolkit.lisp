@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-global +tile-size+ 16)
 (define-global +layer-count+ 6)
@@ -16,7 +16,7 @@
              (path (subseq head (1+ (position #\  head))))
              (commit (trim (alexandria:read-file-into-string (file (merge-pathnames path ".git/"))))))
         (format NIL "~a-~a"
-                (asdf:component-version (asdf:find-system "leaf"))
+                (asdf:component-version (asdf:find-system "kandria"))
                 (subseq commit 0 7)))))
 
 (defun root ()
@@ -45,7 +45,7 @@
           do (setf (gethash key table) val))
     table))
 
-(defmacro with-leaf-io-syntax (&body body)
+(defmacro with-kandria-io-syntax (&body body)
   `(with-standard-io-syntax
      (let ((*package* #.*package*)
            (*print-case* :downcase)
@@ -73,7 +73,7 @@
              (return path))))
 
 (defun parse-sexps (string)
-  (with-leaf-io-syntax
+  (with-kandria-io-syntax
     (loop with eof = (make-symbol "EOF")
           with i = 0
           collect (multiple-value-bind (data next) (read-from-string string NIL EOF :start i)
@@ -83,7 +83,7 @@
                         data)))))
 
 (defun princ* (expression &optional (stream *standard-output*))
-  (with-leaf-io-syntax
+  (with-kandria-io-syntax
     (write expression :stream stream :case :downcase)
     (fresh-line stream)))
 

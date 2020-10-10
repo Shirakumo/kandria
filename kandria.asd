@@ -1,12 +1,12 @@
-(asdf:defsystem leaf
-  :version "0.0.3"
+(asdf:defsystem kandria
+  :version "0.0.4"
   :build-operation "deploy-op"
   :build-pathname #+linux "kandria-linux.run"
                   #+darwin "kandria-macos"
                   #+win32 "kandria-windows"
                   #+(and bsd (not darwin)) "kandria-bsd.run"
                   #-(or linux bsd win32) "kandria"
-  :entry-point "org.shirakumo.fraf.leaf:launch"
+  :entry-point "org.shirakumo.fraf.kandria:launch"
   :components ((:file "package")
                (:file "toolkit")
                (:file "helpers")
@@ -79,8 +79,8 @@
                :lambda-fiddle
                :trivial-arguments
                :trivial-indent
-               :leaf-dialogue
-               :leaf-quest
+               :kandria-dialogue
+               :kandria-quest
                :alexandria
                :file-select
                :feedback-client

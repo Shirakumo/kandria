@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defstruct (block (:constructor make-block (s)))
   (s 0 :type (unsigned-byte 16)))

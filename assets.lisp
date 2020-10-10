@@ -1,10 +1,10 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass tile-data (multi-resource-asset file-input-asset)
   ((tile-types :initform () :accessor tile-types)))
 
 (defmethod generate-resources ((data tile-data) (path pathname) &key)
-  (with-leaf-io-syntax
+  (with-kandria-io-syntax
     (with-open-file (stream path)
       (destructuring-bind (&key albedo absorption tile-types) (read stream)
         (setf (tile-types data) tile-types)
@@ -16,7 +16,7 @@
               (resource data 'absorption))))))
 
 (defmacro define-sprite (name path &body args)
-  `(define-asset (leaf ,name) image
+  `(define-asset (kandria ,name) image
        ,path
      :min-filter :nearest
      :mag-filter :nearest
@@ -37,63 +37,63 @@
 (define-sprite ball
     #p"ball.png")
 
-(define-asset (leaf player) sprite-data
+(define-asset (kandria player) sprite-data
     #p"player.lisp")
 
-(define-asset (leaf player-profile) trial:sprite-data
+(define-asset (kandria player-profile) trial:sprite-data
     #p"player-profile.json")
 
-(define-asset (leaf wolf) sprite-data
+(define-asset (kandria wolf) sprite-data
     #p"wolf.lisp")
 
-(define-asset (leaf dummy) sprite-data
+(define-asset (kandria dummy) sprite-data
     #p"dummy.lisp")
 
-(define-asset (leaf balloon) trial:sprite-data
+(define-asset (kandria balloon) trial:sprite-data
     #p"balloon.json")
 
-(define-asset (leaf debug-door) trial:sprite-data
+(define-asset (kandria debug-door) trial:sprite-data
     #p"debug-door.json")
 
-(define-asset (leaf passage) trial:sprite-data
+(define-asset (kandria passage) trial:sprite-data
     #p"passage.json")
 
-(define-asset (leaf effects) trial:sprite-data
+(define-asset (kandria effects) trial:sprite-data
     #p"effects.json")
 
-(define-asset (leaf tundra) tile-data
+(define-asset (kandria tundra) tile-data
     #p"tundra.lisp")
  
-(define-asset (leaf debug) tile-data
+(define-asset (kandria debug) tile-data
     #p"debug.lisp")
 
-(define-asset (leaf music) sound
+(define-asset (kandria music) sound
     #p "sound/music.mp3"
   :volume 0.3
   :repeat T
   :mixer :music)
 
-(define-asset (leaf dash) sound
+(define-asset (kandria dash) sound
     #p"sound/dash.wav"
   :volume 0.1)
 
-(define-asset (leaf jump) sound
+(define-asset (kandria jump) sound
     #p"sound/jump.wav"
   :volume 0.025)
 
-(define-asset (leaf land) sound
+(define-asset (kandria land) sound
     #p"sound/land.wav"
   :volume 0.05)
 
-(define-asset (leaf slide) sound
+(define-asset (kandria slide) sound
     #p"sound/slide.wav"
   :volume 0.075
   :repeat T)
 
-(define-asset (leaf step) sound
+(define-asset (kandria step) sound
     #p"sound/step.wav"
   :volume 0.025)
 
-(define-asset (leaf death) sound
+(define-asset (kandria death) sound
     #p"sound/death.wav"
   :volume 0.1)

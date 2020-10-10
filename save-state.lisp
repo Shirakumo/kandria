@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defun save-state-path (name)
   (ensure-directories-exist
@@ -47,7 +47,7 @@
   (apply #'call-next-method world target :version (ensure-version version (current-save-version)) args))
 
 (defmethod save-state ((world world) (save-state save-state) &key version)
-  (v:info :leaf.save "Saving state from ~a to ~a" world save-state)
+  (v:info :kandria.save "Saving state from ~a to ~a" world save-state)
   (with-packet (packet (file save-state) :direction :output :if-exists :supersede)
     (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
       (princ* (list :identifier 'save-state :version (type-of version)) stream)
@@ -71,7 +71,7 @@
     (load-state packet world)))
 
 (defmethod load-state ((packet packet) (world world))
-  (v:info :leaf.save "Loading state from ~a into ~a" packet world)
+  (v:info :kandria.save "Loading state from ~a into ~a" packet world)
   (destructuring-bind (header initargs)
       (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
     (assert (eq 'save-state (getf header :identifier)))

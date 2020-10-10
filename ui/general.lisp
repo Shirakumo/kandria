@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass ui (org.shirakumo.fraf.trial.alloy:ui
               org.shirakumo.alloy:fixed-scaling-ui

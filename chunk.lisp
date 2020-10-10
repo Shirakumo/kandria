@@ -1,12 +1,12 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity layer (lit-entity sized-entity resizable ephemeral)
   ((vertex-array :initform (// 'trial 'fullscreen-square) :accessor vertex-array)
    (tilemap :accessor tilemap)
    (layer-index :initarg :layer-index :initform 0 :accessor layer-index)
-   (albedo :initarg :albedo :initform (// 'leaf 'debug) :accessor albedo)
-   (absorption :initarg :absorption :initform (// 'leaf 'debug) :accessor absorption)
    (visibility :initform 1.0 :accessor visibility)
+   (albedo :initarg :albedo :initform (// 'kandria 'debug) :accessor albedo)
+   (absorption :initarg :absorption :initform (// 'kandria 'debug) :accessor absorption)
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
   (:inhibit-shaders (shader-entity :fragment-shader)))
@@ -196,7 +196,7 @@ void main(){
               :type tile-data :documentation "The tile data used to display the chunk.")
    (lighting :initform T :initarg :lighting :accessor lighting
              :type boolean :documentation "The lighting to apply."))
-  (:default-initargs :tile-data (asset 'leaf 'debug)))
+  (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
   (let* ((size (size chunk))

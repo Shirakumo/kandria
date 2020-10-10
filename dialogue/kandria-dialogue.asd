@@ -1,4 +1,4 @@
-(asdf:defsystem leaf-dialogue
+(asdf:defsystem kandria-dialogue
   :components ((:file "package")
                (:file "components")
                (:file "syntax")

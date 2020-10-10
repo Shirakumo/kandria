@@ -1,9 +1,9 @@
-(in-package #:org.shirakumo.fraf.leaf.dialogue)
+(in-package #:org.shirakumo.fraf.kandria.dialogue)
 
 (defvar *root*)
 
 (defun parse (thing)
-  (cl-markless:parse thing (make-instance 'org.shirakumo.fraf.leaf.dialogue.syntax:parser)))
+  (cl-markless:parse thing (make-instance 'org.shirakumo.fraf.kandria.dialogue.syntax:parser)))
 
 (defmethod compile ((thing mcomponents:component) assembly)
   (walk thing assembly))

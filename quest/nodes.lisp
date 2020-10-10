@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf.quest.graph)
+(in-package #:org.shirakumo.fraf.kandria.quest.graph)
 
 (defclass describable ()
   ((name :initarg :name :accessor name)
