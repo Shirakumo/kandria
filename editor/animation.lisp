@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass editor-camera (trial:2d-camera)
   ((zoom :initarg :zoom :initform 4.0 :accessor zoom)))
@@ -12,7 +12,7 @@
     (scale-by z z z *view-matrix*)))
 
 (define-shader-entity rectangle (vertex-entity colored-entity sized-entity)
-  ((vertex-array :initform (// 'leaf '1x))
+  ((vertex-array :initform (// 'kandria '1x))
    (color :initform (vec 1 0 0 0.5))))
 
 (defmethod apply-transforms progn ((rectangle rectangle))
@@ -134,7 +134,7 @@
   (:default-initargs :clear-color (vec 0.25 0.25 0.25)
                      :width 1280
                      :height 720
-                     :sprite-data (asset 'leaf 'player)))
+                     :sprite-data (asset 'kandria 'player)))
 
 (defmethod initialize-instance ((editor animation-editor) &key sprite-data)
   (call-next-method)

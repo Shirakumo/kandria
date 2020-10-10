@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity animated-sprite (trial:animated-sprite facing-entity sized-entity)
   ())

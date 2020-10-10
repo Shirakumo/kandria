@@ -1,14 +1,14 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
-(define-pool leaf)
+(define-pool kandria)
 
-(define-asset (leaf 1x) mesh
+(define-asset (kandria 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))
 
-(define-asset (leaf 16x) mesh
+(define-asset (kandria 16x) mesh
     (make-rectangle 16 16))
 
-(define-asset (leaf placeholder) image
+(define-asset (kandria placeholder) image
     #p"placeholder.png")
 
 (defgeneric initargs (object)
@@ -100,8 +100,8 @@
       best-hit)))
 
 (define-shader-entity sprite-entity (vertex-entity textured-entity sized-entity facing-entity)
-  ((vertex-array :initform (// 'leaf '1x))
-   (texture :initform (// 'leaf 'placeholder) :initarg :texture
+  ((vertex-array :initform (// 'kandria '1x))
+   (texture :initform (// 'kandria 'placeholder) :initarg :texture
             :type resource :documentation "The tileset to display the sprite from.")
    (size :initform (vec 16 16) :initarg :size :accessor size
          :type vec2 :documentation "The size of the tile to display (in px).")
@@ -187,7 +187,7 @@ void main(){
     (fire trigger)))
 
 (defmethod fire ((trigger trigger))
-  (v:info :leaf.trigger "Firing (~a~{ ~a~})" (event-type trigger) (event-initargs trigger))
+  (v:info :kandria.trigger "Firing (~a~{ ~a~})" (event-type trigger) (event-initargs trigger))
   (apply #'issue +world+ (event-type trigger) (event-initargs trigger))
   (setf (active-p trigger) NIL))
 

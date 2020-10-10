@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defun gradient-value (x gradient)
   (loop for (nstop ncolor) in (rest gradient)

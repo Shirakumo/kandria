@@ -1,4 +1,4 @@
-(in-package #:leaf)
+(in-package #:kandria)
 
 (defun generate-report-files ()
   (let ((save (make-instance 'save-state :filename "report")))
@@ -20,8 +20,8 @@
 
 (defun submit-report (&key (user (find-user-id)) (files (generate-report-files)) description)
   (handler-bind ((error (lambda (e)
-                          (v:debug :leaf.report e)
-                          (v:error :leaf.report "Failed to submit report: ~a" e))))
+                          (v:debug :kandria.report e)
+                          (v:error :kandria.report "Failed to submit report: ~a" e))))
     (org.shirakumo.feedback.client:submit
      "kandria" user
      :version (version :kandria)
@@ -45,7 +45,7 @@
 
 (defmethod alloy:accept ((input report-input))
   (handler-bind ((error (lambda (e)
-                          (v:error :leaf.report e)
+                          (v:error :kandria.report e)
                           (messagebox "Failed to gather and submit report:~%~a" e)
                           (continue e))))
     (with-simple-restart (continue "Ignore the failed report.")

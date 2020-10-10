@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (alloy:define-widget entity-widget (sidebar)
   ((entity :initarg :entity :initform NIL :accessor entity

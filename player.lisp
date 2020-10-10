@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-global +player-movement-data+
     (macrolet ((mktab* (&rest entries)
@@ -45,12 +45,12 @@
    (climb-strength :initform 1.0 :accessor climb-strength)
    (buffer :initform NIL :accessor buffer)
    (chunk :initform NIL :accessor chunk)
-   (profile-sprite-data :initform (asset 'leaf 'player-profile))
+   (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (nametag :initform "The Stranger"))
   (:default-initargs
    :name 'player
-   :sprite-data (asset 'leaf 'player)))
+   :sprite-data (asset 'kandria 'player)))
 
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
@@ -68,7 +68,7 @@
 
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(dash jump land slide step death))
-    (stage (// 'leaf sound) area))
+    (stage (// 'kandria sound) area))
   (stage (prompt player) area))
 
 (defmethod handle ((ev interact) (player player))
@@ -92,7 +92,7 @@
 
 (defmethod handle ((ev dash) (player player))
   (let ((vel (velocity player)))
-    (harmony:play (// 'leaf 'dash))
+    (harmony:play (// 'kandria 'dash))
     (cond ((in-danger-p player)
            ;; FIXME: If we are holding the opposite of what
            ;;        we are facing, we should evade left.
@@ -151,10 +151,10 @@
          (when (and (= +1 (vy (hit-normal hit)))
                     (< 0.1 (air-time player)))
            (cond ((< 0.7 (air-time player))
-                  (harmony:play (// 'leaf 'land))
+                  (harmony:play (// 'kandria 'land))
                   (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  (T
-                  (harmony:play (// 'leaf 'land)))))
+                  (harmony:play (// 'kandria 'land)))))
          (when (<= 0 (vy (hit-normal hit)))
            (setf (air-time player) 0.0))
          (when (and (< 0 (vy (hit-normal hit)))
@@ -330,7 +330,7 @@
                                      ((retained 'right) +1)
                                      (T 0))))
                   (setf (jump-time player) 0.0)
-                  (harmony:play (// 'leaf 'jump))
+                  (harmony:play (// 'kandria 'jump))
                   (cond ((or (= dir mov-dir)
                              (not (retained 'climb)))
                          (setf (direction player) dir)
@@ -342,7 +342,7 @@
                          (setf (vy vel) (+ 0.3 (vy (p! walljump-acc))))))))
                ((< (air-time player) (p! coyote-time))
                 ;; Ground jump
-                (harmony:play (// 'leaf 'jump))
+                (harmony:play (// 'kandria 'jump))
                 (setf (vy vel) (+ (p! jump-acc)
                                   (if (svref collisions 2)
                                       (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
@@ -444,7 +444,7 @@
       (T
        (let ((effect (effect (frame player))))
          (when effect
-           (harmony:play (// 'leaf 'step))))))
+           (harmony:play (// 'kandria 'step))))))
     (case (state player)
       (:climbing
        (setf (animation player) 'climb)
@@ -484,9 +484,9 @@
              (T
               (setf (animation player) 'stand)))))
     (cond ((eql (name (animation player)) 'slide)
-           (harmony:play (// 'leaf 'slide)))
+           (harmony:play (// 'kandria 'slide)))
           (T
-           (harmony:stop (// 'leaf 'slide))))))
+           (harmony:stop (// 'kandria 'slide))))))
 
 (defmethod handle ((ev switch-region) (player player))
   (let* ((region (slot-value ev 'region))
@@ -521,7 +521,7 @@
   (shake-camera :intensity 10))
 
 (defmethod kill :after ((player player))
-  (harmony:play (// 'leaf 'death))
+  (harmony:play (// 'kandria 'death))
   (setf (clock (progression 'death +world+)) 0f0)
   (start (progression 'death +world+)))
 

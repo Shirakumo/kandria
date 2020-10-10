@@ -30,6 +30,10 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix minimising the window crashing the game
   Reported by PincerAttack
 
+## 0.0.4
+- Fix further controller issues with certain version of DualShock 4 controllers
+  Reported by Gnuxie
+
 ## TODO
 - Fix slopes with ceilings above allowing clipping
   Reported by PincerAttack

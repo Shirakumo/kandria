@@ -1,8 +1,8 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity profile-picture (trial:animated-sprite alloy:layout-element)
   ((shader-program :accessor shader-program))
-  (:default-initargs :sprite-data (asset 'leaf 'player-profile)))
+  (:default-initargs :sprite-data (asset 'kandria 'player-profile)))
 
 (defmethod initialize-instance :after ((picture profile-picture) &key)
   (setf (shader-program picture) (make-class-shader-program picture)))

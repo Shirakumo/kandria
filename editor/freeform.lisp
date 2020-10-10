@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass freeform (tool)
   ((start-pos :initform NIL :accessor start-pos)

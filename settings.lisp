@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defvar *save-settings* T)
 (define-global +settings+
@@ -31,7 +31,7 @@
      (with-open-file (stream path :direction :input
                                   :element-type 'character
                                   :if-does-not-exist :error)
-       (with-leaf-io-syntax
+       (with-kandria-io-syntax
          (let ((*save-settings* NIL))
            (map-leaf-settings
             (lambda (path value)
@@ -48,7 +48,7 @@
      (with-open-file (stream path :direction :output
                                   :element-type 'character
                                   :if-exists :supersede)
-       (with-leaf-io-syntax
+       (with-kandria-io-syntax
          (labels ((plist (indent part)
                     (loop for (k v) on part by #'cddr
                           do (format stream "~&~v{ ~}~s " (* indent 2) '(0) k)

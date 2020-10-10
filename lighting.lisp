@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-pass lighting-pass (scene-pass per-object-pass hdr-output-pass)
   ((lighting :initform T :accessor lighting)
@@ -16,12 +16,12 @@
   (setf (lighting pass) (lighting (chunk ev))))
 
 (defmethod (setf lighting) :after (value (pass lighting-pass))
-  (with-buffer-tx (light (// 'leaf 'light-info))
+  (with-buffer-tx (light (// 'kandria 'light-info))
     (setf (active-p light) (if value 1 0))))
 
 (defun update-lighting (hour)
-  (let ((tt (* (/ 9 24) 2 PI)))
-    (with-buffer-tx (light (// 'leaf 'light-info))
+  (let ((tt (* (/ hour 24) 2 PI)))
+    (with-buffer-tx (light (// 'kandria 'light-info))
       (setf (sun-position light) (vec2 (* -10000 (sin tt)) (* 10000 (- (cos tt)))))
       (setf (sun-light light) (v* (clock-color (/ (* tt 180) PI 15)) 10))
       (setf (ambient-light light) (v* (sun-light light) 0.2)))))
@@ -50,7 +50,7 @@
   (setf (uniform program "gamma") (gamma pass)))
 
 (defmethod render :before ((pass rendering-pass) target)
-  (if (= 1 (active-p (struct (// 'leaf 'light-info))))
+  (if (= 1 (active-p (struct (// 'kandria 'light-info))))
       (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
              (shade (local-shade pass))
              (exposure (* 1.5 shade))
@@ -75,10 +75,10 @@ void main(){
 
 (define-shader-entity lit-entity ()
   ()
-  (:buffers (leaf light-info)))
+  (:buffers (kandria light-info)))
 
 (define-class-shader (lit-entity :fragment-shader 100)
-  (gl-source (asset 'leaf 'light-info))
+  (gl-source (asset 'kandria 'light-info))
   "uniform sampler2D lighting;
 uniform sampler2D shadow_map;
 

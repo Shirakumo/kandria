@@ -1,4 +1,4 @@
-(defpackage #:org.shirakumo.fraf.leaf.dialogue.components
+(defpackage #:org.shirakumo.fraf.kandria.dialogue.components
   (:use #:cl)
   (:shadow #:go #:speed #:setf #:eval #:map)
   (:local-nicknames
@@ -33,10 +33,10 @@
    #:place
    #:eval))
 
-(defpackage #:org.shirakumo.fraf.leaf.dialogue.syntax
+(defpackage #:org.shirakumo.fraf.kandria.dialogue.syntax
   (:use #:cl)
   (:local-nicknames
-   (#:components #:org.shirakumo.fraf.leaf.dialogue.components)
+   (#:components #:org.shirakumo.fraf.kandria.dialogue.components)
    (#:mcomponents #:org.shirakumo.markless.components)
    (#:markless #:org.shirakumo.markless))
   (:export
@@ -50,11 +50,11 @@
    #:conditional-part
    #:clue))
 
-(defpackage #:org.shirakumo.fraf.leaf.dialogue
+(defpackage #:org.shirakumo.fraf.kandria.dialogue
   (:use #:cl)
   (:shadow #:compile #:eval)
   (:local-nicknames
-   (#:components #:org.shirakumo.fraf.leaf.dialogue.components)
+   (#:components #:org.shirakumo.fraf.kandria.dialogue.components)
    (#:mcomponents #:org.shirakumo.markless.components))
   ;; instructions.lisp
   (:export

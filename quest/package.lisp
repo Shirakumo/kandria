@@ -1,4 +1,4 @@
-(defpackage #:org.shirakumo.fraf.leaf.quest.graph
+(defpackage #:org.shirakumo.fraf.kandria.quest.graph
   (:use #:cl)
   (:shadow #:condition)
   (:export
@@ -21,14 +21,14 @@
    #:end
    #:connect))
 
-(defpackage #:org.shirakumo.fraf.leaf.quest
+(defpackage #:org.shirakumo.fraf.kandria.quest
   (:use #:cl)
   (:shadow #:condition)
-  (:import-from #:org.shirakumo.fraf.leaf.quest.graph
+  (:import-from #:org.shirakumo.fraf.kandria.quest.graph
                 #:describable #:name #:title #:description)
   (:local-nicknames
-   (#:graph #:org.shirakumo.fraf.leaf.quest.graph)
-   (#:dialogue #:org.shirakumo.fraf.leaf.dialogue))
+   (#:graph #:org.shirakumo.fraf.kandria.quest.graph)
+   (#:dialogue #:org.shirakumo.fraf.kandria.dialogue))
   (:export
    #:storyline
    #:quests

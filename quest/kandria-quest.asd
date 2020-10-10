@@ -1,7 +1,7 @@
-(asdf:defsystem leaf-quest
+(asdf:defsystem kandria-quest
   :components ((:file "package")
                (:file "nodes")
                (:file "quest"))
   :depends-on (:flow
-               :leaf-dialogue
+               :kandria-dialogue
                :verbose))

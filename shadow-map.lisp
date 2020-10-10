@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-gl-struct light-info
   (activep :int :accessor active-p)
@@ -6,7 +6,7 @@
   (sun-light :vec3 :accessor sun-light)
   (ambient-light :vec3 :accessor ambient-light))
 
-(define-asset (leaf light-info) uniform-block
+(define-asset (kandria light-info) uniform-block
     'light-info)
 
 (define-shader-entity shadow-geometry (vertex-entity)
@@ -67,7 +67,7 @@
   ((shadow-map :port-type output :texspec (:internal-format :r8))
    (local-shade :initform 0.0 :accessor local-shade)
    (frame-counter :initform 0 :accessor frame-counter))
-  (:buffers (leaf light-info)))
+  (:buffers (kandria light-info)))
 
 (defmethod object-renderable-p ((object renderable) (pass shadow-map-pass)) NIL)
 (defmethod object-renderable-p ((object shadow-caster) (pass shadow-map-pass)) T)
@@ -92,7 +92,7 @@
           (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 128.0)))))))
 
 (define-class-shader (shadow-map-pass :vertex-shader)
-  (gl-source (asset 'leaf 'light-info))
+  (gl-source (asset 'kandria 'light-info))
   "layout(location = 0) in vec2 vertex_position;
 
 uniform mat4 model_matrix;

@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass main (#-darwin org.shirakumo.fraf.trial.steam:main
                 #+darwin org.shirakumo.fraf.trial:main)
@@ -10,7 +10,7 @@
    :title #.(format NIL "Kandria - ~a" (version :kandria))
    :app-id 1261430))
 
-(deploy:define-hook (:deploy leaf -1) (directory)
+(deploy:define-hook (:deploy kandria -1) (directory)
   (let ((root (root)))
     (labels ((prune (file)
                (cond ((listp file)
@@ -38,7 +38,7 @@
       (prune (make-pathname :name :wild :type "svg" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
       (prune (make-pathname :name :wild :type "jpg" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
       (prune (make-pathname :name :wild :type "frag" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
-      (prune (make-pathname :name :wild :type "ase" :defaults (pathname-utils:subdirectory directory "pool" "LEAF"))))))
+      (prune (make-pathname :name :wild :type "ase" :defaults (pathname-utils:subdirectory directory "pool" "KANDRIA"))))))
 
 (defmethod initialize-instance ((main main) &key state app-id)
   (declare (ignore app-id))

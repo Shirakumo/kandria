@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity enemy (animatable)
   ((bsize :initform (vec 8.0 8.0))
@@ -67,8 +67,8 @@
     (stun player 0.27)))
 
 (define-shader-entity ball (axis-rotated-entity moving vertex-entity textured-entity)
-  ((vertex-array :initform (// 'leaf '1x))
-   (texture :initform (// 'leaf 'ball))
+  ((vertex-array :initform (// 'kandria '1x))
+   (texture :initform (// 'kandria 'ball))
    (bsize :initform (vec 6 6))
    (axis :initform (vec 0 0 1))))
 
@@ -120,7 +120,7 @@
 (define-shader-entity balloon (game-entity lit-animated-sprite ephemeral)
   ()
   (:default-initargs
-   :sprite-data (asset 'leaf 'balloon)))
+   :sprite-data (asset 'kandria 'balloon)))
 
 (defmethod (setf animations) :after (animations (balloon balloon))
   (setf (next-animation (find 'die (animations balloon) :key #'name)) 'revive)
@@ -145,7 +145,7 @@
 (define-shader-entity dummy (enemy)
   ((bsize :initform (vec 8 16)))
   (:default-initargs
-   :sprite-data (asset 'leaf 'dummy)))
+   :sprite-data (asset 'kandria 'dummy)))
 
 (defmethod capable-p ((enemy dummy) (edge move-edge)) NIL)
 (defmethod handle-ai-states ((enemy dummy) ev))
@@ -157,7 +157,7 @@
 (define-shader-entity wolf (enemy)
   ()
   (:default-initargs
-   :sprite-data (asset 'leaf 'wolf)))
+   :sprite-data (asset 'kandria 'wolf)))
 
 (defmethod movement-speed ((enemy wolf))
   (case (state enemy)

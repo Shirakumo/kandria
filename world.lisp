@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
@@ -26,7 +26,7 @@
   (setf (initial-state world) (minimal-load-state (entry-path "init/" packet))))
 
 (defmethod start :after ((world world))
-  (harmony:play (// 'leaf 'music)))
+  (harmony:play (// 'kandria 'music)))
 
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
@@ -69,9 +69,9 @@
 
 ;; Preloading
 (defmethod stage :after ((world world) (area staging-area))
-  (stage (// 'leaf 'music) area)
-  (stage (// 'leaf 'effects 'texture) area)
-  (stage (// 'leaf 'effects 'vertex-array) area))
+  (stage (// 'kandria 'music) area)
+  (stage (// 'kandria 'effects 'texture) area)
+  (stage (// 'kandria 'effects 'vertex-array) area))
 
 (defmethod compile-to-pass :after ((world world) (pass render-pass))
   (register-object-for-pass pass (c2mop:ensure-finalized (find-class 'effect))))

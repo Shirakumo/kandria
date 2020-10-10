@@ -1,4 +1,4 @@
-(in-package #:org.shirakumo.fraf.leaf.quest)
+(in-package #:org.shirakumo.fraf.kandria.quest)
 
 (defgeneric active-p (thing))
 (defgeneric activate (thing))

@@ -1,5 +1,5 @@
-(defpackage #:leaf
-  (:nicknames #:org.shirakumo.fraf.leaf)
+(defpackage #:kandria
+  (:nicknames #:org.shirakumo.fraf.kandria)
   (:use #:cl+trial)
   (:import-from #:org.shirakumo.fraf.trial.harmony #:sound)
   (:shadow #:main #:launch #:tile #:block
@@ -9,9 +9,9 @@
            #:animatable #:animated-sprite #:sprite-data
            #:commit #:config-directory #:prompt)
   (:local-nicknames
-   (#:dialogue #:org.shirakumo.fraf.leaf.dialogue)
-   (#:quest #:org.shirakumo.fraf.leaf.quest)
-   (#:quest-graph #:org.shirakumo.fraf.leaf.quest.graph)
+   (#:dialogue #:org.shirakumo.fraf.kandria.dialogue)
+   (#:quest #:org.shirakumo.fraf.kandria.quest)
+   (#:quest-graph #:org.shirakumo.fraf.kandria.quest.graph)
    (#:alloy #:org.shirakumo.alloy)
    (#:trial-alloy #:org.shirakumo.fraf.trial.alloy)
    (#:simple #:org.shirakumo.alloy.renderers.simple)

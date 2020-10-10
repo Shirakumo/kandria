@@ -1,8 +1,8 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity effect (trial:animated-sprite facing-entity sized-entity)
   ()
-  (:default-initargs :sprite-data (asset 'leaf 'effects)))
+  (:default-initargs :sprite-data (asset 'kandria 'effects)))
 
 (defmethod switch-animation ((effect effect) _)
   (let ((region (container effect)))
@@ -59,7 +59,7 @@ void main(){ color = vec4(0,0,0,strength); }")
 (define-shader-pass distortion-pass (simple-post-effect-pass)
   ((name :initform 'distortion)
    (active-p :initform NIL)
-   (texture :initform (// 'leaf 'pixelfont) :accessor texture)
+   (texture :initform (// 'kandria 'pixelfont) :accessor texture)
    (strength :initform 0f0 :accessor strength)))
 
 (defmethod (setf strength) :after (strength (pass distortion-pass))

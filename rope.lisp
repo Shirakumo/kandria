@@ -1,10 +1,10 @@
-(in-package #:org.shirakumo.fraf.leaf)
+(in-package #:org.shirakumo.fraf.kandria)
 
-(define-asset (leaf rope-part) mesh
+(define-asset (kandria rope-part) mesh
     (make-rectangle 2 8 :align :topcenter))
 
 (define-shader-entity rope (lit-entity vertex-entity sized-entity interactable listener resizable ephemeral)
-  ((vertex-array :initform (// 'leaf 'rope-part))
+  ((vertex-array :initform (// 'kandria 'rope-part))
    (chain :initform #() :accessor chain)))
 
 (defmethod initialize-instance :after ((rope rope) &key)
