@@ -21,14 +21,9 @@
    #:camera-instruction
    #:duration
    #:shake
+   #:camera
+   #:arguments
    #:move
-   #:location
-   #:zoom
-   #:roll
-   #:angle
-   #:show
-   #:map
-   #:location
    #:setf
    #:place
    #:eval))
