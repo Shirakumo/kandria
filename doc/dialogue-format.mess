@@ -1,231 +1,93 @@
-# Leaf Dialogue Format
-This document describes the markup syntax used for dialogues in Leaf. The basis of the syntax is "Markless"(link http://shirakumo.github.io/markless/), though several domain-specific extensions are included.
+# Kandria Dialogue Format
+This document describes the markup syntax used for dialogues in Kandria. The basis of the syntax is "Markless"(link http://shirakumo.github.io/markless/), though several domain-specific extensions are included.
 
-## Syntax
-### Speech Source
-The source, if any, of who's speaking a piece of dialogue is denoted via the blockquote header directive (§5.2)
+## A sample
+Here's a simple sample of a dialogue that might appear in the game:
 
-### Speech
-Actual speech and text is denoted via blockquote bodies (§5.2), wherein each textbox entry is denoted by a single line of text within the body. Each line must be automatically line wrapped, but cannot be scrolled.
+:: markless
+~ jack
+| Hmm, now that I think about it,(:thinking) that actually makes a lot of sense.
+| (:questioning)Have you checked for any possible escape routes?
 
-### Tags
-Specific parts of the dialogue can be marked by tags to allow jumps. Tags correspond directly to Markless' labels (§4.1). When jumping to a tag, the system must resume with the textual component associated with the label, and restore all state leading up to that component (source, emote, etc.).
+~ player
+| Yeah, there wasn't anything that I could see. The only way out of the room would be up.
+| Then again... (:thinking)It's possible they might have grappled out of here.
 
-### Jumps
-A jump to a tag allows the dialog flow to loop or skip certain sections. A jump must designate a jump target, which must be the name of a label that is defined somewhere within the document. A jump can be denoted in two ways:
-
-#### Jump Instruction
-:::
-! go <label .*>
-:::
-
-#### Jump Directive
-The jump directive is a singular line directive (§5.0.1)
-:::
-\< <label .*>
-:::
-
-### Choices
-A choice can be presented to the player in the form of an unordered list (§5.3). The textual component immediately preceding the list is used as the choice's prompt text. The first textual component within a list item is used as the choice's label, after expanding conditionals. The system must take care to eliminate choices that would be empty as a result of conditional blocks.
-
-### Conditional Blocks
-Conditional blocks allow dynamic dialog. When a conditional header or branch is executed, the conditional predicate is evaluated. If the predicate passes, the immediately following blockquote body is executed and all following conditional branches and blockquote bodies will be skipped. If it fails, the immediately following blockquote body is skipped.
-
-#### Conditional Block Header Directive
-The conditional block header is a singular line directive (§5.0.1)
-:::
-\? <predicate .*>
-:::
-
-#### Conditional Block Branch Directive
-The conditional block branch is a singular line directive (§5.0.1)
-:::
-\|\?( <predicate .*>)?
-:::
-
-### Conditional Parts
-The conditional part allows the dynamic splicing of a part of text. When a conditional part is executed, the predicate is evaluated. If the predicate evaluates to a true value, the first content is executed. If it evaluates to a false value, the second content is executed. If it evaluates to an integer, the content with the indicated index is picked, where each content is numbered starting from zero. If the integer denotes a content that does not exist, an error is signalled.
-
-#### Conditional Part Directive
-The conditional part is a surrounding inline directive (§6.0.1)
-:::
-\[<predicate .*> <content ![|]*>(|<content ![|]*>)+\]
-:::
-
-### Placeholders
-The placeholder allows splicing dynamic text dependent on the current state. When the placeholder is executed, the form is evaluated, and the resulting string is inserted into the current textual component.
-
-#### Placeholder Directive
-The placeholder is an inline directive (§6)
-::
-\{<form .*>\}
+- I'll go back and check on the camp
+  ! eval (complete task)
+  ~ jack
+  | Alright, go on ahead, I'll follow in a bit. Something isn't quite right here.
+- I want to investigate a bit more first
+- ? (have 'grappling-hook)
+  | I'll grapple up there and check
+  | ~ jack
+  | | Oh, you have a grappling hook? Great!
+  | ! eval (complete task)
+  | ! eval (activate 'grapple-to-surface)
 ::
 
-### Effects
-Certain inline directives defined by Markless are assigned new meanings through an alternate style.
+In this example we have two pieces of dialog and a choice menu. The ``~ `` denotes the character that's speaking. This must be a name known to the game and will be shown as a properly formatted character name in the game. You should always precede dialog blocks with such a source line.
 
-#### Clue
-The underline directive denotes a clue. Particularly, if the content contains a ``|`` bar sign, the displayed text is everything preceding the bar, and the clue associated is everything following the bar.
+Following is a blockquote ``| `` showing actual text content. Lines will be automatically line-wrapped to fit the dialog box in the game. Every line in the block quote will explicitly require the player to press confirm to start the next line. Thus make sure you split lines appropriate to the pacing of the dialog.
 
-#### Shake
-The italic directive denotes shaking text. Th text should visually shake.
+Within the blockquote we have the ``(:emote)`` syntax, which changes the character's profile animation. The name again must be known to the game and will cause it to display the corresponding expression in the dialog. Insert emote changes wherever appropriate to make the dialogue more visually interesting and help emphasise emotional beats.
 
-#### Pause
-The en and em dash directives denote temporal pauses.
+We then come to a choice menu. Choices are formulated using the unordered list syntax ``- ``. On the same line as the list entry must be the label that is shown to the player for that choice. On subsequent lines, indented to the same column, comes the action that's executed if that choice is made. You cannot insert empty lines between different choices, as that would denote separate choice lists. If the consequence of a choice should be a long dialogue tree, you can instead flatten the indentation by using labels ``# `` and jumps ``< ``. Using only the first choice from above, you can reformulate it like this:
 
-### Scroll Speed
-The scroll speed instruction changes how fast text scrolls relative to the base text scroll speed.
+:: markless
+- I'll go back and check on the camp
+  < camp-check
 
-#### Speed Instruction
-:::
-! speed <speed .*>
-:::
+# camp-check
+! eval (complete task)
+~ jack
+| Alright, go on ahead, I'll follow in a bit. Something isn't quite right here.
+::
 
-### Camera Movement
-The camera movement instructions change camera properties in order to allow framing a scene. The camera must transition smoothly between the current and the requested state.
+Within this first choice we have more syntax. The instruction ``! `` can execute a variety of commands when encountered:
 
-#### Shake Instruction
-:::
-! shake <duration .*>?
-:::
-#### Move Instruction
-:::
-! move <x .*> <y .*> <duration .*>?
-:::
-#### Zoom Instruction
-The zoom is absolute, in relative scale.
-:::
-! zoom <zoom .*> <duration .*>?
-:::
-#### Roll Instruction
-The angle is absolute, in degrees.
-:::
-! roll <angle .*> <duration .*>?
-:::
-#### Show Instruction
-Shows a completely different map.
-:::
-! show <map .*> <x .*>? <y .*>? <zoom .*>? <angle .*>? <duration .*>?
-:::
+- ``go`` Jump to a given label in the dialogue
+- ``speed`` Change the text scrolling speed
+- ``camera`` Control the camera:
+  - ``shake`` Cause the screen to shake for a bit
+  - ``move`` Move the camera to another location
+  - ``zoom`` Change the camera's zoom level
+  - ``roll`` Change the camera's roll angle
+  - ``reset`` Reset the camera to the standard view
+- ``move`` Move a character to another location
+- ``setf`` Change the value of a game variable or parameter
+- ``eval`` Evaluate arbitrary Lisp code expressions
+  Particularly useful functions are:
+  - ``activate`` activate a task or quest
+  - ``complete`` complete a task or quest successfully
+  - ``fail`` fail a task or quest
+  - ``enter`` add a new item to a collection (like ``inventory``)
+  - ``withdraw`` remove an item from a collection
+  - ``spawn`` spawn an NPC or enemy in the world
 
-### Emotes
-The emote directive allows changing the displayed portrait of the current character to allow the portrait to follow the current mood of the character.
+Another point of interest in the example is the last choice, which is conditioned by a predicate ``? ``. Following is another arbitrary Lisp expression, in this case using the ``have`` function to check whether we have a specific item in the inventory. If the predicate succeeds, the following blocks ``| `` are executed. Again, if the nesting becomes too complicated to read, consider splitting things up into separate sections and using a jump. You can also create "elseif" chains using the predicate syntax like this:
 
-#### Emote Directive
-The emote is an inline directive (§6)
-:::
-\(:<emote ![)]+>\)
-:::
+:: markless
+? test
+| consequence
+|? second-test
+| second consequence
+|?
+| consequence if both tests fail
+::
 
-### State Change
-The state change instruction allows changing arbitrary internal game state.
+Here's some other noteworthy syntax constructs:
 
-#### State Change Instruction
-:::
-! setf <place .*> <value-form .*>
-:::
+- ``{expression}`` is a placeholder that will evaluate the Lisp expression and insert its value instead. 
+  Example: ``{(nametag 'player)}`` would insert the player's name directly.
+- ``[predicate content | alternate content]`` conditionally evaluate one piece of content or the other. Unlike the conditional block ``? ``, this can be used inline.
+  Example: ``[(have 'grapple-hook) I got it already. | Hmm, I'll have to find the grappling hook first.]
+- ``--`` insert a short pause.
+- ``---`` insert a longer pause.
+- ``-/-`` insert a line break without actually using it in the source file.
+- ``**bold**`` will cause the text to be bold. (This is supported syntax but does not show in the game)
+- ``//italic//`` will cause the text to be italicised. (This is supported syntax but does not show in the game yet)
+- ``__underline__`` will cause the text to be underlined. (This is supported syntax but does not show in the game yet)
+- ``<-strike->`` will cause the text to be struck through. (This is supported syntax but does not show in the game yet)
 
-### Inline Instruction
-The inline code directive is repurposed to an inline instruction. The content binding of the code directive is interpreted as the instruction binding of an instruction directive.
-
-## Semantics
-The semantics of the dialogue format are structured in terms of an "execution" of each textual component. Execution can be temporarily suspended at points to allow for user interaction. Execution flow generally follows the depth-first traversal of the component tree. If at any point the execution has no further components to execute, the dialog is ended. This also happens if the execution ever reaches the component associated with the label "end".
-
-When this specification talks about "evaluation" as opposed to "execution", it refers to the standard term of evaluation used for common lisp, as in the evaluation of Lisp forms. The evaluation happens within a null lexical environment, and forms are read in a special package that offers functions dedicated to the dialog system.
-
-The semantics of executing textual components is as follows, described by type of the component. If a component should be executed whose type is not covered by any of the following sections, an error is signalled.
-
-### String
-Strings are displayed in the text box as regular text, with the exception of the new line. When a new line is encountered, execution is halted until the user presses a button to continue. Once pressed, the text box is cleared and execution is continued.
-
-### Parent-Component
-The children are executed in sequence.
-
-### Blockquote
-When a blockquote is executed, the currently speaking character is changed to that of the blockquote header associated with the blockquote. Otherwise execution proceeds as normal.
-
-### Footnote
-Footnotes have no semantic meaning beyond being a parent-component and establishing a label.
-
-### Unordered List
-When an unordered list is executed, the player is presented with a choice, where each of the options correspond to one of the items in the list. The text displayed for an option must be what would be displayed in the text box if the first textual component in the list item were executed. If no text would be displayed, the choice should not be presented. Once the player chooses a particular option, the execution is directed to the textual component after the first one in the corresponding list item.
-
-### Text Styling Components
-Most text styling components, such as bold, strikethrough, colouring, etc. should be displayed in the text box as dictated by the Markless standard.
-
-### Jump
-When a jump is executed, execution continues at the textual component associated with the label named by the jump's target. If no such component or label exists, an error is signalled.
-
-### Conditional
-When a conditional is executed, each of its clauses is handled in sequence by evaluating its predicate. If the predicate returns a true value, each of the clauses children is executed in sequence. If execution of the children completes, the execution of the conditional completes immediately and no further clauses are examined.
-
-### Placeholder
-When a placeholder is executed, its form is evaluated, the resulting value is turned into a string via ``princ-to-string``, and then executed.
-
-### Emote
-When an emote is executed, the displayed profile of the current character is changed to that corresponding to the emote. If no such profile exists, a continuable error is signalled.
-
-### Conditional Part
-When a conditional part is executed, its form is evaluated. If the returned value is an integer, the choice at the index indicated by the integer is executed. If the returned value is not-NIL, then the choice at index 0 is executed. If the returned value is NIL, then the choice at index 1 is executed. If an index is requested for which no choice exists, a continuable error is signalled.
-
-### Clue
-When a clue is executed, its children are executed in sequence, but must be displayed with emphasis to be clearly distinguished from normal text. Furthermore, the clue is added to the player's list of known clues.
-
-### Roll
-When a roll instruction is executed, the camera's roll angle is changed to the one indicated, by smoothly transitioning within the time indicated by the duration.
-
-### Zoom
-When a zoom instruction is executed, the camera's zoom level is changed to the one indicated, by smoothly transitioning within the time indicated by the duration.
-
-### Move
-When a move instruction is executed, the camera's location is moved to the one indicated, by smoothly transitioning within the time indicated by the duration.
-
-### Shake
-When a shake instruction is executed, the camera's view is shook randomly for the indicated duration.
-
-### Speed
-When a speed instruction is executed, the text scrolling speed is multiplied by the indicated factor. The standard text scrolling speed must be restored when the text box is scrolled.
-
-### Go
-When a go instruction is executed, execution continues at the textual component associated with the label named by the target. If no such component or label exists, an error is signalled.
-
-### Setf
-When a setf instruction is executed, the form composed by ``(setf ,place ,form)`` is evaluated.
-
-### Eval
-When an eval instruction is executed, the indicated form is evaluated.
-
-## Future Ideas
-- Cutscene Direction (animations, movement, etc.)
-
-## Example
-:::
-~ Einstime
-| Gravity is the gravins.
-| [1] line 2
-
-~ Person
-| some [(seen 'shit) **shit**|cool stuff]
-| Is that a {item} you got there?
-| I'll buy it for a high price!
-| Heh heh, thank ye.
-< 1
-
-Who's your daddy?
-- ? (seen 'einstime)
-  | Einstime
-  | ~ Him
-  | | Oh, ok.
-  |?
-  | Nobody
-  | ~ Him
-  | | Whaaaat.
-- Nicolas Cage
-  ~ Him
-  | Uuuh, no
-  < 2
-- Eric the Legend
-
-! setf foo x
-! go tag
-:::
+Also see documentation on the "quest system"(link quest system.mess) for information on how quests, tasks, and interactions are meant to be understood.

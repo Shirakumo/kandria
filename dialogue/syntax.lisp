@@ -176,8 +176,6 @@
 (defmethod markless:end :after ((_ clue) component parser)
   (markless::vector-push-front "__" (mcomponents:children component)))
 
-;; FIXME
-
 (defmethod markless:evaluate-instruction ((instruction components::fake-instruction) parser))
 
 (defmethod markless:parse-instruction ((proto components:go) line cursor)
@@ -186,35 +184,14 @@
 (defmethod markless:parse-instruction ((proto components:speed) line cursor)
   (make-instance (class-of proto) :speed (cl-markless::parse-float line :start cursor)))
 
-(defmethod markless:parse-instruction ((proto components:shake) line cursor)
-  (make-instance (class-of proto) :duration (cl-markless::parse-float line :start cursor)))
+(defmethod markless:parse-instruction ((proto components:camera) line cursor)
+  (destructuring-bind (action &rest args) (cl-markless::split-string line #\Space cursor)
+    (make-instance (class-of proto) :action action :arguments args)))
 
 (defmethod markless:parse-instruction ((proto components:move) line cursor)
-  (destructuring-bind (x y duration) (cl-markless::split-string cursor #\Space cursor)
-    (make-instance (class-of proto) :duration (cl-markless::parse-float duration)
-                                    :location (3d-vectors:vec2
-                                               (cl-markless::parse-float x)
-                                               (cl-markless::parse-float y)))))
-
-(defmethod markless:parse-instruction ((proto components:zoom) line cursor)
-  (destructuring-bind (zoom duration) (cl-markless::split-string cursor #\Space cursor)
-    (make-instance (class-of proto) :duration (cl-markless::parse-float duration)
-                                    :zoom (cl-markless::parse-float zoom))))
-
-(defmethod markless:parse-instruction ((proto components:roll) line cursor)
-  (destructuring-bind (angle duration) (cl-markless::split-string cursor #\Space cursor)
-    (make-instance (class-of proto) :duration (cl-markless::parse-float duration)
-                                    :angle (cl-markless::parse-float angle))))
-
-(defmethod markless:parse-instruction ((proto components:show) line cursor)
-  (destructuring-bind (map &optional x y zoom angle duration) (cl-markless::split-string cursor #\Space cursor)
-    (make-instance (class-of proto) :duration (cl-markless::parse-float duration)
-                                    :location (3d-vectors:vec2
-                                               (if x (cl-markless::parse-float x) 0)
-                                               (if y (cl-markless::parse-float y) 0))
-                                    :zoom (if zoom (cl-markless::parse-float zoom) 1.0)
-                                    :angle (if angle (cl-markless::parse-float angle) 0.0)
-                                    :map map)))
+  (destructuring-bind (entity target) (cl-markless::split-string line #\Space cursor)
+    (make-instance (class-of proto) :entity (read-from-string entity)
+                                    :target (read-from-string target))))
 
 (defmethod markless:parse-instruction ((proto components:setf) line cursor)
   (multiple-value-bind (place cursor) (read-from-string line T NIL :start cursor)
