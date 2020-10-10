@@ -7,8 +7,7 @@
                                         'jump 'conditional 'source
                                         (remove-if (lambda (s) (find s '(markless:underline markless:code markless:blockquote-header)))
                                                    markless:*default-directives*))
-                     :instruction-types (list* 'components:go 'components:speed 'components:shake 'components:zoom
-                                               'components:roll 'components:show 'components:setf 'components:eval
+                     :instruction-types (list* 'components:go 'components:speed 'components:camera 'components:move 'components:setf 'components:eval
                                                markless:*default-instruction-types*)))
 
 (defclass jump (markless:singular-line-directive)
