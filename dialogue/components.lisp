@@ -51,24 +51,13 @@
 (defclass speed (fake-instruction)
   ((speed :initarg :speed :initform (error "SPEED required") :accessor speed)))
 
-(defclass camera-instruction (fake-instruction)
-  ((duration :initarg :duration :initform (error "DURATION required") :accessor duration)))
+(defclass camera (fake-instruction)
+  ((action :initarg :action :initform (error "ACTION required") :accessor action)
+   (arguments :initarg :arguments :initform () :accessor arguments)))
 
-(defclass shake (camera-instruction)
-  ())
-
-(defclass move (camera-instruction)
-  ((location :initarg :location :initform (error "LOCATION required") :accessor location)))
-
-(defclass zoom (camera-instruction)
-  ((zoom :initarg :zoom :initform (error "ZOOM required") :accessor zoom)))
-
-(defclass roll (camera-instruction)
-  ((angle :initarg :angle :initform (error "ANGLE required") :accessor angle)))
-
-;; TODO: This needs rethinking
-(defclass show (roll zoom move)
-  ((map :initarg :map :initform (error "MAP required") :accessor map)))
+(defclass move (fake-instruction)
+  ((entity :initarg :entity :initform (error "ENTITY required") :accessor entity)
+   (target :initarg :target :initform (error "TARGET required") :accessor components:target)))
 
 (defclass setf (fake-instruction)
   ((place :initarg :place :initform (error "PLACE required") :accessor place)
