@@ -47,14 +47,16 @@
   (with-simple-restart (continue "Treat build as successful")
     (call-next-method)))
 
+(defvar *sbcl-build-args* '("--dynamic-space-size" "4096" "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
+
 (defmethod build ((target (eql :linux)))
-  (run "sbcl-lin" "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
+  (apply #'run "sbcl-lin" *sbcl-build-args*))
 
 (defmethod build ((target (eql :windows)))
-  (run "sbcl-win" "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
+  (apply #'run "sbcl-win" *sbcl-build-args*))
 
 (defmethod build ((target (eql :macos)))
-  (run "sbcl-mac" "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
+  (apply #'run "sbcl-mac" *sbcl-build-args*))
 
 (defmethod build ((target (eql T)))
   (build :linux)
