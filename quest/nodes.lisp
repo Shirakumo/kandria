@@ -97,9 +97,11 @@
    :dialogue (error "DIALOGUE required")))
 
 (flow:define-node action (trigger)
-  ((form :initarg :form :accessor form))
+  ((on-activate :initarg :on-activate :accessor on-activate)
+   (on-deactivate :initarg :on-deactivate :accessor on-deactivate))
   (:default-initargs
-   :form (error "FORM required")))
+   :on-activate (error "ON-ACTIVATE required")
+   :on-deactivate ()))
 
 (flow:define-node end ()
   ((causes :port-type causes)))
