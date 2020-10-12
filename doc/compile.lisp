@@ -78,16 +78,21 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
     node))
 
 (defun generate (file)
-  (let ((dom (plump:make-root)))
+  (let ((dom (plump:make-root))
+        (output (make-pathname :type "html" :defaults file)))
     (cl-markless:output (cl-markless:parse file (make-instance 'cl-markless:parser :embed-types (list* 'youtube cl-markless:*default-embed-types*)))
                         :target dom
                         :format (make-instance 'org.shirakumo.markless.plump:plump
                                                :css (style)))
     (lquery:$ dom "a[href]" (each #'fixup-href))
-    (with-open-file (stream (make-pathname :type "html" :defaults file)
+    (with-open-file (stream output
                             :direction :output
                             :if-exists :supersede)
-      (plump:serialize dom stream))))
+      (plump:serialize dom stream))
+    (let ((copy (merge-pathnames "../web/doc/" output)))
+      (ensure-directories-exist copy)
+      (uiop:copy-file output copy))
+    output))
 
 (defun generate-all ()
   (dolist (file (directory (make-pathname :name :wild :type "mess"
