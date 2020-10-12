@@ -17,7 +17,7 @@ Lisp syntax consists of a few basic constructs:
   Strings are sequences of characters: ``"string"``, ``"a string with a quote: \\"wow\\"."``
 - Symbols
   Symbols are names used to name functions, variables, and other things like entities: ``player``, ``insert``, ``+``, ``T``, ``NIL``.
-  See the "symbols section"(link #symbols) for more information on symbol usage and precise syntax.
+  See the "symbols section"(link #Symbols) for more information on symbol usage and precise syntax.
 - Lists
   Lists are a type of sequence often used in Lisp: ``(1 2 3)``, ``()``, ``(a "b" 2.0)``.
   They can contain any other type of object. Notable is that the empty list ``()`` is the same as the symbol ``NIL`` and may be used interchangeably. By convention however you should use ``NIL`` to denote "nothing" and ``()`` to denote an empty list.
