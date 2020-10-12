@@ -39,6 +39,10 @@ The source tree is divided up as follows:
       Documentation on the in-game editor and how to use its features.
     - "``lisp crash course.mess``"(link lisp crash course.mess)
       A short introduction to Lisp syntax and usage related to Kandria.
+    - "``art.mess``"(link art.mess)
+      A mood board with reference images and videos for the art direction.
+    - "``design.mess``"(link design.mess)
+      The overall game design document that outlines the game's mechanics, story, and planning.
   - ``releases/``
     Source files related to publishing, packaging, and archiving game releases.
   - ``world/``
