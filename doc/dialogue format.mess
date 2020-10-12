@@ -85,9 +85,11 @@ Here's some other noteworthy syntax constructs:
 - ``--`` insert a short pause.
 - ``---`` insert a longer pause.
 - ``-/-`` insert a line break without actually using it in the source file.
-- ``**bold**`` will cause the text to be bold. (This is supported syntax but does not show in the game)
+- ``**bold**`` will cause the text to be bold. (This is supported syntax but does not show in the game yet)
 - ``//italic//`` will cause the text to be italicised. (This is supported syntax but does not show in the game yet)
 - ``__underline__`` will cause the text to be underlined. (This is supported syntax but does not show in the game yet)
 - ``<-strike->`` will cause the text to be struck through. (This is supported syntax but does not show in the game yet)
 
 Also see documentation on the "quest system"(link quest system.mess) for information on how quests, tasks, and interactions are meant to be understood.
+
+If you're worried about the use of Lisp code, see the "Lisp crash course"(link lisp crash course.mess) for a quick introduction and explanation.
