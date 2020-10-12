@@ -219,11 +219,15 @@
   (setf (status trigger) :inactive))
 
 (defclass action (trigger)
-  ((effect :initarg :effect :reader effect)))
+  ((on-activate :initarg :on-activate :reader on-activate)
+   (on-deactivate :initarg :on-deactivate :reader on-deactivate)))
 
 (defmethod activate ((trigger trigger))
-  (funcall (effect trigger))
+  (funcall (on-activate trigger))
   (setf (status trigger) :complete))
+
+(defmethod deactivate ((trigger trigger))
+  (funcall (on-deactivate trigger)))
 
 (defclass interaction (trigger)
   ((interactable :initarg :interactable :reader interactable)
@@ -278,7 +282,8 @@
 
 (defmethod %transform ((action graph:action) cache (task task))
   (make-instance (class-for (quest task) 'action)
-                 :effect (compile-form task (graph:form action))))
+                 :on-activate (compile-form task (graph:on-activate action))
+                 :on-deactivate (compile-form task (graph:on-deactivate action))))
 
 (defmethod %transform ((end graph:end) cache (quest quest))
   (make-instance (class-for quest 'end)

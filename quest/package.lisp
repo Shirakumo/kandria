@@ -18,7 +18,8 @@
    #:interactable
    #:dialogue
    #:action
-   #:form
+   #:on-activate
+   #:on-deactivate
    #:quest
    #:end
    #:connect))
@@ -70,4 +71,5 @@
    #:interactable
    #:dialogue
    #:action
-   #:effect))
+   #:on-activate
+   #:on-deactivate))
