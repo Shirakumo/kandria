@@ -96,6 +96,11 @@
    :interactable (error "INTERACTABLE required")
    :dialogue (error "DIALOGUE required")))
 
+(flow:define-node action (trigger)
+  ((form :initarg :form :accessor form))
+  (:default-initargs
+   :form (error "FORM required")))
+
 (flow:define-node end ()
   ((causes :port-type causes)))
 
