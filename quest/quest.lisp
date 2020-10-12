@@ -52,12 +52,11 @@
 (defmethod make-assembly ((quest quest))
   (make-instance 'dialogue:assembly))
 
-(defgeneric make-task (quest &rest initargs))
-(defmethod make-task ((quest quest) &rest initargs &key invariant condition)
-  (apply #'make-instance 'task
-         :invariant (dialogue::compile-form (make-assembly quest) invariant)
-         :condition (dialogue::compile-form (make-assembly quest) condition)
-         initargs))
+(defmethod class-for ((quest quest) class)
+  class)
+
+(defmethod compile-form ((quest quest) form)
+  (dialogue::compile-form (make-assembly quest) form))
 
 (defmethod find-task (name (quest quest) &optional (error T))
   (or (gethash name (tasks quest))
@@ -106,19 +105,19 @@
     (try task)))
 
 (defclass end ()
-  ((quest :initarg :quest :reader quest)))
+  ((quest :initarg :quest :accessor quest)))
 
 (defmethod activate ((end end))
   (complete (quest end)))
 
 (defclass task (describable)
   ((status :initarg :status :accessor status)
-   (quest :initarg :quest :reader quest)
-   (causes :initarg :causes :reader causes)
-   (effects :initarg :effects :reader effects)
-   (triggers :initarg :triggers :reader triggers)
-   (invariant :initarg :invariant :reader invariant)
-   (condition :initarg :condition :reader condition))
+   (quest :initarg :quest :accessor quest)
+   (causes :initarg :causes :accessor causes)
+   (effects :initarg :effects :accessor effects)
+   (triggers :initarg :triggers :accessor triggers)
+   (invariant :initarg :invariant :accessor invariant)
+   (condition :initarg :condition :accessor condition))
   (:default-initargs :status :inactive))
 
 (defmethod print-object ((task task) stream)
@@ -145,6 +144,21 @@
             (sort-tasks (list* task (active-tasks (quest task))))
             (remove task (active-tasks (quest task))))))
 
+(defmethod make-assembly ((task task))
+  (make-assembly (quest task)))
+
+(defmethod class-for ((task task) class) class)
+
+(defmethod compile-form ((task task) form)
+  (compile NIL `(lambda ()
+                  (let* ((task ,task)
+                         (quest (quest task))
+                         (triggers (triggers task))
+                         (all-complete (every (lambda (trig) (eql :complete (status trig)))
+                                              triggers)))
+                    (declare (ignorable quest all-complete))
+                    ,form))))
+
 (defun required-for-completion (task cause)
   ;; TODO: implement this
   T)
@@ -161,23 +175,55 @@
       (activate trigger)))
   task)
 
+(defmethod deactivate ((task task))
+  (unless (eql (status task :inactive))
+    (v:info :kandria.quest "Deactivating ~a" task)
+    (setf (status task) :unresolved)
+    (dolist (trigger (triggers task))
+      (deactivate trigger)))
+  task)
+
 (defmethod complete ((task task))
   (unless (active-p task)
     (error "Cannot complete done task."))
   (v:info :kandria.quest "Completing ~a" task)
   (setf (status task) :complete)
+  (dolist (trigger (triggers task))
+    (deactivate trigger))
   (dolist (effect (effects task))
     (activate effect))
   task)
 
+(defmethod fail ((task task))
+  (unless (active-p task)
+    (error "Cannot fail done task."))
+  (v:info :kandria.quest "Failing ~a" task)
+  (setf (status task) :failed)
+  (dolist (trigger (triggers task))
+    (deactivate trigger))
+  task)
+
 (defmethod try ((task task))
   (cond ((not (funcall (invariant task)))
-         (setf (status task) :failed))
+         (fail task))
         ((funcall (condition task))
          (complete task))))
 
 (defclass trigger ()
   ((status :initarg :status :initform :inactive :accessor status)))
+
+(defmethod activate :after ((trigger trigger))
+  (setf (status trigger) :active))
+
+(defmethod deactivate :after ((trigger trigger))
+  (setf (status trigger) :inactive))
+
+(defclass action (trigger)
+  ((effect :initarg :effect :reader effect)))
+
+(defmethod activate ((trigger trigger))
+  (funcall (effect trigger))
+  (setf (status trigger) :complete))
 
 (defclass interaction (trigger)
   ((interactable :initarg :interactable :reader interactable)
@@ -194,12 +240,12 @@
                   do (setf (gethash (name task) tasks) task)
                   finally (return tasks)))))
 
-(defmethod %transform :around (thing cache _)
+(defmethod %transform :around (thing cache parent)
   (or (gethash thing cache)
       (setf (gethash thing cache)
             (call-next-method))))
 
-(defmethod %transform ((node graph:quest) cache quest)
+(defmethod %transform ((node graph:quest) cache (quest quest))
   (setf (gethash node cache) quest)
   (setf (description quest) (description node))
   (setf (title quest) (title node))
@@ -207,28 +253,33 @@
         do (%transform task cache quest))
   quest)
 
-(defmethod %transform ((task graph:task) _ quest)
-  (flet ((%transform (thing)
-           (%transform thing _ quest)))
-    (make-task quest
-               :quest quest
-               :name (name task)
-               :title (graph:title task)
-               :description (graph:description task)
-               :causes (loop for cause in (graph:causes task)
-                             when (typep cause 'graph:task)
-                             collect (%transform cause))
-               :effects (mapcar #'%transform (graph:effects task))
-               :triggers (mapcar #'%transform (graph:triggers task))
-               :invariant (graph:invariant task)
-               :condition (graph:condition task))))
+(defmethod %transform ((task graph:task) cache (quest quest))
+  (let ((instance (make-instance (class-for quest 'task)
+                                 :quest quest
+                                 :name (name task)
+                                 :title (graph:title task)
+                                 :description (graph:description task)
+                                 :causes (loop for cause in (graph:causes task)
+                                               when (typep cause 'graph:task)
+                                               collect (%transform cause cache quest)))))
+    (flet ((%transform (thing)
+             (%transform thing cache instance)))
+      (setf (effects instance) (mapcar #'%transform (graph:effects task)))
+      (setf (triggers instance) (mapcar #'%transform (graph:triggers task)))
+      (setf (invariant instance) (compile-form instance (graph:invariant task)))
+      (setf (condition instance) (compile-form instance (graph:condition task)))
+      instance)))
 
-(defmethod %transform ((interaction graph:interaction) _ quest)
-  (make-instance 'interaction
+(defmethod %transform ((interaction graph:interaction) cache (task task))
+  (make-instance (class-for (quest task) 'interaction)
                  :interactable (graph:interactable interaction)
                  :dialogue (dialogue:compile* (graph:dialogue interaction)
-                                              (make-assembly quest))))
+                                              (make-assembly task))))
 
-(defmethod %transform ((end graph:end) _ quest)
-  (make-instance 'end
+(defmethod %transform ((action graph:action) cache (task task))
+  (make-instance (class-for (quest task) 'action)
+                 :effect (compile-form task (graph:form action))))
+
+(defmethod %transform ((end graph:end) cache (quest quest))
+  (make-instance (class-for quest 'end)
                  :quest quest))

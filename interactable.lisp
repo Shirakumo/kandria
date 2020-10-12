@@ -36,6 +36,11 @@ void main(){
                  (quest:interactable trigger))))
       (pushnew trigger (interactions interactable)))))
 
+(defmethod quest:deactivate ((trigger quest:interaction))
+  (let ((interactable (unit (quest:interactable trigger) +world+)))
+    (when (typep interactable 'interactable)
+      (setf (interactions interactable) (remove interactable (interactions interactable))))))
+
 (define-shader-entity door (lit-animated-sprite interactable ephemeral)
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))

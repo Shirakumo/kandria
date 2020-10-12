@@ -1,7 +1,7 @@
 (quest-graph:quest :name example :title "Example quest" :description "An example quest for the demo."
                    :effects (task-1))
 (quest-graph:task :name task-1 :title "Inspect the camp" :description "Check the abandoned camp for clues."
-                  :invariant T :condition all-triggered :triggers (tent-check fire-check sign-check corpse-check))
+                  :invariant T :condition quest:all-complete :triggers (tent-check fire-check sign-check corpse-check))
 (quest-graph:interaction :name tent-check :interactable tent :dialogue "
 ~ player
 | The tent looks tattered and old. It seems like nobody's been here for quite a while.

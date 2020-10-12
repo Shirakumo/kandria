@@ -17,6 +17,8 @@
    #:interaction
    #:interactable
    #:dialogue
+   #:action
+   #:form
    #:quest
    #:end
    #:connect))
@@ -37,6 +39,8 @@
    #:make-storyline
    #:activate
    #:complete
+   #:fail
+   #:deactivate
    #:try
    #:quest
    #:name
@@ -49,17 +53,21 @@
    #:find-task
    #:active-tasks
    #:active-p
-   #:make-task
    #:make-assembly
+   #:class-for
+   #:compile-form
    #:task
    #:status
    #:quest
    #:causes
    #:effects
    #:triggers
+   #:all-complete
    #:invariant
    #:condition
    #:trigger
    #:interaction
    #:interactable
-   #:dialogue))
+   #:dialogue
+   #:action
+   #:effect))
