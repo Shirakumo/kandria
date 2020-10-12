@@ -1,5 +1,5 @@
 # Kandria Dialogue Format
-This document describes the markup syntax used for dialogues in Kandria. The basis of the syntax is "Markless"(link http://shirakumo.github.io/markless/), though several domain-specific extensions are included.
+This document describes the markup syntax used for dialogues in Kandria. The basis of the syntax is "Markless"(http://shirakumo.github.io/markless/), though several domain-specific extensions are included.
 
 ## A sample
 Here's a simple sample of a dialogue that might appear in the game:

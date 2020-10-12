@@ -14,11 +14,11 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
 (defmethod cl-markless:output-component ((component youtube) (target plump-dom:nesting-node) (format cl-markless-plump:plump))
   (let ((element (plump-dom:make-element target "iframe")))
     (setf (plump-dom:attribute element "width") "100%")
-    (setf (plump-dom:attribute element "height") "240")
+    (setf (plump-dom:attribute element "height") "460")
     (setf (plump-dom:attribute element "frameborder") "no")
     (setf (plump-dom:attribute element "allowfullscreen") "yes")
     (setf (plump-dom:attribute element "src")
-          (format NIL "//www.youtube.com/embed/~a?" (youtube-code (cl-markless-components:target component))))
+          (format NIL "https://www.youtube.com/embed/~a?" (youtube-code (cl-markless-components:target component))))
     (loop for option in (cl-markless-components:options component)
           do (typecase option
                (cl-markless-components:autoplay-option
@@ -60,7 +60,12 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
       :padding-left 1em)
      (figcaption
       :padding 0.2em 1em
-      :background (hex E0E0E0)))))
+      :background (hex E0E0E0))
+     (code
+      :background (hex F0F0F0)
+      :padding 0 0.1em)
+     (.code-block
+      :padding 0.1em 0.5em))))
 
 (defun suffix-p (suffix string)
   (and (<= (length suffix) (length string))

@@ -6,9 +6,7 @@ Before you get started, please send Shinmera your GitHub username so he can add 
 
 Unlike many other game projects, Kandria uses a custom engine and is written in Common Lisp. This means that unfortunately the setup is a bit more involved, but not by much. In order to ease setup, a custom development environment has been put together. You can download it from here:
 
-- "Windows"(link https://mega.nz/file/4lggAZ7D#7yYFU2NrlQrbL6N2pprRVEmvo0laRN4jKXjLV77TXAg)
-- "Linux"(link) (please request)
-- "MacOS"(link) (please request)
+- "Windows"(https://mega.nz/file/4lggAZ7D#7yYFU2NrlQrbL6N2pprRVEmvo0laRN4jKXjLV77TXAg)
 
 If you're already familiar with Emacs, you might want to set up a native development environment instead of using Portacle. In that case, contact Shinmera for advice. If not, carry on.
 
@@ -31,15 +29,15 @@ The source tree is divided up as follows:
     Assets like textures, tiles, sprites, sounds, etc. including raw source files (ase, etc.)
   - ``doc/``
     Documentation and documents related to the project. This document should be in this directory.
-    - ``dialogue format.mess``
+    - "``dialogue format.mess``"(link dialogue format.mess)
       Documentation on the dialogue format and syntax.
-    - ``quest system.mess``
+    - "``quest system.mess``"(link quest system.mess)
       Documentation on the behaviour and capabilities of the quest system.
-    - ``combat system.mess``
+    - "``combat system.mess``"(link combat system.mess)
       Documentation on the combat system that the game employs.
-    - ``editor.mess``
+    - "``editor.mess``"(link editor.mess)
       Documentation on the in-game editor and how to use its features.
-    - ``lisp crash course.mess``
+    - "``lisp crash course.mess``"(link lisp crash course.mess)
       A short introduction to Lisp syntax and usage related to Kandria.
   - ``releases/``
     Source files related to publishing, packaging, and archiving game releases.
@@ -55,7 +53,7 @@ The source tree is divided up as follows:
 ## Organisation
 For instant communication please use "Discord"(https://discord.gg/WNTygau). The rest of the  project management happens through a Google doc. Please have a look at it here:
 
-|  https://docs.google.com/spreadsheets/d/1vJcVDEW0vasMw-FKumIrLA3jd2AYBKs6ZfTWOTXOC6k/edit?pli=1#gid=655840416
+|  https://docs.google.com/spreadsheets/d/1vJcVDEW0vasMw-FKumIrLA3jd2AYBKs6ZfTWOTXOC6k/edit
 
 The doc contains sheets with current todo items, ideas for the future, and details on these tasks. The todo items should be sorted with the more important ones at the top. Once you complete an item, please check it off and move it to the bottom. For ideas, please just throw them into the ideas sheet and discuss them over Discord. If it turns out there's time available and the idea seems good, it can be moved over to the todo section.
 
