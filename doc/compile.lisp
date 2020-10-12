@@ -89,7 +89,7 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
                             :direction :output
                             :if-exists :supersede)
       (plump:serialize dom stream))
-    (let ((copy (merge-pathnames "../web/doc/" output)))
+    (let ((copy (merge-pathnames "../docs/doc/" output)))
       (ensure-directories-exist copy)
       (uiop:copy-file output copy))
     output))
