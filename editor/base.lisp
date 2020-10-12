@@ -30,7 +30,7 @@
     (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
     (alloy:enter menu layout :place :north)
     (alloy:enter menu focus)
-    (alloy:enter toolbar layout :place :south)
+    (alloy:enter toolbar layout :place :south :size (alloy:un 30))
     (alloy:enter toolbar focus)
     (alloy:enter entity layout :place :west :size (alloy:un 300))
     (alloy:enter entity focus)

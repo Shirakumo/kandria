@@ -1,0 +1,68 @@
+# Kandria Editor
+This document is a user manual for the Kandria in-game editor. You can open up the editor at any point in time by hitting the section key (typically the top left key on your keyboard below Escape). Opening the editor will pause the game and open a bunch of editing tools. You can unpause and resume the game by hitting the section key again.
+
+Changes made in the editor will reflect immediately in the game -- you are literally editing the current game state. In order to persist the state, hit the save button. Using the load button you can reset your state to a previous load or load another region entirely.
+
+## Game Architecture
+Before we move on to editing tools, it's important to understand how Kandria is built up and establish concepts used by the game and documentation.
+
+At the most basic, everything in Kandria is made up of "entities", which are within a "world". The world contains stuff like the camera, the editor, UI, story data, and so forth, but also most importantly it contains a "region". There's only ever one region active in the world at a time, and switching regions forces an expensive load. This means that content in Kandria should be divided up into several major regions, the size of which is only constrained by the processing speed.
+
+Within a region resides the actually visible content that the player can see -- characters, items, and "chunks". A chunk is a rectangular tilemap that contains solid geometry. The camera is always forced to stay within the bounds of the chunk the player is currently in, and the player can move between chunks that are adjacent. If the player tries to move beyond the left or right boundaries of a chunk without an adjacent chunk, they will be stopped. If they fall below the chunk boundary, they will die.
+
+A player should not be able to see beyond chunks, but you can break this barrier in the editor.
+
+## Basic editor controls
+The basic controls of the editor are shown in the image below:
+
+[ image editor basics.png ]
+
+In order to select an entity, hit Tab and click on one of the things encircled by a rectangular selection area.
+
+Once an entity has been selected, entity properties and a toolbar should pop up:
+
+[ image editor entity.png ]
+
+The toolbar only shows tools that are suitable for the current entity. By default the browse tool is equipped, which lets you drag the screen to move the camera. For more tools see "below"(link #tools).
+
+The properties of an entity are specific to that entity. The meaning of some common properties is outlined "below"(link #properties).
+
+Some entities like the chunk may also offer additional UI elements in a right side panel. The panel may start contracted, so you'll have to drag it open.
+
+[ image editor chunk.png ]
+
+There's a total of five layers on every chunk, with the middle layer being "solids". Higher layers will appear in front of characters, and lower layers behind them. The layer other entities are on is usually determined automatically by the entity itself. Each chunk also comes with a special layer that describes the tiles that are "solid". The row of solid, interactable tiles is always the bottom row in the tile set. The meaning of the tiles is described "below"(link #tiles).
+
+## Tools
+The editor comes with a number of different tools to manipulate different kinds of entities.
+
+### Browse
+This tool is always available. When active, dragging will cause the camera to move. Shift-dragging will change the zoom level. In most cases you can also invoke this tool while another tool is active by holding down Alt.
+
+### Freeform
+This tool allows you to move or resize entities. Dragging the border of a resizable entity will resize it. Dragging anywhere else will move it.
+
+### Paint
+This tool allows you to draw tiles into a chunk. With left click, the currently selected tile is placed. With right click, the tile is erased. Middle-clicking will pick the current tile. While drawing tiles, other layers will be drawn transparently to make it easier to see and to minimise the risk of accidentally drawing on the wrong layer.
+
+When Shift-clicking, a bucket fill of the current tile is performed.
+
+When Cttrl-clicking, an auto-tile is performed. This will attempt to intelligently fill in a full shape according to how the solids are laid out. Auto-tile does not care about the tile you have currently selected, but it //must// be performed within a completed shape. Auto-tiling may also fail on certain configurations of solid tiles that it doesn't know how to interpret.
+
+### Line
+This tool allows you to quickly draw up lines of solids. Depending on the direction you drag the line it will automatically generate slopes and solid blocks.
+
+## Tiles
+Every tile sheet must include a bottom row of tiles that are used for special tiles. This row contains tiles that designate different kinds of surfaces. From left to right, these are:
+
+1. **Empty tile**
+   This tile is "nothing" and there's no interaction.
+2. **Solid tile**
+   This tile is solid and acts as ground. It is solid from all directions.
+3. **Platform tile**
+   This tile is only solid from above and the player can jump through it from below.
+4. **Spike tile**
+   This tile is a death trigger.
+5. **Slope tiles**
+   The remaining tiles are all slopes of different angles and should be fairly self-explanatory.
+   Note that slopes are only solid from above.
