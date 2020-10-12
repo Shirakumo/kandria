@@ -1,0 +1,75 @@
+# Getting Started
+This guide is meant for new team members to orient themselves and get started working on Kandria. In order to get set up and ready for development, please follow the "setup guide"(#setup). If you need information on the "project structure"(#structure) and "organisation"(#organisation), see the relevant sections below. Please also regard the guidelines for "contributions"(#contributing).
+
+## Setup
+Before you get started, please send Shinmera your GitHub username so he can add you to the project's contributors list and allow you commit access.
+
+Unlike many other game projects, Kandria uses a custom engine and is written in Common Lisp. This means that unfortunately the setup is a bit more involved, but not by much. In order to ease setup, a custom development environment has been put together. You can download it from here:
+
+- "Windows"(https://mega.nz/file/4lggAZ7D#7yYFU2NrlQrbL6N2pprRVEmvo0laRN4jKXjLV77TXAg)
+
+If you're already familiar with Emacs, you might want to set up a native development environment instead of using Portacle. In that case, contact Shinmera for advice. If not, carry on.
+
+First you should update the Kandria sources. Kandria should already be cloned within the development environment package at ``projects/kandria``. There are a few other directories in the projects folder that contain other, necessary libraries. Please use Git in whatever fashion you find comfortable to pull all of the repositories within the projects directory and ensure they're up to date.
+
+Once that's done, please start ``Portacle`` (the development environment). It should greet you with a screen similar to this:
+
+[ image https://portacle.github.io/portacle-start.png ]
+
+In the section with the ``CL-USER>`` prompt, type ``(ql:quickload :kandria)``. This will compile and load the game. It'll take a while the first time you do it. After that, try starting the game with ``(kandria:launch)``. If that opens the game successfully, then, congratulations! You're all set up and ready for development! If you encounter a problem at any point, such as an error prompt opening up, contact Shinmera to help with the debugging.
+
+## Structure
+The source tree is divided up as follows:
+
+- ``kandria/``
+  Game source files. Unless otherwise noted, other directories contain source subsystems.
+  - ``bin/``
+    Binary deployment target directory. When the game is built as an executable, the output lands here.
+  - ``data/``
+    Assets like textures, tiles, sprites, sounds, etc. including raw source files (ase, etc.)
+  - ``docs/``
+    Documentation and documents related to the project and its website. This document should be in this directory.
+    - "``dialogue format.mess``"(link dialogue format.mess)
+      Documentation on the dialogue format and syntax.
+    - "``quest system.mess``"(link quest system.mess)
+      Documentation on the behaviour and capabilities of the quest system.
+    - "``combat system.mess``"(link combat system.mess)
+      Documentation on the combat system that the game employs.
+    - "``editor.mess``"(link editor.mess)
+      Documentation on the in-game editor and how to use its features.
+    - "``lisp crash course.mess``"(link lisp crash course.mess)
+      A short introduction to Lisp syntax and usage related to Kandria.
+  - ``releases/``
+    Source files related to publishing, packaging, and archiving game releases.
+  - ``world/``
+    Source files for levels, quests, and dialogue.
+    - ``storyline.lisp``
+      Source file for quests and tasks.
+    - ``init/``
+      Source files to describe the initial state of the game when loading a new game.
+    - ``regions/``
+      Source files for every "region" in the game -- meaning level data.
+
+## Organisation
+For instant communication please use "Discord"(https://discord.gg/WNTygau). The rest of the  project management happens through a Google doc. Please have a look at it here:
+
+|  https://docs.google.com/spreadsheets/d/1vJcVDEW0vasMw-FKumIrLA3jd2AYBKs6ZfTWOTXOC6k/edit
+
+The doc contains sheets with current todo items, ideas for the future, and details on these tasks. The todo items should be sorted with the more important ones at the top. Once you complete an item, please check it off and move it to the bottom. For ideas, please just throw them into the ideas sheet and discuss them over Discord. If it turns out there's time available and the idea seems good, it can be moved over to the todo section.
+
+The animations sheet is a more detailed overview of the pixel animations that need to be done for the various characters and enemies in the game. More will be added there as necessary. Animations need to first be sketched, then properly animated, and finally integrated into the game by filling in combat animation data and triggering it on appropriate events.
+
+Users can submit feedback for Kandria through an automated system. The resulting reports end up on a server that manages them. In order to view these reports, please "create a TyNET account"(https://auth.tymoon.eu/register) and inform Shinmera of your account name so that he can give you access. Once an account has been created, you can view reports here:
+
+|  https://feedback.tymoon.eu/kandria/
+
+Additionally, the mailing list system is also hosted on TyNET, and can be found here:
+
+| https://courier.tymoon.eu/campaign/Kandria
+
+## Contributing
+When contributing to the project please use a separate branch and do not commit directly to ``master``. You may either use per-feature branches or just a singular branch for all of your work. When you are done with a task and would like to get feedback on it and merge it into mainline, submit a "pull request"(https://github.com/Shinmera/kandria/compare) on github. The PR should then be reviewed by another team member and ultimately merged into master.
+
+When creating a PR, please include a short description of what task you tackled.
+
+When pulling, please use the rebase strategy whenever possible. If you've downloaded the development environment, it should already have rebase configured as the default strategy.
