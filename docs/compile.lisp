@@ -2,8 +2,15 @@
 sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
 |#
 
-(ql:quickload '(cl-markless-plump lass lquery cl-ppcre) :silent T)
+(ql:quickload '(cl-markless-plump lass lquery cl-ppcre clip drakma) :silent T)
 
+(defvar *here* #.(or *load-pathname*
+                     (error "LOAD this file.")))
+
+(defun file (name type)
+  (make-pathname :name name :type type :defaults *here*))
+
+;;;; Markless extension for YouTube embeds
 (defun youtube-code (url)
   (let ((pieces (nth-value 1 (cl-ppcre:scan-to-strings "((http|https)://)?(www\\.)?(youtube\\.com|youtu\\.be)/(watch\\?v=)?([0-9a-zA-Z_\\-]{4,12})" url))))
     (when pieces (aref pieces 5))))
@@ -41,6 +48,7 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
                 (setf (plump-dom:attribute element "style")
                       (format NIL "float:~(~a~)" (cl-markless-components:direction option))))))))
 
+;;;; Compiling documentation pages
 (defun style ()
   (lass:compile-and-write
    '(article
@@ -77,25 +85,53 @@ sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
       (setf (plump:attribute node "href") (format NIL "~a.html" (subseq href 0 (- (length href) (length ".mess"))))))
     node))
 
-(defun generate (file)
-  (let ((dom (plump:make-root))
-        (output (make-pathname :type "html" :defaults file)))
+(defun generate-documentation (file)
+  (let ((dom (plump:make-root)))
     (cl-markless:output (cl-markless:parse file (make-instance 'cl-markless:parser :embed-types (list* 'youtube cl-markless:*default-embed-types*)))
                         :target dom
                         :format (make-instance 'org.shirakumo.markless.plump:plump
                                                :css (style)))
     (lquery:$ dom "a[href]" (each #'fixup-href))
-    (with-open-file (stream output
+    (with-open-file (stream (make-pathname :type "html" :defaults file)
                             :direction :output
                             :if-exists :supersede)
-      (plump:serialize dom stream))
-    (let ((copy (merge-pathnames "../docs/doc/" output)))
-      (ensure-directories-exist copy)
-      (uiop:copy-file output copy))
-    output))
+      (plump:serialize dom stream))))
+
+;;;; Compiling the website
+(defun process (in out &rest args)
+  (with-open-file (stream out :direction :output
+                              :if-exists :supersede)
+    (let ((*package* #.*package*)
+          (plump:*tag-dispatchers* plump:*html-tags*))
+      (plump:serialize (apply #'clip:process in args) stream))))
+
+(defun process-content (content)
+  (let ((plump:*tag-dispatchers* plump:*html-tags*))
+    (lquery:$1 (inline (plump:parse content))
+      "p")))
+
+(defun max-array (array n)
+  (if (<= (length array) n)
+      array
+      (subseq array 0 n)))
+
+(defun fetch-updates (&optional (url "https://tymoon.eu/api/reader/atom?tag=kandria"))
+  (let ((plump:*tag-dispatchers* plump:*xml-tags*)
+        (drakma:*text-content-types* '(("application" . "atom+xml"))))
+    (lquery:$ (initialize (drakma:http-request url))
+      "entry" (map (lambda (entry)
+                     (list :title (lquery:$1 entry "title" (text))
+                           :url (lquery:$1 entry "link" (attr :href))
+                           :time (subseq (lquery:$1 entry "published" (text)) 0 (length "2020-02-04"))
+                           :excerpt (process-content (lquery:$1 entry "content" (text)))))))))
+
+(defun generate-website ()
+  (process (file "index" "ctml") (file "index" "html")
+           :updates (handler-case (max-array (fetch-updates) 3)
+                      (usocket:ns-try-again-condition ()))))
 
 (defun generate-all ()
-  (dolist (file (directory (make-pathname :name :wild :type "mess"
-                                          :defaults #.(or *compile-file-pathname* *load-pathname* *default-pathname-defaults*))))
+  (generate-website)
+  (dolist (file (directory (file :wild "mess")))
     (with-simple-restart (continue "Ignore ~a" file)
-      (generate file))))
+      (generate-documentation file))))

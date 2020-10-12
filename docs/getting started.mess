@@ -27,8 +27,8 @@ The source tree is divided up as follows:
     Binary deployment target directory. When the game is built as an executable, the output lands here.
   - ``data/``
     Assets like textures, tiles, sprites, sounds, etc. including raw source files (ase, etc.)
-  - ``doc/``
-    Documentation and documents related to the project. This document should be in this directory.
+  - ``docs/``
+    Documentation and documents related to the project and its website. This document should be in this directory.
     - "``dialogue format.mess``"(link dialogue format.mess)
       Documentation on the dialogue format and syntax.
     - "``quest system.mess``"(link quest system.mess)
