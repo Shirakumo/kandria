@@ -7,10 +7,10 @@ Before you get started, please send Shinmera your GitHub username so he can add 
 Unlike many other game projects, Kandria uses a custom engine and is written in Common Lisp. This means that unfortunately the setup is a bit more involved, but not by much. In order to ease setup, a custom development environment has been put together. You can download it from here:
 
 - "Windows"(link https://mega.nz/file/4lggAZ7D#7yYFU2NrlQrbL6N2pprRVEmvo0laRN4jKXjLV77TXAg)
-- "Linux"(link)
-- "MacOS"(link)
+- "Linux"(link) (please request)
+- "MacOS"(link) (please request)
 
-You should be able to just extract the archive, and then hit the "portacle" app icon. This will open up an Emacs instance. If you're already familiar with Emacs, you might want to set up a native development environment instead. In that case, contact Shinmera for advice. If not, carry on.
+If you're already familiar with Emacs, you might want to set up a native development environment instead of using Portacle. In that case, contact Shinmera for advice. If not, carry on.
 
 First you should update the Kandria sources. Kandria should already be cloned within the development environment package at ``projects/kandria``. There are a few other directories in the projects folder that contain other, necessary libraries. Please use Git in whatever fashion you find comfortable to pull all of the repositories within the projects directory and ensure they're up to date.
 
@@ -18,7 +18,7 @@ Once that's done, please start ``Portacle`` (the development environment). It sh
 
 [ image https://portacle.github.io/portacle-start.png ]
 
-In the lower section with the ``CL-USER>`` prompt, type ``(ql:quickload :kandria)``. This will compile and load the game. It'll take a while the first time you do it. After that, try starting the game with ``(kandria:launch)``. If that opens the game successfully, then, congratulations! You're all set up and ready for development! If you encounter a problem at any point, such as an error prompt opening up, contact Shinmera to help with the debugging.
+In the section with the ``CL-USER>`` prompt, type ``(ql:quickload :kandria)``. This will compile and load the game. It'll take a while the first time you do it. After that, try starting the game with ``(kandria:launch)``. If that opens the game successfully, then, congratulations! You're all set up and ready for development! If you encounter a problem at any point, such as an error prompt opening up, contact Shinmera to help with the debugging.
 
 ## Structure
 The source tree is divided up as follows:
@@ -39,6 +39,8 @@ The source tree is divided up as follows:
       Documentation on the combat system that the game employs.
     - ``editor.mess``
       Documentation on the in-game editor and how to use its features.
+    - ``lisp crash course.mess``
+      A short introduction to Lisp syntax and usage related to Kandria.
   - ``releases/``
     Source files related to publishing, packaging, and archiving game releases.
   - ``world/``
