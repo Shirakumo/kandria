@@ -55,7 +55,6 @@
                              (:file "paint")
                              (:file "line")
                              (:file "freeform")
-                             (:file "base")
                              (:file "editor")
                              (:file "editmenu")
                              (:file "toolbar")

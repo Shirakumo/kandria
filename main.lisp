@@ -97,12 +97,6 @@
            :fullscreen (setting :display :fullscreen)
            initargs)))
 
-(defmethod render :before ((controller controller) program)
-  (let ((editor (unit :editor T)))
-    (when editor
-      (setf (show-overlay controller) (and (not (deploy:deployed-p))
-                                           (not (active-p editor)))))))
-
 (defmethod setup-scene ((main main) scene)
   (flet ((observe (func)
            (observe! (funcall func (unit 'player scene)) :title func)))
@@ -115,7 +109,6 @@
     (observe 'air-time))
   
   (enter (make-instance 'fade) scene)
-  (enter (make-instance 'inactive-editor) scene)
   (enter (make-instance 'camera) scene)
   (let ((shadow (make-instance 'shadow-map-pass))
         (lighting (make-instance 'lighting-pass))

@@ -1,24 +1,16 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity profile-picture (trial:animated-sprite alloy:layout-element)
-  ((shader-program :accessor shader-program))
+(define-shader-entity profile-picture (trial:animated-sprite standalone-shader-entity alloy:layout-element)
+  ()
   (:default-initargs :sprite-data (asset 'kandria 'player-profile)))
 
-(defmethod initialize-instance :after ((picture profile-picture) &key)
-  (setf (shader-program picture) (make-class-shader-program picture)))
-
-(defmethod stage :after ((picture profile-picture) (area staging-area))
-  (stage (shader-program picture) area))
-
 (defmethod alloy:render ((pass ui-pass) (picture profile-picture))
-  (let ((program (shader-program picture))
-        (extent (alloy:bounds picture)))
+  (let ((extent (alloy:bounds picture)))
     (with-pushed-matrix ((view-matrix :identity)
                          (model-matrix :identity))
       (translate-by (+ 128 (alloy:pxx extent)) (alloy:pxy extent) 0)
       (scale-by (/ (alloy:pxw extent) 128) (/ (alloy:pxh extent) 128) 1)
-      (gl:use-program (gl-name program))
-      (render picture program))))
+      (render picture NIL))))
 
 (defclass nametag (alloy:label) ())
 
@@ -115,7 +107,7 @@
 (defun clear-text-string ()
   (make-array 0 :fill-pointer 0 :element-type 'character))
 
-(defclass dialog (panel alloy:observable-object)
+(defclass dialog (pausing-panel alloy:observable-object)
   ((vm :initform (make-instance 'dialogue:vm) :reader vm)
    (ip :initform 0 :accessor ip)
    (char-timer :initform 0.1 :accessor char-timer)
@@ -157,11 +149,7 @@
     (setf (fill-pointer (text dialog)) to)
     (setf (text dialog) (text dialog))))
 
-(defmethod handle :before ((ev event) (dialog dialog))
-  (handle ev (controller (handler *context*))))
-
 (defmethod handle ((ev tick) (dialog dialog))
-  (handle ev (unit :camera +world+))
   (handle ev (profile dialog))
   (cond ((and (at-end-p dialog)
               (not (prompt dialog)))

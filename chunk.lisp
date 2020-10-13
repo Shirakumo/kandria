@@ -225,7 +225,7 @@ void main(){
   (cond ((show-solids chunk)
          (setf (visibility chunk) 1.0)
          (call-next-method))
-        ((active-p (unit :editor T))
+        ((find-panel 'editor)
          (setf (visibility chunk) 0.3)
          (call-next-method))))
 

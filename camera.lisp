@@ -37,7 +37,7 @@
                                  (+ ly (- ch) lh)))))))
 
 (defmethod handle :before ((ev tick) (camera camera))
-  (unless (and (unit :editor T) (active-p (unit :editor T)))
+  (unless (find-panel 'editor)
     (let ((loc (location camera))
           (int (intended-location camera)))
       ;; Camera zoom

@@ -93,19 +93,11 @@
     (alloy:focus-list)
   layer show-solids tiles pick clear compute)
 
-(defclass chunk-editor (editor)
-  ())
-
-(defmethod update-instance-for-different-class :after (previous (editor chunk-editor) &key)
+(defmethod (setf entity) :after ((chunk chunk) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
-
-(defmethod (setf entity) :before (new (editor chunk-editor)))
-
-(defmethod editor-class ((_ chunk))
-  'chunk-editor)
 
 (defmethod applicable-tools append ((_ chunk))
   '(paint line))
 
-(defmethod default-tool ((editor chunk-editor))
+(defmethod default-tool ((_ chunk))
   'paint)

@@ -27,19 +27,6 @@
 (defmethod alloy:register ((widget single-widget) target)
   (alloy:register (slot-value widget 'representation) target))
 
-(defclass sidebar (single-widget)
-  ((side :initarg :side :accessor side)
-   (entity :initform NIL :accessor entity)
-   (editor :initarg :editor :initform (alloy:arg! :editor) :accessor editor))
-  (:metaclass alloy:widget-class))
-
-(defmethod initialize-instance :before ((sidebar sidebar) &key editor)
-  (setf (slot-value sidebar 'entity) (entity editor)))
-
-(alloy:define-subobject (sidebar representation -100) ('alloy:sidebar :side (side sidebar))
-  (alloy:enter (slot-value sidebar 'layout) representation)
-  (alloy:enter (slot-value sidebar 'focus) representation))
-
 (define-shader-pass ui-pass (ui)
   ((name :initform 'ui-pass)
    (panels :initform NIL :accessor panels)
@@ -52,12 +39,14 @@
 (defmethod render :before ((pass ui-pass) target)
   (gl:clear-color 0 0 0 0))
 
-(defmethod handle :after ((ev event) (pass ui-pass))
-  (when (panels pass)
-    (handle ev (first (panels pass)))))
+(defmethod handle :around ((ev event) (pass ui-pass))
+  (unless (call-next-method)
+    (when (panels pass)
+      (handle ev (first (panels pass))))))
 
 (defmethod stage ((pass ui-pass) (area staging-area))
   (call-next-method)
+  (stage (simple:request-font pass "PromptFont") area)
   (stage (framebuffer pass) area))
 
 (defmethod compile-to-pass (object (pass ui-pass)))
@@ -66,8 +55,19 @@
 ;; KLUDGE: No idea why this is necessary, fuck me.
 (defmethod simple:request-font :around ((pass ui-pass) font &key)
   (let ((font (call-next-method)))
-    (trial:commit font (loader (handler *context*)) :unload NIL)
+    (unless (and (alloy:allocated-p font)
+                 (allocated-p (org.shirakumo.alloy.renderers.opengl.msdf:atlas font)))
+      (trial:commit font (loader (handler *context*)) :unload NIL))
     font))
+
+(defun find-panel (panel-type)
+  (find panel-type (panels (unit 'ui-pass T)) :key #'type-of))
+
+(defun toggle-panel (panel-type &rest initargs)
+  (let ((panel (find-panel panel-type)))
+    (if panel
+        (hide panel)
+        (show (apply #'make-instance panel-type initargs)))))
 
 (defclass panel (alloy:structure)
   ())
@@ -81,6 +81,7 @@
   ;; Then attach to the UI
   (let ((ui (or ui (unit 'ui-pass T))))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
+    (setf (alloy:root (alloy:focus-tree ui)) (alloy:focus-element panel))
     (alloy:register panel ui)
     (push panel (panels ui))
     panel))
@@ -89,7 +90,17 @@
   (let ((ui (unit 'ui-pass T)))
     (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
     (setf (panels ui) (remove panel (panels ui)))
+    (setf (alloy:root (alloy:focus-tree ui)) (when (panels ui) (alloy:focus-element (first (panels ui)))))
     panel))
+
+(defclass pausing-panel (panel)
+  ())
+
+(defmethod show :after ((panel pausing-panel) &key)
+  (pause-game T (unit 'ui-pass T)))
+
+(defmethod hide :after ((panel pausing-panel))
+  (unpause-game T (unit 'ui-pass T)))
 
 (defclass messagebox (alloy:dialog alloy:observable)
   ((message :initarg :message :accessor message))
