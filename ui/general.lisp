@@ -4,9 +4,9 @@
               org.shirakumo.alloy:fixed-scaling-ui
               org.shirakumo.alloy.renderers.simple.presentations:default-look-and-feel)
   ((alloy:target-resolution :initform (alloy:px-size 1280 720))
-   (alloy:scales :initform '((3840 T 2.5)
-                             (2800 T 2.0)
-                             (1920 T 1.5)
+   (alloy:scales :initform '((3840 T 1.75)
+                             (2800 T 1.5)
+                             (1920 T 1.25)
                              (1280 T 1.0)
                              (1000 T 0.8)
                              (T T 0.5)))))

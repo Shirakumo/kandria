@@ -47,7 +47,7 @@
     (setf (tool editor) 'browser)
     (setf (toolbar editor) toolbar)
     (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
-    (alloy:enter menu layout :place :north)
+    (alloy:enter menu layout :place :north :size (alloy:un 30))
     (alloy:enter menu focus)
     (alloy:enter toolbar layout :place :south :size (alloy:un 30))
     (alloy:enter toolbar focus)
@@ -94,7 +94,7 @@
       (alloy:leave (sidebar editor) (alloy:focus-element editor)))))
 
 (defmethod (setf sidebar) :after ((sidebar sidebar) (editor editor))
-  (alloy:enter sidebar (alloy:layout-element editor) :place :east)
+  (alloy:enter sidebar (alloy:layout-element editor) :place :east :size (alloy:un 300))
   (alloy:enter sidebar (alloy:focus-element editor)))
 
 (defun update-marker (editor entity &optional (color (vec 1 1 1 1)))
