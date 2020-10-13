@@ -37,7 +37,11 @@
   (make-instance 'alloy:fullscreen-layout :layout-parent (alloy:layout-tree pass)))
 
 (defmethod render :before ((pass ui-pass) target)
+  (gl:enable :depth-test)
   (gl:clear-color 0 0 0 0))
+
+(defmethod render :after ((pass ui-pass) target)
+  (gl:disable :depth-test))
 
 (defmethod handle :around ((ev event) (pass ui-pass))
   (unless (call-next-method)
