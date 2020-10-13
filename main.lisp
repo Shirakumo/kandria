@@ -45,7 +45,6 @@
   (call-next-method)
   (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
-  (load-mapping (merge-pathnames "keymap.lisp" (root)))
   (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)
                                              :effects `((mixed:frequency-pass :cutoff 500 :bypass T :name low-pass))))
   (loop for (k v) on (setting :audio :volume) by #'cddr
@@ -88,6 +87,7 @@
 (defun launch (&rest initargs)
   (let ((*package* #.*package*))
     (v:info :kandria "Launching version ~a" (version :kandria))
+    (load-keymap)
     (load-settings)
     (save-settings)
     (apply #'trial:launch 'main
@@ -117,7 +117,7 @@
         ;; This is dumb and inefficient. Ideally we'd connect the same output
         ;; to both distortion and UI and then just make the UI pass not clear
         ;; the framebuffer when drawing.
-        (ui (make-instance 'ui-pass))
+        (ui (make-instance 'ui-pass :base-scale (setting :display :ui-scale)))
         (blend (make-instance 'blend-pass)))
     (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
     (connect (port lighting 'color) (port rendering 'lighting) scene)

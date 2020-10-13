@@ -10,10 +10,15 @@
                  :display (:width 1280
                            :height 720
                            :fullscreen NIL
-                           :vsync T))))
+                           :vsync T
+                           :ui-scale 1.0))))
 
 (defun settings-path ()
   (make-pathname :name "settings" :type "lisp"
+                 :defaults (config-directory)))
+
+(defun keymap-path ()
+  (make-pathname :name "keymap" :type "lisp"
                  :defaults (config-directory)))
 
 (defun map-leaf-settings (function &optional (settings +settings+))
@@ -23,6 +28,13 @@
                           (recurse v (list* k rpath))
                           (funcall function (reverse (list* k rpath)) v)))))
     (recurse settings ())))
+
+(defun load-keymap (&optional path)
+  (unless path
+    (setf path (keymap-path))
+    (unless (probe-file path)
+      (uiop:copy-file (merge-pathnames "keymap.lisp" (root)) path)))
+  (load-mapping path))
 
 (defun load-settings (&optional (path (settings-path)))
   (ignore-errors

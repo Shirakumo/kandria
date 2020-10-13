@@ -34,9 +34,18 @@ In order to play Kandria you need an x86-64 Windows, Linux, or macOS system with
 
 Due to a known bug, the game currently does not run properly on AMD graphics cards on Windows. Any other system and video card combination should work, however.
 
-## Reporting Problems and Feedback
-If you encounter a problem with Kandria, first of all, apologies! The best way to report the problem is to reply to the email you got the download link from and attach the ``trial.log`` file that should be in the game directory after you've launched the game. Please also describe what you did and observed to get a better idea of the circumstances.
+## Changing Settings
+Settings are saved in a plain text file that you can find here:
 
-If you have feedback about the game itself or encountered weird bugs or glitches while playing, please let me know about that as well! An email would be much appreciated.
+Linux/MacOS: ``~/.config/shirakumo/kandria/settings.lisp``
+Windows: ``%AppData%/Roaming/shirakumo/kandria/settings.lisp``
+
+Key bindings can be found in the same directory in the ``keymap.lisp`` file:
+
+Linux/MacOS: ``~/.config/shirakumo/kandria/keymap.lisp``
+Windows: ``%AppData%/Roaming/shirakumo/kandria/keymap.lisp``
+
+## Reporting Problems and Feedback
+If you encounter a problem with Kandria, first of all, apologies! The best way to report them is to hit ``F12`` in-game. That will bring up a dialogue that lets you enter a description of the problem. Once you OK the dialogue it'll gather some information about the current game state and send it to us. It'll also try to do that automatically should the game crash entirely.
 
 Changes that are realised thanks to public feedback like this will be noted in the "CHANGES.mess"(link CHANGES.mess) file.
