@@ -81,9 +81,12 @@
 
 (defmethod handle ((event event) (world world))
   (let ((handler (car (handler-stack world))))
-    (if handler
-        (handle event handler)
-        (call-next-method))))
+    (cond (handler
+           (handle event (controller (handler *context*)))
+           (handle event (unit :camera world))
+           (handle event handler))
+          (T
+           (call-next-method)))))
 
 (defmethod handle :after ((ev quicksave) (world world))
   (save-state world :quick))
@@ -95,11 +98,11 @@
   (pause-game world (unit 'ui-pass world))
   (make-instance 'report-input :ui (unit 'ui-pass world)))
 
+(defmethod handle ((ev toggle-editor) (world world))
+  (toggle-panel 'editor))
+
 (defmethod handle ((ev toggle-diagnostics) (world world))
-  (let ((panel (find 'diagnostics (panels (unit 'ui-pass world)) :key #'type-of)))
-    (if panel
-        (hide panel)
-        (show (make-instance 'diagnostics)))))
+  (toggle-panel 'diagnostics))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (when (= 0 (mod (fc ev) 10))

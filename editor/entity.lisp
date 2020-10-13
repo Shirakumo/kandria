@@ -24,3 +24,6 @@
 (alloy:define-subcontainer (entity-widget focus)
     (alloy:focus-list)
   insert clone delete inspector)
+
+(defmethod default-tool ((_ sized-entity))
+  'freeform)

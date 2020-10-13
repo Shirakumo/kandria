@@ -18,7 +18,8 @@
         (focus (alloy:focus-element toolbar)))
     (alloy:clear layout)
     (alloy:clear focus)
-    (populate-toolbar layout focus editor entity)))
+    (populate-toolbar layout focus editor entity)
+    (alloy:register layout (unit 'ui-pass T))))
 
 (defun populate-toolbar (layout focus editor entity)
   (dolist (tool (applicable-tools entity))
