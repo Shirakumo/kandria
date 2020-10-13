@@ -270,5 +270,52 @@ For qualified symbols the behaviour is slightly different -- if the symbol does 
 ! label keywords
 Symbols that are home to the package named ``KEYWORD`` can also be written by omitting the package name from the extended syntax, meaning ``:symbol-name``. Keywords are quite frequently used to denote named arguments and other properties or attributes, as they are easy to access from any package. Any symbol interned in the keyword package is also automatically turned into a variable that holds the keyword itself as the value.
 
+## Useful Functions
+This is a list of functions that are likely to be useful to you when writing small code snippets for the "quest system"(link quest system.mess).
+
+- Boolean algebra
+  - ``not``
+    Return ``T`` if the argument is ``NIL``, otherwise return ``NIL``.
+  - ``and``
+    Only return ``T`` if all of the arguments are not ``NIL``.
+  - ``or``
+    Return ``T`` if any one of the arguments is not ``NIL``.
+- Algebra
+  - ``=``, ``/=``, ``<=``, ``>=``, ``<``, ``>``
+    Compare numbers to be equal, not equal, smaller or equal, greater or equal, smaller, or greater.
+  - ``+``, ``-``, ``*``, ``/``
+    Add, subtract, multiply, or divide numbers.
+  - ``1+``, ``1-``
+    Add one or subtract one from a number.
+  - ``min``, ``max``
+    Return the minimal or maximal number of all the arguments.
+  - ``incf``, ``decf``
+    Increase or decrease a variable holding a number.
+- Vector algebra
+  - ``vec``, ``vx``, ``vy``
+    Construct an algebraic vector or access a vector's x or y component.
+  - ``v+``, ``v-``, ``v*``, ``v/``
+    Add, subtract, multiply, or divide vectors.
+- Control flow
+  - ``eq``, ``eql``, ``equal``, ``equalp``
+    Compare objects for identity, or equality by varying degrees.
+  - ``if``, ``when``, ``unless``
+    Execute code depending on a predicate.
+  - ``case``, ``ecase``
+    Execute code depending on the value of the first argument.
+- Sequences
+  - ``elt``
+    Access the element at a specific index of a sequence.
+  - ``list``, ``list*``
+    Construct a new list or prepend elements to a list.
+  - ``append``, ``reverse``
+    Append multiple lists together or reverse a list.
+  - ``find``
+    Find an element in a sequence.
+
 ## More
 This crash course only covers the bare essentials in very little depth. If you are interested enough to see a much more detailed and extensive coverage of Lisp's capabilities, please see the excellent "Practical Common Lisp"(http://www.gigamonkeys.com/book/), available for free online.
+
+Common Lisp also has an ANSI "specification"(http://www.lispworks.com/documentation/HyperSpec/Front/), which is the first place to look for a precise definition of what a function should do. It can be hard to read though.
+
+When you're confused about something, the easiest way to get help is to just ask Shinmera.
