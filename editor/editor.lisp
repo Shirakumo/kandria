@@ -18,7 +18,9 @@
 
 (defmethod alloy:render ((pass ui-pass) (marker marker))
   (alloy:with-constrained-visibility ((alloy:bounds marker) pass)
-    (render marker NIL)))
+    (setf (simple:composite-mode pass) :xor)
+    (render marker NIL)
+    (setf (simple:composite-mode pass) :source-over)))
 
 (defmethod alloy:suggest-bounds (bounds (marker marker)) bounds)
 
