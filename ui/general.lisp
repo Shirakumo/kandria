@@ -92,6 +92,9 @@
 
 (defmethod hide ((panel panel))
   (let ((ui (unit 'ui-pass T)))
+    ;; Make sure we hide things on top first.
+    (loop until (eq panel (first (panels ui)))
+          do (hide (first (panels ui))))
     (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
     (setf (panels ui) (remove panel (panels ui)))
     (setf (alloy:root (alloy:focus-tree ui)) (when (panels ui) (alloy:focus-element (first (panels ui)))))

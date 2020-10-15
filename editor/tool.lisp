@@ -6,6 +6,8 @@
 
 (defgeneric label (tool))
 
+(defmethod stage ((tool tool) (area staging-area)))
+
 (defmethod handle ((event event) (tool tool)))
 
 (defmethod commit ((action action) (tool tool))
