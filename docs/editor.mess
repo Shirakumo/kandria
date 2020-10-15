@@ -52,6 +52,17 @@ When Cttrl-clicking, an auto-tile is performed. This will attempt to intelligent
 ### Line
 This tool allows you to quickly draw up lines of solids. Depending on the direction you drag the line it will automatically generate slopes and solid blocks.
 
+### Animation
+This tool is used to edit the "combat data"(link combat system.mess). When selected it'll open up a floating window which lets you select an animation and edit the per-frame properties of it. The following shortcuts are active:
+
+- ``space`` Play/pause the animation
+- ``left``/``right`` Step frame back/forward
+- ``delete`` Clear frame info
+
+Dragging with right click also lets you draw up a hurtbox region for the current frame.
+
+[ image editor-animation.png ]
+
 ## Tiles
 Every tile sheet must include a bottom row of tiles that are used for special tiles. This row contains tiles that designate different kinds of surfaces. From left to right, these are:
 
