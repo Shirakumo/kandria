@@ -5,9 +5,9 @@
    (color :initform (vec 1 0 0 0.5))))
 
 (defmethod apply-transforms progn ((hurtbox hurtbox))
-  (let ((size (v* 2 (bsize hurtbox))))
-    (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
-    (scale (vxy_ size))))
+  (let ((size (bsize hurtbox)))
+    (translate-by (- (vx size)) (- (vy size)) 100)
+    (scale-by (* 2 (vx size)) (* 2 (vy size)) 1)))
 
 (defmethod alloy:render :around ((pass ui-pass) (hurtbox hurtbox))
   (with-pushed-matrix ()
@@ -32,10 +32,12 @@
     location))
 
 (defmethod update-hurtbox ((sprite animatable) start end)
-  (let* ((bsize (nvabs (nv/ (v- end start) 2)))
-         (loc (nv- (v+ start bsize) (location sprite))))
-    (setf (hurtbox (frame sprite))
-          (vec (vx loc) (vy loc) (vx bsize) (vy bsize)))))
+  (let ((start (vmin start end))
+        (end (vmax start end)))
+    (let* ((bsize (nvabs (nv/ (v- end start) 2)))
+           (loc (nv- (v+ start bsize) (location sprite))))
+      (setf (hurtbox (frame sprite))
+            (vec (vx loc) (vy loc) (vx bsize) (vy bsize))))))
 
 (defclass animation-editor (tool alloy:observable-object)
   ((start-pos :initform NIL :accessor start-pos)
@@ -51,17 +53,17 @@
 
 (defmethod (setf tool) :after ((tool animation-editor) (editor editor))
   (setf (original-location tool) (vcopy (location (entity editor))))
-  (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
-  (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor)))
+  (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor))
+  (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
 
 (define-handler (animation-editor mouse-press) (pos button)
-  (when (eql button :middle)
+  (when (eql button :right)
     (let ((pos (mouse-world-pos pos)))
       (setf (start-pos animation-editor) pos)
       (update-hurtbox animation-editor pos pos))))
 
 (define-handler (animation-editor mouse-release) (pos button)
-  (when (eql button :middle)
+  (when (eql button :right)
     (update-hurtbox animation-editor (start-pos animation-editor) (mouse-world-pos pos))
     (setf (start-pos animation-editor) NIL)))
 
@@ -71,8 +73,8 @@
 
 (defmethod update-hurtbox ((tool animation-editor) start end)
   (let ((hurtbox (update-hurtbox (entity tool) start end)))
-    (setf (location (hurtbox tool)) (vxy hurtbox))
-    (setf (bsize (hurtbox tool)) (vwz hurtbox))))
+    (setf (location (hurtbox tool)) (v+ (vxy hurtbox) (location (entity tool))))
+    (setf (bsize (hurtbox tool)) (vzw hurtbox))))
 
 (defmethod handle ((event key-release) (tool animation-editor))
   ;; FIXME: refresh frame representation in editor on change
@@ -98,17 +100,16 @@
 (defmethod (setf frame-idx) (idx (tool animation-editor))
   (let* ((sprite (entity tool))
          (animation (animation sprite)))
+    (cond ((<= (end animation) idx)
+           (setf idx (start animation)))
+          ((< idx (start animation))
+           (setf idx (1- (end animation)))))
+    (setf (frame-idx sprite) idx)
     (setf (location sprite) (v+ (original-location tool)
                                 (compute-frame-location animation (frames sprite) idx)))
-    (cond ((<= (end animation) idx)
-           (setf (frame-idx sprite) (start animation)))
-          ((< idx (start animation))
-           (setf (frame-idx sprite) (1- (end animation))))
-          (T
-           (setf (frame-idx sprite) idx)))
     (let ((hurtbox (hurtbox (aref (frames sprite) idx))))
-      (setf (location (hurtbox tool)) (vxy hurtbox))
-      (setf (bsize (hurtbox tool)) (vwz hurtbox)))))
+      (setf (location (hurtbox tool)) (v+ (vxy hurtbox) (location sprite)))
+      (setf (bsize (hurtbox tool)) (vzw hurtbox)))))
 
 (defmethod handle ((ev tick) (tool animation-editor))
   (unless (paused-p tool)
