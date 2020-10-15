@@ -26,30 +26,32 @@
   ((start-pos :initform NIL :accessor start-pos)
    (timeline :initform NIL :accessor timeline)))
 
-(defmethod initialize-instance :after ((editor animation-editor) &key)
-  (make-instance 'timeline :ui (unit 'ui-pass T)))
+(defmethod label ((tool animation-editor)) "Animations")
+
+(defmethod (setf tool) :after ((tool animation-editor) (editor editor))
+  (make-instance 'timeline :ui (unit 'ui-pass T) :entity (entity editor)))
 
 (define-handler (animation-editor mouse-press) (pos button)
   (when (eql button :middle)
-    (setf (start-pos animation-editor) (to-world-pos pos))
-    (update-hurtbox animation-editor (to-world-pos pos) (to-world-pos pos))))
+    (setf (start-pos animation-editor) (mouse-world-pos pos))
+    (update-hurtbox animation-editor (mouse-world-pos pos) (mouse-world-pos pos))))
 
 (define-handler (animation-editor mouse-release) (pos button)
   (when (eql button :middle)
-    (update-hurtbox animation-editor (start-pos animation-editor) (to-world-pos pos))
+    (update-hurtbox animation-editor (start-pos animation-editor) (mouse-world-pos pos))
     (setf (start-pos animation-editor) NIL)))
 
 (define-handler (animation-editor mouse-move) (pos)
   (when (start-pos animation-editor)
-    (update-hurtbox animation-editor (start-pos editor-sprite) (to-world-pos pos))))
+    (update-hurtbox animation-editor (start-pos animation-editor) (mouse-world-pos pos))))
 
 (defmethod update-hurtbox ((tool animation-editor) start end)
   (update-hurtbox (entity tool) start end))
 
 (defmethod handle ((event key-release) (tool animation-editor))
   ;; FIXME: refresh frame representation in editor on change
-  (let ((entity (entity editor))
-        (frame (frame entity)))
+  (let* ((entity (entity tool))
+         (frame (frame entity)))
     (case (key event)
       (:space
        (if (= (playback-speed entity) 0f0)
@@ -66,6 +68,10 @@
        (when (retained :shift)
          (transfer-frame (frame entity) frame))))))
 
+(defmethod handle ((event tick) (tool animation-editor))
+  (let ((entity (entity tool)))
+    ))
+
 (defmethod applicable-tools append ((_ animatable))
   '(animation-editor))
 
@@ -73,22 +79,27 @@
   ((animation :accessor animation)
    (entity :initarg :entity :accessor entity))
   (:default-initargs :title "Animations"
-                     :extent (alloy:extent 0 0 (alloy:vw 100) 300)
+                     :extent (alloy:extent 0 0 (alloy:vw 1) 350)
                      :minimizable T
                      :maximizable NIL))
 
 (defmethod initialize-instance :after ((timeline timeline) &key entity)
-  (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout :layout-parent timeline))
-        (focus (make-instance 'alloy:focus-list :focus-parent timeline))
-        (animations (mapcar #'name (animations entity)))
-        (animation (alloy:represent (slot-value editor 'animation) 'alloy:combo-set :value-set animations))
-        (frames (make-instance 'alloy:horizontal-linear-layout :cell-margins (alloy:margins) :min-size (alloy:size 100 300)))
-        (scroll (make-instance 'alloy:scroll-view :scroll-x :focus focus :layout frames)))
-    (alloy:enter scroll layout :constraints '((:left 100) (:bottom 0) (:right 0) (:top 30)))
-    (alloy:enter animation layout :constraints '((:left 0) (:top 0) (:width 100) (:height 30)))
-    (alloy:on animation (animation timeline)
-      (setf (animation entity) animation)
-      (populate-frames frames focus entity animation))
+  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout :layout-parent timeline))
+         (focus (make-instance 'alloy:focus-list :focus-parent timeline))
+         (animations (animations entity))
+         (animation (alloy:represent (slot-value timeline 'animation) 'alloy:combo-set :value-set animations))
+         (frames (make-instance 'alloy:horizontal-linear-layout :cell-margins (alloy:margins) :min-size (alloy:size 100 300)))
+         (frames-focus (make-instance 'alloy:focus-list))
+         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :elements '("Frame" "Hurtbox" "Velocity" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Effect")))
+         (scroll (make-instance 'alloy:scroll-view :scroll :x :layout frames :focus frames-focus)))
+    (alloy:enter animation focus)
+    (alloy:enter scroll focus)
+    (alloy:enter animation layout :constraints `((:left 0) (:top 0) (:width 150) (:height 20)))
+    (alloy:enter labels layout :constraints `((:left 0) (:bottom 0) (:width 100) (:below ,animation 10)))
+    (alloy:enter scroll layout :constraints `((:left 110) (:bottom 0) (:right 0) (:below ,animation 10)))
+    (alloy:observe 'animation timeline (lambda (animation timeline)
+                                         (setf (animation entity) animation)
+                                         (populate-frames frames frames-focus entity animation)))
     (setf (animation timeline) (animation entity))))
 
 (defun populate-frames (layout focus entity animation)
@@ -96,7 +107,12 @@
   (alloy:clear focus)
   (loop for i from (start animation) below (end animation)
         for frame = (aref (frames entity) i)
-        do (make-instance 'frame-edit :idx i :frame frame :layout-parent layout :focus-parent focus)))
+        for edit = (make-instance 'frame-edit :idx i :frame frame)
+        do (alloy:enter edit layout)
+           (alloy:enter edit focus)
+           (alloy:on alloy:activate ((alloy:representation 'frame-idx edit))
+             (setf (frame entity) (alloy:value alloy:observable))
+             (setf (playback-speed entity) 0f0))))
 
 (alloy:define-widget frame-edit (alloy:structure)
   ((frame-idx :initarg :idx :representation (alloy:button) :reader frame-idx)
