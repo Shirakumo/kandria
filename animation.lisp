@@ -3,7 +3,7 @@
 (define-shader-entity animated-sprite (trial:animated-sprite facing-entity sized-entity)
   ())
 
-(defclass frame (sprite-frame)
+(defclass frame (sprite-frame alloy:observable)
   ((hurtbox :initform (vec 0 0 0 0) :accessor hurtbox)
    (velocity :initform (vec 0 0) :accessor velocity)
    (multiplier :initform (vec 0 0) :accessor multiplier)
@@ -12,6 +12,8 @@
    (stun-time :initform 0f0 :accessor stun-time)
    (flags :initform #b001 :accessor flags)
    (effect :initform NIL :accessor effect)))
+
+(alloy:make-observable '(setf hurtbox) '(value alloy:observable))
 
 (defmethod shared-initialize :after ((frame frame) slots &key sexp)
   (when sexp
@@ -100,7 +102,7 @@
           for i from 1
           do (write-animation frame stream)
              (format stream " ; ~3d" i))
-    (format stream "))~%")))
+    (format stream "~%))~%")))
 
 (defmethod write-animation ((animation sprite-animation) &optional (stream T))
   (format stream "~&   (~20a :loop-to ~3a :next ~s)"
@@ -109,7 +111,7 @@
           (next-animation animation)))
 
 (defmethod write-animation ((frame frame) &optional (stream T))
-  (format stream "~& (:damage ~3a :stun-time ~3f :flags #b~4,'0b :effect ~s :velocity (~4f ~4f) :multiplier (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f))"
+  (format stream "~& (:damage ~3a :stun-time ~3f :flags #b~4,'0b :effect ~10s :velocity (~4f ~4f) :multiplier (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f))"
           (damage frame)
           (stun-time frame)
           (flags frame)

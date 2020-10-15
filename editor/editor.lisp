@@ -62,11 +62,11 @@
 (defmethod hide :after ((editor editor))
   (setf (lighting (unit 'lighting-pass T)) (lighting (region (unit :camera T)))))
 
-(defmethod (setf tool) :around ((tool tool) (editor editor))
+(defmethod (setf tool) :before ((tool tool) (editor editor))
   (let ((entity (entity editor)))
-    (if (find (type-of tool) (applicable-tools entity))
-        (call-next-method)
-        (v:info :kandria.editor "Refusing to set unapplicable tool ~a for entity ~a" tool entity))))
+    (unless (find (type-of tool) (applicable-tools entity))
+      (error "Cannot use tool~%  ~a~%with~%  ~a" tool (entity editor)))
+    (trial:commit tool (loader (handler *context*)) :unload NIL)))
 
 (defmethod (setf tool) ((tool symbol) (editor editor))
   (setf (tool editor) (make-instance tool :editor editor)))
