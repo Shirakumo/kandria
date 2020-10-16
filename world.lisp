@@ -181,7 +181,11 @@
     (restart-case
         (prog1 (call-next-method)
           (when old-region
-            (leave old-region world)))
+            (leave old-region world))
+          ;; KLUDGE: Re-activate quests to populate interactions
+          (loop for quest being the hash-values of (quest:quests (storyline world))
+                do (when (quest:active-p quest)
+                     (quest:activate quest))))
       (abort ()
         :report "Give up changing the region and continue with the old."
         (when old-region
