@@ -337,9 +337,7 @@
       (v* (nv- pos (location camera)) (view-scale camera) (zoom camera)))))
 
 (defun mouse-tile-pos (pos)
-  (mouse-world-pos pos)
-  ;; (nvalign (mouse-world-pos (v- pos (/ +tile-size+ 2))) +tile-size+)
-  )
+  (nvalign (mouse-world-pos (v- pos (/ +tile-size+ 2))) +tile-size+))
 
 (defun generate-name (&optional indicator)
   (intern (format NIL "~a-~d" (or indicator "ENTITY") (incf *gensym-counter*)) #.*package*))
