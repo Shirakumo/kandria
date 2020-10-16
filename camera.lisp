@@ -94,6 +94,9 @@
 (defmethod handle ((ev switch-chunk) (camera camera))
   (setf (region camera) (chunk ev)))
 
+(defmethod handle ((ev switch-region) (camera camera))
+  (setf (target camera) (unit 'player T)))
+
 (defmethod handle ((ev window-shown) (camera camera))
   (if (target camera)
       (snap-to-target camera (target camera))

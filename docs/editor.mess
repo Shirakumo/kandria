@@ -33,6 +33,23 @@ Some entities like the chunk may also offer additional UI elements in a right si
 
 There's a total of five layers on every chunk, with the middle layer being "solids". Higher layers will appear in front of characters, and lower layers behind them. The layer other entities are on is usually determined automatically by the entity itself. Each chunk also comes with a special layer that describes the tiles that are "solid". The row of solid, interactable tiles is always the bottom row in the tile set. The meaning of the tiles is described "below"(link #tiles).
 
+Several keyboard shortcuts are also available:
+
+- ``Tab`` Change the selected entity
+- ``F1`` Save
+- ``F2`` Load
+- ``Delete`` Delete selected
+- ``Insert`` Insert new entity
+- ``c`` Clone selected
+- ``b`` Select browse tool
+- ``f`` Select freeform tool
+- ``p`` Select paint tool
+- ``l`` Select line tool
+- ``w`` Move camera up
+- ``a`` Move camera left
+- ``s`` Move camera down
+- ``d`` Move camera right
+
 ## Tools
 The editor comes with a number of different tools to manipulate different kinds of entities.
 
