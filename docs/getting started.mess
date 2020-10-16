@@ -2,7 +2,7 @@
 This guide is meant for new team members to orient themselves and get started working on Kandria. In order to get set up and ready for development, please follow the "setup guide"(#setup). If you need information on the "project structure"(#structure) and "organisation"(#organisation), see the relevant sections below. Please also regard the guidelines for "contributions"(#contributing).
 
 ## Setup
-Before you get started, please send Shinmera your GitHub username so he can add you to the project's contributors list and allow you commit access.
+Before you get started, please send Shinmera your GitHub username so he can add you to the project's contributors list and allow you commit access. Also make sure you have a Git client that you're familiar with and which supports "git-lfs"(https://git-lfs.github.com).
 
 Unlike many other game projects, Kandria uses a custom engine and is written in Common Lisp. This means that unfortunately the setup is a bit more involved, but not by much. In order to ease setup, a custom development environment has been put together. You can download it from here:
 

@@ -3,6 +3,7 @@
 (alloy:define-widget editmenu (alloy:structure)
   ())
 
+(alloy::define-subbutton (editmenu new) () (edit 'new-region T))
 (alloy::define-subbutton (editmenu save) () (edit 'save-region T))
 (alloy::define-subbutton (editmenu load) () (edit 'load-region T))
 (alloy:define-subcomponent (editmenu zoom) ((zoom (unit :camera T)) alloy:ranged-slider
@@ -21,11 +22,11 @@
                                     :shapes (list (make-instance 'simple:filled-rectangle :bounds (alloy:margins)
                                                                                           :name :background))
                                     :style `((:background :pattern ,(colored:color 0.1 0.1 0.1))))
-  save load zoom undo redo lighting time)
+  new save load zoom undo redo lighting time)
 
 (alloy:define-subcontainer (editmenu focus :if-exists :supersede)
     (alloy:focus-list)
-  save load zoom undo redo lighting time)
+  new save load zoom undo redo lighting time)
 
 (defmethod initialize-instance :after ((menu editmenu) &key)
   (alloy:on (setf alloy:value) (value (slot-value menu 'lighting))
