@@ -2,7 +2,7 @@
 
 (defclass line (tool)
   ((start :initform NIL :accessor start)
-   (existing :initform NIL :accessor existing)))
+   (stroke :initform NIL :accessor stroke)))
 
 (defmethod label ((tool line)) "Line")
 
@@ -13,34 +13,40 @@
   (setf (start tool) (vcopy (pos event))))
 
 (defmethod handle ((event mouse-release) (tool line))
-  (let ((chunk (entity tool))
-        (a (start tool))
-        (b (vcopy (pos event)))
-        (existing (existing tool)))
-    (flet ((redo (_)
-             (paint-line chunk a b))
-           (undo (_)
-             (paint-line chunk a b :tiles existing)))
-      (commit (make-instance 'closure-action :redo #'redo :undo #'undo) tool)))
+  (when (state tool)
+    (let ((entity (entity tool))
+          (stroke (stroke tool)))
+      (commit (make-action (loop for (loc prev new) in stroke
+                                 do (setf (tile loc entity) new))
+                           (loop for (loc prev new) in stroke
+                                 do (setf (tile loc entity) prev)))
+              tool)))
   (setf (state tool) NIL)
-  (setf (existing tool) NIL))
+  (setf (stroke tool) NIL))
 
 (defmethod handle ((event mouse-move) (tool line))
-  (case (state tool)
-    (:placing
-     (paint-line (entity tool) (start tool) (old-pos event) :tiles (existing tool))
-     (setf (existing tool) (paint-line (entity tool) (start tool) (pos event))))
-    (:erasing
-     (paint-line (entity tool) (start tool) (old-pos event) :tiles (existing tool))
-     (setf (existing tool) (paint-line (entity tool) (start tool) (pos event) :tiles '#1=(#.(vec 0 0) . #1#))))))
+  (when (state tool)
+    (let ((entity (entity tool)))
+      ;; First undo previous stroke
+      (loop for (loc prev new) in (stroke tool)
+            do (setf (tile loc entity) prev))
+      ;; Cache underlying tiles and set new ones.
+      (setf (stroke tool) (loop for (loc . slope) in (compute-line (start tool) (pos event))
+                                for tile = (ecase (state tool)
+                                             (:placing slope)
+                                             (:erasing (vec 0 0)))
+                                collect (list loc (tile loc entity) tile)
+                                do (setf (tile loc entity) tile))))))
 
-(defun paint-line (chunk start end &key tiles)
+(defun compute-line (start end)
   (let* ((a (mouse-tile-pos start))
          (b (mouse-tile-pos end))
-         (existing ()))
+         (tiles ()))
     (labels ((set-tile (tile)
-               (push (tile a chunk) existing)
-               (setf (tile a chunk) (if tiles (pop tiles) (vec tile 0)))))
+               (let ((prev (first tiles)))
+                 (if (and prev (v= a (car prev)))
+                     (setf (cdr prev) (vec tile 0))
+                     (push (cons (vcopy a) (vec tile 0)) tiles)))))
       (loop for deg = (atan (- (vy b) (vy a)) (- (vx b) (vx a)))
             do (set-tile 1)
                (cond ((= deg (atan 1 3)) ;; 3-tile slope
@@ -85,5 +91,5 @@
                       (incf (vx a) (* (signum (- (vx b) (vx a))) +tile-size+))))
             until (v= a b))
       (set-tile 1)
-      (nreverse existing))))
+      tiles)))
 

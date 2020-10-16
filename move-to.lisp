@@ -1,5 +1,9 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+;; TODO: This now takes by far the longest amount of time when
+;;       loading the game. It needs to both be made faster and be
+;;       cached to disk.
+
 (defclass move-edge (flow:connection) ())
 (defclass walk-edge (move-edge) ())
 (defclass crawl-edge (move-edge) ())

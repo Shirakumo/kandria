@@ -2,7 +2,8 @@
 
 (defclass freeform (tool)
   ((start-pos :initform NIL :accessor start-pos)
-   (original-loc :initform NIL :accessor original-loc)))
+   (original-loc :initform NIL :accessor original-loc)
+   (original-size :initform NIL :accessor original-size)))
 
 (defmethod label ((tool freeform)) "Freeform")
 
@@ -23,9 +24,28 @@
     (located-entity
      (setf (state tool) :moving)))
   (setf (start-pos tool) (mouse-world-pos (pos event)))
-  (setf (original-loc tool) (vcopy (location (entity tool)))))
+  (setf (original-loc tool) (vcopy (location (entity tool))))
+  (setf (original-size tool) (vcopy (bsize (entity tool)))))
 
 (defmethod handle ((event mouse-release) (tool freeform))
+  (let ((entity (entity tool)))
+    (case (state tool)
+      (:moving
+       (let ((new (vcopy (location entity)))
+             (old (vcopy (original-loc tool))))
+         (commit (make-action (setf (location entity) new)
+                              (setf (location entity) old))
+                 tool)))
+      (:resizing
+       (let ((new-loc (vcopy (location entity)))
+             (old-loc (vcopy (original-loc tool)))
+             (new-size (vcopy (bsize entity)))
+             (old-size (vcopy (original-size tool))))
+         (commit (make-action (progn (resize entity (* 2 (vx new-size)) (* 2 (vy new-size)))
+                                     (setf (location entity) new-loc))
+                              (progn (resize entity (* 2 (vx old-size)) (* 2 (vy old-size)))
+                                     (setf (location entity) old-loc)))
+                 tool)))))
   (setf (state tool) NIL))
 
 (defun nvalign-corner (loc bsize grid)
@@ -41,22 +61,14 @@
                  (/ +tile-size+ 2)))
            (entity (entity tool)))
        (when (v/= new (location entity))
-         (commit (capture-action (location entity) new) tool))))
+         (setf (location entity) new))))
     (:resizing
      (let* ((entity (entity tool))
             (current (nvalign (mouse-world-pos (pos event)) +tile-size+))
             (starting (nvalign (start-pos tool) +tile-size+))
             (new-pos (v+ (original-loc tool) (nv/ (v- current starting) 2)))
             (new-size (vmax (nv/ (vec +tile-size+ +tile-size+) 2)
-                            (nvabs (v- current new-pos))))
-            (old-pos (vcopy (location entity)))
-            (old-size (vcopy (bsize entity))))
+                            (nvabs (v- current new-pos)))))
        (when (v/= new-size (bsize entity))
-         (commit (make-instance 'closure-action
-                                :redo (lambda (_)
-                                        (resize entity (* 2 (vx new-size)) (* 2 (vy new-size)))
-                                        (setf (location entity) new-pos))
-                                :undo (lambda (_)
-                                        (resize entity (* 2 (vx old-size)) (* 2 (vy old-size)))
-                                        (setf (location entity) old-pos)))
-                 tool))))))
+         (resize entity (* 2 (vx new-size)) (* 2 (vy new-size)))
+         (setf (location entity) new-pos))))))

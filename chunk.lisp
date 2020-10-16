@@ -38,6 +38,10 @@
 (defmethod pixel-data ((layer layer))
   (pixel-data (tilemap layer)))
 
+(defmethod (setf pixel-data) ((data vector) (layer layer))
+  (replace (pixel-data (tilemap layer)) data)
+  (update-layer layer))
+
 (defmethod resize ((layer layer) w h)
   (let ((size (vec2 (floor w +tile-size+) (floor h +tile-size+))))
     (unless (v= size (size layer))

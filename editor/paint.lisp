@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass paint (tool)
-  ())
+  ((stroke :initform NIL :accessor stroke)))
 
 (defmethod label ((tool paint)) "Paint")
 
@@ -14,7 +14,17 @@
                (setf (visibility layer) 0.5))))
 
 (defmethod handle ((event mouse-release) (tool paint))
-  (setf (state tool) NIL)
+  (case (state tool)
+    (:placing
+     (setf (state tool) NIL)
+     (let ((entity (entity tool)))
+       (destructuring-bind (tile . stroke) (nreverse (stroke tool))
+         (commit (make-action (loop for (loc . _) in stroke
+                                    do (setf (tile loc entity) tile))
+                              (loop for (loc . tile) in stroke
+                                    do (setf (tile loc entity) tile)))
+                 tool))
+       (setf (stroke tool) NIL))))
   (loop for layer across (layers (entity tool))
         do (setf (visibility layer) 1.0)))
 
@@ -40,7 +50,7 @@
 
 (defun paint-tile (tool event)
   (let* ((entity (entity tool))
-         (loc (mouse-tile-pos (pos event)))
+         (loc (pos event))
          (loc (if (show-solids entity)
                   loc
                   (vec (vx loc) (vy loc) (layer (sidebar (editor tool))))))
@@ -49,12 +59,22 @@
                      (T
                       (vec 0 0)))))
     (cond ((retained :control)
-           (auto-tile entity loc))
+           (let* ((base-layer (aref (layers entity) +base-layer+))
+                  (original (copy-seq (pixel-data base-layer))))
+             (commit (make-action (auto-tile entity (vxy loc))
+                                  (setf (pixel-data base-layer) original))
+                     tool)))
           ((retained :shift)
-           (flood-fill entity loc tile))
+           (let ((original (tile loc entity)))
+             (commit (make-action (flood-fill entity loc tile)
+                                  (flood-fill entity loc original))
+                     tool)))
           ((and (typep event 'mouse-press) (eql :middle (button event)))
            (setf (tile-to-place (sidebar (editor tool)))
                  (tile loc entity)))
           ((and (tile loc entity) (v/= tile (tile loc entity)))
            (setf (state tool) :placing)
-           (commit (capture-action (tile loc entity) tile) tool)))))
+           (unless (stroke tool)
+             (push tile (stroke tool)))
+           (push (cons loc (tile loc entity)) (stroke tool))
+           (setf (tile loc entity) tile)))))
