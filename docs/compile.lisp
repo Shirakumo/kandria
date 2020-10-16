@@ -1,10 +1,19 @@
 #|
-sbcl --noinform --load "$0" --eval '(generate-all)' --quit && exit
+sbcl --noinform --load "$0" --eval '(kandria-docs:generate-all)' --quit && exit
 |#
 
-(ql:quickload '(cl-markless-plump lass lquery cl-ppcre clip drakma) :silent T)
+#+quicklisp (ql:quickload '(cl-markless-plump lass lquery cl-ppcre clip drakma) :silent T)
 
-(defvar *here* #.(or *load-pathname*
+(defpackage #:kandria-docs
+  (:use #:cl)
+  (:export
+   #:generate-documentation
+   #:generate-website
+   #:generate-all))
+(in-package #:kandria-docs)
+
+(defvar *here* #.(or *compile-file-pathname*
+                     *load-pathname*
                      (error "LOAD this file.")))
 
 (defun file (name type)
