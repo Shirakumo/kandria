@@ -177,6 +177,16 @@
   (redo action (unit 'region T))
   (commit action (history editor)))
 
+(defmethod edit ((action (eql 'new-region)) (editor editor))
+  (let ((old (region +world+))
+        (region (make-instance 'region)))
+    (enter (make-instance 'player) region)
+    (enter (make-instance 'background) region)
+    (enter (make-instance 'chunk) region)
+    (enter region +world+)
+    (leave old +world+)
+    (trial:commit +world+ (handler *context*))))
+
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (if (retained :control)
       (let ((path (file-select:existing :title "Select Region File")))
