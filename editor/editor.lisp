@@ -141,8 +141,8 @@
       (:tab (setf (entity editor) NIL) T)
       (:f1 (edit 'save-region T))
       (:f2 (edit 'load-region T))
-      (:f3 (edit 'save-game T))
-      (:f4 (edit 'load-game T))
+      (:f3)
+      (:f4)
       (:f5)
       (:f6)
       (:f7)
@@ -150,9 +150,9 @@
       (:f9)
       (:f10)
       (:f11)
-      (:c (edit 'clone-entity T))
       (:delete (edit 'delete-entity T))
       (:insert (edit 'insert-entity T))
+      (:c (edit 'clone-entity T))
       (:b (setf (tool editor) 'browser))
       (:f (setf (tool editor) 'freeform))
       (:p (setf (tool editor) 'paint))
@@ -179,11 +179,13 @@
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (if (retained :control)
-      (load-region T T)
       (let ((path (file-select:existing :title "Select Region File")))
         (when path
-          (load-region path T))))
-  (commit +world+ (handler *context*)))
+          (load-region path T)))
+      (load-region T T))
+  (clear (history editor))
+  (setf (entity editor) NIL)
+  (trial:commit +world+ (handler *context*)))
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
   (if (retained :control)
@@ -191,16 +193,20 @@
         (save-region T path))
       (save-region T T)))
 
-(defmethod edit ((action (eql 'save-game)) (editor editor))
-  (save-state T T))
-
 (defmethod edit ((action (eql 'load-game)) (editor editor))
   (if (retained :control)
-      (load-state T T)
       (let ((path (file-select:existing :title "Select Save File" :default (file (state (handler *context*))))))
         (when path
-          (load-state path T))))
-  (commit +world+ (handler *context*)))
+          (load-state path T)))
+      (load-state T T))
+  (trial:commit +world+ (handler *context*)))
+
+(defmethod edit ((action (eql 'save-game)) (editor editor))
+  (if (retained :control)
+      (let ((path (file-select:new :title "Select Save File" :default (file (state (handler *context*))))))
+        (when path
+          (save-state T path)))
+      (save-state T T)))
 
 (defmethod edit ((action (eql 'delete-entity)) (editor editor))
   ;; FIXME: Clean up stale data files from region packet.
