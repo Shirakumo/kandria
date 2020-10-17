@@ -9,7 +9,9 @@
                              (1920 T 1.25)
                              (1280 T 1.0)
                              (1000 T 0.8)
-                             (T T 0.5)))))
+                             (T T 0.5)))
+   (org.shirakumo.alloy.renderers.opengl.msdf:fontcache-directory
+    :initform (pathname-utils:subdirectory (root) "data" "font-cache"))))
 
 (defclass single-widget (alloy:widget)
   ()
