@@ -9,14 +9,11 @@
                      ("savestate" ,(file save))))))
 
 (defun find-user-id ()
-  (macrolet ((c ((p s) &rest args)
-               `(if (find-symbol ,(string s) ,(string p))
-                    (funcall (find-symbol ,(string s) ,(string p)) ,@args)
-                    (error "No such symbol ~a:~a" ,(string p) ,(string s)))))
-    (handler-case (format NIL "~a@steam [~a]"
-                          (c (org.shirakumo.fraf.steamworks steam-id) T)
-                          (c (org.shirakumo.fraf.steamworks display-name) T))
-      (error () "anonymous"))))
+  (error-or
+   (format NIL "~a@steam [~a]"
+           (call steam/steam-id T)
+           (call steam/display-name T))
+   "anonymous"))
 
 (defun submit-report (&key (user (find-user-id)) (files (generate-report-files)) description)
   (handler-bind ((error (lambda (e)

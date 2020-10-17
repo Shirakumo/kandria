@@ -361,3 +361,20 @@
 
 (define-shader-entity player () ())
 (define-shader-entity enemy () ())
+
+(defmacro call (func-ish &rest args)
+  (let* ((slash (position #\/ (string func-ish)))
+         (package (subseq (string func-ish) 0 slash))
+         (symbol (subseq (string func-ish) (1+ slash)))
+         (symbolg (gensym "SYMBOL")))
+    `(let ((,symbolg (find-symbol ,symbol ,package)))
+       (if ,symbolg
+           (funcall ,symbolg ,@args)
+           (error "No such symbol ~a:~a" ,package ,symbol)))))
+
+(defmacro error-or (&rest cases)
+  (let ((id (gensym "BLOCK")))
+    `(cl:block ,id
+       ,@(loop for case in cases
+               collect `(ignore-errors
+                         (return-from ,id ,case))))))

@@ -22,7 +22,8 @@
    (#:file-select #:org.shirakumo.file-select)
    (#:gamepad #:org.shirakumo.fraf.gamepad)
    (#:harmony #:org.shirakumo.fraf.harmony.user)
-   (#:mixed #:org.shirakumo.fraf.mixed))
+   (#:mixed #:org.shirakumo.fraf.mixed)
+   (#:steam #:org.shirakumo.fraf.steamworks))
   (:export
    #:launch
    #:launch-animation-editor))
