@@ -29,10 +29,12 @@
     #p"pixelfont.png")
 
 (define-sprite tundra-bg
-    #p"tundra-bg.png")
+    #p"tundra-bg.png"
+  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
 
 (define-sprite debug-bg
-    #p"debug-bg.png")
+    #p"debug-bg.png"
+  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
 
 (define-sprite ball
     #p"ball.png")
