@@ -6,7 +6,7 @@ Before you get started, please send Shinmera your GitHub username so he can add 
 
 Unlike many other game projects, Kandria uses a custom engine and is written in Common Lisp. This means that unfortunately the setup is a bit more involved, but not by much. In order to ease setup, a custom development environment has been put together. You can download it from here:
 
-- "Windows"(https://mega.nz/file/4lggAZ7D#7yYFU2NrlQrbL6N2pprRVEmvo0laRN4jKXjLV77TXAg)
+- "Windows"(https://github.com/Shinmera/kandria/releases/download/0.0.3/win-portacle.exe)
 
 If you're already familiar with Emacs, you might want to set up a native development environment instead of using Portacle. In that case, contact Shinmera for advice. If not, carry on.
 
