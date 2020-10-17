@@ -143,7 +143,7 @@
 
 (define-decoder (background world-v0) (initargs _)
   (destructuring-bind (&key) initargs
-    (print (make-instance 'background))))
+    (make-instance 'background)))
 
 (define-encoder (background world-v0) (_b _p)
   `(background))

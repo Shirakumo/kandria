@@ -176,7 +176,6 @@
                                     (setf (alloy:value play/pause) (if value "Play" "Pause"))))
     (alloy:on alloy:activate (save)
       (let ((asset (generator (texture entity))))
-        (print (input* asset))
         (with-open-file (stream (input* asset) :direction :output :if-exists :supersede)
           (write-animation asset stream))))
     (alloy:on alloy:activate (play/pause)
