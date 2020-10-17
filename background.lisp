@@ -34,9 +34,6 @@
    (texture-b :initform (// 'kandria 'debug-bg) :initarg :texture-b :accessor texture-b))
   (:buffers (kandria backgrounds)))
 
-(defmethod initargs append ((_ background))
-  `(:texture))
-
 (defmethod layer-index ((_ background)) 0)
 
 (defmethod stage :after ((background background) (area staging-area))
@@ -115,5 +112,6 @@ out vec4 color;
 void main(){
   vec4 color_a = texture2D(texture_a, map_coord_a);
   vec4 color_b = texture2D(texture_b, map_coord_b);
-  color = apply_lighting(mix(color_a, color_b, backgrounds.mix), vec2(0, 0), 0);
+  color = mix(color_a, color_b, backgrounds.mix);
+  color = apply_lighting(color, vec2(0, 0), 0);
 }")

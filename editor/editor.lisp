@@ -72,6 +72,9 @@
 (defmethod (setf tool) ((tool symbol) (editor editor))
   (setf (tool editor) (make-instance tool :editor editor)))
 
+(defmethod (setf tool) ((tool class) (editor editor))
+  (setf (tool editor) (make-instance tool :editor editor)))
+
 (defmethod (setf alt-tool) ((tool symbol) (editor editor))
   (setf (alt-tool editor) (make-instance tool :editor editor)))
 
