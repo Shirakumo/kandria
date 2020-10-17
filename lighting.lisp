@@ -82,7 +82,7 @@ void main(){
   color.rgb = pow(mapped, vec3(1.0 / gamma));
 }")
 
-(define-shader-entity lit-entity ()
+(define-shader-entity lit-entity (renderable)
   ()
   (:buffers (kandria light-info)))
 

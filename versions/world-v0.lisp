@@ -105,15 +105,20 @@
                              :name ,(name sprite-entity)))
 
 (define-decoder (chunk world-v0) (initargs packet)
-  (destructuring-bind (&key name location size tile-data pixel-data layers lighting) initargs
-    (make-instance 'chunk :name name
-                          :location (decode 'vec2 location)
-                          :size (decode 'vec2 size)
-                          :tile-data (decode 'asset tile-data)
-                          :pixel-data (packet-entry pixel-data packet)
-                          :layers (loop for file in layers
-                                        collect (packet-entry file packet))
-                          :lighting lighting)))
+  (destructuring-bind (&key name location size tile-data pixel-data layers lighting background) initargs
+    (destructuring-bind (background parallax scaling offset) background
+      (make-instance 'chunk :name name
+                            :location (decode 'vec2 location)
+                            :size (decode 'vec2 size)
+                            :tile-data (decode 'asset tile-data)
+                            :pixel-data (packet-entry pixel-data packet)
+                            :layers (loop for file in layers
+                                          collect (packet-entry file packet))
+                            :lighting lighting
+                            :background (decode 'resource background)
+                            :background-parallax (decode 'vec2 parallax)
+                            :background-scaling (decode 'vec2 scaling)
+                            :background-offset (decode 'vec2 offset)))))
 
 (define-encoder (chunk world-v0) (_b packet)
   (let ((layers (loop for i from 0
@@ -130,14 +135,18 @@
             :tile-data ,(encode (tile-data chunk))
             :pixel-data ,pixel-data
             :lighting ,(lighting chunk)
-            :layers ,layers)))
+            :layers ,layers
+            :background (,(encode (background chunk))
+                         ,(encode (background-parallax chunk))
+                         ,(encode (background-scaling chunk))
+                         ,(encode (background-offset chunk))))))
 
 (define-decoder (background world-v0) (initargs _)
-  (destructuring-bind (&key texture) initargs
-    (make-instance 'background :texture (decode 'resource texture))))
+  (destructuring-bind (&key) initargs
+    (print (make-instance 'background))))
 
 (define-encoder (background world-v0) (_b _p)
-  `(background :texture ,(encode (texture background))))
+  `(background))
 
 (define-decoder (rope world-v0) (initargs _)
   (destructuring-bind (&key location bsize) initargs
