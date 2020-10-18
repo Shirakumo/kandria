@@ -1,32 +1,70 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defun gradient-value (x gradient)
-  (loop for (nstop ncolor) in (rest gradient)
-        for (stop color) in gradient
-        while nstop
-        do (when (<= stop x nstop)
-             (return (vlerp color ncolor
-                            (/ (- x stop) (- nstop stop)))))))
+(defun %make-gradient (values)
+  (let ((stops (make-array (/ (length values) 2) :element-type 'single-float))
+        (colors (make-array (/ (length values) 2))))
+    (loop for (stop rgb) on values by #'cddr
+          for i from 0
+          while rgb
+          do (setf (aref stops i) (float stop))
+             (setf (aref colors i) (vec (first rgb) (second rgb) (third rgb))))
+    (cons stops colors)))
 
-(defun gradient (&rest values)
-  (loop for (stop hex) on values by #'cddr
-        while hex
-        for r = (ldb (byte 8 16) hex)
-        for g = (ldb (byte 8  8) hex)
-        for b = (ldb (byte 8  0) hex)
-        collect (list (/ stop 100.0)
-                      (vec (/ r 255) (/ g 255) (/ b 255)))))
+(defun make-gradient (values)
+  (%make-gradient values))
+
+(define-compiler-macro make-gradient (values &environment env)
+  (if (constantp values env)
+      `(load-time-value (%make-gradient ,values))
+      `(%make-gradient ,values)))
+
+(defun find-gradient-position (v values)
+  (declare (type single-float v))
+  (declare (type (simple-array single-float) values))
+  (declare (optimize speed))
+  ;; First check bounds
+  (cond ((<= v (aref values 0))
+         0)
+        ((<= (aref values (1- (length values))) v)
+         (- (length values) 2))
+        (T ;; Binary search
+         (let* ((i (floor (length values) 2))
+                (step (floor i 2)))
+           (declare (type (unsigned-byte 32) i step))
+           (loop for left = (aref values i)
+                 do (cond ((< v left)
+                           (decf i step)
+                           (setf step (max 1 (floor step 2))))
+                          ((< (aref values (1+ i)) v)
+                           (incf i step)
+                           (setf step (max 1 (floor step 2))))
+                          (T
+                           (return i))))))))
+
+(defun gradient-value (x gradient)
+  (destructuring-bind (stops . colors) gradient
+    (let* ((i (find-gradient-position x stops))
+           (l (aref stops i))
+           (r (aref stops (1+ i)))
+           (mix (clamp 0 (/ (- x l) (- r l)) 1)))
+      (vlerp (aref colors i) (aref colors (1+ i)) mix))))
+
+(defun gradient (x stops)
+  (gradient-value x (make-gradient stops)))
+
+(define-compiler-macro gradient (x stops)
+  `(gradient-value ,x (make-gradient ,stops)))
 
 (defun clock-color (clock)
-  (gradient-value (/ (mod clock 24.0) 24.0)
-                  (load-time-value (gradient 0   #x10003D
-                                             17  #x373F63
-                                             25  #xFF7A7A
-                                             30  #xFCFFC6
-                                             40  #xE2FFF9
-                                             60  #xE2FFF9
-                                             70  #xFCFFC6
-                                             77  #xFFAB35
-                                             81  #xE55B5B
-                                             86  #x373F63
-                                             100 #x10003D))))
+  (gradient (mod (float clock) 24.0)
+            '( 0 (0.0627451 0.0 0.23921569)
+               1 (0.21568628 0.24705882 0.3882353)
+               5 (1.0 0.47843137 0.47843137)
+               7 (0.9882353 1.0 0.7764706)
+               9 (0.8862745 1.0 0.9764706)
+              14 (0.8862745 1.0 0.9764706)
+              16 (0.9882353 1.0 0.7764706)
+              18 (1.0 0.67058825 0.20784314)
+              19 (0.8980392 0.35686275 0.35686275)
+              20 (0.21568628 0.24705882 0.3882353)
+              24 (0.0627451 0.0 0.23921569))))
