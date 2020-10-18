@@ -28,6 +28,9 @@
 (defmethod start :after ((world world))
   (harmony:play (// 'kandria 'music)))
 
+(defmethod hour ((world world))
+  (+ (/ (clock world) 20) 7))
+
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
   (scan (region world) target on-hit))

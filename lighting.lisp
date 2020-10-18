@@ -10,7 +10,7 @@
 (defmethod handle ((ev trial:tick) (pass lighting-pass))
   (etypecase (lighting pass)
     (real (update-lighting (lighting pass)))
-    ((eql T) (update-lighting (+ (/ (clock +world+) 20) 7)))
+    ((eql T) (update-lighting (hour +world+)))
     ((eql NIL))))
 
 (defmethod handle ((ev switch-chunk) (pass lighting-pass))
