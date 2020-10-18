@@ -36,7 +36,8 @@
 (define-shader-entity background (lit-entity listener ephemeral)
   ((vertex-array :initform (// 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture-a :initform (// 'kandria 'debug-bg) :initarg :texture-a :accessor texture-a)
-   (texture-b :initform (// 'kandria 'debug-bg) :initarg :texture-b :accessor texture-b))
+   (texture-b :initform (// 'kandria 'debug-bg) :initarg :texture-b :accessor texture-b)
+   (backgrounds :initform () :accessor backgrounds))
   (:buffers (kandria backgrounds)))
 
 (defmethod layer-index ((_ background)) 0)
@@ -60,9 +61,10 @@
          (%gl:draw-elements :triangles (size vao) :unsigned-int 0)
       (gl:bind-vertex-array 0))))
 
-(defmethod handle ((ev switch-chunk) (background background))
-  (let ((info (find-if #'active-p (backgrounds (chunk ev)))))
-    (when info
+(defun update-background (background)
+  (let ((info (find-if #'active-p (backgrounds background))))
+    ;; When there's a new target to set and it's not already our target, update
+    (when (and info (not (eq (texture info) (texture-b background))))
       (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
         (setf (mix backgrounds) (float (- 1 (min 1 (mix backgrounds)))))
         (let ((a (a backgrounds))
@@ -77,6 +79,13 @@
           (setf (parallax b) (parallax info))
           (setf (scaling b) (scaling info))
           (setf (offset b) (offset info)))))))
+
+(defmethod handle ((ev switch-chunk) (background background))
+  (setf (backgrounds background) (backgrounds (chunk ev)))
+  (update-background background))
+
+(defmethod handle ((ev change-time) (background background))
+  (update-background background))
 
 (defmethod handle ((ev tick) (background background))
   (when (< (mix (struct (// 'kandria 'backgrounds))) 1)
