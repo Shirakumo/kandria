@@ -109,6 +109,7 @@
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (when (= 0 (mod (fc ev) 10))
+    (issue world 'change-time :hour (hour world))
     (quest:try (storyline world))))
 
 (defmethod handle :after ((ev interaction) (world world))

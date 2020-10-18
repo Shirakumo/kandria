@@ -351,6 +351,9 @@
 (defclass switch-chunk (event)
   ((chunk :initarg :chunk :reader chunk)))
 
+(defclass change-time (event)
+  ((hour :initarg :hour :reader hour)))
+
 (defun switch-chunk (chunk)
   (issue +world+ 'switch-chunk :chunk chunk))
 

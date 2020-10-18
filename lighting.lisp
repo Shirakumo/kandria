@@ -7,10 +7,10 @@
 (defmethod render :before ((pass lighting-pass) target)
   (gl:clear-color 0 0 0 0))
 
-(defmethod handle ((ev trial:tick) (pass lighting-pass))
+(defmethod handle ((ev change-time) (pass lighting-pass))
   (etypecase (lighting pass)
     (real (update-lighting (lighting pass)))
-    ((eql T) (update-lighting (hour +world+)))
+    ((eql T) (update-lighting (hour ev)))
     ((eql NIL))))
 
 (defmethod handle ((ev switch-chunk) (pass lighting-pass))
