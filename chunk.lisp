@@ -191,7 +191,7 @@ void main(){
   color = apply_lighting(color, vec2(0), 1-absor) * visibility;
 }")
 
-(define-shader-entity chunk (shadow-caster layer solid backgrounded)
+(define-shader-entity chunk (shadow-caster layer solid)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
    (node-graph :accessor node-graph)
@@ -199,7 +199,9 @@ void main(){
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")
    (lighting :initform T :initarg :lighting :accessor lighting
-             :type boolean :documentation "The lighting to apply."))
+             :type boolean :documentation "The lighting to apply.")
+   (backgrounds :initform NIL :initarg :backgrounds :accessor backgrounds
+                :type (vector background-info)))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
@@ -244,6 +246,8 @@ void main(){
 (defmethod stage :after ((chunk chunk) (area staging-area))
   (loop for layer across (layers chunk)
         do (stage layer area))
+  (loop for background across (backgrounds chunk)
+        do (stage background area))
   (stage (node-graph chunk) area))
 
 (defmethod clone ((chunk chunk) &key initargs)

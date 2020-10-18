@@ -104,21 +104,32 @@
                              :layer ,(layer-index sprite-entity)
                              :name ,(name sprite-entity)))
 
+(define-decoder (background-info world-v0) (initargs _p)
+  (destructuring-bind (&key texture parallax scaling offset (clock '(0 24))) initargs
+    (make-instance 'background-info :texture (decode 'resource texture)
+                                    :parallax (decode 'vec2 parallax)
+                                    :scaling (decode 'vec2 scaling)
+                                    :offset (decode 'vec2 offset)
+                                    :clock clock)))
+
+(define-encoder (background-info world-v0) (_b _p)
+  `(,(type-of background-info) :texture ,(encode (texture background-info))
+                               :parallax ,(encode (parallax background-info))
+                               :scaling ,(encode (scaling background-info))
+                               :offset ,(encode (offset background-info))
+                               :clock ,(clock background-info)))
+
 (define-decoder (chunk world-v0) (initargs packet)
-  (destructuring-bind (&key name location size tile-data pixel-data layers lighting background) initargs
-    (destructuring-bind (background parallax scaling offset) background
-      (make-instance 'chunk :name name
-                            :location (decode 'vec2 location)
-                            :size (decode 'vec2 size)
-                            :tile-data (decode 'asset tile-data)
-                            :pixel-data (packet-entry pixel-data packet)
-                            :layers (loop for file in layers
-                                          collect (packet-entry file packet))
-                            :lighting lighting
-                            :background (decode 'resource background)
-                            :background-parallax (decode 'vec2 parallax)
-                            :background-scaling (decode 'vec2 scaling)
-                            :background-offset (decode 'vec2 offset)))))
+  (destructuring-bind (&key name location size tile-data pixel-data layers lighting backgrounds) initargs
+    (make-instance 'chunk :name name
+                          :location (decode 'vec2 location)
+                          :size (decode 'vec2 size)
+                          :tile-data (decode 'asset tile-data)
+                          :pixel-data (packet-entry pixel-data packet)
+                          :layers (loop for file in layers
+                                        collect (packet-entry file packet))
+                          :lighting lighting
+                          :backgrounds (map 'vector (lambda (e) (decode (first e) (rest e))) backgrounds))))
 
 (define-encoder (chunk world-v0) (_b packet)
   (let ((layers (loop for i from 0
@@ -136,10 +147,7 @@
             :pixel-data ,pixel-data
             :lighting ,(lighting chunk)
             :layers ,layers
-            :background (,(encode (background chunk))
-                         ,(encode (background-parallax chunk))
-                         ,(encode (background-scaling chunk))
-                         ,(encode (background-offset chunk))))))
+            :backgrounds (map 'list #'encode (backgrounds chunk)))))
 
 (define-decoder (background world-v0) (initargs _)
   (destructuring-bind (&key) initargs

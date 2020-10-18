@@ -15,18 +15,23 @@
 (define-asset (kandria backgrounds) uniform-block
     'backgrounds)
 
-(defclass backgrounded ()
-  ((background :initform (// 'kandria 'debug-bg) :initarg :background :accessor background
+(defclass background-info ()
+  ((texture :initform (// 'kandria 'debug-bg) :initarg :texture :accessor texture
                :type texture)
-   (background-parallax :initform (vec 2 1) :initarg :background-parallax :accessor background-parallax
-                        :type vec2)
-   (background-scaling :initform (vec 1.5 1.5) :initarg :background-scaling :accessor background-scaling
-                       :type vec2)
-   (background-offset :initform (vec 0 0) :initarg :background-offset :accessor background-offset
-                      :type vec2)))
+   (parallax :initform (vec 2 1) :initarg :parallax :accessor parallax
+             :type vec2)
+   (scaling :initform (vec 1.5 1.5) :initarg :scaling :accessor scaling
+            :type vec2)
+   (offset :initform (vec 0 0) :initarg :offset :accessor offset
+           :type vec2)
+   (clock :initform '(0 24) :initarg :clock :accessor clock)))
 
-(defmethod stage :after ((backgrounded backgrounded) (area staging-area))
-  (stage (background backgrounded) area))
+(defmethod stage :after ((background-info background-info) (area staging-area))
+  (stage (texture background-info) area))
+
+(defmethod active-p ((info background-info))
+  (destructuring-bind (min max) (clock info)
+    (<= min (hour +world+) max)))
 
 (define-shader-entity background (lit-entity listener ephemeral)
   ((vertex-array :initform (// 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
@@ -56,20 +61,22 @@
       (gl:bind-vertex-array 0))))
 
 (defmethod handle ((ev switch-chunk) (background background))
-  (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
-    (setf (mix backgrounds) (float (- 1 (min 1 (mix backgrounds)))))
-    (let ((a (a backgrounds))
-          (b (b backgrounds)))
-      ;; First move the target to be the source
-      (setf (texture-a background) (texture-b background))
-      (setf (parallax a) (parallax b))
-      (setf (scaling a) (scaling b))
-      (setf (offset a) (offset b))
-      ;; Then set new source parameters
-      (setf (texture-b background) (background (chunk ev)))
-      (setf (parallax b) (background-parallax (chunk ev)))
-      (setf (scaling b) (background-scaling (chunk ev)))
-      (setf (offset b) (background-offset (chunk ev))))))
+  (let ((info (find-if #'active-p (backgrounds (chunk ev)))))
+    (when info
+      (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
+        (setf (mix backgrounds) (float (- 1 (min 1 (mix backgrounds)))))
+        (let ((a (a backgrounds))
+              (b (b backgrounds)))
+          ;; First move the target to be the source
+          (setf (texture-a background) (texture-b background))
+          (setf (parallax a) (parallax b))
+          (setf (scaling a) (scaling b))
+          (setf (offset a) (offset b))
+          ;; Then set new source parameters
+          (setf (texture-b background) (texture info))
+          (setf (parallax b) (parallax info))
+          (setf (scaling b) (scaling info))
+          (setf (offset b) (offset info)))))))
 
 (defmethod handle ((ev tick) (background background))
   (when (< (mix (struct (// 'kandria 'backgrounds))) 1)
