@@ -319,3 +319,16 @@ This crash course only covers the bare essentials in very little depth. If you a
 Common Lisp also has an ANSI "specification"(http://www.lispworks.com/documentation/HyperSpec/Front/), which is the first place to look for a precise definition of what a function should do. It can be hard to read though.
 
 When you're confused about something, the easiest way to get help is to just ask Shinmera.
+
+## Portacle
+The "development environment"(link getting started.mess) is built upon "Portacle"(https://portacle.github.io), an IDE for developing Common Lisp. Portacle has its own help file for help on essential terms and usage. For this we'll focus a bit on the Lisp related parts.
+
+When starting up, the REPL should be open in one buffer and show the ``CL-USER>`` prompt. The ``CL-USER`` shows the current package (you can change the current package using ``,i``).
+
+Typically you'll want to first load up Kandria. You can load "systems" (software packages) using the ``ql:quickload`` function.
+
+:: common lisp
+(ql:quickload :kandria)
+::
+
+You can also do this any time the sources change even without restarting Portacle or Lisp. Should some kind of bug occur or the system get into a bad state, you can restart Lisp without restarting Portacle by typing ``,restart``.
