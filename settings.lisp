@@ -32,6 +32,7 @@
 (defun load-keymap (&optional path)
   (unless path
     (setf path (keymap-path))
+    (ensure-directories-exist path)
     (unless (probe-file path)
       (uiop:copy-file (merge-pathnames "keymap.lisp" (root)) path)))
   (load-mapping path))
