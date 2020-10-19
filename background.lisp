@@ -1,6 +1,25 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; FIXME: integrate into chunk
+(defvar *background-info* (make-hash-table :test 'eq))
+
+(defmethod background ((name symbol))
+  (gethash name *background-info*))
+
+(defmethod (setf background) (value (name symbol))
+  (if value
+      (setf (gethash name *background-info*) value)
+      (remhash name *background-info*))
+  value)
+
+(defmacro define-background (name &body initargs)
+  (let ((existing (gensym "EXISTING"))
+        (initargs (if (listp (first initargs))
+                      `(:backgrounds (vector ,@(loop for init in initargs
+                                                     collect `(make-instance 'background-info ,@init))))
+                      initargs))
+        (class (if (listp (first initargs)) 'background-bundle 'background-single)))
+    `(let ((,existing (ignore-errors (background ',name))))
+       (setf (background ',name) (trial::ensure-instance ,existing ',class :name ',name ,@initargs)))))
 
 (define-gl-struct bg
   (parallax :vec2 :accessor parallax)
@@ -15,9 +34,13 @@
 (define-asset (kandria backgrounds) uniform-block
     'backgrounds)
 
+;; FIXME: the naming here is all over the place and I hate it.
 (defclass background-info ()
-  ((texture :initform (// 'kandria 'debug-bg) :initarg :texture :accessor texture
-               :type texture)
+  ((name :initform NIL :initarg :name :accessor name)))
+
+(defclass background-single (background-info)
+  ((texture :initform NIL :initarg :texture :accessor texture
+            :type texture)
    (parallax :initform (vec 2 1) :initarg :parallax :accessor parallax
              :type vec2)
    (scaling :initform (vec 1.5 1.5) :initarg :scaling :accessor scaling
@@ -26,18 +49,44 @@
            :type vec2)
    (clock :initform '(0 24) :initarg :clock :accessor clock)))
 
-(defmethod stage :after ((background-info background-info) (area staging-area))
+(defmethod stage :after ((background-info background-single) (area staging-area))
   (stage (texture background-info) area))
 
-(defmethod active-p ((info background-info))
+(defmethod active-p ((info background-single))
   (destructuring-bind (min max) (clock info)
     (<= min (hour +world+) max)))
 
+(defclass background-bundle (backgorund-info)
+  ((backgrounds :initform #() :accessor backgrounds)))
+
+(defmethod stage ((bundle background-bundle) (area staging-area))
+  (loop for background across (backgrounds bundle)
+        do (stage background area)))
+
+;; TODO: could cache active background.
+(defmethod background ((bundle background-bundle))
+  (find-if #'active-p (backgrounds bundle)))
+
+(defmethod texture ((bundle background-bundle))
+  (texture (background bundle)))
+
+(defmethod parallax ((bundle background-bundle))
+  (parallax (background bundle)))
+
+(defmethod scaling ((bundle background-bundle))
+  (scaling (background bundle)))
+
+(defmethod offset ((bundle background-bundle))
+  (offset (background bundle)))
+
+(defmethod active-p ((bundle background-bundle))
+  (background bundle))
+
 (define-shader-entity background (lit-entity listener ephemeral)
   ((vertex-array :initform (// 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
-   (texture-a :initform (// 'kandria 'debug-bg) :initarg :texture-a :accessor texture-a)
-   (texture-b :initform (// 'kandria 'debug-bg) :initarg :texture-b :accessor texture-b)
-   (backgrounds :initform () :accessor backgrounds))
+   (texture-a :initform (resource (asset 'kandria 'debug-bg) T) :initarg :texture-a :accessor texture-a)
+   (texture-b :initform (resource (asset 'kandria 'debug-bg) T) :initarg :texture-b :accessor texture-b)
+   (background :initform () :accessor background))
   (:buffers (kandria backgrounds)))
 
 (defmethod layer-index ((_ background)) 0)
@@ -62,11 +111,11 @@
       (gl:bind-vertex-array 0))))
 
 (defun update-background (background)
-  (let ((info (find-if #'active-p (backgrounds background))))
+  (let ((info (background background)))
     ;; When there's a new target to set and it's not already our target, update
     (when (and info (not (eq (texture info) (texture-b background))))
       (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
-        (setf (mix backgrounds) (float (- 1 (min 1 (mix backgrounds)))))
+        (setf (mix backgrounds) (- 1.0 (min 1.0 (mix backgrounds))))
         (let ((a (a backgrounds))
               (b (b backgrounds)))
           ;; First move the target to be the source
@@ -81,7 +130,7 @@
           (setf (offset b) (offset info)))))))
 
 (defmethod handle ((ev switch-chunk) (background background))
-  (setf (backgrounds background) (backgrounds (chunk ev)))
+  (setf (background background) (background (chunk ev)))
   (update-background background))
 
 (defmethod handle ((ev change-time) (background background))

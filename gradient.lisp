@@ -1,5 +1,10 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defstruct (gradient
+            (:constructor %%make-gradient (stops colors)))
+  (stops NIL :type (simple-array single-float))
+  (colors NIL :type (simple-array vec3)))
+
 (defun %make-gradient (values)
   (let ((stops (make-array (/ (length values) 2) :element-type 'single-float))
         (colors (make-array (/ (length values) 2))))
@@ -8,7 +13,7 @@
           while rgb
           do (setf (aref stops i) (float stop))
              (setf (aref colors i) (vec (first rgb) (second rgb) (third rgb))))
-    (cons stops colors)))
+    (%%make-gradient stops colors)))
 
 (defun make-gradient (values)
   (%make-gradient values))
@@ -42,12 +47,13 @@
                            (return i))))))))
 
 (defun gradient-value (x gradient)
-  (destructuring-bind (stops . colors) gradient
-    (let* ((i (find-gradient-position x stops))
-           (l (aref stops i))
-           (r (aref stops (1+ i)))
-           (mix (clamp 0 (/ (- x l) (- r l)) 1)))
-      (vlerp (aref colors i) (aref colors (1+ i)) mix))))
+  (let* ((stops (gradient-stops gradient))
+         (colors (gradient-colors gradient))
+         (i (find-gradient-position x stops))
+         (l (aref stops i))
+         (r (aref stops (1+ i)))
+         (mix (clamp 0 (/ (- x l) (- r l)) 1)))
+    (vlerp (aref colors i) (aref colors (1+ i)) mix)))
 
 (defun gradient (x stops)
   (gradient-value x (make-gradient stops)))

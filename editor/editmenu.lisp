@@ -11,10 +11,10 @@
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
 (alloy::define-subbutton (editmenu undo) () (edit 'undo T))
 (alloy::define-subbutton (editmenu redo) () (edit 'redo T))
-(alloy:define-subcomponent (editmenu lighting) ((active-p (struct (// 'kandria 'light-info))) alloy:switch
+(alloy:define-subcomponent (editmenu lighting) ((active-p (struct (// 'kandria 'gi))) alloy:switch
                                                 :off 0 :on 1 :ideal-bounds (alloy:extent 0 0 50 20)))
 (alloy:define-subcomponent (editmenu time) ((clock +world+) alloy:ranged-slider
-                                            :range `(0 . 24)
+                                            :range `(-140 . 340)
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
 
 (alloy:define-subcontainer (editmenu layout :if-exists :supersede)
@@ -30,11 +30,11 @@
 
 (defmethod initialize-instance :after ((menu editmenu) &key)
   (alloy:on (setf alloy:value) (value (slot-value menu 'lighting))
-    (update-buffer-data (// 'kandria 'light-info) T))
+    (update-buffer-data (// 'kandria 'gi) T))
   (alloy:on (setf alloy:value) (value (slot-value menu 'time))
     (setf (alloy:value (slot-value menu 'lighting)) 1)
     (synchronize +world+ value)
-    (update-lighting value))
+    (update-lighting (unit 'lighting-pass T)))
   ;; KLUDGE: This appears necessary because the slots get reordered after
   ;;         creation again to put the superclass' structure slots before
   ;;         ours, causing the initialiser to run too early.
