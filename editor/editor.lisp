@@ -26,7 +26,7 @@
   ((flare:name :initform :editor)
    (marker :initform (make-instance 'marker) :accessor marker)
    (entity :initform NIL :accessor entity)
-   (tool :accessor tool)
+   (tool :initform NIL :accessor tool)
    (alt-tool :accessor alt-tool)
    (toolbar :accessor toolbar)
    (history :initform (make-instance 'linear-history) :accessor history)
@@ -61,13 +61,16 @@
   (setf (lighting (unit 'lighting-pass T)) NIL))
 
 (defmethod hide :after ((editor editor))
+  (hide (tool editor))
   (setf (lighting (unit 'lighting-pass T)) (lighting (region (unit :camera T)))))
 
 (defmethod (setf tool) :before ((tool tool) (editor editor))
   (let ((entity (entity editor)))
     (unless (find (type-of tool) (applicable-tools entity))
       (error "Cannot use tool~%  ~a~%with~%  ~a" tool (entity editor)))
-    (trial:commit tool (loader (handler *context*)) :unload NIL)))
+    (trial:commit tool (loader (handler *context*)) :unload NIL)
+    (when (and (tool editor) (not (eq tool (tool editor))))
+      (hide (tool editor)))))
 
 (defmethod (setf tool) ((tool symbol) (editor editor))
   (setf (tool editor) (make-instance tool :editor editor)))

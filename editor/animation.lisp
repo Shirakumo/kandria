@@ -49,11 +49,16 @@
 (defmethod stage :after ((editor animation-editor) (area staging-area))
   (stage (hurtbox editor) area))
 
+(defmethod hide ((tool animation-editor))
+  (when (timeline tool)
+    (alloy:leave (timeline tool) T))
+  (alloy:leave (hurtbox tool) T))
+
 (defmethod label ((tool animation-editor)) "Animations")
 
 (defmethod (setf tool) :after ((tool animation-editor) (editor editor))
   (setf (original-location tool) (vcopy (location (entity editor))))
-  (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor))
+  (setf (timeline tool) (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor)))
   (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
 
 (define-handler (animation-editor mouse-press) (pos button)
