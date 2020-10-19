@@ -1,40 +1,132 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defvar *gi-info* (make-hash-table :test 'eq))
+
+(defmethod gi ((name symbol))
+  (or (gethash name *gi-info*)
+      (error "No GI with name ~s found." name)))
+
+(defmethod (setf gi) (value (name symbol))
+  (if value
+      (setf (gethash name *gi-info*) value)
+      (remhash name *gi-info*))
+  value)
+
+(defmacro define-gi (name &body initargs)
+  (let ((existing (gensym "EXISTING")))
+    `(let ((,existing (ignore-errors (gi ',name))))
+       (setf (gi ',name) (trial::ensure-instance ,existing 'gi-info :name ',name ,@initargs)))))
+
+(define-gl-struct gi
+  (activep :int :accessor active-p)
+  (location :vec2 :accessor location)
+  (light :vec3 :accessor light)
+  (ambient :vec3 :accessor ambient))
+
+(define-asset (kandria gi) uniform-block
+    'gi)
+
+(defclass gi-info ()
+  ((name :initform NIL :initarg :name :accessor name)
+   (location :initform NIL :initarg :location :accessor location)
+   (light :initform NIL :initarg :light :accessor light)
+   (ambient :initform 1 :initarg :ambient :accessor ambient)))
+
+(defmethod shared-initialize :after ((info gi-info) slots &key)
+  (flet ((normalize-light (light)
+           (etypecase light
+             (null (vec 0 0 0))
+             (real (vec light light light))
+             (cons (make-gradient light))
+             (vec3 light)
+             (gradient light))))
+    (setf (light info) (normalize-light (slot-value info 'light)))
+    (setf (ambient info) (normalize-light (slot-value info 'ambient)))))
+
+(defmethod location ((info gi-info))
+  (let ((loc (slot-value info 'location)))
+    (flet ((time-position (hour)
+             (let ((tt (* (/ hour 24) 2 PI)))
+               (nv+ (vec2 (* -10000 (sin tt)) (* 10000 (- (cos tt))))
+                    (location (unit :camera T))))))
+      (etypecase loc
+        (vec2
+         loc)
+        (located-entity
+         (location loc))
+        (real
+         (time-position loc))
+        ((eql :sun)
+         (time-position (hour +world+)))
+        (null
+         NIL)))))
+
+(flet ((evaluate-light (light)
+         (etypecase light
+           (vec3
+            light)
+           (gradient
+            (gradient-value (hour +world+) light)))))
+  (defmethod light ((info gi-info))
+    (evaluate-light (slot-value info 'light)))
+
+  (defmethod ambient ((info gi-info))
+    (evaluate-light (slot-value info 'ambient))))
+
 (define-shader-pass lighting-pass (scene-pass per-object-pass hdr-output-pass)
-  ((lighting :initform T :accessor lighting)
+  ((gi-a :initform (make-instance 'gi-info) :accessor gi-a)
+   (gi-b :initform (make-instance 'gi-info) :accessor gi-b)
+   (mix :initform 1.0 :accessor mix)
    (name :initform 'lighting-pass)))
 
 (defmethod render :before ((pass lighting-pass) target)
   (gl:clear-color 0 0 0 0))
 
-(defmethod handle ((ev change-time) (pass lighting-pass))
-  (etypecase (lighting pass)
-    (real (update-lighting (lighting pass)))
-    ((eql T) (update-lighting (hour ev)))
-    ((eql NIL))))
-
 (defmethod handle ((ev switch-chunk) (pass lighting-pass))
-  ;; FIXME: Actually apply chunk lighting settings
-  ;;        Probably even gonna have to tween between them
-  (setf (lighting pass) (lighting (chunk ev))))
+  (unless (eql (gi-b pass) (gi (chunk ev)))
+    (setf (mix pass) (- 1.0 (min 1.0 (mix pass))))
+    (setf (gi-a pass) (gi-b pass))
+    (setf (gi-b pass) (gi (chunk ev)))
+    (update-lighting pass)))
 
-(defmethod (setf lighting) :after (value (pass lighting-pass))
-  (with-buffer-tx (light (// 'kandria 'light-info))
-    (setf (active-p light) (if value 1 0))))
+(defmethod handle ((ev change-time) (pass lighting-pass))
+  (update-lighting pass))
 
-(defun update-lighting (hour)
-  (let* ((tt (* (/ hour 24) 2 PI))
-         (mul (gradient (float hour)
-                        '( 6 (0.0 0.0 0.0)
-                           9 (3.0 3.0 3.0)
-                          10 (5.0 5.0 5.0)
-                          14 (5.0 5.0 5.0)
-                          15 (3.0 3.0 3.0)
-                          18 (0.0 0.0 0.0)))))
-    (with-buffer-tx (light (// 'kandria 'light-info))
-      (setf (sun-position light) (vec2 (* -10000 (sin tt)) (* 10000 (- (cos tt)))))
-      (setf (sun-light light) (v* (clock-color hour) mul))
-      (setf (ambient-light light) (clock-color hour)))))
+(defmethod handle ((ev tick) (pass lighting-pass))
+  (when (< (mix pass) 1)
+    (incf (mix pass) (dt ev))
+    (update-lighting pass)))
+
+(defun update-lighting (pass)
+  (let* ((b (gi-b pass))
+         (location (location b))
+         (light (light b))
+         (ambient (ambient b))
+         (mix (mix pass)))
+    (when (< mix 1)
+      (let* ((b (gi-b pass))
+             (bloc (location b)))
+        (cond (bloc
+               (if location
+                   (setf location (vlerp location (location b) mix))
+                   (setf location (location b)))
+               (setf light (vlerp light (light b) mix))
+               (setf ambient (vlerp ambient (ambient b) mix)))
+              (T
+               (setf light (vlerp light (vec 0 0 0) mix))
+               (setf ambient (vlerp ambient (vec 1 1 1) mix))))))
+    (with-buffer-tx (gi (// 'kandria 'gi))
+      (setf (active-p gi) (if location 1 0))
+      (setf (location gi) (or location (vec 0 0 0)))
+      (setf (light gi) light)
+      (setf (ambient gi) ambient))))
+
+(defmethod (setf lighting) (value (pass lighting-pass))
+  (with-buffer-tx (gi (// 'kandria 'gi))
+    (setf (active-p gi) (if value 1 0))))
+
+(defmethod lighting ((pass lighting-pass))
+  (= 1 (active-p (struct (// 'kandria 'gi)))))
 
 (define-shader-entity light (vertex-entity sized-entity)
   ())
@@ -60,7 +152,7 @@
   (setf (uniform program "gamma") (gamma pass)))
 
 (defmethod render :before ((pass rendering-pass) target)
-  (if (= 1 (active-p (struct (// 'kandria 'light-info))))
+  (if (= 1 (active-p (struct (// 'kandria 'gi))))
       (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
              (shade (local-shade pass))
              (exposure (* 5 shade))
@@ -85,26 +177,27 @@ void main(){
 
 (define-shader-entity lit-entity (renderable)
   ()
-  (:buffers (kandria light-info)))
+  (:buffers (kandria gi)))
 
 (define-class-shader (lit-entity :fragment-shader 100)
-  (gl-source (asset 'kandria 'light-info))
+  (gl-source (asset 'kandria 'gi))
   "uniform sampler2D lighting;
 uniform sampler2D shadow_map;
 
 vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
   vec3 truecolor = pow(color.rgb, vec3(2.2));
+  ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
 
-  if(light_info.activep != 0){
-    ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
+  if(gi.activep != 0){
     float shade = (0.4 < texelFetch(shadow_map, pos, 0).r)? 0 : 1;
-    vec4 light = texelFetch(lighting, pos, 0);
-    truecolor *= light_info.ambient_light;
-    truecolor += light_info.sun_light*max(0, shade-absorption)*color.rgb;
-    truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
+    truecolor *= gi.ambient;
+    truecolor += gi.light*max(0, shade-absorption)*color.rgb;
   } else {
     truecolor *= 5;
   }
+
+  vec4 light = texelFetch(lighting, pos, 0);
+  truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
   return vec4(truecolor, color.a);
 }")
 

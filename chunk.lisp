@@ -200,8 +200,9 @@ void main(){
               :type tile-data :documentation "The tile data used to display the chunk.")
    (lighting :initform T :initarg :lighting :accessor lighting
              :type boolean :documentation "The lighting to apply.")
-   (backgrounds :initform NIL :initarg :backgrounds :accessor backgrounds
-                :type (vector background-info)))
+   (background :initform NIL :initarg :background :accessor background)
+   (gi :initform (make-instance 'gi) :initarg :gi :accessor gi
+       :type gi-info))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
@@ -246,8 +247,7 @@ void main(){
 (defmethod stage :after ((chunk chunk) (area staging-area))
   (loop for layer across (layers chunk)
         do (stage layer area))
-  (loop for background across (backgrounds chunk)
-        do (stage background area))
+  (stage (background chunk) area)
   (stage (node-graph chunk) area))
 
 (defmethod clone ((chunk chunk) &key initargs)

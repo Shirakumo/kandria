@@ -1,14 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-gl-struct light-info
-  (activep :int :accessor active-p)
-  (sun-position :vec2 :accessor sun-position)
-  (sun-light :vec3 :accessor sun-light)
-  (ambient-light :vec3 :accessor ambient-light))
-
-(define-asset (kandria light-info) uniform-block
-    'light-info)
-
 (define-shader-entity shadow-geometry (vertex-entity)
   ())
 
@@ -67,7 +58,7 @@
   ((shadow-map :port-type output :texspec (:internal-format :r8))
    (local-shade :initform 0.0 :accessor local-shade)
    (frame-counter :initform 0 :accessor frame-counter))
-  (:buffers (kandria light-info)))
+  (:buffers (kandria gi)))
 
 (defmethod object-renderable-p ((object renderable) (pass shadow-map-pass)) NIL)
 (defmethod object-renderable-p ((object shadow-caster) (pass shadow-map-pass)) T)
@@ -92,7 +83,7 @@
           (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 128.0)))))))
 
 (define-class-shader (shadow-map-pass :vertex-shader)
-  (gl-source (asset 'kandria 'light-info))
+  (gl-source (asset 'kandria 'gi))
   "layout(location = 0) in vec2 vertex_position;
 
 uniform mat4 model_matrix;
@@ -102,7 +93,7 @@ uniform mat4 projection_matrix;
 void main(){
   vec2 vertex = vertex_position;
   if(gl_VertexID % 2 != 0){
-    vec2 direction = light_info.sun_position - vertex;
+    vec2 direction = gi.location - vertex;
     vertex = vertex - direction * 100;
   }
   gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertex, 0, 1);

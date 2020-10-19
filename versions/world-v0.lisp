@@ -104,23 +104,22 @@
                              :layer ,(layer-index sprite-entity)
                              :name ,(name sprite-entity)))
 
-(define-decoder (background-info world-v0) (initargs _p)
-  (destructuring-bind (&key texture parallax scaling offset (clock '(0 24))) initargs
-    (make-instance 'background-info :texture (decode 'resource texture)
-                                    :parallax (decode 'vec2 parallax)
-                                    :scaling (decode 'vec2 scaling)
-                                    :offset (decode 'vec2 offset)
-                                    :clock clock)))
+(define-decoder (gi-info world-v0) (name _p)
+  (gi name))
+
+(define-encoder (gi-info world-v0) (_b _p)
+  (or (name gi-info)
+      (error "Can't encode GI-INFO without a name.")))
+
+(define-decoder (background-info world-v0) (name _p)
+  (background name))
 
 (define-encoder (background-info world-v0) (_b _p)
-  `(,(type-of background-info) :texture ,(encode (texture background-info))
-                               :parallax ,(encode (parallax background-info))
-                               :scaling ,(encode (scaling background-info))
-                               :offset ,(encode (offset background-info))
-                               :clock ,(clock background-info)))
+  (or (name background-info)
+      (error "Can't encode BACKGROUND-INFO without a name.")))
 
 (define-decoder (chunk world-v0) (initargs packet)
-  (destructuring-bind (&key name location size tile-data pixel-data layers lighting backgrounds) initargs
+  (destructuring-bind (&key name location size tile-data pixel-data layers lighting background gi) initargs
     (make-instance 'chunk :name name
                           :location (decode 'vec2 location)
                           :size (decode 'vec2 size)
@@ -129,7 +128,8 @@
                           :layers (loop for file in layers
                                         collect (packet-entry file packet))
                           :lighting lighting
-                          :backgrounds (map 'vector (lambda (e) (decode (first e) (rest e))) backgrounds))))
+                          :background (decode 'background-info background)
+                          :gi (decode 'gi-info gi))))
 
 (define-encoder (chunk world-v0) (_b packet)
   (let ((layers (loop for i from 0
@@ -147,7 +147,8 @@
             :pixel-data ,pixel-data
             :lighting ,(lighting chunk)
             :layers ,layers
-            :backgrounds (map 'list #'encode (backgrounds chunk)))))
+            :background (encode (background chunk))
+            :gi (encode (gi chunk)))))
 
 (define-decoder (background world-v0) (initargs _)
   (destructuring-bind (&key) initargs
