@@ -178,7 +178,7 @@
   task)
 
 (defmethod deactivate ((task task))
-  (unless (eql (status task :inactive))
+  (unless (eql (status task) :inactive)
     (v:info :kandria.quest "Deactivating ~a" task)
     (setf (status task) :unresolved)
     (dolist (trigger (triggers task))
