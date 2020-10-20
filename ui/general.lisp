@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(colored:define-color #:accent #x0088EE)
+
 (defclass ui (org.shirakumo.fraf.trial.alloy:ui
               org.shirakumo.alloy:fixed-scaling-ui
               org.shirakumo.alloy.renderers.simple.presentations:default-look-and-feel)
@@ -36,7 +38,8 @@
    (depth :port-type output :attachment :depth-stencil-attachment)))
 
 (defmethod initialize-instance :after ((pass ui-pass) &key)
-  (make-instance 'alloy:fullscreen-layout :layout-parent (alloy:layout-tree pass)))
+  (make-instance 'alloy:fullscreen-layout :layout-parent (alloy:layout-tree pass))
+  (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree pass)))
 
 (defmethod render :before ((pass ui-pass) target)
   (gl:enable :depth-test)
@@ -87,7 +90,7 @@
   ;; Then attach to the UI
   (let ((ui (or ui (unit 'ui-pass T))))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
-    (setf (alloy:root (alloy:focus-tree ui)) (alloy:focus-element panel))
+    (alloy:enter panel (alloy:root (alloy:focus-tree ui)))
     (alloy:register panel ui)
     (push panel (panels ui))
     panel))
@@ -98,8 +101,8 @@
     (loop until (eq panel (first (panels ui)))
           do (hide (first (panels ui))))
     (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
+    (alloy:leave panel (alloy:root (alloy:focus-tree ui)))
     (setf (panels ui) (remove panel (panels ui)))
-    (setf (alloy:root (alloy:focus-tree ui)) (when (panels ui) (alloy:focus-element (first (panels ui)))))
     panel))
 
 (defclass pausing-panel (panel)

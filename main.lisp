@@ -123,4 +123,6 @@
     (connect (port lighting 'color) (port rendering 'lighting) scene)
     (connect (port rendering 'color) (port distortion 'previous-pass) scene)
     (connect (port distortion 'color) (port blend 'trial::a-pass) scene)
-    (connect (port ui 'color) (port blend 'trial::b-pass) scene)))
+    (connect (port ui 'color) (port blend 'trial::b-pass) scene))
+
+  (show (make-instance 'report-button)))

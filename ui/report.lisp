@@ -74,3 +74,18 @@
                                                   (uiop:native-namestring (logfile)))
                                           :title "Unhandled Error" :type :error :modal T)))
     (deploy:quit)))
+
+(defclass report-button (panel)
+  ())
+
+(defmethod initialize-instance :after ((panel report-button) &key)
+  (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+        (focus (make-instance 'alloy:focus-list))
+        (button (alloy:represent "Submit Feedback" 'alloy:button
+                                 :style `((:background :pattern ,colors:accent)
+                                          (:label :pattern ,colors:white)))))
+    (alloy:enter button layout :constraints `((:right 0) (:top 0) (:size 200 30)))
+    (alloy:enter button focus)
+    (alloy:on alloy:activate (button)
+      (issue +world+ 'report-bug))
+    (alloy:finish-structure panel layout focus)))
