@@ -26,7 +26,7 @@
    :pattern colors:white))
 
 (presentations:define-update (ui nametag)
-  (:background :pattern (colored:color 0 136/255 238/255)))
+  (:background :pattern colors:accent))
 
 (defclass textbox (alloy:label) ())
 
@@ -49,7 +49,7 @@
 (presentations:define-realization (ui advance-prompt)
   ((:background simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0 136/255 238/255))
+   :pattern colors:accent)
   ((:label simple:text)
    (alloy:margins 1)
    alloy:text
@@ -62,7 +62,7 @@
 (presentations:define-update (ui advance-prompt)
   (:background
    :hidden-p (null alloy:value)
-   :pattern (colored:color 0 136/255 238/255))
+   :pattern colors:accent)
   (:label
    :text alloy:text
    :hidden-p (null alloy:value)))
@@ -92,7 +92,7 @@
   (:indicator
    :pattern (case alloy:focus
               (:strong colors:white)
-              (:weak (colored:color 0 136/255 238/255))
+              (:weak colors:accent)
               (T colors:transparent)))
   (:background
    :pattern (case alloy:focus
