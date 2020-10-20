@@ -100,6 +100,11 @@
     #p"sound/death.wav"
   :volume 0.1)
 
+(define-gi none
+  :location NIL
+  :light (vec 0 0 0)
+  :ambient (vec 5 5 5))
+
 (define-gi tundra
   :location :sun
   :light '(6 (0 0 0)
@@ -121,6 +126,12 @@
              24 (0.0627451 0.0 0.23921569)))
 
 (define-background tundra
+  :texture (// 'kandria 'tundra-bg)
+  :parallax (vec 2.0 1.0)
+  :scaling (vec 1.5 1.5)
+  :offset (vec 0.0 0.0))
+
+(define-background debug
   :texture (// 'kandria 'debug-bg)
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)

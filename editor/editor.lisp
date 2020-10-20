@@ -62,7 +62,7 @@
 
 (defmethod hide :after ((editor editor))
   (hide (tool editor))
-  (setf (lighting (unit 'lighting-pass T)) (lighting (region (unit :camera T)))))
+  (update-lighting (unit 'lighting-pass T)))
 
 (defmethod (setf tool) :before ((tool tool) (editor editor))
   (let ((entity (entity editor)))
