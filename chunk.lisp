@@ -198,8 +198,6 @@ void main(){
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")
-   (lighting :initform T :initarg :lighting :accessor lighting
-             :type boolean :documentation "The lighting to apply.")
    (background :initform NIL :initarg :background :accessor background)
    (gi :initform (make-instance 'gi) :initarg :gi :accessor gi
        :type gi-info))

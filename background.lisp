@@ -49,11 +49,15 @@
            :type vec2)
    (clock :initform '(0 24) :initarg :clock :accessor clock)))
 
-(defmethod stage :after ((background-info background-single) (area staging-area))
-  (stage (texture background-info) area))
+(defmethod stage :after ((single background-single) (area staging-area))
+  (stage (texture single) area))
 
-(defmethod active-p ((info background-single))
-  (destructuring-bind (min max) (clock info)
+(defmethod shared-initialize :after ((single background-single) slots &key)
+  (when *context*
+    (issue +world+ 'load-request :thing (texture single))))
+
+(defmethod active-p ((single background-single))
+  (destructuring-bind (min max) (clock single)
     (<= min (hour +world+) max)))
 
 (defclass background-bundle (backgorund-info)
@@ -84,31 +88,28 @@
 
 (define-shader-entity background (lit-entity listener ephemeral)
   ((vertex-array :initform (// 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
-   (texture-a :initform (resource (asset 'kandria 'debug-bg) T) :initarg :texture-a :accessor texture-a)
-   (texture-b :initform (resource (asset 'kandria 'debug-bg) T) :initarg :texture-b :accessor texture-b)
+   (texture-a :initform NIL :initarg :texture-a :accessor texture-a)
+   (texture-b :initform NIL :initarg :texture-b :accessor texture-b)
    (background :initform () :accessor background))
   (:buffers (kandria backgrounds)))
 
 (defmethod layer-index ((_ background)) 0)
 
-(defmethod stage :after ((background background) (area staging-area))
-  (stage (texture-a background) area)
-  (stage (texture-b background) area))
-
 (defmethod render ((background background) (program shader-program))
-  (let ((vao (vertex-array background)))
-    (setf (uniform program "view_size") (vec2 (max 1 (width *context*)) (max 1 (height *context*))))
-    (setf (uniform program "view_matrix") (minv *view-matrix*))
-    (setf (uniform program "texture_a") 0)
-    (setf (uniform program "texture_b") 1)
-    (gl:active-texture :texture0)
-    (gl:bind-texture :texture-2d (gl-name (texture-a background)))
-    (gl:active-texture :texture1)
-    (gl:bind-texture :texture-2d (gl-name (texture-b background)))
-    (gl:bind-vertex-array (gl-name vao))
-    (unwind-protect
-         (%gl:draw-elements :triangles (size vao) :unsigned-int 0)
-      (gl:bind-vertex-array 0))))
+  (when (texture-b background)
+    (let ((vao (vertex-array background)))
+      (setf (uniform program "view_size") (vec2 (max 1 (width *context*)) (max 1 (height *context*))))
+      (setf (uniform program "view_matrix") (minv *view-matrix*))
+      (setf (uniform program "texture_a") 0)
+      (setf (uniform program "texture_b") 1)
+      (gl:active-texture :texture0)
+      (gl:bind-texture :texture-2d (gl-name (texture-a background)))
+      (gl:active-texture :texture1)
+      (gl:bind-texture :texture-2d (gl-name (texture-b background)))
+      (gl:bind-vertex-array (gl-name vao))
+      (unwind-protect
+           (%gl:draw-elements :triangles (size vao) :unsigned-int 0)
+        (gl:bind-vertex-array 0)))))
 
 (defun update-background (background)
   (let ((info (background background)))
@@ -119,7 +120,7 @@
         (let ((a (a backgrounds))
               (b (b backgrounds)))
           ;; First move the target to be the source
-          (setf (texture-a background) (texture-b background))
+          (setf (texture-a background) (or (texture-b background) (texture info)))
           (setf (parallax a) (parallax b))
           (setf (scaling a) (scaling b))
           (setf (offset a) (offset b))

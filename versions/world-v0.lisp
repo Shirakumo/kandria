@@ -119,7 +119,7 @@
       (error "Can't encode BACKGROUND-INFO without a name.")))
 
 (define-decoder (chunk world-v0) (initargs packet)
-  (destructuring-bind (&key name location size tile-data pixel-data layers lighting background gi) initargs
+  (destructuring-bind (&key name location size tile-data pixel-data layers background gi) initargs
     (make-instance 'chunk :name name
                           :location (decode 'vec2 location)
                           :size (decode 'vec2 size)
@@ -127,7 +127,6 @@
                           :pixel-data (packet-entry pixel-data packet)
                           :layers (loop for file in layers
                                         collect (packet-entry file packet))
-                          :lighting lighting
                           :background (decode 'background-info background)
                           :gi (decode 'gi-info gi))))
 
@@ -145,7 +144,6 @@
             :size ,(encode (size chunk))
             :tile-data ,(encode (tile-data chunk))
             :pixel-data ,pixel-data
-            :lighting ,(lighting chunk)
             :layers ,layers
             :background (encode (background chunk))
             :gi (encode (gi chunk)))))

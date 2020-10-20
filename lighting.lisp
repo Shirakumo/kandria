@@ -117,7 +117,7 @@
                (setf ambient (vlerp ambient (vec 1 1 1) mix))))))
     (with-buffer-tx (gi (// 'kandria 'gi))
       (setf (active-p gi) (if location 1 0))
-      (setf (location gi) (or location (vec 0 0 0)))
+      (setf (location gi) (or location (vec 0 0)))
       (setf (light gi) light)
       (setf (ambient gi) ambient))))
 
@@ -187,17 +187,16 @@ uniform sampler2D shadow_map;
 vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
   vec3 truecolor = pow(color.rgb, vec3(2.2));
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
+  vec4 light = texelFetch(lighting, pos, 0);
 
+  truecolor *= gi.ambient;
+  truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
+  
   if(gi.activep != 0){
     float shade = (0.4 < texelFetch(shadow_map, pos, 0).r)? 0 : 1;
-    truecolor *= gi.ambient;
     truecolor += gi.light*max(0, shade-absorption)*color.rgb;
-  } else {
-    truecolor *= 5;
   }
 
-  vec4 light = texelFetch(lighting, pos, 0);
-  truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
   return vec4(truecolor, color.a);
 }")
 
