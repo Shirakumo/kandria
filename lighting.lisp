@@ -47,7 +47,7 @@
   (let ((loc (slot-value info 'location)))
     (flet ((time-position (hour)
              (let ((tt (* (/ hour 24) 2 PI)))
-               (nv+ (vec2 (* -10000 (sin tt)) (* 10000 (- (cos tt))))
+               (nv+ (vec2 (* -100000 (sin tt)) (* -100000 (cos tt)))
                     (location (unit :camera T))))))
       (etypecase loc
         (vec2
