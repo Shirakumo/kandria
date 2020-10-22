@@ -93,12 +93,12 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
 void main(){
-  vec2 vertex = vertex_position;
+  vec2 vertex = (model_matrix * vec4(vertex_position, 0, 1)).xy;
   if(gl_VertexID % 2 != 0){
-    vec2 direction = gi.location - vertex;
-    vertex = vertex - direction * 100;
+    vec2 direction = normalize(gi.location - vertex);
+    vertex = vertex - direction*100000;
   }
-  gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertex, 0, 1);
+  gl_Position = projection_matrix * view_matrix * vec4(vertex, 0, 1);
 }")
 
 (define-class-shader (shadow-map-pass :fragment-shader)
