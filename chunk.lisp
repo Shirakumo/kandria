@@ -164,10 +164,13 @@ uniform mat4 view_matrix;
 uniform mat4 model_matrix;
 uniform vec2 view_size;
 out vec2 map_coord;
+out vec2 world_pos;
 
 void main(){
   // We start in view-space, so we have to inverse-map to world-space.
-  map_coord = (model_matrix * (view_matrix * vec4(vertex_uv*view_size, 0, 1))).xy;
+  vec4 _position = view_matrix * vec4(vertex_uv*view_size, 0, 1);
+  world_pos = _position.xy;
+  map_coord = (model_matrix * _position).xy;
   gl_Position = vec4(vertex, 1);
 }")
 
@@ -182,6 +185,7 @@ uniform vec2 map_position;
 uniform int tile_size = 16;
 uniform float visibility = 1.0;
 in vec2 map_coord;
+in vec2 world_pos;
 out vec4 color;
 
 void main(){
@@ -197,8 +201,12 @@ void main(){
   tile_xy = ivec2(tile)*tile_size+pixel_xy;
   color = texelFetch(albedo, tile_xy, 0);
   float a = texelFetch(absorption, tile_xy, 0).r;
-  vec2 n = normalize(texelFetch(normal, tile_xy, 0).rg-0.5);
-  color = apply_lighting(color, vec2(0), a) * visibility;
+  vec2 n = texelFetch(normal, tile_xy, 0).rg-0.5;
+  if(abs(n.x) < 0.1 && abs(n.y) < 0.1)
+    n = vec2(0);
+  else
+    n = normalize(n);
+  color = apply_lighting(color, vec2(0), 1-a, n, world_pos) * visibility;
 }")
 
 (define-shader-entity chunk (shadow-caster layer solid)
@@ -209,8 +217,7 @@ void main(){
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")
    (background :initform NIL :initarg :background :accessor background)
-   (gi :initform (make-instance 'gi) :initarg :gi :accessor gi
-       :type gi-info))
+   (gi :initform (make-instance 'gi) :initarg :gi :accessor gi))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
@@ -336,10 +343,10 @@ void main(){
                      (add-shadow-line vbo (vec (+ x xa) (+ y ya)) (vec (+ x xb) (+ y yb))))))
             (let ((tile (tile x y)))
               (case* tile
-                ((:t :h :tl> :tr>) (line -8 +8 +8 +8))
-                ((:r :v :tr> :br>) (line +8 -8 +8 +8))
-                ((:b :h :br> :bl>) (line -8 -8 +8 -8))
-                ((:l :v :tl> :bl>) (line -8 -8 -8 +8)))
+                ((:t :h :tl> :tr> :bl< :br<) (line -8 +8 +8 +8))
+                ((:r :v :tr> :br> :tl< :bl<) (line +8 -8 +8 +8))
+                ((:b :h :br> :bl> :tl< :tr<) (line -8 -8 +8 -8))
+                ((:l :v :tl> :bl> :tr< :br<) (line -8 -8 -8 +8)))
               (when (and (listp tile) (eql :slope (first tile)))
                 (let ((t-info (aref +surface-blocks+ (+ 4 (second tile)))))
                   (line (vx (slope-l t-info)) (vy (slope-l t-info)) (vx (slope-r t-info)) (vy (slope-r t-info))))))))))))

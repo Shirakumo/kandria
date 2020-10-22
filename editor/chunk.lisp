@@ -59,6 +59,7 @@
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
 (alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (albedo (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption (entity chunk-widget))))
+(alloy:define-subcomponent (chunk-widget normal) ((slot-value chunk-widget 'tile) tile-button :tileset (normal (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget tile-info) ((slot-value chunk-widget 'tile) tile-info))
 (alloy::define-subbutton (chunk-widget pick) ()
   (setf (state (editor chunk-widget)) :picking))
@@ -80,9 +81,9 @@
   tiles
   (alloy:build-ui
    (alloy:grid-layout
-    :col-sizes '(64 64 T)
+    :col-sizes '(64 64 64 T)
     :row-sizes '(64)
-    albedo absorption tile-info))
+    albedo absorption normal tile-info))
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T T T)

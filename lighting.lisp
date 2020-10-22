@@ -32,16 +32,16 @@
    (light :initform NIL :initarg :light :accessor light)
    (ambient :initform 1 :initarg :ambient :accessor ambient)))
 
-(defmethod shared-initialize :after ((info gi-info) slots &key)
-  (flet ((normalize-light (light)
+(defmethod shared-initialize :after ((info gi-info) slots &key (light-multiplier 1.0) (ambient-multiplier 1.0))
+  (flet ((normalize-light (light mult)
            (etypecase light
              (null (vec 0 0 0))
-             (real (vec light light light))
-             (cons (make-gradient light))
-             (vec3 light)
-             (gradient light))))
-    (setf (light info) (normalize-light (slot-value info 'light)))
-    (setf (ambient info) (normalize-light (slot-value info 'ambient)))))
+             (real (v* (vec light light light) mult))
+             (vec3 (v* light mult))
+             (cons (multiply-gradient (make-gradient light) mult))
+             (gradient (multiply-gradient light mult)))))
+    (setf (light info) (normalize-light (slot-value info 'light) light-multiplier))
+    (setf (ambient info) (normalize-light (slot-value info 'ambient) ambient-multiplier))))
 
 (defmethod location ((info gi-info))
   (let ((loc (slot-value info 'location)))
@@ -59,7 +59,9 @@
         ((eql :sun)
          (time-position (hour +world+)))
         (null
-         NIL)))))
+         NIL)
+        (symbol
+         (location (unit loc T)))))))
 
 (flet ((evaluate-light (light)
          (etypecase light
@@ -89,13 +91,10 @@
     (setf (gi-b pass) (gi (chunk ev)))
     (update-lighting pass)))
 
-(defmethod handle ((ev change-time) (pass lighting-pass))
-  (update-lighting pass))
-
 (defmethod handle ((ev tick) (pass lighting-pass))
   (when (< (mix pass) 1)
-    (incf (mix pass) (dt ev))
-    (update-lighting pass)))
+    (incf (mix pass) (dt ev)))
+  (update-lighting pass))
 
 (defun update-lighting (pass)
   (let* ((b (gi-b pass))
@@ -145,25 +144,33 @@
    #++(depth :port-type output :attachment :depth-stencil-attachment
              :texspec (:width 640 :height 416))))
 
+;; FIXME: lighting in the scene currently influences lighting when the
+;;        editor is active. when editor is opened we should force the
+;;        lighting to a specific one that's neutral in the editor.
+;;        changing the active status should then switch out the chunk's
+;;        specific one again.
+
 (defmethod object-renderable-p ((controller controller) (pass rendering-pass)) NIL)
 
 (defmethod prepare-pass-program :after ((pass rendering-pass) (program shader-program))
   (setf (uniform program "exposure") (exposure pass))
   (setf (uniform program "gamma") (gamma pass)))
 
+(defun light-intensity (gi shade)
+  (let ((color (vlerp (v+ (ambient gi) (light gi)) (ambient gi) (clamp 0 shade 1))))
+    (clamp 0 (expt (vlength color) 1/3) 3)))
+
 (defmethod render :before ((pass rendering-pass) target)
-  (if (= 1 (active-p (struct (// 'kandria 'gi))))
-      (let* ((target (max 0.1 (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map)))))))
-             (shade (local-shade pass))
-             (exposure (* 5 shade))
-             (gamma (* 2 shade)))
-        (let* ((dir (- target shade))
-               (ease (/ (expt (abs dir) 1.1) 30)))
-          (incf (local-shade pass) (* ease (signum dir))))
-        (setf (exposure pass) (clamp 0f0 exposure 10f0)
-              (gamma pass) (clamp 1f0 gamma 3f0)))
-      (setf (exposure pass) 0.5
-            (gamma pass) 2.2)))
+  (let ((gi (struct (// 'kandria 'gi))))
+    (if (= 1 (active-p gi))
+        (let* ((shade (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
+               (current (local-shade pass)))
+          (let ((intensity (light-intensity gi current)))
+            (setf (exposure pass) (clamp 0.0 (- 2.5 intensity) 10.0)
+                  (gamma pass) (clamp 0.5 (+ 0.2 (- 3.0 intensity)) 3.0)))
+          (setf (local-shade pass) (+ current (/ (- shade current) 10))))
+        (setf (exposure pass) 10.0
+              (gamma pass) 2.2))))
 
 (define-class-shader (rendering-pass :fragment-shader -100)
   "out vec4 color;
@@ -184,7 +191,9 @@ void main(){
   "uniform sampler2D lighting;
 uniform sampler2D shadow_map;
 
-vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
+#define PI 3.1415926538
+
+vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2 world_pos){
   vec3 truecolor = pow(color.rgb, vec3(2.2));
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
   vec4 light = texelFetch(lighting, pos, 0);
@@ -193,32 +202,45 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption){
   truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
   
   if(gi.activep != 0){
-    float shade = (0.4 < texelFetch(shadow_map, pos, 0).r)? 0 : 1;
-    truecolor += gi.light*max(0, shade-absorption)*color.rgb;
+    float incidence = 1.0;
+    if(normal.x != 0 && normal.y != 0){
+      vec2 dir = normalize(world_pos - gi.location);
+      incidence = max(0, dot(-dir, normal));
+    }
+    float shade = clamp(2-3*texelFetch(shadow_map, pos, 0).r, 0, 1);
+    truecolor += gi.light*clamp(shade*(1-absorption)*incidence, 0, 1)*color.rgb;
+    //truecolor = vec3(normal, 0);
   }
 
   return vec4(truecolor, color.a);
 }")
 
-(define-shader-entity lit-sprite (lit-entity sprite-entity)
+(define-shader-entity lit-vertex-entity (lit-entity vertex-entity)
   ())
 
-(define-class-shader (lit-sprite :fragment-shader)
-  "out vec4 color;
+(define-class-shader (lit-vertex-entity :vertex-shader)
+  "layout (location = 0) in vec3 position;
+
+uniform mat4 model_matrix;
+out vec2 world_pos;
 
 void main(){
-  color = apply_lighting(color, vec2(0, -5), 0);
+  world_pos = (model_matrix*vec4(position, 0)).xy;
 }")
 
-(define-shader-entity lit-animated-sprite (lit-entity animated-sprite)
+(define-class-shader (lit-vertex-entity :fragment-shader)
+  "out vec4 color;
+in vec2 world_pos;
+
+void main(){
+  color = apply_lighting(color, vec2(0, -5), 0, vec2(0), world_pos);
+}")
+
+(define-shader-entity lit-sprite (lit-vertex-entity sprite-entity)
   ())
 
-(define-class-shader (lit-animated-sprite :fragment-shader)
-  "out vec4 color;
-
-void main(){
-  color = apply_lighting(color, vec2(0, -5), 0);
-}")
+(define-shader-entity lit-animated-sprite (lit-vertex-entity animated-sprite)
+  ())
 
 (define-shader-entity basic-light (light colored-entity)
   ((color :initform (vec4 0.3 0.25 0.1 1.0)

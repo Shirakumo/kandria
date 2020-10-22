@@ -33,6 +33,8 @@ A big thanks to everyone for trying it out and reporting problems!
 ## 0.0.4
 - Fix further controller issues with certain version of DualShock 4 controllers
   Reported by Gnuxie
+- Fix dash sound being caused multiple times even when dash is not yet ready
+  Reported by PincerAttack
 
 ## TODO
 - Fix slopes with ceilings above allowing clipping

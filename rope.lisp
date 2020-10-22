@@ -3,9 +3,10 @@
 (define-asset (kandria rope-part) mesh
     (make-rectangle 2 8 :align :topcenter))
 
-(define-shader-entity rope (lit-entity vertex-entity sized-entity interactable listener resizable ephemeral)
+(define-shader-entity rope (lit-vertex-entity sized-entity interactable listener resizable ephemeral)
   ((vertex-array :initform (// 'kandria 'rope-part))
-   (chain :initform #() :accessor chain)))
+   (chain :initform #() :accessor chain))
+  (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initialize-instance :after ((rope rope) &key)
   (setf (chain rope) (make-array (floor (vy (bsize rope)) 4)))
@@ -67,11 +68,11 @@
                (rotate-by 0 0 1 (+ angle (/ PI 2)))
                (call-next-method)))))
 
-(define-class-shader (rope :fragment-shader)
+(define-class-shader (rope :fragment-shader 1)
   "out vec4 color;
 
 void main(){
-  color = apply_lighting(vec4(0,0,0,1), vec2(0), 0);
+  color = vec4(0.3,0.2,0.05,1);
 }")
 
 (defmethod resize ((rope rope) width height)

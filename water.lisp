@@ -91,20 +91,24 @@
 (define-class-shader (water :vertex-shader)
   "layout (location = 0) in vec2 position;
 out float height;
+out vec2 world_pos;
 
 uniform mat4 model_matrix;
 uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
 void main(){
-  gl_Position = projection_matrix * view_matrix * model_matrix * vec4(position, 0.0f, 1.0f);
+  vec4 _position = model_matrix * vec4(position, 0.0f, 1.0f);
+  world_pos = _position.xy;
+  gl_Position = projection_matrix * view_matrix * _position;
   height = ((sign(position.y)+1)/2);
 }")
 
 (define-class-shader (water :fragment-shader)
   "in float height;
 out vec4 color;
+in vec2 world_pos;
 
 void main(){
-  color = apply_lighting(vec4(0.53, 0.76, 0.99, 0.8), vec2(0), 1-(height*height*height*height));
+  color = apply_lighting(vec4(0.53, 0.76, 0.99, 0.8), vec2(0), 1-(height*height*height*height), vec2(0,0), world_pos);
 }")

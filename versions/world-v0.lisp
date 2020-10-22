@@ -145,8 +145,8 @@
             :tile-data ,(encode (tile-data chunk))
             :pixel-data ,pixel-data
             :layers ,layers
-            :background (encode (background chunk))
-            :gi (encode (gi chunk)))))
+            :background ,(encode (background chunk))
+            :gi ,(encode (gi chunk)))))
 
 (define-decoder (background world-v0) (initargs _)
   (destructuring-bind (&key) initargs

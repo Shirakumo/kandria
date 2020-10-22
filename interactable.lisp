@@ -9,15 +9,8 @@
 (defclass dialog-entity (interactable)
   ((interactions :initform () :accessor interactions)))
 
-(define-shader-entity interactable-sprite (ephemeral lit-entity sprite-entity dialog-entity)
+(define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity)
   ())
-
-(define-class-shader (interactable-sprite :fragment-shader)
-  "
-out vec4 color;
-void main(){
-  color = apply_lighting(color, vec2(0,0), 0.0);
-}")
 
 (defclass profile ()
   ((profile-sprite-data :initform (error "PROFILE-SPRITE-DATA not set.") :accessor profile-sprite-data)

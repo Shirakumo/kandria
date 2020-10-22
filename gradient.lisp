@@ -15,6 +15,11 @@
              (setf (aref colors i) (vec (first rgb) (second rgb) (third rgb))))
     (%%make-gradient stops colors)))
 
+(defun multiply-gradient (gradient value)
+  (loop for color across (gradient-colors gradient)
+        do (nv* color value))
+  gradient)
+
 (defun make-gradient (values)
   (%make-gradient values))
 
