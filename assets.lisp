@@ -1,20 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass tile-data (multi-resource-asset file-input-asset)
-  ((tile-types :initform () :accessor tile-types)))
-
-(defmethod generate-resources ((data tile-data) (path pathname) &key)
-  (with-kandria-io-syntax
-    (with-open-file (stream path)
-      (destructuring-bind (&key albedo absorption tile-types) (read stream)
-        (setf (tile-types data) tile-types)
-        (generate-resources 'image-loader (merge-pathnames albedo path)
-                            :resource (resource data 'albedo))
-        (generate-resources 'image-loader (merge-pathnames absorption path)
-                            :resource (resource data 'absorption))
-        (list (resource data 'albedo)
-              (resource data 'absorption))))))
-
 (defmacro define-sprite (name path &body args)
   `(define-asset (kandria ,name) image
        ,path

@@ -22,6 +22,7 @@
                (:file "lighting")
                (:file "shadow-map")
                (:file "background")
+               (:file "tile-data")
                (:file "assets")
                (:file "chunk")
                (:file "interactable")
