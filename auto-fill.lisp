@@ -204,10 +204,9 @@
           for tile = (case solid
                        (2 :platform)
                        (3 :spike)
-                       ((4 5) `(:slope 1 ,(- solid 4)))
-                       ((6 7 8 9) `(:slope 2 ,(- solid 6)))
-                       ((10 11 12 13 14 15) `(:slope 3 ,(- solid 10)))
-                       (T edge))
+                       (T (if (<= 4 solid 15)
+                              `(:slope ,(- solid 4))
+                              edge)))
           do (setf (tile x y) (cdr (assoc tile map :test 'equal)))
              (let ((ox x) (oy y))
                (ecase edge
