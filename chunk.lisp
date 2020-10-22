@@ -332,7 +332,7 @@ void main(){
               (case* tile
                 ((:t :h :tl> :tr>) (line -8 +8 +8 +8))
                 ((:r :v :tr> :br>) (line +8 -8 +8 +8))
-                ((:b :h :br> :br>) (line -8 -8 +8 -8))
+                ((:b :h :br> :bl>) (line -8 -8 +8 -8))
                 ((:l :v :tl> :bl>) (line -8 -8 -8 +8)))
               (when (and (listp tile) (eql :slope (first tile)))
                 (let ((t-info (aref +surface-blocks+ (+ 4 (second tile)))))
