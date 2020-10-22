@@ -50,7 +50,7 @@
 
 (defun paint-tile (tool event)
   (let* ((entity (entity tool))
-         (loc (pos event))
+         (loc (mouse-world-pos (pos event)))
          (loc (if (show-solids entity)
                   loc
                   (vec (vx loc) (vy loc) (layer (sidebar (editor tool))))))
@@ -72,7 +72,7 @@
           ((and (typep event 'mouse-press) (eql :middle (button event)))
            (setf (tile-to-place (sidebar (editor tool)))
                  (tile loc entity)))
-          ((and (tile loc entity) (v/= tile (tile loc entity)))
+          ((tile loc entity)
            (setf (state tool) :placing)
            (unless (stroke tool)
              (push tile (stroke tool)))
