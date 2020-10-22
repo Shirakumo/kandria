@@ -35,7 +35,8 @@
   (stage (vertex-array layer) area)
   (stage (tilemap layer) area)
   (stage (albedo layer) area)
-  (stage (absorption layer) area))
+  (stage (absorption layer) area)
+  (stage (normal layer) area))
 
 (defmethod pixel-data ((layer layer))
   (pixel-data (tilemap layer)))
@@ -138,14 +139,19 @@
     (setf (uniform program "view_matrix") (minv *view-matrix*))
     (setf (uniform program "model_matrix") (minv *model-matrix*))
     (setf (uniform program "tilemap") 0)
+    ;; TODO: Could optimise by merging absorption with normal, absorption being in the B channel.
+    ;;       Then could merge albedo and absorption into one texture array to minimise draw calls.
     (setf (uniform program "albedo") 1)
     (setf (uniform program "absorption") 2)
+    (setf (uniform program "normal") 3)
     (gl:active-texture :texture0)
     (gl:bind-texture :texture-2d (gl-name (tilemap layer)))
     (gl:active-texture :texture1)
     (gl:bind-texture :texture-2d (gl-name (albedo layer)))
     (gl:active-texture :texture2)
     (gl:bind-texture :texture-2d (gl-name (absorption layer)))
+    (gl:active-texture :texture3)
+    (gl:bind-texture :texture-2d (gl-name (normal layer)))
     (gl:bind-vertex-array (gl-name (vertex-array layer)))
     (unwind-protect
          (%gl:draw-elements :triangles (size (vertex-array layer)) :unsigned-int 0)
