@@ -381,3 +381,12 @@
        ,@(loop for case in cases
                collect `(ignore-errors
                          (return-from ,id ,case))))))
+
+(defmacro case* (thing &body cases)
+  (let ((thingg (gensym "THING")))
+    `(let ((,thingg ,thing))
+       ,@(loop for (test . body) in cases
+               for tests = (enlist test)
+               collect `(when (or ,@(loop for test in tests
+                                          collect `(eql ,test ,thingg)))
+                          ,@body)))))

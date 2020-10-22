@@ -68,9 +68,11 @@
   (compile-to-pass (shadow-geometry caster) pass))
 
 (defmethod render :before ((pass shadow-map-pass) target)
-  (gl:clear-color 0.1 0.1 0.1 1))
+  (gl:blend-func :src-alpha :one)
+  (gl:clear-color 0 0 0 0))
 
 (defmethod render :after ((pass shadow-map-pass) target)
+  (gl:blend-func :src-alpha :one-minus-src-alpha)
   (let ((player (unit 'player T)))
     (setf (frame-counter pass) (mod (+ (frame-counter pass) 1) 60))
     (when (and player (= 0 (frame-counter pass)))
@@ -80,7 +82,7 @@
           (%gl:read-pixels (floor (clamp 0 (* (vx px) (width pass)) (1- (width pass))))
                            (floor (clamp 0 (* (vy px) (height pass)) (1- (height pass))))
                            1 1 :red :unsigned-byte pixel)
-          (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 128.0)))))))
+          (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 256.0)))))))
 
 (define-class-shader (shadow-map-pass :vertex-shader)
   (gl-source (asset 'kandria 'gi))
@@ -103,5 +105,5 @@ void main(){
   "out vec4 color;
 
 void main(){
-  color = vec4(0.5);
+  color = vec4(1.0,0.0,0.0,0.5);
 }")
