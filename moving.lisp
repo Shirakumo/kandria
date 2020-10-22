@@ -31,8 +31,8 @@
     ;; Point test for adjacent walls
     (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc))))
-          (u (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy size) 1) (vx size) 1)))
-          (b (scan-collision +world+ (vec (vx loc) (- (vy loc) (vy size) 1) (vx size) 1))))
+          (u (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy size) 1.5) (vx size) 1)))
+          (b (scan-collision +world+ (vec (vx loc) (- (vy loc) (vy size) 1.5) (vx size) 1))))
       (when l (setf (aref collisions 3) (hit-object l)))
       (when r (setf (aref collisions 1) (hit-object r)))
       (when u (setf (aref collisions 0) (hit-object u)))

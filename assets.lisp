@@ -110,6 +110,13 @@
              20 (0.21568628 0.24705882 0.3882353)
              24 (0.0627451 0.0 0.23921569)))
 
+(define-gi dark
+  :location 'player
+  :light-multiplier 1.0
+  :light (vec 2 1 0.5)
+  :ambient-multiplier 0.1
+  :ambient (vec 0.3 0.1 0.1))
+
 (define-background tundra
   :texture (// 'kandria 'tundra-bg)
   :parallax (vec 2.0 1.0)
