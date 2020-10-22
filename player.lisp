@@ -92,7 +92,6 @@
 
 (defmethod handle ((ev dash) (player player))
   (let ((vel (velocity player)))
-    (harmony:play (// 'kandria 'dash))
     (cond ((in-danger-p player)
            ;; FIXME: If we are holding the opposite of what
            ;;        we are facing, we should evade left.
@@ -113,6 +112,7 @@
                             ((retained 'down)  -0.5)
                             (T                            0))))
            (setf (state player) :dashing)
+           (harmony:play (// 'kandria 'dash))
            (setf (animation player) 'dash)
            (when (v= 0 vel) (setf (vx vel) (direction player)))
            (nvunit vel))
