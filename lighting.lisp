@@ -153,7 +153,7 @@
 
 (defmethod render :before ((pass rendering-pass) target)
   (if (= 1 (active-p (struct (// 'kandria 'gi))))
-      (let* ((target (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
+      (let* ((target (max 0.1 (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map)))))))
              (shade (local-shade pass))
              (exposure (* 5 shade))
              (gamma (* 2 shade)))

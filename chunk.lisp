@@ -7,6 +7,7 @@
    (visibility :initform 1.0 :accessor visibility)
    (albedo :initarg :albedo :initform (// 'kandria 'debug) :accessor albedo)
    (absorption :initarg :absorption :initform (// 'kandria 'debug) :accessor absorption)
+   (normal :initarg :normal :initform (// 'kandria 'debug) :accessor normal)
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
   (:inhibit-shaders (shader-entity :fragment-shader)))
@@ -27,7 +28,8 @@
                                                   :min-filter :nearest
                                                   :mag-filter :nearest))
     (setf (albedo layer) (resource tile-data 'albedo))
-    (setf (absorption layer) (resource tile-data 'absorption))))
+    (setf (absorption layer) (resource tile-data 'absorption))
+    (setf (normal layer) (resource tile-data 'normal))))
 
 (defmethod stage ((layer layer) (area staging-area))
   (stage (vertex-array layer) area)
@@ -168,6 +170,7 @@ void main(){
 uniform usampler2D tilemap;
 uniform sampler2D albedo;
 uniform sampler2D absorption;
+uniform sampler2D normal;
 uniform vec2 map_size;
 uniform vec2 map_position;
 uniform int tile_size = 16;
@@ -187,8 +190,9 @@ void main(){
   uvec2 tile = texelFetch(tilemap, tile_xy, 0).rg;
   tile_xy = ivec2(tile)*tile_size+pixel_xy;
   color = texelFetch(albedo, tile_xy, 0);
-  float absor = texelFetch(absorption, tile_xy, 0).r;
-  color = apply_lighting(color, vec2(0), 1-absor) * visibility;
+  float a = texelFetch(absorption, tile_xy, 0).r;
+  vec2 n = normalize(texelFetch(normal, tile_xy, 0).rg-0.5);
+  color = apply_lighting(color, vec2(0), a) * visibility;
 }")
 
 (define-shader-entity chunk (shadow-caster layer solid)
@@ -307,50 +311,32 @@ void main(){
 (defmethod compute-shadow-geometry ((chunk chunk) (vbo vertex-buffer))
   (let* ((w (truncate (vx (size chunk))))
          (h (truncate (vy (size chunk))))
-         (layer (pixel-data chunk))
+         (layer (pixel-data (aref (layers chunk) +base-layer+)))
+         (info (tile-types (generator (albedo chunk))))
          (data (buffer-data vbo)))
-    (labels ((sfaref (x y)
-               (if (and (<= 0 x (1- w))
-                        (<= 0 y (1- h)))
-                   (aref layer (+ 0 (* 2 (+ x (* y w)))))
-                   1))
-             (solid-p (x y)
-               (let ((a (sfaref x y)))
-                 (or (= 1 a) (<= 4 a)))))
+    (labels ((tile (x y)
+               (let ((x (aref layer (+ 0 (* 2 (+ x (* y w))))))
+                     (y (aref layer (+ 1 (* 2 (+ x (* y w)))))))
+                 (loop for (type . tiles) in info
+                       for found = (loop for (_x _y) in tiles
+                                         thereis (and (= x _x) (= y _y)))
+                       do (when found (return type))))))
       (setf (fill-pointer data) 0)
       (dotimes (y h)
         (dotimes (x w)
-          (when (solid-p x y)
-            (let ((loc (vec (* (- x (/ w 2)) +tile-size+)
-                            (* (- y (/ h 2)) +tile-size+))))
-              (cond ((<= 4 (sfaref x y))
-                     (let ((t-info (aref +surface-blocks+ (sfaref x y))))
-                       (add-shadow-line vbo (v+ loc 8 (slope-l t-info)) (v+ loc 8 (slope-r t-info)))
-                       (add-shadow-line vbo (v+ loc 8 (slope-l t-info)) (v+ loc 8 (slope-r t-info)))))
-                    ((and (solid-p (1+ x) y)
-                          (solid-p (1- x) y))
-                     (add-shadow-line vbo loc (v+ loc (vec +tile-size+ 0)))
-                     (add-shadow-line vbo (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+))))
-                    ((and (solid-p x (1+ y))
-                          (solid-p x (1- y)))
-                     (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+)))
-                     (add-shadow-line vbo (v+ loc (vec +tile-size+ 0)) (v+ loc (vec +tile-size+ +tile-size+))))
-                    ((and (solid-p (1+ x) y)
-                          (solid-p x (1- y)))
-                     (add-shadow-line vbo (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+)))
-                     (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+))))
-                    ((and (solid-p (1- x) y)
-                          (solid-p x (1- y)))
-                     (add-shadow-line vbo (v+ loc (vec 0 +tile-size+)) (v+ loc (vec +tile-size+ +tile-size+)))
-                     (add-shadow-line vbo (v+ loc (vec +tile-size+ 0)) (v+ loc (vec +tile-size+ +tile-size+))))
-                    ((and (solid-p (1+ x) y)
-                          (solid-p x (1+ y)))
-                     (add-shadow-line vbo loc (v+ loc (vec +tile-size+ 0)))
-                     (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+))))
-                    ((and (solid-p (1- x) y)
-                          (solid-p x (1+ y)))
-                     (add-shadow-line vbo loc (v+ loc (vec +tile-size+ 0)))
-                     (add-shadow-line vbo loc (v+ loc (vec 0 +tile-size+))))))))))))
+          (flet ((line (xa ya xb yb)
+                   (let ((x (+ 8 (* (- x (/ w 2)) +tile-size+)))
+                         (y (+ 8 (* (- y (/ h 2)) +tile-size+))))
+                     (add-shadow-line vbo (vec (+ x xa) (+ y ya)) (vec (+ x xb) (+ y yb))))))
+            (let ((tile (tile x y)))
+              (case* tile
+                ((:t :h :tl> :tr>) (line -8 +8 +8 +8))
+                ((:r :v :tr> :br>) (line +8 -8 +8 +8))
+                ((:b :h :br> :br>) (line -8 -8 +8 -8))
+                ((:l :v :tl> :bl>) (line -8 -8 -8 +8)))
+              (when (and (listp tile) (eql :slope (first tile)))
+                (let ((t-info (aref +surface-blocks+ (+ 4 (second tile)))))
+                  (line (vx (slope-l t-info)) (vy (slope-l t-info)) (vx (slope-r t-info)) (vy (slope-r t-info))))))))))))
 
 (defmethod shortest-path ((chunk chunk) (start vec2) (goal vec2) &rest args &key test)
   (declare (ignore test))
