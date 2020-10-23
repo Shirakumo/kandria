@@ -38,6 +38,10 @@
 (defclass background-info ()
   ((name :initform NIL :initarg :name :accessor name)))
 
+(defmethod print-object ((info background-info) stream)
+  (print-unreadable-object (info stream :type T)
+    (format stream "~s" (name info))))
+
 (defclass background-single (background-info)
   ((texture :initform NIL :initarg :texture :accessor texture
             :type texture)

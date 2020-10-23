@@ -58,11 +58,13 @@
     (update-marker editor)))
 
 (defmethod show :after ((editor editor) &key)
-  (setf (lighting (unit 'lighting-pass T)) NIL))
+  (setf (lighting (unit 'lighting-pass T)) (gi 'none))
+  (setf (mix (unit 'lighting-pass T)) 1.0)
+  (update-lighting (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
   (hide (tool editor))
-  (update-lighting (unit 'lighting-pass T)))
+  (switch-chunk (chunk (unit 'player T))))
 
 (defmethod (setf tool) :before ((tool tool) (editor editor))
   (let ((entity (entity editor)))
