@@ -21,7 +21,8 @@
   (activep :int :accessor active-p)
   (location :vec2 :accessor location)
   (light :vec3 :accessor light)
-  (ambient :vec3 :accessor ambient))
+  (ambient :vec3 :accessor ambient)
+  (attenuation :float :accessor attenuation))
 
 (define-asset (kandria gi) uniform-block
     'gi)
@@ -30,7 +31,8 @@
   ((name :initform NIL :initarg :name :accessor name)
    (location :initform NIL :initarg :location :accessor location)
    (light :initform NIL :initarg :light :accessor light)
-   (ambient :initform 1 :initarg :ambient :accessor ambient)))
+   (ambient :initform 1 :initarg :ambient :accessor ambient)
+   (attenuation :initform 0.0 :initarg :attenuation :accessor attenuation)))
 
 (defmethod shared-initialize :after ((info gi-info) slots &key (light-multiplier 1.0) (ambient-multiplier 1.0))
   (flet ((normalize-light (light mult)
@@ -42,6 +44,10 @@
              (gradient (multiply-gradient light mult)))))
     (setf (light info) (normalize-light (slot-value info 'light) light-multiplier))
     (setf (ambient info) (normalize-light (slot-value info 'ambient) ambient-multiplier))))
+
+(defmethod print-object ((info gi-info) stream)
+  (print-unreadable-object (info stream :type T)
+    (format stream "~s" (name info))))
 
 (defmethod location ((info gi-info))
   (let ((loc (slot-value info 'location)))
@@ -84,48 +90,48 @@
 (defmethod render :before ((pass lighting-pass) target)
   (gl:clear-color 0 0 0 0))
 
-(defmethod handle ((ev switch-chunk) (pass lighting-pass))
-  (unless (eql (gi-b pass) (gi (chunk ev)))
-    (setf (mix pass) (- 1.0 (min 1.0 (mix pass))))
-    (setf (gi-a pass) (gi-b pass))
-    (setf (gi-b pass) (gi (chunk ev)))
-    (update-lighting pass)))
-
-(defmethod handle ((ev tick) (pass lighting-pass))
-  (when (< (mix pass) 1)
-    (incf (mix pass) (dt ev)))
-  (update-lighting pass))
-
 (defun update-lighting (pass)
   (let* ((b (gi-b pass))
          (location (location b))
          (light (light b))
          (ambient (ambient b))
+         (attenuation (attenuation b))
          (mix (mix pass)))
     (when (< mix 1)
-      (let* ((b (gi-b pass))
-             (bloc (location b)))
-        (cond (bloc
-               (if location
-                   (setf location (vlerp location (location b) mix))
-                   (setf location (location b)))
-               (setf light (vlerp light (light b) mix))
-               (setf ambient (vlerp ambient (ambient b) mix)))
-              (T
-               (setf light (vlerp light (vec 0 0 0) mix))
-               (setf ambient (vlerp ambient (vec 1 1 1) mix))))))
+      (let* ((a (gi-a pass))
+             (loc (location a)))
+        (setf light (vlerp (light a) light mix))
+        (setf ambient (vlerp (ambient a) ambient mix))
+        (setf attenuation (lerp (attenuation a) attenuation mix))
+        (when loc
+          (if location
+              (setf location (vlerp loc location mix))
+              (setf location loc)))))
     (with-buffer-tx (gi (// 'kandria 'gi))
       (setf (active-p gi) (if location 1 0))
       (setf (location gi) (or location (vec 0 0)))
       (setf (light gi) light)
-      (setf (ambient gi) ambient))))
+      (setf (ambient gi) ambient)
+      (setf (attenuation gi) attenuation))))
 
-(defmethod (setf lighting) (value (pass lighting-pass))
-  (with-buffer-tx (gi (// 'kandria 'gi))
-    (setf (active-p gi) (if value 1 0))))
+(defmethod (setf lighting) ((value gi-info) (pass lighting-pass))
+  (unless (eql (gi-b pass) value)
+    (setf (mix pass) (- 1.0 (min 1.0 (mix pass))))
+    (setf (gi-a pass) (gi-b pass))
+    (setf (gi-b pass) value)
+    (update-lighting pass))
+  value)
 
 (defmethod lighting ((pass lighting-pass))
-  (= 1 (active-p (struct (// 'kandria 'gi)))))
+  (gi-b pass))
+
+(defmethod handle ((ev switch-chunk) (pass lighting-pass))
+  (setf (lighting pass) (gi (chunk ev))))
+
+(defmethod handle ((ev tick) (pass lighting-pass))
+  (when (< (mix pass) 1)
+    (incf (mix pass) (dt ev)))
+  (update-lighting pass))
 
 (define-shader-entity light (vertex-entity sized-entity)
   ())
@@ -169,7 +175,7 @@
             (setf (exposure pass) (clamp 0.0 (- 2.5 intensity) 10.0)
                   (gamma pass) (clamp 0.5 (+ 0.2 (- 3.0 intensity)) 3.0)))
           (setf (local-shade pass) (+ current (/ (- shade current) 10))))
-        (setf (exposure pass) 10.0
+        (setf (exposure pass) 0.5
               (gamma pass) 2.2))))
 
 (define-class-shader (rendering-pass :fragment-shader -100)
@@ -203,12 +209,12 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2
   
   if(gi.activep != 0){
     float incidence = 1.0;
-    if(normal.x != 0 && normal.y != 0){
-      vec2 dir = normalize(world_pos - gi.location);
-      incidence = max(0, dot(-dir, normal));
-    }
+    vec2 dir = gi.location - world_pos;
+    if(normal.x != 0 && normal.y != 0)
+      incidence = max(0, dot(normalize(dir), normal));
+    float attenuation = 1.0/max(1.0, pow((length(dir)-10)/10, gi.attenuation));
     float shade = clamp(2-3*texelFetch(shadow_map, pos, 0).r, 0, 1);
-    truecolor += gi.light*clamp(shade*(1-absorption)*incidence, 0, 1)*color.rgb;
+    truecolor += gi.light*clamp(shade*(1-absorption)*incidence*attenuation, 0, 1)*color.rgb;
     //truecolor = vec3(normal, 0);
   }
 
@@ -225,7 +231,7 @@ uniform mat4 model_matrix;
 out vec2 world_pos;
 
 void main(){
-  world_pos = (model_matrix*vec4(position, 0)).xy;
+  world_pos = (model_matrix*vec4(position, 1)).xy;
 }")
 
 (define-class-shader (lit-vertex-entity :fragment-shader)
