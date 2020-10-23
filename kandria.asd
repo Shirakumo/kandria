@@ -48,6 +48,7 @@
                              (:file "dialog")
                              (:file "report")
                              (:file "prompt")
+                             (:file "status")
                              (:file "diagnostics")))
                (:module "editor"
                 :components ((:file "history")

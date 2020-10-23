@@ -47,6 +47,7 @@
                           (continue e))))
     (with-simple-restart (continue "Ignore the failed report.")
       (submit-report :description (description input))
+      (status "Report submitted. Thank you!")
       (alloy:close input))))
 
 (defmethod initialize-instance :after ((input report-input) &key)
