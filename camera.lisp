@@ -8,7 +8,7 @@
    (intended-location :initform (vec2 0 0) :accessor intended-location)
    (zoom :initarg :zoom :initform 1.0 :accessor zoom)
    (intended-zoom :initform 1.0 :accessor intended-zoom)
-   (region :initform NIL :accessor region)
+   (chunk :initform NIL :accessor chunk)
    (shake-counter :initform 0 :accessor shake-counter)
    (shake-intensity :initform 3 :accessor shake-intensity))
   (:default-initargs
@@ -21,12 +21,12 @@
     (setf (location camera) (vcopy (location (target camera))))))
 
 (defun clamp-camera-target (camera target)
-  (let ((region (region camera)))
-    (when region
-      (let ((lx (vx2 (location region)))
-            (ly (vy2 (location region)))
-            (lw (vx2 (bsize region)))
-            (lh (vy2 (bsize region)))
+  (let ((chunk (chunk camera)))
+    (when chunk
+      (let ((lx (vx2 (location chunk)))
+            (ly (vy2 (location chunk)))
+            (lw (vx2 (bsize chunk)))
+            (lh (vy2 (bsize chunk)))
             (cw (/ (vx2 (target-size camera)) (zoom camera)))
             (ch (/ (vy2 (target-size camera)) (zoom camera))))
         (setf (vx target) (clamp (+ lx cw (- lw))
@@ -76,23 +76,23 @@
   (clamp-camera-target camera (location camera)))
 
 (defmethod (setf target) :after ((target game-entity) (camera camera))
-  (setf (region camera) (find-containing target (region +world+))))
+  (setf (chunk camera) (find-containing target (region +world+))))
 
 (defmethod handle :before ((ev resize) (camera camera))
   ;; Ensure we scale to fit width as much as possible without showing space
   ;; outside the chunk.
   (let* ((optimal-scale (float (/ (width ev) (* 2 (vx (target-size camera))))))
-         (max-fit-scale (if (region camera) (/ (height ev) (vy (bsize (region camera))) 2) optimal-scale))
+         (max-fit-scale (if (chunk camera) (/ (height ev) (vy (bsize (chunk camera))) 2) optimal-scale))
          (scale (max optimal-scale max-fit-scale)))
     (setf (view-scale camera) scale)
     (setf (vy (target-size camera)) (/ (height ev) scale 2))))
 
-(defmethod (setf region) :after (region (camera camera))
+(defmethod (setf chunk) :after (chunk (camera camera))
   ;; Optimal bounds might have changed, update.
   (handle (make-instance 'resize :width (width *context*) :height (height *context*)) camera))
 
 (defmethod handle ((ev switch-chunk) (camera camera))
-  (setf (region camera) (chunk ev)))
+  (setf (chunk camera) (chunk ev)))
 
 (defmethod handle ((ev switch-region) (camera camera))
   (setf (target camera) (unit 'player T)))
