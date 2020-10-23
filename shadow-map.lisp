@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity shadow-geometry (vertex-entity)
-  ())
+  ((caster :initarg :caster :initform (error "CASTER required"))))
 
 (defmethod initialize-instance :after ((caster shadow-geometry) &key data)
   (let* ((data (make-array (length data) :adjustable T :fill-pointer T :element-type 'single-float
@@ -32,8 +32,17 @@
     (vector-push-extend (vx a) data)
     (vector-push-extend (vy a) data)))
 
+(defmethod render :around ((caster shadow-geometry) (program shader-program))
+  (let ((caster (slot-value caster 'caster)))
+    (when (in-view-p (location caster) (bsize caster))
+      (call-next-method))))
+
 (defclass shadow-caster ()
-  ((shadow-geometry :initform (make-instance 'shadow-geometry) :accessor shadow-geometry)))
+  ((shadow-geometry :accessor shadow-geometry)))
+
+(defmethod initialize-instance ((caster shadow-caster) &key)
+  (call-next-method)
+  (setf (shadow-geometry caster) (make-instance 'shadow-geometry :caster caster)))
 
 (defmethod stage :after ((caster shadow-caster) (area staging-area))
   (stage (shadow-geometry caster) area))

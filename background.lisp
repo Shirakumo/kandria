@@ -60,7 +60,7 @@
   (destructuring-bind (min max) (clock single)
     (<= min (hour +world+) max)))
 
-(defclass background-bundle (backgorund-info)
+(defclass background-bundle (background-info)
   ((backgrounds :initform #() :accessor backgrounds)))
 
 (defmethod stage ((bundle background-bundle) (area staging-area))

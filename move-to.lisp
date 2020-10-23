@@ -7,7 +7,7 @@
 (defclass move-edge (flow:connection) ())
 (defclass walk-edge (move-edge) ())
 (defclass crawl-edge (move-edge) ())
-(defclass climb-edge (move-edg) ())
+(defclass climb-edge (move-edge) ())
 (defclass fall-edge (move-edge flow:directed-connection) ())
 (defclass jump-edge (move-edge flow:directed-connection)
   ((strength :initarg :strength :accessor strength)))
