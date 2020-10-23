@@ -345,14 +345,22 @@ void main(){
                          (y (+ 8 (* (- y (/ h 2)) +tile-size+))))
                      (add-shadow-line vbo (vec (+ x xa) (+ y ya)) (vec (+ x xb) (+ y yb))))))
             (let ((tile (tile x y)))
+              ;; Surface tiles
               (case* tile
                 ((:t :h :tl> :tr> :bl< :br<) (line -8 +8 +8 +8))
                 ((:r :v :tr> :br> :tl< :bl<) (line +8 -8 +8 +8))
                 ((:b :h :br> :bl> :tl< :tr<) (line -8 -8 +8 -8))
                 ((:l :v :tl> :bl> :tr< :br<) (line -8 -8 -8 +8)))
+              ;; Slopes
               (when (and (listp tile) (eql :slope (first tile)))
                 (let ((t-info (aref +surface-blocks+ (+ 4 (second tile)))))
-                  (line (vx (slope-l t-info)) (vy (slope-l t-info)) (vx (slope-r t-info)) (vy (slope-r t-info))))))))))))
+                  (line (vx (slope-l t-info)) (vy (slope-l t-info)) (vx (slope-r t-info)) (vy (slope-r t-info)))))
+              ;; Edge caps
+              (when tile
+                (cond ((= x 0)      (line -8 -8 -8 +8))
+                      ((= x (1- w)) (line +8 -8 +8 +8)))
+                (cond ((= y 0)      (line -8 -8 +8 -8))
+                      ((= y (1- h)) (line -8 +8 +8 +8)))))))))))
 
 (defmethod shortest-path ((chunk chunk) (start vec2) (goal vec2) &rest args &key test)
   (declare (ignore test))
