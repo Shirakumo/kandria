@@ -233,7 +233,10 @@ void main(){
     (setf (node-graph chunk) (make-instance 'node-graph :size size
                                                         :solids (pixel-data chunk)
                                                         :offset (v- (location chunk) (bsize chunk))))
-    (compute-shadow-geometry chunk T)))
+    (register-generation-observer chunk tile-data)))
+
+(defmethod observe-generation ((chunk chunk) (data tile-data) result)
+  (compute-shadow-geometry chunk T))
 
 (defmethod compile-to-pass ((chunk chunk) (pass shader-pass))
   (call-next-method)
