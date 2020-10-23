@@ -36,7 +36,8 @@
       (when l (setf (aref collisions 3) (hit-object l)))
       (when r (setf (aref collisions 1) (hit-object r)))
       (when u (setf (aref collisions 0) (hit-object u)))
-      (when b (setf (aref collisions 2) (hit-object b))))))
+      (when (and b (collides-p moving (hit-object b) b))
+        (setf (aref collisions 2) (hit-object b))))))
 
 (defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))
@@ -123,9 +124,8 @@
     ;; Zip
     (let* ((xrel (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
       (when (< (vx normal) 0) (incf xrel))
-      ;; KLUDGE: we add a bias of 0.1 here to ensure we stop colliding with the slope.
       (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
-        (setf (vy loc) (+ 0.05 yrel (vy (bsize moving)) (vy (hit-location hit))))))))
+        (setf (vy loc) (+ yrel (vy (bsize moving)) (vy (hit-location hit))))))))
 
 (defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))
