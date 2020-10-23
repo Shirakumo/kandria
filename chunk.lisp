@@ -330,6 +330,7 @@ void main(){
          (layer (pixel-data (aref (layers chunk) +base-layer+)))
          (info (tile-types (generator (albedo chunk))))
          (data (buffer-data vbo)))
+    ;; TODO: Optimise the lines by merging them together whenever possible
     (labels ((tile (x y)
                (let ((x (aref layer (+ 0 (* 2 (+ x (* y w))))))
                      (y (aref layer (+ 1 (* 2 (+ x (* y w)))))))
