@@ -185,17 +185,18 @@
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
     (return-from handle))
-  (let ((collisions (collisions player))
-        (dt (* 100 (dt ev)))
-        (loc (location player))
-        (vel (velocity player))
-        (size (bsize player))
-        (ground-limit (if (< (p! run-time) (run-time player))
-                          (p! run-limit)
-                          (p! walk-limit)))
-        (ground-acc (if (< (p! run-time) (run-time player))
-                        (p! run-acc)
-                        (p! walk-acc))))
+  (let* ((collisions (collisions player))
+         (dt (* 100 (dt ev)))
+         (loc (location player))
+         (vel (velocity player))
+         (size (bsize player))
+         (ground (svref collisions 2))
+         (ground-limit (if (< (p! run-time) (run-time player))
+                           (p! run-limit)
+                           (p! walk-limit)))
+         (ground-acc (if (< (p! run-time) (run-time player))
+                         (p! run-acc)
+                         (p! walk-acc))))
     (when (< (abs (vx vel)) (/ (p! walk-limit) 2))
       (setf (run-time player) 0.0))
     (incf (run-time player) (dt ev))
@@ -231,7 +232,7 @@
               (handle (make-instance 'jump) player)))
            (setf (buffer player) NIL)))
        (handle-animation-states player ev)
-       (when (svref collisions 2)
+       (when ground
          (setf (vy vel) (max (vy vel) 0)))
        (nv+ vel (v* (gravity (medium player)) dt)))
       (:dashing
@@ -253,11 +254,10 @@
          (nudge (interactable player) loc (* (direction player) 20)))
        ;; Adapt velocity if we are on sloped terrain
        ;; I'm not sure why this is necessary, but it is.
-       (typecase (svref collisions 2)
+       (typecase ground
          (slope
-          (let* ((block (svref collisions 2))
-                 (normal (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
-                                       (- (vx2 (slope-r block)) (vx2 (slope-l block))))))
+          (let* ((normal (nvunit (vec2 (- (vy2 (slope-l ground)) (vy2 (slope-r ground)))
+                                       (- (vx2 (slope-r ground)) (vx2 (slope-l ground))))))
                  (slope (vec (- (vy normal)) (vx normal)))
                  (proj (v* slope (v. slope vel))))
             (vsetf vel (vx proj) (vy proj))))
@@ -307,7 +307,7 @@
                 (setf (vy vel) 0)))))
       (:crawling
        ;; Uncrawl on ground loss
-       (when (not (svref collisions 2))
+       (when (not ground)
          (when (svref collisions 0)
            (decf (vy loc) 16))
          (setf (state player) :normal))
@@ -344,8 +344,8 @@
                 ;; Ground jump
                 (harmony:play (// 'kandria 'jump))
                 (setf (vy vel) (+ (p! jump-acc)
-                                  (if (svref collisions 2)
-                                      (* 0.25 (max 0 (vy (velocity (svref collisions 2)))))
+                                  (if ground
+                                      (* 0.25 (max 0 (vy (velocity ground))))
                                       0)))
                 (setf (jump-time player) 0.0))))
        
@@ -370,9 +370,9 @@
                 (return-from handle))))
 
        ;; Movement
-       (cond ((svref collisions 2)
+       (cond (ground
               (setf (climb-strength player) (p! climb-strength))
-              (incf (vy vel) (min 0 (vy (velocity (svref collisions 2)))))
+              (incf (vy vel) (min 0 (vy (velocity ground))))
               (cond ((retained 'left)
                      (setf (direction player) -1)
                      ;; Quick turns on the ground.
@@ -400,7 +400,7 @@
               (when (< (vx vel) ground-limit)
                 (incf (vx vel) (p! air-acc)))))
        ;; Air friction
-       (unless (svref collisions 2)
+       (unless ground
          (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) dt))))
        ;; Jump progress
        (when (and (retained 'jump)
