@@ -56,39 +56,38 @@
 (defun aabb (seg-pos seg-vel aabb-pos aabb-size)
   (declare (type vec2 seg-pos seg-vel aabb-pos aabb-size))
   (declare (optimize speed))
-  (sb-int:with-float-traps-masked (:overflow :underflow :inexact :invalid)
-    (let* ((scale-x (if (= 0 (vx2 seg-vel)) float-features:single-float-positive-infinity (/ (vx2 seg-vel))))
-           (scale-y (if (= 0 (vy2 seg-vel)) float-features:single-float-positive-infinity (/ (vy2 seg-vel))))
-           (sign-x (if (<= 0. (vx2 seg-vel)) +1. -1.))
-           (sign-y (if (<= 0. (vy2 seg-vel)) +1. -1.))
-           (near-x (* (- (vx2 aabb-pos) (* sign-x (vx2 aabb-size)) (vx2 seg-pos)) scale-x))
-           (near-y (* (- (vy2 aabb-pos) (* sign-y (vy2 aabb-size)) (vy2 seg-pos)) scale-y))
-           (far-x (* (- (+ (vx2 aabb-pos) (* sign-x (vx2 aabb-size))) (vx2 seg-pos)) scale-x))
-           (far-y (* (- (+ (vy2 aabb-pos) (* sign-y (vy2 aabb-size))) (vy2 seg-pos)) scale-y)))
-      (unless (or (< far-y near-x)
-                  (< far-x near-y))
-        (let ((t-near (max near-x near-y))
-              (t-far (min far-x far-y)))
-          (when (and (< t-near 1)
-                     (< 0 t-far))
-            (let ((normal (cond ((< t-near 0)
-                                 (let ((dist (v- seg-pos aabb-pos)))
-                                   (if (< (abs (vy2 dist)) (abs (vx2 dist)))
-                                       (vec (signum (vx2 dist)) 0)
-                                       (vec 0 (signum (vy2 dist))))))
-                                ((< near-y near-x)
-                                 (vec (- sign-x) 0))
-                                (T
-                                 (vec 0 (- sign-y))))))
-              (unless (= 0 (v. normal seg-vel))
-                ;; KLUDGE: This test is necessary in order to ignore vertical edges
-                ;;         that seem to stick out of the blocks. I have no idea why.
-                (unless (and (/= 0 (vy2 normal))
-                             (<= (vx2 aabb-size) (abs (- (vx2 aabb-pos) (vx2 seg-pos)))))
-                  (make-hit NIL
-                            aabb-pos
-                            t-near
-                            normal))))))))))
+  (let* ((scale-x (if (= 0 (vx2 seg-vel)) 1000000f0 (/ (vx2 seg-vel))))
+         (scale-y (if (= 0 (vy2 seg-vel)) 1000000f0 (/ (vy2 seg-vel))))
+         (sign-x (if (<= 0. (vx2 seg-vel)) +1. -1.))
+         (sign-y (if (<= 0. (vy2 seg-vel)) +1. -1.))
+         (near-x (* (- (vx2 aabb-pos) (* sign-x (vx2 aabb-size)) (vx2 seg-pos)) scale-x))
+         (near-y (* (- (vy2 aabb-pos) (* sign-y (vy2 aabb-size)) (vy2 seg-pos)) scale-y))
+         (far-x (* (- (+ (vx2 aabb-pos) (* sign-x (vx2 aabb-size))) (vx2 seg-pos)) scale-x))
+         (far-y (* (- (+ (vy2 aabb-pos) (* sign-y (vy2 aabb-size))) (vy2 seg-pos)) scale-y)))
+    (unless (or (< far-y near-x)
+                (< far-x near-y))
+      (let ((t-near (max near-x near-y))
+            (t-far (min far-x far-y)))
+        (when (and (< t-near 1)
+                   (< 0 t-far))
+          (let ((normal (cond ((< t-near 0)
+                               (let ((dist (v- seg-pos aabb-pos)))
+                                 (if (< (abs (vy2 dist)) (abs (vx2 dist)))
+                                     (vec (signum (vx2 dist)) 0)
+                                     (vec 0 (signum (vy2 dist))))))
+                              ((< near-y near-x)
+                               (vec (- sign-x) 0))
+                              (T
+                               (vec 0 (- sign-y))))))
+            (unless (= 0 (v. normal seg-vel))
+              ;; KLUDGE: This test is necessary in order to ignore vertical edges
+              ;;         that seem to stick out of the blocks. I have no idea why.
+              (unless (and (/= 0 (vy2 normal))
+                           (<= (vx2 aabb-size) (abs (- (vx2 aabb-pos) (vx2 seg-pos)))))
+                (make-hit NIL
+                          aabb-pos
+                          t-near
+                          normal)))))))))
 
 (defun slope (pos vel size slope loc)
   (declare (type vec2 pos vel size loc))
@@ -118,3 +117,4 @@
                      (or (<= -1.0 t1 1.0)
                          (< (vy pos) (+ yrel (vy loc)))))
             t1))))))
+
