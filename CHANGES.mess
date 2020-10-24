@@ -35,11 +35,11 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Gnuxie
 - Fix dash sound being caused multiple times even when dash is not yet ready
   Reported by PincerAttack
-
-## TODO
-- Fix slopes with ceilings above allowing clipping
-  Reported by PincerAttack
 - Fix attacking an enemy while both at the corner causing clipping
   Reported by Janne Pakarinen
+- Fix slopes with ceilings above allowing clipping
+  Reported by PincerAttack
+
+## TODO
 - Fix audio stutter on lower end systems
   Reported by PincerAttack

@@ -266,8 +266,8 @@
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
-                       (scan-collision +world+ (vec (- (vx loc) (vx size) 10) (- (vy loc) (vy size) 8)))
-                       (scan-collision +world+ (vec (+ (vx loc) (vx size) 10) (- (vy loc) (vy size) 8)))))
+                       (scan-collision +world+ (vec (- (vx loc) (vx size) 10) (- (vy loc) (vy size) 2)))
+                       (scan-collision +world+ (vec (+ (vx loc) (vx size) 10) (- (vy loc) (vy size) 2)))))
               (attached (or (svref collisions (if (< 0 (direction player)) 1 3))
                             (interactable player)
                             top)))
@@ -294,7 +294,7 @@
                 (setf (state player) :normal))
                ((and top (eq attached top))
                 (setf (vy vel) (p! climb-up))
-                (setf (vx vel) (* (direction player) 2 (p! climb-up))))
+                (setf (vx vel) (* (direction player) (p! climb-up))))
                ((retained 'up)
                 (unless (typep attached 'rope)
                   (decf (climb-strength player) (dt ev)))
