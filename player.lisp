@@ -317,7 +317,12 @@
              ((retained 'right)
               (setf (vx vel) (+ (p! crawl))))
              (T
-              (setf (vx vel) 0))))
+              (setf (vx vel) 0)))
+       ;; Slope sticky
+       (when (and (<= (vy vel) 0) (typep ground 'slope))
+         (if (= (signum (vx vel))
+                (signum (- (vy (slope-l ground)) (vy (slope-r ground)))))
+             (decf (vy vel) 1))))
       (:normal
        ;; Handle jumps
        (when (< (jump-time player) 0.0)
@@ -399,6 +404,11 @@
               (setf (direction player) +1)
               (when (< (vx vel) ground-limit)
                 (incf (vx vel) (p! air-acc)))))
+       ;; Slope sticky
+       (when (and (<= (vy vel) 0) (typep ground 'slope))
+         (if (= (signum (vx vel))
+                (signum (- (vy (slope-l ground)) (vy (slope-r ground)))))
+             (decf (vy vel) 1)))
        ;; Air friction
        (unless ground
          (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) dt))))

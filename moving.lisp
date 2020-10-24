@@ -114,18 +114,17 @@
          (vel (frame-velocity moving))
          (normal (hit-normal hit)))
     (setf (svref (collisions moving) 2) block)
-    (nv+ loc (v* vel (hit-time hit)))
+    (nv+ loc (v* vel (clamp 0 (hit-time hit) 1)))
     (nv- vel (v* normal (v. vel normal)))
     ;; Force clamp velocity to zero to avoid "speeding up while on ground"
     (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
     ;; Make sure we stop sliding down the slope.
-    (when (< (abs (vx vel)) 0.1)
+    (when (< (abs (vx vel)) 0.3)
       (setf (vx vel) 0))
     ;; Zip
-    (let* ((xrel (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
-      (when (< (vx normal) 0) (incf xrel))
-      (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
-        (setf (vy loc) (+ yrel (vy (bsize moving)) (vy (hit-location hit))))))))
+    (let* ((xrel (+ 0.5 (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
+           (yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
+      (setf (vy loc) (max (vy loc) (+ yrel (vy (bsize moving)) (vy (hit-location hit))))))))
 
 (defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))
