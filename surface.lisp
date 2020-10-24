@@ -93,6 +93,25 @@
 (defun slope (pos vel size slope loc)
   (declare (type vec2 pos vel size loc))
   (declare (optimize speed))
+  ;; We simplify the problem of a swept AABB <-> Line intersection test to
+  ;; a Ray <-> Line intersection test by realising that the two are equivalent
+  ;; as long as the line is shifted towards the midpoint by the half-size of
+  ;; the AABB against the direction of the ray. In this case the behaviour of
+  ;; SIGNUM actually works out for us since it returns 0 for 0.
+  (when (<= (vy vel) 0)
+    (let* ((shift (nv* (vec (- (signum (vx vel))) (- (signum (vy vel)))) size))
+           (la (v+ loc (slope-l slope) shift))
+           (lb (v+ loc (slope-r slope) shift))
+           (v1 (v- pos la))
+           (v2 (v- lb la))
+           (v3 (vec (- (vy vel)) (vx vel)))
+           (dot (v. v2 v3)))
+      (when (< 0.0001 (abs dot))
+        (let ((t1 (/ (- (* (vx v2) (vy v1)) (* (vy v2) (vx v1))) dot))
+              (t2 (/ (v. v1 v3) dot)))
+          (when (and (<= t1 1.0) (<= -0.05 t2 1.05))
+            t1)))))
+  #++
   (let* ((la (v+ loc (slope-l slope)))
          (lb (v+ loc (slope-r slope)))
          (dir (v- lb la))
