@@ -111,6 +111,7 @@
              24 (0.0627451 0.0 0.23921569)))
 
 (define-gi dark
+  :attenuation 1.6
   :location 'player
   :light-multiplier 1.0
   :light (vec 2 1 0.5)
