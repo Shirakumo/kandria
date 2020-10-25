@@ -7,6 +7,7 @@
    (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave))
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
+   :version '(3 3) :profile :core
    :title #.(format NIL "Kandria - ~a" (version :kandria))
    :app-id 1261430))
 

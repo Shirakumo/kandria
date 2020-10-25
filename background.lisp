@@ -180,8 +180,8 @@ in vec2 map_coord_b;
 out vec4 color;
 
 void main(){
-  vec4 color_a = texture2D(texture_a, map_coord_a);
-  vec4 color_b = texture2D(texture_b, map_coord_b);
+  vec4 color_a = texture(texture_a, map_coord_a);
+  vec4 color_b = texture(texture_b, map_coord_b);
   color = mix(color_a, color_b, backgrounds.mix);
   color = apply_lighting(color, vec2(0), 0, vec2(0), vec2(0));
 }")
