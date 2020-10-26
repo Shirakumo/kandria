@@ -115,7 +115,7 @@
                             ((retained 'down)  -0.5)
                             (T                            0))))
            (setf (state player) :dashing)
-           (harmony:play (// 'kandria 'dash))
+           (trigger 'dash player)
            (setf (animation player) 'dash)
            (when (v= 0 vel) (setf (vx vel) (direction player)))
            (nvunit vel))
@@ -350,7 +350,7 @@
                          (setf (vy vel) (+ 0.3 (vy (p! walljump-acc))))))))
                ((< (air-time player) (p! coyote-time))
                 ;; Ground jump
-                (harmony:play (// 'kandria 'jump))
+                (trigger 'jump player)
                 (setf (vy vel) (+ (p! jump-acc)
                                   (if ground
                                       (* 0.25 (max 0 (vy (velocity ground))))
@@ -452,12 +452,6 @@
         (collisions (collisions player)))
     (setf (playback-direction player) +1)
     (setf (playback-speed player) 1.0)
-    (case (state player)
-      ((:animated :stunned :dying))
-      (T
-       (let ((effect (effect (frame player))))
-         (when effect
-           (harmony:play (// 'kandria 'step))))))
     (case (state player)
       (:climbing
        (setf (animation player) 'climb)

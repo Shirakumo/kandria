@@ -3,7 +3,8 @@
 (defvar *background-info* (make-hash-table :test 'eq))
 
 (defmethod background ((name symbol))
-  (gethash name *background-info*))
+  (or (gethash name *background-info*)
+      (error "No background named ~s found." name)))
 
 (defmethod (setf background) (value (name symbol))
   (if value
@@ -19,7 +20,7 @@
                       initargs))
         (class (if (listp (first initargs)) 'background-bundle 'background-single)))
     `(let ((,existing (ignore-errors (background ',name))))
-       (setf (background ',name) (trial::ensure-instance ,existing ',class :name ',name ,@initargs)))))
+       (setf (background ',name) (ensure-instance ,existing ',class :name ',name ,@initargs)))))
 
 (define-gl-struct bg
   (parallax :vec2 :accessor parallax)
