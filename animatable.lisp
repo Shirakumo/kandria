@@ -54,6 +54,13 @@
   (when (eql (name (animation animatable)) 'die)
     (die animatable)))
 
+(defmethod (setf frame-idx) :before (idx (animatable animatable))
+  (let ((previous-idx (frame-idx animatable)))
+    (when (/= idx previous-idx)
+      (let ((effect (effect (svref (frames animatable) idx))))
+        (when effect
+          (trigger effect animatable))))))
+
 (defmethod interrupt ((animatable animatable))
   (when (interruptable-p (frame animatable))
     (unless (eql :stunned (state animatable))
@@ -98,8 +105,6 @@
        (when (<= (stun-time animatable) 0)
          (setf (state animatable) :normal)))
       (:dying))
-    (when (effect frame)
-      (harmony:play (pool-path 'kandria (format NIL "sound/~a.wav" (effect frame)))))
     (nv* (velocity animatable) (multiplier frame))
     (incf (vx vel) (* (direction animatable) (vx (velocity frame))))
     (incf (vy vel) (vy (velocity frame)))))

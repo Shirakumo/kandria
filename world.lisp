@@ -77,7 +77,7 @@
   (stage (// 'kandria 'effects 'vertex-array) area))
 
 (defmethod compile-to-pass :after ((world world) (pass render-pass))
-  (register-object-for-pass pass (c2mop:ensure-finalized (find-class 'effect))))
+  (register-object-for-pass pass (c2mop:ensure-finalized (find-class 'sprite-effect))))
 
 (defmethod region ((world world))
   (gethash 'region (name-map world)))

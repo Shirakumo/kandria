@@ -60,6 +60,7 @@
 
 (defmethod compile-to-pass (object (pass ui-pass)))
 (defmethod compile-into-pass (object container (pass ui-pass)))
+(defmethod remove-from-pass (object (pass ui-pass)))
 
 ;; KLUDGE: No idea why this is necessary, fuck me.
 (defmethod simple:request-font :around ((pass ui-pass) font &key)

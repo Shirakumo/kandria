@@ -24,6 +24,7 @@
                (:file "background")
                (:file "tile-data")
                (:file "assets")
+               (:file "effect")
                (:file "chunk")
                (:file "interactable")
                (:file "moving-platform")
