@@ -16,7 +16,9 @@ Once that's done, please start ``Portacle`` (the development environment). It sh
 
 [ image https://portacle.github.io/portacle-start.png ]
 
-In the section with the ``CL-USER>`` prompt, type ``(ql:quickload :kandria)``. This will compile and load the game. It'll take a while the first time you do it. After that, try starting the game with ``(kandria:launch)``. If that opens the game successfully, then, congratulations! You're all set up and ready for development! If you encounter a problem at any point, such as an error prompt opening up, contact Shinmera to help with the debugging.
+In the section with the ``CL-USER>`` prompt, type ``(ql:quickload :kandria)`` (or copy and paste it with ``Ctrl+Y``.) This will compile and load the game. It'll take a while the first time you do it. After that, try starting the game with ``(kandria:launch)``. If that opens the game successfully, then, congratulations! You're all set up and ready for development! If you encounter a problem at any point, such as an error prompt opening up, contact Shinmera to help with the debugging.
+
+For further help with the IDE, press ``Ctrl+H H`` within the IDE. This should bring up a help document that explains the terminology, keyboard shortcuts, and more.
 
 ## Structure
 The source tree is divided up as follows:
@@ -71,9 +73,9 @@ Additionally, the mailing list system is also hosted on TyNET, and can be found 
 
 | https://courier.tymoon.eu/campaign/Kandria
 
-## Contributing
-When contributing to the project please use a separate branch and do not commit directly to ``master``. You may either use per-feature branches or just a singular branch for all of your work. When you are done with a task and would like to get feedback on it and merge it into mainline, submit a "pull request"(https://github.com/Shinmera/kandria/compare) on github. The PR should then be reviewed by another team member and ultimately merged into master.
+## Developing
+When contributing to the project please use a separate branch and do not commit directly to ``master``. You may either use per-feature branches or just a singular branch for all of your work. When you are done with a task and would like to get feedback on it, let the rest of the team know so they can go and check it out.
 
-When creating a PR, please include a short description of what task you tackled.
+When pulling, please use the rebase strategy whenever possible (``git pull --rebase``). If you have trouble with Git in one way or another, contact Shinmera for advice.
 
-When pulling, please use the rebase strategy whenever possible. If you've downloaded the development environment, it should already have rebase configured as the default strategy.
+If you need to run the game and something's not working, please ensure that //all// of the repositories in the ``projects/`` folder are up-to-date. The other projects are support libraries and may occasionally receive updates as well as the development progresses.
