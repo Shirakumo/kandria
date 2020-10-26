@@ -125,6 +125,13 @@
 (defmethod lighting ((pass lighting-pass))
   (gi-b pass))
 
+(defmethod force-lighting ((pass lighting-pass))
+  (setf (mix pass) 1.0)
+  (update-lighting pass))
+
+(defmethod handle ((ev force-lighting) (pass lighting-pass))
+  (force-lighting pass))
+
 (defmethod handle ((ev switch-chunk) (pass lighting-pass))
   (setf (lighting pass) (gi (chunk ev))))
 

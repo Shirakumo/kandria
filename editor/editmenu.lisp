@@ -32,8 +32,7 @@
           (if value
               (gi (chunk (unit :camera T)))
               (gi 'none)))
-    (setf (mix (unit 'lighting-pass T)) 1.0)
-    (update-lighting (unit 'lighting-pass T)))
+    (force-lighting (unit 'lighting-pass T)))
   (alloy:on (setf alloy:value) (value (slot-value menu 'time))
     (setf (alloy:value (alloy:representation 'lighting menu)) T)
     (synchronize +world+ value)

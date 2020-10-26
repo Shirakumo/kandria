@@ -66,7 +66,7 @@
 (define-shader-pass shadow-map-pass (single-shader-scene-pass)
   ((shadow-map :port-type output :texspec (:internal-format :r8))
    (local-shade :initform 0.0 :accessor local-shade)
-   (frame-counter :initform 0 :accessor frame-counter))
+   (fc :initform 0 :accessor fc))
   (:buffers (kandria gi)))
 
 (defmethod object-renderable-p ((object renderable) (pass shadow-map-pass)) NIL)
@@ -83,8 +83,8 @@
 (defmethod render :after ((pass shadow-map-pass) target)
   (gl:blend-func :src-alpha :one-minus-src-alpha)
   (let ((player (unit 'player T)))
-    (setf (frame-counter pass) (mod (+ (frame-counter pass) 1) 60))
-    (when (and player (= 0 (frame-counter pass)))
+    (setf (fc pass) (mod (+ (fc pass) 1) 60))
+    (when (and player (= 0 (fc pass)))
       (let* ((pos (m* (projection-matrix) (view-matrix) (vec (vx (location player)) (+ (vy (location player)) 8) 0 1)))
              (px (nv/ (nv+ pos 1) 2)))
         (cffi:with-foreign-object (pixel :uint8)
@@ -92,6 +92,12 @@
                            (floor (clamp 0 (* (vy px) (height pass)) (1- (height pass))))
                            1 1 :red :unsigned-byte pixel)
           (setf (local-shade pass) (/ (cffi:mem-ref pixel :uint8) 256.0)))))))
+
+(defmethod force-lighting ((pass shadow-map-pass))
+  (setf (fc pass) 59))
+
+(defmethod handle ((ev force-lighting) (pass shadow-map-pass))
+  (force-lighting pass))
 
 (define-class-shader (shadow-map-pass :vertex-shader)
   (gl-source (asset 'kandria 'gi))
