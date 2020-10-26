@@ -81,9 +81,8 @@
     (nv+ (location elevator) (v* vel (hit-time hit)))
     (vsetf vel 0 0)))
 
-(defmethod handle ((ev interaction) (elevator elevator))
-  (when (and (eq elevator (slot-value ev 'with))
-             (eql :normal (state elevator)))
+(defmethod interact ((elevator elevator) thing)
+  (when (eql :normal (state elevator))
     (cond ((null (scan-collision +world+ (v+ (location elevator)
                                              (v_y (bsize elevator))
                                              1)))

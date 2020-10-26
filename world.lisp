@@ -112,12 +112,6 @@
     (issue world 'change-time :hour (hour world))
     (quest:try (storyline world))))
 
-(defmethod handle :after ((ev interaction) (world world))
-  (when (typep (with ev) 'interactable)
-    (let ((interactions (interactions (with ev))))
-      (when interactions
-        (show (make-instance 'dialog :dialogue (quest:dialogue (first interactions))))))))
-
 (defmethod handle :after ((ev keyboard-event) (world world))
   (setf +input-source+ :keyboard))
 

@@ -73,22 +73,23 @@
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
-    (typecase interactable
-      (null)
-      (door
-       (setf (animation interactable) 'open)
-       (let ((location (location (target interactable))))
-         (start-animation 'enter player)
-         (transition
-           (start-animation 'exit player)
-           (setf (animation (target interactable)) 'open)
-           (vsetf (location player) (vx location) (- (vy location) 8))
-           (snap-to-target (unit :camera T) player))))
-      (rope)
-      ;; Trigger dialogue interactions somehow.
-      (T
-       (hide (prompt player))
-       (issue +world+ 'interaction :with interactable)))))
+    (when interactable
+      (interact interactable player))))
+
+(defmethod interact :before ((thing dialog-entity) (player player))
+  (hide (prompt player)))
+
+(defmethod interact ((rope rope) (player player)))
+
+(defmethod interact ((door door) (player player))
+  (setf (animation door) 'open)
+  (let ((location (location (target door))))
+    (start-animation 'enter player)
+    (transition
+      (start-animation 'exit player)
+      (setf (animation (target door)) 'open)
+      (vsetf (location player) (vx location) (- (vy location) 8))
+      (snap-to-target (unit :camera T) player))))
 
 (defmethod handle ((ev dash) (player player))
   (let ((vel (velocity player)))
