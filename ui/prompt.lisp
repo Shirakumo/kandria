@@ -13,10 +13,11 @@
    :valign :middle
    :halign :middle
    :font "PromptFont"
-   :size (alloy:px 20)
+   :size (alloy:un 20)
    :pattern colors:white))
 
-(presentations:define-update (ui prompt))
+(presentations:define-update (ui prompt)
+  (:label :pattern colors:white))
 
 (defmethod show ((prompt prompt) &key button (input +input-source+) location)
   (when button
@@ -24,11 +25,11 @@
   (if location
       (alloy:with-unit-parent (unit 'ui-pass T)
         (let ((screen-location (world-screen-pos location))
-              (bsize 20))
+              (bsize (alloy:to-px (alloy:un 20))))
           (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) bsize)
                                                        (+ (vy screen-location) bsize)
                                                        (* bsize 2) (* bsize 2)))))
-      (setf (alloy:bounds prompt) (alloy:px-extent 16 16 16 16)))
+      (setf (alloy:bounds prompt) (alloy:extent 16 16 16 16)))
   (unless (slot-boundp prompt 'alloy:layout-parent)
     (alloy:enter prompt (unit 'ui-pass T))))
 
