@@ -1,13 +1,17 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass interaction (event)
-  ((with :initarg :with :accessor with)))
-
 (defclass interactable (entity)
   ())
 
+(defgeneric interact (with from))
+
 (defclass dialog-entity (interactable)
   ((interactions :initform () :accessor interactions)))
+
+(defmethod interact ((entity dialog-entity) from)
+  (let ((interactions (interactions entity)))
+    (when interactions
+      (show (make-instance 'dialog :dialogue (quest:dialogue (first interactions)))))))
 
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity)
   ())
