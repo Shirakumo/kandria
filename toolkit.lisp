@@ -357,6 +357,9 @@
 (defun switch-chunk (chunk)
   (issue +world+ 'switch-chunk :chunk chunk))
 
+(defclass force-lighting (event)
+  ())
+
 (defclass unpausable () ())
 
 (defclass ephemeral (entity)

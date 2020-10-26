@@ -89,6 +89,8 @@
       (start-animation 'exit player)
       (setf (animation (target door)) 'open)
       (vsetf (location player) (vx location) (- (vy location) 8))
+      (issue +world+ 'switch-chunk :chunk (find-containing player (region +world+)))
+      (issue +world+ 'force-lighting)
       (snap-to-target (unit :camera T) player))))
 
 (defmethod handle ((ev dash) (player player))
