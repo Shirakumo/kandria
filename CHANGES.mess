@@ -39,6 +39,12 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Janne Pakarinen
 - Fix slopes with ceilings above allowing clipping
   Reported by PincerAttack
+- Fix dashing on slopes always being forced to dash along the slope rather than the direction the player intended.
+  Reported by Trashtalk
+- Fix 5.1 and 4.0 surround systems not being supported on Windows.
+  Reported by Frederic Tarabout
+- Fix various crashes
+  Reported by Selwyn Simsek
 
 ## TODO
 - Fix audio stutter on lower end systems
