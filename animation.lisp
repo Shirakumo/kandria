@@ -105,8 +105,10 @@
     (format stream "~%))~%")))
 
 (defmethod write-animation ((animation sprite-animation) &optional (stream T))
-  (format stream "~&   (~20a :loop-to ~3a :next ~s)"
+  (format stream "~&   (~20a :start ~3d :end ~3d :loop-to ~3a :next ~s)"
           (name animation)
+          (start animation)
+          (end animation)
           (loop-to animation)
           (next-animation animation)))
 
@@ -127,13 +129,24 @@
       (setf (json-file sprite) source)
       (call-next-method sprite (merge-pathnames (json-file sprite) path))
       (loop for expr in animations
-            do (destructuring-bind (name &key loop-to next) expr
+            do (destructuring-bind (name &key start end loop-to next) expr
                  (let ((animation (find name (animations sprite) :key #'name)))
                    (when loop-to
                      (setf (loop-to animation) loop-to))
                    (when next
-                     (setf (next-animation animation) next)))))
-      ;; Note: using POP instead of IN here to still change-class frames at the tail with no spec.
-      (loop for expr = (pop frames)
-            for frame across (frames sprite)
-            do (change-class frame 'frame :sexp expr)))))
+                     (setf (next-animation animation) next))
+                   ;; Attempt to account for changes in the frame counts of the animations
+                   ;; by updating frame data per-animation here. We have to assume that
+                   ;; frames are only removed or added at the end of an animation, as we
+                   ;; can't know anything more.
+                   (when (and start end)
+                     (let ((rstart (start animation))
+                           (rend (end animation))
+                           (rframes (frames sprite)))
+                       (loop for i from 0 below (min (- end start) (- rend rstart))
+                             for frame = (elt rframes (+ rstart i))
+                             for frame-info = (elt frames (+ start i))
+                             do (change-class frame 'frame :sexp frame-info)))))))
+      ;; Make sure all frames are in the correct class.
+      (loop for frame across (frames sprite)
+            do (unless (typep frame 'frame) (change-class frame 'frame))))))
