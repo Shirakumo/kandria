@@ -264,7 +264,7 @@
                  (slope (vec (- (vy normal)) (vx normal)))
                  (proj (v* slope (v. slope vel)))
                  (angle (vangle slope (vunit vel))))
-            (when (or (< (print angle) (* PI 1/4)) (< (* PI 3/4) angle))
+            (when (or (< angle (* PI 1/4)) (< (* PI 3/4) angle))
               (vsetf vel (vx proj) (vy proj)))))
          (null
           (nv* vel (damp* (p! dash-air-dcc) dt)))))

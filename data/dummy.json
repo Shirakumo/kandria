@@ -1,6 +1,6 @@
 { "frames": [
    {
-    "filename": "dummy 0.ase",
+    "filename": "0 Stand",
     "frame": { "x": 63, "y": 56, "w": 10, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -9,7 +9,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 1.ase",
+    "filename": "0 Jump",
     "frame": { "x": 0, "y": 63, "w": 10, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -18,7 +18,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 2.ase",
+    "filename": "0 Fall",
     "frame": { "x": 63, "y": 56, "w": 10, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -27,7 +27,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 3.ase",
+    "filename": "1 Fall",
     "frame": { "x": 52, "y": 56, "w": 10, "h": 34 },
     "rotated": false,
     "trimmed": true,
@@ -36,7 +36,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 4.ase",
+    "filename": "2 Fall",
     "frame": { "x": 41, "y": 56, "w": 10, "h": 35 },
     "rotated": false,
     "trimmed": true,
@@ -45,7 +45,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 5.ase",
+    "filename": "0 Light Hit",
     "frame": { "x": 63, "y": 56, "w": 10, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -54,7 +54,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 6.ase",
+    "filename": "1 Light Hit",
     "frame": { "x": 136, "y": 33, "w": 11, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -63,7 +63,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 7.ase",
+    "filename": "2 Light Hit",
     "frame": { "x": 28, "y": 30, "w": 12, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -72,7 +72,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 8.ase",
+    "filename": "3 Light Hit",
     "frame": { "x": 148, "y": 33, "w": 11, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -81,7 +81,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 9.ase",
+    "filename": "4 Light Hit",
     "frame": { "x": 112, "y": 33, "w": 11, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -90,7 +90,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 10.ase",
+    "filename": "5 Light Hit",
     "frame": { "x": 63, "y": 56, "w": 10, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -99,7 +99,7 @@
     "duration": 100
    },
    {
-    "filename": "dummy 11.ase",
+    "filename": "0 Hard Hit",
     "frame": { "x": 0, "y": 30, "w": 13, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -108,7 +108,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 12.ase",
+    "filename": "1 Hard Hit",
     "frame": { "x": 148, "y": 0, "w": 15, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -117,7 +117,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 13.ase",
+    "filename": "2 Hard Hit",
     "frame": { "x": 131, "y": 0, "w": 16, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -126,7 +126,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 14.ase",
+    "filename": "3 Hard Hit",
     "frame": { "x": 97, "y": 0, "w": 16, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -135,7 +135,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 15.ase",
+    "filename": "4 Hard Hit",
     "frame": { "x": 114, "y": 0, "w": 16, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -144,7 +144,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 16.ase",
+    "filename": "5 Hard Hit",
     "frame": { "x": 42, "y": 23, "w": 15, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -153,7 +153,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 17.ase",
+    "filename": "6 Hard Hit",
     "frame": { "x": 14, "y": 30, "w": 13, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -162,7 +162,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 18.ase",
+    "filename": "7 Hard Hit",
     "frame": { "x": 86, "y": 33, "w": 12, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -171,7 +171,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 19.ase",
+    "filename": "8 Hard Hit",
     "frame": { "x": 99, "y": 33, "w": 12, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -180,7 +180,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 20.ase",
+    "filename": "9 Hard Hit",
     "frame": { "x": 124, "y": 33, "w": 11, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -189,7 +189,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 21.ase",
+    "filename": "10 Hard Hit",
     "frame": { "x": 63, "y": 56, "w": 10, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -198,7 +198,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 22.ase",
+    "filename": "0 Die",
     "frame": { "x": 63, "y": 56, "w": 10, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -207,7 +207,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 23.ase",
+    "filename": "1 Die",
     "frame": { "x": 73, "y": 33, "w": 12, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -216,7 +216,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 24.ase",
+    "filename": "2 Die",
     "frame": { "x": 58, "y": 23, "w": 14, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -225,7 +225,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 25.ase",
+    "filename": "3 Die",
     "frame": { "x": 78, "y": 0, "w": 18, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -234,7 +234,7 @@
     "duration": 150
    },
    {
-    "filename": "dummy 26.ase",
+    "filename": "4 Die",
     "frame": { "x": 0, "y": 0, "w": 41, "h": 29 },
     "rotated": false,
     "trimmed": true,
@@ -243,7 +243,7 @@
     "duration": 50
    },
    {
-    "filename": "dummy 27.ase",
+    "filename": "5 Die",
     "frame": { "x": 42, "y": 0, "w": 35, "h": 22 },
     "rotated": false,
     "trimmed": true,
@@ -266,11 +266,6 @@
    { "name": "Light Hit", "from": 5, "to": 10, "direction": "forward" },
    { "name": "Hard Hit", "from": 11, "to": 21, "direction": "forward" },
    { "name": "Die", "from": 22, "to": 27, "direction": "forward" }
-  ],
-  "layers": [
-   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" }
-  ],
-  "slices": [
   ]
  }
 }

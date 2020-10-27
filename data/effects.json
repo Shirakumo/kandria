@@ -1,6 +1,6 @@
 { "frames": [
    {
-    "filename": "effects 0.ase",
+    "filename": "0 Dash",
     "frame": { "x": 30, "y": 0, "w": 26, "h": 10 },
     "rotated": false,
     "trimmed": true,
@@ -9,7 +9,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 1.ase",
+    "filename": "1 Dash",
     "frame": { "x": 0, "y": 0, "w": 29, "h": 12 },
     "rotated": false,
     "trimmed": true,
@@ -18,7 +18,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 2.ase",
+    "filename": "2 Dash",
     "frame": { "x": 57, "y": 0, "w": 22, "h": 9 },
     "rotated": false,
     "trimmed": true,
@@ -27,7 +27,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 3.ase",
+    "filename": "3 Dash",
     "frame": { "x": 0, "y": 20, "w": 21, "h": 6 },
     "rotated": false,
     "trimmed": true,
@@ -36,7 +36,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 4.ase",
+    "filename": "4 Dash",
     "frame": { "x": 60, "y": 20, "w": 13, "h": 4 },
     "rotated": false,
     "trimmed": true,
@@ -45,7 +45,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 5.ase",
+    "filename": "5 Dash",
     "frame": { "x": 55, "y": 11, "w": 1, "h": 1 },
     "rotated": false,
     "trimmed": true,
@@ -54,7 +54,7 @@
     "duration": 500
    },
    {
-    "filename": "effects 6.ase",
+    "filename": "0 Jump",
     "frame": { "x": 41, "y": 20, "w": 18, "h": 5 },
     "rotated": false,
     "trimmed": true,
@@ -63,7 +63,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 7.ase",
+    "filename": "1 Jump",
     "frame": { "x": 30, "y": 11, "w": 20, "h": 8 },
     "rotated": false,
     "trimmed": true,
@@ -72,7 +72,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 8.ase",
+    "filename": "2 Jump",
     "frame": { "x": 57, "y": 10, "w": 22, "h": 9 },
     "rotated": false,
     "trimmed": true,
@@ -81,7 +81,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 9.ase",
+    "filename": "3 Jump",
     "frame": { "x": 0, "y": 13, "w": 23, "h": 6 },
     "rotated": false,
     "trimmed": true,
@@ -90,7 +90,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 10.ase",
+    "filename": "4 Jump",
     "frame": { "x": 22, "y": 20, "w": 18, "h": 7 },
     "rotated": false,
     "trimmed": true,
@@ -99,7 +99,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 11.ase",
+    "filename": "5 Jump",
     "frame": { "x": 55, "y": 11, "w": 1, "h": 1 },
     "rotated": false,
     "trimmed": true,
@@ -108,7 +108,7 @@
     "duration": 500
    },
    {
-    "filename": "effects 12.ase",
+    "filename": "0 Step",
     "frame": { "x": 80, "y": 15, "w": 7, "h": 3 },
     "rotated": false,
     "trimmed": true,
@@ -117,7 +117,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 13.ase",
+    "filename": "1 Step",
     "frame": { "x": 80, "y": 0, "w": 7, "h": 6 },
     "rotated": false,
     "trimmed": true,
@@ -126,7 +126,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 14.ase",
+    "filename": "2 Step",
     "frame": { "x": 80, "y": 7, "w": 6, "h": 7 },
     "rotated": false,
     "trimmed": true,
@@ -135,7 +135,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 15.ase",
+    "filename": "3 Step",
     "frame": { "x": 51, "y": 11, "w": 3, "h": 2 },
     "rotated": false,
     "trimmed": true,
@@ -144,7 +144,7 @@
     "duration": 50
    },
    {
-    "filename": "effects 16.ase",
+    "filename": "4 Step",
     "frame": { "x": 55, "y": 11, "w": 1, "h": 1 },
     "rotated": false,
     "trimmed": true,
@@ -155,7 +155,7 @@
  ],
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.2.25-x64",
+  "version": "1.2.21-x64",
   "image": "effects.png",
   "format": "RGBA8888",
   "size": { "w": 87, "h": 27 },
@@ -164,11 +164,6 @@
    { "name": "Dash", "from": 0, "to": 5, "direction": "forward" },
    { "name": "Jump", "from": 6, "to": 11, "direction": "forward" },
    { "name": "Step", "from": 12, "to": 16, "direction": "forward" }
-  ],
-  "layers": [
-   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" }
-  ],
-  "slices": [
   ]
  }
 }

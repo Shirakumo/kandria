@@ -1,0 +1,86 @@
+{ "frames": [
+   {
+    "filename": "0 Stand",
+    "frame": { "x": 0, "y": 36, "w": 11, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 6, "w": 11, "h": 34 },
+    "sourceSize": { "w": 32, "h": 40 },
+    "duration": 100
+   },
+   {
+    "filename": "1 Stand",
+    "frame": { "x": 0, "y": 36, "w": 11, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 6, "w": 11, "h": 34 },
+    "sourceSize": { "w": 32, "h": 40 },
+    "duration": 100
+   },
+   {
+    "filename": "2 Stand",
+    "frame": { "x": 12, "y": 36, "w": 11, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 6, "w": 11, "h": 34 },
+    "sourceSize": { "w": 32, "h": 40 },
+    "duration": 100
+   },
+   {
+    "filename": "3 Stand",
+    "frame": { "x": 0, "y": 71, "w": 11, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 6, "w": 11, "h": 34 },
+    "sourceSize": { "w": 32, "h": 40 },
+    "duration": 100
+   },
+   {
+    "filename": "4 Stand",
+    "frame": { "x": 0, "y": 0, "w": 11, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
+    "sourceSize": { "w": 32, "h": 40 },
+    "duration": 100
+   },
+   {
+    "filename": "5 Stand",
+    "frame": { "x": 0, "y": 0, "w": 11, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
+    "sourceSize": { "w": 32, "h": 40 },
+    "duration": 100
+   },
+   {
+    "filename": "6 Stand",
+    "frame": { "x": 12, "y": 0, "w": 11, "h": 35 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
+    "sourceSize": { "w": 32, "h": 40 },
+    "duration": 100
+   },
+   {
+    "filename": "7 Stand",
+    "frame": { "x": 12, "y": 71, "w": 11, "h": 34 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 6, "w": 11, "h": 34 },
+    "sourceSize": { "w": 32, "h": 40 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.21-x64",
+  "image": "fi.png",
+  "format": "RGBA8888",
+  "size": { "w": 23, "h": 105 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Stand", "from": 0, "to": 7, "direction": "forward" }
+  ]
+ }
+}

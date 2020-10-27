@@ -1,6 +1,6 @@
 { "frames": [
    {
-    "filename": "player-profile 0.ase",
+    "filename": "0 Normal",
     "frame": { "x": 172, "y": 0, "w": 85, "h": 116 },
     "rotated": false,
     "trimmed": true,
@@ -9,7 +9,7 @@
     "duration": 2000
    },
    {
-    "filename": "player-profile 1.ase",
+    "filename": "1 Normal",
     "frame": { "x": 0, "y": 0, "w": 85, "h": 116 },
     "rotated": false,
     "trimmed": true,
@@ -18,7 +18,7 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 2.ase",
+    "filename": "2 Normal",
     "frame": { "x": 86, "y": 0, "w": 85, "h": 116 },
     "rotated": false,
     "trimmed": true,
@@ -27,8 +27,8 @@
     "duration": 150
    },
    {
-    "filename": "player-profile 3.ase",
-    "frame": { "x": 296, "y": 467, "w": 68, "h": 116 },
+    "filename": "0 Skeptical",
+    "frame": { "x": 71, "y": 468, "w": 68, "h": 116 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 12, "w": 68, "h": 116 },
@@ -36,8 +36,8 @@
     "duration": 1500
    },
    {
-    "filename": "player-profile 4.ase",
-    "frame": { "x": 438, "y": 576, "w": 66, "h": 115 },
+    "filename": "1 Skeptical",
+    "frame": { "x": 438, "y": 577, "w": 66, "h": 115 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 31, "y": 13, "w": 66, "h": 115 },
@@ -45,44 +45,44 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 5.ase",
-    "frame": { "x": 70, "y": 352, "w": 69, "h": 115 },
+    "filename": "2 Skeptical",
+    "frame": { "x": 439, "y": 346, "w": 69, "h": 116 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 32, "y": 13, "w": 69, "h": 115 },
+    "spriteSourceSize": { "x": 32, "y": 12, "w": 69, "h": 116 },
     "sourceSize": { "w": 128, "h": 128 },
     "duration": 1000
    },
    {
-    "filename": "player-profile 6.ase",
-    "frame": { "x": 226, "y": 352, "w": 69, "h": 115 },
+    "filename": "3 Skeptical",
+    "frame": { "x": 369, "y": 346, "w": 69, "h": 116 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 32, "y": 13, "w": 69, "h": 115 },
+    "spriteSourceSize": { "x": 32, "y": 12, "w": 69, "h": 116 },
     "sourceSize": { "w": 128, "h": 128 },
     "duration": 100
    },
    {
-    "filename": "player-profile 7.ase",
-    "frame": { "x": 368, "y": 461, "w": 69, "h": 115 },
+    "filename": "4 Skeptical",
+    "frame": { "x": 299, "y": 236, "w": 69, "h": 116 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 32, "y": 13, "w": 69, "h": 115 },
+    "spriteSourceSize": { "x": 32, "y": 12, "w": 69, "h": 116 },
     "sourceSize": { "w": 128, "h": 128 },
     "duration": 150
    },
    {
-    "filename": "player-profile 8.ase",
-    "frame": { "x": 70, "y": 352, "w": 69, "h": 115 },
+    "filename": "5 Skeptical",
+    "frame": { "x": 439, "y": 346, "w": 69, "h": 116 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 32, "y": 13, "w": 69, "h": 115 },
+    "spriteSourceSize": { "x": 32, "y": 12, "w": 69, "h": 116 },
     "sourceSize": { "w": 128, "h": 128 },
     "duration": 1000
    },
    {
-    "filename": "player-profile 9.ase",
-    "frame": { "x": 365, "y": 577, "w": 65, "h": 115 },
+    "filename": "6 Skeptical",
+    "frame": { "x": 0, "y": 578, "w": 65, "h": 115 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 32, "y": 13, "w": 65, "h": 115 },
@@ -90,8 +90,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 10.ase",
-    "frame": { "x": 71, "y": 468, "w": 68, "h": 116 },
+    "filename": "7 Skeptical",
+    "frame": { "x": 210, "y": 468, "w": 68, "h": 116 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 12, "w": 68, "h": 116 },
@@ -99,8 +99,8 @@
     "duration": 1200
    },
    {
-    "filename": "player-profile 11.ase",
-    "frame": { "x": 140, "y": 467, "w": 68, "h": 116 },
+    "filename": "8 Skeptical",
+    "frame": { "x": 141, "y": 466, "w": 68, "h": 116 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 12, "w": 68, "h": 116 },
@@ -108,8 +108,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 12.ase",
-    "frame": { "x": 209, "y": 468, "w": 68, "h": 116 },
+    "filename": "9 Skeptical",
+    "frame": { "x": 279, "y": 469, "w": 68, "h": 116 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 12, "w": 68, "h": 116 },
@@ -117,8 +117,8 @@
     "duration": 150
    },
    {
-    "filename": "player-profile 13.ase",
-    "frame": { "x": 71, "y": 468, "w": 68, "h": 116 },
+    "filename": "10 Skeptical",
+    "frame": { "x": 210, "y": 468, "w": 68, "h": 116 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 12, "w": 68, "h": 116 },
@@ -126,7 +126,7 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 14.ase",
+    "filename": "0 Thinking",
     "frame": { "x": 340, "y": 118, "w": 84, "h": 117 },
     "rotated": false,
     "trimmed": true,
@@ -135,7 +135,7 @@
     "duration": 2000
    },
    {
-    "filename": "player-profile 15.ase",
+    "filename": "1 Thinking",
     "frame": { "x": 255, "y": 118, "w": 84, "h": 117 },
     "rotated": false,
     "trimmed": true,
@@ -144,7 +144,7 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 16.ase",
+    "filename": "2 Thinking",
     "frame": { "x": 170, "y": 117, "w": 84, "h": 117 },
     "rotated": false,
     "trimmed": true,
@@ -153,7 +153,7 @@
     "duration": 500
    },
    {
-    "filename": "player-profile 17.ase",
+    "filename": "3 Thinking",
     "frame": { "x": 85, "y": 117, "w": 84, "h": 117 },
     "rotated": false,
     "trimmed": true,
@@ -162,7 +162,7 @@
     "duration": 75
    },
    {
-    "filename": "player-profile 18.ase",
+    "filename": "4 Thinking",
     "frame": { "x": 0, "y": 117, "w": 84, "h": 117 },
     "rotated": false,
     "trimmed": true,
@@ -171,7 +171,7 @@
     "duration": 750
    },
    {
-    "filename": "player-profile 19.ase",
+    "filename": "5 Thinking",
     "frame": { "x": 258, "y": 0, "w": 84, "h": 117 },
     "rotated": false,
     "trimmed": true,
@@ -180,7 +180,7 @@
     "duration": 50
    },
    {
-    "filename": "player-profile 20.ase",
+    "filename": "6 Thinking",
     "frame": { "x": 343, "y": 0, "w": 84, "h": 117 },
     "rotated": false,
     "trimmed": true,
@@ -189,7 +189,7 @@
     "duration": 750
    },
    {
-    "filename": "player-profile 21.ase",
+    "filename": "0 Giggle",
     "frame": { "x": 428, "y": 0, "w": 70, "h": 116 },
     "rotated": false,
     "trimmed": true,
@@ -198,8 +198,8 @@
     "duration": 1000
    },
    {
-    "filename": "player-profile 22.ase",
-    "frame": { "x": 85, "y": 235, "w": 70, "h": 116 },
+    "filename": "1 Giggle",
+    "frame": { "x": 86, "y": 235, "w": 70, "h": 116 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 12, "w": 70, "h": 116 },
@@ -207,8 +207,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 23.ase",
-    "frame": { "x": 227, "y": 236, "w": 70, "h": 115 },
+    "filename": "2 Giggle",
+    "frame": { "x": 228, "y": 236, "w": 70, "h": 115 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 13, "w": 70, "h": 115 },
@@ -216,8 +216,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 24.ase",
-    "frame": { "x": 440, "y": 346, "w": 69, "h": 115 },
+    "filename": "3 Giggle",
+    "frame": { "x": 71, "y": 352, "w": 69, "h": 115 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 30, "y": 13, "w": 69, "h": 115 },
@@ -225,8 +225,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 25.ase",
-    "frame": { "x": 438, "y": 462, "w": 70, "h": 113 },
+    "filename": "4 Giggle",
+    "frame": { "x": 438, "y": 463, "w": 70, "h": 113 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 15, "w": 70, "h": 113 },
@@ -234,8 +234,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 26.ase",
-    "frame": { "x": 369, "y": 346, "w": 70, "h": 114 },
+    "filename": "5 Giggle",
+    "frame": { "x": 157, "y": 351, "w": 70, "h": 114 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 14, "w": 70, "h": 114 },
@@ -243,8 +243,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 27.ase",
-    "frame": { "x": 298, "y": 351, "w": 69, "h": 115 },
+    "filename": "6 Giggle",
+    "frame": { "x": 368, "y": 463, "w": 69, "h": 115 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 30, "y": 13, "w": 69, "h": 115 },
@@ -252,8 +252,8 @@
     "duration": 50
    },
    {
-    "filename": "player-profile 28.ase",
-    "frame": { "x": 156, "y": 351, "w": 69, "h": 115 },
+    "filename": "7 Giggle",
+    "frame": { "x": 298, "y": 353, "w": 69, "h": 115 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 30, "y": 13, "w": 69, "h": 115 },
@@ -261,8 +261,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 29.ase",
-    "frame": { "x": 0, "y": 465, "w": 70, "h": 113 },
+    "filename": "8 Giggle",
+    "frame": { "x": 0, "y": 464, "w": 70, "h": 113 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 15, "w": 70, "h": 113 },
@@ -270,8 +270,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 30.ase",
-    "frame": { "x": 298, "y": 236, "w": 70, "h": 114 },
+    "filename": "9 Giggle",
+    "frame": { "x": 0, "y": 349, "w": 70, "h": 114 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 14, "w": 70, "h": 114 },
@@ -279,8 +279,8 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 31.ase",
-    "frame": { "x": 0, "y": 349, "w": 69, "h": 115 },
+    "filename": "10 Giggle",
+    "frame": { "x": 228, "y": 352, "w": 69, "h": 115 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 30, "y": 13, "w": 69, "h": 115 },
@@ -288,8 +288,8 @@
     "duration": 50
    },
    {
-    "filename": "player-profile 32.ase",
-    "frame": { "x": 156, "y": 235, "w": 70, "h": 115 },
+    "filename": "11 Giggle",
+    "frame": { "x": 157, "y": 235, "w": 70, "h": 115 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 29, "y": 13, "w": 70, "h": 115 },
@@ -297,29 +297,29 @@
     "duration": 100
    },
    {
-    "filename": "player-profile 33.ase",
-    "frame": { "x": 0, "y": 235, "w": 84, "h": 113 },
+    "filename": "0 Embarassed",
+    "frame": { "x": 0, "y": 235, "w": 85, "h": 113 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 6, "y": 15, "w": 84, "h": 113 },
+    "spriteSourceSize": { "x": 5, "y": 15, "w": 85, "h": 113 },
     "sourceSize": { "w": 128, "h": 128 },
     "duration": 2000
    },
    {
-    "filename": "player-profile 34.ase",
-    "frame": { "x": 425, "y": 232, "w": 84, "h": 113 },
+    "filename": "1 Embarassed",
+    "frame": { "x": 425, "y": 232, "w": 85, "h": 113 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 6, "y": 15, "w": 84, "h": 113 },
+    "spriteSourceSize": { "x": 5, "y": 15, "w": 85, "h": 113 },
     "sourceSize": { "w": 128, "h": 128 },
     "duration": 50
    },
    {
-    "filename": "player-profile 35.ase",
-    "frame": { "x": 425, "y": 118, "w": 84, "h": 113 },
+    "filename": "2 Embarassed",
+    "frame": { "x": 425, "y": 118, "w": 85, "h": 113 },
     "rotated": false,
     "trimmed": true,
-    "spriteSourceSize": { "x": 6, "y": 15, "w": 84, "h": 113 },
+    "spriteSourceSize": { "x": 5, "y": 15, "w": 85, "h": 113 },
     "sourceSize": { "w": 128, "h": 128 },
     "duration": 100
    }
@@ -329,7 +329,7 @@
   "version": "1.2.21-x64",
   "image": "player-profile.png",
   "format": "RGBA8888",
-  "size": { "w": 509, "h": 692 },
+  "size": { "w": 510, "h": 693 },
   "scale": "1",
   "frameTags": [
    { "name": "Normal", "from": 0, "to": 2, "direction": "forward" },
@@ -337,13 +337,6 @@
    { "name": "Thinking", "from": 14, "to": 20, "direction": "forward" },
    { "name": "Giggle", "from": 21, "to": 32, "direction": "forward" },
    { "name": "Embarassed", "from": 33, "to": 35, "direction": "forward" }
-  ],
-  "layers": [
-   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 5", "opacity": 255, "blendMode": "normal" }
-  ],
-  "slices": [
   ]
  }
 }

@@ -1,6 +1,6 @@
 { "frames": [
    {
-    "filename": "balloon 0.ase",
+    "filename": "0 Stand",
     "frame": { "x": 54, "y": 36, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -9,7 +9,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 1.ase",
+    "filename": "1 Stand",
     "frame": { "x": 0, "y": 70, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -18,7 +18,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 2.ase",
+    "filename": "2 Stand",
     "frame": { "x": 122, "y": 68, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -27,7 +27,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 3.ase",
+    "filename": "3 Stand",
     "frame": { "x": 20, "y": 68, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -36,7 +36,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 4.ase",
+    "filename": "4 Stand",
     "frame": { "x": 54, "y": 70, "w": 16, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -45,7 +45,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 5.ase",
+    "filename": "5 Stand",
     "frame": { "x": 105, "y": 38, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -54,7 +54,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 6.ase",
+    "filename": "6 Stand",
     "frame": { "x": 88, "y": 38, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -63,7 +63,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 7.ase",
+    "filename": "7 Stand",
     "frame": { "x": 71, "y": 38, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -72,7 +72,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 8.ase",
+    "filename": "8 Stand",
     "frame": { "x": 37, "y": 70, "w": 16, "h": 32 },
     "rotated": false,
     "trimmed": true,
@@ -81,7 +81,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 9.ase",
+    "filename": "0 Die",
     "frame": { "x": 131, "y": 0, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -90,7 +90,7 @@
     "duration": 50
    },
    {
-    "filename": "balloon 10.ase",
+    "filename": "1 Die",
     "frame": { "x": 0, "y": 34, "w": 19, "h": 35 },
     "rotated": false,
     "trimmed": true,
@@ -99,7 +99,7 @@
     "duration": 50
    },
    {
-    "filename": "balloon 11.ase",
+    "filename": "2 Die",
     "frame": { "x": 103, "y": 0, "w": 27, "h": 37 },
     "rotated": false,
     "trimmed": true,
@@ -108,7 +108,7 @@
     "duration": 50
    },
    {
-    "filename": "balloon 12.ase",
+    "filename": "3 Die",
     "frame": { "x": 72, "y": 0, "w": 30, "h": 37 },
     "rotated": false,
     "trimmed": true,
@@ -117,7 +117,7 @@
     "duration": 50
    },
    {
-    "filename": "balloon 13.ase",
+    "filename": "4 Die",
     "frame": { "x": 38, "y": 0, "w": 33, "h": 35 },
     "rotated": false,
     "trimmed": true,
@@ -126,7 +126,7 @@
     "duration": 50
    },
    {
-    "filename": "balloon 14.ase",
+    "filename": "5 Die",
     "frame": { "x": 0, "y": 0, "w": 37, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -135,7 +135,7 @@
     "duration": 50
    },
    {
-    "filename": "balloon 15.ase",
+    "filename": "0 Revive",
     "frame": { "x": 37, "y": 34, "w": 1, "h": 1 },
     "rotated": false,
     "trimmed": true,
@@ -144,7 +144,7 @@
     "duration": 1000
    },
    {
-    "filename": "balloon 16.ase",
+    "filename": "1 Revive",
     "frame": { "x": 37, "y": 36, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -153,7 +153,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 17.ase",
+    "filename": "2 Revive",
     "frame": { "x": 131, "y": 34, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -162,7 +162,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 18.ase",
+    "filename": "3 Revive",
     "frame": { "x": 20, "y": 34, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -171,7 +171,7 @@
     "duration": 100
    },
    {
-    "filename": "balloon 19.ase",
+    "filename": "4 Revive",
     "frame": { "x": 54, "y": 36, "w": 16, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -191,11 +191,6 @@
    { "name": "Stand", "from": 0, "to": 8, "direction": "forward" },
    { "name": "Die", "from": 9, "to": 14, "direction": "forward" },
    { "name": "Revive", "from": 15, "to": 19, "direction": "forward" }
-  ],
-  "layers": [
-   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
-  ],
-  "slices": [
   ]
  }
 }

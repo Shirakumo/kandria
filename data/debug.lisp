@@ -1,5 +1,6 @@
-(:albedo "debug.png"
+(:albedo "debug-albedo.png"
  :absorption "debug-absorption.png"
+ :normal "debug-normal.png"
  :tile-types ((:l (0 14))
               (:r (2 14))
               (:t (1 15))

@@ -1,6 +1,6 @@
 { "frames": [
    {
-    "filename": "wolf 0.ase",
+    "filename": "0 Stand",
     "frame": { "x": 162, "y": 21, "w": 38, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -9,7 +9,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 1.ase",
+    "filename": "1 Stand",
     "frame": { "x": 287, "y": 0, "w": 38, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -18,7 +18,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 2.ase",
+    "filename": "2 Stand",
     "frame": { "x": 82, "y": 0, "w": 40, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -27,7 +27,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 3.ase",
+    "filename": "3 Stand",
     "frame": { "x": 0, "y": 0, "w": 40, "h": 22 },
     "rotated": false,
     "trimmed": true,
@@ -36,7 +36,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 4.ase",
+    "filename": "4 Stand",
     "frame": { "x": 241, "y": 61, "w": 34, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -45,7 +45,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 5.ase",
+    "filename": "5 Stand",
     "frame": { "x": 40, "y": 42, "w": 35, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -54,7 +54,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 6.ase",
+    "filename": "0 Walk",
     "frame": { "x": 243, "y": 41, "w": 38, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -63,7 +63,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 7.ase",
+    "filename": "1 Walk",
     "frame": { "x": 0, "y": 23, "w": 39, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -72,7 +72,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 8.ase",
+    "filename": "2 Walk",
     "frame": { "x": 123, "y": 21, "w": 38, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -81,7 +81,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 9.ase",
+    "filename": "3 Walk",
     "frame": { "x": 163, "y": 0, "w": 39, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -90,7 +90,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 10.ase",
+    "filename": "4 Walk",
     "frame": { "x": 41, "y": 22, "w": 39, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -99,7 +99,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 11.ase",
+    "filename": "5 Walk",
     "frame": { "x": 283, "y": 21, "w": 39, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -108,7 +108,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 12.ase",
+    "filename": "6 Walk",
     "frame": { "x": 82, "y": 21, "w": 40, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -117,7 +117,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 13.ase",
+    "filename": "7 Walk",
     "frame": { "x": 81, "y": 41, "w": 38, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -126,7 +126,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 14.ase",
+    "filename": "8 Walk",
     "frame": { "x": 244, "y": 20, "w": 38, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -135,7 +135,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 15.ase",
+    "filename": "9 Walk",
     "frame": { "x": 123, "y": 0, "w": 39, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -144,7 +144,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 16.ase",
+    "filename": "10 Walk",
     "frame": { "x": 245, "y": 0, "w": 41, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -153,7 +153,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 17.ase",
+    "filename": "11 Walk",
     "frame": { "x": 203, "y": 20, "w": 40, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -162,7 +162,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 18.ase",
+    "filename": "0 Run",
     "frame": { "x": 120, "y": 77, "w": 42, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -171,7 +171,7 @@
     "duration": 50
    },
    {
-    "filename": "wolf 19.ase",
+    "filename": "1 Run",
     "frame": { "x": 201, "y": 40, "w": 41, "h": 18 },
     "rotated": false,
     "trimmed": true,
@@ -180,7 +180,7 @@
     "duration": 50
    },
    {
-    "filename": "wolf 20.ase",
+    "filename": "2 Run",
     "frame": { "x": 203, "y": 0, "w": 41, "h": 19 },
     "rotated": false,
     "trimmed": true,
@@ -189,7 +189,7 @@
     "duration": 50
    },
    {
-    "filename": "wolf 21.ase",
+    "filename": "3 Run",
     "frame": { "x": 282, "y": 41, "w": 40, "h": 18 },
     "rotated": false,
     "trimmed": true,
@@ -198,7 +198,7 @@
     "duration": 50
    },
    {
-    "filename": "wolf 22.ase",
+    "filename": "4 Run",
     "frame": { "x": 67, "y": 95, "w": 40, "h": 15 },
     "rotated": false,
     "trimmed": true,
@@ -207,7 +207,7 @@
     "duration": 50
    },
    {
-    "filename": "wolf 23.ase",
+    "filename": "5 Run",
     "frame": { "x": 28, "y": 95, "w": 38, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -216,7 +216,7 @@
     "duration": 50
    },
    {
-    "filename": "wolf 24.ase",
+    "filename": "6 Run",
     "frame": { "x": 282, "y": 92, "w": 38, "h": 17 },
     "rotated": false,
     "trimmed": true,
@@ -225,7 +225,7 @@
     "duration": 50
    },
    {
-    "filename": "wolf 25.ase",
+    "filename": "7 Run",
     "frame": { "x": 79, "y": 78, "w": 41, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -234,7 +234,7 @@
     "duration": 50
    },
    {
-    "filename": "wolf 26.ase",
+    "filename": "0 Tackle",
     "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -243,7 +243,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 27.ase",
+    "filename": "1 Tackle",
     "frame": { "x": 188, "y": 111, "w": 35, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -252,7 +252,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 28.ase",
+    "filename": "2 Tackle",
     "frame": { "x": 93, "y": 124, "w": 36, "h": 13 },
     "rotated": false,
     "trimmed": true,
@@ -261,7 +261,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 29.ase",
+    "filename": "3 Tackle",
     "frame": { "x": 221, "y": 133, "w": 36, "h": 12 },
     "rotated": false,
     "trimmed": true,
@@ -270,7 +270,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 30.ase",
+    "filename": "4 Tackle",
     "frame": { "x": 184, "y": 128, "w": 36, "h": 12 },
     "rotated": false,
     "trimmed": true,
@@ -279,7 +279,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 31.ase",
+    "filename": "5 Tackle",
     "frame": { "x": 258, "y": 133, "w": 36, "h": 12 },
     "rotated": false,
     "trimmed": true,
@@ -288,7 +288,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 32.ase",
+    "filename": "6 Tackle",
     "frame": { "x": 38, "y": 136, "w": 36, "h": 12 },
     "rotated": false,
     "trimmed": true,
@@ -297,7 +297,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 33.ase",
+    "filename": "7 Tackle",
     "frame": { "x": 0, "y": 125, "w": 37, "h": 12 },
     "rotated": false,
     "trimmed": true,
@@ -306,7 +306,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 34.ase",
+    "filename": "8 Tackle",
     "frame": { "x": 121, "y": 94, "w": 39, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -315,7 +315,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 35.ase",
+    "filename": "9 Tackle",
     "frame": { "x": 197, "y": 77, "w": 42, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -324,7 +324,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 36.ase",
+    "filename": "10 Tackle",
     "frame": { "x": 31, "y": 80, "w": 47, "h": 14 },
     "rotated": false,
     "trimmed": true,
@@ -333,7 +333,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 37.ase",
+    "filename": "11 Tackle",
     "frame": { "x": 67, "y": 111, "w": 47, "h": 12 },
     "rotated": false,
     "trimmed": true,
@@ -342,7 +342,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 38.ase",
+    "filename": "12 Tackle",
     "frame": { "x": 0, "y": 113, "w": 47, "h": 11 },
     "rotated": false,
     "trimmed": true,
@@ -351,7 +351,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 39.ase",
+    "filename": "13 Tackle",
     "frame": { "x": 48, "y": 124, "w": 44, "h": 11 },
     "rotated": false,
     "trimmed": true,
@@ -360,7 +360,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 40.ase",
+    "filename": "14 Tackle",
     "frame": { "x": 76, "y": 61, "w": 43, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -369,7 +369,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 41.ase",
+    "filename": "15 Tackle",
     "frame": { "x": 41, "y": 0, "w": 40, "h": 21 },
     "rotated": false,
     "trimmed": true,
@@ -378,7 +378,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 42.ase",
+    "filename": "16 Tackle",
     "frame": { "x": 120, "y": 42, "w": 42, "h": 17 },
     "rotated": false,
     "trimmed": true,
@@ -387,7 +387,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 43.ase",
+    "filename": "17 Tackle",
     "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -396,7 +396,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 44.ase",
+    "filename": "0 Light Hit",
     "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -405,7 +405,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 45.ase",
+    "filename": "1 Light Hit",
     "frame": { "x": 0, "y": 43, "w": 31, "h": 22 },
     "rotated": false,
     "trimmed": true,
@@ -414,7 +414,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 46.ase",
+    "filename": "2 Light Hit",
     "frame": { "x": 0, "y": 89, "w": 27, "h": 23 },
     "rotated": false,
     "trimmed": true,
@@ -423,7 +423,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 47.ase",
+    "filename": "3 Light Hit",
     "frame": { "x": 228, "y": 109, "w": 25, "h": 23 },
     "rotated": false,
     "trimmed": true,
@@ -432,7 +432,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 48.ase",
+    "filename": "4 Light Hit",
     "frame": { "x": 254, "y": 109, "w": 25, "h": 23 },
     "rotated": false,
     "trimmed": true,
@@ -441,7 +441,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 49.ase",
+    "filename": "5 Light Hit",
     "frame": { "x": 280, "y": 110, "w": 26, "h": 22 },
     "rotated": false,
     "trimmed": true,
@@ -450,7 +450,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 50.ase",
+    "filename": "6 Light Hit",
     "frame": { "x": 164, "y": 63, "w": 32, "h": 21 },
     "rotated": false,
     "trimmed": true,
@@ -459,7 +459,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 51.ase",
+    "filename": "7 Light Hit",
     "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -468,7 +468,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 52.ase",
+    "filename": "0 Die",
     "frame": { "x": 163, "y": 42, "w": 35, "h": 20 },
     "rotated": false,
     "trimmed": true,
@@ -477,7 +477,7 @@
     "duration": 75
    },
    {
-    "filename": "wolf 53.ase",
+    "filename": "1 Die",
     "frame": { "x": 0, "y": 66, "w": 30, "h": 22 },
     "rotated": false,
     "trimmed": true,
@@ -486,7 +486,7 @@
     "duration": 75
    },
    {
-    "filename": "wolf 54.ase",
+    "filename": "2 Die",
     "frame": { "x": 163, "y": 85, "w": 24, "h": 27 },
     "rotated": false,
     "trimmed": true,
@@ -495,7 +495,7 @@
     "duration": 75
    },
    {
-    "filename": "wolf 55.ase",
+    "filename": "3 Die",
     "frame": { "x": 307, "y": 110, "w": 19, "h": 26 },
     "rotated": false,
     "trimmed": true,
@@ -504,7 +504,7 @@
     "duration": 75
    },
    {
-    "filename": "wolf 56.ase",
+    "filename": "4 Die",
     "frame": { "x": 163, "y": 113, "w": 20, "h": 24 },
     "rotated": false,
     "trimmed": true,
@@ -513,7 +513,7 @@
     "duration": 75
    },
    {
-    "filename": "wolf 57.ase",
+    "filename": "5 Die",
     "frame": { "x": 130, "y": 124, "w": 27, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -522,7 +522,7 @@
     "duration": 75
    },
    {
-    "filename": "wolf 58.ase",
+    "filename": "6 Die",
     "frame": { "x": 240, "y": 82, "w": 31, "h": 8 },
     "rotated": false,
     "trimmed": true,
@@ -531,7 +531,7 @@
     "duration": 75
    },
    {
-    "filename": "wolf 59.ase",
+    "filename": "7 Die",
     "frame": { "x": 295, "y": 137, "w": 33, "h": 6 },
     "rotated": false,
     "trimmed": true,
@@ -540,7 +540,7 @@
     "duration": 75
    },
    {
-    "filename": "wolf 60.ase",
+    "filename": "8 Die",
     "frame": { "x": 0, "y": 138, "w": 33, "h": 6 },
     "rotated": false,
     "trimmed": true,
@@ -549,7 +549,7 @@
     "duration": 500
    },
    {
-    "filename": "wolf 61.ase",
+    "filename": "0 Jump",
     "frame": { "x": 188, "y": 94, "w": 39, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -558,7 +558,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 62.ase",
+    "filename": "1 Jump",
     "frame": { "x": 32, "y": 63, "w": 42, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -567,7 +567,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 63.ase",
+    "filename": "2 Jump",
     "frame": { "x": 276, "y": 77, "w": 47, "h": 14 },
     "rotated": false,
     "trimmed": true,
@@ -576,7 +576,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 64.ase",
+    "filename": "3 Jump",
     "frame": { "x": 115, "y": 111, "w": 47, "h": 12 },
     "rotated": false,
     "trimmed": true,
@@ -585,7 +585,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 65.ase",
+    "filename": "0 Fall",
     "frame": { "x": 282, "y": 60, "w": 43, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -594,7 +594,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 66.ase",
+    "filename": "1 Fall",
     "frame": { "x": 240, "y": 92, "w": 41, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -603,7 +603,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 67.ase",
+    "filename": "2 Fall",
     "frame": { "x": 120, "y": 60, "w": 43, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -612,7 +612,7 @@
     "duration": 100
    },
    {
-    "filename": "wolf 68.ase",
+    "filename": "3 Fall",
     "frame": { "x": 199, "y": 59, "w": 41, "h": 17 },
     "rotated": false,
     "trimmed": true,
@@ -623,7 +623,7 @@
  ],
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.2.18-x64",
+  "version": "1.2.21-x64",
   "image": "wolf.png",
   "format": "RGBA8888",
   "size": { "w": 328, "h": 148 },
@@ -634,15 +634,10 @@
    { "name": "Run", "from": 18, "to": 25, "direction": "forward" },
    { "name": "Tackle", "from": 26, "to": 43, "direction": "forward" },
    { "name": "Light Hit", "from": 44, "to": 51, "direction": "forward" },
-   { "name": "Hard Hit", "from": 52, "to": 60, "direction": "forward" },
    { "name": "Die", "from": 52, "to": 60, "direction": "forward" },
+   { "name": "Hard Hit", "from": 52, "to": 60, "direction": "forward" },
    { "name": "Jump", "from": 61, "to": 64, "direction": "forward" },
    { "name": "Fall", "from": 65, "to": 68, "direction": "forward" }
-  ],
-  "layers": [
-   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" }
-  ],
-  "slices": [
   ]
  }
 }

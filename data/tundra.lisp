@@ -1,4 +1,4 @@
-(:albedo "tundra.png"
+(:albedo "tundra-albedo.png"
  :absorption "tundra-absorption.png"
  :normal "tundra-normal.png"
  :tile-types ((:t (1 15) (2 15) (3 15) (4 15) (5 15) (6 15))

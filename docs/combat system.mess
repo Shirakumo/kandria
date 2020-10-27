@@ -99,4 +99,10 @@ When exporting from Aseprite to update animations, please choose "Export Sprite 
     Type: Array
     Filename: ``{tagframe} {tag}``
 
+You can also do this for most files in an automated fashion by just running the following from the Portacle REPL:
+
+::
+(ql:quickload :kandria-data)
+::
+
 **NOTE** if you remove or insert a frame in an animation, you will need to insert or remove the corresponding frame entry in the ``x.lisp`` file manually. This is a very annoying current limitation with how the system is set up. A more intelligent solution needs to be worked out in the future.
