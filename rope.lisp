@@ -15,9 +15,6 @@
 
 (defmethod layer-index ((rope rope)) +base-layer+)
 
-(defmethod handle ((ev mouse-press) (rope rope))
-  (vsetf (first (aref (chain rope) 1)) 5 0))
-
 (defmethod nudge ((rope rope) pos strength)
   (let ((i (floor (- (+ (vy (location rope)) (vy (bsize rope))) (vy pos)) 8))
         (chain (chain rope)))

@@ -26,7 +26,7 @@
    (HEAVY-GROUND-2       :start 168 :end 176 :loop-to 196 :next STAND)
    (HEAVY-GROUND-2-RELEASE :start 176 :end 181 :loop-to 176 :next HEAVY-GROUND-2-RELEASE)
    (HEAVY-GROUND-3       :start 181 :end 200 :loop-to 181 :next STAND)
-   (LIGHT-UP             :start 200 :end 210 :loop-to 200 :next LIGHT-UP)
+   (LIGHT-UP             :start 200 :end 210 :loop-to 200 :next STAND)
    (HARD-HIT             :start 210 :end 221 :loop-to 207 :next STAND)
    (DIE                  :start 210 :end 221 :loop-to 196 :next STAND)
    (LIGHT-HIT            :start 221 :end 229 :loop-to 207 :next STAND)
