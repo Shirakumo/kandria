@@ -30,6 +30,12 @@
 (define-asset (kandria player-profile) trial:sprite-data
     #p"player-profile.json")
 
+(define-asset (kandria fi) sprite-data
+    #p"fi.lisp")
+
+(define-asset (kandria fi-profile) trial:sprite-data
+    #p"fi-profile.json")
+
 (define-asset (kandria wolf) sprite-data
     #p"wolf.lisp")
 

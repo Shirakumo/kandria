@@ -49,6 +49,13 @@
 (defmethod trigger ((effect sound-effect) source &key)
   (harmony:play (voice effect)))
 
+(defclass camera-effect (effect)
+  ((duration :initarg :duration :initform 20 :accessor duration)
+   (intensity :initarg :intensity :initform 3 :accessor intensity)))
+
+(defmethod trigger ((effect camera-effect) source &key)
+  (shake-camera :duration (duration effect) :intensity (intensity effect)))
+
 (define-shader-entity sprite-effect (lit-animated-sprite)
   ((offset :initarg :offset :initform (vec 0 0) :accessor offset))
   (:default-initargs :sprite-data (asset 'kandria 'effects)))

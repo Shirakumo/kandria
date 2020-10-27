@@ -36,6 +36,7 @@
                (:file "rope")
                (:file "player")
                (:file "enemy")
+               (:file "npc")
                (:file "world")
                (:file "save-state")
                (:file "versions/v0")
