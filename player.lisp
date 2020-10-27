@@ -222,10 +222,12 @@
               (case (name (animation player))
                 (light-ground-1 (start-animation 'light-ground-2 player))
                 (light-ground-2 (start-animation 'light-ground-3 player))
+                (light-ground-3 (start-animation 'light-ground-3 player))
                 (T (start-animation 'light-ground-1 player))))
              (heavy-attack
               (case (name (animation player))
                 (heavy-ground-1 (start-animation 'heavy-ground-2 player))
+                (heavy-ground-2 (start-animation 'heavy-ground-3 player))
                 (T (start-animation 'heavy-ground-1 player))))
              (dash
               (setf (state player) :normal)
