@@ -138,7 +138,9 @@
   (cond ((and (aref (collisions player) 2)
               (not (or (eql :crawling (state player))
                        (eql :animated (state player)))))
-         (start-animation 'light-ground-1 player))
+         (if (retained 'up)
+             (start-animation 'light-up player)
+             (start-animation 'light-ground-1 player)))
         ((eql :animated (state player))
           (setf (buffer player) 'light-attack))))
 
