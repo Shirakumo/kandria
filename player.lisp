@@ -35,7 +35,8 @@
   `(gethash ',name +player-movement-data+))
 
 (define-shader-entity player (animatable profile ephemeral)
-  ((bsize :initform (vec 7.0 15.0))
+  ((name :initform 'player)
+   (bsize :initform (vec 7.0 15.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (interactable :initform NIL :accessor interactable)
    (jump-time :initform 1.0 :accessor jump-time)
@@ -45,11 +46,10 @@
    (climb-strength :initform 1.0 :accessor climb-strength)
    (buffer :initform NIL :accessor buffer)
    (chunk :initform NIL :accessor chunk)
-   (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (prompt :initform (make-instance 'prompt) :reader prompt)
+   (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform "The Stranger"))
   (:default-initargs
-   :name 'player
    :sprite-data (asset 'kandria 'player)))
 
 (defmethod initialize-instance :after ((player player) &key)
