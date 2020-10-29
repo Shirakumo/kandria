@@ -18,3 +18,5 @@
    (nametag :initform "Fi"))
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
+
+(defmethod hurt ((fi fi) damage))

@@ -119,9 +119,10 @@
    (pending :initform NIL :accessor pending)
    (profile :initform (make-instance 'profile-picture) :accessor profile)
    (per-letter-tick :initform 0.02 :accessor per-letter-tick)
-   (interactions :initarg :interactions :accessor interactions)))
+   (interactable :initarg :interactable :accessor interactable)
+   (one-shot :initform NIL :accessor one-shot)))
 
-(defmethod initialize-instance :after ((dialog dialog) &key interactions)
+(defmethod initialize-instance :after ((dialog dialog) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (textbox (alloy:represent (slot-value dialog 'text) 'textbox))
         (nametag (alloy:represent (slot-value dialog 'source) 'nametag))
@@ -133,12 +134,16 @@
     (alloy:enter choices layout :constraints `((:right 50) (:above ,textbox 10) (:width 400)))
     (alloy:enter prompt layout :constraints `((:right 20) (:bottom 20) (:size 100 30)))
     (alloy:finish-structure dialog layout choices)
-    (dialogue:run (quest:dialogue (first interactions)) (vm dialog))))
+    ;; If we only have one, activate "one shot mode"
+    (when (null (rest (interactions dialog)))
+      (setf (quest:status (interaction dialog)) :active)
+      (setf (one-shot dialog) T))))
 
 (defmethod show :after ((dialog dialog) &key)
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((dialog dialog))
+  (discard-events +world+)
   (unpause-game T (unit 'ui-pass T)))
 
 (defmethod at-end-p ((dialog dialog))
@@ -150,8 +155,45 @@
     (setf (fill-pointer (text dialog)) to)
     (setf (text dialog) (text dialog))))
 
+(defmethod interactions ((dialog dialog))
+  (or (loop for interaction in (interactions (interactable dialog))
+            when (eql :active (quest:status interaction))
+            collect interaction)
+      (interactions (interactable dialog))))
+
 (defmethod interaction ((dialog dialog))
   (first (interactions dialog)))
+
+(defmethod next-interaction ((dialog dialog))
+  (setf (ip dialog) 0)
+  (let ((interactions (interactions dialog)))
+    (cond ((or (null interactions)
+               (and (one-shot dialog)
+                    (loop for interaction in interactions
+                          always (eql :done (quest:status interaction)))))
+           ;; If we have no interactions anymore, or we started
+           ;; out with one and now only have dones, hide.
+           (hide dialog))
+          ((null (rest interactions))
+           ;; If there's only one interaction, just run it.
+           (dialogue:run (quest:dialogue (first (interactions dialog))) (vm dialog)))
+          (T
+           ;; If we have multiple show choice.
+           (loop for interaction in interactions
+                 do (let* ((interaction interaction)
+                           (label (quest:title interaction))
+                           (button (alloy:represent label 'dialog-choice)))
+                      (alloy:on alloy:activate (button)
+                        (dialogue:run (quest:dialogue interaction) (vm dialog))
+                        (alloy:clear (choices dialog)))
+                      (alloy:enter button (choices dialog))))
+           (let* ((label (string (prompt-char :left :bank :keyboard)))
+                  (button (alloy:represent label 'dialog-choice)))
+             (alloy:on alloy:activate (button)
+               (hide dialog))
+             (alloy:enter button (choices dialog)))
+           (setf (alloy:focus (choices dialog)) :strong)
+           (setf (prompt dialog) (string (prompt-char :right :bank :keyboard)))))))
 
 (defmethod handle ((ev tick) (dialog dialog))
   (handle ev (profile dialog))
@@ -167,14 +209,12 @@
                    (setf (prompt dialog) (second (pending dialog))))
                   (:end
                    (setf (quest:status (interaction dialog)) :done)
-                   (pop (interactions dialog))
-                   (setf (ip dialog) 0)
-                   (if (interaction dialog)
-                       (dialogue:run (quest:dialogue (interaction dialog)) (vm dialog))
-                       (hide dialog))))
+                   (next-interaction dialog)))
                 (setf (pending dialog) NIL))
+               ((dialogue:instructions (vm dialog))
+                (advance dialog))
                (T
-                (advance dialog))))
+                (next-interaction dialog))))
         ((< 0 (char-timer dialog))
          (decf (char-timer dialog) (dt ev)))
         ((< 0 (array-total-size (text dialog)))

@@ -47,7 +47,7 @@
   ())
 
 (defclass vm ()
-  ((instructions :accessor instructions)
+  ((instructions :initform () :accessor instructions)
    (text-buffer :initform (make-string-output-stream) :reader text-buffer)
    (choices :initform () :accessor choices)
    (markup :initform () :accessor markup)))
