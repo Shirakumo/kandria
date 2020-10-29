@@ -72,7 +72,7 @@
                :trial-alloy
                :trial-harmony
                :alloy-constraint
-               (:feature (:not :darwin) :trial-steam)
+               :trial-steam
                :zip
                :fast-io
                :ieee-floats
