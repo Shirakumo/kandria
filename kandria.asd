@@ -16,6 +16,7 @@
                (:file "auto-fill")
                (:file "serialization")
                (:file "packet")
+               (:file "quest")
                (:file "region")
                (:file "actions")
                (:file "surface")

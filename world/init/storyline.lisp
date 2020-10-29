@@ -1,1 +1,1 @@
-(example :status :active :tasks ((task-1 :status :unresolved)))
+(test :status :active :tasks ((inspect-camp :status :unresolved)))

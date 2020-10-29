@@ -4,14 +4,27 @@
   ())
 
 (defgeneric interact (with from))
+(defgeneric interactable-p (entity))
 
 (defclass dialog-entity (interactable)
   ((interactions :initform () :accessor interactions)))
 
+(defmethod interactable-p ((entity dialog-entity))
+  (interactions entity))
+
 (defmethod interact ((entity dialog-entity) from)
   (let ((interactions (interactions entity)))
     (when interactions
-      (show (make-instance 'dialog :dialogue (quest:dialogue (first interactions)))))))
+      (let ((new (loop for interaction in interactions
+                       when (eql :active (quest:status interaction))
+                       collect interaction)))
+        (cond (new
+               (show (make-instance 'dialog :interactions new)))
+              (T
+               ;; Nothing new, cycle old interactions.
+               ;; FIXME: should show a menu here instead.
+               (show (make-instance 'dialog :interactions interactions))
+               (setf (interactions entity) (cycle-list interactions))))))))
 
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity)
   ())
@@ -40,6 +53,8 @@
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary))
   (:default-initargs :sprite-data (asset 'kandria 'debug-door)))
+
+(defmethod interactable-p ((door door)) T)
 
 (defmethod (setf animations) :after (animations (door door))
   (setf (next-animation (find 'open (animations door) :key #'name)) 'idle))

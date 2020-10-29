@@ -1,9 +1,24 @@
 (in-package #:org.shirakumo.fraf.kandria.quest)
 
+(defclass describable ()
+  ((name :initarg :name :accessor name)
+   (title :initarg :title :accessor title)
+   (description :initarg :description :accessor description))
+  (:default-initargs
+   :name (error "NAME required")
+   :title (error "TITLE required")
+   :description ""))
+
+(defmethod print-object ((describable describable) stream)
+  (print-unreadable-object (describable stream :type T)
+    (format stream "~s" (title describable))))
+
 (defgeneric active-p (thing))
 (defgeneric activate (thing))
 (defgeneric complete (thing))
+(defgeneric fail (thing))
 (defgeneric try (task))
+(defgeneric find-named (name thing &optional error))
 
 (defclass storyline ()
   ((quests :initform (make-hash-table :test 'eql) :reader quests)
@@ -21,29 +36,19 @@
 (defmethod (setf find-quest) (quest name (storyline storyline))
   (setf (gethash name (quests storyline)) quest))
 
-(defun make-storyline (quests &key (quest-type 'quest))
-  (let ((storyline (make-instance 'storyline)))
-    (dolist (quest quests storyline)
-      (let ((quest (make-instance quest-type
-                                  :name (graph:name quest)
-                                  :quest quest
-                                  :storyline storyline)))
-        (setf (find-quest (name quest) storyline) quest)))))
+(defmethod find-named (name (storyline storyline) &optional (error T))
+  (find-quest name storyline error))
 
 (defclass quest (describable)
-  ((status :initarg :status :accessor status)
+  ((status :initarg :status :initform :inactive :accessor status)
+   (author :initarg :author :accessor author)
    (storyline :initarg :storyline :reader storyline)
-   (effects :reader effects)
    (tasks :initform (make-hash-table :test 'eq) :reader tasks)
-   (active-tasks :initform () :accessor active-tasks))
-  (:default-initargs :status :inactive
-                     :title NIL))
+   (on-activate :initarg :on-activate :accessor on-activate)
+   (active-tasks :initform () :accessor active-tasks)))
 
-(defmethod initialize-instance :after ((self quest) &key quest storyline)
-  (check-type storyline storyline)
-  (multiple-value-bind (effects tasks) (transform quest self)
-    (setf (slot-value self 'effects) effects)
-    (setf (slot-value self 'tasks) tasks)))
+(defmethod initialize-instance :after ((quest quest) &key storyline name)
+  (setf (find-quest name storyline) quest))
 
 (defmethod print-object ((quest quest) stream)
   (print-unreadable-object (quest stream :type T)
@@ -51,9 +56,6 @@
 
 (defmethod make-assembly ((quest quest))
   (make-instance 'dialogue:assembly))
-
-(defmethod class-for ((quest quest) class)
-  class)
 
 (defmethod compile-form ((quest quest) form)
   (dialogue::compile-form (make-assembly quest) form))
@@ -64,6 +66,10 @@
 
 (defmethod (setf find-task) (task name (quest quest))
   (setf (gethash name (tasks quest)) task))
+
+(defmethod find-named (name (quest quest) &optional (error T))
+  (or (find-task name quest NIL)
+      (find-quest name (storyline quest) error)))
 
 (defun sort-quests (quests)
   (sort quests (lambda (a b)
@@ -92,7 +98,8 @@
     ((:inactive :active)
      (v:info :kandria.quest "Activating ~a" quest)
      (setf (status quest) :active)
-     (mapcar #'activate (effects quest))))
+     (loop for thing in (on-activate quest)
+           do (activate (find-named thing quest)))))
   quest)
 
 (defmethod complete ((quest quest))
@@ -105,25 +112,36 @@
   (dolist (task (active-tasks quest))
     (try task)))
 
-(defclass end ()
-  ((quest :initarg :quest :accessor quest)))
-
-(defmethod activate ((end end))
-  (complete (quest end)))
-
 (defclass task (describable)
   ((status :initarg :status :accessor status)
    (quest :initarg :quest :accessor quest)
    (causes :initarg :causes :accessor causes)
-   (effects :initarg :effects :accessor effects)
-   (triggers :initarg :triggers :accessor triggers)
-   (invariant :initarg :invariant :accessor invariant)
-   (condition :initarg :condition :accessor condition))
+   (triggers :initform (make-hash-table :test 'eq) :accessor triggers)
+   (on-complete :initarg :on-complete :accessor on-complete)
+   (on-activate :initarg :on-activate :accessor on-activate)
+   (invariant :accessor invariant)
+   (condition :accessor condition))
   (:default-initargs :status :inactive))
+
+(defmethod initialize-instance :after ((task task) &key quest name invariant condition)
+  (setf (invariant task) (compile-form task invariant))
+  (setf (condition task) (compile-form task condition))
+  (setf (find-task name quest) task))
 
 (defmethod print-object ((task task) stream)
   (print-unreadable-object (task stream :type T)
     (format stream "~s ~s" (title task) (status task))))
+
+(defmethod find-trigger (name (task task) &optional (error T))
+  (or (gethash name (triggers task))
+      (when error (error "No trigger named ~s found." name))))
+
+(defmethod (setf find-trigger) (trigger name (task task))
+  (setf (gethash name (triggers task)) trigger))
+
+(defmethod find-named (name (task task) &optional (error T))
+  (or (find-trigger name task NIL)
+      (find-task name (quest task) error)))
 
 (defun sort-tasks (tasks)
   (sort tasks #'string< :key #'title))
@@ -148,15 +166,13 @@
 (defmethod make-assembly ((task task))
   (make-assembly (quest task)))
 
-(defmethod class-for ((task task) class) class)
-
 (defmethod compile-form ((task task) form)
   (compile NIL `(lambda ()
                   (let* ((task ,task)
                          (quest (quest task))
                          (triggers (triggers task))
-                         (all-complete (every (lambda (trig) (eql :complete (status trig)))
-                                              triggers)))
+                         (all-complete (loop for trigger being the hash-values of triggers
+                                             always (eql :complete (status trigger)))))
                     (declare (ignorable quest all-complete))
                     ,form))))
 
@@ -170,19 +186,20 @@
      (v:info :kandria.quest "Activating ~a" task)
      (setf (status task) :unresolved)
      (dolist (cause (causes task))
-       (when (and (active-p cause)
-                  (required-for-completion task cause))
-         (setf (status task) :obsolete)))
-     (dolist (trigger (triggers task))
-       (activate trigger))))
+       (let ((cause (find-task cause (quest task))))
+         (when (and (active-p cause)
+                    (required-for-completion task cause))
+           (setf (status task) :obsolete))))
+     (dolist (thing (on-activate task))
+       (activate (find-named thing task)))))
   task)
 
 (defmethod deactivate ((task task))
   (unless (eql (status task) :inactive)
     (v:info :kandria.quest "Deactivating ~a" task)
     (setf (status task) :unresolved)
-    (dolist (trigger (triggers task))
-      (deactivate trigger)))
+    (loop for thing being the hash-values of (triggers task)
+          do (deactivate trigger)))
   task)
 
 (defmethod complete ((task task))
@@ -190,10 +207,10 @@
     (error "Cannot complete done task."))
   (v:info :kandria.quest "Completing ~a" task)
   (setf (status task) :complete)
-  (dolist (trigger (triggers task))
-    (deactivate trigger))
-  (dolist (effect (effects task))
-    (activate effect))
+  (loop for thing being the hash-values of (triggers task)
+        do (deactivate trigger))
+  (dolist (effect (on-complete task))
+    (activate (find-named effect task)))
   task)
 
 (defmethod fail ((task task))
@@ -201,8 +218,8 @@
     (error "Cannot fail done task."))
   (v:info :kandria.quest "Failing ~a" task)
   (setf (status task) :failed)
-  (dolist (trigger (triggers task))
-    (deactivate trigger))
+  (loop for thing being the hash-values of (triggers task)
+        do (deactivate trigger))
   task)
 
 (defmethod try ((task task))
@@ -212,7 +229,16 @@
          (complete task))))
 
 (defclass trigger ()
-  ((status :initarg :status :initform :inactive :accessor status)))
+  ((name :initarg :name :initform (error "NAME required.") :reader name)
+   (task :initarg :task :initform (error "TASK required.") :reader task)
+   (status :initarg :status :initform :inactive :accessor status)))
+
+(defmethod print-object ((trigger trigger) stream)
+  (print-unreadable-object (trigger stream :type T)
+    (format stream "~s ~a" (name trigger) (status trigger))))
+
+(defmethod initialize-instance :after ((trigger trigger) &key task name)
+  (setf (find-trigger name task) trigger))
 
 (defmethod activate :after ((trigger trigger))
   (setf (status trigger) :active))
@@ -221,8 +247,14 @@
   (setf (status trigger) :inactive))
 
 (defclass action (trigger)
-  ((on-activate :initarg :on-activate :reader on-activate)
-   (on-deactivate :initarg :on-deactivate :reader on-deactivate)))
+  ((on-activate :initform (constantly T) :accessor on-activate)
+   (on-deactivate :initform (constantly T) :accessor on-deactivate)))
+
+(defmethod initialize-instance :after ((action action) &key task on-activate on-deactivate)
+  (when on-activate
+    (setf (on-activate action) (compile-form task on-activate)))
+  (when on-deactivate
+    (setf (on-deactivate action) (compile-form task on-deactivate))))
 
 (defmethod activate ((trigger trigger))
   (funcall (on-activate trigger))
@@ -233,60 +265,7 @@
 
 (defclass interaction (trigger)
   ((interactable :initarg :interactable :reader interactable)
-   (dialogue :initarg :dialogue :initform :inactive :reader dialogue)))
+   (dialogue :accessor dialogue)))
 
-(defmethod transform ((node graph:quest) quest)
-  (let ((cache (make-hash-table :test 'eq)))
-    (%transform node cache quest)
-    (values (loop for effect in (graph:effects node)
-                  collect (gethash effect cache))
-            (loop with tasks = (make-hash-table :test 'eq)
-                  for task being the hash-values of cache
-                  when (typep task 'task)
-                  do (setf (gethash (name task) tasks) task)
-                  finally (return tasks)))))
-
-(defmethod %transform :around (thing cache parent)
-  (or (gethash thing cache)
-      (setf (gethash thing cache)
-            (call-next-method))))
-
-(defmethod %transform ((node graph:quest) cache (quest quest))
-  (setf (gethash node cache) quest)
-  (setf (description quest) (description node))
-  (setf (title quest) (title node))
-  (loop for task in (graph:effects node)
-        do (%transform task cache quest))
-  quest)
-
-(defmethod %transform ((task graph:task) cache (quest quest))
-  (let ((instance (make-instance (class-for quest 'task)
-                                 :quest quest
-                                 :name (name task)
-                                 :title (graph:title task)
-                                 :description (graph:description task)
-                                 :causes (loop for cause in (graph:causes task)
-                                               when (typep cause 'graph:task)
-                                               collect (%transform cause cache quest)))))
-    (flet ((%transform (thing)
-             (%transform thing cache instance)))
-      (setf (effects instance) (mapcar #'%transform (graph:effects task)))
-      (setf (triggers instance) (mapcar #'%transform (graph:triggers task)))
-      (setf (invariant instance) (compile-form instance (graph:invariant task)))
-      (setf (condition instance) (compile-form instance (graph:condition task)))
-      instance)))
-
-(defmethod %transform ((interaction graph:interaction) cache (task task))
-  (make-instance (class-for (quest task) 'interaction)
-                 :interactable (graph:interactable interaction)
-                 :dialogue (dialogue:compile* (graph:dialogue interaction)
-                                              (make-assembly task))))
-
-(defmethod %transform ((action graph:action) cache (task task))
-  (make-instance (class-for (quest task) 'action)
-                 :on-activate (compile-form task (graph:on-activate action))
-                 :on-deactivate (compile-form task (graph:on-deactivate action))))
-
-(defmethod %transform ((end graph:end) cache (quest quest))
-  (make-instance (class-for quest 'end)
-                 :quest quest))
+(defmethod initialize-instance :after ((interaction interaction) &key task dialogue)
+  (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly task))))

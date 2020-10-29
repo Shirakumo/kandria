@@ -11,7 +11,6 @@
   (:local-nicknames
    (#:dialogue #:org.shirakumo.fraf.kandria.dialogue)
    (#:quest #:org.shirakumo.fraf.kandria.quest)
-   (#:quest-graph #:org.shirakumo.fraf.kandria.quest.graph)
    (#:alloy #:org.shirakumo.alloy)
    (#:trial-alloy #:org.shirakumo.fraf.trial.alloy)
    (#:simple #:org.shirakumo.alloy.renderers.simple)
