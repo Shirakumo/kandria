@@ -60,6 +60,7 @@
                     for fun = (cdr (assoc var funs))
                     collect `(,fun ()
                                    (or ,var (setf ,var ,value))))
+         (declare (ignorable ,@(loop for fun in funs collect (list 'function (cdr fun)))))
          (symbol-macrolet ,(loop for binding in bindings
                                  for fun = (cdr (assoc (car binding) funs))
                                  collect `(,(car binding) (,fun)))
@@ -393,3 +394,10 @@
                collect `(when (or ,@(loop for test in tests
                                           collect `(eql ,test ,thingg)))
                           ,@body)))))
+
+(defun cycle-list (list)
+  (let ((first (pop list)))
+    (if list
+        (setf (cdr (last list)) (list first))
+        (setf list (list first)))
+    (values list first)))

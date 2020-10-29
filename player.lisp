@@ -46,6 +46,7 @@
    (climb-strength :initform 1.0 :accessor climb-strength)
    (buffer :initform NIL :accessor buffer)
    (chunk :initform NIL :accessor chunk)
+   (inventory :initform NIL :accessor inventory)
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform "The Stranger"))
@@ -56,6 +57,9 @@
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod resize ((player player) w h))
+
+(defmethod have (thing (player player))
+  (have thing (inventory player)))
 
 (defmethod capable-p ((player player) (edge jump-edge)) T)
 (defmethod capable-p ((player player) (edge crawl-edge)) T)
@@ -73,6 +77,7 @@
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
+    (discard-events +world+)
     (when interactable
       (interact interactable player))))
 
@@ -210,7 +215,8 @@
       (when (and (typep entity 'interactable)
                  (contained-p (location player) entity))
         (setf (interactable player) entity)))
-    (if (typep (interactable player) '(and interactable (not rope)))
+    (if (and (interactable player)
+             (interactable-p (interactable player)))
         (let ((loc (vec (vx (location (interactable player)))
                         (+ (vy loc) (vy (bsize player))))))
           (show (prompt player) :button 'interact :location loc))

@@ -2,15 +2,13 @@
 
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
-   (storyline :initarg :storyline :accessor storyline)
-   (regions :initarg :regions :accessor regions)
+   (storyline :initarg :storyline :initform (make-instance 'quest:storyline) :accessor storyline)
+   (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale))
   (:default-initargs
-   :packet (error "PACKET required.")
-   :storyline (quest:make-storyline ())
-   :regions (make-hash-table :test 'eq)))
+   :packet (error "PACKET required.")))
 
 (defmethod initialize-instance :after ((world world) &key packet)
   (enter (progression-instance 'death) world)
@@ -21,8 +19,9 @@
       (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))
                         :name)))
         (setf (gethash name (regions world)) entry))))
-  (let ((storyline (parse-sexps (packet-entry "storyline.lisp" packet :element-type 'character))))
-    (setf (storyline world) (decode-payload storyline 'quest:storyline packet 'world-v0)))
+  (dolist (entry (list-entries "quests/" packet))
+    (with-packet (packet packet :offset entry)
+      (load-quest packet (storyline world))))
   (setf (initial-state world) (minimal-load-state (entry-path "init/" packet))))
 
 (defmethod start :after ((world world))
@@ -117,41 +116,6 @@
 
 (defmethod handle :after ((ev gamepad-event) (world world))
   (setf +input-source+ :gamepad))
-
-(defclass quest (quest:quest)
-  ())
-
-(defmethod quest:make-assembly ((_ quest))
-  (make-instance 'assembly))
-
-(defmethod quest:class-for ((_ quest) (class (eql 'quest:task))) 'task)
-
-(defclass task (quest:task)
-  ())
-
-(defmethod quest:make-assembly ((task task))
-  (make-instance 'assembly :task task))
-
-(defclass assembly (dialogue:assembly)
-  ((task :initarg :task :accessor task)))
-
-(defmethod dialogue:wrap-lexenv ((assembly assembly) form)
-  `(with-memo ((world +world+)
-               (player (unit 'player world))
-               (region (unit 'region world))
-               (task ,(task assembly))
-               (quest (quest:quest task))
-               (inventory (inventory player)))
-     (flet ((activate (thing)
-              (quest:activate thing))
-            (complete (thing)
-              (quest:complete thing))
-            (fail (thing)
-              (setf (quest:status thing) :failed))
-            (have (thing &optional (place inventory))
-              (have thing place)))
-       (declare (ignorable #'activate #'complete #'fail))
-       ,form)))
 
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)

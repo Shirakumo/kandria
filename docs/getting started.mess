@@ -49,12 +49,12 @@ The source tree is divided up as follows:
     Source files related to publishing, packaging, and archiving game releases.
   - ``world/``
     Source files for levels, quests, and dialogue.
-    - ``storyline.lisp``
-      Source file for quests and tasks.
     - ``init/``
       Source files to describe the initial state of the game when loading a new game.
     - ``regions/``
       Source files for every "region" in the game -- meaning level data.
+    - ``quests/``
+      Source files for every quest in the game. Each quest should have its own directory.
 
 ## Organisation
 For instant communication please use "Discord"(https://discord.gg/WNTygau). The rest of the  project management happens through a Google doc. Please have a look at it here:

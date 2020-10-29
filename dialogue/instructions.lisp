@@ -64,7 +64,7 @@
             (type-of dispatch)
             (unless (eq dispatch (label dispatch))
               (label dispatch))
-            (form dispatch)
+            (func dispatch)
             (targets dispatch))))
 
 (defclass emote (instruction)

@@ -106,6 +106,11 @@
                                :markup markup
                                :text text))))
 
+(defmethod execute ((instruction dispatch) (vm vm) ip)
+  (if (funcall (func instruction))
+      (first (targets instruction))
+      (second (targets instruction))))
+
 (defmethod execute ((instruction conditional) (vm vm) ip)
   (loop for (func . target) in (clauses instruction)
         do (when (funcall func)

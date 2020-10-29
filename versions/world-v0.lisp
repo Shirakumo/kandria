@@ -2,51 +2,36 @@
 
 (defclass world-v0 (v0) ())
 
-(define-decoder (quest:storyline world-v0) (info _p)
-  (let ((table (make-hash-table :test 'eq)))
-    ;; Read in things
-    (loop for (type . initargs) in info
-          for entry = (decode type initargs)
-          do (setf (gethash (quest-graph:name entry) table) entry))
-    ;; Connect them up
-    (loop for (type . initargs) in info
-          for entry = (gethash (getf initargs :name) table)
-          do (etypecase entry
-               (quest-graph:quest
-                (dolist (effect (getf initargs :effects))
-                  (quest-graph:connect entry (gethash effect table))))
-               (quest-graph:task
-                (dolist (effect (getf initargs :effects))
-                  (quest-graph:connect entry (gethash effect table)))
-                (dolist (trigger (getf initargs :triggers))
-                  (quest-graph:connect entry (gethash trigger table))))
-               (quest-graph:trigger)))
-    ;; Compile storyline
-    ;; TODO: We can do this ahead of time into an optimised format by taking out
-    ;;       conditions and invariants into a separate file, giving each a unique
-    ;;       name. We can then COMPILE-FILE this and refer directly to the functions
-    ;;       in the optimised format.
-    (quest:make-storyline
-     (loop for entry being the hash-values of table
-           when (typep entry 'quest-graph:quest)
-           collect entry)
-     :quest-type 'quest)))
+(define-decoder (quest:quest world-v0) (info packet)
+  (destructuring-bind (&key name author title description on-activate tasks storyline &allow-other-keys) info
+    (let ((quest (make-instance 'quest :name name :title title :author author :description description
+                                       :storyline storyline :on-activate on-activate)))
+      (loop for file in tasks
+            for (info . triggers) = (parse-sexps (packet-entry file packet :element-type 'character))
+            do (decode 'quest:task (list* :quest quest :triggers triggers info)))
+      quest)))
 
-(define-decoder (quest-graph:quest world-v0) (info _p)
-  (destructuring-bind (&key name title description &allow-other-keys) info
-    (make-instance 'quest-graph:quest :name name :title title :description description)))
+(define-decoder (quest:task world-v0) (info _p)
+  (destructuring-bind (&key name quest title description invariant condition on-activate on-complete triggers &allow-other-keys) info
+    (let ((task (make-instance 'quest:task :name name :quest quest :title title :description description
+                                           :invariant invariant :condition condition
+                                           :on-activate on-activate :on-complete on-complete)))
+      (loop for (type . info) in triggers
+            do (decode type (list* :task task info)))
+      task)))
 
-(define-decoder (quest-graph:task world-v0) (info _p)
-  (destructuring-bind (&key name title description invariant condition &allow-other-keys) info
-    (make-instance 'quest-graph:task :name name :title title :description description
-                                     :invariant invariant :condition condition)))
+(define-decoder (quest:action world-v0) (info _p)
+  (destructuring-bind (&key name task on-activate on-deactivate) info
+    (make-instance 'quest:action :name name :task task
+                                 :on-activate on-activate :on-deactivate on-deactivate)))
 
-(define-decoder (quest-graph:interaction world-v0) (info packet)
-  (destructuring-bind (&key name interactable dialogue) info
+(define-decoder (quest:interaction world-v0) (info packet)
+  (destructuring-bind (&key name task interactable dialogue) info
     (let ((dialogue (etypecase dialogue
                       (pathname (packet-entry dialogue packet :element-type 'character))
                       (string dialogue))))
-      (make-instance 'quest-graph:interaction :name name :interactable interactable :dialogue dialogue))))
+      (make-instance 'quest:interaction :name name :task task
+                                        :interactable interactable :dialogue dialogue))))
 
 (define-decoder (region world-v0) (info packet)
   (let* ((region (apply #'make-instance 'region info))

@@ -13,6 +13,8 @@
   (loop for i from 0 below (length (chain rope))
         do (setf (aref (chain rope) i) (list (vec 0 (* i -8)) (vec 0 (* i -8))))))
 
+(defmethod interactable-p ((rope rope)) NIL)
+
 (defmethod layer-index ((rope rope)) +base-layer+)
 
 (defmethod nudge ((rope rope) pos strength)

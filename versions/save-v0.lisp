@@ -96,8 +96,8 @@
   (destructuring-bind (&key status) initargs
     (setf (quest:status quest:task) status)
     (when (eql :unresolved status)
-      (dolist (trigger (quest:triggers quest:task))
-        (quest:activate trigger)))))
+      (dolist (trigger (quest:on-activate quest:task))
+        (quest:activate (quest:find-named trigger quest:task))))))
 
 (define-decoder (region save-v0) (initargs packet)
   (destructuring-bind (&key create-new ephemeral (delete-existing T))
