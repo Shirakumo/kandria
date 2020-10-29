@@ -13,18 +13,8 @@
   (interactions entity))
 
 (defmethod interact ((entity dialog-entity) from)
-  (let ((interactions (interactions entity)))
-    (when interactions
-      (let ((new (loop for interaction in interactions
-                       when (eql :active (quest:status interaction))
-                       collect interaction)))
-        (cond (new
-               (show (make-instance 'dialog :interactions new)))
-              (T
-               ;; Nothing new, cycle old interactions.
-               ;; FIXME: should show a menu here instead.
-               (show (make-instance 'dialog :interactions interactions))
-               (setf (interactions entity) (cycle-list interactions))))))))
+  (when (interactable-p entity)
+    (show (make-instance 'dialog :interactable entity))))
 
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity)
   ())

@@ -77,8 +77,8 @@
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
-    (discard-events +world+)
     (when interactable
+      (discard-events +world+)
       (interact interactable player))))
 
 (defmethod interact :before ((thing dialog-entity) (player player))

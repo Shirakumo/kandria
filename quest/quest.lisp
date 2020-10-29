@@ -265,6 +265,7 @@
 
 (defclass interaction (trigger)
   ((interactable :initarg :interactable :reader interactable)
+   (title :initarg :title :initform "<unknown>" :accessor title)
    (dialogue :accessor dialogue)))
 
 (defmethod initialize-instance :after ((interaction interaction) &key task dialogue)
