@@ -153,7 +153,7 @@
 
 (define-shader-entity box (enemy solid)
   ((bsize :initform (vec 8 8))
-   (health :initform 10))
+   (health :initform 50))
   (:default-initargs
    :sprite-data (asset 'kandria 'box)))
 

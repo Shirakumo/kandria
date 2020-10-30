@@ -36,6 +36,9 @@
         (end (vmax start end)))
     (let* ((bsize (nvabs (nv/ (v- end start) 2)))
            (loc (nv- (v+ start bsize) (location sprite))))
+      (when (and (< (vx bsize) 0.1) (< (vy bsize) 0.1))
+        (setf bsize (vec 0 0))
+        (setf loc (vec 0 0)))
       (setf (hurtbox (frame sprite))
             (vec (vx loc) (vy loc) (vx bsize) (vy bsize))))))
 

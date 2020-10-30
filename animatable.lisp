@@ -5,7 +5,8 @@
 
 (define-shader-entity animatable (movable lit-animated-sprite)
   ((health :initarg :health :initform 1000 :accessor health)
-   (stun-time :initform 0d0 :accessor stun-time)))
+   (stun-time :initform 0d0 :accessor stun-time)
+   (iframes :initform 0 :accessor iframes)))
 
 (defgeneric kill (animatable))
 (defgeneric die (animatable))
@@ -26,14 +27,16 @@
 
 (defmethod hurt :around ((animatable animatable) damage)
   (when (and (< 0 (health animatable))
-             (not (invincible-p (frame animatable))))
+             (not (invincible-p (frame animatable)))
+             (<= (iframes animatable) 0))
+    (setf (iframes animatable) 10)
     (call-next-method)))
 
 (defmethod hurt ((animatable animatable) damage)
   (when (interrupt animatable)
     (when (<= +hard-hit+ damage)
       (setf (animation animatable) 'hard-hit)))
-  (decf (health animatable) damage)
+  (print (decf (health animatable) damage))
   (when (<= (health animatable) 0)
     (kill animatable)))
 
@@ -109,3 +112,7 @@
     (nv* (velocity animatable) (multiplier frame))
     (incf (vx vel) (* (direction animatable) (vx (velocity frame))))
     (incf (vy vel) (vy (velocity frame)))))
+
+(defmethod handle :before ((ev tick) (animatable animatable))
+  (when (< 0 (iframes animatable))
+    (decf (iframes animatable))))
