@@ -47,7 +47,8 @@
   (setf (animation animatable) 'die))
 
 (defmethod die ((animatable animatable))
-  (leave animatable T))
+  (leave animatable T)
+  (remove-from-pass animatable +world+))
 
 (defmethod switch-animation :before ((animatable animatable) next)
   ;; Remove selves when death animation completes

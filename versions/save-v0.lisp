@@ -108,13 +108,18 @@
       (labels ((recurse (parent)
                  (for:for ((entity over parent))
                    (typecase entity
-                     ((not ephemeral) (leave entity parent))
+                     ((not ephemeral)
+                      (leave entity parent)
+                      (remove-from-pass entity +world+))
                      (container (recurse entity))))))
         (recurse region)))
     ;; Add new entities that exist in the state
     (loop for (name type . state) in create-new
           for parent = (unit name (scene-graph region))
-          do (enter (decode-payload state (make-instance type) packet save-v0) parent))
+          for entity = (decode-payload state (make-instance type) packet save-v0)
+          do (enter entity parent)
+             (when (typep entity 'renderable)
+               (compile-into-pass entity parent +world+)))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
           for unit = (unit name (scene-graph region))
