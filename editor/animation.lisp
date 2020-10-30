@@ -222,7 +222,7 @@
 (alloy:define-subcomponent (frame-edit interruptable) ((interruptable-p (frame frame-edit)) alloy:checkbox))
 (alloy:define-subcomponent (frame-edit invincible) ((invincible-p (frame frame-edit)) alloy:checkbox))
 (alloy:define-subcomponent (frame-edit cancelable) ((cancelable-p (frame frame-edit)) alloy:checkbox))
-(alloy:define-subcomponent (frame-edit effect) ((effect (frame frame-edit)) alloy:combo-set :value-set '(NIL)))
+(alloy:define-subcomponent (frame-edit effect) ((effect (frame frame-edit)) alloy:combo-set :value-set (list* NIL (list-effects))))
 
 (alloy:define-subcontainer (frame-edit layout)
     (alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :min-size (alloy:size 100 20))

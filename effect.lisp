@@ -15,6 +15,10 @@
 (defmacro define-effect (name type &body initargs)
   `(setf (effect ',name) (list ',type ,@initargs)))
 
+(defun list-effects ()
+  (loop for k being the hash-keys of *effects*
+        collect k))
+
 (defclass effect () ())
 
 (defgeneric trigger (effect source &key))
