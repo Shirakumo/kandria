@@ -144,12 +144,28 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'dummy)))
 
-(defmethod capable-p ((enemy dummy) (edge move-edge)) NIL)
-(defmethod handle-ai-states ((enemy dummy) ev))
+(defmethod capable-p ((dummy dummy) (edge move-edge)) NIL)
+(defmethod handle-ai-states ((dummy dummy) ev))
 (defmethod (setf animation) ((animation symbol) (enemy dummy))
   (if (find animation '(STAND JUMP FALL LIGHT-HIT HARD-HIT DIE))
       (call-next-method)
       (call-next-method 'stand enemy)))
+
+(define-shader-entity box (enemy solid)
+  ((bsize :initform (vec 8 8))
+   (health :initform 10))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'box)))
+
+(defmethod capable-p ((box box) (edge move-edge)) NIL)
+(defmethod handle-ai-states ((box box) ev))
+(defmethod (setf animation) ((animation symbol) (enemy box))
+  (if (find animation '(STAND LIGHT-HIT HARD-HIT DIE))
+      (call-next-method)
+      (call-next-method 'stand enemy)))
+
+(defmethod collides-p ((movable movable) (box box) hit)
+  (not (eql (state box) :dying)))
 
 (define-shader-entity wolf (enemy)
   ()
