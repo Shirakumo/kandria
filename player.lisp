@@ -226,7 +226,7 @@
               (case (name (animation player))
                 (light-ground-1 (start-animation 'light-ground-2 player))
                 (light-ground-2 (start-animation 'light-ground-3 player))
-                (light-ground-3 (start-animation 'light-ground-3 player))
+                (light-ground-3 (setf (frame player) (loop-to (animation player))))
                 (light-aerial-1 (start-animation 'light-aerial-2 player))
                 (light-aerial-2 (start-animation 'light-aerial-3 player))
                 (T
