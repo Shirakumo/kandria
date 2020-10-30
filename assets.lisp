@@ -24,6 +24,9 @@
 (define-sprite ball
     #p"ball.png")
 
+(define-asset (kandria box) sprite-data
+    #p"box.lisp")
+
 (define-asset (kandria player) sprite-data
     #p"player.lisp")
 
