@@ -179,6 +179,7 @@
            (dialogue:run (quest:dialogue (first (interactions dialog))) (vm dialog)))
           (T
            ;; If we have multiple show choice.
+           (alloy:clear (choices dialog))
            (loop for interaction in interactions
                  do (let* ((interaction interaction)
                            (label (quest:title interaction))
