@@ -36,7 +36,7 @@
   (when (interrupt animatable)
     (when (<= +hard-hit+ damage)
       (setf (animation animatable) 'hard-hit)))
-  (print (decf (health animatable) damage))
+  (decf (health animatable) damage)
   (when (<= (health animatable) 0)
     (kill animatable)))
 
