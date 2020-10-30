@@ -45,6 +45,7 @@
                (:file "versions/save-v0")
                (:file "camera")
                (:file "main")
+               (:file "deploy")
                (:file "effects")
                (:module "ui"
                 :components ((:file "general")
