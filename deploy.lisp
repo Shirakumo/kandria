@@ -36,7 +36,9 @@
  org.shirakumo.file-select.gtk::gio
  org.shirakumo.file-select.gtk::gtk
  org.shirakumo.file-select.gtk::glib
- org.shirakumo.font-discovery::fontconfig)
+ org.shirakumo.font-discovery::fontconfig
+ cl+ssl::libssl
+ cl+ssl::libcrypto)
 #+darwin
 (trial::dont-deploy
  org.shirakumo.file-select.macos::foundation
@@ -49,3 +51,5 @@
  org.shirakumo.file-select.win32::ole32
  org.shirakumo.font-discovery::directwrite
  org.shirakumo.font-discovery::ole32)
+
+(deploy:remove-hook :deploy 'org.shirakumo.fraf.trial.alloy::alloy)
