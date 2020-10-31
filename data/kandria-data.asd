@@ -75,5 +75,6 @@
                (spritesheet "balloon")
                (spritesheet "debug-door")
                (spritesheet "box")
+               (spritesheet "zombie")
                (tilemap "debug")
                (tilemap "tundra")))
