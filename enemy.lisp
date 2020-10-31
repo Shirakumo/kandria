@@ -235,3 +235,27 @@
       ;;                ;; Check that tackle would even be possible to hit (no obstacles)
       ;;                (start-animation 'tackle enemy))))))
       )))
+
+(define-shader-entity zombie (enemy solid)
+  ((bsize :initform (vec 4 16)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'zombie)))
+
+(defmethod handle-ai-states ((enemy zombie) ev)
+  (let* ((player (unit 'player T))
+         (ploc (location player))
+         (eloc (location enemy))
+         (distance (vlength (v- ploc eloc)))
+         (vel (velocity enemy)))
+    (ecase (state enemy)
+      (:normal
+       (when (< distance (* +tile-size+ 8))
+         (setf (state enemy) :approach)))
+      (:approach
+       (cond ((< (* +tile-size+ 12) distance)
+              (setf (state enemy) :normal))
+             ((< distance (* +tile-size+ 1))
+              (start-animation 'attack enemy))
+             (T
+              (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
+              (setf (vx vel) (* (direction enemy) 0.5))))))))

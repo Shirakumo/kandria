@@ -42,6 +42,9 @@
 (define-asset (kandria wolf) sprite-data
     #p"wolf.lisp")
 
+(define-asset (kandria zombie) sprite-data
+    #p"zombie.lisp")
+
 (define-asset (kandria dummy) sprite-data
     #p"dummy.lisp")
 
@@ -64,7 +67,7 @@
     #p"debug.lisp")
 
 (define-asset (kandria music) sound
-    #p "sound/music.mp3"
+    #p"sound/music.mp3"
   :volume 0.3
   :repeat T
   :mixer :music)
@@ -96,15 +99,15 @@
   :volume 0.1)
 
 (define-asset (kandria box-break) sound
-    #p "sound/box-break.wav"
+    #p"sound/box-break.wav"
   :volume 0.05)
 
 (define-asset (kandria box-damage) sound
-    #p "sound/box-damage.wav"
+    #p"sound/box-damage.wav"
   :volume 0.1)
 
 (define-asset (kandria slash) sound
-    #p "sound/slash.wav"
+    #p"sound/slash.wav"
   :volume 0.05)
 
 (define-gi none
