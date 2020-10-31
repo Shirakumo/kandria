@@ -29,7 +29,8 @@
   (when (and (< 0 (health animatable))
              (not (invincible-p (frame animatable)))
              (<= (iframes animatable) 0))
-    (setf (iframes animatable) 10)
+    ;; I don't like this very much. We need a better way to distinguish individual "attacks"
+    (setf (iframes animatable) 60)
     (call-next-method)))
 
 (defmethod hurt ((animatable animatable) damage)
@@ -94,6 +95,8 @@
            (for:for ((entity over (region +world+)))
              (when (and (typep entity 'animatable)
                         (not (eql animatable entity))
+                        (< 0 (vz hurtbox))
+                        (< 0 (vw hurtbox))
                         (contained-p hurtbox entity))
                (when (interruptable-p (frame entity))
                  (setf (direction entity) (- (direction animatable)))

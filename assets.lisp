@@ -95,6 +95,18 @@
     #p"sound/death.wav"
   :volume 0.1)
 
+(define-asset (kandria box-break) sound
+    #p "sound/box-break.wav"
+  :volume 0.05)
+
+(define-asset (kandria box-damage) sound
+    #p "sound/box-damage.wav"
+  :volume 0.1)
+
+(define-asset (kandria slash) sound
+    #p "sound/slash.wav"
+  :volume 0.05)
+
 (define-gi none
   :location NIL
   :light (vec 0 0 0)
