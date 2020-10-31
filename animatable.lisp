@@ -6,8 +6,13 @@
 (define-shader-entity animatable (movable lit-animated-sprite)
   ((health :initarg :health :initform 1000 :accessor health)
    (stun-time :initform 0d0 :accessor stun-time)
+   (idle-time :initform 0f0 :accessor idle-time)
    (iframes :initform 0 :accessor iframes)))
 
+(defmethod initialize-instance :after ((animatable animatable) &key)
+  (setf (idle-time animatable) (minimum-idle-time animatable)))
+
+(defgeneric minimum-idle-time (animatable))
 (defgeneric kill (animatable))
 (defgeneric die (animatable))
 (defgeneric interrupt (animatable))
@@ -15,6 +20,8 @@
 (defgeneric stun (animatable stun))
 (defgeneric start-animation (name animatable))
 (defgeneric in-danger-p (animatable))
+
+(defmethod minimum-idle-time ((animatable animatable)) 10)
 
 (defmethod in-danger-p ((animatable animatable))
   (for:for ((entity over +world+))
@@ -118,4 +125,11 @@
 
 (defmethod handle :before ((ev tick) (animatable animatable))
   (when (< 0 (iframes animatable))
-    (decf (iframes animatable))))
+    (decf (iframes animatable)))
+  (case (state animatable)
+    (:normal
+     (when (= 0 (vx (velocity animatable)))
+       (decf (idle-time animatable) (dt ev))
+       (when (<= (idle-time animatable) 0.0)
+         (setf (idle-time animatable) (+ (minimum-idle-time animatable) (random 8.0)))
+         (start-animation 'idle animatable))))))

@@ -56,6 +56,8 @@
 (defmethod initialize-instance :after ((player player) &key)
   (setf (spawn-location player) (vcopy (location player))))
 
+(defmethod minimum-idle-time ((player player)) 30)
+
 (defmethod resize ((player player) w h))
 
 (defmethod have (thing (player player))

@@ -2,7 +2,7 @@
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND)
-   (IDLE                 :start   8 :end  42 :loop-to 8   :next IDLE)
+   (IDLE                 :start   8 :end  42 :loop-to 8   :next STAND)
    (RUN                  :start  42 :end  58 :loop-to 42  :next RUN)
    (JUMP                 :start  58 :end  61 :loop-to 58  :next FALL)
    (FALL                 :start  63 :end  67 :loop-to 63  :next FALL)
