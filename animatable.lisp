@@ -23,14 +23,22 @@
 
 (defmethod minimum-idle-time ((animatable animatable)) 10)
 
+(defmethod attacking-p ((animatable animatable))
+  (let ((idx (frame-idx animatable))
+        (end (end (animation animatable)))
+        (frames (frames animatable))
+        (precognition-frames 3))
+    (loop for i from idx below (min end (+ precognition-frames idx))
+          thereis (< 0 (vw (hurtbox (svref frames i)))))))
+
 (defmethod in-danger-p ((animatable animatable))
-  (for:for ((entity over +world+))
+  (for:for ((entity over (region +world+)))
     (when (and (typep entity 'animatable)
                (not (eql animatable entity))
-               (/= 0 (vw (hurtbox entity)))
+               (attacking-p entity)
                ;; KLUDGE: this sucks
                (< (vdistance (location entity) (location animatable)) (* 2 +tile-size+)))
-      (return T))))
+      (return entity))))
 
 (defmethod hurt :around ((animatable animatable) damage)
   (when (and (< 0 (health animatable))

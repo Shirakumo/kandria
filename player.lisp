@@ -101,12 +101,16 @@
       (snap-to-target (unit :camera T) player))))
 
 (defmethod handle ((ev dash) (player player))
-  (let ((vel (velocity player)))
-    (cond ((in-danger-p player)
+  (let ((vel (velocity player))
+        (endangering (in-danger-p player)))
+    (cond (endangering
            ;; FIXME: If we are holding the opposite of what
            ;;        we are facing, we should evade left.
            ;;        to do this, need to buffer for a while.
-           (start-animation 'evade-right player))
+           (if (= (direction player)
+                  (signum (- (vx (location endangering)) (vx (location player)))))
+               (start-animation 'evade-left player)
+               (start-animation 'evade-right player)))
           ((and (= 0 (dash-time player))
                 (eq :normal (state player)))
            (if (typep (trial::source-event ev) 'gamepad-event)
