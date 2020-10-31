@@ -71,7 +71,7 @@
     (T 1.9)))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(dash jump land slide step death))
+  (dolist (sound '(dash jump land slide step death slash))
     (stage (// 'kandria sound) area))
   (stage (prompt player) area))
 
@@ -150,7 +150,7 @@
   (cond ((eql :animated (state player))
          (setf (buffer player) 'heavy-attack))
         ((not (eql :crawling (state player)))
-         (setf (buffer player) 'light-attack)
+         (setf (buffer player) 'heavy-attack)
          (setf (state player) :animated))))
 
 (flet ((handle-solid (player hit)
@@ -221,6 +221,8 @@
       ((:dying :animated :stunned)
        (let ((buffer (buffer player)))
          (when (and buffer (cancelable-p (frame player)))
+           (cond ((retained 'left) (setf (direction player) -1))
+                 ((retained 'right) (setf (direction player) +1)))
            (case buffer
              (light-attack
               (case (name (animation player))

@@ -143,6 +143,8 @@
                      (let ((rstart (start animation))
                            (rend (end animation))
                            (rframes (frames sprite)))
+                       (when (< (loop-to animation) rstart)
+                         (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
                        (loop for i from 0 below (min (- end start) (- rend rstart))
                              for frame = (elt rframes (+ rstart i))
                              for frame-info = (elt frames (+ start i))

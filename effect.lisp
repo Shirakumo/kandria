@@ -51,7 +51,7 @@
       :active))
 
 (defmethod trigger ((effect sound-effect) source &key)
-  (harmony:play (voice effect)))
+  (harmony:play (voice effect) :reset T))
 
 (defclass camera-effect (effect)
   ((duration :initarg :duration :initform 20 :accessor duration)
@@ -110,3 +110,6 @@
 (define-effect dash step-effect
   :voice (// 'kandria 'dash)
   :animation 'dash)
+
+(define-effect slash sound-effect
+  :voice (// 'kandria 'slash))

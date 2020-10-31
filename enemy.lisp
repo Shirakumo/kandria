@@ -167,6 +167,16 @@
 (defmethod collides-p ((movable movable) (box box) hit)
   (not (eql (state box) :dying)))
 
+(defmethod stage :after ((box box) (area staging-area))
+  (stage (// 'kandria 'box-damage) area)
+  (stage (// 'kandria 'box-break) area))
+
+(defmethod hurt :after ((box box) damage)
+  (harmony:play (// 'kandria 'box-damage)))
+
+(defmethod kill :after ((box box))
+  (harmony:play (// 'kandria 'box-break)))
+
 (define-shader-entity wolf (enemy)
   ()
   (:default-initargs
