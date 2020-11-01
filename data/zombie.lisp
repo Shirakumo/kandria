@@ -8,7 +8,7 @@
    (ATTACK               :start   5 :end  15 :loop-to 5   :next STAND)
    (LIGHT-HIT            :start  15 :end  19 :loop-to 15  :next STAND)
    (HARD-HIT             :start  19 :end  25 :loop-to 19  :next STAND)
-   (DIE                  :start  25 :end  35 :loop-to 34  :next DIE))
+   (DIE                  :start  25 :end  35 :loop-to 34  :next STAND))
  :frames
   (
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0)) ;   1
