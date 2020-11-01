@@ -215,7 +215,7 @@
     (setf (interactable player) NIL)
     (for:for ((entity over (region +world+)))
       (when (and (typep entity 'interactable)
-                 (contained-p (location player) entity))
+                 (contained-p (vec (vx loc) (vy loc) 16 8) entity))
         (setf (interactable player) entity)))
     (if (and (interactable player)
              (interactable-p (interactable player)))
