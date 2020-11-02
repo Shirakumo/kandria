@@ -113,28 +113,28 @@
   (with-open-file (stream path :direction :input)
     (destructuring-bind (&key source animations frames) (read stream)
       (setf (json-file sprite) source)
-      (call-next-method sprite (merge-pathnames (json-file sprite) path))
-      (loop for expr in animations
-            do (destructuring-bind (name &key start end loop-to next) expr
-                 (let ((animation (find name (animations sprite) :key #'name)))
-                   (when loop-to
-                     (setf (loop-to animation) loop-to))
-                   (when next
-                     (setf (next-animation animation) next))
-                   ;; Attempt to account for changes in the frame counts of the animations
-                   ;; by updating frame data per-animation here. We have to assume that
-                   ;; frames are only removed or added at the end of an animation, as we
-                   ;; can't know anything more.
-                   (when (and start end)
-                     (let ((rstart (start animation))
-                           (rend (end animation))
-                           (rframes (frames sprite)))
-                       (when (< (loop-to animation) rstart)
-                         (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
-                       (loop for i from 0 below (min (- end start) (- rend rstart))
-                             for frame = (elt rframes (+ rstart i))
-                             for frame-info = (elt frames (+ start i))
-                             do (change-class frame 'frame :sexp frame-info)))))))
-      ;; Make sure all frames are in the correct class.
-      (loop for frame across (frames sprite)
-            do (unless (typep frame 'frame) (change-class frame 'frame))))))
+      (prog1 (call-next-method sprite (merge-pathnames (json-file sprite) path))
+        (loop for expr in animations
+              do (destructuring-bind (name &key start end loop-to next) expr
+                   (let ((animation (find name (animations sprite) :key #'name)))
+                     (when loop-to
+                       (setf (loop-to animation) loop-to))
+                     (when next
+                       (setf (next-animation animation) next))
+                     ;; Attempt to account for changes in the frame counts of the animations
+                     ;; by updating frame data per-animation here. We have to assume that
+                     ;; frames are only removed or added at the end of an animation, as we
+                     ;; can't know anything more.
+                     (when (and start end)
+                       (let ((rstart (start animation))
+                             (rend (end animation))
+                             (rframes (frames sprite)))
+                         (when (< (loop-to animation) rstart)
+                           (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
+                         (loop for i from 0 below (min (- end start) (- rend rstart))
+                               for frame = (elt rframes (+ rstart i))
+                               for frame-info = (elt frames (+ start i))
+                               do (change-class frame 'frame :sexp frame-info)))))))
+        ;; Make sure all frames are in the correct class.
+        (loop for frame across (frames sprite)
+              do (unless (typep frame 'frame) (change-class frame 'frame)))))))
