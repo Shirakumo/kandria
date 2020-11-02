@@ -29,6 +29,16 @@
                   (vy (offset frame))
                   0)))
 
+(defmethod hurtbox ((animatable animatable))
+  (let* ((location (location animatable))
+         (direction (direction animatable))
+         (frame (frame animatable))
+         (hurtbox (hurtbox frame)))
+    (vec4 (+ (vx location) (* (vx hurtbox) direction))
+          (+ (vy location) (vy hurtbox))
+          (vz hurtbox)
+          (vw hurtbox))))
+
 (defmethod attacking-p ((animatable animatable))
   (let ((idx (frame-idx animatable))
         (end (end (animation animatable)))
