@@ -107,11 +107,17 @@
 
 (defmethod (setf frame-idx) (idx (tool animation-editor))
   (let* ((sprite (entity tool))
-         (animation (animation sprite)))
+         (animation (animation sprite))
+         (timeline (timeline tool)))
     (cond ((<= (end animation) idx)
            (setf idx (start animation)))
           ((< idx (start animation))
            (setf idx (1- (end animation)))))
+    (when timeline
+      (setf (presentations:update-overrides (alloy:index-element (frame-idx tool) (frames timeline)))
+            ())
+      (setf (presentations:update-overrides (alloy:index-element idx (frames timeline)))
+            `((:background :pattern ,colors:accent))))
     (setf (frame-idx sprite) idx)
     (setf (location sprite) (v+ (original-location tool)
                                 (compute-frame-location animation (frames sprite) idx)))
@@ -148,7 +154,8 @@
 (defclass timeline (alloy:window alloy:observable-object)
   ((animation :accessor animation)
    (entity :initarg :entity :accessor entity)
-   (tool :initarg :tool :accessor tool))
+   (tool :initarg :tool :accessor tool)
+   (frames :accessor frames))
   (:default-initargs :title "Animations"
                      :extent (alloy:extent 0 30 (alloy:vw 1) 360)
                      :minimizable T
@@ -170,6 +177,7 @@
          (play/pause (alloy:represent "Play" 'alloy:button))
          (step-prev (alloy:represent "<" 'alloy:button))
          (step-next (alloy:represent ">" 'alloy:button)))
+    (setf (frames timeline) frames)
     (alloy:enter-all focus animation save load speed step-prev play/pause step-next scroll)
     (alloy:enter-all toolbar speed step-prev play/pause step-next)
     (alloy:enter animation layout :constraints `((:left 0) (:top 0) (:width 200) (:height 20)))
@@ -219,6 +227,14 @@
   ((frame-idx :initarg :idx :representation (alloy:button) :reader frame-idx)
    (frame :initarg :frame :reader frame)))
 
+(defclass frame-layout (alloy:vertical-linear-layout alloy:renderable)
+  ())
+
+(presentations:define-realization (ui frame-layout)
+  ((:background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black))
+
 (defmethod initialize-instance :after ((edit frame-edit) &key)
   (alloy:finish-structure edit (slot-value edit 'layout) (slot-value edit 'focus)))
 
@@ -235,7 +251,7 @@
 (alloy:define-subcomponent (frame-edit effect) ((effect (frame frame-edit)) alloy:combo-set :value-set (list* NIL (list-effects))))
 
 (alloy:define-subcontainer (frame-edit layout)
-    (alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :min-size (alloy:size 100 20))
+    (frame-layout :cell-margins (alloy:margins 1) :min-size (alloy:size 100 20))
   frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable effect)
 
 (alloy:define-subcontainer (frame-edit focus)
