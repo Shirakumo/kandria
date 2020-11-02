@@ -38,9 +38,27 @@
     <main>
       <section id="prototype">
         <h2>Sign up to download the prototype!</h2>
-        <form id="subscribe" action="https://shirakumo.us19.list-manage.com/subscribe/post?u=ecd3151559a806bf165bfe5c2&amp;id=7776e18e10" target="_blank" method="post">
-          <input type="email" name="EMAIL" placeholder="my@email.com" autofocus required/>
-          <input type="submit" name="subscribe" value="Get the demo"/>
+        <form id="subscribe" action="https://courier.tymoon.eu/api/courier/subscription/new" method="post">
+          <div class="row _" style="display: none;">
+            <label for="username">Leave this empty</label>
+            <input autocomplete="off" type="text" id="username" name="username" />
+          </div>
+          <div class="row _" style="display: none;">
+            <label for="email">Leave this as is</label>
+            <input autocomplete="off" type="text" id="email" name="email" value="680a65a2d1db6b133e2064a8c1f5f707e55e772d72fdf5b4472e754629eee02f" />
+          </div>
+          <div class="row">
+            <label for="name">Your name</label>
+            <input type="text" name="name" id="name" autofocus="autofocus" />
+          </div>
+          <div class="row">
+            <label for="address">Email address*</label>
+            <input type="email" name="address" id="address" placeholder="email@example.com" required="required" />
+          </div>
+          
+          <input type="hidden" name="browser" value="true" />
+          <input type="hidden" name="campaign" value="1" />
+          <input type="submit" value="Subscribe" />
         </form>
         <p>
           This is a <b>prototype</b> and as such is mostly a testing ground for the mechanics. It will be updated until the game enters the production phase.

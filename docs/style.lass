@@ -83,11 +83,22 @@
    :text-align center)
   ((:and "#subscribe" :target)
    :border solid 0.2em (hex FFAA33))
+  ("#prototype"
+   (h2 :text-align center)
+   (input[type=submit]
+    :width ))
   ((:or "#subscribe" "#prototype")
    :padding 1em
    (.description
     :font-size 1.2em
     :margin-top 0)
+   (.row
+    :margin-bottom 0.2em
+    (label
+     :text-align left
+     :display inline-block
+     :font-size 1.5em
+     :min-width 8em))
    (input
     :font-size 1.5em
     :padding 0.2em 0.3em

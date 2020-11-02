@@ -50,10 +50,20 @@
       </section>
       <section id="media">
         <h2>Media</h2>
-        <form id="subscribe" action="https://shirakumo.us19.list-manage.com/subscribe/post?u=ecd3151559a806bf165bfe5c2&amp;id=7776e18e10" target="_blank" method="post">
+        <form id="subscribe" action="https://courier.tymoon.eu/api/courier/subscription/new" method="post">
           <p class="description">Subscribe for weekly development updates and a free prototype download!</p>
-          <input type="email" name="EMAIL" placeholder="my@email.com" required/>
-          <input type="submit" name="subscribe" value="Subscribe"/>
+          <div class="row _" style="display: none;">
+            <label for="username">Leave this empty</label>
+            <input autocomplete="off" type="text" id="username" name="username" />
+          </div>
+          <div class="row _" style="display: none;">
+            <label for="email">Leave this as is</label>
+            <input autocomplete="off" type="text" id="email" name="email" value="680a65a2d1db6b133e2064a8c1f5f707e55e772d72fdf5b4472e754629eee02f" />
+          </div>
+          <input type="email" name="address" id="address" placeholder="email@example.com" required="required" />
+          <input type="hidden" name="browser" value="true" />
+          <input type="hidden" name="campaign" value="1" />
+          <input type="submit" value="Subscribe" />
         </form>
         <ul class="icons">
           <li><a href="https://discord.gg/WNTygau" title="Join the Discord">
