@@ -150,7 +150,7 @@
    (entity :initarg :entity :accessor entity)
    (tool :initarg :tool :accessor tool))
   (:default-initargs :title "Animations"
-                     :extent (alloy:extent 0 30 (alloy:vw 1) 350)
+                     :extent (alloy:extent 0 30 (alloy:vw 1) 360)
                      :minimizable T
                      :maximizable NIL))
 
@@ -161,7 +161,7 @@
          (animation (alloy:represent (slot-value timeline 'animation) 'animation-chooser :value-set animations))
          (frames (make-instance 'alloy:horizontal-linear-layout :cell-margins (alloy:margins) :min-size (alloy:size 100 300)))
          (frames-focus (make-instance 'alloy:focus-list))
-         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :elements '("Frame" "Hurtbox" "Velocity" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Effect")))
+         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :elements '("Frame" "Hurtbox" "Offset" "Velocity" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Effect")))
          (scroll (make-instance 'alloy:scroll-view :scroll :x :layout frames :focus frames-focus))
          (save (alloy:represent "Save" 'alloy:button))
          (toolbar (make-instance 'alloy:horizontal-linear-layout :cell-margins (alloy:margins 1) :min-size (alloy:size 50 20)))
@@ -217,6 +217,7 @@
   (alloy:finish-structure edit (slot-value edit 'layout) (slot-value edit 'focus)))
 
 (alloy:define-subcomponent (frame-edit hurtbox) ((hurtbox (frame frame-edit)) trial-alloy::vec4))
+(alloy:define-subcomponent (frame-edit offset) ((offset (frame frame-edit)) trial-alloy::vec2 :step 1))
 (alloy:define-subcomponent (frame-edit velocity) ((velocity (frame frame-edit)) trial-alloy::vec2))
 (alloy:define-subcomponent (frame-edit multiplier) ((multiplier (frame frame-edit)) trial-alloy::vec2))
 (alloy:define-subcomponent (frame-edit knockback) ((knockback (frame frame-edit)) trial-alloy::vec2))
@@ -229,8 +230,8 @@
 
 (alloy:define-subcontainer (frame-edit layout)
     (alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :min-size (alloy:size 100 20))
-  frame-idx hurtbox velocity multiplier knockback damage stun interruptable invincible cancelable effect)
+  frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable effect)
 
 (alloy:define-subcontainer (frame-edit focus)
     (alloy:focus-list)
-  frame-idx hurtbox velocity multiplier knockback damage stun interruptable invincible cancelable effect)
+  frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable effect)

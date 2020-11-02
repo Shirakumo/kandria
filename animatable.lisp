@@ -23,6 +23,12 @@
 
 (defmethod minimum-idle-time ((animatable animatable)) 10)
 
+(defmethod apply-transforms progn ((animatable animatable))
+  (let ((frame (frame animatable)))
+    (translate-by (vx (offset frame))
+                  (vy (offset frame))
+                  0)))
+
 (defmethod attacking-p ((animatable animatable))
   (let ((idx (frame-idx animatable))
         (end (end (animation animatable)))

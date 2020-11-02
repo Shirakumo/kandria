@@ -5,6 +5,7 @@
 
 (defclass frame (sprite-frame alloy:observable)
   ((hurtbox :initform (vec 0 0 0 0) :accessor hurtbox)
+   (offset :initform (vec 0 0) :accessor offset)
    (velocity :initform (vec 0 0) :accessor velocity)
    (multiplier :initform (vec 0 0) :accessor multiplier)
    (knockback :initform (vec 0 0) :accessor knockback)
@@ -18,6 +19,7 @@
 (defmethod shared-initialize :after ((frame frame) slots &key sexp)
   (when sexp
     (destructuring-bind (&key (hurtbox '(0 0 0 0))
+                              (offset '(0 0))
                               (velocity '(0 0))
                               (multiplier '(1 1))
                               (knockback '(0 0))
@@ -26,14 +28,11 @@
                               (flags 1)
                               (effect NIL))
         sexp
-      (destructuring-bind (vx vy) velocity
-        (setf (velocity frame) (vec vx vy)))
-      (destructuring-bind (vx vy) multiplier
-        (setf (multiplier frame) (vec vx vy)))
-      (destructuring-bind (kx ky) knockback
-        (setf (knockback frame) (vec kx ky)))
-      (destructuring-bind (x y w h) hurtbox
-        (setf (hurtbox frame) (vec x y w h)))
+      (setf (hurtbox frame) (apply #'vec hurtbox))
+      (setf (offset frame) (apply #'vec offset))
+      (setf (velocity frame) (apply #'vec velocity))
+      (setf (multiplier frame) (apply #'vec multiplier))
+      (setf (knockback frame) (apply #'vec knockback))
       (setf (damage frame) damage)
       (setf (stun-time frame) (float stun-time))
       (setf (flags frame) flags)
@@ -55,6 +54,7 @@
 
 (defun transfer-frame (target source)
   (setf (hurtbox target) (vcopy (hurtbox source)))
+  (setf (offset target) (vcopy (offset source)))
   (setf (velocity target) (vcopy (velocity source)))
   (setf (multiplier target) (vcopy (multiplier source)))
   (setf (knockback target) (vcopy (knockback source)))
@@ -66,6 +66,7 @@
 
 (defmethod clear ((target frame))
   (setf (hurtbox target) (vec 0 0 0 0))
+  (setf (offset target) (vec 0 0))
   (setf (velocity target) (vec 0 0))
   (setf (multiplier target) (vec 0 0))
   (setf (knockback target) (vec 0 0))
@@ -85,7 +86,7 @@
           (vz hurtbox)
           (vw hurtbox))))
 
-(defmethod render :before ((subject animated-sprite) target)
+(defmethod apply-transforms progn ((subject animated-sprite))
   (translate-by 0 (- (vy (bsize subject))) 0))
 
 (defclass sprite-data (trial:sprite-data)
@@ -113,7 +114,7 @@
           (next-animation animation)))
 
 (defmethod write-animation ((frame frame) &optional (stream T))
-  (format stream "~& (:damage ~3a :stun-time ~3f :flags #b~4,'0b :effect ~10s :velocity (~4f ~4f) :multiplier (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f))"
+  (format stream "~& (:damage ~3a :stun-time ~3f :flags #b~4,'0b :effect ~10s :velocity (~4f ~4f) :multiplier (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f) :offset (~4f ~4f))"
           (damage frame)
           (stun-time frame)
           (flags frame)
@@ -121,7 +122,8 @@
           (vx (velocity frame)) (vy (velocity frame))
           (vx (multiplier frame)) (vy (multiplier frame))
           (vx (knockback frame)) (vy (knockback frame))
-          (vx (hurtbox frame)) (vy (hurtbox frame)) (vz (hurtbox frame)) (vw (hurtbox frame))))
+          (vx (hurtbox frame)) (vy (hurtbox frame)) (vz (hurtbox frame)) (vw (hurtbox frame))
+          (vx (offset frame)) (vy (offset frame))))
 
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
   (with-open-file (stream path :direction :input)
