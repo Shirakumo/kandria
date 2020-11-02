@@ -39,6 +39,9 @@
       (when (and b (collides-p moving (hit-object b) b))
         (setf (aref collisions 2) (hit-object b))))))
 
+(defmethod collides-p ((moving moving) (solid half-solid) hit)
+  (= 0 (vy (hit-normal hit))))
+
 (defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))
          (vel (frame-velocity moving))

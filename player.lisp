@@ -101,37 +101,44 @@
       (snap-to-target (unit :camera T) player))))
 
 (defmethod handle ((ev dash) (player player))
-  (let ((vel (velocity player))
-        (endangering (in-danger-p player)))
-    (cond (endangering
-           ;; FIXME: If we are holding the opposite of what
-           ;;        we are facing, we should evade left.
-           ;;        to do this, need to buffer for a while.
-           (if (= (direction player)
-                  (signum (- (vx (location endangering)) (vx (location player)))))
-               (start-animation 'evade-left player)
-               (start-animation 'evade-right player)))
-          ((and (= 0 (dash-time player))
-                (eq :normal (state player)))
-           (if (typep (trial::source-event ev) 'gamepad-event)
-               (let ((dev (device (trial::source-event ev))))
-                 (vsetf vel
-                        (absinvclamp 0.3 (gamepad:axis :l-h dev) 0.5)
-                        (absinvclamp 0.3 (gamepad:axis :l-v dev) 0.5)))
-               (vsetf vel
-                      (cond ((retained 'left)  -0.5)
-                            ((retained 'right) +0.5)
-                            (T                            0))
-                      (cond ((retained 'up)    +0.5)
-                            ((retained 'down)  -0.5)
-                            (T                            0))))
-           (setf (state player) :dashing)
-           (trigger 'dash player)
-           (setf (animation player) 'dash)
-           (when (v= 0 vel) (setf (vx vel) (direction player)))
-           (nvunit vel))
-          ((eq :animated (state player))
-           (setf (buffer player) 'dash)))))
+  (case (state player)
+    (:normal
+     (let ((vel (velocity player))
+           (endangering (in-danger-p player)))
+       (cond (endangering
+              ;; FIXME: If we are holding the opposite of what
+              ;;        we are facing, we should evade left.
+              ;;        to do this, need to buffer for a while.
+              (if (= (direction player)
+                     (signum (- (vx (location endangering)) (vx (location player)))))
+                  (start-animation 'evade-left player)
+                  (start-animation 'evade-right player)))
+             ((eq :normal (state player))
+              (if (typep (trial::source-event ev) 'gamepad-event)
+                  (let ((dev (device (trial::source-event ev))))
+                    (vsetf vel
+                           (absinvclamp 0.3 (gamepad:axis :l-h dev) 0.5)
+                           (absinvclamp 0.3 (gamepad:axis :l-v dev) 0.5)))
+                  (vsetf vel
+                         (cond ((retained 'left)  -0.5)
+                               ((retained 'right) +0.5)
+                               (T                            0))
+                         (cond ((retained 'up)    +0.5)
+                               ((retained 'down)  -0.5)
+                               (T                            0))))
+              (setf (state player) :dashing)
+              (trigger 'dash player)
+              (setf (animation player) 'dash)
+              (when (v= 0 vel) (setf (vx vel) (direction player)))
+              (nvunit vel)))))
+    (:animated
+     ;; Queue dash //except// for when we're being hit, as it's
+     ;; unlikely the player will want to dish right after getting
+     ;; hit.
+     (let ((name (name (animation player))))
+       (unless (or (eq name 'light-hit)
+                   (eq name 'hard-hit))
+         (setf (buffer player) 'dash))))))
 
 (defmethod handle ((ev jump) (player player))
   (cond ((eql :animated (state player))
