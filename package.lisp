@@ -6,7 +6,7 @@
            #:located-entity #:sized-entity #:sprite-entity
            #:camera #:light #:shadow-map-pass
            #:shadow-render-pass #:action #:editor-camera
-           #:animatable #:animated-sprite #:sprite-data
+           #:animatable #:sprite-data
            #:commit #:config-directory #:prompt)
   (:local-nicknames
    (#:dialogue #:org.shirakumo.fraf.kandria.dialogue)

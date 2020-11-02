@@ -252,8 +252,11 @@ void main(){
 (define-shader-entity lit-sprite (lit-vertex-entity sprite-entity)
   ())
 
-(define-shader-entity lit-animated-sprite (lit-vertex-entity animated-sprite)
+(define-shader-entity lit-animated-sprite (lit-vertex-entity trial:animated-sprite facing-entity sized-entity)
   ())
+
+(defmethod apply-transforms progn ((subject animated-sprite))
+  (translate-by 0 (- (vy (bsize subject))) 0))
 
 (define-shader-entity basic-light (light colored-entity)
   ((color :initform (vec4 0.3 0.25 0.1 1.0)

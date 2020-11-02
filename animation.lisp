@@ -1,8 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity animated-sprite (trial:animated-sprite facing-entity sized-entity)
-  ())
-
 (defclass frame (sprite-frame alloy:observable)
   ((hurtbox :initform (vec 0 0 0 0) :accessor hurtbox)
    (offset :initform (vec 0 0) :accessor offset)
@@ -75,19 +72,6 @@
   (setf (flags target) #b001)
   (setf (effect target) NIL)
   target)
-
-(defmethod hurtbox ((subject animated-sprite))
-  (let* ((location (location subject))
-         (direction (direction subject))
-         (frame (frame subject))
-         (hurtbox (hurtbox frame)))
-    (vec4 (+ (vx location) (* (vx hurtbox) direction))
-          (+ (vy location) (vy hurtbox))
-          (vz hurtbox)
-          (vw hurtbox))))
-
-(defmethod apply-transforms progn ((subject animated-sprite))
-  (translate-by 0 (- (vy (bsize subject))) 0))
 
 (defclass sprite-data (trial:sprite-data)
   ((json-file :initform NIL :accessor json-file)))
