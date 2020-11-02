@@ -226,6 +226,7 @@
     value))
 
 (defclass solid () ())
+(defclass half-solid (solid) ())
 (defclass resizable () ())
 
 (defstruct (hit (:constructor make-hit (object location &optional (time 0f0) (normal (vec 0 0)))))

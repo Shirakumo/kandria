@@ -236,7 +236,7 @@
       ;;                (start-animation 'tackle enemy))))))
       )))
 
-(define-shader-entity zombie (enemy solid)
+(define-shader-entity zombie (enemy half-solid)
   ((bsize :initform (vec 4 16))
    (health :initform 100))
   (:default-initargs
