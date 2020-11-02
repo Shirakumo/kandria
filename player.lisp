@@ -166,6 +166,16 @@
          (setf (buffer player) 'heavy-attack)
          (setf (state player) :animated))))
 
+(let ((type (copy-seq '(box zombie))))
+  (defmethod handle ((ev mouse-scroll) (player player))
+    (setf type (cycle-list type)))
+  
+  (defmethod handle ((ev mouse-release) (player player))
+    (when (eql :middle (button ev))
+      (let ((enemy (make-instance (first type) :location (mouse-world-pos (pos ev)))))
+        (enter enemy (region +world+))
+        (compile-into-pass enemy (region +world+) +world+)))))
+
 (flet ((handle-solid (player hit)
          (when (and (= +1 (vy (hit-normal hit)))
                     (< 0.1 (air-time player)))
