@@ -73,8 +73,9 @@
   :depends-on (:trial-glfw
                :trial-alloy
                :trial-harmony
-               :alloy-constraint
                :trial-steam
+               :trial-notify
+               :alloy-constraint
                :zip
                :fast-io
                :ieee-floats

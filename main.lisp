@@ -30,6 +30,8 @@
                (make-instance 'save-state)))))
 
 (defmethod update ((main main) tt dt fc)
+  (unless (deploy:deployed-p)
+    (notify:process-changes))
   (issue (scene main) 'tick :tt tt :dt (* (time-scale (scene main)) (float dt 1.0)) :fc fc)
   (process (scene main)))
 
@@ -61,6 +63,8 @@
     (load-keymap)
     (load-settings)
     (save-settings)
+    (unless (deploy:deployed-p)
+      (notify:watch T))
     (apply #'trial:launch 'main
            :width (setting :display :width)
            :height (setting :display :height)
