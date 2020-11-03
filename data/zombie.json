@@ -326,6 +326,7 @@
    { "name": "Stand", "from": 0, "to": 0, "direction": "forward" },
    { "name": "Idle", "from": 0, "to": 0, "direction": "forward" },
    { "name": "Fall", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "Jump", "from": 0, "to": 0, "direction": "forward" },
    { "name": "Run", "from": 1, "to": 4, "direction": "forward" },
    { "name": "Walk", "from": 1, "to": 4, "direction": "forward" },
    { "name": "Attack", "from": 5, "to": 14, "direction": "forward" },
