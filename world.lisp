@@ -97,8 +97,7 @@
   (load-state :quick world))
 
 (defmethod handle ((ev report-bug) (world world))
-  (pause-game world (unit 'ui-pass world))
-  (make-instance 'report-input :ui (unit 'ui-pass world)))
+  (toggle-panel 'report-input))
 
 (defmethod handle ((ev toggle-editor) (world world))
   (toggle-panel 'editor))
