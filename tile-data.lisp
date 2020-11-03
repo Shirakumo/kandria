@@ -25,3 +25,10 @@
           (list (resource data 'albedo)
                 (resource data 'absorption)
                 (resource data 'normal))))))
+
+(defmethod notify:files-to-watch append ((asset tile-data))
+  (list (make-pathname :type "ase" :defaults (input* asset))))
+
+(defmethod notify:notify ((asset tile-data) file)
+  (when (string= "ase" (pathname-type file))
+    (ql:quickload :kandria-data)))
