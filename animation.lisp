@@ -79,7 +79,7 @@
 (defmethod notify:files-to-watch append ((asset sprite-data))
   (list (make-pathname :type "ase" :defaults (input* asset))))
 
-(defmethod notify:notify ((asset sprite-data) file)
+(defmethod notify:notify :before ((asset sprite-data) file)
   (when (string= "ase" (pathname-type file))
     (ql:quickload :kandria-data)))
 
