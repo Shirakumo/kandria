@@ -97,7 +97,7 @@
   (load-state :quick world))
 
 (defmethod handle ((ev report-bug) (world world))
-  (toggle-panel 'report-input))
+  (toggle-panel 'report-panel))
 
 (defmethod handle ((ev toggle-editor) (world world))
   (toggle-panel 'editor))
