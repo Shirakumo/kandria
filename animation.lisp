@@ -76,6 +76,13 @@
 (defclass sprite-data (trial:sprite-data)
   ((json-file :initform NIL :accessor json-file)))
 
+(defmethod notify:files-to-watch append ((asset sprite-data))
+  (list (make-pathname :type "ase" :defaults (input* asset))))
+
+(defmethod notify:notify ((asset sprite-data) file)
+  (when (string= "ase" (pathname-type file))
+    (ql:quickload :kandria-data)))
+
 (defmethod write-animation ((sprite sprite-data) &optional (stream T))
   (let ((*package* #.*package*))
     (format stream "(:source ~s~%" (json-file sprite))
@@ -110,31 +117,32 @@
           (vx (offset frame)) (vy (offset frame))))
 
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
-  (with-open-file (stream path :direction :input)
-    (destructuring-bind (&key source animations frames) (read stream)
-      (setf (json-file sprite) source)
-      (prog1 (call-next-method sprite (merge-pathnames (json-file sprite) path))
-        (loop for expr in animations
-              do (destructuring-bind (name &key start end loop-to next) expr
-                   (let ((animation (find name (animations sprite) :key #'name)))
-                     (when loop-to
-                       (setf (loop-to animation) loop-to))
-                     (when next
-                       (setf (next-animation animation) next))
-                     ;; Attempt to account for changes in the frame counts of the animations
-                     ;; by updating frame data per-animation here. We have to assume that
-                     ;; frames are only removed or added at the end of an animation, as we
-                     ;; can't know anything more.
-                     (when (and start end)
-                       (let ((rstart (start animation))
-                             (rend (end animation))
-                             (rframes (frames sprite)))
-                         (when (< (loop-to animation) rstart)
-                           (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
-                         (loop for i from 0 below (min (- end start) (- rend rstart))
-                               for frame = (elt rframes (+ rstart i))
-                               for frame-info = (elt frames (+ start i))
-                               do (change-class frame 'frame :sexp frame-info)))))))
-        ;; Make sure all frames are in the correct class.
-        (loop for frame across (frames sprite)
-              do (unless (typep frame 'frame) (change-class frame 'frame)))))))
+  (with-kandria-io-syntax
+    (with-open-file (stream path :direction :input)
+      (destructuring-bind (&key source animations frames) (read stream)
+        (setf (json-file sprite) source)
+        (prog1 (call-next-method sprite (merge-pathnames (json-file sprite) path))
+          (loop for expr in animations
+                do (destructuring-bind (name &key start end loop-to next) expr
+                     (let ((animation (find name (animations sprite) :key #'name)))
+                       (when loop-to
+                         (setf (loop-to animation) loop-to))
+                       (when next
+                         (setf (next-animation animation) next))
+                       ;; Attempt to account for changes in the frame counts of the animations
+                       ;; by updating frame data per-animation here. We have to assume that
+                       ;; frames are only removed or added at the end of an animation, as we
+                       ;; can't know anything more.
+                       (when (and start end)
+                         (let ((rstart (start animation))
+                               (rend (end animation))
+                               (rframes (frames sprite)))
+                           (when (< (loop-to animation) rstart)
+                             (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
+                           (loop for i from 0 below (min (- end start) (- rend rstart))
+                                 for frame = (elt rframes (+ rstart i))
+                                 for frame-info = (elt frames (+ start i))
+                                 do (change-class frame 'frame :sexp frame-info)))))))
+          ;; Make sure all frames are in the correct class.
+          (loop for frame across (frames sprite)
+                do (unless (typep frame 'frame) (change-class frame 'frame))))))))
