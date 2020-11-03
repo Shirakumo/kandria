@@ -30,10 +30,10 @@
      :token "D794637E-314B-4CE3-9FCA-55A3CF95146D"
      :token-secret "B9743038-1661-49E2-B363-C174D0761289")))
 
-(defclass report-input (pausing-panel)
+(defclass report-panel (pausing-panel)
   ())
 
-(defmethod initialize-instance :after ((panel report-input) &key)
+(defmethod initialize-instance :after ((panel report-panel) &key)
   (let* ((description "")
          (username (find-user-id))
          (layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
@@ -76,12 +76,11 @@
 
 (defmethod initialize-instance :after ((panel report-button) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-        (focus (make-instance 'alloy:focus-list))
         (button (alloy:represent "Submit Feedback" 'alloy:button
                                  :style `((:background :pattern ,colors:accent)
                                           (:label :pattern ,colors:white)))))
     (alloy:enter button layout :constraints `((:right 0) (:top 0) (:size 200 30)))
-    (alloy:enter button focus)
     (alloy:on alloy:activate (button)
-      (issue +world+ 'report-bug))
-    (alloy:finish-structure panel layout focus)))
+      (unless (find-panel 'report-panel)
+        (show (make-instance 'report-panel))))
+    (alloy:finish-structure panel layout button)))

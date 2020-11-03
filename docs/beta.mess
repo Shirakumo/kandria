@@ -1,0 +1,52 @@
+# Kandria Beta Testing
+Hi, welcome to the beta testers programme for Kandria! Thank you very much for participating and helping us out with development! This is a short guide to help you make reports and to give you some idea on how to look for bugs and problems in the game.
+
+## Getting set up
+First of all, you should have received a Steam key as part of entering this programme. This key will give you access to the full version of the game, as well as continuous testing releases.
+
+After activating the key with Steam, you'll have to switch it to the development branch in order to get testing releases. To do so, right click on the game, go to properties, BETAS, and then select the "developer" branch in the dropdown menu. This should cause Steam to immediately download the latest testing release.
+
+Steam should also automatically start downloading new releases for you as they get published. If you notice Kandria popping up in Steam's download list, give it a try, there's probably new features to test!
+
+## Providing feedback
+The easiest way to provide feedback is to use the game's integrated feedback system. Simply click the button in the top right of the game, or hit F12 at any point. This will pause the game and give you a text box to more closely describe your issue. Once you hit submit, it will automatically gather information about your machine, and send that along with your description, a screenshot, and a save state of your current point to us to analyse.
+
+If possible, please also join our "Discord"(https://discord.gg/WNTygau), and include your Discord tag in the report so that we can get back to you in case we have trouble reproducing the issue. We'll occasionally use the Discord to ask for specific things to test, and you'll get a special role there to show your support for us!
+
+Generally in your reports, please make sure to describe the issue in a bit of detail, like this:
+
+| I tried to talk to Catcherine after picking up the quest item, but she didn't have anything new to say. It looks like her dialogue is bugged out, I would have expected her to say something to me.
+
+Or:
+
+| I got stuck in the world after I jumped and then dashed underneath the falling block. I can recreate the problem every time.
+
+Or:
+
+| Jumping down this pit killed me, but it wasn't clear to me that it would be death. Some kind of indicator would help.
+
+Or: 
+
+| Sometimes I get hit by the machines despite appearing out of range for their attacks. I can't even dodge away from them either, I just get hit no matter what.
+
+In more general terms, try to include the following information in your description:
+
+- What you were trying to do before the problem occurred
+- Whether you were able to easily recreate the problem
+- What you expected to happen and what actually happened instead
+
+If you would like to discuss the problem in more detail on Discord, feel free to talk about it in the ``#testing`` channel. Please include the report ID shown to you after you submit the report.
+
+## How to test
+The most important thing to test is to just play the game as you normally would. If you don't encounter any issues in doing so, that's already a pretty good sign. 
+
+## Privacy statement
+When submitting a report, the following information is sent to our servers and stored there:
+
+- The name and description you fill out in the feedback form
+- Your machine's properties such as the CPU and GPU manufacturer, type, the amount of RAM, the version of your operating system, and so forth
+- A screenshot of the contents of the Kandria window
+- A save state of your current game
+- The log file produced by Kandria for your current game
+
+We do **not** store your IP address or any other personally identifying information. At request we will also delete all of your report information from our servers permanently.

@@ -96,6 +96,8 @@
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
     (alloy:enter panel (alloy:root (alloy:focus-tree ui)))
     (alloy:register panel ui)
+    (when (alloy:focus-element panel)
+      (setf (alloy:focus (alloy:focus-element panel)) :strong))
     (push panel (panels ui))
     panel))
 
