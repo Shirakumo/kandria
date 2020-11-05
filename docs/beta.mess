@@ -29,6 +29,10 @@ Or:
 
 | Sometimes I get hit by the machines despite appearing out of range for their attacks. I can't even dodge away from them either, I just get hit no matter what.
 
+Or:
+
+| The game stutters when I enter the hub. Looking at the diagnostics screen there's frequent frame drops.
+
 In more general terms, try to include the following information in your description:
 
 - What you were trying to do before the problem occurred
@@ -38,7 +42,17 @@ In more general terms, try to include the following information in your descript
 If you would like to discuss the problem in more detail on Discord, feel free to talk about it in the ``#testing`` channel. Please include the report ID shown to you after you submit the report.
 
 ## How to test
-The most important thing to test is to just play the game as you normally would. If you don't encounter any issues in doing so, that's already a pretty good sign. 
+The most important thing to test is to just play the game as you normally would. If you don't encounter any issues in doing so, that's already a pretty good sign. Otherwise, testing for glitches and issues involves trying out things you normally //wouldn't// do, or wouldn't intend on doing.
+
+For story related things this means performing quest tasks out of order, partially solving multiple quests at the same time, checking that only things relevant to the current quests are actually accessible, and so forth. Generally there's two classes of problems to find here: problems that prevent the player from progressing and causing them to get stuck, and problems that make the progression confusing.
+
+For movement related things, the most obvious glitch to test for is to see whether you can get stuck in geometry somehow. This means trying a combination of dashing, attacking, jumping, fast walking, and so forth with different configurations of blocks, slopes, and other things like ropes and water. Another thing to test for is whether the jumping puzzle areas can be completed, and how difficult it is to do so. If it feels too easy or too hard to do, that can be worth reporting as well. If the movement in a certain area of the game feels awkward or annoying, that too is worth reporting.
+
+For combat, make sure that there's no way to get into a fight that you can't get out of. Typically you should be able to run from things, but if there is a way for the player to get stuck dying over and over, that's a very bad sign. Other than that, testing combat is about ensuring that it feels fair and fun. That's a pretty vague metric, so here's some more specific things to watch out for: make sure you can't just mash a single button to win an encounter. Check that when you or an enemy gets hit, the hit actually connects and lands properly. See whether the knockback and stun feel appropriate to the attacks. Ensure that every attack is actually dodgeable if you time it right and that the dodge timing isn't too lenient. For encounters, make sure they can be beaten in a reasonable amount of time and don't drag on too long and get frustrating.
+
+For UI, make sure the information shown is actually accurate, and that no combination of loading, saving, and changing settings can mess up your game somehow. Otherwise ensure that the UI is easy to understand and navigate, especially with a gamepad. If there's parts that you think are confusing or could be more clearly communicated, that's worth reporting.
+
+We are especially interested in feedback from people with physical impairments. If the game is hard for you to play, please let us know so that we can try and fix the game for you or provide options to make it more accessible to you.
 
 ## Privacy statement
 When submitting a report, the following information is sent to our servers and stored there:
