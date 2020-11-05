@@ -5,15 +5,50 @@
 
 (define-shader-entity rope (lit-vertex-entity sized-entity interactable listener resizable ephemeral)
   ((vertex-array :initform (// 'kandria 'rope-part))
-   (chain :initform #() :accessor chain))
+   (chain :initform #() :accessor chain)
+   (extended :initform T :initarg :extended :accessor extended
+             :type boolean)
+   (direction :initform +1 :initarg :direction :accessor direction
+              :type (integer -1 1)))
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
-(defmethod initialize-instance :after ((rope rope) &key)
+(defmethod initialize-instance :after ((rope rope) &key (extended T))
   (setf (chain rope) (make-array (floor (vy (bsize rope)) 4)))
-  (loop for i from 0 below (length (chain rope))
-        do (setf (aref (chain rope) i) (list (vec 0 (* i -8)) (vec 0 (* i -8))))))
+  (setf (extended rope) extended))
 
-(defmethod interactable-p ((rope rope)) NIL)
+(defmethod (setf extended) :after (state (rope rope))
+  (ecase state
+    ((T)
+     (loop for i from 0 below (length (chain rope))
+           do (setf (aref (chain rope) i) (list (vec 0 (* i -8)) (vec 0 (* i -8))))))
+    ((NIL)
+     (setf (aref (chain rope) 0) (list (vec 0 -6) (vec 0 0)))
+     (setf (aref (chain rope) 1) (list (vec 0 0) (vec 0 0)))
+     (loop for i from 2 below (length (chain rope))
+           for pos = (vec (- (* 8 (sin (/ i 2))) 16) (/ i 5))
+           do (setf (aref (chain rope) i) (list pos (vcopy pos)))))))
+
+(defmethod contained-p ((vec vec4) (rope rope))
+  (ecase (extended rope)
+    ((T)
+     (call-next-method))
+    ((NIL)
+     (let ((loc (location rope))
+           (bsize (bsize rope)))
+       (contained-p vec (vec (- (vx loc) (* (direction rope) 8))
+                             (+ (vy loc) (vy bsize))
+                             16 8))))))
+
+(defmethod interactable-p ((rope rope))
+  (not (extended rope)))
+
+(defmethod interact ((rope rope) player)
+  (unless (extended rope)
+    (harmony:play (// 'kandria 'rope))
+    (setf (slot-value rope 'extended) T)
+    (loop for i from 0 below (length (chain rope))
+          do (destructuring-bind (pos prev) (aref (chain rope) i)
+               (nv+ pos (vec (* 2 (direction rope) (/ i 5)) (- 2 (/ i 20))))))))
 
 (defmethod layer-index ((rope rope)) +base-layer+)
 
@@ -23,11 +58,13 @@
     (when (<= 1 i (- (length chain) 2))
       (setf (vx (first (aref chain (1- i)))) 0)
       (setf (vx (first (aref chain i))) strength)
+      (setf (vy (first (aref chain i))) (- (vy pos) 28))
       (incf (vx (first (aref chain (1+ i)))) (* (signum strength) -0.5)))))
 
 (defmethod handle ((ev tick) (rope rope))
   (declare (optimize speed))
-  (when (in-view-p (location rope) (bsize rope))
+  (when (and (extended rope)
+             (in-view-p (location rope) (bsize rope)))
     (let ((chain (chain rope))
           (drag 0.9)
           (g #.(vec 0 -9)))

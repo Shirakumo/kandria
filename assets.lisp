@@ -110,6 +110,10 @@
     #p"sound/slash.wav"
   :volume 0.05)
 
+(define-asset (kandria rope) sound
+    #p"sound/rope.wav"
+  :volume 0.1)
+
 (define-gi none
   :location NIL
   :light (vec 0 0 0)

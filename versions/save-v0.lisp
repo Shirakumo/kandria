@@ -65,6 +65,9 @@
     :velocity ,(encode (velocity moving-platform))
     :state ,(state moving-platform)))
 
+(define-encoder (rope save-v0) (_b _p)
+  `(:extended ,(extended rope)))
+
 (define-decoder (world save-v0) (_b packet)
   (destructuring-bind (&key region clock)
       (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
@@ -149,3 +152,7 @@
     (setf (velocity moving-platform) (decode 'vec2 velocity))
     (setf (state moving-platform) state)
     moving-platform))
+
+(define-decoder (rope save-v0) (initargs _p)
+  (destructuring-bind (&key extended) initargs
+    (setf (extended rope) extended)))

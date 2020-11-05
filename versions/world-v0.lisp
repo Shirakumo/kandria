@@ -141,14 +141,20 @@
   `(background))
 
 (define-decoder (rope world-v0) (initargs _)
-  (destructuring-bind (&key location bsize) initargs
+  (destructuring-bind (&key location (direction +1) bsize extended name) initargs
     (make-instance 'rope
+                   :name name
                    :location (decode 'vec2 location)
-                   :bsize (decode 'vec2 bsize))))
+                   :bsize (decode 'vec2 bsize)
+                   :direction direction
+                   :extended extended)))
 
 (define-encoder (rope world-v0) (_b _p)
-  `(rope :location ,(encode (location rope))
-         :bsize ,(encode (bsize rope))))
+  `(rope :name ,(name rope)
+         :location ,(encode (location rope))
+         :bsize ,(encode (bsize rope))
+         :direction ,(direction rope)
+         :extended ,(extended rope)))
 
 (define-decoder (water world-v0) (initargs _)
   (destructuring-bind (&key location bsize) initargs

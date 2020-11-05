@@ -247,6 +247,14 @@
 ;; Returns T if TARGET is contained in THING.
 (defgeneric contained-p (target thing))
 
+(defmethod contained-p ((point vec2) (rect vec4))
+  (and (<= (- (vx4 rect) (vz4 rect)) (vx2 point) (+ (vx4 rect) (vz4 rect)))
+       (<= (- (vy4 rect) (vw4 rect)) (vy2 point) (+ (vy4 rect) (vw4 rect)))))
+
+(defmethod contained-p ((a vec4) (b vec4))
+  (and (< (abs (- (vx a) (vx b))) (+ (vz a) (vz b)))
+       (< (abs (- (vy a) (vy b))) (+ (vw a) (vw b)))))
+
 (defmethod scan (target region on-hit))
 (defmethod collides-p (object target hit) NIL)
 (defmethod collides-p (object (target solid) hit) T)
