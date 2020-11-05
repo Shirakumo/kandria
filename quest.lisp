@@ -3,6 +3,9 @@
 (defclass quest (quest:quest)
   ())
 
+(defmethod quest:activate :after ((quest quest))
+  (status :important "New quest: ~a" (quest:title quest)))
+
 (defmethod quest:make-assembly ((_ quest))
   (make-instance 'assembly))
 
@@ -11,6 +14,20 @@
 
 (defmethod quest:make-assembly ((task task))
   (make-instance 'assembly))
+
+(defclass interaction (quest:interaction)
+  ())
+
+(defmethod quest:activate ((trigger interaction))
+  (with-simple-restart (abort "Don't activate the interaction.")
+    (let ((interactable (unit (quest:interactable trigger) +world+)))
+      (when (typep interactable 'interactable)
+        (pushnew trigger (interactions interactable))))))
+
+(defmethod quest:deactivate ((trigger interaction))
+  (let ((interactable (unit (quest:interactable trigger) +world+)))
+    (when (typep interactable 'interactable)
+      (setf (interactions interactable) (remove interactable (interactions interactable))))))
 
 (defclass assembly (dialogue:assembly)
   ())
