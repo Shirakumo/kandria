@@ -67,7 +67,7 @@
              (in-view-p (location rope) (bsize rope)))
     (let ((chain (chain rope))
           (drag 0.9)
-          (g #.(vec 0 -9)))
+          (g #.(vec 0 -20)))
       (declare (type (simple-array T (*)) chain))
       (loop for (pos prev) across chain
             do (let ((dx (* (- (vx pos) (vx prev)) drag))
