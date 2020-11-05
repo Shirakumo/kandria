@@ -177,7 +177,7 @@
         (compile-into-pass enemy (region +world+) +world+)))))
 
 (flet ((handle-solid (player hit)
-         (when (and (= +1 (vy (hit-normal hit)))
+         (when (and (< 0 (vy (hit-normal hit)))
                     (< 0.1 (air-time player)))
            (cond ((< 0.7 (air-time player))
                   (harmony:play (// 'kandria 'land))
