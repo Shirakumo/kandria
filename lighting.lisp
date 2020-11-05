@@ -12,6 +12,10 @@
       (remhash name *gi-info*))
   value)
 
+(defun list-gis ()
+  (loop for v being the hash-values of *gi-info*
+        collect v))
+
 (defmacro define-gi (name &body initargs)
   (let ((existing (gensym "EXISTING")))
     `(let ((,existing (ignore-errors (gi ',name))))
