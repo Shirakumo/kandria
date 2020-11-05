@@ -2286,7 +2286,7 @@
     "duration": 100
    },
    {
-    "filename": "0 Light Air 1",
+    "filename": "0 Light Aerial 1",
     "frame": { "x": 585, "y": 290, "w": 17, "h": 38 },
     "rotated": false,
     "trimmed": true,
@@ -2295,7 +2295,7 @@
     "duration": 150
    },
    {
-    "filename": "1 Light Air 1",
+    "filename": "1 Light Aerial 1",
     "frame": { "x": 206, "y": 254, "w": 20, "h": 38 },
     "rotated": false,
     "trimmed": true,
@@ -2304,7 +2304,7 @@
     "duration": 60
    },
    {
-    "filename": "2 Light Air 1",
+    "filename": "2 Light Aerial 1",
     "frame": { "x": 748, "y": 97, "w": 55, "h": 37 },
     "rotated": false,
     "trimmed": true,
@@ -2313,7 +2313,7 @@
     "duration": 80
    },
    {
-    "filename": "3 Light Air 1",
+    "filename": "3 Light Aerial 1",
     "frame": { "x": 692, "y": 88, "w": 55, "h": 39 },
     "rotated": false,
     "trimmed": true,
@@ -2322,7 +2322,7 @@
     "duration": 60
    },
    {
-    "filename": "4 Light Air 1",
+    "filename": "4 Light Aerial 1",
     "frame": { "x": 232, "y": 39, "w": 74, "h": 39 },
     "rotated": false,
     "trimmed": true,
@@ -2331,7 +2331,7 @@
     "duration": 60
    },
    {
-    "filename": "5 Light Air 1",
+    "filename": "5 Light Aerial 1",
     "frame": { "x": 281, "y": 125, "w": 50, "h": 38 },
     "rotated": false,
     "trimmed": true,
@@ -2340,7 +2340,7 @@
     "duration": 150
    },
    {
-    "filename": "6 Light Air 1",
+    "filename": "6 Light Aerial 1",
     "frame": { "x": 444, "y": 149, "w": 41, "h": 38 },
     "rotated": false,
     "trimmed": true,
@@ -2349,7 +2349,7 @@
     "duration": 150
    },
    {
-    "filename": "0 Light Air 2",
+    "filename": "0 Light Aerial 2",
     "frame": { "x": 202, "y": 85, "w": 29, "h": 37 },
     "rotated": false,
     "trimmed": true,
@@ -2358,7 +2358,7 @@
     "duration": 100
    },
    {
-    "filename": "1 Light Air 2",
+    "filename": "1 Light Aerial 2",
     "frame": { "x": 312, "y": 228, "w": 25, "h": 38 },
     "rotated": false,
     "trimmed": true,
@@ -2367,7 +2367,7 @@
     "duration": 100
    },
    {
-    "filename": "2 Light Air 2",
+    "filename": "2 Light Aerial 2",
     "frame": { "x": 281, "y": 90, "w": 62, "h": 34 },
     "rotated": false,
     "trimmed": true,
@@ -2376,7 +2376,7 @@
     "duration": 80
    },
    {
-    "filename": "3 Light Air 2",
+    "filename": "3 Light Aerial 2",
     "frame": { "x": 703, "y": 0, "w": 93, "h": 36 },
     "rotated": false,
     "trimmed": true,
@@ -2385,7 +2385,7 @@
     "duration": 30
    },
    {
-    "filename": "4 Light Air 2",
+    "filename": "4 Light Aerial 2",
     "frame": { "x": 380, "y": 0, "w": 106, "h": 36 },
     "rotated": false,
     "trimmed": true,
@@ -2394,7 +2394,7 @@
     "duration": 80
    },
    {
-    "filename": "5 Light Air 2",
+    "filename": "5 Light Aerial 2",
     "frame": { "x": 166, "y": 0, "w": 108, "h": 37 },
     "rotated": false,
     "trimmed": true,
@@ -2403,7 +2403,7 @@
     "duration": 100
    },
    {
-    "filename": "6 Light Air 2",
+    "filename": "6 Light Aerial 2",
     "frame": { "x": 275, "y": 0, "w": 104, "h": 38 },
     "rotated": false,
     "trimmed": true,
@@ -2412,7 +2412,7 @@
     "duration": 50
    },
    {
-    "filename": "0 Light Air 3",
+    "filename": "0 Light Aerial 3",
     "frame": { "x": 236, "y": 161, "w": 44, "h": 34 },
     "rotated": false,
     "trimmed": true,
@@ -2421,7 +2421,7 @@
     "duration": 80
    },
    {
-    "filename": "1 Light Air 3",
+    "filename": "1 Light Aerial 3",
     "frame": { "x": 662, "y": 187, "w": 42, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -2430,7 +2430,7 @@
     "duration": 120
    },
    {
-    "filename": "2 Light Air 3",
+    "filename": "2 Light Aerial 3",
     "frame": { "x": 0, "y": 149, "w": 54, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2439,7 +2439,7 @@
     "duration": 50
    },
    {
-    "filename": "3 Light Air 3",
+    "filename": "3 Light Aerial 3",
     "frame": { "x": 764, "y": 65, "w": 83, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2448,7 +2448,7 @@
     "duration": 80
    },
    {
-    "filename": "4 Light Air 3",
+    "filename": "4 Light Aerial 3",
     "frame": { "x": 436, "y": 57, "w": 88, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2457,7 +2457,7 @@
     "duration": 65
    },
    {
-    "filename": "5 Light Air 3",
+    "filename": "5 Light Aerial 3",
     "frame": { "x": 556, "y": 54, "w": 89, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2466,7 +2466,7 @@
     "duration": 70
    },
    {
-    "filename": "6 Light Air 3",
+    "filename": "6 Light Aerial 3",
     "frame": { "x": 0, "y": 56, "w": 89, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2475,7 +2475,7 @@
     "duration": 30
    },
    {
-    "filename": "7 Light Air 3",
+    "filename": "7 Light Aerial 3",
     "frame": { "x": 436, "y": 88, "w": 73, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2484,7 +2484,7 @@
     "duration": 45
    },
    {
-    "filename": "8 Light Air 3",
+    "filename": "8 Light Aerial 3",
     "frame": { "x": 585, "y": 196, "w": 40, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2493,7 +2493,7 @@
     "duration": 20
    },
    {
-    "filename": "0 Heavy Air 1",
+    "filename": "0 Heavy Aerial 1",
     "frame": { "x": 585, "y": 290, "w": 17, "h": 38 },
     "rotated": false,
     "trimmed": true,
@@ -2502,7 +2502,7 @@
     "duration": 80
    },
    {
-    "filename": "1 Heavy Air 1",
+    "filename": "1 Heavy Aerial 1",
     "frame": { "x": 705, "y": 187, "w": 30, "h": 42 },
     "rotated": false,
     "trimmed": true,
@@ -2511,7 +2511,7 @@
     "duration": 80
    },
    {
-    "filename": "2 Heavy Air 1",
+    "filename": "2 Heavy Aerial 1",
     "frame": { "x": 568, "y": 138, "w": 44, "h": 39 },
     "rotated": false,
     "trimmed": true,
@@ -2520,7 +2520,7 @@
     "duration": 100
    },
    {
-    "filename": "3 Heavy Air 1",
+    "filename": "3 Heavy Aerial 1",
     "frame": { "x": 805, "y": 144, "w": 45, "h": 38 },
     "rotated": false,
     "trimmed": true,
@@ -2529,7 +2529,7 @@
     "duration": 120
    },
    {
-    "filename": "4 Heavy Air 1",
+    "filename": "4 Heavy Aerial 1",
     "frame": { "x": 568, "y": 86, "w": 46, "h": 51 },
     "rotated": false,
     "trimmed": true,
@@ -2538,7 +2538,7 @@
     "duration": 80
    },
    {
-    "filename": "5 Heavy Air 1",
+    "filename": "5 Heavy Aerial 1",
     "frame": { "x": 797, "y": 0, "w": 51, "h": 64 },
     "rotated": false,
     "trimmed": true,
@@ -2547,7 +2547,7 @@
     "duration": 80
    },
    {
-    "filename": "6 Heavy Air 1",
+    "filename": "6 Heavy Aerial 1",
     "frame": { "x": 380, "y": 37, "w": 55, "h": 56 },
     "rotated": false,
     "trimmed": true,
@@ -2556,7 +2556,7 @@
     "duration": 80
    },
    {
-    "filename": "7 Heavy Air 1",
+    "filename": "7 Heavy Aerial 1",
     "frame": { "x": 135, "y": 85, "w": 66, "h": 36 },
     "rotated": false,
     "trimmed": true,
@@ -2565,7 +2565,7 @@
     "duration": 80
    },
    {
-    "filename": "8 Heavy Air 1",
+    "filename": "8 Heavy Aerial 1",
     "frame": { "x": 740, "y": 167, "w": 45, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -2574,7 +2574,7 @@
     "duration": 80
    },
    {
-    "filename": "9 Heavy Air 1",
+    "filename": "9 Heavy Aerial 1",
     "frame": { "x": 102, "y": 180, "w": 45, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2583,7 +2583,7 @@
     "duration": 100
    },
    {
-    "filename": "10 Heavy Air 1",
+    "filename": "10 Heavy Aerial 1",
     "frame": { "x": 0, "y": 181, "w": 45, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2592,7 +2592,7 @@
     "duration": 150
    },
    {
-    "filename": "11 Heavy Air 1",
+    "filename": "11 Heavy Aerial 1",
     "frame": { "x": 786, "y": 183, "w": 45, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2601,7 +2601,7 @@
     "duration": 150
    },
    {
-    "filename": "0 Heavy Air 2",
+    "filename": "0 Heavy Aerial 2",
     "frame": { "x": 193, "y": 222, "w": 32, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2610,7 +2610,7 @@
     "duration": 80
    },
    {
-    "filename": "1 Heavy Air 2",
+    "filename": "1 Heavy Aerial 2",
     "frame": { "x": 149, "y": 226, "w": 32, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2619,7 +2619,7 @@
     "duration": 100
    },
    {
-    "filename": "2 Heavy Air 2",
+    "filename": "2 Heavy Aerial 2",
     "frame": { "x": 279, "y": 227, "w": 32, "h": 31 },
     "rotated": false,
     "trimmed": true,
@@ -2628,7 +2628,7 @@
     "duration": 125
    },
    {
-    "filename": "3 Heavy Air 2",
+    "filename": "3 Heavy Aerial 2",
     "frame": { "x": 344, "y": 94, "w": 70, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2637,7 +2637,7 @@
     "duration": 80
    },
    {
-    "filename": "4 Heavy Air 2",
+    "filename": "4 Heavy Aerial 2",
     "frame": { "x": 485, "y": 143, "w": 58, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2646,7 +2646,7 @@
     "duration": 80
    },
    {
-    "filename": "5 Heavy Air 2",
+    "filename": "5 Heavy Aerial 2",
     "frame": { "x": 683, "y": 128, "w": 63, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2655,7 +2655,7 @@
     "duration": 80
    },
    {
-    "filename": "6 Heavy Air 2",
+    "filename": "6 Heavy Aerial 2",
     "frame": { "x": 330, "y": 175, "w": 49, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2664,7 +2664,7 @@
     "duration": 30
    },
    {
-    "filename": "7 Heavy Air 2",
+    "filename": "7 Heavy Aerial 2",
     "frame": { "x": 64, "y": 236, "w": 28, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2673,7 +2673,7 @@
     "duration": 30
    },
    {
-    "filename": "8 Heavy Air 2",
+    "filename": "8 Heavy Aerial 2",
     "frame": { "x": 0, "y": 245, "w": 28, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2682,7 +2682,7 @@
     "duration": 30
    },
    {
-    "filename": "9 Heavy Air 2",
+    "filename": "9 Heavy Aerial 2",
     "frame": { "x": 615, "y": 244, "w": 28, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -2916,11 +2916,11 @@
    { "name": "Heavy Ground 3", "from": 215, "to": 233, "direction": "forward" },
    { "name": "Light Up", "from": 234, "to": 243, "direction": "forward" },
    { "name": "Heavy Up", "from": 244, "to": 253, "direction": "forward" },
-   { "name": "Light Air 1", "from": 254, "to": 260, "direction": "forward" },
-   { "name": "Light Air 2", "from": 261, "to": 267, "direction": "forward" },
-   { "name": "Light Air 3", "from": 268, "to": 276, "direction": "forward" },
-   { "name": "Heavy Air 1", "from": 277, "to": 288, "direction": "forward" },
-   { "name": "Heavy Air 2", "from": 289, "to": 298, "direction": "forward" },
+   { "name": "Light Aerial 1", "from": 254, "to": 260, "direction": "forward" },
+   { "name": "Light Aerial 2", "from": 261, "to": 267, "direction": "forward" },
+   { "name": "Light Aerial 3", "from": 268, "to": 276, "direction": "forward" },
+   { "name": "Heavy Aerial 1", "from": 277, "to": 288, "direction": "forward" },
+   { "name": "Heavy Aerial 2", "from": 289, "to": 298, "direction": "forward" },
    { "name": "Hard Hit", "from": 299, "to": 309, "direction": "forward" },
    { "name": "Die", "from": 299, "to": 309, "direction": "forward" },
    { "name": "Light hit", "from": 310, "to": 317, "direction": "forward" },
