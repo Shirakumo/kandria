@@ -30,8 +30,8 @@
     (let ((dialogue (etypecase dialogue
                       (pathname (packet-entry dialogue packet :element-type 'character))
                       (string dialogue))))
-      (make-instance 'quest:interaction :name name :title (or title (string name)) :task task
-                                        :interactable interactable :dialogue dialogue))))
+      (make-instance 'interaction :name name :title (or title (string name)) :task task
+                                  :interactable interactable :dialogue dialogue))))
 
 (define-decoder (region world-v0) (info packet)
   (let* ((region (apply #'make-instance 'region info))
