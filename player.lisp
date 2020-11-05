@@ -244,6 +244,7 @@
       ((:dying :animated :stunned)
        (let ((buffer (buffer player)))
          (when (and buffer (cancelable-p (frame player)))
+           (setf (buffer player) NIL)
            (cond ((retained 'left) (setf (direction player) -1))
                  ((retained 'right) (setf (direction player) +1)))
            (case buffer
@@ -283,8 +284,7 @@
               (handle (make-instance 'dash) player))
              (jump
               (setf (state player) :normal)
-              (handle (make-instance 'jump) player)))
-           (setf (buffer player) NIL)))
+              (handle (make-instance 'jump) player)))))
        (handle-animation-states player ev)
        (when ground
          (setf (vy vel) (max (vy vel) 0)))
