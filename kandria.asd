@@ -49,6 +49,7 @@
                (:file "effects")
                (:module "ui"
                 :components ((:file "general")
+                             (:file "components")
                              (:file "dialog")
                              (:file "report")
                              (:file "prompt")

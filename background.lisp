@@ -12,6 +12,10 @@
       (remhash name *background-info*))
   value)
 
+(defun list-backgrounds ()
+  (loop for v being the hash-values of *background-info*
+        collect v))
+
 (defmacro define-background (name &body initargs)
   (let ((existing (gensym "EXISTING"))
         (initargs (if (listp (first initargs))
