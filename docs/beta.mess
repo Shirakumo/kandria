@@ -15,7 +15,7 @@ If possible, please also join our "Discord"(https://discord.gg/WNTygau), and inc
 
 Generally in your reports, please make sure to describe the issue in a bit of detail, like this:
 
-| I tried to talk to Catcherine after picking up the quest item, but she didn't have anything new to say. It looks like her dialogue is bugged out, I would have expected her to say something to me.
+| I tried to talk to Catherine after picking up the quest item, but she didn't have anything new to say. It looks like her dialogue is bugged out, I would have expected her to say something to me.
 
 Or:
 
@@ -23,7 +23,7 @@ Or:
 
 Or:
 
-| Jumping down this pit killed me, but it wasn't clear to me that it would be death. Some kind of indicator would help.
+| Jumping down this pit killed me, but it wasn't clear to me that it would lead to death. Some kind of indicator would help.
 
 Or: 
 
@@ -64,3 +64,10 @@ When submitting a report, the following information is sent to our servers and s
 - The log file produced by Kandria for your current game
 
 We do **not** store your IP address or any other personally identifying information. At request we will also delete all of your report information from our servers permanently.
+
+## EULA
+By participating in the beta testers programme you accept the following conditions:
+
+- You permit us to store data about you and your machine on our servers, as noted in the "privacy statement"(#privacy statement).
+- The software is provided "as-is" without any express or implied warranty.
+- We are not liable for any damages caused by the use of this software.
