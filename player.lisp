@@ -73,7 +73,7 @@
     (T 1.9)))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(dash jump land slide step death slash))
+  (dolist (sound '(dash jump land slide step death slash rope))
     (stage (// 'kandria sound) area))
   (stage (prompt player) area))
 
@@ -85,8 +85,6 @@
 
 (defmethod interact :before ((thing dialog-entity) (player player))
   (hide (prompt player)))
-
-(defmethod interact ((rope rope) (player player)))
 
 (defmethod interact ((door door) (player player))
   (setf (animation door) 'open)
