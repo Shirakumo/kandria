@@ -72,8 +72,9 @@
 
 (defmethod (setf frame-idx) :after (idx (effect sprite-effect))
   (when (= idx (1- (end (animation effect))))
-    (leave effect T)
-    (remove-from-pass effect +world+)))
+    (when (slot-boundp effect 'container)
+      (leave effect T)
+      (remove-from-pass effect +world+))))
 
 (defmethod trigger :after ((effect sprite-effect) (source located-entity) &key location)
   (setf (location effect) (v+ (or location (location source)) (offset effect))))
