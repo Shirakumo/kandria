@@ -6,7 +6,7 @@
  :on-activate (tent-check fire-check sign-check corpse-check fi-check))
 (quest:interaction :name tent-check :interactable tent :dialogue "
 ~ player
-| The tent looks tattered and old. It seems like nobody's been here for quite a while.
+| The tent looks very tattered and old. It seems like nobody's been here for quite a while.
 | Inside the tent there's a messy bedroll and litter strewn about... (:skeptical)Did they live like this?")
 (quest:interaction :name fire-check :interactable fire :dialogue "
 ~ player
