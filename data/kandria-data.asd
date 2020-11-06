@@ -2,7 +2,9 @@
 (defun aseprite (file &rest args)
   (uiop:run-program (list* #-windows "aseprite" #+windows "aseprite.exe"
                            "-b" (uiop:native-namestring file)
-                           args)))
+                           args)
+                    :output *standard-output*
+                    :error-output *error-output*))
 
 (defclass static-compile-file (asdf:file-component)
   ())
