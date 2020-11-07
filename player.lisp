@@ -166,7 +166,8 @@
 
 (let ((type (copy-seq '(box zombie))))
   (defmethod handle ((ev mouse-scroll) (player player))
-    (setf type (cycle-list type)))
+    (setf type (cycle-list type))
+    (status :note "Switched to spawning ~a" (first type)))
   
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
