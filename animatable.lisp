@@ -159,7 +159,8 @@
     (decf (iframes animatable)))
   (case (state animatable)
     (:normal
-     (when (= 0 (vx (velocity animatable)))
+     (when (and (= 0 (vx (velocity animatable)))
+                (svref (collisions animatable) 2))
        (decf (idle-time animatable) (dt ev))
        (when (<= (idle-time animatable) 0.0)
          (setf (idle-time animatable) (+ (minimum-idle-time animatable) (random 8.0)))

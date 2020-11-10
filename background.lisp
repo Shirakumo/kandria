@@ -48,7 +48,7 @@
     (format stream "~s" (name info))))
 
 (defclass background-single (background-info)
-  ((texture :initform NIL :initarg :texture :accessor texture
+  ((texture :initform (make-instance 'texture) :initarg :texture :accessor texture
             :type texture)
    (parallax :initform (vec 2 1) :initarg :parallax :accessor parallax
              :type vec2)
