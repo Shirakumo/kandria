@@ -83,6 +83,7 @@
 
 (defmethod notify:notify :before ((asset sprite-data) file)
   (when (string= "ase" (pathname-type file))
+    (v:info :kandria.data "Recompiling ~a" file)
     (ql:quickload :kandria-data)))
 
 (defmethod write-animation ((sprite sprite-data) &optional (stream T))
