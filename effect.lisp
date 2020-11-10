@@ -79,14 +79,13 @@
 
 (defmethod trigger :after ((effect sprite-effect) (source facing-entity) &key direction)
   (setf (direction effect) (or direction (direction source)))
-  (nv+ (location effect) (print (offset effect))))
+  (nv+ (location effect) (offset effect)))
 
 (define-shader-entity text-effect (shader-effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
    (font :initarg :font :initform (simple:request-font (unit 'ui-pass T) "PromptFont") :accessor font)
    (vertex-data :accessor vertex-data)
-   (lifetime :initarg :lifetime :initform 1.0 :accessor lifetime))
-  (:inhibit-shaders (textured-entity :fragment-shader)))
+   (lifetime :initarg :lifetime :initform 1.0 :accessor lifetime)))
 
 (defmethod trigger :after ((effect text-effect) source &key (text (text effect)))
   (let ((s (view-scale (unit :camera T))))

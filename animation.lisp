@@ -48,6 +48,8 @@
 (define-frame-flag 1 invincible-p)
 ;; Whether the frame can be cancelled
 (define-frame-flag 2 cancelable-p)
+;; Whether the frame's hit will override the iframes
+(define-frame-flag 3 iframe-clearing-p)
 
 (defun transfer-frame (target source)
   (setf (hurtbox target) (vcopy (hurtbox source)))
