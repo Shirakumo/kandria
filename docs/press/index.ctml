@@ -2,7 +2,7 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <title>Kandria Prototype Download</title>
+    <title>Kandria Press Kit</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"/>
     <meta name="viewport" content="width=device-width"/>
@@ -21,6 +21,7 @@
   </head>
   <body>
     <header>
+      <h1>Kandria</h1>
       <nav>
       </nav>
     </header>
