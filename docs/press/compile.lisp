@@ -73,6 +73,7 @@ sbcl --noinform --load "$0" --eval '(kandria-docs:generate)' --quit && exit
          (doc (cl-markless:parse (file "press" "mess") (make-instance 'cl-markless:parser :embed-types (list* 'youtube cl-markless:*default-embed-types*)))))
     (cl-markless:output doc :target (lquery:$1 dom "main") :format (make-instance 'org.shirakumo.markless.plump:plump))
     (lquery:$ dom "a[href]" (each #'fixup-href))
+    (lquery:$ dom "img" (wrap "<a>") (combine (parent) (attr :src)) (map-apply (lambda (n u) (lquery:$ n (attr :href u)))))
     (loop for c across (cl-markless-components:children doc)
           do (when (and (typep c 'cl-markless-components:header)
                         (< (cl-markless-components:depth c) 3))
