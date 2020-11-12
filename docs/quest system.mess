@@ -9,7 +9,7 @@ A quest is a simple construct that has a description of itself for the player's 
 Quests should be used for bigger overarching story beats, analogous to chapters in a traditional story. A quest can contain branching narrative within its tasks, and multiple quests may be active at the same time.
 
 ## Task
-A task is much more involved and the primary workhorse that outlines the narrative structure of the game. Each task has a short description for the player to read, a set of triggers that are activated when this task is activated, a condition that causes the task to be completed if fulfilled, an invariant that causes the task to be failed if unfulfilled, and a set of triggers that are activated if the task is completed.
+A task is much more involved and the primary workhorse that outlines the narrative structure of the game. Each task has a short description (``:description``) and title (``:title``) for the player to read, a set of triggers that are activated when this task is activated (``:on-activate``), a condition that causes the task to be completed if fulfilled (``:condition``), an invariant that causes the task to be failed if unfulfilled (``:invariant``), and a set of triggers that are activated if the task is completed (``:on-complete``).
 
 While the game is running a task can be in one of the following states:
 
@@ -37,7 +37,7 @@ Triggers are an abstract concept for "things that happen when tasks change state
 Quests and tasks can act as triggers themselves, and will simply become active when triggered.
 
 ### Interactions
-An interaction is a piece of dialogue that the player can initiate with a particular NPC or item. The set of active quests determines the set of available interactions with the NPCs and items, allowing you to control relevant dialogue and story.
+An interaction is a piece of dialogue that the player can initiate with a particular NPC or item. The set of active quests determines the set of available interactions with the NPCs and items, allowing you to control relevant dialogue and story. Each interaction should have an ``:interactable`` that it is attached to, and a ``:title`` that is used to display to the user in a menu when multiple interactions are possible.
 
 See the "dialogue format"(link dialogue format.mess) documentation for more information on how dialogue is written.
 

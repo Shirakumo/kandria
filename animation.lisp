@@ -48,6 +48,8 @@
 (define-frame-flag 1 invincible-p)
 ;; Whether the frame can be cancelled
 (define-frame-flag 2 cancelable-p)
+;; Whether the frame's hit will override the iframes
+(define-frame-flag 3 iframe-clearing-p)
 
 (defun transfer-frame (target source)
   (setf (hurtbox target) (vcopy (hurtbox source)))
@@ -81,7 +83,8 @@
 
 (defmethod notify:notify :before ((asset sprite-data) file)
   (when (string= "ase" (pathname-type file))
-    (ql:quickload :kandria-data)))
+    (v:info :kandria.data "Recompiling ~a" file)
+    (ql:quickload :kandria-data :silent T)))
 
 (defmethod write-animation ((sprite sprite-data) &optional (stream T))
   (let ((*package* #.*package*))
@@ -125,24 +128,25 @@
           (loop for expr in animations
                 do (destructuring-bind (name &key start end loop-to next) expr
                      (let ((animation (find name (animations sprite) :key #'name)))
-                       (when loop-to
-                         (setf (loop-to animation) loop-to))
-                       (when next
-                         (setf (next-animation animation) next))
-                       ;; Attempt to account for changes in the frame counts of the animations
-                       ;; by updating frame data per-animation here. We have to assume that
-                       ;; frames are only removed or added at the end of an animation, as we
-                       ;; can't know anything more.
-                       (when (and start end)
-                         (let ((rstart (start animation))
-                               (rend (end animation))
-                               (rframes (frames sprite)))
-                           (when (< (loop-to animation) rstart)
-                             (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
-                           (loop for i from 0 below (min (- end start) (- rend rstart))
-                                 for frame = (elt rframes (+ rstart i))
-                                 for frame-info = (elt frames (+ start i))
-                                 do (change-class frame 'frame :sexp frame-info)))))))
+                       (when animation
+                         (when loop-to
+                           (setf (loop-to animation) loop-to))
+                         (when next
+                           (setf (next-animation animation) next))
+                         ;; Attempt to account for changes in the frame counts of the animations
+                         ;; by updating frame data per-animation here. We have to assume that
+                         ;; frames are only removed or added at the end of an animation, as we
+                         ;; can't know anything more.
+                         (when (and start end)
+                           (let ((rstart (start animation))
+                                 (rend (end animation))
+                                 (rframes (frames sprite)))
+                             (when (< (loop-to animation) rstart)
+                               (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
+                             (loop for i from 0 below (min (- end start) (- rend rstart))
+                                   for frame = (elt rframes (+ rstart i))
+                                   for frame-info = (elt frames (+ start i))
+                                   do (change-class frame 'frame :sexp frame-info))))))))
           ;; Make sure all frames are in the correct class.
           (loop for frame across (frames sprite)
                 do (unless (typep frame 'frame) (change-class frame 'frame))))))))

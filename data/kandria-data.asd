@@ -2,7 +2,9 @@
 (defun aseprite (file &rest args)
   (uiop:run-program (list* #-windows "aseprite" #+windows "aseprite.exe"
                            "-b" (uiop:native-namestring file)
-                           args)))
+                           args)
+                    :output *standard-output*
+                    :error-output *error-output*))
 
 (defclass static-compile-file (asdf:file-component)
   ())
@@ -27,7 +29,7 @@
 
 (defmethod asdf:perform ((o asdf:compile-op) (c spritesheet))
   (destructuring-bind (file) (asdf:input-files o c)
-    (format T "~& Compiling ~a~%" file)
+    (format *error-output* "~& Compiling ~a~%" file)
     (destructuring-bind (json png) (asdf:output-files o c)
       (aseprite (uiop:native-namestring file)
                 "--format" "json-array"
