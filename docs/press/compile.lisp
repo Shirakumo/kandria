@@ -27,6 +27,7 @@ sbcl --noinform --load "$0" --eval '(kandria-docs:generate)' --quit && exit
 
 (defmethod cl-markless:output-component ((component youtube) (target plump-dom:nesting-node) (format cl-markless-plump:plump))
   (let ((element (plump-dom:make-element target "iframe")))
+    (setf (plump-dom:attribute target "class") "video")
     (setf (plump-dom:attribute element "width") "100%")
     (setf (plump-dom:attribute element "height") "460")
     (setf (plump-dom:attribute element "frameborder") "no")
