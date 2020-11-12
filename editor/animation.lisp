@@ -158,7 +158,7 @@
    (tool :initarg :tool :accessor tool)
    (frames :accessor frames))
   (:default-initargs :title "Animations"
-                     :extent (alloy:extent 0 30 (alloy:vw 1) 360)
+                     :extent (alloy:extent 0 30 (alloy:vw 1) 380)
                      :minimizable T
                      :maximizable NIL))
 
@@ -169,7 +169,7 @@
          (animation (alloy:represent (slot-value timeline 'animation) 'animation-chooser :value-set animations))
          (frames (make-instance 'alloy:horizontal-linear-layout :cell-margins (alloy:margins) :min-size (alloy:size 100 300)))
          (frames-focus (make-instance 'alloy:focus-list))
-         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :elements '("Frame" "Hurtbox" "Offset" "Velocity" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Effect")))
+         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :elements '("Frame" "Hurtbox" "Offset" "Velocity" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Clear Iframes" "Effect")))
          (scroll (make-instance 'alloy:scroll-view :scroll :x :layout frames :focus frames-focus))
          (save (alloy:represent "Save" 'alloy:button))
          (load (alloy:represent "Load" 'alloy:button))
@@ -249,12 +249,13 @@
 (alloy:define-subcomponent (frame-edit interruptable) ((interruptable-p (frame frame-edit)) alloy:checkbox))
 (alloy:define-subcomponent (frame-edit invincible) ((invincible-p (frame frame-edit)) alloy:checkbox))
 (alloy:define-subcomponent (frame-edit cancelable) ((cancelable-p (frame frame-edit)) alloy:checkbox))
+(alloy:define-subcomponent (frame-edit iframe-clearing) ((iframe-clearing-p (frame frame-edit)) alloy:checkbox))
 (alloy:define-subcomponent (frame-edit effect) ((effect (frame frame-edit)) alloy:combo-set :value-set (list* NIL (list-effects))))
 
 (alloy:define-subcontainer (frame-edit layout)
     (frame-layout :cell-margins (alloy:margins 1) :min-size (alloy:size 100 20))
-  frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable effect)
+  frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable iframe-clearing effect)
 
 (alloy:define-subcontainer (frame-edit focus)
     (alloy:focus-list)
-  frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable effect)
+  frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable iframe-clearing effect)
