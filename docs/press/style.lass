@@ -40,6 +40,15 @@
    :border-bottom 1px solid (hex D0D0D0))
   (h3
    :font-weight normal)
+  (figure
+   :margin 0)
+  (.video
+   :position relative
+   :padding-bottom 56.25%
+   (iframe
+    :padding 1em
+    :position absolute
+    :top 0 :left 0 :width 100% :height 100%))
   (img
    :max-width 100%
    :padding 1em))
