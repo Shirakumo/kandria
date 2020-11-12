@@ -35,9 +35,11 @@
     :background (hex E0E0E0))))
  (main
   :margin 0 auto
-  :max-width 800px
+  :max-width 40em
   (h2
-   :border-top 1px solid (hex D0D0D0)))
+   :border-bottom 1px solid (hex D0D0D0))
+  (h3
+   :font-weight normal))
  (footer
   :text-align center
   :color (hex A0A0A0)))
