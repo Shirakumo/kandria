@@ -1,1 +1,1 @@
-((nil (compile-command . "compile.lisp")))
+((nil (compile-command . "../compile.lisp")))
