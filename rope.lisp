@@ -25,7 +25,7 @@
      (setf (aref (chain rope) 0) (list (vec 0 -6) (vec 0 0)))
      (setf (aref (chain rope) 1) (list (vec 0 0) (vec 0 0)))
      (loop for i from 2 below (length (chain rope))
-           for pos = (vec (- (* 8 (sin (/ i 2))) 16) (/ i 5))
+           for pos = (vec (* (direction rope) (- (* 8 (sin (/ i 2))) 16)) (/ i 5))
            do (setf (aref (chain rope) i) (list pos (vcopy pos)))))))
 
 (defmethod contained-p ((vec vec4) (rope rope))
