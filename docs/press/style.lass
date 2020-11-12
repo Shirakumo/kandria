@@ -1,0 +1,43 @@
+(html
+ :font-family "sans-serif"
+ :font-size 12pt
+ :background (hex F8F8F8)
+ :color (hex 101010))
+(body
+ (a[href]
+  :text-decoration none
+  :color (hex 0088EE))
+ ((:and a[href] :hover)
+  :text-decoration underline
+  :color (hex 0055AA))
+ (h3
+  :padding 0
+  :margin 1em 0 0 0)
+ (h3+p
+  :margin-top 0)
+ (header
+  :text-align center
+  (h1
+   :font-weight normal
+   :font-size 2.5em)
+  (nav
+   :display flex
+   :flex-wrap wrap
+   :justify-content center
+   (a[href]
+    :white-space nobreak
+    :display block
+    :padding 0.5em
+    :color black)
+   ((:and a[href] :hover)
+    :color black
+    :text-decoration none
+    :background (hex E0E0E0))))
+ (main
+  :margin 0 auto
+  :max-width 800px
+  (h2
+   :border-top 1px solid (hex D0D0D0)))
+ (footer
+  :text-align center
+  :color (hex A0A0A0)))
