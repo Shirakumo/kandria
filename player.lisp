@@ -284,10 +284,10 @@
              (jump
               (setf (state player) :normal)
               (handle (make-instance 'jump) player)))))
+       (nv+ vel (v* (gravity (medium player)) dt))
        (handle-animation-states player ev)
        (when ground
-         (setf (vy vel) (max (vy vel) 0)))
-       (nv+ vel (v* (gravity (medium player)) dt)))
+         (setf (vy vel) (max (vy vel) 0))))
       (:dashing
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
