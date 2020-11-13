@@ -93,7 +93,8 @@
     (transition
       (start-animation 'exit player)
       (setf (animation (target door)) 'open)
-      (vsetf (location player) (vx location) (- (vy location) 8))
+      (setf (air-time player) 0.0)
+      (vsetf (location player) (vx location) (- (vy location) 5))
       (issue +world+ 'switch-chunk :chunk (find-containing player (region +world+)))
       (issue +world+ 'force-lighting)
       (snap-to-target (unit :camera T) player))))
@@ -177,11 +178,11 @@
 
 (flet ((handle-solid (player hit)
          (when (and (< 0 (vy (hit-normal hit)))
-                    (< 0.1 (air-time player)))
+                    (< (vy (velocity player)) -0.2))
            (cond ((< 0.7 (air-time player))
                   (harmony:play (// 'kandria 'land))
                   (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
-                 (T
+                 ((< 0.1 (air-time player))
                   (harmony:play (// 'kandria 'land)))))
          (when (<= 0 (vy (hit-normal hit)))
            (setf (air-time player) 0.0))
@@ -255,10 +256,10 @@
                 (light-aerial-1 (start-animation 'light-aerial-2 player))
                 (light-aerial-2 (start-animation 'light-aerial-3 player))
                 (T
-                 (cond ((retained 'down)
-                        (start-animation 'light-down player))
-                       ((not (svref (collisions player) 2))
-                        (start-animation 'light-aerial-1 player))
+                 (cond ((not (svref (collisions player) 2))
+                        (if (retained 'down)
+                            (start-animation 'light-aerial-down player)
+                            (start-animation 'light-aerial-1 player)))
                        ((retained 'up)
                         (start-animation 'light-up player))
                        (T
@@ -270,10 +271,10 @@
                 (heavy-aerial-1 (start-animation 'heavy-aerial-2 player))
                 (heavy-aerial-2 (start-animation 'heavy-aerial-3 player))
                 (T
-                 (cond ((retained 'down)
-                        (start-animation 'heavy-down player))
-                       ((not (svref (collisions player) 2))
-                        (start-animation 'heavy-aerial-1 player))
+                 (cond ((not (svref (collisions player) 2))
+                        (if (retained 'down)
+                            (start-animation 'heavy-aerial-down player)
+                            (start-animation 'heavy-aerial-1 player)))
                        ((retained 'up)
                         (start-animation 'heavy-up player))
                        (T
@@ -284,10 +285,10 @@
              (jump
               (setf (state player) :normal)
               (handle (make-instance 'jump) player)))))
+       (nv+ vel (v* (gravity (medium player)) dt))
        (handle-animation-states player ev)
        (when ground
-         (setf (vy vel) (max (vy vel) 0)))
-       (nv+ vel (v* (gravity (medium player)) dt)))
+         (setf (vy vel) (max (vy vel) 0))))
       (:dashing
        (incf (dash-time player) (dt ev))
        (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
@@ -383,7 +384,8 @@
        (when (< (jump-time player) 0.0)
          (cond ((or (svref collisions 1)
                     (svref collisions 3)
-                    (typep (interactable player) 'rope))
+                    (and (typep (interactable player) 'rope)
+                         (extended (interactable player))))
                 ;; Wall jump
                 (let ((dir (if (svref collisions 1) -1.0 1.0))
                       (mov-dir (cond ((retained 'left) -1)
@@ -414,7 +416,8 @@
                   (not (retained 'jump))
                   (or (typep (svref collisions 1) '(or ground solid))
                       (typep (svref collisions 3) '(or ground solid))
-                      (typep (interactable player) 'rope))
+                      (and (typep (interactable player) 'rope)
+                           (extended (interactable player))))
                   (< 0 (climb-strength player)))
          (cond ((typep (interactable player) 'rope)
                 (let* ((direction (signum (- (vx (location (interactable player))) (vx loc))))
