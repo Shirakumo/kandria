@@ -81,6 +81,7 @@
   (let ((interactable (interactable player)))
     (when interactable
       (discard-events +world+)
+      (setf (buffer player) NIL)
       (interact interactable player))))
 
 (defmethod interact :before ((thing dialog-entity) (player player))
@@ -94,6 +95,7 @@
       (start-animation 'exit player)
       (setf (animation (target door)) 'open)
       (setf (air-time player) 0.0)
+      (setf (buffer player) NIL)
       (vsetf (location player) (vx location) (- (vy location) 5))
       (issue +world+ 'switch-chunk :chunk (find-containing player (region +world+)))
       (issue +world+ 'force-lighting)
@@ -112,7 +114,8 @@
                      (signum (- (vx (location endangering)) (vx (location player)))))
                   (start-animation 'evade-left player)
                   (start-animation 'evade-right player)))
-             ((eq :normal (state player))
+             ((and (eq :normal (state player))
+                   (<= (dash-time player) 0))
               (if (typep (trial::source-event ev) 'gamepad-event)
                   (let ((dev (device (trial::source-event ev))))
                     (vsetf vel
@@ -291,8 +294,6 @@
          (setf (vy vel) (max (vy vel) 0))))
       (:dashing
        (incf (dash-time player) (dt ev))
-       (enter (make-instance 'particle :location (nv+ (vrand -7 +7) (location player)))
-              +world+)
        (setf (jump-time player) 100.0)
        (setf (run-time player) 0.0)
        (cond ((or (< (p! dash-max-time) (dash-time player))
