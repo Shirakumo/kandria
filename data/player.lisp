@@ -14,7 +14,7 @@
    (EVADE-RIGHT          :start 113 :end 124 :loop-to 113 :next STAND)
    (PULL-GUN             :start 124 :end 136 :loop-to 135 :next SHOOT)
    (SHOOT                :start 136 :end 140 :loop-to 136 :next SHOOT)
-   (PULL-SWORD           :start 140 :end 146 :loop-to 145 :next PULL-SWORD)
+   (PULL-SWORD           :start 140 :end 146 :loop-to 145 :next STAND)
    (LIGHT-GROUND         :start 146 :end 188 :loop-to 112 :next LIGHT-GROUND)
    (LIGHT-GROUND-1       :start 146 :end 154 :loop-to 123 :next LIGHT-GROUND-1-RELEASE)
    (LIGHT-GROUND-1-RELEASE :start 154 :end 162 :loop-to 122 :next STAND)
@@ -39,8 +39,8 @@
    (HEAVY-AERIAL-2       :start 295 :end 305 :loop-to 295 :next HEAVY-AERIAL-2-RELEASE)
    (HEAVY-AERIAL-2-RELEASE :start 305 :end 307 :loop-to 305 :next STAND)
    (HEAVY-AERIAL-3       :start 307 :end 346 :loop-to 307 :next STAND)
-   (LIGHT-AERIAL-DOWN    :start 346 :end 355 :loop-to 346 :next LIGHT-AERIAL-DOWN)
-   (HEAVY-AERIAL-DOWN    :start 355 :end 385 :loop-to 355 :next HEAVY-AERIAL-DOWN)
+   (LIGHT-AERIAL-DOWN    :start 346 :end 355 :loop-to 346 :next STAND)
+   (HEAVY-AERIAL-DOWN    :start 355 :end 385 :loop-to 355 :next STAND)
    (ENTER                :start 385 :end 394 :loop-to 385 :next ENTER)
    (EXIT                 :start 394 :end 403 :loop-to 394 :next STAND)
    (HARD-HIT             :start 403 :end 414 :loop-to 403 :next STAND)
@@ -433,7 +433,7 @@
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 383
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 384
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 0.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 385
- (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 386
+ (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 0.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 386
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 387
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 388
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 389
@@ -442,7 +442,7 @@
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 392
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 393
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 394
- (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 395
+ (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 0.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 395
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 396
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 397
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :velocity ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 398

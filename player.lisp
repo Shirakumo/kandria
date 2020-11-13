@@ -256,10 +256,10 @@
                 (light-aerial-1 (start-animation 'light-aerial-2 player))
                 (light-aerial-2 (start-animation 'light-aerial-3 player))
                 (T
-                 (cond ((retained 'down)
-                        (start-animation 'light-down player))
-                       ((not (svref (collisions player) 2))
-                        (start-animation 'light-aerial-1 player))
+                 (cond ((not (svref (collisions player) 2))
+                        (if (retained 'down)
+                            (start-animation 'light-aerial-down player)
+                            (start-animation 'light-aerial-1 player)))
                        ((retained 'up)
                         (start-animation 'light-up player))
                        (T
@@ -271,10 +271,10 @@
                 (heavy-aerial-1 (start-animation 'heavy-aerial-2 player))
                 (heavy-aerial-2 (start-animation 'heavy-aerial-3 player))
                 (T
-                 (cond ((retained 'down)
-                        (start-animation 'heavy-down player))
-                       ((not (svref (collisions player) 2))
-                        (start-animation 'heavy-aerial-1 player))
+                 (cond ((not (svref (collisions player) 2))
+                        (if (retained 'down)
+                            (start-animation 'heavy-aerial-down player)
+                            (start-animation 'heavy-aerial-1 player)))
                        ((retained 'up)
                         (start-animation 'heavy-up player))
                        (T
