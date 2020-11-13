@@ -9,7 +9,7 @@
 (alloy:define-subbutton (entity-widget clone) () (edit 'clone-entity T))
 (alloy:define-subbutton (entity-widget delete) () (edit 'delete-entity T))
 (alloy:define-subobject (entity-widget inspector) ('alloy::inspector :object (entity entity-widget))
-  (alloy:on (setf entity) (entity entity-widget)
+  (alloy:on entity (entity entity-widget)
     (reinitialize-instance inspector :object entity)))
 
 (alloy:define-subcontainer (entity-widget layout)
