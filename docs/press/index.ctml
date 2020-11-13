@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <title>Kandria Press Kit</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!"/>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@shinmera">
+    <meta name="twitter:title" content="Kandria">
+    <meta name="twitter:description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!">
+    <meta name="twitter:image" content="">
+    <meta name="twitter:image:alt" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kandria">
+    <meta property="og:description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+  </head>
+  <body>
+    <header>
+      <h1>Kandria</h1>
+      <nav>
+      </nav>
+    </header>
+    <main>
+    </main>
+    <footer>
+      &copy; 2020 <a rel="author" href="https://shinmera.com">Nicolas Hafner</a>, Shirakumo
+    </footer>
+  </body>
+</html>

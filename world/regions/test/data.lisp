@@ -18,7 +18,7 @@
 (balloon :location (280.0 120.0) :name nil)
 (balloon :location (320.0 168.0) :name nil)
 (rope :name rope-1 :location (112.0 -80.0) :bsize (8.0 112.0) :direction 1 :extended nil)
-(rope :name rope-2 :location (9048.0 -1008.0) :bsize (8.0 128.0) :direction 1 :extended nil)
+(rope :name rope-2 :location (9048.0 -1008.0) :bsize (8.0 128.0) :direction -1 :extended nil)
 (rope :name rope-3 :location (9208.0 -1288.0) :bsize (8.0 136.0) :direction 1 :extended nil)
 (rope :name rope-4 :location (9480.0 -352.0) :bsize (8.0 144.0) :direction 1 :extended nil)
 (box :location (80.0 -168.0) :name nil)
