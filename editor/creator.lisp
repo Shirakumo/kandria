@@ -20,7 +20,7 @@
          (inspector (make-instance 'alloy::inspector :object (entity creator)))
          (scroll (make-instance 'alloy:scroll-view :scroll :y :focus inspector :layout inspector
                                                    :layout-parent layout :focus-parent focus)))
-    (alloy:on (setf alloy:value) (class combo)
+    (alloy:on alloy:value (class combo)
       (setf (entity creator) (make-instance class))
       (reinitialize-instance inspector :object (entity creator)))))
 

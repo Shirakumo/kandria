@@ -14,6 +14,7 @@ sbcl --noinform --load "$0" --eval '(generate)' --quit && exit
   (loop for (f w h) in '(("header capsule" 231 87)
                          ("main capsule" 616 353)
                          ("small capsule" 231 87)
+                         ("large capsule" 462 174)
                          ("background" 1438 810)
                          ("library capsule" 600 900)
                          ("library hero" 1920 620)

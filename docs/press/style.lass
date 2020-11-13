@@ -52,7 +52,8 @@
   ((:or img iframe)
    :box-sizing border-box
    :max-width 100%
-   :padding 1em))
+   :padding 1em
+   :margin 0 auto))
  (footer
   :text-align center
   :color (hex A0A0A0)))
