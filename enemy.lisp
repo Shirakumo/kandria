@@ -246,16 +246,15 @@
   (let* ((player (unit 'player T))
          (ploc (location player))
          (eloc (location enemy))
-         (distance (vlength (v- ploc eloc)))
          (vel (velocity enemy)))
     (ecase (state enemy)
       (:normal
-       (when (< distance (* +tile-size+ 8))
+       (when (< (vlength (v- ploc eloc)) (* +tile-size+ 8))
          (setf (state enemy) :approach)))
       (:approach
-       (cond ((< (* +tile-size+ 12) distance)
+       (cond ((< (* +tile-size+ 12) (vlength (v- ploc eloc)))
               (setf (state enemy) :normal))
-             ((< distance (* +tile-size+ 1))
+             ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 1))
               (start-animation 'attack enemy))
              (T
               (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
