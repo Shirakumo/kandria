@@ -4,7 +4,7 @@
 
 (define-action toggle-editor (editor-command))
 (define-action toggle-diagnostics (editor-command))
-
+(define-action screenshot (editor-command))
 (define-action report-bug (editor-command))
 
 (define-action undo (editor-command)

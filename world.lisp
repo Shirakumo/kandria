@@ -105,6 +105,14 @@
 (defmethod handle ((ev toggle-diagnostics) (world world))
   (toggle-panel 'diagnostics))
 
+(defmethod handle ((ev screenshot) (world world))
+  (let ((file (make-pathname :name (format NIL "kandria ~a" (format-absolute-time))
+                             :type "png"
+                             :defaults (user-homedir-pathname))))
+    (capture NIL :file file)
+    (status :note "Screenshot saved to ~a" file)
+    (v:info :kandria "Screenshot saved to ~a" file)))
+
 (defmethod handle :after ((ev trial:tick) (world world))
   (when (= 0 (mod (fc ev) 10))
     (issue world 'change-time :hour (hour world))
