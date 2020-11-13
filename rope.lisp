@@ -58,7 +58,7 @@
     (when (<= 1 i (- (length chain) 2))
       (setf (vx (first (aref chain (1- i)))) 0)
       (setf (vx (first (aref chain i))) strength)
-      (setf (vy (first (aref chain i))) (- (vy pos) 28))
+      ;(setf (vy (first (aref chain i))) (- (vy pos) 28))
       (incf (vx (first (aref chain (1+ i)))) (* (signum strength) -0.5)))))
 
 (defmethod handle ((ev tick) (rope rope))
