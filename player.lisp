@@ -93,7 +93,8 @@
     (transition
       (start-animation 'exit player)
       (setf (animation (target door)) 'open)
-      (vsetf (location player) (vx location) (- (vy location) 8))
+      (setf (air-time player) 0.0)
+      (vsetf (location player) (vx location) (- (vy location) 5))
       (issue +world+ 'switch-chunk :chunk (find-containing player (region +world+)))
       (issue +world+ 'force-lighting)
       (snap-to-target (unit :camera T) player))))
@@ -177,11 +178,11 @@
 
 (flet ((handle-solid (player hit)
          (when (and (< 0 (vy (hit-normal hit)))
-                    (< 0.1 (air-time player)))
+                    (< (vy (velocity player)) -0.2))
            (cond ((< 0.7 (air-time player))
                   (harmony:play (// 'kandria 'land))
                   (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
-                 (T
+                 ((< 0.1 (air-time player))
                   (harmony:play (// 'kandria 'land)))))
          (when (<= 0 (vy (hit-normal hit)))
            (setf (air-time player) 0.0))
