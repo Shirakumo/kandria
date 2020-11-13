@@ -78,7 +78,7 @@
            (vec3
             light)
            (gradient
-            (gradient-value (hour +world+) light)))))
+            (gradient-value (float (hour +world+) 0f0) light)))))
   (defmethod light ((info gi-info))
     (evaluate-light (slot-value info 'light)))
 

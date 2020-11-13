@@ -11,13 +11,13 @@
     <meta name="twitter:site" content="@shinmera">
     <meta name="twitter:title" content="Kandria">
     <meta name="twitter:description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!">
-    <meta name="twitter:image" content="">
-    <meta name="twitter:image:alt" content="">
+    <meta name="twitter:image" content="https://kandria.com/press/screenshot%201.png">
+    <meta name="twitter:image:alt" content="Kandria">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Kandria">
     <meta property="og:description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
+    <meta property="og:url" content="https://kandria.com">
+    <meta property="og:image" content="https://kandria.com/press/screenshot%201.png">
   </head>
   <body>
     <header>
@@ -33,6 +33,7 @@
         <a href="prototype.html">Demo</a>
         <a href="#media">Media</a>
         <a href="#updates">Updates</a>
+        <a href="press/">Press Kit</a>
       </nav>
     </header>
     <main>
@@ -46,6 +47,9 @@
         </p>
         <p>
           You play as The Stranger, a lost remnant of old-world technology. With your combat and detective skills you help a struggling surface settlement survive. Along the way you'll encounter different people with very different ethics and ideas about humanity and the world as a whole.
+        </p>
+        <p>
+          You can find a press kit <a href="press/">here</a>.
         </p>
       </section>
       <section id="media">

@@ -27,13 +27,13 @@
   new save load zoom undo redo lighting time)
 
 (defmethod initialize-instance :after ((menu editmenu) &key)
-  (alloy:on (setf alloy:value) (value (alloy:representation 'lighting menu))
+  (alloy:on alloy:value (value (alloy:representation 'lighting menu))
     (setf (lighting (unit 'lighting-pass T))
           (if value
               (gi (chunk (unit :camera T)))
               (gi 'none)))
     (force-lighting (unit 'lighting-pass T)))
-  (alloy:on (setf alloy:value) (value (slot-value menu 'time))
+  (alloy:on alloy:value (value (slot-value menu 'time))
     (setf (alloy:value (alloy:representation 'lighting menu)) T)
     (synchronize +world+ value)
     (update-lighting (unit 'lighting-pass T)))

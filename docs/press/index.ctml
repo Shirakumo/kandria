@@ -11,13 +11,13 @@
     <meta name="twitter:site" content="@shinmera">
     <meta name="twitter:title" content="Kandria">
     <meta name="twitter:description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!">
-    <meta name="twitter:image" content="">
-    <meta name="twitter:image:alt" content="">
+    <meta name="twitter:image" content="https://kandria.com/press/screenshot%201.png">
+    <meta name="twitter:image:alt" content="Kandria">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Kandria">
     <meta property="og:description" content="Kandria, a 2D hack and slash platformer. Currently in alpha!">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
+    <meta property="og:url" content="https://kandria.com/press/">
+    <meta property="og:image" content="https://kandria.com/press/screenshot%201.png">
   </head>
   <body>
     <header>

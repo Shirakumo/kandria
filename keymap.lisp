@@ -7,6 +7,9 @@
 (trigger report-bug
  (key :one-of (:f12)))
 
+(trigger screenshot
+ (key :one-of (:print-screen)))
+
 (trigger skip
  (key :one-of (:enter :space))
  (button :one-of (:b)))
