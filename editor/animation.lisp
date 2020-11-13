@@ -217,11 +217,11 @@
   (alloy:clear focus)
   (loop for i from (start (animation entity)) below (end (animation entity))
         for frame = (aref (frames entity) i)
-        for edit = (make-instance 'frame-edit :idx i :frame frame)
+        for edit = (make-instance 'frame-edit :idx (1+ i) :frame frame)
         do (alloy:enter edit layout)
            (alloy:enter edit focus)
            (alloy:on alloy:activate ((alloy:representation 'frame-idx edit))
-             (setf (frame-idx tool) (alloy:value alloy:observable))
+             (setf (frame-idx tool) (1- (alloy:value alloy:observable)))
              (setf (paused-p tool) T))))
 
 (alloy:define-widget frame-edit (alloy:structure)
