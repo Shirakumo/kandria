@@ -115,9 +115,9 @@
            (setf idx (1- (end animation)))))
     (when timeline
       (ignore-errors
-       (setf (presentations:update-overrides (alloy:index-element (frame-idx tool) (frames timeline)))
+       (setf (presentations:update-overrides (alloy:index-element (- (frame-idx tool) (start animation)) (frames timeline)))
              ())
-       (setf (presentations:update-overrides (alloy:index-element idx (frames timeline)))
+       (setf (presentations:update-overrides (alloy:index-element (- idx (start animation)) (frames timeline)))
              `((:background :pattern ,colors:accent)))))
     (setf (frame-idx sprite) idx)
     (setf (location sprite) (v+ (original-location tool)
