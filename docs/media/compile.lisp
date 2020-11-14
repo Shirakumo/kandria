@@ -11,7 +11,7 @@ sbcl --noinform --load "$0" --eval '(generate)' --quit && exit
        (return))))
 
 (defun generate ()
-  (loop for (f w h s) in '(("header capsule" 231 87)
+  (loop for (f w h s) in '(("header capsule" 460 215)
                            ("main capsule" 616 353)
                            ("small capsule" 231 87)
                            ("large capsule" 462 174 "small capsule")
