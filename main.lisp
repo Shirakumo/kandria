@@ -70,16 +70,6 @@
            initargs)))
 
 (defmethod setup-scene ((main main) scene)
-  (flet ((observe (func)
-           (observe! (funcall func (unit 'player scene)) :title func)))
-    (observe 'location)
-    (observe 'velocity)
-    (observe 'state)
-    (observe 'name)
-    (observe 'climb-strength)
-    (observe 'jump-time)
-    (observe 'air-time))
-  
   (enter (make-instance 'fade) scene)
   (enter (make-instance 'camera) scene)
   (let ((shadow (make-instance 'shadow-map-pass))
