@@ -197,3 +197,21 @@ void main(){
 (defmacro transition (&body on-blank)
   `(issue +world+ 'transition-event
           :on-complete (lambda () ,@on-blank)))
+
+(define-shader-entity paletted-entity ()
+  ((palette :initarg :palette :initform (// 'kandria 'placeholder) :accessor palette
+            :type resource)))
+
+(defmethod render :before ((entity paletted-entity) (program shader-program))
+  (gl:active-texture :texture4)
+  (gl:bind-texture :texture-2D (gl-name (palette entity)))
+  (setf (uniform program "palette") 4))
+
+(define-class-shader (paletted-entity :fragment-shader -1)
+  "uniform sampler2D palette;
+
+void main(){
+  if(color.r*color.b == 1 && color.g < 0.1){
+    color = texelFetch(palette, ivec2(color.g*255, 0), 0);
+  }
+}")

@@ -245,7 +245,7 @@ void main(){
   world_pos = (model_matrix*vec4(position, 1)).xy;
 }")
 
-(define-class-shader (lit-vertex-entity :fragment-shader)
+(define-class-shader (lit-vertex-entity :fragment-shader -10)
   "out vec4 color;
 in vec2 world_pos;
 
