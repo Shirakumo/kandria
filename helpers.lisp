@@ -101,7 +101,7 @@
 
 (define-shader-entity sprite-entity (vertex-entity textured-entity sized-entity facing-entity)
   ((vertex-array :initform (// 'kandria '1x))
-   (texture :initform (// 'kandria 'placeholder) :initarg :texture
+   (texture :initform (// 'kandria 'placeholder) :initarg :texture :accessor albedo
             :type resource :documentation "The tileset to display the sprite from.")
    (size :initform (vec 16 16) :initarg :size :accessor size
          :type vec2 :documentation "The size of the tile to display (in px).")
