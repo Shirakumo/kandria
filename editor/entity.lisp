@@ -27,3 +27,31 @@
 
 (defmethod default-tool ((_ sized-entity))
   'freeform)
+
+(alloy:define-widget sprite-widget (sidebar)
+  ())
+
+(defmethod (setf tile-to-place) (tile (widget sprite-widget))
+  (let ((offset (v* tile 16)))
+    (cond ((retained :left-control)
+           (let ((other (offset (entity widget))))
+             (let ((bl (vmin offset other))
+                   (tr (v+ 16 (vmax offset other))))
+               (setf (offset (entity widget)) bl)
+               (setf (size (entity widget)) (v- tr bl))
+               (setf (bsize (entity widget)) (v/ (size (entity widget)) 2)))))
+          (T
+           (setf (offset (entity widget)) offset)))))
+
+(alloy:define-subobject (sprite-widget tiles) ('tile-picker :widget sprite-widget))
+
+(alloy:define-subcontainer (sprite-widget layout)
+    (alloy:grid-layout :col-sizes '(T) :row-sizes '(T))
+  tiles)
+
+(alloy:define-subcontainer (sprite-widget focus)
+    (alloy:focus-list)
+  tiles)
+
+(defmethod (setf entity) :after ((entity sprite-entity) (editor editor))
+  (setf (sidebar editor) (make-instance 'sprite-widget :editor editor :side :east)))

@@ -33,6 +33,8 @@ Some entities like the chunk may also offer additional UI elements in a right si
 
 There's a total of five layers on every chunk, with the middle layer being "solids". Higher layers will appear in front of characters, and lower layers behind them. The layer other entities are on is usually determined automatically by the entity itself. Each chunk also comes with a special layer that describes the tiles that are "solid". The row of solid, interactable tiles is always the bottom row in the tile set. The meaning of the tiles is described "below"(link #tiles).
 
+When selecting a sprite entity, mostly for things that are interactable, you'll get a tile picker similar to the chunk sidebar. Selecting a tile there will set the bottom right corner of the tiles to display for the entity. Ctrl+clicking a tile will set the upper right corner of the tiles to display. It'll automatically adjust the size of the entity to fit your selection.
+
 Several keyboard shortcuts are also available:
 
 - ``Tab`` Change the selected entity
