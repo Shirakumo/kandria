@@ -199,19 +199,24 @@ void main(){
           :on-complete (lambda () ,@on-blank)))
 
 (define-shader-entity paletted-entity ()
-  ((palette :initarg :palette :initform (// 'kandria 'placeholder) :accessor palette
-            :type resource)))
+  ((palette :initarg :palette :initform 0 :accessor palette
+            :type integer)))
+
+(defmethod stage :after ((entity paletted-entity) (area staging-area))
+  (stage (// 'kandria 'palette) area))
 
 (defmethod render :before ((entity paletted-entity) (program shader-program))
   (gl:active-texture :texture4)
-  (gl:bind-texture :texture-2D (gl-name (palette entity)))
-  (setf (uniform program "palette") 4))
+  (gl:bind-texture :texture-2D (gl-name (// 'kandria 'palette)))
+  (setf (uniform program "palette") 4)
+  (setf (uniform program "palette_index") (palette entity)))
 
 (define-class-shader (paletted-entity :fragment-shader -1)
   "uniform sampler2D palette;
+uniform int palette_index = 0;
 
 void main(){
   if(color.r*color.b == 1 && color.g < 0.1){
-    color = texelFetch(palette, ivec2(color.g*255, 0), 0);
+    color = texelFetch(palette, ivec2(color.g*255, palette_index), 0);
   }
 }")

@@ -7,6 +7,9 @@
      :mag-filter :nearest
      ,@args))
 
+(define-sprite palette
+    #p"palette.png")
+
 (define-sprite lights
     #p"lights.png")
 
