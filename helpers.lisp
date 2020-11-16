@@ -198,6 +198,9 @@ void main(){
   `(issue +world+ 'transition-event
           :on-complete (lambda () ,@on-blank)))
 
+(define-asset (kandria palette) image
+    #p"palette.png")
+
 (define-shader-entity paletted-entity ()
   ((palette :initarg :palette :initform 0 :accessor palette
             :type integer)))
