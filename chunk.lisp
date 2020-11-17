@@ -232,6 +232,7 @@ void main(){
                                                      :pixel-data data
                                                      :layer-index i))))
     (setf (layers chunk) (coerce layers 'vector))
+    #++
     (setf (node-graph chunk) (make-instance 'node-graph :size size
                                                         :solids (pixel-data chunk)
                                                         :offset (v- (location chunk) (bsize chunk))))
@@ -268,7 +269,7 @@ void main(){
   (loop for layer across (layers chunk)
         do (stage layer area))
   (stage (background chunk) area)
-  (stage (node-graph chunk) area))
+  #++(stage (node-graph chunk) area))
 
 (defmethod clone ((chunk chunk) &key initargs)
   (apply #'make-instance (class-of chunk)
