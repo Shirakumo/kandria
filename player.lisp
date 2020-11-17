@@ -34,11 +34,8 @@
 (defmacro p! (name)
   `(gethash ',name +player-movement-data+))
 
-(define-sprite palette #p "palette.png")
-
-(define-shader-entity player (animatable profile ephemeral paletted-entity)
+(define-shader-entity player (animatable profile ephemeral)
   ((name :initform 'player)
-   (palette :initform (// 'kandria 'palette))
    (bsize :initform (vec 7.0 15.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (interactable :initform NIL :accessor interactable)
