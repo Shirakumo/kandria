@@ -92,7 +92,7 @@
 (define-asset (kandria step) sound
     #p"sound/step.wav"
   :volume 0.025
-  :effects '((mixed:pitch :name pitch)))
+  :effects '((mixed:pitch :name pitch :wet 0.1)))
 
 (define-asset (kandria death) sound
     #p"sound/death.wav"
