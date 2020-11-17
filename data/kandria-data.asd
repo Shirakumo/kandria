@@ -39,7 +39,15 @@
                 "--filename-format" "{tagframe} {tag}"
                 "--data" (uiop:native-namestring json)
                 "--sheet" (uiop:native-namestring png)
-                "--list-tags"))))
+                "--list-tags")
+      ;; Convert palette colours
+      (let ((lisp (make-pathname :type "lisp" :defaults json)))
+        (when (probe-file lisp)
+          (let ((palette (with-open-file (stream lisp)
+                           (getf (read stream) :palette))))
+            (when palette
+              (format *error-output* "~& Converting palette~%")
+              (convert-palette png (merge-pathnames palette lisp)))))))))
 
 (defclass tilemap (static-compile-file)
   ((asdf/component::type :initform "ase")))
@@ -67,7 +75,10 @@
                 "--save-as" (uiop:native-namestring normal)))))
 
 (asdf:defsystem kandria-data
-  :components ((spritesheet "player")
+  :serial T
+  :depends-on (zpng pngload)
+  :components ((:file "palette-convert")
+               (spritesheet "player")
                (spritesheet "player-profile")
                (spritesheet "fi")
                (spritesheet "fi-profile")

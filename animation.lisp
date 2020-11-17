@@ -122,7 +122,7 @@
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
   (with-kandria-io-syntax
     (with-open-file (stream path :direction :input)
-      (destructuring-bind (&key source animations frames) (read stream)
+      (destructuring-bind (&key source animations frames &allow-other-keys) (read stream)
         (setf (json-file sprite) source)
         (prog1 (call-next-method sprite (merge-pathnames (json-file sprite) path))
           (loop for expr in animations

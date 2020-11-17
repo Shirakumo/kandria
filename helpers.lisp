@@ -198,21 +198,20 @@ void main(){
   `(issue +world+ 'transition-event
           :on-complete (lambda () ,@on-blank)))
 
-(define-asset (kandria palette) image
-    #p"palette.png")
-
 (define-shader-entity paletted-entity ()
-  ((palette :initarg :palette :initform 0 :accessor palette
-            :type integer)))
+  ((palette :initarg :palette :initform (// 'kandria 'placeholder) :accessor palette
+            :type resource)
+   (palette-index :initarg :palette-index :initform 0 :accessor palette-index
+                  :type integer)))
 
 (defmethod stage :after ((entity paletted-entity) (area staging-area))
-  (stage (// 'kandria 'palette) area))
+  (stage (palette entity) area))
 
 (defmethod render :before ((entity paletted-entity) (program shader-program))
   (gl:active-texture :texture4)
-  (gl:bind-texture :texture-2D (gl-name (// 'kandria 'palette)))
+  (gl:bind-texture :texture-2D (gl-name (palette entity)))
   (setf (uniform program "palette") 4)
-  (setf (uniform program "palette_index") (palette entity)))
+  (setf (uniform program "palette_index") (palette-index entity)))
 
 (define-class-shader (paletted-entity :fragment-shader -1)
   "uniform sampler2D palette;
