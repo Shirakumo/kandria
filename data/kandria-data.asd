@@ -1,8 +1,11 @@
 
-(defun aseprite (file &rest args)
+(defun aseprite (&rest args)
   (uiop:run-program (list* #-windows "aseprite" #+windows "aseprite.exe"
-                           "-b" (uiop:native-namestring file)
-                           args)
+                           "-b"
+                           (loop for arg in args
+                                 collect (typecase arg
+                                           (pathname (uiop:native-namestring arg))
+                                           (T (princ-to-string arg)))))
                     :output *standard-output*
                     :error-output *error-output*))
 
@@ -31,15 +34,15 @@
   (destructuring-bind (file) (asdf:input-files o c)
     (format *error-output* "~& Compiling ~a~%" file)
     (destructuring-bind (json png) (asdf:output-files o c)
-      (aseprite (uiop:native-namestring file)
-                "--sheet-pack"
+      (aseprite "--sheet-pack"
                 "--trim"
                 "--shape-padding" "1"
-                "--sheet" (uiop:native-namestring png)
+                "--sheet" png
                 "--format" "json-array"
                 "--filename-format" "{tagframe} {tag}"
                 "--list-tags"
-                "--data" (uiop:native-namestring json))
+                "--data" json
+                file)
       ;; Convert palette colours
       (let ((lisp (make-pathname :type "lisp" :defaults json)))
         (when (probe-file lisp)
@@ -64,15 +67,15 @@
   (destructuring-bind (file) (asdf:input-files o c)
     (format T "~& Compiling ~a~%" file)
     (destructuring-bind (albedo absorption normal) (asdf:output-files o c)
-      (aseprite (uiop:native-namestring file)
+      (aseprite file
                 "--layer" "albedo"
-                "--save-as" (uiop:native-namestring albedo))
-      (aseprite (uiop:native-namestring file)
+                "--save-as" albedo)
+      (aseprite file
                 "--layer" "absorption"
-                "--save-as" (uiop:native-namestring absorption))
-      (aseprite (uiop:native-namestring file)
+                "--save-as" absorption)
+      (aseprite file
                 "--layer" "normal"
-                "--save-as" (uiop:native-namestring normal)))))
+                "--save-as" normal))))
 
 (asdf:defsystem kandria-data
   :serial T
