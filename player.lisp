@@ -364,7 +364,8 @@
                 (setf (vy vel) 0)))))
       (:crawling
        ;; Uncrawl on ground loss
-       (when (not ground)
+       (when (and (not ground)
+                  (< 0.1 (air-time player)))
          (when (svref collisions 0)
            (decf (vy loc) 16))
          (setf (state player) :normal))
@@ -379,7 +380,8 @@
        (when (and (<= (vy vel) 0) (typep ground 'slope))
          (if (= (signum (vx vel))
                 (signum (- (vy (slope-l ground)) (vy (slope-r ground)))))
-             (decf (vy vel) 1))))
+             (decf (vy vel) 1)))
+       (nv+ vel (v* (gravity (medium player)) dt)))
       (:normal
        ;; Handle jumps
        (when (< (jump-time player) 0.0)
@@ -539,7 +541,7 @@
                     ((typep (svref collisions 3) 'ground)
                      (setf (animation player) 'slide)
                      (setf (direction player) -1))
-                    (T
+                    ((< 0.1 (air-time player))
                      (setf (animation player) 'fall))))
              ((< 0 (abs (vx vel)))
               (setf (playback-speed player) (/ (abs (vx vel)) (p! walk-limit)))
