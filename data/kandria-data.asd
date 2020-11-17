@@ -32,14 +32,14 @@
     (format *error-output* "~& Compiling ~a~%" file)
     (destructuring-bind (json png) (asdf:output-files o c)
       (aseprite (uiop:native-namestring file)
-                "--format" "json-array"
                 "--sheet-pack"
                 "--trim"
                 "--shape-padding" "1"
-                "--filename-format" "{tagframe} {tag}"
-                "--data" (uiop:native-namestring json)
                 "--sheet" (uiop:native-namestring png)
-                "--list-tags")
+                "--format" "json-array"
+                "--filename-format" "{tagframe} {tag}"
+                "--list-tags"
+                "--data" (uiop:native-namestring json))
       ;; Convert palette colours
       (let ((lisp (make-pathname :type "lisp" :defaults json)))
         (when (probe-file lisp)
