@@ -19,6 +19,8 @@
       (copy-file "keymap.lisp")
       (deploy:copy-directory-tree (pathname-utils:subdirectory root "world") directory)
       (deploy:status 1 "Pruning assets")
+      ;; TODO: compress world in a zip
+      ;; TODO: run oxping/optipng/pngcrush to compress pngs
       ;; Prune undesired assets. This sucks, an automated, declarative way would be much better.
       (prune (pathname-utils:subdirectory directory "pool" "EFFECTS"))
       (prune (pathname-utils:subdirectory directory "pool" "WORKBENCH"))
@@ -36,20 +38,15 @@
  org.shirakumo.file-select.gtk::gio
  org.shirakumo.file-select.gtk::gtk
  org.shirakumo.file-select.gtk::glib
- org.shirakumo.font-discovery::fontconfig
  cl+ssl::libssl
  cl+ssl::libcrypto)
 #+darwin
 (trial::dont-deploy
  org.shirakumo.file-select.macos::foundation
  org.shirakumo.file-select.macos::appkit
- org.shirakumo.file-select.macos::cocoa
- org.shirakumo.font-discovery::coretext
- org.shirakumo.font-discovery::foundation)
+ org.shirakumo.file-select.macos::cocoa)
 #+windows
 (trial::dont-deploy
- org.shirakumo.file-select.win32::ole32
- org.shirakumo.font-discovery::directwrite
- org.shirakumo.font-discovery::ole32)
+ org.shirakumo.file-select.win32::ole32)
 
 (deploy:remove-hook :deploy 'org.shirakumo.fraf.trial.alloy::alloy)
