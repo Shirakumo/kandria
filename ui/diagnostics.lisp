@@ -111,6 +111,17 @@
    (last-io :initform 0)
    (last-gc :initform 0)))
 
+(defun machine-info ()
+  (with-output-to-string (stream)
+    (format stream "~
+Version: ~a
+Implementation: ~a ~a
+Machine: ~a ~a"
+            (version :kandria)
+            (lisp-implementation-type) (lisp-implementation-version)
+            (machine-type) (machine-version))
+    (context-info *context* stream :show-extensions NIL)))
+
 (defmethod initialize-instance :after ((panel diagnostics) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (fps (alloy:represent (slot-value panel 'fps) 'alloy:plot
@@ -122,7 +133,8 @@
         (io (alloy:represent (slot-value panel 'io) 'alloy:plot
                              :y-range `(0 . 1024) :style `((:curve :line-width ,(alloy:un 2)))))
         (gc (alloy:represent (slot-value panel 'gc) 'alloy:plot
-                             :y-range `(0 . 100) :style `((:curve :line-width ,(alloy:un 2))))))
+                             :y-range `(0 . 100) :style `((:curve :line-width ,(alloy:un 2)))))
+        (info (make-instance 'alloy:label* :value (machine-info) :style `((:label :valign :top :size ,(alloy:un 14) :wrap T)))))
     (alloy:enter fps layout :constraints `((:size 300 120) (:left 10) (:top 10)))
     (alloy:enter ram layout :constraints `((:size 300 120) (:left 10) (:below ,fps 10)))
     (alloy:enter vram layout :constraints `((:size 300 120) (:left 10) (:below ,ram 10)))
@@ -133,6 +145,7 @@
     (alloy:enter "VRAM" layout :constraints `((:size 100 20) (:inside ,vram :halign :left :valign :top :margin 5)))
     (alloy:enter "IO" layout :constraints `((:size 100 20) (:inside ,io :halign :left :valign :top :margin 5)))
     (alloy:enter "GC Pause" layout :constraints `((:size 100 20) (:inside ,gc :halign :left :valign :top :margin 5)))
+    (alloy:enter info layout :constraints `((:size 600 600) (:right-of ,fps 10) (:top 10)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod handle ((ev tick) (panel diagnostics))
