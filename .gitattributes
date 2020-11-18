@@ -11,3 +11,4 @@ docs/*.png -filter=lfs -diff=lfs -merge=lfs -text
 docs/media/*.png -filter=lfs -diff=lfs -merge=lfs -text
 docs/press/*.png -filter=lfs -diff=lfs -merge=lfs -text
 * -crlf
+data/*.json eol=lf
