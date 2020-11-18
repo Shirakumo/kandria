@@ -102,25 +102,52 @@
     (+ (rusage-inblock rusage)
        (rusage-oublock rusage))))
 
+(defclass diagnostics-label (alloy:label)
+  ())
+
+(presentations:define-realization (ui diagnostics-label)
+  ((:label simple:text)
+   (alloy:margins)
+   alloy:text
+   :pattern (colored:color 1 1 1)
+   :size (alloy:un 18)
+   :halign :start :valign :top
+   :font "NotoSansMono"))
+
 (defclass diagnostics (panel alloy:observable-object)
   ((fps :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
    (ram :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
    (vram :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
    (io :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
    (gc :initform (make-array 600 :initial-element 0.0 :element-type 'single-float))
+   (info :initform "")
    (last-io :initform 0)
    (last-gc :initform 0)))
 
 (defun machine-info ()
   (with-output-to-string (stream)
     (format stream "~
-Version: ~a
-Implementation: ~a ~a
-Machine: ~a ~a"
+Version:            ~a
+Implementation:     ~a ~a
+Machine:            ~a ~a"
             (version :kandria)
             (lisp-implementation-type) (lisp-implementation-version)
             (machine-type) (machine-version))
     (context-info *context* stream :show-extensions NIL)))
+
+(defun runtime-info ()
+  (let ((player (unit 'player T)))
+    (format NIL "~
+Region:             ~a
+Chunk:              ~a
+Location:           ~7,2f ~7,2f
+Velocity:           ~7,2f ~7,2f
+State:              ~a"
+            (name (region +world+))
+            (name (chunk player))
+            (vx (location player)) (vy (location player))
+            (vx (velocity player)) (vy (velocity player))
+            (state player))))
 
 (defmethod initialize-instance :after ((panel diagnostics) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
@@ -134,7 +161,8 @@ Machine: ~a ~a"
                              :y-range `(0 . 1024) :style `((:curve :line-width ,(alloy:un 2)))))
         (gc (alloy:represent (slot-value panel 'gc) 'alloy:plot
                              :y-range `(0 . 100) :style `((:curve :line-width ,(alloy:un 2)))))
-        (info (make-instance 'alloy:label* :value (machine-info) :style `((:label :valign :top :size ,(alloy:un 14) :wrap T)))))
+        (machine-info (alloy:represent (machine-info) 'diagnostics-label))
+        (info (alloy:represent (slot-value panel 'info) 'diagnostics-label)))
     (alloy:enter fps layout :constraints `((:size 300 120) (:left 10) (:top 10)))
     (alloy:enter ram layout :constraints `((:size 300 120) (:left 10) (:below ,fps 10)))
     (alloy:enter vram layout :constraints `((:size 300 120) (:left 10) (:below ,ram 10)))
@@ -145,11 +173,12 @@ Machine: ~a ~a"
     (alloy:enter "VRAM" layout :constraints `((:size 100 20) (:inside ,vram :halign :left :valign :top :margin 5)))
     (alloy:enter "IO" layout :constraints `((:size 100 20) (:inside ,io :halign :left :valign :top :margin 5)))
     (alloy:enter "GC Pause" layout :constraints `((:size 100 20) (:inside ,gc :halign :left :valign :top :margin 5)))
-    (alloy:enter info layout :constraints `((:size 600 600) (:right-of ,fps 10) (:top 10)))
+    (alloy:enter machine-info layout :constraints `((:size 600 300) (:right-of ,fps 10) (:top 10)))
+    (alloy:enter info layout :constraints `((:size 600 300) (:right-of ,fps 10) (:below ,machine-info 10)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod handle ((ev tick) (panel diagnostics))
-  (with-slots (fps ram vram io last-io gc last-gc) panel
+  (with-slots (fps ram vram io last-io gc last-gc info) panel
     (flet ((push-value (value array)
              (declare (type (simple-array single-float (*)) array))
              (loop for i from 1 below (length array)
@@ -173,4 +202,5 @@ Machine: ~a ~a"
         (when (< 0 last-gc)
           (push-value (- total last-gc) gc))
         (setf last-gc total))
-      (alloy:notify-observers 'gc panel gc panel))))
+      (alloy:notify-observers 'gc panel gc panel)
+      (setf info (runtime-info)))))
