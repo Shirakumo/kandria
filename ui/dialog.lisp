@@ -170,7 +170,7 @@
     (cond ((or (null interactions)
                (and (one-shot dialog)
                     (loop for interaction in interactions
-                          always (eql :done (quest:status interaction)))))
+                          always (eql :complete (quest:status interaction)))))
            ;; If we have no interactions anymore, or we started
            ;; out with one and now only have dones, hide.
            (hide dialog))
