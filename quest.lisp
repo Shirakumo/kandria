@@ -44,6 +44,8 @@
      (declare (ignorable world player region interaction task quest inventory has-more-dialogue))
      (flet ((activate (thing)
               (quest:activate (if (symbolp thing) (quest:find-named thing task) thing)))
+            (deactivate (thing)
+              (quest:deactivate (if (symbolp thing) (quest:find-named thing task) thing)))
             (complete (thing)
               (quest:complete (if (symbolp thing) (quest:find-named thing task) thing)))
             (fail (thing)

@@ -209,7 +209,7 @@
                   (:prompt
                    (setf (prompt dialog) (second (pending dialog))))
                   (:end
-                   (setf (quest:status (interaction dialog)) :done)
+                   (quest:complete (interaction dialog))
                    (next-interaction dialog)))
                 (setf (pending dialog) NIL))
                ((dialogue:instructions (vm dialog))
