@@ -246,6 +246,9 @@
 (defmethod deactivate :after ((trigger trigger))
   (setf (status trigger) :inactive))
 
+(defmethod complete :after ((trigger trigger))
+  (setf (status trigger) :complete))
+
 (defclass action (trigger)
   ((on-activate :initform (constantly T) :accessor on-activate)
    (on-deactivate :initform (constantly T) :accessor on-deactivate)))
