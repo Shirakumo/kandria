@@ -29,6 +29,11 @@
     (when (typep interactable 'interactable)
       (setf (interactions interactable) (remove interactable (interactions interactable))))))
 
+(defmethod quest:complete ((trigger interaction))
+  (let ((interactable (unit (quest:interactable trigger) +world+)))
+    (when (typep interactable 'interactable)
+      (setf (interactions interactable) (remove interactable (interactions interactable))))))
+
 (defclass assembly (dialogue:assembly)
   ())
 

@@ -273,3 +273,7 @@
 
 (defmethod initialize-instance :after ((interaction interaction) &key task dialogue)
   (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly task))))
+
+(defmethod activate ((interaction interaction)))
+(defmethod deactivate ((interaction interaction)))
+(defmethod complete ((interaction interaction)))
