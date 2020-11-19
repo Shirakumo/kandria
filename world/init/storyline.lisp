@@ -1,1 +1,1 @@
-(test :status :active :tasks ((inspect-camp :status :unresolved)))
+(test :status :active :tasks ((find-android :status :unresolved)))
