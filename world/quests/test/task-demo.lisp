@@ -3,7 +3,7 @@
  :description "Locate the android rumoured to live in the mountain caves"
  :invariant T
  :condition quest:all-complete
- :on-activate (fi-check pot-check tent-check sign-main-check sign-check landslide-check fire-check beacon-check corpse-check cave-in-check android-check home-check))
+ :on-activate (fi-check pot-check tent-check sign-main-check sign-check landslide-check fire-check beacon-check corpse-check cave-in-check android-check home-check home-tent-check))
 (quest:interaction :name fi-check :interactable fi :dialogue "
 ~ fi
 | (:annoyed)Next time I'll bring my own climbing gear.
@@ -140,7 +140,7 @@
 (quest:interaction :name cave-in-check :interactable cave-in :dialogue "
 ~ player
 | (The cave collapsed here. I can see more bodies underneath.)
-| (Scratches in the rocks suggest combat occurred here - swords, gunfire, and finger nails...)
+| (Scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...)
 | ! eval (complete 'fi-check)
 ")
 (quest:interaction :name android-check :interactable android :dialogue "
@@ -155,9 +155,14 @@
 | ! eval (activate 'fi-outcome)")
 (quest:interaction :name home-check :interactable home :dialogue "
 ~ player
-| Home
+| (They made a home here. Who was Harris to take that away?)
 | ! eval (complete 'fi-check)
-| ! eval (activate 'fi-outcome)")
+")
+(quest:interaction :name home-tent-check :interactable home-tent :dialogue "
+~ player
+| (Androids do use bedrolls. At least, this one did.)
+| ! eval (complete 'fi-check)
+")
 (quest:interaction :name fi-outcome :interactable fi :dialogue "
 ~ fi
 | Is everything okay?
