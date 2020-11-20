@@ -143,6 +143,7 @@
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((dialog dialog))
+  (clear-retained)
   (discard-events +world+)
   (unpause-game T (unit 'ui-pass T)))
 
@@ -239,6 +240,12 @@
          (loop until (or (pending dialog) (prompt dialog))
                do (advance dialog))
          (scroll-text dialog (array-total-size (text dialog))))))
+
+(defmethod handle ((ev next) (dialog dialog))
+  (alloy:focus-prev (choices dialog)))
+
+(defmethod handle ((ev previous) (dialog dialog))
+  (alloy:focus-next (choices dialog)))
 
 (defmethod advance ((dialog dialog))
   (handle (dialogue:resume (vm dialog) (ip dialog)) dialog))
