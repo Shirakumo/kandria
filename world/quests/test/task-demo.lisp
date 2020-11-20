@@ -3,7 +3,7 @@
  :description "Locate the android rumoured to live in the mountain caves"
  :invariant T
  :condition quest:all-complete
- :on-activate (fi-check pot-check tent-check sign-main-check sign-check landslide-check fire-check beacon-check corpse-check cave-in-check android-check))
+ :on-activate (fi-check pot-check tent-check sign-main-check sign-check landslide-check fire-check beacon-check corpse-check cave-in-check android-check home-check))
 (quest:interaction :name fi-check :interactable fi :dialogue "
 ~ fi
 | (:annoyed)Next time I'll bring my own climbing gear.
@@ -133,12 +133,16 @@
 (quest:interaction :name corpse-check :interactable corpse :dialogue "
 ~ player
 | (Human remains. Dismembered, and picked clean...)
-| (Might have been an animal attack, or those rogue robots...)")
+| (Might have been an animal attack, or those rogue robots...)
+| ! eval (complete 'fi-check)
+")
 ; \/ query if already know of landslide var, and tweak text e.g. "This is the other side of the landslide"
 (quest:interaction :name cave-in-check :interactable cave-in :dialogue "
 ~ player
 | (The cave collapsed here. I can see more bodies underneath.)
-| (Scratches in the rocks suggest combat occurred here - swords, gunfire, and finger nails...)")
+| (Scratches in the rocks suggest combat occurred here - swords, gunfire, and finger nails...)
+| ! eval (complete 'fi-check)
+")
 (quest:interaction :name android-check :interactable android :dialogue "
 ~ player
 | (It's the android... It's been destroyed. Not even Catherine could fix this kind of damage.)
@@ -147,7 +151,13 @@
 | (The memory replay seems to be intact.)
 | Excuse me, sister... I just need to retrieve this... --- Thank you.
 | I'd better get this back to Fi.)
-! eval (activate 'fi-outcome)")
+| ! eval (complete 'fi-check)
+| ! eval (activate 'fi-outcome)")
+(quest:interaction :name home-check :interactable home :dialogue "
+~ player
+| Home
+| ! eval (complete 'fi-check)
+| ! eval (activate 'fi-outcome)")
 (quest:interaction :name fi-outcome :interactable fi :dialogue "
 ~ fi
 | Is everything okay?
