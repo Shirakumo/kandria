@@ -209,7 +209,7 @@ void main(){
   color = apply_lighting(color, vec2(0), 1-a, n, world_pos) * visibility;
 }")
 
-(define-shader-entity chunk (shadow-caster layer solid)
+(define-shader-entity chunk (shadow-caster layer solid ephemeral)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
    (node-graph :accessor node-graph)
@@ -219,7 +219,8 @@ void main(){
    (background :initform (background 'debug) :initarg :background :accessor background
                :type background-info :documentation "The background to show in the chunk.")
    (gi :initform (gi 'none) :initarg :gi :accessor gi
-       :type gi-info :documentation "The lighting to show in the chunk."))
+       :type gi-info :documentation "The lighting to show in the chunk.")
+   (name :initform (generate-name "CHUNK")))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
