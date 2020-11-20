@@ -85,6 +85,7 @@
       (interact interactable player))))
 
 (defmethod interact :before ((thing dialog-entity) (player player))
+  (setf (state player) :normal)
   (hide (prompt player)))
 
 (defmethod interact ((door door) (player player))
