@@ -5,7 +5,7 @@
                  `(mktab ,@(loop for (k v) in entries
                                  collect `(list ',k ,v)))))
       (mktab* (coyote-time     0.08)
-              (velocity-limit  (vec 10 10))
+              (velocity-limit  (vec 10 20))
               (walk-acc        0.1)
               (walk-limit      1.9)
               (run-acc         0.0125)
@@ -246,6 +246,8 @@
         (hide (prompt player)))
     (ecase (state player)
       ((:dying :animated :stunned)
+       (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
+         (start-animation 'heavy-aerial-3-release player))
        (let ((buffer (buffer player)))
          (when (and buffer (cancelable-p (frame player)))
            (setf (buffer player) NIL)
