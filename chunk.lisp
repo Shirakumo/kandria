@@ -216,9 +216,9 @@ void main(){
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")
-   (background :initform NIL :initarg :background :accessor background
+   (background :initform (background 'debug) :initarg :background :accessor background
                :type background-info :documentation "The background to show in the chunk.")
-   (gi :initform (make-instance 'gi) :initarg :gi :accessor gi
+   (gi :initform (gi 'none) :initarg :gi :accessor gi
        :type gi-info :documentation "The lighting to show in the chunk."))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
