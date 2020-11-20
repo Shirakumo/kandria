@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity npc (animatable dialog-entity profile)
+(define-shader-entity npc (animatable ephemeral dialog-entity profile)
   ((state :initform :normal)))
 
 (defmethod handle :before ((ev tick) (npc npc))
