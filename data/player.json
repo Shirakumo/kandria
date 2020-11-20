@@ -2862,7 +2862,7 @@
     "duration": 60
    },
    {
-    "filename": "12 Heavy Aerial 3",
+    "filename": "0 Heavy Aerial 3 Release",
     "frame": { "x": 485, "y": 57, "w": 69, "h": 48 },
     "rotated": false,
     "trimmed": true,
@@ -2871,7 +2871,7 @@
     "duration": 75
    },
    {
-    "filename": "13 Heavy Aerial 3",
+    "filename": "1 Heavy Aerial 3 Release",
     "frame": { "x": 303, "y": 39, "w": 70, "h": 50 },
     "rotated": false,
     "trimmed": true,
@@ -2880,7 +2880,7 @@
     "duration": 75
    },
    {
-    "filename": "14 Heavy Aerial 3",
+    "filename": "2 Heavy Aerial 3 Release",
     "frame": { "x": 694, "y": 0, "w": 68, "h": 53 },
     "rotated": false,
     "trimmed": true,
@@ -2889,7 +2889,7 @@
     "duration": 85
    },
    {
-    "filename": "15 Heavy Aerial 3",
+    "filename": "3 Heavy Aerial 3 Release",
     "frame": { "x": 556, "y": 0, "w": 67, "h": 55 },
     "rotated": false,
     "trimmed": true,
@@ -3627,7 +3627,8 @@
    { "name": "Heavy Aerial 1 Release", "from": 292, "to": 293, "direction": "forward" },
    { "name": "Heavy Aerial 2", "from": 294, "to": 303, "direction": "forward" },
    { "name": "Heavy Aerial 2 Release", "from": 304, "to": 305, "direction": "forward" },
-   { "name": "Heavy Aerial 3", "from": 306, "to": 321, "direction": "forward" },
+   { "name": "Heavy Aerial 3", "from": 306, "to": 317, "direction": "forward" },
+   { "name": "Heavy Aerial 3 Release", "from": 318, "to": 321, "direction": "forward" },
    { "name": "Light Aerial Down", "from": 322, "to": 330, "direction": "forward" },
    { "name": "Heavy Aerial Down", "from": 331, "to": 360, "direction": "forward" },
    { "name": "Enter", "from": 361, "to": 369, "direction": "forward" },
