@@ -12,9 +12,10 @@
 ~ fi
 | Tracking the android was my idea. Talking to Harris was my idea. Clinging to your back while you scale a vertical cliff face - (:shocked)definitely not my idea.
 ~ player
-| Well, we're here now. Should I proceed?
+| Well, we're here now. Can I proceed?
 ~ fi
-| Okay, but I'm staying right here. Let me know what you find. And be careful.")
+| You know you don't need to ask me that, of all people? But yes, you are permitted.
+| Though I'm staying right here. Let me know what you find. And be careful.")
 (quest:interaction :name pot-check :interactable pot :dialogue "
 ~ player
 | (The cooking pot infers human habitation.
@@ -38,43 +39,39 @@
 ~ player
 | I think we've got company.
 ~ fi
-| The camp? I agree.
 | Harris said these caves were deserted.
 | [has-more-dialogue Did you find anything else? | Keep your eyes open.]
 ")
 (quest:interaction :name sign-main-check :interactable sign-main :dialogue "
 ~ player
-| (It's the same symbol I have on my uniform.)
-| (Maybe it's a warning...) 
+| (It's the same symbol that I have on my uniform.)
+| (Perhaps it's a warning...) 
 | ! eval (activate 'fi-sign-main)
 | ! eval (complete 'fi-check)")
 (quest:interaction :name fi-sign-main :interactable fi :dialogue "
 ~ player
-| That sign over there has the same symbol on it as my uniform. I think it's something to do with androids.
+| That sign over there has the same symbol on it as my uniform. I think it has something to do with androids.
 ~ fi
 | Then we're on the right track.
 ~ player
-| Actually, now I think about it, what does it also look like to you?
+| It also resembles an arrow, don't you think? Pointing up over the mountain?
 ~ fi
-| I don't know.
-~ player
-| An arrow. Pointing up over the mountain.
-~ fi
-| You could boost yourself up there. But I'm definitely staying right here.
+| I know you want to be a detective, but now I think you're seeing things.
+| Remind me to check your pattern recognition software when we get back.
 | [has-more-dialogue You got more? | You'd better get going.]")
 (quest:interaction :name sign-check :interactable sign :dialogue "
 ~ player
 | (The words were scratched into the wood with a knife. I can barely read it. Upscaling resolution and enabling zoom...)
-| READ ME - NO LITTER U FUCKS - BOTS PATROL HERE
-| (Short and sweet, just like Harris.)
+| //READ ME - NO LITTER U FUCKS - BOTS PATROL HERE//
+| (Short and not so sweet - that's Harris.)
 | ! eval (activate 'fi-sign)
 | ! eval (complete 'fi-check)
 ")
 (quest:interaction :name fi-sign :interactable fi :dialogue "
 ~ player
-| I found a sign - looked and sounded like Harris. It warned of robots on patrol.
+| There's a sign in the cave - looked and sounded like only Harris can. It warned of robots on patrol.
 ~ fi
-| Rogues. They're not uncommon in caves like these. Like you but not as strong - and thankfully not as smart.
+| Rogues... They're not uncommon in caves like these. They're like you but not as strong - and thankfully not as smart.
 ~ player
 | Was that a compliment?
 ~ fi
@@ -82,29 +79,29 @@
 | [has-more-dialogue Anything else? | Now get going.]")
 (quest:interaction :name landslide-check :interactable landslide :dialogue "
 ~ player
-| (There was a landslide here... That's a memory I could do without.)
-| (And this is human blood. There must be another way around.)
+| (A landslide... That's a memory I could do without.)
+| (There's human blood on the rock. I can't follow them through there - I need to find another way around.)
 | ! eval (activate 'fi-landslide)
 | ! eval (complete 'fi-check)
 ")
 ; | ! eval (let (landslide true))
 (quest:interaction :name fi-landslide :interactable fi :dialogue "
 ~ player
-| There's been a landslide in the cave. I think there might be bodies underneath.
+| There's been a landslide in the cave.
 ~ fi
-| That's not unusual in itself, but given everything else about this place...
+| That's not unusual in these parts. But given that everything else seems wrong about this place...
 ~ player
-| I hope the android isn't buried under there as well.
+| I hope the android isn't buried under there.
 ~ fi
 | Androids are tougher than they look.
 ~ player
 | I don't look tough?
 ~ fi
-| <smiles> I didn't say that.
+| *Smiles* I didn't say that.
 | [has-more-dialogue Anything more? | Well this is awkward...]")
 (quest:interaction :name fire-check :interactable fire :dialogue "
 ~ player
-| (The fire is still warm. They left very recently.)
+| (The fire is still warm. They left recently.)
 | ! eval (activate 'fi-fire)
 | ! eval (complete 'fi-check)
 ")
@@ -114,43 +111,41 @@
 ~ fi
 | I think it's fair to say that Harris hasn't been completely honest with us.
 ~ player
-| You think it's a trap.
+| You think it's a trap?
 ~ fi
-| Only one way to find out.
+| There's one way to find out.
 ~ player
-| Spring it? Lucky me.
+| Yes... Lucky me.
 ~ fi
 | You can handle yourself.
 | [has-more-dialogue Next? | Sayonara.]")
 (quest:interaction :name beacon-check :interactable beacon :dialogue "
 ~ player
-| (How'd this get all the way up here?)
-| (Whoa. That's one helluva view across the desert. Somebody's thinking place?)
+| (How did this get all the way up here?)
+| (... Look at that view... Somebody's thinking place?)
 | ! eval (complete 'fi-check)
 ")
-
-
 (quest:interaction :name corpse-check :interactable corpse :dialogue "
 ~ player
-| (Human remains. Dismembered, and picked clean...)
-| (Might have been an animal attack, or those rogue robots...)
+| (Remains: human. Dismembered, and already picked clean.)
+| (An animal attack? Or those rogue robots, perhaps.)
 | ! eval (complete 'fi-check)
 ")
 ; \/ query if already know of landslide var, and tweak text e.g. "This is the other side of the landslide"
 (quest:interaction :name cave-in-check :interactable cave-in :dialogue "
 ~ player
-| (The cave collapsed here. I can see more bodies underneath.)
-| (Scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...)
+| (The cave collapsed here. This is where the humans came through - I can see more bodies underneath.)
+| (The scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...)
 | ! eval (complete 'fi-check)
 ")
 (quest:interaction :name android-check :interactable android :dialogue "
 ~ player
 | (It's the android... It's been destroyed. Not even Catherine could fix this kind of damage.)
-| Hello, sister... What happened to you?
-| (More human remains... It appears you didn't go down without a fight.)
+| Hello, sestra... What happened to you?
+| (More human remains. It appears you didn't go down without a fight.)
 | (The memory replay seems to be intact.)
-| Excuse me, sister... I just need to retrieve this... --- Thank you.
-| I'd better get this back to Fi.)
+| Excuse me, sestra... I just need to retrieve this... --- Thank you.
+| (I'd better get this back to Fi.)
 | ! eval (complete 'fi-check)
 | ! eval (activate 'fi-outcome)")
 (quest:interaction :name home-check :interactable home :dialogue "
@@ -169,16 +164,16 @@
 ~ player
 | I found the android.
 ~ fi
-| Oh. I'm sorry. What happened?
+| Oh... -- I'm so sorry...
+| What happened?
 ~ player
 | They're offline and irreparable.
-| By the lay of the carnage in there, I think Harris and company ambushed them.
-| They fought, and the cave destabilised and collapsed. The humans were killed then and there - all but one.
-| I think the android then killed Harris - not just killed, but dismembered the poor bastard.
-| They spent her final seconds crawling back into their home, where they died.
+| By the lay of the carnage in there, I'd say Harris and company ambushed them.
+| They fought, and the cave destabilised and collapsed. The humans were killed in the cave in - all but one.
+| The android then killed Harris - not just killed him, but dismembered him.
+| They spent their final seconds crawling back into their home, where they offlined.
 ~ fi
-| -- I'm so sorry.
-| -- Perhaps they hoped to trick us, and seize you too.
+| -- You think Harris tricked us into coming here? To seize you too?
 ~ player
 | Perhaps.
 ~ fi
@@ -187,4 +182,4 @@
 | *Holds the small metal chip aloft*
 ~ fi
 | Let's go home. We'll see what it can tell us about the past.
-")	
+")
