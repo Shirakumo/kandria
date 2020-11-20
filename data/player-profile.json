@@ -326,7 +326,7 @@
  ],
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.2.21-x64",
+  "version": "1.2.25-x64",
   "image": "player-profile.png",
   "format": "RGBA8888",
   "size": { "w": 510, "h": 693 },
