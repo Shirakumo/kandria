@@ -238,9 +238,17 @@
 
 (define-shader-entity zombie (enemy half-solid)
   ((bsize :initform (vec 4 16))
-   (health :initform 100))
+   (health :initform 100)
+   (timer :initform 0.0 :accessor timer))
   (:default-initargs
    :sprite-data (asset 'kandria 'zombie)))
+
+(defmethod movement-speed ((enemy zombie))
+  (case (state enemy)
+    (:stand 0.0)
+    (:walk 0.1)
+    (:approach 0.2)
+    (T 1.0)))
 
 (defmethod handle-ai-states ((enemy zombie) ev)
   (let* ((player (unit 'player T))
@@ -249,13 +257,25 @@
          (vel (velocity enemy)))
     (ecase (state enemy)
       (:normal
-       (when (< (vlength (v- ploc eloc)) (* +tile-size+ 8))
-         (setf (state enemy) :approach)))
+       (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 8))
+              (setf (state enemy) :approach))
+             (T
+              (setf (state enemy) (alexandria:random-elt '(:stand :stand :walk)))
+              (setf (timer enemy) (+ (ecase (state enemy) (:stand 2.0) (:walk 1.0)) (random 2.0)))
+              (setf (direction enemy) (alexandria:random-elt '(-1 +1))))))
+      ((:stand :walk)
+       (when (< (vlength (v- ploc eloc)) (* +tile-size+ 10))
+         (start-animation 'notice enemy))
+       (when (<= (decf (timer enemy) (dt ev)) 0)
+         (setf (state enemy) :normal))
+       (case (state enemy)
+         (:stand (setf (vx vel) 0))
+         (:walk (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))
       (:approach
-       (cond ((< (* +tile-size+ 12) (vlength (v- ploc eloc)))
+       (cond ((< (* +tile-size+ 20) (vlength (v- ploc eloc)))
               (setf (state enemy) :normal))
              ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 1))
               (start-animation 'attack enemy))
              (T
               (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
-              (setf (vx vel) (* (direction enemy) 0.5))))))))
+              (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))))
