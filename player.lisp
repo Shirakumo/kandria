@@ -73,9 +73,12 @@
     (T 1.9)))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(dash jump land slide step death slash rope))
+  (dolist (sound '(dash jump land slide step death slash rope splash ground-hit))
     (stage (// 'kandria sound) area))
   (stage (prompt player) area))
+
+(defmethod enter :after ((player player) (medium medium))
+  (harmony:play (// 'kandria 'splash)))
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))

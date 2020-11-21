@@ -243,6 +243,10 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'zombie)))
 
+(defmethod stage :after ((enemy zombie) (area staging-area))
+  (stage (// 'kandria 'stab) area)
+  (stage (// 'kandria 'zombie-notice) area))
+
 (defmethod movement-speed ((enemy zombie))
   (case (state enemy)
     (:stand 0.0)
