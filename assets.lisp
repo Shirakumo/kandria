@@ -114,6 +114,22 @@
     #p"sound/rope.wav"
   :volume 0.1)
 
+(define-asset (kandria splash) sound
+    #p"sound/splash.wav"
+  :volume 0.1)
+
+(define-asset (kandria ground-hit) sound
+    #p"sound/ground-hit.wav"
+  :volume 0.1)
+
+(define-asset (kandria zombie-notice) sound
+    #p"sound/zombie-notice.wav"
+  :volume 0.05)
+
+(define-asset (kandria stab) sound
+    #p"sound/stab.wav"
+  :volume 0.1)
+
 (define-gi none
   :location NIL
   :light (vec 0 0 0)
