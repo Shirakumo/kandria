@@ -30,9 +30,7 @@ You can use a keyboard or a gamepad to control the game. The standard key / butt
 The controls can also be changed to suit your preferences by editing ``keymap.lisp``.
 
 ## Minimum Requirements
-In order to play Kandria you need an x86-64 Windows, Linux, or macOS system with at least 1GB RAM and a video driver capable of OpenGL 3.3 or higher.
-
-Due to a known bug, the game currently does not run properly on AMD graphics cards on Windows. Any other system and video card combination should work, however.
+In order to play Kandria you need an x86-64 Windows, Linux, or macOS system with at least 4GB RAM and a video driver capable of OpenGL 3.3 or higher.
 
 ## Changing Settings
 Settings are saved in a plain text file that you can find here:
