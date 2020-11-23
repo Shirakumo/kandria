@@ -142,12 +142,20 @@ Region:             ~a
 Chunk:              ~a
 Location:           ~7,2f ~7,2f
 Velocity:           ~7,2f ~7,2f
-State:              ~a"
+State:              ~a
+Animation:          ~a
+Health:             ~d
+Stun:               ~7,2f
+Iframes:            ~d"
             (name (region +world+))
             (name (chunk player))
             (vx (location player)) (vy (location player))
             (vx (velocity player)) (vy (velocity player))
-            (state player))))
+            (state player)
+            (name (animation player))
+            (health player)
+            (stun-time player)
+            (iframes player))))
 
 (defmethod initialize-instance :after ((panel diagnostics) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
