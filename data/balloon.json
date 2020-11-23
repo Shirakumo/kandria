@@ -182,7 +182,7 @@
  ],
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.2.21-x64",
+  "version": "1.2.25-x64",
   "image": "balloon.png",
   "format": "RGBA8888",
   "size": { "w": 147, "h": 103 },
