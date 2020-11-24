@@ -57,17 +57,22 @@
   (load-state (quicksave (handler *context*)) world))
 
 (defun launch (&rest initargs)
-  (let ((*package* #.*package*))
-    (v:info :kandria "Launching version ~a" (version :kandria))
-    (load-keymap)
-    (load-settings)
-    (save-settings)
-    (apply #'trial:launch 'main
-           :width (setting :display :width)
-           :height (setting :display :height)
-           :vsync (setting :display :vsync)
-           :fullscreen (setting :display :fullscreen)
-           initargs)))
+  (flet ((launch ()
+           (let ((*package* #.*package*))
+             (v:info :kandria "Launching version ~a" (version :kandria))
+             (load-keymap)
+             (load-settings)
+             (save-settings)
+             (apply #'trial:launch 'main
+                    :width (setting :display :width)
+                    :height (setting :display :height)
+                    :vsync (setting :display :vsync)
+                    :fullscreen (setting :display :fullscreen)
+                    initargs))))
+    (if (deploy:deployed-p)
+        (float-features:with-float-traps-masked T
+          (launch))
+        (launch))))
 
 (defmethod setup-scene ((main main) scene)
   (enter (make-instance 'fade) scene)
