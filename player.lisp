@@ -372,7 +372,7 @@
        ;; Uncrawl on ground loss
        (when (and (not ground)
                   (< 0.1 (air-time player)))
-         (when (svref collisions 0)
+         (when (scan-collision +world+ (vec (vx loc) (vy loc) 16 32))
            (decf (vy loc) 16))
          (setf (state player) :normal))
        
