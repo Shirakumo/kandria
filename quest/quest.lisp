@@ -240,6 +240,9 @@
 (defmethod initialize-instance :after ((trigger trigger) &key task name)
   (setf (find-trigger name task) trigger))
 
+(defmethod active-p ((trigger trigger))
+  (eql :active (status trigger)))
+
 (defmethod activate :after ((trigger trigger))
   (setf (status trigger) :active))
 
