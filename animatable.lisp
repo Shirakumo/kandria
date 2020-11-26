@@ -121,7 +121,7 @@
     (setf (state animatable) :animated)))
 
 (defmethod handle-animation-states ((animatable animatable) ev)
-  (let ((vel (frame-velocity animatable))
+  (let ((vel (velocity animatable))
         (frame (frame animatable)))
     (case (state animatable)
       (:animated
@@ -150,9 +150,9 @@
        (when (<= (stun-time animatable) 0)
          (setf (state animatable) :normal)))
       (:dying))
-    (nv* (velocity animatable) (multiplier frame))
-    (incf (vx vel) (* (direction animatable) (vx (velocity frame))))
-    (incf (vy vel) (vy (velocity frame)))))
+    (nv* vel (multiplier frame))
+    (incf (vx vel) (* (direction animatable) (vx (acceleration frame))))
+    (incf (vy vel) (vy (acceleration frame)))))
 
 (defmethod handle :before ((ev tick) (animatable animatable))
   (when (< 0 (iframes animatable))
