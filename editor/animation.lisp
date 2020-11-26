@@ -31,6 +31,7 @@
           do (nv* vel (multiplier frame))
              (incf (vx vel) (* dt (vx acc)))
              (incf (vy vel) (* dt (vy acc)))
+             (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
              (when (<= (duration frame) tt)
                (incf i)
                (setf tt 0))
