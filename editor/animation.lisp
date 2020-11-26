@@ -68,6 +68,7 @@
 (defmethod (setf tool) :after ((tool animation-editor) (editor editor))
   (setf (original-location tool) (vcopy (location (entity editor))))
   (setf (timeline tool) (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor)))
+  (setf (direction (entity editor)) +1)
   (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
 
 (define-handler (animation-editor mouse-press) (pos button)
