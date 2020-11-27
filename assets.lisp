@@ -120,7 +120,7 @@
   :ambient (vec 0.3 0.1 0.1))
 
 (define-gi desert
-  :location 16
+  :location :sun
   :light '(6 (0 0 0)
            9 (6 5 4)
            15 (6 5 4)
