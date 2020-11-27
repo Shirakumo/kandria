@@ -224,6 +224,9 @@
     (setf (animation timeline) (animation entity))
     (alloy:enter layout timeline)))
 
+(defmethod alloy:close ((timeline timeline))
+  (setf (tool (editor (tool timeline))) 'browser))
+
 (defun populate-frames (layout focus entity tool)
   (alloy:clear layout)
   (alloy:clear focus)
