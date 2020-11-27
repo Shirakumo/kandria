@@ -175,7 +175,7 @@
 
 (defun light-intensity (gi shade)
   (let ((color (vlerp (v+ (ambient gi) (light gi)) (ambient gi) (clamp 0 shade 1))))
-    (clamp 0 (expt (vlength color) 1/3) 3)))
+    (clamp 0 (* (expt (vlength color) 1/3) 1.5) 2.75)))
 
 (defmethod render :before ((pass rendering-pass) target)
   (let ((gi (struct (// 'kandria 'gi))))
@@ -183,8 +183,8 @@
         (let* ((shade (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
                (current (local-shade pass)))
           (let ((intensity (light-intensity gi current)))
-            (setf (exposure pass) (clamp 0.0 (- 2.5 intensity) 10.0)
-                  (gamma pass) (clamp 0.5 (+ 0.2 (- 3.0 intensity)) 3.0)))
+            (setf (exposure pass) (clamp 0.5 (- 3.5 intensity) 10.0)
+                  (gamma pass) (clamp 0.5 (- 3.75 intensity) 3.0)))
           (setf (local-shade pass) (+ current (/ (- shade current) 10))))
         (setf (exposure pass) 0.5
               (gamma pass) 2.2))))
