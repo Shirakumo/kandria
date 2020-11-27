@@ -1,134 +1,79 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defmacro define-sprite (name path &body args)
+(defmacro define-pixel (name &body args)
   `(define-asset (kandria ,name) image
-       ,path
+       ,(make-pathname :name (string-downcase name) :type "png")
      :min-filter :nearest
      :mag-filter :nearest
      ,@args))
 
-(define-sprite lights
-    #p"lights.png")
+(defmacro define-sprite (name &body args)
+  `(define-asset (kandria ,name) trial:sprite-data
+       ,(make-pathname :name (string-downcase name) :type "json")
+     ,@args))
 
-(define-sprite pixelfont
-    #p"pixelfont.png")
+(defmacro define-animation (name &body args)
+  `(define-asset (kandria ,name) sprite-data
+       ,(make-pathname :name (string-downcase name) :type "lisp")
+     ,@args))
 
-(define-sprite tundra-bg
-    #p"tundra-bg.png"
-  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
+(defmacro define-tileset (name &body args)
+  `(define-asset (kandria ,name) tile-data
+       ,(make-pathname :name (string-downcase name) :type "lisp")
+     ,@args))
 
-(define-sprite debug-bg
-    #p"debug-bg.png"
-  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
+(defmacro define-sound (name &body args)
+  `(define-asset (kandria ,name) sound
+       ,(make-pathname :name (string-downcase name) :type "wav" :directory `(:relative "sound"))
+     ,@args))
 
-(define-sprite ball
-    #p"ball.png")
+(defmacro define-music (name &body args)
+  `(define-asset (kandria ,name) sound
+       ,(make-pathname :name (string-downcase name) :type "mp3" :directory `(:relative "sound"))
+     :repeat T
+     :mixer :music
+     ,@args))
 
-(define-asset (kandria box) sprite-data
-    #p"box.lisp")
+(define-pixel lights)
+(define-pixel pixelfont)
+(define-pixel ball)
+(define-pixel tundra-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
+(define-pixel debug-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
 
-(define-asset (kandria player) sprite-data
-    #p"player.lisp")
+(define-animation box)
+(define-animation player)
+(define-animation fi)
+(define-animation wolf)
+(define-animation zombie)
+(define-animation dummy)
 
-(define-asset (kandria player-profile) trial:sprite-data
-    #p"player-profile.json")
+(define-sprite player-profile)
+(define-sprite fi-profile)
+(define-sprite balloon)
+(define-sprite debug-door)
+(define-sprite passage)
+(define-sprite effects)
 
-(define-asset (kandria fi) sprite-data
-    #p"fi.lisp")
+(define-tileset tundra)
+(define-tileset desert)
+(define-tileset debug)
 
-(define-asset (kandria fi-profile) trial:sprite-data
-    #p"fi-profile.json")
+(define-music music :volume 0.3)
 
-(define-asset (kandria wolf) sprite-data
-    #p"wolf.lisp")
-
-(define-asset (kandria zombie) sprite-data
-    #p"zombie.lisp")
-
-(define-asset (kandria dummy) sprite-data
-    #p"dummy.lisp")
-
-(define-asset (kandria balloon) trial:sprite-data
-    #p"balloon.json")
-
-(define-asset (kandria debug-door) trial:sprite-data
-    #p"debug-door.json")
-
-(define-asset (kandria passage) trial:sprite-data
-    #p"passage.json")
-
-(define-asset (kandria effects) trial:sprite-data
-    #p"effects.json")
-
-(define-asset (kandria tundra) tile-data
-    #p"tundra.lisp")
- 
-(define-asset (kandria debug) tile-data
-    #p"debug.lisp")
-
-(define-asset (kandria music) sound
-    #p"sound/music.mp3"
-  :volume 0.3
-  :repeat T
-  :mixer :music)
-
-(define-asset (kandria dash) sound
-    #p"sound/dash.wav"
-  :volume 0.1)
-
-(define-asset (kandria jump) sound
-    #p"sound/jump.wav"
-  :volume 0.025)
-
-(define-asset (kandria land) sound
-    #p"sound/land.wav"
-  :volume 0.05)
-
-(define-asset (kandria slide) sound
-    #p"sound/slide.wav"
-  :volume 0.075
-  :repeat T)
-
-(define-asset (kandria step) sound
-    #p"sound/step.wav"
-  :volume 0.025
-  :effects '((mixed:pitch :name pitch :wet 0.1)))
-
-(define-asset (kandria death) sound
-    #p"sound/death.wav"
-  :volume 0.1)
-
-(define-asset (kandria box-break) sound
-    #p"sound/box-break.wav"
-  :volume 0.05)
-
-(define-asset (kandria box-damage) sound
-    #p"sound/box-damage.wav"
-  :volume 0.1)
-
-(define-asset (kandria slash) sound
-    #p"sound/slash.wav"
-  :volume 0.05)
-
-(define-asset (kandria rope) sound
-    #p"sound/rope.wav"
-  :volume 0.1)
-
-(define-asset (kandria splash) sound
-    #p"sound/splash.wav"
-  :volume 0.1)
-
-(define-asset (kandria ground-hit) sound
-    #p"sound/ground-hit.wav"
-  :volume 0.1)
-
-(define-asset (kandria zombie-notice) sound
-    #p"sound/zombie-notice.wav"
-  :volume 0.05)
-
-(define-asset (kandria stab) sound
-    #p"sound/stab.wav"
-  :volume 0.1)
+(define-sound dash :volume 0.1)
+(define-sound jump :volume 0.025)
+(define-sound land :volume 0.05)
+(define-sound slide :volume 0.075 :repeat T)
+(define-sound step :volume 0.025 :effects '((mixed:pitch :name pitch :wet 0.1)))
+(define-sound death :volume 0.1)
+(define-sound box-break :volume 0.05)
+(define-sound box-damage :volume 0.1)
+(define-sound slash :volume 0.05)
+(define-sound rope :volume 0.1)
+(define-sound splash :volume 0.1)
+(define-sound ground-hit :volume 0.1)
+(define-sound zombie-notice :volume 0.05)
+(define-sound stab :volume 0.1)
 
 (define-gi none
   :location NIL
