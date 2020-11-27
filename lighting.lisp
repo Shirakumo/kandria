@@ -220,6 +220,8 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
   vec4 light = texelFetch(lighting, pos, 0);
 
+  absorption = pow(absorption, 1.0/2.2);
+
   truecolor *= gi.ambient;
   truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
   
