@@ -306,6 +306,9 @@ void main(){
     (update-layer chunk)
     (map NIL #'update-layer (layers chunk))))
 
+(defmethod (setf background) :after ((data background-info) (chunk chunk))
+  (trial:commit data (loader (handler *context*)) :unload NIL))
+
 (defmethod tile ((location vec3) (chunk chunk))
   (tile (vxy location) (aref (layers chunk) (floor (vz location)))))
 
