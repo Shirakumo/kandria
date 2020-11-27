@@ -126,8 +126,11 @@
     (let* ((end (make-instance 'noop))
            (targets (loop for choice across (components:choices component)
                           for index = (next-index assembly)
-                          do (loop for child across choice
-                                   do (walk child assembly))
+                          do (loop for i from 0 below (length choice)
+                                   for child = (aref choice i)
+                                   do (unless (and (= i 0)
+                                                   (typep child 'mcomponents:newline))
+                                        (walk child assembly)))
                              (emit (make-instance 'jump :target end) assembly)
                           collect index)))
       (setf (targets dispatch) targets)
