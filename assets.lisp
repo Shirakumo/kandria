@@ -108,6 +108,21 @@
   :ambient-multiplier 0.1
   :ambient (vec 0.3 0.1 0.1))
 
+(define-gi desert
+  :location 16
+  :light '(6 (0 0 0)
+           9 (6 5 4)
+           15 (6 5 4)
+           18 (0 0 0))
+  :light-multiplier 3.0
+  :ambient '(0 (0.1 0.1 0.5)
+             6 (1 0.5 0.6)
+             9 (1 0.6 0.6)
+             15 (1 0.6 0.6)
+             18 (1 0.5 0.6)
+             24 (0.1 0.1 0.5))
+  :ambient-multiplier 0.2)
+
 (define-background tundra
   :texture (// 'kandria 'tundra-bg)
   :parallax (vec 2.0 1.0)
