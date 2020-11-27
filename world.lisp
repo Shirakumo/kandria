@@ -6,7 +6,8 @@
    (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
-   (time-scale :initform 1.0 :accessor time-scale))
+   (time-scale :initform 1.0 :accessor time-scale)
+   (hour :initform 7.0 :accessor hour))
   (:default-initargs
    :packet (error "PACKET required.")))
 
@@ -27,8 +28,8 @@
 (defmethod start :after ((world world))
   (harmony:play (// 'kandria 'music)))
 
-(defmethod hour ((world world))
-  (mod (+ (/ (clock world) 20) 7) 24))
+(defmethod (setf hour) :around (hour (world world))
+  (call-next-method (mod hour 24) world))
 
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
@@ -114,9 +115,11 @@
     (v:info :kandria "Screenshot saved to ~a" file)))
 
 (defmethod handle :after ((ev trial:tick) (world world))
-  (when (= 0 (mod (fc ev) 10))
-    (issue world 'change-time :hour (hour world))
-    (quest:try (storyline world))))
+  (unless (handler-stack world)
+    (when (= 0 (mod (fc ev) 10))
+      (incf (hour world) (dt ev))
+      (issue world 'change-time :hour (hour world))
+      (quest:try (storyline world)))))
 
 (defmethod handle :after ((ev keyboard-event) (world world))
   (setf +input-source+ :keyboard))

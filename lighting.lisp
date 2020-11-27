@@ -175,7 +175,7 @@
 
 (defun light-intensity (gi shade)
   (let ((color (vlerp (v+ (ambient gi) (light gi)) (ambient gi) (clamp 0 shade 1))))
-    (clamp 0 (expt (vlength color) 1/3) 3)))
+    (clamp 0 (* (expt (vlength color) 1/3) 1.5) 2.75)))
 
 (defmethod render :before ((pass rendering-pass) target)
   (let ((gi (struct (// 'kandria 'gi))))
@@ -183,9 +183,14 @@
         (let* ((shade (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
                (current (local-shade pass)))
           (let ((intensity (light-intensity gi current)))
-            (setf (exposure pass) (clamp 0.0 (- 2.5 intensity) 10.0)
-                  (gamma pass) (clamp 0.5 (+ 0.2 (- 3.0 intensity)) 3.0)))
-          (setf (local-shade pass) (+ current (/ (- shade current) 10))))
+            (setf (exposure pass) (clamp 0.5 (- 3.5 intensity) 10.0)
+                  (gamma pass) (clamp 0.5 (- 3.75 intensity) 3.0)))
+          (setf (local-shade pass) (cond ((< (abs (- current shade)) 0.05)
+                                          shade)
+                                         ((< current shade)
+                                          (+ current 0.02))
+                                         (T
+                                          (- current 0.02)))))
         (setf (exposure pass) 0.5
               (gamma pass) 2.2))))
 
@@ -214,6 +219,8 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2
   vec3 truecolor = pow(color.rgb, vec3(2.2));
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
   vec4 light = texelFetch(lighting, pos, 0);
+
+  absorption = pow(absorption, 1.0/2.2);
 
   truecolor *= gi.ambient;
   truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;

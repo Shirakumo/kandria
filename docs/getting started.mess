@@ -31,20 +31,22 @@ The source tree is divided up as follows:
     Assets like textures, tiles, sprites, sounds, etc. including raw source files (ase, etc.)
   - ``docs/``
     Documentation and documents related to the project and its website. This document should be in this directory.
-    - "``dialogue format.mess``"(link dialogue format.mess)
-      Documentation on the dialogue format and syntax.
-    - "``quest system.mess``"(link quest system.mess)
-      Documentation on the behaviour and capabilities of the quest system.
+    - "``art.mess``"(link art.mess)
+      A mood board with reference images and videos for the art direction.
     - "``combat system.mess``"(link combat system.mess)
       Documentation on the combat system that the game employs.
+    - "``design.mess``"(link design.mess)
+      The overall game design document that outlines the game's mechanics, story, and planning.
+    - "``dialogue format.mess``"(link dialogue format.mess)
+      Documentation on the dialogue format and syntax.
     - "``editor.mess``"(link editor.mess)
       Documentation on the in-game editor and how to use its features.
     - "``lisp crash course.mess``"(link lisp crash course.mess)
       A short introduction to Lisp syntax and usage related to Kandria.
-    - "``art.mess``"(link art.mess)
-      A mood board with reference images and videos for the art direction.
-    - "``design.mess``"(link design.mess)
-      The overall game design document that outlines the game's mechanics, story, and planning.
+    - "``lore.mess``"(link lore.mess)
+      Collection of tidbits on setting, technology, etc. lore.
+    - "``quest system.mess``"(link quest system.mess)
+      Documentation on the behaviour and capabilities of the quest system.
   - ``releases/``
     Source files related to publishing, packaging, and archiving game releases.
   - ``world/``
