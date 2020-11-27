@@ -15,7 +15,8 @@
 | Well, we're here now. Can I proceed?
 ~ fi
 | You know you don't need to ask me that, of all people? But yes, you are permitted.
-| Though I'm staying right here. Let me know what you find. And be careful.")
+| Though I'm staying right here. Let me know what you find. And be careful.
+")
 (quest:interaction :name pot-check :interactable pot :dialogue "
 ~ player
 | The cooking pot indicates human habitation.
@@ -32,8 +33,11 @@
 ;! eval (unless (complete-p 'fi-tent) (activate 'fi-tent))
 (quest:interaction :name sign-main-check :interactable sign-main :dialogue "
 ~ player
-| It's the mark for androids. This bodes well.
-! eval (activate 'fi-sign-main)
+? (complete-p 'android-check)
+| | I think the android made this, as a warning.
+|?
+| | It's the mark for androids. This bodes well.
+| ! eval (activate 'fi-sign-main)
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-sign-main :title "The android sign" :interactable fi :dialogue "
@@ -46,7 +50,7 @@
 | An arrow to indicate direction?
 ~ fi
 | I know you claim to be a detective, but now I think you're seeing things.
-| Maybe Catherine should give you a checkup when we get back.
+| I'll have Catherine give you a checkup when we get back.
 ~ player
 | No thank you.
 ~ fi
@@ -120,14 +124,16 @@
 ")
 (quest:interaction :name corpse-check :interactable corpse :dialogue "
 ~ player
-| Remains: human. Dismembered, and already picked clean.
-| An animal attack? Or those rogue robots, perhaps.
-! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
+? (complete-p 'android-check)
+| | This was the work of an android.
+|?
+| | Remains: human. Dismembered, and already picked clean.
+| | An animal attack? Or those rogue robots, perhaps.
 ")
 (quest:interaction :name cave-in-check :interactable cave-in :dialogue "
 ~ player
 | The cave collapsed here. This is where the people came through - I can see more bodies underneath.
-| The scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...
+| The scratches on the rocks suggest combat occurred: swords, gunfire, and finger nails...
 | Still no android.
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
