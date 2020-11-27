@@ -185,7 +185,12 @@
           (let ((intensity (light-intensity gi current)))
             (setf (exposure pass) (clamp 0.5 (- 3.5 intensity) 10.0)
                   (gamma pass) (clamp 0.5 (- 3.75 intensity) 3.0)))
-          (setf (local-shade pass) (+ current (/ (- shade current) 10))))
+          (setf (local-shade pass) (cond ((< (abs (- current shade)) 0.05)
+                                          shade)
+                                         ((< current shade)
+                                          (+ current 0.02))
+                                         (T
+                                          (- current 0.02)))))
         (setf (exposure pass) 0.5
               (gamma pass) 2.2))))
 
