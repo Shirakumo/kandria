@@ -112,7 +112,7 @@
 (defun shake-camera (&key (duration 20) (intensity 3))
   (let ((camera (unit :camera +world+)))
     (setf (shake-counter camera) duration)
-    (setf (shake-intensity camera) intensity)))
+    (setf (shake-intensity camera) (* (setting :camera :screen-shake) intensity))))
 
 (defun in-view-p (loc bsize)
   (let* ((camera (unit :camera T)))
