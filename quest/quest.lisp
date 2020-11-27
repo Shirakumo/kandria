@@ -199,7 +199,7 @@
     (v:info :kandria.quest "Deactivating ~a" task)
     (setf (status task) :unresolved)
     (loop for thing being the hash-values of (triggers task)
-          do (deactivate trigger)))
+          do (deactivate thing)))
   task)
 
 (defmethod complete ((task task))
