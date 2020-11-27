@@ -18,60 +18,60 @@
 | Though I'm staying right here. Let me know what you find. And be careful.")
 (quest:interaction :name pot-check :interactable pot :dialogue "
 ~ player
-| (The cooking pot infers human habitation.
-| (And this is a great spot for a lookout...)
-| ! eval (activate 'fi-tent)
-| ! eval (complete 'fi-check)
+| The cooking pot indicates human habitation.
+| And this is a great spot for a lookout.
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
+! eval (activate 'fi-tent)
 ")
-; | ! eval (let (fi-tent-talk true)) - works to set
 (quest:interaction :name tent-check :interactable tent :dialogue "
 ~ player
-| (There's no one inside, but the bedroll suggests it was recently occupied.)
-| (Does an android require a bedroll? I recharge standing up.)
-| ! eval (activate 'fi-tent)
-| ! eval (complete 'fi-check)
+| The android daily scrubbing routine takes minimal time. I don't think a bedroll is required.
+| Either this belongs to a person, or an android has adopted their behaviour... perhaps to blend in?
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
+! eval (activate 'fi-tent)
 ")
-; these error
-; | ? (not 'fi-tent-talk = true)
-; | ? (not 'fi-tent-talk)
-; | ['fi-tent-talk | ! eval (activate 'fi-tent)]
+;! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
+;! eval (unless (complete-p 'fi-tent) (activate 'fi-tent))
 (quest:interaction :name fi-tent :interactable fi :dialogue "
 ~ player
 | I think we've got company.
 ~ fi
-| Harris said these caves were deserted.
+| The camp? I noticed. Harris said these caves were deserted...
 | [has-more-dialogue Did you find anything else? | Keep your eyes open.]
 ")
 (quest:interaction :name sign-main-check :interactable sign-main :dialogue "
 ~ player
-| (It's the same symbol that I have on my uniform.)
-| (Perhaps it's a warning...) 
+| It's the mark for androids. This bodes well.
 | ! eval (activate 'fi-sign-main)
-| ! eval (complete 'fi-check)")
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
+")
 (quest:interaction :name fi-sign-main :interactable fi :dialogue "
 ~ player
-| That sign over there has the same symbol on it as my uniform. I think it has something to do with androids.
+| I've found a sign with the android signifier on it not far from here.
 ~ fi
 | Then we're on the right track.
 ~ player
-| It also resembles an arrow, don't you think? Pointing up over the mountain?
+| Although... it's not painted in the correct color. Perhaps it has another meaning... A directional arrow?
 ~ fi
-| I know you want to be a detective, but now I think you're seeing things.
-| Remind me to check your pattern recognition software when we get back.
+| I know you claim to be a detective, but now I think you're seeing things.
+| Maybe you should have Catherine give you a checkup once we get back.
+~ player
+| I'd rather not.
+~ fi
 | [has-more-dialogue You got more? | You'd better get going.]")
 (quest:interaction :name sign-check :interactable sign :dialogue "
 ~ player
-| (The words were scratched into the wood with a knife. I can barely read it. Upscaling resolution and enabling zoom...)
+| The words were scratched into the wood with a knife. I can barely read it. Enhancing resolution...
 | //READ ME - NO LITTER U FUCKS - BOTS PATROL HERE//
-| (Short and not so sweet - that's Harris.)
+| Short and not so sweet - that's Harris.
 | ! eval (activate 'fi-sign)
-| ! eval (complete 'fi-check)
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-sign :interactable fi :dialogue "
 ~ player
 | There's a sign in the cave - looked and sounded like only Harris can. It warned of robots on patrol.
 ~ fi
-| Rogues... They're not uncommon in caves like these. They're like you but not as strong - and thankfully not as smart.
+| Rogues... They're not uncommon in caves like these. I suppose they're androids, in a way, but have no mind of their own. Mere service drones, unlike you.
 ~ player
 | Was that a compliment?
 ~ fi
@@ -79,12 +79,11 @@
 | [has-more-dialogue Anything else? | Now get going.]")
 (quest:interaction :name landslide-check :interactable landslide :dialogue "
 ~ player
-| (A landslide... That's a memory I could do without.)
-| (There's human blood on the rock. I can't follow them through there - I need to find another way around.)
+| A landslide... That's a memory I could do without.
+| There's human blood on the rock. I can't follow them through there - I need to find a way around.
 | ! eval (activate 'fi-landslide)
-| ! eval (complete 'fi-check)
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
-; | ! eval (let (landslide true))
 (quest:interaction :name fi-landslide :interactable fi :dialogue "
 ~ player
 | There's been a landslide in the cave.
@@ -97,13 +96,13 @@
 ~ player
 | I don't look tough?
 ~ fi
-| *Smiles* I didn't say that.
+| (:unsure)I didn't say that.(:normal)
 | [has-more-dialogue Anything more? | Well this is awkward...]")
 (quest:interaction :name fire-check :interactable fire :dialogue "
 ~ player
-| (The fire is still warm. They left recently.)
+| The fire is still warm. They left recently.
 | ! eval (activate 'fi-fire)
-| ! eval (complete 'fi-check)
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-fire :interactable fi :dialogue "
 ~ player
@@ -121,42 +120,52 @@
 | [has-more-dialogue Next? | Sayonara.]")
 (quest:interaction :name beacon-check :interactable beacon :dialogue "
 ~ player
-| (How did this get all the way up here?)
-| (... Look at that view... Somebody's thinking place?)
-| ! eval (complete 'fi-check)
+| How did this get all the way up here?
+| ... Look at that view... Somebody's thinking place?
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name corpse-check :interactable corpse :dialogue "
 ~ player
-| (Remains: human. Dismembered, and already picked clean.)
-| (An animal attack? Or those rogue robots, perhaps.)
-| ! eval (complete 'fi-check)
+| Remains: human. Dismembered, and already picked clean.
+| An animal attack? Or those rogue robots, perhaps.
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
-; \/ query if already know of landslide var, and tweak text e.g. "This is the other side of the landslide"
 (quest:interaction :name cave-in-check :interactable cave-in :dialogue "
 ~ player
-| (The cave collapsed here. This is where the humans came through - I can see more bodies underneath.)
-| (The scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...)
-| ! eval (complete 'fi-check)
+| The cave collapsed here. This is where the people came through - I can see more bodies underneath.
+| The scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
+; should work but isn't? branching dialogue not working?
+;| The cave collapsed here. This is where the humans came through - I can see more bodies underneath.
+;- ? (not (complete-p 'landslide-check))
+;  | The scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...
+;  ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
+;- ? (complete-p 'landslide-check)
+;  | It's the other side of the landslide I saw earlier.
+;  | The scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...
+;  ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 (quest:interaction :name android-check :interactable android :dialogue "
 ~ player
-| (It's the android... It's been destroyed. Not even Catherine could fix this kind of damage.)
+| It's the android... or what's left of it. I don't think even Catherine could put this back together.
 | Hello, sestra... What happened to you?
-| (More human remains. It appears you didn't go down without a fight.)
-| (The memory replay seems to be intact.)
-| Excuse me, sestra... I just need to retrieve this... --- Thank you.
-| (I'd better get this back to Fi.)
-| ! eval (complete 'fi-check)
-| ! eval (activate 'fi-outcome)")
+| More human remains. It appears you didn't go down without a fight.
+| The Genera core seems to be intact.
+| Excuse me, sestra... I just need to retrieve this... ---Thank you.
+| I'd better get this back to Fi.
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
+! eval (activate 'fi-outcome)
+")
 (quest:interaction :name home-check :interactable home :dialogue "
 ~ player
-| (They made a home here. Who was Harris to take that away?)
-| ! eval (complete 'fi-check)
+| They made a home here. Who was Harris to take that away?
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name home-tent-check :interactable home-tent :dialogue "
 ~ player
-| (Androids do use bedrolls. At least, this one did.)
-| ! eval (complete 'fi-check)
+| So some androids do sleep. I don't think this one did it to blend in, either.
+| Perhaps it brought them comfort...
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-outcome :interactable fi :dialogue "
 ~ fi
@@ -170,16 +179,16 @@
 | They're offline and irreparable.
 | By the lay of the carnage in there, I'd say Harris and company ambushed them.
 | They fought, and the cave destabilised and collapsed. The humans were killed in the cave in - all but one.
-| The android then killed Harris - not just killed him, but dismembered him.
+| The android then killed Harris - not just killed him, but dismembered his body.
 | They spent their final seconds crawling back into their home, where they offlined.
 ~ fi
 | -- You think Harris tricked us into coming here? To seize you too?
 ~ player
 | Perhaps.
 ~ fi
-| I see you have the memory replay.
+| Did you get the Genera core?
 ~ player
-| *Holds the small metal chip aloft*
+| Right here.
 ~ fi
-| Let's go home. We'll see what it can tell us about the past.
+| Alright, let's go home and see what it can tell us about the past.
 ")
