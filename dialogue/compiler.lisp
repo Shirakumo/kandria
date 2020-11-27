@@ -127,8 +127,8 @@
            (targets (loop for choice across (components:choices component)
                           for index = (next-index assembly)
                           do (loop for child across choice
-                                   do (walk child assembly)
-                                      (emit (make-instance 'jump :target end) assembly))
+                                   do (walk child assembly))
+                             (emit (make-instance 'jump :target end) assembly)
                           collect index)))
       (setf (targets dispatch) targets)
       (emit end assembly))))
