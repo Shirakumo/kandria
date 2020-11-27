@@ -19,17 +19,24 @@
 (defmethod alloy:suggest-bounds (bounds (hurtbox hurtbox)) bounds)
 
 (defun compute-frame-location (animation frames frame-idx)
-  (let ((location (vec 0 0))
-        (frame (svref frames frame-idx)))
-    (loop for i from (start animation) below frame-idx
+  (let ((loc (vec 0 0))
+        (vel (vec 0 0))
+        (dt 0.01))
+    ;; Simulate state updates until the given frame.
+    (loop with i = (start animation)
+          for tt from 0 by dt
           for frame = (svref frames i)
-          for vel = (velocity frame)
-          for offset = (v* vel (duration frame) 100)
-          do (nv+ location offset))
-    (nv+ location (v* (velocity frame)
-                      (duration frame)
-                      100 0.5))
-    location))
+          for acc = (acceleration frame)
+          until (= i frame-idx)
+          do (nv* vel (multiplier frame))
+             (incf (vx vel) (* dt (vx acc)))
+             (incf (vy vel) (* dt (vy acc)))
+             (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
+             (when (<= (duration frame) tt)
+               (incf i)
+               (setf tt 0))
+             (nv+ loc vel))
+    loc))
 
 (defmethod update-hurtbox ((sprite animatable) start end)
   (let ((start (vmin start end))
@@ -62,6 +69,7 @@
 (defmethod (setf tool) :after ((tool animation-editor) (editor editor))
   (setf (original-location tool) (vcopy (location (entity editor))))
   (setf (timeline tool) (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor)))
+  (setf (direction (entity editor)) +1)
   (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
 
 (define-handler (animation-editor mouse-press) (pos button)
@@ -169,7 +177,7 @@
          (animation (alloy:represent (slot-value timeline 'animation) 'animation-chooser :value-set animations))
          (frames (make-instance 'alloy:horizontal-linear-layout :cell-margins (alloy:margins) :min-size (alloy:size 100 300)))
          (frames-focus (make-instance 'alloy:focus-list))
-         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :elements '("Frame" "Hurtbox" "Offset" "Velocity" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Clear Iframes" "Effect")))
+         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :elements '("Frame" "Hurtbox" "Offset" "Acceleration" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Clear Iframes" "Effect")))
          (scroll (make-instance 'alloy:scroll-view :scroll :x :layout frames :focus frames-focus))
          (save (alloy:represent "Save" 'alloy:button))
          (load (alloy:represent "Load" 'alloy:button))
@@ -245,7 +253,7 @@
 
 (alloy:define-subcomponent (frame-edit hurtbox) ((hurtbox (frame frame-edit)) trial-alloy::vec4))
 (alloy:define-subcomponent (frame-edit offset) ((offset (frame frame-edit)) trial-alloy::vec2 :step 1))
-(alloy:define-subcomponent (frame-edit velocity) ((velocity (frame frame-edit)) trial-alloy::vec2))
+(alloy:define-subcomponent (frame-edit acceleration) ((acceleration (frame frame-edit)) trial-alloy::vec2))
 (alloy:define-subcomponent (frame-edit multiplier) ((multiplier (frame frame-edit)) trial-alloy::vec2))
 (alloy:define-subcomponent (frame-edit knockback) ((knockback (frame frame-edit)) trial-alloy::vec2))
 (alloy:define-subcomponent (frame-edit damage) ((damage (frame frame-edit)) alloy:wheel))
@@ -258,8 +266,8 @@
 
 (alloy:define-subcontainer (frame-edit layout)
     (frame-layout :cell-margins (alloy:margins 1) :min-size (alloy:size 100 20))
-  frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable iframe-clearing effect)
+  frame-idx hurtbox offset acceleration multiplier knockback damage stun interruptable invincible cancelable iframe-clearing effect)
 
 (alloy:define-subcontainer (frame-edit focus)
     (alloy:focus-list)
-  frame-idx hurtbox offset velocity multiplier knockback damage stun interruptable invincible cancelable iframe-clearing effect)
+  frame-idx hurtbox offset acceleration multiplier knockback damage stun interruptable invincible cancelable iframe-clearing effect)

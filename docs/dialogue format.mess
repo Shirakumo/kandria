@@ -58,9 +58,13 @@ Within this first choice we have more syntax. The instruction ``! `` can execute
 - ``setf`` Change the value of a game variable or parameter
 - ``eval`` Evaluate arbitrary Lisp code expressions
   Particularly useful functions are:
-  - ``activate`` activate a task or quest
-  - ``complete`` complete a task or quest successfully
-  - ``fail`` fail a task or quest
+  - ``activate`` activate a trigger
+  - ``deactivate`` deactivate a trigger
+  - ``complete`` complete a trigger successfully
+  - ``fail`` fail a trigger
+  - ``active-p`` returns T if the given triggers are all active.
+  - ``complete-p`` returns T if the given triggers are all completed successfully.
+  - ``failed-p`` returns T if the given triggers are all marked as failed.
   - ``enter`` add a new item to a collection (like ``inventory``)
   - ``withdraw`` remove an item from a collection
   - ``spawn`` spawn an NPC or enemy in the world

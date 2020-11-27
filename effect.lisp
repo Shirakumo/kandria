@@ -151,3 +151,12 @@
 
 (define-effect slash sound-effect
   :voice (// 'kandria 'slash))
+
+(define-effect stab sound-effect
+  :voice (// 'kandria 'stab))
+
+(define-effect ground-hit sound-effect
+  :voice (// 'kandria 'ground-hit))
+
+(define-effect zombie-notice sound-effect
+  :voice (// 'kandria 'zombie-notice))

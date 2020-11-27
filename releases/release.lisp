@@ -47,7 +47,10 @@
   (with-simple-restart (continue "Treat build as successful")
     (call-next-method)))
 
-(defvar *sbcl-build-args* '("--dynamic-space-size" "4096" "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
+(defvar *sbcl-build-args* '("--dynamic-space-size" "4096"
+                            "--eval" "(push :trial-optimize-all *features*)"
+                            "--eval" "(push :cl-opengl-no-masked-traps *features*)"
+                            "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
 
 (defmethod build ((target (eql :linux)))
   (apply #'run "sbcl-lin" *sbcl-build-args*))

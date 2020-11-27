@@ -227,10 +227,13 @@
       (save-state T T)))
 
 (defmethod edit ((action (eql 'delete-entity)) (editor editor))
-  ;; FIXME: Clean up stale data files from region packet.
-  (leave (entity editor) (container (entity editor)))
-  (remove-from-pass (entity editor) +world+)
-  (setf (entity editor) NIL))
+  (cond ((typep (entity editor) 'player)
+         (v:warn :kandria.editor "Refusing to delete player."))
+        (T
+         ;; FIXME: Clean up stale data files from region packet.
+         (leave (entity editor) (container (entity editor)))
+         (remove-from-pass (entity editor) +world+)
+         (setf (entity editor) NIL))))
 
 (defmethod edit ((action (eql 'insert-entity)) (editor editor))
   (make-instance 'creator :ui (unit 'ui-pass T)))

@@ -73,9 +73,12 @@
     (T 1.9)))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(dash jump land slide step death slash rope))
+  (dolist (sound '(dash jump land slide step death slash rope splash ground-hit))
     (stage (// 'kandria sound) area))
   (stage (prompt player) area))
+
+(defmethod enter :after ((player player) (medium medium))
+  (harmony:play (// 'kandria 'splash)))
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
@@ -369,7 +372,7 @@
        ;; Uncrawl on ground loss
        (when (and (not ground)
                   (< 0.1 (air-time player)))
-         (when (svref collisions 0)
+         (when (scan-collision +world+ (vec (vx loc) (vy loc) 16 32))
            (decf (vy loc) 16))
          (setf (state player) :normal))
        

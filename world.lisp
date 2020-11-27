@@ -28,7 +28,7 @@
   (harmony:play (// 'kandria 'music)))
 
 (defmethod hour ((world world))
-  (+ (/ (clock world) 20) 7))
+  (mod (+ (/ (clock world) 20) 7) 24))
 
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
