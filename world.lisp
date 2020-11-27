@@ -30,6 +30,9 @@
 (defmethod hour ((world world))
   (mod (+ (/ (clock world) 20) 7) 24))
 
+(defmethod (setf hour) (hour (world world))
+  (setf (clock world) (* (- hour 7) 20)))
+
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
   (scan (region world) target on-hit))
