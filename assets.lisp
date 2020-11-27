@@ -34,11 +34,22 @@
      :mixer :music
      ,@args))
 
+(defmacro define-bg (name &body args)
+  (let ((wrapping (getf args :wrapping))
+        (args (remf* args :wrapping))
+        (texture (intern (format NIL "~a-BG" (string name)))))
+    `(progn
+       (define-pixel ,texture :wrapping ,wrapping)
+       (define-background ,name
+         :texture (// 'kandria ',texture)
+         ,@args))))
+
 (define-pixel lights)
 (define-pixel pixelfont)
 (define-pixel ball)
-(define-pixel tundra-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
+(define-pixel tundra-bg )
 (define-pixel debug-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
+(define-pixel desert-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
 
 (define-animation box)
 (define-animation player)
@@ -123,14 +134,20 @@
              24 (0.1 0.1 0.5))
   :ambient-multiplier 0.2)
 
-(define-background tundra
-  :texture (// 'kandria 'tundra-bg)
+(define-bg tundra
+  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)
   :offset (vec 0.0 0.0))
 
-(define-background debug
-  :texture (// 'kandria 'debug-bg)
+(define-bg desert
+  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
+  :parallax (vec 2.0 1.0)
+  :scaling (vec 1.5 1.5)
+  :offset (vec 0.0 0.0))
+
+(define-bg debug
+  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)
   :offset (vec 0.0 0.0))
