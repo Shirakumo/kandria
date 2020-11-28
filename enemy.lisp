@@ -261,7 +261,7 @@
          (vel (velocity enemy)))
     (ecase (state enemy)
       (:normal
-       (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 8))
+       (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 11))
               (setf (state enemy) :approach))
              (T
               (setf (state enemy) (alexandria:random-elt '(:stand :stand :walk)))
