@@ -200,7 +200,9 @@
       (make-instance (class-of proto) :place place :form form))))
 
 (defmethod markless:parse-instruction ((proto components:eval) line cursor)
-  (multiple-value-bind (form cursor) (read-from-string line T NIL :start cursor)
-    (when (< cursor (length line))
-      (error 'markless:parser-error :cursor cursor))
-    (make-instance (class-of proto) :form form)))
+  (let ((forms ()))
+    (loop while (< cursor (length line))
+          do (multiple-value-bind (form next) (read-from-string line T NIL :start cursor)
+               (setf cursor next)
+               (push form forms)))
+    (make-instance (class-of proto) :form `(progn ,@(reverse forms)))))
