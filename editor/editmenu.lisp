@@ -11,8 +11,8 @@
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
 (alloy::define-subbutton (editmenu undo) () (edit 'undo T))
 (alloy::define-subbutton (editmenu redo) () (edit 'redo T))
-(alloy:define-subcomponent (editmenu time) ((clock +world+) alloy:ranged-slider
-                                            :range `(-140 . 340)
+(alloy:define-subcomponent (editmenu time) ((hour +world+) alloy:ranged-slider
+                                            :range `(0 . 24)
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
 
 (alloy:define-subcontainer (editmenu layout :if-exists :supersede)
