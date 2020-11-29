@@ -125,7 +125,7 @@
            9 (6 5 4)
            15 (6 5 4)
            18 (0 0 0))
-  :light-multiplier 3.0
+  :light-multiplier 1.0
   :ambient '(0 (0.1 0.1 0.5)
              6 (1 0.5 0.6)
              9 (1 0.6 0.6)
