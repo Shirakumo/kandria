@@ -35,3 +35,6 @@
 
 (define-cheat hello "Test cheat"
   (status "Hi there!"))
+
+(define-cheat tpose "T-pose"
+  (start-animation 't-pose (unit 'player T)))
