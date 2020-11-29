@@ -1,7 +1,7 @@
 { "frames": [
    {
     "filename": "0 Idle",
-    "frame": { "x": 0, "y": 0, "w": 22, "h": 39 },
+    "frame": { "x": 0, "y": 0, "w": 24, "h": 41 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 21, "y": 25, "w": 22, "h": 39 },
@@ -10,7 +10,7 @@
    },
    {
     "filename": "0 Open",
-    "frame": { "x": 23, "y": 0, "w": 22, "h": 39 },
+    "frame": { "x": 24, "y": 0, "w": 24, "h": 41 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 21, "y": 25, "w": 22, "h": 39 },
@@ -19,7 +19,7 @@
    },
    {
     "filename": "1 Open",
-    "frame": { "x": 46, "y": 0, "w": 22, "h": 39 },
+    "frame": { "x": 48, "y": 0, "w": 24, "h": 41 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 21, "y": 25, "w": 22, "h": 39 },
@@ -28,7 +28,7 @@
    },
    {
     "filename": "2 Open",
-    "frame": { "x": 0, "y": 40, "w": 22, "h": 39 },
+    "frame": { "x": 0, "y": 41, "w": 24, "h": 41 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 21, "y": 25, "w": 22, "h": 39 },
@@ -37,7 +37,7 @@
    },
    {
     "filename": "3 Open",
-    "frame": { "x": 23, "y": 40, "w": 22, "h": 39 },
+    "frame": { "x": 24, "y": 41, "w": 24, "h": 41 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 21, "y": 25, "w": 22, "h": 39 },
@@ -46,7 +46,7 @@
    },
    {
     "filename": "4 Open",
-    "frame": { "x": 46, "y": 40, "w": 22, "h": 39 },
+    "frame": { "x": 48, "y": 41, "w": 24, "h": 41 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 21, "y": 25, "w": 22, "h": 39 },
@@ -55,7 +55,7 @@
    },
    {
     "filename": "5 Open",
-    "frame": { "x": 0, "y": 80, "w": 22, "h": 39 },
+    "frame": { "x": 0, "y": 82, "w": 24, "h": 41 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 21, "y": 25, "w": 22, "h": 39 },
@@ -68,7 +68,7 @@
   "version": "1.2.25-x64",
   "image": "debug-door.png",
   "format": "RGBA8888",
-  "size": { "w": 68, "h": 119 },
+  "size": { "w": 72, "h": 123 },
   "scale": "1",
   "frameTags": [
    { "name": "Idle", "from": 0, "to": 0, "direction": "forward" },

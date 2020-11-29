@@ -36,7 +36,7 @@
     (destructuring-bind (json png) (asdf:output-files o c)
       (aseprite "--sheet-pack"
                 "--trim"
-                "--shape-padding" "1"
+                "--inner-padding" "1"
                 "--sheet" png
                 "--format" "json-array"
                 "--filename-format" "{tagframe} {tag}"
