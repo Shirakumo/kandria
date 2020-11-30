@@ -1,7 +1,7 @@
 { "frames": [
    {
     "filename": "0 Stand",
-    "frame": { "x": 39, "y": 75, "w": 13, "h": 37 },
+    "frame": { "x": 13, "y": 74, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
@@ -10,7 +10,7 @@
    },
    {
     "filename": "1 Stand",
-    "frame": { "x": 39, "y": 75, "w": 13, "h": 37 },
+    "frame": { "x": 13, "y": 74, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
@@ -19,7 +19,7 @@
    },
    {
     "filename": "2 Stand",
-    "frame": { "x": 39, "y": 112, "w": 13, "h": 37 },
+    "frame": { "x": 26, "y": 74, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
@@ -28,7 +28,7 @@
    },
    {
     "filename": "3 Stand",
-    "frame": { "x": 0, "y": 112, "w": 13, "h": 37 },
+    "frame": { "x": 39, "y": 75, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
@@ -64,7 +64,7 @@
    },
    {
     "filename": "7 Stand",
-    "frame": { "x": 26, "y": 111, "w": 13, "h": 37 },
+    "frame": { "x": 52, "y": 75, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
@@ -73,7 +73,7 @@
    },
    {
     "filename": "0 Idle",
-    "frame": { "x": 39, "y": 75, "w": 13, "h": 37 },
+    "frame": { "x": 13, "y": 74, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
@@ -91,7 +91,7 @@
    },
    {
     "filename": "2 Idle",
-    "frame": { "x": 52, "y": 75, "w": 13, "h": 37 },
+    "frame": { "x": 26, "y": 111, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
@@ -100,7 +100,7 @@
    },
    {
     "filename": "3 Idle",
-    "frame": { "x": 13, "y": 74, "w": 13, "h": 37 },
+    "frame": { "x": 0, "y": 112, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
@@ -109,7 +109,7 @@
    },
    {
     "filename": "4 Idle",
-    "frame": { "x": 29, "y": 37, "w": 14, "h": 37 },
+    "frame": { "x": 15, "y": 37, "w": 14, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 10, "y": 5, "w": 12, "h": 35 },
@@ -118,7 +118,7 @@
    },
    {
     "filename": "5 Idle",
-    "frame": { "x": 34, "y": 0, "w": 17, "h": 37 },
+    "frame": { "x": 0, "y": 0, "w": 17, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 5, "w": 15, "h": 35 },
@@ -136,7 +136,7 @@
    },
    {
     "filename": "7 Idle",
-    "frame": { "x": 0, "y": 0, "w": 17, "h": 37 },
+    "frame": { "x": 34, "y": 0, "w": 17, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 7, "y": 5, "w": 15, "h": 35 },
@@ -163,7 +163,7 @@
    },
    {
     "filename": "10 Idle",
-    "frame": { "x": 15, "y": 37, "w": 14, "h": 37 },
+    "frame": { "x": 29, "y": 37, "w": 14, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 10, "y": 5, "w": 12, "h": 35 },
@@ -172,7 +172,7 @@
    },
    {
     "filename": "11 Idle",
-    "frame": { "x": 26, "y": 74, "w": 13, "h": 37 },
+    "frame": { "x": 39, "y": 112, "w": 13, "h": 37 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 11, "y": 5, "w": 11, "h": 35 },
