@@ -172,6 +172,7 @@
          (setf (buffer player) 'heavy-attack)
          (setf (state player) :animated))))
 
+#-kandria-release
 (let ((type (copy-seq '(box zombie ball))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
