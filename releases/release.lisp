@@ -48,6 +48,7 @@
     (call-next-method)))
 
 (defvar *sbcl-build-args* '("--dynamic-space-size" "4096"
+                            "--eval" "(push :kandria-release *features*)"
                             "--eval" "(push :trial-optimize-all *features*)"
                             "--eval" "(push :cl-opengl-no-masked-traps *features*)"
                             "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
