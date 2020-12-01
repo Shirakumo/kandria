@@ -160,3 +160,7 @@
 
 (define-effect zombie-notice sound-effect
   :voice (// 'kandria 'zombie-notice))
+
+(define-effect explosion step-effect
+  :voice (// 'kandria 'explosion)
+  :animation 'explosion32)

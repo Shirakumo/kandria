@@ -238,14 +238,15 @@
 
 (define-shader-entity zombie (enemy half-solid)
   ((bsize :initform (vec 4 16))
-   (health :initform 100)
+   (health :initform 1)
    (timer :initform 0.0 :accessor timer))
   (:default-initargs
    :sprite-data (asset 'kandria 'zombie)))
 
 (defmethod stage :after ((enemy zombie) (area staging-area))
   (stage (// 'kandria 'stab) area)
-  (stage (// 'kandria 'zombie-notice) area))
+  (stage (// 'kandria 'zombie-notice) area)
+  (stage (// 'kandria 'explosion) area))
 
 (defmethod movement-speed ((enemy zombie))
   (case (state enemy)
