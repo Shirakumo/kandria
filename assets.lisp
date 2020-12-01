@@ -85,6 +85,7 @@
 (define-sound ground-hit :volume 0.1)
 (define-sound zombie-notice :volume 0.05)
 (define-sound stab :volume 0.1)
+(define-sound explosion :volume 0.1)
 
 (define-gi none
   :location NIL
@@ -132,7 +133,7 @@
              15 (1 0.6 0.6)
              18 (1 0.5 0.6)
              24 (0.1 0.1 0.5))
-  :ambient-multiplier 0.2)
+  :ambient-multiplier 0.5)
 
 (define-bg tundra
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
@@ -142,9 +143,9 @@
 
 (define-bg desert
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
-  :parallax (vec 2.0 1.0)
+  :parallax (vec 2.0 5.0)
   :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 0.0))
+  :offset (vec 0.0 1800.0))
 
 (define-bg debug
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
