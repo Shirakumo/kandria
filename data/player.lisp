@@ -284,7 +284,7 @@
  (:damage 30  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 1.0  1.0) :hurtbox ( 7.6  2.8 24.0 10.6) :offset ( 0.0  0.0)) ; 232
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 233
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 234
- (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier (0.71  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 235
+ (:damage 0   :stun-time 0.0 :flags #b1001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier (0.71  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 235
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 236
  (:damage 10  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 4.5 28.5 12.8 12.5) :offset ( 0.0  0.0)) ; 237
  (:damage 10  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox (-1.2 29.8 14.8 14.0) :offset ( 0.0  0.0)) ; 238
@@ -293,16 +293,16 @@
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox (9.33 7.33  0.0 .333) :offset ( 0.0  0.0)) ; 241
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 242
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 243
- (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier (0.71  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 244
+ (:damage 0   :stun-time 0.0 :flags #b1001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier (0.71  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 244
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 245
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 246
- (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0 10.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 247
- (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0 30.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox (23.7 1.33 14.7 19.7) :offset ( 0.0  0.0)) ; 248
- (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  4.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox (21.7 8.66 16.0 25.7) :offset ( 0.0  0.0)) ; 249
- (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  0.8) :knockback ( 0.0  0.0) :hurtbox ( 3.5 15.0 34.8 29.0) :offset ( 0.0  0.0)) ; 250
- (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  0.9) :knockback ( 0.0  0.0) :hurtbox (-2.0 14.5 35.3 28.2) :offset ( 2.0  0.0)) ; 251
- (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0 -3.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox (-21. 12.8 17.5 30.0) :offset ( 0.0  0.0)) ; 252
- (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0 -5.0) :multiplier ( 1.0  1.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 253
+ (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0 130.) :multiplier ( 1.0 0.81) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 247
+ (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0 30.0) :multiplier ( 1.0  0.9) :knockback ( 1.0  5.5) :hurtbox (23.7 1.33 14.7 19.7) :offset ( 0.0  0.0)) ; 248
+ (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  8.0) :multiplier ( 1.0 .981) :knockback ( 1.0  5.5) :hurtbox (21.7 8.66 16.0 25.7) :offset ( 0.0  0.0)) ; 249
+ (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0 .708) :knockback ( 1.0  5.5) :hurtbox ( 3.5 15.0 34.8 29.0) :offset ( 0.0  0.0)) ; 250
+ (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0 .709) :knockback ( 1.0  5.5) :hurtbox (-2.0 14.5 35.3 28.2) :offset ( 2.0  0.0)) ; 251
+ (:damage 15  :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0 -3.0) :multiplier ( 1.0 .709) :knockback ( 1.0  5.5) :hurtbox (-21. 12.8 17.5 30.0) :offset ( 0.0  0.0)) ; 252
+ (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0 -5.0) :multiplier ( 1.0 0.81) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 253
  (:damage 0   :stun-time 0.0 :flags #b0100 :effect NIL        :acceleration ( 0.0  0.0) :multiplier (0.81  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 254
  (:damage 0   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  0.0) :knockback ( 0.0  0.0) :hurtbox ( 0.0  0.0  0.0  0.0) :offset ( 0.0  0.0)) ; 255
  (:damage 5   :stun-time 0.0 :flags #b0001 :effect NIL        :acceleration ( 0.0  0.0) :multiplier ( 1.0  0.0) :knockback ( 0.0  0.0) :hurtbox (25.6  9.0 23.2  9.0) :offset ( 0.0  0.0)) ; 256
