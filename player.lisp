@@ -172,7 +172,7 @@
          (setf (buffer player) 'heavy-attack)
          (setf (state player) :animated))))
 
-(let ((type (copy-seq '(box zombie))))
+(let ((type (copy-seq '(box zombie ball))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
@@ -180,6 +180,7 @@
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
       (let ((enemy (make-instance (first type) :location (mouse-world-pos (pos ev)))))
+        (trial:commit enemy (loader (handler *context*)) :unload NIL)
         (enter enemy (region +world+))
         (compile-into-pass enemy (region +world+) +world+)))))
 
