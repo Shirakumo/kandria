@@ -180,7 +180,7 @@
     "duration": 500
    },
    {
-    "filename": "0 Wall_Slide",
+    "filename": "0 Wall-slide",
     "frame": { "x": 87, "y": 126, "w": 4, "h": 18 },
     "rotated": false,
     "trimmed": true,
@@ -189,7 +189,7 @@
     "duration": 75
    },
    {
-    "filename": "1 Wall_Slide",
+    "filename": "1 Wall-slide",
     "frame": { "x": 105, "y": 37, "w": 5, "h": 18 },
     "rotated": false,
     "trimmed": true,
@@ -198,7 +198,7 @@
     "duration": 75
    },
    {
-    "filename": "2 Wall_Slide",
+    "filename": "2 Wall-slide",
     "frame": { "x": 60, "y": 124, "w": 5, "h": 17 },
     "rotated": false,
     "trimmed": true,
@@ -207,7 +207,7 @@
     "duration": 65
    },
    {
-    "filename": "3 Wall_Slide",
+    "filename": "3 Wall-slide",
     "frame": { "x": 102, "y": 119, "w": 5, "h": 17 },
     "rotated": false,
     "trimmed": true,
@@ -216,7 +216,7 @@
     "duration": 65
    },
    {
-    "filename": "4 Wall_Slide",
+    "filename": "4 Wall-slide",
     "frame": { "x": 105, "y": 56, "w": 5, "h": 14 },
     "rotated": false,
     "trimmed": true,
@@ -225,7 +225,7 @@
     "duration": 65
    },
    {
-    "filename": "5 Wall_Slide",
+    "filename": "5 Wall-slide",
     "frame": { "x": 73, "y": 36, "w": 1, "h": 1 },
     "rotated": false,
     "trimmed": true,
@@ -533,7 +533,7 @@
    { "name": "Dash", "from": 0, "to": 5, "direction": "forward" },
    { "name": "Air-Dash", "from": 6, "to": 13, "direction": "forward" },
    { "name": "Jump", "from": 14, "to": 19, "direction": "forward" },
-   { "name": "Wall_Slide", "from": 20, "to": 25, "direction": "forward" },
+   { "name": "Wall-slide", "from": 20, "to": 25, "direction": "forward" },
    { "name": "Step", "from": 26, "to": 30, "direction": "forward" },
    { "name": "explosion32", "from": 31, "to": 43, "direction": "forward" },
    { "name": "explosion16", "from": 44, "to": 57, "direction": "forward" }

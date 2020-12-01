@@ -23,7 +23,7 @@
 
 (defgeneric trigger (effect source &key))
 
-(defmethod trigger ((effect symbol) source &rest args)
+(defmethod trigger ((effect symbol) source &rest args &key &allow-other-keys)
   (apply #'trigger (apply #'make-instance (effect effect)) source args))
 
 (defclass sound-effect (effect)
@@ -137,6 +137,25 @@
       ;;        is not configured to be high-quality enough?
       (setf (mixed:pitch pitcher) (+ 0.75 (random 0.5))))))
 
+(define-shader-entity dash-effect (rotated-entity sprite-effect sound-effect)
+  ((offset :initform (vec 0 8))))
+
+(defmethod trigger :after ((effect dash-effect) source &key angle)
+  (harmony:play (voice effect) :reset T)
+  (setf (angle effect) (or angle
+                           (when (v/= 0 (velocity source))
+                             (point-angle (velocity source)))
+                           (case (direction effect)
+                             (-1. PI)
+                             (+1. 0))))
+  (setf (direction effect) 1))
+
+(defmethod apply-transforms progn ((effect dash-effect))
+  (translate-by 0 -16 0))
+
+(define-effect slide sprite-effect
+  :animation 'wall-slide)
+
 (define-effect step step-effect
   :voice (// 'kandria 'step)
   :animation 'step)
@@ -148,6 +167,10 @@
 (define-effect dash step-effect
   :voice (// 'kandria 'dash)
   :animation 'dash)
+
+(define-effect air-dash dash-effect
+  :voice (// 'kandria 'dash)
+  :animation 'air-dash)
 
 (define-effect slash sound-effect
   :voice (// 'kandria 'slash))
