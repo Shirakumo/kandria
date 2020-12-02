@@ -28,8 +28,9 @@
              (cond ((<= (length code) new)
                     (setf (cheat-idx cheat) 0)
                     (v:info :kandria.cheats "Activating cheat code ~s" (cheat-name cheat))
-                    (status "Cheat ~s activated!" (cheat-name cheat))
-                    (funcall (cheat-effect cheat)))
+                    (if (funcall (cheat-effect cheat))
+                        (status "Cheat ~s activated!" (cheat-name cheat))
+                        (status "Cheat ~s deactivated" (cheat-name cheat))))
                    (T
                     (setf (cheat-idx cheat) new))))))
 
@@ -38,3 +39,6 @@
 
 (define-cheat tpose "T-pose"
   (start-animation 't-pose (unit 'player T)))
+
+(define-cheat god "God mode"
+  (setf (invincible-p (unit 'player T)) (not (invincible-p (unit 'player T)))))
