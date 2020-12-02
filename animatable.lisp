@@ -66,11 +66,11 @@
     (kill animatable)))
 
 (defmethod hurt ((animatable animatable) damage)
-  (when (invincible-p animatable)
-    (setf damage 0))
-  (when (interrupt animatable)
-    (when (<= +hard-hit+ damage)
-      (setf (animation animatable) 'hard-hit)))
+  (cond ((invincible-p animatable)
+         (setf damage 0))
+        ((interrupt animatable)
+         (when (<= +hard-hit+ damage)
+           (setf (animation animatable) 'hard-hit))))
   (trigger (make-instance 'text-effect) animatable
            :text (princ-to-string damage)
            :location (vec (+ (vx (location animatable)))
