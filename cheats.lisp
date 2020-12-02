@@ -42,3 +42,9 @@
 
 (define-cheat god "God mode"
   (setf (invincible-p (unit 'player T)) (not (invincible-p (unit 'player T)))))
+
+(define-cheat armageddon "Armageddon"
+  (for:for ((entity over (region +world+)))
+    (when (typep entity 'enemy)
+      (setf (health entity) 1)))
+  T)
