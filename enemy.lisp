@@ -238,7 +238,7 @@
 
 (define-shader-entity zombie (enemy half-solid)
   ((bsize :initform (vec 4 16))
-   (health :initform 1)
+   (health :initform 100)
    (timer :initform 0.0 :accessor timer))
   (:default-initargs
    :sprite-data (asset 'kandria 'zombie)))
