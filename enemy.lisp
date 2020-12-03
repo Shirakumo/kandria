@@ -245,7 +245,8 @@
 
 (defmethod stage :after ((enemy zombie) (area staging-area))
   (stage (// 'kandria 'stab) area)
-  (stage (// 'kandria 'zombie-notice) area))
+  (stage (// 'kandria 'zombie-notice) area)
+  (stage (// 'kandria 'explosion) area))
 
 (defmethod movement-speed ((enemy zombie))
   (case (state enemy)
@@ -261,7 +262,7 @@
          (vel (velocity enemy)))
     (ecase (state enemy)
       (:normal
-       (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 8))
+       (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 11))
               (setf (state enemy) :approach))
              (T
               (setf (state enemy) (alexandria:random-elt '(:stand :stand :walk)))

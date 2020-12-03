@@ -64,6 +64,7 @@
 (defmethod hide :after ((editor editor))
   (hide (tool editor))
   (switch-chunk (chunk (unit 'player T)))
+  (snap-to-target (unit :camera T) (unit 'player T))
   (issue +world+ 'force-lighting))
 
 (defmethod (setf tool) :before ((tool tool) (editor editor))
@@ -160,6 +161,7 @@
       (:f11)
       (:delete (edit 'delete-entity T))
       (:insert (edit 'insert-entity T))
+      (:h (setf (location (unit 'player T)) (vcopy (location camera))))
       (:c (edit 'clone-entity T))
       (:b (setf (tool editor) 'browser))
       (:f (setf (tool editor) 'freeform))

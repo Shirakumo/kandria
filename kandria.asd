@@ -38,6 +38,7 @@
                (:file "player")
                (:file "enemy")
                (:file "npc")
+               (:file "cheats")
                (:file "world")
                (:file "save-state")
                (:file "versions/v0")

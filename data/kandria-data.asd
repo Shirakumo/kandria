@@ -93,4 +93,5 @@
                (spritesheet "box")
                (spritesheet "zombie")
                (tilemap "debug")
-               (tilemap "tundra")))
+               (tilemap "tundra")
+               (tilemap "desert")))

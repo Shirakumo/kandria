@@ -49,6 +49,16 @@
 (defmethod apply-transforms progn ((obj facing-entity))
   (scale-by (direction obj) 1 1))
 
+(defclass rotated-entity (base-entity transformed)
+  ((angle :initarg :angle :initform 0f0 :accessor angle
+          :type single-float :documentation "The angle the entity is pointing in.")))
+
+(defmethod initargs append ((_ rotated-entity))
+  '(:angle))
+
+(defmethod apply-transforms progn ((obj rotated-entity))
+  (rotate-by 0 0 1 (angle obj)))
+
 (defclass sized-entity (located-entity)
   ((bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize
           :type vec2 :documentation "The bounding box half size.")))

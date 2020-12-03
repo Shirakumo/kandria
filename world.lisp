@@ -6,12 +6,15 @@
    (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
-   (time-scale :initform 1.0 :accessor time-scale))
+   (time-scale :initform 1.0 :accessor time-scale)
+   (hour :initform 7.0 :accessor hour)
+   (hour-scale :initform 60 :accessor hour-scale))
   (:default-initargs
    :packet (error "PACKET required.")))
 
 (defmethod initialize-instance :after ((world world) &key packet)
   (enter (progression-instance 'death) world)
+  (enter (progression-instance 'stun) world)
   (enter (progression-instance 'hurt) world)
   (enter (progression-instance 'transition) world)
   (dolist (entry (list-entries "regions/" packet))
@@ -27,8 +30,11 @@
 (defmethod start :after ((world world))
   (harmony:play (// 'kandria 'music)))
 
-(defmethod hour ((world world))
-  (mod (+ (/ (clock world) 20) 7) 24))
+(defmethod (setf hour) :after (hour (world world))
+  (issue world 'change-time :hour hour))
+
+(defmethod (setf hour) :around (hour (world world))
+  (call-next-method (mod hour 24) world))
 
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
@@ -114,15 +120,19 @@
     (v:info :kandria "Screenshot saved to ~a" file)))
 
 (defmethod handle :after ((ev trial:tick) (world world))
-  (when (= 0 (mod (fc ev) 10))
-    (issue world 'change-time :hour (hour world))
-    (quest:try (storyline world))))
+  (unless (handler-stack world)
+    (when (= 0 (mod (fc ev) 10))
+      (incf (hour world) (* 10 (/ (hour-scale world) 60 60) (dt ev)))
+      (quest:try (storyline world)))))
 
 (defmethod handle :after ((ev keyboard-event) (world world))
   (setf +input-source+ :keyboard))
 
 (defmethod handle :after ((ev gamepad-event) (world world))
   (setf +input-source+ :gamepad))
+
+(defmethod handle :after ((ev text-entered) (world world))
+  (process-cheats (text ev)))
 
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)

@@ -263,7 +263,11 @@
              (let ((f (alexandria:random-elt f)))
                (setf (aref tiles (+ 0 (pos x y))) (first f)
                      (aref tiles (+ 1 (pos x y))) (second f)))))
-    (loop for y from (max 0 y-) to (min y+ height)
+    (loop with edge = (loop for pos in edge
+                            when (and (< -1 (vx pos) width)
+                                      (< -1 (vy pos) height))
+                            collect pos)
+          for y from (max 0 y-) to (min y+ height)
           do (loop for x from (max 0 x-) to (min x+ width)
                    do (when (and (= 255 (tile x y))
                                  (not (<= 4 (tile x (1+ y)) 15)))
