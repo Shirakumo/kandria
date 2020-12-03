@@ -7,7 +7,8 @@
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
-   (hour :initform 7.0 :accessor hour))
+   (hour :initform 7.0 :accessor hour)
+   (hour-scale :initform 60 :accessor hour-scale))
   (:default-initargs
    :packet (error "PACKET required.")))
 
@@ -28,6 +29,9 @@
 
 (defmethod start :after ((world world))
   (harmony:play (// 'kandria 'music)))
+
+(defmethod (setf hour) :after (hour (world world))
+  (issue world 'change-time :hour hour))
 
 (defmethod (setf hour) :around (hour (world world))
   (call-next-method (mod hour 24) world))
@@ -118,8 +122,7 @@
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
     (when (= 0 (mod (fc ev) 10))
-      (incf (hour world) (dt ev))
-      (issue world 'change-time :hour (hour world))
+      (incf (hour world) (* 10 (/ (hour-scale world) 60 60) (dt ev)))
       (quest:try (storyline world)))))
 
 (defmethod handle :after ((ev keyboard-event) (world world))
