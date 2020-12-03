@@ -13,6 +13,7 @@
 
 (defmethod initialize-instance :after ((world world) &key packet)
   (enter (progression-instance 'death) world)
+  (enter (progression-instance 'stun) world)
   (enter (progression-instance 'hurt) world)
   (enter (progression-instance 'transition) world)
   (dolist (entry (list-entries "regions/" packet))
