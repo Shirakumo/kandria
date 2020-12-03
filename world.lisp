@@ -127,6 +127,9 @@
 (defmethod handle :after ((ev gamepad-event) (world world))
   (setf +input-source+ :gamepad))
 
+(defmethod handle :after ((ev text-entered) (world world))
+  (process-cheats (text ev)))
+
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)
                                       :direction :output)

@@ -7,6 +7,8 @@
       (error "No background named ~s found." name)))
 
 (defmethod (setf background) (value (name symbol))
+  (when *context*
+    (update-background (unit 'background T)))
   (if value
       (setf (gethash name *background-info*) value)
       (remhash name *background-info*))
@@ -96,7 +98,8 @@
   (background bundle))
 
 (define-shader-entity background (lit-entity listener ephemeral)
-  ((vertex-array :initform (// 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
+  ((name :initform 'background)
+   (vertex-array :initform (// 'trial:trial 'trial::fullscreen-square) :accessor vertex-array)
    (texture-a :initform NIL :initarg :texture-a :accessor texture-a)
    (texture-b :initform NIL :initarg :texture-b :accessor texture-b)
    (background :initform () :accessor background))
@@ -123,21 +126,21 @@
 (defun update-background (background)
   (let ((info (background background)))
     ;; When there's a new target to set and it's not already our target, update
-    (when (and info (not (eq (texture info) (texture-b background))))
-      (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
-        (setf (mix backgrounds) (- 1.0 (min 1.0 (mix backgrounds))))
-        (let ((a (a backgrounds))
-              (b (b backgrounds)))
+    (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
+      (let ((a (a backgrounds))
+            (b (b backgrounds)))
+        (when (and info (not (eq (texture info) (texture-b background))))
+          (setf (mix backgrounds) (- 1.0 (min 1.0 (mix backgrounds))))
           ;; First move the target to be the source
           (setf (texture-a background) (or (texture-b background) (texture info)))
           (setf (parallax a) (parallax b))
           (setf (scaling a) (scaling b))
-          (setf (offset a) (offset b))
-          ;; Then set new source parameters
-          (setf (texture-b background) (texture info))
-          (setf (parallax b) (parallax info))
-          (setf (scaling b) (scaling info))
-          (setf (offset b) (offset info)))))))
+          (setf (offset a) (offset b)))
+        ;; Then set new source parameters
+        (setf (texture-b background) (texture info))
+        (setf (parallax b) (parallax info))
+        (setf (scaling b) (scaling info))
+        (setf (offset b) (offset info))))))
 
 (defmethod handle ((ev switch-chunk) (background background))
   (setf (background background) (background (chunk ev)))

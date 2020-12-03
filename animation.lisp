@@ -37,9 +37,9 @@
 
 (defmacro define-frame-flag (id name)
   `(progn
-     (defun ,name (frame)
+     (defmethod ,name ((frame frame))
        (logbitp ,id (flags frame)))
-     (defun (setf ,name) (value frame)
+     (defmethod (setf ,name) (value (frame frame))
        (setf (ldb (byte 1 ,id) (flags frame)) (if value 1 0)))))
 
 ;; Whether an attack will interrupt this frame
