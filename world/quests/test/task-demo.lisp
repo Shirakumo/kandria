@@ -114,60 +114,79 @@
 | Yes... Lucky me.
 ~ fi
 | You can handle yourself.
-| [has-more-dialogue Next? | Sayonara.]")
+| [has-more-dialogue Next? | Sayonara.]
+")
 (quest:interaction :name beacon-check :interactable beacon :dialogue "
 ~ player
-| How did this get all the way up here?
-| ... Look at that view...
-| Somebody's thinking place?
+? (complete-p 'android-check)
+| | This was somebody's thinking place.
+|?
+| | How did this get all the way up here?
+| | ... Look at that view...
+| | Somebody's thinking place?
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
+; ~ player
+; ? (complete-p 'beacon-check)
+; | |? (complete-p 'android-check)
+; | | | Yes. This was somebody's thinking place.
+; |?
+; | |? (complete-p 'android-check)
+; | | | This was somebody's thinking place.
+; | |?
+; | | | How did this get all the way up here?
+; | | | ... Look at that view...
+; | | | Somebody's thinking place?
 (quest:interaction :name corpse-check :interactable corpse :dialogue "
 ~ player
 ? (complete-p 'android-check)
-| | This was the work of an android.
+| | The android did this.
 |?
 | | Remains: human. Dismembered, and already picked clean.
 | | An animal attack? Or those rogue robots, perhaps.
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name cave-in-check :interactable cave-in :dialogue "
 ~ player
-| The cave collapsed here. This is where the people came through - I can see more bodies underneath.
-| The scratches on the rocks suggest combat occurred: swords, gunfire, and finger nails...
-| Still no android.
+? (complete-p 'android-check)
+| | The cave collapsed during the battle, killing the people.
+|?
+| | The cave collapsed here. This is where the people came through - I can see more bodies underneath.
+| | The scratches on the rocks suggest combat occurred: swords, gunfire, and finger nails...
+| | Still no android.
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
-")
-; should work but isn't? branching dialogue not working?
-;| The cave collapsed here. This is where the humans came through - I can see more bodies underneath.
-;- ? (not (complete-p 'landslide-check))
-;  | The scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...
-;  ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
-;- ? (complete-p 'landslide-check)
-;  | It's the other side of the landslide I saw earlier.
-;  | The scratches in the rocks suggest combat occurred - swords, gunfire, and finger nails...
-;  ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
-(quest:interaction :name android-check :interactable android :dialogue "
-~ player
-| It's the android... or what's left of it.
-| I don't think even Catherine could put this back together...
-| Hello, sestra... What happened to you?
-| ... More human remains. It appears you didn't go down without a fight.
-| The Genera core seems to be intact.
-| Excuse me, sestra... I just need to retrieve this...
-| Thank you.
-| I'd better get this back to Fi.
-! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
-! eval (activate 'fi-outcome)
 ")
 (quest:interaction :name home-check :interactable home :dialogue "
 ~ player
-| They made a home here. Who was Harris to take that away?
+? (complete-p 'android-check)
+| | They made a home here. Who was Harris to take that away?
+|?
+| | Is this where the android lived?
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name home-tent-check :interactable home-tent :dialogue "
 ~ player
-| So some androids do sleep. I don't think this one did it to blend in, either.
-| Perhaps it brought them comfort.
+? (complete-p 'android-check)
+| | So some androids do sleep. I don't think this one did it to blend in, either.
+| | Perhaps it brought them comfort.
+|?
+| | If this was the android's home, then they appear to have used a bedroll.
+! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
+")
+(quest:interaction :name android-check :interactable android :dialogue "
+~ player
+? (active-p 'fi-outcome)
+| | It's the android's remains.
+|?
+| | It's the android... or what's left of it.
+| | I don't think even Catherine could put this back together...
+| | Hello, sestra... What happened to you?
+| | ... More human remains. It appears you didn't go down without a fight.
+| | The Genera core seems to be intact.
+| | Excuse me, sestra... I just need to retrieve this...
+| | Thank you.
+| | I'd better get this back to Fi.
+| | ! eval (activate 'fi-outcome)
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-outcome :title "The android" :interactable fi :dialogue "
