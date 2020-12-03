@@ -7,6 +7,8 @@
       (error "No GI with name ~s found." name)))
 
 (defmethod (setf gi) (value (name symbol))
+  (when *context*
+    (update-lighting (unit 'lighting-pass T)))
   (if value
       (setf (gethash name *gi-info*) value)
       (remhash name *gi-info*))
