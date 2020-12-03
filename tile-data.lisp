@@ -26,6 +26,9 @@
                 (resource data 'absorption)
                 (resource data 'normal))))))
 
+(defmethod resource ((data tile-data) (name (eql T)))
+  (resource data 'albedo))
+
 (defmethod notify:files-to-watch append ((asset tile-data))
   (list (make-pathname :type "ase" :defaults (input* asset))))
 

@@ -294,12 +294,20 @@ void main(){
         do (clear layer)))
 
 (defmethod (setf tile-data) :after ((data tile-data) (chunk chunk))
-  (trial:commit data (loader (handler *context*)) :unload NIL)
+  (let ((area (make-instance 'staging-area)))
+    (stage (resource data 'albedo) area)
+    (stage (resource data 'absorption) area)
+    (stage (resource data 'normal) area)
+    (trial:commit area (loader (handler *context*)) :unload NIL))
   (flet ((update-layer (layer)
            (setf (albedo layer) (resource data 'albedo))
-           (setf (absorption layer) (resource data 'absorption))))
+           (setf (absorption layer) (resource data 'absorption))
+           (setf (normal layer) (resource data 'normal))))
     (update-layer chunk)
     (map NIL #'update-layer (layers chunk))))
+
+(defmethod (setf background) :after ((data background-info) (chunk chunk))
+  (trial:commit data (loader (handler *context*)) :unload NIL))
 
 (defmethod tile ((location vec3) (chunk chunk))
   (tile (vxy location) (aref (layers chunk) (floor (vz location)))))

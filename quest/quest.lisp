@@ -199,7 +199,7 @@
     (v:info :kandria.quest "Deactivating ~a" task)
     (setf (status task) :unresolved)
     (loop for thing being the hash-values of (triggers task)
-          do (deactivate trigger)))
+          do (deactivate thing)))
   task)
 
 (defmethod complete ((task task))
@@ -243,8 +243,18 @@
 (defmethod active-p ((trigger trigger))
   (eql :active (status trigger)))
 
+(defmethod activate :around ((trigger trigger))
+  (case (status trigger)
+    (:inactive
+     (call-next-method))))
+
 (defmethod activate :after ((trigger trigger))
   (setf (status trigger) :active))
+
+(defmethod deactivate :around ((trigger trigger))
+  (case (status trigger)
+    (:active
+     (call-next-method))))
 
 (defmethod deactivate :after ((trigger trigger))
   (setf (status trigger) :inactive))
