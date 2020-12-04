@@ -279,7 +279,9 @@ void main(){
                   :size (clone (size chunk))
                   :tile-data (tile-data chunk)
                   :pixel-data (clone (pixel-data chunk))
-                  :layers (mapcar #'clone (map 'list #'pixel-data (layers chunk)))))))
+                  :layers (mapcar #'clone (map 'list #'pixel-data (layers chunk)))
+                  :background (background chunk)
+                  :gi (gi chunk)))))
 
 (defmethod (setf size) :after (size (chunk chunk))
   (loop for layer across (layers chunk)
