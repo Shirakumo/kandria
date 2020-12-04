@@ -63,3 +63,11 @@
         (T
          (setf (time-scale +world+) 1.0)
          NIL)))
+
+(define-cheat test "Testing room"
+  (let ((room (unit 'debug T)))
+    (when room
+      (vsetf (location (unit 'player T))
+             (vx (location room))
+             (vy (location room)))
+      (snap-to-target (unit :camera T) (unit 'player T)))))
