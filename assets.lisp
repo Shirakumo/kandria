@@ -8,7 +8,7 @@
      ,@args))
 
 (defmacro define-sprite (name &body args)
-  `(define-asset (kandria ,name) trial:sprite-data
+  `(define-asset (kandria ,name) sprite-data
        ,(make-pathname :name (string-downcase name) :type "json")
      ,@args))
 
