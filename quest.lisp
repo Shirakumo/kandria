@@ -65,7 +65,7 @@
                 (loop for thing in things always (eql :failed (quest:status (thing thing)))))
               (have (thing &optional (place inventory))
                 (have thing place)))
-       (declare (ignorable #'activate #'complete #'fail #'have))
+       (declare (ignorable #'activate #'deactivate #'complete #'fail #'active-p #'complete-p #'failed-p #'have))
        ,form)))
 
 (defmethod load-quest ((packet packet) (storyline quest:storyline))
