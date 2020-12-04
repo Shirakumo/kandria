@@ -37,7 +37,7 @@
 (dummy :location (192.0 -176.0) :name nil)
 (fi :location (7472.0 -96.0) :name fi)
 (zombie :location (-23.450657 -176.0) :name nil)
-(chunk :name start :location (1080.0 192.0) :size (196.0 58.0) :tile-data (kandria debug) :pixel-data "data/START.raw" :layers ("data/START-0.raw" "data/START-1.raw" "data/START-2.raw" "data/START-3.raw" "data/START-4.raw") :background debug :gi none)
+(chunk :name debug :location (1080.0 192.0) :size (196.0 58.0) :tile-data (kandria debug) :pixel-data "data/DEBUG.raw" :layers ("data/DEBUG-0.raw" "data/DEBUG-1.raw" "data/DEBUG-2.raw" "data/DEBUG-3.raw" "data/DEBUG-4.raw") :background debug :gi none)
 (chunk :name a0 :location (7856.0 -328.0) :size (110.0 93.0) :tile-data (kandria tundra) :pixel-data "data/A0.raw" :layers ("data/A0-0.raw" "data/A0-1.raw" "data/A0-2.raw" "data/A0-3.raw" "data/A0-4.raw" "data/A0-5.raw") :background tundra :gi tundra)
 (chunk :name a1 :location (8392.0 992.0) :size (43.0 72.0) :tile-data (kandria tundra) :pixel-data "data/A1.raw" :layers ("data/A1-0.raw" "data/A1-1.raw" "data/A1-2.raw" "data/A1-3.raw" "data/A1-4.raw" "data/A1-5.raw") :background tundra :gi tundra)
 (chunk :name a2 :location (9248.0 1744.0) :size (64.0 74.0) :tile-data (kandria tundra) :pixel-data "data/A2.raw" :layers ("data/A2-0.raw" "data/A2-1.raw" "data/A2-2.raw" "data/A2-3.raw" "data/A2-4.raw" "data/A2-5.raw") :background tundra :gi tundra)
