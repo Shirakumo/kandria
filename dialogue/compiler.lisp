@@ -70,13 +70,10 @@
   (let ((*root* component))
     (call-next-method)))
 
-(defmethod walk ((component mcomponents:blockquote-header) (assembly assembly)))
-
-(defmethod walk :before ((component mcomponents:blockquote) (assembly assembly))
-  (when (mcomponents:source component)
-    (emit (make-instance 'source :label component
-                                 :name (components:name (mcomponents:source component)))
-          assembly)))
+(defmethod walk ((component mcomponents:blockquote-header) (assembly assembly))
+  (emit (make-instance 'source :label component
+                               :name (components:name component))
+        assembly))
 
 (defmethod walk :after ((component mcomponents:blockquote) (assembly assembly))
   (emit (make-instance 'confirm) assembly))
