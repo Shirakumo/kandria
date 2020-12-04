@@ -62,7 +62,8 @@
     (compile-into-pass effect region +world+)))
 
 (define-shader-entity sprite-effect (lit-animated-sprite shader-effect)
-  ((offset :initarg :offset :initform (vec 0 0) :accessor offset))
+  ((offset :initarg :offset :initform (vec 0 0) :accessor offset)
+   (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index))
   (:default-initargs :sprite-data (asset 'kandria 'effects)))
 
 (defmethod initialize-instance :after ((effect sprite-effect) &key animation)
@@ -125,9 +126,8 @@
       (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles (/ (length (vertex-data effect)) 4)))))
 
 (define-shader-entity step-effect (sprite-effect sound-effect)
-  ((offset :initform (vec 0 -7))))
-
-(defmethod layer-index ((effect step-effect)) 1)
+  ((offset :initform (vec 0 -7))
+   (layer-index :initform 1)))
 
 (defmethod trigger :after ((effect step-effect) source &key)
   (harmony:play (voice effect) :reset T)
@@ -187,3 +187,9 @@
 (define-effect explosion step-effect
   :voice (// 'kandria 'explosion)
   :animation 'explosion48-grounded)
+
+(define-effect land step-effect
+  :voice (// 'kandria 'land)
+  :animation 'land-smash
+  :offset (vec 0 16)
+  :layer-index 3)

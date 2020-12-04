@@ -191,7 +191,7 @@
          (when (< 0 (vy (hit-normal hit)))
            (cond ((and (< (vy (velocity player)) -3)
                        (< 1.0 (air-time player)))
-                  (harmony:play (// 'kandria 'land))
+                  (trigger 'land player :location (hit-location hit))
                   (start-animation 'land player)
                   (duck-camera :offset (velocity player))
                   (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
