@@ -188,11 +188,13 @@
         (compile-into-pass enemy (region +world+) +world+)))))
 
 (flet ((handle-solid (player hit)
-         (when (and (< 0 (vy (hit-normal hit)))
-                    (< (vy (velocity player)) -0.2))
-           (cond ((< 0.7 (air-time player))
+         (when (< 0 (vy (hit-normal hit)))
+           (cond ((and (< (vy (velocity player)) -3)
+                       (< 1.0 (air-time player)))
                   (harmony:play (// 'kandria 'land))
-                  (shake-camera :duration 20 :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
+                  (start-animation 'land player)
+                  (duck-camera :offset (velocity player))
+                  (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  ((< 0.1 (air-time player))
                   (harmony:play (// 'kandria 'land)))))
          (when (<= 0 (vy (hit-normal hit)))
@@ -300,6 +302,10 @@
               (handle (make-instance 'jump) player)))))
        (nv+ vel (v* (gravity (medium player)) dt))
        (handle-animation-states player ev)
+       (when (and (cancelable-p (frame player))
+                  (or (retained 'left)
+                      (retained 'right)))
+         (setf (state player) :normal))
        (when ground
          (setf (vy vel) (max (vy vel) 0))))
       (:dashing
