@@ -285,6 +285,13 @@ void main(){
   (loop for layer across (layers chunk)
         do (setf (size layer) size)))
 
+(defmethod (setf location) :around (location (chunk chunk))
+  (let ((diff (v- location (location chunk))))
+    (for:for ((entity over (region +world+)))
+      (when (contained-p entity chunk)
+        (nv+ (location entity) diff)))
+    (call-next-method)))
+
 (defmethod (setf location) :after (location (chunk chunk))
   (loop for layer across (layers chunk)
         do (setf (location layer) location)))
