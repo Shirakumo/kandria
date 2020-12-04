@@ -38,6 +38,7 @@
   (status "Hi there!"))
 
 (define-cheat tpose "T-pose"
+  (clear-retained)
   (start-animation 't-pose (unit 'player T)))
 
 (define-cheat god "God mode"
@@ -48,3 +49,25 @@
     (when (typep entity 'enemy)
       (setf (health entity) 1)))
   T)
+
+(define-cheat campfire "Grill some marshmallows"
+  (cond ((<= (hour-scale +world+) 60)
+         (setf (hour-scale +world+) (* 60 60)))
+        (T
+         (setf (hour-scale +world+) 60)
+         NIL)))
+
+(define-cheat chaos\ control "You're the fake hedgehog"
+  (cond ((<= 0.9 (time-scale +world+))
+         (setf (time-scale +world+) 0.1))
+        (T
+         (setf (time-scale +world+) 1.0)
+         NIL)))
+
+(define-cheat test "Testing room"
+  (let ((room (unit 'debug T)))
+    (when room
+      (vsetf (location (unit 'player T))
+             (vx (location room))
+             (vy (location room)))
+      (snap-to-target (unit :camera T) (unit 'player T)))))

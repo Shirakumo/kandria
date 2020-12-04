@@ -50,7 +50,7 @@
   (scale-by (direction obj) 1 1))
 
 (defclass rotated-entity (base-entity transformed)
-  ((angle :initarg :angle :initform 0 :accessor angle
+  ((angle :initarg :angle :initform 0f0 :accessor angle
           :type single-float :documentation "The angle the entity is pointing in.")))
 
 (defmethod initargs append ((_ rotated-entity))

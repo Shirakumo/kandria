@@ -14,14 +14,7 @@
   (let ((collisions (collisions enemy))
         (vel (velocity enemy))
         (dt (* 100 (dt ev))))
-    (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) dt)))
     (nv+ vel (v* (gravity (medium enemy)) dt))
-    (cond ((svref collisions 2)
-           (when (<= -0.1 (vx vel) 0.1)
-             (setf (vx vel) 0)))
-          (T
-           (when (<= 2 (vx vel))
-             (setf (vx vel) (* (vx vel) (damp* 0.90 dt))))))
     (when (svref collisions 0) (setf (vy vel) (min 0 (vy vel))))
     (when (svref collisions 1) (setf (vx vel) (min 0 (vx vel))))
     (when (svref collisions 3) (setf (vx vel) (max 0 (vx vel))))
@@ -29,6 +22,12 @@
       ((:dying :animated :stunned)
        (handle-animation-states enemy ev))
       (T
+       (cond ((svref collisions 2)
+              (setf (vx vel) (* (vx vel) (damp* 0.9 dt)))
+              (when (<= -0.1 (vx vel) 0.1)
+                (setf (vx vel) 0)))
+             (T
+              (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) dt)))))
        (handle-ai-states enemy ev)))
     (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
     (nv+ (frame-velocity enemy) vel)))

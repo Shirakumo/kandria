@@ -70,7 +70,9 @@
          (setf damage 0))
         ((interrupt animatable)
          (when (<= +hard-hit+ damage)
-           (setf (animation animatable) 'hard-hit))))
+           (setf (animation animatable) 'hard-hit)
+           (setf (clock (progression 'stun +world+)) 0f0)
+           (start (progression 'stun +world+)))))
   (trigger (make-instance 'text-effect) animatable
            :text (princ-to-string damage)
            :location (vec (+ (vx (location animatable)))
@@ -162,7 +164,8 @@
     (incf (vy vel) (* dt (vy (acceleration frame))))))
 
 (defmethod handle :before ((ev tick) (animatable animatable))
-  (when (< 0 (iframes animatable))
+  (when (and (< 0 (iframes animatable))
+             (< 0 (dt ev)))
     (decf (iframes animatable)))
   (cond ((and (= 0 (vx (velocity animatable)))
               (svref (collisions animatable) 2)

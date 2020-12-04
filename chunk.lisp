@@ -272,7 +272,7 @@ void main(){
   (stage (background chunk) area)
   #++(stage (node-graph chunk) area))
 
-(defmethod clone ((chunk chunk) &key initargs)
+(defmethod clone ((chunk chunk) &rest initargs)
   (apply #'make-instance (class-of chunk)
          (append initargs
                  (list
@@ -284,6 +284,13 @@ void main(){
 (defmethod (setf size) :after (size (chunk chunk))
   (loop for layer across (layers chunk)
         do (setf (size layer) size)))
+
+(defmethod (setf location) :around (location (chunk chunk))
+  (let ((diff (v- location (location chunk))))
+    (for:for ((entity over (region +world+)))
+      (when (contained-p entity chunk)
+        (nv+ (location entity) diff)))
+    (call-next-method)))
 
 (defmethod (setf location) :after (location (chunk chunk))
   (loop for layer across (layers chunk)
