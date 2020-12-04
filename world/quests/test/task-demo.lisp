@@ -19,25 +19,29 @@
 ")
 (quest:interaction :name pot-check :interactable pot :dialogue "
 ~ player
-| The cooking pot indicates human habitation.
-| And this is a great spot for a lookout.
+? (complete-p 'android-check)
+| | I think Harris placed a lookout here. Perhaps watching for us.
+|?
+| | The cooking pot indicates human habitation.
+| | And this is a great spot for a lookout.
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name tent-check :interactable tent :dialogue "
 ~ player
-| The android daily scrubbing routine takes minimal time. I don't think a bedroll is required.
-| Either this belongs to a person, or an android has adopted their behaviour... perhaps to blend in?
+? (complete-p 'android-check)
+| | A person slept here.
+|?
+| | The android daily scrubbing routine takes minimal time. I don't think a bedroll is required.
+| | Either this belongs to a person, or an android has adopted their behaviour... perhaps to blend in?
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
-;! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
-;! eval (unless (complete-p 'fi-tent) (activate 'fi-tent))
 (quest:interaction :name sign-main-check :interactable sign-main :dialogue "
 ~ player
 ? (complete-p 'android-check)
-| | I think the android made this, as a warning.
+| | I think the android made this, as a warning. In the end it was a mistake.
 |?
 | | It's the mark for androids. This bodes well.
-| ! eval (activate 'fi-sign-main)
+| | ! eval (activate 'fi-sign-main)
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-sign-main :title "The android sign" :interactable fi :dialogue "
@@ -57,10 +61,14 @@
 | [has-more-dialogue You got more? | You'd better get going.]")
 (quest:interaction :name sign-check :interactable sign :dialogue "
 ~ player
-| The words were scratched into the wood with a knife. I can barely read it. Enhancing resolution...
-| //READ ME - NO LITTER U FUCKS - BOTS PATROL HERE//
-| Short and not so sweet - that's Harris.
-| ! eval (activate 'fi-sign)
+? (complete-p 'android-check)
+| | Harris scratched these words into the wood with a knife.
+| | It says: //READ ME - NO LITTER U FUCKS - BOTS PATROL HERE//
+|?
+| | The words were scratched into the wood with a knife. I can barely read it. Enhancing resolution...
+| | //READ ME - NO LITTER U FUCKS - BOTS PATROL HERE//
+| | Short and not so sweet - that's Harris.
+| | ! eval (activate 'fi-sign)
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-sign :title "Harris' message" :interactable fi :dialogue "
@@ -76,9 +84,13 @@
 | (:normal)[has-more-dialogue Anything else? | Now get going.]")
 (quest:interaction :name landslide-check :interactable landslide :dialogue "
 ~ player
-| A landslide... That's a memory I could do without.
-| There's human blood on the rock. I can't follow them through there - I need to find a way around.
-| ! eval (activate 'fi-landslide)
+? (complete-p 'android-check)
+| | The battle with the android perhaps caused the landslide here too.
+| | The mountain path is the alternative route.
+|?
+| | A landslide... That's a memory I could do without.
+| | There's human blood on the rock. I can't follow them through there - I need to find a way around.
+| | ! eval (activate 'fi-landslide)
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-landslide :title "The landslide" :interactable fi :dialogue "
@@ -97,8 +109,12 @@
 | (:normal)[has-more-dialogue Anything more? | Well this is awkward...]")
 (quest:interaction :name fire-check :interactable fire :dialogue "
 ~ player
-| The fire is still warm. They left recently.
-| ! eval (activate 'fi-fire)
+? (complete-p 'android-check)
+| | This is where Harris made camp.
+|?
+| | The fire is still warm. They left recently.
+! eval (activate 'fi-fire)
+! eval (unless (active-p 'fi-fire) (activate 'fi-fire))
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name fi-fire  :title "The cave camp" :interactable fi :dialogue "
@@ -126,17 +142,6 @@
 | | Somebody's thinking place?
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
-; ~ player
-; ? (complete-p 'beacon-check)
-; | |? (complete-p 'android-check)
-; | | | Yes. This was somebody's thinking place.
-; |?
-; | |? (complete-p 'android-check)
-; | | | This was somebody's thinking place.
-; | |?
-; | | | How did this get all the way up here?
-; | | | ... Look at that view...
-; | | | Somebody's thinking place?
 (quest:interaction :name corpse-check :interactable corpse :dialogue "
 ~ player
 ? (complete-p 'android-check)
