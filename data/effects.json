@@ -522,7 +522,7 @@
     "duration": 52
    },
    {
-    "filename": "0 explosion32_grounded",
+    "filename": "0 explosion32-grounded",
     "frame": { "x": 104, "y": 74, "w": 34, "h": 34 },
     "rotated": false,
     "trimmed": true,
@@ -531,7 +531,7 @@
     "duration": 52
    },
    {
-    "filename": "1 explosion32_grounded",
+    "filename": "1 explosion32-grounded",
     "frame": { "x": 30, "y": 45, "w": 34, "h": 34 },
     "rotated": false,
     "trimmed": true,
@@ -540,7 +540,7 @@
     "duration": 9
    },
    {
-    "filename": "2 explosion32_grounded",
+    "filename": "2 explosion32-grounded",
     "frame": { "x": 55, "y": 141, "w": 24, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -549,7 +549,7 @@
     "duration": 9
    },
    {
-    "filename": "3 explosion32_grounded",
+    "filename": "3 explosion32-grounded",
     "frame": { "x": 163, "y": 124, "w": 26, "h": 34 },
     "rotated": false,
     "trimmed": true,
@@ -558,7 +558,7 @@
     "duration": 80
    },
    {
-    "filename": "4 explosion32_grounded",
+    "filename": "4 explosion32-grounded",
     "frame": { "x": 0, "y": 88, "w": 29, "h": 35 },
     "rotated": false,
     "trimmed": true,
@@ -567,7 +567,7 @@
     "duration": 80
    },
    {
-    "filename": "5 explosion32_grounded",
+    "filename": "5 explosion32-grounded",
     "frame": { "x": 99, "y": 109, "w": 31, "h": 35 },
     "rotated": false,
     "trimmed": true,
@@ -576,7 +576,7 @@
     "duration": 80
    },
    {
-    "filename": "6 explosion32_grounded",
+    "filename": "6 explosion32-grounded",
     "frame": { "x": 65, "y": 75, "w": 33, "h": 35 },
     "rotated": false,
     "trimmed": true,
@@ -585,7 +585,7 @@
     "duration": 70
    },
    {
-    "filename": "7 explosion32_grounded",
+    "filename": "7 explosion32-grounded",
     "frame": { "x": 180, "y": 44, "w": 33, "h": 36 },
     "rotated": false,
     "trimmed": true,
@@ -594,7 +594,7 @@
     "duration": 70
    },
    {
-    "filename": "8 explosion32_grounded",
+    "filename": "8 explosion32-grounded",
     "frame": { "x": 0, "y": 124, "w": 30, "h": 30 },
     "rotated": false,
     "trimmed": true,
@@ -603,7 +603,7 @@
     "duration": 55
    },
    {
-    "filename": "9 explosion32_grounded",
+    "filename": "9 explosion32-grounded",
     "frame": { "x": 80, "y": 141, "w": 17, "h": 26 },
     "rotated": false,
     "trimmed": true,
@@ -612,7 +612,7 @@
     "duration": 55
    },
    {
-    "filename": "10 explosion32_grounded",
+    "filename": "10 explosion32-grounded",
     "frame": { "x": 190, "y": 156, "w": 14, "h": 23 },
     "rotated": false,
     "trimmed": true,
@@ -621,7 +621,7 @@
     "duration": 55
    },
    {
-    "filename": "11 explosion32_grounded",
+    "filename": "11 explosion32-grounded",
     "frame": { "x": 205, "y": 156, "w": 13, "h": 22 },
     "rotated": false,
     "trimmed": true,
@@ -630,7 +630,7 @@
     "duration": 55
    },
    {
-    "filename": "12 explosion32_grounded",
+    "filename": "12 explosion32-grounded",
     "frame": { "x": 0, "y": 168, "w": 12, "h": 18 },
     "rotated": false,
     "trimmed": true,
@@ -639,7 +639,7 @@
     "duration": 55
    },
    {
-    "filename": "13 explosion32_grounded",
+    "filename": "13 explosion32-grounded",
     "frame": { "x": 212, "y": 17, "w": 9, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -648,7 +648,7 @@
     "duration": 55
    },
    {
-    "filename": "0 explosion48_grounded",
+    "filename": "0 explosion48-grounded",
     "frame": { "x": 104, "y": 74, "w": 34, "h": 34 },
     "rotated": false,
     "trimmed": true,
@@ -657,7 +657,7 @@
     "duration": 9
    },
    {
-    "filename": "1 explosion48_grounded",
+    "filename": "1 explosion48-grounded",
     "frame": { "x": 68, "y": 0, "w": 37, "h": 37 },
     "rotated": false,
     "trimmed": true,
@@ -666,7 +666,7 @@
     "duration": 9
    },
    {
-    "filename": "2 explosion48_grounded",
+    "filename": "2 explosion48-grounded",
     "frame": { "x": 106, "y": 0, "w": 37, "h": 37 },
     "rotated": false,
     "trimmed": true,
@@ -675,7 +675,7 @@
     "duration": 9
    },
    {
-    "filename": "3 explosion48_grounded",
+    "filename": "3 explosion48-grounded",
     "frame": { "x": 30, "y": 118, "w": 24, "h": 41 },
     "rotated": false,
     "trimmed": true,
@@ -684,7 +684,7 @@
     "duration": 80
    },
    {
-    "filename": "4 explosion48_grounded",
+    "filename": "4 explosion48-grounded",
     "frame": { "x": 174, "y": 81, "w": 26, "h": 42 },
     "rotated": false,
     "trimmed": true,
@@ -693,7 +693,7 @@
     "duration": 80
    },
    {
-    "filename": "5 explosion48_grounded",
+    "filename": "5 explosion48-grounded",
     "frame": { "x": 0, "y": 44, "w": 29, "h": 43 },
     "rotated": false,
     "trimmed": true,
@@ -702,7 +702,7 @@
     "duration": 80
    },
    {
-    "filename": "6 explosion48_grounded",
+    "filename": "6 explosion48-grounded",
     "frame": { "x": 181, "y": 0, "w": 30, "h": 43 },
     "rotated": false,
     "trimmed": true,
@@ -711,7 +711,7 @@
     "duration": 70
    },
    {
-    "filename": "7 explosion48_grounded",
+    "filename": "7 explosion48-grounded",
     "frame": { "x": 35, "y": 0, "w": 32, "h": 44 },
     "rotated": false,
     "trimmed": true,
@@ -720,7 +720,7 @@
     "duration": 70
    },
    {
-    "filename": "8 explosion48_grounded",
+    "filename": "8 explosion48-grounded",
     "frame": { "x": 0, "y": 0, "w": 34, "h": 43 },
     "rotated": false,
     "trimmed": true,
@@ -729,7 +729,7 @@
     "duration": 55
    },
    {
-    "filename": "9 explosion48_grounded",
+    "filename": "9 explosion48-grounded",
     "frame": { "x": 30, "y": 80, "w": 30, "h": 37 },
     "rotated": false,
     "trimmed": true,
@@ -738,7 +738,7 @@
     "duration": 55
    },
    {
-    "filename": "10 explosion48_grounded",
+    "filename": "10 explosion48-grounded",
     "frame": { "x": 201, "y": 81, "w": 17, "h": 33 },
     "rotated": false,
     "trimmed": true,
@@ -747,7 +747,7 @@
     "duration": 55
    },
    {
-    "filename": "11 explosion48_grounded",
+    "filename": "11 explosion48-grounded",
     "frame": { "x": 131, "y": 144, "w": 14, "h": 29 },
     "rotated": false,
     "trimmed": true,
@@ -756,7 +756,7 @@
     "duration": 55
    },
    {
-    "filename": "12 explosion48_grounded",
+    "filename": "12 explosion48-grounded",
     "frame": { "x": 117, "y": 145, "w": 13, "h": 25 },
     "rotated": false,
     "trimmed": true,
@@ -765,7 +765,7 @@
     "duration": 55
    },
    {
-    "filename": "13 explosion48_grounded",
+    "filename": "13 explosion48-grounded",
     "frame": { "x": 146, "y": 166, "w": 12, "h": 18 },
     "rotated": false,
     "trimmed": true,
@@ -774,7 +774,7 @@
     "duration": 55
    },
    {
-    "filename": "14 explosion48_grounded",
+    "filename": "14 explosion48-grounded",
     "frame": { "x": 212, "y": 0, "w": 10, "h": 16 },
     "rotated": false,
     "trimmed": true,
@@ -798,8 +798,8 @@
    { "name": "Step", "from": 26, "to": 30, "direction": "forward" },
    { "name": "explosion32", "from": 31, "to": 43, "direction": "forward" },
    { "name": "explosion16", "from": 44, "to": 57, "direction": "forward" },
-   { "name": "explosion32_grounded", "from": 58, "to": 71, "direction": "forward" },
-   { "name": "explosion48_grounded", "from": 72, "to": 86, "direction": "forward" }
+   { "name": "explosion32-grounded", "from": 58, "to": 71, "direction": "forward" },
+   { "name": "explosion48-grounded", "from": 72, "to": 86, "direction": "forward" }
   ]
  }
 }
