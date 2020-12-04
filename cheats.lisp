@@ -38,6 +38,7 @@
   (status "Hi there!"))
 
 (define-cheat tpose "T-pose"
+  (clear-retained)
   (start-animation 't-pose (unit 'player T)))
 
 (define-cheat god "God mode"
