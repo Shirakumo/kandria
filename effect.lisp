@@ -186,4 +186,4 @@
 
 (define-effect explosion step-effect
   :voice (// 'kandria 'explosion)
-  :animation 'explosion32)
+  :animation 'explosion48-grounded)
