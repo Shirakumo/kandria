@@ -69,11 +69,10 @@
 
 (defmethod (setf tool) :before ((tool tool) (editor editor))
   (let ((entity (entity editor)))
-    (unless (find (type-of tool) (applicable-tools entity))
-      (error "Cannot use tool~%  ~a~%with~%  ~a" tool (entity editor)))
-    (trial:commit tool (loader (handler *context*)) :unload NIL)
-    (when (and (tool editor) (not (eq tool (tool editor))))
-      (hide (tool editor)))))
+    (when (find (type-of tool) (applicable-tools entity))
+      (trial:commit tool (loader (handler *context*)) :unload NIL)
+      (when (and (tool editor) (not (eq tool (tool editor))))
+        (hide (tool editor))))))
 
 (defmethod (setf tool) ((tool symbol) (editor editor))
   (setf (tool editor) (make-instance tool :editor editor)))
