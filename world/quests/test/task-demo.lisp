@@ -21,15 +21,15 @@
 | ~ player
 | | Well, we're here now. Can I proceed?
 | ~ fi
-| | You know you don't need to ask me that, of all people? But yes, you are permitted.
+| | You know you don't need to ask me that, of all people. But yes, you are permitted.
 | | Though I'm staying right here. Let me know what you find. And be careful.
 ")
 (quest:interaction :name pot-check :interactable pot :dialogue "
 ~ player
 ? (complete-p 'android-check)
-| | I think Harris placed a lookout here. Perhaps watching for us.
+| | I think Harris placed a lookout here. Perhaps watching for our approach.
 |?
-| | (:thinking)The cooking pot indicates human habitation.
+| | The cooking pot indicates human habitation.
 | | And this is a great spot for a lookout.
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
@@ -38,8 +38,8 @@
 ? (complete-p 'android-check)
 | | A person slept here.
 |?
-| | (:thinking)The android daily scrubbing routine takes minimal time. I don't think a bedroll is required.
-| | Either this belongs to a person, or an android has adopted their behaviour... perhaps to blend in?
+| | The android daily scrubbing routine takes minimal time. I don't think a bedroll is required.
+| | (:thinking)Either this belongs to a person, or an android has adopted their behaviour... perhaps to blend in?
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
 (quest:interaction :name sign-main-check :interactable sign-main :dialogue "
@@ -66,9 +66,9 @@
 | | Agreed.
 |?
 | ~ player
-| | I've found a sign with the android signifier on it not far from here.
+| | I've found a sign bearing the android signifier.
 | ~ fi
-| | Then we're on the right track.
+| | Then we're going the right way.
 | ~ player
 | | Although... it's not painted in the correct color. Perhaps it has another meaning...
 | | An arrow to indicate direction?
@@ -76,7 +76,7 @@
 | | (:unsure)I know you claim to be a detective, but now I think you're seeing things.
 | | (:normal)I'll have Catherine give you a checkup when we get back.
 | ~ player
-| | No thank you.
+| | (:skeptical)I'd rather she didn't.
 | ~ fi
 | | [has-more-dialogue You got more? | You'd better get going.]
 ")
@@ -110,11 +110,11 @@
 | | (:giggle)Was that a compliment?
 | ~ fi
 | | (:unsure)A fact.
-| | (:normal)[has-more-dialogue Anything else? | Now get going.]")
+| | [has-more-dialogue Anything else? | Now get going.]")
 (quest:interaction :name landslide-check :interactable landslide :dialogue "
 ~ player
 ? (complete-p 'android-check)
-| | The battle with the android perhaps caused the landslide here too.
+| | The battle with the android probably caused this landslide too.
 | | The mountain path is the alternative route.
 | ! eval (if (not (active-p 'fi-landslide)) (activate 'fi-landslide))
 | ! eval (if (not (complete-p 'fi-landslide)) (complete 'fi-landslide))
@@ -146,7 +146,7 @@
 | | (:giggle)I don't look tough?
 | ~ fi
 | | (:unsure)I didn't say that.
-| | (:normal)[has-more-dialogue Anything more? | Well this is awkward...]")
+| | [has-more-dialogue Anything more? | Well this is awkward...]")
 (quest:interaction :name fire-check :interactable fire :dialogue "
 ~ player
 ? (complete-p 'android-check)
@@ -154,11 +154,11 @@
 | ! eval (if (not (active-p 'fi-fire)) (activate 'fi-fire))
 | ! eval (if (not (complete-p 'fi-fire)) (complete 'fi-fire))
 |?
-| | The fire is still warm. They left recently.
+| | A human camp. The fire is still warm.
 | ! eval (activate 'fi-fire)
 ! eval (if (not (complete-p 'fi-check)) (complete 'fi-check))
 ")
-(quest:interaction :name fi-fire :title "The cave camp" :interactable fi :dialogue "
+(quest:interaction :name fi-fire :title "The human camp" :interactable fi :dialogue "
 ? (complete-p 'android-check)
 | ~ player
 | | What should we do about Harris' camp?
@@ -168,7 +168,7 @@
 | ~ player
 | | I found the remnants of another human camp, recently vacated.
 | ~ fi
-| | (:annoyed)I think it's fair to say that Harris hasn't been completely honest with us.
+| | (:annoyed)I think it's fair to say Harris hasn't been completely honest with us.
 | ~ player
 | | (:skeptical)You think it's a trap?
 | ~ fi
@@ -227,7 +227,7 @@
 ")
 (quest:interaction :name android-check :interactable android :dialogue "
 ~ player
-? (active-p 'fi-outcome)
+? (or (active-p 'fi-outcome) (complete-p 'fi-outcome))
 | | It's the android's remains.
 |?
 | | It's the android... or what's left of it.
@@ -267,7 +267,7 @@
 | ~ fi
 | | (:annoyed)-- You think Harris tricked us into coming here? To seize you too?
 | ~ player
-| | Perhaps.
+| | I don't know.
 | ~ fi
 | | Did you get the Genera core?
 | ~ player
