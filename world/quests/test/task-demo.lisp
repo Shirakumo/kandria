@@ -254,7 +254,7 @@
 | ~ fi
 | | Is everything okay?
 | ~ player
-| | I found the android.
+| | I found the android...
 | ~ fi
 | | Oh... -- I'm so sorry...
 | | What happened?
