@@ -272,7 +272,7 @@ void main(){
   (stage (background chunk) area)
   #++(stage (node-graph chunk) area))
 
-(defmethod clone ((chunk chunk) &key initargs)
+(defmethod clone ((chunk chunk) &rest initargs)
   (apply #'make-instance (class-of chunk)
          (append initargs
                  (list

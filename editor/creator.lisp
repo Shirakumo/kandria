@@ -21,6 +21,6 @@
          (scroll (make-instance 'alloy:scroll-view :scroll :y :focus inspector :layout inspector
                                                    :layout-parent layout :focus-parent focus)))
     (alloy:on alloy:value (class combo)
-      (setf (entity creator) (make-instance class))
+      (setf (entity creator) (make-instance class :location (vcopy (location (unit :camera T)))))
       (reinitialize-instance inspector :object (entity creator)))))
 

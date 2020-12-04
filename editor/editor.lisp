@@ -241,7 +241,7 @@
   (make-instance 'creator :ui (unit 'ui-pass T)))
 
 (defmethod edit ((action (eql 'clone-entity)) (editor editor))
-  (edit (make-instance 'insert-entity :entity (clone (entity editor))) editor))
+  (edit (make-instance 'insert-entity :entity (clone (entity editor) :location (vcopy (location (unit :camera T))))) editor))
 
 (defmethod edit ((action (eql 'undo)) (editor editor))
   (undo editor (unit 'region T)))
@@ -261,7 +261,5 @@
 (defmethod edit ((action insert-entity) (editor editor))
   (let ((entity (entity action))
         (*package* #.*package*))
-    (when (typep entity 'located-entity)
-      (setf (location entity) (vcopy (location (unit :camera T)))))
     (enter-and-load entity (unit 'region T) (handler *context*))
     (setf (entity editor) entity)))
