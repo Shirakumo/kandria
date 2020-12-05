@@ -138,7 +138,7 @@
 (defmethod apply-transforms progn ((baloon balloon))
   (translate-by 0 -16 0))
 
-(define-shader-entity dummy (enemy solid)
+(define-shader-entity dummy (enemy)
   ((bsize :initform (vec 8 16)))
   (:default-initargs
    :sprite-data (asset 'kandria 'dummy)))
