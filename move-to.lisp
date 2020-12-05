@@ -3,6 +3,9 @@
 ;; TODO: This now takes by far the longest amount of time when
 ;;       loading the game. It needs to both be made faster and be
 ;;       cached to disk.
+;; TODO: rewrite this without FLOW. Use a vector of nodes, with
+;;       each entry being a list of connections to other nodes by index.
+;;       The vector could also be a 2D array to cover the grid. not sure.
 
 (defclass move-edge (flow:connection) ())
 (defclass walk-edge (move-edge) ())
@@ -24,11 +27,11 @@
 
 (flow:define-node platform-node ()
   ((options :port-type flow:n-port)
-   (location :initarg :location :accessor location)))
+   (%location :initarg :location :accessor %location)))
 
 (defmethod print-object ((node platform-node) stream)
   (print-unreadable-object (node stream :type T)
-    (format stream "~a" (location node))))
+    (format stream "~a" (%location node))))
 
 (flow:define-node right-edge-node (platform-node) ())
 (flow:define-node left-edge-node (platform-node) ())
@@ -181,8 +184,8 @@
                               (jump-edge (vec 1 0 0 1))
                               (fall-edge (vec 0 0 1 1)))
                 when target
-                do (vertex :position (vxy_ (location node)) :color color)
-                   (vertex :position (vxy_ (location target)) :color (v* color 0.1))))))))
+                do (vertex :position (vxy_ (%location node)) :color color)
+                   (vertex :position (vxy_ (%location target)) :color (v* color 0.1))))))))
 
 (define-shader-entity node-graph (vertex-entity)
   ((node-grid :initarg :node-grid :accessor node-grid)
@@ -230,7 +233,7 @@
                           (when node (return node)))
                      finally (error "Position outside possible node grid!")))
              (cost (a b)
-               (vsqrdist2 (location a) (location b))))
+               (vsqrdist2 (%location a) (%location b))))
       (values (flow:a* (node start) (node goal) #'cost :test test)
               (node start)))))
 
@@ -298,30 +301,30 @@ void main(){
           (null
            (vsetf vel 0 0))
           (walk-edge
-           (move-towards (location node) (location target)))
+           (move-towards (%location node) (%location target)))
           (fall-edge
            (if (svref collisions 2)
-               (move-towards (location node)
-                             (location target))
+               (move-towards (%location node)
+                             (%location target))
                (setf (vx vel) 0)))
           (jump-edge
            (if (svref collisions 2)
-               (let ((node-dist (vsqrdist2 loc (location node)))
-                     (targ-dist (vsqrdist2 loc (location target))))
+               (let ((node-dist (vsqrdist2 loc (%location node)))
+                     (targ-dist (vsqrdist2 loc (%location target))))
                  (cond ((<= node-dist (expt 8 2))
                         (vsetf vel
                                (vx (strength con))
                                (vy (strength con))))
                        ((< node-dist targ-dist)
-                        (move-towards (location movable) (location node)))
+                        (move-towards (location movable) (%location node)))
                        (T
-                        (move-towards (location node) (location target)))))
+                        (move-towards (location node) (%location target)))))
                (setf (vx vel) (vx (strength con)))))
           (crawl-edge
            (setf (state movable) :crawling)
-           (move-towards (location node) (location target))))
+           (move-towards (%location node) (%location target))))
         ;; Check whether to move on to the next step
-        (when (moved-beyond-target-p loc (location node) (location target))
+        (when (moved-beyond-target-p loc (%location node) (%location target))
           (pop (path movable))
           (setf (current-node movable) target)
           (setf con (car (path movable)))
