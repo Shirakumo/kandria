@@ -191,5 +191,4 @@
 (define-effect land step-effect
   :voice (// 'kandria 'land)
   :animation 'land-smash
-  :offset (vec 0 16)
   :layer-index 3)
