@@ -843,7 +843,7 @@
     "trimmed": true,
     "spriteSourceSize": { "x": 47, "y": 104, "w": 37, "h": 24 },
     "sourceSize": { "w": 128, "h": 128 },
-    "duration": 100
+    "duration": 25
    },
    {
     "filename": "1 Land-smash",
@@ -852,7 +852,7 @@
     "trimmed": true,
     "spriteSourceSize": { "x": 42, "y": 102, "w": 44, "h": 26 },
     "sourceSize": { "w": 128, "h": 128 },
-    "duration": 100
+    "duration": 25
    },
    {
     "filename": "2 Land-smash",
