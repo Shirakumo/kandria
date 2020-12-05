@@ -508,21 +508,22 @@
   (incf (jump-time player) (dt ev))
   (incf (air-time player) (dt ev))
   ;; OOB
-  (when (and (not (eql :dying (state player)))
-             (not (contained-p (location player) (chunk player))))
-    (let ((other (find-containing player (region +world+))))
-      (cond (other
-             (issue +world+ 'switch-chunk :chunk other))
-            ((< (vy (location player))
-                (- (vy (location (chunk player)))
-                   (vy (bsize (chunk player)))))
-             (kill player))
-            (T
-             (setf (vx (location player)) (clamp (- (vx (location (chunk player)))
-                                                    (vx (bsize (chunk player))))
-                                                 (vx (location player))
-                                                 (+ (vx (location (chunk player)))
-                                                    (vx (bsize (chunk player))))))))))
+  (when (not (contained-p (location player) (chunk player)))
+    (if (eql :dying (state player))
+        (vsetf (velocity player) 0 0)
+        (let ((other (find-containing player (region +world+))))
+          (cond (other
+                 (issue +world+ 'switch-chunk :chunk other))
+                ((< (vy (location player))
+                    (- (vy (location (chunk player)))
+                       (vy (bsize (chunk player)))))
+                 (kill player))
+                (T
+                 (setf (vx (location player)) (clamp (- (vx (location (chunk player)))
+                                                        (vx (bsize (chunk player))))
+                                                     (vx (location player))
+                                                     (+ (vx (location (chunk player)))
+                                                        (vx (bsize (chunk player)))))))))))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
