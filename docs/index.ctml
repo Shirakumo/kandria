@@ -49,7 +49,7 @@
           You play as The Stranger, a lost remnant of old-world technology. With your combat and detective skills you help a struggling surface settlement survive. Along the way you'll encounter different people with very different ethics and ideas about humanity and the world as a whole.
         </p>
         <p>
-          You can find a press kit <a href="press/">here</a>.
+          <b>Wishlist us on <a href="https://store.steampowered.com/app/1261430">Steam</a>!</b>
         </p>
       </section>
       <section id="media">
@@ -70,6 +70,9 @@
           <input type="submit" value="Subscribe" />
         </form>
         <ul class="icons">
+          <li><a href="https://store.steampowered.com/app/1261430" title="Wishlist on Steam">
+            <i class="fab fa-steam fa-fw"></i>
+          </a></li>
           <li><a href="https://discord.gg/WNTygau" title="Join the Discord">
             <i class="fab fa-discord fa-fw"></i>
           </a></li>
