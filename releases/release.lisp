@@ -95,12 +95,12 @@
       (push "windows" systems))
     systems))
 
-(defun itch (release &key &allow-other-keys)
+(defmethod upload ((service (eql :itch)) &key (release (release)) &allow-other-keys)
   (run "butler" "push" (uiop:native-namestring release)
        (format NIL "Shinmera/kandria:~{~a~^-~}" (release-systems release))
        "--userversion" (version)))
 
-(defun steam (release &key (branch "developer") preview (user "shirakumo_org") password &allow-other-keys)
+(defmethod upload ((service (eql :steam)) &key (release (release)) (branch "developer") preview (user "shirakumo_org") password &allow-other-keys)
   (let ((template (make-pathname :name "app-build" :type "vdf" :defaults (output)))
         (build (make-pathname :name "app-build" :type "vdf" :defaults release)))
     (file-replace template build `(("\\$CONTENT" ,(uiop:native-namestring release))
@@ -108,14 +108,11 @@
                                    ("\\$PREVIEW" ,(if preview "1" "0"))))
     (run "steamcmd.sh" "+login" user (or password (get-pass user) (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")))
 
-(defun upload (&optional (release (release)) &rest args &key (services T))
-  (dolist (service (etypecase services
-                     ((eql T) '(itch steam))
-                     (list services)
-                     (T (list services))))
-    (apply service release args)))
+(defmethod upload ((service (eql T)) &rest args)
+  (dolist (service '(:itch :steam))
+    (apply #'upload service args)))
 
-(defun make (&key (build T) (upload 'steam))
+(defun make (&key (build T) (upload :steam))
   (deploy:status 0 "Building ~a" (version))
   (build build)
   (deploy:status 1 "Deploying to release directory")
@@ -124,5 +121,5 @@
     (bundle release)
     (when upload
       (deploy:status 1 "Uploading")
-      (upload release :services upload))
+      (upload upload :release release))
     release))
