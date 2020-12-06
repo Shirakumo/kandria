@@ -108,7 +108,7 @@
                                    ("\\$PREVIEW" ,(if preview "1" "0"))))
     (run "steamcmd.sh" "+login" user (or password (get-pass user) (query-pass)) "+run_app_build" (uiop:native-namestring build) "+quit")))
 
-(defmethod upload ((service (eql T)) &rest args)
+(defmethod upload ((service (eql T)) &rest args &key &allow-other-keys)
   (dolist (service '(:itch :steam))
     (apply #'upload service args)))
 
