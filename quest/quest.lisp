@@ -208,7 +208,7 @@
   (v:info :kandria.quest "Completing ~a" task)
   (setf (status task) :complete)
   (loop for thing being the hash-values of (triggers task)
-        do (deactivate trigger))
+        do (deactivate thing))
   (dolist (effect (on-complete task))
     (activate (find-named effect task)))
   task)
