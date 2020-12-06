@@ -147,7 +147,8 @@
                              (point-angle (velocity source)))
                            (case (direction effect)
                              (-1. PI)
-                             (+1. 0))))
+                             (+1. 0f0))
+                           0f0))
   (setf (direction effect) 1))
 
 (defmethod apply-transforms progn ((effect dash-effect))
