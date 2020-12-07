@@ -607,7 +607,7 @@
 (defmethod hurt :after ((player player) damage)
   (setf (clock (progression 'hurt +world+)) 0)
   (start (progression 'hurt +world+))
-  (shake-camera :intensity 10))
+  (shake-camera :intensity 5))
 
 (defmethod kill :after ((player player))
   (harmony:play (// 'kandria 'death))

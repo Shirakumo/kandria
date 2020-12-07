@@ -81,14 +81,16 @@
         (lighting (make-instance 'lighting-pass))
         (rendering (make-instance 'rendering-pass))
         (distortion (make-instance 'distortion-pass))
+        (displacement (make-instance 'displacement-pass))
         ;; This is dumb and inefficient. Ideally we'd connect the same output
         ;; to both distortion and UI and then just make the UI pass not clear
         ;; the framebuffer when drawing.
         (ui (make-instance 'ui-pass :base-scale (setting :display :ui-scale)))
-        (blend (make-instance 'blend-pass)))
+        (blend (make-instance 'blend-pass :name 'blend)))
     (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
     (connect (port lighting 'color) (port rendering 'lighting) scene)
-    (connect (port rendering 'color) (port distortion 'previous-pass) scene)
+    (connect (port rendering 'color) (port displacement 'previous-pass) scene)
+    (connect (port displacement 'color) (port distortion 'previous-pass) scene)
     (connect (port distortion 'color) (port blend 'trial::a-pass) scene)
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
   (show (make-instance 'status-lines))

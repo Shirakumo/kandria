@@ -158,6 +158,7 @@
    (shadow-map :port-type input)
    (exposure :initform 0.5 :accessor exposure)
    (gamma :initform 2.2 :accessor gamma)
+   (name :initform 'render)
    #++(color :port-type output :attachment :color-attachment0
           :texspec (:width 640 :height 416))
    #++(depth :port-type output :attachment :depth-stencil-attachment

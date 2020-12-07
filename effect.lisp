@@ -185,7 +185,13 @@
 (define-effect zombie-notice sound-effect
   :voice (// 'kandria 'zombie-notice))
 
-(define-effect explosion step-effect
+(define-shader-entity explosion-effect (step-effect)
+  ())
+
+(defmethod trigger :after ((effect explosion-effect) source &key)
+  (setf (location (unit 'displacement T)) (location effect)))
+
+(define-effect explosion explosion-effect
   :voice (// 'kandria 'explosion)
   :animation 'explosion48-grounded)
 
