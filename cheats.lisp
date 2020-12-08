@@ -45,10 +45,14 @@
   (setf (invincible-p (unit 'player T)) (not (invincible-p (unit 'player T)))))
 
 (define-cheat armageddon "Armageddon"
-  (for:for ((entity over (region +world+)))
-    (when (typep entity 'enemy)
-      (setf (health entity) 1)))
-  T)
+  (cond ((= 1 +health-multiplier+)
+         (for:for ((entity over (region +world+)))
+           (when (typep entity 'enemy)
+             (setf (health entity) 1)))
+         (setf +health-multiplier+ 0f0))
+        (T
+         (setf +health-multiplier+ 1f0)
+         NIL)))
 
 (define-cheat campfire "Grill some marshmallows"
   (cond ((<= (hour-scale +world+) 60)
