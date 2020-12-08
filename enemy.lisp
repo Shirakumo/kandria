@@ -1,8 +1,13 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-global +health-multiplier+ 1f0)
+
 (define-shader-entity enemy (animatable)
   ((bsize :initform (vec 8.0 8.0))
    (cooldown :initform 0.0 :accessor cooldown)))
+
+(defmethod initialize-instance :after ((enemy enemy) &key)
+  (setf (health enemy) (* (health enemy) +health-multiplier+)))
 
 (defmethod capable-p ((enemy enemy) (edge crawl-edge)) T)
 (defmethod capable-p ((enemy enemy) (edge jump-edge)) T)
