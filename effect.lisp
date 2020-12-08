@@ -189,7 +189,11 @@
   ())
 
 (defmethod trigger :after ((effect explosion-effect) source &key)
-  (setf (location (unit 'displacement T)) (location effect)))
+  (let ((displacer (make-instance 'displacer :location (location effect)
+                                             :strength 1.5
+                                             :lifetime 0.3)))
+    (enter displacer +world+)
+    (compile-into-pass displacer +world+ (unit 'displacement-render-pass +world+))))
 
 (define-effect explosion explosion-effect
   :voice (// 'kandria 'explosion)
