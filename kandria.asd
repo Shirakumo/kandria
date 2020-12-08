@@ -48,6 +48,7 @@
                (:file "main")
                (:file "deploy")
                (:file "effects")
+               (:file "displacement")
                (:module "ui"
                 :components ((:file "general")
                              (:file "components")
