@@ -188,9 +188,9 @@
 (define-shader-entity explosion-effect (step-effect)
   ())
 
-(defmethod trigger :after ((effect explosion-effect) source &key)
+(defmethod trigger :after ((effect explosion-effect) source &key (strength 0.5))
   (let ((displacer (make-instance 'displacer :location (location effect)
-                                             :strength 1.5
+                                             :strength strength
                                              :lifetime 0.3)))
     (enter displacer +world+)
     (compile-into-pass displacer +world+ (unit 'displacement-render-pass +world+))))
