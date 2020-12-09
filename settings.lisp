@@ -12,7 +12,8 @@
                            :fullscreen NIL
                            :vsync T
                            :ui-scale 1.0)
-                 :camera (:screen-shake 1.0))))
+                 :camera (:screen-shake 1.0)
+                 :language (:code :eng))))
 
 (defun settings-path ()
   (make-pathname :name "settings" :type "lisp"
