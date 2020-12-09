@@ -11,6 +11,7 @@
                (:file "toolkit")
                (:file "helpers")
                (:file "settings")
+               (:file "language")
                (:file "animation")
                (:file "gradient")
                (:file "auto-fill")

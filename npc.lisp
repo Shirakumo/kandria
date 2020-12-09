@@ -16,7 +16,7 @@
   ((name :initform 'fi)
    (bsize :initform (vec 8 16))
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
-   (nametag :initform "Fi"))
+   (nametag :initform (@ fi-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
 

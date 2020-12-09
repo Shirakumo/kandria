@@ -49,7 +49,7 @@
    (inventory :initform NIL :accessor inventory)
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
-   (nametag :initform "The Stranger"))
+   (nametag :initform (@ player-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
