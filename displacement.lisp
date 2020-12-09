@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-asset (kandria displacement) image
-    #p"displacement.png")
+    #p"shockwave-2.png")
 
 (define-shader-entity displacer (located-entity listener)
   ((texture :initform (// 'kandria 'displacement) :reader texture)
