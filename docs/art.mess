@@ -1,7 +1,32 @@
 # Kandria Art Document
-This document should serve as a general mood board to reference designs for Kandria.
+This document should serve as a reference for the art direction and kind of style we should be aiming for. Please also see the "lore"(link lore.mess) document, specifically also the section on technology.
 
-Please also see the "lore"(lore.mess) document, specifically also the section on technology.
+## Pixel Art
+In general the pixel art should be focused on extremely limited palettes of only a handful of colours, with many large, flat shapes. A good comparison would be vector graphics but reduced to pixel art. This means noise and detail should be avoided in favour of keeping the art clean and easy to read.
+
+### Sprites
+In the low-resolution sprite work, the palette should be limited to one primary colour per shape, with one additional shade colour if necessary. This ensures a high degree of readability.
+
+### Profiles
+In the high-resolution profiles the line work should always be clearly visible even with shading. Shading should be used to anti-alias the lines, but not to a degree where the lines would disappear entirely. For the shading more than one shade colour per shape may be employed, but the palette should still stay extremely limited. Instead of introducing further shades, colours from other shapes should be adapted for use in shading when possible.
+
+### Animation
+In exchange for the simplified and relatively low-detail look, the animations should instead be very fluid and target a high framerate. The animations must be clear to read, so movements should be exaggerated, and especially the weight of characters in the animations should be apparent.
+
+### Tiles
+Surface tiles should follow a distinctive look in both hue and pattern for each area. Using strange, unnatural hues is strongly encouraged, both to make the game look more unique, and to help differentiate the areas from each other. Everything should still follow the limited palette design choice however, and be constrained to only a few alternate shades where necessary.
+
+## Concept Art
+This is a collection of concept art for the game. Use these as references for creating more detailed in-game artwork or polished marketing material.
+
+[ image https://studio.tymoon.eu/api/studio/file?id=1680 ]
+[ image https://studio.tymoon.eu/api/studio/file?id=1601, caption Note: golden trims should be changed to the same cyan colour as the other details ]
+[ image https://studio.tymoon.eu/api/studio/file?id=1762 ]
+[ image https://cdn.discordapp.com/attachments/767828327595114507/775934013017423902/android.jpg, caption May be used for stronger enemies or a boss fight later ]
+[ image https://cdn.discordapp.com/attachments/767828327595114507/776548525240614922/android_civilian.jpg ]
+
+## Mood Board
+This mood board should serve as a bit of a reference to get inspired.
 
 [ image https://i.pinimg.com/originals/56/1c/0d/561c0d01de2c2db48fd3dcbba95073e7.jpg ]
 [ image https://catwithmonocle.com/wp-content/uploads/2020/01/nier-automata-art-desert-1920x1080-1.jpg ]
@@ -10,6 +35,9 @@ Please also see the "lore"(lore.mess) document, specifically also the section on
 [ image https://img-eshop.cdn.nintendo.net/i/60c86e1e97a38503de0268d68bf7366767492452986058aa5af118aaf132d1d6.jpg ]
 [ image https://i.pinimg.com/originals/c9/e8/ef/c9e8efca356e9fd2263493d78ab3737d.gif ]
 [ image https://pbs.twimg.com/media/EUKdfyeWsAYSVNZ.png ]
+[ image https://i.pinimg.com/736x/57/d6/59/57d659ae6b9b9f23138a1de370fac142.jpg ]
+[ image https://www.nintendo.com/content/dam/noa/en_US/games/switch/a/another-world-switch/screenshot-gallery/another-world-switch-screenshot05.jpg ]
+[ image https://oyster.ignimgs.com/wordpress/stg.ign.com/2014/07/anotherworld_071114_1600.jpg ]
 [ image https://www.destructoid.com//ul/460009-h1.jpg ]
 [ image https://c4.wallpaperflare.com/wallpaper/609/445/272/mirror-s-edge-mirror-s-edge-catalyst-hd-wallpaper-preview.jpg, caption For what the city used to look like ]
 [ image https://i.pinimg.com/originals/fe/e2/3e/fee23e46b9894df5b9a377ba5036bae9.jpg ]
@@ -26,11 +54,7 @@ Please also see the "lore"(lore.mess) document, specifically also the section on
 [ image https://cdna.artstation.com/p/assets/images/images/006/183/796/large/daniel-diacon-6.jpg?1496659308 ]
 [ image https://cdnb.artstation.com/p/assets/images/images/000/417/867/medium/peter-braeley-peter-braeley-subway-station.jpg?1421696954 ]
 [ youtube https://www.youtube.com/watch?v=AD6RWniFFi4 ]
-[ image https://i.pinimg.com/736x/57/d6/59/57d659ae6b9b9f23138a1de370fac142.jpg ]
-[ image  ]
-[ image  ]
-[ image  ]
-[ image  ]
+
 [ image  ]
 [ image  ]
 [ image  ]
