@@ -15,6 +15,6 @@
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (list (make-instance 'pause-list)))
     (alloy:enter list layout :constraints `((:top 0) (:bottom 0) (:width 400) (:center :w)))
-    (alloy:enter (make-instance 'alloy:button* :value "Resume" :on-activate (lambda () (hide menu))) list)
-    (alloy:enter (make-instance 'alloy:button* :value "Quit" :on-activate (lambda () (quit *context*))) list)
+    (alloy:enter (make-instance 'button :value "Resume" :on-activate (lambda () (hide menu))) list)
+    (alloy:enter (make-instance 'button :value "Quit" :on-activate (lambda () (quit *context*))) list)
     (alloy:finish-structure menu layout list)))
