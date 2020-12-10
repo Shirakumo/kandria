@@ -18,6 +18,28 @@
       (pathname-utils:subdirectory (root) "pool" "KANDRIA" "font-cache")
       (pathname-utils:subdirectory (root) "data" "font-cache")))
 
+(defclass button (alloy:button*)
+  ())
+
+(presentations:define-realization (ui button)
+  ((:background simple:rectangle)
+   (alloy:margins))
+  ((:label simple:text)
+   (alloy:margins 5 10 10 5)
+   alloy:text
+   :font "PromptFont"
+   :halign :middle
+   :valign :middle))
+
+(presentations:define-update (ui button)
+  (:background
+   :pattern (case alloy:focus
+              ((:weak :strong) (colored:color 1 1 1 0.5))
+              (T colors:transparent)))
+  (:label
+   :size (alloy:un 20)
+   :pattern colors:white))
+
 (defclass single-widget (alloy:widget)
   ()
   (:metaclass alloy:widget-class))
