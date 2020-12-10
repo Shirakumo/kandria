@@ -102,6 +102,9 @@
 (defmethod handle :after ((ev quickload) (world world))
   (load-state :quick world))
 
+(defmethod handle ((ev pause) (world world))
+  (toggle-panel 'pause-menu))
+
 (defmethod handle ((ev report-bug) (world world))
   (toggle-panel 'report-panel))
 
