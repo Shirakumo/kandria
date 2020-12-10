@@ -15,6 +15,22 @@
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (list (make-instance 'pause-list)))
     (alloy:enter list layout :constraints `((:top 0) (:bottom 0) (:width 400) (:center :w)))
-    (alloy:enter (make-instance 'button :value "Resume" :on-activate (lambda () (hide menu))) list)
-    (alloy:enter (make-instance 'button :value "Quit" :on-activate (lambda () (quit *context*))) list)
+    (macrolet ((with-button (name &body action)
+                 `(alloy:enter (make-instance 'button :value ,name :on-activate (lambda () ,@action)) list)))
+      (with-button "Resume"
+        (hide menu))
+      (with-button "Quicksave"
+        (save-state +world+ :quick)
+        (hide menu))
+      (with-button "Quickload"
+        (load-state :quick +world+)
+        (hide menu))
+      (with-button "Save & Quit"
+        ;; TODO: Confirm
+        (save-state +world+ T)
+        (quit *context*)))
     (alloy:finish-structure menu layout list)))
+
+(defmethod show :after ((menu pause-menu) &key)
+  (let ((list (alloy:focus-element menu)))
+    (setf (alloy:index list) 0)))

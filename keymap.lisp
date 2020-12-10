@@ -39,7 +39,7 @@
 
 (trigger pause
  (key :one-of (:esc :escape))
- (button :one-of (:home)))
+ (button :one-of (:home :start)))
 
 (trigger quicksave
  (key :one-of (:f5)))
