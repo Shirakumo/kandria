@@ -46,6 +46,9 @@
   (check-type identifier symbol)
   (setf (gethash identifier +language-data+) string))
 
+(define-setting-observer load-language (value :language :code)
+  (load-language value))
+
 (defun @format (destination identifier &rest args)
   (format destination "~?" (language-string identifier) args))
 

@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defvar *save-settings* T)
+(define-global +settings-observers+ (make-hash-table :test 'equal))
 (define-global +settings+
     (copy-tree '(:audio (:latency 0.05
                          :volume (:master 0.5
@@ -101,6 +102,18 @@
                        value))
              node))
     (setf +settings+ (update +settings+ (first path) (rest path)))
+    (loop for (k v) on (gethash path +settings-observers+) by #'cddr
+          do (funcall v value))
     (when *save-settings*
       (save-settings))
     value))
+
+(defun observe-setting (setting name function)
+  (setf (getf (gethash setting +settings-observers+) name) function))
+
+(defun remove-setting-observer (setting name)
+  (remf (gethash setting +settings-observers+) name))
+
+(defmacro define-setting-observer (name (value &rest setting) &body body)
+  `(observe-setting ',setting ',name
+                    (lambda (,value) ,@body)))
