@@ -57,7 +57,8 @@
                              (:file "report")
                              (:file "prompt")
                              (:file "status")
-                             (:file "diagnostics")))
+                             (:file "diagnostics")
+                             (:file "pause")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
