@@ -46,7 +46,7 @@
   (check-type identifier symbol)
   (setf (gethash identifier +language-data+) string))
 
-(define-setting-observer load-language (value :language :code)
+(define-setting-observer load-language :language :code (value)
   (load-language value))
 
 (defun @format (destination identifier &rest args)
@@ -61,4 +61,4 @@
 (set-dispatch-macro-character
  #\# #\@ (lambda (s c a)
            (declare (ignore c a))
-           (language-string ,(read s T NIL T))))
+           (language-string (read s T NIL T))))
