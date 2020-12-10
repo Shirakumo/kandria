@@ -102,8 +102,10 @@
                        value))
              node))
     (setf +settings+ (update +settings+ (first path) (rest path)))
-    (loop for (k v) on (gethash path +settings-observers+) by #'cddr
-          do (funcall v value))
+    (loop for i from 0 below (length path)
+          for sub = (butlast path i)
+          do (loop for (k v) on (gethash sub +settings-observers+) by #'cddr
+                   do (funcall v (apply #'setting sub))))
     (when *save-settings*
       (save-settings))
     value))
@@ -114,6 +116,11 @@
 (defun remove-setting-observer (setting name)
   (remf (gethash setting +settings-observers+) name))
 
-(defmacro define-setting-observer (name (value &rest setting) &body body)
-  `(observe-setting ',setting ',name
-                    (lambda (,value) ,@body)))
+(defmacro define-setting-observer (name &body setting)
+  (let ((setting (loop for part = (first setting)
+                       until (listp part)
+                       collect (pop setting)))
+        (args (pop setting))
+        (body setting))
+    `(observe-setting ',setting ',name
+                      (lambda ,args ,@body))))

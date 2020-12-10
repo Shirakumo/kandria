@@ -98,3 +98,17 @@
   (show (make-instance 'status-lines))
   (when (deploy:deployed-p)
     (show (make-instance 'report-button))))
+
+(define-setting-observer display :display (value)
+  (when *context*
+    (destructuring-bind (&key width height fullscreen vsync ui-scale) value
+      (resize *context* width height)
+      (show *context* :fullsreen fullcreen)
+      (setf (vsync *context*) vsync)
+      (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale))))
+
+(define-setting-observer volumes :audio :volume (value)
+  (when harmony:*server*
+    (loop for (k v) on value by #'cddr
+          do (setf (harmony:volume k) v))))
+
