@@ -57,6 +57,11 @@
   (load-state (quicksave (handler *context*)) world))
 
 (defun launch (&rest initargs)
+  (labels ((recurse (class)
+             (c2mop:finalize-inheritance class)
+             (dolist (sub (c2mop:class-direct-subclasses class))
+               (recurse sub))))
+    (recurse (find-class 'shader-entity)))
   (flet ((launch ()
            (let ((*package* #.*package*))
              (v:info :kandria "Launching version ~a" (version :kandria))
