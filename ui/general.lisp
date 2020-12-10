@@ -103,6 +103,8 @@
 
 (defmethod hide ((panel panel))
   (let ((ui (unit 'ui-pass T)))
+    ;; Clear pending events to avoid spurious inputs
+    (discard-events +world+)
     ;; Make sure we hide things on top first.
     (loop until (eq panel (first (panels ui)))
           do (hide (first (panels ui))))
