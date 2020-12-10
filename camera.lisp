@@ -123,7 +123,7 @@
 (defun shake-camera (&key (duration 0.2) (intensity 3))
   (let ((camera (unit :camera +world+)))
     (setf (shake-timer camera) duration)
-    (setf (shake-intensity camera) (* (setting :camera :screen-shake) intensity))))
+    (setf (shake-intensity camera) (* (setting :gameplay :screen-shake) intensity))))
 
 (defun duck-camera (&key (offset (vec 0 -4)))
   (nv+ (offset (unit :camera +world+)) offset))
