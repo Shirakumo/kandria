@@ -78,6 +78,19 @@
     (when (panels pass)
       (handle ev (first (panels pass))))))
 
+(defmethod handle ((ev accept) (pass ui-pass))
+  (alloy:handle (make-instance 'alloy:activate) pass))
+
+(defmethod handle ((ev back) (pass ui-pass))
+  (alloy:handle (make-instance 'alloy:exit) pass))
+
+(defmethod handle ((ev next) (pass ui-pass))
+  (alloy:handle (make-instance 'alloy:focus-next) pass))
+
+(defmethod handle ((ev previous) (pass ui-pass))
+  (print (alloy:focused pass))
+  (alloy:handle (make-instance 'alloy:focus-prev) pass))
+
 (defmethod stage ((pass ui-pass) (area staging-area))
   (call-next-method)
   (stage (simple:request-font pass "PromptFont") area)
@@ -113,6 +126,8 @@
   (when *context*
     ;; First stage and load
     (trial:commit panel (loader (handler *context*)) :unload NIL))
+  ;; Clear pending events to avoid spurious inputs
+  (discard-events +world+)
   ;; Then attach to the UI
   (let ((ui (or ui (unit 'ui-pass T))))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
