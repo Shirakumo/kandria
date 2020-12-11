@@ -69,8 +69,8 @@
              (load-settings)
              (save-settings)
              (apply #'trial:launch 'main
-                    :width (setting :display :width)
-                    :height (setting :display :height)
+                    :width (first (setting :display :resolution))
+                    :height (second (setting :display :resolution))
                     :vsync (setting :display :vsync)
                     :fullscreen (setting :display :fullscreen)
                     initargs))))
@@ -106,9 +106,9 @@
 
 (define-setting-observer display :display (value)
   (when *context*
-    (destructuring-bind (&key width height fullscreen vsync ui-scale) value
-      (resize *context* width height)
-      (show *context* :fullsreen fullcreen)
+    (destructuring-bind (&key resolution fullscreen vsync ui-scale) value
+      (resize *context* (first resolution) (second resolution))
+      (show *context* :fullsreen fullscreen)
       (setf (vsync *context*) vsync)
       (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale))))
 

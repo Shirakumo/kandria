@@ -40,6 +40,14 @@
    :size (alloy:un 20)
    :pattern colors:white))
 
+(defclass pane (alloy:renderable)
+  ())
+
+(presentations:define-realization (ui pane)
+  ((:bg simple:rectangle)
+   (alloy:margins)
+   :pattern (colored:color 0 0 0 0.75)))
+
 (defclass single-widget (alloy:widget)
   ()
   (:metaclass alloy:widget-class))

@@ -8,8 +8,7 @@
                                   :effect 1.0
                                   :speech 1.0
                                   :music 1.0))
-                 :display (:width 1280
-                           :height 720
+                 :display (:resolution (1280 720)
                            :fullscreen NIL
                            :vsync T
                            :ui-scale 1.0)
