@@ -58,7 +58,8 @@
                              (:file "prompt")
                              (:file "status")
                              (:file "diagnostics")
-                             (:file "pause")))
+                             (:file "pause")
+                             (:file "options")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

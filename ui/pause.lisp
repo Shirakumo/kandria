@@ -1,12 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass pause-list (alloy:vertical-linear-layout alloy:focus-list alloy:renderable)
-  ((alloy:min-size :initform (alloy:size 100 50))))
-
-(presentations:define-realization (ui pause-list)
-  ((:bg simple:rectangle)
-   (alloy:margins)
-   :pattern (colored:color 0 0 0 0.75)))
+(defclass pause-list (alloy:vertical-linear-layout alloy:focus-list pane)
+  ((alloy:min-size :initform (alloy:size 100 50))
+   (alloy:cell-margins :initform (alloy:margins))))
 
 (defclass pause-menu (pausing-panel)
   ())
@@ -16,16 +12,18 @@
         (list (make-instance 'pause-list)))
     (alloy:enter list layout :constraints `((:top 0) (:bottom 0) (:width 400) (:center :w)))
     (macrolet ((with-button (name &body action)
-                 `(alloy:enter (make-instance 'button :value ,name :on-activate (lambda () ,@action)) list)))
-      (with-button "Resume"
+                 `(alloy:enter (make-instance 'button :value (@ ,name) :on-activate (lambda () ,@action)) list)))
+      (with-button resume-game
         (hide menu))
-      (with-button "Quicksave"
+      (with-button create-quick-save
         (save-state +world+ :quick)
         (hide menu))
-      (with-button "Quickload"
+      (with-button load-last-quick-save
         (load-state :quick +world+)
         (hide menu))
-      (with-button "Save & Quit"
+      (with-button open-options-menu
+        (show (make-instance 'options-menu)))
+      (with-button save-and-quit-game
         ;; TODO: Confirm
         (save-state +world+ T)
         (quit *context*)))
