@@ -104,13 +104,13 @@
   (when (deploy:deployed-p)
     (show (make-instance 'report-button))))
 
-(define-setting-observer display :display (value)
-  (when *context*
-    (destructuring-bind (&key resolution fullscreen vsync ui-scale) value
-      (resize *context* (first resolution) (second resolution))
-      (show *context* :fullsreen fullscreen)
-      (setf (vsync *context*) vsync)
-      (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale))))
+(defun apply-video-settings ()
+  (print (setting :display))
+  (destructuring-bind (&key resolution fullscreen vsync ui-scale) (setting :display)
+    (resize *context* (first resolution) (second resolution))
+    (show *context* :fullsreen fullscreen)
+    (setf (vsync *context*) vsync)
+    (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))
 
 (define-setting-observer volumes :audio :volume (value)
   (when harmony:*server*
