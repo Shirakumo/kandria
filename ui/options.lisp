@@ -5,6 +5,7 @@
    (alloy:index :initarg :index :accessor alloy:index)))
 
 (defmethod alloy:activate ((button tab-button))
+  (setf (alloy:focus button) :strong)
   (setf (alloy:value button) (alloy:index button)))
 
 (defmethod alloy:active-p ((button tab-button))
@@ -29,6 +30,16 @@
                 colors:white
                 (colored:color 0.9 0.9 0.9))))
 
+(defclass setting-label (alloy:label)
+  ())
+
+(presentations:define-update (ui setting-label)
+  (:label :size (alloy:un 15)))
+
+(presentations:define-update (ui alloy:slider)
+  (:background
+   :pattern colors:black))
+
 (defclass option-layout (org.shirakumo.alloy.layouts.constraint:layout pane)
   ())
 
@@ -43,7 +54,7 @@
         (back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide menu)))))
     (alloy:enter tabs layout :constraints `((:top 0) (:left 0) (:right 0) (:height 50)))
     (alloy:enter back layout :constraints `((:bottom 0) (:left 0) (:width 100) (:height 50)))
-    (alloy:enter center layout :constraints `((:left 0) (:right 0) (:below ,tabs 10) (:above ,back 10)))
+    (alloy:enter center layout :constraints `((:left 50) (:right 50) (:below ,tabs 20) (:above ,back 50)))
     (macrolet ((with-tab ((tab name) &body fill)
                  `(let* ((,tab (make-instance 'alloy:grid-layout :col-sizes '(200 300) :row-sizes '(50)))
                          (button (alloy:represent (alloy:index center) 'tab-button :index (alloy:element-count tabs) :text ,name)))
@@ -52,7 +63,7 @@
                     (alloy:enter ,tab center)
                     ,@fill))
                (control (layout label setting type &rest args)
-                 `(let ((label (alloy:represent (@ ,label) 'alloy:label))
+                 `(let ((label (alloy:represent (@ ,label) 'setting-label))
                         (slider (alloy:represent (setting ,@setting) ,type ,@args)))
                     (alloy:enter label ,layout)
                     (alloy:enter slider ,layout)
