@@ -13,7 +13,7 @@
 
 (presentations:define-realization (ui tab-button)
   ((:border simple:rectangle)
-   (alloy:margins 0 50 0 2)
+   (alloy:extent 0 0 (alloy:pw 1) 7.5)
    :pattern colors:white)
   ((:label simple:text)
    (alloy:margins) alloy:text
@@ -29,6 +29,15 @@
    :pattern (if (alloy:active-p alloy:renderable)
                 colors:white
                 (colored:color 0.9 0.9 0.9))))
+
+(defclass tab-bar (alloy:horizontal-linear-layout alloy:renderable)
+  ((alloy:min-size :initform (alloy:size 200 50))
+   (alloy:cell-margins :initform (alloy:margins))))
+
+(presentations:define-realization (ui tab-bar)
+  ((:bg simple:rectangle)
+   (alloy:extent 0 0 (alloy:pw 1) 1)
+   :pattern colors:white))
 
 (defclass setting-label (alloy:label)
   ())
@@ -48,7 +57,7 @@
 
 (defmethod initialize-instance :after ((menu options-menu) &key)
   (let ((layout (make-instance 'option-layout))
-        (tabs (make-instance 'alloy:horizontal-linear-layout :min-size (alloy:size 200 50)))
+        (tabs (make-instance 'tab-bar))
         (center (make-instance 'alloy:swap-layout))
         (focus (make-instance 'alloy:focus-stack))
         (back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide menu)))))
