@@ -49,7 +49,8 @@
    (inventory :initform NIL :accessor inventory)
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
-   (nametag :initform (@ player-nametag)))
+   (nametag :initform (@ player-nametag))
+   (invincible :initform (setting :gameplay :god-mode)))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
@@ -641,3 +642,7 @@ out vec4 color;
 void main(){
   color = mix(color, vec4(10, 0, 0, color.a), flash);
 }")
+
+(define-setting-observer god-mode :gameplay :god-mode (value)
+  (when (unit 'player T)
+    (setf (invincible-p (unit 'player T)) value)))

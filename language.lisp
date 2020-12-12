@@ -34,10 +34,12 @@
               for v being the hash-keys of +language-data+
               do (format stream "~s ~s~%" k v))))))
 
-(declaim (inline language-string))
 (defun language-string (identifier)
   (unless +language-data+ (load-language))
   (or (gethash identifier +language-data+)
+      ;; Try loading again in case things changed.
+      (progn (load-language)
+             (gethash identifier +language-data+))
       (error "No language string defined for ~s" identifier)))
 
 (defun (setf language-string) (string identifier)
