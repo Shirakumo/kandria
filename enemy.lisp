@@ -288,3 +288,6 @@
              (T
               (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
               (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))))
+
+(defmethod hit ((enemy zombie) location)
+  (trigger 'spark enemy :location (v+ location (vrand -4 +4))))
