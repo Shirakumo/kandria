@@ -12,7 +12,8 @@
                            :fullscreen NIL
                            :vsync T
                            :ui-scale 1.0)
-                 :gameplay (:screen-shake 1.0)
+                 :gameplay (:screen-shake 1.0
+                            :god-mode NIL)
                  :language (:code :eng))))
 
 (defun settings-path ()
