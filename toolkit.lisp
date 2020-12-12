@@ -184,6 +184,18 @@
 (defun point-angle (point)
   (atan (vy point) (vx point)))
 
+(defun intersection-point (a as b bs)
+  (let ((l (max (- (vx2 a) (vx2 as))
+                (- (vx2 b) (vx2 bs))))
+        (r (min (+ (vx2 a) (vx2 as))
+                (+ (vx2 b) (vx2 bs))))
+        (b (max (- (vy2 a) (vy2 as))
+                (- (vy2 b) (vy2 bs))))
+        (u (min (+ (vy2 a) (vy2 as))
+                (+ (vy2 b) (vy2 bs)))))
+    (vec2 (/ (+ l r) 2)
+          (/ (+ b u) 2))))
+
 (defun update-instance-initforms (class)
   (flet ((update (instance)
            (loop for slot in (c2mop:class-direct-slots class)

@@ -203,3 +203,6 @@
   :voice (// 'kandria 'land)
   :animation 'land-smash
   :layer-index 3)
+
+(define-effect spark sprite-effect
+  :animation '(spark1 spark2 spark3))

@@ -18,6 +18,7 @@
 (defgeneric kill (animatable))
 (defgeneric die (animatable))
 (defgeneric interrupt (animatable))
+(defgeneric hit (animatable location))
 (defgeneric hurt (animatable damage))
 (defgeneric stun (animatable stun))
 (defgeneric start-animation (name animatable))
@@ -104,6 +105,8 @@
         (when effect
           (trigger effect animatable))))))
 
+(defmethod hit ((animatable animatable) location))
+
 (defmethod interrupt ((animatable animatable))
   (when (interruptable-p (frame animatable))
     (unless (eql :stunned (state animatable))
@@ -140,6 +143,7 @@
                           (< (iframes entity) 50))
                  (setf (iframes entity) 0))
                (when (<= (iframes entity) 0)
+                 (hit entity (intersection-point (vxy hurtbox) (vzw hurtbox) (location entity) (bsize entity)))
                  (hurt entity (damage frame))
                  (when (and (interruptable-p (frame entity))
                             (<= (stun-time entity) 0))
