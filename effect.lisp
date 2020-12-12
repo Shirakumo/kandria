@@ -193,7 +193,11 @@
                                              :strength strength
                                              :lifetime 0.3)))
     (enter displacer +world+)
-    (compile-into-pass displacer +world+ (unit 'displacement-render-pass +world+))))
+    (compile-into-pass displacer +world+ (unit 'displacement-render-pass +world+)))
+  (let* ((distance (expt (vsqrdist2 (location effect) (location (unit 'player T))) 0.75))
+         (strength (min 2.0 (/ 300.0 distance))))
+    (when (< 0.1 strength)
+      (shake-camera :intensity strength))))
 
 (define-effect explosion explosion-effect
   :voice (// 'kandria 'explosion)
