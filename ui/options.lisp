@@ -82,11 +82,13 @@
         (control audio effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
         (control audio speech-volume (:audio :volume :speech) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
         (control audio music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1))
-      ;; FIXME: Video settings need to be confirmed first.
       (with-tab (video (@ video-settings))
-        (let ((modes (loop for mode in (cl-glfw3:get-video-modes (cl-glfw3:get-primary-monitor))
-                           collect (list (getf mode '%CL-GLFW3:WIDTH) (getf mode '%CL-GLFW3:HEIGHT))))
-              (apply (make-instance 'button :value (@ apply-video-settings-now) :on-activate #'apply-video-settings)))
+        (let ((modes (sort (delete-duplicates
+                            (loop for mode in (cl-glfw3:get-video-modes (cl-glfw3:get-primary-monitor))
+                                  collect (list (getf mode '%CL-GLFW3:WIDTH) (getf mode '%CL-GLFW3:HEIGHT)))
+                            :test #'equal)
+                           #'> :key #'car))
+              (apply (make-instance 'button :value (@ apply-video-settings-now) :on-activate 'apply-video-settings)))
           (control video screen-resolution (:display :resolution) 'alloy:combo-set :value-set modes)
           (control video should-application-fullscreen (:display :fullscreen) 'alloy:switch)
           (control video activate-vsync (:display :vsync) 'alloy:switch)
@@ -100,3 +102,5 @@
         (control language game-language (:language :code) 'alloy:combo-set :value-set +languages+)))
     (alloy:enter back focus :layer 2)
     (alloy:finish-structure menu layout focus)))
+
+;; FIXME: when changing language UI needs to update immediately

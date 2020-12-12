@@ -105,10 +105,9 @@
     (show (make-instance 'report-button))))
 
 (defun apply-video-settings ()
-  (print (setting :display))
   (destructuring-bind (&key resolution fullscreen vsync ui-scale) (setting :display)
     (resize *context* (first resolution) (second resolution))
-    (show *context* :fullsreen fullscreen)
+    (show *context* :fullscreen fullscreen)
     (setf (vsync *context*) vsync)
     (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))
 
