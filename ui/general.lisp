@@ -96,7 +96,6 @@
   (alloy:handle (make-instance 'alloy:focus-next) pass))
 
 (defmethod handle ((ev previous) (pass ui-pass))
-  (print (alloy:focused pass))
   (alloy:handle (make-instance 'alloy:focus-prev) pass))
 
 (defmethod stage ((pass ui-pass) (area staging-area))
