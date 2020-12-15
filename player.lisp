@@ -216,6 +216,13 @@
   (when (active-p trigger)
     (fire trigger)))
 
+(defmethod idleable-p ((player player))
+  (and (= 0 (vx (velocity player)))
+       (svref (collisions player) 2)
+       (eql :normal (state player))
+       (not (or (retained 'up)
+                (retained 'down)))))
+
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
     (case state
@@ -571,6 +578,12 @@
              ((< 0 (abs (vx vel)))
               (setf (playback-speed player) (/ (abs (vx vel)) (p! walk-limit)))
               (setf (animation player) 'run))
+             ((retained 'up)
+              (vsetf (offset (unit :camera T)) 0 +16)
+              (setf (animation player) 'look-up))
+             ((retained 'down)
+              (vsetf (offset (unit :camera T)) 0 -16)
+              (setf (animation player) 'look-down))
              (T
               (setf (animation player) 'stand)))))
     (cond ((eql (name (animation player)) 'slide)

@@ -2,8 +2,8 @@
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND)
-   (LOOK-UP              :start   8 :end  11 :loop-to 8   :next LOOK-UP)
-   (LOOK-DOWN            :start  11 :end  15 :loop-to 11  :next LOOK-DOWN)
+   (LOOK-UP              :start   8 :end  11 :loop-to 10   :next LOOK-UP)
+   (LOOK-DOWN            :start  11 :end  15 :loop-to 14  :next LOOK-DOWN)
    (IDLE                 :start  15 :end  49 :loop-to 15  :next STAND)
    (RUN                  :start  49 :end  65 :loop-to 49  :next RUN)
    (JUMP                 :start  65 :end  68 :loop-to 65  :next FALL)
