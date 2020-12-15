@@ -43,6 +43,8 @@
                 "--list-tags"
                 "--data" json
                 file)
+      ;; Make sure we have LF.
+      (re-encode-json json)
       ;; Convert palette colours
       (let ((lisp (make-pathname :type "lisp" :defaults json)))
         (when (probe-file lisp)
@@ -79,7 +81,7 @@
 
 (asdf:defsystem kandria-data
   :serial T
-  :depends-on (zpng pngload)
+  :depends-on (zpng pngload jsown)
   :components ((:file "palette-convert")
                (spritesheet "player")
                (spritesheet "player-profile")
