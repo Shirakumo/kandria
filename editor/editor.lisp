@@ -228,13 +228,20 @@
       (save-state T T)))
 
 (defmethod edit ((action (eql 'delete-entity)) (editor editor))
-  (cond ((typep (entity editor) 'player)
-         (v:warn :kandria.editor "Refusing to delete player."))
-        (T
-         ;; FIXME: Clean up stale data files from region packet.
-         (leave (entity editor) (container (entity editor)))
-         (remove-from-pass (entity editor) +world+)
-         (setf (entity editor) NIL))))
+  (let* ((entity (entity editor))
+         (container (container entity)))
+    (cond ((typep entity 'player)
+           (v:warn :kandria.editor "Refusing to delete player."))
+          (T
+           ;; FIXME: Clean up stale data files from region packet
+           ;;        Should probably do that as an explicit command to invoke at some point.
+           ;;        Maybe at deploy time?
+           (with-commit (editor)
+             ((leave entity container)
+              (remove-from-pass entity +world+)
+              (setf (entity editor) NIL))
+             ((enter-and-load entity container (handler *context*))
+              (setf (entity editor) entity)))))))
 
 (defmethod edit ((action (eql 'insert-entity)) (editor editor))
   (make-instance 'creator :ui (unit 'ui-pass T)))
@@ -260,5 +267,9 @@
 (defmethod edit ((action insert-entity) (editor editor))
   (let ((entity (entity action))
         (*package* #.*package*))
-    (enter-and-load entity (unit 'region T) (handler *context*))
-    (setf (entity editor) entity)))
+    (with-commit (editor)
+        ((enter-and-load entity (unit 'region T) (handler *context*))
+          (setf (entity editor) entity))
+        ((leave entity (unit 'region T))
+          (remove-from-pass entity +world+)
+          (setf (entity editor) NIL)))))
