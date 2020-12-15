@@ -45,10 +45,6 @@
 (presentations:define-update (ui setting-label)
   (:label :size (alloy:un 15)))
 
-(presentations:define-update (ui alloy:renderable)
-  (:background
-   :pattern (colored:color 0.05 0.05 0.05)))
-
 (defclass option-layout (org.shirakumo.alloy.layouts.constraint:layout pane)
   ())
 
