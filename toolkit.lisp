@@ -119,19 +119,6 @@
            (c2mop:finalize-inheritance class))
          (c2mop:class-prototype class)))))
 
-(defun list-subclasses (class)
-  (let ((sub (c2mop:class-direct-subclasses (ensure-class class))))
-    (loop for class in sub
-          nconc (list* class (list-subclasses class)))))
-
-(defun list-leaf-classes (root)
-  (let ((sub (c2mop:class-direct-subclasses (ensure-class root))))
-    (if sub
-        (remove-duplicates
-         (loop for class in sub
-               nconc (list-leaf-classes class)))
-        (list (ensure-class root)))))
-
 (defmethod unit (thing (target (eql T)))
   (when +world+
     (unit thing +world+)))
