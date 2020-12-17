@@ -19,14 +19,17 @@
      (setf (state tool) NIL)
      (let ((entity (entity tool)))
        (destructuring-bind (tile . stroke) (nreverse (stroke tool))
-         (commit (make-action (loop for (loc . _) in stroke
-                                    do (setf (tile loc entity) tile))
-                              (loop for (loc . tile) in stroke
-                                    do (setf (tile loc entity) tile)))
-                 tool))
+         (with-commit (tool)
+           ((loop for (loc . _) in stroke
+                  do (setf (tile loc entity) tile)))
+           ((loop for (loc . tile) in stroke
+                  do (setf (tile loc entity) tile)))))
        (setf (stroke tool) NIL))))
   (loop for layer across (layers (entity tool))
         do (setf (visibility layer) 1.0)))
+
+(defmethod handle ((ev lose-focus) (tool paint))
+  (handle (make-instance 'mouse-release) tool))
 
 (defmethod handle ((event mouse-move) (tool paint))
   (case (state tool)
@@ -61,14 +64,14 @@
     (cond ((retained :control)
            (let* ((base-layer (aref (layers entity) +base-layer+))
                   (original (copy-seq (pixel-data base-layer))))
-             (commit (make-action (auto-tile entity (vxy loc))
-                                  (setf (pixel-data base-layer) original))
-                     tool)))
+             (with-commit (tool)
+               ((auto-tile entity (vxy loc)))
+               ((setf (pixel-data base-layer) original)))))
           ((retained :shift)
            (let ((original (tile loc entity)))
-             (commit (make-action (flood-fill entity loc tile)
-                                  (flood-fill entity loc original))
-                     tool)))
+             (with-commit (tool)
+               ((flood-fill entity loc tile))
+               ((flood-fill entity loc original)))))
           ((and (typep event 'mouse-press) (eql :middle (button event)))
            (setf (tile-to-place (sidebar (editor tool)))
                  (tile loc entity)))

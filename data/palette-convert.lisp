@@ -23,3 +23,10 @@
                                              :height (pngload:height input)
                                              :image-data data)
                     file :if-exists :supersede)))
+
+(defun re-encode-json (file)
+  (let* ((data (jsown:parse (alexandria:read-file-into-string file))))
+    (let ((*print-pretty* nil))
+      (with-open-file (output file :direction :output
+                                   :if-exists :supersede)
+        (jsown::write-object-to-stream data output)))))

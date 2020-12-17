@@ -14,6 +14,7 @@
 (defmethod initialize-instance :after ((animatable animatable) &key)
   (setf (idle-time animatable) (minimum-idle-time animatable)))
 
+(defgeneric idleable-p (animatable))
 (defgeneric minimum-idle-time (animatable))
 (defgeneric kill (animatable))
 (defgeneric die (animatable))
@@ -167,13 +168,16 @@
     (incf (vx vel) (* dt (direction animatable) (vx (acceleration frame))))
     (incf (vy vel) (* dt (vy (acceleration frame))))))
 
+(defmethod idleable-p ((animatable animatable))
+  (and (= 0 (vx (velocity animatable)))
+       (svref (collisions animatable) 2)
+       (eql :normal (state animatable))))
+
 (defmethod handle :before ((ev tick) (animatable animatable))
   (when (and (< 0 (iframes animatable))
              (< 0 (dt ev)))
     (decf (iframes animatable)))
-  (cond ((and (= 0 (vx (velocity animatable)))
-              (svref (collisions animatable) 2)
-              (eql :normal (state animatable)))
+  (cond ((idleable-p animatable)
          (decf (idle-time animatable) (dt ev))
          (when (<= (idle-time animatable) 0.0)
            (setf (idle-time animatable) (+ (minimum-idle-time animatable) (random 8.0)))

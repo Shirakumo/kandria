@@ -7,10 +7,17 @@
 (defmethod label ((tool line)) "Line")
 
 (defmethod handle ((event mouse-press) (tool line))
-  (setf (state tool) (case (button event)
-                       (:left :placing)
-                       (:right :erasing)))
-  (setf (start tool) (vcopy (pos event))))
+  (cond ((retained :control)
+         (let* ((base-layer (aref (layers (entity tool)) +base-layer+))
+                (original (copy-seq (pixel-data base-layer))))
+           (with-commit (tool)
+             ((auto-tile (entity tool) (vxy (mouse-world-pos (pos event)))))
+             ((setf (pixel-data base-layer) original)))))
+        (T
+         (setf (state tool) (case (button event)
+                              (:left :placing)
+                              (:right :erasing)))
+         (setf (start tool) (vcopy (pos event))))))
 
 (defmethod handle ((event mouse-release) (tool line))
   (when (state tool)

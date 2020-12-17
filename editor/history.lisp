@@ -64,3 +64,6 @@
        (make-action
         (setf ,place ,value)
         (setf ,place ,previous)))))
+
+(defmacro with-commit ((tool) (&body redo) (&body undo))
+  `(commit (make-action (progn ,@redo) (progn ,@undo)) ,tool))
