@@ -80,20 +80,24 @@
                 "--save-as" normal))))
 
 (asdf:defsystem kandria-data
-  :serial T
+  :serial NIL
   :depends-on (zpng pngload jsown)
   :components ((:file "palette-convert")
-               (spritesheet "player")
-               (spritesheet "player-profile")
-               (spritesheet "fi")
-               (spritesheet "fi-profile")
-               (spritesheet "wolf")
-               (spritesheet "effects")
-               (spritesheet "dummy")
-               (spritesheet "balloon")
-               (spritesheet "debug-door")
-               (spritesheet "box")
-               (spritesheet "zombie")
-               (tilemap "debug")
-               (tilemap "tundra")
-               (tilemap "desert")))
+               (:module "sprites"
+                :pathname ""
+                :depends-on ("palette-convert")
+                :components
+                ((spritesheet "player")
+                 (spritesheet "player-profile")
+                 (spritesheet "fi")
+                 (spritesheet "fi-profile")
+                 (spritesheet "wolf")
+                 (spritesheet "effects")
+                 (spritesheet "dummy")
+                 (spritesheet "balloon")
+                 (spritesheet "debug-door")
+                 (spritesheet "box")
+                 (spritesheet "zombie")
+                 (tilemap "debug")
+                 (tilemap "tundra")
+                 (tilemap "desert")))))
