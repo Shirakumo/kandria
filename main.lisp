@@ -101,8 +101,8 @@
     (connect (port distortion 'color) (port blend 'trial::a-pass) scene)
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
   (show (make-instance 'status-lines))
-  (when (deploy:deployed-p)
-    (show (make-instance 'report-button))))
+  #++
+  (show (make-instance 'report-button)))
 
 (defun apply-video-settings ()
   (destructuring-bind (&key resolution fullscreen vsync ui-scale) (setting :display)

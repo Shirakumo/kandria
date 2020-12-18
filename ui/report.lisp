@@ -33,11 +33,14 @@
 (defclass report-panel (pausing-panel)
   ())
 
+(defclass report-focus (alloy:focus-list alloy:observable)
+  ())
+
 (defmethod initialize-instance :after ((panel report-panel) &key)
   (let* ((description "")
          (username (or (setting :username) (find-user-id)))
          (layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-         (focus (make-instance 'alloy:focus-list))
+         (focus (make-instance 'report-focus))
          (user (alloy:represent username 'alloy:input-line :placeholder "anonymous"))
          (desc (alloy:represent description 'alloy:input-box :placeholder "Describe your feedback here"))
          (submit (alloy:represent "Submit" 'alloy:button)))
@@ -55,7 +58,12 @@
           (let ((report (submit-report :user (if (string= "" username) "anonymous" username) :description description)))
             (status "Report submitted (#~d). Thank you!" (gethash "_id" report)))
           (hide panel))))
+    (alloy:on alloy:exit (focus)
+      (hide panel))
     (alloy:finish-structure panel layout focus)))
+
+(defmethod show :after ((panel report-panel) &key)
+  (alloy:activate (alloy:index-element 1 (alloy:focus-element panel))))
 
 (defun standalone-error-handler (err)
   (when (deploy:deployed-p)
@@ -84,6 +92,5 @@
     (alloy:enter button layout :constraints `((:right 0) (:top 0) (:size 200 30)))
     (alloy:enter button focus)
     (alloy:on alloy:activate (button)
-      (unless (find-panel 'report-panel)
-        (show (make-instance 'report-panel))))
+      (toggle-panel 'report-panel))
     (alloy:finish-structure panel layout focus)))
