@@ -54,7 +54,7 @@
 
 (defmethod unpause-game ((world world) pauser)
   (loop for handler = (pop (handler-stack world))
-        until (eq handler pauser))
+        until (or (null handler) (eq handler pauser)))
   (unless (handler-stack world)
     (setf (mixed:bypass (harmony:segment 'low-pass T)) T)
     (setf (mixed:volume :master) (setting :audio :volume :master))))
