@@ -1,6 +1,27 @@
 # Kandria Lore
 This document collects tidbits of information about the backstory, world, characters, mechanics, and technology to ensure a more consistent narrative and design.
 
+**Table of Contents**
+"Androids"(link #Androids)
+"The Old World"(link #The Old World)
+"The Calamity"(link #The Calamity)
+"Society"(link #Society)
+"Language & Communication"(link #Language & Communication)
+"Currency"(link #Currency)
+"Population"(link #Population)
+"Culture"(link #Culture)
+"Religion"(link #Religion)
+"Jobs"(link #Jobs)
+"Technology"(link #Technology)
+"Fuel & Energy"(link #Fuel & Energy)
+"Weapons"(link #Weapons)
+"Geography & Geology"(link #Geography & Geology)
+"Weather"(link #Weather)
+"Flora & Fauna"(link #Flora & Fauna)
+"Food & Drink"(link #Food & Drink)
+"Health"(link #Health)
+"Factions"(link #Factions)
+
 ## Androids
 ### Brains - The "Genera" System
 Functional android brains were discovered by accident. Brains cannot be made to specification, only slightly influenced by giving the resulting personality interests. Anything beyond that is seemingly randomly determined by the manufacturing process.
@@ -32,10 +53,30 @@ Going after the idea that fashion ideals repeat in cycles, The Stranger's unifor
 ### Upbringing
 Androids are typically released as full adults. Their brains are partially trained in a VR space first in order to give them proper motor control and develop speech and other mental capabilities. They are not given families
 
-## Setting
-Generally the game is set in desert area surrounded by dry, cold mountains. The desert area used to be home to a sprawling city, which has since been reduced to rubble. All that's left are some remnants of buildings, and the vast underground tunnel network.
+### The Stranger
+As a mostly-functional android, The Stranger is a rare find, and unique in that they can easily fulfil multiple roles. Their speed, strength and stamina mean they are well-suited to being a hunter and scout, but also a forager. Although not an engineer, they can perform basic maintenance on themselves and other machines. They can also quickly traverse the long distances between settlements to carry messages or offer trade.
 
-### Society
+Despite their sentience, The Stranger is not well-suited to leadership. Even within The Stranger’s faction, people are distrustful of androids; The Stranger’s inquisitive, cynical, and distrusting character traits also don’t lend themselves to being a well-rounded leader.
+
+The Stranger’s skills and traits also make them suitable for another role: detective. Due to the traits they were created with, they have a natural affinity for this kind of work, with a keen eye for detail and an ability to piece together clues from the environment. This helps them fulfil their duties, but also means they are often curious about the world and their role within it, as an end in itself.
+
+//See the character documentation for more info on The Stranger.//
+
+### Other Robots
+Not sentient - they don’t have the “spark of life” that makes androids sentient. Sometimes resemble androids superficially, though often it’s clear what they are as their working mechanical components are exposed.
+
+## The Old World
+Before The Calamity, planet Earth had entered a golden age of glorious glass garden cityspaces and hi-tech transport networks. Globalisation and tech innovation had led to an abundant utopia of cooperation and equality; ecological problems were a thing of the past thanks to environmentally sustainable energy sources, and life was peaceful. Technology was used to enhance all aspects of life and leisure, including the creation of android assistants and servants.
+
+But it was a facade because this utopia was maintained by the blood, sweat and suffering of a poor working class, who lived in lower city areas and even underground. Their world was very much a dystopia, and they were kept in line by aggressive government policies and police forces.
+
+## The Calamity
+“The Calamity” is a term used by the survivors to refer to the fall of the Old World several decades ago. Their knowledge of what actually happened is murky at best, since most of the survivors were underground workers not involved in the fighting (see below). Though there are rumours about rogue AIs and androids being responsible. Others believe, at least in the local region, that tectonic instability caused or at least contributed to the fall.
+
+//PENDING RESOLUTION/APPROVAL//
+In actuality, there was a major coordinated global uprising from parts of the working class; it was the ensuing conflict, and the deployment of evermore powerful weapons - including androids who could combine into devastating weapons of mass destruction - which wiped most of civilisation from the face of the planet, including more or less everyone involved in the fighting. But this was not the fanciful takeover of rogue AIs that some believe - androids merely followed human orders, on both sides of the war.
+
+## Society
 Before the calamity society was split into mostly two parts, which was mirrored in the architecture and infrastructure. On the surface, sprawling cities made of luxurious, high, polished towers spanned the globe. Underground, wide networks of tunnels and caverns for transport, factories, and power reached far and wide. Poor people spent most of their lives underground, working in maintenance and production to keep the cities above running.
 
 In the calamity the surface world was almost entirely pulverised, and many of the underground shafts, tunnels, caverns, and structures caved in. The rapid desertification of the above ground ruins lead to the surface being mostly uninhabitable, leaving only the few remaining structures and survivors underneath.
@@ -46,67 +87,80 @@ Over time some of these small groups combined to form larger factions, either by
 
 At the time the game takes place a mostly stable equilibrium has been reached. There are power struggles still going on, especially with the newly established above ground settlement throwing the balance into question, but many are tired of the constant struggle and long for a more stable society.
 
-#### Religion
-; TODO
-
-### Language & Communication
+## Language & Communication
 The spoken language in the area of the game is an evolution of English, brought on by rampant globalisation and tech dominance.
+
+The dialect has changed into a pidgin form since, with elements of other languages from around the world that were present in this once multicultural city hub.
+
+One aspect of the variant from of English is how the people tend to give things simplified names: “The Old World”, “The Calamity”, “The Stranger”, etc. It also reflects their storytelling mythology.
 
 Long range communication within the underground tunnels is not possible except in larger caverns that were built with signal strengtheners. Most of the tech for sophisticated, fast, and secure communication was destroyed, leaving only primitive radio communication using ad-hoc devices. This is only really useful within a single tunnel stretch, or above ground.
 
 Some factions have started laying down wires between different parts for wired telephony instead.
 
-#### Dictionary
+### Dictionary
+TODO
 ; TODO: Lay out specific vocabulary, both neutral and condescending, for various old world tech or new world events.
 
-### Currency
+## Currency
 Before the calamity paper money was completely removed, instead relying on digital transactions instead, either with credit cards, or monetary cards. After the collapse, the necessary infrastructure for this vanished, leaving people to trade goods directly. Common valued substitute currencies are fossil fuels, clean water, oil, and generally liquids that are traded by volume.
 
-### Population
+## Population
 The population in the game's region is in the low hundreds, with most people being sheltered away in their respective faction's living quarters. Almost everyone lives underground, with a few hermits living in the cold mountains.
 
 Limited food supply due to mostly being constrained to underground production also means that the local population is still slowly decreasing rather than increasing.
 
 People live in solitude, groups of 2-10, or settlements of up to 100 people.
 
-### Culture
+## Culture
+In the apocalypse, there’s less space for culture and leisure as we know it today. Life revolves around survival, so shelter and subsistence. People spend their time either working for the betterment of their faction and settlement, or themselves if they’re a lone wolf. But at the end of the day it all comes back to survival.
+
 Culture is anchored mainly around a few constants in life for the survivors, as well as a few recent events: the vast majority of the survivors have always lived underground and as such have scarce knowledge of the above ground world. Being downtrodden, suppressed, and poor, and now being thrown into a world of splintering, antagonistic factions shapes many of them to be isolationist and opportunistic. Survival is hard, even in the bigger settlements, and few of the pleasantries of civilised life remain.
 
 Many theorise, speculate, and tell tales of their own about the calamity. Having no accounts from the surface and no accurate historians to give objective accounts on what happened, misinformation and myths run rampant. Many also use this to their advantage to gain respect or admiration within their communities.
 
-The lack of general education and loss of technology experts and scientists leads to much of tech becoming unfamiliar, even mystical to some extent. Stories of high tech machines that could save the world, heal all injuries, or make you all-powerful are common.
+The lack of general education and loss of technology experts and scientists leads to much of tech becoming unfamiliar, even mystical to some extent. Stories of high tech machines that could save the world, heal all injuries, or make you all-powerful are common. 
 
 Due to the small population count within the groups, typically everyone knows about everyone else, or at least has a good idea of everything that's going on within the group. This also generates a lot of gossip about fellow survivors and close settlements. Tensions and drama run high, and many are ousted from settlements due to disagreements or allegations.
 
 Communication between different groups is scarce and often riddled with misinformation. Very few have the ability to do long-range communication, and even then only with fixed installations that require extensive knowledge and technology to upkeep. Most of the exchange between settlements happens through traders that either deliver messages explicitly, or gossip with other merchants.
 
-Many stories revolve around different creatures and plants in remote areas of the tunnels and caves, or around heroic deeds from since perished community members. The world outside of the settlements is both seen as exceedingly dangerous, but also alluring due to the promise of adventure and possible riches laying unclaimed.
+Many stories revolve around different creatures and plants in remote areas of the tunnels and caves, or around heroic deeds from since perished community members. The world outside of the settlements is both seen as exceedingly dangerous, but also alluring due to the promise of adventure and possible riches laying unclaimed. Androids often feature in these stories too, and are often depicted as villains central to causing The Calamity. Campfire ghost stories about beasts and machines that lurk in the underground tunnels are also popular (and not entirely flights of fancy), used to educate children as to the dangers of venturing too far from the settlements.
 
-#### Jobs
+Some history is written down longhand on a kind of papyrus, though this is a rare commodity; instead oral tradition in the form of stories and songs is used to record events of the past, and pass them on to the next generation.
+
+People also make art and music using remnants of materials and instruments from the Old World when they have time, usually at night or to mark special occasions.
+
+## Religion
+Some factions have turned to religion to make things easier, often with competing views, while others are not religious and pursue scientific ways of improving their lot; yet others vehemently oppose religion and seek to wipe it out. Even within factions, people sometimes have conflicting views here.
+
+See faction notes for specifics.
+
+## Jobs
 Jobs are divided roughly among the following categories, though people may occasionally take on multiple jobs depending on the size of the group. Generally everyone is required to work in some capacity, even teenagers. Jobs are not exclusive to any gender, race, or age bracket.
 
-##### Hunter
+### Hunter
 Specialised in combat, primarily for hunting and defending. Either used to guard settlements, protect engineers and traders along dangerous journeys through the tunnels, or to hunt wild animals for food and leather.
 
-##### Farmer
+### Farmer
 Equipped for cultivating and farming various types of mushrooms and other plants that can grow in the dim, low-light underground environments. They also usually take care of preparing and cooking the food as well as turning special growths into fibres and cloth for clothing.
 
-##### Engineer
+### Engineer
 There are several subtypes of engineer, but generally they are concerned with repairing, salvaging, and creating devices and infrastructure. They take care of creating housing, salvaging discovered old-world remains, and repurposing things for effective use for their settlement. Engineers require education and are seen as very valuable due to the required expertise and skill.
 
-##### Leader
+### Leader
 Focused on managing the group or settlement. They take care of diplomacy between their faction and others, mediating disputes within the faction, and general decisions such as how to distribute food, what to prioritise, etc. Leaders are usually charismatic and intelligent people, though there are also some that take their role on by force.
 
-##### Trader
+### Trader
 Usually independent and not tied to a particular faction, traders move between outposts and exchange various valuables. They also take care of delivering messages, acting as a sort of impromptu postal service. Traders are frequently subject to ambushes by rogues, and as such are often also accompanied by hunters to protect them.
 
-##### Rogue
+### Rogue
 Rogues are small groups of independent actors that primarily live in the tunnels without a fixed settlement. They either hunt and gather, or ambush traders or smaller settlements for valuables and food. Rogues are faced with extreme scepticism by any settlement inhabitant and will usually be barred entry or attacked on sight.
 
-##### Hermit
-Hermits live secluded from everyone else, usually completely by themselves or at best in groups up to three. They settle in spots far from other settlements and lead an ascetic livestyle. Many will even go so far as to hide from strangers or explicitly reject any form of contact or communication.
+### Hermit
+Hermits live secluded from everyone else, usually completely by themselves or at best in groups up to three. They settle in spots far from other settlements, such as deep underground or in the inhospitable mountains. Some lead an ascetic livestyle, or otherwise show the physical and/or mental strain of prolonged isolation. Many will even go so far as to hide from strangers or explicitly reject any form of contact or communication. Sometimes they are outcasts or exiles from other walks of life.
 
-### Technology
+## Technology
 Technology that remains comes in two forms: tech that remains from pre-calamity, and tech that was hand-made after the collapse.
 
 Pre-calamity tech was for the most part very high-tech, requiring complex manufacturing processes that are no longer possible after the calamity. Devices that were manufactured for use in the civilian sectors also used very modern, clean, polished designs. For a visual reference, think Wall-E's EVE, or Mirror's Edge Catalyst's architecture.
@@ -117,19 +171,83 @@ Only very few people remain that have knowledge of the complex processes involve
 
 As such, most remaining pre-calamity tech is either completely broken, malfunctioning, or jerry-rigged badly to work again in a limited fashion.
 
-One vital remaining piece of tech is the geothermal generators and water pumps, which reside far underground and convert the heat from the open magma streams into energy via sophisticated turbines, and channel excess heat upwards for heating in big pipes. Some settlements depend on this energy and heating, guarding access to the deeper tunnels closely.
+One vital remaining piece of tech is the geothermal generators and water pumps, which reside far underground and convert the heat from the open magma streams into energy via sophisticated turbines, and channel excess heat upwards for heating in big pipes. Some settlements depend on this energy and heating, guarding access to the deeper tunnels closely. Other parts of the infrastructure remain neutral territory, with gentlemen's agreements meaning no one tries to seize the technology for themselves, at the risk of conflict destroying it (a kind of "cold war").
 
 Clothing is composed out of leather scraps from hunted animals, recycled synthetic clothing from the old world, and strands woven from specially cultivated mushroom types with suitable fibres.
 
-### Geography & Geology
-Kandria takes place in a valley surrounded by steep mountains. The valley is filled with a desert composed of the pulverised remains of the former city that used to be in its place.
+## Fuel & Energy
+Other than geothermal energy, Fi’s faction on the surface can also rely on wind power, though this is not the norm. Limited supplies of oil are also available, pumped up through bore holes rediscovered after the fall. Oil is perhaps the rarest commodity there is though, and barrels of it are extremely valuable.
+
+## Weapons
+Swords and other melee weapons are the preferred method of violence. There are guns, but they are rare because getting explosives and ammunition is difficult. There are some energy weapons left over from the old world, though few if any understand how they truly work, or how long they’ll continue to operate.
+
+## Geography & Geology
+Kandria takes place in a valley surrounded by steep, cold mountains to the north, east, and south, with an ocean shoreline to the west. The valley is filled with a desert composed of the pulverised remains of the former city that used to be in its place. The region is known as “The Valley” amongst the survivors.
 
 The hard mountain rock makes it impossible to dig through without advanced tunnelling machines or explosives, and traversing the steep mountain range is deadly. This essentially entombs the remaining population within the valley's underground structures.
 
-Several seismic fault lines lie close, as several tectonic plates collide in this spot. This means the area used to be volcanically active, and magma streams are near to the surface.
+Underground cave networks run deep beneath the whole area, existing from before the fall  as metro systems, hyperloop networks, and the routes of geothermal conduits. Since then some caves have collapsed, though the survivors are sometimes able to restore some tunnels, to a limited extent.
 
-### Flora
+Several seismic fault lines lie close, as several tectonic plates collide in this spot. This means the area used to be volcanically active, and magma streams are near to the surface. These were once integral to the geothermal operation of the Old City.
+
+Some rail infrastructure did survive The Calamity, built in sturdy tunnels able to withstand seismic activity in sections isolated by blast doors. The survivors have fixed tracks and rail cars, so areas of the network are traversable to cross large distance (fast-travel). During the game, the player can unlock previously-unreachable areas of the network using their android strength and agility, thus expanding the network. 
+
+## Weather
+The weather follows similar patterns and seasons to what we know today, since The Calamity wasn’t caused by climate change or irradiation, etc. - though altered here by the fact that there’s now a large desert where a city used to be.
+
+Carbon emissions are a tiny proportion of what they are today due to the loss of industry, and have been for decades, so the environment is slowly reverting to pre-industrial temperatures.
+
+Where the game is set is arid and dry. Rain is a rare occurrence, though not impossible this close to the ocean. It rarely snows except high in the mountains.
+
+Forests, trees and plant life still exist, just less so in this location due to the destruction of the Old City; though there are some signs of plant life returning here. In other parts of the planet, trees and plants are slowly reclaiming the land people once dominated.
+
+## Flora & Fauna
 The remaining plant life is constrained underground -- fungi and moss dominate the badly ventilated shafts. Only few of the species found are actually edible though, and most of the food production is from specially cultivated mushrooms.
 
-### Fauna
 Aside from a plethora of bugs that infest various sections of the tunnels, several species of animal have taken refuge in the tunnel systems. Due to the lack of conventional food however they have become quite dangerous and aggressive, hunting and defending their territory proactively.
+
+## Food & Drink
+Water is pumped from reservoirs deep underground, either naturally occurring, or manmade post-Calamity.
+
+Food is scarce, and the typical diet is meat and mushrooms. Mushrooms can be grown on subsurface plantations, or foraged for deep underground. Meat is somewhat of a luxury, as it usually requires dangerous expeditions to hunt animals; though some settlements have reintroduced basic livestock. Fish sometimes enters circulation, from a remote faction on the shoreline.
+
+Some settlements (notably the one the player is discovered by) are making inroads into more traditional farming methods on the surface. They pump water from underground to irrigate the desert surrounding their settlement, and use compost fertiliser dug from the depths. They even have access to manure from their limited livestock to enrich the soil further. Thus they’ve begun to grow hardy root vegetables like potatoes and carrots, and even some more exotic fruits. Naturally these are highly sought after.
+
+Despite the lengthy travel times between factions, food can be preserved for the long journeys by traditional methods like smoking and curing.
+
+Alcohol is made from what plants and vegetables can be sourced - mushrooms are the go to for most alcoholic drinks like beer and even wine! 
+
+## Health
+Due to the scarcity of food, active manual labour lifestyles, and harsh living conditions, very few people are overweight. At best people carry a healthy bodyweight; at worst they are malnourished. Most are missing key nutrients though from their food and a lack of sunlight underground, meaning many of the major diseases we see today, like cancer, heart disease, and dementia, are prolific - few live to old age. And if disease doesn’t claim you, mortal injury probably will, either from a geological instability, a mechanical accident, or combat.
+
+## Factions
+- Several factions eke out an existence in The Valley.
+- There is no central governance - it’s every faction for themselves.
+- A faction normally lives within a small settlement or cluster of makeshift buildings, and nearly all are underground.
+- There are some exceptions: Fi’s faction is attempting to live on the arid, wind-blown surface, on the edge of the desert; there’s also a faction that lives on the shoreline, and another in the mountains..
+- Most live a life of hardship, never quite sure what the next day will bring, or how long their settlement’s way of life will last; new settlements seem to come and go with the seasons, while others endure.
+- Most settlements have a boundary wall protecting the most vulnerable people and families in an “inner keep” so to speak. Most of the time the player will be in the "outer keep" area surrounding this, interacting with the main characters of each faction who do their work there, managing relations with traders, etc.
+
+### Noka (Fi's Faction)
+This is the first faction the player meets, since it is they who recover The Stranger from beneath the rubble; the player thus becomes linked with them from the very beginning.
+
+Comprised of these core members (see the character documentation for more info on individuals), and a handful of other inhabitants:
+- Fi - Leader
+- Jack - Chief Engineer
+- Catherine - Apprentice Engineer
+- Alex - Hunter and Messenger
+
+They live on the surface, on the north-east edge of the desert and bordering the mountains, where the soil is more fertile. They are attempting to find new ways of farming the land to grow more varied crops, having recently discovered an underground seed cache. They are more self-sufficient than most factions, being the furthest from the shoreline and trade routes - though this offers them a natural defensive position.
+
+They were formed when Fi led a group of people to leave another faction further to the west, whose leader was taking things in a more hardline, militaristic direction, which Fi did not agree with. They were increasingly employing rogue tactics to attack caravans and even other factions, and attempting to seize the precious geothermal power plants for themselves. Fi believes the factions should work towards unity not sow divides. The catalyst came when Alex discovered a seed cache, giving Fi and her allies a change to leave and establish their own settlement far away, on the inhospitable surface where no one would look for them..
+Their name, “Noka”, is derived from the Japanese term for “farmer”.
+
+### Other Faction Ideas
+- The faction that Fi and company left
+- Old City dwellers
+- Shoreline faction
+- Mountain faction?
+- Salvation faction (see plot pitch - where the survivors venture to at the end) - a faction only rumoured to exist until discovered mid-game by The Stranger, who left the valley long ago
+- They covered their trail, to prevent others following/stalking them, but The Stranger’s attentive eye and skills allowed them to traverse the path
+- Hardline religious faction?
+- Anti-religion faction?
