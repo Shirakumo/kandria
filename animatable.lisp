@@ -97,7 +97,9 @@
 (defmethod switch-animation :before ((animatable animatable) next)
   ;; Remove selves when death animation completes
   (when (eql (name (animation animatable)) 'die)
-    (die animatable)))
+    (die animatable))
+  (when (eql next 'stand)
+    (setf (state animatable) :normal)))
 
 (defmethod (setf frame-idx) :before (idx (animatable animatable))
   (let ((previous-idx (frame-idx animatable)))
@@ -154,9 +156,7 @@
                           (vy (knockback frame)))
                    (stun entity (max 0.1 (stun-time frame)))))
                (when (<= (iframes entity) 0)
-                 (setf (iframes entity) 60))))))
-       (when (eql 'stand (name (animation animatable)))
-         (setf (state animatable) :normal)))
+                 (setf (iframes entity) 60)))))))
       (:stunned
        (decf (stun-time animatable) (dt ev))
        (when (<= (stun-time animatable) 0)
