@@ -1,0 +1,106 @@
+# Kandria Plot Outline
+The plot will still remain fluid, and can change as new ideas and discoveries are made during dev, though the broad beats will likely remain fixed unless we encounter a serious problem during production (i.e. it doesn’t work in practice as well as we thought, or content gets cut that changes it significantly).
+
+Play the game for latest info, though the documentation here will be updated periodically.
+
+## Summary
+A faction of outcasts are trying to build a new life away from the warmongering of the other factions. They’ve established a new home far from the others after discovering a seed cache, which might let them grow food on the surface; they are cultivating the land and scouring the surrounding areas for useful supplies - that’s when they have the good fortune to discover a working android from the old world!
+
+But no one has ever tried to live on the surface before, and they are on the brink of starvation. You help them establish their farming and irrigation process, so at least they are stable for now, before being deployed to foster vital relations with other factions by running all manner of errands and generally helping out.
+
+But the old faction your friends fled from are on the warpath, and are trying to unite the other factions by force. You must defend your territory from encroaching enemies, before calling in what favours you can for a final showdown.
+
+The battle is won, but the cost is high. With your home destroyed, there really is no choice but for the survivors to leave the valley and try to cross the mountains to the new faction - a place of salvation you previously discovered on your travels.
+
+## Blocking
+The outline is split into discrete blocking, which may also be acts or large quests
+
+### 1. Resurrection
+You are an android recovered from deep below ground, taken back to a settlement and repaired.
+
+**Quest ideas**
+- Follow your rescuers back to their home
+
+### 2. Survival of the Smartest
+You’re the first android they’ve ever seen, thought to be a thing of myth. They’re also highly wary of you - something about androids being responsible for “The Calamity”, though you don’t know anything about that. You have no memory of your previous life, though what’s clear is that you are adept in the ways of combat.
+
+But first things first - this colony is on the edge of starvation! Unlike the other factions they’re trying to eke out an existence on the surface, and despite possessing a unique cache of seeds from the old world, they’re having trouble producing crops.
+
+You can help. Irrigation systems need repairing and rerouting from below ground, so you escort engineers into the dangerous depths. They also need more supplies from the cache, and any livestock animals and fertiliser that can be found deep below ground.
+
+These things done, the settlement can get to work growing crops. They’ll survive, at least in the short term.
+
+**Quest ideas**
+- Meet the people
+- Escort the engineers to the water pipes
+- Defend the engineers while they work
+- Recover more seeds from the cache
+- Locate livestock and fertiliser
+
+### 3. Outstretched Hand
+But no settlement this new and small can survive alone - especially since they are trying to break new ground (pun intended) and survive on the dangerous surface.
+
+Given your speed and stamina as an android, you are encouraged to venture out and meet the other factions, to forge new relationships by running errands for them. Fi, the leader of your faction, hopes that she can peacefully unite the factions to be stronger together, and sees your role as vital to that.
+
+You even discover a path through the mountains and locate a new faction previously only rumoured to exist, who left the valley long ago.
+
+**Quest ideas**
+- Map opens up
+- All manner of “detective” quests for other factions:
+- Recover resources
+- Find missing people
+- Escort engineers to repair damaged tech
+- Defeat enemies
+- Secure tunnels
+- Etc.
+
+### 4. Warmongering
+The faction that Fi and company left behind to form this new settlement is on the warpath. Their leader also wants to unite the factions - but through force. He in particular has a vendetta against your faction, since Fi ran away with the knowledge of the seed cache - knowledge which he believes belonged to him. He offers Fi a chance to join his unholy alliance, but she refuses.
+
+You begin to encounter their soldiers in the tunnels, increasingly close to home, but for now you fend them off.
+
+**Quest ideas**
+- Combat encounters
+- Defend the tunnels
+
+### 5. Strength in Numbers
+War is coming though, and although she deplores violence, Fi unwillingly admits that your faction needs to enter the conflict.
+
+It’s time to call in the favours of those you’ve reached out to thus far, and ally against the enemy. You resume your tour of duty, strengthening those relationships you’ve already cultivated, trying to salvage those that have waned, and making inroads with any whom you’ve ignored thus far. But you don’t have much time...
+
+**Quest ideas**
+- Similar quests to block 3, but shorter time frame - be that shorter quests, or only so many you can tend to, because the plot is picking up momentum towards the end
+
+### 6. War
+The battleground has been chosen - the enemy faction and its allies are bearing down on your home. Those allies you’ve managed to rally are here by your side though. You must help prepare the defences, train the soldiers, and when the battle begins, you will be relied upon for your combat prowess.
+
+**Quest ideas**
+- Build defences in the tunnels
+- Repair broken barriers
+- Train defenders in the ways of combat
+- Fight on the battlefields
+
+### 7. Hollow Victory
+The battle is won, and the enemy factions have fled back underground. But the cost is high: many are dead on both sides, including some of your closest friends and allies. Worse, your settlement has been levelled in the fighting - not just the fledgling farmland essential to the settlement’s survival, but most of the buildings and shelter as well.
+
+Fi has a choice to make - the faction could return underground, and live like they used to. Or perhaps they could stay and rebuild - though the battlefield is strewn with mechanical debris that will soon poison the soil.
+
+But there is another option: leave, and cross the mountains to join with the distant new faction you discovered during your outreach tour, far from the factional divides of The Valley. The survivors could recover what they can from the ruins of the settlement, and embark on the long journey before winter sets in. With any luck they’ll make it.
+
+**Quest ideas**
+- Talk to people
+- Playable cutscenes?
+
+## Variable World State & Ending
+The questing in blocks 2 and 5 give you the chance to choose who you work for and what missions you do, thus influencing the world state of the different factions. This could have gameplay altering effects in terms of the areas you have access to, and the kinds of enemies and allies you encounter in the tunnels.
+
+However, importantly this world state comes into play during the battle and aftermath in blocks 6 and 7. The more allies you’ve made with the other factions, the more will come to fight beside you in the final confrontation and the easier the combat will be. And though many will die on your side, it will also thus influence those survivors that make the final expedition with you over the mountains.
+
+## Notes
+My first thoughts with this option were that I didn’t like the sentiment of running away and abandoning this setting that the player has come to know (and even love after investing many hours). It also felt a slightly tropey way to end things, like in the earlier Mad Max movies where they’re questing after a fabled paradise (which I think turns out to be a lie - it was just an old post card of a resort).
+
+In contrast, the recent Mad Max movie has them choose not to run away when given the chance, and actually stand their ground and claim what is rightfully theirs by returning to the Citadel - leads to a dramatic climax and a somewhat optimistic ending, but also leaves a mixed, uncertain feeling about how the new world order will pan out.
+
+That said, now I’ve fleshed out the whole plot, I think it can work. There’s something neat and bittersweet about the war destroying the settlement, and so forcing them to move home (not too dissimilar to the end of Mad Max 2 I suppose, when they abandon the refinery). We’d just need to make sure that the rumoured haven over the mountains is threaded throughout the plot, and doesn’t just crop up at the end to offer salvation.
+
+Perhaps one of the mid-game quests is to scout out a route over the mountains to see if it’s viable (perhaps you even locate this so-called haven - another faction in fact, as part of your outreach tour of duty), so it doesn’t come out of the blue later, and the player feels some investment in having previously “secured” this escape route. This then differentiates it further from Mad Max, since you already know there is a “green place” waiting for you, rather than hoping for the best. [Now factored this into the plot above.]
