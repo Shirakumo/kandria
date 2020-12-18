@@ -152,9 +152,10 @@
     ;; Make sure we hide things on top first.
     (loop until (eq panel (first (panels ui)))
           do (hide (first (panels ui))))
-    (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
-    (alloy:leave panel (alloy:root (alloy:focus-tree ui)))
-    (setf (panels ui) (remove panel (panels ui)))
+    (when (alloy:layout-tree (alloy:layout-element panel))
+      (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
+      (alloy:leave panel (alloy:root (alloy:focus-tree ui)))
+      (setf (panels ui) (remove panel (panels ui))))
     panel))
 
 (defclass pausing-panel (panel)
