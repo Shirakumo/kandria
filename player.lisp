@@ -176,7 +176,7 @@
          (setf (state player) :animated))))
 
 #-kandria-release
-(let ((type (copy-seq '(box zombie ball))))
+(let ((type (copy-seq '(box zombie ball tame-wolf))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
