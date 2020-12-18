@@ -1,7 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-action editor-command ())
-
+(define-action-set editor-command)
 (define-action toggle-editor (editor-command))
 (define-action toggle-diagnostics (editor-command))
 (define-action screenshot (editor-command))
@@ -15,7 +14,7 @@
   (key-press (and (one-of key :y)
                   (retained :control))))
 
-(define-action menuing ())
+(define-action-set menuing)
 (define-action skip (menuing))
 (define-action advance (menuing))
 (define-action previous (menuing))
@@ -25,7 +24,7 @@
 (define-action pause (menuing))
 (define-action quicksave (menuing))
 (define-action quickload (menuing))
-(define-action movement ())
+(define-action-set movement)
 (define-action interact (movement))
 (define-action jump (movement))
 (define-action dash (movement))
