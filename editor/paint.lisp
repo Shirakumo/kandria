@@ -29,7 +29,7 @@
         do (setf (visibility layer) 1.0)))
 
 (defmethod handle ((ev lose-focus) (tool paint))
-  (handle (make-instance 'mouse-release) tool))
+  (handle (make-instance 'mouse-release :button :left :pos (or (caar (stroke tool)) (vec 0 0))) tool))
 
 (defmethod handle ((event mouse-move) (tool paint))
   (case (state tool)
