@@ -20,10 +20,10 @@
      (let ((entity (entity tool)))
        (destructuring-bind (tile . stroke) (nreverse (stroke tool))
          (with-commit (tool)
-           ((loop for (loc . _) in stroke
-                  do (setf (tile loc entity) tile)))
-           ((loop for (loc . tile) in stroke
-                  do (setf (tile loc entity) tile)))))
+             ((loop for (loc . _) in stroke
+                    do (setf (tile loc entity) tile)))
+             ((loop for (loc . tile) in (reverse stroke)
+                    do (setf (tile loc entity) tile)))))
        (setf (stroke tool) NIL))))
   (loop for layer across (layers (entity tool))
         do (setf (visibility layer) 1.0)))
@@ -79,5 +79,7 @@
            (setf (state tool) :placing)
            (unless (stroke tool)
              (push tile (stroke tool)))
-           (push (cons loc (tile loc entity)) (stroke tool))
-           (setf (tile loc entity) tile)))))
+           (when (or (null (cdr (stroke tool)))
+                     (v/= loc (caar (stroke tool))))
+             (push (cons loc (tile loc entity)) (stroke tool))
+             (setf (tile loc entity) tile))))))
