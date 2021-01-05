@@ -182,7 +182,7 @@
 (defmethod edit (action (editor (eql T)))
   (edit action (find-panel 'editor)))
 
-(defmethod edit ((action action) (editor editor))
+(defmethod commit ((action action) (editor editor))
   (redo action (unit 'region T))
   (commit action (history editor)))
 
