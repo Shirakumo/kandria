@@ -13,7 +13,7 @@
 (defmethod handle ((event event) (tool tool)))
 
 (defmethod commit ((action action) (tool tool))
-  (edit action (editor tool)))
+  (commit action (editor tool)))
 
 (defmethod entity ((tool tool))
   (entity (editor tool)))
