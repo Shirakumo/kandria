@@ -21,13 +21,13 @@
   </head>
   <body>
     <header>
-      <video poster="media/leaf.jpg" loop muted autoplay>
+      <video poster="media/kandria.gif" loop muted autoplay>
         <source src="media/leaf.webm" type="video/webm"/>
         <source src="media/leaf.mp4" type="video/mp4"/>
-        <img src="media/leaf.jpg"/>
+        <img src="media/kandria.gif"/>
       </video>
       <div class="fader"></div>
-      <h1><img alt="Kandria" src="logo.gif" /></h1>
+      <h1><img alt="Kandria" src="media/logo.gif" /></h1>
       <nav>
         <a href="#about">About</a>
         <a href="prototype.html">Demo</a>
@@ -37,19 +37,19 @@
       </nav>
     </header>
     <main>
+      <div style="position:relative;padding-top:56.25%;">
+        <iframe src="https://www.youtube.com/embed/qLGjjfNTL78" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" allowfullscreen></iframe>
+      </div>
+      <a href="https://store.steampowered.com/app/1261430" id="wishlist">
+        Wishlist Kandria on <i class="fab fa-steam"></i> Steam!
+      </a>
       <section id="about">
-        <div style="position:relative;padding-top:56.25%;">
-          <iframe src="https://www.youtube.com/embed/qLGjjfNTL78" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" allowfullscreen></iframe>
-        </div>
         <h2>About Kandria</h2>
         <p>
           Kandria is a game about an android re-awakening in a post-apocalyptic future.
         </p>
         <p>
           You play as The Stranger, a lost remnant of old-world technology. With your combat and detective skills you help a struggling surface settlement survive. Along the way you'll encounter different people with very different ethics and ideas about humanity and the world as a whole.
-        </p>
-        <p>
-          <b>Wishlist us on <a href="https://store.steampowered.com/app/1261430">Steam</a>!</b>
         </p>
       </section>
       <section id="media">
