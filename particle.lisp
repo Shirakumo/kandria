@@ -22,7 +22,7 @@
     (macrolet ((insert (arr i &rest args)
                  `(let ((off (* ,(length args) ,i)))
                     ,@(loop for arg in args
-                            for j from 0cond
+                            for j from 0
                             collect `(setf (aref ,arr (+ ,j off)) (float ,arg 0f0))))))
       (dotimes (i count elt)
         (let ((s (r-around scale scale-var))
@@ -131,8 +131,8 @@ void main(){
   color = apply_lighting(texture(texture_image, tex_coord)*alpha, vec2(0), 0, vec2(0), world_pos);
 }")
 
-(defun make-tile-uvs (grid count width height)
-  (loop for i from 0 below count
+(defun make-tile-uvs (grid count width height &optional (offset 0))
+  (loop for i from offset below (+ offset count)
         for x = (mod (* i grid) width)
         for y = (floor (* i grid) width)
         collect (list (/ x width)
