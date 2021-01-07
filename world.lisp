@@ -79,7 +79,9 @@
 (defmethod stage :after ((world world) (area staging-area))
   (stage (// 'kandria 'music) area)
   (stage (// 'kandria 'effects 'texture) area)
-  (stage (// 'kandria 'effects 'vertex-array) area))
+  (stage (// 'kandria 'effects 'vertex-array) area)
+  (stage (// 'kandria 'items) area)
+  (stage (// 'kandria 'particles) area))
 
 (defmethod compile-to-pass :after ((world world) (pass render-pass))
   (register-object-for-pass pass (c2mop:ensure-finalized (find-class 'sprite-effect))))

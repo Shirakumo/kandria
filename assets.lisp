@@ -46,6 +46,7 @@
 
 (define-pixel lights)
 (define-pixel particles)
+(define-pixel items)
 (define-pixel pixelfont)
 (define-pixel ball)
 (define-pixel tundra-bg)

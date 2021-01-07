@@ -34,7 +34,7 @@
 (defmacro p! (name)
   `(gethash ',name +player-movement-data+))
 
-(define-shader-entity player (animatable profile ephemeral)
+(define-shader-entity player (animatable profile ephemeral inventory)
   ((name :initform 'player)
    (bsize :initform (vec 7.0 15.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
@@ -46,7 +46,6 @@
    (climb-strength :initform 1.0 :accessor climb-strength)
    (buffer :initform NIL :accessor buffer)
    (chunk :initform NIL :accessor chunk)
-   (inventory :initform NIL :accessor inventory)
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform (@ player-nametag))
@@ -58,6 +57,8 @@
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod minimum-idle-time ((player player)) 30)
+
+(defmethod maximum-health ((player player)) 100)
 
 (defmethod resize ((player player) w h))
 

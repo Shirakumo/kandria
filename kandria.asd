@@ -36,6 +36,7 @@
                (:file "moving")
                (:file "move-to")
                (:file "animatable")
+               (:file "inventory")
                (:file "rope")
                (:file "player")
                (:file "enemy")

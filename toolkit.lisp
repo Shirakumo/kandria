@@ -171,6 +171,9 @@
 (defun point-angle (point)
   (atan (vy point) (vx point)))
 
+(defun random* (x var)
+  (+ x (- (random var) (/ var 2))))
+
 (defun intersection-point (a as b bs)
   (let ((l (max (- (vx2 a) (vx2 as))
                 (- (vx2 b) (vx2 bs))))
