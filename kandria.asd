@@ -26,6 +26,7 @@
                (:file "background")
                (:file "tile-data")
                (:file "assets")
+               (:file "particle")
                (:file "effect")
                (:file "chunk")
                (:file "interactable")
