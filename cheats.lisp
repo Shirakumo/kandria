@@ -56,7 +56,7 @@
 
 (define-cheat campfire "Grill some marshmallows"
   (cond ((<= (hour-scale +world+) 60)
-         (setf (hour-scale +world+) (* 60 60)))
+         (setf (hour-scale +world+) (* 60 30)))
         (T
          (setf (hour-scale +world+) 60)
          NIL)))

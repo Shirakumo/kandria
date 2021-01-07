@@ -126,8 +126,8 @@
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
+    (incf (hour world) (* 10 (/ (hour-scale world) 60 60) (dt ev)))
     (when (= 0 (mod (fc ev) 10))
-      (incf (hour world) (* 10 (/ (hour-scale world) 60 60) (dt ev)))
       (quest:try (storyline world)))))
 
 (defmethod handle :after ((ev keyboard-event) (world world))
