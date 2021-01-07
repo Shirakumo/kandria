@@ -4,7 +4,7 @@
 (define-global +hard-hit+ 20)
 
 (define-shader-entity animatable (movable lit-animated-sprite)
-  ((health :initarg :health :initform 1000 :accessor health)
+  ((health :initarg :health :accessor health)
    (stun-time :initform 0d0 :accessor stun-time)
    (idle-time :initform 0f0 :accessor idle-time)
    (iframes :initform 0 :accessor iframes)
@@ -12,7 +12,9 @@
    (invincible :initform NIL :initarg :invincible :accessor invincible-p)))
 
 (defmethod initialize-instance :after ((animatable animatable) &key)
-  (setf (idle-time animatable) (minimum-idle-time animatable)))
+  (setf (idle-time animatable) (minimum-idle-time animatable))
+  (unless (slot-boundp animatable 'health)
+    (setf (slot-value animatable 'health) (maximum-health animatable))))
 
 (defgeneric idleable-p (animatable))
 (defgeneric minimum-idle-time (animatable))
@@ -24,8 +26,12 @@
 (defgeneric stun (animatable stun))
 (defgeneric start-animation (name animatable))
 (defgeneric in-danger-p (animatable))
+(defgeneric maximum-health (animatable))
 
 (defmethod minimum-idle-time ((animatable animatable)) 10)
+
+(defmethod (setf health) :around (health (animatable animatable))
+  (call-next-method (clamp 0 health (maximum-health animatable)) animatable))
 
 (defmethod apply-transforms progn ((animatable animatable))
   (let ((frame (frame animatable)))

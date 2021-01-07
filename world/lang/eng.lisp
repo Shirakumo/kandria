@@ -1,5 +1,7 @@
 player-nametag "The Stranger"
 fi-nametag "Fi"
+;; Items
+small-health-pack "small health pack"
 ;; UI
 go-backwards-in-ui "Back"
 resume-game "Resume"

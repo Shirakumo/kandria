@@ -6,6 +6,8 @@
   ((bsize :initform (vec 8.0 8.0))
    (cooldown :initform 0.0 :accessor cooldown)))
 
+(defmethod maximum-health ((enemy enemy)) 100)
+
 (defmethod initialize-instance :after ((enemy enemy) &key)
   (setf (health enemy) (* (health enemy) +health-multiplier+)))
 

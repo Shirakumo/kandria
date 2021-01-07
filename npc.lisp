@@ -3,6 +3,9 @@
 (define-shader-entity npc (animatable ephemeral dialog-entity profile)
   ())
 
+(defmethod maximum-health ((npc npc))
+  1000)
+
 (defmethod handle :before ((ev tick) (npc npc))
   (case (state npc)
     ((:dying :animated :stunned)

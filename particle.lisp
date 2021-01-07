@@ -1,8 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defun r-around (x var)
-  (+ x (- (random var) (/ var 2))))
-
 (define-global +particle-vbo+
   (make-instance 'vertex-buffer :buffer-data
                  (make-array 24 :element-type 'single-float :initial-contents
@@ -25,10 +22,10 @@
                             for j from 0
                             collect `(setf (aref ,arr (+ ,j off)) (float ,arg 0f0))))))
       (dotimes (i count elt)
-        (let ((s (r-around scale scale-var))
-              (d (deg->rad (r-around dir dir-var)))
-              (sp (r-around speed speed-var))
-              (li (r-around life life-var)))
+        (let ((s (random* scale scale-var))
+              (d (deg->rad (random* dir dir-var)))
+              (sp (random* speed speed-var))
+              (li (random* life life-var)))
           (destructuring-bind (u- v- us vs) (alexandria:random-elt tiles)
             (insert elt i
                     (vx origin) (vy origin) s
