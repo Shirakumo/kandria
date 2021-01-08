@@ -56,6 +56,7 @@
 
 (defmethod alloy:activate ((button item-button))
   (use (alloy:value button) (inventory button))
+  (alloy:mark-for-render button)
   (when (= 0 (item-count (alloy:value button) (inventory button)))
     (setf (alloy:focus (alloy:focus-parent button)) :strong)
     (alloy:leave button (alloy:layout-parent button))))
@@ -64,7 +65,9 @@
   ())
 
 (defmethod show :after ((panel quick-menu) &key)
-  (setf (time-scale +world+) 0.05))
+  (setf (time-scale +world+) 0.05)
+  (when (< 0 (alloy:element-count (alloy:focus-element panel)))
+    (setf (alloy:index (alloy:focus-element panel)) 0)))
 
 (defmethod hide :after ((panel quick-menu))
   (setf (time-scale +world+) 1.0))
