@@ -54,6 +54,7 @@
    :sprite-data (asset 'kandria 'player)))
 
 (defmethod initialize-instance :after ((player player) &key)
+  (setf (active-p (action-set 'in-game)) T)
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod minimum-idle-time ((player player)) 30)

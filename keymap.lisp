@@ -30,7 +30,7 @@
  (axis :one-of (:l-v :dpad-v :l-h :dpad-h) :threshold -0.5))
 
 (trigger accept
- (key :one-of (:enter))
+ (key :one-of (:e :enter))
  (button :one-of (:a)))
 
 (trigger back
@@ -47,9 +47,28 @@
 (trigger quickload
  (key :one-of (:f9)))
 
+(trigger quickmenu
+ (key :one-of (:c :v))
+ (button :one-of (:dpad-u :dpad-d))
+ (axis :one-of (:dpad-v) :threshold -0.5))
+
 (trigger interact
- (key :one-of (:enter :e))
+ (key :one-of (:e :enter))
  (button :one-of (:y)))
+
+(retain jump
+ (key :one-of (:space))
+ (button :one-of (:a)))
+
+(retain dash
+ (key :one-of (:left-shift))
+ (button :one-of (:r2))
+ (axis :one-of (:r2) :threshold 0.4))
+
+(retain climb
+ (key :one-of (:left-control))
+ (button :one-of (:l2))
+ (axis :one-of (:l2) :threshold 0.4))
 
 (trigger crawl
  (key :one-of (:q))
@@ -62,20 +81,6 @@
 (trigger heavy-attack
  (mouse :one-of (:right))
  (button :one-of (:y)))
-
-(retain dash
- (key :one-of (:left-shift))
- (button :one-of (:r2))
- (axis :one-of (:r2) :threshold 0.4))
-
-(retain jump
- (key :one-of (:space))
- (button :one-of (:a)))
-
-(retain climb
- (key :one-of (:left-control))
- (button :one-of (:l2))
- (axis :one-of (:l2) :threshold 0.4))
 
 (retain left
  (key :one-of (:a :left))
