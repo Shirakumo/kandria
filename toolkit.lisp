@@ -6,6 +6,7 @@
 (define-global +tiles-in-view+ (vec2 40 26))
 (define-global +world+ NIL)
 (define-global +input-source+ :keyboard)
+(define-global +pausable+ T)
 
 (defmethod version ((_ (eql :kandria)))
   #.(flet ((file (p)

@@ -105,7 +105,8 @@
   (load-state :quick world))
 
 (defmethod handle ((ev pause) (world world))
-  (toggle-panel 'pause-menu))
+  (when +pausable+
+    (toggle-panel 'pause-menu)))
 
 (defmethod handle ((ev report-bug) (world world))
   (toggle-panel 'report-panel))
