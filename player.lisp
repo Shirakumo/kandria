@@ -54,6 +54,8 @@
    :sprite-data (asset 'kandria 'player)))
 
 (defmethod initialize-instance :after ((player player) &key)
+  (dotimes (i 5) (store 'small-health-pack player))
+  (dotimes (i 2) (store 'medium-health-pack player))
   (setf (active-p (action-set 'in-game)) T)
   (setf (spawn-location player) (vcopy (location player))))
 
