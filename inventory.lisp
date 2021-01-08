@@ -78,8 +78,15 @@
 (defmethod use :before ((item one-time-item) (inventory inventory))
   (retrieve item inventory))
 
-(define-shader-entity small-health-pack (one-time-item)
-  ())
+(define-shader-entity health-pack (one-time-item)
+  ((health :initform (error "HEALTH required") :reader health)))
 
-(defmethod use ((item item) (animatable animatable))
-  (incf (health animatable) 10))
+(defmethod use ((item health-pack) (animatable animatable))
+  (incf (health animatable) (health item))
+  (trigger (make-instance 'text-effect) animatable
+           :text (format NIL "+~d" (health item))
+           :location (vec (+ (vx (location animatable)))
+                          (+ (vy (location animatable)) 8 (vy (bsize animatable))))))
+
+(define-shader-entity small-health-pack (health-pack)
+  ((health :initform 10)))
