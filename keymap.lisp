@@ -79,20 +79,16 @@
 
 (retain left
  (key :one-of (:a :left))
- (button :one-of (:dpad-l))
- (axis :one-of (:l-h :dpad-h) :threshold -0.4))
+ (axis :one-of (:l-h) :threshold -0.4))
 
 (retain right
  (key :one-of (:d :right))
- (button :one-of (:dpad-r))
- (axis :one-of (:l-h :dpad-h) :threshold 0.4))
+ (axis :one-of (:l-h) :threshold 0.4))
 
 (retain up
  (key :one-of (:w :up))
- (button :one-of (:dpad-u))
- (axis :one-of ( :l-v :dpad-v) :threshold 0.4))
+ (axis :one-of (:l-v) :threshold 0.4))
 
 (retain down
  (key :one-of (:s :down))
- (button :one-of (:dpad-d))
- (axis :one-of (:l-v :dpad-v) :threshold -0.8))
+ (axis :one-of (:l-v) :threshold -0.8))

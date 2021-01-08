@@ -36,7 +36,9 @@
   (unless path
     (setf path (keymap-path))
     (ensure-directories-exist path)
-    (unless (probe-file path)
+    (when (or (not (probe-file path))
+              (< (file-write-date path)
+                 (file-write-date (merge-pathnames "keymap.lisp" (root)))))
       (uiop:copy-file (merge-pathnames "keymap.lisp" (root)) path)))
   (load-mapping path))
 
