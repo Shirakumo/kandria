@@ -20,6 +20,7 @@
 (define-action-set in-game (exclusive-action-set))
 (define-action toggle-editor (in-game))
 (define-action toggle-diagnostics (in-game))
+(define-action toggle-menu (in-game))
 (define-action screenshot (in-game))
 (define-action report-bug (in-game))
 (define-action pause (in-game))
