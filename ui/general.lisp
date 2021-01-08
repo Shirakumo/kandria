@@ -158,7 +158,18 @@
       (setf (panels ui) (remove panel (panels ui))))
     panel))
 
-(defclass pausing-panel (panel)
+(defclass menuing-panel (panel)
+  ())
+
+(defmethod show :after ((panel menuing-panel) &key)
+  (setf +pausable+ NIL)
+  (setf (active-p (action-set 'in-menu)) T))
+
+(defmethod hide :after ((panel menuing-panel))
+  (setf +pausable+ T)
+  (setf (active-p (action-set 'in-game)) T))
+
+(defclass pausing-panel (menuing-panel)
   ())
 
 (defmethod show :after ((panel pausing-panel) &key)
