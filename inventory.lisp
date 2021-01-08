@@ -33,7 +33,7 @@
 
 (defmethod list-items ((inventory inventory) (type symbol))
   (loop for item being the hash-keys of (storage inventory)
-        when (eql (item-category (c2mop:class-prototype item)) type)
+        when (eql (item-category (c2mop:class-prototype (find-class item))) type)
         collect item))
 
 (define-shader-entity item (ephemeral lit-sprite moving interactable)
@@ -78,6 +78,9 @@
 (defclass item-category ()
   ())
 
+(defun list-item-categories ()
+  (mapcar #'class-name (c2mop:class-direct-subclasses (find-class 'item-category))))
+
 (defmethod list-items ((inventory inventory) (category item-category))
   (list-items inventory (item-category category)))
 
@@ -96,8 +99,7 @@
 (define-item-category value-item)
 (define-item-category special-item)
 
-(define-shader-entity health-pack (item consumable-item)
-  ((health :initform (error "HEALTH required") :reader health)))
+(define-shader-entity health-pack (item consumable-item) ())
 
 (defmethod use ((item health-pack) (animatable animatable))
   (incf (health animatable) (health item))
@@ -106,5 +108,11 @@
            :location (vec (+ (vx (location animatable)))
                           (+ (vy (location animatable)) 8 (vy (bsize animatable))))))
 
-(define-shader-entity small-health-pack (health-pack)
-  ((health :initform 10)))
+(define-shader-entity small-health-pack (health-pack) ())
+(defmethod health ((_ small-health-pack)) 10)
+
+(define-shader-entity medium-health-pack (health-pack) ())
+(defmethod health ((_ medium-health-pack)) 25)
+
+(define-shader-entity large-health-pack (health-pack) ())
+(defmethod health ((_ large-health-pack)) 50)
