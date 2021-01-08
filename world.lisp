@@ -126,9 +126,7 @@
     (v:info :kandria "Screenshot saved to ~a" file)))
 
 (defmethod handle ((ev quickmenu) (world world))
-  (let ((panel (find-panel 'quick-menu)))
-    (unless panel
-      (show (make-instance 'quick-menu)))))
+  (show-panel 'quick-menu))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
