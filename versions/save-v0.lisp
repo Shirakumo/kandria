@@ -60,6 +60,10 @@
       :health ,(health animatable)
       :stun-time ,(stun-time animatable))))
 
+(define-encoder (player save-v0) (_b _p)
+  (list* :inventory (alexandria:hash-table-alist (storage player))
+         (call-next-method)))
+
 (define-encoder (moving-platform save-v0) (_b _p)
   `(:location ,(encode (location moving-platform))
     :velocity ,(encode (velocity moving-platform))
@@ -103,7 +107,7 @@
         (quest:activate (quest:find-named trigger quest:task))))))
 
 (define-decoder (region save-v0) (initargs packet)
-  (destructuring-bind (&key create-new ephemeral (delete-existing T))
+  (destructuring-bind (&key create-new ephemeral (delete-existing T) &allow-other-keys)
       (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
                                         packet :element-type 'character)))
     ;; Remove all entities that are not ephemeral
@@ -130,12 +134,8 @@
                  (decode unit state)
                  (error "Unit named ~s referenced but not found." name)))))
 
-(define-decoder (player save-v0) (_i _p)
-  (call-next-method)
-  (snap-to-target (unit :camera T) player))
-
 (define-decoder (animatable save-v0) (initargs _p)
-  (destructuring-bind (&key location direction state animation frame health stun-time) initargs
+  (destructuring-bind (&key location direction state animation frame health stun-time &allow-other-keys) initargs
     (setf (location animatable) (decode 'vec2 location))
     (setf (direction animatable) direction)
     (setf (state animatable) state)
@@ -146,13 +146,19 @@
     (setf (stun-time animatable) stun-time)
     animatable))
 
+(define-decoder (player save-v0) (initargs _p)
+  (call-next-method)
+  (let ((inventory (getf initargs :inventory)))
+    (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq)))
+  (snap-to-target (unit :camera T) player))
+
 (define-decoder (moving-platform save-v0) (initargs _p)
-  (destructuring-bind (&key location velocity state) initargs
+  (destructuring-bind (&key location velocity state &allow-other-keys) initargs
     (setf (location moving-platform) (decode 'vec2 location))
     (setf (velocity moving-platform) (decode 'vec2 velocity))
     (setf (state moving-platform) state)
     moving-platform))
 
 (define-decoder (rope save-v0) (initargs _p)
-  (destructuring-bind (&key extended) initargs
+  (destructuring-bind (&key extended &allow-other-keys) initargs
     (setf (extended rope) extended)))

@@ -1,7 +1,11 @@
 player-nametag "The Stranger"
 fi-nametag "Fi"
 ;; Items
-small-health-pack "small health pack"
+consumable-item "Consumables"
+quest-item "Quest items"
+value-item "Valuables"
+special-item "-pecial items"
+small-health-pack "Small health pack"
 ;; UI
 go-backwards-in-ui "Back"
 resume-game "Resume"
