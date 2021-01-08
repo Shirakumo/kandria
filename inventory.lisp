@@ -3,20 +3,32 @@
 (defclass inventory ()
   ((storage :initform (make-hash-table :test 'eq) :accessor storage)))
 
-(defmethod have (item (inventory inventory))
+(defmethod have ((item symbol) (inventory inventory))
   (< 0 (gethash item (storage inventory) 0)))
+
+(defmethod item-count ((item symbol) (inventory inventory))
+  (gethash item (storage inventory) 0))
+
+(defmethod item-count ((item (eql T)) (inventory inventory))
+  (hash-table-count (storage inventory)))
 
 (defmethod store ((item symbol) (inventory inventory))
   (incf (gethash item (storage inventory) 0)))
 
 (defmethod retrieve ((item symbol) (inventory inventory))
   (let ((count (gethash item (storage inventory) 0)))
-    (if (< 0 count)
-        (setf (gethash item (storage inventory) 0) (1- count))
-        (error "Can't remove ~s, don't have any in inventory." item))))
+    (cond ((< 1 count)
+           (setf (gethash item (storage inventory) 0) (1- count)))
+          ((< 0 count)
+           (remhash item (storage inventory)))
+          (T
+           (error "Can't remove ~s, don't have any in inventory." item)))))
 
 (defmethod clear ((inventory inventory))
   (clrhash (storage inventory)))
+
+(defmethod list-items ((inventory inventory))
+  (alexandria:hash-table-keys (storage inventory)))
 
 (define-shader-entity item (ephemeral lit-sprite moving interactable)
   ((texture :initform (// 'kandria 'items))
@@ -40,6 +52,12 @@
   (leave item T)
   (status "Received ~a" (language-string (type-of item)))
   (remove-from-pass item +world+))
+
+(defmethod have ((item item) (inventory inventory))
+  (have (type-of item) inventory))
+
+(defmethod item-count ((item item) (inventory inventory))
+  (item-count (type-of item) inventory))
 
 (defmethod store ((item item) (inventory inventory))
   (store (type-of item) inventory))

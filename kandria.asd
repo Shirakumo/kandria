@@ -61,7 +61,8 @@
                              (:file "status")
                              (:file "diagnostics")
                              (:file "pause")
-                             (:file "options")))
+                             (:file "options")
+                             (:file "quick-menu")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
