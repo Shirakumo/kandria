@@ -74,7 +74,7 @@
         (scroll (make-instance 'alloy:clip-view :limit :x))
         (list (make-instance 'item-list))
         (label (make-instance 'item-header)))
-    (dolist (item (list-items inventory))
+    (dolist (item (list-items inventory 'consumable-item))
       (alloy:enter (make-instance 'item-button :value item :inventory inventory) list))
     (alloy:enter list scroll)
     (alloy:enter scroll layout :constraints `((:left 0) (:bottom 0) (:width 300) (:height 400)))

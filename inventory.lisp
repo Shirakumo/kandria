@@ -27,8 +27,14 @@
 (defmethod clear ((inventory inventory))
   (clrhash (storage inventory)))
 
-(defmethod list-items ((inventory inventory))
+(defgeneric list-items (from kind))
+(defmethod list-items ((inventory inventory) (type (eql T)))
   (alexandria:hash-table-keys (storage inventory)))
+
+(defmethod list-items ((inventory inventory) (type symbol))
+  (loop for item being the hash-keys of (storage inventory)
+        when (eql (item-category (c2mop:class-prototype item)) type)
+        collect item))
 
 (define-shader-entity item (ephemeral lit-sprite moving interactable)
   ((texture :initform (// 'kandria 'items))
@@ -69,16 +75,28 @@
 (defmethod use ((item symbol) on)
   (use (c2mop:class-prototype (find-class item)) on))
 
-(define-shader-entity one-time-item (item)
+(defclass item-category ()
   ())
 
-(defmethod category ((item one-time-item))
-  :usable)
+(defmethod list-items ((inventory inventory) (category item-category))
+  (list-items inventory (item-category category)))
 
-(defmethod use :before ((item one-time-item) (inventory inventory))
+(defmacro define-item-category (name)
+  `(progn
+     (defclass ,name (item-category) ())
+
+     (defmethod item-category ((item ,name)) ',name)))
+
+(define-item-category consumable-item)
+
+(defmethod use :before ((item consumable-item) (inventory inventory))
   (retrieve item inventory))
 
-(define-shader-entity health-pack (one-time-item)
+(define-item-category quest-item)
+(define-item-category value-item)
+(define-item-category special-item)
+
+(define-shader-entity health-pack (item consumable-item)
   ((health :initform (error "HEALTH required") :reader health)))
 
 (defmethod use ((item health-pack) (animatable animatable))
