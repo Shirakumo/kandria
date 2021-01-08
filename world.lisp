@@ -125,6 +125,11 @@
     (status :note "Screenshot saved to ~a" file)
     (v:info :kandria "Screenshot saved to ~a" file)))
 
+(defmethod handle ((ev quickmenu) (world world))
+  (let ((panel (find-panel 'quick-menu)))
+    (unless panel
+      (show (make-instance 'quick-menu)))))
+
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
     (incf (hour world) (* 10 (/ (hour-scale world) 60 60) (dt ev)))
