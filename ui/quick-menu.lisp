@@ -26,7 +26,7 @@
    :pattern (colored:color 0.1 0.1 0.1)))
 
 (defmethod alloy:exit ((list item-list))
-  (toggle-panel 'quick-menu))
+  (hide-panel 'quick-menu))
 
 (defclass item-button (alloy:direct-value-component alloy:button)
   ((inventory :initarg :inventory :accessor inventory)))
@@ -58,9 +58,7 @@
   (use (alloy:value button) (inventory button))
   (when (= 0 (item-count (alloy:value button) (inventory button)))
     (setf (alloy:focus (alloy:focus-parent button)) :strong)
-    (alloy:leave button (alloy:layout-parent button))
-    (when (= 0 (item-count T (inventory button)))
-      (toggle-panel 'quick-menu))))
+    (alloy:leave button (alloy:layout-parent button))))
 
 (defclass quick-menu (menuing-panel)
   ())

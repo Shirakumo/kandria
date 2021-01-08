@@ -124,6 +124,16 @@
         (hide panel)
         (show (apply #'make-instance panel-type initargs)))))
 
+(defun show-panel (panel-type &rest initargs)
+  (let ((panel (find-panel panel-type)))
+    (unless panel
+      (show (apply #'make-instance panel-type initargs)))))
+
+(defun hide-panel (panel-type)
+  (let ((panel (find-panel panel-type)))
+    (when panel
+      (hide panel))))
+
 (defclass panel (alloy:structure)
   ())
 
