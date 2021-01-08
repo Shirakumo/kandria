@@ -7,6 +7,10 @@
 (trigger report-bug
  (key :one-of (:f12)))
 
+(trigger toggle-menu
+ (key :one-of (:tab))
+ (button :one-of (:select)))
+
 (trigger screenshot
  (key :one-of (:print-screen)))
 
