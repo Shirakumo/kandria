@@ -8,8 +8,8 @@
  (key :one-of (:f12)))
 
 (trigger toggle-menu
- (key :one-of (:tab))
- (button :one-of (:select)))
+ (key :one-of (:tab :esc :escape))
+ (button :one-of (:select :home :start)))
 
 (trigger screenshot
  (key :one-of (:print-screen)))
@@ -40,10 +40,6 @@
 (trigger back
  (key :one-of (:esc :escape :backspace))
  (button :one-of (:b)))
-
-(trigger pause
- (key :one-of (:esc :escape))
- (button :one-of (:home :start)))
 
 (trigger quicksave
  (key :one-of (:f5)))

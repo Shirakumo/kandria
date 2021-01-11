@@ -23,7 +23,6 @@
 (define-action toggle-menu (in-game))
 (define-action screenshot (in-game))
 (define-action report-bug (in-game))
-(define-action pause (in-game))
 (define-action quicksave (in-game))
 (define-action quickload (in-game))
 (define-action quickmenu (in-game))

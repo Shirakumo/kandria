@@ -60,9 +60,8 @@
                              (:file "prompt")
                              (:file "status")
                              (:file "diagnostics")
-                             (:file "pause")
-                             (:file "options")
-                             (:file "quick-menu")))
+                             (:file "quick-menu")
+                             (:file "menu")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
