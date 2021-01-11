@@ -43,7 +43,8 @@
 
 (defmethod finalize :after ((main main))
   (setf +world+ NIL)
-  (harmony:free harmony:*server*))
+  (harmony:free harmony:*server*)
+  (setf harmony:*server* NIL))
 
 (defmethod save-state (world (state (eql T)) &rest args)
   (apply #'save-state world (state (handler *context*)) args))
