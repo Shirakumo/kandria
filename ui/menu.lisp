@@ -21,6 +21,9 @@
   ((alloy:text :initarg :text :accessor alloy:text)
    (alloy:index :initarg :index :accessor alloy:index)))
 
+(defmethod alloy:exit ((button tab-button))
+  (call-next-method))
+
 (defmethod alloy:activate ((button tab-button))
   (setf (alloy:focus button) :strong)
   (setf (alloy:value button) (alloy:index button)))
@@ -46,7 +49,7 @@
   (:border
    :hidden-p (not (alloy:active-p alloy:renderable)))
   (:background
-   :pattern (ecase (alloy:focus alloy:renderable)
+   :pattern (ecase alloy:focus
               (:strong (colored:color 0.5 0.5 0.5))
               (:weak (colored:color 0.3 0.3 0.3))
               ((NIL) (if (alloy:active-p alloy:renderable)
@@ -55,7 +58,7 @@
   (:label
    :pattern (if (alloy:active-p alloy:renderable)
                 colors:white
-                (colored:color 0.9 0.9 0.9)))))
+                (colored:color 0.9 0.9 0.9))))
 
 (defclass options-stack (alloy:focus-stack alloy:observable)
   ())
@@ -66,9 +69,53 @@
 (presentations:define-update (ui setting-label)
   (:label :size (alloy:un 15)))
 
+(defclass task-widget (label)
+  ())
+
+(presentations:define-realization (ui task-widget)
+  ((:indicator simple:ellipse)
+   (alloy:extent (alloy:ph 0.25) (alloy:ph 0.25) (alloy:ph 0.5) (alloy:ph 0.5))
+   :pattern colors:accent)
+  ((:label simple:text)
+   (alloy:margins (alloy:ph 1.0) 0 0 0)
+   alloy:text
+   :size (alloy:un 15)
+   :font "PromptFont"))
+
+(defclass quest-widget (org.shirakumo.alloy.layouts.constraint:layout alloy:focus-element alloy:renderable)
+  ((quest :initarg :quest :accessor quest)))
+
+(defmethod initialize-instance :after ((widget quest-widget) &key quest)
+  (let ((header (make-instance 'label :value (quest:title quest) :style `((:label :size ,(alloy:un 30)))))
+        (description (make-instance 'label :value (quest:description quest) :style `((:label :size ,(alloy:un 15) :valign :top))))
+        (tasks (make-instance 'alloy:vertical-linear-layout)))
+    (alloy:enter header widget :constraints `((:top 10) (:left 10) (:right 10) (:height 50)))
+    (alloy:enter description widget :constraints `((:below ,header 10) (:left 15) (:right 30) (:height 50)))
+    (alloy:enter tasks widget :constraints `((:below ,description 10) (:left 0) (:right 0) (:bottom 0)))
+    (dolist (task (quest:active-tasks quest))
+      (alloy:enter (make-instance 'task-widget :value (quest:title task)) tasks))))
+
+(presentations:define-realization (ui quest-widget)
+  ((:bg simple:rectangle)
+   (alloy:margins))
+  ((:bord simple:rectangle)
+   (alloy:margins 0 0 0 (alloy:ph 0.95))
+   :pattern (case (quest:status (quest alloy:renderable))
+              (:active colors:accent)
+              (:complete colors:dim-gray)
+              (:failed colors:dark-red))))
+
+(presentations:define-update (ui quest-widget)
+  (:bg
+   :pattern (ecase alloy:focus
+              (:strong (colored:color 0.3 0.3 0.3))
+              (:weak (colored:color 0.3 0.3 0.3))
+              ((NIL) (colored:color 0.2 0.2 0.2)))))
+
 (defclass menu (pausing-panel)
   ())
 
+;; FIXME: scroll views for items and quests
 (defmethod initialize-instance :after ((panel menu) &key)
   (let ((layout (make-instance 'menu-layout))
         (tabs (make-instance 'vertical-tab-bar))
@@ -101,15 +148,23 @@
         (let ((quick (with-button create-quick-save
                        (save-state +world+ :quick)))
               (resume (with-button resume-game
-                        (hide panel))))
+                        (hide panel)))
+              (status (make-instance 'label :value (overview-text) :style `((:label :valign :top :size ,(alloy:un 15))))))
+          (alloy:enter status tab :constraints `((:margin 10)))
           (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter quick tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
           (alloy:enter resume focus :layer layer)
           (alloy:enter quick focus :layer layer)))
+      
       (with-tab (tab (@ world-map-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         )
-      (with-tab (tab (@ quest-menu) 'alloy:vertical-linear-layout)
-        )
+      
+      (with-tab (tab (@ quest-menu) 'alloy:vertical-linear-layout :min-size (alloy:size 300 200))
+        (dolist (quest (quest:known-quests (storyline +world+)))
+          (let ((widget (make-instance 'quest-widget :quest quest)))
+            (alloy:enter widget tab)
+            (alloy:enter widget focus :layer layer))))
+      
       (with-tab (tab (@ inventory-menu) 'alloy:border-layout)
         (let ((tabs (make-instance 'vertical-tab-bar :style `((:bg :pattern ,(colored:color 0.12 0.12 0.12)))))
               (center (make-instance 'alloy:swap-layout))
@@ -125,6 +180,7 @@
                   (let ((button (make-instance 'item-button :value item :inventory inventory)))
                     (alloy:enter button tab)
                     (alloy:enter button focus :layer layer))))))))
+      
       (with-tab (tab (@ options-menu) 'alloy:border-layout)
         (let ((tabs (make-instance 'vertical-tab-bar :style `((:bg :pattern ,(colored:color 0.12 0.12 0.12)))))
               (center (make-instance 'alloy:swap-layout))
@@ -160,4 +216,13 @@
         ))
     (alloy:finish-structure panel layout focus)))
 
+(defun overview-text ()
+  (let ((player (unit 'player +world+)))
+    (format NIL "~
+~a: ~16t~a
+~a: ~16t~a
+~a: ~16t~a%"
+            (@ in-game-datetime) (format-absolute-time (truncate (timestamp +world+)))
+            (@ current-play-time) (format-relative-time (timestamp (handler *context*)))
+            (@ player-health) (health-percentage player))))
 ;; FIXME: when changing language UI needs to update immediately
