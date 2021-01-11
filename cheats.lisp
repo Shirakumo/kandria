@@ -55,10 +55,10 @@
          NIL)))
 
 (define-cheat campfire "Grill some marshmallows"
-  (cond ((<= (hour-scale +world+) 60)
-         (setf (hour-scale +world+) (* 60 30)))
+  (cond ((<= (clock-scale +world+) 60)
+         (setf (clock-scale +world+) (* 60 30)))
         (T
-         (setf (hour-scale +world+) 60)
+         (setf (clock-scale +world+) 60)
          NIL)))
 
 (define-cheat chaos\ control "You're the fake hedgehog"

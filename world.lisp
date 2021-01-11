@@ -7,8 +7,8 @@
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
-   (hour :initform 7.0 :accessor hour)
-   (hour-scale :initform 60 :accessor hour-scale))
+   (clock-scale :initform 60.0 :accessor clock-scale)
+   (timestamp :initform (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0) :accessor timestamp))
   (:default-initargs
    :packet (error "PACKET required.")))
 
@@ -30,11 +30,16 @@
 (defmethod start :after ((world world))
   (harmony:play (// 'kandria 'music)))
 
-(defmethod (setf hour) :after (hour (world world))
-  (issue world 'change-time :hour hour))
+(defmethod hour ((world world))
+  (mod (float (/ (nth-value 1 (truncate (+ (timestamp world) 432000) (* 60 60 24 7))) 60 60) 0d0) 24d0))
 
-(defmethod (setf hour) :around (hour (world world))
-  (call-next-method (mod hour 24) world))
+(defmethod (setf timestamp) :after (timestamp (world world))
+  (issue world 'change-time :timestamp timestamp))
+
+(defmethod (setf hour) (hour (world world))
+  (destructuring-bind (ss mm hh d m y) (decode-universal-time (truncate (timestamp world)))
+    (declare (ignore hh))
+    (setf (timestamp world) (float (encode-universal-time ss mm (mod hour 24) d m y 0) 0d0))))
 
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
@@ -130,7 +135,7 @@
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
-    (incf (hour world) (* 10 (/ (hour-scale world) 60 60) (dt ev)))
+    (incf (timestamp world) (* (clock-scale world) (dt ev)))
     (when (= 0 (mod (fc ev) 10))
       (quest:try (storyline world)))))
 

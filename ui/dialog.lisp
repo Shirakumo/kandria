@@ -110,7 +110,6 @@
 (defclass dialog (pausing-panel alloy:observable-object)
   ((vm :initform (make-instance 'dialogue:vm) :reader vm)
    (ip :initform 0 :accessor ip)
-   (hour :initform (hour +world+) :accessor hour)
    (char-timer :initform 0.1 :accessor char-timer)
    (pause-timer :initform 0 :accessor pause-timer)
    (choices :initform NIL :accessor choices)
@@ -142,11 +141,12 @@
 
 (defmethod show :after ((dialog dialog) &key)
   (setf (intended-zoom (unit :camera T)) 1.5)
+  (setf (clock-scale +world+) (/ (clock-scale +world+) 2))
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((dialog dialog))
   (setf (intended-zoom (unit :camera T)) 1.0)
-  (setf (hour +world+) (hour dialog))
+  (setf (clock-scale +world+) (* (clock-scale +world+) 2))
   (clear-retained)
   (discard-events +world+)
   (unpause-game T (unit 'ui-pass T)))
