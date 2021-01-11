@@ -11,6 +11,7 @@
    (chunk :initform NIL :accessor chunk)
    (shake-timer :initform 0f0 :accessor shake-timer)
    (shake-intensity :initform 3 :accessor shake-intensity)
+   (shake-unique :initform 0 :accessor shake-unique)
    (offset :initform (vec 0 0) :accessor offset))
   (:default-initargs
    :location (vec 0 0)
@@ -66,9 +67,12 @@
         (decf (shake-timer camera) (dt ev))
         (dolist (device (gamepad:list-devices))
           (gamepad:rumble device (if (< 0 (shake-timer camera))
-                                     (shake-intensity camera)
+                                     (* 100 (dt ev) (shake-intensity camera))
                                      0)))
-        (nv+ loc (vrandr (* (shake-intensity camera) 0.1) (shake-intensity camera)))
+        ;; Deterministic shake so that we can slow it down properly.
+        (let ((frame-id (sxhash (+ (shake-unique camera) (mod (floor (* (shake-timer camera) 100)) 100)))))
+          (nv+ loc (polar->cartesian (vec (* (logand #xFF (1+ frame-id)) (shake-intensity camera) 0.001)
+                                          (* (logand #xFF frame-id) (/ (* 2 PI) #xFF))))))
         (clamp-camera-target camera loc))
       (let ((off (offset camera)))
         (when (v/= 0 off)
@@ -122,6 +126,7 @@
 
 (defun shake-camera (&key (duration 0.2) (intensity 3))
   (let ((camera (unit :camera +world+)))
+    (setf (shake-unique camera) (random 100))
     (setf (shake-timer camera) duration)
     (setf (shake-intensity camera) (* (setting :gameplay :screen-shake) intensity))))
 
