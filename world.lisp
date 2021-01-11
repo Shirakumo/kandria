@@ -8,7 +8,8 @@
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
    (clock-scale :initform 60.0 :accessor clock-scale)
-   (timestamp :initform (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0) :accessor timestamp))
+   (timestamp :initform (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0) :accessor timestamp)
+   (pausable :initform T :accessor pausable))
   (:default-initargs
    :packet (error "PACKET required.")))
 
@@ -130,7 +131,7 @@
   (show-panel 'quick-menu))
 
 (defmethod handle ((ev toggle-menu) (world world))
-  (when +pausable+
+  (when (pausable world)
     (show-panel 'menu)))
 
 (defmethod handle :after ((ev trial:tick) (world world))
