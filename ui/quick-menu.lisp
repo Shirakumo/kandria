@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass item-header (alloy:label*)
-  ((alloy:value :initform (@ 'items-menu))))
+  ((alloy:value :initform (@ items-menu))))
 
 (presentations:define-realization (ui item-header)
   ((:bg simple:rectangle)

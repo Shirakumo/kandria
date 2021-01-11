@@ -212,6 +212,7 @@
               (control gameplay invincible-player (:gameplay :god-mode) 'alloy:switch))
             (with-options-tab (language (@ language-settings))
               (control language game-language (:language :code) 'alloy:combo-set :value-set +languages+)))))
+      
       (with-tab (tab (@ load-game-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         ))
     (alloy:finish-structure panel layout focus)))

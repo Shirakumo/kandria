@@ -17,10 +17,11 @@
 (define-action accept (in-menu))
 (define-action back (in-menu))
 
+(define-action toggle-editor ())
+(define-action toggle-menu ())
+
 (define-action-set in-game (exclusive-action-set))
-(define-action toggle-editor (in-game))
 (define-action toggle-diagnostics (in-game))
-(define-action toggle-menu (in-game))
 (define-action screenshot (in-game))
 (define-action report-bug (in-game))
 (define-action quicksave (in-game))

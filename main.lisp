@@ -102,6 +102,7 @@
     (connect (port distortion 'color) (port blend 'trial::a-pass) scene)
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
   (show (make-instance 'status-lines))
+  (show (make-instance 'hud))
   #++
   (show (make-instance 'report-button)))
 
