@@ -44,12 +44,14 @@
    (run-time :initform 1.0 :accessor run-time)
    (air-time :initform 1.0 :accessor air-time)
    (climb-strength :initform 1.0 :accessor climb-strength)
+   (combat-time :initform 10000.0 :accessor combat-time)
    (buffer :initform NIL :accessor buffer)
    (chunk :initform NIL :accessor chunk)
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform (@ player-nametag))
-   (invincible :initform (setting :gameplay :god-mode)))
+   (invincible :initform (setting :gameplay :god-mode))
+   (hud :accessor hud))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
@@ -57,7 +59,8 @@
   (dotimes (i 5) (store 'small-health-pack player))
   (dotimes (i 2) (store 'medium-health-pack player))
   (setf (active-p (action-set 'in-game)) T)
-  (setf (spawn-location player) (vcopy (location player))))
+  (setf (spawn-location player) (vcopy (location player)))
+  (setf (hud player) (make-instance 'hud :player player)))
 
 (defmethod minimum-idle-time ((player player)) 30)
 
@@ -240,6 +243,9 @@
        (incf (vy (location player)) 8)
        (setf (vy (bsize player)) 15)))))
 
+(defmethod hurt :after ((player player) damage)
+  (setf (combat-time player) 0f0))
+
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
     (return-from handle))
@@ -258,6 +264,13 @@
     (when (< (abs (vx vel)) (/ (p! walk-limit) 2))
       (setf (run-time player) 0.0))
     (incf (run-time player) (dt ev))
+    (incf (combat-time player) (dt ev))
+    (cond ((and (< (combat-time player) 10)
+                (not (active-p (hud player))))
+           (show (hud player)))
+          ((and (< 10 (combat-time player))
+                (active-p (hud player)))
+           (hide (hud player))))
     (setf (interactable player) NIL)
     (for:for ((entity over (region +world+)))
       (when (and (typep entity 'interactable)
@@ -288,6 +301,9 @@
            (setf (buffer player) NIL)
            (cond ((retained 'left) (setf (direction player) -1))
                  ((retained 'right) (setf (direction player) +1)))
+           (when (or (eql buffer 'light-attack)
+                     (eql buffer 'heavy-attack))
+             (setf (combat-time player) 0f0))
            (case buffer
              (light-attack
               (case (name (animation player))

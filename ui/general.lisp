@@ -152,7 +152,7 @@
       (hide panel))))
 
 (defclass panel (alloy:structure)
-  ())
+  ((active-p :initform NIL :accessor active-p)))
 
 (defmethod handle ((ev event) (panel panel)))
 
@@ -160,8 +160,6 @@
   (when *context*
     ;; First stage and load
     (trial:commit panel (loader (handler *context*)) :unload NIL))
-  ;; Clear pending events to avoid spurious inputs
-  (discard-events +world+)
   ;; Then attach to the UI
   (let ((ui (or ui (unit 'ui-pass T))))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
@@ -170,12 +168,11 @@
     (when (alloy:focus-element panel)
       (setf (alloy:focus (alloy:focus-element panel)) :strong))
     (push panel (panels ui))
+    (setf (active-p panel) T)
     panel))
 
 (defmethod hide ((panel panel))
   (let ((ui (unit 'ui-pass T)))
-    ;; Clear pending events to avoid spurious inputs
-    (discard-events +world+)
     ;; Make sure we hide things on top first.
     (loop until (eq panel (first (panels ui)))
           do (hide (first (panels ui))))
@@ -183,16 +180,21 @@
       (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
       (alloy:leave panel (alloy:root (alloy:focus-tree ui)))
       (setf (panels ui) (remove panel (panels ui))))
+    (setf (active-p panel) NIL)
     panel))
 
 (defclass menuing-panel (panel)
   ())
 
 (defmethod show :after ((panel menuing-panel) &key)
+  ;; Clear pending events to avoid spurious inputs
+  (discard-events +world+)
   (setf (pausable +world+) NIL)
   (setf (active-p (action-set 'in-menu)) T))
 
 (defmethod hide :after ((panel menuing-panel))
+  ;; Clear pending events to avoid spurious inputs
+  (discard-events +world+)
   (setf (pausable +world+) T)
   (setf (active-p (action-set 'in-game)) T))
 
