@@ -34,7 +34,7 @@
 (defmacro p! (name)
   `(gethash ',name +player-movement-data+))
 
-(define-shader-entity player (animatable profile ephemeral inventory)
+(define-shader-entity player (alloy:observable animatable profile ephemeral inventory)
   ((name :initform 'player)
    (bsize :initform (vec 7.0 15.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)

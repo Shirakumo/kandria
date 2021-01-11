@@ -60,6 +60,7 @@
                              (:file "prompt")
                              (:file "status")
                              (:file "diagnostics")
+                             (:file "hud")
                              (:file "quick-menu")
                              (:file "menu")))
                (:module "editor"
