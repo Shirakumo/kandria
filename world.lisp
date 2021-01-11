@@ -104,10 +104,6 @@
 (defmethod handle :after ((ev quickload) (world world))
   (load-state :quick world))
 
-(defmethod handle ((ev pause) (world world))
-  (when +pausable+
-    (toggle-panel 'pause-menu)))
-
 (defmethod handle ((ev report-bug) (world world))
   (toggle-panel 'report-panel))
 
@@ -127,6 +123,10 @@
 
 (defmethod handle ((ev quickmenu) (world world))
   (show-panel 'quick-menu))
+
+(defmethod handle ((ev toggle-menu) (world world))
+  (when +pausable+
+    (show-panel 'menu)))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
