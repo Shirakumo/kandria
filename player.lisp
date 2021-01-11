@@ -170,6 +170,7 @@
          (setf (buffer player) 'light-attack))
         ((not (eql :crawling (state player)))
          (setf (buffer player) 'light-attack)
+         (setf (animation player) 'stand)
          (setf (state player) :animated))))
 
 (defmethod handle ((ev heavy-attack) (player player))
@@ -177,6 +178,7 @@
          (setf (buffer player) 'heavy-attack))
         ((not (eql :crawling (state player)))
          (setf (buffer player) 'heavy-attack)
+         (setf (animation player) 'stand)
          (setf (state player) :animated))))
 
 #-kandria-release
@@ -269,7 +271,16 @@
           (show (prompt player) :button 'interact :location loc))
         (hide (prompt player)))
     (ecase (state player)
-      ((:dying :animated :stunned)
+      ((:dying :stunned)
+       (nv+ vel (v* (gravity (medium player)) dt))
+       (handle-animation-states player ev)
+       (when (and (cancelable-p (frame player))
+                  (or (retained 'left)
+                      (retained 'right)))
+         (setf (state player) :normal))
+       (when ground
+         (setf (vy vel) (max (vy vel) 0))))
+      (:animated
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
          (start-animation 'heavy-aerial-3-release player))
        (let ((buffer (buffer player)))
