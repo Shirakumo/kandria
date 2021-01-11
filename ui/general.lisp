@@ -40,6 +40,23 @@
    :size (alloy:un 20)
    :pattern colors:white))
 
+(defclass label (alloy:label*)
+  ())
+
+(presentations:define-realization (ui label)
+  ((:label simple:text)
+   (alloy:margins 0)
+   alloy:text
+   :font "PromptFont"
+   :wrap T
+   :size (alloy:un 20)
+   :halign :start
+   :valign :middle))
+
+(presentations:define-update (ui label)
+  (:label
+   :pattern colors:white))
+
 (defclass pane (alloy:renderable)
   ())
 
@@ -172,11 +189,11 @@
   ())
 
 (defmethod show :after ((panel menuing-panel) &key)
-  (setf +pausable+ NIL)
+  (setf (pausable +world+) NIL)
   (setf (active-p (action-set 'in-menu)) T))
 
 (defmethod hide :after ((panel menuing-panel))
-  (setf +pausable+ T)
+  (setf (pausable +world+) T)
   (setf (active-p (action-set 'in-game)) T))
 
 (defclass pausing-panel (menuing-panel)

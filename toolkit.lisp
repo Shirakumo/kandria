@@ -31,6 +31,31 @@
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
     (format NIL "~4,'0d.~2,'0d.~2,'0d ~2,'0d:~2,'0d:~2,'0d" yy mm dd h m s)))
 
+(defun format-relative-time (start &optional (now (get-universal-time)))
+  (let ((stamp (abs (- now start))))
+    (let ((seconds   (mod (floor (/ stamp 1)) 60))
+          (minutes   (mod (floor (/ stamp 60)) 60))
+          (hours     (mod (floor (/ stamp 60 60)) 24))
+          (days      (mod (floor (/ stamp 60 60 24)) 7))
+          ;; We approximate by saying each month has four weeks
+          (months    (mod (floor (/ stamp 60 60 24 7 4)) 12))
+          ;; More accurate through stamp in a year
+          (years     (mod (floor (/ stamp 31557600)) (expt 10 9)))
+          (aeons          (floor (/ stamp 31557600 10 10 (expt 10 (- 9 2))))))
+      (with-output-to-string (out)
+        (cond ((< 0 aeons)
+               (format out "~d aeons ~d years ~d months ~d days ~d:~2,'0d:~2,'0d" aeons years months days hours minutes seconds))
+              ((< 0 years)
+               (format out "~d years ~d months ~d days ~d:~2,'0d:~2,'0d" years months days hours minutes seconds))
+              ((< 0 months)
+               (format out "~d months ~d days ~d:~2,'0d:~2,'0d" months days hours minutes seconds))
+              ((< 0 days)
+               (format out "~d days ~d:~2,'0d:~2,'0d" days hours minutes seconds))
+              ((< 0 hours)
+               (format out "~d:~2,'0d:~2,'0d" hours minutes seconds))
+              (T
+               (format out "~d:~2,'0d" minutes seconds)))))))
+
 (defun maybe-finalize-inheritance (class)
   (let ((class (etypecase class
                  (class class)

@@ -28,6 +28,9 @@
 (defgeneric in-danger-p (animatable))
 (defgeneric maximum-health (animatable))
 
+(defmethod health-percentage ((animatable animatable))
+  (truncate (* 100 (health animatable)) (maximum-health animatable)))
+
 (defmethod minimum-idle-time ((animatable animatable)) 10)
 
 (defmethod (setf health) :around (health (animatable animatable))
