@@ -59,6 +59,7 @@
 
 (defmethod show :after ((editor editor) &key)
   (setf (lighting (unit 'lighting-pass T)) (gi 'none))
+  (setf (entity editor) (region +world+))
   (force-lighting (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
@@ -146,7 +147,7 @@
 (defmethod handle ((ev key-release) (editor editor))
   (let ((camera (unit :camera T)))
     (case (key ev)
-      (:tab (setf (entity editor) NIL) T)
+      (:tab (setf (entity editor) (region +world+)) T)
       (:f1 (edit 'save-region T))
       (:f2 (edit 'load-region T))
       (:f3)
@@ -172,7 +173,8 @@
       (:d (incf (vx (location camera)) 5)))))
 
 (defmethod handle ((event mouse-release) (editor editor))
-  (when (and (null (entity editor)) (eq :left (button event)))
+  (when (and (eq (entity editor) (region +world+))
+             (eq :left (button event)))
     (let ((pos (mouse-world-pos (pos event))))
       (setf (entity editor) (entity-at-point pos +world+)))))
 
@@ -193,6 +195,7 @@
     (enter (make-instance 'background) region)
     (enter (make-instance 'chunk) region)
     (enter region +world+)
+    (setf (entity editor) region)
     (leave old +world+)
     (trial:commit +world+ (handler *context*))))
 
@@ -203,7 +206,7 @@
           (load-region path T)))
       (load-region T T))
   (clear (history editor))
-  (setf (entity editor) NIL)
+  (setf (entity editor) (region +world+))
   (trial:commit +world+ (handler *context*)))
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
@@ -238,7 +241,7 @@
            ;;        Maybe at deploy time?
            (with-commit (editor)
              ((leave* entity container)
-              (setf (entity editor) NIL))
+              (setf (entity editor) (region +world+)))
              ((enter-and-load entity container (handler *context*))
               (setf (entity editor) entity)))))))
 
@@ -270,4 +273,4 @@
         ((enter-and-load entity (unit 'region T) (handler *context*))
           (setf (entity editor) entity))
         ((leave* entity (unit 'region T))
-          (setf (entity editor) NIL)))))
+          (setf (entity editor) (region +world+))))))
