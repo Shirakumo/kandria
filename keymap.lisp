@@ -38,7 +38,7 @@
  (button :one-of (:a)))
 
 (trigger back
- (key :one-of (:esc :escape :backspace))
+ (key :one-of (:esc :escape))
  (button :one-of (:b)))
 
 (trigger quicksave
