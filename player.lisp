@@ -332,7 +332,7 @@
                 (T
                  (cond ((not (svref (collisions player) 2))
                         (if (retained 'down)
-                            (start-animation 'heavy-aerial-down player)
+                            (start-animation 'heavy-aerial-3 player)
                             (start-animation 'heavy-aerial-1 player)))
                        ((retained 'up)
                         (start-animation 'heavy-up player))
