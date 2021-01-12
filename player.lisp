@@ -46,7 +46,7 @@
    (climb-strength :initform 1.0 :accessor climb-strength)
    (combat-time :initform 10000.0 :accessor combat-time)
    (buffer :initform NIL :accessor buffer)
-   (chunk :initform NIL :accessor chunk)
+   (chunk :initform NIL :initarg :chunk :accessor chunk)
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform (@ player-nametag))
@@ -109,7 +109,7 @@
       (setf (air-time player) 0.0)
       (setf (buffer player) NIL)
       (vsetf (location player) (vx location) (- (vy location) 5))
-      (issue +world+ 'switch-chunk :chunk (find-containing player (region +world+)))
+      (switch-chunk (find-containing player (region +world+)))
       (issue +world+ 'force-lighting)
       (snap-to-target (unit :camera T) player))))
 
@@ -265,10 +265,10 @@
       (setf (run-time player) 0.0))
     (incf (run-time player) (dt ev))
     (incf (combat-time player) (dt ev))
-    (cond ((and (< (combat-time player) 10)
+    (cond ((and (< (combat-time player) 5)
                 (not (active-p (hud player))))
            (show (hud player)))
-          ((and (< 10 (combat-time player))
+          ((and (< 5 (combat-time player))
                 (active-p (hud player)))
            (hide (hud player))))
     (setf (interactable player) NIL)
@@ -557,7 +557,7 @@
      (when (not (contained-p (location player) (chunk player)))
        (let ((other (find-containing player (region +world+))))
          (cond (other
-                (issue +world+ 'switch-chunk :chunk other))
+                (switch-chunk other))
                ((< (vy (location player))
                    (- (vy (location (chunk player)))
                       (vy (bsize (chunk player)))))
@@ -639,7 +639,7 @@
       (unless other
         (error "What the fuck? Could not find any chunks.")))
     (snap-to-target (unit :camera T) player)
-    (issue +world+ 'switch-chunk :chunk other)))
+    (switch-chunk other)))
 
 (defmethod handle ((ev switch-chunk) (player player))
   (let ((loc (vcopy (location player))))
