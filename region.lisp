@@ -1,13 +1,13 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass region (layered-container ephemeral)
-  ((author :initform "Anonymous" :initarg :author :accessor author)
-   (version :initform "0.0.0" :initarg :version :accessor version)
-   (description :initform "" :initarg :description :accessor description)
+  ((name :initform 'test :initarg :name :accessor name :type symbol)
+   (author :initform "Anonymous" :initarg :author :accessor author :type string)
+   (version :initform "0.0.0" :initarg :version :accessor version :type string)
+   (description :initform "" :initarg :description :accessor description :type string)
    (preview :initform NIL :initarg :preview :accessor preview))
   (:default-initargs
-   :layer-count +layer-count+
-   :name (error "NAME required.")))
+   :layer-count +layer-count+))
 
 (defgeneric load-region (packet region))
 (defgeneric save-region (region packet &key version &allow-other-keys))
