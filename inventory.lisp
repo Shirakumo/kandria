@@ -61,9 +61,8 @@
 
 (defmethod interact ((item item) (inventory inventory))
   (store item inventory)
-  (leave item T)
   (status "Received ~a" (language-string (type-of item)))
-  (remove-from-pass item +world+))
+  (leave* item T))
 
 (defmethod have ((item item) (inventory inventory))
   (have (type-of item) inventory))

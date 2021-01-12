@@ -116,8 +116,7 @@
                  (for:for ((entity over parent))
                    (typecase entity
                      ((not ephemeral)
-                      (leave entity parent)
-                      (remove-from-pass entity +world+))
+                      (leave* entity parent))
                      (container (recurse entity))))))
         (recurse region)))
     ;; Add new entities that exist in the state

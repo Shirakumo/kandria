@@ -81,8 +81,7 @@
 (defmethod handle ((ev tick) (emitter emitter))
   (let ((vio (vio emitter)))
     (cond ((update-particle-data (buffer-data vio) (* 2 (dt ev)) 100.0)
-           (leave emitter T)
-           (remove-from-pass emitter +world+))
+           (leave* emitter T))
           (T
            (update-buffer-data vio T)))))
 

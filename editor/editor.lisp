@@ -237,8 +237,7 @@
            ;;        Should probably do that as an explicit command to invoke at some point.
            ;;        Maybe at deploy time?
            (with-commit (editor)
-             ((leave entity container)
-              (remove-from-pass entity +world+)
+             ((leave* entity container)
               (setf (entity editor) NIL))
              ((enter-and-load entity container (handler *context*))
               (setf (entity editor) entity)))))))
@@ -270,6 +269,5 @@
     (with-commit (editor)
         ((enter-and-load entity (unit 'region T) (handler *context*))
           (setf (entity editor) entity))
-        ((leave entity (unit 'region T))
-          (remove-from-pass entity +world+)
+        ((leave* entity (unit 'region T))
           (setf (entity editor) NIL)))))
