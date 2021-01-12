@@ -284,6 +284,8 @@
           (show (prompt player) :button 'interact :location loc))
         (hide (prompt player)))
     (ecase (state player)
+      (:oob
+       (vsetf vel 0 0))
       ((:dying :stunned)
        (nv+ vel (v* (gravity (medium player)) dt))
        (handle-animation-states player ev)
@@ -549,22 +551,24 @@
   (incf (jump-time player) (dt ev))
   (incf (air-time player) (dt ev))
   ;; OOB
-  (when (not (contained-p (location player) (chunk player)))
-    (if (eql :dying (state player))
-        (vsetf (velocity player) 0 0)
-        (let ((other (find-containing player (region +world+))))
-          (cond (other
-                 (issue +world+ 'switch-chunk :chunk other))
-                ((< (vy (location player))
-                    (- (vy (location (chunk player)))
-                       (vy (bsize (chunk player)))))
-                 (kill player))
-                (T
-                 (setf (vx (location player)) (clamp (- (vx (location (chunk player)))
-                                                        (vx (bsize (chunk player))))
-                                                     (vx (location player))
-                                                     (+ (vx (location (chunk player)))
-                                                        (vx (bsize (chunk player)))))))))))
+  (case (state player)
+    ((:oob :dying))
+    (T
+     (when (not (contained-p (location player) (chunk player)))
+       (let ((other (find-containing player (region +world+))))
+         (cond (other
+                (issue +world+ 'switch-chunk :chunk other))
+               ((< (vy (location player))
+                   (- (vy (location (chunk player)))
+                      (vy (bsize (chunk player)))))
+                (kill player)
+                (setf (state player) :oob))
+               (T
+                (setf (vx (location player)) (clamp (- (vx (location (chunk player)))
+                                                       (vx (bsize (chunk player))))
+                                                    (vx (location player))
+                                                    (+ (vx (location (chunk player)))
+                                                       (vx (bsize (chunk player))))))))))))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
