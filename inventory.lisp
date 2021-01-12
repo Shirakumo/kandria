@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defgeneric item-order (item))
+
 (defclass inventory ()
   ((storage :initform (make-hash-table :test 'eq) :accessor storage)))
 
@@ -32,15 +34,19 @@
   (alexandria:hash-table-keys (storage inventory)))
 
 (defmethod list-items ((inventory inventory) (type symbol))
-  (loop for item being the hash-keys of (storage inventory)
-        when (eql (item-category (c2mop:class-prototype (find-class item))) type)
-        collect item))
+  (sort (loop for item being the hash-keys of (storage inventory)
+              for prototype = (c2mop:class-prototype (find-class item))
+              when (eql (item-category prototype) type)
+              collect prototype)
+        #'< :key #'item-order))
 
 (define-shader-entity item (ephemeral lit-sprite moving interactable)
   ((texture :initform (// 'kandria 'items))
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)
    (velocity :initform (vec (* (- (* 2 (random 2)) 1) (random* 2 1)) (random* 5 3)))))
+
+(defmethod item-order ((_ item)) 0)
 
 (defmethod interactable-p ((item item))
   (let ((vel (velocity item)))
@@ -110,9 +116,12 @@
 
 (define-shader-entity small-health-pack (health-pack) ())
 (defmethod health ((_ small-health-pack)) 10)
+(defmethod item-order ((_ small-health-pack)) 0)
 
 (define-shader-entity medium-health-pack (health-pack) ())
 (defmethod health ((_ medium-health-pack)) 25)
+(defmethod item-order ((_ medium-health-pack)) 1)
 
 (define-shader-entity large-health-pack (health-pack) ())
 (defmethod health ((_ large-health-pack)) 50)
+(defmethod item-order ((_ large-health-pack)) 2)
