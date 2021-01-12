@@ -74,8 +74,7 @@
 (defmethod (setf frame-idx) :after (idx (effect sprite-effect))
   (when (= idx (1- (end (animation effect))))
     (when (slot-boundp effect 'container)
-      (leave effect T)
-      (remove-from-pass effect +world+))))
+      (leave* effect T))))
 
 (defmethod trigger :after ((effect sprite-effect) (source facing-entity) &key direction)
   (setf (direction effect) (or direction (direction source)))
@@ -101,8 +100,7 @@
   (decf (lifetime effect) (dt ev))
   (when (and (< (lifetime effect) 0f0)
              (slot-boundp effect 'container))
-    (leave effect T)
-    (remove-from-pass effect +world+)))
+    (leave* effect T)))
 
 (defmethod render ((effect text-effect) (program shader-program))
   (gl:active-texture :texture0)
