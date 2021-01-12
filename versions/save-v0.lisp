@@ -124,9 +124,7 @@
     (loop for (name type . state) in create-new
           for parent = (unit name (scene-graph region))
           for entity = (decode-payload state (make-instance type) packet save-v0)
-          do (enter entity parent)
-             (when (typep entity 'renderable)
-               (compile-into-pass entity parent +world+)))
+          do (enter* entity parent))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
           for unit = (unit name (scene-graph region))
