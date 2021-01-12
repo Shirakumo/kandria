@@ -58,8 +58,7 @@
 
 (defmethod trigger ((effect shader-effect) source &key)
   (let ((region (region +world+)))
-    (enter effect region)
-    (compile-into-pass effect region +world+)))
+    (enter* effect region)))
 
 (define-shader-entity sprite-effect (lit-animated-sprite shader-effect)
   ((offset :initarg :offset :initform (vec 0 0) :accessor offset)
@@ -193,7 +192,7 @@
                                              :strength strength
                                              :lifetime 0.3)))
     (enter displacer +world+)
-    (compile-into-pass displacer +world+ (unit 'displacement-render-pass +world+)))
+    (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+)))
   (spawn-particles (location effect))
   (let* ((distance (expt (vsqrdist2 (location effect) (location (unit 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))
