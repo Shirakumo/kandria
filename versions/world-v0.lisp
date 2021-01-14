@@ -164,7 +164,27 @@
 
 (define-encoder (water world-v0) (_b _p)
   `(water :location ,(encode (location water))
-         :bsize ,(encode (bsize water))))
+          :bsize ,(encode (bsize water))))
+
+(define-decoder (trigger world-v0) (initargs _)
+  (make-instance (class-of trigger)
+                 :name (getf initargs :name)
+                 :active-p (getf initargs :active-p)))
+
+(define-encoder (trigger world-v0) (_b _p)
+  `(,(type-of trigger) :name ,(name trigger)
+                       :active-p ,(active-p trigger)))
+
+(define-decoder (story-trigger world-v0) (initargs _)
+  (let ((instance (call-next-method)))
+    (setf (story-item instance) (getf initargs :story-item))
+    (setf (target-status instance) (getf initargs :target-status))
+    instance))
+
+(define-encoder (story-trigger world-v0) (_b _p)
+  (append (call-next-method)
+          (list :story-item (story-item story-trigger)
+                :target-status (target-status story-trigger))))
 
 (define-decoder (basic-light world-v0) (initargs _)
   (destructuring-bind (&key color data) initargs

@@ -11,11 +11,30 @@
                   :clock (clock world))
             stream)))
 
+(define-decoder (world save-v0) (_b packet)
+  (destructuring-bind (&key region clock)
+      (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
+    (setf (clock world) clock)
+    (let ((region (cond ((and (region world) (eql region (name (region world))))
+                         ;; Ensure we trigger necessary region reset events even if we're still in the same region.
+                         (issue world 'switch-region :region (region world))
+                         (region world))
+                        (T
+                         (load-region region world)))))
+      (decode (storyline world))
+      (decode region))))
+
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
                              :element-type 'character)
     (loop for quest being the hash-values of (quest:quests quest:storyline)
           do (princ* (encode quest) stream))))
+
+(define-decoder (quest:storyline save-v0) (_b packet)
+  (loop for (name . initargs) in (parse-sexps (packet-entry "storyline.lisp" packet
+                                                            :element-type 'character))
+        for quest = (quest:find-quest name quest:storyline)
+        do (decode quest initargs)))
 
 (define-encoder (quest:quest save-v0) (buffer _p)
   (cons (quest:name quest:quest)
@@ -23,9 +42,24 @@
               :tasks (loop for quest being the hash-values of (quest:tasks quest:quest)
                            collect (encode quest)))))
 
+(define-decoder (quest:quest save-v0) (initargs packet)
+  (destructuring-bind (&key status tasks) initargs
+    (setf (quest:status quest:quest) status)
+    ;; FIXME: Quests not saved in the state won't be reset to initial state.
+    (loop for (name . initargs) in tasks
+          for task = (quest:find-task name quest:quest)
+          do (decode task initargs))))
+
 (define-encoder (quest:task save-v0) (_b _p)
   (cons (quest:name quest:task)
         (list :status (quest:status quest:task))))
+
+(define-decoder (quest:task save-v0) (initargs packet)
+  (destructuring-bind (&key status) initargs
+    (setf (quest:status quest:task) status)
+    (when (eql :unresolved status)
+      (dolist (trigger (quest:on-activate quest:task))
+        (quest:activate (quest:find-named trigger quest:task))))))
 
 (define-encoder (region save-v0) (_b packet)
   (with-packet-entry (stream (format NIL "regions/~(~a~).lisp" (name region)) packet
@@ -49,62 +83,6 @@
       (princ* (list :create-new (rest create-new)
                     :ephemeral (rest ephemeral))
               stream))))
-
-(define-encoder (animatable save-v0) (_b _p)
-  (let ((animation (animation animatable)))
-    `(:location ,(encode (location animatable))
-      :direction ,(direction animatable)
-      :state ,(state animatable)
-      :animation ,(when animation (name animation))
-      :frame ,(when animation (frame-idx animatable))
-      :health ,(health animatable)
-      :stun-time ,(stun-time animatable))))
-
-(define-encoder (player save-v0) (_b _p)
-  (list* :inventory (alexandria:hash-table-alist (storage player))
-         (call-next-method)))
-
-(define-encoder (moving-platform save-v0) (_b _p)
-  `(:location ,(encode (location moving-platform))
-    :velocity ,(encode (velocity moving-platform))
-    :state ,(state moving-platform)))
-
-(define-encoder (rope save-v0) (_b _p)
-  `(:extended ,(extended rope)))
-
-(define-decoder (world save-v0) (_b packet)
-  (destructuring-bind (&key region clock)
-      (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
-    (setf (clock world) clock)
-    (let ((region (cond ((and (region world) (eql region (name (region world))))
-                         ;; Ensure we trigger necessary region reset events even if we're still in the same region.
-                         (issue world 'switch-region :region (region world))
-                         (region world))
-                        (T
-                         (load-region region world)))))
-      (decode (storyline world))
-      (decode region))))
-
-(define-decoder (quest:storyline save-v0) (_b packet)
-  (loop for (name . initargs) in (parse-sexps (packet-entry "storyline.lisp" packet
-                                                            :element-type 'character))
-        for quest = (quest:find-quest name quest:storyline)
-        do (decode quest initargs)))
-
-(define-decoder (quest:quest save-v0) (initargs packet)
-  (destructuring-bind (&key status tasks) initargs
-    (setf (quest:status quest:quest) status)
-    ;; FIXME: Quests not saved in the state won't be reset to initial state.
-    (loop for (name . initargs) in tasks
-          for task = (quest:find-task name quest:quest)
-          do (decode task initargs))))
-
-(define-decoder (quest:task save-v0) (initargs packet)
-  (destructuring-bind (&key status) initargs
-    (setf (quest:status quest:task) status)
-    (when (eql :unresolved status)
-      (dolist (trigger (quest:on-activate quest:task))
-        (quest:activate (quest:find-named trigger quest:task))))))
 
 (define-decoder (region save-v0) (initargs packet)
   (destructuring-bind (&key create-new ephemeral (delete-existing T) &allow-other-keys)
@@ -131,6 +109,16 @@
                  (decode unit state)
                  (error "Unit named ~s referenced but not found." name)))))
 
+(define-encoder (animatable save-v0) (_b _p)
+  (let ((animation (animation animatable)))
+    `(:location ,(encode (location animatable))
+      :direction ,(direction animatable)
+      :state ,(state animatable)
+      :animation ,(when animation (name animation))
+      :frame ,(when animation (frame-idx animatable))
+      :health ,(health animatable)
+      :stun-time ,(stun-time animatable))))
+
 (define-decoder (animatable save-v0) (initargs _p)
   (destructuring-bind (&key location direction state animation frame health stun-time &allow-other-keys) initargs
     (setf (location animatable) (decode 'vec2 location))
@@ -143,11 +131,20 @@
     (setf (stun-time animatable) stun-time)
     animatable))
 
+(define-encoder (player save-v0) (_b _p)
+  (list* :inventory (alexandria:hash-table-alist (storage player))
+         (call-next-method)))
+
 (define-decoder (player save-v0) (initargs _p)
   (call-next-method)
   (let ((inventory (getf initargs :inventory)))
     (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq)))
   (snap-to-target (unit :camera T) player))
+
+(define-encoder (moving-platform save-v0) (_b _p)
+  `(:location ,(encode (location moving-platform))
+    :velocity ,(encode (velocity moving-platform))
+    :state ,(state moving-platform)))
 
 (define-decoder (moving-platform save-v0) (initargs _p)
   (destructuring-bind (&key location velocity state &allow-other-keys) initargs
@@ -156,6 +153,15 @@
     (setf (state moving-platform) state)
     moving-platform))
 
+(define-encoder (rope save-v0) (_b _p)
+  `(:extended ,(extended rope)))
+
 (define-decoder (rope save-v0) (initargs _p)
   (destructuring-bind (&key extended &allow-other-keys) initargs
     (setf (extended rope) extended)))
+
+(define-encoder (trigger save-v0) (_b _p)
+  `(,(type-of trigger) :active-p ,(active-p trigger)))
+
+(define-decoder (trigger save-v0) (initargs _)
+  (setf (active-p trigger) (getf initargs :active-p)))
