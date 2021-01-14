@@ -38,6 +38,7 @@
                (:file "animatable")
                (:file "inventory")
                (:file "rope")
+               (:file "trigger")
                (:file "player")
                (:file "enemy")
                (:file "npc")
