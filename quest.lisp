@@ -1,5 +1,14 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defclass place-marker (sized-entity resizable ephemeral)
+  ())
+
+(defmethod (setf location) ((marker place-marker) (entity located-entity))
+  (setf (location entity) (location marker)))
+
+(defmethod (setf location) ((name symbol) (entity located-entity))
+  (setf (location entity) (location (unit name +world+))))
+
 (defclass quest (quest:quest)
   ())
 
