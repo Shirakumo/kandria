@@ -38,9 +38,9 @@
   (issue world 'change-time :timestamp timestamp))
 
 (defmethod (setf hour) (hour (world world))
-  (destructuring-bind (ss mm hh d m y) (decode-universal-time (truncate (timestamp world)))
+  (multiple-value-bind (ss mm hh d m y) (decode-universal-time (truncate (timestamp world)))
     (declare (ignore hh))
-    (setf (timestamp world) (float (encode-universal-time ss mm (mod hour 24) d m y 0) 0d0))))
+    (setf (timestamp world) (float (encode-universal-time ss mm (truncate (mod hour 24)) d m y 0) 0d0))))
 
 ;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
@@ -144,7 +144,7 @@
   (setf +input-source+ :keyboard))
 
 (defmethod handle :after ((ev gamepad-event) (world world))
-  (setf +input-source+ :gamepad))
+  (setf +input-source+ (device ev)))
 
 (defmethod handle :after ((ev text-entered) (world world))
   (process-cheats (text ev)))

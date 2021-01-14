@@ -19,7 +19,10 @@
 (presentations:define-update (ui prompt)
   (:label :pattern colors:white))
 
-(defmethod show ((prompt prompt) &key button (input +input-source+) location)
+(defmethod show ((prompt prompt) &key button (input (case +input-source+
+                                                      (:keyboard :keyboard)
+                                                      (T :gamepad)))
+                                      location)
   (when button
     (setf (alloy:value prompt) (prompt-char button :bank input)))
   (if location
