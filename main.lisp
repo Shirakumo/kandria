@@ -15,6 +15,7 @@
 (defmethod initialize-instance ((main main) &key state app-id)
   (declare (ignore app-id))
   (call-next-method)
+  (setf +input-source+ :keyboard)
   (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; FIXME: Allow running without sound.
