@@ -62,12 +62,24 @@ Within this first choice we have more syntax. The instruction ``! `` can execute
   - ``deactivate`` deactivate a trigger
   - ``complete`` complete a trigger successfully
   - ``fail`` fail a trigger
-  - ``active-p`` returns T if the given triggers are all active.
-  - ``complete-p`` returns T if the given triggers are all completed successfully.
-  - ``failed-p`` returns T if the given triggers are all marked as failed.
-  - ``enter`` add a new item to a collection (like ``inventory``)
-  - ``withdraw`` remove an item from a collection
-  - ``spawn`` spawn an NPC or enemy in the world
+  - ``active-p`` returns T if the given triggers are all active
+  - ``complete-p`` returns T if the given triggers are all completed successfully
+  - ``failed-p`` returns T if the given triggers are all marked as failed
+  - ``have`` returns T if the player has the given item in their inventory
+  - ``store`` adds the given item to the player's inventory. Optionally specify the number of the item to give
+    Eg: ``(store 'small-health-pack 5)`` Give the player five small health packs.
+  - ``retrieve`` removes the given item from the player's inventory. Optionally specify the number of items to remove
+    Eg: ``(retrieve 'quest-item)`` Remove the quest item from the player's inventory.
+  - ``unit`` returns the entity with the given name
+    Eg: ``(unit 'catherine)`` returns Catherine. This can be useful for more specific state management.
+  - ``(setf location)`` sets the location of the given entity. A location may be another entity or another entity's name.
+    Eg: ``(setf (location 'player) 'some-area)``
+  - ``spawn`` spawn an NPC or enemy in the world. Requires a location and entity type as arguments.
+    Eg: ``(spawn 'player 'zombie)`` Spawn a zombie at the player's location.
+  - ``status`` Show a status message. This is typically automated for most events, but might be useful in rare cases.
+    Eg: ``(status "Something changed...")``
+  - ``move-to`` Make an entity move to a location.
+    Eg: ``(move-to 'player 'catherine)`` Makes Catherine move to where the player currently is.
 
 Another point of interest in the example is the last choice, which is conditioned by a predicate ``? ``. Following is another arbitrary Lisp expression, in this case using the ``have`` function to check whether we have a specific item in the inventory. If the predicate succeeds, the following blocks ``| `` are executed. Again, if the nesting becomes too complicated to read, consider splitting things up into separate sections and using a jump. You can also create "elseif" chains using the predicate syntax like this:
 

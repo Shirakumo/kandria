@@ -3,7 +3,7 @@
 (defclass place-marker (sized-entity resizable ephemeral)
   ())
 
-(defmethod (setf location) ((marker place-marker) (entity located-entity))
+(defmethod (setf location) ((marker located-entity) (entity located-entity))
   (setf (location entity) (location marker)))
 
 (defmethod (setf location) ((name symbol) (entity located-entity))
@@ -84,7 +84,7 @@
                 (loop for thing in things always (eql :failed (quest:status (thing thing)))))
               (have (thing &optional (inventory player))
                 (have thing inventory))
-              (store (item &optional (inventory player))
+              (store (item &optional (count 1) (inventory player))
                 (store item inventory))
               (retrieve (item &optional (inventory player))
                 (retrieve item inventory))
