@@ -11,8 +11,8 @@
 (defmethod initialize-instance :after ((enemy enemy) &key)
   (setf (health enemy) (* (health enemy) +health-multiplier+)))
 
-(defmethod capable-p ((enemy enemy) (edge crawl-edge)) T)
-(defmethod capable-p ((enemy enemy) (edge jump-edge)) T)
+(defmethod capable-p ((enemy enemy) (edge crawl-node)) T)
+(defmethod capable-p ((enemy enemy) (edge jump-node)) T)
 
 (defmethod handle :before ((ev tick) (enemy enemy))
   (when (path enemy)
@@ -150,7 +150,7 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'dummy)))
 
-(defmethod capable-p ((dummy dummy) (edge move-edge)) NIL)
+(defmethod capable-p ((dummy dummy) (edge move-node)) NIL)
 (defmethod handle-ai-states ((dummy dummy) ev))
 (defmethod (setf animation) ((animation symbol) (enemy dummy))
   (if (find animation '(STAND JUMP FALL LIGHT-HIT HARD-HIT DIE))
@@ -163,7 +163,7 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'box)))
 
-(defmethod capable-p ((box box) (edge move-edge)) NIL)
+(defmethod capable-p ((box box) (edge move-node)) NIL)
 (defmethod handle-ai-states ((box box) ev))
 (defmethod (setf animation) ((animation symbol) (enemy box))
   (if (find animation '(STAND LIGHT-HIT HARD-HIT DIE))

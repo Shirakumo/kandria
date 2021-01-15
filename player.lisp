@@ -72,9 +72,9 @@
 (defmethod have (thing (player player))
   (have thing (inventory player)))
 
-(defmethod capable-p ((player player) (edge jump-edge)) T)
-(defmethod capable-p ((player player) (edge crawl-edge)) T)
-(defmethod capable-p ((player player) (edge climb-edge)) T)
+(defmethod capable-p ((player player) (edge jump-node)) T)
+(defmethod capable-p ((player player) (edge crawl-node)) T)
+(defmethod capable-p ((player player) (edge climb-node)) T)
 
 (defmethod movement-speed ((player player))
   (case (state player)

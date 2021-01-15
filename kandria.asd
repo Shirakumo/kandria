@@ -77,7 +77,8 @@
                              (:file "chunk")
                              (:file "entity")
                              (:file "creator")
-                             (:file "animation"))))
+                             (:file "animation")
+                             (:file "move-to"))))
   :serial T
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
