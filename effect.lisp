@@ -58,8 +58,7 @@
 
 (defmethod trigger ((effect shader-effect) source &key)
   (let ((region (region +world+)))
-    (enter effect region)
-    (compile-into-pass effect region +world+)))
+    (enter* effect region)))
 
 (define-shader-entity sprite-effect (lit-animated-sprite shader-effect)
   ((offset :initarg :offset :initform (vec 0 0) :accessor offset)
@@ -75,8 +74,7 @@
 (defmethod (setf frame-idx) :after (idx (effect sprite-effect))
   (when (= idx (1- (end (animation effect))))
     (when (slot-boundp effect 'container)
-      (leave effect T)
-      (remove-from-pass effect +world+))))
+      (leave* effect T))))
 
 (defmethod trigger :after ((effect sprite-effect) (source facing-entity) &key direction)
   (setf (direction effect) (or direction (direction source)))
@@ -102,8 +100,7 @@
   (decf (lifetime effect) (dt ev))
   (when (and (< (lifetime effect) 0f0)
              (slot-boundp effect 'container))
-    (leave effect T)
-    (remove-from-pass effect +world+)))
+    (leave* effect T)))
 
 (defmethod render ((effect text-effect) (program shader-program))
   (gl:active-texture :texture0)
@@ -193,7 +190,7 @@
                                              :strength strength
                                              :lifetime 0.3)))
     (enter displacer +world+)
-    (compile-into-pass displacer +world+ (unit 'displacement-render-pass +world+)))
+    (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+)))
   (spawn-particles (location effect))
   (let* ((distance (expt (vsqrdist2 (location effect) (location (unit 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))

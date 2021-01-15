@@ -1,5 +1,25 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defclass place-marker (sized-entity resizable ephemeral)
+  ())
+
+(defmethod (setf location) ((marker place-marker) (entity located-entity))
+  (setf (location entity) (location marker)))
+
+(defmethod (setf location) ((name symbol) (entity located-entity))
+  (setf (location entity) (location (unit name +world+))))
+
+(defmethod spawn ((location vec2) type &rest initargs &key (count 1) &allow-other-keys)
+  (remf initargs :count)
+  (dotimes (i count)
+    (apply #'make-instance type :location (vcopy location) initargs)))
+
+(defmethod spawn ((marker place-marker) type &rest initargs)
+  (apply #'spawn (location marker) type initargs))
+
+(defmethod spawn ((name symbol) type &rest initargs)
+  (apply #'spawn (location (unit name +world+)) type initargs))
+
 (defclass quest (quest:quest)
   ())
 
@@ -46,9 +66,9 @@
           (quest (quest:quest task))
           (has-more-dialogue (rest (interactions (find-panel 'dialog)))))
      (declare (ignorable world player region interaction task quest has-more-dialogue))
-     (labels ((thing (thing)
-                (if (symbolp thing) (quest:find-named thing task) thing))
-              (activate (&rest things)
+     (flet ((thing (thing)
+              (if (symbolp thing) (quest:find-named thing task) thing)))
+       (flet ((activate (&rest things)
                 (loop for thing in things do (quest:activate (thing thing))))
               (deactivate (&rest things)
                 (loop for thing in things do (quest:deactivate (thing thing))))
@@ -67,9 +87,13 @@
               (store (item &optional (inventory player))
                 (store item inventory))
               (retrieve (item &optional (inventory player))
-                (retrieve item inventory)))
-       (declare (ignorable #'activate #'deactivate #'complete #'fail #'active-p #'complete-p #'failed-p #'have #'store #'retrieve))
-       ,form)))
+                (retrieve item inventory))
+              (unit (name &optional (container +world+))
+                (unit name container))
+              ((setf location) (loc thing)
+                (setf (location (unit thing +world+)) loc)))
+         (declare (ignorable #'activate #'deactivate #'complete #'fail #'active-p #'complete-p #'failed-p #'have #'store #'retrieve))
+         ,form))))
 
 (defmethod load-quest ((packet packet) (storyline quest:storyline))
   (with-kandria-io-syntax
