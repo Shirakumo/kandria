@@ -63,12 +63,12 @@
 (retain dash
  (key :one-of (:left-shift))
  (button :one-of (:r2))
- (axis :one-of (:r2) :threshold 0.4))
+ (axis :one-of (:r2) :threshold 0.25))
 
 (retain climb
  (key :one-of (:left-control))
  (button :one-of (:l2))
- (axis :one-of (:l2) :threshold 0.4))
+ (axis :one-of (:l2) :threshold 0.25))
 
 (trigger crawl
  (key :one-of (:q))
@@ -84,16 +84,16 @@
 
 (retain left
  (key :one-of (:a :left))
- (axis :one-of (:l-h) :threshold -0.4))
+ (axis :one-of (:l-h) :threshold -0.25))
 
 (retain right
  (key :one-of (:d :right))
- (axis :one-of (:l-h) :threshold 0.4))
+ (axis :one-of (:l-h) :threshold 0.25))
 
 (retain up
  (key :one-of (:w :up))
- (axis :one-of (:l-v) :threshold 0.4))
+ (axis :one-of (:l-v) :threshold 0.25))
 
 (retain down
  (key :one-of (:s :down))
- (axis :one-of (:l-v) :threshold -0.8))
+ (axis :one-of (:l-v) :threshold -0.25))
