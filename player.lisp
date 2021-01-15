@@ -7,6 +7,7 @@
       (mktab* (coyote-time     0.08)
               (velocity-limit  (vec 10 20))
               (walk-acc        0.1)
+              (slowwalk-limit  0.6)
               (walk-limit      1.9)
               (run-acc         0.0125)
               (run-time        3.0)
@@ -255,27 +256,39 @@
          (vel (velocity player))
          (size (bsize player))
          (ground (svref collisions 2))
-         (ground-limit (if (< (p! run-time) (run-time player))
-                           (p! run-limit)
-                           (p! walk-limit)))
+         (ground-limit (cond ((< (p! run-time) (run-time player))
+                              (p! run-limit))
+                             ((or (eql :keyboard +input-source+)
+                                  (< 0.5 (abs (gamepad:axis :l-h +input-source+))))
+                              (p! walk-limit))
+                             (T
+                              (p! slowwalk-limit))))
          (ground-acc (if (< (p! run-time) (run-time player))
                          (p! run-acc)
                          (p! walk-acc))))
+    ;; Advance clocks
     (when (< (abs (vx vel)) (/ (p! walk-limit) 2))
       (setf (run-time player) 0.0))
     (incf (run-time player) (dt ev))
     (incf (combat-time player) (dt ev))
+    ;; HUD
     (cond ((and (< (combat-time player) 5)
                 (not (active-p (hud player))))
            (show (hud player)))
           ((and (< 5 (combat-time player))
                 (active-p (hud player)))
            (hide (hud player))))
+    ;; Interaction checks
+    ;; FIXME: Optimise with spatial lookup
     (setf (interactable player) NIL)
     (for:for ((entity over (region +world+)))
-      (when (and (typep entity 'interactable)
-                 (contained-p (vec (vx loc) (vy loc) 16 8) entity))
-        (setf (interactable player) entity)))
+      (typecase entity
+        (interactable
+         (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
+           (setf (interactable player) entity)))
+        (trigger
+         (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
+           (interact entity player)))))
     (if (and (interactable player)
              (interactable-p (interactable player))
              (eql :normal (state player)))
@@ -283,6 +296,7 @@
                         (+ (vy loc) (vy (bsize player))))))
           (show (prompt player) :button 'interact :location loc))
         (hide (prompt player)))
+    ;; Handle states.
     (ecase (state player)
       (:oob
        (vsetf vel 0 0))
@@ -612,8 +626,13 @@
                     ((< 0.1 (air-time player))
                      (setf (animation player) 'fall))))
              ((< 0 (abs (vx vel)))
-              (setf (playback-speed player) (/ (abs (vx vel)) (p! walk-limit)))
-              (setf (animation player) 'run))
+              (cond ((and (not (eql :keyboard +input-source+))
+                          (< (abs (gamepad:axis :l-h +input-source+)) 0.5))
+                     (setf (playback-speed player) (/ (abs (vx vel)) (p! slowwalk-limit)))
+                     (setf (animation player) 'walk))
+                    (T
+                     (setf (playback-speed player) (/ (abs (vx vel)) (p! walk-limit)))
+                     (setf (animation player) 'run))))
              ((retained 'up)
               (setf (animation player) 'look-up)
               (when (= (frame-idx player) (1- (end (animation player))))
