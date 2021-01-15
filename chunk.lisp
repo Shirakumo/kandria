@@ -212,7 +212,7 @@ void main(){
 (define-shader-entity chunk (shadow-caster layer solid ephemeral)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
-   (node-graph :accessor node-graph)
+   (node-graph :initform NIL :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")
@@ -233,18 +233,14 @@ void main(){
                                                      :pixel-data data
                                                      :layer-index i))))
     (setf (layers chunk) (coerce layers 'vector))
-    #++
-    (setf (node-graph chunk) (make-instance 'node-graph :size size
-                                                        :solids (pixel-data chunk)
-                                                        :offset (v- (location chunk) (bsize chunk))))
     (register-generation-observer chunk tile-data)))
 
 (defmethod observe-generation ((chunk chunk) (data tile-data) result)
-  (compute-shadow-geometry chunk T))
+  (recompute chunk))
 
-(defmethod compile-to-pass ((chunk chunk) (pass shader-pass))
-  (call-next-method)
-  #++(compile-to-pass (node-graph chunk) pass))
+(defmethod recompute ((chunk chunk))
+  (compute-shadow-geometry chunk T)
+  (setf (node-graph chunk) (make-node-graph (pixel-data chunk) (floor (vx (size chunk))) (floor (vy (size chunk))))))
 
 (defmethod compile-into-pass :after ((chunk chunk) container (pass shader-pass))
   (loop for layer across (layers chunk)
@@ -269,8 +265,7 @@ void main(){
 (defmethod stage :after ((chunk chunk) (area staging-area))
   (loop for layer across (layers chunk)
         do (stage layer area))
-  (stage (background chunk) area)
-  #++(stage (node-graph chunk) area))
+  (stage (background chunk) area))
 
 (defmethod clone ((chunk chunk) &rest initargs)
   (apply #'make-instance (class-of chunk)
