@@ -14,17 +14,17 @@
 (defmethod item-count ((item (eql T)) (inventory inventory))
   (hash-table-count (storage inventory)))
 
-(defmethod store ((item symbol) (inventory inventory))
-  (incf (gethash item (storage inventory) 0)))
+(defmethod store ((item symbol) (inventory inventory) &optional (count 1))
+  (incf (gethash item (storage inventory) 0) count))
 
-(defmethod retrieve ((item symbol) (inventory inventory))
-  (let ((count (gethash item (storage inventory) 0)))
-    (cond ((< 1 count)
-           (setf (gethash item (storage inventory) 0) (1- count)))
-          ((< 0 count)
+(defmethod retrieve ((item symbol) (inventory inventory) &optional (count 1))
+  (let ((have (gethash item (storage inventory) 0)))
+    (cond ((< count have)
+           (setf (gethash item (storage inventory) 0) (- have count)))
+          ((= count have)
            (remhash item (storage inventory)))
           (T
-           (error "Can't remove ~s, don't have any in inventory." item)))))
+           (error "Can't remove ~s, don't have enough in inventory." item)))))
 
 (defmethod clear ((inventory inventory))
   (clrhash (storage inventory)))
@@ -70,11 +70,11 @@
 (defmethod item-count ((item item) (inventory inventory))
   (item-count (type-of item) inventory))
 
-(defmethod store ((item item) (inventory inventory))
-  (store (type-of item) inventory))
+(defmethod store ((item item) (inventory inventory) &optional (count 1))
+  (store (type-of item) inventory count))
 
-(defmethod retrieve ((item item) (inventory inventory))
-  (retrieve (type-of item) inventory)
+(defmethod retrieve ((item item) (inventory inventory) &optional (count 1))
+  (retrieve (type-of item) inventory count)
   item)
 
 (defmethod use ((item symbol) on)
