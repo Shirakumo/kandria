@@ -4,7 +4,8 @@
 
 (defclass moving (game-entity)
   ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
-   (medium :initform +default-medium+ :accessor medium)))
+   (medium :initform +default-medium+ :accessor medium)
+   (air-time :initform 1.0 :accessor air-time)))
 
 (defmethod handle ((ev tick) (moving moving))
   (when (next-method-p) (call-next-method))
@@ -37,10 +38,15 @@
       (when r (setf (aref collisions 1) (hit-object r)))
       (when u (setf (aref collisions 0) (hit-object u)))
       (when (and b (collides-p moving (hit-object b) b))
-        (setf (aref collisions 2) (hit-object b))))))
+        (setf (aref collisions 2) (hit-object b)))))
+  (incf (air-time moving) (dt ev)))
 
 (defmethod collides-p ((moving moving) (solid half-solid) hit)
   (= 0 (vy (hit-normal hit))))
+
+(defmethod collide :after ((moving moving) (block block) hit)
+  (when (<= 0 (vy (hit-normal hit)))
+    (setf (air-time moving) 0.0)))
 
 (defmethod collide ((moving moving) (block block) hit)
   (let* ((loc (location moving))

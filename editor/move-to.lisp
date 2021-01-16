@@ -34,7 +34,8 @@
   (apply-transforms viz))
 
 (defclass move-to (tool)
-  ((visualizer :initform (make-instance 'node-graph-visualizer) :accessor visualizer)))
+  ((visualizer :initform (make-instance 'node-graph-visualizer) :accessor visualizer)
+   (selected :initform NIL :accessor selected)))
 
 (defmethod label ((tool move-to)) "Movement")
 
@@ -50,3 +51,18 @@
 
 (defmethod hide :after ((tool move-to))
   (alloy:leave (visualizer tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
+
+(defmethod handle ((ev tick) (tool move-to))
+  (when (selected tool)
+    (handle ev (selected tool))))
+
+(defmethod handle ((ev mouse-press) (tool move-to))
+  (let ((pos (mouse-world-pos (pos ev))))
+    (cond ((eql :right (button ev))
+           (when (selected tool)
+             (move-to pos (selected tool))))
+          ((eql :left (button ev))
+           (let ((selected (entity-at-point pos +world+)))
+             (when (typep selected 'movable)
+               (v:info :kandria.editor "Selected ~a" selected)
+               (setf (selected tool) selected)))))))

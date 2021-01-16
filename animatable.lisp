@@ -181,6 +181,7 @@
 (defmethod idleable-p ((animatable animatable))
   (and (= 0 (vx (velocity animatable)))
        (svref (collisions animatable) 2)
+       (null (path animatable))
        (eql :normal (state animatable))))
 
 (defmethod handle :before ((ev tick) (animatable animatable))
