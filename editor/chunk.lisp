@@ -69,7 +69,7 @@
 (alloy::define-subbutton (chunk-widget compute) ()
   (recompute (entity chunk-widget))
   (when (typep (tool (editor chunk-widget)) 'move-to)
-    (setf (tool (editor chunk-widget)) (tool (editor chunk-widget))a)))
+    (setf (tool (editor chunk-widget)) (tool (editor chunk-widget)))))
 
 (alloy:define-subcontainer (chunk-widget layout)
     (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T 60))

@@ -52,7 +52,6 @@
          do (loop for ,x from 0 below (node-graph-width ,graph)
                   do (progn ,@body))))
 
-;; FIXME: Handle slopes
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun compile-filter (vars filter)
     `(and ,@(loop for i from 0 below (length filter)
@@ -85,6 +84,8 @@
        ,@(loop for (filter . body) in filters
                collect `(when ,(compile-filter vars filter)
                           ,@body)))))
+
+(trivial-indent:define-indentation with-filters ((&whole 4 &rest 1) &rest (&whole 2 (&whole 1 &rest 1) &rest 1)))
 
 (defun compute-jump-configurations (&key (vmax (vec 1.9 3.9)))
   (loop for xfrac from 0 to 1 by 0.1d0
@@ -135,12 +136,12 @@
       (do-nodes (x y graph)
         (with-filters (solids w h x y)
           ((o o _
-              o o _
-              s s _)
+            o o _
+            s s _)
            (connect-nodes graph 'move (1- x) y x y w h))
           ((_ o _
-              o o _
-              o s _)
+            o o _
+            o s _)
            (unless (and (< 3 (tile x (1- y)))
                         (< 0 (tile (1- x) (- y 2))))
              (connect-nodes graph 'climb (1- x) (1- y) x y w h)
@@ -150,8 +151,8 @@
                         (connect-nodes graph 'fall x y (1- x) (1+ yy) w h)
                         (loop-finish)))))
           ((_ o _
-              _ o o
-              _ s o)
+            _ o o
+            _ s o)
            (unless (and (< 3 (tile x (1- y)))
                         (< 0 (tile (1+ x) (- y 2))))
              (connect-nodes graph 'climb x y (1+ x) (1- y) w h)
@@ -161,40 +162,40 @@
                         (connect-nodes graph 'fall x y (1+ x) (1+ yy) w h)
                         (loop-finish)))))
           ((_ b _
-              o o _
-              _ b _)
+            o o _
+            _ b _)
            (connect-nodes graph 'crawl (1- x) y x y w h))
           ((s o _
-              s o _
-              _ _ _)
+            s o _
+            _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
           ((_ o s
-              _ o s
-              _ _ _)
+            _ o s
+            _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
           ((_ o _
-              _ p b
-              _ _ _)
+            _ p b
+            _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
           ((_ p b
-              _ o b
-              _ _ _)
+            _ o b
+            _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
           ((_ _ _
-              _ o /
-              _ s _)
+            _ o /
+            _ s _)
            (connect-nodes graph 'move x y (1+ x) (1+ y) w h))
           ((_ _ _
-              / o _
-              _ s _)
+            / o _
+            _ s _)
            (connect-nodes graph 'move x y (1- x) (1+ y) w h))
           ((_ _ _
-              o o b
-              o o o)
+            o o b
+            o o o)
            (create-jump-connections solids graph x y -1))
           ((_ _ _
-              b o o
-              o o o)
+            b o o
+            o o o)
            (create-jump-connections solids graph x y +1)))))))
 
 (defun make-node-graph (solids w h)
