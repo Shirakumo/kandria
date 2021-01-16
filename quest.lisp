@@ -92,7 +92,8 @@
                 (unit name container))
               ((setf location) (loc thing)
                 (setf (location (unit thing +world+)) loc)))
-         (declare (ignorable #'activate #'deactivate #'complete #'fail #'active-p #'complete-p #'failed-p #'have #'store #'retrieve))
+         (declare (ignorable #'activate #'deactivate #'complete #'fail #'active-p #'complete-p #'failed-p #'have #'store #'retrieve
+                             #'unit #'(setf location)))
          ,form))))
 
 (defmethod load-quest ((packet packet) (storyline quest:storyline))
