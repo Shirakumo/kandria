@@ -45,7 +45,7 @@
   (= 0 (vy (hit-normal hit))))
 
 (defmethod collide :after ((moving moving) (block block) hit)
-  (when (<= 0 (vy (hit-normal hit)))
+  (when (< 0 (vy (hit-normal hit)))
     (setf (air-time moving) 0.0)))
 
 (defmethod collide ((moving moving) (block block) hit)
