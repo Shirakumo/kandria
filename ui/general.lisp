@@ -57,6 +57,12 @@
   (:label
    :pattern colors:white))
 
+(defclass deferrer (alloy:renderable alloy:layout-element)
+  ())
+
+(defmethod alloy:render :around ((renderer ui) (element deferrer))
+  (render element NIL))
+
 (defclass pane (alloy:renderable)
   ())
 

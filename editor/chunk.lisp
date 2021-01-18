@@ -67,9 +67,9 @@
   ;; FIXME: add confirmation
   (clear (entity chunk-widget)))
 (alloy::define-subbutton (chunk-widget compute) ()
-  (let ((chunk (entity chunk-widget)))
-    (compute-shadow-geometry chunk T)
-    (reinitialize-instance (node-graph chunk) :solids (pixel-data chunk))))
+  (recompute (entity chunk-widget))
+  (when (typep (tool (editor chunk-widget)) 'move-to)
+    (setf (tool (editor chunk-widget)) (tool (editor chunk-widget)))))
 
 (alloy:define-subcontainer (chunk-widget layout)
     (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T 60))
@@ -98,7 +98,7 @@
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
 
 (defmethod applicable-tools append ((_ chunk))
-  '(paint line))
+  '(paint line move-to))
 
 (defmethod default-tool ((_ chunk))
   'paint)

@@ -56,6 +56,7 @@
 (define-animation box)
 (define-animation player)
 (define-animation fi)
+(define-animation catherine)
 (define-animation wolf)
 (define-animation zombie)
 (define-animation dummy)
