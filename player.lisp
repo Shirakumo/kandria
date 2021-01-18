@@ -147,7 +147,7 @@
               (setf (animation player) 'dash)
               (if (v= 0 vel)
                   (setf (vx vel) (direction player))
-                  (setf (direction player) (signum (vx vel))))
+                  (setf (direction player) (float-sign (vx vel))))
               (nvunit vel)))))
     (:animated
      ;; Queue dash //except// for when we're being hit, as it's
