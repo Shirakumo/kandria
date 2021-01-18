@@ -47,7 +47,15 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Selwyn Simsek
 
 ## 0.1.0
+- Fix death not locking your controls
+  Reported by Selwyn Simsek and Marco Conrad
+- Fix backspace not being usable in report forms
+  Reported by Selwyn Simsek
+- Fix climb attacks getting stuck
+  Reported by Selwyn Simsek and Sage
 
 ## TODO
 - Fix audio stutter on lower end systems
   Reported by PincerAttack
+- Fix slope->block transitions being climbable
+  Reported by Halogens

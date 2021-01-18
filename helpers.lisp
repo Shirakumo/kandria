@@ -159,28 +159,65 @@ void main(){
              :type vec2 :documentation "The velocity of the entity.")
    (state :initform :normal :accessor state
           :type symbol :documentation "The current state of the entity.")
-   (frame-velocity :initform (vec2 0 0) :accessor frame-velocity)))
+   (frame-velocity :initform (vec2 0 0) :accessor frame-velocity)
+   (chunk :initform NIL :initarg :chunk :accessor chunk)))
 
 (defmethod layer-index ((_ game-entity)) +base-layer+)
 
+;; KLUDGE: ugly way of avoiding allocations
 (defmethod scan ((entity sized-entity) (target game-entity) on-hit)
   (let ((hit (aabb (location target) (frame-velocity target)
-                   (location entity) (v+ (bsize entity) (bsize target)))))
+                   (location entity) (tv+ (bsize entity) (bsize target)))))
     (when hit
       (setf (hit-object hit) entity)
       (unless (funcall on-hit hit) hit))))
 
 (defmethod scan ((entity game-entity) (target game-entity) on-hit)
-  (let ((hit (aabb (location target) (v- (frame-velocity target) (frame-velocity entity))
-                   (location entity) (v+ (bsize entity) (bsize target)))))
+  (let ((hit (aabb (location target) (tv- (frame-velocity target) (frame-velocity entity))
+                   (location entity) (tv+ (bsize entity) (bsize target)))))
     (when hit
       (setf (hit-object hit) entity)
       (unless (funcall on-hit hit) hit))))
 
+(defmethod oob ((entity entity) (none null))
+  (setf (state entity) :oob)
+  (leave* entity T))
+
+(defmethod oob ((entity entity) new-chunk)
+  (setf (chunk entity) new-chunk))
+
+(defun handle-oob (entity)
+  (let ((other (find-containing entity (region +world+)))
+        (chunk (chunk entity)))
+    (cond (other
+           (oob entity other))
+          ((or (null chunk)
+               (< (vy (location entity))
+                  (- (vy (location chunk))
+                     (vy (bsize chunk)))))
+           (oob entity NIL))
+          (T
+           (setf (vx (location entity)) (clamp (- (vx (location chunk))
+                                                  (vx (bsize chunk)))
+                                               (vx (location entity))
+                                               (+ (vx (location chunk))
+                                                  (vx (bsize chunk)))))))))
+
+(defmethod (setf location) (location (entity game-entity))
+  (vsetf (location entity) (vx location) (vy location))
+  (handle-oob entity))
+
 (defmethod handle :after ((ev tick) (entity game-entity))
   (let ((vel (frame-velocity entity)))
     (nv+ (location entity) (v* vel (* 100 (dt ev))))
-    (vsetf vel 0 0)))
+    (vsetf vel 0 0)
+    ;; OOB
+    (case (state entity)
+      ((:oob :dying))
+      (T
+       (when (or (null (chunk entity))
+                 (not (contained-p (location entity) (chunk entity))))
+         (handle-oob entity))))))
 
 (defclass transition-event (event)
   ((on-complete :initarg :on-complete :initform NIL :reader on-complete)))
