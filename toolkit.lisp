@@ -193,6 +193,18 @@
 (defun absinvclamp (low mid high)
   (* (signum mid) (invclamp low (abs mid) high)))
 
+(defmacro tv+ (a b)
+  (let ((ag (gensym "A")) (bg (gensym "B")))
+    `(let ((,ag ,a) (,bg ,b))
+       (vsetf (load-time-value (vec 0 0))
+              (+ (vx2 ,ag) (vx2 ,bg)) (+ (vy2 ,ag) (vy2 ,bg))))))
+
+(defmacro tv- (a b)
+  (let ((ag (gensym "A")) (bg (gensym "B")))
+    `(let ((,ag ,a) (,bg ,b))
+       (vsetf (load-time-value (vec 0 0))
+              (- (vx2 ,ag) (vx2 ,bg)) (- (vy2 ,ag) (vy2 ,bg))))))
+
 (defun point-angle (point)
   (atan (vy point) (vx point)))
 

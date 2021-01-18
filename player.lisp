@@ -49,7 +49,6 @@
    (climb-strength :initform 1.0 :accessor climb-strength)
    (combat-time :initform 10000.0 :accessor combat-time)
    (buffer :initform NIL :accessor buffer)
-   (chunk :initform NIL :initarg :chunk :accessor chunk)
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform (@ player-nametag))
@@ -146,11 +145,13 @@
                   (trigger 'dash player)
                   (trigger 'air-dash player))
               (setf (animation player) 'dash)
-              (when (v= 0 vel) (setf (vx vel) (direction player)))
+              (if (v= 0 vel)
+                  (setf (vx vel) (direction player))
+                  (setf (direction player) (signum (vx vel))))
               (nvunit vel)))))
     (:animated
      ;; Queue dash //except// for when we're being hit, as it's
-     ;; unlikely the player will want to dish right after getting
+     ;; unlikely the player will want to dash right after getting
      ;; hit.
      (let ((name (name (animation player))))
        (unless (or (eq name 'light-hit)
@@ -225,6 +226,15 @@
 (defmethod collide ((player player) (trigger trigger) hit)
   (when (active-p trigger)
     (fire trigger)))
+
+(defmethod collide ((player player) (block spike) hit)
+  (case (state player)
+    (:dying)
+    (T
+     (setf (animation player) 'die)
+     (setf (state player) :dying)
+     (transition
+       (respawn player)))))
 
 (defmethod idleable-p ((player player))
   (and (call-next-method)
@@ -492,8 +502,7 @@
                   (not (retained 'jump))
                   (or (typep (svref collisions 1) '(or ground solid))
                       (typep (svref collisions 3) '(or ground solid))
-                      (and (typep (interactable player) 'rope)
-                           (extended (interactable player))))
+                      (typep (interactable player) 'rope))
                   (< 0 (climb-strength player)))
          (cond ((typep (interactable player) 'rope)
                 (let* ((direction (signum (- (vx (location (interactable player))) (vx loc))))
@@ -561,25 +570,6 @@
 
 (defmethod handle :after ((ev tick) (player player))
   (incf (jump-time player) (dt ev))
-  ;; OOB
-  (case (state player)
-    ((:oob :dying))
-    (T
-     (when (not (contained-p (location player) (chunk player)))
-       (let ((other (find-containing player (region +world+))))
-         (cond (other
-                (switch-chunk other))
-               ((< (vy (location player))
-                   (- (vy (location (chunk player)))
-                      (vy (bsize (chunk player)))))
-                (kill player)
-                (setf (state player) :oob))
-               (T
-                (setf (vx (location player)) (clamp (- (vx (location (chunk player)))
-                                                       (vx (bsize (chunk player))))
-                                                    (vx (location player))
-                                                    (+ (vx (location (chunk player)))
-                                                       (vx (bsize (chunk player))))))))))))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
@@ -665,11 +655,16 @@
     (setf (chunk player) (chunk ev))
     (setf (spawn-location player) loc)))
 
+(defmethod oob ((player player) (new chunk))
+  (switch-chunk new))
+
+(defmethod oob ((player player) (none null))
+  (setf (state player) :oob)
+  (transition (respawn player)))
+
 (defmethod respawn ((player player))
   (vsetf (velocity player) 0 0)
-  (vsetf (location player)
-         (vx (spawn-location player))
-         (vy (spawn-location player)))
+  (setf (location player) (vcopy (spawn-location player)))
   (setf (state player) :normal)
   (snap-to-target (unit :camera T) player))
 
