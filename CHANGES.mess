@@ -53,9 +53,9 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Selwyn Simsek
 - Fix climb attacks getting stuck
   Reported by Selwyn Simsek and Sage
+- Fix slope->block transitions being climbable
+  Reported by Halogens
 
 ## TODO
 - Fix audio stutter on lower end systems
   Reported by PincerAttack
-- Fix slope->block transitions being climbable
-  Reported by Halogens
