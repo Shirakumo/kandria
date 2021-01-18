@@ -131,7 +131,7 @@
                                             (connect-jump graph x y ox oy (vec (* (vx vel) (- dir))
                                                                                (if (< 3 (tile x (1- y)))
                                                                                    (+ (vy vel) 1)
-                                                                                   (vy vel))))
+                                                                                   (+ (vy vel) 0.1))))
                                             #++(return-from create-jump-connections))
                                            ((< 0 (aref solids (* 2 (+ px (* w py)))))
                                             (loop-finish)))))))))))
