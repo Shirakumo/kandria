@@ -33,6 +33,9 @@
               (dash-max-time   0.675))))
 
 (defmacro p! (name)
+  #+kandria-release
+  (gethash name +player-movement-data+)
+  #-kandria-release
   `(gethash ',name +player-movement-data+))
 
 (define-shader-entity player (alloy:observable animatable profile ephemeral inventory)
@@ -43,7 +46,6 @@
    (jump-time :initform 1.0 :accessor jump-time)
    (dash-time :initform 1.0 :accessor dash-time)
    (run-time :initform 1.0 :accessor run-time)
-   (air-time :initform 1.0 :accessor air-time)
    (climb-strength :initform 1.0 :accessor climb-strength)
    (combat-time :initform 10000.0 :accessor combat-time)
    (buffer :initform NIL :accessor buffer)
@@ -69,17 +71,15 @@
 
 (defmethod resize ((player player) w h))
 
-(defmethod have (thing (player player))
-  (have thing (inventory player)))
-
-(defmethod capable-p ((player player) (edge jump-edge)) T)
-(defmethod capable-p ((player player) (edge crawl-edge)) T)
-(defmethod capable-p ((player player) (edge climb-edge)) T)
+(defmethod capable-p ((player player) (edge jump-node)) T)
+(defmethod capable-p ((player player) (edge crawl-node)) T)
+(defmethod capable-p ((player player) (edge climb-node)) T)
 
 (defmethod movement-speed ((player player))
   (case (state player)
-    (:crawling 1.0)
-    (T 1.9)))
+    (:crawling (p! crawl))
+    (:climbing (p! climb-up))
+    (T (p! walk-limit))))
 
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(dash jump land slide step death slash rope splash ground-hit))
@@ -193,6 +193,8 @@
   
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
+      (move-to (mouse-world-pos (pos ev)) player)
+      #++
       (let ((enemy (make-instance (first type) :location (mouse-world-pos (pos ev)))))
         (trial:commit enemy (loader (handler *context*)) :unload NIL)
         (enter enemy (region +world+))
@@ -210,8 +212,6 @@
                  ((and (< (vy (velocity player)) -0.5)
                        (< 0.2 (air-time player)))
                   (harmony:play (// 'kandria 'land)))))
-         (when (<= 0 (vy (hit-normal hit)))
-           (setf (air-time player) 0.0))
          (when (and (< 0 (vy (hit-normal hit)))
                     (not (eql :dashing (state player))))
            (setf (dash-time player) 0.0))))
@@ -227,9 +227,7 @@
     (fire trigger)))
 
 (defmethod idleable-p ((player player))
-  (and (= 0 (vx (velocity player)))
-       (svref (collisions player) 2)
-       (eql :normal (state player))
+  (and (call-next-method)
        (not (or (retained 'up)
                 (retained 'down)))))
 
@@ -563,7 +561,6 @@
 
 (defmethod handle :after ((ev tick) (player player))
   (incf (jump-time player) (dt ev))
-  (incf (air-time player) (dt ev))
   ;; OOB
   (case (state player)
     ((:oob :dying))
@@ -613,7 +610,8 @@
        (cond ((< 0 (vy vel))
               (setf (animation player) 'jump))
              ((null (svref collisions 2))
-              (cond ((typep (svref collisions 1) 'ground)
+              (cond ((< (air-time player) 0.1))
+                    ((typep (svref collisions 1) 'ground)
                      (setf (animation player) 'slide)
                      (setf (direction player) +1)
                      (when (< (clock player) 0.01)
@@ -623,7 +621,7 @@
                      (setf (direction player) -1)
                      (when (< (clock player) 0.01)
                        (trigger 'slide player :direction +1)))
-                    ((< 0.1 (air-time player))
+                    (T
                      (setf (animation player) 'fall))))
              ((< 0 (abs (vx vel)))
               (cond ((and (not (eql :keyboard +input-source+))

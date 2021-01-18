@@ -46,6 +46,7 @@
 (box :location (9283.875 -152.0) :name nil)
 (box :location (8927.602 -488.0) :name nil)
 (box :location (9346.867 -504.0) :name nil)
+(catherine :location (7544.0 -96.0) :name catherine)
 (chunk :name debug :location (1080.0 192.0) :size (196.0 58.0) :tile-data (kandria debug) :pixel-data "data/DEBUG.raw" :layers ("data/DEBUG-0.raw" "data/DEBUG-1.raw" "data/DEBUG-2.raw" "data/DEBUG-3.raw" "data/DEBUG-4.raw") :background debug :gi none)
 (chunk :name a0 :location (7856.0 -328.0) :size (110.0 93.0) :tile-data (kandria tundra) :pixel-data "data/A0.raw" :layers ("data/A0-0.raw" "data/A0-1.raw" "data/A0-2.raw" "data/A0-3.raw" "data/A0-4.raw" "data/A0-5.raw") :background tundra :gi tundra)
 (chunk :name a1 :location (8392.0 992.0) :size (43.0 72.0) :tile-data (kandria tundra) :pixel-data "data/A1.raw" :layers ("data/A1-0.raw" "data/A1-1.raw" "data/A1-2.raw" "data/A1-3.raw" "data/A1-4.raw" "data/A1-5.raw") :background tundra :gi tundra)

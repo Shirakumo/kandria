@@ -142,6 +142,7 @@
      o s o
      _ o _)))
 
+(declaim (inline tile-type-p))
 (defun tile-type-p (tile type)
   (ecase type
     ;; Tiles that are "outside"
@@ -152,6 +153,12 @@
     (x (< 0 tile))
     ;; Tiles that are empty but inside
     (i (= 255 tile))
+    ;; Tiles that are platforms
+    (p (= 2 tile))
+    ;; Tiles that are only blocks
+    (b (= 1 tile))
+    ;; Tiles that are slopes
+    (/ (<= 4 tile 16))
     ;; Any tile at all (don't care)
     (_ T)))
 
