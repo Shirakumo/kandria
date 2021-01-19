@@ -28,7 +28,7 @@
                  (return path)))
              (setf open (delete min open))
              (dolist (node (svref grid min))
-               (when (funcall test node)
+               (when (funcall test (cdr (gethash min source)) node)
                  (let* ((target (funcall target-fun node))
                         (tentative-score (+ (gethash min scores) (funcall score-fun node)))
                         (score (gethash target scores)))
@@ -373,23 +373,33 @@
                                (bottom-loc (target entity))))))))))
 
 (defun shortest-path (start goal test &optional (region (region +world+)))
+  ;; FIXME: consider fall nodes that end in empty air.
   (let ((graph (chunk-graph region))
         (start-chunk (find-containing start region))
         (goal-chunk (find-containing goal region)))
-    (flet ((cost (a b)
-             (vsqrdist2 (location (chunk-node-from (first (svref graph a))))
-                        (location (chunk-node-from (first (svref graph b))))))
-           (target (a)
-             (chunk-graph-id (chunk-node-to a)))
-           (chunk-path (node goal)
-             (let ((chunk (chunk-node-to node)))
-               (shortest-chunk-path (node-graph chunk) (chunk-node-to-node node)
-                                    goal (v- (location chunk) (bsize chunk))
-                                    test))))
+    (labels ((cost (a b)
+               (vsqrdist2 (location (chunk-node-from (first (svref graph a))))
+                          (location (chunk-node-from (first (svref graph b))))))
+             (target (a)
+               (chunk-graph-id (chunk-node-to a)))
+             (chunk-path (node goal)
+               (let ((chunk (chunk-node-to node)))
+                 (shortest-chunk-path (node-graph chunk) (chunk-node-to-node node)
+                                      goal (v- (location chunk) (bsize chunk))
+                                      test)))
+             ;; FIXME: we compute the full path here and then throw it away. This is very wasteful!
+             ;;        should cache it instead and then reconstruct from chosen parts instead.
+             (test (prev node)
+               (if prev
+                   (not (null (chunk-path prev (chunk-node-from-node node))))
+                   (let ((chunk (chunk-node-from node)))
+                     (shortest-chunk-path (node-graph chunk) start
+                                          (chunk-node-from-node node) (v- (location chunk) (bsize chunk))
+                                          test)))))
       (if (eq start-chunk goal-chunk)
           (shortest-chunk-path (node-graph start-chunk) start goal (v- (location start-chunk) (bsize start-chunk)) test)
           (let ((chunk-path (shortest-path-a* graph (chunk-graph-id start-chunk) (chunk-graph-id goal-chunk)
-                                              (constantly T) #'cost (constantly 1) #'target)))
+                                              #'test #'cost (constantly 1) #'target)))
             (when chunk-path
               (multiple-value-bind (path start) (shortest-chunk-path (node-graph start-chunk) start (chunk-node-from-node (first chunk-path))
                                                                      (v- (location start-chunk) (bsize start-chunk)) test)
@@ -422,7 +432,8 @@
   (path-available-p (location target) movable))
 
 (defmethod move-to ((target vec2) (movable movable))
-  (flet ((test (node)
+  (flet ((test (_prev node)
+           (declare (ignore _prev))
            (capable-p movable node)))
     (multiple-value-bind (path start) (shortest-path (location movable) target #'test)
       (when path
