@@ -68,6 +68,7 @@
   (clear (entity chunk-widget)))
 (alloy::define-subbutton (chunk-widget compute) ()
   (recompute (entity chunk-widget))
+  (setf (chunk-graph (region +world+)) (make-chunk-graph (region +world+)))
   (when (typep (tool (editor chunk-widget)) 'move-to)
     (setf (tool (editor chunk-widget)) (tool (editor chunk-widget)))))
 

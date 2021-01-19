@@ -339,6 +339,10 @@
                (contained-p thing entity))
       (return entity))))
 
+(defun overlapping-p (a a-size b b-size)
+  (and (< (- a a-size) (+ b b-size))
+       (< (- b b-size) (+ a a-size))))
+
 (defgeneric clone (thing &key &allow-other-keys))
 
 (defmethod clone (thing &key)
