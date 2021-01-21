@@ -107,6 +107,10 @@
   #++
   (show (make-instance 'report-button)))
 
+(defmethod change-scene :after ((main main) scene &key)
+  (let ((region (region scene)))
+    (setf (chunk-graph region) (make-chunk-graph region))))
+
 (defun apply-video-settings ()
   (destructuring-bind (&key resolution fullscreen vsync ui-scale) (setting :display)
     (resize *context* (first resolution) (second resolution))

@@ -29,6 +29,10 @@
              ;;         we're stuck somewhere, so just die.
              (cond ((< 11 i) (die moving))
                    ((< 10 i) (vsetf (frame-velocity moving) 0 0))))
+    (when (eq (svref collisions 2) (svref collisions 1))
+      (setf (svref collisions 1) NIL))
+    (when (eq (svref collisions 2) (svref collisions 3))
+      (setf (svref collisions 3) NIL))
     ;; Point test for adjacent walls
     (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc))))
           (r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc))))

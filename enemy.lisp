@@ -2,9 +2,10 @@
 
 (define-global +health-multiplier+ 1f0)
 
-(define-shader-entity enemy (animatable)
+(define-shader-entity enemy (ai-entity animatable)
   ((bsize :initform (vec 8.0 8.0))
-   (cooldown :initform 0.0 :accessor cooldown)))
+   (cooldown :initform 0.0 :accessor cooldown)
+   (ai-state :initform :normal :accessor ai-state)))
 
 (defmethod maximum-health ((enemy enemy)) 100)
 
@@ -14,38 +15,56 @@
 (defmethod capable-p ((enemy enemy) (edge crawl-node)) T)
 (defmethod capable-p ((enemy enemy) (edge jump-node)) T)
 
-(defmethod handle :before ((ev tick) (enemy enemy))
-  (when (path enemy)
-    (handle-ai-states enemy ev)
-    (return-from handle))
-  (let ((collisions (collisions enemy))
-        (vel (velocity enemy))
-        (dt (* 100 (dt ev))))
-    (nv+ vel (v* (gravity (medium enemy)) dt))
-    (when (svref collisions 0) (setf (vy vel) (min 0 (vy vel))))
-    (when (svref collisions 1) (setf (vx vel) (min 0 (vx vel))))
-    (when (svref collisions 3) (setf (vx vel) (max 0 (vx vel))))
-    (case (state enemy)
-      ((:dying :animated :stunned)
-       (handle-animation-states enemy ev))
-      (T
-       (cond ((svref collisions 2)
-              (setf (vx vel) (* (vx vel) (damp* 0.9 dt)))
-              (when (<= -0.1 (vx vel) 0.1)
-                (setf (vx vel) 0)))
-             (T
-              (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) dt)))))
-       (handle-ai-states enemy ev)))
-    (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
-    (nv+ (frame-velocity enemy) vel)))
+(defmethod collide :after ((player player) (enemy enemy) hit)
+  (when (eql :dashing (state player))
+    (nv+ (velocity enemy) (v* (velocity player) 0.8))
+    (incf (vy (velocity enemy)) 3.0)
+    (nv* (velocity player) -0.25)
+    (incf (vy (velocity player)) 2.0)
+    (stun player 0.27)))
 
-(defmethod handle :after ((ev tick) (enemy enemy))
+(define-shader-entity dummy (enemy immovable)
+  ((bsize :initform (vec 8 16)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'dummy)))
+
+(defmethod idleable-p ((dummy dummy)) NIL)
+
+(define-shader-entity box (enemy solid immovable)
+  ((bsize :initform (vec 8 8)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'box)))
+
+(defmethod maximum-health ((box box)) 20)
+
+(defmethod idleable-p ((box box)) NIL)
+
+(defmethod collides-p ((movable movable) (box box) hit)
+  (not (eql (state box) :dying)))
+
+(defmethod stage :after ((box box) (area staging-area))
+  (stage (// 'kandria 'box-damage) area)
+  (stage (// 'kandria 'box-break) area))
+
+(defmethod hurt :after ((box box) damage)
+  (harmony:play (// 'kandria 'box-damage)))
+
+(defmethod kill :after ((box box))
+  (harmony:play (// 'kandria 'box-break)))
+
+(define-shader-entity ground-enemy (enemy)
+  ())
+
+(defmethod handle :before ((ev tick) (enemy ground-enemy))
+  (nv+ (velocity enemy) (v* (gravity (medium enemy)) (* 100 (dt ev)))))
+
+(defmethod handle :after ((ev tick) (enemy ground-enemy))
   ;; Animations
-  (let ((vel (velocity enemy))
-        (collisions (collisions enemy)))
-    (case (state enemy)
-      ((:dying :animated :stunned))
-      (T
+  (case (state enemy)
+    ((:dying :animated :stunned))
+    (T
+     (let ((vel (velocity enemy))
+           (collisions (collisions enemy)))
        (cond ((< 0 (vx vel))
               (setf (direction enemy) +1))
              ((< (vx vel) 0)
@@ -61,129 +80,7 @@
              (T
               (setf (animation enemy) 'stand)))))))
 
-(defmethod collide :after ((player player) (enemy enemy) hit)
-  (when (eql :dashing (state player))
-    (nv+ (velocity enemy) (v* (velocity player) 0.8))
-    (incf (vy (velocity enemy)) 3.0)
-    (nv* (velocity player) -0.25)
-    (incf (vy (velocity player)) 2.0)
-    (stun player 0.27)))
-
-(define-shader-entity ball (axis-rotated-entity moving vertex-entity textured-entity)
-  ((vertex-array :initform (// 'kandria '1x))
-   (texture :initform (// 'kandria 'ball))
-   (bsize :initform (vec 6 6))
-   (axis :initform (vec 0 0 1))))
-
-(defmethod apply-transforms progn ((ball ball))
-  (let ((size (v* 2 (bsize ball))))
-    (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
-    (scale (vxy_ size))))
-
-(defmethod collides-p ((player player) (ball ball) hit)
-  (eql :dashing (state player)))
-
-(defmethod collide ((player player) (ball ball) hit)
-  (nv+ (velocity ball) (v* (velocity player) 0.8))
-  (incf (vy (velocity ball)) 2.0)
-  (vsetf (frame-velocity player) 0 0)
-  (nv* (velocity player) 0.8))
-
-(defmethod handle :before ((ev tick) (ball ball))
-  (let* ((dt (* 100 (dt ev)))
-         (vel (velocity ball))
-         (vlen (vlength vel)))
-    (when (< 0 vlen)
-      (decf (angle ball) (* 0.1 (vx vel)))
-      (nv* vel (* (min vlen 10) (/ 0.99 vlen))))
-    (nv+ vel (v* (gravity (medium ball)) dt))
-    (nv+ (frame-velocity ball) vel)))
-
-(defmethod collide ((ball ball) (block block) hit)
-  (nv+ (location ball) (v* (frame-velocity ball) (hit-time hit)))
-  (vsetf (frame-velocity ball) 0 0)
-  (let ((vel (velocity ball))
-        (normal (hit-normal hit))
-        (loc (location ball)))
-    (let ((ref (nv+ (v* 2 normal (v. normal (v- vel))) vel)))
-      (vsetf vel
-             (if (< (abs (vx ref)) 0.2) 0 (vx ref))
-             (if (< (abs (vy ref)) 0.2) 0 (* 0.8 (vy ref)))))
-    (nv+ loc (v* 0.1 normal))))
-
-(defmethod collide :after ((ball ball) (block slope) hit)
-  (let* ((loc (location ball))
-         (normal (hit-normal hit))
-         (xrel (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
-    (when (< (vx normal) 0) (incf xrel))
-    ;; KLUDGE: we add a bias of 0.1 here to ensure we stop colliding with the slope.
-    (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
-      (setf (vy loc) (+ 0.05 yrel (vy (bsize ball)) (vy (hit-location hit)))))))
-
-(define-shader-entity balloon (game-entity lit-animated-sprite ephemeral)
-  ()
-  (:default-initargs
-   :sprite-data (asset 'kandria 'balloon)))
-
-(defmethod (setf animations) :after (animations (balloon balloon))
-  (setf (next-animation (find 'die (animations balloon) :key #'name)) 'revive)
-  (setf (next-animation (find 'revive (animations balloon) :key #'name)) 'stand))
-
-(defmethod collides-p ((player player) (balloon balloon) hit)
-  (eql 'stand (name (animation balloon))))
-
-(defmethod collide ((player player) (balloon balloon) hit)
-  (kill balloon)
-  (setf (vy (velocity player)) 4.0)
-  (case (state player)
-    (:dashing
-     (setf (vx (velocity player)) (* 1.1 (vx (velocity player)))))))
-
-(defmethod kill ((balloon balloon))
-  (setf (animation balloon) 'die))
-
-(defmethod apply-transforms progn ((baloon balloon))
-  (translate-by 0 -16 0))
-
-(define-shader-entity dummy (enemy)
-  ((bsize :initform (vec 8 16)))
-  (:default-initargs
-   :sprite-data (asset 'kandria 'dummy)))
-
-(defmethod capable-p ((dummy dummy) (edge move-node)) NIL)
-(defmethod handle-ai-states ((dummy dummy) ev))
-(defmethod (setf animation) ((animation symbol) (enemy dummy))
-  (if (find animation '(STAND JUMP FALL LIGHT-HIT HARD-HIT DIE))
-      (call-next-method)
-      (call-next-method 'stand enemy)))
-
-(define-shader-entity box (enemy solid)
-  ((bsize :initform (vec 8 8))
-   (health :initform 50))
-  (:default-initargs
-   :sprite-data (asset 'kandria 'box)))
-
-(defmethod capable-p ((box box) (edge move-node)) NIL)
-(defmethod handle-ai-states ((box box) ev))
-(defmethod (setf animation) ((animation symbol) (enemy box))
-  (if (find animation '(STAND LIGHT-HIT HARD-HIT DIE))
-      (call-next-method)
-      (call-next-method 'stand enemy)))
-
-(defmethod collides-p ((movable movable) (box box) hit)
-  (not (eql (state box) :dying)))
-
-(defmethod stage :after ((box box) (area staging-area))
-  (stage (// 'kandria 'box-damage) area)
-  (stage (// 'kandria 'box-break) area))
-
-(defmethod hurt :after ((box box) damage)
-  (harmony:play (// 'kandria 'box-damage)))
-
-(defmethod kill :after ((box box))
-  (harmony:play (// 'kandria 'box-break)))
-
-(define-shader-entity wolf (enemy)
+(define-shader-entity wolf (ground-enemy)
   ()
   (:default-initargs
    :sprite-data (asset 'kandria 'wolf)))
@@ -201,7 +98,7 @@
          (distance (vlength (v- ploc eloc)))
          (col (collisions enemy))
          (vel (velocity enemy)))
-    (ecase (state enemy)
+    (ecase (ai-state enemy)
       ((:normal :crawling)
        (cond ;; ((< distance 400)
              ;;  (setf (state enemy) :approach))
@@ -242,9 +139,8 @@
       ;;                (start-animation 'tackle enemy))))))
       )))
 
-(define-shader-entity zombie (enemy half-solid)
+(define-shader-entity zombie (ground-enemy half-solid)
   ((bsize :initform (vec 4 16))
-   (health :initform 100)
    (timer :initform 0.0 :accessor timer))
   (:default-initargs
    :sprite-data (asset 'kandria 'zombie)))
@@ -266,25 +162,25 @@
          (ploc (location player))
          (eloc (location enemy))
          (vel (velocity enemy)))
-    (ecase (state enemy)
+    (ecase (ai-state enemy)
       (:normal
        (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 11))
-              (setf (state enemy) :approach))
+              (setf (ai-state enemy) :approach))
              (T
-              (setf (state enemy) (alexandria:random-elt '(:stand :stand :walk)))
-              (setf (timer enemy) (+ (ecase (state enemy) (:stand 2.0) (:walk 1.0)) (random 2.0)))
+              (setf (ai-state enemy) (alexandria:random-elt '(:stand :stand :walk)))
+              (setf (timer enemy) (+ (ecase (ai-state enemy) (:stand 2.0) (:walk 1.0)) (random 2.0)))
               (setf (direction enemy) (alexandria:random-elt '(-1 +1))))))
       ((:stand :walk)
        (when (< (vlength (v- ploc eloc)) (* +tile-size+ 10))
          (start-animation 'notice enemy))
        (when (<= (decf (timer enemy) (dt ev)) 0)
-         (setf (state enemy) :normal))
-       (case (state enemy)
+         (setf (ai-state enemy) :normal))
+       (case (ai-state enemy)
          (:stand (setf (vx vel) 0))
          (:walk (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))
       (:approach
        (cond ((< (* +tile-size+ 20) (vlength (v- ploc eloc)))
-              (setf (state enemy) :normal))
+              (setf (ai-state enemy) :normal))
              ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 1))
               (start-animation 'attack enemy))
              (T
@@ -293,3 +189,72 @@
 
 (defmethod hit ((enemy zombie) location)
   (trigger 'spark enemy :location (v+ location (vrand -4 +4))))
+
+(define-shader-entity drone (enemy immovable)
+  ((bsize :initform (vec 8 10))
+   (timer :initform 1f0 :accessor timer))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'ruddydrone)))
+
+(defmethod stage :after ((drone drone) (area staging-area))
+  (stage (// 'kandria 'explosion) area))
+
+(defmethod movement-speed ((enemy drone))
+  (case (ai-state enemy)
+    (:stand 0.0)
+    (:wander 0.2)
+    (:approach
+     (let* ((animation (animation enemy))
+            (progress (/ (- (frame-idx enemy) (start animation))
+                         (- (end animation) (start animation)))))
+       (case (name animation)
+         (spin 1.0)
+         (spin-start
+          (* 1.0 progress))
+         (spin-end
+          (* 1.0 (- 1 progress)))
+         (T 0.0))))
+    (T 1.0)))
+
+(defmethod handle-ai-states ((enemy drone) ev)
+  (let* ((player (unit 'player T))
+         (ploc (location player))
+         (eloc (location enemy))
+         (vel (velocity enemy))
+         (distance (vlength (v- ploc eloc))))
+    (unless (eql :approach (ai-state enemy))
+      (when (< distance (* +tile-size+ 11))
+        (setf (ai-state enemy) :approach)
+        (start-animation 'notice enemy)
+        (setf (timer enemy) (+ 3 (random 1.0)))))
+    (case (ai-state enemy)
+      (:normal
+       (setf (ai-state enemy) (alexandria:random-elt '(:stand :stand :wander)))
+       (setf (timer enemy) (+ 1.0 (random 2.0)))
+       (if (eql :wander (ai-state enemy))
+           (let ((dir (polar->cartesian (vec 1.0 (random (* 2 PI))))))
+             (vsetf vel (vx dir) (vy dir)))
+           (vsetf vel 0 0)))
+      ((:stand :wander)
+       (decf (timer enemy) (dt ev))
+       (setf (animation enemy) 'stand))
+      (:approach
+       (cond ((< (* +tile-size+ 20) distance)
+              (setf (ai-state enemy) :normal))
+             ((and (eql :animated (state enemy))
+                   (eql 'notice (name (animation enemy))))
+              (vsetf vel 0 0))
+             (T
+              (when (< (timer enemy) 0)
+                (when (eql 'stand (name (animation enemy)))
+                  (setf (ai-state enemy) :normal))
+                (start-animation 'spin-end enemy))
+              (decf (timer enemy) (dt ev))
+              (let ((dir (nv* (nvunit (v- ploc eloc)) (movement-speed enemy))))
+                (vsetf vel (vx dir) (vy dir)))))))))
+
+(defmethod hit ((enemy drone) location)
+  (trigger 'spark enemy :location (v+ location (vrand -4 +4))))
+
+(defmethod apply-transforms progn ((enemy drone))
+  (translate-by 0 -12 0))

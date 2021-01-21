@@ -5,7 +5,8 @@
    (author :initform "Anonymous" :initarg :author :accessor author :type string)
    (version :initform "0.0.0" :initarg :version :accessor version :type string)
    (description :initform "" :initarg :description :accessor description :type string)
-   (preview :initform NIL :initarg :preview :accessor preview))
+   (preview :initform NIL :initarg :preview :accessor preview)
+   (chunk-graph :initform NIL :accessor chunk-graph))
   (:default-initargs
    :layer-count +layer-count+))
 

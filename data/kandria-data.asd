@@ -98,6 +98,7 @@
                  (spritesheet "debug-door")
                  (spritesheet "box")
                  (spritesheet "zombie")
+                 (spritesheet "ruddydrone")
                  (spritesheet "player-profile")
                  (spritesheet "fi-profile")
                  (tilemap "debug")
