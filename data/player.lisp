@@ -52,7 +52,7 @@
    (LIGHT-HIT            :start 414 :end 422 :loop-to 434 :next STAND)
    (T-POSE               :start 422 :end 423 :loop-to 425 :next T-POSE)
    (PET                  :start 423 :end 437 :loop-to 423 :next STAND)
-   (PICKUP               :start 437 :end 444 :loop-to 437 :next PICKUP)
+   (PICKUP               :start 437 :end 444 :loop-to 437 :next STAND)
    (WALK                 :start 444 :end 450 :loop-to 444 :next WALK))
  :frames
   (
