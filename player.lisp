@@ -99,6 +99,9 @@
   (setf (state player) :normal)
   (hide (prompt player)))
 
+(defmethod interact :after ((thing item) (player player))
+  (start-animation 'pickup player))
+
 (defmethod interact ((door door) (player player))
   (setf (animation door) 'open)
   (let ((location (location (target door))))
