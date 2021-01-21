@@ -198,7 +198,7 @@
              (connect-nodes graph 'climb (1- x) (1- y) x y w h)
              (create-jump-connections solids graph x y -1)
              (loop for yy downfrom y to 0
-                   do (when (or (= yy 0) (< 0 (tile (1- x) yy)))
+                   do (when (or (= yy 0) (< 0 (tile (1- x) (1- yy))))
                         (connect-nodes graph 'fall x y (1- x) yy w h)
                         (loop-finish)))))
           ((_ o _
@@ -209,7 +209,7 @@
              (connect-nodes graph 'climb x y (1+ x) (1- y) w h)
              (create-jump-connections solids graph x y +1)
              (loop for yy downfrom y to 0
-                   do (when (or (= yy 0) (< 0 (tile (1+ x) yy)))
+                   do (when (or (= yy 0) (< 0 (tile (1+ x) (1- yy))))
                         (connect-nodes graph 'fall x y (1+ x) yy w h)
                         (loop-finish)))))
           ((_ b _
@@ -521,8 +521,7 @@
         (destructuring-bind (node target) (car (path movable))
           (etypecase node
             (walk-node
-             (move-towards source target)
-             (nv+ vel (v* (gravity (medium movable)) dt)))
+             (move-towards source target))
             (fall-node
              (if ground
                  (move-towards source target)
@@ -530,8 +529,7 @@
              (when (and (or (typep (svref collisions 1) 'ground)
                             (typep (svref collisions 3) 'ground))
                         (< (vy vel) (p! slide-limit)))
-               (setf (vy vel) (p! slide-limit)))
-             (nv+ vel (v* (gravity (medium movable)) dt)))
+               (setf (vy vel) (p! slide-limit))))
             (jump-node
              (if ground
                  (let ((node-dist (abs (- (vx loc) (vx source))))
@@ -542,8 +540,7 @@
                           (move-towards (location movable) source))
                          (T
                           (move-towards source target))))
-                 (setf (vx vel) (vx (jump-node-strength node))))
-             (nv+ vel (v* (gravity (medium movable)) dt)))
+                 (setf (vx vel) (vx (jump-node-strength node)))))
             (climb-node
              (cond ((or (svref collisions 1)
                         (svref collisions 3))
@@ -552,8 +549,7 @@
                           (diff (abs (- (vy target) (vy loc)))))
                       (setf (vy vel) (* dir (max 0.5 (min diff (movement-speed movable)))))))
                    (T
-                    (move-towards source target)
-                    (nv+ vel (v* (gravity (medium movable)) dt)))))
+                    (move-towards source target))))
             (crawl-node
              (setf (state movable) :crawling)
              (move-towards source target)))
