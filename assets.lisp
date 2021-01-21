@@ -59,6 +59,7 @@
 (define-animation catherine)
 (define-animation wolf)
 (define-animation zombie)
+(define-animation ruddydrone)
 (define-animation dummy)
 
 (define-sprite player-profile)

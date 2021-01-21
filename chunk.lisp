@@ -220,7 +220,8 @@ void main(){
                :type background-info :documentation "The background to show in the chunk.")
    (gi :initform (gi 'none) :initarg :gi :accessor gi
        :type gi-info :documentation "The lighting to show in the chunk.")
-   (name :initform (generate-name "CHUNK")))
+   (name :initform (generate-name "CHUNK"))
+   (chunk-graph-id :initform NIL :accessor chunk-graph-id))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
@@ -383,15 +384,6 @@ void main(){
                 (cond ((= y 0)      (line -8 -8 +8 -8))
                       ((= y (1- h)) (line -8 +8 +8 +8)))))))))))
 
-(defmethod shortest-path ((chunk chunk) (start vec2) (goal vec2) &rest args &key test)
-  (declare (ignore test))
-  (flet ((local-pos (pos)
-           (vfloor (nv+ (v- pos (location chunk)) (bsize chunk)) +tile-size+)))
-    (apply #'shortest-path (node-graph chunk) (local-pos start) (local-pos goal) args)))
-
-(defmethod shortest-path ((chunk chunk) (start sized-entity) goal &key test)
-  (shortest-path chunk (location start) goal :test (or test (lambda (edge) (capable-p start edge)))))
-
 (defmethod contained-p ((entity located-entity) (chunk chunk))
   (contained-p (location entity) chunk))
 
@@ -411,7 +403,7 @@ void main(){
          (t-s +tile-size+)
          (w (truncate (vx (size chunk))))
          (h (truncate (vy (size chunk))))
-         (lloc (nv+ (nv- (vxy target) (location chunk)) (bsize chunk)))
+         (lloc (nv+ (v- (vxy target) (location chunk)) (bsize chunk)))
          (x- (floor (- (vx lloc) (vz target)) t-s))
          (x+ (ceiling (+ (vx lloc) (vz target)) t-s))
          (y- (floor (- (vy lloc) (vw target)) t-s))
@@ -433,9 +425,9 @@ void main(){
          (x- 0) (y- 0) (x+ 0) (y+ 0)
          (w (truncate (vx (size chunk))))
          (h (truncate (vy (size chunk))))
-         (size (v+ (bsize target) (/ t-s 2)))
+         (size (tv+ (bsize target) (load-time-value (vec (/ +tile-size+ 2) (/ +tile-size+ 2)))))
          (pos (location target))
-         (lloc (nv+ (v- (location target) (location chunk)) (bsize chunk)))
+         (lloc (nv+ (tv- (location target) (location chunk)) (bsize chunk)))
          (vel (frame-velocity target)))
     ;; Figure out bounding region
     (if (< 0 (vx vel))

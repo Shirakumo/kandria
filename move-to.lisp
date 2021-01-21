@@ -1,5 +1,44 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defun shortest-path-a* (grid start goal test cost-fun score-fun target-fun)
+  (declare (optimize speed))
+  (declare (type simple-vector grid))
+  (declare (type (unsigned-byte 16) start goal))
+  (declare (type function test cost-fun score-fun target-fun))
+  (let ((open (list start))
+        (source (make-hash-table :test 'eql))
+        (scores (make-hash-table :test 'eql))
+        (cost (make-hash-table :test 'eql)))
+    (declare (type list open))
+    (setf (gethash start scores) 0)
+    (setf (gethash start cost) 1)
+    (loop while open
+          for min = NIL
+          for min-cost = NIL
+          do (dolist (current open min)
+               (let ((cost (gethash current cost)))
+                 (when (or (null min) (< cost min-cost))
+                   (setf min current min-cost cost))))
+             (when (eql min goal)
+               (let ((path (list)))
+                 (loop for (from . node) = (gethash min source)
+                       while from
+                       do (setf min from)
+                          (push node path))
+                 (return (values path T))))
+             (setf open (delete min open))
+             (dolist (node (svref grid min))
+               (when (funcall test (cdr (gethash min source)) node)
+                 (let* ((target (funcall target-fun node))
+                        (tentative-score (+ (gethash min scores) (funcall score-fun node)))
+                        (score (gethash target scores)))
+                   (when (or (null score) (< tentative-score score))
+                     (setf (gethash target source) (cons min node))
+                     (setf (gethash target scores) tentative-score)
+                     (setf (gethash target cost) (+ tentative-score (funcall cost-fun target goal)))
+                     (pushnew target open))))))))
+
+;;;; Graph within chunks
 (defstruct (node-graph
             (:constructor %make-node-graph (width height &optional (grid (make-array (* width height) :initial-element NIL)))))
   (width 0 :type (unsigned-byte 16))
@@ -7,7 +46,7 @@
   (grid NIL :type simple-vector))
 
 (defstruct (move-node (:constructor make-move-node (to)))
-  (to 0 :type (unsigned-byte 16)))
+  (to 0 :type (unsigned-byte 32)))
 (defstruct (walk-node (:include move-node) (:constructor make-walk-node (to))))
 (defstruct (crawl-node (:include move-node) (:constructor make-crawl-node (to))))
 (defstruct (climb-node (:include move-node) (:constructor make-climb-node (to))))
@@ -131,7 +170,7 @@
                                             (connect-jump graph x y ox oy (vec (* (vx vel) (- dir))
                                                                                (if (< 3 (tile x (1- y)))
                                                                                    (+ (vy vel) 1)
-                                                                                   (vy vel))))
+                                                                                   (+ (vy vel) 0.1))))
                                             #++(return-from create-jump-connections))
                                            ((< 0 (aref solids (* 2 (+ px (* w py)))))
                                             (loop-finish)))))))))))
@@ -158,9 +197,9 @@
                         (< 0 (tile (1- x) (- y 2))))
              (connect-nodes graph 'climb (1- x) (1- y) x y w h)
              (create-jump-connections solids graph x y -1)
-             (loop for yy downfrom y above 0
-                   do (when (< 0 (tile (1- x) yy))
-                        (connect-nodes graph 'fall x y (1- x) (1+ yy) w h)
+             (loop for yy downfrom y to 0
+                   do (when (or (= yy 0) (< 0 (tile (1- x) yy)))
+                        (connect-nodes graph 'fall x y (1- x) yy w h)
                         (loop-finish)))))
           ((_ o _
             _ o o
@@ -169,9 +208,9 @@
                         (< 0 (tile (1+ x) (- y 2))))
              (connect-nodes graph 'climb x y (1+ x) (1- y) w h)
              (create-jump-connections solids graph x y +1)
-             (loop for yy downfrom y above 0
-                   do (when (< 0 (tile (1+ x) yy))
-                        (connect-nodes graph 'fall x y (1+ x) (1+ yy) w h)
+             (loop for yy downfrom y to 0
+                   do (when (or (= yy 0) (< 0 (tile (1+ x) yy)))
+                        (connect-nodes graph 'fall x y (1+ x) yy w h)
                         (loop-finish)))))
           ((_ b _
             o o _
@@ -215,65 +254,16 @@
     (create-connections solids graph)
     graph))
 
-(defclass movable (moving)
-  ((current-node :initform NIL :accessor current-node)
-   (path :initform NIL :accessor path)
-   (node-time :initform 0f0 :accessor node-time)))
-
-(defgeneric movement-speed (movable))
-(defgeneric capable-p (movable edge))
-(defgeneric move-to (target movable))
-(defmethod capable-p ((movable movable) (edge walk-node)) T)
-(defmethod capable-p ((movable movable) (edge fall-node)) T)
-(defmethod capable-p ((movable movable) (edge jump-node)) NIL)
-(defmethod capable-p ((movable movable) (edge crawl-node)) NIL)
-(defmethod capable-p ((movable movable) (edge climb-node)) NIL)
-
-(defun shortest-path-a* (grid start goal test cost-fun score-fun)
-  (declare (optimize speed))
-  (declare (type simple-vector grid))
-  (declare (type (unsigned-byte 16) start goal))
-  (declare (type function test cost-fun score-fun))
-  (let ((open (list start))
-        (source (make-hash-table :test 'eql))
-        (scores (make-hash-table :test 'eql))
-        (cost (make-hash-table :test 'eql)))
-    (declare (type list open))
-    (setf (gethash start scores) 0)
-    (setf (gethash start cost) 1)
-    (loop while open
-          for min = NIL
-          for min-cost = NIL
-          do (dolist (current open min)
-               (let ((cost (gethash current cost)))
-                 (when (or (null min) (< cost min-cost))
-                   (setf min current min-cost cost))))
-             (when (eql min goal)
-               (let ((path (list)))
-                 (loop for (from . node) = (gethash min source)
-                       while from
-                       do (setf min from)
-                          (push node path))
-                 (return path)))
-             (setf open (delete min open))
-             (dolist (node (svref grid min))
-               (when (funcall test node)
-                 (let* ((target (move-node-to node))
-                        (tentative-score (+ (gethash min scores) (funcall score-fun node)))
-                        (score (gethash target scores)))
-                   (when (or (null score) (< tentative-score score))
-                     (setf (gethash target source) (cons min node))
-                     (setf (gethash target scores) tentative-score)
-                     (setf (gethash target cost) (+ tentative-score (funcall cost-fun target goal)))
-                     (pushnew target open))))))))
-
-(defun shortest-path (graph start goal offset test)
+(defun shortest-chunk-path (graph start goal offset test)
   (declare (optimize speed))
   (let ((w (node-graph-width graph))
         (grid (node-graph-grid graph)))
     (labels ((to-idx (vec)
-               (+ (the (unsigned-byte 16) (floor (- (vx vec) (vx offset))  +tile-size+))
-                  (* w (the (unsigned-byte 16) (floor (- (vy vec) (vy offset)) +tile-size+)))))
+               (etypecase vec
+                 (integer vec)
+                 (vec2
+                  (+ (the (unsigned-byte 16) (floor (- (vx vec) (vx offset))  +tile-size+))
+                     (* w (the (unsigned-byte 16) (floor (- (vy vec) (vy offset)) +tile-size+)))))))
              (from-idx (idx)
                (vec (+ (vx offset) (* (+ (mod idx w) 0.5) +tile-size+))
                     (+ (vy offset) (* (+ (floor idx w) 0.5) +tile-size+))))
@@ -294,11 +284,184 @@
       (let ((start (find-start (to-idx start)))
             (goal (find-start (to-idx goal))))
         (when (and start goal)
-          (values
-           (mapl (lambda (node)
-                   (setf (car node) (list (car node) (from-idx (move-node-to (car node))))))
-                 (shortest-path-a* grid start goal test #'cost #'score))
-           (from-idx start)))))))
+          (multiple-value-bind (path found) (shortest-path-a* grid start goal test #'cost #'score #'move-node-to)
+            (when found
+              (values
+               (mapl (lambda (node)
+                       (setf (car node) (list (car node) (from-idx (move-node-to (car node))))))
+                     path)
+               (from-idx start)))))))))
+
+;;;; Graph across chunks
+(defun chunk-node-idx (chunk loc)
+  (floor
+   (+ (- (vx loc) (- (vx (location chunk)) (vx (bsize chunk))))
+      (* (vx (size chunk)) (- (vy loc) (- (vy (location chunk)) (vy (bsize chunk))))))
+   +tile-size+))
+
+(defstruct (chunk-node (:constructor %make-chunk-node (from from-node to to-node)))
+  (from NIL :type T)
+  (to NIL :type T)
+  (from-node 0 :type (unsigned-byte 32))
+  (to-node 0 :type (unsigned-byte 32)))
+
+(defun make-chunk-node (nodes from-chunk from-loc to-chunk to-loc)
+  (when (svref (node-graph-grid (node-graph to-chunk)) (chunk-node-idx to-chunk to-loc))
+    (push (%make-chunk-node from-chunk (chunk-node-idx from-chunk from-loc)
+                            to-chunk (chunk-node-idx to-chunk to-loc))
+          (svref nodes (chunk-graph-id from-chunk)))))
+
+(defun connect-chunks (nodes from to)
+  (let ((xcross (vec (max (- (vx (location to)) (vx (bsize to)))
+                          (- (vx (location from)) (vx (bsize from))))
+                     (min (+ (vx (location to)) (vx (bsize to)))
+                          (+ (vx (location from)) (vx (bsize from))))))
+        (ycross (vec (max (- (vy (location to)) (vy (bsize to)))
+                          (- (vy (location from)) (vy (bsize from))))
+                     (min (+ (vy (location to)) (vy (bsize to)))
+                          (+ (vy (location from)) (vy (bsize from))))))
+        (grid (node-graph-grid (node-graph from)))
+        (bgrid (node-graph-grid (node-graph to)))
+        (w (floor (vx (size from))))
+        (bw (floor (vx (size to))))
+        (offset (nv+ (nv- (tv- (location from) (bsize from)) (location to)) (bsize to))))
+    (macrolet ((iterate (span loc to)
+                 `(loop for s from (vx ,span) to (vy ,span) by +tile-size+
+                        for loc = ,loc
+                        for idx = (chunk-node-idx from loc)
+                        while (< idx (length grid))
+                        do (when (svref grid idx)
+                             (make-chunk-node nodes from loc to (v+ loc ,to))))))
+      (cond ((< (vx xcross) (vy xcross))
+             (cond ((= (- (vy (location from)) (vy (bsize from)))
+                       (+ (vy (location to)) (vy (bsize to)))) ; B
+                    (iterate xcross
+                             (vec s (- (vy (location from)) (vy (bsize from)) (/ +tile-size+ -2)))
+                             (vec 0 (* +tile-size+ -2)))
+                    ;; Additional: fall nodes that exit to bottom
+                    (dotimes (i (length grid))
+                      (dolist (node (svref grid i))
+                        (when (and (typep node 'fall-node) (<= 0 (move-node-to node) (1- w)))
+                          (let* ((loc (vec (+ (vx offset) (* (+ (mod (move-node-to node) w) 0.5) +tile-size+))
+                                           (+ (vy offset) (* (+ (floor (move-node-to node) w) 0.5) +tile-size+))))
+                                 (idx (+ (floor (vx loc)) (* bw (floor (vy loc))))))
+                            (loop for i downfrom idx to 0 by bw
+                                  do (when (and (< i (length bgrid)) (svref bgrid i))
+                                       (push (%make-chunk-node from (move-node-to node) to i)
+                                             (svref nodes (chunk-graph-id from)))
+                                       (return))))))))
+                   ((= (+ (vy (location from)) (vy (bsize from)))
+                       (- (vy (location to)) (vy (bsize to)))) ; U
+                    (iterate xcross
+                             (vec s (+ (vy (location from)) (vy (bsize from)) (* +tile-size+ -1.5)))
+                             (vec 0 (+ +tile-size+))))))
+            ((< (vx ycross) (vy ycross))
+             (cond ((= (- (vx (location from)) (vx (bsize from)))
+                       (+ (vx (location to)) (vx (bsize to)))) ; L
+                    (iterate ycross
+                             (vec (- (vx (location from)) (vx (bsize from)) (/ +tile-size+ -2)) s)
+                             (vec (- +tile-size+) 0)))
+                   ((= (+ (vx (location from)) (vx (bsize from)))
+                       (- (vx (location to)) (vx (bsize to)))) ; R
+                    (iterate ycross
+                             (vec (+ (vx (location from)) (vx (bsize from)) (/ +tile-size+ -2)) s)
+                             (vec (+ +tile-size+) 0)))))))))
+
+(defun make-chunk-graph (region)
+  (let ((chunks ()) (i 0))
+    (flet ((bottom-loc (entity)
+             (vec (vx (location entity))
+                  (+ (/ +tile-size+ 2) (- (vy (location entity)) (vy (bsize entity)))))))
+      ;; Compute chunk list and assign IDs
+      (for:for ((entity over region))
+        (when (typep entity 'chunk)
+          (push entity chunks)
+          (setf (chunk-graph-id entity) i)
+          (incf i)))
+      ;; Compute internal connections
+      (let ((nodes (make-array (length chunks) :initial-element NIL)))
+        (dolist (chunk chunks nodes)
+          (dolist (other chunks)
+            (unless (eql chunk other)
+              (connect-chunks nodes chunk other)))
+          (for:for ((entity over region))
+            (when (and (typep entity 'door)
+                       (contained-p entity chunk))
+              (make-chunk-node nodes chunk (bottom-loc entity)
+                               (find-containing (location (target entity)) region)
+                               (bottom-loc (target entity))))))))))
+
+(defun shortest-path (start goal test &optional (region (region +world+)))
+  (let* ((graph (chunk-graph region))
+         (start-chunk (find-containing start region))
+         (goal-chunk (find-containing goal region)))
+    (labels ((cost (a b)
+               (vsqrdist2 (location (chunk-node-from (first (svref graph a))))
+                          (location (chunk-node-from (first (svref graph b))))))
+             (target (a)
+               (chunk-graph-id (chunk-node-to a)))
+             (chunk-path (node goal)
+               (let ((chunk (chunk-node-to node)))
+                 (shortest-chunk-path (node-graph chunk) (chunk-node-to-node node)
+                                      goal (v- (location chunk) (bsize chunk))
+                                      test)))
+             ;; FIXME: we compute the full path here and then throw it away. This is very wasteful!
+             ;;        should cache it instead and then reconstruct from chosen parts instead.
+             ;;        or we could cache ahead of time which nodes inside a chunk are connectable.
+             (test (prev node)
+               (if prev
+                   (not (null (chunk-path prev (chunk-node-from-node node))))
+                   (let ((chunk (chunk-node-from node)))
+                     (nth-value 1 (shortest-chunk-path (node-graph chunk) start
+                                                       (chunk-node-from-node node) (v- (location chunk) (bsize chunk))
+                                                       test)))))
+             (node-vec (chunk idx)
+               (multiple-value-bind (y x) (floor idx (vx (size chunk)))
+                 (vec (+ (- (vx (location chunk)) (vx (bsize chunk))) (+ (* x +tile-size+) (/ +tile-size+ 2)))
+                      (+ (- (vy (location chunk)) (vy (bsize chunk))) (+ (* y +tile-size+) (/ +tile-size+ 2))))))
+             (make-transition-node (node)
+               (list
+                (cond ((< (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
+                       (load-time-value (make-climb-node 0)))
+                      ((> (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
+                       (load-time-value (make-fall-node 0)))
+                      (T
+                       (load-time-value (make-walk-node 0))))
+                (node-vec (chunk-node-to node) (chunk-node-to-node node)))))
+      (if (eq start-chunk goal-chunk)
+          (shortest-chunk-path (node-graph start-chunk) start goal (v- (location start-chunk) (bsize start-chunk)) test)
+          (let ((chunk-path (shortest-path-a* graph (chunk-graph-id start-chunk) (chunk-graph-id goal-chunk)
+                                              #'test #'cost (constantly 1) #'target)))
+            (when chunk-path
+              (multiple-value-bind (path start) (shortest-chunk-path (node-graph start-chunk) start (chunk-node-from-node (first chunk-path))
+                                                                     (v- (location start-chunk) (bsize start-chunk)) test)
+                (values (append path
+                                (loop for (from to) on chunk-path
+                                      append (list*
+                                              (make-transition-node from)
+                                              (if to
+                                                  (chunk-path from (chunk-node-from-node to))
+                                                  (chunk-path from goal)))))
+                        start))))))))
+
+;;;; Path execution
+(defclass movable (moving)
+  ((current-node :initform NIL :accessor current-node)
+   (path :initform NIL :accessor path)
+   (node-time :initform 0f0 :accessor node-time)))
+
+(defclass immovable (movable) ())
+
+(defmethod capable-p ((immovable immovable) (edge move-node)) NIL)
+
+(defgeneric movement-speed (movable))
+(defgeneric capable-p (movable edge))
+(defgeneric move-to (target movable))
+(defmethod capable-p ((movable movable) (edge walk-node)) T)
+(defmethod capable-p ((movable movable) (edge fall-node)) T)
+(defmethod capable-p ((movable movable) (edge jump-node)) NIL)
+(defmethod capable-p ((movable movable) (edge crawl-node)) NIL)
+(defmethod capable-p ((movable movable) (edge climb-node)) NIL)
 
 (defmethod path-available-p ((target vec2) (movable movable))
   (ignore-errors (shortest-path (find-containing target (region +world+)) movable target)))
@@ -307,16 +470,11 @@
   (path-available-p (location target) movable))
 
 (defmethod move-to ((target vec2) (movable movable))
-  (let ((b-chunk (find-containing target (region +world+)))
-        (a-chunk (find-containing (location movable) (region +world+))))
-    (unless (eql b-chunk a-chunk)
-      (error "FIXME: Don't know how to cross chunks!"))
-    (multiple-value-bind (path start) (shortest-path (node-graph a-chunk) (location movable)
-                                                     target (v- (location a-chunk) (bsize a-chunk))
-                                                     (lambda (node)
-                                                       (capable-p movable node)))
+  (flet ((test (_prev node)
+           (declare (ignore _prev))
+           (capable-p movable node)))
+    (multiple-value-bind (path start) (shortest-path (location movable) target #'test)
       (when path
-        (v:info :trial.move-to "Moving ~a along~{~%  ~a~}" movable path)
         (setf (current-node movable) start)
         (setf (path movable) path)))))
 

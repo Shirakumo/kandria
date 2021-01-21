@@ -61,7 +61,8 @@
                  (/ +tile-size+ 2)))
            (entity (entity tool)))
        (when (v/= new (location entity))
-         (setf (location entity) new))))
+         (setf (location entity) new)
+         (update-marker (editor tool)))))
     (:resizing
      (let* ((entity (entity tool))
             (current (nvalign (mouse-world-pos (pos event)) +tile-size+))
@@ -72,4 +73,5 @@
        (when (v/= new-size (bsize entity))
          ;; FIXME: this is destructive for chunks. Need some way to either copy state or not throw it away too eagerly.
          (resize entity (* 2 (vx new-size)) (* 2 (vy new-size)))
-         (setf (location entity) new-pos))))))
+         (setf (location entity) new-pos)
+         (update-marker (editor tool)))))))
