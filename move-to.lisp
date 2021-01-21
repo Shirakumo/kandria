@@ -450,6 +450,10 @@
    (path :initform NIL :accessor path)
    (node-time :initform 0f0 :accessor node-time)))
 
+(defclass immovable (movable) ())
+
+(defmethod capable-p ((immovable immovable) (edge move-node)) NIL)
+
 (defgeneric movement-speed (movable))
 (defgeneric capable-p (movable edge))
 (defgeneric move-to (target movable))
