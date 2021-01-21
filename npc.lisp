@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity npc (animatable ephemeral dialog-entity profile)
+(define-shader-entity npc (ai-entity animatable ephemeral dialog-entity profile)
   ((bsize :initform (vec 8 16))))
 
 (defmethod movement-speed ((npc npc))
@@ -13,22 +13,7 @@
   1000)
 
 (defmethod handle :before ((ev tick) (npc npc))
-  (when (path npc)
-    (return-from handle))
-  (case (state npc)
-    ((:dying :animated :stunned)
-     (handle-animation-states npc ev))
-    (T
-     (let ((vel (velocity npc))
-           (dt (* 100 (dt ev)))
-           (ground (svref (collisions npc) 2)))
-       (handle-ai-states npc ev)
-       (when ground
-         (incf (vy vel) (min 0 (vy (velocity ground))))
-         (setf (vx vel) 0))
-       (nv+ vel (v* (gravity (medium npc)) dt))
-       (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
-       (nv+ (frame-velocity npc) vel)))))
+  (nv+ (velocity npc) (v* (gravity (medium npc)) (* 100 (dt ev)))))
 
 (defmethod handle :after ((ev tick) (npc npc))
   (let ((vel (velocity npc))
@@ -107,7 +92,7 @@
    :sprite-data (asset 'kandria 'catherine)))
 
 (defmethod capable-p ((catherine catherine) (edge jump-node)) T)
-(defmethod capable-p ((catherine catherine) (edge crawl-node)) NIL)
+(defmethod capable-p ((catherine catherine) (edge crawl-node)) T)
 (defmethod capable-p ((catherine catherine) (edge climb-node)) T)
 
 (defmethod hurt ((catherine catherine) damage))

@@ -40,6 +40,8 @@
                (:file "rope")
                (:file "trigger")
                (:file "player")
+               (:file "toys")
+               (:file "ai")
                (:file "enemy")
                (:file "npc")
                (:file "cheats")
