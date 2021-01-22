@@ -236,6 +236,10 @@ void main(){
     (setf (layers chunk) (coerce layers 'vector))
     (register-generation-observer chunk tile-data)))
 
+(defmethod print-object ((chunk chunk) stream)
+  (print-unreadable-object (chunk stream :type T)
+    (format stream "~s" (name chunk))))
+
 (defmethod observe-generation ((chunk chunk) (data tile-data) result)
   (recompute chunk))
 

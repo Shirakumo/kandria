@@ -258,6 +258,8 @@
 
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
+    (execute-path player ev)
+    (nv+ (frame-velocity player) (velocity player))
     (return-from handle))
   (let* ((collisions (collisions player))
          (dt (* 100 (dt ev)))

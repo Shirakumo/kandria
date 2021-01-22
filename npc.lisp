@@ -1,7 +1,9 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity npc (ai-entity animatable ephemeral dialog-entity profile)
-  ((bsize :initform (vec 8 16))))
+  ((bsize :initform (vec 8 16))
+   (target :initform NIL :accessor target)
+   (companion :initform NIL :accessor companion)))
 
 (defmethod movement-speed ((npc npc))
   (case (state npc)
@@ -12,8 +14,7 @@
 (defmethod maximum-health ((npc npc))
   1000)
 
-(defmethod handle :before ((ev tick) (npc npc))
-  (nv+ (velocity npc) (v* (gravity (medium npc)) (* 100 (dt ev)))))
+(defmethod hurt ((npc npc) (player player)))
 
 (defmethod handle :after ((ev tick) (npc npc))
   (let ((vel (velocity npc))
@@ -73,7 +74,99 @@
           (T
            (harmony:stop (// 'kandria 'slide))))))
 
-(defmethod handle-ai-states ((npc npc) ev))
+(defmethod handle-ai-states ((npc npc) ev)
+  (let ((companion (companion npc)))
+    (case (ai-state npc)
+      (:normal)
+      (:move-to
+       (if (path npc)
+           (execute-path npc ev)
+           (setf (ai-state npc) :normal)))
+      (:lead
+       (let ((distance (vsqrdist2 (location npc) (location companion))))
+         (cond ((< (expt (* 30 +tile-size+) 2) distance)
+                (setf (ai-state npc) :lead-check))
+               ((< (expt (* 2 +tile-size+) 2) (vsqrdist2 (location npc) (target npc)))
+                (setf (companion npc) NIL)
+                (setf (ai-state npc) :normal))
+               ((null (path npc))
+                (unless (move-to (target npc) npc)
+                  (error "What the fuck? Don't know how to get to ~a" (target npc))))
+               (T
+                (execute-path npc ev)))))
+      (:lead-check
+       (let ((distance (vsqrdist2 (location npc) (location companion))))
+         (cond ((< distance (expt (* 10 +tile-size+) 2))
+                (setf (ai-state npc) :lead))
+               ((close-to-path-p (location companion) (path npc) (* 5 +tile-size+))
+                (setf (ai-state npc) :lead-teleport))
+               (T
+                ;; TODO: shout where are you? it's this way!
+                ))))
+      (:lead-teleport
+       (when (svref (collisions companion) 2)
+         (v<- (location npc) (location companion))
+         (if (move-to (target npc) npc)
+             (setf (ai-state npc) :lead)
+             (setf (ai-state npc) :lead-check))))
+      (:follow
+       (let ((distance (vsqrdist2 (location npc) (location companion))))
+         (cond ((path npc)
+                (execute-path npc ev))
+               ((< distance (expt (* 5 +tile-size+) 2))
+                (setf (vx (velocity npc)) 0))
+               (T
+                (setf (ai-state npc) :follow-check)))))
+      (:follow-check
+       (let ((distance (vsqrdist2 (location npc) (location companion))))
+         (cond ((< distance (expt (* 3 +tile-size+) 2))
+                (setf (ai-state npc) :follow))
+               ((< (expt (* 40 +tile-size+) 2) distance)
+                ;; TODO: shout where are you, then timer it.
+                (setf (ai-state npc) :follow-teleport))
+               (T
+                (when (move-to companion npc)
+                  (setf (ai-state npc) :follow))))))
+      (:follow-teleport
+       ;; TODO: Smart-teleport: search for places just outside view of the companion from
+       ;;       which the companion is reachable
+       (when (svref (collisions companion) 2)
+         (v<- (location npc) (location companion))
+         (setf (ai-state npc) :follow)))
+      (:cowering
+       (cond ((enemies-present-p (location npc))
+              (unless (find (state npc) '(:animated :stunned :dying))
+                (start-animation 'cower npc)))
+             ((target npc)
+              (setf (state npc) :normal)
+              (lead (companion npc) (target npc) npc))
+             ((companion npc)
+              (setf (state npc) :normal)
+              (follow (companion npc) npc)))))))
+
+(defmethod hurt :after ((npc npc) (enemy enemy))
+  (setf (state npc) :cowering))
+
+(defmethod follow ((target located-entity) (npc npc))
+  (setf (companion npc) target)
+  (setf (ai-state npc) :follow))
+
+(defmethod stop-following ((npc npc))
+  (setf (companion npc) NIL)
+  (setf (target npc) NIL)
+  (setf (ai-state npc) :normal))
+
+(define-unit-resolver-methods follow (unit unit))
+(define-unit-resolver-methods stop-following (unit))
+(define-unit-resolver-methods lead (unit unit unit))
+
+(defmethod lead (target (goal located-entity) npc)
+  (lead target (vcopy (location goal)) npc))
+
+(defmethod lead ((target located-entity) (goal vec2) (npc npc))
+  (setf (target npc) goal)
+  (setf (companion npc) target)
+  (setf (ai-state npc) :lead))
 
 (define-shader-entity fi (npc)
   ((name :initform 'fi)
@@ -81,8 +174,6 @@
    (nametag :initform (@ fi-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
-
-(defmethod hurt ((fi fi) damage))
 
 (define-shader-entity catherine (npc)
   ((name :initform 'catherine)
@@ -94,14 +185,6 @@
 (defmethod capable-p ((catherine catherine) (edge jump-node)) T)
 (defmethod capable-p ((catherine catherine) (edge crawl-node)) T)
 (defmethod capable-p ((catherine catherine) (edge climb-node)) T)
-
-(defmethod hurt ((catherine catherine) damage))
-
-(defmethod handle-ai-states ((catherine catherine) ev)
-  (let ((player (unit 'player +world+)))
-    (when (and (svref (collisions player) 2)
-               (< (expt 64 2) (vsqrdist2 (location catherine) (location player))))
-      (move-to (location player) catherine))))
 
 (define-shader-entity pet (animatable ephemeral interactable)
   ())

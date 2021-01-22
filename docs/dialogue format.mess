@@ -80,6 +80,13 @@ Within this first choice we have more syntax. The instruction ``! `` can execute
     Eg: ``(status "Something changed...")``
   - ``move-to`` Make an entity move to a location.
     Eg: ``(move-to 'player 'catherine)`` Makes Catherine move to where the player currently is.
+  - ``lead`` Make an entity lead another to a location.
+    Eg: ``(lead 'player 'cave 'catherine)`` Makes Catherine lead the player to the cave marker.
+  - ``follow`` Make an entity follow another.
+    Eg: ``(follow 'player 'catherine)`` Makes Catherine follow the player around.
+  - ``stop-following`` Stop leading or following and return to standard AI activities.
+    Eg: ``(stop-following 'catherine)`` Makes Catherine stop following anywhere..
+
 
 Another point of interest in the example is the last choice, which is conditioned by a predicate ``? ``. Following is another arbitrary Lisp expression, in this case using the ``have`` function to check whether we have a specific item in the inventory. If the predicate succeeds, the following blocks ``| `` are executed. Again, if the nesting becomes too complicated to read, consider splitting things up into separate sections and using a jump. You can also create "elseif" chains using the predicate syntax like this:
 

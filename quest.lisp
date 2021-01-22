@@ -1,7 +1,10 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass place-marker (sized-entity resizable ephemeral)
-  ())
+  ((name :accessor name)))
+
+(defmethod compile-to-pass (pass (marker place-marker)))
+(defmethod register-object-for-pass (pass (marker place-marker)))
 
 (defmethod (setf location) ((marker located-entity) (entity located-entity))
   (setf (location entity) (location marker)))
@@ -90,10 +93,14 @@
                 (retrieve item inventory))
               (unit (name &optional (container +world+))
                 (unit name container))
+              (move-to (target &optional (unit player))
+                (move-to target unit)
+                (when (typep unit 'ai-entity)
+                  (setf (ai-state unit) :move-to)))
               ((setf location) (loc thing)
                 (setf (location (unit thing +world+)) loc)))
          (declare (ignorable #'activate #'deactivate #'complete #'fail #'active-p #'complete-p #'failed-p #'have #'store #'retrieve
-                             #'unit #'(setf location)))
+                             #'unit #'move-to #'(setf location)))
          ,form))))
 
 (defmethod load-quest ((packet packet) (storyline quest:storyline))
