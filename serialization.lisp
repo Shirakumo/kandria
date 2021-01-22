@@ -85,3 +85,28 @@
                ,@body)))))))
 
 (trivial-indent:define-indentation define-decoder (4 4 &body))
+
+(defmacro define-slot-coders ((type version) slots)
+  (let ((slots (loop for slot in slots
+                     for norm = (if (symbolp slot)
+                                    (list slot T (kw slot))
+                                    (destructuring-bind (name &optional (type T) (kw (kw name))) slot
+                                      (list name type kw)))
+                     collect norm)))
+    `(progn
+       (define-encoder (,type ,version) (_b _p)
+         (list (type-of ,type)
+               ,@(loop for (name slot-type kw) in slots
+                       collect kw
+                       collect (if (eql slot-type T)
+                                   `(,name ,type)
+                                   `(encode (,name ,type))))))
+       (define-decoder (,type ,version) (initargs _)
+         (destructuring-bind (&key ,@(loop for (name type kw) in slots
+                                           collect `((,kw ,name))) &allow-other-keys) initargs
+           (make-instance (class-of ,type)
+                          ,@(loop for (name slot-type kw) in slots
+                                  collect kw
+                                  collect (if (eql slot-type T)
+                                              name
+                                              `(decode ',slot-type ,name)))))))))

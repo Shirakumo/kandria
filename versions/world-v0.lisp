@@ -133,47 +133,11 @@
             :background ,(encode (background chunk))
             :gi ,(encode (gi chunk)))))
 
-(define-decoder (background world-v0) (initargs _)
-  (destructuring-bind (&key) initargs
-    (make-instance 'background)))
-
-(define-encoder (background world-v0) (_b _p)
-  `(background))
-
-(define-decoder (rope world-v0) (initargs _)
-  (destructuring-bind (&key location (direction +1) bsize extended name) initargs
-    (make-instance 'rope
-                   :name name
-                   :location (decode 'vec2 location)
-                   :bsize (decode 'vec2 bsize)
-                   :direction direction
-                   :extended extended)))
-
-(define-encoder (rope world-v0) (_b _p)
-  `(rope :name ,(name rope)
-         :location ,(encode (location rope))
-         :bsize ,(encode (bsize rope))
-         :direction ,(direction rope)
-         :extended ,(extended rope)))
-
-(define-decoder (water world-v0) (initargs _)
-  (destructuring-bind (&key location bsize) initargs
-    (make-instance 'water
-                   :location (decode 'vec2 location)
-                   :bsize (decode 'vec2 bsize))))
-
-(define-encoder (water world-v0) (_b _p)
-  `(water :location ,(encode (location water))
-          :bsize ,(encode (bsize water))))
-
-(define-decoder (trigger world-v0) (initargs _)
-  (make-instance (class-of trigger)
-                 :name (getf initargs :name)
-                 :active-p (getf initargs :active-p)))
-
-(define-encoder (trigger world-v0) (_b _p)
-  `(,(type-of trigger) :name ,(name trigger)
-                       :active-p ,(active-p trigger)))
+(define-slot-coders (background world-v0) ())
+(define-slot-coders (rope world-v0) (name (location vec2) (bsize vec2) direction extended))
+(define-slot-coders (water world-v0) ((location vec2) (bsize vec2)))
+(define-slot-coders (trigger world-v0) (name active-p (location vec2) (bsize vec2)))
+(define-slot-coders (place-marker world-v0) (name (location vec2) (bsize vec2)))
 
 (define-decoder (story-trigger world-v0) (initargs _)
   (let ((instance (call-next-method)))

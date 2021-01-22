@@ -148,6 +148,15 @@
   (when +world+
     (unit thing +world+)))
 
+(declaim (inline v<- vrand vrandr nvalign vfloor vsqrlen2 vsqrdist2 within-dist-p closer
+                 invclamp absinvclamp point-angle random* intersection-point))
+
+(defun v<- (target source)
+  (etypecase source
+    (vec2 (vsetf target (vx2 source) (vy2 source)))
+    (vec3 (vsetf target (vx3 source) (vy3 source) (vz3 source)))
+    (vec4 (vsetf target (vx4 source) (vy4 source) (vz4 source) (vw4 source)))))
+
 (defun vrand (min max)
   (vec (+ min (random (- max min)))
        (+ min (random (- max min)))))
@@ -177,6 +186,9 @@
   (declare (optimize speed))
   (+ (expt (- (vx2 a) (vx2 b)) 2)
      (expt (- (vy2 a) (vy2 b)) 2)))
+
+(defun within-dist-p (a b x)
+  (< (vsqrdist2 a b) (expt x 2)))
 
 (defun mindist (pos candidates)
   (loop for candidate in candidates
@@ -453,3 +465,18 @@
         (setf (cdr (last list)) (list first))
         (setf list (list first)))
     (values list first)))
+
+(defmacro define-unit-resolver-methods (func args)
+  (let ((arglist (loop for arg in args
+                       for i from 0
+                       collect (make-symbol (princ-to-string i)))))
+    `(progn
+       ,@(loop for arg in args
+               for i from 0
+               when (eql arg 'unit)
+               collect `(defmethod ,func ,(let ((list (copy-list arglist)))
+                                            (setf (nth i list) `(,(nth i list) symbol))
+                                            list)
+                          (,func ,@(let ((list (copy-list arglist)))
+                                     (setf (nth i list) `(unit ,(nth i list) +world+))
+                                     list)))))))
