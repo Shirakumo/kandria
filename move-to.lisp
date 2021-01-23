@@ -396,10 +396,9 @@
           (for:for ((entity over region))
             (when (and (typep entity 'door)
                        (contained-p entity chunk))
-              (print
-               (make-chunk-node nodes chunk (bottom-loc entity)
-                                (find-containing (location (target entity)) region)
-                                (bottom-loc (target entity)) #'%make-door-node)))))))))
+              (make-chunk-node nodes chunk (bottom-loc entity)
+                               (find-containing (location (target entity)) region)
+                               (bottom-loc (target entity)) #'%make-door-node))))))))
 
 (defun shortest-path (start goal test &optional (region (region +world+)))
   (let* ((graph (chunk-graph region))

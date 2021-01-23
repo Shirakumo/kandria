@@ -9,6 +9,7 @@ special-item "Special items"
 small-health-pack "Small health pack"
 medium-health-pack "Medium health pack"
 large-health-pack "Large health pack"
+can "Can"
 ;; UI
 go-backwards-in-ui "Back"
 resume-game "Resume"

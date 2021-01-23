@@ -106,8 +106,8 @@
 
 (defmethod handle :around ((ev event) (pass ui-pass))
   (unless (call-next-method)
-    (when (panels pass)
-      (handle ev (first (panels pass))))))
+    (dolist (panel (panels pass))
+      (handle ev panel))))
 
 (defmethod handle ((ev accept) (pass ui-pass))
   (alloy:handle (make-instance 'alloy:activate) pass))
@@ -169,9 +169,9 @@
   ;; Then attach to the UI
   (let ((ui (or ui (unit 'ui-pass T))))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
-    (alloy:enter panel (alloy:root (alloy:focus-tree ui)))
     (alloy:register panel ui)
     (when (alloy:focus-element panel)
+      (alloy:enter panel (alloy:root (alloy:focus-tree ui)))
       (setf (alloy:focus (alloy:focus-element panel)) :strong))
     (push panel (panels ui))
     (setf (active-p panel) T)
@@ -179,9 +179,6 @@
 
 (defmethod hide ((panel panel))
   (let ((ui (unit 'ui-pass T)))
-    ;; Make sure we hide things on top first.
-    (loop until (eq panel (first (panels ui)))
-          do (hide (first (panels ui))))
     (when (alloy:layout-tree (alloy:layout-element panel))
       (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
       (alloy:leave panel (alloy:root (alloy:focus-tree ui)))

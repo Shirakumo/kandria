@@ -137,6 +137,9 @@
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
     (incf (timestamp world) (* (clock-scale world) (dt ev)))
+    (loop for quest in (quest:known-quests (storyline world))
+          while (quest:active-p quest)
+          do (incf (clock quest) (dt ev)))
     (when (= 0 (mod (fc ev) 10))
       (quest:try (storyline world)))))
 
