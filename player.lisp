@@ -306,7 +306,8 @@
         (let ((loc (vec (vx (location (interactable player)))
                         (+ (vy loc) (vy (bsize player))))))
           (show (prompt player) :button 'interact :location loc))
-        (hide (prompt player)))
+        (when (slot-boundp (prompt player) 'alloy:layout-parent)
+          (hide (prompt player))))
     ;; Handle states.
     (ecase (state player)
       (:oob

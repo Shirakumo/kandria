@@ -13,9 +13,9 @@
 
 (define-decoder (quest:task world-v0) (info _p)
   (destructuring-bind (&key name quest title description invariant condition on-activate on-complete triggers &allow-other-keys) info
-    (let ((task (make-instance 'quest:task :name name :quest quest :title title :description description
-                                           :invariant invariant :condition condition
-                                           :on-activate on-activate :on-complete on-complete)))
+    (let ((task (make-instance 'task :name name :quest quest :title title :description description
+                                     :invariant invariant :condition condition
+                                     :on-activate on-activate :on-complete on-complete)))
       (loop for (type . info) in triggers
             do (decode type (list* :task task info)))
       task)))

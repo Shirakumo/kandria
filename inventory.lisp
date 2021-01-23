@@ -124,3 +124,5 @@
 (define-shader-entity large-health-pack (health-pack) ())
 (defmethod health ((_ large-health-pack)) 50)
 (defmethod item-order ((_ large-health-pack)) 2)
+
+(define-shader-entity can (item special-item) ())
