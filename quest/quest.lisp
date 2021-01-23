@@ -108,6 +108,12 @@
   (setf (active-tasks quest) ())
   quest)
 
+(defmethod fail ((quest quest))
+  (v:info :kandria.quest "Failing ~a" quest)
+  (setf (status quest) :failed)
+  (setf (active-tasks quest) ())
+  quest)
+
 (defmethod try ((quest quest))
   (dolist (task (active-tasks quest))
     (try task)))
@@ -199,7 +205,8 @@
     (v:info :kandria.quest "Deactivating ~a" task)
     (setf (status task) :unresolved)
     (loop for thing being the hash-values of (triggers task)
-          do (deactivate thing)))
+          do (deactivate thing))
+    (try (quest task)))
   task)
 
 (defmethod complete ((task task))
@@ -211,6 +218,8 @@
         do (deactivate thing))
   (dolist (effect (on-complete task))
     (activate (find-named effect task)))
+  (when (null (active-tasks (quest task)))
+    (complete (quest task)))
   task)
 
 (defmethod fail ((task task))
@@ -220,6 +229,8 @@
   (setf (status task) :failed)
   (loop for thing being the hash-values of (triggers task)
         do (deactivate trigger))
+  (when (null (active-tasks (quest task)))
+    (fail (quest task)))
   task)
 
 (defmethod try ((task task))
