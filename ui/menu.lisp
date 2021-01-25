@@ -224,6 +224,6 @@
 ~a: ~16t~a
 ~a: ~16t~a%"
             (@ in-game-datetime) (format-absolute-time (truncate (timestamp +world+)))
-            (@ current-play-time) (format-relative-time (timestamp (handler *context*)))
+            (@ current-play-time) (format-relative-time (- (get-universal-time) (timestamp (handler *context*))))
             (@ player-health) (health-percentage player))))
 ;; FIXME: when changing language UI needs to update immediately

@@ -7,9 +7,10 @@
    (strength :initform 0.0 :accessor strength)))
 
 (defmethod handle ((ev transition-event) (fade fade))
-  (setf (on-complete fade) (on-complete ev))
-  (setf (clock (progression 'transition +world+)) 0f0)
-  (start (progression 'transition +world+)))
+  (unless (flare:running (progression 'transition +world+))
+    (setf (on-complete fade) (on-complete ev))
+    (setf (clock (progression 'transition +world+)) 0f0)
+    (start (progression 'transition +world+))))
 
 (defmethod apply-transforms progn ((fade fade))
   (setf *projection-matrix*

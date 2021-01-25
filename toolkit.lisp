@@ -31,30 +31,29 @@
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
     (format NIL "~4,'0d.~2,'0d.~2,'0d ~2,'0d:~2,'0d:~2,'0d" yy mm dd h m s)))
 
-(defun format-relative-time (start &optional (now (get-universal-time)))
-  (let ((stamp (abs (- now start))))
-    (let ((seconds   (mod (floor (/ stamp 1)) 60))
-          (minutes   (mod (floor (/ stamp 60)) 60))
-          (hours     (mod (floor (/ stamp 60 60)) 24))
-          (days      (mod (floor (/ stamp 60 60 24)) 7))
-          ;; We approximate by saying each month has four weeks
-          (months    (mod (floor (/ stamp 60 60 24 7 4)) 12))
-          ;; More accurate through stamp in a year
-          (years     (mod (floor (/ stamp 31557600)) (expt 10 9)))
-          (aeons          (floor (/ stamp 31557600 10 10 (expt 10 (- 9 2))))))
-      (with-output-to-string (out)
-        (cond ((< 0 aeons)
-               (format out "~d aeons ~d years ~d months ~d days ~d:~2,'0d:~2,'0d" aeons years months days hours minutes seconds))
-              ((< 0 years)
-               (format out "~d years ~d months ~d days ~d:~2,'0d:~2,'0d" years months days hours minutes seconds))
-              ((< 0 months)
-               (format out "~d months ~d days ~d:~2,'0d:~2,'0d" months days hours minutes seconds))
-              ((< 0 days)
-               (format out "~d days ~d:~2,'0d:~2,'0d" days hours minutes seconds))
-              ((< 0 hours)
-               (format out "~d:~2,'0d:~2,'0d" hours minutes seconds))
-              (T
-               (format out "~d:~2,'0d" minutes seconds)))))))
+(defun format-relative-time (stamp)
+  (let ((seconds   (mod (floor (/ stamp 1)) 60))
+        (minutes   (mod (floor (/ stamp 60)) 60))
+        (hours     (mod (floor (/ stamp 60 60)) 24))
+        (days      (mod (floor (/ stamp 60 60 24)) 7))
+        ;; We approximate by saying each month has four weeks
+        (months    (mod (floor (/ stamp 60 60 24 7 4)) 12))
+        ;; More accurate through stamp in a year
+        (years     (mod (floor (/ stamp 31557600)) (expt 10 9)))
+        (aeons          (floor (/ stamp 31557600 10 10 (expt 10 (- 9 2))))))
+    (with-output-to-string (out)
+      (cond ((< 0 aeons)
+             (format out "~d aeons ~d years ~d months ~d days ~d:~2,'0d:~2,'0d" aeons years months days hours minutes seconds))
+            ((< 0 years)
+             (format out "~d years ~d months ~d days ~d:~2,'0d:~2,'0d" years months days hours minutes seconds))
+            ((< 0 months)
+             (format out "~d months ~d days ~d:~2,'0d:~2,'0d" months days hours minutes seconds))
+            ((< 0 days)
+             (format out "~d days ~d:~2,'0d:~2,'0d" days hours minutes seconds))
+            ((< 0 hours)
+             (format out "~d:~2,'0d:~2,'0d" hours minutes seconds))
+            (T
+             (format out "~d:~2,'0d" minutes seconds))))))
 
 (defun maybe-finalize-inheritance (class)
   (let ((class (etypecase class
@@ -148,6 +147,15 @@
   (when +world+
     (unit thing +world+)))
 
+(declaim (inline v<- vrand vrandr nvalign vfloor vsqrlen2 vsqrdist2 within-dist-p closer
+                 invclamp absinvclamp point-angle random* intersection-point))
+
+(defun v<- (target source)
+  (etypecase source
+    (vec2 (vsetf target (vx2 source) (vy2 source)))
+    (vec3 (vsetf target (vx3 source) (vy3 source) (vz3 source)))
+    (vec4 (vsetf target (vx4 source) (vy4 source) (vz4 source) (vw4 source)))))
+
 (defun vrand (min max)
   (vec (+ min (random (- max min)))
        (+ min (random (- max min)))))
@@ -177,6 +185,9 @@
   (declare (optimize speed))
   (+ (expt (- (vx2 a) (vx2 b)) 2)
      (expt (- (vy2 a) (vy2 b)) 2)))
+
+(defun within-dist-p (a b x)
+  (< (vsqrdist2 a b) (expt x 2)))
 
 (defun mindist (pos candidates)
   (loop for candidate in candidates
@@ -453,3 +464,18 @@
         (setf (cdr (last list)) (list first))
         (setf list (list first)))
     (values list first)))
+
+(defmacro define-unit-resolver-methods (func args)
+  (let ((arglist (loop for arg in args
+                       for i from 0
+                       collect (make-symbol (princ-to-string i)))))
+    `(progn
+       ,@(loop for arg in args
+               for i from 0
+               when (eql arg 'unit)
+               collect `(defmethod ,func ,(let ((list (copy-list arglist)))
+                                            (setf (nth i list) `(,(nth i list) symbol))
+                                            list)
+                          (,func ,@(let ((list (copy-list arglist)))
+                                     (setf (nth i list) `(unit ,(nth i list) +world+))
+                                     list)))))))

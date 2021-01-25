@@ -258,6 +258,8 @@
 
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
+    (execute-path player ev)
+    (nv+ (frame-velocity player) (velocity player))
     (return-from handle))
   (let* ((collisions (collisions player))
          (dt (* 100 (dt ev)))
@@ -304,7 +306,8 @@
         (let ((loc (vec (vx (location (interactable player)))
                         (+ (vy loc) (vy (bsize player))))))
           (show (prompt player) :button 'interact :location loc))
-        (hide (prompt player)))
+        (when (slot-boundp (prompt player) 'alloy:layout-parent)
+          (hide (prompt player))))
     ;; Handle states.
     (ecase (state player)
       (:oob

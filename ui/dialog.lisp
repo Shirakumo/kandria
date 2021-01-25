@@ -198,6 +198,7 @@
              (alloy:on alloy:activate (button)
                (hide dialog))
              (alloy:enter button (choices dialog)))
+           (setf (alloy:index (choices dialog)) 0)
            (setf (alloy:focus (choices dialog)) :strong)
            (setf (prompt dialog) (string (prompt-char :right :bank :keyboard)))))))
 
@@ -270,6 +271,8 @@
                (alloy:clear (choices dialog))
                (advance dialog))
              (alloy:enter button (choices dialog))))
+  (setf (alloy:index (choices dialog)) 0)
+  (setf (alloy:focus (choices dialog)) :strong)
   (setf (prompt dialog) (string (prompt-char :right :bank :keyboard))))
 
 (defmethod handle ((rq dialogue:confirm-request) (dialog dialog))

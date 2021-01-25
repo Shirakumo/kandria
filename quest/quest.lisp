@@ -82,6 +82,7 @@
 
 (defmethod (setf status) :before (status (quest quest))
   (ecase status
+    (:inactive)
     (:active)
     (:complete)
     (:failed)))
@@ -108,17 +109,23 @@
   (setf (active-tasks quest) ())
   quest)
 
+(defmethod fail ((quest quest))
+  (v:info :kandria.quest "Failing ~a" quest)
+  (setf (status quest) :failed)
+  (setf (active-tasks quest) ())
+  quest)
+
 (defmethod try ((quest quest))
   (dolist (task (active-tasks quest))
     (try task)))
 
 (defclass task (describable)
-  ((status :initarg :status :accessor status)
+  ((status :initarg :status :initform :inactive :accessor status)
    (quest :initarg :quest :accessor quest)
-   (causes :initarg :causes :accessor causes)
+   (causes :initarg :causes :initform () :accessor causes)
    (triggers :initform (make-hash-table :test 'eq) :accessor triggers)
-   (on-complete :initarg :on-complete :accessor on-complete)
-   (on-activate :initarg :on-activate :accessor on-activate)
+   (on-complete :initarg :on-complete :initform () :accessor on-complete)
+   (on-activate :initarg :on-activate :initform () :accessor on-activate)
    (invariant :accessor invariant)
    (condition :accessor condition))
   (:default-initargs :status :inactive))
@@ -141,7 +148,8 @@
 
 (defmethod find-named (name (task task) &optional (error T))
   (or (find-trigger name task NIL)
-      (find-task name (quest task) error)))
+      (find-task name (quest task) NIL)
+      (find-quest name (storyline (quest task)) error)))
 
 (defun sort-tasks (tasks)
   (sort tasks #'string< :key #'title))
@@ -199,7 +207,8 @@
     (v:info :kandria.quest "Deactivating ~a" task)
     (setf (status task) :unresolved)
     (loop for thing being the hash-values of (triggers task)
-          do (deactivate thing)))
+          do (deactivate thing))
+    (try (quest task)))
   task)
 
 (defmethod complete ((task task))
@@ -211,6 +220,8 @@
         do (deactivate thing))
   (dolist (effect (on-complete task))
     (activate (find-named effect task)))
+  (when (null (active-tasks (quest task)))
+    (complete (quest task)))
   task)
 
 (defmethod fail ((task task))
@@ -220,6 +231,8 @@
   (setf (status task) :failed)
   (loop for thing being the hash-values of (triggers task)
         do (deactivate trigger))
+  (when (null (active-tasks (quest task)))
+    (fail (quest task)))
   task)
 
 (defmethod try ((task task))

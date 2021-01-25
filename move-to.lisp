@@ -170,7 +170,7 @@
                                             (connect-jump graph x y ox oy (vec (* (vx vel) (- dir))
                                                                                (if (< 3 (tile x (1- y)))
                                                                                    (+ (vy vel) 1)
-                                                                                   (+ (vy vel) 0.1))))
+                                                                                   (+ (vy vel) 0.2))))
                                             #++(return-from create-jump-connections))
                                            ((< 0 (aref solids (* 2 (+ px (* w py)))))
                                             (loop-finish)))))))))))
@@ -185,6 +185,7 @@
                  (aref solids (* 2 (+ x (* w y))))
                  0)))
       (do-nodes (x y graph)
+        ;; TODO: doors
         (with-filters (solids w h x y)
           ((o o _
             o o _
@@ -198,7 +199,7 @@
              (connect-nodes graph 'climb (1- x) (1- y) x y w h)
              (create-jump-connections solids graph x y -1)
              (loop for yy downfrom y to 0
-                   do (when (or (= yy 0) (< 0 (tile (1- x) yy)))
+                   do (when (or (= yy 0) (< 0 (tile (1- x) (1- yy))))
                         (connect-nodes graph 'fall x y (1- x) yy w h)
                         (loop-finish)))))
           ((_ o _
@@ -209,7 +210,7 @@
              (connect-nodes graph 'climb x y (1+ x) (1- y) w h)
              (create-jump-connections solids graph x y +1)
              (loop for yy downfrom y to 0
-                   do (when (or (= yy 0) (< 0 (tile (1+ x) yy)))
+                   do (when (or (= yy 0) (< 0 (tile (1+ x) (1- yy))))
                         (connect-nodes graph 'fall x y (1+ x) yy w h)
                         (loop-finish)))))
           ((_ b _
@@ -299,16 +300,24 @@
       (* (vx (size chunk)) (- (vy loc) (- (vy (location chunk)) (vy (bsize chunk))))))
    +tile-size+))
 
+(defun chunk-node-vec (chunk idx)
+  (multiple-value-bind (y x) (floor idx (vx (size chunk)))
+    (vec (+ (- (vx (location chunk)) (vx (bsize chunk))) (+ (* x +tile-size+) (/ +tile-size+ 2)))
+         (+ (- (vy (location chunk)) (vy (bsize chunk))) (+ (* y +tile-size+) (/ +tile-size+ 2))))))
+
 (defstruct (chunk-node (:constructor %make-chunk-node (from from-node to to-node)))
   (from NIL :type T)
   (to NIL :type T)
   (from-node 0 :type (unsigned-byte 32))
   (to-node 0 :type (unsigned-byte 32)))
 
-(defun make-chunk-node (nodes from-chunk from-loc to-chunk to-loc)
+(defstruct (door-node (:include chunk-node) (:constructor %make-door-node (from from-node to to-node))))
+
+(defun make-chunk-node (nodes from-chunk from-loc to-chunk to-loc &optional (constructor '%make-chunk-node))
   (when (svref (node-graph-grid (node-graph to-chunk)) (chunk-node-idx to-chunk to-loc))
-    (push (%make-chunk-node from-chunk (chunk-node-idx from-chunk from-loc)
-                            to-chunk (chunk-node-idx to-chunk to-loc))
+    (push (funcall constructor
+                   from-chunk (chunk-node-idx from-chunk from-loc)
+                   to-chunk (chunk-node-idx to-chunk to-loc))
           (svref nodes (chunk-graph-id from-chunk)))))
 
 (defun connect-chunks (nodes from to)
@@ -371,7 +380,7 @@
   (let ((chunks ()) (i 0))
     (flet ((bottom-loc (entity)
              (vec (vx (location entity))
-                  (+ (/ +tile-size+ 2) (- (vy (location entity)) (vy (bsize entity)))))))
+                  (- (vy (location entity)) (vy (bsize entity))))))
       ;; Compute chunk list and assign IDs
       (for:for ((entity over region))
         (when (typep entity 'chunk)
@@ -389,7 +398,7 @@
                        (contained-p entity chunk))
               (make-chunk-node nodes chunk (bottom-loc entity)
                                (find-containing (location (target entity)) region)
-                               (bottom-loc (target entity))))))))))
+                               (bottom-loc (target entity)) #'%make-door-node))))))))
 
 (defun shortest-path (start goal test &optional (region (region +world+)))
   (let* ((graph (chunk-graph region))
@@ -415,19 +424,19 @@
                      (nth-value 1 (shortest-chunk-path (node-graph chunk) start
                                                        (chunk-node-from-node node) (v- (location chunk) (bsize chunk))
                                                        test)))))
-             (node-vec (chunk idx)
-               (multiple-value-bind (y x) (floor idx (vx (size chunk)))
-                 (vec (+ (- (vx (location chunk)) (vx (bsize chunk))) (+ (* x +tile-size+) (/ +tile-size+ 2)))
-                      (+ (- (vy (location chunk)) (vy (bsize chunk))) (+ (* y +tile-size+) (/ +tile-size+ 2))))))
              (make-transition-node (node)
                (list
-                (cond ((< (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
+                (cond ((typep node 'door-node)
+                       node)
+                      ((< (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
                        (load-time-value (make-climb-node 0)))
                       ((> (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
                        (load-time-value (make-fall-node 0)))
                       (T
                        (load-time-value (make-walk-node 0))))
-                (node-vec (chunk-node-to node) (chunk-node-to-node node)))))
+                (if (typep node 'door-node)
+                    (chunk-node-vec (chunk-node-from node) (chunk-node-from-node node))
+                    (chunk-node-vec (chunk-node-to node) (chunk-node-to-node node))))))
       (if (eq start-chunk goal-chunk)
           (shortest-chunk-path (node-graph start-chunk) start goal (v- (location start-chunk) (bsize start-chunk)) test)
           (let ((chunk-path (shortest-path-a* graph (chunk-graph-id start-chunk) (chunk-graph-id goal-chunk)
@@ -497,72 +506,90 @@
 (defmethod (setf current-node) :after (node (movable movable))
   (setf (node-time movable) 0f0))
 
-(defmethod handle :before ((ev tick) (movable movable))
-  (when (path movable)
-    (let* ((collisions (collisions movable))
-           (dt (* 100 (dt ev)))
-           (loc (vec (vx (location movable))
-                     (+ (- (vy (location movable))
-                           (vy (bsize movable)))
-                        (/ +tile-size+ 2))))
-           (vel (velocity movable))
-           (source (current-node movable))
-           (ground (svref collisions 2)))
-      (flet ((move-towards (source target)
-               (when (and (eql :crawling (state movable))
-                          (null (svref collisions 0)))
-                 (setf (state movable) :normal))
-               (when (eql :climbing (state movable))
-                 (setf (state movable) :normal))
-               (let ((dir (float-sign (- (vx target) (vx source))))
-                     (diff (abs (- (vx target) (vx loc)))))
-                 (setf (vx vel) (* dir (max 0.5 (min diff (movement-speed movable))))))))
-        ;; Handle current step
-        (destructuring-bind (node target) (car (path movable))
-          (etypecase node
-            (walk-node
-             (move-towards source target)
-             (nv+ vel (v* (gravity (medium movable)) dt)))
-            (fall-node
-             (if ground
-                 (move-towards source target)
-                 (setf (vx vel) 0))
-             (when (and (or (typep (svref collisions 1) 'ground)
-                            (typep (svref collisions 3) 'ground))
-                        (< (vy vel) (p! slide-limit)))
-               (setf (vy vel) (p! slide-limit)))
-             (nv+ vel (v* (gravity (medium movable)) dt)))
-            (jump-node
-             (if ground
-                 (let ((node-dist (abs (- (vx loc) (vx source))))
-                       (targ-dist (vsqrdist2 loc target)))
-                   (cond ((<= node-dist 8)
-                          (vsetf vel (vx (jump-node-strength node)) (vy (jump-node-strength node))))
-                         ((< node-dist targ-dist)
-                          (move-towards (location movable) source))
-                         (T
-                          (move-towards source target))))
-                 (setf (vx vel) (vx (jump-node-strength node))))
-             (nv+ vel (v* (gravity (medium movable)) dt)))
-            (climb-node
-             (cond ((or (svref collisions 1)
-                        (svref collisions 3))
-                    (setf (state movable) :climbing)
-                    (let ((dir (signum (- (vy target) (vy source))))
-                          (diff (abs (- (vy target) (vy loc)))))
-                      (setf (vy vel) (* dir (max 0.5 (min diff (movement-speed movable)))))))
-                   (T
-                    (move-towards source target)
-                    (nv+ vel (v* (gravity (medium movable)) dt)))))
-            (crawl-node
-             (setf (state movable) :crawling)
-             (move-towards source target)))
-          ;; Check whether to move on to the next step
+(defun execute-path (movable tick)
+  (let* ((collisions (collisions movable))
+         (loc (vec (vx (location movable))
+                   (+ (- (vy (location movable))
+                         (vy (bsize movable)))
+                      (/ +tile-size+ 2))))
+         (vel (velocity movable))
+         (source (current-node movable))
+         (ground (svref collisions 2)))
+    (flet ((move-towards (source target)
+             (when (and (eql :crawling (state movable))
+                        (null (svref collisions 0)))
+               (setf (state movable) :normal))
+             (when (eql :climbing (state movable))
+               (setf (state movable) :normal))
+             (let ((dir (float-sign (- (vx target) (vx source))))
+                   (diff (abs (- (vx target) (vx loc)))))
+               (setf (vx vel) (* dir (max 0.5 (min diff (movement-speed movable))))))))
+      ;; Handle current step
+      (destructuring-bind (node target) (car (path movable))
+        (etypecase node
+          (walk-node
+           (move-towards source target))
+          (fall-node
+           (if ground
+               (move-towards source target)
+               (setf (vx vel) 0))
+           (when (and (or (typep (svref collisions 1) 'ground)
+                          (typep (svref collisions 3) 'ground))
+                      (< (vy vel) (p! slide-limit)))
+             (setf (vy vel) (p! slide-limit))))
+          (jump-node
+           (if ground
+               (let ((node-dist (abs (- (vx loc) (vx source))))
+                     (targ-dist (vsqrdist2 loc target)))
+                 (cond ((<= node-dist 8)
+                        (vsetf vel (vx (jump-node-strength node)) (vy (jump-node-strength node))))
+                       ((< node-dist targ-dist)
+                        (move-towards (location movable) source))
+                       (T
+                        (move-towards source target))))
+               (setf (vx vel) (vx (jump-node-strength node)))))
+          (climb-node
+           (cond ((or (svref collisions 1)
+                      (svref collisions 3))
+                  (setf (state movable) :climbing)
+                  (let ((dir (signum (- (vy target) (vy source))))
+                        (diff (abs (- (vy target) (vy loc)))))
+                    (setf (vy vel) (* dir (max 0.5 (min diff (movement-speed movable)))))))
+                 (T
+                  (move-towards source target))))
+          (crawl-node
+           (setf (state movable) :crawling)
+           (move-towards source target))
+          (door-node
+           (if (moved-beyond-target-p loc source target)
+               (flet ((teleport ()
+                        (let ((node-vec (chunk-node-vec (chunk-node-to node) (chunk-node-to-node node))))
+                          (pop (path movable))
+                          ;; FIXME: add a timer to let the animation complete
+                          (vsetf (location movable) (vx node-vec) (+ (- (vy node-vec) (/ +tile-size+ 2)) (vy (bsize movable))))
+                          (setf (current-node movable) node-vec))))
+                 (vsetf vel 0 0)
+                 (typecase movable
+                   (player (transition (teleport)))
+                   (T (teleport))))
+               (move-towards source target))))
+        ;; Check whether to move on to the next step
+        (unless (typep node 'door-node)
           (when (moved-beyond-target-p loc source target)
             (pop (path movable))
-            (setf (current-node movable) target))))
-      (when (< 2.0 (incf (node-time movable) (dt ev)))
-        (v:warn :kandria.move-to "Cancelling path, made no progress towards node in 2s.")
-        (setf (state movable) :normal)
-        (setf (path movable) NIL))
-      (nv+ (frame-velocity movable) vel))))
+            (setf (current-node movable) target)))))
+    (when ground
+      (incf (vy vel) (min 0 (vy (velocity ground)))))
+    (nv+ vel (v* (gravity (medium movable)) (* 100 (dt tick))))
+    (when (< 2.0 (incf (node-time movable) (dt tick)))
+      (v:warn :kandria.move-to "Cancelling path, made no progress towards node in 2s.")
+      (setf (state movable) :normal)
+      (setf (path movable) NIL))))
+
+(defun close-to-path-p (loc path threshold)
+  (let ((threshold (expt threshold 2)))
+    (loop for (_ target) in path
+          thereis (< (vsqrdist2 loc target) threshold))))
+
+;; FIXME: Ropes (semi-dynamic)
+;; FIXME: Jump over crates (dynamic)

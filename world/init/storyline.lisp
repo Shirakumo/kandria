@@ -1,1 +1,2 @@
-(test :status :active :tasks ((find-android :status :unresolved)))
+(test :status :active :tasks ((talk-to-fi :status :unresolved)))
+(race :status :inactive)
