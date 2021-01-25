@@ -36,7 +36,7 @@
 (defmethod initialize-instance :after ((panel status-lines) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (list (make-instance 'alloy:vertical-linear-layout)))
-    (alloy:enter list layout :constraints `((:left 20) (:top 100) (:size 500 1000)))
+    (alloy:enter list layout :constraints `((:left 20) (:top 100) (:size 1920 1000)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod alloy:enter ((string string) (panel status-lines) &key (importance :normal))
