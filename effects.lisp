@@ -60,7 +60,7 @@ void main(){ color = vec4(0,0,0,strength); }")
   (gl:active-texture :texture0)
   (gl:bind-texture :texture-2d (gl-name (texture pass)))
   (setf (uniform program "pixelfont") 0)
-  (setf (uniform program "seed") (logand #xFFFF (sxhash (floor (* 10 (current-time))))))
+  (setf (uniform program "seed") (logand #xFFFF (sxhash (floor (* 10 (clock +world+))))))
   (setf (uniform program "strength") (strength pass)))
 
 (defmethod handle ((event event) (pass distortion-pass)))
@@ -105,4 +105,46 @@ void main(){
     color = texture(previous_pass, (pos+1)/num);
     color = mix(color, vec4(1), clamp(strength*4-3,0,1));
   }
+}")
+
+(define-shader-pass sandstorm-pass (simple-post-effect-pass)
+  ((name :initform 'sandstorm)
+   (active-p :initform NIL)
+   (noise :port-type fixed-input :texture (// 'kandria 'noise))
+   (noise-cloud :port-type fixed-input :texture (// 'kandria 'noise-cloud))
+   (strength :initform 0f0 :accessor strength)))
+
+(defmethod (setf strength) :after (strength (pass sandstorm-pass))
+  (unless (eq (active-p pass) (< 0 strength))
+    (setf (active-p pass) (< 0 strength))))
+
+(defmethod stage :after ((pass sandstorm-pass) (area staging-area))
+  (stage (texture (port pass 'noise)) area)
+  (stage (texture (port pass 'noise-cloud)) area))
+
+(defmethod render :before ((pass sandstorm-pass) (program shader-program))
+  (setf (uniform program "strength") (strength pass))
+  (setf (uniform program "time") (clock +world+)))
+
+(define-class-shader (sandstorm-pass :fragment-shader)
+  "
+uniform float time;
+uniform sampler2D previous_pass;
+uniform sampler2D noise;
+uniform sampler2D noise_cloud;
+uniform float strength = 1.0;
+in vec2 tex_coord;
+out vec4 color;
+
+void main(){
+  vec3 previous = texture(previous_pass, tex_coord).rgb;
+  float t = time*3;
+  float r = (sin(t)+sin(t*0.3)+sin(t*0.1))*0.1;
+  vec3  n = texture(noise,       (tex_coord+r*vec2(1, 0.20)+vec2(0, 0.0)+t*vec2(0.4, 0.1))*1.5).rgb;
+  float a = texture(noise_cloud, (tex_coord+r*vec2(1, 0.21)+vec2(0, 0.0)+t*vec2(0.5, 0.05))*0.3).r;
+  float b = texture(noise_cloud, (tex_coord+r*vec2(1, 0.22)+vec2(0, 0.5)+t*vec2(0.6, 0.1))*0.2).r;
+  float c = texture(noise_cloud, (tex_coord+r*vec2(1, 0.23)+vec2(0, 0.3)+t*vec2(0.65,0.1))*0.1).r;
+  float s = a*b*c*(length(n)*0.1+0.95)*strength;
+  vec3 sand = vec3(0.9, 0.8, 0.7)*(s+0.5)+n/20;
+  color = vec4(mix(sand, previous, clamp(1.3-s*5+strength, 0, 1)), 1);
 }")
