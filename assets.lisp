@@ -44,6 +44,14 @@
          :texture (// 'kandria ',texture)
          ,@args))))
 
+(define-asset (kandria noise) image
+    #p"noise.png"
+  :wrapping :repeat)
+
+(define-asset (kandria noise-cloud) image
+    #p"noise-cloud.png"
+  :wrapping :repeat)
+
 (define-pixel lights)
 (define-pixel particles)
 (define-pixel items)
