@@ -226,7 +226,7 @@
 
 (defmethod collide ((player player) (trigger trigger) hit)
   (when (active-p trigger)
-    (fire trigger)))
+    (interact trigger player)))
 
 (defmethod collide ((player player) (block spike) hit)
   (case (state player)
