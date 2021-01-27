@@ -57,6 +57,7 @@
 (define-pixel items)
 (define-pixel pixelfont)
 (define-pixel ball)
+(define-pixel grass)
 (define-pixel tundra-bg)
 (define-pixel debug-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
 (define-pixel desert-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
