@@ -138,6 +138,7 @@
 (define-slot-coders (water world-v0) ((location vec2) (bsize vec2)))
 (define-slot-coders (trigger world-v0) (name active-p (location vec2) (bsize vec2)))
 (define-slot-coders (place-marker world-v0) (name (location vec2) (bsize vec2)))
+(define-slot-coders (grass-patch world-v0) ((location vec2) (bsize vec2) patches (tile-size vec2) (tile-start vec2) tile-count))
 
 (define-decoder (story-trigger world-v0) (initargs _)
   (let ((instance (call-next-method)))

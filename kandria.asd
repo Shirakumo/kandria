@@ -33,6 +33,7 @@
                (:file "moving-platform")
                (:file "medium")
                (:file "water")
+               (:file "grass")
                (:file "moving")
                (:file "move-to")
                (:file "animatable")
