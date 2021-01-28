@@ -1,5 +1,5 @@
 # Kandria Plot Outline
-The plot can still remain fluid, and change as new ideas and discoveries are made during dev; though the broad beats will likely remain fixed unless we encounter a serious problem during production (i.e. it doesn’t work in practice as well as we thought, or content gets cut that changes it significantly).
+//The plot can still remain fluid, and change as new ideas and discoveries are made during dev; though the broad beats will likely remain fixed unless we encounter a serious problem during production (i.e. it doesn’t work in practice as well as we thought, or content gets cut that changes it significantly).//
 
 Play the game for latest info, though the documentation here will be updated periodically.
 
@@ -15,13 +15,19 @@ Play the game for latest info, though the documentation here will be updated per
 "Design Notes"(link #Design Notes)
 
 ## Summary
-A faction of outcasts are trying to build a new life away from the warmongering of the other factions. They’ve established a new home far from the others after discovering a seed cache, which might let them grow food on the surface; they are cultivating the land and scouring the surrounding areas for useful supplies - that’s when they have the good fortune to discover a working android from the old world!
+A faction of outcasts are trying to build a new life in the desert away from the warmongering of their old faction. They’ve established a new home far from the others after discovering a seed cache, which might let them grow food on the surface; they are cultivating the land and scouring the surrounding areas for useful supplies - that’s when they have the good fortune to discover a working android from the old world!
 
-But no one has ever tried to live on the surface before, and they are on the brink of starvation. You help them establish their farming and irrigation process, so at least they are stable for now, before being deployed to foster vital relations with other factions by running all manner of errands and generally helping out.
+But no one has ever tried to live on the surface before, and they are on the brink of starvation. Despite their suspicions of you, being a recently-unearthed android, you help them establish their farming and irrigation process, so at least they are stable for now; then you are deployed to foster vital relations with other factions by running all manner of errands, solving mysteries, and generally helping out. As an android though, you face prejudice almost wherever you go.
 
-But the old faction your friends fled from are on the warpath, and are trying to unite the other factions by force. You must defend your territory from encroaching enemies, before calling in what favours you can for a final showdown.
+During your travels, you become aware that Alex, one of the hunters who is increasingly out of work now since your arrival, is perhaps plotting to betray your faction. You investigate as you go, gathering clues and intel.
 
-The battle is won, but the cost is high. With your home destroyed, there really is no choice but for the survivors to leave the valley and try to cross the mountains to the new faction - a place of salvation you previously discovered on your travels.
+You also discover another faction, living far away in the mountains, where only an android could reach.
+
+Eventually the old faction your friends fled from are on the warpath, and are trying to unite the other factions by force. You must defend your territory from encroaching enemies, before calling in what favours you can for a final showdown.
+
+Before the battle, the leader of the enemy faction has a surprising claim: you work for him - you're a bugged android, whom he's been using to spy with and plan the attack. Nevertheless, you fight for your faction.
+
+The battle is won, but the cost is high. Many are dead on both sides - including Alex; but not before they confessed to being the true spy. However, with your home destroyed, there really is no choice but for the survivors to leave the valley and try to cross the mountains to the new faction that you discovered.
 
 ## Blocking
 
@@ -57,6 +63,8 @@ Given your speed and stamina as an android, you are encouraged to venture out an
 
 You even discover a path through the mountains and locate a new faction previously only rumoured to exist, who left the valley long ago.
 
+During this act you also begin to observe strange behaviour from Alex, a hunter for your faction, who is now increasingly out of work since you arrived and took over his duties. He shows resentment towards you, and descends further into himself. As you travel you also locate clues that suggest he might be planning to betray the faction.
+
 **Quest ideas**
 - Map opens up
 - Clearing tunnels?
@@ -76,6 +84,8 @@ You begin to encounter their soldiers in the tunnels, increasingly close to home
 
 Small skirmishes take place between factions (perhaps ones you've allied with, versus ones you haven't - you can't get around them all yet), which you attend with diplomacy or combat.
 
+During this time you also share some of your findings about Alex, and though they are not acted upon, you begin to change the minds of some of the faction members.
+
 **Quest ideas**
 - Combat encounters
 - Defend the tunnels
@@ -87,12 +97,18 @@ War is coming though, and although she deplores violence, Fi unwillingly admits 
 
 It’s time to call in the favours of those you’ve reached out to thus far, and ally against the enemy. You resume your tour of duty, strengthening those relationships you’ve already cultivated, trying to salvage those that have waned, and making inroads with any whom you’ve ignored thus far. But you don’t have much time...
 
+By this point you've collected enough evidence to accue Alex, but you can inflect things to determine whether he's thrown in the brig or not. Either way, because of your continued efforts for the faction, you are finally getting the respect you deserve.
+
 **Quest ideas**
 - Similar quests to block 3, but shorter time frame - be that shorter quests, or only so many you can tend to, because the plot is picking up momentum towards the end
 
 ### Act 5
 **War**
 The battleground has been chosen - the enemy faction and its allies are bearing down on your home. Those allies you’ve managed to rally are here by your side though. You must help prepare the defences, train the soldiers, and when the battle begins, you will be relied upon for your combat prowess.
+
+Before the battle, the leader of the enemy faction accuses you of betraying your faction: he says that you belonged to him, and he planted you for this faction to find; he's been using you to unwittingly monitor them and their allies, plan the battle, and ultimately locate the settlement home. He says Alex is just a scapegoat. There is some uncertainty amongst your friends, hesitation - but nevertheless you fight as one.
+
+If Alex is in the brig he must sit this one out; otherwise he fights alongside you.
 
 **Quest ideas**
 - Build defences in the tunnels
@@ -102,15 +118,20 @@ The battleground has been chosen - the enemy faction and its allies are bearing 
 
 ### Epilogue
 **Hollow Victory**
-The battle is won, and the enemy factions have fled back underground. But the cost is high: many are dead on both sides, including some of your closest friends and allies. Worse, your settlement has been levelled in the fighting - not just the fledgling farmland essential to the settlement’s survival, but most of the buildings and shelter as well.
+The battle is won, and the enemy factions have fled back underground. But the cost is high: many are dead on both sides, including some of your closest friends and allies.
 
-Fi has a choice to make - the faction could return underground, and live like they used to. Or perhaps they could stay and rebuild - though the battlefield is strewn with mechanical debris that will soon poison the soil.
+Whether in the brig or not, Alex is mortally wounded, and confesses to being the one who betrayed the faction's location - it wasn't you, their leader was just trying to sow discord. Indeed, you can choose to permit Catherine (the engineer) to finally examine you, and confirm that; if not, they'll believe you nonetheless, since you were right about Alex. 
 
-But there is another option: leave, and cross the mountains to join with the distant new faction you discovered during your outreach tour, far from the factional divides of The Valley. The survivors could recover what they can from the ruins of the settlement, and embark on the long journey before winter sets in. With any luck they’ll make it.
+However, your settlement has been levelled in the fighting - not just the fledgling farmland essential to the settlement’s survival, but most of the buildings and shelter as well. Fi has a choice to make - the faction could return underground, and live like they used to. Or perhaps they could stay and rebuild - though the battlefield is strewn with mechanical debris that will soon poison the soil.
+
+But there is another option: leave, and cross the mountains to join with the distant new faction you discovered there, far from the factional divides of The Valley. The survivors could recover what they can from the ruins of the settlement, and embark on the perilous journey.
+
+Fi decides to do this - with any luck they’ll make it. You can choose to join them now, or remain for now and continue to explore the (slightly changed) map, completing any still active or repeatable quests.
 
 **Quest ideas**
 - Talk to people
 - Playable cutscenes?
+- Continue still-valid/repeatable quests
 
 ## Design Notes
 ### Variable World State & Ending
