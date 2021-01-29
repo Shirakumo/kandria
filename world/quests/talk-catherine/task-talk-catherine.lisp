@@ -5,18 +5,10 @@
  :condition NIL
  :on-activate (talk))
 (quest:interaction :name talk :interactable catherine :dialogue "
-~ player
-| Anything to do around here like fix the water supply?
 ~ fi
-| (:unsure) Well, you could try a race!
+| I need you to fix the water supply.
 ~ player
-| A... race? What do you mean?
+| Okay I will.
+! eval (activate 'q1-water)  
 ~ fi
-| (:normal) See how fast you can navigate these ruins.
-~ player
-- Alright, sounds fun!
-  ~ fi
-  | Well then, the clock starts... Now!  
-- I'd rather not.
-  ~ fi
-  | Your choice. Come back if you change your mind.")
+| Thanks.")
