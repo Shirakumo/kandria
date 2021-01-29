@@ -1,43 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-global +player-movement-data+
-    (macrolet ((mktab* (&rest entries)
-                 `(mktab ,@(loop for (k v) in entries
-                                 collect `(list ',k ,v)))))
-      (mktab* (coyote-time     0.08)
-              (velocity-limit  (vec 10 20))
-              (walk-acc        0.1)
-              (slowwalk-limit  0.6)
-              (walk-limit      1.9)
-              (run-acc         0.0125)
-              (run-time        3.0)
-              (run-limit       4.0)
-              (air-acc         0.08)
-              (air-dcc         0.97)
-              (climb-up        0.8)
-              (climb-down      1.5)
-              (climb-strength  7.0)
-              (climb-jump-cost 1.5)
-              (slide-limit    -1.2)
-              (crawl           0.5)
-              (jump-acc        2.5)
-              (jump-mult       1.1)
-              (walljump-acc    (vec 2.75 2.5))
-              (dash-acc        1.2)
-              (dash-dcc        0.875)
-              (dash-air-dcc    0.98)
-              (dash-acc-start  0.05)
-              (dash-dcc-start  0.2)
-              (dash-dcc-end    0.3)
-              (dash-min-time   0.25)
-              (dash-max-time   0.675))))
-
-(defmacro p! (name)
-  #+kandria-release
-  (gethash name +player-movement-data+)
-  #-kandria-release
-  `(gethash ',name +player-movement-data+))
-
 (define-shader-entity player (alloy:observable animatable profile ephemeral inventory)
   ((name :initform 'player)
    (bsize :initform (vec 7.0 15.0))
