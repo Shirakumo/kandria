@@ -65,6 +65,7 @@
                              (:file "status")
                              (:file "diagnostics")
                              (:file "hud")
+                             (:file "timer")
                              (:file "quick-menu")
                              (:file "menu")))
                (:module "editor"
