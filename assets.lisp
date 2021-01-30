@@ -79,6 +79,7 @@
 (define-tileset tundra)
 (define-tileset desert)
 (define-tileset debug)
+(define-tileset camp)
 
 (define-music music :volume 0.3)
 
