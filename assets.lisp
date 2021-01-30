@@ -58,9 +58,6 @@
 (define-pixel pixelfont)
 (define-pixel ball)
 (define-pixel grass)
-(define-pixel tundra-bg)
-(define-pixel debug-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
-(define-pixel desert-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
 
 (define-animation box)
 (define-animation player)
@@ -159,10 +156,13 @@
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
   :parallax (vec 2.0 5.0)
   :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 1800.0))
+  :offset (vec 0.0 2500.0))
 
 (define-bg debug
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)
   :offset (vec 0.0 0.0))
+
+(define-bg black
+  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge))
