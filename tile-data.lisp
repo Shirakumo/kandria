@@ -34,4 +34,5 @@
 
 (defmethod notify:notify :before ((asset tile-data) file)
   (when (string= "ase" (pathname-type file))
+    (sleep 1)
     (ql:quickload :kandria-data)))
