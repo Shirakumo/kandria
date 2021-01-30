@@ -328,7 +328,7 @@ void main(){
 (defmethod tile ((location vec3) (chunk chunk))
   (tile (vxy location) (aref (layers chunk) (floor (vz location)))))
 
-(defmethod (setf tile) :around (value (location vec2) (chunk chunk))
+(defmethod (setf tile) :around ((value vec2) (location vec2) (chunk chunk))
   (when (and value (= 0 (vy value)))
     (call-next-method)))
 

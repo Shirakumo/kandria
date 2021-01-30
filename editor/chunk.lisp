@@ -41,7 +41,16 @@
                (element (make-instance 'tile-button :data (make-instance 'alloy:value-data :value tile)
                                                     :tileset tileset :layout-parent layout :focus-parent focus)))
           (alloy:on alloy:activate (element)
-            (setf (tile-to-place widget) tile)))))
+            (if (retained :shift)
+                (let ((xd (- (vx tile) (vx (car (tile-to-place widget)))))
+                      (yd (- (vy tile) (vy (car (tile-to-place widget))))))
+                  (setf (place-width widget) (1+ (floor xd)))
+                  (setf (place-height widget) (1+ (floor yd)))
+                  (setf (tile-to-place widget) (car (tile-to-place widget))))
+                (progn
+                  (setf (place-width widget) 1)
+                  (setf (place-height widget) 1)
+                  (setf (tile-to-place widget) tile)))))))
     (alloy:finish-structure structure scroll scroll)))
 
 (alloy:define-widget chunk-widget (sidebar)
