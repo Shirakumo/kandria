@@ -12,7 +12,7 @@
 
 (presentations:define-update (ui tile-button)
   (:icon
-   :shift (alloy:px-point (vx alloy:value) (vy alloy:value))))
+   :shift (alloy:px-point (vx (unlist alloy:value)) (vy (unlist alloy:value)))))
 
 (defmethod simple:icon ((renderer ui) bounds (image texture) &rest initargs)
   (apply #'make-instance 'simple:icon :image image initargs))
@@ -22,8 +22,8 @@
 
 (defmethod alloy:text ((info tile-info))
   (format NIL "~3d / ~3d"
-          (floor (vx (alloy:value info)))
-          (floor (vy (alloy:value info)))))
+          (floor (vx (unlist (alloy:value info))))
+          (floor (vy (unlist (alloy:value info))))))
 
 (defclass tile-picker (alloy:structure)
   ())
@@ -46,14 +46,16 @@
 
 (alloy:define-widget chunk-widget (sidebar)
   ((layer :initform +base-layer+ :accessor layer :representation (alloy:ranged-slider :range '(0 . 4) :grid 1))
-   (tile :initform (vec2 1 0) :accessor tile-to-place)))
+   (tile :initform (list (vec2 1 0) 1 1) :accessor tile-to-place)
+   (place-width :initform 1 :accessor place-width :representation (alloy:ranged-wheel :grid 1 :range '(1)))
+   (place-height :initform 1 :accessor place-height :representation (alloy:ranged-wheel :grid 1 :range '(1)))))
 
 (defmethod (setf tile-to-place) :around ((tile vec2) (widget chunk-widget))
   (let* ((w (/ (width (albedo (entity widget))) +tile-size+))
          (h (/ (height (albedo (entity widget))) +tile-size+))
          (x (mod (vx tile) w))
          (y (mod (+ (vy tile) (floor (vx tile) w)) h)))
-    (call-next-method (vec x y) widget)))
+    (call-next-method (list (vec x y) (place-width widget) (place-height widget)) widget)))
 
 (alloy:define-subcomponent (chunk-widget show-solids) ((show-solids (entity chunk-widget)) alloy:switch))
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
@@ -73,13 +75,18 @@
     (setf (tool (editor chunk-widget)) (tool (editor chunk-widget)))))
 
 (alloy:define-subcontainer (chunk-widget layout)
-    (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T 60))
+    (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T 30 60))
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T 30)
     :row-sizes '(30)
     layer show-solids))
   tiles
+  (alloy:build-ui
+   (alloy:grid-layout
+    :col-sizes '(T T)
+    :row-sizes '(30)
+    place-width place-height))
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(64 64 64 T)
@@ -93,7 +100,7 @@
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
-  layer show-solids tiles pick clear compute)
+  layer show-solids tiles place-width place-height pick clear compute)
 
 (defmethod (setf entity) :after ((chunk chunk) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
