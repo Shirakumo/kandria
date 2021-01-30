@@ -1,6 +1,7 @@
 player-nametag "The Stranger"
 fi-nametag "Fi"
 catherine-nametag "Catherine"
+jack-nametag "Jack"
 ;; Items
 consumable-item "Consumables"
 quest-item "Quest items"

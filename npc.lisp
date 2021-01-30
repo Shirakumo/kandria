@@ -186,6 +186,13 @@
 (defmethod capable-p ((catherine catherine) (edge crawl-node)) T)
 (defmethod capable-p ((catherine catherine) (edge climb-node)) T)
 
+(define-shader-entity jack (npc)
+  ((name :initform 'jack)
+   (profile-sprite-data :initform (asset 'kandria 'fi-profile))
+   (nametag :initform (@ jack-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'jack)))
+
 (define-shader-entity pet (animatable ephemeral interactable)
   ())
 
