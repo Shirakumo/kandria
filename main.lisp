@@ -5,7 +5,8 @@
   ((scene :initform NIL)
    (state :accessor state)
    (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave)
-   (timestamp :initform (get-universal-time) :accessor timestamp))
+   (timestamp :initform (get-universal-time) :accessor timestamp)
+   (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL))
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
    :version '(3 3) :profile :core
