@@ -43,3 +43,20 @@
                  (finish quest)))
       (v:warn :kandria.quest "Could not find active story-item named ~s when firing trigger ~s"
               name (name trigger)))))
+
+(defclass tween-trigger (trigger)
+  ((left :initarg :left :accessor left :initform 0.0 :type single-float)
+   (right :initarg :right :accessor right :initform 1.0 :type single-float)))
+
+(defmethod interact ((trigger tween-trigger) (entity located-entity))
+  (let* ((x (+ (/ (- (vx (location entity)) (vx (location trigger)))
+                  (* 2.0 (vx (bsize trigger))))
+               0.5))
+         (v (lerp (left trigger) (right trigger) (clamp 0 x 1))))
+    (setf (value trigger) v)))
+
+(defclass sandstorm-trigger (tween-trigger)
+  ())
+
+(defmethod (setf value) (value (trigger sandstorm-trigger))
+  (setf (strength (unit 'sandstorm T)) value))

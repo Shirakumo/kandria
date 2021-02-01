@@ -81,5 +81,6 @@
              (push tile (stroke tool)))
            (when (or (null (cdr (stroke tool)))
                      (v/= loc (caar (stroke tool))))
+             ;; FIXME: Make this work right with multiple tiles placement.
              (push (cons loc (tile loc entity)) (stroke tool))
              (setf (tile loc entity) tile))))))
