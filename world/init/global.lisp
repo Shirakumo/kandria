@@ -1,1 +1,1 @@
-(:region test :clock 0.0)
+(:region hub :clock 0.0)

@@ -98,7 +98,7 @@
 (defmethod handle ((event event) (world world))
   (let ((handler (car (handler-stack world))))
     (cond (handler
-           (handle event (controller (handler *context*)))
+           (handle event (unit :controller world))
            (handle event (unit :camera world))
            (handle event handler))
           (T

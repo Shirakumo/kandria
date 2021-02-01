@@ -103,4 +103,5 @@
                  (spritesheet "fi-profile")
                  (tilemap "debug")
                  (tilemap "tundra")
-                 (tilemap "desert")))))
+                 (tilemap "desert")
+                 (tilemap "camp")))))

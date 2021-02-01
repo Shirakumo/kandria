@@ -44,19 +44,26 @@
          :texture (// 'kandria ',texture)
          ,@args))))
 
+(define-asset (kandria noise) image
+    #p"noise.png"
+  :wrapping :repeat)
+
+(define-asset (kandria noise-cloud) image
+    #p"noise-cloud.png"
+  :wrapping :repeat)
+
 (define-pixel lights)
 (define-pixel particles)
 (define-pixel items)
 (define-pixel pixelfont)
 (define-pixel ball)
-(define-pixel tundra-bg)
-(define-pixel debug-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
-(define-pixel desert-bg :wrapping '(:repeat :clamp-to-edge :clamp-to-edge))
+(define-pixel grass)
 
 (define-animation box)
 (define-animation player)
 (define-animation fi)
 (define-animation catherine)
+(define-animation jack)
 (define-animation wolf)
 (define-animation zombie)
 (define-animation ruddydrone)
@@ -72,6 +79,7 @@
 (define-tileset tundra)
 (define-tileset desert)
 (define-tileset debug)
+(define-tileset camp)
 
 (define-music music :volume 0.3)
 
@@ -149,10 +157,13 @@
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
   :parallax (vec 2.0 5.0)
   :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 1800.0))
+  :offset (vec 0.0 2500.0))
 
 (define-bg debug
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)
   :offset (vec 0.0 0.0))
+
+(define-bg black
+  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge))

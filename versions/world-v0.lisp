@@ -138,6 +138,7 @@
 (define-slot-coders (water world-v0) ((location vec2) (bsize vec2)))
 (define-slot-coders (trigger world-v0) (name active-p (location vec2) (bsize vec2)))
 (define-slot-coders (place-marker world-v0) (name (location vec2) (bsize vec2)))
+(define-slot-coders (grass-patch world-v0) ((location vec2) (bsize vec2) patches (tile-size vec2) (tile-start vec2) tile-count))
 
 (define-decoder (story-trigger world-v0) (initargs _)
   (let ((instance (call-next-method)))
@@ -149,6 +150,17 @@
   (append (call-next-method)
           (list :story-item (story-item story-trigger)
                 :target-status (target-status story-trigger))))
+
+(define-decoder (tween-trigger world-v0) (initargs _)
+  (let ((instance (call-next-method)))
+    (setf (left instance) (getf initargs :left))
+    (setf (right instance) (getf initargs :right))
+    instance))
+
+(define-encoder (tween-trigger world-v0) (_b _p)
+  (append (call-next-method)
+          (list :left (left tween-trigger)
+                :right (right tween-trigger))))
 
 (define-decoder (basic-light world-v0) (initargs _)
   (destructuring-bind (&key color data) initargs

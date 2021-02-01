@@ -33,6 +33,7 @@
                (:file "moving-platform")
                (:file "medium")
                (:file "water")
+               (:file "grass")
                (:file "moving")
                (:file "move-to")
                (:file "animatable")
@@ -64,6 +65,7 @@
                              (:file "status")
                              (:file "diagnostics")
                              (:file "hud")
+                             (:file "timer")
                              (:file "quick-menu")
                              (:file "menu")))
                (:module "editor"

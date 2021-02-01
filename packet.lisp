@@ -68,11 +68,13 @@
 
 (defmethod packet-entry (name (packet packet) &key element-type)
   (with-packet-entry (stream name packet :element-type element-type)
-    (let ((sequence (make-array (file-length stream) :element-type (stream-element-type stream))))
-      (loop for start = 0 then read
-            for read = (read-sequence sequence stream :start start)
-            while (< read (length sequence)))
-      sequence)))
+    (if (eql element-type 'character)
+        (alexandria:read-stream-content-into-string stream)
+        (let ((sequence (make-array (file-length stream) :element-type (stream-element-type stream))))
+          (loop for start = 0 then read
+                for read = (read-sequence sequence stream :start start)
+                while (< read (length sequence)))
+          sequence))))
 
 (defmethod (setf packet-entry) ((data stream) name (packet packet))
   (with-open-stream (data data)

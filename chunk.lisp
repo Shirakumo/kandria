@@ -105,6 +105,13 @@
           (gl:bind-texture :texture-2d 0)))
       value)))
 
+(defmethod (setf tile) ((value cons) (location vec2) (layer layer))
+  (destructuring-bind (tile w h) value
+    (dotimes (x w)
+      (dotimes (y h)
+        (setf (tile (vec (+ (vx location) (* +tile-size+ x)) (+ (vy location) (* +tile-size+ y))) layer)
+              (vec (+ (vx tile) x) (+ (vy tile) y)))))))
+
 (defun update-layer (layer)
   (let ((dat (pixel-data layer)))
     (sb-sys:with-pinned-objects (dat)
@@ -321,8 +328,8 @@ void main(){
 (defmethod tile ((location vec3) (chunk chunk))
   (tile (vxy location) (aref (layers chunk) (floor (vz location)))))
 
-(defmethod (setf tile) :around (value (location vec2) (chunk chunk))
-  (when (= 0 (vy value))
+(defmethod (setf tile) :around ((value vec2) (location vec2) (chunk chunk))
+  (when (and value (= 0 (vy value)))
     (call-next-method)))
 
 (defmethod (setf tile) (value (location vec3) (chunk chunk))
