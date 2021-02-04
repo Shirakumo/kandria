@@ -4,6 +4,7 @@
  :invariant T
  :condition NIL
  :on-activate (talk))
+
 (quest:interaction :name talk :interactable catherine :dialogue "
 ~ catherine
 | This isn't the welcome I was expecting.
@@ -23,6 +24,22 @@
   | But not everyone has fond tales to tell about androids.
 ~ catherine
 | We'd better go inside and talk to Jack.
+! eval (move-to 'jack (unit 'catherine))
 ")
+
+
 ; ! eval (activate 'q1-water)
 ; TODO mention stranger's name? Leave for jack to do?
+
+
+;(:name find-jack
+; :title "Find Jack"
+; :description "Follow Catherine into the building and find Jack."
+; :invariant T
+; :condition NIL
+; :on-activate (catherine-to-jack))
+ 
+;(quest:action :name catherine-to-jack :on-activate (progn
+;(lead 'player 'jack 'catherine)
+;))
+
