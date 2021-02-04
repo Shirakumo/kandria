@@ -1,10 +1,15 @@
 (:name find-jack
  :title "Find Jack"
- :description "Follow Catherine into the building and find Jack."
+ :description "I should follow Catherine into that building and find Jack."
  :invariant T
  :condition NIL
- :on-activate (catherine-to-jack))
+ :on-activate (talk))
  
-(quest:action :name catherine-to-jack :on-activate (progn
-(lead 'player 'jack 'catherine)
-))
+(quest:interaction :name talk :interactable jack :dialogue "
+~ jack
+| Who are you?
+~ catherine
+| Oh my manners!
+")
+; ! eval (activate 'q1-water)
+; TODO mention stranger's name? Leave for jack to do?
