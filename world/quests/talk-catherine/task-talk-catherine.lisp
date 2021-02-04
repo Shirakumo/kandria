@@ -5,10 +5,10 @@
  :condition NIL
  :on-activate (talk))
 (quest:interaction :name talk :interactable catherine :dialogue "
-~ fi
+~ catherine
 | I need you to fix the water supply.
 ~ player
 | Okay I will.
-! eval (activate 'q1-water)
-~ fi
+~ catherine
 | Thanks.")
+; ! eval (activate 'q1-water)
