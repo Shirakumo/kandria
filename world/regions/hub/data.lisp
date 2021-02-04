@@ -1,7 +1,7 @@
 (background)
 (sandstorm-trigger :name nil :active-p t :location (-1894.6606 -2292.1968) :bsize (313.33936 203.80322) :left 1.0 :right 0.0)
 (passage :location (1653.4043 -2411.7366) :target (179.0 -2412.0) :name nil)
-(player :location (495.0 -2417.0) :name player)
+(player :location (495.83063 -2417.0) :name player)
 (jack :location (1480.0 -2416.0) :name jack)
 (catherine :location (400.0 -2416.0) :name catherine)
 (grass-patch :location (-864.0 -2464.0) :bsize (592.0 16.0) :patches 296 :tile-size (4.0 32.0) :tile-start (0.0 0.0) :tile-count 8)

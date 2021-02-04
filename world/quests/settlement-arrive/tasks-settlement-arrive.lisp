@@ -2,7 +2,7 @@
  :title "Talk to Catherine"
  :description "The one that reactivated me, Catherine, doesn't look happy. I'd better talk to her."
  :invariant T
- :condition NIL
+ :condition all-complete
  :on-activate (talk))
 
 (quest:interaction :name talk :interactable catherine :dialogue "
@@ -24,6 +24,8 @@
   | But not everyone has fond tales to tell about androids.
 ~ catherine
 | We'd better go inside and talk to Jack.
+! eval (complete 'talk-to-catherine)
+! eval (deactivate 'talk)
 ! eval (move-to 'jack (unit 'catherine))
 ! eval (activate 'find-jack)
 ")
