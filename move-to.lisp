@@ -490,8 +490,7 @@
 (defmethod move-to ((target located-entity) (movable movable))
   (move-to (location target) movable))
 
-(defmethod move-to ((target symbol) (movable movable))
-  (move-to (unit target +world+) movable))
+(define-unit-resolver-methods move-to (unit unit))
 
 (defun moved-beyond-target-p (loc source target)
   ;; FIXME: do this in 2D with ray projection
