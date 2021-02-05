@@ -102,7 +102,7 @@
 (define-gi none
   :location NIL
   :light (vec 0 0 0)
-  :ambient (vec 5 5 5))
+  :ambient (vec 2.5 2.5 2.5))
 
 (define-gi tundra
   :location :sun
