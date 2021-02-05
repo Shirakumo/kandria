@@ -105,12 +105,18 @@
 
 (defmethod complete ((quest quest))
   (v:info :kandria.quest "Completing ~a" quest)
+  (dolist (task (active-tasks quest))
+    (when (eql :unresolved (status task))
+      (complete task)))
   (setf (status quest) :complete)
   (setf (active-tasks quest) ())
   quest)
 
 (defmethod fail ((quest quest))
   (v:info :kandria.quest "Failing ~a" quest)
+  (dolist (task (active-tasks quest))
+    (when (eql :unresolved (status task))
+      (fail task)))
   (setf (status quest) :failed)
   (setf (active-tasks quest) ())
   quest)
