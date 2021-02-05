@@ -257,7 +257,8 @@
     (for:for ((entity over (region +world+)))
       (typecase entity
         (interactable
-         (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
+         (when (and (contained-p (vec (vx loc) (vy loc) 16 8) entity)
+                    (interactable-p entity))
            (setf (interactable player) entity)))
         (trigger
          (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
