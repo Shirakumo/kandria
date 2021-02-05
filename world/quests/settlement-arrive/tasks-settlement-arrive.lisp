@@ -24,8 +24,6 @@
   | But not everyone has fond tales to tell about androids.
 ~ catherine
 | We'd better go inside and talk to Jack.
-! eval (complete 'talk-to-catherine)
-! eval (deactivate 'talk)
 ! eval (move-to 'jack (unit 'catherine))
 ! eval (activate 'find-jack)
 ")
