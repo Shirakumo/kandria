@@ -58,7 +58,8 @@
       (when (typep interactable 'interactable)
         (pushnew trigger (interactions interactable))))))
 
-(defmethod quest:deactivate ((trigger interaction))
+(defmethod quest:deactivate :around ((trigger interaction))
+  (call-next-method)
   (let ((interactable (unit (quest:interactable trigger) +world+)))
     (when (typep interactable 'interactable)
       (setf (interactions interactable) (remove trigger (interactions interactable))))))
