@@ -157,7 +157,7 @@
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
   :parallax (vec 2.0 5.0)
   :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 2500.0))
+  :offset (vec 0.0 2000.0))
 
 (define-bg debug
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
