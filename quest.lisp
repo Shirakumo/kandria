@@ -50,7 +50,7 @@
   (make-instance 'assembly))
 
 (defclass interaction (quest:interaction)
-  ())
+  ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)))
 
 (defmethod quest:activate ((trigger interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
@@ -58,15 +58,17 @@
       (when (typep interactable 'interactable)
         (pushnew trigger (interactions interactable))))))
 
-(defmethod quest:deactivate ((trigger interaction))
+(defmethod quest:deactivate :around ((trigger interaction))
+  (call-next-method)
   (let ((interactable (unit (quest:interactable trigger) +world+)))
     (when (typep interactable 'interactable)
-      (setf (interactions interactable) (remove interactable (interactions interactable))))))
+      (setf (interactions interactable) (remove trigger (interactions interactable))))))
 
 (defmethod quest:complete ((trigger interaction))
   (let ((interactable (unit (quest:interactable trigger) +world+)))
-    (when (typep interactable 'interactable)
-      (setf (interactions interactable) (remove interactable (interactions interactable))))))
+    (when (and (typep interactable 'interactable)
+               (not (repeatable-p trigger)))
+      (setf (interactions interactable) (remove trigger (interactions interactable))))))
 
 (defclass assembly (dialogue:assembly)
   ())
