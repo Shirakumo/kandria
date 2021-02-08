@@ -105,12 +105,18 @@
 
 (defmethod complete ((quest quest))
   (v:info :kandria.quest "Completing ~a" quest)
+  (dolist (task (active-tasks quest))
+    (when (eql :unresolved (status task))
+      (complete task)))
   (setf (status quest) :complete)
   (setf (active-tasks quest) ())
   quest)
 
 (defmethod fail ((quest quest))
   (v:info :kandria.quest "Failing ~a" quest)
+  (dolist (task (active-tasks quest))
+    (when (eql :unresolved (status task))
+      (fail task)))
   (setf (status quest) :failed)
   (setf (active-tasks quest) ())
   quest)
@@ -259,6 +265,7 @@
 (defmethod activate :around ((trigger trigger))
   (case (status trigger)
     (:inactive
+     (v:info :kandria.quest "Activating ~a" trigger)
      (call-next-method))))
 
 (defmethod activate :after ((trigger trigger))
@@ -267,10 +274,14 @@
 (defmethod deactivate :around ((trigger trigger))
   (case (status trigger)
     (:active
+     (v:info :kandria.quest "Deactivating ~a" trigger)
      (call-next-method))))
 
 (defmethod deactivate :after ((trigger trigger))
   (setf (status trigger) :inactive))
+
+(defmethod complete :before ((trigger trigger))
+  (v:info :kandria.quest "Completing ~a" trigger))
 
 (defmethod complete :after ((trigger trigger))
   (setf (status trigger) :complete))

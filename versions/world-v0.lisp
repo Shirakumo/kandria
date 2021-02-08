@@ -26,12 +26,12 @@
                                  :on-activate on-activate :on-deactivate on-deactivate)))
 
 (define-decoder (quest:interaction world-v0) (info packet)
-  (destructuring-bind (&key name title task interactable dialogue) info
+  (destructuring-bind (&key name title task interactable dialogue repeatable) info
     (let ((dialogue (etypecase dialogue
                       (pathname (packet-entry dialogue packet :element-type 'character))
                       (string dialogue))))
       (make-instance 'interaction :name name :title (or title (string name)) :task task
-                                  :interactable interactable :dialogue dialogue))))
+                                  :interactable interactable :dialogue dialogue :repeatable repeatable))))
 
 (define-decoder (region world-v0) (info packet)
   (let* ((region (apply #'make-instance 'region info))
