@@ -397,12 +397,12 @@ void main(){
                       ((= y (1- h)) (line -8 +8 +8 +8)))))))))))
 
 (defmethod contained-p ((a chunk) (b chunk))
-  (and (<= (abs (- (vx (location a)) (vx (location b)))) (+ (vx (bsize a)) (vx (bsize b))))
-       (<= (abs (- (vy (location a)) (vy (location b)))) (+ (vy (bsize a)) (vy (bsize b))))))
+  (and (< (abs (- (vx (location a)) (vx (location b)))) (+ (vx (bsize a)) (vx (bsize b))))
+       (< (abs (- (vy (location a)) (vy (location b)))) (+ (vy (bsize a)) (vy (bsize b))))))
 
 (defmethod contained-p ((a vec4) (b chunk))
-  (and (<= (abs (- (vx a) (vx (location b)))) (+ (vz a) (vx (bsize b))))
-       (<= (abs (- (vy a) (vy (location b)))) (+ (vw a) (vy (bsize b))))))
+  (and (< (abs (- (vx a) (vx (location b)))) (+ (vz a) (vx (bsize b))))
+       (< (abs (- (vy a) (vy (location b)))) (+ (vw a) (vy (bsize b))))))
 
 (defmethod contained-p ((entity located-entity) (chunk chunk))
   (contained-p (location entity) chunk))
@@ -476,17 +476,16 @@ void main(){
                               (return-from scan hit)))))))))
 
 (defmethod closest-acceptable-location ((entity chunk) location)
-  (let ((closest NIL) (dist float-features:single-float-positive-infinity))
-    (for:for ((other over (region +world+)))
-      (when (and (typep other 'chunk)
-                 (not (eq other entity))
-                 (contained-p (vec4 (vx location) (vy location) (vx (bsize entity)) (vy (bsize entity))) other))
-        (let ((ndist (sigdist-rect (location other) (bsize other) location)))
-          (when (< ndist dist)
-            (setf closest other)
-            (return)))))
-    (if closest
-        (v+ (closest-border (location closest) (bsize closest) location)
-            (vec (* (vx (bsize entity)) (signum (- (vx location) (vx (location closest)))))
-                 (* (vy (bsize entity)) (signum (- (vy location) (vy (location closest)))))))
-        location)))
+  (loop repeat 10
+        for closest = NIL
+        do (for:for ((other over (region +world+)))
+             (when (and (typep other 'chunk)
+                        (not (eq other entity))
+                        (contained-p (vec4 (vx location) (vy location) (vx (bsize entity)) (vy (bsize entity))) other))
+               (setf closest other)))
+           (when closest
+             (setf location (v+ (closest-border (location closest) (bsize closest) location)
+                                (vec (* (vx (bsize entity)) (signum (- (vx location) (vx (location closest)))))
+                                     (* (vy (bsize entity)) (signum (- (vy location) (vy (location closest)))))))))
+        while closest
+        finally (return location)))
