@@ -54,12 +54,13 @@
 (defmethod handle ((event mouse-move) (tool freeform))
   (case (state tool)
     (:moving
-     (let ((new (nvalign-corner
-                 (nv+ (nv- (mouse-world-pos (pos event)) (start-pos tool))
-                      (original-loc tool))
-                 (bsize (entity tool))
-                 (/ +tile-size+ 2)))
-           (entity (entity tool)))
+     (let* ((entity (entity tool))
+            (new (closest-acceptable-location
+                  entity (nvalign-corner
+                          (nv+ (nv- (mouse-world-pos (pos event)) (start-pos tool))
+                               (original-loc tool))
+                          (bsize (entity tool))
+                          (/ +tile-size+ 2)))))
        (when (v/= new (location entity))
          (setf (location entity) new)
          (update-marker (editor tool)))))

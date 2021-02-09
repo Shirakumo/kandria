@@ -9,7 +9,9 @@
 (defmethod alloy:reject ((creator creator)))
 
 (defmethod alloy:accept ((creator creator))
-  (edit (make-instance 'insert-entity :entity (entity creator)) T))
+  (let ((entity (entity creator)))
+    (setf (location entity) (closest-acceptable-location entity (location entity)))
+    (edit (make-instance 'insert-entity :entity entity) T)))
 
 (defmethod initialize-instance :after ((creator creator) &key)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T) :layout-parent creator))

@@ -251,7 +251,8 @@
   (make-instance 'creator :ui (unit 'ui-pass T)))
 
 (defmethod edit ((action (eql 'clone-entity)) (editor editor))
-  (edit (make-instance 'insert-entity :entity (clone (entity editor) :location (vcopy (location (unit :camera T))))) editor))
+  (let ((loc (closest-acceptable-location (entity editor) (location (unit :camera T)))))
+    (edit (make-instance 'insert-entity :entity (clone (entity editor) :location loc)) editor)))
 
 (defmethod edit ((action (eql 'undo)) (editor editor))
   (undo editor (unit 'region T)))
