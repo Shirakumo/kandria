@@ -16,7 +16,9 @@
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform (@ player-nametag))
    (invincible :initform (setting :gameplay :god-mode))
-   (hud :accessor hud))
+   (hud :accessor hud)
+   (trace :initform (make-array (* 12 60 60 2) :element-type 'single-float :adjustable T :fill-pointer 0)
+          :accessor movement-trace))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
@@ -222,6 +224,11 @@
     (execute-path player ev)
     (nv+ (frame-velocity player) (velocity player))
     (return-from handle))
+  ;; FIXME: Very bad! We cannot track time passage by frame count!
+  ;;        Need to do proper test to check whether a second has passed.
+  (when (= (mod (fc ev) 60) 0)
+    (vector-push-extend (vx (location player)) (movement-trace player))
+    (vector-push-extend (vy (location player)) (movement-trace player)))
   (let* ((collisions (collisions player))
          (dt (* 100 (dt ev)))
          (loc (location player))
