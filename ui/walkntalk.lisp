@@ -83,3 +83,19 @@
            (setf (prompt textbox) NIL)))
         ((or (interrupt textbox) (interaction textbox))
          (call-next-method))))
+
+(defmethod interrupt-walk-n-talk ((string string))
+  (setf (interrupt (unit 'walkntalk +world+))
+        (make-instance 'stub-interaction :dialogue string)))
+
+(defmethod interrupt-walk-n-talk ((null null))
+  (setf (interrupt (unit 'walkntalk +world+)) null))
+
+(defmethod walk-n-talk ((string string))
+  (walk-n-talk (make-instance 'stub-interaction :dialogue string)))
+
+(defmethod walk-n-talk ((interaction interaction))
+  (setf (interaction (unit 'walkntalk +world+)) interaction))
+
+(defmethod walk-n-talk ((null null))
+  (setf (interaction (unit 'walkntalk +world+)) null))

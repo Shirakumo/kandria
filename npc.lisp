@@ -98,12 +98,13 @@
       (:lead-check
        (let ((distance (vsqrdist2 (location npc) (location companion))))
          (cond ((< distance (expt (* 10 +tile-size+) 2))
+                (interrupt-walk-n-talk NIL)
                 (setf (ai-state npc) :lead))
                ((close-to-path-p (location companion) (path npc) (* 5 +tile-size+))
+                (interrupt-walk-n-talk NIL)
                 (setf (ai-state npc) :lead-teleport))
                (T
-                ;; TODO: shout where are you? it's this way!
-                ))))
+                (interrupt-walk-n-talk "| Where are you going? It's this way!")))))
       (:lead-teleport
        (when (svref (collisions companion) 2)
          (v<- (location npc) (location companion))
