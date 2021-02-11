@@ -113,7 +113,10 @@
               ((NIL) (colored:color 0.2 0.2 0.2)))))
 
 (defclass menu (pausing-panel)
-  ())
+  ((status-display :initform NIL :accessor status-display)))
+
+(defmethod handle ((ev tick) (menu menu))
+  (setf (alloy:value (status-display menu)) (overview-text)))
 
 ;; FIXME: scroll views for items and quests
 (defmethod initialize-instance :after ((panel menu) &key)
@@ -146,10 +149,11 @@
                     (alloy:enter slider focus :layer layer))))
       (with-tab (tab (@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         (let ((quick (with-button create-quick-save
-                       (save-state +world+ :quick)))
+                       (save-state +main+ :quick)))
               (resume (with-button resume-game
                         (hide panel)))
               (status (make-instance 'label :value (overview-text) :style `((:label :valign :top :size ,(alloy:un 15))))))
+          (setf (status-display panel) status)
           (alloy:enter status tab :constraints `((:margin 10)))
           (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter quick tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
@@ -223,9 +227,12 @@
   (let ((player (unit 'player +world+)))
     (format NIL "~
 ~a: ~16t~a
+~a: ~16t~a ~a
 ~a: ~16t~a
 ~a: ~16t~a%"
             (@ in-game-datetime) (format-absolute-time (truncate (timestamp +world+)))
-            (@ current-play-time) (format-relative-time (- (get-universal-time) (timestamp (handler *context*))))
+            (@ current-play-time) (format-relative-time (session-time))
+            (if (< (* 60 60 4) (session-time)) (@ long-play-time-warning) "")
+            (@ total-play-time) (format-relative-time (total-play-time))
             (@ player-health) (health-percentage player))))
 ;; FIXME: when changing language UI needs to update immediately

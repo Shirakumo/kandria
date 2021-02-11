@@ -9,11 +9,13 @@
   ((author :initarg :author :accessor author)
    (start-time :initarg :start-time :accessor start-time)
    (save-time :initarg :save-time :accessor save-time)
+   (play-time :initarg :play-time :accessor play-time)
    (file :initarg :file :accessor file))
   (:default-initargs
    :author (pathname-utils:directory-name (user-homedir-pathname))
    :start-time (get-universal-time)
-   :save-time (get-universal-time)))
+   :save-time (get-universal-time)
+   :play-time (total-play-time)))
 
 (defmethod initialize-instance :after ((save-state save-state) &key (filename ""))
   (unless (slot-boundp save-state 'file)
@@ -53,7 +55,8 @@
       (princ* (list :identifier 'save-state :version (type-of version)) stream)
       (princ* (list :author (author save-state)
                     :start-time (start-time save-state)
-                    :save-time (save-time save-state))
+                    :save-time (save-time save-state)
+                    :play-time (play-time save-state))
               stream))
     (encode-payload world NIL packet version)))
 
@@ -78,3 +81,6 @@
     (let ((version (coerce-version (getf header :version))))
       (decode-payload NIL world packet version)
       (apply #'make-instance 'save-state initargs))))
+
+(defclass quicksave (save-state)
+  ((file :initform (save-state-path "quicksave"))))

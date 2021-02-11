@@ -8,7 +8,7 @@
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
    (clock-scale :initform 60.0 :accessor clock-scale)
-   (timestamp :initform (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0) :accessor timestamp)
+   (timestamp :initform (initial-timestamp) :accessor timestamp)
    (pausable :initform T :accessor pausable))
   (:default-initargs
    :packet (error "PACKET required.")))

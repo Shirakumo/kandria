@@ -65,6 +65,9 @@
                 (asdf:component-version (asdf:find-system "kandria"))
                 (subseq commit 0 7)))))
 
+(defun initial-timestamp ()
+  (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0))
+
 (defun root ()
   (if (deploy:deployed-p)
       (deploy:runtime-directory)

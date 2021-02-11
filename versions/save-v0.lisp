@@ -13,7 +13,7 @@
             stream)))
 
 (define-decoder (world save-v0) (_b packet)
-  (destructuring-bind (&key region clock)
+  (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)))
       (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
     (setf (clock world) clock)
     (setf (timestamp world) timestamp)
@@ -46,7 +46,7 @@
               :clock (clock quest:quest))))
 
 (define-decoder (quest:quest save-v0) (initargs packet)
-  (destructuring-bind (&key status clock tasks) initargs
+  (destructuring-bind (&key status (clock 0.0) tasks) initargs
     (setf (quest:status quest:quest) status)
     (setf (clock quest:quest) clock)
     ;; FIXME: Quests not saved in the state won't be reset to initial state.
