@@ -76,8 +76,11 @@
 
 (defun total-play-time (&optional (main +main+))
   ;; FIXME: This is /not/ correct as repeat saving and loading will accrue time manyfold.
+  #++
   (+ (- (get-universal-time) (timestamp main))
-     (play-time (state main))))
+     (play-time (state main)))
+  ;; FIXME: This is /not/ correct either as it's influenced by time dilution and dilation.
+  (clock (scene main)))
 
 (defun launch (&rest initargs)
   (labels ((recurse (class)
