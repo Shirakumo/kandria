@@ -160,7 +160,7 @@
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
       (let ((enemy (make-instance (first type) :location (mouse-world-pos (pos ev)))))
-        (trial:commit enemy (loader (handler *context*)) :unload NIL)
+        (trial:commit enemy (loader +main+) :unload NIL)
         (enter enemy (region +world+))
         (compile-into-pass enemy (region +world+) +world+)))))
 
@@ -655,13 +655,13 @@
 (defmethod render :before ((player player) (program shader-program))
   (setf (uniform program "flash")
         (cond ((<= (climb-strength player) 0)
-               (if (<= (mod (clock (scene (handler *context*))) 0.5) 0.2) 0.8 0.0))
+               (if (<= (mod (clock (scene +main+)) 0.5) 0.2) 0.8 0.0))
               ((<= (climb-strength player) 1)
-               (if (<= (mod (clock (scene (handler *context*))) 0.15) 0.08) 1.0 0.0))
+               (if (<= (mod (clock (scene +main+)) 0.15) 0.08) 1.0 0.0))
               ((<= (climb-strength player) 2)
-               (if (<= (mod (clock (scene (handler *context*))) 0.3) 0.12) 0.8 0.0))
+               (if (<= (mod (clock (scene +main+)) 0.3) 0.12) 0.8 0.0))
               ((<= (climb-strength player) 3)
-               (if (<= (mod (clock (scene (handler *context*))) 0.4) 0.15) 0.5 0.0))
+               (if (<= (mod (clock (scene +main+)) 0.4) 0.15) 0.5 0.0))
               (T
                0.0))))
 

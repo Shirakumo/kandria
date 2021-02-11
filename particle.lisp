@@ -139,4 +139,4 @@ void main(){
 (defun spawn-particles (location &key (tiles (load-time-value (make-tile-uvs 8 18 128 128))))
   (enter-and-load (make-instance 'emitter :location location :tiles tiles)
                   (region +world+)
-                  (handler *context*)))
+                  +main+))
