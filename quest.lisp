@@ -70,6 +70,15 @@
                (not (repeatable-p trigger)))
       (setf (interactions interactable) (remove trigger (interactions interactable))))))
 
+(defclass stub-interaction ()
+  ((quest:dialogue :initform NIL :accessor quest:dialogue)))
+
+(defmethod initialize-instance :after ((interaction stub-interaction) &key dialogue)
+  ;; FIXME: use real lexinv...
+  (setf (quest:dialogue interaction) (dialogue:compile* dialogue)))
+
+(defmethod quest:complete ((stub-interaction stub-interaction)))
+
 (defclass assembly (dialogue:assembly)
   ())
 

@@ -59,7 +59,9 @@
                (:module "ui"
                 :components ((:file "general")
                              (:file "components")
+                             (:file "textbox")
                              (:file "dialog")
+                             (:file "walkntalk")
                              (:file "report")
                              (:file "prompt")
                              (:file "status")
