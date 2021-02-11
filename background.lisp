@@ -129,13 +129,15 @@
     (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
       (let ((a (a backgrounds))
             (b (b backgrounds)))
-        (when (and info (not (eq (texture info) (texture-b background))))
-          (setf (mix backgrounds) (- 1.0 (min 1.0 (mix backgrounds))))
-          ;; First move the target to be the source
-          (setf (texture-a background) (or (texture-b background) (texture info)))
-          (setf (parallax a) (parallax b))
-          (setf (scaling a) (scaling b))
-          (setf (offset a) (offset b)))
+        (cond ((and info (not (eq (texture info) (texture-b background))))
+               (setf (mix backgrounds) (- 1.0 (min 1.0 (mix backgrounds))))
+               ;; First move the target to be the source
+               (setf (texture-a background) (or (texture-b background) (texture info)))
+               (setf (parallax a) (parallax b))
+               (setf (scaling a) (scaling b))
+               (setf (offset a) (offset b)))
+              (T
+               (setf (mix backgrounds) 1.0)))
         ;; Then set new source parameters
         (setf (texture-b background) (texture info))
         (setf (parallax b) (parallax info))
@@ -147,6 +149,7 @@
   (update-background background))
 
 (defmethod handle ((ev change-time) (background background))
+  #++
   (update-background background))
 
 (defmethod handle ((ev tick) (background background))

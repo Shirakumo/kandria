@@ -192,7 +192,7 @@ Iframes:            ~d"
              (loop for i from 1 below (length array)
                    do (setf (aref array (1- i)) (aref array i)))
              (setf (aref array (1- (length array))) (float value 1f0))))
-      (let ((frame-time (frame-time (handler *context*))))
+      (let ((frame-time (frame-time +main+)))
         (push-value (if (= 0 frame-time) 1 (/ frame-time)) fps))
       (alloy:notify-observers 'fps panel fps panel)
       (multiple-value-bind (free total) (cpu-room)

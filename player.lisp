@@ -8,6 +8,7 @@
    (jump-time :initform 1.0 :accessor jump-time)
    (dash-time :initform 1.0 :accessor dash-time)
    (run-time :initform 1.0 :accessor run-time)
+   (limp-time :initform 0.0 :accessor limp-time)
    (climb-strength :initform 1.0 :accessor climb-strength)
    (combat-time :initform 10000.0 :accessor combat-time)
    (buffer :initform NIL :accessor buffer)
@@ -43,7 +44,7 @@
     (T (p! walk-limit))))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(dash jump land slide step death slash rope splash ground-hit))
+  (dolist (sound '(dash jump land slide step death slash rope splash ground-hit explosion))
     (stage (// 'kandria sound) area))
   (stage (prompt player) area))
 
@@ -79,6 +80,7 @@
       (snap-to-target (unit :camera T) player))))
 
 (defmethod handle ((ev dash) (player player))
+  (setf (limp-time player) 0.0)
   (case (state player)
     (:normal
      (let ((vel (velocity player))
@@ -160,7 +162,7 @@
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
       (let ((enemy (make-instance (first type) :location (mouse-world-pos (pos ev)))))
-        (trial:commit enemy (loader (handler *context*)) :unload NIL)
+        (trial:commit enemy (loader +main+) :unload NIL)
         (enter enemy (region +world+))
         (compile-into-pass enemy (region +world+) +world+)))))
 
@@ -215,9 +217,6 @@
        (incf (vy (location player)) 8)
        (setf (vy (bsize player)) 15)))))
 
-(defmethod hurt :after ((player player) damage)
-  (setf (combat-time player) 0f0))
-
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
     (execute-path player ev)
@@ -257,7 +256,8 @@
     (for:for ((entity over (region +world+)))
       (typecase entity
         (interactable
-         (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
+         (when (and (contained-p (vec (vx loc) (vy loc) 16 8) entity)
+                    (interactable-p entity))
            (setf (interactable player) entity)))
         (trigger
          (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
@@ -536,6 +536,8 @@
 
 (defmethod handle :after ((ev tick) (player player))
   (incf (jump-time player) (dt ev))
+  (when (< 0 (limp-time player))
+    (decf (limp-time player) (dt ev)))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
@@ -583,10 +585,14 @@
               (cond ((and (not (eql :keyboard +input-source+))
                           (< (abs (gamepad:axis :l-h +input-source+)) 0.5))
                      (setf (playback-speed player) (/ (abs (vx vel)) (p! slowwalk-limit)))
-                     (setf (animation player) 'walk))
+                     (if (< 0 (limp-time player))
+                         (setf (animation player) 'limp-walk)
+                         (setf (animation player) 'walk)))
                     (T
                      (setf (playback-speed player) (/ (abs (vx vel)) (p! walk-limit)))
-                     (setf (animation player) 'run))))
+                     (if (< 0 (limp-time player))
+                         (setf (animation player) 'limp-run)
+                         (setf (animation player) 'run)))))
              ((retained 'up)
               (setf (animation player) 'look-up)
               (when (= (frame-idx player) (1- (end (animation player))))
@@ -596,7 +602,9 @@
               (when (= (frame-idx player) (1- (end (animation player))))
                 (vsetf (offset (unit :camera T)) 0 -16)))
              (T
-              (setf (animation player) 'stand)))))
+              (if (< 0 (limp-time player))
+                  (setf (animation player) 'limp-stand)
+                  (setf (animation player) 'stand))))))
     (cond ((eql (name (animation player)) 'slide)
            (harmony:play (// 'kandria 'slide)))
           (T
@@ -634,10 +642,15 @@
   (setf (state player) :normal)
   (snap-to-target (unit :camera T) player))
 
-(defmethod hurt :after ((player player) damage)
+(defmethod hurt :after ((player player) by)
   (setf (clock (progression 'hurt +world+)) 0)
   (start (progression 'hurt +world+))
+  (setf (combat-time player) 0f0)
   (shake-camera :intensity 5))
+
+(defmethod (setf health) :after (health (player player))
+  (when (< (/ health (maximum-health player)) 0.15)
+    (setf (limp-time player) 10.0)))
 
 (defmethod kill :after ((player player))
   (harmony:play (// 'kandria 'death))
@@ -654,13 +667,13 @@
 (defmethod render :before ((player player) (program shader-program))
   (setf (uniform program "flash")
         (cond ((<= (climb-strength player) 0)
-               (if (<= (mod (clock (scene (handler *context*))) 0.5) 0.2) 0.8 0.0))
+               (if (<= (mod (clock (scene +main+)) 0.5) 0.2) 0.8 0.0))
               ((<= (climb-strength player) 1)
-               (if (<= (mod (clock (scene (handler *context*))) 0.15) 0.08) 1.0 0.0))
+               (if (<= (mod (clock (scene +main+)) 0.15) 0.08) 1.0 0.0))
               ((<= (climb-strength player) 2)
-               (if (<= (mod (clock (scene (handler *context*))) 0.3) 0.12) 0.8 0.0))
+               (if (<= (mod (clock (scene +main+)) 0.3) 0.12) 0.8 0.0))
               ((<= (climb-strength player) 3)
-               (if (<= (mod (clock (scene (handler *context*))) 0.4) 0.15) 0.5 0.0))
+               (if (<= (mod (clock (scene +main+)) 0.4) 0.15) 0.5 0.0))
               (T
                0.0))))
 

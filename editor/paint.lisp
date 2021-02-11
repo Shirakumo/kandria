@@ -45,7 +45,7 @@
     (:5 (setf (layer (sidebar (editor tool))) 4))))
 
 (defmethod handle ((event mouse-scroll) (tool paint))
-  (let ((tile (tile-to-place (sidebar (editor tool)))))
+  (let ((tile (first (tile-to-place (sidebar (editor tool))))))
     (setf (tile-to-place (sidebar (editor tool)))
           (if (retained :shift)
               (vec (vx tile) (+ (vy tile) (signum (delta event))))

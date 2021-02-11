@@ -490,8 +490,7 @@
 (defmethod move-to ((target located-entity) (movable movable))
   (move-to (location target) movable))
 
-(defmethod move-to ((target symbol) (movable movable))
-  (move-to (unit target +world+) movable))
+(define-unit-resolver-methods move-to (unit unit))
 
 (defun moved-beyond-target-p (loc source target)
   ;; FIXME: do this in 2D with ray projection
@@ -570,8 +569,13 @@
                           (setf (current-node movable) node-vec))))
                  (vsetf vel 0 0)
                  (typecase movable
-                   (player (transition (teleport)))
-                   (T (teleport))))
+                   (player
+                    (setf (animation movable) 'enter)
+                    (transition (teleport)))
+                   (T
+                    (setf (animation movable) 'enter)
+                    (when (= (frame-idx movable) (end (animation movable)))
+                      (teleport)))))
                (move-towards source target))))
         ;; Check whether to move on to the next step
         (unless (typep node 'door-node)

@@ -86,6 +86,11 @@ Within this first choice we have more syntax. The instruction ``! `` can execute
     Eg: ``(follow 'player 'catherine)`` Makes Catherine follow the player around.
   - ``stop-following`` Stop leading or following and return to standard AI activities.
     Eg: ``(stop-following 'catherine)`` Makes Catherine stop following anywhere..
+  - ``walk-n-talk`` Initiate a walk and talk sequence where dialogue is played as the player has control.
+    Eg: ``(walk-n-talk 'my-interaction)`` Plays the interaction named ``my-interaction`` as a walk-n-talk dialogue. Note: you cannot use choices in such interactions, but everything else is available. Be mindful of line length, too.
+  - ``interrupt-walk-n-talk`` Interrupt the walk-n-talk dialogue to show another dialogue temporarily.
+    Eg: ``(interrupt-walk-n-talk "| Hey, wait!")`` Interrupt the current dialogue with this piece. Note: you need to manually deactivate the interruption again.
+    Eg: ``(interrupt-walk-n-talk NIL)`` to deactivate the interruption.
 
 
 Another point of interest in the example is the last choice, which is conditioned by a predicate ``? ``. Following is another arbitrary Lisp expression, in this case using the ``have`` function to check whether we have a specific item in the inventory. If the predicate succeeds, the following blocks ``| `` are executed. Again, if the nesting becomes too complicated to read, consider splitting things up into separate sections and using a jump. You can also create "elseif" chains using the predicate syntax like this:
