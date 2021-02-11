@@ -152,6 +152,7 @@
                        (save-state +main+ :quick)))
               (resume (with-button resume-game
                         (hide panel)))
+              ;; FIXME: Need monospace font.
               (status (make-instance 'label :value (overview-text) :style `((:label :valign :top :size ,(alloy:un 15))))))
           (setf (status-display panel) status)
           (alloy:enter status tab :constraints `((:margin 10)))
