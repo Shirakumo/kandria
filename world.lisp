@@ -146,8 +146,12 @@
 (defmethod handle :after ((ev keyboard-event) (world world))
   (setf +input-source+ :keyboard))
 
-(defmethod handle :after ((ev gamepad-event) (world world))
+(defmethod handle :after ((ev gamepad-press) (world world))
   (setf +input-source+ (device ev)))
+
+(defmethod handle :after ((ev gamepad-move) (world world))
+  (when (< 0.1 (pos ev))
+    (setf +input-source+ (device ev))))
 
 (defmethod handle :after ((ev text-entered) (world world))
   (process-cheats (text ev)))
