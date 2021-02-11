@@ -8,7 +8,7 @@
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
    (clock-scale :initform 60.0 :accessor clock-scale)
-   (timestamp :initform (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0) :accessor timestamp)
+   (timestamp :initform (initial-timestamp) :accessor timestamp)
    (pausable :initform T :accessor pausable))
   (:default-initargs
    :packet (error "PACKET required.")))
@@ -146,8 +146,12 @@
 (defmethod handle :after ((ev keyboard-event) (world world))
   (setf +input-source+ :keyboard))
 
-(defmethod handle :after ((ev gamepad-event) (world world))
+(defmethod handle :after ((ev gamepad-press) (world world))
   (setf +input-source+ (device ev)))
+
+(defmethod handle :after ((ev gamepad-move) (world world))
+  (when (< 0.1 (pos ev))
+    (setf +input-source+ (device ev))))
 
 (defmethod handle :after ((ev text-entered) (world world))
   (process-cheats (text ev)))

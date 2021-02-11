@@ -75,3 +75,7 @@
              (vx (location room))
              (vy (location room)))
       (snap-to-target (unit :camera T) (unit 'player T)))))
+
+(define-cheat self-destruct "Self destruct initiated."
+  (trigger 'explosion (unit 'player T))
+  (setf (health (unit 'player T)) 1))

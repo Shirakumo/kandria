@@ -5,6 +5,7 @@
 (define-global +base-layer+ 2)
 (define-global +tiles-in-view+ (vec2 40 26))
 (define-global +world+ NIL)
+(define-global +main+ NIL)
 (define-global +input-source+ :keyboard)
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
@@ -63,6 +64,9 @@
         (format NIL "~a-~a"
                 (asdf:component-version (asdf:find-system "kandria"))
                 (subseq commit 0 7)))))
+
+(defun initial-timestamp ()
+  (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0))
 
 (defun root ()
   (if (deploy:deployed-p)
@@ -428,6 +432,48 @@
           do (push (clone (slot-value entity (c2mop:slot-definition-name slot))) initvalues)
              (push initarg initvalues))
     (apply #'make-instance (class-of entity) (append initargs initvalues))))
+
+(defun sigdist-rect (loc bsize x)
+  (declare (type vec2 x loc bsize))
+  (declare (optimize speed))
+  (let* ((dx (max (- (- (vx loc) (vx bsize)) (vx x))
+                  (- (vx x) (+ (vx loc) (vx bsize)))))
+         (dy (max (- (- (vy loc) (vy bsize)) (vy x))
+                  (- (vy x) (+ (vy loc) (vy bsize))))))
+    (+ (vlength (vec (max dx 0.0) (max dy 0.0)))
+       (min 0.0 (max dx dy)))))
+
+(defun closest-border (loc bsize x)
+  (let ((vx (max (- (vx loc) (vx bsize)) (min (+ (vx loc) (vx bsize)) (vx x))))
+        (vy (max (- (vy loc) (vy bsize)) (min (+ (vy loc) (vy bsize)) (vy x)))))
+    (if (or (/= (vx x) vx) (/= (vy x) vy))
+        (vec vx vy)
+        (let* ((a (v- (v+ loc bsize) x))
+               (b (v- (v- loc bsize x)))
+               (min (vmin a b))
+               (d (min (vx min) (vy min))))
+          (cond ((= (vx a) d)
+                 (vec (+ (vx loc) (vx bsize)) (vy x)))
+                ((= (vx b) d)
+                 (vec (- (vx loc) (vx bsize)) (vy x)))
+                ((= (vy a) d)
+                 (vec (vx x) (+ (vy loc) (vy bsize))))
+                (T
+                 (vec (vx x) (- (vy loc) (vy bsize)))))))))
+
+(defmethod closest-acceptable-location ((entity entity) location)
+  (let ((closest NIL) (dist float-features:single-float-positive-infinity))
+    (for:for ((other over (region +world+)))
+      (when (typep other 'chunk)
+        (let ((ndist (sigdist-rect (location other) (bsize other) location)))
+          (when (< ndist dist)
+            (setf dist ndist)
+            (setf closest other)))))
+    (if closest
+        location
+        (nv+ (closest-border (location closest) (bsize closest) location)
+             (vec (* (vx (bsize entity)) (signum (- (vx (location closest)) (vx location))))
+                  (* (vy (bsize entity)) (signum (- (vy (location closest)) (vy location)))))))))
 
 (defun mouse-world-pos (pos)
   (let ((camera (unit :camera T)))

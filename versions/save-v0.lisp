@@ -8,13 +8,15 @@
   (with-packet-entry (stream "global.lisp" packet
                              :element-type 'character)
     (princ* (list :region (name (region world))
-                  :clock (clock world))
+                  :clock (clock world)
+                  :timestamp (timestamp world))
             stream)))
 
 (define-decoder (world save-v0) (_b packet)
-  (destructuring-bind (&key region clock)
+  (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)))
       (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
     (setf (clock world) clock)
+    (setf (timestamp world) timestamp)
     (let ((region (cond ((and (region world) (eql region (name (region world))))
                          ;; Ensure we trigger necessary region reset events even if we're still in the same region.
                          (issue world 'switch-region :region (region world))
@@ -40,11 +42,13 @@
   (cons (quest:name quest:quest)
         (list :status (quest:status quest:quest)
               :tasks (loop for quest being the hash-values of (quest:tasks quest:quest)
-                           collect (encode quest)))))
+                           collect (encode quest))
+              :clock (clock quest:quest))))
 
 (define-decoder (quest:quest save-v0) (initargs packet)
-  (destructuring-bind (&key status tasks) initargs
+  (destructuring-bind (&key status (clock 0.0) tasks) initargs
     (setf (quest:status quest:quest) status)
+    (setf (clock quest:quest) clock)
     ;; FIXME: Quests not saved in the state won't be reset to initial state.
     (loop for (name . initargs) in tasks
           for task = (quest:find-task name quest:quest)

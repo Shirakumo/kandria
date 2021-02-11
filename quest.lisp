@@ -70,6 +70,15 @@
                (not (repeatable-p trigger)))
       (setf (interactions interactable) (remove trigger (interactions interactable))))))
 
+(defclass stub-interaction ()
+  ((quest:dialogue :initform NIL :accessor quest:dialogue)))
+
+(defmethod initialize-instance :after ((interaction stub-interaction) &key dialogue)
+  ;; FIXME: use real lexinv...
+  (setf (quest:dialogue interaction) (dialogue:compile* dialogue)))
+
+(defmethod quest:complete ((stub-interaction stub-interaction)))
+
 (defclass assembly (dialogue:assembly)
   ())
 
@@ -97,7 +106,7 @@
 
 (defun task-wrap-lexenv (form)
   `(flet ((thing (thing)
-            (if (symbolp thing) (quest:find-named thing task) thing)))
+            (if (and thing (symbolp thing)) (quest:find-named thing task) thing)))
      (flet ((activate (&rest things)
               (loop for thing in things do (quest:activate (thing thing))))
             (deactivate (&rest things)
@@ -111,8 +120,12 @@
             (complete-p (&rest things)
               (loop for thing in things always (eql :complete (quest:status (thing thing)))))
             (failed-p (&rest things)
-              (loop for thing in things always (eql :failed (quest:status (thing thing))))))
-       (declare (ignorable #'activate #'deactivate #'complete #'fail #'active-p #'complete-p #'failed-p))
+              (loop for thing in things always (eql :failed (quest:status (thing thing)))))
+            (walk-n-talk (thing)
+              (walk-n-talk (thing thing)))
+            (interrupt-walk-n-talk (thing)
+              (interrupt-walk-n-talk (thing thing))))
+       (declare (ignorable #'activate #'deactivate #'complete #'fail #'active-p #'complete-p #'failed-p #'walk-n-talk #'interrupt-walk-n-talk))
        ,(global-wrap-lexenv form))))
 
 (defmethod quest:compile-form ((task task) form)
