@@ -4,7 +4,7 @@
                 org.shirakumo.fraf.trial.notify:main)
   ((scene :initform NIL)
    (state :accessor state)
-   (quicksave :initform (make-instance 'save-state :filename "quicksave") :accessor quicksave)
+   (quicksave :initform (make-instance 'quicksave :play-time 0) :accessor quicksave)
    (timestamp :initform (get-universal-time) :accessor timestamp)
    (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL))
   (:default-initargs
@@ -26,13 +26,12 @@
   (loop for (k v) on (setting :audio :volume) by #'cddr
         do (setf (harmony:volume k) v))
   ;; Load initial state
-  (setf (state main)
-        (cond (state
-               (load-state state (scene main)))
-              (T
-               (load-state (initial-state (scene main)) (scene main))
-               (save-state (scene main) (quicksave main))
-               (make-instance 'save-state)))))
+  (cond (state
+         (load-state state main))
+        (T
+         (load-state (initial-state (scene main)) main)
+         (save-state main (quicksave main))
+         (make-instance 'save-state))))
 
 (defmethod update ((main main) tt dt fc)
   (issue (scene main) 'tick :tt tt :dt (* (time-scale (scene main)) (float dt 1.0)) :fc fc)
@@ -50,17 +49,35 @@
   (setf harmony:*server* NIL)
   (setf +main+ NIL))
 
-(defmethod save-state (world (state (eql T)) &rest args)
-  (apply #'save-state world (state (handler *context*)) args))
+(defmethod save-state ((main main) (state (eql T)) &rest args)
+  (apply #'save-state main (make-instance 'save-state) args))
 
-(defmethod save-state (world (state (eql :quick)) &rest args)
-  (apply #'save-state world (quicksave (handler *context*)) args))
+(defmethod save-state ((main main) (state (eql :quick)) &rest args)
+  (apply #'save-state main (quicksave main) args))
 
-(defmethod load-state ((state (eql T)) world)
-  (load-state (state (handler *context*)) world))
+(defmethod save-state ((main main) (state save-state) &rest args)
+  (prog1 (apply #'save-state (scene main) state args)
+    (unless (typep state 'quicksave)
+      (setf (state main) state))))
 
-(defmethod load-state ((state (eql :quick)) world)
-  (load-state (quicksave (handler *context*)) world))
+(defmethod load-state ((state (eql T)) (main main))
+  (load-state (state main) (scene main)))
+
+(defmethod load-state ((state (eql :quick)) (main main))
+  (load-state (quicksave main) (scene main)))
+
+(defmethod load-state ((state save-state) (main main))
+  (prog1 (load-state state (scene main))
+    (unless (typep state 'quicksave)
+      (setf (state main) state))))
+
+(defun session-time (&optional (main +main+))
+  (- (get-universal-time) (timestamp main)))
+
+(defun total-play-time (&optional (main +main+))
+  ;; FIXME: This is /not/ correct as repeat saving and loading will accrue time manyfold.
+  (+ (- (get-universal-time) (timestamp main))
+     (play-time (state main))))
 
 (defun launch (&rest initargs)
   (labels ((recurse (class)
