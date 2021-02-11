@@ -569,8 +569,13 @@
                           (setf (current-node movable) node-vec))))
                  (vsetf vel 0 0)
                  (typecase movable
-                   (player (transition (teleport)))
-                   (T (teleport))))
+                   (player
+                    (setf (animation movable) 'enter)
+                    (transition (teleport)))
+                   (T
+                    (setf (animation movable) 'enter)
+                    (when (= (frame-idx movable) (end (animation movable)))
+                      (teleport)))))
                (move-towards source target))))
         ;; Check whether to move on to the next step
         (unless (typep node 'door-node)
