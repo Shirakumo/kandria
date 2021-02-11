@@ -315,7 +315,7 @@ void main(){
     (stage (resource data 'albedo) area)
     (stage (resource data 'absorption) area)
     (stage (resource data 'normal) area)
-    (trial:commit area (loader (handler *context*)) :unload NIL))
+    (trial:commit area (loader +main+) :unload NIL))
   (flet ((update-layer (layer)
            (setf (albedo layer) (resource data 'albedo))
            (setf (absorption layer) (resource data 'absorption))
@@ -324,7 +324,7 @@ void main(){
     (map NIL #'update-layer (layers chunk))))
 
 (defmethod (setf background) :after ((data background-info) (chunk chunk))
-  (trial:commit data (loader (handler *context*)) :unload NIL))
+  (trial:commit data (loader +main+) :unload NIL))
 
 (defmethod tile ((location vec3) (chunk chunk))
   (tile (vxy location) (aref (layers chunk) (floor (vz location)))))

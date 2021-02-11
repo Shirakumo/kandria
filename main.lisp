@@ -15,6 +15,7 @@
 
 (defmethod initialize-instance ((main main) &key state app-id)
   (declare (ignore app-id))
+  (setf +main+ main)
   (call-next-method)
   (setf +input-source+ :keyboard)
   (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
@@ -46,7 +47,8 @@
 (defmethod finalize :after ((main main))
   (setf +world+ NIL)
   (harmony:free harmony:*server*)
-  (setf harmony:*server* NIL))
+  (setf harmony:*server* NIL)
+  (setf +main+ NIL))
 
 (defmethod save-state (world (state (eql T)) &rest args)
   (apply #'save-state world (state (handler *context*)) args))

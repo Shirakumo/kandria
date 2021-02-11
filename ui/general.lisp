@@ -135,7 +135,7 @@
   (let ((font (call-next-method)))
     (unless (and (alloy:allocated-p font)
                  (allocated-p (org.shirakumo.alloy.renderers.opengl.msdf:atlas font)))
-      (trial:commit font (loader (handler *context*)) :unload NIL))
+      (trial:commit font (loader +main+) :unload NIL))
     font))
 
 (defun find-panel (panel-type)
@@ -165,7 +165,7 @@
 (defmethod show ((panel panel) &key ui)
   (when *context*
     ;; First stage and load
-    (trial:commit panel (loader (handler *context*)) :unload NIL))
+    (trial:commit panel (loader +main+) :unload NIL))
   ;; Then attach to the UI
   (let ((ui (or ui (unit 'ui-pass T))))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))

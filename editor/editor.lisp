@@ -71,7 +71,7 @@
 (defmethod (setf tool) :before ((tool tool) (editor editor))
   (let ((entity (entity editor)))
     (when (find (type-of tool) (applicable-tools entity))
-      (trial:commit tool (loader (handler *context*)) :unload NIL)
+      (trial:commit tool (loader +main+) :unload NIL)
       (when (and (tool editor) (not (eq tool (tool editor))))
         (hide (tool editor))))))
 
@@ -199,7 +199,7 @@
     (enter region +world+)
     (setf (entity editor) region)
     (leave old +world+)
-    (trial:commit +world+ (handler *context*))))
+    (trial:commit +world+ +main+)))
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (if (retained :control)
@@ -209,7 +209,7 @@
       (load-region T T))
   (clear (history editor))
   (setf (entity editor) (region +world+))
-  (trial:commit +world+ (handler *context*)))
+  (trial:commit +world+ +main+))
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
   (if (retained :control)
@@ -219,15 +219,15 @@
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
   (if (retained :control)
-      (let ((path (file-select:existing :title "Select Save File" :default (file (state (handler *context*))))))
+      (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)))))
         (when path
           (load-state path T)))
       (load-state T T))
-  (trial:commit +world+ (handler *context*)))
+  (trial:commit +world+ +main+))
 
 (defmethod edit ((action (eql 'save-game)) (editor editor))
   (if (retained :control)
-      (let ((path (file-select:new :title "Select Save File" :default (file (state (handler *context*))))))
+      (let ((path (file-select:new :title "Select Save File" :default (file (state +main+)))))
         (when path
           (save-state T path)))
       (save-state T T)))
@@ -244,7 +244,7 @@
            (with-commit (editor)
              ((leave* entity container)
               (setf (entity editor) (region +world+)))
-             ((enter-and-load entity container (handler *context*))
+             ((enter-and-load entity container +main+)
               (setf (entity editor) entity)))))))
 
 (defmethod edit ((action (eql 'insert-entity)) (editor editor))
@@ -273,7 +273,7 @@
   (let ((entity (entity action))
         (*package* #.*package*))
     (with-commit (editor)
-        ((enter-and-load entity (unit 'region T) (handler *context*))
+        ((enter-and-load entity (unit 'region T) +main+)
           (setf (entity editor) entity))
         ((leave* entity (unit 'region T))
           (setf (entity editor) (region +world+))))))
