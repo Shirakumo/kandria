@@ -183,7 +183,7 @@
   :voice (// 'kandria 'zombie-notice))
 
 (define-shader-entity explosion-effect (step-effect)
-  ())
+  ((layer-index :initform 2)))
 
 (defmethod trigger :after ((effect explosion-effect) source &key (strength 0.5))
   (let ((displacer (make-instance 'displacer :location (location effect)
