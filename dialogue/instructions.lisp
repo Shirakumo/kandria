@@ -91,6 +91,9 @@
 (defclass end-mark (instruction)
   ())
 
+(defclass clear (instruction)
+  ())
+
 (defclass text (instruction)
   ((text :initarg :text :accessor text)))
 
