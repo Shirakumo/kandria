@@ -257,7 +257,8 @@
     (format stream "~s ~a" (name trigger) (status trigger))))
 
 (defmethod initialize-instance :after ((trigger trigger) &key task name)
-  (setf (find-trigger name task) trigger))
+  (when task
+    (setf (find-trigger name task) trigger)))
 
 (defmethod active-p ((trigger trigger))
   (eql :active (status trigger)))
@@ -309,7 +310,10 @@
    (dialogue :accessor dialogue)))
 
 (defmethod initialize-instance :after ((interaction interaction) &key task dialogue)
-  (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly task))))
+  (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))
+
+(defmethod make-assembly ((interaction interaction))
+  (make-assembly (task interaction)))
 
 (defmethod activate ((interaction interaction)))
 (defmethod deactivate ((interaction interaction)))
