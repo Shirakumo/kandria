@@ -90,7 +90,7 @@
   (:default-initargs :col-sizes '(T) :row-sizes '(30)))
 
 (defun clear-text-string ()
-  (make-array 0 :fill-pointer 0 :element-type 'character))
+  (load-time-value (make-array 0 :fill-pointer 0 :element-type 'character)))
 
 (defclass textbox (alloy:observable-object)
   ((vm :initform (make-instance 'dialogue:vm) :reader vm)
@@ -171,6 +171,9 @@
 
 (defmethod handle ((rq dialogue:confirm-request) (textbox textbox))
   (setf (pending textbox) (list :prompt (string (prompt-char :right :bank :keyboard)))))
+
+(defmethod handle ((rq dialogue:clear-request) (textbox textbox))
+  (setf (text textbox) (clear-text-string)))
 
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
   (let ((unit (unit (dialogue:name rq) T)))
