@@ -191,3 +191,15 @@
         :report "Give up changing the region and continue with the old."
         (when old-region
           (enter old-region world))))))
+
+(defmethod quest:find-named (name (world world) &optional (error T))
+  (quest:find-named name (storyline world) error))
+
+(defmethod quest:find-quest (name (world world) &optional (error T))
+  (quest:find-quest name (storyline world) error))
+
+(defmethod quest:find-task (name (world world) &optional (error T))
+  (quest:find-task name (storyline world) error))
+
+(defmethod quest:find-trigger (name (world world) &optional (error T))
+  (quest:find-trigger name (storyline world) error))
