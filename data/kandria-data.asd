@@ -101,6 +101,7 @@
                  (spritesheet "ruddydrone")
                  (spritesheet "player-profile")
                  (spritesheet "fi-profile")
+                 (spritesheet "catherine-profile")
                  (tilemap "debug")
                  (tilemap "tundra")
                  (tilemap "desert")

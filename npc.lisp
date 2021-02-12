@@ -179,7 +179,7 @@
 
 (define-shader-entity catherine (npc)
   ((name :initform 'catherine)
-   (profile-sprite-data :initform (asset 'kandria 'fi-profile))
+   (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ catherine-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'catherine)))
