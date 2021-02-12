@@ -17,7 +17,7 @@
    :pattern colors:white))
 
 (defclass dialog (pausing-panel textbox)
-  ((interactable :initarg :interactable :accessor interactable)
+  ((interactions :initarg :interactions :initform () :accessor interactions)
    (interaction :initform NIL :accessor interaction)
    (one-shot :initform NIL :accessor one-shot)))
 
@@ -48,12 +48,6 @@
   (clear-retained)
   (discard-events +world+)
   (unpause-game T (unit 'ui-pass T)))
-
-(defmethod interactions ((dialog dialog))
-  (or (loop for interaction in (interactions (interactable dialog))
-            when (eql :active (quest:status interaction))
-            collect interaction)
-      (interactions (interactable dialog))))
 
 (defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
   (dialogue:run (quest:dialogue interaction) (vm dialog)))
