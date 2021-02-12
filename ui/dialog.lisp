@@ -55,6 +55,9 @@
             collect interaction)
       (interactions (interactable dialog))))
 
+(defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
+  (dialogue:run (quest:dialogue interaction) (vm dialog)))
+
 (defmethod next-interaction ((dialog dialog))
   (setf (ip dialog) 0)
   (let ((interactions (interactions dialog)))
@@ -67,8 +70,7 @@
            (hide dialog))
           ((null (rest interactions))
            ;; If there's only one interaction, just run it.
-           (setf (interaction dialog) (first (interactions dialog)))
-           (dialogue:run (quest:dialogue (first (interactions dialog))) (vm dialog)))
+           (setf (interaction dialog) (first interactions)))
           (T
            ;; If we have multiple show choice.
            (alloy:clear (choices dialog))
@@ -78,7 +80,6 @@
                            (button (alloy:represent label 'dialog-choice)))
                       (alloy:on alloy:activate (button)
                         (setf (interaction dialog) interaction)
-                        (dialogue:run (quest:dialogue interaction) (vm dialog))
                         (alloy:clear (choices dialog)))
                       (alloy:enter button (choices dialog))))
            (let* ((label (string (prompt-char :left :bank :keyboard)))
