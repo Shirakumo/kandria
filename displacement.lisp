@@ -31,10 +31,7 @@
     (gl:active-texture :texture0)
     (gl:bind-texture :texture-2d (gl-name (texture displacer)))
     (gl:bind-vertex-array (gl-name vao))
-    ;; KLUDGE: Bad for performance!
-    (if (find 'vertex-buffer (bindings vao) :key #'type-of)
-        (%gl:draw-elements (vertex-form vao) (size vao) :unsigned-int 0)
-        (%gl:draw-arrays (vertex-form vao) 0 (size vao)))
+    (%gl:draw-elements (vertex-form vao) (size vao) :unsigned-int 0)
     (gl:bind-vertex-array 0)))
 
 (define-shader-pass displacement-render-pass (single-shader-scene-pass)
