@@ -18,6 +18,7 @@
 
 (defclass dialog (pausing-panel textbox)
   ((interactable :initarg :interactable :accessor interactable)
+   (interaction :initform NIL :accessor interaction)
    (one-shot :initform NIL :accessor one-shot)))
 
 (defmethod initialize-instance :after ((dialog dialog) &key)
@@ -33,7 +34,7 @@
     (alloy:finish-structure dialog layout (choices dialog))
     ;; If we only have one, activate "one shot mode"
     (when (null (rest (interactions dialog)))
-      (setf (quest:status (interaction dialog)) :active)
+      (setf (quest:status (first (interactions dialog))) :active)
       (setf (one-shot dialog) T))))
 
 (defmethod show :after ((dialog dialog) &key)
@@ -54,9 +55,6 @@
             collect interaction)
       (interactions (interactable dialog))))
 
-(defmethod interaction ((dialog dialog))
-  (first (interactions dialog)))
-
 (defmethod next-interaction ((dialog dialog))
   (setf (ip dialog) 0)
   (let ((interactions (interactions dialog)))
@@ -69,6 +67,7 @@
            (hide dialog))
           ((null (rest interactions))
            ;; If there's only one interaction, just run it.
+           (setf (interaction dialog) (first (interactions dialog)))
            (dialogue:run (quest:dialogue (first (interactions dialog))) (vm dialog)))
           (T
            ;; If we have multiple show choice.
@@ -78,6 +77,7 @@
                            (label (quest:title interaction))
                            (button (alloy:represent label 'dialog-choice)))
                       (alloy:on alloy:activate (button)
+                        (setf (interaction dialog) interaction)
                         (dialogue:run (quest:dialogue interaction) (vm dialog))
                         (alloy:clear (choices dialog)))
                       (alloy:enter button (choices dialog))))
@@ -107,6 +107,3 @@
 
 (defmethod handle ((ev previous) (dialog dialog))
   (alloy:focus-prev (choices dialog)))
-
-(defmethod advance ((dialog dialog))
-  (handle (dialogue:resume (vm dialog) (ip dialog)) dialog))
