@@ -51,58 +51,6 @@
         :version (version region)
         :description (description region)))
 
-(define-decoder (door world-v0) (initargs _p)
-  (destructuring-bind (&key name location target) initargs
-    (make-instance (class-of door) :location (decode 'vec2 location)
-                                   :target (decode 'vec2 target)
-                                   :name name)))
-
-(define-encoder (door world-v0) (_b _p)
-  (if (primary door)
-      `(,(type-of door) :location ,(encode (location door))
-                        :target ,(encode (location (target door)))
-                        :name ,(name door))
-      (error 'no-applicable-encoder :source door)))
-
-(define-decoder (game-entity world-v0) (initargs _p)
-  (destructuring-bind (&key name location) initargs
-    (make-instance (class-of game-entity) :location (decode 'vec2 location) :name name)))
-
-(define-encoder (game-entity world-v0) (_b _p)
-  `(,(type-of game-entity) :location ,(encode (location game-entity))
-                           :name ,(name game-entity)))
-
-(define-decoder (sprite-entity world-v0) (initargs _p)
-  (destructuring-bind (&key name location size offset layer texture) initargs
-    (make-instance (class-of sprite-entity) :location (decode 'vec2 location)
-                                            :texture (decode 'texture texture)
-                                            :size (decode 'vec2 size)
-                                            :offset (decode 'vec2 offset)
-                                            :layer layer
-                                            :name name)))
-
-(define-encoder (sprite-entity world-v0) (_b _p)
-  `(,(type-of sprite-entity) :location ,(encode (location sprite-entity))
-                             :texture ,(encode (texture sprite-entity))
-                             :size ,(encode (size sprite-entity))
-                             :offset ,(encode (offset sprite-entity))
-                             :layer ,(layer-index sprite-entity)
-                             :name ,(name sprite-entity)))
-
-(define-decoder (gi-info world-v0) (name _p)
-  (gi name))
-
-(define-encoder (gi-info world-v0) (_b _p)
-  (or (name gi-info)
-      (error "Can't encode GI-INFO without a name.")))
-
-(define-decoder (background-info world-v0) (name _p)
-  (background name))
-
-(define-encoder (background-info world-v0) (_b _p)
-  (or (name background-info)
-      (error "Can't encode BACKGROUND-INFO without a name.")))
-
 (define-decoder (chunk world-v0) (initargs packet)
   (destructuring-bind (&key name location size tile-data pixel-data layers background gi) initargs
     (make-instance 'chunk :name name
@@ -133,34 +81,45 @@
             :background ,(encode (background chunk))
             :gi ,(encode (gi chunk)))))
 
+(define-decoder (gi-info world-v0) (name _p)
+  (gi name))
+
+(define-encoder (gi-info world-v0) (_b _p)
+  (or (name gi-info)
+      (error "Can't encode GI-INFO without a name.")))
+
+(define-decoder (background-info world-v0) (name _p)
+  (background name))
+
+(define-encoder (background-info world-v0) (_b _p)
+  (or (name background-info)
+      (error "Can't encode BACKGROUND-INFO without a name.")))
+
+(define-decoder (door world-v0) (initargs _p)
+  (destructuring-bind (&key name location target) initargs
+    (make-instance (class-of door) :location (decode 'vec2 location)
+                                   :target (decode 'vec2 target)
+                                   :name name)))
+
+(define-encoder (door world-v0) (_b _p)
+  (if (primary door)
+      `(,(type-of door) :location ,(encode (location door))
+                        :target ,(encode (location (target door)))
+                        :name ,(name door))
+      (error 'no-applicable-encoder :source door)))
+
 (define-slot-coders (background world-v0) ())
+(define-slot-coders (game-entity world-v0) ((location vec2) name))
+(define-slot-coders (sprite-entity world-v0) ((location vec2) (texture texture) (size vec2) (offset vec2) layer name))
 (define-slot-coders (rope world-v0) (name (location vec2) (bsize vec2) direction extended))
 (define-slot-coders (water world-v0) ((location vec2) (bsize vec2)))
-(define-slot-coders (trigger world-v0) (name active-p (location vec2) (bsize vec2)))
 (define-slot-coders (place-marker world-v0) (name (location vec2) (bsize vec2)))
 (define-slot-coders (grass-patch world-v0) ((location vec2) (bsize vec2) patches (tile-size vec2) (tile-start vec2) tile-count))
-
-(define-decoder (story-trigger world-v0) (initargs _)
-  (let ((instance (call-next-method)))
-    (setf (story-item instance) (getf initargs :story-item))
-    (setf (target-status instance) (getf initargs :target-status))
-    instance))
-
-(define-encoder (story-trigger world-v0) (_b _p)
-  (append (call-next-method)
-          (list :story-item (story-item story-trigger)
-                :target-status (target-status story-trigger))))
-
-(define-decoder (tween-trigger world-v0) (initargs _)
-  (let ((instance (call-next-method)))
-    (setf (left instance) (getf initargs :left))
-    (setf (right instance) (getf initargs :right))
-    instance))
-
-(define-encoder (tween-trigger world-v0) (_b _p)
-  (append (call-next-method)
-          (list :left (left tween-trigger)
-                :right (right tween-trigger))))
+(define-slot-coders (trigger world-v0) (name active-p (location vec2) (bsize vec2)))
+(define-additional-slot-coders (story-trigger world-v0) (story-item target-status))
+(define-additional-slot-coders (tween-trigger world-v0) (left right))
+(define-additional-slot-coders (interaction-trigger world-v0) (interaction))
+(define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
 
 (define-decoder (basic-light world-v0) (initargs _)
   (destructuring-bind (&key color data) initargs
@@ -172,20 +131,4 @@
   `(basic-light :color ,(encode (color basic-light))
                 :data ,(buffer-data (caar (bindings (vertex-array basic-light))))))
 
-(define-decoder (textured-light world-v0) (initargs _)
-  (destructuring-bind (&key multiplier texture location size bsize frame) initargs
-    (make-instance 'textured-light
-                   :multiplier multiplier
-                   :texture (decode 'resource texture)
-                   :location (decode 'vec2 location)
-                   :size (decode 'vec2 size)
-                   :bsize (decode 'vec2 bsize)
-                   :frame (decode 'vec2 frame))))
-
-(define-encoder (textured-light world-v0) (_b _p)
-  `(textured-light :multiplier ,(multiplier textured-light)
-                   :texture ,(encode (texture textured-light))
-                   :location ,(encode (location textured-light))
-                   :size ,(encode (size textured-light))
-                   :bsize ,(encode (bsize textured-light))
-                   :frame ,(encode (frame-idx textured-light))))
+(define-slot-coders (textured-light world-v0) (multiplier (texture texture) (location vec2) (size vec2) (bsize vec2) (frame vec2)))
