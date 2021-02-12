@@ -39,6 +39,16 @@
 (defmethod find-named (name (storyline storyline) &optional (error T))
   (find-quest name storyline error))
 
+(defmethod find-trigger (name (storyline storyline) &optional (error T))
+  (or (loop for quest in (known-quests storyline)
+            thereis (find-trigger name quest NIL))
+      (when error (error "No trigger named ~s found." name))))
+
+(defmethod find-task (name (storyline storyline) &optional (error T))
+  (or (loop for quest in (known-quests storyline)
+            thereis (find-task name quest NIL))
+      (when error (error "No task named ~s found." name))))
+
 (defclass quest (describable)
   ((status :initarg :status :initform :inactive :accessor status)
    (author :initarg :author :accessor author)
@@ -70,6 +80,11 @@
 (defmethod find-named (name (quest quest) &optional (error T))
   (or (find-task name quest NIL)
       (find-quest name (storyline quest) error)))
+
+(defmethod find-trigger (name (quest quest) &optional (error T))
+  (or (loop for task in (active-tasks quest)
+            thereis (find-trigger name task NIL))
+      (when error (error "No trigger named ~s found." name))))
 
 (defun sort-quests (quests)
   (sort quests (lambda (a b)
