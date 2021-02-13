@@ -49,6 +49,9 @@
     (alloy:enter nametag layout :constraints `((:left 20) (:below ,(profile walkntalk) 0) (:height 30) (:width 150)))
     (alloy:finish-structure walkntalk layout (choices walkntalk))))
 
+(defmethod hide :after ((textbox walkntalk))
+  (harmony:stop (// 'kandria 'text)))
+
 (defmethod (setf interaction) :after (value (textbox walkntalk))
   (cond (value
          (setf (ip textbox) 0)
