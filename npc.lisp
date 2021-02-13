@@ -3,7 +3,8 @@
 (define-shader-entity npc (ai-entity animatable ephemeral dialog-entity profile)
   ((bsize :initform (vec 8 16))
    (target :initform NIL :accessor target)
-   (companion :initform NIL :accessor companion)))
+   (companion :initform NIL :accessor companion)
+   (lead-interrupt :initform "| Where are you going? It's this way!" :accessor lead-interrupt)))
 
 (defmethod movement-speed ((npc npc))
   (case (state npc)
@@ -84,7 +85,7 @@
            (setf (ai-state npc) :normal)))
       (:lead
        (let ((distance (vsqrdist2 (location npc) (location companion))))
-         (cond ((< (expt (* 30 +tile-size+) 2) distance)
+         (cond ((< (expt (* 20 +tile-size+) 2) distance)
                 (setf (ai-state npc) :lead-check))
                ((< (vsqrdist2 (location npc) (target npc)) (expt (* 2 +tile-size+) 2))
                 (setf (companion npc) NIL)
@@ -104,7 +105,7 @@
                 (interrupt-walk-n-talk NIL)
                 (setf (ai-state npc) :lead-teleport))
                (T
-                (interrupt-walk-n-talk "| Where are you going? It's this way!")))))
+                (interrupt-walk-n-talk (lead-interrupt npc))))))
       (:lead-teleport
        (when (svref (collisions companion) 2)
          (v<- (location npc) (location companion))
@@ -180,7 +181,9 @@
 (define-shader-entity catherine (npc)
   ((name :initform 'catherine)
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
-   (nametag :initform (@ catherine-nametag)))
+   (nametag :initform (@ catherine-nametag))
+   (lead-interrupt :initform "~ catherine
+| (:shout) Come on! It's this way!"))
   (:default-initargs
    :sprite-data (asset 'kandria 'catherine)))
 
