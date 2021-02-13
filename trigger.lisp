@@ -7,6 +7,12 @@
   (when (active-p trigger)
     (call-next-method)))
 
+(defmethod quest:activate ((trigger trigger))
+  (setf (active-p trigger) T))
+
+(defmethod quest:deactivate ((trigger trigger))
+  (setf (active-p trigger) NIL))
+
 (defclass one-time-trigger (trigger)
   ())
 
