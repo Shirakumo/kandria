@@ -45,17 +45,17 @@
               name (name trigger)))))
 
 (defclass interaction-trigger (one-time-trigger)
-  ((interaction :initarg :interaction :accessor interaction :type symbol)))
+  ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)))
 
 (defmethod interact ((trigger interaction-trigger) entity)
   (when (typep entity 'player)
     (show (make-instance 'dialog :interactions (list (quest:find-trigger (interaction trigger) +world+))))))
 
 (defclass walkntalk-trigger (one-time-trigger)
-  ((interaction :initarg :interaction :accessor interaction :type symbol)
-   (target :initarg :target :accessor target :type symbol)))
+  ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)
+   (target :initarg :target :initform T :accessor target :type symbol)))
 
-(defmethod interact ((trigger interaction-trigger) entity)
+(defmethod interact ((trigger walkntalk-trigger) entity)
   (when (typep (name entity) (target trigger))
     (walk-n-talk (quest:find-trigger (interaction trigger) +world+))))
 

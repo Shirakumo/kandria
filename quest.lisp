@@ -77,7 +77,8 @@
 
 (defmethod initialize-instance :after ((interaction stub-interaction) &key dialogue)
   ;; FIXME: use real lexinv...
-  (setf (quest:dialogue interaction) (dialogue:compile* dialogue)))
+  (with-kandria-io-syntax
+    (setf (quest:dialogue interaction) (dialogue:compile* dialogue))))
 
 (defmethod quest:complete ((stub-interaction stub-interaction)))
 
