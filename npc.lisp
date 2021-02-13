@@ -108,7 +108,9 @@
                 (interrupt-walk-n-talk (lead-interrupt npc))))))
       (:lead-teleport
        (when (svref (collisions companion) 2)
-         (v<- (location npc) (location companion))
+         (vsetf (location npc)
+                (vx (location companion))
+                (+ (vy (location companion)) 4))
          (if (move-to (target npc) npc)
              (setf (ai-state npc) :lead)
              (setf (ai-state npc) :lead-check))))
@@ -134,7 +136,9 @@
        ;; TODO: Smart-teleport: search for places just outside view of the companion from
        ;;       which the companion is reachable
        (when (svref (collisions companion) 2)
-         (v<- (location npc) (location companion))
+         (vsetf (location npc)
+                (vx (location companion))
+                (+ (vy (location companion)) 4))
          (setf (ai-state npc) :follow)))
       (:cowering
        (cond ((enemies-present-p (location npc))
@@ -151,6 +155,8 @@
   (setf (state npc) :cowering))
 
 (defmethod follow ((target located-entity) (npc npc))
+  (setf (path npc) NIL)
+  (setf (current-node npc) NIL)
   (setf (companion npc) target)
   (setf (ai-state npc) :follow))
 
@@ -167,6 +173,8 @@
   (lead target (vcopy (location goal)) npc))
 
 (defmethod lead ((target located-entity) (goal vec2) (npc npc))
+  (setf (path npc) NIL)
+  (setf (current-node npc) NIL)
   (setf (target npc) goal)
   (setf (companion npc) target)
   (setf (ai-state npc) :lead))
