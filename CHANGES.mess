@@ -55,7 +55,17 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Selwyn Simsek and Sage
 - Fix slope->block transitions being climbable
   Reported by Halogens
+- Fix ropes allowing you to wall-jump off of them
+  Reported by Sam
 
 ## TODO
 - Fix audio stutter on lower end systems
   Reported by PincerAttack
+- Fix multiple aerial attacks being possible
+  Reported by Sam
+- Changed button layout to be more comfortable for heavy attacks/interact
+  Reported by Sam
+- Fix disconnecting a sound device crashing the game
+  Reported by Sam
+- Fix odd physics after a balloon jump
+  Reported by Pondering Trog
