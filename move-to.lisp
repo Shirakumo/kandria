@@ -483,6 +483,7 @@
            (declare (ignore _prev))
            (capable-p movable node)))
     (multiple-value-bind (path start) (shortest-path (location movable) target #'test)
+      (setf (state movable) :normal)
       (when path
         (setf (current-node movable) start)
         (setf (path movable) path)))))
