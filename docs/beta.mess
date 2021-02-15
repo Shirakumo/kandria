@@ -54,6 +54,15 @@ For UI, make sure the information shown is actually accurate, and that no combin
 
 We are especially interested in feedback from people with physical impairments. If the game is hard for you to play, please let us know so that we can try and fix the game for you or provide options to make it more accessible to you.
 
+## Testing tools
+In order to help with testing, there's a couple of things you might want to know:
+
+You can quicksave and quickload at any time by pressing F5 and F9 respectively.
+
+You can press the section key (top left of your keyboard, below ESC) at any time to enter the "editor mode"(link editor.mess). Editor mode allows you to change the entire game, but most importantly, it allows you to reposition the player anywhere you want. In editor mode, hold Alt and drag to move the screen, and press H to move the player to the middle of the screen. You can also first select the player, and then drag to reposition.
+
+Be sure to check this section in the future for additional tools, and let us know if you have an idea for more tools that would help ease the testing process.
+
 ## Privacy statement
 When submitting a report, the following information is sent to our servers and stored there:
 

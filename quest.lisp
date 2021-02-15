@@ -70,14 +70,20 @@
                (not (repeatable-p trigger)))
       (setf (interactions interactable) (remove trigger (interactions interactable))))))
 
-(defclass stub-interaction ()
-  ((quest:dialogue :initform NIL :accessor quest:dialogue)))
+(defclass stub-interaction (interaction)
+  ((quest:dialogue :initform NIL :accessor quest:dialogue)
+   (quest:task :initform NIL)
+   (quest:name :initform 'stub)))
 
 (defmethod initialize-instance :after ((interaction stub-interaction) &key dialogue)
   ;; FIXME: use real lexinv...
-  (setf (quest:dialogue interaction) (dialogue:compile* dialogue)))
+  (with-kandria-io-syntax
+    (setf (quest:dialogue interaction) (dialogue:compile* dialogue))))
 
 (defmethod quest:complete ((stub-interaction stub-interaction)))
+
+(defmethod quest:make-assembly ((stub-interaction stub-interaction))
+  (make-instance 'assembly))
 
 (defclass assembly (dialogue:assembly)
   ())

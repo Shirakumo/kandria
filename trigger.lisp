@@ -7,6 +7,12 @@
   (when (active-p trigger)
     (call-next-method)))
 
+(defmethod quest:activate ((trigger trigger))
+  (setf (active-p trigger) T))
+
+(defmethod quest:deactivate ((trigger trigger))
+  (setf (active-p trigger) NIL))
+
 (defclass one-time-trigger (trigger)
   ())
 
@@ -16,7 +22,7 @@
 (defclass checkpoint (trigger)
   ())
 
-(defmethod interact ((trigger trigger) entity)
+(defmethod interact ((checkpoint checkpoint) entity)
   (setf (spawn-location entity)
         (vec (vx (location trigger))
              (+ (- (vy (location trigger))
@@ -43,6 +49,21 @@
                  (finish quest)))
       (v:warn :kandria.quest "Could not find active story-item named ~s when firing trigger ~s"
               name (name trigger)))))
+
+(defclass interaction-trigger (one-time-trigger)
+  ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)))
+
+(defmethod interact ((trigger interaction-trigger) entity)
+  (when (typep entity 'player)
+    (show (make-instance 'dialog :interactions (list (quest:find-trigger (interaction trigger) +world+))))))
+
+(defclass walkntalk-trigger (one-time-trigger)
+  ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)
+   (target :initarg :target :initform T :accessor target :type symbol)))
+
+(defmethod interact ((trigger walkntalk-trigger) entity)
+  (when (typep (name entity) (target trigger))
+    (walk-n-talk (quest:find-trigger (interaction trigger) +world+))))
 
 (defclass tween-trigger (trigger)
   ((left :initarg :left :accessor left :initform 0.0 :type single-float)

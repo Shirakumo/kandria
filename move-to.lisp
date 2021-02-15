@@ -570,11 +570,12 @@
                  (vsetf vel 0 0)
                  (typecase movable
                    (player
-                    (setf (animation movable) 'enter)
+                    (start-animation 'enter movable)
                     (transition (teleport)))
                    (T
-                    (setf (animation movable) 'enter)
-                    (when (= (frame-idx movable) (end (animation movable)))
+                    (start-animation 'enter movable)
+                    (when (= (frame-idx movable) (1- (end (animation movable))))
+                      (setf (state movable) :normal)
                       (teleport)))))
                (move-towards source target))))
         ;; Check whether to move on to the next step

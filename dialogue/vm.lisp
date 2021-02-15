@@ -26,6 +26,9 @@
 (defclass confirm-request (input-request target-request text-request)
   ())
 
+(defclass clear-request (target-request)
+  ())
+
 (defclass emote-request (text-request target-request)
   ((emote :initarg :emote :reader emote)))
 
@@ -105,6 +108,10 @@
                                :target (1+ ip)
                                :markup markup
                                :text text))))
+
+(defmethod execute ((instruction clear) (vm vm) ip)
+  (suspend vm (make-instance 'clear-request
+                             :target (1+ ip))))
 
 (defmethod execute ((instruction dispatch) (vm vm) ip)
   (if (funcall (func instruction))

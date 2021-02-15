@@ -1,3 +1,3 @@
-;(test :status :active :tasks ((talk-to-fi :status :unresolved)))
+(test :status :active :tasks ((task-1 :status :unresolved)))
 ;(race :status :inactive)
-(settlement-emergency :status :active :tasks ((talk-to-catherine :status :unresolved)))
+;(settlement-emergency :status :active :tasks ((talk-to-catherine :status :unresolved)))

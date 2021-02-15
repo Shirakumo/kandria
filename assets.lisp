@@ -71,6 +71,7 @@
 
 (define-sprite player-profile)
 (define-sprite fi-profile)
+(define-sprite catherine-profile)
 (define-sprite balloon)
 (define-sprite debug-door)
 (define-sprite passage)
@@ -98,6 +99,8 @@
 (define-sound zombie-notice :volume 0.05)
 (define-sound stab :volume 0.1)
 (define-sound explosion :volume 0.1)
+(define-sound text :volume 0.2 :repeat T)
+(define-sound advance :volume 0.1)
 
 (define-gi none
   :location NIL

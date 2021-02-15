@@ -54,16 +54,16 @@
 
 (defmethod pause-game ((world world) pauser)
   (unless (handler-stack world)
-    (setf (mixed:bypass (harmony:segment 'low-pass T)) NIL)
-    (setf (mixed:volume :master) (/ (mixed:volume :master) 4)))
+    #++(setf (mixed:bypass (harmony:segment 'low-pass T)) NIL)
+    (setf (mixed:volume :music) (/ (mixed:volume :music) 4)))
   (push pauser (handler-stack world)))
 
 (defmethod unpause-game ((world world) pauser)
   (loop for handler = (pop (handler-stack world))
         until (or (null handler) (eq handler pauser)))
   (unless (handler-stack world)
-    (setf (mixed:bypass (harmony:segment 'low-pass T)) T)
-    (setf (mixed:volume :master) (setting :audio :volume :master))))
+    #++(setf (mixed:bypass (harmony:segment 'low-pass T)) T)
+    (setf (mixed:volume :music) (setting :audio :volume :music))))
 
 (defmethod region-entry ((name symbol) (world world))
   (or (gethash name (regions world))
@@ -191,3 +191,15 @@
         :report "Give up changing the region and continue with the old."
         (when old-region
           (enter old-region world))))))
+
+(defmethod quest:find-named (name (world world) &optional (error T))
+  (quest:find-named name (storyline world) error))
+
+(defmethod quest:find-quest (name (world world) &optional (error T))
+  (quest:find-quest name (storyline world) error))
+
+(defmethod quest:find-task (name (world world) &optional (error T))
+  (quest:find-task name (storyline world) error))
+
+(defmethod quest:find-trigger (name (world world) &optional (error T))
+  (quest:find-trigger name (storyline world) error))
