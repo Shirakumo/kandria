@@ -264,7 +264,7 @@
       (typecase entity
         (interactable
          (when (and (contained-p (vec (vx loc) (vy loc) 16 8) entity)
-                    (interactable-p entity))
+                    (or (interactable-p entity) (typep entity 'rope)))
            (setf (interactable player) entity)))
         (trigger
          (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
@@ -444,7 +444,8 @@
          (cond ((or (svref collisions 1)
                     (svref collisions 3)
                     (and (typep (interactable player) 'rope)
-                         (extended (interactable player))))
+                         (extended (interactable player))
+                         (retained 'climb)))
                 ;; Wall jump
                 (let ((dir (if (svref collisions 1) -1.0 1.0))
                       (mov-dir (cond ((retained 'left) -1)

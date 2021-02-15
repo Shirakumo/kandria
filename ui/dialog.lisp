@@ -17,7 +17,8 @@
    :pattern colors:white))
 
 (defclass dialog (pausing-panel textbox)
-  ((interactable :initarg :interactable :accessor interactable)
+  ((interactions :initarg :interactions :initform () :accessor interactions)
+   (interaction :initform NIL :accessor interaction)
    (one-shot :initform NIL :accessor one-shot)))
 
 (defmethod initialize-instance :after ((dialog dialog) &key)
@@ -33,12 +34,14 @@
     (alloy:finish-structure dialog layout (choices dialog))
     ;; If we only have one, activate "one shot mode"
     (when (null (rest (interactions dialog)))
-      (setf (quest:status (interaction dialog)) :active)
+      (setf (quest:status (first (interactions dialog))) :active)
       (setf (one-shot dialog) T))))
 
 (defmethod show :after ((dialog dialog) &key)
   (setf (intended-zoom (unit :camera T)) 1.5)
   (setf (clock-scale +world+) (/ (clock-scale +world+) 2))
+  (interrupt-walk-n-talk NIL)
+  (walk-n-talk NIL)
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((dialog dialog))
@@ -48,14 +51,8 @@
   (discard-events +world+)
   (unpause-game T (unit 'ui-pass T)))
 
-(defmethod interactions ((dialog dialog))
-  (or (loop for interaction in (interactions (interactable dialog))
-            when (eql :active (quest:status interaction))
-            collect interaction)
-      (interactions (interactable dialog))))
-
-(defmethod interaction ((dialog dialog))
-  (first (interactions dialog)))
+(defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
+  (dialogue:run (quest:dialogue interaction) (vm dialog)))
 
 (defmethod next-interaction ((dialog dialog))
   (setf (ip dialog) 0)
@@ -69,7 +66,7 @@
            (hide dialog))
           ((null (rest interactions))
            ;; If there's only one interaction, just run it.
-           (dialogue:run (quest:dialogue (first (interactions dialog))) (vm dialog)))
+           (setf (interaction dialog) (first interactions)))
           (T
            ;; If we have multiple show choice.
            (alloy:clear (choices dialog))
@@ -78,7 +75,7 @@
                            (label (quest:title interaction))
                            (button (alloy:represent label 'dialog-choice)))
                       (alloy:on alloy:activate (button)
-                        (dialogue:run (quest:dialogue interaction) (vm dialog))
+                        (setf (interaction dialog) interaction)
                         (alloy:clear (choices dialog)))
                       (alloy:enter button (choices dialog))))
            (let* ((label (string (prompt-char :left :bank :keyboard)))
@@ -96,6 +93,7 @@
          (alloy:activate (choices dialog)))
         ((prompt dialog)
          (setf (prompt dialog) NIL)
+         (harmony:play (// 'kandria 'advance))
          (advance dialog))
         (T
          (loop until (or (pending dialog) (prompt dialog))
@@ -107,6 +105,3 @@
 
 (defmethod handle ((ev previous) (dialog dialog))
   (alloy:focus-prev (choices dialog)))
-
-(defmethod advance ((dialog dialog))
-  (handle (dialogue:resume (vm dialog) (ip dialog)) dialog))

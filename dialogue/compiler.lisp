@@ -75,6 +75,9 @@
                                :name (components:name component))
         assembly))
 
+(defmethod walk :before ((component mcomponents:blockquote) (assembly assembly))
+  (emit (make-instance 'clear) assembly))
+
 (defmethod walk :after ((component mcomponents:blockquote) (assembly assembly))
   (emit (make-instance 'confirm) assembly))
 
@@ -176,7 +179,9 @@
 (define-simple-walker components:go jump
   :target (resolved-target component))
 
-(define-simple-walker mcomponents:newline confirm)
+(defmethod walk ((component mcomponents:newline) (assembly assembly))
+  (emit (make-instance 'confirm :label component) assembly)
+  (emit (make-instance 'clear :label component) assembly))
 
 (define-simple-walker components:eval eval
   :func (compile-form assembly (components:form component)))

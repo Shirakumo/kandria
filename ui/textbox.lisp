@@ -8,7 +8,7 @@
   (let ((extent (alloy:bounds picture)))
     (with-pushed-matrix ((view-matrix :identity)
                          (model-matrix :identity))
-      (translate-by (alloy:pxx extent) (alloy:pxy extent) -1)
+      (translate-by (alloy:pxx extent) (alloy:pxy extent) -100)
       (scale-by (/ (alloy:pxw extent) 128) (/ (alloy:pxh extent) 128) 1)
       (translate-by 64 0 0)
       (render picture NIL))))
@@ -90,7 +90,7 @@
   (:default-initargs :col-sizes '(T) :row-sizes '(30)))
 
 (defun clear-text-string ()
-  (make-array 0 :fill-pointer 0 :element-type 'character))
+  (load-time-value (make-array 0 :fill-pointer 0 :element-type 'character)))
 
 (defclass textbox (alloy:observable-object)
   ((vm :initform (make-instance 'dialogue:vm) :reader vm)
@@ -104,12 +104,17 @@
    (pending :initform NIL :accessor pending)
    (profile :initform (make-instance 'profile-picture) :accessor profile)))
 
+(defmethod stage :after ((textbox textbox) (area staging-area))
+  (stage (// 'kandria 'text) area)
+  (stage (// 'kandria 'advance) area))
+
 (defmethod at-end-p ((textbox textbox))
   (<= (array-total-size (text textbox))
       (fill-pointer (text textbox))))
 
 (defmethod scroll-text ((textbox textbox) to)
   (when (<= to (array-total-size (text textbox)))
+    (harmony:play (// 'kandria 'text))
     (setf (fill-pointer (text textbox)) to)
     (setf (text textbox) (text textbox))))
 
@@ -120,8 +125,8 @@
   (handle ev (profile textbox))
   (cond ((and (at-end-p textbox)
               (not (prompt textbox)))
+         (harmony:stop (// 'kandria 'text))
          (cond ((< 0 (pause-timer textbox))
-                (pause-timer textbox)
                 (decf (pause-timer textbox) (dt ev)))
                ((pending textbox)
                 (ecase (first (pending textbox))
@@ -163,6 +168,7 @@
                (setf (ip textbox) target)
                (setf (text textbox) (clear-text-string))
                (alloy:clear (choices textbox))
+               (harmony:play (// 'kandria 'advance))
                (advance textbox))
              (alloy:enter button (choices textbox))))
   (setf (alloy:index (choices textbox)) 0)
@@ -171,6 +177,9 @@
 
 (defmethod handle ((rq dialogue:confirm-request) (textbox textbox))
   (setf (pending textbox) (list :prompt (string (prompt-char :right :bank :keyboard)))))
+
+(defmethod handle ((rq dialogue:clear-request) (textbox textbox))
+  (setf (text textbox) (clear-text-string)))
 
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
   (let ((unit (unit (dialogue:name rq) T)))

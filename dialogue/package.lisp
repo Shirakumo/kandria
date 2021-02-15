@@ -69,6 +69,7 @@
    #:choose
    #:commit-choice
    #:confirm
+   #:clear
    #:begin-mark
    #:end-mark
    #:text
@@ -107,6 +108,7 @@
    #:choices
    #:targets
    #:confirm-request
+   #:clear-request
    #:emote-request
    #:emote
    #:pause-request

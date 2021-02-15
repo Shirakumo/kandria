@@ -29,6 +29,10 @@
    :pattern colors:accent
    :z-index 10))
 
+;; KLUDGE: this sucks.
+(defclass walkntalk-layout (org.shirakumo.alloy.layouts.constraint:layout)
+  ((walkntalk :initarg :walkntalk)))
+
 (defclass walkntalk (panel textbox unit)
   ((name :initform 'walkntalk)
    (interaction :initform NIL :accessor interaction)
@@ -36,7 +40,7 @@
    (interrupt-ip :initform 0 :accessor interrupt-ip)))
 
 (defmethod initialize-instance :after ((walkntalk walkntalk) &key)
-  (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+  (let ((layout (make-instance 'walkntalk-layout :walkntalk walkntalk))
         (textbox (alloy:represent (slot-value walkntalk 'text) 'walk-textbox))
         (nametag (alloy:represent (slot-value walkntalk 'source) 'nametag)))
     (alloy:enter (make-instance 'profile-background) layout :constraints `((:left 20) (:top 20) (:width 150) (:height 150)))
@@ -44,6 +48,9 @@
     (alloy:enter textbox layout :constraints `((:right-of ,(profile walkntalk) 0) (:top 20) (:right 20) (:height 100)))
     (alloy:enter nametag layout :constraints `((:left 20) (:below ,(profile walkntalk) 0) (:height 30) (:width 150)))
     (alloy:finish-structure walkntalk layout (choices walkntalk))))
+
+(defmethod hide :after ((textbox walkntalk))
+  (harmony:stop (// 'kandria 'text)))
 
 (defmethod (setf interaction) :after (value (textbox walkntalk))
   (cond (value
@@ -99,3 +106,7 @@
 
 (defmethod walk-n-talk ((null null))
   (setf (interaction (unit 'walkntalk +world+)) null))
+
+(defmethod alloy:render :around ((ui ui) (textbox walkntalk-layout))
+  (when (< 0 (length (text (slot-value textbox 'walkntalk))))
+    (call-next-method)))

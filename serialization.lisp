@@ -110,3 +110,30 @@
                                   collect (if (eql slot-type T)
                                               name
                                               `(decode ',slot-type ,name)))))))))
+
+(defmacro define-additional-slot-coders ((type version) slots)
+  (let ((slots (loop for slot in slots
+                     for norm = (if (symbolp slot)
+                                    (list slot T (kw slot))
+                                    (destructuring-bind (name &optional (type T) (kw (kw name))) slot
+                                      (list name type kw)))
+                     collect norm)))
+    `(progn
+       (define-encoder (,type ,version) (_b _p)
+         (nconc (call-next-method)
+                (list
+                 ,@(loop for (name slot-type kw) in slots
+                         collect kw
+                         collect (if (eql slot-type T)
+                                     `(,name ,type)
+                                     `(encode (,name ,type)))))))
+       (define-decoder (,type ,version) (initargs _)
+         (let ((,type (call-next-method)))
+           (destructuring-bind (&key ,@(loop for (name type kw) in slots
+                                             collect `((,kw ,name))) &allow-other-keys) initargs
+             ,@(loop for (name slot-type kw) in slots
+                     collect `(setf (slot-value ,type ',name)
+                                    ,(if (eql slot-type T)
+                                         name
+                                         `(decode ',slot-type ,name))))
+             ,type))))))
