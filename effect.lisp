@@ -204,7 +204,7 @@
 (define-effect land step-effect
   :voice (// 'kandria 'land)
   :animation 'land-smash
-  :layer-index 3)
+  :layer-index 2)
 
 (define-effect spark sprite-effect
   :animation '(spark1 spark2 spark3))
