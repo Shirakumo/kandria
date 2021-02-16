@@ -198,3 +198,9 @@
   (let ((base (entry-path offset packet)))
     (loop for path in (directory (merge-pathnames base pathname-utils:*wild-path*))
           collect (enough-namestring path (storage packet)))))
+
+
+;;; KLUDGE: fixup for missing method.
+(defmethod fast-io::stream-read-byte ((stream fast-io::fast-input-stream))
+  (with-slots (fast-io::buffer) stream
+    (fast-io::fast-read-byte fast-io::buffer)))
