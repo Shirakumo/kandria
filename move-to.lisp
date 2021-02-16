@@ -528,6 +528,10 @@
       (destructuring-bind (node target) (car (path movable))
         (etypecase node
           (walk-node
+           ;; KLUDGE: When we detect a collision on the side, just try to jump
+           ;;         and hope you get over it.
+           (when (and ground (or (svref collisions 1) (svref collisions 3)))
+             (incf (vy vel) 0.8))
            (move-towards source target))
           (fall-node
            (if ground
