@@ -160,6 +160,7 @@
   (setf (pending textbox) (list :end)))
 
 (defmethod handle ((rq dialogue:choice-request) (textbox textbox))
+  (alloy:clear (choices textbox))
   (loop for choice in (dialogue:choices rq)
         for target in (dialogue:targets rq)
         do (let* ((choice choice) (target target)
