@@ -4,7 +4,7 @@
                 org.shirakumo.fraf.trial.notify:main)
   ((scene :initform NIL)
    (state :accessor state)
-   (quicksave :initform (make-instance 'quicksave :play-time 0) :accessor quicksave)
+   (quicksave :initform (make-instance 'quicksave-state :play-time 0) :accessor quicksave)
    (timestamp :initform (get-universal-time) :accessor timestamp)
    (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL))
   (:default-initargs
@@ -56,7 +56,7 @@
 
 (defmethod save-state ((main main) (state save-state) &rest args)
   (prog1 (apply #'save-state (scene main) state args)
-    (unless (typep state 'quicksave)
+    (unless (typep state 'quicksave-state)
       (setf (state main) state))))
 
 (defmethod load-state ((state (eql T)) (main main))
@@ -67,7 +67,7 @@
 
 (defmethod load-state ((state save-state) (main main))
   (prog1 (load-state state (scene main))
-    (unless (typep state 'quicksave)
+    (unless (typep state 'quicksave-state)
       (setf (state main) state))))
 
 (defun session-time (&optional (main +main+))

@@ -105,10 +105,10 @@
            (call-next-method)))))
 
 (defmethod handle :after ((ev quicksave) (world world))
-  (save-state world :quick))
+  (save-state +main+ :quick))
 
 (defmethod handle :after ((ev quickload) (world world))
-  (load-state :quick world))
+  (load-state :quick +main+))
 
 (defmethod handle ((ev report-bug) (world world))
   (toggle-panel 'report-panel))

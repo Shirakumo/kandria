@@ -82,5 +82,5 @@
       (decode-payload NIL world packet version)
       (apply #'make-instance 'save-state initargs))))
 
-(defclass quicksave (save-state)
+(defclass quicksave-state (save-state)
   ((file :initform (save-state-path "quicksave"))))
