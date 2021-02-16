@@ -130,6 +130,9 @@
 (defmethod handle ((ev jump) (player player))
   (cond ((eql :animated (state player))
          (setf (buffer player) 'jump))
+        ((and (typep (svref (collisions player) 2) 'platform)
+              (retained 'down))
+         (decf (vy (location player)) 2))
         ((not (eql :crawling (state player)))
          (setf (jump-time player) (- (p! coyote-time))))))
 
