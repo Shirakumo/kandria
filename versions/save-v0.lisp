@@ -78,7 +78,8 @@
         (labels ((recurse (parent)
                    (for:for ((entity over parent))
                      (cond ((typep entity 'ephemeral)
-                            (add ephemeral (list* (name entity) (encode entity)))
+                            (when (name entity)
+                              (add ephemeral (list* (name entity) (encode entity))))
                             (when (typep entity 'container)
                               (recurse entity)))
                            (T
@@ -178,7 +179,7 @@
     (setf (extended rope) extended)))
 
 (define-encoder (trigger save-v0) (_b _p)
-  `(,(type-of trigger) :active-p ,(active-p trigger)))
+  `(:active-p ,(active-p trigger)))
 
 (define-decoder (trigger save-v0) (initargs _)
   (setf (active-p trigger) (getf initargs :active-p)))
