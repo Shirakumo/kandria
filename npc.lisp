@@ -61,13 +61,8 @@
                     (T
                      (setf (animation npc) 'fall))))
              ((< 0 (abs (vx vel)))
-              (cond ((and (not (eql :keyboard +input-source+))
-                          (< (abs (gamepad:axis :l-h +input-source+)) 0.5))
-                     (setf (playback-speed npc) (/ (abs (vx vel)) (p! slowwalk-limit)))
-                     (setf (animation npc) 'walk))
-                    (T
-                     (setf (playback-speed npc) (/ (abs (vx vel)) (p! walk-limit)))
-                     (setf (animation npc) 'run))))
+              (setf (playback-speed npc) (/ (abs (vx vel)) (p! walk-limit)))
+              (setf (animation npc) 'run))
              (T
               (setf (animation npc) 'stand)))))
     (cond ((eql (name (animation npc)) 'slide)
