@@ -45,3 +45,18 @@
   (list (name (pool (generator resource)))
         (name (generator resource))
         (name resource)))
+
+(defmethod decode-payload (_b (bindings (eql 'bindings)) _p (v0 v0))
+  (loop for (var type . val) in _b
+        collect (cons var
+                      (if (eql type t)
+                          val
+                          (decode-payload val (type-prototype type) _p v0)))))
+
+(defmethod encode-payload ((bindings (eql 'bindings)) _b _p (v0 v0))
+  (loop for (var . val) in _b
+        collect (cons var
+                      (etypecase val
+                        ((or string symbol number) (cons t val))
+                        (standard-object
+                         (cons (type-of val) (encode-payload val _b _p v0)))))))

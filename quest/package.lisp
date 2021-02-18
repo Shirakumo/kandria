@@ -4,6 +4,13 @@
   (:local-nicknames
    (#:dialogue #:org.shirakumo.fraf.kandria.dialogue))
   (:export
+   #:scope
+   #:initial-bindings
+   #:bindings
+   #:reset
+   #:parent
+   #:binding
+   #:var
    #:describable
    #:name
    #:title

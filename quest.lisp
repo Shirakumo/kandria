@@ -141,7 +141,12 @@
                          (all-complete (loop for trigger being the hash-values of (quest:triggers task)
                                              always (eql :complete (quest:status trigger)))))
                     (declare (ignorable task quest all-complete))
-                    ,(task-wrap-lexenv form)))))
+                    (flet ((var (name &optional thing)
+                             (quest:var name (thing thing)))
+                           ((setf var) (value name &optional thing)
+                             (setf (quest:var name (thing thing)) value)))
+                      (declare (ignorable #'var #'(setf var)))
+                      ,(task-wrap-lexenv form))))))
 
 (defmethod dialogue:wrap-lexenv ((assembly assembly) form)
   `(let* ((interaction (interaction (find-panel 'dialog)))
@@ -151,7 +156,12 @@
           (all-complete (loop for trigger being the hash-values of (quest:triggers task)
                               always (eql :complete (quest:status trigger)))))
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
-     ,(task-wrap-lexenv form)))
+     (flet ((var (name &optional thing)
+              (quest:var name (thing thing)))
+            ((setf var) (value name &optional thing)
+              (setf (quest:var name (thing thing)) value)))
+       (declare (ignorable #'var #'(setf var)))
+       ,(task-wrap-lexenv form))))
 
 (defmethod load-quest ((packet packet) (storyline quest:storyline))
   (with-kandria-io-syntax
