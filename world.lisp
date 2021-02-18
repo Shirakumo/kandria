@@ -8,8 +8,7 @@
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
    (clock-scale :initform 60.0 :accessor clock-scale)
-   (timestamp :initform (initial-timestamp) :accessor timestamp)
-   (pausable :initform T :accessor pausable))
+   (timestamp :initform (initial-timestamp) :accessor timestamp))
   (:default-initargs
    :packet (error "PACKET required.")))
 
@@ -82,6 +81,16 @@
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
+(defun saving-possible-p (world)
+  (and (null (find-panel 'dialog))
+       (unit 'player world)
+       (svref (collisions (unit 'player world)) 2)))
+
+(defun pausing-possible-p (world)
+  (and (null (find-panel 'menuing-panel))
+       (unit 'player world)
+       (svref (collisions (unit 'player world)) 2)))
+
 ;; Preloading
 (defmethod stage :after ((world world) (area staging-area))
   (stage (// 'kandria 'music) area)
@@ -106,7 +115,9 @@
            (call-next-method)))))
 
 (defmethod handle :after ((ev quicksave) (world world))
-  (save-state +main+ :quick))
+  (if (saving-possible-p world)
+      (save-state +main+ :quick)
+      (status "Can't save right now.")))
 
 (defmethod handle :after ((ev quickload) (world world))
   (load-state :quick +main+))
@@ -132,8 +143,9 @@
   (show-panel 'quick-menu))
 
 (defmethod handle ((ev toggle-menu) (world world))
-  (when (pausable world)
-    (show-panel 'menu)))
+  (if (pausing-possible-p world)
+      (show-panel 'menu)
+      (status "Can't pause right now.")))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
