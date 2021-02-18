@@ -17,7 +17,7 @@
 (defmethod reset progn ((scope scope))
   (setf (bindings scope) (loop for binding in (initial-bindings scope)
                                collect (etypecase binding
-                                         (cons (cons (car binding) (cdr binding)))
+                                         (cons (cons (first binding) (second binding)))
                                          (symbol (cons binding NIL))))))
 
 (defmethod parent ((scope scope)) NIL)

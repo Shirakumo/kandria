@@ -43,3 +43,11 @@ See the "dialogue format"(link dialogue format.mess) documentation for more info
 
 ### Actions
 An action executes a piece of arbitrary "Lisp code"(link lisp crash course.mess) when activated or deactivated. This can be useful to do things such as spawning items and enemies, giving the player rewards, etc.
+
+## Variable Bindings
+The entire storyline, as well as each quest, task, and interaction can specify a set of variable bindings (``:variables``). This should be a list of bindings like so: ``(a (b T) (c :something))`` which would bind three variables, ``a``, ``b``, and ``c``, each being set to ``NIL``, ``T``, and ``:something`` respectively.
+
+Bindings follow the same scoping as outlined above. This means that when accessing a variable (through ``var``), first the bindings of the closest relevant structure are used (typically an interaction). If no binding matches the requested name, the parent is considered instead, all the way up to the storyline.
+
+If a variable is retrieved that does not exist, ``NIL`` is returned on read, and a new binding is created on the closest relevant structure on write. Writing variables that were not previously declared is bad style however, and a warning will be logged as a consequence.
+
