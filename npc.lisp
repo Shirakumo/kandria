@@ -160,10 +160,6 @@
   (setf (target npc) NIL)
   (setf (ai-state npc) :normal))
 
-(define-unit-resolver-methods follow (unit unit))
-(define-unit-resolver-methods stop-following (unit))
-(define-unit-resolver-methods lead (unit unit unit))
-
 (defmethod lead (target (goal located-entity) npc)
   (lead target (vcopy (location goal)) npc))
 
@@ -173,6 +169,14 @@
   (setf (target npc) goal)
   (setf (companion npc) target)
   (setf (ai-state npc) :lead))
+
+(defmethod move-to :after (target (npc npc))
+  (when (eql :normal (ai-state npc))
+    (setf (ai-state npc) :move-to)))
+
+(define-unit-resolver-methods follow (unit unit))
+(define-unit-resolver-methods stop-following (unit))
+(define-unit-resolver-methods lead (unit unit unit))
 
 (define-shader-entity fi (npc)
   ((name :initform 'fi)
