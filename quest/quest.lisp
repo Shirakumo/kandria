@@ -1,5 +1,47 @@
 (in-package #:org.shirakumo.fraf.kandria.quest)
 
+(defclass scope ()
+  ((initial-bindings :initform () :initarg :bindings :accessor initial-bindings)
+   (bindings :initform () :accessor bindings)))
+
+(defmethod initialize-instance :after ((scope scope) &key)
+  (reset scope))
+
+(defgeneric reset (scope)
+  (:method-combination progn))
+(defgeneric parent (scope))
+(defgeneric binding (name scope))
+(defgeneric var (name scope &optional default))
+(defgeneric (setf var) (value name scope))
+
+(defmethod reset progn ((scope scope))
+  (setf (bindings scope) (loop for binding in (initial-bindings scope)
+                               collect (etypecase binding
+                                         (cons (cons (car binding) (cdr binding)))
+                                         (symbol (cons binding NIL))))))
+
+(defmethod parent ((scope scope)) NIL)
+
+(defmethod binding (name (scope scope))
+  (or (assoc name (bindings scope))
+      (when (parent scope)
+        (binding name (parent scope)))))
+
+(defmethod var (name (scope scope) &optional default)
+  (let ((binding (binding name scope)))
+    (if binding
+        (values (cdr binding) T)
+        (values default NIL))))
+
+(defmethod (setf var) (value name (scope scope))
+  (let ((binding (binding name scope)))
+    (cond (binding
+           (setf (cdr binding) value))
+          (T
+           (v:warn :kandria.quest "Creating new binding for variable~%  ~s~%in~%  ~s" name scope)
+           (push (cons name value) (bindings scope))
+           value))))
+
 (defclass describable ()
   ((name :initarg :name :accessor name)
    (title :initarg :title :accessor title)
@@ -20,7 +62,7 @@
 (defgeneric try (task))
 (defgeneric find-named (name thing &optional error))
 
-(defclass storyline ()
+(defclass storyline (scope)
   ((quests :initform (make-hash-table :test 'eql) :reader quests)
    (known-quests :initform () :accessor known-quests)))
 
@@ -49,7 +91,7 @@
             thereis (find-task name quest NIL))
       (when error (error "No task named ~s found." name))))
 
-(defclass quest (describable)
+(defclass quest (describable scope)
   ((status :initarg :status :initform :inactive :accessor status)
    (author :initarg :author :accessor author)
    (storyline :initarg :storyline :reader storyline)
@@ -63,6 +105,12 @@
 (defmethod print-object ((quest quest) stream)
   (print-unreadable-object (quest stream :type T)
     (format stream "~s ~s" (title quest) (status quest))))
+
+(defmethod reset progn ((quest quest))
+  (setf (status quest) :inactive))
+
+(defmethod parent ((quest quest))
+  (storyline quest))
 
 (defmethod make-assembly ((quest quest))
   (make-instance 'dialogue:assembly))
@@ -140,7 +188,7 @@
   (dolist (task (active-tasks quest))
     (try task)))
 
-(defclass task (describable)
+(defclass task (describable scope)
   ((status :initarg :status :initform :inactive :accessor status)
    (quest :initarg :quest :accessor quest)
    (causes :initarg :causes :initform () :accessor causes)
@@ -159,6 +207,12 @@
 (defmethod print-object ((task task) stream)
   (print-unreadable-object (task stream :type T)
     (format stream "~s ~s" (title task) (status task))))
+
+(defmethod reset progn ((task task))
+  (setf (status task) :inactive))
+
+(defmethod parent ((task task))
+  (quest task))
 
 (defmethod find-trigger (name (task task) &optional (error T))
   (or (gethash name (triggers task))
@@ -251,7 +305,7 @@
   (v:info :kandria.quest "Failing ~a" task)
   (setf (status task) :failed)
   (loop for thing being the hash-values of (triggers task)
-        do (deactivate trigger))
+        do (deactivate thing))
   (when (null (active-tasks (quest task)))
     (fail (quest task)))
   task)
@@ -274,6 +328,9 @@
 (defmethod initialize-instance :after ((trigger trigger) &key task name)
   (when task
     (setf (find-trigger name task) trigger)))
+
+(defmethod reset progn ((trigger trigger))
+  (setf (status trigger) :inactive))
 
 (defmethod active-p ((trigger trigger))
   (eql :active (status trigger)))
@@ -319,16 +376,19 @@
 (defmethod deactivate ((trigger trigger))
   (funcall (on-deactivate trigger)))
 
-(defclass interaction (trigger)
+(defclass interaction (trigger scope)
   ((interactable :initarg :interactable :reader interactable)
    (title :initarg :title :initform "<unknown>" :accessor title)
    (dialogue :accessor dialogue)))
 
-(defmethod initialize-instance :after ((interaction interaction) &key task dialogue)
+(defmethod initialize-instance :after ((interaction interaction) &key dialogue)
   (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))
 
 (defmethod make-assembly ((interaction interaction))
   (make-assembly (task interaction)))
+
+(defmethod parent ((interaction interaction))
+  (task interaction))
 
 (defmethod activate ((interaction interaction)))
 (defmethod deactivate ((interaction interaction)))
