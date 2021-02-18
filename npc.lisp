@@ -201,6 +201,9 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'jack)))
 
+(defmethod (setf animation) ((_ (eql 'run)) (jack jack))
+  (setf (animation jack) 'walk))
+
 (define-shader-entity pet (animatable ephemeral interactable)
   ())
 
