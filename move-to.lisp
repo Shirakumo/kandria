@@ -579,7 +579,9 @@
                     (transition (teleport)))
                    (T
                     (start-animation 'enter movable)
-                    (when (= (frame-idx movable) (1- (end (animation movable))))
+                    (when (and (= (frame-idx movable) (1- (end (animation movable))))
+                               (<= (duration (aref (frames movable) (frame-idx movable)))
+                                   (+ (dt tick) (clock movable))))
                       (setf (state movable) :normal)
                       (teleport)))))
                (move-towards source target))))
