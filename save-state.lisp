@@ -78,6 +78,7 @@
   (destructuring-bind (header initargs)
       (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
     (assert (eq 'save-state (getf header :identifier)))
+    (walk-n-talk NIL)
     (let ((version (coerce-version (getf header :version))))
       (decode-payload NIL world packet version)
       (apply #'make-instance 'save-state initargs))))

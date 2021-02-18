@@ -192,13 +192,11 @@
 (defmethod show :after ((panel menuing-panel) &key)
   ;; Clear pending events to avoid spurious inputs
   (discard-events +world+)
-  (setf (pausable +world+) NIL)
   (setf (active-p (action-set 'in-menu)) T))
 
 (defmethod hide :after ((panel menuing-panel))
   ;; Clear pending events to avoid spurious inputs
   (discard-events +world+)
-  (setf (pausable +world+) T)
   (setf (active-p (action-set 'in-game)) T))
 
 (defclass pausing-panel (menuing-panel)
