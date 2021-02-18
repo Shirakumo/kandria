@@ -110,7 +110,7 @@
 
 (define-slot-coders (background world-v0) ())
 (define-slot-coders (game-entity world-v0) ((location vec2) name))
-(define-slot-coders (sprite-entity world-v0) ((location vec2) (texture texture) (size vec2) (offset vec2) layer name))
+(define-slot-coders (sprite-entity world-v0) ((location vec2) (texture texture) (size vec2) (offset vec2) (layer-index T :layer) name))
 (define-slot-coders (rope world-v0) (name (location vec2) (bsize vec2) direction extended))
 (define-slot-coders (water world-v0) ((location vec2) (bsize vec2)))
 (define-slot-coders (place-marker world-v0) (name (location vec2) (bsize vec2)))
