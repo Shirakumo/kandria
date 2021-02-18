@@ -180,8 +180,9 @@ void main(){
       (unless (funcall on-hit hit) hit))))
 
 (defmethod oob ((entity entity) (none null))
-  (setf (state entity) :oob)
-  (leave* entity T))
+  (unless (find-panel 'editor)
+    (setf (state entity) :oob)
+    (leave* entity T)))
 
 (defmethod oob ((entity entity) new-chunk)
   (setf (chunk entity) new-chunk))
