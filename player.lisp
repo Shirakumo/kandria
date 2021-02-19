@@ -658,7 +658,7 @@
   (setf (state player) :normal)
   (snap-to-target (unit :camera T) player))
 
-(defmethod hurt :after ((player player) by)
+(defmethod hurt :after ((player player) (by integer))
   (setf (clock (progression 'hurt +world+)) 0)
   (start (progression 'hurt +world+))
   (setf (combat-time player) 0f0)
