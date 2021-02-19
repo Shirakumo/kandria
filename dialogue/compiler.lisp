@@ -136,6 +136,10 @@
       (setf (targets dispatch) targets)
       (emit end assembly))))
 
+(defmethod walk ((component mcomponents:header) (assembly assembly))
+  (emit (make-instance 'jump :target most-positive-fixnum) assembly)
+  (emit (make-instance 'noop :label component) assembly))
+
 (define-markup-walker components:clue
   (list :clue (components:clue component)))
 
