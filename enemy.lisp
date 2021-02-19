@@ -46,7 +46,7 @@
   (stage (// 'kandria 'box-damage) area)
   (stage (// 'kandria 'box-break) area))
 
-(defmethod hurt :after ((box box) damage)
+(defmethod hurt :after ((box box) (by integer))
   (harmony:play (// 'kandria 'box-damage)))
 
 (defmethod kill :after ((box box))
