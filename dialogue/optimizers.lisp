@@ -32,18 +32,21 @@
 
 ;; Resolve jump targets
 (defmethod run-pass ((pass jump-resolution-pass) (instruction jump))
-  (setf (target instruction) (or (gethash (target instruction) (label-map pass))
+  (setf (target instruction) (or (when (integerp (target instruction)) (target instruction))
+                                 (gethash (target instruction) (label-map pass))
                                  (error "Jump to unknown target: ~s" (target instruction)))))
 
 (defclass noop-elimination-pass (pass)
   ((label-map :initform (make-hash-table :test 'eq) :reader label-map)))
 
 (defun find-new-index (target)
-  (loop with instructions = (instructions *root*)
-        for i from target below (length instructions)
-        for other = (aref instructions i)
-        while (typep other 'noop)
-        finally (return (index other))))
+  (if (< target (length (instructions *root*)))
+      (loop with instructions = (instructions *root*)
+            for i from target below (length instructions)
+            for other = (aref instructions i)
+            while (typep other 'noop)
+            finally (return (index other)))
+      target))
 
 (defmethod run-pass :before ((pass noop-elimination-pass) (assembly assembly))
   ;; Map all instruction indices to ones as if noops did not exist.
