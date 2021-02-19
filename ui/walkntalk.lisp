@@ -52,6 +52,10 @@
 (defmethod hide :after ((textbox walkntalk))
   (harmony:stop (// 'kandria 'text)))
 
+(defmethod interactions ((textbox walkntalk))
+  (when (interaction textbox)
+    (list (interaction textbox))))
+
 (defmethod (setf interaction) :after (value (textbox walkntalk))
   (cond (value
          (setf (ip textbox) 0)

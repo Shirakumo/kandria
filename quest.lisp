@@ -156,7 +156,7 @@
                             `(interaction (find-panel 'textbox))))
           (task (quest:task interaction))
           (quest (quest:quest task))
-          (has-more-dialogue (rest (interactions (find-panel 'dialog))))
+          (has-more-dialogue (rest (interactions (find-panel 'textbox))))
           (all-complete (loop for trigger being the hash-values of (quest:triggers task)
                               always (eql :complete (quest:status trigger)))))
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
