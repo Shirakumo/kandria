@@ -52,6 +52,9 @@
 (defclass interaction (quest:interaction)
   ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)))
 
+(defmethod quest:make-assembly ((interaction interaction))
+  (make-instance 'assembly :interaction interaction))
+
 (defmethod quest:activate ((trigger interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
     (let ((interactable (unit (quest:interactable trigger) +world+)))
@@ -83,10 +86,10 @@
 (defmethod quest:complete ((stub-interaction stub-interaction)))
 
 (defmethod quest:make-assembly ((stub-interaction stub-interaction))
-  (make-instance 'assembly))
+  (make-instance 'assembly :interaction stub-interaction))
 
 (defclass assembly (dialogue:assembly)
-  ())
+  ((interaction :initform NIL :initarg :interaction :accessor interaction)))
 
 (defun global-wrap-lexenv (form)
   `(let* ((world +world+)
@@ -149,7 +152,8 @@
                       ,(task-wrap-lexenv form))))))
 
 (defmethod dialogue:wrap-lexenv ((assembly assembly) form)
-  `(let* ((interaction (interaction (find-panel 'dialog)))
+  `(let* ((interaction ,(or (interaction assembly)
+                            `(interaction (find-panel 'textbox))))
           (task (quest:task interaction))
           (quest (quest:quest task))
           (has-more-dialogue (rest (interactions (find-panel 'dialog))))
