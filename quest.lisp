@@ -14,9 +14,11 @@
 
 (defmethod spawn ((location vec2) type &rest initargs &key (count 1) &allow-other-keys)
   (remf initargs :count)
-  (dotimes (i count)
-    (enter* (apply #'make-instance type :location (vcopy location) initargs)
-            (region +world+))))
+  (let ((first (apply #'make-instance type :location (vcopy location) initargs)))
+    ;; FIXME: speedup by caching which classes have already been loaded?
+    (trial:commit first (loader +main+) :unload NIL)
+    (dotimes (i count)
+      (enter* (clone first) (region +world+)))))
 
 (defmethod spawn ((marker located-entity) type &rest initargs)
   (apply #'spawn (location marker) type initargs))
