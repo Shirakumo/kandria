@@ -169,8 +169,7 @@
     (when (eql :middle (button ev))
       (let ((enemy (make-instance (first type) :location (mouse-world-pos (pos ev)))))
         (trial:commit enemy (loader +main+) :unload NIL)
-        (enter enemy (region +world+))
-        (compile-into-pass enemy (region +world+) +world+)))))
+        (enter* enemy (region +world+))))))
 
 (flet ((handle-solid (player hit)
          (when (< 0 (vy (hit-normal hit)))
