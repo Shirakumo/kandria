@@ -139,7 +139,9 @@
     font))
 
 (defun find-panel (panel-type)
-  (find panel-type (panels (unit 'ui-pass T)) :key #'type-of))
+  (loop for panel in (panels (unit 'ui-pass T))
+        do (when (typep panel panel-type)
+             (return panel))))
 
 (defun toggle-panel (panel-type &rest initargs)
   (let ((panel (find-panel panel-type)))
