@@ -198,12 +198,7 @@
                         (<= 0 y (1- height)))
                (aref solids (pos x y))))
            ((setf tile) (f x y)
-             (when (and (<= 0 x (1- width))
-                        (<= 0 y (1- height)))
-               (let ((f (alexandria:random-elt f))
-                     (pos (pos x y)))
-                 (setf (aref tiles (+ 0 pos)) (first f)
-                       (aref tiles (+ 1 pos)) (second f))))))
+             (set-tile tiles width height x y (alexandria:random-elt f))))
     (loop with x = ox with y = oy with px = x with py = y
           for i from 0 below 1000
           for edge = (filter-edge solids width height x y)
@@ -267,9 +262,7 @@
            (tile (x y)
              (aref solids (+ 0 (pos x y))))
            ((setf tile) (f x y)
-             (let ((f (alexandria:random-elt f)))
-               (setf (aref tiles (+ 0 (pos x y))) (first f)
-                     (aref tiles (+ 1 (pos x y))) (second f)))))
+             (set-tile tiles width height x y (alexandria:random-elt f))))
     (loop with edge = (loop for pos in edge
                             when (and (< -1 (vx pos) width)
                                       (< -1 (vy pos) height))

@@ -564,3 +564,17 @@
                           (,func ,@(let ((list (copy-list arglist)))
                                      (setf (nth i list) `(unit ,(nth i list) +world+))
                                      list)))))))
+
+(defun set-tile (map width height x y tile)
+  (destructuring-bind (&optional (tx 0) (ty 0) (w 1) (h 1)) tile
+    (when (< w 0) (incf x w) (incf tx w) (setf w (1+ (- w))))
+    (when (< h 0) (incf y h) (incf ty h) (setf h (1+ (- h))))
+    (dotimes (xo w map)
+      (dotimes (yo h)
+        (let ((x (+ xo x))
+              (y (+ yo y)))
+          (when (and (<= 0 x (1- width))
+                     (<= 0 y (1- height)))
+            (let ((pos (* (+ x (* y width)) 2)))
+              (setf (aref map (+ pos 0)) (+ xo tx))
+              (setf (aref map (+ pos 1)) (+ yo ty)))))))))

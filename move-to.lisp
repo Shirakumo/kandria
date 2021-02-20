@@ -314,7 +314,8 @@
 (defstruct (door-node (:include chunk-node) (:constructor %make-door-node (from from-node to to-node))))
 
 (defun make-chunk-node (nodes from-chunk from-loc to-chunk to-loc &optional (constructor '%make-chunk-node))
-  (when (svref (node-graph-grid (node-graph to-chunk)) (chunk-node-idx to-chunk to-loc))
+  (when (and (<= 0 (chunk-node-idx to-chunk to-loc) (length (node-graph-grid (node-graph to-chunk))))
+             (svref (node-graph-grid (node-graph to-chunk)) (chunk-node-idx to-chunk to-loc)))
     (push (funcall constructor
                    from-chunk (chunk-node-idx from-chunk from-loc)
                    to-chunk (chunk-node-idx to-chunk to-loc))

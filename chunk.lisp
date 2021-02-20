@@ -87,30 +87,21 @@
 (defmethod tile ((location vec2) (layer layer))
   (%with-layer-xy (layer location)
     (let ((pos (* 2 (+ x (* y (truncate (vx (size layer))))))))
-      (vec2 (aref (pixel-data layer) pos) (aref (pixel-data layer) (1+ pos))))))
+      (list (aref (pixel-data layer) pos) (aref (pixel-data layer) (1+ pos))))))
 
 (defmethod (setf tile) (value (location vec2) (layer layer))
-  (%with-layer-xy (layer location)
-    (let ((dat (pixel-data layer))
-          (pos (* 2 (+ x (* y (truncate (vx (size layer)))))))
-          (texture (tilemap layer)))
-      (when (or (/= (vx value) (aref dat (+ 0 pos)))
-                (/= (vy value) (aref dat (+ 1 pos))))
-        (setf (aref dat (+ 0 pos)) (truncate (vx2 value)))
-        (setf (aref dat (+ 1 pos)) (truncate (vy2 value)))
-        (sb-sys:with-pinned-objects (dat)
-          (gl:bind-texture :texture-2d (gl-name texture))
-          (%gl:tex-sub-image-2d :texture-2d 0 x y 1 1 (pixel-format texture) (pixel-type texture)
-                                (cffi:inc-pointer (sb-sys:vector-sap dat) pos))
-          (gl:bind-texture :texture-2d 0)))
-      value)))
-
-(defmethod (setf tile) ((value cons) (location vec2) (layer layer))
-  (destructuring-bind (tile w h) value
-    (dotimes (x w)
-      (dotimes (y h)
-        (setf (tile (vec (+ (vx location) (* +tile-size+ x)) (+ (vy location) (* +tile-size+ y))) layer)
-              (vec (+ (vx tile) x) (+ (vy tile) y)))))))
+  (let ((dat (pixel-data layer))
+        (texture (tilemap layer)))
+    (%with-layer-xy (layer location)
+      (set-tile dat (truncate (vx2 (size layer))) (truncate (vy2 (size layer))) x y value))
+    (update-layer layer)
+    #++ ;; TODO: Optimize
+    (sb-sys:with-pinned-objects (dat)
+      (gl:bind-texture :texture-2d (gl-name texture))
+      (%gl:tex-sub-image-2d :texture-2d 0 x y 1 1 (pixel-format texture) (pixel-type texture)
+                            (cffi:inc-pointer (sb-sys:vector-sap dat) pos))
+      (gl:bind-texture :texture-2d 0)))
+  value)
 
 (defun update-layer (layer)
   (let ((dat (pixel-data layer)))
@@ -344,17 +335,17 @@ void main(){
       (when (contained-p point chunk)
         chunk)))
 
-(defmethod auto-tile ((chunk chunk) (location vec2))
-  (auto-tile chunk (vec (vx location) (vy location) +base-layer+)))
+(defmethod auto-tile ((chunk chunk) (location vec2) types)
+  (auto-tile chunk (vec (vx location) (vy location) +base-layer+) types))
 
-(defmethod auto-tile ((chunk chunk) (location vec3))
+(defmethod auto-tile ((chunk chunk) (location vec3) types)
   (%with-layer-xy (chunk location)
     (let* ((z (truncate (vz location)))
            (width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk)))))
       (%auto-tile (pixel-data chunk)
                   (pixel-data (aref (layers chunk) z))
-                  width height x y (tile-types (tile-data chunk)))
+                  width height x y types)
       (update-layer (aref (layers chunk) z)))))
 
 (defmethod compute-shadow-geometry ((chunk chunk) (vbo vertex-buffer))
@@ -367,10 +358,12 @@ void main(){
     (labels ((tile (x y)
                (let ((x (aref layer (+ 0 (* 2 (+ x (* y w))))))
                      (y (aref layer (+ 1 (* 2 (+ x (* y w)))))))
-                 (loop for (type . tiles) in info
-                       for found = (loop for (_x _y) in tiles
-                                         thereis (and (= x _x) (= y _y)))
-                       do (when found (return type))))))
+                 (loop for (name . set) in info
+                       thereis
+                       (loop for (type . tiles) in set
+                             for found = (loop for (_x _y) in tiles
+                                               thereis (and (= x _x) (= y _y)))
+                             do (when found (return type)))))))
       (setf (fill-pointer data) 0)
       (dotimes (y h)
         (dotimes (x w)
@@ -413,10 +406,12 @@ void main(){
 
 (defmethod scan ((chunk chunk) (target vec2) on-hit)
   (let ((tile (tile target chunk)))
-    (when (and tile (= 0 (vy tile)) (< 0 (vx tile)))
-      (let ((hit (make-hit (aref +surface-blocks+ (truncate (vx tile))) target)))
-        (unless (funcall on-hit hit)
-          hit)))))
+    (when tile
+      (destructuring-bind (x y) tile
+        (when (and (= 0 y) (< 0 x))
+          (let ((hit (make-hit (aref +surface-blocks+ x) target)))
+            (unless (funcall on-hit hit)
+              hit)))))))
 
 (defmethod scan ((chunk chunk) (target vec4) on-hit)
   (let* ((tilemap (pixel-data chunk))

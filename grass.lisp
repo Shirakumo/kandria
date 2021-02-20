@@ -20,7 +20,7 @@
                                                    (,vbo :size 2 :offset 48 :stride 24 :instancing 1))))
     (resize patch (* (patches patch) (vx (tile-size patch))) (vy (tile-size patch)))))
 
-(defmethod layer-index ((patch grass-patch)) (1+ +base-layer+))
+(defmethod layer-index ((patch grass-patch)) (1- +base-layer+))
 
 (defmethod resize ((patch grass-patch) w h)
   (with-slots (tile-size tile-start tile-count) patch

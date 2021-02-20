@@ -132,4 +132,4 @@
   `(basic-light :color ,(encode (color basic-light))
                 :data ,(buffer-data (caar (bindings (vertex-array basic-light))))))
 
-(define-slot-coders (textured-light world-v0) (multiplier (texture texture) (location vec2) (size vec2) (bsize vec2) (frame vec2)))
+(define-slot-coders (textured-light world-v0) (multiplier (texture texture) (location vec2) (size vec2) (bsize vec2) (offset vec2)))
