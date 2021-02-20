@@ -41,7 +41,7 @@
       (setf (stroke tool) (loop for (loc . slope) in (compute-line (start tool) (pos event))
                                 for tile = (ecase (state tool)
                                              (:placing slope)
-                                             (:erasing (vec 0 0)))
+                                             (:erasing (list 0 0)))
                                 collect (list loc (tile loc entity) tile)
                                 do (setf (tile loc entity) tile))))))
 
@@ -52,8 +52,8 @@
     (labels ((set-tile (tile)
                (let ((prev (first tiles)))
                  (if (and prev (v= a (car prev)))
-                     (setf (cdr prev) (vec tile 0))
-                     (push (cons (vcopy a) (vec tile 0)) tiles)))))
+                     (setf (cdr prev) (list tile 0))
+                     (push (cons (vcopy a) (list tile 0)) tiles)))))
       (loop for deg = (atan (- (vy b) (vy a)) (- (vx b) (vx a)))
             do (set-tile 1)
                (cond ((= deg (atan 1 3)) ;; 3-tile slope

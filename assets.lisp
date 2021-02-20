@@ -81,6 +81,7 @@
 (define-tileset desert)
 (define-tileset debug)
 (define-tileset camp)
+(define-tileset region1)
 
 (define-music music :volume 0.3)
 
@@ -128,12 +129,12 @@
              24 (0.0627451 0.0 0.23921569)))
 
 (define-gi dark
-  :attenuation 1.6
+  :attenuation 0.8
   :location 'player
   :light-multiplier 1.0
   :light (vec 2 1 0.5)
   :ambient-multiplier 0.1
-  :ambient (vec 0.3 0.1 0.1))
+  :ambient (vec 0.5 0.3 0.3))
 
 (define-gi desert
   :location :sun
@@ -170,3 +171,9 @@
 
 (define-bg black
   :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge))
+
+(define-bg caves
+  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
+  :parallax (vec 2.0 1.0)
+  :scaling (vec 1.5 1.5)
+  :offset (vec 0.0 4000.0))

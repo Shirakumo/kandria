@@ -105,4 +105,5 @@
                  (tilemap "debug")
                  (tilemap "tundra")
                  (tilemap "desert")
-                 (tilemap "camp")))))
+                 (tilemap "camp")
+                 (tilemap "region1")))))

@@ -12,7 +12,7 @@
 
 (presentations:define-update (ui tile-button)
   (:icon
-   :shift (alloy:px-point (vx (unlist alloy:value)) (vy (unlist alloy:value)))))
+   :shift (alloy:px-point (first alloy:value) (second alloy:value))))
 
 (defmethod simple:icon ((renderer ui) bounds (image texture) &rest initargs)
   (apply #'make-instance 'simple:icon :image image initargs))
@@ -22,8 +22,8 @@
 
 (defmethod alloy:text ((info tile-info))
   (format NIL "~3d / ~3d"
-          (floor (vx (unlist (alloy:value info))))
-          (floor (vy (unlist (alloy:value info))))))
+          (floor (first (alloy:value info)))
+          (floor (second (alloy:value info)))))
 
 (defclass tile-picker (alloy:structure)
   ())
@@ -37,25 +37,27 @@
          (scroll (make-instance 'alloy:scroll-view :scroll T :layout layout :focus focus)))
     (dotimes (y (/ (height tileset) +tile-size+))
       (dotimes (x (/ (width tileset) +tile-size+))
-        (let* ((tile (vec2 x (- (/ (height tileset) +tile-size+) y 1)))
+        (let* ((tile (list x (- (/ (height tileset) +tile-size+) y 1)))
                (element (make-instance 'tile-button :data (make-instance 'alloy:value-data :value tile)
                                                     :tileset tileset :layout-parent layout :focus-parent focus)))
           (alloy:on alloy:activate (element)
             (if (retained :shift)
-                (let ((xd (- (vx tile) (vx (car (tile-to-place widget)))))
-                      (yd (- (vy tile) (vy (car (tile-to-place widget))))))
+                (let ((xd (- (first tile) (first (tile-to-place widget))))
+                      (yd (- (second tile) (second (tile-to-place widget)))))
                   (setf (place-width widget) (1+ (floor xd)))
                   (setf (place-height widget) (1+ (floor yd)))
-                  (setf (tile-to-place widget) (car (tile-to-place widget))))
+                  (setf (third (tile-to-place widget)) (place-width widget))
+                  (setf (fourth (tile-to-place widget)) (place-height widget)))
                 (progn
                   (setf (place-width widget) 1)
                   (setf (place-height widget) 1)
-                  (setf (tile-to-place widget) tile)))))))
+                  (setf (tile-to-place widget) (append tile (list 1 1)))))))))
     (alloy:finish-structure structure scroll scroll)))
 
 (alloy:define-widget chunk-widget (sidebar)
   ((layer :initform +base-layer+ :accessor layer :representation (alloy:ranged-slider :range '(0 . 4) :grid 1))
-   (tile :initform (list (vec2 1 0) 1 1) :accessor tile-to-place)
+   (tile :initform (list 1 0 1 1) :accessor tile-to-place)
+   (tile-set :initform () :accessor tile-set)
    (place-width :initform 1 :accessor place-width :representation (alloy:ranged-wheel :grid 1 :range '(1)))
    (place-height :initform 1 :accessor place-height :representation (alloy:ranged-wheel :grid 1 :range '(1)))))
 
@@ -64,9 +66,10 @@
          (h (/ (height (albedo (entity widget))) +tile-size+))
          (x (mod (vx tile) w))
          (y (mod (+ (vy tile) (floor (vx tile) w)) h)))
-    (call-next-method (list (vec x y) (place-width widget) (place-height widget)) widget)))
+    (call-next-method (list x y (place-width widget) (place-height widget)) widget)))
 
 (alloy:define-subcomponent (chunk-widget show-solids) ((show-solids (entity chunk-widget)) alloy:switch))
+(alloy:define-subcomponent (chunk-widget tile-set-list) ((slot-value chunk-widget 'tile-set) alloy:combo-set :value-set (print (mapcar #'first (tile-types (tile-data (entity chunk-widget)))))))
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
 (alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (albedo (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption (entity chunk-widget))))
@@ -84,12 +87,13 @@
     (setf (tool (editor chunk-widget)) (tool (editor chunk-widget)))))
 
 (alloy:define-subcontainer (chunk-widget layout)
-    (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T 30 60))
+    (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 30 T 30 60))
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T 30)
     :row-sizes '(30)
     layer show-solids))
+  tile-set-list
   tiles
   (alloy:build-ui
    (alloy:grid-layout
@@ -109,7 +113,7 @@
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
-  layer show-solids tiles place-width place-height pick clear compute)
+  layer show-solids tile-set-list tiles place-width place-height pick clear compute)
 
 (defmethod (setf entity) :after ((chunk chunk) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
