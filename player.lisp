@@ -160,16 +160,14 @@
          (setf (state player) :animated))))
 
 #-kandria-release
-(let ((type (copy-seq '(box drone zombie ball tame-wolf))))
+(let ((type (copy-seq '(box drone zombie ball dummy))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
   
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
-      (let ((enemy (make-instance (first type) :location (mouse-world-pos (pos ev)))))
-        (trial:commit enemy (loader +main+) :unload NIL)
-        (enter* enemy (region +world+))))))
+      (spawn (mouse-world-pos (pos ev)) (first type)))))
 
 (flet ((handle-solid (player hit)
          (when (< 0 (vy (hit-normal hit)))

@@ -250,7 +250,7 @@
                   (setf (ai-state enemy) :normal))
                 (start-animation 'spin-end enemy))
               (decf (timer enemy) (dt ev))
-              (let ((dir (nv* (nvunit (v- ploc eloc)) (movement-speed enemy))))
+              (let ((dir (nv* (nvunit* (v- ploc eloc)) (movement-speed enemy))))
                 (vsetf vel (vx dir) (vy dir)))))))))
 
 (defmethod hit ((enemy drone) location)
