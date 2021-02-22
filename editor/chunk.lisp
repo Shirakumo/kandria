@@ -57,9 +57,12 @@
 (alloy:define-widget chunk-widget (sidebar)
   ((layer :initform +base-layer+ :accessor layer :representation (alloy:ranged-slider :range '(0 . 4) :grid 1))
    (tile :initform (list 1 0 1 1) :accessor tile-to-place)
-   (tile-set :initform () :accessor tile-set)
+   (tile-set :accessor tile-set)
    (place-width :initform 1 :accessor place-width :representation (alloy:ranged-wheel :grid 1 :range '(1)))
    (place-height :initform 1 :accessor place-height :representation (alloy:ranged-wheel :grid 1 :range '(1)))))
+
+(defmethod initialize-instance :before ((widget chunk-widget) &key editor)
+  (setf (tile-set widget) (caar (tile-types (tile-data (entity editor))))))
 
 (defmethod (setf tile-to-place) :around ((tile vec2) (widget chunk-widget))
   (let* ((w (/ (width (albedo (entity widget))) +tile-size+))
@@ -69,7 +72,7 @@
     (call-next-method (list x y (place-width widget) (place-height widget)) widget)))
 
 (alloy:define-subcomponent (chunk-widget show-solids) ((show-solids (entity chunk-widget)) alloy:switch))
-(alloy:define-subcomponent (chunk-widget tile-set-list) ((slot-value chunk-widget 'tile-set) alloy:combo-set :value-set (print (mapcar #'first (tile-types (tile-data (entity chunk-widget)))))))
+(alloy:define-subcomponent (chunk-widget tile-set-list) ((slot-value chunk-widget 'tile-set) alloy:combo-set :value-set (mapcar #'first (tile-types (tile-data (entity chunk-widget))))))
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
 (alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (albedo (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption (entity chunk-widget))))
