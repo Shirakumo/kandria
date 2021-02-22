@@ -7,7 +7,7 @@
 (alloy::define-subbutton (editmenu save) () (edit 'save-region T))
 (alloy::define-subbutton (editmenu load) () (edit 'load-region T))
 (alloy:define-subcomponent (editmenu zoom) ((zoom (unit :camera T)) alloy:ranged-slider
-                                            :range '(0.1 . 3.0) :step 0.1 :grid 0.1
+                                            :range '(0.02 . 3.0) :step 0.2 :grid 0.02
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
 (alloy::define-subbutton (editmenu undo) () (edit 'undo T))
 (alloy::define-subbutton (editmenu redo) () (edit 'redo T))
