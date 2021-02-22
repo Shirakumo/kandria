@@ -109,27 +109,33 @@
                         :name ,(name door))
       (error 'no-applicable-encoder :source door)))
 
+(define-decoder (teleport-trigger world-v0) (initargs _p)
+  (destructuring-bind (&key bsize location target target-bsize) initargs
+    (make-instance (class-of teleport-trigger) :location (decode 'vec2 location)
+                                               :bsize (decode 'vec2 bsize)
+                                               :target (list (decode 'vec2 target)
+                                                             (decode 'vec2 target-bsize)))))
+
+(define-encoder (teleport-trigger world-v0) (_b _p)
+  (if (primary teleport-trigger)
+      `(,(type-of teleport-trigger) :location ,(encode (location teleport-trigger))
+                                    :bsize ,(encode (bsize teleport-trigger))
+                                    :target ,(encode (location (target teleport-trigger)))
+                                    :target-bsize ,(encode (bsize (target teleport-trigger))))
+      (error 'no-applicable-encoder :source teleport-trigger)))
+
 (define-slot-coders (background world-v0) ())
-(define-slot-coders (game-entity world-v0) ((location vec2) name))
-(define-slot-coders (sprite-entity world-v0) ((location vec2) (texture texture) (size vec2) (offset vec2) (layer-index T :layer) name))
-(define-slot-coders (rope world-v0) (name (location vec2) (bsize vec2) direction extended))
-(define-slot-coders (water world-v0) ((location vec2) (bsize vec2)))
-(define-slot-coders (place-marker world-v0) (name (location vec2) (bsize vec2)))
-(define-slot-coders (grass-patch world-v0) ((location vec2) (bsize vec2) patches (tile-size vec2) (tile-start vec2) tile-count))
-(define-slot-coders (trigger world-v0) (name active-p (location vec2) (bsize vec2)))
+(define-slot-coders (game-entity world-v0) ((location :type vec2) name))
+(define-slot-coders (sprite-entity world-v0) ((location :type vec2) (texture :type texture) (size :type vec2) (offset :type vec2) (layer-index :initarg :layer) name))
+(define-slot-coders (rope world-v0) (name (location :type vec2) (bsize :type vec2) direction extended))
+(define-slot-coders (water world-v0) ((location :type vec2) (bsize :type vec2)))
+(define-slot-coders (place-marker world-v0) (name (location :type vec2) (bsize :type vec2)))
+(define-slot-coders (grass-patch world-v0) ((location :type vec2) (bsize :type vec2) patches (tile-size :type vec2) (tile-start :type vec2) tile-count))
+(define-slot-coders (trigger world-v0) (name active-p (location :type vec2) (bsize :type vec2)))
 (define-additional-slot-coders (story-trigger world-v0) (story-item target-status))
 (define-additional-slot-coders (tween-trigger world-v0) (left right))
 (define-additional-slot-coders (interaction-trigger world-v0) (interaction))
 (define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
-
-(define-decoder (basic-light world-v0) (initargs _)
-  (destructuring-bind (&key color data) initargs
-    (make-instance 'basic-light
-                   :color (decode 'vec4 color)
-                   :data data)))
-
-(define-encoder (basic-light world-v0) (_b _p)
-  `(basic-light :color ,(encode (color basic-light))
-                :data ,(buffer-data (caar (bindings (vertex-array basic-light))))))
-
-(define-slot-coders (textured-light world-v0) (multiplier (texture texture) (location vec2) (size vec2) (bsize vec2) (offset vec2)))
+(define-slot-coders (basic-light world-v0) ((color :type vec4)
+                                            (data :reader (lambda (light) (buffer-data (caar (bindings (vertex-array light))))))))
+(define-slot-coders (textured-light world-v0) (multiplier (texture :type texture) (location :type vec2) (size :type vec2) (bsize :type vec2) (offset :type vec2)))
