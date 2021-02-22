@@ -2,8 +2,9 @@
  :animations
   (
    (STAND                :start   0 :end  18 :loop-to 0   :next STAND)
-   (LIGHT-HIT            :start  18 :end  25 :loop-to 18  :next LIGHT-HIT)
-   (HARD-HIT             :start  25 :end  35 :loop-to 25  :next HARD-HIT)
+   (LIGHT-HIT            :start  18 :end  25 :loop-to 18  :next STAND)
+   (HARD-HIT             :start  25 :end  35 :loop-to 25  :next STAND)
+   (DIE                  :start  25 :end  35 :loop-to 25  :next STAND)
    (NOTICE               :start  35 :end  45 :loop-to 35  :next SPIN-START)
    (SPIN                 :start  45 :end  57 :loop-to 45  :next SPIN)
    (SPIN-START           :start  57 :end  81 :loop-to 57  :next SPIN)

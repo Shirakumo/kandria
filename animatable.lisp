@@ -90,9 +90,7 @@
          (setf damage 0))
         ((interrupt animatable)
          (when (<= +hard-hit+ damage)
-           (setf (animation animatable) 'hard-hit)
-           (setf (clock (progression 'stun +world+)) 0f0)
-           (start (progression 'stun +world+)))))
+           (setf (animation animatable) 'hard-hit))))
   (trigger (make-instance 'text-effect) animatable
            :text (princ-to-string damage)
            :location (vec (+ (vx (location animatable)))
