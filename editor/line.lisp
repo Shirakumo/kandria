@@ -11,8 +11,10 @@
          (let* ((base-layer (aref (layers (entity tool)) +base-layer+))
                 (original (copy-seq (pixel-data base-layer))))
            (with-commit (tool)
-             ((auto-tile (entity tool) (vxy (mouse-world-pos (pos event)))))
-             ((setf (pixel-data base-layer) original)))))
+               ((auto-tile (entity tool) (vxy (mouse-world-pos (pos event)))
+                           (cdr (assoc (tile-set (sidebar (editor tool)))
+                                       (tile-types (tile-data (entity tool)))))))
+               ((setf (pixel-data base-layer) original)))))
         (T
          (setf (state tool) (case (button event)
                               (:left :placing)

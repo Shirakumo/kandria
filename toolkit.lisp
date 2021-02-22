@@ -214,6 +214,11 @@
          (* grid (floor (+ (vx vec) (/ grid 2)) grid))
          (* grid (floor (+ (vy vec) (/ grid 2)) grid))))
 
+(defun nvunit* (vec)
+  (if (v= vec 0)
+      vec
+      (nvunit vec)))
+
 (defun vfloor (vec &optional (divisor 1))
   (vapply vec floor divisor divisor divisor divisor))
 
