@@ -292,7 +292,7 @@ void main(){
 (defmethod (setf location) :around (location (chunk chunk))
   (let ((diff (v- location (location chunk))))
     (for:for ((entity over (region +world+)))
-      (when (and (not (typep entity 'chunk))
+      (when (and (not (typep entity 'layer))
                  (contained-p entity chunk))
         (nv+ (location entity) diff)))
     (call-next-method)))
@@ -483,8 +483,6 @@ void main(){
                         (contained-p (vec4 (vx location) (vy location) (vx (bsize entity)) (vy (bsize entity))) other))
                (setf closest other)))
            (when closest
-             (setf location (v+ (closest-border (location closest) (bsize closest) location)
-                                (vec (* (vx (bsize entity)) (signum (- (vx location) (vx (location closest)))))
-                                     (* (vy (bsize entity)) (signum (- (vy location) (vy (location closest)))))))))
+             (setf location (closest-border (location closest) (bsize closest) location (bsize entity))))
         while closest
         finally (return location)))
