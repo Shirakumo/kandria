@@ -648,8 +648,9 @@
   (switch-chunk new))
 
 (defmethod oob ((player player) (none null))
-  (setf (state player) :oob)
-  (transition (respawn player)))
+  (unless (find-panel 'editor)
+    (setf (state player) :oob)
+    (transition (respawn player))))
 
 (defmethod respawn ((player player))
   (vsetf (velocity player) 0 0)
