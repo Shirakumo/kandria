@@ -86,52 +86,46 @@
 
 (trivial-indent:define-indentation define-decoder (4 4 &body))
 
+(defun translate-slot-spec (spec)
+  (destructuring-bind (name &key (reader name) (type T) (initarg (kw name))) (enlist spec)
+    (list reader name type initarg)))
+
 (defmacro define-slot-coders ((type version) slots)
-  (let ((slots (loop for slot in slots
-                     for norm = (if (symbolp slot)
-                                    (list slot T (kw slot))
-                                    (destructuring-bind (name &optional (type T) (kw (kw name))) slot
-                                      (list name type kw)))
-                     collect norm)))
+  (let ((slots (mapcar #'translate-slot-spec slots)))
     `(progn
        (define-encoder (,type ,version) (_b _p)
          (list (type-of ,type)
-               ,@(loop for (name slot-type kw) in slots
+               ,@(loop for (reader name slot-type kw) in slots
                        collect kw
                        collect (if (eql slot-type T)
-                                   `(,name ,type)
-                                   `(encode (,name ,type))))))
+                                   `(,reader ,type)
+                                   `(encode (,reader ,type))))))
        (define-decoder (,type ,version) (initargs _)
-         (destructuring-bind (&key ,@(loop for (name type kw) in slots
+         (destructuring-bind (&key ,@(loop for (reader name type kw) in slots
                                            collect `((,kw ,name))) &allow-other-keys) initargs
            (make-instance (class-of ,type)
-                          ,@(loop for (name slot-type kw) in slots
+                          ,@(loop for (reader name slot-type kw) in slots
                                   collect kw
                                   collect (if (eql slot-type T)
                                               name
                                               `(decode ',slot-type ,name)))))))))
 
 (defmacro define-additional-slot-coders ((type version) slots)
-  (let ((slots (loop for slot in slots
-                     for norm = (if (symbolp slot)
-                                    (list slot T (kw slot))
-                                    (destructuring-bind (name &optional (type T) (kw (kw name))) slot
-                                      (list name type kw)))
-                     collect norm)))
+  (let ((slots (mapcar #'translate-slot-spec slots)))
     `(progn
        (define-encoder (,type ,version) (_b _p)
          (nconc (call-next-method)
                 (list
-                 ,@(loop for (name slot-type kw) in slots
+                 ,@(loop for (reader name slot-type kw) in slots
                          collect kw
                          collect (if (eql slot-type T)
-                                     `(,name ,type)
-                                     `(encode (,name ,type)))))))
+                                     `(,reader ,type)
+                                     `(encode (,reader ,type)))))))
        (define-decoder (,type ,version) (initargs _)
          (let ((,type (call-next-method)))
-           (destructuring-bind (&key ,@(loop for (name type kw) in slots
+           (destructuring-bind (&key ,@(loop for (reader name type kw) in slots
                                              collect `((,kw ,name))) &allow-other-keys) initargs
-             ,@(loop for (name slot-type kw) in slots
+             ,@(loop for (reader name slot-type kw) in slots
                      collect `(setf (slot-value ,type ',name)
                                     ,(if (eql slot-type T)
                                          name
