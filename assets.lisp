@@ -177,3 +177,9 @@
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)
   :offset (vec 0.0 4000.0))
+
+(define-bg editor
+  :wrapping '(:repeat :repeat :repeat)
+  :parallax (vec 1.0 1.0)
+  :scaling (vec 0.5 0.5)
+  :offset (vec 0 0))

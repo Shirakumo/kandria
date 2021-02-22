@@ -123,13 +123,13 @@
            (%gl:draw-elements :triangles (size vao) :unsigned-int 0)
         (gl:bind-vertex-array 0)))))
 
-(defun update-background (background)
+(defun update-background (background &optional force)
   (let ((info (background background)))
     ;; When there's a new target to set and it's not already our target, update
     (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
       (let ((a (a backgrounds))
             (b (b backgrounds)))
-        (cond ((and info (not (eq (texture info) (texture-b background))))
+        (cond ((and info (not (eq (texture info) (texture-b background))) (not force))
                (setf (mix backgrounds) (- 1.0 (min 1.0 (mix backgrounds))))
                ;; First move the target to be the source
                (setf (texture-a background) (or (texture-b background) (texture info)))
