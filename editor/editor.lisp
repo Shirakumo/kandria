@@ -60,6 +60,8 @@
 (defmethod show :after ((editor editor) &key)
   (setf (lighting (unit 'lighting-pass T)) (gi 'none))
   (setf (entity editor) (region +world+))
+  (setf (background (unit 'background T)) (background 'editor))
+  (update-background (unit 'background T) T)
   (force-lighting (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
@@ -95,6 +97,7 @@
   (redo (history editor) region))
 
 (defmethod stage :after ((editor editor) (area staging-area))
+  (stage (background 'editor) area)
   (stage (marker editor) area))
 
 (defmethod (setf sidebar) :before ((null null) (editor editor))
