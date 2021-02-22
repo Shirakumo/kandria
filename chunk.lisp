@@ -245,9 +245,13 @@ void main(){
   (compute-shadow-geometry chunk T)
   (setf (node-graph chunk) (make-node-graph (pixel-data chunk) (floor (vx (size chunk))) (floor (vy (size chunk))))))
 
-(defmethod compile-into-pass :after ((chunk chunk) container (pass shader-pass))
+(defmethod enter* :before ((chunk chunk) container)
   (loop for layer across (layers chunk)
-        do (compile-into-pass layer container pass)))
+        do (compile-into-pass layer (preceding-entity layer container) *scene*)))
+
+(defmethod remove-from-pass :after ((chunk chunk) (pass shader-pass))
+  (loop for layer across (layers chunk)
+        do (remove-from-pass layer pass)))
 
 (defmethod render :around ((chunk chunk) (program shader-program))
   (cond ((show-solids chunk)

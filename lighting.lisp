@@ -150,6 +150,7 @@
   ())
 
 (defmethod object-renderable-p ((light light) (pass lighting-pass)) T)
+(defmethod object-renderable-p ((light light) (pass render-pass)) NIL)
 (defmethod object-renderable-p ((renderable renderable) (pass lighting-pass)) NIL)
 
 (define-shader-pass rendering-pass (render-pass)
