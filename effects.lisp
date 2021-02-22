@@ -40,8 +40,8 @@ void main(){ color = vec4(0,0,0,strength); }")
   0.5 1.0 (fade (set strength :from 1.0 :to 0.0 :ease quint-out)))
 
 (define-progression stun
-  0.0 0.1 (T (set time-scale :from 1.0 :to 0.0 :ease quint-in))
-  0.2 0.3 (T (set time-scale :from 0.0 :to 1.0 :ease quint-out)))
+  0.0 0.1 (T (set time-scale :from 1.0 :to 0.5 :ease quint-in))
+  0.2 0.3 (T (set time-scale :from 0.5 :to 1.0 :ease quint-out)))
 
 (define-shader-pass distortion-pass (simple-post-effect-pass)
   ((name :initform 'distortion)
