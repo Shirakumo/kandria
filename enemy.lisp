@@ -21,7 +21,7 @@
     (incf (vy (velocity enemy)) 3.0)
     (nv* (velocity player) -0.25)
     (incf (vy (velocity player)) 2.0)
-    (stun player 0.27)))
+    (stun player 0.1)))
 
 (define-shader-entity dummy (enemy immovable)
   ((bsize :initform (vec 8 16)))
@@ -54,9 +54,6 @@
 
 (define-shader-entity ground-enemy (enemy)
   ())
-
-(defmethod handle :before ((ev tick) (enemy ground-enemy))
-  (nv+ (velocity enemy) (v* (gravity (medium enemy)) (* 100 (dt ev)))))
 
 (defmethod handle :after ((ev tick) (enemy ground-enemy))
   ;; Animations
@@ -151,7 +148,7 @@
   (stage (// 'kandria 'explosion) area))
 
 (defmethod movement-speed ((enemy zombie))
-  (case (state enemy)
+  (case (ai-state enemy)
     (:stand 0.0)
     (:walk 0.1)
     (:approach 0.2)
@@ -162,30 +159,33 @@
          (ploc (location player))
          (eloc (location enemy))
          (vel (velocity enemy)))
-    (ecase (ai-state enemy)
+    (case (state enemy)
       (:normal
-       (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 11))
-              (setf (ai-state enemy) :approach))
-             (T
-              (setf (ai-state enemy) (alexandria:random-elt '(:stand :stand :walk)))
-              (setf (timer enemy) (+ (ecase (ai-state enemy) (:stand 2.0) (:walk 1.0)) (random 2.0)))
-              (setf (direction enemy) (alexandria:random-elt '(-1 +1))))))
-      ((:stand :walk)
-       (when (< (vlength (v- ploc eloc)) (* +tile-size+ 10))
-         (start-animation 'notice enemy))
-       (when (<= (decf (timer enemy) (dt ev)) 0)
-         (setf (ai-state enemy) :normal))
-       (case (ai-state enemy)
-         (:stand (setf (vx vel) 0))
-         (:walk (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))
-      (:approach
-       (cond ((< (* +tile-size+ 20) (vlength (v- ploc eloc)))
-              (setf (ai-state enemy) :normal))
-             ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 1))
-              (start-animation 'attack enemy))
-             (T
-              (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
-              (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))))
+       (ecase (ai-state enemy)
+         (:normal
+          (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 11))
+                 (start-animation 'notice enemy)
+                 (setf (ai-state enemy) :approach))
+                (T
+                 (setf (ai-state enemy) (alexandria:random-elt '(:stand :stand :walk)))
+                 (setf (timer enemy) (+ (ecase (ai-state enemy) (:stand 2.0) (:walk 1.0)) (random 2.0)))
+                 (setf (direction enemy) (alexandria:random-elt '(-1 +1))))))
+         ((:stand :walk)
+          (when (< (vlength (v- ploc eloc)) (* +tile-size+ 10))
+            (setf (ai-state enemy) :normal))
+          (when (<= (decf (timer enemy) (dt ev)) 0)
+            (setf (ai-state enemy) :normal))
+          (case (ai-state enemy)
+            (:stand (setf (vx vel) 0))
+            (:walk (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))
+         (:approach
+          (cond ((< (* +tile-size+ 20) (vlength (v- ploc eloc)))
+                 (setf (ai-state enemy) :normal))
+                ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 1))
+                 (start-animation 'attack enemy))
+                (T
+                 (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
+                 (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))))))
 
 (defmethod hit ((enemy zombie) location)
   (trigger 'spark enemy :location (v+ location (vrand -4 +4))))

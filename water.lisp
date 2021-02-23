@@ -19,7 +19,7 @@
 (defmethod layer-index ((water water)) (1- +base-layer+))
 
 (defmethod gravity ((water water))
-  (vec 0 -0.05))
+  (vec 0 -5))
 
 (defmethod drag ((water water))
   0.95)

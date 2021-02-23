@@ -21,13 +21,12 @@
   (nv* (velocity player) 0.8))
 
 (defmethod handle :before ((ev tick) (ball ball))
-  (let* ((dt (* 100 (dt ev)))
-         (vel (velocity ball))
+  (let* ((vel (velocity ball))
          (vlen (vlength vel)))
     (when (< 0 vlen)
       (decf (angle ball) (* 0.1 (vx vel)))
       (nv* vel (* (min vlen 10) (/ 0.99 vlen))))
-    (nv+ vel (v* (gravity (medium ball)) dt))
+    (nv+ vel (v* (gravity (medium ball)) (dt ev)))
     (nv+ (frame-velocity ball) vel)))
 
 (defmethod collide ((ball ball) (block block) hit)
