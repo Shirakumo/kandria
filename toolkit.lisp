@@ -448,14 +448,12 @@
     (+ (vlength (vec (max dx 0.0) (max dy 0.0)))
        (min 0.0 (max dx dy)))))
 
-(defun closest-border (loc bsize x &optional (off (vec 0 0)))
+(defun closest-external-border (loc bsize x off)
   (let ((vx (max (- (vx loc) (vx bsize)) (min (+ (vx loc) (vx bsize)) (vx x))))
         (vy (max (- (vy loc) (vy bsize)) (min (+ (vy loc) (vy bsize)) (vy x)))))
-    (cond ((and (/= (vx x) vx) (/= (vy x) vy))
-           (vec vx vy))
-          ((/= (vx x) vx)
+    (cond ((and (/= (vx x) vx) (= (vy x) vy))
            (vec vx (vy x)))
-          ((/= (vy x) vy)
+          ((and (/= (vy x) vy) (= (vx x) vx))
            (vec (vx x) vy))
           (T
            (let* ((a (v- (v+ loc bsize) x))
@@ -470,6 +468,25 @@
                     (vec (vx x) (+ (vy loc) (vy bsize) (vy off))))
                    (T
                     (vec (vx x) (- (vy loc) (vy bsize) (vy off))))))))))
+
+(defun closest-border (loc bsize x)
+  (let ((vx (max (- (vx loc) (vx bsize)) (min (+ (vx loc) (vx bsize)) (vx x))))
+        (vy (max (- (vy loc) (vy bsize)) (min (+ (vy loc) (vy bsize)) (vy x)))))
+    (cond ((or (/= (vx x) vx) (/= (vy x) vy))
+           (vec vx vy))
+          (T
+           (let* ((a (v- (v+ loc bsize) x))
+                  (b (v- (v- loc bsize x)))
+                  (min (vmin a b))
+                  (d (min (vx min) (vy min))))
+             (cond ((= (vx a) d)
+                    (vec (+ (vx loc) (vx bsize)) (vy x)))
+                   ((= (vx b) d)
+                    (vec (- (vx loc) (vx bsize)) (vy x)))
+                   ((= (vy a) d)
+                    (vec (vx x) (+ (vy loc) (vy bsize))))
+                   (T
+                    (vec (vx x) (- (vy loc) (vy bsize))))))))))
 
 (defmethod closest-acceptable-location ((entity entity) location)
   (let ((closest NIL) (dist float-features:single-float-positive-infinity))
