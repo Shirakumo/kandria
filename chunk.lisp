@@ -477,7 +477,7 @@ void main(){
                                 (return-from scan hit))))))))))
 
 (defmethod closest-acceptable-location ((entity chunk) location)
-  (loop repeat 10
+  (loop for i from 0
         for closest = NIL
         do (for:for ((other over (region +world+)))
              (when (and (typep other 'chunk)
@@ -485,6 +485,8 @@ void main(){
                         (contained-p (vec4 (vx location) (vy location) (vx (bsize entity)) (vy (bsize entity))) other))
                (setf closest other)))
            (when closest
-             (setf location (closest-border (location closest) (bsize closest) location (bsize entity))))
+             (setf location (closest-external-border (location closest) (bsize closest) location (bsize entity))))
+           (when (= i 10)
+             (return (location entity)))
         while closest
         finally (return location)))
