@@ -213,7 +213,7 @@
 
 (defmethod handle :before ((ev tick) (npc pet))
   (let ((vel (velocity npc))
-        (dt (* 100 (dt ev))))
+        (dt (dt ev)))
     (case (state npc)
       ((:dying :animated :stunned)
        (handle-animation-states npc ev))

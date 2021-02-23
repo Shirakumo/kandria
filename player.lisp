@@ -231,7 +231,7 @@
     (vector-push-extend (vx (location player)) (movement-trace player))
     (vector-push-extend (vy (location player)) (movement-trace player)))
   (let* ((collisions (collisions player))
-         (dt (* 100 (dt ev)))
+         (dt (dt ev))
          (loc (location player))
          (vel (velocity player))
          (size (bsize player))
@@ -249,8 +249,8 @@
     ;; Advance clocks
     (when (< (abs (vx vel)) (/ (p! walk-limit) 2))
       (setf (run-time player) 0.0))
-    (incf (run-time player) (dt ev))
-    (incf (combat-time player) (dt ev))
+    (incf (run-time player) dt)
+    (incf (combat-time player) dt)
     ;; HUD
     (cond ((and (< (combat-time player) 5)
                 (not (active-p (hud player))))
@@ -283,14 +283,11 @@
       (:oob
        (vsetf vel 0 0))
       ((:dying :stunned)
-       (nv+ vel (v* (gravity (medium player)) dt))
        (handle-animation-states player ev)
        (when (and (cancelable-p (frame player))
                   (or (retained 'left)
                       (retained 'right)))
-         (setf (state player) :normal))
-       (when ground
-         (setf (vy vel) (max (vy vel) 0))))
+         (setf (state player) :normal)))
       (:animated
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
          (start-animation 'heavy-aerial-3-release player))
@@ -344,7 +341,6 @@
              (jump
               (setf (state player) :normal)
               (handle (make-instance 'jump) player)))))
-       (nv+ vel (v* (gravity (medium player)) dt))
        (handle-animation-states player ev)
        (when (and (cancelable-p (frame player))
                   (or (retained 'left)
@@ -353,7 +349,7 @@
        (when ground
          (setf (vy vel) (max (vy vel) 0))))
       (:dashing
-       (incf (dash-time player) (dt ev))
+       (incf (dash-time player) dt)
        (setf (jump-time player) 100.0)
        (setf (run-time player) 0.0)
        (cond ((or (< (p! dash-max-time) (dash-time player))
@@ -362,7 +358,7 @@
               (setf (state player) :normal))
              ((< (p! dash-dcc-end) (dash-time player)))
              ((< (p! dash-dcc-start) (dash-time player))
-              (nv* vel (damp* (p! dash-dcc) dt)))
+              (nv* vel (damp* (p! dash-dcc) (* 100 dt))))
              ((< (p! dash-acc-start) (dash-time player))
               (nv* vel (p! dash-acc))))
        (when (typep (interactable player) 'rope)
@@ -380,7 +376,7 @@
               (when (or (< angle (* PI 1/4)) (< (* PI 3/4) angle))
                 (vsetf vel (vx proj) (vy proj))))))
          (null
-          (nv* vel (damp* (p! dash-air-dcc) dt)))))
+          (nv* vel (damp* (p! dash-air-dcc) (* 100 dt))))))
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
@@ -415,7 +411,7 @@
                 (setf (vx vel) (* (direction player) (p! climb-up))))
                ((retained 'up)
                 (unless (typep attached 'rope)
-                  (decf (climb-strength player) (dt ev)))
+                  (decf (climb-strength player) dt))
                 (if (< (vy vel) (p! climb-up))
                     (setf (vy vel) (p! climb-up))
                     (decf (vy vel) 0.1)))
@@ -533,11 +529,11 @@
              (decf (vy vel) 1)))
        ;; Air friction
        (unless ground
-         (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) dt))))
+         (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) (* 100 dt)))))
        ;; Jump progress
        (when (and (retained 'jump)
                   (<= 0.05 (jump-time player) 0.15))
-         (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) dt))))
+         (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) (* 100 dt)))))
        (nv+ vel (v* (gravity (medium player)) dt))
        ;; Limit when sliding down wall
        (when (and (or (typep (svref collisions 1) 'ground)
