@@ -34,7 +34,11 @@
     (load-region packet scene)))
 
 (defmethod load-region (thing (scene scene))
-  (enter (load-region thing NIL) scene))
+  (let ((new (load-region thing NIL)))
+    (when (unit 'region scene)
+      (leave (unit 'region scene) scene))
+    (enter new scene)
+    new))
 
 (defmethod load-region ((packet packet) (null null))
   (v:info :kandria.region "Loading ~a" packet)
@@ -49,3 +53,9 @@
   (for:for ((entity over region)
             (hit = (scan entity target on-hit)))
     (when hit (return hit))))
+
+(defmethod unit (name (region region))
+  (for:for ((entity over region))
+    (when (and (typep entity 'unit)
+               (eql name (name entity)))
+      (return entity))))
