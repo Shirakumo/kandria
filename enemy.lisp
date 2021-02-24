@@ -196,6 +196,8 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'ruddydrone)))
 
+(defmethod idleable-p ((drone drone)) NIL)
+
 (defmethod stage :after ((drone drone) (area staging-area))
   (stage (// 'kandria 'explosion) area))
 
