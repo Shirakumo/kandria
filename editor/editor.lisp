@@ -203,7 +203,9 @@
     (enter region +world+)
     (setf (entity editor) region)
     (leave old +world+)
-    (trial:commit +world+ +main+)))
+    (trial:commit +world+ +main+)
+    (setf (background (unit 'background T)) (background 'editor))
+    (update-background (unit 'background T) T)))
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (if (retained :control)
@@ -220,7 +222,8 @@
 (defmethod edit ((action (eql 'save-region)) (editor editor))
   (if (retained :control)
       (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)) :filter "zip")))
-        (save-region (region +world+) path))
+        (when path
+          (save-region (region +world+) path)))
       (save-region T T)))
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
