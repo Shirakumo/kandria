@@ -58,10 +58,10 @@
     (update-marker editor)))
 
 (defmethod show :after ((editor editor) &key)
-  (setf (lighting (unit 'lighting-pass T)) (gi 'none))
   (setf (entity editor) (region +world+))
   (setf (background (unit 'background T)) (background 'editor))
   (update-background (unit 'background T) T)
+  (setf (lighting (unit 'lighting-pass T)) (gi 'none))
   (force-lighting (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
@@ -211,6 +211,8 @@
         (when path
           (load-region path T)))
       (load-region T T))
+  (setf (background (unit 'background T)) (background 'editor))
+  (update-background (unit 'background T) T)
   (clear (history editor))
   (setf (entity editor) (region +world+))
   (trial:commit +world+ +main+))
