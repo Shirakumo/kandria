@@ -475,8 +475,8 @@
        ;; Test for climbing
        (when (and (retained 'climb)
                   (not (retained 'jump))
-                  (or (typep (svref collisions 1) '(or ground solid))
-                      (typep (svref collisions 3) '(or ground solid))
+                  (or (typep (svref collisions 1) '(or ground (and solid (not half-solid))))
+                      (typep (svref collisions 3) '(or ground (and solid (not half-solid))))
                       (typep (interactable player) 'rope))
                   (< 0 (climb-strength player)))
          (cond ((typep (interactable player) 'rope)
