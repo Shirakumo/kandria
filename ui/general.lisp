@@ -123,6 +123,8 @@
 
 (defmethod stage ((pass ui-pass) (area staging-area))
   (call-next-method)
+  (dolist (panel (panels pass))
+    (stage panel area))
   (stage (simple:request-font pass "PromptFont") area)
   (stage (framebuffer pass) area))
 
