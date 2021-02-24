@@ -66,7 +66,8 @@
 
 (defmethod hide :after ((editor editor))
   (hide (tool editor))
-  (switch-chunk (chunk (unit 'player T)))
+  (when (chunk (unit 'player T))
+    (switch-chunk (chunk (unit 'player T))))
   (snap-to-target (unit :camera T) (unit 'player T))
   (issue +world+ 'force-lighting))
 
@@ -216,13 +217,13 @@
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
   (if (retained :control)
-      (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)))))
-        (save-region T path))
+      (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)) :filter "zip")))
+        (save-region (region +world+) path))
       (save-region T T)))
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
   (if (retained :control)
-      (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)))))
+      (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)) :filter "zip")))
         (when path
           (load-state path T)))
       (load-state T T))
