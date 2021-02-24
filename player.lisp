@@ -9,7 +9,7 @@
    (dash-time :initform 1.0 :accessor dash-time)
    (run-time :initform 1.0 :accessor run-time)
    (limp-time :initform 0.0 :accessor limp-time)
-   (climb-strength :initform 1.0 :accessor climb-strength)
+   (climb-strength :initform 4.0 :accessor climb-strength)
    (combat-time :initform 10000.0 :accessor combat-time)
    (used-aerial :initform NIL :accessor used-aerial)
    (buffer :initform NIL :accessor buffer)
