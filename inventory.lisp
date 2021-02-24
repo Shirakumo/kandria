@@ -53,7 +53,7 @@
     (and (= 0 (vx vel)) (= 0 (vy vel)))))
 
 (defmethod handle :before ((ev tick) (item item))
-  (nv+ (velocity item) (v* (gravity (medium item)) (* 100 (dt ev))))
+  (nv+ (velocity item) (v* (gravity (medium item)) (dt ev)))
   (nv+ (frame-velocity item) (velocity item)))
 
 (defmethod collide :after ((item item) (block block) hit)

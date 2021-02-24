@@ -18,7 +18,7 @@
             (d (+ (min 0 (max (vx d) (vy d)))
                   (vlength (vmax d 0)))))
        ;; If close to borders, resize.
-       (setf (state tool) (if (< (abs d) 5)
+       (setf (state tool) (if (< (abs d) (/ 1 (zoom (unit :camera T))))
                               :resizing
                               :moving))))
     (located-entity
@@ -59,8 +59,10 @@
                   entity (nvalign-corner
                           (nv+ (nv- (mouse-world-pos (pos event)) (start-pos tool))
                                (original-loc tool))
-                          (bsize (entity tool))
-                          (/ +tile-size+ 2)))))
+                          (bsize entity)
+                          (typecase entity
+                            (chunk +tile-size+)
+                            (T (/ +tile-size+ 2)))))))
        (when (v/= new (location entity))
          (setf (location entity) new)
          (update-marker (editor tool)))))

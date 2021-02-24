@@ -137,6 +137,7 @@
                (setf (scaling a) (scaling b))
                (setf (offset a) (offset b)))
               (T
+               (setf (texture-a background) (or (texture-b background) (texture info)))
                (setf (mix backgrounds) 1.0)))
         ;; Then set new source parameters
         (setf (texture-b background) (texture info))

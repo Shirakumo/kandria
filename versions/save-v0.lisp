@@ -3,28 +3,33 @@
 (defclass save-v0 (v0) ())
 
 (define-encoder (world save-v0) (_b packet)
-  (encode (storyline world))
-  (encode (unit 'region world))
-  (with-packet-entry (stream "global.lisp" packet
-                             :element-type 'character)
-    (princ* (list :region (name (region world))
-                  :clock (clock world)
-                  :timestamp (timestamp world))
-            stream)))
+  (let ((region (region world)))
+    (encode (storyline world))
+    (with-packet-entry (stream (format NIL "regions/~(~a~).lisp" (name region)) packet
+                               :element-type 'character)
+      (princ* (encode region) stream))
+    (with-packet-entry (stream "global.lisp" packet
+                               :element-type 'character)
+      (princ* (list :region (name region)
+                    :clock (clock world)
+                    :timestamp (timestamp world))
+              stream))))
 
 (define-decoder (world save-v0) (_b packet)
   (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)))
       (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
     (setf (clock world) clock)
     (setf (timestamp world) timestamp)
-    (let ((region (cond ((and (region world) (eql region (name (region world))))
-                         ;; Ensure we trigger necessary region reset events even if we're still in the same region.
-                         (issue world 'switch-region :region (region world))
-                         (region world))
-                        (T
-                         (load-region region world)))))
-      (decode (storyline world))
-      (decode region))))
+    (let* ((region (cond ((and (region world) (eql region (name (region world))))
+                          ;; Ensure we trigger necessary region reset events even if we're still in the same region.
+                          (issue world 'switch-region :region (region world))
+                          (region world))
+                         (T
+                          (load-region region world))))
+           (initargs (ignore-errors (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
+                                                                      packet :element-type 'character))))))
+      (decode region initargs)
+      (decode (storyline world)))))
 
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
@@ -42,12 +47,12 @@
           do (decode quest initargs))))
 
 (define-encoder (quest:quest save-v0) (buffer _p)
-  (cons (quest:name quest:quest)
-        (list :status (quest:status quest:quest)
-              :tasks (loop for quest being the hash-values of (quest:tasks quest:quest)
-                           collect (encode quest))
-              :clock (clock quest:quest)
-              :bindings (encode-payload 'bindings (quest:bindings quest:quest) _p save-v0))))
+  (list (quest:name quest:quest)
+        :status (quest:status quest:quest)
+        :tasks (loop for quest being the hash-values of (quest:tasks quest:quest)
+                     collect (encode quest))
+        :clock (clock quest:quest)
+        :bindings (encode-payload 'bindings (quest:bindings quest:quest) _p save-v0)))
 
 (define-decoder (quest:quest save-v0) (initargs packet)
   (destructuring-bind (&key status (clock 0.0) tasks bindings) initargs
@@ -60,9 +65,9 @@
           do (decode task initargs))))
 
 (define-encoder (quest:task save-v0) (_b _p)
-  (cons (quest:name quest:task)
-        (list :status (quest:status quest:task)
-              :bindings (encode-payload 'bindings (quest:bindings quest:task) _p save-v0))))
+  (list (quest:name quest:task)
+        :status (quest:status quest:task)
+        :bindings (encode-payload 'bindings (quest:bindings quest:task) _p save-v0)))
 
 (define-decoder (quest:task save-v0) (initargs packet)
   (destructuring-bind (&key status bindings) initargs
@@ -73,33 +78,28 @@
         (quest:activate (quest:find-named trigger quest:task))))))
 
 (define-encoder (region save-v0) (_b packet)
-  (with-packet-entry (stream (format NIL "regions/~(~a~).lisp" (name region)) packet
-                             :element-type 'character)
-    (let ((create-new (list NIL))
-          (ephemeral (list NIL)))
-      (macrolet ((add (target value)
-                   `(handler-case
-                        (setf (cdr ,target) (list* ,value (cdr ,target)))
-                      (no-applicable-encoder (e)
-                        (declare (ignore e))))))
-        (labels ((recurse (parent)
-                   (for:for ((entity over parent))
-                     (cond ((typep entity 'ephemeral)
-                            (when (name entity)
-                              (add ephemeral (list* (name entity) (encode entity))))
-                            (when (typep entity 'container)
-                              (recurse entity)))
-                           (T
-                            (add create-new (list* (name parent) (type-of entity) (encode entity))))))))
-          (recurse region)))
-      (princ* (list :create-new (rest create-new)
-                    :ephemeral (rest ephemeral))
-              stream))))
+  (let ((create-new (list NIL))
+        (ephemeral (list NIL)))
+    (macrolet ((add (target value)
+                 `(handler-case
+                      (setf (cdr ,target) (list* ,value (cdr ,target)))
+                    (no-applicable-encoder (e)
+                      (declare (ignore e))))))
+      (labels ((recurse (parent)
+                 (for:for ((entity over parent))
+                   (cond ((typep entity 'ephemeral)
+                          (when (name entity)
+                            (add ephemeral (list* (name entity) (encode entity))))
+                          (when (typep entity 'container)
+                            (recurse entity)))
+                         (T
+                          (add create-new (list* (name parent) (type-of entity) (encode entity))))))))
+        (recurse region)))
+    (list :create-new (rest create-new)
+          :ephemeral (rest ephemeral))))
 
 (define-decoder (region save-v0) (initargs packet)
-  (destructuring-bind (&key create-new ephemeral (delete-existing T) &allow-other-keys)
-      (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
-                                        packet :element-type 'character)))
+  (destructuring-bind (&key create-new ephemeral (delete-existing T) &allow-other-keys) initargs
     ;; Remove all entities that are not ephemeral
     (when delete-existing
       (labels ((recurse (parent)
@@ -116,10 +116,11 @@
           do (enter* entity parent))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
-          for unit = (unit name (scene-graph region))
+          for unit = (unit name region)
           do (if unit
                  (decode unit state)
-                 (error "Unit named ~s referenced but not found." name)))))
+                 (error "Unit named ~s referenced but not found." name)))
+    region))
 
 (define-encoder (animatable save-v0) (_b _p)
   (let ((animation (animation animatable)))

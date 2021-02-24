@@ -593,7 +593,7 @@
             (setf (current-node movable) target)))))
     (when ground
       (incf (vy vel) (min 0 (vy (velocity ground)))))
-    (nv+ vel (v* (gravity (medium movable)) (* 100 (dt tick))))
+    (nv+ vel (v* (gravity (medium movable)) (dt tick)))
     (when (< 2.0 (incf (node-time movable) (dt tick)))
       (v:warn :kandria.move-to "Cancelling path, made no progress towards node in 2s.")
       (setf (state movable) :normal)
