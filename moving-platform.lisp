@@ -20,7 +20,7 @@
     (:normal
      (loop repeat 10 while (handle-collisions +world+ platform)))
     (:falling
-     (nv+ (velocity platform) (nv* (vec 0 -0.10) (* 100 (dt ev))))
+     (nv+ (velocity platform) (nv* (vec 0 -10) (dt ev)))
      (nv+ (frame-velocity platform) (velocity platform))
      (loop repeat 10 while (handle-collisions +world+ platform)))))
 

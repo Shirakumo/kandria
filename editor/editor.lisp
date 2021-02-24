@@ -58,15 +58,16 @@
     (update-marker editor)))
 
 (defmethod show :after ((editor editor) &key)
-  (setf (lighting (unit 'lighting-pass T)) (gi 'none))
   (setf (entity editor) (region +world+))
   (setf (background (unit 'background T)) (background 'editor))
   (update-background (unit 'background T) T)
+  (setf (lighting (unit 'lighting-pass T)) (gi 'none))
   (force-lighting (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
   (hide (tool editor))
-  (switch-chunk (chunk (unit 'player T)))
+  (when (chunk (unit 'player T))
+    (switch-chunk (chunk (unit 'player T))))
   (snap-to-target (unit :camera T) (unit 'player T))
   (issue +world+ 'force-lighting))
 
@@ -202,7 +203,9 @@
     (enter region +world+)
     (setf (entity editor) region)
     (leave old +world+)
-    (trial:commit +world+ +main+)))
+    (trial:commit +world+ +main+)
+    (setf (background (unit 'background T)) (background 'editor))
+    (update-background (unit 'background T) T)))
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (if (retained :control)
@@ -210,19 +213,22 @@
         (when path
           (load-region path T)))
       (load-region T T))
+  (setf (background (unit 'background T)) (background 'editor))
+  (update-background (unit 'background T) T)
   (clear (history editor))
   (setf (entity editor) (region +world+))
   (trial:commit +world+ +main+))
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
   (if (retained :control)
-      (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)))))
-        (save-region T path))
+      (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)) :filter "zip")))
+        (when path
+          (save-region (region +world+) path)))
       (save-region T T)))
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
   (if (retained :control)
-      (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)))))
+      (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)) :filter "zip")))
         (when path
           (load-state path T)))
       (load-state T T))

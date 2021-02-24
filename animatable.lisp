@@ -146,6 +146,7 @@
   (let ((vel (velocity animatable))
         (frame (frame animatable))
         (dt (dt ev)))
+    (nv+ vel (v* (gravity (medium animatable)) dt))
     (case (state animatable)
       (:animated
        (when (/= 0 (vz (hurtbox frame)) (vw (hurtbox frame)))
@@ -176,11 +177,13 @@
        (when (<= (stun-time animatable) 0)
          (nv+ (velocity animatable) (knockback animatable))
          (vsetf (knockback animatable) 0 0)
-         (setf (state animatable) :animated)))
+         (setf (state animatable) :normal)))
       (:dying))
     (nv* vel (multiplier frame))
     (incf (vx vel) (* dt (direction animatable) (vx (acceleration frame))))
-    (incf (vy vel) (* dt (vy (acceleration frame))))))
+    (incf (vy vel) (* dt (vy (acceleration frame))))
+    (when (svref (collisions animatable) 2)
+      (setf (vy vel) (max (vy vel) 0)))))
 
 (defmethod idleable-p ((animatable animatable))
   (and (= 0 (vx (velocity animatable)))

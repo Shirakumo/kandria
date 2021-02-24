@@ -125,4 +125,4 @@
   '(paint line move-to))
 
 (defmethod default-tool ((_ chunk))
-  'paint)
+  'freeform)
