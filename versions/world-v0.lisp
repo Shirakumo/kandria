@@ -39,6 +39,8 @@
          (content (parse-sexps (packet-entry "data.lisp" packet :element-type 'character))))
     (loop for (type . initargs) in content
           do (enter (decode type initargs) region))
+    ;; Load initial state.
+    (decode-payload (first (parse-sexps (packet-entry "init.lisp" packet :element-type 'character))) region packet 'save-v0)
     region))
 
 (define-encoder (region world-v0) (_b packet)
@@ -47,6 +49,9 @@
       (handler-case
           (princ* (encode entity) stream)
         (no-applicable-encoder ()))))
+  (unless (ignore-errors (packet-entry "init.lisp" packet))
+    (with-packet-entry (stream "init.lisp" packet :element-type 'character)
+      (princ* (encode-payload region NIL packet 'save-v0) stream)))
   (list :name (name region)
         :author (author region)
         :version (version region)

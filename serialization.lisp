@@ -46,6 +46,9 @@
 (defmethod decode-payload (payload target packet (version symbol))
   (decode-payload payload target packet (ensure-version version)))
 
+(defmethod encode-payload (source payload packet (version symbol))
+  (encode-payload source payload packet (ensure-version version)))
+
 (defmacro define-encoder ((type version) &rest args)
   (let ((object (gensym "OBJECT"))
         (method-combination (loop for option = (car args)
