@@ -108,15 +108,19 @@
     (:ct
      o s o
      s s s
-     x i x)
-    (:ct
-     o s o
-     s s s
      _ i _)
     (:cb
      _ i _
      s s s
      o s o)
+    (:cl
+     o s _
+     s s i
+     o s _)
+    (:cr
+     _ s o
+     i s s
+     _ s o)
     (:h
      _ o _
      s s s
