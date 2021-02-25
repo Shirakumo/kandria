@@ -292,7 +292,9 @@
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
          (start-animation 'heavy-aerial-3-release player))
        (let ((buffer (buffer player)))
-         (when (and buffer (cancelable-p (frame player)))
+         (when (and buffer
+                    (cancelable-p (frame player))
+                    (<= (cooldown-time player) 0.0))
            (setf (buffer player) NIL)
            (cond ((retained 'left) (setf (direction player) -1))
                  ((retained 'right) (setf (direction player) +1)))
