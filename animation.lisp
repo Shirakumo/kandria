@@ -140,7 +140,7 @@
                               (when animation
                                 (change-class animation 'sprite-animation
                                               :loop-to loop-to
-                                              :next next
+                                              :next-animation next
                                               :cooldown cooldown)
                                 ;; Attempt to account for changes in the frame counts of the animations
                                 ;; by updating frame data per-animation here. We have to assume that
