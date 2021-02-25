@@ -32,16 +32,19 @@ Following is a blockquote ``| `` showing actual text content. Lines will be auto
 
 Within the blockquote we have the ``(:emote)`` syntax, which changes the character's profile animation. The name again must be known to the game and will cause it to display the corresponding expression in the dialog. Insert emote changes wherever appropriate to make the dialogue more visually interesting and help emphasise emotional beats.
 
-We then come to a choice menu. Choices are formulated using the unordered list syntax ``- ``. On the same line as the list entry must be the label that is shown to the player for that choice. On subsequent lines, indented to the same column, comes the action that's executed if that choice is made. You cannot insert empty lines between different choices, as that would denote separate choice lists. If the consequence of a choice should be a long dialogue tree, you can instead flatten the indentation by using labels ``# `` and jumps ``< ``. Using only the first choice from above, you can reformulate it like this:
+We then come to a choice menu. Choices are formulated using the unordered list syntax ``- ``. On the same line as the list entry must be the label that is shown to the player for that choice. On subsequent lines, indented to the same column, comes the action that's executed if that choice is made. You cannot insert empty lines between different choices, as that would denote separate choice lists. If the consequence of a choice should be a long dialogue tree, you can instead flatten the indentation by using sections ``# ``, labels ``> ``, and jumps ``< ``. Using only the first choice from above, you can reformulate it like this:
 
 :: markless
 - I'll go back and check on the camp
   < camp-check
+> check-done
+| Hm.
 
 # camp-check
 ! eval (complete task)
 ~ jack
 | Alright, go on ahead, I'll follow in a bit. Something isn't quite right here.
+< check-done
 ::
 
 Within this first choice we have more syntax. The instruction ``! `` can execute a variety of commands when encountered:
