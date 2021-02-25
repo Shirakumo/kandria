@@ -3,11 +3,21 @@
 (alloy:define-widget editmenu (alloy:structure)
   ((lighting :initform NIL :representation (alloy:switch :ideal-bounds (alloy:extent 0 0 50 20)))))
 
+(defclass zoom-slider (alloy:ranged-slider)
+  ())
+
+(defmethod alloy:value ((slider zoom-slider))
+  (let ((val (call-next-method)))
+    (expt val 1/5)))
+
+(defmethod (setf alloy:value) (value (slider zoom-slider))
+  (call-next-method (expt value 5) slider))
+
 (alloy::define-subbutton (editmenu new) () (edit 'new-region T))
 (alloy::define-subbutton (editmenu save) () (edit 'save-region T))
 (alloy::define-subbutton (editmenu load) () (edit 'load-region T))
-(alloy:define-subcomponent (editmenu zoom) ((zoom (unit :camera T)) alloy:ranged-slider
-                                            :range '(0.02 . 3.0) :step 0.2 :grid 0.02
+(alloy:define-subcomponent (editmenu zoom) ((zoom (unit :camera T)) zoom-slider
+                                            :range '(0.3 . 1.3) :step 0.05 :grid 0.05
                                             :ideal-bounds (alloy:extent 0 0 100 20)))
 (alloy::define-subbutton (editmenu undo) () (edit 'undo T))
 (alloy::define-subbutton (editmenu redo) () (edit 'redo T))
