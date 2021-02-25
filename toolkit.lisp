@@ -521,7 +521,7 @@
 (defun generate-name (&optional indicator)
   (loop for name = (format NIL "~a-~d" (or indicator "ENTITY") (incf *gensym-counter*))
         while (find-symbol name #.*package*)
-        finally (intern name #.*package*)))l
+        finally (intern name #.*package*)))
 
 (defclass request-region (event)
   ((region :initarg :region :reader region)))
