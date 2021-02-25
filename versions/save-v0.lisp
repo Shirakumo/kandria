@@ -134,10 +134,10 @@
 
 (define-decoder (animatable save-v0) (initargs _p)
   (destructuring-bind (&key location direction state animation frame health stun-time &allow-other-keys) initargs
-    (setf (location animatable) (decode 'vec2 location))
+    (setf (slot-value animatable 'location) (decode 'vec2 location))
     (setf (direction animatable) direction)
     (setf (state animatable) state)
-    (when animation
+    (when (and animation (< 0 (length (animations animatable))))
       (setf (animation animatable) animation)
       (setf (frame animatable) frame))
     (setf (health animatable) health)
@@ -165,7 +165,8 @@
           (setf (aref trace i) (nibbles:read-ieee-single/le stream))))))
   (let ((inventory (getf initargs :inventory)))
     (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq)))
-  (snap-to-target (unit :camera T) player))
+  (when (unit :camera T)
+    (snap-to-target (unit :camera T) player)))
 
 (define-encoder (moving-platform save-v0) (_b _p)
   `(:location ,(encode (location moving-platform))
