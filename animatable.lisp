@@ -148,7 +148,8 @@
         (frame (frame animatable))
         (dt (dt ev)))
     (nv+ vel (v* (gravity (medium animatable)) dt))
-    (setf (cooldown-time animatable) (cooldown (animation animatable)))
+    (setf (cooldown-time animatable)
+          (max (cooldown-time animatable) (cooldown (animation animatable))))
     (case (state animatable)
       (:animated
        (when (/= 0 (vz (hurtbox frame)) (vw (hurtbox frame)))
