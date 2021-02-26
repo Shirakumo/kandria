@@ -4,7 +4,7 @@
   ()
   (:default-initargs :directives (list* 'placeholder 'emote 'clue
                                         'conditional-part 'part-separator
-                                        'jump 'conditional 'source
+                                        'jump 'label 'conditional 'source
                                         (remove-if (lambda (s) (find s '(markless:underline markless:code markless:blockquote-header)))
                                                    markless:*default-directives*))
                      :instruction-types (list* 'components:go 'components:speed 'components:camera 'components:move 'components:setf 'components:eval
@@ -19,6 +19,21 @@
 (defmethod markless:begin ((_ jump) parser line cursor)
   (let ((component (make-instance 'components:jump :target (subseq line (+ 2 cursor)))))
     (markless:commit _ component parser))
+  (length line))
+
+(defclass label (markless:singular-line-directive)
+  ())
+
+(defmethod markless:prefix ((_ label))
+  #(">" " "))
+
+(defmethod markless:begin ((_ label) parser line cursor)
+  (let ((component (make-instance 'mcomponents:label :target (subseq line (+ 2 cursor)))))
+    (markless:commit _ component parser))
+  (+ 2 cursor))
+
+(defmethod markless:invoke ((_ label) component parser line cursor)
+  (markless:evaluate-instruction component parser)
   (length line))
 
 (defmethod mcomponents:children ((_ components:conditional))

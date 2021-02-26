@@ -1,5 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defclass sprite-animation (trial:sprite-animation)
+  ((cooldown :initarg :cooldown :initform 0.0 :accessor cooldown)))
+
 (defclass frame (sprite-frame alloy:observable)
   ((hurtbox :initform (vec 0 0 0 0) :accessor hurtbox)
    (offset :initform (vec 0 0) :accessor offset)
@@ -102,12 +105,13 @@
     (format stream "~%))~%")))
 
 (defmethod write-animation ((animation sprite-animation) &optional (stream T))
-  (format stream "~&   (~20a :start ~3d :end ~3d :loop-to ~3a :next ~s)"
+  (format stream "~&   (~20a :start ~3d :end ~3d :loop-to ~3a :next ~s :cooldown ~s)"
           (name animation)
           (start animation)
           (end animation)
           (loop-to animation)
-          (next-animation animation)))
+          (next-animation animation)
+          (cooldown animation)))
 
 (defmethod write-animation ((frame frame) &optional (stream T))
   (format stream "~& (:damage ~3a :stun-time ~3f :flags #b~4,'0b :effect ~10s :acceleration (~4f ~4f) :multiplier (~4f ~4f) :knockback (~4f ~4f) :hurtbox (~4f ~4f ~4f ~4f) :offset (~4f ~4f))"
@@ -131,13 +135,13 @@
                (setf (json-file sprite) source)
                (prog1 (call-next-method sprite (merge-pathnames (json-file sprite) path))
                  (loop for expr in animations
-                       do (destructuring-bind (name &key start end loop-to next) expr
+                       do (destructuring-bind (name &key start end loop-to next (cooldown 0.0)) expr
                             (let ((animation (find name (animations sprite) :key #'name)))
                               (when animation
-                                (when loop-to
-                                  (setf (loop-to animation) loop-to))
-                                (when next
-                                  (setf (next-animation animation) next))
+                                (change-class animation 'sprite-animation
+                                              :loop-to loop-to
+                                              :next-animation next
+                                              :cooldown cooldown)
                                 ;; Attempt to account for changes in the frame counts of the animations
                                 ;; by updating frame data per-animation here. We have to assume that
                                 ;; frames are only removed or added at the end of an animation, as we

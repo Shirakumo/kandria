@@ -38,10 +38,11 @@ When selecting a sprite entity, mostly for things that are interactable, you'll 
 Several keyboard shortcuts are also available:
 
 - ``Tab`` Change the selected entity
-- ``F1`` Save
-- ``F2`` Load
+- ``F1`` Save region
+- ``F2`` Load region
 - ``Delete`` Delete selected
 - ``Insert`` Insert new entity
+- ``h`` Move the player to the center of the current view.
 - ``c`` Clone selected
 - ``b`` Select browse tool
 - ``f`` Select freeform tool
@@ -51,6 +52,8 @@ Several keyboard shortcuts are also available:
 - ``a`` Move camera left
 - ``s`` Move camera down
 - ``d`` Move camera right
+- ``+`` Zoom in
+- ``-`` Zoom out
 
 ## Tools
 The editor comes with a number of different tools to manipulate different kinds of entities.
