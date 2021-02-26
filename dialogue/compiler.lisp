@@ -100,7 +100,7 @@
                                    do (walk child assembly))
                              (emit (make-instance 'jump :target end) assembly)
                           collect (cons (compile-form assembly predicate) index))))
-      (setf (clauses conditional) (append clauses (list (cons T (next-index assembly)))))
+      (setf (clauses conditional) (append clauses (list (cons (lambda () T) (next-index assembly)))))
       (emit end assembly))))
 
 (defmethod walk ((component mcomponents:unordered-list) (assembly assembly))
