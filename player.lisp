@@ -224,6 +224,17 @@
        (incf (vy (location player)) 8)
        (setf (vy (bsize player)) 15)))))
 
+(defun attack-chain-p (input player)
+  (case input
+    (light-attack
+     (case (name (animation player))
+       ((light-ground-1 light-ground-2 light-aerial-1 light-aerial-2) T)
+       (T NIL)))
+    (heavy-attack
+     (case (name (animation player))
+       ((heavy-ground-1 heavy-ground-2 heavy-aerial-1 heavy-aerial-2) T)
+       (T NIL)))))
+
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
     (execute-path player ev)
@@ -298,7 +309,8 @@
        (let ((buffer (buffer player)))
          (when (and buffer
                     (cancelable-p (frame player))
-                    (<= (cooldown-time player) 0.0))
+                    (or (<= (cooldown-time player) 0.0)
+                        (attack-chain-p buffer player)))
            (setf (buffer player) NIL)
            (cond ((retained 'left) (setf (direction player) -1))
                  ((retained 'right) (setf (direction player) +1)))
