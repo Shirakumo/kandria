@@ -46,7 +46,8 @@
               (dash-dcc-end    0.3)
               (dash-min-time   0.25)
               (dash-max-time   0.675)
-              (dash-evade-grace-time 0.1))))
+              (dash-evade-grace-time 0.1)
+              (buffer-expiration-time 0.3))))
 
 (defmacro p! (name)
   #+kandria-release
