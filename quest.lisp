@@ -100,6 +100,8 @@
      (declare (ignorable world player region))
      (flet ((have (thing &optional (inventory player))
               (have thing inventory))
+            (item-count (thing &optional (inventory player))
+              (item-count thing inventory))
             (store (item &optional (count 1) (inventory player))
               (store item inventory))
             (retrieve (item &optional (inventory player))
