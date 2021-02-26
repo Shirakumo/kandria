@@ -149,9 +149,6 @@
   (emit (make-instance 'jump :target most-positive-fixnum) assembly)
   (emit (make-instance 'noop :label component) assembly))
 
-(define-markup-walker components:clue
-  (list :clue (components:clue component)))
-
 (define-markup-walker mcomponents:bold
   (list :bold T))
 
