@@ -7,16 +7,24 @@
    (cooldown :initform 0.0 :accessor cooldown)
    (ai-state :initform :normal :accessor ai-state)))
 
+(defmethod stage :after ((enemy enemy) (area staging-area))
+  (stage (// 'kandria 'stab) area)
+  (stage (// 'kandria 'zombie-notice) area)
+  (stage (// 'kandria 'explosion) area))
+
 (defmethod maximum-health ((enemy enemy)) 100)
 
 (defmethod initialize-instance :after ((enemy enemy) &key)
   (setf (health enemy) (* (health enemy) +health-multiplier+)))
 
+(defmethod hurt ((a enemy) (b enemy)))
+
 (defmethod capable-p ((enemy enemy) (edge crawl-node)) T)
 (defmethod capable-p ((enemy enemy) (edge jump-node)) T)
 
 (defmethod collide :after ((player player) (enemy enemy) hit)
-  (when (eql :dashing (state player))
+  (when (and (eql :dashing (state player))
+             (interruptable-p (frame enemy)))
     (nv+ (velocity enemy) (v* (velocity player) 0.8))
     (incf (vy (velocity enemy)) 3.0)
     (nv* (velocity player) -0.25)
