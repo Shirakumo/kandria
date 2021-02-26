@@ -186,7 +186,7 @@
    (tool :initarg :tool :accessor tool)
    (frames :accessor frames))
   (:default-initargs :title "Animations"
-                     :extent (alloy:extent 0 30 (alloy:vw 1) 380)
+                     :extent (alloy:extent 0 30 (alloy:vw 1) 420)
                      :minimizable T
                      :maximizable NIL))
 
