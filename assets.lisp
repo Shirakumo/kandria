@@ -173,10 +173,10 @@
   :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge))
 
 (define-bg caves
-  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
+  :wrapping '(:repeat :repeat :clamp-to-edge)
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 4000.0))
+  :offset (vec 0.0 100.0))
 
 (define-bg editor
   :wrapping '(:repeat :repeat :repeat)
