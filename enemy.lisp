@@ -78,14 +78,14 @@
               (setf (animation enemy) 'jump))
              ((null (svref collisions 2))
               (setf (animation enemy) 'fall))
-             ((<= 0.75 (abs (vx vel)))
+             ((<= 0.4 (abs (vx vel)))
               (setf (animation enemy) 'run))
              ((< 0 (abs (vx vel)))
               (setf (animation enemy) 'walk))
              (T
               (setf (animation enemy) 'stand)))))))
 
-(define-shader-entity wolf (ground-enemy)
+(define-shader-entity wolf (ground-enemy half-solid)
   ()
   (:default-initargs
    :sprite-data (asset 'kandria 'wolf)))
@@ -93,8 +93,21 @@
 (defmethod movement-speed ((enemy wolf))
   (case (state enemy)
     (:crawling 0.4)
-    (:normal 0.5)
+    (:normal
+     (case (ai-state enemy)
+       ((:approach :retreat) 2.0)
+       (T 0.5)))
     (T 2.0)))
+
+(defmethod idleable-p ((enemy wolf)) NIL)
+
+;; FIXME: Instead of testing distance to player, we should be
+;;        testing the distance to any closest attackable.
+;; FIXME: Instead of only testing distance we should be raycasting
+;;        first to determine whether the target would be visible
+;;        at all. Would avoid annoying circumstances where the enemy
+;;        starts attacking even when the player is technically
+;;        obscured.
 
 (defmethod handle-ai-states ((enemy wolf) ev)
   (let* ((player (unit 'player T))
@@ -103,57 +116,47 @@
          (distance (vlength (v- ploc eloc)))
          (col (collisions enemy))
          (vel (velocity enemy)))
-    (ecase (ai-state enemy)
-      ((:normal :crawling)
-       (cond ;; ((< distance 400)
-             ;;  (setf (state enemy) :approach))
-         ((and (null (path enemy)) (<= (cooldown enemy) 0))
-          (if (ignore-errors (move-to (vec (+ (vx (location enemy)) (- (random 200) 50)) (+ (vy (location enemy)) 64)) enemy))
-              (setf (cooldown enemy) (+ 0.5 (expt (random 1.5) 2)))
-              (setf (cooldown enemy) 0.1)))
-         ((null (path enemy))
-          (decf (cooldown enemy) (dt ev)))))
-      (:approach (setf (state enemy) :normal))
-      ;; (:approach
-      ;;  ;; FIXME: This should be reached even when there is a path being executed right now.
-      ;;  (cond ((< distance 200)
-      ;;         (setf (path enemy) ())
-      ;;         (setf (state enemy) :attack))
-      ;;        ((null (path enemy))
-      ;;         (ignore-errors (move-to (location player) enemy)))))
-      ;; (:evade
-      ;;  (if (< 100 distance)
-      ;;      (setf (state enemy) :attack)
-      ;;      (let ((dir (signum (- (vx eloc) (vx ploc)))))
-      ;;        (when (and (svref col 2) (svref col (if (< 0 dir) 1 3)))
-      ;;          (setf (vy vel) 3.2))
-      ;;        (setf (vx vel) (* dir 2.0)))))
-      ;; (:attack
-      ;;  (cond ((< 500 distance)
-      ;;         (setf (state enemy) :normal))
-      ;;        ((< distance 80)
-      ;;         (setf (state enemy) :evade))
-      ;;        (T
-      ;;         (setf (direction enemy) (signum (- (vx (location player)) (vx (location enemy)))))
-      ;;         (cond ((svref col (if (< 0 (direction enemy)) 1 3))
-      ;;                (setf (vy vel) 2.0)
-      ;;                (setf (vx vel) (* (direction enemy) 2.0)))
-      ;;               ((svref col 2)
-      ;;                (setf (vy vel) 0.0)
-      ;;                ;; Check that tackle would even be possible to hit (no obstacles)
-      ;;                (start-animation 'tackle enemy))))))
-      )))
+    (flet ((distance-p (max)
+             (< distance (* +tile-size+ max))))
+      (when (eql :normal (state enemy))
+        (ecase (ai-state enemy)
+          (:normal
+           (cond ((distance-p 5)
+                  (setf (ai-state enemy) :retreat))
+                 ((distance-p 20)
+                  (setf (ai-state enemy) :approach))))
+          (:approach
+           (cond ((distance-p 5)
+                  (setf (path enemy) NIL)
+                  (setf (ai-state enemy) :retreat))
+                 ((distance-p 15)
+                  (setf (path enemy) NIL)
+                  (setf (direction enemy) (float-sign (- (vx ploc) (vx eloc))))
+                  (start-animation 'tackle enemy))
+                 ((distance-p 22)
+                  (if (path enemy)
+                      (execute-path enemy ev)
+                      (move-to player enemy)))
+                 (T
+                  (setf (path enemy) NIL)
+                  (setf (ai-state enemy) :normal))))
+          (:retreat
+           (cond ((not (distance-p 10))
+                  (setf (ai-state enemy) :approach))
+                 ((path enemy)
+                  (execute-path enemy ev))
+                 ((<= 0 (- (vx eloc) (vx ploc)))
+                  (or (move-to (vec (+ (vx ploc) (* +tile-size+ 10)) (+ (vy ploc) (* +tile-size+ 10))) enemy)
+                      (setf (vx vel) (movement-speed enemy))))
+                 (T
+                  (or (move-to (vec (- (vx ploc) (* +tile-size+ 10)) (+ (vy ploc) (* +tile-size+ 10))) enemy)
+                      (setf (vx vel) (- (movement-speed enemy))))))))))))
 
 (define-shader-entity zombie (ground-enemy half-solid)
   ((bsize :initform (vec 4 16))
    (timer :initform 0.0 :accessor timer))
   (:default-initargs
    :sprite-data (asset 'kandria 'zombie)))
-
-(defmethod stage :after ((enemy zombie) (area staging-area))
-  (stage (// 'kandria 'stab) area)
-  (stage (// 'kandria 'zombie-notice) area)
-  (stage (// 'kandria 'explosion) area))
 
 (defmethod movement-speed ((enemy zombie))
   (case (ai-state enemy)
