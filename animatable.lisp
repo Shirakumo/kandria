@@ -184,9 +184,7 @@
       (:dying))
     (nv* vel (multiplier frame))
     (incf (vx vel) (* dt (direction animatable) (vx (acceleration frame))))
-    (incf (vy vel) (* dt (vy (acceleration frame))))
-    (when (svref (collisions animatable) 2)
-      (setf (vy vel) (max (vy vel) 0)))))
+    (incf (vy vel) (* dt (vy (acceleration frame))))))
 
 (defmethod idleable-p ((animatable animatable))
   (and (= 0 (vx (velocity animatable)))
