@@ -14,6 +14,9 @@
 (defmethod compile (thing (assembly (eql T)))
   (compile thing (make-instance 'assembly)))
 
+(defmethod disassemble ((thing string))
+  (disassemble (compile* thing)))
+
 (defgeneric wrap-lexenv (assembly form)
   (:method (_ form)
     `(progn ,form)))
@@ -23,6 +26,12 @@
 
 (defclass assembly ()
   ((instructions :initform (make-array 0 :adjustable T :fill-pointer T) :accessor instructions)))
+
+(defmethod disassemble ((assembly assembly))
+  (loop for i from 0
+        for instruction across (instructions assembly)
+        do (format T "~&~2d  " i)
+           (disassemble instruction)))
 
 (defmethod next-index ((assembly assembly))
   (length (instructions assembly)))
