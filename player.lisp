@@ -82,20 +82,24 @@
       (issue +world+ 'force-lighting)
       (snap-to-target (unit :camera T) player))))
 
+(defun handle-evasion (player)
+  (let ((endangering (endangering player)))
+    (when endangering
+      ;; FIXME: If we are holding the opposite of what
+      ;;        we are facing, we should evade left.
+      ;;        to do this smoothly, need to buffer for a while.
+      (if (= (direction player)
+             (signum (- (vx (location endangering)) (vx (location player)))))
+          (start-animation 'evade-left player)
+          (start-animation 'evade-right player))
+      T)))
+
 (defmethod handle ((ev dash) (player player))
   (setf (limp-time player) 0.0)
   (case (state player)
     (:normal
-     (let ((vel (velocity player))
-           (endangering (in-danger-p player)))
-       (cond (endangering
-              ;; FIXME: If we are holding the opposite of what
-              ;;        we are facing, we should evade left.
-              ;;        to do this, need to buffer for a while.
-              (if (= (direction player)
-                     (signum (- (vx (location endangering)) (vx (location player)))))
-                  (start-animation 'evade-left player)
-                  (start-animation 'evade-right player)))
+     (let ((vel (velocity player)))
+       (cond ((handle-evasion player))
              ((and (eq :normal (state player))
                    (<= (dash-time player) 0))
               (if (typep (trial::source-event ev) 'gamepad-event)
@@ -352,15 +356,17 @@
        (incf (dash-time player) dt)
        (setf (jump-time player) 100.0)
        (setf (run-time player) 0.0)
-       (cond ((or (< (p! dash-max-time) (dash-time player))
-                  (and (< (p! dash-min-time) (dash-time player))
-                       (not (retained 'dash))))
-              (setf (state player) :normal))
-             ((< (p! dash-dcc-end) (dash-time player)))
-             ((< (p! dash-dcc-start) (dash-time player))
-              (nv* vel (damp* (p! dash-dcc) (* 100 dt))))
-             ((< (p! dash-acc-start) (dash-time player))
-              (nv* vel (p! dash-acc))))
+       (or (when (< (dash-time player) (p! dash-evade-grace-time))
+             (handle-evasion player))
+           (cond ((or (< (p! dash-max-time) (dash-time player))
+                      (and (< (p! dash-min-time) (dash-time player))
+                           (not (retained 'dash))))
+                  (setf (state player) :normal))
+                 ((< (p! dash-dcc-end) (dash-time player)))
+                 ((< (p! dash-dcc-start) (dash-time player))
+                  (nv* vel (damp* (p! dash-dcc) (* 100 dt))))
+                 ((< (p! dash-acc-start) (dash-time player))
+                  (nv* vel (p! dash-acc)))))
        (when (typep (interactable player) 'rope)
          (nudge (interactable player) loc (* (direction player) 20)))
        ;; Adapt velocity if we are on sloped terrain
