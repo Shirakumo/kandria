@@ -669,8 +669,9 @@
   (shake-camera :intensity 5))
 
 (defmethod (setf health) :after (health (player player))
-  (when (< (/ health (maximum-health player)) 0.15)
-    (setf (limp-time player) 10.0)))
+  (if (< (/ health (maximum-health player)) 0.15)
+      (setf (limp-time player) 10.0)
+      (setf (limp-time player) 0.0)))
 
 (defmethod kill :after ((player player))
   (harmony:play (// 'kandria 'death))
