@@ -138,7 +138,7 @@
   (declare (type (simple-array (unsigned-byte 8)) solids))
   (declare (type (unsigned-byte 16) ox oy))
   (declare (type (integer -1 +1) dir))
-  (let* ((g (v/ (gravity (make-instance 'air)) +tile-size+))
+  (let* ((g (v/ (gravity (make-instance 'air)) 100 +tile-size+))
          (w (node-graph-width graph))
          (h (node-graph-height graph))
          (jumps (compute-jump-configurations)))
@@ -405,54 +405,55 @@
   (let* ((graph (chunk-graph region))
          (start-chunk (find-containing start region))
          (goal-chunk (find-containing goal region)))
-    (labels ((cost (a b)
-               (vsqrdist2 (location (chunk-node-from (first (svref graph a))))
-                          (location (chunk-node-from (first (svref graph b))))))
-             (target (a)
-               (chunk-graph-id (chunk-node-to a)))
-             (chunk-path (node goal)
-               (let ((chunk (chunk-node-to node)))
-                 (shortest-chunk-path (node-graph chunk) (chunk-node-to-node node)
-                                      goal (v- (location chunk) (bsize chunk))
-                                      test)))
-             ;; FIXME: we compute the full path here and then throw it away. This is very wasteful!
-             ;;        should cache it instead and then reconstruct from chosen parts instead.
-             ;;        or we could cache ahead of time which nodes inside a chunk are connectable.
-             (test (prev node)
-               (if prev
-                   (not (null (chunk-path prev (chunk-node-from-node node))))
-                   (let ((chunk (chunk-node-from node)))
-                     (nth-value 1 (shortest-chunk-path (node-graph chunk) start
-                                                       (chunk-node-from-node node) (v- (location chunk) (bsize chunk))
-                                                       test)))))
-             (make-transition-node (node)
-               (list
-                (cond ((typep node 'door-node)
-                       node)
-                      ((< (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
-                       (load-time-value (make-climb-node 0)))
-                      ((> (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
-                       (load-time-value (make-fall-node 0)))
-                      (T
-                       (load-time-value (make-walk-node 0))))
-                (if (typep node 'door-node)
-                    (chunk-node-vec (chunk-node-from node) (chunk-node-from-node node))
-                    (chunk-node-vec (chunk-node-to node) (chunk-node-to-node node))))))
-      (if (eq start-chunk goal-chunk)
-          (shortest-chunk-path (node-graph start-chunk) start goal (v- (location start-chunk) (bsize start-chunk)) test)
-          (let ((chunk-path (shortest-path-a* graph (chunk-graph-id start-chunk) (chunk-graph-id goal-chunk)
-                                              #'test #'cost (constantly 1) #'target)))
-            (when chunk-path
-              (multiple-value-bind (path start) (shortest-chunk-path (node-graph start-chunk) start (chunk-node-from-node (first chunk-path))
-                                                                     (v- (location start-chunk) (bsize start-chunk)) test)
-                (values (append path
-                                (loop for (from to) on chunk-path
-                                      append (list*
-                                              (make-transition-node from)
-                                              (if to
-                                                  (chunk-path from (chunk-node-from-node to))
-                                                  (chunk-path from goal)))))
-                        start))))))))
+    (when (and start-chunk goal-chunk)
+      (labels ((cost (a b)
+                 (vsqrdist2 (location (chunk-node-from (first (svref graph a))))
+                            (location (chunk-node-from (first (svref graph b))))))
+               (target (a)
+                 (chunk-graph-id (chunk-node-to a)))
+               (chunk-path (node goal)
+                 (let ((chunk (chunk-node-to node)))
+                   (shortest-chunk-path (node-graph chunk) (chunk-node-to-node node)
+                                        goal (v- (location chunk) (bsize chunk))
+                                        test)))
+               ;; FIXME: we compute the full path here and then throw it away. This is very wasteful!
+               ;;        should cache it instead and then reconstruct from chosen parts instead.
+               ;;        or we could cache ahead of time which nodes inside a chunk are connectable.
+               (test (prev node)
+                 (if prev
+                     (not (null (chunk-path prev (chunk-node-from-node node))))
+                     (let ((chunk (chunk-node-from node)))
+                       (nth-value 1 (shortest-chunk-path (node-graph chunk) start
+                                                         (chunk-node-from-node node) (v- (location chunk) (bsize chunk))
+                                                         test)))))
+               (make-transition-node (node)
+                 (list
+                  (cond ((typep node 'door-node)
+                         node)
+                        ((< (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
+                         (load-time-value (make-climb-node 0)))
+                        ((> (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
+                         (load-time-value (make-fall-node 0)))
+                        (T
+                         (load-time-value (make-walk-node 0))))
+                  (if (typep node 'door-node)
+                      (chunk-node-vec (chunk-node-from node) (chunk-node-from-node node))
+                      (chunk-node-vec (chunk-node-to node) (chunk-node-to-node node))))))
+        (if (eq start-chunk goal-chunk)
+            (shortest-chunk-path (node-graph start-chunk) start goal (v- (location start-chunk) (bsize start-chunk)) test)
+            (let ((chunk-path (shortest-path-a* graph (chunk-graph-id start-chunk) (chunk-graph-id goal-chunk)
+                                                #'test #'cost (constantly 1) #'target)))
+              (when chunk-path
+                (multiple-value-bind (path start) (shortest-chunk-path (node-graph start-chunk) start (chunk-node-from-node (first chunk-path))
+                                                                       (v- (location start-chunk) (bsize start-chunk)) test)
+                  (values (append path
+                                  (loop for (from to) on chunk-path
+                                        append (list*
+                                                (make-transition-node from)
+                                                (if to
+                                                    (chunk-path from (chunk-node-from-node to))
+                                                    (chunk-path from goal)))))
+                          start)))))))))
 
 ;;;; Path execution
 (defclass movable (moving)
@@ -531,7 +532,8 @@
           (walk-node
            ;; KLUDGE: When we detect a collision on the side, just try to jump
            ;;         and hope you get over it.
-           (when (and ground (or (svref collisions 1) (svref collisions 3)))
+           (when (and ground (or (typep (svref collisions 1) 'ground)
+                                 (typep (svref collisions 3) 'ground)))
              (incf (vy vel) 0.8))
            (move-towards source target))
           (fall-node
