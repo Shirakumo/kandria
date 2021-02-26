@@ -48,7 +48,7 @@
 
 (defpackage #:org.shirakumo.fraf.kandria.dialogue
   (:use #:cl)
-  (:shadow #:compile #:eval)
+  (:shadow #:compile #:eval #:disassemble)
   (:local-nicknames
    (#:components #:org.shirakumo.fraf.kandria.dialogue.components)
    (#:mcomponents #:org.shirakumo.markless.components))
@@ -79,6 +79,7 @@
   (:export
    #:parse
    #:compile
+   #:disassemble
    #:wrap-lexenv
    #:assembly
    #:instructions

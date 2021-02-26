@@ -1,5 +1,11 @@
 (in-package #:org.shirakumo.fraf.kandria.dialogue)
 
+(defun print-instruction-type (instruction)
+  (let ((type (string (type-of instruction))))
+    (if (<= (length type) 6)
+        (format T "~6a " type)
+        (format T "~a " (subseq type 0 6)))))
+
 (defclass instruction ()
   ((index :initarg :index :accessor index)
    (label :initarg :label :accessor label)))
@@ -16,6 +22,9 @@
             (unless (eq instruction (label instruction))
               (label instruction)))))
 
+(defmethod disassemble ((instruction instruction))
+  (print-instruction-type instruction))
+
 (defclass noop (instruction)
   ())
 
@@ -29,6 +38,9 @@
             (type-of source)
             (name source))))
 
+(defmethod disassemble :after ((instruction source))
+  (format T "~a" (name instruction)))
+
 (defclass jump (instruction)
   ((target :initarg :target :initform (error "TARGET required.") :accessor target)))
 
@@ -41,6 +53,10 @@
               (label jump))
             (target jump))))
 
+(defmethod disassemble ((instruction jump))
+  (print-instruction-type instruction)
+  (format T "~a" (target instruction)))
+
 (defclass conditional (instruction)
   ((clauses :initarg :clauses :accessor clauses)))
 
@@ -52,6 +68,11 @@
             (unless (eq conditional (label conditional))
               (label conditional))
             (mapcar #'cdr (clauses conditional)))))
+
+(defmethod disassemble ((instruction conditional))
+  (print-instruction-type instruction)
+  (loop for (func . target) in (clauses instruction)
+        do (format T "~&      ~2d  ~a" target func)))
 
 (defclass dispatch (instruction)
   ((func :initarg :func :accessor func)
@@ -70,8 +91,16 @@
 (defclass emote (instruction)
   ((emote :initarg :emote :accessor emote)))
 
+(defmethod disassemble ((instruction emote))
+  (print-instruction-type instruction)
+  (format T "~a" (emote instruction)))
+
 (defclass pause (instruction)
   ((duration :initarg :duration :accessor duration)))
+
+(defmethod disassemble ((instruction pause))
+  (print-instruction-type instruction)
+  (format T "~a" (duration instruction)))
 
 (defclass placeholder (instruction)
   ((func :initarg :func :accessor func)))
@@ -82,11 +111,19 @@
 (defclass commit-choice (jump)
   ())
 
+(defmethod disassemble ((instruction commit-choice))
+  (print-instruction-type instruction)
+  (format T "~a" (target instruction)))
+
 (defclass confirm (instruction)
   ())
 
 (defclass begin-mark (instruction)
   ((markup :initarg :markup :accessor markup)))
+
+(defmethod disassemble ((instruction begin-mark))
+  (print-instruction-type instruction)
+  (format T "~s" (markup instruction)))
 
 (defclass end-mark (instruction)
   ())
@@ -104,6 +141,10 @@
             (type-of text)
             (text text))))
 
+(defmethod disassemble ((instruction text))
+  (print-instruction-type instruction)
+  (format T "~s" (text instruction)))
+
 (defclass eval (instruction)
   ((func :initarg :func :accessor func)))
 
@@ -113,3 +154,7 @@
             (index eval)
             (type-of eval)
             (form eval))))
+
+(defmethod disassemble ((instruction eval))
+  (print-instruction-type instruction)
+  (format T "~s" (func instruction)))
