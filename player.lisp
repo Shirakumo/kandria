@@ -12,7 +12,7 @@
    (climb-strength :initform 4.0 :accessor climb-strength)
    (combat-time :initform 10000.0 :accessor combat-time)
    (used-aerial :initform NIL :accessor used-aerial)
-   (buffer :initform NIL :accessor buffer)
+   (buffer :initform (cons NIL 0))
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform (@ player-nametag))
@@ -223,6 +223,16 @@
       (:crawling
        (incf (vy (location player)) 8)
        (setf (vy (bsize player)) 15)))))
+
+(defmethod (setf buffer) (thing (player player))
+  (let ((buffer (slot-value player 'buffer)))
+    (setf (cdr buffer) (clock +world+))
+    (setf (car buffer) thing)))
+
+(defmethod buffer ((player player))
+  (let ((buffer (slot-value player 'buffer)))
+    (when (< (clock +world+) (+ (cdr buffer) (p! buffer-expiration-time)))
+      (car buffer))))
 
 (defun attack-chain-p (input player)
   (case input
