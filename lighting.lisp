@@ -332,7 +332,8 @@ void main(){
 (define-shader-entity textured-light (light sprite-entity resizable)
   ((multiplier :initform 1.0f0 :initarg :multiplier :accessor multiplier
                :type single-float :documentation "Light intensity multiplier")
-   (texture :initform (// 'kandria 'lights))))
+   (texture :initform (locally (declare (notinline asset))
+                        (resource (asset 'kandria 'lights) T)))))
 
 (defmethod initargs append ((light textured-light))
   '(:multiplier))
