@@ -2,7 +2,7 @@
 
 (defclass parser (markless:parser)
   ()
-  (:default-initargs :directives (list* 'placeholder 'emote 'clue
+  (:default-initargs :directives (list* 'placeholder 'emote
                                         'conditional-part 'part-separator
                                         'jump 'label 'conditional 'source
                                         (remove-if (lambda (s) (find s '(markless:underline markless:code markless:blockquote-header)))
@@ -143,13 +143,6 @@
       (components:conditional-part
        (vector-push-extend (make-array 0 :adjustable T :fill-pointer T) (components:choices component))
        cursor)
-      (components:clue
-       (loop for i from cursor below (length line)
-             do (when (and (char= (char line i) #\_)
-                           (char= (char line (1- i)) #\_))
-                  (setf (components:clue component) (subseq line cursor (1- i)))
-                  (return (1- i)))
-             finally (error 'markless:parser-error :cursor i)))
       (T
        (vector-push-extend "|" (mcomponents:children component))
        cursor))))
@@ -176,19 +169,6 @@
 (defmethod markless:end :after ((_ conditional-part) component parser)
   ;; FIXME
   (markless::vector-push-front "[" (mcomponents:children component)))
-
-(defclass clue (markless:surrounding-inline-directive)
-  ())
-
-(defmethod markless:prefix ((_ clue))
-  #("_" "_"))
-
-(defmethod markless:begin ((_ clue) parser line cursor)
-  (markless:commit _ (make-instance 'components:clue) parser)
-  (+ 2 cursor))
-
-(defmethod markless:end :after ((_ clue) component parser)
-  (markless::vector-push-front "__" (mcomponents:children component)))
 
 (defmethod markless:evaluate-instruction ((instruction components::fake-instruction) parser))
 

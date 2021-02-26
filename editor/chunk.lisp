@@ -46,8 +46,10 @@
                       (yd (- (second tile) (second (tile-to-place widget)))))
                   (setf (place-width widget) (1+ (floor xd)))
                   (setf (place-height widget) (1+ (floor yd)))
-                  (setf (third (tile-to-place widget)) (place-width widget))
-                  (setf (fourth (tile-to-place widget)) (place-height widget)))
+                  (setf (tile-to-place widget) (list (first (tile-to-place widget))
+                                                     (second (tile-to-place widget))
+                                                     (1+ (floor xd))
+                                                     (1+ (floor yd)))))
                 (progn
                   (setf (place-width widget) 1)
                   (setf (place-height widget) 1)

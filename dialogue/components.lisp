@@ -40,9 +40,6 @@
              (let ((markless::*level* (1- markless::*level*)))
                (markless:output-component "--" s f)))))
 
-(defclass clue (components:inline-component components:parent-component)
-  ((clue :initarg :clue :initform NIL :accessor clue)))
-
 (defclass fake-instruction (components:instruction) ())
 
 (defclass go (fake-instruction)

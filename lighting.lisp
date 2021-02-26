@@ -146,7 +146,7 @@
     (incf (mix pass) (dt ev)))
   (update-lighting pass))
 
-(define-shader-entity light (vertex-entity sized-entity)
+(define-shader-entity light (ephemeral vertex-entity sized-entity)
   ())
 
 (defmethod object-renderable-p ((light light) (pass lighting-pass)) T)
@@ -331,7 +331,9 @@ void main(){
 
 (define-shader-entity textured-light (light sprite-entity resizable)
   ((multiplier :initform 1.0f0 :initarg :multiplier :accessor multiplier
-               :type single-float :documentation "Light intensity multiplier")))
+               :type single-float :documentation "Light intensity multiplier")
+   (texture :initform (locally (declare (notinline asset))
+                        (resource (asset 'kandria 'lights) T)))))
 
 (defmethod initargs append ((light textured-light))
   '(:multiplier))

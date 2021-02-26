@@ -14,6 +14,9 @@
 (defmethod compile (thing (assembly (eql T)))
   (compile thing (make-instance 'assembly)))
 
+(defmethod disassemble ((thing string))
+  (disassemble (compile* thing)))
+
 (defgeneric wrap-lexenv (assembly form)
   (:method (_ form)
     `(progn ,form)))
@@ -23,6 +26,12 @@
 
 (defclass assembly ()
   ((instructions :initform (make-array 0 :adjustable T :fill-pointer T) :accessor instructions)))
+
+(defmethod disassemble ((assembly assembly))
+  (loop for i from 0
+        for instruction across (instructions assembly)
+        do (format T "~&~2d  " i)
+           (disassemble instruction)))
 
 (defmethod next-index ((assembly assembly))
   (length (instructions assembly)))
@@ -91,7 +100,7 @@
                                    do (walk child assembly))
                              (emit (make-instance 'jump :target end) assembly)
                           collect (cons (compile-form assembly predicate) index))))
-      (setf (clauses conditional) (append clauses (list (cons T (next-index assembly)))))
+      (setf (clauses conditional) (append clauses (list (cons (lambda () T) (next-index assembly)))))
       (emit end assembly))))
 
 (defmethod walk ((component mcomponents:unordered-list) (assembly assembly))
@@ -139,9 +148,6 @@
 (defmethod walk ((component mcomponents:header) (assembly assembly))
   (emit (make-instance 'jump :target most-positive-fixnum) assembly)
   (emit (make-instance 'noop :label component) assembly))
-
-(define-markup-walker components:clue
-  (list :clue (components:clue component)))
 
 (define-markup-walker mcomponents:bold
   (list :bold T))
