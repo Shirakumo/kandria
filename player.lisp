@@ -160,7 +160,7 @@
          (setf (state player) :animated))))
 
 #-kandria-release
-(let ((type (copy-seq '(box drone zombie ball dummy))))
+(let ((type (copy-seq '(wolf box drone zombie ball dummy))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
@@ -347,9 +347,7 @@
        (when (and (cancelable-p (frame player))
                   (or (retained 'left)
                       (retained 'right)))
-         (setf (state player) :normal))
-       (when ground
-         (setf (vy vel) (max (vy vel) 0))))
+         (setf (state player) :normal)))
       (:dashing
        (incf (dash-time player) dt)
        (setf (jump-time player) 100.0)
@@ -649,6 +647,7 @@
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
+  (setf (health player) (max 10 (health player)))
   (vsetf (velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player)))
   (setf (state player) :normal)
