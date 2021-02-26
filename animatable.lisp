@@ -26,7 +26,7 @@
 (defgeneric hurt (animatable attacker))
 (defgeneric stun (animatable stun))
 (defgeneric start-animation (name animatable))
-(defgeneric in-danger-p (animatable))
+(defgeneric endangering (animatable))
 (defgeneric maximum-health (animatable))
 (defgeneric damage-output (animatable))
 
@@ -67,13 +67,15 @@
     (loop for i from idx below (min end (+ precognition-frames idx))
           thereis (< 0 (vw (hurtbox (svref frames i)))))))
 
-(defmethod in-danger-p ((animatable animatable))
+(defmethod endangering ((animatable animatable))
   (for:for ((entity over (region +world+)))
     (when (and (typep entity 'animatable)
                (not (eql animatable entity))
                (attacking-p entity)
                ;; KLUDGE: this sucks
-               (< (vdistance (location entity) (location animatable)) (* 2 +tile-size+)))
+               (let ((hurtbox (hurtbox entity)))
+                 (aabb (location animatable) (tv- (velocity animatable) (velocity entity))
+                       (vxy hurtbox) (nv+ (vwz hurtbox) (bsize animatable)))))
       (return entity))))
 
 (defmethod hurt :around ((animatable animatable) (damage integer))
