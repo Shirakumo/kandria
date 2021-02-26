@@ -46,7 +46,6 @@
   (destructuring-bind (x y w h) tile
     (let ((offset (vec (* 16 x) (* 16 y)))
           (size (vec (* 16 w) (* 16 h))))
-      (print (list offset size))
       (setf (offset (entity widget)) offset)
       (setf (size (entity widget)) size)
       (setf (bsize (entity widget)) (v/ size 2)))))

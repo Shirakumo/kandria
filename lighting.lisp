@@ -146,7 +146,7 @@
     (incf (mix pass) (dt ev)))
   (update-lighting pass))
 
-(define-shader-entity light (vertex-entity sized-entity)
+(define-shader-entity light (ephemeral vertex-entity sized-entity)
   ())
 
 (defmethod object-renderable-p ((light light) (pass lighting-pass)) T)
