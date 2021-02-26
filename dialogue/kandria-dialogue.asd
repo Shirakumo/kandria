@@ -5,6 +5,7 @@
                (:file "instructions")
                (:file "compiler")
                (:file "optimizers")
-               (:file "vm"))
+               (:file "vm")
+               (:file "documentation"))
   :depends-on (:cl-markless
-               :3d-vectors))
+               :documentation-utils))

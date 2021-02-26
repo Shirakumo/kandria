@@ -15,7 +15,6 @@
    #:clauses
    #:source
    #:name
-   #:clue
    #:go
    #:speed
    #:camera-instruction
@@ -43,8 +42,7 @@
    #:placeholder
    #:emote
    #:part-separator
-   #:conditional-part
-   #:clue))
+   #:conditional-part))
 
 (defpackage #:org.shirakumo.fraf.kandria.dialogue
   (:use #:cl)
