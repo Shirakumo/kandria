@@ -72,10 +72,11 @@
     (when (and (typep entity 'animatable)
                (not (eql animatable entity))
                (attacking-p entity)
-               ;; KLUDGE: this sucks
-               (let ((hurtbox (hurtbox entity)))
-                 (aabb (location animatable) (tv- (velocity animatable) (velocity entity))
-                       (vxy hurtbox) (nv+ (vwz hurtbox) (bsize animatable)))))
+               ;; KLUDGE: this kinda sucks
+               (or (< (vdistance (location entity) (location animatable)) +tile-size+)
+                   (let ((hurtbox (hurtbox entity)))
+                     (aabb (location animatable) (tv- (velocity animatable) (velocity entity))
+                           (vxy hurtbox) (nv+ (vwz hurtbox) (bsize animatable))))))
       (return entity))))
 
 (defmethod hurt :around ((animatable animatable) (damage integer))
