@@ -170,7 +170,7 @@
          (focus (make-instance 'alloy:focus-list))
          (next (alloy:represent (next-animation animation) 'animation-chooser :value-set animations))
          (loop-to (alloy:represent (loop-to animation) 'alloy:ranged-wheel :range (cons (start animation) (end animation))))
-         (cooldown (alloy:represent (cooldown animation) 'alloy:ranged-wheel :range '(0.0 . 1.0))))
+         (cooldown (alloy:represent (cooldown animation) 'alloy:ranged-wheel :range '(0.0 . 2.0) :step 0.1 :grid 0.1)))
     (alloy:observe 'animation timeline
                    (lambda (animation timeline)
                      (setf (alloy:data next) (alloy:place-data (next-animation animation)))
