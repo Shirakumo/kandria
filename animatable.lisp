@@ -135,6 +135,7 @@
 
 (defmethod stun ((animatable animatable) stun)
   (when (and (< 0 stun)
+             (not (eql :dying (state animatable)))
              (interruptable-p (frame animatable)))
     (setf (stun-time animatable) (min +max-stun+ (+ (stun-time animatable) stun)))
     (setf (state animatable) :stunned)))
