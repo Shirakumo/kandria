@@ -9,11 +9,11 @@
                       (aref layer (+ 0 (pos x y)))
                       (aref layer (+ 1 (pos x y)))))
              ((setf tile) (f x y)
-               (setf (aref layer (+ 0 (pos x y))) (truncate (vx f))
-                     (aref layer (+ 1 (pos x y))) (truncate (vy f)))))
+               (setf (aref layer (+ 0 (pos x y))) (first f)
+                     (aref layer (+ 1 (pos x y))) (second f))))
       (let ((q ()) (find (vec2 (aref layer (+ 0 (pos x y)))
                                (aref layer (+ 1 (pos x y))))))
-        (unless (v= fill find)
+        (unless (v= (vec (first fill) (second fill)) find)
           (push (cons x y) q)
           (loop while q for (n . y) = (pop q)
                 for w = n for e = n
@@ -108,15 +108,19 @@
     (:ct
      o s o
      s s s
-     x i x)
-    (:ct
-     o s o
-     s s s
      _ i _)
     (:cb
      _ i _
      s s s
      o s o)
+    (:cl
+     o s _
+     s s i
+     o s _)
+    (:cr
+     _ s o
+     i s s
+     _ s o)
     (:h
      _ o _
      s s s
@@ -278,7 +282,7 @@
 
 (defun %auto-tile (solids tiles width height x y map)
   (let ((solids (copy-seq solids)))
-    (%flood-fill solids width height x y (vec2 255 0))
+    (%flood-fill solids width height x y (list 255 0))
     (multiple-value-bind (x y) (find-edge solids width height x y)
       (let* ((edge (fill-edge solids tiles width height x y map))
              (x- (truncate (loop for pos in edge minimize (vx pos))))

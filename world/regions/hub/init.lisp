@@ -1,3 +1,1 @@
-(:create-new ()
- :ephemeral ()
- :delete-existing NIL)
+(:create-new nil :ephemeral ((fi :location (1656.0 -2416.0) :direction 1 :state :normal :animation stand :frame 4 :health 1000 :stun-time 0.0) (catherine :location (2264.0 -2416.0) :direction 1 :state :normal :animation stand :frame 2 :health 1000 :stun-time 0.0) (jack :location (0.0 -2856.0) :direction 1 :state :animated :animation stand :frame 7 :health 1000 :stun-time 0.0) (player :inventory ((small-health-pack . 5) (medium-health-pack . 2)) :location (2697.2813 -2369.0) :direction 1 :state :normal :animation stand :frame 2 :health 100 :stun-time 0.0) (field :active-p nil)))

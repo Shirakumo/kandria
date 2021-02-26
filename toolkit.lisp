@@ -519,7 +519,9 @@
   (nvalign (mouse-world-pos (v- pos (/ +tile-size+ 2))) +tile-size+))
 
 (defun generate-name (&optional indicator)
-  (intern (format NIL "~a-~d" (or indicator "ENTITY") (incf *gensym-counter*)) #.*package*))
+  (loop for name = (format NIL "~a-~d" (or indicator "ENTITY") (incf *gensym-counter*))
+        while (find-symbol name #.*package*)
+        finally (intern name #.*package*)))
 
 (defclass request-region (event)
   ((region :initarg :region :reader region)))

@@ -37,6 +37,7 @@
   (:export
    #:parser
    #:jump
+   #:label
    #:conditional
    #:source
    #:placeholder

@@ -5,8 +5,9 @@
 
 (define-shader-entity animatable (movable lit-animated-sprite)
   ((health :initarg :health :accessor health)
-   (stun-time :initform 0d0 :accessor stun-time)
+   (stun-time :initform 0f0 :accessor stun-time)
    (idle-time :initform 0f0 :accessor idle-time)
+   (cooldown-time :initform 0f0 :accessor cooldown-time)
    (iframes :initform 0 :accessor iframes)
    (knockback :initform (vec 0 0) :accessor knockback)
    (invincible :initform NIL :initarg :invincible :accessor invincible-p)))
@@ -147,6 +148,8 @@
         (frame (frame animatable))
         (dt (dt ev)))
     (nv+ vel (v* (gravity (medium animatable)) dt))
+    (setf (cooldown-time animatable)
+          (max (cooldown-time animatable) (cooldown (animation animatable))))
     (case (state animatable)
       (:animated
        (when (/= 0 (vz (hurtbox frame)) (vw (hurtbox frame)))
@@ -192,6 +195,7 @@
        (eql :normal (state animatable))))
 
 (defmethod handle :before ((ev tick) (animatable animatable))
+  (decf (cooldown-time animatable) (dt ev))
   (when (and (< 0 (iframes animatable))
              (< 0 (dt ev)))
     (decf (iframes animatable)))
