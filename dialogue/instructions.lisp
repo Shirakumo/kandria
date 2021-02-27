@@ -72,7 +72,7 @@
 (defmethod disassemble ((instruction conditional))
   (print-instruction-type instruction)
   (loop for (func . target) in (clauses instruction)
-        do (format T "~&      ~2d  ~a" target func)))
+        do (format T "~&      ~2d" target)))
 
 (defclass dispatch (instruction)
   ((func :initarg :func :accessor func)
@@ -87,6 +87,11 @@
               (label dispatch))
             (func dispatch)
             (targets dispatch))))
+
+(defmethod disassemble ((instruction dispatch))
+  (print-instruction-type instruction)
+  (loop for target in (targets instruction)
+        do (format T "~&      ~2d" target)))
 
 (defclass emote (instruction)
   ((emote :initarg :emote :accessor emote)))
