@@ -78,7 +78,6 @@
 (define-sprite effects)
 
 (define-tileset tundra)
-(define-tileset desert)
 (define-tileset debug)
 (define-tileset camp)
 (define-tileset region1)
