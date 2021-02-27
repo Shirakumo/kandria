@@ -81,6 +81,7 @@
                              (:file "editmenu")
                              (:file "toolbar")
                              (:file "chunk")
+                             (:file "remesh")
                              (:file "entity")
                              (:file "creator")
                              (:file "animation")
