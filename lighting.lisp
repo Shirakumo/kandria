@@ -212,6 +212,13 @@ void main(){
   ()
   (:buffers (kandria gi)))
 
+
+;; FIXME: We might want the incidence computation to smoothen when
+;;        facing away from the light source to avoid extremely hard
+;;        shadows appearing on cylindrical shapes.
+;; FIXME: If light is on player layers in front of the player
+;;        get lit even when the player is behind them, which is not
+;;        correct. No idea how to fix that, though.
 (define-class-shader (lit-entity :fragment-shader 100)
   (gl-source (asset 'kandria 'gi))
   "uniform sampler2D lighting;
@@ -232,11 +239,14 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2
   if(gi.activep != 0){
     float incidence = 1.0;
     vec2 dir = gi.location - world_pos;
+    float dirl = (length(dir)-10)/10;
     if(normal.x != 0 && normal.y != 0)
-      incidence = max(0, dot(normalize(dir), normal));
-    float attenuation = 1.0/max(1.0, pow((length(dir)-10)/10, gi.attenuation));
+      incidence = clamp(dot(normalize(dir), normal), 0, 1);
+    float attenuation = 1.0/max(1.0, pow(dirl, gi.attenuation));
     float shade = clamp(2-3*texelFetch(shadow_map, pos, 0).r, 0, 1);
+    incidence = mix(1.0, incidence, clamp((dirl-1)/3, 0, 1));
     truecolor += gi.light*clamp(shade*(1-absorption)*incidence*attenuation, 0, 1)*color.rgb;
+    //truecolor = vec3(incidence, incidence, incidence);
     //truecolor = vec3(normal, 0);
   }
 
