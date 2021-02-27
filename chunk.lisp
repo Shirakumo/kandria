@@ -379,9 +379,9 @@ void main(){
               ;; Surface tiles
               (case* tile
                 ((:t :h :tl> :tr> :bl< :br<) (line -8 +8 +8 +8))
-                ((:r :v :tr> :br> :tl< :bl<) (line +8 -8 +8 +8))
+                ((:r :v :tr> :br> :tl< :bl< :cr) (line +8 -8 +8 +8))
                 ((:b :h :br> :bl> :tl< :tr<) (line -8 -8 +8 -8))
-                ((:l :v :tl> :bl> :tr< :br<) (line -8 -8 -8 +8)))
+                ((:l :v :tl> :bl> :tr< :br< :cl) (line -8 -8 -8 +8)))
               ;; Slopes
               (when (and (listp tile) (eql :slope (first tile)))
                 (let ((t-info (aref +surface-blocks+ (+ 4 (second tile)))))
@@ -431,7 +431,7 @@ void main(){
           do (loop for y from (max 0 y-) below (min h y+)
                    for idx = (* (+ x (* y w)) 2)
                    for tile = (aref tilemap (+ 0 idx))
-                   do (when (< 0 tile)
+                   do (when (< 0 tile 17)
                         (let* ((loc (vec2 (+ (* x t-s) (/ t-s 2) (- (vx (location chunk)) (vx (bsize chunk))))
                                           (+ (* y t-s) (/ t-s 2) (- (vy (location chunk)) (vy (bsize chunk))))))
                                (hit (make-hit (aref +surface-blocks+ tile) loc)))
