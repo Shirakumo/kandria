@@ -298,9 +298,10 @@ void main(){
       (setf (vertex-array light) vao))))
 
 (defmethod update-bounding-box ((light basic-light))
-  (let ((data (buffer-data (caar (bindings (vertex-array light)))))
-        (loc (location light))
-        x+ x- y+ y-)
+  (let* ((data (buffer-data (caar (bindings (vertex-array light)))))
+         (loc (location light))
+         (x+ (vx loc)) (x- (vx loc))
+         (y+ (vy loc)) (y- (vy loc)))
     ;; Determine bounds
     (loop for i from 0 below (length data) by 2
           for x = (+ (vx loc) (aref data (+ i 0)))
@@ -330,6 +331,17 @@ void main(){
                (return))
           finally (vector-push-extend (vx loc) data)
                   (vector-push-extend (vy loc) data))
+    (update-bounding-box light)
+    (resize-buffer vbo (* (length data) 4) :data data)
+    (setf (size vao) (if (<= 6 (length data))
+                         (/ (length data) 2)
+                         0))))
+
+(defmethod clear ((light basic-light))
+  (let* ((vao (vertex-array light))
+         (vbo (caar (bindings vao)))
+         (data (buffer-data vbo)))
+    (setf (fill-pointer data) 0)
     (update-bounding-box light)
     (resize-buffer vbo (* (length data) 4) :data data)
     (setf (size vao) (if (<= 6 (length data))
