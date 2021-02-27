@@ -142,5 +142,6 @@
 (define-additional-slot-coders (interaction-trigger world-v0) (interaction))
 (define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
 (define-slot-coders (basic-light world-v0) ((color :type vec4)
+                                            (location :type vec2)
                                             (data :reader (lambda (light) (buffer-data (caar (bindings (vertex-array light))))))))
 (define-slot-coders (textured-light world-v0) (multiplier (texture :type texture) (location :type vec2) (size :type vec2) (bsize :type vec2) (offset :type vec2)))
