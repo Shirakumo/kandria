@@ -8,7 +8,7 @@
 (defmethod compile ((thing mcomponents:component) assembly)
   (walk thing assembly))
 
-(defmethod compile ((thing string) assembly)
+(defmethod compile (thing assembly)
   (compile (parse thing) assembly))
 
 (defmethod compile (thing (assembly (eql T)))
@@ -173,7 +173,7 @@
                  (mcomponents:strikethrough-option '(:strikethrough T))
                  (mcomponents:spoiler-option '(:spoiler T))
                  (mcomponents:font-option (list :font (mcomponents:font-family option)))
-                 (mcomponents:color-option (list :color (3d-vectors:vec3
+                 (mcomponents:color-option (list :color (list
                                                          (mcomponents:red option)
                                                          (mcomponents:green option)
                                                          (mcomponents:blue option))))

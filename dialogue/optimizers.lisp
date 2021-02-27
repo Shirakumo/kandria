@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria.dialogue)
 
+(defvar *optimization-passes* '(jump-resolution-pass noop-elimination-pass))
+
 (defclass pass () ())
 
 (defmethod run-pass ((pass symbol) thing)
@@ -14,7 +16,7 @@
 (defmethod run-pass ((pass pass) (instruction instruction)))
 
 (defun optimize-instructions (assembly)
-  (loop for pass in '(jump-resolution-pass noop-elimination-pass)
+  (loop for pass in *optimization-passes*
         do (run-pass pass assembly))
   assembly)
 
