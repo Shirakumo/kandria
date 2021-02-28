@@ -136,9 +136,21 @@ See FORM"))
 (in-package #:org.shirakumo.fraf.kandria.dialogue.syntax)
 
 (docs:define-docs
+  (variable *default-directives*
+    "Variable holding the list of directives used in a default parser.
+
+See PARSER")
+  
+  (variable *default-instruction-types*
+    "Variable holding the list of instruction types used in a default parser.
+
+See PARSER")
+  
   (type parser
     "Parser class customised to use the correct set of directives and instructions.
 
+See *DEFAULT-DIRECTIVES*
+See *DEFAULT-INSTRUCTION-TYPES*
 See ORG.SHIRAKUMO.MARKLESS:PARSER")
 
   (type jump
@@ -388,9 +400,22 @@ to COMPILE* before being disassembled.
 
 See ASSEMBLY
 See COMPILE*")
+
+  (function wrap-lexenv
+    "Function used to wrap the lexical environment of forms compiled in dialogue.
+
+You should implement a method on this if you want to customise the
+lexical environment of dialogue forms. The function acts like a
+macro; it receives an expression as input, and should return a new
+expression to be used in its place.
+
+Typically you'll want to do stuff like surround the form with LETs and
+FLETs to make special convenience functions and variables available.
+
+See ASSEMBLY")
   
   (type assembly
-    "A class representing a set of instructions ready to be executed.
+        "A class representing a set of instructions ready to be executed.
 
 See INSTRUCTIONS
 See NEXT-INDEX
@@ -521,7 +546,18 @@ See PASS"))
     "Base class for all client requests.
 
 A request requires the client to perform some operation before
-execution can resume.")
+execution can resume.
+
+See INPUT-REQUEST
+See TARGET-REQUEST
+See TEXT-REQUEST
+See CHOICE-REQUEST
+See CONFIRM-REQUEST
+See CLEAR-REQUEST
+See EMOTE-REQUEST
+See PAUSE-REQUEST
+See SOURCE-REQUEST
+See END-REQUEST")
   
   (type input-request
     "Base class for requests that require user input.

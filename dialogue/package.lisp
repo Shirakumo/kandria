@@ -34,6 +34,8 @@
    (#:mcomponents #:org.shirakumo.markless.components)
    (#:markless #:org.shirakumo.markless))
   (:export
+   #:*default-directives*
+   #:*default-instruction-types*
    #:parser
    #:jump
    #:label

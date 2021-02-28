@@ -11,6 +11,9 @@
 (defmethod compile (thing assembly)
   (compile (parse thing) assembly))
 
+(defmethod compile (thing (assembly symbol))
+  (compile thing (make-instance assembly)))
+
 (defmethod compile (thing (assembly (eql T)))
   (compile thing (make-instance 'assembly)))
 
@@ -52,18 +55,18 @@
   assembly)
 
 (defmacro define-simple-walker (component instruction &rest initargs)
-  `(defmethod walk ((component ,component) (assembly assembly))
+  `(defmethod walk ((,component ,component) (assembly assembly))
      (emit (make-instance ',instruction
-                          :label component
+                          :label ,component
                           ,@initargs)
            assembly)))
 
-(defmacro define-markup-walker (component &body markup)
-  `(progn (defmethod walk :before ((component ,component) (assembly assembly))
-            (emit (make-instance 'begin-mark :label component
+(defmacro define-markup-walker (,component &body markup)
+  `(progn (defmethod walk :before ((,component ,component) (assembly assembly))
+            (emit (make-instance 'begin-mark :label ,component
                                              :markup (progn ,@markup))
                   assembly))
-          (defmethod walk :after ((component ,component) (assembly assembly))
+          (defmethod walk :after ((,component ,component) (assembly assembly))
             (emit (make-instance 'end-mark) assembly))))
 
 (defmethod walk ((component mcomponents:parent-component) (assembly assembly))
@@ -165,7 +168,7 @@
   (list :subtext T))
 
 (define-markup-walker mcomponents:compound
-  (loop for option in (mcomponents:options component)
+  (loop for option in (mcomponents:options mcomponents:compound)
         append (etypecase option
                  (mcomponents:bold-option '(:bold T))
                  (mcomponents:italic-option '(:italic T))
@@ -180,28 +183,28 @@
                  (mcomponents:size-option (list :size (mcomponents:size option))))))
 
 (define-simple-walker components:jump jump
-  :target (resolved-target component))
+  :target (resolved-target components:jump))
 
 (define-simple-walker mcomponents:label noop)
 
 (define-simple-walker mcomponents:footnote noop)
 
 (define-simple-walker components:go jump
-  :target (resolved-target component))
+  :target (resolved-target components:go))
 
 (defmethod walk ((component mcomponents:newline) (assembly assembly))
   (emit (make-instance 'confirm :label component) assembly)
   (emit (make-instance 'clear :label component) assembly))
 
 (define-simple-walker components:eval eval
-  :func (compile-form assembly (components:form component)))
+  :func (compile-form assembly (components:form components:eval)))
 
 (define-simple-walker components:setf eval
-  :func (compile-form assembly `(setf ,(components:place component)
-                                      ,(components:form component))))
+  :func (compile-form assembly `(setf ,(components:place components:setf)
+                                      ,(components:form components:setf))))
 
 (define-simple-walker components:emote emote
-  :emote (components:emote component))
+  :emote (components:emote components:emote))
 
 (define-simple-walker mcomponents:en-dash pause
   :duration 0.5)
@@ -210,7 +213,7 @@
   :duration 1.0)
 
 (define-simple-walker components:placeholder placeholder
-  :func (compile-form assembly (components:form component)))
+  :func (compile-form assembly (components:form components:placeholder)))
 
 ;; TODO: implement the following
 ;; speed
