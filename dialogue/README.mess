@@ -346,6 +346,127 @@ Again, consult the "Markless documentation"(http://shirakumo.github.io/markless/
 This should cover everything that's supported by XXXX out of the box. Your engine may add extra constructs and support syntax. To see how to do that, please "read on"(#extension).
 
 ## Writing a Client
+The dialogue system in XXXX is game engine agnostic. This means that you get full control over the user input and display of the dialogue.
 
+Before we can get started on implementing the client, you should know that XXXX is a compiled language. Thus you need to compile the dialogue to an ``assembly`` before it can be executed. To do so, you can simply call ``compile*``. If you would like to customise the lexical environment for forms used in the dialogue however, you should also create a subclass of ``assembly``, implement a method on ``wrap-lexenv``, and then pass an instance of that assembly to ``compile*``. All Lisp forms within the dialogue are also compiled down to functions, so no run-time ``eval`` or compilation occurs when dialogue is actually executed.
+
+:: common lisp
+(defclass assembly (dialogue:assembly) ())
+
+(defmethod dialogue:wrap-lexenv (form (_ assembly))
+  `(let ((example T))
+     ,form))
+
+(defvar *dialogue* (dialogue:compile* "| Hey there!" 'assembly))
+::
+
+Once armed with a compiled ``assembly``, you'll want to execute it. To do so you need a ``vm`` instance, and prepare it with ``run``.
+
+:: common lisp
+(defvar *vm* (make-instance 'dialogue:vm))
+(dialogue:run *dialogue* *vm*)
+::
+
+From there on executing dialogue is a matter of repeatedly calling ``resume`` on the VM and performing whatever ``request`` it returns. To do so you'll want to implement a loop similar to this:
+
+:: common lisp
+(loop with ip = 0
+      for request = (dialogue:resume *vm* ip)
+      until (typep request 'dialogue:end-request)
+      do (setf ip (handle request)))
+::
+
+Though typically you won't be able to use a synchronous loop like this, since the game will need to render and perform other functions like scrolling the text or waiting for user input before resuming the VM.
+
+In any case, the interactions with the VM are simple -- all you need to keep track of is the next instruction pointer to resume with once you're ready to continue execution. Each ``request`` that the VM returns to you will have one -- or in the case of a user choice several -- target instruction pointers to resume with.
+
+If you still need help implementing it, you can check the "Kandria sources"(https://gitea.tymoon.eu/shinmera/kandria/src/branch/master/ui/textbox.lisp#L95) for a fully featured reference implementation.
+
+If you have trouble with dialogue execution and it doesn't behave as you expect, you can try debugging it by passing the assembly to ``disassemble``. This behaves similar to ``cl:disassemble`` and will print out the assembled instructions in their execution sequence.
 
 ## Extension
+If desired you can add your own syntax constructs to XXXX. To do so you will need to implement a corresponding syntax tree ``component``, a ``directive`` to parse it, an ``instruction`` to execute it, and possibly a ``request`` to expose whatever client functionality you need.
+
+Before adding new syntax, you should familiarise yourself with the Markless standard terminology, and the "cl-markless implementation"(https://shirakumo.github.io/cl-markless). As an example here though we'll assume you want to implement a new "singular line directive" -- something that has a prefix at the beginning of the line and consumes the whole line, like ``~ ``.
+
+We're going to add some syntax to let you spawn some objects in the game. The syntax should look like this:
+
+:: markless
++ enemy :at 'camp
+::
+
+First we need to define a ``component`` class corresponding to our new syntax.
+
+:: common lisp
+(defclass spawn (org.shirakumo.markless.components:block-component)
+  ((arguments :initarg :argmunts :accessor arguments)))
+::
+
+Next we need to define a directive that will parse the syntax to the new component type.
+
+:: common lisp
+(defclass spawn-directive (org.shirakumo.markless:singular-line-directive) ())
+
+(defmethod org.shirakumo.markless:prefix ((_ spawn-directive))
+  #("+" " "))
+
+(defmethod org.shirakumo.markless:begin ((_ spawn-directive) parser line cursor)
+  (let ((arguments (loop while (< cursor (length line))
+                         collect (multiple-value-bind (value next) (read-from-string line NIL NIL :start cursor)
+                                   (setf cursor next)
+                                   value)))
+        (component (make-instance 'spawn :arguments arguments)))
+    (org.shirakumo.markless:commit _ component parser))
+  (length line))
+::
+
+Next we need to add our directive onto the list of used directives for the dialogue.
+
+:: common lisp
+(pushnew 'spawn-directive org.shirakumo.fraf.XXXX.syntax:*default-directives*)
+::
+
+Now that that's done we can already parse our new syntax!
+
+:: common lisp
+(dialogue:parse "+ test")
+::
+
+To compile this we could re-use an existing instruction like ``eval``, but just to be complete we'll define separate instruction types and requests.
+
+:: common lisp
+(defclass spawn-instruction (dialogue:instruction)
+  ((type :initarg :type :accessor type)
+   (argfun :initarg :argfun :accessor argfun))
+
+(dialogue:define-simple-walker spawn spawn-instruction
+  :type (first (arguments spawn))
+  :argfun (compile NIL `(lambda () ,(dialogue:wrap-lexenv `(list ,@(rest (arguments spawn))) dialogue:assembly))))
+::
+
+Also see ``walk`` and ``emit`` in case you ever have more complex needs for compilation. The reason we compile the rest of the arguments here is that we probably want them to be evaluated, rather than literals.
+
+Now we can compile our dialogue to an assembly:
+
+:: common lisp
+(dialogue:compile* "+ test")
+::
+
+Finally we need to define the execution of our instruction. Again, a new request is likely not necessary here, but we'll do it just for completeness of the tutorial.
+
+:: common lisp
+(defclass spawn-request (dialogue:target-request)
+  ((type :initarg :type :accessor type)
+   (initargs :initarg :initargs :accessor initargs)))
+
+(defmethod dialogue:execute ((instruction spawn-instruction) (vm dialogue:vm) ip)
+  (dialogue:suspend vm (make-instance 'spawn-request :type (type instruction) :initargs (funcall (argfun instruction)) :target (1+ ip))))
+::
+
+When we execute the instruction we call the argument function to evaluate the arguments to a list. We then return that list fully prepared to the client, so that all they need to do now is create the new instance as requested and spawn it into the game.
+
+We also include a ``target`` instruction pointer, which usually is just the instruction immediately following.
+
+And that's it. Now you can fully compile and execute your new dialogue syntax!
+
+For more advanced instruction compilation, optimisation passes, and other stuff, please see the source code.
