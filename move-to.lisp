@@ -185,7 +185,6 @@
                  (aref solids (* 2 (+ x (* w y))))
                  0)))
       (do-nodes (x y graph)
-        ;; TODO: doors
         (with-filters (solids w h x y)
           ((o o _
             o o _
@@ -379,9 +378,23 @@
 
 (defun make-chunk-graph (region)
   (let ((chunks ()) (i 0))
-    (flet ((bottom-loc (entity)
-             (vec (vx (location entity))
-                  (- (vy (location entity)) (vy (bsize entity))))))
+    (labels ((nearest-loc-with-connections (chunk entity)
+               (loop with nodes = (node-graph-grid (node-graph chunk))
+                     for x from (- (vx (location entity)) (vx (bsize entity)))
+                     to (+ (vx (location entity)) (vx (bsize entity))) by +tile-size+
+                     do (loop for y from (- (vy (location entity)) (vy (bsize entity)))
+                              to (+ (vy (location entity)) (vy (bsize entity))) by +tile-size+
+                              for idx = (chunk-node-idx chunk (vec x y))
+                              do (when (svref nodes idx)
+                                   (return-from nearest-loc-with-connections (vec x y)))))
+               (location entity))
+             (connect-entities (nodes from to constructor)
+               (let ((from-chunk (find-containing (location from) region))
+                     (to-chunk (find-containing (location to) region)))
+                 (make-chunk-node nodes
+                                  from-chunk (nearest-loc-with-connections from-chunk from)
+                                  to-chunk (nearest-loc-with-connections to-chunk to)
+                                  constructor))))
       ;; Compute chunk list and assign IDs
       (for:for ((entity over region))
         (when (typep entity 'chunk)
@@ -395,11 +408,13 @@
             (unless (eql chunk other)
               (connect-chunks nodes chunk other)))
           (for:for ((entity over region))
-            (when (and (typep entity 'door)
-                       (contained-p entity chunk))
-              (make-chunk-node nodes chunk (bottom-loc entity)
-                               (find-containing (location (target entity)) region)
-                               (bottom-loc (target entity)) #'%make-door-node))))))))
+            (cond ((and (typep entity 'door)
+                        (contained-p entity chunk))
+                   (connect-entities nodes entity (target entity) #'%make-door-node))
+                  ((and (typep entity 'teleport-trigger)
+                        (primary entity)
+                        (contained-p entity chunk))
+                   (connect-entities nodes entity (target entity) #'%make-door-node)))))))))
 
 (defun shortest-path (start goal test &optional (region (region +world+)))
   (let* ((graph (chunk-graph region))

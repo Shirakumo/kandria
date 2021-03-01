@@ -213,6 +213,7 @@
     (leave old +world+)
     (trial:commit +world+ +main+)
     (setf (background (unit 'background T)) (background 'editor))
+    (vsetf (location (unit :camera T)) 0 0)
     (update-background (unit 'background T) T)))
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
