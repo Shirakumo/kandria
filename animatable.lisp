@@ -26,7 +26,7 @@
 (defgeneric hurt (animatable attacker))
 (defgeneric stun (animatable stun))
 (defgeneric start-animation (name animatable))
-(defgeneric in-danger-p (animatable))
+(defgeneric endangering (animatable))
 (defgeneric maximum-health (animatable))
 (defgeneric damage-output (animatable))
 
@@ -67,13 +67,16 @@
     (loop for i from idx below (min end (+ precognition-frames idx))
           thereis (< 0 (vw (hurtbox (svref frames i)))))))
 
-(defmethod in-danger-p ((animatable animatable))
+(defmethod endangering ((animatable animatable))
   (for:for ((entity over (region +world+)))
     (when (and (typep entity 'animatable)
                (not (eql animatable entity))
                (attacking-p entity)
-               ;; KLUDGE: this sucks
-               (< (vdistance (location entity) (location animatable)) (* 2 +tile-size+)))
+               ;; KLUDGE: this kinda sucks
+               (or (< (vdistance (location entity) (location animatable)) +tile-size+)
+                   (let ((hurtbox (hurtbox entity)))
+                     (aabb (location animatable) (tv- (velocity animatable) (velocity entity))
+                           (vxy hurtbox) (nv+ (vwz hurtbox) (bsize animatable))))))
       (return entity))))
 
 (defmethod hurt :around ((animatable animatable) (damage integer))
@@ -133,6 +136,7 @@
 
 (defmethod stun ((animatable animatable) stun)
   (when (and (< 0 stun)
+             (not (eql :dying (state animatable)))
              (interruptable-p (frame animatable)))
     (setf (stun-time animatable) (min +max-stun+ (+ (stun-time animatable) stun)))
     (setf (state animatable) :stunned)))
@@ -184,9 +188,7 @@
       (:dying))
     (nv* vel (multiplier frame))
     (incf (vx vel) (* dt (direction animatable) (vx (acceleration frame))))
-    (incf (vy vel) (* dt (vy (acceleration frame))))
-    (when (svref (collisions animatable) 2)
-      (setf (vy vel) (max (vy vel) 0)))))
+    (incf (vy vel) (* dt (vy (acceleration frame))))))
 
 (defmethod idleable-p ((animatable animatable))
   (and (= 0 (vx (velocity animatable)))

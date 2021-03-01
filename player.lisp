@@ -12,7 +12,7 @@
    (climb-strength :initform 4.0 :accessor climb-strength)
    (combat-time :initform 10000.0 :accessor combat-time)
    (used-aerial :initform NIL :accessor used-aerial)
-   (buffer :initform NIL :accessor buffer)
+   (buffer :initform (cons NIL 0))
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform (@ player-nametag))
@@ -82,20 +82,24 @@
       (issue +world+ 'force-lighting)
       (snap-to-target (unit :camera T) player))))
 
+(defun handle-evasion (player)
+  (let ((endangering (endangering player)))
+    (when endangering
+      ;; FIXME: If we are holding the opposite of what
+      ;;        we are facing, we should evade left.
+      ;;        to do this smoothly, need to buffer for a while.
+      (if (= (direction player)
+             (signum (- (vx (location endangering)) (vx (location player)))))
+          (start-animation 'evade-left player)
+          (start-animation 'evade-right player))
+      T)))
+
 (defmethod handle ((ev dash) (player player))
   (setf (limp-time player) 0.0)
   (case (state player)
     (:normal
-     (let ((vel (velocity player))
-           (endangering (in-danger-p player)))
-       (cond (endangering
-              ;; FIXME: If we are holding the opposite of what
-              ;;        we are facing, we should evade left.
-              ;;        to do this, need to buffer for a while.
-              (if (= (direction player)
-                     (signum (- (vx (location endangering)) (vx (location player)))))
-                  (start-animation 'evade-left player)
-                  (start-animation 'evade-right player)))
+     (let ((vel (velocity player)))
+       (cond ((handle-evasion player))
              ((and (eq :normal (state player))
                    (<= (dash-time player) 0))
               (if (typep (trial::source-event ev) 'gamepad-event)
@@ -160,7 +164,7 @@
          (setf (state player) :animated))))
 
 #-kandria-release
-(let ((type (copy-seq '(box drone zombie ball dummy))))
+(let ((type (copy-seq '(wolf box drone zombie ball dummy))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
@@ -219,6 +223,27 @@
       (:crawling
        (incf (vy (location player)) 8)
        (setf (vy (bsize player)) 15)))))
+
+(defmethod (setf buffer) (thing (player player))
+  (let ((buffer (slot-value player 'buffer)))
+    (setf (cdr buffer) (clock +world+))
+    (setf (car buffer) thing)))
+
+(defmethod buffer ((player player))
+  (let ((buffer (slot-value player 'buffer)))
+    (when (< (clock +world+) (+ (cdr buffer) (p! buffer-expiration-time)))
+      (car buffer))))
+
+(defun attack-chain-p (input player)
+  (case input
+    (light-attack
+     (case (name (animation player))
+       ((light-ground-1 light-ground-2 light-aerial-1 light-aerial-2) T)
+       (T NIL)))
+    (heavy-attack
+     (case (name (animation player))
+       ((heavy-ground-1 heavy-ground-2 heavy-aerial-1 heavy-aerial-2) T)
+       (T NIL)))))
 
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
@@ -294,7 +319,8 @@
        (let ((buffer (buffer player)))
          (when (and buffer
                     (cancelable-p (frame player))
-                    (<= (cooldown-time player) 0.0))
+                    (or (<= (cooldown-time player) 0.0)
+                        (attack-chain-p buffer player)))
            (setf (buffer player) NIL)
            (cond ((retained 'left) (setf (direction player) -1))
                  ((retained 'right) (setf (direction player) +1)))
@@ -347,22 +373,22 @@
        (when (and (cancelable-p (frame player))
                   (or (retained 'left)
                       (retained 'right)))
-         (setf (state player) :normal))
-       (when ground
-         (setf (vy vel) (max (vy vel) 0))))
+         (setf (state player) :normal)))
       (:dashing
        (incf (dash-time player) dt)
        (setf (jump-time player) 100.0)
        (setf (run-time player) 0.0)
-       (cond ((or (< (p! dash-max-time) (dash-time player))
-                  (and (< (p! dash-min-time) (dash-time player))
-                       (not (retained 'dash))))
-              (setf (state player) :normal))
-             ((< (p! dash-dcc-end) (dash-time player)))
-             ((< (p! dash-dcc-start) (dash-time player))
-              (nv* vel (damp* (p! dash-dcc) (* 100 dt))))
-             ((< (p! dash-acc-start) (dash-time player))
-              (nv* vel (p! dash-acc))))
+       (or (when (< (dash-time player) (p! dash-evade-grace-time))
+             (handle-evasion player))
+           (cond ((or (< (p! dash-max-time) (dash-time player))
+                      (and (< (p! dash-min-time) (dash-time player))
+                           (not (retained 'dash))))
+                  (setf (state player) :normal))
+                 ((< (p! dash-dcc-end) (dash-time player)))
+                 ((< (p! dash-dcc-start) (dash-time player))
+                  (nv* vel (damp* (p! dash-dcc) (* 100 dt))))
+                 ((< (p! dash-acc-start) (dash-time player))
+                  (nv* vel (p! dash-acc)))))
        (when (typep (interactable player) 'rope)
          (nudge (interactable player) loc (* (direction player) 20)))
        ;; Adapt velocity if we are on sloped terrain
@@ -649,6 +675,7 @@
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
+  (setf (health player) (max 10 (health player)))
   (vsetf (velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player)))
   (setf (state player) :normal)
@@ -664,8 +691,9 @@
   (shake-camera :intensity 5))
 
 (defmethod (setf health) :after (health (player player))
-  (when (< (/ health (maximum-health player)) 0.15)
-    (setf (limp-time player) 10.0)))
+  (if (< (/ health (maximum-health player)) 0.15)
+      (setf (limp-time player) 10.0)
+      (setf (limp-time player) 0.0)))
 
 (defmethod kill :after ((player player))
   (harmony:play (// 'kandria 'death))

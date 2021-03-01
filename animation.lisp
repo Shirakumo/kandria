@@ -110,7 +110,9 @@
           (start animation)
           (end animation)
           (loop-to animation)
-          (next-animation animation)
+          (etypecase (next-animation animation)
+            (symbol (next-animation animation))
+            (animation (name (next-animation animation))))
           (cooldown animation)))
 
 (defmethod write-animation ((frame frame) &optional (stream T))

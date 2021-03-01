@@ -67,10 +67,13 @@
 (defmethod label ((tool animation-editor)) "Animations")
 
 (defmethod (setf tool) :after ((tool animation-editor) (editor editor))
-  (setf (original-location tool) (vcopy (location (entity editor))))
-  (setf (timeline tool) (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor)))
   (setf (direction (entity editor)) +1)
-  (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
+  (unless (original-location tool)
+    (setf (original-location tool) (vcopy (location (entity editor)))))
+  (unless (timeline tool)
+    (setf (timeline tool) (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor))))
+  (unless (alloy:layout-tree (hurtbox tool))
+    (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))))
 
 (define-handler (animation-editor mouse-press) (pos button)
   (when (eql button :right)
@@ -170,7 +173,7 @@
          (focus (make-instance 'alloy:focus-list))
          (next (alloy:represent (next-animation animation) 'animation-chooser :value-set animations))
          (loop-to (alloy:represent (loop-to animation) 'alloy:ranged-wheel :range (cons (start animation) (end animation))))
-         (cooldown (alloy:represent (cooldown animation) 'alloy:ranged-wheel :range '(0.0 . 1.0))))
+         (cooldown (alloy:represent (cooldown animation) 'alloy:ranged-wheel :range '(0.0 . 2.0) :step 0.1 :grid 0.1)))
     (alloy:observe 'animation timeline
                    (lambda (animation timeline)
                      (setf (alloy:data next) (alloy:place-data (next-animation animation)))
@@ -186,7 +189,7 @@
    (tool :initarg :tool :accessor tool)
    (frames :accessor frames))
   (:default-initargs :title "Animations"
-                     :extent (alloy:extent 0 30 (alloy:vw 1) 380)
+                     :extent (alloy:extent 0 30 (alloy:vw 1) 420)
                      :minimizable T
                      :maximizable NIL))
 
