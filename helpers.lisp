@@ -184,6 +184,10 @@ void main(){
     (setf (state entity) :oob)
     (leave* entity T)))
 
+(defmethod (setf chunk) :after (chunk (entity game-entity))
+  (when (and chunk (eql :oob (state entity)))
+    (setf (state entity) :normal)))
+
 (defmethod oob ((entity entity) new-chunk)
   (setf (chunk entity) new-chunk))
 
