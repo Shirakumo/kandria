@@ -2,7 +2,7 @@
   (:use #:cl)
   (:shadow #:condition)
   (:local-nicknames
-   (#:dialogue #:org.shirakumo.fraf.kandria.dialogue))
+   (#:dialogue #:org.shirakumo.fraf.speechless))
   (:export
    #:scope
    #:initial-bindings
