@@ -104,6 +104,5 @@
                  (spritesheet "catherine-profile")
                  (tilemap "debug")
                  (tilemap "tundra")
-                 (tilemap "desert")
                  (tilemap "camp")
                  (tilemap "region1")))))

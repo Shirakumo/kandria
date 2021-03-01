@@ -9,7 +9,7 @@
            #:animatable #:sprite-data #:sprite-animation
            #:commit #:config-directory #:prompt)
   (:local-nicknames
-   (#:dialogue #:org.shirakumo.fraf.kandria.dialogue)
+   (#:dialogue #:org.shirakumo.fraf.speechless)
    (#:quest #:org.shirakumo.fraf.kandria.quest)
    (#:alloy #:org.shirakumo.alloy)
    (#:trial-alloy #:org.shirakumo.fraf.trial.alloy)

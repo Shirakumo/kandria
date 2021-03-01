@@ -66,6 +66,10 @@
 (defmethod initialize-instance :before ((widget chunk-widget) &key editor)
   (setf (tile-set widget) (caar (tile-types (tile-data (entity editor))))))
 
+(defmethod initialize-instance :after ((widget chunk-widget) &key)
+  (alloy:on alloy:value (value (alloy:representation 'layer widget))
+    (setf (alloy:value (slot-value widget 'show-solids)) NIL)))
+
 (defmethod (setf tile-to-place) :around ((tile vec2) (widget chunk-widget))
   (let* ((w (/ (width (albedo (entity widget))) +tile-size+))
          (h (/ (height (albedo (entity widget))) +tile-size+))
