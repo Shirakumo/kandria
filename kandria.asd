@@ -81,6 +81,7 @@
                              (:file "editmenu")
                              (:file "toolbar")
                              (:file "chunk")
+                             (:file "remesh")
                              (:file "entity")
                              (:file "creator")
                              (:file "animation")
@@ -102,7 +103,7 @@
                :lambda-fiddle
                :trivial-arguments
                :trivial-indent
-               :kandria-dialogue
+               :speechless
                :kandria-quest
                :alexandria
                :file-select

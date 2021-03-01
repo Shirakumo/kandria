@@ -77,10 +77,18 @@
       (setf (animation (target door)) 'open)
       (setf (air-time player) 0.0)
       (setf (buffer player) NIL)
-      (vsetf (location player) (vx location) (- (vy location) 5))
-      (switch-chunk (find-containing player (region +world+)))
+      (setf (location player) (vec (vx location) (- (vy location) 5)))
       (issue +world+ 'force-lighting)
       (snap-to-target (unit :camera T) player))))
+
+(defmethod interact ((trigger teleport-trigger) (player player))
+  (when (primary trigger)
+    (let ((location (location (target trigger))))
+      (vsetf (velocity player) 0 0)
+      (transition
+        (setf (location player) location)
+        (issue +world+ 'force-lighting)
+        (snap-to-target (unit :camera T) player)))))
 
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))

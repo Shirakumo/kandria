@@ -78,7 +78,6 @@
 (define-sprite effects)
 
 (define-tileset tundra)
-(define-tileset desert)
 (define-tileset debug)
 (define-tileset camp)
 (define-tileset region1)
@@ -129,12 +128,12 @@
              24 (0.0627451 0.0 0.23921569)))
 
 (define-gi dark
-  :attenuation 0.8
+  :attenuation 0.7
   :location 'player
   :light-multiplier 1.0
-  :light (vec 2 1 0.5)
-  :ambient-multiplier 0.1
-  :ambient (vec 0.5 0.3 0.3))
+  :light (vec 1.5 1 0.5)
+  :ambient-multiplier 0.2
+  :ambient (vec 0.5 0.4 0.4))
 
 (define-gi desert
   :location :sun

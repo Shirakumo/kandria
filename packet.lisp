@@ -107,6 +107,9 @@
             (pathname (namestring entry))
             (string entry))))
 
+(defmethod packet-entry-exists-p (entry (packet zip-packet))
+  (zip:get-zipfile-entry (entry-path entry packet) (storage packet)))
+
 (defmethod packet-entry (entry (packet zip-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8)))
         (file (zip:get-zipfile-entry (entry-path entry packet) (storage packet))))
@@ -186,6 +189,9 @@
   (merge-pathnames entry (if (offset packet)
                              (merge-pathnames (offset packet) (storage packet))
                              (storage packet))))
+
+(defmethod packet-entry-exists-p (entry (packet dir-packet))
+  (probe-file (entry-path entry packet)))
 
 (defmethod call-with-packet-entry (function entry (packet dir-packet) &key element-type)
   (with-open-file (stream (ensure-directories-exist (entry-path entry packet))

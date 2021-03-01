@@ -13,6 +13,23 @@
          (mesh (node-graph-mesh graph)))
     (trial:replace-vertex-data vao mesh :update T)))
 
+(defmethod (setf path) (path (visualizer node-graph-visualizer))
+  (when path
+    (setf (location visualizer) (vec 0 0))
+    (let* ((vao (vertex-array visualizer))
+           (vbo (car (second (bindings vao))))
+           (ebo (first (bindings vao)))
+           (mesh (path-mesh path)))
+      (trial:replace-vertex-data vao mesh :update T))))
+
+(defun path-mesh (path)
+  (with-vertex-filling ((make-instance 'vertex-mesh :vertex-type 'colored-vertex :face-length 2))
+    (loop for prev = (second (first path)) then next
+          for node in path
+          for next = (second node)
+          do (vertex :position (vxy_ prev) :color (vec 1 0 0 1))
+             (vertex :position (vxy_ next) :color (vec 1 0 0 1)))))
+
 (defun node-graph-mesh (graph)
   (let ((w (node-graph-width graph))
         (h (node-graph-height graph)))
@@ -53,6 +70,7 @@
   (alloy:leave (visualizer tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
 
 (defmethod handle ((ev tick) (tool move-to))
+  #++
   (when (selected tool)
     (handle ev (selected tool))))
 
@@ -65,4 +83,5 @@
            (let ((selected (entity-at-point pos +world+)))
              (when (typep selected 'movable)
                (v:info :kandria.editor "Selected ~a" selected)
-               (setf (selected tool) selected)))))))
+               (setf (selected tool) selected)
+               (setf (path (visualizer tool)) (path selected))))))))

@@ -84,8 +84,7 @@
 
 (defclass teleport-trigger (trigger)
   ((target :initform NIL :initarg :target :accessor target)
-   (primary :initform T :initarg :primary :accessor primary)
-   (exhausted :initform NIL :accessor exhausted)))
+   (primary :initform T :initarg :primary :accessor primary)))
 
 (defmethod default-tool ((trigger teleport-trigger)) (find-class 'freeform))
 
@@ -94,14 +93,9 @@
     (destructuring-bind (&optional (location (vec (+ (vx (location trigger)) (* 2 (vx (bsize trigger))))
                                                   (vy (location trigger))))
                                    (bsize (vcopy (bsize trigger)))) (target trigger)
-      (let* ((other (clone trigger :location location :bsize bsize :target trigger :primary NIL)))
+      (let* ((other (clone trigger :location location :bsize bsize :target trigger :active-p NIL :primary NIL)))
         (setf (target trigger) other)
         (enter other region)))))
 
 (defmethod interact ((trigger teleport-trigger) (entity located-entity))
-  (unless (exhausted trigger)
-    (let ((target (target trigger)))
-      (setf (exhausted target) T)
-      (vsetf (location entity)
-             (vx (location target))
-             (vy (location target))))))
+  (setf (location entity) (target trigger)))
