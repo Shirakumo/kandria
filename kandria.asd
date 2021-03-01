@@ -103,7 +103,7 @@
                :lambda-fiddle
                :trivial-arguments
                :trivial-indent
-               :kandria-dialogue
+               :speechless
                :kandria-quest
                :alexandria
                :file-select
