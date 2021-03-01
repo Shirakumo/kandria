@@ -49,7 +49,8 @@
       (handler-case
           (princ* (encode entity) stream)
         (no-applicable-encoder ()))))
-  (unless (ignore-errors (packet-entry "init.lisp" packet))
+  (unless (packet-entry-exists-p "init.lisp" packet)
+    (print :foobar)
     (with-packet-entry (stream "init.lisp" packet :element-type 'character)
       (princ* (encode-payload region NIL packet 'save-v0) stream)))
   (list :name (name region)
