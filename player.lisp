@@ -84,6 +84,7 @@
 (defmethod interact ((trigger teleport-trigger) (player player))
   (when (primary trigger)
     (let ((location (location (target trigger))))
+      (vsetf (velocity player) 0 0)
       (transition
         (setf (location player) location)
         (issue +world+ 'force-lighting)

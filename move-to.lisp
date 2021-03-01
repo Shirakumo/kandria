@@ -311,6 +311,7 @@
   (to-node 0 :type (unsigned-byte 32)))
 
 (defstruct (door-node (:include chunk-node) (:constructor %make-door-node (from from-node to to-node))))
+(defstruct (teleport-node (:include chunk-node) (:constructor %make-teleport-node (from from-node to to-node))))
 
 (defun make-chunk-node (nodes from-chunk from-loc to-chunk to-loc &optional (constructor '%make-chunk-node))
   (when (and (<= 0 (chunk-node-idx to-chunk to-loc) (length (node-graph-grid (node-graph to-chunk))))
@@ -414,7 +415,7 @@
                   ((and (typep entity 'teleport-trigger)
                         (primary entity)
                         (contained-p entity chunk))
-                   (connect-entities nodes entity (target entity) #'%make-door-node)))))))))
+                   (connect-entities nodes entity (target entity) #'%make-teleport-node)))))))))
 
 (defun shortest-path (start goal test &optional (region (region +world+)))
   (let* ((graph (chunk-graph region))
@@ -443,7 +444,7 @@
                                                          test)))))
                (make-transition-node (node)
                  (list
-                  (cond ((typep node 'door-node)
+                  (cond ((typep node '(or door-node teleport-node))
                          node)
                         ((< (vy (location (chunk-node-from node))) (vy (location (chunk-node-to node))))
                          (load-time-value (make-climb-node 0)))
@@ -451,7 +452,7 @@
                          (load-time-value (make-fall-node 0)))
                         (T
                          (load-time-value (make-walk-node 0))))
-                  (if (typep node 'door-node)
+                  (if (typep node '(or door-node teleport-node))
                       (chunk-node-vec (chunk-node-from node) (chunk-node-from-node node))
                       (chunk-node-vec (chunk-node-to node) (chunk-node-to-node node))))))
         (if (eq start-chunk goal-chunk)
@@ -582,6 +583,15 @@
           (crawl-node
            (setf (state movable) :crawling)
            (move-towards source target))
+          (teleport-node
+           (for:for ((entity over (region +world+)))
+             (typecase entity
+               (trigger
+                (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
+                  (pop (path movable))
+                  (setf (current-node movable) target)
+                  (interact entity movable)))))
+           (move-towards source target))
           (door-node
            (if (moved-beyond-target-p loc source target)
                (flet ((teleport ()
@@ -604,7 +614,7 @@
                       (teleport)))))
                (move-towards source target))))
         ;; Check whether to move on to the next step
-        (unless (typep node 'door-node)
+        (unless (typep node '(or door-node teleport-node))
           (when (moved-beyond-target-p loc source target)
             (pop (path movable))
             (setf (current-node movable) target)))))
@@ -612,7 +622,7 @@
       (incf (vy vel) (min 0 (vy (velocity ground)))))
     (nv+ vel (v* (gravity (medium movable)) (dt tick)))
     (when (< 2.0 (incf (node-time movable) (dt tick)))
-      (v:warn :kandria.move-to "Cancelling path, made no progress towards node in 2s.")
+      (v:warn :kandria.move-to "Cancelling path, made no progress towards ~a in 2s~%  ~a" (current-node movable) (path movable))
       (setf (state movable) :normal)
       (setf (path movable) NIL))))
 
@@ -623,3 +633,4 @@
 
 ;; FIXME: Ropes (semi-dynamic)
 ;; FIXME: Jump over crates (dynamic)
+
