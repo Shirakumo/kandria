@@ -218,6 +218,10 @@
             o o _
             _ b _)
            (connect-nodes graph 'crawl (1- x) y x y w h))
+          ((_ b o
+            _ o o
+            _ b _)
+           (connect-nodes graph 'crawl (1+ x) y x y w h))
           ((s o _
             s o _
             _ _ _)
