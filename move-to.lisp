@@ -31,8 +31,8 @@
                (when (funcall test (cdr (gethash min source)) node)
                  (let* ((target (funcall target-fun node))
                         (tentative-score (+ (gethash min scores) (funcall score-fun node)))
-                        (score (gethash target scores)))
-                   (when (or (null score) (< tentative-score score))
+                        (score (gethash target scores most-positive-single-float)))
+                   (when (< tentative-score score)
                      (setf (gethash target source) (cons min node))
                      (setf (gethash target scores) tentative-score)
                      (setf (gethash target cost) (+ tentative-score (funcall cost-fun target goal)))
@@ -87,10 +87,11 @@
   (push (make-jump-node (node-idx graph bx by) strength)
         (node graph ax ay)))
 
-(defmacro do-nodes ((x y graph) &body body)
+(defmacro do-nodes ((x y graph &optional (result NIL)) &body body)
   `(loop for ,y downfrom (1- (node-graph-height ,graph)) to 0
          do (loop for ,x from 0 below (node-graph-width ,graph)
-                  do (progn ,@body))))
+                  do (progn ,@body))
+         finally (return ,result)))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun compile-filter (vars filter)
@@ -230,11 +231,11 @@
           ((_ p b
             _ o b
             _ _ _)
-           (connect-nodes graph 'climb x (1+ y) x y w h))
+           (connect-nodes graph 'climb x (+ 2 y) x y w h))
           ((b p _
             b o _
             _ _ _)
-           (connect-nodes graph 'climb x (1+ y) x y w h))
+           (connect-nodes graph 'climb x (+ 2 y) x y w h))
           ((s o _
             s o _
             o o _)
@@ -292,11 +293,11 @@
              (score (node)
                (+ (vsqrdist2 (from-idx (move-node-to node)) (from-idx (to-idx goal)))
                   (etypecase node
-                    (walk-node 0)
-                    (fall-node 500)
-                    (crawl-node 300)
-                    (climb-node 500)
-                    (jump-node 100000000)))))
+                    (walk-node  0)
+                    (fall-node  100000)
+                    (crawl-node 100000000)
+                    (climb-node 1000000000)
+                    (jump-node  10000000)))))
       (let ((start (find-start (to-idx start)))
             (goal (find-start (to-idx goal))))
         (when (and start goal)
@@ -350,6 +351,7 @@
         (bgrid (node-graph-grid (node-graph to)))
         (w (floor (vx (size from))))
         (bw (floor (vx (size to))))
+        (bh (floor (vy (size to))))
         (offset (nv+ (nv- (tv- (location from) (bsize from)) (location to)) (bsize to))))
     (macrolet ((iterate (span loc to)
                  `(loop for s from (vx ,span) to (vy ,span) by +tile-size+
@@ -367,12 +369,13 @@
                     ;; Additional: fall nodes that exit to bottom
                     (dotimes (i (length grid))
                       (dolist (node (svref grid i))
-                        (when (and (typep node 'fall-node) (<= 0 (move-node-to node) (1- w)))
-                          (let* ((loc (vec (+ (vx offset) (* (+ (mod (move-node-to node) w) 0.5) +tile-size+))
-                                           (+ (vy offset) (* (+ (floor (move-node-to node) w) 0.5) +tile-size+))))
-                                 (idx (+ (floor (vx loc)) (* bw (floor (vy loc))))))
-                            (loop for i downfrom idx to 0 by bw
-                                  do (when (and (< i (length bgrid)) (svref bgrid i))
+                        (when (and (typep node 'fall-node) (< -1 (move-node-to node) w))
+                          (let* ((loc (chunk-node-vec from i))
+                                 (x (floor (vx loc)))
+                                 (y (floor (vy loc))))
+                            (loop for yy downfrom y to 0
+                                  for i = (+ x (* bw yy))
+                                  do (when (and (< -1 x bw) (< -1 yy bh))
                                        (push (%make-chunk-node from (move-node-to node) to i)
                                              (svref nodes (chunk-graph-id from)))
                                        (return))))))))
@@ -396,15 +399,21 @@
 (defun make-chunk-graph (region)
   (let ((chunks ()) (i 0))
     (labels ((nearest-loc-with-connections (chunk entity)
-               (loop with nodes = (node-graph-grid (node-graph chunk))
-                     for x from (- (vx (location entity)) (vx (bsize entity)))
-                     to (+ (vx (location entity)) (vx (bsize entity))) by +tile-size+
-                     do (loop for y from (- (vy (location entity)) (vy (bsize entity)))
-                              to (+ (vy (location entity)) (vy (bsize entity))) by +tile-size+
-                              for idx = (chunk-node-idx chunk (vec x y))
-                              do (when (svref nodes idx)
-                                   (return-from nearest-loc-with-connections (vec x y)))))
-               (location entity))
+               (let ((nearest NIL))
+                 (loop with nodes = (node-graph-grid (node-graph chunk))
+                       for x from (- (vx (location entity)) (vx (bsize entity)))
+                       to (+ (vx (location entity)) (vx (bsize entity))) by +tile-size+
+                       do (loop for y from (- (vy (location entity)) (vy (bsize entity)))
+                                to (+ (vy (location entity)) (vy (bsize entity))) by +tile-size+
+                                for vec = (vec x y)
+                                for idx = (chunk-node-idx chunk vec)
+                                do (when (and (< idx (length nodes))
+                                              (svref nodes idx)
+                                              (or (null nearest)
+                                                  (< (vsqrdist2 vec (location entity))
+                                                     (vsqrdist2 nearest (location entity)))))
+                                     (setf nearest vec))))
+                 (or nearest (location entity))))
              (connect-entities (nodes from to constructor)
                (let ((from-chunk (find-containing (location from) region))
                      (to-chunk (find-containing (location to) region)))
@@ -480,11 +489,11 @@
                                                                        (v- (location start-chunk) (bsize start-chunk)) test)
                   (values (append path
                                   (loop for (from to) on chunk-path
-                                        append (list*
-                                                (make-transition-node from)
-                                                (if to
-                                                    (chunk-path from (chunk-node-from-node to))
-                                                    (chunk-path from goal)))))
+                                        for path = (if to
+                                                       (chunk-path from (chunk-node-from-node to))
+                                                       (chunk-path from goal))
+                                        nconc (list* (make-transition-node from) path)
+                                        do (unless path (return-from shortest-path (values NIL NIL)))))
                           start)))))))))
 
 ;;;; Path execution
