@@ -631,15 +631,22 @@
                       (teleport)))))
                (move-towards source target))))
         ;; Check whether to move on to the next step
-        (unless (typep node '(or door-node teleport-node))
-          (when (moved-beyond-target-p loc source target)
-            (pop (path movable))
-            (setf (current-node movable) target)))))
+        (typecase node
+          ((or door-node teleport-node))
+          (climb-node
+           (when (<= (vy target) (vy loc))
+             (pop (path movable))
+             (setf (current-node movable) target)))
+          (T
+           (when (moved-beyond-target-p loc source target)
+             (pop (path movable))
+             (setf (current-node movable) target))))))
     (when ground
       (incf (vy vel) (min 0 (vy (velocity ground)))))
     (nv+ vel (v* (gravity (medium movable)) (dt tick)))
     (when (< 2.0 (incf (node-time movable) (dt tick)))
-      (v:warn :kandria.move-to "Cancelling path, made no progress towards ~a in 2s~%  ~a" (current-node movable) (path movable))
+      (v:warn :kandria.move-to "Cancelling path, made no progress executing ~a towards ~a in 2s"
+              (caar (path movable)) (current-node movable))
       (setf (state movable) :normal)
       (setf (path movable) NIL))))
 
