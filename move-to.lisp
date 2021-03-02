@@ -317,10 +317,9 @@
 
 ;;;; Graph across chunks
 (defun chunk-node-idx (chunk loc)
-  (floor
-   (+ (- (vx loc) (- (vx (location chunk)) (vx (bsize chunk))))
-      (* (vx (size chunk)) (- (vy loc) (- (vy (location chunk)) (vy (bsize chunk))))))
-   +tile-size+))
+  (let ((x (floor (- (vx loc) (- (vx (location chunk)) (vx (bsize chunk)))) +tile-size+))
+        (y (floor (- (vy loc) (- (vy (location chunk)) (vy (bsize chunk)))) +tile-size+)))
+    (+ x (* y (truncate (vx (size chunk)))))))
 
 (defun chunk-node-vec (chunk idx)
   (multiple-value-bind (y x) (floor idx (vx (size chunk)))
@@ -355,10 +354,7 @@
                           (+ (vy (location from)) (vy (bsize from))))))
         (grid (node-graph-grid (node-graph from)))
         (bgrid (node-graph-grid (node-graph to)))
-        (w (floor (vx (size from))))
-        (bw (floor (vx (size to))))
-        (bh (floor (vy (size to))))
-        (offset (nv+ (nv- (tv- (location from) (bsize from)) (location to)) (bsize to))))
+        (w (floor (vx (size from)))))
     (macrolet ((iterate (span loc to)
                  `(loop for s from (vx ,span) to (vy ,span) by +tile-size+
                         for loc = ,loc
@@ -371,17 +367,17 @@
                        (+ (vy (location to)) (vy (bsize to)))) ; B
                     (iterate xcross
                              (vec s (- (vy (location from)) (vy (bsize from)) (/ +tile-size+ -2)))
-                             (vec 0 (* +tile-size+ -2)))
+                             (vec 0 (* +tile-size+ -1)))
                     ;; Additional: fall nodes that exit to bottom
                     (dotimes (i (length grid))
                       (dolist (node (svref grid i))
                         (when (and (typep node 'fall-node) (< -1 (move-node-to node) w))
-                          (let* ((loc (chunk-node-vec from i))
-                                 (x (floor (vx loc)))
-                                 (y (floor (vy loc))))
-                            (loop for yy downfrom y to 0
-                                  for i = (+ x (* bw yy))
-                                  do (when (and (< -1 x bw) (< -1 yy bh))
+                          (let ((loc (chunk-node-vec from (move-node-to node))))
+                            (loop for i = (chunk-node-idx to loc)
+                                  while (< 0 i)
+                                  do (decf (vy loc) +tile-size+)
+                                     (when (and (< i (length bgrid))
+                                                (svref bgrid i))
                                        (push (%make-chunk-node from (move-node-to node) to i)
                                              (svref nodes (chunk-graph-id from)))
                                        (return))))))))
@@ -389,7 +385,7 @@
                        (- (vy (location to)) (vy (bsize to)))) ; U
                     (iterate xcross
                              (vec s (+ (vy (location from)) (vy (bsize from)) (* +tile-size+ -1.5)))
-                             (vec 0 (+ +tile-size+))))))
+                             (vec 0 (* +tile-size+ 1.5))))))
             ((< (vx ycross) (vy ycross))
              (cond ((= (- (vx (location from)) (vx (bsize from)))
                        (+ (vx (location to)) (vx (bsize to)))) ; L
