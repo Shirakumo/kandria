@@ -73,19 +73,12 @@
 (defmethod hide :after ((tool move-to))
   (alloy:leave (visualizer tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
 
-(defmethod handle ((ev tick) (tool move-to))
-  #++
-  (when (selected tool)
-    (handle ev (selected tool))))
-
 (defmethod handle ((ev mouse-press) (tool move-to))
   (let ((pos (mouse-world-pos (pos ev))))
-    (cond ((eql :right (button ev))
-           (when (selected tool)
-             (move-to pos (selected tool))))
-          ((eql :left (button ev))
-           (let ((selected (entity-at-point pos +world+)))
-             (when (typep selected 'movable)
-               (v:info :kandria.editor "Selected ~a" selected)
-               (setf (selected tool) selected)
-               (setf (node-graph (visualizer tool)) selected)))))))
+    (cond ((eql :left (button ev))
+           (when (typep (entity tool) 'movable)
+             (move-to pos (entity tool))
+             (setf (node-graph (visualizer tool)) (entity tool)))))))
+
+(defmethod applicable-tools append ((movable movable))
+  '(move-to))
