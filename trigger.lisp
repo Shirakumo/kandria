@@ -22,7 +22,7 @@
 (defclass checkpoint (trigger)
   ())
 
-(defmethod interact ((checkpoint checkpoint) entity)
+(defmethod interact ((trigger checkpoint) entity)
   (setf (spawn-location entity)
         (vec (vx (location trigger))
              (+ (- (vy (location trigger))
