@@ -180,10 +180,15 @@
   (let ((w (node-graph-width graph))
         (h (node-graph-height graph)))
     (declare (type (simple-array (unsigned-byte 8)) solids))
-    (flet ((tile (x y)
-             (if (and (<= 0 x (1- w)) (<= 0 y (1- h)))
-                 (aref solids (* 2 (+ x (* w y))))
-                 0)))
+    (labels ((tile (x y)
+               (if (and (<= 0 x (1- w)) (<= 0 y (1- h)))
+                   (aref solids (* 2 (+ x (* w y))))
+                   0))
+             (fall (x y w h &optional (xoff 0) (yoff 0))
+               (loop for yy downfrom (+ y yoff) to 0
+                     do (when (or (= yy 0) (< 0 (tile (+ x xoff) (1- yy))))
+                          (connect-nodes graph 'fall x y (+ x xoff) yy w h)
+                          (loop-finish)))))
       (do-nodes (x y graph)
         (with-filters (solids w h x y)
           ((o o _
@@ -197,10 +202,7 @@
                         (< 0 (tile (1- x) (- y 2))))
              (connect-nodes graph 'climb (1- x) (1- y) x y w h)
              (create-jump-connections solids graph x y -1)
-             (loop for yy downfrom y to 0
-                   do (when (or (= yy 0) (< 0 (tile (1- x) (1- yy))))
-                        (connect-nodes graph 'fall x y (1- x) yy w h)
-                        (loop-finish)))))
+             (fall x y w h -1)))
           ((_ o _
             _ o o
             _ s o)
@@ -208,10 +210,7 @@
                         (< 0 (tile (1+ x) (- y 2))))
              (connect-nodes graph 'climb x y (1+ x) (1- y) w h)
              (create-jump-connections solids graph x y +1)
-             (loop for yy downfrom y to 0
-                   do (when (or (= yy 0) (< 0 (tile (1+ x) (1- yy))))
-                        (connect-nodes graph 'fall x y (1+ x) yy w h)
-                        (loop-finish)))))
+             (fall x y w h +1)))
           ((_ b _
             o o _
             _ b _)
@@ -232,6 +231,18 @@
             _ o b
             _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
+          ((s o _
+            s o _
+            o o _)
+           (fall x y w h 0))
+          ((_ o s
+            _ o s
+            _ o o)
+           (fall x y w h 0))
+          ((_ _ _
+            _ _ _
+            _ p _)
+           (fall x y w h 0 -1))
           ((_ _ _
             _ o /
             _ s _)
