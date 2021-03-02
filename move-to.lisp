@@ -53,6 +53,8 @@
 (defstruct (fall-node (:include move-node) (:constructor make-fall-node (to))))
 (defstruct (jump-node (:include move-node) (:constructor make-jump-node (to strength)))
   (strength NIL :type vec2))
+(defstruct (rope-node (:include climb-node) (:constructor make-rope-node (to rope)))
+  (rope NIL))
 
 (declaim (inline node-idx))
 (defun node-idx (graph x y)
@@ -514,6 +516,9 @@
 (defmethod capable-p ((movable movable) (edge jump-node)) NIL)
 (defmethod capable-p ((movable movable) (edge crawl-node)) NIL)
 (defmethod capable-p ((movable movable) (edge climb-node)) NIL)
+(defmethod capable-p ((movable movable) (edge rope-node))
+  (and (call-next-method)
+       (extended (rope-node-rope edge))))
 
 (defmethod path-available-p ((target vec2) (movable movable))
   (ignore-errors (shortest-path (find-containing target (region +world+)) movable target)))
