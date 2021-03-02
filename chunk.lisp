@@ -321,6 +321,10 @@ void main(){
 (defmethod (setf background) :after ((data background-info) (chunk chunk))
   (trial:commit data (loader +main+) :unload NIL))
 
+(defmethod solid ((location vec2) (chunk chunk))
+  (%with-layer-xy (chunk location)
+    (aref (pixel-data chunk) (* 2 (+ x (* y (truncate (vx (size chunk)))))))))
+
 (defmethod tile ((location vec3) (chunk chunk))
   (tile (vxy location) (aref (layers chunk) (floor (vz location)))))
 
