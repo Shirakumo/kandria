@@ -569,9 +569,10 @@
              (incf (vy vel) 0.8))
            (move-towards source target))
           (fall-node
-           (if ground
-               (move-towards source target)
-               (setf (vx vel) 0))
+           (typecase ground
+             (null (setf (vx vel) 0))
+             (platform (decf (vy (location movable)) 2))
+             (T (move-towards source target)))
            (when (and (or (typep (svref collisions 1) 'ground)
                           (typep (svref collisions 3) 'ground))
                       (< (vy vel) (p! slide-limit)))
