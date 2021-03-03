@@ -4,7 +4,8 @@
     (make-rectangle 2 8 :align :topcenter))
 
 (define-shader-entity rope (lit-vertex-entity sized-entity interactable listener resizable ephemeral)
-  ((vertex-array :initform (// 'kandria 'rope-part))
+  ((name :initform (generate-name "ROPE"))
+   (vertex-array :initform (// 'kandria 'rope-part))
    (chain :initform #() :accessor chain)
    (extended :initform T :initarg :extended :accessor extended
              :type boolean)
