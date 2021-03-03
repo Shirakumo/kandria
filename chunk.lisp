@@ -210,7 +210,7 @@ void main(){
 (define-shader-entity chunk (shadow-caster layer solid ephemeral)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
-   (node-graph :initform NIL :accessor node-graph)
+   (node-graph :initform NIL :initarg :node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")
@@ -239,7 +239,9 @@ void main(){
     (format stream "~s" (name chunk))))
 
 (defmethod observe-generation ((chunk chunk) (data tile-data) result)
-  (recompute chunk))
+  (compute-shadow-geometry chunk T)
+  (unless (node-graph chunk)
+    (setf (node-graph chunk) (make-node-graph chunk))))
 
 (defmethod recompute ((chunk chunk))
   (compute-shadow-geometry chunk T)
