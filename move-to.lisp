@@ -271,9 +271,25 @@
             o o o)
            (create-jump-connections solids graph x y +1)))))))
 
-(defun make-node-graph (solids w h)
-  (let ((graph (%make-node-graph w h)))
-    (create-connections solids graph)
+(defun create-entity-connections (chunk region graph)
+  (for:for ((entity over region))
+    (when (contained-p entity chunk)
+      (typecase entity
+        (rope
+         (let ((top (chunk-node-idx chunk (vec (+ (vx (location entity))
+                                                  (* (direction entity) +tile-size+))
+                                               (+ (vy (location entity))
+                                                  (vy (bsize entity))))))
+               (bot (chunk-node-idx chunk (vec (vx (location entity))
+                                               (- (vy (location entity))
+                                                  (vy (bsize entity)))))))
+           (push (make-rope-node top entity) (svref (node-graph-grid graph) bot))
+           (push (make-rope-node bot entity) (svref (node-graph-grid graph) top))))))))
+
+(defun make-node-graph (chunk)
+  (let ((graph (%make-node-graph (floor (vx (size chunk))) (floor (vy (size chunk))))))
+    (create-connections (pixel-data chunk) graph)
+    (create-entity-connections chunk (region +world+) graph)
     graph))
 
 (defun shortest-chunk-path (graph start goal offset test)
@@ -516,9 +532,9 @@
 (defmethod capable-p ((movable movable) (edge jump-node)) NIL)
 (defmethod capable-p ((movable movable) (edge crawl-node)) NIL)
 (defmethod capable-p ((movable movable) (edge climb-node)) NIL)
-(defmethod capable-p ((movable movable) (edge rope-node))
-  (and (call-next-method)
-       (extended (rope-node-rope edge))))
+(defmethod capable-p :around ((movable movable) (edge rope-node))
+  (when (extended (rope-node-rope edge))
+    (call-next-method)))
 
 (defmethod path-available-p ((target vec2) (movable movable))
   (ignore-errors (shortest-path (find-containing target (region +world+)) movable target)))
@@ -602,6 +618,20 @@
                        (T
                         (move-towards source target))))
                (setf (vx vel) (vx (jump-node-strength node)))))
+          (rope-node
+           (let ((off (- (- (vx source) (* (direction (rope-node-rope node)) 8)) (vx loc))))
+             (cond ((<= (abs (- (vy loc) (vy target))) 1)
+                    (move-towards source target))
+                   ((<= (abs off) 1)
+                    (setf (state movable) :climbing)
+                    (setf (node-time movable) 0.0)
+                    (let ((dir (signum (- (vy target) (vy source))))
+                          (diff (abs (- (vy target) (vy loc)))))
+                      (setf (direction movable) (direction (rope-node-rope node)))
+                      (setf (vx vel) 0.0)
+                      (setf (vy vel) (* dir (max 0.5 (min diff (movement-speed movable)))))))
+                   (T
+                    (setf (vx vel) (float-sign off))))))
           (climb-node
            (cond ((or (svref collisions 1)
                       (svref collisions 3))

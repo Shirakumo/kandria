@@ -243,7 +243,7 @@ void main(){
 
 (defmethod recompute ((chunk chunk))
   (compute-shadow-geometry chunk T)
-  (setf (node-graph chunk) (make-node-graph (pixel-data chunk) (floor (vx (size chunk))) (floor (vy (size chunk))))))
+  (setf (node-graph chunk) (make-node-graph chunk)))
 
 (defmethod enter* :before ((chunk chunk) container)
   (loop for layer across (layers chunk)
