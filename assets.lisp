@@ -101,6 +101,7 @@
 (define-sound explosion :volume 0.1)
 (define-sound text :volume 0.2 :repeat T)
 (define-sound advance :volume 0.1)
+(define-sound earthquake :volume 0.5)
 
 (define-gi none
   :location NIL

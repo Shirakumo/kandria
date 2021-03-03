@@ -6,6 +6,7 @@
 (teleport-trigger :location (232.0 -2952.0) :bsize (24.0 8.0) :target (2232.0 -3296.0) :target-bsize (24.0 16.0))
 (teleport-trigger :location (2232.0 -3248.0) :bsize (24.0 16.0) :target (208.0 -2848.0) :target-bsize (8.0 16.0))
 (checkpoint :name office :active-p t :location (-2020.1217 -3651.6086) :bsize (123.878296 36.391357))
+(earthquake-trigger :name nil :active-p t :location (3504.0 -5640.0) :bsize (11600.0 2552.0) :duration 60.0)
 (passage :location (173.4043 -2843.7366) :target (179.0 -2412.0) :name nil)
 (passage :location (675.0 -2412.0) :target (674.0 -2828.0) :name nil)
 (passage :location (1731.0 -2828.0) :target (1731.0 -2412.0) :name nil)
