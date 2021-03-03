@@ -165,7 +165,7 @@
 
 (defmethod list-entries (offset (packet zip-read-packet))
   (loop with base = (offset packet)
-        for entry in (zip:zipfile-entries (storage packet))
+        for entry being the hash-values of (zip:zipfile-entries (storage packet))
         for name = (zip:zipfile-entry-name entry)
         when (and (< (length base) (length name))
                   (string= base name :end2 (length base)))
