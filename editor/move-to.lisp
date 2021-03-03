@@ -3,6 +3,8 @@
 (define-shader-entity node-graph-visualizer (marker)
   ((trial::line-width :initform 5.0)))
 
+(defmethod apply-transforms progn ((visualizer node-graph-visualizer)))
+
 (defmethod (setf node-graph) ((entity movable) (visualizer node-graph-visualizer))
   (replace-vertex-data visualizer (path-mesh (path entity))))
 
@@ -15,6 +17,7 @@
 (defun node-type-color (node)
   (etypecase node
     (climb-node (vec 0.6 0.3 0 1))
+    (rope-node (vec 0.3 0.6 0 1))
     (crawl-node (vec 0 0 0 1))
     (fall-node (vec 0 0 1 1))
     (jump-node (vec 1 0 0 1))
