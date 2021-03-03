@@ -142,6 +142,7 @@
 (define-additional-slot-coders (tween-trigger world-v0) (left right))
 (define-additional-slot-coders (interaction-trigger world-v0) (interaction))
 (define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
+(define-additional-slot-coders (earthquake-trigger world-v0) (duration))
 (define-slot-coders (basic-light world-v0) ((color :type vec4)
                                             (location :type vec2)
                                             (data :reader (lambda (light) (buffer-data (caar (bindings (vertex-array light))))))))
