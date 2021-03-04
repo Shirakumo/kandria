@@ -506,6 +506,7 @@
                                   (if ground
                                       (* 0.25 (max 0 (vy (velocity ground))))
                                       0)))
+                (setf ground NIL)
                 (setf (jump-time player) 0.0))))
        
        ;; Test for climbing
@@ -610,7 +611,7 @@
               (setf (direction player) +1))
              ((< (vx vel) 0)
               (setf (direction player) -1)))
-       (cond ((< 0 (vy vel))
+       (cond ((and (< 0 (vy vel)) (not (typep (svref collisions 2) 'moving-platform)))
               (setf (animation player) 'jump))
              ((null (svref collisions 2))
               (cond ((< (air-time player) 0.1))
