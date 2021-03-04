@@ -156,13 +156,13 @@
       (:tab (setf (entity editor) (region +world+)) T)
       (:f1 (edit 'save-region T))
       (:f2 (edit 'load-region T))
-      (:f3)
-      (:f4)
-      (:f5)
+      (:f3 (edit 'save-initial-state T))
+      (:f4 (edit 'load-initial-state T))
+      (:f5 (edit 'save-game T))
       (:f6)
       (:f7)
       (:f8)
-      (:f9)
+      (:f9 (edit 'load-game T))
       (:f10)
       (:f11)
       (:delete (edit 'delete-entity T))
@@ -237,6 +237,18 @@
         (when path
           (save-region (region +world+) path)))
       (save-region T T)))
+
+;; FIXME: This information does not belong here. where else to put it? world-v0?
+(defmethod edit ((action (eql 'load-initial-state)) (editor editor))
+  (with-packet (packet (packet +world+) :offset (region-entry (region +world+) +world+)
+                                        :direction :input)
+    (decode-payload (first (parse-sexps (packet-entry "init.lisp" packet :element-type 'character))) (region +world+) packet 'save-v0)))
+
+(defmethod edit ((action (eql 'save-initial-state)) (editor editor))
+  (with-packet (packet (packet +world+) :offset (region-entry (region +world+) +world+)
+                                        :direction :output)
+    (with-packet-entry (stream "init.lisp" packet :element-type 'character)
+      (princ* (encode-payload (region +world+) NIL packet 'save-v0) stream))))
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
   (if (retained :control)
