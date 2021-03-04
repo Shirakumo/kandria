@@ -210,7 +210,7 @@ void main(){
 (define-shader-entity chunk (shadow-caster layer solid ephemeral)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
-   (node-graph :initform NIL :accessor node-graph)
+   (node-graph :initform NIL :initarg :node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
               :type tile-data :documentation "The tile data used to display the chunk.")
@@ -239,11 +239,13 @@ void main(){
     (format stream "~s" (name chunk))))
 
 (defmethod observe-generation ((chunk chunk) (data tile-data) result)
-  (recompute chunk))
+  (compute-shadow-geometry chunk T)
+  (unless (node-graph chunk)
+    (setf (node-graph chunk) (make-node-graph chunk))))
 
 (defmethod recompute ((chunk chunk))
   (compute-shadow-geometry chunk T)
-  (setf (node-graph chunk) (make-node-graph (pixel-data chunk) (floor (vx (size chunk))) (floor (vy (size chunk))))))
+  (setf (node-graph chunk) (make-node-graph chunk)))
 
 (defmethod enter* :before ((chunk chunk) container)
   (loop for layer across (layers chunk)
@@ -320,6 +322,10 @@ void main(){
 
 (defmethod (setf background) :after ((data background-info) (chunk chunk))
   (trial:commit data (loader +main+) :unload NIL))
+
+(defmethod solid ((location vec2) (chunk chunk))
+  (%with-layer-xy (chunk location)
+    (aref (pixel-data chunk) (* 2 (+ x (* y (truncate (vx (size chunk)))))))))
 
 (defmethod tile ((location vec3) (chunk chunk))
   (tile (vxy location) (aref (layers chunk) (floor (vz location)))))

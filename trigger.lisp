@@ -22,7 +22,7 @@
 (defclass checkpoint (trigger)
   ())
 
-(defmethod interact ((checkpoint checkpoint) entity)
+(defmethod interact ((trigger checkpoint) entity)
   (setf (spawn-location entity)
         (vec (vx (location trigger))
              (+ (- (vy (location trigger))
@@ -99,3 +99,25 @@
 
 (defmethod interact ((trigger teleport-trigger) (entity located-entity))
   (setf (location entity) (target trigger)))
+
+(defclass earthquake-trigger (trigger)
+  ((duration :initform 60.0 :initarg :duration :accessor duration)
+   (clock :initform 0.0 :accessor clock)))
+
+(defmethod stage :after ((trigger earthquake-trigger) (area staging-area))
+  (stage (// 'kandria 'earthquake) area))
+
+(defmethod interact ((trigger earthquake-trigger) (player player))
+  (decf (clock trigger) 0.01)
+  (let* ((max 7.0)
+         (hmax (/ max 2.0)))
+    (cond ((<= (clock trigger) (- max))
+           (shake-camera :duration 0.0 :intensity 0)
+           (setf (clock trigger) (+ (duration trigger) (random 10.0))))
+          ((<= (clock trigger) -0.1)
+           (let ((intensity (* 10 (- 1 (/ (expt 3 (abs (+ hmax (clock trigger))))
+                                          (expt 3 hmax))))))
+             (shake-camera :duration 7.0 :intensity intensity)))
+          ((<= (clock trigger) 0.0)
+           (harmony:play (// 'kandria 'earthquake))))))
+;; TODO: make dust fall down over screen.
