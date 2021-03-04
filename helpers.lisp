@@ -41,7 +41,7 @@
 
 (defclass facing-entity (base-entity transformed)
   ((direction :initarg :direction :initform 1 :accessor direction
-              :type (integer -1 1) :documentation "The direction the entity is facing. -1 for left, +1 for right.")))
+              :type integer :documentation "The direction the entity is facing. -1 for left, +1 for right.")))
 
 (defmethod initargs append ((_ facing-entity))
   '(:direction))
