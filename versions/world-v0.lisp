@@ -158,7 +158,7 @@
          (height (nibbles:read-ub16/le stream))
          (grid (make-array (* width height) :initial-element NIL)))
     (dotimes (i (length grid) (%make-node-graph width height grid))
-      (dotimes (j (read-byte stream))
+      (dotimes (j (nibbles:read-ub16/le stream))
         (let ((type (read-byte stream))
               (to (nibbles:read-ub32/le stream)))
           (ecase type
@@ -176,7 +176,7 @@
   (nibbles:write-ub16/le (node-graph-height node-graph) stream)
   (let ((grid (node-graph-grid node-graph)))
     (loop for nodes across grid
-          do (write-byte (length nodes) stream)
+          do (nibbles:write-ub16/le (length nodes) stream)
              (dolist (node nodes)
                (etypecase node
                  (rope-node
