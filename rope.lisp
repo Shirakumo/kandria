@@ -4,12 +4,13 @@
     (make-rectangle 2 8 :align :topcenter))
 
 (define-shader-entity rope (lit-vertex-entity sized-entity interactable listener resizable ephemeral)
-  ((vertex-array :initform (// 'kandria 'rope-part))
+  ((name :initform (generate-name "ROPE"))
+   (vertex-array :initform (// 'kandria 'rope-part))
    (chain :initform #() :accessor chain)
    (extended :initform T :initarg :extended :accessor extended
              :type boolean)
    (direction :initform +1 :initarg :direction :accessor direction
-              :type (integer -1 1)))
+              :type integer))
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initialize-instance :after ((rope rope) &key (extended T))
@@ -25,7 +26,7 @@
      (setf (aref (chain rope) 0) (list (vec 0 -6) (vec 0 0)))
      (setf (aref (chain rope) 1) (list (vec 0 0) (vec 0 0)))
      (loop for i from 2 below (length (chain rope))
-           for pos = (vec (* (direction rope) (- (* 8 (sin (/ i 2))) 16)) (/ i 5))
+           for pos = (vec (* (- (direction rope)) (- (* 8 (sin (/ i 2))) 16)) (/ i 5))
            do (setf (aref (chain rope) i) (list pos (vcopy pos)))))))
 
 (defmethod contained-p ((vec vec4) (rope rope))
@@ -48,7 +49,7 @@
     (setf (slot-value rope 'extended) T)
     (loop for i from 0 below (length (chain rope))
           do (destructuring-bind (pos prev) (aref (chain rope) i)
-               (nv+ pos (vec (* 2 (direction rope) (/ i 5)) (- 2 (/ i 20))))))))
+               (nv+ pos (vec (* -2 (direction rope) (/ i 5)) (- 2 (/ i 20))))))))
 
 (defmethod layer-index ((rope rope)) +base-layer+)
 
