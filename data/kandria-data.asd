@@ -102,6 +102,7 @@
                  (spritesheet "player-profile")
                  (spritesheet "fi-profile")
                  (spritesheet "catherine-profile")
+                 (spritesheet "jack-profile")
                  (tilemap "debug")
                  (tilemap "tundra")
                  (tilemap "camp")
