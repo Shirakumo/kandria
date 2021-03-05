@@ -66,6 +66,7 @@
    alloy:text
    :valign :middle
    :halign :left
+   :wrap T
    :font "PromptFont"
    :size (alloy:un 20)
    :pattern colors:white))
@@ -85,9 +86,14 @@
               (:weak (colored:color 0.1 0.1 0.1))
               (T colors:black))))
 
-(defclass dialog-choice-list (alloy:grid-layout alloy:focus-chain)
-  ((alloy:cell-margins :initform (alloy:margins 0)))
-  (:default-initargs :col-sizes '(T) :row-sizes '(30)))
+(defclass dialog-choice-list (alloy:vertical-linear-layout alloy:focus-chain)
+  ((alloy:cell-margins :initform (alloy:margins 0))
+   (alloy:min-size :initform (alloy:size 35 35))))
+
+(presentations:define-realization (ui dialog-choice-list)
+  ((:bg simple:rectangle)
+   (alloy:margins)
+   :pattern (colored:color 0 0 0 0.5)))
 
 (defun clear-text-string ()
   (load-time-value (make-array 0 :fill-pointer 0 :element-type 'character)))
@@ -97,7 +103,7 @@
    (ip :initform 0 :accessor ip)
    (char-timer :initform 0.1 :accessor char-timer)
    (pause-timer :initform 0 :accessor pause-timer)
-   (choices :initform (make-instance 'dialog-choice-list) :accessor choices)
+   (choices :initform (make-instance 'dialog-choice-list) :reader choices)
    (prompt :initform NIL :accessor prompt)
    (text :initform (clear-text-string) :accessor text)
    (source :initform 'player :accessor source)
@@ -120,6 +126,26 @@
 
 (defmethod advance ((textbox textbox))
   (handle (dialogue:resume (vm textbox) (ip textbox)) textbox))
+
+(defmethod (setf choices) ((choices null) (textbox textbox))
+  (alloy:clear (choices textbox)))
+
+(defmethod (setf choices) ((choices cons) (textbox textbox))
+  (alloy:clear (choices textbox))
+  (loop for choice in (car choices)
+        for target in (cdr choices)
+        do (let* ((choice choice) (target target)
+                  (button (alloy:represent choice 'dialog-choice)))
+             (alloy:on alloy:activate (button)
+               (setf (ip textbox) target)
+               (setf (text textbox) (clear-text-string))
+               (setf (choices textbox) ())
+               (harmony:play (// 'kandria 'advance))
+               (advance textbox))
+             (alloy:enter button (choices textbox))))
+  (setf (alloy:index (choices textbox)) 0)
+  (setf (alloy:focus (choices textbox)) :strong)
+  (setf (prompt textbox) (string (prompt-char :right :bank :keyboard))))
 
 (defmethod handle ((ev tick) (textbox textbox))
   (handle ev (profile textbox))
@@ -160,21 +186,8 @@
   (setf (pending textbox) (list :end)))
 
 (defmethod handle ((rq dialogue:choice-request) (textbox textbox))
-  (alloy:clear (choices textbox))
-  (loop for choice in (dialogue:choices rq)
-        for target in (dialogue:targets rq)
-        do (let* ((choice choice) (target target)
-                  (button (alloy:represent choice 'dialog-choice)))
-             (alloy:on alloy:activate (button)
-               (setf (ip textbox) target)
-               (setf (text textbox) (clear-text-string))
-               (alloy:clear (choices textbox))
-               (harmony:play (// 'kandria 'advance))
-               (advance textbox))
-             (alloy:enter button (choices textbox))))
-  (setf (alloy:index (choices textbox)) 0)
-  (setf (alloy:focus (choices textbox)) :strong)
-  (setf (prompt textbox) (string (prompt-char :right :bank :keyboard))))
+  (setf (choices textbox) (cons (dialogue:choices rq)
+                                (dialogue:targets rq))))
 
 (defmethod handle ((rq dialogue:confirm-request) (textbox textbox))
   (setf (pending textbox) (list :prompt (string (prompt-char :right :bank :keyboard)))))
