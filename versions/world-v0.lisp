@@ -50,7 +50,6 @@
           (princ* (encode entity) stream)
         (no-applicable-encoder ()))))
   (unless (packet-entry-exists-p "init.lisp" packet)
-    (print :foobar)
     (with-packet-entry (stream "init.lisp" packet :element-type 'character)
       (princ* (encode-payload region NIL packet 'save-v0) stream)))
   (list :name (name region)
@@ -138,7 +137,7 @@
 
 (define-slot-coders (background world-v0) ())
 (define-slot-coders (game-entity world-v0) ((location :type vec2) name))
-(define-slot-coders (sprite-entity world-v0) ((location :type vec2) (texture :type texture) (size :type vec2) (offset :type vec2) (layer-index :initarg :layer) name))
+(define-slot-coders (sprite-entity world-v0) ((location :type vec2) (texture :type texture) (size :type vec2) (bsize :type vec2) (offset :type vec2) (layer-index :initarg :layer) name))
 (define-slot-coders (rope world-v0) (name (location :type vec2) (bsize :type vec2) direction extended))
 (define-slot-coders (water world-v0) ((location :type vec2) (bsize :type vec2)))
 (define-slot-coders (place-marker world-v0) (name (location :type vec2) (bsize :type vec2)))
@@ -159,7 +158,7 @@
          (height (nibbles:read-ub16/le stream))
          (grid (make-array (* width height) :initial-element NIL)))
     (dotimes (i (length grid) (%make-node-graph width height grid))
-      (dotimes (j (read-byte stream))
+      (dotimes (j (nibbles:read-ub16/le stream))
         (let ((type (read-byte stream))
               (to (nibbles:read-ub32/le stream)))
           (ecase type
@@ -177,7 +176,7 @@
   (nibbles:write-ub16/le (node-graph-height node-graph) stream)
   (let ((grid (node-graph-grid node-graph)))
     (loop for nodes across grid
-          do (write-byte (length nodes) stream)
+          do (nibbles:write-ub16/le (length nodes) stream)
              (dolist (node nodes)
                (etypecase node
                  (rope-node

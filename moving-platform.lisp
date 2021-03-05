@@ -63,12 +63,14 @@
 
 (defmethod handle ((ev tick) (elevator elevator))
   (ecase (state elevator)
-    (:normal)
+    (:normal
+     (vsetf (velocity elevator) 0 0))
     (:going-up
-     (vsetf (velocity elevator) 0 +10))
+     (vsetf (velocity elevator) 0 +1.0))
     (:going-down
-     (vsetf (velocity elevator) 0 -10))
-    (:broken))
+     (vsetf (velocity elevator) 0 -1.0))
+    (:broken
+     (vsetf (velocity elevator) 0 0)))
   (nv+ (frame-velocity elevator) (velocity elevator))
   (loop repeat 10 while (handle-collisions +world+ elevator)))
 
@@ -82,12 +84,17 @@
     (vsetf vel 0 0)))
 
 (defmethod interact ((elevator elevator) thing)
-  (when (eql :normal (state elevator))
-    (cond ((null (scan-collision +world+ (v+ (location elevator)
-                                             (v_y (bsize elevator))
-                                             1)))
-           (setf (state elevator) :going-up))
-          ((null (scan-collision +world+ (v- (location elevator)
-                                             (v_y (bsize elevator))
-                                             1)))
-           (setf (state elevator) :going-down)))))
+  (case (state elevator)
+    (:normal
+     (cond ((null (scan-collision +world+ (v+ (location elevator)
+                                              (v_y (bsize elevator))
+                                              1)))
+            (setf (state elevator) :going-up))
+           ((null (scan-collision +world+ (v- (location elevator)
+                                              (v_y (bsize elevator))
+                                              1)))
+            (setf (state elevator) :going-down))))
+    (:going-down
+     (setf (state elevator) :going-up))
+    (:going-up
+     (setf (state elevator) :going-down))))

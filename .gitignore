@@ -2,3 +2,5 @@ bin/
 doc/*.html
 *~
 .*
+world/regions/*/data/*.graph
+world/regions/*/trace.dat

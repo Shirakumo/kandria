@@ -200,7 +200,7 @@
 
 (define-shader-entity jack (npc)
   ((name :initform 'jack)
-   (profile-sprite-data :initform (asset 'kandria 'fi-profile))
+   (profile-sprite-data :initform (asset 'kandria 'jack-profile))
    (nametag :initform (@ jack-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'jack)))
