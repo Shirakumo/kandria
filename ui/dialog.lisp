@@ -26,10 +26,10 @@
         (textbox (alloy:represent (slot-value dialog 'text) 'dialog-textbox))
         (nametag (alloy:represent (slot-value dialog 'source) 'nametag))
         (prompt (alloy:represent (slot-value dialog 'prompt) 'advance-prompt)))
-    (alloy:enter textbox layout :constraints `((:left 20) (:right 20) (:bottom 20) (:height 200)))
+    (alloy:enter (choices dialog) layout :constraints `((:left 20) (:bottom 20) (:height 200)))
+    (alloy:enter textbox layout :constraints `((:right-of ,(choices dialog) 0) (:right 20) (:bottom 20) (:height 200)))
     (alloy:enter (profile dialog) layout :constraints `((:left 80) (:above ,textbox) (:width 400) (:height 400)))
-    (alloy:enter nametag layout :constraints `((:left 30) (:above ,textbox -10) (:height 30) (:width 300)))
-    (alloy:enter (choices dialog) layout :constraints `((:right 50) (:above ,textbox 10) (:width 400)))
+    (alloy:enter nametag layout :constraints `((:left 20) (:above ,textbox 0) (:height 30) (:width 300)))
     (alloy:enter prompt layout :constraints `((:right 20) (:bottom 20) (:size 100 30)))
     (alloy:finish-structure dialog layout (choices dialog))
     ;; If we only have one, activate "one shot mode"
@@ -105,3 +105,11 @@
 
 (defmethod handle ((ev previous) (dialog dialog))
   (alloy:focus-prev (choices dialog)))
+
+(defmethod (setf choices) :after ((choices cons) (dialog dialog))
+  (org.shirakumo.alloy.layouts.constraint:suggest
+   (alloy:layout-element dialog) (choices dialog) :w (alloy:un 400)))
+
+(defmethod (setf choices) :after ((choices null) (dialog dialog))
+  (org.shirakumo.alloy.layouts.constraint:suggest
+   (alloy:layout-element dialog) (choices dialog) :w (alloy:un 0)))
