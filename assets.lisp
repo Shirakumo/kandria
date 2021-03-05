@@ -72,6 +72,7 @@
 (define-sprite player-profile)
 (define-sprite fi-profile)
 (define-sprite catherine-profile)
+(define-sprite jack-profile)
 (define-sprite balloon)
 (define-sprite debug-door)
 (define-sprite passage)
