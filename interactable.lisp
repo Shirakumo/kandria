@@ -20,7 +20,7 @@
                                                    (interactions entity))))))
 
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity)
-  ())
+  ((name :initform (generate-name "INTERACTABLE"))))
 
 (defclass profile ()
   ((profile-sprite-data :initform (error "PROFILE-SPRITE-DATA not set.") :accessor profile-sprite-data)
