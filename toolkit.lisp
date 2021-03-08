@@ -595,9 +595,12 @@
                collect `(defmethod ,func ,(let ((list (copy-list arglist)))
                                             (setf (nth i list) `(,(nth i list) symbol))
                                             list)
-                          (,func ,@(let ((list (copy-list arglist)))
-                                     (setf (nth i list) `(unit ,(nth i list) +world+))
-                                     list)))))))
+                          (,@(if (listp func)
+                                 `(funcall #',func)
+                                 `(,func))
+                           ,@(let ((list (copy-list arglist)))
+                               (setf (nth i list) `(unit ,(nth i list) +world+))
+                               list)))))))
 
 (defun set-tile (map width height x y tile)
   (destructuring-bind (&optional (tx 0) (ty 0) (w 1) (h 1)) tile
