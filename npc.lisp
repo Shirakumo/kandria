@@ -4,13 +4,16 @@
   ((bsize :initform (vec 8 16))
    (target :initform NIL :accessor target)
    (companion :initform NIL :accessor companion)
+   (walk :initform NIL :accessor walk)
    (lead-interrupt :initform "| Where are you going? It's this way!" :accessor lead-interrupt)))
 
 (defmethod movement-speed ((npc npc))
   (case (state npc)
     (:crawling (p! crawl))
     (:climbing (p! climb-up))
-    (T (p! walk-limit))))
+    (T (if (walk npc)
+           (p! slowwalk-limit)
+           (p! walk-limit)))))
 
 (defmethod maximum-health ((npc npc))
   1000)
@@ -150,6 +153,7 @@
   (setf (state npc) :cowering))
 
 (defmethod follow ((target located-entity) (npc npc))
+  (setf (walk npc) NIL)
   (setf (path npc) NIL)
   (setf (current-node npc) NIL)
   (setf (companion npc) target)
@@ -164,6 +168,7 @@
   (lead target (vcopy (location goal)) npc))
 
 (defmethod lead ((target located-entity) (goal vec2) (npc npc))
+  (setf (walk npc) NIL)
   (setf (path npc) NIL)
   (setf (current-node npc) NIL)
   (setf (target npc) goal)
@@ -174,6 +179,8 @@
   (when (eql :normal (ai-state npc))
     (setf (ai-state npc) :move-to)))
 
+(define-unit-resolver-methods (setf lead-interrupt) (thing unit))
+(define-unit-resolver-methods (setf walk) (thing unit))
 (define-unit-resolver-methods follow (unit unit))
 (define-unit-resolver-methods stop-following (unit))
 (define-unit-resolver-methods lead (unit unit unit))
