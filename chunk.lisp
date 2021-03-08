@@ -161,6 +161,8 @@ layout (location = 1) in vec2 vertex_uv;
 uniform mat4 view_matrix;
 uniform mat4 model_matrix;
 uniform vec2 view_size;
+uniform vec2 map_size;
+uniform int tile_size = 16;
 out vec2 map_coord;
 out vec2 world_pos;
 
@@ -168,7 +170,8 @@ void main(){
   // We start in view-space, so we have to inverse-map to world-space.
   vec4 _position = view_matrix * vec4(vertex_uv*view_size, 0, 1);
   world_pos = _position.xy;
-  map_coord = (model_matrix * _position).xy;
+  ivec2 map_wh = (ivec2(map_size)*tile_size);
+  map_coord = (model_matrix * _position).xy+map_wh/2.;
   gl_Position = vec4(vertex, 1);
 }")
 
@@ -178,7 +181,6 @@ uniform usampler2D tilemap;
 uniform sampler2D albedo;
 uniform sampler2D absorption;
 uniform sampler2D normal;
-uniform vec2 map_size;
 uniform vec2 map_position;
 uniform int tile_size = 16;
 uniform float visibility = 1.0;
@@ -187,8 +189,7 @@ in vec2 world_pos;
 out vec4 color;
 
 void main(){
-  ivec2 map_wh = ivec2(map_size)*tile_size;
-  ivec2 map_xy = ivec2(map_coord+map_wh/2.);
+  ivec2 map_xy = ivec2(map_coord);
 
   // Calculate tilemap index and pixel offset within tile.
   ivec2 tile_xy  = ivec2(map_xy.x / tile_size, map_xy.y / tile_size);
