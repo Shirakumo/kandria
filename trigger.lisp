@@ -82,6 +82,18 @@
 (defmethod (setf value) (value (trigger sandstorm-trigger))
   (setf (strength (unit 'sandstorm T)) value))
 
+(defclass zoom-trigger (tween-trigger)
+  ())
+
+(defmethod (setf value) (value (trigger zoom-trigger))
+  (setf (intended-zoom (unit :camera T)) value))
+
+(defclass pan-trigger (tween-trigger)
+  ())
+
+(defmethod (setf value) (value (trigger pan-trigger))
+  (setf (offset (unit :camera T)) value))
+
 (defclass teleport-trigger (trigger)
   ((target :initform NIL :initarg :target :accessor target)
    (primary :initform T :initarg :primary :accessor primary)))
