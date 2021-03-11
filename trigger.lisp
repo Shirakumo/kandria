@@ -129,7 +129,7 @@
           ((<= (clock trigger) -0.1)
            (let ((intensity (* 10 (- 1 (/ (expt 3 (abs (+ hmax (clock trigger))))
                                           (expt 3 hmax))))))
-             (shake-camera :duration 7.0 :intensity intensity)))
+             (shake-camera :duration 7.0 :intensity intensity :controller-multiplier 0.1)))
           ((<= (clock trigger) 0.0)
            (harmony:play (// 'kandria 'earthquake))))))
 ;; TODO: make dust fall down over screen.
