@@ -123,7 +123,7 @@
                (setf (location (unit thing +world+)) loc)))
        ,form)))
 
-(defun task-wrap-lexenv (form &optioanl (task 'task))
+(defun task-wrap-lexenv (form &optional (task 'task))
   `(flet ((thing (thing)
             (if (and thing (symbolp thing)) (quest:find-named thing ,task) thing)))
      (flet* ((var (name &optional default (thing ,task))
