@@ -216,6 +216,12 @@
      (transition
        (respawn player)))))
 
+(defmethod collides-p ((player player) (block platform) hit)
+  (and (call-next-method)
+       (not (and (retained 'down)
+                 (retained 'jump)
+                 (< 0.01 (air-time player))))))
+
 (defmethod idleable-p ((player player))
   (and (call-next-method)
        (not (or (retained 'up)
