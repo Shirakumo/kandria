@@ -69,23 +69,13 @@
            (setf (interaction dialog) (first interactions)))
           (T
            ;; If we have multiple show choice.
-           (alloy:clear (choices dialog))
-           (loop for interaction in interactions
-                 do (let* ((interaction interaction)
-                           (label (quest:title interaction))
-                           (button (alloy:represent label 'dialog-choice)))
-                      (alloy:on alloy:activate (button)
-                        (setf (interaction dialog) interaction)
-                        (alloy:clear (choices dialog)))
-                      (alloy:enter button (choices dialog))))
+           (setf (choices dialog)
+                 (cons (mapcar #'quest:title interactions) interactions))
            (let* ((label (string (prompt-char :left :bank :keyboard)))
                   (button (alloy:represent label 'dialog-choice)))
              (alloy:on alloy:activate (button)
                (hide dialog))
-             (alloy:enter button (choices dialog)))
-           (setf (alloy:index (choices dialog)) 0)
-           (setf (alloy:focus (choices dialog)) :strong)
-           (setf (prompt dialog) (string (prompt-char :right :bank :keyboard)))))))
+             (alloy:enter button (choices dialog)))))))
 
 (defmethod handle ((ev advance) (dialog dialog))
   (cond ((/= 0 (alloy:element-count (choices dialog)))
