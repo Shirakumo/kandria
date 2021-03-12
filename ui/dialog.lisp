@@ -67,9 +67,6 @@
            ;; If we have no interactions anymore, or we started
            ;; out with one and now only have dones, hide.
            (hide dialog))
-          ((null (rest interactions))
-           ;; If there's only one interaction, just run it.
-           (setf (interaction dialog) (first interactions)))
           (T
            ;; If we have multiple show choice.
            (setf (choices dialog)
