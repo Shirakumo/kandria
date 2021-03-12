@@ -56,7 +56,7 @@
 
 (defmethod next-interaction ((dialog dialog))
   (setf (ip dialog) 0)
-  (let ((interactions (interactions dialog)))
+  (let ((interactions (remove-if-not #'quest:active-p (interactions dialog))))
     (cond ((or (null interactions)
                (and (one-shot dialog)
                     (loop for interaction in interactions
