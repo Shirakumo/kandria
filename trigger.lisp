@@ -67,13 +67,14 @@
 
 (defclass tween-trigger (trigger)
   ((left :initarg :left :accessor left :initform 0.0 :type single-float)
-   (right :initarg :right :accessor right :initform 1.0 :type single-float)))
+   (right :initarg :right :accessor right :initform 1.0 :type single-float)
+   (ease-fun :initarg :easing :accessor ease-fun :initform 'linear :type symbol)))
 
 (defmethod interact ((trigger tween-trigger) (entity located-entity))
   (let* ((x (+ (/ (- (vx (location entity)) (vx (location trigger)))
                   (* 2.0 (vx (bsize trigger))))
                0.5))
-         (v (lerp (left trigger) (right trigger) (clamp 0 x 1))))
+         (v (ease (clamp 0 x 1) (ease-fun trigger) (left trigger) (right trigger))))
     (setf (value trigger) v)))
 
 (defclass sandstorm-trigger (tween-trigger)
@@ -83,7 +84,7 @@
   (setf (strength (unit 'sandstorm T)) value))
 
 (defclass zoom-trigger (tween-trigger)
-  ())
+  ((easing :initform 'quint-in)))
 
 (defmethod (setf value) (value (trigger zoom-trigger))
   (setf (intended-zoom (unit :camera T)) value))
