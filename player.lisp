@@ -391,7 +391,8 @@
       (:dashing
        (incf (dash-time player) dt)
        (setf (jump-time player) 100.0)
-       (setf (run-time player) 0.0)
+       ;; (when (< (p! run-time) (run-time player))
+       ;;   (setf (run-time player) 0.0))
        (or (when (< (dash-time player) (p! dash-evade-grace-time))
              (handle-evasion player))
            (cond ((or (< (p! dash-max-time) (dash-time player))
