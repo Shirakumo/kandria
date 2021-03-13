@@ -146,7 +146,7 @@
 (define-slot-coders (grass-patch world-v0) ((location :type vec2) (bsize :type vec2) patches (tile-size :type vec2) (tile-start :type vec2) tile-count))
 (define-slot-coders (trigger world-v0) (name active-p (location :type vec2) (bsize :type vec2)))
 (define-additional-slot-coders (story-trigger world-v0) (story-item target-status))
-(define-additional-slot-coders (tween-trigger world-v0) (left right))
+(define-additional-slot-coders (tween-trigger world-v0) (left right ease-fun))
 (define-additional-slot-coders (interaction-trigger world-v0) (interaction))
 (define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
 (define-additional-slot-coders (earthquake-trigger world-v0) (duration))
