@@ -58,6 +58,7 @@
 (define-pixel pixelfont)
 (define-pixel ball)
 (define-pixel grass)
+(define-pixel logos)
 
 (define-animation box)
 (define-animation player)
@@ -153,8 +154,6 @@
   :ambient-multiplier 0.2
   :ambient (vec 0.5 0.4 0.4))
 
-(sb-sprof:stop-profiling)
-
 (define-gi desert
   :location :sun
   :light '(6 (0 0 0)
@@ -202,3 +201,9 @@
   :parallax (vec 1.0 1.0)
   :scaling (vec 0.5 0.5)
   :offset (vec 0 0))
+
+(define-bg hub
+  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge)
+  :offset (vec -800 4400)
+  :parallax (vec 1.0 1.0)
+  :lighting-strength 0.75)
