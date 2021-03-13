@@ -61,7 +61,9 @@
   (destructuring-bind (&key name location size tile-data pixel-data layers background gi) initargs
     (let ((graph (when (packet-entry-exists-p (format NIL "data/~a.graph" name) packet)
                    (with-packet-entry (stream (format NIL "data/~a.graph" name) packet :element-type '(unsigned-byte 8))
-                     (decode-payload stream 'node-graph packet 'binary-v0)))))
+                     (handler-case (decode-payload stream 'node-graph packet 'binary-v0)
+                       (error ()
+                         (v:error :kandria.serializer "Failed to read node-graph for ~a" name)))))))
       (make-instance 'chunk :name name
                             :location (decode 'vec2 location)
                             :size (decode 'vec2 size)
