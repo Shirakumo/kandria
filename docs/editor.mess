@@ -33,7 +33,7 @@ Some entities like the chunk may also offer additional UI elements in a right si
 
 There's a total of five layers on every chunk, with the middle layer being "solids". Higher layers will appear in front of characters, and lower layers behind them. The layer other entities are on is usually determined automatically by the entity itself. Each chunk also comes with a special layer that describes the tiles that are "solid". The row of solid, interactable tiles is always the bottom row in the tile set. The meaning of the tiles is described "below"(link #tiles).
 
-When selecting a sprite entity, mostly for things that are interactable, you'll get a tile picker similar to the chunk sidebar. Selecting a tile there will set the bottom right corner of the tiles to display for the entity. Ctrl+clicking a tile will set the upper right corner of the tiles to display. It'll automatically adjust the size of the entity to fit your selection.
+When selecting a sprite entity, mostly for things that are interactable, you'll get a tile picker similar to the chunk sidebar. Selecting a tile there will set the bottom left corner of the tiles to display for the entity. Shift+clicking a tile will set the upper right corner of the tiles to display. It'll automatically adjust the size of the entity to fit your selection.
 
 Several keyboard shortcuts are also available:
 
@@ -48,6 +48,7 @@ Several keyboard shortcuts are also available:
 - ``f`` Select freeform tool
 - ``p`` Select paint tool
 - ``l`` Select line tool
+- ``r`` Select rectangle tool
 - ``w`` Move camera up
 - ``a`` Move camera left
 - ``s`` Move camera down
@@ -69,10 +70,15 @@ This tool allows you to draw tiles into a chunk. With left click, the currently 
 
 When Shift-clicking, a bucket fill of the current tile is performed.
 
-When Cttrl-clicking, an auto-tile is performed. This will attempt to intelligently fill in a full shape according to how the solids are laid out. Auto-tile does not care about the tile you have currently selected, but it //must// be performed within a completed shape. Auto-tiling may also fail on certain configurations of solid tiles that it doesn't know how to interpret.
+When Ctrl-clicking, an auto-tile is performed. This will attempt to intelligently fill in a full shape according to how the solids are laid out. Auto-tile does not care about the tile you have currently selected, but it //must// be performed within a completed shape. Auto-tiling may also fail on certain configurations of solid tiles that it doesn't know how to interpret.
+
+You can also place multiple tiles at once to form a sort of stamp, by first selecting a tile in the tileset to select the lower left region of the stamp, then shift-clicking on another tile to form the upper right region of the stamp.
 
 ### Line
 This tool allows you to quickly draw up lines of solids. Depending on the direction you drag the line it will automatically generate slopes and solid blocks.
+
+### Rectangle
+Allows dragging up rectangular regions of tiles. You can also use stamp a region of tiles, by selecting multiple tiles just like for the paint tool. When holding shift while dragging, it will only fill whole regions of the selected tiles, rather than allowing partial ones.
 
 ### Animation
 This tool is used to edit the "combat data"(link combat system.mess). When selected it'll open up a floating window which lets you select an animation and edit the per-frame properties of it. The following shortcuts are active:
