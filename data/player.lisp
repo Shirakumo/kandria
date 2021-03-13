@@ -9,7 +9,7 @@
    (JUMP                 :start  65 :end  68 :loop-to 65  :next FALL :cooldown 0.0)
    (FALL                 :start  70 :end  74 :loop-to 70  :next FALL :cooldown 0.0)
    (LAND                 :start  74 :end  80 :loop-to 74  :next STAND :cooldown 0.0)
-   (SLIDE                :start  80 :end  86 :loop-to 86  :next SLIDE :cooldown 0.0)
+   (SLIDE                :start  80 :end  86 :loop-to 85  :next SLIDE :cooldown 0.0)
    (CLIMB                :start  86 :end  98 :loop-to 87  :next CLIMB :cooldown 0.0)
    (CRAWL                :start  98 :end 106 :loop-to 99  :next CRAWL :cooldown 0.0)
    (DASH                 :start 106 :end 115 :loop-to 112 :next DASH :cooldown 0.0)
