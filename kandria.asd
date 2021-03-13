@@ -78,6 +78,7 @@
                              (:file "browser")
                              (:file "paint")
                              (:file "line")
+                             (:file "rectangle")
                              (:file "freeform")
                              (:file "editor")
                              (:file "editmenu")
