@@ -44,7 +44,10 @@
   ((texture :initform (// 'kandria 'items))
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)
-   (velocity :initform (vec (* (- (* 2 (random 2)) 1) (random* 2 1)) (random* 5 3)))))
+   (velocity :initform (vec 0 0))))
+
+(defmethod spawn :before ((region region) (item item) &key)
+  (vsetf (velocity item) (* (- (* 2 (random 2)) 1) (random* 2 1)) (random* 5 3)))
 
 (defmethod item-order ((_ item)) 0)
 
