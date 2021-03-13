@@ -79,6 +79,7 @@
                  (incf (vy pos) (+ dy (* (vy g) (the single-float (dt ev)))))
                  (let ((real (v+ pos (location rope))))
                    (incf (vy real) (vy (bsize rope)))
+                   #++
                    (when (scan-collision +world+ real)
                      (setf (vx pos) (- (vx prev) (* 0.25 dx)))))))
       (vsetf (first (aref chain 0)) 0 0)
