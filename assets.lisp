@@ -204,6 +204,6 @@
 
 (define-bg hub
   :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge)
-  :offset (vec -800 4400)
+  :offset (vec -800 4220)
   :parallax (vec 1.0 1.0)
   :lighting-strength 0.75)
