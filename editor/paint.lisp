@@ -1,17 +1,50 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass paint (tool)
-  ((stroke :initform NIL :accessor stroke)))
+(defclass painter-tool (tool)
+  ())
 
-(defmethod label ((tool paint)) "Paint")
-
-(defmethod handle ((event mouse-press) (tool paint))
+(defmethod handle ((event mouse-press) (tool painter-tool))
   (paint-tile tool event)
   (loop for layer across (layers (entity tool))
         for i from 0
         do (if (= i (layer (sidebar (editor tool))))
                (setf (visibility layer) 1.0)
                (setf (visibility layer) 0.5))))
+
+(defmethod handle :after ((event mouse-release) (tool painter-tool))
+  (loop for layer across (layers (entity tool))
+        do (setf (visibility layer) 1.0))
+  (setf (state tool) NIL))
+
+(defmethod handle ((ev lose-focus) (tool painter-tool))
+  (handle (make-instance 'mouse-release :button :left :pos (or (end-pos tool) (vec 0 0))) tool))
+
+(defmethod handle ((event mouse-move) (tool painter-tool))
+  (case (state tool)
+    (:placing
+     (paint-tile tool event))))
+
+(defmethod handle ((event key-press) (tool painter-tool))
+  (case (key event)
+    (:1 (setf (layer (sidebar (editor tool))) 0))
+    (:2 (setf (layer (sidebar (editor tool))) 1))
+    (:3 (setf (layer (sidebar (editor tool))) 2))
+    (:4 (setf (layer (sidebar (editor tool))) 3))
+    (:5 (setf (layer (sidebar (editor tool))) 4))))
+
+(defmethod tile-to-place ((tool painter-tool))
+  (cond ((retained :left)
+         (tile-to-place (sidebar (editor tool))))
+        (T
+         '(0 0 1 1))))
+
+(defclass paint (painter-tool)
+  ((stroke :initform NIL :accessor stroke)))
+
+(defmethod label ((tool paint)) "Paint")
+
+(defmethod end-pos ((tool paint))
+  (caar (stroke tool)))
 
 (defmethod handle ((event mouse-release) (tool paint))
   (case (state tool)
@@ -24,25 +57,7 @@
                     do (setf (tile loc entity) tile)))
              ((loop for (loc . tile) in (reverse stroke)
                     do (setf (tile loc entity) tile)))))
-       (setf (stroke tool) NIL))))
-  (loop for layer across (layers (entity tool))
-        do (setf (visibility layer) 1.0)))
-
-(defmethod handle ((ev lose-focus) (tool paint))
-  (handle (make-instance 'mouse-release :button :left :pos (or (caar (stroke tool)) (vec 0 0))) tool))
-
-(defmethod handle ((event mouse-move) (tool paint))
-  (case (state tool)
-    (:placing
-     (paint-tile tool event))))
-
-(defmethod handle ((event key-press) (tool paint))
-  (case (key event)
-    (:1 (setf (layer (sidebar (editor tool))) 0))
-    (:2 (setf (layer (sidebar (editor tool))) 1))
-    (:3 (setf (layer (sidebar (editor tool))) 2))
-    (:4 (setf (layer (sidebar (editor tool))) 3))
-    (:5 (setf (layer (sidebar (editor tool))) 4))))
+       (setf (stroke tool) NIL)))))
 
 (defmethod handle ((event mouse-scroll) (tool paint))
   (destructuring-bind (x y &optional w ha) (tile-to-place (sidebar (editor tool)))
@@ -51,16 +66,13 @@
               (list x (+ y (floor (signum (delta event)))))
               (list (+ x (floor (signum (delta event)))) y)))))
 
-(defun paint-tile (tool event)
+(defmethod paint-tile ((tool paint) event)
   (let* ((entity (entity tool))
          (loc (mouse-world-pos (pos event)))
          (loc (if (show-solids entity)
                   loc
                   (vec (vx loc) (vy loc) (layer (sidebar (editor tool))))))
-         (tile (cond ((retained :left)
-                      (tile-to-place (sidebar (editor tool))))
-                     (T
-                      '(0 0)))))
+         (tile (tile-to-place tool)))
     (cond ((retained :control)
            (let* ((base-layer (aref (layers entity) +base-layer+))
                   (original (copy-seq (pixel-data base-layer))))
