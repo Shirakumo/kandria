@@ -56,7 +56,7 @@
 
 (defmethod paint-tile ((tool rectangle) event)
   (let* ((entity (entity tool))
-         (loc (mouse-world-pos (pos event)))
+         (loc (mouse-tile-pos (pos event)))
          (loc (if (show-solids entity)
                   loc
                   (vec (vx loc) (vy loc) (layer (sidebar (editor tool)))))))
@@ -64,12 +64,13 @@
       (setf (state tool) :placing)
       (unless (start-pos tool)
         (setf (start-pos tool) loc)
-        (setf (car (cache tool)) (create-tile-region (tile-to-place tool))))
-      ;; First undo from cache
-      (when (end-pos tool)
-        (repeat-tile-region entity (start-pos tool) (end-pos tool) (cdr (cache tool))))
-      ;; Then paint in.
-      (setf (end-pos tool) loc)
-      (setf (cdr (cache tool)) (cache-tile-region entity (start-pos tool) (end-pos tool)))
-      (repeat-tile-region entity (start-pos tool) (end-pos tool) (car (cache tool))
-                          (retained :shift)))))
+        (setf (end-pos tool) loc)
+        (setf (car (cache tool)) (create-tile-region (tile-to-place tool)))
+        (setf (cdr (cache tool)) NIL))
+      (when (v/= (end-pos tool) loc)
+        (when (cdr (cache tool))
+          (repeat-tile-region entity (start-pos tool) (end-pos tool) (cdr (cache tool))))
+        (setf (end-pos tool) loc)
+        (setf (cdr (cache tool)) (cache-tile-region entity (start-pos tool) (end-pos tool)))
+        (repeat-tile-region entity (start-pos tool) (end-pos tool) (car (cache tool))
+                            (retained :shift))))))
