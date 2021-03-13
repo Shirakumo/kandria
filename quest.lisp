@@ -18,7 +18,10 @@
     ;; FIXME: speedup by caching which classes have already been loaded?
     (trial:commit first (loader +main+) :unload NIL)
     (dotimes (i count)
-      (enter* (clone first) (region +world+)))))
+      (spawn (region +world+) (clone first)))))
+
+(defmethod spawn ((region region) (entity entity) &key)
+  (enter* entity region))
 
 (defmethod spawn ((marker located-entity) type &rest initargs)
   (apply #'spawn (location marker) type initargs))
