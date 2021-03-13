@@ -181,7 +181,7 @@
     (readtable (load-time-value (copy-readtable)))
     (stream (load-time-value (make-broadcast-stream)))
     (string "string")
-    (symbol '#:symbol)
+    (symbol 'symbol)
     (vector #(vector))
     (T (let ((class (find-class type)))
          (unless (c2mop:class-finalized-p class)

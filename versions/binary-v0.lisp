@@ -3,7 +3,7 @@
 (defclass binary-v0 (version) ())
 
 (define-encoder (string binary-v0) (stream packet)
-  (let ((bin (babel:string-to-octets stream :encoding :utf-8)))
+  (let ((bin (babel:string-to-octets string :encoding :utf-8)))
     (when (< (ash 1 16) (length bin))
       (error "String way too long to dump!"))
     (nibbles:write-ub16/le (length bin) stream)
@@ -15,7 +15,7 @@
     (babel:octets-to-string bin :encoding :utf-8)))
 
 (define-encoder (symbol binary-v0) (stream packet)
-  (encode (symbol-package symbol))
+  (encode (package-name (symbol-package symbol)))
   (encode (symbol-name symbol)))
 
 (define-decoder (symbol binary-v0) (stream packet)
