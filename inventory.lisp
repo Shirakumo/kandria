@@ -40,7 +40,7 @@
               collect prototype)
         #'< :key #'item-order))
 
-(define-shader-entity item (ephemeral lit-sprite moving interactable)
+(define-shader-entity item (lit-sprite moving interactable)
   ((texture :initform (// 'kandria 'items))
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)
