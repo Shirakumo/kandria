@@ -19,7 +19,7 @@
                                                          collect interaction)
                                                    (interactions entity))))))
 
-(define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity)
+(define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity resizable)
   ((name :initform (generate-name "INTERACTABLE"))))
 
 (defclass profile ()
