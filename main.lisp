@@ -97,7 +97,7 @@
           (launch))
         (launch))))
 
-(defmethod setup-scene ((main main) scene)
+(defmethod setup-scene ((main main) (scene world))
   (enter (make-instance 'fade) scene)
   (enter (make-instance 'camera) scene)
   (let ((shadow (make-instance 'shadow-map-pass))
