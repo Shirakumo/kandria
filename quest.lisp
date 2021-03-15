@@ -20,8 +20,8 @@
     (dotimes (i count)
       (spawn (region +world+) (clone first)))))
 
-(defmethod spawn ((region region) (entity entity) &key)
-  (enter* entity region))
+(defmethod spawn ((container container) (entity entity) &key)
+  (enter* entity container))
 
 (defmethod spawn ((marker located-entity) type &rest initargs)
   (apply #'spawn (location marker) type initargs))
