@@ -329,6 +329,9 @@
   (when task
     (setf (find-trigger name task) trigger)))
 
+(defmethod find-named (name (trigger trigger) &optional (error T))
+  (find-named name (task trigger) error))
+
 (defmethod reset progn ((trigger trigger))
   (setf (status trigger) :inactive))
 

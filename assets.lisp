@@ -58,6 +58,7 @@
 (define-pixel pixelfont)
 (define-pixel ball)
 (define-pixel grass)
+(define-pixel logos)
 
 (define-animation box)
 (define-animation player)
@@ -129,8 +130,24 @@
              20 (0.21568628 0.24705882 0.3882353)
              24 (0.0627451 0.0 0.23921569)))
 
+(define-gi extradark
+  :attenuation 2.0
+  :location 'player
+  :light-multiplier 0.5
+  :light (vec 1.5 1 0.5)
+  :ambient-multiplier 0.001
+  :ambient (vec 0.5 0.4 0.4))
+
 (define-gi dark
-  :attenuation 0.7
+  :attenuation 0.8
+  :location 'player
+  :light-multiplier 1.5
+  :light (vec 1.5 1 0.5)
+  :ambient-multiplier 0.2
+  :ambient (vec 0.5 0.4 0.4))
+
+(define-gi medium
+  :attenuation 0.3
   :location 'player
   :light-multiplier 1.0
   :light (vec 1.5 1 0.5)
@@ -184,3 +201,9 @@
   :parallax (vec 1.0 1.0)
   :scaling (vec 0.5 0.5)
   :offset (vec 0 0))
+
+(define-bg hub
+  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge)
+  :offset (vec -800 4220)
+  :parallax (vec 1.0 1.0)
+  :lighting-strength 0.75)

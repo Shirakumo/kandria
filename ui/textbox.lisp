@@ -137,10 +137,14 @@
         do (let* ((choice choice) (target target)
                   (button (alloy:represent choice 'dialog-choice)))
              (alloy:on alloy:activate (button)
-               (setf (ip textbox) target)
                (setf (text textbox) (clear-text-string))
                (setf (choices textbox) ())
                (harmony:play (// 'kandria 'advance))
+               (etypecase target
+                 (integer
+                  (setf (ip textbox) target))
+                 (quest:interaction
+                  (setf (interaction textbox) target)))
                (advance textbox))
              (alloy:enter button (choices textbox))))
   (setf (alloy:index (choices textbox)) 0)

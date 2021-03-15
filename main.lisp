@@ -3,7 +3,7 @@
 (defclass main (org.shirakumo.fraf.trial.steam:main
                 org.shirakumo.fraf.trial.notify:main)
   ((scene :initform NIL)
-   (state :accessor state)
+   (state :initarg :state :initform NIL :accessor state)
    (quicksave :initform (make-instance 'quicksave-state :play-time 0) :accessor quicksave)
    (timestamp :initform (get-universal-time) :accessor timestamp)
    (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL))
@@ -13,7 +13,7 @@
    :title #.(format NIL "Kandria - ~a" (version :kandria))
    :app-id 1261430))
 
-(defmethod initialize-instance ((main main) &key state app-id)
+(defmethod initialize-instance ((main main) &key app-id)
   (declare (ignore app-id))
   (setf +main+ main)
   (call-next-method)
@@ -23,14 +23,7 @@
   ;; FIXME: Allow running without sound.
   (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)))
   (loop for (k v) on (setting :audio :volume) by #'cddr
-        do (setf (harmony:volume k) v))
-  ;; Load initial state
-  (cond (state
-         (load-state state main))
-        (T
-         (load-state (initial-state (scene main)) main)
-         (save-state main (quicksave main))
-         (make-instance 'save-state))))
+        do (setf (harmony:volume k) v)))
 
 (defmethod update ((main main) tt dt fc)
   (issue (scene main) 'tick :tt tt :dt (* (time-scale (scene main)) (float dt 1.0)) :fc fc)
@@ -104,7 +97,7 @@
           (launch))
         (launch))))
 
-(defmethod setup-scene ((main main) scene)
+(defmethod setup-scene ((main main) (scene world))
   (enter (make-instance 'fade) scene)
   (enter (make-instance 'camera) scene)
   (let ((shadow (make-instance 'shadow-map-pass))
@@ -130,11 +123,14 @@
   (register (make-instance 'walkntalk) scene)
   (show (make-instance 'status-lines))
   #++
-  (show (make-instance 'report-button)))
+  (show (make-instance 'report-button))
+  (load-state (or (state main) (initial-state scene)) main)
+  (save-state main (quicksave main)))
 
 (defmethod change-scene :after ((main main) scene &key)
   (let ((region (region scene)))
-    (setf (chunk-graph region) (make-chunk-graph region))))
+    (when region
+      (setf (chunk-graph region) (make-chunk-graph region)))))
 
 (defun apply-video-settings ()
   (destructuring-bind (&key resolution width height fullscreen vsync ui-scale) (setting :display)

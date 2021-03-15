@@ -56,7 +56,10 @@
 
 (defmethod next-interaction ((dialog dialog))
   (setf (ip dialog) 0)
-  (let ((interactions (interactions dialog)))
+  (let ((interactions (loop for interaction in (interactions dialog)
+                            when (or (repeatable-p interaction)
+                                     (quest:active-p interaction))
+                            collect interaction)))
     (cond ((or (null interactions)
                (and (one-shot dialog)
                     (loop for interaction in interactions
@@ -64,28 +67,15 @@
            ;; If we have no interactions anymore, or we started
            ;; out with one and now only have dones, hide.
            (hide dialog))
-          ((null (rest interactions))
-           ;; If there's only one interaction, just run it.
-           (setf (interaction dialog) (first interactions)))
           (T
            ;; If we have multiple show choice.
-           (alloy:clear (choices dialog))
-           (loop for interaction in interactions
-                 do (let* ((interaction interaction)
-                           (label (quest:title interaction))
-                           (button (alloy:represent label 'dialog-choice)))
-                      (alloy:on alloy:activate (button)
-                        (setf (interaction dialog) interaction)
-                        (alloy:clear (choices dialog)))
-                      (alloy:enter button (choices dialog))))
+           (setf (choices dialog)
+                 (cons (mapcar #'quest:title interactions) interactions))
            (let* ((label (string (prompt-char :left :bank :keyboard)))
                   (button (alloy:represent label 'dialog-choice)))
              (alloy:on alloy:activate (button)
                (hide dialog))
-             (alloy:enter button (choices dialog)))
-           (setf (alloy:index (choices dialog)) 0)
-           (setf (alloy:focus (choices dialog)) :strong)
-           (setf (prompt dialog) (string (prompt-char :right :bank :keyboard)))))))
+             (alloy:enter button (choices dialog)))))))
 
 (defmethod handle ((ev advance) (dialog dialog))
   (cond ((/= 0 (alloy:element-count (choices dialog)))

@@ -31,7 +31,8 @@
 (define-gl-struct bg
   (parallax :vec2 :accessor parallax)
   (scaling :vec2 :accessor scaling)
-  (offset :vec2 :accessor offset))
+  (offset :vec2 :accessor offset)
+  (lighting-strength :float :accessor lighting-strength))
 
 (define-gl-struct backgrounds
   (a (:struct bg) :reader a)
@@ -58,7 +59,8 @@
             :type vec2)
    (offset :initform (vec 0 0) :initarg :offset :accessor offset
            :type vec2)
-   (clock :initform '(0 24) :initarg :clock :accessor clock)))
+   (clock :initform '(0 24) :initarg :clock :accessor clock)
+   (lighting-strength :initform 1.0 :initarg :lighting-strength :accessor lighting-strength)))
 
 (defmethod stage :after ((single background-single) (area staging-area))
   (stage (texture single) area))
@@ -93,6 +95,9 @@
 
 (defmethod offset ((bundle background-bundle))
   (offset (background bundle)))
+
+(defmethod lighting-strength ((bundle background-bundle))
+  (lighting-strength (background bundle)))
 
 (defmethod active-p ((bundle background-bundle))
   (background bundle))
@@ -135,7 +140,8 @@
                (setf (texture-a background) (or (texture-b background) (texture info)))
                (setf (parallax a) (parallax b))
                (setf (scaling a) (scaling b))
-               (setf (offset a) (offset b)))
+               (setf (offset a) (offset b))
+               (setf (lighting-strength a) (lighting-strength b)))
               (T
                (setf (texture-a background) (or (texture-b background) (texture info)))
                (setf (mix backgrounds) 1.0)))
@@ -143,7 +149,8 @@
         (setf (texture-b background) (texture info))
         (setf (parallax b) (parallax info))
         (setf (scaling b) (scaling info))
-        (setf (offset b) (offset info))))))
+        (setf (offset b) (offset info))
+        (setf (lighting-strength b) (lighting-strength info))))))
 
 (defmethod handle ((ev switch-chunk) (background background))
   (setf (background background) (background (chunk ev)))
@@ -168,9 +175,11 @@ uniform mat4 view_matrix;
 uniform vec2 view_size;
 out vec2 map_coord_a;
 out vec2 map_coord_b;
+out vec2 world_xy;
 
 void main(){
   gl_Position = vec4(vertex, 1);
+  world_xy = (view_matrix*vec4(vertex_uv*view_size,0,1)).xy;
   // We start in view-space, so we have to inverse-map to world-space.
   vec2 size_a = textureSize(texture_a, 0).xy;
   map_coord_a = (view_matrix * vec4(vertex_uv*view_size*backgrounds.a.parallax, 0, 1)).xy;
@@ -189,11 +198,14 @@ void main(){
 uniform sampler2D texture_b;
 in vec2 map_coord_a;
 in vec2 map_coord_b;
+in vec2 world_xy;
 out vec4 color;
 
 void main(){
+  // FIXME: this does not transition right.
+  float lighting_strength = backgrounds.b.lighting_strength;
   vec4 color_a = texture(texture_a, map_coord_a);
   vec4 color_b = texture(texture_b, map_coord_b);
   color = mix(color_a, color_b, backgrounds.mix);
-  color = apply_lighting(color, vec2(0), 0, vec2(0), vec2(0));
+  color = apply_lighting(color, vec2(0), 1-lighting_strength, vec2(0), world_xy);
 }")

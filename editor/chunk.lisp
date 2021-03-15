@@ -128,7 +128,7 @@
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
 
 (defmethod applicable-tools append ((_ chunk))
-  '(paint line move-to))
+  '(paint rectangle line move-to))
 
 (defmethod default-tool ((_ chunk))
   'freeform)

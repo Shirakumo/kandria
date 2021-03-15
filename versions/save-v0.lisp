@@ -12,14 +12,17 @@
                                :element-type 'character)
       (princ* (list :region (name region)
                     :clock (clock world)
-                    :timestamp (timestamp world))
+                    :timestamp (timestamp world)
+                    :zoom (zoom (unit :camera world)))
               stream))))
 
 (define-decoder (world save-v0) (_b packet)
-  (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)))
+  (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)) (zoom 1.0))
       (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
     (setf (clock world) clock)
     (setf (timestamp world) timestamp)
+    (setf (zoom (unit :camera world)) zoom)
+    (setf (intended-zoom (unit :camera world)) zoom)
     (let* ((region (cond ((and (region world) (eql region (name (region world))))
                           ;; Ensure we trigger necessary region reset events even if we're still in the same region.
                           (issue world 'switch-region :region (region world))
@@ -93,7 +96,7 @@
                           (when (typep entity 'container)
                             (recurse entity)))
                          (T
-                          (add create-new (list* (name parent) (type-of entity) (encode entity))))))))
+                          (add create-new (encode entity)))))))
         (recurse region)))
     (list :create-new (rest create-new)
           :ephemeral (rest ephemeral))))
@@ -110,10 +113,9 @@
                      (container (recurse entity))))))
         (recurse region)))
     ;; Add new entities that exist in the state
-    (loop for (name type . state) in create-new
-          for parent = (unit name (scene-graph region))
+    (loop for (type . state) in create-new
           for entity = (decode-payload state (make-instance type) packet save-v0)
-          do (enter* entity parent))
+          do (enter* entity region))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
           for unit = (unit name region)
@@ -193,3 +195,5 @@
 
 (define-decoder (trigger save-v0) (initargs _)
   (setf (active-p trigger) (getf initargs :active-p)))
+
+(define-slot-coders (item save-v0) ((location :type vec2)))

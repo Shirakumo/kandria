@@ -61,7 +61,7 @@
          (setf (clock-scale +world+) 60)
          NIL)))
 
-(define-cheat chaos\ control "You're the fake hedgehog"
+(define-cheat matrix "Enter the matrix"
   (cond ((<= 0.9 (time-scale +world+))
          (setf (time-scale +world+) 0.1))
         (T
@@ -79,3 +79,15 @@
 (define-cheat self-destruct "Self destruct initiated."
   (trigger 'explosion (unit 'player T))
   (setf (health (unit 'player T)) 1))
+
+(flet ((noclip ()
+         (setf (state (unit 'player T))
+               (case (state (unit 'player T))
+                 (:noclip :normal)
+                 (T :noclip)))
+         (eql (state (unit 'player T)) :noclip)))
+  (define-cheat noclip "Noclip"
+    (noclip))
+
+  (define-cheat SPISPOPD "Smashing Pumpkins Into Small Piles Of Putrid Debris"
+    (noclip)))

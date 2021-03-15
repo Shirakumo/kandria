@@ -181,6 +181,7 @@
       (#\f (setf (tool editor) 'freeform))
       (#\p (setf (tool editor) 'paint))
       (#\l (setf (tool editor) 'line))
+      (#\r (setf (tool editor) 'rectangle))
       (#\+ (incf (alloy:value (slot-value (menu editor) 'zoom)) 0.1))
       (#\- (decf (alloy:value (slot-value (menu editor) 'zoom)) 0.1)))))
 

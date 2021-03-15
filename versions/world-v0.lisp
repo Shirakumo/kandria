@@ -61,7 +61,9 @@
   (destructuring-bind (&key name location size tile-data pixel-data layers background gi) initargs
     (let ((graph (when (packet-entry-exists-p (format NIL "data/~a.graph" name) packet)
                    (with-packet-entry (stream (format NIL "data/~a.graph" name) packet :element-type '(unsigned-byte 8))
-                     (decode-payload stream 'node-graph packet 'binary-v0)))))
+                     (handler-case (decode-payload stream 'node-graph packet 'binary-v0)
+                       (error ()
+                         (v:error :kandria.serializer "Failed to read node-graph for ~a" name)))))))
       (make-instance 'chunk :name name
                             :location (decode 'vec2 location)
                             :size (decode 'vec2 size)
@@ -144,7 +146,7 @@
 (define-slot-coders (grass-patch world-v0) ((location :type vec2) (bsize :type vec2) patches (tile-size :type vec2) (tile-start :type vec2) tile-count))
 (define-slot-coders (trigger world-v0) (name active-p (location :type vec2) (bsize :type vec2)))
 (define-additional-slot-coders (story-trigger world-v0) (story-item target-status))
-(define-additional-slot-coders (tween-trigger world-v0) (left right))
+(define-additional-slot-coders (tween-trigger world-v0) (left right ease-fun horizontal))
 (define-additional-slot-coders (interaction-trigger world-v0) (interaction))
 (define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
 (define-additional-slot-coders (earthquake-trigger world-v0) (duration))
