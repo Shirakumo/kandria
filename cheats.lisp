@@ -84,4 +84,5 @@
   (setf (state (unit 'player T))
         (case (state (unit 'player T))
           (:noclip :normal)
-          (T :noclip))))
+          (T :noclip)))
+  (eql (state (unit 'player T)) :noclip))
