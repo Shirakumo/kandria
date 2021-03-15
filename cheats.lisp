@@ -79,3 +79,9 @@
 (define-cheat self-destruct "Self destruct initiated."
   (trigger 'explosion (unit 'player T))
   (setf (health (unit 'player T)) 1))
+
+(define-cheat noclip "Noclip"
+  (setf (state (unit 'player T))
+        (case (state (unit 'player T))
+          (:noclip :normal)
+          (T :noclip))))

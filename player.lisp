@@ -259,6 +259,10 @@
        ((heavy-ground-1 heavy-ground-2 heavy-aerial-1 heavy-aerial-2) T)
        (T NIL)))))
 
+(defmethod collides-p :around ((player player) thing hit)
+  (unless (eql :noclip (state player))
+    (call-next-method)))
+
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
     (execute-path player ev)
@@ -319,6 +323,13 @@
           (hide (prompt player))))
     ;; Handle states.
     (ecase (state player)
+      (:noclip
+       (setf (animation player) 't-pose)
+       (vsetf vel 0 0)
+       (when (retained 'left) (setf (vx vel) (- (vx (p! velocity-limit)))))
+       (when (retained 'right) (setf (vx vel) (+ (vx (p! velocity-limit)))))
+       (when (retained 'up) (setf (vy vel) (+ (vx (p! velocity-limit)))))
+       (when (retained 'down) (setf (vy vel) (- (vx (p! velocity-limit))))))
       (:oob
        (vsetf vel 0 0))
       ((:dying :stunned)
@@ -686,7 +697,8 @@
   (switch-chunk new))
 
 (defmethod oob ((player player) (none null))
-  (unless (find-panel 'editor)
+  (unless (or (find-panel 'editor)
+              (eql :noclip (state player)))
     (setf (state player) :oob)
     (transition (respawn player))))
 
