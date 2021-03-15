@@ -216,6 +216,12 @@
      (transition
        (respawn player)))))
 
+(defmethod collides-p ((player player) (block platform) hit)
+  (and (call-next-method)
+       (not (and (retained 'down)
+                 (retained 'jump)
+                 (< 0.01 (air-time player))))))
+
 (defmethod idleable-p ((player player))
   (and (call-next-method)
        (not (or (retained 'up)
@@ -252,6 +258,10 @@
      (case (name (animation player))
        ((heavy-ground-1 heavy-ground-2 heavy-aerial-1 heavy-aerial-2) T)
        (T NIL)))))
+
+(defmethod collides-p :around ((player player) thing hit)
+  (unless (eql :noclip (state player))
+    (call-next-method)))
 
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
@@ -313,6 +323,13 @@
           (hide (prompt player))))
     ;; Handle states.
     (ecase (state player)
+      (:noclip
+       (setf (animation player) 't-pose)
+       (vsetf vel 0 0)
+       (when (retained 'left) (setf (vx vel) (- (vx (p! velocity-limit)))))
+       (when (retained 'right) (setf (vx vel) (+ (vx (p! velocity-limit)))))
+       (when (retained 'up) (setf (vy vel) (+ (vx (p! velocity-limit)))))
+       (when (retained 'down) (setf (vy vel) (- (vx (p! velocity-limit))))))
       (:oob
        (vsetf vel 0 0))
       ((:dying :stunned)
@@ -385,7 +402,8 @@
       (:dashing
        (incf (dash-time player) dt)
        (setf (jump-time player) 100.0)
-       (setf (run-time player) 0.0)
+       ;; (when (< (p! run-time) (run-time player))
+       ;;   (setf (run-time player) 0.0))
        (or (when (< (dash-time player) (p! dash-evade-grace-time))
              (handle-evasion player))
            (cond ((or (< (p! dash-max-time) (dash-time player))
@@ -679,7 +697,8 @@
   (switch-chunk new))
 
 (defmethod oob ((player player) (none null))
-  (unless (find-panel 'editor)
+  (unless (or (find-panel 'editor)
+              (eql :noclip (state player)))
     (setf (state player) :oob)
     (transition (respawn player))))
 

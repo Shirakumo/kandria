@@ -191,7 +191,8 @@
   (load-region (name (unit 'region world)) world))
 
 (defmethod load-region :around ((packet packet) (world world))
-  (let ((old-region (unit 'region world)))
+  (let ((old-region (unit 'region world))
+        (*scene* world))
     (restart-case
         (prog1 (call-next-method)
           ;; KLUDGE: Re-activate quests to populate interactions

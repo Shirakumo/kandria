@@ -18,7 +18,10 @@
     ;; FIXME: speedup by caching which classes have already been loaded?
     (trial:commit first (loader +main+) :unload NIL)
     (dotimes (i count)
-      (enter* (clone first) (region +world+)))))
+      (spawn (region +world+) (clone first)))))
+
+(defmethod spawn ((container container) (entity entity) &key)
+  (enter* entity container))
 
 (defmethod spawn ((marker located-entity) type &rest initargs)
   (apply #'spawn (location marker) type initargs))
@@ -123,12 +126,12 @@
                (setf (location (unit thing +world+)) loc)))
        ,form)))
 
-(defun task-wrap-lexenv (form)
+(defun task-wrap-lexenv (form &optional (task 'task))
   `(flet ((thing (thing)
-            (if (and thing (symbolp thing)) (quest:find-named thing task) thing)))
-     (flet* ((var (name &optional default thing)
+            (if (and thing (symbolp thing)) (quest:find-named thing ,task) thing)))
+     (flet* ((var (name &optional default (thing ,task))
                (quest:var name (thing thing) default))
-             ((setf var) (value name &optional thing)
+             ((setf var) (value name &optional (thing ,task))
                (setf (quest:var name (thing thing)) value))
              (activate (&rest things)
                (loop for thing in things do (quest:activate (thing thing))))
@@ -157,7 +160,7 @@
                          (all-complete (loop for trigger being the hash-values of (quest:triggers task)
                                              always (eql :complete (quest:status trigger)))))
                     (declare (ignorable task quest all-complete))
-                    ,(task-wrap-lexenv form)))))
+                    ,(task-wrap-lexenv form 'task)))))
 
 (defmethod dialogue:wrap-lexenv ((assembly assembly) form)
   `(let* ((interaction ,(or (interaction assembly)
@@ -168,7 +171,7 @@
           (all-complete (loop for trigger being the hash-values of (quest:triggers task)
                               always (eql :complete (quest:status trigger)))))
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
-     ,(task-wrap-lexenv form)))
+     ,(task-wrap-lexenv form 'interaction)))
 
 (defmethod load-quest ((packet packet) (storyline quest:storyline))
   (with-kandria-io-syntax

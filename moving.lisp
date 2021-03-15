@@ -27,8 +27,13 @@
                (return))
              ;; KLUDGE: If we have too many collisions in a frame, we assume
              ;;         we're stuck somewhere, so just die.
-             (cond ((< 11 i) (die moving))
-                   ((< 10 i) (vsetf (frame-velocity moving) 0 0))))
+             (cond ((< 11 i)
+                    (v:warn :kandria.collision "~a has become permanently stuck, killing!" moving)
+                    (die moving))
+                   ((< 10 i)
+                    (v:warn :kandria.collision "~a has become stuck!" moving)
+                    (vsetf (frame-velocity moving) 0 0)
+                    (vsetf (velocity moving) 0 0))))
     (when (eq (svref collisions 2) (svref collisions 1))
       (setf (svref collisions 1) NIL))
     (when (eq (svref collisions 2) (svref collisions 3))
