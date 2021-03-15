@@ -61,7 +61,7 @@
          (setf (clock-scale +world+) 60)
          NIL)))
 
-(define-cheat chaos\ control "You're the fake hedgehog"
+(define-cheat matrix "Enter the matrix"
   (cond ((<= 0.9 (time-scale +world+))
          (setf (time-scale +world+) 0.1))
         (T

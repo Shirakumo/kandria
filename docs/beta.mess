@@ -61,6 +61,16 @@ You can quicksave and quickload at any time by pressing F5 and F9 respectively.
 
 You can press the section key (top left of your keyboard, below ESC) at any time to enter the "editor mode"(link editor.mess). Editor mode allows you to change the entire game, but most importantly, it allows you to reposition the player anywhere you want. In editor mode, hold Alt and drag to move the screen, and press H to move the player to the middle of the screen. You can also first select the player, and then drag to reposition.
 
+Another useful tool are various cheats in the game. Cheats are toggled by typing a code on your keyboard:
+
+- ``god`` Makes you invincible. You will no longer take damage
+- ``armageddon`` Make every enemy have 1HP
+- ``campfire`` Increase the in-game clock speed by 30x
+- ``matrix`` Slow down time to 0.1x
+- ``test`` Teleport to the testing room (if present)
+- ``self-destruct`` Sets your HP to 1.
+- ``noclip`` Deactivates collision and lets you float through levels quickly.
+
 Be sure to check this section in the future for additional tools, and let us know if you have an idea for more tools that would help ease the testing process.
 
 ## Privacy statement
