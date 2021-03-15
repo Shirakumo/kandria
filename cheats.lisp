@@ -80,9 +80,14 @@
   (trigger 'explosion (unit 'player T))
   (setf (health (unit 'player T)) 1))
 
-(define-cheat noclip "Noclip"
-  (setf (state (unit 'player T))
-        (case (state (unit 'player T))
-          (:noclip :normal)
-          (T :noclip)))
-  (eql (state (unit 'player T)) :noclip))
+(flet ((noclip ()
+         (setf (state (unit 'player T))
+               (case (state (unit 'player T))
+                 (:noclip :normal)
+                 (T :noclip)))
+         (eql (state (unit 'player T)) :noclip)))
+  (define-cheat noclip "Noclip"
+    (noclip))
+
+  (define-cheat SPISPOPD "Smashing Pumpkins Into Small Piles Of Putrid Debris"
+    (noclip)))
