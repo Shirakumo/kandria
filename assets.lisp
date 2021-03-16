@@ -65,6 +65,7 @@
 (define-animation fi)
 (define-animation catherine)
 (define-animation jack)
+(define-animation sahil)
 (define-animation wolf)
 (define-animation zombie)
 (define-animation ruddydrone)

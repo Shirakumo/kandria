@@ -91,6 +91,7 @@
                  (spritesheet "fi")
                  (spritesheet "catherine")
                  (spritesheet "jack")
+                 (spritesheet "sahil")
                  (spritesheet "wolf")
                  (spritesheet "effects")
                  (spritesheet "dummy")
