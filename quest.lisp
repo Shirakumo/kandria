@@ -184,3 +184,11 @@
                       (assert (eql 'quest identifier))
                       (coerce-version version)))))
         (setf (quest:find-quest (quest:name quest) storyline) quest)))))
+
+(defun check-quest-code ()
+  (handler-bind ((sb-ext:compiler-note #'muffle-warning))
+    (with-packet (packet (merge-pathnames "world/" (root)) :direction :input)
+      (let ((storyline (make-instance 'quest:storyline)))
+        (dolist (entry (list-entries "quests/" packet))
+          (with-packet (packet packet :offset entry)
+            (load-quest packet storyline)))))))
