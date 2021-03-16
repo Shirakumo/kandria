@@ -220,7 +220,7 @@
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
    (nametag :initform (@ trader-nametag)))
   (:default-initargs
-   :sprite-data (asset 'kandria 'fi)))
+   :sprite-data (asset 'kandria 'sahil)))
 
 (define-shader-entity pet (animatable ephemeral interactable)
   ())
