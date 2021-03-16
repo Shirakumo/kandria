@@ -51,8 +51,12 @@
     (stage (// 'kandria sound) area))
   (stage (prompt player) area))
 
-(defmethod enter :after ((player player) (medium medium))
-  (harmony:play (// 'kandria 'splash)))
+(defmethod (setf medium) :before ((medium medium) (player player))
+  (when (or (and (typep (medium player) 'water)
+                 (not (typep medium 'water)))
+            (and (not (typep (medium player) 'water))
+                 (typep medium 'water)))
+    (harmony:play (// 'kandria 'splash))))
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
