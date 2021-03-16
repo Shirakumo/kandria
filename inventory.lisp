@@ -129,3 +129,9 @@
 (defmethod item-order ((_ large-health-pack)) 2)
 
 (define-shader-entity can (item special-item) ())
+
+(define-shader-entity seeds (item quest-item) ())
+(define-shader-entity parts (item value-item) ())
+(define-shader-entity mushroom-good-1 (item quest-item) ())
+(define-shader-entity mushroom-good-2 (item quest-item) ())
+(define-shader-entity mushroom-bad-1 (item quest-item) ())
