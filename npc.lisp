@@ -214,6 +214,13 @@
 
 (defmethod (setf animation) ((_ (eql 'run)) (jack jack))
   (setf (animation jack) 'walk))
+  
+(define-shader-entity trader (npc)
+  ((name :initform 'trader)
+   (profile-sprite-data :initform (asset 'kandria 'fi-profile))
+   (nametag :initform (@ trader-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'sahil)))
 
 (define-shader-entity pet (animatable ephemeral interactable)
   ())

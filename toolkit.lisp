@@ -615,3 +615,16 @@
             (let ((pos (* (+ x (* y width)) 2)))
               (setf (aref map (+ pos 0)) (+ xo tx))
               (setf (aref map (+ pos 1)) (+ yo ty)))))))))
+
+(defmacro with-warning-report-for ((format &rest args) &body body)
+  (let ((warning (gensym "WARNING")))
+    `(handler-bind ((warning
+                      (lambda (,warning)
+                        (format T "
+--------------------------------------------------------------------------------
+  [~a] for ~?:
+~a"
+                                (type-of ,warning) ,format (list ,@args) ,warning)
+                        (muffle-warning ,warning)))
+                    )
+       ,@body)))
