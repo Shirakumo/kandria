@@ -160,6 +160,9 @@
                                           do (change-class frame 'frame :sexp frame-info))))))))
                  ;; Make sure all frames are in the correct class.
                  (loop for frame across (frames sprite)
-                       do (unless (typep frame 'frame) (change-class frame 'frame)))))))
+                       do (unless (typep frame 'frame) (change-class frame 'frame)))
+                 ;; Make sure all animations are in the correct class.
+                 (loop for animation across (animations sprite)
+                       do (unless (typep animation 'sprite-animation) (change-class animation 'sprite-animation)))))))
           (T
            (error "Wtf.")))))
