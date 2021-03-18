@@ -60,7 +60,7 @@
   | Don't ask me - I'm just an engineer. Though I did help install the irrigation.
   | Needless to say, growing crops in the desert isn't easy.
   | Heh, I knew you'd be impressed.
-- I've since these before. Lots of times.
+- I've seen these before. Lots of times.
   ~ catherine
   | Oh...? From the old world? Do you remember? I bet they had loads of plantations.
   ~ player
