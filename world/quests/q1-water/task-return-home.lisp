@@ -137,6 +137,7 @@
 | Anyway, I've got work to do. Feel free to have a look around, get to know people.
 | They'll soon see what I see - a big friendly badass, who can protect us from harm.
 | I think Fi might want a private word with you too. Just a hunch... something about the way she was looking at you.
+| Knowing Jack, he'll have something for you to do as well.
 | Seeya later!
 ! eval (move-to 'entity-5436 (unit 'catherine))
 ! eval (activate 'q2-intro)

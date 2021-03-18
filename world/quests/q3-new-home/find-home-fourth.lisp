@@ -1,5 +1,5 @@
 (:name find-home-fourth
- :title "Find the fourth location"
+ :title "Scout location Delta"
  :description NIL
  :invariant T
  :condition all-complete
@@ -10,7 +10,10 @@
 ; enemies on this quest will be world NPCs, not spawned for the quest
 (quest:interaction :name new-home-site-4 :interactable new-home-4 :dialogue "
 ~ player
-| //It's site 4.//
+| //It's new-home site Delta.//
+| //This would be perfect - sheltered, while also offering a vantage point from which to spy intruders.//
+| //They could also dig back through the wall here for more space.//
+| //But it's not possible for a human to reach here easily - especially not children, nor the elderly or infirm.//
 ? (complete-p 'find-home-first)
 | ? (complete-p 'find-home-second)
 | | ? (complete-p 'find-home-third)

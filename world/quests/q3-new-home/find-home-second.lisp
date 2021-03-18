@@ -1,5 +1,5 @@
 (:name find-home-second
- :title "Find the second location"
+ :title "Scout location Beta"
  :description NIL
  :invariant T
  :condition all-complete
@@ -10,7 +10,9 @@
 ; enemies on this quest will be world NPCs, not spawned for the quest
 (quest:interaction :name new-home-site-2 :interactable new-home-2 :dialogue "
 ~ player
-| //It's site 2.//
+| //It's new-home site Beta.//
+| //This position is favourable and well-concealed.//
+| //The ground is secure, but limited in footprint - and there's no shelter from the weather.//
 ? (complete-p 'find-home-first)
 | ? (complete-p 'find-home-third)
 | | ? (complete-p 'find-home-fourth)
