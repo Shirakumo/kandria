@@ -117,8 +117,6 @@
 ; todo has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
 (quest:interaction :name leak2-done :interactable entity-5627 :dialogue "
 ~ catherine
-| Are you okay?
-| Wow - you're a real badass!
 | I've done the weld - good as new.
 | Let's get to the reservoir.
 ! eval (spawn 'entity-5638 'zombie)
@@ -127,8 +125,10 @@
 ")
 #|
 
-
-
+|#
+#| cut in case dialogue prompted during fight:
+| Are you okay?
+| Wow - you're a real badass!
 |#
 
 ; trigger volume
@@ -155,8 +155,7 @@
 (quest:interaction :name catherine-fighttalk2 :interactable catherine :dialogue "
 ! eval (complete 'catherine-fighttalk2)
 ~ catherine
-| Smash 'em!
-| Don't let 'em get away!
+| Smash 'em! Don't let 'em get away!
 | --
 ! eval (activate 'leak3-fight-done)
 ")
@@ -166,17 +165,19 @@
 ; todo sometimes doesn't activate?
 (quest:interaction :name leak3-fight-done :interactable entity-5639 :dialogue "
 ~ catherine
-| That was sooo cool!
-| I hate to see them go down like that, but there's no reasoning with them.
-| We could sure use their spare parts too - grab what you can.
-| Alright, let me take a look at their handiwork.
+| Let me take a look at their handiwork.
 ! eval (activate 'leak3)
 ! eval (lead 'player 'entity-5638 (unit 'catherine))
 ")
 #|
 
 
+|#
 
+#| cut in case dialogue prompted during fight:
+| That was sooo cool!
+| I hate to see them go down like that, but there's no reasoning with them.
+| We could sure use their spare parts too - grab what you can.
 |#
 
 (quest:interaction :name leak3 :interactable entity-5638 :dialogue "
