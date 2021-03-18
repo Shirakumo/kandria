@@ -32,26 +32,50 @@
 # race-1
 ~ catherine
 | I planted an X nearby. Time starts now!
-! eval (activate 'race-one)
+? (not (complete-p 'race-one))
+| ! eval (activate 'race-one)
+|?
+| ! eval (setf (quest:status (thing 'race-one)) :inactive)
+| ! eval (setf (quest:status (thing 'race-one-return)) :inactive)
+| ! eval (activate 'race-one)
 # race-2
 ~ catherine
 | I planted an W at some distance. Time starts now!
-! eval (activate 'race-two)
+? (not (complete-p 'race-two))
+| ! eval (activate 'race-two)
+|?
+| ! eval (setf (quest:status (thing 'race-two)) :inactive)
+| ! eval (setf (quest:status (thing 'race-two-return)) :inactive)
+| ! eval (activate 'race-two)
 # race-3
 ~ catherine
 | I planted an Y at some distance. Time starts now!
-! eval (activate 'race-three)
+? (not (complete-p 'race-three))
+| ! eval (activate 'race-three)
+|?
+| ! eval (setf (quest:status (thing 'race-three)) :inactive)
+| ! eval (setf (quest:status (thing 'race-three-return)) :inactive)
+| ! eval (activate 'race-three)
 # race-4
 ~ catherine
 | I planted an Z a long way away. Time starts now!
-! eval (activate 'race-four)
+? (not (complete-p 'race-four))
+| ! eval (activate 'race-four)
+|?
+| ! eval (setf (quest:status (thing 'race-four)) :inactive)
+| ! eval (setf (quest:status (thing 'race-four-return)) :inactive)
+| ! eval (activate 'race-four)
 ")
 ; todo lock out later races based on whether you have gold or not on previous one, rather than merely whether you've attempted the previous one or not
 ; //NA - todo bug deactivating this task causes it's title to appear as another bullet point in the journal
 ; todo plant multiple objects, encouraging cheating
 ; todo add player queries for: best times in each bracket, pbs in each bracket, overall pb
 ; todo for bracket numbers use global quest vars, initiated at quest start
-
+; ! eval (activate 'race-one)
+; ! eval (setf (quest:status task) :unresolved)
+; ! eval (setf (quest:status 'race-one) :unresolved)
+; ! eval (setf (quest:status task ('race-one)) :unresolved)
+; ! eval (setf (quest:status (thing 'race-one)) :unresolved)
 #|
 
 
