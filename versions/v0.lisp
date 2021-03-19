@@ -48,7 +48,7 @@
 
 (defmethod decode-payload (_b (bindings (eql 'bindings)) _p (v0 v0))
   (loop for binding in _b
-        for (var type . val) = (enlist binding T)
+        for (var type val) = (enlist binding T)
         collect (cons var
                       (if (eql type T)
                           val
@@ -56,8 +56,8 @@
 
 (defmethod encode-payload ((bindings (eql 'bindings)) _b _p (v0 v0))
   (loop for (var . val) in _b
-        collect (cons var
-                      (etypecase val
-                        ((or string symbol number) (cons t val))
-                        (standard-object
-                         (cons (type-of val) (encode-payload val _b _p v0)))))))
+        collect (list* var
+                       (etypecase val
+                         ((or string symbol number) (list t val))
+                         (standard-object
+                          (list (type-of val) (encode-payload val _b _p v0)))))))
