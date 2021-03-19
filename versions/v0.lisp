@@ -47,9 +47,10 @@
         (name resource)))
 
 (defmethod decode-payload (_b (bindings (eql 'bindings)) _p (v0 v0))
-  (loop for (var type . val) in _b
+  (loop for binding in _b
+        for (var type . val) = (enlist binding T)
         collect (cons var
-                      (if (eql type t)
+                      (if (eql type T)
                           val
                           (decode-payload val (type-prototype type) _p v0)))))
 
