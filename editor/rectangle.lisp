@@ -47,7 +47,7 @@
     template))
 
 (defun create-tile-region (tile)
-  (destructuring-bind (x y w h) tile
+  (destructuring-bind (x y &optional (w 1) (h 1)) tile
     (let ((cache (make-array (list w h))))
       (loop for i from 0 below h
             do (loop for j from 0 below w
@@ -60,17 +60,22 @@
          (loc (if (show-solids entity)
                   loc
                   (vec (vx loc) (vy loc) (layer (sidebar (editor tool)))))))
-    (when (tile loc entity)
-      (setf (state tool) :placing)
-      (unless (start-pos tool)
-        (setf (start-pos tool) loc)
-        (setf (end-pos tool) loc)
-        (setf (car (cache tool)) (create-tile-region (tile-to-place tool)))
-        (setf (cdr (cache tool)) NIL))
-      (when (v/= (end-pos tool) loc)
-        (when (cdr (cache tool))
-          (repeat-tile-region entity (start-pos tool) (end-pos tool) (cdr (cache tool))))
-        (setf (end-pos tool) loc)
-        (setf (cdr (cache tool)) (cache-tile-region entity (start-pos tool) (end-pos tool)))
-        (repeat-tile-region entity (start-pos tool) (end-pos tool) (car (cache tool))
-                            (retained :shift))))))
+    (cond ((null (tile loc entity)))
+          ((and (typep event 'mouse-press) (eql :middle (button event)))
+           (setf (tile-to-place (sidebar (editor tool)))
+                 (tile loc entity)))
+          (T
+           (setf (state tool) :placing)
+           (unless (start-pos tool)
+             (setf (start-pos tool) loc)
+             (setf (end-pos tool) loc)
+             (setf (car (cache tool)) (create-tile-region (tile-to-place tool)))
+             (setf (cdr (cache tool)) NIL))
+           (when (v/= (end-pos tool) loc)
+             (when (cdr (cache tool))
+               (repeat-tile-region entity (start-pos tool) (end-pos tool) (cdr (cache tool))))
+             (setf (end-pos tool) loc)
+             (setf (cdr (cache tool)) (cache-tile-region entity (start-pos tool) (end-pos tool)))
+             (when (car (cache tool))
+               (repeat-tile-region entity (start-pos tool) (end-pos tool) (car (cache tool))
+                                   (retained :shift))))))))
