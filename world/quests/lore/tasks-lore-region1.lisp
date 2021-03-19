@@ -6,7 +6,8 @@
  :description "I should locate points of interest, to educate myself about this new world."
  :invariant T
  :condition NIL
- :on-activate (storage-shelves stone-gate-large housing-apartment housing-roof housing-stairs housing-kitchen housing-cafe ruins-view engineering-shelves engineering-bench farm-view sandstorm-view))
+ :on-activate (storage-shelves stone-gate-large housing-apartment housing-roof housing-stairs housing-kitchen housing-cafe ruins-view engineering-shelves engineering-bench farm-view sandstorm-view)
+)
 
 ; add lore triggers to on-activate - just sprinkle for now, until final level design (activate now, so player can explore freely initially, if they want - or encounter them later)
 ; occasional branching within, based on world state

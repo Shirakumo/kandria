@@ -7,15 +7,13 @@
  :on-complete NIL
 )
 
-(quest:interaction :name talk-catherine :title "Can we talk?" :interactable catherine :repeatable T :dialogue "
+(quest:interaction :name talk-catherine :title "Talk to Catherine" :interactable catherine :repeatable T :dialogue "
 ~ catherine
-| [? Sure thing, Stranger. How are you? | We sure can. How's it going? | You bet we can! How's you?]
+| [? Hey, Stranger. How are you? | Hey you, how's it going? | So, how's you?]
 ~ player
 - Can I help you with anything?
   < choices
 - I'm good thank you.
-  ~ catherine
-  | Glad to hear it.
   < continue
 - It's nice to see you again.
   ~ catherine
@@ -51,11 +49,11 @@
 | |?
 | | | Remember, any time you want to race we've got the time trial sweepstake too!
 | ~ player
-| - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) I'll fix the leaks.|]
+| - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) //Fix the leaks//|]
 |   ~ catherine
 |   | Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
-|   | Just follow the supply pipe down like we did before.
-|   | These leaks aren't too far away, so you'll be within radio range. You want to take a walkie, or use your FFCS?
+|   | Just follow the pipe down like we did before. And you can already weld from your fingertips, right? So you should be good to go.
+|   | These leaks aren't too far away, so you'll be within radio range. You want to take a walkie, or just use your FFCS?
 |   ~ player
 |   - I'll take a walkie.
 |     ~ catherine
@@ -67,7 +65,7 @@
 |   ~ catherine
 |   | Let me know what you find. Good luck!
 |   ! eval (activate 'sq1-leaks)
-| - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) I'll get the mushrooms.|]
+| - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) //Forage for mushrooms//|]
 |   ~ catherine
 |   | Awesome! They grow in the caves below the settlement, in the dim light and plentiful moisture.
 |   | Edible mushrooms like Honey Fungus can sustain us even if the crop fails. They're all we used to eat before we moved to the surface.
@@ -76,14 +74,14 @@
 |   | Some are deadly poisonous though, like the Grey Knight. Avoid those if you can.
 |   | Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
-| - [(not (active-p 'sq3-race)) I'm intrigued about the time trials.|]
+| - [(not (active-p 'sq3-race)) //Time trials//|]
 |   ~ catherine
-|   | Heh, I knew you would be. We are too - can't wait to see what an almost fully-functional android can do in anger!
+|   | Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do in anger!
 |   | I'll record your results for posterity too! This is anthropology!
 |   | Come back soon, once I've talked to my friends. We need to plan the first route, and organise the sweepstake.
 |   | This is sooo exciting!
 |   ! eval (activate 'sq3-race)
-| - I'll pass for now.
+| - //Nothing for now//
 |   ~ catherine
 |   | That's cool. Just let me know if you want something to do.
 |?

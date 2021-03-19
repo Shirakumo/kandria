@@ -27,12 +27,13 @@
 | Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras!
 ~ player
 | //Catherine welds the crack with steady hands.//
-- //Look at the flame.//
+- //Enable UV filters//
+  | //I see the dull glow, and hear sparks crackle and spit.//
+- //Don't enable filters//
   | //It's like staring into the sun. Into the centre of a catacylsm.//
   ! eval (when (< 5 (health player)) (hurt player 5))
+  ! eval (setf (var 'weld-burn) T)
   | //I think that damaged my cameras a little... Oh well.//
-- //Don't look.//
-  | //I hear sparks crackle and spit.//
 ~ catherine
 | That should hold it.
 ~ catherine
