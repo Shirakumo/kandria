@@ -59,6 +59,7 @@
 (define-pixel ball)
 (define-pixel grass)
 (define-pixel logos)
+(define-pixel elevator)
 
 (define-animation box)
 (define-animation player)
