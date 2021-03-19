@@ -10,7 +10,8 @@
 (quest:interaction :name leaks-return :title "I fixed the leaks" :interactable catherine :dialogue "
 ~ catherine
 | Yay! leaks fixed
-! eval (deactivate 'leaks-return)
+? (have 'walkie-talkie)
+| ! eval (retrieve 'walkie-talkie 1)
 ")
 ; todo rewards
 #|
@@ -18,6 +19,7 @@ todo is it okay that Catherine breaks off convo here, and to access more sideque
 should be able to choose which ones you want to hand in and in what order? but the necessary var checks to accomodate those options would mean all these sidequests need housing under a single quest folder, and all their tasks list would overlap
 - could use var checks? though they only check hierarchical, not between tasks?
 Also means that sq return dialogues cannot be repeatable - having to fire once only, to then allow user to get back to sq hub
+! eval (deactivate 'leaks-return)
 |#
 
 #|

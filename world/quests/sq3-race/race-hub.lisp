@@ -66,6 +66,7 @@
 | ! eval (setf (quest:status (thing 'race-four-return)) :inactive)
 | ! eval (activate 'race-four)
 ")
+; todo allow play to opt out of first race encountered, not forced
 ; todo lock out later races based on whether you have gold or not on previous one, rather than merely whether you've attempted the previous one or not
 ; //NA - todo bug deactivating this task causes it's title to appear as another bullet point in the journal
 ; todo plant multiple objects, encouraging cheating
