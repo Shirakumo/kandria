@@ -42,7 +42,7 @@
 (grass-patch :location (-864.0 -2464.0) :bsize (592.0 16.0) :patches 296 :tile-size (4.0 32.0) :tile-start (0.0 0.0) :tile-count 8)
 (textured-light :multiplier 1.0 :texture (kandria lights t) :location (3264.0 -6368.0) :size (96.0 96.0) :bsize (48.0 48.0) :offset (0.0 48.0))
 (textured-light :multiplier 1.0 :texture (kandria lights t) :location (-2040.0 -5688.0) :size (80.0 48.0) :bsize (40.0 24.0) :offset (112.0 0.0))
-(elevator :location (992.0 -5480.0) :texture (kandria placeholder t) :size (16.0 16.0) :bsize (48.0 8.0) :offset (0.0 0.0) :layer 1 :name nil)
+(elevator :location (992.0 -5496.0) :texture (kandria elevator t) :size (96.0 32.0) :bsize (48.0 8.0) :offset (0.0 0.0) :layer 3 :name nil)
 (interactable-sprite :location (3224.0 -2288.0) :texture (kandria camp albedo) :size (16.0 16.0) :bsize (40.0 72.0) :offset (0.0 0.0) :layer 1 :name new-home-1)
 (interactable-sprite :location (4232.0 -2056.0) :texture (kandria camp albedo) :size (16.0 16.0) :bsize (40.0 32.0) :offset (0.0 0.0) :layer 1 :name new-home-2)
 (interactable-sprite :location (4784.0 -2912.0) :texture (kandria camp albedo) :size (16.0 16.0) :bsize (48.0 32.0) :offset (0.0 0.0) :layer 1 :name new-home-3)
