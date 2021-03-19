@@ -10,6 +10,7 @@
    #:reset
    #:parent
    #:binding
+   #:merge-bindings
    #:var
    #:describable
    #:name
