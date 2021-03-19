@@ -37,14 +37,14 @@
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
                              :element-type 'character)
-    (princ* (encode-payload 'bindings (quest:bindings quest:storyline) packet save-v0) stream)
+    (princ* `(:variables ,(encode-payload 'bindings (quest:bindings quest:storyline) packet save-v0)) stream)
     (loop for quest being the hash-values of (quest:quests quest:storyline)
           do (princ* (encode quest) stream))))
 
 (define-decoder (quest:storyline save-v0) (_b packet)
-  (destructuring-bind (bindings . quests) (parse-sexps (packet-entry "storyline.lisp" packet
+  (destructuring-bind ((&key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
                                                                      :element-type 'character))
-    (setf (quest:bindings quest:storyline) (decode-payload bindings 'bindings packet save-v0))
+    (setf (quest:bindings quest:storyline) (decode-payload variables 'bindings packet save-v0))
     (loop for (name . initargs) in quests
           for quest = (quest:find-quest name quest:storyline)
           do (decode quest initargs))))
