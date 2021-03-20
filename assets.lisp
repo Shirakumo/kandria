@@ -60,6 +60,7 @@
 (define-pixel grass)
 (define-pixel logos)
 (define-pixel elevator)
+(define-pixel player-palette)
 
 (define-animation box)
 (define-animation player)
