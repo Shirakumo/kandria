@@ -222,6 +222,7 @@
 
 (defmethod collides-p ((player player) (block platform) hit)
   (and (call-next-method)
+       (not (typep (interactable player) 'elevator))
        (not (and (retained 'down)
                  (retained 'jump)
                  (< 0.01 (air-time player))))))
@@ -308,6 +309,8 @@
     ;; Interaction checks
     ;; FIXME: Optimise with spatial lookup
     (setf (interactable player) NIL)
+    (when (and ground (interactable-p ground))
+      (setf (interactable player) ground))
     (for:for ((entity over (region +world+)))
       (typecase entity
         (interactable

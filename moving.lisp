@@ -189,3 +189,4 @@
            (setf (vx loc) (- (vx pos) (vx psize) (vx bsize)))))))
 
 (defmethod collides-p ((moving moving) (stopper stopper) hit) NIL)
+(defmethod interactable-p ((elevator elevator)) T)
