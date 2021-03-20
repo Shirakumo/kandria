@@ -79,10 +79,11 @@
   (setf (interactable player) elevator))
 
 (defmethod collide ((elevator elevator) (block block) hit)
-  (let ((vel (frame-velocity elevator)))
-    (setf (state elevator) :normal)
-    (nv+ (location elevator) (v* vel (hit-time hit)))
-    (vsetf vel 0 0)))
+  (unless (typep block 'platform)
+    (let ((vel (frame-velocity elevator)))
+      (setf (state elevator) :normal)
+      (nv+ (location elevator) (v* vel (hit-time hit)))
+      (vsetf vel 0 0))))
 
 (defmethod interact ((elevator elevator) thing)
   (case (state elevator)

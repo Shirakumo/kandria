@@ -6,6 +6,9 @@
 (defgeneric interact (with from))
 (defgeneric interactable-p (entity))
 
+(defmethod interactable-p ((entity entity)) NIL)
+(defmethod interactable-p ((block block)) NIL)
+
 (defclass dialog-entity (interactable)
   ((interactions :initform () :accessor interactions)))
 
