@@ -107,7 +107,7 @@
       T)))
 
 (defmethod handle ((ev dash) (player player))
-  (setf (limp-time player) 0.0)
+  (setf (limp-time player) (min (limp-time player) 1.0))
   (case (state player)
     (:normal
      (let ((vel (velocity player)))
@@ -724,6 +724,11 @@
   (start (progression 'hurt +world+))
   (setf (combat-time player) 0f0)
   (shake-camera :intensity 5))
+
+(defmethod (setf limp-time) :after (time (player player))
+  (when (< 0 time)
+    (setf (combat-time player) 0.0))
+  (setf (strength (unit 'distortion +world+)) (* (clamp 0.0 (/ time 5) 1.0) 0.6)))
 
 (defmethod (setf health) :after (health (player player))
   (if (< (/ health (maximum-health player)) 0.15)
