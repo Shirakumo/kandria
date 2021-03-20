@@ -169,8 +169,8 @@
               (to (nibbles:read-ub32/le stream)))
           (ecase type
             (0)
-            (1 (push (make-move-node to) (svref grid i)))
-            (2 (push (make-walk-node to) (svref grid i)))
+            (1 (push (make-walk-node to) (svref grid i)))
+            (2 (push (make-crawl-node to) (svref grid i)))
             (3 (push (make-climb-node to) (svref grid i)))
             (4 (push (make-fall-node to) (svref grid i)))
             (5 (push (make-jump-node to (decode 'vec2)) (svref grid i)))
@@ -199,9 +199,9 @@
                  (climb-node
                   (write-byte 3 stream)
                   (nibbles:write-ub32/le (move-node-to node) stream))
-                 (walk-node
+                 (crawl-node
                   (write-byte 2 stream)
                   (nibbles:write-ub32/le (move-node-to node) stream))
-                 (move-node
+                 (walk-node
                   (write-byte 1 stream)
                   (nibbles:write-ub32/le (move-node-to node) stream)))))))
