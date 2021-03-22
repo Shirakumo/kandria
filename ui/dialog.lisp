@@ -35,7 +35,8 @@
     ;; If we only have one, activate "one shot mode"
     (when (null (rest (interactions dialog)))
       (setf (quest:status (first (interactions dialog))) :active)
-      (setf (one-shot dialog) T))))
+      (setf (one-shot dialog) T)
+      (setf (interaction dialog) (first (interactions dialog))))))
 
 (defmethod show :after ((dialog dialog) &key)
   (setf (intended-zoom (unit :camera T)) 1.5)

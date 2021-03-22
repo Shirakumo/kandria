@@ -17,6 +17,7 @@ parts "scrap parts"
 mushroom-good-1 "honey fungus"
 mushroom-good-2 "dusky puffball"
 mushroom-bad-1 "grey knight"
+walkie-talkie "walkie-talkie"
 ;; UI
 go-backwards-in-ui "Back"
 resume-game "Resume"

@@ -118,7 +118,9 @@
    (offset :initform (vec 0 0) :initarg :offset :accessor offset
            :type vec2 :documentation "The offset in the tile map (in px).")
    (layer-index :initform (1- +base-layer+) :initarg :layer :accessor layer-index
-                :type integer :documentation "The layer the sprite should be on."))
+                :type integer :documentation "The layer the sprite should be on.")
+   (fit-to-bsize :initform T :initarg :fit-to-bsize :accessor fit-to-bsize
+                 :type boolean))
   (:inhibit-shaders (textured-entity :fragment-shader)))
 
 (defmethod initargs append ((_ sprite-entity))
@@ -133,7 +135,9 @@
 (defmethod apply-transforms progn ((sprite sprite-entity))
   (let ((size (v* 2 (bsize sprite))))
     (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
-    (scale (vxy_ size))))
+    (if (fit-to-bsize sprite)
+        (scale (vxy_ size))
+        (scale (vxy_ (size sprite))))))
 
 (defmethod render :before ((entity sprite-entity) (program shader-program))
   (setf (uniform program "size") (size entity))

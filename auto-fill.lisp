@@ -150,7 +150,7 @@
 (defun tile-type-p (tile type)
   (ecase type
     ;; Tiles that are "outside"
-    (o (or (= 0 tile) (= 3 tile)))
+    (o (or (= 0 tile) (= 2 tile) (= 3 tile)))
     ;; Tiles that are edges
     (s (or (= 1 tile) (= 2 tile) (<= 4 tile 254)))
     ;; Tiles that are edges or inside

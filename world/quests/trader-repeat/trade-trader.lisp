@@ -9,7 +9,13 @@
  
 (quest:interaction :name trade-with-trader :interactable trader :repeatable T :dialogue "
 ~ trader
-| Assalam Alaikum! Are you well today?
+| Assalam Alaikum!
+? (< 80  (health player))
+| | [? You look well, Stranger! | And how robust you're looking today! | I don't think I've seen you looking more radiant.]
+|? (< 50  (health player))
+| | [? Have you been fighting, Stranger? | Something's different - you're missing your usual refined appearance. | Let me guess - you've been pounding rogues again?]
+|?
+| | [? Though I think you've seen better days... | You look like you could really use my help today. | You look like you've been dragged throgh the desert backwards... | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label main
 ~ player
 - I'd like to trade.

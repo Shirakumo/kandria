@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity moving-platform (game-entity resizable solid ephemeral)
-  ())
+  ((layer-index :initform (1+ +base-layer+))))
 
 (defmethod collides-p ((platform moving-platform) thing hit) NIL)
 (defmethod collides-p ((platform moving-platform) (block block) hit) T)
@@ -58,8 +58,9 @@
       (vsetf vel 0 0))))
 
 (define-shader-entity elevator (lit-sprite moving-platform)
-  ()
-  (:default-initargs :bsize (nv/ (vec 32 16) 2)))
+  ((bsize :initform (nv/ (vec 32 16) 2))
+   (fit-to-bsize :initform NIL)
+   (texture :initform (// 'kandria 'elevator))))
 
 (defmethod handle ((ev tick) (elevator elevator))
   (ecase (state elevator)
@@ -78,10 +79,11 @@
   (setf (interactable player) elevator))
 
 (defmethod collide ((elevator elevator) (block block) hit)
-  (let ((vel (frame-velocity elevator)))
-    (setf (state elevator) :normal)
-    (nv+ (location elevator) (v* vel (hit-time hit)))
-    (vsetf vel 0 0)))
+  (unless (typep block 'platform)
+    (let ((vel (frame-velocity elevator)))
+      (setf (state elevator) :normal)
+      (nv+ (location elevator) (v* vel (hit-time hit)))
+      (vsetf vel 0 0))))
 
 (defmethod interact ((elevator elevator) thing)
   (case (state elevator)

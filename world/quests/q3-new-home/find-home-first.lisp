@@ -1,5 +1,5 @@
 (:name find-home-first
- :title "Find the first location"
+ :title "Scout location Alpha"
  :description NIL
  :invariant T
  :condition all-complete
@@ -10,9 +10,15 @@
 ; enemies on this quest will be world NPCs, not spawned for the quest
 (quest:interaction :name new-home-site-1 :interactable new-home-1 :dialogue "
 ~ player
-| //It's site 1.//
+| //It's new-home site Alpha.//
+| //There could be shelter inside this building.//
+| //Scanning the interior...//
+| //Dirt and sand has intruded through almost every orifice.//
+| //It's a quicksand deathtrap.//
+| Structural integrity could be described as \"may collapse at any moment\".
 ? (complete-p 'find-home-second)
 | ? (complete-p 'find-home-third)
 | | ? (complete-p 'find-home-fourth)
 | | | ! eval (activate 'return-new-home)
 ")
+; todo using // on the last line, where it also escapes characters, causes the \\ to render as literals

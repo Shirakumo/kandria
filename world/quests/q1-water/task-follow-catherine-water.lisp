@@ -27,12 +27,13 @@
 | Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras!
 ~ player
 | //Catherine welds the crack with steady hands.//
-- //Look at the flame.//
+- //Enable UV filters//
+  | //I see the dull glow, and hear sparks crackle and spit.//
+- //Don't enable filters//
   | //It's like staring into the sun. Into the centre of a catacylsm.//
   ! eval (when (< 5 (health player)) (hurt player 5))
+  ! eval (setf (var 'weld-burn) T)
   | //I think that damaged my cameras a little... Oh well.//
-- //Don't look.//
-  | //I hear sparks crackle and spit.//
 ~ catherine
 | That should hold it.
 ~ catherine
@@ -117,8 +118,6 @@
 ; todo has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
 (quest:interaction :name leak2-done :interactable entity-5627 :dialogue "
 ~ catherine
-| Are you okay?
-| Wow - you're a real badass!
 | I've done the weld - good as new.
 | Let's get to the reservoir.
 ! eval (spawn 'entity-5638 'zombie)
@@ -127,8 +126,10 @@
 ")
 #|
 
-
-
+|#
+#| cut in case dialogue prompted during fight:
+| Are you okay?
+| Wow - you're a real badass!
 |#
 
 ; trigger volume
@@ -155,8 +156,7 @@
 (quest:interaction :name catherine-fighttalk2 :interactable catherine :dialogue "
 ! eval (complete 'catherine-fighttalk2)
 ~ catherine
-| Smash 'em!
-| Don't let 'em get away!
+| Smash 'em! Don't let 'em get away!
 | --
 ! eval (activate 'leak3-fight-done)
 ")
@@ -166,17 +166,19 @@
 ; todo sometimes doesn't activate?
 (quest:interaction :name leak3-fight-done :interactable entity-5639 :dialogue "
 ~ catherine
-| That was sooo cool!
-| I hate to see them go down like that, but there's no reasoning with them.
-| We could sure use their spare parts too - grab what you can.
-| Alright, let me take a look at their handiwork.
+| Let me take a look at their handiwork.
 ! eval (activate 'leak3)
 ! eval (lead 'player 'entity-5638 (unit 'catherine))
 ")
 #|
 
 
+|#
 
+#| cut in case dialogue prompted during fight:
+| That was sooo cool!
+| I hate to see them go down like that, but there's no reasoning with them.
+| We could sure use their spare parts too - grab what you can.
 |#
 
 (quest:interaction :name leak3 :interactable entity-5638 :dialogue "

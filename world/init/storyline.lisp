@@ -9,6 +9,7 @@
 ;(q3-intro :status :active :tasks ((talk-to-jack :status :unresolved)))
 ; side quest start
 ;(sq-act1-intro :status :active :tasks ((sq-act1-catherine :status :unresolved)))
+;(sq3-race :status :active :tasks ((race-hub :status :unresolved)))
 ;(lore :status :active :tasks ((lore-explore-region1 :status :unresolved)))
 ; TESTS
 ;(test :status :active :tasks ((task-1 :status :unresolved)))

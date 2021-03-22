@@ -7,8 +7,8 @@
  :on-complete (race-one-return)
 )
  
-(quest:action :name spawn-can :on-activate (progn
-                                             (setf (clock quest) 0)
+(quest:action :name spawn-can :on-activate (progn                                             
+											 (setf (clock quest) 0)
 											 (show (make-instance 'timer :quest quest))
                                              (spawn 'race-1-site 'can))
 )

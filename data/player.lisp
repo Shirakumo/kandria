@@ -1,4 +1,5 @@
 (:source "player.json"
+ :palette "player-palette.png"
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND :cooldown 0.0)

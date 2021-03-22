@@ -128,10 +128,22 @@
 (defmethod health ((_ large-health-pack)) 50)
 (defmethod item-order ((_ large-health-pack)) 2)
 
-(define-shader-entity can (item special-item) ())
+; VALUE ITEMS
+(define-shader-entity parts (item value-item)
+  ((offset :initform (vec 16 8))))
 
-(define-shader-entity seeds (item quest-item) ())
-(define-shader-entity parts (item value-item) ())
-(define-shader-entity mushroom-good-1 (item quest-item) ())
-(define-shader-entity mushroom-good-2 (item quest-item) ())
-(define-shader-entity mushroom-bad-1 (item quest-item) ())
+; QUEST ITEMS
+(define-shader-entity seeds (item quest-item)
+  ((offset :initform (vec 16 16))))
+(define-shader-entity mushroom-good-1 (item quest-item)
+  ((offset :initform (vec 8 0))))
+(define-shader-entity mushroom-good-2 (item quest-item)
+  ((offset :initform (vec 8 8))))
+(define-shader-entity mushroom-bad-1 (item quest-item)
+  ((offset :initform (vec 8 24))))
+(define-shader-entity walkie-talkie (item quest-item)
+  ((offset :initform (vec 16 16))))
+
+; SPECIAL ITEMS
+(define-shader-entity can (item special-item)
+  ((offset :initform (vec 16 0))))
