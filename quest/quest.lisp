@@ -22,6 +22,15 @@
 
 (defmethod parent ((scope scope)) NIL)
 
+(defmethod merge-bindings ((scope scope) bindings)
+  (let ((existing (bindings scope)))
+    (loop for (name . value) in bindings
+          for prev = (assoc name (bindings scope))
+          do (if prev
+                 (setf (cdr prev) value)
+                 (push (cons name value) existing)))
+    (setf (bindings scope) existing)))
+
 (defmethod binding (name (scope scope))
   (or (assoc name (bindings scope))
       (when (parent scope)

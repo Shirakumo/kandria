@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity player (alloy:observable animatable profile ephemeral inventory)
+(define-shader-entity player (alloy:observable paletted-entity animatable profile ephemeral inventory)
   ((name :initform 'player)
+   (palette :initform (// 'kandria 'player-palette))
    (bsize :initform (vec 7.0 15.0))
    (spawn-location :initform (vec2 0 0) :accessor spawn-location)
    (interactable :initform NIL :accessor interactable)
@@ -107,7 +108,7 @@
       T)))
 
 (defmethod handle ((ev dash) (player player))
-  (setf (limp-time player) 0.0)
+  (setf (limp-time player) (min (limp-time player) 1.0))
   (case (state player)
     (:normal
      (let ((vel (velocity player)))
@@ -222,6 +223,7 @@
 
 (defmethod collides-p ((player player) (block platform) hit)
   (and (call-next-method)
+       (not (typep (interactable player) 'elevator))
        (not (and (retained 'down)
                  (retained 'jump)
                  (< 0.01 (air-time player))))))
@@ -308,6 +310,8 @@
     ;; Interaction checks
     ;; FIXME: Optimise with spatial lookup
     (setf (interactable player) NIL)
+    (when (and ground (interactable-p ground))
+      (setf (interactable player) ground))
     (for:for ((entity over (region +world+)))
       (typecase entity
         (interactable
@@ -721,6 +725,11 @@
   (start (progression 'hurt +world+))
   (setf (combat-time player) 0f0)
   (shake-camera :intensity 5))
+
+(defmethod (setf limp-time) :after (time (player player))
+  (when (< 0 time)
+    (setf (combat-time player) 0.0))
+  (setf (strength (unit 'distortion +world+)) (* (clamp 0.0 (/ time 5) 1.0) 0.6)))
 
 (defmethod (setf health) :after (health (player player))
   (if (< (/ health (maximum-health player)) 0.15)

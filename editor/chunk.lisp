@@ -77,6 +77,9 @@
          (y (mod (+ (vy tile) (floor (vx tile) w)) h)))
     (call-next-method (list x y (place-width widget) (place-height widget)) widget)))
 
+(defmethod (setf tile-to-place) :after ((tile cons) (widget chunk-widget))
+  (setf (alloy:value (slot-value widget 'show-solids)) (= 0 (second tile))))
+
 (alloy:define-subcomponent (chunk-widget show-solids) ((show-solids (entity chunk-widget)) alloy:switch))
 (alloy:define-subcomponent (chunk-widget tile-set-list) ((slot-value chunk-widget 'tile-set) alloy:combo-set :value-set (mapcar #'first (tile-types (tile-data (entity chunk-widget))))))
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))

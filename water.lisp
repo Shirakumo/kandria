@@ -16,7 +16,7 @@
              (setf (aref array (+ i 3)) (+ h)))
     array))
 
-(defmethod layer-index ((water water)) (1- +base-layer+))
+(defmethod layer-index ((water water)) +base-layer+)
 
 (defmethod gravity ((water water))
   (vec 0 -5))

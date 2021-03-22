@@ -284,7 +284,7 @@ void main(){
   (translate-by 0 (- (vy (bsize subject))) 0))
 
 (define-shader-entity basic-light (light colored-entity)
-  ((color :initform (vec4 0.3 0.25 0.1 1.0)
+  ((color :initarg :color :initform (vec4 0.3 0.25 0.1 1.0)
           :type vec4 :documentation "The color of the light")))
 
 (defmethod initialize-instance :after ((light basic-light) &key data)
@@ -296,6 +296,9 @@ void main(){
                                              :bindings `((,vbo :size 2 :offset 0 :stride 8))
                                              :size (/ (length data) 2))))
       (setf (vertex-array light) vao))))
+
+(defmethod initargs append ((light basic-light))
+  '(:color :vertex-array))
 
 (defmethod update-bounding-box ((light basic-light))
   (let* ((data (buffer-data (caar (bindings (vertex-array light)))))

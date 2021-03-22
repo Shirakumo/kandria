@@ -147,7 +147,13 @@ State:              ~a
 Animation:          ~a
 Health:             ~d
 Stun:               ~7,2f
-Iframes:            ~d"
+Iframes:            ~d
+Interactable:       ~a
+Collisions:
+  T: ~a
+  R: ~a
+  B: ~a
+  L: ~a"
             (name (region +world+))
             (name (chunk player))
             (vx (location player)) (vy (location player))
@@ -156,7 +162,12 @@ Iframes:            ~d"
             (name (animation player))
             (health player)
             (stun-time player)
-            (iframes player))))
+            (iframes player)
+            (interactable player)
+            (svref (collisions player) 0)
+            (svref (collisions player) 1)
+            (svref (collisions player) 2)
+            (svref (collisions player) 3))))
 
 (defun quest-info ()
   (let ((storyline (storyline +world+)))
@@ -194,8 +205,8 @@ Iframes:            ~d"
     (alloy:enter "IO" layout :constraints `((:size 100 20) (:inside ,io :halign :left :valign :top :margin 5)))
     (alloy:enter "GC Pause" layout :constraints `((:size 100 20) (:inside ,gc :halign :left :valign :top :margin 5)))
     (alloy:enter machine-info layout :constraints `((:size 600 300) (:right-of ,fps 10) (:top 10)))
-    (alloy:enter info layout :constraints `((:size 600 300) (:right-of ,fps 10) (:below ,machine-info 10)))
-    (alloy:enter qinfo layout :constraints `((:size 600 300) (:right-of ,info 10) (:below ,machine-info 10)))
+    (alloy:enter info layout :constraints `((:size 600 600) (:right-of ,fps 10) (:below ,machine-info 10)))
+    (alloy:enter qinfo layout :constraints `((:size 600 600) (:right-of ,info 10) (:below ,machine-info 10)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod handle ((ev tick) (panel diagnostics))

@@ -37,14 +37,14 @@
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
                              :element-type 'character)
-    (princ* (encode-payload 'bindings (quest:bindings quest:storyline) packet save-v0) stream)
+    (princ* `(:variables ,(encode-payload 'bindings (quest:bindings quest:storyline) packet save-v0)) stream)
     (loop for quest being the hash-values of (quest:quests quest:storyline)
           do (princ* (encode quest) stream))))
 
 (define-decoder (quest:storyline save-v0) (_b packet)
-  (destructuring-bind (bindings . quests) (parse-sexps (packet-entry "storyline.lisp" packet
+  (destructuring-bind ((&key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
                                                                      :element-type 'character))
-    (setf (quest:bindings quest:storyline) (decode-payload bindings 'bindings packet save-v0))
+    (quest:merge-bindings quest:storyline (decode-payload variables 'bindings packet save-v0))
     (loop for (name . initargs) in quests
           for quest = (quest:find-quest name quest:storyline)
           do (decode quest initargs))))
@@ -61,7 +61,7 @@
   (destructuring-bind (&key status (clock 0.0) tasks bindings) initargs
     (setf (quest:status quest:quest) status)
     (setf (clock quest:quest) clock)
-    (setf (quest:bindings quest:quest) (decode-payload bindings 'bindings packet save-v0))
+    (quest:merge-bindings quest:quest (decode-payload bindings 'bindings packet save-v0))
     ;; FIXME: Quests not saved in the state won't be reset to initial state.
     (loop for (name . initargs) in tasks
           for task = (quest:find-task name quest:quest)
@@ -75,7 +75,7 @@
 (define-decoder (quest:task save-v0) (initargs packet)
   (destructuring-bind (&key status bindings) initargs
     (setf (quest:status quest:task) status)
-    (setf (quest:bindings quest:task) (decode-payload bindings 'bindings packet save-v0))
+    (quest:merge-bindings quest:task (decode-payload bindings 'bindings packet save-v0))
     (when (eql :unresolved status)
       (dolist (trigger (quest:on-activate quest:task))
         (quest:activate (quest:find-named trigger quest:task))))))
