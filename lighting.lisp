@@ -326,7 +326,7 @@ void main(){
   (let* ((vao (vertex-array light))
          (vbo (caar (bindings vao)))
          (data (buffer-data vbo))
-         (loc (v- location (location light))))
+         (loc (v- (vfloor location) (location light))))
     (loop for i from 0 below (length data) by 2
           do (when (and (= (vx loc) (aref data (+ i 0)))
                         (= (vy loc) (aref data (+ i 1))))
