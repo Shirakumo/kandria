@@ -9,11 +9,6 @@
 
 (defmacro define-sprite (name &body args)
   `(define-asset (kandria ,name) sprite-data
-       ,(make-pathname :name (string-downcase name) :type "json")
-     ,@args))
-
-(defmacro define-animation (name &body args)
-  `(define-asset (kandria ,name) sprite-data
        ,(make-pathname :name (string-downcase name) :type "lisp")
      ,@args))
 
@@ -62,17 +57,16 @@
 (define-pixel elevator)
 (define-pixel player-palette)
 
-(define-animation box)
-(define-animation player)
-(define-animation fi)
-(define-animation catherine)
-(define-animation jack)
-(define-animation sahil)
-(define-animation wolf)
-(define-animation zombie)
-(define-animation ruddydrone)
-(define-animation dummy)
-
+(define-sprite box)
+(define-sprite player)
+(define-sprite fi)
+(define-sprite catherine)
+(define-sprite jack)
+(define-sprite sahil)
+(define-sprite wolf)
+(define-sprite zombie)
+(define-sprite ruddydrone)
+(define-sprite dummy)
 (define-sprite player-profile)
 (define-sprite fi-profile)
 (define-sprite catherine-profile)
