@@ -10,9 +10,11 @@
   :components ((:file "package")
                (:file "toolkit")
                (:file "helpers")
+               (:file "palette")
                (:file "settings")
                (:file "language")
-               (:file "animation")
+               (:file "sprite-data")
+               (:file "tile-data")
                (:file "gradient")
                (:file "auto-fill")
                (:file "serialization")
@@ -23,7 +25,6 @@
                (:file "surface")
                (:file "lighting")
                (:file "background")
-               (:file "tile-data")
                (:file "assets")
                (:file "shadow-map")
                (:file "particle")
@@ -113,4 +114,5 @@
                :feedback-client
                :cl-mixed-wav
                :cl-mixed-mpg123
-               :zpng))
+               :zpng
+               :jsown))

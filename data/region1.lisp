@@ -1,4 +1,5 @@
-(:albedo "region1-albedo.png"
+(:source "region1.ase"
+ :albedo "region1-albedo.png"
  :absorption "region1-absorption.png"
  :normal "region1-normal.png"
  :tile-types ((:dirt

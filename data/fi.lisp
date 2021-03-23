@@ -1,4 +1,5 @@
-(:source "fi.json"
+(:source "fi.ase"
+ :animation-data "fi.json"
  :animations
   (
    (STAND                :start   0 :end  10 :loop-to 0   :next STAND)

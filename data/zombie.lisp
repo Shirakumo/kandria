@@ -1,4 +1,5 @@
-(:source "zombie.json"
+(:source "zombie.ase"
+ :animation-data "zombie.json"
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND)

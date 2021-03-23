@@ -1,1 +1,2 @@
-(:source "sahil.json")
+(:source "sahil.ase"
+ :animation-data "sahil.json")

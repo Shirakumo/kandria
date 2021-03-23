@@ -628,3 +628,32 @@
                         (muffle-warning ,warning)))
                     )
        ,@body)))
+
+(defun re-encode-json (file)
+  (let* ((data (jsown:parse (alexandria:read-file-into-string file))))
+    (let ((*print-pretty* nil))
+      (with-open-file (output file :direction :output
+                                   :if-exists :supersede)
+        (jsown::write-object-to-stream data output)))))
+
+(defun read-src (file)
+  (with-kandria-io-syntax
+    (with-open-file (stream file :direction :input
+                                 :element-type 'character)
+      (read stream))))
+
+(defun aseprite (&rest args)
+  (uiop:run-program (list* #-windows "aseprite" #+windows "aseprite.exe"
+                           "-b"
+                           (loop for arg in args
+                                 collect (typecase arg
+                                           (pathname (uiop:native-namestring arg))
+                                           (T (princ-to-string arg)))))
+                    :output *standard-output*
+                    :error-output *error-output*))
+
+(defun recompile-needed-p (targets sources)
+  (let ((latest (loop for source in sources
+                      maximize (file-write-date source))))
+    (loop for target in targets
+          thereis (< (file-write-date target) latest))))
