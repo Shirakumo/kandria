@@ -1,4 +1,5 @@
-(:source "dummy.json"
+(:source "dummy.ase"
+ :animation-data "dummy.json"
  :animations ((STAND :loop-to 0 :next STAND)
               (JUMP :loop-to 1 :next FALL)
               (FALL :loop-to 4 :next FALL)

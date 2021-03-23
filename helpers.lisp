@@ -234,28 +234,3 @@ void main(){
 (defmacro transition (&body on-blank)
   `(issue +world+ 'transition-event
           :on-complete (lambda () ,@on-blank)))
-
-(define-shader-entity paletted-entity ()
-  ((palette :initarg :palette :initform (// 'kandria 'placeholder) :accessor palette
-            :type resource)
-   (palette-index :initarg :palette-index :initform 0 :accessor palette-index
-                  :type integer)))
-
-(defmethod stage :after ((entity paletted-entity) (area staging-area))
-  (stage (palette entity) area))
-
-(defmethod render :before ((entity paletted-entity) (program shader-program))
-  (gl:active-texture :texture4)
-  (gl:bind-texture :texture-2D (gl-name (palette entity)))
-  (setf (uniform program "palette") 4)
-  (setf (uniform program "palette_index") (palette-index entity)))
-
-(define-class-shader (paletted-entity :fragment-shader -1)
-  "uniform sampler2D palette;
-uniform int palette_index = 0;
-
-void main(){
-  if(color.r*color.b == 1 && color.g < 0.1){
-    color = texelFetch(palette, ivec2(color.g*255, palette_index), 0);
-  }
-}")

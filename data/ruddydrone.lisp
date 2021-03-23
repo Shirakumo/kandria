@@ -1,4 +1,5 @@
-(:source "ruddydrone.json"
+(:source "ruddydrone.ase"
+ :animation-data "ruddydrone.json"
  :animations
   (
    (STAND                :start   0 :end  18 :loop-to 0   :next STAND)

@@ -1,4 +1,5 @@
-(:source "box.json"
+(:source "box.ase"
+ :animation-data "box.json"
  :animations
   (
    (STAND                :start   0 :end   1 :loop-to 0   :next STAND)

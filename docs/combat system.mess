@@ -102,6 +102,6 @@ When exporting from Aseprite to update animations, please choose "Export Sprite 
 You can also do this for most files in an automated fashion by just running the following from the Portacle REPL:
 
 ::
-(ql:quickload :kandria-data)
+(kandria::compile-resources T T)
 ::
 

@@ -1,4 +1,5 @@
-(:source "catherine.json"
+(:source "catherine.ase"
+ :animation-data "catherine.json"
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND)

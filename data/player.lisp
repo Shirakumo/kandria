@@ -1,4 +1,5 @@
-(:source "player.json"
+(:source "player.ase"
+ :animation-data "player.json"
  :palette "player-palette.png"
  :animations
   (

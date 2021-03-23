@@ -1,4 +1,5 @@
-(:source "jack.json"
+(:source "jack.ase"
+ :animation-data "jack.json"
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND)

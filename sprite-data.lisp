@@ -78,18 +78,16 @@
   (setf (effect target) NIL)
   target)
 
-(defclass sprite-data (trial:sprite-data)
+(defclass sprite-data (compiled-generator trial:sprite-data)
   ((json-file :initform NIL :accessor json-file)))
 
 (defmethod notify:files-to-watch append ((asset sprite-data))
-  (remove-if-not #'uiop:file-exists-p
-                 (list (make-pathname :type "ase" :defaults (input* asset)))))
+  (list (merge-pathnames (getf (read-src (input* asset)) :source) (input* asset))))
 
 (defmethod notify:notify :before ((asset sprite-data) file)
   (when (string= "ase" (pathname-type file))
     (sleep 1)
-    (v:info :kandria.data "Recompiling ~a" file)
-    (ql:quickload :kandria-data :silent T)))
+    (compile-resources asset T)))
 
 (defmethod write-animation ((sprite sprite-data) &optional (stream T))
   (let ((*package* #.*package*))
@@ -127,42 +125,59 @@
           (vx (hurtbox frame)) (vy (hurtbox frame)) (vz (hurtbox frame)) (vw (hurtbox frame))
           (vx (offset frame)) (vy (offset frame))))
 
+(defmethod compile-resources ((sprite sprite-data) (path pathname))
+  (destructuring-bind (&key source palette albedo animation-data &allow-other-keys) (read-src path)
+    (let ((source (merge-pathnames source path))
+          (animation-data (merge-pathnames animation-data path))
+          (albedo (merge-pathnames (or albedo (make-pathname :type "png" :defaults source)) path)))
+      (when (recompile-needed-p (list albedo animation-data)
+                                (list source path))
+        (v:info :kandria.resources "Compiling spritesheet from ~a..." source)
+        (aseprite "--sheet-pack"
+                  "--trim"
+                  "--shape-padding" "1"
+                  "--sheet" albedo
+                  "--format" "json-array"
+                  "--filename-format" "{tagframe} {tag}"
+                  "--list-tags"
+                  "--data" animation-data
+                  source)
+        ;; Make sure we have LF.
+        (re-encode-json animation-data)
+        ;; Convert palette colours
+        (when palette
+          (convert-palette albedo (merge-pathnames palette path)))))))
+
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
-  (with-kandria-io-syntax
-    (cond ((string= "json" (pathname-type path))
-           (call-next-method))
-          ((string= "lisp" (pathname-type path))
-           (with-open-file (stream path :direction :input)
-             (destructuring-bind (&key source animations frames &allow-other-keys) (read stream)
-               (setf (json-file sprite) source)
-               (prog1 (call-next-method sprite (merge-pathnames (json-file sprite) path))
-                 (loop for expr in animations
-                       do (destructuring-bind (name &key start end loop-to next (cooldown 0.0)) expr
-                            (let ((animation (find name (animations sprite) :key #'name)))
-                              (when animation
-                                (change-class animation 'sprite-animation
-                                              :loop-to loop-to
-                                              :next-animation next
-                                              :cooldown cooldown)
-                                ;; Attempt to account for changes in the frame counts of the animations
-                                ;; by updating frame data per-animation here. We have to assume that
-                                ;; frames are only removed or added at the end of an animation, as we
-                                ;; can't know anything more.
-                                (when (and start end)
-                                  (let ((rstart (start animation))
-                                        (rend (end animation))
-                                        (rframes (frames sprite)))
-                                    (when (< (loop-to animation) rstart)
-                                      (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
-                                    (loop for i from 0 below (min (- end start) (- rend rstart))
-                                          for frame = (elt rframes (+ rstart i))
-                                          for frame-info = (elt frames (+ start i))
-                                          do (change-class frame 'frame :sexp frame-info))))))))
-                 ;; Make sure all frames are in the correct class.
-                 (loop for frame across (frames sprite)
-                       do (unless (typep frame 'frame) (change-class frame 'frame)))
-                 ;; Make sure all animations are in the correct class.
-                 (loop for animation across (animations sprite)
-                       do (unless (typep animation 'sprite-animation) (change-class animation 'sprite-animation)))))))
-          (T
-           (error "Wtf.")))))
+  (destructuring-bind (&key animation-data animations frames &allow-other-keys) (read-src path)
+    (let ((animation-data (merge-pathnames animation-data path)))
+      (setf (json-file sprite) animation-data)
+      (prog1 (call-next-method sprite (json-file sprite))
+        (loop for expr in animations
+              do (destructuring-bind (name &key start end loop-to next (cooldown 0.0)) expr
+                   (let ((animation (find name (animations sprite) :key #'name)))
+                     (when animation
+                       (change-class animation 'sprite-animation
+                                     :loop-to loop-to
+                                     :next-animation next
+                                     :cooldown cooldown)
+                       ;; Attempt to account for changes in the frame counts of the animations
+                       ;; by updating frame data per-animation here. We have to assume that
+                       ;; frames are only removed or added at the end of an animation, as we
+                       ;; can't know anything more.
+                       (when (and start end)
+                         (let ((rstart (start animation))
+                               (rend (end animation))
+                               (rframes (frames sprite)))
+                           (when (< (loop-to animation) rstart)
+                             (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
+                           (loop for i from 0 below (min (- end start) (- rend rstart))
+                                 for frame = (elt rframes (+ rstart i))
+                                 for frame-info = (elt frames (+ start i))
+                                 do (change-class frame 'frame :sexp frame-info))))))))
+        ;; Make sure all frames are in the correct class.
+        (loop for frame across (frames sprite)
+              do (unless (typep frame 'frame) (change-class frame 'frame)))
+        ;; Make sure all animations are in the correct class.
+        (loop for animation across (animations sprite)
+              do (unless (typep animation 'sprite-animation) (change-class animation 'sprite-animation)))))))
