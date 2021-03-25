@@ -8,80 +8,113 @@
 )
 
 ; enemies on this quest will be world NPCs, not spawned for the quest
-(quest:interaction :name start-race :title "I want to race" :interactable catherine :repeatable T :dialogue "
+(quest:interaction :name start-race :title "Race against the clock" :interactable catherine :repeatable T :dialogue "
 ? (or (active-p 'race-one) (active-p 'race-two) (active-p 'race-three) (active-p 'race-four))
 | ~ catherine
-| | A race is in progress, get going!
+| | You're already racing, get goin'!
 |?
 | ~ catherine
-| | Alright, it's race time!
+| | Alright, let's do this!
 | ? (not (complete-p 'race-one))
-| | | Let's start with an easy one.
+| | | So Alex has been back, and I got them to plant some old-world beer cans in devious places for you to find.
+| | | Grab the can, bring it back here, and I'll stop the clock.
+| | | I've been talking to the guys, and we've decided to start you off with Route 1, which is an easy one.
+| | | Get bronze or above on a route, and we'll tell you about the next one!
+| | | We've also got some riddles for each place; figuring these out might slow you down at first.
+| | | But once you know where they are, you'll be clocking even faster times I'm sure! So...
 | | < race-1
 | |?
+| | | Which route do you wanna do?
 | | ~ player
-| | - Race 1
+| | - Route 1
 | |   < race-1
-| | - Race 2
+| | - [(var 'race-1-bronze) Route 2|]
 | |   < race-2
-| | - [(complete-p 'race-two) Race 3|]
+| | - [(var 'race-2-bronze) Route 3|]
 | |   < race-3
-| | - [(complete-p 'race-three) Race 4|]
+| | - [(var 'race-3-bronze) Route 4|]
 | |   < race-4
-| | - No race for me right now
+| | - [(var 'race-4-bronze) Route 5|]
+| |   < race-5
+| | - Back out for now
 # race-1
 ~ catherine
-| I planted an X nearby. Time starts now!
+| Route 1! The can is... at a literal high point of EASTERN civilisation, now long gone.
+| The time brackets are: Gold: 0:30 - Silver: 0:50 - Bronze: 1:10.
+? (var 'race-1-pb)
+| | Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.
 ? (not (complete-p 'race-one))
 | ! eval (activate 'race-one)
 |?
 | ! eval (setf (quest:status (thing 'race-one)) :inactive)
 | ! eval (setf (quest:status (thing 'race-one-return)) :inactive)
 | ! eval (activate 'race-one)
+< end
 # race-2
 ~ catherine
-| I planted an W at some distance. Time starts now!
+| Route 2! The can is... where a shallow grave marks the end of the line for the West Crossing.
+| The time brackets are: Gold: 1:00 - Silver: 1:30 - Bronze: 2:00.
+? (var 'race-2-pb)
+| | Your personal best for this route is {(format-relative-time (var 'race-2-pb))}.
 ? (not (complete-p 'race-two))
 | ! eval (activate 'race-two)
 |?
 | ! eval (setf (quest:status (thing 'race-two)) :inactive)
 | ! eval (setf (quest:status (thing 'race-two-return)) :inactive)
 | ! eval (activate 'race-two)
+< end
 # race-3
 ~ catherine
-| I planted an Y at some distance. Time starts now!
+| Route 3! The can is... where we first ventured together, and got our feet wet.
+| The time brackets are: Gold: 1:30 - Silver: 2:00 - Bronze: 2:30.
+? (var 'race-3-pb)
+| | Your personal best for this route is {(format-relative-time (var 'race-3-pb))}.
 ? (not (complete-p 'race-three))
 | ! eval (activate 'race-three)
 |?
 | ! eval (setf (quest:status (thing 'race-three)) :inactive)
 | ! eval (setf (quest:status (thing 'race-three-return)) :inactive)
 | ! eval (activate 'race-three)
+< end
 # race-4
 ~ catherine
-| I planted an Z a long way away. Time starts now!
+| Route 4! The can is... deep to the west, where people once dreamed.
+| The time brackets are: Gold: 2:00 - Silver: 3:00 - Bronze: 4:00.
+? (var 'race-4-pb)
+| | Your personal best for this route is {(format-relative-time (var 'race-4-pb))}.
 ? (not (complete-p 'race-four))
 | ! eval (activate 'race-four)
 |?
 | ! eval (setf (quest:status (thing 'race-four)) :inactive)
 | ! eval (setf (quest:status (thing 'race-four-return)) :inactive)
 | ! eval (activate 'race-four)
+< end
+# race-5
+~ catherine
+| Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't much-room.
+| The time brackets are: Gold: 2:00 - Silver: 3:00 - Bronze: 4:00.
+? (var 'race-5-pb)
+| | Your personal best for this route is {(format-relative-time (var 'race-5-pb))}.
+? (not (complete-p 'race-five))
+| ! eval (activate 'race-five)
+|?
+| ! eval (setf (quest:status (thing 'race-five)) :inactive)
+| ! eval (setf (quest:status (thing 'race-five-return)) :inactive)
+| ! eval (activate 'race-five)
+# end
+| ~ catherine
+| Remember - the faster you are, the more parts you'll get from the sweepstake.
+| [? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger!]
 ")
+;; | [(var 'race-1-pb) Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.]
 ; todo allow play to opt out of first race encountered, not forced
+;; TODO cancel a race in progress? restart a race that's gone wrong?
+;; TODO acknowledge when a new route has unlocked?
+; todo have a different item per race, e.g. phone, bottle, etc. Need to render them though?
 ; todo lock out later races based on whether you have gold or not on previous one, rather than merely whether you've attempted the previous one or not
 ; //NA - todo bug deactivating this task causes it's title to appear as another bullet point in the journal
 ; todo plant multiple objects, encouraging cheating
-; todo add player queries for: best times in each bracket, pbs in each bracket, overall pb
-; todo for bracket numbers use global quest vars, initiated at quest start
-; ! eval (activate 'race-one)
-; ! eval (setf (quest:status task) :unresolved)
-; ! eval (setf (quest:status 'race-one) :unresolved)
-; ! eval (setf (quest:status task ('race-one)) :unresolved)
-; ! eval (setf (quest:status (thing 'race-one)) :unresolved)
-#|
-
-
-
-|#
+; could explain brackets at the start, or let player figure it out themselves from results? Latter
 
 #|
 

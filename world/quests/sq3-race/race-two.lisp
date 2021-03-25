@@ -1,5 +1,5 @@
 (:name race-two
- :title "Find the W at mid-distance"
+ :title "The can is... where a shallow grave marks the end of the line for the West Crossing."
  :description NIL
  :invariant T
  :condition (have 'can)
@@ -12,7 +12,7 @@
                                              (spawn 'race-2-site 'can))
 )
 
-(quest:interaction :name race-two-speech :interactable race-2-site :dialogue "
+(quest:interaction :name race-two-speech :interactable race-2-site :repeatable T :dialogue "
 ~ player
-| //It's the race 2 item. I'd better hurry back to Catherine and log my time.//
+| //This is the right place - the can must be close by.//
 ")

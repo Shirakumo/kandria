@@ -6,7 +6,10 @@
  :on-activate (talk-jack)
  :on-complete (q1-water))
  
- ; meet Jack for the first time - Stranger already presumes this is Jack
+;; meet Jack for the first time - Stranger already presumes this is Jack
+;; REMARK: Maybe keep the swears out for now, or at least change them to be softer variants.
+;; REMARK: Maybe add a snarky greeting choice like "- Well aren't you the charmer"
+;; REMARK: Maybe add a defensive option to the second choice like "- What's your problem, I'm here to help!"
 (quest:interaction :name talk-jack :interactable jack :dialogue "
 ~ jack
 | ... Don't give me that bullshit. Where the hell have you been? And who's this?
@@ -14,7 +17,6 @@
 | What do you mean? I've brought back the android... I got her working!
 ~ jack
 | Jesus... this is all we need.
-~ player
 - Pleased to meet you.
 - Jack, I presume.
 - Is everything okay?
@@ -43,7 +45,6 @@
 ~ jack
 | A sword?... Have you lost your goddamn mind? An android ain't no toy!
 | You'd be safer walking unarmed straight into Wraw territory than you would goin' anywhere with that thing.
-~ player
 - I can protect her.
   ~ jack
   | The hell you can.

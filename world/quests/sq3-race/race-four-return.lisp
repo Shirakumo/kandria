@@ -1,5 +1,5 @@
 (:name race-four-return
- :title "Return item Z to Catherine ASAP"
+ :title "Return the can to Catherine ASAP"
  :description NIL
  :invariant T
  :condition NIL
@@ -13,65 +13,71 @@
 											 )
 )
 
-(quest:interaction :name race-four-chat :title "I've done race 4" :interactable catherine :dialogue "
+(quest:interaction :name race-four-chat :title "Complete Route 4" :interactable catherine :dialogue "
 ! eval (hide-panel 'timer)
 ~ catherine
-| You're back. Stop the clock!
-| You got the item Z from nearby, cool.
+| Stop the clock!
+| That's the can for Route 2 alright - nice!
 ! eval (retrieve 'can)
-| It took you {(format-relative-time (clock quest))}!
+| You did that in: {(format-relative-time (clock quest))}!
   
-? (< (clock quest) 40)
+? (< (clock quest) 120)
 | | How did you do that so fast? That's gold bracket.
+| | You get the top reward - 50 scrap parts!
+| ! eval (store 'parts 50)
 | ? (not (var 'race-4-gold))
 | | | I've logged your time - your first one in the gold bracket.
 | | ! eval (setf (var 'race-4-gold) (clock quest))
 | |?
 | | ? (< (clock quest) (var 'race-4-gold))
-| | | | You beat your gold score, wait a go!
+| | | | And you beat your best gold time, way to go!
 | | |? (= (clock quest) (var 'race-4-gold))
-| | | | You equalled your gold score, what are the chances?!
+| | | | You equalled your best gold time as well, what are the chances?!
 | | |?
-| | | | You didn't beat your best gold score though, but it's still good!
-|? (< (clock quest) 120)
+| | | | You didn't beat your best gold time, but it's still good!
+|? (< (clock quest) 180)
 | | That's pretty quick! Silver bracket.
+| | That nets you 30 scrap parts!
+| ! eval (store 'parts 30)
 | ? (not (var 'race-4-silver))
 | | | I've logged your time - your first one in the silver bracket.
 | | ! eval (setf (var 'race-4-silver) (clock quest))
 | |?
 | | ? (< (clock quest) (var 'race-4-silver))
-| | | | You beat your silver score, wait a go!
+| | | | And you beat your best silver time, way to go!
 | | |? (= (clock quest) (var 'race-4-silver))
-| | | | You equalled your silver score, what are the chances?!
+| | | | You equalled your best silver time as well, what are the chances?!
 | | |?
-| | | | You didn't beat your best silver score though, but it's still good!
+| | | | You didn't beat your best silver time, but it's still good!
 |? (< (clock quest) 240)
-| | Not bad.
+| | Not bad. That's bronze bracket.
+| | That gets you 20 scrap parts.
+| ! eval (store 'parts 20)
 | ? (not (var 'race-4-bronze))
 | | | I've logged your time - your first one in the bronze bracket.
 | | ! eval (setf (var 'race-4-bronze) (clock quest))
 | |?
 | | ? (< (clock quest) (var 'race-4-bronze))
-| | | | You beat your bronze score, wait a go!
+| | | | And you beat your bronze time, way to go!
 | | |? (= (clock quest) (var 'race-4-bronze))
-| | | | You equalled your bronze score, what are the chances?!
+| | | | You equalled your best bronze time as well, what are the chances?!
 | | |?
-| | | | You didn't beat your best bronze score though, but it's still good!
+| | | | You didn't beat your best bronze time, but it's still good!
 |?
-| | I think you can do better than that.
+| | Hmmm, that's a little slow, Stranger. I think you can do better than that.
+| | Don't think I can give you any parts for that, sorry.
 ? (not (var 'race-4-pb))
-| | I've also logged your time as your personal best.
+| | I've also logged your time as your personal best for this route.
 | ! eval (setf (var 'race-4-pb) (clock quest))
 |?
 | ? (< (clock quest) (var 'race-4-pb))
-| | | You beat your personal best too!
+| | | You beat your personal best too! I'm so proud of you.
 | | ! eval (setf (var 'race-4-pb) (clock quest))
 | |? (= (clock quest) (var 'race-4-pb))
-| | | You equalled your personal best too! What are the chances?!
+| | | You equalled your personal best too - that's amazing!
 | |?
-| | | Unfortunately you didn't beat your personal best.
+| | | Alas you didn't beat your personal best. But there's always next time!
 ! eval (complete 'race-four-return)
+  
+| Let's do this again soon!
 ")
-; todo rewards
-; todo replace bracket numbers with global quest vars, initiated at quest start
-; todo log times to tenth of a second, not whole numbers?

@@ -1,5 +1,5 @@
 (:name race-three
- :title "Find the Y at mid-distance"
+ :title "The can is... where we first ventured together, and got our feet wet."
  :description NIL
  :invariant T
  :condition (have 'can)
@@ -12,7 +12,7 @@
                                              (spawn 'race-3-site 'can))
 )
 
-(quest:interaction :name race-three-speech :interactable race-3-site :dialogue "
+(quest:interaction :name race-three-speech :interactable race-3-site :repeatable T :dialogue "
 ~ player
-| //It's the race 3 item. I'd better hurry back to Catherine and log my time.//
+| //This is the right place - the can must be close by.//
 ")

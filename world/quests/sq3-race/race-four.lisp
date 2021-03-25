@@ -1,5 +1,5 @@
 (:name race-four
- :title "Find the Z at far distance"
+ :title "The can is... deep to the west, where people once dreamed."
  :description NIL
  :invariant T
  :condition (have 'can)
@@ -12,7 +12,7 @@
                                              (spawn 'race-4-site 'can))
 )
 
-(quest:interaction :name race-four-speech :interactable race-4-site :dialogue "
+(quest:interaction :name race-four-speech :interactable race-4-site :repeatable T :dialogue "
 ~ player
-| //It's the race 4 item. I'd better hurry back to Catherine and log my time.//
+| //This is the right place - the can must be close by.//
 ")
