@@ -25,5 +25,4 @@
    (#:steam #:org.shirakumo.fraf.steamworks)
    (#:notify #:org.shirakumo.fraf.trial.notify))
   (:export
-   #:launch
-   #:launch-animation-editor))
+   #:launch))

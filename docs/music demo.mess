@@ -1,0 +1,44 @@
+# Kandria Music Demo
+Hi! This should serve as a reference point for the demo track. If there's any other information you feel you need that isn't on here, please let us know and we'll amend it asap.
+
+The primary things we're looking at with this demo track, and the associated third application round, are what your ideas for the music are, and what your overall process and communication looks like. As such we're not giving specific directions on what it should sound like or how you should proceed, and instead leave it up to you to decide. We'll instead just give you general information about where the track would be used, as well as backstory and visual material on the game as it stands today.
+
+Here's the most basic of information:
+
+- **Track Length**: ~1 minute
+- **Track Type**: Location theme
+- **Location**: Central camp on the surface
+- **Looping**: Should loop, but can have a lead-in.
+
+For inspiration here's the list of tracks we put together for the application: https://www.youtube.com/playlist?list=PLkDl6Irujx9MfIO9-_O1bk-pDjcWpjsYI Note that these tracks were put together based on the thought of "what are soundtracks that are mostly ambient, and that are still great to listen to outside of the medium they were specifically made for." In this sense they shouldn't necessarily be guides on what your track should sound like, but should more serve as a sample of the many directions you could go in, and the general kind of 'vibe' we are looking for.
+
+## Location Backstory
+The camp is located in the ruins of the former city of Zenith. Zenith was situated in a valley and is surrounded by a steep mountain range, with the ocean beyond the range to the east. 
+
+[ image valley.png ]
+
+In the calamity most of the city was wiped from the surface, and its remains turned the valley into a desert, with ruins and remnants of the city scattered about. Due to the harsh temperatures of the desert, and generally it being uninhabitable, it is mostly seen as a lost cause, and underground dwellers typically don't even bother going outside.
+
+The camp is composed of a couple of somewhat intact buildings, and a sizeable piece of farmland that was meticulously cleaned of the sand, located next to a bigger chunk of ruins of the old city. One of the buildings connects to the Zenith West Crossing underground through a maintenance tunnel. Located close to the camp is a natural cave entrance that leads into another complex of underground ruins.
+
+[ image cafe building.png ]
+[ image engineer building.png ]
+
+## Game Story
+The story of the game begins a few decades after the calamity. A group of people have learned the location of an old-world seed cache, containing plant seeds that can only be grown with sufficient light -- energy that can ill be spared in the underground settlements. Growing displeased with their home faction's militaristic tendencies, they decide to defect and try to establish a new settlement on the surface. Finding some somewhat intact buildings still remaining on the surface near the seed cache, they set up camp there and begin their efforts to grow crops.
+
+On one of many scavenging hunts they discover the remains of an android, lying dormant underneath the rubble, deep underground. Android technology having reached an almost mythological air, one of the scavengers, Catherine, is ecstatic to find out if it still works, and starts fiddling with the controls. Almost miraculously she manages to reboot the android, who awakens, though having suffered severe damage to their long term memory.
+
+At this point the player gains control of the android, called "The Stranger," and follows Catherine and her companion Alex back up through the ruins to the surface camp. As you arrive there's little time for introductions however, and you are immediately sent off on a mission back underground to fix some leaking pipes. Without constant water supply, the dry desert air threatens to wipe out the crops.
+
+Throughout the game you then periodically return to the camp to take on new missions, talk to the rest of your group, and so forth.
+
+## Characters
+The camp houses The Stranger, Fi, Jack, Catherine, and Alex. You can find portraits of them as well as detailed descriptions of their jobs, characters, and so forth in the "characters document"(link characters.mess).
+
+## Demo Build
+We also provide an early pre-release demo of the game for you to get a feel of it. It should start you in the camp. You can also supplant your own music for the existing track by replacing the file in ``pool/KANDRIA/sound/music.mp3``.
+
+| https://mega.nz/file/8k5nQSYS#FVGXvcDUXEkK18DVgQwvoDR0KpaFfZEyIJL7gIGeBZE
+
+Since this is a very early build a lot of the quest mechanics are not yet properly in place and the levels aren't yet finished. We ask you not to distribute this build or this page elsewhere.

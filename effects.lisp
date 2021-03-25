@@ -4,7 +4,8 @@
   ((name :initform 'fade)
    (vertex-array :initform (// 'trial 'fullscreen-square))
    (on-complete :initform NIL :accessor on-complete)
-   (strength :initform 0.0 :accessor strength)))
+   (strength :initform 0.0 :accessor strength)
+   (color :initform (vec 0 0 0) :accessor color)))
 
 (defmethod handle ((ev transition-event) (fade fade))
   (unless (flare:running (progression 'transition +world+))
@@ -18,12 +19,14 @@
               (setf *model-matrix* (meye 4)))))
 
 (defmethod render :before ((fade fade) (program shader-program))
+  (setf (uniform program "screen_color") (color fade))
   (setf (uniform program "strength") (strength fade)))
 
 (define-class-shader (fade :fragment-shader)
   "uniform float strength = 0.0;
+uniform vec3 screen_color = vec3(0,0,0);
 out vec4 color;
-void main(){ color = vec4(0,0,0,strength); }")
+void main(){ color = vec4(screen_color,strength); }")
 
 (define-progression death
   0 1.0 (distortion (set strength :from 0.0 :to 1.0))
@@ -35,9 +38,15 @@ void main(){ color = vec4(0,0,0,strength); }")
   0.2 0.3 (distortion (set strength :from 0.7 :to 0.0 :ease expo-out)))
 
 (define-progression transition
+  0.0 0.0 (fade (set color :to (vec 0 0 0)))
   0.0 0.5 (fade (set strength :from 0.0 :to 1.0 :ease quint-in))
   0.5 0.5 (fade (call (lambda (fade clock step) (funcall (on-complete fade)))))
   0.5 1.0 (fade (set strength :from 1.0 :to 0.0 :ease quint-out)))
+
+(define-progression flash
+  0.0 0.0 (fade (set color :to (vec 5 5 5)))
+  0.0 0.05 (fade (set strength :from 0.0 :to 0.8))
+  0.05 0.2 (fade (set strength :from 0.8 :to 0.0 :ease expo-out)))
 
 (define-progression stun
   0.0 0.1 (T (set time-scale :from 1.0 :to 0.5 :ease quint-in))
