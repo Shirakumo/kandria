@@ -6,12 +6,14 @@
  :on-activate (talk-fi)
  :on-complete (q2-seeds)
 )
-
+;; REMARK: Change "I am. For better or worse." to "Something like that, anyway."
+;; REMARK: Change "And if we go lower, then we'd be too close to Wraw territory." to "And if we go lower we'd enter another faction's territory."
+;; REMARK: Make the second choice repeatable so that players get the chance to explore all three choices. To do this add a label
+;;         and a jump after each choice, and turn the continuation into a choice as well.
 (quest:interaction :name talk-fi :interactable fi :dialogue "
 ~ fi
 | Greetings, Stranger.
-~ player
-- Catherine said you might want me.
+- Catherine said you might need me.
   ~ fi
   | I do.
 - So you're the leader around here.
@@ -28,7 +30,6 @@
 | Although the water is back on, our crops are unlikely to survive much longer.
 | I knew coming here would be hard, but we are on the brink - if we don't starve, then it seems the Wraw will get us in the end.
 | They'll be coming, sooner or later, now they know where we are. No one escapes them and lives very long.
-~ player
 - Who are the Wraw?
   ~ fi
   | Another faction, deep underground. We were part of them.
@@ -49,7 +50,6 @@
 | Alex found it, our hunter. I want you to retrace their steps, find the cache, and if it's intact, recover all the seeds that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.
-~ player
 - You can rely on me.
   ~ fi
   | Thank you.

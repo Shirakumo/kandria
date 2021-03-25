@@ -4,9 +4,18 @@
  :invariant T
  :condition all-complete
  :on-activate (catherine-return)
- :on-complete NIL
- )
+ :on-complete NIL)
 
+;; REMARK: I don't like the examination part. I don't think it's reasonable to assume that Catherine
+;;         would know how to scan through those logs, given that she didn't even grow up before the calamity,
+;;         and there's very little if any information on them out there, let alone how to maintain them.
+;;         I think it would be much more reasonable if Catherine starts looking around for a way to interface
+;;         with her, perhaps referencing something like "If we had a functioning computer maybe we could
+;;         connect to her through some kinda data port..." but then fails to even find such a port.
+;;         
+;;         As for how she reactivated the stranger, I think something simple like applying pressure on her
+;;         earlobe would work, rather than requiring any deep interfacing, and the way she discovered that
+;;         was mostly dumb luck and curiosity, more than anything.
 (quest:interaction :name catherine-return :interactable entity-5339 :dialogue "
 ~ catherine
 | Hey, Stranger - See what'd I tell you?
@@ -60,7 +69,6 @@
 | Catherine, can it be done?
 ~ catherine
 | I guess I could check her black box, see if the FFCS was active lately.
-~ catherine
 | But I think we should ask HER if that is okay.
 ~ fi
 | You're right, Catherine. I'm sorry...
@@ -84,7 +92,7 @@
   ~ catherine
   | Don't worry. I won't let them turn you off.
   < examine
-! label continue
+> continue
 ~ fi
 | But irrespective of all this, I am certain that the Wraw are our attackers.
 | Which means they're close to discovering our location one way or another.
@@ -99,6 +107,7 @@
 ! eval (setf (location 'fi) 'entity-5437)
 ! eval (move-to 'entity-5436 (unit 'jack))
 ! eval (activate 'catherine-trader)
+
 # examine
 ~ fi
 | Thank you. Catherine, if you could proceed.
@@ -117,15 +126,15 @@
 | I am satisfied, for now. Thank you Catherine, Stranger.
 < continue
 ")
-; todo restore when fi has animations: ! eval (move-to 'entity-5437 (unit 'fi))
-; todo jack move not working (and no error)
+;; TODO: restore when fi has animations: ! eval (move-to 'entity-5437 (unit 'fi))
+;; TODO: jack move not working (and no error)
 
 #| DIALOGUE REMOVED FOR TESTING
 
 
 
 |#
-
+;; REMARK: Maybe say "adults" instead? "Grown-ups" sounds too child-like.
 (quest:interaction :name catherine-trader :interactable catherine :dialogue "
 ~ catherine
 | Urgh, grown-ups. I mean, I'm technically a grown-up, but not like those dinosaurs.
@@ -144,9 +153,9 @@
 ! eval (activate 'q3-intro)
 ")
 
-; todo rewards - is only storing +1 and no notification too: ! eval (store 'small-health-pack 3)
-; Let's not have catherine go to trader as well - player needs some time away from Catherine (which helps by delaying the trader arrive till after quest 2/3)
-; Activate people quest 2/3/hub
+;; TODO: rewards - is only storing +1 and no notification too: ! eval (store 'small-health-pack 3)
+;; Let's not have catherine go to trader as well - player needs some time away from Catherine (which helps by delaying the trader arrive till after quest 2/3)
+;; Activate people quest 2/3/hub
 
 #|
 
@@ -154,8 +163,8 @@
 
 |#
 
-; Catherine got the android online, so she must know the basics about them
-; also, don't want to have to go to the lab and do this, as too much travelling back and fourth (fetch quests) - and besides, player could run off
+;; Catherine got the android online, so she must know the basics about them
+;; also, don't want to have to go to the lab and do this, as too much travelling back and fourth (fetch quests) - and besides, player could run off
 
 #| todo too much exposition too soon... This should be at the end of Act 1?...
 | Indeed, allow me to formally welcome you to the Noka.
@@ -165,5 +174,5 @@
 |#
 
 
-; todo Explain Wraw yet? Hold off for quest 2/3? Say they have androids for parts/slave labour? Use them as electronic power supplies?
-; todo also later make reference to the stranger's clothes e.g. Jack: "And what is it wearing? I've never seen anything like it." Catherine: "I don't know but I love it! They're not clothes like ours either, she's just sort of made that way."
+;; TODO: Explain Wraw yet? Hold off for quest 2/3? Say they have androids for parts/slave labour? Use them as electronic power supplies?
+;; TODO: also later make reference to the stranger's clothes e.g. Jack: "And what is it wearing? I've never seen anything like it." Catherine: "I don't know but I love it! They're not clothes like ours either, she's just sort of made that way."

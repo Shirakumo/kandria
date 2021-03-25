@@ -4,16 +4,14 @@
  :invariant T
  :condition all-complete
  :on-activate (leak1)
- :on-complete (task-return-home)
- )
+ :on-complete (task-return-home))
 
-; TODO (test) remove some health for looking at the arc (and signpost this): ! eval (when (< 5 (health player)) (decf (health player) 5))
-; using inner monologue to depict and pass the time for action taking place
+;; TODO: (test) remove some health for looking at the arc (and signpost this): ! eval (when (< 5 (health player)) (decf (health player) 5))
+;; using inner monologue to depict and pass the time for action taking place
 (quest:interaction :name leak1 :interactable entity-4993 :dialogue "
 ~ catherine
 | Alright, here's a leak...
-| That's strange: the pipe is cracked.
-~ player
+| That's strange, the pipe is cracked.
 - Can you fix it?
   ~ catherine
   | I wouldn't be much of an engineer if I couldn't.
@@ -44,7 +42,6 @@
 | Alright - we'll keep looking. Over and out.
 | Come on... Er - you really need a name.
 | You sure you don't remember it?
-~ player
 - Why do I need a name?
   ~ catherine
   | I don't know. Everyone has a name. It's you, it's personal. And it makes it easier to have a conversation.
@@ -62,14 +59,15 @@
 ! eval (activate 'leak2)
 ! eval (lead 'player 'entity-5627 (unit 'catherine))
 ")
-; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
+;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
 #| ^ DIALOGUE REMOVED FOR TESTING
 
 
 
 |#
 
-; TODO spawn combat wolves (not zombies or tame wolves)
+;; TODO: spawn combat wolves (not zombies or tame wolves)
+;; REMARK: Please rename your marker entities in the editor to something sensible. Seeing ENTITY-5498 isn't very helpful.
 (quest:interaction :name leak2 :interactable entity-5627 :dialogue "
 ~ catherine
 | Look - the same cracks as we saw on the last pipe. This isn't right.
@@ -81,12 +79,12 @@
 ~ jack
 | ...
 | It's sabotage. I knew it.
-| Alright: Cathy, you stay put. I'm coming down. Over.
+| Alright, Cathy, you stay put. I'm coming down. Over.
 ~ catherine
 | No! I'm alright. I can fix it. Over.
 ~ jack
 | Okay... just be careful. I'll tell Fi what's going on.
-| You'd better follow the pipes right down to the reservoir as well, just to be sure you got all the leaks.
+| You'd better follow the pipes right down to the pumps as well, just to be sure you got all the leaks.
 | The walkie won't work down there though - but there's a telephone near the reservoir. Use that when you're done.
 | And keep your wits about you. Over and out.
 ~ catherine
@@ -102,8 +100,8 @@
 
 |#
 
-; todo allow player to collect "wolf meat" as currency?
-; ! eval (store 'small-health-pack 3)
+;; TODO: allow player to collect "wolf meat" as currency?
+;; ! eval (store 'small-health-pack 3)
 (quest:interaction :name catherine-fighttalk1 :interactable catherine :dialogue "
 ! eval (complete 'catherine-fighttalk1)
 ~ catherine
@@ -113,13 +111,14 @@
 ! eval (activate 'leak2-done)
 ")
 
-; TODO only activate once wolves defeated, or branch what Catherine says based on whether fight is ongoing or not?
-; todo spawn multiple zombies not just 1
-; todo has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
+;; TODO: only activate once wolves defeated, or branch what Catherine says based on whether fight is ongoing or not?
+;; TODO: spawn multiple zombies not just 1
+;; TODO: has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
+;; REMARK: ^ yes. The tutorial will include a brief fight section.
 (quest:interaction :name leak2-done :interactable entity-5627 :dialogue "
 ~ catherine
 | I've done the weld - good as new.
-| Let's get to the reservoir.
+| Let's get to the pumps.
 ! eval (spawn 'entity-5638 'zombie)
 ! eval (activate (unit 'rogues))
 ! eval (lead 'player 'entity-5639 (unit 'catherine))
@@ -132,11 +131,10 @@
 | Wow - you're a real badass!
 |#
 
-; trigger volume
+;; trigger volume
 (quest:interaction :name rogues :interactable catherine :dialogue "
 ~ catherine
 | What the hell?!- Rogues? Here?
-~ player
 - I think we found the saboteurs.
   ~ catherine
   | Do your thing!
@@ -161,9 +159,9 @@
 ! eval (activate 'leak3-fight-done)
 ")
 
-; TODO only activate once rogues defeated, or branch what Catherine says based on whether fight is ongoing or not (have this node activate when a walk n talk done?)
-; todo spawn spare parts for the player to collect (barter currency) - can use var "parts"? Or just use cans for now i.e. (spawn 'camp 'can)
-; todo sometimes doesn't activate?
+;; TODO: only activate once rogues defeated, or branch what Catherine says based on whether fight is ongoing or not (have this node activate when a walk n talk done?)
+;; TODO: spawn spare parts for the player to collect (barter currency) - can use var "parts"? Or just use cans for now i.e. (spawn 'camp 'can)
+;; TODO: sometimes doesn't activate?
 (quest:interaction :name leak3-fight-done :interactable entity-5639 :dialogue "
 ~ catherine
 | Let me take a look at their handiwork.
@@ -215,7 +213,6 @@
 | Jack?... He hung up.
 | Well, whatever it is it doesn't sound good.
 | Seems we'll have to wait a little longer for that welcome home we deserve.
-~ player
 - Lead the way.
   ~ catherine
   | You got it, partner!
@@ -227,36 +224,28 @@
 - Can I go now?
   ~ catherine
   | Go? Go where?
-  ~ player
-  | - I want to explore.
-  |   ~ catherine
-  |   Sure, of course. I mean, it's been a little mad since we got back, hasn't it?
-  |   Yeah, definitely - take some time, explore the caves, get to know the lay of the land.
-  |   Just don't be too long - Fi will want us both to debrief her.
-  |   I'm heading back now. Be careful - though I know you can handle yourself.
-  |   Seeya later!
-  | - Home.
-  |   ~ catherine
-  |   Oh...
-  |   Maybe, in time, I'll be able to help you with that. I intend to learn all there is to know about androids. About you, I mean.
-  |   I'm gonna head back to camp now. But take your time - I'll meet you there when you're ready. Then we can talk to Fi.
-  |   Seeya in a little while.
-  | - Anywhere that's not here.
-  |   ~ catherine
-  |   Um, sure. I get that - you want to look around. It's been a little mad since we got back, hasn't it?
-  |   Yeah, definitely - take some time, explore the caves, get to know the lay of the land.
-  |   Just don't be too long - Fi will want us both to debrief her.
-  |   I'm heading back now. Be careful - though I know you can handle yourself.
-  |   Seeya later!
+  - I want to explore.
+    ~ catherine
+    | Sure, of course. I mean, it's been a little mad since we got back, hasn't it?
+    | Yeah, definitely - take some time, explore the caves, get to know the lay of the land.
+    | Just don't be too long - Fi will want us both to debrief her.
+    | I'm heading back now. Be careful - though I know you can handle yourself.
+    | Seeya later!
+  - Home.
+    ~ catherine
+    | Oh...
+    | Maybe, in time, I'll be able to help you with that. I intend to learn all there is to know about androids. About you, I mean.
+    | I'm gonna head back to camp now. But take your time - I'll meet you there when you're ready. Then we can talk to Fi.
+    | Seeya in a little while.
+  - Anywhere that's not here.
+    ~ catherine
+    | Um, sure. I get that - you want to look around. It's been a little mad since we got back, hasn't it?
+    | Yeah, definitely - take some time, explore the caves, get to know the lay of the land.
+    | Just don't be too long - Fi will want us both to debrief her.
+    | I'm heading back now. Be careful - though I know you can handle yourself.
+    | Seeya later!
 ! eval (setf (location 'fi) 'entity-5640)
 ! eval (setf (location 'jack) 'entity-5382)
 ! eval (move-to 'entity-5339 (unit 'catherine))
 ")
-; todo player could beat catherine back if they're quick, then destination convo don't make sense without Catherine there - only allow convo to play once catherine's back? Or once move-to takes her outside the current chunk, teleport her?
-
-
-#|
-
-
-
-|#
+;; TODO: player could beat catherine back if they're quick, then destination convo don't make sense without Catherine there - only allow convo to play once catherine's back? Or once move-to takes her outside the current chunk, teleport her?

@@ -4,16 +4,15 @@
  :invariant T
  :condition all-complete
  :on-activate (arrive)
- :on-complete NIL
-)
+ :on-complete NIL)
 
-; todo the last player emotion in the choices is the one that will render; have it change her highlighted choice?
-; todo replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
+;; TODO: the last player emotion in the choices is the one that will render; have it change her highlighted choice?
+;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
+;; REMARK: ^ Does \[Lie\] not work?
 (quest:interaction :name arrive :interactable catherine :dialogue "
 ~ catherine
-| (:cheer) Tada! Here we are!
+| (:cheer) Tada~! Here we are!
 | What do you think...?
-~ player
 - (:normal) It's a ruined city.
   ~ catherine
   | (:excited) Yep! It's home.
@@ -33,23 +32,19 @@
 ! eval (walk-n-talk 'walk)
 ")
  
-#|
-
-|#
-
-; todo doesn't always play these, if they get interrupted by lead reminder - and if they don't complete, this task never completes?
+;; TODO: doesn't always play these, if they get interrupted by lead reminder - and if they don't complete, this task never completes?
+;; REMARK: ^ You can change the task condition from ALL-COMPLETE to a check that only checks the required interactions, like (complete-p 'arrive 'field)
 (quest:interaction :name walk :interactable catherine :dialogue "
 ! eval (complete 'walk)
 --
 ~ catherine
 | (:normal) Living on the surface is even harder than living in the caves.
 ")
-; todo force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
 
+;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
 (quest:interaction :name field :interactable entity-5339 :dialogue "
 ~ catherine
 | (:excited) What'd I tell you? Amazing, right?!
-~ player
 - What I am looking at?
   ~ catherine
   | They're crops! We're growing crops - in the desert!
@@ -70,7 +65,6 @@
 ~ catherine
 | Erm... hang on a second. Where is everyone?
 | This isn't the welcome I was expecting.
-~ player
 - Is something wrong?
   ~ catherine
   | Well, I just reactivated an android...
@@ -89,7 +83,7 @@
 ! eval (activate 'find-jack)
 ! eval (lead 'player 'jack (unit 'catherine))
 ")
-; learn Jack's name for the first time
+;; learn Jack's name for the first time
 
 #| CUT DIALOGUE FOR TESTING EASE
 
