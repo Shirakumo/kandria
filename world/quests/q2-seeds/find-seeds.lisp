@@ -15,10 +15,10 @@
 | //There are 54 sachets inside this container. The seeds are inside them, tiny and hard like dead insects.//
 | //Will they still grow?//
 - //Take all the sachets.//
-  | //I stow 54 sachets within my internal compartment.//
+  | //I stow 54 sachets in my compartment.//
   ! eval (store 'seeds 54)
 - //Take some of the sachets.//
-  | //I stow 17 sachets within my internal compartment.//
+  | //I stow 17 sachets in my compartment.//
   ! eval (store 'seeds 17)
 - //Destroy the seeds.//
   | //I hold the sachets in my hands, several at a time, and exert pressure sufficient to crush them into particulates.//

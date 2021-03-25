@@ -67,11 +67,12 @@
 |   ! eval (activate 'sq1-leaks)
 | - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) //Forage for mushrooms//|]
 |   ~ catherine
-|   | Awesome! They grow in the caves below the settlement, in the dim light and plentiful moisture.
-|   | Edible mushrooms like Honey Fungus can sustain us even if the crop fails. They're all we used to eat before we moved to the surface.
-|   | Fibrous ones like Dusky Puffballs can be used to weave clothing.
-|   | We combine them with recycled synthetic clothing from the old world - like yours - and scraps of leather from animals we hunt.
-|   | Some are deadly poisonous though, like the Grey Knight. Avoid those if you can.
+|   | Awesome! They grow in the caves below the settlement, in the dim light and moisture there.
+|   | Edible mushrooms like the flower fungus can sustain us even if the crop fails. They're all we used to eat before we moved to the surface.
+|   | Fibrous ones like the rusty puffball can be used to weave clothing. 
+|   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.
+|   | Just don't breathe in their spores - though I guess that won't affect you.
+|   | Other kinds are deadly poisonous though, like the black knight. Avoid those if you can.
 |   | Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
 | - [(not (active-p 'sq3-race)) //Time trials//|]
@@ -93,7 +94,7 @@
   | You take it easy. See you soon.
 - How are you Catherine?
   ~ catherine
-  | Me? Oh, same as usual. Jack's as overbearing as always. But you know me, there's always a bright side.
+  | Me? Oh, same as usual. Jack's as overbearing as always. But you know me - there's always a bright side.
   | I think if I can just keep my head down and keep doing something, then I won't worry about the future. Or the past.
   | Just take it day by day, you know?
   | Look, I should get back to my work. Hope to see you soon!
