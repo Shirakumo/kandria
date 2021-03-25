@@ -79,7 +79,7 @@
 |   ~ catherine
 |   | Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do in anger!
 |   | I'll record your results for posterity too! This is anthropology!
-|   | Come back soon, once I've talked to my friends. We need to plan the first route, and organise the sweepstake.
+|   | Come back soon, once I've talked to the gang. We need to plan the routes, and organise the sweepstake.
 |   | This is sooo exciting!
 |   ! eval (activate 'sq3-race)
 | - //Nothing for now//
