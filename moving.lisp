@@ -31,7 +31,6 @@
                     (v:warn :kandria.collision "~a has become permanently stuck, killing!" moving)
                     (die moving))
                    ((< 10 i)
-                    (v:warn :kandria.collision "~a has become stuck!" moving)
                     (vsetf (frame-velocity moving) 0 0)
                     (vsetf (velocity moving) 0 0))))
     (when (eq (svref collisions 2) (svref collisions 1))
@@ -115,13 +114,24 @@
              (+ (vy pos) t-s))
       (setf (vy loc) (+ (vy pos) t-s height)))))
 
-(defmethod collides-p ((moving moving) (block spike) hit)
-  ;; Switch to using circular mask for more lenient detection.
-  (let ((sqrdist (vsqrdist2 (location moving) (hit-location hit))))
-    (< sqrdist (1- (expt +tile-size+ 2)))))
-
-(defmethod collide ((moving moving) (block spike) hit)
+(defmethod collide ((moving moving) (block death) hit)
   (die moving))
+
+(defmethod collides-p ((moving moving) (block spike) hit)
+  (let* ((normal (spike-normal block))
+         (dot (v. (frame-velocity moving) normal)))
+    (or
+     ;; We can collide with spikes either head on (opposed normals)
+     (and (v= (hit-normal hit) normal)
+          (< dot 0.0)
+          (cond ((= +1.0 (vx normal)) (<= (- (vx (location moving)) (vx (bsize moving))) (vx (hit-location hit))))
+                ((= -1.0 (vx normal)) (<= (vx (hit-location hit)) (+ (vx (location moving)) (vx (bsize moving)))))
+                ((= +1.0 (vy normal)) (<= (- (vy (location moving)) (vy (bsize moving))) (vy (hit-location hit))))
+                ((= -1.0 (vy normal)) (<= (vy (hit-location hit)) (+ (vy (location moving)) (vy (bsize moving)))))))
+     ;; Or side-ways (perpendicular normals).
+     (and (= dot 0.0)
+          (<= (abs (- (vx (location moving)) (vx (hit-location hit)))) (vx (bsize moving)))
+          (<= (abs (- (vy (location moving)) (vy (hit-location hit)))) (vy (bsize moving)))))))
 
 (defmethod collides-p ((moving moving) (block slope) hit)
   (ignore-errors

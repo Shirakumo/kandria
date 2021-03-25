@@ -11,8 +11,12 @@
 (defstruct (platform (:include block)
                      (:constructor make-platform (s))))
 
-(defstruct (spike (:include block)
-                  (:constructor make-spike (s))))
+(defstruct (death (:include block)
+                  (:constructor make-death (s))))
+
+(defstruct (spike (:include death)
+                  (:constructor make-spike (s normal)))
+  (normal NIL :type vec2))
 
 (defstruct (slope (:include block)
                   (:constructor make-slope (s l r)))
@@ -23,14 +27,14 @@
                     (:constructor make-stopper (s))))
 
 (defun make-surface-blocks (t-s slope-steps)
-  (let ((blocks (make-array (+ 5 (* 2 (reduce #'+ slope-steps)))))
+  (let ((blocks (make-array (+ 5 4 (* 2 (reduce #'+ slope-steps)))))
         (i -1))
     (flet ((make (c &rest args)
              (setf (aref blocks (incf i)) (apply (find-symbol (format NIL "MAKE-~a" c)) t-s args))))
       (make 'block)
       (make 'ground)
       (make 'platform)
-      (make 'spike)
+      (make 'death)
       (loop for steps in slope-steps
             do (loop for i from 0 below steps
                      for l = (* (/ i steps) t-s)
@@ -45,6 +49,10 @@
                               (vec2 (/ t-s -2) (- (floor l) (/ t-s 2)))
                               (vec2 (/ t-s +2) (- (floor r) (/ t-s 2))))))
       (make 'stopper)
+      (make 'spike (vec 0 +1))
+      (make 'spike (vec +1 0))
+      (make 'spike (vec 0 -1))
+      (make 'spike (vec -1 0))
       blocks)))
 
 (sb-ext:defglobal +surface-blocks+ NIL)
