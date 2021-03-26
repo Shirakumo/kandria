@@ -307,7 +307,7 @@
                     (+ (vy offset) (* (+ (floor idx w) 0.5) +tile-size+))))
              (find-start (idx)
                (declare (type (signed-byte 16) idx))
-               (loop (when (< idx 0) (return))
+               (loop (when (tile-type-p idx 's) (return))
                      (when (svref grid idx) (return idx))
                      (decf idx w)))
              (cost (a b)
