@@ -21,7 +21,7 @@
   | Alright, you can have a minute. But we need to hurry - the water supply isn't gonna fix itself.  
 - Where are we going again?
   ~ catherine
-  | Um, are you suffering from memory loss? We need to fix the water leak - before we lose the crop and everyone starves.
+  | Um, did your short-term memory corrupt? We need to fix the water leak - before we lose the crop and everyone starves!
   - I don't need to eat.
     ~ catherine
     | Well the rest of us aren't so lucky. Aren't so unlucky, actually.

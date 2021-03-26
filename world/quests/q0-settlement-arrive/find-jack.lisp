@@ -21,7 +21,7 @@
 - Jack, I presume.
 - Is everything okay?
 ~ jack
-| Well fuck me it speaks... Though what the hell is that accent?
+| Fuck me it speaks... Though what the hell is that accent?
 ~ Catherine
 | Jack, what's wrong? Talk to me.
 ~ Jack
