@@ -11,8 +11,9 @@
 ;; REMARK: ^ Does \[Lie\] not work?
 (quest:interaction :name arrive :interactable catherine :dialogue "
 ~ catherine
-| (:cheer) Tada~! Here we are!
+| (:cheer) Tada! Here we are!
 | What do you think...?
+~ player
 - (:normal) It's a ruined city.
   ~ catherine
   | (:excited) Yep! It's home.
@@ -28,7 +29,7 @@
 ~ catherine
 | (:excited) And come look at this - I guarantee you won't ever have seen anything like it!
 ! eval (activate 'field)
-! eval (lead 'player 'entity-5339 'catherine)
+! eval (lead 'player 'farm-view 'catherine)
 ! eval (walk-n-talk 'walk)
 ")
  
@@ -42,7 +43,7 @@
 ")
 
 ;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
-(quest:interaction :name field :interactable entity-5339 :dialogue "
+(quest:interaction :name field :interactable farm-view :dialogue "
 ~ catherine
 | (:excited) What'd I tell you? Amazing, right?!
 - What I am looking at?

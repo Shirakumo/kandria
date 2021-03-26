@@ -8,7 +8,7 @@
 
 ;; TODO: (test) remove some health for looking at the arc (and signpost this): ! eval (when (< 5 (health player)) (decf (health player) 5))
 ;; using inner monologue to depict and pass the time for action taking place
-(quest:interaction :name leak1 :interactable entity-4993 :dialogue "
+(quest:interaction :name leak1 :interactable main-leak-1 :dialogue "
 ~ catherine
 | Alright, here's a leak...
 | That's strange, the pipe is cracked.
@@ -57,7 +57,7 @@
 | Pretty cool, huh?
 | Let's go, Stranger!
 ! eval (activate 'leak2)
-! eval (lead 'player 'entity-5627 (unit 'catherine))
+! eval (lead 'player 'main-leak-2 (unit 'catherine))
 ")
 ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
 #| ^ DIALOGUE REMOVED FOR TESTING
@@ -68,7 +68,7 @@
 
 ;; TODO: spawn combat wolves (not zombies or tame wolves)
 ;; REMARK: Please rename your marker entities in the editor to something sensible. Seeing ENTITY-5498 isn't very helpful.
-(quest:interaction :name leak2 :interactable entity-5627 :dialogue "
+(quest:interaction :name leak2 :interactable main-leak-2 :dialogue "
 ~ catherine
 | Look - the same cracks as we saw on the last pipe. This isn't right.
 | Jack, I think we've got trouble. Over.
@@ -91,7 +91,7 @@
 | Alright, let me seal this one up.
 | Wait... Who's there?
 ! eval (walk-n-talk 'catherine-fighttalk1)
-! eval (spawn 'entity-5498 'wolf)
+! eval (spawn 'q1-wolf-spawn 'wolf)
 ")
 
 #|
@@ -115,13 +115,13 @@
 ;; TODO: spawn multiple zombies not just 1
 ;; TODO: has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
 ;; REMARK: ^ yes. The tutorial will include a brief fight section.
-(quest:interaction :name leak2-done :interactable entity-5627 :dialogue "
+(quest:interaction :name leak2-done :interactable main-leak-2 :dialogue "
 ~ catherine
 | I've done the weld - good as new.
-| Let's get to the pumps.
-! eval (spawn 'entity-5638 'zombie)
+| Let's get to the reservoir.
+! eval (spawn 'main-leak-3 'zombie)
 ! eval (activate (unit 'rogues))
-! eval (lead 'player 'entity-5639 (unit 'catherine))
+! eval (lead 'player 'main-leak-3 (unit 'catherine))
 ")
 #|
 
@@ -162,11 +162,11 @@
 ;; TODO: only activate once rogues defeated, or branch what Catherine says based on whether fight is ongoing or not (have this node activate when a walk n talk done?)
 ;; TODO: spawn spare parts for the player to collect (barter currency) - can use var "parts"? Or just use cans for now i.e. (spawn 'camp 'can)
 ;; TODO: sometimes doesn't activate?
-(quest:interaction :name leak3-fight-done :interactable entity-5639 :dialogue "
+(quest:interaction :name leak3-fight-done :interactable leak-3-standoff :dialogue "
 ~ catherine
 | Let me take a look at their handiwork.
 ! eval (activate 'leak3)
-! eval (lead 'player 'entity-5638 (unit 'catherine))
+! eval (lead 'player 'main-leak-3 (unit 'catherine))
 ")
 #|
 
@@ -179,14 +179,14 @@
 | We could sure use their spare parts too - grab what you can.
 |#
 
-(quest:interaction :name leak3 :interactable entity-5638 :dialogue "
+(quest:interaction :name leak3 :interactable main-leak-3 :dialogue "
 ~ catherine
 | Oh man, we got here just in time. They were about to sever the main supply pipe.
 | Shouldn't take a minute to patch this up.
 | ... There, done!
 | Now, where is that telephone? I think it's this way.
 ! eval (activate 'phone)
-! eval (lead 'player 'entity-5170 (unit 'catherine))
+! eval (lead 'player 'q1-phone (unit 'catherine))
 ")
 #|
 
@@ -194,7 +194,7 @@
 
 |#
 
-(quest:interaction :name phone :interactable entity-5170 :dialogue "
+(quest:interaction :name phone :interactable q1-phone :dialogue "
 ~ catherine
 | Jack, it's me.
 ~ jack
@@ -244,8 +244,8 @@
     | Just don't be too long - Fi will want us both to debrief her.
     | I'm heading back now. Be careful - though I know you can handle yourself.
     | Seeya later!
-! eval (setf (location 'fi) 'entity-5640)
-! eval (setf (location 'jack) 'entity-5382)
-! eval (move-to 'entity-5339 (unit 'catherine))
+! eval (setf (location 'fi) 'fi-group)
+! eval (setf (location 'jack) 'jack-group)
+! eval (move-to 'catherine-group (unit 'catherine))
 ")
 ;; TODO: player could beat catherine back if they're quick, then destination convo don't make sense without Catherine there - only allow convo to play once catherine's back? Or once move-to takes her outside the current chunk, teleport her?

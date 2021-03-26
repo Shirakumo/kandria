@@ -12,7 +12,7 @@
 - I'm ready.
   ~ catherine
   | Alright. Stay close behind me.
-  ! eval (lead 'player 'entity-4993 (unit 'catherine))
+  ! eval (lead 'player 'main-leak-1 (unit 'catherine))
   ! eval (walk-n-talk 'catherine-walktalk1)
   ! eval (deactivate interaction)
   ! eval (complete task)

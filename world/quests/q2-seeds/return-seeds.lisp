@@ -86,21 +86,5 @@
 
 #|
 
-TODO REPURPOSE TRADER ENDING FROM QUEST 1:
-(quest:interaction :name catherine-trader :interactable catherine :dialogue "
-~ catherine
-| Urgh, grown-ups. I mean, I'm technically a grown-up, but not like those dinosaurs.
-| Anyway, I heard Sahil is back! He's overdue - he was probably waiting for those rogues to get lost.
-| You'll love him, he's a big bowl of sunshine!
-| Which reminds me - it's our way to gift something to those that help us out.
-| Since those two aren't likely to be feeling generous anytime soon, I'll give you these.
-! eval (store 'small-health-pack 3)
-| It's not much, but you can trade them for things you might want.
-| Sahil has lots of cool stuff. Lots of junk as well now I think about it. But some cool stuff too.
-| I'll tell him about you, and I'm sure he'll give you a bargain!
-| His caravan is down in the trading hub, below the metro tunnel - swing by if you get a minute.
-| I'm going to say hi. So... bye!
-! eval (move-to 'entity-5464 (unit 'catherine))
-")
 
 |#

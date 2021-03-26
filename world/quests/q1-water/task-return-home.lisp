@@ -16,7 +16,7 @@
 ;;         As for how she reactivated the stranger, I think something simple like applying pressure on her
 ;;         earlobe would work, rather than requiring any deep interfacing, and the way she discovered that
 ;;         was mostly dumb luck and curiosity, more than anything.
-(quest:interaction :name catherine-return :interactable entity-5339 :dialogue "
+(quest:interaction :name catherine-return :interactable catherine-group :dialogue "
 ~ catherine
 | Hey, Stranger - See what'd I tell you?
 | Jack here didn't think you'd come back.
@@ -104,8 +104,8 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
-! eval (setf (location 'fi) 'entity-5437)
-! eval (move-to 'entity-5436 (unit 'jack))
+! eval (move-to 'fi-farm (unit 'fi))
+! eval (move-to 'jack-main (unit 'jack))
 ! eval (activate 'catherine-trader)
 
 # examine
@@ -148,7 +148,7 @@
 | I think Fi might want a private word with you too. Just a hunch... something about the way she was looking at you.
 | Knowing Jack, he'll have something for you to do as well.
 | Seeya later!
-! eval (move-to 'entity-5436 (unit 'catherine))
+! eval (move-to 'eng-cath (unit 'catherine))
 ! eval (activate 'q2-intro)
 ! eval (activate 'q3-intro)
 ")
