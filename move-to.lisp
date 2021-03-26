@@ -707,7 +707,3 @@
   (let ((threshold (expt threshold 2)))
     (loop for (_ target) in path
           thereis (< (vsqrdist2 loc target) threshold))))
-
-(setf (location (unit 'player T)) (VEC2
-                                   2248.0
-                                   -3304.0))
