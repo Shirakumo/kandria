@@ -5,5 +5,4 @@
  :tasks (#p"leak-first.lisp" #p"leak-second.lisp" #p"leak-third.lisp" #p"return-leaks.lisp")
  :variables (first-leak)
 )
- 
-; todo task order, as shown on UI, does not follow activation order
+;; TODO task order, as shown on UI, does not follow activation order

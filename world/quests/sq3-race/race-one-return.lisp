@@ -79,5 +79,5 @@
   
 | Let's do this again soon!
 ")
-;; TODO: replace bracket numbers and rewards with global quest vars (incl in race hub), initiated at quest start
+;; TODO: replace bracket numbers and rewards with global quest vars (including in race hub), stored at quest level and defined there
 ;; TODO: log times to tenth of a second, not whole numbers?

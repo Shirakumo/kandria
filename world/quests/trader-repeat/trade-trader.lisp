@@ -75,12 +75,7 @@
 < main
 ")
 ;; TODO: open shop UI
-#| TODO: use shuffle syntax in some trader responses, e.g. when player says they changed their mind
-! eval ({(alexandria:random-elt '("Happens to the best of us." "Don't worry about it."))})
-or new syntax to achieve? [? Happens to the best of us. | Don't worry about it.]
-|#
 ;; TODO: flesh out with Sahil questions relevant to current plot points - confidente, as a fellow outsider?
-
 
 #| TODO:
 later talks with trader:

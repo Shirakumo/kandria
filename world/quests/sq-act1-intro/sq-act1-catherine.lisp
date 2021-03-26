@@ -103,8 +103,3 @@
   
 
 |#
-
-#|
-| |? (or (active-p 'race-one) (active-p 'race-two) (active-p 'race-three) (active-p 'race-four))
-| | | Don't forget your on a time trial right now - the clock is ticking!
-|#

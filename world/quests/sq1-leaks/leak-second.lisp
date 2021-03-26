@@ -42,7 +42,7 @@
 ")
 
 #|
-todo might not be good for localisation:
+TODO might not be good for localisation:
 | | [(var 'q1-weld-burn) This time |]I enable the UV filters on my cameras.
 replace with structure
 | | [(var 'q1-weld-burn) //This time I enable the UV filters on my cameras.// | //I enable the UV filters on my cameras.//]

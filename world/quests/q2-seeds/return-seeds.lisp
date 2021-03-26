@@ -23,14 +23,18 @@
   | I've got them right here.
   
   ~ fi
-  ? (<= 50 (item-count 'seeds))
+  ? (= 54 (item-count 'seeds))
+  | ! eval (retrieve 'seeds 54)
   | | Oh my... there must be... fifty sachets here. All fully stocked.
   | | You've done well. Very well. I'll see these are sown right away.
   | | This buys us hope I never thought we'd have.
   | | Know that you have earned my trust, Stranger. Welcome to the Noka.
   | | You may now call yourself one of our hunters.
-  | ! eval (retrieve 'seeds 54)
-  |? (<= 10 (item-count 'seeds))
+  | | And please accept this reward as a token of my appreciation.
+  | ! eval (store 'parts 20)
+  < end
+  |? (= 17 (item-count 'seeds))
+  | ! eval (retrieve 'seeds 17)
   | | Oh, is that all that was left?
   | ~ player
   | - I'm afraid so.
@@ -49,24 +53,30 @@
   | | Oh well, I suppose this is better than nothing. I just hope it will be enough.
   | | Thank you for you efforts. I'll see these are sown right away.
   | | And welcome to the Noka. You may now call yourself one of our hunters.
-  | ! eval (retrieve 'seeds 17)
+  | | And please accept this reward as a token of my appreciation.
+  | ! eval (store 'parts 20)
+  < end  
 - (Lie) I'm afraid there weren't any left.
   ~ fi
   | ...
   | None left... Alex told me there were at least fifty sachets remaining.
   | I knew we should have taken them all when we had the chance.
   | I suppose I was worried they'd be destroyed, if we came under attack.
-  | Thank you for making the journey - and welcome to the Noka.
-  | You may now call yourself one of our hunters.
-  | Now I must think about our next move. Whatever it is, I fear it won't be straightforward.
+  < bad-end
 - (Lie) There were rogue robots. I think they took them.
   ~ fi
   | Rogues... in the cache?...
   | We've never seen them there before - which means the Wraw must have discovered that as well.
   | Kuso... It seems they have us at a serious disadvantage.
-  | Thank you for making the journey - and welcome to the Noka.
-  | You may now call yourself one of our hunters.
-  | Now I must think about our next move. Whatever it is, I fear it won't be straightforward.
+  < bad-end
+# bad-end
+| But thank you for making the journey - and welcome to the Noka.
+| You may now call yourself one of our hunters.
+| And please accept this reward as a token of my appreciation.
+! eval (store 'parts 20)
+| Now I must think about our next move. Whatever it is, I fear it won't be straightforward.
+< end
+# end
 ~ fi
 ? (complete-p 'q3-new-home)
 | | You should check in again with Catherine too - I'm sure she'd like to see you again.
@@ -81,17 +91,11 @@
 | | ! eval (setf (location 'trader) 'loc-trader)
 | | ! eval (activate 'trader-arrive)
 ")
-;; TODO: rewards
 ;; TODO: act 2 prelude too
 ;; player learns "Noka" for the first time
 
 #|
 
-
-
-|#
-
-#|
 
 
 |#

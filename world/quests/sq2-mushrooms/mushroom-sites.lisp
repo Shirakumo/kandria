@@ -94,7 +94,7 @@
 | | ! eval (activate 'return-mushrooms)
 ")
 
-; todo move back to little nook near shroom1, if crawl interacts supported?
+;; TODO move back to little nook to the bottom right of the Hub near shroom1, if crawl interacts supported?
 (quest:interaction :name mushrooms4 :interactable shrooms4 :repeatable T :variables (batch1 batch2 batch3) :dialogue "
 ~ player
 | //[? It's a mushroom patch. | Found you, mushrooms. | Mushrooms located. | Mushrooms identified.]//

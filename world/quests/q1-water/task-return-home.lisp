@@ -135,10 +135,10 @@
 ;; REMARK: Maybe say "adults" instead? "Grown-ups" sounds too child-like.
 (quest:interaction :name catherine-trader :interactable catherine :dialogue "
 ~ catherine
-| Urgh, grown-ups. I mean, I'm technically a grown-up, but not like those dinosaurs.
+| Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | Oh! I almost forgot: It's our way to gift something to those that help us out.
 | Since those two aren't likely to be feeling generous anytime soon, I'll give you these.
-! eval (store 'small-health-pack 3)
+! eval (store 'parts 20)
 | It's not much, but you can trade them for things you might want. Or you will once Sahil gets here.
 | He's overdue, which is not like him at all. Maybe those rogues scared him off.
 | Anyway, I've got work to do. Feel free to have a look around, get to know people.
@@ -151,9 +151,8 @@
 ! eval (activate 'q3-intro)
 ")
 
-;; TODO: rewards - is only storing +1 and no notification too: ! eval (store 'small-health-pack 3)
+;; TODO: inventory item acquired onscreen pop-up / notification
 ;; Let's not have catherine go to trader as well - player needs some time away from Catherine (which helps by delaying the trader arrive till after quest 2/3)
-;; Activate people quest 2/3/hub
 
 #|
 
@@ -173,4 +172,3 @@
 
 
 ;; TODO: Explain Wraw yet? Hold off for quest 2/3? Say they have androids for parts/slave labour? Use them as electronic power supplies?
-;; TODO: also later make reference to the stranger's clothes e.g. Jack: "And what is it wearing? I've never seen anything like it." Catherine: "I don't know but I love it! They're not clothes like ours either, she's just sort of made that way."

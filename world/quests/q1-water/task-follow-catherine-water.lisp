@@ -99,7 +99,6 @@
 |#
 
 ;; TODO: allow player to collect "wolf meat" as currency?
-;; ! eval (store 'small-health-pack 3)
 (quest:interaction :name catherine-fighttalk1 :interactable catherine :dialogue "
 ! eval (complete 'catherine-fighttalk1)
 ~ catherine
@@ -109,7 +108,6 @@
 ! eval (activate 'leak2-done)
 ")
 
-;; TODO: only activate once wolves defeated, or branch what Catherine says based on whether fight is ongoing or not?
 ;; TODO: spawn multiple zombies not just 1
 ;; TODO: has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
 ;; REMARK: ^ yes. The tutorial will include a brief fight section.
@@ -157,8 +155,7 @@
 ! eval (activate 'leak3-fight-done)
 ")
 
-;; TODO: only activate once rogues defeated, or branch what Catherine says based on whether fight is ongoing or not (have this node activate when a walk n talk done?)
-;; TODO: spawn spare parts for the player to collect (barter currency) - can use var "parts"? Or just use cans for now i.e. (spawn 'camp 'can)
+;; TODO: spawn spare parts for the player to collect (barter currency) - would need to integrate with the zombies' death scripts?
 ;; TODO: sometimes doesn't activate?
 (quest:interaction :name leak3-fight-done :interactable leak-3-standoff :dialogue "
 ~ catherine

@@ -15,5 +15,4 @@
 ~ player
 | //This is the right place - the can must be close by.//
 ")
-;; TODO: actually have a physical item? Harder to spot than a trigger prompt, and can't have collection dialogue otherwise (spawn happens approximate to site location)
-;; trigger prompt also required to activate 'race-one-return without completing this task
+;; TODO: actually have a physical item? Harder to spot than a trigger prompt, and can't have collection dialogue otherwise - though with mushroom quest, Nick sees a need for collecting items which can trigger dialogue (spawn happens approximate to site location)

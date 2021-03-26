@@ -107,11 +107,11 @@
 ")
 ;; | [(var 'race-1-pb) Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.]
 ;; TODO: allow play to opt out of first race encountered, not forced
-;; TODO: cancel a race in progress? restart a race that's gone wrong?
-;; TODO: acknowledge when a new route has unlocked?
+;; TODO: cancel a race in progress? restart a race that's gone wrong? - not sure; it would have to be done by returning to Catherine, not from the UI, to preserve immersion (death is different, but restarting races from UI is fine in a driving game, not in an RPG?)
+;; - in which case if have to return to Catherine anyway, is there much point? Just hand the race in anyway and get the fun poor performance dialogue?
+;; TODO: acknowledge in the flow when a new route has unlocked?
 ;; TODO: have a different item per race, e.g. phone, bottle, etc. Need to render them though?
-;; TODO: lock out later races based on whether you have gold or not on previous one, rather than merely whether you've attempted the previous one or not
-;; //NA - todo bug deactivating this task causes it's title to appear as another bullet point in the journal
+;; TODO bug - deactivating this task causes it's title to appear as another bullet point in the journal (though not deactivating it anymore)
 ;; TODO: plant multiple objects, encouraging cheating
 ;; could explain brackets at the start, or let player figure it out themselves from results? Latter
 

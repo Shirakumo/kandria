@@ -22,7 +22,7 @@
 ;; Large stone gate
 (quest:interaction :name stone-gate-large :interactable lore-gate-rock :repeatable T :dialogue "
 ~ player
-| //Did this fall here? Or did they move it into place?//
+| //Did this fall here, or did they move it into place?//
 ")
 
 ;; Housing exterior - first floor left shattered room
