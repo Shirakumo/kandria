@@ -30,7 +30,7 @@
   | //It's like staring into the sun. Into the centre of a catacylsm.//
   ! eval (when (< 5 (health player)) (hurt player 5))
   ! eval (setf (var 'weld-burn) T)
-  | //I think that damaged my cameras a little... Oh well.//
+  | //I think that damaged my cameras a little...//
 ~ catherine
 | That should hold it.
 ~ catherine
