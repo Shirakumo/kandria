@@ -4,9 +4,8 @@
  :invariant T
  :condition NIL
  :on-activate (mushrooms1 mushrooms2 mushrooms3 mushrooms4 mushrooms5)
- :on-complete NIL
-)
-; //[? Here's a mushroom patch. | Found you, mushrooms. | Mushrooms located. | Mushrooms identified.] [? They look much more appetising on a plate. | People eat this stuff? | It looks and smells like mould. I suppose it's the same thing, more or less. | It looks like someone's insides if they were on the outside.]//
+ :on-complete NIL)
+;; //[? Here's a mushroom patch. | Found you, mushrooms. | Mushrooms located. | Mushrooms identified.] [? They look much more appetising on a plate. | People eat this stuff? | It looks and smells like mould. I suppose it's the same thing, more or less. | It looks like someone's insides if they were on the outside.]//
 (quest:interaction :name mushrooms1 :interactable shrooms1 :repeatable T :variables (batch1 batch2) :dialogue "
 ~ player
 | //[? It's a mushroom patch. | Found you, mushrooms. | Mushrooms located. | Mushrooms identified.]//
@@ -23,16 +22,16 @@
   ! eval (setf (var 'batch2) T)
   < ending
 - Take none
+
 # ending
-? (var 'batch1)
-| ? (var 'batch2)
-| | ! eval (deactivate 'mushrooms1)
+? (and (var 'batch1) (var 'batch2))
+| ! eval (deactivate 'mushrooms1)
 ? (<= 25 (+ (item-count 'mushroom-good-1) (item-count 'mushroom-good-2)) )
 | ? (not (active-p 'return-mushrooms))
 | | ! eval (activate 'return-mushrooms)
 ")
-; once player has collected some, activate return to Catherine dialogue if not already active
-; todo allow player to drop/destroy any they've collected that they don't want? Though that could break the quest if they accidentally drop good ones, and can't pick them up again - would equal auto failure. If always get same reward, doesn't matter either, just affects hand-in dialogue
+;; once player has collected some, activate return to Catherine dialogue if not already active
+;; TODO: allow player to drop/destroy any they've collected that they don't want? Though that could break the quest if they accidentally drop good ones, and can't pick them up again - would equal auto failure. If always get same reward, doesn't matter either, just affects hand-in dialogue
 
 #|
 
@@ -63,11 +62,10 @@
   ! eval (setf (var 'batch3) T)
   < ending
 - Take none
+
 # ending
-? (var 'batch1)
-| ? (var 'batch2)
-| | ? (var 'batch3)
-| | | ! eval (deactivate 'mushrooms2)
+? (and (var 'batch1) (var 'batch2) (var 'batch3))
+| ! eval (deactivate 'mushrooms2)
 ? (<= 25 (+ (item-count 'mushroom-good-1) (item-count 'mushroom-good-2)) )
 | ? (not (active-p 'return-mushrooms))
 | | ! eval (activate 'return-mushrooms)
@@ -87,10 +85,10 @@
   ! eval (setf (var 'batch2) T)
   < ending
 - Take none
+
 # ending
-? (var 'batch1)
-| ? (var 'batch2)
-| | ! eval (deactivate 'mushrooms3)
+? (and (var 'batch1) (var 'batch2))
+| ! eval (deactivate 'mushrooms3)
 ? (<= 25 (+ (item-count 'mushroom-good-1) (item-count 'mushroom-good-2)) )
 | ? (not (active-p 'return-mushrooms))
 | | ! eval (activate 'return-mushrooms)
@@ -117,11 +115,10 @@
   ! eval (setf (var 'batch3) T)
   < ending
 - Take none
+
 # ending
-? (var 'batch1)
-| ? (var 'batch2)
-| | ? (var 'batch3)
-| | | ! eval (deactivate 'mushrooms4)
+? (and (var 'batch1) (var 'batch2) (var 'batch3))
+| ! eval (deactivate 'mushrooms4)
 ? (<= 25 (+ (item-count 'mushroom-good-1) (item-count 'mushroom-good-2)) )
 | ? (not (active-p 'return-mushrooms))
 | | ! eval (activate 'return-mushrooms)
@@ -148,11 +145,10 @@
   ! eval (setf (var 'batch3) T)
   < ending
 - Take none
+
 # ending
-? (var 'batch1)
-| ? (var 'batch2)
-| | ? (var 'batch3)
-| | | ! eval (deactivate 'mushrooms5)
+? (and (var 'batch1) (var 'batch2) (var 'batch3))
+| ! eval (deactivate 'mushrooms5)
 ? (<= 25 (+ (item-count 'mushroom-good-1) (item-count 'mushroom-good-2)) )
 | ? (not (active-p 'return-mushrooms))
 | | ! eval (activate 'return-mushrooms)

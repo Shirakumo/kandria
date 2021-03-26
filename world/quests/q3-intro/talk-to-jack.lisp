@@ -4,10 +4,9 @@
  :invariant T
  :condition all-complete
  :on-activate (talk-jack)
- :on-complete (q3-new-home)
-)
+ :on-complete (q3-new-home))
 
-; could have been sent here by Fi or Catherine
+;; could have been sent here by Fi or Catherine
 (quest:interaction :name talk-jack :interactable jack :dialogue "
 ~ jack
 | Oh, it's you. Come to kill me?

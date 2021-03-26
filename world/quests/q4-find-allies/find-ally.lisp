@@ -4,5 +4,4 @@
  :invariant T
  :condition NIL
  :on-activate NIL
- :on-complete NIL
-)
+ :on-complete NIL)

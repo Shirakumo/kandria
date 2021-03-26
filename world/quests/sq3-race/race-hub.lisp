@@ -4,10 +4,9 @@
  :invariant T
  :condition NIL
  :on-activate (start-race)
- :on-complete NIL
-)
+ :on-complete NIL)
 
-; enemies on this quest will be world NPCs, not spawned for the quest
+;; enemies on this quest will be world NPCs, not spawned for the quest
 (quest:interaction :name start-race :title "Race against the clock" :interactable catherine :repeatable T :dialogue "
 ? (or (active-p 'race-one) (active-p 'race-two) (active-p 'race-three) (active-p 'race-four))
 | ~ catherine
@@ -107,14 +106,14 @@
 | [? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger!]
 ")
 ;; | [(var 'race-1-pb) Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.]
-; todo allow play to opt out of first race encountered, not forced
-;; TODO cancel a race in progress? restart a race that's gone wrong?
-;; TODO acknowledge when a new route has unlocked?
-; todo have a different item per race, e.g. phone, bottle, etc. Need to render them though?
-; todo lock out later races based on whether you have gold or not on previous one, rather than merely whether you've attempted the previous one or not
-; //NA - todo bug deactivating this task causes it's title to appear as another bullet point in the journal
-; todo plant multiple objects, encouraging cheating
-; could explain brackets at the start, or let player figure it out themselves from results? Latter
+;; TODO: allow play to opt out of first race encountered, not forced
+;; TODO: cancel a race in progress? restart a race that's gone wrong?
+;; TODO: acknowledge when a new route has unlocked?
+;; TODO: have a different item per race, e.g. phone, bottle, etc. Need to render them though?
+;; TODO: lock out later races based on whether you have gold or not on previous one, rather than merely whether you've attempted the previous one or not
+;; //NA - todo bug deactivating this task causes it's title to appear as another bullet point in the journal
+;; TODO: plant multiple objects, encouraging cheating
+;; could explain brackets at the start, or let player figure it out themselves from results? Latter
 
 #|
 

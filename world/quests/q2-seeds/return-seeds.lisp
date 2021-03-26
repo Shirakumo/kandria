@@ -4,15 +4,22 @@
  :invariant T
  :condition all-complete
  :on-activate (seeds-return-fi)
- :on-complete NIL
-)
+ :on-complete NIL)
 
-; enemies on this quest will be world NPCs, not spawned for the quest
+;; enemies on this quest will be world NPCs, not spawned for the quest
+;; REMARK: It feels a bit too soon for Fi to fully trust the stranger already.
+;;         I think it would be better if she remarked positively about it and hinted at
+;;         welcoming her into the group, but only making her an actual member in Act 2.
+;;         Also gives the player something to look forward to and we can build it up
+;;         to be a more impactful and rewarding moment.
+;; REMARK: Also as you already mentioned in the other part, would be best if the lie
+;;         options were gated behind a variable that is set in the other task if you
+;;         don't take anything.
 (quest:interaction :name seeds-return-fi :interactable fi :dialogue "
 ~ fi
 | You're back - did you find the seeds?
-~ player
 - ? (have 'seeds)
+  ~ player
   | I've got them right here.
   
   ~ fi
@@ -74,9 +81,9 @@
 | | ! eval (setf (location 'trader) 'entity-5627)
 | | ! eval (activate 'trader-arrive)
 ")
-; todo rewards
-; todo act 2 prelude too
-; player learns "Noka" for the first time
+;; TODO: rewards
+;; TODO: act 2 prelude too
+;; player learns "Noka" for the first time
 
 #|
 

@@ -4,15 +4,12 @@
  :invariant T
  :condition NIL
  :on-activate (activate-chat)
- :on-complete NIL
-)
+ :on-complete NIL)
 
-; activating trigger this way so it works with repeat plays of the quest and task; using :on-activate in the task meta above to go straight to race-one-chat works first time only
-(quest:action :name activate-chat :on-activate (progn                                             											 
-											 (setf (quest:status (thing 'race-one-chat)) :inactive)
-											 (activate 'race-one-chat)
-											 )
-)
+;; activating trigger this way so it works with repeat plays of the quest and task; using :on-activate in the task meta above to go straight to race-one-chat works first time only
+(quest:action :name activate-chat :on-activate (progn
+                                                 (setf (quest:status (thing 'race-one-chat)) :inactive)
+                                                 (activate 'race-one-chat)))
 
 (quest:interaction :name race-one-chat :title "Complete Route 1" :interactable catherine :dialogue "
 ! eval (hide-panel 'timer)
@@ -82,5 +79,5 @@
   
 | Let's do this again soon!
 ")
-; todo replace bracket numbers and rewards with global quest vars (incl in race hub), initiated at quest start
-; todo log times to tenth of a second, not whole numbers?
+;; TODO: replace bracket numbers and rewards with global quest vars (incl in race hub), initiated at quest start
+;; TODO: log times to tenth of a second, not whole numbers?

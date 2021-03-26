@@ -4,8 +4,7 @@
  :invariant T
  :condition all-complete
  :on-activate (leaks-return)
- :on-complete NIL
-)
+ :on-complete NIL)
 
 (quest:interaction :name leaks-return :title "Talk about the leaks" :interactable catherine :dialogue "
 ~ catherine
@@ -16,7 +15,6 @@
 | | I'll take the walkie back for now in case someone else needs it.
 | ! eval (retrieve 'walkie-talkie 1)
 | | Bet it was weird using such archaic technology, right?
-| ~ player
 | - I liked it.
 | - Never again.
 |   ~ catherine

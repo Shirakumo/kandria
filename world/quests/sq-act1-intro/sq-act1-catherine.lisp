@@ -4,8 +4,7 @@
  :invariant T
  :condition NIL
  :on-activate (talk-catherine)
- :on-complete NIL
-)
+ :on-complete NIL)
 
 (quest:interaction :name talk-catherine :title "Talk to Catherine" :interactable catherine :repeatable T :dialogue "
 ~ catherine
@@ -25,6 +24,7 @@
   | Anyone that's different, they've already made up their minds about them.
   | You just keep being you. I'll talk to them.
   < continue
+
 # continue
 ~ player
 | Can I help you with anything?
@@ -54,7 +54,6 @@
 |   | Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
 |   | Just follow the pipe down like we did before. And you can already weld from your fingertips, right? So you should be good to go.
 |   | These leaks aren't too far away, so you'll be within radio range. You want to take a walkie, or just use your FFCS?
-|   ~ player
 |   - I'll take a walkie.
 |     ~ catherine
 |     | You got it - take this one.
@@ -88,7 +87,6 @@
 |?
 | ~ catherine
 | | I wish I had something for you, but there's nothing right now. That's a first round here!
-~ player 
 - I'll get going.
   ~ catherine
   | You take it easy. See you soon.
@@ -99,7 +97,7 @@
   | Just take it day by day, you know?
   | Look, I should get back to my work. Hope to see you soon!
 ")
-; todo complete this quest manually when final side quest is complete? Or whenever race is not meant to be available anymore
+;; TODO: complete this quest manually when final side quest is complete? Or whenever race is not meant to be available anymore
 #|
   
   

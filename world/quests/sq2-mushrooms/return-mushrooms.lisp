@@ -4,8 +4,7 @@
  :invariant T
  :condition all-complete
  :on-activate (mushrooms-return)
- :on-complete NIL
-)
+ :on-complete NIL)
 
 (quest:interaction :name mushrooms-return :title "I've got mushrooms" :interactable catherine :dialogue "
 ~ catherine
@@ -35,7 +34,7 @@
 ? (not (complete-p 'mushroom-sites))
 | ! eval (complete 'mushroom-sites)
 ")
-; todo rewards - fixed, not based on ratio of good/bad mushrooms?
+;; TODO: rewards - fixed, not based on ratio of good/bad mushrooms?
 
 #|
 
