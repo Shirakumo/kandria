@@ -126,7 +126,7 @@
                (setf (location (unit thing +world+)) loc)))
        ,form)))
 
-(defun task-wrap-lexenv (form &optional (task 'task))
+(defun task-wrap-lexenv (form task)
   `(flet ((thing (thing)
             (if (and (symbolp thing) (not (null thing)))
                 (quest:find-named thing ,task)
@@ -153,7 +153,9 @@
                (walk-n-talk (quest:find-named thing ,task)))
              (interrupt-walk-n-talk (thing)
                (interrupt-walk-n-talk (quest:find-named thing ,task))))
-       ,(global-wrap-lexenv form))))
+       (symbol-macrolet ,(loop for variable in (quest:list-variables task)
+                               collect `(,variable (var ,variable)))
+         ,(global-wrap-lexenv form)))))
 
 (defmethod quest:compile-form ((task task) form)
   (compile NIL `(lambda ()
@@ -162,18 +164,18 @@
                          (all-complete (loop for trigger being the hash-values of (quest:triggers task)
                                              always (eql :complete (quest:status trigger)))))
                     (declare (ignorable task quest all-complete))
-                    ,(task-wrap-lexenv form 'task)))))
+                    ,(task-wrap-lexenv form task)))))
 
 (defmethod dialogue:wrap-lexenv ((assembly assembly) form)
   `(let* ((interaction ,(or (interaction assembly)
-                            `(interaction (find-panel 'textbox))))
+                            (error "What the fuck?")))
           (task (quest:task interaction))
           (quest (quest:quest task))
           (has-more-dialogue (rest (interactions (find-panel 'textbox))))
           (all-complete (loop for trigger being the hash-values of (quest:triggers task)
                               always (eql :complete (quest:status trigger)))))
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
-     ,(task-wrap-lexenv form 'interaction)))
+     ,(task-wrap-lexenv form (interaction assembly))))
 
 (defmethod load-quest ((packet packet) (storyline quest:storyline))
   (with-kandria-io-syntax
