@@ -54,7 +54,7 @@
 
 (trigger interact
  (key :one-of (:e :enter))
- (button :one-of (:y)))
+ (button :one-of (:b)))
 
 (retain jump
  (key :one-of (:space))
@@ -76,7 +76,7 @@
 
 (trigger light-attack
  (mouse :one-of (:left))
- (button :one-of (:b)))
+ (button :one-of (:x)))
 
 (trigger heavy-attack
  (mouse :one-of (:right))
