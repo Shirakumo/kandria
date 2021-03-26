@@ -132,7 +132,7 @@
 
 (defun compute-jump-configurations (&key (vmax (vec 2.0 3.4)))
   (sort (loop for xfrac from 0 to 1 by 0.1d0
-              nconc (loop for yfrac from 0.1 to 1 by 0.1d0
+              nconc (loop for yfrac from 1 downto 0.5 by 0.1d0
                           collect (vec (* xfrac (vx vmax)) (* yfrac (vy vmax)))))
         (lambda (a b) (< (vlength a) (vlength b)))))
 
@@ -171,11 +171,18 @@
                                                      (or (< 0 (tile (1+ ox) oy))
                                                          (< 0 (tile (1- ox) oy)))))
                                             (connect-jump graph x y ox oy (vec (* (vx vel) (- dir))
-                                                                               (if (< 3 (tile x (1- y)))
-                                                                                   (+ (vy vel) 1)
-                                                                                   (+ (vy vel) 0.2))))
-                                            #++(return-from create-jump-connections))
-                                           ((< 0 (aref solids (* 2 (+ px (* w py)))))
+                                                                               (+ (vy vel)
+                                                                                  ;; Bias
+                                                                                  (if (< 3 (tile x (1- y))) 1 0.5)
+                                                                                  ;; If jump is short in X add extra strength
+                                                                                  (if (<= (abs (- ox px)) 2) 0.5 0))))
+                                            (return-from create-jump-connections))
+                                           ((and (< 0 (vy vel))
+                                                 (or (tile-type-p (tile px py) 'k)
+                                                     (tile-type-p (tile px (+ 3 py)) 'k)))
+                                            (loop-finish))
+                                           ((and (< (vy vel) 0)
+                                                 (tile-type-p (tile px py) 's))
                                             (loop-finish)))))))))))
 
 (defun create-connections (solids graph)
@@ -307,8 +314,9 @@
                     (+ (vy offset) (* (+ (floor idx w) 0.5) +tile-size+))))
              (find-start (idx)
                (declare (type (signed-byte 16) idx))
-               (loop (when (tile-type-p idx 's) (return))
+               (loop (when (< idx 0) (return))
                      (when (svref grid idx) (return idx))
+                     (when (tile-type-p idx 's) (return))
                      (decf idx w)))
              (cost (a b)
                (vsqrdist2 (from-idx a) (from-idx b)))
@@ -642,8 +650,8 @@
                  (T
                   (move-towards source target))))
           (crawl-node
-           (setf (state movable) :crawling)
-           (move-towards source target))
+           (move-towards source target)
+           (setf (state movable) :crawling))
           (teleport-node
            (for:for ((entity over (region +world+)))
              (typecase entity

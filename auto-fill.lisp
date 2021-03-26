@@ -163,6 +163,8 @@
     (b (= 1 tile))
     ;; Tiles that are slopes
     (/ (<= 4 tile 15))
+    ;; Tiles that you can bonk on
+    (k (or (= 1 tile) (<= 17 tile 20)))
     ;; Any tile at all (don't care)
     (_ T)))
 
