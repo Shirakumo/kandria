@@ -424,29 +424,29 @@
 
 (defun make-chunk-graph (region)
   (let ((chunks ()) (i 0))
-    (labels ((nearest-loc-with-connections (chunk entity)
-               (let ((nearest NIL))
+    (labels ((locs-with-connections (chunk entity)
+               (let ((containing ()))
                  (loop with nodes = (node-graph-grid (node-graph chunk))
                        for x from (- (vx (location entity)) (vx (bsize entity)))
-                       to (+ (vx (location entity)) (vx (bsize entity))) by +tile-size+
+                       below (+ (vx (location entity)) (vx (bsize entity))) by +tile-size+
                        do (loop for y from (- (vy (location entity)) (vy (bsize entity)))
-                                to (+ (vy (location entity)) (vy (bsize entity))) by +tile-size+
+                                below (+ (vy (location entity)) (vy (bsize entity))) by +tile-size+
                                 for vec = (vec x y)
                                 for idx = (chunk-node-idx chunk vec)
                                 do (when (and (< idx (length nodes))
-                                              (svref nodes idx)
-                                              (or (null nearest)
-                                                  (< (vsqrdist2 vec (location entity))
-                                                     (vsqrdist2 nearest (location entity)))))
-                                     (setf nearest vec))))
-                 (or nearest (location entity))))
+                                              (svref nodes idx))
+                                     (pushnew vec containing :test #'v=))))
+                 containing))
              (connect-entities (nodes from to constructor)
-               (let ((from-chunk (find-containing (location from) region))
-                     (to-chunk (find-containing (location to) region)))
-                 (make-chunk-node nodes
-                                  from-chunk (nearest-loc-with-connections from-chunk from)
-                                  to-chunk (nearest-loc-with-connections to-chunk to)
-                                  constructor))))
+               (let* ((from-chunk (find-containing (location from) region))
+                      (to-chunk (find-containing (location to) region))
+                      (to-loc (first (sort (locs-with-connections to-chunk to) #'<
+                                           :key (lambda (a) (vsqrdist2 a (location to)))))))
+                 (dolist (from-loc (locs-with-connections from-chunk from))
+                   (make-chunk-node nodes
+                                    from-chunk from-loc
+                                    to-chunk to-loc
+                                    constructor)))))
       ;; Compute chunk list and assign IDs
       (for:for ((entity over region))
         (when (typep entity 'chunk)
@@ -655,10 +655,11 @@
           (teleport-node
            (for:for ((entity over (region +world+)))
              (typecase entity
-               (trigger
+               (teleport-trigger
                 (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
+                  ;; KLUDGE: This is potentially very bad. We skip a full node.
+                  (setf (current-node movable) (second (pop (path movable))))
                   (pop (path movable))
-                  (setf (current-node movable) target)
                   (interact entity movable)))))
            (move-towards source target))
           (door-node
@@ -707,6 +708,6 @@
     (loop for (_ target) in path
           thereis (< (vsqrdist2 loc target) threshold))))
 
-;; FIXME: Ropes (semi-dynamic)
-;; FIXME: Jump over crates (dynamic)
-
+(setf (location (unit 'player T)) (VEC2
+                                   2248.0
+                                   -3304.0))
