@@ -16,7 +16,8 @@
                             :god-mode NIL
                             :text-speed 0.02
                             :auto-advance-after 3.0)
-                 :language (:code :eng))))
+                 :language (:code :eng)
+                 :debugging ())))
 
 (defun settings-path ()
   (make-pathname :name "settings" :type "lisp"

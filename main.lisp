@@ -86,6 +86,7 @@
              (load-keymap)
              (load-settings)
              (save-settings)
+             (maybe-start-swank)
              (apply #'trial:launch 'main
                     :width (first (setting :display :resolution))
                     :height (second (setting :display :resolution))
@@ -144,3 +145,12 @@
     (loop for (k v) on value by #'cddr
           do (setf (harmony:volume k) v))))
 
+(defun maybe-start-swank (&optional force)
+  (let ((swank (etypecase (or force (setting :debugging :swank))
+                 (null NIL)
+                 ((eql T) swank::default-server-port)
+                 (integer (setting :debugging :swank)))))
+    (when swank
+      (v:info :kandria.debugging "Launching SWANK server on port ~a." swank)
+      (swank:create-server :port swank :dont-close T)
+      (setf *inhibit-standalone-error-handler* T))))

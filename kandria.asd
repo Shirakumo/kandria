@@ -115,4 +115,5 @@
                :cl-mixed-wav
                :cl-mixed-mpg123
                :zpng
-               :jsown))
+               :jsown
+               :swank))
