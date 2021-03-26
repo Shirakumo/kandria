@@ -11,7 +11,7 @@
 ~ player
 | //It's new-home site Gamma.//
 | //It's secure and concealed, and sheltered from the elements.//
-| //But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.//
+| //But the foot of a cliff face is perhaps not the wisest choice in an area prone to seismic instability.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
 | ! eval (activate 'return-new-home)
 ")

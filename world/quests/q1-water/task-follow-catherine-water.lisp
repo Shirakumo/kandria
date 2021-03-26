@@ -72,7 +72,7 @@
 ~ jack
 | What is it?
 ~ catherine
-| We're at the bottom of the Hub - just like before, the pipe is cracked. And no sign of a cave-in. Over.
+| We're in the Midwest Market - just like before, the pipe is cracked. And no sign of a cave-in. Over.
 ~ jack
 | ...
 | It's sabotage. I knew it.

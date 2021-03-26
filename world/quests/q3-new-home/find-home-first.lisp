@@ -16,7 +16,7 @@
 | //Scanning the interior...//
 | //Dirt and sand has intruded through almost every orifice.//
 | //It's a quicksand deathtrap.//
-| Structural integrity could be described as \"may collapse at any moment\".
+| Structural integrity can be described as \"may collapse at any moment\".
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
 | ! eval (activate 'return-new-home)
 ")

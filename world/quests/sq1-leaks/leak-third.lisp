@@ -35,7 +35,7 @@
 | - No, all clear.
 |   ~ catherine
 |   | That's what I like to hear.
-| - They were all caused by subsidence.
+| - They were all caused by subsidence, or wear and tear.
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides... Sorry!
 | ~ catherine

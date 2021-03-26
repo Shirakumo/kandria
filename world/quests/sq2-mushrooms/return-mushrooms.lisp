@@ -18,7 +18,7 @@
 | | Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
 | ! eval (retrieve 'mushroom-good-1 (item-count 'mushroom-good-1))
 ? (have 'mushroom-good-2)
-| | Rusty puffball, great. These are my favourite - I made my neckerchief from these, believe or not.
+| | Rusty puffball, great. These are my favourite - I made my neckerchief from them, believe or not.
 | | Though that was just so I had a mask so their spores wouldn't give me lung disease.
 | ! eval (retrieve 'mushroom-good-2 (item-count 'mushroom-good-2))
 ? (have 'mushroom-bad-1)

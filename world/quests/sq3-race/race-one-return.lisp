@@ -79,5 +79,7 @@
   
 | Let's do this again soon!
 ")
+;; TODO only grant rewards if first time in a new bracket - across all routes - to prevent farming (check quest design doc, but pretty sure that was the design)?
+;; - then again, if the player is prepared to put the work in to keep racing, why not reward them?
 ;; TODO: replace bracket numbers and rewards with global quest vars (including in race hub), stored at quest level and defined there
 ;; TODO: log times to tenth of a second, not whole numbers?

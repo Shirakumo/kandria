@@ -12,7 +12,7 @@
 | //It's new-home site Delta.//
 | //This would be perfect - sheltered, while also offering a vantage point from which to spy intruders.//
 | //They could also dig back through the wall here for more space.//
-| //But it's not possible for a human to reach here easily - especially not children, nor the elderly or infirm.//
+| //Unfortunately a human couldn't climb up here easily - especially not children, nor the elderly or infirm.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
 | ! eval (activate 'return-new-home)
 ")

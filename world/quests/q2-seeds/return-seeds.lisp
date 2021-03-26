@@ -18,10 +18,8 @@
 (quest:interaction :name seeds-return-fi :interactable fi :dialogue "
 ~ fi
 | You're back - did you find the seeds?
-- ? (have 'seeds)
-  ~ player
-  | I've got them right here.
-  
+~ player
+- [(have 'seeds) I've got them right here.]
   ~ fi
   ? (= 54 (item-count 'seeds))
   | ! eval (retrieve 'seeds 54)
@@ -32,7 +30,7 @@
   | | You may now call yourself one of our hunters.
   | | And please accept this reward as a token of my appreciation.
   | ! eval (store 'parts 20)
-  < end
+  | < end
   |? (= 17 (item-count 'seeds))
   | ! eval (retrieve 'seeds 17)
   | | Oh, is that all that was left?
@@ -55,7 +53,7 @@
   | | And welcome to the Noka. You may now call yourself one of our hunters.
   | | And please accept this reward as a token of my appreciation.
   | ! eval (store 'parts 20)
-  < end
+  | < end
 - (Lie) I'm afraid there weren't any left.
   ~ fi
   | ...
@@ -80,16 +78,17 @@
 ~ fi
 ? (complete-p 'q3-new-home)
 | | You should check in again with Catherine too - I'm sure she'd like to see you again.
-| | And knowing her they'll be some jobs you can help with.
+| | Knowing her they'll be some jobs you can help with.
 | ! eval (activate 'sq-act1-intro)
 |?
 | ? (not (active-p 'q3-new-home))
 | | | Oh, I've also given Jack a special assignment - something I think you'll be well-suited to help with.
 | | | He'll be in engineering.
-| | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
-| | | It would be wise to make sure you're well-equipped for your work.
-| | ! eval (setf (location 'trader) 'loc-trader)
-| | ! eval (activate 'trader-arrive)
+|   
+| | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
+| | It would be wise to make sure you're well-equipped for your work.
+| ! eval (setf (location 'trader) 'loc-trader)
+| ! eval (activate 'trader-arrive)
 ")
 ;; TODO: act 2 prelude too
 ;; player learns "Noka" for the first time

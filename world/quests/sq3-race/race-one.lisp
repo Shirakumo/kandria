@@ -11,6 +11,7 @@
                                              (show (make-instance 'timer :quest quest))
                                              (spawn 'race-1-site 'can)))
 
+;; TODO this doesn't reactivate when the race is reactivated on repeats of the same route - but works on route 2?
 (quest:interaction :name race-one-speech :interactable race-1-site :repeatable T :dialogue "
 ~ player
 | //This is the right place - the can must be close by.//

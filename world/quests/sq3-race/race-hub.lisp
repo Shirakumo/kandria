@@ -13,7 +13,7 @@
 | | You're already racing, get goin'!
 |?
 | ~ catherine
-| | Alright, let's do this!
+| | Alright, race time!
 | ? (not (complete-p 'race-one))
 | | | So Alex has been back, and I got them to plant some old-world beer cans in devious places for you to find.
 | | | Grab the can, bring it back here, and I'll stop the clock.
@@ -27,13 +27,13 @@
 | | ~ player
 | | - Route 1
 | |   < race-1
-| | - [(var 'race-1-bronze) Route 2|]
+| | - [(or (var 'race-1-bronze) (var 'race-1-silver) (var 'race-1-gold)) Route 2|]
 | |   < race-2
-| | - [(var 'race-2-bronze) Route 3|]
+| | - [(or (var 'race-2-bronze) (var 'race-2-silver) (var 'race-2-gold)) Route 3|]
 | |   < race-3
-| | - [(var 'race-3-bronze) Route 4|]
+| | - [(or (var 'race-3-bronze) (var 'race-3-silver) (var 'race-3-gold)) Route 4|]
 | |   < race-4
-| | - [(var 'race-4-bronze) Route 5|]
+| | - [(or (var 'race-4-bronze) (var 'race-4-silver) (var 'race-4-gold)) Route 5|]
 | |   < race-5
 | | - Back out for now
 # race-1

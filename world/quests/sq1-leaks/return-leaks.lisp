@@ -22,7 +22,7 @@
 | - It's beneath me, but it works.
 |  
 ~ catherine
-| Well, you can definitely scratch water leaks off your bucket list. Let's talk later!
+| Well, you can definitely scratch water leaks off your bucket list, right?
 ")
 #|
 TODO is it okay that Catherine breaks off convo here, and to access more sidequests you need to click on here again? What if on returning to her, you want to discuss another quest before handing this one in? Or you have multiple to hand in?

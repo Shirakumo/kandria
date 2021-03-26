@@ -60,8 +60,10 @@
 | | Oh, I heard Cathy was looking for you.
 | | Know that my threat still stands if you touch her.
 | ! eval (activate 'sq-act1-intro)
-|? (not (active-p 'q2-seeds))
-| | Speaking o' Fi, she wants to talk to you. Not a word about the scouting fail though, alright?
+|?
+| ? (not (active-p 'q2-seeds))
+| | | Speaking o' Fi, she wants to talk to you. Not a word about the scouting fail though, alright?
+|   
 | | Don't let me be the one to help you out, either, but I heard Sahil was back.
 | | His caravan is down in the Midwest Market, beneath the Hub.
 | | I don't know what opposition you faced scouting around, but you might wanna stock up.

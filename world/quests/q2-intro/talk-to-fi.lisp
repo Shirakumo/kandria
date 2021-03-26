@@ -46,7 +46,7 @@
   | And I value fresh perspective. I don't get much of that around here.
 ~ fi
 | I haven't told the others about the harvest, but they aren't blind. I'm telling you because I think you can help.
-| There's a place beneath the ruins to the east, where we first discovered the seeds that you now see growing before you.
+| There's a place beneath the Ruins to the east, where we first discovered the seeds that you now see growing before you.
 | Alex found it, our hunter. I want you to retrace their steps, find the cache, and if it's intact, recover all the seeds that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.

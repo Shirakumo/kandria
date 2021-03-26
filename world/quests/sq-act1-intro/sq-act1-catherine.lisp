@@ -86,7 +86,7 @@
 |   | That's cool. Just let me know if you want something to do.
 |?
 | ~ catherine
-| | I wish I had something for you, but there's nothing right now. That's a first round here!
+| | I wish I had something for you, but there's nothing right now. That's a first 'round here!
 - I'll get going.
   ~ catherine
   | You take it easy. See you soon.
