@@ -126,8 +126,6 @@
 | I am satisfied, for now. Thank you Catherine, Stranger.
 < continue
 ")
-;; TODO: restore when fi has animations: ! eval (move-to 'entity-5437 (unit 'fi))
-;; TODO: jack move not working (and no error)
 
 #| DIALOGUE REMOVED FOR TESTING
 

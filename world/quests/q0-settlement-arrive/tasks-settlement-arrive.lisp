@@ -6,7 +6,7 @@
  :on-activate (arrive)
  :on-complete NIL)
 
-;; TODO: the last player emotion in the choices is the one that will render; have it change her highlighted choice?
+;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?
 ;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
 ;; REMARK: ^ Does \[Lie\] not work?
 (quest:interaction :name arrive :interactable catherine :dialogue "

@@ -6,7 +6,6 @@
  :on-activate (leak1)
  :on-complete (task-return-home))
 
-;; TODO: (test) remove some health for looking at the arc (and signpost this): ! eval (when (< 5 (health player)) (decf (health player) 5))
 ;; using inner monologue to depict and pass the time for action taking place
 (quest:interaction :name leak1 :interactable main-leak-1 :dialogue "
 ~ catherine
@@ -67,7 +66,6 @@
 |#
 
 ;; TODO: spawn combat wolves (not zombies or tame wolves)
-;; REMARK: Please rename your marker entities in the editor to something sensible. Seeing ENTITY-5498 isn't very helpful.
 (quest:interaction :name leak2 :interactable main-leak-2 :dialogue "
 ~ catherine
 | Look - the same cracks as we saw on the last pipe. This isn't right.
