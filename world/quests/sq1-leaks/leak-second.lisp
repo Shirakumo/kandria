@@ -8,8 +8,8 @@
 
 (quest:interaction :name leak-2 :interactable leak-2 :dialogue "
 ~ player
-| //The pipe is cracked.//
-| //There's no subsidence, but I think movement in the surrounding rocks wrenched the pipe clean open.//
+| //The pipe has split.//
+| //There's no subsidence, but I think movement in the surrounding rocks wrenched it clean open.//
 ? (not (var 'first-leak))
 | | //I ignite the torch from the index finger on my right hand.//
 | | //[(var 'q1-weld-burn) This time |]I enable the UV filters on my cameras.//

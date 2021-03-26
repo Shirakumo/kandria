@@ -1,6 +1,6 @@
 (:name task-return-home
  :title "Return to the settlement and talk to Catherine"
- :description "Catherine repaired the sabotaged pipe and headed back. I should return to the engineering building and speak with her."
+ :description NIL
  :invariant T
  :condition all-complete
  :on-activate (catherine-return)
@@ -30,15 +30,15 @@
 ~ fi
 | Is it not coincidental that you discovered it at the same time as our water supply was sabotaged?
 ~ catherine
-| But we saw the rogues - they were smashing the pipes!
+| But we saw the rogues - they were dismantling the pump!
 ~ jack
 | Maybe this android can control them? Did you think of that?
 ~ catherine
 | ...
 | Androids do have far-field comms systems...
-| Theoretically, something like that could penetrate deeper underground than our radios.
+| I guess something like that could penetrate deeper underground than our radios.
 | But no, it's not that. She was offline for decades - there's no way she could have done that.
-| And since I brought her online, she's been with me the whole time! She can't have betrayed us.
+| And since I brought her online, she's been with me the whole time! She can't have done this.
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
 ~ catherine
@@ -47,13 +47,13 @@
   ~ catherine
   | There, see.
   ~ fi
-  | Alright - well, let's hope it's telling the truth. If not, then the Wraw know our location, and their hunting parties are already on their way.
+  | Alright, well - let's hope it's telling the truth. If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I don't think I have.
   ~ catherine
   | Her memories are all muddled from before I brought her online. She hasn't, trust me.
   ~ fi
-  | Alright - well, let's hope that's true. If not, then the Wraw know our location, and their hunting parties are already on their way.
-- I suppose I could have - but I don't remember.
+  | Alright, well - let's hope that's true. If not, then the Wraw know our location, and their hunting packs are already on their way.
+- I suppose I could have.
   ~ catherine
   | She doesn't know what she's saying - her memories are all screwed up till the point I brought her online.
   ~ fi
@@ -90,7 +90,7 @@
   < examine
 - As long as I'm still online afterwards.
   ~ catherine
-  | Don't worry. I won't let them turn you off.
+  | Don't worry, I won't let them switch you off.
   < examine
 > continue
 ~ fi
@@ -141,11 +141,11 @@
 ! eval (store 'parts 20)
 | It's not much, but you can trade them for things you might want. Or you will once Sahil gets here.
 | He's overdue, which is not like him at all. Maybe those rogues scared him off.
-| Anyway, I've got work to do. Feel free to have a look around, get to know people.
-| They'll soon see what I see - a big friendly badass, who can protect us from harm.
-| I think Fi might want a private word with you too. Just a hunch... something about the way she was looking at you.
-| Knowing Jack, he'll have something for you to do as well.
-| Seeya later!
+| Anyway, don't worry about them. They'll soon see what I see - a big friendly badass who can protect us.
+| Well, I've got work to do. I think Fi might want a private word with you.
+| Just something about the way she was looking at you.
+| Knowing Jack he'll have something for you as well - if only a mouthful of abuse.
+| You take it easy. Seeya later!
 ! eval (move-to 'eng-cath (unit 'catherine))
 ! eval (activate 'q2-intro)
 ! eval (activate 'q3-intro)

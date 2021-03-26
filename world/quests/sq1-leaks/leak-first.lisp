@@ -9,7 +9,7 @@
 ;; enemies on this quest will be world NPCs, not spawned for the quest
 (quest:interaction :name leak-1 :interactable leak-1 :dialogue "
 ~ player
-| //A cracked water pipe - probably caused by duress where the pipe bends around the corner.//
+| //There's a hole in the pipe - probably caused by duress where the pipe bends around this corner.//
 ? (not (var 'first-leak))
 | | //I ignite the torch from the index finger on my right hand.//
 | | //[(var 'q1-weld-burn) This time |]I enable the UV filters on my cameras.//
