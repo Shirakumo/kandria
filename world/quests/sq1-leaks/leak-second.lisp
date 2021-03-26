@@ -37,7 +37,7 @@
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides... Sorry!
 | ~ catherine
-| | Hurry back, I've got a little something for you to say thank you. [(have 'walkie-talkie) Over and out.|]
+| | Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 ")
 

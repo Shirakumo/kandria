@@ -6,7 +6,7 @@
  :on-activate (mushrooms-return)
  :on-complete NIL)
 
-(quest:interaction :name mushrooms-return :title "I've got mushrooms" :interactable catherine :dialogue "
+(quest:interaction :name mushrooms-return :title "Return the mushrooms" :interactable catherine :dialogue "
 ~ catherine
 | How was your mushrooming? Let's see what you've got.
 ? (= 25 (+ (item-count 'mushroom-good-1) (item-count 'mushroom-good-2)) )

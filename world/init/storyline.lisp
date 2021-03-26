@@ -1,4 +1,4 @@
-()
+(:variables (weld-burn))
 ; quest 0 start:
 (q0-settlement-emergency :status :active :tasks ((talk-to-catherine :status :unresolved)))
 (lore :status :active :tasks ((lore-explore-region1 :status :unresolved)))

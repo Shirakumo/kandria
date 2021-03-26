@@ -9,7 +9,7 @@
 ;; enemies on this quest will be world NPCs, not spawned for the quest
 (quest:interaction :name leak-1 :interactable leak-1 :dialogue "
 ~ player
-| //A cracked water pipe, and a sprawl of soil and stones - subsidence caused this.//
+| //A cracked water pipe - probably caused by duress where the pipe bends around the corner.//
 ? (not (var 'first-leak))
 | | //I ignite the torch from the index finger on my right hand.//
 | | //[(var 'q1-weld-burn) This time |]I enable the UV filters on my cameras.//
@@ -37,7 +37,8 @@
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides... Sorry!
 | ~ catherine
-| | Hurry back, I've got a little something for you to say thank you. [(have 'walkie-talkie) Over and out.|]
+| | Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 ")
 ;; TODO: how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
+;; UNUSED: and a sprawl of soil and stones - subsidence caused this.
