@@ -1,5 +1,5 @@
 (:name return-new-home
- :title "Return to Jack"
+ :title "Return to Jack with the bad news - there is no suitable location to rehome to"
  :description NIL
  :invariant T
  :condition all-complete
@@ -63,10 +63,10 @@
 |? (not (active-p 'q2-seeds))
 | | Speaking o' Fi, she wants to talk to you. Not a word about the scouting fail though, alright?
 | | Don't let me be the one to help you out, either, but I heard Sahil was back.
-| | His caravan is down in the trading hub, beneath the metro tunnel.
+| | His caravan is down in the Midwest Market, beneath the Hub.
 | | I don't know what opposition you faced scouting around, but you might wanna stock up.
 | | I hear even androids ain't indestructible...
-| ! eval (setf (location 'trader) 'entity-5627)
+| ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")
 

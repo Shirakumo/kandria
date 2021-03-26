@@ -76,9 +76,9 @@
 | ? (not (active-p 'q3-new-home))
 | | | Oh, I've also given Jack a special assignment - something I think you'll be well-suited to help with.
 | | | He'll be in engineering.
-| | | I also heard Sahil is here - our trader friend. His caravan is down in the trading hub, beneath the metro tunnel.
+| | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
 | | | It would be wise to make sure you're well-equipped for your work.
-| | ! eval (setf (location 'trader) 'entity-5627)
+| | ! eval (setf (location 'trader) 'loc-trader)
 | | ! eval (activate 'trader-arrive)
 ")
 ;; TODO: rewards

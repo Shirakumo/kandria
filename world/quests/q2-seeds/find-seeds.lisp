@@ -1,5 +1,5 @@
 (:name find-seeds
- :title "Find the seed cache beneath the ruins"
+ :title "Find the seed cache"
  :description NIL
  :invariant T
  :condition all-complete
