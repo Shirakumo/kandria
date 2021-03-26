@@ -138,7 +138,7 @@
 (textured-light :multiplier 2.0 :texture (kandria lights t) :location (9960.0 -4360.0) :size (80.0 48.0) :bsize (40.0 24.0) :offset (112.0 48.0))
 (interactable-sprite :location (4831.5063 -6400.0) :texture (kandria camp albedo) :size (16.0 16.0) :bsize (15.506348 16.0) :offset (0.0 0.0) :layer 1 :name race-5-site)
 (interactable-sprite :location (352.0 -5576.0) :texture (kandria camp albedo) :size (16.0 16.0) :bsize (8.0 8.0) :offset (0.0 0.0) :layer 1 :name loc-trader)
-(player :location (304.77438 -2417.0) :name player)
+(player :location (1336.5771 -5473.0) :name player)
 (water :location (-152.0 -6368.0) :bsize (488.0 144.0))
 (jack :location (-16.0 -2848.0) :name jack)
 (catherine :location (264.0 -2416.0) :name catherine)
