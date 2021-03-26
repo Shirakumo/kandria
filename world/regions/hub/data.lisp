@@ -142,7 +142,7 @@
 (jack :location (-16.0 -2848.0) :name jack)
 (catherine :location (264.0 -2416.0) :name catherine)
 (fi :location (1744.0 -2768.0) :name fi)
-(trader :location (1672.0 -2704.0) :name trader)
+(trader :location (1640.0 -2704.0) :name trader)
 (elevator :location (992.0 -4584.0) :texture (kandria elevator t) :size (96.0 32.0) :bsize (48.0 8.0) :offset (0.0 0.0) :layer 3 :name nil)
 (chunk :name chunk-2055 :location (504.0 -2280.0) :size (91.0 31.0) :tile-data (kandria camp) :pixel-data "data/CHUNK-2055.raw" :layers ("data/CHUNK-2055-0.raw" "data/CHUNK-2055-1.raw" "data/CHUNK-2055-2.raw" "data/CHUNK-2055-3.raw" "data/CHUNK-2055-4.raw" "data/CHUNK-2055-5.raw") :background desert :gi desert)
 (chunk :name chunk-2129 :location (96.0 -2752.0) :size (40.0 26.0) :tile-data (kandria camp) :pixel-data "data/CHUNK-2129.raw" :layers ("data/CHUNK-2129-0.raw" "data/CHUNK-2129-1.raw" "data/CHUNK-2129-2.raw" "data/CHUNK-2129-3.raw" "data/CHUNK-2129-4.raw" "data/CHUNK-2129-5.raw") :background black :gi none)
