@@ -55,7 +55,7 @@
   | | And welcome to the Noka. You may now call yourself one of our hunters.
   | | And please accept this reward as a token of my appreciation.
   | ! eval (store 'parts 20)
-  < end  
+  < end
 - (Lie) I'm afraid there weren't any left.
   ~ fi
   | ...
