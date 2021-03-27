@@ -17,7 +17,7 @@
   (enter (progression-instance 'stun) world)
   (enter (progression-instance 'hurt) world)
   (enter (progression-instance 'transition) world)
-  (enter (progression-instance 'flash) world)
+  (enter (progression-instance 'low-health) world)
   (dolist (entry (list-entries "regions/" packet))
     (with-packet (packet packet :offset entry)
       (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))

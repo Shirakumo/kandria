@@ -745,8 +745,8 @@
   (cond ((< (/ (health player) (maximum-health player)) 0.15))
         ((< (/ health (maximum-health player)) 0.15)
          (setf (limp-time player) 10.0)
-         (setf (clock (progression 'flash +world+)) 0)
-         (start (progression 'flash +world+)))
+         (setf (clock (progression 'low-health +world+)) 0)
+         (start (progression 'low-health +world+)))
         (T
          (setf (limp-time player) 0.0))))
 
