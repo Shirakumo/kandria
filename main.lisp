@@ -99,7 +99,6 @@
         (launch))))
 
 (defmethod setup-scene ((main main) (scene world))
-  (enter (make-instance 'fade) scene)
   (enter (make-instance 'camera) scene)
   (let ((shadow (make-instance 'shadow-map-pass))
         (lighting (make-instance 'lighting-pass))
@@ -126,7 +125,8 @@
   #++
   (show (make-instance 'report-button))
   (load-state (or (state main) (initial-state scene)) main)
-  (save-state main (quicksave main)))
+  (save-state main (quicksave main))
+  (enter (make-instance 'fade) scene))
 
 (defmethod change-scene :after ((main main) scene &key)
   (let ((region (region scene)))

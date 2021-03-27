@@ -1,11 +1,14 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity fade (transformed listener vertex-entity)
+(define-shader-entity fade (listener renderable)
   ((name :initform 'fade)
-   (vertex-array :initform (// 'trial 'fullscreen-square))
+   (texture :initform (// 'kandria 'block-transition) :accessor texture)
    (on-complete :initform NIL :accessor on-complete)
    (strength :initform 0.0 :accessor strength)
    (color :initform (vec 0 0 0) :accessor color)))
+
+(defmethod stage ((fade fade) (area staging-area))
+  (stage (texture fade) area))
 
 (defmethod handle ((ev transition-event) (fade fade))
   (unless (flare:running (progression 'transition +world+))
@@ -13,20 +16,37 @@
     (setf (clock (progression 'transition +world+)) 0f0)
     (start (progression 'transition +world+))))
 
-(defmethod apply-transforms progn ((fade fade))
-  (setf *projection-matrix*
-        (setf *view-matrix*
-              (setf *model-matrix* (meye 4)))))
-
-(defmethod render :before ((fade fade) (program shader-program))
+(defmethod render ((fade fade) (program shader-program))
+  (gl:active-texture :texture0)
+  (gl:bind-texture :texture-2d (gl-name (texture fade)))
   (setf (uniform program "screen_color") (color fade))
-  (setf (uniform program "strength") (strength fade)))
+  (setf (uniform program "strength") (- 1 (strength fade)))
+  (gl:bind-vertex-array (gl-name (// 'trial 'fullscreen-square)))
+  (%gl:draw-arrays :triangle-strip 0 4))
+
+(define-class-shader (fade :vertex-shader)
+  "
+const vec2 positions[4] = vec2[](
+    vec2(-1, -1),
+    vec2(+1, -1),
+    vec2(-1, +1),
+    vec2(+1, +1));
+
+void main(){
+  gl_Position = vec4(positions[gl_VertexID], -100.0, 1.0);
+}")
 
 (define-class-shader (fade :fragment-shader)
   "uniform float strength = 0.0;
+uniform float smooth_size = 0.25;
 uniform vec3 screen_color = vec3(0,0,0);
+uniform sampler2D transition_map;
 out vec4 color;
-void main(){ color = vec4(screen_color,strength); }")
+void main(){
+  float mask = texture(transition_map, gl_FragCoord.xy/200).r;
+  mask = smoothstep(strength, strength+smooth_size, mask*(1-smooth_size)+smooth_size);
+  color = vec4(screen_color, mask);
+}")
 
 (define-progression death
   0 1.0 (distortion (set strength :from 0.0 :to 1.0))
