@@ -154,7 +154,7 @@
     ;; Tiles that are edges
     (s (or (= 1 tile) (= 2 tile) (<= 4 tile 15)))
     ;; Tiles that are edges or inside
-    (x (< 0 tile))
+    (x (or (<= 1 tile 15) (= 255 tile)))
     ;; Tiles that are empty but inside
     (i (= 255 tile))
     ;; Tiles that are platforms
