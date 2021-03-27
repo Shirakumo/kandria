@@ -23,16 +23,13 @@
     (setf (timestamp world) timestamp)
     (setf (zoom (unit :camera world)) zoom)
     (setf (intended-zoom (unit :camera world)) zoom)
-    (let* ((region (cond ((and (region world) (eql region (name (region world))))
-                          ;; Ensure we trigger necessary region reset events even if we're still in the same region.
-                          (issue world 'switch-region :region (region world))
-                          (region world))
-                         (T
-                          (load-region region world))))
-           (initargs (ignore-errors (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
-                                                                      packet :element-type 'character))))))
-      (decode region initargs)
-      (decode (storyline world)))))
+    (cond ((and (region world) (eql region (name (region world))))
+           ;; Ensure we trigger necessary region reset events even if we're still in the same region.
+           (issue world 'switch-region :region (region world))
+           (region world))
+          (T
+           (load-region region world)))
+    (decode (storyline world))))
 
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
