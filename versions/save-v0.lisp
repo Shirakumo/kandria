@@ -96,7 +96,7 @@
                           (when (typep entity 'container)
                             (recurse entity)))
                          (T
-                          (add create-new (encode entity)))))))
+                          (add create-new (list* (type-of entity) (encode entity))))))))
         (recurse region)))
     (list :create-new (rest create-new)
           :ephemeral (rest ephemeral))))
