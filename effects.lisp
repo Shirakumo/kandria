@@ -63,10 +63,12 @@ void main(){
   0.5 0.5 (fade (call (lambda (fade clock step) (funcall (on-complete fade)))))
   0.5 1.0 (fade (set strength :from 1.0 :to 0.0 :ease quint-out)))
 
-(define-progression flash
+(define-progression low-health
   0.0 0.0 (fade (set color :to (vec 5 5 5)))
   0.0 0.05 (fade (set strength :from 0.0 :to 0.8))
-  0.05 0.2 (fade (set strength :from 0.8 :to 0.0 :ease expo-out)))
+  0.05 0.2 (fade (set strength :from 0.8 :to 0.0 :ease expo-out))
+  0.0 0.1 (T (set time-scale :from 1.0 :to 0.2 :ease quint-in))
+  1.0 1.2 (T (set time-scale :from 0.2 :to 1.0 :ease quint-out)))
 
 (define-progression stun
   0.0 0.1 (T (set time-scale :from 1.0 :to 0.5 :ease quint-in))
