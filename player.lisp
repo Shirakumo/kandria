@@ -111,11 +111,10 @@
 (defmethod handle ((ev dash) (player player))
   (setf (limp-time player) (min (limp-time player) 1.0))
   (case (state player)
-    (:normal
+    ((:climbing :normal)
      (let ((vel (velocity player)))
        (cond ((handle-evasion player))
-             ((and (eq :normal (state player))
-                   (<= (dash-time player) 0))
+             ((<= (dash-time player) 0)
               (if (typep (trial::source-event ev) 'gamepad-event)
                   (let ((dev (device (trial::source-event ev))))
                     (vsetf vel
