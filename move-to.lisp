@@ -307,7 +307,7 @@
                (etypecase vec
                  (integer vec)
                  (vec2
-                  (+ (the (unsigned-byte 16) (floor (- (vx vec) (vx offset))  +tile-size+))
+                  (+ (the (unsigned-byte 16) (floor (- (vx vec) (vx offset)) +tile-size+))
                      (* w (the (unsigned-byte 16) (floor (- (vy vec) (vy offset)) +tile-size+)))))))
              (from-idx (idx)
                (vec (+ (vx offset) (* (+ (mod idx w) 0.5) +tile-size+))
@@ -327,11 +327,13 @@
                     (fall-node  100000)
                     (crawl-node 100000000)
                     (climb-node 1000000000)
-                    (jump-node  10000000)))))
+                    (jump-node  10000000))))
+             (test (prev next)
+               (funcall test prev next (from-idx (move-node-to next)))))
       (let ((start (find-start (to-idx start)))
             (goal (find-start (to-idx goal))))
         (when (and start goal)
-          (multiple-value-bind (path found) (shortest-path-a* grid start goal test #'cost #'score #'move-node-to)
+          (multiple-value-bind (path found) (shortest-path-a* grid start goal #'test #'cost #'score #'move-node-to)
             (when found
               (values
                (mapl (lambda (node)
@@ -551,9 +553,19 @@
   (path-available-p (location target) movable))
 
 (defmethod move-to ((target vec2) (movable movable))
-  (flet ((test (_prev node)
-           (declare (ignore _prev))
-           (capable-p movable node)))
+  (flet ((test (_prev node pos)
+           (declare (ignore _prev pos))
+           (and
+            (capable-p movable node)
+            ;; TODO: Re-activate and fix this once it's not prohibitively expensive.
+            #++
+            (not
+             (for:for ((entity over (region +world+)))
+               (when (and (typep entity 'solid)
+                          (not (typep entity 'chunk))
+                          (not (eq entity movable))
+                          (contained-p pos entity))
+                 (return entity)))))))
     (multiple-value-bind (path start) (shortest-path (location movable) target #'test)
       (setf (state movable) :normal)
       (when path
