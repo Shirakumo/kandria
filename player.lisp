@@ -155,10 +155,13 @@
          (setf (jump-time player) (- (p! coyote-time))))))
 
 (defmethod handle ((ev crawl) (player player))
-  (unless (svref (collisions player) 0)
-    (case (state player)
-      (:normal (setf (state player) :crawling))
-      (:crawling (setf (state player) :normal)))))
+  (case (state player)
+    (:normal
+     (when (svref (collisions player) 2)
+       (setf (state player) :crawling)))
+    (:crawling
+     (unless (svref (collisions player) 0)
+       (setf (state player) :normal)))))
 
 (defmethod handle ((ev light-attack) (player player))
   (cond ((eql :animated (state player))
