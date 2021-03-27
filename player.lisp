@@ -505,8 +505,8 @@
       (:normal
        ;; Handle jumps
        (when (< (jump-time player) 0.0)
-         (cond ((or (svref collisions 1)
-                    (svref collisions 3)
+         (cond ((or (typep (svref collisions 1) '(and (not null) (not platform)))
+                    (typep (svref collisions 3) '(and (not null) (not platform)))
                     (and (typep (interactable player) 'rope)
                          (extended (interactable player))
                          (retained 'climb)))
