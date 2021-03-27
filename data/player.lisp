@@ -1,6 +1,7 @@
 (:source "player.ase"
  :animation-data "player.json"
  :palette "player-palette.png"
+ :palettes ("Genera" "YoRHa" "Wayneright" "Madeline" "Vampire")
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND :cooldown 0.0)
