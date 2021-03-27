@@ -56,6 +56,8 @@
 (define-pixel logos)
 (define-pixel elevator)
 (define-pixel player-palette)
+(define-pixel block-transition
+  :wrapping :repeat)
 
 (define-sprite box)
 (define-sprite player)
