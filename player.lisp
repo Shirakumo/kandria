@@ -753,7 +753,7 @@
   (start (progression 'death +world+)))
 
 (defmethod die ((player player))
-  (kill player))
+  (respawn player))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
