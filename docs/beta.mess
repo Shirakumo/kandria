@@ -68,8 +68,9 @@ Another useful tool are various cheats in the game. Cheats are toggled by typing
 - ``campfire`` Increase the in-game clock speed by 30x
 - ``matrix`` Slow down time to 0.1x
 - ``test`` Teleport to the testing room (if present)
-- ``self-destruct`` Sets your HP to 1.
-- ``noclip`` Deactivates collision and lets you float through levels quickly.
+- ``self-destruct`` Sets your HP to 1
+- ``nanomachines`` Sets your HP to full
+- ``noclip`` Toggles collision and lets you float through levels quickly
 
 Be sure to check this section in the future for additional tools, and let us know if you have an idea for more tools that would help ease the testing process.
 
