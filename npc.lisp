@@ -19,6 +19,8 @@
   1000)
 
 (defmethod hurt ((npc npc) (player player)))
+(defmethod die ((npc npc)) (error "WTF, NPC died for some reason. That shouldn't happen!"))
+(defmethod oob ((npc npc) (none null)) (error "NPC fell out of the world. That shouldn't happen!"))
 
 (defmethod handle :after ((ev tick) (npc npc))
   (let ((vel (velocity npc))

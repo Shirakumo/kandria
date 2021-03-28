@@ -125,13 +125,13 @@
           (vx (hurtbox frame)) (vy (hurtbox frame)) (vz (hurtbox frame)) (vw (hurtbox frame))
           (vx (offset frame)) (vy (offset frame))))
 
-(defmethod compile-resources ((sprite sprite-data) (path pathname))
+(defmethod compile-resources ((sprite sprite-data) (path pathname) &key force)
   (destructuring-bind (&key source palette albedo animation-data &allow-other-keys) (read-src path)
     (let ((source (merge-pathnames source path))
           (animation-data (merge-pathnames animation-data path))
           (albedo (merge-pathnames (or albedo (make-pathname :type "png" :defaults source)) path)))
-      (when (recompile-needed-p (list albedo animation-data)
-                                (list source path))
+      (when (or force (recompile-needed-p (list albedo animation-data)
+                                          (list source path)))
         (v:info :kandria.resources "Compiling spritesheet from ~a..." source)
         (aseprite "--sheet-pack"
                   "--trim"
