@@ -73,6 +73,7 @@
 
 (presentations:define-update (ui dialog-choice)
   (:label
+   :wrap T
    :pattern colors:white
    :offset (alloy:point (if alloy:focus 10 0) 0))
   (:indicator
