@@ -116,7 +116,8 @@
         (enter other region)))))
 
 (defmethod interact ((trigger teleport-trigger) (entity located-entity))
-  (setf (location entity) (target trigger)))
+  (setf (location entity) (target trigger))
+  (vsetf (velocity entity) 0 0))
 
 (defclass earthquake-trigger (trigger)
   ((duration :initform 60.0 :initarg :duration :accessor duration)

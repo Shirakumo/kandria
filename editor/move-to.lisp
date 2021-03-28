@@ -25,6 +25,17 @@
     (door-node (vec 1 1 0 1))
     (teleport-node (vec 0 1 1 1))))
 
+(defun node-type-offset (node)
+  (etypecase node
+    (climb-node (vec 2 0 0))
+    (rope-node (vec 0 0 0))
+    (crawl-node (vec 0 0 0))
+    (fall-node (vec 0 0 0))
+    (jump-node (vec 0 2 0))
+    (move-node (vec 0 0 0))
+    (door-node (vec 0 0 0))
+    (teleport-node (vec 0 0 0))))
+
 (defun node-graph-mesh (graph &key (mesh ())
                                    (offset (vec 0 0)))
   (let ((w (node-graph-width graph))
@@ -34,9 +45,10 @@
                   (+ (vy offset) (* (- y (/ h 2) -0.5) +tile-size+)) 0)))
       (do-nodes (x y graph mesh)
         (dolist (node (node graph x y))
-          (let ((color (node-type-color node)))
-            (push (list (loc x y) color) mesh)
-            (push (list (loc (mod (move-node-to node) w) (floor (move-node-to node) w)) (v* color 0.1)) mesh)))))))
+          (let ((color (node-type-color node))
+                (off (node-type-offset node)))
+            (push (list (nv+ (loc x y) off) color) mesh)
+            (push (list (nv+ (loc (mod (move-node-to node) w) (floor (move-node-to node) w)) off) (v* color 0.1)) mesh)))))))
 
 (defun chunk-graph-mesh (chunk &key (mesh ()))
   (let ((graph (chunk-graph (region +world+))))

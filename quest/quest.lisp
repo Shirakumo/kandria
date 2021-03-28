@@ -51,6 +51,11 @@
            (push (cons name value) (bindings scope))
            value))))
 
+(defmethod list-variables ((scope scope))
+  (let ((vars (when (parent scope) (list-variables (parent scope)))))
+    (dolist (binding (bindings scope) vars)
+      (pushnew (car binding) vars))))
+
 (defclass describable ()
   ((name :initarg :name :accessor name)
    (title :initarg :title :accessor title)
@@ -320,6 +325,8 @@
   task)
 
 (defmethod try ((task task))
+  (loop for trigger being the hash-values of (triggers task)
+        do (when (active-p trigger) (try trigger)))
   (cond ((not (funcall (invariant task)))
          (fail task))
         ((funcall (condition task))
@@ -381,12 +388,14 @@
   (when on-deactivate
     (setf (on-deactivate action) (compile-form task on-deactivate))))
 
-(defmethod activate ((trigger trigger))
-  (funcall (on-activate trigger))
-  (setf (status trigger) :complete))
+(defmethod activate ((action action))
+  (funcall (on-activate action))
+  (setf (status action) :complete))
 
-(defmethod deactivate ((trigger trigger))
-  (funcall (on-deactivate trigger)))
+(defmethod deactivate ((action action))
+  (funcall (on-deactivate action)))
+
+(defmethod try ((action action)))
 
 (defclass interaction (trigger scope)
   ((interactable :initarg :interactable :reader interactable)
@@ -402,6 +411,7 @@
 (defmethod parent ((interaction interaction))
   (task interaction))
 
+(defmethod try ((interaction interaction)))
 (defmethod activate ((interaction interaction)))
 (defmethod deactivate ((interaction interaction)))
 (defmethod complete ((interaction interaction)))

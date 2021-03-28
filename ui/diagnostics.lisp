@@ -130,10 +130,12 @@
     (format stream "~
 Version:            ~a
 Implementation:     ~a ~a
-Machine:            ~a ~a"
+Machine:            ~a ~a
+SWANK:              ~a"
             (version :kandria)
             (lisp-implementation-type) (lisp-implementation-version)
-            (machine-type) (machine-version))
+            (machine-type) (machine-version)
+            (setting :debugging :swank))
     (context-info *context* stream :show-extensions NIL)))
 
 (defun runtime-info ()
@@ -206,7 +208,7 @@ Collisions:
     (alloy:enter "GC Pause" layout :constraints `((:size 100 20) (:inside ,gc :halign :left :valign :top :margin 5)))
     (alloy:enter machine-info layout :constraints `((:size 600 300) (:right-of ,fps 10) (:top 10)))
     (alloy:enter info layout :constraints `((:size 600 600) (:right-of ,fps 10) (:below ,machine-info 10)))
-    (alloy:enter qinfo layout :constraints `((:size 600 600) (:right-of ,info 10) (:below ,machine-info 10)))
+    (alloy:enter qinfo layout :constraints `((:size 600 600) (:right-of ,info 10) (:top 10)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod handle ((ev tick) (panel diagnostics))

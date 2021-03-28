@@ -1,6 +1,6 @@
 (:name ready-catherine
  :title "Talk to Catherine"
- :description "I should talk to Catherine when I'm ready to head to the leaking water pipes."
+ :description NIL
  :invariant T
  :condition NIL
  :on-activate (talk-catherine)
@@ -12,16 +12,16 @@
 - I'm ready.
   ~ catherine
   | Alright. Stay close behind me.
-  ! eval (lead 'player 'entity-4993 (unit 'catherine))
+  ! eval (lead 'player 'main-leak-1 (unit 'catherine))
   ! eval (walk-n-talk 'catherine-walktalk1)
   ! eval (deactivate interaction)
   ! eval (complete task)
 - Not yet.
   ~ catherine
-  | Alright, you can have a minute. But we need to hurry - the water supply isn't gonna fix itself.  
+  | [? Alright, you can have a minute. | Okay but we need to hurry - the water supply isn't gonna fix itself. | Okay, but whatever you need to do, please be quick about it.]
 - Where are we going again?
   ~ catherine
-  | Um, are you suffering from memory loss? We need to fix the water leak - before we lose the crop and everyone starves.
+  | Um, did your short-term memory corrupt? We need to fix the water leak - before we lose the crop and everyone starves!
   - I don't need to eat.
     ~ catherine
     | Well the rest of us aren't so lucky. Aren't so unlucky, actually.

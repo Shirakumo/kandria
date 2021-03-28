@@ -150,9 +150,9 @@
 (defun tile-type-p (tile type)
   (ecase type
     ;; Tiles that are "outside"
-    (o (or (= 0 tile) (= 2 tile) (= 3 tile) (<= 17 tile 20)))
+    (o (or (= 0 tile) (= 2 tile) (= 3 tile) (<= 16 tile 20)))
     ;; Tiles that are edges
-    (s (or (= 1 tile) (= 2 tile) (<= 4 tile 16)))
+    (s (or (= 1 tile) (= 2 tile) (<= 4 tile 15)))
     ;; Tiles that are edges or inside
     (x (< 0 tile))
     ;; Tiles that are empty but inside
@@ -162,7 +162,9 @@
     ;; Tiles that are only blocks
     (b (= 1 tile))
     ;; Tiles that are slopes
-    (/ (<= 4 tile 16))
+    (/ (<= 4 tile 15))
+    ;; Tiles that you can bonk on
+    (k (or (= 1 tile) (<= 17 tile 20)))
     ;; Any tile at all (don't care)
     (_ T)))
 

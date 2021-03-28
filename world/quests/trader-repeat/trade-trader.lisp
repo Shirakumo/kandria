@@ -4,8 +4,7 @@
  :invariant T
  :condition NIL
  :on-activate (trade-with-trader)
- :on-complete NIL
-)
+ :on-complete NIL)
  
 (quest:interaction :name trade-with-trader :interactable trader :repeatable T :dialogue "
 ~ trader
@@ -17,7 +16,6 @@
 |?
 | | [? Though I think you've seen better days... | You look like you could really use my help today. | You look like you've been dragged throgh the desert backwards... | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label main
-~ player
 - I'd like to trade.
   ~ trader
   | [? That's what I like to hear! | Yes, sir! | And so would I! | That's the spirit! | You got it.]
@@ -26,7 +24,6 @@
 - Can we talk.
   ~ trader
   | [? Of course, habeebti - always. | We can indeed. | What's on your mind? | I love to chat.]
-  ~ player
   ? (not (complete-p 'q4-find-allies))
   | - What's your story?
   |   ~ trader
@@ -71,20 +68,16 @@
 - I need to go.
 ~ trader
 | [? See you later habeebti. | You take it easy. | Goodbye for now. | Take care. Masalamah! | Goodbye! And if you ever change your mind about parting with that sword of yours... I know, I know.]
+
 # changed-mind
 ~ trader
 | [? Happens to the best of us. | As you wish. | Don't worry about it.]
 < main
 ")
-; todo open shop UI
-#| todo use shuffle syntax in some trader responses, e.g. when player says they changed their mind
-! eval ({(alexandria:random-elt '("Happens to the best of us." "Don't worry about it."))})
-or new syntax to achieve? [? Happens to the best of us. | Don't worry about it.]
-|#
-; todo flesh out with Sahil questions relevant to current plot points - confidente, as a fellow outsider?
+;; TODO: open shop UI
+;; TODO: flesh out with Sahil questions relevant to current plot points - confidente, as a fellow outsider?
 
-
-#| todo
+#| TODO:
 later talks with trader:
 - ask specifically about each faction member
 - get into his own history more

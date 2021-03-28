@@ -17,14 +17,14 @@
     (loop for (name . tiles) in types
           collect (list* name (mapcar #'parse-type-spec tiles)))))
 
-(defmethod compile-resources ((data tile-data) (path pathname))
+(defmethod compile-resources ((data tile-data) (path pathname) &key force)
   (destructuring-bind (&key source albedo absorption normal &allow-other-keys) (read-src path)
     (let ((source (merge-pathnames source path))
           (albedo (merge-pathnames albedo path))
           (absorption (merge-pathnames absorption path))
           (normal (merge-pathnames normal path)))
-      (when (recompile-needed-p (list albedo absorption normal)
-                                (list path source))
+      (when (or force (recompile-needed-p (list albedo absorption normal)
+                                          (list path source)))
         (v:info :kandria.resources "Compiling tileset from ~a..." source)
         (aseprite source "--layer" "albedo" "--save-as" albedo)
         (aseprite source "--layer" "absorption" "--save-as" absorption)

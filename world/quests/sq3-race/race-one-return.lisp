@@ -4,15 +4,12 @@
  :invariant T
  :condition NIL
  :on-activate (activate-chat)
- :on-complete NIL
-)
+ :on-complete NIL)
 
-; activating trigger this way so it works with repeat plays of the quest and task; using :on-activate in the task meta above to go straight to race-one-chat works first time only
-(quest:action :name activate-chat :on-activate (progn                                             											 
-											 (setf (quest:status (thing 'race-one-chat)) :inactive)
-											 (activate 'race-one-chat)
-											 )
-)
+;; activating trigger this way so it works with repeat plays of the quest and task; using :on-activate in the task meta above to go straight to race-one-chat works first time only
+(quest:action :name activate-chat :on-activate (progn
+                                                 (setf (quest:status (thing 'race-one-chat)) :inactive)
+                                                 (activate 'race-one-chat)))
 
 (quest:interaction :name race-one-chat :title "Complete Route 1" :interactable catherine :dialogue "
 ! eval (hide-panel 'timer)
@@ -82,5 +79,7 @@
   
 | Let's do this again soon!
 ")
-; todo replace bracket numbers and rewards with global quest vars (incl in race hub), initiated at quest start
-; todo log times to tenth of a second, not whole numbers?
+;; TODO only grant rewards if first time in a new bracket - across all routes - to prevent farming (check quest design doc, but pretty sure that was the design)?
+;; - then again, if the player is prepared to put the work in to keep racing, why not reward them?
+;; TODO: replace bracket numbers and rewards with global quest vars (including in race hub), stored at quest level and defined there
+;; TODO: log times to tenth of a second, not whole numbers?

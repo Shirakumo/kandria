@@ -4,10 +4,9 @@
  :invariant T
  :condition all-complete
  :on-activate (mushrooms-return)
- :on-complete NIL
-)
+ :on-complete NIL)
 
-(quest:interaction :name mushrooms-return :title "I've got mushrooms" :interactable catherine :dialogue "
+(quest:interaction :name mushrooms-return :title "Return the mushrooms" :interactable catherine :dialogue "
 ~ catherine
 | How was your mushrooming? Let's see what you've got.
 ? (= 25 (+ (item-count 'mushroom-good-1) (item-count 'mushroom-good-2)) )
@@ -19,7 +18,7 @@
 | | Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
 | ! eval (retrieve 'mushroom-good-1 (item-count 'mushroom-good-1))
 ? (have 'mushroom-good-2)
-| | Rusty puffball, great. These are my favourite - I made my neckerchief from these, believe or not.
+| | Rusty puffball, great. These are my favourite - I made my neckerchief from them, believe or not.
 | | Though that was just so I had a mask so their spores wouldn't give me lung disease.
 | ! eval (retrieve 'mushroom-good-2 (item-count 'mushroom-good-2))
 ? (have 'mushroom-bad-1)
@@ -35,7 +34,7 @@
 ? (not (complete-p 'mushroom-sites))
 | ! eval (complete 'mushroom-sites)
 ")
-; todo rewards - fixed, not based on ratio of good/bad mushrooms?
+;; TODO: rewards - fixed, not based on ratio of good/bad mushrooms?
 
 #|
 

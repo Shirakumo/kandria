@@ -4,6 +4,7 @@
  :invariant T
  :condition all-complete
  :on-activate (show-can))
+
 (quest:interaction :name show-can :interactable fi :dialogue "
 ! eval (hide-panel 'timer)
 ~ player

@@ -4,14 +4,11 @@
  :invariant T
  :condition NIL
  :on-activate (activate-chat)
- :on-complete NIL
-)
+ :on-complete NIL)
 
-(quest:action :name activate-chat :on-activate (progn                                             											 
-											 (setf (quest:status (thing 'race-four-chat)) :inactive)
-											 (activate 'race-four-chat)
-											 )
-)
+(quest:action :name activate-chat :on-activate (progn
+                                                 (setf (quest:status (thing 'race-four-chat)) :inactive)
+                                                 (activate 'race-four-chat)))
 
 (quest:interaction :name race-four-chat :title "Complete Route 4" :interactable catherine :dialogue "
 ! eval (hide-panel 'timer)

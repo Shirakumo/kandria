@@ -1,6 +1,6 @@
 (:name task-return-home
  :title "Return to the settlement and talk to Catherine"
- :description "Catherine repaired the sabotaged pipe and headed back. I should return to the engineering building and speak with her."
+ :description NIL
  :invariant T
  :condition all-complete
  :on-activate (catherine-return)
@@ -16,7 +16,7 @@
 ;;         As for how she reactivated the stranger, I think something simple like applying pressure on her
 ;;         earlobe would work, rather than requiring any deep interfacing, and the way she discovered that
 ;;         was mostly dumb luck and curiosity, more than anything.
-(quest:interaction :name catherine-return :interactable entity-5339 :dialogue "
+(quest:interaction :name catherine-return :interactable catherine-group :dialogue "
 ~ catherine
 | Hey, Stranger - See what'd I tell you?
 | Jack here didn't think you'd come back.
@@ -30,15 +30,15 @@
 ~ fi
 | Is it not coincidental that you discovered it at the same time as our water supply was sabotaged?
 ~ catherine
-| But we saw the rogues - they were smashing the pipes!
+| But we saw the rogues - they were dismantling the pump!
 ~ jack
 | Maybe this android can control them? Did you think of that?
 ~ catherine
 | ...
 | Androids do have far-field comms systems...
-| Theoretically, something like that could penetrate deeper underground than our radios.
+| I guess something like that could penetrate deeper underground than our radios.
 | But no, it's not that. She was offline for decades - there's no way she could have done that.
-| And since I brought her online, she's been with me the whole time! She can't have betrayed us.
+| And since I brought her online, she's been with me the whole time! She can't have done this.
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
 ~ catherine
@@ -47,13 +47,13 @@
   ~ catherine
   | There, see.
   ~ fi
-  | Alright - well, let's hope it's telling the truth. If not, then the Wraw know our location, and their hunting parties are already on their way.
+  | Alright, well - let's hope it's telling the truth. If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I don't think I have.
   ~ catherine
   | Her memories are all muddled from before I brought her online. She hasn't, trust me.
   ~ fi
-  | Alright - well, let's hope that's true. If not, then the Wraw know our location, and their hunting parties are already on their way.
-- I suppose I could have - but I don't remember.
+  | Alright, well - let's hope that's true. If not, then the Wraw know our location, and their hunting packs are already on their way.
+- I suppose I could have.
   ~ catherine
   | She doesn't know what she's saying - her memories are all screwed up till the point I brought her online.
   ~ fi
@@ -90,7 +90,7 @@
   < examine
 - As long as I'm still online afterwards.
   ~ catherine
-  | Don't worry. I won't let them turn you off.
+  | Don't worry, I won't let them switch you off.
   < examine
 > continue
 ~ fi
@@ -104,8 +104,8 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
-! eval (setf (location 'fi) 'entity-5437)
-! eval (move-to 'entity-5436 (unit 'jack))
+! eval (move-to 'fi-farm (unit 'fi))
+! eval (move-to 'jack-main (unit 'jack))
 ! eval (activate 'catherine-trader)
 
 # examine
@@ -126,8 +126,6 @@
 | I am satisfied, for now. Thank you Catherine, Stranger.
 < continue
 ")
-;; TODO: restore when fi has animations: ! eval (move-to 'entity-5437 (unit 'fi))
-;; TODO: jack move not working (and no error)
 
 #| DIALOGUE REMOVED FOR TESTING
 
@@ -137,25 +135,24 @@
 ;; REMARK: Maybe say "adults" instead? "Grown-ups" sounds too child-like.
 (quest:interaction :name catherine-trader :interactable catherine :dialogue "
 ~ catherine
-| Urgh, grown-ups. I mean, I'm technically a grown-up, but not like those dinosaurs.
+| Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | Oh! I almost forgot: It's our way to gift something to those that help us out.
 | Since those two aren't likely to be feeling generous anytime soon, I'll give you these.
-! eval (store 'small-health-pack 3)
+! eval (store 'parts 20)
 | It's not much, but you can trade them for things you might want. Or you will once Sahil gets here.
 | He's overdue, which is not like him at all. Maybe those rogues scared him off.
-| Anyway, I've got work to do. Feel free to have a look around, get to know people.
-| They'll soon see what I see - a big friendly badass, who can protect us from harm.
-| I think Fi might want a private word with you too. Just a hunch... something about the way she was looking at you.
-| Knowing Jack, he'll have something for you to do as well.
-| Seeya later!
-! eval (move-to 'entity-5436 (unit 'catherine))
+| Anyway, don't worry about them. They'll soon see what I see - a big friendly badass who can protect us.
+| Well, I've got work to do. I think Fi might want a private word with you.
+| Just something about the way she was looking at you.
+| Knowing Jack he'll have something for you as well - if only a mouthful of abuse.
+| You take it easy. Seeya later!
+! eval (move-to 'eng-cath (unit 'catherine))
 ! eval (activate 'q2-intro)
 ! eval (activate 'q3-intro)
 ")
 
-;; TODO: rewards - is only storing +1 and no notification too: ! eval (store 'small-health-pack 3)
+;; TODO: inventory item acquired onscreen pop-up / notification
 ;; Let's not have catherine go to trader as well - player needs some time away from Catherine (which helps by delaying the trader arrive till after quest 2/3)
-;; Activate people quest 2/3/hub
 
 #|
 
@@ -175,4 +172,3 @@
 
 
 ;; TODO: Explain Wraw yet? Hold off for quest 2/3? Say they have androids for parts/slave labour? Use them as electronic power supplies?
-;; TODO: also later make reference to the stranger's clothes e.g. Jack: "And what is it wearing? I've never seen anything like it." Catherine: "I don't know but I love it! They're not clothes like ours either, she's just sort of made that way."

@@ -184,6 +184,7 @@
       (#\r (setf (tool editor) 'rectangle))
       (#\z (edit 'undo editor))
       (#\y (edit 'redo editor))
+      (#\u (setf (entity editor) (unit 'player T)))
       (#\+ (incf (alloy:value (slot-value (menu editor) 'zoom)) 0.1))
       (#\- (decf (alloy:value (slot-value (menu editor) 'zoom)) 0.1)))))
 

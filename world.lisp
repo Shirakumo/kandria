@@ -127,7 +127,8 @@
   (toggle-panel 'report-panel))
 
 (defmethod handle ((ev toggle-editor) (world world))
-  (toggle-panel 'editor))
+  (unless (find-panel 'menu)
+    (toggle-panel 'editor)))
 
 (defmethod handle ((ev toggle-diagnostics) (world world))
   (toggle-panel 'diagnostics))

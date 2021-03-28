@@ -4,17 +4,16 @@
  :invariant T
  :condition NIL
  :on-activate (start-race)
- :on-complete NIL
-)
+ :on-complete NIL)
 
-; enemies on this quest will be world NPCs, not spawned for the quest
+;; enemies on this quest will be world NPCs, not spawned for the quest
 (quest:interaction :name start-race :title "Race against the clock" :interactable catherine :repeatable T :dialogue "
 ? (or (active-p 'race-one) (active-p 'race-two) (active-p 'race-three) (active-p 'race-four))
 | ~ catherine
 | | You're already racing, get goin'!
 |?
 | ~ catherine
-| | Alright, let's do this!
+| | Alright, race time!
 | ? (not (complete-p 'race-one))
 | | | So Alex has been back, and I got them to plant some old-world beer cans in devious places for you to find.
 | | | Grab the can, bring it back here, and I'll stop the clock.
@@ -28,13 +27,13 @@
 | | ~ player
 | | - Route 1
 | |   < race-1
-| | - [(var 'race-1-bronze) Route 2|]
+| | - [(or (var 'race-1-bronze) (var 'race-1-silver) (var 'race-1-gold)) Route 2|]
 | |   < race-2
-| | - [(var 'race-2-bronze) Route 3|]
+| | - [(or (var 'race-2-bronze) (var 'race-2-silver) (var 'race-2-gold)) Route 3|]
 | |   < race-3
-| | - [(var 'race-3-bronze) Route 4|]
+| | - [(or (var 'race-3-bronze) (var 'race-3-silver) (var 'race-3-gold)) Route 4|]
 | |   < race-4
-| | - [(var 'race-4-bronze) Route 5|]
+| | - [(or (var 'race-4-bronze) (var 'race-4-silver) (var 'race-4-gold)) Route 5|]
 | |   < race-5
 | | - Back out for now
 # race-1
@@ -107,14 +106,14 @@
 | [? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger!]
 ")
 ;; | [(var 'race-1-pb) Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.]
-; todo allow play to opt out of first race encountered, not forced
-;; TODO cancel a race in progress? restart a race that's gone wrong?
-;; TODO acknowledge when a new route has unlocked?
-; todo have a different item per race, e.g. phone, bottle, etc. Need to render them though?
-; todo lock out later races based on whether you have gold or not on previous one, rather than merely whether you've attempted the previous one or not
-; //NA - todo bug deactivating this task causes it's title to appear as another bullet point in the journal
-; todo plant multiple objects, encouraging cheating
-; could explain brackets at the start, or let player figure it out themselves from results? Latter
+;; TODO: allow play to opt out of first race encountered, not forced
+;; TODO: cancel a race in progress? restart a race that's gone wrong? - not sure; it would have to be done by returning to Catherine, not from the UI, to preserve immersion (death is different, but restarting races from UI is fine in a driving game, not in an RPG?)
+;; - in which case if have to return to Catherine anyway, is there much point? Just hand the race in anyway and get the fun poor performance dialogue?
+;; TODO: acknowledge in the flow when a new route has unlocked?
+;; TODO: have a different item per race, e.g. phone, bottle, etc. Need to render them though?
+;; TODO bug - deactivating this task causes it's title to appear as another bullet point in the journal (though not deactivating it anymore)
+;; TODO: plant multiple objects, encouraging cheating
+;; could explain brackets at the start, or let player figure it out themselves from results? Latter
 
 #|
 

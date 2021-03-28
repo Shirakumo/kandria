@@ -1,26 +1,24 @@
 (:name talk-trader
- :title "Talk to Sahil"
+ :title "Find Sahil"
  :description NIL
  :invariant T
  :condition all-complete
  :on-activate (talk-to-trader)
- :on-complete (trader-repeat)
-)
+ :on-complete (trader-repeat))
  
 (quest:interaction :name talk-to-trader :interactable trader :dialogue "
 ~ trader
 | Well, well... Are you who I think you are?
-~ player
 - Who do you think I am?
   < identify
 - Most likely.
   < identify
 - You've been speaking with Catherine.
   < main
+
 # identify
 ~ trader
 | You're The Stranger!... Or is it just Stranger?
-~ player
 - Technically it's just \"Stranger\".
   ~ trader
   | Right you are, Stranger!
@@ -33,13 +31,13 @@
 ~ player
 | I see you've been speaking with Catherine.
 < main
+
 # main
 ~ trader
 | Haha, yes sir. Guilty as charged.
 | She's such a great kid, you know? A talented engineer as well. Reminds me of...
 | Er-... well, never mind that.
 | So you’ve come to trade with old Sahil, eh?
-~ player
 - What do you sell?
   ~ trader
   | What doesn't old Sahill sell!
@@ -54,6 +52,7 @@
   ~ trader
   | Nonesense! You helped Catherine in the caves - kicked some rogue ass by the sounds of things!
   < continue
+
 # continue
 | The least I can do in thanks is to help you keep yourself in tip-top condition.
 | I've read about androids - under the hood you're pretty much the same as those rogues. No offence.
@@ -72,7 +71,6 @@
 | p/h Open shop UI
 ~ trader
 | Say, I don't suppose you'd like to trade that sword of yours? I've never seen anything like it...
-~ player
 - It's an electronic stun blade. And I need it.
   ~ trader
   | Electronic?... That's downright incredible. And it transforms from your arm?
@@ -83,18 +81,19 @@
   < sword
 - It's not for sale.
   < end
-~ trader
+
 # sword
 ~ player
 | Correct - it conserves power that way, then auto-unsheathes when I need it.
 < end
+
 # end
 ~ trader
 | Well, if you ever change your mind, don't go to anyone else. I'd trade handsomely for it you can be sure of that.
 | You take it easy, habeebti.
 ")
-; todo open shop UI
-; todo rename health packs to something more practical and specific for the stranger, that would exist in this world - solder and circuit boards. (Make it clear with the tooltip for the health pack, and even call them something like Repair Packs)
+;; TODO: open shop UI
+;; TODO: rename health packs to something more practical and specific for the stranger, that would exist in this world - solder and circuit boards. (Make it clear with the tooltip for the health pack, and even call them something like Repair Packs)
 
 
 #|

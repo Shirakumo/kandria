@@ -8,9 +8,8 @@
  
 (quest:action :name spawn-can :on-activate (progn
                                              (setf (clock quest) 0)
-											 (show (make-instance 'timer :quest quest))
-                                             (spawn 'race-2-site 'can))
-)
+                                             (show (make-instance 'timer :quest quest))
+                                             (spawn 'race-2-site 'can)))
 
 (quest:interaction :name race-two-speech :interactable race-2-site :repeatable T :dialogue "
 ~ player

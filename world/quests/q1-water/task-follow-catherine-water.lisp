@@ -1,14 +1,13 @@
 (:name follow-catherine-water
  :title "Follow Catherine"
- :description "I should follow Catherine to the location of the leaking water pipes, and protect her so she can repair them."
+ :description NIL
  :invariant T
  :condition all-complete
  :on-activate (leak1)
  :on-complete (task-return-home))
 
-;; TODO: (test) remove some health for looking at the arc (and signpost this): ! eval (when (< 5 (health player)) (decf (health player) 5))
 ;; using inner monologue to depict and pass the time for action taking place
-(quest:interaction :name leak1 :interactable entity-4993 :dialogue "
+(quest:interaction :name leak1 :interactable main-leak-1 :dialogue "
 ~ catherine
 | Alright, here's a leak...
 | That's strange, the pipe is cracked.
@@ -31,7 +30,7 @@
   | //It's like staring into the sun. Into the centre of a catacylsm.//
   ! eval (when (< 5 (health player)) (hurt player 5))
   ! eval (setf (var 'weld-burn) T)
-  | //I think that damaged my cameras a little... Oh well.//
+  | //I think that damaged my cameras a little...//
 ~ catherine
 | That should hold it.
 ~ catherine
@@ -48,7 +47,7 @@
 - I'm sure.
 - What's wrong with \"android\"?
   ~ catherine
-  | What's right about it?
+  | What's right with it?
 - Is this really the time?
   ~ catherine
   | You're right - sorry.
@@ -57,7 +56,7 @@
 | Pretty cool, huh?
 | Let's go, Stranger!
 ! eval (activate 'leak2)
-! eval (lead 'player 'entity-5627 (unit 'catherine))
+! eval (lead 'player 'main-leak-2 (unit 'catherine))
 ")
 ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
 #| ^ DIALOGUE REMOVED FOR TESTING
@@ -66,16 +65,14 @@
 
 |#
 
-;; TODO: spawn combat wolves (not zombies or tame wolves)
-;; REMARK: Please rename your marker entities in the editor to something sensible. Seeing ENTITY-5498 isn't very helpful.
-(quest:interaction :name leak2 :interactable entity-5627 :dialogue "
+(quest:interaction :name leak2 :interactable main-leak-2 :dialogue "
 ~ catherine
 | Look - the same cracks as we saw on the last pipe. This isn't right.
 | Jack, I think we've got trouble. Over.
 ~ jack
 | What is it?
 ~ catherine
-| We're at the valve in tunnel A6 - just like before, the pipe is cracked. And no sign of a cave-in. Over.
+| We're in the Midwest Market - just like before, the pipe is cracked. And no sign of a cave-in. Over.
 ~ jack
 | ...
 | It's sabotage. I knew it.
@@ -85,13 +82,14 @@
 ~ jack
 | Okay... just be careful. I'll tell Fi what's going on.
 | You'd better follow the pipes right down to the pumps as well, just to be sure you got all the leaks.
-| The walkie won't work down there though - but there's a telephone near the reservoir. Use that when you're done.
+| The walkie won't work down there though - but there's a telephone near the pump. Use that when you're done.
 | And keep your wits about you. Over and out.
 ~ catherine
 | Alright, let me seal this one up.
 | Wait... Who's there?
 ! eval (walk-n-talk 'catherine-fighttalk1)
-! eval (spawn 'entity-5498 'wolf)
+! eval (spawn 'q1-wolf-spawn 'wolf)
+! eval (spawn 'q1-wolf-spawn 'wolf)
 ")
 
 #|
@@ -101,7 +99,6 @@
 |#
 
 ;; TODO: allow player to collect "wolf meat" as currency?
-;; ! eval (store 'small-health-pack 3)
 (quest:interaction :name catherine-fighttalk1 :interactable catherine :dialogue "
 ! eval (complete 'catherine-fighttalk1)
 ~ catherine
@@ -111,17 +108,17 @@
 ! eval (activate 'leak2-done)
 ")
 
-;; TODO: only activate once wolves defeated, or branch what Catherine says based on whether fight is ongoing or not?
-;; TODO: spawn multiple zombies not just 1
 ;; TODO: has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
 ;; REMARK: ^ yes. The tutorial will include a brief fight section.
-(quest:interaction :name leak2-done :interactable entity-5627 :dialogue "
+(quest:interaction :name leak2-done :interactable main-leak-2 :dialogue "
 ~ catherine
 | I've done the weld - good as new.
-| Let's get to the pumps.
-! eval (spawn 'entity-5638 'zombie)
+| Let's get down to the pump.
+! eval (spawn 'main-leak-3 'zombie)
+! eval (spawn 'main-leak-3 'zombie)
+! eval (spawn 'main-leak-3 'zombie)
 ! eval (activate (unit 'rogues))
-! eval (lead 'player 'entity-5639 (unit 'catherine))
+! eval (lead 'player 'main-leak-3 (unit 'catherine))
 ")
 #|
 
@@ -140,10 +137,10 @@
   | Do your thing!
 - You know these srakas?
   ~ catherine
-  | No time to explain! Clear them out, quickly.  
+  | No time to explain! Take them out!
 - What's a rogue?
   ~ catherine
-  | No time to explain! Clear them out, quickly.
+  | No time to explain! Take them out!
 ! eval (walk-n-talk 'catherine-fighttalk2)
 ")
 #|
@@ -154,19 +151,18 @@
 (quest:interaction :name catherine-fighttalk2 :interactable catherine :dialogue "
 ! eval (complete 'catherine-fighttalk2)
 ~ catherine
-| Smash 'em! Don't let 'em get away!
-| --
+| Smash 'em!
+| ---
 ! eval (activate 'leak3-fight-done)
 ")
 
-;; TODO: only activate once rogues defeated, or branch what Catherine says based on whether fight is ongoing or not (have this node activate when a walk n talk done?)
-;; TODO: spawn spare parts for the player to collect (barter currency) - can use var "parts"? Or just use cans for now i.e. (spawn 'camp 'can)
+;; TODO: spawn spare parts for the player to collect (barter currency) - would need to integrate with the zombies' death scripts?
 ;; TODO: sometimes doesn't activate?
-(quest:interaction :name leak3-fight-done :interactable entity-5639 :dialogue "
+(quest:interaction :name leak3-fight-done :interactable leak-3-standoff :dialogue "
 ~ catherine
-| Let me take a look at their handiwork.
+| What have they done?
 ! eval (activate 'leak3)
-! eval (lead 'player 'entity-5638 (unit 'catherine))
+! eval (lead 'player 'main-leak-3 (unit 'catherine))
 ")
 #|
 
@@ -179,14 +175,14 @@
 | We could sure use their spare parts too - grab what you can.
 |#
 
-(quest:interaction :name leak3 :interactable entity-5638 :dialogue "
+(quest:interaction :name leak3 :interactable main-leak-3 :dialogue "
 ~ catherine
-| Oh man, we got here just in time. They were about to sever the main supply pipe.
-| Shouldn't take a minute to patch this up.
+| Oh man, we got here just in time. They almost trashed the water pump...
+| Give me a minute to patch this up.
 | ... There, done!
-| Now, where is that telephone? I think it's this way.
+| Now, where is that telephone? Ah, it's over there.
 ! eval (activate 'phone)
-! eval (lead 'player 'entity-5170 (unit 'catherine))
+! eval (lead 'player 'q1-phone (unit 'catherine))
 ")
 #|
 
@@ -194,7 +190,7 @@
 
 |#
 
-(quest:interaction :name phone :interactable entity-5170 :dialogue "
+(quest:interaction :name phone :interactable q1-phone :dialogue "
 ~ catherine
 | Jack, it's me.
 ~ jack
@@ -244,8 +240,8 @@
     | Just don't be too long - Fi will want us both to debrief her.
     | I'm heading back now. Be careful - though I know you can handle yourself.
     | Seeya later!
-! eval (setf (location 'fi) 'entity-5640)
-! eval (setf (location 'jack) 'entity-5382)
-! eval (move-to 'entity-5339 (unit 'catherine))
+! eval (setf (location 'fi) 'fi-group)
+! eval (setf (location 'jack) 'jack-group)
+! eval (move-to 'catherine-group (unit 'catherine))
 ")
 ;; TODO: player could beat catherine back if they're quick, then destination convo don't make sense without Catherine there - only allow convo to play once catherine's back? Or once move-to takes her outside the current chunk, teleport her?

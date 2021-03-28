@@ -1,6 +1,6 @@
 (:name find-jack
  :title "Find Jack"
- :description "I should follow Catherine into that building and find Jack."
+ :description NIL
  :invariant T
  :condition all-complete
  :on-activate (talk-jack)
@@ -21,12 +21,12 @@
 - Jack, I presume.
 - Is everything okay?
 ~ jack
-| Well fuck me it speaks... Though what the hell is that accent?
+| Fuck me it speaks... Though what the hell is that accent?
 ~ Catherine
 | Jack, what's wrong? Talk to me.
 ~ Jack
 | The water has failed again, and this time it ain't the pumps. Must be a leak somewhere.
-| If we don't get it back ASAP we're fucked. We'll lose the whole goddamn crop.
+| If we don't get it back ASAP we're screwed. We'll lose the whole goddamn crop.
 ~ Catherine
 | Shit!... I should have been here.
 ~ jack
@@ -60,12 +60,12 @@
 | We need to fix the water right now or we're goners. And I'm you're best shot.
 | Me AND my android buddy.
 ~ jack
-| Fuck...
+| Shit...
 | Alright. You'd better not let me down.
 ~ catherine
 | Yes!!
 ~ jack
-| But I'm warning you android. You touch one hair on her head and I'll bury you for another fifty years!
+| But I'm warning you android: Touch one hair on her head and I'll bury you for another fifty years!
 ~ catherine
 | Thanks \"Dad\". Alright, let's go.
 ~ jack

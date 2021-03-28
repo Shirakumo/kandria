@@ -12,6 +12,7 @@
    #:binding
    #:merge-bindings
    #:var
+   #:list-variables
    #:describable
    #:name
    #:title
