@@ -84,6 +84,8 @@
       (setf (strength (unit 'fade T)) 0.0))
     (when (unit 'walkntalk world)
       (walk-n-talk NIL))
+    (when (find-panel 'status-lines)
+      (clear (find-panel 'status-lines)))
     (let ((version (coerce-version (getf header :version))))
       (decode-payload NIL world packet version)
       (apply #'make-instance 'save-state initargs))))

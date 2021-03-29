@@ -126,6 +126,7 @@
   (show (make-instance 'report-button))
   (load-state (or (state main) (initial-state scene)) main)
   (save-state main (quicksave main))
+  (save-state main T)
   (enter (make-instance 'fade) scene))
 
 (defmethod change-scene :after ((main main) scene &key)
