@@ -7,8 +7,24 @@
    (strength :initform 0.0 :accessor strength)
    (color :initform (vec 0 0 0) :accessor color)))
 
+(defmethod (setf kind) (kind (fade fade))
+  (ecase kind
+    (:white
+     (setf (texture fade) (// 'kandria 'plain-transition))
+     (vsetf (color fade) 5 5 5))
+    (:black
+     (setf (texture fade) (// 'kandria 'plain-transition))
+     (vsetf (color fade) 0 0 0))
+    (:blue
+     (setf (texture fade) (// 'kandria 'plain-transition))
+     (vsetf (color fade) 0.2 0.3 0.7))
+    (:transition
+      (setf (texture fade) (// 'kandria 'block-transition))
+      (vsetf (color fade) 0 0 0))))
+
 (defmethod stage ((fade fade) (area staging-area))
-  (stage (texture fade) area))
+  (stage (// 'kandria 'block-transition) area)
+  (stage (// 'kandria 'plain-transition) area))
 
 (defmethod handle ((ev transition-event) (fade fade))
   (unless (flare:running (progression 'transition +world+))
@@ -50,21 +66,21 @@ void main(){
 
 (define-progression death
   0 1.0 (distortion (set strength :from 0.0 :to 1.0))
-  1.0 1.0 (player (call (lambda (player clock step) (respawn player))))  
-  1.5 2.5 (distortion (set strength :from 1.0 :to 0.0 :ease circ-in)))
+  1.5 1.5 (fade (set strength :to 1.0) (call (lambda (fade clock step) (setf (kind fade) :blue))))
+  1.5 2.0 (distortion (set strength :from 1.0 :to 0.0)))
 
 (define-progression hurt
   0.0 0.2 (distortion (set strength :from 0.0 :to 0.7 :ease expo-out))
   0.2 0.3 (distortion (set strength :from 0.7 :to 0.0 :ease expo-out)))
 
 (define-progression transition
-  0.0 0.0 (fade (set color :to (vec 0 0 0)))
+  0.0 0.0 (fade (call (lambda (fade clock step) (setf (kind fade) :transition))))
   0.0 0.5 (fade (set strength :from 0.0 :to 1.0 :ease quint-in))
   0.5 0.5 (fade (call (lambda (fade clock step) (funcall (on-complete fade)))))
   0.5 1.0 (fade (set strength :from 1.0 :to 0.0 :ease quint-out)))
 
 (define-progression low-health
-  0.0 0.0 (fade (set color :to (vec 5 5 5)))
+  0.0 0.0 (fade (call (lambda (fade clock step) (setf (kind fade) :white))))
   0.0 0.05 (fade (set strength :from 0.0 :to 0.8))
   0.05 0.2 (fade (set strength :from 0.8 :to 0.0 :ease expo-out))
   0.0 0.1 (T (set time-scale :from 1.0 :to 0.2 :ease quint-in))
