@@ -331,11 +331,26 @@
 (defclass half-solid (solid) ())
 (defclass resizable () ())
 
-(defstruct (hit (:constructor make-hit (object location &optional (time 0f0) (normal (vec 0 0)))))
+(defstruct (hit (:constructor %make-hit (object location &optional (time 0f0) (normal (vec 0 0)))))
   (object NIL)
   (location NIL :type vec2)
   (time 0f0 :type single-float)
   (normal NIL :type vec2))
+
+(defun make-hit (object location &optional (time 0f0) (normal (vec 0 0)))
+  (let ((hit (load-time-value (%make-hit NIL (vec 0 0)))))
+    (setf (hit-object hit) object)
+    (setf (hit-location hit) location)
+    (setf (hit-time hit) time)
+    (setf (hit-normal hit) normal)
+    hit))
+
+(defun transfer-hit (target source)
+  (setf (hit-object target) (hit-object source))
+  (setf (hit-location target) (hit-location source))
+  (setf (hit-time target) (hit-time source))
+  (setf (hit-normal target) (hit-normal source))
+  target)
 
 ;; Scan through TARGET to find REGION. When a match is found, invoke ON-HIT
 ;; with a HIT instance. If ON-HIT returns true, the scan continues, otherwise
@@ -371,7 +386,7 @@
   (let ((hit (scan-collision target object)))
     (when hit
       (collide object (hit-object hit) hit)
-      hit)))
+      T)))
 
 ;; Handle response to a collision of OBJECT with the TESTED entity on HIT.
 ;; HIT-OBJECT of the HIT instance must be EQ to TESTED.
