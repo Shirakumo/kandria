@@ -126,6 +126,7 @@
         (focus (make-instance 'options-stack)))
     (alloy:on alloy:exit (focus)
       (hide panel))
+    ;; FIXME: focus proper layer in focus stack...
     (alloy:enter tabs layout :place :west :size (alloy:un 250))
     (alloy:enter center layout :place :center)
     (macrolet ((with-tab ((tab name &rest layout) &body fill)
