@@ -330,7 +330,8 @@
   (cond ((not (funcall (invariant task)))
          (fail task))
         ((funcall (condition task))
-         (complete task))))
+         (unless (eql :complete (status task))
+           (complete task)))))
 
 (defclass trigger ()
   ((name :initarg :name :initform (error "NAME required.") :reader name)

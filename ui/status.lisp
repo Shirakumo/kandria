@@ -60,3 +60,9 @@
       (when (< (timeout element) clock)
         (when (slot-boundp element 'alloy:layout-parent)
           (alloy:leave element layout))))))
+
+(defmethod clear ((panel status-lines))
+  (let ((layout (alloy:index-element 0 (alloy:layout-element panel))))
+    (alloy:do-elements (element layout)
+      (when (slot-boundp element 'alloy:layout-parent)
+        (alloy:leave element layout)))))
