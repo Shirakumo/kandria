@@ -14,8 +14,8 @@
    (COWER                :start  84 :end  89 :loop-to 84  :next COWER)
    (COWER-END            :start  89 :end  95 :loop-to 89  :next COWER-END)
    (SLIDE                :start  95 :end 101 :loop-to 95  :next SLIDE)
-   (LIGHT-HIT            :start 101 :end 108 :loop-to 101 :next LIGHT-HIT)
-   (HARD-HIT             :start 108 :end 117 :loop-to 108 :next HARD-HIT)
+   (LIGHT-HIT            :start 101 :end 108 :loop-to 101 :next STAND)
+   (HARD-HIT             :start 108 :end 117 :loop-to 108 :next STAND)
    (ENTER                :start 117 :end 128 :loop-to 117 :next STAND)
    (EXIT                 :start 128 :end 129 :loop-to 128 :next STAND))
  :frames
