@@ -19,6 +19,7 @@
   1000)
 
 (defmethod hurt ((npc npc) (player player)))
+(defmethod collides-p ((npc npc) (enemy enemy) hit) NIL)
 (defmethod die ((npc npc)) (error "WTF, NPC died for some reason. That shouldn't happen!"))
 (defmethod oob ((npc npc) (none null)) (error "NPC fell out of the world. That shouldn't happen!"))
 
@@ -85,17 +86,21 @@
            (setf (ai-state npc) :normal)))
       (:lead
        (let ((distance (vsqrdist2 (location npc) (location companion))))
-         (cond ((< (expt (* 20 +tile-size+) 2) distance)
-                (setf (ai-state npc) :lead-check))
-               ((< (vsqrdist2 (location npc) (target npc)) (expt (* 2 +tile-size+) 2))
-                (setf (companion npc) NIL)
-                (setf (path npc) ())
-                (setf (ai-state npc) :normal))
-               ((null (path npc))
-                (unless (move-to (target npc) npc)
-                  (error "What the fuck? Don't know how to get to ~a" (target npc))))
-               (T
-                (execute-path npc ev)))))
+         (flet ((complete ()
+                  (setf (companion npc) NIL)
+                  (setf (path npc) ())
+                  (setf (ai-state npc) :normal)))
+           (cond ((< (expt (* 20 +tile-size+) 2) distance)
+                  (setf (ai-state npc) :lead-check))
+                 ((< (vsqrdist2 (location npc) (target npc)) (expt (* 2 +tile-size+) 2))
+                  (complete))
+                 ((null (path npc))
+                  (unless (move-to (target npc) npc)
+                    (if (= (vx (location npc)) (vx (target npc)))
+                        (complete)
+                        (error "What the fuck? Don't know how to get to ~a" (target npc)))))
+                 (T
+                  (execute-path npc ev))))))
       (:lead-check
        (let ((distance (vsqrdist2 (location npc) (location companion))))
          (cond ((< distance (expt (* 10 +tile-size+) 2))

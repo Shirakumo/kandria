@@ -51,6 +51,7 @@
                             "--eval" "(push :kandria-release *features*)"
                             "--eval" "(push :trial-optimize-all *features*)"
                             "--eval" "(push :cl-opengl-no-masked-traps *features*)"
+                            "--eval" "(push :cl-opengl-no-check-error *features*)"
                             "--eval" "(asdf:make :kandria :force T)" "--disable-debugger" "--quit"))
 
 (defmethod build ((target (eql :linux)))

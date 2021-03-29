@@ -32,12 +32,12 @@
               (climb-up        0.8)
               (climb-down      1.5)
               (climb-strength  7.0)
-              (climb-jump-cost 1.5)
+              (climb-jump-cost 1.7)
               (slide-limit    -1.2)
               (crawl           0.5)
               (jump-acc        2.5)
-              (jump-mult       1.1)
-              (walljump-acc    (vec 2.75 2.5))
+              (jump-mult       1.12)
+              (walljump-acc    (vec 2.5 2.5))
               (dash-acc        1.2)
               (dash-dcc        0.875)
               (dash-air-dcc    0.98)
@@ -47,7 +47,9 @@
               (dash-min-time   0.25)
               (dash-max-time   0.675)
               (dash-evade-grace-time 0.1)
-              (buffer-expiration-time 0.3))))
+              (buffer-expiration-time 0.3)
+              (look-delay      0.5)
+              (look-offset     16))))
 
 (defmacro p! (name)
   #+kandria-release
@@ -254,17 +256,21 @@
 (defun absinvclamp (low mid high)
   (* (signum mid) (invclamp low (abs mid) high)))
 
-(defmacro tv+ (a b)
-  (let ((ag (gensym "A")) (bg (gensym "B")))
-    `(let ((,ag ,a) (,bg ,b))
-       (vsetf (load-time-value (vec 0 0))
-              (+ (vx2 ,ag) (vx2 ,bg)) (+ (vy2 ,ag) (vy2 ,bg))))))
+(defmacro define-tvecop (name op)
+  `(defmacro ,name (a b)
+     (let ((ag (gensym "A")) (bg (gensym "B")))
+       `(let ((,ag ,a) (,bg ,b))
+          (vsetf (load-time-value (vec 0 0))
+                 (,',op (vx2 ,ag) (vx2 ,bg)) (,',op (vy2 ,ag) (vy2 ,bg)))))))
 
-(defmacro tv- (a b)
-  (let ((ag (gensym "A")) (bg (gensym "B")))
-    `(let ((,ag ,a) (,bg ,b))
-       (vsetf (load-time-value (vec 0 0))
-              (- (vx2 ,ag) (vx2 ,bg)) (- (vy2 ,ag) (vy2 ,bg))))))
+(define-tvecop tv+ +)
+(define-tvecop tv- -)
+(define-tvecop tv* *)
+(define-tvecop tv/ /)
+
+(defmacro tvec (&rest args)
+  `(vsetf (load-time-value (vec ,@(loop repeat (length args) collect 0)))
+          ,@args))
 
 (defun point-angle (point)
   (atan (vy point) (vx point)))
@@ -329,11 +335,26 @@
 (defclass half-solid (solid) ())
 (defclass resizable () ())
 
-(defstruct (hit (:constructor make-hit (object location &optional (time 0f0) (normal (vec 0 0)))))
+(defstruct (hit (:constructor %make-hit (object location &optional (time 0f0) (normal (vec 0 0)))))
   (object NIL)
   (location NIL :type vec2)
   (time 0f0 :type single-float)
   (normal NIL :type vec2))
+
+(defun make-hit (object location &optional (time 0f0) (normal (tvec 0 0)))
+  (let ((hit (load-time-value (%make-hit NIL (vec 0 0)))))
+    (setf (hit-object hit) object)
+    (setf (hit-location hit) location)
+    (setf (hit-time hit) time)
+    (setf (hit-normal hit) normal)
+    hit))
+
+(defun transfer-hit (target source)
+  (setf (hit-object target) (hit-object source))
+  (setf (hit-location target) (hit-location source))
+  (setf (hit-time target) (hit-time source))
+  (setf (hit-normal target) (hit-normal source))
+  target)
 
 ;; Scan through TARGET to find REGION. When a match is found, invoke ON-HIT
 ;; with a HIT instance. If ON-HIT returns true, the scan continues, otherwise
@@ -369,7 +390,7 @@
   (let ((hit (scan-collision target object)))
     (when hit
       (collide object (hit-object hit) hit)
-      hit)))
+      T)))
 
 ;; Handle response to a collision of OBJECT with the TESTED entity on HIT.
 ;; HIT-OBJECT of the HIT instance must be EQ to TESTED.

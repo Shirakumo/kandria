@@ -1,11 +1,30 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity fade (transformed listener vertex-entity)
+(define-shader-entity fade (listener renderable)
   ((name :initform 'fade)
-   (vertex-array :initform (// 'trial 'fullscreen-square))
+   (texture :initform (// 'kandria 'block-transition) :accessor texture)
    (on-complete :initform NIL :accessor on-complete)
    (strength :initform 0.0 :accessor strength)
    (color :initform (vec 0 0 0) :accessor color)))
+
+(defmethod (setf kind) (kind (fade fade))
+  (ecase kind
+    (:white
+     (setf (texture fade) (// 'kandria 'plain-transition))
+     (vsetf (color fade) 5 5 5))
+    (:black
+     (setf (texture fade) (// 'kandria 'plain-transition))
+     (vsetf (color fade) 0 0 0))
+    (:blue
+     (setf (texture fade) (// 'kandria 'plain-transition))
+     (vsetf (color fade) 0.2 0.3 0.7))
+    (:transition
+      (setf (texture fade) (// 'kandria 'block-transition))
+      (vsetf (color fade) 0 0 0))))
+
+(defmethod stage ((fade fade) (area staging-area))
+  (stage (// 'kandria 'block-transition) area)
+  (stage (// 'kandria 'plain-transition) area))
 
 (defmethod handle ((ev transition-event) (fade fade))
   (unless (flare:running (progression 'transition +world+))
@@ -13,40 +32,59 @@
     (setf (clock (progression 'transition +world+)) 0f0)
     (start (progression 'transition +world+))))
 
-(defmethod apply-transforms progn ((fade fade))
-  (setf *projection-matrix*
-        (setf *view-matrix*
-              (setf *model-matrix* (meye 4)))))
-
-(defmethod render :before ((fade fade) (program shader-program))
+(defmethod render ((fade fade) (program shader-program))
+  (gl:active-texture :texture0)
+  (gl:bind-texture :texture-2d (gl-name (texture fade)))
   (setf (uniform program "screen_color") (color fade))
-  (setf (uniform program "strength") (strength fade)))
+  (setf (uniform program "strength") (- 1 (strength fade)))
+  (gl:bind-vertex-array (gl-name (// 'trial 'fullscreen-square)))
+  (%gl:draw-arrays :triangle-strip 0 4))
+
+(define-class-shader (fade :vertex-shader)
+  "
+const vec2 positions[4] = vec2[](
+    vec2(-1, -1),
+    vec2(+1, -1),
+    vec2(-1, +1),
+    vec2(+1, +1));
+
+void main(){
+  gl_Position = vec4(positions[gl_VertexID], -100.0, 1.0);
+}")
 
 (define-class-shader (fade :fragment-shader)
   "uniform float strength = 0.0;
+uniform float smooth_size = 0.25;
 uniform vec3 screen_color = vec3(0,0,0);
+uniform sampler2D transition_map;
 out vec4 color;
-void main(){ color = vec4(screen_color,strength); }")
+void main(){
+  float mask = texture(transition_map, gl_FragCoord.xy/200).r;
+  mask = smoothstep(strength, strength+smooth_size, mask*(1-smooth_size)+smooth_size);
+  color = vec4(screen_color, mask);
+}")
 
 (define-progression death
   0 1.0 (distortion (set strength :from 0.0 :to 1.0))
-  1.0 1.0 (player (call (lambda (player clock step) (respawn player))))  
-  1.5 2.5 (distortion (set strength :from 1.0 :to 0.0 :ease circ-in)))
+  1.5 1.5 (fade (set strength :to 1.0) (call (lambda (fade clock step) (setf (kind fade) :blue))))
+  1.5 2.0 (distortion (set strength :from 1.0 :to 0.0)))
 
 (define-progression hurt
   0.0 0.2 (distortion (set strength :from 0.0 :to 0.7 :ease expo-out))
   0.2 0.3 (distortion (set strength :from 0.7 :to 0.0 :ease expo-out)))
 
 (define-progression transition
-  0.0 0.0 (fade (set color :to (vec 0 0 0)))
+  0.0 0.0 (fade (call (lambda (fade clock step) (setf (kind fade) :transition))))
   0.0 0.5 (fade (set strength :from 0.0 :to 1.0 :ease quint-in))
   0.5 0.5 (fade (call (lambda (fade clock step) (funcall (on-complete fade)))))
   0.5 1.0 (fade (set strength :from 1.0 :to 0.0 :ease quint-out)))
 
-(define-progression flash
-  0.0 0.0 (fade (set color :to (vec 5 5 5)))
+(define-progression low-health
+  0.0 0.0 (fade (call (lambda (fade clock step) (setf (kind fade) :white))))
   0.0 0.05 (fade (set strength :from 0.0 :to 0.8))
-  0.05 0.2 (fade (set strength :from 0.8 :to 0.0 :ease expo-out)))
+  0.05 0.2 (fade (set strength :from 0.8 :to 0.0 :ease expo-out))
+  0.0 0.1 (T (set time-scale :from 1.0 :to 0.2 :ease quint-in))
+  1.0 1.2 (T (set time-scale :from 0.2 :to 1.0 :ease quint-out)))
 
 (define-progression stun
   0.0 0.1 (T (set time-scale :from 1.0 :to 0.5 :ease quint-in))

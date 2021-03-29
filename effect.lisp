@@ -186,9 +186,8 @@
   ((layer-index :initform 2)))
 
 (defmethod trigger :after ((effect explosion-effect) source &key (strength 0.5))
-  (let ((displacer (make-instance 'displacer :location (location effect)
-                                             :strength strength
-                                             :lifetime 0.3)))
+  (let ((displacer (make-instance 'shockwave :location (location effect)
+                                             :strength strength)))
     (enter displacer +world+)
     (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+)))
   (spawn-particles (location effect))

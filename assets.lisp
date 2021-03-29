@@ -47,6 +47,13 @@
     #p"noise-cloud.png"
   :wrapping :repeat)
 
+(define-asset (kandria shockwave) image
+  #p"shockwave-2.png")
+
+(define-asset (kandria scanline) image
+  #p"scanline.png"
+  :wrapping :clamp-to-edge)
+
 (define-pixel lights)
 (define-pixel particles)
 (define-pixel items)
@@ -56,6 +63,10 @@
 (define-pixel logos)
 (define-pixel elevator)
 (define-pixel player-palette)
+(define-pixel block-transition
+  :wrapping :repeat)
+(define-pixel plain-transition
+  :wrapping :repeat)
 
 (define-sprite box)
 (define-sprite player)

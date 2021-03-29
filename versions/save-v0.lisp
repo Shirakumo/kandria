@@ -31,7 +31,7 @@
                           (load-region region world))))
            (initargs (ignore-errors (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
                                                                       packet :element-type 'character))))))
-      (decode region initargs)
+      (when initargs (decode region initargs))
       (decode (storyline world)))))
 
 (define-encoder (quest:storyline save-v0) (_b packet)
@@ -96,7 +96,7 @@
                           (when (typep entity 'container)
                             (recurse entity)))
                          (T
-                          (add create-new (encode entity)))))))
+                          (add create-new (list* (type-of entity) (encode entity))))))))
         (recurse region)))
     (list :create-new (rest create-new)
           :ephemeral (rest ephemeral))))
