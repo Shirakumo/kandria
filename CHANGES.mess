@@ -56,16 +56,24 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix slope->block transitions being climbable
   Reported by Halogens
 - Fix ropes allowing you to wall-jump off of them
-  Reported by Sam
+  Reported by Citizen Jake
+- Fix default button mapping to be less confusing
+  Reported by Citizen Jake
+- Fix multiple aerial attacks being possible
+  Reported by Citizen Jake
+- Fix NPC routing failing if on the same X as target, but not Y.
+  Reported by Selwyn Simsek
+- Fix NPCs following impossible routes.
+  Reported by Christopher Hurley
+- Fix dialogue options not wrapping correctly.
+  Reported by Christopher Hurley
+- Fix save states not restoring all properties
+  Reported by Christopher Hurley
 
 ## TODO
 - Fix audio stutter on lower end systems
   Reported by PincerAttack
-- Fix multiple aerial attacks being possible
-  Reported by Sam
-- Changed button layout to be more comfortable for heavy attacks/interact
-  Reported by Sam
 - Fix disconnecting a sound device crashing the game
-  Reported by Sam
+  Reported by Citizen Jake
 - Fix odd physics after a balloon jump
   Reported by Pondering Trog

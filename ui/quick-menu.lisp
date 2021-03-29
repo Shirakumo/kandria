@@ -81,5 +81,5 @@
       (alloy:enter (make-instance 'item-button :value item :inventory inventory) list))
     (alloy:enter list scroll)
     (alloy:enter scroll layout :constraints `((:left 0) (:bottom 0) (:width 300) (:height 400)))
-    (alloy:enter label layout :constraints `((:left 0) (:above ,scroll 0) (:width 300) (:height 30)))
+    (alloy:enter label layout :constraints `((:left 0) (:above ,scroll 0) (:width 300) (:height 40)))
     (alloy:finish-structure panel layout list)))

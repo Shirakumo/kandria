@@ -37,6 +37,7 @@
 
 (defmethod quest:activate :after ((quest quest))
   (status :important "New quest: ~a" (quest:title quest))
+  (save-state +main+ (state +main+))
   (setf (clock quest) 0f0))
 
 (defmethod quest:complete :after ((quest quest))

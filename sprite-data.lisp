@@ -152,7 +152,8 @@
   (destructuring-bind (&key animation-data animations frames &allow-other-keys) (read-src path)
     (let ((animation-data (merge-pathnames animation-data path)))
       (setf (json-file sprite) animation-data)
-      (prog1 (call-next-method sprite (json-file sprite))
+      (prog1 (with-kandria-io-syntax
+               (call-next-method sprite (json-file sprite)))
         (loop for expr in animations
               do (destructuring-bind (name &key start end loop-to next (cooldown 0.0)) expr
                    (let ((animation (find name (animations sprite) :key #'name)))

@@ -1,6 +1,7 @@
 (:source "player.ase"
  :animation-data "player.json"
  :palette "player-palette.png"
+ :palettes ("Genera" "YoRHa" "Wayneright" "Madeline" "Vampire")
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND :cooldown 0.0)
@@ -47,7 +48,7 @@
    (HEAVY-AERIAL-3-RELEASE :start 341 :end 345 :loop-to 341 :next STAND :cooldown 0.0)
    (LIGHT-AERIAL-DOWN    :start 345 :end 354 :loop-to 346 :next STAND :cooldown 0.0)
    (HEAVY-AERIAL-DOWN    :start 354 :end 384 :loop-to 355 :next STAND :cooldown 0.0)
-   (ENTER                :start 384 :end 397 :loop-to 385 :next ENTER :cooldown 0.0)
+   (ENTER                :start 384 :end 397 :loop-to 385 :next STAND :cooldown 0.0)
    (EXIT                 :start 397 :end 406 :loop-to 414 :next STAND :cooldown 0.0)
    (ENTER-FORWARD        :start 406 :end 422 :loop-to 407 :next ENTER-FORWARD :cooldown 0.0)
    (DIE                  :start 422 :end 433 :loop-to 429 :next STAND :cooldown 0.0)

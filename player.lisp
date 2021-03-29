@@ -111,11 +111,10 @@
 (defmethod handle ((ev dash) (player player))
   (setf (limp-time player) (min (limp-time player) 1.0))
   (case (state player)
-    (:normal
+    ((:climbing :normal)
      (let ((vel (velocity player)))
        (cond ((handle-evasion player))
-             ((and (eq :normal (state player))
-                   (<= (dash-time player) 0))
+             ((<= (dash-time player) 0)
               (if (typep (trial::source-event ev) 'gamepad-event)
                   (let ((dev (device (trial::source-event ev))))
                     (vsetf vel
@@ -156,10 +155,13 @@
          (setf (jump-time player) (- (p! coyote-time))))))
 
 (defmethod handle ((ev crawl) (player player))
-  (unless (svref (collisions player) 0)
-    (case (state player)
-      (:normal (setf (state player) :crawling))
-      (:crawling (setf (state player) :normal)))))
+  (case (state player)
+    (:normal
+     (when (svref (collisions player) 2)
+       (setf (state player) :crawling)))
+    (:crawling
+     (unless (svref (collisions player) 0)
+       (setf (state player) :normal)))))
 
 (defmethod handle ((ev light-attack) (player player))
   (cond ((eql :animated (state player))
@@ -505,8 +507,8 @@
       (:normal
        ;; Handle jumps
        (when (< (jump-time player) 0.0)
-         (cond ((or (svref collisions 1)
-                    (svref collisions 3)
+         (cond ((or (typep (svref collisions 1) '(and (not null) (not platform)))
+                    (typep (svref collisions 3) '(and (not null) (not platform)))
                     (and (typep (interactable player) 'rope)
                          (extended (interactable player))
                          (retained 'climb)))
@@ -641,6 +643,7 @@
        (cond ((and (< 0 (vy vel)) (not (typep (svref collisions 2) 'moving-platform)))
               (setf (animation player) 'jump))
              ((null (svref collisions 2))
+              (setf (look-time player) 0.0)
               (cond ((< (air-time player) 0.1))
                     ((typep (svref collisions 1) 'ground)
                      (setf (animation player) 'slide)
@@ -668,19 +671,17 @@
                          (setf (animation player) 'limp-run)
                          (setf (animation player) 'run)))))
              ((retained 'up)
-              (cond ((< 1.0 (look-time player))
-                     (setf (animation player) 'look-up)
-                     (vsetf (offset (unit :camera T)) 0 +16))
+              (cond ((< (look-time player) (p! look-delay))
+                     (incf (look-time player) (dt ev))
+                     (setf (animation player) 'look-up))
                     (T
-                     (setf (animation player) 'stand)
-                     (incf (look-time player) (dt ev)))))
+                     (vsetf (offset (unit :camera T)) 0 (+ (p! look-offset))))))
              ((retained 'down)
-              (cond ((< 1.0 (look-time player))
-                     (setf (animation player) 'look-down)
-                     (vsetf (offset (unit :camera T)) 0 -16))
+              (cond ((< (look-time player) (p! look-delay))
+                     (incf (look-time player) (dt ev))
+                     (setf (animation player) 'look-down))
                     (T
-                     (setf (animation player) 'stand)
-                     (incf (look-time player) (dt ev)))))
+                     (vsetf (offset (unit :camera T)) 0 (- (p! look-offset))))))
              (T
               (setf (look-time player) 0.0)
               (if (< 0 (limp-time player))
@@ -720,7 +721,6 @@
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
-  (setf (health player) (max 10 (health player)))
   (vsetf (velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player)))
   (setf (state player) :normal)
@@ -744,8 +744,8 @@
   (cond ((< (/ (health player) (maximum-health player)) 0.15))
         ((< (/ health (maximum-health player)) 0.15)
          (setf (limp-time player) 10.0)
-         (setf (clock (progression 'flash +world+)) 0)
-         (start (progression 'flash +world+)))
+         (setf (clock (progression 'low-health +world+)) 0)
+         (start (progression 'low-health +world+)))
         (T
          (setf (limp-time player) 0.0))))
 
@@ -755,7 +755,7 @@
   (start (progression 'death +world+)))
 
 (defmethod die ((player player))
-  (kill player))
+  (show-panel 'game-over))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
