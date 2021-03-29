@@ -76,7 +76,7 @@
              (vy (location room)))
       (snap-to-target (unit :camera T) (unit 'player T)))))
 
-(define-cheat self-destruct "Self destruct initiated"
+(define-cheat self-destruct "Self destruct"
   (trigger 'explosion (unit 'player T))
   (setf (health (unit 'player T)) 1))
 
@@ -92,5 +92,8 @@
   (define-cheat SPISPOPD "Smashing Pumpkins Into Small Piles Of Putrid Debris"
     (noclip)))
 
-(define-cheat nanomachines "Nanomachines activated"
+(define-cheat nanomachines "Nanomachines"
   (setf (health (unit 'player T)) (maximum-health (unit 'player T))))
+
+(define-cheat |you must die| "reaper"
+  (kill (unit 'player T)))
