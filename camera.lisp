@@ -137,8 +137,8 @@
 
 (defun in-view-p (loc bsize)
   (let* ((camera (unit :camera T)))
-    (let ((- (vec 0 0))
-          (+ (vec (width *context*) (height *context*)))
+    (let ((- (tvec 0 0))
+          (+ (tvec (width *context*) (height *context*)))
           (off (v/ (target-size camera) (zoom camera))))
       (nv- (nv+ (nv/ - (view-scale camera) (zoom camera)) (location camera)) off)
       (nv- (nv+ (nv/ + (view-scale camera) (zoom camera)) (location camera)) off)
