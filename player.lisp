@@ -721,7 +721,6 @@
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
-  (setf (health player) (max 10 (health player)))
   (vsetf (velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player)))
   (setf (state player) :normal)
@@ -756,7 +755,7 @@
   (start (progression 'death +world+)))
 
 (defmethod die ((player player))
-  (respawn player))
+  (show-panel 'game-over))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))

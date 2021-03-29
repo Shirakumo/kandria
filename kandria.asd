@@ -72,7 +72,8 @@
                              (:file "hud")
                              (:file "timer")
                              (:file "quick-menu")
-                             (:file "menu")))
+                             (:file "menu")
+                             (:file "gameover")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
