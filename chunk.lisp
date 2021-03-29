@@ -429,7 +429,7 @@ void main(){
          (t-s +tile-size+)
          (w (truncate (vx (size chunk))))
          (h (truncate (vy (size chunk))))
-         (lloc (nv+ (v- (vxy target) (location chunk)) (bsize chunk)))
+         (lloc (nv+ (nv- (vec (vx target) (vy target)) (location chunk)) (bsize chunk)))
          (x- (floor (- (vx lloc) (vz target)) t-s))
          (x+ (ceiling (+ (vx lloc) (vz target)) t-s))
          (y- (floor (- (vy lloc) (vw target)) t-s))
