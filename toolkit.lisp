@@ -80,9 +80,11 @@
 (defun config-directory ()
   (trial:config-directory "shirakumo" "kandria"))
 
-(defun format-absolute-time (&optional (time (get-universal-time)))
+(defun format-absolute-time (&optional (time (get-universal-time)) &key (date-separator #\.) (time-separator #\:) (date-time-separator #\ ))
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
-    (format NIL "~4,'0d.~2,'0d.~2,'0d ~2,'0d:~2,'0d:~2,'0d" yy mm dd h m s)))
+    (format NIL "~4,'0d~c~2,'0d~c~2,'0d~c~2,'0d~c~2,'0d~c~2,'0d"
+            yy date-separator mm date-separator dd date-time-separator
+            h time-separator m time-separator s)))
 
 (defun format-relative-time (stamp)
   (let ((seconds   (mod (floor (/ stamp 1)) 60))
