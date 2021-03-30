@@ -1,7 +1,7 @@
 (:source "player.ase"
  :animation-data "player.json"
  :palette "player-palette.png"
- :palettes ("Model 1" "Model 2" "Model 3" "Model 4" "Model 5" "YoRHa" "Wayneright" "Mountain" "Vampire" "Trek" "Blingee" "Ninja" "Wahoo" "Shopping" "Invisible" "Camo" "Garlic" "Curly" "Quote" "Boy")
+ :palettes ("Model 1" "Model 2" "Model 3" "Model 4" "Model 5" "YoRHa" "Wayneright" "Mountain" "Vampire" "Trek" "Blingee" "Ninja" "Wahoo" "Shopping" "Invisible" "Camo" "Garlic" "Curly" "Quote" "Boy" "San Diego")
  :animations
   (
    (STAND                :start   0 :end   8 :loop-to 0   :next STAND :cooldown 0.0)
