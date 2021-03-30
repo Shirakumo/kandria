@@ -70,15 +70,52 @@
 (define-encoder (quest:task save-v0) (_b _p)
   (list (quest:name quest:task)
         :status (quest:status quest:task)
-        :bindings (encode-payload 'bindings (quest:bindings quest:task) _p save-v0)))
+        :bindings (encode-payload 'bindings (quest:bindings quest:task) _p save-v0)
+        :triggers (loop for trigger being the hash-values of (quest:triggers quest:task)
+                        collect (encode trigger))))
 
 (define-decoder (quest:task save-v0) (initargs packet)
-  (destructuring-bind (&key status bindings) initargs
+  (destructuring-bind (&key status bindings triggers) initargs
+    (case status
+      (:unresolved
+       (case (quest:status quest:task)
+         (:inactive
+          (quest:activate quest:task)))))
     (setf (quest:status quest:task) status)
     (quest:merge-bindings quest:task (decode-payload bindings 'bindings packet save-v0))
-    (when (eql :unresolved status)
-      (dolist (trigger (quest:on-activate quest:task))
-        (quest:activate (quest:find-named trigger quest:task))))))
+    (loop for (name . initargs) in triggers
+          for trigger = (quest:find-trigger name quest:task)
+          do (decode trigger initargs))))
+
+(define-encoder (quest:action save-v0) (_b _p)
+  (list (quest:name quest:action)
+        :status (quest:status quest:action)))
+
+(define-decoder (quest:action save-v0) (initargs _p)
+  (destructuring-bind (&key status) initargs
+    ;; Note: we want to avoid causing the on-activate trigger to fire
+    ;;       here as its changes should already be reflected by the rest of the save-state.
+    (setf (quest:status quest:action) status)))
+
+(define-encoder (quest:interaction save-v0) (_b _p)
+  (list (quest:name quest:interaction)
+        :status (quest:status quest:interaction)
+        :bindings (encode-payload 'bindings (quest:bindings quest:interaction) _p save-v0)))
+
+(define-decoder (quest:interaction save-v0) (initargs _p)
+  (destructuring-bind (&key status bindings) initargs
+    (quest:merge-bindings quest:interaction (decode-payload bindings 'bindings _p save-v0))
+    (ecase status
+      (:inactive
+       (case (quest:status quest:interaction)
+         (:active (quest:deactivate quest:interaction)))
+       (setf (quest:status quest:interaction) status))
+      (:active
+       (case (quest:status quest:interaction)
+         (:complete (setf (quest:status quest:interaction) :inactive)))
+       (quest:activate quest:interaction))
+      (:complete
+       (quest:complete quest:interaction)))))
 
 (define-encoder (region save-v0) (_b packet)
   (let ((create-new (list NIL))
@@ -126,7 +163,9 @@
 
 (define-encoder (animatable save-v0) (_b _p)
   (let ((animation (animation animatable)))
+    (print (list animatable (state animatable)))
     `(:location ,(encode (location animatable))
+      :velocity ,(encode (velocity animatable))
       :direction ,(direction animatable)
       :state ,(state animatable)
       :animation ,(when animation (name animation))
@@ -135,8 +174,9 @@
       :stun-time ,(stun-time animatable))))
 
 (define-decoder (animatable save-v0) (initargs _p)
-  (destructuring-bind (&key location direction state animation frame health stun-time &allow-other-keys) initargs
+  (destructuring-bind (&key location (velocity '(0 0)) direction state animation frame health stun-time &allow-other-keys) initargs
     (setf (slot-value animatable 'location) (decode 'vec2 location))
+    (setf (velocity animatable) (decode 'vec2 velocity))
     (setf (direction animatable) direction)
     (setf (state animatable) state)
     (when (and animation (< 0 (length (animations animatable))))
@@ -170,6 +210,26 @@
     (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq)))
   (when (unit :camera T)
     (snap-to-target (unit :camera T) player)))
+
+(define-encoder (npc save-v0) (initargs _p)
+  (let ((last (car (last (path npc)))))
+    (list* :path (when last (second last))
+           :ai-state (ai-state npc)
+           :walk (walk npc)
+           :target (when (target npc) (encode (target npc)))
+           :companion (when (companion npc) (encode (name (companion npc))))
+           (call-next-method))))
+
+(define-decoder (npc save-v0) (initargs _p)
+  (call-next-method)
+  (destructuring-bind (&key (ai-state :normal) path walk target companion &allow-other-keys) initargs
+    (setf (ai-state npc) ai-state)
+    (setf (walk npc) walk)
+    (setf (target npc) (when target (decode 'vec2 target)))
+    (setf (companion npc) (when companion (unit companion T)))
+    (if path
+        (move-to path npc)
+        (setf (path npc) ()))))
 
 (define-encoder (moving-platform save-v0) (_b _p)
   `(:location ,(encode (location moving-platform))
