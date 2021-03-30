@@ -163,7 +163,6 @@
 
 (define-encoder (animatable save-v0) (_b _p)
   (let ((animation (animation animatable)))
-    (print (list animatable (state animatable)))
     `(:location ,(encode (location animatable))
       :velocity ,(encode (velocity animatable))
       :direction ,(direction animatable)
