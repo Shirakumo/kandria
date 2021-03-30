@@ -71,6 +71,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Christopher Hurley
 - Fix spurious crashes caused by the Steam overlay using outdated GL commands (yikes).
   Reported by Christopher Hurley
+- Fix an empty gap in the collision map allowing you to clip into terrain.
+  Reported by Christopher Hurley
 
 ## TODO
 - Fix audio stutter on lower end systems
