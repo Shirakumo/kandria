@@ -92,7 +92,7 @@
                     :height (second (setting :display :resolution))
                     :vsync (setting :display :vsync)
                     :fullscreen (setting :display :fullscreen)
-                    initargs))))
+                    (append (setting :debugging :initargs) initargs)))))
     (if (deploy:deployed-p)
         (float-features:with-float-traps-masked T
           (launch))
