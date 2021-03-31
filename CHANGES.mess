@@ -73,10 +73,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Christopher Hurley
 - Fix an empty gap in the collision map allowing you to clip into terrain.
   Reported by Christopher Hurley
-
-## TODO
 - Fix audio stutter on lower end systems
   Reported by PincerAttack
+
+## TODO
 - Fix disconnecting a sound device crashing the game
   Reported by Citizen Jake
 - Fix odd physics after a balloon jump
