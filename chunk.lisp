@@ -208,7 +208,7 @@ void main(){
   color = apply_lighting(color, vec2(0), 1-a, n, world_pos) * visibility;
 }")
 
-(define-shader-entity chunk (shadow-caster layer solid ephemeral)
+(define-shader-entity chunk (shadow-caster layer solid ephemeral collider)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
    (node-graph :initform NIL :initarg :node-graph :accessor node-graph)
@@ -294,6 +294,7 @@ void main(){
 
 (defmethod (setf location) :around (location (chunk chunk))
   (let ((diff (v- location (location chunk))))
+    ;; NOTE: Can't use region bvh here as we want to reach everything even things that aren't colliders
     (for:for ((entity over (region +world+)))
       (when (and (not (typep entity 'layer))
                  (contained-p entity chunk))

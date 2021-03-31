@@ -292,17 +292,6 @@
     (vec2 (/ (+ l r) 2)
           (/ (+ b u) 2))))
 
-(defun update-instance-initforms (class)
-  (flet ((update (instance)
-           (loop for slot in (c2mop:class-direct-slots class)
-                 for name = (c2mop:slot-definition-name slot)
-                 for init = (c2mop:slot-definition-initform slot)
-                 when init do (setf (slot-value instance name) (eval init)))))
-    (when (window :main NIL)
-      (for:for ((entity over (scene (window :main))))
-        (when (typep entity class)
-          (update entity))))))
-
 (defun initarg-slot (class initarg)
   (let ((class (etypecase class
                  (class class)

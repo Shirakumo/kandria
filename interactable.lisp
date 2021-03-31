@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass interactable (entity)
+(defclass interactable (entity collider)
   ())
 
 (defgeneric interact (with from))
