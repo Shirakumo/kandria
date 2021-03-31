@@ -14,6 +14,16 @@
 (defgeneric initargs (object)
   (:method-combination append :most-specific-last))
 
+(defclass collider () ())
+
+(defmethod (setf location) :after (loc (collider collider))
+  (when (slot-boundp collider 'container)
+    (bvh:bvh-update (bvh (container collider)) collider)))
+
+(defmethod (setf bsize) :after (loc (collider collider))
+  (when (slot-boundp collider 'container)
+    (bvh:bvh-update (bvh (container collider)) collider)))
+
 (defclass base-entity (entity)
   ((name :initarg :name :initform NIL :type symbol :documentation "The name of the entity")))
 
@@ -162,7 +172,7 @@ void main(){
   color = texelFetch(texture_image, ivec2(offset+(texcoord*size)), 0);
 }")
 
-(defclass game-entity (sized-entity listener)
+(defclass game-entity (sized-entity listener collider)
   ((velocity :initarg :velocity :initform (vec2 0 0) :accessor velocity
              :type vec2 :documentation "The velocity of the entity.")
    (state :initform :normal :accessor state
@@ -224,6 +234,7 @@ void main(){
   (let ((vel (frame-velocity entity)))
     (nv+ (location entity) (v* vel (* 100 (dt ev))))
     (vsetf vel 0 0)
+    (bvh:bvh-update (bvh (region +world+)) entity)
     ;; OOB
     (case (state entity)
       ((:oob :dying))

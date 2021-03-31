@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass trigger (sized-entity resizable ephemeral)
+(defclass trigger (sized-entity resizable ephemeral collider)
   ((active-p :initarg :active-p :initform T :accessor active-p :type boolean)))
 
 (defmethod interact :around ((trigger trigger) source)

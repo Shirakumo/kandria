@@ -13,12 +13,10 @@
         (size (bsize moving))
         (collisions (collisions moving)))
     ;; Scan for medium
-    (for:for ((entity over (region +world+)))
-      (when (and (typep entity 'medium)
-                 (contained-p entity moving))
-        (setf (medium moving) entity)
-        (return))
-      (returning (setf (medium moving) +default-medium+)))
+    (setf (medium moving)
+          (bvh:do-fitting (entity (bvh (region +world+)) moving +default-medium+)
+            (when (typep entity 'medium)
+              (return entity))))
     (nv* (velocity moving) (drag (medium moving)))
     ;; Scan for hits
     (fill collisions NIL)
