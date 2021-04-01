@@ -18,7 +18,7 @@
 ! eval (retrieve 'can)
 | You did that in: {(format-relative-time (clock quest))}!
   
-? (< (clock quest) 90)
+? (< (clock quest) 120)
 | | How did you do that so fast? That's gold bracket.
 | | You get the top reward - 40 scrap parts!
 | ! eval (store 'parts 40)
@@ -32,7 +32,7 @@
 | | | | You equalled your best gold time as well, what are the chances?!
 | | |?
 | | | | You didn't beat your best gold time, but it's still good!
-|? (< (clock quest) 120)
+|? (< (clock quest) 150)
 | | That's pretty quick! Silver bracket.
 | | That nets you 25 scrap parts!
 | ! eval (store 'parts 25)
@@ -46,7 +46,7 @@
 | | | | You equalled your best silver time as well, what are the chances?!
 | | |?
 | | | | You didn't beat your best silver time, but it's still good!
-|? (< (clock quest) 150)
+|? (< (clock quest) 180)
 | | Not bad. That's bronze bracket.
 | | That gets you 15 scrap parts.
 | ! eval (store 'parts 15)
