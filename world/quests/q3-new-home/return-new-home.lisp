@@ -22,7 +22,7 @@
   ~ jack
   | Fuck.
 ~ jack
-| Fi ain't gonna like this. I suppose she'd better hear it from me, rather than a stone-cold android.
+| Fi ain't gonna like this. I suppose she'd better hear it from me, rather than some stone-cold android.
 | Thanks for your help, but it's my problem now.
 | You want something for your labour?
 ~ player

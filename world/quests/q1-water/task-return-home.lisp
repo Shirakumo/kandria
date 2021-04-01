@@ -29,14 +29,14 @@
 ~ catherine
 | I don't understand...
 ~ fi
-| Is it not coincidental that you discovered it at the same time as our water supply was sabotaged?
+| Is it not coincidental that you discovered it at the same time our water supply was sabotaged?
 ~ catherine
 | But we saw the rogues - they were dismantling the pump!
 ~ jack
 | Maybe this android can control them? Did you think of that?
 ~ catherine
 | ...
-| Androids do have FFCS... - far-field comms systems.
+| Androids did used to have FFCS - er, far-field comms system.
 | I guess something like that could penetrate deeper underground than our radios.
 | But no, it's not that. She was offline for decades - there's no way she could have done that.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
@@ -58,7 +58,7 @@
   ~ catherine
   | She doesn't know what she's saying - her memories are all screwed up till the point I brought her online.
   ~ fi
-  | Alright - it's hardly conclusive, but for now we'd better hope it's telling the truth.
+  | Alright - it's hardly conclusive, but for now we'd better hope Catherine's right.
   | If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
 | Jesus, Fi... you're just gonna take that at face value?
@@ -67,14 +67,14 @@
 ~ jack
 | Examine the thing, find out for sure.
 ~ fi
-| Catherine, can it be done? Could an examination of its black box show if the FFCS was active lately?
+| Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | Well... I guess we'd need to find some kind of interface port.
 | Oh, and we'd need a working computer, which we don't have.
-| Anyway, even if we did, don't you think you should ask HER if that's okay?
+| Anyway, even if we did, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine. I'm sorry...
-| So... Stranger, wasn't it?
+| ... Stranger, wasn't it?
 ~ jack
 | ...
 ~ fi
@@ -96,6 +96,10 @@
 - As long as I'm still online afterwards.
   ~ catherine
   | Don't worry, I wouldn't let them switch you off.
+  ~ fi
+  | That's settled then. Jack, speak with Sahil when he arrives, see what he can do for us.
+  ~ jack
+  | If you insist.
 ~ fi
 | But irrespective of all this, I am certain that the Wraw are our attackers.
 | Which means they're close to discovering our location one way or another.
@@ -107,11 +111,16 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
-! eval (move-to 'fi-farm (unit 'fi))
-! eval (move-to 'jack-main (unit 'jack))
+! eval (setf (location 'fi) 'fi-farm)
+! eval (setf (location 'jack) 'eng-jack)
 ! eval (activate 'catherine-trader)
 ")
 ;; TODO future quest/plot point: find a working computer
+#| TODO temp removal of moving jack and fi, as causes crash
+! eval (move-to 'fi-farm (unit 'fi))
+! eval (move-to 'eng-jack (unit 'jack))
+|#
+
 #| DIALOGUE REMOVED FOR THE EXAMINATION - COULD BE REUSED LATER
 ~ fi
 | Thank you. Catherine, if you could proceed.
@@ -133,7 +142,7 @@
 ~ catherine
 | Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | Oh! I almost forgot: It's our way to gift something to those that help us out.
-| Since those two aren't likely to be feeling generous anytime soon, I'll give you these.
+| Since those two aren't likely to be feeling generous anytime soon, I'll give you these parts.
 ! eval (store 'parts 20)
 | It's not much, but you can trade them for things you might want. Or you will once Sahil gets here.
 | He's overdue, which is not like him at all. Maybe those rogues scared him off.

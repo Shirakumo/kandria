@@ -53,27 +53,27 @@
   |   < main
   | - Do you know about finding a computer?
   |   ~ trader
-  |   | A computer? Now there's a word you don't hear much of anymore.
+  |   | A computer? Now there's a word you don't hear anymore.
   |   | Does Catherine want to play one of those video games from the old world I was telling her about?
   |   | You remember them, right?
   |   ~ player
   |   - Sure, games were fun.
   |     ~ trader
   |     | You betcha! Boy do I miss the internet.
-  |   - They were a new form of artistic expression, sadly lost.
+  |   - They were a new artform, sadly lost.
   |     ~ trader
   |     | Whoa, were you a game developer in a past life or something?
-  |   - They used similar technology to my own. I admired them.
+  |   - They used similar technology to my own. I admired that.
   |     ~ trader
   |     | Indeed, there was a lot to admire - especially for a tech-head like me.
   |   ~ trader
   |   | But no, no one told me anything about a computer. Which is good, because working ones are impossible to find.
   | - Do you like androids?
   |   ~ trader
-  |   | Ah, you had a warm welcome, have you?
+  |   | Ah, you've had a warm welcome, have you?
   |   | Listen, it's nothing personal. It's just everyone has heard the stories, you know?
-  |   | It's always androids this, androids that... Like a race of servile machine could destroy the world!
-  |   | It's haraa is what it is.
+  |   | It's always androids this, androids that... Like a race of servile machines could destroy the world!
+  |   | No offence. It's haraa, that's what it is.
   |   ~ player
   |   | So what did destroy the world?
   |   ~ trader

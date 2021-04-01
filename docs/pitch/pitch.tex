@@ -2,7 +2,7 @@
 \usepackage{fontspec}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{titlesec}
-\usepackage[left=1.8cm,right=3.7cm,top=0.75cm,bottom=0.75cm,headheight=17pt,headsep=0.5cm,includehead,includefoot]{geometry}
+\usepackage[left=1.8cm,right=2.0cm,top=0.75cm,bottom=0.75cm,headheight=17pt,headsep=0.5cm,includehead,includefoot]{geometry}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{background}
@@ -15,6 +15,9 @@ urlcolor={blue!80!black}]{hyperref}
 \usepackage{float}
 \usepackage{tabularx}
 \usepackage[framemethod=TikZ]{mdframed}
+\usepackage{parskip}
+\usepackage{pgfgantt}
+\usepackage{multicol}
 
 \setmainfont{Equity Text A}
 \setsansfont{Concourse T3}
@@ -24,7 +27,6 @@ urlcolor={blue!80!black}]{hyperref}
 
 \titleformat{\section}{\sectionfont\Huge\selectfont\bfseries}{}{0pt}{}[]
 \titlespacing{\section}{0cm}{2cm}{0.5cm}
-\newcommand{\sectionbreak}{\clearpage}
 \titleformat{\subsection}{\normalfont\large\bfseries}{}{0pt}{}
 
 \pagestyle{fancy}
@@ -35,6 +37,8 @@ urlcolor={blue!80!black}]{hyperref}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\subsectionmark}[1]{}
 \captionsetup[subfigure]{labelformat=empty}
+
+\definecolor{barblue}{RGB}{15,74,119}
 
 \makeatletter
 \def\@afterheading{%
@@ -93,10 +97,11 @@ urlcolor={blue!80!black}]{hyperref}
 \clearrow
 
 \begin{document}
-\coverpage{cover}
+\coverpage{cover.jpg}
 \include{about}
 \include{status}
 \include{future}
+\include{team}
 \include{budget}
 \coverpage{thanks}
 \end{document}

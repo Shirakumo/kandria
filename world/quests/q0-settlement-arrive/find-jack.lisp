@@ -26,7 +26,7 @@
 ~ Catherine
 | Jack, what's wrong? Talk to me.
 ~ Jack
-| The water has failed again, and this time it ain't the pumps. Must be a leak somewhere.
+| The water has failed again, and this time I don't think it's the pump. Must be a leak somewhere.
 | If we don't get it back ASAP we're screwed. We'll lose the whole goddamn crop.
 ~ Catherine
 | Shit!... I should have been here.
