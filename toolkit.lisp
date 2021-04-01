@@ -367,6 +367,12 @@
   (and (< (abs (- (vx a) (vx b))) (+ (vz a) (vz b)))
        (< (abs (- (vy a) (vy b))) (+ (vw a) (vw b)))))
 
+(defmethod contained-p ((type symbol) (area symbol))
+  (let ((area (unit area +world+)))
+    (bvh:do-fitting (entity (bvh (region +world+)) area)
+      (when (typep entity type)
+        (return T)))))
+
 (defmethod scan (target region on-hit))
 (defmethod collides-p (object target hit) NIL)
 (defmethod collides-p (object (target solid) hit) T)
