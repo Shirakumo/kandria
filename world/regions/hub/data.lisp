@@ -145,7 +145,7 @@
 (fi :location (1736.0 -2768.0) :name fi)
 (trader :location (352.0 -5568.0) :name trader)
 (can :location (4448.6533 -4540.0) :texture (kandria items t) :size (8.0 8.0) :bsize (4.0 4.0) :offset (16.0 0.0) :layer 2 :name nil)
-(elevator :location (992.0 -5496.0) :texture (kandria elevator t) :size (96.0 32.0) :bsize (48.0 8.0) :offset (0.0 0.0) :layer 3 :name nil)
+(elevator :location (1000.0 -5496.0) :texture (kandria elevator t) :size (96.0 32.0) :bsize (40.0 8.0) :offset (0.0 0.0) :layer 3 :name nil)
 (chunk :name chunk-2055 :location (504.0 -2280.0) :size (91.0 31.0) :tile-data (kandria camp) :pixel-data "data/CHUNK-2055.raw" :layers ("data/CHUNK-2055-0.raw" "data/CHUNK-2055-1.raw" "data/CHUNK-2055-2.raw" "data/CHUNK-2055-3.raw" "data/CHUNK-2055-4.raw" "data/CHUNK-2055-5.raw") :background desert :gi desert)
 (chunk :name chunk-2129 :location (96.0 -2752.0) :size (40.0 26.0) :tile-data (kandria camp) :pixel-data "data/CHUNK-2129.raw" :layers ("data/CHUNK-2129-0.raw" "data/CHUNK-2129-1.raw" "data/CHUNK-2129-2.raw" "data/CHUNK-2129-3.raw" "data/CHUNK-2129-4.raw" "data/CHUNK-2129-5.raw") :background black :gi none)
 (chunk :name chunk-2158 :location (-904.0 -2320.0) :size (85.0 26.0) :tile-data (kandria camp) :pixel-data "data/CHUNK-2158.raw" :layers ("data/CHUNK-2158-0.raw" "data/CHUNK-2158-1.raw" "data/CHUNK-2158-2.raw" "data/CHUNK-2158-3.raw" "data/CHUNK-2158-4.raw" "data/CHUNK-2158-5.raw") :background desert :gi desert)
