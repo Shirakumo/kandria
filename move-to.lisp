@@ -279,19 +279,18 @@
            (create-jump-connections solids graph x y +1)))))))
 
 (defun create-entity-connections (chunk region graph)
-  (for:for ((entity over region))
-    (when (contained-p entity chunk)
-      (typecase entity
-        (rope
-         (let ((top (chunk-node-idx chunk (vec (+ (vx (location entity))
-                                                  (* (direction entity) +tile-size+))
-                                               (+ (vy (location entity))
-                                                  (vy (bsize entity))))))
-               (bot (chunk-node-idx chunk (vec (vx (location entity))
-                                               (- (vy (location entity))
-                                                  (vy (bsize entity)))))))
-           (push (make-rope-node top entity) (svref (node-graph-grid graph) bot))
-           (push (make-rope-node bot entity) (svref (node-graph-grid graph) top))))))))
+  (bvh:do-fitting (entity (bvh region) chunk)
+    (typecase entity
+      (rope
+       (let ((top (chunk-node-idx chunk (vec (+ (vx (location entity))
+                                                (* (direction entity) +tile-size+))
+                                             (+ (vy (location entity))
+                                                (vy (bsize entity))))))
+             (bot (chunk-node-idx chunk (vec (vx (location entity))
+                                             (- (vy (location entity))
+                                                (vy (bsize entity)))))))
+         (push (make-rope-node top entity) (svref (node-graph-grid graph) bot))
+         (push (make-rope-node bot entity) (svref (node-graph-grid graph) top)))))))
 
 (defun make-node-graph (chunk)
   (let ((graph (%make-node-graph (floor (vx (size chunk))) (floor (vy (size chunk))))))
@@ -461,14 +460,13 @@
           (dolist (other chunks)
             (unless (eql chunk other)
               (connect-chunks nodes chunk other)))
-          (for:for ((entity over region))
-            (cond ((and (typep entity 'door)
-                        (contained-p entity chunk))
-                   (connect-entities nodes entity (target entity) #'%make-door-node))
-                  ((and (typep entity 'teleport-trigger)
-                        (primary entity)
-                        (contained-p entity chunk))
-                   (connect-entities nodes entity (target entity) #'%make-teleport-node)))))))))
+          (bvh:do-fitting (entity (bvh region) chunk)
+            (typecase entity
+              (door
+               (connect-entities nodes entity (target entity) #'%make-door-node))
+              (teleport-trigger
+               (when (primary entity)
+                 (connect-entities nodes entity (target entity) #'%make-teleport-node))))))))))
 
 (defun shortest-path (start goal test &optional (region (region +world+)))
   (let* ((graph (chunk-graph region))
@@ -665,14 +663,13 @@
            (move-towards source target)
            (setf (state movable) :crawling))
           (teleport-node
-           (for:for ((entity over (region +world+)))
+           (bvh:do-fitting (entity (bvh (region +world+)) movable)
              (typecase entity
                (teleport-trigger
-                (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
-                  ;; KLUDGE: This is potentially very bad. We skip a full node.
-                  (setf (current-node movable) (second (pop (path movable))))
-                  (pop (path movable))
-                  (interact entity movable)))))
+                ;; KLUDGE: This is potentially very bad. We skip a full node.
+                (setf (current-node movable) (second (pop (path movable))))
+                (pop (path movable))
+                (interact entity movable))))
            (move-towards source target))
           (door-node
            (if (moved-beyond-target-p loc source target)

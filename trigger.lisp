@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass trigger (sized-entity resizable ephemeral)
+(defclass trigger (sized-entity resizable ephemeral collider)
   ((active-p :initarg :active-p :initform T :accessor active-p :type boolean)))
 
 (defmethod interact :around ((trigger trigger) source)
@@ -36,7 +36,10 @@
 (defmethod interact ((trigger story-trigger) entity)
   (let ((name (story-item trigger)))
     (flet ((finish (thing)
-             (setf (quest:status thing) (target-status trigger))
+             (ecase (target-status trigger)
+               (:active (quest:activate thing))
+               (:inactive (quest:deactivate thing))
+               (:complete (quest:complete thing)))
              (return-from interact)))
       (loop for quest in (quest:known-quests (storyline +world+))
             do (loop for task in (quest:active-tasks quest)

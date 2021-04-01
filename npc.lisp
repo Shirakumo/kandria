@@ -81,9 +81,14 @@
     (case (ai-state npc)
       (:normal)
       (:move-to
-       (if (path npc)
-           (execute-path npc ev)
-           (setf (ai-state npc) :normal)))
+       (cond ((path npc)
+              (execute-path npc ev))
+             ((< (vsqrdist2 (location npc) (target npc)) (expt (* 2 +tile-size+) 2))
+              (setf (ai-state npc) :normal))
+             (T
+              (vsetf (location npc)
+                     (vx (target npc))
+                     (vy (target npc))))))
       (:lead
        (let ((distance (vsqrdist2 (location npc) (location companion))))
          (flet ((complete ()
@@ -182,8 +187,9 @@
   (setf (companion npc) target)
   (setf (ai-state npc) :lead))
 
-(defmethod move-to :after (target (npc npc))
+(defmethod move-to :after ((target vec2) (npc npc))
   (when (eql :normal (ai-state npc))
+    (setf (target npc) target)
     (setf (ai-state npc) :move-to)))
 
 (define-unit-resolver-methods (setf lead-interrupt) (thing unit))

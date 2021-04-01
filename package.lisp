@@ -23,6 +23,7 @@
    (#:harmony #:org.shirakumo.fraf.harmony.user)
    (#:mixed #:org.shirakumo.fraf.mixed)
    (#:steam #:org.shirakumo.fraf.steamworks)
-   (#:notify #:org.shirakumo.fraf.trial.notify))
+   (#:notify #:org.shirakumo.fraf.trial.notify)
+   (#:bvh #:org.shirakumo.fraf.trial.bvh2))
   (:export
    #:launch))

@@ -26,7 +26,7 @@
 (defmethod spawn ((marker located-entity) type &rest initargs)
   (apply #'spawn (location marker) type initargs))
 
-(defmethod spawn ((name symbol) type &rest initargs)
+(defmethod spawn ((name symbol) type &rest initargs &key &allow-other-keys)
   (apply #'spawn (location (unit name +world+)) type initargs))
 
 (defclass quest (quest:quest alloy:observable)
@@ -109,8 +109,8 @@
           (player (unit 'player world))
           (region (unit 'region world)))
      (declare (ignorable world player region))
-     (flet* ((have (thing &optional (inventory player))
-               (have thing inventory))
+     (flet* ((have (thing &optional (count 1) (inventory player))
+               (<= count (item-count thing inventory)))
              (item-count (thing &optional (inventory player))
                (item-count thing inventory))
              (store (item &optional (count 1) (inventory player))

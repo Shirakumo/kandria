@@ -6,7 +6,8 @@
    (version :initform "0.0.0" :initarg :version :accessor version :type string)
    (description :initform "" :initarg :description :accessor description :type string)
    (preview :initform NIL :initarg :preview :accessor preview)
-   (chunk-graph :initform NIL :accessor chunk-graph))
+   (chunk-graph :initform NIL :accessor chunk-graph)
+   (bvh :initform (bvh:make-bvh) :reader bvh))
   (:default-initargs
    :layer-count +layer-count+))
 
@@ -49,10 +50,19 @@
        (assert (eql 'region identifier))
        (coerce-version version)))))
 
+(defmethod clear :after ((region region))
+  (clear (bvh region)))
+
+(defmethod enter :after ((unit collider) (region region))
+  (bvh:bvh-insert (bvh region) unit))
+
+(defmethod leave :after ((unit collider) (region region))
+  (bvh:bvh-remove (bvh region) unit))
+
 (defmethod scan ((region region) target on-hit)
-  (for:for ((entity over region)
-            (hit = (scan entity target on-hit)))
-    (when hit (return hit))))
+  (bvh:do-fitting (object (bvh region) target)
+    (let ((hit (scan object target on-hit)))
+      (when hit (return hit)))))
 
 (defmethod unit (name (region region))
   (for:for ((entity over region))

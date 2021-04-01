@@ -94,6 +94,7 @@
       (transition
         (setf (location player) location)
         (issue +world+ 'force-lighting)
+        (clear-retained)
         (snap-to-target (unit :camera T) player)))))
 
 (defun handle-evasion (player)
@@ -195,7 +196,9 @@
                        (< 1.0 (air-time player)))
                   (trigger 'land player :location (nv+ (v* (velocity player) (hit-time hit))
                                                        (location player)))
-                  (start-animation 'land player)
+                  (if (or (retained 'left) (retained 'right))
+                      (start-animation 'roll player)
+                      (start-animation 'land player))
                   (duck-camera :offset (velocity player))
                   (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  ((and (< (vy (velocity player)) -0.5)
@@ -315,11 +318,10 @@
     (setf (interactable player) NIL)
     (when (and ground (interactable-p ground))
       (setf (interactable player) ground))
-    (for:for ((entity over (region +world+)))
+    (bvh:do-fitting (entity (bvh (region +world+)) player)
       (typecase entity
         (interactable
-         (when (and (contained-p (vec (vx loc) (vy loc) 16 8) entity)
-                    (or (interactable-p entity) (typep entity 'rope)))
+         (when (or (interactable-p entity) (typep entity 'rope))
            (setf (interactable player) entity)))
         (trigger
          (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)

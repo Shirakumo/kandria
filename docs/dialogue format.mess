@@ -23,6 +23,7 @@ The instruction ``! `` can execute a variety of commands when encountered:
   - ``complete-p`` returns T if the given triggers are all completed successfully
   - ``failed-p`` returns T if the given triggers are all marked as failed
   - ``have`` returns T if the player has the given item in their inventory
+    Eg: ``(have 'mushroom 10)`` returns T if the player has at least 10 mushrooms.
   - ``item-count`` returns the count of the given item the player has in their inventory.
   - ``store`` adds the given item to the player's inventory. Optionally specify the number of the item to give
     Eg: ``(store 'small-health-pack 5)`` Give the player five small health packs.
@@ -52,6 +53,8 @@ The instruction ``! `` can execute a variety of commands when encountered:
   - ``var`` access and manipulate variables. The variable with the requested name that is closest on the binding stack is used. (see "variables"(link quest system.mess#variables))
     Eg: ``(var 'foo)`` will return the value of ``foo``
     Eg: ``(setf (var 'foo) 0)`` will set the value of ``foo`` to ``0``.
+  - ``contained-p`` Checks whether a given type of entity is within a region.
+    Eg: ``(contained-p 'wolf 'market)`` returns T if there's at least one wolf enemy within the chunk named market.
 
 Also see documentation on the "quest system"(link quest system.mess) for information on how quests, tasks, and interactions are meant to be understood.
 
