@@ -24,7 +24,7 @@
   | Right you are, Stranger!
 - Take your pick.
   ~ trader
-  | But it's a your name. Now I think about it, I'm sure it was just Stranger.
+  | But it's your name. Now I think about it, I'm sure it was just Stranger.
 - Personally I preferred \"android\".
   ~ trader
   | Come now, what kind of a name is that? No, I much prefer Stranger - yes, I'm sure that's what it was.
@@ -54,7 +54,7 @@
   < continue
 
 # continue
-| The least I can do in thanks is to help you keep yourself in tip-top condition.
+| The least I can do is help keep your in tip-top condition.
 | I've read about androids - under the hood you're pretty much the same as those rogues. No offence.
 | Thankfully you've got much more going on up here.
 ~ player
@@ -75,7 +75,7 @@
   ~ trader
   | Electronic?... That's downright incredible. And it transforms from your arm?
   < sword
-- It is paired to me via my Near-Field Communications System. It would be useless to anyone else.
+- It is paired via my NFCS. It's useless to anyone else.
   ~ trader
   | It's electronic?... That's downright incredible. And it transforms from your arm?
   < sword

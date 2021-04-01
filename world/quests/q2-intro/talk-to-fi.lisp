@@ -6,6 +6,8 @@
  :on-activate (talk-fi)
  :on-complete (q2-seeds)
 )
+
+;; TODO eliminate already chosen choices via local var checks
 (quest:interaction :name talk-fi :interactable fi :dialogue "
 ~ fi
 | Greetings, Stranger.

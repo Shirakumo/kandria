@@ -34,17 +34,17 @@
 ~ catherine
 | That should hold it.
 ~ catherine
-| Jack, I've fixed the leak. How's the water pressure? Over.
+| Jack, I've fixed the leak - the pipe was cracked. How's the water pressure? Over.
 ~ jack
 | Weak as shit. There must be another leak. Over.
 ~ catherine
 | Alright - we'll keep looking. Over and out.
 | Come on... Er - you really need a name.
-| You sure you don't remember it?
+| You really don't remember it?
 - Why do I need a name?
   ~ catherine
   | I don't know. Everyone has a name. It's you, it's personal. And it makes it easier to have a conversation.
-- I'm sure.
+- No.
 - What's wrong with \"android\"?
   ~ catherine
   | What's right with it?
@@ -81,18 +81,18 @@
 | No! I'm alright. I can fix it. Over.
 ~ jack
 | Okay... just be careful. I'll tell Fi what's going on.
-| You'd better follow the pipes right down to the pumps as well, just to be sure you got all the leaks.
-| The walkie won't work down there though - but there's a telephone near the pump. Use that when you're done.
+| Also the pressure is still screwed. You'd better follow the pipes right down to the pump, just to be sure you got all the leaks.
+| The walkie won't work down there, but there's a telephone near the pump. Use that when you're done.
 | And keep your wits about you. Over and out.
 ~ catherine
 | Alright, let me seal this one up.
 | Wait... Who's there?
 ! eval (walk-n-talk 'catherine-fighttalk1)
-! eval (spawn 'q1-wolf-spawn 'wolf :count 2)
+! eval (spawn 'q1-wolf-spawn 'wolf)
 ")
 
 #|
-
+! eval (spawn 'q1-wolf-spawn 'wolf :count 2)
 
 
 |#
@@ -113,11 +113,15 @@
 ~ catherine
 | I've done the weld - good as new.
 | Let's get down to the pump.
-! eval (spawn 'main-leak-3 'zombie :count 3)
+! eval (spawn 'main-leak-3 'zombie)
+! eval (spawn 'main-leak-3 'zombie)
+! eval (spawn 'main-leak-3 'zombie)
+! eval (spawn 'main-leak-3 'zombie)
 ! eval (activate (unit 'rogues))
-! eval (lead 'player 'main-leak-3 (unit 'catherine))
+! eval (lead 'player 'leak-3-standoff (unit 'catherine))
 ")
 #|
+! eval (spawn 'main-leak-3 'zombie :count 3)
 
 |#
 #| cut in case dialogue prompted during fight:
@@ -174,10 +178,11 @@
 
 (quest:interaction :name leak3 :interactable main-leak-3 :dialogue "
 ~ catherine
-| Oh man, we got here just in time. They almost trashed the water pump...
-| Give me a minute to patch this up.
-| ... There, done!
-| Now, where is that telephone? Ah, it's over there.
+| Oh man, we got here just in time. They were trying to dismantle the turbine...
+| Give me a minute.
+| ...
+| There, got it.
+| Now, where is that telephone?
 ! eval (activate 'phone)
 ! eval (lead 'player 'q1-phone (unit 'catherine))
 ")
@@ -241,4 +246,8 @@
 ! eval (setf (location 'jack) 'jack-group)
 ! eval (move-to 'catherine-group (unit 'catherine))
 ")
+#| TODO restore Catherine move when pathfinding is working
+! eval (setf (location 'catherine) 'catherine-group)
+! eval (move-to 'catherine-group (unit 'catherine))
+|#
 ;; TODO: player could beat catherine back if they're quick, then destination convo don't make sense without Catherine there - only allow convo to play once catherine's back? Or once move-to takes her outside the current chunk, teleport her?
