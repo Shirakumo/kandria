@@ -36,7 +36,7 @@
 | Maybe this android can control them? Did you think of that?
 ~ catherine
 | ...
-| Androids did used to have FFCS - er, far-field comms system.
+| Androids did used to have FFCS - er, far-field comms systems.
 | I guess something like that could penetrate deeper underground than our radios.
 | But no, it's not that. She was offline for decades - there's no way she could have done that.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
@@ -73,8 +73,8 @@
 | Oh, and we'd need a working computer, which we don't have.
 | Anyway, even if we did, don't you think you should ask HER if taking her apart is okay?
 ~ fi
-| You're right, Catherine. I'm sorry...
-| ... Stranger, wasn't it?
+| You're right, Catherine.
+| I'm sorry... Stranger, wasn't it?
 ~ jack
 | ...
 ~ fi
@@ -88,6 +88,10 @@
   ~ fi
   | This \"thing\" is a person, Jack. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
+  | Still, a computer may be useful to help maintain Stranger.
+  | Jack, speak with Sahil when he arrives, see what he can do for us.
+  ~ jack
+  | If you insist.
 - Sure, why not.
   ~ fi
   | Good. Jack, speak with Sahil when he arrives, see what he can do for us.
@@ -111,14 +115,19 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
-! eval (setf (location 'fi) 'fi-farm)
-! eval (setf (location 'jack) 'eng-jack)
+! eval (setf (walk 'fi) T)
+! eval (setf (walk 'jack) T)
+! eval (move-to 'fi-farm (unit 'fi))
+--
+! eval (move-to 'eng-jack (unit 'jack))
 ! eval (activate 'catherine-trader)
 ")
 ;; TODO future quest/plot point: find a working computer
 #| TODO temp removal of moving jack and fi, as causes crash
 ! eval (move-to 'fi-farm (unit 'fi))
 ! eval (move-to 'eng-jack (unit 'jack))
+! eval (setf (location 'fi) 'fi-farm)
+! eval (setf (location 'jack) 'eng-jack)
 |#
 
 #| DIALOGUE REMOVED FOR THE EXAMINATION - COULD BE REUSED LATER

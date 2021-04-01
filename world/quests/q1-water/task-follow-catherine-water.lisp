@@ -81,7 +81,7 @@
 | No! I'm alright. I can fix it. Over.
 ~ jack
 | Okay... just be careful. I'll tell Fi what's going on.
-| Also the pressure is still screwed. You'd better follow the pipes right down to the pump, just to be sure you got all the leaks.
+| Also the pressure is still screwed. You'd better follow the pipe right down to the pump, just to be sure you got all the leaks.
 | The walkie won't work down there, but there's a telephone near the pump. Use that when you're done.
 | And keep your wits about you. Over and out.
 ~ catherine
@@ -102,7 +102,7 @@
 ! eval (complete 'catherine-fighttalk1)
 ~ catherine
 | Look out!
-| Keep 'em busy while I finish up here.
+| Keep it busy while I finish up here.
 | --
 ! eval (activate 'leak2-done)
 ")
@@ -112,7 +112,7 @@
 (quest:interaction :name leak2-done :interactable main-leak-2 :dialogue "
 ~ catherine
 | I've done the weld - good as new.
-| Let's get down to the pump.
+| Let's get down to the pump room.
 ! eval (spawn 'main-leak-3 'zombie)
 ! eval (spawn 'main-leak-3 'zombie)
 ! eval (spawn 'main-leak-3 'zombie)
@@ -178,7 +178,7 @@
 
 (quest:interaction :name leak3 :interactable main-leak-3 :dialogue "
 ~ catherine
-| Oh man, we got here just in time. They were trying to dismantle the turbine...
+| Oh man, we got here just in time. They were gonna dismantle the turbine...
 | Give me a minute.
 | ...
 | There, got it.
@@ -246,7 +246,7 @@
 ! eval (setf (location 'jack) 'jack-group)
 ! eval (move-to 'catherine-group (unit 'catherine))
 ")
-#| TODO restore Catherine move when pathfinding is working
+#|
 ! eval (setf (location 'catherine) 'catherine-group)
 ! eval (move-to 'catherine-group (unit 'catherine))
 |#
