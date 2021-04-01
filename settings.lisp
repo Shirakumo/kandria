@@ -12,7 +12,8 @@
                            :fullscreen NIL
                            :vsync T
                            :ui-scale 1.0)
-                 :gameplay (:screen-shake 1.0
+                 :gameplay (:rumble 1.0
+                            :screen-shake 1.0
                             :god-mode NIL
                             :text-speed 0.02
                             :auto-advance-after 3.0)
