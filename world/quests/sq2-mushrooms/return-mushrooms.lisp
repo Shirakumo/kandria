@@ -26,7 +26,7 @@
 | | Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
   
-| You know, it might not seem like much, but hauls like these could be the different between us making it and not making it.
+| You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | We owe you big time. Here, take these parts, you've definitely earned them.
 | See you around, Stranger!
 ! eval (store 'parts 10)
