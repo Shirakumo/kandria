@@ -26,7 +26,7 @@
 (defmethod spawn ((marker located-entity) type &rest initargs)
   (apply #'spawn (location marker) type initargs))
 
-(defmethod spawn ((name symbol) type &rest initargs)
+(defmethod spawn ((name symbol) type &rest initargs &key &allow-other-keys)
   (apply #'spawn (location (unit name +world+)) type initargs))
 
 (defclass quest (quest:quest alloy:observable)
