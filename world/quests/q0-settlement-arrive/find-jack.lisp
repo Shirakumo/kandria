@@ -57,7 +57,7 @@
   | She's kidding... Aren't you?!
 ~ catherine
 | Look, everyone knows the old stories. But they're just stories - this is real life.
-| We need to fix the water right now or we're goners. And I'm you're best shot.
+| We need to fix the water right now or we're goners. And I'm your best shot.
 | Me AND my android buddy.
 ~ jack
 | Shit...
