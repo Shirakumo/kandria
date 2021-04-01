@@ -130,7 +130,7 @@
     (setf (shake-unique camera) (random 100))
     (setf (shake-timer camera) duration)
     (setf (shake-intensity camera) (* (setting :gameplay :screen-shake) intensity))
-    (setf (shake-controller-multiplier camera) controller-multiplier)))
+    (setf (shake-controller-multiplier camera) (* (setting :gameplay :rumble) controller-multiplier))))
 
 (defun duck-camera (&key (offset (vec 0 -4)))
   (nv+ (offset (unit :camera +world+)) offset))
