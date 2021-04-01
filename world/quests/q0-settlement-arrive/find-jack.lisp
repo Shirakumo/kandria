@@ -1,5 +1,5 @@
 (:name find-jack
- :title "Find Jack"
+ :title "Find Jack in Engineering"
  :description NIL
  :invariant T
  :condition all-complete

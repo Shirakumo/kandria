@@ -66,7 +66,7 @@
 |   ! eval (activate 'sq1-leaks)
 | - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) //Forage for mushrooms//|]
 |   ~ catherine
-|   | Awesome! They grow in the caves below the settlement, in the dim light and moisture there.
+|   | Awesome! They grow in the caves beneath the camp, in the dim light and moisture there.
 |   | Edible mushrooms like the flower fungus can sustain us even if the crop fails. They're all we used to eat before we moved to the surface.
 |   | Fibrous ones like the rusty puffball can be used to weave clothing. 
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.

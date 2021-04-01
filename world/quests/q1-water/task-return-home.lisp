@@ -1,5 +1,5 @@
 (:name task-return-home
- :title "Return to the settlement and talk to Catherine"
+ :title "Return to camp and talk to Catherine"
  :description NIL
  :invariant T
  :condition all-complete

@@ -1,5 +1,5 @@
 (:name return-mushrooms
- :title "I've collected enough mushrooms for Catherine, or I could collect more"
+ :title "I've collected enough mushrooms for Catherine"
  :description NIL
  :invariant T
  :condition all-complete

@@ -1,5 +1,5 @@
 (:name talk-trader
- :title "Find Sahil"
+ :title "Talk to Sahil"
  :description NIL
  :invariant T
  :condition all-complete

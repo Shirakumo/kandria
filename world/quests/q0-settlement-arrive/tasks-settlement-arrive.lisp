@@ -1,6 +1,6 @@
 (:name talk-to-catherine
  :title "Talk to Catherine"
- :description "The one that reactivated me, Catherine, is waiting to speak with me."
+ :description NIL
  :invariant T
  :condition all-complete
  :on-activate (arrive)

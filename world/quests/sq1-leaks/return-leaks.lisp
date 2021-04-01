@@ -1,5 +1,5 @@
 (:name return-leaks
- :title "Return to Catherine now the leaks are fixed"
+ :title "Return to Catherine"
  :description NIL
  :invariant T
  :condition all-complete

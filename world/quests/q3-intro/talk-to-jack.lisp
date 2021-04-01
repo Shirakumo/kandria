@@ -1,5 +1,5 @@
 (:name talk-to-jack
- :title "Talk to Jack"
+ :title "Talk to Jack in Engineering"
  :description NIL
  :invariant T
  :condition all-complete
