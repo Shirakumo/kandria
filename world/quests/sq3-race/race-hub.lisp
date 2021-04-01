@@ -15,11 +15,12 @@
 | ~ catherine
 | | Alright, race time!
 | ? (not (complete-p 'race-one))
-| | | So Alex has been back, and I got them to plant some old-world beer cans in devious places for you to find.
-| | | Grab the can, bring it back here, and I'll stop the clock.
-| | | I've been talking to the guys, and we've decided to start you off with Route 1, which is an easy one.
-| | | Get bronze or above on a route, and we'll tell you about the next one!
-| | | We've also got some riddles for each place; figuring these out might slow you down at first.
+| | | So remember: Find the cans that Alex has planted around the area.
+| | | I told them to plant them in devious places, and knowing Alex they won't have disappointed.
+| | | Grab a can, bring it back here, and I'll stop the clock.
+| | | We'll start you off with Route 1, which is an easy one.
+| | | Get bronze or above, and I'll tell you about the next one!
+| | | Alex also gave me some riddles for each place, to give you a clue. Figuring these out might slow you down at first.
 | | | But once you know where they are, you'll be clocking even faster times I'm sure! So...
 | | < race-1
 | |?

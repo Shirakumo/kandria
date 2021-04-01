@@ -8,7 +8,7 @@
 
 (quest:interaction :name leaks-return :title "Talk about the leaks" :interactable catherine :dialogue "
 ~ catherine
-| The water pressure is back to what it was. I knew you could do it.
+| The water pressure is back. I knew you could do it.
 | Here, takes these parts - you've earned them.
 ! eval (store 'parts 15)
 ? (have 'walkie-talkie)

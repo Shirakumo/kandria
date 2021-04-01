@@ -52,8 +52,8 @@
   | ~ fi
   | | Oh well, I suppose this is better than nothing. I just hope it will be enough.
   | | Thank you for you efforts. I'll see these are sown right away.
-  | | Perhaps in time you will become a part of the Noka yourself - God knows we could use another hunter.
-  | | But for now, please accept this reward as a token of my appreciation.
+  | | But this has earned some trust - perhaps in time you will become a part of the Noka yourself.
+  | | God knows we could use another hunter. But for now, please accept this reward as a token of my appreciation.
   | ! eval (store 'parts 20)
   | < end
 - (Lie) I'm afraid there weren't any left.
@@ -70,8 +70,8 @@
   | Kuso... It seems they have us at a serious disadvantage.
   < bad-end
 # bad-end
-| Well, thank you for making the journey - perhaps in time you will become a part of the Noka yourself.
-| God knows we could use another hunter.
+| Well, thank you for making the journey. This has earned some trust.
+| Perhaps in time you will become a part of the Noka yourself. God knows we could use another hunter.
 | But for now, please accept this reward as a token of my appreciation.
 ! eval (store 'parts 20)
 | Now I must think about our next move. Whatever it is, I fear it won't be straightforward.
@@ -79,8 +79,7 @@
 # end
 ~ fi
 ? (complete-p 'q3-new-home)
-| | You should check in again with Catherine too - I'm sure she'd like to see you again.
-| | Knowing her they'll be some jobs you can help with.
+| | You should check in with Catherine too - I'm sure she'd like to see you again.
 | ! eval (activate 'sq-act1-intro)
 |?
 | ? (not (active-p 'q3-new-home))
@@ -88,7 +87,7 @@
 | | | He'll be in engineering.
 |   
 | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
-| | It would be wise to make sure you're well-equipped for your work.
+| | It would be wise to be well-equipped for your work.
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")

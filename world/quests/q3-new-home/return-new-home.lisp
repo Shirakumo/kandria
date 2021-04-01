@@ -14,7 +14,7 @@
 ~ player
 - How do you think it went?
   ~ jack
-  | I admit it was a thankless task, but I thought there might at least somewhere we could go.
+  | I admit it was a thankless task, but I thought there might at least be somewhere we could go.
 - Not good news I'm afriad.
   ~ jack
   | Fuck.
@@ -22,7 +22,7 @@
   ~ jack
   | Fuck.
 ~ jack
-| Fi ain't gonna like this. I suppose she'd better hear it from me, rather than some stone-cold android.
+| Fi ain't gonna like this. I suppose she'd better hear it from me, rather than from some stone-cold android.
 | Thanks for your help, but it's my problem now.
 | You want something for your labour?
 ~ player
@@ -57,7 +57,7 @@
 
 # continue
 ? (complete-p 'q2-seeds)
-| | Oh, I heard Cathy was looking for you.
+| | Oh, Cathy wants a word too.
 | | Know that my threat still stands if you touch her.
 | ! eval (activate 'sq-act1-intro)
 |?
