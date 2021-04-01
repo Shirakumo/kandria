@@ -1,5 +1,5 @@
 (:name return-new-home
- :title "Return to Jack with the bad news - there is no suitable location to rehome to"
+ :title "Return to Jack"
  :description NIL
  :invariant T
  :condition all-complete

@@ -79,7 +79,10 @@
   target)
 
 (defclass sprite-data (compiled-generator trial:sprite-data)
-  ((json-file :initform NIL :accessor json-file)))
+  ((json-file :initform NIL :accessor json-file)
+   (source :initform NIL :accessor source)
+   (palette :initform NIL :accessor palette)
+   (palettes :initform NIL :accessor palettes)))
 
 (defmethod notify:files-to-watch append ((asset sprite-data))
   (list (merge-pathnames (getf (read-src (input* asset)) :source) (input* asset))))
@@ -91,7 +94,10 @@
 
 (defmethod write-animation ((sprite sprite-data) &optional (stream T))
   (let ((*package* #.*package*))
-    (format stream "(:source ~s~%" (json-file sprite))
+    (format stream "(:source ~s~%" (source sprite))
+    (format stream " :animation-data ~s~%" (json-file sprite))
+    (format stream " :palette ~s~%" (palette sprite))
+    (format stream " :palettes ~s~%" (palettes sprite))
     (format stream " :animations~%  (")
     (loop for animation across (animations sprite)
           do (write-animation animation stream))
@@ -149,36 +155,38 @@
           (convert-palette albedo (merge-pathnames palette path)))))))
 
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
-  (destructuring-bind (&key animation-data animations frames &allow-other-keys) (read-src path)
-    (let ((animation-data (merge-pathnames animation-data path)))
-      (setf (json-file sprite) animation-data)
-      (prog1 (with-kandria-io-syntax
-               (call-next-method sprite (json-file sprite)))
-        (loop for expr in animations
-              do (destructuring-bind (name &key start end loop-to next (cooldown 0.0)) expr
-                   (let ((animation (find name (animations sprite) :key #'name)))
-                     (when animation
-                       (change-class animation 'sprite-animation
-                                     :loop-to loop-to
-                                     :next-animation next
-                                     :cooldown cooldown)
-                       ;; Attempt to account for changes in the frame counts of the animations
-                       ;; by updating frame data per-animation here. We have to assume that
-                       ;; frames are only removed or added at the end of an animation, as we
-                       ;; can't know anything more.
-                       (when (and start end)
-                         (let ((rstart (start animation))
-                               (rend (end animation))
-                               (rframes (frames sprite)))
-                           (when (< (loop-to animation) rstart)
-                             (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
-                           (loop for i from 0 below (min (- end start) (- rend rstart))
-                                 for frame = (elt rframes (+ rstart i))
-                                 for frame-info = (elt frames (+ start i))
-                                 do (change-class frame 'frame :sexp frame-info))))))))
-        ;; Make sure all frames are in the correct class.
-        (loop for frame across (frames sprite)
-              do (unless (typep frame 'frame) (change-class frame 'frame)))
-        ;; Make sure all animations are in the correct class.
-        (loop for animation across (animations sprite)
-              do (unless (typep animation 'sprite-animation) (change-class animation 'sprite-animation)))))))
+  (destructuring-bind (&key source palette palettes animation-data animations frames &allow-other-keys) (read-src path)
+    (setf (json-file sprite) animation-data)
+    (setf (source sprite) source)
+    (setf (palette sprite) palette)
+    (setf (palettes sprite) palettes)
+    (prog1 (with-kandria-io-syntax
+             (call-next-method sprite (merge-pathnames animation-data path)))
+      (loop for expr in animations
+            do (destructuring-bind (name &key start end loop-to next (cooldown 0.0)) expr
+                 (let ((animation (find name (animations sprite) :key #'name)))
+                   (when animation
+                     (change-class animation 'sprite-animation
+                                   :loop-to loop-to
+                                   :next-animation next
+                                   :cooldown cooldown)
+                     ;; Attempt to account for changes in the frame counts of the animations
+                     ;; by updating frame data per-animation here. We have to assume that
+                     ;; frames are only removed or added at the end of an animation, as we
+                     ;; can't know anything more.
+                     (when (and start end)
+                       (let ((rstart (start animation))
+                             (rend (end animation))
+                             (rframes (frames sprite)))
+                         (when (< (loop-to animation) rstart)
+                           (setf (loop-to animation) (+ rstart (- (loop-to animation) start))))
+                         (loop for i from 0 below (min (- end start) (- rend rstart))
+                               for frame = (elt rframes (+ rstart i))
+                               for frame-info = (elt frames (+ start i))
+                               do (change-class frame 'frame :sexp frame-info))))))))
+      ;; Make sure all frames are in the correct class.
+      (loop for frame across (frames sprite)
+            do (unless (typep frame 'frame) (change-class frame 'frame)))
+      ;; Make sure all animations are in the correct class.
+      (loop for animation across (animations sprite)
+            do (unless (typep animation 'sprite-animation) (change-class animation 'sprite-animation))))))

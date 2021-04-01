@@ -39,7 +39,7 @@
 # race-1
 ~ catherine
 | Route 1! The can is... at a literal high point of EASTERN civilisation, now long gone.
-| The time brackets are: Gold: 0:30 - Silver: 0:50 - Bronze: 1:10.
+| The time brackets are: Gold: 1:00 - Silver: 1:20 - Bronze: 1:40.
 ? (var 'race-1-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.
 ? (not (complete-p 'race-one))
@@ -52,7 +52,7 @@
 # race-2
 ~ catherine
 | Route 2! The can is... where a shallow grave marks the end of the line for the West Crossing.
-| The time brackets are: Gold: 1:00 - Silver: 1:30 - Bronze: 2:00.
+| The time brackets are: Gold: 1:30 - Silver: 2:00 - Bronze: 2:30.
 ? (var 'race-2-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-2-pb))}.
 ? (not (complete-p 'race-two))
@@ -65,7 +65,7 @@
 # race-3
 ~ catherine
 | Route 3! The can is... where we first ventured together, and got our feet wet.
-| The time brackets are: Gold: 1:30 - Silver: 2:00 - Bronze: 2:30.
+| The time brackets are: Gold: 2:00 - Silver: 2:30 - Bronze: 3:00.
 ? (var 'race-3-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-3-pb))}.
 ? (not (complete-p 'race-three))
@@ -78,7 +78,7 @@
 # race-4
 ~ catherine
 | Route 4! The can is... deep to the west, where people once dreamed.
-| The time brackets are: Gold: 2:00 - Silver: 3:00 - Bronze: 4:00.
+| The time brackets are: Gold: 2:30 - Silver: 3:30 - Bronze: 4:30.
 ? (var 'race-4-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-4-pb))}.
 ? (not (complete-p 'race-four))
@@ -91,7 +91,7 @@
 # race-5
 ~ catherine
 | Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't much-room.
-| The time brackets are: Gold: 2:00 - Silver: 3:00 - Bronze: 4:00.
+| The time brackets are: Gold: 2:30 - Silver: 3:30 - Bronze: 4:30.
 ? (var 'race-5-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-5-pb))}.
 ? (not (complete-p 'race-five))

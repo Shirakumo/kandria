@@ -38,7 +38,30 @@
 | | | You know about fixing the new leaks.
 | |?
 | | | Well, there aren't any new leaks right now, so that's fine.
-| ? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
+| ? (<= 25 (+ (item-count 'mushroom-good-1) (item-count 'mushroom-good-2)) )
+| | | I was going to say we need some mushrooms, what with food stocks getting low.
+| | | But is it me, or are those mushrooms inside your compartment?
+| | | You're very proactive, Stranger, I like that! Let's see what you've got.
+| | ? (have 'mushroom-good-1)
+| | | | Flower fungus, nice. I'll get these to Fi and straight into the cooking pot.
+| | | | Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
+| | | ! eval (retrieve 'mushroom-good-1 (item-count 'mushroom-good-1))
+| | ? (have 'mushroom-good-2)
+| | | | Rusty puffball, great. These are my favourite - I made my neckerchief from them, believe or not.
+| | | | Though that was just so I had a mask so their spores wouldn't give me lung disease.
+| | | ! eval (retrieve 'mushroom-good-2 (item-count 'mushroom-good-2))
+| | ? (have 'mushroom-bad-1)
+| | | |  Oh, you got some black knights, huh? Not a lot I can do with them.
+| | | | Don't worry, I'll burn them later - don't want anyone eating them by accident.
+| | | ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
+| |   
+| | | You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
+| | | We owe you big time. Here, take these parts, you've definitely earned them.
+| | | If you find any more mushrooms, make sure you grab them too - if we don't need them, then the least you could do is trade them with Sahil.
+| | ! eval (store 'parts 10)
+| | ? (not (complete-p 'sq2-mushrooms))
+| | | ! eval (complete 'sq2-mushrooms)
+| |? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
 | | | With food stocks getting low, we really could do with foraging for more mushrooms.
 | |? (not (complete-p 'sq2-mushrooms))
 | | | You already know about gathering the mushrooms.
@@ -66,7 +89,7 @@
 |   ! eval (activate 'sq1-leaks)
 | - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) //Forage for mushrooms//|]
 |   ~ catherine
-|   | Awesome! They grow in the caves below the settlement, in the dim light and moisture there.
+|   | Awesome! They grow in the caves beneath the camp, in the dim light and moisture there.
 |   | Edible mushrooms like the flower fungus can sustain us even if the crop fails. They're all we used to eat before we moved to the surface.
 |   | Fibrous ones like the rusty puffball can be used to weave clothing. 
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.

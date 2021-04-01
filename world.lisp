@@ -134,9 +134,10 @@
   (toggle-panel 'diagnostics))
 
 (defmethod handle ((ev screenshot) (world world))
-  (let ((file (make-pathname :name (format NIL "kandria ~a" (format-absolute-time))
-                             :type "png"
-                             :defaults (user-homedir-pathname))))
+  (let* ((date (format-absolute-time (get-universal-time) :time-separator #+windows #\- #-windows #\:))
+         (file (make-pathname :name (format NIL "kandria ~a" date)
+                              :type "png"
+                              :defaults (user-homedir-pathname))))
     (capture NIL :file file)
     (status :note "Screenshot saved to ~a" file)
     (v:info :kandria "Screenshot saved to ~a" file)))

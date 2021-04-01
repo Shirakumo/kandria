@@ -80,9 +80,11 @@
 (defun config-directory ()
   (trial:config-directory "shirakumo" "kandria"))
 
-(defun format-absolute-time (&optional (time (get-universal-time)))
+(defun format-absolute-time (&optional (time (get-universal-time)) &key (date-separator #\.) (time-separator #\:) (date-time-separator #\ ))
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
-    (format NIL "~4,'0d.~2,'0d.~2,'0d ~2,'0d:~2,'0d:~2,'0d" yy mm dd h m s)))
+    (format NIL "~4,'0d~c~2,'0d~c~2,'0d~c~2,'0d~c~2,'0d~c~2,'0d"
+            yy date-separator mm date-separator dd date-time-separator
+            h time-separator m time-separator s)))
 
 (defun format-relative-time (stamp)
   (let ((seconds   (mod (floor (/ stamp 1)) 60))
@@ -290,17 +292,6 @@
     (vec2 (/ (+ l r) 2)
           (/ (+ b u) 2))))
 
-(defun update-instance-initforms (class)
-  (flet ((update (instance)
-           (loop for slot in (c2mop:class-direct-slots class)
-                 for name = (c2mop:slot-definition-name slot)
-                 for init = (c2mop:slot-definition-initform slot)
-                 when init do (setf (slot-value instance name) (eval init)))))
-    (when (window :main NIL)
-      (for:for ((entity over (scene (window :main))))
-        (when (typep entity class)
-          (update entity))))))
-
 (defun initarg-slot (class initarg)
   (let ((class (etypecase class
                  (class class)
@@ -375,6 +366,12 @@
 (defmethod contained-p ((a vec4) (b vec4))
   (and (< (abs (- (vx a) (vx b))) (+ (vz a) (vz b)))
        (< (abs (- (vy a) (vy b))) (+ (vw a) (vw b)))))
+
+(defmethod contained-p ((type symbol) (area symbol))
+  (let ((area (unit area +world+)))
+    (bvh:do-fitting (entity (bvh (region +world+)) area)
+      (when (typep entity type)
+        (return T)))))
 
 (defmethod scan (target region on-hit))
 (defmethod collides-p (object target hit) NIL)

@@ -88,8 +88,7 @@
 | Alright, let me seal this one up.
 | Wait... Who's there?
 ! eval (walk-n-talk 'catherine-fighttalk1)
-! eval (spawn 'q1-wolf-spawn 'wolf)
-! eval (spawn 'q1-wolf-spawn 'wolf)
+! eval (spawn 'q1-wolf-spawn 'wolf :count 2)
 ")
 
 #|
@@ -114,9 +113,7 @@
 ~ catherine
 | I've done the weld - good as new.
 | Let's get down to the pump.
-! eval (spawn 'main-leak-3 'zombie)
-! eval (spawn 'main-leak-3 'zombie)
-! eval (spawn 'main-leak-3 'zombie)
+! eval (spawn 'main-leak-3 'zombie :count 3)
 ! eval (activate (unit 'rogues))
 ! eval (lead 'player 'main-leak-3 (unit 'catherine))
 ")
