@@ -94,6 +94,7 @@
       (transition
         (setf (location player) location)
         (issue +world+ 'force-lighting)
+        (clear-retained)
         (snap-to-target (unit :camera T) player)))))
 
 (defun handle-evasion (player)
