@@ -214,6 +214,7 @@
                 (alloy:enter apply video)
                 (alloy:enter apply focus :layer 1)))
             (with-options-tab (gameplay (@ gameplay-settings))
+              (control gameplay rumble (:gameplay :rumble) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1)
               (control gameplay screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 1.0)
               (control gameplay text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01)
               (control gameplay auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 1.0)
