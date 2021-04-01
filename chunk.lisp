@@ -499,3 +499,9 @@ void main(){
              (return (location entity)))
         while closest
         finally (return location)))
+
+(defun clear-chunk-cache (&optional (region "hub"))
+  (dolist (path (directory (merge-pathnames (make-pathname :name :wild :type "graph")
+                                            (pathname-utils:subdirectory (root) "world" "regions" region "data"))))
+    (v:info :kandria.chunk "Deleting ~a" path)
+    (delete-file path)))
