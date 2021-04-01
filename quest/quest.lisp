@@ -255,10 +255,14 @@
     (:obsolete)))
 
 (defmethod (setf status) :after (status (task task))
-  (setf (active-tasks (quest task))
-        (if (eql status :unresolved)
-            (sort-tasks (list* task (active-tasks (quest task))))
-            (remove task (active-tasks (quest task))))))
+  (let ((active (active-tasks (quest task))))
+    (setf (active-tasks (quest task))
+          (cond ((not (eql status :unresolved))
+                 (remove task active))
+                ((find task active)
+                 active)
+                (T
+                 (sort-tasks (list* task active)))))))
 
 (defmethod make-assembly ((task task))
   (make-assembly (quest task)))
