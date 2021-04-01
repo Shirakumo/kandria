@@ -12,9 +12,11 @@
 ;;         welcoming her into the group, but only making her an actual member in Act 2.
 ;;         Also gives the player something to look forward to and we can build it up
 ;;         to be a more impactful and rewarding moment.
+;; TIM REPLY & TODO: Good point. Will leave this comment here as a reminder
 ;; REMARK: Also as you already mentioned in the other part, would be best if the lie
 ;;         options were gated behind a variable that is set in the other task if you
 ;;         don't take anything.
+;; TIM REPLY: I thought it could be cool if you can take the seeds from the cache AND lie about it, so keep them for yourself. Perhaps if you later trade them in with Sahil, word gets back to Fi - could be a nice consequence
 (quest:interaction :name seeds-return-fi :interactable fi :dialogue "
 ~ fi
 | You're back - did you find the seeds?
@@ -26,9 +28,9 @@
   | | Oh my... there must be... fifty sachets here. All fully stocked.
   | | You've done well. Very well. I'll see these are sown right away.
   | | This buys us hope I never thought we'd have.
-  | | Know that you have earned my trust, Stranger. Welcome to the Noka.
-  | | You may now call yourself one of our hunters.
-  | | And please accept this reward as a token of my appreciation.
+  | | Know that you are earning my trust, Stranger. Perhaps in time you will become a part of the Noka yourself.
+  | | God knows we could use another hunter.
+  | | But for now, please accept this reward as a token of my appreciation.
   | ! eval (store 'parts 20)
   | < end
   |? (= 17 (item-count 'seeds))
@@ -50,8 +52,8 @@
   | ~ fi
   | | Oh well, I suppose this is better than nothing. I just hope it will be enough.
   | | Thank you for you efforts. I'll see these are sown right away.
-  | | And welcome to the Noka. You may now call yourself one of our hunters.
-  | | And please accept this reward as a token of my appreciation.
+  | | Perhaps in time you will become a part of the Noka yourself - God knows we could use another hunter.
+  | | But for now, please accept this reward as a token of my appreciation.
   | ! eval (store 'parts 20)
   | < end
 - (Lie) I'm afraid there weren't any left.
@@ -68,9 +70,9 @@
   | Kuso... It seems they have us at a serious disadvantage.
   < bad-end
 # bad-end
-| But thank you for making the journey - and welcome to the Noka.
-| You may now call yourself one of our hunters.
-| And please accept this reward as a token of my appreciation.
+| Well, thank you for making the journey - perhaps in time you will become a part of the Noka yourself.
+| God knows we could use another hunter.
+| But for now, please accept this reward as a token of my appreciation.
 ! eval (store 'parts 20)
 | Now I must think about our next move. Whatever it is, I fear it won't be straightforward.
 < end

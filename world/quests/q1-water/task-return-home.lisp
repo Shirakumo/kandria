@@ -16,9 +16,10 @@
 ;;         As for how she reactivated the stranger, I think something simple like applying pressure on her
 ;;         earlobe would work, rather than requiring any deep interfacing, and the way she discovered that
 ;;         was mostly dumb luck and curiosity, more than anything.
+;; TIM REPLY - good points, adapted as directed
 (quest:interaction :name catherine-return :interactable catherine-group :dialogue "
 ~ catherine
-| Hey, Stranger - See what'd I tell you?
+| Hey, Stranger - see, what'd I tell you?
 | Jack here didn't think you'd come back.
 ~ jack
 | This don't prove a thing.
@@ -35,7 +36,7 @@
 | Maybe this android can control them? Did you think of that?
 ~ catherine
 | ...
-| Androids do have far-field comms systems...
+| Androids do have FFCS... - far-field comms systems.
 | I guess something like that could penetrate deeper underground than our radios.
 | But no, it's not that. She was offline for decades - there's no way she could have done that.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
@@ -66,17 +67,18 @@
 ~ jack
 | Examine the thing, find out for sure.
 ~ fi
-| Catherine, can it be done?
+| Catherine, can it be done? Could an examination of its black box show if the FFCS was active lately?
 ~ catherine
-| I guess I could check her black box, see if the FFCS was active lately.
-| But I think we should ask HER if that is okay.
+| Well... I guess we'd need to find some kind of interface port.
+| Oh, and we'd need a working computer, which we don't have.
+| Anyway, even if we did, don't you think you should ask HER if that's okay?
 ~ fi
 | You're right, Catherine. I'm sorry...
-| Stranger, wasn't it.
+| So... Stranger, wasn't it?
 ~ jack
 | ...
 ~ fi
-| Would you permit Catherine to examine you? For our own peace of mind?
+| Would you permit Catherine to examine you, assuming we can source a computer?
 ~ player
 - I'd rather she didn't.
   ~ fi
@@ -87,12 +89,13 @@
   | This \"thing\" is a person, Jack. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
 - Sure, why not.
-  < examine
+  ~ fi
+  | Good. Jack, speak with Sahil when he arrives, see what he can do for us.
+  ~ jack
+  | If you insist.
 - As long as I'm still online afterwards.
   ~ catherine
-  | Don't worry, I won't let them switch you off.
-  < examine
-> continue
+  | Don't worry, I wouldn't let them switch you off.
 ~ fi
 | But irrespective of all this, I am certain that the Wraw are our attackers.
 | Which means they're close to discovering our location one way or another.
@@ -107,8 +110,9 @@
 ! eval (move-to 'fi-farm (unit 'fi))
 ! eval (move-to 'jack-main (unit 'jack))
 ! eval (activate 'catherine-trader)
-
-# examine
+")
+;; TODO future quest/plot point: find a working computer
+#| DIALOGUE REMOVED FOR THE EXAMINATION - COULD BE REUSED LATER
 ~ fi
 | Thank you. Catherine, if you could proceed.
 ~ catherine
@@ -124,15 +128,7 @@
 | Positive.
 ~ fi
 | I am satisfied, for now. Thank you Catherine, Stranger.
-< continue
-")
-
-#| DIALOGUE REMOVED FOR TESTING
-
-
-
 |#
-;; REMARK: Maybe say "adults" instead? "Grown-ups" sounds too child-like.
 (quest:interaction :name catherine-trader :interactable catherine :dialogue "
 ~ catherine
 | Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.

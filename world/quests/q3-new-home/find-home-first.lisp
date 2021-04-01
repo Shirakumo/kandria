@@ -1,5 +1,5 @@
 (:name find-home-first
- :title "Scout location Alpha"
+ :title "Scout location Beta"
  :description NIL
  :invariant T
  :condition all-complete
@@ -7,14 +7,12 @@
  :on-complete NIL)
 
 ;; enemies on this quest will be world NPCs, not spawned for the quest
-;; REMARK: Naming it Alpha seems confusing given the Alpha cafe.
-;; REMARK: 'orifice' has a... really bad connotation. Just use 'crack'.
 (quest:interaction :name new-home-site-1 :interactable new-home-1 :dialogue "
 ~ player
-| //It's new-home site Alpha.//
+| //It's new-home site Beta.//
 | //There could be shelter inside this building.//
 | //Scanning the interior...//
-| //Dirt and sand has intruded through almost every orifice.//
+| //Dirt and sand has intruded through almost every crack.//
 | //It's a quicksand deathtrap.//
 | Structural integrity can be described as \"may collapse at any moment\".
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)

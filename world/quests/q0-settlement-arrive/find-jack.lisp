@@ -8,8 +8,9 @@
  
 ;; meet Jack for the first time - Stranger already presumes this is Jack
 ;; REMARK: Maybe keep the swears out for now, or at least change them to be softer variants.
-;; REMARK: Maybe add a snarky greeting choice like "- Well aren't you the charmer"
-;; REMARK: Maybe add a defensive option to the second choice like "- What's your problem, I'm here to help!"
+;;; TIM REPLY: Toned some of it down. I think most swears should be okay for 16+, and they help give the gritty tone which is in the pillars. Played start of Last of Us part 2 recently, and this is very swear heavy (more than we need), but I think it works - it's more honest to the ravaged setting. Of course Last of Us is 18+, but I think that is more down to the violence than the swearing
+;; REMARK: Maybe add a snarky greeting choice like "- Well aren't you the charmer
+;; TIM REPLY: Hmm, not feeling this one. I think initially I want the Stranger to be on the backfoot in the conversation as well, whereas this sarcastic reply would put them on the front put. At least for the moment, they are at the mercy of Jack's ramblings
 (quest:interaction :name talk-jack :interactable jack :dialogue "
 ~ jack
 | ... Don't give me that bullshit. Where the hell have you been? And who's this?
@@ -19,7 +20,7 @@
 | Jesus... this is all we need.
 - Pleased to meet you.
 - Jack, I presume.
-- Is everything okay?
+- What's your problem? I'm here to help.
 ~ jack
 | Fuck me it speaks... Though what the hell is that accent?
 ~ Catherine

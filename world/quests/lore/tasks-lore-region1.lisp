@@ -47,9 +47,12 @@
 ;; REMARK: I think they would have some power to cook. Maybe also instead make a remark about it
 ;;         smelling like one of the crops they're planting -- beets or potatoes perhaps?
 ;;         Would help make the camp feel more like home.
+;; TIM REPLY: Agreed on power, I'm assuming they use oil for a lot of things. Oil-powered generators too for some electricity too, like the water pumps, walkie-talkies, and phones
+;;            Will add about the smell good shout +1
 (quest:interaction :name housing-kitchen :interactable lore-kitchen :repeatable T :dialogue "
 ~ player
 | //There's no gas or electrical supply. It smells like a wrecked oil tanker.//
+| //Though I am detecting starchy potato notes, and is that... beetroot?//
 ")
 
 ;; Housing interior - sign
@@ -76,16 +79,18 @@
 
 ;; Engineering interior - desk
 ;; REMARK: Maybe soften to: "[..] He's glaring at me quite intently."
+;; TIM REPLY: Added a variant of this, with one of the Stranger's striking metaphors
 (quest:interaction :name engineering-bench :interactable lore-eng-bench :repeatable T :dialogue "
 ~ player
 ? (complete-p 'q0-settlement-emergency)
 | | //Jack's workbench. I can smell body odour - does he work here, or work out?//
 |?
-| | //It's a workbench. Perhaps it belongs to this man - who come to think of it looks like he wants to kill me.//
+| | //It's a workbench. Perhaps it belongs to this man - who come to think of it has a stare that could fry circuit boards.//
 ")
 
 ;; Farm - transition/view
 ;; REMARK: Change to "[..] - not well though by the looks of it."
+;; TIM REPLY: I think this alt is weaker - the dying expression seems to capture the Stranger's wry wit?
 (quest:interaction :name farm-view :interactable lore-farm :repeatable T :dialogue "
 ~ player
 | //This is farmland. They're growing potatoes - dying ones by the looks of it.//
