@@ -7,6 +7,8 @@
    (cooldown :initform 0.0 :accessor cooldown)
    (ai-state :initform :normal :accessor ai-state)))
 
+(defmethod collides-p ((enemy enemy) (other enemy) hit) NIL)
+
 (defmethod stage :after ((enemy enemy) (area staging-area))
   (stage (// 'kandria 'stab) area)
   (stage (// 'kandria 'zombie-notice) area)
