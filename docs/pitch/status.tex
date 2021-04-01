@@ -1,92 +1,55 @@
 \section{Current Status}
-Proper development on the game started in Summer of 2019. The game is built upon a custom in-house engine called \href{https://shirakumo.org/trial}{Trial}. This gives large productivity boosts in some areas, since complete knowledge of the engine allows very fast, targeted development. However, in other areas development has been very slow, since solutions need to be built from the ground up. Being a one-man team at the moment also means that every part of the game takes away time from others.
-
-\subsection{Engine Features}
-At the time of writing, the game has the following features fully implemented:
-
-\begin{itemize}
-\item \textbf{2D Platformer Mechanics}\quad
-  The player has full 2D movement on sloped terrain, including wall jumps, climbing, crawling, dashing, and moving platforms.
-\item \textbf{Dynamic Lighting System}\quad
-  A dynamic lighting system with shadows and a day/night cycle has been implemented to paint the proper mood in various environments.
-\item \textbf{Efficient Tilemap Rendering}\quad
-  The game implements a technique to render tilemaps of arbitrary size at constant overhead, allowing for very big maps for the player to explore.
-\item \textbf{In-Game Editor}\quad
-  The in-game editor allows creating and editing maps directly while the game is running, making for a very quick feedback loop.
-\item \textbf{Platform Traversal AI}\quad
-  The engine is able to automatically move characters across arbitrary 2D terrain just as the player would, making it possible to conveniently script characters to move around.
-\item \textbf{Dialogue System}\quad
-  A custom markup language was implemented to allow writing dynamic dialogue trees quickly and efficiently. The system is even capable of scripting cutscenes.
-\end{itemize}
-
-This sets a solid precedent for building most of the game. There are a few important features that are still missing, which are discussed in the \hyperref[sec:future]{next section}.
-
-\clearpage
-\subsection{Visuals}
-In terms of visuals most of the work has been on the player character's design and animations. These are now mostly complete for the currently planned scope. Please see a few of the animations \hyperref[fig:animations]{included below}.
+We are currently nearing the end of the vertical slice development, which spans most of the first act of the game's story. In order to do this, we've built complex quest and dialogue systems, as well as intricate platforming and combat mechanics. The slice also features most of the main cast of characters, as well as two distinct and detailed environments.
 
 \begin{figure}[h]
   \centering
-  \includemovie{run}{Running}
-  \includemovie{climb}{Climbing}
-  \includemovie{crawl}{Crawling}
-  \includemovie{evade}{Forward evade}
-  \includemovie{light}{Light ground attack}
-  \includemovie{heavy}{Heavy ground attack}
-  \caption{Player character animation set. Please click the image to view.}
-  \label{fig:animations}
+  \begin{subfigure}[b]{0.60\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../press/screenshot 1.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.35\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{../press/screenshot 8.png}
+  \end{subfigure}
+  \vskip -0.5cm
+  \begin{subfigure}[t]{0.35\textwidth}\vskip 0pt
+    \centering
+    \includegraphics[width=\textwidth]{../press/screenshot 2.png}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.55\textwidth}\vskip 0pt
+    \centering
+    \includegraphics[width=\textwidth]{../press/screenshot 3.png}
+  \end{subfigure}
 \end{figure}
 
-The design of the player character has evolved quite a bit throughout the development of the game. A lot of variations were produced to try and find the proper fit for the character, setting, and overall tone of the story. See \hyperref[fig:designs]{the below figure} for a summary of the protagonist's design process.
+Having spent a good chunk of pre-production and the slice development on figuring out our process and developing our tools, we can now produce content with much more confidence and efficiency. Most of the required systems for the full game are in place and working well, too, so we can focus more on the design.
+
+We've also written detailed design documents describing the \href{https://kandria.com/lore}{setting}, \href{https://kandria.com/plot outline}{story}, \href{https://kandria.com/characters}{characters}, \href{https://kandria.com/art}{visuals}, and so forth in order to create a cohesive narrative and world for the player to explore.
+
 \clearpage
-
-Finally, some simple tilesets were made as well, though none of them are complete or fit into any specific areas of the story. An example scene of the most developed tileset is shown in the trailer and demo. A screenshot for completeness is \hyperref[fig:tileset]{included below}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{tileset.png}
-  \label{fig:tileset}
-  \caption{The ``tundra'' tileset.}
-\end{figure}
-
 \subsection{Story and World}
-The broad world building is mostly complete. The separation of the world into underground and above ground sections allows for very different visuals, but also for very different gameplay environments, with the surface areas focusing more on exploration and the underground areas focusing more on combat. The overall history of the world to explain the setting is based on common traits from science fiction, cyberpunk, and post-apocalypse genres, which easily lends itself to many interesting scenarios and character traits. This will also help a lot to expand on the world outside of the scope of the game via flavour text and side conversations with NPCs. \\
+Kandria's world is set in the not too distant future. Humanity has built massive, glistening cities on earth's surface, and deep webs of tunnels and complexes underground. Most of the manufacturing process is automated now, even down to primitive humanoid robots... or at least so you would be led to believe if you enjoy a life of comfort on the surface. Underground the situation was very different. People were used primarily as an exploited workforce, either to maintain and manage the systems used above, or to mine and process rare materials.
 
-The dry, hot, and mostly devoid of life areas of the surface make it easy to focus on the platforming angles and allow for far-ranging exploration and narrative delivery with various relics that the player can discover among the ruins. Certain parts of the surface are gated off by untraverseable desert sections, and can only be reached via undergound routes, requiring the player to dive between the two sections. \\
+Around this time, true AI was finally discovered. By a process that was not fully understood, devices could be manufactured that would learn and interpret information like a real brain. It didn't take long before this technology was incorporated into a humanoid chassis, birthing the first true android. This posed another vital step in the progress of fully automating all of human civilisation. However, shortly after the first few androids were developed in the field, calamity struck.
 
-The underground will have a stronger focus on very moody, dark, and bleak environments. Since the surface area is mostly uninhabitable, almost all of the wildlife will also be found here, along with malfunctioning robots and human looters, giving way for a very different pacing focused much more on combat than on platforming. This is also where most of the resources for the above ground settlement's survival need to be found, or new people can be rescued to join the settlement. Since the underground tunnels can grow rather unrestricted in both dimensions, movement will also focus a lot more on verticality than in the surface sections. \\
-
-While this setting easily gets the creative ideas flowing, knowing what to cut and how to restrict the scope to remain manageable will be the primary challenge. The main areas to cut would be the number of enemy types and interactable characters. Tilesets can be expanded rather quickly and repurposed a lot, and dialogue and flavour text can be created without too much overhead. Enemies and characters on the other hand require a lot of animation, which is rather time intensive. \\
-
-At the time of writing the story has not been worked out to a great extent. The current idea is to fit a story about finding a lost link between the player character and the old world into a standard hero's journey framework. Along this journey the player should have to deal with several key questions surrounding living machines and the ethics of survival. \\
-
-This lost link is a hidden memory of an old-world research facility or bunker, which is obviously of great value to the survivors. A key question built around that is whether it is objectionable to forcefully pry the information out of an android, even if it would potentially incur damage. Another question is whether it would be moral to disassemble an uncooperative android and repurpose the parts for human augmentation instead.
-
-\begin{figure}
+\begin{figure}[h]
   \centering
-  \begin{subfigure}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{character design2.png}
-    \caption{Early version}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{character design5.png}
-    \caption{Costume design run \#1}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{character design4.png}
-    \caption{Costume design run \#2}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{character design3.png}
-    \caption{Costume design run \#3}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.7\textwidth}
-    \includegraphics[width=\textwidth]{character design.png}
-    \caption{Finalised character design.}
-  \end{subfigure}
-  \label{fig:designs}
-  \caption{Design evolution of ``The Stranger'' player character.}
+  \includegraphics[width=\textwidth]{../press/screenshot 6.png}
 \end{figure}
+
+The surface world was almost entirely wiped out, cities flattened and ground into dust with only ruins and deserts left in their wake. Many of the underground tunnels and structures collapsed, and humanity was brought to the brink of extinction. Only few survived underground, and with the catastrophe in mind, became reclusive and protective.
+
+\clearpage
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{../press/screenshot 9.png}
+\end{figure}
+
+The game begins a few decades after the calamity, set in the valley of the former city of Zenith -- the underground areas now controlled by a few distinct factions, with raiders and other outcast groups roaming the tunnels and abandoned sites. One of those factions is undergoing internal conflict, a violent and militaristic group is struggling for power. Worried by this turn of events, and having discovered an old-world seed cache, Fi and her closest friends decide to separate and attempt to build their own faction back on the abandoned surface.
+
+Near this seed cache they discover the slumbering remains of an android -- you -- and manage to reactivate it. Now back on your feet, with all of your memories lost to a data corruption, it's up to you to decide what to do. Will you follow after them or forge your own path?
+
+Exploring the underground you'll come across other factions, each with their own values and beliefs, their own ideas on how to recover from this catastrophe. It is now up to you to earn their trust and defend what you hold dear from the harsh world. No matter what you do though, the conflict in Fi's home faction is reaching its boiling point, and will inevitably affect everyone else in the valley.
 
 %%% Local Variables:
 %%% mode: latex

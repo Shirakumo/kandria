@@ -1,40 +1,77 @@
-\section{Budget \& Planning}
-The following budget is for the entire game production. Pre-production is planned to take another 3-4 months, with production starting sometime in Summer 2020. After that the expected production time is one year. \\
+\section{Planning \& Budget}
+We've outlined our current planning starting from January 2021 to the release in early 2023 in the following \hyperref[fig:schedule]{Gantt chart}.
 
-\begin{tabularx}{\textwidth}{>{\rowmac}l>{\rowmac}R<{\clearrow}}
-  \textbf{Expenses} &\\
-  Preproduction &\\
-  \quad Core developer \& artist & 8'000 \\
-  \quad Steam publishing & 100 \\
-  Production &\\
-  \quad Core developer \& artist & 24'000 \\
-  \quad Additional artist & 6'000 \\
-  \quad Music \& SFX & 10'000 \\
-  \quad Writing & 2'000 \\
-  \quad Marketing & 10'000 \\
-  \hline\noalign{\vskip 0.1cm}
-  \setrow{\bfseries} Total & \color{red}60'100 \\
-  \noalign{\vskip 1cm}
-  
-  \textbf{Contributions} &\\
-  Funding &\\
-  \quad Personal investment & 15'000 \\
-  \quad Pro Helvetia grant & 20'000 \\
-  Release &\\
-  \quad Steam Sales & 50'000 \\
-  \hline\noalign{\vskip 0.1cm}
-  \setrow{\bfseries} Total & \color{OliveGreen}85'000 \\
-  \noalign{\vskip 1cm}
+\begin{figure}[h]
+  \centering
+  \begin{ganttchart}[
+    canvas/.append style={fill=none, draw=black!5, line width=.75pt},
+    hgrid style/.style={draw=black!5, line width=.75pt},
+    vgrid={*1{draw=black!5, line width=.75pt}},
+    today=3,
+    today rule/.style={
+      draw=black!64,
+      dash pattern=on 3.5pt off 4.5pt,
+      line width=1.5pt
+    },
+    today label font=\small\bfseries,
+    title/.style={draw=none, fill=none},
+    title label font=\bfseries\footnotesize,
+    title label node/.append style={below=7pt},
+    include title in canvas=false,
+    bar label font=\mdseries\small\color{black!70},
+    bar/.append style={draw=none, fill=barblue},
+    ]{1}{26}
+    \gantttitle[title label node/.append style={below left=7pt and -3pt}]{Months:\quad1}{1}
+    \gantttitlelist{2,...,26}{1} \\
+    \ganttbar{Vertical Slice}{1}{4} \\
+    \ganttbar{First Act Demo}{5}{7} \\
+    \ganttbar{Horizontal Slice}{8}{13} \\
+    \ganttbar{Full Playable Story}{13}{21} \\
+    \ganttbar{Polishing and Testing}{20}{26} \\
+    \ganttbar{Marketing Push}{23}{26}
+  \end{ganttchart}
+  \label{fig:schedule}
+\end{figure}
 
-  \hline\hline\noalign{\vskip 0.1cm}
-  \setrow{\bfseries} Profits & \color{OliveGreen}24'900\\
-\end{tabularx}
+We expect this schedule to change once we get a clearer picture of the workload required to produce the full game during the horizontal slice production. The current vertical slice effort has been very useful to help us better estimate the amount of time involved in producing a full section of the game.
+
+\subsection{Market Research and Projected Sales}
+We are targeting the PC market with Steam as our primary release platform. According to our market research, the typical price is between 10-20\$, with sales of recently released similar titles ranging from hundreds of thousands, to millions of units sold. For example, the recent "Skul: The Hero Slayer" accrued an estimated 350 thousand sales, while "Katana Zero" sold well over a million copies.
+
+The combination of platformer and hack and slash genres, with a focus on open-world exploration, appears to be a market niche that we can exploit. With a price tag of 20\$ and an estimated sales count of around 10k units, we expect revenue of around 106'000\$ after accounting for store front cut and taxes.
 
 \clearpage
-\subsection{Market Research and Projected Sales}
-The game will primarily target medium to experienced players with interest in a 2D pixel art style, and the platforming and hack and slash gameplay genres. The primary storefront will be Steam, which already features many similar games, though very few with an explicit focus on exploration and narrative delivery, which should help Kandria stand out. \\
+\subsection{Budget}
+Based on the schedule, market research, and our current team composition, we've put together a \hyperref[tab:budget]{budget plan} for the production of the game.
 
-The estimated sales of similar games in these genres vary greatly between lesser known titles such as The Moonstone Equation selling about 500 units, and bigger hits such as ICEY selling around 500'000 units. Based on these and other games found on Steam, the estimated sales number lies somewhere between 2'000 and 10'000 units. With a standard price tag of 10.-, this should result in anywhere between 13'000 to 66'000 in revenue after the storefront cut and taxes.
+\begin{table}[h]
+  \begin{tabularx}{\textwidth}{>{\rowmac}l>{\rowmac}R<{\clearrow}}
+    \textbf{Production} &\\
+    \quad Core developer & 36'000 \\
+    \quad Writer & 36'000 \\
+    \quad Artist & 36'000 \\
+    \quad Composer & 20'000 \\
+    \quad SFX & 3'500 \\
+    \quad Marketing & 15'000 \\
+    \hline\noalign{\vskip 0.1cm}
+    \setrow{\bfseries} Total & \color{red}146'500 \\
+    \noalign{\vskip 0.5cm}
+    
+    \textbf{Contributions} &\\
+    Funding &\\
+    \quad Private investment & 50'000 \\
+    \quad Grant / outside investment & 50'000 \\
+    Release &\\
+    \quad Steam Sales & 106'000 \\
+    \hline\noalign{\vskip 0.1cm}
+    \setrow{\bfseries} Total & \color{OliveGreen}206'000 \\
+    \noalign{\vskip 1cm}
+
+    \hline\hline\noalign{\vskip 0.1cm}
+    \setrow{\bfseries} Profits & \color{OliveGreen}59'500\\
+  \end{tabularx}
+  \label{tab:budget}
+\end{table}
 
 % NAME                          PRICE    SALES LINK
 % Tagged: 2D & Hack and Slash
