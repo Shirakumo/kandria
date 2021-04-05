@@ -75,6 +75,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Christopher Hurley
 - Fix audio stutter on lower end systems
   Reported by PincerAttack
+- Fix enemies spawning on top of each other
+  Reported by Florian Hanke, Christopher Hurley
 
 ## TODO
 - Fix disconnecting a sound device crashing the game
