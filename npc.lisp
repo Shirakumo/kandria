@@ -88,7 +88,8 @@
              (T
               (vsetf (location npc)
                      (vx (target npc))
-                     (vy (target npc))))))
+                     (vy (target npc)))
+              (stop-following npc))))
       (:lead
        (let ((distance (vsqrdist2 (location npc) (location companion))))
          (flet ((complete ()
