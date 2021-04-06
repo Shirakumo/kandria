@@ -208,16 +208,16 @@
           ((_ o _
             o o _
             o s _)
-           (unless (and (< 3 (tile x (1- y)))
-                        (< 0 (tile (1- x) (- y 2))))
+           (when (and (= 1 (tile x (1- y)))
+                      (= 0 (tile (1- x) (- y 2))))
              (connect-nodes graph 'climb (1- x) (1- y) x y w h)
              (create-jump-connections solids graph x y -1)
              (fall x y w h -1)))
           ((_ o _
             _ o o
             _ s o)
-           (unless (and (< 3 (tile x (1- y)))
-                        (< 0 (tile (1+ x) (- y 2))))
+           (when (and (= 1 (tile x (1- y)))
+                      (= 0 (tile (1+ x) (- y 2))))
              (connect-nodes graph 'climb x y (1+ x) (1- y) w h)
              (create-jump-connections solids graph x y +1)
              (fall x y w h +1)))
@@ -700,7 +700,9 @@
              (pop (path movable))
              (setf (current-node movable) target)))
           (T
-           (when (moved-beyond-target-p loc source target)
+           (when (or (moved-beyond-target-p loc source target)
+                     (and (typep (car (second (path movable))) 'climb-node)
+                          (or (svref collisions 1) (svref collisions 3))))
              (pop (path movable))
              (setf (current-node movable) target))))))
     (when ground

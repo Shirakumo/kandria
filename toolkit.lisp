@@ -209,9 +209,9 @@
   (vec (+ min (random (- max min)))
        (+ min (random (- max min)))))
 
-(defun vrandr (min max)
+(defun vrandr (min max &optional (deg (* 2 PI)))
   (let ((r (+ min (random (- max min))))
-        (phi (random (* 2 PI))))
+        (phi (random deg)))
     (vec (* r (cos phi))
          (* r (sin phi)))))
 

@@ -58,10 +58,12 @@
   (apply #'run "sbcl-lin" *sbcl-build-args*))
 
 (defmethod build ((target (eql :windows)))
-  (apply #'run "sbcl-win" *sbcl-build-args*))
+  #-windows (apply #'run "sbcl-win" *sbcl-build-args*)
+  #+windows (apply #'run "sbcl.exe" *sbcl-build-args*))
 
 (defmethod build ((target (eql :macos)))
-  (apply #'run "sbcl-mac" *sbcl-build-args*))
+  #-darwin (apply #'run "sbcl-mac" *sbcl-build-args*)
+  #+darwin (apply #'run "sbcl" *sbcl-build-args*))
 
 (defmethod build ((target (eql T)))
   (build :linux)
@@ -119,7 +121,7 @@
   (deploy:status 1 "Deploying to release directory")
   (let ((release (deploy)))
     (deploy:status 1 "Creating bundle zip")
-    (bundle release)
+    #++(bundle release)
     (when upload
       (deploy:status 1 "Uploading")
       (upload upload :release release))
