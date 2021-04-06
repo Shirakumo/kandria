@@ -314,7 +314,6 @@
                 (active-p (hud player)))
            (hide (hud player))))
     ;; Interaction checks
-    ;; FIXME: Optimise with spatial lookup
     (setf (interactable player) NIL)
     (when (and ground (interactable-p ground))
       (setf (interactable player) ground))
