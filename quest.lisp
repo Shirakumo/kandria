@@ -12,13 +12,15 @@
 (defmethod (setf location) ((name symbol) (entity located-entity))
   (setf (location entity) (location (unit name +world+))))
 
-(defmethod spawn ((location vec2) type &rest initargs &key (count 1) &allow-other-keys)
+(defmethod spawn ((location vec2) type &rest initargs &key (count 1) (jitter +tile-size+) &allow-other-keys)
   (remf initargs :count)
   (let ((first (apply #'make-instance type :location (vcopy location) initargs)))
     ;; FIXME: speedup by caching which classes have already been loaded?
     (trial:commit first (loader +main+) :unload NIL)
     (dotimes (i count)
-      (spawn (region +world+) (clone first)))))
+      (let ((clone (clone first)))
+        (nv+ (location clone) (vrandr 0 jitter PI))
+        (spawn (region +world+) clone)))))
 
 (defmethod spawn ((container container) (entity entity) &key)
   (enter* entity container))

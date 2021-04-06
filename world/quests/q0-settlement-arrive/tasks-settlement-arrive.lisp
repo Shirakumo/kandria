@@ -43,6 +43,9 @@
 ")
 
 ;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
+;; REMARK: It's confusing that you don't talk to catherine and instead have to find some hidden trigger volume.
+;;         It would be better if this was activated on catherine as soon as the player walks into the farm
+;;         by using a story-trigger, or even just directly activating it via an interaction-trigger.
 (quest:interaction :name field :interactable farm-view :dialogue "
 ~ catherine
 | (:excited) What'd I tell you? Amazing, right?!

@@ -110,7 +110,8 @@
   (setf (animation animatable) 'die))
 
 (defmethod die ((animatable animatable))
-  (leave* animatable T))
+  (when (slot-boundp animatable 'container)
+    (leave* animatable T)))
 
 (defmethod switch-animation :before ((animatable animatable) next)
   ;; Remove selves when death animation completes

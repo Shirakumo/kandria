@@ -62,7 +62,7 @@
 | | ? (not (complete-p 'sq2-mushrooms))
 | | | ! eval (complete 'sq2-mushrooms)
 | |? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
-| | | With food stocks getting low, we really could do with foraging for more mushrooms.
+| | | With food stocks getting low, we really could do with foraging more mushrooms.
 | |? (not (complete-p 'sq2-mushrooms))
 | | | You already know about gathering the mushrooms.
 | |?
@@ -100,8 +100,10 @@
 | - [(not (active-p 'sq3-race)) //Time trials//|]
 |   ~ catherine
 |   | Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do in anger!
-|   | I'll record your results for posterity too! This is anthropology!
-|   | Come back soon, once I've talked to the gang. We need to plan the routes, and organise the sweepstake.
+|   | So Alex has been back, and I got them to plant some old-world beer cans for you to find and bring back.
+|   | I'll record your times for posterity too - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
+|   | Once you get bronze or above, then I can tell you about the next route! Them's the rules.
+|   | Just tell me when you want to start, and we'll get this show on the road.
 |   | This is sooo exciting!
 |   ! eval (activate 'sq3-race)
 | - //Nothing for now//
