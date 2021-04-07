@@ -53,7 +53,9 @@
       (setf (state main) state))))
 
 (defmethod load-state ((state (eql T)) (main main))
-  (load-state (state main) (scene main)))
+  (if (< (save-time (state main)) (save-time (quicksave main)))
+      (load-state (quicksave main) (scene main))
+      (load-state (state main) (scene main))))
 
 (defmethod load-state ((state (eql :quick)) (main main))
   (load-state (quicksave main) (scene main)))
