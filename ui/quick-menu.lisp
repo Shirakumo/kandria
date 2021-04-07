@@ -12,7 +12,7 @@
    alloy:text
    :valign :middle
    :halign :middle
-   :font "PromptFont"
+   :font (setting :display :font)
    :size (alloy:un 15)
    :pattern colors:white))
 
@@ -39,7 +39,7 @@
    alloy:text
    :valign :middle
    :halign :start
-   :font "PromptFont"
+   :font (setting :display :font)
    :size (alloy:un 15)
    :pattern colors:white))
 

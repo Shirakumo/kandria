@@ -11,7 +11,8 @@
                  :display (:resolution (1280 720)
                            :fullscreen NIL
                            :vsync T
-                           :ui-scale 1.0)
+                           :ui-scale 1.0
+                           :font "PromptFont")
                  :gameplay (:rumble 1.0
                             :screen-shake 1.0
                             :god-mode NIL

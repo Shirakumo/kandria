@@ -13,7 +13,7 @@
 (presentations:define-realization (ui timer-line)
   ((:label simple:text)
    (alloy:margins) alloy:text
-   :font "PromptFont"
+   :font (setting :display :font)
    :valign :middle
    :halign :middle
    :size (alloy:un 26)

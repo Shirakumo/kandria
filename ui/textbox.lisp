@@ -22,7 +22,7 @@
    (alloy:margins 10 0 10 0)
    alloy:text
    :valign :bottom
-   :font "PromptFont"
+   :font (setting :display :font)
    :size (alloy:un 20)
    :pattern colors:white))
 
@@ -40,7 +40,7 @@
    alloy:text
    :valign :middle
    :halign :right
-   :font "PromptFont"
+   :font (setting :display :font)
    :size (alloy:ph 0.8)
    :pattern colors:white))
 
@@ -67,7 +67,7 @@
    :valign :middle
    :halign :left
    :wrap T
-   :font "PromptFont"
+   :font (setting :display :font)
    :size (alloy:un 20)
    :pattern colors:white))
 

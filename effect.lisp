@@ -82,7 +82,7 @@
 
 (define-shader-entity text-effect (shader-effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
-   (font :initarg :font :initform (simple:request-font (unit 'ui-pass T) "PromptFont") :accessor font)
+   (font :initarg :font :initform (simple:request-font (unit 'ui-pass T) (setting :display :font)) :accessor font)
    (vertex-data :accessor vertex-data)
    (lifetime :initarg :lifetime :initform 1.0 :accessor lifetime)))
 
