@@ -233,11 +233,11 @@
           (when path
             (load path)))
         (alloy:with-confirmation ("Are you sure you want to reload the region?"  :ui (unit 'ui-pass T))
-          (load T)))))
+          (load (packet (region +world+)))))))
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
   (if (retained :control)
-      (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)) :filter "zip")))
+      (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)) :filter '(("ZIP files" "zip")))))
         (when path
           (save-region (region +world+) path)))
       (save-region T T)))
@@ -256,7 +256,7 @@
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
   (if (retained :control)
-      (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)) :filter "zip")))
+      (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)) :filter '(("ZIP files" "zip")))))
         (when path
           (load-state path T)))
       (load-state T T))

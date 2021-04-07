@@ -39,7 +39,7 @@
                                     :dialogue dialogue :repeatable repeatable)))))
 
 (define-decoder (region world-v0) (info packet)
-  (let* ((region (apply #'make-instance 'region info))
+  (let* ((region (apply #'make-instance 'region :packet packet info))
          (content (parse-sexps (packet-entry "data.lisp" packet :element-type 'character))))
     (loop for (type . initargs) in content
           do (enter (decode type initargs) region))

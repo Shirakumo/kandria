@@ -107,9 +107,6 @@
             (pathname (namestring entry))
             (string entry))))
 
-(defmethod packet-entry-exists-p (entry (packet zip-packet))
-  (zip:get-zipfile-entry (entry-path entry packet) (storage packet)))
-
 (defmethod packet-entry (entry (packet zip-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8)))
         (file (zip:get-zipfile-entry (entry-path entry packet) (storage packet))))
@@ -132,6 +129,11 @@
 
 (defclass zip-write-packet (zip-packet)
   ())
+
+(defmethod packet-entry-exists-p (name (packet zip-write-packet))
+  (loop for entry in (zip::zipwriter-head (storage packet))
+        thereis (and (typep entry 'zip::zipwriter-entry)
+                     (string= name (zip::zipwriter-entry-name entry)))))
 
 (defmethod call-with-packet-entry (function entry (packet zip-write-packet) &key element-type)
   (let ((element-type (or element-type '(unsigned-byte 8))))
@@ -170,6 +172,9 @@
         when (and (< (length base) (length name))
                   (string= base name :end2 (length base)))
         collect name))
+
+(defmethod packet-entry-exists-p (entry (packet zip-read-packet))
+  (zip:get-zipfile-entry (entry-path entry packet) (storage packet)))
 
 (defclass dir-packet (packet)
   ((direction :initarg :direction :reader direction)))

@@ -7,7 +7,8 @@
    (description :initform "" :initarg :description :accessor description :type string)
    (preview :initform NIL :initarg :preview :accessor preview)
    (chunk-graph :initform NIL :accessor chunk-graph)
-   (bvh :initform (bvh:make-bvh) :reader bvh))
+   (bvh :initform (bvh:make-bvh) :reader bvh)
+   (packet :initarg :packet :accessor packet))
   (:default-initargs
    :layer-count +layer-count+))
 
