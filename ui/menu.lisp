@@ -211,6 +211,7 @@
                 (control video should-application-fullscreen (:display :fullscreen) 'alloy:switch)
                 (control video activate-vsync (:display :vsync) 'alloy:switch)
                 (control video user-interface-scale-factor (:display :ui-scale) 'alloy:ranged-slider :range '(0.25 . 2.0) :step 0.25)
+                (control video font (:display :font) 'alloy:combo-set :value-set '("PromptFont" "OpenDyslexic"))
                 (alloy:enter apply video)
                 (alloy:enter apply focus :layer 1)))
             (with-options-tab (gameplay (@ gameplay-settings))
