@@ -151,6 +151,7 @@ Health:             ~d
 Stun:               ~7,2f
 Iframes:            ~d
 Interactable:       ~a
+Spawn:              ~7,2f ~7,2f
 Collisions:
   T: ~a
   R: ~a
@@ -166,6 +167,7 @@ Collisions:
             (stun-time player)
             (iframes player)
             (interactable player)
+            (vx (spawn-location player)) (vy (spawn-location player))
             (svref (collisions player) 0)
             (svref (collisions player) 1)
             (svref (collisions player) 2)
@@ -207,8 +209,8 @@ Collisions:
     (alloy:enter "IO" layout :constraints `((:size 100 20) (:inside ,io :halign :left :valign :top :margin 5)))
     (alloy:enter "GC Pause" layout :constraints `((:size 100 20) (:inside ,gc :halign :left :valign :top :margin 5)))
     (alloy:enter machine-info layout :constraints `((:size 600 300) (:right-of ,fps 10) (:top 10)))
-    (alloy:enter info layout :constraints `((:size 600 600) (:right-of ,fps 10) (:below ,machine-info 10)))
-    (alloy:enter qinfo layout :constraints `((:size 600 600) (:right-of ,info 10) (:top 10)))
+    (alloy:enter info layout :constraints `((:size 600 2000) (:right-of ,fps 10) (:below ,machine-info 10)))
+    (alloy:enter qinfo layout :constraints `((:size 600 2000) (:right-of ,info 10) (:top 10)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod handle ((ev tick) (panel diagnostics))
