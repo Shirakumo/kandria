@@ -66,10 +66,12 @@
       ;; Camera shake
       (when (< 0 (shake-timer camera))
         (decf (shake-timer camera) (dt ev))
-        (dolist (device (gamepad:list-devices))
-          (gamepad:rumble device (if (< 0 (shake-timer camera))
-                                     (* 100 (dt ev) (shake-controller-multiplier camera) (shake-intensity camera))
-                                     0)))
+        (when (and (typep +input-source+ 'gamepad:device)
+                   (< 0 (shake-controller-multiplier camera)))
+          (gamepad:rumble +input-source+
+                          (if (< 0 (shake-timer camera))
+                              (* 100 (dt ev) (shake-controller-multiplier camera) (shake-intensity camera))
+                              0)))
         ;; Deterministic shake so that we can slow it down properly.
         (let ((frame-id (sxhash (+ (shake-unique camera) (mod (floor (* (shake-timer camera) 100)) 100)))))
           (nv+ loc (polar->cartesian (vec (* (logand #xFF (1+ frame-id)) (shake-intensity camera) 0.001)
