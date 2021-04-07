@@ -367,7 +367,7 @@ void main(){
          (info (tile-types (generator (albedo chunk))))
          (data (buffer-data vbo)))
     ;; TODO: Optimise the lines by merging them together whenever possible
-    (labels ((tile (x y)
+    (labels ((map-tile-types (fun x y)
                (let ((x (aref layer (+ 0 (* 2 (+ x (* y w))))))
                      (y (aref layer (+ 1 (* 2 (+ x (* y w)))))))
                  (loop for (name . set) in info
@@ -375,31 +375,33 @@ void main(){
                        (loop for (type . tiles) in set
                              for found = (loop for (_x _y) in tiles
                                                thereis (and (= x _x) (= y _y)))
-                             do (when found (return type)))))))
+                             do (when found
+                                  (funcall fun type)))))))
       (setf (fill-pointer data) 0)
       (dotimes (y h)
         (dotimes (x w)
-          (flet ((line (xa ya xb yb)
-                   (let ((x (+ 8 (* (- x (/ w 2)) +tile-size+)))
-                         (y (+ 8 (* (- y (/ h 2)) +tile-size+))))
-                     (add-shadow-line vbo (vec (+ x xa) (+ y ya)) (vec (+ x xb) (+ y yb))))))
-            (let ((tile (tile x y)))
-              ;; Surface tiles
-              (case* tile
-                ((:t :vt :h :hl :hr :tl> :tr> :bl< :br< :ct) (line -8 +8 +8 +8))
-                ((:r :v :vt :vb :hr :tr> :br> :tl< :bl< :cr) (line +8 -8 +8 +8))
-                ((:b :vb :h :hl :hr :br> :bl> :tl< :tr< :cb) (line -8 -8 +8 -8))
-                ((:l :v :vt :vb :hl :tl> :bl> :tr< :br< :cl) (line -8 -8 -8 +8)))
-              ;; Slopes
-              (when (and (listp tile) (eql :slope (first tile)))
-                (let ((t-info (aref +surface-blocks+ (+ 4 (second tile)))))
-                  (line (vx (slope-l t-info)) (vy (slope-l t-info)) (vx (slope-r t-info)) (vy (slope-r t-info)))))
-              ;; Edge caps
-              (when tile
-                (cond ((= x 0)      (line -8 -8 -8 +8))
-                      ((= x (1- w)) (line +8 -8 +8 +8)))
-                (cond ((= y 0)      (line -8 -8 +8 -8))
-                      ((= y (1- h)) (line -8 +8 +8 +8)))))))))))
+          (labels ((line (xa ya xb yb)
+                     (let ((x (+ 8 (* (- x (/ w 2)) +tile-size+)))
+                           (y (+ 8 (* (- y (/ h 2)) +tile-size+))))
+                       (add-shadow-line vbo (vec (+ x xa) (+ y ya)) (vec (+ x xb) (+ y yb)))))
+                   (tile (tile)
+                     ;; Surface tiles
+                     (case* tile
+                       ((:t :vt :h :hl :hr :tl> :tr> :bl< :br< :ct) (line -8 +8 +8 +8))
+                       ((:r :v :vt :vb :hr :tr> :br> :tl< :bl< :cr) (line +8 -8 +8 +8))
+                       ((:b :vb :h :hl :hr :br> :bl> :tl< :tr< :cb) (line -8 -8 +8 -8))
+                       ((:l :v :vt :vb :hl :tl> :bl> :tr< :br< :cl) (line -8 -8 -8 +8)))
+                     ;; Slopes
+                     (when (and (listp tile) (eql :slope (first tile)))
+                       (let ((t-info (aref +surface-blocks+ (+ 4 (second tile)))))
+                         (line (vx (slope-l t-info)) (vy (slope-l t-info)) (vx (slope-r t-info)) (vy (slope-r t-info)))))
+                     ;; Edge caps
+                     (when tile
+                       (cond ((= x 0)      (line -8 -8 -8 +8))
+                             ((= x (1- w)) (line +8 -8 +8 +8)))
+                       (cond ((= y 0)      (line -8 -8 +8 -8))
+                             ((= y (1- h)) (line -8 +8 +8 +8))))))
+            (map-tile-types #'tile x y)))))))
 
 (defmethod contained-p ((a chunk) (b chunk))
   (and (< (abs (- (vx (location a)) (vx (location b)))) (+ (vx (bsize a)) (vx (bsize b))))
