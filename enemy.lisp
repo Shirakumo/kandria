@@ -8,6 +8,7 @@
    (ai-state :initform :normal :accessor ai-state)))
 
 (defmethod collides-p ((enemy enemy) (other enemy) hit) NIL)
+(defmethod collides-p ((enemy enemy) (other stopper) hit) T)
 
 (defmethod stage :after ((enemy enemy) (area staging-area))
   (stage (// 'kandria 'stab) area)
