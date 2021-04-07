@@ -27,7 +27,8 @@
   (stage (// 'kandria 'plain-transition) area))
 
 (defmethod handle ((ev transition-event) (fade fade))
-  (unless (flare:running (progression 'transition +world+))
+  (when (or (not (eq (on-complete fade) (on-complete ev)))
+            (not (flare:running (progression 'transition +world+))))
     (setf (on-complete fade) (on-complete ev))
     (setf (clock (progression 'transition +world+)) 0f0)
     (start (progression 'transition +world+))))
