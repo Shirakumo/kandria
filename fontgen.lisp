@@ -1,3 +1,4 @@
+(defvar *latin-1* " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ")
 
 (defun font-char-list (font)
   (with-output-to-string (stream)
@@ -14,13 +15,13 @@
                   do (push (code-char i) chars))
             (push (code-char (parse-integer part :radix 16)) chars))))))
 
-(defun generate-atlas (font &key (output #p""))
-  (let ((charfile #p "/tmp/charfile.txt")
-        (font (truename font)))
+(defun generate-atlas (font &key (output #p"") (chars (font-chars font)))
+  (let* ((charfile #p "/tmp/charfile.txt")
+         (font (truename font)))
     (sb-posix:chdir (pathname-utils:to-directory output))
+    (format T "~&Generating ~d chars..." (length chars))
     (with-open-file (stream charfile :direction :output :if-exists :supersede)
-      (dolist (char (font-chars font))
-        (write-char char stream)))
+      (map NIL (lambda (c) (write-char c stream)) chars))
     (sb-ext:run-program "msdf-bmfont" (list "-f" "json"
                                             "-o" (pathname-name font)
                                             "-i" (namestring charfile)
