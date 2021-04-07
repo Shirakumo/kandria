@@ -40,7 +40,7 @@
    alloy:text
    :valign :middle
    :halign :right
-   :font (setting :display :font)
+   :font "PromptFont"
    :size (alloy:ph 0.8)
    :pattern colors:white))
 
