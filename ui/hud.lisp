@@ -15,7 +15,7 @@
    "100%"
    :halign :end
    :valign :middle
-   :font "PromptFont"
+   :font (setting :display :font)
    :size (alloy:un 12)))
 
 (presentations:define-update (ui health-bar)

@@ -27,7 +27,7 @@
   ((:label simple:text)
    (alloy:margins 5 10 10 5)
    alloy:text
-   :font "PromptFont"
+   :font (setting :display :font)
    :halign :middle
    :valign :middle))
 
@@ -47,7 +47,7 @@
   ((:label simple:text)
    (alloy:margins 0)
    alloy:text
-   :font "PromptFont"
+   :font (setting :display :font)
    :wrap T
    :size (alloy:un 20)
    :halign :start
@@ -125,7 +125,7 @@
   (call-next-method)
   (dolist (panel (panels pass))
     (stage panel area))
-  (stage (simple:request-font pass "PromptFont") area)
+  (stage (simple:request-font pass (setting :display :font)) area)
   (stage (framebuffer pass) area))
 
 (defmethod compile-to-pass (object (pass ui-pass)))

@@ -1,28 +1,16 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass header (alloy:label*)
+(defclass header (label)
   ())
 
 (presentations:define-update (ui header)
   (:label
-   :font (simple:request-font alloy:renderer "PromptFont")
-   :pattern colors:white
    :size (alloy:un 70)
    :halign :middle
    :valign :middle))
 
-(defclass pause-button (alloy:button)
+(defclass pause-button (button)
   ())
-
-(presentations:define-realization (ui pause-button)
-  ((:background simple:rectangle)
-   (alloy:margins))
-  ((:label simple:text)
-   (alloy:margins 10 2) alloy:text
-   :font "PromptFont"
-   :size (alloy:un 20)
-   :halign :middle
-   :valign :middle))
 
 (presentations:define-update (ui pause-button)
   (:background
@@ -30,6 +18,7 @@
               ((:weak :strong) colors:white)
               ((NIL) (colored:color 0 0 0 0.5))))
   (:label
+   :size (alloy:un 20)
    :pattern (ecase alloy:focus
               ((:weak :strong) colors:black)
               ((NIL) colors:white))))

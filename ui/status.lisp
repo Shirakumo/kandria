@@ -7,7 +7,7 @@
 (presentations:define-realization (ui status-line)
   ((:label simple:text)
    (alloy:margins) alloy:text
-   :font "PromptFont"
+   :font (setting :display :font)
    :valign :top
    :halign :left
    :size (ecase (importance alloy:renderable)

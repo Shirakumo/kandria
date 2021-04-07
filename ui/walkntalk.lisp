@@ -12,7 +12,7 @@
    :valign :top
    :halign :left
    :wrap T
-   :font "PromptFont"
+   :font (setting :display :font)
    :size (alloy:un 25)
    :pattern colors:white))
 

@@ -40,7 +40,7 @@
    :pattern colors:transparent)
   ((:label simple:text)
    (alloy:margins 10 0 0 0) alloy:text
-   :font "PromptFont"
+   :font (setting :display :font)
    :size (alloy:un 20)
    :halign :start
    :valign :middle))
@@ -80,7 +80,7 @@
    (alloy:margins (alloy:ph 1.0) 0 0 0)
    alloy:text
    :size (alloy:un 15)
-   :font "PromptFont"))
+   :font (setting :display :font)))
 
 (defclass quest-widget (org.shirakumo.alloy.layouts.constraint:layout alloy:focus-element alloy:renderable)
   ((quest :initarg :quest :accessor quest)))
