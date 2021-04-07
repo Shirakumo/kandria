@@ -86,6 +86,8 @@
    (vertex-data :accessor vertex-data)
    (lifetime :initarg :lifetime :initform 1.0 :accessor lifetime)))
 
+(defmethod layer-index ((effect text-effect)) (+ 2 +base-layer+))
+
 (defmethod trigger :after ((effect text-effect) source &key (text (text effect)))
   (let ((s (view-scale (unit :camera T))))
     (multiple-value-bind (breaks array x- y- x+ y+)
