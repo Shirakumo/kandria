@@ -176,6 +176,7 @@
   (destructuring-bind (&key location (velocity '(0 0)) direction state animation frame health stun-time &allow-other-keys) initargs
     (setf (slot-value animatable 'location) (decode 'vec2 location))
     (setf (velocity animatable) (decode 'vec2 velocity))
+    (vsetf (frame-velocity animatable) 0 0)
     (setf (direction animatable) direction)
     (setf (state animatable) state)
     (when (and animation (< 0 (length (animations animatable))))
@@ -191,6 +192,8 @@
       (nibbles:write-ub16/le (length trace) stream)
       (dotimes (i (length trace))
         (nibbles:write-ieee-single/le (aref trace i) stream))))
+  ;; Set spawn point as current loc.
+  (vsetf (spawn-location player) (vx (location player)) (vy (location player)))
   (list* :inventory (alexandria:hash-table-alist (storage player))
          (call-next-method)))
 
