@@ -137,7 +137,7 @@
       (setf (chunk-graph region) (make-chunk-graph region)))))
 
 (defun apply-video-settings ()
-  (destructuring-bind (&key resolution width height fullscreen vsync ui-scale) (setting :display)
+  (destructuring-bind (&key resolution width height fullscreen vsync ui-scale &allow-other-keys) (setting :display)
     (resize *context* (or width (first resolution)) (or height (second resolution)))
     (show *context* :fullscreen fullscreen)
     (setf (vsync *context*) vsync)
