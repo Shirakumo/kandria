@@ -706,11 +706,12 @@
     (switch-chunk other)))
 
 (defmethod handle ((ev switch-chunk) (player player))
-  (let ((loc (vcopy (location player))))
-    (when (v/= 0 (velocity player))
-      (nv+ loc (v* (vunit (velocity player)) +tile-size+)))
-    (setf (chunk player) (chunk ev))
-    (setf (spawn-location player) loc)))
+  (unless (eq (chunk ev) (chunk player))
+    (let ((loc (vcopy (location player))))
+      (when (v/= 0 (velocity player))
+        (nv+ loc (v* (vunit (velocity player)) +tile-size+)))
+      (setf (chunk player) (chunk ev))
+      (setf (spawn-location player) loc))))
 
 (defmethod oob ((player player) (new chunk))
   (switch-chunk new))
@@ -723,6 +724,7 @@
 
 (defmethod respawn ((player player))
   (vsetf (velocity player) 0 0)
+  (vsetf (frame-velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player)))
   (setf (state player) :normal)
   (snap-to-target (unit :camera T) player))
