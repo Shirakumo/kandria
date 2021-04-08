@@ -89,7 +89,7 @@
               (setf (animation enemy) 'stand)))))))
 
 (define-shader-entity wolf (ground-enemy half-solid)
-  ()
+  ((jitter :initform (random* 0 +tile-size+) :accessor jitter))
   (:default-initargs
    :sprite-data (asset 'kandria 'wolf)))
 
@@ -120,7 +120,7 @@
          (col (collisions enemy))
          (vel (velocity enemy)))
     (flet ((distance-p (max)
-             (< distance (* +tile-size+ max))))
+             (< (+ (jitter enemy) distance) (* +tile-size+ max))))
       (when (eql :normal (state enemy))
         (ecase (ai-state enemy)
           (:normal
