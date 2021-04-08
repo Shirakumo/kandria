@@ -62,3 +62,5 @@
 (define-shader-entity passage (door)
   ()
   (:default-initargs :sprite-data (asset 'kandria 'passage)))
+
+(defmethod object-renderable-p ((passage passage) (pass shader-pass)) NIL)
