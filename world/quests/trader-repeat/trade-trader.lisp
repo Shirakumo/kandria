@@ -94,6 +94,15 @@
 ;; TODO: open shop UI
 ;; TODO: flesh out with Sahil questions relevant to current plot points - confidente, as a fellow outsider?
 
+#|
+- Take a small health pack for 2 scrap parts
+  ! eval (store 'small-health-pack 1)
+- Take a medium health pack for 5 scrap parts
+  ! eval (store 'medium-health-pack 1)
+- Take a large health pack for 10 scrap parts
+  ! eval (store 'large-health-pack 1)
+|#
+
 #| TODO:
 later talks with trader:
 - ask specifically about each faction member

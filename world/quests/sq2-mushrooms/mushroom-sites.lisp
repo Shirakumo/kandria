@@ -21,7 +21,7 @@
   ! eval (store 'mushroom-good-2 1)
   ! eval (setf (var 'batch2) T)
   < ending
-- Take none
+- //Take none//
 
 # ending
 ? (and (var 'batch1) (var 'batch2))

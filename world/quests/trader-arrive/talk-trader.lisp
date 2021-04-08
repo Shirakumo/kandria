@@ -6,7 +6,7 @@
  :on-activate (talk-to-trader)
  :on-complete (trader-repeat))
  
-(quest:interaction :name talk-to-trader :interactable trader :dialogue "
+(quest:interaction :name talk-to-trader :interactable trader :variables (small-health medium-health large-health) :dialogue "
 ~ trader
 | Well, well... Are you who I think you are?
 - Who do you think I am?
@@ -54,7 +54,7 @@
   < continue
 
 # continue
-| The least I can do is help keep your in tip-top condition.
+| The least I can do is help keep you in tip-top condition.
 | I've read about androids - under the hood you're pretty much the same as those rogues. No offence.
 | Thankfully you've got much more going on up here.
 ~ player
@@ -64,32 +64,51 @@
 ~ player
 | //He turns to the stacks of shelves behind him and rummages around.//
 | //Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//
-| //He crams old circuit boards, clipped wires, and rolls of solder into several small tins.//
+| //He crams old circuit boards, clipped wires, and rolls of solder into several tins.//
 ~ trader
-| Voila! I give you: The Android Repair Pack. Custom made just for you.
-| Go on, take look - don't by shy. And since this is your first time, I'll do you a special deal.
-| p/h Open shop UI
+| Voila! I give you: The Android Health Pack. Custom made just for you.
+~ player
+| //It's crude, but I'm sure I can do something with it. If only poke my eye out.//
+~ trader
+| Go on, take look - don't by shy. And since this is your first time, you can have them free of charge.
+! label shop
+~ player
+- [(not (var 'small-health)) //Take a small health pack//|]
+  ! eval (store 'small-health-pack 1)
+  ! eval (setf (var 'small-health) T)
+  < shop
+- [(not (var 'medium-health)) //Take a medium health pack//|]
+  ! eval (store 'medium-health-pack 1)
+  ! eval (setf (var 'medium-health) T)
+  < shop
+- [(not (var 'large-health)) //Take a large health pack//|]
+  ! eval (store 'large-health-pack 1)
+  ! eval (setf (var 'large-health) T)
+  < shop
+- I'm done.
+  ~ trader
+  | You got it.
 ~ trader
 | Say, I don't suppose you'd like to trade that sword of yours? I've never seen anything like it...
 - It's an electronic stun blade. And I need it.
   ~ trader
   | Electronic?... That's downright incredible. And it transforms from your arm?
-  < sword
+  < sword-explain
 - It is paired via my NFCS. It's useless to anyone else.
   ~ trader
   | It's electronic?... That's downright incredible. And it transforms from your arm?
-  < sword
+  < sword-explain
 - It's not for sale.
   < end
 
-# sword
+# sword-explain
 ~ player
 | Correct - it conserves power that way, then auto-unsheathes when I need it.
 < end
 
 # end
 ~ trader
-| Well, if you ever change your mind, don't go to anyone else. I'd trade handsomely for it you can be sure of that.
+| Well, if you ever change your mind, don't go to anyone else. I'd trade handsomely for it, you can be sure of that.
 | You take it easy, habeebti.
 ")
 ;; TODO: open shop UI
