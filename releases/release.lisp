@@ -2,7 +2,8 @@
   (:use #:cl)
   (:local-nicknames
    (#:putils #:org.shirakumo.pathname-utils)
-   (#:zippy #:org.shirakumo.zippy))
+   (#:zippy #:org.shirakumo.zippy)
+   (#:attributes #:org.shirakumo.file-attributes))
   (:export
    #:release
    #:build
@@ -24,6 +25,11 @@
 
 (defun output ()
   (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*)))
+
+(defun list-paths (base &rest paths)
+  (loop for path in paths
+        for wild = (merge-pathnames path (make-pathname :directory '(:relative :wild-inferiors)))
+        append (directory (merge-pathnames wild base))))
 
 (defun get-pass (name)
   (ignore-errors
@@ -74,15 +80,20 @@
 (defun release ()
   (pathname-utils:subdirectory (output) (format NIL "kandria-~a" (version))))
 
-(defun deploy ()
-  (let* ((release (release))
-         (bindir (pathname-utils:subdirectory (asdf:system-source-directory "kandria") "bin")))
+(defun deploy (&key (release (release)))
+  (let ((bindir (pathname-utils:subdirectory (asdf:system-source-directory "kandria") "bin")))
     (ensure-directories-exist release)
     (deploy:copy-directory-tree bindir release :copy-root NIL)
     (uiop:delete-file-if-exists (merge-pathnames "trial.log" release))
+    (dolist (path (list-paths release "*.exe" "*.run" "kandria-macos" "*.dylib"))
+      (let ((attrs (attributes:decode-attributes (attributes:attributes path))))
+        (setf (getf attrs :other-execute) T)
+        (setf (getf attrs :group-execute) T)
+        (setf (getf attrs :owner-execute) T)
+        (setf (attributes:attributes path) (attributes:encode-attributes attrs))))
     release))
 
-(defun bundle (release)
+(defun bundle (&key (release (release)))
   (let ((bundle (make-pathname :name (pathname-utils:directory-name release) :type "zip"
                                :defaults (pathname-utils:parent release))))
     (zippy:compress-zip release bundle :if-exists :supersede)
@@ -121,7 +132,7 @@
   (deploy:status 1 "Deploying to release directory")
   (let ((release (deploy)))
     (deploy:status 1 "Creating bundle zip")
-    #++(bundle release)
+    #++(bundle :release release)
     (when upload
       (deploy:status 1 "Uploading")
       (upload upload :release release))
