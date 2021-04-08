@@ -21,6 +21,40 @@
 ~ fi
 | You're back - did you find the seeds?
 ~ player
+| I've got them right here.
+~ fi
+! eval (retrieve 'seeds (item-count 'seeds))
+| Oh my... there must be... fifty sachets here. All fully stocked.
+| You've done well. Very well. I'll see these are sown right away.
+| This buys us hope I never thought we'd have.
+| Know that you are earning my trust, Stranger. Perhaps in time you will become a part of the Noka yourself.
+| God knows we could use another hunter.
+| But for now, please accept this reward as a token of my appreciation.
+! eval (store 'parts 20)
+~ fi
+? (complete-p 'q3-new-home)
+| | You should check in with Catherine too - I'm sure she'd like to see you again.
+| ! eval (activate 'sq-act1-intro)
+|?
+| ? (not (active-p 'q3-new-home))
+| | | Oh, I've also given Jack a special assignment - something I think you'll be well-suited to help with.
+| | | He'll be in engineering.
+|   
+| | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
+| | It would be wise to be well-equipped for your work.
+| ! eval (setf (location 'trader) 'loc-trader)
+| ! eval (activate 'trader-arrive)
+")
+;; kuso = shit (Japanese)
+;; TODO: act 2 prelude too
+;; player learns "Noka" for the first time
+
+#| ARCHIVED VERSION before lie options removed - for reference. May be useable in a future act.
+
+(quest:interaction :name seeds-return-fi :interactable fi :dialogue "
+~ fi
+| You're back - did you find the seeds?
+~ player
 - [(have 'seeds) I've got them right here.]
   ~ fi
   ? (= 54 (item-count 'seeds))
@@ -91,12 +125,5 @@
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")
-;; kuso = shit (Japanese)
-;; TODO: act 2 prelude too
-;; player learns "Noka" for the first time
-
-#|
-
-
 
 |#
