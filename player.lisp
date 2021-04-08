@@ -161,7 +161,8 @@
      (when (svref (collisions player) 2)
        (setf (state player) :crawling)))
     (:crawling
-     (unless (svref (collisions player) 0)
+     (when (and (not (svref (collisions player) 0))
+                (null (scan-collision +world+ (vec (vx (location player)) (+ (vy (location player)) 18)))))
        (setf (state player) :normal)))))
 
 (defmethod handle ((ev light-attack) (player player))
