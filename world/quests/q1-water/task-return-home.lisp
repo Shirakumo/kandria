@@ -154,7 +154,7 @@
 | Oh! I almost forgot: It's our way to gift something to those that help us out.
 | Since those two aren't likely to be feeling generous anytime soon, I'll give you these parts.
 ! eval (store 'parts 20)
-| It's not much, but you can trade them for things you might want. Or you will once Sahil gets here.
+| It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
 | He's overdue, which is not like him at all. Maybe those rogues scared him off.
 | Anyway, don't worry about them. They'll soon see what I see - a big friendly badass who can protect us.
 | Well, I've got work to do. I think Fi might want a private word with you.

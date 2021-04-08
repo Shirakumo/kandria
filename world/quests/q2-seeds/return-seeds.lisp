@@ -24,7 +24,7 @@
 | I've got them right here.
 ~ fi
 ! eval (retrieve 'seeds (item-count 'seeds))
-| Oh my... there must be... fifty sachets here. All fully stocked.
+| Oh my. There must be... fifty sachets here. All fully stocked.
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps in time you will become a part of the Noka yourself.

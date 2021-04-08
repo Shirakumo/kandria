@@ -11,7 +11,7 @@
 ~ player
 | //It's new-home candidate site Gamma.//
 | //This position is favourably elevated and well-concealed, offering a vantage point from which to spy intruders.//
-| //The building's foundations appear strong, but its superstructure is a sand-blasted shell.//
+| //The building's foundations appear strong, but the rest is a sand-blasted shell.//
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
 | | I should return to Jack with the bad news.
 | ! eval (activate 'return-new-home)

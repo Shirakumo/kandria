@@ -58,7 +58,7 @@
 ;; Housing interior - sign
 (quest:interaction :name housing-cafe :interactable lore-cafe :repeatable T :dialogue "
 ~ player
-| //Café Alpha... Did I used to come here? I recall the service being much better.//
+| //Café Alpha... Did I used to come here? If so I'm sure the service was much better.//
 ")
 
 ;; Ruins - transition/view

@@ -10,7 +10,7 @@
 ~ catherine
 | [? Hey, Stranger. How are you? | Hey you, how's it going? | So, how's you?]
 ~ player
-- Can I help you with anything?
+- Can I help?
   < choices
 - I'm good thank you.
   < continue
