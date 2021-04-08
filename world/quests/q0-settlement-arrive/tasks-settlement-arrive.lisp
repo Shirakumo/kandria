@@ -83,7 +83,7 @@
   | Well... I mean, I think you're amazing - a working android from the old world!
   | But not everyone has fond tales to tell about androids, I guess. Their loss though.
 ~ catherine
-| We'd better find Jack. He'll be in engineering.
+| We'd better find Jack. He'll be in Engineering.
 ! eval (activate 'find-jack)
 ! eval (lead 'player 'jack (unit 'catherine))
 ")

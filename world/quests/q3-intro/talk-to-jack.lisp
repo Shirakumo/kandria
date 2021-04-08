@@ -34,7 +34,7 @@
   ~ jack
   | Bet your behavioural mechanisms are working overtime, try'na figure out how to get on my good side, huh? Look...
 ~ jack
-| I think the Ruins to the east are your best shot. It keeps us close to the farm, and still gives us shelter.
+| I think the Ruins to the east are your best shot. It keeps us close to the Farm, and still gives us shelter.
 | So scout around, climb, do whatever an android does.
 | Just remember while you ninja around that we mere mortals gotta follow your path.
 | Your android brain might think the top of a toppled skyscraper is the safest place there is.
@@ -50,7 +50,6 @@
 ~ jack
 | Well, I guess I should say good luck.
 | Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
-| Besides, I'm sure you can take care of yerself.
 ")
 
 #|

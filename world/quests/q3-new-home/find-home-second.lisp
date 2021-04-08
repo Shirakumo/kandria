@@ -9,9 +9,16 @@
 ;; enemies on this quest will be world NPCs, not spawned for the quest
 (quest:interaction :name new-home-site-2 :interactable new-home-2 :dialogue "
 ~ player
+| //It's new-home candidate site Gamma.//
+| //This position is favourably elevated and well-concealed, offering a vantage point from which to spy intruders.//
+| //The building's foundations appear strong, but its superstructure is a sand-blasted shell.//
+? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
+| | I should return to Jack with the bad news.
+| ! eval (activate 'return-new-home)
+")
+
+#| original placeholder location desc:
 | //It's new-home site Gamma.//
 | //This position is favourable and well-concealed.//
 | //The ground is secure, but limited in footprint - and there's no shelter from the weather.//
-? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
-| ! eval (activate 'return-new-home)
-")
+|#

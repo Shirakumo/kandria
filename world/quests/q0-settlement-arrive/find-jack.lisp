@@ -35,7 +35,7 @@
 ~ catherine
 | Well I'm here now. What can I do?
 ~ jack
-| You can stay put and man engineering. Fi and the others might need you.
+| You can stay put and man Engineering. Fi and the others might need you.
 | I'm goin' down there to check the supply pipe.
 ~ catherine
 | You can't - not with your leg. And you know there's nothing I can't fix. Let me go.

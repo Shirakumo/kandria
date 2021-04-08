@@ -38,7 +38,7 @@
 |?
 | ? (not (active-p 'q3-new-home))
 | | | Oh, I've also given Jack a special assignment - something I think you'll be well-suited to help with.
-| | | He'll be in engineering.
+| | | He'll be in Engineering.
 |   
 | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
 | | It would be wise to be well-equipped for your work.
@@ -118,7 +118,7 @@
 |?
 | ? (not (active-p 'q3-new-home))
 | | | Oh, I've also given Jack a special assignment - something I think you'll be well-suited to help with.
-| | | He'll be in engineering.
+| | | He'll be in Engineering.
 |   
 | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
 | | It would be wise to be well-equipped for your work.
