@@ -1,5 +1,20 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defmacro with-editor-error-handling (&body body)
+  (let ((thunk (gensym "THUNK"))
+        (handler (gensym "HANDLER")))
+    `(flet ((,thunk ()
+              ,@body)
+            (,handler (error)
+              (v:severe :trial.editor error)
+              (alloy:message (princ-to-string error) :title "Error" :ui (unit 'ui-pass T))
+              (invoke-restart ',handler)))
+       (if (deploy:deployed-p)
+           (with-simple-restart (,handler "Exit.")
+             (handler-bind ((error #',handler))
+               (,thunk)))
+           (,thunk)))))
+
 (defclass sidebar (single-widget)
   ((side :initarg :side :accessor side)
    (entity :initform NIL :accessor entity)
@@ -147,8 +162,9 @@
 
 (defmethod handle :around ((ev event) (editor editor))
   (unless (call-next-method)
-    (handle ev (cond ((retained :alt) (alt-tool editor))
-                     (T (tool editor))))))
+    (with-editor-error-handling
+      (handle ev (cond ((retained :alt) (alt-tool editor))
+                       (T (tool editor)))))))
 
 (defmethod handle ((ev key-release) (editor editor))
   (let ((camera (unit :camera T)))
@@ -193,6 +209,10 @@
              (eq :left (button event)))
     (let ((pos (mouse-world-pos (pos event))))
       (setf (entity editor) (entity-at-point pos +world+)))))
+
+(defmethod edit :around (thing (editor editor))
+  (with-editor-error-handling
+    (call-next-method)))
 
 (defmethod edit :after (action (editor editor))
   (update-marker editor))
