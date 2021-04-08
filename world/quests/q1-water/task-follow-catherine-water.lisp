@@ -144,6 +144,7 @@
   | No time to explain! Take them out!
 ! eval (walk-n-talk 'catherine-fighttalk2)
 ")
+;; sraka = asshole (Russian)
 #|
 
 

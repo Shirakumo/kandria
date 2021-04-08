@@ -122,6 +122,7 @@
 ! eval (move-to 'eng-jack (unit 'jack))
 ! eval (activate 'catherine-trader)
 ")
+;; sayonara = goodbye (Japanese)
 ;; TODO future quest/plot point: find a working computer
 #| TODO temp removal of moving jack and fi, as causes crash
 ! eval (move-to 'fi-farm (unit 'fi))

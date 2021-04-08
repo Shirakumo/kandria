@@ -69,11 +69,38 @@
       < shop
   - //Sell//
     ! label sell
-    | p/h selling UI
-    < shop
+    ~ player
+    - [(have 'small-health-pack) //Small HP for 2$ (I have {(item-count 'small-health-pack)})//|]
+      ! eval (retrieve 'small-health-pack 1)
+      ! eval (store 'parts 2)
+      < sell
+    - [(have 'medium-health-pack) //Medium HP for 5$ (I have {(item-count 'medium-health-pack)})//|]
+      ! eval (retrieve 'medium-health-pack 1)
+      ! eval (store 'parts 5)
+      < sell
+    - [(have 'large-health-pack) //Large HP for 10$ (I have {(item-count 'large-health-pack)})//|]
+      ! eval (retrieve 'large-health-pack 1)
+      ! eval (store 'parts 10)
+      < sell
+    - [(have 'walkie-talkie) //Walkie-talkie for 150$//|]
+      ! eval (retrieve 'walkie-talkie 1)
+      ! eval (store 'parts 150)
+      ~ trader
+      | Hey, where'd you get that? These things are almost priceless.
+      | Not for old Sahil, of course.
+      < sell
+    - [(have 'mushroom-bad-1) //Black knights ({(item-count 'mushroom-bad-1)}) for {(* (item-count 'mushroom-bad-1) 20)}$//|]
+      ! eval (store 'parts (* (item-count 'mushroom-bad-1) 20))
+      ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
+      ~ trader
+      | It's true, black knights are poisonous to consume.
+      | But there are some in the Valley who... Let's just say they have other uses for them.
+      < sell
+    - //Nothing to sell//
+      < shop
   - I changed my mind.
     < changed-mind
-- Can we talk.  
+- Can we talk.
   ~ trader
   | [? Of course, habeebti - always. | We can indeed. | What's on your mind? | I love to chat.]
   ! label talk
@@ -100,7 +127,7 @@
   |   ~ player
   |   | You pull your own caravan?
   |   ~ trader
-  |   | Well no other alugud is going to do it for me!
+  |   | Well no other nadhil is going to do it for me!
   |   | I used to have an ox, believe or not... Ha, an ox, in these parts! It's hard to imagine.
   |   | Didn't last long after the wolves got at her throat though. Poor Celina.
   |   < talk
@@ -131,6 +158,8 @@
 | [? Happens to the best of us. | As you wish. | Don't worry about it.]
 < shop
 ")
+;; nadhil = bastard (Arabic)
+;; TODO show currency while in shop UI
 ;; TODO: flesh out with Sahil questions relevant to current plot points - confidente, as a fellow outsider?
 
 #| TODO: when get scrolling options, add to buy menu:

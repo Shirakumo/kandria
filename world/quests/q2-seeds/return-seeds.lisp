@@ -91,6 +91,7 @@
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")
+;; kuso = shit (Japanese)
 ;; TODO: act 2 prelude too
 ;; player learns "Noka" for the first time
 
