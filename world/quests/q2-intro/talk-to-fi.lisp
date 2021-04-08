@@ -29,6 +29,7 @@
 | I knew coming here would be hard, but we are on the brink - if we don't starve, then it seems the Wraw will get us in the end.
 | They'll be coming, sooner or later, now they know where we are. No one escapes them and lives very long.
 ! label questions
+- What's next?
 - Who are the Wraw?
   ~ fi
   | Another faction, deep underground. We were part of them.
@@ -46,7 +47,6 @@
   | I don't know. You're a stranger, if you'll pardon the pun. But you've helped us.
   | And I value fresh perspective. I don't get much of that around here.
   < questions
-- What's next?
 ~ fi
 | I haven't told the others about the harvest, but they aren't blind. I'm telling you because I think you can help.
 | There's a place beneath the Ruins to the east, where we first discovered the seeds that you now see growing before you.
