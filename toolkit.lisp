@@ -674,4 +674,5 @@
   (let ((latest (loop for source in sources
                       maximize (file-write-date source))))
     (loop for target in targets
-          thereis (< (file-write-date target) latest))))
+          thereis (or (null (probe-file target))
+                      (< (file-write-date target) latest)))))

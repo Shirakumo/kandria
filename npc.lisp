@@ -231,7 +231,7 @@
   
 (define-shader-entity trader (npc)
   ((name :initform 'trader)
-   (profile-sprite-data :initform (asset 'kandria 'fi-profile))
+   (profile-sprite-data :initform (asset 'kandria 'sahil-profile))
    (nametag :initform (@ trader-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'sahil)))
