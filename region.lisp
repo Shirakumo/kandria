@@ -65,6 +65,14 @@
     (let ((hit (scan object target on-hit)))
       (when hit (return hit)))))
 
+(defmethod scan ((region region) (target vec4) on-hit)
+  (bvh:do-fitting (object (bvh region) (vec (- (vx4 target) (vz4 target))
+                                            (- (vy4 target) (vw4 target))
+                                            (+ (vx4 target) (vz4 target))
+                                            (+ (vy4 target) (vw4 target))))
+    (let ((hit (scan object target on-hit)))
+      (when hit (return hit)))))
+
 (defmethod unit (name (region region))
   (for:for ((entity over region))
     (when (and (typep entity 'unit)

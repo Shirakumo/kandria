@@ -42,7 +42,6 @@
     (declare (ignore hh))
     (setf (timestamp world) (float (encode-universal-time ss mm (truncate (mod hour 24)) d m y 0) 0d0))))
 
-;; TODO: use spatial acceleration data structure instead.
 (defmethod scan ((world world) target on-hit)
   (scan (region world) target on-hit))
 
