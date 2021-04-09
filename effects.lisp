@@ -33,12 +33,13 @@
     (start (progression 'transition +world+))))
 
 (defmethod render ((fade fade) (program shader-program))
-  (gl:active-texture :texture0)
-  (gl:bind-texture :texture-2d (gl-name (texture fade)))
-  (setf (uniform program "screen_color") (color fade))
-  (setf (uniform program "strength") (- 1 (strength fade)))
-  (gl:bind-vertex-array (gl-name (// 'trial 'fullscreen-square)))
-  (%gl:draw-arrays :triangle-strip 0 4))
+  (when (< 0 (strength fade))
+    (gl:active-texture :texture0)
+    (gl:bind-texture :texture-2d (gl-name (texture fade)))
+    (setf (uniform program "screen_color") (color fade))
+    (setf (uniform program "strength") (- 1 (strength fade)))
+    (gl:bind-vertex-array (gl-name (// 'trial 'fullscreen-square)))
+    (%gl:draw-arrays :triangle-strip 0 4)))
 
 (define-class-shader (fade :vertex-shader)
   "
