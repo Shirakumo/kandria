@@ -112,6 +112,12 @@
               (:weak (colored:color 0.3 0.3 0.3))
               ((NIL) (colored:color 0.2 0.2 0.2)))))
 
+(defclass input-label (label)
+  ())
+
+(presentations:define-update (ui input-label)
+  (:label :size (alloy:un 30) :halign :middle :valign :middle))
+
 (defclass menu (pausing-panel)
   ((status-display :initform NIL :accessor status-display)))
 
@@ -187,6 +193,22 @@
                   (let ((button (make-instance 'item-button :value item :inventory inventory)))
                     (alloy:enter button tab)
                     (alloy:enter button focus :layer layer))))))))
+
+      (with-tab (tab (@ controls-menu) 'alloy:grid-layout :col-sizes '(300 100 100) :row-sizes '(50))
+        (make-instance 'alloy:label* :value "Action" :layout-parent tab)
+        (make-instance 'alloy:label* :value "Key" :layout-parent tab)
+        (make-instance 'alloy:label* :value "Pad" :layout-parent tab)
+        (dolist (action '(left right up down jump light-attack heavy-attack interact dash climb crawl quickmenu report-bug))
+          (make-instance 'alloy:label* :value (string action) :layout-parent tab)
+          (let ((keyboard (first (action-input 'trial::keymap action :device :keyboard)))
+                (gamepad (first (action-input 'trial::keymap action :device :gamepad))))
+            (when keyboard
+              (make-instance 'input-label :value (string (or (prompt-char keyboard :bank :mouse)
+                                                             (prompt-char keyboard :bank :keyboard)))
+                                          :layout-parent tab))
+            (when gamepad
+              (make-instance 'input-label :value (string (or (prompt-char gamepad :bank :gamepad)))
+                                          :layout-parent tab)))))
       
       (with-tab (tab (@ options-menu) 'alloy:border-layout)
         (let ((tabs (make-instance 'vertical-tab-bar :style `((:bg :pattern ,(colored:color 0.12 0.12 0.12)))))
