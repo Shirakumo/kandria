@@ -17,7 +17,7 @@
   < ending
 - [(not (var 'batch2)) //Take 1 rusty puffball//|]
   | I pick 1 rusty puffball.
-  | They makes clothes from these? Call me a fashion victim but I wouldn't be seen dead in them.
+  | (:giggle) They makes clothes from these? Call me a fashion victim but I wouldn't be seen dead in them.
   ! eval (store 'mushroom-good-2 1)
   ! eval (setf (var 'batch2) T)
   < ending
@@ -57,7 +57,7 @@
   < ending
 - [(not (var 'batch3)) //Take 2 black knights//|]
   | I pick 2 black knights and stow them in my compartment.
-  | They remind me of decaying frogspawn. Yet I've never seen decaying frogspawn...
+  | (:thinking) They remind me of decaying frogspawn. Yet I've never seen decaying frogspawn...
   ! eval (store 'mushroom-bad-1 2)
   ! eval (setf (var 'batch3) T)
   < ending
@@ -110,7 +110,7 @@
   < ending
 - [(not (var 'batch3)) //Take 5 rusty puffballs//|]
   | I pick 5 rusty puffballs and stow them in my compartment.
-  | I suppose truffles would be too much to ask for.
+  | (:skeptical) I suppose truffles would be too much to ask for.
   ! eval (store 'mushroom-good-2 5)
   ! eval (setf (var 'batch3) T)
   < ending
@@ -135,7 +135,7 @@
   < ending
 - [(not (var 'batch2)) //Take 9 rusty puffballs//|]
   | I pick 9 rusty puffballs.
-  | Why do they look like an alien parasite from an ancient B-movie?
+  | Why do they look like alien parasites from an old B-movie?
   ! eval (store 'mushroom-good-2 9)
   ! eval (setf (var 'batch2) T)
   < ending
