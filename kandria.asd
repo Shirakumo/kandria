@@ -39,6 +39,7 @@
                (:file "move-to")
                (:file "animatable")
                (:file "inventory")
+               (:file "spawn")
                (:file "rope")
                (:file "trigger")
                (:file "player")
