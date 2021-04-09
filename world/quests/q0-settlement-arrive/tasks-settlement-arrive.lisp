@@ -14,20 +14,20 @@
 | (:cheer) Tada! Here we are!
 | What do you think...?
 ~ player
-- (:normal) It's a ruined city.
+- It's a ruined city.
   ~ catherine
   | (:excited) Yep! It's home.
-- (:giggle) It's nice.
+- It's nice.
   ~ catherine
   | (:excited) I knew you'd love it!
-- (:normal) (Lie) It's nice.
+- (Lie) It's nice.
   ~ catherine
   | (:excited) I knew you'd love it!
-- (:skeptical) You live here?
+- You live here?
   ~ catherine
   | (:excited) Yep! Pretty amazing, huh?
 ~ catherine
-| (:excited) And come look at this - I guarantee you won't ever have seen anything like it!
+| And come look at this - I guarantee you won't ever have seen anything like it!
 ! eval (activate 'field)
 ! eval (lead 'player 'farm-view 'catherine)
 ! eval (walk-n-talk 'walk)
@@ -51,43 +51,44 @@
 | (:excited) What'd I tell you? Amazing, right?!
 - What I am looking at?
   ~ catherine
-  | They're crops! We're growing crops - in the desert!
-  | ...
-  | Well don't look too excited. This is a real feat, believe me.
+  | (:excited) They're crops! We're growing crops - in the desert!
+  | (:normal) ...
+  | (:disappointed) Well don't look too excited. This is a real feat, believe me.
 - How did you manage this?
   ~ catherine
-  | Don't ask me - I'm just an engineer. Though I did help install the irrigation.
+  | (:normal) Don't ask me - I'm just an engineer. Though I did help install the irrigation.
   | Needless to say, growing crops in the desert isn't easy.
-  | Heh, I knew you'd be impressed.
+  | (:excited) Heh, I knew you'd be impressed.
 - I've seen these before. Lots of times.
   ~ catherine
-  | Oh...? From the old world? Do you remember? I bet they had loads of plantations.
+  | (:normal) Oh...? From the old world? Do you remember? I bet they had loads of plantations.
   ~ player
-  | I can't recall exactly. But I know I've seen crops like these before.  
+  | (:thinking) I can't recall exactly. But I know I've seen crops like these before.  
   ~ catherine
-  | Whoa, that's so cool. I wish I could have seen that too.
+  | (:excited) Whoa, that's so cool. I wish I could have seen that too.
 ~ catherine
-| Erm... hang on a second. Where is everyone?
+| (:concerned) Erm... hang on a second. Where is everyone?
 | This isn't the welcome I was expecting.
 - Is something wrong?
   ~ catherine
-  | Well, I just reactivated an android...
+  | (:concerned) Well, I just reactivated an android...
   | I thought they'd all be here to see you.
 - What were you expecting?
   ~ catherine
-  | I don't know...
+  | (:concerned) I don't know...
   | Though I just reactivated an android... I guess I thought everyone would be here to see you.
 - Is it me?
   ~ catherine
-  | You?... No of course not.
+  | (:concerned) You?... No of course not.
   | Well... I mean, I think you're amazing - a working android from the old world!
   | But not everyone has fond tales to tell about androids, I guess. Their loss though.
 ~ catherine
-| We'd better find Jack. He'll be in Engineering.
+| (:concerned) We'd better find Jack. He'll be in Engineering.
 ! eval (activate 'find-jack)
 ! eval (lead 'player 'jack (unit 'catherine))
 ")
 ;; learn Jack's name for the first time
+;; TODO catherine confused: Erm... hang on a second. Where is everyone?
 
 #| CUT DIALOGUE FOR TESTING EASE
 
