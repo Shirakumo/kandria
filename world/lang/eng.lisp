@@ -1,4 +1,4 @@
-player-nametag "Stranger"
+player-nametag "Android"
 fi-nametag "Fi"
 catherine-nametag "Catherine"
 jack-nametag "Jack"

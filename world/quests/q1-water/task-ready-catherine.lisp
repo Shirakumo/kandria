@@ -9,6 +9,7 @@
 (quest:interaction :name talk-catherine :interactable catherine :repeatable T :dialogue "
 ~ catherine
 | You ready to go?
+~ player
 - I'm ready.
   ~ catherine
   | Alright. Stay close behind me.
@@ -22,6 +23,7 @@
 - Where are we going again?
   ~ catherine
   | (:concerned) Um, did your short-term memory corrupt? We need to fix the water leak - before we lose the crop and everyone starves!
+  ~ player
   - I don't need to eat.
     ~ catherine
     | Well the rest of us aren't so lucky. Aren't so unlucky, actually.

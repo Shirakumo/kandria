@@ -79,6 +79,7 @@
 |   | (:excited) Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
 |   | (:normal) Just follow the pipe down like we did before. And you can already weld from your fingertips, right? So you should be good to go.
 |   | Based on the pressure drop, these leaks aren't too far away, so you'll be within radio range. You want to take a walkie, or just use your FFCS?
+|   ~ player
 |   - I'll take a walkie.
 |     ~ catherine
 |     | You got it - take this one.
@@ -115,6 +116,7 @@
 |?
 | ~ catherine
 | | I wish I had something for you, but there's nothing right now. That's a first 'round here!
+~ player
 - I'll be going for now.
   ~ catherine
   | You take it easy. See you soon.

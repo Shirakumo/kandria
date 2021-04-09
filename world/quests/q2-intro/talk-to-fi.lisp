@@ -29,6 +29,7 @@
 | I knew coming here would be hard, but we are on the brink - if we don't starve, then it seems the Wraw will get us in the end.
 | They'll be coming, sooner or later - no one escapes them and lives very long.
 ! label questions
+~ player
 - What's next?
 - Who are the Wraw?
   ~ fi
@@ -53,6 +54,7 @@
 | Alex found it, our hunter. I want you to retrace their steps, find the cache, and if it's intact, recover all the seeds that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.
+~ player
 - You can rely on me.
   ~ fi
   | Thank you.

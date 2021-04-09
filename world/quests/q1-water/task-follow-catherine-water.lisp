@@ -11,6 +11,7 @@
 ~ catherine
 | Alright, here's a leak...
 | That's strange, the pipe is cracked.
+~ player
 - Can you fix it?
   ~ catherine
   | I wouldn't be much of an engineer if I couldn't.
@@ -41,6 +42,7 @@
 | Alright - we'll keep looking. Over and out.
 | Come on... Er - you really need a name.
 | You really don't remember it?
+~ player
 - Why do I need a name?
   ~ catherine
   | I don't know. Everyone has a name. It's you, it's personal. And it makes it easier to have a conversation.
@@ -50,13 +52,14 @@
   | You're right - sorry.
 ~ catherine
 | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.
+! eval (setf (nametag player) \"Stranger\")
 | Pretty cool, huh?
 | (:excited) Let's go, Stranger!
 ! eval (activate 'leak2)
 ! eval (lead 'player 'main-leak-2 (unit 'catherine))
 ")
 ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
-
+;; TODO when can rename player nametag: ! eval (setf (var 'player-nametag) \"Stranger\") - re-inflects the narrative tone. Does PC adopt this name, or not?
 ;; TODO catherine confused - I don't know. Everyone has a name. 
 ;; TODO catherine giggle - What's right with it?
 
@@ -134,6 +137,7 @@
 (quest:interaction :name rogues :interactable catherine :dialogue "
 ~ catherine
 | What the hell?!- Rogues? Here?
+~ player
 - I think we found the saboteurs.
   ~ catherine
   | Do your thing!
@@ -187,7 +191,7 @@
 | (:disappointed) Oh man, we got here just in time. They were gonna dismantle the turbine...
 | Give me a minute.
 | ...
-| There, got it.
+| (:normal) There, got it.
 | Now, where is that telephone?
 ! eval (activate 'phone)
 ! eval (lead 'player 'q1-phone (unit 'catherine))
@@ -219,6 +223,7 @@
 | Jack?... He hung up.
 | (:normal) Well, whatever it is it doesn't sound good.
 | Seems we'll have to wait a little longer for that welcome home we deserve.
+~ player
 - Lead the way.
   ~ catherine
   | You got it, partner!
@@ -230,6 +235,7 @@
 - Can I go now?
   ~ catherine
   | Go? Go where?
+  ~ player
   - I want to explore.
     ~ catherine
     | Sure, of course. I mean, it's been a little mad since we got back, hasn't it?

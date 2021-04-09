@@ -44,6 +44,7 @@
 | But what do we really know about androids, Cathy? Fuck all, that's what.
 ~ catherine
 | Well, ask her. Have you betrayed us, Stranger?
+~ player
 - No I have not.
   ~ catherine
   | There, see.

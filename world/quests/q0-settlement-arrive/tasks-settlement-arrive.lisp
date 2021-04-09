@@ -39,7 +39,7 @@
 ! eval (complete 'walk)
 --
 ~ catherine
-| (:normal) Living on the surface is even harder than living in the caves.
+| (:normal) Living on the surface is even harder than in the caves.
 ")
 
 ;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
@@ -49,6 +49,7 @@
 (quest:interaction :name field :interactable farm-view :dialogue "
 ~ catherine
 | (:excited) What'd I tell you? Amazing, right?!
+~ player
 - What I am looking at?
   ~ catherine
   | (:excited) They're crops! We're growing crops - in the desert!
@@ -69,6 +70,7 @@
 ~ catherine
 | (:concerned) Erm... hang on a second. Where is everyone?
 | This isn't the welcome I was expecting.
+~ player
 - Is something wrong?
   ~ catherine
   | (:concerned) Well, I just reactivated an android...

@@ -15,9 +15,10 @@
 ~ jack
 | (:annoyed) ... Don't give me that bullshit. Where the hell have you been? And who's this?
 ~ catherine
-| What do you mean? I've brought back the android... I got her working!
+| (:cheer) What do you mean? I've brought back the android... I got her working!
 ~ jack
 | (:annoyed) Jesus... this is all we need.
+~ player
 - Pleased to meet you.
 - Jack, I presume.
 - What's your problem? I'm here to help.
@@ -46,6 +47,7 @@
 ~ jack
 | (:annoyed) A sword?... Have you lost your goddamn mind? An android ain't no toy!
 | You'd be safer walking unarmed straight into Wraw territory than you would goin' anywhere with that thing.
+~ player
 - I can protect her.
   ~ jack
   | (:annoyed) The hell you can.
