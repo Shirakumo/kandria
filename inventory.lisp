@@ -83,6 +83,8 @@
 (defmethod use ((item symbol) on)
   (use (c2mop:class-prototype (find-class item)) on))
 
+(defmethod use ((item item) on))
+
 (defclass item-category ()
   ())
 
