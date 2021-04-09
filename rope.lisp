@@ -17,6 +17,9 @@
   (setf (chain rope) (make-array (floor (vy (bsize rope)) 4)))
   (setf (extended rope) extended))
 
+(defmethod stage :after ((rope rope) (area staging-area))
+  (stage (// 'kandria 'rope-extend) area))
+
 (defmethod (setf extended) :after (state (rope rope))
   (ecase state
     ((T)
@@ -46,7 +49,7 @@
 
 (defmethod interact ((rope rope) player)
   (unless (extended rope)
-    (harmony:play (// 'kandria 'rope))
+    (harmony:play (// 'kandria 'rope-extend))
     (setf (slot-value rope 'extended) T)
     (loop for i from 0 below (length (chain rope))
           do (destructuring-bind (pos prev) (aref (chain rope) i)
