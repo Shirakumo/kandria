@@ -206,8 +206,11 @@
     (vec4 (vsetf target (vx4 source) (vy4 source) (vz4 source) (vw4 source)))))
 
 (defun vrand (min max)
-  (vec (+ min (random (- max min)))
-       (+ min (random (- max min)))))
+  (etypecase min
+    (real (vec (+ min (random (- max min)))
+               (+ min (random (- max min)))))
+    (vec2 (vec (+ (vx min) (random (- (vx max) (vx min))))
+               (+ (vy min) (random (- (vy max) (vy min))))))))
 
 (defun vrandr (min max &optional (deg (* 2 PI)))
   (let ((r (+ min (random (- max min))))
