@@ -18,7 +18,7 @@
 ! eval (retrieve 'can)
 | You did that in: {(format-relative-time (clock quest))}!
   
-? (< (clock quest) 150)
+? (< (clock quest) (var 'race-5-gold-goal))
 | | How did you do that so fast? That's gold bracket.
 | | You get the top reward - 50 scrap parts!
 | ! eval (store 'parts 50)
@@ -31,7 +31,7 @@
 | | | You equalled your best gold time as well, what are the chances?!
 | |?
 | | | You didn't beat your best gold time, but it's still good!
-|? (< (clock quest) 210)
+|? (< (clock quest) (var 'race-5-silver-goal))
 | | That's pretty quick! Silver bracket.
 | | That nets you 30 scrap parts!
 | ! eval (store 'parts 30)
@@ -44,7 +44,7 @@
 | | | You equalled your best silver time as well, what are the chances?!
 | |?
 | | | You didn't beat your best silver time, but it's still good!
-|? (< (clock quest) 270)
+|? (< (clock quest) (var 'race-5-bronze-goal))
 | | Not bad. That's bronze bracket.
 | | That gets you 20 scrap parts.
 | ! eval (store 'parts 20)
@@ -64,7 +64,7 @@
 | | I've also logged your time as your personal best for this route.
 | ! eval (setf (var 'race-5-pb) (clock quest))
 |? (< (clock quest) (var 'race-5-pb))
-| | You beat your personal best too! I'm so proud of you.
+| | That's a new personal best too! I'm so proud of you.
 | ! eval (setf (var 'race-5-pb) (clock quest))
 |? (= (clock quest) (var 'race-5-pb))
 | | You equalled your personal best too - that's amazing!

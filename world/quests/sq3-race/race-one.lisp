@@ -11,7 +11,7 @@
                                              (show (make-instance 'timer :quest quest))
                                              (spawn 'race-1-site 'can)))
 
-;; TODO this doesn't reactivate when the race is reactivated on repeats of the same route - but works on route 2?
+;; TODO this doesn't reactivate when the race is reactivated on repeats of the same route - but works on route 2? not sure. Not critical, since the location trigger clues are perhaps most useful on the first run of a race only...
 (quest:interaction :name race-one-speech :interactable race-1-site :repeatable T :dialogue "
 ~ player
 | //This is the right place - the can must be close by.//
