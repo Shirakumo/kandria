@@ -50,7 +50,7 @@
     (alloy:enter nametag layout :constraints `((:align :left ,background) (:below ,background 0) (:height 30) (:width 150)))
     (alloy:finish-structure walkntalk layout (choices walkntalk))))
 
-(defmethod show :before ((textbox walkntalk))
+(defmethod show :before ((textbox walkntalk) &key)
   (setf (text textbox) (clear-text-string)))
 
 (defmethod hide :after ((textbox walkntalk))
