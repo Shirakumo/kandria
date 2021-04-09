@@ -49,7 +49,7 @@
     (T (p! walk-limit))))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(dash jump land slide step death slash rope splash ground-hit explosion))
+  (dolist (sound '(dash jump land-normal slide step-dirt die-player slash enter-water hit-ground))
     (stage (// 'kandria sound) area))
   (stage (prompt player) area))
 
@@ -58,7 +58,7 @@
                  (not (typep medium 'water)))
             (and (not (typep (medium player) 'water))
                  (typep medium 'water)))
-    (harmony:play (// 'kandria 'splash))))
+    (harmony:play (// 'kandria 'enter-water))))
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
@@ -204,7 +204,7 @@
                   (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  ((and (< (vy (velocity player)) -0.5)
                        (< 0.2 (air-time player)))
-                  (harmony:play (// 'kandria 'land))))
+                  (harmony:play (// 'kandria 'land-normal))))
            (unless (eql :dashing (state player))
              (setf (dash-time player) 0.0))
            (setf (used-aerial player) NIL))))
@@ -754,7 +754,7 @@
          (setf (limp-time player) 0.0))))
 
 (defmethod kill :after ((player player))
-  (harmony:play (// 'kandria 'death))
+  (harmony:play (// 'kandria 'die-player))
   (setf (clock (progression 'death +world+)) 0f0)
   (start (progression 'death +world+)))
 

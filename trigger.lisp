@@ -88,8 +88,17 @@
 (defclass sandstorm-trigger (tween-trigger)
   ())
 
+(defmethod stage :after ((trigger sandstorm-trigger) (area staging-area))
+  (stage (// 'kandria 'sandstorm) area))
+
 (defmethod (setf value) (value (trigger sandstorm-trigger))
-  (setf (strength (unit 'sandstorm T)) value))
+  (let ((value (max 0.0 (- value 0.01))))
+    (cond ((< 0 value)
+           (harmony:play (// 'kandria 'sandstorm))
+           (setf (mixed:volume (// 'kandria 'sandstorm)) (/ value 4)))
+          (T
+           (harmony:stop (// 'kandria 'sandstorm))))
+    (setf (strength (unit 'sandstorm T)) value)))
 
 (defclass zoom-trigger (tween-trigger)
   ((easing :initform 'quint-in)))

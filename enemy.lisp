@@ -11,9 +11,8 @@
 (defmethod collides-p ((enemy enemy) (other stopper) hit) T)
 
 (defmethod stage :after ((enemy enemy) (area staging-area))
-  (stage (// 'kandria 'stab) area)
-  (stage (// 'kandria 'zombie-notice) area)
-  (stage (// 'kandria 'explosion) area))
+  (dolist (asset '(hit-zombie notice-zombie die-zombie))
+    (stage (// 'kandria asset) area)))
 
 (defmethod maximum-health ((enemy enemy)) 100)
 
@@ -54,14 +53,14 @@
   (not (eql (state box) :dying)))
 
 (defmethod stage :after ((box box) (area staging-area))
-  (stage (// 'kandria 'box-damage) area)
-  (stage (// 'kandria 'box-break) area))
+  (dolist (asset '(hit-box die-box))
+    (stage (// 'kandria asset) area)))
 
 (defmethod hurt :after ((box box) (by integer))
-  (harmony:play (// 'kandria 'box-damage)))
+  (harmony:play (// 'kandria 'hit-box)))
 
 (defmethod kill :after ((box box))
-  (harmony:play (// 'kandria 'box-break)))
+  (harmony:play (// 'kandria 'die-box)))
 
 (define-shader-entity ground-enemy (enemy)
   ())
@@ -217,7 +216,7 @@
 (defmethod idleable-p ((drone drone)) NIL)
 
 (defmethod stage :after ((drone drone) (area staging-area))
-  (stage (// 'kandria 'explosion) area))
+  (stage (// 'kandria 'die-zombie) area))
 
 (defmethod movement-speed ((enemy drone))
   (case (ai-state enemy)

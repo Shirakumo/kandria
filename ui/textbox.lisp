@@ -112,8 +112,8 @@
    (profile :initform (make-instance 'profile-picture) :accessor profile)))
 
 (defmethod stage :after ((textbox textbox) (area staging-area))
-  (stage (// 'kandria 'text) area)
-  (stage (// 'kandria 'advance) area))
+  (stage (// 'kandria 'dialogue-scroll) area)
+  (stage (// 'kandria 'dialogue-advance) area))
 
 (defmethod at-end-p ((textbox textbox))
   (<= (array-total-size (text textbox))
@@ -121,7 +121,7 @@
 
 (defmethod scroll-text ((textbox textbox) to)
   (when (<= to (array-total-size (text textbox)))
-    (harmony:play (// 'kandria 'text))
+    (harmony:play (// 'kandria 'dialogue-scroll))
     (setf (fill-pointer (text textbox)) to)
     (setf (text textbox) (text textbox))))
 
@@ -140,7 +140,7 @@
              (alloy:on alloy:activate (button)
                (setf (text textbox) (clear-text-string))
                (setf (choices textbox) ())
-               (harmony:play (// 'kandria 'advance))
+               (harmony:play (// 'kandria 'dialogue-advance))
                (etypecase target
                  (integer
                   (setf (ip textbox) target))
@@ -156,7 +156,7 @@
   (handle ev (profile textbox))
   (cond ((and (at-end-p textbox)
               (not (prompt textbox)))
-         (harmony:stop (// 'kandria 'text))
+         (harmony:stop (// 'kandria 'dialogue-scroll))
          (cond ((< 0 (pause-timer textbox))
                 (decf (pause-timer textbox) (dt ev)))
                ((pending textbox)

@@ -157,7 +157,7 @@
   :animation 'wall-slide)
 
 (define-effect step step-effect
-  :voice (// 'kandria 'step)
+  :voice (// 'kandria 'step-dirt)
   :animation 'step)
 
 (define-effect jump step-effect
@@ -176,13 +176,13 @@
   :voice (// 'kandria 'slash))
 
 (define-effect stab sound-effect
-  :voice (// 'kandria 'stab))
+  :voice (// 'kandria 'hit-zombie))
 
 (define-effect ground-hit sound-effect
-  :voice (// 'kandria 'ground-hit))
+  :voice (// 'kandria 'hit-ground))
 
 (define-effect zombie-notice sound-effect
-  :voice (// 'kandria 'zombie-notice))
+  :voice (// 'kandria 'notice-zombie))
 
 (define-shader-entity explosion-effect (step-effect)
   ((layer-index :initform 2)))
@@ -199,11 +199,11 @@
       (shake-camera :intensity strength))))
 
 (define-effect explosion explosion-effect
-  :voice (// 'kandria 'explosion)
+  :voice (// 'kandria 'die-zombie)
   :animation 'explosion48-grounded)
 
 (define-effect land step-effect
-  :voice (// 'kandria 'land)
+  :voice (// 'kandria 'land-normal)
   :animation 'land-smash
   :layer-index 2)
 

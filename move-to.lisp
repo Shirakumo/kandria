@@ -289,8 +289,11 @@
              (bot (chunk-node-idx chunk (vec (vx (location entity))
                                              (- (vy (location entity))
                                                 (vy (bsize entity)))))))
-         (push (make-rope-node top entity) (svref (node-graph-grid graph) bot))
-         (push (make-rope-node bot entity) (svref (node-graph-grid graph) top)))))))
+         ;; FIXME: Ropes across chunks
+         (when (and (< 0 top (length (node-graph-grid graph)))
+                    (< 0 bot (length (node-graph-grid graph))))
+           (push (make-rope-node top entity) (svref (node-graph-grid graph) bot))
+           (push (make-rope-node bot entity) (svref (node-graph-grid graph) top))))))))
 
 (defun make-node-graph (chunk)
   (let ((graph (%make-node-graph (floor (vx (size chunk))) (floor (vy (size chunk))))))
