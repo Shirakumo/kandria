@@ -15,7 +15,7 @@
 - How do you think it went?
   ~ jack
   | I admit it was a thankless task, but I thought there might at least be somewhere we could go.
-- Not good news I'm afriad.
+- Not good news I'm afraid.
   ~ jack
   | Fuck.
 - You're stuck here.

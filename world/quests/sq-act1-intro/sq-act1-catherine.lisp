@@ -98,7 +98,7 @@
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.
 |   | Just don't breathe in their spores - though I guess that won't affect you.
 |   | Other kinds are deadly poisonous though, like the black knight. Avoid those if you can.
-|   | Happy mushrooming, Stranger!
+|   | About 25 good ones should do for now. Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
 | - [(not (active-p 'sq3-race)) //Time trials//|]
 |   ~ catherine

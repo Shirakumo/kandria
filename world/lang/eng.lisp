@@ -1,4 +1,4 @@
-player-nametag "The Stranger"
+player-nametag "Stranger"
 fi-nametag "Fi"
 catherine-nametag "Catherine"
 jack-nametag "Jack"

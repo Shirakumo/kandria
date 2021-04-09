@@ -103,7 +103,7 @@
 | ! eval (activate 'race-five)
 # end
 | ~ catherine
-| (:shout) [? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger!]
+| (:shout) [? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger! | Sync your chronometer and... Go!]
 ")
 ;; | [(var 'race-1-pb) Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.]
 ;; TODO: allow play to opt out of first race encountered, not forced

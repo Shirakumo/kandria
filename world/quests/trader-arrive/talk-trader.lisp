@@ -43,7 +43,7 @@
 ~ player
 - What do you sell?
   ~ trader
-  | What doesn't old Sahill sell!
+  | What doesn't old Sahil sell!
   | Listen: Catherine told me how you helped her out in the caves - kicked some rogue ass by the sounds of things!
   < continue
 - What do I need?
@@ -53,7 +53,7 @@
   < continue
 - I think I can manage on my own.
   ~ trader
-  | Nonesense! You helped Catherine in the caves - kicked some rogue ass by the sounds of things!
+  | Nonsense! You helped Catherine in the caves - kicked some rogue ass by the sounds of things!
   < continue
 
 # continue

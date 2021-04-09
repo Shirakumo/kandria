@@ -108,7 +108,7 @@
   | ~ player
   | - What's your story?
   |   ~ trader
-  |   | A long and sad one I'm afriad... Like most people's.
+  |   | A long and sad one I'm afraid... Like most people's.
   |   | I used to hang with the Wraw too, believe it or not.
   |   | I got out too, only with my caravan rather than a vendetta.
   |   | And now I tour the settlements, trading, making ends meet - and making things too!
@@ -151,7 +151,7 @@
 
 # out-of-stock
 ~ trader
-| All out of stock on that one I'm afriad. Sorry, habeebti.
+| All out of stock on that one I'm afraid. Sorry, habeebti.
 < buy
 
 # changed-mind
