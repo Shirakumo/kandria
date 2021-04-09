@@ -13,23 +13,23 @@
 ;; TIM REPLY: Hmm, not feeling this one. I think initially I want the Stranger to be on the backfoot in the conversation as well, whereas this sarcastic reply would put them on the front put. At least for the moment, they are at the mercy of Jack's ramblings
 (quest:interaction :name talk-jack :interactable jack :dialogue "
 ~ jack
-| ... Don't give me that bullshit. Where the hell have you been? And who's this?
+| (:annoyed) ... Don't give me that bullshit. Where the hell have you been? And who's this?
 ~ catherine
 | What do you mean? I've brought back the android... I got her working!
 ~ jack
-| Jesus... this is all we need.
+| (:annoyed) Jesus... this is all we need.
 - Pleased to meet you.
 - Jack, I presume.
 - What's your problem? I'm here to help.
 ~ jack
-| Fuck me it speaks... Though what the hell is that accent?
+| (:shocked) Fuck me it speaks... Though what the hell is that accent?
 ~ Catherine
-| Jack, what's wrong? Talk to me.
+| (:disappointed) Jack, what's wrong? Talk to me.
 ~ Jack
 | The water has failed again, and this time I don't think it's the pump. Must be a leak somewhere.
 | If we don't get it back ASAP we're screwed. We'll lose the whole goddamn crop.
 ~ Catherine
-| Shit!... I should have been here.
+| (:disappointed) Shit!... I should have been here.
 ~ jack
 | Yeah you should.
 ~ catherine
@@ -42,38 +42,40 @@
 ~ jack
 | No way. It's too dangerous.
 ~ catherine
-| The android can come with me. You should see what she can do! She's got a freakin' sword!
+| (:excited) The android can come with me. You should see what she can do! She's got a freakin' sword!
 ~ jack
-| A sword?... Have you lost your goddamn mind? An android ain't no toy!
+| (:annoyed) A sword?... Have you lost your goddamn mind? An android ain't no toy!
 | You'd be safer walking unarmed straight into Wraw territory than you would goin' anywhere with that thing.
 - I can protect her.
   ~ jack
-  | The hell you can.
+  | (:annoyed) The hell you can.
 - Why are you afraid of me?
   ~ jack
-  | Androids don't exactly grow on trees. And some say you're the reason there aren't no trees anymore. Or buildings.
+  | (:annoyed) Androids don't exactly grow on trees. And some say you're the reason there aren't no trees anymore. Or buildings.
   | Or people.
 - You're right to be afraid.
   ~ catherine
-  | She's kidding... Aren't you?!
+  | (:disappointed) She's kidding... Aren't you?!
 ~ catherine
-| Look, everyone knows the old stories. But they're just stories - this is real life.
-| We need to fix the water right now or we're goners. And I'm your best shot.
+| Look, we need to fix the water right now or we're goners. And I'm your best shot.
 | Me AND my android buddy.
 ~ jack
-| Shit...
-| Alright. You'd better not let me down.
+| (:annoyed) Shit...
+| (:normal) Alright. You'd better not let me down.
 ~ catherine
-| Yes!!
+| (:cheer) Yes!!
 ~ jack
-| But I'm warning you android: Touch one hair on her head and I'll bury you for another fifty years!
+| (:annoyed) But I'm warning you android: Touch one hair on her head and I'll bury you for another fifty years!
 ~ catherine
-| Thanks \"Dad\". Alright, let's go.
+| (:disappointed) Thanks \"Dad\". Alright, let's go.
 ~ jack
 | Hold on Cathy - take this walkie. Radio if you have any trouble.
 ~ catherine
 | I will. And don't worry - we'll be back ASAP.
 ")
+;; TODO catherine shocked  Shit!... I should have been here.
+;; She's kidding... Aren't you?!
+
 
 #| DIALOGUE REMOVED FOR TESTING SPEED - talk-jack
 
