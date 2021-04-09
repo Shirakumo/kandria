@@ -696,7 +696,7 @@
 
 (defmethod handle ((ev switch-region) (player player))
   (let* ((region (slot-value ev 'region))
-         (other (find-containing player (region +world+))))
+         (other (find-chunk player)))
     (unless other
       (warn "Player is somehow outside all chunks, picking first chunk we can get.")
       (setf other (for:for ((entity over region))
