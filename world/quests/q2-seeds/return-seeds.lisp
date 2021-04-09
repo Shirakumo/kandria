@@ -27,7 +27,7 @@
 | Oh my. There must be... fifty sachets here. All fully stocked.
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
-| Know that you are earning my trust, Stranger. Perhaps in time you will become a part of the Noka yourself.
+| Know that you are earning my trust, Stranger. Perhaps you will become a part of the Noka yourself.
 | God knows we could use another hunter.
 | But for now, please accept this reward as a token of my appreciation.
 ! eval (store 'parts 20)
@@ -41,13 +41,14 @@
 | | | He'll be in Engineering.
 |   
 | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
-| | It would be wise to be well-equipped for your work.
+| | It would be wise to be equipped for your work.
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")
 ;; kuso = shit (Japanese)
 ;; TODO: act 2 prelude too
 ;; player learns "Noka" for the first time
+;; TODO fi happy - | Oh my. There must be... fifty sachets here. All fully stocked.
 
 #| ARCHIVED VERSION before lie options removed - for reference. May be useable in a future act.
 

@@ -23,8 +23,8 @@
 | //It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before.//
 | //Most of this is spoiled, but some of the closed containers may still have usable seeds.//
 | //Like this one: There are 54 sachets inside. The seeds are in wrappers, tiny and hard like dead insects.//
-| //Will they still grow?//
-| //I stow 54 sachets in my compartment.//
+| (:skeptical) //Will they still grow?//
+| (:normal) //I stow 54 sachets in my compartment.//
 ! eval (store 'seeds 54)
 ")
 ;; TODO: use a variable to track if you took none / destroyed, which could come back and bite you in the ass later (Alex finds out, and tries to frame you to cover his own tracks? - ties into the plot outline) - log as a var on the storyline
