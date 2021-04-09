@@ -24,12 +24,7 @@
       ;; Prune undesired assets. This sucks, an automated, declarative way would be much better.
       (prune (pathname-utils:subdirectory directory "pool" "EFFECTS"))
       (prune (pathname-utils:subdirectory directory "pool" "WORKBENCH"))
-      (prune (pathname-utils:subdirectory directory "pool" "TRIAL" "nissi-beach"))
-      (prune (pathname-utils:subdirectory directory "pool" "TRIAL" "masko-naive"))
-      (prune (make-pathname :name :wild :type "png" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
-      (prune (make-pathname :name :wild :type "svg" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
-      (prune (make-pathname :name :wild :type "jpg" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
-      (prune (make-pathname :name :wild :type "frag" :defaults (pathname-utils:subdirectory directory "pool" "TRIAL")))
+      (prune (pathname-utils:subdirectory directory "pool" "TRIAL"))
       (prune (make-pathname :name :wild :type "ase" :defaults (pathname-utils:subdirectory directory "pool" "KANDRIA"))))))
 
 #+linux
