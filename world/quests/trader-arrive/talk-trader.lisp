@@ -9,6 +9,7 @@
 (quest:interaction :name talk-to-trader :interactable trader :variables (small-health medium-health large-health) :dialogue "
 ~ trader
 | Well, well... Are you who I think you are?
+~ player
 - Who do you think I am?
   < identify
 - Most likely.
@@ -19,6 +20,7 @@
 # identify
 ~ trader
 | You're The Stranger!... Or is it just Stranger?
+~ player
 - Technically it's just \"Stranger\".
   ~ trader
   | Right you are, Stranger!
@@ -38,6 +40,7 @@
 | She's such a great kid, you know? A talented engineer as well. Reminds me of...
 | Er-... well, never mind that.
 | So you’ve come to trade with old Sahil, eh?
+~ player
 - What do you sell?
   ~ trader
   | What doesn't old Sahill sell!
@@ -90,6 +93,7 @@
   | You got it.
 ~ trader
 | Say, I don't suppose you'd like to trade that sword of yours? I've never seen anything like it...
+~ player
 - It's an electronic stun blade. And I need it.
   ~ trader
   | Electronic?... That's downright incredible. And it transforms from your arm?

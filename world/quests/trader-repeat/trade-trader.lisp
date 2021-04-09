@@ -105,6 +105,7 @@
   | [? Of course, habeebti - always. | We can indeed. | What's on your mind? | I love to chat.]
   ! label talk
   ? (not (complete-p 'q4-find-allies))
+  | ~ player
   | - What's your story?
   |   ~ trader
   |   | A long and sad one I'm afriad... Like most people's.
@@ -114,7 +115,7 @@
   |   < talk
   | - What do you make of this place?
   |   ~ trader
-  |   | The Noka? They're a good bunch, what can I say?
+  |   | The Noka? They're a nice bunch, what can I say?
   |   | Fi's a good person, which is rare in these parts.
   |   | They broke out on their own, had enough of that Wraw bullshit.
   |   | Can't blame 'em. It was brave. It might also prove stupid though, we'll see.
@@ -127,7 +128,7 @@
   |   ~ player
   |   | You pull your own caravan?
   |   ~ trader
-  |   | Well no other nadhil is going to do it for me!
+  |   | Well no other nadhil is going to do it!
   |   | I used to have an ox, believe or not... Ha, an ox, in these parts! It's hard to imagine.
   |   | Didn't last long after the wolves got at her throat though. Poor Celina.
   |   < talk
