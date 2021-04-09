@@ -13,8 +13,8 @@
 | //The ground feels uncannily unstable, like I've been in this situation before.//
 ? (not (var 'first-leak))
 | | //I ignite the torch from the index finger on my right hand.//
-| | //[(var 'q1-weld-burn) This time |]I enable the UV filters on my cameras.//
-| | //Weld complete.//
+| | [(var 'q1-weld-burn) (:embarassed) //This time I enable the UV filters on my cameras.// | (:normal) //I enable the UV filters on my cameras.//]
+| | (:normal) //Weld complete.//
 | ? (have 'walkie-talkie)
 | | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
 |  
@@ -27,18 +27,18 @@
 | | //Weld complete.//
 ? (complete-p 'leak-first 'leak-second)
 | ~ player
-| | Catherine, I've sealed the last leak. [(have 'walkie-talkie) Over.|]
+| | Catherine, I think I got the last leak. [(have 'walkie-talkie) Over.|]
 | ~ catherine
-| | I hear ya! That's a job well done! [(have 'walkie-talkie) Over.|]
-| | Any sign of saboteurs? [(have 'walkie-talkie) Over.|]
+| | (:cheer) You did - pressure is returning! That's a job well done. [(have 'walkie-talkie) Over.|]
+| | (:normal) Any sign of saboteurs? [(have 'walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
 |   ~ catherine
 |   | That's what I like to hear.
-| - They were all caused by subsidence, or wear and tear.
+| - It was all subsidence, or wear and tear.
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides... Sorry!
 | ~ catherine
-| | Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
+| | (:excited) Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 ")

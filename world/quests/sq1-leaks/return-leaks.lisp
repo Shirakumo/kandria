@@ -8,13 +8,14 @@
 
 (quest:interaction :name leaks-return :title "Talk about the leaks" :interactable catherine :dialogue "
 ~ catherine
-| The water pressure is back. I knew you could do it.
-| Here, takes these parts - you've earned them.
+| (:cheer) The water pressure is back! I knew you could do it.
+| (:normal) Here, takes these parts - you've earned them.
 ! eval (store 'parts 15)
 ? (have 'walkie-talkie)
 | | I'll take the walkie back for now in case someone else needs it.
 | ! eval (retrieve 'walkie-talkie 1)
 | | Bet it was weird using such archaic technology, right?
+| ~ player
 | - I liked it.
 | - Never again.
 |   ~ catherine
