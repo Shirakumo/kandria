@@ -22,8 +22,8 @@
   ~ jack
   | Fuck.
 ~ jack
-| Fi ain't gonna like this. I suppose she'd better hear it from me, rather than from some stone-cold android.
-| Thanks for your help, but it's my problem now.
+| (:thinking) Fi ain't gonna like this. I suppose she'd better hear it from me, rather than from some stone-cold android.
+| (:annoyed) Thanks for your help, but it's my problem now.
 | You want something for your labour?
 ~ player
 - Yes please.
@@ -40,7 +40,7 @@
   ~ jack
   | Suit yerself.
   < continue
-- No thank you.
+- No thanks.
   ~ jack
   | Suit yerself.
   < continue
@@ -57,16 +57,16 @@
 
 # continue
 ? (complete-p 'q2-seeds)
-| | Oh, Cathy wants a word too.
-| | Know that my threat still stands if you touch her.
+| | (:normal) Oh, Cathy wants a word too.
+| | (:annoyed) Know that my threat still stands if you touch her.
 | ! eval (activate 'sq-act1-intro)
 |?
 | ? (not (active-p 'q2-seeds))
-| | | Speaking o' Fi, she wants to talk to you. Not a word about the scouting fail though, alright?
+| | | (:normal) Speaking o' Fi, she wants to talk to you. Not a word about the scouting fail though, alright?
 |   
-| | Don't let me be the one to help you out, either, but I heard Sahil was back.
+| | (:normal) Don't let me be the one to help you out, either, but I heard Sahil was back.
 | | His caravan is down in the Midwest Market, beneath the Hub.
-| | I don't know what opposition you faced scouting around, but you might wanna stock up.
+| | I don't know what opposition you've faced scouting around, but you might wanna stock up.
 | | I hear even androids ain't indestructible...
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)

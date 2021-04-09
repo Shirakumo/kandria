@@ -10,9 +10,9 @@
 (quest:interaction :name new-home-site-3 :interactable new-home-3 :dialogue "
 ~ player
 | //It's new-home candidate site Delta.//
-| //It's secure and concealed, and sheltered from the weather.//
-| //But the foot of a cliff face is perhaps not the wisest choice in an area prone to shakes.//
+| (:thinking) //It's secure and concealed, and sheltered from the weather.//
+| (:skeptical) //But the foot of a cliff face is perhaps not the wisest choice in an area prone to quakes.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | I should return to Jack with the bad news.
+| | (:normal) I should return to Jack with the bad news.
 | ! eval (activate 'return-new-home)
 ")
