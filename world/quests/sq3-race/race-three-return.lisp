@@ -13,68 +13,68 @@
 (quest:interaction :name race-three-chat :title "Complete Route 3" :interactable catherine :dialogue "
 ! eval (hide-panel 'timer)
 ~ catherine
-| Stop the clock!
-| That's the can for Route 2 alright - nice!
+| (:cheer) Stop the clock!
+| (:excited) That's the can for Route 3 alright - nice!
 ! eval (retrieve 'can)
-| You did that in: {(format-relative-time (clock quest))}!
+| (:normal) You did that in: {(format-relative-time (clock quest))}.
   
 ? (< (clock quest) (var 'race-3-gold-goal))
-| | How did you do that so fast? That's gold bracket.
+| | (:cheer) How did you do that so fast? That's gold bracket.
 | | You get the top reward - 40 scrap parts!
 | ! eval (store 'parts 40)
 | ? (not (var 'race-3-gold))
-| | | I've logged your time - your first one in the gold bracket.
+| | | (:excited) I've logged your time - your first one in the gold bracket.
 | | ! eval (setf (var 'race-3-gold) (clock quest))
 | |?
 | | ? (< (clock quest) (var 'race-3-gold))
-| | | | And you beat your best gold time, way to go!
+| | | | (:excited) And you beat your best gold time, way to go!
 | | |? (= (clock quest) (var 'race-3-gold))
-| | | | You equalled your best gold time as well, what are the chances?!
+| | | | (:excited) You equalled your best gold time as well, what are the chances?!
 | | |?
-| | | | You didn't beat your best gold time, but it's still good!
+| | | | (:excited) You didn't beat your best gold time, but it's still good!
 |? (< (clock quest) (var 'race-3-silver-goal))
-| | That's pretty quick! Silver bracket.
+| | (:excited) That's pretty quick! Silver bracket.
 | | That nets you 25 scrap parts!
 | ! eval (store 'parts 25)
 | ? (not (var 'race-3-silver))
-| | | I've logged your time - your first one in the silver bracket.
+| | | (:excited) I've logged your time - your first one in the silver bracket.
 | | ! eval (setf (var 'race-3-silver) (clock quest))
 | |?
 | | ? (< (clock quest) (var 'race-3-silver))
-| | | | And you beat your best silver time, way to go!
+| | | | (:excited) And you beat your best silver time, way to go!
 | | |? (= (clock quest) (var 'race-3-silver))
-| | | | You equalled your best silver time as well, what are the chances?!
+| | | | (:excited) You equalled your best silver time as well, what are the chances?!
 | | |?
-| | | | You didn't beat your best silver time, but it's still good!
+| | | | (:excited) You didn't beat your best silver time, but it's still good!
 |? (< (clock quest) (var 'race-3-bronze-goal))
-| | Not bad. That's bronze bracket.
+| | (:excited) Not bad! That's bronze bracket.
 | | That gets you 15 scrap parts.
 | ! eval (store 'parts 15)
 | ? (not (var 'race-3-bronze))
-| | | I've logged your time - your first one in the bronze bracket.
+| | | (:excited) I've logged your time - your first one in the bronze bracket.
 | | ! eval (setf (var 'race-3-bronze) (clock quest))
 | |?
 | | ? (< (clock quest) (var 'race-3-bronze))
-| | | | And you beat your bronze time, way to go!
+| | | | (:excited) And you beat your bronze time, way to go!
 | | |? (= (clock quest) (var 'race-3-bronze))
-| | | | You equalled your best bronze time as well, what are the chances?!
+| | | | (:excited) You equalled your best bronze time as well, what are the chances?!
 | | |?
-| | | | You didn't beat your best bronze time, but it's still good!
+| | | | (:excited) You didn't beat your best bronze time, but it's still good!
 |?
-| | Hmmm, that's a little slow, Stranger. I think you can do better than that.
+| | (:disappointed) Hmmm, that seems a little slow, Stranger. I think you can do better than that.
 | | Don't think I can give you any parts for that, sorry.
 ? (not (var 'race-3-pb))
-| | I've also logged your time as your personal best for this route.
+| | (:normal) I've also logged your time as your personal best for this route.
 | ! eval (setf (var 'race-3-pb) (clock quest))
 |?
 | ? (< (clock quest) (var 'race-3-pb))
-| | | That's a new personal best too! I'm so proud of you.
+| | | (:excited) That's a new personal best! I'm so proud of you.
 | | ! eval (setf (var 'race-3-pb) (clock quest))
 | |? (= (clock quest) (var 'race-3-pb))
-| | | You equalled your personal best too - that's amazing!
+| | | (:excited) You equalled your personal best too - that's amazing!
 | |?
-| | | Alas you didn't beat your personal best. But there's always next time!
+| | | (:normal) Alas you didn't beat your personal best. But there's always next time!
 ! eval (complete 'race-three-return)
   
-| Let's do this again soon!
+| (:excited) Let's do this again soon!
 ")

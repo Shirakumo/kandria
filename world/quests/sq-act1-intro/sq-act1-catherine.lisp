@@ -115,7 +115,7 @@
 |?
 | ~ catherine
 | | I wish I had something for you, but there's nothing right now. That's a first 'round here!
-- I'll get going.
+- I'll be going for now.
   ~ catherine
   | You take it easy. See you soon.
 - How are you Catherine?

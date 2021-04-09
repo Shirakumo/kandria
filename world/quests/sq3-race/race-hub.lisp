@@ -10,21 +10,21 @@
 (quest:interaction :name start-race :title "Race against the clock" :interactable catherine :repeatable T :dialogue "
 ? (or (active-p 'race-one) (active-p 'race-two) (active-p 'race-three) (active-p 'race-four))
 | ~ catherine
-| | You're already racing, get goin'!
+| | (:cheer) You're already racing, get goin'!
 |?
 | ~ catherine
-| | Alright, race time!
+| | (:cheer) Alright, race time!
 | ? (not (complete-p 'race-one))
-| | | So remember: Find the cans that Alex has planted around the area.
-| | | I told them to plant them in devious places, and knowing Alex they won't have disappointed.
+| | | (:normal) So remember: Find the cans that Alex has planted.
+| | | I told them to find devious places, and knowing Alex they won't have disappointed.
 | | | Grab a can, bring it back here, and I'll stop the clock.
 | | | We'll start you off with Route 1, which is an easy one.
-| | | Get bronze or above, and I'll tell you about the next one!
+| | | Get bronze or above, and I'll tell you about the next route!
 | | | Alex also gave me some riddles for each place, to give you a clue. Figuring these out might slow you down at first.
 | | | But once you know where they are, you'll be clocking even faster times I'm sure! So...
 | | < race-1
 | |?
-| | | Which route do you wanna do?
+| | | (:normal) Which route do you wanna do?
 | | ~ player
 | | - Route 1
 | |   < race-1
@@ -39,8 +39,8 @@
 | | - Back out for now
 # race-1
 ~ catherine
-| Route 1! The can is... at a literal high point of EASTERN civilisation, now long gone.
-| The time brackets are: Gold: {(format-relative-time (var 'race-1-gold-goal))} - Silver: {(format-relative-time (var 'race-1-silver-goal))} - Bronze: {(format-relative-time (var 'race-1-bronze-goal))}.
+| (:cheer) Route 1! The can is... at a literal high point of EASTERN civilisation, now long gone.
+| (:normal) The time brackets are: Gold: {(format-relative-time (var 'race-1-gold-goal))} - Silver: {(format-relative-time (var 'race-1-silver-goal))} - Bronze: {(format-relative-time (var 'race-1-bronze-goal))}.
 ? (var 'race-1-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.
 ? (not (complete-p 'race-one))
@@ -52,8 +52,8 @@
 < end
 # race-2
 ~ catherine
-| Route 2! The can is... where a shallow grave marks the end of the line for the West Crossing.
-| The time brackets are: Gold: {(format-relative-time (var 'race-2-gold-goal))} - Silver: {(format-relative-time (var 'race-2-silver-goal))} - Bronze: {(format-relative-time (var 'race-2-bronze-goal))}.
+| (:cheer) Route 2! The can is... where a shallow grave marks the end of the line for the West Crossing.
+| (:normal) The time brackets are: Gold: {(format-relative-time (var 'race-2-gold-goal))} - Silver: {(format-relative-time (var 'race-2-silver-goal))} - Bronze: {(format-relative-time (var 'race-2-bronze-goal))}.
 ? (var 'race-2-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-2-pb))}.
 ? (not (complete-p 'race-two))
@@ -65,8 +65,8 @@
 < end
 # race-3
 ~ catherine
-| Route 3! The can is... where we first ventured together, and got our feet wet.
-| The time brackets are: Gold: {(format-relative-time (var 'race-3-gold-goal))} - Silver: {(format-relative-time (var 'race-3-silver-goal))} - Bronze: {(format-relative-time (var 'race-3-bronze-goal))}.
+| (:cheer) Route 3! The can is... where we first ventured together, and got our feet wet.
+| (:normal) The time brackets are: Gold: {(format-relative-time (var 'race-3-gold-goal))} - Silver: {(format-relative-time (var 'race-3-silver-goal))} - Bronze: {(format-relative-time (var 'race-3-bronze-goal))}.
 ? (var 'race-3-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-3-pb))}.
 ? (not (complete-p 'race-three))
@@ -78,8 +78,8 @@
 < end
 # race-4
 ~ catherine
-| Route 4! The can is... deep to the west, where people once dreamed.
-| The time brackets are: Gold: {(format-relative-time (var 'race-4-gold-goal))} - Silver: {(format-relative-time (var 'race-4-silver-goal))} - Bronze: {(format-relative-time (var 'race-4-bronze-goal))}.
+| (:cheer) Route 4! The can is... deep to the west, where people once dreamed.
+| (:normal) The time brackets are: Gold: {(format-relative-time (var 'race-4-gold-goal))} - Silver: {(format-relative-time (var 'race-4-silver-goal))} - Bronze: {(format-relative-time (var 'race-4-bronze-goal))}.
 ? (var 'race-4-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-4-pb))}.
 ? (not (complete-p 'race-four))
@@ -91,8 +91,8 @@
 < end
 # race-5
 ~ catherine
-| Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't much-room.
-| The time brackets are: Gold: {(format-relative-time (var 'race-5-gold-goal))} - Silver: {(format-relative-time (var 'race-5-silver-goal))} - Bronze: {(format-relative-time (var 'race-5-bronze-goal))}.
+| (:cheer) Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't much-room.
+| (:normal) The time brackets are: Gold: {(format-relative-time (var 'race-5-gold-goal))} - Silver: {(format-relative-time (var 'race-5-silver-goal))} - Bronze: {(format-relative-time (var 'race-5-bronze-goal))}.
 ? (var 'race-5-pb)
 | | Your personal best for this route is {(format-relative-time (var 'race-5-pb))}.
 ? (not (complete-p 'race-five))
@@ -103,8 +103,7 @@
 | ! eval (activate 'race-five)
 # end
 | ~ catherine
-| Remember - the faster you are, the more parts you'll get from the sweepstake.
-| [? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger!]
+| (:shout) [? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger!]
 ")
 ;; | [(var 'race-1-pb) Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.]
 ;; TODO: allow play to opt out of first race encountered, not forced
