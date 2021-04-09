@@ -22,7 +22,7 @@
 ;; Large stone gate
 (quest:interaction :name stone-gate-large :interactable lore-gate-rock :repeatable T :dialogue "
 ~ player
-| //Did this fall here, or did they move it into place?//
+| (:thinking) //Did this fall here, or did they move it into place?//
 ")
 
 ;; Housing exterior - first floor left shattered room
@@ -52,13 +52,14 @@
 (quest:interaction :name housing-kitchen :interactable lore-kitchen :repeatable T :dialogue "
 ~ player
 | //There's no gas or electrical supply. It smells like a wrecked oil tanker.//
-| //Though I am detecting starchy potato notes, and is that... beetroot?//
+| (:thinking) //Though I am detecting starchy potato notes, and is that... beetroot?//
 ")
 
 ;; Housing interior - sign
 (quest:interaction :name housing-cafe :interactable lore-cafe :repeatable T :dialogue "
 ~ player
-| //Café Alpha... Did I used to come here? If so I'm sure the service was much better.//
+| (:thinking) //Café Alpha... Did I used to come here?//
+| (:giggle) //If so I'm sure the service was much better.//
 ")
 
 ;; Ruins - transition/view
