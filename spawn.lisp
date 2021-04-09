@@ -1,6 +1,6 @@
 (in-package #:kandria)
 
-(defclass spawner (listener sized-entity resizable)
+(defclass spawner (listener sized-entity ephemeral resizable)
   ((spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type symbol)
    (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer)
    (reflist :initform () :accessor reflist)
@@ -24,6 +24,8 @@
     (setf (adjacent spawner) adjacent)))
 
 (defmethod handle ((ev switch-chunk) (spawner spawner))
+  (when (null (adjacent spawner))
+    (setf (location spawner) (location spawner)))
   (cond ((null (reflist spawner))
          (when (find (chunk ev) (adjacent spawner))
            (setf (reflist spawner)

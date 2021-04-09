@@ -26,6 +26,7 @@
 (basic-light :color (0.3 0.3 0.4 1.0) :location (55.5 -5434.0) :data #(-37.5 38.0 -55.5 -38.0 55.5 -38.0 38.5 38.0))
 (basic-light :color (0.3 0.25 0.1 1.0) :location (391.5 -5540.5) :data #(-37.5 45.5 -55.5 -45.5 55.5 -46.5 38.5 46.5))
 (sandstorm-trigger :name nil :active-p t :location (8103.835 -2316.0208) :bsize (367.83496 235.97925) :left 0.0 :right 1.0 :ease-fun linear :horizontal t)
+(spawner :location (4407.9507 -2400.7937) :bsize (119.95068 63.2063) :spawn-type zombie :spawn-count 3)
 (passage :location (179.0 -2844.0) :target (179.0 -2412.0) :name nil)
 (passage :location (675.0 -2412.0) :target (682.0 -2836.0) :name nil)
 (passage :location (1731.0 -2828.0) :target (1731.0 -2412.0) :name nil)
