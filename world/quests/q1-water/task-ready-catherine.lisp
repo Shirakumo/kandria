@@ -21,7 +21,7 @@
   | [? Alright, you can have a minute. | Okay but we need to hurry - the water supply isn't gonna fix itself. | Okay, but whatever you need to do, please be quick about it.]
 - Where are we going again?
   ~ catherine
-  | Um, did your short-term memory corrupt? We need to fix the water leak - before we lose the crop and everyone starves!
+  | (:concerned) Um, did your short-term memory corrupt? We need to fix the water leak - before we lose the crop and everyone starves!
   - I don't need to eat.
     ~ catherine
     | Well the rest of us aren't so lucky. Aren't so unlucky, actually.
@@ -39,7 +39,7 @@
 ! eval (complete 'catherine-walktalk1)
 --
 ~ catherine
-| Catch me if you can!
+| (:shout) Catch me if you can!
 ")
 
 #| TEMP DIALOGUE REMOVAL

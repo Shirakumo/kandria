@@ -30,7 +30,7 @@
   | //It's like staring into the sun. Into the centre of a catacylsm.//
   ! eval (when (< 5 (health player)) (hurt player 5))
   ! eval (setf (var 'weld-burn) T)
-  | //I think that damaged my cameras a little...//
+  | (:embarassed) //I think that damaged my cameras a little...//
 ~ catherine
 | That should hold it.
 ~ catherine
@@ -45,20 +45,21 @@
   ~ catherine
   | I don't know. Everyone has a name. It's you, it's personal. And it makes it easier to have a conversation.
 - No.
-- What's wrong with \"android\"?
-  ~ catherine
-  | What's right with it?
 - Is this really the time?
   ~ catherine
   | You're right - sorry.
 ~ catherine
 | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.
 | Pretty cool, huh?
-| Let's go, Stranger!
+| (:excited) Let's go, Stranger!
 ! eval (activate 'leak2)
 ! eval (lead 'player 'main-leak-2 (unit 'catherine))
 ")
 ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
+
+;; TODO catherine confused - I don't know. Everyone has a name. 
+;; TODO catherine giggle - What's right with it?
+
 #| ^ DIALOGUE REMOVED FOR TESTING
 
 
@@ -67,16 +68,16 @@
 
 (quest:interaction :name leak2 :interactable main-leak-2 :dialogue "
 ~ catherine
-| Look - the same cracks as we saw on the last pipe. This isn't right.
-| Jack, I think we've got trouble. Over.
+| (:concerned) Look - the same cracks as we saw on the last pipe. This isn't right.
+| (:normal) Jack, I think we've got trouble. Over.
 ~ jack
 | What is it?
 ~ catherine
 | We're in the Midwest Market - just like before, the pipe is cracked. And no sign of a cave-in. Over.
 ~ jack
 | ...
-| It's sabotage. I knew it.
-| Alright, Cathy, you stay put. I'm coming down. Over.
+| (:annoyed) It's sabotage. I knew it.
+| (:normal) Alright, Cathy, you stay put. I'm coming down. Over.
 ~ catherine
 | No! I'm alright. I can fix it. Over.
 ~ jack
@@ -86,7 +87,7 @@
 | And keep your wits about you. Over and out.
 ~ catherine
 | Alright, let me seal this one up.
-| Wait... Who's there?
+| (:concerned) Wait... Who's there?
 ! eval (walk-n-talk 'catherine-fighttalk1)
 ! eval (spawn 'q1-wolf-spawn 'wolf)
 ")
@@ -101,7 +102,7 @@
 (quest:interaction :name catherine-fighttalk1 :interactable catherine :dialogue "
 ! eval (complete 'catherine-fighttalk1)
 ~ catherine
-| Look out!
+| (:shout) Look out!
 | Keep it busy while I finish up here.
 | --
 ! eval (activate 'leak2-done)
@@ -145,6 +146,9 @@
 ! eval (walk-n-talk 'catherine-fighttalk2)
 ")
 ;; sraka = asshole (Russian)
+;; TODO catherine shocked - What the hell?!- Rogues? Here?
+;; plus all sub choices
+;; 
 #|
 
 
@@ -153,7 +157,7 @@
 (quest:interaction :name catherine-fighttalk2 :interactable catherine :dialogue "
 ! eval (complete 'catherine-fighttalk2)
 ~ catherine
-| Smash 'em!
+| (:shout) Smash 'em!
 | ---
 ! eval (activate 'leak3-fight-done)
 ")
@@ -166,6 +170,7 @@
 ! eval (activate 'leak3)
 ! eval (lead 'player 'main-leak-3 (unit 'catherine))
 ")
+;; TODO catherine shocked - What have they done?
 #|
 
 
@@ -179,7 +184,7 @@
 
 (quest:interaction :name leak3 :interactable main-leak-3 :dialogue "
 ~ catherine
-| Oh man, we got here just in time. They were gonna dismantle the turbine...
+| (:disappointed) Oh man, we got here just in time. They were gonna dismantle the turbine...
 | Give me a minute.
 | ...
 | There, got it.
@@ -187,6 +192,8 @@
 ! eval (activate 'phone)
 ! eval (lead 'player 'q1-phone (unit 'catherine))
 ")
+;; TODO Catherine relieved - Oh man, we got here just in time.
+
 #|
 
 
@@ -199,18 +206,18 @@
 ~ jack
 | Thank Christ. Good work, Cathy - the water's back on.
 ~ catherine
-| We found the saboteurs - rogue robots from God knows where.
+| (:disappointed) We found the saboteurs - rogue robots from God knows where.
 ~ jack
-| Those motherfuckers...
+| (:annoyed) Those motherfuckers...
 ~ catherine
 | Stranger dealt with them though.
 ~ jack
-| Did they?... Look, Cathy, get your ass back here on the double.
+| (:annoyed) Did they?... Look, Cathy, get your ass back here on the double.
 | And bring the android - Fi's on the warpath.
 ~ catherine
-| What does that mean?...
+| (:concerned) What does that mean?...
 | Jack?... He hung up.
-| Well, whatever it is it doesn't sound good.
+| (:normal) Well, whatever it is it doesn't sound good.
 | Seems we'll have to wait a little longer for that welcome home we deserve.
 - Lead the way.
   ~ catherine
@@ -247,6 +254,7 @@
 ! eval (setf (location 'jack) 'jack-group)
 ! eval (move-to 'catherine-group (unit 'catherine))
 ")
+;; TODO catherine confused - What does that mean?...
 #|
 ! eval (setf (location 'catherine) 'catherine-group)
 ! eval (move-to 'catherine-group (unit 'catherine))

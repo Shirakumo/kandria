@@ -22,12 +22,12 @@
 | Hey, Stranger - see, what'd I tell you?
 | Jack here didn't think you'd come back.
 ~ jack
-| This don't prove a thing.
+| (:annoyed) This don't prove a thing.
 ~ fi
 | You've done well, Catherine. An android is a great asset for us.
 | Assuming it can be trusted.
 ~ catherine
-| I don't understand...
+| (:concerned) I don't understand...
 ~ fi
 | Is it not coincidental that you discovered it at the same time our water supply was sabotaged?
 ~ catherine
@@ -35,10 +35,10 @@
 ~ jack
 | Maybe this android can control them? Did you think of that?
 ~ catherine
-| ...
-| Androids did used to have FFCS - er, far-field comms systems.
+| (:concerned) ...
+| (:concerned) Androids did have FFCS - er, far-field comms systems.
 | I guess something like that could penetrate deeper underground than our radios.
-| But no, it's not that. She was offline for decades - there's no way she could have done that.
+| (:normal) But no, it's not that. She was offline for decades - there's no way she could have done that.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
@@ -48,20 +48,20 @@
   ~ catherine
   | There, see.
   ~ fi
-  | Alright, well - let's hope it's telling the truth. If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | (:unsure) Alright, well - let's hope it's telling the truth. If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I don't think I have.
   ~ catherine
   | Her memories are all muddled from before I brought her online. She hasn't, trust me.
   ~ fi
-  | Alright, well - let's hope that's true. If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | (:unsure) Alright, well - let's hope that's true. If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I suppose I could have.
   ~ catherine
   | She doesn't know what she's saying - her memories are all screwed up till the point I brought her online.
   ~ fi
-  | Alright - it's hardly conclusive, but for now we'd better hope Catherine's right.
+  | (:unsure) Alright - it's hardly conclusive, but for now we'd better hope Catherine's right.
   | If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
-| Jesus, Fi... you're just gonna take that at face value?
+| (:annoyed) Jesus, Fi... you're just gonna take that at face value?
 ~ fi
 | What choice do I have?
 ~ jack
@@ -71,12 +71,12 @@
 ~ catherine
 | Well... I guess we'd need to find some kind of interface port.
 | Oh, and we'd need a working computer, which we don't have.
-| Anyway, even if we did, don't you think you should ask HER if taking her apart is okay?
+| (:disappointed) Anyway, even if we did, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
 | I'm sorry... Stranger, wasn't it?
 ~ jack
-| ...
+| (:annoyed) ...
 ~ fi
 | Would you permit Catherine to examine you, assuming we can source a computer?
 ~ player
@@ -84,30 +84,30 @@
   ~ fi
   | It's your choice, of course.
   ~ jack
-  | Really? You're gonna let this thing call the shots?
+  | (:annoyed) Really? You're gonna let this thing call the shots?
   ~ fi
   | This \"thing\" is a person, Jack. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
   | Still, a computer may be useful to help maintain Stranger.
   | Jack, speak with Sahil when he arrives, see what he can do for us.
   ~ jack
-  | If you insist.
+  | (:annoyed) If you insist.
 - Sure, why not.
   ~ fi
   | Good. Jack, speak with Sahil when he arrives, see what he can do for us.
   ~ jack
-  | If you insist.
+  | (:annoyed) If you insist.
 - As long as I'm still online afterwards.
   ~ catherine
   | Don't worry, I wouldn't let them switch you off.
   ~ fi
   | That's settled then. Jack, speak with Sahil when he arrives, see what he can do for us.
   ~ jack
-  | If you insist.
+  | (:annoyed) If you insist.
 ~ fi
-| But irrespective of all this, I am certain that the Wraw are our attackers.
-| Which means they're close to discovering our location one way or another.
-| I must consider our next course of action.
+| (:annoyed) But irrespective of all this, I am certain that the Wraw are our attackers, one way or another.
+| Which means they're close to discovering our location.
+| (:normal) I must consider our next course of action.
 ~ catherine
 | Well, if there's nothing else, I'll see you both later.
 | Hey Stranger, wait here - I want to talk.
@@ -115,14 +115,19 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
-! eval (setf (walk 'fi) T)
-! eval (setf (walk 'jack) T)
-! eval (move-to 'fi-farm (unit 'fi))
---
-! eval (move-to 'eng-jack (unit 'jack))
 ! eval (activate 'catherine-trader)
+! eval (setf (walk 'fi) T)
+! eval (move-to 'fi-farm (unit 'fi))
+---
+! eval (setf (walk 'jack) T)
+! eval (move-to 'eng-jack (unit 'jack))
 ")
 ;; sayonara = goodbye (Japanese)
+;; TODO catherine pleading - But no, it's not that. She was offline for decades - there's no way she could have done that.
+;; and others
+;; TODO fi thinking - Catherine, don't androids have a black box?
+;; TODO fi firm -  This \"thing\" is a person, Jack. And I expect you to treat her as such.
+
 ;; TODO future quest/plot point: find a working computer
 #| TODO temp removal of moving jack and fi, as causes crash
 ! eval (move-to 'fi-farm (unit 'fi))
@@ -155,8 +160,8 @@
 | Since those two aren't likely to be feeling generous anytime soon, I'll give you these parts.
 ! eval (store 'parts 20)
 | It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
-| He's overdue, which is not like him at all. Maybe those rogues scared him off.
-| Anyway, don't worry about them. They'll soon see what I see - a big friendly badass who can protect us.
+| (:concerned) He's overdue, which is not like him at all. Maybe those rogues scared him off.
+| (:normal) Anyway, don't worry about them. They'll soon see what I see - a big friendly badass who can protect us.
 | Well, I've got work to do. I think Fi might want a private word with you.
 | Just something about the way she was looking at you.
 | Knowing Jack he'll have something for you as well - if only a mouthful of abuse.
@@ -165,6 +170,7 @@
 ! eval (activate 'q2-intro)
 ! eval (activate 'q3-intro)
 ")
+;; TODO Catherine contented - Anyway, don't worry about them.
 
 ;; TODO: inventory item acquired onscreen pop-up / notification
 ;; Let's not have catherine go to trader as well - player needs some time away from Catherine (which helps by delaying the trader arrive till after quest 2/3)
