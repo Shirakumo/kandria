@@ -412,10 +412,9 @@
 (defmethod contained-p (thing target)
   (scan target thing (constantly NIL)))
 
-(defun find-containing (thing container)
-  (for:for ((entity over container))
-    (when (and (typep entity 'chunk)
-               (contained-p thing entity))
+(defun find-chunk (thing &optional (region (region +world+)))
+  (bvh:do-fitting (entity (bvh region) thing)
+    (when (typep entity 'chunk)
       (return entity))))
 
 (defun overlapping-p (a a-size b b-size)

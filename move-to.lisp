@@ -442,8 +442,8 @@
                                      (pushnew vec containing :test #'v=))))
                  containing))
              (connect-entities (nodes from to constructor)
-               (let* ((from-chunk (find-containing (location from) region))
-                      (to-chunk (find-containing (location to) region))
+               (let* ((from-chunk (find-chunk (location from) region))
+                      (to-chunk (find-chunk (location to) region))
                       (to-loc (first (sort (locs-with-connections to-chunk to) #'<
                                            :key (lambda (a) (vsqrdist2 a (location to)))))))
                  (dolist (from-loc (locs-with-connections from-chunk from))
@@ -473,8 +473,8 @@
 
 (defun shortest-path (start goal test &optional (region (region +world+)))
   (let* ((graph (chunk-graph region))
-         (start-chunk (find-containing start region))
-         (goal-chunk (find-containing goal region)))
+         (start-chunk (find-chunk start region))
+         (goal-chunk (find-chunk goal region)))
     (when (and start-chunk goal-chunk)
       (labels ((cost (a b)
                  (vsqrdist2 (location (chunk-node-from (first (svref graph a))))
@@ -548,7 +548,7 @@
     (call-next-method)))
 
 (defmethod path-available-p ((target vec2) (movable movable))
-  (ignore-errors (shortest-path (find-containing target (region +world+)) movable target)))
+  (ignore-errors (shortest-path (find-chunk target) movable target)))
 
 (defmethod path-available-p ((target located-entity) (movable movable))
   (path-available-p (location target) movable))

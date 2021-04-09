@@ -94,7 +94,8 @@
   (clamp-camera-target camera (location camera)))
 
 (defmethod (setf target) :after ((target game-entity) (camera camera))
-  (setf (chunk camera) (find-containing target (region +world+))))
+  (when (region +world+)
+    (setf (chunk camera) (find-chunk target))))
 
 (defmethod handle :before ((ev resize) (camera camera))
   ;; Ensure we scale to fit width as much as possible without showing space

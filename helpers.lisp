@@ -210,7 +210,7 @@ void main(){
   (setf (chunk entity) new-chunk))
 
 (defun handle-oob (entity)
-  (let ((other (find-containing entity (region +world+)))
+  (let ((other (find-chunk entity))
         (chunk (chunk entity)))
     (cond (other
            (oob entity other))
