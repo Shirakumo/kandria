@@ -161,7 +161,8 @@
           (alloy:enter quick tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
           (alloy:enter resume focus :layer layer)
           (alloy:enter quick focus :layer layer)))
-      
+
+      #++
       (with-tab (tab (@ world-map-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         )
       
@@ -222,7 +223,8 @@
               (control gameplay invincible-player (:gameplay :god-mode) 'alloy:switch))
             (with-options-tab (language (@ language-settings))
               (control language game-language (:language :code) 'alloy:combo-set :value-set +languages+)))))
-      
+
+      #++
       (with-tab (tab (@ load-game-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         ))
     (alloy:finish-structure panel layout focus)))
@@ -239,4 +241,4 @@
             (if (< (* 60 60 4) (session-time)) (@ long-play-time-warning) "")
             (@ total-play-time) (format-relative-time (total-play-time))
             (@ player-health) (health-percentage player))))
-;; FIXME: when changing language UI needs to update immediately
+;; FIXME: when changing language or font, UI needs to update immediately
