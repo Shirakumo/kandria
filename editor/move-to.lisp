@@ -86,7 +86,8 @@
   (stage (visualizer tool) area))
 
 (defmethod hide :after ((tool move-to))
-  (alloy:leave (visualizer tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
+  (when (slot-boundp (visualizer tool) 'alloy:layout-parent)
+    (alloy:leave (visualizer tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))))
 
 (defmethod handle ((ev mouse-press) (tool move-to))
   (let ((pos (mouse-world-pos (pos ev))))
