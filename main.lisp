@@ -124,8 +124,8 @@
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
   (register (make-instance 'walkntalk) scene)
   (show (make-instance 'status-lines))
-  #++
-  (show (make-instance 'report-button))
+  (when (deploy:deployed-p)
+    (show (make-instance 'report-button-panel)))
   (load-state (or (state main) (initial-state scene)) main)
   (save-state main (quicksave main))
   (save-state main T)

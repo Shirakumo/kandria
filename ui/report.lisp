@@ -80,17 +80,27 @@
                                           :title "Unhandled Error" :type :error :modal T)))
     (deploy:quit)))
 
-(defclass report-button (panel)
+(defclass report-button (button)
   ())
 
-(defmethod initialize-instance :after ((panel report-button) &key)
-  (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-        (focus (make-instance 'alloy:focus-list))
-        (button (alloy:represent "Submit Feedback" 'alloy:button
-                                 :style `((:background :pattern ,colors:accent)
-                                          (:label :pattern ,colors:white)))))
-    (alloy:enter button layout :constraints `((:right 0) (:top 0) (:size 200 30)))
-    (alloy:enter button focus)
-    (alloy:on alloy:activate (button)
-      (toggle-panel 'report-panel))
+(presentations:define-update (ui report-button)
+  (:background
+   :pattern colors:accent)
+  (:label
+   :size (alloy:un 12)
+   :pattern colors:white))
+
+(defclass report-button-panel (panel)
+  ())
+
+(defmethod initialize-instance :after ((panel report-button-panel) &key)
+  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+         (focus (make-instance 'alloy:focus-list))
+         (report (make-instance 'report-button :value "Submit Feedback" :focus-parent focus :on-activate
+                                (lambda () (toggle-panel 'report-panel))))
+         (wishlist (make-instance 'report-button :value "Wishlist on Steam" :focus-parent focus :on-activate
+                                  (lambda () (open-in-browser "https://store.steampowered.com/app/1261430?utm_source=mailinglistdemo")
+                                    (discard-events +world+)))))
+    (alloy:enter report layout :constraints `((:right 0) (:top 0) (:size 200 30)))
+    (alloy:enter wishlist layout :constraints `((:right 0) (:below ,report 5) (:size 200 30)))
     (alloy:finish-structure panel layout focus)))
