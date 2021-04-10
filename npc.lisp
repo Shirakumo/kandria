@@ -102,9 +102,9 @@
                   (complete))
                  ((null (path npc))
                   (unless (move-to (target npc) npc)
-                    (if (= (vx (location npc)) (vx (target npc)))
+                    (if (~= (vx (location npc)) (vx (target npc)) 16)
                         (complete)
-                        (error "What the fuck? Don't know how to get to ~a" (target npc)))))
+                        (error "What the fuck? Don't know how to get to ~a from ~a" (target npc) (location npc)))))
                  (T
                   (execute-path npc ev))))))
       (:lead-check
