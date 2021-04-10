@@ -88,12 +88,13 @@
   (snap-to-target (unit :camera T) (unit 'player T))
   (issue +world+ 'force-lighting))
 
-(defmethod (setf tool) :before ((tool tool) (editor editor))
+(defmethod (setf tool) :around ((tool tool) (editor editor))
   (let ((entity (entity editor)))
     (when (find (type-of tool) (applicable-tools entity))
       (trial:commit tool (loader +main+) :unload NIL)
       (when (and (tool editor) (not (eq tool (tool editor))))
-        (hide (tool editor))))))
+        (hide (tool editor)))
+      (call-next-method))))
 
 (defmethod (setf tool) ((tool symbol) (editor editor))
   (setf (tool editor) (make-instance tool :editor editor)))
