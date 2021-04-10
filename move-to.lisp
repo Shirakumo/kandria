@@ -209,7 +209,7 @@
             o o _
             o s _)
            (when (and (= 1 (tile x (1- y)))
-                      (= 0 (tile (1- x) (- y 2))))
+                      (= 0 (tile (1- x) (- y 1))))
              (connect-nodes graph 'climb (1- x) (1- y) x y w h)
              (create-jump-connections solids graph x y -1)
              (fall x y w h -1)))
@@ -217,7 +217,7 @@
             _ o o
             _ s o)
            (when (and (= 1 (tile x (1- y)))
-                      (= 0 (tile (1+ x) (- y 2))))
+                      (= 0 (tile (1+ x) (- y 1))))
              (connect-nodes graph 'climb x y (1+ x) (1- y) w h)
              (create-jump-connections solids graph x y +1)
              (fall x y w h +1)))
@@ -263,11 +263,11 @@
            (fall x y w h 0 -1))
           ((_ _ _
             _ o /
-            _ s _)
+            _ _ _)
            (connect-nodes graph 'walk x y (1+ x) (1+ y) w h))
           ((_ _ _
             / o _
-            _ s _)
+            _ _ _)
            (connect-nodes graph 'walk x y (1- x) (1+ y) w h))
           ((_ _ _
             o o b
