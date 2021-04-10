@@ -42,7 +42,9 @@
   (setf +main+ NIL))
 
 (defmethod save-state ((main main) (state (eql T)) &rest args)
-  (apply #'save-state main (make-instance 'save-state) args))
+  (unless (state main)
+    (setf (state main) (make-instance 'save-state :filename "1")))
+  (apply #'save-state main (state main) args))
 
 (defmethod save-state ((main main) (state (eql :quick)) &rest args)
   (apply #'save-state main (quicksave main) args))
@@ -53,9 +55,15 @@
       (setf (state main) state))))
 
 (defmethod load-state ((state (eql T)) (main main))
-  (if (< (save-time (state main)) (save-time (quicksave main)))
-      (load-state (quicksave main) (scene main))
-      (load-state (state main) (scene main))))
+  (cond ((state main)
+         (if (< (save-time (state main)) (save-time (quicksave main)))
+             (load-state (quicksave main) (scene main))
+             (load-state (state main) (scene main))))
+        ((list-saves)
+         (load-state (first (list-saves)) main))
+        (T
+         (load-state (initial-state (scene main)) (scene main))
+         (save-state (scene main) (make-instance 'save-state :filename "0")))))
 
 (defmethod load-state ((state (eql :quick)) (main main))
   (load-state (quicksave main) (scene main)))
@@ -126,7 +134,7 @@
   (show (make-instance 'status-lines))
   (when (deploy:deployed-p)
     (show (make-instance 'report-button-panel)))
-  (load-state (or (state main) (initial-state scene)) main)
+  (load-state T main)
   (save-state main (quicksave main))
   (save-state main T)
   (enter (make-instance 'fade) scene))
