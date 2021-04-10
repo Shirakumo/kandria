@@ -184,7 +184,7 @@
                 (< (vy pos) (vy loc))
                 (< (- (vy loc) (vy bsize))
                    (+ (vy pos) (vy psize))))
-           (setf (vy loc) (+ (vy pos) (vy psize) (vy bsize))))
+           (setf (vy loc) (+ (vy pos) (vy psize) (vy bsize) (vy (velocity other)))))
           ((and (/= 0 (vy normal))
                 (< (vy loc) (vy pos))
                 (< (- (vy pos) (vy psize))

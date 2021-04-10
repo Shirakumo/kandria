@@ -488,7 +488,9 @@
                ((retained 'down)
                 (setf (vy vel) (* (p! climb-down) -1)))
                (T
-                (setf (vy vel) 0)))))
+                (setf (vy vel) 0.0)))
+         (when (typep attached 'moving-platform)
+           (nv+ vel (velocity attached)))))
       (:crawling
        ;; Uncrawl on ground loss
        (when (and (not ground)
@@ -607,10 +609,11 @@
          (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) (* 100 dt)))))
        (nv+ vel (v* (gravity (medium player)) dt))
        ;; Limit when sliding down wall
-       (when (and (or (typep (svref collisions 1) 'ground)
-                      (typep (svref collisions 3) 'ground))
-                  (< (vy vel) (p! slide-limit)))
-         (setf (vy vel) (p! slide-limit)))))
+       (when (or (typep (svref collisions 1) '(or ground moving-platform))
+                 (typep (svref collisions 3) '(or ground moving-platform)))
+         (when (< (vy vel) (p! slide-limit))
+           (setf (vy vel) (p! slide-limit)))
+         (nv+ vel (velocity (or (svref collisions 1) (svref collisions 3)))))))
     (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
     (nv+ (frame-velocity player) vel)))
 
@@ -627,10 +630,10 @@
       (:climbing
        (setf (animation player) 'climb)
        (cond
-         ((< (vy vel) 0)
+         ((retained 'down)
           (setf (playback-direction player) -1)
           (setf (playback-speed player) 1.5))
-         ((= 0 (vy vel))
+         ((not (retained 'up))
           (setf (clock player) 0.0))))
       (:crawling
        (cond ((< 0 (vx vel))
@@ -650,12 +653,12 @@
              ((null (svref collisions 2))
               (setf (look-time player) 0.0)
               (cond ((< (air-time player) 0.1))
-                    ((typep (svref collisions 1) 'ground)
+                    ((typep (svref collisions 1) '(or ground moving-platform))
                      (setf (animation player) 'slide)
                      (setf (direction player) +1)
                      (when (< (clock player) 0.01)
                        (trigger 'slide player :direction -1)))
-                    ((typep (svref collisions 3) 'ground)
+                    ((typep (svref collisions 3) '(or ground moving-platform))
                      (setf (animation player) 'slide)
                      (setf (direction player) -1)
                      (when (< (clock player) 0.01)
