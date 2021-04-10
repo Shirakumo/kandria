@@ -70,7 +70,7 @@
           ((= -1 (vy normal)) (setf (svref (collisions moving) 0) block))
           ((= +1 (vx normal)) (setf (svref (collisions moving) 3) block))
           ((= -1 (vx normal)) (setf (svref (collisions moving) 1) block)))
-    (nv+ loc (v* vel (hit-time hit)))
+    (nv+ loc (v* vel (clamp 0 (hit-time hit) 1)))
     (nv- vel (v* normal (v. vel normal)))
     ;; If we're just bumping the edge, move us up.
     (when (and (< -3 (- (vy loc) height (+ t-s (vy pos))) 3)
@@ -88,7 +88,11 @@
                 (< (vy loc) (vy pos))
                 (< (- (vy pos) t-s)
                    (+ (vy loc) height)))
-           (setf (vy loc) (- (vy pos) t-s height))))))
+           (setf (vy loc) (- (vy pos) t-s height))
+           (let ((ground (svref (collisions moving) 2)))
+             (when (typep ground 'slope)
+               ;; We are on a slope, too, so push in direction of slope
+               (decf (vx loc) (float-sign (- (vy (slope-r ground)) (vy (slope-l ground)))))))))))
 
 (defmethod collides-p ((moving moving) (block platform) hit)
   (and (< (vy (frame-velocity moving)) 0)
