@@ -222,9 +222,10 @@
 (defmethod collide ((player player) (block spike) hit)
   (case (state player)
     (:dying)
+    (:respawning)
     (T
      (setf (animation player) 'die)
-     (setf (state player) :dying)
+     (setf (state player) :respawning)
      (transition
        (respawn player)))))
 
@@ -345,6 +346,8 @@
        (when (retained 'down) (setf (vy vel) (- (vx (p! velocity-limit))))))
       (:oob
        (vsetf vel 0 0))
+      (:respawning
+       (handle-animation-states player ev))
       ((:dying :stunned)
        (handle-animation-states player ev)
        (when (and (cancelable-p (frame player))
@@ -759,7 +762,8 @@
   (start (progression 'death +world+)))
 
 (defmethod die ((player player))
-  (show-panel 'game-over))
+  (unless (eql :respawning (state player))
+    (show-panel 'game-over)))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
