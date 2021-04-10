@@ -153,7 +153,9 @@
     (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
     ;; Make sure we stop sliding down the slope.
     (when (< (abs (vx vel)) 0.3)
-      (setf (vx vel) 0))
+      (setf (vx vel) 0.0))
+    (when (< (abs (vy vel)) 0.001)
+      (setf (vy vel) 0.0))
     ;; Zip
     (let* ((xrel (+ 0.5 (/ (- (vx loc) (vx (hit-location hit))) +tile-size+)))
            (yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
