@@ -20,7 +20,6 @@
                                    (+ (vy (location chunk)) (vy (bsize chunk)) 8)))
         (when (typep entity 'chunk)
           (push entity adjacent))))
-    (print adjacent)
     (setf (adjacent spawner) adjacent)))
 
 (defmethod handle ((ev switch-chunk) (spawner spawner))

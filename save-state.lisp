@@ -23,11 +23,14 @@
 
 (defmethod print-object ((save-state save-state) stream)
   (print-unreadable-object (save-state stream :type T)
-    (format stream "~s ~a" (author save-state) (format-absolute-time (save-time save-state)))))
+    (format stream "~s ~s" (author save-state) (file save-state))))
 
 (defun list-saves ()
-  (loop for file in (directory (make-pathname :name :wild :type "save" :defaults (config-directory)))
-        collect (minimal-load-state file)))
+  (sort
+   (loop for file in (directory (make-pathname :name :wild :type "zip" :defaults (config-directory)))
+         unless (string= "quicksave" (pathname-name file))
+         collect (minimal-load-state file))
+   #'string< :key (lambda (f) (pathname-name (file f)))))
 
 (defun minimal-load-state (file)
   (with-packet (packet file)
