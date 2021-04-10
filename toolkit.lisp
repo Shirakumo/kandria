@@ -197,7 +197,10 @@
     (unit thing +world+)))
 
 (declaim (inline v<- vrand vrandr nvalign vfloor vsqrlen2 vsqrdist2 within-dist-p closer
-                 invclamp absinvclamp point-angle random* intersection-point))
+                 invclamp absinvclamp point-angle random* intersection-point ~=))
+
+(defun ~= (a b &optional (delta 1))
+  (< (abs (- a b)) delta))
 
 (defun v<- (target source)
   (etypecase source
