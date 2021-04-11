@@ -132,7 +132,7 @@
   (deploy:status 1 "Deploying to release directory")
   (let ((release (deploy)))
     (deploy:status 1 "Creating bundle zip")
-    #++(bundle :release release)
+    (bundle :release release)
     (when upload
       (deploy:status 1 "Uploading")
       (upload upload :release release))
