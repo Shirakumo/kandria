@@ -257,7 +257,7 @@
               (exit (with-button exit-game
                       (quit *context*)))
               (reset (with-button reset-game
-                       (load-state (make-instance 'save-state :filename "0") +world+)
+                       (load-state (make-instance 'save-state :filename "initial") +world+)
                        (hide panel))))
           (alloy:enter save tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter exit tab :constraints `((:bottom 10) (:right-of ,save 10) (:width 200) (:height 40)))

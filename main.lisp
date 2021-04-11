@@ -63,7 +63,7 @@
          (load-state (first (list-saves)) main))
         (T
          (load-state (initial-state (scene main)) (scene main))
-         (save-state (scene main) (make-instance 'save-state :filename "0")))))
+         (save-state (scene main) (make-instance 'save-state :filename "initial")))))
 
 (defmethod load-state ((state (eql :quick)) (main main))
   (load-state (quicksave main) (scene main)))
