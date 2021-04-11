@@ -84,6 +84,17 @@
   ;; FIXME: This is /not/ correct either as it's influenced by time dilution and dilation.
   (clock (scene main)))
 
+(defun main ()
+  (let ((arg (first (uiop:command-line-arguments))))
+    (cond ((null arg)
+           (launch))
+          ((equal arg "controller-config")
+           (gamepad::configurator-main))
+          ((equal arg "swank")
+           (let ((port (swank:create-server :dont-close T)))
+             (format T "~&Started swank on port ~d..." port)
+             (loop (sleep 1)))))))
+
 (defun launch (&rest initargs)
   (labels ((recurse (class)
              (c2mop:finalize-inheritance class)
