@@ -31,6 +31,8 @@
     ((eql T) default)
     (symbol (coerce-version version))))
 
+(defmethod supported-p ((version version)) NIL)
+
 (defgeneric decode-payload (payload target packet version))
 (defgeneric encode-payload (source payload packet version))
 

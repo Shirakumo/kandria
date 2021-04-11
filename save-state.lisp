@@ -25,22 +25,32 @@
   (print-unreadable-object (save-state stream :type T)
     (format stream "~s ~s" (author save-state) (file save-state))))
 
+(defun string<* (a b)
+  (if (= (length a) (length b))
+      (string< a b)
+      (< (length a) (length b))))
+
 (defun list-saves ()
   (sort
    (loop for file in (directory (make-pathname :name :wild :type "zip" :defaults (config-directory)))
-         unless (string= "quicksave" (pathname-name file))
-         collect (minimal-load-state file))
-   #'string< :key (lambda (f) (pathname-name (file f)))))
+         for state = (handler-case (minimal-load-state file)
+                       (warning ()
+                         (v:warn :kandria.save "Save state ~s is too old, ignoring." file)
+                         NIL))
+         when state collect state)
+   #'string<* :key (lambda (f) (pathname-name (file f)))))
 
 (defun minimal-load-state (file)
   (with-packet (packet file)
     (destructuring-bind (header initargs)
         (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
       (assert (eq 'save-state (getf header :identifier)))
+      (unless (supported-p (make-instance (getf header :version)))
+        (warn "Save file too old to support."))
       (apply #'make-instance 'save-state :file file initargs))))
 
 (defun current-save-version ()
-  (make-instance 'save-v0))
+  (make-instance 'save-v1))
 
 (defgeneric load-state (state world))
 (defgeneric save-state (world state &key version &allow-other-keys))
