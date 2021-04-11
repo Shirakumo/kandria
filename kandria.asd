@@ -6,7 +6,7 @@
                   #+win32 "kandria-windows"
                   #+(and bsd (not darwin)) "kandria-bsd.run"
                   #-(or linux bsd win32) "kandria"
-  :entry-point "org.shirakumo.fraf.kandria:launch"
+  :entry-point "org.shirakumo.fraf.kandria::main"
   :components ((:file "package")
                (:file "toolkit")
                (:file "helpers")
