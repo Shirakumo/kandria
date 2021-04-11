@@ -167,7 +167,7 @@
 (defmethod (setf status) :after (status (quest quest))
   (setf (known-quests (storyline quest))
         (sort-quests
-         (if (eql :active status)
+         (if (and (eql :active status) (not (find quest (known-quests (storyline quest)))))
              (list* quest (known-quests (storyline quest)))
              (known-quests (storyline quest))))))
 

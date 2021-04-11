@@ -85,6 +85,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Florian Hanke
 - Fix UI focus bug
   Reported by Christopher Hurley
+- Fix quest entries being duplicated when reloading
+  Reported by Christopher Hurley
+- Fix missing roof in cafe alpha
+  Reported by Florian Hanke
 
 ## TODO
 - Fix disconnecting a sound device crashing the game
