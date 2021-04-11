@@ -1,6 +1,9 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass save-v0 (v0) ())
+(defclass save-v1 (save-v0) ())
+
+(defmethod supported-p ((_ save-v1)) T)
 
 (define-encoder (world save-v0) (_b packet)
   (let ((region (region world)))
