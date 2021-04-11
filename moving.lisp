@@ -35,9 +35,9 @@
     (when (eq (svref collisions 2) (svref collisions 3))
       (setf (svref collisions 3) NIL))
     ;; Point test for adjacent walls
-    (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc)))))
+    (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc) 1 (vy size)))))
       (when l (setf (aref collisions 3) (hit-object l))))
-    (let ((r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc)))))
+    (let ((r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc) 1 (vy size)))))
       (when r (setf (aref collisions 1) (hit-object r))))
     (let ((u (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy size) 1.5) (vx size) 1))))
       (when u (setf (aref collisions 0) (hit-object u))))
