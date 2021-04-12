@@ -218,7 +218,7 @@
 
 (define-encoder (npc save-v0) (initargs _p)
   (let ((last (car (last (path npc)))))
-    (list* :path (when last (second last))
+    (list* :path (when last (encode (second last)))
            :ai-state (ai-state npc)
            :walk (walk npc)
            :target (when (target npc) (encode (target npc)))
@@ -233,7 +233,7 @@
     (setf (target npc) (when target (decode 'vec2 target)))
     (setf (companion npc) (when companion (unit companion T)))
     (if path
-        (move-to path npc)
+        (move-to (decode 'vec2 path) npc)
         (setf (path npc) ()))))
 
 (define-encoder (moving-platform save-v0) (_b _p)
