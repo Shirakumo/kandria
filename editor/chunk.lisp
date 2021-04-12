@@ -87,8 +87,6 @@
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget normal) ((slot-value chunk-widget 'tile) tile-button :tileset (normal (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget tile-info) ((slot-value chunk-widget 'tile) tile-info))
-(alloy::define-subbutton (chunk-widget pick) ()
-  (setf (state (editor chunk-widget)) :picking))
 (alloy::define-subbutton (chunk-widget clear) ()
   (alloy:with-confirmation ("Are you sure you want to clear the chunk?" :ui (unit 'ui-pass T))
     (clear (entity chunk-widget))))
@@ -119,13 +117,13 @@
     albedo absorption normal tile-info))
   (alloy:build-ui
    (alloy:grid-layout
-    :col-sizes '(T T T)
+    :col-sizes '(T T)
     :row-sizes '(30)
-    pick clear compute)))
+    clear compute)))
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
-  layer show-solids tile-set-list tiles place-width place-height pick clear compute)
+  layer show-solids tile-set-list tiles place-width place-height clear compute)
 
 (defmethod (setf entity) :after ((chunk chunk) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
