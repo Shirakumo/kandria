@@ -99,7 +99,9 @@
          (report (make-instance 'report-button :value "Submit Feedback" :focus-parent focus :on-activate
                                 (lambda () (toggle-panel 'report-panel))))
          (wishlist (make-instance 'report-button :value "Wishlist on Steam" :focus-parent focus :on-activate
-                                  (lambda () (open-in-browser "https://store.steampowered.com/app/1261430?utm_source=mailinglistdemo")
+                                  (lambda ()
+                                    (ignore-errors
+                                     (open-in-browser "https://store.steampowered.com/app/1261430?utm_source=mailinglistdemo"))
                                     (discard-events +world+)))))
     (alloy:enter report layout :constraints `((:right 0) (:top 0) (:size 200 30)))
     (alloy:enter wishlist layout :constraints `((:right 0) (:below ,report 5) (:size 200 30)))
