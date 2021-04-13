@@ -154,8 +154,9 @@
         (recurse region)))
     ;; Add new entities that exist in the state
     (loop for (type . state) in create-new
-          for entity = (decode-payload state (make-instance type) packet save-v0)
-          do (enter* entity region))
+          for entity = (with-simple-restart (continue "Ignore this entity.")
+                         (decode-payload state (make-instance type) packet save-v0))
+          do (when entity (enter* entity region)))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
           for unit = (unit name region)
@@ -261,4 +262,8 @@
 (define-decoder (trigger save-v0) (initargs _)
   (setf (active-p trigger) (getf initargs :active-p)))
 
-(define-slot-coders (item save-v0) ((location :type vec2)))
+(define-encoder (item save-v0) (_b _p)
+  `(:location ,(encode (location item))))
+
+(define-decoder (item save-v0) (initargs _p)
+  (setf (location item) (decode (getf initargs :location) 'vec2)))
