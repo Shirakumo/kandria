@@ -98,3 +98,28 @@
 
 (defmethod applicable-tools append ((movable movable))
   '(move-to))
+
+(defclass movement-trace (tool)
+  ((marker :initform (make-instance 'marker) :accessor marker)))
+
+(defmethod label ((tool movement-trace)) "Trace")
+
+(defmethod (setf tool) :after ((tool movement-trace) (editor editor))
+  (let ((trace (movement-trace (entity tool))))
+    (replace-vertex-data (marker tool)
+                         (loop for i from 3 below (length trace) by 2
+                               collect (list (vec (aref trace (- i 3)) (aref trace (- i 2)) 0) (vec 1 0 0 0.1))
+                               collect (list (vec (aref trace (- i 1)) (aref trace (- i 0)) 0) (vec 1 0 0 0.1)))))
+  (unless (find (marker tool) (alloy:elements (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
+    (alloy:enter (marker tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
+                 :w (width *context*) :h (height *context*))))
+
+(defmethod stage ((tool movement-trace) (area staging-area))
+  (stage (marker tool) area))
+
+(defmethod hide :after ((tool movement-trace))
+  (when (slot-boundp (marker tool) 'alloy:layout-parent)
+    (alloy:leave (marker tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))))
+
+(defmethod applicable-tools append ((player player))
+  '(movement-trace))
