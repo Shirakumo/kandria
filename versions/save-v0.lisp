@@ -49,8 +49,11 @@
                                                                      :element-type 'character))
     (quest:merge-bindings quest:storyline (decode-payload variables 'bindings packet save-v0))
     (loop for (name . initargs) in quests
-          for quest = (quest:find-quest name quest:storyline)
-          do (decode quest initargs))))
+          for quest = (handler-case (quest:find-quest name quest:storyline)
+                        (error ()
+                          (v:warn :kandria.save "Reference to unknown quest ~s, ignoring!" name)
+                          NIL))
+          do (when quest (decode quest initargs)))))
 
 (define-encoder (quest:quest save-v0) (buffer _p)
   (list (quest:name quest:quest)
@@ -67,8 +70,11 @@
     (quest:merge-bindings quest:quest (decode-payload bindings 'bindings packet save-v0))
     ;; FIXME: Quests not saved in the state won't be reset to initial state.
     (loop for (name . initargs) in tasks
-          for task = (quest:find-task name quest:quest)
-          do (decode task initargs))))
+          for task = (handler-case (quest:find-task name quest:quest)
+                       (error ()
+                         (v:warn :kandria.save "Reference to unknown task ~s, ignoring!" name)
+                         NIL))
+          do (when task (decode task initargs)))))
 
 (define-encoder (quest:task save-v0) (_b _p)
   (list (quest:name quest:task)
@@ -87,8 +93,11 @@
     (setf (quest:status quest:task) status)
     (quest:merge-bindings quest:task (decode-payload bindings 'bindings packet save-v0))
     (loop for (name . initargs) in triggers
-          for trigger = (quest:find-trigger name quest:task)
-          do (decode trigger initargs))))
+          for trigger = (handler-case (quest:find-trigger name quest:task)
+                          (error ()
+                            (v:warn :kandria.save "Reference to unknown trigger ~s, ignoring!" name)
+                            NIL))
+          do (when trigger (decode trigger initargs)))))
 
 (define-encoder (quest:action save-v0) (_b _p)
   (list (quest:name quest:action)
