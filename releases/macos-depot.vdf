@@ -1,7 +1,7 @@
 "DepotBuildConfig"{
   "DepotID" "1261433"
   "FileMapping"{
-    "LocalPath" "kandria-macos"
+    "LocalPath" "kandria-macos.o"
     "DepotPath" "."
   }
   "FileMapping"{
