@@ -2,7 +2,7 @@
   :version "0.1.0"
   :build-operation "deploy-op"
   :build-pathname #+linux "kandria-linux.run"
-                  #+darwin "kandria-macos"
+                  #+darwin "kandria-macos.o"
                   #+win32 "kandria-windows"
                   #+(and bsd (not darwin)) "kandria-bsd.run"
                   #-(or linux bsd win32) "kandria"
