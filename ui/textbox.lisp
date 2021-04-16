@@ -162,7 +162,10 @@
                ((pending textbox)
                 (ecase (first (pending textbox))
                   (:emote
-                   (setf (animation (profile textbox)) (second (pending textbox))))
+                   (handler-case
+                       (setf (animation (profile textbox)) (second (pending textbox)))
+                     (error ()
+                       (v:warn :kandria.dialog "Requested missing emote ~s" (second (pending textbox))))))
                   (:prompt
                    (setf (prompt textbox) (second (pending textbox))))
                   (:end
