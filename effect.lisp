@@ -92,7 +92,7 @@
   (let ((s (view-scale (unit :camera T))))
     (multiple-value-bind (breaks array x- y- x+ y+)
         (org.shirakumo.alloy.renderers.opengl.msdf::compute-text
-         (font effect) text (alloy:px-extent 0 0 500 30) (/ s 5) NIL)
+         (font effect) text (alloy:px-extent 0 0 500 30) (/ s 5) NIL NIL)
       (decf (vx (location effect)) (/ (+ x- x+) 2 s))
       (decf (vy (location effect)) (/ (+ y- y+) 2 s))
       (setf (vertex-data effect) array))))
