@@ -30,13 +30,13 @@
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
          (focus (make-instance 'alloy:focus-list))
          (header (make-instance 'header :value "Game Over"))
-         (load (alloy:represent "Load last save" 'pause-button :focus-parent focus))
-         (quit (alloy:represent "Quit game" 'pause-button :focus-parent focus)))
-    (alloy:on alloy:activate (load)
-      (load-state T +main+)
-      (hide panel))
-    (alloy:on alloy:activate (quit)
-      (quit *context*))
+         (load (make-instance 'pause-button :focus-parent focus :value "Load last save"
+                                            :on-activate (lambda ()
+                                                           (load-state T +main+)
+                                                           (hide panel))))
+         (quit (make-instance 'pause-button :focus-parent focus :value "Quit game"
+                                            :on-activate (lambda ()
+                                                           (quit *context*)))))
     (alloy:enter header layout
                  :constraints `((:top 50) (:left 0) (:right 0) (:height 100)))
     (alloy:enter load layout
