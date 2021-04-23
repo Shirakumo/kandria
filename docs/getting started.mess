@@ -6,7 +6,7 @@ Before you get started, please send Shinmera your GitHub username so he can add 
 
 Unlike many other game projects, Kandria uses a custom engine and is written in Common Lisp. This means that unfortunately the setup is a bit more involved, but not by much. In order to ease setup, a custom development environment has been put together. You can download it from here:
 
-- "Windows"(https://github.com/Shinmera/kandria/releases/download/0.0.3/win-portacle.exe)
+- "Windows"(https://github.com/Shinmera/kandria/releases/download/0.1.0/portacle.exe)
 
 If you're already familiar with Emacs, you might want to set up a native development environment instead of using Portacle. In that case, contact Shinmera for advice. If not, carry on.
 
@@ -33,6 +33,8 @@ The source tree is divided up as follows:
     Documentation and documents related to the project and its website. This document should be in this directory.
     - "``art.mess``"(link art.mess)
       A mood board with reference images and videos for the art direction.
+    - "``beta.mess``"(link beta.mess)
+      Documentation for beta testing.
     - "``combat system.mess``"(link combat system.mess)
       Documentation on the combat system that the game employs.
     - "``design.mess``"(link design.mess)
@@ -45,6 +47,8 @@ The source tree is divided up as follows:
       A short introduction to Lisp syntax and usage related to Kandria.
     - "``lore.mess``"(link lore.mess)
       Collection of tidbits on setting, technology, etc. lore.
+    - "``pillars.mess``"(link pillars.mess)
+      Design pillars document with the most important parts at a glance.
     - "``quest system.mess``"(link quest system.mess)
       Documentation on the behaviour and capabilities of the quest system.
   - ``releases/``
