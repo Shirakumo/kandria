@@ -11,8 +11,6 @@
                (:file "toolkit")
                (:file "helpers")
                (:file "palette")
-               (:file "settings")
-               (:file "language")
                (:file "sprite-data")
                (:file "tile-data")
                (:file "gradient")
@@ -99,6 +97,7 @@
                :trial-harmony
                :trial-steam
                :trial-notify
+               :trial-feedback
                :alloy-constraint
                :zip
                :fast-io
@@ -113,7 +112,6 @@
                :kandria-quest
                :alexandria
                :file-select
-               :feedback-client
                :cl-mixed-wav
                :cl-mixed-mpg123
                :zpng

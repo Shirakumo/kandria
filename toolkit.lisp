@@ -7,6 +7,25 @@
 (define-global +world+ NIL)
 (define-global +main+ NIL)
 (define-global +input-source+ :keyboard)
+(define-global +app-system+ "kandria")
+(define-global +settings+
+    (copy-tree '(:audio (:latency 0.05
+                         :volume (:master 0.5
+                                  :effect 1.0
+                                  :speech 1.0
+                                  :music 1.0))
+                 :display (:resolution (1280 720)
+                           :fullscreen NIL
+                           :vsync T
+                           :ui-scale 1.0
+                           :font "PromptFont")
+                 :gameplay (:rumble 1.0
+                            :screen-shake 1.0
+                            :god-mode NIL
+                            :text-speed 0.02
+                            :auto-advance-after 3.0)
+                 :language :eng
+                 :debugging ())))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)
@@ -57,28 +76,8 @@
   #-kandria-release
   `(gethash ',name +player-movement-data+))
 
-(defmethod version ((_ (eql :kandria)))
-  #.(flet ((file (p)
-             (merge-pathnames p (pathname-utils:to-directory (or *compile-file-pathname* *load-pathname*))))
-           (trim (s)
-             (string-trim '(#\Return #\Linefeed #\Space) s)))
-      (let* ((head (trim (alexandria:read-file-into-string (file ".git/HEAD"))))
-             (path (subseq head (1+ (position #\  head))))
-             (commit (trim (alexandria:read-file-into-string (file (merge-pathnames path ".git/"))))))
-        (format NIL "~a-~a"
-                (asdf:component-version (asdf:find-system "kandria"))
-                (subseq commit 0 7)))))
-
 (defun initial-timestamp ()
   (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0))
-
-(defun root ()
-  (if (deploy:deployed-p)
-      (deploy:runtime-directory)
-      (pathname-utils:to-directory #.(or *compile-file-pathname* *load-pathname*))))
-
-(defun config-directory ()
-  (trial:config-directory "shirakumo" "kandria"))
 
 (defun format-absolute-time (&optional (time (get-universal-time)) &key (date-separator #\.) (time-separator #\:) (date-time-separator #\ ))
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
@@ -110,35 +109,6 @@
             (T
              (format out "~d:~2,'0d" minutes seconds))))))
 
-(defun maybe-finalize-inheritance (class)
-  (let ((class (etypecase class
-                 (class class)
-                 (symbol (find-class class)))))
-    (unless (c2mop:class-finalized-p class)
-      (c2mop:finalize-inheritance class))
-    class))
-
-(defmacro with-kandria-io-syntax (&body body)
-  `(with-standard-io-syntax
-     (let ((*package* #.*package*)
-           (*print-case* :downcase)
-           (*print-readably* NIL))
-       ,@body)))
-
-(defmacro with-memo (bindings &body body)
-  (let ((funs (loop for binding in bindings
-                    collect (cons (car binding) (gensym (string (car binding)))))))
-    `(let ,(mapcar #'car bindings)
-       (flet ,(loop for (var value) in bindings
-                    for fun = (cdr (assoc var funs))
-                    collect `(,fun ()
-                                   (or ,var (setf ,var ,value))))
-         (declare (ignorable ,@(loop for fun in funs collect (list 'function (cdr fun)))))
-         (symbol-macrolet ,(loop for binding in bindings
-                                 for fun = (cdr (assoc (car binding) funs))
-                                 collect `(,(car binding) (,fun)))
-           ,@body)))))
-
 (defun find-new-directory (dir base)
   (loop for i from 0
         for sub = dir then (format NIL "~a-~d" dir i)
@@ -147,7 +117,7 @@
              (return path))))
 
 (defun parse-sexps (string)
-  (with-kandria-io-syntax
+  (with-trial-io-syntax ()
     (loop with eof = (make-symbol "EOF")
           with i = 0
           collect (multiple-value-bind (data next) (read-from-string string NIL EOF :start i)
@@ -157,7 +127,7 @@
                         data)))))
 
 (defun princ* (expression &optional (stream *standard-output*))
-  (with-kandria-io-syntax
+  (with-trial-io-syntax ()
     (write expression :stream stream :case :downcase)
     (fresh-line stream)))
 
@@ -168,29 +138,6 @@
   (if (constantp type env)
       `(lambda (o) (typep o ,type))
       whole))
-
-(defun type-prototype (type)
-  (case type
-    (character #\Nul)
-    (complex #c(0 0))
-    (cons '(NIL . NIL))
-    (float 0.0)
-    (function #'identity)
-    (hash-table (load-time-value (make-hash-table)))
-    (integer 0)
-    (null NIL)
-    (package #.*package*)
-    (pathname #p"")
-    (random-state (load-time-value (make-random-state)))
-    (readtable (load-time-value (copy-readtable)))
-    (stream (load-time-value (make-broadcast-stream)))
-    (string "string")
-    (symbol 'symbol)
-    (vector #(vector))
-    (T (let ((class (find-class type)))
-         (unless (c2mop:class-finalized-p class)
-           (c2mop:finalize-inheritance class))
-         (c2mop:class-prototype class)))))
 
 (defmethod unit (thing (target (eql T)))
   (when +world+
@@ -574,16 +521,6 @@
 (define-shader-entity player () ())
 (define-shader-entity enemy () ())
 
-(defmacro call (func-ish &rest args)
-  (let* ((slash (position #\/ (string func-ish)))
-         (package (subseq (string func-ish) 0 slash))
-         (symbol (subseq (string func-ish) (1+ slash)))
-         (symbolg (gensym "SYMBOL")))
-    `(let ((,symbolg (find-symbol ,symbol ,package)))
-       (if ,symbolg
-           (funcall ,symbolg ,@args)
-           (error "No such symbol ~a:~a" ,package ,symbol)))))
-
 (defmacro error-or (&rest cases)
   (let ((id (gensym "BLOCK")))
     `(cl:block ,id
@@ -660,7 +597,7 @@
         (jsown::write-object-to-stream data output)))))
 
 (defun read-src (file)
-  (with-kandria-io-syntax
+  (with-trial-io-syntax ()
     (with-open-file (stream file :direction :input
                                  :element-type 'character)
       (read stream))))

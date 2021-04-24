@@ -244,7 +244,7 @@
               (control gameplay auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 1.0)
               (control gameplay invincible-player (:gameplay :god-mode) 'alloy:switch))
             (with-options-tab (language (@ language-settings))
-              (control language game-language (:language :code) 'alloy:combo-set :value-set +languages+)))))
+              (control language game-language (:language) 'alloy:combo-set :value-set (languages))))))
 
       #++
       (with-tab (tab (@ load-game-menu) 'org.shirakumo.alloy.layouts.constraint:layout)

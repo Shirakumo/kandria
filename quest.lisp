@@ -69,7 +69,7 @@
 
 (defmethod initialize-instance :after ((interaction stub-interaction) &key dialogue)
   ;; FIXME: use real lexinv...
-  (with-kandria-io-syntax
+  (with-trial-io-syntax ()
     (setf (quest:dialogue interaction) (dialogue:compile* dialogue))))
 
 (defmethod quest:complete ((stub-interaction stub-interaction)))
@@ -162,7 +162,7 @@
      ,(task-wrap-lexenv form (interaction assembly))))
 
 (defmethod load-quest ((packet packet) (storyline quest:storyline))
-  (with-kandria-io-syntax
+  (with-trial-io-syntax ()
     (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
       (let ((quest (decode-payload
                     (list* :storyline storyline info) (type-prototype 'quest) packet

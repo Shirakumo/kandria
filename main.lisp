@@ -10,7 +10,7 @@
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
    :version '(3 3) :profile :core
-   :title #.(format NIL "Kandria - ~a" (version :kandria))
+   :title #.(format NIL "Kandria - ~a" (version :app))
    :app-id 1261430))
 
 (defmethod initialize-instance ((main main) &key app-id)
@@ -95,29 +95,22 @@
              (format T "~&Started swank on port ~d..." port)
              (loop (sleep 1)))))))
 
+(defmethod render-loop :around ((main main))
+  (let ((*package* #.*package*))
+    (call-next-method)))
+
 (defun launch (&rest initargs)
-  (labels ((recurse (class)
-             (c2mop:finalize-inheritance class)
-             (dolist (sub (c2mop:class-direct-subclasses class))
-               (recurse sub))))
-    (recurse (find-class 'shader-entity)))
-  (flet ((launch ()
-           (let ((*package* #.*package*))
-             (v:info :kandria "Launching version ~a" (version :kandria))
-             (load-keymap)
-             (load-settings)
-             (save-settings)
-             (maybe-start-swank)
-             (apply #'trial:launch 'main
-                    :width (first (setting :display :resolution))
-                    :height (second (setting :display :resolution))
-                    :vsync (setting :display :vsync)
-                    :fullscreen (setting :display :fullscreen)
-                    (append (setting :debugging :initargs) initargs)))))
-    (if (deploy:deployed-p)
-        (float-features:with-float-traps-masked T
-          (launch))
-        (launch))))
+  (let ((*package* #.*package*))
+    (load-keymap)
+    (load-settings)
+    (save-settings)
+    (maybe-start-swank)
+    (apply #'trial:launch 'main
+           :width (first (setting :display :resolution))
+           :height (second (setting :display :resolution))
+           :vsync (setting :display :vsync)
+           :fullscreen (setting :display :fullscreen)
+           (append (setting :debugging :initargs) initargs))))
 
 (defmethod setup-scene ((main main) (scene world))
   (enter (make-instance 'camera) scene)

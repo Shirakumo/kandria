@@ -132,7 +132,7 @@ Version:            ~a
 Implementation:     ~a ~a
 Machine:            ~a ~a
 SWANK:              ~a"
-            (version :kandria)
+            (version :app)
             (lisp-implementation-type) (lisp-implementation-version)
             (machine-type) (machine-version)
             (setting :debugging :swank))

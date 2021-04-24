@@ -160,7 +160,7 @@
     (setf (source sprite) source)
     (setf (palette sprite) palette)
     (setf (palettes sprite) palettes)
-    (prog1 (with-kandria-io-syntax
+    (prog1 (with-trial-io-syntax ()
              (call-next-method sprite (merge-pathnames animation-data path)))
       (loop for expr in animations
             do (destructuring-bind (name &key start end loop-to next (cooldown 0.0)) expr

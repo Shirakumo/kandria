@@ -1,34 +1,16 @@
 (in-package #:kandria)
 
-(defun generate-report-files ()
+(defparameter org.shirakumo.fraf.trial.feedback:*client-args*
+  '(:key "A61C1370-B410-4BE5-96DB-1A2744628063"
+    :secret "0533AD22-7729-4D91-AD4B-3967F74AA078"
+    :token "D794637E-314B-4CE3-9FCA-55A3CF95146D"
+    :token-secret "B9743038-1661-49E2-B363-C174D0761289"))
+
+(defmethod org.shirakumo.fraf.trial.feedback:report-files ()
   (let ((save (make-instance 'save-state :filename "report")))
-    (save-state +world+ save)
-    (remove-if-not (lambda (a) (probe-file (second a)))
-                   `(("log" ,(trial:logfile))
-                     ("screenshot" ,(capture NIL :file (tempfile)))
-                     ("savestate" ,(file save))))))
-
-(defun find-user-id ()
-  (error-or
-   (format NIL "~a@steam [~a]"
-           (call steam/steam-id T)
-           (call steam/display-name T))
-   (pathname-utils:directory-name (user-homedir-pathname))
-   "anonymous"))
-
-(defun submit-report (&key (user (find-user-id)) (files (generate-report-files)) description)
-  (handler-bind ((error (lambda (e)
-                          (v:debug :kandria.report e)
-                          (v:error :kandria.report "Failed to submit report: ~a" e))))
-    (org.shirakumo.feedback.client:submit
-     "kandria" user
-     :version (version :kandria)
-     :description description
-     :attachments files
-     :key "A61C1370-B410-4BE5-96DB-1A2744628063"
-     :secret "0533AD22-7729-4D91-AD4B-3967F74AA078"
-     :token "D794637E-314B-4CE3-9FCA-55A3CF95146D"
-     :token-secret "B9743038-1661-49E2-B363-C174D0761289")))
+    (save-state +scene+ save)
+    (list* (list "savestate" (file save))
+           (call-next-method))))
 
 (defclass report-panel (pausing-panel)
   ())
@@ -55,7 +37,7 @@
                               (messagebox "Failed to gather and submit report:~%~a" e)
                               (continue e))))
         (with-simple-restart (continue "Ignore the failed report.")
-          (let ((report (submit-report :user (if (string= "" username) "anonymous" username) :description description)))
+          (let ((report (org.shirakumo.fraf.trial.feedback:submit-report :user (if (string= "" username) "anonymous" username) :description description)))
             (status "Report submitted (#~d). Thank you!" (gethash "_id" report)))
           (hide panel))))
     (alloy:on alloy:exit (focus)
