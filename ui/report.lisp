@@ -6,11 +6,9 @@
     :token "D794637E-314B-4CE3-9FCA-55A3CF95146D"
     :token-secret "B9743038-1661-49E2-B363-C174D0761289"))
 
-(defmethod org.shirakumo.fraf.trial.feedback:report-files ()
-  (let ((save (make-instance 'save-state :filename "report")))
-    (save-state +scene+ save)
-    (list* (list "savestate" (file save))
-           (call-next-method))))
+(org.shirakumo.fraf.trial.feedback:define-report-hook kandria ()
+  (when +scene+
+    `(("savestate" ,(file (save-state +scene+ (make-instance 'save-state :filename "report")))))))
 
 (defclass report-panel (pausing-panel)
   ())
