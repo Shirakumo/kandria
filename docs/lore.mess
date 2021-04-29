@@ -20,7 +20,7 @@ This document collects tidbits of information about the backstory, world, charac
 "Flora & Fauna"(link #Flora & Fauna)
 "Food & Drink"(link #Food & Drink)
 "Health"(link #Health)
-"Factions"(link #Factions)
+"Factions and Regions"(link #Factions and Regions)
 
 ## Androids
 ### Brains - The "Genera" System
@@ -69,6 +69,9 @@ Not sentient - they don’t have the “spark of life” that makes androids sen
 Before The Calamity, planet Earth had entered a golden age of glorious glass garden cityspaces and hi-tech transport networks. Globalisation and tech innovation had led to an abundant utopia of cooperation and equality; ecological problems were a thing of the past thanks to environmentally sustainable energy sources, and life was peaceful. Technology was used to enhance all aspects of life and leisure, including the creation of android assistants and servants.
 
 But it was a facade because this utopia was maintained by the blood, sweat and suffering of a poor working class, who lived in lower city areas and even underground. Their world was very much a dystopia, and they were kept in line by aggressive government policies and police forces.
+
+Some corporation names from the old world:
+[ image corp names.png ]
 
 ## The Calamity
 “The Calamity” is a term used by the survivors to refer to the fall of the Old World several decades ago. Their knowledge of what actually happened is murky at best, since most of the survivors were underground workers who didn't witness events. There are rumours about rogue AIs and androids being responsible, but the truth is no one knows for sure. Others believe, at least in the local region, that tectonic instability caused or at least contributed to the fall.
@@ -197,7 +200,8 @@ Other than geothermal energy, Fi’s faction on the surface can also rely on win
 Swords and other melee weapons are the preferred method of violence. There are guns, but they are rare because getting explosives and ammunition is difficult. There are some energy weapons left over from the old world, though few if any understand how they truly work, or how long they’ll continue to operate.
 
 ## Geography & Geology
-Kandria takes place in a valley surrounded by steep, cold mountains to the north, east, and south, with an ocean shoreline to the west. The valley is filled with a desert composed of the pulverised remains of the former city that used to be in its place. The region is known as “The Valley” amongst the survivors.
+[ image valley perspective.png ]
+Kandria takes place in a valley surrounded by steep, cold mountains to the north, west, and south, with an ocean shoreline to the east. The valley is filled with a desert composed of the pulverised remains of the former city that used to be in its place. The region is known as “The Valley” amongst the survivors, and was once the city of an old-world city called Zenith.
 
 The hard mountain rock makes it impossible to dig through without advanced tunnelling machines or explosives, and traversing the steep mountain range is deadly. This essentially entombs the remaining population within the valley's underground structures.
 
@@ -206,6 +210,11 @@ Underground cave networks run deep beneath the whole area, existing from before 
 Several seismic fault lines lie close, as several tectonic plates collide in this spot. This means the area used to be volcanically active, and magma streams are near to the surface. These were once integral to the geothermal operation of the Old City.
 
 Some rail infrastructure did survive The Calamity, built in sturdy tunnels able to withstand seismic activity in sections isolated by blast doors. The survivors have fixed tracks and rail cars, so areas of the network are traversable to cross large distance (fast-travel). During the game, the player can unlock previously-unreachable areas of the network using their android strength and agility, thus expanding the network. 
+
+[ image valley cross-section.png ]
+
+Region 1 close-up, where the first act mostly takes place:
+[ image region 1 upper.png ]
 
 ## Weather
 The weather follows similar patterns and seasons to what we know today, since The Calamity wasn’t caused by climate change or irradiation, etc. - though altered here by the fact that there’s now a large desert where a city used to be.
@@ -235,7 +244,8 @@ Alcohol is made from what plants and vegetables can be sourced - mushrooms are t
 ## Health
 Due to the scarcity of food, active manual labour lifestyles, and harsh living conditions, very few people are overweight. At best people carry a healthy bodyweight; at worst they are malnourished. Most are missing key nutrients though from their food and a lack of sunlight underground, meaning many of the major diseases we see today, like cancer, heart disease, and dementia, are prolific - few live to old age. And if disease doesn’t claim you, mortal injury probably will, either from a geological instability, a mechanical accident, or combat.
 
-## Factions
+## Factions and Regions
+[ image faction layout.png ]
 - Several factions eke out an existence in The Valley.
 - There is no central governance - it’s every faction for themselves.
 - A faction normally lives within a small settlement or cluster of makeshift buildings, and nearly all are underground.
@@ -243,7 +253,9 @@ Due to the scarcity of food, active manual labour lifestyles, and harsh living c
 - Most live a life of hardship, never quite sure what the next day will bring, or how long their settlement’s way of life will last; new settlements seem to come and go with the seasons, while others endure.
 - Most settlements have a boundary wall protecting the most vulnerable people and families in an “inner keep” so to speak. Most of the time the player will be in the "outer keep" area surrounding this, interacting with the main characters of each faction who do their work there, managing relations with traders, etc.
 
-### Noka (Fi's Faction)
+### Noka (Fi's Faction) - Surface & Region 1 (upper)
+**Region:** Broken ruins, old buildings, sterile, relatively high-tech mixed with caves, authoritarian and cold feel.
+
 This is the first faction the player meets, since it is they who recover The Stranger from beneath the rubble; the player thus becomes linked with them from the very beginning.
 
 Comprised of these core members (see the character documentation for more info on individuals), and a handful of other inhabitants:
@@ -252,10 +264,20 @@ Comprised of these core members (see the character documentation for more info o
 - Catherine - Apprentice Engineer
 - Alex - Hunter and Messenger
 
-They live on the surface, on the north-east edge of the desert and bordering the mountains, where the soil is more fertile. They are attempting to find new ways of farming the land to grow more varied crops, having recently discovered an underground seed cache. They are more self-sufficient than most factions, being the furthest from the shoreline and trade routes - though this offers them a natural defensive position.
+They live on the surface, in the the desert but close to the western mountains, where the soil is more fertile. They are attempting to find new ways of farming the land to grow more varied crops, having recently discovered an underground seed cache. They are more self-sufficient than most factions, being the furthest from the shoreline and trade routes - though this offers them a natural defensive position.
 
 They were formed when Fi led a group of people to leave another faction further to the west, whose leader was taking things in a more hardline, militaristic direction, which Fi did not agree with. They were increasingly employing rogue tactics to attack caravans and even other factions, and attempting to seize the precious geothermal power plants for themselves. Fi believes the factions should work towards unity not sow divides. The catalyst came when Alex discovered a seed cache, giving Fi and her allies a change to leave and establish their own settlement far away, on the inhospitable surface where no one would look for them..
 Their name, “Noka”, is derived from the Japanese term for “farmer”.
+
+### TBD - Region 1 (lower)
+
+### TBD - Region 2
+
+### Wraw - Region 3
+
+### TBD - Region 4
+
+### TBD - Region 5
 
 ### Other Faction Ideas
 - The faction that Fi and company left
