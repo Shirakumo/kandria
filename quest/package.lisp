@@ -3,6 +3,7 @@
   (:shadow #:condition)
   (:local-nicknames
    (#:dialogue #:org.shirakumo.fraf.speechless))
+  ;; scope
   (:export
    #:scope
    #:initial-bindings
@@ -12,7 +13,9 @@
    #:binding
    #:merge-bindings
    #:var
-   #:list-variables
+   #:list-variables)
+  ;; describable
+  (:export
    #:describable
    #:name
    #:title
@@ -23,11 +26,16 @@
    #:complete
    #:fail
    #:try
-   #:find-named
+   #:find-named)
+  ;; storyline
+  (:export
    #:storyline
    #:quests
    #:known-quests
    #:find-quest
+   #:define-storyline)
+  ;; quest
+  (:export
    #:quest
    #:status
    #:author
@@ -38,6 +46,9 @@
    #:make-assembly
    #:compile-form
    #:find-task
+   #:define-quest)
+  ;; task
+  (:export
    #:task
    #:quest
    #:causes
@@ -48,9 +59,14 @@
    #:invariant
    #:condition
    #:find-trigger
+   #:define-task)
+  ;; trigger
+  (:export
    #:trigger
    #:task
    #:action
+   #:define-action
    #:interaction
    #:interactable
-   #:dialogue))
+   #:dialogue
+   #:define-interaction))
