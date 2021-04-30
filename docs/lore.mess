@@ -283,12 +283,14 @@ Faction:
   - Especially skills in the former industries led by Semi (electronics corp) and Brother (surveillance) - hence their ironic name, as they claim to use surveillance only as a means of defence
   - Catherine was recruited from this faction (she wanted more excitement than the stability and boring traditions here)
 - They're responsible for a lot of the technology in Region 1, such as the telephony the Noka sometimes rely on
-  - Their tech skills and proximity to the surface and caves mean they can source alternative power like oil and old batteries - even androids!
+  - Their tech skills mean they can source alternative power like old batteries - even androids!
+  - They've also developed subterranean wind turbines, making use of the wind currents that blow through the tunnels
 - They could be a source for a computer in Act 2, to help the Noka analyse Stranger in more detail
   - But it could also be dangerous - they are unhappy that Catherine left them, and they've also been monitoring the Noka with their surveillance tech, and know of the android
   - Such tech is rare outside of Wraw territory, and it could help them if they could seize a working android and dismantle it, perhaps using its power source (the last android they seized is no longer functional)
-    - Or perhaps there are more android-friendly ways to share android technology
+    - Or perhaps there are more android-friendly ways to share android technology if the player is diplomatic enough
 - Supply tech to all other factions, neutral allegiance
+  - They make the bomb that is used to block the Wraw attack in act 5
     
 **Key characters:** TBD
 
@@ -300,21 +302,20 @@ Faction:
 **Region:** old tunnels, mostly metal but rusty and worn, lots of caves and water
 
 Faction:
-- Diplomatic/political/economic faction (Wraw allies)
-- They are an unelected government of sorts, who purport to maintain the balance of power, and try to balance the fragile economy of the world
-- However, they are puppet peacekeepers controlled by the Wraw, to make the Wraw's militaristic and dominating actions more palatable to others
-  - They send in the Cerebats first with offers of a shared allegiance; if accepted, the Wraw insidiously take control. If rejected, the Wraw roll in with their military might.
+- Diplomatic/political/economic faction (neutral faction, but get taken over by the Wraw in the mid-late game)
+- They are an organisational body of sorts, who try to maintain the balance of power, and try to balance the fragile economy of the world so that everyone can get by
+  - Many of the traders in the world are from this faction
+- However, the Wraw's recent monopolising of the geothermal generators, and other militaristic posturing, is pushing at the boundaries of tolerance
+- With little military might, all the Cerebats can do to pressure them is sever water supplies - which in turn prompts the Wraw to take over this faction 
 
 Their name comes from "cerebrate" - to ponder, consider.
-- Colloquially referred to as "Brats" by their enemies
+- Colloquially referred to as "Bats" by their enemies - because they spend a lot of time in the shadows, and are usually all talk no action
 
 **Key characters:** TBD
 
 **Quest ideas:**
-- Run errands for them - extending transit tunnels, peace keeping, militia policework
-- Want you to spy on a rumoured rogue faction (Genera) in the mountains, which is how you first learn of the Genera - the Cerebats want everyone pulling in the same direction (for the Wraw's benefit)
-- Try and recruit them for the Noka's cause, but they feed this info back to the Wraw, who step up their efforts to assail the Noka
-  - Hence learning the Cerebats are puppets only
+- Run errands for them - extending transit tunnels, peacekeeping, militia policework, trade caravan escorts, transit of goods to remote areas, etc.
+- Want you to spy on a rumoured rogue faction (Genera) in the mountains, which is how you first learn of the Genera - the Cerebats want everyone pulling in the same direction
 
 ### Wraw - Region 3 [Act 3/4]
 **Region:** lava, dark, mining-tunnel-like, lots of dangerous platforming hazards
@@ -333,27 +334,28 @@ Faction:
 - Stealth inside
 - Determine their plans
 - Steal weapons
-- Help defectors (and androids) escape
+- Help innocents, defectors (and androids) escape
 - Sabotage their power systems
 
-### Moksha - Region 4 (stretch goal) [Act 2/4]
+### Gulls - Region 4 (stretch goal) [Act 2/4]
 **Region:** sunny, tropical, wood constructions
 
 Faction:
 - Liberal faction (neutral allegiance)
 - Far enough away from the Wraw to remain somewhat independent
-- Hindu spiritual beliefs guide them
-- They supply much needed supplies to the valley from the sea (food)
+- Nature spirituality, embodied by relationships with the coastal forests, beach and ocean
+  - Post-apocalyptic surfers too, making boards out of whatever they can get their hands on, or wood from the forest
+- They supply much needed supplies to the valley from the sea (fish)
 - Are able to distil sea water into drinking water, so it is plentiful here
-
-Name is from Hinduism, meaning the release from the karma cycle. Variant of "nirvana". So used because this faction are outsiders, who have removed themselves from the trials of living in the valley.
 
 **Key characters:** TBD
 
 **Quest ideas:**
 - Recruit them to the Noka's cause
-- Defend trade caravans (like Sahil's)
-- Open supply routes
+- Defend trade caravans (like Sahil's) that venture this far to the coast
+- Forage and gather supplies for them in the forest
+- Surfing minigame!
+- Open new supply routes
 - Restore the old metro transit system, so it can run all the way to the coast
 - Acquire supplies for the coming defence against the Wraw
 
