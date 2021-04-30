@@ -1,0 +1,42 @@
+## Emacs Shortcuts
+The following are the most important Emacs shortcuts, in keychord notation. ``C-`` means "hold Ctrl and type the next letter". ``M-`` means "hold Alt and type the next letter".
+
+### Editing
+General text editing:
+- ``C-_`` Undo/Redo (will redo undos if done undos previously)
+- ``C-g`` Abort (if accidentally hit a bad key combo)
+- ``C-y`` Paste
+- ``M-w`` Copy
+- ``C-w`` Cut
+- ``C-Space`` Start/End marking
+- ``C-q`` Semantically grow or start marked region
+- ``C-s`` Search forwards. Continue hitting ``C-s`` to jump to the next occurrence. Confirm with RET or abort with Esc/``C-g``.
+- ``C-p`` Previous line
+- ``C-n`` Next line
+- ``C-f`` Forward by one character
+- ``C-b`` Backward by one character
+- ``C-M-f`` Forward semantically by one token
+- ``C-M-b`` Backward semantically by one token
+
+#### Lisp
+Specifically for Lisp source code:
+- ``C-c C-c`` Recompile the current Lisp form
+- ``C-)`` Slurp the following expression into the current list
+  Meaning ``(^a b) c`` -> ``(^a b c)``
+- ``C-(`` Barf the last item in the current list out
+  Meaning ``(^a b c)`` -> ``(^a b) c``
+- ``M-up`` Splice the current list into its parent
+  Meaning ``(a ^b c)`` -> ``b c``
+
+### Files
+- ``C-x C-s`` Save the current file
+- ``C-x C-f`` Open a new file
+- ``C-x C-v`` Reload the current file or replace the buffer with a new file
+
+### Window management:
+- ``C-c C-z`` Switch to the Lisp REPL
+- ``C-x b`` Change buffer
+- ``C-x 0`` Close the current window
+- ``C-x 1`` Make the current window full
+- ``C-x 2`` Split the window horizontally
+- ``C-x 3`` Split the window vertically
