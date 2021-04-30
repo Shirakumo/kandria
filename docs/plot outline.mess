@@ -12,6 +12,7 @@ Play the game for latest info, though the documentation here will be updated per
 "Act 4"(link #Act 4)
 "Act 5"(link #Act 5)
 "Epilogue"(link #Epilogue)
+"Narrative Notes"(link #Narrative Notes)
 "Design Notes"(link #Design Notes)
 
 ## Summary
@@ -136,6 +137,14 @@ Fi decides to do this - with any luck they’ll make it. You can choose to join 
 - Talk to people
 - Playable cutscenes?
 - Continue still-valid/repeatable quests
+
+## Narrative Notes
+### VR Missions (stretch goal)
+We may have scope to do VR-like combat missions within the narrative, perhaps by the player finding chips dotted around the world, or perhaps the Genera Cores of other androids.
+
+These could provide more extreme and unrealistic combat challenges than in the world, but could also be a neat vehicle for a game-wide subplot (much like the subplot of collecting all the lore entries around the world): the VR challenges could take place in the player character's mind (perhaps by interfacing with recovered Genera Cores), and could provide further character development of their previous life through recovery of memories - much like audio diaries.
+
+They could also shed led on the calamity, i.e. bucking the trope that it was an AI rebellion, as the people of the world suspect. Powerful androids like the player could have been involved, but merely as weapons of mankind - who have shown in the game narrative that they haven't learned from their greed and warmongering of the past.
 
 ## Design Notes
 ### Variable World State & Ending
