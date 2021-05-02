@@ -95,3 +95,11 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Citizen Jake
 - Fix odd physics after a balloon jump
   Reported by Pondering Trog
+- Fix NPCs blocked by elevators
+  Reported by Nag
+- Fix elevators clipping you into the walls
+  Reported by Nag
+- Fix NPCs not respawning where they should after a reload
+  Reported by Nag
+- Fix quests that require enemies being defeated not completing sometimes
+  Reported by Nag, Simon Weis
