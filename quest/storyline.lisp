@@ -4,6 +4,8 @@
 
 (defclass storyline (describable scope)
   ((quests :initform (make-hash-table :test 'eql) :reader quests)
+   (name :initform 'storyline)
+   (title :initform "storyline")
    (known-quests :initform () :accessor known-quests)))
 
 (defmethod try ((storyline storyline))
