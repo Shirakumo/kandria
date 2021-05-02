@@ -90,8 +90,13 @@
          (when (and (active-p cause)
                     (required-for-completion task cause))
            (setf (status task) :obsolete))))
-     (dolist (thing (on-activate task))
-       (activate (find-named thing task)))))
+     (etypecase (on-activate task)
+       (list
+        (dolist (thing (on-activate task))
+          (activate (find-named thing task))))
+       (T
+        (loop for thing being the hash-values of (tasks task)
+              do (activate thing))))))
   task)
 
 (defmethod deactivate ((task task))

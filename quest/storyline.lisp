@@ -3,10 +3,20 @@
 (defvar *storylines* ())
 
 (defclass storyline (describable scope)
-  ((quests :initform (make-hash-table :test 'eql) :reader quests)
-   (name :initform 'storyline)
+  ((name :initform 'storyline)
    (title :initform "storyline")
-   (known-quests :initform () :accessor known-quests)))
+   (quests :initform (make-hash-table :test 'eql) :reader quests)
+   (known-quests :initform () :accessor known-quests)
+   (on-activate :initarg :on-activate :initform () :accessor on-activate)))
+
+(defmethod activate ((storyline storyline))
+  (etypecase (on-activate storyline)
+    (list
+     (dolist (thing (on-activate storyline))
+       (activate (find-named thing storyline))))
+    (T
+     (loop for thing being the hash-values of (tasks storyline)
+           do (activate thing)))))
 
 (defmethod try ((storyline storyline))
   (loop for quest in (known-quests storyline)

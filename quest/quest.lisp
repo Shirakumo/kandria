@@ -68,8 +68,13 @@
     ((:inactive :active)
      (v:info :kandria.quest "Activating ~a" quest)
      (setf (status quest) :active)
-     (loop for thing in (on-activate quest)
-           do (activate (find-named thing quest)))))
+     (etypecase (on-activate quest)
+       (list
+        (dolist (thing (on-activate quest))
+          (activate (find-named thing quest))))
+       (T
+        (loop for thing being the hash-values of (tasks quest)
+              do (activate thing))))))
   quest)
 
 (defmethod complete ((quest quest))
