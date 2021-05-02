@@ -119,6 +119,8 @@
                (quest:var name ,task default))
              ((setf var) (value name)
                (setf (quest:var name ,task) value))
+             ((var-of (thing name &optional default))
+              (quest:var name (thing thing) default))
              (activate (&rest things)
                (loop for thing in things do (quest:activate (thing thing))))
              (deactivate (&rest things)
