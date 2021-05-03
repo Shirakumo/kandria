@@ -15,7 +15,9 @@
 (defmethod class-for ((storyline (eql 'quest))) 'quest)
 
 (defmethod reset progn ((quest quest))
-  (setf (status quest) :inactive))
+  (setf (status quest) :inactive)
+  (loop for task being the hash-values of (tasks quest)
+        do (reset task)))
 
 (defmethod parent ((quest quest))
   (storyline quest))

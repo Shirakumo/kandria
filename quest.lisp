@@ -22,7 +22,6 @@
 
 (defmethod quest:activate :after ((quest quest))
   (status :important "New quest: ~a" (quest:title quest))
-  (save-state +main+ (state +main+))
   (setf (clock quest) 0f0))
 
 (defmethod quest:complete :after ((quest quest))
@@ -52,21 +51,24 @@
 
 (defmethod quest:activate ((trigger interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
-    (let ((interactable (unit (quest:interactable trigger) +world+)))
-      (when (typep interactable 'interactable)
-        (pushnew trigger (interactions interactable))))))
+    (when +world+
+      (let ((interactable (unit (quest:interactable trigger) +world+)))
+        (when (typep interactable 'interactable)
+          (pushnew trigger (interactions interactable)))))))
 
 (defmethod quest:deactivate :around ((trigger interaction))
   (call-next-method)
-  (let ((interactable (unit (quest:interactable trigger) +world+)))
-    (when (typep interactable 'interactable)
-      (setf (interactions interactable) (remove trigger (interactions interactable))))))
+  (when +world+
+    (let ((interactable (unit (quest:interactable trigger) +world+)))
+      (when (typep interactable 'interactable)
+        (setf (interactions interactable) (remove trigger (interactions interactable)))))))
 
 (defmethod quest:complete ((trigger interaction))
-  (let ((interactable (unit (quest:interactable trigger) +world+)))
-    (when (and (typep interactable 'interactable)
-               (not (repeatable-p trigger)))
-      (setf (interactions interactable) (remove trigger (interactions interactable))))))
+  (when +world+
+    (let ((interactable (unit (quest:interactable trigger) +world+)))
+      (when (and (typep interactable 'interactable)
+                 (not (repeatable-p trigger)))
+        (setf (interactions interactable) (remove trigger (interactions interactable)))))))
 
 (defclass stub-interaction (interaction)
   ((quest:dialogue :initform NIL :accessor quest:dialogue)

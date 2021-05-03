@@ -196,10 +196,7 @@
         (*scene* world))
     (restart-case
         (prog1 (call-next-method)
-          ;; KLUDGE: Re-activate quests to populate interactions
-          (loop for quest being the hash-values of (quest:quests (storyline world))
-                do (when (quest:active-p quest)
-                     (quest:activate quest))))
+          (quest:reset (storyline world)))
       (abort ()
         :report "Give up changing the region and continue with the old."
         (when (and old-region (not (eql old-region (unit 'region world))))

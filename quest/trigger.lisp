@@ -14,7 +14,9 @@
   (find-named name (task trigger) error))
 
 (defmethod reset progn ((trigger trigger))
-  (setf (status trigger) :inactive))
+  (if (active-p trigger)
+      (deactivate trigger)
+      (setf (status trigger) :inactive)))
 
 (defmethod active-p ((trigger trigger))
   (eql :active (status trigger)))

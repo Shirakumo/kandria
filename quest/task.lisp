@@ -8,7 +8,7 @@
    (on-complete :initarg :on-complete :initform () :accessor on-complete)
    (on-activate :initarg :on-activate :initform () :accessor on-activate)
    (invariant :initform (constantly T) :accessor invariant)
-   (condition :initform (constantly T) :accessor condition))
+   (condition :initform (constantly NIL) :accessor condition))
   (:default-initargs :status :inactive))
 
 (defmethod shared-initialize :after ((task task) slots &key invariant condition)
@@ -24,7 +24,9 @@
 (defmethod class-for ((storyline (eql 'task))) 'task)
 
 (defmethod reset progn ((task task))
-  (setf (status task) :inactive))
+  (setf (status task) :inactive)
+  (loop for trigger being the hash-values of (triggers task)
+        do (reset trigger)))
 
 (defmethod parent ((task task))
   (quest task))
@@ -97,7 +99,7 @@
         (dolist (thing (on-activate task))
           (activate (find-named thing task))))
        (T
-        (loop for thing being the hash-values of (tasks task)
+        (loop for thing being the hash-values of (triggers task)
               do (activate thing))))))
   task)
 
@@ -152,8 +154,7 @@
   (cond ((not (funcall (invariant task)))
          (fail task))
         ((funcall (condition task))
-         (unless (eql :complete (status task))
-           (complete task)))))
+         (complete task))))
 
 (defmacro define-task ((storyline quest name) &body initargs)
   (form-fiddle:with-body-options (body initargs (class (class-for 'task)) variables condition invariant on-activate on-complete) initargs
@@ -161,7 +162,7 @@
                                                (error "No such storyline ~s" ',storyline)))))
             (task (or (find-task ',name quest NIL)
                       (setf (find-task ',name quest) (make-instance ',class :name ',name :quest quest ,@initargs)))))
-       (reinitialize-instance task :condition ',(or condition 'T)
+       (reinitialize-instance task :condition ',(or condition 'NIL)
                                    :invariant ',(or invariant 'T)
                                    :on-activate ',on-activate
                                    :on-complete ',on-complete

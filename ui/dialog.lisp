@@ -56,6 +56,8 @@
   (dialogue:run (quest:dialogue interaction) (vm dialog)))
 
 (defmethod next-interaction ((dialog dialog))
+  (when (interaction dialog)
+    (quest:complete (interaction dialog)))
   (setf (ip dialog) 0)
   (let ((interactions (loop for interaction in (interactions dialog)
                             when (or (repeatable-p interaction)
