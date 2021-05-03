@@ -1,0 +1,175 @@
+;; -*- mode: poly-dialog; -*-
+(in-package #:org.shirakumo.fraf.kandria)
+
+(quest:define-quest (kandria sq1-leaks)
+  :author "Tim White"
+  :title "Repair More Leaks"
+  :description "There are always new leaks to fix. My FFCS confirms that these ones aren't far from the surface, so I should follow the pipeline down. Hopefully there'll be no surprises this time."
+  :on-activate (leak-first leak-second leak-third)
+  :variables (first-leak)
+
+  (leak-first
+   :title "Find the first leak"
+   :condition all-complete
+   :on-activate T
+
+   (:interaction leak-1
+    :interactable leak-1
+    :dialogue "
+~ player
+| //There's a hole in the pipe - probably caused by duress where it bends around this corner.//
+? (not (var 'first-leak))
+| | //I ignite the torch from the index finger on my right hand.//
+| | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
+| | (:normal)//Weld complete.//
+| ? (have 'walkie-talkie)
+| | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
+|  
+| | Catherine, I've sealed one of the leaks. [(have 'walkie-talkie) Over.|]
+| ~ catherine
+| | Great work - the pressure is much better already.
+| | Keep going - let me know if you hit any trouble. [(have 'walkie-talkie) Over and out.|]
+| ! eval (setf (var 'first-leak) T)
+|?
+| | //Weld complete.//
+? (complete-p 'leak-second 'leak-third)
+| ~ player
+| | Catherine, I think I got the last leak. [(have 'walkie-talkie) Over.|]
+| ~ catherine
+| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'walkie-talkie) Over.|]
+| | (:normal)Any sign of saboteurs? [(have 'walkie-talkie) Over.|]
+| ~ player
+| - No, all clear.
+|   ~ catherine
+|   | That's what I like to hear.
+| - It was all subsidence, or wear and tear.
+|   ~ catherine
+|   | Oh man, you could probably stand not to hear more about landslides... Sorry!
+| ~ catherine
+| | (:excited)Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
+| ! eval (activate 'return-leaks)
+"))
+  ;; TODO: how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
+  ;; UNUSED: and a sprawl of soil and stones - subsidence caused this.
+
+  (leak-second
+   :title "Find the second leak"
+   :condition all-complete
+   :on-activate T
+
+   (:interaction leak-2
+    :interactable leak-2
+    :dialogue "
+~ player
+| //The pipe has split.//
+| //There's no subsidence, but I think movement in the surrounding rocks wrenched it clean open.//
+? (not (var 'first-leak))
+| | //I ignite the torch from the index finger on my right hand.//
+| | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
+| | (:normal)//Weld complete.//
+| ? (have 'walkie-talkie)
+| | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
+|  
+| | Catherine, I've sealed one of the leaks. [(have 'walkie-talkie) Over.|]
+| ~ catherine
+| | Great work - the pressure is much better already.
+| | Keep going - let me know if you hit any trouble. [(have 'walkie-talkie) Over and out.|]
+| ! eval (setf (var 'first-leak) T)
+|?
+| | //Weld complete.//
+? (complete-p 'leak-first 'leak-third)
+| ~ player
+| | Catherine, I think I got the last leak. [(have 'walkie-talkie) Over.|]
+| ~ catherine
+| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'walkie-talkie) Over.|]
+| | (:normal)Any sign of saboteurs? [(have 'walkie-talkie) Over.|]
+| ~ player
+| - No, all clear.
+|   ~ catherine
+|   | That's what I like to hear.
+| - It was all subsidence, or wear and tear.
+|   ~ catherine
+|   | Oh man, you could probably stand not to hear more about landslides... Sorry!
+| ~ catherine
+| | (:excited)Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
+| ! eval (activate 'return-leaks)
+"))
+
+  (leak-third
+   :title "Find the third leak"
+   :condition all-complete
+   :on-activate T
+
+   (:interaction leak-3
+    :interactable leak-3
+    :dialogue "
+~ player
+| //The pipe is ruptured, like an artery oozing blood.//
+| //The ground feels uncannily unstable, like I've been in this situation before.//
+? (not (var 'first-leak))
+| | //I ignite the torch from the index finger on my right hand.//
+| | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
+| | (:normal)//Weld complete.//
+| ? (have 'walkie-talkie)
+| | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
+|  
+| | Catherine, I've sealed one of the leaks. [(have 'walkie-talkie) Over.|]
+| ~ catherine
+| | Great work - the pressure is much better already.
+| | Keep going - let me know if you hit any trouble. [(have 'walkie-talkie) Over and out.|]
+| ! eval (setf (var 'first-leak) T)
+|?
+| | //Weld complete.//
+? (complete-p 'leak-first 'leak-second)
+| ~ player
+| | Catherine, I think I got the last leak. [(have 'walkie-talkie) Over.|]
+| ~ catherine
+| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'walkie-talkie) Over.|]
+| | (:normal)Any sign of saboteurs? [(have 'walkie-talkie) Over.|]
+| ~ player
+| - No, all clear.
+|   ~ catherine
+|   | That's what I like to hear.
+| - It was all subsidence, or wear and tear.
+|   ~ catherine
+|   | Oh man, you could probably stand not to hear more about landslides... Sorry!
+| ~ catherine
+| | (:excited)Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
+| ! eval (activate 'return-leaks)
+"))
+
+  (return-leaks
+   :title "Return to Catherine"
+   :condition all-complete
+   :on-activate T
+
+   (:interaction leaks-return
+    :title "Talk about the leaks"
+    :interactable catherine
+    :dialogue "
+~ catherine
+| (:cheer)The water pressure is back! I knew you could do it.
+| (:normal)Here, takes these parts - you've earned them.
+! eval (store 'parts 15)
+? (have 'walkie-talkie)
+| | I'll take the walkie back for now in case someone else needs it.
+| ! eval (retrieve 'walkie-talkie 1)
+| | Bet it was weird using such archaic technology, right?
+| ~ player
+| - I liked it.
+| - Never again.
+|   ~ catherine
+|   | Oh, that bad huh?
+| - It did the job.
+|  
+~ catherine
+| Well, you can definitely scratch water leaks off your bucket list, right?
+")))
+
+;; TODO if don't have the walkie, but you took it (so you've sold it to Sahil), should she say something? Or just not comment or forget? Doing so would get you into hot water about lying, etc. which we might not want in act 1 (we removed similar things from the seed quest). If we did it, would need to set a var during any of the leaks tasks, based on whether you have the walkie or not; can't set on first receiving the walkie, as it's in another quest (act 1 hub), unless used a global var...
+#|
+TODO is it okay that Catherine breaks off convo here, and to access more sidequests you need to click on here again? What if on returning to her, you want to discuss another quest before handing this one in? Or you have multiple to hand in?
+should be able to choose which ones you want to hand in and in what order? but the necessary var checks to accomodate those options would mean all these sidequests need housing under a single quest folder, and all their tasks list would overlap
+- could use var checks? though they only check hierarchical, not between tasks?
+Also means that sq return dialogues cannot be repeatable - having to fire once only, to then allow user to get back to sq hub
+|#
