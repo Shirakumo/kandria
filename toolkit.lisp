@@ -585,8 +585,7 @@
   [~a] for ~?:
 ~a"
                                 (type-of ,warning) ,format (list ,@args) ,warning)
-                        (muffle-warning ,warning)))
-                    )
+                        (muffle-warning ,warning))))
        ,@body)))
 
 (defun re-encode-json (file)

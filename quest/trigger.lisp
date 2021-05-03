@@ -3,6 +3,7 @@
 (defclass trigger ()
   ((name :initarg :name :initform (error "NAME required.") :reader name)
    (task :initarg :task :initform (error "TASK required.") :reader task)
+   (title :initarg :title :initform "<unknown>" :accessor title)
    (status :initarg :status :initform :inactive :accessor status)))
 
 (defmethod print-object ((trigger trigger) stream)
@@ -46,11 +47,13 @@
   ((on-activate :initform (constantly T) :accessor on-activate)
    (on-deactivate :initform (constantly T) :accessor on-deactivate)))
 
-(defmethod shared-initialize :after ((action action) slots &key task on-activate on-deactivate)
+(defmethod shared-initialize :after ((action action) slots &key on-activate on-deactivate)
   (when on-activate
-    (setf (on-activate action) (compile-form task on-activate)))
+    (setf (on-activate action) (compile-form (task action) on-activate)))
   (when on-deactivate
-    (setf (on-deactivate action) (compile-form task on-deactivate))))
+    (setf (on-deactivate action) (compile-form (task action) on-deactivate))))
+
+(defmethod class-for ((storyline (eql 'action))) 'action)
 
 (defmethod activate ((action action))
   (funcall (on-activate action))
@@ -62,23 +65,25 @@
 (defmethod try ((action action)))
 
 (defmacro define-action ((storyline quest task name) &body initargs)
-  (form-fiddle:with-body-options (body initargs on-activate on-deactivate class) initargs
-    `(let* ((task (find-task ',task (find-quest ',quest (storyline ',storyline))))
+  (form-fiddle:with-body-options (body initargs on-activate on-deactivate (class (class-for 'action))) initargs
+    `(let* ((task (find-task ',task (find-quest ',quest (or (storyline ',storyline)
+                                                            (error "No such storyline ~s" ',storyline)))))
             (action (or (find-trigger ',name task NIL)
-                        (setf (find-trigger ',name task) (make-instance ',(or class 'action) :name ',name :task task)))))
+                        (setf (find-trigger ',name task) (make-instance ',class :name ',name :task task ,@initargs)))))
        (reinitialize-instance action :on-activate ',(or on-activate (when body `(progn ,@body)) T)
-                                     :on-deactivate '(or on-deactivate T)
+                                     :on-deactivate ',(or on-deactivate T)
                                      ,@initargs)
        ',name)))
 
 (defclass interaction (trigger scope)
   ((interactable :initarg :interactable :reader interactable)
-   (title :initarg :title :initform "<unknown>" :accessor title)
    (dialogue :accessor dialogue)))
 
 (defmethod shared-initialize :after ((interaction interaction) slots &key dialogue)
   (when dialogue
     (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction)))))
+
+(defmethod class-for ((storyline (eql 'interaction))) 'interaction)
 
 (defmethod make-assembly ((interaction interaction))
   (make-assembly (task interaction)))
@@ -92,10 +97,14 @@
 (defmethod complete ((interaction interaction)))
 
 (defmacro define-interaction ((storyline quest task name) &body initargs)
-  (form-fiddle:with-body-options (body initargs class) initargs
-    `(let* ((task (find-task ',task (find-quest ',quest (storyline ',storyline))))
+  (form-fiddle:with-body-options (body initargs interactable variables (class (class-for 'interaction))) initargs
+    `(let* ((task (find-task ',task (find-quest ',quest (or (storyline ',storyline)
+                                                            (error "No such storyline ~s" ',storyline)))))
             (action (or (find-trigger ',name task NIL)
-                        (setf (find-trigger ',name task) (make-instance ',(or class 'interaction) :name ',name :task task)))))
-       (reinitialize-instance action :dialogue (progn ,@body)
+                        (setf (find-trigger ',name task) (make-instance ',class :name ',name :task task ,@initargs)))))
+       (reinitialize-instance action
+                              :dialogue (progn ,@body)
+                              :interactable ',interactable
+                              :variables ',variables
                               ,@initargs)
        ',name)))

@@ -33,7 +33,9 @@
    #:quests
    #:known-quests
    #:find-quest
-   #:define-storyline)
+   #:class-for
+   #:define-storyline
+   #:print-storyline)
   ;; quest
   (:export
    #:quest

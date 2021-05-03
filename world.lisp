@@ -2,7 +2,7 @@
 
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
-   (storyline :initarg :storyline :initform (make-instance 'quest:storyline) :accessor storyline)
+   (storyline :initarg :storyline :initform (quest:storyline 'kandria) :accessor storyline)
    (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
@@ -23,9 +23,6 @@
       (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))
                         :name)))
         (setf (gethash name (regions world)) entry))))
-  (dolist (entry (list-entries "quests/" packet))
-    (with-packet (packet packet :offset entry)
-      (load-quest packet (storyline world))))
   (setf (initial-state world) (minimal-load-state (entry-path "init/" packet))))
 
 (defmethod start :after ((world world))

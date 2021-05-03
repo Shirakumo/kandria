@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria.quest)
 
 (defclass scope ()
-  ((initial-bindings :initform () :initarg :bindings :accessor initial-bindings)
+  ((initial-bindings :initform () :initarg :variables :accessor initial-bindings)
    (bindings :initform () :accessor bindings)))
 
 (defmethod initialize-instance :after ((scope scope) &key)

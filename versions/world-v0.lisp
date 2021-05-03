@@ -2,42 +2,6 @@
 
 (defclass world-v0 (v0) ())
 
-(define-decoder (quest:quest world-v0) (info packet)
-  (destructuring-bind (&key name author title description on-activate tasks storyline variables &allow-other-keys) info
-    (with-warning-report-for ("quest ~a" name)
-      (let ((quest (make-instance 'quest :name name :title title :author author :description description
-                                         :storyline storyline :on-activate on-activate :bindings variables)))
-        (loop for file in tasks
-              for (info . triggers) = (parse-sexps (packet-entry file packet :element-type 'character))
-              do (decode 'quest:task (list* :quest quest :triggers triggers info)))
-        quest))))
-
-(define-decoder (quest:task world-v0) (info _p)
-  (destructuring-bind (&key name quest title description invariant condition on-activate on-complete triggers variables &allow-other-keys) info
-    (with-warning-report-for ("task ~a in quest ~a" name (quest:name quest))
-      (let ((task (make-instance 'task :name name :quest quest :title title :description description
-                                       :invariant invariant :condition condition :bindings variables
-                                       :on-activate on-activate :on-complete on-complete)))
-        (loop for (type . info) in triggers
-              do (decode type (list* :task task info)))
-        task))))
-
-(define-decoder (quest:action world-v0) (info _p)
-  (destructuring-bind (&key name task on-activate on-deactivate) info
-    (with-warning-report-for ("action ~a in task ~a" name (quest:name task))
-      (make-instance 'quest:action :name name :task task
-                                   :on-activate on-activate :on-deactivate on-deactivate))))
-
-(define-decoder (quest:interaction world-v0) (info packet)
-  (destructuring-bind (&key name title task interactable dialogue repeatable variables) info
-    (let ((dialogue (etypecase dialogue
-                      (pathname (packet-entry dialogue packet :element-type 'character))
-                      (string dialogue))))
-      (with-warning-report-for ("interaction ~a in task ~a" name (quest:name task))
-        (make-instance 'interaction :name name :title (or title (string name)) :task task
-                                    :bindings variables :interactable interactable
-                                    :dialogue dialogue :repeatable repeatable)))))
-
 (define-decoder (region world-v0) (info packet)
   (let* ((region (apply #'make-instance 'region :packet packet info))
          (content (parse-sexps (packet-entry "data.lisp" packet :element-type 'character))))

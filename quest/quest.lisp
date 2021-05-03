@@ -12,6 +12,8 @@
   (print-unreadable-object (quest stream :type T)
     (format stream "~s ~s" (title quest) (status quest))))
 
+(defmethod class-for ((storyline (eql 'quest))) 'quest)
+
 (defmethod reset progn ((quest quest))
   (setf (status quest) :inactive))
 
@@ -100,12 +102,13 @@
     (try task)))
 
 (defmacro define-quest ((storyline name) &body initargs)
-  (form-fiddle:with-body-options (body initargs on-activate bindings) initargs
-    `(let* ((story (storyline ',storyline))
+  (form-fiddle:with-body-options (body initargs on-activate variables (class (class-for 'quest))) initargs
+    `(let* ((story (or (storyline ',storyline)
+                       (error "No such storyline ~s" ',storyline)))
             (quest (or (find-quest ',name story NIL)
-                       (setf (find-quest ',name story) (make-instance 'quest :name ',name :storyline story)))))
+                       (setf (find-quest ',name story) (make-instance ',class :name ',name :storyline story ,@initargs)))))
        (reinitialize-instance quest :on-activate ',on-activate
-                                    :bindings ',bindings
+                                    :variables ',variables
                                     ,@initargs)
        ,@(loop for (task . options) in body
                collect `(define-task (,storyline ,name ,task)

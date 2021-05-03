@@ -18,6 +18,8 @@
 (alloy:make-observable '(setf clock) '(value alloy:observable))
 (alloy:make-observable '(setf quest:status) '(value alloy:observable))
 
+(defmethod quest:class-for ((storyline (eql 'quest:quest))) 'quest)
+
 (defmethod quest:activate :after ((quest quest))
   (status :important "New quest: ~a" (quest:title quest))
   (save-state +main+ (state +main+))
@@ -35,11 +37,15 @@
 (defclass task (quest:task)
   ())
 
+(defmethod quest:class-for ((storyline (eql 'quest:task))) 'task)
+
 (defmethod quest:make-assembly ((task task))
   (make-instance 'assembly))
 
 (defclass interaction (quest:interaction)
   ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)))
+
+(defmethod quest:class-for ((storyline (eql 'quest:interaction))) 'interaction)
 
 (defmethod quest:make-assembly ((interaction interaction))
   (make-instance 'assembly :interaction interaction))
@@ -119,8 +125,8 @@
                (quest:var name ,task default))
              ((setf var) (value name)
                (setf (quest:var name ,task) value))
-             ((var-of (thing name &optional default))
-              (quest:var name (thing thing) default))
+             (var-of (thing name &optional default)
+               (quest:var name (thing thing) default))
              (activate (&rest things)
                (loop for thing in things do (quest:activate (thing thing))))
              (deactivate (&rest things)
@@ -163,20 +169,13 @@
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
      ,(task-wrap-lexenv form (interaction assembly))))
 
-(defmethod load-quest ((packet packet) (storyline quest:storyline))
-  (with-trial-io-syntax ()
-    (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
-      (let ((quest (decode-payload
-                    (list* :storyline storyline info) (type-prototype 'quest) packet
-                    (destructuring-bind (&key identifier version) header
-                      (assert (eql 'quest identifier))
-                      (coerce-version version)))))
-        (setf (quest:find-quest (quest:name quest) storyline) quest)))))
-
-(defun check-quest-code ()
-  (handler-bind ((sb-ext:compiler-note #'muffle-warning))
-    (with-packet (packet (merge-pathnames "world/" (root)) :direction :input)
-      (let ((storyline (make-instance 'quest:storyline)))
-        (dolist (entry (list-entries "quests/" packet))
-          (with-packet (packet packet :offset entry)
-            (load-quest packet storyline)))))))
+(defmethod load-language :after (&optional (language (setting :language)))
+  (let ((dir (language-dir language)))
+    (cl:load (merge-pathnames "storyline.lisp" dir))
+    (dolist (file (directory (merge-pathnames "quests/**/*.lisp" dir)))
+      (handler-bind (((or error warning)
+                       (lambda (e)
+                         (v:severe :kandria.quest "Failure loading ~a:~%~a" file e)))
+                     (sb-ext:code-deletion-note #'muffle-warning)
+                     (sb-kernel:redefinition-warning #'muffle-warning))
+        (cl:load file)))))

@@ -21,6 +21,8 @@
   (print-unreadable-object (task stream :type T)
     (format stream "~s ~s" (title task) (status task))))
 
+(defmethod class-for ((storyline (eql 'task))) 'task)
+
 (defmethod reset progn ((task task))
   (setf (status task) :inactive))
 
@@ -154,15 +156,16 @@
            (complete task)))))
 
 (defmacro define-task ((storyline quest name) &body initargs)
-  (form-fiddle:with-body-options (body initargs bindings condition invariant on-activate on-complete) initargs
-    `(let* ((quest (find-quest ',quest (storyline ',storyline)))
+  (form-fiddle:with-body-options (body initargs (class (class-for 'task)) variables condition invariant on-activate on-complete) initargs
+    `(let* ((quest (or (find-quest ',quest (or (storyline ',storyline)
+                                               (error "No such storyline ~s" ',storyline)))))
             (task (or (find-task ',name quest NIL)
-                      (setf (find-task ',name quest) (make-instance 'quest :name ',name :quest quest)))))
+                      (setf (find-task ',name quest) (make-instance ',class :name ',name :quest quest ,@initargs)))))
        (reinitialize-instance task :condition ',(or condition 'T)
                                    :invariant ',(or invariant 'T)
                                    :on-activate ',on-activate
                                    :on-complete ',on-complete
-                                   :bindings ',bindings
+                                   :variables ',variables
                                    ,@initargs)
        ,@(loop for (type trigger . options) in body
                collect (ecase type
