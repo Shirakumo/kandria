@@ -145,7 +145,7 @@
                  (bl (vec3 (- (vx p) (vx s)) (- (vy p) (vy s)) 0)))
             (add (if (eql entity selected)
                      (vec 1 1 1 0.5)
-                     (vec 0 0 0 0.5))
+                     (vec 0.1 0.1 0.1 0.5))
                  ul ur ur br br bl bl ul)))
         (when (and (typep entity 'door)
                    (primary entity))
