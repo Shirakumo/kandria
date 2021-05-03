@@ -24,8 +24,6 @@
 (define-action toggle-diagnostics (in-game))
 (define-action screenshot (in-game))
 (define-action report-bug (in-game))
-(define-action quicksave (in-game))
-(define-action quickload (in-game))
 (define-action quickmenu (in-game))
 (define-action interact (in-game))
 (define-action jump (in-game))

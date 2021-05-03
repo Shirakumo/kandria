@@ -155,8 +155,8 @@
                     (alloy:enter slider ,layout)
                     (alloy:enter slider focus :layer layer))))
       (with-tab (tab (@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
-        (let ((quick (with-button create-quick-save
-                       (save-state +main+ :quick)))
+        (let ((save (with-button save-game
+                       (save-state +main+ T)))
               (resume (with-button resume-game
                         (hide panel)))
               ;; FIXME: Need monospace font.
