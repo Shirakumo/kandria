@@ -46,6 +46,12 @@
   (when (and state (unit 'player +world+))
     (handle-spawn spawner (chunk (unit 'player +world+)))))
 
+(defmethod quest:activate ((spawner spawner))
+  (setf (active-p spawner) T))
+
+(defmethod quest:deactivate ((spawner spawner))
+  (setf (active-p spawner) NIL))
+
 (defmethod handle ((ev switch-chunk) (spawner spawner))
   (when (active-p spawner)
     (handle-spawn spawner (chunk ev))))
