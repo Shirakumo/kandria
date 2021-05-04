@@ -63,7 +63,7 @@
 | (:cheer)Route 2! The can is... where a shallow grave marks the end of the line for the West Crossing - from the east.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-2 'gold))} - Silver: {(format-relative-time (var-of 'race-2 'silver))} - Bronze: {(format-relative-time (var-of 'race-2 'bronze))}.
 ? (var-of 'race-2 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-2 'gold))}.
+| | Your personal best for this route is {(format-relative-time (var-of 'race-2 'pb))}.
 ! eval (setf (quest:status (thing 'race-2-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-2)) :inactive)
 ! eval (activate 'race-2-start)
@@ -93,7 +93,7 @@
 
 # race-5
 ~ catherine
-| (:cheer)Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't much-room.
+| (:cheer)Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\".
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-5 'gold))} - Silver: {(format-relative-time (var-of 'race-5 'silver))} - Bronze: {(format-relative-time (var-of 'race-5 'bronze))}.
 ? (var 'race-5-pb)
 | | Your personal best for this route is {(format-relative-time (var-of 'race-5 'pb))}.
@@ -108,7 +108,7 @@
 # quit
 ")))
 
-;; | [(var 'race-1-pb) Your personal best for this route is {(format-relative-time (var 'race-1-pb))}.]
+;; TODO different rewards for different routes, without copy-paste?
 ;; TODO: allow play to opt out of first race encountered, not forced
 ;; TODO: cancel a race in progress? restart a race that's gone wrong? - not sure; it would have to be done by returning to Catherine, not from the UI, to preserve immersion (death is different, but restarting races from UI is fine in a driving game, not in an RPG?)
 ;; - in which case if have to return to Catherine anyway, is there much point? Just hand the race in anyway and get the fun poor performance dialogue?
@@ -117,7 +117,6 @@
 ;; TODO bug - deactivating this task causes it's title to appear as another bullet point in the journal (though not deactivating it anymore)
 ;; TODO: plant multiple objects, encouraging cheating
 ;; could explain brackets at the start, or let player figure it out themselves from results? Latter
-
 (defmacro define-race (name &key site title-start title-complete bronze silver gold)
   (let ((name-start (trial::mksym #.*package* name '-start)))
     `(progn
@@ -154,11 +153,11 @@
 ! eval (hide-panel 'timer)
 ~ catherine
 | (:cheer)Stop the clock!
-| (:excited)That's the can for Route 2 alright - nice!
+| (:excited)That's the correct can alright - nice!
 ! eval (retrieve 'can)
 | (:normal)You did that in: {(format-relative-time (clock quest))}.
 ? (and pb (< (var 'pb) (clock quest)))
-| Ah damn, no time improvement over your record of {(format-relative-time (var 'pb))} this time I'm afraid. Better luck next time though!
+| Ah damn, no improvement over your record of {(format-relative-time (var 'pb))} this time I'm afraid. Better luck next time though!
 |?
 | ? (not (null (var 'pb)))
 | | (:cheer)That's a new personal best!
@@ -191,7 +190,7 @@
 
 (define-race race-2
   :site race-2-site
-  :title-start "The can is... where a shallow grave marks the end of the line for the West Crossing."
+  :title-start "The can is... where a shallow grave marks the end of the line for the West Crossing - from the east."
   :title-complete "Complete Route 2"
   :gold 90
   :silver 120
