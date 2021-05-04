@@ -49,9 +49,15 @@
     (push string args)
     (setf string importance)
     (setf importance :normal))
-  (let ((panel (find-panel 'status-lines)))
-    (when panel
-      (alloy:enter (format NIL "~?" string args) panel :importance importance))))
+  (when +main+
+    (flet ((thunk ()
+             (let ((panel (find-panel 'status-lines)))
+               (when panel
+                 (alloy:enter (format NIL "~?" string args) panel :importance importance)))))
+      (if *scene*
+          (thunk)
+          (with-eval-in-render-loop (+world+)
+            (thunk))))))
 
 (defmethod handle ((ev tick) (panel status-lines))
   (let ((layout (alloy:index-element 0 (alloy:layout-element panel)))

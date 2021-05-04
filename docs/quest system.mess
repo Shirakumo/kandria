@@ -51,3 +51,7 @@ Bindings follow the same scoping as outlined above. This means that when accessi
 
 If a variable is retrieved that does not exist, ``NIL`` is returned on read, and a new binding is created on the closest relevant structure on write. Writing variables that were not previously declared is bad style however, and a warning will be logged as a consequence.
 
+## Updating State Live
+You can redefine quests, tasks, and triggers while the game is running. Changes to existing structures should reflect immediately.
+
+If you want to change the status of a structure, you should use ``quest:update``. You can simply type out a form in any Lisp file and use the recompile command to get it going. After recompiling it should also print the updated state of the quest system, showing only active items.
