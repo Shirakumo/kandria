@@ -111,16 +111,6 @@
           (T
            (call-next-method)))))
 
-(defmethod handle :after ((ev quicksave) (world world))
-  (cond ((saving-possible-p world)
-         (save-state +main+ :quick)
-         (status :note "Game saved."))
-        (T
-         (status "Can't save right now."))))
-
-(defmethod handle :after ((ev quickload) (world world))
-  (load-state :quick +main+))
-
 (defmethod handle ((ev report-bug) (world world))
   (toggle-panel 'report-panel))
 

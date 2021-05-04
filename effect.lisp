@@ -192,6 +192,14 @@
                                              :strength strength)))
     (enter displacer +world+)
     (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+)))
+  (let ((flash (make-instance 'flash :location (location effect)
+                                     :multiplier 1.5
+                                     :time-scale 2.0
+                                     :bsize (vec 96 96)
+                                     :size (vec 96 96)
+                                     :offset (vec 112 96))))
+    (enter flash +world+)
+    (compile-into-pass flash NIL (unit 'lighting-pass +world+)))
   (spawn-particles (location effect))
   (let* ((distance (expt (vsqrdist2 (location effect) (location (unit 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))
