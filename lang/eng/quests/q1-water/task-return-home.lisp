@@ -73,7 +73,7 @@
 ~ fi
 | Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
-| Well... I guess we'd need to find some kind of interface port.
+| ... I guess we'd need to find some kind of interface port.
 | Oh, and we'd need a working computer, which we don't have.
 | (:disappointed)Anyway, even if we did, don't you think you should ask HER if taking her apart is okay?
 ~ fi
@@ -122,7 +122,6 @@
 ! eval (activate 'catherine-trader)
 ! eval (setf (walk 'fi) T)
 ! eval (move-to 'fi-farm (unit 'fi))
----
 ! eval (setf (walk 'jack) T)
 ! eval (move-to 'eng-jack (unit 'jack))
 ")

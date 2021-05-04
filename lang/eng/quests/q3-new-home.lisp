@@ -23,10 +23,10 @@
 | //It's a quicksand deathtrap.//
 | Structural integrity can be described as \"may collapse at any moment\".
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
-| | (:normal)I should return to Jack with the bad news.
+| | (:normal)//I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
 "))
-
+;; TODO restore italics to "Structural integrity..." once back slashes don't impede
   (find-home-second
    :title "Scout location Gamma"
    :condition all-complete
@@ -40,7 +40,7 @@
 | (:thinking)//This position is favourably elevated and well-concealed, offering a vantage point from which to spy intruders.//
 | //The building's foundations appear strong, but the rest is a sand-blasted shell.//
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
-| | (:normal)I should return to Jack with the bad news.
+| | (:normal)//I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
 "))
 
@@ -57,7 +57,7 @@
 | (:thinking)//It's secure and concealed, and sheltered from the weather.//
 | (:skeptical)//But the foot of a cliff face is perhaps not the wisest choice in an area prone to quakes.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | (:normal)I should return to Jack with the bad news.
+| | (:normal)//I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
 "))
 
@@ -78,7 +78,7 @@
 |?
 | | (:skeptical)//The factory does offer some structural protection against the earthquakes, but this would not be easy living.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
-| | (:normal)I should return to Jack with the bad news.
+| | (:normal)//I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
 "))
 

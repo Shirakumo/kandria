@@ -171,7 +171,7 @@ Catherine, non-the-wiser to Alex's betrayal, returns to the settlement with the 
   | (:annoyed)The hell you can.
 - Why are you afraid of me?
   ~ jack
-  | (:annoyed)Androids don't exactly grow on trees. And some say you're the reason there aren't no trees anymore. Or buildings.
+  | (:annoyed)Androids don't exactly grow on trees. And some say you're the reason there ain't no trees anymore. Or buildings.
   | Or people.
 - You're right to be afraid.
   ~ catherine
