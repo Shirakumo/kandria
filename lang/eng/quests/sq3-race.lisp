@@ -139,16 +139,16 @@
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine ASAP"
          :on-activate T
+         :variables ((gold ,gold)
+                     (silver ,silver)
+                     (bronze ,bronze)
+                     pb)
          (:action activate
                   (setf (quest:status (thing 'chat)) :inactive)
                   (activate 'chat))
          (:interaction chat
           :title ,title-complete
           :interactable catherine
-          :variables ((gold ,gold)
-                      (silver ,silver)
-                      (bronze ,bronze)
-                      pb)
           :dialogue "
 ! eval (hide-panel 'timer)
 ~ catherine
