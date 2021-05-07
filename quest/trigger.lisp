@@ -99,13 +99,13 @@
 (defmethod complete ((interaction interaction)))
 
 (defmacro define-interaction ((storyline quest task name) &body initargs)
-  (form-fiddle:with-body-options (body initargs interactable variables (class (class-for 'interaction))) initargs
+  (form-fiddle:with-body-options (body initargs interactable dialogue variables (class (class-for 'interaction))) initargs
     `(let* ((task (find-task ',task (find-quest ',quest (or (storyline ',storyline)
                                                             (error "No such storyline ~s" ',storyline)))))
             (action (or (find-trigger ',name task NIL)
                         (setf (find-trigger ',name task) (make-instance ',class :name ',name :task task ,@initargs)))))
        (reinitialize-instance action
-                              :dialogue (progn ,@body)
+                              :dialogue ,(or dialogue `(progn ,@body))
                               :interactable ',interactable
                               :variables ',variables
                               ,@initargs)
