@@ -148,7 +148,7 @@
              (interrupt-walk-n-talk (thing)
                (interrupt-walk-n-talk (quest:find-named thing ,task))))
        (symbol-macrolet ,(loop for variable in (quest:list-variables task)
-                               collect `(,variable (var ,variable)))
+                               collect `(,variable (var ',variable)))
          ,(global-wrap-lexenv form)))))
 
 (defmethod quest:compile-form ((task task) form)
