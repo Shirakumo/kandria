@@ -28,7 +28,7 @@
 | | I told them to find devious places, and knowing Alex they won't have disappointed.
 | | Grab a can, bring it back here, and I'll stop the clock.
 | | We'll start you off with Route 1, which is an easy one.
-| | Get bronze or above, and I'll tell you about the next route!
+| | Finish this one and I'll tell you about the next route!
 | | Alex also gave me some riddles for each place, to give you a clue. Figuring these out might slow you down at first.
 | | But once you know where they are, you'll be clocking even faster times I'm sure! So...
 | < race-1

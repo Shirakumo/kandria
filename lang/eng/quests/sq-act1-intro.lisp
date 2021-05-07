@@ -110,10 +110,10 @@
 |   ! eval (activate 'sq2-mushrooms)
 | - [(not (active-p 'sq3-race)) //Time trials//|]
 |   ~ catherine
-|   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do in anger!
+|   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do!
 |   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and bring back.
 |   | I'll record your times for posterity too - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
-|   | Once you get bronze or above, then I can tell you about the next route! Them's the rules.
+|   | Once you've completed one, then I can tell you about the next route! Them's the rules.
 |   | Just tell me when you want to start, and we'll get this show on the road.
 |   | (:cheer)This is sooo exciting!
 |   ! eval (activate 'sq3-race)

@@ -71,8 +71,8 @@
     :dialogue "
 ~ player
 | //It's new-home candidate site Epsilon.//
-| (:thinking)//These factory cubicles would make for excellent storage, and perhaps even as a base for Engineering.//
-| //I could clear the barbed wire so children, and the elderly and infirm could navigate this area.//
+| (:thinking)//These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.//
+| //I could clear the barbed wire so children, and the elderly and infirm could navigate the area.//
 ? (or (complete-p 'q2-seeds) (have 'seeds))
 | | (:skeptical)//But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.//
 |?
@@ -149,7 +149,7 @@
 | | (:normal)Don't let me be the one to help you out, either, but I heard Sahil was back.
 | | His caravan is down in the Midwest Market, beneath the Hub.
 | | I don't know what opposition you've faced scouting around, but you might wanna stock up.
-| | I hear even androids ain't indestructible...
+| | I hear even androids ain't indestructible.
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")))

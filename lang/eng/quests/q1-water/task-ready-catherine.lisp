@@ -38,7 +38,7 @@
     ~ catherine
     | Well, I'm not surprised. Though I don't think there's much I can do about that. Sorry.
   ~ catherine
-  | Let me know when you're ready to head out. But we can't afford to wait long.
+  | Let me know when you're ready to head out. But we can't afford to wait too long.
 ")
 
   (:interaction catherine-walktalk1

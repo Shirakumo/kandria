@@ -33,7 +33,7 @@
 | //It's an old-world bunker. This must be the storage cache.//
 | //It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before.//
 | //Most of this is spoiled, but some of the closed containers may still have usable seeds.//
-| //Like this one: There are 54 sachets inside. The seeds are in wrappers, tiny and hard like dead insects.//
+| //Like this one: There are 54 sachets inside. The seeds are in wrappers, tiny and hard like grit.//
 | (:skeptical)//Will they still grow?//
 | (:normal)//I stow 54 sachets in my compartment.//
 ! eval (store 'seeds 54)

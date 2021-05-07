@@ -41,7 +41,7 @@
 | (:concerned)...
 | (:concerned)Androids did have FFCS - er, far-field comms systems.
 | I guess something like that could penetrate deeper underground than our radios.
-| (:normal)But no, it's not that. She was offline for decades - there's no way she could have done that.
+| (:normal)But no, it's not that. She was offline for decades.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
@@ -167,10 +167,12 @@
 | It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
 | (:normal)Anyway, don't worry about them. They'll soon see what I see - a big friendly badass who can protect us.
-| Well, I've got work to do. I think Fi might want a private word with you.
-| Just something about the way she was looking at you.
+| Well, I've got work to do.
+| I think Fi might want a private word with you. Just something about the way she was looking at you.
 | Knowing Jack he'll have something for you as well - if only a mouthful of abuse.
-| You take it easy. Seeya later!
+| But hey, you're a free agent. I doubt that will last very long around here, so make the most of it!
+| Take a look around if you haven't already.
+| Seeya later, Stranger!
 ! eval (move-to 'eng-cath (unit 'catherine))
 ! eval (activate 'q2-intro)
 ! eval (activate 'q3-intro)
