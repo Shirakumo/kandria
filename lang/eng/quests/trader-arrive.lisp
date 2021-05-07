@@ -45,21 +45,21 @@
 | Haha, yes sir. Guilty as charged.
 | She's such a great kid, you know? A talented engineer as well. Reminds me of...
 | Er-... well, never mind that.
-| So you’ve come to trade with old Sahil, eh?
+| So you've come to trade with old Sahil, eh?
 ~ player
 - What do you sell?
   ~ trader
   | What doesn't old Sahil sell!
-  | Listen: Catherine told me how you helped her out in the caves - kicked some rogue ass by the sounds of things!
+  | Listen: Catherine told me how you helped her out down here - kicked some rogue ass by the sounds of things!
   < continue
 - What do I need?
   ~ trader
   | I don't know. What kind of work are you doing?
-  | Catherine said you helped her in the caves - kicked some rogue ass by the sounds of things!
+  | Catherine said you helped her out down here - kicked some rogue ass by the sounds of things!
   < continue
 - I think I can manage on my own.
   ~ trader
-  | Nonsense! You helped Catherine in the caves - kicked some rogue ass by the sounds of things!
+  | Nonsense! You helped Catherine out - kicked some rogue ass by the sounds of things!
   < continue
 
 # continue
@@ -73,7 +73,7 @@
 ~ player
 | //He turns to the stacks of shelves behind him and rummages around.//
 | //Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//
-| //He crams old circuit boards, clipped wires, and rolls of solder into several tins.//
+| //He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//
 ~ trader
 | Voila! I give you: The Android Health Pack. Custom made just for you.
 ~ player
@@ -102,11 +102,11 @@
 ~ player
 - It's an electronic stun blade. And I need it.
   ~ trader
-  | Electronic?... That's downright incredible. And it transforms from your arm?
+  | Electronic?... That's downright incredible. And it transforms from your hand?
   < sword-explain
 - It is paired via my NFCS. It's useless to anyone else.
   ~ trader
-  | It's electronic?... That's downright incredible. And it transforms from your arm?
+  | It's electronic?... That's downright incredible. And it transforms from your hand?
   < sword-explain
 - It's not for sale.
   < end

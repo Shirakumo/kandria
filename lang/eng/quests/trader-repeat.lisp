@@ -108,7 +108,7 @@
       < shop
   - I changed my mind.
     < changed-mind
-- Can we talk.
+- Can we talk?
   ~ trader
   | [? Of course, habeebti - always. | We can indeed. | What's on your mind? | I love to chat.]
   ! label talk
@@ -130,7 +130,7 @@
   |   < talk
   | - Catherine said you were later than expected...
   |   ~ trader
-  |   | Yeah, those damn rogues were prowling about.
+  |   | Yeah, those damn rogues prowling about.
   |   | Don't get me wrong, I can handle myself.
   |   | But it's not easy when you're pulling your own caravan.
   |   ~ player

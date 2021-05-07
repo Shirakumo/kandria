@@ -62,7 +62,7 @@
     :dialogue "
 ~ player
 | //The pipe has split.//
-| //There's no subsidence, but I think movement in the surrounding rocks wrenched it clean open.//
+| //There's no subsidence, but it's close to Catherine's previous repair - I wonder if it didn't hold?//
 ? (not (var 'first-leak))
 | | //I ignite the torch from the index finger on my right hand.//
 | | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
@@ -154,7 +154,7 @@
 ? (have 'walkie-talkie)
 | | I'll take the walkie back for now in case someone else needs it.
 | ! eval (retrieve 'walkie-talkie 1)
-| | Bet it was weird using such archaic technology, right?
+| | Bet it was weird using such archaic technology.
 | ~ player
 | - I liked it.
 | - Never again.

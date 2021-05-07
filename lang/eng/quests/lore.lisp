@@ -132,7 +132,10 @@
    :repeatable T
    "
 ~ player
-| //This is farmland. They're growing potatoes - dying ones by the looks of it.//
+? (complete-p 'q1-water)
+| | //The irrigation is working again, but the crops might be too far gone to make it.//
+|?
+| | //This is farmland. They're growing potatoes - dying ones by the looks of it.//
 ")
 
   ;; Sandstorm transition/view

@@ -26,7 +26,7 @@
   < ending
 - [(not (var 'batch2)) //Take 1 rusty puffball//|]
   | I pick 1 rusty puffball.
-  | (:giggle)They makes clothes out of these? Call me a fashion victim but I wouldn't be seen dead in them.
+  | (:giggle)They make clothes out of these? Call me a fashion victim but I wouldn't be seen dead in them.
   ! eval (store 'mushroom-good-2 1)
   ! eval (setf (var 'batch2) T)
   < ending

@@ -39,6 +39,7 @@
 | //It's new-home candidate site Gamma.//
 | (:thinking)//This position is favourably elevated and well-concealed, offering a vantage point from which to spy intruders.//
 | //The building's foundations appear strong, but the rest is a sand-blasted shell.//
+| //It's a no go.//
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
 | | (:normal)//I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
@@ -55,7 +56,7 @@
 ~ player
 | //It's new-home candidate site Delta.//
 | (:thinking)//It's secure and concealed, and sheltered from the weather.//
-| (:skeptical)//But the foot of a cliff face is perhaps not the wisest choice in an area prone to quakes.//
+| (:skeptical)//But the foot of a cliff face is not a wise choice in an area prone to quakes.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
 | | (:normal)//I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
@@ -76,7 +77,7 @@
 ? (or (complete-p 'q2-seeds) (have 'seeds))
 | | (:skeptical)//But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.//
 |?
-| | (:skeptical)//The factory does offer some structural protection against the earthquakes, but this would not be easy living.//
+| | (:skeptical)//But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
 | | (:normal)//I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)

@@ -162,7 +162,7 @@
 ~ catherine
 | Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | Oh! I almost forgot: It's our way to gift something to those that help us out.
-| Since those two aren't likely to be feeling generous anytime soon, I'll give you these parts.
+| Since those two aren't likely to be feeling generous anytime soon, I'll give you these spare parts.
 ! eval (store 'parts 20)
 | It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
@@ -171,7 +171,7 @@
 | I think Fi might want a private word with you. Just something about the way she was looking at you.
 | Knowing Jack he'll have something for you as well - if only a mouthful of abuse.
 | But hey, you're a free agent. I doubt that will last very long around here, so make the most of it!
-| Take a look around if you haven't already.
+| Take a look around and explore if you haven't already.
 | Seeya later, Stranger!
 ! eval (move-to 'eng-cath (unit 'catherine))
 ! eval (activate 'q2-intro)
