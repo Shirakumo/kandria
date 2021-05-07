@@ -2,7 +2,7 @@
 
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
-   (storyline :initarg :storyline :initform (quest:storyline 'kandria) :accessor storyline)
+   (storyline :initarg :storyline :initform NIL :accessor storyline)
    (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
@@ -185,8 +185,7 @@
   (let ((old-region (unit 'region world))
         (*scene* world))
     (restart-case
-        (prog1 (call-next-method)
-          (quest:reset (storyline world)))
+        (call-next-method)
       (abort ()
         :report "Give up changing the region and continue with the old."
         (when (and old-region (not (eql old-region (unit 'region world))))

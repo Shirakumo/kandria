@@ -54,7 +54,7 @@
              (let ((panel (find-panel 'status-lines)))
                (when panel
                  (alloy:enter (format NIL "~?" string args) panel :importance importance)))))
-      (if *scene*
+      (if (boundp '*scene*)
           (thunk)
           (with-eval-in-render-loop (+world+)
             (thunk))))))
