@@ -164,9 +164,7 @@
           (setf (status-display panel) status)
           (alloy:enter status tab :constraints `((:margin 10)))
           (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
-          (alloy:enter quick tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
-          (alloy:enter resume focus :layer layer)
-          (alloy:enter quick focus :layer layer)))
+          (alloy:enter resume focus :layer layer)))
 
       #++
       (with-tab (tab (@ world-map-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
