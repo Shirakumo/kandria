@@ -49,7 +49,8 @@
   (destructuring-bind ((storyline &key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
                                                                                        :element-type 'character))
     (let ((storyline (quest:find-named storyline T)))
-      (quest:reset storyline)
+      (v:with-muffled-logging ()
+        (quest:reset storyline))
       (quest:merge-bindings storyline (decode-payload variables 'bindings packet save-v0))
       (loop for (name . initargs) in quests
             for quest = (handler-case (quest:find-quest name storyline)
@@ -69,20 +70,26 @@
 
 (define-decoder (quest:quest save-v0) (initargs packet)
   (destructuring-bind (&key status (clock 0.0) tasks bindings) initargs
-    (setf (quest:status quest:quest) :inactive)
-    (ecase status
-      (:inactive)
-      (:active (quest:activate quest:quest))
-      (:complete (quest:complete quest:quest))
-      (:failed (quest:fail quest:quest)))
+    (cond (tasks
+           (setf (quest:status quest:quest) status)
+           (loop for (name . initargs) in tasks
+                 for task = (handler-case (quest:find-task name quest:quest)
+                              (error ()
+                                (v:warn :kandria.save "Reference to unknown task ~s, ignoring!" name)
+                                NIL))
+                 do (when task (decode task initargs))))
+          (T
+           ;; KLUDGE: we only do this if there's no task state saved as we then want to
+           ;;         achieve the default changes from the quest definition. Typically
+           ;;         from loading the initial state.
+           (setf (quest:status quest:quest) :inactive)
+           (ecase status
+             (:inactive)
+             (:active (quest:activate quest:quest))
+             (:complete (quest:complete quest:quest))
+             (:failed (quest:fail quest:quest)))))
     (setf (clock quest:quest) clock)
-    (quest:merge-bindings quest:quest (decode-payload bindings 'bindings packet save-v0))
-    (loop for (name . initargs) in tasks
-          for task = (handler-case (quest:find-task name quest:quest)
-                       (error ()
-                         (v:warn :kandria.save "Reference to unknown task ~s, ignoring!" name)
-                         NIL))
-          do (when task (decode task initargs)))))
+    (quest:merge-bindings quest:quest (decode-payload bindings 'bindings packet save-v0))))
 
 (define-encoder (quest:task save-v0) (_b _p)
   (list (quest:name quest:task)
