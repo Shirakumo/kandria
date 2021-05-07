@@ -171,7 +171,7 @@
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
      ,(task-wrap-lexenv form (interaction assembly))))
 
-(defmethod load-language :after (&optional (language (setting :language)))
+(defun load-quests (&optional (language (setting :language)))
   (let ((dir (language-dir language)))
     (cl:load (merge-pathnames "storyline.lisp" dir))
     (dolist (file (directory (merge-pathnames "quests/**/*.lisp" dir)))
@@ -181,3 +181,8 @@
                      (sb-ext:code-deletion-note #'muffle-warning)
                      (sb-kernel:redefinition-warning #'muffle-warning))
         (cl:load file)))))
+
+(defmethod load-language :after (&optional (language (setting :language)))
+  (load-quests language))
+
+(load-quests :eng)
