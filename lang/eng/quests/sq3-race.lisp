@@ -156,21 +156,21 @@
 | (:excited)That's the correct can alright - nice!
 ! eval (retrieve 'can)
 | (:normal)You did that in: {(format-relative-time (clock quest))}.
-? (and pb (< (var 'pb) (clock quest)))
-| Ah damn, no improvement over your record of {(format-relative-time (var 'pb))} this time I'm afraid. Better luck next time though!
+? (and pb (< pb (clock quest)))
+| Ah damn, no improvement over your record of {(format-relative-time pb)} this time I'm afraid. Better luck next time though!
 |?
-| ? (not (null (var 'pb)))
+| ? (not (null pb))
 | | (:cheer)That's a new personal best!
-| (setf (var 'pb) (clock quest))
-| ? (< (var 'pb) (var 'gold))
+| (setf pb (clock quest))
+| ? (< pb gold)
 | | | (:cheer)How did you do that so fast? That's gold bracket.
 | | | You get the top reward - 30 scrap parts!
 | | ! eval (store 'parts 30)
-| |? (< (var 'pb) (var 'silver))
+| |? (< pb silver)
 | | | (:excited)That's pretty quick! Silver bracket.
 | | | That nets you 15 scrap parts!
 | | ! eval (store 'parts 15)
-| |? (< (var 'pb) (var 'bronze))
+| |? (< pb bronze)
 | | | (:excited)Not bad! That's bronze bracket.
 | | | That gets you 10 scrap parts.
 | | ! eval (store 'parts 10)
