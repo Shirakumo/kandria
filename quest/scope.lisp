@@ -7,6 +7,12 @@
 (defmethod initialize-instance :after ((scope scope) &key)
   (reset scope))
 
+(defmethod reinitialize-instance :after ((scope scope) &key)
+  (merge-bindings scope (loop for binding in (initial-bindings scope)
+                              collect (etypecase binding
+                                        (cons (cons (first binding) (second binding)))
+                                        (symbol (cons binding NIL))))))
+
 (defgeneric reset (scope)
   (:method-combination progn))
 (defgeneric parent (scope))
