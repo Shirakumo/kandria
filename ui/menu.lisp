@@ -49,12 +49,12 @@
   (:border
    :hidden-p (not (alloy:active-p alloy:renderable)))
   (:background
-   :pattern (ecase alloy:focus
+   :pattern (case alloy:focus
               (:strong (colored:color 0.5 0.5 0.5))
               (:weak (colored:color 0.3 0.3 0.3))
-              ((NIL) (if (alloy:active-p alloy:renderable)
-                         (colored:color 0.3 0.3 0.3)
-                         colors:transparent))))
+              (T (if (alloy:active-p alloy:renderable)
+                     (colored:color 0.3 0.3 0.3)
+                     colors:transparent))))
   (:label
    :pattern (if (alloy:active-p alloy:renderable)
                 colors:white
@@ -100,17 +100,17 @@
    (alloy:margins))
   ((:bord simple:rectangle)
    (alloy:margins 0 0 0 (alloy:ph 0.95))
-   :pattern (case (quest:status (quest alloy:renderable))
+   :pattern (ecase (quest:status (quest alloy:renderable))
               (:active colors:accent)
               (:complete colors:dim-gray)
               (:failed colors:dark-red))))
 
 (presentations:define-update (ui quest-widget)
   (:bg
-   :pattern (ecase alloy:focus
+   :pattern (case alloy:focus
               (:strong (colored:color 0.3 0.3 0.3))
               (:weak (colored:color 0.3 0.3 0.3))
-              ((NIL) (colored:color 0.2 0.2 0.2)))))
+              (T (colored:color 0.2 0.2 0.2)))))
 
 (defclass input-label (label)
   ())
@@ -172,9 +172,10 @@
       
       (with-tab (tab (@ quest-menu) 'alloy:vertical-linear-layout :min-size (alloy:size 300 200))
         (dolist (quest (quest:known-quests (storyline +world+)))
-          (let ((widget (make-instance 'quest-widget :quest quest)))
-            (alloy:enter widget tab)
-            (alloy:enter widget focus :layer layer))))
+          (unless (eq :inactive (quest:status quest))
+            (let ((widget (make-instance 'quest-widget :quest quest)))
+              (alloy:enter widget tab)
+              (alloy:enter widget focus :layer layer)))))
       
       (with-tab (tab (@ inventory-menu) 'alloy:border-layout)
         (let ((tabs (make-instance 'vertical-tab-bar :style `((:bg :pattern ,(colored:color 0.12 0.12 0.12)))))
