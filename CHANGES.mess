@@ -93,13 +93,14 @@ A big thanks to everyone for trying it out and reporting problems!
 ## 0.1.1
 - Fix NPCs blocked by elevators
   Reported by Nag
+- Fix wall adjacent ropes clipping you into walls
+  Reported by Selwyn Simsek
+
 ## TODO
 - Fix disconnecting a sound device crashing the game
   Reported by Citizen Jake
 - Fix odd physics after a balloon jump
   Reported by Pondering Trog
-- Fix NPCs blocked by elevators
-  Reported by Nag
 - Fix elevators clipping you into the walls
   Reported by Nag
 - Fix NPCs not respawning where they should after a reload
