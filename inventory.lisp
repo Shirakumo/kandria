@@ -44,10 +44,13 @@
   ((texture :initform (// 'kandria 'items))
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)
-   (velocity :initform (vec 0 0))))
+   (velocity :initform (vec 0 0))
+   (light :initform NIL :accessor light)))
 
 (defmethod spawn :before ((region region) (item item) &key)
-  (vsetf (velocity item) (* (- (* 2 (random 2)) 1) (random* 2 1)) (random* 5 3)))
+  (vsetf (velocity item)
+         (* (- (* 2 (random 2)) 1) (random* 2 1))
+         (random* 4 2)))
 
 (defmethod item-order ((_ item)) 0)
 
@@ -57,12 +60,30 @@
 
 (defmethod handle :before ((ev tick) (item item))
   (nv+ (velocity item) (v* (gravity (medium item)) (dt ev)))
-  (nv+ (frame-velocity item) (velocity item)))
+  (nv+ (frame-velocity item) (velocity item))
+  (when (light item)
+    (vsetf (location (light item))
+           (vx (location item))
+           (+ 12 (vy (location item))))
+    (when (= 0 (mod (fc ev) 5))
+      (setf (multiplier (light item)) (random* 1.0 0.2)))))
 
 (defmethod collide :after ((item item) (block block) hit)
-  (vsetf (velocity item) 0 0))
+  (vsetf (velocity item) 0 0)
+  (unless (light item)
+    (let ((light (make-instance 'textured-light :location (nv+ (vec 0 16) (location item))
+                                                :multiplier 1.0
+                                                :bsize (vec 32 32)
+                                                :size (vec 64 64)
+                                                :offset (vec 0 144))))
+      (setf (light item) light)
+      (setf (container light) +world+)
+      (compile-into-pass light NIL (unit 'lighting-pass +world+)))))
 
 (defmethod interact ((item item) (inventory inventory))
+  (when (light item)
+    (remove-from-pass (light item) (unit 'lighting-pass +world+))
+    (setf (light item) NIL))
   (store item inventory)
   (status "Received ~a" (language-string (type-of item)))
   (leave* item T))
