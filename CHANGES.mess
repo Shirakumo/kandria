@@ -90,6 +90,9 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix missing roof in cafe alpha
   Reported by Florian Hanke
 
+## 0.1.1
+- Fix NPCs blocked by elevators
+  Reported by Nag
 ## TODO
 - Fix disconnecting a sound device crashing the game
   Reported by Citizen Jake
