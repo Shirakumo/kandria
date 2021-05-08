@@ -38,9 +38,11 @@
              (leave* entity T)))
          (setf (reflist spawner) ()))))
 
-(defmethod complete-p ((spawner spawner))
+(defmethod done-p ((spawner spawner))
   (loop for entity in (reflist spawner)
         never (slot-boundp entity 'container)))
+
+(define-unit-resolver-methods done-p (unit))
 
 (defmethod (setf active-p) :after (state (spawner spawner))
   (when (and state (unit 'player +world+))
