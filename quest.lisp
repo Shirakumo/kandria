@@ -13,7 +13,8 @@
   (setf (location entity) (location (unit name +world+))))
 
 (defclass quest (quest:quest alloy:observable)
-  ((clock :initarg :clock :initform 0f0 :accessor clock)))
+  ((clock :initarg :clock :initform 0f0 :accessor clock)
+   (visible-p :initarg :visible :initform T :accessor visible-p)))
 
 (alloy:make-observable '(setf clock) '(value alloy:observable))
 (alloy:make-observable '(setf quest:status) '(value alloy:observable))
@@ -21,14 +22,17 @@
 (defmethod quest:class-for ((storyline (eql 'quest:quest))) 'quest)
 
 (defmethod quest:activate :after ((quest quest))
-  (status :important "New quest: ~a" (quest:title quest))
+  (when (visible-p quest)
+    (status :important "New quest: ~a" (quest:title quest)))
   (setf (clock quest) 0f0))
 
 (defmethod quest:complete :after ((quest quest))
-  (status :important "Quest completed: ~a" (quest:title quest)))
+  (when (visible-p quest)
+    (status :important "Quest completed: ~a" (quest:title quest))))
 
 (defmethod quest:fail :after ((quest quest))
-  (status :important "Quest failed: ~a" (quest:title quest)))
+  (when (visible-p quest)
+    (status :important "Quest failed: ~a" (quest:title quest))))
 
 (defmethod quest:make-assembly ((_ quest))
   (make-instance 'assembly))

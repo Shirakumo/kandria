@@ -172,7 +172,8 @@
       
       (with-tab (tab (@ quest-menu) 'alloy:vertical-linear-layout :min-size (alloy:size 300 200))
         (dolist (quest (quest:known-quests (storyline +world+)))
-          (unless (eq :inactive (quest:status quest))
+          (unless (or (eq :inactive (quest:status quest))
+                      (not (visible-p quest)))
             (let ((widget (make-instance 'quest-widget :quest quest)))
               (alloy:enter widget tab)
               (alloy:enter widget focus :layer layer)))))

@@ -5,6 +5,7 @@
   :author "Tim White"
   :title "The World"
   :description "This world is unfamiliar to me. I should explore and learn more about it."
+  :visible NIL
   :on-activate (region1))
 
 ;; Lore tooltips that can be accessed throughout the entire game - this quest can never be completed; some interactions may alter based on world state conditions.
