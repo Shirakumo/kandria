@@ -250,7 +250,9 @@
         )
 
       (with-tab (tab (@ save-and-exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
-        (let ((save (with-button save-and-exit-game
+        (let ((resume (with-button resume-game
+                        (hide panel)))
+              (save (with-button save-and-exit-game
                       (save-state +main+ T)
                       (quit *context*)))
               (exit (with-button exit-game
@@ -258,9 +260,11 @@
               (reset (with-button reset-game
                        (load-state (make-instance 'save-state :filename "initial") +world+)
                        (hide panel))))
-          (alloy:enter save tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
+          (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
+          (alloy:enter save tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
           (alloy:enter exit tab :constraints `((:bottom 10) (:right-of ,save 10) (:width 200) (:height 40)))
           (alloy:enter reset tab :constraints `((:bottom 10) (:right-of ,exit 10) (:width 200) (:height 40)))
+          (alloy:enter resume focus :layer layer)
           (alloy:enter save focus :layer layer)
           (alloy:enter exit focus :layer layer)
           (alloy:enter reset focus :layer layer))))
