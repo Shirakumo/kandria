@@ -71,7 +71,11 @@ void main(){
   (:inhibit-shaders (displacer :fragment-shader)))
 
 (defmethod handle ((ev tick) (displacer displacer))
-  (incf (offset displacer) (dt ev)))
+  (setf (strength displacer) 0.01)
+  (incf (offset displacer) (* (dt ev) -0.2)))
+
+(defmethod render :before ((heatwave heatwave) (program shader-program))
+  (setf (uniform program "offset") (offset heatwave)))
 
 (defmethod apply-transforms progn ((heatwave heatwave))
   (scale-by (/ (vx (bsize heatwave)) 8) (/ (vy (bsize heatwave)) 8) 1))
@@ -84,7 +88,7 @@ in vec2 tex_coord;
 out vec4 color;
 
 void main(){
-  color = vec4(texture(texture_image, vec2(tex_coord.x, tex_coord.y+offset)).rg,
+  color = vec4(texture(texture_image, vec2(tex_coord.x, tex_coord.y*2+offset)).rg,
                effect_strength*(1-tex_coord.y), 1);
 }")
 
