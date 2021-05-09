@@ -8,7 +8,7 @@
     catherine fi jack trader
     door passage
     falling-platform elevator
-    chunk water rope grass))
+    chunk water rope grass heatwave))
 
 (defclass creator (alloy:dialog)
   ((entity :initform NIL :accessor entity))
