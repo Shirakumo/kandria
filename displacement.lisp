@@ -71,8 +71,13 @@ void main(){
   (:inhibit-shaders (displacer :fragment-shader)))
 
 (defmethod handle ((ev tick) (displacer displacer))
-  (setf (strength displacer) 0.01)
   (incf (offset displacer) (* (dt ev) -0.2)))
+
+(defmethod handle ((ev change-time) (displacer displacer))
+  ;; Scale strength based on time of day (8 day hours)
+  (setf (strength displacer)
+        (* (float (max 0 (/ (- 4 (abs (- (hour +world+) 12))) 4.0)) 0f0)
+           0.015)))
 
 (defmethod render :before ((heatwave heatwave) (program shader-program))
   (setf (uniform program "offset") (offset heatwave)))
