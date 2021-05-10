@@ -14,7 +14,8 @@
                                       (dir 90) (dir-var 180)
                                       (speed 70) (speed-var 100)
                                       (life 1.0) (life-var 0.5)
-                                      (origin (vec 0 0)) (count 100))
+                                      (spread #.(vec 0 0))
+                                      (origin #.(vec 0 0)) (count 100))
   (let ((elt (make-array (* 11 count) :element-type 'single-float)))
     (macrolet ((insert (arr i &rest args)
                  `(let ((off (* ,(length args) ,i)))
@@ -25,10 +26,12 @@
         (let ((s (random* scale scale-var))
               (d (deg->rad (random* dir dir-var)))
               (sp (random* speed speed-var))
-              (li (random* life life-var)))
+              (li (random* life life-var))
+              (x (+ (vx origin) (random* 0.0 (vx spread))))
+              (y (+ (vy origin) (random* 0.0 (vy spread)))))
           (destructuring-bind (u- v- us vs) (alexandria:random-elt tiles)
             (insert elt i
-                    (vx origin) (vy origin) s
+                    x y s
                     u- v- us vs 1.0
                     (* sp (cos d)) (* sp (sin d))
                     li)))))))
@@ -61,8 +64,8 @@
 
 (defmethod initialize-instance :after ((emitter emitter) &key tiles location (scale 4) (scale-var 2)
                                                               (dir 90) (dir-var 180) (speed 70) (speed-var 100)
-                                                              (life 1.0) (life-var 0.5))
-  (let* ((inst (make-particle-data tiles :count (amount emitter) :origin location
+                                                              (life 1.0) (life-var 0.5) (spread #.(vec 0 0)))
+  (let* ((inst (make-particle-data tiles :count (amount emitter) :origin location :spread spread
                                          :scale scale :scale-var scale-var :dir dir :dir-var dir-var
                                          :speed speed :speed-var speed-var :life life :life-var life-var))
          (vbo +particle-vbo+)

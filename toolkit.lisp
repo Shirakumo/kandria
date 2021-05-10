@@ -231,7 +231,9 @@
   (atan (vy point) (vx point)))
 
 (defun random* (x var)
-  (+ x (- (random var) (/ var 2f0))))
+  (if (< 0.0 x)
+      (+ x (- (random var) (/ var 2f0)))
+      0.0))
 
 (defun intersection-point (a as b bs)
   (let ((l (max (- (vx2 a) (vx2 as))

@@ -211,7 +211,12 @@
 (define-effect explosion explosion-effect
   :voice (// 'kandria 'die-zombie)
   :animation 'explosion48-grounded
-  :particles (list (load-time-value (make-tile-uvs 8 18 128 128))))
+  :particles (list (make-tile-uvs 8 18 128 128)
+                   :amount 16
+                   :scale 4 :scale-var 2
+                   :dir 90 :dir-var 180
+                   :speed 70 :speed-var 100
+                   :life 1.0 :life-var 0.5))
 
 (define-effect land step-effect
   :voice (// 'kandria 'land-normal)
@@ -220,8 +225,10 @@
 
 (define-effect spark sprite-effect
   :animation '(spark1 spark2 spark3)
-  :particles (list (print (load-time-value (make-tile-uvs 8 4 128 128 32)))
-                   :amount 16 :speed 70 :speed-var 30 :life 0.3 :life-var 0.2))
+  :particles (list (make-tile-uvs 8 4 128 128 32)
+                   :amount 16
+                   :speed 70 :speed-var 30
+                   :life 0.3 :life-var 0.2))
 
 (with-eval-in-render-loop (+world+)
   (trigger 'spark (unit 'player T)))
