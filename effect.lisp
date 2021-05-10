@@ -62,7 +62,8 @@
 
 (define-shader-entity sprite-effect (lit-animated-sprite shader-effect)
   ((offset :initarg :offset :initform (vec 0 0) :accessor offset)
-   (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index))
+   (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index)
+   (particles :initarg :particles :initform () :accessor particles))
   (:default-initargs :sprite-data (asset 'kandria 'effects)))
 
 (defmethod initialize-instance :after ((effect sprite-effect) &key animation)
@@ -76,9 +77,11 @@
     (when (slot-boundp effect 'container)
       (leave* effect T))))
 
-(defmethod trigger :after ((effect sprite-effect) (source facing-entity) &key direction)
+(defmethod trigger :after ((effect sprite-effect) source &key direction)
   (setf (direction effect) (or direction (direction source)))
-  (nv+ (location effect) (offset effect)))
+  (nv+ (location effect) (offset effect))
+  (when (particles effect)
+    (apply #'spawn-particles (location effect) (particles effect))))
 
 (define-shader-entity text-effect (shader-effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
@@ -200,7 +203,6 @@
                                      :offset (vec 112 96))))
     (enter flash +world+)
     (compile-into-pass flash NIL (unit 'lighting-pass +world+)))
-  (spawn-particles (location effect))
   (let* ((distance (expt (vsqrdist2 (location effect) (location (unit 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))
     (when (< 0.1 strength)
@@ -208,7 +210,8 @@
 
 (define-effect explosion explosion-effect
   :voice (// 'kandria 'die-zombie)
-  :animation 'explosion48-grounded)
+  :animation 'explosion48-grounded
+  :particles (list (load-time-value (make-tile-uvs 8 18 128 128))))
 
 (define-effect land step-effect
   :voice (// 'kandria 'land-normal)
@@ -216,4 +219,10 @@
   :layer-index 2)
 
 (define-effect spark sprite-effect
-  :animation '(spark1 spark2 spark3))
+  :animation '(spark1 spark2 spark3)
+  :particles (list (print (load-time-value (make-tile-uvs 8 4 128 128 32)))
+                   :amount 16 :speed 70 :speed-var 30 :life 0.3 :life-var 0.2))
+
+(with-eval-in-render-loop (+world+)
+  (trigger 'spark (unit 'player T)))
+

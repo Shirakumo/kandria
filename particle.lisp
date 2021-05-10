@@ -59,8 +59,12 @@
    (texture :initform (// 'kandria 'particles) :accessor texture)
    (amount :initarg :amount :initform 16 :accessor amount)))
 
-(defmethod initialize-instance :after ((emitter emitter) &key tiles location)
-  (let* ((inst (make-particle-data tiles :count (amount emitter) :origin location))
+(defmethod initialize-instance :after ((emitter emitter) &key tiles location (scale 4) (scale-var 2)
+                                                              (dir 90) (dir-var 180) (speed 70) (speed-var 100)
+                                                              (life 1.0) (life-var 0.5))
+  (let* ((inst (make-particle-data tiles :count (amount emitter) :origin location
+                                         :scale scale :scale-var scale-var :dir dir :dir-var dir-var
+                                         :speed speed :speed-var speed-var :life life :life-var life-var))
          (vbo +particle-vbo+)
          (vio (make-instance 'vertex-buffer :buffer-data inst :data-usage :stream-draw))
          (vao (make-instance 'vertex-array :bindings `((,vbo :size 2 :stride ,(* 4 4) :offset 0)
@@ -130,13 +134,13 @@ void main(){
 (defun make-tile-uvs (grid count width height &optional (offset 0))
   (loop for i from offset below (+ offset count)
         for x = (mod (* i grid) width)
-        for y = (floor (* i grid) width)
+        for y = (* grid (floor (* i grid) width))
         collect (list (/ x width)
-                      (/ y width)
+                      (/ y height)
                       (/ grid width)
                       (/ grid height))))
 
-(defun spawn-particles (location &key (tiles (load-time-value (make-tile-uvs 8 18 128 128))))
-  (enter-and-load (make-instance 'emitter :location location :tiles tiles)
+(defun spawn-particles (location tiles &rest initargs)
+  (enter-and-load (apply #'make-instance 'emitter :location location :tiles tiles initargs)
                   (region +world+)
                   +main+))
