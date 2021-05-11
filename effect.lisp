@@ -230,6 +230,3 @@
                    :speed 70 :speed-var 30
                    :life 0.3 :life-var 0.2))
 
-(with-eval-in-render-loop (+world+)
-  (trigger 'spark (unit 'player T)))
-

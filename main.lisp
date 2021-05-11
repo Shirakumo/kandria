@@ -26,8 +26,13 @@
         do (setf (harmony:volume k) v)))
 
 (defmethod update ((main main) tt dt fc)
-  (issue (scene main) 'tick :tt tt :dt (* (time-scale (scene main)) (float dt 1.0)) :fc fc)
-  (process (scene main)))
+  (let* ((scene (scene main))
+         (dt (* (time-scale scene) (float dt 1.0))))
+    (when (< 0 (pause-timer scene))
+      (decf (pause-timer scene) dt)
+      (setf dt 0.1))
+    (issue (scene main) 'tick :tt tt :dt dt :fc fc)
+    (process (scene main))))
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test))

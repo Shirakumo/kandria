@@ -7,6 +7,7 @@
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
+   (pause-timer :initform 0.0 :accessor pause-timer)
    (clock-scale :initform 60.0 :accessor clock-scale)
    (timestamp :initform (initial-timestamp) :accessor timestamp))
   (:default-initargs
@@ -14,7 +15,6 @@
 
 (defmethod initialize-instance :after ((world world) &key packet)
   (enter (progression-instance 'death) world)
-  (enter (progression-instance 'stun) world)
   (enter (progression-instance 'hurt) world)
   (enter (progression-instance 'transition) world)
   (enter (progression-instance 'low-health) world)

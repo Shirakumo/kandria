@@ -740,9 +740,6 @@
   (snap-to-target (unit :camera T) player))
 
 (defmethod hurt :after ((player player) (by integer))
-  (when (interruptable-p (frame player))
-    (setf (clock (progression 'stun +world+)) 0f0)
-    (start (progression 'stun +world+)))
   (setf (clock (progression 'hurt +world+)) 0)
   (start (progression 'hurt +world+))
   (setf (combat-time player) 0f0)
