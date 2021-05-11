@@ -97,6 +97,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Selwyn Simsek
 - Fix wall jumps letting you climb indefinitely
   Reported by Monroth
+- Fix elevators crashing when colliding with NPCs
+  Reported by Hot Potato
 
 ## TODO
 - Fix disconnecting a sound device crashing the game

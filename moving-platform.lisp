@@ -6,6 +6,7 @@
 (defmethod collides-p ((platform moving-platform) thing hit) NIL)
 (defmethod collides-p ((platform moving-platform) (block block) hit) T)
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
+(defmethod collides-p ((platform moving-platform) (entity ai-entity) hit) NIL)
 
 (define-shader-entity falling-platform (lit-sprite moving-platform)
   ())
