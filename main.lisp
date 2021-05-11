@@ -30,7 +30,7 @@
          (dt (* (time-scale scene) (float dt 1.0))))
     (when (< 0 (pause-timer scene))
       (decf (pause-timer scene) dt)
-      (setf dt 0.1))
+      (setf dt (* dt 0.05)))
     (issue (scene main) 'tick :tt tt :dt dt :fc fc)
     (process (scene main))))
 
