@@ -95,6 +95,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Nag
 - Fix wall adjacent ropes clipping you into walls
   Reported by Selwyn Simsek
+- Fix wall jumps letting you climb indefinitely
+  Reported by Monroth
 
 ## TODO
 - Fix disconnecting a sound device crashing the game

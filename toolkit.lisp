@@ -46,7 +46,7 @@
               (run-acc         0.0125)
               (run-time        3.0)
               (run-limit       4.0)
-              (air-acc         0.08)
+              (air-acc         0.07)
               (air-dcc         0.97)
               (climb-up        0.8)
               (climb-down      1.5)
