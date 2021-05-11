@@ -99,6 +99,7 @@
            :text (princ-to-string damage)
            :location (vec (+ (vx (location animatable)))
                           (+ (vy (location animatable)) 8 (vy (bsize animatable)))))
+  (setf (pause-timer +world+) 0.08)
   (decf (health animatable) damage))
 
 (defmethod kill :around ((animatable animatable))
