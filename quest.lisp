@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass place-marker (sized-entity resizable ephemeral)
+(defclass place-marker (sized-entity resizable ephemeral dialog-entity)
   ((name :accessor name)))
 
 (defmethod compile-to-pass (pass (marker place-marker)))
