@@ -3,6 +3,8 @@
 (defclass ai-entity (movable)
   ((ai-state :initform :normal :accessor ai-state)))
 
+(defmethod collides-p ((platform moving-platform) (entity ai-entity) hit) NIL)
+
 (defmethod handle :before ((ev tick) (entity ai-entity))
   (let ((collisions (collisions entity))
         (vel (velocity entity)))
