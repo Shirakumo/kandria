@@ -58,13 +58,13 @@
 | | | | (:normal)Though that was just so I had a mask, so their spores wouldn't give me lung disease.
 | | | ! eval (retrieve 'mushroom-good-2 (item-count 'mushroom-good-2))
 | | ? (have 'mushroom-bad-1)
-| | | |  (:disappointed)Oh, you got some black knights huh? Not a lot I can do with them.
+| | | |  (:disappointed)Oh, you got some black knights huh? Not a lot I can do with poisonous ones.
 | | | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | | | ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
 | |  
 | | | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | | | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
-| | | (:normal)If you find any more mushrooms, make sure you grab them too.
+| | | (:normal)If you find any more mushrooms, make sure you grab them too!
 | | | If we don't need them, then the least you could do is trade them with Sahil.
 | | ! eval (store 'parts 10)
 | | ? (not (complete-p 'sq2-mushrooms))

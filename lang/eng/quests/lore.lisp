@@ -148,3 +148,28 @@
 | //Particulates ping off my body like bullets.//
 | //The mountains lay beyond, though I can hardly see them in this storm.//
 "))
+
+#|
+;; TODO Old mushroom text interacts that could be repurposed as lore interacts:
+could reuse locations shrooms1 to 5?
+
+flower fungus
+They're quite pretty. It seems a shame to eat them.
+
+rusty puffball
+(:giggle)They make clothes out of these? Call me a fashion victim but I wouldn't be seen dead in them.
+
+They look and smell like mould. I suppose it's the same thing, more or less.
+
+(:skeptical)I suppose truffles would be too much to ask for.
+
+Why do they look like alien parasites from an old B-movie?
+
+black knight
+(:thinking)They remind me of decaying frogspawn. Yet I've never seen decaying frogspawn...
+
+They look like someone's insides if they were on the outside. That's probably what they'd do to you too.
+
+
+
+|#
