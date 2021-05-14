@@ -608,7 +608,7 @@
                (setf (state movable) :normal))
              (let ((dir (float-sign (- (vx target) (vx source))))
                    (diff (abs (- (vx target) (vx loc)))))
-               (setf (vx vel) (* dir (max 0.5 (min diff (movement-speed movable))))))))
+               (setf (vx vel) (* dir (movement-speed movable))))))
       ;; Handle current step
       (destructuring-bind (node target) (car (path movable))
         (etypecase node
