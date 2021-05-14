@@ -21,7 +21,8 @@
    (invincible :initform (setting :gameplay :god-mode))
    (hud :accessor hud)
    (trace :initform (make-array (* 12 60 60 2) :element-type 'single-float :adjustable T :fill-pointer 0)
-          :accessor movement-trace))
+          :accessor movement-trace)
+   (palette-index :initform (or (position (setting :gameplay :palette) (palettes (asset 'kandria 'player)) :test #'equal) 0)))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
