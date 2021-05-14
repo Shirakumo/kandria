@@ -242,7 +242,8 @@
               (control gameplay screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 1.0)
               (control gameplay text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01)
               (control gameplay auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 1.0)
-              (control gameplay invincible-player (:gameplay :god-mode) 'alloy:switch))
+              (control gameplay invincible-player (:gameplay :god-mode) 'alloy:switch)
+              (control gameplay player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
             (with-options-tab (language (@ language-settings))
               (control language game-language (:language) 'alloy:combo-set :value-set (languages))))))
 
