@@ -200,7 +200,7 @@
          (animation (alloy:represent (slot-value timeline 'animation) 'animation-chooser :value-set animations))
          (frames (make-instance 'alloy:horizontal-linear-layout :cell-margins (alloy:margins) :min-size (alloy:size 100 300)))
          (frames-focus (make-instance 'alloy:focus-list))
-         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 1) :elements '("Frame" "Hurtbox" "Offset" "Acceleration" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Clear Iframes" "Effect")))
+         (labels (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins) :elements '("Frame" "Hurtbox" "Offset" "Acceleration" "Multiplier" "Knockback" "Damage" "Stun" "Interruptable" "Invincible" "Cancelable" "Clear Iframes" "Effect")))
          (scroll (make-instance 'alloy:scroll-view :scroll :x :layout frames :focus frames-focus))
          (save (alloy:represent "Save" 'alloy:button))
          (load (alloy:represent "Load" 'alloy:button))
