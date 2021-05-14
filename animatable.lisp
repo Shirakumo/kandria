@@ -80,11 +80,11 @@
       (return entity))))
 
 (defmethod hurt :around ((animatable animatable) (damage integer))
-  (when (and (< 0 (health animatable))
-             (not (invincible-p (frame animatable))))
-    (call-next-method))
-  (when (<= (health animatable) 0)
-    (kill animatable)))
+  (prog1 (when (and (< 0 (health animatable))
+                    (not (invincible-p (frame animatable))))
+           (call-next-method))
+    (when (<= (health animatable) 0)
+      (kill animatable))))
 
 (defmethod hurt ((animatable animatable) (attacker animatable))
   (hurt animatable (damage-output attacker)))
