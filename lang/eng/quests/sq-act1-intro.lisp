@@ -19,8 +19,6 @@
 ~ player
 - Can I help out?
   < choices
-- I'm good thank you.
-  < continue
 - It's nice to see you again.
   ~ catherine
   | [? I wish we could spend more time together. | It's great to see you too.]
@@ -55,10 +53,10 @@
 | | | ! eval (retrieve 'mushroom-good-1 (item-count 'mushroom-good-1))
 | | ? (have 'mushroom-good-2)
 | | | | (:cheer)Rusty puffball, great! These are my favourite - I made my neckerchief from them, believe it or not.
-| | | | (:normal)Though that was just so I had a mask, so their spores wouldn't give me lung disease.
+| | | | (:normal)I weaved them together with synthetic scraps; I needed a mask so their spores wouldn't give me lung disease.
 | | | ! eval (retrieve 'mushroom-good-2 (item-count 'mushroom-good-2))
 | | ? (have 'mushroom-bad-1)
-| | | |  (:disappointed)Oh, you got some black knights huh? Not a lot I can do with poisonous ones.
+| | | | (:disappointed)Oh, you got some black knights huh? Not a lot I can do with poisonous ones.
 | | | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | | | ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
 | |  

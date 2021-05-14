@@ -1,17 +1,14 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
-
+;; TODO FIX this quest completes after first task interaction, when it should remain open and be completed manually later
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine asked me to forage for mushrooms beneath the camp. She asked for: 25 flower fungi and/or rusty puffballs; I should avoid: black knights"
-  :on-activate (return-mushrooms)
-
+  :description "Catherine asked me to forage for mushrooms beneath the camp. She asked for: 25 flower fungi and/or rusty puffballs; I should avoid: black knights"  
+  :on-activate T
   (return-mushrooms
-   :title "Find mushrooms and return them to Catherine when I have enough"
-   :condition all-complete
+   :title "Find mushrooms and return to Catherine when I have enough"
    :on-activate T
-
    (:interaction mushrooms-return
     :title "Return the mushrooms"
     :interactable catherine
@@ -33,10 +30,10 @@
 | ! eval (retrieve 'mushroom-good-1 (item-count 'mushroom-good-1))
 ? (have 'mushroom-good-2)
 | | (:cheer)Rusty puffball, great! These are my favourite - I made my neckerchief from them, believe it or not.
-| | (:normal)Though that was just so I had a mask, so their spores wouldn't give me lung disease.
+| | (:normal)I weaved them together with synthetic scraps; I needed a mask so their spores wouldn't give me lung disease.
 | ! eval (retrieve 'mushroom-good-2 (item-count 'mushroom-good-2))
 ? (have 'mushroom-bad-1)
-| | (:disappointed)Oh, you got some black knights huh? Not a lot I can do with them.
+| | (:disappointed)Oh, you got some black knights huh? Not a lot I can do with poisonous ones.
 | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
   
@@ -44,6 +41,9 @@
 | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
 | (:normal)See you around, Stranger!
 ! eval (store 'parts 10)
-! eval (deactivate interaction)
 # end
 ")))
+;; ? (not (complete-p 'sq2-mushrooms))
+;; | ! eval (complete 'sq2-mushrooms)
+
+;; ! eval (deactivate interaction)

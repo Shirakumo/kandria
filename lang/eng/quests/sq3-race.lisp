@@ -6,7 +6,7 @@
 (quest:define-quest (kandria sq3-race)
   :author "Tim White"
   :title "Timed Travel"
-  :description "Catherine wants to see what I'm capable of. She's had Alex plant cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get. I can unlock more routes by getting bronze times or better."
+  :description "Catherine wants to see what I'm capable of. She's had Alex plant cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get."
   :on-activate (race-hub)
   (race-hub
    :title "Talk to Catherine to start a race"
@@ -16,14 +16,14 @@
     :interactable catherine
     :repeatable T
     :dialogue "
-? (or (active-p 'race-1) (active-p 'race-2) (active-p 'race-3) (active-p 'race-4) (active-p 'race-5))
+? (or (active-p 'race-1-start) (active-p 'race-2-start) (active-p 'race-3-start) (active-p 'race-4-start) (active-p 'race-5-start))
 | ~ catherine
 | | (:cheer)You're already on the clock, get goin'!
 | < quit
 
 ~ catherine
 | (:cheer)Alright, race time!
-? (not (complete-p 'race-1))
+? (not (complete-p 'race-1-start))
 | | (:normal)So remember: Find the cans that Alex has planted.
 | | I told them to find devious places, and knowing Alex they won't have disappointed.
 | | Grab a can, bring it back here, and I'll stop the clock.
@@ -139,6 +139,8 @@
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine ASAP"
          :on-activate T
+         :condition all-complete
+         :oncomplete (race-hub)
          :variables ((gold ,gold)
                      (silver ,silver)
                      (bronze ,bronze)
@@ -157,11 +159,11 @@
 ! eval (retrieve 'can)
 | (:normal)You did that in: {(format-relative-time (clock quest))}.
 ? (and pb (< pb (clock quest)))
-| Ah damn, no improvement over your record of {(format-relative-time pb)} this time I'm afraid. Better luck next time though!
+| | Ah damn, no improvement on your record of {(format-relative-time pb)} this time I'm afraid. Better luck next time though!
 |?
 | ? (not (null pb))
-| | (:cheer)That's a new personal best!
-| (setf pb (clock quest))
+| | | (:cheer)That's a new personal best!
+| ! eval (setf pb (clock quest))
 | ? (< pb gold)
 | | | (:cheer)How did you do that so fast? That's gold bracket.
 | | | You get the top reward - 30 scrap parts!
@@ -177,8 +179,12 @@
 | |?
 | | | (:disappointed)Hmmm, that seems a little slow, Stranger. I think you can do better than that.
 | | | Don't think I can give you any parts for that, sorry.
-| (:excited)Let's do this again soon!
+|  
+| | (:excited)Let's do this again soon!
 ")))))
+;; | ! eval (complete task)
+;; ! eval (complete ,name)
+;; ! eval (setf (quest:status (thing name)) :complete)
 
 (define-race race-1
   :site race-1-site
