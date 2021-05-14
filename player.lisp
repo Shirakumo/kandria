@@ -52,7 +52,12 @@
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(dash jump land-normal slide step-dirt die-player slash enter-water hit-ground))
     (stage (// 'kandria sound) area))
-  (stage (prompt player) area))
+  (stage (prompt player) area)
+  (stage (// 'kandria 'sting) area))
+
+(defmethod hurt :after (thing (player player))
+  (let ((dir (v- (location player) (location thing))))
+    (trigger (make-instance 'sting-effect :angle (if (v/= 0 dir) (point-angle dir) 0)) player)))
 
 (defmethod (setf medium) :before ((medium medium) (player player))
   (when (or (and (typep (medium player) 'water)
