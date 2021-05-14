@@ -123,7 +123,7 @@
                                             (location :type vec2)
                                             (data :reader (lambda (light) (buffer-data (caar (bindings (vertex-array light))))))))
 (define-slot-coders (textured-light world-v0) (multiplier (texture :type texture) (location :type vec2) (size :type vec2) (bsize :type vec2) (offset :type vec2)))
-(define-slot-coders (heatwave world-v0) (location bsize))
+(define-slot-coders (heatwave world-v0) ((location :type vec2) (bsize :type vec2)))
 
 (define-decoder (node-graph binary-v0) (stream packet)
   (let* ((width (nibbles:read-ub16/le stream))

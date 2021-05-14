@@ -64,7 +64,7 @@ void main(){
                    (/ (lifetime displacer))))))
     (scale-by tt tt 1)))
 
-(define-shader-entity heatwave (displacer sized-entity resizable listener)
+(define-shader-entity heatwave (displacer sized-entity resizable listener ephemeral)
   ((texture :initform (// 'kandria 'heatwave))
    (strength :initform 0.02)
    (offset :initform 0.0 :accessor offset))
