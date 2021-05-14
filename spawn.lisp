@@ -42,6 +42,12 @@
   (loop for entity in (reflist spawner)
         never (slot-boundp entity 'container)))
 
+(defmethod quest:status ((spawner spawner))
+  (if (loop for entity in (reflist spawner)
+            never (slot-boundp entity 'container))
+      :complete
+      :unresolved))
+
 (define-unit-resolver-methods done-p (unit))
 
 (defmethod (setf active-p) :after (state (spawner spawner))

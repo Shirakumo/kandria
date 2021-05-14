@@ -191,12 +191,40 @@
 
 (load-quests :eng)
 
-(defmacro define-sequence-quest (world name &body body)
-  (form-fiddle:with-body-options (body initargs) body)
-  `(quest:define-quest (kandria ,name)
-     ,@initargs
-     ,@(loop for form in body
-             collect `())))
+(defmacro define-sequence-quest (questline name &body body)
+  (labels ((parse-do (type &rest args)
+             (ecase type
+               (:lead)
+               (:activate)
+               (:dialog)
+               (:walkntalk)))
+           (parse-goal (type &rest args)
+             (ecase type
+               (:at
+                (destructuring-bind (location &rest units) args
+                  `(nearby-p ,location ,@(or units '(player)))))
+               (:have
+                `(and ,(loop for item in args
+                             collect `(let ((player (unit 'player T)))
+                                        (= (item-count ',(unlist item) player)
+                                           ,(if (listp item) (second item) 1))))))
+               (:complete
+                `(complete-p ,@args))))
+           (parse-step (next name &key title description do goal)
+             (multiple-value-bind (triggers on-activate condition) (parse-do do)
+               `(,name
+                 :title ,title
+                 :description ,description
+                 :on-activate ,on-activate
+                 :on-complete ,(when next (list next))
+                 :condition ,(if goal (apply #'parse-goal goal) condition)
+                 ,@triggers))))
+    (form-fiddle:with-body-options (body initargs) body
+      `(quest:define-quest (,questline ,name)
+         :on-activate (,(caar body))
+         ,@initargs
+         ,@(loop for (form next) on body
+                 collect (apply #'parse-step (car next) form))))))
 
 #|
 A sequence is: a sequence of checks that flow into each other. For example:
