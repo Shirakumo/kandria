@@ -248,7 +248,7 @@ void main(){
   :multiplier 2.0)
 
 (define-effect hit sprite-effect
-  :animation '(hit1)
+  :animation '(hit1 hit3)
   :layer-index 2
   :multiplier 10.0)
 
