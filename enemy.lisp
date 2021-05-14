@@ -88,7 +88,8 @@
               (setf (animation enemy) 'stand)))))))
 
 (define-shader-entity wolf (ground-enemy half-solid)
-  ((jitter :initform (random* 0 +tile-size+) :accessor jitter))
+  ((jitter :initform (random* 0 +tile-size+) :accessor jitter)
+   (retreat-time :initform 0.0 :accessor retreat-time))
   (:default-initargs
    :sprite-data (asset 'kandria 'wolf)))
 
@@ -116,7 +117,6 @@
          (ploc (location player))
          (eloc (location enemy))
          (distance (vlength (v- ploc eloc)))
-         (col (collisions enemy))
          (vel (velocity enemy)))
     (flet ((distance-p (max)
              (< (+ (jitter enemy) distance) (* +tile-size+ max))))
@@ -124,14 +124,16 @@
         (ecase (ai-state enemy)
           (:normal
            (cond ((distance-p 5)
+                  (setf (retreat-time enemy) 0.0)
                   (setf (ai-state enemy) :retreat))
                  ((distance-p 20)
                   (setf (ai-state enemy) :approach))))
           (:approach
-           (cond ((distance-p 5)
+           (cond ((and (distance-p 5) (<= (retreat-time enemy) 0.0))
                   (setf (path enemy) NIL)
                   (setf (ai-state enemy) :retreat))
                  ((distance-p 15)
+                  (setf (retreat-time enemy) 0.0)
                   (setf (path enemy) NIL)
                   (setf (direction enemy) (float-sign (- (vx ploc) (vx eloc))))
                   (start-animation 'tackle enemy))
@@ -143,7 +145,10 @@
                   (setf (path enemy) NIL)
                   (setf (ai-state enemy) :normal))))
           (:retreat
-           (cond ((not (distance-p 10))
+           (incf (retreat-time enemy) (dt ev))
+           (cond ((<= 1.0 (retreat-time enemy))
+                  (setf (ai-state enemy) :approach))
+                 ((not (distance-p 10))
                   (setf (ai-state enemy) :approach))
                  ((path enemy)
                   (execute-path enemy ev))
