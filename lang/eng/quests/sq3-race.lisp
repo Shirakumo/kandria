@@ -140,7 +140,7 @@
          :title "Return the can to Catherine ASAP"
          :on-activate T
          :condition all-complete
-         :oncomplete (race-hub)
+         :on-complete (race-hub)
          :variables ((gold ,gold)
                      (silver ,silver)
                      (bronze ,bronze)

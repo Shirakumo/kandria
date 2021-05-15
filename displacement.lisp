@@ -128,7 +128,8 @@ void main(){
   (call-next-method))
 
 (define-shader-pass displacement-pass (simple-post-effect-pass)
-  ((displacement-map :port-type input)))
+  ((name :initform 'displacement-pass)
+   (displacement-map :port-type input)))
 
 (define-class-shader (displacement-pass :fragment-shader)
   "uniform sampler2D previous_pass;
