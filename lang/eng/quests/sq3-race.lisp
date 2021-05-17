@@ -51,7 +51,7 @@
 ~ catherine
 | (:cheer)Route 1! The can is... at a literal high point of EASTERN civilisation, now long gone.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-1 'gold))} - Silver: {(format-relative-time (var-of 'race-1 'silver))} - Bronze: {(format-relative-time (var-of 'race-1 'bronze))}.
-? (var 'race-1-pb)
+? (var-of 'race-1 'pb)
 | | Your personal best for this route is {(format-relative-time (var-of 'race-1 'pb))}.
 ! eval (setf (quest:status (thing 'race-1-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-1)) :inactive)
@@ -73,7 +73,7 @@
 ~ catherine
 | (:cheer)Route 3! The can is... where we first ventured together, and got our feet wet.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-3 'gold))} - Silver: {(format-relative-time (var-of 'race-3 'silver))} - Bronze: {(format-relative-time (var-of 'race-3 'bronze))}.
-? (var 'race-3-pb)
+? (var-of 'race-3 'pb)
 | | Your personal best for this route is {(format-relative-time (var-of 'race-3 'pb))}.
 ! eval (setf (quest:status (thing 'race-3-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-3)) :inactive)
@@ -84,7 +84,7 @@
 ~ catherine
 | (:cheer)Route 4! The can is... deep to the west, where people once dreamed.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-4 'gold))} - Silver: {(format-relative-time (var-of 'race-4 'silver))} - Bronze: {(format-relative-time (var-of 'race-4 'bronze))}.
-? (var 'race-4-pb)
+? (var-of 'race-4 'pb)
 | | Your personal best for this route is {(format-relative-time (var-of 'race-4 'pb))}.
 ! eval (setf (quest:status (thing 'race-4-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-4)) :inactive)
@@ -95,7 +95,7 @@
 ~ catherine
 | (:cheer)Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\".
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-5 'gold))} - Silver: {(format-relative-time (var-of 'race-5 'silver))} - Bronze: {(format-relative-time (var-of 'race-5 'bronze))}.
-? (var 'race-5-pb)
+? (var-of 'race-5 'pb)
 | | Your personal best for this route is {(format-relative-time (var-of 'race-5 'pb))}.
 ! eval (setf (quest:status (thing 'race-5-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-5)) :inactive)
@@ -128,7 +128,9 @@
          (:action spawn-can
                   (setf (clock quest) 0)
                   (show (make-instance 'timer :quest quest))
-                  (spawn ',site 'can))
+                  (spawn ',site 'can)
+                  (setf (quest:status (thing ',name)) :inactive)
+                  )
          (:interaction speech
           :interactable ,site
           :repeatable T
@@ -160,6 +162,7 @@
 | (:normal)You did that in: {(format-relative-time (clock quest))}.
 ? (and pb (< pb (clock quest)))
 | | Ah damn, no improvement on your record of {(format-relative-time pb)} this time I'm afraid. Better luck next time though!
+| < end
 |?
 | ? (not (null pb))
 | | | (:cheer)That's a new personal best!
@@ -179,8 +182,9 @@
 | |?
 | | | (:disappointed)Hmmm, that seems a little slow, Stranger. I think you can do better than that.
 | | | Don't think I can give you any parts for that, sorry.
-|  
+| ! label end
 | | (:excited)Let's do this again soon!
+| ! eval (complete task)
 ")))))
 ;; | ! eval (complete task)
 ;; ! eval (complete ,name)
