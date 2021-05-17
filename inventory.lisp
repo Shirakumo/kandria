@@ -139,21 +139,24 @@
            :location (vec (+ (vx (location animatable)))
                           (+ (vy (location animatable)) 8 (vy (bsize animatable))))))
 
-(define-shader-entity small-health-pack (health-pack) ())
+(define-shader-entity small-health-pack (health-pack)
+ ((offset :initform (vec 0 0))))
 (defmethod health ((_ small-health-pack)) 10)
 (defmethod item-order ((_ small-health-pack)) 0)
 
-(define-shader-entity medium-health-pack (health-pack) ())
+(define-shader-entity medium-health-pack (health-pack)
+ ((offset :initform (vec 0 0))))
 (defmethod health ((_ medium-health-pack)) 25)
 (defmethod item-order ((_ medium-health-pack)) 1)
 
-(define-shader-entity large-health-pack (health-pack) ())
+(define-shader-entity large-health-pack (health-pack)
+ ((offset :initform (vec 0 0))))
 (defmethod health ((_ large-health-pack)) 50)
 (defmethod item-order ((_ large-health-pack)) 2)
 
 ; VALUE ITEMS
 (define-shader-entity parts (item value-item)
-  ((offset :initform (vec 16 8))))
+  ((offset :initform (vec 8 16))))
 
 ; QUEST ITEMS
 (define-shader-entity seeds (item quest-item)
@@ -165,8 +168,8 @@
 (define-shader-entity mushroom-bad-1 (item quest-item)
   ((offset :initform (vec 16 8))))
 (define-shader-entity walkie-talkie (item quest-item)
-  ((offset :initform (vec 16 16))))
+  ((offset :initform (vec 0 0))))
 
 ; SPECIAL ITEMS
 (define-shader-entity can (item special-item)
-  ((offset :initform (vec 16 0))))
+  ((offset :initform (vec 0 16))))
