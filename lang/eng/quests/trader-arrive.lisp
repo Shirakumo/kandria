@@ -119,9 +119,9 @@
 # end
 ~ trader
 | Well, if you ever change your mind, don't go to anyone else. I'd trade handsomely for it, you can be sure of that.
-| You take it easy, habeebti.
+| You take it easy, habibti.
 ")))
 
-;; habeebti = dear, my love, buddy (Arabic)
+;; habibti = dear, my love, buddy (Arabic)
 ;; TODO: open shop UI
 ;; TODO: rename health packs to something more practical and specific for the stranger, that would exist in this world - solder and circuit boards. (Make it clear with the tooltip for the health pack, and even call them something like Repair Packs)

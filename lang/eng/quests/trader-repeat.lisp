@@ -111,7 +111,7 @@
     < changed-mind
 - Can we talk?
   ~ trader
-  | [? Of course, habeebti - always. | We can indeed. | What's on your mind? | I love to chat.]
+  | [? Of course, habibti - always. | We can indeed. | What's on your mind? | I love to chat.]
   ! label talk
   ? (not (complete-p 'q4-find-allies))
   | ~ player
@@ -146,7 +146,7 @@
 - I need to go.
 ! label leave
 ~ trader
-| [? See you later habeebti. | You take it easy. | Goodbye for now. | Take care. Masalamah! | Goodbye! And if you ever change your mind about parting with that sword of yours... I know, I know.]
+| [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah! | Goodbye! And if you ever change your mind about parting with that sword of yours... I know, I know.]
 
 # last-one
 ~ trader
@@ -160,7 +160,7 @@
 
 # out-of-stock
 ~ trader
-| All out of stock on that one I'm afraid. Sorry, habeebti.
+| All out of stock on that one I'm afraid. Sorry, habibti.
 < buy
 
 # changed-mind

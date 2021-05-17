@@ -51,7 +51,7 @@
   | But we also thought the Wraw wouldn't follow.
   | (:annoyed)I guess we were wrong. Well, I was wrong.
   < questions
-- Why am I suddenly you confidante?
+- Why am I suddenly your confidante?
   ~ fi
   | I don't know. You're a stranger, if you'll pardon the pun. But you've helped us.
   | And I value fresh perspective. I don't get much of that around here.

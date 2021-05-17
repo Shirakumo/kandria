@@ -35,7 +35,7 @@
   ~ catherine
   | (:excited)Yep! Pretty amazing, huh?
 ~ catherine
-| And come look at this - I guarantee you won't ever have seen anything like it!
+| And come look at this - I guarantee you won't have ever seen anything like it!
 ! eval (activate 'field)
 ! eval (lead 'player 'farm-view 'catherine)
 ! eval (walk-n-talk 'walk)
