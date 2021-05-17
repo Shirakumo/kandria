@@ -39,10 +39,10 @@
   
 | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
+! eval (store 'parts 30)
 | (:normal)If you find any more mushrooms, make sure you grab them too!
 | If we don't need them, then the least you could do is trade them with Sahil.
 | See you around, Stranger!
-! eval (store 'parts 20)
 ! eval (complete task)
 # end
 ")))

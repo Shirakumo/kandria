@@ -35,7 +35,7 @@
   - //Buy//
     ! label buy
     ~ player
-    - //Small HP (I have {(item-count 'small-health-pack)}) - 4$//
+    - //Small HP (I own {(item-count 'small-health-pack)}) - 4$//
       ? (and (<= 4 (item-count 'parts)) (< 0 (var 'small-health-qty)))
       | ! eval (retrieve 'parts 4)
       | ! eval (store 'small-health-pack 1)
@@ -48,7 +48,7 @@
       | < cannot-afford
       |?
       | < out-of-stock
-    - //Medium HP (I have {(item-count 'medium-health-pack)}) - 10$//
+    - //Medium HP (I own {(item-count 'medium-health-pack)}) - 10$//
       ? (and (<= 10 (item-count 'parts)) (< 0 (var 'medium-health-qty)))
       | ! eval (retrieve 'parts 10)
       | ! eval (store 'medium-health-pack 1)
@@ -61,7 +61,7 @@
       | < cannot-afford
       |?
       | < out-of-stock
-    - //Large HP (I have {(item-count 'large-health-pack)}) - 20$//
+    - //Large HP (I own {(item-count 'large-health-pack)}) - 20$//
       ? (and (<= 20 (item-count 'parts)) (< 0 (var 'large-health-qty)))
       | ! eval (retrieve 'parts 20)
       | ! eval (store 'large-health-pack 1)
@@ -79,17 +79,17 @@
   - //Sell//
     ! label sell
     ~ player
-    - [(have 'small-health-pack) //Small HP for 2$ (I have {(item-count 'small-health-pack)})//|]
-      ! eval (retrieve 'small-health-pack 1)
+    - [(have 'mushroom-bad-1) //Black knight (I own {(item-count 'mushroom-bad-1)}) - 2$//|]
       ! eval (store 'parts 2)
+      ! eval (retrieve 'mushroom-bad-1 1)
       < sell
-    - [(have 'medium-health-pack) //Medium HP for 5$ (I have {(item-count 'medium-health-pack)})//|]
-      ! eval (retrieve 'medium-health-pack 1)
-      ! eval (store 'parts 5)
+    - [(have 'mushroom-good-1) //Flower fungus (I own {(item-count 'mushroom-good-1)}) - 1$//|]
+      ! eval (store 'parts 1)
+      ! eval (retrieve 'mushroom-good-1 1)
       < sell
-    - [(have 'large-health-pack) //Large HP for 10$ (I have {(item-count 'large-health-pack)})//|]
-      ! eval (retrieve 'large-health-pack 1)
-      ! eval (store 'parts 10)
+    - [(have 'mushroom-good-2) //Rusty puffball (I own {(item-count 'mushroom-good-2)}) - 1$//|]
+      ! eval (store 'parts 1)
+      ! eval (retrieve 'mushroom-good-2 1)
       < sell
     - [(have 'walkie-talkie) //Walkie-talkie for 150$//|]
       ! eval (retrieve 'walkie-talkie 1)
@@ -97,13 +97,6 @@
       ~ trader
       | Hey, where'd you get that? These things are almost priceless.
       | Not for old Sahil, of course.
-      < sell
-    - [(have 'mushroom-bad-1) //Black knights ({(item-count 'mushroom-bad-1)}) for {(* (item-count 'mushroom-bad-1) 20)}$//|]
-      ! eval (store 'parts (* (item-count 'mushroom-bad-1) 20))
-      ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
-      ~ trader
-      | It's true, black knights are poisonous to consume.
-      | But there are some in the Valley who... Let's just say they have other uses for them.
       < sell
     - //Nothing to sell//
       < shop
@@ -184,6 +177,23 @@
 Also leave to Talk options
 | - I need to go.
 |   < leave
+
+|#
+
+#| TODO when get scrolling options, add to sell menu (health packs). Selling health packs kinda pointless right now anyway, so replaced with mushroom types; could still go offscreen with 5 options above instead of 4, but having all 5 is rare, and all you have to do is sell enough to clear one and you'll see the remaining 4
+    - [(have 'small-health-pack) //Small HP for 2$ (I own {(item-count 'small-health-pack)})//|]
+      ! eval (retrieve 'small-health-pack 1)
+      ! eval (store 'parts 2)
+      < sell
+    - [(have 'medium-health-pack) //Medium HP for 5$ (I own {(item-count 'medium-health-pack)})//|]
+      ! eval (retrieve 'medium-health-pack 1)
+      ! eval (store 'parts 5)
+      < sell
+    - [(have 'large-health-pack) //Large HP for 10$ (I own {(item-count 'large-health-pack)})//|]
+      ! eval (retrieve 'large-health-pack 1)
+      ! eval (store 'parts 10)
+      < sell
+
 |#
 
 #| TODO when get scrolling options, restore to talk menu:
@@ -222,7 +232,7 @@ Also leave to Talk options
 |#
 
 #|
-ORIGINAL IMPLEMENTATION IDEA FOR BUY MENU - works
+ORIGINAL IMPLEMENTATION IDEA FOR BUY MENU - works but strings too long
 # buy
 - [(and (<= 4 (item-count 'parts)) (< 0 (var 'small-health-qty))) //Buy a small health pack for 4 scrap parts// | I can't afford 4 scrap parts for a small health pack.|] (stock: (var 'small-health-qty))
 ! eval (retrieve 'parts 4)
@@ -239,6 +249,19 @@ ORIGINAL IMPLEMENTATION IDEA FOR BUY MENU - works
 ! eval (store 'large-health-pack 1)
 ! eval (setf (var 'large-health-qty) (- (var 'large-health-qty) 1))
 < buy
+|#
+
+#| Cut trader dialogue per mushroom type (too wordy when selling one at a time) - Catherine does explain these elsewhere, and player can wonder why Sahil might be buying (and indeed paying more for) black knights
+Black knight:
+| It's true, black knights are poisonous to consume.
+| But there are some in the Valley who... Let's just say they have other uses for them.
+
+Flower fungus:
+| Food for the masses, thank you.
+
+Rusty puffball:
+| Tough and useful, these ones. Thanks!
+
 |#
 
 #| TODO:

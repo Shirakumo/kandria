@@ -62,9 +62,9 @@
 | |  
 | | | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | | | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
+| | ! eval (store 'parts 30)
 | | | (:normal)If you find any more mushrooms, make sure you grab them too!
 | | | If we don't need them, then the least you could do is trade them with Sahil.
-| | ! eval (store 'parts 20)
 | | ? (not (complete-p 'sq2-mushrooms))
 | | | ! eval (complete 'sq2-mushrooms)
 | |? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
