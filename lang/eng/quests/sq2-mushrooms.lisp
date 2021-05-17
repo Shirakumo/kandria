@@ -4,7 +4,7 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine asked me to forage for mushrooms beneath the camp. She asked for: 25 flower fungi and/or rusty puffballs; I should avoid: black knights"  
+  :description "Catherine asked me to forage for mushrooms beneath the camp. She needs: 25 flower fungi and/or rusty puffballs; I should avoid: black knights"  
   :on-activate T
   (return-mushrooms
    :title "Find mushrooms and return to Catherine when I have enough"
@@ -39,8 +39,11 @@
   
 | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
-| (:normal)See you around, Stranger!
-! eval (store 'parts 10)
+| (:normal)If you find any more mushrooms, make sure you grab them too!
+| If we don't need them, then the least you could do is trade them with Sahil.
+| See you around, Stranger!
+! eval (store 'parts 20)
+! eval (complete task)
 # end
 ")))
 ;; ? (not (complete-p 'sq2-mushrooms))
