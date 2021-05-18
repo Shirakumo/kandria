@@ -55,3 +55,62 @@ If a variable is retrieved that does not exist, ``NIL`` is returned on read, and
 You can redefine quests, tasks, and triggers while the game is running. Changes to existing structures should reflect immediately.
 
 If you want to change the status of a structure, you should use ``quest:update``. You can simply type out a form in any Lisp file and use the recompile command to get it going. After recompiling it should also print the updated state of the quest system, showing only active items.
+
+## Sequence Quests
+Often it is useful to define a simple sequence of tasks within a linear quest. This can be done much more conveniently using ``define-sequence-quest``. Here's two simple examples:
+
+::
+;; 1. Go to cave
+;; 2. Find mushroom
+;; 3. Hand in mushroom
+(define-sequence-quest (kandria mushrooms)
+  :title "Get some mushrooms"
+  (:go-to (cave)
+   :title "Go to cave"
+   "
+   ~ catherine
+   | Good luck out there!")
+  (:have (mushroom 10)
+   :title "Find mushroom")
+  (:interact (catherine)
+   :title "Return the mushroom"
+   "
+   ~ catherine
+   | Thanks!"))
+
+;; 1. Go to first leak
+;; 2. Listen to interaction
+;; 3. Defeat enemies
+;; 4. Go to second leak
+;; 5. Defeat enemies
+;; 6. Listen to interaction
+(define-sequence-quest (kandria leak)
+  :title "a"
+  (:go-to (leak1 :lead catherine)
+   :title "go to leak"
+   "| A")
+  (:interact (catherine :now T)
+   "| Stuff")
+  (:complete (spawner)
+   :title "Defeat the enemies")
+  (:go-to (leak2 :lead catherine)
+   :title "go to leak 2"
+   "| Stufff")
+  (:complete (spawner2)
+   :title "Defeat the enemies")
+  (:interact (catherine :now T)
+   "| Stuff"))
+::
+
+A sequence is defined as a list of clauses, with each clause defining a task with one or more triggers. The following clauses are recognised:
+
+- ``:have (item &optional count)``
+  Check whether the player has the given item type in the inventory. The optional count lets you specify a minimum number, too.
+- ``:go-to (place &key lead follow)``
+  Have the player go to a certain location. Optionally can also specify an NPC that should lead the player there or follow them there. The task will auto-complete once the player is near the place. 
+  The body can be a piece of dialogue that will play as walk-n-talk once the task starts.
+- ``:interact (interactable &key now)``
+  Check for the completion of a piece of dialogue. The body must be a dialogue script that will be turned into an  interaction. If ``now`` is set to true, the interaction will trigger immediately once the task is triggered without requiring the player to do anything.
+- ``:complete (thing)``
+  Check for the completion of a trigger or spawner. The resulting task will activate the trigger or spawner.
+  Similar to ``:go-to`` the body can be a piece of dialogue that will play as walk-n-talk once the task starts.

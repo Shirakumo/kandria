@@ -194,78 +194,55 @@
 
 (load-quests :eng)
 
-(defmacro define-sequence-quest (questline name &body body)
-  (labels ((parse-do (type &rest args)
-             (ecase type
-               (:lead)
-               (:activate)
-               (:dialog)
-               (:walkntalk)))
-           (parse-goal (type &rest args)
-             (ecase type
-               (:at
-                (destructuring-bind (location &rest units) args
-                  `(nearby-p ,location ,@(or units '(player)))))
-               (:have
-                `(and ,(loop for item in args
-                             collect `(let ((player (unit 'player T)))
-                                        (= (item-count ',(unlist item) player)
-                                           ,(if (listp item) (second item) 1))))))
-               (:complete
-                `(complete-p ,@args))))
-           (parse-step (next name &key title description do goal)
-             (multiple-value-bind (triggers on-activate condition) (parse-do do)
-               `(,name
-                 :title ,title
-                 :description ,description
-                 :on-activate ,on-activate
-                 :on-complete ,(when next (list next))
-                 :condition ,(if goal (apply #'parse-goal goal) condition)
-                 ,@triggers))))
-    (form-fiddle:with-body-options (body initargs) body
-      `(quest:define-quest (,questline ,name)
-         :on-activate (,(caar body))
-         ,@initargs
-         ,@(loop for (form next) on body
-                 collect (apply #'parse-step (car next) form))))))
-
-#|
-A sequence is: a sequence of checks that flow into each other. For example:
-  1. Go to cave
-  2. Find mushroom
-  3. Hand in mushroom
-Or:
-  1. Go to first leak
-  2. Listen to interaction
-  3. Defeat enemies
-  4. Go to second leak
-  5. Defeat enemies
-  6. Listen to interaction
-Additionally, walkntalk dialogue needs to be activated when walking towards place
-In essence, we need to:
-
-- Define steps from a set of goals (each being a task):
-  - player (+npc) is in place
-  - item is in inventory
-  - interaction is completed
-  - spawner is completed
-- Define transitions to help next step:
-  - activate lead
-  - activate trigger
-  - start interaction
-
-So:
-step      ::= (title description...) start goal?
-goal      ::= at | have | completed
-at        ::= (:at location unit*)
-have      ::= (:have item+)
-item      ::= item | (item count)
-completed ::= (:completed thing)
-start     ::= lead | activate | dialog | walkntalk
-lead      ::= (:lead location npc)
-activate  ::= (:activate thing+)
-dialog    ::= (:dialog dialog/thing)
-walkntalk ::= (:walkntalk dialog/thing)
-
-
-|#
+(defmacro define-sequence-quest ((storyline name) &body body)
+  (let ((counter 0))
+    (labels ((parse-sequence-form (form name next)
+               (match1 form
+                 (:have ((item &optional (count 1)) . initargs)
+                        `((,name
+                           ,@initargs
+                           :condition (have ',item ,count)
+                           :on-complete ,next)))
+                 (:go-to ((place &key lead follow) . body)
+                         (form-fiddle:with-body-options (body initargs) body
+                           `((,name
+                              ,@initargs
+                              :condition (nearby-p ',place 'player)
+                              :on-activate (action)
+                              :on-complete ,next
+                              (:action action
+                                       ,@(if lead `((lead 'player ',place ',lead)))
+                                       ,@(if follow `((follow 'player ',follow)))
+                                       ,@(if body `((walk-n-talk (progn ,@body)))))))))
+                 (:interact ((with &key now) . body)
+                            (form-fiddle:with-body-options (body initargs) body
+                              `((,name
+                                 ,@initargs
+                                 :condition (complete-p 'interaction)
+                                 :on-activate (interaction)
+                                 :on-complete ,next
+                                 (:interaction interaction
+                                  :interactable ,with
+                                  :auto-trigger ,now
+                                               ,@body)))))
+                 (:complete ((thing) . body)
+                            (form-fiddle:with-body-options (body initargs) body
+                              `((,name
+                                 ,@initargs
+                                 :condition (complete-p ',thing)
+                                 :on-activate (action)
+                                 :on-complete ,next
+                                 (:action action
+                                          (activate ',thing)
+                                          ,@(if body `((walk-n-talk (progn ,@body)))))))))))
+             (sequence-form-name (form)
+               (trial::mksym *package* (incf counter) :- (first form) :- (unlist (second form))))
+             (parse-sequence-to-tasks (forms)
+               (let ((forms (loop for form in forms
+                                  collect (list (sequence-form-name form) form))))
+                 (loop for (form next) on forms
+                       append (parse-sequence-form (second form) (first form) (enlist (first next)))))))
+      (form-fiddle:with-body-options (body initargs) body
+        `(quest:define-quest (,storyline ,name)
+           ,@initargs
+           ,@(parse-sequence-to-tasks body))))))

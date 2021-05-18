@@ -641,3 +641,14 @@
     (loop for target in targets
           thereis (or (null (probe-file target))
                       (< (file-write-date target) latest)))))
+
+(defmacro match1 (thing &body clauses)
+  (let ((thingg (gensym "THING")))
+    `(let ((,thingg ,thing))
+       (ecase (first ,thingg)
+         ,@(loop for (id lambda . body) in clauses
+                 collect `(,id
+                           (destructuring-bind ,lambda (rest ,thingg)
+                             ,@body)))))))
+
+(trivial-indent:define-indentation match1 (4 &rest (&whole 2 4 &lambda &body)))
