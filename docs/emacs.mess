@@ -21,6 +21,7 @@ General text editing:
 #### Lisp
 Specifically for Lisp source code:
 - ``C-c C-c`` Recompile the current Lisp form
+- ``C-c RET`` Expand a macro and see the result
 - ``C-)`` Slurp the following expression into the current list
   Meaning ``(^a b) c`` -> ``(^a b c)``
 - ``C-(`` Barf the last item in the current list out
