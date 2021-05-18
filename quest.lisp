@@ -38,7 +38,7 @@
   (make-instance 'assembly))
 
 (defclass task (quest:task)
-  ())
+  ((visible-p :initarg :visible :initform T :accessor visible-p)))
 
 (defmethod quest:class-for ((storyline (eql 'quest:task))) 'task)
 

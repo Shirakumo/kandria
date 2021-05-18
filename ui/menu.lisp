@@ -93,7 +93,8 @@
     (alloy:enter description widget :constraints `((:below ,header 10) (:left 15) (:right 30) (:height 50)))
     (alloy:enter tasks widget :constraints `((:below ,description 10) (:left 0) (:right 0) (:bottom 0)))
     (dolist (task (quest:active-tasks quest))
-      (alloy:enter (make-instance 'task-widget :value (quest:title task)) tasks))))
+      (when (visible-p task)
+        (alloy:enter (make-instance 'task-widget :value (quest:title task)) tasks)))))
 
 (presentations:define-realization (ui quest-widget)
   ((:bg simple:rectangle)
