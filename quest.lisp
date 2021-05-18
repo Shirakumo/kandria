@@ -46,7 +46,8 @@
   (make-instance 'assembly))
 
 (defclass interaction (quest:interaction)
-  ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)))
+  ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)
+   (auto-trigger :initform NIL :initarg :auto-trigger :accessor auto-trigger)))
 
 (defmethod quest:class-for ((storyline (eql 'quest:interaction))) 'interaction)
 
@@ -56,9 +57,11 @@
 (defmethod quest:activate ((trigger interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
     (when +world+
-      (let ((interactable (unit (quest:interactable trigger) +world+)))
-        (when (typep interactable 'interactable)
-          (pushnew trigger (interactions interactable)))))))
+      (if (auto-trigger trigger)
+          (interact trigger T)
+          (let ((interactable (unit (quest:interactable trigger) +world+)))
+            (when (typep interactable 'interactable)
+              (pushnew trigger (interactions interactable))))))))
 
 (defmethod quest:deactivate :around ((trigger interaction))
   (call-next-method)
