@@ -376,6 +376,28 @@
   (and (< (- a a-size) (+ b b-size))
        (< (- b b-size) (+ a a-size))))
 
+(defun nearby-p (thing &rest things)
+  (flet ((resolve (thing)
+           (etypecase thing
+             (symbol (unit thing +world+))
+             (entity thing)
+             (vec thing))))
+    (let ((test-fun (etypecase (resolve thing)
+                      (vec2
+                       (lambda (other)
+                         (< (vsqrdist2 (location other) thing) (expt 64 2))))
+                      (vec4
+                       (lambda (other)
+                         (contained-p (location other) thing)))
+                      (game-entity
+                       (lambda (other)
+                         (< (vsqrdist2 (location other) (location thing)) (expt 64 2))))
+                      (sized-entity
+                       (lambda (other)
+                         (contained-p other thing))))))
+      (loop for thing in things
+            always (funcall test-fun (resolve thing))))))
+
 (defgeneric clone (thing &key &allow-other-keys))
 
 (defmethod clone (thing &key)
