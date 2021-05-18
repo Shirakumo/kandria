@@ -148,7 +148,7 @@
              (failed-p (&rest things)
                (loop for thing in things always (eql :failed (quest:status (thing thing)))))
              (walk-n-talk (thing)
-               (walk-n-talk (quest:find-named thing ,task)))
+               (walk-n-talk (if (stringp thing) thing (quest:find-named thing ,task))))
              (interrupt-walk-n-talk (thing)
                (interrupt-walk-n-talk (quest:find-named thing ,task))))
        (symbol-macrolet ,(loop for variable in (quest:list-variables task)

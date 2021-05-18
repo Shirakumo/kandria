@@ -106,3 +106,11 @@
 (defmethod (setf choices) :after ((choices null) (dialog dialog))
   (org.shirakumo.alloy.layouts.constraint:suggest
    (alloy:layout-element dialog) (choices dialog) :w (alloy:un 0)))
+
+(defmethod interact ((string string) target)
+  (interact (make-instance 'stub-interaction :dialogue string) target))
+
+(defmethod interact ((interaction interaction) target)
+  (let ((dialog (or (find-panel 'dialog)
+                    (show (make-instance 'dialog)))))
+    (setf (interactions dialog) (list interaction))))
