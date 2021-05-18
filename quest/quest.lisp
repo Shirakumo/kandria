@@ -4,7 +4,7 @@
   ((status :initarg :status :initform :inactive :accessor status)
    (author :initarg :author :accessor author)
    (storyline :initarg :storyline :reader storyline)
-   (tasks :initform (make-hash-table :test 'eq) :reader tasks)
+   (tasks :initform (make-hash-table :test 'eql) :reader tasks)
    (on-activate :initarg :on-activate :accessor on-activate)
    (active-tasks :initform () :accessor active-tasks)))
 

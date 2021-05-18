@@ -4,7 +4,7 @@
   ((status :initarg :status :initform :inactive :accessor status)
    (quest :initarg :quest :accessor quest)
    (causes :initarg :causes :initform () :accessor causes)
-   (triggers :initform (make-hash-table :test 'eq) :accessor triggers)
+   (triggers :initform (make-hash-table :test 'eql) :accessor triggers)
    (on-complete :initarg :on-complete :initform () :accessor on-complete)
    (on-activate :initarg :on-activate :initform () :accessor on-activate)
    (invariant :initform (constantly T) :accessor invariant)
