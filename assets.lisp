@@ -91,6 +91,7 @@
 (define-sprite debug-door)
 (define-sprite passage)
 (define-sprite effects)
+(define-sprite telephone)
 
 (define-tileset tundra)
 (define-tileset debug)

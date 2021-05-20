@@ -165,7 +165,12 @@
           (setf (status-display panel) status)
           (alloy:enter status tab :constraints `((:margin 10)))
           (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
-          (alloy:enter resume focus :layer layer)))
+          (alloy:enter resume focus :layer layer)
+          (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
+            (when (typep object 'save-point)
+              (alloy:enter save tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
+              (alloy:enter save focus :layer layer)
+              (return)))))
 
       #++
       (with-tab (tab (@ world-map-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
@@ -247,12 +252,9 @@
       (with-tab (tab (@ load-game-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         )
 
-      (with-tab (tab (@ save-and-exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
+      (with-tab (tab (@ exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
         (let ((resume (with-button resume-game
                         (hide panel)))
-              (save (with-button save-and-exit-game
-                      (save-state +main+ T)
-                      (quit *context*)))
               (exit (with-button exit-game
                       (quit *context*)))
               (reset (with-button reset-game
@@ -262,11 +264,9 @@
                            (load-state (initial-state scene) +main+)
                            (save-state +main+ T))))))
           (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
-          (alloy:enter save tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
-          (alloy:enter exit tab :constraints `((:bottom 10) (:right-of ,save 10) (:width 200) (:height 40)))
+          (alloy:enter exit tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
           (alloy:enter reset tab :constraints `((:bottom 10) (:right-of ,exit 10) (:width 200) (:height 40)))
           (alloy:enter resume focus :layer layer)
-          (alloy:enter save focus :layer layer)
           (alloy:enter exit focus :layer layer)
           (alloy:enter reset focus :layer layer))))
     (alloy:finish-structure panel layout focus)))

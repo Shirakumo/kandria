@@ -64,3 +64,12 @@
   (:default-initargs :sprite-data (asset 'kandria 'passage)))
 
 (defmethod object-renderable-p ((passage passage) (pass shader-pass)) NIL)
+
+(define-shader-entity save-point (lit-animated-sprite interactable ephemeral)
+  ((bsize :initform (vec 8 18)))
+  (:default-initargs :sprite-data (asset 'kandria 'telephone)))
+
+(defmethod interactable-p ((save-point save-point)) T)
+
+(defmethod layer-index ((save-point save-point))
+  (1- +base-layer+))

@@ -6,7 +6,7 @@
     zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker
     dummy box wolf zombie drone tame-wolf ball balloon
     catherine fi jack trader
-    door passage
+    door passage save-point
     falling-platform elevator
     chunk water rope grass heatwave))
 

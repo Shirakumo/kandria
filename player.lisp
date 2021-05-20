@@ -103,6 +103,11 @@
         (clear-retained)
         (snap-to-target (unit :camera T) player)))))
 
+(defmethod interact ((save-point save-point) (player player))
+  (start-animation 'pickup player)
+  (save-state +main+ T)
+  (status "Game saved."))
+
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))
     (when endangering
