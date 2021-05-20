@@ -173,20 +173,20 @@
                  (for:for ((entity over parent))
                    (typecase entity
                      ((not ephemeral)
-                      (leave* entity parent))
+                      (leave entity parent))
                      (container (recurse entity))))))
         (recurse region)))
-    ;; Add new entities that exist in the state
-    (loop for (type . state) in create-new
-          for entity = (with-simple-restart (continue "Ignore this entity.")
-                         (decode-payload state (make-instance type) packet save-v0))
-          do (when entity (enter* entity region)))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
           for unit = (unit name region)
           do (if unit
                  (decode unit state)
                  (error "Unit named ~s referenced but not found." name)))
+    ;; Add new entities that exist in the state
+    (loop for (type . state) in create-new
+          for entity = (with-simple-restart (continue "Ignore this entity.")
+                         (decode-payload state (make-instance type) packet save-v0))
+          do (when entity (enter entity region)))
     region))
 
 (define-encoder (animatable save-v0) (_b _p)

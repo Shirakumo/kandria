@@ -256,8 +256,11 @@
               (exit (with-button exit-game
                       (quit *context*)))
               (reset (with-button reset-game
-                       (load-state (make-instance 'save-state :filename "initial") +world+)
-                       (hide panel))))
+                       (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
+                         (let ((scene (make-instance 'world :packet packet)))
+                           (change-scene +main+ scene)
+                           (load-state (initial-state scene) +main+)
+                           (save-state +main+ T))))))
           (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter save tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
           (alloy:enter exit tab :constraints `((:bottom 10) (:right-of ,save 10) (:width 200) (:height 40)))

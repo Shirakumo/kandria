@@ -34,9 +34,6 @@
     (issue (scene main) 'tick :tt tt :dt dt :fc fc)
     (process (scene main))))
 
-(defmethod setup-rendering :after ((main main))
-  (disable :cull-face :scissor-test :depth-test))
-
 (defmethod (setf scene) :after (scene (main main))
   (setf +world+ scene))
 
@@ -75,6 +72,7 @@
 
 (defmethod load-state ((state save-state) (main main))
   (prog1 (load-state state (scene main))
+    (trial:commit (scene main) (loader main))
     (unless (typep state 'quicksave-state)
       (setf (state main) state))))
 
@@ -143,10 +141,13 @@
   (show (make-instance 'status-lines))
   (when (deploy:deployed-p)
     (show (make-instance 'report-button-panel)))
+  (enter (make-instance 'fade) scene))
+
+(defmethod setup-rendering :after ((main main))
+  (disable :cull-face :scissor-test :depth-test)
   (load-state T main)
   (save-state main (quicksave main))
-  (save-state main T)
-  (enter (make-instance 'fade) scene))
+  (save-state main T))
 
 (defmethod change-scene :after ((main main) scene &key)
   (let ((region (region scene)))
