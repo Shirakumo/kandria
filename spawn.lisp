@@ -1,7 +1,8 @@
 (in-package #:kandria)
 
 (defclass spawner (listener sized-entity ephemeral resizable)
-  ((spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type symbol)
+  ((flare:name :initform (generate-name 'spawner))
+   (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type symbol)
    (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer)
    (reflist :initform () :accessor reflist)
    (adjacent :initform () :accessor adjacent)
