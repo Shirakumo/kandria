@@ -121,6 +121,10 @@
 (defmethod handle ((ev previous) (pass ui-pass))
   (alloy:handle (make-instance 'alloy:focus-prev) pass))
 
+(defmethod handle ((ev text-entered) (pass ui-pass))
+  (or (call-next-method)
+      (process-cheats (text ev))))
+
 (defmethod stage ((pass ui-pass) (area staging-area))
   (call-next-method)
   (dolist (panel (panels pass))

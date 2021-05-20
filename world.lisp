@@ -157,9 +157,6 @@
   (when (< 0.1 (pos ev))
     (setf +input-source+ (device ev))))
 
-(defmethod handle :after ((ev text-entered) (world world))
-  (process-cheats (text ev)))
-
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)
                                       :direction :output)
