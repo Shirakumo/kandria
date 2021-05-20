@@ -103,6 +103,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by ribbitface
 - Fix feedback form input bleeding through to cheats/dialog
   Reported by ribbitface
+- Fix reset button not working correctly
+  Reported by Monroth
 
 ## TODO
 - Fix disconnecting a sound device crashing the game
