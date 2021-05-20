@@ -83,7 +83,6 @@
    (quest:name :initform 'stub)))
 
 (defmethod initialize-instance :after ((interaction stub-interaction) &key dialogue)
-  ;; FIXME: use real lexinv...
   (with-trial-io-syntax ()
     (setf (quest:dialogue interaction) (dialogue:compile* dialogue))))
 

@@ -389,12 +389,12 @@
                       (vec4
                        (lambda (other)
                          (contained-p (location other) thing)))
-                      (game-entity
+                      (chunk
                        (lambda (other)
-                         (< (vsqrdist2 (location other) (location thing)) (expt 64 2))))
-                      (sized-entity
+                         (contained-p other thing)))
+                      (located-entity
                        (lambda (other)
-                         (contained-p other thing))))))
+                         (< (vsqrdist2 (location other) (location thing)) (expt 64 2)))))))
       (loop for thing in things
             always (funcall test-fun (resolve thing))))))
 
