@@ -189,11 +189,6 @@
                      (sb-kernel:redefinition-warning #'muffle-warning))
         (cl:load file)))))
 
-(defmethod load-language :after (&optional (language (setting :language)))
-  (load-quests language))
-
-(load-quests :eng)
-
 (defmacro define-sequence-quest ((storyline name) &body body)
   (let ((counter 0))
     (labels ((parse-sequence-form (form name next)
@@ -247,3 +242,9 @@
         `(quest:define-quest (,storyline ,name)
            ,@initargs
            ,@(parse-sequence-to-tasks body))))))
+
+
+(defmethod load-language :after (&optional (language (setting :language)))
+  (load-quests language))
+
+(load-quests :eng)
