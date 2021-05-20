@@ -18,7 +18,7 @@
 
 (defmethod initialize-instance :after ((panel report-panel) &key)
   (let* ((description "")
-         (username (or (setting :username) (find-user-id)))
+         (username (or (setting :username) (org.shirakumo.fraf.trial.feedback::find-user-id)))
          (layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
          (focus (make-instance 'report-focus))
          (user (alloy:represent username 'alloy:input-line :placeholder "anonymous"))
@@ -29,7 +29,7 @@
     (alloy:enter submit layout :constraints `((:below ,desc 10) (:left 10) (:size 300 20)))
     (alloy:enter-all focus user desc submit)
     (alloy:on alloy:activate (submit)
-      (setf (setting :username) (find-user-id))
+      (setf (setting :username) (org.shirakumo.fraf.trial.feedback::find-user-id))
       (handler-bind ((error (lambda (e)
                               (v:error :kandria.report e)
                               (messagebox "Failed to gather and submit report:~%~a" e)
