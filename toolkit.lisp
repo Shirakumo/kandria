@@ -382,19 +382,20 @@
              (symbol (unit thing +world+))
              (entity thing)
              (vec thing))))
-    (let ((test-fun (etypecase (resolve thing)
-                      (vec2
-                       (lambda (other)
-                         (< (vsqrdist2 (location other) thing) (expt 64 2))))
-                      (vec4
-                       (lambda (other)
-                         (contained-p (location other) thing)))
-                      (chunk
-                       (lambda (other)
-                         (contained-p other thing)))
-                      (located-entity
-                       (lambda (other)
-                         (< (vsqrdist2 (location other) (location thing)) (expt 64 2)))))))
+    (let* ((thing (resolve thing))
+           (test-fun (etypecase thing
+                       (vec2
+                        (lambda (other)
+                          (< (vsqrdist2 (location other) thing) (expt 64 2))))
+                       (vec4
+                        (lambda (other)
+                          (contained-p (location other) thing)))
+                       (chunk
+                        (lambda (other)
+                          (contained-p other thing)))
+                       (located-entity
+                        (lambda (other)
+                          (< (vsqrdist2 (location other) (location thing)) (expt 64 2)))))))
       (loop for thing in things
             always (funcall test-fun (resolve thing))))))
 
