@@ -1,23 +1,16 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(quest:define-quest (kandria q0-settlement-emergency)
+(define-sequence-quest (kandria q0-settlement-emergency)
   :author "Tim White"
   :title "Emergency?"
   :description "Something seems amiss in this settlement."
-  :on-activate (talk-to-catherine))
-
-(quest:define-task (kandria q0-settlement-emergency talk-to-catherine)
-  :title "Talk to Catherine"
-  :condition all-complete
-  :on-activate (arrive)
-
   ;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?
   ;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
   ;; REMARK: ^ Does \[Lie\] not work?
-  (:interaction arrive
-   :interactable catherine
-   :dialogue "
+  (:interact (catherine)
+   :title "Talk to Catherine"
+   "
 ~ catherine
 | (:cheer)Tada! Here we are!
 | What do you think...?
@@ -36,30 +29,18 @@
   | (:excited)Yep! Pretty amazing, huh?
 ~ catherine
 | And come look at this - I guarantee you won't have ever seen anything like it!
-! eval (activate 'field)
-! eval (lead 'player 'farm-view 'catherine)
-! eval (walk-n-talk 'walk)
-")
-  
-  ;; TODO: doesn't always play these, if they get interrupted by lead reminder - and if they don't complete, this task never completes?
-  ;; REMARK: ^ You can change the task condition from ALL-COMPLETE to a check that only checks the required interactions, like (complete-p 'arrive 'field)
-  (:interaction walk
-   :interactable catherine
-   :dialogue "
-! eval (complete 'walk)
---
-~ catherine
-| (:normal)Living on the surface is even harder than in the caves.
-")
-
+  ")
+  (:go-to (farm-view :lead catherine)
+  :title "Follow Catherine"
+   "~ catherine
+| (:normal)Living on the surface is even harder than living in the caves.
+  ")
   ;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
   ;; REMARK: It's confusing that you don't talk to catherine and instead have to find some hidden trigger volume.
   ;;         It would be better if this was activated on catherine as soon as the player walks into the farm
   ;;         by using a story-trigger, or even just directly activating it via an interaction-trigger.
-  (:interaction field
-   :interactable farm-view
-   :dialogue "
-~ catherine
+  (:interact (catherine :now T)
+   "~ catherine
 | (:excited)What'd I tell you? Amazing, right?!
 ~ player
 - What I am looking at?
@@ -98,39 +79,20 @@
   | But not everyone has fond tales to tell about androids, I guess. Their loss though.
 ~ catherine
 | (:concerned)We'd better find Jack. He'll be in Engineering.
-! eval (activate 'find-jack)
-! eval (lead 'player 'jack (unit 'catherine))
-"))
+ ")
 ;; learn Jack's name for the first time
 ;; TODO catherine confused: Erm... hang on a second. Where is everyone?
-
-#|
-Tutorial/prologue mission beats that have occurred before this scene:
-Alex planted the android there on behalf of the enemy faction (traitor), knowing that Catherine could repair it for them
-Rogue robots on behalf of the enemy faction then tried to ambush and claim the android, but you beat them off
-Catherine, non-the-wiser to Alex's betrayal, returns to the settlement with the android
-(Meanwhile Alex has gone off doing hunter duties)
-(The enemy faction timed the android planting with their sabotage of the water pipes, so that Catherine would be away at a critical time)
-(Catherine has determined android is a "she")
-(Catherine introduced herself by name, and established that the android doesn't have a name)
-(Catherine learns the stranger doesn't have a home)
-|#
-
-(quest:define-task (kandria q0-settlement-emergency find-jack)
-  :title "Find Jack in Engineering"
-  :condition all-complete
-  :on-activate (talk-jack)
-  :on-complete (q1-water)
-  
-  ;; meet Jack for the first time - Stranger already presumes this is Jack
+  (:go-to (jack :lead catherine)
+  :title "Find Jack in Engineering"  
+  )
+    ;; meet Jack for the first time - Stranger already presumes this is Jack
   ;; REMARK: Maybe keep the swears out for now, or at least change them to be softer variants.
   ;; TIM REPLY: Toned some of it down. I think most swears should be okay for 16+, and they help give the gritty tone which is in the pillars. Played start of Last of Us part 2 recently, and this is very swear heavy (more than we need), but I think it works - it's more honest to the ravaged setting. Of course Last of Us is 18+, but I think that is more down to the violence than the swearing
   ;; REMARK: Maybe add a snarky greeting choice like "- Well aren't you the charmer
   ;; TIM REPLY: Hmm, not feeling this one. I think initially I want the Stranger to be on the backfoot in the conversation as well, whereas this sarcastic reply would put them on the front put. At least for the moment, they are at the mercy of Jack's ramblings
-  (:interaction talk-jack
-   :interactable jack
-   :dialogue "
-~ jack
+  (:interact (jack :now T)
+   :on-complete (q1-ready)
+   "~ jack
 | (:annoyed)... Don't give me that bullshit. Where the hell have you been? And who's this?
 ~ catherine
 | (:cheer)What do you mean? I've brought back the android... I got her working!
@@ -192,7 +154,21 @@ Catherine, non-the-wiser to Alex's betrayal, returns to the settlement with the 
 | Hold on Cathy - take this walkie. Radio if you have any trouble.
 ~ catherine
 | I will. And don't worry - we'll be back ASAP.
-"))
+| Alright, android - let me know when you're ready to go.
+  ")
+)
 
 ;; TODO catherine shocked  Shit!... I should have been here.
 ;; She's kidding... Aren't you?!
+
+#|
+Tutorial/prologue mission beats that have occurred before this scene:
+Alex planted the android there on behalf of the enemy faction (traitor), knowing that Catherine could repair it for them
+Rogue robots on behalf of the enemy faction then tried to ambush and claim the android, but you beat them off
+Catherine, non-the-wiser to Alex's betrayal, returns to the settlement with the android
+(Meanwhile Alex has gone off doing hunter duties)
+(The enemy faction timed the android planting with their sabotage of the water pipes, so that Catherine would be away at a critical time)
+(Catherine has determined android is a "she")
+(Catherine introduced herself by name, and established that the android doesn't have a name)
+(Catherine learns the stranger doesn't have a home)
+|#

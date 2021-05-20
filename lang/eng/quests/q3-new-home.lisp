@@ -10,8 +10,7 @@
   (find-home-first
    :title "Scout location Beta"
    :condition all-complete
-   :on-activate T
-   
+   :on-activate T   
    (:interaction new-home-site-1
     :interactable new-home-1
     :dialogue "

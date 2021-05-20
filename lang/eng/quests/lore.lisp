@@ -34,7 +34,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)//Did this fall here, or did they move it into place?//
+| (:thinking)//Did this fall here, or did someone move it into place?//
 ")
 
   ;; Housing exterior - first floor left shattered room
@@ -108,7 +108,7 @@
 ? (complete-p 'q0-settlement-emergency)
 | | //Engineering. This is where Jack and Catherine work. The technology is crude - what do they build here, tin openers?//
 |?
-| | //Engineering. This is where Catherine works. The technology is crude - what do they build here, tin openers?//
+| | //It's some sort of workshop. The technology is crude - what do they build here, tin openers?//
 ")
 
   ;; Engineering interior - desk
