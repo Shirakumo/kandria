@@ -59,13 +59,13 @@
 (defmethod load-state ((state (eql T)) (main main))
   (cond ((state main)
          (if (< (save-time (state main)) (save-time (quicksave main)))
-             (load-state (quicksave main) (scene main))
-             (load-state (state main) (scene main))))
+             (load-state (quicksave main) main)
+             (load-state (state main) main)))
         ((list-saves)
          (load-state (first (list-saves)) main))
         (T
          (load-state (initial-state (scene main)) (scene main))
-         (save-state (scene main) (make-instance 'save-state :filename "initial")))))
+         (trial:commit (scene main) (loader main)))))
 
 (defmethod load-state ((state (eql :quick)) (main main))
   (load-state (quicksave main) (scene main)))
