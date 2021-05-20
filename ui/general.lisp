@@ -107,7 +107,9 @@
 (defmethod handle :around ((ev event) (pass ui-pass))
   (unless (call-next-method)
     (dolist (panel (panels pass))
-      (handle ev panel))))
+      (handle ev panel)
+      (when (typep panel 'pausing-panel)
+        (return)))))
 
 (defmethod handle ((ev accept) (pass ui-pass))
   (alloy:handle (make-instance 'alloy:activate) pass))
