@@ -37,7 +37,7 @@
     :dialogue "
 ~ player
 | //It's new-home candidate site Gamma.//
-| (:thinking)//This position is favourably elevated and well-concealed, offering a vantage point from which to spy intruders.//
+| (:thinking)//This position is favourably elevated and well-concealed, offering a vantage point from which to spot intruders.//
 | //The building's foundations appear strong, but the rest is a sand-blasted shell.//
 | //It's a no go.//
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
