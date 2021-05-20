@@ -239,10 +239,11 @@
                  (loop for (form next) on forms
                        append (parse-sequence-form (second form) (first form) (enlist (first next)))))))
       (form-fiddle:with-body-options (body initargs) body
-        `(quest:define-quest (,storyline ,name)
-           ,@initargs
-           ,@(parse-sequence-to-tasks body))))))
-
+        (let ((tasks (parse-sequence-to-tasks body)))
+          `(quest:define-quest (,storyline ,name)
+             ,@initargs
+             :on-activate (,(caar tasks))
+             ,@tasks))))))
 
 (defmethod load-language :after (&optional (language (setting :language)))
   (load-quests language))
