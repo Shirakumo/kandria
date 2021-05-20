@@ -99,6 +99,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Monroth
 - Fix elevators crashing when colliding with NPCs
   Reported by Hot Potato
+- Fix text input box cursor movement
+  Reported by ribbitface
+- Fix feedback form input bleeding through to cheats/dialog
+  Reported by ribbitface
 
 ## TODO
 - Fix disconnecting a sound device crashing the game
@@ -106,7 +110,7 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix odd physics after a balloon jump
   Reported by Pondering Trog
 - Fix elevators clipping you into the walls
-  Reported by Nag
+  Reported by Nag, ribbitface
 - Fix NPCs not respawning where they should after a reload
   Reported by Nag
 - Fix quests that require enemies being defeated not completing sometimes
