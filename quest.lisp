@@ -218,7 +218,7 @@
                             (form-fiddle:with-body-options (body initargs) body
                               `((,name
                                  ,@initargs
-                                 ,@(when now `((:title ,(format NIL "Listen to ~a" with))))
+                                 ,@(when now `(:title ,(format NIL "Listen to ~a" with)))
                                  :condition (complete-p 'interaction)
                                  :on-activate (interaction)
                                  :on-complete ,next
