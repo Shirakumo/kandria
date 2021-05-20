@@ -149,11 +149,6 @@
   (save-state main (quicksave main))
   (save-state main T))
 
-(defmethod change-scene :after ((main main) scene &key)
-  (let ((region (region scene)))
-    (when region
-      (setf (chunk-graph region) (make-chunk-graph region)))))
-
 (defun apply-video-settings ()
   (destructuring-bind (&key resolution fullscreen vsync ui-scale &allow-other-keys) (setting :display)
     (show *context* :fullscreen fullscreen :mode resolution)

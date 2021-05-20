@@ -40,6 +40,7 @@
     (when (unit 'region scene)
       (leave (unit 'region scene) scene))
     (enter new scene)
+    (setf (chunk-graph new) (make-chunk-graph new))
     new))
 
 (defmethod load-region ((packet packet) (null null))
