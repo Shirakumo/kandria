@@ -40,8 +40,11 @@
     (when (unit 'region scene)
       (leave (unit 'region scene) scene))
     (enter new scene)
-    (setf (chunk-graph new) (make-chunk-graph new))
     new))
+
+(defmethod chunk-graph ((region region))
+  (or (slot-value region 'chunk-graph)
+      (setf (chunk-graph region) (make-chunk-graph region))))
 
 (defmethod load-region ((packet packet) (null null))
   (v:info :kandria.region "Loading ~a" packet)
