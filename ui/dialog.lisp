@@ -39,6 +39,7 @@
   (setf (clock-scale +world+) (/ (clock-scale +world+) 2))
   (interrupt-walk-n-talk NIL)
   (walk-n-talk NIL)
+  (setf (animation (unit 'player T)) 'stand)
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((dialog dialog))
