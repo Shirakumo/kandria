@@ -247,6 +247,8 @@
 (defmethod collides-p ((player player) (block platform) hit)
   (and (call-next-method)
        (not (typep (interactable player) 'elevator))
+       (or (not (typep (interactable player) 'rope))
+           (not (eq :climbing (state player))))
        (not (and (retained 'down)
                  (retained 'jump)
                  (< 0.01 (air-time player))))))
