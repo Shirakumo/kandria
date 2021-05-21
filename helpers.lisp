@@ -147,11 +147,11 @@
     (setf (bsize sprite) (v/ (size sprite) 2))))
 
 (defmethod apply-transforms progn ((sprite sprite-entity))
-  (let ((size (v* 2 (bsize sprite))))
-    (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
+  (let ((size (bsize sprite)))
+    (translate-by (- (vx2 size)) (- (vy2 size)) 0)
     (if (fit-to-bsize sprite)
-        (scale (vxy_ size))
-        (scale (vxy_ (size sprite))))))
+        (scale-by (* 2 (vx2 size)) (* 2 (vy2 size)) 1.0)
+        (scale-by (vx2 (size sprite)) (vy2 (size sprite)) 1.0))))
 
 (defmethod render :before ((entity sprite-entity) (program shader-program))
   (setf (uniform program "size") (size entity))
