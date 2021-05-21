@@ -224,11 +224,11 @@
                             (form-fiddle:with-body-options (body initargs) body
                               `((,name
                                  ,@initargs
-                                 :condition (complete-p ',thing)
+                                 :condition (complete-p (or (unit ',thing) ',thing))
                                  :on-activate (action)
                                  :on-complete ,next
                                  (:action action
-                                          (activate ',thing)
+                                          (activate (or (unit ',thing) ',thing))
                                           ,@(if body `((walk-n-talk (progn ,@body)))))))))))
              (sequence-form-name (form)
                (trial::mksym *package* (incf counter) :- (first form) :- (unlist (second form))))
