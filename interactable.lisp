@@ -69,6 +69,9 @@
   ((bsize :initform (vec 8 18)))
   (:default-initargs :sprite-data (asset 'kandria 'telephone)))
 
+(defmethod (setf animations) :after (animations (save-point save-point))
+  (setf (next-animation (find 'call (animations save-point) :key #'name)) 'normal))
+
 (defmethod interactable-p ((save-point save-point)) T)
 
 (defmethod layer-index ((save-point save-point))

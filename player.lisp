@@ -104,7 +104,11 @@
         (snap-to-target (unit :camera T) player)))))
 
 (defmethod interact ((save-point save-point) (player player))
-  (start-animation 'pickup player)
+  (setf (vx (location player))
+        (- (vx (location save-point)) 11))
+  (setf (direction player) +1)
+  (start-animation 'phone player)
+  (setf (animation save-point) 'call)
   (save-state +main+ T)
   (status "Game saved."))
 
