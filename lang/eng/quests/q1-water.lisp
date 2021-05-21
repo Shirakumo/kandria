@@ -310,7 +310,6 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
-! eval (activate 'catherine-trader)
 ! eval (move-to 'fi-farm (unit 'fi))
 ! eval (move-to 'eng-jack (unit 'jack))
   ")  
