@@ -652,10 +652,10 @@
       (:climbing
        (setf (animation player) 'climb)
        (cond
-         ((retained 'down)
+         ((< 0 (vy vel))
           (setf (playback-direction player) -1)
           (setf (playback-speed player) 1.5))
-         ((not (retained 'up))
+         ((= 0 (vy vel))
           (setf (clock player) 0.0))))
       (:crawling
        (cond ((< 0 (vx vel))
