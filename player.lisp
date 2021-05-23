@@ -302,8 +302,10 @@
   ;; FIXME: Very bad! We cannot track time passage by frame count!
   ;;        Need to do proper test to check whether a second has passed.
   (when (= (mod (fc ev) 60) 0)
-    (vector-push-extend (vx (location player)) (movement-trace player))
-    (vector-push-extend (vy (location player)) (movement-trace player)))
+    (let ((trace (movement-trace player)))
+      (declare (type (array single-float (*))))
+      (vector-push-extend (vx (location player)) trace)
+      (vector-push-extend (vy (location player)) trace)))
   (let* ((collisions (collisions player))
          (dt (dt ev))
          (loc (location player))
@@ -752,6 +754,10 @@
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
+  ;; Clear trace by marking it with a nan.
+  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
+  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
+  ;; Actually respawn now.
   (vsetf (velocity player) 0 0)
   (vsetf (frame-velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player)))
