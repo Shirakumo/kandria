@@ -6,6 +6,7 @@
    (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer)
    (reflist :initform () :accessor reflist)
    (adjacent :initform () :accessor adjacent)
+   (auto-deactivate :initarg :auto-deactivate :initform NIL :accessor auto-deactivate :type boolean)
    (active-p :initarg :active-p :initform T :accessor active-p :type boolean)))
 
 (defmethod alloy::object-slot-component-type ((spawner spawner) _ (slot (eql 'spawn-type)))
@@ -37,6 +38,8 @@
          (dolist (entity (reflist spawner))
            (when (slot-boundp entity 'container)
              (leave* entity T)))
+         (when (auto-deactivate spawner)
+           (setf (active-p spawner) NIL))
          (setf (reflist spawner) ()))))
 
 (defmethod done-p ((spawner spawner))
@@ -44,10 +47,7 @@
         never (slot-boundp entity 'container)))
 
 (defmethod quest:status ((spawner spawner))
-  (if (loop for entity in (reflist spawner)
-            never (slot-boundp entity 'container))
-      :complete
-      :unresolved))
+  (if (done-p spawner) :complete :unresolved))
 
 (define-unit-resolver-methods done-p (unit))
 
