@@ -120,6 +120,8 @@
                (move-to target unit)
                (when (typep unit 'ai-entity)
                  (setf (ai-state unit) :move-to)))
+             (location (thing)
+               (location (unit thing +world+)))
              ((setf location) (loc thing)
                (setf (location (unit thing +world+)) loc)))
        ,form)))

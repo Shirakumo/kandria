@@ -209,7 +209,10 @@
    :title "Return to camp with Catherine" 
   )
   (:interact (catherine-group :now T)
-   "~ catherine
+             "
+! eval (stop-following 'catherine)
+! eval (unless (nearby-p 'catherine-group 'catherine) (setf (location 'catherine) (location 'catherine-group)))
+~ catherine
 | (:cheer)We're back! Did you miss us?
 ~ jack
 | (:annoyed)Well I'll be damned.
