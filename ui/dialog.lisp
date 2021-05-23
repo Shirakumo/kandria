@@ -35,7 +35,8 @@
     (setf (interactions dialog) (interactions dialog))))
 
 (defmethod show :after ((dialog dialog) &key)
-  (setf (intended-zoom (unit :camera T)) 1.5)
+  (when (= 1.0 (intended-zoom (unit :camera T)))
+    (setf (intended-zoom (unit :camera T)) 1.5))
   (setf (clock-scale +world+) (/ (clock-scale +world+) 2))
   (interrupt-walk-n-talk NIL)
   (walk-n-talk NIL)
@@ -43,7 +44,8 @@
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((dialog dialog))
-  (setf (intended-zoom (unit :camera T)) 1.0)
+  (when (= 1.5 (intended-zoom (unit :camera T)))
+    (setf (intended-zoom (unit :camera T)) 1.0))
   (setf (clock-scale +world+) (* (clock-scale +world+) 2))
   (clear-retained)
   (discard-events +world+)
