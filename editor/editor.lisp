@@ -305,6 +305,9 @@
              ((enter-and-load entity container +main+)
               (setf (entity editor) entity)))))))
 
+(defmethod edit ((action (eql 'select-entity)) (editor editor))
+  (make-instance 'selector :ui (unit 'ui-pass T)))
+
 (defmethod edit ((action (eql 'insert-entity)) (editor editor))
   (make-instance 'creator :ui (unit 'ui-pass T)))
 

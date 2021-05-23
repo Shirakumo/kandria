@@ -87,6 +87,7 @@
                              (:file "chunk")
                              (:file "remesh")
                              (:file "entity")
+                             (:file "selector")
                              (:file "creator")
                              (:file "animation")
                              (:file "move-to"))))
