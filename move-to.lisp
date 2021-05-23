@@ -570,6 +570,7 @@
     (multiple-value-bind (path start) (shortest-path (location movable) target #'test)
       (setf (state movable) :normal)
       (when path
+        (v:info :kandria.move-to "Moving ~s to ~s" movable target)
         (setf (current-node movable) start)
         (setf (path movable) path)))))
 
