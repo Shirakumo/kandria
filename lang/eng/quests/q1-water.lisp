@@ -194,7 +194,9 @@
   | She'll be glad to meet you, I'm sure of it.
   | Let's get back to camp, find out what's going on.
 ! eval (setf (location 'fi) 'fi-group)
+! eval (setf (direction (unit 'fi)) -1)
 ! eval (setf (location 'jack) 'jack-group)
+! eval (setf (direction (unit 'jack)) -1)
   ")
 ;; TODO catherine confused - What does that mean?...
 #|
@@ -207,9 +209,9 @@
 | Take us home, Stranger!
   ")
   (:interact (catherine-group :now T)
-             "
+  "
 ! eval (stop-following 'catherine)
-! eval (unless (nearby-p 'catherine-group 'catherine) (setf (location 'catherine) (location 'catherine-group)))
+! eval (unless (nearby-p 'catherine-group 'catherine) (setf (location 'catherine) (location 'catherine-group))(setf (direction (unit 'catherine)) +1))
 ~ catherine
 | (:cheer)We're back! Did you miss us?
 ~ jack
@@ -244,18 +246,18 @@
   ~ catherine
   | There, see.
   ~ fi
-  | (:unsure)Alright, well - let's hope it's telling the truth. If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | Alright, well - let's hope it's telling the truth. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I don't think I have.
   ~ catherine
   | Her memories are all muddled from before I brought her online. She hasn't, trust me.
   ~ fi
-  | (:unsure)Alright, well - let's hope that's true. If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | (:unsure)Alright, well - let's hope that's true. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I suppose I could have.
   ~ catherine
   | She doesn't know what she's saying - her memories are all screwed up till the point I brought her online.
   ~ fi
-  | (:unsure)Alright - it's hardly conclusive, but for now we'd better hope Catherine's right.
-  | If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | Alright - it's hardly conclusive, but for now we'd better hope Catherine's right.
+  | (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
 | (:annoyed)Jesus, Fi... you're just gonna take that at face value?
 ~ fi
@@ -316,7 +318,10 @@
 ! eval (move-to 'fi-farm (unit 'fi))
 ! eval (move-to 'eng-jack (unit 'jack))
 ! eval (move-to 'catherine-group (unit 'catherine))
-  ")  
+  ")
+  ;; TODO set Catherine facing direction on move-to arrival once got code support; else consider restoring to below, once they don't glitch out and cause Catherine to run to the ruins:
+  ;; ! eval (setf (location 'catherine) 'catherine-group)
+  ;; ! eval (setf (direction (unit 'catherine)) -1)
   ;; sayonara = goodbye (Japanese)
   ;; TODO catherine pleading - But no, it's not that. She was offline for decades - there's no way she could have done that.
   ;; and others
@@ -353,12 +358,12 @@
 ! eval (store 'parts 20)
 | It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
-| (:normal)Anyway, don't worry about them. They'll soon see what I see - a big friendly badass who can protect us.
+| (:normal)Anyway, don't worry about them. They'll soon see what I see: a big friendly badass who can protect us.
 | Well, I've got work to do.
 | I think Fi might want a word with you. Just something about the way she was looking at you.
 | Knowing Jack he'll have something for you as well - if only a mouthful of abuse.
 | But hey, you're a free agent. I doubt that will last very long around here, so make the most of it!
-| Take a look around and explore if you haven't already.
+| Take a look around and explore.
 | Seeya later, Stranger!
 ! eval (move-to 'eng-cath (unit 'catherine))
 ! eval (activate 'q2-intro)
