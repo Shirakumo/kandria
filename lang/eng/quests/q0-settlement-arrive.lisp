@@ -149,7 +149,7 @@
 ~ jack
 | (:annoyed)But I'm warning you android: Touch one hair on her head and I'll bury you for another fifty years!
 ~ catherine
-| (:disappointed)Thanks \"Dad\". Alright, let's go.
+| (:disappointed)Thanks \"Dad\". Well, we'll be going.
 ~ jack
 | Hold on Cathy - take this walkie. Radio if you have any trouble.
 ~ catherine

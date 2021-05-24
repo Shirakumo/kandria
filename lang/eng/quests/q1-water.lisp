@@ -174,7 +174,7 @@
 | Jack?... He hung up.
 | Well, whatever it is it doesn't sound good.
 | Seems we'll have to wait a little longer for that welcome home we deserve.
-| (:normal)I need to think what to do next...
+| (:normal)I need to think what to do next... Give me a minute.
   ")
   (:interact (catherine)
    :title "Talk to Catherine in the pump room"
