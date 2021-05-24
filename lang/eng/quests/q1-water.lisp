@@ -8,7 +8,7 @@
   (:go-to (main-leak-1 :lead catherine)
    :title "Follow Catherine below ground"
    "~ catherine
-| (:shout)Catch me if you can!
+| Catch me if you can!
   ")
   (:interact (catherine :now T)   
   "
@@ -44,8 +44,8 @@
 | Weak as shit. There must be another leak. Over.
 ~ catherine
 | Alright - we'll keep looking. Over and out.
-| Come on... Er - you really need a name.
-| You really don't remember it?
+| Come on... (:disappointed)er - you really need a name.
+| (:concerned)You really don't remember it?
 ~ player
 - Why do I need a name?
   ~ catherine
@@ -53,12 +53,12 @@
 - No.
 - Is this really the time?
   ~ catherine
-  | You're right - sorry.
+  | (:concerned)You're right - sorry.
 ~ catherine
-| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.
+| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
 ! eval (setf (nametag player) \"Stranger\")
-| Pretty cool, huh?
-| (:excited)Let's go, Stranger!
+| (:excited)Pretty cool, huh?
+| Let's go, Stranger!
   ")
   ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
   ;; TODO when can rename player nametag: ! eval (setf (var 'player-nametag) \"Stranger\") - re-inflects the narrative tone. Does PC adopt this name, or not?
@@ -94,7 +94,8 @@
   (:complete (q1-fight1)
    :title "Defeat the wolves at the leak"
     ;; TODO: allow player to collect "wolf meat" as currency?
-  "~ catherine
+  "
+~ catherine
 | (:shout)Look out!
 | Keep it busy while I finish up here.
   ")
@@ -125,7 +126,7 @@
    ;; TODO catherine shocked - What the hell?!- Rogues? Here?
    ;; plus all sub choices
   (:complete (q1-fight2)
-   :title "Defeat the rogue robots"
+   :title "Defeat the rogues"
    "~ catherine
 | (:shout)Smash 'em!
   ")
@@ -148,7 +149,7 @@
 | (:disappointed)Oh man, we got here just in time. They were dismantling the turbine...
 | Give me a minute.
 | ...
-| (:normal)There, done.
+| (:normal)There, that should do it.
 | Now, where is that telephone?
   ")
   ;; TODO Catherine relieved - Oh man, we got here just in time.
@@ -192,7 +193,7 @@
   ~ catherine
   | She's our leader. You'll see for yourself soon enough.
   | She'll be glad to meet you, I'm sure of it.
-  | Let's get back to camp, find out what's going on.
+  | Let's get back to camp, find out what's happening.
 ! eval (setf (location 'fi) 'fi-group)
 ! eval (setf (direction (unit 'fi)) -1)
 ! eval (setf (location 'jack) 'jack-group)
@@ -217,7 +218,7 @@
 ~ jack
 | (:annoyed)Well I'll be damned.
 ~ catherine
-| What's the matter? Didn't think I'd come back in one piece?
+| What's the matter? Didn't think I'd come home in one piece?
 ~ jack
 | (:annoyed)Something like that...
 ~ fi
@@ -235,7 +236,7 @@
 | (:concerned)...
 | (:concerned)Androids did have FFCSs - er, far-field comms systems.
 | I guess something like that could penetrate deeper underground than our radios.
-| (:normal)But no, it's not that. She been offline for decades, I'm sure of it.
+| (:normal)But no, it's not that. She's been offline for decades, I'm sure of it.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
@@ -251,7 +252,7 @@
   ~ catherine
   | Her memories are all muddled from before I brought her online. She hasn't, trust me.
   ~ fi
-  | (:unsure)Alright, well - let's hope that's true. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | Alright, well - let's hope that's true. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I suppose I could have.
   ~ catherine
   | She doesn't know what she's saying - her memories are all screwed up till the point I brought her online.
@@ -361,10 +362,10 @@
 | (:normal)Anyway, don't worry about them. They'll soon see what I see: a big friendly badass who can protect us.
 | Well, I've got work to do.
 | I think Fi might want a word with you. Just something about the way she was looking at you.
-| Knowing Jack he'll have something for you as well - if only a mouthful of abuse.
-| But hey, you're a free agent. I doubt that will last very long around here, so make the most of it!
-| Take a look around and explore.
-| Seeya later, Stranger!
+| Knowing Jack he'll have something for you too - if only a mouthful of abuse.
+| But right now you're a free agent. I doubt that will last very long around here, so make the most of it!
+| (:excited)Take a look around and explore!
+| (:normal)Seeya later, Stranger!
 ! eval (move-to 'eng-cath (unit 'catherine))
 ! eval (activate 'q2-intro)
 ! eval (activate 'q3-intro)

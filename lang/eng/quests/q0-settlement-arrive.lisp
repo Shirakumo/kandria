@@ -23,7 +23,7 @@
   | (:excited)I knew you'd love it!
 - (Lie) It's nice.
   ~ catherine
-  | (:excited)I knew you'd love it!
+  | (:excited)Really? I knew you'd love it!
 - You live here?
   ~ catherine
   | (:excited)Yep! Pretty amazing, huh?
@@ -50,7 +50,7 @@
   | (:disappointed)Well don't look too excited. This is a real feat, believe me.
 - How did you manage this?
   ~ catherine
-  | (:normal)Don't ask me - I'm just an engineer. Though I did help install the irrigation.
+  | (:normal)Don't ask me - I'm just an engineer. I helped install the irrigation though.
   | Needless to say, growing crops in the desert isn't easy.
   | (:excited)Heh, I knew you'd be impressed.
 - I've seen these before. Lots of times.
@@ -75,8 +75,9 @@
 - Is it me?
   ~ catherine
   | (:concerned)You?... No of course not.
-  | Well... I mean, I think you're amazing - a working android from the old world!
-  | But not everyone has fond tales to tell about androids, I guess. Their loss though.
+  | Well... I mean, (:excited)I think you're amazing - a working android from the old world!
+  | (:normal)But not everyone has fond tales to tell about androids, I guess. Their loss though.
+  | But I'm sure it's not that.
 ~ catherine
 | (:concerned)We'd better find Jack. He'll be in Engineering.
  ")
