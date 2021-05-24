@@ -118,14 +118,10 @@
 - I think we found the saboteurs.
   ~ catherine
   | Do your thing!
-- You know these srakas?
-  ~ catherine
-  | No time to explain! Take them out!
 - What's a rogue?
   ~ catherine
   | No time to explain! Take them out!
   ")
-   ;; sraka = asshole (Russian)
    ;; TODO catherine shocked - What the hell?!- Rogues? Here?
    ;; plus all sub choices
   (:complete (q1-fight2)
