@@ -25,7 +25,7 @@
    :repeatable T
    "
 ~ player
-| //It's their storage shed. Their supplies are low, and it smells like mating rats.//
+| //It's their storage shed. Their supplies are low and it smells like mating rats.//
 ")
 
   ;; Large stone gate

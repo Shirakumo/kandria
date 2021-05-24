@@ -24,7 +24,7 @@
   | Subsidence, probably. Though there's no sign of a landslide.
 - Why is it strange?
   ~ catherine
-  | Well, cracks are usually the result of subsidence. But there's no sign of a landslide.
+  | Cracks are usually the result of subsidence. But there's no sign of a landslide.
 ~ catherine
 | Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras!
 ~ player
@@ -75,7 +75,7 @@
 ~ jack
 | What is it?
 ~ catherine
-| We're in the Midwest Market - just like before, the pipe is cracked. And no sign of a cave-in. Over.
+| We're in the Midwest Market - just like before the pipe is cracked, but there's no sign of a cave-in. Over.
 ~ jack
 | ...
 | (:annoyed)It's sabotage. I knew it.
@@ -192,7 +192,7 @@
   ~ catherine
   | She's our leader. You'll see for yourself soon enough.
   | She'll be glad to meet you, I'm sure of it.
-  | Let's get back to camp, find out what's going on. Lead the way!
+  | Let's get back to camp, find out what's going on.
 ! eval (setf (location 'fi) 'fi-group)
 ! eval (setf (location 'jack) 'jack-group)
   ")
@@ -202,8 +202,10 @@
 ! eval (move-to 'catherine-group (unit 'catherine))
 |#
   (:go-to (catherine-group :follow catherine)
-   :title "Return to camp with Catherine" 
-  )
+   :title "Return to camp with Catherine and find Jack and Fi"
+   "~ catherine
+| Take us home, Stranger!
+  ")
   (:interact (catherine-group :now T)
              "
 ! eval (stop-following 'catherine)
@@ -229,9 +231,9 @@
 | Maybe this android can control them? Did you think of that?
 ~ catherine
 | (:concerned)...
-| (:concerned)Androids did have FFCS - er, far-field comms systems.
+| (:concerned)Androids did have FFCSs - er, far-field comms systems.
 | I guess something like that could penetrate deeper underground than our radios.
-| (:normal)But no, it's not that. She was offline for decades.
+| (:normal)But no, it's not that. She been offline for decades, I'm sure of it.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
@@ -293,7 +295,7 @@
   | (:annoyed)If you insist.
 - As long as I'm still online afterwards.
   ~ catherine
-  | Don't worry, I wouldn't let them switch you off.
+  | Don't worry, I won't let them switch you off.
   ~ fi
   | That's settled then. Jack, speak with Sahil when he arrives, see what he can do for us.
   ~ jack
@@ -309,8 +311,11 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
+! eval (setf (walk 'fi) T)
+! eval (setf (walk 'jack) T)
 ! eval (move-to 'fi-farm (unit 'fi))
 ! eval (move-to 'eng-jack (unit 'jack))
+! eval (move-to 'catherine-group (unit 'catherine))
   ")  
   ;; sayonara = goodbye (Japanese)
   ;; TODO catherine pleading - But no, it's not that. She was offline for decades - there's no way she could have done that.
