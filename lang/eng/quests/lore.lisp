@@ -106,7 +106,7 @@
    "
 ~ player
 ? (complete-p 'q0-settlement-emergency)
-| | //Engineering. This is where Jack and Catherine work. The technology is crude - what do they build here, tin openers?//
+| | //Engineering. This is where Jack and Catherine work.//
 |?
 | | //It's some sort of workshop. The technology is crude - what do they build here, tin openers?//
 ")
