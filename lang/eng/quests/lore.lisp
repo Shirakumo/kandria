@@ -5,6 +5,7 @@
   :author "Tim White"
   :title "The World"
   :description "This world is unfamiliar to me. I should explore and learn more about it."
+  :visible NIL
   :on-activate (region1))
 
 ;; Lore tooltips that can be accessed throughout the entire game - this quest can never be completed; some interactions may alter based on world state conditions.
@@ -24,7 +25,7 @@
    :repeatable T
    "
 ~ player
-| //It's their storage shed. Their supplies are low, and it smells like mating rats.//
+| //It's their storage shed. Their supplies are low and it smells like mating rats.//
 ")
 
   ;; Large stone gate
@@ -33,7 +34,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)//Did this fall here, or did they move it into place?//
+| (:thinking)//Did this fall here, or did someone move it into place?//
 ")
 
   ;; Housing exterior - first floor left shattered room
@@ -105,9 +106,9 @@
    "
 ~ player
 ? (complete-p 'q0-settlement-emergency)
-| | //Engineering. This is where Jack and Catherine work. The technology is crude - what do they build here, tin openers?//
+| | //Engineering. This is where Jack and Catherine work.//
 |?
-| | //Engineering. This is where Catherine works. The technology is crude - what do they build here, tin openers?//
+| | //It's some sort of workshop. The technology is crude - what do they build here, tin openers?//
 ")
 
   ;; Engineering interior - desk
@@ -132,7 +133,10 @@
    :repeatable T
    "
 ~ player
-| //This is farmland. They're growing potatoes - dying ones by the looks of it.//
+? (complete-p 'q1-water)
+| | //The irrigation is working again, but the crops might be too far gone to make it.//
+|?
+| | //This is farmland. They're growing potatoes - dying ones by the looks of it.//
 ")
 
   ;; Sandstorm transition/view
@@ -144,3 +148,28 @@
 | //Particulates ping off my body like bullets.//
 | //The mountains lay beyond, though I can hardly see them in this storm.//
 "))
+
+#|
+;; TODO Old mushroom text interacts that could be repurposed as lore interacts:
+could reuse locations shrooms1 to 5?
+
+flower fungus
+They're quite pretty. It seems a shame to eat them.
+
+rusty puffball
+(:giggle)They make clothes out of these? Call me a fashion victim but I wouldn't be seen dead in them.
+
+They look and smell like mould. I suppose it's the same thing, more or less.
+
+(:skeptical)I suppose truffles would be too much to ask for.
+
+Why do they look like alien parasites from an old B-movie?
+
+black knight
+(:thinking)They remind me of decaying frogspawn. Yet I've never seen decaying frogspawn...
+
+They look like someone's insides if they were on the outside. That's probably what they'd do to you too.
+
+
+
+|#

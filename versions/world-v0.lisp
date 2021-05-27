@@ -105,7 +105,7 @@
                                     :target-bsize ,(encode (bsize (target teleport-trigger))))
       (error 'no-applicable-encoder :source teleport-trigger)))
 
-(define-slot-coders (spawner world-v0) ((location :type vec2) (bsize :type vec2) spawn-type spawn-count))
+(define-slot-coders (spawner world-v0) (name (location :type vec2) (bsize :type vec2) spawn-type spawn-count active-p auto-deactivate))
 (define-slot-coders (background world-v0) ())
 (define-slot-coders (game-entity world-v0) ((location :type vec2) name))
 (define-slot-coders (sprite-entity world-v0) ((location :type vec2) (texture :type texture) (size :type vec2) (bsize :type vec2) (offset :type vec2) (layer-index :initarg :layer) name))
@@ -123,6 +123,8 @@
                                             (location :type vec2)
                                             (data :reader (lambda (light) (buffer-data (caar (bindings (vertex-array light))))))))
 (define-slot-coders (textured-light world-v0) (multiplier (texture :type texture) (location :type vec2) (size :type vec2) (bsize :type vec2) (offset :type vec2)))
+(define-slot-coders (heatwave world-v0) ((location :type vec2) (bsize :type vec2)))
+(define-slot-coders (save-point world-v0) ((location :type vec2)))
 
 (define-decoder (node-graph binary-v0) (stream packet)
   (let* ((width (nibbles:read-ub16/le stream))

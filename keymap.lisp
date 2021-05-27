@@ -41,12 +41,6 @@
  (key :one-of (:esc :escape))
  (button :one-of (:b)))
 
-(trigger quicksave
- (key :one-of (:f5)))
-
-(trigger quickload
- (key :one-of (:f9)))
-
 (trigger quickmenu
  (key :one-of (:c :v))
  (button :one-of (:dpad-u :dpad-d))

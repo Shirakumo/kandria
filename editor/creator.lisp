@@ -1,5 +1,15 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defparameter *creator-class-list*
+  '(basic-light textured-light
+    checkpoint story-trigger interaction-trigger walkntalk-trigger sandstorm-trigger
+    zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker
+    dummy box wolf zombie drone tame-wolf ball balloon
+    catherine fi jack trader
+    door passage save-point
+    falling-platform elevator
+    chunk water rope grass heatwave))
+
 (defclass creator (alloy:dialog)
   ((entity :initform NIL :accessor entity))
   (:default-initargs
@@ -16,7 +26,7 @@
 (defmethod initialize-instance :after ((creator creator) &key)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T) :layout-parent creator))
          (focus (make-instance 'alloy:focus-list :focus-parent creator))
-         (classes (sort (mapcar #'class-name (list-leaf-classes 'base-entity)) #'string<))
+         (classes (sort *creator-class-list* #'string<))
          (class (first classes))
          (combo (alloy:represent class 'alloy:combo-set :value-set classes :layout-parent layout :focus-parent focus))
          (inspector (make-instance 'alloy::inspector :object (entity creator)))

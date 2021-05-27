@@ -2,11 +2,12 @@
 
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
-   (storyline :initarg :storyline :initform (quest:storyline 'kandria) :accessor storyline)
+   (storyline :initarg :storyline :initform NIL :accessor storyline)
    (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
+   (pause-timer :initform 0.0 :accessor pause-timer)
    (clock-scale :initform 60.0 :accessor clock-scale)
    (timestamp :initform (initial-timestamp) :accessor timestamp))
   (:default-initargs
@@ -14,7 +15,6 @@
 
 (defmethod initialize-instance :after ((world world) &key packet)
   (enter (progression-instance 'death) world)
-  (enter (progression-instance 'stun) world)
   (enter (progression-instance 'hurt) world)
   (enter (progression-instance 'transition) world)
   (enter (progression-instance 'low-health) world)
@@ -111,16 +111,6 @@
           (T
            (call-next-method)))))
 
-(defmethod handle :after ((ev quicksave) (world world))
-  (cond ((saving-possible-p world)
-         (save-state +main+ :quick)
-         (status :note "Game saved."))
-        (T
-         (status "Can't save right now."))))
-
-(defmethod handle :after ((ev quickload) (world world))
-  (load-state :quick +main+))
-
 (defmethod handle ((ev report-bug) (world world))
   (toggle-panel 'report-panel))
 
@@ -141,7 +131,9 @@
     (v:info :kandria "Screenshot saved to ~a" file)))
 
 (defmethod handle ((ev quickmenu) (world world))
-  (show-panel 'quick-menu))
+  (if (find-panel 'menuing-panel)
+      (show-panel 'quick-menu)
+      (status "Can't pause right now.")))
 
 (defmethod handle ((ev toggle-menu) (world world))
   (if (pausing-possible-p world)
@@ -166,9 +158,6 @@
 (defmethod handle :after ((ev gamepad-move) (world world))
   (when (< 0.1 (pos ev))
     (setf +input-source+ (device ev))))
-
-(defmethod handle :after ((ev text-entered) (world world))
-  (process-cheats (text ev)))
 
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)
@@ -195,11 +184,7 @@
   (let ((old-region (unit 'region world))
         (*scene* world))
     (restart-case
-        (prog1 (call-next-method)
-          ;; KLUDGE: Re-activate quests to populate interactions
-          (loop for quest being the hash-values of (quest:quests (storyline world))
-                do (when (quest:active-p quest)
-                     (quest:activate quest))))
+        (call-next-method)
       (abort ()
         :report "Give up changing the region and continue with the old."
         (when (and old-region (not (eql old-region (unit 'region world))))

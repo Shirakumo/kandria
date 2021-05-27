@@ -88,6 +88,8 @@
 (defmethod next-interaction ((textbox walkntalk))
   (cond ((interrupt textbox))
         (T
+         (when (interaction textbox)
+           (quest:complete (interaction textbox)))
          (setf (interaction textbox) NIL))))
 
 (defmethod handle ((ev tick) (textbox walkntalk))

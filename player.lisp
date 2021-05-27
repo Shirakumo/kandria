@@ -21,7 +21,8 @@
    (invincible :initform (setting :gameplay :god-mode))
    (hud :accessor hud)
    (trace :initform (make-array (* 12 60 60 2) :element-type 'single-float :adjustable T :fill-pointer 0)
-          :accessor movement-trace))
+          :accessor movement-trace)
+   (palette-index :initform (or (position (setting :gameplay :palette) (palettes (asset 'kandria 'player)) :test #'equal) 0)))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
@@ -51,7 +52,12 @@
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(dash jump land-normal slide step-dirt die-player slash enter-water hit-ground))
     (stage (// 'kandria sound) area))
-  (stage (prompt player) area))
+  (stage (prompt player) area)
+  (stage (// 'kandria 'sting) area))
+
+(defmethod hurt :after (thing (player player))
+  (let ((dir (v- (location player) (location thing))))
+    (trigger (make-instance 'sting-effect :angle (if (v/= 0 dir) (point-angle dir) 0)) player)))
 
 (defmethod (setf medium) :before ((medium medium) (player player))
   (when (or (and (typep (medium player) 'water)
@@ -96,6 +102,15 @@
         (issue +world+ 'force-lighting)
         (clear-retained)
         (snap-to-target (unit :camera T) player)))))
+
+(defmethod interact ((save-point save-point) (player player))
+  (setf (vx (location player))
+        (- (vx (location save-point)) 11))
+  (setf (direction player) +1)
+  (start-animation 'phone player)
+  (setf (animation save-point) 'call)
+  (save-state +main+ T)
+  (status "Game saved."))
 
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))
@@ -232,6 +247,8 @@
 (defmethod collides-p ((player player) (block platform) hit)
   (and (call-next-method)
        (not (typep (interactable player) 'elevator))
+       (or (not (typep (interactable player) 'rope))
+           (not (eq :climbing (state player))))
        (not (and (retained 'down)
                  (retained 'jump)
                  (< 0.01 (air-time player))))))
@@ -285,15 +302,19 @@
   ;; FIXME: Very bad! We cannot track time passage by frame count!
   ;;        Need to do proper test to check whether a second has passed.
   (when (= (mod (fc ev) 60) 0)
-    (vector-push-extend (vx (location player)) (movement-trace player))
-    (vector-push-extend (vy (location player)) (movement-trace player)))
+    (let ((trace (movement-trace player)))
+      (declare (type (array single-float (*))))
+      (vector-push-extend (vx (location player)) trace)
+      (vector-push-extend (vy (location player)) trace)))
   (let* ((collisions (collisions player))
          (dt (dt ev))
          (loc (location player))
          (vel (velocity player))
          (size (bsize player))
          (ground (svref collisions 2))
-         (ground-limit (cond ((< (p! run-time) (run-time player))
+         (ground-limit (cond ((and (< (p! run-time) (run-time player))
+                                   (or (eql :keyboard +input-source+)
+                                       (< 0.75 (abs (gamepad:axis :l-h +input-source+)))))
                               (p! run-limit))
                              ((or (eql :keyboard +input-source+)
                                   (< 0.5 (abs (gamepad:axis :l-h +input-source+))))
@@ -555,6 +576,9 @@
          (cond ((typep (interactable player) 'rope)
                 (let* ((direction (signum (- (vx (location (interactable player))) (vx loc))))
                        (target-x (+ (vx (location (interactable player))) (* direction -8))))
+                  (when (scan-collision +world+ (vec target-x (vy loc) (vx size) (vy size)))
+                    (setf direction (* -1 direction))
+                    (setf target-x (+ (vx (location (interactable player))) (* direction -8))))
                   (unless (scan-collision +world+ (vec target-x (vy loc) (vx size) (vy size)))
                     (setf (direction player) direction)
                     (setf (vx loc) target-x)
@@ -630,10 +654,10 @@
       (:climbing
        (setf (animation player) 'climb)
        (cond
-         ((retained 'down)
+         ((< 0 (vy vel))
           (setf (playback-direction player) -1)
           (setf (playback-speed player) 1.5))
-         ((not (retained 'up))
+         ((= 0 (vy vel))
           (setf (clock player) 0.0))))
       (:crawling
        (cond ((< 0 (vx vel))
@@ -730,6 +754,10 @@
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
+  ;; Clear trace by marking it with a nan.
+  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
+  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
+  ;; Actually respawn now.
   (vsetf (velocity player) 0 0)
   (vsetf (frame-velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player)))
@@ -737,9 +765,6 @@
   (snap-to-target (unit :camera T) player))
 
 (defmethod hurt :after ((player player) (by integer))
-  (when (interruptable-p (frame player))
-    (setf (clock (progression 'stun +world+)) 0f0)
-    (start (progression 'stun +world+)))
   (setf (clock (progression 'hurt +world+)) 0)
   (start (progression 'hurt +world+))
   (setf (combat-time player) 0f0)
@@ -796,3 +821,8 @@ void main(){
 (define-setting-observer god-mode :gameplay :god-mode (value)
   (when (unit 'player T)
     (setf (invincible-p (unit 'player T)) value)))
+
+(define-setting-observer palette :gameplay :palette (value)
+  (when (unit 'player T)
+    (setf (palette-index (unit 'player T))
+          (or (position value (palettes (asset 'kandria 'player)) :test #'equal) 0))))

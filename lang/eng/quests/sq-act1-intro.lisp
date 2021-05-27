@@ -10,7 +10,7 @@
    :title "Talk to Catherine"
    :on-activate T
    (:interaction talk-catherine
-    :title "Talk to Catherine"
+    :title "Hi Catherine."
     :interactable catherine
     :repeatable T
     :dialogue "
@@ -19,11 +19,9 @@
 ~ player
 - Can I help out?
   < choices
-- I'm good thank you.
-  < continue
 - It's nice to see you again.
   ~ catherine
-  | [? I wish we could spend more time together. | It's great to see you too.]
+  | [? I wish we could spend more time together. | (:excited)It's great to see you too!]
   < continue
 - I'm feeling low.
   ~ catherine
@@ -31,6 +29,9 @@
   | Anyone that's different, they've already made up their minds about them.
   | (:normal)You just keep being you. I'll talk to them.
   < continue
+- I need to go.
+  ~ catherine
+  | No worries. Seeya soon!
 
 # continue
 ~ player
@@ -38,9 +39,9 @@
 ! label choices
 ~ catherine
 ? (or (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) (and (not (active-p 'sq3-race))))
-| | [? You are strangely perceptive... Man I'd love to understand how your core works. | I'm glad you asked! | You sure can! | I was hoping you'd say that.]
+| | [? You are strangely perceptive... (:excited)Man I'd love to understand how your core works. | (:excited)I'm glad you asked! | (:excited)You sure can! | (:excited)I was hoping you'd ask that!]
 | ? (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks)))
-| | | (:concerned)The water supply is leaking again, so you could help with that.
+| | | (:normal)The water supply is leaking again, so you could help with that.
 | |? (not (complete-p 'sq1-leaks))
 | | | (:normal)You know about fixing the new leaks.
 | |?
@@ -55,22 +56,22 @@
 | | | ! eval (retrieve 'mushroom-good-1 (item-count 'mushroom-good-1))
 | | ? (have 'mushroom-good-2)
 | | | | (:cheer)Rusty puffball, great! These are my favourite - I made my neckerchief from them, believe it or not.
-| | | | (:normal)Though that was just so I had a mask, so their spores wouldn't give me lung disease.
+| | | | (:normal)I weaved them together with synthetic scraps; I needed a mask so their spores wouldn't give me lung disease.
 | | | ! eval (retrieve 'mushroom-good-2 (item-count 'mushroom-good-2))
 | | ? (have 'mushroom-bad-1)
-| | | |  (:disappointed)Oh, you got some black knights huh? Not a lot I can do with them.
+| | | | (:disappointed)Oh, you got some black knights huh? Not a lot I can do with poisonous ones.
 | | | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | | | ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
 | |  
 | | | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | | | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
-| | | (:normal)If you find any more mushrooms, make sure you grab them too.
+| | ! eval (store 'parts 30)
+| | | (:normal)If you find any more mushrooms, make sure you grab them too!
 | | | If we don't need them, then the least you could do is trade them with Sahil.
-| | ! eval (store 'parts 10)
 | | ? (not (complete-p 'sq2-mushrooms))
 | | | ! eval (complete 'sq2-mushrooms)
 | |? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
-| | | (:concerned)With food stocks getting low, Fi wants to forage for more mushrooms.
+| | | (:normal)With food stocks getting low, Fi wants to forage for more mushrooms.
 | |? (not (complete-p 'sq2-mushrooms))
 | | | (:normal)You already know about gathering the mushrooms.
 | |?
@@ -80,6 +81,7 @@
 | | | How do time trial sweepstakes sound, eh?
 | |?
 | | | (:excited)Remember, any time you want to race we've got the time trial sweepstake too!
+| ! label task-choice
 | ~ player
 | - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) //Fix the leaks//|]
 |   ~ catherine
@@ -97,6 +99,7 @@
 |   ~ catherine
 |   | Let me know what you find. Good luck!
 |   ! eval (activate 'sq1-leaks)
+|   < task-choice
 | - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) //Forage for mushrooms//|]
 |   ~ catherine
 |   | (:excited)Awesome! They grow in the caves beneath the camp, in the dim light and moisture there.
@@ -105,32 +108,36 @@
 |   | Fibrous ones like the rusty puffball can be used to weave clothing. 
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.
 |   | Just don't breathe in their spores - though I guess that won't affect you.
-|   | Other kinds are deadly poisonous though, like the black knight. Avoid those if you can.
-|   | About 25 good ones should do for now. Happy mushrooming, Stranger!
+|   | Other kinds are deadly poisonous, like the black knight - avoid those if you can.
+|   | At least 25 good ones should do for now. (:excited)Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
+|   < task-choice
 | - [(not (active-p 'sq3-race)) //Time trials//|]
 |   ~ catherine
-|   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do in anger!
+|   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do!
 |   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and bring back.
 |   | I'll record your times for posterity too - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
-|   | Once you get bronze or above, then I can tell you about the next route! Them's the rules.
-|   | Just tell me when you want to start, and we'll get this show on the road.
+|   | Once you've completed one, then I can tell you about the next route! Them's the rules.
+|   | Just tell me when you want to start, (:excited)and we'll get this show on the road!
 |   | (:cheer)This is sooo exciting!
 |   ! eval (activate 'sq3-race)
+|   < task-choice
 | - //Nothing for now//
 |   ~ catherine
-|   | That's cool. Just let me know if you want something to do.
+|   | (:normal)That's cool. Just let me know if you want something to do.
+|   < end
 |?
 | ~ catherine
-| | I wish I had something for you, but there's nothing right now. That's a first 'round here!
+| | (:disappointed)I wish I had something for you, but there's nothing right now. (:normal)That's a first 'round here!
+! label end
 ~ player
 - I'll be going for now.
   ~ catherine
   | You take it easy. See you soon.
 - How are you Catherine?
   ~ catherine
-  | Me? Oh, same as usual. Jack's as overbearing as always. But I can take it.
-  | I think if I can just keep my head down and keep doing something, then I won't worry about the future. Or the past.
+  | Me? Oh, same as usual. (:concerned)Jack's as overbearing as always. But I can take it.
+  | (:normal)I think if I can just keep my head down and keep doing something, then I won't worry about the future. Or the past.
   | Just take it day by day, you know?
   | Look, I should get back to my work. Hope to see you soon!
 ")))

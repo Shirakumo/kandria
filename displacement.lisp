@@ -6,6 +6,9 @@
 
 (defmethod object-renderable-p ((displacer displacer) (pass shader-pass)) NIL)
 
+(defmethod stage :after ((displacer displacer) (area staging-area))
+  (stage (texture displacer) area))
+
 (defmethod render ((displacer displacer) (program shader-program))
   (setf (uniform program "model_matrix") (model-matrix))
   (setf (uniform program "effect_strength") (strength displacer))
@@ -15,6 +18,30 @@
     (gl:bind-vertex-array (gl-name vao))
     (%gl:draw-elements (vertex-form vao) (size vao) :unsigned-int 0)
     (gl:bind-vertex-array 0)))
+
+(define-class-shader (displacer :vertex-shader)
+  "layout (location = 0) in vec3 position;
+layout (location = 1) in vec2 in_tex_coord;
+out vec2 tex_coord;
+
+uniform mat4 model_matrix;
+uniform mat4 view_matrix;
+uniform mat4 projection_matrix;
+
+void main(){
+  gl_Position = projection_matrix * view_matrix * model_matrix * vec4(position, 1.0f);
+  tex_coord = in_tex_coord;
+}")
+
+(define-class-shader (displacer :fragment-shader)
+  "uniform sampler2D texture_image;
+uniform float effect_strength = 1.0;
+in vec2 tex_coord;
+out vec4 color;
+
+void main(){
+  color = vec4(texture(texture_image, tex_coord).rg, effect_strength, 1);
+}")
 
 (define-shader-entity shockwave (displacer located-entity listener)
   ((texture :initform (// 'kandria 'shockwave))
@@ -37,6 +64,39 @@
                    (/ (lifetime displacer))))))
     (scale-by tt tt 1)))
 
+(define-shader-entity heatwave (displacer sized-entity resizable listener ephemeral)
+  ((texture :initform (// 'kandria 'heatwave))
+   (strength :initform 0.02)
+   (offset :initform 0.0 :accessor offset))
+  (:inhibit-shaders (displacer :fragment-shader)))
+
+(defmethod handle ((ev tick) (displacer displacer))
+  (incf (offset displacer) (* (dt ev) -0.2)))
+
+(defmethod handle ((ev change-time) (displacer displacer))
+  ;; Scale strength based on time of day (8 day hours)
+  (setf (strength displacer)
+        (* (float (max 0 (/ (- 4 (abs (- (hour +world+) 12))) 4.0)) 0f0)
+           0.015)))
+
+(defmethod render :before ((heatwave heatwave) (program shader-program))
+  (setf (uniform program "offset") (offset heatwave)))
+
+(defmethod apply-transforms progn ((heatwave heatwave))
+  (scale-by (/ (vx (bsize heatwave)) 8) (/ (vy (bsize heatwave)) 8) 1))
+
+(define-class-shader (heatwave :fragment-shader)
+  "uniform sampler2D texture_image;
+uniform float effect_strength = 1.0;
+uniform float offset = 0.0;
+in vec2 tex_coord;
+out vec4 color;
+
+void main(){
+  color = vec4(texture(texture_image, vec2(tex_coord.x, tex_coord.y*2+offset)).rg,
+               effect_strength*(1-tex_coord.y), 1);
+}")
+
 (define-shader-entity scanline (displacer transformed)
   ((texture :initform (// 'kandria 'scanline))
    (strength :initform 1.0)))
@@ -45,7 +105,7 @@
   (translate (vxy_ (location (unit :camera T))))
   (scale-by 40 25 1))
 
-(define-shader-pass displacement-render-pass (single-shader-scene-pass)
+(define-shader-pass displacement-render-pass (scene-pass per-object-pass)
   ((displacement-map :port-type output :attachment :color-attachment0
                      :texspec (:internal-format :rgb8))
    (name :initform 'displacement-render-pass)))
@@ -67,32 +127,9 @@
   (gl:clear :color-buffer)
   (call-next-method))
 
-(define-class-shader (displacement-render-pass :vertex-shader)
-  "layout (location = 0) in vec3 position;
-layout (location = 1) in vec2 in_tex_coord;
-out vec2 tex_coord;
-
-uniform mat4 model_matrix;
-uniform mat4 view_matrix;
-uniform mat4 projection_matrix;
-
-void main(){
-  gl_Position = projection_matrix * view_matrix * model_matrix * vec4(position, 1.0f);
-  tex_coord = in_tex_coord;
-}")
-
-(define-class-shader (displacement-render-pass :fragment-shader)
-  "uniform sampler2D texture_image;
-uniform float effect_strength = 1.0;
-in vec2 tex_coord;
-out vec4 color;
-
-void main(){
-  color = vec4(texture(texture_image, tex_coord).rg, effect_strength, 1);
-}")
-
 (define-shader-pass displacement-pass (simple-post-effect-pass)
-  ((displacement-map :port-type input)))
+  ((name :initform 'displacement-pass)
+   (displacement-map :port-type input)))
 
 (define-class-shader (displacement-pass :fragment-shader)
   "uniform sampler2D previous_pass;

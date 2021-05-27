@@ -570,6 +570,7 @@
     (multiple-value-bind (path start) (shortest-path (location movable) target #'test)
       (setf (state movable) :normal)
       (when path
+        (v:info :kandria.move-to "Moving ~s to ~s" movable target)
         (setf (current-node movable) start)
         (setf (path movable) path)))))
 
@@ -608,7 +609,7 @@
                (setf (state movable) :normal))
              (let ((dir (float-sign (- (vx target) (vx source))))
                    (diff (abs (- (vx target) (vx loc)))))
-               (setf (vx vel) (* dir (max 0.5 (min diff (movement-speed movable))))))))
+               (setf (vx vel) (* dir (movement-speed movable))))))
       ;; Handle current step
       (destructuring-bind (node target) (car (path movable))
         (etypecase node

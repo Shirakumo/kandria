@@ -169,8 +169,6 @@
                   (:prompt
                    (setf (prompt textbox) (second (pending textbox))))
                   (:end
-                   (when (interaction textbox)
-                     (quest:complete (interaction textbox)))
                    (next-interaction textbox)))
                 (setf (pending textbox) NIL))
                ((dialogue:instructions (vm textbox))

@@ -3,8 +3,8 @@
 
 (quest:define-quest (kandria sq1-leaks)
   :author "Tim White"
-  :title "Repair More Leaks"
-  :description "There are always new leaks to fix. My FFCS confirms that these ones aren't far from the surface, so I should follow the pipeline down. Hopefully there'll be no surprises this time."
+  :title "Repair New Leaks"
+  :description "There are new leaks to fix. My FFCS confirms that these ones aren't far from the surface, so I should follow the pipeline down. Hopefully there'll be no surprises this time."
   :on-activate (leak-first leak-second leak-third)
   :variables (first-leak)
 
@@ -62,7 +62,7 @@
     :dialogue "
 ~ player
 | //The pipe has split.//
-| //There's no subsidence, but I think movement in the surrounding rocks wrenched it clean open.//
+| //There's no subsidence, but it's close to Catherine's previous repair - I wonder if it didn't hold?//
 ? (not (var 'first-leak))
 | | //I ignite the torch from the index finger on my right hand.//
 | | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
@@ -144,7 +144,7 @@
    :on-activate T
 
    (:interaction leaks-return
-    :title "Talk about the leaks"
+    :title "About the leaks."
     :interactable catherine
     :dialogue "
 ~ catherine
@@ -154,7 +154,7 @@
 ? (have 'walkie-talkie)
 | | I'll take the walkie back for now in case someone else needs it.
 | ! eval (retrieve 'walkie-talkie 1)
-| | Bet it was weird using such archaic technology, right?
+| | Bet it was weird using such archaic technology.
 | ~ player
 | - I liked it.
 | - Never again.

@@ -46,7 +46,7 @@
               (run-acc         0.0125)
               (run-time        3.0)
               (run-limit       4.0)
-              (air-acc         0.08)
+              (air-acc         0.07)
               (air-dcc         0.97)
               (climb-up        0.8)
               (climb-down      1.5)
@@ -231,7 +231,9 @@
   (atan (vy point) (vx point)))
 
 (defun random* (x var)
-  (+ x (- (random var) (/ var 2f0))))
+  (if (< 0.0 x)
+      (+ x (- (random var) (/ var 2f0)))
+      0.0))
 
 (defun intersection-point (a as b bs)
   (let ((l (max (- (vx2 a) (vx2 as))
@@ -373,6 +375,29 @@
 (defun overlapping-p (a a-size b b-size)
   (and (< (- a a-size) (+ b b-size))
        (< (- b b-size) (+ a a-size))))
+
+(defun nearby-p (thing &rest things)
+  (flet ((resolve (thing)
+           (etypecase thing
+             (symbol (unit thing +world+))
+             (entity thing)
+             (vec thing))))
+    (let* ((thing (resolve thing))
+           (test-fun (etypecase thing
+                       (vec2
+                        (lambda (other)
+                          (< (vsqrdist2 (location other) thing) (expt 64 2))))
+                       (vec4
+                        (lambda (other)
+                          (contained-p (location other) thing)))
+                       (chunk
+                        (lambda (other)
+                          (contained-p other thing)))
+                       (located-entity
+                        (lambda (other)
+                          (< (vsqrdist2 (location other) (location thing)) (expt 64 2)))))))
+      (loop for thing in things
+            always (funcall test-fun (resolve thing))))))
 
 (defgeneric clone (thing &key &allow-other-keys))
 
@@ -617,3 +642,14 @@
     (loop for target in targets
           thereis (or (null (probe-file target))
                       (< (file-write-date target) latest)))))
+
+(defmacro match1 (thing &body clauses)
+  (let ((thingg (gensym "THING")))
+    `(let ((,thingg ,thing))
+       (ecase (first ,thingg)
+         ,@(loop for (id lambda . body) in clauses
+                 collect `(,id
+                           (destructuring-bind ,lambda (rest ,thingg)
+                             ,@body)))))))
+
+(trivial-indent:define-indentation match1 (4 &rest (&whole 2 4 &lambda &body)))

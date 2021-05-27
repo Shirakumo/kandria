@@ -376,3 +376,13 @@ out vec4 color;
 void main(){
   color *= multiplier;
 }")
+
+(define-shader-entity flash (textured-light listener)
+  ((time-scale :initform 1.0 :initarg :time-scale :accessor time-scale)))
+
+(defmethod handle ((ev tick) (flash flash))
+  (cond ((<= (multiplier flash) 0.0)
+         (leave flash +world+)
+         (remove-from-pass flash (unit 'lighting-pass +world+)))
+        (T
+         (decf (multiplier flash) (* (time-scale flash) (dt ev))))))

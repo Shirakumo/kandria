@@ -1,10 +1,13 @@
 (in-package #:kandria)
 
 (defclass spawner (listener sized-entity ephemeral resizable)
-  ((spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type symbol)
+  ((flare:name :initform (generate-name 'spawner))
+   (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type symbol)
    (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer)
    (reflist :initform () :accessor reflist)
-   (adjacent :initform () :accessor adjacent)))
+   (adjacent :initform () :accessor adjacent)
+   (auto-deactivate :initarg :auto-deactivate :initform NIL :accessor auto-deactivate :type boolean)
+   (active-p :initarg :active-p :initform T :accessor active-p :type boolean)))
 
 (defmethod alloy::object-slot-component-type ((spawner spawner) _ (slot (eql 'spawn-type)))
   (find-class 'alloy:symb))
@@ -22,20 +25,45 @@
           (push entity adjacent))))
     (setf (adjacent spawner) adjacent)))
 
-(defmethod handle ((ev switch-chunk) (spawner spawner))
+(defun handle-spawn (spawner chunk)
   (when (null (adjacent spawner))
     (setf (location spawner) (location spawner)))
   (cond ((null (reflist spawner))
-         (when (find (chunk ev) (adjacent spawner))
+         (when (find chunk (adjacent spawner))
            (setf (reflist spawner)
                  (spawn (location spawner) (spawn-type spawner)
                         :count (spawn-count spawner)
                         :jitter (bsize spawner)))))
-        ((not (find (chunk ev) (adjacent spawner)))
+        ((not (find chunk (adjacent spawner)))
          (dolist (entity (reflist spawner))
            (when (slot-boundp entity 'container)
              (leave* entity T)))
+         (when (auto-deactivate spawner)
+           (setf (active-p spawner) NIL))
          (setf (reflist spawner) ()))))
+
+(defmethod done-p ((spawner spawner))
+  (loop for entity in (reflist spawner)
+        never (slot-boundp entity 'container)))
+
+(defmethod quest:status ((spawner spawner))
+  (if (done-p spawner) :complete :unresolved))
+
+(define-unit-resolver-methods done-p (unit))
+
+(defmethod (setf active-p) :after (state (spawner spawner))
+  (when (and state (unit 'player +world+))
+    (handle-spawn spawner (chunk (unit 'player +world+)))))
+
+(defmethod quest:activate ((spawner spawner))
+  (setf (active-p spawner) T))
+
+(defmethod quest:deactivate ((spawner spawner))
+  (setf (active-p spawner) NIL))
+
+(defmethod handle ((ev switch-chunk) (spawner spawner))
+  (when (active-p spawner)
+    (handle-spawn spawner (chunk ev))))
 
 (defmethod spawn ((location vec2) type &rest initargs &key (count 1) (jitter +tile-size+) &allow-other-keys)
   (let* ((initargs (remf* initargs :count :jitter))

@@ -9,9 +9,8 @@
   (talk-trader
    :title "Talk to Sahil"
    :condition all-complete
-   :on-activate T
    :on-complete (trader-repeat)
-   
+   :on-activate T
    (:interaction talk-to-trader
     :interactable trader
     :variables (small-health medium-health large-health)
@@ -45,21 +44,21 @@
 | Haha, yes sir. Guilty as charged.
 | She's such a great kid, you know? A talented engineer as well. Reminds me of...
 | Er-... well, never mind that.
-| So you’ve come to trade with old Sahil, eh?
+| So you've come to trade with old Sahil, eh?
 ~ player
 - What do you sell?
   ~ trader
   | What doesn't old Sahil sell!
-  | Listen: Catherine told me how you helped her out in the caves - kicked some rogue ass by the sounds of things!
+  | Listen: Catherine told me how you helped her out down here - kicked some rogue ass by the sounds of things!
   < continue
 - What do I need?
   ~ trader
   | I don't know. What kind of work are you doing?
-  | Catherine said you helped her in the caves - kicked some rogue ass by the sounds of things!
+  | Catherine said you helped her out down here - kicked some rogue ass by the sounds of things!
   < continue
 - I think I can manage on my own.
   ~ trader
-  | Nonsense! You helped Catherine in the caves - kicked some rogue ass by the sounds of things!
+  | Nonsense! You helped Catherine out - kicked some rogue ass by the sounds of things!
   < continue
 
 # continue
@@ -69,17 +68,17 @@
 ~ player
 | //Sahil taps his fingers on his left temple.//
 ~ trader
-| Here, I can probably assemble some useful bits and pieces into a handy repair pack for you.
+| Here, I can assemble some useful bits and pieces into a handy repair pack for you.
 ~ player
 | //He turns to the stacks of shelves behind him and rummages around.//
 | //Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//
-| //He crams old circuit boards, clipped wires, and rolls of solder into several tins.//
+| //He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//
 ~ trader
-| Voila! I give you: The Android Health Pack. Custom made just for you.
+| Voila! I give you: The Android Health Pack. Custom made just for you!
 ~ player
 | //It's crude, but I'm sure I can do something with it. If only poke my eye out.//
 ~ trader
-| Go on, take look - don't by shy. And since this is your first time, you can have them free of charge.
+| Go on, take look - don't be shy. And since this is your first time, you can have them free of charge!
 ! label shop
 ~ player
 - [(not (var 'small-health)) //Take a small health pack//|]
@@ -102,11 +101,11 @@
 ~ player
 - It's an electronic stun blade. And I need it.
   ~ trader
-  | Electronic?... That's downright incredible. And it transforms from your arm?
+  | Electronic?... That's downright incredible. And it transforms from your hand?
   < sword-explain
 - It is paired via my NFCS. It's useless to anyone else.
   ~ trader
-  | It's electronic?... That's downright incredible. And it transforms from your arm?
+  | It's electronic?... That's downright incredible. And it transforms from your hand?
   < sword-explain
 - It's not for sale.
   < end
@@ -119,9 +118,8 @@
 # end
 ~ trader
 | Well, if you ever change your mind, don't go to anyone else. I'd trade handsomely for it, you can be sure of that.
-| You take it easy, habeebti.
+| You take it easy, habibti.
 ")))
 
-;; habeebti = dear, my love, buddy (Arabic)
+;; habibti = dear, my love, buddy (Arabic)
 ;; TODO: open shop UI
-;; TODO: rename health packs to something more practical and specific for the stranger, that would exist in this world - solder and circuit boards. (Make it clear with the tooltip for the health pack, and even call them something like Repair Packs)

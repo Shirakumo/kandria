@@ -50,6 +50,10 @@
 (define-asset (kandria shockwave) image
   #p"shockwave-2.png")
 
+(define-asset (kandria heatwave) image
+  #p"heatwave.png"
+  :wrapping :repeat)
+
 (define-asset (kandria scanline) image
   #p"scanline.png"
   :wrapping :clamp-to-edge)
@@ -87,6 +91,7 @@
 (define-sprite debug-door)
 (define-sprite passage)
 (define-sprite effects)
+(define-sprite telephone)
 
 (define-tileset tundra)
 (define-tileset debug)

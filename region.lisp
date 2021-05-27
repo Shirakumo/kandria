@@ -42,6 +42,10 @@
     (enter new scene)
     new))
 
+(defmethod chunk-graph ((region region))
+  (or (slot-value region 'chunk-graph)
+      (setf (chunk-graph region) (make-chunk-graph region))))
+
 (defmethod load-region ((packet packet) (null null))
   (v:info :kandria.region "Loading ~a" packet)
   (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))

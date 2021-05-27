@@ -87,10 +87,6 @@ void main(){
   0.0 0.1 (T (set time-scale :from 1.0 :to 0.2 :ease quint-in))
   1.0 1.2 (T (set time-scale :from 0.2 :to 1.0 :ease quint-out)))
 
-(define-progression stun
-  0.0 0.1 (T (set time-scale :from 1.0 :to 0.5 :ease quint-in))
-  0.2 0.3 (T (set time-scale :from 0.5 :to 1.0 :ease quint-out)))
-
 (define-shader-pass distortion-pass (simple-post-effect-pass)
   ((name :initform 'distortion)
    (active-p :initform NIL)

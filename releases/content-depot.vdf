@@ -6,6 +6,11 @@
     "recursive" "1"
   }
   "FileMapping"{
+    "LocalPath" "lang/*"
+    "DepotPath" "lang/"
+    "recursive" "1"
+  }
+  "FileMapping"{
     "LocalPath" "world/*"
     "DepotPath" "world/"
     "recursive" "1"

@@ -49,12 +49,12 @@
   (:border
    :hidden-p (not (alloy:active-p alloy:renderable)))
   (:background
-   :pattern (ecase alloy:focus
+   :pattern (case alloy:focus
               (:strong (colored:color 0.5 0.5 0.5))
               (:weak (colored:color 0.3 0.3 0.3))
-              ((NIL) (if (alloy:active-p alloy:renderable)
-                         (colored:color 0.3 0.3 0.3)
-                         colors:transparent))))
+              (T (if (alloy:active-p alloy:renderable)
+                     (colored:color 0.3 0.3 0.3)
+                     colors:transparent))))
   (:label
    :pattern (if (alloy:active-p alloy:renderable)
                 colors:white
@@ -93,24 +93,25 @@
     (alloy:enter description widget :constraints `((:below ,header 10) (:left 15) (:right 30) (:height 50)))
     (alloy:enter tasks widget :constraints `((:below ,description 10) (:left 0) (:right 0) (:bottom 0)))
     (dolist (task (quest:active-tasks quest))
-      (alloy:enter (make-instance 'task-widget :value (quest:title task)) tasks))))
+      (when (visible-p task)
+        (alloy:enter (make-instance 'task-widget :value (quest:title task)) tasks)))))
 
 (presentations:define-realization (ui quest-widget)
   ((:bg simple:rectangle)
    (alloy:margins))
   ((:bord simple:rectangle)
    (alloy:margins 0 0 0 (alloy:ph 0.95))
-   :pattern (case (quest:status (quest alloy:renderable))
+   :pattern (ecase (quest:status (quest alloy:renderable))
               (:active colors:accent)
               (:complete colors:dim-gray)
               (:failed colors:dark-red))))
 
 (presentations:define-update (ui quest-widget)
   (:bg
-   :pattern (ecase alloy:focus
+   :pattern (case alloy:focus
               (:strong (colored:color 0.3 0.3 0.3))
               (:weak (colored:color 0.3 0.3 0.3))
-              ((NIL) (colored:color 0.2 0.2 0.2)))))
+              (T (colored:color 0.2 0.2 0.2)))))
 
 (defclass input-label (label)
   ())
@@ -155,8 +156,8 @@
                     (alloy:enter slider ,layout)
                     (alloy:enter slider focus :layer layer))))
       (with-tab (tab (@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
-        (let ((quick (with-button create-quick-save
-                       (save-state +main+ :quick)))
+        (let ((save (with-button save-game
+                       (save-state +main+ T)))
               (resume (with-button resume-game
                         (hide panel)))
               ;; FIXME: Need monospace font.
@@ -164,9 +165,12 @@
           (setf (status-display panel) status)
           (alloy:enter status tab :constraints `((:margin 10)))
           (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
-          (alloy:enter quick tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
           (alloy:enter resume focus :layer layer)
-          (alloy:enter quick focus :layer layer)))
+          (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
+            (when (typep object 'save-point)
+              (alloy:enter save tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
+              (alloy:enter save focus :layer layer)
+              (return)))))
 
       #++
       (with-tab (tab (@ world-map-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
@@ -174,9 +178,11 @@
       
       (with-tab (tab (@ quest-menu) 'alloy:vertical-linear-layout :min-size (alloy:size 300 200))
         (dolist (quest (quest:known-quests (storyline +world+)))
-          (let ((widget (make-instance 'quest-widget :quest quest)))
-            (alloy:enter widget tab)
-            (alloy:enter widget focus :layer layer))))
+          (unless (or (eq :inactive (quest:status quest))
+                      (not (visible-p quest)))
+            (let ((widget (make-instance 'quest-widget :quest quest)))
+              (alloy:enter widget tab)
+              (alloy:enter widget focus :layer layer)))))
       
       (with-tab (tab (@ inventory-menu) 'alloy:border-layout)
         (let ((tabs (make-instance 'vertical-tab-bar :style `((:bg :pattern ,(colored:color 0.12 0.12 0.12)))))
@@ -224,13 +230,8 @@
               (control audio speech-volume (:audio :volume :speech) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
               (control audio music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1))
             (with-options-tab (video (@ video-settings))
-              (let ((modes (sort (delete-duplicates
-                                  (loop for mode in (cl-glfw3:get-video-modes (cl-glfw3:get-primary-monitor))
-                                        collect (list (getf mode '%CL-GLFW3:WIDTH) (getf mode '%CL-GLFW3:HEIGHT)))
-                                  :test #'equal)
-                                 #'> :key #'car))
-                    (apply (make-instance 'button :value (@ apply-video-settings-now) :on-activate 'apply-video-settings)))
-                (control video screen-resolution (:display :resolution) 'alloy:combo-set :value-set modes)
+              (let ((apply (make-instance 'button :value (@ apply-video-settings-now) :on-activate 'apply-video-settings)))
+                (control video screen-resolution (:display :resolution) 'org.shirakumo.fraf.trial.alloy:video-mode)
                 (control video should-application-fullscreen (:display :fullscreen) 'alloy:switch)
                 (control video activate-vsync (:display :vsync) 'alloy:switch)
                 (control video user-interface-scale-factor (:display :ui-scale) 'alloy:ranged-slider :range '(0.25 . 2.0) :step 0.25)
@@ -242,7 +243,8 @@
               (control gameplay screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 1.0)
               (control gameplay text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01)
               (control gameplay auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 1.0)
-              (control gameplay invincible-player (:gameplay :god-mode) 'alloy:switch))
+              (control gameplay invincible-player (:gameplay :god-mode) 'alloy:switch)
+              (control gameplay player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
             (with-options-tab (language (@ language-settings))
               (control language game-language (:language) 'alloy:combo-set :value-set (languages))))))
 
@@ -250,19 +252,21 @@
       (with-tab (tab (@ load-game-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         )
 
-      (with-tab (tab (@ save-and-exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
-        (let ((save (with-button save-and-exit-game
-                      (save-state +main+ T)
-                      (quit *context*)))
+      (with-tab (tab (@ exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
+        (let ((resume (with-button resume-game
+                        (hide panel)))
               (exit (with-button exit-game
                       (quit *context*)))
               (reset (with-button reset-game
-                       (load-state (make-instance 'save-state :filename "initial") +world+)
-                       (hide panel))))
-          (alloy:enter save tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
-          (alloy:enter exit tab :constraints `((:bottom 10) (:right-of ,save 10) (:width 200) (:height 40)))
+                       (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
+                         (let ((scene (make-instance 'world :packet packet)))
+                           (change-scene +main+ scene)
+                           (load-state (initial-state scene) +main+)
+                           (save-state +main+ T))))))
+          (alloy:enter resume tab :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
+          (alloy:enter exit tab :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
           (alloy:enter reset tab :constraints `((:bottom 10) (:right-of ,exit 10) (:width 200) (:height 40)))
-          (alloy:enter save focus :layer layer)
+          (alloy:enter resume focus :layer layer)
           (alloy:enter exit focus :layer layer)
           (alloy:enter reset focus :layer layer))))
     (alloy:finish-structure panel layout focus)))

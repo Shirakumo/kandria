@@ -50,8 +50,8 @@
 (defmethod trigger ((effect camera-effect) source &key)
   (shake-camera :duration (duration effect) :intensity (intensity effect)))
 
-(define-shader-entity shader-effect (located-entity)
-  ())
+(define-shader-entity shader-effect (located-entity effect)
+  ((multiplier :initarg :multiplier :initform 1f0 :accessor multiplier)))
 
 (defmethod trigger :after ((effect shader-effect) (source located-entity) &key location)
   (setf (location effect) (or location (vcopy (location source)))))
@@ -60,9 +60,20 @@
   (let ((region (region +world+)))
     (enter* effect region)))
 
+(defmethod render :before ((effect shader-effect) (program shader-program))
+  (setf (uniform program "multiplier") (multiplier effect)))
+
+(define-class-shader (shader-effect :fragment-shader)
+  "uniform float multiplier = 1.0;
+out vec4 color;
+void main(){
+  color = vec4(color.rgb*multiplier, color.a);
+}")
+
 (define-shader-entity sprite-effect (lit-animated-sprite shader-effect)
   ((offset :initarg :offset :initform (vec 0 0) :accessor offset)
-   (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index))
+   (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index)
+   (particles :initarg :particles :initform () :accessor particles))
   (:default-initargs :sprite-data (asset 'kandria 'effects)))
 
 (defmethod initialize-instance :after ((effect sprite-effect) &key animation)
@@ -76,9 +87,12 @@
     (when (slot-boundp effect 'container)
       (leave* effect T))))
 
-(defmethod trigger :after ((effect sprite-effect) (source facing-entity) &key direction)
+(defmethod trigger :after ((effect sprite-effect) source &key direction)
   (setf (direction effect) (or direction (direction source)))
-  (nv+ (location effect) (offset effect)))
+  (incf (vx (location effect)) (* (direction effect) (vx (offset effect))))
+  (incf (vy (location effect)) (vy (offset effect)))
+  (when (particles effect)
+    (apply #'spawn-particles (location effect) (particles effect))))
 
 (define-shader-entity text-effect (shader-effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
@@ -178,8 +192,12 @@
 (define-effect stab sound-effect
   :voice (// 'kandria 'hit-zombie))
 
-(define-effect ground-hit sound-effect
-  :voice (// 'kandria 'hit-ground))
+(define-effect ground-hit step-effect
+  :voice (// 'kandria 'hit-ground)
+  :animation 'hit2
+  :offset (vec 38 -8)
+  :layer-index 2
+  :multiplier 10.0)
 
 (define-effect zombie-notice sound-effect
   :voice (// 'kandria 'notice-zombie))
@@ -192,7 +210,14 @@
                                              :strength strength)))
     (enter displacer +world+)
     (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+)))
-  (spawn-particles (location effect))
+  (let ((flash (make-instance 'flash :location (location effect)
+                                     :multiplier 1.5
+                                     :time-scale 2.0
+                                     :bsize (vec 96 96)
+                                     :size (vec 96 96)
+                                     :offset (vec 112 96))))
+    (enter flash +world+)
+    (compile-into-pass flash NIL (unit 'lighting-pass +world+)))
   (let* ((distance (expt (vsqrdist2 (location effect) (location (unit 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))
     (when (< 0.1 strength)
@@ -200,7 +225,14 @@
 
 (define-effect explosion explosion-effect
   :voice (// 'kandria 'die-zombie)
-  :animation 'explosion48-grounded)
+  :animation 'explosion48-grounded
+  :particles (list (make-tile-uvs 8 18 128 128)
+                   :amount 16
+                   :scale 4 :scale-var 2
+                   :dir 90 :dir-var 180
+                   :speed 70 :speed-var 100
+                   :life 1.0 :life-var 0.5)
+  :multiplier 1.5)
 
 (define-effect land step-effect
   :voice (// 'kandria 'land-normal)
@@ -208,4 +240,34 @@
   :layer-index 2)
 
 (define-effect spark sprite-effect
-  :animation '(spark1 spark2 spark3))
+  :animation '(spark1 spark2 spark3)
+  :particles (list (make-tile-uvs 8 4 128 128 32)
+                   :amount 16
+                   :speed 70 :speed-var 30
+                   :life 0.3 :life-var 0.2)
+  :multiplier 2.0)
+
+(define-effect hit sprite-effect
+  :animation '(hit1 hit3)
+  :layer-index 2
+  :multiplier 10.0)
+
+(define-asset (kandria sting) mesh
+  (make-rectangle 1000000 1))
+
+(define-shader-entity sting-effect (vertex-entity rotated-entity shader-effect)
+  ((vertex-array :initform (// 'kandria 'sting))
+   (fc :initform 5 :accessor fc)))
+
+(defmethod render :after ((sting sting-effect) program)
+  (when (<= (decf (fc sting)) 0)
+    (let ((*scene* +world+))
+      (leave* sting T))))
+
+(defmethod layer-index ((effect sting-effect)) 2)
+
+(define-class-shader (sting-effect :fragment-shader)
+  "out vec4 color;
+void main(){
+   color = vec4(100,100,100,1);
+}")

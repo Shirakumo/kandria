@@ -108,8 +108,10 @@
   (let ((trace (movement-trace (entity tool))))
     (replace-vertex-data (marker tool)
                          (loop for i from 3 below (length trace) by 2
-                               collect (list (vec (aref trace (- i 3)) (aref trace (- i 2)) 0) (vec 1 0 0 0.1))
-                               collect (list (vec (aref trace (- i 1)) (aref trace (- i 0)) 0) (vec 1 0 0 0.1)))))
+                               for invalid = (or (float-features:float-nan-p (aref trace (- i 3)))
+                                                 (float-features:float-nan-p (aref trace (- i 1))))
+                               unless invalid collect (list (vec (aref trace (- i 3)) (aref trace (- i 2)) 0) (vec 1 0 0 0.1))
+                               unless invalid collect (list (vec (aref trace (- i 1)) (aref trace (- i 0)) 0) (vec 1 0 0 0.1)))))
   (unless (find (marker tool) (alloy:elements (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
     (alloy:enter (marker tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
                  :w (width *context*) :h (height *context*))))

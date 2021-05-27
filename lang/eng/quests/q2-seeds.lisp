@@ -33,7 +33,7 @@
 | //It's an old-world bunker. This must be the storage cache.//
 | //It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before.//
 | //Most of this is spoiled, but some of the closed containers may still have usable seeds.//
-| //Like this one: There are 54 sachets inside. The seeds are in wrappers, tiny and hard like dead insects.//
+| //Like this one: There are 54 sachets inside. The seeds are in wrappers, tiny and hard like grit.//
 | (:skeptical)//Will they still grow?//
 | (:normal)//I stow 54 sachets in my compartment.//
 ! eval (store 'seeds 54)
@@ -83,7 +83,6 @@
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the Noka yourself.
-| God knows we could use another hunter.
 | But for now, please accept this reward as a token of my appreciation.
 ! eval (store 'parts 20)
 ~ fi
@@ -96,7 +95,7 @@
 | | | He'll be in Engineering.
 |   
 | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
-| | It would be wise to be equipped for your work.
+| | You would be wise to equip well for your work.
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")))

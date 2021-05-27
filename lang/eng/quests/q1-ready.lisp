@@ -1,24 +1,26 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(quest:define-task (kandria q1-water ready-catherine)
+(quest:define-quest (kandria q1-ready)
+  :author "Tim White"
   :title "Talk to Catherine"
-  :condition NIL
-  :on-activate (talk-catherine)
-  :on-complete (follow-catherine-water)
-
-  (:interaction talk-catherine
-   :interactable catherine
-   :repeatable T
-   :dialogue "
+  :description "I should let Catherine know when I'm ready to help her fix the leak."
+  :on-activate (q1-ready-chat)
+  (q1-ready-chat
+   :title "Talk to Catherine in Engineering"
+   :condition NIL
+   :on-activate T
+   :on-complete (q1-water)
+   (:interaction talk-catherine
+    :interactable catherine
+    :repeatable T
+    :dialogue "
 ~ catherine
 | You ready to go?
 ~ player
 - I'm ready.
   ~ catherine
   | Alright. Stay close behind me.
-  ! eval (lead 'player 'main-leak-1 (unit 'catherine))
-  ! eval (walk-n-talk 'catherine-walktalk1)
   ! eval (deactivate interaction)
   ! eval (complete task)
 - Not yet.
@@ -36,16 +38,9 @@
     | Good. Well...
   - My systems are currently sub-optimal.
     ~ catherine
-    | Well, I'm not surprised. Though I don't think there's much I can do about that. Sorry.
+    | Years unconscious in a cave will do that. I don't think there's much I can do about it right now though. Sorry.
   ~ catherine
-  | Let me know when you're ready to head out. But we can't afford to wait long.
-")
-
-  (:interaction catherine-walktalk1
-   :interactable catherine
-   :dialogue "
-! eval (complete 'catherine-walktalk1)
---
-~ catherine
-| (:shout)Catch me if you can!
-"))
+  | Let me know when you're ready to head out. But we can't afford to wait too long.
+  ")
+  )
+)

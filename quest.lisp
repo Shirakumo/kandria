@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass place-marker (sized-entity resizable ephemeral)
+(defclass place-marker (sized-entity resizable ephemeral dialog-entity)
   ((name :accessor name)))
 
 (defmethod compile-to-pass (pass (marker place-marker)))
@@ -13,7 +13,8 @@
   (setf (location entity) (location (unit name +world+))))
 
 (defclass quest (quest:quest alloy:observable)
-  ((clock :initarg :clock :initform 0f0 :accessor clock)))
+  ((clock :initarg :clock :initform 0f0 :accessor clock)
+   (visible-p :initarg :visible :initform T :accessor visible-p)))
 
 (alloy:make-observable '(setf clock) '(value alloy:observable))
 (alloy:make-observable '(setf quest:status) '(value alloy:observable))
@@ -21,21 +22,23 @@
 (defmethod quest:class-for ((storyline (eql 'quest:quest))) 'quest)
 
 (defmethod quest:activate :after ((quest quest))
-  (status :important "New quest: ~a" (quest:title quest))
-  (save-state +main+ (state +main+))
+  (when (visible-p quest)
+    (status :important "New quest: ~a" (quest:title quest)))
   (setf (clock quest) 0f0))
 
 (defmethod quest:complete :after ((quest quest))
-  (status :important "Quest completed: ~a" (quest:title quest)))
+  (when (visible-p quest)
+    (status :important "Quest completed: ~a" (quest:title quest))))
 
 (defmethod quest:fail :after ((quest quest))
-  (status :important "Quest failed: ~a" (quest:title quest)))
+  (when (visible-p quest)
+    (status :important "Quest failed: ~a" (quest:title quest))))
 
 (defmethod quest:make-assembly ((_ quest))
   (make-instance 'assembly))
 
 (defclass task (quest:task)
-  ())
+  ((visible-p :initarg :visible :initform T :accessor visible-p)))
 
 (defmethod quest:class-for ((storyline (eql 'quest:task))) 'task)
 
@@ -43,7 +46,8 @@
   (make-instance 'assembly))
 
 (defclass interaction (quest:interaction)
-  ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)))
+  ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)
+   (auto-trigger :initform NIL :initarg :auto-trigger :accessor auto-trigger)))
 
 (defmethod quest:class-for ((storyline (eql 'quest:interaction))) 'interaction)
 
@@ -52,21 +56,26 @@
 
 (defmethod quest:activate ((trigger interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
-    (let ((interactable (unit (quest:interactable trigger) +world+)))
-      (when (typep interactable 'interactable)
-        (pushnew trigger (interactions interactable))))))
+    (when +world+
+      (if (auto-trigger trigger)
+          (interact trigger T)
+          (let ((interactable (unit (quest:interactable trigger) +world+)))
+            (when (typep interactable 'interactable)
+              (pushnew trigger (interactions interactable))))))))
 
 (defmethod quest:deactivate :around ((trigger interaction))
   (call-next-method)
-  (let ((interactable (unit (quest:interactable trigger) +world+)))
-    (when (typep interactable 'interactable)
-      (setf (interactions interactable) (remove trigger (interactions interactable))))))
+  (when +world+
+    (let ((interactable (unit (quest:interactable trigger) +world+)))
+      (when (typep interactable 'interactable)
+        (setf (interactions interactable) (remove trigger (interactions interactable)))))))
 
 (defmethod quest:complete ((trigger interaction))
-  (let ((interactable (unit (quest:interactable trigger) +world+)))
-    (when (and (typep interactable 'interactable)
-               (not (repeatable-p trigger)))
-      (setf (interactions interactable) (remove trigger (interactions interactable))))))
+  (when +world+
+    (let ((interactable (unit (quest:interactable trigger) +world+)))
+      (when (and (typep interactable 'interactable)
+                 (not (repeatable-p trigger)))
+        (setf (interactions interactable) (remove trigger (interactions interactable)))))))
 
 (defclass stub-interaction (interaction)
   ((quest:dialogue :initform NIL :accessor quest:dialogue)
@@ -74,7 +83,6 @@
    (quest:name :initform 'stub)))
 
 (defmethod initialize-instance :after ((interaction stub-interaction) &key dialogue)
-  ;; FIXME: use real lexinv...
   (with-trial-io-syntax ()
     (setf (quest:dialogue interaction) (dialogue:compile* dialogue))))
 
@@ -112,6 +120,8 @@
                (move-to target unit)
                (when (typep unit 'ai-entity)
                  (setf (ai-state unit) :move-to)))
+             (location (thing)
+               (location (unit thing +world+)))
              ((setf location) (loc thing)
                (setf (location (unit thing +world+)) loc)))
        ,form)))
@@ -142,11 +152,11 @@
              (failed-p (&rest things)
                (loop for thing in things always (eql :failed (quest:status (thing thing)))))
              (walk-n-talk (thing)
-               (walk-n-talk (quest:find-named thing ,task)))
+               (walk-n-talk (if (stringp thing) thing (quest:find-named thing ,task))))
              (interrupt-walk-n-talk (thing)
                (interrupt-walk-n-talk (quest:find-named thing ,task))))
        (symbol-macrolet ,(loop for variable in (quest:list-variables task)
-                               collect `(,variable (var ,variable)))
+                               collect `(,variable (var ',variable)))
          ,(global-wrap-lexenv form)))))
 
 (defmethod quest:compile-form ((task task) form)
@@ -169,7 +179,7 @@
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
      ,(task-wrap-lexenv form (interaction assembly))))
 
-(defmethod load-language :after (&optional (language (setting :language)))
+(defun load-quests (&optional (language (setting :language)))
   (let ((dir (language-dir language)))
     (cl:load (merge-pathnames "storyline.lisp" dir))
     (dolist (file (directory (merge-pathnames "quests/**/*.lisp" dir)))
@@ -179,3 +189,64 @@
                      (sb-ext:code-deletion-note #'muffle-warning)
                      (sb-kernel:redefinition-warning #'muffle-warning))
         (cl:load file)))))
+
+(defmacro define-sequence-quest ((storyline name) &body body)
+  (let ((counter 0))
+    (labels ((parse-sequence-form (form name next)
+               (match1 form
+                 (:have ((item &optional (count 1)) . initargs)
+                        `((,name
+                           ,@initargs
+                           :condition (have ',item ,count)
+                           :on-complete ,next)))
+                 (:go-to ((place &key lead follow) . body)
+                         (form-fiddle:with-body-options (body initargs) body
+                           `((,name
+                              ,@initargs
+                              :condition (nearby-p ',place 'player)
+                              :on-activate (action)
+                              :on-complete ,next
+                              (:action action
+                                       ,@(if lead `((lead 'player ',place ',lead)))
+                                       ,@(if follow `((follow 'player ',follow)))
+                                       ,@(if body `((walk-n-talk (progn ,@body)))))))))
+                 (:interact ((with &key now) . body)
+                            (form-fiddle:with-body-options (body initargs) body
+                              `((,name
+                                 ,@initargs
+                                 ,@(when now `(:title ,(format NIL "Listen to ~a" with)))
+                                 :condition (complete-p 'interaction)
+                                 :on-activate (interaction)
+                                 :on-complete ,next
+                                 (:interaction interaction
+                                  :interactable ,with
+                                  :auto-trigger ,now
+                                               ,@body)))))
+                 (:complete ((thing) . body)
+                            (form-fiddle:with-body-options (body initargs) body
+                              `((,name
+                                 ,@initargs
+                                 :condition (complete-p (or (unit ',thing) ',thing))
+                                 :on-activate (action)
+                                 :on-complete ,next
+                                 (:action action
+                                          (activate (or (unit ',thing) ',thing))
+                                          ,@(if body `((walk-n-talk (progn ,@body)))))))))))
+             (sequence-form-name (form)
+               (trial::mksym *package* (incf counter) :- (first form) :- (unlist (second form))))
+             (parse-sequence-to-tasks (forms)
+               (let ((forms (loop for form in forms
+                                  collect (list (sequence-form-name form) form))))
+                 (loop for (form next) on forms
+                       append (parse-sequence-form (second form) (first form) (enlist (first next)))))))
+      (form-fiddle:with-body-options (body initargs) body
+        (let ((tasks (parse-sequence-to-tasks body)))
+          `(quest:define-quest (,storyline ,name)
+             ,@initargs
+             :on-activate (,(caar tasks))
+             ,@tasks))))))
+
+(defmethod load-language :after (&optional (language (setting :language)))
+  (load-quests language))
+
+(load-quests :eng)

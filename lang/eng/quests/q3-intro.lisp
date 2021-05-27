@@ -33,7 +33,7 @@
 | Anyway, you can do something for me.
 | Fi wants to scout for a new home - I guess she's worried sick now the Wraw are breathing down our necks.
 | Well as you can see, I'm no scout. I guess I just don't have the physique for it.
-| Alex is our hunter, but God knows where they are. So it's up to you... Stranger.
+| Alex is our hunter, but God knows where they are. So it's up to you... (:annoyed)Stranger.
 ~ player
 - Lucky me.
   ~ jack

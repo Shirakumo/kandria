@@ -4,7 +4,7 @@
   ((status :initarg :status :initform :inactive :accessor status)
    (author :initarg :author :accessor author)
    (storyline :initarg :storyline :reader storyline)
-   (tasks :initform (make-hash-table :test 'eq) :reader tasks)
+   (tasks :initform (make-hash-table :test 'eql) :reader tasks)
    (on-activate :initarg :on-activate :accessor on-activate)
    (active-tasks :initform () :accessor active-tasks)))
 
@@ -15,7 +15,9 @@
 (defmethod class-for ((storyline (eql 'quest))) 'quest)
 
 (defmethod reset progn ((quest quest))
-  (setf (status quest) :inactive))
+  (setf (status quest) :inactive)
+  (loop for task being the hash-values of (tasks quest)
+        do (reset task)))
 
 (defmethod parent ((quest quest))
   (storyline quest))

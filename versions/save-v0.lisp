@@ -35,25 +35,30 @@
            (initargs (ignore-errors (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
                                                                       packet :element-type 'character))))))
       (when initargs (decode region initargs))
-      (decode (storyline world)))))
+      (setf (storyline world) (decode 'quest:storyline)))))
 
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
                              :element-type 'character)
-    (princ* `(:variables ,(encode-payload 'bindings (quest:bindings quest:storyline) packet save-v0)) stream)
+    (princ* `(,(quest:name quest:storyline)
+              :variables ,(encode-payload 'bindings (quest:bindings quest:storyline) packet save-v0)) stream)
     (loop for quest being the hash-values of (quest:quests quest:storyline)
           do (princ* (encode quest) stream))))
 
 (define-decoder (quest:storyline save-v0) (_b packet)
-  (destructuring-bind ((&key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
-                                                                     :element-type 'character))
-    (quest:merge-bindings quest:storyline (decode-payload variables 'bindings packet save-v0))
-    (loop for (name . initargs) in quests
-          for quest = (handler-case (quest:find-quest name quest:storyline)
-                        (error ()
-                          (v:warn :kandria.save "Reference to unknown quest ~s, ignoring!" name)
-                          NIL))
-          do (when quest (decode quest initargs)))))
+  (destructuring-bind ((storyline &key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
+                                                                                       :element-type 'character))
+    (let ((storyline (quest:find-named storyline T)))
+      (v:with-muffled-logging ()
+        (quest:reset storyline))
+      (quest:merge-bindings storyline (decode-payload variables 'bindings packet save-v0))
+      (loop for (name . initargs) in quests
+            for quest = (handler-case (quest:find-quest name storyline)
+                          (error ()
+                            (v:warn :kandria.save "Reference to unknown quest ~s, ignoring!" name)
+                            NIL))
+            do (when quest (decode quest initargs)))
+      storyline)))
 
 (define-encoder (quest:quest save-v0) (buffer _p)
   (list (quest:name quest:quest)
@@ -65,16 +70,26 @@
 
 (define-decoder (quest:quest save-v0) (initargs packet)
   (destructuring-bind (&key status (clock 0.0) tasks bindings) initargs
-    (setf (quest:status quest:quest) status)
+    (cond (tasks
+           (setf (quest:status quest:quest) status)
+           (loop for (name . initargs) in tasks
+                 for task = (handler-case (quest:find-task name quest:quest)
+                              (error ()
+                                (v:warn :kandria.save "Reference to unknown task ~s, ignoring!" name)
+                                NIL))
+                 do (when task (decode task initargs))))
+          (T
+           ;; KLUDGE: we only do this if there's no task state saved as we then want to
+           ;;         achieve the default changes from the quest definition. Typically
+           ;;         from loading the initial state.
+           (setf (quest:status quest:quest) :inactive)
+           (ecase status
+             (:inactive)
+             (:active (quest:activate quest:quest))
+             (:complete (quest:complete quest:quest))
+             (:failed (quest:fail quest:quest)))))
     (setf (clock quest:quest) clock)
-    (quest:merge-bindings quest:quest (decode-payload bindings 'bindings packet save-v0))
-    ;; FIXME: Quests not saved in the state won't be reset to initial state.
-    (loop for (name . initargs) in tasks
-          for task = (handler-case (quest:find-task name quest:quest)
-                       (error ()
-                         (v:warn :kandria.save "Reference to unknown task ~s, ignoring!" name)
-                         NIL))
-          do (when task (decode task initargs)))))
+    (quest:merge-bindings quest:quest (decode-payload bindings 'bindings packet save-v0))))
 
 (define-encoder (quest:task save-v0) (_b _p)
   (list (quest:name quest:task)
@@ -158,20 +173,20 @@
                  (for:for ((entity over parent))
                    (typecase entity
                      ((not ephemeral)
-                      (leave* entity parent))
+                      (leave entity parent))
                      (container (recurse entity))))))
         (recurse region)))
-    ;; Add new entities that exist in the state
-    (loop for (type . state) in create-new
-          for entity = (with-simple-restart (continue "Ignore this entity.")
-                         (decode-payload state (make-instance type) packet save-v0))
-          do (when entity (enter* entity region)))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
           for unit = (unit name region)
           do (if unit
                  (decode unit state)
                  (error "Unit named ~s referenced but not found." name)))
+    ;; Add new entities that exist in the state
+    (loop for (type . state) in create-new
+          for entity = (with-simple-restart (continue "Ignore this entity.")
+                         (decode-payload state (make-instance type) packet save-v0))
+          do (when entity (enter entity region)))
     region))
 
 (define-encoder (animatable save-v0) (_b _p)
@@ -276,3 +291,9 @@
 
 (define-decoder (item save-v0) (initargs _p)
   (setf (location item) (decode (getf initargs :location) 'vec2)))
+
+(define-encoder (spawner save-v0) (_b _p)
+  `(:active-p ,(active-p spawner)))
+
+(define-decoder (spawner save-v0) (initargs _p)
+  (setf (active-p spawner) (getf initargs :active-p)))

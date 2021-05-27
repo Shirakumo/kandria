@@ -26,11 +26,13 @@
         do (setf (harmony:volume k) v)))
 
 (defmethod update ((main main) tt dt fc)
-  (issue (scene main) 'tick :tt tt :dt (* (time-scale (scene main)) (float dt 1.0)) :fc fc)
-  (process (scene main)))
-
-(defmethod setup-rendering :after ((main main))
-  (disable :cull-face :scissor-test :depth-test))
+  (let* ((scene (scene main))
+         (dt (* (time-scale scene) (float dt 1.0))))
+    (when (< 0 (pause-timer scene))
+      (decf (pause-timer scene) dt)
+      (setf dt (* dt 0.05)))
+    (issue (scene main) 'tick :tt tt :dt dt :fc fc)
+    (process (scene main))))
 
 (defmethod (setf scene) :after (scene (main main))
   (setf +world+ scene))
@@ -57,19 +59,20 @@
 (defmethod load-state ((state (eql T)) (main main))
   (cond ((state main)
          (if (< (save-time (state main)) (save-time (quicksave main)))
-             (load-state (quicksave main) (scene main))
-             (load-state (state main) (scene main))))
+             (load-state (quicksave main) main)
+             (load-state (state main) main)))
         ((list-saves)
          (load-state (first (list-saves)) main))
         (T
          (load-state (initial-state (scene main)) (scene main))
-         (save-state (scene main) (make-instance 'save-state :filename "initial")))))
+         (trial:commit (scene main) (loader main)))))
 
 (defmethod load-state ((state (eql :quick)) (main main))
   (load-state (quicksave main) (scene main)))
 
 (defmethod load-state ((state save-state) (main main))
   (prog1 (load-state state (scene main))
+    (trial:commit (scene main) (loader main))
     (unless (typep state 'quicksave-state)
       (setf (state main) state))))
 
@@ -138,20 +141,17 @@
   (show (make-instance 'status-lines))
   (when (deploy:deployed-p)
     (show (make-instance 'report-button-panel)))
-  (load-state T main)
-  (save-state main (quicksave main))
-  (save-state main T)
   (enter (make-instance 'fade) scene))
 
-(defmethod change-scene :after ((main main) scene &key)
-  (let ((region (region scene)))
-    (when region
-      (setf (chunk-graph region) (make-chunk-graph region)))))
+(defmethod setup-rendering :after ((main main))
+  (disable :cull-face :scissor-test :depth-test)
+  (load-state T main)
+  (save-state main (quicksave main))
+  (save-state main T))
 
 (defun apply-video-settings ()
-  (destructuring-bind (&key resolution width height fullscreen vsync ui-scale &allow-other-keys) (setting :display)
-    (resize *context* (or width (first resolution)) (or height (second resolution)))
-    (show *context* :fullscreen fullscreen)
+  (destructuring-bind (&key resolution fullscreen vsync ui-scale &allow-other-keys) (setting :display)
+    (show *context* :fullscreen fullscreen :mode resolution)
     (setf (vsync *context*) vsync)
     (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))
 

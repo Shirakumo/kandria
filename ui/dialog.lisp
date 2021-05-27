@@ -32,21 +32,20 @@
     (alloy:enter nametag layout :constraints `((:left 20) (:above ,textbox 0) (:height 30) (:width 300)))
     (alloy:enter prompt layout :constraints `((:right 20) (:bottom 20) (:size 100 30)))
     (alloy:finish-structure dialog layout (choices dialog))
-    ;; If we only have one, activate "one shot mode"
-    (when (null (rest (interactions dialog)))
-      (setf (quest:status (first (interactions dialog))) :active)
-      (setf (one-shot dialog) T)
-      (setf (interaction dialog) (first (interactions dialog))))))
+    (setf (interactions dialog) (interactions dialog))))
 
 (defmethod show :after ((dialog dialog) &key)
-  (setf (intended-zoom (unit :camera T)) 1.5)
+  (when (= 1.0 (intended-zoom (unit :camera T)))
+    (setf (intended-zoom (unit :camera T)) 1.5))
   (setf (clock-scale +world+) (/ (clock-scale +world+) 2))
   (interrupt-walk-n-talk NIL)
   (walk-n-talk NIL)
+  (setf (animation (unit 'player T)) 'stand)
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((dialog dialog))
-  (setf (intended-zoom (unit :camera T)) 1.0)
+  (when (= 1.5 (intended-zoom (unit :camera T)))
+    (setf (intended-zoom (unit :camera T)) 1.0))
   (setf (clock-scale +world+) (* (clock-scale +world+) 2))
   (clear-retained)
   (discard-events +world+)
@@ -55,7 +54,18 @@
 (defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
   (dialogue:run (quest:dialogue interaction) (vm dialog)))
 
+(defmethod (setf interactions) :after (list (dialog dialog))
+  ;; If we only have one, activate "one shot mode"
+  (cond ((and list (null (rest list)))
+         (setf (quest:status (first list)) :active)
+         (setf (interaction dialog) (first list))
+         (setf (one-shot dialog) T))
+        (T
+         (setf (one-shot dialog) NIL))))
+
 (defmethod next-interaction ((dialog dialog))
+  (when (interaction dialog)
+    (quest:complete (interaction dialog)))
   (setf (ip dialog) 0)
   (let ((interactions (loop for interaction in (interactions dialog)
                             when (or (repeatable-p interaction)
@@ -104,3 +114,11 @@
 (defmethod (setf choices) :after ((choices null) (dialog dialog))
   (org.shirakumo.alloy.layouts.constraint:suggest
    (alloy:layout-element dialog) (choices dialog) :w (alloy:un 0)))
+
+(defmethod interact ((string string) target)
+  (interact (make-instance 'stub-interaction :dialogue string) target))
+
+(defmethod interact ((interaction interaction) target)
+  (let ((dialog (or (find-panel 'dialog)
+                    (show (make-instance 'dialog)))))
+    (setf (interactions dialog) (list interaction))))

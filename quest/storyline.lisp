@@ -11,6 +11,10 @@
 
 (defmethod class-for ((storyline (eql 'storyline))) 'storyline)
 
+(defmethod reset progn ((storyline storyline))
+  (loop for quest being the hash-values of (quests storyline)
+        do (reset quest)))
+
 (defmethod activate ((storyline storyline))
   (etypecase (on-activate storyline)
     (list
@@ -45,6 +49,13 @@
             thereis (find-task name quest NIL))
       (when error (error "No task named ~s found." name))))
 
+(defmethod find-named (name (any (eql T)) &optional (error T))
+  (or (storyline name)
+      (when error (error "No storyline named ~s found." name))))
+
+(defmethod storyline ((name (eql T)))
+  (first *storylines*))
+
 (defmethod storyline ((name symbol))
   (find name *storylines* :key #'name))
 
@@ -64,15 +75,43 @@
                           ,@options))
        ',name)))
 
-(defun print-storyline (storyline &optional (stream *standard-output*))
+(defun print-storyline (storyline &key (stream *standard-output*) (status T) (active-only NIL))
   (let ((storyline (etypecase storyline
                      (symbol (storyline storyline))
                      (storyline storyline))))
-    (flet ((out (f &rest a) (format stream "~&~?~%" f a)))
+    (labels ((out (f &rest a) (format stream "~&~?~%" f a))
+             (check (thing) (and (or (eql status T) (eql status (status thing)))
+                                 (or (not active-only) (active-p thing))))
+             (line (spaces prefix thing)
+               (out "~a~a ~a ~a~50t[~a]~{~%~{~a   ~a~}~}" spaces prefix (type-of thing) (name thing) (status thing)
+                    (when (typep thing 'scope) (loop for binding in (bindings thing)
+                                                     collect (list spaces binding))))))
       (out "STORYLINE ~a" (name storyline))
       (loop for quest being the hash-values of (quests storyline)
-            do (out " => QUEST ~a~50t[~a]" (name quest) (status quest))
-               (loop for task being the hash-values of (tasks quest)
-                     do (out "  -> TASK ~a~50t[~a]" (name task) (status task))
-                        (loop for trigger being the hash-values of (triggers task)
-                              do (out "    > ~a ~a~50t[~a]" (type-of trigger) (name trigger) (status trigger))))))))
+            do (when (check quest)
+                 (line " " "=>" quest)
+                 (loop for task being the hash-values of (tasks quest)
+                       do (when (check task)
+                            (line "  " "->" task)
+                            (loop for trigger being the hash-values of (triggers task)
+                                  do (when (check trigger)
+                                       (line "    " ">" trigger))))))))))
+
+(defun %update (&rest changes)
+  (loop for (thing state) on changes by #'cddr
+        for object = (etypecase thing
+                       ((eql T) (storyline T))
+                       (symbol (find-quest thing (storyline T)))
+                       (list
+                        (loop for name in list
+                              for object = (find-named name T) then (find-named name object T)
+                              finally (return object))))
+        do (ecase state
+             (:active (activate object))
+             (:inactive (deactivate object))
+             (:complete (complete object))
+             (:failed (fail object))))
+  (print-storyline T :active-only T))
+
+(defmacro update (&rest changes)
+  `(%update ,@(loop for change in changes collect `',change)))

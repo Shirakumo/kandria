@@ -19,13 +19,11 @@
 
 (define-action toggle-editor ())
 (define-action toggle-menu ())
+(define-action screenshot ())
+(define-action report-bug ())
+(define-action toggle-diagnostics ())
 
 (define-action-set in-game (exclusive-action-set))
-(define-action toggle-diagnostics (in-game))
-(define-action screenshot (in-game))
-(define-action report-bug (in-game))
-(define-action quicksave (in-game))
-(define-action quickload (in-game))
 (define-action quickmenu (in-game))
 (define-action interact (in-game))
 (define-action jump (in-game))

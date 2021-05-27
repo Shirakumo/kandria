@@ -1,5 +1,5 @@
 (asdf:defsystem kandria
-  :version "0.2.0"
+  :version "0.1.1"
   :build-operation "deploy-op"
   :build-pathname #+linux "kandria-linux.run"
                   #+darwin "kandria-macos.o"
@@ -87,6 +87,7 @@
                              (:file "chunk")
                              (:file "remesh")
                              (:file "entity")
+                             (:file "selector")
                              (:file "creator")
                              (:file "animation")
                              (:file "move-to"))))

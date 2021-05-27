@@ -107,7 +107,9 @@
 (defmethod handle :around ((ev event) (pass ui-pass))
   (unless (call-next-method)
     (dolist (panel (panels pass))
-      (handle ev panel))))
+      (handle ev panel)
+      (when (typep panel 'pausing-panel)
+        (return)))))
 
 (defmethod handle ((ev accept) (pass ui-pass))
   (alloy:handle (make-instance 'alloy:activate) pass))
@@ -120,6 +122,10 @@
 
 (defmethod handle ((ev previous) (pass ui-pass))
   (alloy:handle (make-instance 'alloy:focus-prev) pass))
+
+(defmethod handle ((ev text-entered) (pass ui-pass))
+  (or (call-next-method)
+      (process-cheats (text ev))))
 
 (defmethod stage ((pass ui-pass) (area staging-area))
   (call-next-method)

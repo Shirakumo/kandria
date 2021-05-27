@@ -44,10 +44,13 @@
   ((texture :initform (// 'kandria 'items))
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)
-   (velocity :initform (vec 0 0))))
+   (velocity :initform (vec 0 0))
+   (light :initform NIL :accessor light)))
 
 (defmethod spawn :before ((region region) (item item) &key)
-  (vsetf (velocity item) (* (- (* 2 (random 2)) 1) (random* 2 1)) (random* 5 3)))
+  (vsetf (velocity item)
+         (* (- (* 2 (random 2)) 1) (random* 2 1))
+         (random* 4 2)))
 
 (defmethod item-order ((_ item)) 0)
 
@@ -57,12 +60,30 @@
 
 (defmethod handle :before ((ev tick) (item item))
   (nv+ (velocity item) (v* (gravity (medium item)) (dt ev)))
-  (nv+ (frame-velocity item) (velocity item)))
+  (nv+ (frame-velocity item) (velocity item))
+  (when (light item)
+    (vsetf (location (light item))
+           (vx (location item))
+           (+ 12 (vy (location item))))
+    (when (= 0 (mod (fc ev) 5))
+      (setf (multiplier (light item)) (random* 1.0 0.2)))))
 
 (defmethod collide :after ((item item) (block block) hit)
-  (vsetf (velocity item) 0 0))
+  (vsetf (velocity item) 0 0)
+  (unless (light item)
+    (let ((light (make-instance 'textured-light :location (nv+ (vec 0 16) (location item))
+                                                :multiplier 1.0
+                                                :bsize (vec 32 32)
+                                                :size (vec 64 64)
+                                                :offset (vec 0 144))))
+      (setf (light item) light)
+      (setf (container light) +world+)
+      (compile-into-pass light NIL (unit 'lighting-pass +world+)))))
 
 (defmethod interact ((item item) (inventory inventory))
+  (when (light item)
+    (remove-from-pass (light item) (unit 'lighting-pass +world+))
+    (setf (light item) NIL))
   (store item inventory)
   (status "Received ~a" (language-string (type-of item)))
   (leave* item T))
@@ -118,34 +139,37 @@
            :location (vec (+ (vx (location animatable)))
                           (+ (vy (location animatable)) 8 (vy (bsize animatable))))))
 
-(define-shader-entity small-health-pack (health-pack) ())
+(define-shader-entity small-health-pack (health-pack)
+ ((offset :initform (vec 0 0))))
 (defmethod health ((_ small-health-pack)) 10)
 (defmethod item-order ((_ small-health-pack)) 0)
 
-(define-shader-entity medium-health-pack (health-pack) ())
+(define-shader-entity medium-health-pack (health-pack)
+ ((offset :initform (vec 0 0))))
 (defmethod health ((_ medium-health-pack)) 25)
 (defmethod item-order ((_ medium-health-pack)) 1)
 
-(define-shader-entity large-health-pack (health-pack) ())
+(define-shader-entity large-health-pack (health-pack)
+ ((offset :initform (vec 0 0))))
 (defmethod health ((_ large-health-pack)) 50)
 (defmethod item-order ((_ large-health-pack)) 2)
 
 ; VALUE ITEMS
 (define-shader-entity parts (item value-item)
-  ((offset :initform (vec 16 8))))
+  ((offset :initform (vec 8 16))))
 
 ; QUEST ITEMS
 (define-shader-entity seeds (item quest-item)
   ((offset :initform (vec 16 16))))
 (define-shader-entity mushroom-good-1 (item quest-item)
-  ((offset :initform (vec 8 0))))
+  ((offset :initform (vec 24 8))))
 (define-shader-entity mushroom-good-2 (item quest-item)
-  ((offset :initform (vec 8 8))))
+  ((offset :initform (vec 32 8))))
 (define-shader-entity mushroom-bad-1 (item quest-item)
-  ((offset :initform (vec 8 24))))
+  ((offset :initform (vec 16 8))))
 (define-shader-entity walkie-talkie (item quest-item)
-  ((offset :initform (vec 16 16))))
+  ((offset :initform (vec 0 0))))
 
 ; SPECIAL ITEMS
 (define-shader-entity can (item special-item)
-  ((offset :initform (vec 16 0))))
+  ((offset :initform (vec 0 16))))

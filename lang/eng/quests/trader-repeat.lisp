@@ -5,6 +5,7 @@
   :author "Tim White"
   :title "Trade"
   :description "If I want to trade items, I should find Sahil in the Midwest Market, beneath the Hub."
+  :visible NIL
   :on-activate T
   :variables ((small-health-qty 10) (medium-health-qty 5) (large-health-qty 2))
   
@@ -18,13 +19,13 @@
     :repeatable T
     :dialogue "
 ~ trader
-| Assalam Alaikum!
+| Assalam alaikum!
 ? (< 80  (health player))
-| | [? You look well, Stranger! | And how robust you're looking today! | I don't think I've seen you looking more radiant.]
+| | [? You look well, Stranger! | And how robust you're looking! | I don't think I've seen you looking better.]
 |? (< 50  (health player))
-| | [? Have you been fighting, Stranger? | Something's different - you're missing your usual refined appearance. | Let me guess - you've been pounding rogues again?]
+| | [? Have you been fighting, Stranger? | Are you alright? You look a little... worse for wear. | You've been pounding rogues, haven't you?]
 |?
-| | [? Though I think you've seen better days... | You look like you could really use my help today. | You look like you've been dragged throgh the desert backwards... | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
+| | [? Though I think you've seen better days... | You look like you could really use my help. | You look like you've been dragged through the desert backwards... | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label shop
 ~ player
 - I'd like to trade.
@@ -34,7 +35,7 @@
   - //Buy//
     ! label buy
     ~ player
-    - //Small HP (I have {(item-count 'small-health-pack)}) - 4$//
+    - //Small HP (I own {(item-count 'small-health-pack)}) - 4$//
       ? (and (<= 4 (item-count 'parts)) (< 0 (var 'small-health-qty)))
       | ! eval (retrieve 'parts 4)
       | ! eval (store 'small-health-pack 1)
@@ -47,7 +48,7 @@
       | < cannot-afford
       |?
       | < out-of-stock
-    - //Medium HP (I have {(item-count 'medium-health-pack)}) - 10$//
+    - //Medium HP (I own {(item-count 'medium-health-pack)}) - 10$//
       ? (and (<= 10 (item-count 'parts)) (< 0 (var 'medium-health-qty)))
       | ! eval (retrieve 'parts 10)
       | ! eval (store 'medium-health-pack 1)
@@ -60,7 +61,7 @@
       | < cannot-afford
       |?
       | < out-of-stock
-    - //Large HP (I have {(item-count 'large-health-pack)}) - 20$//
+    - //Large HP (I own {(item-count 'large-health-pack)}) - 20$//
       ? (and (<= 20 (item-count 'parts)) (< 0 (var 'large-health-qty)))
       | ! eval (retrieve 'parts 20)
       | ! eval (store 'large-health-pack 1)
@@ -78,17 +79,17 @@
   - //Sell//
     ! label sell
     ~ player
-    - [(have 'small-health-pack) //Small HP for 2$ (I have {(item-count 'small-health-pack)})//|]
-      ! eval (retrieve 'small-health-pack 1)
+    - [(have 'mushroom-bad-1) //Black knight (I own {(item-count 'mushroom-bad-1)}) - 2$//|]
       ! eval (store 'parts 2)
+      ! eval (retrieve 'mushroom-bad-1 1)
       < sell
-    - [(have 'medium-health-pack) //Medium HP for 5$ (I have {(item-count 'medium-health-pack)})//|]
-      ! eval (retrieve 'medium-health-pack 1)
-      ! eval (store 'parts 5)
+    - [(have 'mushroom-good-1) //Flower fungus (I own {(item-count 'mushroom-good-1)}) - 1$//|]
+      ! eval (store 'parts 1)
+      ! eval (retrieve 'mushroom-good-1 1)
       < sell
-    - [(have 'large-health-pack) //Large HP for 10$ (I have {(item-count 'large-health-pack)})//|]
-      ! eval (retrieve 'large-health-pack 1)
-      ! eval (store 'parts 10)
+    - [(have 'mushroom-good-2) //Rusty puffball (I own {(item-count 'mushroom-good-2)}) - 1$//|]
+      ! eval (store 'parts 1)
+      ! eval (retrieve 'mushroom-good-2 1)
       < sell
     - [(have 'walkie-talkie) //Walkie-talkie for 150$//|]
       ! eval (retrieve 'walkie-talkie 1)
@@ -97,28 +98,21 @@
       | Hey, where'd you get that? These things are almost priceless.
       | Not for old Sahil, of course.
       < sell
-    - [(have 'mushroom-bad-1) //Black knights ({(item-count 'mushroom-bad-1)}) for {(* (item-count 'mushroom-bad-1) 20)}$//|]
-      ! eval (store 'parts (* (item-count 'mushroom-bad-1) 20))
-      ! eval (retrieve 'mushroom-bad-1 (item-count 'mushroom-bad-1))
-      ~ trader
-      | It's true, black knights are poisonous to consume.
-      | But there are some in the Valley who... Let's just say they have other uses for them.
-      < sell
-    - //Nothing to sell//
+    - I'm done.
       < shop
-  - I changed my mind.
-    < changed-mind
-- Can we talk.
+  - That'll do.
+    < return
+- Can we talk?
   ~ trader
-  | [? Of course, habeebti - always. | We can indeed. | What's on your mind? | I love to chat.]
+  | [? Of course, habibti - always. | We can indeed. | What's on your mind? | I love to chat.]
   ! label talk
   ? (not (complete-p 'q4-find-allies))
   | ~ player
   | - What's your story?
   |   ~ trader
   |   | A long and sad one I'm afraid... Like most people's.
-  |   | I used to hang with the Wraw too, believe it or not.
-  |   | I got out too, only with my caravan rather than a vendetta.
+  |   | I used to hang with the Wraw too, just like the Noka did.
+  |   | I got out too, only with my caravan instead of a vendetta.
   |   | And now I tour the settlements, trading, making ends meet - and making things too!
   |   < talk
   | - What do you make of this place?
@@ -126,26 +120,26 @@
   |   | The Noka? They're a nice bunch, what can I say?
   |   | Fi's a good person, which is rare in these parts.
   |   | They broke out on their own, had enough of that Wraw bullshit.
-  |   | Can't blame 'em. It was brave. It might also prove stupid though, we'll see.
+  |   | Can't blame 'em. It was brave. It might also prove stupid though. We'll see.
   |   < talk
   | - Catherine said you were later than expected...
   |   ~ trader
-  |   | Yeah, those damn rogues were prowling about.
+  |   | Yeah, those damn rogues prowling about.
   |   | Don't get me wrong, I can handle myself.
   |   | But it's not easy when you're pulling your own caravan.
   |   ~ player
   |   | You pull your own caravan?
   |   ~ trader
-  |   | Well no other nadhil is going to do it!
-  |   | I used to have an ox, believe or not... Ha, an ox, in these parts! It's hard to imagine.
-  |   | Didn't last long after the wolves got at her throat though. Poor Celina.
+  |   | Well no other nadhil is going to do it for me.
+  |   | I used to have an ox, believe it or not... Ha, an ox, around here! It's hard to imagine.
+  |   | Didn't last long after the wolves got her throat though. Poor Celina.
   |   < talk
-  | - I changed my mind.
-  |   < changed-mind
+  | - That'll do.
+  |   < return
 - I need to go.
 ! label leave
 ~ trader
-| [? See you later habeebti. | You take it easy. | Goodbye for now. | Take care. Masalamah! | Goodbye! And if you ever change your mind about parting with that sword of yours... I know, I know.]
+| [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah! | Goodbye! And if you ever change your mind about parting with that sword of yours... I know, I know.]
 
 # last-one
 ~ trader
@@ -159,12 +153,12 @@
 
 # out-of-stock
 ~ trader
-| All out of stock on that one I'm afraid. Sorry, habeebti.
+| All out of stock on that one I'm afraid. Sorry, habibti.
 < buy
 
-# changed-mind
+# return
 ~ trader
-| [? Happens to the best of us. | As you wish. | Don't worry about it.]
+| As you wish.
 < shop
 ")))
 
@@ -183,6 +177,23 @@
 Also leave to Talk options
 | - I need to go.
 |   < leave
+
+|#
+
+#| TODO when get scrolling options, add to sell menu (health packs). Selling health packs kinda pointless right now anyway, so replaced with mushroom types; could still go offscreen with 5 options above instead of 4, but having all 5 is rare, and all you have to do is sell enough to clear one and you'll see the remaining 4
+    - [(have 'small-health-pack) //Small HP for 2$ (I own {(item-count 'small-health-pack)})//|]
+      ! eval (retrieve 'small-health-pack 1)
+      ! eval (store 'parts 2)
+      < sell
+    - [(have 'medium-health-pack) //Medium HP for 5$ (I own {(item-count 'medium-health-pack)})//|]
+      ! eval (retrieve 'medium-health-pack 1)
+      ! eval (store 'parts 5)
+      < sell
+    - [(have 'large-health-pack) //Large HP for 10$ (I own {(item-count 'large-health-pack)})//|]
+      ! eval (retrieve 'large-health-pack 1)
+      ! eval (store 'parts 10)
+      < sell
+
 |#
 
 #| TODO when get scrolling options, restore to talk menu:
@@ -221,7 +232,7 @@ Also leave to Talk options
 |#
 
 #|
-ORIGINAL IMPLEMENTATION IDEA FOR BUY MENU - works
+ORIGINAL IMPLEMENTATION IDEA FOR BUY MENU - works but strings too long
 # buy
 - [(and (<= 4 (item-count 'parts)) (< 0 (var 'small-health-qty))) //Buy a small health pack for 4 scrap parts// | I can't afford 4 scrap parts for a small health pack.|] (stock: (var 'small-health-qty))
 ! eval (retrieve 'parts 4)
@@ -238,6 +249,19 @@ ORIGINAL IMPLEMENTATION IDEA FOR BUY MENU - works
 ! eval (store 'large-health-pack 1)
 ! eval (setf (var 'large-health-qty) (- (var 'large-health-qty) 1))
 < buy
+|#
+
+#| Cut trader dialogue per mushroom type (too wordy when selling one at a time) - Catherine does explain these elsewhere, and player can wonder why Sahil might be buying (and indeed paying more for) black knights
+Black knight:
+| It's true, black knights are poisonous to consume.
+| But there are some in the Valley who... Let's just say they have other uses for them.
+
+Flower fungus:
+| Food for the masses, thank you.
+
+Rusty puffball:
+| Tough and useful, these ones. Thanks!
+
 |#
 
 #| TODO:
