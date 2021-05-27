@@ -55,7 +55,7 @@
 ~ player
 | //It's new-home candidate site Delta.//
 | (:thinking)//It's secure and concealed, and sheltered from the weather.//
-| (:skeptical)//But the foot of a cliff face is not a wise choice in an area prone to quakes.//
+| (:skeptical)//But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
 | | (:normal)//I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
@@ -133,23 +133,26 @@
 ~ player
 - Thanks for the mansplain.
   ~ jack
-  | You're welcome. Wait what?...
+  | You're welcome. (:thinking)Wait what?...
 - Understood.
 < continue
 
 # continue
 ? (complete-p 'q2-seeds)
+| ~ jack
 | | (:normal)Oh, Cathy wants a word too.
 | | (:annoyed)Know that my threat still stands if you touch her.
 | ! eval (activate 'sq-act1-intro)
 |?
 | ? (not (active-p 'q2-seeds))
-| | | (:normal)Speaking o' Fi, she wants to talk to you. Not a word about the scouting fail though, alright?
+| | ~ jack
+| | | (:normal)Speaking of Fi, she wants to talk to you. Not a word about the scouting fail though, alright?
 |   
+| ~ jack
 | | (:normal)Don't let me be the one to help you out, either, but I heard Sahil was back.
 | | His caravan is down in the Midwest Market, beneath the Hub.
 | | I don't know what opposition you've faced scouting around, but you might wanna stock up.
-| | I hear even androids ain't indestructible.
+| | (:annoyed)I hear even androids ain't indestructible.
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")))

@@ -68,17 +68,17 @@
 ~ player
 | //Sahil taps his fingers on his left temple.//
 ~ trader
-| Here, I can probably assemble some useful bits and pieces into a handy repair pack for you.
+| Here, I can assemble some useful bits and pieces into a handy repair pack for you.
 ~ player
 | //He turns to the stacks of shelves behind him and rummages around.//
 | //Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//
 | //He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//
 ~ trader
-| Voila! I give you: The Android Health Pack. Custom made just for you.
+| Voila! I give you: The Android Health Pack. Custom made just for you!
 ~ player
 | //It's crude, but I'm sure I can do something with it. If only poke my eye out.//
 ~ trader
-| Go on, take look - don't by shy. And since this is your first time, you can have them free of charge.
+| Go on, take look - don't be shy. And since this is your first time, you can have them free of charge!
 ! label shop
 ~ player
 - [(not (var 'small-health)) //Take a small health pack//|]
@@ -123,4 +123,3 @@
 
 ;; habibti = dear, my love, buddy (Arabic)
 ;; TODO: open shop UI
-;; TODO: rename health packs to something more practical and specific for the stranger, that would exist in this world - solder and circuit boards. (Make it clear with the tooltip for the health pack, and even call them something like Repair Packs)

@@ -83,7 +83,6 @@
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the Noka yourself.
-| God knows we could use another hunter.
 | But for now, please accept this reward as a token of my appreciation.
 ! eval (store 'parts 20)
 ~ fi
@@ -96,7 +95,7 @@
 | | | He'll be in Engineering.
 |   
 | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
-| | It would be wise to be equipped for your work.
+| | You would be wise to equip well for your work.
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")))

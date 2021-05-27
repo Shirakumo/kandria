@@ -72,7 +72,7 @@
 - What if I fail?
   ~ fi
   | I don't know about the world you came from, but I discovered long ago that it's better to make one plan at a time.
-  | This world tries to pull you down, but you have to act quickly, and roll with the punches.
+  | This world tries to pull you down, so you have to act quickly, and roll with the punches.
 ~ fi
 | Whether you succeed or not, your efforts will help to earn my trust.
 | Alex has been our sole hunter for some time. You could be a hunter too, and more besides I think.

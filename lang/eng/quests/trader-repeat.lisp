@@ -19,13 +19,13 @@
     :repeatable T
     :dialogue "
 ~ trader
-| Assalam Alaikum!
+| Assalam alaikum!
 ? (< 80  (health player))
-| | [? You look well, Stranger! | And how robust you're looking today! | I don't think I've seen you looking more radiant.]
+| | [? You look well, Stranger! | And how robust you're looking! | I don't think I've seen you looking better.]
 |? (< 50  (health player))
-| | [? Have you been fighting, Stranger? | Something's different - you're missing your usual refined appearance. | Let me guess - you've been pounding rogues again?]
+| | [? Have you been fighting, Stranger? | Are you alright? You look a little... worse for wear. | You've been pounding rogues, haven't you?]
 |?
-| | [? Though I think you've seen better days... | You look like you could really use my help today. | You look like you've been dragged throgh the desert backwards... | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
+| | [? Though I think you've seen better days... | You look like you could really use my help. | You look like you've been dragged through the desert backwards... | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label shop
 ~ player
 - I'd like to trade.
@@ -98,10 +98,10 @@
       | Hey, where'd you get that? These things are almost priceless.
       | Not for old Sahil, of course.
       < sell
-    - //Nothing to sell//
+    - I'm done.
       < shop
-  - I changed my mind.
-    < changed-mind
+  - That'll do.
+    < return
 - Can we talk?
   ~ trader
   | [? Of course, habibti - always. | We can indeed. | What's on your mind? | I love to chat.]
@@ -111,8 +111,8 @@
   | - What's your story?
   |   ~ trader
   |   | A long and sad one I'm afraid... Like most people's.
-  |   | I used to hang with the Wraw too, believe it or not.
-  |   | I got out too, only with my caravan rather than a vendetta.
+  |   | I used to hang with the Wraw too, just like the Noka did.
+  |   | I got out too, only with my caravan instead of a vendetta.
   |   | And now I tour the settlements, trading, making ends meet - and making things too!
   |   < talk
   | - What do you make of this place?
@@ -120,7 +120,7 @@
   |   | The Noka? They're a nice bunch, what can I say?
   |   | Fi's a good person, which is rare in these parts.
   |   | They broke out on their own, had enough of that Wraw bullshit.
-  |   | Can't blame 'em. It was brave. It might also prove stupid though, we'll see.
+  |   | Can't blame 'em. It was brave. It might also prove stupid though. We'll see.
   |   < talk
   | - Catherine said you were later than expected...
   |   ~ trader
@@ -130,12 +130,12 @@
   |   ~ player
   |   | You pull your own caravan?
   |   ~ trader
-  |   | Well no other nadhil is going to do it!
-  |   | I used to have an ox, believe or not... Ha, an ox, in these parts! It's hard to imagine.
-  |   | Didn't last long after the wolves got at her throat though. Poor Celina.
+  |   | Well no other nadhil is going to do it for me.
+  |   | I used to have an ox, believe it or not... Ha, an ox, around here! It's hard to imagine.
+  |   | Didn't last long after the wolves got her throat though. Poor Celina.
   |   < talk
-  | - I changed my mind.
-  |   < changed-mind
+  | - That'll do.
+  |   < return
 - I need to go.
 ! label leave
 ~ trader
@@ -156,9 +156,9 @@
 | All out of stock on that one I'm afraid. Sorry, habibti.
 < buy
 
-# changed-mind
+# return
 ~ trader
-| [? Happens to the best of us. | As you wish. | Don't worry about it.]
+| As you wish.
 < shop
 ")))
 
