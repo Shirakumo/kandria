@@ -105,6 +105,12 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by ribbitface
 - Fix reset button not working correctly
   Reported by Monroth
+- Fix quests that require enemies being defeated not completing sometimes
+  Reported by Nag, Simon Weis
+- Fix save animation retaining velocity
+  Reported by Janne Pakarinen
+- Fix Catherine getting stuck in odd locations due to retained follow state
+  Reported by Janne Pakarinen
 
 ## TODO
 - Fix disconnecting a sound device crashing the game
@@ -113,7 +119,3 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Pondering Trog
 - Fix elevators clipping you into the walls
   Reported by Nag, ribbitface
-- Fix NPCs not respawning where they should after a reload
-  Reported by Nag
-- Fix quests that require enemies being defeated not completing sometimes
-  Reported by Nag, Simon Weis
