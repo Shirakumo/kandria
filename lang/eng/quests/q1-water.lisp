@@ -353,14 +353,14 @@
   (:interact (catherine)
    :title "Talk to Catherine"
    "~ catherine
-| Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
-| Oh! I almost forgot: It's our way to gift something to those that help us out.
+| (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
+| (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.
 | Since those two aren't likely to be feeling generous anytime soon, I'll give you these spare parts.
 ! eval (store 'parts 20)
 | It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
-| (:normal)Anyway, don't worry about them. They'll soon see what I see: a big friendly badass who can protect us.
-| Well, I've got work to do.
+| (:normal)Anyway, don't worry about them. They'll soon see what I see: (:excited)a big friendly badass who can protect us.
+| (:normal)Well, I've got work to do.
 | I think Fi might want a word with you. Just something about the way she was looking at you.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
 | But right now you're a free agent. I doubt that will last very long around here, so make the most of it!
