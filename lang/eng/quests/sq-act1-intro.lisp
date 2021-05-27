@@ -10,7 +10,7 @@
    :title "Talk to Catherine"
    :on-activate T
    (:interaction talk-catherine
-    :title "Talk to Catherine"
+    :title "Hi Catherine."
     :interactable catherine
     :repeatable T
     :dialogue "
@@ -21,7 +21,7 @@
   < choices
 - It's nice to see you again.
   ~ catherine
-  | [? I wish we could spend more time together. | It's great to see you too.]
+  | [? I wish we could spend more time together. | (:excited)It's great to see you too!]
   < continue
 - I'm feeling low.
   ~ catherine
@@ -29,6 +29,9 @@
   | Anyone that's different, they've already made up their minds about them.
   | (:normal)You just keep being you. I'll talk to them.
   < continue
+- I need to go.
+  ~ catherine
+  | No worries. Seeya soon!
 
 # continue
 ~ player
@@ -36,9 +39,9 @@
 ! label choices
 ~ catherine
 ? (or (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) (and (not (active-p 'sq3-race))))
-| | [? You are strangely perceptive... Man I'd love to understand how your core works. | I'm glad you asked! | You sure can! | I was hoping you'd say that.]
+| | [? You are strangely perceptive... (:excited)Man I'd love to understand how your core works. | (:excited)I'm glad you asked! | (:excited)You sure can! | (:excited)I was hoping you'd ask that!]
 | ? (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks)))
-| | | (:concerned)The water supply is leaking again, so you could help with that.
+| | | (:normal)The water supply is leaking again, so you could help with that.
 | |? (not (complete-p 'sq1-leaks))
 | | | (:normal)You know about fixing the new leaks.
 | |?
@@ -68,7 +71,7 @@
 | | ? (not (complete-p 'sq2-mushrooms))
 | | | ! eval (complete 'sq2-mushrooms)
 | |? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
-| | | (:concerned)With food stocks getting low, Fi wants to forage for more mushrooms.
+| | | (:normal)With food stocks getting low, Fi wants to forage for more mushrooms.
 | |? (not (complete-p 'sq2-mushrooms))
 | | | (:normal)You already know about gathering the mushrooms.
 | |?
@@ -112,23 +115,23 @@
 |   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and bring back.
 |   | I'll record your times for posterity too - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
 |   | Once you've completed one, then I can tell you about the next route! Them's the rules.
-|   | Just tell me when you want to start, and we'll get this show on the road.
+|   | Just tell me when you want to start, (:excited)and we'll get this show on the road!
 |   | (:cheer)This is sooo exciting!
 |   ! eval (activate 'sq3-race)
 | - //Nothing for now//
 |   ~ catherine
-|   | That's cool. Just let me know if you want something to do.
+|   | (:normal)That's cool. Just let me know if you want something to do.
 |?
 | ~ catherine
-| | I wish I had something for you, but there's nothing right now. That's a first 'round here!
+| | (:disappointed)I wish I had something for you, but there's nothing right now. (:normal)That's a first 'round here!
 ~ player
 - I'll be going for now.
   ~ catherine
   | You take it easy. See you soon.
 - How are you Catherine?
   ~ catherine
-  | Me? Oh, same as usual. Jack's as overbearing as always. But I can take it.
-  | I think if I can just keep my head down and keep doing something, then I won't worry about the future. Or the past.
+  | Me? Oh, same as usual. (:concerned)Jack's as overbearing as always. But I can take it.
+  | (:normal)I think if I can just keep my head down and keep doing something, then I won't worry about the future. Or the past.
   | Just take it day by day, you know?
   | Look, I should get back to my work. Hope to see you soon!
 ")))

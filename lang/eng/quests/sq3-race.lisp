@@ -12,7 +12,7 @@
    :title "Talk to Catherine to start a race"
    :on-activate T
    (:interaction start-race
-    :title "Race against the clock"
+    :title "I want to race."
     :interactable catherine
     :repeatable T
     :dialogue "
@@ -25,27 +25,28 @@
 | (:cheer)Alright, race time!
 ? (not (complete-p 'race-1-start))
 | | (:normal)So remember: Find the cans that Alex has planted.
-| | I told them to find devious places, and knowing Alex they won't have disappointed.
-| | Grab a can, bring it back here, and I'll stop the clock.
+| | I told them to find devious places, (:excited)and knowing Alex they won't have disappointed.
+| | (:normal)Grab a can, bring it back here, and I'll stop the clock.
 | | We'll start you off with Route 1, which is an easy one.
 | | Finish this one and I'll tell you about the next route!
+| | You can try routes as many times as you want, but you'll only get a reward if you beat your previous best time.
 | | Alex also gave me some riddles for each place, to give you a clue. Figuring these out might slow you down at first.
-| | But once you know where they are, you'll be clocking even faster times I'm sure! So...
+| | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure! So...
 | < race-1
 |?
 | | (:normal)Which route do you wanna do?
 | ~ player
-| - Route 1
+| - //Route 1//
 |   < race-1
-| - [(var-of 'race-1 'pb) Route 2|]
+| - [(var-of 'race-1 'pb) //Route 2//|]
 |   < race-2
-| - [(var-of 'race-2 'pb) Route 3|]
+| - [(var-of 'race-2 'pb) //Route 3//|]
 |   < race-3
-| - [(var-of 'race-3 'pb) Route 4|]
+| - [(var-of 'race-3 'pb) //Route 4//|]
 |   < race-4
-| - [(var-of 'race-4 'pb) Route 5|]
+| - [(var-of 'race-4 'pb) //Route 5//|]
 |   < race-5
-| - Back out for now
+| - //Back out for now//
 
 # race-1
 ~ catherine
@@ -161,27 +162,28 @@
 ! eval (retrieve 'can)
 | (:normal)You did that in: {(format-relative-time (clock quest))}.
 ? (and pb (< pb (clock quest)))
-| | Ah damn, no improvement on your record of {(format-relative-time pb)} this time I'm afraid. Better luck next time though!
+| | (:concerned)Ah damn, no improvement on your record of {(format-relative-time pb)} this time I'm afraid.
+| | (:normal)Better luck next time!
 | < end
 |?
 | ? (not (null pb))
-| | | (:cheer)That's a new personal best!
+| | | (:cheer)That's a new personal best! You qualify for a reward!
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
 | | | (:cheer)How did you do that so fast? That's gold bracket.
-| | | You get the top reward - 30 scrap parts!
-| | ! eval (store 'parts 30)
+| | | You get the top reward - 25 scrap parts!
+| | ! eval (store 'parts 25)
 | |? (< pb silver)
-| | | (:excited)That's pretty quick! Silver bracket.
+| | | (:excited)That was pretty quick! Silver bracket.
 | | | That nets you 15 scrap parts!
 | | ! eval (store 'parts 15)
 | |? (< pb bronze)
-| | | (:excited)Not bad! That's bronze bracket.
+| | | (:excited)That wasn't a bad time at all - bronze bracket.
 | | | That gets you 10 scrap parts.
 | | ! eval (store 'parts 10)
 | |?
 | | | (:disappointed)Hmmm, that seems a little slow, Stranger. I think you can do better than that.
-| | | Don't think I can give you any parts for that, sorry.
+| | | (:normal)I don't think I can give you any parts for that, sorry.
 | ! label end
 | | (:excited)Let's do this again soon!
 | ! eval (complete task)
@@ -190,6 +192,7 @@
 ;; ! eval (complete ,name)
 ;; ! eval (setf (quest:status (thing name)) :complete)
 
+;; TODO These vars stored in save game? Problematic if we tweak after launch/testing?
 (define-race race-1
   :site race-1-site
   :title-start "The can is... at a literal high point of EASTERN civilisation, now long gone."
@@ -202,30 +205,30 @@
   :site race-2-site
   :title-start "The can is... where a shallow grave marks the end of the line for the EAST Crossing."
   :title-complete "Complete Route 2"
-  :gold 90
-  :silver 120
-  :bronze 150)
+  :gold 60
+  :silver 80
+  :bronze 100)
 
 (define-race race-3
   :site race-3-site
   :title-start "The can is... where we first ventured together, and got our feet wet."
   :title-complete "Complete Route 3"
-  :gold 120
-  :silver 150
-  :bronze 180)
+  :gold 105
+  :silver 120
+  :bronze 135)
 
 (define-race race-4
   :site race-4-site
   :title-start "The can is... deep to the west, where people once dreamed."
   :title-complete "Complete Route 4"
-  :gold 150
-  :silver 210
-  :bronze 270)
+  :gold 90
+  :silver 105
+  :bronze 120)
 
 (define-race race-5
   :site race-5-site
-  :title-start "The can is at... the furthest edge of the deepest cave in this region - there isn't much-room."
+  :title-start "The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room.\""
   :title-complete "Complete Route 5"
-  :gold 150
-  :silver 210
-  :bronze 270)
+  :gold 135
+  :silver 150
+  :bronze 165)
