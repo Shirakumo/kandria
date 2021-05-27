@@ -24,6 +24,14 @@
 ~ catherine
 | (:cheer)Alright, race time!
 ? (not (complete-p 'race-1-start))
+| | (:excited)You ready for this?
+| ~ player
+| - Let's go.
+| - Not right now.
+|   ~ catherine
+|   | No worries! (:excited)Let's do this soon!
+|   < quit
+| ~ catherine
 | | (:normal)So remember: Find the cans that Alex has planted.
 | | I told them to find devious places, (:excited)and knowing Alex they won't have disappointed.
 | | (:normal)Grab a can, bring it back here, and I'll stop the clock.

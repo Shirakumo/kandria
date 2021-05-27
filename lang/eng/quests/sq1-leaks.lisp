@@ -144,7 +144,7 @@
    :on-activate T
 
    (:interaction leaks-return
-    :title "Talk about the leaks"
+    :title "About the leaks."
     :interactable catherine
     :dialogue "
 ~ catherine

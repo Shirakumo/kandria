@@ -4,13 +4,13 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine asked me to forage for mushrooms beneath the camp. She needs: 25 flower fungi and/or rusty puffballs; I should avoid: black knights"  
+  :description "Catherine asked me to forage for mushrooms beneath the camp. She needs at least: 25 flower fungi and/or rusty puffballs; I should avoid: black knights"
   :on-activate T
   (return-mushrooms
    :title "Find mushrooms and return to Catherine when I have enough"
    :on-activate T
    (:interaction mushrooms-return
-    :title "Return the mushrooms"
+    :title "About the mushrooms."
     :interactable catherine
     :repeatable T
     :dialogue "
@@ -44,9 +44,7 @@
 | If we don't need them, then the least you could do is trade them with Sahil.
 | See you around, Stranger!
 ! eval (complete task)
+! eval (setf (quest:status (thing 'return-mushrooms)) :inactive)
+! eval (deactivate interaction)
 # end
 ")))
-;; ? (not (complete-p 'sq2-mushrooms))
-;; | ! eval (complete 'sq2-mushrooms)
-
-;; ! eval (deactivate interaction)

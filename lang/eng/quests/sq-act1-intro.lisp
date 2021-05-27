@@ -81,6 +81,7 @@
 | | | How do time trial sweepstakes sound, eh?
 | |?
 | | | (:excited)Remember, any time you want to race we've got the time trial sweepstake too!
+| ! label task-choice
 | ~ player
 | - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) //Fix the leaks//|]
 |   ~ catherine
@@ -98,6 +99,7 @@
 |   ~ catherine
 |   | Let me know what you find. Good luck!
 |   ! eval (activate 'sq1-leaks)
+|   < task-choice
 | - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) //Forage for mushrooms//|]
 |   ~ catherine
 |   | (:excited)Awesome! They grow in the caves beneath the camp, in the dim light and moisture there.
@@ -106,9 +108,10 @@
 |   | Fibrous ones like the rusty puffball can be used to weave clothing. 
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.
 |   | Just don't breathe in their spores - though I guess that won't affect you.
-|   | Other kinds are deadly poisonous though, like the black knight. Avoid those if you can.
-|   | About 25 good ones should do for now. Happy mushrooming, Stranger!
+|   | Other kinds are deadly poisonous, like the black knight - avoid those if you can.
+|   | At least 25 good ones should do for now. (:excited)Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
+|   < task-choice
 | - [(not (active-p 'sq3-race)) //Time trials//|]
 |   ~ catherine
 |   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do!
@@ -118,12 +121,15 @@
 |   | Just tell me when you want to start, (:excited)and we'll get this show on the road!
 |   | (:cheer)This is sooo exciting!
 |   ! eval (activate 'sq3-race)
+|   < task-choice
 | - //Nothing for now//
 |   ~ catherine
 |   | (:normal)That's cool. Just let me know if you want something to do.
+|   < end
 |?
 | ~ catherine
 | | (:disappointed)I wish I had something for you, but there's nothing right now. (:normal)That's a first 'round here!
+! label end
 ~ player
 - I'll be going for now.
   ~ catherine
