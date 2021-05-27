@@ -53,7 +53,7 @@
 | (:cheer)Route 1! The can is... at a literal high point of EASTERN civilisation, now long gone.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-1 'gold))} - Silver: {(format-relative-time (var-of 'race-1 'silver))} - Bronze: {(format-relative-time (var-of 'race-1 'bronze))}.
 ? (var-of 'race-1 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-1 'pb))}.
+| | Your personal best for this route is {(format-relative-time (var-of 'race-1 'pb))}. Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-1-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-1)) :inactive)
 ! eval (activate 'race-1-start)
@@ -64,7 +64,7 @@
 | (:cheer)Route 2! The can is... where a shallow grave marks the end of the line for the EAST Crossing.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-2 'gold))} - Silver: {(format-relative-time (var-of 'race-2 'silver))} - Bronze: {(format-relative-time (var-of 'race-2 'bronze))}.
 ? (var-of 'race-2 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-2 'pb))}.
+| | Your personal best for this route is {(format-relative-time (var-of 'race-2 'pb))}. Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-2-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-2)) :inactive)
 ! eval (activate 'race-2-start)
@@ -75,7 +75,7 @@
 | (:cheer)Route 3! The can is... where we first ventured together, and got our feet wet.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-3 'gold))} - Silver: {(format-relative-time (var-of 'race-3 'silver))} - Bronze: {(format-relative-time (var-of 'race-3 'bronze))}.
 ? (var-of 'race-3 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-3 'pb))}.
+| | Your personal best for this route is {(format-relative-time (var-of 'race-3 'pb))}. Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-3-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-3)) :inactive)
 ! eval (activate 'race-3-start)
@@ -86,7 +86,7 @@
 | (:cheer)Route 4! The can is... deep to the west, where people once dreamed.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-4 'gold))} - Silver: {(format-relative-time (var-of 'race-4 'silver))} - Bronze: {(format-relative-time (var-of 'race-4 'bronze))}.
 ? (var-of 'race-4 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-4 'pb))}.
+| | Your personal best for this route is {(format-relative-time (var-of 'race-4 'pb))}. Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-4-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-4)) :inactive)
 ! eval (activate 'race-4-start)
@@ -97,7 +97,7 @@
 | (:cheer)Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\".
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-5 'gold))} - Silver: {(format-relative-time (var-of 'race-5 'silver))} - Bronze: {(format-relative-time (var-of 'race-5 'bronze))}.
 ? (var-of 'race-5 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-5 'pb))}.
+| | Your personal best for this route is {(format-relative-time (var-of 'race-5 'pb))}. Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-5-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-5)) :inactive)
 ! eval (activate 'race-5-start)
