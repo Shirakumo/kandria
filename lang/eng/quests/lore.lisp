@@ -184,6 +184,7 @@
 | //Many people died here, perhaps in their sleep.//
 ")
 
+#|
   (:interaction pump-room
    :interactable lore-substation
    :repeatable T
@@ -196,6 +197,7 @@
   
 | //(:thinking)How is the power generated? Hydroelectricity, perhaps.//
 ")
+|#
 
   (:interaction water-cave
    :interactable lore-water-cave
