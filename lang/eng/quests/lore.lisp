@@ -214,7 +214,7 @@
 ~ player
 | //(:skeptical)How on earth did these mushrooms grow so large?//
 ? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
-| | //(:normal)Presumably these kind are not edible - otherwise their hunger problems would be over.//
+| | //(:normal)Presumably these kind are inedible - otherwise their hunger problems would be over.//
 ")
 
   (:interaction mush-cave-1a
