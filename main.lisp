@@ -105,7 +105,8 @@
 (defun launch (&rest initargs)
   (let ((*package* #.*package*))
     (load-keymap)
-    (load-settings)
+    (ignore-errors
+     (load-settings))
     (save-settings)
     (maybe-start-swank)
     (apply #'trial:launch 'main

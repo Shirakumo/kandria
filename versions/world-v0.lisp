@@ -30,8 +30,9 @@
     (let ((graph (when (packet-entry-exists-p (format NIL "data/~a.graph" name) packet)
                    (with-packet-entry (stream (format NIL "data/~a.graph" name) packet :element-type '(unsigned-byte 8))
                      (handler-case (decode-payload stream 'node-graph packet 'binary-v0)
-                       (error ()
-                         (v:error :kandria.serializer "Failed to read node-graph for ~a" name)))))))
+                       (error (e)
+                         (v:error :kandria.serializer "Failed to read node-graph for ~a" name)
+                         (v:info :kandria.serializer e)))))))
       (make-instance 'chunk :name name
                             :location (decode 'vec2 location)
                             :size (decode 'vec2 size)
@@ -141,7 +142,7 @@
             (3 (push (make-climb-node to) (svref grid i)))
             (4 (push (make-fall-node to) (svref grid i)))
             (5 (push (make-jump-node to (decode 'vec2)) (svref grid i)))
-            (6 (let ((name (decode-payload stream "" packet 'binary-v0)))
+            (6 (let ((name (decode-payload stream 'symbol packet 'binary-v0)))
                  (push (make-rope-node to (unit name T)) (svref grid i))))))))))
 
 (define-encoder (node-graph binary-v0) (stream packet)
