@@ -255,6 +255,16 @@
 ")
 ;; TODO android emote - sad
 
+  (:interaction skyscraper
+   :interactable lore-skyscraper
+   :repeatable T
+   "
+~ player
+| //That is quite the view.//
+| //The desert is bordered by mountains on all sides.//
+| //Judging by the cloud formations, I'd wager there's an ocean beyond the range to the east.//
+")
+
 )
 
 #|
