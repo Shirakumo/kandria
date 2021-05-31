@@ -69,7 +69,7 @@
 
 # race-2
 ~ catherine
-| (:cheer)Route 2! The can is... where a shallow grave marks the end of the line for the EAST Crossing.
+| (:cheer)Route 2! The can is... where a shallow grave marks the end of the line at Zenith Crossing Station.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-2 'gold))} - Silver: {(format-relative-time (var-of 'race-2 'silver))} - Bronze: {(format-relative-time (var-of 'race-2 'bronze))}.
 ? (var-of 'race-2 'pb)
 | | Your personal best for this route is {(format-relative-time (var-of 'race-2 'pb))}. Beat this to get a reward.
@@ -211,7 +211,7 @@
 
 (define-race race-2
   :site race-2-site
-  :title-start "The can is... where a shallow grave marks the end of the line for the EAST Crossing."
+  :title-start "The can is... where a shallow grave marks the end of the line at Zenith Crossing Station."
   :title-complete "Complete Route 2"
   :gold 60
   :silver 80

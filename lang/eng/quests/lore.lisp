@@ -147,21 +147,113 @@
 ~ player
 | //Particulates ping off my body like bullets.//
 | //The mountains lay beyond, though I can hardly see them in this storm.//
-"))
+")
+
+  (:interaction zenith-hub
+   :interactable lore-hub
+   :repeatable T
+   "
+~ player
+| //Zenith... That was the name of the city, and this was the central train station's atrium.//
+| //(:thinking)Is it me, or was that insignia strangely foreshadowing?//
+")
+
+  (:interaction east-apartments
+   :interactable lore-east-apartment
+   :repeatable T
+   "
+~ player
+| //These were Rootless hospital apartments, for those convalescing.//
+")
+
+  (:interaction market
+   :interactable lore-market
+   :repeatable T
+   "
+~ player
+| //The Midwest Market. You could almost imagine those mannequins behind the glass were real people.//
+| //(:embarassed)Like this place wasn't creepy enough already.//
+")
+
+  (:interaction west-apartments
+   :interactable lore-west-apartment
+   :repeatable T
+   "
+~ player
+| //Dreamscape West Side apartments - once the height of luxury, now hell in the earth.//
+| //Many people died here, though the smell is long gone.//
+")
+
+  (:interaction pump-room
+   :interactable lore-substation
+   :repeatable T
+   "
+~ player
+? (complete-p 'q1-water)
+| | //The central substation, now repurposed as a pump room for the water supply.//
+|?
+| | //The central substation, now seemingly repurposed as a pump room for the water supply.//
+  
+| //(:thinking)How is the power generated? Hydroelectricity, perhaps?//
+")
+
+  (:interaction water-cave
+   :interactable lore-water-cave
+   :repeatable T
+   "
+~ player
+| | //(:skeptical)They have many leaks, if this is anything to go by.//
+")
+
+  (:interaction mush-cave-1
+   :interactable lore-mush-cave-1
+   :repeatable T
+   "
+~ player
+| //(:skeptical)How on earth did these mushrooms grow so large?//
+? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
+| | //(:normal)Presumably these kind are not edible - otherwise their hunger problems would be over.//
+")
+
+  (:interaction mush-cave-2
+   :interactable lore-mush-cave-2
+   :repeatable T
+   "
+~ player
+| //(:giggle)Walking on these things is like walking on jello that can take your weight.//
+| //I suppose truffles would be too much to ask for.//
+")
+
+  ;; This should be Brother (surveillance) offices? hint at an authoritarian former world? makes the joke work better? Leads into Semi Sisters next faction?
+  ;; North Star is a more original name for surveillance than Brother? And the link to Semi Sisters cool name is not required to keep it. Yes.
+  ;; Did not literally manufacture satellites here - it's not a factory, but offices.
+  (:interaction offices
+   :interactable lore-office
+   :repeatable T
+   "
+~ player
+| //(:thinking)North Star offices. They manufactured satellite, surveillance and guidance systems.//
+| //(:normal)Bet they never saw this coming.//
+")
+
+  (:interaction factory
+   :interactable lore-factory
+   :repeatable T
+   "
+~ player
+| //Semi were the manufacturers of electronic components - not least for androids.//
+| //It's sad to see this place quiet and dormant.//
+")
+;; TODO android emote - sad
+
+)
 
 #|
 ;; TODO Old mushroom text interacts that could be repurposed as lore interacts:
 could reuse locations shrooms1 to 5?
 
-flower fungus
-They're quite pretty. It seems a shame to eat them.
-
 rusty puffball
 (:giggle)They make clothes out of these? Call me a fashion victim but I wouldn't be seen dead in them.
-
-They look and smell like mould. I suppose it's the same thing, more or less.
-
-(:skeptical)I suppose truffles would be too much to ask for.
 
 Why do they look like alien parasites from an old B-movie?
 
@@ -169,7 +261,5 @@ black knight
 (:thinking)They remind me of decaying frogspawn. Yet I've never seen decaying frogspawn...
 
 They look like someone's insides if they were on the outside. That's probably what they'd do to you too.
-
-
 
 |#
