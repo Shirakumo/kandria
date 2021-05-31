@@ -154,7 +154,7 @@
    :repeatable T
    "
 ~ player
-| //Zenith... That was the name of the city, and this was the central train station's atrium.//
+| //Zenith... That was the name of the city, and this was the train station.//
 | //(:thinking)Is it me, or was that insignia strangely foreshadowing?//
 ")
 
@@ -171,8 +171,8 @@
    :repeatable T
    "
 ~ player
-| //The Midwest Market. You could almost imagine those mannequins behind the glass were real people.//
-| //(:embarassed)Like this place wasn't creepy enough already.//
+| //The Midwest Market. You could almost imagine that those mannequins behind the glass were real people.//
+| //(:embarassed)Like this place wasn't creepy enough.//
 ")
 
   (:interaction west-apartments
@@ -180,8 +180,8 @@
    :repeatable T
    "
 ~ player
-| //Dreamscape West Side apartments - once the height of luxury, now hell in the earth.//
-| //Many people died here, though the smell is long gone.//
+| //Dreamscape West Side - once the height of luxury, now hell in the earth.//
+| //Many people died here, perhaps in their sleep.//
 ")
 
   (:interaction pump-room
@@ -190,11 +190,11 @@
    "
 ~ player
 ? (complete-p 'q1-water)
-| | //The central substation, now repurposed as a pump room for the water supply.//
+| | //The central substation, now repurposed as a pump room.//
 |?
-| | //The central substation, now seemingly repurposed as a pump room for the water supply.//
+| | //The central substation, now seemingly repurposed as a pump room.//
   
-| //(:thinking)How is the power generated? Hydroelectricity, perhaps?//
+| //(:thinking)How is the power generated? Hydroelectricity, perhaps.//
 ")
 
   (:interaction water-cave
@@ -202,7 +202,7 @@
    :repeatable T
    "
 ~ player
-| | //(:skeptical)They have many leaks, if this is anything to go by.//
+| | //(:skeptical)They've had many leaks, if this sunken room is anything to go by.//
 ")
 
   (:interaction mush-cave-1
@@ -215,13 +215,20 @@
 | | //(:normal)Presumably these kind are not edible - otherwise their hunger problems would be over.//
 ")
 
+  (:interaction mush-cave-1a
+   :interactable lore-mush-cave-1a
+   :repeatable T
+   "
+~ player
+| //I suppose truffles would be too much to ask for.//
+")
+
   (:interaction mush-cave-2
    :interactable lore-mush-cave-2
    :repeatable T
    "
 ~ player
-| //(:giggle)Walking on these things is like walking on jello that can take your weight.//
-| //I suppose truffles would be too much to ask for.//
+| //It's like walking on jello.//
 ")
 
   ;; This should be Brother (surveillance) offices? hint at an authoritarian former world? makes the joke work better? Leads into Semi Sisters next faction?
@@ -241,8 +248,8 @@
    :repeatable T
    "
 ~ player
-| //Semi were the manufacturers of electronic components - not least for androids.//
-| //It's sad to see this place quiet and dormant.//
+| //Semi manufactured electronic components - not least for androids.//
+| //It's sad to see their factory quiet and dormant.//
 ")
 ;; TODO android emote - sad
 
