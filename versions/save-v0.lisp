@@ -2,6 +2,7 @@
 
 (defclass save-v0 (v0) ())
 (defclass save-v1 (save-v0) ())
+(defclass save-v1.1 (save-v1) ())
 
 (defmethod supported-p ((_ save-v1)) T)
 
@@ -45,23 +46,35 @@
     (loop for quest being the hash-values of (quest:quests quest:storyline)
           do (princ* (encode quest) stream))))
 
-(define-decoder (quest:storyline save-v0) (_b packet)
-  (destructuring-bind (stuff . quests) (parse-sexps (packet-entry "storyline.lisp" packet
+(define-decoder (quest:storyline save-v1) (_b packet)
+  (destructuring-bind ((&key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
                                                                   :element-type 'character))
-    (destructuring-bind (storyline &key variables) (if (keywordp (first stuff))
-                                                       (list* 'kandria stuff)
-                                                       stuff)
-      (let ((storyline (quest:find-named storyline T)))
-        (v:with-muffled-logging ()
-          (quest:reset storyline))
-        (quest:merge-bindings storyline (decode-payload variables 'bindings packet save-v0))
-        (loop for (name . initargs) in quests
-              for quest = (handler-case (quest:find-quest name storyline)
-                            (error ()
-                              (v:warn :kandria.save "Reference to unknown quest ~s, ignoring!" name)
-                              NIL))
-              do (when quest (decode quest initargs)))
-        storyline))))
+    (let ((storyline (quest:find-named 'kandria T)))
+      (v:with-muffled-logging ()
+        (quest:reset storyline))
+      (quest:merge-bindings storyline (decode-payload variables 'bindings packet save-v1))
+      (loop for (name . initargs) in quests
+            for quest = (handler-case (quest:find-quest name storyline)
+                          (error ()
+                            (v:warn :kandria.save "Reference to unknown quest ~s, ignoring!" name)
+                            NIL))
+            do (when quest (decode quest initargs)))
+      storyline)))
+
+(define-decoder (quest:storyline save-v1.1) (_b packet)
+  (destructuring-bind ((storyline &key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
+                                                                  :element-type 'character))
+    (let ((storyline (quest:find-named storyline T)))
+      (v:with-muffled-logging ()
+        (quest:reset storyline))
+      (quest:merge-bindings storyline (decode-payload variables 'bindings packet save-v1.1))
+      (loop for (name . initargs) in quests
+            for quest = (handler-case (quest:find-quest name storyline)
+                          (error ()
+                            (v:warn :kandria.save "Reference to unknown quest ~s, ignoring!" name)
+                            NIL))
+            do (when quest (decode quest initargs)))
+      storyline)))
 
 (define-encoder (quest:quest save-v0) (buffer _p)
   (list (quest:name quest:quest)
