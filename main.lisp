@@ -64,17 +64,29 @@
         ((list-saves)
          (load-state (first (list-saves)) main))
         (T
-         (load-state (initial-state (scene main)) (scene main))
-         (trial:commit (scene main) (loader main)))))
+         (load-state NIL main))))
 
 (defmethod load-state ((state (eql :quick)) (main main))
-  (load-state (quicksave main) (scene main)))
+  (load-state (quicksave main) main))
+
+(defmethod load-state ((state null) (main main))
+  (load-state (initial-state (scene main)) (scene main))
+  (trial:commit (scene main) (loader main)))
 
 (defmethod load-state ((state save-state) (main main))
-  (prog1 (load-state state (scene main))
-    (trial:commit (scene main) (loader main))
-    (unless (typep state 'quicksave-state)
-      (setf (state main) state))))
+  (restart-case
+      (handler-bind ((error (lambda (e)
+                              (when (deploy:deployed-p)
+                                (v:severe :kandria.save "Failed to load save state ~a: ~a" state e)
+                                (v:debug :kandria.save e)
+                                (invoke-restart 'reset)))))
+        (prog1 (load-state state (scene main))
+          (trial:commit (scene main) (loader main))
+          (unless (typep state 'quicksave-state)
+            (setf (state main) state))))
+    (reset ()
+      :report "Ignore the save and reset to the initial state."
+      (load-state NIL main))))
 
 (defun session-time (&optional (main +main+))
   (- (get-universal-time) (timestamp main)))
