@@ -72,7 +72,8 @@
                     :save-time (save-time save-state)
                     :play-time (play-time save-state))
               stream))
-    (encode-payload world NIL packet version)))
+    (encode-payload world NIL packet version))
+  save-state)
 
 (defmethod load-state ((save-state save-state) world)
   (load-state (file save-state) world))
