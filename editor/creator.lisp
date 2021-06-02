@@ -20,14 +20,15 @@
 
 (defmethod alloy:accept ((creator creator))
   (let ((entity (entity creator)))
-    (setf (location entity) (closest-acceptable-location entity (location entity)))
-    (edit (make-instance 'insert-entity :entity entity) T)))
+    (when entity
+      (setf (location entity) (closest-acceptable-location entity (location entity)))
+      (edit (make-instance 'insert-entity :entity entity) T))))
 
 (defmethod initialize-instance :after ((creator creator) &key)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T) :layout-parent creator))
          (focus (make-instance 'alloy:focus-list :focus-parent creator))
          (classes (sort *creator-class-list* #'string<))
-         (class (first classes))
+         (class NIL)
          (combo (alloy:represent class 'alloy:combo-set :value-set classes :layout-parent layout :focus-parent focus))
          (inspector (make-instance 'alloy::inspector :object (entity creator)))
          (scroll (make-instance 'alloy:scroll-view :scroll :y :focus inspector :layout inspector
