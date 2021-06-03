@@ -544,8 +544,11 @@
 (defmethod capable-p ((movable movable) (edge crawl-node)) NIL)
 (defmethod capable-p ((movable movable) (edge climb-node)) NIL)
 (defmethod capable-p :around ((movable movable) (edge rope-node))
-  (when (extended (rope-node-rope edge))
-    (call-next-method)))
+  (let ((rope (rope-node-rope edge)))
+    (when (typep rope 'symbol)
+      (setf rope (unit rope T)))
+    (when (extended rope)
+      (call-next-method))))
 
 (defmethod path-available-p ((target vec2) (movable movable))
   (ignore-errors (shortest-path (find-chunk target) movable target)))

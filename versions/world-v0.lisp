@@ -143,7 +143,7 @@
             (4 (push (make-fall-node to) (svref grid i)))
             (5 (push (make-jump-node to (decode 'vec2)) (svref grid i)))
             (6 (let ((name (decode-payload stream 'symbol packet 'binary-v0)))
-                 (push (make-rope-node to (unit name T)) (svref grid i))))))))))
+                 (push (make-rope-node to name) (svref grid i))))))))))
 
 (define-encoder (node-graph binary-v0) (stream packet)
   (nibbles:write-ub16/le (node-graph-width node-graph) stream)
@@ -156,7 +156,11 @@
                  (rope-node
                   (write-byte 6 stream)
                   (nibbles:write-ub32/le (move-node-to node) stream)
-                  (encode-payload (name (rope-node-rope node)) stream packet 'binary-v0))
+                  (let ((target (rope-node-rope node)))
+                    (encode-payload (etypecase target
+                                      (symbol target)
+                                      (rope (name target)))
+                                    stream packet 'binary-v0)))
                  (jump-node
                   (write-byte 5 stream)
                   (nibbles:write-ub32/le (move-node-to node) stream)
