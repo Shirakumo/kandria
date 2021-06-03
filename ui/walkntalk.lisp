@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass walk-textbox (alloy:label) ())
+(defclass walk-textbox (alloy:label)
+  ((markup :initarg :markup :initform () :accessor markup)))
 
 (presentations:define-realization (ui walk-textbox)
   ((:background simple:rectangle)
@@ -15,6 +16,10 @@
    :font (setting :display :font)
    :size (alloy:un 25)
    :pattern colors:white))
+
+(presentations:define-update (ui walk-textbox)
+  (:label
+   :markup (markup alloy:renderable)))
 
 (defclass profile-background (alloy:layout-element alloy:renderable) ())
 
@@ -44,6 +49,7 @@
         (textbox (alloy:represent (slot-value walkntalk 'text) 'walk-textbox))
         (nametag (alloy:represent (slot-value walkntalk 'source) 'nametag))
         (background (make-instance 'profile-background)))
+    (setf (textbox walkntalk) textbox)
     (alloy:enter background layout :constraints `((:left 60) (:top 60) (:width 150) (:height 150)))
     (alloy:enter (profile walkntalk) layout :constraints `((:inside ,background) (:width 150) (:height 150)))
     (alloy:enter textbox layout :constraints `((:align :top ,background) (:right-of ,background 0) (:right 60) (:height 100)))

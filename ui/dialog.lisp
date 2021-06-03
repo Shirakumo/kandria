@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass dialog-textbox (alloy:label) ())
+(defclass dialog-textbox (alloy:label)
+  ((markup :initarg :markup :initform () :accessor markup)))
 
 (presentations:define-realization (ui dialog-textbox)
   ((:background simple:rectangle)
@@ -16,6 +17,10 @@
    :size (alloy:un 25)
    :pattern colors:white))
 
+(presentations:define-update (ui dialog-textbox)
+  (:label
+   :markup (markup alloy:renderable)))
+
 (defclass dialog (pausing-panel textbox)
   ((interactions :initarg :interactions :initform () :accessor interactions)
    (interaction :initform NIL :accessor interaction)
@@ -26,6 +31,7 @@
         (textbox (alloy:represent (slot-value dialog 'text) 'dialog-textbox))
         (nametag (alloy:represent (slot-value dialog 'source) 'nametag))
         (prompt (alloy:represent (slot-value dialog 'prompt) 'advance-prompt)))
+    (setf (textbox dialog) textbox)
     (alloy:enter (choices dialog) layout :constraints `((:left 20) (:bottom 20) (:height 200)))
     (alloy:enter textbox layout :constraints `((:right-of ,(choices dialog) 0) (:right 20) (:bottom 20) (:height 200)))
     (alloy:enter (profile dialog) layout :constraints `((:left 80) (:above ,textbox) (:width 400) (:height 400)))

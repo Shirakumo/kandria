@@ -109,7 +109,8 @@
    (text :initform (clear-text-string) :accessor text)
    (source :initform 'player :accessor source)
    (pending :initform NIL :accessor pending)
-   (profile :initform (make-instance 'profile-picture) :accessor profile)))
+   (profile :initform (make-instance 'profile-picture) :accessor profile)
+   (textbox :accessor textbox)))
 
 (defmethod stage :after ((textbox textbox) (area staging-area))
   (stage (// 'kandria 'dialogue-scroll) area)
@@ -221,7 +222,14 @@
           do (setf (aref s i) (aref (text textbox) i)))
     (loop for i from 0 below (array-total-size (dialogue:text rq))
           do (setf (aref s (+ i (array-total-size (text textbox)))) (aref (dialogue:text rq) i)))
-    (setf (text textbox) s)))
+    (setf (text textbox) s))
+  (let ((offset (- (array-total-size (text textbox))
+                   (array-total-size (dialogue:text rq)))))
+    (setf (markup (textbox textbox))
+          (loop for (start _end . styles) in (dialogue:markup rq)
+                for end = (or _end (length (dialogue:text rq)))
+                append (loop for (name) in styles
+                             collect (list (+ start offset) (+ end offset) name))))))
 
 (defmethod handle :after ((rq dialogue:target-request) (textbox textbox))
   (setf (ip textbox) (dialogue:target rq)))
