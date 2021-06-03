@@ -81,12 +81,14 @@
       (compile-into-pass light NIL (unit 'lighting-pass +world+)))))
 
 (defmethod interact ((item item) (inventory inventory))
-  (when (light item)
-    (remove-from-pass (light item) (unit 'lighting-pass +world+))
-    (setf (light item) NIL))
   (store item inventory)
   (status "Received ~a" (language-string (type-of item)))
   (leave* item T))
+
+(defmethod leave* :after ((item item) thing)
+  (when (light item)
+    (remove-from-pass (light item) (unit 'lighting-pass +world+))
+    (setf (light item) NIL)))
 
 (defmethod have ((item item) (inventory inventory))
   (have (type-of item) inventory))
