@@ -52,7 +52,7 @@
     (setf (textbox walkntalk) textbox)
     (alloy:enter background layout :constraints `((:left 60) (:top 60) (:width 150) (:height 150)))
     (alloy:enter (profile walkntalk) layout :constraints `((:inside ,background) (:width 150) (:height 150)))
-    (alloy:enter textbox layout :constraints `((:align :top ,background) (:right-of ,background 0) (:right 60) (:height 100)))
+    (alloy:enter textbox layout :constraints `((:align :top ,background) (:right-of ,background 0) (:right 60) (:height 120)))
     (alloy:enter nametag layout :constraints `((:align :left ,background) (:below ,background 0) (:height 30) (:width 150)))
     (alloy:finish-structure walkntalk layout (choices walkntalk))))
 
