@@ -287,8 +287,8 @@
   (if (retained :control)
       (let ((path (file-select:new :title "Select Save File" :default (file (state +main+)))))
         (when path
-          (save-state T path)))
-      (save-state T T)))
+          (save-state +main+ path)))
+      (save-state +main+ T)))
 
 (defmethod edit ((action (eql 'delete-entity)) (editor editor))
   (let* ((entity (entity editor))
