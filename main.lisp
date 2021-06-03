@@ -71,7 +71,8 @@
 
 (defmethod load-state ((state null) (main main))
   (load-state (initial-state (scene main)) (scene main))
-  (trial:commit (scene main) (loader main)))
+  (trial:commit (scene main) (loader main))
+  (clrhash +spawn-tracker+))
 
 (defmethod load-state ((state save-state) (main main))
   (restart-case
@@ -82,6 +83,7 @@
                                 (invoke-restart 'reset)))))
         (prog1 (load-state state (scene main))
           (trial:commit (scene main) (loader main))
+          (clrhash +spawn-tracker+)
           (unless (typep state 'quicksave-state)
             (setf (state main) state))))
     (reset ()

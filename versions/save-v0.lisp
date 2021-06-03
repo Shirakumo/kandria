@@ -175,7 +175,7 @@
                             (add ephemeral (list* (name entity) (encode entity))))
                           (when (typep entity 'container)
                             (recurse entity)))
-                         (T
+                         ((not (spawned-p entity))
                           (add create-new (list* (type-of entity) (encode entity))))))))
         (recurse region)))
     (list :create-new (rest create-new)

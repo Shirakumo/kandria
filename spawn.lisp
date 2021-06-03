@@ -1,5 +1,10 @@
 (in-package #:kandria)
 
+(define-global +spawn-tracker+ (make-hash-table :test 'eq))
+
+(defun spawned-p (entity)
+  (gethash entity +spawn-tracker+))
+
 (defclass spawner (listener sized-entity ephemeral resizable)
   ((flare:name :initform (generate-name 'spawner))
    (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type symbol)
@@ -33,9 +38,12 @@
            (setf (reflist spawner)
                  (spawn (location spawner) (spawn-type spawner)
                         :count (spawn-count spawner)
-                        :jitter (bsize spawner)))))
+                        :jitter (bsize spawner)))
+           (dolist (entity (reflist spawner))
+             (setf (gethash entity +spawn-tracker+) T))))
         ((not (find chunk (adjacent spawner)))
          (dolist (entity (reflist spawner))
+           (remhash entity +spawn-tracker+)
            (when (slot-boundp entity 'container)
              (leave* entity T)))
          (when (auto-deactivate spawner)
