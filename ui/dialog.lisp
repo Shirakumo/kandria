@@ -86,6 +86,7 @@
            (hide dialog))
           (T
            ;; If we have multiple show choice.
+           (setf (source dialog) (nametag (unit 'player T)))
            (setf (choices dialog)
                  (cons (mapcar #'quest:title interactions) interactions))
            (let* ((label (string (prompt-char :left :bank :keyboard)))
