@@ -26,7 +26,7 @@
         :description (description region)))
 
 (define-decoder (chunk world-v0) (initargs packet)
-  (destructuring-bind (&key name location size tile-data pixel-data layers background gi) initargs
+  (destructuring-bind (&key name location size tile-data pixel-data layers background gi music) initargs
     (let ((graph (when (packet-entry-exists-p (format NIL "data/~a.graph" name) packet)
                    (with-packet-entry (stream (format NIL "data/~a.graph" name) packet :element-type '(unsigned-byte 8))
                      (handler-case (decode-payload stream 'node-graph packet 'binary-v0)
@@ -42,6 +42,7 @@
                                           collect (packet-entry file packet))
                             :background (decode 'background-info background)
                             :gi (decode 'gi-info gi)
+                            :music (when music (decode 'resource music))
                             :node-graph graph))))
 
 (define-encoder (chunk world-v0) (_b packet)
@@ -62,7 +63,8 @@
             :pixel-data ,pixel-data
             :layers ,layers
             :background ,(encode (background chunk))
-            :gi ,(encode (gi chunk)))))
+            :gi ,(encode (gi chunk))
+            :music ,(when (music chunk) (encode (music chunk))))))
 
 (define-decoder (gi-info world-v0) (name _p)
   (gi name))

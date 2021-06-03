@@ -1,6 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-pool kandria)
+(define-pool sound :base "sound/")
+(define-pool music :base "music/")
 
 (define-asset (kandria 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))

@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defvar *music* NIL)
+
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
    (storyline :initarg :storyline :initform NIL :accessor storyline)
@@ -24,9 +26,6 @@
                         :name)))
         (setf (gethash name (regions world)) entry))))
   (setf (initial-state world) (minimal-load-state (entry-path "init/" packet))))
-
-(defmethod start :after ((world world))
-  (harmony:play (// 'kandria 'music)))
 
 (defmethod hour ((world world))
   (mod (float (/ (nth-value 1 (truncate (+ (timestamp world) 432000) (* 60 60 24 7))) 60 60) 0d0) 24d0))
@@ -90,7 +89,6 @@
 
 ;; Preloading
 (defmethod stage :after ((world world) (area staging-area))
-  (stage (// 'kandria 'music) area)
   (stage (// 'kandria 'effects 'texture) area)
   (stage (// 'kandria 'effects 'vertex-array) area)
   (stage (// 'kandria 'items) area)
@@ -158,6 +156,13 @@
 (defmethod handle :after ((ev gamepad-move) (world world))
   (when (< 0.1 (pos ev))
     (setf +input-source+ (device ev))))
+
+(defmethod handle :after ((ev switch-chunk) (world world))
+  (let ((music (music (chunk ev))))
+    (when (and music (not (eq music *music*)))
+      (when *music* (setf (harmony:state *music*) NIL))
+      (setf (harmony:state music) :normal)
+      (setf *music* music))))
 
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)

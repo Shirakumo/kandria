@@ -1,7 +1,7 @@
 (defpackage #:kandria
   (:nicknames #:org.shirakumo.fraf.kandria)
   (:use #:cl+trial)
-  (:import-from #:org.shirakumo.fraf.trial.harmony #:sound)
+  (:import-from #:org.shirakumo.fraf.trial.harmony #:sound #:environment)
   (:shadow #:main #:launch #:tile #:block
            #:located-entity #:sized-entity #:sprite-entity
            #:camera #:light #:shadow-map-pass

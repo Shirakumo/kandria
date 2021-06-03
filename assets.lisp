@@ -22,13 +22,6 @@
        ,(make-pathname :name (string-downcase name) :type "wav" :directory `(:relative "sound"))
      ,@args))
 
-(defmacro define-music (name &body args)
-  `(define-asset (kandria ,name) sound
-       ,(make-pathname :name (string-downcase name) :type "mp3" :directory `(:relative "sound"))
-     :repeat T
-     :mixer :music
-     ,@args))
-
 (defmacro define-bg (name &body args)
   (let ((wrapping (getf args :wrapping))
         (args (remf* args :wrapping))
@@ -57,6 +50,9 @@
 (define-asset (kandria scanline) image
   #p"scanline.png"
   :wrapping :clamp-to-edge)
+
+(define-asset (music region1) environment
+    '((:normal #p"music.mp3")))
 
 (define-pixel lights)
 (define-pixel particles)
@@ -97,8 +93,6 @@
 (define-tileset debug)
 (define-tileset camp)
 (define-tileset region1)
-
-(define-music music :volume 0.3)
 
 (define-sound dash :volume 0.1)
 (define-sound dialogue-advance :volume 0.1)

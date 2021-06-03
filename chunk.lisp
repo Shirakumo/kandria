@@ -220,7 +220,9 @@ void main(){
    (gi :initform (gi 'none) :initarg :gi :accessor gi
        :type gi-info :documentation "The lighting to show in the chunk.")
    (name :initform (generate-name "CHUNK"))
-   (chunk-graph-id :initform NIL :accessor chunk-graph-id))
+   (chunk-graph-id :initform NIL :accessor chunk-graph-id)
+   (music :initform NIL :initarg :music :accessor music
+          :type org.shirakumo.fraf.trial.harmony:music :documentation "The environment to use."))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
@@ -275,6 +277,8 @@ void main(){
 (defmethod stage :after ((chunk chunk) (area staging-area))
   (loop for layer across (layers chunk)
         do (stage layer area))
+  (when (music chunk)
+    (stage (music chunk) area))
   (stage (background chunk) area))
 
 (defmethod clone ((chunk chunk) &rest initargs)
