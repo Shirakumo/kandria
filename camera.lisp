@@ -42,7 +42,8 @@
 
 (defmethod handle :before ((ev tick) (camera camera))
   (unless (find-panel 'editor)
-    (let ((loc (location camera)))
+    (let ((loc (location camera))
+          (dt (dt ev)))
       ;; Camera movement
       (let ((int (intended-location camera)))
         (when (target camera)
@@ -65,12 +66,12 @@
                (clamp-camera-target camera loc))))
       ;; Camera shake
       (when (< 0 (shake-timer camera))
-        (decf (shake-timer camera) (dt ev))
+        (decf (shake-timer camera) dt)
         (when (and (typep +input-source+ 'gamepad:device)
                    (< 0 (shake-controller-multiplier camera)))
           (gamepad:rumble +input-source+
                           (if (< 0 (shake-timer camera))
-                              (* 100 (dt ev) (shake-controller-multiplier camera) (shake-intensity camera))
+                              (* 100 dt (shake-controller-multiplier camera) (shake-intensity camera))
                               0)))
         ;; Deterministic shake so that we can slow it down properly.
         (let ((frame-id (sxhash (+ (shake-unique camera) (mod (floor (* (shake-timer camera) 100)) 100)))))
@@ -79,10 +80,10 @@
         (clamp-camera-target camera loc))
       (let ((off (offset camera)))
         (when (v/= 0 off)
-          (nv+ loc off)
-          (nv* off 0.9)
-          (when (< (abs (vx off)) 0.1) (setf (vx off) 0f0))
-          (when (< (abs (vy off)) 0.1) (setf (vy off) 0f0))
+          (v<- loc (v+ (intended-location camera) off))
+          (nv* off 0.98)
+          (when (<= (abs (vx off)) 0.1) (setf (vx off) 0.0))
+          (when (<= (abs (vy off)) 0.1) (setf (vy off) 0.0))
           (clamp-camera-target camera loc))))))
 
 (defmethod (setf zoom) :after (zoom (camera camera))
@@ -135,8 +136,11 @@
     (setf (shake-intensity camera) (* (setting :gameplay :screen-shake) intensity))
     (setf (shake-controller-multiplier camera) (* (setting :gameplay :rumble) controller-multiplier))))
 
-(defun duck-camera (&key (offset (vec 0 -4)))
-  (nv+ (offset (unit :camera +world+)) offset))
+(defun duck-camera (x y)
+  (let ((off (offset (unit :camera +world+))))
+    (vsetf off
+           (+ (vx off) (* 0.1 (- x (vx off))))
+           (+ (vy off) (* 0.1 (- y (vy off)))))))
 
 (defun in-view-p (loc bsize)
   (let* ((camera (unit :camera T)))

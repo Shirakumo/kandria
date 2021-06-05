@@ -39,6 +39,7 @@
                (:file "inventory")
                (:file "spawn")
                (:file "rope")
+               (:file "fishing")
                (:file "trigger")
                (:file "player")
                (:file "toys")

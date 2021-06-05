@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity water (lit-entity vertex-entity sized-entity listener resizable ephemeral medium)
+(define-shader-entity water (lit-entity vertex-entity sized-entity listener resizable ephemeral medium collider)
   ((vertex-buffer :accessor vertex-buffer)
    (prev :accessor prev))
   (:inhibit-shaders (vertex-entity :vertex-shader)))

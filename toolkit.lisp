@@ -68,7 +68,7 @@
               (dash-evade-grace-time 0.1)
               (buffer-expiration-time 0.3)
               (look-delay      0.5)
-              (look-offset     16))))
+              (look-offset     128))))
 
 (defmacro p! (name)
   #+kandria-release
@@ -234,6 +234,14 @@
   (if (< 0.0 x)
       (+ x (- (random var) (/ var 2f0)))
       0.0))
+
+(defun grander (a b)
+  (cond ((= 0 a)
+         b)
+        ((< 0 a)
+         (if (< b a) a b))
+        (T
+         (if (< a b) a b))))
 
 (defun intersection-point (a as b bs)
   (let ((l (max (- (vx2 a) (vx2 as))

@@ -22,6 +22,7 @@
    (hud :accessor hud)
    (trace :initform (make-array (* 12 60 60 2) :element-type 'single-float :adjustable T :fill-pointer 0)
           :accessor movement-trace)
+   (fishing-line :initform (make-instance 'fishing-line) :accessor fishing-line)
    (palette-index :initform (or (position (setting :gameplay :palette) (palettes (asset 'kandria 'player)) :test #'equal) 0)))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
@@ -52,7 +53,8 @@
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(dash jump land-normal slide step-dirt die-player slash enter-water hit-ground))
     (stage (// 'kandria sound) area))
-  (stage (prompt player) area)
+  (stage (fishing-line player) area)
+  (stage (// 'kandria 'line-part) area)
   (stage (// 'kandria 'sting) area))
 
 (defmethod hurt :after (thing (player player))
@@ -215,7 +217,7 @@
                   (if (or (retained 'left) (retained 'right))
                       (start-animation 'roll player)
                       (start-animation 'land player))
-                  (duck-camera :offset (velocity player))
+                  (duck-camera (vx (velocity player)) (vy (velocity player)))
                   (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  ((and (< (vy (velocity player)) -0.5)
                        (< 0.2 (air-time player)))
@@ -375,6 +377,22 @@
                   (or (retained 'left)
                       (retained 'right)))
          (setf (state player) :normal)))
+      (:fishing
+       (duck-camera (* (direction player) +tile-size+ 16)
+                    (* +tile-size+ 4))
+       (let* ((line (fishing-line player))
+              (visible (slot-boundp line 'container)))
+         (when visible
+           (v<- (location line) (hurtbox player)))
+         (when (or (retained 'left) (retained 'right))
+           (when visible
+             (leave* line T))
+           (setf (state player) :normal))
+         (case (name (animation player))
+           (fishing-start
+            (if (= (frame-idx player) 543)
+                (unless visible
+                  (enter* line (region +world+))))))))
       (:animated
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
          (start-animation 'heavy-aerial-3-release player))
@@ -707,13 +725,13 @@
                      (incf (look-time player) (dt ev))
                      (setf (animation player) 'look-up))
                     (T
-                     (vsetf (offset (unit :camera T)) 0 (+ (p! look-offset))))))
+                     (duck-camera 0 (+ (p! look-offset))))))
              ((retained 'down)
               (cond ((< (look-time player) (p! look-delay))
                      (incf (look-time player) (dt ev))
                      (setf (animation player) 'look-down))
                     (T
-                     (vsetf (offset (unit :camera T)) 0 (- (p! look-offset))))))
+                     (duck-camera 0 (- (p! look-offset))))))
              (T
               (setf (look-time player) 0.0)
               (if (< 0 (limp-time player))

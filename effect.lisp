@@ -252,8 +252,12 @@ void main(){
   :layer-index 2
   :multiplier 10.0)
 
+(define-effect splash sprite-effect
+  :animation '(water-splash)
+  :layer-index +base-layer+)
+
 (define-asset (kandria sting) mesh
-  (make-rectangle 1000000 1))
+    (make-rectangle 1000000 1))
 
 (define-shader-entity sting-effect (vertex-entity rotated-entity shader-effect)
   ((vertex-array :initform (// 'kandria 'sting))
