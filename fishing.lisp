@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass fishing-spot (sized-entity interactable)
+(defclass fishing-spot (sized-entity interactable ephemeral)
   ((direction :initarg :direction :initform +1 :accessor direction
               :type integer)))
 
@@ -29,12 +29,12 @@
          (nv+ vel (v* (vec 0 (clamp 0.3 dist 4)) (dt ev)))))
       (T
        (nv+ vel (v* (gravity (medium buoy)) (dt ev)))))
-    (deadzone 0.001 (vx vel))
-    (deadzone 0.001 (vy vel))
+    (setf (vx vel) (deadzone 0.001 (vx vel)))
+    (setf (vy vel) (deadzone 0.001 (vy vel)))
     (nv+ (frame-velocity buoy) vel)))
 
 (define-asset (kandria line-part) mesh
-    (make-rectangle 1 4 :align :topcenter))
+    (make-rectangle 0.5 4 :align :topcenter))
 
 (define-shader-entity fishing-line (lit-vertex-entity listener)
   ((name :initform 'fishing-line)
@@ -58,7 +58,7 @@
     (loop for i from 0 below (length chain)
           do (setf (aref chain i) (list (vcopy (location line)) (vcopy (location line)))))
     (v<- (location buoy) (location line))
-    (vsetf (velocity buoy) 4 4)
+    (vsetf (velocity buoy) 8 4)
     (enter* (buoy line) target)))
 
 (defmethod leave* :after ((line fishing-line) from)
@@ -69,14 +69,14 @@
   (declare (optimize speed))
   (let ((chain (chain fishing-line))
         (buoy (buoy fishing-line))
-        (g #.(vec 0 -100))
+        (g #.(vec 0 -80))
         (dt2 (expt (the single-float (dt ev)) 2)))
     (declare (type (simple-array T (*)) chain))
     (flet ((verlet (a b)
              (let ((x (vx a)) (y (vy a)))
                (vsetf a
-                      (+ x (* (- x (vx b)) 0.99) (* dt2 (vx g)))
-                      (+ y (* (- y (vy b)) 0.99) (* dt2 (vy g))))
+                      (+ x (* 0.92 (- x (vx b))) (* dt2 (vx g)))
+                      (+ y (* 0.92 (- y (vy b))) (* dt2 (vy g))))
                (vsetf b x y)))
            (relax (a b i)
              (let* ((dist (v- b a))
@@ -96,8 +96,8 @@
                         4)))
       (let ((last (first (aref chain (1- (length chain)))))
             (loc (location buoy)))
-        (incf (vx (velocity buoy)) (deadzone 0.002 (* 0.01 (- (vx last) (vx loc)))))
-        (incf (vy (velocity buoy)) (deadzone 0.002 (* 0.01 (- (vy last) (vy loc)))))))))
+        (incf (vx (velocity buoy)) (* 0.01 (deadzone 0.75 (- (vx last) (vx loc)))))
+        (incf (vy (velocity buoy)) (* 0.01 (deadzone 0.75 (- (vy last) (vy loc)))))))))
 
 (defmethod render ((fishing-line fishing-line) (program shader-program))
   (let ((chain (chain fishing-line)))
