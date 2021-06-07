@@ -3,7 +3,7 @@
 (defparameter *creator-class-list*
   '(basic-light textured-light
     checkpoint story-trigger interaction-trigger walkntalk-trigger sandstorm-trigger
-    zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker
+    zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker action-prompt
     dummy box wolf zombie drone tame-wolf ball balloon
     catherine fi jack trader
     door passage save-point fishing-spot

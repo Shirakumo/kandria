@@ -152,3 +152,22 @@
           ((<= (clock trigger) 0.0)
            (harmony:play (// 'kandria 'earthquake))))))
 ;; TODO: make dust fall down over screen.
+
+(defclass action-prompt (trigger listener)
+  ((action :initarg :action :initform NIL :accessor action
+           :type symbol)
+   (interrupt :initarg :slow :initform NIL :accessor interrupt
+              :type boolean)))
+
+(defmethod interactable-p ((prompt action-prompt))
+  (active-p prompt))
+
+(defmethod interact ((prompt action-prompt) (player player))
+  (when (interrupt prompt)
+    (setf (time-scale +world+) 0.05)))
+
+(defmethod handle ((ev trial:action) (prompt action-prompt))
+  (when (and (interrupt prompt)
+             (typep ev (action prompt)))
+    (setf (time-scale +world+) 1.0)
+    (setf (active-p prompt) NIL)))

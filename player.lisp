@@ -114,6 +114,9 @@
   (save-state +main+ T)
   (status "Game saved."))
 
+(defmethod interact :after ((prompt action-prompt) (player player))
+  (setf (interactable player) prompt))
+
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))
     (when endangering
@@ -355,7 +358,7 @@
              (eql :normal (state player)))
         (let ((loc (vec (vx (location (interactable player)))
                         (+ (vy loc) (vy (bsize player))))))
-          (show (prompt player) :button 'interact :location loc))
+          (show (prompt player) :button (action (interactable player)) :location loc))
         (when (slot-boundp (prompt player) 'alloy:layout-parent)
           (hide (prompt player))))
     ;; Handle states.

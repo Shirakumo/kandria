@@ -3,6 +3,8 @@
 (defclass interactable (entity collider)
   ())
 
+(defmethod action ((interactable interactable)) 'interact)
+
 (defgeneric interact (with from))
 (defgeneric interactable-p (entity))
 
