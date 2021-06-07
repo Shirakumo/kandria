@@ -225,7 +225,7 @@ void main(){
 
 (define-effect explosion explosion-effect
   :voice (// 'kandria 'die-zombie)
-  :animation 'explosion48-grounded
+  :animation 'explosion
   :particles (list (make-tile-uvs 8 18 128 128)
                    :amount 16
                    :scale 4 :scale-var 2
