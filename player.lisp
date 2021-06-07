@@ -114,9 +114,6 @@
   (save-state +main+ T)
   (status "Game saved."))
 
-(defmethod interact :after ((prompt action-prompt) (player player))
-  (setf (interactable player) prompt))
-
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))
     (when endangering
@@ -675,7 +672,7 @@
       (:climbing
        (setf (animation player) 'climb)
        (cond
-         ((< 0 (vy vel))
+         ((< (vy vel) 0)
           (setf (playback-direction player) -1)
           (setf (playback-speed player) 1.5))
          ((= 0 (vy vel))

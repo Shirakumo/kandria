@@ -50,7 +50,7 @@
               (air-dcc         0.97)
               (climb-up        0.8)
               (climb-down      1.5)
-              (climb-strength  7.0)
+              (climb-strength  5.0)
               (climb-jump-cost 1.7)
               (slide-limit    -1.2)
               (crawl           0.5)

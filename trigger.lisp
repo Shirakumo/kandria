@@ -3,6 +3,8 @@
 (defclass trigger (sized-entity resizable ephemeral collider)
   ((active-p :initarg :active-p :initform T :accessor active-p :type boolean)))
 
+(defmethod initargs append ((trigger trigger)) '(:active-p))
+
 (defmethod interact :around ((trigger trigger) source)
   (when (active-p trigger)
     (call-next-method)))
@@ -33,6 +35,8 @@
   ((story-item :initarg :story-item :accessor story-item :type symbol)
    (target-status :initarg :target-status :accessor target-status :type symbol)))
 
+(defmethod initargs append ((trigger story-trigger)) '(:story-item :target-status))
+
 (defmethod interact ((trigger story-trigger) entity)
   (let ((name (story-item trigger)))
     (flet ((finish (thing)
@@ -56,6 +60,8 @@
 (defclass interaction-trigger (one-time-trigger)
   ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)))
 
+(defmethod initargs append ((trigger interaction-trigger)) '(:interaction))
+
 (defmethod interact ((trigger interaction-trigger) entity)
   (when (typep entity 'player)
     (show (make-instance 'dialog :interactions (list (quest:find-trigger (interaction trigger) +world+))))))
@@ -63,6 +69,8 @@
 (defclass walkntalk-trigger (one-time-trigger)
   ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)
    (target :initarg :target :initform T :accessor target :type symbol)))
+
+(defmethod initargs append ((trigger walkntalk-trigger)) '(:interaction :target))
 
 (defmethod interact ((trigger walkntalk-trigger) entity)
   (when (typep (name entity) (target trigger))
@@ -73,6 +81,8 @@
    (right :initarg :right :accessor right :initform 1.0 :type single-float)
    (horizontal :initarg :horizontal :accessor horizontal :initform T :type boolean)
    (ease-fun :initarg :easing :accessor ease-fun :initform 'linear :type symbol)))
+
+(defmethod initargs append ((trigger tween-trigger)) '(:left :right :horizontal :ease-fun))
 
 (defmethod interact ((trigger tween-trigger) (entity located-entity))
   (let* ((x (if (horizontal trigger)
@@ -116,6 +126,8 @@
   ((target :initform NIL :initarg :target :accessor target)
    (primary :initform T :initarg :primary :accessor primary)))
 
+(defmethod initargs append ((trigger teleport-trigger)) '(:target))
+
 (defmethod default-tool ((trigger teleport-trigger)) (find-class 'freeform))
 
 (defmethod enter :after ((trigger teleport-trigger) (region region))
@@ -156,15 +168,25 @@
 (defclass action-prompt (trigger listener)
   ((action :initarg :action :initform NIL :accessor action
            :type symbol)
-   (interrupt :initarg :slow :initform NIL :accessor interrupt
-              :type boolean)))
+   (interrupt :initarg :interrupt :initform NIL :accessor interrupt
+              :type boolean)
+   (prompt :initform (make-instance 'prompt) :reader prompt)))
+
+(defmethod initargs append ((prompt action-prompt)) '(:action :interrupt))
 
 (defmethod interactable-p ((prompt action-prompt))
   (active-p prompt))
 
+(defmethod handle ((ev tick) (prompt action-prompt))
+  (when (slot-boundp (prompt prompt) 'alloy:layout-parent)
+    (hide (prompt prompt))))
+
 (defmethod interact ((prompt action-prompt) (player player))
   (when (interrupt prompt)
-    (setf (time-scale +world+) 0.05)))
+    (setf (time-scale +world+) 0.05))
+  (let ((loc (vec (vx (location prompt))
+                  (+ (vy (location player)) (vy (bsize player))))))
+    (show (prompt prompt) :button (action prompt) :location loc)))
 
 (defmethod handle ((ev trial:action) (prompt action-prompt))
   (when (and (interrupt prompt)

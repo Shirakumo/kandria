@@ -1,14 +1,16 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defparameter *creator-class-list*
-  '(basic-light textured-light
-    checkpoint story-trigger interaction-trigger walkntalk-trigger sandstorm-trigger
-    zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker action-prompt
-    dummy box wolf zombie drone tame-wolf ball balloon
-    catherine fi jack trader
-    door passage save-point fishing-spot
-    falling-platform elevator
-    chunk water rope grass heatwave))
+  (sort
+   '(basic-light textured-light
+     checkpoint story-trigger interaction-trigger walkntalk-trigger sandstorm-trigger
+     zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker action-prompt
+     dummy box wolf zombie drone tame-wolf ball balloon
+     catherine fi jack trader
+     door passage save-point fishing-spot
+     falling-platform elevator
+     chunk water rope grass heatwave)
+   #'string<))
 
 (defclass creator (alloy:dialog)
   ((entity :initform NIL :accessor entity))
@@ -27,9 +29,8 @@
 (defmethod initialize-instance :after ((creator creator) &key)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T) :layout-parent creator))
          (focus (make-instance 'alloy:focus-list :focus-parent creator))
-         (classes (sort *creator-class-list* #'string<))
          (class NIL)
-         (combo (alloy:represent class 'alloy:combo-set :value-set classes :layout-parent layout :focus-parent focus))
+         (combo (alloy:represent class 'alloy:combo-set :value-set *creator-class-list* :layout-parent layout :focus-parent focus))
          (inspector (make-instance 'alloy::inspector :object (entity creator)))
          (scroll (make-instance 'alloy:scroll-view :scroll :y :focus inspector :layout inspector
                                                    :layout-parent layout :focus-parent focus)))
