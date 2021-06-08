@@ -170,7 +170,8 @@
            :type symbol)
    (interrupt :initarg :interrupt :initform NIL :accessor interrupt
               :type boolean)
-   (prompt :initform (make-instance 'prompt) :reader prompt)))
+   (prompt :initform (make-instance 'prompt) :reader prompt)
+   (triggered :initform NIL :accessor triggered)))
 
 (defmethod initargs append ((prompt action-prompt)) '(:action :interrupt))
 
@@ -178,15 +179,18 @@
   (active-p prompt))
 
 (defmethod handle ((ev tick) (prompt action-prompt))
-  (when (slot-boundp (prompt prompt) 'alloy:layout-parent)
-    (hide (prompt prompt))))
+  (unless (triggered prompt)
+    (when (slot-boundp (prompt prompt) 'alloy:layout-parent)
+      (hide (prompt prompt))))
+  (setf (triggered prompt) NIL))
 
 (defmethod interact ((prompt action-prompt) (player player))
   (when (interrupt prompt)
     (setf (time-scale +world+) 0.05))
   (let ((loc (vec (vx (location prompt))
                   (+ (vy (location player)) (vy (bsize player))))))
-    (show (prompt prompt) :button (action prompt) :location loc)))
+    (show (prompt prompt) :button (action prompt) :location loc)
+    (setf (triggered prompt) T)))
 
 (defmethod handle ((ev trial:action) (prompt action-prompt))
   (when (and (interrupt prompt)
