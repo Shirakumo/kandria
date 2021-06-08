@@ -1,10 +1,13 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass fishing-spot (sized-entity interactable ephemeral)
+(defclass fishing-spot (sized-entity interactable resizable ephemeral)
   ((direction :initarg :direction :initform +1 :accessor direction
               :type integer)))
 
-(defmethod interactable-p ((spot fishing-spot)) T)
+(defmethod interactable-p ((spot fishing-spot))
+  (let ((player (unit 'player +world+)))
+    (and (svref (collisions player) 2)
+         (< 5 (combat-time player)))))
 
 (defmethod interact ((spot fishing-spot) (player player))
   (setf (direction player) (direction spot))
@@ -14,21 +17,56 @@
 
 (define-shader-entity fishing-buoy (lit-sprite moving)
   ((texture :initform (// 'kandria 'items))
+   (line :accessor line)
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)
-   (offset :initform (vec 0 24))))
+   (offset :initform (vec 0 24))
+   (tries :initform 0 :accessor tries)
+   (catch-timer :initform 0.0 :accessor catch-timer)
+   (item :initform NIL :accessor item)))
 
 (defmethod collides-p ((buoy fishing-buoy) (moving moving) hit) NIL)
 
+(defmethod catch-timer ((item item)) 1.0)
+
 (defmethod handle :before ((ev tick) (buoy fishing-buoy))
-  (let ((vel (velocity buoy)))
+  (let ((vel (velocity buoy))
+        (dt (dt ev)))
+    (case (state buoy)
+      (:normal
+       (when (< (decf (catch-timer buoy) dt) 0.0)
+         (cond ((< (random 10.0) (tries buoy))
+                (setf (catch-timer buoy) 0.0)
+                (setf (tries buoy) 0)
+                (setf (state buoy) :caught)
+                (trigger 'splash buoy)
+                (setf (item buoy) (make-instance (alexandria:random-elt '(can))))
+                (incf (vy vel) -3))
+               (T
+                (incf (vy vel) -0.5)
+                (incf (tries buoy))
+                (setf (catch-timer buoy) (random* 3.0 1.0))))))
+      (:caught
+       (when (< (catch-timer (item buoy)) (incf (catch-timer buoy) dt))
+         (setf (catch-timer buoy) 5.0)
+         (setf (item buoy) NIL)
+         (setf (state buoy) :escaped)))
+      (:escaped
+       (when (<= (decf (catch-timer buoy) dt) 0.0)
+         (setf (state buoy) :normal)))
+      (:reeling
+       (incf (vy vel) (* 0.1 (signum (- (vy (location (line buoy))) (vy (location buoy))))))
+       (incf (vx vel) (* 0.01 (signum (- (vx (location (line buoy))) (vx (location buoy))))))
+       (let ((player (unit 'player +world+)))
+         (when (< (abs (- (vx (location player)) (vx (location buoy)))) 8)
+           (vsetf vel 0 0)))))
     (typecase (medium buoy)
       (water
        (let ((dist (- (+ (vy (location (medium buoy))) (vy (bsize (medium buoy))))
                       (vy (location buoy)))))
-         (nv+ vel (v* (vec 0 (clamp 0.3 dist 4)) (dt ev)))))
+         (nv+ vel (v* (vec 0 (clamp 0.3 dist 4)) dt))))
       (T
-       (nv+ vel (v* (gravity (medium buoy)) (dt ev)))))
+       (nv+ vel (v* (gravity (medium buoy)) dt))))
     (setf (vx vel) (deadzone 0.001 (vx vel)))
     (setf (vy vel) (deadzone 0.001 (vy vel)))
     (nv+ (frame-velocity buoy) vel)))
@@ -45,7 +83,8 @@
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initialize-instance :after ((fishing-line fishing-line) &key)
-  (setf (chain fishing-line) (make-array 64)))
+  (setf (chain fishing-line) (make-array 64))
+  (setf (line (buoy fishing-line)) fishing-line))
 
 (defmethod layer-index ((fishing-line fishing-line)) +base-layer+)
 
@@ -58,6 +97,10 @@
     (loop for i from 0 below (length chain)
           do (setf (aref chain i) (list (vcopy (location line)) (vcopy (location line)))))
     (v<- (location buoy) (location line))
+    (setf (catch-timer buoy) 2.0)
+    (setf (state buoy) :escaped)
+    (setf (tries buoy) 0)
+    (setf (item buoy) NIL)
     (vsetf (velocity buoy) 8 4)
     (enter* (buoy line) target)))
 
@@ -110,6 +153,16 @@
                (translate-by (vx p1) (vy p1) 0)
                (rotate-by 0 0 1 (+ angle (/ PI 2)))
                (call-next-method)))))
+
+(defun pull-in (fishing-line)
+  (let* ((buoy (buoy fishing-line)))
+    (case (state buoy)
+      (:reeling)
+      (T
+       (vsetf (velocity buoy)
+              (* (- (vx (location fishing-line)) (vx (location buoy))) 0.05)
+              (* (- (vy (location fishing-line)) (vy (location buoy))) 0.05))
+       (setf (state buoy) :reeling)))))
 
 (define-class-shader (fishing-line :fragment-shader 1)
   "out vec4 color;

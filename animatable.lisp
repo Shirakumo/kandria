@@ -118,7 +118,8 @@
   ;; Remove selves when death animation completes
   (when (eql (name (animation animatable)) 'die)
     (die animatable))
-  (when (eql next 'stand)
+  (when (and (eql next 'stand)
+             (find (state animatable) '(:dying :stunned :animated)))
     (setf (state animatable) :normal)))
 
 (defmethod (setf frame-idx) :before (idx (animatable animatable))
