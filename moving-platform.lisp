@@ -8,10 +8,11 @@
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
 (define-shader-entity falling-platform (lit-sprite moving-platform)
-  ())
+  ((fall-timer :initform 0.75 :accessor fall-timer)))
 
 (defmethod (setf location) :after (location (platform falling-platform))
-  (setf (state platform) :normal))
+  (setf (state platform) :normal)
+  (setf (fall-timer platform) 0.5))
 
 (defmethod handle ((ev tick) (platform falling-platform))
   (ecase (state platform)
@@ -20,9 +21,10 @@
     (:normal
      (loop repeat 10 while (handle-collisions +world+ platform)))
     (:falling
-     (nv+ (velocity platform) (nv* (vec 0 -10) (dt ev)))
-     (nv+ (frame-velocity platform) (velocity platform))
-     (loop repeat 10 while (handle-collisions +world+ platform)))))
+     (when (< (decf (fall-timer platform) (dt ev)) 0.0)
+       (nv+ (velocity platform) (nv* (vec 0 -10) (dt ev)))
+       (nv+ (frame-velocity platform) (velocity platform))
+       (loop repeat 10 while (handle-collisions +world+ platform))))))
 
 (defmethod collide :before ((player player) (platform falling-platform) hit)
   (when (< 0 (vy (hit-normal hit)))
@@ -56,6 +58,12 @@
       (setf (state platform) :blocked)
       (nv+ (location platform) (v* vel (hit-time hit)))
       (vsetf vel 0 0))))
+
+(defmethod apply-transforms :around ((platform falling-platform))
+  (when (and (eql :falling (state platform))
+             (< 0.0 (fall-timer platform)))
+    (translate-by (random* 0 2.0) (random* 0 2.0) 0))
+  (call-next-method))
 
 (define-shader-entity elevator (lit-sprite moving-platform)
   ((bsize :initform (nv/ (vec 32 16) 2))
