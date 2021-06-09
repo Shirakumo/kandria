@@ -197,7 +197,7 @@
           for unit = (unit name region)
           do (if unit
                  (decode unit state)
-                 (error "Unit named ~s referenced but not found." name)))
+                 (cerror "Ignore the entity." "Unit named ~s referenced but not found." name)))
     ;; Add new entities that exist in the state
     (loop for (type . state) in create-new
           for entity = (with-simple-restart (continue "Ignore this entity.")
