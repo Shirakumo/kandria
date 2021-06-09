@@ -4,7 +4,7 @@
                   "pool/WORKBENCH/"
                   "pool/TRIAL/"
                   "pool/KANDRIA/*.ase")
-          :copy ("CHANGES.mess" "README.mess"))
+          :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"))
   :itch (:user "Shinmera")
   :steam (:branch "developer"
           :user "shirakumo_org")

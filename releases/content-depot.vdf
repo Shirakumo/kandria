@@ -19,4 +19,16 @@
     "LocalPath" "keymap.lisp"
     "DepotPath" "."
   }
+  "FileMapping"{
+    "LocalPath" "CREDITS.mess"
+    "DepotPath" "."
+  }
+  "FileMapping"{
+    "LocalPath" "CHANGES.mess"
+    "DepotPath" "."
+  }
+  "FileMapping"{
+    "LocalPath" "README.mess"
+    "DepotPath" "."
+  }
 }
