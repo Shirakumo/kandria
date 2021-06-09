@@ -112,7 +112,7 @@
     (cond ((null arg)
            (launch))
           ((equal arg "config-directory")
-           (format T "~&~a~%" (uoip:native-namestring (config-directory))))
+           (format T "~&~a~%" (uiop:native-namestring (config-directory))))
           ((equal arg "controller-config")
            (gamepad::configurator-main))
           ((equal arg "credits")
