@@ -102,15 +102,46 @@
   (clock (scene main)))
 
 (defun main ()
-  (let ((arg (first (uiop:command-line-arguments))))
+  (let* ((args (uiop:command-line-arguments))
+         (arg (pop args)))
     (cond ((null arg)
            (launch))
+          ((equal arg "config-directory")
+           (format T "~&~a~%" (uoip:native-namestring (config-directory))))
           ((equal arg "controller-config")
            (gamepad::configurator-main))
+          ((equal arg "credits")
+           (format T "~&~a~%" (alexandria:read-file-into-string
+                               (merge-pathnames "CREDITS.mess" (root)))))
+          ((equal arg "edit")
+           (if args
+               (launch :region (pop args))
+               (format T "~&Please pass a region file to load.~%")))
+          ((equal arg "load")
+           (if args
+               (launch :save-state (pop args))
+               (format T "~&Please pass a save file to load.~%")))
           ((equal arg "swank")
            (let ((port (swank:create-server :dont-close T)))
-             (format T "~&Started swank on port ~d..." port)
-             (loop (sleep 1)))))))
+             (format T "~&Started swank on port ~d.~%" port)
+             (loop (sleep 1))))
+          ((equal arg "help")
+           (format T "~&Kandria v~a
+
+Website:     https://kandria.com
+Discord:     https://kandria.com/discord
+Steam page:  https://kandria.com/steam
+Editor Help: https://kandria.com/editor
+
+Possible sub-commands:
+  config-directory      Show the directory with config and save files.
+  controller-config     Launch the controller configuration utility.
+  credits               Show the game credits.
+  edit [map]            Load the region from the specified file.
+  help                  Show this help screen.
+  load [save]           Load the save from the specified file.
+  swank                 Launch swank to allow debugging.
+" (version :app))))))
 
 (defmethod render-loop :around ((main main))
   (let ((*package* #.*package*))
