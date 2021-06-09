@@ -122,6 +122,11 @@
            (if args
                (launch :region (pop args))
                (format T "~&Please pass a region file to load.~%")))
+          ((equal arg "report")
+           (let ((report (format NIL "~{~a~^ ~}" args)))
+             (org.shirakumo.fraf.trial.feedback:submit-report
+              :files NIL :description report)
+             (format T "~&Report sent. Thank you!~%")))
           ((equal arg "swank")
            (let ((port (swank:create-server :dont-close T)))
              (format T "~&Started swank on port ~d.~%" port)
@@ -148,6 +153,7 @@ Possible sub-commands:
   credits               Show the game credits.
   help                  Show this help screen.
   region [region]       Load the region from the specified file.
+  report [report...]    Send a feedback report.
   state [save]          Load the save from the specified file.
   swank                 Launch swank to allow debugging.
   world [world]         Load the world from the specified file.
