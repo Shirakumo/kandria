@@ -11,19 +11,24 @@
    :clear-color (vec 2/17 2/17 2/17 0)
    :version '(3 3) :profile :core
    :title #.(format NIL "Kandria - ~a" (version :app))
-   :app-id 1261430))
+   :app-id 1261430
+   :world (pathname-utils:subdirectory (root) "world")))
 
-(defmethod initialize-instance ((main main) &key app-id)
+(defmethod initialize-instance ((main main) &key app-id world)
   (declare (ignore app-id))
   (setf +main+ main)
   (call-next-method)
   (setf +input-source+ :keyboard)
-  (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
+  (with-packet (packet world :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; FIXME: Allow running without sound.
   (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)))
   (loop for (k v) on (setting :audio :volume) by #'cddr
         do (setf (harmony:volume k) v)))
+
+(defmethod initialize-instance :after ((main main) &key region)
+  (when region
+    (load-region region T)))
 
 (defmethod update ((main main) tt dt fc)
   (let* ((scene (scene main))
@@ -113,18 +118,22 @@
           ((equal arg "credits")
            (format T "~&~a~%" (alexandria:read-file-into-string
                                (merge-pathnames "CREDITS.mess" (root)))))
-          ((equal arg "edit")
+          ((equal arg "region")
            (if args
                (launch :region (pop args))
                (format T "~&Please pass a region file to load.~%")))
-          ((equal arg "load")
-           (if args
-               (launch :save-state (pop args))
-               (format T "~&Please pass a save file to load.~%")))
           ((equal arg "swank")
            (let ((port (swank:create-server :dont-close T)))
              (format T "~&Started swank on port ~d.~%" port)
              (loop (sleep 1))))
+          ((equal arg "state")
+           (if args
+               (launch :state (make-instance 'save-state :file (uiop:parse-native-namestring (pop args))))
+               (format T "~&Please pass a save file to load.~%")))
+          ((equal arg "world")
+           (if args
+               (launch :world (pop args))
+               "~&Please pass a world file to load.~%"))
           ((equal arg "help")
            (format T "~&Kandria v~a
 
@@ -137,10 +146,11 @@ Possible sub-commands:
   config-directory      Show the directory with config and save files.
   controller-config     Launch the controller configuration utility.
   credits               Show the game credits.
-  edit [map]            Load the region from the specified file.
   help                  Show this help screen.
-  load [save]           Load the save from the specified file.
+  region [region]       Load the region from the specified file.
+  state [save]          Load the save from the specified file.
   swank                 Launch swank to allow debugging.
+  world [world]         Load the world from the specified file.
 " (version :app))))))
 
 (defmethod render-loop :around ((main main))
