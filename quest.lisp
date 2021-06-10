@@ -38,7 +38,19 @@
   (make-instance 'assembly))
 
 (defclass task (quest:task)
-  ((visible-p :initarg :visible :initform T :accessor visible-p)))
+  ((visible-p :initarg :visible :initform T :accessor visible-p)
+   (progress-fun :initarg :progress-fun :initform NIL :accessor progress-fun)
+   (full-progress :initarg :full-progress :initform 0 :accessor full-progress)
+   (last-progress :initform 0 :accessor last-progress)))
+
+(defmethod quest:try :before ((task task))
+  (let ((fun (progress-fun task)))
+    (when fun
+      (let ((res (funcall fun)))
+        (when (< (last-progress task) res)
+          (setf (last-progress task) res)
+          (when (< res (full-progress task))
+            (status :note "~a (~a/~a)" (title task) res (full-progress task))))))))
 
 (defmethod quest:class-for ((storyline (eql 'quest:task))) 'task)
 
@@ -198,7 +210,10 @@
                         `((,name
                            ,@initargs
                            :condition (have ',item ,count)
-                           :on-complete ,next)))
+                           :on-complete ,next
+                           ,@(when (< 1 count)
+                               `(:full-progress ,count
+                                 :progress-fun (item-count ',item))))))
                  (:go-to ((place &key lead follow) . body)
                          (form-fiddle:with-body-options (body initargs) body
                            `((,name
