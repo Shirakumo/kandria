@@ -52,7 +52,7 @@
   :wrapping :clamp-to-edge)
 
 (define-asset (music region1) environment
-    '((:normal #p"music.mp3")))
+    '((:normal #p"music.oga")))
 
 (define-pixel lights)
 (define-pixel particles)

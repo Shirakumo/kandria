@@ -1,5 +1,5 @@
 (asdf:defsystem kandria
-  :version "0.1.1"
+  :version "0.2.0"
   :build-operation "deploy-op"
   :build-pathname #+linux "kandria-linux.run"
                   #+darwin "kandria-macos.o"
@@ -114,7 +114,7 @@
                :alexandria
                :file-select
                :cl-mixed-wav
-               :cl-mixed-mpg123
+               :cl-mixed-vorbis
                :zpng
                :jsown
                :swank))
