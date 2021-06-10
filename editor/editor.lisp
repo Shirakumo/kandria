@@ -15,6 +15,21 @@
                (,thunk)))
            (,thunk)))))
 
+(defclass zoom-slider (alloy:ranged-slider)
+  ()
+  (:default-initargs
+   :range '(0.3 . 1.3)
+   :step 0.05
+   :grid 0.05
+   :ideal-bounds (alloy:extent 0 0 100 20)))
+
+(defmethod alloy:value ((slider zoom-slider))
+  (let ((val (call-next-method)))
+    (expt val 1/5)))
+
+(defmethod (setf alloy:value) (value (slider zoom-slider))
+  (call-next-method (expt value 5) slider))
+
 (defclass sidebar (single-widget)
   ((side :initarg :side :accessor side)
    (entity :initform NIL :accessor entity)
@@ -40,7 +55,7 @@
 (defclass editor (pausing-panel alloy:observable-object)
   ((flare:name :initform :editor)
    (marker :initform (make-instance 'marker) :accessor marker)
-   (menu :initform NIL :accessor menu)
+   (zoom :initform NIL :accessor zoom)
    (entity :initform NIL :accessor entity)
    (tool :initform NIL :accessor tool)
    (alt-tool :accessor alt-tool)
@@ -56,13 +71,35 @@
 (defmethod initialize-instance :after ((editor editor) &key)
   (let* ((focus (make-instance 'alloy:focus-list))
          (layout (make-instance 'alloy:border-layout))
-         (menu (make-instance 'editmenu))
          (toolbar (make-instance 'toolbar :editor editor :entity NIL))
-         (entity (make-instance 'entity-widget :editor editor :side :west)))
+         (entity (make-instance 'entity-widget :editor editor :side :west))
+         (zoom (alloy:represent (zoom (unit :camera T)) 'zoom-slider))
+         (menu (alloy:with-menu
+                  ("File"
+                   ("New Region" (edit 'new-region editor))
+                   ("Save Region" (edit 'save-region editor))
+                   ("Save Region As..." (edit 'save-region-as editor))
+                   ("Load Region..." (edit 'load-region editor))
+                   ("Save Initial State" (edit 'save-initial-state editor)))
+                 ("Edit"
+                  ("Undo" (edit 'undo editor))
+                  ("Redo" (edit 'redo editor))
+                  ("Select" (edit 'select-entity editor))
+                  ("Insert" (edit 'insert-enitty editor))
+                  ("Clone" (edit 'clone-entity editor))
+                  ("Delete" (edit 'delete-entity editor))
+                  ("Change Lighting" (edit 'change-lighting editor)))
+                 ("View"
+                  ("Zoom In" (incf (alloy:value zoom) 0.1))
+                  ("Zoom Out" (decf (alloy:value zoom) 0.1))
+                  ("Center on Player" (setf (location (unit :camera T)) (location (unit 'player T)))))
+                 ("Help"
+                  ("About"))
+                 zoom)))
     (setf (alt-tool editor) 'browser)
     (setf (tool editor) 'browser)
     (setf (toolbar editor) toolbar)
-    (setf (menu editor) menu)
+    (setf (zoom editor) zoom)
     (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
     (alloy:enter menu layout :place :north :size (alloy:un 30))
     (alloy:enter menu focus)
@@ -202,8 +239,8 @@
       (#\z (edit 'undo editor))
       (#\y (edit 'redo editor))
       (#\u (setf (entity editor) (unit 'player T)))
-      (#\+ (incf (alloy:value (slot-value (menu editor) 'zoom)) 0.1))
-      (#\- (decf (alloy:value (slot-value (menu editor) 'zoom)) 0.1)))))
+      (#\+ (incf (alloy:value (zoom editor)) 0.1))
+      (#\- (decf (alloy:value (zoom editor)) 0.1)))))
 
 (defmethod handle ((event mouse-release) (editor editor))
   (when (and (eq (entity editor) (region +world+))
@@ -249,19 +286,17 @@
            (clear (history editor))
            (setf (entity editor) (region +world+))
            (trial:commit +world+ +main+)))
-    (if (retained :control)
-        (let ((path (file-select:existing :title "Select Region File")))
-          (when path
-            (load path)))
-        (alloy:with-confirmation ("Are you sure you want to reload the region?"  :ui (unit 'ui-pass T))
-          (load (packet (region +world+)))))))
+    (let ((path (file-select:existing :title "Select Region File")))
+      (when path
+        (load path)))))
 
 (defmethod edit ((action (eql 'save-region)) (editor editor))
-  (if (retained :control)
-      (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)) :filter '(("ZIP files" "zip")))))
-        (when path
-          (save-region (region +world+) path)))
-      (save-region T T)))
+  (save-region T T))
+
+(defmethod edit ((action (eql 'save-region-as)) (editor editor))
+  (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)) :filter '(("ZIP files" "zip")))))
+    (when path
+      (save-region (region +world+) path))))
 
 ;; FIXME: This information does not belong here. where else to put it? world-v0?
 (defmethod edit ((action (eql 'load-initial-state)) (editor editor))
@@ -339,3 +374,6 @@
        (setf (entity editor) entity))
       ((leave* entity (unit 'region T))
        (setf (entity editor) (region +world+))))))
+
+(defmethod edit ((action (eql 'change-lighting)) (editor editor))
+  ())

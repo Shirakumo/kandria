@@ -83,7 +83,6 @@
                              (:file "rectangle")
                              (:file "freeform")
                              (:file "editor")
-                             (:file "editmenu")
                              (:file "toolbar")
                              (:file "chunk")
                              (:file "remesh")
