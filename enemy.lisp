@@ -87,9 +87,11 @@
              (T
               (setf (animation enemy) 'stand)))))))
 
-(define-shader-entity wolf (ground-enemy half-solid)
+(define-shader-entity wolf (paletted-entity ground-enemy half-solid)
   ((jitter :initform (random* 0 +tile-size+) :accessor jitter)
-   (retreat-time :initform 0.0 :accessor retreat-time))
+   (retreat-time :initform 0.0 :accessor retreat-time)
+   (palette :initform (// 'kandria 'wolf-palette))
+   (palette-index :initform (random 3)))
   (:default-initargs
    :sprite-data (asset 'kandria 'wolf)))
 
@@ -159,9 +161,11 @@
                   (or (move-to (vec (- (vx ploc) (* +tile-size+ 10)) (+ (vy ploc) (* +tile-size+ 10))) enemy)
                       (setf (vx vel) (- (movement-speed enemy))))))))))))
 
-(define-shader-entity zombie (ground-enemy half-solid)
+(define-shader-entity zombie (paletted-entity ground-enemy half-solid)
   ((bsize :initform (vec 4 16))
-   (timer :initform 0.0 :accessor timer))
+   (timer :initform 0.0 :accessor timer)
+   (palette :initform (// 'kandria 'zombie-palette))
+   (palette-index :initform (random 5)))
   (:default-initargs
    :sprite-data (asset 'kandria 'zombie)))
 

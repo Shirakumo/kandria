@@ -63,6 +63,8 @@
 (define-pixel logos)
 (define-pixel elevator)
 (define-pixel player-palette)
+(define-pixel zombie-palette)
+(define-pixel wolf-palette)
 (define-pixel block-transition
   :wrapping :repeat)
 (define-pixel plain-transition
