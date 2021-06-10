@@ -75,19 +75,24 @@
          (entity (make-instance 'entity-widget :editor editor :side :west))
          (zoom (alloy:represent (zoom (unit :camera T)) 'zoom-slider))
          (menu (alloy:with-menu
-                  ("File"
-                   ("New Region" (edit 'new-region editor))
-                   ("Save Region" (edit 'save-region editor))
-                   ("Save Region As..." (edit 'save-region-as editor))
-                   ("Load Region..." (edit 'load-region editor))
-                   ("Save Initial State" (edit 'save-initial-state editor)))
+                 ("File"
+                  ("New Region" (edit 'new-region editor))
+                  ("Load Region..." (edit 'load-region editor))
+                  :separator
+                  ("Save Region" (edit 'save-region editor))
+                  ("Save Region As..." (edit 'save-region-as editor))
+                  ("Save Initial State" (edit 'save-initial-state editor))
+                  :separator
+                  ("Close Editor" (hide editor)))
                  ("Edit"
                   ("Undo" (edit 'undo editor))
                   ("Redo" (edit 'redo editor))
+                  :separator
                   ("Select" (edit 'select-entity editor))
                   ("Insert" (edit 'insert-enitty editor))
                   ("Clone" (edit 'clone-entity editor))
                   ("Delete" (edit 'delete-entity editor))
+                  :separator
                   ("Change Lighting" (edit 'change-lighting editor)))
                  ("View"
                   ("Zoom In" (incf (alloy:value zoom) 0.1))

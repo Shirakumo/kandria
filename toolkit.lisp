@@ -231,7 +231,9 @@
   (atan (vy point) (vx point)))
 
 (defun random* (x var)
-  (+ x (- (random var) (/ var 2f0))))
+  (if (= 0.0 var)
+      x
+      (+ x (- (random var) (/ var 2f0)))))
 
 (defun grander (a b)
   (cond ((= 0 a)
