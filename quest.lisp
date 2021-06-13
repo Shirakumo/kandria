@@ -116,7 +116,8 @@
 (defun global-wrap-lexenv (form)
   `(let* ((world +world+)
           (player (unit 'player world))
-          (region (unit 'region world)))
+          (region (unit 'region world))
+          (clock (clock world)))
      (declare (ignorable world player region))
      (flet* ((have (thing &optional (count 1) (inventory player))
                (<= count (item-count thing inventory)))
@@ -214,6 +215,34 @@
   (let ((counter 0))
     (labels ((parse-sequence-form (form name next)
                (match1 form
+                 (:eval (&rest body)
+                        (form-fiddle:with-body-options (body initargs) body
+                          `((,name
+                             ,@initargs
+                             :visible-p NIL
+                             :condition T
+                             :on-activate (action)
+                             :on-complete ,next
+                             (:action action
+                                      ,@body)))))
+                 (:nearby ((place character) . body)
+                          (form-fiddle:with-body-options (body initargs) body
+                            `((,name
+                               ,@initargs
+                               `(:title ,(format NIL "Wait for ~a to arrive." character))
+                               :condition (nearby-p ',place ',character)
+                               :on-complete (action ,@next)
+                               (:action action
+                                        ,@body)))))
+                 (:wait (for . initargs)
+                        `((,name
+                           ,@initargs
+                           :visible-p NIL
+                           :condition (<= ,for (- clock timer))
+                           :variables (timer)
+                           :on-activate (action)
+                           :on-complete ,next
+                           (:action action (setf timer clock)))))
                  (:have ((item &optional (count 1)) . initargs)
                         `((,name
                            ,@initargs

@@ -114,3 +114,10 @@ A sequence is defined as a list of clauses, with each clause defining a task wit
 - ``:complete (thing)``
   Check for the completion of a trigger or spawner. The resulting task will activate the trigger or spawner.
   Similar to ``:go-to`` the body can be a piece of dialogue that will play as walk-n-talk once the task starts.
+- ``:eval``
+  Simply evaluate the body of code unconditionally and immediately move on to the next task.
+- ``:nearby (place character)``
+  The task only completes once the character is near the specified place, similar to ``:go-to``.
+  The body can be arbitrary forms that should be executed once the character is nearby.
+- ``:wait seconds``
+  Wait for the specified number of seconds before continuing with the next task.
