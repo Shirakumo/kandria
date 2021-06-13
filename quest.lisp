@@ -135,7 +135,15 @@
              (location (thing)
                (location (unit thing +world+)))
              ((setf location) (loc thing)
-               (setf (location (unit thing +world+)) loc)))
+               (setf (location (unit thing +world+)) loc))
+             (interaction (storyline quest task interaction)
+               (interaction
+                (uiop:nest
+                 (quest:find-trigger interaction)
+                 (quest:find-task task)
+                 (quest:find-quest quest)
+                 (quest:storyline storyline))
+                T)))
        ,form)))
 
 (defun task-wrap-lexenv (form task)
