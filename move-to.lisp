@@ -619,6 +619,23 @@
       ;; Handle current step
       (destructuring-bind (node target) (car (path movable))
         (etypecase node
+          (symbol
+           (setf (node-time movable) 0.0)
+           (ecase node
+             (null)
+             (walk
+              (setf (vx vel) (* (ecase target
+                                  ((NIL) (direction movable))
+                                  (:left -1)
+                                  (:right +1))
+                                (movement-speed movable))))
+             (jump
+              (when ground
+                (v<- vel (or target (vec (* (direction movable) 2.0) 3.4)))))
+             (drop
+              (typecase ground
+                (null (setf (vx vel) 0))
+                (platform (decf (vy (location movable)) 2))))))
           (walk-node
            ;; KLUDGE: When we detect a collision on the side, just try to jump
            ;;         and hope you get over it.
@@ -704,7 +721,7 @@
                (move-towards source target))))
         ;; Check whether to move on to the next step
         (typecase node
-          ((or door-node teleport-node))
+          ((or door-node teleport-node symbol))
           (climb-node
            (when (<= (vy target) (vy loc))
              (pop (path movable))
