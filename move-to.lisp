@@ -745,3 +745,21 @@
   (let ((threshold (expt threshold 2)))
     (loop for (_ target) in path
           thereis (< (vsqrdist2 loc target) threshold))))
+
+(defmethod move (kind (movable movable) &key strength)
+  (setf (path movable)
+        (ecase kind
+          ((NIL) ())
+          (:not `((null NIL)))
+          (:left `((walk :left)))
+          (:right `((walk :right)))
+          (:jump `((jump ,strength)))
+          (:drop `((drop NIL))))))
+
+(defmethod move (kind (name symbol) &rest args)
+  (apply #'move kind (unit name +world+) args))
+
+(defmethod stop ((movable movable))
+  (setf (path movable) ()))
+
+(define-unit-resolver-methods stop (unit))

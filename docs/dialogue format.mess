@@ -55,6 +55,10 @@ The instruction ``! `` can execute a variety of commands when encountered:
     Eg: ``(setf (var 'foo) 0)`` will set the value of ``foo`` to ``0``.
   - ``contained-p`` Checks whether a given type of entity is within a region.
     Eg: ``(contained-p 'wolf 'market)`` returns T if there's at least one wolf enemy within the chunk named market.
+  - ``move`` Directly control movement of the character
+    Eg: ``(move :left 'catherine)``
+  - ``stop`` Stop the direct movement or pathing of a character
+    Eg: ``(stop 'catherine)
 
 Also see documentation on the "quest system"(link quest system.mess) for information on how quests, tasks, and interactions are meant to be understood.
 
