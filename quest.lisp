@@ -118,7 +118,7 @@
           (player (unit 'player world))
           (region (unit 'region world))
           (clock (clock world)))
-     (declare (ignorable world player region))
+     (declare (ignorable world player region clock))
      (flet* ((have (thing &optional (count 1) (inventory player))
                (<= count (item-count thing inventory)))
              (item-count (thing &optional (inventory player))

@@ -750,7 +750,7 @@
   (setf (path movable)
         (ecase kind
           ((NIL) ())
-          (:not `((null NIL)))
+          (:stop `((null NIL)))
           (:left `((walk :left)))
           (:right `((walk :right)))
           (:jump `((jump ,strength)))

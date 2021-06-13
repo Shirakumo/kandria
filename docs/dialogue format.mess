@@ -56,6 +56,7 @@ The instruction ``! `` can execute a variety of commands when encountered:
   - ``contained-p`` Checks whether a given type of entity is within a region.
     Eg: ``(contained-p 'wolf 'market)`` returns T if there's at least one wolf enemy within the chunk named market.
   - ``move`` Directly control movement of the character
+    The following movements are possible: ``:left``, ``:right``, ``:jump``, ``:drop``, ``:stop``.
     Eg: ``(move :left 'catherine)``
   - ``stop`` Stop the direct movement or pathing of a character
     Eg: ``(stop 'catherine)
