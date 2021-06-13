@@ -128,43 +128,45 @@
 
 (defmethod handle ((ev dash) (player player))
   (setf (limp-time player) (min (limp-time player) 1.0))
-  (case (state player)
-    ((:climbing :normal)
-     (let ((vel (velocity player)))
-       (cond ((handle-evasion player))
-             ((<= (dash-time player) 0)
-              (if (typep (trial::source-event ev) 'gamepad-event)
-                  (let ((dev (device (trial::source-event ev))))
+  (unless (path player)
+    (case (state player)
+      ((:climbing :normal)
+       (let ((vel (velocity player)))
+         (cond ((handle-evasion player))
+               ((<= (dash-time player) 0)
+                (if (typep (trial::source-event ev) 'gamepad-event)
+                    (let ((dev (device (trial::source-event ev))))
+                      (vsetf vel
+                             (absinvclamp 0.3 (gamepad:axis :l-h dev) 0.5)
+                             (absinvclamp 0.3 (gamepad:axis :l-v dev) 0.5)))
                     (vsetf vel
-                           (absinvclamp 0.3 (gamepad:axis :l-h dev) 0.5)
-                           (absinvclamp 0.3 (gamepad:axis :l-v dev) 0.5)))
-                  (vsetf vel
-                         (cond ((retained 'left)  -0.5)
-                               ((retained 'right) +0.5)
-                               (T                            0))
-                         (cond ((retained 'up)    +0.5)
-                               ((retained 'down)  -0.5)
-                               (T                            0))))
-              (setf (state player) :dashing)
-              (if (svref (collisions player) 2)
-                  (trigger 'dash player)
-                  (trigger 'air-dash player))
-              (setf (animation player) 'dash)
-              (if (v= 0 vel)
-                  (setf (vx vel) (direction player))
-                  (setf (direction player) (float-sign (vx vel))))
-              (nvunit vel)))))
-    (:animated
-     ;; Queue dash //except// for when we're being hit, as it's
-     ;; unlikely the player will want to dash right after getting
-     ;; hit.
-     (let ((name (name (animation player))))
-       (unless (or (eq name 'light-hit)
-                   (eq name 'hard-hit))
-         (setf (buffer player) 'dash))))))
+                           (cond ((retained 'left)  -0.5)
+                                 ((retained 'right) +0.5)
+                                 (T                            0))
+                           (cond ((retained 'up)    +0.5)
+                                 ((retained 'down)  -0.5)
+                                 (T                            0))))
+                (setf (state player) :dashing)
+                (if (svref (collisions player) 2)
+                    (trigger 'dash player)
+                    (trigger 'air-dash player))
+                (setf (animation player) 'dash)
+                (if (v= 0 vel)
+                    (setf (vx vel) (direction player))
+                    (setf (direction player) (float-sign (vx vel))))
+                (nvunit vel)))))
+      (:animated
+       ;; Queue dash //except// for when we're being hit, as it's
+       ;; unlikely the player will want to dash right after getting
+       ;; hit.
+       (let ((name (name (animation player))))
+         (unless (or (eq name 'light-hit)
+                     (eq name 'hard-hit))
+           (setf (buffer player) 'dash)))))))
 
 (defmethod handle ((ev jump) (player player))
-  (cond ((eql :animated (state player))
+  (cond ((path player))
+        ((eql :animated (state player))
          (setf (buffer player) 'jump))
         ((and (typep (svref (collisions player) 2) 'platform)
               (retained 'down))
@@ -173,17 +175,19 @@
          (setf (jump-time player) (- (p! coyote-time))))))
 
 (defmethod handle ((ev crawl) (player player))
-  (case (state player)
-    (:normal
-     (when (svref (collisions player) 2)
-       (setf (state player) :crawling)))
-    (:crawling
-     (when (and (not (svref (collisions player) 0))
-                (null (scan-collision +world+ (vec (vx (location player)) (+ (vy (location player)) 18)))))
-       (setf (state player) :normal)))))
+  (unless (path player)
+    (case (state player)
+      (:normal
+       (when (svref (collisions player) 2)
+         (setf (state player) :crawling)))
+      (:crawling
+       (when (and (not (svref (collisions player) 0))
+                  (null (scan-collision +world+ (vec (vx (location player)) (+ (vy (location player)) 18)))))
+         (setf (state player) :normal))))))
 
 (defmethod handle ((ev light-attack) (player player))
-  (cond ((eql :animated (state player))
+  (cond ((path player))
+        ((eql :animated (state player))
          (setf (buffer player) 'light-attack))
         ((not (eql :crawling (state player)))
          (setf (buffer player) 'light-attack)
@@ -191,7 +195,8 @@
          (setf (state player) :animated))))
 
 (defmethod handle ((ev heavy-attack) (player player))
-  (cond ((eql :animated (state player))
+  (cond ((path player))
+        ((eql :animated (state player))
          (setf (buffer player) 'heavy-attack))
         ((not (eql :crawling (state player)))
          (setf (buffer player) 'heavy-attack)
