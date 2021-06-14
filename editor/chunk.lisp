@@ -1,5 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-global +tile-history+
+    (make-array 16 :initial-element '(0 0 1 1)))
+
 (defclass tile-button (alloy:button)
   ((tileset :initarg :tileset :accessor tileset)))
 
@@ -25,6 +28,30 @@
   (format NIL "~3d / ~3d"
           (floor (first (alloy:value info)))
           (floor (second (alloy:value info)))))
+
+(defclass tile-history (alloy:structure)
+  ())
+
+(defmethod initialize-instance :after ((structure tile-history) &key widget)
+  (let* ((tileset (albedo (entity widget)))
+         (layout (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 1)
+                                                   :col-sizes (map 'list (constantly 32) +tile-history+)
+                                                   :row-sizes '(32)))
+         (focus (make-instance 'alloy:focus-list)))
+    (dotimes (i (length +tile-history+))
+      (let ((element (alloy:represent (aref +tile-history+ i) 'tile-button
+                                      :tileset tileset :layout-parent layout :focus-parent focus
+                                      :ideal-bounds (alloy:size 64 64))))
+        (alloy:on alloy:activate (element)
+          (setf (tile-to-place widget) (alloy:value element)))))
+    (alloy:observe 'tile widget (lambda (value object)
+                                  (unless (equal value (aref +tile-history+ 0))
+                                    (loop for i downfrom (1- (length +tile-history+)) above 0
+                                          do (setf (aref +tile-history+ i) (aref +tile-history+ (1- i))))
+                                    (setf (aref +tile-history+ 0) value)
+                                    (alloy:do-elements (element layout)
+                                      (alloy:refresh (alloy:data element))))))
+    (alloy:finish-structure structure layout focus)))
 
 (defclass tile-picker (alloy:structure)
   ())
@@ -87,6 +114,7 @@
 
 (alloy:define-subcomponent (chunk-widget show-solids) ((show-solids (entity chunk-widget)) alloy:switch))
 (alloy:define-subcomponent (chunk-widget tile-set-list) ((slot-value chunk-widget 'tile-set) alloy:combo-set :value-set (mapcar #'first (tile-types (tile-data (entity chunk-widget))))))
+(alloy:define-subobject (chunk-widget tile-history) ('tile-history :widget chunk-widget))
 (alloy:define-subobject (chunk-widget tiles) ('tile-picker :widget chunk-widget))
 (alloy:define-subcomponent (chunk-widget albedo) ((slot-value chunk-widget 'tile) tile-button :tileset (albedo (entity chunk-widget))))
 (alloy:define-subcomponent (chunk-widget absorption) ((slot-value chunk-widget 'tile) tile-button :tileset (absorption (entity chunk-widget))))
@@ -102,13 +130,14 @@
     (setf (tool (editor chunk-widget)) (tool (editor chunk-widget)))))
 
 (alloy:define-subcontainer (chunk-widget layout)
-    (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 30 T 30 60))
+    (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 30 34 T 30 60))
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T 30)
     :row-sizes '(30)
     layer show-solids))
   tile-set-list
+  tile-history
   tiles
   (alloy:build-ui
    (alloy:grid-layout
@@ -128,7 +157,7 @@
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
-  layer show-solids tile-set-list tiles place-width place-height clear compute)
+  layer show-solids tile-set-list tile-history tiles place-width place-height clear compute)
 
 (defmethod (setf entity) :after ((chunk chunk) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
