@@ -542,9 +542,7 @@
                ((retained 'down)
                 (setf (vy vel) (* (p! climb-down) -1)))
                (T
-                (setf (vy vel) 0.0)))
-         (when (typep attached 'moving-platform)
-           (nv+ vel (velocity attached)))))
+                (setf (vy vel) 0.0)))))
       (:crawling
        ;; Uncrawl on ground loss
        (when (and (not ground)
@@ -669,8 +667,7 @@
        (when (or (typep (svref collisions 1) '(or ground moving-platform))
                  (typep (svref collisions 3) '(or ground moving-platform)))
          (when (< (vy vel) (p! slide-limit))
-           (setf (vy vel) (p! slide-limit)))
-         (nv+ vel (velocity (or (svref collisions 1) (svref collisions 3)))))))
+           (setf (vy vel) (p! slide-limit))))))
     (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
     (nv+ (frame-velocity player) vel)))
 

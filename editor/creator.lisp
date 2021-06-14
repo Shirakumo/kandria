@@ -8,7 +8,7 @@
      dummy box wolf zombie drone tame-wolf ball balloon
      catherine fi jack trader
      door passage save-point fishing-spot
-     falling-platform elevator
+     falling-platform elevator cycler-platform
      chunk water rope grass heatwave)
    #'string<))
 

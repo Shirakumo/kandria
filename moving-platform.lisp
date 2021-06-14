@@ -108,3 +108,20 @@
      (setf (state elevator) :going-up))
     (:going-up
      (setf (state elevator) :going-down))))
+
+(define-shader-entity cycler-platform (lit-sprite moving-platform)
+  ((velocity :initform (vec 0 0.5))))
+
+(defmethod handle ((ev tick) (cycler cycler-platform))
+  (nv+ (frame-velocity cycler) (velocity cycler))
+  (dotimes (i 10)
+    (unless (handle-collisions +world+ cycler)
+      (return))))
+
+(defmethod collide ((cycler cycler-platform) (block block) hit)
+  (let ((vel (velocity cycler)))
+    (cond ((< 0 (vy vel)) (vsetf vel (vy vel) 0))
+          ((< 0 (vx vel)) (vsetf vel 0 (- (vx vel))))
+          ((< (vy vel) 0) (vsetf vel (vy vel) 0))
+          ((< (vx vel) 0) (vsetf vel 0 (- (vx vel)))))
+    (vsetf (frame-velocity cycler) 0 0)))
