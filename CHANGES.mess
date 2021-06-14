@@ -112,6 +112,12 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix Catherine getting stuck in odd locations due to retained follow state
   Reported by Janne Pakarinen
 
+## 0.2.0
+- Add selection tool
+  Suggested by Monroth
+- Add tile history
+  Suggested by Yuki and Dieting Hippo
+
 ## TODO
 - Fix disconnecting a sound device crashing the game
   Reported by Citizen Jake
