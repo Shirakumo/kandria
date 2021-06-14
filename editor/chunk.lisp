@@ -6,13 +6,14 @@
 (presentations:define-realization (ui tile-button)
   ((:icon simple:icon)
    (alloy:margins)
-   (tileset alloy:renderable)
-   :size (alloy:px-size (/ (width (tileset alloy:renderable)) +tile-size+)
-                        (/ (height (tileset alloy:renderable)) +tile-size+))))
+   (tileset alloy:renderable)))
 
 (presentations:define-update (ui tile-button)
   (:icon
-   :shift (alloy:px-point (first alloy:value) (second alloy:value))))
+   :size (alloy:px-size (/ (width (tileset alloy:renderable)) +tile-size+ (third alloy:value))
+                        (/ (height (tileset alloy:renderable)) +tile-size+ (fourth alloy:value)))
+   :shift (alloy:px-point (* (first alloy:value) (/ +tile-size+ (width (tileset alloy:renderable))))
+                          (* (second alloy:value) (/ +tile-size+ (height (tileset alloy:renderable)))))))
 
 (defmethod simple:icon ((renderer ui) bounds (image texture) &rest initargs)
   (apply #'make-instance 'simple:icon :image image initargs))
@@ -37,7 +38,7 @@
          (scroll (make-instance 'alloy:scroll-view :scroll T :layout layout :focus focus)))
     (dotimes (y (/ (height tileset) +tile-size+))
       (dotimes (x (/ (width tileset) +tile-size+))
-        (let* ((tile (list x (- (/ (height tileset) +tile-size+) y 1)))
+        (let* ((tile (list x (- (/ (height tileset) +tile-size+) y 1) 1 1))
                (element (make-instance 'tile-button :data (make-instance 'alloy:value-data :value tile)
                                                     :tileset tileset :layout-parent layout :focus-parent focus)))
           (alloy:on alloy:activate (element)
@@ -53,7 +54,7 @@
                 (progn
                   (setf (place-width widget) 1)
                   (setf (place-height widget) 1)
-                  (setf (tile-to-place widget) (append tile (list 1 1)))))))))
+                  (setf (tile-to-place widget) tile)))))))
     (alloy:finish-structure structure scroll scroll)))
 
 (alloy:define-widget chunk-widget (sidebar)
@@ -76,6 +77,10 @@
          (x (mod (vx tile) w))
          (y (mod (+ (vy tile) (floor (vx tile) w)) h)))
     (call-next-method (list x y (place-width widget) (place-height widget)) widget)))
+
+(defmethod (setf tile-to-place) :around ((tile cons) (widget chunk-widget))
+  (destructuring-bind (x y &optional (w 1) (h 1)) tile
+    (call-next-method (list x y w h) widget)))
 
 (defmethod (setf tile-to-place) :after ((tile cons) (widget chunk-widget))
   (setf (alloy:value (slot-value widget 'show-solids)) (= 0 (second tile))))
