@@ -81,6 +81,7 @@
                              (:file "paint")
                              (:file "line")
                              (:file "rectangle")
+                             (:file "selection")
                              (:file "freeform")
                              (:file "editor")
                              (:file "toolbar")
