@@ -38,6 +38,24 @@
         (T
          '(0 0 1 1))))
 
+(defun cache-tile (chunk loc tile)
+  (cache-tile-region
+   (if (vec3-p loc)
+       (aref (layers chunk) (floor (vz loc)))
+       chunk)
+   (vxy loc) (vec (+ (vx loc) (* +tile-size+ (third tile)))
+                  (+ (vy loc) (* +tile-size+ (fourth tile))))))
+
+(defun stamp-tile (chunk loc template)
+  (destructuring-bind (w h) (array-dimensions template)
+    (repeat-tile-region
+     (if (vec3-p loc)
+         (aref (layers chunk) (floor (vz loc)))
+         chunk)
+     (vxy loc) (vec (+ (vx loc) (* +tile-size+ w))
+                    (+ (vy loc) (* +tile-size+ h)))
+     template)))
+
 (defclass paint (painter-tool)
   ((stroke :initform NIL :accessor stroke)))
 
@@ -56,7 +74,7 @@
              ((loop for (loc . _) in stroke
                     do (setf (tile loc entity) tile)))
              ((loop for (loc . tile) in (reverse stroke)
-                    do (setf (tile loc entity) tile)))))
+                    do (stamp-tile entity loc tile)))))
        (setf (stroke tool) NIL)))))
 
 (defmethod handle ((event mouse-scroll) (tool paint))
@@ -97,5 +115,5 @@
            (when (or (null (cdr (stroke tool)))
                      (v/= loc (caar (stroke tool))))
              ;; FIXME: Make this work right with multiple tiles placement.
-             (push (cons loc (tile loc entity)) (stroke tool))
+             (push (cons loc (cache-tile entity loc tile)) (stroke tool))
              (setf (tile loc entity) tile))))))
