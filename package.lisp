@@ -1,3 +1,5 @@
+(defpackage #:org.shirakumo.fraf.kandria.fish)
+
 (defpackage #:kandria
   (:nicknames #:org.shirakumo.fraf.kandria)
   (:use #:cl+trial)
@@ -9,6 +11,7 @@
            #:animatable #:sprite-data #:sprite-animation
            #:commit #:prompt)
   (:local-nicknames
+   (#:fish #:org.shirakumo.fraf.kandria.fish)
    (#:dialogue #:org.shirakumo.fraf.speechless)
    (#:quest #:org.shirakumo.fraf.kandria.quest)
    (#:alloy #:org.shirakumo.alloy)

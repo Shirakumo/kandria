@@ -124,7 +124,7 @@
       (when (/= (hit-time best-hit) float-features:single-float-positive-infinity)
         best-hit))))
 
-(define-shader-entity sprite-entity (vertex-entity textured-entity sized-entity facing-entity)
+(define-shader-entity sprite-entity (vertex-entity textured-entity rotated-entity sized-entity facing-entity)
   ((vertex-array :initform (// 'kandria '1x))
    (texture :initform (// 'kandria 'placeholder) :initarg :texture :accessor albedo
             :type resource :documentation "The tileset to display the sprite from.")

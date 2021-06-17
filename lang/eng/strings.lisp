@@ -18,6 +18,8 @@ mushroom-good-1 "flower fungus"
 mushroom-good-2 "rusty puffball"
 mushroom-bad-1 "black knight"
 walkie-talkie "walkie-talkie"
+;; Fish
+fish:shark "Shark"
 ;; UI
 go-backwards-in-ui "Back"
 resume-game "Resume"

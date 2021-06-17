@@ -68,6 +68,9 @@
          (setf (time-scale +world+) 1.0)
          NIL)))
 
+(define-cheat |i can't see| "Let there be light"
+  (setf (hour +world+) 12))
+
 (define-cheat test "Testing room"
   (let ((room (unit 'debug T)))
     (when room

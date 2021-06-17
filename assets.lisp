@@ -57,6 +57,7 @@
 (define-pixel lights)
 (define-pixel particles)
 (define-pixel items)
+(define-pixel fish)
 (define-pixel pixelfont)
 (define-pixel ball)
 (define-pixel grass)

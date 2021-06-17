@@ -3,7 +3,7 @@
 (defclass fishing-spot (sized-entity interactable resizable ephemeral)
   ((direction :initarg :direction :initform +1 :accessor direction
               :type integer)
-   (item-set :initarg :item-set :initform '((1.0 can)) :accessor item-set)))
+   (item-set :initarg :item-set :initform '((1.0 fish:shark)) :accessor item-set)))
 
 (defmethod interactable-p ((spot fishing-spot))
   (let ((player (unit 'player +world+)))
@@ -60,12 +60,18 @@
        (when (<= (decf (catch-timer buoy) dt) 0.0)
          (setf (state buoy) :normal)))
       (:reeling
-       (v<- (location (item buoy)) (location buoy))
-       (incf (vy vel) (* 0.1 (signum (- (vy (location (fishing-line buoy))) (vy (location buoy))))))
-       (incf (vx vel) (* 0.01 (signum (- (vx (location (fishing-line buoy))) (vx (location buoy))))))
-       (let ((player (unit 'player +world+)))
-         (when (< (abs (- (vx (location player)) (vx (location buoy)))) 8)
-           (vsetf vel 0 0)))))
+       (let ((line (location (fishing-line buoy)))
+             (item (item buoy)))
+         (incf (vy vel) (* 0.1 (signum (- (vy line) (vy (location buoy))))))
+         (incf (vx vel) (* 0.01 (signum (- (vx line) (vx (location buoy))))))
+         (let ((player (unit 'player +world+)))
+           (when (< (abs (- (vx (location player)) (vx (location buoy)))) 8)
+             (vsetf vel 0 0)))
+         (when item
+           (v<- (location item) (location buoy))
+           (if (v= 0 vel)
+               (incf (angle item) (* (- (float (* 1.5 PI) 0f0) (angle item)) (* 10 dt)))
+               (setf (angle item) (float (mod (- (point-angle vel) PI) (* 2 PI)) 0f0)))))))
     (typecase (medium buoy)
       (water
        (let ((dist (- (+ (vy (location (medium buoy))) (vy (bsize (medium buoy))))
@@ -96,7 +102,8 @@
 (defmethod layer-index ((fishing-line fishing-line)) +base-layer+)
 
 (defmethod stage ((line fishing-line) (area staging-area))
-  (stage (buoy line) area))
+  (stage (buoy line) area)
+  (stage (// 'kandria 'fish) area))
 
 (defmethod enter* :after ((line fishing-line) target)
   (let ((chain (chain line))
@@ -108,7 +115,7 @@
     (setf (state buoy) :escaped)
     (setf (tries buoy) 0)
     (setf (item buoy) NIL)
-    (vsetf (velocity buoy) 8 4)
+    (vsetf (velocity buoy) (* (direction (fishing-spot line)) 8) 4)
     (enter* (buoy line) target)))
 
 (defmethod leave* :after ((line fishing-line) from)
@@ -166,7 +173,8 @@
     (case (state buoy)
       (:reeling)
       (T
-       (enter* (item buoy) (region +world+))
+       (when (item buoy)
+         (enter* (item buoy) (region +world+)))
        (vsetf (velocity buoy)
               (* (- (vx (location fishing-line)) (vx (location buoy))) 0.05)
               (* (- (vy (location fishing-line)) (vy (location buoy))) 0.05))
@@ -178,3 +186,22 @@
 void main(){
   color = vec4(0,0,0,1);
 }")
+
+
+(define-shader-entity fish (item)
+  ((texture :initform (// 'kandria 'fish))
+   (size :initform (vec 8 8))
+   (layer-index :initform +base-layer+)))
+
+(defmethod apply-transforms progn ((fish fish))
+  (translate #.(vec 0.5 0 0)))
+
+(defmacro define-fish (name x y w h)
+  (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish)))
+    `(progn
+       (export ',name (symbol-package ',name))
+       (define-shader-entity ,name (fish)
+         ((size :initform ,(vec w h))
+          (offset :initform ,(vec x y)))))))
+
+(define-fish shark 0 32 64 24)
