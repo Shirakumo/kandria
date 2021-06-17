@@ -3,7 +3,7 @@
 (defclass fishing-spot (sized-entity interactable resizable ephemeral)
   ((direction :initarg :direction :initform +1 :accessor direction
               :type integer)
-   (item-set :initarg :item-set :initform '((1.0 fish:shark)) :accessor item-set)))
+   (item-set :initarg :item-set :initform () :accessor item-set)))
 
 (defmethod interactable-p ((spot fishing-spot))
   (let ((player (unit 'player +world+)))
@@ -188,7 +188,7 @@ void main(){
 }")
 
 
-(define-shader-entity fish (item)
+(define-shader-entity fish (item value-item)
   ((texture :initform (// 'kandria 'fish))
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)))
@@ -196,13 +196,14 @@ void main(){
 (defmethod apply-transforms progn ((fish fish))
   (translate #.(vec 0.5 0 0)))
 
-(defmacro define-fish (name x y w h)
+(defmacro define-fish (name x y w h &optional superclasses &body body)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish)))
     `(progn
        (export ',name (symbol-package ',name))
-       (define-shader-entity ,name (fish)
+       (define-shader-entity ,name (,@superclasses fish)
          ((size :initform ,(vec w h))
-          (offset :initform ,(vec x y)))))))
+          (offset :initform ,(vec x y)))
+         ,@body))))
 
 (define-fish crab 0 0 16 16)
 (define-fish machine-fish 0 16 16 8)

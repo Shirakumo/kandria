@@ -35,42 +35,42 @@
   - //Buy//
     ! label buy
     ~ player
-    - //Small HP (I own {(item-count 'small-health-pack)}) - 4$//
-      ? (and (<= 4 (item-count 'parts)) (< 0 (var 'small-health-qty)))
-      | ! eval (retrieve 'parts 4)
-      | ! eval (store 'small-health-pack 1)
+    - //Small HP (I own {(item-count 'item:small-health-pack)}) - 4$//
+      ? (and (<= 4 (item-count 'item:parts)) (< 0 (var 'small-health-qty)))
+      | ! eval (retrieve 'item:parts 4)
+      | ! eval (store 'item:small-health-pack 1)
       | ! eval (setf (var 'small-health-qty) (- (var 'small-health-qty) 1))
       | ? (= 0 (var 'small-health-qty))
       | | ~ trader
       | | < last-one
       | < buy
-      |? (> 4 (item-count 'parts))
+      |? (> 4 (item-count 'item:parts))
       | < cannot-afford
       |?
       | < out-of-stock
-    - //Medium HP (I own {(item-count 'medium-health-pack)}) - 10$//
-      ? (and (<= 10 (item-count 'parts)) (< 0 (var 'medium-health-qty)))
-      | ! eval (retrieve 'parts 10)
-      | ! eval (store 'medium-health-pack 1)
+    - //Medium HP (I own {(item-count 'item:medium-health-pack)}) - 10$//
+      ? (and (<= 10 (item-count 'item:parts)) (< 0 (var 'medium-health-qty)))
+      | ! eval (retrieve 'item:parts 10)
+      | ! eval (store 'item:medium-health-pack 1)
       | ! eval (setf (var 'medium-health-qty) (- (var 'medium-health-qty) 1))
       | ? (= 0 (var 'medium-health-qty))
       | | ~ trader
       | | < last-one
       | < buy
-      |? (> 10 (item-count 'parts))
+      |? (> 10 (item-count 'item:parts))
       | < cannot-afford
       |?
       | < out-of-stock
-    - //Large HP (I own {(item-count 'large-health-pack)}) - 20$//
-      ? (and (<= 20 (item-count 'parts)) (< 0 (var 'large-health-qty)))
-      | ! eval (retrieve 'parts 20)
-      | ! eval (store 'large-health-pack 1)
+    - //Large HP (I own {(item-count 'item:large-health-pack)}) - 20$//
+      ? (and (<= 20 (item-count 'item:parts)) (< 0 (var 'large-health-qty)))
+      | ! eval (retrieve 'item:parts 20)
+      | ! eval (store 'item:large-health-pack 1)
       | ! eval (setf (var 'large-health-qty) (- (var 'large-health-qty) 1))
       | ? (= 0 (var 'large-health-qty))
       | | ~ trader
       | | < last-one
       | < buy
-      |? (> 20 (item-count 'parts))
+      |? (> 20 (item-count 'item:parts))
       | < cannot-afford
       |?
       | < out-of-stock
@@ -79,21 +79,21 @@
   - //Sell//
     ! label sell
     ~ player
-    - [(have 'mushroom-bad-1) //Black knight (I own {(item-count 'mushroom-bad-1)}) - 2$//|]
-      ! eval (store 'parts 2)
-      ! eval (retrieve 'mushroom-bad-1 1)
+    - [(have 'item:mushroom-bad-1) //Black knight (I own {(item-count 'item:mushroom-bad-1)}) - 2$//|]
+      ! eval (store 'item:parts 2)
+      ! eval (retrieve 'item:mushroom-bad-1 1)
       < sell
-    - [(have 'mushroom-good-1) //Flower fungus (I own {(item-count 'mushroom-good-1)}) - 1$//|]
-      ! eval (store 'parts 1)
-      ! eval (retrieve 'mushroom-good-1 1)
+    - [(have 'item:mushroom-good-1) //Flower fungus (I own {(item-count 'item:mushroom-good-1)}) - 1$//|]
+      ! eval (store 'item:parts 1)
+      ! eval (retrieve 'item:mushroom-good-1 1)
       < sell
-    - [(have 'mushroom-good-2) //Rusty puffball (I own {(item-count 'mushroom-good-2)}) - 1$//|]
-      ! eval (store 'parts 1)
-      ! eval (retrieve 'mushroom-good-2 1)
+    - [(have 'item:mushroom-good-2) //Rusty puffball (I own {(item-count 'item:mushroom-good-2)}) - 1$//|]
+      ! eval (store 'item:parts 1)
+      ! eval (retrieve 'item:mushroom-good-2 1)
       < sell
-    - [(have 'walkie-talkie) //Walkie-talkie for 150$//|]
-      ! eval (retrieve 'walkie-talkie 1)
-      ! eval (store 'parts 150)
+    - [(have 'item:walkie-talkie) //Walkie-talkie for 150$//|]
+      ! eval (retrieve 'item:walkie-talkie 1)
+      ! eval (store 'item:parts 150)
       ~ trader
       | Hey, where'd you get that? These things are almost priceless.
       | Not for old Sahil, of course.
@@ -183,7 +183,7 @@ Also leave to Talk options
 #| TODO when get scrolling options, add to sell menu (health packs). Selling health packs kinda pointless right now anyway, so replaced with mushroom types; could still go offscreen with 5 options above instead of 4, but having all 5 is rare, and all you have to do is sell enough to clear one and you'll see the remaining 4
     - [(have 'small-health-pack) //Small HP for 2$ (I own {(item-count 'small-health-pack)})//|]
       ! eval (retrieve 'small-health-pack 1)
-      ! eval (store 'parts 2)
+      ! eval (store 'item:parts 2)
       < sell
     - [(have 'medium-health-pack) //Medium HP for 5$ (I own {(item-count 'medium-health-pack)})//|]
       ! eval (retrieve 'medium-health-pack 1)

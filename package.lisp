@@ -1,4 +1,5 @@
 (defpackage #:org.shirakumo.fraf.kandria.fish)
+(defpackage #:org.shirakumo.fraf.kandria.item)
 
 (defpackage #:kandria
   (:nicknames #:org.shirakumo.fraf.kandria)
@@ -12,6 +13,7 @@
            #:commit #:prompt)
   (:local-nicknames
    (#:fish #:org.shirakumo.fraf.kandria.fish)
+   (#:item #:org.shirakumo.fraf.kandria.item)
    (#:dialogue #:org.shirakumo.fraf.speechless)
    (#:quest #:org.shirakumo.fraf.kandria.quest)
    (#:alloy #:org.shirakumo.alloy)

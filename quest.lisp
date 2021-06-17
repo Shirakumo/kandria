@@ -300,5 +300,3 @@
 
 (defmethod load-language :after (&optional (language (setting :language)))
   (load-quests language))
-
-(load-quests :eng)

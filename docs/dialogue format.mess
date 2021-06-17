@@ -23,12 +23,12 @@ The instruction ``! `` can execute a variety of commands when encountered:
   - ``complete-p`` returns T if the given triggers are all completed successfully
   - ``failed-p`` returns T if the given triggers are all marked as failed
   - ``have`` returns T if the player has the given item in their inventory
-    Eg: ``(have 'mushroom 10)`` returns T if the player has at least 10 mushrooms.
+    Eg: ``(have 'item:mushroom 10)`` returns T if the player has at least 10 mushrooms.
   - ``item-count`` returns the count of the given item the player has in their inventory.
   - ``store`` adds the given item to the player's inventory. Optionally specify the number of the item to give
-    Eg: ``(store 'small-health-pack 5)`` Give the player five small health packs.
+    Eg: ``(store 'item:small-health-pack 5)`` Give the player five small health packs.
   - ``retrieve`` removes the given item from the player's inventory. Optionally specify the number of items to remove
-    Eg: ``(retrieve 'quest-item)`` Remove the quest item from the player's inventory.
+    Eg: ``(retrieve 'item:quest-item)`` Remove the quest item from the player's inventory.
   - ``unit`` returns the entity with the given name
     Eg: ``(unit 'catherine)`` returns Catherine. This can be useful for more specific state management.
   - ``(setf location)`` sets the location of the given entity. A location may be another entity or another entity's name.

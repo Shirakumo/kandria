@@ -73,7 +73,7 @@
 | //It's new-home candidate site Epsilon.//
 | (:thinking)//These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.//
 | //I could clear the barbed wire so children, and the elderly and infirm could navigate the area.//
-? (or (complete-p 'q2-seeds) (have 'seeds))
+? (or (complete-p 'q2-seeds) (have 'item:seeds))
 | | (:skeptical)//But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.//
 |?
 | | (:skeptical)//But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.//
@@ -111,12 +111,12 @@
 - Yes please.
   ~ jack
   | Figures. Here ya go.
-  ! eval (store 'parts 10)
+  ! eval (store 'item:parts 10)
   < explain
 - That's the normal etiquette, isn't it?
   ~ jack
   | I guess so. Here ya go.
-  ! eval (store 'parts 10)
+  ! eval (store 'item:parts 10)
   < explain
 - Not from you.
   ~ jack

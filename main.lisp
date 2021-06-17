@@ -231,3 +231,5 @@ Possible sub-commands:
       (v:info :kandria.debugging "Launching SWANK server on port ~a." swank)
       (swank:create-server :port swank :dont-close T)
       (setf *inhibit-standalone-error-handler* T))))
+
+(load-quests :eng)

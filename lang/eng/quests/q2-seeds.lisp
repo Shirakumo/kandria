@@ -36,7 +36,7 @@
 | //Like this one: There are 54 sachets inside. The seeds are in wrappers, tiny and hard like grit.//
 | (:skeptical)//Will they still grow?//
 | (:normal)//I stow 54 sachets in my compartment.//
-! eval (store 'seeds 54)
+! eval (store 'item:seeds 54)
 "))
   ;; TODO: use a variable to track if you took none / destroyed, which could come back and bite you in the ass later (Alex finds out, and tries to frame you to cover his own tracks? - ties into the plot outline) - log as a var on the storyline
   ;; TODO: use an exact technical unit/amount of pressure e.g. X pounds per inch (research)
@@ -78,13 +78,13 @@
 ~ player
 | I've got them right here.
 ~ fi
-! eval (retrieve 'seeds (item-count 'seeds))
+! eval (retrieve 'item:seeds T)
 | Oh my. There must be... fifty sachets here. All fully stocked.
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the Noka yourself.
 | But for now, please accept this reward as a token of my appreciation.
-! eval (store 'parts 20)
+! eval (store 'item:parts 20)
 ~ fi
 ? (complete-p 'q3-new-home)
 | | You should check in with Catherine too - I'm sure she'd like to see you again.
@@ -111,7 +111,7 @@
 ~ fi
 | You're back - did you find the seeds?
 ~ player
-- [(have 'seeds) I've got them right here.]
+- [(have 'item:seeds) I've got them right here.]
 ~ fi
 ? (= 54 (item-count 'seeds))
 | ! eval (retrieve 'seeds 54)

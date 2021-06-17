@@ -22,22 +22,22 @@
 | | //I ignite the torch from the index finger on my right hand.//
 | | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
 | | (:normal)//Weld complete.//
-| ? (have 'walkie-talkie)
+| ? (have 'item:walkie-talkie)
 | | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
 |  
-| | Catherine, I've sealed one of the leaks. [(have 'walkie-talkie) Over.|]
+| | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
-| | Keep going - let me know if you hit any trouble. [(have 'walkie-talkie) Over and out.|]
+| | Keep going - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
 ? (complete-p 'leak-second 'leak-third)
 | ~ player
-| | Catherine, I think I got the last leak. [(have 'walkie-talkie) Over.|]
+| | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
-| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'walkie-talkie) Over.|]
-| | (:normal)Any sign of saboteurs? [(have 'walkie-talkie) Over.|]
+| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
+| | (:normal)Any sign of saboteurs? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
 |   ~ catherine
@@ -46,7 +46,7 @@
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides... Sorry!
 | ~ catherine
-| | (:excited)Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
+| | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 "))
   ;; TODO: how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
@@ -67,22 +67,22 @@
 | | //I ignite the torch from the index finger on my right hand.//
 | | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
 | | (:normal)//Weld complete.//
-| ? (have 'walkie-talkie)
+| ? (have 'item:walkie-talkie)
 | | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
 |  
-| | Catherine, I've sealed one of the leaks. [(have 'walkie-talkie) Over.|]
+| | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
-| | Keep going - let me know if you hit any trouble. [(have 'walkie-talkie) Over and out.|]
+| | Keep going - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
 ? (complete-p 'leak-first 'leak-third)
 | ~ player
-| | Catherine, I think I got the last leak. [(have 'walkie-talkie) Over.|]
+| | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
-| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'walkie-talkie) Over.|]
-| | (:normal)Any sign of saboteurs? [(have 'walkie-talkie) Over.|]
+| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
+| | (:normal)Any sign of saboteurs? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
 |   ~ catherine
@@ -91,7 +91,7 @@
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides... Sorry!
 | ~ catherine
-| | (:excited)Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
+| | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 "))
 
@@ -110,22 +110,22 @@
 | | //I ignite the torch from the index finger on my right hand.//
 | | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
 | | (:normal)//Weld complete.//
-| ? (have 'walkie-talkie)
+| ? (have 'item:walkie-talkie)
 | | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
 |  
-| | Catherine, I've sealed one of the leaks. [(have 'walkie-talkie) Over.|]
+| | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
-| | Keep going - let me know if you hit any trouble. [(have 'walkie-talkie) Over and out.|]
+| | Keep going - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
 ? (complete-p 'leak-first 'leak-second)
 | ~ player
-| | Catherine, I think I got the last leak. [(have 'walkie-talkie) Over.|]
+| | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
-| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'walkie-talkie) Over.|]
-| | (:normal)Any sign of saboteurs? [(have 'walkie-talkie) Over.|]
+| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
+| | (:normal)Any sign of saboteurs? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
 |   ~ catherine
@@ -134,7 +134,7 @@
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides... Sorry!
 | ~ catherine
-| | (:excited)Hurry back, I've got a little something for you. [(have 'walkie-talkie) Over and out.|]
+| | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 "))
 
@@ -150,10 +150,10 @@
 ~ catherine
 | (:cheer)The water pressure is back! I knew you could do it.
 | (:normal)Here, takes these parts - you've earned them.
-! eval (store 'parts 15)
-? (have 'walkie-talkie)
+! eval (store 'item:parts 15)
+? (have 'item:walkie-talkie)
 | | I'll take the walkie back for now in case someone else needs it.
-| ! eval (retrieve 'walkie-talkie 1)
+| ! eval (retrieve 'item:walkie-talkie 1)
 | | Bet it was weird using such archaic technology.
 | ~ player
 | - I liked it.

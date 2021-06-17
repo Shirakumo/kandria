@@ -18,7 +18,10 @@
   (incf (gethash item (storage inventory) 0) count))
 
 (defmethod retrieve ((item symbol) (inventory inventory) &optional (count 1))
-  (let ((have (gethash item (storage inventory) 0)))
+  (let* ((have (gethash item (storage inventory) 0))
+         (count (etypecase count
+                  ((eql T) (setf count have))
+                  (integer count))))
     (cond ((< count have)
            (setf (gethash item (storage inventory) 0) (- have count)))
           ((= count have)
@@ -132,6 +135,16 @@
 (define-item-category value-item)
 (define-item-category special-item)
 
+(defmacro define-item ((name &rest superclasses) x y w h &body body)
+  (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item)))
+    (export name (symbol-package name))
+    `(progn
+       (export ',name (symbol-package ',name))
+       (define-shader-entity ,name (,@superclasses item)
+         ((size :initform ,(vec w h))
+          (offset :initform ,(vec x y)))
+         ,@body))))
+
 (define-shader-entity health-pack (item consumable-item) ())
 
 (defmethod use ((item health-pack) (animatable animatable))
@@ -141,37 +154,27 @@
            :location (vec (+ (vx (location animatable)))
                           (+ (vy (location animatable)) 8 (vy (bsize animatable))))))
 
-(define-shader-entity small-health-pack (health-pack)
- ((offset :initform (vec 0 0))))
-(defmethod health ((_ small-health-pack)) 10)
-(defmethod item-order ((_ small-health-pack)) 0)
+(define-item (small-health-pack health-pack) 0 0 8 8)
+(defmethod health ((_ item:small-health-pack)) 10)
+(defmethod item-order ((_ item:small-health-pack)) 0)
 
-(define-shader-entity medium-health-pack (health-pack)
- ((offset :initform (vec 0 0))))
-(defmethod health ((_ medium-health-pack)) 25)
-(defmethod item-order ((_ medium-health-pack)) 1)
+(define-item (medium-health-pack health-pack) 0 0 8 8)
+(defmethod health ((_ item:medium-health-pack)) 25)
+(defmethod item-order ((_ item:medium-health-pack)) 1)
 
-(define-shader-entity large-health-pack (health-pack)
- ((offset :initform (vec 0 0))))
-(defmethod health ((_ large-health-pack)) 50)
-(defmethod item-order ((_ large-health-pack)) 2)
+(define-item (large-health-pack health-pack) 0 0 8 8)
+(defmethod health ((_ item:large-health-pack)) 50)
+(defmethod item-order ((_ item:large-health-pack)) 2)
 
 ; VALUE ITEMS
-(define-shader-entity parts (item value-item)
-  ((offset :initform (vec 8 16))))
+(define-item (parts value-item) 8 16 8 8)
 
 ; QUEST ITEMS
-(define-shader-entity seeds (item quest-item)
-  ((offset :initform (vec 16 16))))
-(define-shader-entity mushroom-good-1 (item quest-item)
-  ((offset :initform (vec 24 8))))
-(define-shader-entity mushroom-good-2 (item quest-item)
-  ((offset :initform (vec 32 8))))
-(define-shader-entity mushroom-bad-1 (item quest-item)
-  ((offset :initform (vec 16 8))))
-(define-shader-entity walkie-talkie (item quest-item)
-  ((offset :initform (vec 0 0))))
+(define-item (seeds quest-item) 16 16 8 8)
+(define-item (mushroom-good-1 quest-item) 24 8 8 8)
+(define-item (mushroom-good-2 quest-item) 32 8 8 8)
+(define-item (mushroom-bad-1 quest-item) 16 8 8 8)
+(define-item (walkie-talkie quest-item) 0 0 8 8)
 
 ; SPECIAL ITEMS
-(define-shader-entity can (item special-item)
-  ((offset :initform (vec 0 16))))
+(define-item (can special-item) 0 16 8 8)

@@ -70,7 +70,7 @@ Often it is useful to define a simple sequence of tasks within a linear quest. T
    "
    ~ catherine
    | Good luck out there!")
-  (:have (mushroom 10)
+  (:have (item:mushroom 10)
    :title "Find mushroom")
   (:interact (catherine)
    :title "Return the mushroom"

@@ -82,15 +82,15 @@
 ! label shop
 ~ player
 - [(not (var 'small-health)) //Take a small health pack//|]
-  ! eval (store 'small-health-pack 1)
+  ! eval (store 'item:small-health-pack 1)
   ! eval (setf (var 'small-health) T)
   < shop
 - [(not (var 'medium-health)) //Take a medium health pack//|]
-  ! eval (store 'medium-health-pack 1)
+  ! eval (store 'item:medium-health-pack 1)
   ! eval (setf (var 'medium-health) T)
   < shop
 - [(not (var 'large-health)) //Take a large health pack//|]
-  ! eval (store 'large-health-pack 1)
+  ! eval (store 'item:large-health-pack 1)
   ! eval (setf (var 'large-health) T)
   < shop
 - I'm done.

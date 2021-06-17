@@ -131,7 +131,7 @@
     `(progn
        (quest:define-task (kandria sq3-race ,name-start)
          :title ,title-start
-         :condition (have 'can)
+         :condition (have 'item:can)
          :on-activate T
          :on-complete (,name)
          (:action spawn-can
@@ -167,7 +167,7 @@
 ~ catherine
 | (:cheer)Stop the clock!
 | (:excited)That's the correct can alright - nice!
-! eval (retrieve 'can)
+! eval (retrieve 'item:can)
 | (:normal)You did that in: {(format-relative-time (clock quest))}.
 ? (and pb (< pb (clock quest)))
 | | (:concerned)Ah damn, no improvement on your record of {(format-relative-time pb)} this time I'm afraid.
@@ -180,15 +180,15 @@
 | ? (< pb gold)
 | | | (:cheer)How did you do that so fast? That's gold bracket.
 | | | You get the top reward - 25 scrap parts!
-| | ! eval (store 'parts 25)
+| | ! eval (store 'item:parts 25)
 | |? (< pb silver)
 | | | (:excited)That was pretty quick! Silver bracket.
 | | | That nets you 15 scrap parts!
-| | ! eval (store 'parts 15)
+| | ! eval (store 'item:parts 15)
 | |? (< pb bronze)
 | | | (:excited)That wasn't a bad time at all - bronze bracket.
 | | | That gets you 10 scrap parts.
-| | ! eval (store 'parts 10)
+| | ! eval (store 'item:parts 10)
 | |?
 | | | (:disappointed)Hmmm, that seems a little slow, Stranger. I think you can do better than that.
 | | | (:normal)I don't think I can give you any parts for that, sorry.
