@@ -235,6 +235,17 @@
       x
       (+ x (- (random var) (/ var 2f0)))))
 
+(defun weighted-random-elt (segments)
+  (let* ((total (loop for segment in segments
+                      sum (car segment)))
+         (index (random total)))
+    ;; Could try to binsearch, but eh. Probably fine.
+    (loop for prev = 0.0 then (+ prev weight)
+          for (weight . part) in segments
+          do (when (and (< prev index)
+                        (<= index (+ prev weight)))
+               (return part)))))
+
 (defun grander (a b)
   (cond ((= 0 a)
          b)

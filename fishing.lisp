@@ -2,7 +2,8 @@
 
 (defclass fishing-spot (sized-entity interactable resizable ephemeral)
   ((direction :initarg :direction :initform +1 :accessor direction
-              :type integer)))
+              :type integer)
+   (item-set :initarg :item-set :initform '((1.0 can)) :accessor item-set)))
 
 (defmethod interactable-p ((spot fishing-spot))
   (let ((player (unit 'player +world+)))
@@ -11,13 +12,17 @@
 
 (defmethod interact ((spot fishing-spot) (player player))
   (setf (direction player) (direction spot))
+  (setf (fishing-spot (fishing-line player)) spot)
   (setf (state player) :fishing)
   (vsetf (velocity player) 0 0)
   (setf (animation player) 'fishing-start))
 
+(defmethod draw-item ((spot fishing-spot))
+  (make-instance (weighted-random-elt (item-set spot))))
+
 (define-shader-entity fishing-buoy (lit-sprite moving)
   ((texture :initform (// 'kandria 'items))
-   (line :accessor line)
+   (fishing-line :accessor fishing-line)
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)
    (offset :initform (vec 0 24))
@@ -40,7 +45,7 @@
                 (setf (tries buoy) 0)
                 (setf (state buoy) :caught)
                 (trigger 'splash buoy)
-                (setf (item buoy) (make-instance (alexandria:random-elt '(can))))
+                (setf (item buoy) (draw-item (fishing-spot (fishing-line buoy))))
                 (incf (vy vel) -3))
                (T
                 (incf (vy vel) -0.5)
@@ -55,8 +60,8 @@
        (when (<= (decf (catch-timer buoy) dt) 0.0)
          (setf (state buoy) :normal)))
       (:reeling
-       (incf (vy vel) (* 0.1 (signum (- (vy (location (line buoy))) (vy (location buoy))))))
-       (incf (vx vel) (* 0.01 (signum (- (vx (location (line buoy))) (vx (location buoy))))))
+       (incf (vy vel) (* 0.1 (signum (- (vy (location (fishing-line buoy))) (vy (location buoy))))))
+       (incf (vx vel) (* 0.01 (signum (- (vx (location (fishing-line buoy))) (vx (location buoy))))))
        (let ((player (unit 'player +world+)))
          (when (< (abs (- (vx (location player)) (vx (location buoy)))) 8)
            (vsetf vel 0 0)))))
@@ -79,12 +84,13 @@
    (vertex-array :initform (// 'kandria 'line-part))
    (chain :initform #() :accessor chain)
    (location :initform (vec 0 0) :initarg :location :accessor location)
+   (fishing-spot :initform NIL :accessor fishing-spot)
    (buoy :initform (make-instance 'fishing-buoy) :accessor buoy))
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initialize-instance :after ((fishing-line fishing-line) &key)
   (setf (chain fishing-line) (make-array 64))
-  (setf (line (buoy fishing-line)) fishing-line))
+  (setf (fishing-line (buoy fishing-line)) fishing-line))
 
 (defmethod layer-index ((fishing-line fishing-line)) +base-layer+)
 
