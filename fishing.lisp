@@ -18,7 +18,7 @@
   (setf (animation player) 'fishing-start))
 
 (defmethod draw-item ((spot fishing-spot))
-  (make-instance (weighted-random-elt (item-set spot))))
+  (apply #'make-instance (weighted-random-elt (item-set spot))))
 
 (define-shader-entity fishing-buoy (lit-sprite moving)
   ((texture :initform (// 'kandria 'items))
@@ -60,6 +60,7 @@
        (when (<= (decf (catch-timer buoy) dt) 0.0)
          (setf (state buoy) :normal)))
       (:reeling
+       (v<- (location (item buoy)) (location buoy))
        (incf (vy vel) (* 0.1 (signum (- (vy (location (fishing-line buoy))) (vy (location buoy))))))
        (incf (vx vel) (* 0.01 (signum (- (vx (location (fishing-line buoy))) (vx (location buoy))))))
        (let ((player (unit 'player +world+)))
@@ -165,6 +166,7 @@
     (case (state buoy)
       (:reeling)
       (T
+       (enter* (item buoy) (region +world+))
        (vsetf (velocity buoy)
               (* (- (vx (location fishing-line)) (vx (location buoy))) 0.05)
               (* (- (vy (location fishing-line)) (vy (location buoy))) 0.05))
