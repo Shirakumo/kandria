@@ -201,7 +201,7 @@ void main(){
       (unless (funcall on-hit hit) hit))))
 
 (defmethod oob ((entity entity) (none null))
-  (unless (find-panel 'editor)
+  (unless (or (null (region +world+)) (find-panel 'editor))
     (setf (state entity) :oob)
     (leave* entity T)))
 

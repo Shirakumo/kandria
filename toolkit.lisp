@@ -387,9 +387,10 @@
   (scan target thing (constantly NIL)))
 
 (defun find-chunk (thing &optional (region (region +world+)))
-  (bvh:do-fitting (entity (bvh region) thing)
-    (when (typep entity 'chunk)
-      (return entity))))
+  (when region
+    (bvh:do-fitting (entity (bvh region) thing)
+      (when (typep entity 'chunk)
+        (return entity)))))
 
 (defun overlapping-p (a a-size b b-size)
   (and (< (- a a-size) (+ b b-size))
