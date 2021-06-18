@@ -32,7 +32,7 @@
                 (vy (bsize entity))))))
 
 (defclass story-trigger (one-time-trigger)
-  ((story-item :initarg :story-item :initform NILp :accessor story-item :type symbol)
+  ((story-item :initarg :story-item :initform NIL :accessor story-item :type symbol)
    (target-status :initarg :target-status :initform :active :accessor target-status :type symbol)))
 
 (defmethod initargs append ((trigger story-trigger)) '(:story-item :target-status))
