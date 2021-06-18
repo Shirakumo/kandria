@@ -219,7 +219,8 @@
                         (form-fiddle:with-body-options (body initargs) body
                           `((,name
                              ,@initargs
-                             :visible-p NIL
+                             :title "-"
+                             :visible NIL
                              :condition T
                              :on-activate (action)
                              :on-complete ,next
@@ -229,7 +230,7 @@
                           (form-fiddle:with-body-options (body initargs) body
                             `((,name
                                ,@initargs
-                               `(:title ,(format NIL "Wait for ~a to arrive." character))
+                               :title ,(format NIL "Wait for ~a to arrive." character)
                                :condition (nearby-p ',place ',character)
                                :on-complete (action ,@next)
                                (:action action
@@ -237,7 +238,8 @@
                  (:wait (for . initargs)
                         `((,name
                            ,@initargs
-                           :visible-p NIL
+                           :title ,(format NIL "Wait for ~d second~:p" for)
+                           :visible NIL
                            :condition (<= ,for (- clock timer))
                            :variables (timer)
                            :on-activate (action)
@@ -246,6 +248,7 @@
                  (:have ((item &optional (count 1)) . initargs)
                         `((,name
                            ,@initargs
+                           :title ,(format NIL "Collect ~d ~a~:p" count item)
                            :condition (have ',item ,count)
                            :on-complete ,next
                            ,@(when (< 1 count)
@@ -255,6 +258,9 @@
                          (form-fiddle:with-body-options (body initargs) body
                            `((,name
                               ,@initargs
+                              :title ,(cond (lead (format NIL "Follow ~a to ~a" lead place))
+                                            (follow (format NIL "Lead ~a to ~a" follow place))
+                                            (T (format NIL "Go to ~a" place)))
                               :condition (nearby-p ',place 'player)
                               :on-activate (action)
                               :on-complete ,next
@@ -266,7 +272,7 @@
                             (form-fiddle:with-body-options (body initargs) body
                               `((,name
                                  ,@initargs
-                                 ,@(when now `(:title ,(format NIL "Listen to ~a" with)))
+                                 :title ,(format NIL "Listen to ~a" with)
                                  :condition (complete-p 'interaction)
                                  :on-activate (interaction)
                                  :on-complete ,next
@@ -278,6 +284,7 @@
                             (form-fiddle:with-body-options (body initargs) body
                               `((,name
                                  ,@initargs
+                                 :title ,(format NIL "Complete ~a" thing)
                                  :condition (complete-p (or (unit ',thing) ',thing))
                                  :on-activate (action)
                                  :on-complete ,next
