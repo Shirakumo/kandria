@@ -15,7 +15,8 @@
   (with-packet-entry (stream "data.lisp" packet :element-type 'character)
     (for:for ((entity over region))
       (handler-case
-          (princ* (encode entity) stream)
+          (unless (spawned-p entity)
+            (princ* (encode entity) stream))
         (no-applicable-encoder ()))))
   (unless (packet-entry-exists-p "init.lisp" packet)
     (with-packet-entry (stream "init.lisp" packet :element-type 'character)

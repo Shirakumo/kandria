@@ -69,7 +69,9 @@
   '(:angle))
 
 (defmethod apply-transforms progn ((obj rotated-entity))
-  (rotate-by 0 0 1 (angle obj)))
+  (let ((angle (angle obj)))
+    (when (/= 0.0 angle)
+      (rotate #.(vec 0 0 1) angle))))
 
 (defclass sized-entity (located-entity)
   ((bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize

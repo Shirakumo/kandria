@@ -78,9 +78,11 @@
   (issue world 'switch-region :region region))
 
 (defun saving-possible-p (world)
-  (and (null (find-panel 'dialog))
-       (unit 'player world)
-       (svref (collisions (unit 'player world)) 2)))
+  (let ((player (unit 'player world)))
+    (and (null (find-panel 'dialog))
+         player
+         (svref (collisions player) 2)
+         (eql :normal (state player)))))
 
 (defun pausing-possible-p (world)
   (and (null (find-panel 'menuing-panel))
@@ -131,12 +133,14 @@
 (defmethod handle ((ev quickmenu) (world world))
   (if (find-panel 'menuing-panel)
       (show-panel 'quick-menu)
-      (status "Can't pause right now.")))
+      (unless (find-panel 'menu)
+        (status "Can't pause right now."))))
 
 (defmethod handle ((ev toggle-menu) (world world))
   (if (pausing-possible-p world)
       (show-panel 'menu)
-      (status "Can't pause right now.")))
+      (unless (find-panel 'menu)
+        (status "Can't pause right now."))))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (unless (handler-stack world)
