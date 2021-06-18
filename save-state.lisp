@@ -36,9 +36,17 @@
          for state = (handler-case (minimal-load-state file)
                        (warning ()
                          (v:warn :kandria.save "Save state ~s is too old, ignoring." file)
+                         NIL)
+                       (error (e)
+                         (v:warn :kandria.save "Save state ~s failed to load, ignoring." file)
+                         (v:debug :kandria.save e)
                          NIL))
          when state collect state)
    #'string<* :key (lambda (f) (pathname-name (file f)))))
+
+(defun delete-saves ()
+  (dolist (save (list-saves))
+    (delete-file (file save))))
 
 (defun minimal-load-state (file)
   (with-packet (packet file)

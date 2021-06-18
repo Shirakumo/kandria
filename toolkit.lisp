@@ -117,7 +117,7 @@
              (return path))))
 
 (defun parse-sexps (string)
-  (with-trial-io-syntax ()
+  (with-trial-io-syntax (#.*package*)
     (loop with eof = (make-symbol "EOF")
           with i = 0
           collect (multiple-value-bind (data next) (read-from-string string NIL EOF :start i)
