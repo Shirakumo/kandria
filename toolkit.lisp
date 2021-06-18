@@ -604,7 +604,8 @@
                                  `(funcall #',func)
                                  `(,func))
                            ,@(let ((list (copy-list arglist)))
-                               (setf (nth i list) `(unit ,(nth i list) +world+))
+                               (setf (nth i list) `(or (unit ,(nth i list) +world+)
+                                                       (error "No unit named ~s found." ,(nth i list))))
                                list)))))))
 
 (defun set-tile (map width height x y tile)
