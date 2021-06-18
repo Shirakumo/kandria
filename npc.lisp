@@ -80,7 +80,9 @@
 (defmethod handle-ai-states ((npc npc) ev)
   (let ((companion (companion npc)))
     (case (ai-state npc)
-      (:normal)
+      (:normal
+       (when (path npc)
+         (execute-path npc ev)))
       (:move-to
        (cond ((path npc)
               (execute-path npc ev))

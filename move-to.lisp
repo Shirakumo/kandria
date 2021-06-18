@@ -622,7 +622,8 @@
           (symbol
            (setf (node-time movable) 0.0)
            (ecase node
-             (null)
+             (null
+              (setf (vx vel) 0.0))
              (walk
               (setf (vx vel) (* (ecase target
                                   ((NIL) (direction movable))
@@ -750,7 +751,7 @@
   (setf (path movable)
         (ecase kind
           ((NIL) ())
-          (:stop `((null NIL)))
+          (:freeze `((null NIL)))
           (:left `((walk :left)))
           (:right `((walk :right)))
           (:jump `((jump ,strength)))

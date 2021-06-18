@@ -47,7 +47,7 @@
              (return-from interact)))
       (loop for quest in (quest:known-quests (storyline +world+))
             do (loop for task in (quest:active-tasks quest)
-                     do (loop for trigger in (quest:triggers task)
+                     do (loop for trigger being the hash-values of (quest:triggers task)
                               do (when (eql name (quest:name trigger))
                                    (finish trigger)))
                         (when (eql name (quest:name task))

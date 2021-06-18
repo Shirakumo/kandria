@@ -147,8 +147,9 @@
             (3 (push (make-climb-node to) (svref grid i)))
             (4 (push (make-fall-node to) (svref grid i)))
             (5 (push (make-jump-node to (decode 'vec2)) (svref grid i)))
-            (6 (let ((name (decode-payload stream 'symbol packet 'binary-v0)))
-                 (push (make-rope-node to name) (svref grid i))))))))))
+            (6 (let* ((name (decode-payload stream 'symbol packet 'binary-v0))
+                      (unit (or (unit name T) (error "No such unit ~a" name))))
+                 (push (make-rope-node to unit) (svref grid i))))))))))
 
 (define-encoder (node-graph binary-v0) (stream packet)
   (nibbles:write-ub16/le (node-graph-width node-graph) stream)

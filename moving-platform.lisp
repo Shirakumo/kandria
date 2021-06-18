@@ -26,7 +26,7 @@
        (nv+ (frame-velocity platform) (velocity platform))
        (loop repeat 10 while (handle-collisions +world+ platform))))))
 
-(defmethod collide :before ((player player) (platform falling-platform) hit)
+(defmethod collide :before ((animatable animatable) (platform falling-platform) hit)
   (when (< 0 (vy (hit-normal hit)))
     (case (state platform)
       (:normal

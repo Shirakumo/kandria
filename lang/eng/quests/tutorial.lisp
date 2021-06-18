@@ -14,7 +14,7 @@
   (:go-to (rope-start :lead catherine))
   (:go-to (dash-start :lead catherine))
   (:eval
-   (move 'null 'player)
+   (move :freeze 'player)
    (move :left 'catherine))
   (:nearby (dash-end catherine)
            (stop 'catherine)
