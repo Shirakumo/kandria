@@ -46,6 +46,7 @@
                (:file "ai")
                (:file "enemy")
                (:file "npc")
+               (:file "critter")
                (:file "cheats")
                (:file "world")
                (:file "save-state")
