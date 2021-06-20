@@ -242,8 +242,8 @@
     ;; Could try to binsearch, but eh. Probably fine.
     (loop for prev = 0.0 then (+ prev weight)
           for (part weight) in segments
-          do (when (and (< prev index)
-                        (<= index (+ prev weight)))
+          do (when (and (<= prev index)
+                        (< index (+ prev weight)))
                (return part)))))
 
 (defun grander (a b)

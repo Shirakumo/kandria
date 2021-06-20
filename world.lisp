@@ -16,6 +16,7 @@
    :packet (error "PACKET required.")))
 
 (defmethod initialize-instance :after ((world world) &key packet)
+  (setf *music* NIL)
   (enter (progression-instance 'death) world)
   (enter (progression-instance 'hurt) world)
   (enter (progression-instance 'transition) world)
