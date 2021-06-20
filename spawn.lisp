@@ -15,6 +15,9 @@
    (active-p :initarg :active-p :initform T :accessor active-p :type boolean)
    (jitter-y-p :initarg :jitter-y-p :initform T :accessor jitter-y-p :type boolean)))
 
+(defmethod initargs append ((spawner spawner))
+  '(:spawn-type :spawn-count :auto-deactivate :active-p :jitter-y-p))
+
 (defmethod alloy::object-slot-component-type ((spawner spawner) _ (slot (eql 'spawn-type)))
   (find-class 'alloy:symb))
 

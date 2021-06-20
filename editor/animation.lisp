@@ -148,7 +148,7 @@
         (incf idx (playback-direction sprite)))
       (setf (frame-idx tool) idx))))
 
-(defmethod applicable-tools append ((_ animatable))
+(defmethod applicable-tools append ((_ animated-sprite))
   '(animation-editor))
 
 (defclass animation-chooser (alloy:combo-set)
