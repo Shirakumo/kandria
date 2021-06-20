@@ -133,9 +133,9 @@
 
 (defmethod handle ((ev quickmenu) (world world))
   (if (find-panel 'menuing-panel)
-      (show-panel 'quick-menu)
       (unless (find-panel 'menu)
-        (status "Can't pause right now."))))
+        (status "Can't pause right now."))
+      (show-panel 'quick-menu)))
 
 (defmethod handle ((ev toggle-menu) (world world))
   (if (pausing-possible-p world)
