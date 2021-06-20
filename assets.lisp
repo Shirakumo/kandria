@@ -91,6 +91,9 @@
 (define-sprite passage)
 (define-sprite effects)
 (define-sprite telephone)
+(define-sprite critter-rat)
+(define-sprite critter-red-bird)
+(define-sprite critter-white-bird)
 
 (define-tileset tundra)
 (define-tileset debug)
