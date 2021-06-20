@@ -202,8 +202,7 @@ Possible sub-commands:
   (register (make-instance 'walkntalk) scene)
   (show (make-instance 'status-lines))
   (when (deploy:deployed-p)
-    (show (make-instance 'report-button-panel)))
-  (enter (make-instance 'fade) scene))
+    (show (make-instance 'report-button-panel))))
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test)
