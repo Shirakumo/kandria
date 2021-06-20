@@ -80,9 +80,10 @@
     (trial:commit first (loader +main+) :unload NIL)
     (loop repeat count
           collect (let ((clone (clone first)))
-                    (nv+ (location clone) (etypecase jitter
-                                            (real (vrandr 0 jitter PI))
-                                            (vec2 (vrand (v- jitter) (v+ jitter)))))
+                    (when jitter
+                      (nv+ (location clone) (etypecase jitter
+                                              (real (vrandr 0 jitter PI))
+                                              (vec2 (vrand (vec 0 0) jitter)))))
                     (spawn (region +world+) clone)))))
 
 (defmethod spawn ((container container) (entity entity) &key)

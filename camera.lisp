@@ -143,7 +143,7 @@
            (+ (vy off) (* 0.1 (- y (vy off)))))))
 
 (defun in-view-p (loc bsize)
-  (let* ((camera (unit :camera T)))
+  (let* ((camera (unit :camera +world+)))
     (let* ((- (tvec 0 0))
            (+ (tvec (width *context*) (height *context*)))
            (siz (target-size camera))

@@ -155,12 +155,12 @@
     (vec3 (vsetf target (vx3 source) (vy3 source) (vz3 source)))
     (vec4 (vsetf target (vx4 source) (vy4 source) (vz4 source) (vw4 source)))))
 
-(defun vrand (min max)
-  (etypecase min
-    (real (vec (+ min (random (- max min)))
-               (+ min (random (- max min)))))
-    (vec2 (vec (+ (vx min) (random (- (vx max) (vx min))))
-               (+ (vy min) (random (- (vy max) (vy min))))))))
+(defun vrand (x var)
+  (etypecase var
+    (real (vec (random* (vx x) var)
+               (random* (vy x) var)))
+    (vec2 (vec (random* (vx x) (vx var))
+               (random* (vy x) (vy var))))))
 
 (defun vrandr (min max &optional (deg (* 2 PI)))
   (let ((r (+ min (random (- max min))))

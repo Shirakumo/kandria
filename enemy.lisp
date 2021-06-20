@@ -214,7 +214,7 @@
                  (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))))))
 
 (defmethod hit ((enemy zombie) location)
-  (trigger 'spark enemy :location (v+ location (vrand -4 +4)))
+  (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8)))
   (trigger 'hit enemy :location location))
 
 (define-shader-entity drone (enemy immovable)
@@ -283,7 +283,7 @@
                 (vsetf vel (vx dir) (vy dir)))))))))
 
 (defmethod hit ((enemy drone) location)
-  (trigger 'spark enemy :location (v+ location (vrand -4 +4))))
+  (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8))))
 
 (defmethod apply-transforms progn ((enemy drone))
   (translate-by 0 -12 0))
