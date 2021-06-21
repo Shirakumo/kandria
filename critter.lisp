@@ -1,10 +1,16 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity critter (lit-animated-sprite game-entity)
+(define-shader-entity critter (lit-animated-sprite game-entity interactable)
   ((idle-timer :initform (random* 10.0 5.0) :accessor idle-timer)
    (direction :initform (alexandria:random-elt #(-1 +1)))
    (alert-distance :initform (* +tile-size+ (random* 10 5)) :accessor alert-distance)
    (acceleration :initform (vec 0 0) :accessor acceleration)))
+
+(defmethod interactable-p ((critter critter))
+  (eql :normal (state critter)))
+
+(defmethod interact ((critter critter) (player player))
+  (start-animation 'pet player))
 
 (defmethod handle :before ((ev tick) (critter critter))
   (let ((dt (dt ev)))
@@ -16,10 +22,12 @@
                ((not (eq 'stand (name (animation critter))))
                 (setf (animation critter) 'stand)
                 (setf (clock critter) (random* 1.0 1.0))))
-         (when (within-dist-p (location critter) (location (unit 'player +world+)) (alert-distance critter))
-           (setf (animation critter) 'run)
-           (setf (direction critter) (float-sign (- (vx (location critter)) (vx (location (unit 'player +world+))))))
-           (setf (state critter) :fleeing))))
+         (let ((player (unit 'player +world+)))
+           (when (and (within-dist-p (location critter) (location player) (alert-distance critter))
+                      (< (p! slowwalk-limit) (vx (velocity player))))
+             (setf (animation critter) 'run)
+             (setf (direction critter) (float-sign (- (vx (location critter)) (vx (location player)))))
+             (setf (state critter) :fleeing)))))
       (:fleeing
        (let ((vel (velocity critter)))
          (incf (vx vel) (* dt (vx (acceleration critter)) (direction critter)))
