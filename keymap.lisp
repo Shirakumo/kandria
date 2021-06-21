@@ -69,10 +69,12 @@
  (button :one-of (:l3)))
 
 (trigger light-attack
+ (key :one-of (:z))
  (mouse :one-of (:left))
  (button :one-of (:x)))
 
 (trigger heavy-attack
+ (key :one-of (:x))
  (mouse :one-of (:right))
  (button :one-of (:y)))
 

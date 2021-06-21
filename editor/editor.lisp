@@ -253,6 +253,8 @@
       (#\u (setf (entity editor) (unit 'player T)))
       (#\y (edit 'redo editor))
       (#\z (edit 'undo editor))
+      (#\_ (when (retained :control)
+             (edit 'undo editor)))
       (#\+ (incf (alloy:value (zoom editor)) 0.1))
       (#\- (decf (alloy:value (zoom editor)) 0.1)))))
 
