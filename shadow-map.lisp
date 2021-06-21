@@ -31,7 +31,7 @@
     (vector-push-extend (vy b) data)
     (vector-push-extend (vx a) data)
     (vector-push-extend (vy a) data)))
-(with-eval-in-render-loop (+world+) (setf (hour +world+) 7))
+
 (defmethod render :around ((caster shadow-geometry) (program shader-program))
   (let* ((caster (slot-value caster 'caster))
          (bsize (bsize caster)))

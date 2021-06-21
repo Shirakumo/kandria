@@ -3,7 +3,7 @@
 (define-shader-entity critter (lit-animated-sprite game-entity interactable)
   ((idle-timer :initform (random* 10.0 5.0) :accessor idle-timer)
    (direction :initform (alexandria:random-elt #(-1 +1)))
-   (alert-distance :initform (* +tile-size+ (random* 10 5)) :accessor alert-distance)
+   (alert-distance :initform (* +tile-size+ (random* 8 6)) :accessor alert-distance)
    (acceleration :initform (vec 0 0) :accessor acceleration)))
 
 (defmethod interactable-p ((critter critter))
