@@ -45,21 +45,6 @@
 (defmethod show :after ((panel report-panel) &key)
   (alloy:activate (alloy:index-element 1 (alloy:focus-element panel))))
 
-(defun standalone-error-handler (err)
-  (when (deploy:deployed-p)
-    (v:error :trial err)
-    (v:fatal :trial "Encountered unhandled error in ~a, bailing." (bt:current-thread))
-    (cond ((string/= "" (or (uiop:getenv "DEPLOY_DEBUG_BOOT") ""))
-           (invoke-debugger err))
-          ((ignore-errors (submit-report :description (format NIL "Hard crash due to error:~%~a" err)))
-           (org.shirakumo.messagebox:show (format NIL "An unhandled error occurred. A log has been sent to the developers. Sorry for the inconvenience!")
-                                          :title "Unhandled Error" :type :error :modal T))
-          (T
-           (org.shirakumo.messagebox:show (format NIL "An unhandled error occurred. Please send the application logfile to the developers. You can find it here:~%~%~a"
-                                                  (uiop:native-namestring (logfile)))
-                                          :title "Unhandled Error" :type :error :modal T)))
-    (deploy:quit)))
-
 (defclass report-button (button)
   ())
 
