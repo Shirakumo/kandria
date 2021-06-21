@@ -714,10 +714,10 @@
                  (vsetf vel 0 0)
                  (typecase movable
                    (player
-                    (start-animation 'enter movable)
+                    (start-animation (if (facing-towards-screen-p door) 'enter 'enter-forward) movable)
                     (transition (teleport)))
                    (T
-                    (start-animation 'enter movable)
+                    (start-animation (if (facing-towards-screen-p door) 'enter 'enter-forward) movable)
                     (when (and (= (frame-idx movable) (1- (end (animation movable))))
                                (<= (duration (aref (frames movable) (frame-idx movable)))
                                    (+ (dt tick) (clock movable))))

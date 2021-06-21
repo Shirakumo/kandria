@@ -38,7 +38,8 @@
 (define-shader-entity door (lit-animated-sprite interactable ephemeral)
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
-   (primary :initform T :initarg :primary :accessor primary))
+   (primary :initform T :initarg :primary :accessor primary)
+   (facing-towards-screen-p :initform T :initarg :facing-towards-screen-p :accessor facing-towards-screen-p :type boolean))
   (:default-initargs :sprite-data (asset 'kandria 'debug-door)))
 
 (defmethod interactable-p ((door door)) T)
@@ -50,11 +51,11 @@
 
 (defmethod enter :after ((door door) (region region))
   (when (primary door)
-    (let* ((location (etypecase (target door)
-                       (vec2 (target door))
-                       (null (vec (+ (vx (location door)) (* 2 (vx (bsize door))))
-                                  (vy (location door))))))
-           (other (clone door :location location :target door :primary NIL)))
+    (let ((other (etypecase (target door)
+                   (vec2 (clone door :target door :primary NIL :location (target door)))
+                   (null (clone door :target door :primary NIL :location (vec (+ (vx (location door)) (* 2 (vx (bsize door))))
+                                                                              (vy (location door)))))
+                   (list (apply #'clone door :target door :primary NIL (target door))))))
       (setf (target door) other)
       (enter other region))))
 

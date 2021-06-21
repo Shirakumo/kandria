@@ -85,7 +85,7 @@
 (defmethod interact ((door door) (player player))
   (setf (animation door) 'open)
   (let ((location (location (target door))))
-    (start-animation 'enter player)
+    (start-animation (if (facing-towards-screen-p door) 'enter 'enter-forward) player)
     (transition
       (start-animation 'exit player)
       (setf (animation (target door)) 'open)

@@ -85,15 +85,18 @@
       (error "Can't encode BACKGROUND-INFO without a name.")))
 
 (define-decoder (door world-v0) (initargs _p)
-  (destructuring-bind (&key name location target) initargs
+  (destructuring-bind (&key name location target target-facing facing) initargs
     (make-instance (class-of door) :location (decode 'vec2 location)
-                                   :target (decode 'vec2 target)
+                                   :facing-towards-screen-p facing
+                                   :target (list :location (decode 'vec2 target) :facing-towards-screen-p target-facing)
                                    :name name)))
 
 (define-encoder (door world-v0) (_b _p)
   (if (primary door)
       `(,(type-of door) :location ,(encode (location door))
+                        :facing ,(facing-towards-screen-p door)
                         :target ,(encode (location (target door)))
+                        :target-facing ,(facing-towards-screen-p (target door))
                         :name ,(name door))
       (error 'no-applicable-encoder :source door)))
 
