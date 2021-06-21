@@ -117,6 +117,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Suggested by Monroth
 - Add tile history
   Suggested by Yuki and Dieting Hippo
+- Fix quick menu not being accessible
+  Reported by Dieting Hippo
+- Fix faulty device enumeration issue on some windows 10 systems
+  Reported by Dieting Hippo
 
 ## TODO
 - Fix disconnecting a sound device crashing the game
