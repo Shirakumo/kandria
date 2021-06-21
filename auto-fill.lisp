@@ -152,19 +152,21 @@
     ;; Tiles that are "outside"
     (o (or (= 0 tile) (= 2 tile) (= 3 tile) (<= 16 tile 20)))
     ;; Tiles that are edges
-    (s (or (= 1 tile) (= 2 tile) (<= 4 tile 15)))
+    (s (or (= 1 tile) (= 2 tile) (<= 4 tile 15) (= 21 tile)))
     ;; Tiles that are edges or inside
-    (x (or (<= 1 tile 15) (= 255 tile)))
+    (x (or (<= 1 tile 15) (= 21 tile) (= 255 tile)))
     ;; Tiles that are empty but inside
     (i (= 255 tile))
     ;; Tiles that are platforms
     (p (= 2 tile))
     ;; Tiles that are only blocks
-    (b (= 1 tile))
+    (b (= 1 tile) (= 21 tile))
     ;; Tiles that are slopes
     (/ (<= 4 tile 15))
     ;; Tiles that you can bonk on
-    (k (or (= 1 tile) (<= 17 tile 20)))
+    (k (or (= 1 tile) (<= 17 tile 20) (= 21 tile)))
+    ;; Tiles that can be climbed on
+    (c (= 1 tile))
     ;; Any tile at all (don't care)
     (_ T)))
 

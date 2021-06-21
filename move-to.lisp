@@ -233,23 +233,23 @@
             _ b _)
            (connect-nodes graph 'crawl (1+ x) y x y w h))
           ((s o _
-            s o _
+            c o _
             _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
           ((_ o s
-            _ o s
+            _ o c
             _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
           ((_ o _
-            _ p b
+            _ p c
             _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
           ((_ p b
-            _ o b
+            _ o c
             _ _ _)
            (connect-nodes graph 'climb x (+ 2 y) x y w h))
           ((b p _
-            b o _
+            c o _
             _ _ _)
            (connect-nodes graph 'climb x (+ 2 y) x y w h))
           ((s o _

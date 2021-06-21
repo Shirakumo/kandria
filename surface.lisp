@@ -26,11 +26,13 @@
 (defstruct (stopper (:include block)
                     (:constructor make-stopper (s))))
 
+(defstruct (slipblock (:include ground)
+                      (:constructor make-slipblock (s))))
+
 (defun make-surface-blocks (t-s slope-steps)
-  (let ((blocks (make-array (+ 5 4 (* 2 (reduce #'+ slope-steps)))))
-        (i -1))
+  (let ((blocks ()))
     (flet ((make (c &rest args)
-             (setf (aref blocks (incf i)) (apply (find-symbol (format NIL "MAKE-~a" c)) t-s args))))
+             (push (apply (find-symbol (format NIL "MAKE-~a" c)) t-s args) blocks)))
       (make 'block)
       (make 'ground)
       (make 'platform)
@@ -53,7 +55,8 @@
       (make 'spike (vec +1 0))
       (make 'spike (vec 0 -1))
       (make 'spike (vec -1 0))
-      blocks)))
+      (make 'slipblock)
+      (coerce (nreverse blocks) 'vector))))
 
 (sb-ext:defglobal +surface-blocks+ NIL)
 (setf +surface-blocks+ (make-surface-blocks +tile-size+ '(1 2 3)))
