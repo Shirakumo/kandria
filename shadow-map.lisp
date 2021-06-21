@@ -31,11 +31,15 @@
     (vector-push-extend (vy b) data)
     (vector-push-extend (vx a) data)
     (vector-push-extend (vy a) data)))
-
+(with-eval-in-render-loop (+world+) (setf (hour +world+) 7))
 (defmethod render :around ((caster shadow-geometry) (program shader-program))
-  (let ((caster (slot-value caster 'caster)))
-    (when (in-view-p (location caster) (bsize caster))
-      (call-next-method))))
+  (let* ((caster (slot-value caster 'caster))
+         (bsize (bsize caster)))
+    ;; We increase the size of the caster and then fade it a bit in order to ensure shadows can cast onto other chunks.
+    (when (in-view-p (location caster) (tvec (* 4 (vx bsize)) (* 4 (vy bsize))))
+      (let ((camera (unit :camera +world+)))
+        (setf (uniform program "strength") (clamp 0.0 (- 4 (/ (abs (- (vx (location camera)) (vx (location caster)))) (vx bsize))) 1.0))
+        (call-next-method)))))
 
 (defclass shadow-caster ()
   ((shadow-geometry :accessor shadow-geometry)))
@@ -64,7 +68,8 @@
         (/ (length (buffer-data (caar (bindings (vertex-array geometry))))) 2)))
 
 (define-shader-pass shadow-map-pass (single-shader-scene-pass)
-  ((shadow-map :port-type output :texspec (:internal-format :r8))
+  ((name :initform 'shadow-map-pass)
+   (shadow-map :port-type output :texspec (:internal-format :r8))
    (local-shade :initform 0.0 :accessor local-shade)
    (fc :initform 0 :accessor fc))
   (:buffers (kandria gi)))
@@ -118,7 +123,8 @@ void main(){
 
 (define-class-shader (shadow-map-pass :fragment-shader)
   "out vec4 color;
+uniform float strength = 1.0;
 
 void main(){
-  color = vec4(0.5,0.0,0.0,1.0);
+  color = vec4(0.5*strength,0.0,0.0,1.0);
 }")
