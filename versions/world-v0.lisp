@@ -1,14 +1,17 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defvar *region* NIL)
+
 (defclass world-v0 (v0) ())
 
 (define-decoder (region world-v0) (info packet)
   (let* ((region (apply #'make-instance 'region :packet packet info))
          (content (parse-sexps (packet-entry "data.lisp" packet :element-type 'character))))
-    (loop for (type . initargs) in content
-          do (enter (decode type initargs) region))
-    ;; Load initial state.
-    (decode-payload (first (parse-sexps (packet-entry "init.lisp" packet :element-type 'character))) region packet 'save-v0)
+    (let ((*region* region))
+      (loop for (type . initargs) in content
+            do (enter (decode type initargs) region))
+      ;; Load initial state.
+      (decode-payload (first (parse-sexps (packet-entry "init.lisp" packet :element-type 'character))) region packet 'save-v0))
     region))
 
 (define-encoder (region world-v0) (_b packet)
@@ -148,7 +151,7 @@
             (4 (push (make-fall-node to) (svref grid i)))
             (5 (push (make-jump-node to (decode 'vec2)) (svref grid i)))
             (6 (let* ((name (decode-payload stream 'symbol packet 'binary-v0))
-                      (unit (or (unit name T) (error "No such unit ~a" name))))
+                      (unit (or (unit name *region*) (error "No such unit ~a" name))))
                  (push (make-rope-node to unit) (svref grid i))))))))))
 
 (define-encoder (node-graph binary-v0) (stream packet)
