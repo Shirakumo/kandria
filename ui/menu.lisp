@@ -183,6 +183,9 @@
 (defmethod handle ((ev tick) (menu menu))
   (setf (alloy:value (status-display menu)) (overview-text)))
 
+(defmethod show :before ((menu menu) &key)
+  (hide (find-panel 'walkntalk)))
+
 (defmethod show :after ((menu menu) &key)
   (alloy:activate (alloy:focus-element menu)))
 
