@@ -217,12 +217,7 @@
                        (T (if (and (numberp solid) (<= 4 solid 15))
                               `(:slope ,(- solid 4))
                               edge)))
-          do (unless (<= 4 (or (solid x (1+ y)) 0) 15)
-               (setf (tile x y) (cdr (assoc tile map :test 'equal))))
-             (when (listp tile)
-               (setf (tile x (1- y))
-                     (loop for (x y) in (cdr (assoc tile map :test 'equal))
-                           collect (list x (1- y)))))
+          do (setf (tile x y) (cdr (assoc tile map :test 'equal)))
              (let ((ox x) (oy y))
                (ecase edge
                  (:l (incf y))
@@ -278,8 +273,9 @@
           for y from (max 0 y-) to (min y+ (1- height))
           do (loop for x from (max 0 x-) to (min x+ (1- width))
                    do (when (and (= 255 (tile x y))
-                                 (or (<= (1- height) y)
-                                     (not (<= 4 (tile x (1+ y)) 15))))
+                                 ;; KLUDGE: this is not ideal. we should instead somehow check whether
+                                 ;;         this tile has been filled with something else already.
+                                 (not (<= 4 (tile x (1+ y)) 15)))
                         (setf (tile x y)
                               (cdr (or (assoc (round (mindist (vec x y) edge)) map)
                                        (assoc T map)))))))))
