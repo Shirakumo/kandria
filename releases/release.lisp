@@ -1,9 +1,9 @@
 (org.shirakumo.fraf.trial.release:configure
   :build (:features (:kandria-release)
-          :prune ("pool/EFFECTS/"
-                  "pool/WORKBENCH/"
-                  "pool/TRIAL/"
-                  "pool/KANDRIA/*.ase")
+          :prune ("pool/effects/"
+                  "pool/workbench/"
+                  "pool/trial/"
+                  "pool/kandria/*.ase")
           :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"))
   :itch (:user "Shinmera")
   :steam (:branch "developer"

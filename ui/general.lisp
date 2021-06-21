@@ -14,9 +14,7 @@
                              (T T 0.5)))))
 
 (defmethod org.shirakumo.alloy.renderers.opengl.msdf:fontcache-directory ((ui ui))
-  (if (deploy:deployed-p)
-      (pathname-utils:subdirectory (root) "pool" "KANDRIA" "font-cache")
-      (pathname-utils:subdirectory (root) "data" "font-cache")))
+  (pool-path 'kandria "font-cache/"))
 
 (defclass button (alloy:button*)
   ())
