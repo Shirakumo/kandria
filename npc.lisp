@@ -86,9 +86,9 @@
              (T
               (setf (animation npc) 'stand)))))
     (cond ((eql (name (animation npc)) 'slide)
-           (harmony:play (// 'kandria 'slide)))
+           (harmony:play (// 'sound 'slide)))
           (T
-           (harmony:stop (// 'kandria 'slide))))))
+           (harmony:stop (// 'sound 'slide))))))
 
 (defmethod handle-ai-states ((npc npc) ev)
   (let ((companion (companion npc)))

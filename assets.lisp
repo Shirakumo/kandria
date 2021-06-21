@@ -18,8 +18,8 @@
      ,@args))
 
 (defmacro define-sound (name &body args)
-  `(define-asset (kandria ,name) sound
-       ,(make-pathname :name (string-downcase name) :type "wav" :directory `(:relative "sound"))
+  `(define-asset (sound ,name) sound
+       ,(make-pathname :name (string-downcase name) :type "wav")
      ,@args))
 
 (defmacro define-bg (name &body args)

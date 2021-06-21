@@ -18,7 +18,7 @@
   (setf (extended rope) extended))
 
 (defmethod stage :after ((rope rope) (area staging-area))
-  (stage (// 'kandria 'rope-extend) area))
+  (stage (// 'sound 'rope-extend) area))
 
 (defmethod (setf extended) :after (state (rope rope))
   (ecase state
@@ -49,7 +49,7 @@
 
 (defmethod interact ((rope rope) player)
   (unless (extended rope)
-    (harmony:play (// 'kandria 'rope-extend))
+    (harmony:play (// 'sound 'rope-extend))
     (setf (slot-value rope 'extended) T)
     (loop for i from 0 below (length (chain rope))
           do (destructuring-bind (pos prev) (aref (chain rope) i)

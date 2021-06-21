@@ -3,6 +3,8 @@
           :prune ("pool/effects/"
                   "pool/workbench/"
                   "pool/trial/"
+                  "pool/kandria/music/"
+                  "pool/kandria/sound/"
                   "pool/kandria/*.ase")
           :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"))
   :itch (:user "Shinmera")

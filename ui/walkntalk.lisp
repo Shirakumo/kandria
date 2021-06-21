@@ -60,7 +60,7 @@
   (setf (text textbox) (clear-text-string)))
 
 (defmethod hide :after ((textbox walkntalk))
-  (harmony:stop (// 'kandria 'dialogue-scroll)))
+  (harmony:stop (// 'sound 'dialogue-scroll)))
 
 (defmethod interactions ((textbox walkntalk))
   (when (interaction textbox)

@@ -52,7 +52,7 @@
 
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(dash jump land-normal slide step-dirt die-player slash enter-water hit-ground))
-    (stage (// 'kandria sound) area))
+    (stage (// 'sound sound) area))
   (stage (fishing-line player) area)
   (stage (// 'kandria 'line-part) area)
   (stage (// 'kandria 'sting) area))
@@ -66,7 +66,7 @@
                  (not (typep medium 'water)))
             (and (not (typep (medium player) 'water))
                  (typep medium 'water)))
-    (harmony:play (// 'kandria 'enter-water))))
+    (harmony:play (// 'sound 'enter-water))))
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
@@ -226,7 +226,7 @@
                   (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  ((and (< (vy (velocity player)) -0.5)
                        (< 0.2 (air-time player)))
-                  (harmony:play (// 'kandria 'land-normal))))
+                  (harmony:play (// 'sound 'land-normal))))
            (unless (eql :dashing (state player))
              (setf (dash-time player) 0.0))
            (setf (used-aerial player) NIL))))
@@ -578,7 +578,7 @@
                                      ((retained 'right) +1)
                                      (T 0))))
                   (setf (jump-time player) 0.0)
-                  (harmony:play (// 'kandria 'jump))
+                  (harmony:play (// 'sound 'jump))
                   (cond ((or (= dir mov-dir)
                              (not (retained 'climb)))
                          (setf (direction player) dir)
@@ -751,9 +751,9 @@
                   (setf (animation player) 'limp-stand)
                   (setf (animation player) 'stand))))))
     (cond ((eql (name (animation player)) 'slide)
-           (harmony:play (// 'kandria 'slide)))
+           (harmony:play (// 'sound 'slide)))
           (T
-           (harmony:stop (// 'kandria 'slide))))))
+           (harmony:stop (// 'sound 'slide))))))
 
 (defmethod handle ((ev switch-region) (player player))
   (let* ((region (slot-value ev 'region))
@@ -816,7 +816,7 @@
          (setf (limp-time player) 0.0))))
 
 (defmethod kill :after ((player player))
-  (harmony:play (// 'kandria 'die-player))
+  (harmony:play (// 'sound 'die-player))
   (setf (clock (progression 'death +world+)) 0f0)
   (start (progression 'death +world+)))
 

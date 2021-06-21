@@ -99,15 +99,15 @@
   ())
 
 (defmethod stage :after ((trigger sandstorm-trigger) (area staging-area))
-  (stage (// 'kandria 'sandstorm) area))
+  (stage (// 'sound 'sandstorm) area))
 
 (defmethod (setf value) (value (trigger sandstorm-trigger))
   (let ((value (max 0.0 (- value 0.01))))
     (cond ((< 0 value)
-           (harmony:play (// 'kandria 'sandstorm))
-           (setf (mixed:volume (// 'kandria 'sandstorm)) (/ value 4)))
+           (harmony:play (// 'sound 'sandstorm))
+           (setf (mixed:volume (// 'sound 'sandstorm)) (/ value 4)))
           (T
-           (harmony:stop (// 'kandria 'sandstorm))))
+           (harmony:stop (// 'sound 'sandstorm))))
     (setf (strength (unit 'sandstorm T)) value)))
 
 (defclass zoom-trigger (tween-trigger)
@@ -148,7 +148,7 @@
    (clock :initform 0.0 :accessor clock)))
 
 (defmethod stage :after ((trigger earthquake-trigger) (area staging-area))
-  (stage (// 'kandria 'earthquake) area))
+  (stage (// 'sound 'earthquake) area))
 
 (defmethod interact ((trigger earthquake-trigger) (player player))
   (decf (clock trigger) 0.01)
@@ -162,7 +162,7 @@
                                           (expt 3 hmax))))))
              (shake-camera :duration 7.0 :intensity intensity :controller-multiplier 0.1)))
           ((<= (clock trigger) 0.0)
-           (harmony:play (// 'kandria 'earthquake))))))
+           (harmony:play (// 'sound 'earthquake))))))
 ;; TODO: make dust fall down over screen.
 
 (defclass action-prompt (trigger listener)

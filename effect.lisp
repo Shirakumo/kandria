@@ -171,36 +171,36 @@ void main(){
   :animation 'wall-slide)
 
 (define-effect step step-effect
-  :voice (// 'kandria 'step-dirt)
+  :voice (// 'sound 'step-dirt)
   :animation 'step)
 
 (define-effect jump step-effect
-  :voice (// 'kandria 'jump)
+  :voice (// 'sound 'jump)
   :animation 'jump)
 
 (define-effect dash step-effect
-  :voice (// 'kandria 'dash)
+  :voice (// 'sound 'dash)
   :animation 'dash)
 
 (define-effect air-dash dash-effect
-  :voice (// 'kandria 'dash)
+  :voice (// 'sound 'dash)
   :animation 'air-dash)
 
 (define-effect slash sound-effect
-  :voice (// 'kandria 'slash))
+  :voice (// 'sound 'slash))
 
 (define-effect stab sound-effect
-  :voice (// 'kandria 'hit-zombie))
+  :voice (// 'sound 'hit-zombie))
 
 (define-effect ground-hit step-effect
-  :voice (// 'kandria 'hit-ground)
+  :voice (// 'sound 'hit-ground)
   :animation 'hit2
   :offset (vec 38 -8)
   :layer-index 2
   :multiplier 10.0)
 
 (define-effect zombie-notice sound-effect
-  :voice (// 'kandria 'notice-zombie))
+  :voice (// 'sound 'notice-zombie))
 
 (define-shader-entity explosion-effect (step-effect)
   ((layer-index :initform 2)))
@@ -224,7 +224,7 @@ void main(){
       (shake-camera :intensity strength))))
 
 (define-effect explosion explosion-effect
-  :voice (// 'kandria 'die-zombie)
+  :voice (// 'sound 'die-zombie)
   :animation 'explosion
   :particles (list (make-tile-uvs 8 18 128 128)
                    :amount 16
@@ -235,7 +235,7 @@ void main(){
   :multiplier 1.5)
 
 (define-effect land step-effect
-  :voice (// 'kandria 'land-normal)
+  :voice (// 'sound 'land-normal)
   :animation 'land-smash
   :layer-index 2)
 

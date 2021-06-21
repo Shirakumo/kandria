@@ -101,7 +101,7 @@
          (alloy:activate (choices dialog)))
         ((prompt dialog)
          (setf (prompt dialog) NIL)
-         (harmony:play (// 'kandria 'dialogue-advance))
+         (harmony:play (// 'sound 'dialogue-advance))
          (advance dialog))
         (T
          (loop until (or (pending dialog) (prompt dialog))
