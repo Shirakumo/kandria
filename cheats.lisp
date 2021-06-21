@@ -100,3 +100,6 @@
 
 (define-cheat |you must die| "reaper"
   (kill (unit 'player T)))
+
+(define-cheat |lp0 on fire| "Game on fire"
+  (error "Simulating an uncaught error."))
