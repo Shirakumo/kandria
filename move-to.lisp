@@ -244,6 +244,10 @@
             _ p c
             _ _ _)
            (connect-nodes graph 'climb x (1+ y) x y w h))
+          ((_ o _
+            c p _
+            _ _ _)
+           (connect-nodes graph 'climb x (1+ y) x y w h))
           ((_ p b
             _ o c
             _ _ _)
