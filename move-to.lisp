@@ -712,12 +712,13 @@
                           (vsetf (location movable) (vx node-vec) (+ (- (vy node-vec) (/ +tile-size+ 2)) (vy (bsize movable))))
                           (setf (current-node movable) node-vec))))
                  (vsetf vel 0 0)
+                 ;; FIXME: Need to properly distinguish whether we need to enter forward or backward
                  (typecase movable
                    (player
-                    (start-animation (if (facing-towards-screen-p door) 'enter 'enter-forward) movable)
+                    (start-animation 'enter movable)
                     (transition (teleport)))
                    (T
-                    (start-animation (if (facing-towards-screen-p door) 'enter 'enter-forward) movable)
+                    (start-animation 'enter movable)
                     (when (and (= (frame-idx movable) (1- (end (animation movable))))
                                (<= (duration (aref (frames movable) (frame-idx movable)))
                                    (+ (dt tick) (clock movable))))
