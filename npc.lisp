@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity npc (ai-entity animatable ephemeral dialog-entity profile)
-  ((bsize :initform (vec 8 16))
+  ((bsize :initform (vec 8 15))
    (target :initform NIL :accessor target)
    (companion :initform NIL :accessor companion)
    (walk :initform NIL :accessor walk)
@@ -23,6 +23,17 @@
 (defmethod collides-p ((npc npc) (elevator elevator) hit) NIL)
 (defmethod die ((npc npc)) (error "WTF, NPC died for some reason. That shouldn't happen!"))
 (defmethod oob ((npc npc) (none null)) (error "NPC fell out of the world. That shouldn't happen!"))
+
+(defmethod (setf state) :before (state (npc npc))
+  (unless (eq state (state npc))
+    (case state
+      (:crawling
+       (setf (vy (bsize npc)) 7)
+       (decf (vy (location npc)) 8)))
+    (case (state npc)
+      (:crawling
+       (incf (vy (location npc)) 8)
+       (setf (vy (bsize npc)) 15)))))
 
 (defmethod handle :after ((ev tick) (npc npc))
   (let ((vel (velocity npc))
