@@ -23,7 +23,8 @@
    (trace :initform (make-array (* 12 60 60 2) :element-type 'single-float :adjustable T :fill-pointer 0)
           :accessor movement-trace)
    (fishing-line :initform (make-instance 'fishing-line) :accessor fishing-line)
-   (palette-index :initform (or (position (setting :gameplay :palette) (palettes (asset 'kandria 'player)) :test #'equal) 0)))
+   (palette-index :initform (or (position (setting :gameplay :palette) (palettes (asset 'kandria 'player)) :test #'equal) 0))
+   (color :initform (vec 1 1 1 0) :accessor color))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
@@ -268,6 +269,8 @@
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
     (case state
+      (:normal
+       (setf (vw (color player)) 0.0))
       (:crawling
        (setf (vy (bsize player)) 7)
        (decf (vy (location player)) 8)))
@@ -475,6 +478,8 @@
        (setf (jump-time player) 100.0)
        ;; (when (< (p! run-time) (run-time player))
        ;;   (setf (run-time player) 0.0))
+       (when (< (print (decf (vw (color player)) (* 4 dt))) 0)
+         (setf (vw (color player)) 0.0))
        (or (when (< (dash-time player) (p! dash-evade-grace-time))
              (handle-evasion player))
            (cond ((or (< (p! dash-max-time) (dash-time player))
@@ -485,7 +490,9 @@
                  ((< (p! dash-dcc-start) (dash-time player))
                   (nv* vel (damp* (p! dash-dcc) (* 100 dt))))
                  ((< (p! dash-acc-start) (dash-time player))
-                  (nv* vel (p! dash-acc)))))
+                  (nv* vel (p! dash-acc)))
+                 (T
+                  (vsetf (color player) 1 1 1 1))))
        (when (typep (interactable player) 'rope)
          (nudge (interactable player) loc (* (direction player) 20)))
        ;; Adapt velocity if we are on sloped terrain
@@ -623,7 +630,8 @@
 
        ;; Movement
        (cond (ground
-              (setf (climb-strength player) (p! climb-strength))
+              (when (<= (climb-strength player) (p! climb-strength))
+                (setf (climb-strength player) (p! climb-strength)))
               (incf (vy vel) (min 0 (vy (velocity ground))))
               (cond ((retained 'left)
                      (setf (direction player) -1)
@@ -676,6 +684,20 @@
   (incf (jump-time player) (dt ev))
   (when (< 0 (limp-time player))
     (decf (limp-time player) (dt ev)))
+  (let ((strength (climb-strength player)))
+    (when (< strength (p! climb-strength))
+      (let ((strength
+              (cond ((<= strength 0)
+                     (if (<= (mod (tt ev) 0.5) 0.2) 0.8 0.0))
+                    ((<= strength 1)
+                     (if (<= (mod (tt ev) 0.15) 0.08) 1.0 0.0))
+                    ((<= strength 2)
+                     (if (<= (mod (tt ev) 0.3) 0.12) 0.8 0.0))
+                    ((<= strength 3)
+                     (if (<= (mod (tt ev) 0.4) 0.15) 0.5 0.0))
+                    (T
+                     0.0))))
+        (vsetf (color player) 10 0 0 strength))))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
@@ -829,24 +851,14 @@
      (view-scale (unit :camera T))))
 
 (defmethod render :before ((player player) (program shader-program))
-  (setf (uniform program "flash")
-        (cond ((<= (climb-strength player) 0)
-               (if (<= (mod (clock (scene +main+)) 0.5) 0.2) 0.8 0.0))
-              ((<= (climb-strength player) 1)
-               (if (<= (mod (clock (scene +main+)) 0.15) 0.08) 1.0 0.0))
-              ((<= (climb-strength player) 2)
-               (if (<= (mod (clock (scene +main+)) 0.3) 0.12) 0.8 0.0))
-              ((<= (climb-strength player) 3)
-               (if (<= (mod (clock (scene +main+)) 0.4) 0.15) 0.5 0.0))
-              (T
-               0.0))))
+  (setf (uniform program "color_mask") (color player)))
 
 (define-class-shader (player :fragment-shader)
-  "uniform float flash = 0;
+  "uniform vec4 color_mask = vec4(1,1,1,0);
 out vec4 color;
 
 void main(){
-  color = mix(color, vec4(10, 0, 0, color.a), flash);
+  color.rgb = mix(color.rgb,color_mask.rgb,color_mask.a);
 }")
 
 (define-setting-observer god-mode :gameplay :god-mode (value)

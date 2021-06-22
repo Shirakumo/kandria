@@ -142,10 +142,11 @@ void main(){
   ((displacement-texture :initarg :displacement-texture :initform (// 'kandria 'shockwave) :accessor displacement-texture)))
 
 (defmethod trigger :after ((effect displacement-effect) source &key (strength 0.1))
-  (let ((displacer (make-instance 'shockwave :location (location effect)
-                                             :texture (displacement-texture effect)
-                                             :strength strength
-                                             :direction (if (typep source 'facing-entity) (direction source) 1.0))))
+  (let* ((direction (if (typep source 'facing-entity) (direction source) 1.0))
+         (displacer (make-instance 'shockwave :location (location effect)
+                                              :texture (displacement-texture effect)
+                                              :strength strength
+                                              :direction direction)))
     (enter displacer +world+)
     (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+))))
 
