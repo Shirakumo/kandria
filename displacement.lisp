@@ -40,10 +40,11 @@ in vec2 tex_coord;
 out vec4 color;
 
 void main(){
-  color = vec4(texture(texture_image, tex_coord).rg, effect_strength, 1);
+  vec2 strength = texture(texture_image, tex_coord).rg*2-1;
+  color = vec4(strength*effect_strength, 0, 1);
 }")
 
-(define-shader-entity shockwave (displacer located-entity listener)
+(define-shader-entity shockwave (displacer facing-entity located-entity listener)
   ((texture :initform (// 'kandria 'shockwave))
    (clock :initform 0f0 :accessor clock)
    (lifetime :initform 0.3 :initarg :lifetime :accessor lifetime)
@@ -52,17 +53,15 @@ void main(){
 (defmethod handle ((ev tick) (displacer shockwave))
   (incf (clock displacer) (dt ev))
   (setf (strength displacer)
-        (* (/ (initial-strength displacer) 10f0)
+        (* (initial-strength displacer)
            (- 1 (/ (clock displacer) (lifetime displacer)))))
   (when (< (lifetime displacer) (clock displacer))
     (leave displacer T)
     (remove-from-pass displacer (unit 'displacement-render-pass T))))
 
 (defmethod apply-transforms progn ((displacer shockwave))
-  (let ((tt (1+ (* 10 (clock displacer)
-                   (/ (1+ (initial-strength displacer)) 2)
-                   (/ (lifetime displacer))))))
-    (scale-by tt tt 1)))
+  (let* ((s (- 11.0 (min 11.0 (/ 1.0 (+ 0.01 (expt (clock displacer) 1.001)))))))
+    (scale-by s s 1)))
 
 (define-shader-entity heatwave (displacer sized-entity resizable listener ephemeral)
   ((texture :initform (// 'kandria 'heatwave))
@@ -70,14 +69,14 @@ void main(){
    (offset :initform 0.0 :accessor offset))
   (:inhibit-shaders (displacer :fragment-shader)))
 
-(defmethod handle ((ev tick) (displacer displacer))
-  (incf (offset displacer) (* (dt ev) -0.2)))
+(defmethod handle ((ev tick) (heatwave heatwave))
+  (incf (offset heatwave) (* (dt ev) -0.2)))
 
-(defmethod handle ((ev change-time) (displacer displacer))
+(defmethod handle ((ev change-time) (heatwave heatwave))
   ;; Scale strength based on time of day (8 day hours)
-  (setf (strength displacer)
+  (setf (strength heatwave)
         (* (float (max 0 (/ (- 4 (abs (- (hour +world+) 12))) 4.0)) 0f0)
-           0.015)))
+           0.0075)))
 
 (defmethod render :before ((heatwave heatwave) (program shader-program))
   (setf (uniform program "offset") (offset heatwave)))
@@ -93,8 +92,8 @@ in vec2 tex_coord;
 out vec4 color;
 
 void main(){
-  color = vec4(texture(texture_image, vec2(tex_coord.x, tex_coord.y*2+offset)).rg,
-               effect_strength*(1-tex_coord.y), 1);
+  vec2 strength = texture(texture_image, vec2(tex_coord.x, tex_coord.y*2+offset)).rg*2-1;
+  color = vec4(strength*effect_strength*(1-tex_coord.y), 0, 1);
 }")
 
 (define-shader-entity scanline (displacer transformed)
@@ -107,13 +106,14 @@ void main(){
 
 (define-shader-pass displacement-render-pass (scene-pass per-object-pass)
   ((displacement-map :port-type output :attachment :color-attachment0
-                     :texspec (:internal-format :rgb8))
+                     :texspec (:internal-format :rg16f))
    (name :initform 'displacement-render-pass)))
 
 (defmethod stage :after ((pass displacement-render-pass) (area staging-area))
   (stage (// 'kandria '16x) area)
   (stage (// 'kandria 'scanline) area)
-  (stage (// 'kandria 'shockwave) area))
+  (stage (// 'kandria 'shockwave) area)
+  (stage (// 'kandria 'dashwave) area))
 
 (defmethod object-renderable-p ((renderable renderable) (pass displacement-render-pass)) NIL)
 (defmethod object-renderable-p ((displacer displacer) (pass displacement-render-pass)) T)
@@ -123,9 +123,11 @@ void main(){
   (setf (uniform program "projection_matrix") (projection-matrix)))
 
 (defmethod render ((pass displacement-render-pass) target)
-  (gl:clear-color 127/255 127/255 0 1)
+  (gl:clear-color 0 0 0 1)
   (gl:clear :color-buffer)
-  (call-next-method))
+  (gl:blend-func :one :one)
+  (call-next-method)
+  (gl:blend-func :src-alpha :one-minus-src-alpha))
 
 (define-shader-pass displacement-pass (simple-post-effect-pass)
   ((name :initform 'displacement-pass)
@@ -138,8 +140,8 @@ in vec2 tex_coord;
 out vec4 color;
 
 void main(){
-  vec3 data = texture(displacement_map, tex_coord).rgb;
-  vec2 displacement = (data.xy - 0.5);
-  vec3 previous = texture(previous_pass, tex_coord+displacement*data.z).rgb;
+  vec2 displacement = texture(displacement_map, tex_coord).rg;
+  vec3 previous = texture(previous_pass, tex_coord+displacement).rgb;
   color = vec4(previous, 1);
 }")
+

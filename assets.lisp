@@ -41,10 +41,13 @@
   :wrapping :repeat)
 
 (define-asset (kandria shockwave) image
-  #p"shockwave-2.png")
+    #p"shockwave-2.png")
+
+(define-asset (kandria dashwave) image
+    #p"dash.png")
 
 (define-asset (kandria heatwave) image
-  #p"heatwave.png"
+    #p"heatwave.png"
   :wrapping :repeat)
 
 (define-asset (kandria scanline) image

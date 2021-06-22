@@ -138,6 +138,17 @@ void main(){
       (org.shirakumo.alloy.renderers.opengl:update-vertex-buffer vbo (vertex-data effect))
       (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles (/ (length (vertex-data effect)) 4)))))
 
+(defclass displacement-effect (effect)
+  ((displacement-texture :initarg :displacement-texture :initform (// 'kandria 'shockwave) :accessor displacement-texture)))
+
+(defmethod trigger :after ((effect displacement-effect) source &key (strength 0.1))
+  (let ((displacer (make-instance 'shockwave :location (location effect)
+                                             :texture (displacement-texture effect)
+                                             :strength strength
+                                             :direction (if (typep source 'facing-entity) (direction source) 1.0))))
+    (enter displacer +world+)
+    (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+))))
+
 (define-shader-entity step-effect (sprite-effect sound-effect)
   ((offset :initform (vec 0 -7))
    (layer-index :initform 1)))
@@ -150,8 +161,9 @@ void main(){
       ;;        is not configured to be high-quality enough?
       (setf (mixed:pitch pitcher) (+ 0.75 (random 0.5))))))
 
-(define-shader-entity dash-effect (rotated-entity sprite-effect sound-effect)
-  ((offset :initform (vec 0 8))))
+(define-shader-entity dash-effect (displacement-effect rotated-entity sprite-effect sound-effect)
+  ((offset :initform (vec 0 8))
+   (displacement-texture :initform (// 'kandria 'dashwave))))
 
 (defmethod trigger :after ((effect dash-effect) source &key angle)
   (harmony:play (voice effect) :reset T)
@@ -202,14 +214,10 @@ void main(){
 (define-effect zombie-notice sound-effect
   :voice (// 'sound 'notice-zombie))
 
-(define-shader-entity explosion-effect (step-effect)
+(define-shader-entity explosion-effect (displacement-effect step-effect)
   ((layer-index :initform 2)))
 
-(defmethod trigger :after ((effect explosion-effect) source &key (strength 0.5))
-  (let ((displacer (make-instance 'shockwave :location (location effect)
-                                             :strength strength)))
-    (enter displacer +world+)
-    (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+)))
+(defmethod trigger :after ((effect explosion-effect) source &key)
   (let ((flash (make-instance 'flash :location (location effect)
                                      :multiplier 1.5
                                      :time-scale 2.0
