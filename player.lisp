@@ -478,7 +478,7 @@
        (setf (jump-time player) 100.0)
        ;; (when (< (p! run-time) (run-time player))
        ;;   (setf (run-time player) 0.0))
-       (when (< (print (decf (vw (color player)) (* 4 dt))) 0)
+       (when (< (decf (vw (color player)) (* 4 dt)) 0)
          (setf (vw (color player)) 0.0))
        (or (when (< (dash-time player) (p! dash-evade-grace-time))
              (handle-evasion player))

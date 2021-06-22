@@ -73,7 +73,8 @@ void main(){
 (define-shader-entity sprite-effect (lit-animated-sprite shader-effect)
   ((offset :initarg :offset :initform (vec 0 0) :accessor offset)
    (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index)
-   (particles :initarg :particles :initform () :accessor particles))
+   (particles :initarg :particles :initform () :accessor particles)
+   (direction :initform NIL))
   (:default-initargs :sprite-data (asset 'kandria 'effects)))
 
 (defmethod initialize-instance :after ((effect sprite-effect) &key animation)
@@ -88,7 +89,7 @@ void main(){
       (leave* effect T))))
 
 (defmethod trigger :after ((effect sprite-effect) source &key direction)
-  (setf (direction effect) (or direction (direction source)))
+  (setf (direction effect) (or direction (direction effect) (direction source)))
   (incf (vx (location effect)) (* (direction effect) (vx (offset effect))))
   (incf (vy (location effect)) (vy (offset effect)))
   (when (particles effect)
@@ -164,18 +165,18 @@ void main(){
 
 (define-shader-entity dash-effect (displacement-effect rotated-entity sprite-effect sound-effect)
   ((offset :initform (vec 0 8))
-   (displacement-texture :initform (// 'kandria 'dashwave))))
+   (displacement-texture :initform (// 'kandria 'dashwave))
+   (angle :initform NIL :initarg :angle :accessor angle)))
 
 (defmethod trigger :after ((effect dash-effect) source &key angle)
   (harmony:play (voice effect) :reset T)
-  (setf (angle effect) (or angle
+  (setf (angle effect) (or angle (angle effect)
                            (when (v/= 0 (velocity source))
                              (point-angle (velocity source)))
                            (case (direction effect)
                              (-1. PI)
                              (+1. 0f0))
-                           0f0))
-  (setf (direction effect) 1))
+                           0f0)))
 
 (defmethod apply-transforms progn ((effect dash-effect))
   (translate-by 0 -16 0))
@@ -191,13 +192,15 @@ void main(){
   :voice (// 'sound 'jump)
   :animation 'jump)
 
-(define-effect dash step-effect
+(define-effect dash dash-effect
   :voice (// 'sound 'dash)
-  :animation 'dash)
+  :animation 'dash
+  :angle 0.0)
 
 (define-effect air-dash dash-effect
   :voice (// 'sound 'dash)
-  :animation 'air-dash)
+  :animation 'air-dash
+  :direction 1)
 
 (define-effect slash sound-effect
   :voice (// 'sound 'slash))
