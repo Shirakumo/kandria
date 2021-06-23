@@ -631,6 +631,7 @@
        ;; Movement
        (cond (ground
               (when (<= (climb-strength player) (p! climb-strength))
+                (setf (vw (color player)) 0.0)
                 (setf (climb-strength player) (p! climb-strength)))
               (incf (vy vel) (min 0 (vy (velocity ground))))
               (cond ((retained 'left)
