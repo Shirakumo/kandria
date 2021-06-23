@@ -312,4 +312,5 @@
   `(:active-p ,(active-p spawner)))
 
 (define-decoder (spawner save-v0) (initargs _p)
+  (setf (reflist spawner) ())
   (setf (active-p spawner) (getf initargs :active-p)))
