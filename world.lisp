@@ -78,17 +78,19 @@
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
-(defun saving-possible-p (world)
-  (let ((player (unit 'player world)))
+(defun saving-possible-p ()
+  (let ((player (unit 'player +world+)))
     (and (null (find-panel 'dialog))
+         (null (find-panel 'timer))
          player
          (svref (collisions player) 2)
          (eql :normal (state player)))))
 
-(defun pausing-possible-p (world)
-  (and (null (find-panel 'menuing-panel))
-       (unit 'player world)
-       (svref (collisions (unit 'player world)) 2)))
+(defun pausing-possible-p ()
+  (let ((player (unit 'player +world+)))
+    (and (null (find-panel 'menuing-panel))
+         player
+         (svref (collisions player) 2))))
 
 ;; Preloading
 (defmethod stage :after ((world world) (area staging-area))
@@ -138,7 +140,7 @@
       (show-panel 'quick-menu)))
 
 (defmethod handle ((ev toggle-menu) (world world))
-  (if (pausing-possible-p world)
+  (if (pausing-possible-p)
       (show-panel 'menu)
       (unless (find-panel 'menu)
         (status "Can't pause right now."))))

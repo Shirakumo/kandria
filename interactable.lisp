@@ -75,7 +75,7 @@
 (defmethod (setf animations) :after (animations (save-point save-point))
   (setf (next-animation (find 'call (animations save-point) :key #'name)) 'normal))
 
-(defmethod interactable-p ((save-point save-point)) T)
+(defmethod interactable-p ((save-point save-point)) (saving-possible-p))
 
 (defmethod layer-index ((save-point save-point))
   (1- +base-layer+))
