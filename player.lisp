@@ -850,7 +850,7 @@
 (defmethod render :before ((player player) (program shader-program))
   (setf (uniform program "color_mask") (color player)))
 
-(define-class-shader (player :fragment-shader)
+(define-class-shader (player :fragment-shader -2)
   "uniform vec4 color_mask = vec4(1,1,1,0);
 out vec4 color;
 
