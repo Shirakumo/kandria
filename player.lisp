@@ -138,10 +138,10 @@
                 (vsetf vel
                        (cond ((retained 'left)  -0.5)
                              ((retained 'right) +0.5)
-                             (T                            0))
+                             (T                    0))
                        (cond ((retained 'up)    +0.5)
                              ((retained 'down)  -0.5)
-                             (T                            0)))
+                             (T                    0)))
                 (setf (state player) :dashing)
                 (if (svref (collisions player) 2)
                     (trigger 'dash player)
@@ -150,7 +150,11 @@
                 (if (v= 0 vel)
                     (setf (vx vel) (direction player))
                     (setf (direction player) (float-sign (vx vel))))
-                (nvunit vel)))))
+                (nvunit vel)
+                (when (and (retained 'jump)
+                           (svref (collisions player) 2))
+                  (incf (vx vel) (* (direction player) (vx (p! hyperdash-bonus))))
+                  (incf (vy vel) (vy (p! hyperdash-bonus))))))))
       (:animated
        ;; Queue dash //except// for when we're being hit, as it's
        ;; unlikely the player will want to dash right after getting
