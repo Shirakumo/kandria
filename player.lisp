@@ -337,9 +337,11 @@
     ;; HUD
     (cond ((and (< (combat-time player) 5)
                 (not (active-p (hud player))))
+           (setf (intended-zoom (unit :camera T)) 1.2)
            (show (hud player)))
           ((and (< 5 (combat-time player))
                 (active-p (hud player)))
+           (setf (intended-zoom (unit :camera T)) 1.0)
            (hide (hud player))))
     ;; Interaction checks
     (setf (interactable player) NIL)
