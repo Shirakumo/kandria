@@ -86,6 +86,13 @@
   (when (alloy:focus-element button)
     (setf (alloy:focus (alloy:focus-element button)) :strong)))
 
+(defmethod (setf alloy:focus) :after ((value (eql :weak)) (button tab))
+  (when (alloy:layout-element button)
+    (let ((layout (alloy:layout-element (tab-view button))))
+      (when (alloy:index-element :center layout)
+        (alloy:leave (alloy:index-element :center layout) layout))
+      (alloy:enter (alloy:layout-element button) layout))))
+
 (defmethod (setf alloy:focus) :after ((value (eql :strong)) (element tab))
   (setf (alloy:focus (alloy:focus-element (tab-view element))) :strong))
 
@@ -110,12 +117,13 @@
   (:border
    :hidden-p (not (alloy:active-p alloy:renderable)))
   (:background
-   :pattern (case alloy:focus
-              (:strong (colored:color 0.5 0.5 0.5))
-              (:weak (colored:color 0.3 0.3 0.3))
-              (T (if (alloy:active-p alloy:renderable)
-                     (colored:color 0.3 0.3 0.3)
-                     colors:transparent))))
+   :pattern (cond ((eql :weak alloy:focus)
+                   (if (eql :strong (alloy:focus (alloy:focus-parent alloy:renderable)))
+                       (colored:color 0.5 0.5 0.5)
+                       (colored:color 0.3 0.3 0.3)))
+                  (T (if (alloy:active-p alloy:renderable)
+                         (colored:color 0.3 0.3 0.3)
+                         colors:transparent))))
   (:label
    :pattern (if (alloy:active-p alloy:renderable)
                 colors:white
@@ -219,8 +227,7 @@
                (with-button (name &body body)
                  `(make-instance 'button :value (@ ,name) :on-activate (lambda () ,@body) :focus-parent focus)))
       (with-tab ((@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
-        (let ((save (with-button save-game (save-state +main+ T)))
-              (resume (with-button resume-game (hide panel)))
+        (let ((resume (with-button resume-game (hide panel)))
               ;; FIXME: Need monospace font.
               (status (make-instance 'label :value (overview-text) :style `((:label :valign :top :size ,(alloy:un 15))))))
           (setf (status-display panel) status)
@@ -228,7 +235,8 @@
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
             (when (typep object 'save-point)
-              (alloy:enter save layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
+              (let ((save (with-button save-game (save-state +main+ T))))
+                (alloy:enter save layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))
               (return)))))
 
       (with-tab ((@ quest-menu) 'alloy:vertical-linear-layout :min-size (alloy:size 300 200))
