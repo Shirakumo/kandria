@@ -194,12 +194,13 @@ void main(){
 (define-shader-entity fish (item value-item)
   ((texture :initform (// 'kandria 'fish))
    (size :initform (vec 8 8))
-   (layer-index :initform +base-layer+)))
+   (layer-index :initform +base-layer+)
+   (catch-timer :initarg :catch-timer :initform 1.0 :accessor catch-timer)))
 
 (defmethod apply-transforms progn ((fish fish))
   (translate #.(vec 0.5 0 0)))
 
-(defmacro define-fish (name x y w h &optional superclasses &body body)
+(defmacro define-fish (name x y w h &rest initargs)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish)))
     `(progn
        (export ',name (symbol-package ',name))
@@ -245,3 +246,12 @@ void main(){
 (define-fish electric-eel 88 64 40 8)
 (define-fish anglerfish 96 0 32 16)
 (define-fish action-figure 112 56 16 8)
+(define-fish swordfish 0 72 64 24)
+(define-fish swordfish2 64 80 48 16)
+(define-fish nameplate 96 16 24 8)
+(define-fish car-battery 96 24 8 8)
+(define-fish seahorse 120 16 8 8)
+(define-fish trilobite 104 24 16 16)
+(define-fish rubber-duck 104 40 8 8)
+(define-fish toy-submarine 112 40 8 8)
+(define-fish alligator 64 72 48 8)
