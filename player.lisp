@@ -399,7 +399,8 @@
              (leave* line T))
            (let ((item (item (buoy line))))
              (when item
-               (leave* item T)
+               (when (slot-boundp item 'container)
+                 (leave* item T))
                (status "Caught ~a" (language-string (type-of item)))
                (store item player)))
            (setf (state player) :normal))

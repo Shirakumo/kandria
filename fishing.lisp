@@ -13,6 +13,7 @@
 (defmethod interact ((spot fishing-spot) (player player))
   (setf (direction player) (direction spot))
   (setf (fishing-spot (fishing-line player)) spot)
+  (setf (item (buoy (fishing-line player))) NIL)
   (setf (state player) :fishing)
   (vsetf (velocity player) 0 0)
   (setf (animation player) 'fishing-start))
