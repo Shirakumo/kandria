@@ -6,6 +6,7 @@
   :title "Intro"
   :visible NIL
   (:eval
+   (activate (unit 'dash-prompt))
    (setf (location 'player) (location 'tutorial-start))
    (setf (location 'catherine) (location 'walk-start)))
   (:go-to (walk-start))
