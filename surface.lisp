@@ -84,12 +84,12 @@
           (let ((normal (cond ((< t-near 0)
                                (let ((dist (tv- seg-pos aabb-pos)))
                                  (if (< (abs (vy2 dist)) (abs (vx2 dist)))
-                                     (vec (signum (vx2 dist)) 0)
-                                     (vec 0 (signum (vy2 dist))))))
+                                     (tvec (signum (vx2 dist)) 0)
+                                     (tvec 0 (signum (vy2 dist))))))
                               ((< near-y near-x)
-                               (vec (- sign-x) 0))
+                               (tvec (- sign-x) 0))
                               (T
-                               (vec 0 (- sign-y))))))
+                               (tvec 0 (- sign-y))))))
             (unless (= 0 (v. normal seg-vel))
               ;; KLUDGE: This test is necessary in order to ignore vertical edges
               ;;         that seem to stick out of the blocks. I have no idea why.
