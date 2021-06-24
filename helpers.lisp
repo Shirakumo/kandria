@@ -194,8 +194,11 @@ void main(){
       (unless (funcall on-hit hit) hit))))
 
 (defmethod scan ((entity game-entity) (target game-entity) on-hit)
-  (let ((hit (aabb (location target) (tv- (frame-velocity target) (frame-velocity entity))
-                   (location entity) (tv+ (bsize entity) (bsize target)))))
+  (let* ((vel (tv- (frame-velocity target)
+                   (if (v= 0 (frame-velocity entity))
+                       (velocity entity)
+                       (frame-velocity entity))))
+         (hit (aabb (location target) vel (location entity) (tv+ (bsize entity) (bsize target)))))
     (when hit
       (setf (hit-object hit) entity)
       (unless (funcall on-hit hit) hit))))

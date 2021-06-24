@@ -21,13 +21,14 @@
     ;; Scan for hits
     (fill collisions NIL)
     (loop for i from 0
-          do (unless (handle-collisions +world+ moving)
-               (return))
-             ;; KLUDGE: If we have too many collisions in a frame, we assume
+          for hit = (handle-collisions +world+ moving)
+          while hit
+          do ;; KLUDGE: If we have too many collisions in a frame, we assume
              ;;         we're stuck somewhere, so just die.
              (cond ((< 11 i)
-                    (v:warn :kandria.collision "~a has become permanently stuck, killing!" moving)
-                    (die moving))
+                    (v:warn :kandria.collision "~a has become permanently stuck on~%  ~a" moving hit)
+                    (kill moving)
+                    (return))
                    ((< 10 i)
                     (vsetf (frame-velocity moving) 0 0))))
     (when (eq (svref collisions 2) (svref collisions 1))
@@ -125,7 +126,7 @@
       (setf (vy loc) (+ (vy pos) t-s height)))))
 
 (defmethod collide ((moving moving) (block death) hit)
-  (die moving))
+  (kill moving))
 
 (defmethod collides-p ((moving moving) (block spike) hit)
   (let* ((normal (spike-normal block))
@@ -184,7 +185,8 @@
           ((= -1 (vx normal)) (setf (svref (collisions moving) 1) other)))
     ;; I know not doing this seems very wrong, but doing it
     ;; causes weirdly slow movement on falling platforms.
-    ;;(nv+ loc (v* (v+ vel (frame-velocity other)) (hit-time hit)))
+    #++
+    (nv+ loc (v* (v+ vel (frame-velocity other)) (hit-time hit)))
     (cond ((< (* (vy vel) (vy normal)) 0) (setf (vy vel) 0))
           ((< (* (vx vel) (vx normal)) 0) (setf (vx vel) 0)))
     (nv+ vel (velocity other))

@@ -362,7 +362,7 @@
   (let ((hit (scan-collision target object)))
     (when hit
       (collide object (hit-object hit) hit)
-      T)))
+      hit)))
 
 ;; Handle response to a collision of OBJECT with the TESTED entity on HIT.
 ;; HIT-OBJECT of the HIT instance must be EQ to TESTED.
