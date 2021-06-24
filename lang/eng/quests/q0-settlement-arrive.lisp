@@ -3,8 +3,7 @@
 
 (define-sequence-quest (kandria q0-settlement-emergency)
   :author "Tim White"
-  :title "Emergency?"
-  :description "Something seems amiss in this settlement."
+  :title "Now what?"
   ;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?
   ;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
   ;; REMARK: ^ Does \[Lie\] not work?
@@ -30,7 +29,7 @@
 ~ catherine
 | And come look at this - I guarantee you won't have ever seen anything like it!
   ")
-  (:go-to (farm-view :lead catherine)
+  (:go-to (farm-view-intro :lead catherine)
   :title "Follow Catherine"
    "~ catherine
 | (:normal)Living on the surface is even harder than living in the caves.
@@ -158,6 +157,7 @@
 | Alright, android - let me know when you're ready to go.
   ")
 )
+;; The mission here is too urgent for Catherine to think, oh, let's establish the android's name
 
 ;; TODO catherine shocked  Shit!... I should have been here.
 ;; She's kidding... Aren't you?!
@@ -169,7 +169,6 @@ Rogue robots on behalf of the enemy faction then tried to ambush and claim the a
 Catherine, non-the-wiser to Alex's betrayal, returns to the settlement with the android
 (Meanwhile Alex has gone off doing hunter duties)
 (The enemy faction timed the android planting with their sabotage of the water pipes, so that Catherine would be away at a critical time)
-(Catherine has determined android is a "she")
-(Catherine introduced herself by name, and established that the android doesn't have a name)
-(Catherine learns the stranger doesn't have a home)
+(Catherine has determined android is a "she" - or assumed...)
+Catherine introduced herself by name
 |#

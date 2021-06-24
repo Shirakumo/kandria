@@ -45,12 +45,17 @@
 ~ catherine
 | Alright - we'll keep looking. Over and out.
 | Come on... (:disappointed)er - you really need a name.
-| (:concerned)You really don't remember it?
+| Do androids have names?
 ~ player
-- Why do I need a name?
+- Yes we have names.
   ~ catherine
-  | I don't know. Everyone has a name. It's you, it's personal. And it makes it easier to have a conversation.
-- No.
+  | (:concerned)Of course you do, I'm sorry. What's yours?
+  ~ player
+  | (:thinking)I don't remember.
+  ~ catherine
+  | That's okay... don't worry.
+- I don't remember my name.
+  | (:concerned)Oh, really? I'm sorry.
 - Is this really the time?
   ~ catherine
   | (:concerned)You're right - sorry.
