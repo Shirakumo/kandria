@@ -117,6 +117,10 @@
 (defmethod handle ((ev report-bug) (world world))
   (toggle-panel 'report-panel))
 
+(defmethod handle ((ev toggle-fullscreen) (world world))
+  (setf (setting :display :fullscreen) (not (setting :display :fullscreen)))
+  (apply-video-settings))
+
 (defmethod handle ((ev toggle-editor) (world world))
   (unless (find-panel 'menu)
     (toggle-panel 'editor)))

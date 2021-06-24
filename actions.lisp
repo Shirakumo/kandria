@@ -21,6 +21,7 @@
 (define-action toggle-menu ())
 (define-action screenshot ())
 (define-action report-bug ())
+(define-action toggle-fullscreen ())
 (define-action toggle-diagnostics ())
 
 (define-action-set in-game (exclusive-action-set))

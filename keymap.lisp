@@ -2,6 +2,9 @@
  (key :one-of (:section)))
 
 (trigger toggle-diagnostics
+ (key :one-of (:f10)))
+
+(trigger toggle-fullscreen
  (key :one-of (:f11)))
 
 (trigger report-bug
