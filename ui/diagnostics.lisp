@@ -173,16 +173,6 @@ Collisions:
             (svref (collisions player) 2)
             (svref (collisions player) 3))))
 
-(defun quest-info ()
-  (let ((storyline (storyline +world+)))
-    (with-output-to-string (stream)
-      (dolist (quest (quest:known-quests storyline))
-        (format stream "~%~a (~a)" (quest:title quest) (quest:status quest))
-        (loop for task being the hash-values of (quest:tasks quest)
-              do (format stream "~%-> ~a (~a)" (quest:title task) (quest:status task))
-                 (loop for trigger being the hash-values of (quest:triggers task)
-                       do (format stream "~%==> ~a (~a)" (quest:name trigger) (quest:status trigger))))))))
-
 (defmethod initialize-instance :after ((panel diagnostics) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (fps (alloy:represent (slot-value panel 'fps) 'alloy:plot
@@ -196,8 +186,7 @@ Collisions:
         (gc (alloy:represent (slot-value panel 'gc) 'alloy:plot
                              :y-range `(0 . 100) :style `((:curve :line-width ,(alloy:un 2)))))
         (machine-info (alloy:represent (machine-info) 'diagnostics-label))
-        (info (alloy:represent (slot-value panel 'info) 'diagnostics-label))
-        (qinfo (alloy:represent (slot-value panel 'qinfo) 'diagnostics-label)))
+        (info (alloy:represent (slot-value panel 'info) 'diagnostics-label)))
     (alloy:enter fps layout :constraints `((:size 300 120) (:left 10) (:top 10)))
     (alloy:enter ram layout :constraints `((:size 300 120) (:left 10) (:below ,fps 10)))
     (alloy:enter vram layout :constraints `((:size 300 120) (:left 10) (:below ,ram 10)))
@@ -210,7 +199,6 @@ Collisions:
     (alloy:enter "GC Pause" layout :constraints `((:size 100 20) (:inside ,gc :halign :left :valign :top :margin 5)))
     (alloy:enter machine-info layout :constraints `((:size 600 300) (:right-of ,fps 10) (:top 10)))
     (alloy:enter info layout :constraints `((:size 600 2000) (:right-of ,fps 10) (:below ,machine-info 10)))
-    (alloy:enter qinfo layout :constraints `((:size 600 2000) (:right-of ,info 10) (:top 10)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod handle ((ev tick) (panel diagnostics))
@@ -239,5 +227,4 @@ Collisions:
           (push-value (- total last-gc) gc))
         (setf last-gc total))
       (alloy:notify-observers 'gc panel gc panel)
-      (setf info (runtime-info))
-      (setf qinfo (quest-info)))))
+      (setf info (runtime-info)))))
