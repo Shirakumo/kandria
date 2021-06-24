@@ -15,6 +15,10 @@
            (p! slowwalk-limit)
            (p! walk-limit)))))
 
+(defmethod interactable-p ((npc npc))
+  (and (eql (state npc) :normal)
+       (interactions npc)))
+
 (defmethod maximum-health ((npc npc))
   1000)
 

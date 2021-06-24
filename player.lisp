@@ -511,7 +511,7 @@
                             top)))
          (setf (vx vel) 0f0)
          (when (or (not (retained 'climb))
-                   (not (typep attached '(or (and ground (not slipblock)) (and solid (not half-solid)))))
+                   (not (typep attached '(or (and ground (not slipblock)) (and solid (not half-solid)) rope)))
                    (<= (climb-strength player) 0))
            (setf (state player) :normal))
          (typecase attached
