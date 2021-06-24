@@ -36,8 +36,8 @@
     (when (< 0 (pause-timer scene))
       (decf (pause-timer scene) dt)
       (setf dt (* dt 0.05)))
-    (issue (scene main) 'tick :tt tt :dt dt :fc fc)
-    (process (scene main))))
+    (issue scene 'tick :tt tt :dt dt :fc fc)
+    (process scene)))
 
 (defmethod (setf scene) :after (scene (main main))
   (setf +world+ scene))

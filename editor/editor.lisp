@@ -230,7 +230,13 @@
       (:w (incf (vy (location camera)) move-value))
       (:a (decf (vx (location camera)) move-value))
       (:s (decf (vy (location camera)) move-value))
-      (:d (incf (vx (location camera)) move-value)))))
+      (:d (incf (vx (location camera)) move-value))
+      (:period
+       (loop with event = (make-instance 'tick :tt 0.0d0 :dt 0.01 :fc 1)
+             with queue = (trial::listener-queue +world+)
+             for listener = (pop queue)
+             while listener
+             do (handle event listener))))))
 
 (defmethod handle ((event text-entered) (editor editor))
   (let ((camera (unit :camera T)))
