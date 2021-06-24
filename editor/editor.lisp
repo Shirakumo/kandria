@@ -225,8 +225,6 @@
       (:f7)
       (:f8)
       (:f9 (edit 'load-game T))
-      (:f10)
-      (:f11)
       (:delete (edit 'delete-entity T))
       (:insert (edit 'insert-entity T))
       (:w (incf (vy (location camera)) move-value))
