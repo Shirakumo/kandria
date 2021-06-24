@@ -160,7 +160,7 @@
     ;; Tiles that are platforms
     (p (= 2 tile))
     ;; Tiles that are only blocks
-    (b (= 1 tile) (= 21 tile))
+    (b (or (= 1 tile) (= 21 tile)))
     ;; Tiles that are slopes
     (/ (<= 4 tile 15))
     ;; Tiles that you can bonk on
