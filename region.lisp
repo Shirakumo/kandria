@@ -84,8 +84,9 @@
                                                (- (vy2 loc) (vy2 bsize) 20)
                                                (+ (vx2 loc) (vx2 bsize) 20)
                                                (+ (vy2 loc) (vy2 bsize) 20)))
-      (let ((hit (scan object target on-hit)))
-        (when hit (return hit))))))
+      (unless (eq object target)
+        (let ((hit (scan object target on-hit)))
+          (when hit (return hit)))))))
 
 (defmethod scan ((region region) (target vec4) on-hit)
   (bvh:do-fitting (object (bvh region) (tvec (- (vx4 target) (vz4 target))
