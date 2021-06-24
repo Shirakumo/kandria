@@ -200,11 +200,11 @@ void main(){
 (defmethod apply-transforms progn ((fish fish))
   (translate #.(vec 0.5 0 0)))
 
-(defmacro define-fish (name x y w h &rest initargs)
+(defmacro define-fish (name x y w h &body body)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish)))
     `(progn
        (export ',name (symbol-package ',name))
-       (define-shader-entity ,name (,@superclasses fish)
+       (define-shader-entity ,name (fish)
          ((size :initform ,(vec w h))
           (offset :initform ,(vec x y)))
          ,@body))))
