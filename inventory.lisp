@@ -166,15 +166,16 @@
 (defmethod health ((_ item:large-health-pack)) 50)
 (defmethod item-order ((_ item:large-health-pack)) 2)
 
-; VALUE ITEMS
+;; VALUE ITEMS
 (define-item (parts value-item) 8 16 8 8)
 
-; QUEST ITEMS
+;; QUEST ITEMS
 (define-item (seeds quest-item) 16 16 8 8)
 (define-item (mushroom-good-1 quest-item) 24 8 8 8)
 (define-item (mushroom-good-2 quest-item) 32 8 8 8)
 (define-item (mushroom-bad-1 quest-item) 16 8 8 8)
 (define-item (walkie-talkie quest-item) 0 0 8 8)
+(define-item (semi-factory-key quest-item) 8 0 8 8)
 
-; SPECIAL ITEMS
+;; SPECIAL ITEMS
 (define-item (can special-item) 0 16 8 8)

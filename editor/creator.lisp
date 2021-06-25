@@ -5,6 +5,7 @@
    '(basic-light textured-light
      checkpoint story-trigger interaction-trigger walkntalk-trigger sandstorm-trigger
      zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker action-prompt
+     interactable-sprite
      dummy box wolf zombie drone tame-wolf ball balloon
      catherine fi jack trader
      door passage locked-door save-point fishing-spot
