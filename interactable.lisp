@@ -35,7 +35,7 @@
   (stage (resource (profile-sprite-data profile) 'texture) area)
   (stage (resource (profile-sprite-data profile) 'vertex-array) area))
 
-(define-shader-entity door (lit-animated$-sprite interactable ephemeral)
+(define-shader-entity door (lit-animated-sprite interactable ephemeral)
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary)
@@ -79,14 +79,19 @@
 
 (defmethod interactable-p ((door locked-door)) T)
 
+(defmethod (setf unlocked-p) :around (value (door locked-door))
+  (unless (eql value (unlocked-p door))
+    (call-next-method)
+    (setf (unlocked-p (target door)) value)
+    (when (/= 0 (length (animations door)))
+      (setf (animation door) (if value 'granted 'denied))))
+  value)
+
 (defmethod interact ((door locked-door) (player player))
   (cond ((unlocked-p door)
-         (call-next-method)
-         (setf (unlocked-p (target door)) T))
+         (call-next-method))
         ((have (key door) player)
-         (setf (unlocked-p door) T)
-         (setf (unlocked-p (target door)) T)
-         (setf (animation door) 'granted))
+         (setf (unlocked-p door) T))
         (T
          (setf (animation door) 'denied))))
 
