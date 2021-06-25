@@ -18,6 +18,7 @@ item:mushroom-good-1 "flower fungus"
 item:mushroom-good-2 "rusty puffball"
 item:mushroom-bad-1 "black knight"
 item:walkie-talkie "walkie-talkie"
+item:semi-factory-key "Semi factory key"
 ;; Fish
 fish:crab "Crab"
 fish:machine-fish "Machine Fish"

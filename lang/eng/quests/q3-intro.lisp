@@ -47,7 +47,7 @@
 | So scout around, climb, do whatever an android does.
 | Just remember while you ninja around that we mere mortals gotta follow your path.
 | Your android brain might think the top of a skyscraper is the safest place there is.
-| But people can't climb there - let alone live up there. You get me?
+| But people can't climb up there, let alone live up there. You get me?
 ~ player
 - Got it.
 - Not really.

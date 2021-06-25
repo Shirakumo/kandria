@@ -84,7 +84,7 @@
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the Noka yourself.
 | But for now, please accept this reward as a token of my appreciation.
-| You may keep the key card too - it might come in useful.
+! eval (retrieve 'item:semi-factory-key 1)
 ! eval (store 'item:parts 20)
 ~ fi
 ? (complete-p 'q3-new-home)
@@ -105,6 +105,8 @@
 ;; TODO: act 2 prelude too
 ;; player learns "Noka" for the first time
 ;; TODO fi happy - | Oh my. There must be... fifty sachets here. All fully stocked.
+
+;; Removing key unspoken, as it can't sound anything but negative at a positive time, if Fi takes it back. Also, there's nothing left of value in the cache now, so it can remain open, and undiscussed here (implied, save words)
 
 #| ARCHIVED VERSION before lie options removed - for reference. May be useable in a future act.
 
