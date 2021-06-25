@@ -1,34 +1,9 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-sequence-quest (kandria q0-settlement-emergency)
+(define-sequence-quest (kandria q0-settlement-arrive)
   :author "Tim White"
-  :title "Now what?"
-  ;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?
-  ;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
-  ;; REMARK: ^ Does \[Lie\] not work?
-  (:interact (catherine)
-   :title "Talk to Catherine"
-   "
-~ catherine
-| (:cheer)Tada! Here we are!
-| What do you think...?
-~ player
-- It's a ruined city.
-  ~ catherine
-  | (:excited)Yep! It's home.
-- It's nice.
-  ~ catherine
-  | (:excited)I knew you'd love it!
-- (Lie) It's nice.
-  ~ catherine
-  | (:excited)Really? I knew you'd love it!
-- You live here?
-  ~ catherine
-  | (:excited)Yep! Pretty amazing, huh?
-~ catherine
-| And come look at this - I guarantee you won't have ever seen anything like it!
-  ")
+  :title "A Tour?"
   (:go-to (farm-view-intro :lead catherine)
   :title "Follow Catherine"
    "~ catherine
@@ -40,11 +15,11 @@
   ;;         by using a story-trigger, or even just directly activating it via an interaction-trigger.
   (:interact (catherine :now T)
    "~ catherine
-| (:excited)What'd I tell you? Amazing, right?!
+| (:excited)What'd I tell you? Incredible, right?!
 ~ player
-- What I am looking at?
+- You're growing crops? In a desert?
   ~ catherine
-  | (:excited)They're crops! We're growing crops - in the desert!
+  | (:excited)Yep, isn't it amazing?!
   | (:normal)...
   | (:disappointed)Well don't look too excited. This is a real feat, believe me.
 - How did you manage this?
@@ -55,10 +30,7 @@
 - I've seen these before. Lots of times.
   ~ catherine
   | (:normal)Oh...? From the old world? Do you remember? I bet they had loads of plantations.
-  ~ player
-  | (:thinking)I can't recall exactly. But I know I've seen crops like these before.  
-  ~ catherine
-  | (:excited)Whoa, that's so cool. I wish I could have seen that too.
+  | (:excited)That's so cool. I wish I could have seen that too.
 ~ catherine
 | (:concerned)Erm... hang on a second. Where is everyone?
 | This isn't the welcome I was expecting.
@@ -162,13 +134,3 @@
 ;; TODO catherine shocked  Shit!... I should have been here.
 ;; She's kidding... Aren't you?!
 
-#|
-Tutorial/prologue mission beats that have occurred before this scene:
-Alex planted the android there on behalf of the enemy faction (traitor), knowing that Catherine could repair it for them
-Rogue robots on behalf of the enemy faction then tried to ambush and claim the android, but you beat them off
-Catherine, non-the-wiser to Alex's betrayal, returns to the settlement with the android
-(Meanwhile Alex has gone off doing hunter duties)
-(The enemy faction timed the android planting with their sabotage of the water pipes, so that Catherine would be away at a critical time)
-(Catherine has determined android is a "she" - or assumed...)
-Catherine introduced herself by name
-|#

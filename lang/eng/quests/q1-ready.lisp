@@ -32,15 +32,16 @@
   ~ player
   - I don't need to eat.
     ~ catherine
-    | Well the rest of us aren't so lucky. Aren't so unlucky, actually.
+    | (:disappointed)Well the rest of us aren't so lucky. Aren't so unlucky, actually.
   - Ah, I remember now.
     ~ catherine
-    | Good. Well...
+    | (:concerned)Good. Well...
   - My systems are currently sub-optimal.
     ~ catherine
-    | Years unconscious in a cave will do that. I don't think there's much I can do about it right now though. Sorry.
+    | Decades sat on your ass in a cave will do that.
+    | (:concerned)I don't think there's much I can do for you right now though. Sorry.
   ~ catherine
-  | Let me know when you're ready to head out. But we can't afford to wait too long.
+  | Let me know when you're ready to go. But we can't afford to wait too long.
   ")
   )
 )

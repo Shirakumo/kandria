@@ -47,21 +47,24 @@
 | Come on... (:disappointed)er - you really need a name.
 | Do androids have names?
 ~ player
-- Yes we have names.
+- Yes we have names!
   ~ catherine
   | (:concerned)Of course you do, I'm sorry. What's yours?
   ~ player
-  | (:thinking)I don't remember.
+  | (:thinking)That's the thing: I don't remember my name.
   ~ catherine
   | That's okay... don't worry.
+  | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
 - I don't remember my name.
+  ~ catherine
   | (:concerned)Oh, really? I'm sorry.
+  | (:normal)Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
 - Is this really the time?
   ~ catherine
   | (:concerned)You're right - sorry.
-~ catherine
-| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
+  | (:normal)Well, for now I'm just gonna call you Stranger.(:excited)
 ! eval (setf (nametag player) \"Stranger\")
+~ catherine
 | (:excited)Pretty cool, huh?
 | Let's go, Stranger!
   ")

@@ -105,7 +105,7 @@
    :repeatable T
    "
 ~ player
-? (complete-p 'q0-settlement-emergency)
+? (complete-p 'q0-settlement-arrive)
 | | //Engineering. This is where Jack and Catherine work.//
 |?
 | | //It's some sort of workshop. The technology is crude - what do they build here, tin openers?//
@@ -119,7 +119,7 @@
    :repeatable T
    "
 ~ player
-? (complete-p 'q0-settlement-emergency)
+? (complete-p 'q0-settlement-arrive)
 | | //Jack's workbench. I can smell body odour - does he work here, or work out?//
 |?
 | | //It's a workbench. Perhaps it belongs to this man - who come to think of it has a stare that could fry circuit boards.//
