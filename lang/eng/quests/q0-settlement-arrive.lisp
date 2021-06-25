@@ -123,7 +123,7 @@
 ~ jack
 | No way. It's too dangerous.
 ~ catherine
-| (:excited)The android can come with me. You should see what she can do! She's got a freakin' sword!
+| (:excited)The android can come with me. You should see what she can do! And she's got a sword!
 ~ jack
 | (:annoyed)A sword?... Have you lost your goddamn mind? An android ain't no toy!
 | You'd be safer walking straight into Wraw territory than you would goin' anywhere with that thing.
