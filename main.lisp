@@ -210,8 +210,8 @@ Possible sub-commands:
   (save-state main (quicksave main))
   (save-state main T))
 
-(defun apply-video-settings ()
-  (destructuring-bind (&key resolution fullscreen vsync ui-scale &allow-other-keys) (setting :display)
+(defun apply-video-settings (&optional (settings (setting :display)))
+  (destructuring-bind (&key resolution fullscreen vsync ui-scale &allow-other-keys) settings
     (show *context* :fullscreen fullscreen :mode resolution)
     (setf (vsync *context*) vsync)
     (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))
@@ -220,6 +220,9 @@ Possible sub-commands:
   (when harmony:*server*
     (loop for (k v) on value by #'cddr
           do (setf (harmony:volume k) v))))
+
+(define-setting-observer video :display (value)
+  (apply-video-settings value))
 
 (defun maybe-start-swank (&optional force)
   (let ((swank (etypecase (or force (setting :debugging :swank))
