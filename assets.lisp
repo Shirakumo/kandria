@@ -91,6 +91,7 @@
 (define-sprite sahil-profile)
 (define-sprite balloon)
 (define-sprite debug-door)
+(define-sprite electronic-door)
 (define-sprite passage)
 (define-sprite effects)
 (define-sprite telephone)

@@ -314,3 +314,9 @@
 (define-decoder (spawner save-v0) (initargs _p)
   (setf (reflist spawner) ())
   (setf (active-p spawner) (getf initargs :active-p)))
+
+(define-encoder (locked-door save-v0) (_b _p)
+  `(:unlocked-p ,(unlocked-p locked-door)))
+
+(define-decoder (locked-door save-v0) (initargs _p)
+  (setf (unlocked-p locked-door) (getf initargs :unlocked-p)))

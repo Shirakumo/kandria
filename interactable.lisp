@@ -35,7 +35,7 @@
   (stage (resource (profile-sprite-data profile) 'texture) area)
   (stage (resource (profile-sprite-data profile) 'vertex-array) area))
 
-(define-shader-entity door (lit-animated-sprite interactable ephemeral)
+(define-shader-entity door (lit-animated$-sprite interactable ephemeral)
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary)
@@ -43,9 +43,6 @@
   (:default-initargs :sprite-data (asset 'kandria 'debug-door)))
 
 (defmethod interactable-p ((door door)) T)
-
-(defmethod (setf animations) :after (animations (door door))
-  (setf (next-animation (find 'open (animations door) :key #'name)) 'idle))
 
 (defmethod default-tool ((door door)) (find-class 'freeform))
 
@@ -62,11 +59,36 @@
 (defmethod layer-index ((door door))
   (1- +base-layer+))
 
+(defmethod leave* :after ((door door) thing)
+  (when (slot-boundp (target door) 'container)
+    (leave* (target door) T)))
+
 (define-shader-entity passage (door)
   ()
   (:default-initargs :sprite-data (asset 'kandria 'passage)))
 
 (defmethod object-renderable-p ((passage passage) (pass shader-pass)) NIL)
+
+(define-shader-entity locked-door (door)
+  ((name :initform (generate-name "LOCKED-DOOR"))
+   (key :initarg :key :initform NIL :accessor key :type symbol)
+   (unlocked-p :initarg :unlocked-p :initform NIL :accessor unlocked-p :type boolean))
+  (:default-initargs :sprite-data (asset 'kandria 'electronic-door)))
+
+(defmethod initargs append ((door locked-door)) '(:key :unlocked-p))
+
+(defmethod interactable-p ((door locked-door)) T)
+
+(defmethod interact ((door locked-door) (player player))
+  (cond ((unlocked-p door)
+         (call-next-method)
+         (setf (unlocked-p (target door)) T))
+        ((have (key door) player)
+         (setf (unlocked-p door) T)
+         (setf (unlocked-p (target door)) T)
+         (setf (animation door) 'granted))
+        (T
+         (setf (animation door) 'denied))))
 
 (define-shader-entity save-point (lit-animated-sprite interactable ephemeral)
   ((bsize :initform (vec 8 18)))

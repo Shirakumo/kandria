@@ -7,7 +7,7 @@
      zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker action-prompt
      dummy box wolf zombie drone tame-wolf ball balloon
      catherine fi jack trader
-     door passage save-point fishing-spot
+     door passage locked-door save-point fishing-spot
      falling-platform elevator cycler-platform
      chunk water rope grass heatwave)
    #'string<))

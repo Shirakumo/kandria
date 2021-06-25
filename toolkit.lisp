@@ -452,8 +452,9 @@
   (let ((initvalues ()))
     (loop for initarg in (initargs entity)
           for slot = (initarg-slot (class-of entity) initarg)
-          do (push (clone (slot-value entity (c2mop:slot-definition-name slot))) initvalues)
-             (push initarg initvalues))
+          do (when slot
+               (push (clone (slot-value entity (c2mop:slot-definition-name slot))) initvalues)
+               (push initarg initvalues)))
     (apply #'make-instance (class-of entity) (append initargs initvalues))))
 
 (defun sigdist-rect (loc bsize x)
