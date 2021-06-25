@@ -240,7 +240,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)//North Star offices. They manufactured satellite, surveillance and guidance systems.//
+| (:thinking)//North Star offices. They manufactured guidance, satellite and surveillance systems.//
 | (:normal)//Bet they never saw this coming.//
 ")
 
@@ -262,6 +262,15 @@
 | //That is quite the view.//
 | //The desert is bordered by mountains on all sides.//
 | //Judging by the cloud formations, I'd wager there's an ocean beyond the range to the east.//
+")
+
+  (:interaction grave
+   :interactable lore-grave
+   :repeatable T
+   "
+~ player
+| //(:thinking)This is where it all began, and ended.//
+| //(:normal)Not the most comfortable location to have spent a couple of decades. (:giggle)Little wonder I've a bad back.//
 ")
 
 )

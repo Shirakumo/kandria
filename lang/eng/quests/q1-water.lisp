@@ -376,6 +376,7 @@
 ! eval (move-to 'eng-cath (unit 'catherine))
 ! eval (activate 'q2-intro)
 ! eval (activate 'q3-intro)
+! eval (activate 'lore)
   ")
 )
 ;; TODO Catherine contented - Anyway, don't worry about them.
