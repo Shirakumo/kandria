@@ -55,7 +55,7 @@
   :wrapping :clamp-to-edge)
 
 (define-asset (music region1) environment
-    '((:normal #p"music.oga")))
+    '((:normal #p"region1-quiet.oga" #p"region1-medium.oga")))
 
 (define-pixel lights)
 (define-pixel particles)
