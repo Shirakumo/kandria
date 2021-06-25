@@ -203,7 +203,7 @@
    :repeatable T
    "
 ~ player
-| | (:skeptical)//They've had many leaks, if this sunken room is anything to go by.//
+| (:skeptical)//They've had many leaks, if this sunken room is anything to go by.//
 ")
 
   (:interaction mush-cave-1

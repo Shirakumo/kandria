@@ -6,10 +6,7 @@
   :title "Fix the Water Supply"
   :description "The settlement are on the brink of starvation, and will lose their crop if the water supply isn't restored."
   (:go-to (main-leak-1 :lead catherine)
-   :title "Follow Catherine below ground"
-   "~ catherine
-| Catch me if you can!
-  ")
+   :title "Follow Catherine below ground")
   (:interact (catherine :now T)   
   "
 ~ catherine
@@ -75,7 +72,9 @@
 
   (:go-to (main-leak-2 :lead catherine)
    :title "Follow Catherine below ground"
-  )
+   "~ catherine
+| (:excited)Catch me if you can!
+  ")
   (:interact (catherine :now T)
   "~ catherine
 | (:concerned)Look - the same cracks as we saw on the last pipe. This isn't right.
@@ -100,7 +99,7 @@
 | (:concerned)Wait... Who's there?
   ")
   (:complete (q1-fight1)
-   :title "Defeat the wolves at the leak"
+   :title "Defeat the wolf at the leak"
     ;; TODO: allow player to collect "wolf meat" as currency?
   "
 ~ catherine
@@ -196,7 +195,7 @@
   | (:excited)I'll follow you this time.
 - I didn't get my bearings.
   ~ catherine
-  | Oh, I'm sure you can figure it out. (:excited)It'll be good practice, I promise.
+  | Oh... I'm sure you can figure it out though. (:excited)It'll be good practice, I promise.
 - Who's Fi?
   ~ catherine
   | She's our leader. You'll see for yourself soon enough.
@@ -215,7 +214,7 @@
   (:go-to (catherine-group :follow catherine)
    :title "Return to camp with Catherine and find Jack and Fi"
    "~ catherine
-| Take us home, Stranger!
+| (:excited)Take us home, Stranger!
   ")
   (:interact (catherine-group :now T)
   "
@@ -237,7 +236,7 @@
 ~ fi
 | Is it not coincidental that you discovered it at the same time our water supply was sabotaged?
 ~ catherine
-| But we saw the rogues - they were dismantling the pump!
+| But we saw the rogues - they were dismantling the pump! It wasn't her.
 ~ jack
 | Maybe this android can control them? Did you think of that?
 ~ catherine
@@ -359,7 +358,7 @@
   | I am satisfied, for now. Thank you Catherine, Stranger. ; ;
   |#
   (:interact (catherine)
-   :title "Talk to Catherine"
+   :title "Talk to Catherine at the camp"
    "~ catherine
 | (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.
@@ -367,11 +366,11 @@
 ! eval (store 'item:parts 20)
 | It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
-| (:normal)Anyway, don't worry about them. They'll soon see what I see: (:excited)a big friendly badass who can protect us.
+| (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us.
 | (:normal)Well, I've got work to do.
 | I think Fi might want a word with you. Just something about the way she was looking at you.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
-| But right now you're a free agent. I doubt that will last very long around here, so make the most of it!
+| But right now you're a free agent. I doubt that will last very long, so make the most of it!
 | (:excited)Take a look around and explore!
 | (:normal)Seeya later, Stranger!
 ! eval (move-to 'eng-cath (unit 'catherine))
