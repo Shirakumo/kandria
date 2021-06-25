@@ -187,7 +187,9 @@
 
 (defmethod interact ((prompt action-prompt) (player player))
   (when (interrupt prompt)
-    (setf (time-scale +world+) (* (time-scale +world+) 0.95)))
+    (if (<= 0.01 (time-scale +world+))
+        (setf (time-scale +world+) (* (time-scale +world+) 0.95))
+        (setf (time-scale +world+) 0.0)))
   (let ((loc (vec (vx (location prompt))
                   (+ (vy (location player)) (vy (bsize player))))))
     (show (prompt prompt) :button (action prompt) :location loc)
@@ -195,6 +197,7 @@
 
 (defmethod handle ((ev trial:action) (prompt action-prompt))
   (when (and (interrupt prompt)
-             (typep ev (action prompt)))
+             (typep ev (action prompt))
+             (contained-p prompt (unit 'player +world+)))
     (setf (time-scale +world+) 1.0)
     (setf (active-p prompt) NIL)))
