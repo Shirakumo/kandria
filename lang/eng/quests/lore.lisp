@@ -250,7 +250,7 @@
    "
 ~ player
 | //Semi were the manufacturers of electronic components - not least for androids.//
-| //It's sad to see their factory so quiet.//
+| //It's sad to see the factory so silent.//
 ")
 ;; TODO android emote - sad
 

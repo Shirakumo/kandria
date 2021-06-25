@@ -141,3 +141,4 @@
   | Just take it day by day, you know?
   | Look, I should get back to my work. Hope to see you soon!
 ")))
+;; TODO "weld from fingertips" too implausible, or Catherine just wouldn't know that?

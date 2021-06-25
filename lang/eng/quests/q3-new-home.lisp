@@ -20,12 +20,11 @@
 | (:normal)//Scanning the interior...//
 | //Dirt and sand has intruded through almost every crack.//
 | //It's a quicksand deathtrap.//
-| Structural integrity can be described as \"may collapse at any moment\".
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
-| | (:normal)//I should return to Jack with the bad news.//
+| | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
 "))
-;; TODO restore italics to "Structural integrity..." once back slashes don't impede
+;; SCRATCH | Structural integrity can be described as \"may collapse at any moment\". ;; restore italics to "Structural integrity..." once back slashes don't impede
   (find-home-second
    :title "Scout location Gamma"
    :condition all-complete
@@ -40,7 +39,7 @@
 | //The building's foundations appear strong, but the rest is a sand-blasted shell.//
 | //It's a no go.//
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
-| | (:normal)//I should return to Jack with the bad news.//
+| | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
 "))
 
@@ -57,7 +56,7 @@
 | (:thinking)//It's secure and concealed, and sheltered from the weather.//
 | (:skeptical)//But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | (:normal)//I should return to Jack with the bad news.//
+| | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
 "))
 
@@ -78,7 +77,7 @@
 |?
 | | (:skeptical)//But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
-| | (:normal)//I should return to Jack with the bad news.//
+| | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
 "))
 

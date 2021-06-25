@@ -32,8 +32,8 @@
 ~ player
 | //It's an old-world bunker. This must be the storage cache.//
 | //It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before.//
-| //Most of this is spoiled, but some of the closed containers may still have usable seeds.//
-| //Like this one: There are 54 sachets inside. The seeds are in wrappers, tiny and hard like grit.//
+| //Most of this is spoiled, but some of the closed containers may still have usable seeds. Let's see...//
+| //This is all that's left: a container with 54 sachets inside. The seeds are in wrappers, tiny and hard like grit.//
 | (:skeptical)//Will they still grow?//
 | (:normal)//I stow 54 sachets in my compartment.//
 ! eval (store 'item:seeds 54)
@@ -76,7 +76,7 @@
 ~ fi
 | You're back - did you find the seeds?
 ~ player
-| I've got them right here.
+| I've got the last of them.
 ~ fi
 ! eval (retrieve 'item:seeds T)
 | Oh my. There must be... fifty sachets here. All fully stocked.
