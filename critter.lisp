@@ -75,7 +75,8 @@
     (leave* mole T)))
 
 (define-shader-entity bat (critter)
-  ((acceleration :initform (vec (random* 2.0 0.7) (random* 1.5 0.2))))
+  ((acceleration :initform (vec (random* 2.0 0.7) (random* 1.5 0.2)))
+   (alert-distance :initform (* +tile-size+ (random* 12 6)) :accessor alert-distance))
   (:default-initargs :sprite-data (asset 'kandria 'critter-bat)))
 
 (defmethod layer-index ((bat bat)) (1- +base-layer+))
@@ -85,3 +86,5 @@
 
 (defmethod apply-transforms progn ((subject bat))
   (translate-by 0 -6 0))
+
+(defmethod interactable-p ((bat bat)) NIL)
