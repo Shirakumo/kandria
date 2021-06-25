@@ -34,7 +34,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)//Did this fall here, or did someone move it into place?//
+| (:thinking)//Did this fall here, or did they move it into place?//
 ")
 
   ;; Housing exterior - first floor left shattered room
@@ -134,7 +134,7 @@
    "
 ~ player
 ? (complete-p 'q1-water)
-| | //The irrigation is working again, but the crops might be too far gone to make it.//
+| | //The irrigation is working again. The crops might be too far gone to make it though.//
 |?
 | | //This is farmland. They're growing potatoes - dying ones by the looks of it.//
 ")
@@ -155,7 +155,7 @@
    "
 ~ player
 | //Zenith... That was the name of the city, and this was the train station.//
-| //(:thinking)Is it me, or was that insignia strangely foreshadowing?//
+| //(:thinking)Is it me, or was that insignia strangely prophetic?//
 ")
 
   (:interaction east-apartments
@@ -163,7 +163,7 @@
    :repeatable T
    "
 ~ player
-| //These were Rootless hospital apartments, for those convalescing.//
+| //These were Rootless hospital apartments.//
 ")
 
   (:interaction market
@@ -171,7 +171,7 @@
    :repeatable T
    "
 ~ player
-| //The Midwest Market. You could almost imagine that those mannequins behind the glass were real people.//
+| //The Midwest Market. You could almost imagine those mannequins behind the glass were real people.//
 | //(:embarassed)Like this place wasn't creepy enough.//
 ")
 
@@ -181,7 +181,6 @@
    "
 ~ player
 | //Dreamscape West Side - once the height of luxury, now hell in the earth.//
-| //Many people died here, perhaps in their sleep.//
 ")
 
 #|
@@ -250,8 +249,8 @@
    :repeatable T
    "
 ~ player
-| //Semi manufactured electronic components - not least for androids.//
-| //It's sad to see their factory quiet and dormant.//
+| //Semi were the manufacturers of electronic components - not least for androids.//
+| //It's sad to see their factory so quiet.//
 ")
 ;; TODO android emote - sad
 
