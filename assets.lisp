@@ -96,6 +96,8 @@
 (define-sprite effects)
 (define-sprite telephone)
 (define-sprite critter-rat)
+(define-sprite critter-bat)
+(define-sprite critter-mole)
 (define-sprite critter-red-bird)
 (define-sprite critter-white-bird)
 

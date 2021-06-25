@@ -63,3 +63,25 @@
   (:default-initargs :sprite-data (asset 'kandria 'critter-rat)))
 
 (defmethod layer-index ((rat rat)) (1- +base-layer+))
+
+(define-shader-entity mole (critter)
+  ((acceleration :initform (vec 0 0)))
+  (:default-initargs :sprite-data (asset 'kandria 'critter-mole)))
+
+(defmethod layer-index ((mole mole)) (1- +base-layer+))
+
+(defmethod switch-animation :before ((mole mole) animation)
+  (when (eql (name (animation mole)) 'run)
+    (leave* mole T)))
+
+(define-shader-entity bat (critter)
+  ((acceleration :initform (vec (random* 2.0 0.7) (random* 1.5 0.2))))
+  (:default-initargs :sprite-data (asset 'kandria 'critter-bat)))
+
+(defmethod layer-index ((bat bat)) (1- +base-layer+))
+
+(defmethod (setf state) :after ((state (eql :fleeing)) (bat bat))
+  (vsetf (velocity bat) 0 (random* -1.0 0.5)))
+
+(defmethod apply-transforms progn ((subject bat))
+  (translate-by 0 -6 0))
