@@ -6,10 +6,7 @@
   :title "A Tour?"
   :description "Catherine wants to show me something."
   (:go-to (farm-view-intro :lead catherine)
-  :title "Follow Catherine"
-   "~ catherine
-| (:normal)Living on the surface is even harder than living in the caves.
-  ")
+  :title "Follow Catherine")
   ;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
   ;; REMARK: It's confusing that you don't talk to catherine and instead have to find some hidden trigger volume.
   ;;         It would be better if this was activated on catherine as soon as the player walks into the farm
@@ -26,7 +23,7 @@
 - How did you manage this?
   ~ catherine
   | (:normal)Don't ask me - I'm just an engineer. I helped install the irrigation though.
-  | Needless to say, growing crops in the desert isn't easy.
+  | Needless to say, growing them here isn't easy.
   | (:excited)Heh, I knew you'd be impressed.
 - I've seen these before. Lots of times.
   ~ catherine
