@@ -74,6 +74,8 @@
   | I don't know about the world you came from, but I discovered long ago that it's better to make one plan at a time.
   | This world tries to pull you down, so you have to act quickly, and roll with the punches.
 ~ fi
+| You'll need a key card to access the area - take this one.
+! eval (store 'item:semi-factory-key 1)
 | Whether you succeed or not, your efforts will help to earn my trust.
 | Alex has been our sole hunter for some time. You could be a hunter too, and more besides I think.
 | Good luck.

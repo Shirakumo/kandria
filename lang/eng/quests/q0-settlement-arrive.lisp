@@ -4,6 +4,7 @@
 (define-sequence-quest (kandria q0-settlement-arrive)
   :author "Tim White"
   :title "A Tour?"
+  :description "Catherine wants to show me something."
   (:go-to (farm-view-intro :lead catherine)
   :title "Follow Catherine"
    "~ catherine

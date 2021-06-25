@@ -84,10 +84,11 @@
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the Noka yourself.
 | But for now, please accept this reward as a token of my appreciation.
+| You may keep the key card too - it might come in useful.
 ! eval (store 'item:parts 20)
 ~ fi
 ? (complete-p 'q3-new-home)
-| | You should check in with Catherine too - I'm sure she'd like to see you again.
+| | You should check in with Catherine - I'm sure she'd like to see you again.
 | ! eval (activate 'sq-act1-intro)
 |?
 | ? (not (active-p 'q3-new-home))

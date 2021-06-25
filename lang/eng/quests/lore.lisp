@@ -155,7 +155,7 @@
    "
 ~ player
 | //Zenith... That was the name of the city, and this was the train station.//
-| //(:thinking)Is it me, or was that insignia strangely prophetic?//
+| (:thinking)//Is it me, or was that insignia strangely prophetic?//
 ")
 
   (:interaction east-apartments
@@ -172,7 +172,7 @@
    "
 ~ player
 | //The Midwest Market. You could almost imagine those mannequins behind the glass were real people.//
-| //(:embarassed)Like this place wasn't creepy enough.//
+| (:embarassed)//Like this place wasn't creepy enough.//
 ")
 
   (:interaction west-apartments
@@ -194,7 +194,7 @@
 |?
 | | //The central substation, now seemingly repurposed as a pump room.//
   
-| //(:thinking)How is the power generated? Hydroelectricity, perhaps.//
+| (:thinking)//How is the power generated? Hydroelectricity, perhaps.//
 ")
 |#
 
@@ -203,7 +203,7 @@
    :repeatable T
    "
 ~ player
-| | //(:skeptical)They've had many leaks, if this sunken room is anything to go by.//
+| | (:skeptical)//They've had many leaks, if this sunken room is anything to go by.//
 ")
 
   (:interaction mush-cave-1
@@ -211,9 +211,9 @@
    :repeatable T
    "
 ~ player
-| //(:skeptical)How on earth did these mushrooms grow so large?//
+| (:skeptical)//How on earth did these mushrooms grow so large?//
 ? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
-| | //(:normal)Presumably these kind are inedible - otherwise their hunger problems would be over.//
+| | (:normal)//Presumably these kind are inedible - otherwise their hunger problems would be over.//
 ")
 
   (:interaction mush-cave-1a
@@ -240,8 +240,8 @@
    :repeatable T
    "
 ~ player
-| //(:thinking)North Star offices. They manufactured satellite, surveillance and guidance systems.//
-| //(:normal)Bet they never saw this coming.//
+| (:thinking)//North Star offices. They manufactured satellite, surveillance and guidance systems.//
+| (:normal)//Bet they never saw this coming.//
 ")
 
   (:interaction factory
