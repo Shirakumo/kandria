@@ -213,6 +213,9 @@
     (setf (target npc) target)
     (setf (ai-state npc) :move-to)))
 
+(defmethod move :after (kind (npc npc) &key)
+  (setf (ai-state npc) :normal))
+
 (define-unit-resolver-methods (setf lead-interrupt) (thing unit))
 (define-unit-resolver-methods (setf walk) (thing unit))
 (define-unit-resolver-methods follow (unit unit))
