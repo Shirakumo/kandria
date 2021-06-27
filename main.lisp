@@ -211,10 +211,11 @@ Possible sub-commands:
   (save-state main T))
 
 (defun apply-video-settings (&optional (settings (setting :display)))
-  (destructuring-bind (&key resolution fullscreen vsync ui-scale &allow-other-keys) settings
-    (show *context* :fullscreen fullscreen :mode resolution)
-    (setf (vsync *context*) vsync)
-    (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))
+  (when *context*
+    (destructuring-bind (&key resolution fullscreen vsync ui-scale &allow-other-keys) settings
+      (show *context* :fullscreen fullscreen :mode resolution)
+      (setf (vsync *context*) vsync)
+      (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale))))
 
 (define-setting-observer volumes :audio :volume (value)
   (when harmony:*server*
