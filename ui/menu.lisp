@@ -115,7 +115,7 @@
 
 (presentations:define-update (ui tab)
   (:border
-   :hidden-p (not (alloy:active-p alloy:renderable)))
+   :scale (alloy:size (if (alloy:active-p alloy:renderable) 1.0 0.0) 1.0))
   (:background
    :pattern (cond ((eql :weak alloy:focus)
                    (if (eql :strong (alloy:focus (alloy:focus-parent alloy:renderable)))
@@ -128,6 +128,10 @@
    :pattern (if (alloy:active-p alloy:renderable)
                 colors:white
                 (colored:color 0.9 0.9 0.9))))
+
+(presentations:define-animated-shapes tab
+  (:border (presentations:scale :duration 0.2))
+  (:background (simple:pattern :duration 0.2)))
 
 (defclass setting-label (alloy:label)
   ())
