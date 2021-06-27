@@ -24,14 +24,19 @@
                                                       (T :gamepad)))
                                       location)
   (when button
-    (setf (alloy:value prompt) (prompt-char button :bank input)))
+    (setf (alloy:value prompt)
+          (etypecase button
+            (symbol (string (prompt-char button :bank input)))
+            (string button)
+            (list (map 'string (lambda (c) (prompt-char c :bank input)) button)))))
   (if location
       (alloy:with-unit-parent (unit 'ui-pass T)
         (let ((screen-location (world-screen-pos location))
               (bsize (alloy:to-px (alloy:un 20))))
           (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) bsize)
                                                        (+ (vy screen-location) bsize)
-                                                       (* bsize 2) (* bsize 2)))))
+                                                       (* bsize 2 (length (alloy:value prompt)))
+                                                       (* bsize 2)))))
       (setf (alloy:bounds prompt) (alloy:extent 16 16 16 16)))
   (unless (slot-boundp prompt 'alloy:layout-parent)
     (alloy:enter prompt (unit 'ui-pass T))))

@@ -168,7 +168,7 @@
 
 (defclass action-prompt (trigger listener)
   ((action :initarg :action :initform NIL :accessor action
-           :type symbol)
+           :type alloy::any)
    (interrupt :initarg :interrupt :initform NIL :accessor interrupt
               :type boolean)
    (prompt :initform (make-instance 'prompt) :reader prompt)
