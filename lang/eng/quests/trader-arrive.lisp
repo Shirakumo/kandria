@@ -9,8 +9,8 @@
   (talk-trader
    :title "Talk to Sahil"
    :condition all-complete
+   :on-activate (talk-to-trader)
    :on-complete (trader-repeat)
-   :on-activate T
    (:interaction talk-to-trader
     :interactable trader
     :variables (small-health medium-health large-health)
