@@ -115,7 +115,8 @@
 
 (presentations:define-update (ui tab)
   (:border
-   :scale (alloy:size (if (alloy:active-p alloy:renderable) 1.0 0.0) 1.0))
+   :hidden-p NIL
+   :bounds (alloy:extent 0 0 (if (alloy:active-p alloy:renderable) 5.0 0.0) (alloy:ph 1)))
   (:background
    :pattern (cond ((eql :weak alloy:focus)
                    (if (eql :strong (alloy:focus (alloy:focus-parent alloy:renderable)))
@@ -130,7 +131,7 @@
                 (colored:color 0.9 0.9 0.9))))
 
 (presentations:define-animated-shapes tab
-  (:border (presentations:scale :duration 0.2))
+  (:border (simple:bounds :duration 0.2))
   (:background (simple:pattern :duration 0.2)))
 
 (defclass setting-label (alloy:label)
@@ -167,6 +168,11 @@
       (when (visible-p task)
         (alloy:enter (make-instance 'task-widget :value (quest:title task)) tasks)))))
 
+(defmethod (setf alloy:focus) :after (focus (widget quest-widget))
+  (alloy:mark-for-render widget)
+  (when focus
+    (alloy:ensure-visible widget T)))
+
 (presentations:define-realization (ui quest-widget)
   ((:bg simple:rectangle)
    (alloy:margins))
@@ -187,10 +193,10 @@
               (:weak (colored:color 0.3 0.3 0.3))
               (T (colored:color 0.2 0.2 0.2))))
   (:border
-   :pattern (print (case alloy:focus
-                     (:strong colors:white)
-                     (:weak colors:white)
-                     (T colors:transparent)))))
+   :pattern (case alloy:focus
+              (:strong colors:white)
+              (:weak colors:white)
+              (T colors:transparent))))
 
 (defclass input-label (label)
   ())
@@ -342,5 +348,3 @@
             (@ player-health) (health-percentage player))))
 ;; FIXME: when changing language or font, UI needs to update immediately
 
-(dolist (q '(q2-intro q2-seeds q3-intro sq1-leaks sq2-mushrooms sq3-race))
-  (quest:activate (quest:find-quest q +world+)))
