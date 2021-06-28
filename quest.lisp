@@ -68,12 +68,10 @@
 
 (defmethod quest:activate ((trigger interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
-    (when +world+
-      (if (auto-trigger trigger)
-          (interact trigger T)
-          (let ((interactable (unit (quest:interactable trigger) +world+)))
-            (when (typep interactable 'interactable)
-              (pushnew trigger (interactions interactable))))))))
+    (when (and +world+ (not (auto-trigger trigger)))
+      (let ((interactable (unit (quest:interactable trigger) +world+)))
+        (when (typep interactable 'interactable)
+          (pushnew trigger (interactions interactable)))))))
 
 (defmethod quest:deactivate :around ((trigger interaction))
   (call-next-method)
@@ -88,6 +86,11 @@
       (when (and (typep interactable 'interactable)
                  (not (repeatable-p trigger)))
         (setf (interactions interactable) (remove trigger (interactions interactable)))))))
+
+(defmethod quest:try ((trigger interaction))
+  (when (and (auto-trigger trigger)
+             (pausing-possible-p))
+    (interact trigger T)))
 
 (defclass stub-interaction (interaction)
   ((quest:dialogue :initform NIL :accessor quest:dialogue)
