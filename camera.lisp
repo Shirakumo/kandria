@@ -67,11 +67,10 @@
       ;; Camera shake
       (when (< 0 (shake-timer camera))
         (decf (shake-timer camera) dt)
-        (when (and (< 0 (rumble-intensity camera))
-                   (typep +input-source+ 'gamepad:device))
+        (when (typep +input-source+ 'gamepad:device)
           (gamepad:rumble +input-source+ (if (< 0 (shake-timer camera))
                                              (rumble-intensity camera)
-                                             0)))
+                                             0.0)))
         ;; Deterministic shake so that we can slow it down properly.
         (when (< 0 (shake-intensity camera))
           (let ((frame-id (sxhash (+ (shake-unique camera) (mod (floor (* (shake-timer camera) 100)) 100)))))
@@ -134,12 +133,16 @@
     (setf (shake-unique camera) (random 100))
     (setf (shake-timer camera) duration)
     (setf (shake-intensity camera) (* (setting :gameplay :screen-shake) intensity))
-    (setf (rumble-intensity camera) (* (setting :gameplay :rumble) rumble-intensity))))
+    (setf (rumble-intensity camera) (* (setting :gameplay :rumble) rumble-intensity))
+    (when (= 0 duration)
+      (gamepad:rumble +input-source+ 0.0))))
 
 (defun rumble (&key (duration 0.3) (intensity 1.0))
   (let ((camera (unit :camera +world+)))
     (setf (shake-timer camera) duration)
-    (setf (rumble-intensity camera) (* (setting :gameplay :rumble) intensity))))
+    (setf (rumble-intensity camera) (* (setting :gameplay :rumble) intensity))
+    (when (= 0 duration)
+      (gamepad:rumble +input-source+ 0.0))))
 
 (defun duck-camera (x y)
   (let ((off (offset (unit :camera +world+))))
