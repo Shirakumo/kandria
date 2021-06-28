@@ -137,9 +137,8 @@
          (:action spawn-can
                   (setf (clock quest) 0)
                   (show (make-instance 'timer :quest quest))
-                  (spawn ',site 'can)
-                  (setf (quest:status (thing ',name)) :inactive)
-                  )
+                  (spawn ',site 'item:can)
+                  (setf (quest:status (thing ',name)) :inactive))
          (:interaction speech
           :interactable ,site
           :repeatable T
