@@ -54,8 +54,12 @@
   #p"scanline.png"
   :wrapping :clamp-to-edge)
 
+
 (define-asset (music region1) environment
-    '((:normal #p"region1-quiet.oga" #p"region1-medium.oga")))
+    '((:normal "region1 medium.oga")
+      (:vocal "region1 medium vocal.oga")
+      (:quiet "region1 quiet.oga" "region1 quiet vocal.oga")
+      (:ambient "region1 ambient.oga" "region1 ambient vocal.oga")))
 
 (define-pixel lights)
 (define-pixel particles)
