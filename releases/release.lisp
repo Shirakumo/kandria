@@ -5,7 +5,8 @@
                   "pool/trial/"
                   "pool/kandria/music/"
                   "pool/kandria/sound/"
-                  "pool/kandria/*.ase")
+                  "pool/kandria/*.ase"
+                  "pool/music/*.wav")
           :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"))
   :itch (:user "Shinmera")
   :steam (:branch "developer"

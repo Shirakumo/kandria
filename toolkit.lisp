@@ -659,13 +659,6 @@
                     :output *standard-output*
                     :error-output *error-output*))
 
-(defun recompile-needed-p (targets sources)
-  (let ((latest (loop for source in sources
-                      maximize (file-write-date source))))
-    (loop for target in targets
-          thereis (or (null (probe-file target))
-                      (< (file-write-date target) latest)))))
-
 (defmacro match1 (thing &body clauses)
   (let ((thingg (gensym "THING")))
     `(let ((,thingg ,thing))

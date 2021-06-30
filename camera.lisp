@@ -135,14 +135,14 @@
     (setf (shake-intensity camera) (* (setting :gameplay :screen-shake) intensity))
     (setf (rumble-intensity camera) (* (setting :gameplay :rumble) rumble-intensity))
     (when (= 0 duration)
-      (gamepad:rumble +input-source+ 0.0))))
+      (gamepad:call-with-devices (lambda (d) (gamepad:rumble d 0.0))))))
 
 (defun rumble (&key (duration 0.3) (intensity 1.0))
   (let ((camera (unit :camera +world+)))
     (setf (shake-timer camera) duration)
     (setf (rumble-intensity camera) (* (setting :gameplay :rumble) intensity))
     (when (= 0 duration)
-      (gamepad:rumble +input-source+ 0.0))))
+      (gamepad:call-with-devices (lambda (d) (gamepad:rumble d 0.0))))))
 
 (defun duck-camera (x y)
   (let ((off (offset (unit :camera +world+))))

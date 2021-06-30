@@ -64,6 +64,8 @@
    (fit-to-bsize :initform NIL)
    (texture :initform (// 'kandria 'elevator))))
 
+(defmethod action ((elevator elevator)) 'interact)
+
 (defmethod handle ((ev tick) (elevator elevator))
   (ecase (state elevator)
     (:normal
