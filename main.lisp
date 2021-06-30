@@ -10,7 +10,7 @@
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
    :version '(3 3) :profile :core
-   :title #.(format NIL "Kandria - ~a" (version :app))
+   :title "Kandria"
    :app-id 1261430
    :world (pathname-utils:subdirectory (root) "world")))
 
