@@ -59,7 +59,7 @@
   (stage (// 'kandria 'sting) area))
 
 (defmethod hurt :after (thing (player player))
-  (let ((dir (v- (location player) (location thing))))
+  (let ((dir (nv- (vxy (hurtbox player)) (location thing))))
     (trigger (make-instance 'sting-effect :angle (if (v/= 0 dir) (point-angle dir) 0)) player)))
 
 (defmethod (setf medium) :before ((medium medium) (player player))

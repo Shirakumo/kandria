@@ -174,6 +174,11 @@
          (* grid (floor (+ (vx vec) (/ grid 2)) grid))
          (* grid (floor (+ (vy vec) (/ grid 2)) grid))))
 
+(defun vunit* (vec)
+  (if (v= vec 0)
+      vec
+      (vunit vec)))
+
 (defun nvunit* (vec)
   (if (v= vec 0)
       vec

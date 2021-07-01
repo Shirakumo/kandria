@@ -27,18 +27,25 @@
 (defmethod collide :after ((player player) (enemy enemy) hit)
   (when (and (eql :dashing (state player))
              (interruptable-p (frame enemy)))
-    (nv+ (velocity enemy) (v* (velocity player) 0.8))
-    (incf (vy (velocity enemy)) 3.0)
-    (nv* (velocity player) -0.25)
+    (let ((dir (vunit* (velocity player))))
+      (vsetf (velocity enemy)
+             (* (vx dir) 3.0)
+             (+ (* (vy dir) 3.0) 2)))
+    (nv* (velocity player) 0.25)
     (incf (vy (velocity player)) 2.0)
+    (setf (pause-timer +world+) 0.15)
     (stun player 0.1)))
 
-(define-shader-entity dummy (enemy immovable)
+(define-shader-entity dummy (enemy half-solid immovable)
   ((bsize :initform (vec 8 16)))
   (:default-initargs
    :sprite-data (asset 'kandria 'dummy)))
 
 (defmethod idleable-p ((dummy dummy)) NIL)
+
+(defmethod hurt ((dummy dummy) b) T)
+
+(defmethod (setf health) (value (dummy dummy)))
 
 (define-shader-entity box (enemy solid immovable)
   ((bsize :initform (vec 8 8)))
@@ -213,7 +220,7 @@
                  (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
                  (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))))))
 
-(defmethod hit ((enemy zombie) location)
+(defmethod hit :after ((enemy zombie) location)
   (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8)))
   (trigger 'hit enemy :location location))
 
@@ -282,7 +289,7 @@
               (let ((dir (nv* (nvunit* (v- ploc eloc)) (movement-speed enemy))))
                 (vsetf vel (vx dir) (vy dir)))))))))
 
-(defmethod hit ((enemy drone) location)
+(defmethod hit :after ((enemy drone) location)
   (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8))))
 
 (defmethod apply-transforms progn ((enemy drone))

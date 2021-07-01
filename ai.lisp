@@ -14,12 +14,11 @@
       (T
        (unless (path entity)
          (let ((ground (svref collisions 2)))
-           (when ground
+           (when (and ground (<= (vy vel) 0))
              (incf (vy vel) (min 0 (vy (velocity ground))))
              (setf (vx vel) 0))
            (nv+ vel (v* (gravity (medium entity)) (dt ev)))
-           (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
-           (nv+ (frame-velocity entity) vel)))))
+           (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))))))
     (case (state entity)
       ((:dying :stunned))
       (T (handle-ai-states entity ev)))

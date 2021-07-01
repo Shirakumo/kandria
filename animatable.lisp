@@ -129,7 +129,9 @@
         (when effect
           (trigger effect animatable))))))
 
-(defmethod hit ((animatable animatable) location))
+(defmethod hit ((animatable animatable) location)
+  (setf (vy (velocity animatable)) (max 0.0 (vy (velocity animatable))))
+  (setf (pause-timer +world+) 0.15))
 
 (defmethod interrupt ((animatable animatable))
   (when (interruptable-p (frame animatable))
@@ -187,6 +189,7 @@
                  (setf (iframes entity) 60)))))))
       (:stunned
        (decf (stun-time animatable) (dt ev))
+       (setf (vy vel) (max 0 (vy vel)))
        (when (<= (stun-time animatable) 0)
          (nv+ (velocity animatable) (knockback animatable))
          (vsetf (knockback animatable) 0 0)
