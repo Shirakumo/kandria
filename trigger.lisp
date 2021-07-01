@@ -201,3 +201,6 @@
              (contained-p prompt (unit 'player +world+)))
     (setf (time-scale +world+) 1.0)
     (setf (active-p prompt) NIL)))
+
+(defmethod leave* :before ((prompt action-prompt) from)
+  (hide (prompt prompt)))

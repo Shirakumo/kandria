@@ -198,6 +198,9 @@
   ())
 
 (defmethod show :after ((panel menuing-panel) &key)
+  ;; Hide prompts
+  (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
+    (when (typep el 'prompt) (hide el)))
   ;; Clear pending events to avoid spurious inputs
   (discard-events +world+)
   (setf (active-p (action-set 'in-menu)) T))
