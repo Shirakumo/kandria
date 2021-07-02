@@ -81,9 +81,14 @@
                   :separator
                   ("Save Region" (edit 'save-region editor))
                   ("Save Region As..." (edit 'save-region-as editor))
-                  ("Save Initial State" (edit 'save-initial-state editor))
                   :separator
                   ("Close Editor" (hide editor)))
+                 ("State"
+                  ("Save State" (edit 'save-game editor))
+                  ("Save State As..." (edit 'save-game-as editor))
+                  ("Load State..." (edit 'load-game editor))
+                  :separator
+                  ("Save Initial State" (edit 'save-initial-state editor)))
                  ("Edit"
                   ("Undo" (edit 'undo editor))
                   ("Redo" (edit 'redo editor))
@@ -93,7 +98,7 @@
                   ("Clone" (edit 'clone-entity editor))
                   ("Delete" (edit 'delete-entity editor))
                   :separator
-                  ("Change Lighting" (edit 'change-lighting editor)))
+                  ("Set Lighting" (edit 'change-lighting editor)))
                  ("View"
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
@@ -254,6 +259,7 @@
              (if (retained :alt)
                  (edit 'save-region-as editor)
                  (edit 'save-region editor))))
+      (#\t (edit 'toggle-lighting editor))
       (#\u (setf (entity editor) (unit 'player T)))
       (#\y (edit 'redo editor))
       (#\z (edit 'undo editor))
@@ -331,19 +337,17 @@
       (princ* (encode-payload (region +world+) NIL packet 'save-v0) stream))))
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
-  (if (retained :control)
-      (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)) :filter '(("ZIP files" "zip")))))
-        (when path
-          (load-state path T)))
-      (load-state T T))
-  (trial:commit +world+ +main+))
+  (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)) :filter '(("ZIP files" "zip")))))
+    (when path
+      (load-state path T))))
 
 (defmethod edit ((action (eql 'save-game)) (editor editor))
-  (if (retained :control)
-      (let ((path (file-select:new :title "Select Save File" :default (file (state +main+)))))
-        (when path
-          (save-state +main+ path)))
-      (save-state +main+ T)))
+  (save-state +main+ T))
+
+(defmethod edit ((action (eql 'save-game-as)) (editor editor))
+  (let ((path (file-select:new :title "Select Save File" :default (file (state +main+)))))
+    (when path
+      (save-state +main+ path))))
 
 (defmethod edit ((action (eql 'delete-entity)) (editor editor))
   (let* ((entity (entity editor))
@@ -396,4 +400,12 @@
        (setf (entity editor) (region +world+))))))
 
 (defmethod edit ((action (eql 'change-lighting)) (editor editor))
-  ())
+  (make-instance 'lighting :ui (unit 'ui-pass T)))
+
+(defmethod edit ((action (eql 'toggle-lighting)) (editor editor))
+  (let ((pass (unit 'lighting-pass T)))
+    (setf (lighting pass)
+          (if (eql (gi 'none) (lighting pass))
+              (gi (chunk (unit :camera T)))
+              (gi 'none)))
+    (force-lighting pass)))
