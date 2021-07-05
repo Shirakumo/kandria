@@ -223,3 +223,12 @@
     (case (state platform)
       (:normal
        (setf (state platform) :falling)))))
+
+(defmethod apply-transforms progn ((animatable animatable))
+  (when (eql :stunned (state animatable))
+    (let* ((frame-id (logand #xFF (sxhash (mod (floor (* (clock +world+) 100)) 100))))
+           (r (* frame-id 0.01))
+           (p (* frame-id (/ (* 2 PI) #xFF))))
+      (translate-by (* r (cos p))
+                    (* r (sin p))
+                    0.0))))
