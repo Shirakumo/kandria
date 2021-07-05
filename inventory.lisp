@@ -50,6 +50,9 @@
    (velocity :initform (vec 0 0))
    (light :initform NIL :accessor light)))
 
+(defmethod kill ((item item))
+  (leave* item T))
+
 (defmethod spawn :before ((region region) (item item) &key)
   (vsetf (velocity item)
          (* (- (* 2 (random 2)) 1) (random* 2 1))
