@@ -81,6 +81,8 @@ Additionally, the mailing list system is also hosted on TyNET, and can be found 
 
 | https://courier.tymoon.eu/campaign/Kandria
 
+Finally, we have bi-weekly meetings every other Monday at 21:00 CEST. The meetings are calls done through the Kandria discord channel.
+
 ## Developing
 When contributing to the project please use a separate branch and do not commit directly to ``master``. You may either use per-feature branches or just a singular branch for all of your work. When you are done with a task and would like to get feedback on it, let the rest of the team know so they can go and check it out.
 
