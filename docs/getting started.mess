@@ -63,15 +63,17 @@ The source tree is divided up as follows:
       Source files for every quest in the game. Each quest should have its own directory.
 
 ## Organisation
-For instant communication please use "Discord"(https://discord.gg/WNTygau). The rest of the  project management happens through a Google doc. Please have a look at it here:
+For instant communication please use "Slack"(https://shirakumo.slack.com). You should have gotten an invite to the slack by now. The rest of the  project management happens through a Google doc. Please have a look at it here:
 
 |  https://docs.google.com/spreadsheets/d/1vJcVDEW0vasMw-FKumIrLA3jd2AYBKs6ZfTWOTXOC6k/edit
 
 The doc contains sheets with current todo items, ideas for the future, and details on these tasks. The todo items should be sorted with the more important ones at the top. Once you complete an item, please check it off and move it to the bottom. For ideas, please just throw them into the ideas sheet and discuss them over Discord. If it turns out there's time available and the idea seems good, it can be moved over to the todo section.
 
-The animations sheet is a more detailed overview of the pixel animations that need to be done for the various characters and enemies in the game. More will be added there as necessary. Animations need to first be sketched, then properly animated, and finally integrated into the game by filling in combat animation data and triggering it on appropriate events.
+In order to gain access to the central GIT repository, please "create a TyNET account"(https://auth.tymoon.eu/register) and inform Shinmera of your account name so that he can give you access. Once an account has been created, you can view the repository here:
 
-Users can submit feedback for Kandria through an automated system. The resulting reports end up on a server that manages them. In order to view these reports, please "create a TyNET account"(https://auth.tymoon.eu/register) and inform Shinmera of your account name so that he can give you access. Once an account has been created, you can view reports here:
+| https://gitea.tymoon.eu/shinmera/kandria/
+
+In addition to the GIT repository we also host an automated feedback system players can use to submit crash reports or other comments. You can access these reports here:
 
 |  https://feedback.tymoon.eu/kandria/
 
