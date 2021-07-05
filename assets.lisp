@@ -232,3 +232,10 @@
   :offset (vec -800 4220)
   :parallax (vec 1.0 1.0)
   :lighting-strength 0.75)
+
+(define-bg grave
+  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge)
+  :offset (vec 6124 3124)
+  :parallax (vec 1.0 1.0)
+  :scaling (vec 2.0 2.0)
+  :lighting-strength 0.75)
