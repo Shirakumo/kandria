@@ -4,7 +4,7 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine asked me to forage for mushrooms beneath the camp. She needs at least: 25 flower fungi and/or rusty puffballs; I should avoid: black knights"
+  :description "Catherine asked me to forage for mushrooms beneath the camp. She needs at least: 25 flower fungi and/or rusty puffballs; I should avoid: black caps"
   :on-activate T
   (return-mushrooms
    :title "Find mushrooms and return to Catherine when I have enough"
@@ -33,7 +33,7 @@
 | | (:normal)I weaved them together with synthetic scraps; I needed a mask so their spores wouldn't give me lung disease.
 | ! eval (retrieve 'item:mushroom-good-2 T)
 ? (have 'item:mushroom-bad-1)
-| | (:disappointed)Oh, you got some black knights huh? Not a lot I can do with poisonous ones.
+| | (:disappointed)Oh, you got some black caps huh? Not a lot I can do with poisonous ones.
 | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | ! eval (retrieve 'item:mushroom-bad-1 T)
   

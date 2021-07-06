@@ -59,7 +59,7 @@
 | | | | (:normal)I weaved them together with synthetic scraps; I needed a mask so their spores wouldn't give me lung disease.
 | | | ! eval (retrieve 'item:mushroom-good-2 T)
 | | ? (have 'item:mushroom-bad-1)
-| | | | (:disappointed)Oh, you got some black knights huh? Not a lot I can do with poisonous ones.
+| | | | (:disappointed)Oh, you got some black caps huh? Not a lot I can do with poisonous ones.
 | | | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | | | ! eval (retrieve 'item:mushroom-bad-1 T)
 | |  
@@ -108,7 +108,7 @@
 |   | Fibrous ones like the rusty puffball can be used to weave clothing. 
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.
 |   | Just don't breathe in their spores - though I guess that won't affect you.
-|   | Other kinds are deadly poisonous, like the black knight - avoid those if you can.
+|   | Other kinds are deadly poisonous, like the black cap - avoid those if you can.
 |   | At least 25 good ones should do for now. (:excited)Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
 |   < task-choice

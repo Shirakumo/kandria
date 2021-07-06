@@ -79,7 +79,7 @@
   - //Sell//
     ! label sell
     ~ player
-    - [(have 'item:mushroom-bad-1) //Black knight (I own {(item-count 'item:mushroom-bad-1)}) - 2$//|]
+    - [(have 'item:mushroom-bad-1) //Black cap (I own {(item-count 'item:mushroom-bad-1)}) - 2$//|]
       ! eval (store 'item:parts 2)
       ! eval (retrieve 'item:mushroom-bad-1 1)
       < sell
