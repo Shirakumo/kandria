@@ -103,8 +103,7 @@
     ;; TODO: allow player to collect "wolf meat" as currency?
   "
 ~ catherine
-| (:shout)Look out!
-| Keep it busy while I finish up here.
+| (:shout)Look out! Keep it busy while I finish up here.
   ")
   ;; TODO: has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
   ;; REMARK: ^ yes. The tutorial will include a brief fight section.
@@ -138,18 +137,11 @@
 | (:shout)Smash 'em!
   ")
   ;; TODO: spawn spare parts for the player to collect (barter currency) - would need to integrate with the zombies' death scripts?
-  (:go-to (catherine)
-   :title "Return to Catherine in the pump room"
-  )
-  (:interact (catherine :now T)   
-  "~ catherine
-| What have they done?
-  ")
-  ;; TODO catherine shocked - What have they done?
+    ;; TODO catherine shocked - What have they done?
   (:go-to (main-leak-3 :lead catherine)
    :title "Follow Catherine"
    "~ catherine
-| Shit-shit-shit.
+| What have they done?
   ")
   (:interact (catherine :now T)
    "~ catherine
@@ -228,7 +220,7 @@
 ~ jack
 | (:annoyed)Something like that...
 ~ fi
-| You've done well, Catherine. An android is a great asset for us.
+| You've done well, Catherine. An android is a great asset to us.
 | Assuming it can be trusted.
 ~ catherine
 | (:concerned)I don't understand.
@@ -293,7 +285,7 @@
   ~ fi
   | This \"thing\" is a person, Jack. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
-  | Still, a computer may be useful to help maintain Stranger.
+  | Still, a computer may be useful to help us maintain Stranger.
   | Jack, speak with Sahil when he arrives, see what he can do for us.
   ~ jack
   | (:annoyed)If you insist.
