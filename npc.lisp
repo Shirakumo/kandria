@@ -226,13 +226,14 @@
          (loc (location place))
          (bsize (bsize place)))
     (dolist (entity entities)
-      (unless (nearby-p place entity)
-        ;; FIXME: Scan for nearest ground.
-        (vsetf (location entity)
-               (random* (vx loc) (vx bsize))
-               (vy loc))
-        (when (typep entity 'npc)
-          (stop-following entity))))))
+      (let ((entity (ensure-unit entity)))
+        (unless (nearby-p place entity)
+          ;; FIXME: Scan for nearest ground.
+          (vsetf (location entity)
+                 (random* (vx loc) (vx bsize))
+                 (vy loc))
+          (when (typep entity 'npc)
+            (stop-following entity)))))))
 
 (define-unit-resolver-methods (setf lead-interrupt) (thing unit))
 (define-unit-resolver-methods (setf walk) (thing unit))
