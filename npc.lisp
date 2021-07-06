@@ -165,14 +165,14 @@
                ((< (expt (* 40 +tile-size+) 2) distance)
                 ;; TODO: shout where are you, then timer it.
                 (setf (ai-state npc) :follow-teleport))
-               (T
+               ((= 0 (mod (fc ev) 60))
                 (when (move-to companion npc)
                   (setf (ai-state npc) :follow))))))
       (:follow-teleport
        ;; TODO: Smart-teleport: search for places just outside view of the companion from
        ;;       which the companion is reachable
        (setf (path npc) NIL)
-       (when (svref (collisions companion) 2)
+       (when (typep (svref (collisions companion) 2) 'block)
          (vsetf (location npc)
                 (vx (location companion))
                 (+ (vy (location companion)) 4))
