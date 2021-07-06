@@ -253,17 +253,17 @@
   ~ catherine
   | There, see.
   ~ fi
-  | Alright, well - let's hope it's telling the truth. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | Alright. Let's hope it's telling the truth. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I don't think I have.
   ~ catherine
   | Her memories are all muddled from before I brought her online. She hasn't, trust me.
   ~ fi
-  | Alright, well - let's hope that's true. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | Alright. Let's hope that's true. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I suppose I could have.
   ~ catherine
   | She doesn't know what she's saying - her memories are all screwed up till the point I brought her online.
   ~ fi
-  | Alright - it's hardly conclusive, but for now we'd better hope Catherine's right.
+  | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
   | (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
 | (:annoyed)Jesus, Fi... you're just gonna take that at face value?
@@ -314,7 +314,7 @@
 | Which means they're close to discovering our location.
 | (:normal)I must consider our next course of action.
 ~ catherine
-| Well, if there's nothing else, I'll see you both later.
+| If there's nothing else, I'll see you both later.
 | Hey Stranger, wait here - I want to talk.
 ~ fi
 | Sayonara Catherine, Stranger.
