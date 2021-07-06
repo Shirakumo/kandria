@@ -136,6 +136,7 @@
                 (interrupt-walk-n-talk NIL)
                 (setf (ai-state npc) :lead-teleport))
                (T
+                (setf (path npc) NIL)
                 (interrupt-walk-n-talk (lead-interrupt npc))))))
       (:lead-teleport
        (when (svref (collisions companion) 2)
@@ -193,6 +194,7 @@
   (setf (ai-state npc) :follow))
 
 (defmethod stop-following ((npc npc))
+  (setf (path npc) NIL)
   (setf (companion npc) NIL)
   (setf (target npc) NIL)
   (setf (ai-state npc) :normal))
@@ -215,6 +217,19 @@
 
 (defmethod move :after (kind (npc npc) &key)
   (setf (ai-state npc) :normal))
+
+(defun ensure-nearby (place &rest entities)
+  (let* ((place (ensure-unit place))
+         (loc (location place))
+         (bsize (bsize place)))
+    (dolist (entity entities)
+      (unless (nearby-p place entity)
+        ;; FIXME: Scan for nearest ground.
+        (vsetf (location entity)
+               (random* (vx loc) (vx bsize))
+               (vy loc))
+        (when (typep entity 'npc)
+          (stop-following entity))))))
 
 (define-unit-resolver-methods (setf lead-interrupt) (thing unit))
 (define-unit-resolver-methods (setf walk) (thing unit))

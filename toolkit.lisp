@@ -615,6 +615,11 @@
                                                        (error "No unit named ~s found." ,(nth i list))))
                                list)))))))
 
+(defun ensure-unit (unit)
+  (etypecase unit
+    (unit unit)
+    (symbol (unit unit +world+))))
+
 (defun set-tile (map width height x y tile)
   (destructuring-bind (&optional (tx 0) (ty 0) (w 1) (h 1)) tile
     (when (< w 0) (incf x w) (incf tx w) (setf w (1+ (- w))))

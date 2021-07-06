@@ -5,8 +5,11 @@
   :author "Tim White"
   :title "A Tour?"
   :description "Catherine wants to show me something."
+  (:eval
+   (complete 'tutorial)
+   (ensure-nearby 'tutorial-end 'catherine))
   (:go-to (farm-view-intro :lead catherine)
-  :title "Follow Catherine")
+   :title "Follow Catherine")
   ;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
   ;; REMARK: It's confusing that you don't talk to catherine and instead have to find some hidden trigger volume.
   ;;         It would be better if this was activated on catherine as soon as the player walks into the farm

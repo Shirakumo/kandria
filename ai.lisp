@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass ai-entity (movable)
-  ((ai-state :initform :normal :accessor ai-state)))
+  ((ai-state :initform :normal :accessor ai-state :type symbol)))
 
 (defmethod collides-p ((platform moving-platform) (entity ai-entity) hit) NIL)
 
