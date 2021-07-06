@@ -192,7 +192,7 @@
 ~ player
 - Sure thing.
   ~ catherine
-  | (:excited)I'll follow you this time.
+  | (:excited)Great, then let's get going.
 - I didn't get my bearings.
   ~ catherine
   | Oh... I'm sure you can figure it out though. (:excited)It'll be good practice, I promise.
@@ -240,7 +240,7 @@
 | Maybe this android can control them? Did you think of that?
 ~ catherine
 | (:concerned)...
-| (:concerned)Androids did have FFCSs - er, far-field comms systems.
+| (:concerned)Androids do have an FFCS - er, far-field comms system.
 | I guess something like that could penetrate deeper underground than our radios.
 | (:normal)But no, it's not that. She's been offline for decades, I'm sure of it.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
@@ -324,7 +324,6 @@
 ! eval (setf (walk 'jack) T)
 ! eval (move-to 'fi-farm (unit 'fi))
 ! eval (move-to 'eng-jack (unit 'jack))
-! eval (move-to 'catherine-group (unit 'catherine))
   ")
   ;; TODO set Catherine facing direction on move-to arrival once got code support; else consider restoring to below, once they don't glitch out and cause Catherine to run to the ruins:
   ;; ! eval (setf (location 'catherine) 'catherine-group)
@@ -361,7 +360,7 @@
    "~ catherine
 | (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.
-| Since those two aren't likely to be feeling generous anytime soon, I'll give you these spare parts.
+| Since those two aren't likely to be feeling generous, I'll give you these spare parts.
 ! eval (store 'item:parts 20)
 | It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
