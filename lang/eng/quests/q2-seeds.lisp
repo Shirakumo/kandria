@@ -12,8 +12,17 @@
    :description NIL
    :invariant T
    :condition all-complete
-   :on-activate (seeds-arrive)
+   :on-activate (q2-reminder seeds-arrive)
    :on-complete (return-seeds)
+
+(:interaction q2-reminder
+    :interactable fi
+    :repeatable T
+    :dialogue "
+~ fi
+| Retrieve whatever seeds remain in the cache, beneath the Ruins to the east.
+| Good luck, Stranger.
+")
 
    ;; enemies on this quest will be world NPCs, not spawned for the quest
    ;; REMARK: Should have a lead-in to explain stuff lying around already:
@@ -32,11 +41,12 @@
 ~ player
 | //It's an old-world bunker. This must be the storage cache.//
 | //It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before.//
-| //Most of this is spoiled, but some of the closed containers may still have usable seeds. Let's see...//
-| //This is all that's left: a container with 54 sachets inside. The seeds are in wrappers, tiny and hard like grit.//
+| //Most of this is spoiled, but some of the drawers may still house usable seeds. Let's see...//
+| //This is all that's left: 24 sachets. Inside each one the seeds are tiny and hard like grit.//
 | (:skeptical)//Will they still grow?//
-| (:normal)//I stow 54 sachets in my compartment.//
-! eval (store 'item:seeds 54)
+| (:normal)//I stow 24 sachets in my compartment.//
+! eval (store 'item:seeds 24)
+! eval (deactivate 'q2-reminder)
 "))
   ;; TODO: use a variable to track if you took none / destroyed, which could come back and bite you in the ass later (Alex finds out, and tries to frame you to cover his own tracks? - ties into the plot outline) - log as a var on the storyline
   ;; TODO: use an exact technical unit/amount of pressure e.g. X pounds per inch (research)
@@ -76,10 +86,10 @@
 ~ fi
 | You're back - did you find the seeds?
 ~ player
-| I've got the last of them.
+| I've got the last of them right here.
 ~ fi
 ! eval (retrieve 'item:seeds T)
-| Oh my. There must be... fifty sachets here. All fully stocked.
+| Oh my. There must be... twenty sachets here. All fully stocked.
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the Noka yourself.
