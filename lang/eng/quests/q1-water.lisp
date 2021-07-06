@@ -10,7 +10,7 @@
   (:interact (catherine :now T)   
   "
 ~ catherine
-| Alright, here's a leak...
+| Alright, here's a leak.
 | That's strange, the pipe is cracked.
 ~ player
 - Can you fix it?
@@ -32,7 +32,7 @@
   | //It's like staring into the sun. Into the centre of a cataclysm.//
   ! eval (when (< 5 (health player)) (hurt player 5))
   ! eval (setf (var 'weld-burn) T)
-  | (:embarassed)//Oops. I think that damaged my cameras...//
+  | (:embarassed)//Oops. I think that damaged my cameras.//
 ~ catherine
 | That should hold it.
 ~ catherine
@@ -50,7 +50,7 @@
   ~ player
   | (:thinking)That's the thing: I don't remember my name.
   ~ catherine
-  | That's okay... don't worry.
+  | That's okay... Don't worry.
   | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
 - I don't remember my name.
   ~ catherine
@@ -90,7 +90,7 @@
 ~ catherine
 | No! I'm alright. I can fix it. Over.
 ~ jack
-| Okay... just be careful. I'll tell Fi what's going on.
+| Okay, just be careful. I'll tell Fi what's going on.
 | Also the pressure is still screwed. You'd better follow the pipe right down to the pump, just to be sure you got all the leaks.
 | The walkie won't work down there, but there's a telephone by the pump. Use that when you're done.
 | And keep your wits about you. Over and out.
@@ -153,7 +153,7 @@
   ")
   (:interact (catherine :now T)
    "~ catherine
-| (:disappointed)Oh man, we got here just in time. They were dismantling the turbine...
+| (:disappointed)Oh man, we got here just in time. They were dismantling the turbine.
 | Give me a minute.
 | ...
 | (:normal)There, that should do it.
@@ -178,11 +178,11 @@
 | (:annoyed)Did they?... Look, Cathy, get your ass back here on the double.
 | And bring the android - Fi's on the warpath.
 ~ catherine
-| (:concerned)What does that mean?...
+| (:concerned)What does that mean?
 | Jack?... He hung up.
 | Well, whatever it is it doesn't sound good.
 | Seems we'll have to wait a little longer for that welcome home we deserve.
-| (:normal)I need to think what to do next... Give me a minute.
+| (:normal)I need to think what to do next. Give me a minute.
   ")
   (:interact (catherine)
    :title "Talk to Catherine in the pump room"
@@ -231,7 +231,7 @@
 | You've done well, Catherine. An android is a great asset for us.
 | Assuming it can be trusted.
 ~ catherine
-| (:concerned)I don't understand...
+| (:concerned)I don't understand.
 ~ fi
 | Is it not coincidental that you discovered it at the same time our water supply was sabotaged?
 ~ catherine

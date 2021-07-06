@@ -58,7 +58,7 @@
 
 # race-1
 ~ catherine
-| (:cheer)Route 1! The can is... at a literal high point of EASTERN civilisation, now long gone.
+| (:cheer)Route 1! The can is at... a literal high point of EASTERN civilisation, now long gone.
 | (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-1 'gold))} - Silver: {(format-relative-time (var-of 'race-1 'silver))} - Bronze: {(format-relative-time (var-of 'race-1 'bronze))}.
 ? (var-of 'race-1 'pb)
 | | Your personal best for this route is {(format-relative-time (var-of 'race-1 'pb))}. Beat this to get a reward.
@@ -202,7 +202,7 @@
 ;; TODO These vars stored in save game? Problematic if we tweak after launch/testing?
 (define-race race-1
   :site race-1-site
-  :title-start "The can is... at a literal high point of EASTERN civilisation, now long gone."
+  :title-start "The can is at... a literal high point of EASTERN civilisation, now long gone."
   :title-complete "Complete Route 1"
   :gold 60
   :silver 80

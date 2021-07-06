@@ -26,6 +26,10 @@
 - Not yet.
   ~ catherine
   | [? Alright, you can have a minute. | Okay but we need to hurry - the water supply isn't gonna fix itself. | Okay, but whatever you need to do, please be quick about it.]
+- //Review task log//
+  ~ player
+  | //My Log Files record data about my assigned tasks; if ever I'm unsure what to do next, I should review these.//
+  | //(:giggle)The benefits of being an android!//
 - Where are we going again?
   ~ catherine
   | (:concerned)Um, did your short-term memory corrupt? We need to fix the water leak - before we lose the crop and everyone starves!
@@ -45,3 +49,12 @@
   ")
   )
 )
+
+#| TODO add in diegetic explanation of saving progress, in addition to the onscreen prompt? e.g.
+
+- //Save progress//
+  ~ player
+  | //Now I'm learning about this world, I should save my log files - just in case something untoward happens again.//
+  | //I saw one of their phone booths outside - I think I can interface with that to record my data.//
+
+|#

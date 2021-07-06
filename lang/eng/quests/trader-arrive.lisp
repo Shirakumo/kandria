@@ -97,7 +97,7 @@
   ~ trader
   | You got it.
 ~ trader
-| Say, I don't suppose you'd like to trade that sword of yours? I've never seen anything like it...
+| Say, I don't suppose you'd like to trade that sword of yours? I've never seen anything like it.
 ~ player
 - It's an electronic stun blade. And I need it.
   ~ trader

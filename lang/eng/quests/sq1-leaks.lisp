@@ -44,7 +44,7 @@
 |   | That's what I like to hear.
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
-|   | Oh man, you could probably stand not to hear more about landslides... Sorry!
+|   | Oh man, you could probably stand not to hear more about landslides - sorry!
 | ~ catherine
 | | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
@@ -89,7 +89,7 @@
 |   | That's what I like to hear.
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
-|   | Oh man, you could probably stand not to hear more about landslides... Sorry!
+|   | Oh man, you could probably stand not to hear more about landslides - sorry!
 | ~ catherine
 | | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
@@ -132,7 +132,7 @@
 |   | That's what I like to hear.
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
-|   | Oh man, you could probably stand not to hear more about landslides... Sorry!
+|   | Oh man, you could probably stand not to hear more about landslides - sorry!
 | ~ catherine
 | | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)

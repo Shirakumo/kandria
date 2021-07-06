@@ -30,20 +30,19 @@
   | (:excited)Heh, I knew you'd be impressed.
 - I've seen these before. Lots of times.
   ~ catherine
-  | (:normal)Oh...? From the old world? Do you remember? I bet they had loads of plantations.
+  | (:normal)Oh? From the old world? Do you remember? I bet they had loads of plantations.
   | (:excited)That's so cool. I wish I could have seen that too.
 ~ catherine
-| (:concerned)Erm... hang on a second. Where is everyone?
+| (:concerned)Erm, hang on a second. Where is everyone?
 | This isn't the welcome I was expecting.
 ~ player
 - Is something wrong?
   ~ catherine
-  | (:concerned)Well, I just reactivated an android...
-  | I thought they'd all be here to see you.
+  | (:concerned)Well, I just reactivated an android. I thought they'd all be here to see you.
 - What were you expecting?
   ~ catherine
   | (:concerned)I don't know...
-  | Though I just reactivated an android... I guess I thought everyone would be here to see you.
+  | Though I just reactivated an android. I guess I thought everyone would be here to see you.
 - Is it me?
   ~ catherine
   | (:concerned)You?... No of course not.
@@ -68,7 +67,7 @@
    "~ jack
 | (:annoyed)... Don't give me that bullshit. Where the hell have you been? And who's this?
 ~ catherine
-| (:cheer)What do you mean? I've brought back the android... I got her working!
+| (:cheer)What do you mean? I've brought back the android. I got her working!
 ~ jack
 | (:annoyed)Jesus... this is all we need.
 ~ player
@@ -98,7 +97,7 @@
 ~ catherine
 | (:excited)The android can come with me. You should see what she can do! And she's got a sword!
 ~ jack
-| (:annoyed)A sword?... Have you lost your goddamn mind? An android ain't no toy!
+| (:annoyed)A sword? Have you lost your goddamn mind? An android ain't no toy!
 | You'd be safer walking straight into Wraw territory than you would goin' anywhere with that thing.
 ~ player
 - I can protect her.

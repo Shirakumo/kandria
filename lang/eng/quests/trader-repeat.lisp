@@ -25,7 +25,7 @@
 |? (< 50  (health player))
 | | [? Have you been fighting, Stranger? | Are you alright? You look a little... worse for wear. | You've been pounding rogues, haven't you?]
 |?
-| | [? Though I think you've seen better days... | You look like you could really use my help. | You look like you've been dragged through the desert backwards... | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
+| | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label shop
 ~ player
 - I'd like to trade.
@@ -122,7 +122,7 @@
   |   | They broke out on their own, had enough of that Wraw bullshit.
   |   | Can't blame 'em. It was brave. It might also prove stupid though. We'll see.
   |   < talk
-  | - Catherine said you were later than expected...
+  | - Catherine said you were later than expected.
   |   ~ trader
   |   | Yeah, those damn rogues prowling about.
   |   | Don't get me wrong, I can handle myself.
@@ -131,7 +131,7 @@
   |   | You pull your own caravan?
   |   ~ trader
   |   | Well no other nadhil is going to do it for me.
-  |   | I used to have an ox, believe it or not... Ha, an ox, around here! It's hard to imagine.
+  |   | I used to have an ox, believe it or not. Ha, an ox, in these parts! It's hard to imagine.
   |   | Didn't last long after the wolves got her throat though. Poor Celina.
   |   < talk
   | - That'll do.
@@ -139,7 +139,7 @@
 - I need to go.
 ! label leave
 ~ trader
-| [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah! | Goodbye! And if you ever change your mind about parting with that sword of yours... I know, I know.]
+| [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah! | Goodbye! And if you ever change your mind about that sword of yours... I know, I know.]
 
 # last-one
 ~ trader
