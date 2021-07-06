@@ -8,24 +8,32 @@
 (defmethod label ((tool freeform)) "Freeform")
 
 (defmethod handle ((event mouse-press) (tool freeform))
-  (etypecase (entity tool)
-    (resizable
-     (let* ((p (nv- (mouse-world-pos (pos event))
-                    (location (entity tool))))
-            (b (bsize (entity tool)))
-            ;; Box SDF
-            (d (nv- (vabs p) b))
-            (d (+ (min 0 (max (vx d) (vy d)))
-                  (vlength (vmax d 0)))))
-       ;; If close to borders, resize.
-       (setf (state tool) (if (< (abs d) (/ 1 (zoom (unit :camera T))))
-                              :resizing
-                              :moving))))
-    (located-entity
-     (setf (state tool) :moving)))
-  (setf (start-pos tool) (mouse-world-pos (pos event)))
-  (setf (original-loc tool) (vcopy (location (entity tool))))
-  (setf (original-size tool) (vcopy (bsize (entity tool)))))
+  (let ((entity (entity tool)))
+    (cond ((retained :control)
+           (let ((new (vcopy (mouse-world-pos (pos event))))
+                 (old (vcopy (location entity))))
+             (with-commit (tool)
+               ((setf (location entity) new))
+               ((setf (location entity) old)))))
+          (T
+           (etypecase entity
+             (resizable
+              (let* ((p (nv- (mouse-world-pos (pos event))
+                             (location entity)))
+                     (b (bsize entity))
+                     ;; Box SDF
+                     (d (nv- (vabs p) b))
+                     (d (+ (min 0 (max (vx d) (vy d)))
+                           (vlength (vmax d 0)))))
+                ;; If close to borders, resize.
+                (setf (state tool) (if (< (abs d) (/ 1 (zoom (unit :camera T))))
+                                       :resizing
+                                       :moving))))
+             (located-entity
+              (setf (state tool) :moving)))))
+    (setf (start-pos tool) (mouse-world-pos (pos event)))
+    (setf (original-loc tool) (vcopy (location entity)))
+    (setf (original-size tool) (vcopy (bsize entity)))))
 
 (defmethod handle ((event mouse-release) (tool freeform))
   (let ((entity (entity tool)))

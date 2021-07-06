@@ -63,7 +63,7 @@ The editor comes with a number of different tools to manipulate different kinds 
 This tool is always available. When active, dragging will cause the camera to move. Shift-dragging will change the zoom level. In most cases you can also invoke this tool while another tool is active by holding down Alt.
 
 ### Freeform
-This tool allows you to move or resize entities. Dragging the border of a resizable entity will resize it. Dragging anywhere else will move it.
+This tool allows you to move or resize entities. Dragging the border of a resizable entity will resize it. Dragging anywhere else will move it. Ctrl-clicking will place the entity at the current point.
 
 ### Paint
 This tool allows you to draw tiles into a chunk. With left click, the currently selected tile is placed. With right click, the tile is erased. Middle-clicking will pick the current tile. While drawing tiles, other layers will be drawn transparently to make it easier to see and to minimise the risk of accidentally drawing on the wrong layer.
