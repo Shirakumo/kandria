@@ -43,7 +43,7 @@
    :repeatable T
    "
 ~ player
-| //Glass cracks under my feet like broken bones. There are human remains inside.//
+| //Glass cracks under my feet like broken bones. There are human remains in the bed.//
 ")
 
   ;; Housing exterior - roof top-right
@@ -87,6 +87,16 @@
 ~ player
 | (:thinking)//Café Alpha... Did I used to come here?//
 | (:giggle)//If so I'm sure the service was much better.//
+")
+
+  ;; Housing apartment - bed
+  (:interaction housing-bed
+   :interactable lore-apt-bed
+   :repeatable T
+   "
+~ player
+| //This bed was recently made up - (:giggle)I doubt it was room service.//
+| (:normal)//I don't sleep, but it looks incredibly inviting.//
 ")
 
   ;; Ruins - transition/view
