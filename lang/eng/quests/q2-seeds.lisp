@@ -42,13 +42,13 @@
   ;; TODO: use an exact technical unit/amount of pressure e.g. X pounds per inch (research)
 
   #| TODO removed option to destroy the seeds, logged here in case needed in the future beyond act 1, where a choice like this might be more suitable (e.g. doing a task for another faction, playing them off against one another, etc.)
-  - //Take all the sachets//
+  - (Take all the sachets)
   | //I stow 54 sachets in my compartment.//
   ! eval (store 'seeds 54)
-  - //Take some of the sachets//
+  - (Take some of the sachets)
   | //I stow 17 sachets in my compartment.//
   ! eval (store 'seeds 17)
-  - //Destroy the seeds//
+  - (Destroy the seeds)
   | //Somehow it doesn't feel right to take them.//
   | //I hold the sachets in my hands, several at a time, and exert pressure sufficient to crush them into particulates.//
   | //My hands feel warm with the pressure and friction.//

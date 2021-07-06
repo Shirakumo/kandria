@@ -32,10 +32,10 @@
   ~ trader
   | [? That's what I like to hear! | Yes, sir! | And so would I! | That's the spirit! | You got it.]
   ~ player
-  - //Buy//
+  - (Buy)
     ! label buy
     ~ player
-    - //Small HP (I own {(item-count 'item:small-health-pack)}) - 4$//
+    - Small HP (I own {(item-count 'item:small-health-pack)}) - 4$
       ? (and (<= 4 (item-count 'item:parts)) (< 0 (var 'small-health-qty)))
       | ! eval (retrieve 'item:parts 4)
       | ! eval (store 'item:small-health-pack 1)
@@ -48,7 +48,7 @@
       | < cannot-afford
       |?
       | < out-of-stock
-    - //Medium HP (I own {(item-count 'item:medium-health-pack)}) - 10$//
+    - Medium HP (I own {(item-count 'item:medium-health-pack)}) - 10$
       ? (and (<= 10 (item-count 'item:parts)) (< 0 (var 'medium-health-qty)))
       | ! eval (retrieve 'item:parts 10)
       | ! eval (store 'item:medium-health-pack 1)
@@ -61,7 +61,7 @@
       | < cannot-afford
       |?
       | < out-of-stock
-    - //Large HP (I own {(item-count 'item:large-health-pack)}) - 20$//
+    - Large HP (I own {(item-count 'item:large-health-pack)}) - 20$
       ? (and (<= 20 (item-count 'item:parts)) (< 0 (var 'large-health-qty)))
       | ! eval (retrieve 'item:parts 20)
       | ! eval (store 'item:large-health-pack 1)
@@ -76,22 +76,22 @@
       | < out-of-stock
     - I'm done.
       < shop
-  - //Sell//
+  - (Sell)
     ! label sell
     ~ player
-    - [(have 'item:mushroom-bad-1) //Black cap (I own {(item-count 'item:mushroom-bad-1)}) - 2$//|]
+    - [(have 'item:mushroom-bad-1) Black cap (I own {(item-count 'item:mushroom-bad-1)}) - 2$|]
       ! eval (store 'item:parts 2)
       ! eval (retrieve 'item:mushroom-bad-1 1)
       < sell
-    - [(have 'item:mushroom-good-1) //Flower fungus (I own {(item-count 'item:mushroom-good-1)}) - 1$//|]
+    - [(have 'item:mushroom-good-1) Flower fungus (I own {(item-count 'item:mushroom-good-1)}) - 1$|]
       ! eval (store 'item:parts 1)
       ! eval (retrieve 'item:mushroom-good-1 1)
       < sell
-    - [(have 'item:mushroom-good-2) //Rusty puffball (I own {(item-count 'item:mushroom-good-2)}) - 1$//|]
+    - [(have 'item:mushroom-good-2) Rusty puffball (I own {(item-count 'item:mushroom-good-2)}) - 1$|]
       ! eval (store 'item:parts 1)
       ! eval (retrieve 'item:mushroom-good-2 1)
       < sell
-    - [(have 'item:walkie-talkie) //Walkie-talkie for 150$//|]
+    - [(have 'item:walkie-talkie) Walkie-talkie for 150$|]
       ! eval (retrieve 'item:walkie-talkie 1)
       ! eval (store 'item:parts 150)
       ~ trader
@@ -166,12 +166,12 @@
 ;; TODO show currency while in shop UI
 ;; TODO: flesh out with Sahil questions relevant to current plot points - confidente, as a fellow outsider?
 
-#| TODO: when get scrolling options, add to buy menu:
+#| TODO: when get scrolling options, add to buy menu: - actually being replaced by shop UI (for now, using non italics and non parentheticals here is fine as temporary, and parentheses are used internally anyway)
 - I want to sell.
 < sell
 - I'm done.
 < shop
-- //I need to go.//
+- I need to go.
 < leave
 
 Also leave to Talk options

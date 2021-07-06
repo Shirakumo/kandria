@@ -44,17 +44,17 @@
 |?
 | | (:normal)Which route do you wanna do?
 | ~ player
-| - //Route 1//
+| - Route 1.
 |   < race-1
-| - [(var-of 'race-1 'pb) //Route 2//|]
+| - [(var-of 'race-1 'pb) Route 2.|]
 |   < race-2
-| - [(var-of 'race-2 'pb) //Route 3//|]
+| - [(var-of 'race-2 'pb) Route 3.|]
 |   < race-3
-| - [(var-of 'race-3 'pb) //Route 4//|]
+| - [(var-of 'race-3 'pb) Route 4.|]
 |   < race-4
-| - [(var-of 'race-4 'pb) //Route 5//|]
+| - [(var-of 'race-4 'pb) Route 5.|]
 |   < race-5
-| - //Back out for now//
+| - (Back out for now)
 
 # race-1
 ~ catherine

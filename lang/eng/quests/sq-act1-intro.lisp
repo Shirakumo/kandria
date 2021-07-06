@@ -122,7 +122,7 @@
 |   | (:cheer)This is sooo exciting!
 |   ! eval (activate 'sq3-race)
 |   < task-choice
-| - //Nothing for now//
+| - (Nothing for now)
 |   ~ catherine
 |   | (:normal)That's cool. Just let me know if you want something to do.
 |   < end
