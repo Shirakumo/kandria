@@ -5,7 +5,23 @@
   :author "Tim White"
   :title "Find a New Home"
   :description "I need to find a new home for the settlement, in the Ruins to the east. My FFCS indicates four candidate locations."
-  :on-activate (find-home-first find-home-second find-home-third find-home-fourth)
+  :on-activate (find-home-first find-home-second find-home-third find-home-fourth task-q3-reminder)
+
+  (task-q3-reminder
+   :title "Talk to Jack if I need a reminder"
+   :visible NIL
+   :on-activate T
+   (:interaction q3-reminder
+    :title "Remind me what I'm doing."
+    :interactable jack
+    :repeatable T
+    :dialogue "
+~ jack
+| (:annoyed)Our new home ain't gonna find itself. Be seein' ya.
+~ player
+| //Jack said I should search the Ruins to the east. My FFCS indicates four candidate locations.//
+")
+)
 
   (find-home-first
    :title "Scout location Beta"
@@ -23,6 +39,7 @@
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
 | | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
 "))
 ;; SCRATCH | Structural integrity can be described as \"may collapse at any moment\". ;; restore italics to "Structural integrity..." once back slashes don't impede
   (find-home-second
@@ -41,6 +58,7 @@
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
 | | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
 "))
 
   (find-home-third
@@ -58,6 +76,7 @@
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
 | | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
 "))
 
   (find-home-fourth
@@ -79,6 +98,7 @@
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
 | | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
 | ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
 "))
 
   (return-new-home

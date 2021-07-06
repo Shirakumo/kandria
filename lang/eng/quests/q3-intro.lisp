@@ -22,7 +22,7 @@
 ~ player
 - What?
   ~ jack
-  | No sense of humour. Figures.
+  | (:annoyed)No sense of humour. Figures.
 - What do you think?
   ~ jack
   | (:annoyed)No. Not while you've got Fi and Cathy wrapped around your fake little finger.
