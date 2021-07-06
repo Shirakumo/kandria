@@ -95,7 +95,7 @@
    :repeatable T
    "
 ~ player
-| //This bed was recently made up - (:giggle)I doubt it was room service.//
+| (:giggle)//This bed was recently made up - I doubt it was room service.//
 | (:normal)//I don't sleep, but it looks incredibly inviting.//
 ")
 
