@@ -61,6 +61,9 @@
 (defmethod apply-transforms progn ((obj facing-entity))
   (scale-by (direction obj) 1 1))
 
+(define-unit-resolver-methods direction (unit))
+(define-unit-resolver-methods (setf direction) (direction unit))
+
 (defclass rotated-entity (base-entity transformed)
   ((angle :initarg :angle :initform 0f0 :accessor angle
           :type single-float :documentation "The angle the entity is pointing in.")))

@@ -201,25 +201,24 @@
   | She's our leader. You'll see for yourself soon enough.
   | She'll be glad to meet you, I'm sure of it.
   | Let's get back to camp, find out what's happening.
-! eval (setf (location 'fi) 'fi-group)
-! eval (setf (direction (unit 'fi)) -1)
-! eval (setf (location 'jack) 'jack-group)
-! eval (setf (direction (unit 'jack)) -1)
+! eval (ensure-nearby 'storage-shutter 'fi 'jack)
+! setf (direction 'fi) -1
+! setf (direction 'jack) -1
   ")
 ;; TODO catherine confused - What does that mean?...
 #|
 ! eval (setf (location 'catherine) 'catherine-group)
 ! eval (move-to 'catherine-group (unit 'catherine))
 |#
-  (:go-to (catherine-group :follow catherine)
+  (:go-to (storage-shutter :follow catherine)
    :title "Return to camp with Catherine and find Jack and Fi"
    "~ catherine
 | (:excited)Take us home, Stranger!
   ")
-  (:interact (catherine-group :now T)
+  (:interact (catherine :now T)
   "
 ! eval (stop-following 'catherine)
-! eval (unless (nearby-p 'catherine-group 'catherine) (setf (location 'catherine) (location 'catherine-group))(setf (direction (unit 'catherine)) +1))
+! eval (ensure-nearby 'storage-shutter 'catherine)
 ~ catherine
 | (:cheer)We're back! Did you miss us?
 ~ jack

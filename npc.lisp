@@ -84,9 +84,12 @@
                        (trigger 'slide npc :direction +1)))
                     (T
                      (setf (animation npc) 'fall))))
-             ((< 0 (abs (vx vel)))
+             ((< (p! slowwalk-limit) (abs (vx vel)))
               (setf (playback-speed npc) (/ (abs (vx vel)) (p! walk-limit)))
               (setf (animation npc) 'run))
+             ((< 0 (abs (vx vel)))
+              (setf (playback-speed npc) (/ (abs (vx vel)) (p! slowwalk-limit)))
+              (setf (animation npc) 'walk))
              (T
               (setf (animation npc) 'stand)))))
     (cond ((eql (name (animation npc)) 'slide)
