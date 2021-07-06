@@ -518,6 +518,8 @@
            (setf (state player) :normal))
          (typecase attached
            (rope
+            (setf (climb-strength player) (p! climb-strength))
+            (vsetf (color player) 10 0 0 0)
             (nudge attached loc (* (direction player) -8))
             (cond ((retained 'left)
                    (let ((target-x (- (vx (location (interactable player))) (vx size))))
