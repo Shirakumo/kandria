@@ -25,6 +25,7 @@
   ")
   (:go-to (dash-start :lead catherine))
   (:eval
+   (ensure-nearby 'dash-start 'catherine)
    (move :freeze 'player)
    (move :left 'catherine))
   (:nearby (dash-end catherine)
