@@ -116,11 +116,6 @@
 
 (define-decoder (quest:task save-v0) (initargs packet)
   (destructuring-bind (&key status bindings triggers) initargs
-    (case status
-      (:unresolved
-       (case (quest:status quest:task)
-         (:inactive
-          (quest:activate quest:task)))))
     (setf (quest:status quest:task) status)
     (quest:merge-bindings quest:task (decode-payload bindings 'bindings packet save-v0))
     (loop for (name . initargs) in triggers
