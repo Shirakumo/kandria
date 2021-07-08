@@ -171,6 +171,53 @@
 
 ;; VALUE ITEMS
 (define-item (parts value-item) 8 16 8 8)
+(define-item (heavy-spring value-item) 8 16 8 8)
+(define-item (satchel value-item) 16 16 8 8)
+(define-item (screw value-item) 24 16 8 8)
+(define-item (bolt value-item) 32 16 8 8)
+(define-item (nut value-item) 40 16 8 8)
+(define-item (gear value-item) 48 16 8 8)
+(define-item (bent-rod value-item) 56 16 8 8)
+(define-item (large-gear value-item) 64 16 8 8)
+(define-item (copper-ring value-item) 72 16 8 8)
+(define-item (metal-ring value-item) 80 16 8 8)
+(define-item (broken-ring value-item) 88 16 8 8)
+(define-item (heavy-rod value-item) 96 16 8 8)
+(define-item (light-rod value-item) 104 16 8 8)
+(define-item (simple-gadget value-item) 112 16 8 8)
+(define-item (dented-plate value-item) 120 16 8 8)
+
+(define-item (simple-circuit value-item) 8 24 8 8)
+(define-item (complex-circuit value-item) 16 24 8 8)
+(define-item (broken-circuit value-item) 24 24 8 8)
+(define-item (large-battery value-item) 32 24 8 8)
+(define-item (small-battery value-item) 40 24 8 8)
+(define-item (coin value-item) 48 24 8 8)
+(define-item (controller value-item) 56 24 8 8)
+(define-item (connector value-item) 64 24 8 8)
+(define-item (cable value-item) 72 24 8 8)
+(define-item (memory value-item) 80 24 8 8)
+(define-item (genera-core value-item) 88 24 8 8)
+(define-item (rusted-key value-item) 96 24 8 8)
+
+(define-item (clay-clump value-item) 0 32 8 8)
+(define-item (gold-nugget value-item) 8 32 8 8)
+(define-item (silver-ore value-item) 16 32 8 8)
+(define-item (bronze-clump value-item) 24 32 8 8)
+(define-item (rich-soil value-item) 32 32 8 8)
+(define-item (meteorite-fragment value-item) 40 32 8 8)
+(define-item (hardened-alloy value-item) 48 32 8 8)
+(define-item (quartz-crystal value-item) 56 32 8 8)
+(define-item (rusted-clump value-item) 64 32 8 8)
+(define-item (pearl value-item) 72 32 8 8)
+
+(define-item (coolant value-item) 0 40 8 8)
+(define-item (pure-water value-item) 8 40 8 8)
+(define-item (crude-oil value-item) 16 40 8 8)
+(define-item (refined-oil value-item) 24 40 8 8)
+(define-item (thermal-fluid value-item) 32 40 8 8)
+(define-item (mossy-water value-item) 40 40 8 8)
+(define-item (cloudy-water value-item) 48 40 8 8)
 
 ;; QUEST ITEMS
 (define-item (seeds quest-item) 16 16 8 8)
@@ -179,6 +226,7 @@
 (define-item (mushroom-bad-1 quest-item) 16 8 8 8)
 (define-item (walkie-talkie quest-item) 0 0 8 8)
 (define-item (semi-factory-key quest-item) 8 0 8 8)
+(define-item (can quest-item) 0 16 8 8)
 
 ;; SPECIAL ITEMS
-(define-item (can special-item) 0 16 8 8)
+
