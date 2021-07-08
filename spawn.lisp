@@ -1,5 +1,30 @@
 (in-package #:kandria)
 
+(defvar *random-draw* (make-hash-table :test 'eq))
+
+(defun weighted-random-elt (segments)
+  (let* ((total (loop for segment in segments
+                      sum (second segment)))
+         (index (random total)))
+    ;; Could try to binsearch, but eh. Probably fine.
+    (loop for prev = 0.0 then (+ prev weight)
+          for (part weight) in segments
+          do (when (< index (+ prev weight))
+               (return part)))))
+
+(defmacro define-random-draw (name &body items)
+  (let ((total (float (loop for (item weight) in items
+                            sum weight))))
+    `(setf (gethash ',name *random-draw*)
+           (lambda ()
+             (let ((r (random ,total)))
+               (cond ,@(nreverse (loop for prev = 0.0 then (+ prev weight)
+                                       for (item weight) in items
+                                       collect `((< ,prev r) ,item)))))))))
+
+(defmethod draw-item ((item symbol))
+  (funcall (gethash item *random-draw*)))
+
 (define-global +spawn-tracker+ (make-hash-table :test 'eq))
 
 (defun spawned-p (entity)
