@@ -45,8 +45,8 @@
                (:inactive (quest:deactivate thing))
                (:complete (quest:complete thing)))
              (return-from interact)))
-      (loop for quest in (quest:known-quests (storyline +world+))
-            do (loop for task in (quest:active-tasks quest)
+      (loop for quest being the hash-values of (quest:quests (storyline +world+))
+            do (loop for task being the hash-values of (quest:tasks quest)
                      do (loop for trigger being the hash-values of (quest:triggers task)
                               do (when (eql name (quest:name trigger))
                                    (finish trigger)))
@@ -54,7 +54,7 @@
                           (finish task)))
                (when (eql name (quest:name quest))
                  (finish quest)))
-      (v:warn :kandria.quest "Could not find active story-item named ~s when firing trigger ~s"
+      (v:warn :kandria.quest "Could not find story-item named ~s when firing trigger ~s"
               name (name trigger)))))
 
 (defclass interaction-trigger (one-time-trigger)
