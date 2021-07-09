@@ -280,7 +280,7 @@
    "
 ~ player
 | //(:thinking)This is where it all began, and ended.//
-| //(:normal)Not the most comfortable location to have spent a couple of decades. (:giggle)Little wonder I've a bad back.//
+| //(:normal)Not the most comfortable location to have spent a few decades. (:giggle)Little wonder I've a bad back.//
 ")
 
 )

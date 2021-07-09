@@ -36,7 +36,7 @@
   | Right you are, Stranger!
 - Take your pick.
   ~ trader
-  | But it's YOUR name. Now I think about it, I'm sure it was just Stranger.
+  | But it's YOUR name. Now I think about it, I'm sure it was Stranger.
 ~ player
 | I see you've been speaking with Catherine.
 < main
@@ -83,21 +83,19 @@
 | Go on, take look - don't be shy. And since this is your first time, you can have them free of charge!
 ! label shop
 ~ player
-- [(not (var 'small-health)) //Take a small health pack//|]
+- [(not (var 'small-health)) (Take a small health pack)|]
   ! eval (store 'item:small-health-pack 1)
   ! eval (setf (var 'small-health) T)
   < shop
-- [(not (var 'medium-health)) //Take a medium health pack//|]
+- [(not (var 'medium-health)) (Take a medium health pack)|]
   ! eval (store 'item:medium-health-pack 1)
   ! eval (setf (var 'medium-health) T)
   < shop
-- [(not (var 'large-health)) //Take a large health pack//|]
+- [(not (var 'large-health)) (Take a large health pack)|]
   ! eval (store 'item:large-health-pack 1)
   ! eval (setf (var 'large-health) T)
   < shop
 - I'm done.
-  ~ trader
-  | You got it.
 ~ trader
 | Say, I don't suppose you'd like to trade that sword of yours? I've never seen anything like it.
 ~ player
@@ -105,7 +103,7 @@
   ~ trader
   | Electronic?... That's downright incredible. And it transforms from your hand?
   < sword-explain
-- It is paired via my NFCS. It's useless to anyone else.
+- It's paired to my NFCS. It'd just be a big stick to anyone else.
   ~ trader
   | It's electronic?... That's downright incredible. And it transforms from your hand?
   < sword-explain

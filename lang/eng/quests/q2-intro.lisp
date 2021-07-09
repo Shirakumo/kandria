@@ -24,7 +24,7 @@
   | Yes, I do. She is quite perceptive.
 - So you're the leader around here?
   ~ fi
-  | Something like that, anyway.
+  | Something like that.
 - How's the water supply?
   ~ fi
   | Fully restored, thanks to yours and Catherine's efforts.
