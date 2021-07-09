@@ -98,18 +98,24 @@
 | Alright, let me seal this one up.
 | (:concerned)Wait... Who's there?
   ")
+  (:eval
+   :condition (not (find-panel 'fullscreen-prompt))
+   (fullscreen-prompt '(light-attack heavy-attack) 'attack))
   (:complete (q1-fight1)
    :title "Defeat the wolf at the leak"
-    ;; TODO: allow player to collect "wolf meat" as currency?
-  "
+   ;; TODO: allow player to collect "wolf meat" as currency?
+   "
 ~ catherine
 | (:shout)Look out! Keep it busy while I finish up here.
   ")
   ;; TODO: has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
   ;; REMARK: ^ yes. The tutorial will include a brief fight section.
+  (:eval
+   :condition (not (find-panel 'fullscreen-prompt))
+   (fullscreen-prompt 'quickmenu)
+   (move-to 'player 'catherine))
   (:go-to (catherine)
-   :title "Return to Catherine at the leak"
-  )
+   :title "Return to Catherine at the leak")
   (:interact (catherine :now T)
    "~ catherine
 | Nice work. I've done the weld - good as new.
