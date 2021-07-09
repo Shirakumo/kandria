@@ -114,6 +114,17 @@
 (defmethod handle ((ev previous) (dialog dialog))
   (alloy:focus-prev (choices dialog)))
 
+(defmethod handle ((ev skip) (dialog dialog))
+  (let* ((els (alloy:elements (choices dialog)))
+         (back (find (string (prompt-char :left :bank :keyboard))
+                     els :key #'alloy:value :test #'string=)))
+    (cond ((null back))
+          ((= (alloy:index (choices dialog)) (position back els))
+           (hide dialog))
+          (T
+           (setf (prompt dialog) "")
+           (setf (alloy:index (choices dialog)) (position back els))))))
+
 (defmethod (setf choices) :after ((choices cons) (dialog dialog))
   (org.shirakumo.alloy.layouts.constraint:suggest
    (alloy:layout-element dialog) (choices dialog) :w (alloy:un 400)))
