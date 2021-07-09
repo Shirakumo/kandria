@@ -133,3 +133,6 @@
 (defmethod handle ((ev event) (prompt fullscreen-prompt))
   (when (typep ev (button prompt))
     (hide prompt)))
+
+(defun fullscreen-prompt (action &optional (title action) (description (trial::mksym #.*package* title '/description)))
+  (show (make-instance 'fullscreen-prompt :button action :title title :description description)))

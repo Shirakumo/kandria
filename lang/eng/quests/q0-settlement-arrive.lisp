@@ -63,7 +63,6 @@
   ;; REMARK: Maybe add a snarky greeting choice like "- Well aren't you the charmer
   ;; TIM REPLY: Hmm, not feeling this one. I think initially I want the Stranger to be on the backfoot in the conversation as well, whereas this sarcastic reply would put them on the front put. At least for the moment, they are at the mercy of Jack's ramblings
   (:interact (jack :now T)
-   :on-complete (q1-ready)
    "~ jack
 | (:annoyed)... Don't give me that bullshit. Where the hell have you been? And who's this?
 ~ catherine
@@ -128,7 +127,13 @@
 | I will. And don't worry - we'll be back ASAP.
 | Alright, android - let me know when you're ready to go.
   ")
-)
+  (:eval
+   :condition (not (find-panel 'fullscreen-prompt))
+   (fullscreen-prompt 'toggle-menu))
+  (:eval
+   :condition (not (find-panel 'fullscreen-prompt))
+   :on-complete (q1-ready)
+   (fullscreen-prompt 'interact 'save)))
 ;; The mission here is too urgent for Catherine to think, oh, let's establish the android's name
 
 ;; TODO catherine shocked  Shit!... I should have been here.
