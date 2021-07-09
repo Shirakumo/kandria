@@ -26,7 +26,7 @@
 - How did you manage this?
   ~ catherine
   | (:normal)Don't ask me - I'm just an engineer. I helped install the irrigation though.
-  | Needless to say, growing them here isn't easy.
+  | Needless to say, growing crops here isn't easy.
   | (:excited)Heh, I knew you'd be impressed.
 - I've seen these before. Lots of times.
   ~ catherine
@@ -94,9 +94,9 @@
 ~ jack
 | No way. It's too dangerous.
 ~ catherine
-| (:excited)The android can come with me. You should see what she can do! And she's got a sword!
+| (:excited)The android can come with me. You should see what she can do!
 ~ jack
-| (:annoyed)A sword? Have you lost your goddamn mind? An android ain't no toy!
+| (:annoyed)Have you lost your goddamn mind? An android ain't no toy!
 | You'd be safer walking straight into Wraw territory than you would goin' anywhere with that thing.
 ~ player
 - I can protect her.
@@ -124,7 +124,7 @@
 ~ jack
 | Hold on Cathy - take this walkie. Radio if you have any trouble.
 ~ catherine
-| I will. And don't worry - we'll be back ASAP.
+| I will. And don't worry - we'll be back soon.
 | Alright, android - let me know when you're ready to go.
   ")
   (:eval

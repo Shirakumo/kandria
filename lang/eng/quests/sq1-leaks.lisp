@@ -149,7 +149,7 @@
     :dialogue "
 ~ catherine
 | (:cheer)The water pressure is back! I knew you could do it.
-| (:normal)Here, takes these parts - you've earned them.
+| (:normal)Here, take these parts - you've earned them.
 ! eval (store 'item:parts 15)
 ? (have 'item:walkie-talkie)
 | | I'll take the walkie back for now in case someone else needs it.
