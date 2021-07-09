@@ -368,13 +368,11 @@
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
 | But right now you're a free agent. I doubt that will last very long, so make the most of it!
 | (:excited)Take a look around and explore!
-| (:normal)Seeya later, Stranger!
-! eval (move-to 'eng-cath (unit 'catherine))
-! eval (activate 'q2-intro)
-! eval (activate 'q3-intro)
-! eval (activate 'lore)
-  ")
-)
+| (:normal)Seeya later, Stranger!")
+  (:eval
+   :on-complete (lore q2-intro q3-intro)
+   (move-to 'eng-cath (unit 'catherine))
+   (fullscreen-prompt 'report-bug)))
 ;; TODO Catherine contented - Anyway, don't worry about them.
 
 ;; TODO: inventory item acquired onscreen pop-up / notification
