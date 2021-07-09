@@ -114,21 +114,21 @@
           (T
            (call-next-method)))))
 
-(defmethod handle ((ev report-bug) (world world))
+(defmethod handle :after ((ev report-bug) (world world))
   (toggle-panel 'report-panel))
 
-(defmethod handle ((ev toggle-fullscreen) (world world))
+(defmethod handle :after ((ev toggle-fullscreen) (world world))
   (setf (setting :display :fullscreen) (not (setting :display :fullscreen)))
   (apply-video-settings))
 
-(defmethod handle ((ev toggle-editor) (world world))
+(defmethod handle :after ((ev toggle-editor) (world world))
   (unless (find-panel 'menu)
     (toggle-panel 'editor)))
 
-(defmethod handle ((ev toggle-diagnostics) (world world))
+(defmethod handle :after ((ev toggle-diagnostics) (world world))
   (toggle-panel 'diagnostics))
 
-(defmethod handle ((ev screenshot) (world world))
+(defmethod handle :after ((ev screenshot) (world world))
   (let* ((date (format-absolute-time (get-universal-time) :time-separator #+windows #\- #-windows #\:))
          (file (make-pathname :name (format NIL "kandria ~a" date)
                               :type "png"
@@ -137,13 +137,13 @@
     (status :note "Screenshot saved to ~a" file)
     (v:info :kandria "Screenshot saved to ~a" file)))
 
-(defmethod handle ((ev quickmenu) (world world))
+(defmethod handle :after ((ev quickmenu) (world world))
   (if (find-panel 'menuing-panel)
       (unless (find-panel 'menu)
         (status "Can't pause right now."))
       (show-panel 'quick-menu)))
 
-(defmethod handle ((ev toggle-menu) (world world))
+(defmethod handle :after ((ev toggle-menu) (world world))
   (if (pausing-possible-p)
       (show-panel 'menu)
       (unless (find-panel 'menu)

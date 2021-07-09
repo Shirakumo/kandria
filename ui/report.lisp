@@ -10,7 +10,7 @@
   (when +world+
     `(("savestate" ,(file (save-state +world+ (make-instance 'save-state :filename "report")))))))
 
-(defclass report-panel (pausing-panel)
+(defclass report-panel (pausing-panel menuing-panel)
   ())
 
 (defclass report-focus (alloy:focus-list alloy:observable)

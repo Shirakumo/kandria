@@ -48,7 +48,7 @@
 
 (trigger quickmenu
  (key :one-of (:c :v))
- (button :one-of (:dpad-u :dpad-d))
+ (button :one-of (:dpad-d))
  (axis :one-of (:dpad-v) :threshold -0.5))
 
 (trigger interact

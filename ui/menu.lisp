@@ -204,7 +204,7 @@
 (presentations:define-update (ui input-label)
   (:label :size (alloy:un 30) :halign :middle :valign :middle))
 
-(defclass menu (pausing-panel)
+(defclass menu (pausing-panel menuing-panel)
   ((status-display :initform NIL :accessor status-display)))
 
 (defmethod handle ((ev tick) (menu menu))

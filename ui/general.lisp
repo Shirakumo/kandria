@@ -194,29 +194,34 @@
     (setf (active-p panel) NIL)
     panel))
 
-(defclass menuing-panel (panel)
+(defclass fullscreen-panel (panel)
+  ())
+
+(defmethod show :after ((panel fullscreen-panel) &key)
+  ;; Hide prompts
+  (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
+    (when (typep el 'prompt) (hide el))))
+
+(defclass menuing-panel (fullscreen-panel)
   ())
 
 (defmethod show :after ((panel menuing-panel) &key)
-  ;; Hide prompts
-  (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
-    (when (typep el 'prompt) (hide el)))
-  ;; Clear pending events to avoid spurious inputs
-  (discard-events +world+)
   (setf (active-p (action-set 'in-menu)) T))
 
 (defmethod hide :after ((panel menuing-panel))
-  ;; Clear pending events to avoid spurious inputs
-  (discard-events +world+)
   (setf (active-p (action-set 'in-game)) T))
 
-(defclass pausing-panel (menuing-panel)
+(defclass pausing-panel (fullscreen-panel)
   ())
 
 (defmethod show :after ((panel pausing-panel) &key)
+  ;; Clear pending events to avoid spurious inputs
+  (discard-events +world+)
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((panel pausing-panel))
+  ;; Clear pending events to avoid spurious inputs
+  (discard-events +world+)
   (unpause-game T (unit 'ui-pass T)))
 
 (defclass messagebox (alloy:dialog alloy:observable)

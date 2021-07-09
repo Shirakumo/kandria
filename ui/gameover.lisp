@@ -23,7 +23,7 @@
               ((:weak :strong) colors:black)
               ((NIL) colors:white))))
 
-(defclass game-over (pausing-panel)
+(defclass game-over (pausing-panel menuing-panel)
   ())
 
 (defmethod initialize-instance :after ((panel game-over) &key)

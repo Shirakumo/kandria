@@ -21,7 +21,7 @@
   (:label
    :markup (markup alloy:renderable)))
 
-(defclass dialog (pausing-panel textbox)
+(defclass dialog (pausing-panel menuing-panel textbox)
   ((interactions :initarg :interactions :initform () :accessor interactions)
    (interaction :initform NIL :accessor interaction)
    (one-shot :initform NIL :accessor one-shot)))

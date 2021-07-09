@@ -52,7 +52,7 @@
 
 (defmethod alloy:suggest-bounds (bounds (marker marker)) bounds)
 
-(defclass editor (pausing-panel alloy:observable-object)
+(defclass editor (pausing-panel menuing-panel alloy:observable-object)
   ((flare:name :initform :editor)
    (marker :initform (make-instance 'marker) :accessor marker)
    (zoom :initform NIL :accessor zoom)

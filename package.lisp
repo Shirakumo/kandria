@@ -23,6 +23,7 @@
    (#:opengl #:org.shirakumo.alloy.renderers.opengl)
    (#:colored #:org.shirakumo.alloy.colored)
    (#:colors #:org.shirakumo.alloy.colored.colors)
+   (#:animation #:org.shirakumo.alloy.animation)
    (#:file-select #:org.shirakumo.file-select)
    (#:gamepad #:org.shirakumo.fraf.gamepad)
    (#:harmony #:org.shirakumo.fraf.harmony.user)
