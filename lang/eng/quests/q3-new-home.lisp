@@ -172,7 +172,6 @@
 | | His caravan is down in the Midwest Market, beneath the Hub.
 | | I don't know what opposition you've faced scouting around, but you might wanna stock up.
 | | (:annoyed)I hear even androids ain't indestructible.
-| ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")))
 ;; TODO task order, as shown on UI, does not follow activation order

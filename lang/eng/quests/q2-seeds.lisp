@@ -107,7 +107,6 @@
 |   
 | | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
 | | You would be wise to equip well for your work.
-| ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)
 ")))
 

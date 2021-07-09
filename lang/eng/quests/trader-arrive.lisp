@@ -9,8 +9,10 @@
   (talk-trader
    :title "Talk to Sahil"
    :condition all-complete
-   :on-activate (talk-to-trader)
+   :on-activate (spawn-in talk-to-trader)
    :on-complete (trader-repeat)
+   (:action spawn-in
+    (setf (location 'trader) 'loc-trader))
    (:interaction talk-to-trader
     :interactable trader
     :variables (small-health medium-health large-health)
