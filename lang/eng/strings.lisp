@@ -13,7 +13,7 @@ quickmenu/description "Use the quick menu to access healing items if your health
 save "Saving"
 save/description "Use the phone box outside to save progress (you can also save from the menu while near one)"
 attack "Attacking"
-attack/description "Attacks can be combined with directions for different moves"
+attack/description "Combine light and heavy attacks with different directions for different moves"
 ;; Items
 consumable-item "Consumables"
 quest-item "Quest items"

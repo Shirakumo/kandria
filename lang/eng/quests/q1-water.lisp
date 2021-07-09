@@ -180,7 +180,7 @@
 | Jack?... He hung up.
 | Well, whatever it is it doesn't sound good.
 | Seems we'll have to wait a little longer for that welcome home we deserve.
-| (:normal)I need to think what to do next. Give me a minute.
+| (:normal)I need to think what to do next. Give me a second.
   ")
   (:interact (catherine)
    :title "Talk to Catherine in the pump room"
@@ -312,7 +312,7 @@
 | Which means they're close to discovering our location.
 | (:normal)I must consider our next course of action.
 ~ catherine
-| If there's nothing else, I'll see you both later.
+| Well if there's nothing else, I'll see you both later.
 | Hey Stranger, wait here - I want to talk.
 ~ fi
 | Sayonara Catherine, Stranger.
