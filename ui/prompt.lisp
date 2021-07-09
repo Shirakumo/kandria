@@ -30,6 +30,14 @@
    :pattern colors:white))
 
 (presentations:define-update (ui prompt)
+  (:tail-shadow
+   :points (list (alloy:point (alloy:pw 0) (alloy:ph 0.5))
+                 (alloy:point (alloy:pw 1) (alloy:ph 0.5))
+                 (alloy:point (alloy:pw 0.5) (alloy:ph -0.3))))
+  (:tail
+   :points (list (alloy:point (alloy:pw 0) (alloy:ph 0.5))
+                 (alloy:point (alloy:pw 1) (alloy:ph 0.5))
+                 (alloy:point (alloy:pw 0.5) (alloy:ph -0.2))))
   (:label :pattern colors:white))
 
 (defmethod show ((prompt prompt) &key button (input (case +input-source+
