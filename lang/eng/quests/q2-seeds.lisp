@@ -11,11 +11,11 @@
    :title "Find the seed cache"
    :description NIL
    :invariant T
-   :condition all-complete
+   :condition (have 'item:seeds 20)
    :on-activate (q2-reminder seeds-arrive)
    :on-complete (return-seeds)
 
-(:interaction q2-reminder
+   (:interaction q2-reminder
     :interactable fi
     :repeatable T
     :dialogue "
