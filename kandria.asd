@@ -74,7 +74,8 @@
                              (:file "timer")
                              (:file "quick-menu")
                              (:file "menu")
-                             (:file "gameover")))
+                             (:file "gameover")
+                             (:file "location-info")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
