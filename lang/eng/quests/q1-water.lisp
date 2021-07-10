@@ -100,7 +100,7 @@
   ")
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
-   (fullscreen-prompt '(light-attack heavy-attack) 'attack))
+   (fullscreen-prompt '(light-attack heavy-attack) :title 'attack))
   (:complete (q1-fight1)
    :title "Defeat the wolf at the leak"
    ;; TODO: allow player to collect "wolf meat" as currency?
@@ -372,7 +372,7 @@
   (:eval
    :on-complete (lore q2-intro q3-intro)
    (move-to 'eng-cath (unit 'catherine))
-   (fullscreen-prompt 'report-bug)))
+   (fullscreen-prompt 'report-bug :input :keyboard)))
 ;; TODO Catherine contented - Anyway, don't worry about them.
 
 ;; TODO: inventory item acquired onscreen pop-up / notification

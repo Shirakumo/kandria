@@ -133,7 +133,7 @@
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
    :on-complete (q1-ready)
-   (fullscreen-prompt 'interact 'save)))
+   (fullscreen-prompt 'interact :title 'save)))
 ;; The mission here is too urgent for Catherine to think, oh, let's establish the android's name
 
 ;; TODO catherine shocked  Shit!... I should have been here.

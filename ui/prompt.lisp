@@ -137,5 +137,5 @@
           (symbol (typep ev (button prompt))))
     (hide prompt)))
 
-(defun fullscreen-prompt (action &optional (title action) (description (trial::mksym #.*package* title '/description)))
-  (show (make-instance 'fullscreen-prompt :button action :title title :description description)))
+(defun fullscreen-prompt (action &key (title action) input (description (trial::mksym #.*package* title '/description)))
+  (show (make-instance 'fullscreen-prompt :button action :input input :title title :description description)))
