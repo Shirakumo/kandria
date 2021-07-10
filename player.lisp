@@ -343,14 +343,18 @@
     (setf (interactable player) NIL)
     (when (and ground (interactable-p ground))
       (setf (interactable player) ground))
-    (bvh:do-fitting (entity (bvh (region +world+)) player)
-      (typecase entity
-        (interactable
-         (when (or (interactable-p entity) (typep entity 'rope))
-           (setf (interactable player) entity)))
-        (trigger
-         (when (contained-p (vec (vx loc) (vy loc) 16 8) entity)
-           (interact entity player)))))
+    (let ((interactable (tvec (vx2 loc) (vy2 loc) 16 16))
+          (trigger (tvec (vx2 loc) (vy2 loc) 16 8)))
+      (bvh:do-fitting (entity (bvh (region +world+)) (or (chunk player) player))
+        (typecase entity
+          (interactable
+           (when (and (contained-p interactable entity)
+                      (or (interactable-p entity)
+                          (typep entity 'rope)))
+             (setf (interactable player) entity)))
+          (trigger
+           (when (contained-p trigger entity)
+             (interact entity player))))))
     (if (and (interactable player)
              (interactable-p (interactable player))
              (eql :normal (state player)))
