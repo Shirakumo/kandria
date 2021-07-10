@@ -347,10 +347,14 @@
           (trigger (tvec (vx2 loc) (vy2 loc) 16 8)))
       (bvh:do-fitting (entity (bvh (region +world+)) (or (chunk player) player))
         (typecase entity
+          (rope
+           (when (and (contained-p interactable entity)
+                      (< (+ 2 (- (vy loc) (vy size)))
+                         (+ (vy (location entity)) (vy (bsize entity)))))
+             (setf (interactable player) entity)))
           (interactable
            (when (and (contained-p interactable entity)
-                      (or (interactable-p entity)
-                          (typep entity 'rope)))
+                      (interactable-p entity))
              (setf (interactable player) entity)))
           (trigger
            (when (contained-p trigger entity)
@@ -512,7 +516,8 @@
        (let* ((top (if (= -1 (direction player))
                        (scan-collision +world+ (vec (- (vx loc) (vx size) 10) (- (vy loc) (vy size) 2)))
                        (scan-collision +world+ (vec (+ (vx loc) (vx size) 10) (- (vy loc) (vy size) 2)))))
-              (attached (or (svref collisions (if (< 0 (direction player)) 1 3))
+              (attached (or (if (typep (svref collisions (if (< 0 (direction player)) 1 3)) 'ground)
+                                (svref collisions (if (< 0 (direction player)) 1 3)))
                             (interactable player)
                             top)))
          (setf (vx vel) 0f0)
@@ -627,7 +632,7 @@
                     (setf (state player) :climbing)
                     (return-from handle))))
                (T
-                (setf (direction player) (if (svref (collisions player) 1) +1 -1))
+                (setf (direction player) (if (typep (svref (collisions player) 1) 'ground) +1 -1))
                 (setf (state player) :climbing)
                 (return-from handle))))
 
