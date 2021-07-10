@@ -22,6 +22,9 @@
 
 (defmethod alloy:render-needed-p ((line location-info)) T)
 
+(defmethod (setf alloy:value) :after (value (info location-info))
+  (setf (timeout info) 5.0))
+
 (defmethod show ((info location-info) &key)
   (let ((ui (unit 'ui-pass T)))
     (alloy:with-unit-parent ui
@@ -41,3 +44,10 @@
 
 (with-eval-in-render-loop (+world+)
   (show (make-instance 'location-info :value "This is a longer description of a location")))
+
+(defun location-info (string)
+  (let ((info (alloy:do-elements (element (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
+                (when (typep element 'location-info) (return element)))))
+    (if info
+        (setf (alloy:value info) string)
+        (show (make-instance 'location-info :value string)))))

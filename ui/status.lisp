@@ -6,7 +6,7 @@
    (times :initarg :times :initform 1 :accessor times)))
 
 (defmethod alloy:text ((line status-line))
-  (if (<= (print (times line)) 1)
+  (if (<= (times line) 1)
       (alloy:value line)
       (format NIL "~a (x~d)" (alloy:value line) (times line))))
 

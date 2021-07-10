@@ -174,9 +174,8 @@
       (when *music* (setf (harmony:state *music*) NIL))
       (setf (harmony:state music) :normal)
       (setf *music* music))
-    (when (and (language-string (name (chunk ev)) NIL)
-               (null (find-panel 'location-info)))
-      (show (make-instance 'location-info :value (language-string (name (chunk ev))))))))
+    (when (language-string (name (chunk ev)) NIL)
+      (location-info (language-string (name (chunk ev)))))))
 
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)
