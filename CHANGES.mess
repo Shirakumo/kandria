@@ -117,10 +117,76 @@ A big thanks to everyone for trying it out and reporting problems!
   Suggested by Monroth
 - Add tile history
   Suggested by Yuki and Dieting Hippo
-- Fix quick menu not being accessible
-  Reported by Dieting Hippo
 - Fix faulty device enumeration issue on some windows 10 systems
   Reported by Dieting Hippo
+- Fix quick menu not being accessible
+  Reported by Dieting Hippo
+- Fix missing transition effect when teleporting
+  Reported by Dieting Hippo
+- Fix walkntalk frame bleeding through menus
+  Reported by Dieting Hippo
+- Fix NPCs getting stuck on crawling
+  Reported by Dieting Hippo
+- Fix wrong door enter animations when door faces camera
+  Reported by Dieting Hippo
+- Add Z and X as combat buttons on default keyboard layout
+  Reported by Dieting Hippo
+- Fix stamina colour getting stuck
+  Reported by Tyler Rhodes
+- Add haptic feedback for fishing minigame
+  Reported by Tyler Rhodes
+- Disable earthquake rumble while fishing
+  Reported by Tyler Rhodes
+- Fix spawners not resetting properly when reloading saves
+  Reported by Tyler Rhodes
+- Fix NPCs not resetting properly when reloading saves
+  Reported by Tyler Rhodes
+- Fix shadows from far off-screen chunks overlapping
+  Reported by Tyler Rhodes
+- Fix dash by locking it to 8-axis directions
+  Reported by Tyler Rhodes
+- Fix dialogue being initiated while the player is in air
+  Reported by jthom
+- Fix music doubling over itself
+  Reported by jthom
+- Fix controller being stuck vibrating long after vibration should cede
+  Reported by jthom
+- Fix quest log not being scrollable
+  Reported by jthom
+- Fix enemies being able to clip you into walls
+  Reported by Sam Vonäsch
+- Fix enemies spawning too far off-screen
+  Reported by Sam Vonäsch
+- Fix massive lag spike when on elevator with NPC in tow
+  Reported by Sam Vonäsch
+- Improve interaction indicator
+  Suggested by Sam Vonäsch
+- NPCs sometimes did not spawn at the quest locations correctly
+  Reported by Sam Vonäsch
+- NPCs did not use the correct animation when walking slowly
+  Reported by Sam Vonäsch
+- Fix mashing of button skipping dialogue choices too quickly
+  Reported by at
+- Fix tile glitches in the storage building
+  Reported by at
+- Fix spikes leading to game-over when climbing
+  Reported by at
+- Remove tilted building as it is confusing
+  Reported by at
+- Fix climbing direction being confused when within one-way platforms
+  Reported by at
+- Fix seed cache quest not completing properly
+  Reported by at
+- Fix quest message appearing twice
+  Reported by Florian Hanke
+- Fix missing tutorials for saving
+  Reported by Florian Hanke
+- Fix interaction test being too close to NPCs
+  Reported by Florian Hanke
+- Fix location for race 1 being hard to see in the sun
+  Reported by Florian Hanke
+- Allow back button to be used to exit a dialogue menu
+  Reported by Florian Hanke
 
 ## TODO
 - Fix disconnecting a sound device crashing the game
@@ -128,4 +194,4 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix odd physics after a balloon jump
   Reported by Pondering Trog
 - Fix elevators clipping you into the walls
-  Reported by Nag, ribbitface
+  Reported by Nag, ribbitface, at
