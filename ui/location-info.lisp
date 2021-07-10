@@ -42,9 +42,6 @@
   (when (<= (decf (timeout info) dt) 0.0)
     (hide info)))
 
-(with-eval-in-render-loop (+world+)
-  (show (make-instance 'location-info :value "This is a longer description of a location")))
-
 (defun location-info (string)
   (let ((info (alloy:do-elements (element (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
                 (when (typep element 'location-info) (return element)))))
