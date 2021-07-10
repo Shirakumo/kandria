@@ -29,16 +29,24 @@
 (defmethod initialize-instance :after ((panel game-over) &key)
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
          (focus (make-instance 'alloy:focus-list))
-         (header (make-instance 'header :value "Game Over"))
-         (load (make-instance 'pause-button :focus-parent focus :value "Load last save"
+         (header (make-instance 'header :value #@game-over-title))
+         (cont (make-instance 'pause-button :focus-parent focus :value #@resume-game
+                                            :on-activate (lambda ()
+                                                           (setf (health (unit 'player T))
+                                                                 (maximum-health (unit 'player T)))
+                                                           (hide panel))))
+         (load (make-instance 'pause-button :focus-parent focus :value #@load-last-save
                                             :on-activate (lambda ()
                                                            (load-state T +main+)
                                                            (hide panel))))
-         (quit (make-instance 'pause-button :focus-parent focus :value "Quit game"
+         (quit (make-instance 'pause-button :focus-parent focus :value #@exit-game
                                             :on-activate (lambda ()
                                                            (quit *context*)))))
     (alloy:enter header layout
                  :constraints `((:top 50) (:left 0) (:right 0) (:height 100)))
+    (unless (deploy:deployed-p)
+      (alloy:enter cont layout
+                   :constraints `((:below ,header 20) (:center :w) (:width 300) (:height 30))))
     (alloy:enter load layout
                  :constraints `((:below ,header 20) (:center :w) (:width 300) (:height 30)))
     (alloy:enter quit layout
