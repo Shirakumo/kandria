@@ -24,7 +24,8 @@
 (defclass dialog (pausing-panel menuing-panel textbox)
   ((interactions :initarg :interactions :initform () :accessor interactions)
    (interaction :initform NIL :accessor interaction)
-   (one-shot :initform NIL :accessor one-shot)))
+   (one-shot :initform NIL :accessor one-shot)
+   (timeout :initform 0.0 :accessor timeout)))
 
 (defmethod initialize-instance :after ((dialog dialog) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
@@ -95,18 +96,22 @@
                (hide dialog))
              (alloy:enter button (choices dialog)))))))
 
+(defmethod handle :after ((ev tick) (dialog dialog))
+  (decf (timeout dialog) (dt ev)))
+
 (defmethod handle ((ev advance) (dialog dialog))
-  (cond ((/= 0 (alloy:element-count (choices dialog)))
-         (setf (prompt dialog) NIL)
-         (alloy:activate (choices dialog)))
-        ((prompt dialog)
-         (setf (prompt dialog) NIL)
-         (harmony:play (// 'sound 'dialogue-advance))
-         (advance dialog))
-        (T
-         (loop until (or (pending dialog) (prompt dialog))
-               do (advance dialog))
-         (scroll-text dialog (array-total-size (text dialog))))))
+  (when (<= (timeout dialog) 0.0)
+    (cond ((/= 0 (alloy:element-count (choices dialog)))
+           (setf (prompt dialog) NIL)
+           (alloy:activate (choices dialog)))
+          ((prompt dialog)
+           (setf (prompt dialog) NIL)
+           (harmony:play (// 'sound 'dialogue-advance))
+           (advance dialog))
+          (T
+           (loop until (or (pending dialog) (prompt dialog))
+                 do (advance dialog))
+           (scroll-text dialog (array-total-size (text dialog)))))))
 
 (defmethod handle ((ev next) (dialog dialog))
   (alloy:focus-next (choices dialog)))
@@ -126,6 +131,7 @@
            (setf (alloy:index (choices dialog)) (position back els))))))
 
 (defmethod (setf choices) :after ((choices cons) (dialog dialog))
+  (setf (timeout dialog) 0.1)
   (org.shirakumo.alloy.layouts.constraint:suggest
    (alloy:layout-element dialog) (choices dialog) :w (alloy:un 400)))
 
