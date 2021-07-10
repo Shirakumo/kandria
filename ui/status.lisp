@@ -25,7 +25,12 @@
               (:normal colors:white)
               (:important colors:yellow))))
 
-(defmethod presentations:update-shape :around ((ui ui) (line status-line) shape))
+(presentations:define-update (ui status-line)
+  (:label
+   :text alloy:text
+   :pattern (colored:color 1 1 1 (min 1 (* 2 (- (timeout alloy:renderable) (clock +world+)))))))
+
+(defmethod alloy:render-needed-p ((line status-line)) T)
 
 (defmethod alloy:suggest-bounds ((extent alloy:extent) (element status-line))
   (alloy:extent (alloy:x extent)
