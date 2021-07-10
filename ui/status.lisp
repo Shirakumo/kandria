@@ -2,7 +2,13 @@
 
 (defclass status-line (alloy:label*)
   ((timeout :initarg :timeout :accessor timeout)
-   (importance :initarg :importance :initform :normal :accessor importance)))
+   (importance :initarg :importance :initform :normal :accessor importance)
+   (times :initarg :times :initform 1 :accessor times)))
+
+(defmethod alloy:text ((line status-line))
+  (if (<= (print (times line)) 1)
+      (alloy:value line)
+      (format NIL "~a (x~d)" (alloy:value line) (times line))))
 
 (presentations:define-realization (ui status-line)
   ((:label simple:text)
@@ -41,8 +47,14 @@
 
 (defmethod alloy:enter ((string string) (panel status-lines) &key (importance :normal))
   (let ((layout (alloy:index-element 0 (alloy:layout-element panel))))
-    (make-instance 'status-line :value string :timeout (+ (clock +world+) 4.0)
-                                :importance importance :layout-parent layout)))
+    (or (alloy:do-elements (element layout)
+          (when (string= (alloy:value element) string)
+            (incf (times element))
+            (setf (timeout element) (+ (clock +world+) 4.0))
+            (alloy:mark-for-render element)
+            (return T)))
+        (make-instance 'status-line :value string :timeout (+ (clock +world+) 4.0)
+                                    :importance importance :layout-parent layout))))
 
 (defun status (importance &optional string &rest args)
   (when (stringp importance)
@@ -50,14 +62,10 @@
     (setf string importance)
     (setf importance :normal))
   (when +main+
-    (flet ((thunk ()
-             (let ((panel (find-panel 'status-lines)))
-               (when panel
-                 (alloy:enter (format NIL "~?" string args) panel :importance importance)))))
-      (if (boundp '*scene*)
-          (thunk)
-          (with-eval-in-render-loop (+world+)
-            (thunk))))))
+    (with-eval-in-render-loop (+world+)
+      (let ((panel (find-panel 'status-lines)))
+        (when panel
+          (alloy:enter (format NIL "~?" string args) panel :importance importance))))))
 
 (defmethod handle ((ev tick) (panel status-lines))
   (let ((layout (alloy:index-element 0 (alloy:layout-element panel)))
