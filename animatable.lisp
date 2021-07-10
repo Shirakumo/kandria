@@ -103,7 +103,8 @@
   (decf (health animatable) damage))
 
 (defmethod kill :around ((animatable animatable))
-  (unless (eql :dying (state animatable))
+  (unless (or (eql :dying (state animatable))
+              (eql :respawning (state animatable)))
     (call-next-method)))
 
 (defmethod kill ((animatable animatable))
@@ -194,7 +195,7 @@
          (nv+ (velocity animatable) (knockback animatable))
          (vsetf (knockback animatable) 0 0)
          (setf (state animatable) :normal)))
-      (:dying))
+      ((:dying :respawning)))
     (nv* vel (multiplier frame))
     (incf (vx vel) (* dt (direction animatable) (vx (acceleration frame))))
     (incf (vy vel) (* dt (vy (acceleration frame))))))

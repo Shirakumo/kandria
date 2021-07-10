@@ -378,9 +378,7 @@
        (when (retained 'down) (setf (vy vel) (- (vx (p! velocity-limit))))))
       (:oob
        (vsetf vel 0 0))
-      (:respawning
-       (handle-animation-states player ev))
-      ((:dying :stunned)
+      ((:dying :stunned :respawning)
        (handle-animation-states player ev)
        (when (and (cancelable-p (frame player))
                   (or (retained 'left)
@@ -822,6 +820,7 @@
   (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
   (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
   ;; Actually respawn now.
+  (setf (animation player) 'stand)
   (vsetf (velocity player) 0 0)
   (vsetf (frame-velocity player) 0 0)
   (setf (location player) (vcopy (spawn-location player)))
@@ -848,12 +847,13 @@
         (T
          (setf (limp-time player) 0.0))))
 
-(defmethod kill :after ((player player))
+(defmethod kill ((player player))
   (cond ((<= (health player) 0)
          (harmony:play (// 'sound 'die-player))
          (setf (clock (progression 'death +world+)) 0f0)
          (start (progression 'death +world+)))
         (T
+         (vsetf (velocity player) 0 0)
          (setf (animation player) 'die)
          (setf (state player) :respawning)
          (transition
