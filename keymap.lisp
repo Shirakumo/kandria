@@ -85,16 +85,16 @@
 
 (retain left
  (key :one-of (:a :left))
- (axis :one-of (:l-h) :threshold -0.25))
+ (axis :one-of (:l-h) :threshold -0.5))
 
 (retain right
  (key :one-of (:d :right))
- (axis :one-of (:l-h) :threshold 0.25))
+ (axis :one-of (:l-h) :threshold 0.5))
 
 (retain up
  (key :one-of (:w :up))
- (axis :one-of (:l-v) :threshold 0.25))
+ (axis :one-of (:l-v) :threshold 0.5))
 
 (retain down
  (key :one-of (:s :down))
- (axis :one-of (:l-v) :threshold -0.25))
+ (axis :one-of (:l-v) :threshold -0.5))
