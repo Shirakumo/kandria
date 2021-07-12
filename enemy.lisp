@@ -44,9 +44,7 @@
 
 (defmethod idleable-p ((dummy dummy)) NIL)
 
-(defmethod hurt ((dummy dummy) b) T)
-
-(defmethod (setf health) (value (dummy dummy)))
+(defmethod (setf health) (value (dummy dummy)) value)
 
 (define-shader-entity box (enemy solid immovable)
   ((bsize :initform (vec 8 8)))

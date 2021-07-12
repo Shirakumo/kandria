@@ -145,6 +145,7 @@ Region:             ~a
 Chunk:              ~a
 Location:           ~7,2f ~7,2f
 Velocity:           ~7,2f ~7,2f
+Direction:         ~@d
 State:              ~a
 Animation:          ~a
 Health:             ~d
@@ -161,6 +162,7 @@ Collisions:
             (name (chunk player))
             (vx (location player)) (vy (location player))
             (vx (velocity player)) (vy (velocity player))
+            (direction player)
             (state player)
             (name (animation player))
             (health player)
