@@ -177,6 +177,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by at
 - Fix seed cache quest not completing properly
   Reported by at
+- Fix third light ground attack not triggering when holding direction
+  Reported by at
+- Fix enemies glitching through the ground when jumping onto them
+  Reported by at
 - Fix quest message appearing twice
   Reported by Florian Hanke
 - Fix missing tutorials for saving
