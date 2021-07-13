@@ -20,7 +20,7 @@
              (let ((r (random ,total)))
                (cond ,@(nreverse (loop for prev = 0.0 then (+ prev weight)
                                        for (item weight) in items
-                                       collect `((< ,prev r) ,item)))))))))
+                                       collect `((< ,prev r) ',item)))))))))
 
 (defmethod draw-item ((item symbol))
   (funcall (gethash item *random-draw*)))
