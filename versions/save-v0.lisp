@@ -320,4 +320,6 @@
   `(:animation ,(name (animation interactable-animated-sprite))))
 
 (define-decoder (interactable-animated-sprite save-v0) (initargs _p)
-  (setf (animation interactable-animated-sprite) (getf initargs :animation)))
+  (if (< 0 (length (animations interactable-animated-sprite)))
+      (setf (animation interactable-animated-sprite) (getf initargs :animation))
+      (setf (pending-animation interactable-animated-sprite) (getf initargs :animation))))

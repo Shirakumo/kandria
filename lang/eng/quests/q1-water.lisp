@@ -33,6 +33,7 @@
   ! eval (when (< 5 (health player)) (hurt player 5))
   ! eval (setf (var 'weld-burn) T)
   | (:embarassed)//Oops. I think that damaged my cameras.//
+! eval (setf (animation (unit 'main-leak-1)) 'normal)
 ~ catherine
 | That should hold it.
 ~ catherine
@@ -112,6 +113,7 @@
   ;; REMARK: ^ yes. The tutorial will include a brief fight section.
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
+   (setf (animation (unit 'main-leak-2)) 'normal)
    (fullscreen-prompt 'quickmenu)
    (move-to 'player 'catherine))
   (:go-to (catherine)
@@ -154,6 +156,7 @@
 | (:disappointed)Oh man, we got here just in time. They were dismantling the turbine.
 | Give me a minute.
 | ...
+! eval (setf (animation (unit 'main-leak-3)) 'normal)
 | (:normal)There, that should do it.
 | Now, where is that telephone?
   ")
