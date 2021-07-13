@@ -195,6 +195,14 @@
              24 (0.1 0.1 4.0))
   :ambient-multiplier 0.5)
 
+(define-gi grave
+  :attenuation 0.2
+  :location (vec -6295.0 -2449.0)
+  :light-multiplier 1.0
+  :light (vec 1.5 1 0.5)
+  :ambient-multiplier 0.2
+  :ambient (vec 0.5 0.4 0.4))
+
 (define-bg tundra
   :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
   :parallax (vec 2.0 1.0)
