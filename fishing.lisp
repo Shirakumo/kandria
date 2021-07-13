@@ -201,6 +201,7 @@ void main(){
 
 (defmacro define-fish (name x y w h &body body)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish)))
+    (export name (symbol-package name))
     `(progn
        (export ',name (symbol-package ',name))
        (define-shader-entity ,name (fish)
