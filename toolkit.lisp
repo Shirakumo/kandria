@@ -668,3 +668,11 @@
                              ,@body)))))))
 
 (trivial-indent:define-indentation match1 (4 &rest (&whole 2 4 &lambda &body)))
+
+(set-dispatch-macro-character
+ #\# #\! (lambda (s c a)
+           (declare (ignore c a))
+           (let ((inner (read s T NIL T)))
+             `(when +world+
+                (with-eval-in-render-loop (+world+)
+                  ,inner)))))

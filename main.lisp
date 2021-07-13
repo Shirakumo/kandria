@@ -75,9 +75,11 @@
   (load-state (quicksave main) main))
 
 (defmethod load-state ((state null) (main main))
-  (load-state (initial-state (scene main)) (scene main))
-  (trial:commit (scene main) (loader main))
-  (clrhash +spawn-tracker+))
+  (let ((state (or (state main) (make-instance 'save-state :filename "1"))))
+    (load-state (initial-state (scene main)) (scene main))
+    (trial:commit (scene main) (loader main))
+    (clrhash +spawn-tracker+)
+    (setf (state main) state)))
 
 (defmethod load-state ((state save-state) (main main))
   (restart-case
