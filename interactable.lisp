@@ -27,6 +27,16 @@
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity resizable)
   ((name :initform (generate-name "INTERACTABLE"))))
 
+(define-shader-entity interactable-animated-sprite (ephemeral lit-animated-sprite dialog-entity resizable)
+  ((name :initform (generate-name "INTERACTABLE"))
+   (trial:sprite-data :initform (asset 'kandria 'dummy) :type asset)
+   (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index :type integer)
+   (pending-animation :initarg :animation :initform NIL :accessor pending-animation :type symbol)))
+
+(defmethod (setf animations) :after (value (sprite interactable-animated-sprite))
+  (when (pending-animation sprite)
+    (setf (animation sprite) (pending-animation sprite))))
+
 (defclass profile ()
   ((profile-sprite-data :initform (error "PROFILE-SPRITE-DATA not set.") :accessor profile-sprite-data)
    (nametag :initform (error "NAMETAG not set.") :accessor nametag)))

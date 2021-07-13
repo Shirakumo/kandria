@@ -315,3 +315,9 @@
 
 (define-decoder (locked-door save-v0) (initargs _p)
   (setf (unlocked-p locked-door) (getf initargs :unlocked-p)))
+
+(define-encoder (interactable-animated-sprite save-v0) (_b _p)
+  `(:animation ,(name (animation interactable-animated-sprite))))
+
+(define-decoder (interactable-animated-sprite save-v0) (initargs _p)
+  (setf (animation interactable-animated-sprite) (getf initargs :animation)))
