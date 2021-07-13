@@ -13,6 +13,9 @@
    :condition all-complete
    :on-activate T
 
+   (:action start-leak
+    (setf (animation (unit 'leak-1)) 'short-spray))
+
    (:interaction leak-1
     :interactable leak-1
     :dialogue "
@@ -22,6 +25,7 @@
 | | //I ignite the torch from the index finger on my right hand.//
 | | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
 | | (:normal)//Weld complete.//
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
 |  
@@ -32,6 +36,7 @@
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
 ? (complete-p 'leak-second 'leak-third)
 | ~ player
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
@@ -57,6 +62,9 @@
    :condition all-complete
    :on-activate T
 
+   (:action start-leak
+     (setf (animation (unit 'leak-2)) 'long-spray))
+
    (:interaction leak-2
     :interactable leak-2
     :dialogue "
@@ -67,6 +75,7 @@
 | | //I ignite the torch from the index finger on my right hand.//
 | | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
 | | (:normal)//Weld complete.//
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
 |  
@@ -77,6 +86,7 @@
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
 ? (complete-p 'leak-first 'leak-third)
 | ~ player
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
@@ -100,6 +110,9 @@
    :condition all-complete
    :on-activate T
 
+   (:action start-leak
+    (setf (animation (unit 'leak-3)) 'long-spray-rythmic))
+
    (:interaction leak-3
     :interactable leak-3
     :dialogue "
@@ -110,6 +123,7 @@
 | | //I ignite the torch from the index finger on my right hand.//
 | | [(var 'q1-weld-burn) (:embarassed)//This time I enable the UV filters on my cameras.// | (:normal)//I enable the UV filters on my cameras.//]
 | | (:normal)//Weld complete.//
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | //I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//
 |  
@@ -120,6 +134,7 @@
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
 ? (complete-p 'leak-first 'leak-second)
 | ~ player
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
