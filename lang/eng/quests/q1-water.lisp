@@ -146,11 +146,8 @@
   ")
   ;; TODO: spawn spare parts for the player to collect (barter currency) - would need to integrate with the zombies' death scripts?
     ;; TODO catherine shocked - What have they done?
-  (:go-to (main-leak-3 :lead catherine)
-   :title "Follow Catherine"
-   "~ catherine
-| What have they done?
-  ")
+  (:nearby (main-leak-3 catherine)
+   (move-to 'main-leak-3 'catherine))
   (:interact (catherine :now T)
    "~ catherine
 | (:disappointed)Oh man, we got here just in time. They were dismantling the turbine.
