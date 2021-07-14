@@ -238,7 +238,7 @@
           ;; FIXME: Scan for nearest ground.
           (vsetf (location entity)
                  (random* (vx loc) (vx bsize))
-                 (+ (- (vy loc) (vy bsize)) (bsize entity) 1))
+                 (+ (- (vy loc) (vy bsize)) (vy (bsize entity)) 1))
           (when (typep entity 'npc)
             (stop-following entity)))))))
 
