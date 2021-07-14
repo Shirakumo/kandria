@@ -509,7 +509,20 @@
               (when (or (< angle (* PI 1/4)) (< (* PI 3/4) angle))
                 (vsetf vel (vx proj) (vy proj))))))
          (null
-          (nv* vel (damp* (p! dash-air-dcc) (* 100 dt))))))
+          (nv* vel (damp* (p! dash-air-dcc) (* 100 dt)))))
+       ;; Handle crawlspaces
+       (cond ((< 0 (vx vel))
+              (when (and (svref collisions 1)
+                         (null (scan-collision +world+ (vec (+ (vx loc) (vx size) 8) (- (vx loc) 4)))))
+                (setf (vw (color player)) 0.0)
+                (setf (vx vel) (vx (p! velocity-limit)))
+                (setf (state player) :crawling)))
+             ((< (vx vel) 0)
+              (when (and (svref collisions 3)
+                         (null (scan-collision +world+ (vec (- (vx loc) (vx size) 8) (- (vx loc) 4)))))
+                (setf (vw (color player)) 0.0)
+                (setf (vx vel) (- (vx (p! velocity-limit))))
+                (setf (state player) :crawling)))))
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
@@ -565,13 +578,15 @@
          (when (scan-collision +world+ (vec (vx loc) (vy loc) 16 32))
            (decf (vy loc) 16))
          (setf (state player) :normal))
-       
+
+       (setf (vx vel) (* 0.9 (vx vel)))
        (cond ((retained 'left)
-              (setf (vx vel) (- (p! crawl))))
+              (setf (vx vel) (min (vx vel) (- (p! crawl)))))
              ((retained 'right)
-              (setf (vx vel) (+ (p! crawl))))
+              (setf (vx vel) (max (vx vel) (+ (p! crawl)))))
              (T
-              (setf (vx vel) 0)))
+              (when (< (abs (vx vel)) 0.1)
+                (setf (vx vel) 0.0))))
        ;; Slope sticky
        (when (and (<= (vy vel) 0) (typep ground 'slope))
          (if (= (signum (vx vel))
