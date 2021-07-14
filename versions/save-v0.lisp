@@ -258,7 +258,7 @@
            :ai-state (ai-state npc)
            :walk (walk npc)
            :target (when (target npc) (encode (target npc)))
-           :companion (when (companion npc) (encode (name (companion npc))))
+           :companion (when (companion npc) (name (companion npc)))
            (call-next-method))))
 
 (define-decoder (npc save-v0) (initargs _p)
