@@ -230,3 +230,8 @@
 
 ;; SPECIAL ITEMS
 
+;; Draws
+(define-random-draw mushrooms
+  (item:mushroom-good-1 1)
+  (item:mushroom-good-2 1)
+  (item:mushroom-bad-1 1))

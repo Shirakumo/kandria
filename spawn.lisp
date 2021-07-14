@@ -1,6 +1,7 @@
 (in-package #:kandria)
 
 (defvar *random-draw* (make-hash-table :test 'eq))
+(defvar *spawn-cache* (make-hash-table :test 'eq))
 
 (defun weighted-random-elt (segments)
   (let* ((total (loop for segment in segments
@@ -12,18 +13,24 @@
           do (when (< index (+ prev weight))
                (return part)))))
 
+(defun random-drawer (name)
+  (gethash name *random-draw*))
+
+(defun (setf random-drawer) (value name)
+  (setf (gethash name *random-draw*) value))
+
+(defmethod draw-item ((item symbol))
+  (funcall (gethash item *random-draw*)))
+
 (defmacro define-random-draw (name &body items)
   (let ((total (float (loop for (item weight) in items
                             sum weight))))
-    `(setf (gethash ',name *random-draw*)
+    `(setf (random-drawer ',name)
            (lambda ()
              (let ((r (random ,total)))
                (cond ,@(nreverse (loop for prev = 0.0 then (+ prev weight)
                                        for (item weight) in items
                                        collect `((< ,prev r) ',item)))))))))
-
-(defmethod draw-item ((item symbol))
-  (funcall (gethash item *random-draw*)))
 
 (define-global +spawn-tracker+ (make-hash-table :test 'eq))
 
@@ -67,6 +74,7 @@
            (setf (reflist spawner)
                  (spawn (location spawner) (spawn-type spawner)
                         :count (spawn-count spawner)
+                        :collect T
                         :jitter (vec (* 2.0 (vx (bsize spawner)))
                                      (if (jitter-y-p spawner)
                                          (* 2.0 (vy (bsize spawner)))
@@ -105,20 +113,31 @@
   (when (active-p spawner)
     (handle-spawn spawner (chunk ev))))
 
-(defmethod spawn ((location vec2) type &rest initargs &key (count 1) (jitter +tile-size+) &allow-other-keys)
-  (let* ((initargs (remf* initargs :count :jitter))
-         (first (apply #'make-instance type :location (vcopy location) initargs)))
-    ;; FIXME: speedup by caching which classes have already been loaded?
-    (trial:commit first (loader +main+) :unload NIL)
-    (loop repeat count
-          collect (let ((clone (clone first)))
-                    (when jitter
-                      (nv+ (location clone) (etypecase jitter
-                                              (real (vrandr 0 jitter PI))
-                                              (vec2 (vrand (vec 0 0) jitter)))))
-                    (spawn (region +world+) clone)))))
+(defmethod spawn ((location vec2) type &rest initargs &key (count 1) (jitter +tile-size+) collect &allow-other-keys)
+  (let ((initargs (remf* initargs :count :collect :jitter))
+        (region (region +world+))
+        (spawner (random-drawer type)))
+    (labels ((draw ()
+               (if spawner
+                   (funcall spawner)
+                   type))
+             (create ()
+               (apply #'make-instance (draw)
+                      :location (v+ location
+                                    (etypecase jitter
+                                      (real (vrandr 0 jitter PI))
+                                      (vec2 (vrand (vec 0 0) jitter))))
+                      initargs)))
+      (if collect
+          (loop repeat count
+                collect (spawn region (create)))
+          (loop repeat count
+                do (spawn region (create)))))))
 
 (defmethod spawn ((container container) (entity entity) &key)
+  (unless (gethash (class-of entity) *spawn-cache*)
+    (setf (gethash (class-of entity) *spawn-cache*) T)
+    (trial:commit entity (loader +main+) :unload NIL))
   (enter* entity container)
   entity)
 

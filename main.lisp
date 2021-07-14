@@ -79,6 +79,7 @@
     (load-state (initial-state (scene main)) (scene main))
     (trial:commit (scene main) (loader main))
     (clrhash +spawn-tracker+)
+    (clrhash *spawn-cache*)
     (setf (state main) state)))
 
 (defmethod load-state ((state save-state) (main main))
@@ -91,6 +92,7 @@
         (prog1 (load-state state (scene main))
           (trial:commit (scene main) (loader main))
           (clrhash +spawn-tracker+)
+          (clrhash *spawn-cache*)
           (unless (typep state 'quicksave-state)
             (setf (state main) state))))
     (reset ()
