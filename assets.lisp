@@ -78,6 +78,7 @@
 (define-pixel plain-transition
   :wrapping :repeat)
 (define-pixel grave-light)
+(define-pixel falling-platform)
 
 (define-sprite box)
 (define-sprite player)
