@@ -16,8 +16,9 @@
 (defclass nametag (alloy:label) ())
 
 (presentations:define-realization (ui nametag)
-  ((:background simple:rectangle)
-   (alloy:margins))
+  ((:bord simple:rectangle)
+   (alloy:extent 0 0 (alloy:pw 1) 2)
+   :pattern colors:white)
   ((:label simple:text)
    (alloy:margins 10 0 10 0)
    alloy:text
@@ -26,15 +27,12 @@
    :size (alloy:un 20)
    :pattern colors:white))
 
-(presentations:define-update (ui nametag)
-  (:background :pattern colors:accent))
-
 (defclass advance-prompt (alloy:label) ())
 
 (presentations:define-realization (ui advance-prompt)
-  ((:background simple:rectangle)
-   (alloy:margins)
-   :pattern colors:accent)
+  ((:bord simple:rectangle)
+   (alloy:extent 0 0 (alloy:pw 1) 1)
+   :pattern colors:white)
   ((:label simple:text)
    (alloy:margins 1)
    alloy:text
@@ -77,15 +75,19 @@
    :pattern colors:white
    :offset (alloy:point (if alloy:focus 10 0) 0))
   (:indicator
-   :pattern (case alloy:focus
-              (:strong colors:white)
-              (:weak colors:accent)
-              (T colors:transparent)))
+   :pattern (if alloy:focus
+              colors:white
+              colors:transparent))
   (:background
    :pattern (case alloy:focus
               (:strong (colored:color 0.3 0.3 0.3))
               (:weak (colored:color 0.1 0.1 0.1))
               (T colors:black))))
+
+(presentations:define-animated-shapes dialog-choice
+  (:label (presentations:offset :duration 0.2))
+  (:indicator (simple:pattern :duration 0.2))
+  (:background (simple:pattern :duration 0.2)))
 
 (defclass dialog-choice-list (alloy:vertical-linear-layout alloy:focus-chain)
   ((alloy:cell-margins :initform (alloy:margins 0))

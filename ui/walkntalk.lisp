@@ -4,9 +4,9 @@
   ((markup :initarg :markup :initform () :accessor markup)))
 
 (presentations:define-realization (ui walk-textbox)
-  ((:background simple:rectangle)
+  ((:bg simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0.15 0.15 0.15))
+   :pattern (colored:color 0 0 0 0.8))
   ((:label simple:text)
    (alloy:margins 20 20 40 20)
    alloy:text
@@ -24,15 +24,10 @@
 (defclass profile-background (alloy:layout-element alloy:renderable) ())
 
 (presentations:define-realization (ui profile-background)
-  ((:background simple:rectangle)
+  ((:bg simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0.15 0.15 0.15)
-   :z-index -10)
-  ((:sigh simple:rectangle)
-   (alloy:margins 1)
-   :line-width (alloy:un 2)
-   :pattern colors:accent
-   :z-index 10))
+   :pattern (colored:color 0 0 0 0.8)
+   :z-index -10))
 
 ;; KLUDGE: this sucks.
 (defclass walkntalk-layout (org.shirakumo.alloy.layouts.constraint:layout)
@@ -52,8 +47,9 @@
     (setf (textbox walkntalk) textbox)
     (alloy:enter background layout :constraints `((:left 60) (:top 60) (:width 150) (:height 150)))
     (alloy:enter (profile walkntalk) layout :constraints `((:inside ,background) (:width 150) (:height 150)))
-    (alloy:enter textbox layout :constraints `((:align :top ,background) (:right-of ,background 0) (:right 60) (:height 120)))
-    (alloy:enter nametag layout :constraints `((:align :left ,background) (:below ,background 0) (:height 30) (:width 150)))
+    (alloy:enter textbox layout :constraints `((:align :bottom ,background) (:right-of ,background 0) (:height 120) (:right 60)))
+    ;; KLUDGE: for whatever fucking reason trying to use teh relative constraints here results in unsolvable expressions.
+    (alloy:enter nametag layout :constraints `((:top 60) (:left 210) (:height 30) (:right 60)))
     (alloy:finish-structure walkntalk layout (choices walkntalk))))
 
 (defmethod show :before ((textbox walkntalk) &key)

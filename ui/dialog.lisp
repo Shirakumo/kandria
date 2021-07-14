@@ -4,9 +4,9 @@
   ((markup :initarg :markup :initform () :accessor markup)))
 
 (presentations:define-realization (ui dialog-textbox)
-  ((:background simple:rectangle)
+  ((:bg simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0.15 0.15 0.15))
+   :pattern (colored:color 0 0 0 0.5))
   ((:label simple:text)
    (alloy:margins 30 40 60 30)
    alloy:text
@@ -36,8 +36,8 @@
     (alloy:enter (choices dialog) layout :constraints `((:left 20) (:bottom 20) (:height 200)))
     (alloy:enter textbox layout :constraints `((:right-of ,(choices dialog) 0) (:right 20) (:bottom 20) (:height 200)))
     (alloy:enter (profile dialog) layout :constraints `((:left 80) (:above ,textbox) (:width 400) (:height 400)))
-    (alloy:enter nametag layout :constraints `((:left 20) (:above ,textbox 0) (:height 30) (:width 300)))
-    (alloy:enter prompt layout :constraints `((:right 20) (:bottom 20) (:size 100 30)))
+    (alloy:enter nametag layout :constraints `((:left 30) (:above ,textbox 10) (:height 30) (:right 20)))
+    (alloy:enter prompt layout :constraints `((:inside ,textbox :halign :right :valign :bottom) (:size 100 30)))
     (alloy:finish-structure dialog layout (choices dialog))
     (setf (interactions dialog) (interactions dialog))))
 
