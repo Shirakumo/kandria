@@ -408,6 +408,9 @@
                        (chunk
                         (lambda (other)
                           (contained-p other thing)))
+                       (sized-entity
+                        (lambda (other)
+                          (contained-p thing other)))
                        (located-entity
                         (lambda (other)
                           (< (vsqrdist2 (location other) (location thing)) (expt 64 2)))))))

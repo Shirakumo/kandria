@@ -30,6 +30,7 @@
    (move :left 'catherine))
   (:nearby (dash-end catherine)
            (stop 'catherine)
+           (setf (direction 'catherine) +1)
            (stop 'player))
   (:go-to (dash-end)
   "~ catherine

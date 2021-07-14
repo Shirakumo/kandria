@@ -46,7 +46,7 @@
 
 (defmethod print-object ((entity located-entity) stream)
   (print-unreadable-object (entity stream :type T :identity T)
-    (format stream "~a" (location entity))))
+    (format stream "~@[~a ~]~a" (name entity) (location entity))))
 
 (defmethod apply-transforms progn ((obj located-entity))
   (translate-by (round (vx (location obj))) (round (vy (location obj))) 0))
