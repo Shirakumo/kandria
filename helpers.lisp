@@ -221,7 +221,8 @@ void main(){
 (defun handle-oob (entity)
   (let ((other (find-chunk entity))
         (chunk (chunk entity)))
-    (cond (other
+    (cond ((eq other chunk))
+          (other
            (oob entity other))
           ((or (null chunk)
                (< (vy (location entity))

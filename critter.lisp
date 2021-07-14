@@ -64,6 +64,8 @@
 
 (defmethod layer-index ((rat rat)) (1- +base-layer+))
 
+(defmethod interactable-p ((rat rat)) NIL)
+
 (define-shader-entity mole (critter)
   ((acceleration :initform (vec 0 0)))
   (:default-initargs :sprite-data (asset 'kandria 'critter-mole)))

@@ -840,6 +840,8 @@
   (setf (strength (unit 'distortion +world+)) (* (clamp 0.0 (/ time 5) 1.0) 0.6)))
 
 (defmethod (setf health) :before (health (player player))
+  (when (< (health player) health)
+    (setf (combat-time player) 0f0))
   (cond ((< (/ (health player) (maximum-health player)) 0.15))
         ((< 0 (/ health (maximum-health player)) 0.15)
          (setf (limp-time player) 10.0)

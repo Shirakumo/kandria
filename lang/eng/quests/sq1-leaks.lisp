@@ -86,7 +86,7 @@
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
-| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
 ? (complete-p 'leak-first 'leak-third)
 | ~ player
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
@@ -134,7 +134,7 @@
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
-| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
 ? (complete-p 'leak-first 'leak-second)
 | ~ player
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]

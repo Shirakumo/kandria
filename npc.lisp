@@ -7,6 +7,10 @@
    (walk :initform NIL :accessor walk)
    (lead-interrupt :initform "| Where are you going? It's this way!" :accessor lead-interrupt)))
 
+(defmethod print-object ((npc npc) stream)
+  (print-unreadable-object (npc stream :type T)
+    (format stream "~s ~s" (state npc) (ai-state npc))))
+
 (defmethod movement-speed ((npc npc))
   (case (state npc)
     (:crawling (p! crawl))
@@ -24,6 +28,7 @@
 
 (defmethod hurt ((npc npc) (player player)))
 (defmethod collides-p ((npc npc) (enemy enemy) hit) NIL)
+(defmethod collides-p ((enemy enemy) (npc npc) hit) NIL)
 (defmethod collides-p ((npc npc) (elevator elevator) hit) NIL)
 (defmethod die ((npc npc))
   (error "WTF, NPC died for some reason. That shouldn't happen!"))
