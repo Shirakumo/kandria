@@ -60,7 +60,7 @@
 
 (defmethod stage :after ((box box) (area staging-area))
   (dolist (asset '(hit-box die-box))
-    (stage (// 'kandria asset) area)))
+    (stage (// 'sound asset) area)))
 
 (defmethod hurt :after ((box box) (by integer))
   (harmony:play (// 'sound 'hit-box)))
