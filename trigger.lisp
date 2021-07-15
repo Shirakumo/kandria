@@ -199,6 +199,7 @@
 (defmethod handle ((ev trial:action) (prompt action-prompt))
   (when (and (interrupt prompt)
              (typep ev (action prompt))
+             (active-p prompt)
              (contained-p prompt (unit 'player +world+)))
     (setf (time-scale +world+) 1.0)
     (setf (active-p prompt) NIL)))
