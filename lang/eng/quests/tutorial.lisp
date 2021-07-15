@@ -8,7 +8,13 @@
   (:eval
    (activate (unit 'dash-prompt))
    (setf (location 'player) (location 'tutorial-start))
-   (setf (location 'catherine) (location 'walk-start)))
+   (ensure-nearby 'walk-start 'catherine))
+  (:wait 0.0)
+  (:eval
+   (setf (direction player) 1)
+   (start-animation 'laying player))
+  (:wait 1)
+  (:animate (player wake-up))
   (:go-to (walk-start))
   (:go-to (jump-start :lead catherine)
   ;; acknowledgement that the android's brain, memory, and faculties might not all be present and correct
