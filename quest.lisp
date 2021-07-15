@@ -229,6 +229,14 @@
                              :on-complete ,next
                              (:action action
                                       ,@body)))))
+                 (:animate ((character animation &optional (end-state 'stand)))
+                           `((,name
+                              :title ,(format NIL "Wait for ~a to ~a." character animation)
+                              :visible NIL
+                              :condition (eql ',end-state (name (animation (unit ',character +world+))))
+                              :on-activate (action)
+                              :on-complete ,next
+                              (:action action (start-animation ',animation (unit ',character +world+))))))
                  (:nearby ((place character) . body)
                           (form-fiddle:with-body-options (body initargs) body
                             `((,name
