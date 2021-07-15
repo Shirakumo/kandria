@@ -80,6 +80,10 @@ void main(){
   0.5 0.5 (fade (call (lambda (fade clock step) (funcall (on-complete fade)))))
   0.5 1.0 (fade (set strength :from 1.0 :to 0.0 :ease quint-out)))
 
+(define-progression start-game
+  0.0 0.1 (fade (call (lambda (fade clock step) (setf (kind fade) :black (strength fade) 1.0))))
+  0.0 5.0 (fade (set strength :from 1.0 :to 0.0 :ease bounce-in)))
+
 (define-progression low-health
   0.0 0.0 (fade (call (lambda (fade clock step) (setf (kind fade) :white))))
   0.0 0.05 (fade (set strength :from 0.0 :to 0.8))

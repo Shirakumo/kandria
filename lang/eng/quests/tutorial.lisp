@@ -6,11 +6,21 @@
   :title "Intro"
   :visible NIL
   (:eval
+   (setf (strength (unit 'fade T)) 1.0)
    (activate (unit 'dash-prompt))
    (setf (location 'player) (location 'tutorial-start))
+   (setf (state (unit 'player)) :animated)
    (ensure-nearby 'walk-start 'catherine))
+  ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
+  ;;         the reason for this being that setting stuff like the animation on the player
+  ;;         requires the player to have been fully loaded, which is not necessarily the
+  ;;         the case when this quest is activated, as this happens during initial state
+  ;;         load, but before asset load. The wait sufficiently defers the next stuff
+  ;;         until after the load has completed.
   (:wait 0.0)
   (:eval
+   (setf (clock (progression 'start-game +world+)) 0)
+   (start (progression 'start-game +world+))
    (setf (direction player) 1)
    (start-animation 'laying player))
   (:wait 1)
