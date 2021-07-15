@@ -624,6 +624,7 @@
       (destructuring-bind (node target) (car (path movable))
         (etypecase node
           (symbol
+           (setf (state movable) :normal)
            (setf (node-time movable) 0.0)
            (ecase node
              (null

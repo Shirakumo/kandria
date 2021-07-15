@@ -244,7 +244,7 @@
                            :title ,(format NIL "Wait for ~d second~:p" for)
                            :visible NIL
                            :condition (<= ,for (- clock timer))
-                           :variables (timer)
+                           :variables ((timer 0.0))
                            :on-activate (action)
                            :on-complete ,next
                            (:action action (setf timer clock)))))

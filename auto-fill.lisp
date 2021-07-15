@@ -275,7 +275,8 @@
                    do (when (and (= 255 (tile x y))
                                  ;; KLUDGE: this is not ideal. we should instead somehow check whether
                                  ;;         this tile has been filled with something else already.
-                                 (not (<= 4 (tile x (1+ y)) 15)))
+                                 (or (= y (1- height))
+                                     (not (<= 4 (tile x (1+ y)) 15))))
                         (setf (tile x y)
                               (cdr (or (assoc (round (mindist (vec x y) edge)) map)
                                        (assoc T map)))))))))
