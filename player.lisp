@@ -334,11 +334,11 @@
     (incf (combat-time player) dt)
     ;; HUD
     (cond ((and (< (combat-time player) 5)
-                (not (active-p (hud player))))
+                (not (shown-p (hud player))))
            (setf (intended-zoom (unit :camera T)) 1.2)
            (show (hud player)))
           ((and (< 5 (combat-time player))
-                (active-p (hud player)))
+                (shown-p (hud player)))
            (setf (intended-zoom (unit :camera T)) 1.0)
            (hide (hud player))))
     ;; Interaction checks

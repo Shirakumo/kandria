@@ -170,6 +170,9 @@
 
 (defmethod handle ((ev event) (panel panel)))
 
+(defmethod shown-p ((panel panel))
+  (slot-boundp (alloy:layout-element panel) 'alloy:layout-parent))
+
 (defmethod show ((panel panel) &key ui)
   (when *context*
     ;; First stage and load
