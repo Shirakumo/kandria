@@ -26,7 +26,7 @@
 ~ player
 | //Catherine puts her goggles on and welds the crack with steady hands.//
 - (Enable UV filters)
-  | //I see the dull glow, and hear sparks crackle and spit.//
+  | //I watch the dull glow; sparks crackle and spit.//
 - (Don't enable filters)
   | //It's like staring into the sun. Into the centre of a cataclysm.//
   ! eval (when (< 5 (health player)) (hurt player 5))
@@ -81,7 +81,7 @@
   ;; TODO catherine giggle - What's right with it?
 
   (:go-to (main-leak-2 :lead catherine)
-   :title "Follow Catherine below ground"
+   :title "Follow Catherine further below ground, beneath Zenith Central"
    "~ catherine
 | (:excited)Catch me if you can!
   ")
@@ -133,7 +133,7 @@
 | Let's get down to the pump room.
   ")
   (:go-to (leak-3-standoff :lead catherine)
-   :title "Follow Catherine to the pump room"
+   :title "Follow Catherine to the pump room, deeper underground"
   )
   (:interact (catherine :now T)   
   "~ catherine
@@ -168,7 +168,7 @@
   ")
   ;; TODO Catherine relieved - Oh man, we got here just in time.
   (:go-to (q1-phone :lead catherine)
-   :title "Follow Catherine to the telephone"
+   :title "Follow Catherine to the telephone in the pump room"
   )
   (:interact (catherine :now T)
    "~ catherine
