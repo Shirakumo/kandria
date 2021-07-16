@@ -4,16 +4,20 @@ The characters can still remain fluid, and change as new ideas and discoveries a
 Play the game for latest info, though the documentation here will be updated periodically.
 
 **Table of Contents**
-"The Stranger (Player)"(link #The Stranger (Player\))
-"Fi (Faction Leader)"(link #Fi (Faction Leader\))
+"Stranger (Player)"(link #Stranger (Player\))
+"Fi (Faction Leader)"(link #Fi (Noka Faction Leader\))
 "Catherine (Apprentice Engineer)"(link #Catherine (Apprentice Engineer\))
 "Jack (Chief Engineer)"(link #Jack (Chief Engineer\))
+"Sahil (Trader)"(link #Sahil (Trader\))
 "Alex (Hunter)"(link #Alex (Hunter\))
-"Secondary Characters"(link #Secondary Characters)
 
-## The Stranger (Player)
+"Secondary Characters"(link #Secondary Characters)
+"Innis (Semis Sisters Leader)"(link #Innis (Semi Sisters Leader\))
+"Islay (Semis Sisters Deputy)"(link #Islay (Semi Sisters Deputy\))
+
+## Stranger (Player)
 [ image https://studio.tymoon.eu/api/studio/file?id=1922 , float right ]
-**Name:** The Stranger
+**Name:** Stranger
 - Later “Andréa” coined by Fi?
 **Age:** Manufactured about fifty years ago, though maintains an adult age of mid-30s
 
@@ -35,7 +39,7 @@ Play the game for latest info, though the documentation here will be updated per
 - Exploring the world and finding her place within it - will she ever be accepted for who she is? Or will she remain a tolerated sword for hire?
 - (These concerns align closely with the player’s own motivations: explore, meet people, choose who you work for and what quests you do.)
 **Backstory:**
-The Stranger worked as an android before the calamity; from her uniform, traits and combat abilities, it’s clear she was some kind of police enforcer and detective.
+Stranger worked as an android before the calamity; from her uniform, traits and combat abilities, it’s clear she was some kind of police enforcer and detective.
 
 She was seemingly crushed and damaged in a landslide decades ago, and has no memory of what her previous function was.
 
@@ -48,23 +52,20 @@ Having proven herself initially in act 1, the faction encourages her to take on 
 
 She builds relationships with people and factions as she does this, more so than any human can because of her range of travel and abilities. Just as her experiences in the world come to shape her, she in turn has a large impact on the world. She realises she can choose her own path, and be who she wants to be.
 
-Though it’s not always plain sailing, as The Stranger doesn’t have the best people skills. It’s largely up to the player whether relationships here go well or badly.
+Though it’s not always plain sailing, as Stranger doesn’t have the best people skills. It’s largely up to the player whether relationships here go well or badly.
 
-During her journey she works closely with Fi, the leader of her settlement, and they develop a close bond. Fi begins to exhibit romantic feelings towards The Stranger, which is a new experience for the android and something she’s not well suited to dealing with. Fi also helps her choose a real name.
+During her journey she works closely with Fi, the leader of her settlement, and they develop a close bond. Fi begins to exhibit romantic feelings towards Stranger, which is a new experience for the android and something she’s not well suited to dealing with. Fi also helps her choose a real name.
 
-The Stranger suffers particular resentment from Alex, the hunter whose job she has mostly taken over. But she's also in a unique position to observe Alex, and ultimately proves that they have betrayed the faction to the enemy.
+Stranger suffers particular resentment from Alex, the hunter whose job she has mostly taken over. But she's also in a unique position to observe Alex, and ultimately proves that they have betrayed the faction to the enemy.
 
-By the end of the game she will have left an indelible mark on the people and places she’s encountered. She will have made friends and enemies through her actions, and will have responsibilities and people who depend on her. Everyone in the valley has a responsibility for everyone else’s survival, but for The Stranger with her skills, her responsibilities are even greater. She begins to learn what it means to be human, and to truly care for others’ well-being.
+By the end of the game she will have left an indelible mark on the people and places she’s encountered. She will have made friends and enemies through her actions, and will have responsibilities and people who depend on her. Everyone in the valley has a responsibility for everyone else’s survival, but for Stranger with her skills, her responsibilities are even greater. She begins to learn what it means to be human, and to truly care for others’ well-being.
 
-In the final battle there are some false alarms - The Stranger's friends are tricked into believing she betrayed them to the enemy faction, unwittingly leading them to the settlement; and it also seems Fi may have been killed. The Stranger feels a palpable sense of loss, but then relief when it’s discovered Fi is alive, albeit seriously injured. Alex also confesses as the traitor, thus clearing The Stranger's name once and for all. The Stranger promises to be always there for Fi, and their relationship looks good for the future.
+In the final battle there are some false alarms - Stranger's friends are tricked into believing she betrayed them to the enemy faction (the Wraw), unwittingly leading them to the settlement; and it also seems Fi may have been killed. Stranger feels a palpable sense of loss, but then relief when it’s discovered Fi is alive, albeit seriously injured. Alex also confesses as the traitor, thus clearing Stranger's name once and for all. Stranger promises to be always there for Fi, and their relationship looks good for the future.
 
 **Voice:**
-"Russian English"(https://www.youtube.com/watch?v=ybji16u608U)
-- Not phonetic spellings! No “I vant to kill you, Mr Bond”. However, Russian English dialect, quite formal, would indicate certain word choices over more casual American English for example.
-- Brings that typical edgy unknown quality to Western audiences (before subverting, much like Black Widow, by being a good guy)?
-- Rigid, somewhat mechanical feel to the language, which suits an android?
-- Suits a snarky, sarcastic detective?
-Word choice and register: Formal, educated, analytical, attentive to details. Unable to adapt their speaking style to whom they’re speaking to, at least at first.
+European English, hint of American accent
+- Similar to Nick's own voice, Swiss accented, but with a hint of American
+Word choice and register: Formal, educated, analytical, quirky, attentive to details. Unable to adapt their speaking style to whom they’re speaking to, at least at first.
 
 **Example Speech:**
 Suit yourself. But this was your idea.
@@ -74,17 +75,15 @@ The android daily scrubbing routine takes minimal time. I don't think a bedroll 
 //(when facing an unpleasant maintenance routine)//
 I'd rather not.
 
-The words were scratched into the wood with a knife. I can barely read it. Enhancing resolution...
-
-//(when Fi says that androids are tougher than they look, she winds her up)//
-I don't look tough?
+//(when Fi says that androids are tougher than they look, Stranger winds her up)//
+You're saying I don't look tough?
 
 The scratches on the rocks suggest combat occurred: swords, gunfire, and finger nails...
 
-//(addressing a dead android when retrieving their memory core)//
-Excuse me, sestra... I just need to retrieve this...
+//(when describing the sound of the wind on a mountainside)//
+The wind is howling like a dog on fire.
 
-## Fi (Faction Leader)
+## Fi (Noka Faction Leader)
 [ image https://studio.tymoon.eu/api/studio/file?id=1900 , float right ]
 **Name:** Fi
 - Pronounced “fee”
@@ -105,18 +104,18 @@ Excuse me, sestra... I just need to retrieve this...
 - Wants to see the factions of The Valley work together for the greater good.
 - In the back of her mind, she’s afraid that might never be possible...
 **Backstory:**
-Fi led a group of friends and people of similar beliefs away from another settlement, after that faction started to move in a militaristic direction, attacking traders and other factions in a brute force attempt to unify. It was a risky move to leave, in an effort to start a new life trying to farm the inhospitable surface.
+Fi led a group of friends and people of similar beliefs away from the Wraw settlement, after that faction started to move in a militaristic direction, attacking traders and other factions in a brute force attempt to unify. It was a risky move to leave, in an effort to start a new life trying to farm the inhospitable surface.
 
-Things are hard going, and several harvests have been lost by the time The Stranger arrives.
+Things are hard going, and several harvests have been lost by the time Stranger arrives.
 
 **Arc:**
-On the arrival of The Stranger, Fi sees them as a tool to help sustain the faction; she doesn’t hold the prejudice towards androids that many others do, but she certainly sees them as a machine to be given commands, not a person.
+On the arrival of Stranger, Fi sees them as a tool to help sustain the faction; she doesn’t hold the prejudice towards androids that many others do, but she certainly sees them as a machine to be given commands, not a person.
 
-After The Stranger proves themselves and shows their strength and agility, Fi believes they could help with matters further afield - conducting trade with other factions, taking on jobs for them, and making new allies. This is when she first begins to see The Stranger as more than just a machine, and gives her some autonomy in how she does their tasks.
+After Stranger proves themselves and shows their strength and agility, Fi believes they could help with matters further afield - conducting trade with other factions, taking on jobs for them, and making new allies. This is when she first begins to see Stranger as more than just a machine, and gives her some autonomy in how she does their tasks.
 
-Fi’s appreciation for The Stranger only grows when she learns her old faction are on the warpath, and it becomes clear how integral the android will be in not only helping defend the settlement, but in travelling to notify and recruit allies. Working together more closely, this is when she develops romantic feelings for The Stranger, and even helps her choose a real name. (Even if the player fails to win over any allies, and instead turns everyone into enemies, Fi’s feelings remain - though dialogue may be different based on world state.)
+Fi’s appreciation for Stranger only grows when she learns the Wraw are on the warpath, and it becomes clear how integral the android will be in not only helping defend the settlement, but in travelling to notify and recruit allies. Working together more closely, this is when she develops romantic feelings for Stranger, and even helps her choose a real name. (Even if the player fails to win over any allies, and instead turns everyone into enemies, Fi’s feelings remain - though dialogue may be different based on world state.)
 
-Despite winning the final battle against the invading faction(s), Fi’s dreams of a unified valley are left shattered: not only is she seriously hurt, but the settlement is destroyed, and many are dead on both sides. It’s only with emotional support from her friends, and in particular The Stranger, who now returns her affections, that she manages to keep her head, and see the way forward to a new home.
+Despite winning the final battle against the invading faction(s), Fi’s dreams of a unified valley are left shattered: not only is she seriously hurt, but the settlement is destroyed, and many are dead on both sides. It’s only with emotional support from her friends, and in particular Stranger, who now returns her affections, that she manages to keep her head, and see the way forward to a new home.
 
 **Voice:**
 Japanese English
@@ -124,19 +123,19 @@ Japanese English
 Word choice and register: Serious, formal
 
 **Example Speech:**
-//(when The Stranger asks for permission to do a mission)//
+//(when Stranger asks for permission to do a mission)//
 You know you don't need to ask me that, of all people. But yes, you are permitted.
 
-//(when The Stranger returns from a quest, and has more info to share)//
+//(when Stranger returns from a quest, and has more info to share)//
 You got more?
 
-//(short dialogue with The Stranger)//
+//(short dialogue with Stranger)//
 Fi: Androids are tougher than they look.
 Stranger: (winding up) I don't look tough?
 Fi: I didn't say that.
 
 //(giving a speech to her assembled faction)//
-Today we harvest our first crops of the season. I’m proud of us all, because we made this happen together.
+Today we harvest our first crops of the season. I’m proud of you all, because we made this happen together.
 
 ## Catherine (Apprentice Engineer)
 [ image https://studio.tymoon.eu/api/studio/file?id=1916 , float right ]
@@ -154,7 +153,7 @@ Today we harvest our first crops of the season. I’m proud of us all, because w
 - Overconfident
 - Always trying to outdo Jack (her boss), albeit in friendly competition - views him as a playful father figure, but without having the responsibility of actually being his daughter.
 - Fun-loving, but harbours feelings of doubt and lack of self worth, especially as one of the youngest in the camp.
-- Is blown away by The Stranger and their amazing android technology.
+- Is blown away by Stranger and their amazing android technology.
 - Likes to gossip and hype up drama, so there’s always something other than survival to talk about.
 **Concerns:**
 - Life can’t just be about simple survival, can it? It’s important to have fun as well...
@@ -162,20 +161,22 @@ Today we harvest our first crops of the season. I’m proud of us all, because w
 - Worried about her mum and dad back in the other settlement.
 - Understanding how android technology really works.
 **Backstory:**
-Catherine was born in the previous settlement that they all left behind a year ago, which involved the wrenching decision to also leave her parents.
+Catherine was born in the Wraw faction, but her parents were killed when she was young. She was taken in by the Semi Sisters, and raised as one of their own, learning much about technology and fixing things.
 
-This has cut her deeply, although she couldn’t in good conscience remain in that faction. She busies herself with work to avoid thinking about it, and is starting to view Jack, who has taken her under his wing as an apprentice, as a surrogate father.
+However, they kept her origins hidden from her. Over time, Catherine didn't feel free in their highly-disciplined and logical society; when she learned the truth about where she came from, she ran away, hoping to return to the Wraw, despite the bad things she'd heard. But she got lost, and eventually stumbled upon the Noka, as they were escaping the Wraw. They helped her, and she decided to join them.
+
+Now she busies herself with work to avoid thinking about her troubled past. She's also starting to view Jack, who has taken her under his wing as an apprentice, as a surrogate father.
 
 She’s the usual go-to person when little jobs need doing around the settlement - Jack is normally too grumpy, or deep in some project to disturb.
 
 **Arc:**
 Catherine keeps her head down and immerses herself in her work to forget about her recent traumas - she’s kept busy working on equipment and machines to irrigate the farmland.
 
-She’s heralded as a hero of sorts after managing to bring The Stranger back online, after Alex discovered the broken android. She remains a constant friend to The Stranger throughout, though initially her interest is purely through awe at the android’s technology; they spend a lot of time together as Catherine continues to perform maintenance on her throughout the story.
+She’s heralded as a hero of sorts after managing to bring Stranger back online, after Alex discovered the broken android. She remains a constant friend to Stranger throughout, though initially her interest is purely through awe at the android’s technology; they spend a lot of time together as Catherine continues to perform maintenance on her throughout the story.
 
-Further trauma piles up for Catherine when Jack begins showing romantic interest which she doesn’t share, and which she has trouble dealing with because she doesn’t want to hurt his feelings. This also strengthens her friendship with The Stranger, who is similarly struggling to deal with Fi’s romantic advances.
+Further trauma piles up for Catherine when Jack begins showing romantic interest which she doesn’t share, and which she has trouble dealing with because she doesn’t want to hurt his feelings. This also strengthens her friendship with Stranger, who is similarly struggling to deal with Fi’s romantic advances.
 
-Catherine plays an integral role in preparing the defence of the settlement from attack by the rival faction, building weapons and traps; she also fights valiantly in the battle. It’s also at this time that she finally rebuffs Jack’s advances, which, unfortunately for her, strains their relationship. Though he does grant her more autonomy, and the title of full engineer, in reflection of her work.
+Catherine plays an integral role in preparing the defence of the settlement from attack by the Wraw, building weapons and traps; she also fights valiantly in the battle. It’s also at this time that she finally rebuffs Jack’s advances, which, unfortunately for her, strains their relationship. Though he does grant her more autonomy, and the title of full engineer, in reflection of her work.
 
 Like everyone else, she’s left traumatised by the battle, but she survives. She still has her wits though, and plays a key role in salvaging what equipment she can, and preparing the settlement for its long journey to their new home - where we can assume she thrives as a chief engineer.
 
@@ -185,7 +186,7 @@ American English
 Word choice and register: Fun, playful, sometimes deep
 
 **Example Speech:**
-//(Catherine manages to bring The Stranger back online)//
+//(Catherine manages to bring Stranger back online)//
 Hello, can you hear me?... Alex! I think I got it working!
 
 Hey Stranger!- Why do they still call you that? This ain’t the Wild West... (laughs) Or maybe it is, actually.
@@ -211,7 +212,7 @@ I’m fine... It’s just... I can’t help thinking what Mom and Dad are doing.
 - Gruff, grumpy, and not in touch with his emotions
 - Old-fashioned and a little out of touch with social and cultural trends
 - Poor social skills, a recluse in his workshop - Catherine is one of the few people he spends any significant amount of time with
-- Very experienced engineer, and takes great pride in his work - though is only interested in practical mechanical technology; he doesn’t care or even want to understand these rare “high-tech” finds that are sometimes discovered, like The Stranger
+- Very experienced engineer, and takes great pride in his work - though is only interested in practical mechanical technology; he doesn’t care or even want to understand these rare “high-tech” finds that are sometimes discovered, like Stranger
 - Although Catherine is a young upstart and in many ways a more inventive engineer (who also likes to wind him up about this), he isn’t jealous or resentful. He doggedly believes that age and experience trump everything else, something he likes to remind Catherine of frequently.
 - He’s also romantically interested in Catherine. He likes how easy she can work with both people and machines, and finds that an attractive quality he wished he had. But he can’t express his emotions to her, and also dislikes his attraction, believing himself to be a “dirty old man”.
 - His romantic interest in Catherine often manifests as an overprotective and overly-strict father figure, and he thinks nothing of berating her in public.
@@ -220,7 +221,7 @@ I’m fine... It’s just... I can’t help thinking what Mom and Dad are doing.
 - Squeezing every bit of efficiency out of his machines.
 - He would like to make emotional connections with people; in particular he longs for intimacy and a partner, and Catherine is the target of his affections.
 **Backstory:**
-Jack was one of the hardest to convince to leave the old faction behind, having spent most of his life there, and having many friends.
+Jack was one of the hardest to convince to leave the Wraw faction behind, having spent most of his life there, and having many friends.
 
 Fi managed to twist his arm, because she really needed a chief engineer to help get the new settlement off the ground. Jack seemed more obliging when he heard Catherine, a promising up and coming engineer, had also agreed to join the new faction.
 
@@ -231,7 +232,7 @@ He lost a leg in an accident in his 20s, and has worn a crude prosthetic ever si
 He was invaluable in establishing the new settlement, designing and making buildings and boundary walls to withstand the harsh surface conditions. He’s also been vital in establishing the new and innovative farming systems and and wind energy turbines.
 
 **Arc:**
-Jack is often busy overseeing the constant engineering and maintenance work, so doesn’t have much time for people, especially The Stranger - he has no interest in such high technology, and he doesn’t think it can serve them much good. He doesn’t harbour personal prejudice to The Stranger, but just sees them as a machine he has no hope of understanding or fixing.
+Jack is often busy overseeing the constant engineering and maintenance work, so doesn’t have much time for people, especially Stranger - he has no interest in such high technology, and he doesn’t think it can serve them much good. He doesn’t harbour personal prejudice to Stranger, but just sees them as a machine he has no hope of understanding or fixing.
 
 He is much more interested in Catherine, one of the only people he spends any amount of time with. But he knows people would frown on their age difference if they got together; coupled with his lacking social skills, he finds it impossible to tell her how he feels - especially since he’s become like a father to her.
 
@@ -255,13 +256,69 @@ If this breaks down we’re fucked - unless you know of any trees with timing be
 
 Why’s the android talk with a funny accent like that?
 
+## Sahil (Trader)
+**Name:** Sahil
+
+**Appearance:**
+- Arab ethnicity
+- Large body frame, strong physique
+- Well-presented, has access to wider choice of clothing than most
+
+**Age:** 50s
+
+**Gender:** Male
+- Pronouns: he/him
+**Job:** Trader
+
+**Traits:**
+- Chatty, smooth talker, silver tongue
+- Knowledgeable about the layout of The Valley - especially the old underground metro system
+- He also knows some lore about the old city
+- Tough and trained in martial arts - sometimes needs to defend himself on the road
+- Also pulls his own caravan - he used to have animals pulling it, but it’s hard to keep them alive in the The Valley
+- Honest and of high integrity - will strike a bargain if it’s for a good cause
+- His kindness can sometimes be taken advantage of
+- Is afraid of the Wraw faction
+- His chattiness covers an emotional frailty, and although he appears like your best friend, he never becomes emotionally attached - subjects discussed never run too deep
+**Concerns:**
+- Staying out of factional-politics as much as possible, but keeping the factions going with news from afar and precious supplies
+- Procuring supplies, always on the move, never standing still; to stand still is to die in this world
+**Backstory:**
+- Used to be a member of the Wraw, the faction that Fi left behind - except that he left decades ago because he didn’t like where they were headed even then
+- He works hard to scavenge supplies and resources, though avoids the Wraw, which has angered them
+- Tragedy came several years ago, when his young daughter, who lived with him in the caravan, was killed by rogues
+- Really good friends with Catherine, and actually more of a father figure to her than Jack is
+**Arc:**
+- He helps supply the settlement throughout the game, and Stranger sometimes encounters him out in the world as well, at other settlements.
+- But he generally keeps a distance, never wanting to ally with a faction (especially the Noka, since they’ve made an enemy of the Wraw). He's also wary of becoming emotionally attached to people, since he lost his daughter.
+- Come the final battle, his caravan cannot make it through the fighting. We assume he’s fled - but he eventually appears, and fights alongside you.
+- With The Valley destroyed, and no more trade, he leaves with Fi and company to journey into the mountains - his strength and resourcefulness will be vital on the journey.
+**Voice:**
+"Arabic English"(https://youtu.be/ytE-67vrTrI)
+
+Word choice and register: Jolly, jovial, informal, friendly
+- good opportunity for some code switching too
+
+**Example Speech:**
+//(on first meeting Stranger)//
+Well, well... Are you who I think you are?
+
+//(when player asks about the Old City)//
+Not a lot to say about that. It was a utopia. So obviously it went boom.
+
+//(greeting)//
+Assalam Alaikum! I don't think I've seen you looking better.
+
+//(when talking about Catherine, and is reminded of his late daughter)//
+She's such a great kid, you know? A talented engineer as well. Reminds me of... Er-... well, never mind that.
+
 ## Alex (Hunter)
 **Name:** Alex
 
 **Age:** 20s
 
 **Gender:** Non-binary (sex: male)
-- Pronouns: They/them
+- Pronouns: they/them
 **Job:** Hunter, courier, scout
 
 **Traits:**
@@ -276,8 +333,8 @@ Why’s the android talk with a funny accent like that?
 - Usually prefers to stealth around danger, but is capable in combat.
 - Often accompanies farmers and engineers on missions underground, defending them and showing them the way.
 - Proud that they’re relied upon to go beyond the walls of the settlement and represent the faction further afield.
-- Harbours a grudge against The Stranger, whose speed and endurance far exceeds their own, and who has taken many of their duties. This fuels their existing dislike of androids, which they’ve had since they were a child and heard stories about androids around the campfire.
-- Their dislike of The Stranger only grows when they discover Fi has a romantic interest in them.
+- Harbours a grudge against Stranger, whose speed and endurance far exceeds their own, and who has taken many of their duties. This fuels their existing dislike of androids, which they’ve had since they were a child and heard stories about androids around the campfire.
+- Their dislike of Stranger only grows when they discover Fi has a romantic interest in them.
 **Concerns:**
 - Fulfilling missions
 - Earning peoples’ trust
@@ -289,15 +346,15 @@ A hunter for the previous settlement, it was Alex who found the seed cache, whic
 Now as part of the new faction, they’ve been integral to Fi’s outreach plans, travelling as a courier to try and recruit allies into a united faction, using their charm and charisma.
 
 **Arc:**
-It’s Alex that finds The Stranger underground and buried during a mission; although they’re championed for the find, along with Catherine who brings the android online, unlike her Alex resents the whole thing: they know in their bones androids are bad news, from the stories they remember as a child.
+It’s Alex that finds Stranger underground and buried during a mission; although they’re championed for the find, along with Catherine who brings the android online, unlike her Alex resents the whole thing: they know in their bones androids are bad news, from the stories they remember as a child.
 
-Things get worse when The Stranger proves adept at venturing through the tunnels, escorting engineers and farmers, and so taking some of Alex’s duties. When The Stranger does well, and is given outreach tasks to other factions, the disdain really sets in; being an android, she is much faster and stronger, and can cover more ground. Alex’s only hope is that The Stranger isn’t as charismatic, and that the people she meets will be equally hostile to her. So they actually will The Stranger to fail, even though it’s in the interests of Fi’s plans to get more factions on side.
+Things get worse when Stranger proves adept at venturing through the tunnels, escorting engineers and farmers, and so taking some of Alex’s duties. When Stranger does well, and is given outreach tasks to other factions, the disdain really sets in; being an android, she is much faster and stronger, and can cover more ground. Alex’s only hope is that Stranger isn’t as charismatic, and that the people she meets will be equally hostile to her. So they actually will Stranger to fail, even though it’s in the interests of Fi’s plans to get more factions on side.
 
-Alex’s unhappiness drives them further into alcoholism, something they’ve suffered with on and off for a long time. Worse, they go so far as to betray the faction, travelling far and wide to sow resentment towards them, and The Stranger in particular (partly explaining the harsh welcome the player often receives when arriving in new places, beyond for them just being an android).
+Alex’s unhappiness drives them further into alcoholism, something they’ve suffered with on and off for a long time. Worse, they go so far as to betray the faction, travelling far and wide to sow resentment towards them, and Stranger in particular (partly explaining the harsh welcome the player often receives when arriving in new places, beyond for them just being an android).
 
-Alex’s reaction to The Stranger as the plot progresses somewhat depends on how many allies versus enemies the player achieves amongst the other factions: the more allies, the harsher Alex will be (though they always have a base level of harshness, even if the player makes no allies).
+Alex’s reaction to Stranger as the plot progresses somewhat depends on how many allies versus enemies the player achieves amongst the other factions: the more allies, the harsher Alex will be (though they always have a base level of harshness, even if the player makes no allies).
 
-Once they've collected enough evidence about Alex being a traitor, they can choose to have them thrown in the brig before the final battle; otherwise Alex fights by The Stranger's side. Either way, they are mortally wounded in the fighting. Before they die though, they confess to being the traitor, and thus clear your name.
+Once they've collected enough evidence about Alex being a traitor, they can choose to have them thrown in the brig before the final battle; otherwise Alex fights by Stranger's side. Either way, they are mortally wounded in the fighting. Before they die though, they confess to being the traitor, and thus clear your name.
 
 **Voice:**
 British English, London Multicultural English
@@ -324,3 +381,88 @@ Fuck you - I’ll go home when I’m good and ready.
 //TODO - probably to look at post-Vertical Slice//
 
 //Tertiary characters to quickly fill the world or flesh out a quest or area, can largely be invented on the fly when writing the script and/or making art assets//
+
+### Innis (Semi Sisters Leader)
+
+**Name:** Innis
+- From the "Scottish Gaelic"(https://www.scottish-at-heart.com/scottish-girl-names.html) meaning "island"
+**Age:** 60s
+
+**Gender:** Female
+- Pronouns: she/her
+**Job:** Faction leader
+
+**Traits:**
+- Disciplined
+- Traditional
+- Bitter
+- Loyal
+- Two-Faced
+- Sly
+**Concerns:**
+- Staying alive and keeping her faction alive; though it is becoming increasingly difficult to please everyone as the other factions gun for war
+- Restoring the old world
+- Wants Catherine to rejoin her faction
+**Backstory:**
+Innis and her twin sister Islay were both apprentices working for Brother (surveillance) Semi (electronics) respectively, before the calamity. They've both grown up in the ruined world, securing what technology they could to try and preserve some semblance of the old world. However, Innis has a strong passion to one day rebuild the old world - although it is an unlikely dream, since much skill and tech has been lost (indeed, as an apprentice at the time of the calamity, and only able to work with ruined technology since, she herself doesn't have the skills to do this).
+
+Indeed, most of her energy is put into leveraging what technological edge her faction does have to keep their enemies at bay, spying on the others with their surveillance tech, and making astute trades to serve their interests.
+
+Innis and Islay together raised baby Catherine, when she was discovered abandoned in a cave. Innis was upset when Catherine ran away.
+
+**Arc:**
+Innis learns of Stranger early on, due to her surveillance of the caves beneath the Noka faction; she is resentful that Catherine brought the android online.
+
+When Stranger ventures into Semi Sister territory, Innis is very interested in her technology. At first this seems fawning and sinister, as if Innis enslaves androids - but it turns out to just be about what they can learn from Stranger, and how Stranger can help them (their speed, agility, and onboard tech could help fix breaks in the telephone network).
+
+Innis also offers a working computer to Stranger, something that Fi wants to use to verify if Stranger is working for the Wraw or not. However, Innis will only trade if Catherine rejoins them.
+
+Stranger reports back to Fi and Catherine about the terms - Catherine is willing to make the trade if it will prove Stranger's innocence, but Stranger can influence the decision: whether Catherine goes, whether the computer idea is abandoned (though this would mean more uncertainty for Stranger going forwards, until they can prove themselves in another way), or whether Stranger goes back to the Semis and instead pledges to do more errands for them in exchange for the computer (even installing more infrastructure to spy on the Noka; Innis claims that if they are to take sides in the fight with the Wraw, they need to know more about the Noka's capabilities).
+
+Come the final battle, one way or another, Innis and the Semis fight on the side of the Noka; Innis commissions the building of the bomb that ultimately stops the Wraw's advance. However, losing her twin Islay in the battle, Innis is forced to reflect on their relationship, and how she could be kinder and more accommodating like her sister.
+
+**Voice:**
+Scottish English accent and dialect
+- A light accent in an older woman e.g. "Shirley Manson"(https://www.youtube.com/watch?v=w8xKKPANd6I)
+
+Word choice and register: Measured, slow, few words, pointed, awkward silences
+
+### Islay (Semi Sisters Deputy)
+
+**Name:** Islay
+- Pronounced "eye-lay"
+- From "Scottish word"(https://www.scottish-at-heart.com/scottish-girl-names.html) meaning "island"
+
+**Age:** 60s
+
+**Gender:** Female
+- Pronouns: she/her
+**Job:** Faction deputy
+
+**Traits:**
+- Hard-working
+- Hands-on
+- Kind
+- Polite
+- Level-headed
+- Naive
+- Reserved
+**Concerns:**
+- Keeping her sister on the straight and narrow
+- Keeping the peace, within and without her faction
+- Feeling proud after a hard day's work
+**Backstory:**
+Islay is Innis' twin sister and second in command of the Semi Sisters, and has had a similar history to Innis. But whereas Innis specialises in surveillance tech, Islay is involved with base electronics. She's also much more hands-on than Innis, despite also having leadership responsibilities (but to a lesser extent). Unlike Innis, she isn't disillusioned with rebuilding the old world; Islay tends to be a voice of reason to her sister's more extreme plans, reminding her about their survival in the here and now.
+
+In raising Catherine, Islay is the one who took the lead. When Catherine ran away, Islay was happy to let the young adult follow her own path.
+
+**Arc:**
+When Stranger arrives in Semi territory, although she deals mainly with Innis for important discussions, it's Islay that manages the relationship in terms of Stranger running errands.
+
+Islay is the one that builds the bomb to stop the Wraw advance; although the bomb detonates, she goes missing in the aftermath. Her fate is left unknown and she's presumed dead, which hits Innis hard.
+
+**Voice:**
+Scottish English accent and dialect
+- Same as Innis: a light accent in an older woman e.g. "Shirley Manson"(https://www.youtube.com/watch?v=w8xKKPANd6I)
+
+Word choice and register: Friendly, warm, polite, non-confrontational, caring
