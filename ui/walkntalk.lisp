@@ -66,8 +66,8 @@
   (cond (value
          (setf (ip textbox) 0)
          (dialogue:run (quest:dialogue value) (vm textbox))
-         (unless (active-p textbox) (show textbox)))
-        ((active-p textbox)
+         (unless (shown-p textbox) (show textbox)))
+        ((shown-p textbox)
          (hide textbox))))
 
 (defmethod (setf interrupt) :before (value (textbox walkntalk))
@@ -76,11 +76,11 @@
         (setf (interrupt-ip textbox) (ip textbox))
         (setf (ip textbox) 0)
         (dialogue:run (quest:dialogue value) (vm textbox))
-        (unless (active-p textbox) (show textbox)))
+        (unless (shown-p textbox) (show textbox)))
       (cond ((interaction textbox)
              (setf (ip textbox) (interrupt-ip textbox))
              (dialogue:run (quest:dialogue (interaction textbox)) (vm textbox)))
-            ((active-p textbox)
+            ((shown-p textbox)
              (hide textbox)))))
 
 (defmethod (setf prompt) :after (value (textbox walkntalk))
