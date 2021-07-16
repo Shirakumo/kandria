@@ -5,9 +5,6 @@
   :author "Tim White"
   :title "A Tour?"
   :description "Catherine wants to show me something."
-  (:eval
-   (complete 'tutorial)
-   (ensure-nearby 'tutorial-end 'catherine))
   (:go-to (farm-view-intro :lead catherine)
    :title "Follow Catherine")
   ;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
@@ -62,7 +59,7 @@
   ;; TIM REPLY: Toned some of it down. I think most swears should be okay for 16+, and they help give the gritty tone which is in the pillars. Played start of Last of Us part 2 recently, and this is very swear heavy (more than we need), but I think it works - it's more honest to the ravaged setting. Of course Last of Us is 18+, but I think that is more down to the violence than the swearing
   ;; REMARK: Maybe add a snarky greeting choice like "- Well aren't you the charmer
   ;; TIM REPLY: Hmm, not feeling this one. I think initially I want the Stranger to be on the backfoot in the conversation as well, whereas this sarcastic reply would put them on the front put. At least for the moment, they are at the mercy of Jack's ramblings
-  (:interact (jack :now T)
+  (:interact (catherine :now T)
    "~ jack
 | (:annoyed)... Don't give me that bullshit. Where the hell have you been? And who's this?
 ~ catherine

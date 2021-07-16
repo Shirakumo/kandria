@@ -64,10 +64,8 @@
     ;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?
   ;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
   ;; REMARK: ^ Does \[Lie\] not work?
-  (:interact (catherine :now T)   
-   :on-complete (q0-settlement-arrive)
-   "
-~ catherine
+  (:interact (catherine :now T)
+   "~ catherine
 | (:cheer)Tada! Here we are!
 | What do you think...?
 ~ player
@@ -85,6 +83,8 @@
   | (:excited)Yep! Pretty amazing, huh?
 ~ catherine
 | And come look at this - I guarantee you won't have ever seen anything like it!
+! eval (complete 'tutorial)
+! eval (activate 'q0-settlement-arrive)
   ")
 )
 
