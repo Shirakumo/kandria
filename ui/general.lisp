@@ -176,6 +176,8 @@
     (trial:commit panel (loader +main+) :unload NIL))
   ;; Then attach to the UI
   (let ((ui (or ui (unit 'ui-pass T))))
+    (let ((panel (first (panels ui))))
+      (when panel (setf (active-p panel) NIL)))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
     (alloy:register panel ui)
     (when (alloy:focus-element panel)
@@ -192,6 +194,8 @@
       (alloy:leave panel (alloy:root (alloy:focus-tree ui)))
       (setf (panels ui) (remove panel (panels ui))))
     (setf (active-p panel) NIL)
+    (let ((panel (first (panels ui))))
+      (when panel (setf (active-p panel) T)))
     panel))
 
 (defclass fullscreen-panel (panel)
@@ -205,11 +209,10 @@
 (defclass menuing-panel (fullscreen-panel)
   ())
 
-(defmethod show :after ((panel menuing-panel) &key)
-  (setf (active-p (action-set 'in-menu)) T))
-
-(defmethod hide :after ((panel menuing-panel))
-  (setf (active-p (action-set 'in-game)) T))
+(defmethod (setf active-p) :after (value (panel menuing-panel))
+  (if value
+      (setf (active-p (action-set 'in-menu)) T)
+      (setf (active-p (action-set 'in-game)) T)))
 
 (defclass pausing-panel (fullscreen-panel)
   ())
