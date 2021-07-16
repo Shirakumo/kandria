@@ -210,6 +210,7 @@
 (define-item (quartz-crystal value-item) 56 32 8 8)
 (define-item (rusted-clump value-item) 64 32 8 8)
 (define-item (pearl value-item) 72 32 8 8)
+(define-item (dirt-clump value-item) 80 32 8 8)
 
 (define-item (coolant value-item) 0 40 8 8)
 (define-item (pure-water value-item) 8 40 8 8)
@@ -218,6 +219,10 @@
 (define-item (thermal-fluid value-item) 32 40 8 8)
 (define-item (mossy-water value-item) 40 40 8 8)
 (define-item (cloudy-water value-item) 48 40 8 8)
+
+(define-item (fine-pelt value-item) 0 48 8 8)
+(define-item (ruined-pelt value-item) 8 48 8 8)
+(define-item (pristine-pelt value-item) 16 48 8 8)
 
 ;; QUEST ITEMS
 (define-item (seeds quest-item) 16 16 8 8)

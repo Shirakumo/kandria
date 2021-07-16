@@ -22,6 +22,13 @@
 
 (defmethod hurt ((a enemy) (b enemy)))
 
+(defmethod draw-item ((enemy enemy)) NIL)
+
+(defmethod die :after ((enemy enemy))
+  (let ((item (draw-item enemy)))
+    (when item
+      (spawn (location enemy) item))))
+
 (defmethod capable-p ((enemy enemy) (edge crawl-node)) T)
 (defmethod capable-p ((enemy enemy) (edge jump-node)) T)
 
@@ -167,6 +174,19 @@
                   (or (move-to (vec (- (vx ploc) (* +tile-size+ 10)) (+ (vy ploc) (* +tile-size+ 10))) enemy)
                       (setf (vx vel) (- (movement-speed enemy))))))))))))
 
+(defmethod draw-item ((wolf wolf))
+  (draw-item 'wolf/rewards))
+
+(define-random-draw wolf/rewards
+  (NIL 1)
+  (item:small-health-pack 1)
+  (item:medium-health-pack 0.5)
+  (item:large-health-pack 0.1)
+  (item:dirt-clump 1.5)
+  (item:pristine-pelt 0.01)
+  (item:fine-pelt 0.1)
+  (item:ruined-pelt 1))
+
 (define-shader-entity zombie (paletted-entity ground-enemy half-solid)
   ((bsize :initform (vec 4 16))
    (timer :initform 0.0 :accessor timer)
@@ -222,6 +242,19 @@
 (defmethod hit :after ((enemy zombie) location)
   (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8)))
   (trigger 'hit enemy :location location))
+
+(defmethod draw-item ((zombie zombie))
+  (draw-item 'zombie/rewards))
+
+(define-random-draw zombie/rewards
+  (NIL 1)
+  (item:small-health-pack 2)
+  (item:medium-health-pack 0.5)
+  (item:large-health-pack 0.1)
+  (item:coolant 1)
+  (item:heavy-spring 1)
+  (item:simple-circuit 1)
+  (item:cable 1))
 
 (define-shader-entity drone (enemy immovable)
   ((bsize :initform (vec 8 10))
@@ -293,3 +326,16 @@
 
 (defmethod apply-transforms progn ((enemy drone))
   (translate-by 0 -12 0))
+
+(defmethod draw-item ((drone drone))
+  (draw-item 'drone/rewards))
+
+(define-random-draw drone/rewards
+  (NIL 1)
+  (item:small-health-pack 2)
+  (item:medium-health-pack 0.5)
+  (item:large-health-pack 0.1)
+  (item:crude-oil 1)
+  (item:bolt 1)
+  (item:simple-circuit 1)
+  (item:connector 1))
