@@ -29,11 +29,11 @@
   (:go-to (jump-start :lead catherine)
   ;; acknowledgement that the android's brain, memory, and faculties might not all be present and correct
    "~ catherine
-| My name's Catherine. You can follow me, it's okay.
+| My name's Catherine. You can follow me, it's alright.
   ")   
   (:go-to (climb-start :lead catherine)
   "~ catherine
-| Right, here we go.
+| Okay, here we go.
   ")  
   (:go-to (rope-start :lead catherine)
   "~ catherine
@@ -64,8 +64,7 @@
     ;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?
   ;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
   ;; REMARK: ^ Does \[Lie\] not work?
-  (:interact (catherine :now T)
-   :title "Talk to Catherine"
+  (:interact (catherine :now T)   
    :on-complete (q0-settlement-arrive)
    "
 ~ catherine

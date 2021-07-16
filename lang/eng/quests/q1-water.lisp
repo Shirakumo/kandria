@@ -6,7 +6,7 @@
   :title "Fix the Water Supply"
   :description "The settlement are on the brink of starvation, and will lose their crop if the water supply isn't restored."
   (:go-to (main-leak-1 :lead catherine)
-   :title "Follow Catherine below ground")
+   :title "Follow Catherine below ground using the ladder in Engineering")
   (:interact (catherine :now T)   
   "
 ~ catherine

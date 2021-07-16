@@ -20,7 +20,8 @@
 ~ player
 - I'm ready.
   ~ catherine
-  | Alright. Stay close behind me.
+  | Alright. We're going down the ladder over there.
+  | Stay close behind me.
   ! eval (deactivate interaction)
   ! eval (complete task)
 - Not yet.
