@@ -676,6 +676,7 @@
                    ((<= (abs off) 1)
                     (setf (state movable) :climbing)
                     (setf (node-time movable) 0.0)
+                    (nudge (rope-node-rope node) loc (* (direction movable) -8))
                     (let ((dir (signum (- (vy target) (vy source))))
                           (diff (abs (- (vy target) (vy loc)))))
                       (setf (direction movable) (direction (rope-node-rope node)))
