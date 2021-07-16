@@ -261,7 +261,7 @@
 ~ player
 - No I have not.
   ~ catherine
-  | There, see.
+  | There, see. Her memories might be all muddled, but that's one thing she is sure about.
   ~ fi
   | Alright. Let's hope it's telling the truth. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I don't think I have.
