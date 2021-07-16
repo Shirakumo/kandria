@@ -8,8 +8,7 @@
   (:go-to (main-leak-1 :lead catherine)
    :title "Follow Catherine below ground using the ladder in Engineering")
   (:interact (catherine :now T)   
-  "
-~ catherine
+  "~ catherine
 | Alright, here's a leak.
 | That's strange, the pipe is cracked.
 ~ player
@@ -49,20 +48,30 @@
   ~ catherine
   | (:concerned)Of course you do, I'm sorry. What's yours?
   ~ player
-  | (:thinking)That's the thing: I don't remember my name.
+  | (:thinking)That's the thing: I don't remember my name. I don't remember a lot of things.
   ~ catherine
-  | That's okay... Don't worry.
-  | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
+  | That's okay... Don't worry. It's probably just a little data corruption.
 - I don't remember my name.
   ~ catherine
   | (:concerned)Oh, really? I'm sorry.
-  | (:normal)Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
+  ~ player
+  | (:thinking)I don't remember much else, either.
+  ~ catherine
+  | I'm sure it's fine. It's probably just a little data corruption.
 - Is this really the time?
   ~ catherine
   | (:concerned)You're right - sorry.
-  | (:normal)Well, for now I'm just gonna call you Stranger.(:excited)
-! eval (setf (nametag player) \"Stranger\")
+  ~ player
+  | (:thinking)Actually, now that you mention it... I don't remember my name.
+  ~ catherine
+  | (:concerned)Oh, really? I'm sorry.
+  ~ player
+  | (:thinking)I don't remember much else, either.
+  ~ catherine
+  | I'm sure it's fine. It's probably just a little data corruption.
 ~ catherine
+| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
+! eval (setf (nametag player) \"Stranger\")
 | (:excited)Pretty cool, huh?
 | Let's go, Stranger!
   ")
@@ -291,13 +300,14 @@
   ~ fi
   | This \"thing\" is a person, Jack. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
-  | Still, a computer may be useful to help us maintain Stranger.
+  | Still, a computer may be useful to help us maintain Stranger - especially if she's having memory trouble.
   | Jack, speak with Sahil when he arrives, see what he can do for us.
   ~ jack
   | (:annoyed)If you insist.
 - Sure, why not.
   ~ fi
   | Good. Jack, speak with Sahil when he arrives, see what he can do for us.
+  | A computer may also help us maintain Stranger - especially if she's having memory trouble.
   ~ jack
   | (:annoyed)If you insist.
 - As long as I'm still online afterwards.
@@ -305,6 +315,7 @@
   | Don't worry, I won't let them switch you off.
   ~ fi
   | That's settled then. Jack, speak with Sahil when he arrives, see what he can do for us.
+  | A computer may also help us maintain Stranger - especially if she's having memory trouble.
   ~ jack
   | (:annoyed)If you insist.
 ~ fi

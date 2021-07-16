@@ -27,7 +27,7 @@
   | (:excited)Heh, I knew you'd be impressed.
 - I've seen these before. Lots of times.
   ~ catherine
-  | (:normal)Oh? From the old world? Do you remember? I bet they had loads of plantations.
+  | (:normal)Oh, from the old world? I bet they had loads of plantations.
   | (:excited)That's so cool. I wish I could have seen that too.
 ~ catherine
 | (:concerned)Erm, hang on a second. Where is everyone?
