@@ -191,6 +191,14 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Florian Hanke
 - Allow back button to be used to exit a dialogue menu
   Reported by Florian Hanke
+- Save files had glitchy behaviour for NPCs when following
+  Reported by Pierre Lippuner
+- Lights did not properly match their sources in some cases
+  Reported by Pierre Lippuner
+- Leak animations did not properly update in some cases
+  Reported by Pierre Lippuner
+- NPCs collided with enemies creating awkward combat situations
+  Reported by Pierre Lippuner
 
 ## TODO
 - Fix disconnecting a sound device crashing the game
