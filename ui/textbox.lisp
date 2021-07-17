@@ -222,6 +222,14 @@
 (defmethod handle ((rq dialogue:pause-request) (textbox textbox))
   (setf (pause-timer textbox) (dialogue:duration rq)))
 
+(defun normalize-style (style)
+  (case (car style)
+    (:color
+     (list :color (apply #'colored:rgb (second style))))
+    (:underline
+     (list :rainbow T))
+    (T style)))
+
 (defmethod handle :after ((rq dialogue:text-request) (textbox textbox))
   (let ((s (make-array (+ (length (text textbox))
                           (length (dialogue:text rq)))
@@ -233,10 +241,12 @@
   (let ((offset (- (length (text textbox))
                    (length (dialogue:text rq)))))
     (setf (markup (textbox textbox))
-          (loop for (start _end . styles) in (dialogue:markup rq)
-                for end = (or _end (length (dialogue:text rq)))
-                append (loop for style in styles
-                             collect (list (+ start offset) (+ end offset) style))))))
+          (simple::sort-markup
+           (loop for (start _end . styles) in (dialogue:markup rq)
+                 for end = (or _end (length (dialogue:text rq)))
+                 append (loop for style in styles
+                              collect (list (+ start offset) (+ end offset)
+                                            (normalize-style style))))))))
 
 (defmethod handle :after ((rq dialogue:target-request) (textbox textbox))
   (setf (ip textbox) (dialogue:target rq)))
