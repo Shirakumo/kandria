@@ -227,7 +227,9 @@
     (:color
      (list :color (apply #'colored:rgb (second style))))
     (:underline
-     (list :rainbow T))
+     (list :wave T))
+    (:strikethrough
+     (list :shake T))
     (T style)))
 
 (defmethod handle :after ((rq dialogue:text-request) (textbox textbox))
