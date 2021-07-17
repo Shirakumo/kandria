@@ -65,7 +65,7 @@
               (dash-dcc-end    0.3)
               (dash-min-time   0.25)
               (dash-max-time   0.675)
-              (dash-evade-grace-time 0.1)
+              (dash-evade-grace-time 0.25)
               (hyperdash-bonus (vec 0.5 0.2))
               (buffer-expiration-time 0.3)
               (look-delay      0.5)

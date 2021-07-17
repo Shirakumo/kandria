@@ -107,6 +107,7 @@
 (define-sprite critter-red-bird)
 (define-sprite critter-white-bird)
 (define-sprite broken-pipe)
+(define-sprite sawblade)
 
 (define-tileset tundra)
 (define-tileset debug)

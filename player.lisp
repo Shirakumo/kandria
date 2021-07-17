@@ -118,13 +118,9 @@
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))
     (when endangering
-      ;; FIXME: If we are holding the opposite of what
-      ;;        we are facing, we should evade left.
-      ;;        to do this smoothly, need to buffer for a while.
-      (if (= (direction player)
-             (signum (- (vx (location endangering)) (vx (location player)))))
-          (start-animation 'evade-left player)
-          (start-animation 'evade-right player))
+      (let ((dir (float-sign (- (vx (location endangering)) (vx (location player))))))
+        (setf (direction player) (- dir))
+        (start-animation 'evade-left player))
       T)))
 
 (defmethod handle ((ev dash) (player player))
@@ -481,8 +477,9 @@
        ;;   (setf (run-time player) 0.0))
        (when (< (decf (vw (color player)) (* 4 dt)) 0)
          (setf (vw (color player)) 0.0))
-       (or (when (< (dash-time player) (p! dash-evade-grace-time))
-             (handle-evasion player))
+       (or (and (< (dash-time player) (p! dash-evade-grace-time))
+                (handle-evasion player)
+                (setf (vw (color player)) 0.0))
            (cond ((or (< (p! dash-max-time) (dash-time player))
                       (and (< (p! dash-min-time) (dash-time player))
                            (not (retained 'dash))))
@@ -746,10 +743,6 @@
        (when (= 0 (vx vel))
          (setf (clock player) 0.0)))
       (:normal
-       (cond ((< 0 (vx vel))
-              (setf (direction player) +1))
-             ((< (vx vel) 0)
-              (setf (direction player) -1)))
        (cond ((and (< 0 (vy vel)) (not (typep (svref collisions 2) 'moving-platform)))
               (setf (animation player) 'jump))
              ((null (svref collisions 2))

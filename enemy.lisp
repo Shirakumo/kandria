@@ -53,6 +53,17 @@
 
 (defmethod (setf health) (value (dummy dummy)) value)
 
+(define-shader-entity sawblade (enemy solid immovable)
+  ((bsize :initform (vec 16 16)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'sawblade)))
+
+(defmethod state ((sawblade sawblade)) :animated)
+
+(defmethod idleable-p ((sawblade sawblade)) NIL)
+
+(defmethod (setf health) (value (sawblade sawblade)) value)
+
 (define-shader-entity box (enemy solid immovable)
   ((bsize :initform (vec 8 8)))
   (:default-initargs
