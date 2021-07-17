@@ -228,7 +228,8 @@
                        :element-type 'character)))
     (replace s (text textbox))
     (replace s (dialogue:text rq) :start1 (length (text textbox)))
-    (setf (text textbox) s))
+    (setf (text textbox) s)
+    (scroll-text textbox (scroll-index textbox)))
   (let ((offset (- (length (text textbox))
                    (length (dialogue:text rq)))))
     (setf (markup (textbox textbox))
@@ -239,6 +240,3 @@
 
 (defmethod handle :after ((rq dialogue:target-request) (textbox textbox))
   (setf (ip textbox) (dialogue:target rq)))
-
-(with-eval-in-render-loop (+world+)
-  (interact "| This is.... again a longer text to make sure things still work right even when wrapping is involved." T))
