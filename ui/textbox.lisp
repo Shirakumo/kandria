@@ -99,7 +99,7 @@
    :pattern (colored:color 0 0 0 0.5)))
 
 (defun clear-text-string ()
-  (load-time-value (make-array 0 :fill-pointer 0 :element-type 'character)))
+  (load-time-value (make-array 0 :element-type 'character)))
 
 (defclass textbox (alloy:observable-object)
   ((vm :initform (make-instance 'dialogue:vm) :reader vm)
@@ -112,6 +112,7 @@
    (source :initform 'player :accessor source)
    (pending :initform NIL :accessor pending)
    (profile :initform (make-instance 'profile-picture) :accessor profile)
+   (scroll-index :initform 0 :accessor scroll-index)
    (textbox :accessor textbox)))
 
 (defmethod stage :after ((textbox textbox) (area staging-area))
@@ -119,14 +120,16 @@
   (stage (// 'sound 'dialogue-advance) area))
 
 (defmethod at-end-p ((textbox textbox))
-  (<= (array-total-size (text textbox))
-      (fill-pointer (text textbox))))
+  (<= (length (text textbox))
+      (scroll-index textbox)))
 
-(defmethod scroll-text ((textbox textbox) to)
-  (when (<= to (array-total-size (text textbox)))
+(defun scroll-text (textbox &optional (to (1+ (scroll-index textbox))))
+  (when (<= to (length (text textbox)))
     (harmony:play (// 'sound 'dialogue-scroll))
-    (setf (fill-pointer (text textbox)) to)
-    (setf (text textbox) (text textbox))))
+    (setf (scroll-index textbox) to)
+    (setf (org.shirakumo.alloy.renderers.opengl.msdf::vertex-count
+           (presentations:find-shape :label (textbox textbox)))
+          (* 6 to))))
 
 (defmethod advance ((textbox textbox))
   (handle (dialogue:resume (vm textbox) (ip textbox)) textbox))
@@ -142,6 +145,7 @@
                   (button (alloy:represent choice 'dialog-choice)))
              (alloy:on alloy:activate (button)
                (setf (text textbox) (clear-text-string))
+               (setf (scroll-index textbox) 0)
                (setf (choices textbox) ())
                (harmony:play (// 'sound 'dialogue-advance))
                (etypecase target
@@ -178,16 +182,18 @@
                 (advance textbox))
                (T
                 (next-interaction textbox))))
+        ((at-end-p textbox))
         ((< 0 (char-timer textbox))
          (decf (char-timer textbox) (dt ev)))
-        ((< 0 (array-total-size (text textbox)))
-         (scroll-text textbox (1+ (fill-pointer (text textbox))))
-         (setf (char-timer textbox)
-               (* (setting :gameplay :text-speed)
-                  (case (char (text textbox) (1- (length (text textbox))))
-                    ((#\. #\! #\? #\: #\;) 7.5)
-                    ((#\,) 2.5)
-                    (T 1)))))))
+        ((< 0 (length (text textbox)))
+         (scroll-text textbox)
+         (unless (at-end-p textbox)
+           (setf (char-timer textbox)
+                 (* (setting :gameplay :text-speed)
+                    (case (char (text textbox) (scroll-index textbox))
+                      ((#\. #\! #\? #\: #\;) 7.5)
+                      ((#\,) 2.5)
+                      (T 1))))))))
 
 (defmethod handle ((rq dialogue:request) (textbox textbox)))
 
@@ -202,7 +208,8 @@
   (setf (pending textbox) (list :prompt (string (prompt-char :right :bank :keyboard)))))
 
 (defmethod handle ((rq dialogue:clear-request) (textbox textbox))
-  (setf (text textbox) (clear-text-string)))
+  (setf (text textbox) (clear-text-string))
+  (setf (scroll-index textbox) 0))
 
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
   (let ((unit (unit (dialogue:name rq) T)))
@@ -216,22 +223,22 @@
   (setf (pause-timer textbox) (dialogue:duration rq)))
 
 (defmethod handle :after ((rq dialogue:text-request) (textbox textbox))
-  (let ((s (make-array (+ (array-total-size (text textbox))
-                          (array-total-size (dialogue:text rq)))
-                       :fill-pointer (fill-pointer (text textbox))
+  (let ((s (make-array (+ (length (text textbox))
+                          (length (dialogue:text rq)))
                        :element-type 'character)))
-    (loop for i from 0 below (array-total-size (text textbox))
-          do (setf (aref s i) (aref (text textbox) i)))
-    (loop for i from 0 below (array-total-size (dialogue:text rq))
-          do (setf (aref s (+ i (array-total-size (text textbox)))) (aref (dialogue:text rq) i)))
+    (replace s (text textbox))
+    (replace s (dialogue:text rq) :start1 (length (text textbox)))
     (setf (text textbox) s))
-  (let ((offset (- (array-total-size (text textbox))
-                   (array-total-size (dialogue:text rq)))))
+  (let ((offset (- (length (text textbox))
+                   (length (dialogue:text rq)))))
     (setf (markup (textbox textbox))
           (loop for (start _end . styles) in (dialogue:markup rq)
                 for end = (or _end (length (dialogue:text rq)))
-                append (loop for (name) in styles
-                             collect (list (+ start offset) (+ end offset) name))))))
+                append (loop for style in styles
+                             collect (list (+ start offset) (+ end offset) style))))))
 
 (defmethod handle :after ((rq dialogue:target-request) (textbox textbox))
   (setf (ip textbox) (dialogue:target rq)))
+
+(with-eval-in-render-loop (+world+)
+  (interact "| This is.... again a longer text to make sure things still work right even when wrapping is involved." T))
