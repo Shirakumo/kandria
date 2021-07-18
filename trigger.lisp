@@ -193,7 +193,9 @@
           (setf (time-scale +world+) 0.0)))
     (let ((loc (vec (vx (location prompt))
                     (+ (vy (location player)) (vy (bsize player))))))
-      (show (prompt prompt) :button (action prompt) :location loc)
+      (show (prompt prompt) :button (action prompt)
+                            :description (language-string (unlist (action prompt)) NIL)
+                            :location loc)
       (setf (triggered prompt) T))))
 
 (defmethod handle ((ev trial:action) (prompt action-prompt))

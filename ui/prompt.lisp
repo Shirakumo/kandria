@@ -38,9 +38,9 @@
    (label :accessor label)
    (description :accessor description)))
 
-(defmethod initialize-instance :after ((prompt prompt) &key)
-  (let ((label (setf (label prompt) (make-instance 'prompt-label :value "")))
-        (descr (setf (description prompt) (make-instance 'prompt-description :value ""))))
+(defmethod initialize-instance :after ((prompt prompt) &key button description input)
+  (let ((label (setf (label prompt) (make-instance 'prompt-label :value (if button (coerce-button-string button input) ""))))
+        (descr (setf (description prompt) (make-instance 'prompt-description :value (or description "")))))
     (alloy:enter label prompt)
     (alloy:enter descr prompt)))
 
@@ -74,10 +74,11 @@
       (symbol (string (prompt-char button :bank input)))
       (list (map 'string (lambda (c) (prompt-char c :bank input)) button)))))
 
-(defmethod show ((prompt prompt) &key button input location description)
+(defmethod show ((prompt prompt) &key button input location (description NIL description-p))
   (when button
     (setf (alloy:value (label prompt)) (coerce-button-string button input)))
-  (setf (alloy:value (description prompt)) (or description ""))
+  (when description-p
+    (setf (alloy:value (description prompt)) (or description "")))
   (unless (slot-boundp prompt 'alloy:layout-parent)
     (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
   (alloy:mark-for-render prompt)
