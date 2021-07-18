@@ -230,6 +230,8 @@
      (list :wave T))
     (:strikethrough
      (list :shake T))
+    (:bold
+     (list :rainbow T))
     (T style)))
 
 (defmethod handle :after ((rq dialogue:text-request) (textbox textbox))
