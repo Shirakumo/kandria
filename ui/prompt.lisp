@@ -54,11 +54,12 @@
     (setf (alloy:value prompt) (coerce-button-string button input)))
   (if location
       (alloy:with-unit-parent (unit 'ui-pass T)
-        (let ((screen-location (world-screen-pos location))
-              (bsize (alloy:to-px (alloy:un 25))))
-          (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) bsize)
+        (let* ((screen-location (world-screen-pos location))
+               (bsize (alloy:to-px (alloy:un 25)))
+               (width (* bsize 2 (length (alloy:value prompt)))))
+          (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) (/ width 2))
                                                        (+ (vy screen-location) bsize)
-                                                       (* bsize 2 (length (alloy:value prompt)))
+                                                       width
                                                        (* bsize 2)))))
       (setf (alloy:bounds prompt) (alloy:extent 16 16 16 16)))
   (unless (slot-boundp prompt 'alloy:layout-parent)
