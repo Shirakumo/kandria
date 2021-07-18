@@ -37,3 +37,8 @@
 (define-action right (in-game analog-action))
 (define-action up (in-game analog-action))
 (define-action down (in-game analog-action))
+
+(define-action-set fishing (exclusive-action-set))
+(define-action cast-line (fishing))
+(define-action reel-in (fishing))
+(define-action stop-fishing (fishing))

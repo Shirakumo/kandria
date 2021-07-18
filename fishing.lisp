@@ -14,6 +14,7 @@
   (setf (fishing-spot (fishing-line player)) spot)
   (setf (item (buoy (fishing-line player))) NIL)
   (setf (state player) :fishing)
+  (setf (active-p (action-set 'fishing)) T)
   (vsetf (velocity player) 0 0)
   (setf (animation player) 'fishing-start))
 
@@ -40,7 +41,7 @@
     (case (state buoy)
       (:normal
        (cond ((< 0.0 (decf (catch-timer buoy) dt)))
-             ((< (random 8.0) (tries buoy))
+             (T #++(< (random 8.0) (tries buoy))
               (setf (item buoy) (draw-item (fishing-spot (fishing-line buoy))))
               (setf (catch-timer buoy) 0.0)
               (setf (tries buoy) 0)
@@ -66,14 +67,27 @@
              (item (item buoy)))
          (incf (vy vel) (* 0.1 (signum (- (vy line) (vy (location buoy))))))
          (incf (vx vel) (* 0.01 (signum (- (vx line) (vx (location buoy))))))
-         (let ((player (unit 'player +world+)))
-           (when (< (abs (- (vx (location player)) (vx (location buoy)))) 8)
-             (vsetf vel 0 0)))
+         (cond ((< (abs (- (vx (location (unit 'player +world+))) (vx (location buoy)))) 8)
+                (cond (item
+                       (setf (state buoy) :show)
+                       (status "Caught ~a" (language-string (type-of item))))
+                      (T
+                       (leave* (fishing-line buoy) T))))
+               (item
+                (v<- (location item) (location buoy))
+                (if (v= 0 vel)
+                    (incf (angle item) (* (- (float (* 1.5 PI) 0f0) (angle item)) (* 10 dt)))
+                    (setf (angle item) (float (mod (- (point-angle vel) PI) (* 2 PI)) 0f0)))))))
+      (:show
+       (let* ((player (unit 'player +world+))
+              (hurtbox (hurtbox player))
+              (item (item buoy)))
+         (setf (animation player) 'show)
+         (setf (intended-zoom (unit :camera +world+)) 2.0)
+         (vsetf vel 0 0)
+         (v<- (location buoy) (vxy hurtbox))
          (when item
-           (v<- (location item) (location buoy))
-           (if (v= 0 vel)
-               (incf (angle item) (* (- (float (* 1.5 PI) 0f0) (angle item)) (* 10 dt)))
-               (setf (angle item) (float (mod (- (point-angle vel) PI) (* 2 PI)) 0f0)))))))
+           (v<- (location item) (location buoy))))))
     (typecase (medium buoy)
       (water
        (let ((dist (- (+ (vy (location (medium buoy))) (vy (bsize (medium buoy))))
@@ -117,6 +131,7 @@
     (setf (state buoy) :escaped)
     (setf (tries buoy) 0)
     (setf (item buoy) NIL)
+    (setf (intended-zoom (unit :camera +world+)) 1.0)
     (vsetf (velocity buoy) (* (direction (fishing-spot line)) 8) 4)
     (enter* (buoy line) target)))
 
@@ -158,6 +173,36 @@
         (incf (vx (velocity buoy)) (* 0.01 (deadzone 0.75 (- (vx last) (vx loc)))))
         (incf (vy (velocity buoy)) (* 0.01 (deadzone 0.75 (- (vy last) (vy loc)))))))))
 
+(defmethod handle ((ev cast-line) (player player))
+  (unless (slot-boundp (fishing-line player) 'container)
+    (setf (animation player) 'fishing-start)))
+
+(defmethod handle ((ev reel-in) (player player))
+  (let* ((line (fishing-line player))
+         (buoy (buoy line)))
+    (case (state buoy)
+      (:show
+       (let ((item (item (buoy line))))
+         (when item
+           (leave* item T)
+           (store item player)))
+       (leave* line T))
+      (T
+       (setf (animation player) 'fishing-reel)
+       (when (item buoy)
+         (enter* (item buoy) (region +world+)))
+       (vsetf (velocity buoy)
+              (* (- (vx (location line)) (vx (location buoy))) 0.05)
+              (* (- (vy (location line)) (vy (location buoy))) 0.05))
+       (setf (state buoy) :reeling)))))
+
+(defmethod handle ((ev stop-fishing) (player player))
+  (let ((line (fishing-line player)))
+    (when (slot-boundp line 'container)
+      (leave* line T))
+    (setf (active-p (action-set 'in-game)) T)
+    (setf (state player) :normal)))
+
 (defmethod render ((fishing-line fishing-line) (program shader-program))
   (let ((chain (chain fishing-line)))
     (loop for i from 0 below (1- (length chain))
@@ -169,18 +214,6 @@
                (translate-by (vx p1) (vy p1) 0)
                (rotate-by 0 0 1 (+ angle (/ PI 2)))
                (call-next-method)))))
-
-(defun pull-in (fishing-line)
-  (let* ((buoy (buoy fishing-line)))
-    (case (state buoy)
-      (:reeling)
-      (T
-       (when (item buoy)
-         (enter* (item buoy) (region +world+)))
-       (vsetf (velocity buoy)
-              (* (- (vx (location fishing-line)) (vx (location buoy))) 0.05)
-              (* (- (vy (location fishing-line)) (vy (location buoy))) 0.05))
-       (setf (state buoy) :reeling)))))
 
 (define-class-shader (fishing-line :fragment-shader 1)
   "out vec4 color;

@@ -387,29 +387,14 @@
               (visible (slot-boundp line 'container)))
          (when visible
            (v<- (location line) (hurtbox player))
-           (duck-camera (* (direction player) +tile-size+ 16)
+           (duck-camera (+ 32 (- (vx (location (buoy line))) (vx loc)))
                         (+ 32 (- (vy (location (buoy line))) (vy loc)))))
          (case (name (animation player))
            (fishing-start
             (if (= (frame-idx player) 543)
                 (unless visible
                   (v<- (location line) (hurtbox player))
-                  (enter* line (region +world+))))))
-         (when (or (retained 'left) (retained 'right)
-                   (eql 'stand (name (animation player))))
-           (when visible
-             (leave* line T))
-           (let ((item (item (buoy line))))
-             (when item
-               (when (slot-boundp item 'container)
-                 (leave* item T))
-               (status "Caught ~a" (language-string (type-of item)))
-               (store item player)))
-           (setf (state player) :normal))
-         (when (and (retained 'jump)
-                    (eql 'fishing-loop (name (animation player))))
-           (pull-in line)
-           (setf (animation player) 'fishing-reel))))
+                  (enter* line (region +world+))))))))
       (:animated
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
          (start-animation 'heavy-aerial-3-release player))

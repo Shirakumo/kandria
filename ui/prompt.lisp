@@ -24,7 +24,7 @@
    (alloy:margins 2 0 0 0)
    alloy:text
    :valign :middle
-   :halign :middlea
+   :halign :middle
    :font "PromptFont"
    :size (alloy:un 30)
    :pattern colors:white))

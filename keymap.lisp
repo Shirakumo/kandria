@@ -98,3 +98,15 @@
 (retain down
  (key :one-of (:s :down))
  (axis :one-of (:l-v) :threshold -0.5))
+
+(trigger cast-line
+ (key :one-of (:space :e))
+ (button :one-of (:a)))
+
+(trigger reel-in
+ (key :one-of (:space :e))
+ (button :one-of (:a)))
+
+(trigger stop-fishing
+ (key :one-of (:backspace :enter))
+ (button :one-of (:b)))
