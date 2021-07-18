@@ -9,24 +9,24 @@
          (alloy:point (alloy:pw 1) (alloy:ph 0.5))
          (alloy:point (alloy:pw 0.5) (alloy:ph -0.3)))
    :pattern colors:white)
-  ((:background-shadow simple:ellipse)
-   (alloy:margins -1)
+  ((:background-shadow simple:rectangle)
+   (alloy:margins 0 0 0 -2)
    :pattern colors:white)
   ((:tail simple:polygon)
    (list (alloy:point (alloy:pw 0) (alloy:ph 0.5))
          (alloy:point (alloy:pw 1) (alloy:ph 0.5))
          (alloy:point (alloy:pw 0.5) (alloy:ph -0.2)))
    :pattern (colored:color 0.15 0.15 0.15))
-  ((:background simple:ellipse)
+  ((:background simple:rectangle)
    (alloy:margins 0)
    :pattern colors:black)
   ((:label simple:text)
    (alloy:margins 2 0 0 0)
    alloy:text
    :valign :middle
-   :halign :middle
+   :halign :middlea
    :font "PromptFont"
-   :size (alloy:un 20)
+   :size (alloy:un 30)
    :pattern colors:white))
 
 (presentations:define-update (ui prompt)
@@ -55,7 +55,7 @@
   (if location
       (alloy:with-unit-parent (unit 'ui-pass T)
         (let ((screen-location (world-screen-pos location))
-              (bsize (alloy:to-px (alloy:un 20))))
+              (bsize (alloy:to-px (alloy:un 25))))
           (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) bsize)
                                                        (+ (vy screen-location) bsize)
                                                        (* bsize 2 (length (alloy:value prompt)))
