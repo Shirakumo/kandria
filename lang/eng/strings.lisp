@@ -10,8 +10,21 @@ report-bug "Reporting Bugs"
 report-bug/description "If you encounter a problem, or have feedback to share, please use the feedback form"
 quickmenu "Quick Item Menu"
 quickmenu/description "Use the quick menu to access healing items if your health is getting low"
+interact "Interact"
+interact/description "Interact with the object or person"
+jump "Jump"
+jump/description "Hop or jump"
+dash "Dash"
+dash/description "Perform an air dash
+You will dash in the direction you hold"
+climb "Climb"
+climb/description "Climb vertical walls or ropes
+Climbing walls drains stamina, be careful!"
+crawl "Crawl"
+crawl/description "Crawl to fit through tight spaces"
 save "Saving"
-save/description "Use the phone box outside to save progress (you can also save from the menu while near one)"
+save/description "Use the phone box outside to save progress
+You can also save from the menu while near one"
 attack "Attacking"
 attack/description "Combine light and heavy attacks with different directions for different moves"
 ;; Chunks
