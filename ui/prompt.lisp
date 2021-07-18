@@ -1,27 +1,11 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass prompt (alloy:popup alloy:label*)
-  () (:default-initargs :value ""))
+(defclass prompt-label (alloy:label*)
+  ())
 
-(presentations:define-realization (ui prompt)
-  ((:tail-shadow simple:polygon)
-   (list (alloy:point (alloy:pw 0) (alloy:ph 0.5))
-         (alloy:point (alloy:pw 1) (alloy:ph 0.5))
-         (alloy:point (alloy:pw 0.5) (alloy:ph -0.3)))
-   :pattern colors:white)
-  ((:background-shadow simple:rectangle)
-   (alloy:margins 0 0 0 -2)
-   :pattern colors:white)
-  ((:tail simple:polygon)
-   (list (alloy:point (alloy:pw 0) (alloy:ph 0.5))
-         (alloy:point (alloy:pw 1) (alloy:ph 0.5))
-         (alloy:point (alloy:pw 0.5) (alloy:ph -0.2)))
-   :pattern (colored:color 0.15 0.15 0.15))
-  ((:background simple:rectangle)
-   (alloy:margins 0)
-   :pattern colors:black)
+(presentations:define-realization (ui prompt-label)
   ((:label simple:text)
-   (alloy:margins 2 0 0 0)
+   (alloy:margins)
    alloy:text
    :valign :middle
    :halign :middle
@@ -29,15 +13,56 @@
    :size (alloy:un 30)
    :pattern colors:white))
 
+(presentations:define-update (ui prompt-label)
+  (:label :pattern colors:white))
+
+(defclass prompt-description (alloy:label*)
+  ())
+
+(presentations:define-realization (ui prompt-description)
+  ((:label simple:text)
+   (alloy:margins)
+   alloy:text
+   :valign :middle
+   :halign :middle
+   :font (setting :display :font)
+   :size (alloy:un 15)
+   :pattern colors:white))
+
+(presentations:define-update (ui prompt-description)
+  (:label :pattern colors:white))
+
+(defclass prompt (alloy:popup alloy:horizontal-linear-layout alloy:renderable)
+  ((alloy:cell-margins :initform (alloy:margins))
+   (alloy:min-size :initform (alloy:size))
+   (label :accessor label)
+   (description :accessor description)))
+
+(defmethod initialize-instance :after ((prompt prompt) &key)
+  (let ((label (setf (label prompt) (make-instance 'prompt-label :value "")))
+        (descr (setf (description prompt) (make-instance 'prompt-description :value ""))))
+    (alloy:enter label prompt)
+    (alloy:enter descr prompt)))
+
+(presentations:define-realization (ui prompt)
+  ((:tail-shadow simple:polygon)
+   (list (alloy:point -2 0) (alloy:point 22 0) (alloy:point 10 -12))
+   :pattern colors:white)
+  ((:background-shadow simple:rectangle)
+   (alloy:margins -5 -2 -5 -4)
+   :pattern colors:white)
+  ((:tail simple:polygon)
+   (list (alloy:point 0 0) (alloy:point 20 0) (alloy:point 10 -10))
+   :pattern (colored:color 0.15 0.15 0.15))
+  ((:background simple:rectangle)
+   (alloy:margins -5 -2 -5 -2)
+   :pattern colors:black))
+
 (presentations:define-update (ui prompt)
   (:tail-shadow
-   :points (list (alloy:point (alloy:pw 0) (alloy:ph 0.5))
-                 (alloy:point (alloy:pw 1) (alloy:ph 0.5))
-                 (alloy:point (alloy:pw 0.5) (alloy:ph -0.3))))
+   :points (list (alloy:point -2 0) (alloy:point 22 0) (alloy:point 10 -12)))
   (:tail
-   :points (list (alloy:point (alloy:pw 0) (alloy:ph 0.5))
-                 (alloy:point (alloy:pw 1) (alloy:ph 0.5))
-                 (alloy:point (alloy:pw 0.5) (alloy:ph -0.2))))
+   :points (list (alloy:point 0 0) (alloy:point 20 0) (alloy:point 10 -10)))
   (:label :pattern colors:white))
 
 (defun coerce-button-string (button &optional input)
@@ -49,21 +74,20 @@
       (symbol (string (prompt-char button :bank input)))
       (list (map 'string (lambda (c) (prompt-char c :bank input)) button)))))
 
-(defmethod show ((prompt prompt) &key button input location)
+(defmethod show ((prompt prompt) &key button input location description)
   (when button
-    (setf (alloy:value prompt) (coerce-button-string button input)))
-  (if location
-      (alloy:with-unit-parent (unit 'ui-pass T)
-        (let* ((screen-location (world-screen-pos location))
-               (bsize (alloy:to-px (alloy:un 25)))
-               (width (* bsize 2 (length (alloy:value prompt)))))
-          (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) (/ width 2))
-                                                       (+ (vy screen-location) bsize)
-                                                       width
-                                                       (* bsize 2)))))
-      (setf (alloy:bounds prompt) (alloy:extent 16 16 16 16)))
+    (setf (alloy:value (label prompt)) (coerce-button-string button input)))
+  (setf (alloy:value (description prompt)) (or description ""))
   (unless (slot-boundp prompt 'alloy:layout-parent)
-    (alloy:enter prompt (unit 'ui-pass T))))
+    (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
+  (alloy:mark-for-render prompt)
+  (alloy:with-unit-parent prompt
+    (let* ((screen-location (world-screen-pos location))
+           (size (alloy:suggest-bounds (alloy:px-extent 0 0 16 16) prompt)))
+      (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) (alloy:to-px (alloy:un 10)))
+                                                   (+ (vy screen-location) (alloy:pxh size))
+                                                   (max 1 (alloy:pxw size))
+                                                   (max 1 (alloy:pxh size)))))))
 
 (defmethod hide ((prompt prompt))
   (when (slot-boundp prompt 'alloy:layout-parent)

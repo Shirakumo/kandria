@@ -50,6 +50,9 @@
    (velocity :initform (vec 0 0))
    (light :initform NIL :accessor light)))
 
+(defmethod description ((item item))
+  (language-string 'item))
+
 (defmethod kill ((item item))
   (leave* item T))
 

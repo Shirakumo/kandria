@@ -11,6 +11,9 @@
   (print-unreadable-object (npc stream :type T)
     (format stream "~s ~s" (state npc) (ai-state npc))))
 
+(defmethod description ((npc npc))
+  (language-string 'npc))
+
 (defmethod movement-speed ((npc npc))
   (case (state npc)
     (:crawling (p! crawl))

@@ -4,6 +4,9 @@
   ((direction :initarg :direction :initform +1 :accessor direction
               :type integer)))
 
+(defmethod description ((spot fishing-spot))
+  (language-string 'fishing-spot))
+
 (defmethod interactable-p ((spot fishing-spot))
   (let ((player (unit 'player +world+)))
     (and (svref (collisions player) 2)

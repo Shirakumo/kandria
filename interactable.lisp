@@ -8,6 +8,7 @@
 (defgeneric interact (with from))
 (defgeneric interactable-p (entity))
 
+(defmethod description ((interactable interactable)) "")
 (defmethod interactable-p ((entity entity)) NIL)
 (defmethod interactable-p ((block block)) NIL)
 
@@ -51,6 +52,9 @@
    (primary :initform T :initarg :primary :accessor primary)
    (facing-towards-screen-p :initform T :initarg :facing-towards-screen-p :accessor facing-towards-screen-p :type boolean))
   (:default-initargs :sprite-data (asset 'kandria 'debug-door)))
+
+(defmethod description ((door door))
+  (language-string 'door))
 
 (defmethod interactable-p ((door door)) T)
 

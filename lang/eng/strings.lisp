@@ -27,6 +27,14 @@ save/description "Use the phone box outside to save progress
 You can also save from the menu while near one"
 attack "Attacking"
 attack/description "Combine light and heavy attacks with different directions for different moves"
+cast-line "Cast line"
+reel-in "Reel in"
+stop-fishing "Stop"
+;; Intearctions
+door "Enter"
+fishing-spot "Fish"
+npc "Talk"
+item "Pick up"
 ;; Chunks
 chunk-2129 "Engineering"
 chunk-1893 "Storage"

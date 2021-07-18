@@ -362,7 +362,10 @@
              (eql :normal (state player)))
         (let ((loc (vec (vx (location (interactable player)))
                         (+ (vy loc) (vy (bsize player))))))
-          (show (prompt player) :button (action (interactable player)) :location loc))
+          (show (prompt player)
+                :button (action (interactable player))
+                :location loc
+                :description (description (interactable player))))
         (when (slot-boundp (prompt player) 'alloy:layout-parent)
           (hide (prompt player))))
     ;; Handle states.
