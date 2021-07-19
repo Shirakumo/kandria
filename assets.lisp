@@ -1,21 +1,31 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defmacro define-pixel (name &body args)
-  `(define-asset (kandria ,name) image
-       ,(make-pathname :name (string-downcase name) :type "png")
-     :min-filter :nearest
-     :mag-filter :nearest
-     ,@args))
+(defun pathname-asset-name (path &key ignore-directory)
+  (flet ((rep (regex replace source)
+           (cl-ppcre:regex-replace-all regex source replace)))
+    (let ((name (rep "-+" "-" (rep "[ _.]" "-" (pathname-name path))))
+          (dirs (unless ignore-directory (rest (pathname-directory path)))))
+      (format NIL "~:@(~{~a/~}~a~)" dirs name))))
 
-(defmacro define-sprite (name &body args)
-  `(define-asset (kandria ,name) sprite-data
-       ,(make-pathname :name (string-downcase name) :type "lisp")
-     ,@args))
+(defun auto-generate-assets (pool type pathname &key attributes ignore-directory debug)
+  (let ((base (pool-path pool #p""))
+        (default-options (rest (find T attributes :key #'first))))
+    (loop for path in (directory (pool-path pool pathname))
+          collect (let* ((path (enough-namestring path base))
+                         (name (intern (pathname-asset-name path :ignore-directory ignore-directory) #.*package*))
+                         (options (append (rest (find name attributes :key #'first)) default-options)))
+                    (if debug
+                        (print `(define-asset (,pool ,name) ,type
+                                    ,(pathname path)
+                                  ,@options))
+                        (ensure-instance (asset pool name NIL) type
+                                         :input (pathname path)
+                                         :name name
+                                         :pool pool
+                                         :generation-arguments options))))))
 
-(defmacro define-tileset (name &body args)
-  `(define-asset (kandria ,name) tile-data
-       ,(make-pathname :name (string-downcase name) :type "lisp")
-     ,@args))
+(defmacro define-assets-from-path ((pool type pathname &rest args) &body attributes)
+  `(auto-generate-assets ',pool ',type ,pathname :attributes ',attributes ,@args))
 
 (defmacro define-sound (name &body args)
   `(define-asset (sound ,name) sound
@@ -23,37 +33,16 @@
      ,@args))
 
 (defmacro define-bg (name &body args)
-  (let ((wrapping (getf args :wrapping))
+  (let ((wrapping (getf args :wrapping ''(:repeat :clamp-to-edge :clamp-to-edge)))
         (args (remf* args :wrapping))
         (texture (intern (format NIL "~a-BG" (string name)))))
     `(progn
-       (define-pixel ,texture :wrapping ,wrapping)
+       (define-asset (kandria ,texture) image
+           ,(make-pathname :name (string-downcase name) :type "png" :directory `(:relative "background"))
+         :wrapping ,wrapping)
        (define-background ,name
          :texture (// 'kandria ',texture)
          ,@args))))
-
-(define-asset (kandria noise) image
-    #p"noise.png"
-  :wrapping :repeat)
-
-(define-asset (kandria noise-cloud) image
-    #p"noise-cloud.png"
-  :wrapping :repeat)
-
-(define-asset (kandria shockwave) image
-    #p"shockwave-2.png")
-
-(define-asset (kandria dashwave) image
-    #p"dash.png")
-
-(define-asset (kandria heatwave) image
-    #p"heatwave.png"
-  :wrapping :repeat)
-
-(define-asset (kandria scanline) image
-  #p"scanline.png"
-  :wrapping :clamp-to-edge)
-
 
 (define-asset (music region1) environment
     '((:normal "region1 medium.oga")
@@ -61,78 +50,76 @@
       (:quiet "region1 quiet.oga" "region1 quiet vocal.oga")
       (:ambient "region1 ambient.oga" "region1 ambient vocal.oga")))
 
-(define-pixel lights)
-(define-pixel particles)
-(define-pixel items)
-(define-pixel fish)
-(define-pixel pixelfont)
-(define-pixel ball)
-(define-pixel grass)
-(define-pixel logos)
-(define-pixel elevator)
-(define-pixel player-palette)
-(define-pixel zombie-palette)
-(define-pixel wolf-palette)
-(define-pixel block-transition
-  :wrapping :repeat)
-(define-pixel plain-transition
-  :wrapping :repeat)
-(define-pixel grave-light)
-(define-pixel falling-platform)
+(define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T))
 
-(define-sprite box)
-(define-sprite player)
-(define-sprite fi)
-(define-sprite catherine)
-(define-sprite jack)
-(define-sprite sahil)
-(define-sprite wolf)
-(define-sprite zombie)
-(define-sprite ruddydrone)
-(define-sprite dummy)
-(define-sprite player-profile)
-(define-sprite fi-profile)
-(define-sprite catherine-profile)
-(define-sprite jack-profile)
-(define-sprite sahil-profile)
-(define-sprite balloon)
-(define-sprite debug-door)
-(define-sprite electronic-door)
-(define-sprite passage)
-(define-sprite effects)
-(define-sprite telephone)
-(define-sprite critter-rat)
-(define-sprite critter-bat)
-(define-sprite critter-mole)
-(define-sprite critter-red-bird)
-(define-sprite critter-white-bird)
-(define-sprite broken-pipe)
-(define-sprite sawblade)
+(define-assets-from-path (kandria tile-data "tileset/*.lisp" :ignore-directory T))
 
-(define-tileset tundra)
-(define-tileset debug)
-(define-tileset camp)
-(define-tileset region1)
+(define-assets-from-path (kandria image "texture/*.png" :ignore-directory T)
+  (T :min-filter :nearest :mag-filter :nearest)
+  (noise :wrapping :repeat :min-filter :linear :mag-filter :linear)
+  (noise-cloud :wrapping :repeat :min-filter :linear :mag-filter :linear)
+  (shockwave :min-filter :linear :mag-filter :linear)
+  (dashwave :min-filter :linear :mag-filter :linear)
+  (heatwave :wrapping :repeat :min-filter :linear :mag-filter :linear)
+  (scanline :min-filter :linear :mag-filter :linear)
+  (block-transition :wrapping :repeat)
+  (plain-transition :wrapping :repeat))
 
-(define-sound dash :volume 0.1)
-(define-sound dialogue-advance :volume 0.1)
-(define-sound dialogue-scroll :volume 0.2 :repeat T)
-(define-sound die-zombie :volume 0.1)
-(define-sound die-box :volume 0.05)
-(define-sound die-player :volume 0.1)
-(define-sound earthquake :volume 0.5)
-(define-sound enter-water :volume 0.1)
-(define-sound hit-zombie :volume 0.1)
-(define-sound hit-box :volume 0.1)
-(define-sound hit-ground :volume 0.1)
-(define-sound jump :volume 0.025)
-(define-sound land-normal :volume 0.05)
-(define-sound notice-zombie :volume 0.05)
-(define-sound rope-extend :volume 0.1)
-(define-sound sandstorm :volume 0.5 :repeat T)
-(define-sound slash :volume 0.05)
-(define-sound slide :volume 0.075 :repeat T)
-(define-sound step-dirt :volume 0.025 :effects '((mixed:pitch :name pitch :wet 0.1)))
+(define-assets-from-path (sound sound "**/*.wav")
+  (T :volume 0.1)
+  (dialogue-scroll :repeat T :volume 0.2)
+  (die-box :volume 0.05)
+  (earthquake :volume 0.5)
+  (jump :volume 0.025)
+  (land-normal :volume 0.05)
+  (notice-zombie :volume 0.05)
+  (sandstorm :volume 0.5 :repeat T)
+  (slash :volume 0.05)
+  (slide :volume 0.075 :repeat T)
+  (step-dirt :volume 0.025 :effects ((mixed:pitch :name pitch :wet 0.1))))
+
+(define-bg tundra
+  :parallax (vec 2.0 1.0)
+  :scaling (vec 1.5 1.5)
+  :offset (vec 0.0 0.0))
+
+(define-bg desert
+  :parallax (vec 2.0 5.0)
+  :scaling (vec 1.5 1.5)
+  :offset (vec 0.0 2000.0))
+
+(define-bg debug
+  :parallax (vec 2.0 1.0)
+  :scaling (vec 1.5 1.5)
+  :offset (vec 0.0 -2000.0))
+
+(define-bg black
+  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge))
+
+(define-bg caves
+  :wrapping '(:repeat :repeat :clamp-to-edge)
+  :parallax (vec 2.0 1.0)
+  :scaling (vec 1.5 1.5)
+  :offset (vec 0.0 100.0))
+
+(define-bg editor
+  :wrapping '(:repeat :repeat :repeat)
+  :parallax (vec 1.0 1.0)
+  :scaling (vec 0.5 0.5)
+  :offset (vec 0 0))
+
+(define-bg hub
+  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge)
+  :offset (vec -800 4220)
+  :parallax (vec 1.0 1.0)
+  :lighting-strength 0.75)
+
+(define-bg grave
+  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge)
+  :offset (vec 6120 3108)
+  :parallax (vec 1.0 1.0)
+  :scaling (vec 2.0 2.0)
+  :lighting-strength 0.75)
 
 (define-gi none
   :location NIL
@@ -205,49 +192,3 @@
   :light (vec 1.5 1 0.5)
   :ambient-multiplier 0.2
   :ambient (vec 0.5 0.4 0.4))
-
-(define-bg tundra
-  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
-  :parallax (vec 2.0 1.0)
-  :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 0.0))
-
-(define-bg desert
-  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
-  :parallax (vec 2.0 5.0)
-  :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 2000.0))
-
-(define-bg debug
-  :wrapping '(:repeat :clamp-to-edge :clamp-to-edge)
-  :parallax (vec 2.0 1.0)
-  :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 -2000.0))
-
-(define-bg black
-  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge))
-
-(define-bg caves
-  :wrapping '(:repeat :repeat :clamp-to-edge)
-  :parallax (vec 2.0 1.0)
-  :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 100.0))
-
-(define-bg editor
-  :wrapping '(:repeat :repeat :repeat)
-  :parallax (vec 1.0 1.0)
-  :scaling (vec 0.5 0.5)
-  :offset (vec 0 0))
-
-(define-bg hub
-  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge)
-  :offset (vec -800 4220)
-  :parallax (vec 1.0 1.0)
-  :lighting-strength 0.75)
-
-(define-bg grave
-  :wrapping '(:clamp-to-edge :clamp-to-edge :clamp-to-edge)
-  :offset (vec 6120 3108)
-  :parallax (vec 1.0 1.0)
-  :scaling (vec 2.0 2.0)
-  :lighting-strength 0.75)
