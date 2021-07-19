@@ -1,32 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defun pathname-asset-name (path &key ignore-directory)
-  (flet ((rep (regex replace source)
-           (cl-ppcre:regex-replace-all regex source replace)))
-    (let ((name (rep "-+" "-" (rep "[ _.]" "-" (pathname-name path))))
-          (dirs (unless ignore-directory (rest (pathname-directory path)))))
-      (format NIL "~:@(~{~a/~}~a~)" dirs name))))
-
-(defun auto-generate-assets (pool type pathname &key attributes ignore-directory debug)
-  (let ((base (pool-path pool #p""))
-        (default-options (rest (find T attributes :key #'first))))
-    (loop for path in (directory (pool-path pool pathname))
-          collect (let* ((path (enough-namestring path base))
-                         (name (intern (pathname-asset-name path :ignore-directory ignore-directory) #.*package*))
-                         (options (append (rest (find name attributes :key #'first)) default-options)))
-                    (if debug
-                        (print `(define-asset (,pool ,name) ,type
-                                    ,(pathname path)
-                                  ,@options))
-                        (ensure-instance (asset pool name NIL) type
-                                         :input (pathname path)
-                                         :name name
-                                         :pool pool
-                                         :generation-arguments options))))))
-
-(defmacro define-assets-from-path ((pool type pathname &rest args) &body attributes)
-  `(auto-generate-assets ',pool ',type ,pathname :attributes ',attributes ,@args))
-
 (defmacro define-sound (name &body args)
   `(define-asset (sound ,name) sound
        ,(make-pathname :name (string-downcase name) :type "wav")
