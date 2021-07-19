@@ -198,7 +198,10 @@
       (setf (panels ui) (remove panel (panels ui))))
     (setf (active-p panel) NIL)
     (let ((panel (first (panels ui))))
-      (when panel (setf (active-p panel) T)))
+      (when panel
+        (when (alloy:focus-element panel)
+          (setf (alloy:focus (alloy:focus-element panel)) :strong))
+        (setf (active-p panel) T)))
     panel))
 
 (defclass fullscreen-panel (panel)
