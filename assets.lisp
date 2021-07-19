@@ -12,7 +12,9 @@
     `(progn
        (define-asset (kandria ,texture) image
            ,(make-pathname :name (string-downcase name) :type "png" :directory `(:relative "background"))
-         :wrapping ,wrapping)
+         :wrapping ,wrapping
+         :min-filter :nearest
+         :mag-filter :nearest)
        (define-background ,name
          :texture (// 'kandria ',texture)
          ,@args))))
