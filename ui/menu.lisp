@@ -6,7 +6,7 @@
 (presentations:define-realization (ui menu-layout)
   ((:bg simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0.1 0.1 0.1)))
+   :pattern (colored:color 0.15 0.15 0.15 0.5)))
 
 (defclass vertical-tab-bar (alloy:vertical-linear-layout alloy:focus-list alloy:observable alloy:renderable)
   ((alloy:min-size :initform (alloy:size 250 50))
@@ -23,7 +23,10 @@
 (presentations:define-realization (ui vertical-tab-bar)
   ((:bg simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0.15 0.15 0.15)))
+   :pattern (colored:color 0 0 0 0.2))
+  ((:bord simple:rectangle)
+   (alloy:extent (alloy:pw 1) (alloy:ph 0.01) 1 (alloy:ph 0.98))
+   :pattern colors:white))
 
 (defclass tab-view (alloy:structure)
   ())
@@ -204,6 +207,19 @@
 (presentations:define-update (ui input-label)
   (:label :size (alloy:un 30) :halign :middle :valign :middle))
 
+(defclass status-text (label)
+  ())
+
+(presentations:define-realization (ui status-text)
+  ((:label simple:text)
+   (alloy:margins 0)
+   alloy:text
+   :font "NotoSansMono"
+   :wrap T
+   :size (alloy:un 30)
+   :halign :start
+   :valign :top))
+
 (defclass menu (pausing-panel menuing-panel)
   ((status-display :initform NIL :accessor status-display)))
 
@@ -248,7 +264,7 @@
       (with-tab ((@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         (let ((resume (with-button resume-game (hide panel)))
               ;; FIXME: Need monospace font.
-              (status (make-instance 'label :value (overview-text) :style `((:label :valign :top :size ,(alloy:un 15))))))
+              (status (make-instance 'status-text :value (overview-text))))
           (setf (status-display panel) status)
           (alloy:enter status layout :constraints `((:margin 10)))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))

@@ -44,8 +44,6 @@
     (alloy:enter label prompt)
     (alloy:enter descr prompt)))
 
-(defmethod alloy:enter ((prompt prompt) (focus alloy:focus-element) &key))
-
 (presentations:define-realization (ui prompt)
   ((:tail-shadow simple:polygon)
    (list (alloy:point -2 0) (alloy:point 22 0) (alloy:point 10 -12))
