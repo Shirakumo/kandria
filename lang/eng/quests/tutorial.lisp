@@ -29,7 +29,7 @@
   (:go-to (jump-start :lead catherine)
   ;; acknowledgement that the android's brain, memory, and faculties might not all be present and correct
    "~ catherine
-| My name's Catherine. You can follow me, it's alright.
+| My name's \"Catherine\"(dark-blue). You can follow me, it's alright.
   ")   
   (:go-to (climb-start :lead catherine)
   "~ catherine
@@ -50,11 +50,11 @@
            (stop 'player))
   (:go-to (dash-end)
   "~ catherine
-| Shit!... (:disappointed)Umm, now what?...
+| <-Shit!->... (:disappointed)Umm, now what?...
   ")
   (:go-to (platform-start :lead catherine)
   "~ catherine
-| (:cheer)That was AMAZING!!
+| (:cheer)That was __**AMAZING**!!__
   ")  
   (:go-to (platform-end :lead catherine)
   "~ catherine
@@ -66,7 +66,7 @@
   ;; REMARK: ^ Does \[Lie\] not work?
   (:interact (catherine :now T)
    "~ catherine
-| (:cheer)Tada! Here we are!
+| (:cheer)__Tada!__ Here we are!
 | What do you think...?
 ~ player
 - It's a ruined city.
