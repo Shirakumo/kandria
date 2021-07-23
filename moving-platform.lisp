@@ -10,9 +10,18 @@
 (define-shader-entity falling-platform (lit-sprite moving-platform)
   ((fall-timer :initform 0.75 :accessor fall-timer)))
 
+(defmethod stage :after ((platform falling-platform) (area staging-area))
+  (stage (// 'sound 'falling-platform-impact) area)
+  (stage (// 'sound 'falling-platform-rattle) area))
+
 (defmethod (setf location) :after (location (platform falling-platform))
   (setf (state platform) :normal)
-  (setf (fall-timer platform) 0.5))
+  (setf (fall-timer platform) 0.75))
+
+(defmethod (setf state) :after (state (platform falling-platform))
+  (case state
+    (:falling (harmony:play (// 'sound 'falling-platform-rattle)))
+    (:blocked (harmony:play (// 'sound 'falling-platform-impact)))))
 
 (defmethod handle ((ev tick) (platform falling-platform))
   (ecase (state platform)

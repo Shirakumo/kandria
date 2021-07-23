@@ -77,14 +77,16 @@
   (not (eql (state box) :dying)))
 
 (defmethod stage :after ((box box) (area staging-area))
-  (dolist (asset '(hit-box die-box))
+  (dolist (asset '(box-hit-1 box-hit-2 box-hit-3 box-break))
     (stage (// 'sound asset) area)))
 
 (defmethod hurt :after ((box box) (by integer))
-  (harmony:play (// 'sound 'hit-box)))
+  (harmony:play (alexandria:random-elt (// 'sound 'box-hit-1)
+                                       (// 'sound 'box-hit-2)
+                                       (// 'sound 'box-hit-3))))
 
 (defmethod kill :after ((box box))
-  (harmony:play (// 'sound 'die-box)))
+  (harmony:play (// 'sound 'box-break)))
 
 (define-shader-entity ground-enemy (enemy)
   ())

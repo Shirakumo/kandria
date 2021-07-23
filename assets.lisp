@@ -1,10 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defmacro define-sound (name &body args)
-  `(define-asset (sound ,name) sound
-       ,(make-pathname :name (string-downcase name) :type "wav")
-     ,@args))
-
 (defmacro define-bg (name &body args)
   (let ((wrapping (getf args :wrapping ''(:repeat :clamp-to-edge :clamp-to-edge)))
         (args (remf* args :wrapping))
@@ -51,7 +46,9 @@
   (sandstorm :volume 0.5 :repeat T)
   (slash :volume 0.05)
   (slide :volume 0.075 :repeat T)
-  (step-dirt :volume 0.025 :effects ((mixed:pitch :name pitch :wet 0.1))))
+  (telephone-save :volume 0.5)
+  (falling-platform-rattle :volume 0.5)
+  (falling-platform-impact :volume 0.5))
 
 (define-bg tundra
   :parallax (vec 2.0 1.0)

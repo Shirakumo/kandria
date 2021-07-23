@@ -156,12 +156,7 @@ void main(){
    (layer-index :initform 1)))
 
 (defmethod trigger :after ((effect step-effect) source &key)
-  (harmony:play (voice effect) :reset T)
-  (let ((pitcher (harmony:segment 'pitch (voice effect) NIL)))
-    (when pitcher
-      ;; FIXME: This causes really bad distortion of the step sound. Possibly the pitch segment
-      ;;        is not configured to be high-quality enough?
-      (setf (mixed:pitch pitcher) (+ 0.75 (random 0.5))))))
+  (harmony:play (voice effect) :reset T))
 
 (define-shader-entity dash-effect (displacement-effect rotated-entity sprite-effect sound-effect)
   ((offset :initform (vec 0 8))
@@ -185,7 +180,9 @@ void main(){
   :animation 'wall-slide)
 
 (define-effect step step-effect
-  :voice (// 'sound 'step-dirt)
+  :voice (list (// 'sound 'step-dirt-1)
+               (// 'sound 'step-dirt-2)
+               (// 'sound 'step-dirt-3))
   :animation 'step)
 
 (define-effect jump step-effect

@@ -181,7 +181,7 @@
                (when (<= (iframes entity) 0)
                  (hit entity (intersection-point (vxy hurtbox) (vzw hurtbox) (location entity) (bsize entity)))
                  (setf (direction entity) (float-sign (- (vx (location animatable))
-                                                         (vx (location entity))$)))
+                                                         (vx (location entity)))))
                  (when (hurt entity animatable)
                    (when (interruptable-p (frame entity))
                      (cond ((<= (stun-time entity) 0)

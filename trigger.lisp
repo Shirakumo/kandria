@@ -148,7 +148,7 @@
    (clock :initform 0.0 :accessor clock)))
 
 (defmethod stage :after ((trigger earthquake-trigger) (area staging-area))
-  (stage (// 'sound 'earthquake) area))
+  (stage (// 'sound 'ambience-earthquake) area))
 
 (defmethod interact ((trigger earthquake-trigger) (player player))
   (decf (clock trigger) 0.01)
@@ -163,7 +163,7 @@
                                           (expt 3 hmax))))))
              (shake-camera :duration 7.0 :intensity intensity :rumble-intensity 0.1)))
           ((<= (clock trigger) 0.0)
-           (harmony:play (// 'sound 'earthquake))))))
+           (harmony:play (// 'sound 'ambience-earthquake))))))
 ;; TODO: make dust fall down over screen.
 
 (defclass action-prompt (trigger listener)

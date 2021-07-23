@@ -48,12 +48,26 @@
   ((acceleration :initform (vec (random* 3.0 0.7) (random* 1.5 0.2))))
   (:default-initargs :sprite-data (asset 'kandria 'critter-white-bird)))
 
+(defmethod stage :after ((bird white-bird) (area staging-area))
+  (dolist (sound '(ambience-birds-fluttering ambience-birds-chirp-1))
+    (stage (// 'sound sound) area)))
+
+(defmethod (setf state) :after (state (subject white-bird))
+  (harmony:play (// 'sound 'ambience-birds-fluttering)))
+
 (defmethod apply-transforms progn ((subject white-bird))
   (translate-by 0 -9 0))
 
 (define-shader-entity red-bird (critter)
   ((acceleration :initform (vec (random* 2.0 0.5) (random* 2.5 0.5))))
   (:default-initargs :sprite-data (asset 'kandria 'critter-red-bird)))
+
+(defmethod stage :after ((bird red-bird) (area staging-area))
+  (dolist (sound '(ambience-birds-fluttering ambience-birds-chirp-2))
+    (stage (// 'sound sound) area)))
+
+(defmethod (setf state) :after (state (subject red-bird))
+  (harmony:play (// 'sound 'ambience-birds-fluttering)))
 
 (defmethod apply-transforms progn ((subject red-bird))
   (translate-by 0 -9 0))

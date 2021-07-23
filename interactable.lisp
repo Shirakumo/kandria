@@ -89,6 +89,10 @@
    (unlocked-p :initarg :unlocked-p :initform NIL :accessor unlocked-p :type boolean))
   (:default-initargs :sprite-data (asset 'kandria 'electronic-door)))
 
+(defmethod stage :after ((door locked-door) (area staging-area))
+  (dolist (sound '(door-access-denied door-unlock door-open-sliding-inside door-shut-sliding-inside))
+    (stage (// 'sound sound) area)))
+
 (defmethod initargs append ((door locked-door)) '(:key :unlocked-p))
 
 (defmethod interactable-p ((door locked-door)) T)
@@ -103,15 +107,24 @@
 
 (defmethod interact ((door locked-door) (player player))
   (cond ((unlocked-p door)
+         (harmony:play (// 'sound 'door-open-sliding-inside))
          (call-next-method))
         ((have (key door) player)
-         (setf (unlocked-p door) T))
+         (setf (unlocked-p door) T)
+         (harmony:play (// 'sound 'door-unlock)))
         (T
+         (harmony:play (// 'sound 'door-access-denied))
          (setf (animation door) 'denied))))
 
 (define-shader-entity save-point (lit-animated-sprite interactable ephemeral)
   ((bsize :initform (vec 8 18)))
   (:default-initargs :sprite-data (asset 'kandria 'telephone)))
+
+(defmethod stage :after ((point save-point) (area staging-area))
+  (stage (// 'sound 'telephone-save) area))
+
+(defmethod interact :after ((save-point save-point) thing)
+  (harmony:play (// 'sound 'telephone-save)))
 
 (defmethod (setf animations) :after (animations (save-point save-point))
   (setf (next-animation (find 'call (animations save-point) :key #'name)) 'normal))

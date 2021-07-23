@@ -38,6 +38,10 @@
 
 (defmethod catch-timer ((item item)) 1.0)
 
+(defmethod (setf medium) :before ((water water) (buoy fishing-buoy))
+  (unless (eq water (medium buoy))
+    (harmony:play (// 'sound 'fishing-bob-lands-in-water))))
+
 (defmethod handle :before ((ev tick) (buoy fishing-buoy))
   (let ((vel (velocity buoy))
         (dt (dt ev)))
@@ -46,6 +50,7 @@
        (cond ((< 0.0 (decf (catch-timer buoy) dt)))
              ((< (random 8.0) (tries buoy))
               (when (setf (item buoy) (draw-item (fishing-spot (fishing-line buoy))))
+                (harmony:play (// 'sound 'fishing-fish-bite))
                 (setf (catch-timer buoy) 0.0)
                 (setf (tries buoy) 0)
                 (setf (state buoy) :caught)
@@ -53,6 +58,7 @@
                 (rumble :intensity 1.0)
                 (incf (vy vel) -3)))
              (T
+              (harmony:play (// 'sound 'fishing-fish-nibble))
               (rumble :intensity 0.2)
               (incf (vy vel) -0.5)
               (incf (tries buoy))
@@ -61,9 +67,9 @@
        (cond ((null (item buoy))
               (setf (state buoy) :normal))
              ((< (catch-timer (item buoy)) (incf (catch-timer buoy) dt))
-               (setf (catch-timer buoy) 5.0)
-               (setf (item buoy) NIL)
-               (setf (state buoy) :escaped))))
+              (setf (catch-timer buoy) 5.0)
+              (setf (item buoy) NIL)
+              (setf (state buoy) :escaped))))
       (:escaped
        (when (<= (decf (catch-timer buoy) dt) 0.0)
          (setf (state buoy) :normal)))
@@ -123,6 +129,8 @@
 (defmethod layer-index ((fishing-line fishing-line)) +base-layer+)
 
 (defmethod stage ((line fishing-line) (area staging-area))
+  (dolist (sound '(fishing-bob-lands-in-water fishing-fish-bite fishing-fish-nibble))
+    (stage (// 'sound sound) area))
   (stage (buoy line) area)
   (stage (// 'kandria 'fish) area))
 
