@@ -4,11 +4,11 @@
 (quest:define-quest (kandria q2-seeds)
   :author "Tim White"
   :title "Retrieve the Seeds"
-  :description "The settlement are low on food, and need me to retrieve the last of the seeds from the cache they discovered. It's buried beneath the Ruins to the east."
+  :description "The settlement are low on food, and need me to retrieve the last of the seeds from the cache they discovered."
   :on-activate (find-seeds)
 
   (find-seeds
-   :title "Find the seed cache"
+   :title "Find the seed cache across the surface and beneath the Ruins to the east."
    :description NIL
    :invariant T
    :condition (have 'item:seeds 20)
@@ -65,7 +65,7 @@
   |#
 
   (return-seeds
-   :title "Return to Fi"
+   :title "Return to Fi on the Farm"
    :condition all-complete
    :on-activate T
 

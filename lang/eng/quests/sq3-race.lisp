@@ -9,7 +9,7 @@
   :description "Catherine wants to see what I'm capable of. She's had Alex plant cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get."
   :on-activate (race-hub)
   (race-hub
-   :title "Talk to Catherine to start a race"
+   :title "Talk to Catherine in Engineering to start a race"
    :on-activate T
    (:interaction start-race
     :title "I want to race."
@@ -147,7 +147,7 @@
 | //This is the right place - the can must be close by.//
 "))
        (quest:define-task (kandria sq3-race ,name)
-         :title "Return the can to Catherine ASAP"
+         :title "Return the can to Catherine in Engineering ASAP"
          :on-activate T
          :condition all-complete
          :on-complete (race-hub)

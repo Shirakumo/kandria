@@ -4,10 +4,10 @@
 (quest:define-quest (kandria trader-arrive)
   :author "Tim White"
   :title "Find the Trader"
-  :description "Sahil the trader has arrived in the Midwest Market, beneath the Hub. I should speak with him."
+  :description "Sahil the trader has arrived. I should speak with him."
   :on-activate (talk-trader)
   (talk-trader
-   :title "Talk to Sahil"
+   :title "Talk to Sahil in the Midwest Market, beneath the Zenith Hub"
    :condition all-complete
    :on-activate (spawn-in talk-to-trader)
    :on-complete (trader-repeat)

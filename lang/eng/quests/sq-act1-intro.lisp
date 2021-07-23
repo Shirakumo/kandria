@@ -7,7 +7,7 @@
   :description "I should catch up with Catherine, see if she needs anything doing."
   :on-activate T
   (sq-act1-catherine
-   :title "Talk to Catherine"
+   :title "Talk to Catherine in Engineering"
    :on-activate T
    (:interaction talk-catherine
     :title "Hi Catherine."

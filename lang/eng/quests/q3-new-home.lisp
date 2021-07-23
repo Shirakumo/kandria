@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q3-new-home)
   :author "Tim White"
   :title "Find a New Home"
-  :description "I need to find a new home for the settlement, in the Ruins to the east. My FFCS indicates four candidate locations."
+  :description "I need to find a new home for the settlement, across the surface and beneath the Ruins to the east. My FFCS indicates four candidate locations."
   :on-activate (find-home-first find-home-second find-home-third find-home-fourth task-q3-reminder)
 
   (task-q3-reminder
@@ -102,7 +102,7 @@
 "))
 
   (return-new-home
-   :title "Return to Jack"
+   :title "Return to Jack in Engineering"
    :condition all-complete
    :on-activate T
    ;; enemies on this quest will be world NPCs, not spawned for the quest

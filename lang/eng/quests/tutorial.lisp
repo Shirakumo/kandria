@@ -29,7 +29,7 @@
   (:go-to (jump-start :lead catherine)
   ;; acknowledgement that the android's brain, memory, and faculties might not all be present and correct
    "~ catherine
-| My name's \"Catherine\"(blue). You can follow me, it's alright.
+| My name's \"Catherine\"(yellow). You can follow me, it's alright.
   ")   
   (:go-to (climb-start :lead catherine)
   "~ catherine
@@ -58,7 +58,7 @@
   ")  
   (:go-to (platform-end :lead catherine)
   "~ catherine
-| We're almost home - it's just up here.
+| We're almost \"home\"(red) - it's just up here.
   ")
   (:go-to (tutorial-end :lead catherine))
     ;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?

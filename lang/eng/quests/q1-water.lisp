@@ -6,7 +6,7 @@
   :title "Fix the Water Supply"
   :description "The settlement are on the brink of starvation, and will lose their crop if the water supply isn't restored."
   (:go-to (main-leak-1 :lead catherine)
-   :title "Follow Catherine below ground using the ladder in Engineering, then follow the pipeline")
+   :title "Follow Catherine below ground using the ladder in Engineering, then follow the red pipeline")
   (:interact (catherine :now T)   
   "~ catherine
 | Alright, here's a leak.
@@ -81,7 +81,7 @@
   ;; TODO catherine giggle - What's right with it?
 
   (:go-to (main-leak-2 :lead catherine)
-   :title "Follow Catherine further below ground, staying close to the pipeline"
+   :title "Follow Catherine further below ground, staying close to the red pipeline"
    "~ catherine
 | (:excited)Catch me if you can!
   ")
