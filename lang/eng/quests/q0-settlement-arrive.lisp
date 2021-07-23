@@ -36,24 +36,24 @@
 ~ player
 - Is something wrong?
   ~ catherine
-  | (:concerned)Well, I just reactivated an android. I thought they'd all be here to see you.
+  | (:concerned)Well, I just reactivated an \"android\"(red). I thought they'd all be here to see you.
 - What were you expecting?
   ~ catherine
   | (:concerned)I don't know...
-  | Though I just reactivated an android. I guess I thought everyone would be here to see you.
+  | Though I just reactivated an \"android\"(red). I guess I thought everyone would be here to see you.
 - Is it me?
   ~ catherine
   | (:concerned)You?... No of course not.
-  | Well... I mean, (:excited)I think you're amazing - a working android from the old world!
+  | Well... I mean, (:excited)I think you're amazing - a working \"android\"(red) from the old world!
   | (:normal)But not everyone has fond tales to tell about androids, I guess. Their loss though.
   | But I'm sure it's not that.
 ~ catherine
-| (:concerned)We'd better find Jack. He'll be in Engineering.
+| (:concerned)We'd better find \"Jack\"(yellow). He'll be in \"Engineering\"(red).
  ")
 ;; learn Jack's name for the first time
 ;; TODO catherine confused: Erm... hang on a second. Where is everyone?
   (:go-to (jack :lead catherine)
-  :title "Find Jack in Engineering"  
+  :title "Follow Catherine and find Jack in Engineering"
   )
     ;; meet Jack for the first time - Stranger already presumes this is Jack
   ;; REMARK: Maybe keep the swears out for now, or at least change them to be softer variants.
@@ -95,20 +95,20 @@
 | (:excited)The android can come with me. You should see what she can do!
 ~ jack
 | (:annoyed)Have you lost your goddamn mind? An android ain't no toy!
-| You'd be safer walking straight into Wraw territory than you would goin' anywhere with that thing.
+| You'd be safer walking straight into \"Wraw\"(red) territory than you would goin' anywhere with that thing.
 ~ player
 - I can protect her.
   ~ jack
   | (:annoyed)The hell you can.
 - Why are you afraid of me?
   ~ jack
-  | (:annoyed)Androids don't exactly grow on trees. And some say you're the reason there ain't no trees anymore. Or buildings.
+  | (:annoyed)Androids don't exactly grow on trees. And some say you're the reason there ain't no trees any more. Or buildings.
   | Or people.
 - You're right to be afraid.
   ~ catherine
   | (:disappointed)She's kidding... Aren't you?!
 ~ catherine
-| Look, we need to fix the water right now or we're goners. And I'm your best shot.
+| Look, \"we need to fix the water\"(red) right now or we're goners. And I'm your best shot.
 | Me AND my android buddy.
 ~ jack
 | (:annoyed)Shit...
@@ -123,14 +123,14 @@
 | Hold on Cathy - take this walkie. Radio if you have any trouble.
 ~ catherine
 | I will. And don't worry - we'll be back before you know it.
-| Alright, android - let me know when you're ready to go.
+| Alright, android - \"let me know\"(red) when you're ready to go.
+! eval (activate 'q1-ready)
   ")
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
    (fullscreen-prompt 'toggle-menu))
   (:eval
-   :condition (not (find-panel 'fullscreen-prompt))
-   :on-complete (q1-ready)
+   :condition (not (find-panel 'fullscreen-prompt))   
    (fullscreen-prompt 'interact :title 'save)))
 ;; The mission here is too urgent for Catherine to think, oh, let's establish the android's name
 
