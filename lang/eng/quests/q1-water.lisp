@@ -50,14 +50,14 @@
   ~ player
   | (:thinking)That's the thing: I don't remember my name. I don't remember a lot of things.
   ~ catherine
-  | That's okay... Don't worry. It's probably just a little data corruption.
+  | That's okay... Don't worry. It's probably just a little data loss.
 - I don't remember my name.
   ~ catherine
   | (:concerned)Oh, really? I'm sorry.
   ~ player
   | (:thinking)I don't remember much else, either.
   ~ catherine
-  | I'm sure it's fine. It's probably just a little data corruption.
+  | I'm sure it's fine. It's probably just a little data loss.
 - Is this really the time?
   ~ catherine
   | (:concerned)You're right - sorry.
@@ -68,12 +68,12 @@
   ~ player
   | (:thinking)I don't remember much else, either.
   ~ catherine
-  | I'm sure it's fine. It's probably just a little data corruption.
+  | I'm sure it's fine. It's probably just a little data loss.
 ~ catherine
-| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
+| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you __Stranger__.(:excited)
 ! eval (setf (nametag player) \"Stranger\")
 | (:excited)Pretty cool, huh?
-| (:normal)Okay, let's follow the pipeline further down.
+| (:normal)Okay, we need to follow the pipeline further down.
 | (:excited)Let's go, Stranger!
   ")
   ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
