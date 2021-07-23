@@ -105,7 +105,7 @@
 | | | Oh, I've also given Jack a special assignment - something I think you'll be well-suited to help with.
 | | | He'll be in Engineering.
 |   
-| | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
+| | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Zenith Hub.
 | | You would be wise to equip well for your work.
 | ! eval (activate 'trader-arrive)
 ")))
@@ -188,7 +188,7 @@
 | | | Oh, I've also given Jack a special assignment - something I think you'll be well-suited to help with.
 | | | He'll be in Engineering.
 |   
-| | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Hub.
+| | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Zenith Hub.
 | | It would be wise to be well-equipped for your work.
 | ! eval (setf (location 'trader) 'loc-trader)
 | ! eval (activate 'trader-arrive)

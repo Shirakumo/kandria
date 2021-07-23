@@ -169,7 +169,7 @@
 |   
 | ~ jack
 | | (:normal)Don't let me be the one to help you out, either, but I heard Sahil was back.
-| | His caravan is down in the Midwest Market, beneath the Hub.
+| | His caravan is down in the Midwest Market, beneath the Zenith Hub.
 | | I don't know what opposition you've faced scouting around, but you might wanna stock up.
 | | (:annoyed)I hear even androids ain't indestructible.
 | ! eval (activate 'trader-arrive)

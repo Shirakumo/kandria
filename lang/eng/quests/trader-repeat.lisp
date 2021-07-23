@@ -4,7 +4,7 @@
 (quest:define-quest (kandria trader-repeat)
   :author "Tim White"
   :title "Trade"
-  :description "If I want to trade items, I should find Sahil in the Midwest Market, beneath the Hub."
+  :description "If I want to trade items, I should find Sahil in the Midwest Market, beneath the Zenith Hub."
   :visible NIL
   :on-activate T
   :variables ((small-health-qty 10) (medium-health-qty 5) (large-health-qty 2))
