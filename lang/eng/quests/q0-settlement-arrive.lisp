@@ -122,7 +122,7 @@
 ~ jack
 | Hold on Cathy - take this walkie. Radio if you have any trouble.
 ~ catherine
-| I will. And don't worry - we'll be back soon.
+| I will. And don't worry - we'll be back before you know it.
 | Alright, android - let me know when you're ready to go.
   ")
   (:eval

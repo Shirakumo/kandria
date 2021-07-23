@@ -29,7 +29,7 @@
   (:go-to (jump-start :lead catherine)
   ;; acknowledgement that the android's brain, memory, and faculties might not all be present and correct
    "~ catherine
-| My name's \"Catherine\"(dark-blue). You can follow me, it's alright.
+| My name's \"Catherine\"(blue). You can follow me, it's alright.
   ")   
   (:go-to (climb-start :lead catherine)
   "~ catherine
