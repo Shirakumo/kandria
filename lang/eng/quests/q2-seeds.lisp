@@ -39,13 +39,13 @@
     :interactable cache
     :dialogue "
 ~ player
-| //It's an old-world bunker. This must be the storage cache.//
-| //It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before.//
-| //Most of this is spoiled, but some of the drawers may still house usable seeds. Let's see...//
-| //This is all that's left: \"24 sachets\"(orange). Inside each one the seeds are tiny and hard like grit.//
-| (:skeptical)//Will they still grow?//
-| (:normal)//I take them regardless and stow them in my compartment.//
-| //I should return to Fi.//
+| \"//It's an old-world bunker. This must be the storage cache.//\"(light-gray)
+| \"//It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before.//\"(light-gray)
+| \"//Most of this is spoiled, but some of the drawers may still house usable seeds. Let's see...//\"(light-gray)
+| \"//This is all that's left:\"(light-gray) \"24 sachets\"(orange)\". Inside each one the seeds are tiny and hard like grit.//\"(light-gray)
+| (:skeptical)\"//Will they still grow?//\"(light-gray)
+| (:normal)\"//I take them regardless and stow them in my compartment.//\"(light-gray)
+| \"//I should return to Fi.//\"(light-gray)
 ! eval (store 'item:seeds 24)
 ! eval (deactivate 'q2-reminder)
 "))

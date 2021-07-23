@@ -60,5 +60,5 @@
 | Well, I guess I should say good luck.
 | Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
 ~ player
-| //Speaking of my FFCS: it indicates \"four candidate locations\". That should help narrow things down.//
+| \"//Speaking of my FFCS: it indicates\"(light-gray) \"four candidate locations\"(orange)\". That should help narrow things down.//\"(light-gray)
 ")))

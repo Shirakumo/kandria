@@ -19,7 +19,7 @@
 ~ jack
 | (:annoyed)Our new home ain't gonna find itself. Be seein' ya.
 ~ player
-| //Jack said \"I should search across the surface and down into the Ruins to the east\"(orange). My FFCS indicates \"four candidate locations\"(orange).//
+| \"//Jack said\"(light-gray) \"I should search across the surface and down into the Ruins to the east\"(orange)\". My FFCS indicates \"four candidate locations\"(orange).//\"(light-gray)
 ")
 )
 
@@ -31,17 +31,17 @@
     :interactable new-home-1
     :dialogue "
 ~ player
-| //It's new-home candidate site \"Beta\"(red).//
-| (:thinking)//There could be shelter inside this building.//
-| (:normal)//Scanning the interior...//
-| //Dirt and sand has intruded through almost every crack.//
-| //It's a quicksand deathtrap.//
+| \"//It's new-home candidate site\"(light-gray) \"Beta\"(red)\".//\"(light-gray)
+| (:thinking)\"//There could be shelter inside this building.//\"(light-gray)
+| (:normal)\"//Scanning the interior...//\"(light-gray)
+| \"//Dirt and sand has intruded through almost every crack.//\"(light-gray)
+| \"//It's a quicksand deathtrap.//\"(light-gray)
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
-| | (:normal)//That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.//
+| | (:normal)\"//That's the last site surveyed. I should\"(light-gray) \"return to Jack\"(orange) \"with the bad news.//\"(light-gray)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |?
-| | (:normal)//I should keep looking, and consult my \"Log Files\" for how many sites remain.//
+| | (:normal)\"//I should keep looking, and consult my\"(light-gray) \"Log Files\"(orange) \"for the remaining sites.//\"(light-gray)
 "))
 ;; SCRATCH | Structural integrity can be described as \"may collapse at any moment\". ;; restore italics to "Structural integrity..." once back slashes don't impede
   (find-home-second
@@ -53,16 +53,16 @@
     :interactable new-home-2
     :dialogue "
 ~ player
-| //It's new-home candidate site Gamma.//
-| (:thinking)//This position is favourably elevated and well-concealed, offering a vantage point from which to spot intruders.//
-| //The building's foundations appear strong, but the rest is a sand-blasted shell.//
-| //It's a no go.//
+| \"//It's new-home candidate site\"(light-gray) \"Gamma\"(red)\".//\"(light-gray)
+| (:thinking)\"//This position is favourably elevated and well-concealed, offering a vantage point from which to spot intruders.//\"(light-gray)
+| \"//The building's foundations appear strong, but the rest is a sand-blasted shell.//\"(light-gray)
+| \"//It's a no go.//\"(light-gray)
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
-| | (:normal)//That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.//
+| | (:normal)\"//That's the last site surveyed. I should\"(light-gray) \"return to Jack\"(orange) \"with the bad news.//\"(light-gray)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |?
-| | (:normal)//I should keep looking, and consult my \"Log Files\" for how many sites remain.//
+| | (:normal)\"//I should keep looking, and consult my\"(light-gray) \"Log Files\"(orange) \"for the remaining sites.//\"(light-gray)
 "))
 
   (find-home-third
@@ -74,15 +74,15 @@
     :interactable new-home-3
     :dialogue "
 ~ player
-| //It's new-home candidate site Delta.//
-| (:thinking)//It's secure and concealed, and sheltered from the weather.//
-| (:skeptical)//But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.//
+| \"//It's new-home candidate site\"(light-gray) \"Delta\"(red)\".//\"(light-gray)
+| (:thinking)\"//It's secure and concealed, and sheltered from the weather.//\"(light-gray)
+| (:skeptical)\"//But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.//\"(light-gray)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | (:normal)//That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.//
+| | (:normal)\"//That's the last site surveyed. I should\"(light-gray) \"return to Jack\"(orange) \"with the bad news.//\"(light-gray)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |?
-| | (:normal)//I should keep looking, and consult my \"Log Files\" for how many sites remain.//
+| | (:normal)\"//I should keep looking, and consult my\"(light-gray) \"Log Files\"(orange) \"for the remaining sites.//\"(light-gray)
 "))
 
   (find-home-fourth
@@ -94,19 +94,19 @@
     :interactable new-home-4
     :dialogue "
 ~ player
-| //It's new-home candidate site Epsilon.//
-| (:thinking)//These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.//
-| //I could clear the barbed wire so children, and the elderly and infirm could navigate the area.//
+| \"//It's new-home candidate site\"(light-gray) \"Epsilon\"(red)\".//\"(light-gray)
+| (:thinking)\"//These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.//\"(light-gray)
+| \"//I could clear the barbed wire so children, and the elderly and infirm could navigate the area.//\"(light-gray)
 ? (or (complete-p 'q2-seeds) (have 'item:seeds))
-| | (:skeptical)//But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.//
+| | (:skeptical)\"//But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.//\"(light-gray)
 |?
-| | (:skeptical)//But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.//
+| | (:skeptical)\"//But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.//\"(light-gray)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
-| | (:normal)//That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.//
+| | (:normal)\"//That's the last site surveyed. I should\"(light-gray) \"return to Jack\"(orange) \"with the bad news.//\"(light-gray)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |?
-| | (:normal)//I should keep looking, and consult my \"Log Files\" for how many sites remain.//
+| | (:normal)\"//I should keep looking, and consult my\"(light-gray) \"Log Files\"(orange) \"for the remaining sites.//\"(light-gray)
 "))
 
   (return-new-home

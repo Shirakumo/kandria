@@ -68,17 +68,17 @@
 | I've read about androids - under the hood you're pretty much the same as those rogues. No offence.
 | Thankfully you've got much more going on up here.
 ~ player
-| //Sahil taps his fingers on his left temple.//
+| \"//Sahil taps his fingers on his left temple.//\"(light-gray)
 ~ trader
 | Here, I can assemble some useful bits and pieces into a handy repair pack for you.
 ~ player
-| //He turns to the stacks of shelves behind him and rummages around.//
-| //Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//
-| //He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//
+| \"//He turns to the stacks of shelves behind him and rummages around.//\"(light-gray)
+| \"//Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//\"(light-gray)
+| \"//He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//\"(light-gray)
 ~ trader
 | Voila! I give you: \"The Android Health Pack\"(orange). Custom made just for you!
 ~ player
-| //It's crude, but I'm sure I can do something with it. If only poke my lenses out.//
+| \"//It's crude, but I'm sure I can do something with it. If only poke my lenses out.//\"(light-gray)
 ~ trader
 | Go on, take look - don't be shy. And since this is your first time, you can have them \"free of charge\"(orange)!
 ! label shop

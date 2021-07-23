@@ -25,7 +25,7 @@
    :repeatable T
    "
 ~ player
-| //It's their storage shed. Their supplies are low and it smells like mating rats.//
+| \"//It's their storage shed. Their supplies are low and it smells like mating rats.//\"(light-gray)
 ")
 
   ;; Large stone gate
@@ -34,7 +34,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)//Did this fall here, or did they move it into place?//
+| (:thinking)\"//Did this fall here, or did they move it into place?//\"(light-gray)
 ")
 
   ;; Housing exterior - first floor left shattered room
@@ -43,7 +43,7 @@
    :repeatable T
    "
 ~ player
-| //Glass cracks under my feet like broken bones. There are human remains in the bed.//
+| \"//Glass cracks under my feet like broken bones. There are human remains in the bed.//\"(light-gray)
 ")
 
   ;; Housing exterior - roof top-right
@@ -52,7 +52,7 @@
    :repeatable T
    "
 ~ player
-| //The wind is howling like a dog on fire.//
+| \"//The wind is howling like a dog on fire.//\"(light-gray)
 ")
 
   ;; Housing exterior - staircase
@@ -61,7 +61,7 @@
    :repeatable T
    "
 ~ player
-| //This was the stairwell. The building used to be much taller.//
+| \"//This was the stairwell. The building used to be much taller.//\"(light-gray)
 ")
 
   ;; Housing interior - kitchen
@@ -75,8 +75,8 @@
    :repeatable T
    "
 ~ player
-| //There's no gas or electrical supply. It smells like a wrecked oil tanker.//
-| (:thinking)//Though I am detecting starchy potato notes, and is that... beetroot?//
+| \"//There's no gas or electrical supply. It smells like a wrecked oil tanker.//\"(light-gray)
+| (:thinking)\"//Though I am detecting starchy potato notes, and is that... beetroot?//\"(light-gray)
 ")
 
   ;; Housing interior - sign
@@ -85,8 +85,8 @@
    :repeatable T
    "
 ~ player
-| (:thinking)//Café Alpha... Did I used to come here?//
-| (:giggle)//If so I'm sure the service was much better.//
+| (:thinking)\"//Café Alpha... Did I used to come here?//\"(light-gray)
+| (:giggle)\"//If so I'm sure the service was much better.//\"(light-gray)
 ")
 
   ;; Housing apartment - bed
@@ -95,8 +95,8 @@
    :repeatable T
    "
 ~ player
-| (:giggle)//This bed was recently made up - I doubt it was room service.//
-| (:normal)//I don't sleep, but it looks incredibly inviting.//
+| (:giggle)\"//This bed was recently made up - I doubt it was room service.//\"(light-gray)
+| (:normal)\"//I don't sleep, but it looks incredibly inviting.//\"(light-gray)
 ")
 
   ;; Ruins - transition/view
@@ -105,7 +105,7 @@
    :repeatable T
    "
 ~ player
-| //The city was pulverised. What happened?//
+| \"//The city was pulverised. What happened?//\"(light-gray)
 ")
 
   ;; Engineering interior - shelves
@@ -116,9 +116,9 @@
    "
 ~ player
 ? (complete-p 'q0-settlement-arrive)
-| | //Engineering. This is where Jack and Catherine work.//
+| | \"//Engineering. This is where Jack and Catherine work.//\"(light-gray)
 |?
-| | //It's some sort of workshop. The technology is crude - what do they build here, tin openers?//
+| | \"//It's some sort of workshop. The technology is crude - what do they build here, tin openers?//\"(light-gray)
 ")
 
   ;; Engineering interior - desk
@@ -130,9 +130,9 @@
    "
 ~ player
 ? (complete-p 'q0-settlement-arrive)
-| | //Jack's workbench. I can smell body odour - does he work here, or work out?//
+| | \"//Jack's workbench. I can smell body odour - does he work here, or work out?//\"(light-gray)
 |?
-| | //It's a workbench. Perhaps it belongs to this man - who come to think of it has a stare that could fry circuit boards.//
+| | \"//It's a workbench. Perhaps it belongs to this man - who come to think of it has a stare that could fry circuit boards.//\"(light-gray)
 ")
 
   ;; Farm - transition/view
@@ -144,9 +144,9 @@
    "
 ~ player
 ? (complete-p 'q1-water)
-| | //The irrigation is working again. The crops might be too far gone to make it though.//
+| | \"//The irrigation is working again. The crops might be too far gone to make it though.//\"(light-gray)
 |?
-| | //This is farmland. They're growing potatoes - dying ones by the looks of it.//
+| | \"//This is farmland. They're growing potatoes - dying ones by the looks of it.//\"(light-gray)
 ")
 
   ;; Sandstorm transition/view
@@ -155,8 +155,8 @@
    :repeatable T
    "
 ~ player
-| //Particulates ping off my body like bullets.//
-| //The mountains lay beyond, though I can hardly see them in this storm.//
+| \"//Particulates ping off my body like bullets.//\"(light-gray)
+| \"//The mountains lay beyond, though I can hardly see them in this storm.//\"(light-gray)
 ")
 
   (:interaction zenith-hub
@@ -164,8 +164,8 @@
    :repeatable T
    "
 ~ player
-| //\"Zenith\"(red)... That was the name of the city, and this was the central station.//
-| (:thinking)//Is it me, or was that insignia strangely prophetic?//
+| //\"Zenith\"(red)\"... That was the name of the city, and this was the central station.\"(light-gray)//
+| (:thinking)\"//Is it me, or was that insignia strangely prophetic?//\"(light-gray)
 ")
 
   (:interaction east-apartments
@@ -173,7 +173,7 @@
    :repeatable T
    "
 ~ player
-| //These were Rootless hospital apartments.//
+| \"//These were Rootless hospital apartments.//\"(light-gray)
 ")
 
   (:interaction market
@@ -181,8 +181,8 @@
    :repeatable T
    "
 ~ player
-| //The Midwest Market. You could almost imagine those mannequins behind the glass were real people.//
-| (:embarassed)//Like this place wasn't creepy enough.//
+| \"//The Midwest Market. You could almost imagine those mannequins behind the glass were real people.//\"(light-gray)
+| (:embarassed)\"//Like this place wasn't creepy enough.//\"(light-gray)
 ")
 
   (:interaction west-apartments
@@ -190,7 +190,7 @@
    :repeatable T
    "
 ~ player
-| //Dreamscape West Side - once the height of luxury, now hell in the earth.//
+| \"//Dreamscape West Side - once the height of luxury, now hell in the earth.//\"(light-gray)
 ")
 
 #|
@@ -213,7 +213,7 @@
    :repeatable T
    "
 ~ player
-| (:skeptical)//They've had many leaks, if this sunken room is anything to go by.//
+| (:skeptical)\"//They've had many leaks, if this sunken room is anything to go by.//\"(light-gray)
 ")
 
   (:interaction mush-cave-1
@@ -221,9 +221,9 @@
    :repeatable T
    "
 ~ player
-| (:skeptical)//How on earth did these mushrooms grow so large?//
+| (:skeptical)\"//How on earth did these mushrooms grow so large?//\"(light-gray)
 ? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
-| | (:normal)//Presumably these kind are inedible - otherwise their hunger problems would be over.//
+| | (:normal)\"//Presumably these kind are inedible - otherwise their hunger problems would be over.//\"(light-gray)
 ")
 
   (:interaction mush-cave-1a
@@ -231,7 +231,7 @@
    :repeatable T
    "
 ~ player
-| //I suppose truffles would be too much to ask for.//
+| \"//I suppose truffles would be too much to ask for.//\"(light-gray)
 ")
 
   (:interaction mush-cave-2
@@ -239,7 +239,7 @@
    :repeatable T
    "
 ~ player
-| //It's like walking on jello.//
+| \"//It's like walking on jello.//\"(light-gray)
 ")
 
   ;; This should be Brother (surveillance) offices? hint at an authoritarian former world? makes the joke work better? Leads into Semi Sisters next faction?
@@ -250,8 +250,8 @@
    :repeatable T
    "
 ~ player
-| (:thinking)//North Star offices. They manufactured guidance, satellite and surveillance systems.//
-| (:normal)//Bet they never saw this coming.//
+| (:thinking)\"//North Star offices. They manufactured guidance, satellite and surveillance systems.//\"(light-gray)
+| (:normal)\"//Bet they never saw this coming.//\"(light-gray)
 ")
 
   (:interaction factory
@@ -259,8 +259,8 @@
    :repeatable T
    "
 ~ player
-| //Semi were the manufacturers of electronic components - not least for androids.//
-| //It's sad to see the factory so silent.//
+| \"//Semi were the manufacturers of electronic components - not least for androids.//\"(light-gray)
+| \"//It's sad to see the factory so silent.//\"(light-gray)
 ")
 ;; TODO android emote - sad
 
@@ -269,9 +269,9 @@
    :repeatable T
    "
 ~ player
-| //That is quite the view.//
-| //The desert is bordered by mountains on all sides.//
-| //Judging by the cloud formations, I'd wager there's an ocean beyond the range to the east.//
+| \"//That is quite the view.//\"(light-gray)
+| \"//The desert is bordered by mountains on all sides.//\"(light-gray)
+| \"//Judging by the cloud formations, I'd wager there's an ocean beyond the range to the east.//\"(light-gray)
 ")
 
   (:interaction grave
@@ -279,8 +279,8 @@
    :repeatable T
    "
 ~ player
-| //(:thinking)This is where it all began, and ended.//
-| //(:normal)Not the most comfortable location to have spent a few decades. (:giggle)Little wonder I've a bad back.//
+| //(:thinking)\"This is where it all began, and ended.//\"(light-gray)
+| //(:normal)\"Not the most comfortable location to have spent a few decades. (:giggle)Little wonder I've a bad back.//\"(light-gray)
 ")
 
 )

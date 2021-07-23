@@ -83,7 +83,7 @@
 | | | (:excited)Remember, any time you want to race we've got the time trial sweepstake too!
 | ! label task-choice
 | ~ player
-| - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) //Fix the leaks//|]
+| - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (Fix the leaks)|]
 |   ~ catherine
 |   | (:excited)Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
 |   | (:normal)Just \"follow the red pipe down\"(orange) like we did before. And androids can weld from their fingertips, right? So you should be good to go.
@@ -100,7 +100,7 @@
 |   | Let me know what you find. Good luck!
 |   ! eval (activate 'sq1-leaks)
 |   < task-choice
-| - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) //Forage for mushrooms//|]
+| - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) (Forage for mushrooms)|]
 |   ~ catherine
 |   | (:excited)Awesome! They grow in the \"caves beneath the camp\"(orange), in the dim light and moisture there.
 |   | (:normal)Edible mushrooms like the \"flower fungus\"(orange) can sustain us even if the crop fails.
@@ -112,7 +112,7 @@
 |   | At least \"25 good ones\"(orange) should do for now. (:excited)Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
 |   < task-choice
-| - [(not (active-p 'sq3-race)) //Time trials//|]
+| - [(not (active-p 'sq3-race)) (Time trials)|]
 |   ~ catherine
 |   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do!
 |   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and bring back.
