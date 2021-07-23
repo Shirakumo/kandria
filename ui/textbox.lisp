@@ -225,7 +225,8 @@
 (defun normalize-style (style)
   (case (car style)
     (:color
-     (list :color (apply #'colored:rgb (second style))))
+     (destructuring-bind (r g b &optional (a 1)) (second style)
+       (list :color (colored:rgb (/ r 255) (/ g 255) (/ b 255) a))))
     (:underline
      (list :wave T))
     (:strikethrough
