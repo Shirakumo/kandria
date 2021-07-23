@@ -36,7 +36,7 @@
   | Right you are, Stranger!
 - Take your pick.
   ~ trader
-  | But it's YOUR name. Now I think about it, I'm sure it was Stranger.
+  | But it's __YOUR__ name. Now I think about it, I'm sure it was Stranger.
 ~ player
 | I see you've been speaking with Catherine.
 < main
@@ -76,11 +76,11 @@
 | //Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//
 | //He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//
 ~ trader
-| Voila! I give you: The Android Health Pack. Custom made just for you!
+| Voila! I give you: \"The Android Health Pack\"(orange). Custom made just for you!
 ~ player
-| //It's crude, but I'm sure I can do something with it. If only poke my eye out.//
+| //It's crude, but I'm sure I can do something with it. If only poke my lenses out.//
 ~ trader
-| Go on, take look - don't be shy. And since this is your first time, you can have them free of charge!
+| Go on, take look - don't be shy. And since this is your first time, you can have them \"free of charge\"(orange)!
 ! label shop
 ~ player
 - [(not (var 'small-health)) (Take a small health pack)|]

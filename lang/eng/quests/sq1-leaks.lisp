@@ -32,7 +32,7 @@
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
-| | Keep going - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
+| | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
@@ -51,7 +51,7 @@
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides - sorry!
 | ~ catherine
-| | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
+| | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 "))
   ;; TODO: how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
@@ -82,7 +82,7 @@
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
-| | Keep going - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
+| | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
@@ -101,7 +101,7 @@
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides - sorry!
 | ~ catherine
-| | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
+| | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 "))
 
@@ -130,7 +130,7 @@
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
-| | Keep going - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
+| | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
 | | //Weld complete.//
@@ -149,7 +149,7 @@
 |   ~ catherine
 |   | Oh man, you could probably stand not to hear more about landslides - sorry!
 | ~ catherine
-| | (:excited)Hurry back, I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
+| | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
 "))
 

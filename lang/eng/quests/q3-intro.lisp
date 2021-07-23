@@ -31,9 +31,9 @@
   | (:shocked)O oh, you keep talking like that and Fi will dismantle you. Wouldn't want that, would ya?
 ~ jack
 | Anyway, you can do something for me.
-| Fi wants to scout for a new home - I guess she's worried sick now the Wraw are breathing down our necks.
+| Fi wants to \"scout for a new home\"(orange) - I guess she's worried sick now the Wraw are breathing down our necks.
 | Well as you can see, I'm no scout. I guess I just don't have the physique for it.
-| Alex is our hunter, but God knows where they are. So it's up to you... (:annoyed)Stranger.
+| \"Alex\"(yellow) is our hunter, but God knows where they are. So it's up to you... (:annoyed)Stranger.
 ~ player
 - Lucky me.
   ~ jack
@@ -43,8 +43,8 @@
   ~ jack
   | (:annoyed)Don't you try and sweet-talk me, darlin'. Look...
 ~ jack
-| I think the Ruins to the east are your best shot. It keeps us close to the Farm, and still gives us shelter.
-| So scout around, climb, do whatever an android does.
+| I think the \"Ruins to the east\" are your best shot. It keeps us close to the Farm, and still gives us shelter.
+| So \"cross the surface\"(orange), scout around, climb, dig - do whatever an android does.
 | Just remember while you ninja around that we mere mortals gotta follow your path.
 | Your android brain might think the top of a skyscraper is the safest place there is.
 | But people can't climb up there, let alone live up there. You get me?
@@ -59,4 +59,6 @@
 ~ jack
 | Well, I guess I should say good luck.
 | Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
+~ player
+| //Speaking of my FFCS: it indicates \"four candidate locations\". That should help narrow things down.//
 ")))

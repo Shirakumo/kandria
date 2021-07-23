@@ -111,7 +111,7 @@
   | - What's your story?
   |   ~ trader
   |   | A long and sad one I'm afraid... Like most people's.
-  |   | I used to hang with the Wraw too, just like the Noka did.
+  |   | I used to hang with the Wraw too, just like the \"Noka\"(red) did.
   |   | I got out too, only with my caravan instead of a vendetta.
   |   | And now I tour the settlements, trading, making ends meet - and making things too!
   |   < talk
@@ -119,7 +119,7 @@
   |   ~ trader
   |   | The Noka? They're a nice bunch, what can I say?
   |   | Fi's a good person, which is rare in these parts.
-  |   | They broke out on their own, had enough of that Wraw bullshit.
+  |   | They broke out all on their own, had enough of that Wraw bullshit.
   |   | Can't blame 'em. It was brave. It might also prove stupid though. We'll see.
   |   < talk
   | - Catherine said you were later than expected.
@@ -132,7 +132,7 @@
   |   ~ trader
   |   | Well no other nadhil is going to do it for me.
   |   | I used to have an ox, believe it or not. Ha, an ox, in these parts! It's hard to imagine.
-  |   | Didn't last long after the wolves got her throat though. Poor Celina.
+  |   | Didn't last long after the wolves got at her throat though. Poor Celina.
   |   < talk
   | - That'll do.
   |   < return
@@ -143,17 +143,17 @@
 
 # last-one
 ~ trader
-| That was the last of my stock on that item, for now.
+| That was the \"last of my stock\"(orange) on that item, for now.
 < buy
 
 # cannot-afford
 ~ trader
-| Oh, looks like you can't afford that one. Sorry!
+| Oh, looks like you \"can't afford that one\"(orange). Sorry!
 < buy
 
 # out-of-stock
 ~ trader
-| All out of stock on that one I'm afraid. Sorry, habibti.
+| All \"out of stock\"(orange) on that one I'm afraid. Sorry, habibti.
 < buy
 
 # return

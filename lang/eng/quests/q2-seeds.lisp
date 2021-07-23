@@ -20,7 +20,7 @@
     :repeatable T
     :dialogue "
 ~ fi
-| Retrieve whatever seeds remain in the cache, beneath the Ruins to the east.
+| Travel across the surface and go beneath the Ruins to the \"east\"(orange) - \"retrieve whatever seeds remain\"(orange) in the cache.
 | Good luck, Stranger.
 ")
 
@@ -42,9 +42,10 @@
 | //It's an old-world bunker. This must be the storage cache.//
 | //It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before.//
 | //Most of this is spoiled, but some of the drawers may still house usable seeds. Let's see...//
-| //This is all that's left: 24 sachets. Inside each one the seeds are tiny and hard like grit.//
+| //This is all that's left: \"24 sachets\"(orange). Inside each one the seeds are tiny and hard like grit.//
 | (:skeptical)//Will they still grow?//
-| (:normal)//I stow 24 sachets in my compartment.//
+| (:normal)//I take them regardless and stow them in my compartment.//
+| //I should return to Fi.//
 ! eval (store 'item:seeds 24)
 ! eval (deactivate 'q2-reminder)
 "))
@@ -92,20 +93,20 @@
 | Oh my. There must be... twenty sachets here. All fully stocked.
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
-| Know that you are earning my trust, Stranger. Perhaps you will become a part of the Noka yourself.
+| Know that you are earning my trust, Stranger. Perhaps you will become a part of the \"Noka\"(red) yourself.
 | But for now, please accept this reward as a token of my appreciation.
 ! eval (retrieve 'item:semi-factory-key 1)
 ! eval (store 'item:parts 20)
 ~ fi
 ? (complete-p 'q3-new-home)
-| | You should check in with Catherine - I'm sure she'd like to see you again.
+| | You should \"check in with Catherine\"(orange) - I'm sure she'd like to see you again.
 | ! eval (activate 'sq-act1-intro)
 |?
 | ? (not (active-p 'q3-new-home))
-| | | Oh, I've also given Jack a special assignment - something I think you'll be well-suited to help with.
+| | | Oh, I've also \"given Jack a special assignment\"(orange) - something I think you'll be well-suited to help with.
 | | | He'll be in Engineering.
 |   
-| | I also heard Sahil is here - our trader friend. His caravan is down in the Midwest Market, beneath the Zenith Hub.
+| | I also heard \"Sahil is here - our trader friend\"(orange). His caravan is down in the Midwest Market, beneath the \"Zenith Hub\"(red).
 | | You would be wise to equip well for your work.
 | ! eval (activate 'trader-arrive)
 ")))

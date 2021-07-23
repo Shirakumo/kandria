@@ -32,13 +32,13 @@
 |   | No worries! (:excited)Let's do this soon!
 |   < quit
 | ~ catherine
-| | (:normal)So remember: Find the cans that Alex has planted.
+| | (:normal)So remember: \"Find the cans\"(orange) that Alex has planted.
 | | I told them to find devious places, (:excited)and knowing Alex they won't have disappointed.
-| | (:normal)Grab a can, bring it back here, and I'll stop the clock.
-| | We'll start you off with Route 1, which is an easy one.
+| | (:normal)\"Grab a can, bring it back here, and I'll stop the clock.\"(orange)
+| | We'll start you off with \"Route 1\"(orange), which is an easy one.
 | | Finish this one and I'll tell you about the next route!
-| | You can try routes as many times as you want, but you'll only get a reward if you beat your previous best time.
-| | Alex also gave me some riddles for each place, to give you a clue. Figuring these out might slow you down at first.
+| | You can try routes as many times as you want, but you'll \"only get a reward if you beat your previous best time\"(orange).
+| | Alex also gave me some \"riddles\"(orange) for each place, to give you a clue. Figuring these out might slow you down at first.
 | | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure! So...
 | < race-1
 |?
@@ -58,10 +58,10 @@
 
 # race-1
 ~ catherine
-| (:cheer)Route 1! The can is at... a literal high point of EASTERN civilisation, now long gone.
-| (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-1 'gold))} - Silver: {(format-relative-time (var-of 'race-1 'silver))} - Bronze: {(format-relative-time (var-of 'race-1 'bronze))}.
+| (:cheer)Route 1! The can is at... a literal high point of EASTERN civilisation, now long gone\"(orange).
+| (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-1 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-1 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-1 'bronze))}.
 ? (var-of 'race-1 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-1 'pb))}. Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange). Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-1-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-1)) :inactive)
 ! eval (activate 'race-1-start)
@@ -69,10 +69,10 @@
 
 # race-2
 ~ catherine
-| (:cheer)Route 2! The can is... where a shallow grave marks the end of the line at Zenith Crossing Station.
-| (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-2 'gold))} - Silver: {(format-relative-time (var-of 'race-2 'silver))} - Bronze: {(format-relative-time (var-of 'race-2 'bronze))}.
+| (:cheer)Route 2! The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station\"(orange).
+| (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-2 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-2 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-2 'bronze))}.
 ? (var-of 'race-2 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-2 'pb))}. Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange). Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-2-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-2)) :inactive)
 ! eval (activate 'race-2-start)
@@ -80,10 +80,10 @@
 
 # race-3
 ~ catherine
-| (:cheer)Route 3! The can is... where we first ventured together, and got our feet wet.
-| (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-3 'gold))} - Silver: {(format-relative-time (var-of 'race-3 'silver))} - Bronze: {(format-relative-time (var-of 'race-3 'bronze))}.
+| (:cheer)Route 3! The can is... \"where we first ventured together, and got our feet wet\"(orange).
+| (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-3 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-3 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-3 'bronze))}.
 ? (var-of 'race-3 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-3 'pb))}. Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange). Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-3-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-3)) :inactive)
 ! eval (activate 'race-3-start)
@@ -91,10 +91,10 @@
 
 # race-4
 ~ catherine
-| (:cheer)Route 4! The can is... deep to the west, where people once dreamed.
-| (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-4 'gold))} - Silver: {(format-relative-time (var-of 'race-4 'silver))} - Bronze: {(format-relative-time (var-of 'race-4 'bronze))}.
+| (:cheer)Route 4! The can is... \"deep to the west, where people once dreamed\"(orange).
+| (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
 ? (var-of 'race-4 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-4 'pb))}. Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange). Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-4-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-4)) :inactive)
 ! eval (activate 'race-4-start)
@@ -102,10 +102,10 @@
 
 # race-5
 ~ catherine
-| (:cheer)Route 5! The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\".
-| (:normal)The time brackets are: Gold: {(format-relative-time (var-of 'race-5 'gold))} - Silver: {(format-relative-time (var-of 'race-5 'silver))} - Bronze: {(format-relative-time (var-of 'race-5 'bronze))}.
+| (:cheer)Route 5! The can is at... \"the furthest edge of the deepest cave in this region - there isn't \"much-room\"\"(orange).
+| (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-5 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-5 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-5 'bronze))}.
 ? (var-of 'race-5 'pb)
-| | Your personal best for this route is {(format-relative-time (var-of 'race-5 'pb))}. Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange). Beat this to get a reward.
 ! eval (setf (quest:status (thing 'race-5-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-5)) :inactive)
 ! eval (activate 'race-5-start)
@@ -144,7 +144,7 @@
           :repeatable T
           :dialogue "
 ~ player
-| //This is the right place - the can must be close by.//
+| //This is the right place - \"the can must be close by\"(orange).//
 "))
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine in Engineering ASAP"
@@ -167,29 +167,29 @@
 | (:cheer)Stop the clock!
 | (:excited)That's the correct can alright - nice!
 ! eval (retrieve 'item:can)
-| (:normal)You did that in: {(format-relative-time (clock quest))}.
+| (:normal)You did that in: \"{(format-relative-time (clock quest))}\"(orange).
 ? (and pb (< pb (clock quest)))
-| | (:concerned)Ah damn, no improvement on your record of {(format-relative-time pb)} this time I'm afraid.
+| | (:concerned)Ah damn, no improvement on your record of \"{(format-relative-time pb)}\"(orange) this time I'm afraid.
 | | (:normal)Better luck next time!
 | < end
 |?
 | ? (not (null pb))
-| | | (:cheer)That's a new personal best! You qualify for a reward!
+| | | (:cheer)\"That's a new personal best\"(orange)! You qualify for a reward!
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
-| | | (:cheer)How did you do that so fast? That's gold bracket.
-| | | You get the top reward - 25 scrap parts!
+| | | (:cheer)How did you do that so fast? That's \"gold bracket\"(orange).
+| | | You get the top reward - \"25 scrap parts\"(orange)!
 | | ! eval (store 'item:parts 25)
 | |? (< pb silver)
-| | | (:excited)That was pretty quick! Silver bracket.
-| | | That nets you 15 scrap parts!
+| | | (:excited)That was pretty quick! \"Silver bracket\"(orange).
+| | | That nets you \"15 scrap parts\"(orange)!
 | | ! eval (store 'item:parts 15)
 | |? (< pb bronze)
-| | | (:excited)That wasn't a bad time at all - bronze bracket.
-| | | That gets you 10 scrap parts.
+| | | (:excited)That wasn't a bad time at all - \"bronze bracket\"(orange).
+| | | That gets you \"10 scrap parts\"(orange).
 | | ! eval (store 'item:parts 10)
 | |?
-| | | (:disappointed)Hmmm, that seems a little slow, Stranger. I think you can do better than that.
+| | | (:disappointed)Hmmm, that seems a little slow, Stranger. \"I think you can do better than that\"(orange).
 | | | (:normal)I don't think I can give you any parts for that, sorry.
 | ! label end
 | | (:excited)Let's do this again soon!

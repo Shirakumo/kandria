@@ -19,7 +19,7 @@
 ~ jack
 | (:annoyed)Our new home ain't gonna find itself. Be seein' ya.
 ~ player
-| //Jack said I should search the Ruins to the east. My FFCS indicates four candidate locations.//
+| //Jack said \"I should search across the surface and down into the Ruins to the east\"(orange). My FFCS indicates \"four candidate locations\"(orange).//
 ")
 )
 
@@ -31,15 +31,17 @@
     :interactable new-home-1
     :dialogue "
 ~ player
-| //It's new-home candidate site Beta.//
+| //It's new-home candidate site \"Beta\"(red).//
 | (:thinking)//There could be shelter inside this building.//
 | (:normal)//Scanning the interior...//
 | //Dirt and sand has intruded through almost every crack.//
 | //It's a quicksand deathtrap.//
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
-| | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
+| | (:normal)//That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.//
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
+|?
+| | (:normal)//I should keep looking, and consult my \"Log Files\" for how many sites remain.//
 "))
 ;; SCRATCH | Structural integrity can be described as \"may collapse at any moment\". ;; restore italics to "Structural integrity..." once back slashes don't impede
   (find-home-second
@@ -56,9 +58,11 @@
 | //The building's foundations appear strong, but the rest is a sand-blasted shell.//
 | //It's a no go.//
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
-| | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
+| | (:normal)//That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.//
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
+|?
+| | (:normal)//I should keep looking, and consult my \"Log Files\" for how many sites remain.//
 "))
 
   (find-home-third
@@ -74,9 +78,11 @@
 | (:thinking)//It's secure and concealed, and sheltered from the weather.//
 | (:skeptical)//But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
+| | (:normal)//That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.//
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
+|?
+| | (:normal)//I should keep looking, and consult my \"Log Files\" for how many sites remain.//
 "))
 
   (find-home-fourth
@@ -96,9 +102,11 @@
 |?
 | | (:skeptical)//But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.//
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
-| | (:normal)//That's the last site surveyed. I should return to Jack with the bad news.//
+| | (:normal)//That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.//
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
+|?
+| | (:normal)//I should keep looking, and consult my \"Log Files\" for how many sites remain.//
 "))
 
   (return-new-home
@@ -159,17 +167,17 @@
 # continue
 ? (complete-p 'q2-seeds)
 | ~ jack
-| | (:normal)Oh, Cathy wants a word too.
+| | (:normal)Oh, \"Cathy wants a word too.\"(orange)
 | | (:annoyed)Know that my threat still stands if you touch her.
 | ! eval (activate 'sq-act1-intro)
 |?
 | ? (not (active-p 'q2-seeds))
 | | ~ jack
-| | | (:normal)Speaking of Fi, she wants to talk to you. Not a word about the scouting fail though, alright?
+| | | (:normal)Speaking of \"Fi, she wants to talk to you\"(orange). Not a word about the scouting fail though, alright?
 |   
 | ~ jack
-| | (:normal)Don't let me be the one to help you out, either, but I heard Sahil was back.
-| | His caravan is down in the Midwest Market, beneath the Zenith Hub.
+| | (:normal)Don't let me be the one to help you out, either, but I heard \"Sahil was back\"(orange).
+| | His caravan is down in the Midwest Market, beneath the \"Zenith Hub\"(red).
 | | I don't know what opposition you've faced scouting around, but you might wanna stock up.
 | | (:annoyed)I hear even androids ain't indestructible.
 | ! eval (activate 'trader-arrive)

@@ -43,37 +43,37 @@
 | ? (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks)))
 | | | (:normal)The water supply is leaking again, so you could help with that.
 | |? (not (complete-p 'sq1-leaks))
-| | | (:normal)You know about fixing the new leaks.
+| | | (:normal)You know about \"fixing the new leaks\"(orange) - just \"follow the red pipe\"(orange) down like we did before.
 | |?
 | | | (:normal)Well, there aren't any new leaks right now, so that's fine.
 | ? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
 | | | (:normal)I was going to say we need some mushrooms, what with food stocks getting low.
-| | | (:excited)But is it me, or are those mushrooms inside your compartment?
+| | | (:excited)But is it me, or are those \"mushrooms inside your compartment\"(orange)?
 | | | (:excited)You're very proactive, Stranger, I like that! Let's see what you've got.
 | | ? (have 'item:mushroom-good-1)
-| | | | (:excited)Flower fungus, nice! I'll get these to Fi and straight into the cooking pot.
+| | | | (:excited)\"Flower fungus\"(red), nice! I'll get these to Fi and straight into the cooking pot.
 | | | | (:normal)Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
 | | | ! eval (retrieve 'item:mushroom-good-1 T)
 | | ? (have 'item:mushroom-good-2)
-| | | | (:cheer)Rusty puffball, great! These are my favourite - I made my neckerchief from them, believe it or not.
+| | | | (:cheer)\"Rusty puffball\"(red), great! These are my favourite - I made my neckerchief from them, believe it or not.
 | | | | (:normal)I weaved them together with synthetic scraps; I needed a mask so their spores wouldn't give me lung disease.
 | | | ! eval (retrieve 'item:mushroom-good-2 T)
 | | ? (have 'item:mushroom-bad-1)
-| | | | (:disappointed)Oh, you got some black caps huh? Not a lot I can do with poisonous ones.
+| | | | (:disappointed)Oh, you got some \"black caps\"(red) huh? Not a lot I can do with poisonous ones.
 | | | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | | | ! eval (retrieve 'item:mushroom-bad-1 T)
 | |  
 | | | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | | | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
 | | ! eval (store 'item:parts 30)
-| | | (:normal)If you find any more mushrooms, make sure you grab them too!
-| | | If we don't need them, then the least you could do is trade them with Sahil.
+| | | (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them too!
+| | | If we don't need them, then the least you could do is \"trade them with Sahil\"(orange).
 | | ? (not (complete-p 'sq2-mushrooms))
 | | | ! eval (complete 'sq2-mushrooms)
 | |? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
 | | | (:normal)With food stocks getting low, Fi wants to forage for more mushrooms.
 | |? (not (complete-p 'sq2-mushrooms))
-| | | (:normal)You already know about gathering the mushrooms.
+| | | (:normal)You already know about \"gathering the mushrooms\"(orange) - search around, especially \"below ground\"(orange) where the soil is rich.
 | |?
 | | | (:normal)We've got enough mushrooms for the time being, so don't worry about that.
 | ? (and (not (active-p 'sq3-race)) (not (complete-p 'sq3-race)))
@@ -86,8 +86,8 @@
 | - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) //Fix the leaks//|]
 |   ~ catherine
 |   | (:excited)Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
-|   | (:normal)Just follow the pipe down like we did before. And you can already weld from your fingertips, right? So you should be good to go.
-|   | Based on the pressure drop, these leaks aren't too far away, so you'll be within radio range. You want to take a walkie, or just use your FFCS?
+|   | (:normal)Just \"follow the red pipe down\"(orange) like we did before. And androids can weld from their fingertips, right? So you should be good to go.
+|   | Based on the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range. You want to take a walkie, or just use your FFCS?
 |   ~ player
 |   - I'll take a walkie.
 |     ~ catherine
@@ -102,14 +102,14 @@
 |   < task-choice
 | - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) //Forage for mushrooms//|]
 |   ~ catherine
-|   | (:excited)Awesome! They grow in the caves beneath the camp, in the dim light and moisture there.
-|   | (:normal)Edible mushrooms like the flower fungus can sustain us even if the crop fails.
+|   | (:excited)Awesome! They grow in the \"caves beneath the camp\"(orange), in the dim light and moisture there.
+|   | (:normal)Edible mushrooms like the \"flower fungus\"(orange) can sustain us even if the crop fails.
 |   | They're all we used to eat before we moved to the surface.
-|   | Fibrous ones like the rusty puffball can be used to weave clothing. 
+|   | Fibrous ones like the \"rusty puffball\"(orange) can be used to weave clothing. 
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.
-|   | Just don't breathe in their spores - though I guess that won't affect you.
-|   | Other kinds are deadly poisonous, like the black cap - avoid those if you can.
-|   | At least 25 good ones should do for now. (:excited)Happy mushrooming, Stranger!
+|   | Just don't breathe in their spores - though I doubt they will affect you.
+|   | Other kinds are deadly poisonous, like the \"black cap - avoid those if you can\"(orange).
+|   | At least \"25 good ones\"(orange) should do for now. (:excited)Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
 |   < task-choice
 | - [(not (active-p 'sq3-race)) //Time trials//|]
@@ -118,13 +118,13 @@
 |   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and bring back.
 |   | I'll record your times for posterity too - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
 |   | Once you've completed one, then I can tell you about the next route! Them's the rules.
-|   | Just tell me when you want to start, (:excited)and we'll get this show on the road!
+|   | Just \"tell me when you want to start\"(orange), (:excited)and we'll get this show on the road!
 |   | (:cheer)This is sooo exciting!
 |   ! eval (activate 'sq3-race)
 |   < task-choice
 | - (Nothing for now)
 |   ~ catherine
-|   | (:normal)That's cool. Just let me know if you want something to do.
+|   | (:normal)That's cool. Just \"let me know if you want something to do\"(orange).
 |   < end
 |?
 | ~ catherine
@@ -139,6 +139,6 @@
   | Me? Oh, same as usual. (:concerned)Jack's as overbearing as always. But I can take it.
   | (:normal)I think if I can just keep my head down and keep doing something, then I won't worry about the future. Or the past.
   | Just take it day by day, you know?
-  | Look, I should get back to my work. Hope to see you soon!
+  | Look, I should get back to my work. Hope to talk soon!
 ")))
 ;; TODO "weld from fingertips" too implausible, or Catherine just wouldn't know that?

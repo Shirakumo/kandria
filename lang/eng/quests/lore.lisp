@@ -164,7 +164,7 @@
    :repeatable T
    "
 ~ player
-| //Zenith... That was the name of the city, and this was the train station.//
+| //\"Zenith\"(red)... That was the name of the city, and this was the central station.//
 | (:thinking)//Is it me, or was that insignia strangely prophetic?//
 ")
 

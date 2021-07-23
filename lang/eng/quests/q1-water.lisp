@@ -73,7 +73,8 @@
 | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you Stranger.(:excited)
 ! eval (setf (nametag player) \"Stranger\")
 | (:excited)Pretty cool, huh?
-| Let's go, Stranger!
+| (:normal)Okay, let's follow the pipeline further down.
+| (:excited)Let's go, Stranger!
   ")
   ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
   ;; TODO when can rename player nametag: ! eval (setf (var 'player-nametag) \"Stranger\") - re-inflects the narrative tone. Does PC adopt this name, or not?
@@ -92,7 +93,7 @@
 ~ jack
 | What is it?
 ~ catherine
-| We're in the Midwest Market - just like before the pipe is cracked, but there's no sign of a cave-in. Over.
+| We're in the \"Midwest Market\"(red) - just like before the pipe is cracked, but there's no sign of a cave-in. Over.
 ~ jack
 | ...
 | (:annoyed)It's sabotage. I knew it.
@@ -157,16 +158,15 @@
   ;; TODO catherine shocked - What have they done?
   (:eval
    (move-to 'main-leak-3 'catherine))
-  (:nearby (main-leak-3 catherine)
-   (walk-n-talk "~ catherine
-| What have they done?"))
+  (:nearby (main-leak-3 catherine))
   (:interact (catherine :now T)
    "~ catherine
-| (:disappointed)Oh man, we got here just in time. They were dismantling the turbine.
+| (:disappointed)What have they done?...
+| (:normal)Oh man, we got here just in time. They were dismantling the turbine.
 | Give me a minute.
 | ...
 ! eval (setf (animation (unit 'main-leak-3)) 'normal)
-| (:normal)There, that should do it.
+| There, that should do it.
 | Now, where is that telephone?
   ")
   ;; TODO Catherine relieved - Oh man, we got here just in time.
@@ -202,7 +202,7 @@
 ~ player
 - Sure thing.
   ~ catherine
-  | (:excited)Great, then let's get going.
+  | (:excited)Great!
 - I didn't get my bearings.
   ~ catherine
   | Oh... I'm sure you can figure it out though. (:excited)It'll be good practice, I promise.
@@ -210,7 +210,8 @@
   ~ catherine
   | She's our leader. You'll see for yourself soon enough.
   | She'll be glad to meet you, I'm sure of it.
-  | Let's get back to camp, find out what's happening.
+~ catherine
+| Let's \"get back to camp\"(orange), find out what's happening.
 ! eval (ensure-nearby 'storage-shutter 'fi 'jack)
 ! setf (direction 'fi) -1
 ! setf (direction 'jack) -1
@@ -304,7 +305,7 @@
   | This \"thing\" is a person, Jack. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
   | Still, a computer may be useful to help us maintain Stranger - especially if she's having memory trouble.
-  | Jack, speak with Sahil when he arrives, see what he can do for us.
+  | Jack, speak with \"Sahil\"(yellow) when he arrives, see what he can do for us.
   ~ jack
   | (:annoyed)If you insist.
 - Sure, why not.
@@ -327,7 +328,7 @@
 | (:normal)I must consider our next course of action.
 ~ catherine
 | Well if there's nothing else, I'll see you both later.
-| Hey Stranger, wait here - I want to talk.
+| Hey Stranger, wait here - \"I want to talk\"(orange).
 ~ fi
 | Sayonara Catherine, Stranger.
 ~ jack
@@ -372,16 +373,16 @@
    "~ catherine
 | (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.
-| Since those two aren't likely to be feeling generous, I'll give you these spare parts.
+| Since those two aren't likely to be feeling generous, I'll give you these \"spare parts\"(red).
 ! eval (store 'item:parts 20)
-| It's not much, but you can trade them for things you might want. Or you will be able to once Sahil gets here.
+| It's not much, but you can \"trade them\"(orange) for things you might want. Or you will be able to \"once Sahil gets here\"(orange).
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us.
 | (:normal)Well, I've got work to do.
 | I think Fi might want a word with you. Just something about the way she was looking at you.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
 | But right now you're a free agent. I doubt that will last very long, so make the most of it!
-| (:excited)Take a look around and explore!
+| (:excited)Take a look around and \"explore\"(orange)!
 | (:normal)Seeya later, Stranger!")
   (:eval
    :on-complete (lore q2-intro q3-intro)

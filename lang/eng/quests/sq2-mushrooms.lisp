@@ -40,8 +40,8 @@
 | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
 ! eval (store 'item:parts 30)
-| (:normal)If you find any more mushrooms, make sure you grab them too!
-| If we don't need them, then the least you could do is trade them with Sahil.
+| (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them too!
+| If we don't need them, then the least you could do is \"trade them with Sahil\"(orange).
 | See you around, Stranger!
 ! eval (complete task)
 ! eval (setf (quest:status (thing 'return-mushrooms)) :inactive)
