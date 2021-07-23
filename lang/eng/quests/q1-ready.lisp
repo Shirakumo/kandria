@@ -16,12 +16,12 @@
     :repeatable T
     :dialogue "
 ~ catherine
-| You ready to go?
+| You ready to \"fix that leak\"(orange)?
 ~ player
 - I'm ready.
   ~ catherine
   | Alright. We're going down the ladder over there.
-  | Stay close behind me.
+  | Follow the \"red pipeline\"(orange) and \"stay close\"(orange).
   ! eval (deactivate interaction)
   ! eval (complete task)
 - Not yet.
@@ -29,11 +29,11 @@
   | [? Alright, you can have a minute. | Okay but we need to hurry - the water supply isn't gonna fix itself. | Okay, but whatever you need to do, please be quick about it.]
 - (Review task log)
   ~ player
-  | //My Log Files record data about my assigned tasks; if ever I'm unsure what to do next, I should access and review these.//
-  | (:giggle)//The benefits of being an android!//
-- Where are we going again?
+  | \"//My Log Files record data about my assigned tasks; if ever I'm unsure what to do next, I should access and review these.//\"(light-gray)
+  | (:giggle)\"//The benefits of being an android!//\"(light-gray)
+- What are we doing again?
   ~ catherine
-  | (:concerned)Um, did your short-term memory corrupt? We need to fix the water leak - before we lose the crop and everyone starves!
+  | (:concerned)Um, did your short-term memory corrupt? We need to fix the leak - before we lose the crop and everyone starves!
   ~ player
   - I don't need to eat.
     ~ catherine
@@ -41,12 +41,12 @@
   - Ah, I remember now.
     ~ catherine
     | (:concerned)Good. Well...
-  - My systems are currently sub-optimal.
+  - But my systems are currently sub-optimal.
     ~ catherine
     | Decades sat on your ass in a cave will do that.
     | (:concerned)I don't think there's much I can do for you right now though. Sorry.
   ~ catherine
-  | Let me know when you're ready to go. But we can't afford to wait too long.
+  | \"Let me know\"(orange) when you're ready to go. But we can't afford to wait too long.
   ")
   )
 )

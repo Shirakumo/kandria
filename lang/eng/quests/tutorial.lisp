@@ -54,7 +54,7 @@
   ")
   (:go-to (platform-start :lead catherine)
   "~ catherine
-| (:cheer)That was __**AMAZING**!!__
+| (:cheer)That was __AMAZING!!__
   ")  
   (:go-to (platform-end :lead catherine)
   "~ catherine

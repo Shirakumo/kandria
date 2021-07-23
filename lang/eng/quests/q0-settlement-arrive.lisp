@@ -12,6 +12,7 @@
   ;; REMARK: It's confusing that you don't talk to catherine and instead have to find some hidden trigger volume.
   ;;         It would be better if this was activated on catherine as soon as the player walks into the farm
   ;;         by using a story-trigger, or even just directly activating it via an interaction-trigger.
+  ;; Don't colour code "android" here; yes it's the first time it's made explicit to the player; but they can figure it out themselves by now or soon after (boosting in earlier tutorial, reading steam blurb, and it's explained more soon after when talking to Jack)
   (:interact (catherine :now T)
    "~ catherine
 | (:excited)What'd I tell you? Incredible, right?!
@@ -36,15 +37,15 @@
 ~ player
 - Is something wrong?
   ~ catherine
-  | (:concerned)Well, I just reactivated an \"android\"(red). I thought they'd all be here to see you.
+  | (:concerned)Well, I just reactivated an android. I thought they'd all be here to see you.
 - What were you expecting?
   ~ catherine
   | (:concerned)I don't know...
-  | Though I just reactivated an \"android\"(red). I guess I thought everyone would be here to see you.
+  | Though I just reactivated an android. I guess I thought everyone would be here to see you.
 - Is it me?
   ~ catherine
   | (:concerned)You?... No of course not.
-  | Well... I mean, (:excited)I think you're amazing - a working \"android\"(red) from the old world!
+  | Well... I mean, (:excited)I think you're amazing - a working android from the old world!
   | (:normal)But not everyone has fond tales to tell about androids, I guess. Their loss though.
   | But I'm sure it's not that.
 ~ catherine
@@ -85,7 +86,7 @@
 ~ catherine
 | Well I'm here now. What can I do?
 ~ jack
-| You can stay put and man Engineering. \"Fi\"(yellow) and the others might need you.
+| You can stay put and man Engineering. \"Fi and the others\"(yellow) might need you.
 | I'm goin' down there to check the supply pipe.
 ~ catherine
 | You can't - not with your leg. And you know there's nothing I can't fix. Let me go.
@@ -94,8 +95,8 @@
 ~ catherine
 | (:excited)The android can come with me. You should see what she can do!
 ~ jack
-| (:annoyed)Have you lost your goddamn mind? An android ain't no toy!
-| You'd be safer walking straight into \"Wraw\"(red) territory than you would goin' anywhere with that thing.
+| (:annoyed)Have you lost your mind? An android ain't no toy!
+| You'd be safer walking straight into \"Wraw territory\"(red) than you would goin' anywhere with that thing.
 ~ player
 - I can protect her.
   ~ jack
@@ -108,7 +109,7 @@
   ~ catherine
   | (:disappointed)She's kidding... Aren't you?!
 ~ catherine
-| Look, \"we need to fix the water\"(red) right now or we're goners. And I'm your best shot.
+| Look, we need to fix the water right now or we're goners. And I'm your best shot.
 | Me AND my android buddy.
 ~ jack
 | (:annoyed)Shit...
@@ -123,7 +124,7 @@
 | Hold on Cathy - take this walkie. Radio if you have any trouble.
 ~ catherine
 | I will. And don't worry - we'll be back before you know it.
-| Alright, android - \"let me know\"(red) when you're ready to go.
+| Alright, android - \"let me know\"(orange) when you're ready to go.
 ! eval (activate 'q1-ready)
   ")
   (:eval
