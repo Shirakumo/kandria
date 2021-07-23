@@ -73,19 +73,19 @@
 - What's your problem? I'm here to help.
 ~ jack
 | (:shocked)Fuck me it speaks...
-~ Catherine
+~ catherine
 | (:disappointed)Jack, what's wrong? Talk to me.
 ~ Jack
 | The water has failed again, and this time I don't think it's the pump. Must be a leak somewhere.
 | If we don't get it back soon we're screwed. We'll lose the whole goddamn crop.
-~ Catherine
+~ catherine
 | (:disappointed)Shit!... I should have been here.
 ~ jack
 | Yeah you should.
 ~ catherine
 | Well I'm here now. What can I do?
 ~ jack
-| You can stay put and man Engineering. Fi and the others might need you.
+| You can stay put and man Engineering. \"Fi\"(yellow) and the others might need you.
 | I'm goin' down there to check the supply pipe.
 ~ catherine
 | You can't - not with your leg. And you know there's nothing I can't fix. Let me go.
@@ -118,7 +118,7 @@
 ~ jack
 | (:annoyed)But I'm warning you android: Touch one hair on her head and I'll bury you for another fifty years!
 ~ catherine
-| (:disappointed)Thanks \"Dad\". Well, we'll be going then.
+| (:disappointed)Thanks \"<-Dad->\". Well, we'll be going then.
 ~ jack
 | Hold on Cathy - take this walkie. Radio if you have any trouble.
 ~ catherine
