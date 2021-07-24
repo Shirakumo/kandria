@@ -20,8 +20,8 @@
 
 (defmethod (setf state) :after (state (platform falling-platform))
   (case state
-    (:falling (harmony:play (// 'sound 'falling-platform-rattle)))
-    (:blocked (harmony:play (// 'sound 'falling-platform-impact)))))
+    (:falling (harmony:play (// 'sound 'falling-platform-rattle) :reset T))
+    (:blocked (harmony:play (// 'sound 'falling-platform-impact) :reset T))))
 
 (defmethod handle ((ev tick) (platform falling-platform))
   (ecase (state platform)

@@ -1,7 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defvar *music* NIL)
-
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
    (storyline :initarg :storyline :initform NIL :accessor storyline)
@@ -16,7 +14,7 @@
    :packet (error "PACKET required.")))
 
 (defmethod initialize-instance :after ((world world) &key packet)
-  (setf *music* NIL)
+  (enter (make-instance 'environment-controller) world)
   (dolist (progression '(death hurt transition start-game low-health))
     (enter (progression-instance progression) world))
   (dolist (entry (list-entries "regions/" packet))
@@ -171,13 +169,8 @@
     (setf +input-source+ (device ev))))
 
 (defmethod handle :after ((ev switch-chunk) (world world))
-  (let ((music (music (chunk ev))))
-    (when (and music (not (eq music *music*)))
-      (when *music* (setf (harmony:state *music*) NIL))
-      (setf (harmony:state music) :normal)
-      (setf *music* music))
-    (when (language-string (name (chunk ev)) NIL)
-      (location-info (language-string (name (chunk ev)))))))
+  (when (language-string (name (chunk ev)) NIL)
+    (location-info (language-string (name (chunk ev))))))
 
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)

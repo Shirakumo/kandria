@@ -14,11 +14,29 @@
          :texture (// 'kandria ',texture)
          ,@args))))
 
-(define-asset (music region1) environment
+(define-asset (music music/region1) trial-harmony:environment
     '((:normal "region1 medium.oga")
       (:vocal "region1 medium vocal.oga")
       (:quiet "region1 quiet.oga" "region1 quiet vocal.oga")
       (:ambient "region1 ambient.oga" "region1 ambient vocal.oga")))
+
+(define-asset (music ambience/camp) trial-harmony:environment
+    '((:normal "ambience track_ camp day.ogg")))
+
+(define-asset (music ambience/cave) trial-harmony:environment
+    '((:normal "ambience track_ cave.ogg")))
+
+(define-asset (music ambience/desert) trial-harmony:environment
+    '((:normal "ambience track_ desert.ogg")))
+
+(define-asset (music ambience/desolate-building) trial-harmony:environment
+    '((:normal "ambience track_ desolate building.ogg")))
+
+(define-asset (music ambience/large-underground-hall) trial-harmony:environment
+    '((:normal "ambience track_ large underground hall.ogg")))
+
+(define-asset (music ambience/underground-building) trial-harmony:environment
+    '((:normal "ambience track_ underground building.ogg")))
 
 (define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T))
 
@@ -35,7 +53,7 @@
   (block-transition :wrapping :repeat)
   (plain-transition :wrapping :repeat))
 
-(define-assets-from-path (sound sound "**/*.wav")
+(define-assets-from-path (sound trial-harmony:sound "**/*.wav")
   (T :volume 0.1)
   (dialogue-scroll :repeat T :volume 0.2)
   (die-box :volume 0.05)

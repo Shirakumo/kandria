@@ -4,7 +4,6 @@
 (defpackage #:kandria
   (:nicknames #:org.shirakumo.fraf.kandria)
   (:use #:cl+trial)
-  (:import-from #:org.shirakumo.fraf.trial.harmony #:sound #:environment)
   (:shadow #:main #:launch #:tile #:block
            #:located-entity #:sized-entity #:sprite-entity
            #:camera #:light #:shadow-map-pass
@@ -27,6 +26,7 @@
    (#:file-select #:org.shirakumo.file-select)
    (#:gamepad #:org.shirakumo.fraf.gamepad)
    (#:harmony #:org.shirakumo.fraf.harmony.user)
+   (#:trial-harmony #:org.shirakumo.fraf.trial.harmony)
    (#:mixed #:org.shirakumo.fraf.mixed)
    (#:steam #:org.shirakumo.fraf.steamworks)
    (#:notify #:org.shirakumo.fraf.trial.notify)

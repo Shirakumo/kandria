@@ -323,3 +323,11 @@
   (if (< 0 (length (animations interactable-animated-sprite)))
       (setf (animation interactable-animated-sprite) (getf initargs :animation))
       (setf (pending-animation interactable-animated-sprite) (getf initargs :animation))))
+
+(define-encoder (environment-controller save-v0) (_b _p)
+  `(:environment ,(name (environment environment-controller))
+    :area-states ,(area-states environment-controller)))
+
+(define-decoder (environment-controller save-v0) (initargs _p)
+  (setf (area-states environment-controller) (getf initargs :area-states))
+  (switch-environment environment-controller (environment (getf initargs :environment))))

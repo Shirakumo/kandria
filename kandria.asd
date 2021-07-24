@@ -24,6 +24,7 @@
                (:file "lighting")
                (:file "background")
                (:file "assets")
+               (:file "environment")
                (:file "shadow-map")
                (:file "particle")
                (:file "effect")
