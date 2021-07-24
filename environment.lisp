@@ -97,12 +97,14 @@
   (loop for env being the hash-values of *environments*
         collect env))
 
-(defmacro define-environment (name &body initargs)
+(defmacro define-environment ((area name) &body initargs)
   (let ((music (getf initargs :music))
         (ambience (getf initargs :ambience))
-        (initargs (remf* initargs :music :ambience)))
+        (initargs (remf* initargs :music :ambience))
+        (name (trial::mksym *package* area '/ name)))
     `(setf (environment ',name)
            (ensure-instance (environment ',name) 'environment
+                            :area ',area
                             :name ',name
                             :music ,(when music `(// 'music ,music))
                             :ambience ,(when ambience `(// 'music ,ambience))
@@ -113,42 +115,39 @@
   :item-text (string (when alloy:value (name alloy:value)))
   (list-environments))
 
-(define-environment grave/hall
-  :area 'grave
+(define-environment (grave hall)
   :music NIL
   :ambience 'ambience/large-underground-hall)
 
-(define-environment grave/tutorial
-  :area 'grave
+(define-environment (grave tutorial)
   :music NIL
   :ambience 'ambience/underground-building)
 
-(define-environment desert/surface
-  :area 'desert
+(define-environment (desert surface)
   :music NIL
   :ambience 'ambience/desert)
 
-(define-environment desert/camp
+(define-environment (desert camp)
   :area 'desert
   :music NIL
   :ambience 'ambience/camp)
 
-(define-environment desert/building
+(define-environment (desert building)
   :area 'desert
   :music NIL
   :ambience 'ambience/desolate-building)
 
-(define-environment region1/cave
+(define-environment (region1 cave)
   :area 'region1
   :music 'music/region1
   :ambience 'ambience/cave)
 
-(define-environment region1/hall
+(define-environment (region1 hall)
   :area 'region1
   :music 'music/region1
   :ambience 'ambience/large-underground-hall)
 
-(define-environment region1/building
+(define-environment (region1 building)
   :area 'region1
   :music 'music/region1
   :ambience 'ambience/underground-building)
