@@ -243,3 +243,82 @@
   (item:mushroom-good-1 1)
   (item:mushroom-good-2 1)
   (item:mushroom-bad-1 1))
+;; generally don't use this one, as it can be hard for the player to differentiate good from bad ones in the world, and they might not want to collect bad ones (for Catherine to burn, or Sahil to buy) - unless they can destroy them in their inventory (probably preferable to handling dropping in the world)
+
+(define-random-draw mushrooms-good
+  (item:mushroom-good-1 1)
+  (item:mushroom-good-2 1))
+  
+(define-random-draw mushrooms-good-1
+  (item:mushroom-good-1 2)
+  (item:mushroom-good-2 1))
+  
+(define-random-draw mushrooms-good-2
+  (item:mushroom-good-1 1)
+  (item:mushroom-good-2 2))
+  
+(define-random-draw mushrooms-bad
+  (item:mushroom-bad-1 1))
+  
+(define-random-draw junk
+  (item:heavy-spring 1)
+  (item:satchel 1)
+  (item:screw 1)
+  (item:bolt 1)
+  (item:nut 1)
+  (item:gear 1)
+  (item:bent-rod 1)
+  (item:large-gear 1)
+  (item:copper-ring 1)
+  (item:metal-ring 1)
+  (item:broken-ring 1)
+  (item:heavy-rod 1)
+  (item:light-rod 1)
+  (item:simple-gadget 1)
+  (item:dented-plate 1)
+  (item:simple-circuit 1)
+  (item:complex-circuit 1)
+  (item:broken-circuit 1)
+  (item:large-battery 1)
+  (item:small-battery 1)
+  (item:coin 1)
+  (item:controller 1)
+  (item:connector 1)
+  (item:cable 1)
+  (item:memory 1)
+  (item:genera-core 1)
+  (item:rusted-key 1)
+  )
+  
+(define-random-draw materials
+  (item:clay-clump 4)
+  (item:gold-nugget 1)
+  (item:silver-ore 2)
+  (item:bronze-clump 3)
+  (item:rich-soil 3)
+  (item:meteorite-fragment 4)
+  (item:hardened-alloy 3)
+  (item:quartz-crystal 3)
+  (item:rusted-clump 4)
+  (item:pearl 1)
+  (item:dirt-clump 4)
+  )
+  ;; value categories on this one
+
+(define-random-draw fluids
+  (item:coolant 3)
+  (item:pure-water 1)
+  (item:crude-oil 3)
+  (item:refined-oil 2)
+  (item:thermal-fluid 3)
+  (item:mossy-water 3)
+  (item:cloudy-water 3)
+  )
+;; value categories on this one
+
+(define-random-draw animal
+  (item:ruined-pelt 3)
+  (item:fine-pelt 2)
+  (item:pristine-pelt 1)
+  )
+;; value categories on this one
