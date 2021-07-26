@@ -204,9 +204,7 @@ Possible sub-commands:
     (connect (port distortion 'color) (port blend 'trial::a-pass) scene)
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
   (register (make-instance 'walkntalk) scene)
-  (show (make-instance 'status-lines))
-  (when (deploy:deployed-p)
-    (show (make-instance 'report-button-panel))))
+  (show (make-instance 'status-lines)))
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test)

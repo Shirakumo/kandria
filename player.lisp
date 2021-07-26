@@ -120,7 +120,7 @@
   (let ((endangering (endangering player)))
     (when endangering
       (let ((dir (float-sign (- (vx (location endangering)) (vx (location player))))))
-        (setf (direction player) (- dir))
+        (setf (direction player) dir)
         (start-animation 'evade-left player))
       T)))
 
