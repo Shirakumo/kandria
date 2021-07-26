@@ -205,7 +205,7 @@
          (setf (state player) :animated))))
 
 #-kandria-release
-(let ((type (copy-seq '(wolf box drone zombie ball dummy))))
+(let ((type (copy-seq '(zombie wolf box drone ball dummy))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
@@ -334,7 +334,7 @@
     (cond ((< (combat-time player) 5)
            (setf (intended-zoom (unit :camera T))
                  (if (eql 'evade-left (name (animation player)))
-                     2.0 1.2))
+                     1.6 1.2))
            (unless (shown-p (hud player))
              (show (hud player))))
           ((and (< 5 (combat-time player))

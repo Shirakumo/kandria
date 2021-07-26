@@ -249,6 +249,8 @@
            (setf (aref trace i) (nibbles:read-ieee-single/le stream)))))))
   (let ((inventory (getf initargs :inventory)))
     (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq)))
+  ;; Force state to normal to avoid being caught in save animation
+  (setf (state player) :normal)
   (when (unit :camera T)
     (snap-to-target (unit :camera T) player)))
 
