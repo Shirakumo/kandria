@@ -41,7 +41,6 @@
              (+ (* (vy dir) 3.0) 2)))
     (nv* (velocity player) 0.25)
     (incf (vy (velocity player)) 2.0)
-    (setf (pause-timer +world+) 0.15)
     (stun player 0.1)))
 
 (define-shader-entity dummy (enemy half-solid immovable)
