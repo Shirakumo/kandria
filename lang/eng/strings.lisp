@@ -15,11 +15,9 @@ interact/description "Interact with the object or person"
 jump "Jump"
 jump/description "Hop or jump"
 dash "Dash"
-dash/description "Perform an air dash
-You will dash in the direction you hold"
+dash/description "Perform an air dash in the direction you hold"
 climb "Climb"
-climb/description "Climb vertical walls or ropes
-Climbing walls drains stamina, be careful!"
+climb/description "Climb walls and ropes - climbing walls drains stamina, be careful!"
 crawl "Crawl"
 crawl/description "Crawl to fit through tight spaces"
 save "Saving"

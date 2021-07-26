@@ -257,7 +257,7 @@
   (item:mushroom-good-1 1)
   (item:mushroom-good-2 2))
   
-(define-random-draw mushrooms-bad
+(define-random-draw mushrooms-bad-1
   (item:mushroom-bad-1 1))
   
 (define-random-draw region1-cave
