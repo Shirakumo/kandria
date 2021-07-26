@@ -37,30 +37,38 @@
                     li)))))))
 
 (defun update-particle-data (array dt g)
+  (declare (type (simple-array single-float (*)) array))
+  (declare (type single-float dt))
+  (declare (optimize speed))
   (macrolet ((f (x)
                `(aref array (+ i ,(position x '(x y s u- v- us vs a vx vy li)))))
              (sf (x v)
                `(setf (aref array (+ i ,(position x '(x y s u- v- us vs a vx vy li)))) ,v)))
-    (let ((count 0))
+    (let ((count 0)
+          (gx (* dt (vx2 g)))
+          (gy (* dt (vy2 g))))
+      (declare (type (unsigned-byte 32) count))
       (loop for i from 0 below (length array) by 11
             for vx = (f vx)
             for vy = (f vy)
             for li = (f li)
             do (sf li (- li dt))
-               (sf vy (- vy (* g dt)))
+               (sf vx (+ vx gx))
+               (sf vy (+ vy gy))
                (sf x (+ (f x) (* vx dt)))
                (sf y (+ (f y) (* vy dt)))
-               (when (< li 0.0)
-                 (sf a (decf (f a) (* 2 dt)))
-                 (incf count 4)))
+               (when (<= li 0.0)
+                 (when (<= (sf a (max 0.0 (- (f a) (* 2 dt)))) 0.0)
+                   (incf count 11))))
       ;; All done?
       (= count (length array)))))
 
-(define-shader-entity emitter (lit-entity renderable listener)
+(define-shader-entity emitter (renderable listener)
   ((vio :accessor vio)
    (vertex-array :accessor vertex-array)
    (texture :initform (// 'kandria 'particles) :accessor texture)
-   (amount :initarg :amount :initform 16 :accessor amount)))
+   (amount :initarg :amount :initform 16 :accessor amount)
+   (gravity :initarg :gravity :initform (vec 0 -100.0) :accessor gravity)))
 
 (defmethod initialize-instance :after ((emitter emitter) &key tiles location (scale 4) (scale-var 2)
                                                               (dir 90) (dir-var 180) (speed 70) (speed-var 100)
@@ -87,7 +95,7 @@
 
 (defmethod handle ((ev tick) (emitter emitter))
   (let ((vio (vio emitter)))
-    (cond ((update-particle-data (buffer-data vio) (* 2 (dt ev)) 100.0)
+    (cond ((update-particle-data (buffer-data vio) (* 2 (dt ev)) (gravity emitter))
            (leave* emitter T))
           (T
            (update-buffer-data vio T)))))
@@ -122,7 +130,10 @@ void main(){
   gl_Position = projection_matrix * view_matrix * vec4(world_pos, 0, 1);
 }")
 
-(define-class-shader (emitter :fragment-shader)
+(define-shader-entity thing-emitter (lit-entity emitter)
+  ())
+
+(define-class-shader (thing-emitter :fragment-shader)
   "in vec2 world_pos;
 in vec2 tex_coord;
 in float alpha;
@@ -144,6 +155,31 @@ void main(){
                       (/ grid height))))
 
 (defun spawn-particles (location tiles &rest initargs)
-  (enter-and-load (apply #'make-instance 'emitter :location location :tiles tiles initargs)
+  (enter-and-load (apply #'make-instance 'thing-emitter :location location :tiles tiles initargs)
+                  (region +world+)
+                  +main+))
+
+(define-shader-entity light-emitter (emitter light)
+  ((multiplier :initform 1.0 :initarg :multiplier :accessor multiplier))
+  (:inhibit-shaders (vertex-entity :vertex-shader)))
+
+(defmethod render :before ((emitter light-emitter) (program shader-program))
+  (setf (uniform program "multiplier") (multiplier emitter)))
+
+(define-class-shader (light-emitter :fragment-shader)
+  "in vec2 world_pos;
+in vec2 tex_coord;
+in float alpha;
+uniform sampler2D texture_image;
+uniform float multiplier;
+
+out vec4 color;
+
+void main(){
+  color = texture(texture_image, tex_coord)*alpha*multiplier;
+}")
+
+(defun spawn-lights (location tiles &rest initargs)
+  (enter-and-load (apply #'make-instance 'light-emitter :location location :tiles tiles initargs)
                   (region +world+)
                   +main+))

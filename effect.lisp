@@ -26,6 +26,12 @@
 (defmethod trigger ((effect symbol) source &rest args &key &allow-other-keys)
   (apply #'trigger (apply #'make-instance (effect effect)) source args))
 
+(defclass closure-effect (effect)
+  ((closure :initarg :closure :accessor closure)))
+
+(defmethod trigger ((effect closure-effect) source &rest args)
+  (apply (closure effect) source args))
+
 (defclass sound-effect (effect)
   ((voice :accessor voice)))
 
@@ -284,3 +290,16 @@ void main(){
 void main(){
    color = vec4(100,100,100,1);
 }")
+
+(define-effect evade closure-effect
+  :closure (lambda (source &rest args)
+             (declare (ignore args))
+             (let ((spread (v* (bsize source) 2)))
+               (spawn-lights (location source) (make-tile-uvs 8 6 128 128 48)
+                             :amount 64 :multiplier 2.0
+                             :scale 1.2 :scale-var 0
+                             :dir 180 :dir-var 0
+                             :life 0.2 :life-var 0.2
+                             :speed 0 :speed-var 80
+                             :spread spread
+                             :gravity (vec 0 0)))))
