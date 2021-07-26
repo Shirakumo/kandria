@@ -119,6 +119,7 @@
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))
     (when endangering
+      (setf (combat-time player) 0.0)
       (let ((dir (float-sign (- (vx (location endangering)) (vx (location player))))))
         (setf (direction player) dir)
         (start-animation 'evade-left player))
@@ -330,10 +331,12 @@
     (incf (run-time player) dt)
     (incf (combat-time player) dt)
     ;; HUD
-    (cond ((and (< (combat-time player) 5)
-                (not (shown-p (hud player))))
-           (setf (intended-zoom (unit :camera T)) 1.2)
-           (show (hud player)))
+    (cond ((< (combat-time player) 5)
+           (setf (intended-zoom (unit :camera T))
+                 (if (eql 'evade-left (name (animation player)))
+                     2.0 1.2))
+           (unless (shown-p (hud player))
+             (show (hud player))))
           ((and (< 5 (combat-time player))
                 (shown-p (hud player)))
            (setf (intended-zoom (unit :camera T)) 1.0)
@@ -434,11 +437,14 @@
       (:animated
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
          (start-animation 'heavy-aerial-3-release player))
-       (let ((buffer (buffer player)))
+       (let ((buffer (buffer player))
+             (animation (animation player)))
          (when (and buffer
                     (cancelable-p (frame player))
                     (or (<= (cooldown-time player) 0.0)
-                        (attack-chain-p buffer player)))
+                        (eql 'dash buffer)
+                        (and (< 3 (- (frame-idx player) (start animation)))
+                             (attack-chain-p buffer player))))
            (setf (buffer player) NIL)
            (cond ((retained 'left) (setf (direction player) -1))
                  ((retained 'right) (setf (direction player) +1)))
@@ -447,7 +453,7 @@
              (setf (combat-time player) 0f0))
            (case buffer
              (light-attack
-              (case (name (animation player))
+              (case (name animation)
                 (light-ground-1 (start-animation 'light-ground-2 player))
                 (light-ground-2 (start-animation 'light-ground-3 player))
                 (light-aerial-1 (start-animation 'light-aerial-2 player))
@@ -464,7 +470,7 @@
                        (T
                         (start-animation 'light-ground-1 player))))))
              (heavy-attack
-              (case (name (animation player))
+              (case (name animation)
                 (heavy-ground-1 (start-animation 'heavy-ground-2 player))
                 (heavy-ground-2 (start-animation 'heavy-ground-3 player))
                 (heavy-aerial-1 (start-animation 'heavy-aerial-2 player))
@@ -486,11 +492,7 @@
              (jump
               (setf (state player) :normal)
               (handle (make-instance 'jump) player)))))
-       (handle-animation-states player ev)
-       (when (and (cancelable-p (frame player))
-                  (or (retained 'left)
-                      (retained 'right)))
-         (setf (state player) :normal)))
+       (handle-animation-states player ev))
       (:dashing
        (incf (dash-time player) dt)
        (setf (jump-time player) 100.0)
