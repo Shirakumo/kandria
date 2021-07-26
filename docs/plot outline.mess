@@ -148,6 +148,10 @@ They could also shed led on the calamity, i.e. bucking the trope that it was an 
 
 ## Design Notes
 ### Variable World State & Ending
-The questing in acts 2 and 4 give you the chance to choose who you work for and what missions you do, thus influencing the world state of the different factions. This could have gameplay altering effects in terms of the areas you have access to, and the kinds of enemies and allies you encounter in the tunnels.
+Update July 2021:
+This is one area where scope can likely be reduced. See the "faction sections"(https://kandria.com/lore.html#factions%20and%20regions) of the lore document, but I think we can effectively hardwire into the plot which factions are allies and enemies for the final battle. There could be degrees of influence with certain factions achieved through questing, which determine how many of them show up at the end (increasing allies, reducing enemies) - but it would be mostly visual contextual change, rather than changing the gameplay to a large degree.
 
-However, importantly this world state comes into play during the battle and aftermath in act 5 and the epilogue: The more allies you’ve made with the other factions, the more will come to fight beside you in the final confrontation and the easier the combat will be. And though many will die on your side, it will also thus influence those survivors that make the final expedition with you over the mountains.
+Original notes on this:
+<-The questing in acts 2 and 4 give you the chance to choose who you work for and what missions you do, thus influencing the world state of the different factions. This could have gameplay altering effects in terms of the areas you have access to, and the kinds of enemies and allies you encounter in the tunnels.->
+
+<-However, importantly this world state comes into play during the battle and aftermath in act 5 and the epilogue: The more allies you’ve made with the other factions, the more will come to fight beside you in the final confrontation and the easier the combat will be. And though many will die on your side, it will also thus influence those survivors that make the final expedition with you over the mountains.->
