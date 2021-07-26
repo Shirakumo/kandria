@@ -281,7 +281,7 @@
   (destructuring-bind (&key location velocity state &allow-other-keys) initargs
     (setf (location moving-platform) (decode 'vec2 location))
     (setf (velocity moving-platform) (decode 'vec2 velocity))
-    (setf (state moving-platform) state)
+    (setf (slot-value moving-platform 'state) state)
     moving-platform))
 
 (define-encoder (rope save-v0) (_b _p)
