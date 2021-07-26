@@ -35,7 +35,7 @@
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
-| | \"//Weld complete.//\"(light-gray)
+| | \"//Weld complete. I should continue.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 ? (complete-p 'leak-second 'leak-third)
 | ~ player
@@ -85,7 +85,7 @@
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
-| | \"//Weld complete.//\"(light-gray)
+| | \"//Weld complete. I should continue.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
 ? (complete-p 'leak-first 'leak-third)
 | ~ player
@@ -133,7 +133,7 @@
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
-| | \"//Weld complete.//\"(light-gray)
+| | \"//Weld complete. I should continue.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
 ? (complete-p 'leak-first 'leak-second)
 | ~ player
