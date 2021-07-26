@@ -326,8 +326,13 @@
 
 (define-encoder (environment-controller save-v0) (_b _p)
   `(:environment ,(name (environment environment-controller))
-    :area-states ,(area-states environment-controller)))
+    :area-states ,(area-states environment-controller)
+    :override ,(if (symbolp (override environment-controller))
+                   (override environment-controller)
+                   (encode (override environment-controller)))))
 
 (define-decoder (environment-controller save-v0) (initargs _p)
-  (setf (area-states environment-controller) (getf initargs :area-states))
-  (switch-environment environment-controller (environment (getf initargs :environment))))
+  (destructuring-bind (&key area-states environment override) initargs
+    (setf (area-states environment-controller) area-states)
+    (setf (override environment-controller) (decode override 'resource))
+    (switch-environment environment-controller (environment environment))))

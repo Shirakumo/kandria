@@ -40,14 +40,15 @@
     (harmony:transition (override controller) 0.0 :in 3.0))
   (switch-environment NIL (environment controller)))
 
-(defmethod (setf override) :before ((override (eql null)) (controller environment-controller))
+(defmethod (setf override) :before ((override (eql 'null)) (controller environment-controller))
   (when (override controller)
     (harmony:transition (override controller) 0.0 :in 3.0))
   (switch-environment (environment controller) NIL))
 
 (defmethod (setf override) :before (override (controller environment-controller))
-  (when (override controller)
-    (harmony:transition (override controller) 0.0 :in 3.0))
+  (if (override controller)
+      (harmony:transition (override controller) 0.0 :in 3.0)
+      (switch-environment (environment controller) NIL))
   (harmony:transition override 1.0 :in 3.0))
 
 (defclass environment ()
