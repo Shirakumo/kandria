@@ -9,7 +9,8 @@
 (defclass environment-controller (unit listener)
   ((name :initform 'environment)
    (environment :initarg :environment :initform NIL :accessor environment)
-   (area-states :initarg :area-states :initform NIL :accessor area-states)))
+   (area-states :initarg :area-states :initform NIL :accessor area-states)
+   (override :initarg :override :initform NIL :accessor override)))
 
 (defmethod handle ((ev switch-chunk) (controller environment-controller))
   (switch-environment controller (environment (chunk ev))))
@@ -22,15 +23,32 @@
     (if cons
         (setf (cdr cons) state)
         (push (cons area state) (area-states controller)))
-    (when (eql area (area env))
+    (when (and (eql area (area env))
+               (null (override controller)))
       (when (music env)
         (harmony:transition (music env) state :in 5.0))
       (when (ambience env)
         (harmony:transition (ambience env) state :in 3.0)))))
 
 (defmethod switch-environment ((controller environment-controller) environment)
-  (switch-environment (environment controller) environment)
+  (unless (override controller)
+    (switch-environment (environment controller) environment))
   (setf (environment controller) environment))
+
+(defmethod (setf override) :before ((override null) (controller environment-controller))
+  (when (override controller)
+    (harmony:transition (override controller) 0.0 :in 3.0))
+  (switch-environment NIL (environment controller)))
+
+(defmethod (setf override) :before ((override (eql null)) (controller environment-controller))
+  (when (override controller)
+    (harmony:transition (override controller) 0.0 :in 3.0))
+  (switch-environment (environment controller) NIL))
+
+(defmethod (setf override) :before (override (controller environment-controller))
+  (when (override controller)
+    (harmony:transition (override controller) 0.0 :in 3.0))
+  (harmony:transition override 1.0 :in 3.0))
 
 (defclass environment ()
   ((name :initarg :name :initform NIL :accessor name)
