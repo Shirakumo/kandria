@@ -23,6 +23,8 @@
 
 (defgeneric trigger (effect source &key))
 
+(defmethod trigger ((effect effect) source &key))
+
 (defmethod trigger ((effect symbol) source &rest args &key &allow-other-keys)
   (apply #'trigger (apply #'make-instance (effect effect)) source args))
 
@@ -46,7 +48,7 @@
       :inactive
       :active))
 
-(defmethod trigger ((effect sound-effect) source &key)
+(defmethod trigger :after ((effect sound-effect) source &key)
   (harmony:play (voice effect) :reset T))
 
 (defclass camera-effect (effect)
@@ -157,12 +159,32 @@ void main(){
     (enter displacer +world+)
     (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+))))
 
-(define-shader-entity step-effect (sprite-effect sound-effect)
+(define-shader-entity basic-effect (sprite-effect sound-effect)
   ((offset :initform (vec 0 -7))
    (layer-index :initform 1)))
 
+(define-shader-entity step-effect (sprite-effect)
+  ((offset :initform (vec 0 -7))
+   (layer-index :initform 1)
+   (voice :initarg :voice :accessor voice)))
+
+(defun ground-bank (moving)
+  (when (typep (svref (collisions moving) 2) 'block)
+    (let* ((chunk (chunk moving))
+           (layer (aref (layers chunk) +base-layer+))
+           (banks (tile->bank (generator (albedo chunk)))))
+      (%with-layer-xy (layer (tv- (location moving) #.(vec 0 16)))
+        (let* ((pos (* 2 (+ x (* y (truncate (vx (size layer)))))))
+               (int (+ (ash (aref (pixel-data layer) pos) 8)
+                       (aref (pixel-data layer) (1+ pos)))))
+          (gethash int banks))))))
+
 (defmethod trigger :after ((effect step-effect) source &key)
-  (harmony:play (voice effect) :reset T))
+  (let* ((bank (ground-bank source))
+         (voices (voice effect))
+         (voice (alexandria:random-elt (or (cdr (assoc bank voices))
+                                           (cdr (first voices))))))
+    (harmony:play voice :reset T)))
 
 (define-shader-entity dash-effect (displacement-effect rotated-entity sprite-effect sound-effect)
   ((offset :initform (vec 0 8))
@@ -170,7 +192,6 @@ void main(){
    (angle :initform NIL :initarg :angle :accessor angle)))
 
 (defmethod trigger :after ((effect dash-effect) source &key angle)
-  (harmony:play (voice effect) :reset T)
   (setf (angle effect) (or angle (angle effect)
                            (when (v/= 0 (velocity source))
                              (point-angle (velocity source)))
@@ -186,12 +207,21 @@ void main(){
   :animation 'wall-slide)
 
 (define-effect step step-effect
-  :voice (list (// 'sound 'step-dirt-1)
-               (// 'sound 'step-dirt-2)
-               (// 'sound 'step-dirt-3))
+  :voice `((:dirt ,(// 'sound 'step-dirt-1)
+                  ,(// 'sound 'step-dirt-2)
+                  ,(// 'sound 'step-dirt-3)
+                  ,(// 'sound 'step-dirt-4))
+           (:sand ,(// 'sound 'step-sand-1)
+                  ,(// 'sound 'step-sand-2)
+                  ,(// 'sound 'step-sand-3)
+                  ,(// 'sound 'step-sand-4))
+           (:rocks ,(// 'sound 'step-rocks-1)
+                   ,(// 'sound 'step-rocks-2)
+                   ,(// 'sound 'step-rocks-3)
+                   ,(// 'sound 'step-rocks-4)))
   :animation 'step)
 
-(define-effect jump step-effect
+(define-effect jump basic-effect
   :voice (// 'sound 'jump)
   :animation 'jump)
 
@@ -211,7 +241,7 @@ void main(){
 (define-effect stab sound-effect
   :voice (// 'sound 'hit-zombie))
 
-(define-effect ground-hit step-effect
+(define-effect ground-hit basic-effect
   :voice (// 'sound 'hit-ground)
   :animation 'hit2
   :offset (vec 38 -8)
@@ -221,7 +251,7 @@ void main(){
 (define-effect zombie-notice sound-effect
   :voice (// 'sound 'notice-zombie))
 
-(define-shader-entity explosion-effect (displacement-effect step-effect)
+(define-shader-entity explosion-effect (displacement-effect basic-effect)
   ((layer-index :initform 2)))
 
 (defmethod trigger :after ((effect explosion-effect) source &key)
@@ -249,7 +279,7 @@ void main(){
                    :life 1.0 :life-var 0.5)
   :multiplier 1.5)
 
-(define-effect land step-effect
+(define-effect land basic-effect
   :voice (// 'sound 'land-normal)
   :animation 'land-smash
   :layer-index 2)

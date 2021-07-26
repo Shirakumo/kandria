@@ -53,7 +53,10 @@
     (T (p! walk-limit))))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(dash jump land-normal slide step-dirt-1 step-dirt-2 step-dirt-3 die-player slash enter-water hit-ground))
+  (dolist (sound '(dash jump land-normal slide die-player slash enter-water hit-ground
+                   step-dirt-1 step-dirt-2 step-dirt-3 step-dirt-4
+                   step-rocks-1 step-rocks-2 step-rocks-3 step-rocks-4
+                   step-sand-1 step-sand-2 step-sand-3 step-sand-4))
     (stage (// 'sound sound) area))
   (stage (fishing-line player) area)
   (stage (// 'kandria 'line-part) area)

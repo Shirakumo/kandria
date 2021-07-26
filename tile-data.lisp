@@ -1,7 +1,12 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass tile-data (compiled-generator multi-resource-asset file-input-asset)
-  ((tile-types :initform () :accessor tile-types)))
+  ((tile-types :initform () :accessor tile-types)
+   (tile->bank :initform (make-hash-table :test 'eql) :accessor tile->bank)))
+
+(defun tile-type-int (type)
+  (destructuring-bind (x y) type
+    (+ (ash x 8) y)))
 
 (defun parse-tile-types (types)
   (labels ((parse-tile-spec (spec)
@@ -16,6 +21,19 @@
                (list* type (reduce #'append parts :key #'parse-tile-spec)))))
     (loop for (name . tiles) in types
           collect (list* name (mapcar #'parse-type-spec tiles)))))
+
+(defun compute-tile->bank-mapping (types)
+  (let ((table (make-hash-table :test 'eql)))
+    (loop for (bank . type-list) in types
+          do (dolist (type (rest type-list))
+               (dolist (tile (rest type))
+                 (destructuring-bind (x y &optional (w 1) (h 1)) tile
+                   (loop for i = x then (+ i (signum w))
+                         until (= i (+ x w))
+                         do (loop for j = y then (+ j (signum h))
+                                  until (= j (+ y h))
+                                  do (setf (gethash (tile-type-int (list i j)) table) bank)))))))
+    table))
 
 (defmethod compile-resources ((data tile-data) (path pathname) &key force)
   (destructuring-bind (&key source albedo absorption normal &allow-other-keys) (read-src path)
@@ -36,6 +54,7 @@
           (absorption (merge-pathnames absorption path))
           (normal (merge-pathnames normal path)))
       (setf (tile-types data) (parse-tile-types tile-types))
+      (setf (tile->bank data) (compute-tile->bank-mapping (tile-types data)))
       (generate-resources 'image-loader albedo
                           :resource (resource data 'albedo))
       (generate-resources 'image-loader absorption
