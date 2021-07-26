@@ -44,12 +44,6 @@
 (defmethod (setf health) :around (health (animatable animatable))
   (call-next-method (clamp 0 health (maximum-health animatable)) animatable))
 
-(defmethod apply-transforms progn ((animatable animatable))
-  (let ((frame (frame animatable)))
-    (translate-by (vx (offset frame))
-                  (vy (offset frame))
-                  0)))
-
 (defmethod hurtbox ((animatable animatable))
   (let* ((location (location animatable))
          (direction (direction animatable))
@@ -238,4 +232,6 @@
            (p (* frame-id (/ (* 2 PI) #xFF))))
       (translate-by (* r (cos p))
                     (* r (sin p))
-                    0.0))))
+                    0.0)))
+  (let ((offset (offset (frame animatable))))
+    (translate-by (vx offset) (vy offset) 0)))
