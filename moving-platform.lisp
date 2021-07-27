@@ -75,6 +75,9 @@
 
 (defmethod action ((elevator elevator)) 'interact)
 
+(defmethod description ((elevator elevator))
+  (language-string 'elevator))
+
 (defmethod handle ((ev tick) (elevator elevator))
   (ecase (state elevator)
     (:normal

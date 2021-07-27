@@ -32,6 +32,7 @@ door "Enter"
 fishing-spot "Fish"
 npc "Talk"
 item "Pick up"
+elevator "Activate"
 ;; Chunks
 chunk-2129 "Engineering"
 chunk-1893 "Storage"
