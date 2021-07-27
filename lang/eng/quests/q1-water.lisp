@@ -70,7 +70,7 @@
   ~ catherine
   | I'm sure it's fine. It's probably just a little data loss.
 ~ catherine
-| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you __Stranger__.(:excited)
+| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you (:excited)\"__Stranger__\"(yellow).
 ! eval (setf (nametag player) \"Stranger\")
 | (:excited)Pretty cool, huh?
 | (:normal)Okay, we need to follow the pipeline further down.
@@ -206,7 +206,7 @@
 - I didn't get my bearings.
   ~ catherine
   | Oh... I'm sure you can figure it out though. (:excited)It'll be good practice, I promise.
-- Who's Fi?
+- Jack mentioned Fi - who's that?
   ~ catherine
   | She's our leader. You'll see for yourself soon enough.
   | She'll be glad to meet you, I'm sure of it.

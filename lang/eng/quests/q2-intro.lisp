@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q2-intro)
   :author "Tim White"
   :title "Query Fi"
-  :description "Catherine said Fi would like to talk to me."
+  :description "Catherine said Fi may wish to talk to me."
   :on-activate (talk-to-fi)
 
   (talk-to-fi
