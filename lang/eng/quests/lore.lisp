@@ -283,7 +283,15 @@
 | //(:normal)\"Not the most comfortable location to have spent a few decades. (:giggle)Little wonder I've a bad back.//\"(light-gray)
 ")
 
-)
+  (:interaction grave-cliff
+   :interactable lore-grave-cliff
+   :repeatable T
+   "
+~ player
+| //\"It appears the old gasworks exploded. Was I something to do with that?//\"(light-gray)
+| //\"It's a pity: natural gas could really come in handy around here.//\"(light-gray)
+"))
+;; perhaps the old gasworks was being converted into something more modern, when an accident happened, perhaps involving the android. Like this explosion in Sheffield when an old gasworks was being converted in the 1970s: https://www.bbc.co.uk/news/uk-england-south-yorkshire-45097740
 
 #|
 ;; TODO Old mushroom text interacts that could be repurposed as lore interacts:
