@@ -8,7 +8,7 @@
   :on-activate (find-seeds)
 
   (find-seeds
-   :title "Find the seed cache across the surface and beneath the Ruins to the east."
+   :title "Find the seed cache across the surface and beneath the Ruins to the east"
    :description NIL
    :invariant T
    :condition (have 'item:seeds 20)
@@ -20,7 +20,7 @@
     :repeatable T
     :dialogue "
 ~ fi
-| Travel across the surface and go beneath the Ruins to the \"east\"(orange) - \"retrieve whatever seeds remain\"(orange) in the cache.
+| Travel across the surface and beneath the Ruins to the \"east - retrieve whatever seeds remain\"(orange) in the cache.
 | Good luck, Stranger.
 ")
 

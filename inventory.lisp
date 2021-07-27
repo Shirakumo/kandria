@@ -283,7 +283,7 @@
   (item:broken-ring 4)
   (item:metal-ring 3))
 
-(define-random-draw region1-industrial
+(define-random-draw region1-factory
   (item:heavy-spring 3)
   (item:screw 3)
   (item:bolt 3)

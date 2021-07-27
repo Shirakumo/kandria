@@ -213,8 +213,9 @@
    :repeatable T
    "
 ~ player
-| (:skeptical)\"//They've had many leaks, if this sunken room is anything to go by.//\"(light-gray)
+| (:skeptical)\"//This sunken room must be a part of their reservoir, which the pump draws water from.//\"(light-gray)
 ")
+;; was: They've had many leaks, if this sunken room is anything to go by.
 
   (:interaction mush-cave-1
    :interactable lore-mush-cave-1
