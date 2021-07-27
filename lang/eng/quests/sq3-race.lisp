@@ -32,11 +32,11 @@
 |   | No worries! (:excited)Let's do this soon!
 |   < quit
 | ~ catherine
-| | (:normal)So remember: \"Find the cans\"(orange) that Alex has planted.
+| | (:normal)So remember: \"Find the can\"(orange) that Alex has planted.
 | | I told them to find devious places, (:excited)and knowing Alex they won't have disappointed.
 | | (:normal)\"Grab a can, bring it back here, and I'll stop the clock.\"(orange)
-| | We'll start you off with \"Route 1\"(orange), which is an easy one.
-| | Finish this one and I'll tell you about the next route!
+| | We'll start you off with \"Route 1\"(orange), which is easy.
+| | Finish this one and I'll tell you about the next route.
 | | You can try routes as many times as you want, but you'll \"only get a reward if you beat your previous best time\"(orange).
 | | Alex also gave me some \"riddles\"(orange) for each place, to give you a clue. Figuring these out might slow you down at first.
 | | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure! So...
@@ -58,7 +58,7 @@
 
 # race-1
 ~ catherine
-| (:cheer)Route 1! The can is at... a literal high point of EASTERN civilisation, now long gone\"(orange).
+| (:cheer)Route 1! The can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-1 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-1 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-1 'bronze))}.
 ? (var-of 'race-1 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange). Beat this to get a reward.
@@ -144,7 +144,7 @@
           :repeatable T
           :dialogue "
 ~ player
-| \"//This is the right place -\"(light-gray) \"the can must be close by\"(orange)\".//\"(light-gray)
+| \"This is the right place - \"the can must be close by\"(orange).\"(light-gray, italic)
 "))
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine in Engineering ASAP"
