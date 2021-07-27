@@ -6,6 +6,7 @@
   :title "Find a New Home"
   :description "I need to find a new home for the settlement, across the surface and beneath the Ruins to the east. My FFCS indicates four candidate locations."
   :on-activate (find-home-first find-home-second find-home-third find-home-fourth task-q3-reminder)
+  :variables (first-home)
 
   (task-q3-reminder
    :title "Talk to Jack if I need a reminder"
@@ -19,9 +20,8 @@
 ~ jack
 | (:annoyed)Our new home ain't gonna find itself. Be seein' ya.
 ~ player
-| \"//Jack said\"(light-gray) \"I should search across the surface and down into the Ruins to the east\"(orange)\". My FFCS indicates \"four candidate locations\"(orange).//\"(light-gray)
-")
-)
+| \"Jack said I should \"search across the surface and down into the Ruins to the east\"(orange). My FFCS indicates \"four candidate locations\"(orange).\"(light-gray, italic)
+"))
 
   (find-home-first
    :title "Scout location Beta"
@@ -31,17 +31,18 @@
     :interactable new-home-1
     :dialogue "
 ~ player
-| \"//It's new-home candidate site\"(light-gray) \"Beta\"(red)\".//\"(light-gray)
+| \"It's new-home candidate site \"Beta\"(red).\"(light-gray, italic)
 | (:thinking)\"//There could be shelter inside this building.//\"(light-gray)
 | (:normal)\"//Scanning the interior...//\"(light-gray)
 | \"//Dirt and sand has intruded through almost every crack.//\"(light-gray)
 | \"//It's a quicksand deathtrap.//\"(light-gray)
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
-| | (:normal)\"//That's the last site surveyed. I should\"(light-gray) \"return to Jack\"(orange) \"with the bad news.//\"(light-gray)
+| | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
-|?
-| | (:normal)\"//I should keep looking, and consult my\"(light-gray) \"Log Files\"(orange) \"for the remaining sites.//\"(light-gray)
+|? (not (var 'first-home))
+| | (:normal)\"I should keep looking, and consult my \"Log Files\"(orange) for the remaining sites.\"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
 "))
 ;; SCRATCH | Structural integrity can be described as \"may collapse at any moment\". ;; restore italics to "Structural integrity..." once back slashes don't impede
   (find-home-second
@@ -53,16 +54,17 @@
     :interactable new-home-2
     :dialogue "
 ~ player
-| \"//It's new-home candidate site\"(light-gray) \"Gamma\"(red)\".//\"(light-gray)
+| \"It's new-home candidate site \"Gamma\"(red).\"(light-gray, italic)
 | (:thinking)\"//This position is favourably elevated and well-concealed, offering a vantage point from which to spot intruders.//\"(light-gray)
 | \"//The building's foundations appear strong, but the rest is a sand-blasted shell.//\"(light-gray)
 | \"//It's a no go.//\"(light-gray)
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
-| | (:normal)\"//That's the last site surveyed. I should\"(light-gray) \"return to Jack\"(orange) \"with the bad news.//\"(light-gray)
+| | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
-|?
-| | (:normal)\"//I should keep looking, and consult my\"(light-gray) \"Log Files\"(orange) \"for the remaining sites.//\"(light-gray)
+|? (not (var 'first-home))
+| | (:normal)\"I should keep looking, and consult my \"Log Files\"(orange) for the remaining sites.\"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
 "))
 
   (find-home-third
@@ -74,15 +76,16 @@
     :interactable new-home-3
     :dialogue "
 ~ player
-| \"//It's new-home candidate site\"(light-gray) \"Delta\"(red)\".//\"(light-gray)
+| \"It's new-home candidate site \"Delta\"(red).\"(light-gray, italic)
 | (:thinking)\"//It's secure and concealed, and sheltered from the weather.//\"(light-gray)
 | (:skeptical)\"//But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.//\"(light-gray)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | (:normal)\"//That's the last site surveyed. I should\"(light-gray) \"return to Jack\"(orange) \"with the bad news.//\"(light-gray)
+| | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
-|?
-| | (:normal)\"//I should keep looking, and consult my\"(light-gray) \"Log Files\"(orange) \"for the remaining sites.//\"(light-gray)
+|? (not (var 'first-home))
+| | (:normal)\"I should keep looking, and consult my \"Log Files\"(orange) for the remaining sites.\"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
 "))
 
   (find-home-fourth
@@ -94,7 +97,7 @@
     :interactable new-home-4
     :dialogue "
 ~ player
-| \"//It's new-home candidate site\"(light-gray) \"Epsilon\"(red)\".//\"(light-gray)
+| \"It's new-home candidate site \"Epsilon\"(red).\"(light-gray, italic)
 | (:thinking)\"//These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.//\"(light-gray)
 | \"//I could clear the barbed wire so children, and the elderly and infirm could navigate the area.//\"(light-gray)
 ? (or (complete-p 'q2-seeds) (have 'item:seeds))
@@ -102,11 +105,12 @@
 |?
 | | (:skeptical)\"//But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.//\"(light-gray)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
-| | (:normal)\"//That's the last site surveyed. I should\"(light-gray) \"return to Jack\"(orange) \"with the bad news.//\"(light-gray)
+| | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
-|?
-| | (:normal)\"//I should keep looking, and consult my\"(light-gray) \"Log Files\"(orange) \"for the remaining sites.//\"(light-gray)
+|? (not (var 'first-home))
+| | (:normal)\"I should keep looking, and consult my \"Log Files\"(orange) for the remaining sites.\"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
 "))
 
   (return-new-home

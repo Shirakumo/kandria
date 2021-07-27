@@ -33,7 +33,7 @@
 | Anyway, you can do something for me.
 | Fi wants to \"scout for a new home\"(orange) - I guess she's worried sick now the Wraw are breathing down our necks.
 | Well as you can see, I'm no scout. I guess I just don't have the physique for it.
-| \"Alex\"(yellow) is our hunter, but God knows where they are. So it's up to you... (:annoyed)Stranger.
+| (:annoyed)\"Alex\"(yellow) is our hunter, but God knows where they are. So it's up to you... Stranger.
 ~ player
 - Lucky me.
   ~ jack
@@ -60,5 +60,5 @@
 | Well, I guess I should say good luck.
 | Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
 ~ player
-| \"//Speaking of my FFCS: it indicates//\"(light-gray) \"//four candidate locations//\"(orange)\"//. That should help narrow things down.//\"(light-gray)
+| \"Speaking of my FFCS: it indicates \"four candidate locations\"(orange). That should help narrow things down.\"(light-gray, italic)
 ")))

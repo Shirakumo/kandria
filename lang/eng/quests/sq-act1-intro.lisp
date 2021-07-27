@@ -67,7 +67,7 @@
 | | | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
 | | ! eval (store 'item:parts 30)
 | | | (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them too!
-| | | If we don't need them, then the least you could do is \"trade them with Sahil\"(orange).
+| | | If we don't need them, the least you could do is \"trade them with Sahil\"(orange).
 | | ? (not (complete-p 'sq2-mushrooms))
 | | | ! eval (complete 'sq2-mushrooms)
 | |? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
@@ -86,7 +86,7 @@
 | - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (Fix the leaks)|]
 |   ~ catherine
 |   | (:excited)Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
-|   | (:normal)Just \"follow the red pipe down\"(orange) like we did before. And androids can weld from their fingertips, right? So you should be good to go.
+|   | (:normal)Just \"follow the red pipe down\"(orange) like we did before. Androids can weld from their fingertips, right? So you should be good to go.
 |   | Based on the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range. You want to take a walkie, or just use your FFCS?
 |   ~ player
 |   - I'll take a walkie.

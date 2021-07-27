@@ -35,7 +35,7 @@
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
-| | \"//Weld complete. I should continue.//\"(light-gray)
+| | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 ? (complete-p 'leak-second 'leak-third)
 | ~ player
@@ -70,7 +70,7 @@
     :dialogue "
 ~ player
 | \"//The pipe has split.//\"(light-gray)
-| \"//There's no subsidence, but it's close to Catherine's previous repair - I wonder if it didn't hold?//\"(light-gray)
+| \"//There's no subsidence, but it's close to Catherine's previous repair - I wonder if she accidentally damaged the pipe.//\"(light-gray)
 ? (not (var 'first-leak))
 | | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
 | | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]
@@ -85,7 +85,7 @@
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
-| | \"//Weld complete. I should continue.//\"(light-gray)
+| | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
 ? (complete-p 'leak-first 'leak-third)
 | ~ player
@@ -133,7 +133,7 @@
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (setf (var 'first-leak) T)
 |?
-| | \"//Weld complete. I should continue.//\"(light-gray)
+| | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
 ? (complete-p 'leak-first 'leak-second)
 | ~ player
