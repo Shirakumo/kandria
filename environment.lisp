@@ -6,6 +6,9 @@
   ((area :initarg :area :initform NIL :reader area)
    (state :initarg :state :initform NIL :reader state)))
 
+(defun (setf music-state) (state area)
+  (issue +world+ 'switch-music-state :area area :state state))
+
 (defclass environment-controller (unit listener)
   ((name :initform 'environment)
    (environment :initarg :environment :initform NIL :accessor environment)
