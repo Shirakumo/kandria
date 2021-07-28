@@ -148,7 +148,7 @@
 
 (define-environment (desert camp)
   :area 'desert
-  :music NIL
+  :music 'music/camp
   :ambience 'ambience/camp)
 
 (define-environment (desert building)

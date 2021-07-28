@@ -20,6 +20,11 @@
       (:quiet "region1 quiet.oga" "region1 quiet vocal.oga")
       (:ambient "region1 ambient.oga" "region1 ambient vocal.oga")))
 
+(define-asset (music music/camp) trial-harmony:environment
+    '((:normal "camp medium.oga")
+      (:vocal "camp medium vocal.oga")
+      (:ambient "camp ambient.oga")))
+
 (define-asset (music ambience/camp) trial-harmony:environment
     '((:normal "ambience track_ camp day.ogg")))
 
@@ -67,6 +72,10 @@
   (telephone-save :volume 0.5)
   (falling-platform-rattle :volume 0.5)
   (falling-platform-impact :volume 0.5))
+
+(define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
+  (T :volume 0.1)
+  (ambience-water-pipe-leak :repeat T))
 
 (define-bg tundra
   :parallax (vec 2.0 1.0)
