@@ -3,7 +3,7 @@
 (defclass main (org.shirakumo.fraf.trial.steam:main
                 org.shirakumo.fraf.trial.notify:main)
   ((scene :initform NIL)
-   (state :initarg :state :initform NIL :accessor state)
+   (state :initform NIL :accessor state)
    (quicksave :initform (make-instance 'quicksave-state :play-time 0) :accessor quicksave)
    (timestamp :initform (get-universal-time) :accessor timestamp)
    (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL))
@@ -14,11 +14,17 @@
    :app-id 1261430
    :world (pathname-utils:subdirectory (root) "world")))
 
-(defmethod initialize-instance ((main main) &key app-id world)
+(defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))
   (setf +main+ main)
   (call-next-method)
   (setf +input-source+ :keyboard)
+  (etypecase state
+    (null)
+    (save-state
+     (setf (state main) state))
+    ((or pathname string)
+     (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1"))))))
   (with-packet (packet world :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; FIXME: Allow running without sound.
@@ -63,9 +69,7 @@
 
 (defmethod load-state ((state (eql T)) (main main))
   (cond ((state main)
-         (if (< (save-time (state main)) (save-time (quicksave main)))
-             (load-state (quicksave main) main)
-             (load-state (state main) main)))
+         (load-state (state main) main))
         ((list-saves)
          (load-state (first (list-saves)) main))
         (T
@@ -137,7 +141,7 @@
              (loop (sleep 1))))
           ((equal arg "state")
            (if args
-               (launch :state (make-instance 'save-state :file (uiop:parse-native-namestring (pop args))))
+               (launch :state (uiop:parse-native-namestring (pop args)))
                (format T "~&Please pass a save file to load.~%")))
           ((equal arg "world")
            (if args
