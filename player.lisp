@@ -321,7 +321,7 @@
                                        (< 0.75 (abs (gamepad:axis :l-h +input-source+)))))
                               (p! run-limit))
                              ((or (eql :keyboard +input-source+)
-                                  (< 0.5 (abs (gamepad:axis :l-h +input-source+))))
+                                  (< 0.75 (abs (gamepad:axis :l-h +input-source+))))
                               (p! walk-limit))
                              (T
                               (p! slowwalk-limit))))
@@ -789,7 +789,7 @@
              ((< 0 (abs (vx vel)))
               (setf (look-time player) 0.0)
               (cond ((and (not (eql :keyboard +input-source+))
-                          (< (abs (gamepad:axis :l-h +input-source+)) 0.5))
+                          (< (abs (gamepad:axis :l-h +input-source+)) 0.75))
                      (setf (playback-speed player) (/ (abs (vx vel)) (p! slowwalk-limit)))
                      (if (< 0 (limp-time player))
                          (setf (animation player) 'limp-walk)
