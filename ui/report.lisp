@@ -13,61 +13,48 @@
 (defclass report-panel (pausing-panel menuing-panel)
   ())
 
-(defclass report-focus (alloy:focus-list alloy:observable)
-  ())
+(defclass report-dialog (alloy:dialog)
+  ((username :initform "anonymous" :accessor username)
+   (description :initform "" :accessor description))
+  (:default-initargs
+   :title "Submit Feedback"
+   :extent (alloy:size 300 500)
+   :accept "Submit" :reject NIL))
+
+(defmethod alloy:close :after ((dialog report-dialog))
+  (hide-panel 'report-panel))
+
+(defmethod alloy:accept ((dialog report-dialog))
+  (handler-bind ((error (lambda (e)
+                          (v:error :kandria.report e)
+                          (messagebox "Failed to gather and submit report:~%~a" e)
+                          (continue e))))
+    (with-simple-restart (continue "Ignore the failed report.")
+      (let* ((username (username dialog))
+             (description (description dialog))
+             (report (org.shirakumo.fraf.trial.feedback:submit-report
+                      :user (if (string= "" username) "anonymous" username)
+                      :description description)))
+        (status "Report submitted (#~d). Thank you!" (gethash "_id" report)))
+      (hide-panel 'report-panel))))
+
+(defmethod initialize-instance :after ((dialog report-dialog) &key)
+  (unless (setting :username)
+    (setf (setting :username) (org.shirakumo.fraf.trial.feedback::find-user-id)))
+  (setf (username dialog) (setting :username))
+  (let ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(30 T) :layout-parent dialog))
+        (focus (make-instance 'alloy:focus-list :focus-parent dialog)))
+    (alloy:represent (username dialog) 'alloy:input-line
+                     :placeholder "anonymous" :layout-parent layout :focus-parent focus)
+    (alloy:represent (description dialog) 'alloy:input-box
+                     :placeholder "Describe your feedback here" :layout-parent layout :focus-parent focus)))
 
 (defmethod initialize-instance :after ((panel report-panel) &key)
-  (let* ((description "")
-         (username (or (setting :username) (org.shirakumo.fraf.trial.feedback::find-user-id)))
-         (layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-         (focus (make-instance 'report-focus))
-         (user (alloy:represent username 'alloy:input-line :placeholder "anonymous"))
-         (desc (alloy:represent description 'alloy:input-box :placeholder "Describe your feedback here"))
-         (submit (alloy:represent "Submit" 'alloy:button)))
-    (alloy:enter desc layout :constraints `((:bottom 40) (:left 10) (:size 300 300)))
-    (alloy:enter user layout :constraints `((:above ,desc 10) (:left 10) (:size 300 20)))
-    (alloy:enter submit layout :constraints `((:below ,desc 10) (:left 10) (:size 300 20)))
-    (alloy:enter-all focus user desc submit)
-    (alloy:on alloy:activate (submit)
-      (setf (setting :username) (org.shirakumo.fraf.trial.feedback::find-user-id))
-      (handler-bind ((error (lambda (e)
-                              (v:error :kandria.report e)
-                              (messagebox "Failed to gather and submit report:~%~a" e)
-                              (continue e))))
-        (with-simple-restart (continue "Ignore the failed report.")
-          (let ((report (org.shirakumo.fraf.trial.feedback:submit-report :user (if (string= "" username) "anonymous" username) :description description)))
-            (status "Report submitted (#~d). Thank you!" (gethash "_id" report)))
-          (hide panel))))
-    (alloy:on alloy:exit (focus)
-      (hide panel))
-    (alloy:finish-structure panel layout focus)))
+  (alloy:finish-structure panel (make-instance 'alloy:fixed-layout) NIL))
 
 (defmethod show :after ((panel report-panel) &key)
-  (alloy:activate (alloy:index-element 1 (alloy:focus-element panel))))
+  (make-instance 'report-dialog :ui (unit 'ui-pass T)))
 
-(defclass report-button (button)
-  ())
-
-(presentations:define-update (ui report-button)
-  (:background
-   :pattern colors:accent)
-  (:label
-   :size (alloy:un 12)
-   :pattern colors:white))
-
-(defclass report-button-panel (panel)
-  ())
-
-(defmethod initialize-instance :after ((panel report-button-panel) &key)
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-         (focus (make-instance 'alloy:focus-list))
-         (report (make-instance 'report-button :value "Submit Feedback" :focus-parent focus :on-activate
-                                (lambda () (toggle-panel 'report-panel))))
-         (wishlist (make-instance 'report-button :value "Wishlist on Steam" :focus-parent focus :on-activate
-                                  (lambda ()
-                                    (ignore-errors
-                                     (open-in-browser "https://store.steampowered.com/app/1261430?utm_source=mailinglistdemo"))
-                                    (discard-events +world+)))))
-    (alloy:enter report layout :constraints `((:right 0) (:top 0) (:size 200 30)))
-    (alloy:enter wishlist layout :constraints `((:right 0) (:below ,report 5) (:size 200 30)))
-    (alloy:finish-structure panel layout focus)))
+(defmethod hide :after ((panel report-panel))
+  (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
+    (alloy:leave el T)))
