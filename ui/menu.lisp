@@ -147,59 +147,66 @@
   ())
 
 (presentations:define-realization (ui task-widget)
-  ((:indicator simple:ellipse)
-   (alloy:extent (alloy:ph 0.25) (alloy:ph 0.25) (alloy:ph 0.5) (alloy:ph 0.5))
-   :pattern colors:accent)
+  ((:indicator simple:polygon)
+   (list (alloy:point 0 0)
+         (alloy:point 0 20)
+         (alloy:point 10 10))
+   :pattern colors:white)
   ((:label simple:text)
    (alloy:margins (alloy:ph 1.0) 0 0 0)
    alloy:text
+   :valign :middle
    :size (alloy:un 15)
    :font (setting :display :font)))
 
 (defclass quest-widget (alloy:vertical-linear-layout alloy:focus-element alloy:observable alloy:renderable)
-  ((alloy:cell-margins :initform (alloy:margins 10))
-   (quest :initarg :quest :accessor quest)))
+  ((alloy:cell-margins :initform (alloy:margins 5))
+   (quest :initarg :quest :accessor quest)
+   (offset :initform (alloy:point 0 0) :accessor offset)))
 
 (defmethod initialize-instance :after ((widget quest-widget) &key quest)
-  (let ((header (make-instance 'label :value (quest:title quest) :style `((:label :size ,(alloy:un 30)))))
-        (description (make-instance 'label :value (quest:description quest) :style `((:label :size ,(alloy:un 15) :valign :top))))
-        (tasks (make-instance 'alloy:vertical-linear-layout)))
+  (let ((header (make-instance 'label :value (quest:title quest) :style `((:label :size ,(alloy:un 20)))))
+        (description (make-instance 'label :value (quest:description quest) :style `((:label :size ,(alloy:un 15) :valign :top)))))
     (alloy:enter header widget)
     (alloy:enter description widget)
-    (alloy:enter tasks widget)
     (dolist (task (quest:active-tasks quest))
       (when (visible-p task)
-        (alloy:enter (make-instance 'task-widget :value (quest:title task)) tasks)))))
+        (alloy:enter (make-instance 'task-widget :value (quest:title task)) widget)))))
+
+(defmethod alloy:render :around ((renderer simple:renderer) (widget quest-widget))
+  (simple:with-pushed-transforms (renderer)
+    (when (alloy:focus widget)
+      (simple:translate renderer (offset widget)))
+    (call-next-method)))
+
+(animation:define-animation focus-in
+  0 ((setf offset) (alloy:point 0 0))
+  0.1 ((setf offset) (alloy:point 10 0)))
 
 (defmethod (setf alloy:focus) :after (focus (widget quest-widget))
   (alloy:mark-for-render widget)
-  (when focus
-    (alloy:ensure-visible widget T)))
+  (cond (focus
+         (alloy:ensure-visible widget T)
+         (animation:apply-animation 'focus-in widget)))
+  (when (eql :strong focus)
+    (setf (alloy:focus (alloy:focus-parent widget)) :strong)))
 
 (presentations:define-realization (ui quest-widget)
   ((:bg simple:rectangle)
    (alloy:margins))
-  ((:border simple:rectangle)
-   (alloy:margins)
-   :line-width (alloy:un 1))
   ((:bord simple:rectangle)
-   (alloy:margins 0 0 0 (alloy:ph 0.95))
+   (alloy:extent 0 0 (alloy:pw 1) -2)
    :pattern (ecase (quest:status (quest alloy:renderable))
-              (:active colors:accent)
+              (:active colors:white)
               (:complete colors:dim-gray)
               (:failed colors:dark-red))))
 
 (presentations:define-update (ui quest-widget)
   (:bg
-   :pattern (case alloy:focus
-              (:strong (colored:color 0.3 0.3 0.3))
-              (:weak (colored:color 0.3 0.3 0.3))
-              (T (colored:color 0.2 0.2 0.2))))
-  (:border
-   :pattern (case alloy:focus
-              (:strong colors:white)
-              (:weak colors:white)
-              (T colors:transparent))))
+   :pattern (ecase (quest:status (quest alloy:renderable))
+              (:active (colored:color 0.15 0.15 0.15))
+              (:complete (colored:color 0.15 0.15 0.15 0.5))
+              (:failed (colored:color 0.5 0.1 0.1 0.5)))))
 
 (defclass input-label (label)
   ())
@@ -276,12 +283,11 @@
                 (return))))))
 
       (with-tab ((@ quest-menu) 'alloy:border-layout)
-        (let* ((list (make-instance 'alloy:vertical-linear-layout))
+        (let* ((list (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 2 10 2 2)))
                (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
           (alloy:enter list clipper)
           (alloy:enter scroll layout :place :east :size (alloy:un 20))
-          (alloy:enter scroll focus)
           (dolist (quest (quest:known-quests (storyline +world+)))
             (unless (or (eq :inactive (quest:status quest))
                         (not (visible-p quest)))
