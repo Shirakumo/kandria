@@ -70,8 +70,10 @@
   (with-simple-restart (abort "Don't activate the interaction.")
     (when (and +world+ (not (auto-trigger trigger)))
       (let ((interactable (unit (quest:interactable trigger) +world+)))
-        (when (typep interactable 'interactable)
-          (pushnew trigger (interactions interactable)))))))
+        (if (typep interactable 'interactable)
+            (pushnew trigger (interactions interactable))
+            (v:severe :kandria.quest "What the fuck? Can't find interaction target ~s, got ~a"
+                      (quest:interactable trigger) interactable))))))
 
 (defmethod quest:deactivate :around ((trigger interaction))
   (call-next-method)
