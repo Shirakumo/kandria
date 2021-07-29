@@ -217,7 +217,10 @@
     (setf (velocity animatable) (decode 'vec2 velocity))
     (vsetf (frame-velocity animatable) 0 0)
     (setf (direction animatable) direction)
-    (setf (state animatable) state)
+    (setf (state animatable)
+          (if (and (eql :animated state) (eql animation 'stand))
+              :normal
+              state))
     (when (and animation (< 0 (length (animations animatable))))
       (setf (animation animatable) animation)
       (setf (frame animatable) frame))
