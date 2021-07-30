@@ -333,3 +333,16 @@ void main(){
                              :speed 0 :speed-var 80
                              :spread spread
                              :gravity (vec 0 0)))))
+
+(define-effect heavy-sting closure-effect
+  :closure (lambda (source &rest args)
+             (declare (ignore args))
+             (let ((flash (make-instance 'flash :location (nv+ (vec (* (direction source) 2) 11)
+                                                               (location source))
+                                                :multiplier 2.0
+                                                :time-scale 3.0
+                                                :bsize (vec 24 24)
+                                                :size (vec 48 48)
+                                                :offset (vec 64 144))))
+               (enter flash +world+)
+               (compile-into-pass flash NIL (unit 'lighting-pass +world+)))))

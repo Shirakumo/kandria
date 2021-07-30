@@ -499,16 +499,23 @@
                    (setf (state player) :normal)
                    (handle (make-instance 'jump) player))))
                ((not (retained (case (name animation)
-                                 (light-ground-1 'light-attack)
-                                 (heavy-ground-1 'heavy-attack))))
+                                 ((light-ground-1 light-charge-2) 'light-attack)
+                                 ((heavy-ground-1 heavy-charge-2) 'heavy-attack))))
                 (setf (attack-held player) NIL))
                ((and (attack-held player)
-                     (<= 3 (- (frame-idx player) (start animation))))
+                     (<= 2 (- (frame-idx player) (start animation)))
+                     (<= (duration (frame player)) (+ dt (clock player))))
                 (case (name animation)
                   (light-ground-1
                    (start-animation 'light-charge-2 player))
                   (heavy-ground-1
-                   (start-animation 'heavy-charge-2 player))))))
+                   (start-animation 'heavy-charge-2 player))
+                  (light-charge-2
+                   (unless (interruptable-p (frame player))
+                     (setf (clock player) 0.0)))
+                  (heavy-charge-2
+                   (unless (interruptable-p (frame player))
+                     (setf (clock player) 0.0)))))))
        (handle-animation-states player ev))
       (:dashing
        (incf (dash-time player) dt)
