@@ -29,6 +29,8 @@
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; FIXME: Allow running without sound.
   (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)))
+  (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
+  (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
   (loop for (k v) on (setting :audio :volume) by #'cddr
         do (setf (harmony:volume k) v)))
 
