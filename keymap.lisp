@@ -61,12 +61,12 @@
 
 (trigger dash
  (key :one-of (:left-shift))
- (button :one-of (:r2))
+ (button :one-of (:r1 :r2))
  (axis :one-of (:r2) :threshold 0.25))
 
 (trigger climb
  (key :one-of (:left-control))
- (button :one-of (:l2))
+ (button :one-of (:l1 :l2))
  (axis :one-of (:l2) :threshold 0.25))
 
 (trigger crawl
