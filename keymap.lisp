@@ -55,16 +55,16 @@
  (key :one-of (:e :enter))
  (button :one-of (:b)))
 
-(retain jump
+(trigger jump
  (key :one-of (:space))
  (button :one-of (:a)))
 
-(retain dash
+(trigger dash
  (key :one-of (:left-shift))
  (button :one-of (:r2))
  (axis :one-of (:r2) :threshold 0.25))
 
-(retain climb
+(trigger climb
  (key :one-of (:left-control))
  (button :one-of (:l2))
  (axis :one-of (:l2) :threshold 0.25))
@@ -83,19 +83,19 @@
  (mouse :one-of (:right))
  (button :one-of (:y)))
 
-(retain left
+(trigger left
  (key :one-of (:a :left))
  (axis :one-of (:l-h) :threshold -0.5))
 
-(retain right
+(trigger right
  (key :one-of (:d :right))
  (axis :one-of (:l-h) :threshold 0.5))
 
-(retain up
+(trigger up
  (key :one-of (:w :up))
  (axis :one-of (:l-v) :threshold 0.5))
 
-(retain down
+(trigger down
  (key :one-of (:s :down))
  (axis :one-of (:l-v) :threshold -0.5))
 
