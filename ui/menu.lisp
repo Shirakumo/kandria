@@ -343,17 +343,16 @@
           (control game-language (:language) 'alloy:combo-set :value-set (languages))))
 
       (with-tab ((@ exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
-        (let ((resume (with-button resume-game (hide panel)))
-              (exit (with-button exit-game (quit *context*)))
-              (reset (with-button reset-game
-                       (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
-                         (let ((scene (make-instance 'world :packet packet)))
-                           (change-scene +main+ scene)
-                           (load-state (initial-state scene) +main+)
-                           (save-state +main+ T))))))
+        (let ((resume (with-button resume-game
+                        (hide panel)))
+              (exit (with-button return-to-main-menu
+                      (setf (state +main+) NIL)
+                      (discard-events +world+)
+                      (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
+                        (change-scene +main+ (make-instance 'world :packet packet)))
+                      (show-panel 'main-menu))))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
-          (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
-          (alloy:enter reset layout :constraints `((:bottom 10) (:right-of ,exit 10) (:width 200) (:height 40))))))
+          (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))
 
 (defun overview-text ()

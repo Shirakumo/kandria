@@ -23,7 +23,9 @@
     (save-state
      (setf (state main) state))
     ((or pathname string)
-     (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1"))))))
+     (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1")))))
+    ((eql T)
+     (setf (state main) (first (list-saves)))))
   (with-packet (packet (or world (pathname-utils:subdirectory (root) "world")) :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; FIXME: Allow running without sound.
