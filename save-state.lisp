@@ -93,10 +93,13 @@
                     :play-time (play-time save-state))
               stream))
     (with-packet-entry (out "image.png" packet :element-type '(unsigned-byte 8))
-      (let ((temp (tempfile :type "png" :id (format NIL "kandria-~a" (pathname-name (file save-state))))))
-        (render +world+ NIL)
-        ;; FIXME: resize capture to 192x108
-        (capture NIL :file temp)
+      (render +world+ NIL)
+      (let* ((temp (tempfile :type "png" :id (format NIL "kandria-~a" (pathname-name (file save-state)))))
+             (width 192) (height 108)
+             (data (trial::flip-image-vertically
+                    (trial::downscale-image (capture NIL) (width *context*) (height *context*) 3 width height)
+                    width height 3)))
+        (zpng:write-png (make-instance 'zpng:png :color-type :truecolor :width width :height height :image-data data) temp)
         (with-open-file (in temp :direction :input :element-type '(unsigned-byte 8))
           (uiop:copy-stream-to-stream in out :element-type '(unsigned-byte 8)))))
     (encode-payload world NIL packet version))
