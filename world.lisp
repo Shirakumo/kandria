@@ -2,7 +2,7 @@
 
 (defclass world (pipelined-scene)
   ((packet :initarg :packet :accessor packet)
-   (storyline :initarg :storyline :initform NIL :accessor storyline)
+   (storyline :initarg :storyline :initform (make-instance 'quest:storyline) :accessor storyline)
    (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)

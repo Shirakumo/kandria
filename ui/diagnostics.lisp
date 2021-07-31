@@ -140,7 +140,8 @@ SWANK:              ~a"
 
 (defun runtime-info ()
   (let ((player (unit 'player T)))
-    (format NIL "~
+    (if player
+        (format NIL "~
 Region:             ~a
 Chunk:              ~a
 Location:           ~7,2f ~7,2f
@@ -158,22 +159,23 @@ Collisions:
   R: ~a
   B: ~a
   L: ~a"
-            (name (region +world+))
-            (name (chunk player))
-            (vx (location player)) (vy (location player))
-            (vx (velocity player)) (vy (velocity player))
-            (direction player)
-            (state player)
-            (name (animation player))
-            (health player)
-            (stun-time player)
-            (iframes player)
-            (interactable player)
-            (vx (spawn-location player)) (vy (spawn-location player))
-            (svref (collisions player) 0)
-            (svref (collisions player) 1)
-            (svref (collisions player) 2)
-            (svref (collisions player) 3))))
+                (name (region +world+))
+                (name (chunk player))
+                (vx (location player)) (vy (location player))
+                (vx (velocity player)) (vy (velocity player))
+                (direction player)
+                (state player)
+                (name (animation player))
+                (health player)
+                (stun-time player)
+                (iframes player)
+                (interactable player)
+                (vx (spawn-location player)) (vy (spawn-location player))
+                (svref (collisions player) 0)
+                (svref (collisions player) 1)
+                (svref (collisions player) 2)
+                (svref (collisions player) 3))
+        "")))
 
 (defmethod initialize-instance :after ((panel diagnostics) &key)
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))

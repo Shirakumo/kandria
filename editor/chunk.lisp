@@ -19,7 +19,7 @@
                           (* (second alloy:value) (/ +tile-size+ (height (tileset alloy:renderable)))))))
 
 (defmethod simple:icon ((renderer ui) bounds (image texture) &rest initargs)
-  (apply #'make-instance 'simple:icon :image image initargs))
+  (apply #'make-instance 'simple:icon :image image :bounds bounds initargs))
 
 (defclass tile-info (alloy:label)
   ())

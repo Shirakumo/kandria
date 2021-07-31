@@ -26,7 +26,8 @@
     (if cons
         (setf (cdr cons) state)
         (push (cons area state) (area-states controller)))
-    (when (and (eql area (area env))
+    (when (and env
+               (eql area (area env))
                (null (override controller)))
       (when (music env)
         (harmony:transition (music env) state :in 5.0))

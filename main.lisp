@@ -11,8 +11,7 @@
    :clear-color (vec 2/17 2/17 2/17 0)
    :version '(3 3) :profile :core
    :title "Kandria"
-   :app-id 1261430
-   :world (pathname-utils:subdirectory (root) "world")))
+   :app-id 1261430))
 
 (defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))
@@ -25,7 +24,7 @@
      (setf (state main) state))
     ((or pathname string)
      (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1"))))))
-  (with-packet (packet world :direction :input)
+  (with-packet (packet (or world (pathname-utils:subdirectory (root) "world")) :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; FIXME: Allow running without sound.
   (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)))
@@ -100,7 +99,9 @@
           (clrhash +spawn-tracker+)
           (clrhash *spawn-cache*)
           (unless (typep state 'quicksave-state)
-            (setf (state main) state))))
+            (setf (state main) state))
+          (save-state main (quicksave main))
+          (save-state main state)))
     (reset ()
       :report "Ignore the save and reset to the initial state."
       (load-state NIL main))))
@@ -212,11 +213,17 @@ Possible sub-commands:
   (register (make-instance 'walkntalk) scene)
   (show (make-instance 'status-lines)))
 
+(defmethod load-game (state (main main))
+  (hide-panel 'save-menu)
+  (hide-panel 'main-menu)
+  (load-state state main))
+
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test)
-  (load-state T main)
-  (save-state main (quicksave main))
-  (save-state main T))
+  (cond ((state main)
+         (load-game (state main) main))
+        (T
+         (show-panel 'main-menu))))
 
 (defun apply-video-settings (&optional (settings (setting :display)))
   (when *context*

@@ -10,6 +10,7 @@
    (start-time :initarg :start-time :accessor start-time)
    (save-time :initarg :save-time :accessor save-time)
    (play-time :initarg :play-time :accessor play-time)
+   (image :initarg :image :initform NIL :accessor image)
    (file :initarg :file :accessor file))
   (:default-initargs
    :author (pathname-utils:directory-name (user-homedir-pathname))
@@ -25,6 +26,9 @@
   (print-unreadable-object (save-state stream :type T)
     (format stream "~s ~s" (author save-state) (file save-state))))
 
+(defmethod exists-p ((save-state save-state))
+  (probe-file (file save-state)))
+
 (defun string<* (a b)
   (if (= (length a) (length b))
       (string< a b)
@@ -32,7 +36,7 @@
 
 (defun list-saves ()
   (sort
-   (loop for file in (directory (make-pathname :name :wild :type "zip" :defaults (config-directory)))
+   (loop for file in (directory (merge-pathnames "?.zip" (config-directory)))
          for state = (handler-case (minimal-load-state file)
                        (warning ()
                          (v:warn :kandria.save "Save state ~s is too old, ignoring." file)
@@ -55,6 +59,14 @@
       (assert (eq 'save-state (getf header :identifier)))
       (unless (supported-p (make-instance (getf header :version)))
         (warn "Save file too old to support."))
+      (when (packet-entry-exists-p "image.png" packet)
+        ;; KLUDGE: This fucking sucks, yo.
+        (let ((temp (tempfile :type "png" :id (format NIL "kandria-~a" (pathname-name file)))))
+          (with-packet-entry (in "image.png" packet :element-type '(unsigned-byte 8))
+            (with-open-file (out temp :direction :output :if-exists :supersede :element-type '(unsigned-byte 8))
+              (uiop:copy-stream-to-stream in out :element-type '(unsigned-byte 8))))
+          (push temp initargs)
+          (push :image initargs)))
       (apply #'make-instance 'save-state :file file initargs))))
 
 (defun current-save-version ()
@@ -80,6 +92,13 @@
                     :save-time (save-time save-state)
                     :play-time (play-time save-state))
               stream))
+    (with-packet-entry (out "image.png" packet :element-type '(unsigned-byte 8))
+      (let ((temp (tempfile :type "png" :id (format NIL "kandria-~a" (pathname-name (file save-state))))))
+        (render +world+ NIL)
+        ;; FIXME: resize capture to 192x108
+        (capture NIL :file temp)
+        (with-open-file (in temp :direction :input :element-type '(unsigned-byte 8))
+          (uiop:copy-stream-to-stream in out :element-type '(unsigned-byte 8)))))
     (encode-payload world NIL packet version))
   save-state)
 

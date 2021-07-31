@@ -49,6 +49,7 @@
 
 (define-assets-from-path (kandria image "texture/*.png" :ignore-directory T)
   (T :min-filter :nearest :mag-filter :nearest)
+  (empty-save :min-filter :linear :mag-filter :linear)
   (noise :wrapping :repeat :min-filter :linear :mag-filter :linear)
   (noise-cloud :wrapping :repeat :min-filter :linear :mag-filter :linear)
   (shockwave :min-filter :linear :mag-filter :linear)
