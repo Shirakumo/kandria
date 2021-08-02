@@ -103,3 +103,7 @@
 
 (define-cheat |lp0 on fire| "Game on fire"
   (error "Simulating an uncaught error."))
+
+(define-cheat blingee "Blinged out"
+  (dolist (class (list-leaf-classes 'value-item))
+    (store (class-name class) (unit 'player T))))
