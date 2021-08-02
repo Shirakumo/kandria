@@ -59,6 +59,7 @@
 ~ jack
 | Well, I guess I should say good luck.
 | Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
+| Seeya.
 ~ player
 | \"Speaking of my FFCS: it indicates \"four candidate locations\"(orange). That should help narrow things down.\"(light-gray, italic)
 ")))
