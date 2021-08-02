@@ -1,0 +1,40 @@
+(in-package #:org.shirakumo.fraf.kandria)
+
+(defclass options-menu (tab-view menuing-panel)
+  ())
+
+(defmethod initialize-instance :after ((panel options-menu) &key)
+  (macrolet ((control (label setting type &rest args)
+               `(let ((label (alloy:represent (@ ,label) 'setting-label))
+                      (slider (alloy:represent (setting ,@setting) ,type ,@args)))
+                  (alloy:enter label layout)
+                  (alloy:enter slider layout)
+                  (alloy:enter slider focus)))
+             (with-tab (name &body body)
+               `(let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(200 300) :row-sizes '(40)))
+                       (focus (make-instance 'alloy:focus-list)))
+                  ,@body
+                  (add-tab panel (@ ,name) layout focus))))
+    (with-tab audio-settings
+      (control master-volume (:audio :volume :master) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
+      (control effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
+      (control speech-volume (:audio :volume :speech) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
+      (control music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1))
+    (with-tab video-settings
+      (control screen-resolution (:display :resolution) 'org.shirakumo.fraf.trial.alloy:video-mode)
+      (control should-application-fullscreen (:display :fullscreen) 'alloy:switch)
+      (control activate-vsync (:display :vsync) 'alloy:switch)
+      (control user-interface-scale-factor (:display :ui-scale) 'alloy:ranged-slider :range '(0.25 . 2.0) :step 0.25)
+      (control font (:display :font) 'alloy:combo-set :value-set '("PromptFont" "OpenDyslexic" "ComicSans")))
+    (with-tab gameplay-settings
+      (control rumble (:gameplay :rumble) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1)
+      (control screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 1.0)
+      (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01)
+      (control auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 1.0)
+      (control invincible-player (:gameplay :god-mode) 'alloy:switch)
+      (control player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
+    (with-tab language-settings
+      (control game-language (:language) 'alloy:combo-set :value-set (languages)))
+    (alloy:on alloy:exit ((alloy:focus-element panel))
+      (when (active-p panel)
+        (hide panel)))))

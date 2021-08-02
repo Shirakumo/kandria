@@ -78,7 +78,9 @@
                              (:file "gameover")
                              (:file "location-info")
                              (:file "save-menu")
-                             (:file "main-menu")))
+                             (:file "options-menu")
+                             (:file "main-menu")
+                             (:file "credits")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

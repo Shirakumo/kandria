@@ -137,7 +137,8 @@
   (cond ((find-panel 'quick-menu)
          (hide-panel 'quick-menu))
         ((find-panel 'menuing-panel)
-         (unless (find-panel 'menu)
+         (unless (or (find-panel 'menu)
+                     (find-panel 'main-menu))
            (status "Can't pause right now.")))
         (T
          (show-panel 'quick-menu))))
@@ -146,6 +147,7 @@
   (cond ((pausing-possible-p)
          (show-panel 'menu))
         ((null (or (find-panel 'menu)
+                   (find-panel 'main-menu)
                    (find-panel 'quick-menu)))
          (status "Can't pause right now."))))
 

@@ -2,116 +2,6 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
-## 0.0.1
-- Fix jumping right after dashing extending the dash distance
-  Reported by Leo Schlosser
-- Fix jumping while climbing causing the player to jump away from the wall rather than up the wall
-  Reported by PincerAttack
-- Fix out of bounds shadow map access when at the border of a chunk resulting in a black screen
-  Reported by Janne Pakarinen
-- Prevent hitting ceilings from recovering the jump, and prevent hitting ceilings and walls from recovering the dash
-  Reported by Janne Pakarinen
-
-## 0.0.2
-- Fix sprite atlases being giant and thus preventing loading on older graphics cards
-  Reported by José Ronquillo
-- Fix dash buffering leading to a hard crash
-  Reported by Selwyn Simsek
-
-## 0.0.3
-- Fix dpad input on gamepads not being recognised as directional inputs
-  Reported by Gnuxie
-- Fix quicksaves and quickloads breaking the game
-  Reported by PincerAttack
-- Fix DirectInput controllers not being detected
-  Reported by PincerAttack
-- Don't let errors in the render loop hang the game
-  Reported by Selwyn Simsek
-- Fix minimising the window crashing the game
-  Reported by PincerAttack
-
-## 0.0.4
-- Fix further controller issues with certain version of DualShock 4 controllers
-  Reported by Gnuxie
-- Fix dash sound being caused multiple times even when dash is not yet ready
-  Reported by PincerAttack
-- Fix attacking an enemy while both at the corner causing clipping
-  Reported by Janne Pakarinen
-- Fix slopes with ceilings above allowing clipping
-  Reported by PincerAttack
-- Fix dashing on slopes always being forced to dash along the slope rather than the direction the player intended.
-  Reported by Trashtalk
-- Fix 5.1 and 4.0 surround systems not being supported on Windows.
-  Reported by Frederic Tarabout
-- Fix various crashes
-  Reported by Selwyn Simsek
-
-## 0.1.0
-- Fix death not locking your controls
-  Reported by Selwyn Simsek and Marco Conrad
-- Fix backspace not being usable in report forms
-  Reported by Selwyn Simsek
-- Fix climb attacks getting stuck
-  Reported by Selwyn Simsek and Sage
-- Fix slope->block transitions being climbable
-  Reported by Halogens
-- Fix ropes allowing you to wall-jump off of them
-  Reported by Citizen Jake
-- Fix default button mapping to be less confusing
-  Reported by Citizen Jake
-- Fix multiple aerial attacks being possible
-  Reported by Citizen Jake
-- Fix NPC routing failing if on the same X as target, but not Y.
-  Reported by Selwyn Simsek
-- Fix NPCs following impossible routes.
-  Reported by Christopher Hurley
-- Fix dialogue options not wrapping correctly.
-  Reported by Christopher Hurley
-- Fix save states not restoring all properties
-  Reported by Christopher Hurley
-- Fix spurious crashes caused by the Steam overlay using outdated GL commands (yikes).
-  Reported by Christopher Hurley
-- Fix an empty gap in the collision map allowing you to clip into terrain.
-  Reported by Christopher Hurley
-- Fix audio stutter on lower end systems
-  Reported by PincerAttack
-- Fix gamepad rumble on MacOS
-  Reported by Florian Hanke
-- Fix enemies spawning on top of each other
-  Reported by Florian Hanke, Christopher Hurley
-- Fix collision during death leading to double-despawn attempts.
-  Reported by Christopher Hurley
-- Fix NPCs getting stopped in the air by platforms
-  Reported by Florian Hanke
-- Fix UI focus bug
-  Reported by Christopher Hurley
-- Fix quest entries being duplicated when reloading
-  Reported by Christopher Hurley
-- Fix missing roof in cafe alpha
-  Reported by Florian Hanke
-
-## 0.1.1
-- Fix NPCs blocked by elevators
-  Reported by Nag
-- Fix wall adjacent ropes clipping you into walls
-  Reported by Selwyn Simsek
-- Fix wall jumps letting you climb indefinitely
-  Reported by Monroth
-- Fix elevators crashing when colliding with NPCs
-  Reported by Hot Potato
-- Fix text input box cursor movement
-  Reported by ribbitface
-- Fix feedback form input bleeding through to cheats/dialog
-  Reported by ribbitface
-- Fix reset button not working correctly
-  Reported by Monroth
-- Fix quests that require enemies being defeated not completing sometimes
-  Reported by Nag, Simon Weis
-- Fix save animation retaining velocity
-  Reported by Janne Pakarinen
-- Fix Catherine getting stuck in odd locations due to retained follow state
-  Reported by Janne Pakarinen
-
 ## 0.2.0
 - Add selection tool
   Suggested by Monroth
@@ -200,10 +90,112 @@ A big thanks to everyone for trying it out and reporting problems!
 - NPCs collided with enemies creating awkward combat situations
   Reported by Pierre Lippuner
 
-## TODO
-- Fix disconnecting a sound device crashing the game
+## 0.1.1
+- Fix NPCs blocked by elevators
+  Reported by Nag
+- Fix wall adjacent ropes clipping you into walls
+  Reported by Selwyn Simsek
+- Fix wall jumps letting you climb indefinitely
+  Reported by Monroth
+- Fix elevators crashing when colliding with NPCs
+  Reported by Hot Potato
+- Fix text input box cursor movement
+  Reported by ribbitface
+- Fix feedback form input bleeding through to cheats/dialog
+  Reported by ribbitface
+- Fix reset button not working correctly
+  Reported by Monroth
+- Fix quests that require enemies being defeated not completing sometimes
+  Reported by Nag, Simon Weis
+- Fix save animation retaining velocity
+  Reported by Janne Pakarinen
+- Fix Catherine getting stuck in odd locations due to retained follow state
+  Reported by Janne Pakarinen
+
+## 0.1.0
+- Fix death not locking your controls
+  Reported by Selwyn Simsek and Marco Conrad
+- Fix backspace not being usable in report forms
+  Reported by Selwyn Simsek
+- Fix climb attacks getting stuck
+  Reported by Selwyn Simsek and Sage
+- Fix slope->block transitions being climbable
+  Reported by Halogens
+- Fix ropes allowing you to wall-jump off of them
   Reported by Citizen Jake
-- Fix odd physics after a balloon jump
-  Reported by Pondering Trog
-- Fix elevators clipping you into the walls
-  Reported by Nag, ribbitface, at
+- Fix default button mapping to be less confusing
+  Reported by Citizen Jake
+- Fix multiple aerial attacks being possible
+  Reported by Citizen Jake
+- Fix NPC routing failing if on the same X as target, but not Y.
+  Reported by Selwyn Simsek
+- Fix NPCs following impossible routes.
+  Reported by Christopher Hurley
+- Fix dialogue options not wrapping correctly.
+  Reported by Christopher Hurley
+- Fix save states not restoring all properties
+  Reported by Christopher Hurley
+- Fix spurious crashes caused by the Steam overlay using outdated GL commands (yikes).
+  Reported by Christopher Hurley
+- Fix an empty gap in the collision map allowing you to clip into terrain.
+  Reported by Christopher Hurley
+- Fix audio stutter on lower end systems
+  Reported by PincerAttack
+- Fix gamepad rumble on MacOS
+  Reported by Florian Hanke
+- Fix enemies spawning on top of each other
+  Reported by Florian Hanke, Christopher Hurley
+- Fix collision during death leading to double-despawn attempts.
+  Reported by Christopher Hurley
+- Fix NPCs getting stopped in the air by platforms
+  Reported by Florian Hanke
+- Fix UI focus bug
+  Reported by Christopher Hurley
+- Fix quest entries being duplicated when reloading
+  Reported by Christopher Hurley
+- Fix missing roof in cafe alpha
+  Reported by Florian Hanke
+
+## 0.0.4
+- Fix further controller issues with certain version of DualShock 4 controllers
+  Reported by Gnuxie
+- Fix dash sound being caused multiple times even when dash is not yet ready
+  Reported by PincerAttack
+- Fix attacking an enemy while both at the corner causing clipping
+  Reported by Janne Pakarinen
+- Fix slopes with ceilings above allowing clipping
+  Reported by PincerAttack
+- Fix dashing on slopes always being forced to dash along the slope rather than the direction the player intended.
+  Reported by Trashtalk
+- Fix 5.1 and 4.0 surround systems not being supported on Windows.
+  Reported by Frederic Tarabout
+- Fix various crashes
+  Reported by Selwyn Simsek
+
+## 0.0.3
+- Fix dpad input on gamepads not being recognised as directional inputs
+  Reported by Gnuxie
+- Fix quicksaves and quickloads breaking the game
+  Reported by PincerAttack
+- Fix DirectInput controllers not being detected
+  Reported by PincerAttack
+- Don't let errors in the render loop hang the game
+  Reported by Selwyn Simsek
+- Fix minimising the window crashing the game
+  Reported by PincerAttack
+
+## 0.0.2
+- Fix sprite atlases being giant and thus preventing loading on older graphics cards
+  Reported by José Ronquillo
+- Fix dash buffering leading to a hard crash
+  Reported by Selwyn Simsek
+
+## 0.0.1
+- Fix jumping right after dashing extending the dash distance
+  Reported by Leo Schlosser
+- Fix jumping while climbing causing the player to jump away from the wall rather than up the wall
+  Reported by PincerAttack
+- Fix out of bounds shadow map access when at the border of a chunk resulting in a black screen
+  Reported by Janne Pakarinen
+- Prevent hitting ceilings from recovering the jump, and prevent hitting ceilings and walls from recovering the dash
+  Reported by Janne Pakarinen

@@ -246,13 +246,7 @@
     (alloy:on alloy:exit ((alloy:focus-element tabs))
       (hide panel))
     (alloy:enter tabs layout :place :center)
-    (macrolet ((control (label setting type &rest args)
-                 `(let ((label (alloy:represent (@ ,label) 'setting-label))
-                        (slider (alloy:represent (setting ,@setting) ,type ,@args)))
-                    (alloy:enter label layout)
-                    (alloy:enter slider layout)
-                    (alloy:enter slider focus)))
-               (with-tab ((name layout &rest layout-args) &body body)
+    (macrolet ((with-tab ((name layout &rest layout-args) &body body)
                  `(let* ((layout (make-instance ,layout ,@layout-args))
                          (focus (make-instance 'alloy:focus-list)))
                     ,@body
@@ -262,9 +256,6 @@
                          (tab (add-tab tabs ,name (alloy:layout-element view) (alloy:focus-element view)))
                          (tabs view))
                     (declare (ignore tab))
-                    ,@body))
-               (with-options-tab (name &body body)
-                 `(with-tab ((@ ,name) 'alloy:grid-layout :col-sizes '(200 300) :row-sizes '(40))
                     ,@body))
                (with-button (name &body body)
                  `(make-instance 'button :value (@ ,name) :on-activate (lambda () ,@body) :focus-parent focus)))
@@ -319,28 +310,9 @@
             (when gamepad
               (make-instance 'input-label :value (string (or (prompt-char gamepad :bank :gamepad)))
                                           :layout-parent layout)))))
-      
-      (with-tab-view (@ open-options-menu)
-        (with-options-tab audio-settings
-          (control master-volume (:audio :volume :master) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
-          (control effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
-          (control speech-volume (:audio :volume :speech) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
-          (control music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1))
-        (with-options-tab video-settings
-          (control screen-resolution (:display :resolution) 'org.shirakumo.fraf.trial.alloy:video-mode)
-          (control should-application-fullscreen (:display :fullscreen) 'alloy:switch)
-          (control activate-vsync (:display :vsync) 'alloy:switch)
-          (control user-interface-scale-factor (:display :ui-scale) 'alloy:ranged-slider :range '(0.25 . 2.0) :step 0.25)
-          (control font (:display :font) 'alloy:combo-set :value-set '("PromptFont" "OpenDyslexic" "ComicSans")))
-        (with-options-tab gameplay-settings
-          (control rumble (:gameplay :rumble) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1)
-          (control screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 1.0)
-          (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01)
-          (control auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 1.0)
-          (control invincible-player (:gameplay :god-mode) 'alloy:switch)
-          (control player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
-        (with-options-tab language-settings
-          (control game-language (:language) 'alloy:combo-set :value-set (languages))))
+
+      (let ((view (make-options-view)))
+        (add-tab tabs (@ open-options-menu) (alloy:layout-element view) (alloy:focus-element view)))
 
       (with-tab ((@ exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
         (let ((resume (with-button resume-game
