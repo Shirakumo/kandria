@@ -44,7 +44,7 @@
 | \"//Most of this is spoiled, but some of the drawers may still house usable seeds. Let's see...//\"(light-gray)
 | \"This is all that's left: \"24 sachets\"(orange). Inside each one the seeds are tiny and hard like grit.\"(light-gray, italic)
 | (:skeptical)\"//Will they still grow?//\"(light-gray)
-| (:normal)\"//I take them regardless and stow them in my compartment.//\"(light-gray)
+| (:normal)\"//I take them regardless and stuff them in my pockets.//\"(light-gray)
 | \"I should \"return to Fi\"(orange).\"(light-gray, italic)
 ! eval (store 'item:seeds 24)
 ! eval (deactivate 'q2-reminder)

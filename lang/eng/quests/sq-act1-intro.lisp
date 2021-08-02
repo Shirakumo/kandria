@@ -48,7 +48,7 @@
 | | | (:normal)Well, there aren't any new leaks right now, so that's fine.
 | ? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
 | | | (:normal)I was going to say we need some mushrooms, what with food stocks getting low.
-| | | (:excited)But is it me, or are those \"mushrooms inside your compartment\"(orange)?
+| | | (:excited)But is it me, or are those \"mushrooms you're carrying\"(orange)?
 | | | (:excited)You're very proactive, Stranger, I like that! Let's see what you've got.
 | | ? (have 'item:mushroom-good-1)
 | | | | (:excited)\"Flower fungus\"(red), nice! I'll get these to Fi and straight into the cooking pot.
