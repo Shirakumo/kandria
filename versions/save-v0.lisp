@@ -309,6 +309,13 @@
   (setf (location item) (decode (getf initargs :location) 'vec2)))
 
 (define-encoder (spawner save-v0) (_b _p)
+  ;; KLUDGE: Ensure the spawner deactivates now if
+  ;;         we save in the same chunk as the spawner and
+  ;;         it is auto-deactivate.
+  (when (and (auto-deactivate spawner)
+             (not (null (reflist spawner)))
+             (done-p spawner))
+    (setf (active-p spawner) NIL))
   `(:active-p ,(active-p spawner)))
 
 (define-decoder (spawner save-v0) (initargs _p)
