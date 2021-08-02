@@ -309,7 +309,7 @@
   | (:annoyed)If you insist.
 - Sure, why not.
   ~ fi
-  | Good. Jack, speak with Sahil when he arrives, see what he can do for us.
+  | Good. Jack, speak with \"Sahil\"(yellow) when he arrives, see what he can do for us.
   | A computer may also help us maintain Stranger - especially if she's having memory trouble.
   ~ jack
   | (:annoyed)If you insist.
@@ -317,7 +317,7 @@
   ~ catherine
   | Don't worry, I won't let them switch you off.
   ~ fi
-  | That's settled then. Jack, speak with Sahil when he arrives, see what he can do for us.
+  | That's settled then. Jack, speak with \"Sahil\"(yellow) when he arrives, see what he can do for us.
   | A computer may also help us maintain Stranger - especially if she's having memory trouble.
   ~ jack
   | (:annoyed)If you insist.
