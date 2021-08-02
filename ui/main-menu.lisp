@@ -9,6 +9,7 @@
 
 (presentations:define-update (ui news-display)
   (:label
+   :size (alloy:un 15)
    :pattern colors:gray
    :valign :bottom :halign :left
    :markup (markup alloy:renderable)))
@@ -57,11 +58,11 @@
         (menu (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5) :min-size (alloy:size 100 30)))
         (focus (make-instance 'alloy:focus-list)))
     (alloy:enter menu layout :constraints `((:center :w) (:bottom 20) (:top 400) (:width 200)))
-    (macrolet ((with-button ((name) &body body)
+    (macrolet ((with-button ((name &rest initargs) &body body)
                  `(make-instance 'main-menu-button :value (@ ,name) :on-activate (lambda ()
                                                                                    (discard-events +world+)
                                                                                    ,@body)
-                                                   :focus-parent focus :layout-parent menu)))
+                                                   :focus-parent focus :layout-parent menu ,@initargs)))
       (when (list-saves)
         (with-button (load-game-menu)
           (show-panel 'save-menu :intent :load)))
@@ -76,11 +77,22 @@
       #++
       (with-button (changelog-menu)
         )
+      (let ((subbutton
+              (if (steam:steamworks-available-p)
+                  (with-button (subscribe-cta)
+                    (open-in-browser "https://courier.tymoon.eu/subscription/1"))
+                  (with-button (wishlist-cta)
+                    (open-in-browser "https://store.steampowered.com/app/1261430/Kandria/?utm_source=in-game")))))
+        (alloy:on alloy:focus (value subbutton)
+          (setf (presentations:update-overrides subbutton)
+                (if value
+                    `((:label :markup ((0 1000 (:rainbow T)))))
+                    `((:label :markup ()))))))
       (let ((exit (with-button (exit-game)
                     (quit *context*))))
         (alloy:on alloy:exit (focus)
           (setf (alloy:focus exit) :weak)
           (setf (alloy:focus focus) :strong)))
       (let ((news (make-instance 'news-display)))
-        (alloy:enter news layout :constraints `((:left 2) (:bottom 2) (:height 50) (:width 200)))))
+        (alloy:enter news layout :constraints `((:left 5) (:bottom 5) (:height 50) (:width 500)))))
     (alloy:finish-structure panel layout focus)))
