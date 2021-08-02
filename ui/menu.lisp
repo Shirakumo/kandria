@@ -227,6 +227,41 @@
    :halign :start
    :valign :top))
 
+(defclass item-icon (alloy:direct-value-component alloy:icon)
+  ())
+
+(presentations:define-realization (ui item-icon)
+  ((icon simple:icon)
+   (alloy:margins 5)
+   (// 'kandria 'placeholder)))
+
+(presentations:define-update (ui item-icon)
+  (icon
+   :bounds (if alloy:value
+               (let ((ratio (/ (vx (size alloy:value)) (vy (size alloy:value)))))
+                 (cond ((< 1 ratio)
+                        (let ((h (alloy:u/ (alloy:ph 1) ratio)))
+                          (alloy:extent 0 (alloy:u/ h 2) (alloy:pw 1) h)))
+                       ((< ratio 1)
+                        (let ((w (alloy:u* (alloy:pw 1) ratio)))
+                          (alloy:extent (alloy:u/ w 2) 0 w (alloy:ph 1))))
+                       (T
+                        (alloy:margins))))
+               (alloy:px-extent))
+   :image (if alloy:value
+              (texture alloy:value)
+              (// 'kandria 'placeholder))
+   :size (if alloy:value
+             (alloy:px-size (/ (width (texture alloy:value))
+                               (vx (size alloy:value)))
+                            (/ (height (texture alloy:value))
+                               (vy (size alloy:value))))
+             (alloy:size 0 0))
+   :shift (if alloy:value
+              (alloy:px-point (/ (vx (offset alloy:value)) (width (texture alloy:value)))
+                              (/ (vy (offset alloy:value)) (height (texture alloy:value))))
+              (alloy:point 0 0))))
+
 (defclass menu (pausing-panel menuing-panel)
   ((status-display :initform NIL :accessor status-display)))
 
@@ -243,6 +278,7 @@
 (defmethod initialize-instance :after ((panel menu) &key)
   (let ((layout (make-instance 'menu-layout))
         (tabs (make-instance 'tab-view)))
+    (trial:commit (// 'kandria 'placeholder) (loader +main+) :unload NIL)
     (alloy:on alloy:exit ((alloy:focus-element tabs))
       (hide panel))
     (alloy:enter tabs layout :place :center)
@@ -292,11 +328,21 @@
             (with-tab ((language-string category) 'alloy:border-layout)
               (let* ((list (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 50)))
                      (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
-                     (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
+                     (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
+                     (info (make-instance 'alloy:border-layout :padding (alloy:margins 10)))
+                     (icon (make-instance 'item-icon :value NIL))
+                     (description (make-instance 'label :layout-parent info :value ""
+                                                 :style `((:label :bounds ,(alloy:margins 10))))))
                 (alloy:enter list clipper)
+                (alloy:enter icon info :place :west :size (alloy:un 100))
+                (alloy:enter info layout :place :south :size (alloy:un 100))
                 (alloy:enter scroll layout :place :east :size (alloy:un 20))
                 (dolist (item (list-items inventory category))
                   (let ((button (make-instance 'item-button :value item :inventory inventory)))
+                    (alloy:on alloy:focus (value button)
+                      (when value
+                        (setf (alloy:value description) (item-description (alloy:value button)))
+                        (setf (alloy:value icon) (make-instance (class-of (alloy:value button))))))
                     (alloy:enter button list)
                     (alloy:enter button focus))))))))
 
