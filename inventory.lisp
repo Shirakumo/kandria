@@ -61,6 +61,10 @@
 (defmethod title ((item item))
   (language-string (type-of item)))
 
+(defmethod item-description ((item item))
+  (language-string (intern (format NIL "~a/DESCRIPTION" (string (type-of item)))
+                           (symbol-package (class-name (class-of item))))))
+
 (defmethod kill ((item item))
   (leave* item T))
 
@@ -150,10 +154,13 @@
 (define-item-category special-item)
 
 (defmacro define-item ((name &rest superclasses) x y w h &body body)
-  (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item)))
+  (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item))
+        (desc (intern (format NIL "~a/DESCRIPTION" name) '#:org.shirakumo.fraf.kandria.item)))
     (export name (symbol-package name))
+    (export desc (symbol-package desc))
     `(progn
        (export ',name (symbol-package ',name))
+       (export ',desc (symbol-package ',desc))
        (define-shader-entity ,name (,@superclasses item)
          ((size :initform ,(vec w h))
           (offset :initform ,(vec x y)))

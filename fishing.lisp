@@ -249,10 +249,13 @@ void main(){
   (translate #.(vec 0.5 0 0)))
 
 (defmacro define-fish (name x y w h &body body)
-  (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish)))
+  (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish))
+        (desc (intern (format NIL "~a/DESCRIPTION" name) '#:org.shirakumo.fraf.kandria.fish)))
     (export name (symbol-package name))
+    (export desc (symbol-package desc))
     `(progn
        (export ',name (symbol-package ',name))
+       (export ',desc (symbol-package ',desc))
        (define-shader-entity ,name (fish)
          ((size :initform ,(vec w h))
           (offset :initform ,(vec x y)))
