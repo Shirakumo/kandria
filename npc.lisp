@@ -265,7 +265,7 @@
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ catherine-nametag))
    (lead-interrupt :initform "~ catherine
-| (:shout) This way!"))
+| (:shout)[? This way! | Follow me! | Keep up! | Let's go!]"))
   (:default-initargs
    :sprite-data (asset 'kandria 'catherine)))
 
