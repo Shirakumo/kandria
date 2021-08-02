@@ -17,12 +17,12 @@
   | I wouldn't be much of an engineer if I couldn't.
 - What caused this?
   ~ catherine
-  | Subsidence, probably. Though there's no sign of a landslide.
+  | Subsidence, most likely. Though there's no sign of a landslide.
 - Why is it strange?
   ~ catherine
   | Cracks are usually the result of subsidence. But there's no sign of a landslide.
 ~ catherine
-| Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras!
+| Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras.
 ~ player
 | \"//Catherine puts her goggles on and welds the crack with steady hands.//\"(light-gray)
 - (Enable UV filters)
@@ -171,8 +171,7 @@
   ")
   ;; TODO Catherine relieved - Oh man, we got here just in time.
   (:go-to (q1-phone :lead catherine)
-   :title "Follow Catherine to the telephone in the pump room"
-  )
+   :title "Follow Catherine to the telephone in the pump room")
   (:interact (catherine :now T)
    "~ catherine
 | Jack, it's me.
