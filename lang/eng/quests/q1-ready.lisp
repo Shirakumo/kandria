@@ -29,7 +29,7 @@
   | [? Alright, you can have a minute. | Okay but we need to hurry - the water supply isn't gonna fix itself. | Okay, but whatever you need to do, please be quick about it.]
 - (Review task log)
   ~ player
-  | \"//My Log Files record data about my assigned tasks; if ever I'm unsure what to do next, I should access and review these.//\"(light-gray)
+  | \"//My \"Log Files\"(orange) record data about my assigned tasks; if ever I'm unsure what to do next, I should access and review these.//\"(light-gray)
   | (:giggle)\"//The benefits of being an android!//\"(light-gray)
 - What are we doing again?
   ~ catherine

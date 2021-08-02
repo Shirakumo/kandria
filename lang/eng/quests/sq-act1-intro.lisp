@@ -27,7 +27,7 @@
   ~ catherine
   | (:concerned)Oh no... I'm sorry. People are mean, I don't understand why.
   | Anyone that's different, they've already made up their minds about them.
-  | (:normal)You just keep being you. I'll talk to them.
+  | (:normal)You just keep being you. I'll talk to them, I promise.
   < continue
 - I need to go.
   ~ catherine
@@ -43,7 +43,7 @@
 | ? (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks)))
 | | | (:normal)The water supply is leaking again, so you could help with that.
 | |? (not (complete-p 'sq1-leaks))
-| | | (:normal)You know about \"fixing the new leaks\"(orange) - just \"follow the red pipe\"(orange) down like we did before.
+| | | (:normal)You know about \"fixing the new leaks\"(orange) - just \"follow the red pipeline\"(orange) down like we did before.
 | |?
 | | | (:normal)Well, there aren't any new leaks right now, so that's fine.
 | ? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
@@ -87,7 +87,8 @@
 | - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (Fix the leaks)|]
 |   ~ catherine
 |   | (:excited)Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
-|   | (:normal)Just \"follow the red pipe down\"(orange) like we did before. Androids can weld from their fingertips, right? So you should be good to go.
+|   | (:normal)Just \"follow the red pipeline\"(orange) down like we did before.
+|   | Androids can weld from their fingertips, right? So you should be good to go.
 |   | Based on the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range. You want to take a walkie, or just use your FFCS?
 |   ~ player
 |   - I'll take a walkie.
@@ -110,7 +111,7 @@
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.
 |   | Just don't breathe in their spores - though I doubt they will affect you.
 |   | Other kinds are deadly poisonous, like the \"black cap - avoid those if you can\"(orange).
-|   | At least \"25 good ones\"(orange) should do for now. (:excited)Happy mushrooming, Stranger!
+|   | I think \"25 puffballs or flower fungus\"(orange) should suffice for now. (:excited)Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
 |   < task-choice
 | - [(not (active-p 'sq3-race)) (Time trials)|]

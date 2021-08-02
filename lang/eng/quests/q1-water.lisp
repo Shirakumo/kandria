@@ -30,7 +30,7 @@
 - (Don't enable filters)
   | \"//It's like staring into the sun. Into the centre of a cataclysm.//\"(light-gray)
   ! eval (when (< 5 (health player)) (hurt player 5))
-  ! eval (setf (var 'weld-burn) T)
+  ! eval (setf (var 'q1-weld-burn) T)
   | (:embarassed)\"//Oops. I think that damaged my lenses.//\"(light-gray)
 ! eval (setf (animation (unit 'main-leak-1)) 'normal)
 ~ catherine

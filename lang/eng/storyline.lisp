@@ -3,4 +3,4 @@
 (quest:define-storyline kandria
   :title "Kandria"
   :description "The main kandria storyline"
-  :variables (weld-burn))
+  :variables (q1-weld-burn))

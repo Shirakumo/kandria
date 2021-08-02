@@ -170,11 +170,10 @@
 | (:normal)You did that in: \"{(format-relative-time (clock quest))}\"(orange).
 ? (and pb (< pb (clock quest)))
 | | (:concerned)Ah damn, no improvement on your record of \"{(format-relative-time pb)}\"(orange) this time I'm afraid.
-| | (:normal)Better luck next time!
 | < end
 |?
 | ? (not (null pb))
-| | | (:cheer)\"That's a new personal best\"(orange)! You qualify for a reward!
+| | | (:cheer)\"That's a new personal best\"(orange)!
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
 | | | (:cheer)How did you do that so fast? That's \"gold bracket\"(orange).
@@ -189,8 +188,8 @@
 | | | That gets you \"10 scrap parts\"(orange).
 | | ! eval (store 'item:parts 10)
 | |?
-| | | (:disappointed)Hmmm, that seems a little slow, Stranger. \"I think you can do better than that\"(orange).
-| | | (:normal)I don't think I can give you any parts for that, sorry.
+| | | (:normal)That time was outside bronze. I guess your servos are still a little seized up, right?
+| | | Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.
 | ! label end
 | | (:excited)Let's do this again soon!
 | ! eval (complete task)

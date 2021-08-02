@@ -90,7 +90,7 @@
 | I've got the last of them right here.
 ~ fi
 ! eval (retrieve 'item:seeds T)
-| Oh my. There must be... twenty sachets here. All fully stocked.
+| Oh my. There must be... twenty sachets. All fully stocked.
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the \"Noka\"(red) yourself.
