@@ -52,7 +52,7 @@
 (defmethod alloy:text ((button item-button))
   (format NIL "~2d ~a"
           (item-count (alloy:value button) (inventory button))
-          (language-string (type-of (alloy:value button)))))
+          (title (alloy:value button))))
 
 (defmethod alloy:activate ((button item-button))
   (use (alloy:value button) (inventory button))

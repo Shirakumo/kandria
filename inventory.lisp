@@ -41,7 +41,12 @@
               for prototype = (c2mop:class-prototype (find-class item))
               when (eql (item-category prototype) type)
               collect prototype)
-        #'< :key #'item-order))
+        (lambda (a b)
+          (let ((a-order (item-order a))
+                (b-order (item-order b)))
+            (if (= a-order b-order)
+                (string< (title a) (title b))
+                (< a-order b-order))))))
 
 (define-shader-entity item (lit-sprite moving interactable)
   ((texture :initform (// 'kandria 'items))
@@ -52,6 +57,9 @@
 
 (defmethod description ((item item))
   (language-string 'item))
+
+(defmethod title ((item item))
+  (language-string (type-of item)))
 
 (defmethod kill ((item item))
   (leave* item T))
