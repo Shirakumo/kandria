@@ -238,7 +238,7 @@
 ~ jack
 | (:annoyed)Something like that...
 ~ fi
-| You've done well, Catherine. An android is a great asset to us.
+| You've done well, Catherine. An android will also be a great asset to us.
 | Assuming it can be trusted.
 ~ catherine
 | (:concerned)I don't understand.
@@ -271,7 +271,7 @@
   | Alright. Let's hope that's true. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I suppose I could have.
   ~ catherine
-  | She doesn't know what she's saying - her memories are all screwed up till the point I brought her online.
+  | (:concerned)She doesn't know what she's saying - her memories are all screwed up till the point I brought her online. She doesn't even remember her name!
   ~ fi
   | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
   | (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
