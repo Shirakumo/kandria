@@ -1,5 +1,33 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defclass news-display (label)
+  ((alloy:value :initform "")
+   (markup :initform () :accessor markup)))
+
+(defmethod initialize-instance :after ((display news-display) &key)
+  (fetch-news display))
+
+(presentations:define-update (ui news-display)
+  (:label
+   :pattern colors:gray
+   :valign :bottom :halign :left
+   :markup (markup alloy:renderable)))
+
+(defun parse-news (source)
+  (let ((req (dialogue:resume (dialogue:run (dialogue:compile source T) (make-instance 'dialogue:vm)) 1)))
+    (values (dialogue:text req)
+            (normalize-markup (dialogue:markup req)))))
+
+(defun fetch-news (target &optional (url "https://kandria.com/news.mess"))
+  (with-thread ("news-fetcher")
+    (v:info :kandria.news "Fetching news...")
+    (handler-case
+        (multiple-value-bind (text markup) (parse-news (drakma:http-request url :want-stream T))
+          (setf (alloy:value target) text)
+          (setf (markup target) markup))
+      (error (e)
+        (v:severe :kandria.news "Failed to fetch news: ~a" e)))))
+
 (defclass main-menu-button (button)
   ())
 
@@ -52,5 +80,7 @@
                     (quit *context*))))
         (alloy:on alloy:exit (focus)
           (setf (alloy:focus exit) :weak)
-          (setf (alloy:focus focus) :strong))))
+          (setf (alloy:focus focus) :strong)))
+      (let ((news (make-instance 'news-display)))
+        (alloy:enter news layout :constraints `((:left 2) (:bottom 2) (:height 50) (:width 200)))))
     (alloy:finish-structure panel layout focus)))

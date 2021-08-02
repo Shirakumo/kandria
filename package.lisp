@@ -30,6 +30,8 @@
    (#:mixed #:org.shirakumo.fraf.mixed)
    (#:steam #:org.shirakumo.fraf.steamworks)
    (#:notify #:org.shirakumo.fraf.trial.notify)
-   (#:bvh #:org.shirakumo.fraf.trial.bvh2))
+   (#:bvh #:org.shirakumo.fraf.trial.bvh2)
+   (#:markless #:org.shirakumo.markless)
+   (#:components #:org.shirakumo.markless.components))
   (:export
    #:launch))
