@@ -106,7 +106,9 @@
            (harmony:stop (// 'sound 'slide))))))
 
 (defmethod handle-ai-states ((npc npc) ev)
-  (let ((companion (companion npc)))
+  (let ((companion (companion npc))
+        (min-distance (* 2 +tile-size+))
+        (max-distance (* 5 +tile-size+)))
     (case (ai-state npc)
       (:normal
        (when (path npc)
@@ -114,7 +116,7 @@
       (:move-to
        (cond ((path npc)
               (execute-path npc ev))
-             ((< (vsqrdist2 (location npc) (target npc)) (expt (* 2 +tile-size+) 2))
+             ((< (vsqrdist2 (location npc) (target npc)) (expt min-distance 2))
               (setf (ai-state npc) :normal))
              (T
               (vsetf (location npc)
@@ -129,7 +131,7 @@
                   (setf (ai-state npc) :normal)))
            (cond ((< (expt (* 20 +tile-size+) 2) distance)
                   (setf (ai-state npc) :lead-check))
-                 ((< (vsqrdist2 (location npc) (target npc)) (expt (* 2 +tile-size+) 2))
+                 ((< (vsqrdist2 (location npc) (target npc)) (expt min-distance 2))
                   (complete))
                  ((null (path npc))
                   (unless (move-to (target npc) npc)
@@ -143,7 +145,7 @@
          (cond ((< distance (expt (* 10 +tile-size+) 2))
                 (interrupt-walk-n-talk NIL)
                 (setf (ai-state npc) :lead))
-               ((close-to-path-p (location companion) (path npc) (* 5 +tile-size+))
+               ((close-to-path-p (location companion) (path npc) max-distance)
                 (interrupt-walk-n-talk NIL)
                 (setf (ai-state npc) :lead-teleport))
                (T
@@ -162,7 +164,7 @@
        (let ((distance (vsqrdist2 (location npc) (location companion))))
          (cond ((path npc)
                 (execute-path npc ev))
-               ((< distance (expt (* 5 +tile-size+) 2))
+               ((< distance (expt max-distance 2))
                 (setf (vx (velocity npc)) 0))
                (T
                 (setf (ai-state npc) :follow-check)))))

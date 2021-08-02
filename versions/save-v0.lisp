@@ -273,9 +273,11 @@
     (setf (walk npc) walk)
     (setf (target npc) (when target (decode 'vec2 target)))
     (setf (companion npc) (when companion (unit companion T)))
-    (if path
-        (move-to (decode 'vec2 path) npc)
-        (setf (path npc) ()))))
+    ;; KLUDGE: We ignore the path here and don't restore it, as restoring it
+    ;;         requires a complete chunk graph, which we likely don't have yet
+    ;;         at this stage, and thus can't compute a route. We instead rely
+    ;;         on the NPC's state machine to reconstruct the missing path.
+    (setf (path npc) ())))
 
 (define-encoder (moving-platform save-v0) (_b _p)
   `(:location ,(encode (location moving-platform))
