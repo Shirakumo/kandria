@@ -20,7 +20,8 @@
      (setf (state +main+) (alloy:value button))
      (load-game NIL +main+))
     (:load
-     (load-game (alloy:value button) +main+))))
+     (when (exists-p (alloy:value button))
+       (load-game (alloy:value button) +main+)))))
 
 (presentations:define-realization (ui save-button)
   ((:background simple:rectangle)

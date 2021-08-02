@@ -129,6 +129,9 @@
 (defmethod (setf animations) :after (animations (save-point save-point))
   (setf (next-animation (find 'call (animations save-point) :key #'name)) 'normal))
 
+(defmethod description ((save-point save-point))
+  (language-string 'save-game))
+
 (defmethod interactable-p ((save-point save-point)) (saving-possible-p))
 
 (defmethod layer-index ((save-point save-point))
