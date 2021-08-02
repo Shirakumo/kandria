@@ -48,6 +48,9 @@
       #++
       (with-button (changelog-menu)
         )
-      (with-button (exit-game)
-        (quit *context*)))
+      (let ((exit (with-button (exit-game)
+                    (quit *context*))))
+        (alloy:on alloy:exit (focus)
+          (setf (alloy:focus exit) :weak)
+          (setf (alloy:focus focus) :strong))))
     (alloy:finish-structure panel layout focus)))

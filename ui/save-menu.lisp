@@ -87,5 +87,7 @@
                  layout :constraints `((:top 20) (:left 50) (:right 10) (:above ,list 10)))
     (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
       (alloy:enter back layout :constraints `((:left 50) (:below ,list 10) (:size 200 50)))
-      (alloy:enter back focus))
+      (alloy:enter back focus)
+      (alloy:on alloy:exit (focus)
+        (setf (alloy:focus back) :strong)))
     (alloy:finish-structure panel layout focus)))
