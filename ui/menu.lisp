@@ -311,7 +311,7 @@
               (make-instance 'input-label :value (string (or (prompt-char gamepad :bank :gamepad)))
                                           :layout-parent layout)))))
 
-      (let ((view (make-options-view)))
+      (let ((view (make-instance 'options-menu)))
         (add-tab tabs (@ open-options-menu) (alloy:layout-element view) (alloy:focus-element view)))
 
       (with-tab ((@ exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)

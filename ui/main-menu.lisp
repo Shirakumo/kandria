@@ -45,6 +45,7 @@
         (show-panel 'options-menu))
       (with-button (credits-menu)
         (show-panel 'credits))
+      #++
       (with-button (changelog-menu)
         )
       (with-button (exit-game)
