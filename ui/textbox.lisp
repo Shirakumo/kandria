@@ -235,11 +235,11 @@
      (list :rainbow T))
     (T style)))
 
-(defun normalize-markup (markup &optional (offset 0))
+(defun normalize-markup (markup &key (offset 0) (length most-positive-fixnum))
   (simple::sort-markup
    (loop for (start end . styles) in markup
          append (loop for style in styles
-                      collect (list (+ start offset) (+ end offset)
+                      collect (list (+ start offset) (+ (or end length) offset)
                                     (normalize-style style))))))
 
 (defmethod handle :after ((rq dialogue:text-request) (textbox textbox))
@@ -254,7 +254,7 @@
                    (length (dialogue:text rq)))))
     (setf (markup (textbox textbox))
           (append (if (< 0 offset) (markup (textbox textbox)))
-                  (normalize-markup (dialogue:markup rq) offset)))))
+                  (normalize-markup (dialogue:markup rq) :offset offset :length (length (dialogue:text rq)))))))
 
 (defmethod handle :after ((rq dialogue:target-request) (textbox textbox))
   (setf (ip textbox) (dialogue:target rq)))
