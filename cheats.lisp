@@ -107,3 +107,6 @@
 (define-cheat blingee "Blinged out"
   (dolist (class (list-leaf-classes 'value-item))
     (store (class-name class) (unit 'player T))))
+
+(define-cheat motherlode "I'm rich!"
+  (store 'item:parts (unit 'player T) 10000))
