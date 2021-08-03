@@ -128,7 +128,7 @@ item:meteorite-fragment/description "Meteor strikes are not uncommon. But when d
 item:hardened-alloy "Hardened Alloy"
 item:hardened-alloy/description "I'm not sure about the constituent metals, although anyone but an android would struggle to bend this."
 item:quartz-crystal "Quartz Crystal"
-item:quartz-crystal/description "I might be in the minority, but this is prettier than gold any day of the week."
+item:quartz-crystal/description "It might be less valuable than gold, but it's a whole lot prettier."
 item:rusted-clump "Rusted Clump"
 item:rusted-clump/description "Was there ever a greater sign of entropy than rust? Kipple, maybe." ;; reference to Do Androids Dream of Electric Sheep?, where "kipple" is a term coined by Dick: junk and waste items, which build up seemingly exponentially. Could also be a diegetic reference, as if the android has read the book.
 item:pearl "Pearl"
