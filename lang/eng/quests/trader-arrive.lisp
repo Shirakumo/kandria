@@ -1,6 +1,6 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
-(quest:update trader-arrive :active)
+
 (quest:define-quest (kandria trader-arrive)
   :author "Tim White"
   :title "Find the Trader"
