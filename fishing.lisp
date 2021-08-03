@@ -245,6 +245,8 @@ void main(){
    (layer-index :initform +base-layer+)
    (catch-timer :initarg :catch-timer :initform 1.0 :accessor catch-timer)))
 
+(defmethod item-order ((fish fish)) 100)
+
 (defmethod apply-transforms progn ((fish fish))
   (translate #.(vec 0.5 0 0)))
 
