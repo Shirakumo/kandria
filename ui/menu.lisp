@@ -274,7 +274,6 @@
 (defmethod show :after ((menu menu) &key)
   (alloy:activate (alloy:focus-element menu)))
 
-;; FIXME: scroll views for items and quests
 (defmethod initialize-instance :after ((panel menu) &key)
   (let ((layout (make-instance 'menu-layout))
         (tabs (make-instance 'tab-view)))

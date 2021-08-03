@@ -33,13 +33,11 @@
   (clrhash (storage inventory)))
 
 (defgeneric list-items (from kind))
-(defmethod list-items ((inventory inventory) (type (eql T)))
-  (alexandria:hash-table-keys (storage inventory)))
 
 (defmethod list-items ((inventory inventory) (type symbol))
   (sort (loop for item being the hash-keys of (storage inventory)
               for prototype = (c2mop:class-prototype (find-class item))
-              when (eql (item-category prototype) type)
+              when (typep prototype type)
               collect prototype)
         (lambda (a b)
           (let ((a-order (item-order a))
@@ -60,6 +58,9 @@
 
 (defmethod title ((item item))
   (language-string (type-of item)))
+
+(defmethod price ((item item))
+  0)
 
 (defmethod item-description ((item item))
   (language-string (intern (format NIL "~a/DESCRIPTION" (string (type-of item)))
@@ -153,7 +154,7 @@
 (define-item-category value-item)
 (define-item-category special-item)
 
-(defmacro define-item ((name &rest superclasses) x y w h &body body)
+(defmacro define-item ((name &rest superclasses) x y w h &key price)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item))
         (desc (intern (format NIL "~a/DESCRIPTION" name) '#:org.shirakumo.fraf.kandria.item)))
     (export name (symbol-package name))
@@ -163,10 +164,11 @@
        (export ',desc (symbol-package ',desc))
        (define-shader-entity ,name (,@superclasses item)
          ((size :initform ,(vec w h))
-          (offset :initform ,(vec x y)))
-         ,@body))))
+          (offset :initform ,(vec x y))))
+       ,(when price
+          `(defmethod price ((_ ,name)) ,price)))))
 
-(define-shader-entity health-pack (item consumable-item) ())
+(define-shader-entity health-pack (item consumable-item value-item) ())
 
 (defmethod use ((item health-pack) (animatable animatable))
   (incf (health animatable) (health item))
@@ -175,20 +177,24 @@
            :location (vec (+ (vx (location animatable)))
                           (+ (vy (location animatable)) 8 (vy (bsize animatable))))))
 
-(define-item (small-health-pack health-pack) 0 0 8 8)
+(define-item (small-health-pack health-pack) 0 0 8 8
+  :price 100)
 (defmethod health ((_ item:small-health-pack)) 10)
 (defmethod item-order ((_ item:small-health-pack)) 0)
 
-(define-item (medium-health-pack health-pack) 0 0 8 8)
+(define-item (medium-health-pack health-pack) 0 0 8 8
+  :price 250)
 (defmethod health ((_ item:medium-health-pack)) 25)
 (defmethod item-order ((_ item:medium-health-pack)) 1)
 
-(define-item (large-health-pack health-pack) 0 0 8 8)
+(define-item (large-health-pack health-pack) 0 0 8 8
+  :price 500)
 (defmethod health ((_ item:large-health-pack)) 50)
 (defmethod item-order ((_ item:large-health-pack)) 2)
 
 ;; VALUE ITEMS
-(define-item (parts value-item) 8 16 8 8)
+(define-item (parts value-item) 8 16 8 8
+  :price 1)
 (define-item (heavy-spring value-item) 8 16 8 8)
 (define-item (satchel value-item) 16 16 8 8)
 (define-item (screw value-item) 24 16 8 8)

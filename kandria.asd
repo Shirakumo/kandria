@@ -64,6 +64,7 @@
                (:module "ui"
                 :components ((:file "general")
                              (:file "components")
+                             (:file "popup")
                              (:file "textbox")
                              (:file "dialog")
                              (:file "walkntalk")
@@ -80,7 +81,8 @@
                              (:file "save-menu")
                              (:file "options-menu")
                              (:file "main-menu")
-                             (:file "credits")))
+                             (:file "credits")
+                             (:file "shop")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

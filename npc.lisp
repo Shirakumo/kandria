@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity npc (ai-entity animatable ephemeral dialog-entity profile)
+(define-shader-entity npc (inventory ai-entity animatable ephemeral dialog-entity profile)
   ((bsize :initform (vec 8 15))
    (target :initform NIL :accessor target)
    (companion :initform NIL :accessor companion)

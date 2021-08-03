@@ -156,7 +156,8 @@
                (advance textbox))
              (alloy:enter button (choices textbox))))
   (setf (alloy:index (choices textbox)) 0)
-  (setf (alloy:focus (choices textbox)) :strong)
+  (when (active-p textbox)
+    (setf (alloy:focus (choices textbox)) :strong))
   (setf (prompt textbox) (string (prompt-char :right :bank :keyboard))))
 
 (defmethod handle ((ev tick) (textbox textbox))
@@ -198,7 +199,9 @@
 (defmethod handle ((rq dialogue:request) (textbox textbox)))
 
 (defmethod handle ((rq dialogue:end-request) (textbox textbox))
-  (setf (pending textbox) (list :end)))
+  (if (= 0 (ip textbox))
+      (next-interaction textbox)
+      (setf (pending textbox) (list :end))))
 
 (defmethod handle ((rq dialogue:choice-request) (textbox textbox))
   (setf (choices textbox) (cons (dialogue:choices rq)
