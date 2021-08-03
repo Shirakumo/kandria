@@ -116,7 +116,7 @@ item:rusted-key/description "It would likely break in half, even if used in the 
 item:clay-clump "Clump of Clay"
 item:clay-clump/description "I imagine this is quite valuable to contemporary humans, much as it was to their distant ancestors."
 item:gold-nugget "Gold Nugget"
-item:gold-nugget/description "Pure gold always holds it value. Even in the apocalypse." ;; an assumption if not sold it yet, and a statement if have sold some
+item:gold-nugget/description "Gold always holds it value. Even in the apocalypse." ;; an assumption if not sold it yet, and a statement if have sold some
 item:silver-ore "Silver Ore"
 item:silver-ore/description "Acanthite ore, from which silver can be extracted. Tarnishes, unlike gold, but it's still pretty."
 item:bronze-clump "Clump of Bronze"
@@ -134,7 +134,7 @@ item:rusted-clump/description "Was there ever a greater sign of entropy than rus
 item:pearl "Pearl"
 item:pearl/description "It's genuine, I'm pretty sure of that. Unless this used to be ocean, this was someone's jewellery."
 item:dirt-clump "Dirt Clump"
-item:dirt-clump/description "A hefty clump of.. dirt and dust. Might be worth something to someone?"
+item:dirt-clump/description "A hefty clump of... dirt and dust. Might be worth something to someone?"
 item:coolant "Coolant Liquid"
 item:coolant/description "This resembles the fluid used in my fusion reactor. It's a closed system though and does not require top up."
 item:pure-water "Purified Water"
@@ -158,7 +158,7 @@ item:pristine-pelt/description "This pelt is remarkably well-preserved, almost o
 item:seeds "Seed Sachets"
 item:seeds/description "Unknown seeds from the old world, which Fi will use to plant another crop."
 item:mushroom-good-1 "Flower Fungus"
-item:mushroom-good-1/description "It's pretty. For a fungus." ;; need to work before/after Catherine explains to you what they are; best to riff off of something else, like their appearance
+item:mushroom-good-1/description "It's pretty. For a fungus." ;; need to work before/after Catherine explains to you what they are; best to riff off of something else, like their appearance. Though android already knows the names from the old world
 item:mushroom-good-2 "Rusty Puffball"
 item:mushroom-good-2/description "Even the mushrooms are rusting around here." ;; not literally, it's a joke based on their look
 item:mushroom-bad-1 "Black Cap"
