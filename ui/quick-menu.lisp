@@ -34,8 +34,16 @@
 (presentations:define-realization (ui item-button)
   ((:background simple:rectangle)
    (alloy:margins))
-  ((:label simple:text)
+  ((count simple:text)
    (alloy:margins 10)
+   (princ-to-string (item-count alloy:value (inventory alloy:renderable)))
+   :valign :middle
+   :halign :start
+   :font (setting :display :font)
+   :size (alloy:un 15)
+   :pattern colors:white)
+  ((:label simple:text)
+   (alloy:margins 70 10 10 10)
    alloy:text
    :valign :middle
    :halign :start
@@ -46,13 +54,14 @@
 (presentations:define-update (ui item-button)
   (:background
    :pattern (if alloy:focus colors:white colors:black))
+  (count
+   :text (princ-to-string (item-count alloy:value (inventory alloy:renderable)))
+   :pattern (if alloy:focus colors:black colors:white))
   (:label
    :pattern (if alloy:focus colors:black colors:white)))
 
 (defmethod alloy:text ((button item-button))
-  (format NIL "~2d ~a"
-          (item-count (alloy:value button) (inventory button))
-          (title (alloy:value button))))
+  (title (alloy:value button)))
 
 (defmethod alloy:activate ((button item-button))
   (use (alloy:value button) (inventory button))
