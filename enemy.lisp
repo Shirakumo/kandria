@@ -191,9 +191,9 @@
 
 (define-random-draw wolf/rewards
   (NIL 1)
-  (item:small-health-pack 1)
-  (item:medium-health-pack 0.5)
-  (item:large-health-pack 0.1)
+  (item:small-health-pack 0.2)
+  (item:medium-health-pack 0.075)
+  (item:large-health-pack 0.01)
   (item:dirt-clump 1.5)
   (item:pristine-pelt 0.01)
   (item:fine-pelt 0.1)
@@ -260,9 +260,9 @@
 
 (define-random-draw zombie/rewards
   (NIL 1)
-  (item:small-health-pack 2)
-  (item:medium-health-pack 0.5)
-  (item:large-health-pack 0.1)
+  (item:small-health-pack 0.5)
+  (item:medium-health-pack 0.1)
+  (item:large-health-pack 0.01)
   (item:coolant 1)
   (item:heavy-spring 1)
   (item:simple-circuit 1)
@@ -344,9 +344,9 @@
 
 (define-random-draw drone/rewards
   (NIL 1)
-  (item:small-health-pack 2)
-  (item:medium-health-pack 0.5)
-  (item:large-health-pack 0.1)
+  (item:small-health-pack 0.5)
+  (item:medium-health-pack 0.1)
+  (item:large-health-pack 0.01)
   (item:crude-oil 1)
   (item:bolt 1)
   (item:simple-circuit 1)
