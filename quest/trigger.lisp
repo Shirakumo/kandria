@@ -59,7 +59,9 @@
 
 (defmethod activate ((action action))
   (funcall (on-activate action))
-  (setf (status action) :complete))
+  (complete action))
+
+(defmethod complete ((action action)))
 
 (defmethod deactivate ((action action))
   (funcall (on-deactivate action)))

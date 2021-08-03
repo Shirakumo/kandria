@@ -103,7 +103,7 @@
                        ((eql T) (storyline T))
                        (symbol (find-quest thing (storyline T)))
                        (list
-                        (loop for name in list
+                        (loop for name in thing
                               for object = (find-named name T) then (find-named name object T)
                               finally (return object))))
         do (ecase state
