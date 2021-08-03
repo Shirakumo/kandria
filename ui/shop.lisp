@@ -112,7 +112,6 @@
   (let ((item (alloy:value button)))
     (retrieve item (source button) count)
     (store 'item:parts (source button) (* count (price item)))
-    (store item (target button) count)
     (alloy:value-changed button)))
 
 (defclass sales-menu (menuing-panel pausing-panel)
