@@ -264,15 +264,17 @@
            :walk (walk npc)
            :target (when (target npc) (encode (target npc)))
            :companion (when (companion npc) (name (companion npc)))
+           :inventory (alexandria:hash-table-alist (storage npc))
            (call-next-method))))
 
 (define-decoder (npc save-v0) (initargs _p)
   (call-next-method)
-  (destructuring-bind (&key (ai-state :normal) path walk target companion &allow-other-keys) initargs
+  (destructuring-bind (&key (ai-state :normal) walk target companion inventory &allow-other-keys) initargs
     (setf (ai-state npc) ai-state)
     (setf (walk npc) walk)
     (setf (target npc) (when target (decode 'vec2 target)))
     (setf (companion npc) (when companion (unit companion T)))
+    (setf (storage npc) (alexandria:alist-hash-table inventory :test 'eq))
     ;; KLUDGE: We ignore the path here and don't restore it, as restoring it
     ;;         requires a complete chunk graph, which we likely don't have yet
     ;;         at this stage, and thus can't compute a route. We instead rely
