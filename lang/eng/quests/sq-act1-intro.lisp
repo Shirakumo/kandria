@@ -108,7 +108,7 @@
 |   | (:normal)Edible mushrooms like the \"flower fungus\"(orange) can sustain us even if the crop fails.
 |   | They're all we used to eat before we moved to the surface.
 |   | Fibrous ones like the \"rusty puffball\"(orange) can be used to weave clothing. 
-|   | We combine them with recycled synthetic clothes from the old world - like yours - and scraps of leather from animals we hunt.
+|   | We combine them with recycled synthetic clothes from the old world - like yours - and pelts from animals we hunt.
 |   | Just don't breathe in their spores - though I doubt they will affect you.
 |   | Other kinds are deadly poisonous, like the \"black cap - avoid those if you can\"(orange).
 |   | I think \"25 puffballs or flower fungus\"(orange) should suffice for now. (:excited)Happy mushrooming, Stranger!

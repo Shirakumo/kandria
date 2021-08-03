@@ -306,6 +306,6 @@ Why do they look like alien parasites from an old B-movie?
 black knight
 (:thinking)They remind me of decaying frogspawn. Yet I've never seen decaying frogspawn...
 
-They look like someone's insides if they were on the outside. That's probably what they'd do to you too.
+They look like someone's insides if they were on the outside. That's probably what they'd do to you too. - used in item desc
 
 |#
