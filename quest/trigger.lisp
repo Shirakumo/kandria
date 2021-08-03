@@ -58,7 +58,9 @@
 (defmethod class-for ((storyline (eql 'action))) 'action)
 
 (defmethod activate ((action action))
-  (funcall (on-activate action))
+  (funcall (on-activate action)))
+
+(defmethod activate :after ((action action))
   (complete action))
 
 (defmethod complete ((action action)))

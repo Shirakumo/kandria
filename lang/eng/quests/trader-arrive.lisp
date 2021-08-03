@@ -8,8 +8,8 @@
   :on-activate (talk-trader)
   (talk-trader
    :title "Talk to Sahil in the Midwest Market, beneath the Zenith Hub"
-   :condition (complete-p 'talk-to-trader)
-   :on-activate (spawn-in talk-to-trader)
+   :condition all-complete
+   :on-activate T
    :on-complete (trader-repeat)
    (:action spawn-in
     (setf (location 'trader) 'loc-trader))
