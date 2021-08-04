@@ -48,7 +48,7 @@
     (case (state buoy)
       (:normal
        (cond ((< 0.0 (decf (catch-timer buoy) dt)))
-             ((< (random 8.0) (tries buoy))
+             ((< (random 6.0) (tries buoy))
               (when (setf (item buoy) (draw-item (fishing-spot (fishing-line buoy))))
                 (harmony:play (// 'sound 'fishing-fish-bite))
                 (setf (catch-timer buoy) 0.0)
