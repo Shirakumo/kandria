@@ -69,7 +69,7 @@
               (hyperdash-bonus (vec 0.5 0.2))
               (buffer-expiration-time 0.3)
               (look-delay      0.5)
-              (look-offset     128))))
+              (look-offset     192))))
 
 (defmacro p! (name)
   #+kandria-release
