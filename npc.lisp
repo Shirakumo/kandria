@@ -271,6 +271,9 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'catherine)))
 
+(defmethod movement-speed ((catherine catherine))
+  (* 1.01 (call-next-method)))
+
 (defmethod capable-p ((catherine catherine) (edge jump-node)) T)
 (defmethod capable-p ((catherine catherine) (edge crawl-node)) T)
 (defmethod capable-p ((catherine catherine) (edge climb-node)) T)
@@ -281,6 +284,9 @@
    (nametag :initform (@ jack-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'jack)))
+
+(defmethod movement-speed ((jack jack))
+  (* 0.8 (call-next-method)))
 
 (defmethod (setf animation) ((_ (eql 'run)) (jack jack))
   (setf (animation jack) 'walk))
