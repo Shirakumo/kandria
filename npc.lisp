@@ -153,6 +153,7 @@
                 (interrupt-walk-n-talk (lead-interrupt npc))))))
       (:lead-teleport
        (setf (path npc) NIL)
+       (setf (state npc) :normal)
        (when (svref (collisions companion) 2)
          (vsetf (location npc)
                 (vx (location companion))
@@ -182,6 +183,7 @@
        ;; TODO: Smart-teleport: search for places just outside view of the companion from
        ;;       which the companion is reachable
        (setf (path npc) NIL)
+       (setf (state npc) :normal)
        (when (typep (svref (collisions companion) 2) 'block)
          (vsetf (location npc)
                 (vx (location companion))
