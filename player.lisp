@@ -133,6 +133,8 @@
   (setf (limp-time player) (min (limp-time player) 1.0))
   (unless (path player)
     (case (state player)
+      (:crawling
+       (handle (make-instance 'crawl) player))
       ((:climbing :normal)
        (let ((vel (velocity player)))
          (cond ((handle-evasion player))
@@ -174,7 +176,9 @@
         ((and (typep (svref (collisions player) 2) 'platform)
               (retained 'down))
          (decf (vy (location player)) 2))
-        ((not (eql :crawling (state player)))
+        ((eql :crawling (state player))
+         (handle (make-instance 'crawl) player))
+        (T
          (setf (jump-time player) (- (p! coyote-time))))))
 
 (defmethod handle ((ev crawl) (player player))
@@ -192,7 +196,9 @@
   (cond ((path player))
         ((eql :animated (state player))
          (setf (buffer player) 'light-attack))
-        ((not (eql :crawling (state player)))
+        ((eql :crawling (state player))
+         (handle (make-instance 'crawl) player))
+        (T
          (setf (attack-held player) T)
          (setf (vw (color player)) 0.0)
          (setf (buffer player) 'light-attack)
@@ -203,7 +209,9 @@
   (cond ((path player))
         ((eql :animated (state player))
          (setf (buffer player) 'heavy-attack))
-        ((not (eql :crawling (state player)))
+        ((eql :crawling (state player))
+         (handle (make-instance 'crawl) player))
+        (T
          (setf (attack-held player) T)
          (setf (vw (color player)) 0.0)
          (setf (buffer player) 'heavy-attack)
