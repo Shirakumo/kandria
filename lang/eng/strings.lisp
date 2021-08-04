@@ -27,6 +27,7 @@ attack/description "Combine light and heavy attacks with different directions fo
 cast-line "Cast line"
 reel-in "Reel in"
 stop-fishing "Stop"
+examine "Examine"
 ;; Intearctions
 door "Enter"
 fishing-spot "Fish"

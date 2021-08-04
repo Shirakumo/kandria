@@ -3,6 +3,9 @@
 (defclass place-marker (sized-entity resizable ephemeral dialog-entity)
   ((name :accessor name)))
 
+(defmethod description ((marker place-marker))
+  (language-string 'examine))
+
 (defmethod compile-to-pass (pass (marker place-marker)))
 (defmethod register-object-for-pass (pass (marker place-marker)))
 

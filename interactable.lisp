@@ -28,6 +28,9 @@
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity resizable)
   ((name :initform (generate-name "INTERACTABLE"))))
 
+(defmethod description ((sprite interactable-sprite))
+  (language-string 'examine))
+
 (define-shader-entity interactable-animated-sprite (ephemeral lit-animated-sprite dialog-entity resizable)
   ((name :initform (generate-name "INTERACTABLE"))
    (trial:sprite-data :initform (asset 'kandria 'dummy) :type asset)
