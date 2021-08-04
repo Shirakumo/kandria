@@ -79,7 +79,7 @@
     (alloy:enter list layout :constraints `((:left 50) (:right 50) (:bottom 100) (:top 100)))
     (dolist (name '("1" "2" "3" "4"))
       (let ((save (or (find name saves :key (lambda (s) (pathname-name (file s))) :test #'string=)
-                      (make-instance 'save-state :author (@ empty-save-file) :file name))))
+                      (make-instance 'save-state :author (@ empty-save-file) :filename name))))
         (make-instance 'save-button :value save :layout-parent list :focus-parent focus :intent intent)))
     (alloy:enter (make-instance 'label :value (ecase intent
                                                 (:new (@ new-game))
