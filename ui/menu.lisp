@@ -208,12 +208,6 @@
               (:complete (colored:color 0.15 0.15 0.15 0.5))
               (:failed (colored:color 0.5 0.1 0.1 0.5)))))
 
-(defclass input-label (label)
-  ())
-
-(presentations:define-update (ui input-label)
-  (:label :size (alloy:un 30) :halign :middle :valign :middle))
-
 (defclass status-text (label)
   ())
 
@@ -345,22 +339,6 @@
                         (setf (alloy:value icon) (make-instance (class-of (alloy:value button))))))
                     (alloy:enter button list)
                     (alloy:enter button focus))))))))
-
-      (with-tab ((@ controls-menu) 'alloy:grid-layout :col-sizes '(300 100 100) :row-sizes '(50))
-        (make-instance 'alloy:label* :value "Action" :layout-parent layout)
-        (make-instance 'alloy:label* :value "Key" :layout-parent layout)
-        (make-instance 'alloy:label* :value "Pad" :layout-parent layout)
-        (dolist (action '(left right up down jump light-attack heavy-attack interact dash climb crawl quickmenu report-bug))
-          (make-instance 'alloy:label* :value (string action) :layout-parent layout)
-          (let ((keyboard (first (action-input 'trial::keymap action :device :keyboard)))
-                (gamepad (first (action-input 'trial::keymap action :device :gamepad))))
-            (when keyboard
-              (make-instance 'input-label :value (string (or (prompt-char keyboard :bank :mouse)
-                                                             (prompt-char keyboard :bank :keyboard)))
-                                          :layout-parent layout))
-            (when gamepad
-              (make-instance 'input-label :value (string (or (prompt-char gamepad :bank :gamepad)))
-                                          :layout-parent layout)))))
 
       (let ((view (make-instance 'options-menu)))
         (add-tab tabs (@ open-options-menu) (alloy:layout-element view) (alloy:focus-element view)))

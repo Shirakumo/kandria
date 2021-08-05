@@ -48,8 +48,7 @@
 (defmethod pause-game ((world world) pauser)
   (unless (handler-stack world)
     #++(setf (mixed:bypass (harmony:segment 'low-pass T)) NIL)
-    (setf (mixed:volume :music) (/ (mixed:volume :music) 4))
-    (hide (prompt (unit 'player world))))
+    (setf (mixed:volume :music) (/ (mixed:volume :music) 4)))
   (push pauser (handler-stack world)))
 
 (defmethod unpause-game ((world world) pauser)

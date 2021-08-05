@@ -31,3 +31,29 @@
   (:label
    :pattern colors:black
    :size (alloy:un 15)))
+
+(defclass popup-panel (menuing-panel pausing-panel)
+  ((source :initform NIL :initarg :source :accessor source)))
+
+(defmethod initialize-instance :around ((panel popup-panel) &key)
+  (call-next-method)
+  (let ((popup (make-instance 'popup-layout)))
+    (alloy:enter (alloy:layout-element panel) popup)
+    (setf (slot-value panel 'alloy:layout-element) popup)))
+
+(defmethod show :after ((panel popup-panel) &key)
+  (let ((bounds (if (source panel)
+                    (alloy:bounds (source panel))
+                    (alloy:extent (alloy:vw 0.5) (alloy:vh 0.5) 0 0))))
+    (alloy:with-unit-parent (source panel)
+      (alloy:update (alloy:index-element 0 (alloy:layout-element panel))
+                    (alloy:layout-element panel)
+                    :x (+ (alloy:pxx bounds)
+                          (- (alloy:pxw bounds) (alloy:to-px (alloy:un 300))))
+                    :y (alloy:pxy bounds)
+                    :w (alloy:un 300)
+                    :h (alloy:un 120)))))
+
+(defmethod hide :after ((panel popup-panel))
+  (when (source panel)
+    (setf (alloy:focus (source panel)) :strong)))

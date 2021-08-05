@@ -35,7 +35,10 @@
 
 (defmethod alloy:activate ((button shop-button))
   (when (active-p button)
-    (show-panel 'transaction-panel :button button)))
+    (show-panel 'transaction-panel :source button)))
+
+(defmethod (setf alloy:focus) :after ((focus (eql :strong)) (button shop-button))
+  (setf (alloy:focus (alloy:focus-parent button)) :strong))
 
 (presentations:define-realization (ui shop-button)
   ((:background simple:rectangle)
@@ -214,21 +217,20 @@
   (label
    :text alloy:text))
 
-(defclass transaction-panel (menuing-panel pausing-panel)
-  ((button :initarg :button :accessor button)
-   (wheel :accessor wheel)))
+(defclass transaction-panel (popup-panel)
+  ((wheel :accessor wheel)))
 
-(defmethod initialize-instance :after ((panel transaction-panel) &key button)
+(defmethod initialize-instance :after ((panel transaction-panel) &key source)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(150 150) :row-sizes '(40 40 T 40)
-                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
          (count (make-instance 'alloy:value-data :value 1))
-         (wheel (make-instance 'item-wheel :data count :range (cons 0 (item-count button T)) :focus-parent focus))
-         (total (make-instance 'total-counter :data count :price (price button)))
+         (wheel (make-instance 'item-wheel :data count :range (cons 0 (item-count source T)) :focus-parent focus))
+         (total (make-instance 'total-counter :data count :price (price source)))
          (ok (make-instance 'popup-button
                             :value (@ accept-trade)
                             :on-activate (lambda ()
-                                           (retrieve T button (alloy:value count))
+                                           (retrieve T source (alloy:value count))
                                            (hide panel))
                             :focus-parent focus))
          (cancel (make-instance 'popup-button
@@ -250,16 +252,7 @@
       (alloy:finish-structure panel popup focus))))
 
 (defmethod show :after ((panel transaction-panel) &key)
-  (let ((bounds (alloy:bounds (button panel))))
-    (setf (alloy:focus (wheel panel)) :strong)
-    (alloy:with-unit-parent (button panel)
-      (alloy:update (alloy:index-element 0 (alloy:layout-element panel))
-                    (alloy:layout-element panel)
-                    :x (+ (alloy:pxx bounds)
-                          (- (alloy:pxw bounds) (alloy:to-px (alloy:un 300))))
-                    :y (alloy:pxy bounds)
-                    :w (alloy:un 300)
-                    :h (alloy:un 120)))))
+  (setf (alloy:focus (wheel panel)) :strong))
 
 (defun show-sales-menu (direction character)
   (show-panel 'sales-menu :shop (unit character T) :target (unit 'player T)  :direction direction))
