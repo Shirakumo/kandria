@@ -110,3 +110,41 @@
 (trigger stop-fishing
  (key :one-of (:backspace :enter))
  (button :one-of (:b)))
+
+(trigger zoom-in
+ (key :one-of (:e :plus))
+ (button :one-of (:r1))
+ (axis :one-of (:r2) :threshold 0.5))
+
+(trigger zoom-out
+ (key :one-of (:q :minus))
+ (button :one-of (:l1))
+ (axis :one-of (:l2) :threshold 0.5))
+
+(trigger close-map
+ (key :one-of (:esc :escape))
+ (button :one-of (:b :start)))
+
+(trigger toggle-trace
+ (key :one-of (:c :capslock :tab))
+ (button :one-of (:y)))
+
+(trigger pan-left
+ (key :one-of (:a :left))
+ (button :one-of (:dpad-l))
+ (axis :one-of (:l-h :dpad-h) :threshold -0.5))
+
+(trigger pan-right
+ (key :one-of (:d :right))
+ (button :one-of (:dpad-r))
+ (axis :one-of (:l-h :dpad-h) :threshold 0.5))
+
+(trigger pan-up
+ (key :one-of (:w :up))
+ (button :one-of (:dpad-u))
+ (axis :one-of (:l-v :dpad-v) :threshold 0.5))
+
+(trigger pan-down
+ (key :one-of (:s :down))
+ (button :one-of (:dpad-d))
+ (axis :one-of (:l-v :dpad-v) :threshold -0.5))

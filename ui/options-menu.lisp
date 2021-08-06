@@ -178,7 +178,7 @@
            (focus (make-instance 'alloy:focus-list)))
       (alloy:enter list clipper)
       (alloy:enter scroll layout :place :east :size (alloy:un 20))
-      (dolist (action-set '(in-game in-menu fishing))
+      (dolist (action-set '(in-game in-menu in-map fishing))
         (make-instance 'label :value (language-string action-set) :layout-parent list)
         (dolist (action (sort (mapcar #'class-name (c2mop:class-direct-subclasses (find-class action-set)))
                               #'string< :key #'language-string))

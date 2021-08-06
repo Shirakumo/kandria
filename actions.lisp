@@ -42,3 +42,13 @@
 (define-action cast-line (fishing))
 (define-action reel-in (fishing))
 (define-action stop-fishing (fishing))
+
+(define-action-set in-map (exclusive-action-set))
+(define-action pan-left (in-map))
+(define-action pan-right (in-map))
+(define-action pan-up (in-map))
+(define-action pan-down (in-map))
+(define-action zoom-in (in-map))
+(define-action zoom-out (in-map))
+(define-action close-map (in-map))
+(define-action toggle-trace (in-map))

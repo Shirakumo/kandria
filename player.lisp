@@ -873,6 +873,7 @@
     (let ((loc (vcopy (location player))))
       (when (v/= 0 (velocity player))
         (nv+ loc (v* (vunit (velocity player)) +tile-size+)))
+      (setf (unlocked-p (chunk ev)) T)
       (setf (chunk player) (chunk ev))
       (setf (spawn-location player) loc))))
 

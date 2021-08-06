@@ -257,7 +257,7 @@
   (when (unit :camera T)
     (snap-to-target (unit :camera T) player)))
 
-(define-encoder (npc save-v0) (initargs _p)
+(define-encoder (npc save-v0) (_b _p)
   (let ((last (car (last (path npc)))))
     (list* :path (when last (encode (second last)))
            :ai-state (ai-state npc)
@@ -280,6 +280,12 @@
     ;;         at this stage, and thus can't compute a route. We instead rely
     ;;         on the NPC's state machine to reconstruct the missing path.
     (setf (path npc) ())))
+
+(define-encoder (chunk save-v0) (_b _p)
+  `(:unlocked-p ,(unlocked-p chunk)))
+
+(define-decoder (chunk save-v0) (initargs _p)
+  (setf (unlocked-p chunk) (getf initargs :unlocked-p)))
 
 (define-encoder (moving-platform save-v0) (_b _p)
   `(:location ,(encode (location moving-platform))
