@@ -34,6 +34,19 @@
           (npc
            (unit-marker unit (colored:color 0.5 1 0.5 1)))))
       (unit-marker player (colored:color 0.5 0.5 1 1)))
+    (let ((trace (movement-trace player))
+          (points (make-array 0 :adjustable T :fill-pointer T))
+          (color (colored:color 0 0.8 1 0.5)))
+      (flet ((flush ()
+               (when (< 0 (length points))
+                 (vector-push-extend (cons 'trace (simple:line-strip renderer points :pattern color :line-width (alloy:un 4))) array)
+                 (setf (fill-pointer points) 0))))
+        (loop for i from 0 below (length trace) by 2
+              do (cond ((float-features:float-nan-p (aref trace i))
+                        (flush))
+                       (T
+                        (vector-push-extend (alloy:point (aref trace i) (aref trace (1+ i))) points)))
+              finally (flush))))
     (setf (presentations:shapes map) array)))
 
 (defmethod alloy:suggest-bounds (bounds (map map-element))
@@ -50,9 +63,10 @@
       (simple:scale renderer (alloy:size (zoom map) (zoom map)))
       (simple:translate renderer (alloy:bounds map))
       (loop for (name . shape) across (presentations:shapes map)
-            do (simple:with-pushed-transforms (renderer)
-                 (setf (simple:z-index renderer) (presentations:z-index shape))
-                 (alloy:render renderer shape))))))
+            do (unless (presentations:hidden-p shape)
+                 (simple:with-pushed-transforms (renderer)
+                   (setf (simple:z-index renderer) (presentations:z-index shape))
+                   (alloy:render renderer shape)))))))
 
 (defmethod alloy:handle ((ev alloy:pointer-event) (focus map-element))
   (restart-case

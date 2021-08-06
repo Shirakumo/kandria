@@ -63,6 +63,10 @@
   (stage (// 'kandria 'line-part) area)
   (stage (// 'kandria 'sting) area))
 
+(defun interrupt-movement-trace (player)
+  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
+  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player)))
+
 (defmethod hurt :after (thing (player player))
   (let ((dir (nv- (vxy (hurtbox player)) (location thing))))
     (trigger (make-instance 'sting-effect :angle (if (v/= 0 dir) (point-angle dir) 0)) player)))
@@ -106,6 +110,7 @@
     (let ((location (location (target trigger))))
       (vsetf (velocity player) 0 0)
       (transition
+        (interrupt-movement-trace player)
         (setf (location player) location)
         (issue +world+ 'force-lighting)
         (clear-retained)
@@ -316,7 +321,8 @@
     (return-from handle))
   ;; FIXME: Very bad! We cannot track time passage by frame count!
   ;;        Need to do proper test to check whether a second has passed.
-  (when (= (mod (fc ev) 60) 0)
+  (when (and (= (mod (fc ev) 60) 0)
+             (visible-on-map-p (chunk player)))
     (let ((trace (movement-trace player)))
       (declare (type (array single-float (*))))
       (vector-push-extend (vx (location player)) trace)
@@ -880,9 +886,7 @@
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
-  ;; Clear trace by marking it with a nan.
-  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
-  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
+  (interrupt-movement-trace player)
   ;; Actually respawn now.
   (setf (animation player) 'stand)
   (vsetf (velocity player) 0 0)
