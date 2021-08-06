@@ -104,7 +104,7 @@
         (off 0))
     (flet ((prompt (action)
              (alloy:enter (make-instance 'prompt :button action :description (language-string action))
-                          (unit 'ui-pass T) :x 20 :y (+ 20 (* 50 off)) :w (alloy:un 200) :h 40)
+                          (unit 'ui-pass T) :x 20 :y (+ 20 (* 50 off)) :w 200 :h 40)
              (incf off)))
       (prompt 'toggle-trace)
       (prompt 'zoom-in)
