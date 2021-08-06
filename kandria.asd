@@ -75,6 +75,7 @@
                              (:file "hud")
                              (:file "timer")
                              (:file "quick-menu")
+                             (:file "map")
                              (:file "menu")
                              (:file "gameover")
                              (:file "location-info")

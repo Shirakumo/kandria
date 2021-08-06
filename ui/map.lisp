@@ -1,0 +1,100 @@
+(in-package #:org.shirakumo.fraf.kandria)
+
+(defclass map-element (alloy:renderable alloy:focus-element alloy:layout-element)
+  ((offset :initform (vec 0 0) :accessor offset)
+   (state :initform NIL :accessor state)
+   (zoom :initform 0.15 :accessor zoom)))
+
+(defmethod presentations:realize-renderable ((renderer presentations:renderer) (map map-element))
+  (presentations:clear-shapes map)
+  (let ((array (make-array 0 :adjustable T :fill-pointer T))
+        (player (unit 'player T))
+        (gap 10))
+    (setf (offset map) (v- (v* (location player) (zoom map))
+                           (vec (/ (width *context*) 2) (/ (height *context*) 2))))
+    (flet ((unit-marker (unit color)
+             (when (visible-on-map-p (chunk unit))
+               (let ((bounds (alloy:extent (- (vx (location unit)) (* gap 5))
+                                           (- (vy (location unit)) (* gap 5))
+                                           (* gap 5 2)
+                                           (* gap 5 2))))
+                 (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern color :name (name unit) :z-index 1)) array)))))
+      (for:for ((unit over (region +world+)))
+        (typecase unit
+          (chunk
+           (when (visible-on-map-p unit)
+             (let ((bounds (alloy:extent (+ gap (- (vx (location unit)) (vx (bsize unit))))
+                                         (+ gap (- (vy (location unit)) (vy (bsize unit))))
+                                         (- (* 2 (vx (bsize unit))) (* 2 gap))
+                                         (- (* 2 (vy (bsize unit))) (* 2 gap))))
+                   (pattern (if (eql unit (chunk player))
+                                (colored:color 1 0.5 0.5 0.75)
+                                (colored:color 1 1 1 0.75))))
+               (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern pattern :name (name unit))) array))))
+          (npc
+           (unit-marker unit (colored:color 0.5 1 0.5 1)))))
+      (unit-marker player (colored:color 0.5 0.5 1 1)))
+    (setf (presentations:shapes map) array)))
+
+(defmethod alloy:suggest-bounds (bounds (map map-element))
+  bounds)
+
+(defmethod alloy:render :around ((renderer alloy:renderer) (map map-element))
+  (alloy:with-unit-parent map
+    (when (alloy:render-needed-p map)
+      (presentations:realize-renderable renderer map)
+      (setf (slot-value map 'alloy:render-needed-p) NIL))
+    (simple:with-pushed-transforms (renderer)
+      (alloy:render renderer (simple:rectangle renderer (alloy:bounds map) :pattern (colored:color 0 0 0 0.5)))
+      (simple:translate renderer (alloy:px-point (- (vx (offset map))) (- (vy (offset map)))))
+      (simple:scale renderer (alloy:size (zoom map) (zoom map)))
+      (simple:translate renderer (alloy:bounds map))
+      (loop for (name . shape) across (presentations:shapes map)
+            do (simple:with-pushed-transforms (renderer)
+                 (setf (simple:z-index renderer) (presentations:z-index shape))
+                 (alloy:render renderer shape))))))
+
+(defmethod alloy:handle ((ev alloy:pointer-event) (focus map-element))
+  (restart-case
+      (call-next-method)
+    (alloy:decline ()
+      T)))
+
+(defmethod alloy:handle ((ev alloy:scroll) (panel map-element))
+  (setf (zoom panel) (clamp 0.01 (+ (zoom panel) (* 0.01 (alloy:dy ev))) 0.5)))
+
+(defmethod alloy:handle ((ev alloy:pointer-down) (panel map-element))
+  (setf (state panel) :drag))
+
+(defmethod alloy:handle ((ev alloy:pointer-up) (panel map-element))
+  (setf (state panel) NIL))
+
+(defmethod alloy:handle ((ev alloy:pointer-move) (panel map-element))
+  (case (state panel)
+    (:drag
+     (let ((l (alloy:location ev))
+           (o (alloy:old-location ev)))
+       (incf (vx (offset panel)) (- (alloy:pxx o) (alloy:pxx l)))
+       (incf (vy (offset panel)) (- (alloy:pxy o) (alloy:pxy l)))))))
+
+(defclass map-panel (panel)
+  ())
+
+(defmethod initialize-instance :after ((panel map-panel) &key)
+  (clear-retained)
+  (let ((map (make-instance 'map-element)))
+    (alloy:finish-structure panel map map)))
+
+(defmethod handle ((ev tick) (panel map-panel))
+  (let ((speed 2))
+    (when (retained 'left)
+      (decf (vx (offset (alloy:focus-element panel))) (- speed)))
+    (when (retained 'right)
+      (decf (vx (offset (alloy:focus-element panel))) (+ speed)))
+    (when (retained 'down)
+      (decf (vy (offset (alloy:focus-element panel))) (- speed)))
+    (when (retained 'up)
+      (decf (vy (offset (alloy:focus-element panel))) (+ speed)))))
+
+(defmethod handle ((ev toggle-menu) (panel map-panel))
+  (hide panel))

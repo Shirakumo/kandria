@@ -222,7 +222,9 @@ void main(){
    (name :initform (generate-name "CHUNK"))
    (chunk-graph-id :initform NIL :accessor chunk-graph-id)
    (environment :initform NIL :initarg :environment :accessor environment
-                :type environment :documentation "The music environment to use."))
+                :type environment :documentation "The music environment to use.")
+   (visible-on-map-p :initform T :initarg :visible-on-map-p :accessor visible-on-map-p
+                     :type boolean))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
