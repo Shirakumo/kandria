@@ -163,7 +163,7 @@
    "~ catherine
 | (:disappointed)What have they done?...
 | (:normal)Oh man, we got here just in time. They were dismantling the turbine.
-| Give me a minute.
+| Give me a second.
 | ...
 ! eval (setf (animation (unit 'main-leak-3)) 'normal)
 | There, that should do it.
@@ -191,7 +191,7 @@
 | Jack?... He hung up.
 | Well, whatever it is it doesn't sound good.
 | Seems we'll have to wait a little longer for that welcome home we deserve.
-| (:normal)I need to think what to do next. Give me a second.
+| (:normal)I need to think what to do next. \"Come back\"(orange) in a minute.
   ")
   (:interact (catherine)
    :title "Talk to Catherine in the pump room"
