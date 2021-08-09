@@ -97,7 +97,17 @@
         (alloy:enter news layout :constraints `((:left 5) (:bottom 5) (:height 50) (:width 500)))))
     (alloy:finish-structure panel layout focus)))
 
-(define-shader-entity star (sprite-entity)
+(define-shader-entity fullscreen-background (lit-entity textured-entity trial:fullscreen-entity)
+  ((texture :initform (// 'kandria 'main-menu))))
+
+(define-class-shader (fullscreen-background :fragment-shader -10)
+  "out vec4 color;
+
+void main(){
+  color = apply_lighting(color, vec2(0, -5), 0, vec2(0), vec2(0));
+}")
+
+(define-shader-entity star (lit-sprite)
   ((multiplier :initform 1.0 :accessor multiplier)
    (texture :initform (// 'kandria 'star))
    (size :initform (vec 105 105))
@@ -206,6 +216,7 @@ void main(){
          (tsize (target-size camera))
          (yspread (/ (vy tsize) 1.5)))
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
+    (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
     (enter-and-load (make-instance 'heartbeat :margin (vx tsize)) +world+ +main+)
     (dotimes (i 100)
       (let ((s (+ 8 (* 20 (/ (expt (random 10.0) 3) 1000.0)))))
