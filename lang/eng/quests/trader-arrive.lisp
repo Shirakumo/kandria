@@ -60,10 +60,10 @@
   | Nonsense! You helped Catherine out - kicked some rogue ass by the sounds of things!
 
 | The least I can do is help keep you in tip-top condition.
-| I've read about androids - under the hood you're pretty much the same as those rogues. No offence.
+| I've heard about androids - under the hood you're pretty much the same as those rogues. No offence.
 | Thankfully you've got much more going on up here.
 ~ player
-| \"//Sahil taps his fingers on his left temple.//\"(light-gray)
+| \"//Sahil taps his fingers on his temple.//\"(light-gray)
 ~ trader
 | Here, I can assemble some useful bits and pieces into a handy repair pack for you.
 ~ player
@@ -95,7 +95,7 @@
     :repeatable T
     :dialogue "
 ~ trader
-| Assalam alaikum! We can indeed.
+| Assalam alaikum! Let's talk.
 ? (< 80  (health player))
 | | [? You look well, Stranger! | And how robust you're looking! | I don't think I've seen you looking better.]
 |? (< 50  (health player))
