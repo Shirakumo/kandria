@@ -321,7 +321,9 @@ void main(){
          (yspread (/ (vy tsize) 1.5)))
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
     (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
-    (enter-and-load (make-instance 'wave) +world+ +main+)
+    ;; Only enter the wave if we have tesselation available.
+    (when-gl-extension :GL-ARB-TESSELLATION-SHADER
+      (enter-and-load (make-instance 'wave) +world+ +main+))
     (dotimes (i 100)
       (let ((s (+ 8 (* 20 (/ (expt (random 10.0) 3) 1000.0)))))
         (enter* (make-instance 'star
