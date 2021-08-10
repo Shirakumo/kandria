@@ -128,87 +128,191 @@ void main(){
    color *= multiplier;
 }")
 
-(define-shader-entity heartbeat (located-entity lines)
-  ((points :accessor points)
+(define-asset (kandria wave-grid) mesh
+    (with-vertex-filling ((make-instance 'vertex-mesh :face-length 4 :vertex-type 'basic-vertex))
+      (let* ((s (/ 512 64))
+             (s2 (/ s -2)))
+        (dotimes (x s)
+          (dotimes (y s)
+            (vertex :location (vec (+ x s2 -0.0) 0 (+ y s2 -0.0)) :uv (vec (/ (+ x 0) s) (/ (+ y 0) s)) :normal (vec 0 1 0))
+            (vertex :location (vec (+ x s2 +1.0) 0 (+ y s2 -0.0)) :uv (vec (/ (+ x 1) s) (/ (+ y 0) s)) :normal (vec 0 1 0))
+            (vertex :location (vec (+ x s2 +1.0) 0 (+ y s2 +1.0)) :uv (vec (/ (+ x 1) s) (/ (+ y 1) s)) :normal (vec 0 1 0))
+            (vertex :location (vec (+ x s2 -0.0) 0 (+ y s2 +1.0)) :uv (vec (/ (+ x 0) s) (/ (+ y 1) s)) :normal (vec 0 1 0))))))
+  :vertex-form :patches)
+
+(define-shader-pass wave-propagate-pass (post-effect-pass)
+  ((previous :port-type trial::static-input :accessor previous)
+   (next :port-type output :accessor next)
+   (framebuffer :accessor framebuffer)
    (clock :initform 0.0 :accessor clock)))
 
-(defmethod initialize-instance :after ((entity heartbeat) &key margin)
-  (let ((points '(0 0 20 10 50 130 140 160 60 30 30 20 40 00 -10 00 30 50 50 140 150 100 20 30 10 0))
-        (list ())
-        (subdivs 20)
-        (px (- margin))
-        (py 0.0))
-    (flet ((segment (x y)
-             (let ((dx (/ (- x px) subdivs))
-                   (dy (/ (- y py) subdivs)))
-               (dotimes (i subdivs)
-                 (push (vec px py 0) list)
-                 (incf px dx) (incf py dy)))))
-      (loop for x from (* 20 (/ (length points) -2)) by 20
-            for y in points
-            do (segment (float x) (/ (float y) 2)))
-      (segment margin 0.0))
-    (setf list (nreverse list))
-    (setf (points entity) list)
-    (replace-vertex-data entity list)))
+(defmethod initialize-instance :after ((pass wave-propagate-pass) &key)
+  (setf (previous pass) (make-instance 'texture :target :texture-2d :internal-format :rg32f :width 512 :height 512))
+  (setf (next pass) (make-instance 'texture :target :texture-2d :internal-format :rg32f :width 512 :height 512))
+  (setf (framebuffer pass) (make-instance 'framebuffer :attachments `((:color-attachment0 ,(next pass))))))
 
-(defmethod replace-vertex-data ((lines heartbeat) points &key (update T))
-  (let ((mesh (make-instance 'vertex-mesh :vertex-type 'trial::line-vertex))
-        (c #.(vec 1 1 1 1)))
-    (with-vertex-filling (mesh)
-      (loop for (a b) on points
-            while b
-            do (vertex :location a :normal (v- a b) :color c)
-               (vertex :location b :normal (v- a b) :color c)
-               (vertex :location a :normal (v- b a) :color c)
-               (vertex :location b :normal (v- a b) :color c)
-               (vertex :location b :normal (v- b a) :color c)
-               (vertex :location a :normal (v- b a) :color c)))
-    (replace-vertex-data (vertex-array lines) mesh :update update)))
+(defmethod stage :after ((pass wave-propagate-pass) (area staging-area))
+  (stage (previous pass) area)
+  (stage (next pass) area))
 
-(defmethod render :before ((heartbeat heartbeat) (program shader-program))
-  (let* ((list (points heartbeat))
-         (clock (decf (clock heartbeat) 0.02))
-         (len (length list))
-         (duration 3.0))
-    (cond ((<= clock (- duration))
-           (setf (clock heartbeat) (random* 2.0 1.0))
-           (replace-vertex-data heartbeat list))
-          ((<= clock 0.0)
-           (let* ((dprog (/ (- clock) duration))
-                  (strength (- 0.5 (abs (- dprog 0.5)))))
-             (replace-vertex-data
-              heartbeat (loop for i from 0
-                              for v in list
-                              for prog = (/ i len)
-                              for off = (* (+ 0.2 (* 2 (- 0.5 (abs (- prog 0.5)))))
-                                           3
-                                           strength
-                                           (logand #x3F (sxhash i))
-                                           (/ (max 0.0 (- 1 (abs (- prog dprog)))) 20)
-                                           (+ (sin (+ (* 5 clock) (/ i 2))) (sin (+ (* 5 clock) (/ i PI)))))
-                              collect (vec (vx v) (+ (vy v) off) 0))))))))
+(defmethod render :after ((pass wave-propagate-pass) thing)
+  ;; Swap out the next and previous.
+  (rotatef (previous pass) (next pass))
+  (gl:bind-framebuffer :framebuffer (gl-name (framebuffer pass)))
+  (%gl:framebuffer-texture :framebuffer :color-attachment0 (gl-name (next pass)) 0))
 
-(defmethod render ((heartbeat heartbeat) (program shader-program))
-  (let ((count 10))
-    (with-pushed-matrix ()
-      (dotimes (i (1+ count))
-        (setf (uniform program "multiplier") (- 0.5 (* 0.5 (float (/ i count) 0f0))))
-        (call-next-method)
-        (translate-by 5 -5 0)
-        (scale-by 1 0.9 1)))
-    (with-pushed-matrix ()
-      (dotimes (i (1+ count))
-        (setf (uniform program "multiplier") (- 0.5 (* 0.5 (float (/ i count) 0f0))))
-        (call-next-method)
-        (translate-by -5 5 0)
-        (scale-by 1 0.9 1)))))
+(defmethod handle ((ev tick) (pass wave-propagate-pass))
+  (when (<= (decf (clock pass) (dt ev)) 0.0)
+    (let ((pos (nv+ (vrandr 0 200) 256)))
+      (enter (vec (vx pos) (vy pos) (1+ (random 3)) (+ 0.5 (random 3.0))) pass))
+    (setf (clock pass) (+ 0.1 (random 0.5))))
+  (render pass (shader-program pass)))
 
-(define-class-shader (heartbeat :fragment-shader)
-  "uniform float multiplier = 1.0;
+(define-class-shader (wave-propagate-pass :fragment-shader)
+  "uniform sampler2D previous;
+uniform float energy_compensation = 0.28;
+uniform float propagation_speed = 0.46;
+uniform float oscillator_speed = 0.001;
+out vec4 color;
+
+void main(){
+  ivec2 local = ivec2(gl_FragCoord.xy);
+  vec2 current = texelFetch(previous, local, 0).rg;
+  float previous_height = current.r;
+  current.r += (current.r-current.g);
+  current.g = previous_height;
+  current.r *= 1.0-oscillator_speed;
+  current.r += (current.r-current.g)*energy_compensation;
+  float local_sum = texelFetch(previous, local + ivec2(-1, 0), 0).r
+                  + texelFetch(previous, local + ivec2(+1, 0), 0).r
+                  + texelFetch(previous, local + ivec2(0, -1), 0).r
+                  + texelFetch(previous, local + ivec2(0, +1), 0).r;
+  current.r += (local_sum*0.25-current.r)*propagation_speed*0.5;
+  color = vec4(current.rg,0,1);
+}")
+
+(defmethod enter ((pos vec4) (pass wave-propagate-pass))
+  (let* ((r (round (vz pos)))
+         (a (vw pos))
+         (s (* 2 r))
+         (x (clamp 0 (- (round (vx pos)) r) (- 512 s)))
+         (y (clamp 0 (- (round (vy pos)) r) (- 512 s)))
+         (i -1))
+    (cffi:with-foreign-object (ptr :float (* 2 s s))
+      (dotimes (ix s)
+        (dotimes (iy s)
+          (let ((d (max 0.0 (- 1 (/ (+ (expt (- ix r) 2) (expt (- iy r) 2)) (expt r 2))))))
+            (setf (cffi:mem-aref ptr :float (incf i)) (* d a))
+            (setf (cffi:mem-aref ptr :float (incf i)) 0.0))))
+      (gl:bind-texture :texture-2d (gl-name (previous pass)))
+      (gl:tex-sub-image-2d :texture-2d 0 x y s s :rg :float ptr))))
+
+(defmethod enter ((pos vec2) (pass wave-propagate-pass))
+  (enter (vec (vx pos) (vy pos) 2 2) pass))
+
+(defmethod clear ((pass wave-propagate-pass))
+  (cffi:with-foreign-object (ptr :float 2)
+    (setf (cffi:mem-aref ptr :float 0) 0.0)
+    (setf (cffi:mem-aref ptr :float 1) 0.0)
+    (%gl:clear-tex-image (gl-name (previous pass)) 0 :rg :float ptr)))
+
+(define-shader-entity wave (listener renderable)
+  ((wave-pass :initform (make-instance 'wave-propagate-pass) :initarg :wave-pass :accessor wave-pass)
+   (vertex-array :initform (// 'kandria 'wave-grid) :accessor vertex-array)
+   (matrix :initform (meye 4) :accessor matrix)))
+
+(defmethod initialize-instance :after ((wave wave) &key)
+  (handle (make-instance 'resize :width (width *context*) :height (height *context*)) wave))
+
+(defmethod stage :after ((wave wave) (area staging-area))
+  (stage (wave-pass wave) area)
+  (stage (vertex-array wave) area))
+
+(defmethod handle ((ev tick) (wave wave))
+  (handle ev (wave-pass wave)))
+
+(defmethod handle ((ev resize) (wave wave))
+  (let ((mat (mperspective 50 (/ (max 1 (width ev)) (max 1 (height ev))) 1.0 100000.0)))
+    (nmlookat mat (vec 0 50 -200) (vec 0 30 0) (vec 0 1 0))
+    (nmscale mat (vec 64 1 64))
+    (setf (matrix wave) mat)))
+
+(defmethod render ((wave wave) (program shader-program))
+  (handle (make-instance 'resize :width (width *context*) :height (height *context*)) wave)
+  (gl:active-texture :texture1)
+  (gl:bind-texture :texture-2d (gl-name (next (wave-pass wave))))
+  (setf (uniform program "heightmap") 1)
+  (setf (uniform program "transform_matrix") (matrix wave))
+  (let* ((vao (vertex-array wave)))
+    (gl:bind-vertex-array (gl-name vao))
+    (gl:patch-parameter :patch-vertices 4)
+    (%gl:draw-arrays :patches 0 (size vao))
+    (gl:bind-vertex-array 0)))
+
+(define-class-shader (wave :vertex-shader)
+  "layout (location = 0) in vec3 position;
+layout (location = 1) in vec2 uv;
+
+out vec3 vPosition;
+out vec2 vUV;
+
+void main(){
+  vPosition = position;
+  vUV = uv;
+}")
+
+(define-class-shader (wave :tess-control-shader)
+  "#version 400
+layout (vertices = 4) out;
+in vec3 vPosition[];
+in vec2 vUV[];
+out vec3 tcPosition[];
+out vec2 tcUV[];
+const int subdivs = 64;
+
+void main(){
+  tcPosition[gl_InvocationID] = vPosition[gl_InvocationID];
+  tcUV[gl_InvocationID] = vUV[gl_InvocationID];
+  if(gl_InvocationID == 0){
+    gl_TessLevelInner[0] = subdivs;
+    gl_TessLevelInner[1] = subdivs;
+    gl_TessLevelOuter[0] = subdivs;
+    gl_TessLevelOuter[1] = subdivs;
+    gl_TessLevelOuter[2] = subdivs;
+    gl_TessLevelOuter[3] = subdivs;
+  }
+}")
+
+(define-class-shader (wave :tess-evaluation-shader)
+  "#version 400
+layout (quads) in;
+uniform sampler2D heightmap;
+uniform mat4 transform_matrix;
+
+in vec2 tcUV[];
+in vec3 tcPosition[];
+out vec3 tePosition;
+out vec2 texcoord;
+out float height;
+
+void main(){
+  vec3 a = mix(tcPosition[0], tcPosition[3], gl_TessCoord.x);
+  vec3 b = mix(tcPosition[1], tcPosition[2], gl_TessCoord.x);
+  vec2 u = mix(tcUV[0], tcUV[3], gl_TessCoord.x);
+  vec2 v = mix(tcUV[1], tcUV[2], gl_TessCoord.x);
+  tePosition = mix(a, b, gl_TessCoord.y);
+  texcoord = mix(u, v, gl_TessCoord.y);
+  height = texture(heightmap, texcoord).r;
+  tePosition.y += height;
+  gl_Position = transform_matrix * vec4(tePosition, 1);
+}")
+
+(define-class-shader (wave :fragment-shader)
+  "
+in float height;
 out vec4 color;
 void main(){
-   color *= multiplier;
+  color = vec4(vec3(min(1,1+height)), abs(height/5));
 }")
 
 (defmethod show :after ((menu main-menu) &key)
@@ -217,7 +321,7 @@ void main(){
          (yspread (/ (vy tsize) 1.5)))
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
     (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
-    (enter-and-load (make-instance 'heartbeat :margin (vx tsize)) +world+ +main+)
+    (enter-and-load (make-instance 'wave) +world+ +main+)
     (dotimes (i 100)
       (let ((s (+ 8 (* 20 (/ (expt (random 10.0) 3) 1000.0)))))
         (enter* (make-instance 'star
