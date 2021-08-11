@@ -58,7 +58,8 @@
   (scanline :min-filter :linear :mag-filter :linear)
   (block-transition :wrapping :repeat)
   (plain-transition :wrapping :repeat)
-  (main-menu :min-filter :linear :mag-filter :linear))
+  (main-menu :min-filter :linear :mag-filter :linear)
+  (logo :min-filter :linear :mag-filter :linear))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.wav")
   (T :volume 0.1)

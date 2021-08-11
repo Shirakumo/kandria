@@ -315,12 +315,72 @@ void main(){
   color = vec4(vec3(min(1,1+height)), abs(height/5));
 }")
 
+(define-asset (kandria logo-rect) mesh
+    (make-rectangle 400 100))
+
+(define-shader-entity logo (listener textured-entity vertex-entity located-entity)
+  ((vertex-array :initform (// 'kandria 'logo-rect))
+   (texture :initform (// 'kandria 'logo))
+   (clock :initform 0.0 :accessor clock)
+   (previous-depth :initform 0.0 :accessor previous-depth))
+  (:inhibit-shaders (textured-entity :fragment-shader)))
+
+(defmethod handle ((ev tick) (logo logo))
+  (incf (clock logo) (dt ev)))
+
+(defmethod render :before ((logo logo) (program shader-program))
+  (let* ((tt (clock logo))
+         (depth (float (* (expt (- (rem tt 3.0) 1.0) 4.0)
+                          (max 0.0 (/ (+ (sin (* PI tt)) (sin (* 13 tt))) 2.0)))
+                       0f0)))
+    (gl:clear-color 1 1 1 1)
+    (setf (uniform program "clock") (float (/ tt 10) 0f0))
+    (setf (uniform program "max_attempts") (1+ (logand #x5 (sxhash (floor (* 3 tt))))))
+    (cond ((< (previous-depth logo) depth)
+           (setf (uniform program "depth") depth)
+           (setf (previous-depth logo) depth))
+          ((<= depth 0)
+           (setf (uniform program "depth") depth)
+           (setf (previous-depth logo) depth)))))
+
+(define-class-shader (logo :fragment-shader)
+  "
+#define PI 3.1415926538
+uniform sampler2D texture_image;
+uniform int max_attempts = 3;
+uniform float depth = 1.0;
+uniform float clock = 0.0;
+const vec2 tex_dx = vec2(1.0/128.0, 1.0/128.0);
+
+in vec2 texcoord;
+out vec4 color;
+
+float rand(vec2 co){
+  return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void main(){
+  float x = floor((texcoord.x-1)*300);
+  vec2 offset = texcoord;
+  color = vec4(0);
+  float r = rand(vec2(x,clock/10000.0));
+  for(int i=0; i<max_attempts; ++i){
+    offset.y -= tex_dx.y*r*depth;
+    vec4 local = texture(texture_image, offset);
+    if(0 < local.a){
+      color = vec4(local.rgb*5, local.a);
+      break;
+    }
+  }
+}")
+
 (defmethod show :after ((menu main-menu) &key)
   (let* ((camera (make-instance 'camera))
          (tsize (target-size camera))
          (yspread (/ (vy tsize) 1.5)))
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
     (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
+    (enter-and-load (make-instance 'logo :location (vec 0 80)) +world+ +main+)
     ;; Only enter the wave if we have tesselation available.
     (when-gl-extension :GL-ARB-TESSELLATION-SHADER
       (enter-and-load (make-instance 'wave) +world+ +main+))
