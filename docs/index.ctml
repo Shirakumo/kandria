@@ -26,7 +26,7 @@
         <source src="media/leaf.mp4" type="video/mp4"/>
         <img src="media/kandria.gif"/>
       </video>
-      <h1><img alt="Kandria" src="media/logo.svg" /></h1>
+      <h1><img alt="Kandria" src="media/logo-inverted.svg" /></h1>
       <nav>
         <a href="#about">About</a>
         <a href="prototype.html">Demo</a>
