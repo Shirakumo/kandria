@@ -25,6 +25,10 @@
       (:vocal "camp medium vocal.oga")
       (:ambient "camp ambient.oga")))
 
+(define-asset (music music/desert) trial-harmony:environment
+    '((:normal "desert medium.oga")
+      (:ambient "desert ambient.oga")))
+
 (define-asset (music ambience/camp) trial-harmony:environment
     '((:normal "ambience track_ camp day.ogg")))
 

@@ -147,30 +147,25 @@
   :ambience 'ambience/underground-building)
 
 (define-environment (desert surface)
-  :music NIL
+  :music 'music/desert
   :ambience 'ambience/desert)
 
 (define-environment (desert camp)
-  :area 'desert
   :music 'music/camp
   :ambience 'ambience/camp)
 
 (define-environment (desert building)
-  :area 'desert
   :music NIL
   :ambience 'ambience/desolate-building)
 
 (define-environment (region1 cave)
-  :area 'region1
   :music 'music/region1
   :ambience 'ambience/cave)
 
 (define-environment (region1 hall)
-  :area 'region1
   :music 'music/region1
   :ambience 'ambience/large-underground-hall)
 
 (define-environment (region1 building)
-  :area 'region1
   :music 'music/region1
   :ambience 'ambience/underground-building)
