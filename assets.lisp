@@ -74,7 +74,8 @@
   (slide :volume 0.075 :repeat T)
   (telephone-save :volume 0.5)
   (falling-platform-rattle :volume 0.5)
-  (falling-platform-impact :volume 0.5))
+  (falling-platform-impact :volume 0.5)
+  (player-dash :volume 0.2))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.1)

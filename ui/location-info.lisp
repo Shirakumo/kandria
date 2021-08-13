@@ -45,6 +45,8 @@
 (defun location-info (string)
   (let ((info (alloy:do-elements (element (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
                 (when (typep element 'location-info) (return element)))))
-    (if info
-        (setf (alloy:value info) string)
-        (show (make-instance 'location-info :value string)))))
+    (and (cond ((null info)
+                (show (make-instance 'location-info :value string)))
+               ((string/= string (alloy:value info))
+                (setf (alloy:value info) string)))
+         (harmony:play (// 'sound 'ui-location-enter)))))

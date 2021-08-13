@@ -11,10 +11,6 @@
 (defmethod collides-p ((enemy enemy) (other enemy) hit) NIL)
 (defmethod collides-p ((enemy enemy) (other stopper) hit) T)
 
-(defmethod stage :after ((enemy enemy) (area staging-area))
-  (dolist (sound '(hit-zombie notice-zombie die-zombie))
-    (stage (// 'sound sound) area)))
-
 (defmethod maximum-health ((enemy enemy)) 100)
 
 (defmethod initialize-instance :after ((enemy enemy) &key)
@@ -120,6 +116,10 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'wolf)))
 
+(defmethod stage :after ((wolf wolf) (area staging-area))
+  (dolist (sound '(wolf-damage-1 wolf-damage-2))
+    (stage (// 'sound sound) area)))
+
 (defmethod movement-speed ((enemy wolf))
   (case (state enemy)
     (:crawling 0.4)
@@ -207,6 +207,10 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'zombie)))
 
+(defmethod stage :after ((zombie zombie) (area staging-area))
+  (dolist (sound '(notice-zombie zombie-attack zombie-damage zombie-die))
+    (stage (// 'sound sound) area)))
+
 (defmethod movement-speed ((enemy zombie))
   (case (ai-state enemy)
     (:stand 0.0)
@@ -277,7 +281,7 @@
 (defmethod idleable-p ((drone drone)) NIL)
 
 (defmethod stage :after ((drone drone) (area staging-area))
-  (stage (// 'sound 'die-zombie) area))
+  (stage (// 'sound 'drone-damage) area))
 
 (defmethod movement-speed ((enemy drone))
   (case (ai-state enemy)

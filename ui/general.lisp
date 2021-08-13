@@ -129,6 +129,8 @@
   (call-next-method)
   (dolist (panel (panels pass))
     (stage panel area))
+  (dolist (sound '(ui-focus-in ui-focus-out ui-location-enter))
+    (stage (// 'sound sound) area))
   (stage (simple:request-font pass (setting :display :font)) area)
   (stage (framebuffer pass) area))
 

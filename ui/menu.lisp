@@ -12,6 +12,10 @@
   ((alloy:min-size :initform (alloy:size 250 50))
    (alloy:cell-margins :initform (alloy:margins))))
 
+(defmethod (setf alloy:focus) :before ((focus (eql :strong)) (bar vertical-tab-bar))
+  (when (and (alloy:focused bar) (eql :strong (alloy:focus (alloy:focused bar))))
+    (harmony:play (// 'sound 'ui-focus-out) :reset T)))
+
 (defmethod (setf alloy:focus) :after ((focus (eql :strong)) (bar vertical-tab-bar))
   (cond ((null (alloy:index bar))
          (setf (alloy:index bar) 0))
@@ -81,6 +85,7 @@
     (alloy:register (alloy:layout-element item) renderer)))
 
 (defmethod alloy:activate ((button tab))
+  (harmony:play (// 'sound 'ui-focus-in) :reset T)
   (when (alloy:layout-element button)
     (let ((layout (alloy:layout-element (tab-view button))))
       (when (alloy:index-element :center layout)

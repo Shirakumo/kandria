@@ -218,28 +218,41 @@ void main(){
            (:rocks ,(// 'sound 'step-rocks-1)
                    ,(// 'sound 'step-rocks-2)
                    ,(// 'sound 'step-rocks-3)
-                   ,(// 'sound 'step-rocks-4)))
+                   ,(// 'sound 'step-rocks-4))
+           (:grass ,(// 'sound 'step-tall-grass-1)
+                   ,(// 'sound 'step-tall-grass-2)
+                   ,(// 'sound 'step-tall-grass-3)
+                   ,(// 'sound 'step-tall-grass-4)))
   :animation 'step)
 
 (define-effect jump basic-effect
-  :voice (// 'sound 'jump)
+  :voice (// 'sound 'player-jump)
   :animation 'jump)
 
 (define-effect dash dash-effect
-  :voice (// 'sound 'dash)
+  :voice (// 'sound 'player-dash)
   :animation 'dash
   :angle 0.0)
 
 (define-effect air-dash dash-effect
-  :voice (// 'sound 'dash)
+  :voice (// 'sound 'player-dash)
   :animation 'air-dash
   :direction 1)
 
 (define-effect slash sound-effect
-  :voice (// 'sound 'slash))
+  :voice (list (// 'sound 'sword-small-slash-1)
+               (// 'sound 'sword-small-slash-2)
+               (// 'sound 'sword-small-slash-3)))
 
-(define-effect stab sound-effect
-  :voice (// 'sound 'hit-zombie))
+(define-effect zombie-damage sound-effect
+  :voice (// 'sound 'zombie-damage))
+
+(define-effect wolf-damage sound-effect
+  :voice (list (// 'sound 'wolf-damage-1)
+               (// 'sound 'wolf-damage-2)))
+
+(define-effect drone-damage sound-effect
+  :voice (// 'sound 'drone-damage))
 
 (define-effect ground-hit basic-effect
   :voice (// 'sound 'hit-ground)
@@ -269,7 +282,7 @@ void main(){
       (shake-camera :intensity strength))))
 
 (define-effect explosion explosion-effect
-  :voice (// 'sound 'die-zombie)
+  :voice (// 'sound 'zombie-die)
   :animation 'explosion
   :particles (list (make-tile-uvs 8 18 128 128)
                    :amount 16
