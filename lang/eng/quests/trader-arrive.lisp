@@ -114,10 +114,10 @@
 |   < talk
 | - What do you make of this place?
 |   ~ trader
-|   | The Noka? They're a nice bunch, what can I say?
+|   | The \"Noka\"(red)? They're a nice bunch, what can I say?
 |   | Fi's a good person, which is rare in these parts.
 |   | They broke out all on their own, had enough of that Wraw bullshit.
-|   | Can't blame 'em. It was brave. It might also prove stupid though. We'll see.
+|   | Can't blame 'em. It was brave. It might also prove stupid. We'll see.
 |   < talk
 | - Catherine said you were later than expected.
 |   ~ trader
@@ -189,7 +189,7 @@ And then also add to the chatting sign off random selection: Goodbye! And if you
 |#
 
 
-#| TODO when get scrolling options, restore to talk menu:
+#| TODO when get scrolling options, restore to talk menu (or add as replacement talking points, once the narrative has moved onto act 2)
 
 | - Do you know about finding a computer?
 |   ~ trader

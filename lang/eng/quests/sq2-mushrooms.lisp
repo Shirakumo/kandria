@@ -4,7 +4,7 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine asked me to forage for mushrooms beneath the camp. She needs at least: 25 flower fungi and/or rusty puffballs; I should avoid: black caps"
+  :description "Catherine wants mushrooms from beneath the camp. She needs at least: 25 flower fungi and/or rusty puffballs; I should avoid: black caps"
   :on-activate T
   (return-mushrooms
    :title "Find mushrooms and return to Catherine when I have enough"

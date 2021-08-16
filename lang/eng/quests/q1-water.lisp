@@ -247,10 +247,10 @@
 ~ catherine
 | But we saw the rogues - they were dismantling the pump! It wasn't her.
 ~ jack
-| Maybe this android can control them? Did you think of that?
+| Maybe this thing can control them? Did you think of that?
 ~ catherine
 | (:concerned)...
-| (:concerned)Androids do have an FFCS - er, far-field comms system.
+| (:concerned)Androids do have an FFCS- er, far-field comms system.
 | I guess something like that could penetrate deeper underground than our radios.
 | (:normal)But no, it's not that. She's been offline for decades, I'm sure of it.
 | And since I brought her online, she's been with me the whole time! She can't have done this.
@@ -378,9 +378,9 @@
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us.
 | (:normal)Well, I've got work to do.
-| I think Fi might want a word with you. Just something about the way she was looking at you.
+| Couldn't hurt to check in with Fi. I'm sure there's something you could help with, to show her you can be trusted.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
-| But right now you're a free agent. I doubt that will last very long, so make the most of it!
+| But right now you're a free agent. I doubt that will last very long, so make the most of it.
 | (:excited)Take a look around and \"explore\"(orange)!
 | (:normal)Seeya later, Stranger!")
   (:eval

@@ -117,7 +117,7 @@
 ~ catherine
 | (:cheer)Yes!!
 ~ jack
-| (:annoyed)But I'm warning you android: Touch one hair on her head and I'll bury you for another fifty years!
+| (:annoyed)But I'm warning you android: Touch one hair on her head and I'll bury you for another thirty years!
 ~ catherine
 | (:disappointed)Thanks \"<-Dad->\". Well, we'll be going then.
 ~ jack

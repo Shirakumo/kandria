@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q2-intro)
   :author "Tim White"
   :title "Query Fi"
-  :description "Catherine said Fi may wish to speak with me."
+  :description "Catherine said Fi may have work for me."
   :on-activate (talk-to-fi)
 
   (talk-to-fi
@@ -19,9 +19,9 @@
 ~ fi
 | Greetings, Stranger.
 ~ player
-- Catherine said you might want to talk.
+- Can I help with anything?
   ~ fi
-  | Yes, I do. She is quite perceptive.
+  | Yes, I think you can. But...
 - So you're the leader around here?
   ~ fi
   | Something like that.
@@ -32,7 +32,7 @@
 ~ fi
 | I wanted to apologise for Jack's behaviour - and my own short-sightedness. You are our guest, and you have helped us.
 | But you must also understand that as chieftain, I have responsibilities to keep. I must be diligent.
-| But I think I have a way that you can help us again, and for you to further earn my trust.
+| But I think I have a way that you can help us again.
 | Although the water is back, our crops are unlikely to survive much longer.
 | I knew coming here would be hard, but we are on the brink - if we don't starve, then it seems the Wraw will get us in the end.
 | They'll be coming, sooner or later - no one escapes them and lives very long.
@@ -76,7 +76,6 @@
 ~ fi
 | You'll need a \"key card\"(orange) to access the area - take this one.
 ! eval (store 'item:semi-factory-key 1)
-| Whether you succeed or not, your efforts will help to earn my trust.
 | Alex has been our sole hunter for some time. You could be a hunter too, and more besides I think.
 | Good luck.
 ")))

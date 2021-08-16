@@ -42,14 +42,14 @@
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
-| | (:normal)Any sign of saboteurs? [(have 'item:walkie-talkie) Over.|]
+| | (:normal)Any sign of sabotage? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
 |   ~ catherine
 |   | That's what I like to hear.
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
-|   | Oh man, you could probably stand not to hear more about landslides - sorry!
+|   | Oh man, you probably don't need reminding about landslides - sorry!
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
@@ -92,14 +92,14 @@
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
-| | (:normal)Any sign of saboteurs? [(have 'item:walkie-talkie) Over.|]
+| | (:normal)Any sign of sabotage? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
 |   ~ catherine
 |   | That's what I like to hear.
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
-|   | Oh man, you could probably stand not to hear more about landslides - sorry!
+|   | Oh man, you probably don't need reminding about landslides - sorry!
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)
@@ -140,14 +140,14 @@
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
-| | (:normal)Any sign of saboteurs? [(have 'item:walkie-talkie) Over.|]
+| | (:normal)Any sign of sabotage? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
 |   ~ catherine
 |   | That's what I like to hear.
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
-|   | Oh man, you could probably stand not to hear more about landslides - sorry!
+|   | Oh man, you probably don't need reminding about landslides - sorry!
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (activate 'return-leaks)

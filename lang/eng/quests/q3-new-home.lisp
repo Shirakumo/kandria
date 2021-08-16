@@ -99,7 +99,7 @@
 ~ player
 | \"It's new-home candidate site \"Epsilon\"(red).\"(light-gray, italic)
 | (:thinking)\"//These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.//\"(light-gray)
-| \"//I could clear the barbed wire so children, and the elderly and infirm could navigate the area.//\"(light-gray)
+| \"//I could clear the barbed wire so children, and the elderly and infirm could get through.//\"(light-gray)
 ? (or (complete-p 'q2-seeds) (have 'item:seeds))
 | | (:skeptical)\"//But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.//\"(light-gray)
 |?
@@ -171,7 +171,7 @@
 # continue
 ? (complete-p 'q2-seeds)
 | ~ jack
-| | (:normal)Oh, \"Cathy wants a word too.\"(orange)
+| | (:normal)Oh, \"Cathy wants a word too\"(orange).
 | | (:annoyed)Know that my threat still stands if you touch her.
 | ! eval (activate 'sq-act1-intro)
 |?
