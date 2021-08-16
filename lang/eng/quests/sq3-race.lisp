@@ -177,16 +177,16 @@
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
 | | | (:cheer)How did you do that so fast? That's \"gold bracket\"(orange).
-| | | You get the top reward - \"25 scrap parts\"(orange)!
-| | ! eval (store 'item:parts 25)
+| | | You get the top reward - \"250 scrap parts\"(orange)!
+| | ! eval (store 'item:parts 250)
 | |? (< pb silver)
 | | | (:excited)That was pretty quick! \"Silver bracket\"(orange).
-| | | That nets you \"15 scrap parts\"(orange)!
-| | ! eval (store 'item:parts 15)
+| | | That nets you \"150 scrap parts\"(orange)!
+| | ! eval (store 'item:parts 150)
 | |? (< pb bronze)
 | | | (:excited)That wasn't a bad time at all - \"bronze bracket\"(orange).
-| | | That gets you \"10 scrap parts\"(orange).
-| | ! eval (store 'item:parts 10)
+| | | That gets you \"100 scrap parts\"(orange).
+| | ! eval (store 'item:parts 100)
 | |?
 | | | (:normal)That time was outside bronze. I guess your servos are still a little seized up.
 | | | Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.

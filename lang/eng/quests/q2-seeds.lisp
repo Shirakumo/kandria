@@ -96,7 +96,7 @@
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the \"Noka\"(red) yourself.
 | But for now, please accept this reward as a token of my appreciation.
 ! eval (retrieve 'item:semi-factory-key 1)
-! eval (store 'item:parts 20)
+! eval (store 'item:parts 200)
 ~ fi
 ? (complete-p 'q3-new-home)
 | | You should \"check in with Catherine\"(orange) - I'm sure she'd like to see you again.

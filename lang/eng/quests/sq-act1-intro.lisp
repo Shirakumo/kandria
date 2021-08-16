@@ -66,7 +66,7 @@
 | | | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | | | We get birds and fish when we can too, but they're harder to catch. Mushrooms don't run away.
 | | | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
-| | ! eval (store 'item:parts 30)
+| | ! eval (store 'item:parts 300)
 | | | (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them too.
 | | | If we don't need them, the least you could do is \"trade them with Sahil\"(orange).
 | | ? (not (complete-p 'sq2-mushrooms))

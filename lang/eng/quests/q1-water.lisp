@@ -373,7 +373,7 @@
 | (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.
 | Since those two aren't likely to be feeling generous, I'll give you these \"spare parts\"(red).
-! eval (store 'item:parts 20)
+! eval (store 'item:parts 200)
 | It's not much, but you can \"trade them\"(orange) for things you might want. Or you will be able to \"once Sahil gets here\"(orange).
 | (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us.

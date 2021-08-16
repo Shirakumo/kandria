@@ -179,129 +179,129 @@
                           (+ (vy (location animatable)) 8 (vy (bsize animatable))))))
 
 (define-item (small-health-pack health-pack) 0 0 8 8
-  :price 10)
+  :price 100)
 (defmethod health ((_ item:small-health-pack)) 10)
 (defmethod item-order ((_ item:small-health-pack)) 0)
 
 (define-item (medium-health-pack health-pack) 0 0 8 8
-  :price 25)
+  :price 250)
 (defmethod health ((_ item:medium-health-pack)) 25)
 (defmethod item-order ((_ item:medium-health-pack)) 1)
 
 (define-item (large-health-pack health-pack) 0 0 8 8
-  :price 50)
+  :price 500)
 (defmethod health ((_ item:large-health-pack)) 50)
 (defmethod item-order ((_ item:large-health-pack)) 2)
 
 ;; VALUE ITEMS
 (define-item (parts value-item) 8 16 8 8
-  :price 1)
+  :price 10)
 
 (defclass scrap () ()) (defmethod item-order ((_ scrap)) 1)
 (define-item (heavy-spring scrap value-item) 8 16 8 8
-  :price 1)
+  :price 10)
 (define-item (satchel scrap value-item) 16 16 8 8
-  :price 1)
+  :price 10)
 (define-item (screw scrap value-item) 24 16 8 8
-  :price 1)
+  :price 10)
 (define-item (bolt scrap value-item) 32 16 8 8
-  :price 1)
+  :price 10)
 (define-item (nut scrap value-item) 40 16 8 8
-  :price 1)
+  :price 10)
 (define-item (gear scrap value-item) 48 16 8 8
-  :price 1)
+  :price 10)
 (define-item (bent-rod scrap value-item) 56 16 8 8
-  :price 1)
+  :price 10)
 (define-item (large-gear scrap value-item) 64 16 8 8
-  :price 1)
+  :price 10)
 (define-item (copper-ring scrap value-item) 72 16 8 8
-  :price 1)
+  :price 10)
 (define-item (metal-ring scrap value-item) 80 16 8 8
-  :price 1)
+  :price 10)
 (define-item (broken-ring scrap value-item) 88 16 8 8
-  :price 1)
+  :price 10)
 (define-item (heavy-rod scrap value-item) 96 16 8 8
-  :price 1)
+  :price 10)
 (define-item (light-rod scrap value-item) 104 16 8 8
-  :price 1)
+  :price 10)
 (define-item (simple-gadget scrap value-item) 112 16 8 8
-  :price 1)
+  :price 10)
 (define-item (dented-plate scrap value-item) 120 16 8 8
-  :price 1)
+  :price 10)
 
 (defclass electronics () ()) (defmethod item-order ((_ electronics)) 2)
 (define-item (simple-circuit electronics value-item) 8 24 8 8
-  :price 2)
+  :price 20)
 (define-item (complex-circuit electronics value-item) 16 24 8 8
-  :price 3)
+  :price 30)
 (define-item (broken-circuit electronics value-item) 24 24 8 8
-  :price 1)
+  :price 10)
 (define-item (large-battery electronics value-item) 32 24 8 8
-  :price 3)
+  :price 30)
 (define-item (small-battery electronics value-item) 40 24 8 8
-  :price 2)
+  :price 20)
 (define-item (coin electronics value-item) 48 24 8 8
-  :price 1)
+  :price 10)
 (define-item (controller electronics value-item) 56 24 8 8
-  :price 1)
+  :price 10)
 (define-item (connector electronics value-item) 64 24 8 8
-  :price 1)
+  :price 10)
 (define-item (cable electronics value-item) 72 24 8 8
-  :price 1)
+  :price 10)
 (define-item (memory electronics value-item) 80 24 8 8
-  :price 1)
+  :price 10)
 (define-item (genera-core electronics value-item) 88 24 8 8
-  :price 2)
+  :price 20)
 (define-item (rusted-key electronics value-item) 96 24 8 8
-  :price 1)
+  :price 10)
 
 (defclass ores () ()) (defmethod item-order ((_ ores)) 3)
 (define-item (clay-clump ores value-item) 0 32 8 8
-  :price 2)
+  :price 20)
 (define-item (gold-nugget ores value-item) 8 32 8 8
-  :price 100)
+  :price 1000)
 (define-item (silver-ore ores value-item) 16 32 8 8
-  :price 60)
+  :price 600)
 (define-item (bronze-clump ores value-item) 24 32 8 8
-  :price 30)
+  :price 300)
 (define-item (rich-soil ores value-item) 32 32 8 8
-  :price 5)
+  :price 50)
 (define-item (meteorite-fragment ores value-item) 40 32 8 8
-  :price 4)
+  :price 40)
 (define-item (hardened-alloy ores value-item) 48 32 8 8
-  :price 3)
+  :price 30)
 (define-item (quartz-crystal ores value-item) 56 32 8 8
-  :price 5)
+  :price 50)
 (define-item (rusted-clump ores value-item) 64 32 8 8
-  :price 1)
+  :price 10)
 (define-item (pearl ores value-item) 72 32 8 8
-  :price 5)
+  :price 50)
 (define-item (dirt-clump ores value-item) 80 32 8 8
-  :price 1)
+  :price 10)
 
 (defclass liquids () ()) (defmethod item-order ((_ liquids)) 4)
 (define-item (coolant liquids value-item) 0 40 8 8
-  :price 3)
+  :price 30)
 (define-item (pure-water liquids value-item) 8 40 8 8
-  :price 10)
+  :price 100)
 (define-item (crude-oil liquids value-item) 16 40 8 8
-  :price 10)
+  :price 100)
 (define-item (refined-oil liquids value-item) 24 40 8 8
-  :price 20)
+  :price 200)
 (define-item (thermal-fluid liquids value-item) 32 40 8 8
-  :price 3)
+  :price 30)
 (define-item (mossy-water liquids value-item) 40 40 8 8
-  :price 5)
+  :price 50)
 (define-item (cloudy-water liquids value-item) 48 40 8 8
-  :price 15)
+  :price 150)
 
 (defclass skins () ()) (defmethod item-order ((_ skins)) 5)
-(define-item (fine-pelt skins value-item) 0 48 8 8
-  :price 10)
 (define-item (ruined-pelt skins value-item) 8 48 8 8
-  :price 5)
+  :price 50)
+(define-item (fine-pelt skins value-item) 0 48 8 8
+  :price 100)
 (define-item (pristine-pelt skins value-item) 16 48 8 8
-  :price 20)
+  :price 200)
 
 ;; QUEST ITEMS
 (define-item (seeds quest-item) 16 16 8 8)
@@ -310,13 +310,13 @@
 
 ;; VALUE-QUEST ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8
-  :price 1)
+  :price 10)
 (define-item (mushroom-good-2 value-quest-item) 32 8 8 8
-  :price 1)
+  :price 10)
 (define-item (mushroom-bad-1 value-quest-item) 16 8 8 8
-  :price 2)
+  :price 20)
 (define-item (walkie-talkie value-quest-item) 0 0 8 8
-  :price 50)
+  :price 500)
 
 ;; SPECIAL ITEMS
 

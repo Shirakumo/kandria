@@ -165,7 +165,7 @@
 ~ catherine
 | (:cheer)The water pressure is back! I knew you could do it.
 | (:normal)Here, take these parts - you've earned them.
-! eval (store 'item:parts 15)
+! eval (store 'item:parts 150)
 ? (have 'item:walkie-talkie)
 | | I'll take the walkie back for now in case someone else needs it.
 | ! eval (retrieve 'item:walkie-talkie 1)

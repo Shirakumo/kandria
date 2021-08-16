@@ -142,12 +142,12 @@
 - Yes please.
   ~ jack
   | Figures. Here ya go.
-  ! eval (store 'item:parts 10)
+  ! eval (store 'item:parts 100)
   < explain
 - That's the normal etiquette, isn't it?
   ~ jack
   | I guess so. Here ya go.
-  ! eval (store 'item:parts 10)
+  ! eval (store 'item:parts 100)
   < explain
 - Not from you.
   ~ jack
