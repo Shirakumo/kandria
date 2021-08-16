@@ -392,3 +392,8 @@ void main(){
                                               (- (vy tsize) 10 (* yspread (/ (expt (random 10.0) 3) 1000.0)))))
                 +world+)))
     (enter (make-instance 'camera) +world+)))
+
+(defmethod hide :after ((menu main-menu))
+  (for:for ((entity over +world+))
+    (when (typep entity '(or star fullscreen-background logo wave))
+      (leave* entity T))))
