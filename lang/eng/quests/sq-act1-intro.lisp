@@ -100,6 +100,8 @@
 |     | You got it.
 |   ~ catherine
 |   | Let me know what you find. Good luck!
+|   ~ player
+|   | \"My FFCS indicates \"three leaks\"(orange), close to the surface as Catherine said.\"(light-gray, italic)
 |   ! eval (activate 'sq1-leaks)
 |   < task-choice
 | - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) (Forage for mushrooms)|]

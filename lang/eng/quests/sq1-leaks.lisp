@@ -4,7 +4,7 @@
 (quest:define-quest (kandria sq1-leaks)
   :author "Tim White"
   :title "Repair New Leaks"
-  :description "There are new leaks to fix. My FFCS confirms that these ones aren't far from the surface, so I should follow the red pipeline down. Hopefully there'll be no surprises this time."
+  :description "There are new leaks to fix; I should follow the red pipeline down. Hopefully there'll be no surprises this time. My FFCS detects three locations."
   :on-activate (leak-first leak-second leak-third)
   :variables (first-leak)
 
