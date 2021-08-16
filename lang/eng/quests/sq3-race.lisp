@@ -29,7 +29,7 @@
 | - Let's go.
 | - Not right now.
 |   ~ catherine
-|   | No worries! (:excited)Let's do this soon!
+|   | No worries. (:excited)Let's do this soon!
 |   < quit
 | ~ catherine
 | | (:normal)So remember: \"Find the can\"(orange) that Alex has planted.
@@ -69,7 +69,7 @@
 
 # race-2
 ~ catherine
-| (:cheer)Route 2! The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station\"(orange).
+| (:cheer)Route 2! The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-2 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-2 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-2 'bronze))}.
 ? (var-of 'race-2 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange). Beat this to get a reward.
@@ -188,7 +188,7 @@
 | | | That gets you \"10 scrap parts\"(orange).
 | | ! eval (store 'item:parts 10)
 | |?
-| | | (:normal)That time was outside bronze. I guess your servos are still a little seized up, right?
+| | | (:normal)That time was outside bronze. I guess your servos are still a little seized up.
 | | | Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.
 | ! label end
 | | (:excited)Let's do this again soon!
@@ -209,7 +209,7 @@
 
 (define-race race-2
   :site race-2-site
-  :title-start "The can is... where a shallow grave marks the end of the line at Zenith Crossing Station."
+  :title-start "The can is... where a shallow grave marks the end of the line at Zenith Crossing Station, East."
   :title-complete "Complete Route 2"
   :gold 60
   :silver 80

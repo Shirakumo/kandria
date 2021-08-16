@@ -81,7 +81,7 @@
 | | | (:excited)Oh, I've been talking to my friends - we're all eager to see what you're really capable of.
 | | | How do time trial sweepstakes sound, eh?
 | |?
-| | | (:excited)Remember, any time you want to race we've got the time trial sweepstake too!
+| | | (:excited)Remember, you can tell me later if you want to race in the time trials too.
 | ! label task-choice
 | ~ player
 | - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (Fix the leaks)|]
