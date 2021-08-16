@@ -4,7 +4,7 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine wants mushrooms from beneath the camp. She needs at least: 25 flower fungi and/or rusty puffballs; I should avoid: black caps"
+  :description "Catherine wants mushrooms from beneath the camp. She needs at least: 25 flower fungi and/or rusty puffballs; I should avoid: black caps."
   :on-activate T
   (return-mushrooms
    :title "Find mushrooms and return to Catherine when I have enough"
@@ -41,7 +41,7 @@
 | We get birds and fish when we can too, but they're harder to catch. Mushrooms don't run away.
 | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
 ! eval (store 'item:parts 30)
-| (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them too!
+| (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them too.
 | If we don't need them, the least you could do is \"trade them with Sahil\"(orange).
 | See you around, Stranger!
 ! eval (complete task)
