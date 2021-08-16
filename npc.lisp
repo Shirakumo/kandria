@@ -1,5 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defclass npc-block-zone (ephemeral resizable sized-entity collider)
+  ())
+
 (define-shader-entity npc (inventory ai-entity animatable ephemeral dialog-entity profile)
   ((bsize :initform (vec 8 15))
    (target :initform NIL :accessor target)
@@ -37,6 +40,16 @@
   (error "WTF, NPC died for some reason. That shouldn't happen!"))
 (defmethod oob ((npc npc) (none null))
   (error "~a fell out of the world." npc))
+
+(defmethod target-blocked-p ((entity located-entity))
+  (bvh:do-fitting (entity (bvh (region +world+)) entity)
+    (when (typep entity 'npc-block-zone)
+      (return T))))
+
+(defmethod target-blocked-p ((location vec2))
+  (bvh:do-fitting (entity (bvh (region +world+)) location)
+    (when (typep entity 'npc-block-zone)
+      (return T))))
 
 (defmethod (setf state) :before (state (npc npc))
   (unless (eq state (state npc))
@@ -171,7 +184,14 @@
                 (setf (ai-state npc) :follow-check)))))
       (:follow-check
        (let ((distance (vsqrdist2 (location npc) (location companion))))
-         (cond ((< distance (expt (* 3 +tile-size+) 2))
+         (cond ((target-blocked-p companion)
+                ;; TODO: make it customisable.
+                (walk-n-talk (format NIL "~~ ~a
+| This doesn't look safe. I'm going to wait here for you, alright?"
+                                     (type-of npc)))
+                (setf (vx (velocity npc)) 0)
+                (setf (ai-state npc) :follow-wait))
+               ((< distance (expt (* 3 +tile-size+) 2))
                 (setf (ai-state npc) :follow))
                ((< (expt (* 40 +tile-size+) 2) distance)
                 ;; TODO: shout where are you, then timer it.
@@ -189,6 +209,11 @@
                 (vx (location companion))
                 (+ (vy (location companion)) 4))
          (setf (ai-state npc) :follow)))
+      (:follow-wait
+       (let ((distance (vsqrdist2 (location npc) (location companion))))
+         (when (and (< distance (expt (* 3 +tile-size+) 2))
+                    (not (target-blocked-p companion)))
+           (setf (ai-state npc) :follow))))
       (:cowering
        (cond ((enemies-present-p (location npc))
               (unless (find (state npc) '(:animated :stunned :dying))
