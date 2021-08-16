@@ -142,6 +142,7 @@
 (define-slot-coders (heatwave world-v0) ((location :type vec2) (bsize :type vec2)))
 (define-slot-coders (save-point world-v0) ((location :type vec2)))
 (define-slot-coders (fishing-spot world-v0) (name (location :type vec2) (bsize :type vec2) direction))
+(define-slot-coders (npc-block-zone world-v0) ((location :type vec2) (bsize :type vec2)))
 
 (define-decoder (node-graph binary-v0) (stream packet)
   (let* ((width (nibbles:read-ub16/le stream))
