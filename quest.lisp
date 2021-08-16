@@ -24,17 +24,20 @@
 
 (defmethod quest:class-for ((storyline (eql 'quest:quest))) 'quest)
 
-(defmethod quest:activate :after ((quest quest))
-  (when (visible-p quest)
+(defmethod quest:activate :before ((quest quest))
+  (when (and (not (eql :active (status quest)))
+             (visible-p quest))
     (status :important "New quest: ~a" (quest:title quest)))
   (setf (clock quest) 0f0))
 
-(defmethod quest:complete :after ((quest quest))
-  (when (visible-p quest)
+(defmethod quest:complete :before ((quest quest))
+  (when (and (not (eql :complete (status quest)))
+             (visible-p quest))
     (status :important "Quest completed: ~a" (quest:title quest))))
 
-(defmethod quest:fail :after ((quest quest))
-  (when (visible-p quest)
+(defmethod quest:fail :before ((quest quest))
+  (when (and (not (eql :failed (status quest)))
+             (visible-p quest))
     (status :important "Quest failed: ~a" (quest:title quest))))
 
 (defmethod quest:make-assembly ((_ quest))
