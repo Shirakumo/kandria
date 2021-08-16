@@ -375,7 +375,7 @@ void main(){
 }")
 
 (defmethod show :after ((menu main-menu) &key)
-  (let* ((camera (make-instance 'camera))
+  (let* ((camera (unit :camera +world+))
          (tsize (target-size camera))
          (yspread (/ (vy tsize) 1.5)))
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
@@ -390,8 +390,7 @@ void main(){
                                :bsize (vec s s)
                                :location (vec (random* 0 (* 2 (vx tsize)))
                                               (- (vy tsize) 10 (* yspread (/ (expt (random 10.0) 3) 1000.0)))))
-                +world+)))
-    (enter (make-instance 'camera) +world+)))
+                +world+)))))
 
 (defmethod hide :after ((menu main-menu))
   (for:for ((entity over +world+))
