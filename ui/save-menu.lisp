@@ -18,6 +18,8 @@
   (ecase (intent button)
     (:new
      (setf (state +main+) (alloy:value button))
+     ;; FIXME: allow user to enter name.
+     (setf (author (state +main+)) (pathname-utils:directory-name (user-homedir-pathname)))
      (load-game NIL +main+))
     (:load
      (when (exists-p (alloy:value button))
