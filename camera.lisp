@@ -79,7 +79,9 @@
           (clamp-camera-target camera loc)))
       (let ((off (offset camera)))
         (when (v/= 0 off)
-          (v<- loc (v+ (intended-location camera) off))
+          (vsetf loc
+                 (+ (vx (intended-location camera)) (vx off))
+                 (+ (vy (intended-location camera)) (vy off)))
           (nv* off 0.98)
           (when (<= (abs (vx off)) 0.1) (setf (vx off) 0.0))
           (when (<= (abs (vy off)) 0.1) (setf (vy off) 0.0))

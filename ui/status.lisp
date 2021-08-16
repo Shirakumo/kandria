@@ -66,7 +66,7 @@
     (push string args)
     (setf string importance)
     (setf importance :normal))
-  (when +main+
+  (when (and +main+ string)
     (with-eval-in-render-loop (+world+)
       (let ((panel (find-panel 'status-lines)))
         (when panel

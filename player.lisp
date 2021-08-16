@@ -324,6 +324,7 @@
   ;; FIXME: Very bad! We cannot track time passage by frame count!
   ;;        Need to do proper test to check whether a second has passed.
   (when (and (= (mod (fc ev) 60) 0)
+             (chunk player)
              (visible-on-map-p (chunk player)))
     (let ((trace (movement-trace player)))
       (declare (type (array single-float (*))))

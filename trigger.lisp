@@ -120,7 +120,7 @@
   ())
 
 (defmethod (setf value) (value (trigger pan-trigger))
-  (setf (offset (unit :camera T)) value))
+  (duck-camera (vx value) (vy value)))
 
 (defclass teleport-trigger (trigger)
   ((target :initform NIL :initarg :target :accessor target)
