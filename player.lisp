@@ -205,6 +205,8 @@
          (setf (buffer player) 'light-attack))
         ((eql :crawling (state player))
          (handle (make-instance 'crawl) player))
+        ((and (null (svref (collisions player) 2))
+              (used-aerial player)))
         (T
          (setf (attack-held player) T)
          (setf (vw (color player)) 0.0)
@@ -218,6 +220,8 @@
          (setf (buffer player) 'heavy-attack))
         ((eql :crawling (state player))
          (handle (make-instance 'crawl) player))
+        ((and (null (svref (collisions player) 2))
+              (used-aerial player)))
         (T
          (setf (attack-held player) T)
          (setf (vw (color player)) 0.0)
