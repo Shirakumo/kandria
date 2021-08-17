@@ -8,64 +8,9 @@ Kandria features a cast of main characters, as well as several factions that are
 
 All of the main cast is part of a faction of people trying to lead a peaceful cooperative existence on the surface world. Other factions exist, mostly dwelling underground, many of them either isolationist, or aggressive.
 
-The cast might need to be extended or shortened depending on how the exact story needs develop as time goes on.
-
 [ image https://studio.tymoon.eu/api/studio/file?id=1762 ]
 
-### The Stranger
-The stranger is a detective model android. As such she excels in investigation and combat. She's rather uncouth and can be pretty snarky and rude when she loses her patience. Being an android she can be rather reckless and unaware of the true dangers of a situation. She tends to be impatient and wants to jump to action right away. The Stranger shows relatively little personality in the beginning, but comes out of her shell slowly as the game advances.
-
-The Stranger's personality is almost entirely fixed during dialogue with the exception of occasional dialogue choices that can be made. The choices do not influence the story, but simply provide a way for the player to make The Stranger act a bit more according to how they would, making the role-playing easier.
-
-| Okey, got it.
-| 
-| Oh come on, it's not that difficult.
-| 
-| *whistle* Now what do we have here...
-| 
-| That doesn't really add up, does it? Think about it, if they had actually come through here, wouldn't they have noticed the bots?
-| 
-| What do I look like to you, a toaster?
-| 
-| No, and I really don't care about this at all.
-
-### Fi
-Fi is the unofficial leader of the main faction. She maintains the main housing block, a repurposed hotel. She is strong-willed, but quiet for the most part. She detests fights, and avoids speaking about herself. For the most part she tries to stay in the background and let people sort out their problems on their own, though people rely on her to make a decision if no common ground can be reached.
-
-| Good morning, Jack. The usual for today?
-| 
-| No.
-| 
-| That's not really...
-| 
-| Okey, fine. I'll have to think about it, so give me some time, alright?
-
-### Jack
-Jack is the head engineer and is responsible for the maintenance of infrastructure in the settlement. He is burly, straight-forward, and generally a no-nonsense kind of guy. He's very invested in his work, to the point where he can't take a break and relax. He cares a lot about his apprentice, Catherine, but is unable to express it directly.
-
-| We have to get this done stat. If we don't, the water supply's fucked, and in turn we are too.
-| 
-| No, Catherine, it won't do. Just -- just leave this to me alright? You'll just end up hurting yourself.
-| 
-| I don't have time for this, and neither do you. Just do it as I said, it'll be easier for everyone.
-
-### Catherine
-Catherine is the apprentice engineer and general energetic busybody. She's very enthusiastic about her work, but is often overconfident about her abilities. She sees Jack almost as a father figure and keeps trying to outdo him.
-
-| This is absolutely amazing, I've never seen anything like this before!
-| 
-| Hey, no problem, just leave it to me. I'll have it done in a jiffy!
-| 
-| Huh? That's odd. I don't think it should do that.
-
-### Alex
-Alex is a scavenger and messenger. He's responsible for scouting below the surface, finding new resources and materials, and delivering messages between the different factions. Alex is aloof and easy-going. He's very easy to get along with, which he knows and uses to get himself out of work. He doesn't have an allegiance to any faction in particular and prefers to stay out of struggles.
-
-| Listen, I'm just here to deliver the message, OK?
-| 
-| You guys can hash this one out, I'll see myself out.
-| 
-| Don't sweat it, you can get me a nice drink sometime in exchange!
+Please see the dedicated "characters"(link characters.mess) document for more information
 
 ## Story
 The story takes place in a post apocalyptic world, ruined and almost entirely destroyed by an unknown calamity. A vast tunnel network spans underground, filled with old world remnants, dangerous machinery, and feral animals. Several factions have established camps in larger underground caverns to take refuge from the dry heat above ground. Survival is harsh, as old-world tech is rare and often broken, the areas outside the camps are dangerous, and there is little in the way of economic stability. Some factions even struggle to get enough food to survive due to it being difficult to grow anything underground.
@@ -85,46 +30,18 @@ The most contended resources are food sources and functioning old-world technolo
 The faction the player spends the most time with is a small settlement above ground that have found a set of mostly intact ruins among the rubble of a former city. They manually set up water piping from underground and have started an agriculture farm to stay self-sufficient on food. This places them in a much more independent position, and allows them to stay away from most of the dangers of the underground tunnel system.
 
 ### Progression
-The game opens with Jack and Catherine finding The Stranger buried under rubble somewhere deep underground. Catherine decides to fumble around and manages to reactivate The Stranger. The stranger is then led through a tutorial area back up to the camp, where the rest of the main cast is introduced.
+The game opens with Catherine finding The Stranger buried under rubble somewhere deep underground. Catherine decides to fumble around and manages to reactivate The Stranger. The stranger is then led through a tutorial area back up to the camp, where the rest of the main cast is introduced.
 
-From there the game opens up to a semi-nonlinear narrative, with the player being offered several quests that they can take on (see gameplay progression below).
-
-These quests will take the player to explore remote areas both underground and above-ground. This includes abandoned and ruined homes, research facilities, large caverns, and abandoned posts. Eventually rumour about an old-world android roaming about will spread to other factions, leading them to investigate. Some factions will turn more hostile, while others will want to capture the android and disassemble it for parts.
-
-Many characters, especially minor ones, refuse to regard The Stranger as their own person, and instead interpret her as a much more advanced servant. It's important that most of them are not outright dismissive or abusive, but rather that they treat The Stranger differently without even realising it. One or two characters are outright hostile towards androids, as they believe they are responsible for the calamity.
-
-Each of the main cast has their own initial disposition to The Stranger, which changes as the game goes on. Catherine starts out as being amazed by the technological marvel of The Stranger, and explicitly treats her like an object to be studied. Over time she'll learn to respect The Stranger as a person of their own (idea: Stranger saves Catherine out of her own will). Alex starts out uncertain and slightly scared of The Stranger. Over time this fear grows and he starts to feel threatened by The Stranger's abilities. He refuses to accept The Stranger as an equal, and instead actively starts to work against her. Jack initially does not want to let The Stranger into the settlement as he is concerned about the risks imposed by bringing her here, and especially housing her. He is begrudgingly convinced by Catherine begging to allow her in for study. He then learns to appreciate her capabilities and utility in both helping the settlement out and defending it from dangers. He then reverses again when the lowest point of the story is reached and the settlement is attacked directly, though he manages to overcome his fears and ultimately ends up siding with The Stranger in the end. Fi acts indifferent to The Stranger in the beginning, treating her as anyone else. Over time she grows more and more fond of The Stranger and warms up to her, sharing more of her own personality with her (possible romantic hints here?).
-
-**TODO:** Not sure yet how to proceed from here. Here's some ideas:
-  - Get ambushed and captured, have to wait for rescue party or free self
-  - Camp gets raided and friends get captured, have to try and rescue them
-  - Friend betrays you and sells you out to another camp
-  - Disassembling The Stranger provides parts to save someone else
-  - Invading The Stranger's mind reveals the location of an android manufacturing facility, but has a high risk of frying her brain.
-  But how to end any of these? How to build tension for this?
-  Need help with this for sure.
+Please see the dedicated "plot outline"(link plot outline.mess) document for information on the game's plot.
 
 ### Locations
-This section discusses major locations that are important to the story.
-
-#### The Fall
-This is a large underground cavern that collapsed and is where The Stranger is initially found. It is only accessible through a set of narrow and steep cliffs from one of the upper abandoned tunnels. The cavern is completely sealed off and does not have any natural light.
-
-#### The Camp
-The camp is the primary location in the game and where most of the quests are handed out or concluded. It serves as the home base and is where most of the main cast are most of the time. The camp is comprised of three buildings and a large stretch of irrigated farmland. The three buildings are patched up remnants of the former city. Outside of the farmland a large stretch of abandoned and ruined buildings remain, and even further out seemingly endless desert provides no way out.
-
-The three buildings at the camp are a repurposed hotel to serve for housing and dining, a storage shack for farming equipment, and a workshop for engineering. Produce and other food is stored in the bunker below the hotel to keep it cool.
-
-#### Abandoned Outpost
-An abandoned gang outpost in the mountain area. This spot is only reachable via underground tunnels and a long climb up the mountain. The mountain is surrounded by steep, unclimbable cliffs on either side. This is an optional area that contains lore and background on one of the factions, and in specific its leader.
-
-A single hermit NPC can be found here, though they won't have much to talk to you about, and mostly just ask you to leave again.
+Major locations as well as general lore information is detailed in the "lore document"(link lore.mess).
 
 ## Gameplay
 Overall the game follows fairly standard ARGP mechanics, with the twist addition of platformer challenges for exploration segments.
 
 ### Goals
-Long term goals: learn about the world, figure out the story.
+Long term goals: learn about the world, figure out the story, collect all fish and lore pieces.
 
 Short term goals: overcome platforming challenge, defeat enemies, scavenge for items, find clues, read dialogue.
 
@@ -164,13 +81,20 @@ The player has a close-range sword that allows them to use a set of heavy and li
 
 Attacks are chosen by a button deciding on the attack form (heavy or light), the current placement of the player (ground or air), and an optional direction. The following distinct attacks are planned:
 
-- light* (light ground)
-- heavy* (heavy ground)
-- up slash (light up ground)
-- upshoot (heavy up ground)
-- side* (light air)
-- slam down (heavy air)
-- throw (heavy side air)
+- light ground side*
+- heavy ground side*
+- light ground up (shoots enemy behind to clear areas)
+- heavy ground up (shoots enemy up for juggling)
+- light ground down (quick slash with stun)
+- heavy ground down (long slash with heavy stun, burying enemy for a bit)
+- light ground charge (spin attack with repeated damage)
+- heavy ground charge (heavy attack that shoots enemy back fast)
+- light aerial side*
+- heavy aerial side*
+- light aerial down (coasts over ground enemy for attack)
+- heavy aerial down (zips down to ground quickly, stunning and shooting enemy back)
+- light counter
+- heavy counter
 
 The attacks marked with an asterisk can be chained, meaning that inputting the attack multiple times will transition the attack into a secondary and third form. After the third form a brief timeout prevents further chaining. If not chained, each of the three variants must have its own stop animation that returns the player to neutral state.
 
@@ -182,24 +106,15 @@ The attacks must be fluid and pleasant to look at. They have to be fun to execut
 
 Since ground movement can be very fast, and the player could encounter enemies at any moment, transitioning between normal movement and an attack has to look natural.
 
-The player and every enemy has a health bar that is decreased when they get hit. When zero, the entity will cause them to play a death animation. It might be interesting if enemies have to be 'disintegrated' with an explicit, slow move or they'll resurrect again after a while. Player health will regenerate slowly after a period of not getting hit. This needs to be carefully balanced however to reduce the risk of the player falling into a repeat pattern of engaging and falling back to wait and heal.
+The player and every enemy has a health bar that is decreased when they get hit. When zero, the entity will cause them to play a death animation.
 
-There are a few distinct enemy types in the game, each with their own distinct AI pattern:
-
-- Wolves will try to tackle the player and thus must seek a mid-ground before attacking.
-- Broken androids will always try to walk to the player directly and execute a slow close-range attack.
-- Broken machines will move in random, unpredictable patterns and attack via electrocution when touched.
-- Turrets and gunners will try to run away and keep their distance to take a shot, with turrets being static on the ground.
-
-Each of these enemy types has a very distinct and clearly recognisable look and animation set to allow the player to quickly recognise them and make decisions. Enemy animations always include long wind-up times to clearly choreograph their actions. Too short of a wind-up would make the attack appear too sudden and not let the player react in time. To further aid recognition, each type of attack has a unique sound byte and is marked by a clearly visible effect such as their eyes flaring up.
+Each of these enemy types in the game must have a very distinct and clearly recognisable look and animation set to allow the player to quickly recognise them and make decisions. Enemy animations always include long wind-up times to clearly choreograph their actions. Too short of a wind-up would make the attack appear too sudden and not let the player react in time. To further aid recognition, each type of attack has a unique sound byte and is marked by a clearly visible effect such as their eyes flaring up.
 
 Difficulty in the combat arises from different amounts and different combinations of the enemy types. Occasionally different variants (scaled up, powered up) could also be employed to add some additional variety to the combat and to increase challenge.
 
 Enemy AI has to be smart enough to deal with some platforming obstacles, but not able to traverse everything the player can, in order to allow the player to still get away if they feel cornered.
 
 The level design needs to take combat arenas into account, as enemy AI patterns and player attacks can only deal with certain types of terrain. Introducing too many slopes or too many pits or small holes can severely hamper things and disrupt the combat flow, leading to frustration.
-
-A ranged attack should be considered for the player in order to increase variety. However, designing such a ranged attack might prove difficult to implement. Analog aiming in a side-scroller can often be frustrating and awkward.
 
 When defeated enemies can drop items. These items may, rarely, be health, damage-up, or defence-up items, but usually are nondescript scrap parts that can be exchanged for other items, or used for quests at the colony. The player is able to use restorative/support items from a quick menu during battle, which while open causes time to slow down to allow the player more time to select the appropriate item without having to worry about safety.
 
@@ -219,6 +134,8 @@ Multiple quests can be in flight at the same time, though some quests will fail 
 
 Currently active quests, including hints on what to do, are listed in a separate logbook menu that the player can access whenever they aren't in combat. The logbook also tracks completed quests, items, and player stats.
 
+The quest system is also flexible enough to facilitate cutscenes (sequences without player input). This is occasionally necessary in order to deliver a satisfying drama and further visualise scenes beyond the dialogue textbox.
+
 #### Dialogue
 Dialogue comes in the form of a standard RPG textbox, with detailed character profiles appearing above the box, showing the current speaker. The profiles will have animations and variants to fit the character's current expression.
 
@@ -230,24 +147,37 @@ Dialogue is played out as a series of text blocks that automatically scroll out,
 
 [ image https://filebox.tymoon.eu//file/TWpBMU5nPT0= ]
 
-When talking to a character again the last dialogue is repeated to allow the player to catch up on dialogue they might have accidentally skipped.
+#### Fishing
+At various spots throughout the world the player is offered a fishing minigame. In this game they need to cast out a fishing line. Once cast, the line will rhythmically bob up and down until randomly a fish catches on. When caught, the fish will cause a big splash. The player must then reel the line in within a short time frame to retrieve the fish, or it will escape again.
+
+Caught fish are added as items that can be sold, and each unique fish fills a spot in a fishing encyclopedia, rewarding completionism. Each fish type has a different rarity with each fishing location, encouraging players to fish at various spots.
 
 #### Misc
 Depending on the number of areas there's going to be, a fast travel system has to be considered. The system would consist of an underground metro line. New areas need to be connected to the metro network by opening structural safety doors that were automatically dropped in the calamity. In order to open these doors the next metro station needs to be reached first, meaning the player cannot travel to an unknown location without discovering it first.
 
 ### Progression
-Progression will be by way of increasing enemy and platforming difficulty, and thereby forcing the player to improve their skill. In particular, individual enemy strength does not increase, but the configuration of enemies, their number, their type, and the design of the level will change to increase difficulty.
+Progression in the game can be achieved in various ways that the player can pick for themselves.
 
-The world is immediately be open to the player, though certain areas might be gated off until select story events change the environment. This could be facilitated through guards, erosion, or blasting of tunnels.
+1. Increasing experience and levelling.
+   This is achieved by fighting or exploring and drives people to explore further, as higher levels trivialise starting enemies, and make harder encounters easier.
+2. Completing quests and advancing the plot.
+   Quests also give other item rewards to the player.
+3. Exploring the world and discovering lore.
+   Lore pieces and collectable items are used as an incentive to reward exploration and deliver narrative in a nonlinear way.
+4. Upgrading the sword with found items.
+   This again feeds into combat and item gathering.
+5. Fishing
+   In order to fill in the fishing encyclopedia, players need to discover new fishing spots and use their skills to catch every type of fish. Fish can be sold for other items as well.
 
-New missions will be unlocked by completing old ones. A set of missions has to be available at almost all times to give the player choices on what to do next, though the linearity of the story might force doing certain missions at times to progress. In general this means that requirements for unlocking new quests cannot be in a strictly one-after-the-other linear fashion, but instead has to depend on requiring the completion of either a set of previous quests, or a choice of one or more previous quests.
-
-Certain missions will require beating a unique boss, with its own arena and fighting patterns.
+Each of these progression systems feed into or take from at least another system, rewarding players alternating between the various systems. This helps to avoid fatigue with the game, as well.
 
 ### Fail-States
-The player loses if they run out of health. Health can be lost by falling into pits, or hazards, or getting hit by enemies.
+There's two separately counted ways of failing in Kandria:
 
-On death the player shows a death animation, and the screen then fuzzes out to black with a game over screen prompting to load the last save.
+1. Platforming death. If the player falls into a pit or dies of spikes or other lethal objects, the player will die and respawn quickly in the same chunk they were currently in. This quick, unpunishing respawn is necessary to avoid players growing too frustrated at the platforming challenge.
+2. Combat death. Should the player's health reach zero during combat, a "true death" screen will appear, which forces the player to reload from a previous save file. The player can save at any time by visiting a telephone. Limiting the possible save points in this way focuses the design and simplifies the testing effort.
+
+Keeping the two failure states separate allows both of them to focus on their areas of design. Having to restart a platforming challenge from a far-away save point would be far too frustrating, and immediately respawning after losing health would be far too trivialising.
 
 ## Art Style
 The game will be in a low-resolution pixel art style with static tilesets for the map, and intricate animations for characters and enemies. Lots of decorative elements will be necessary to make the map interesting to look at despite its low resolution. Dynamic lighting including shadows and parallax backgrounds allow for a strong atmosphere.
@@ -260,18 +190,29 @@ For a more detailed mood board for the art style, see the "art document"(link ar
 [ image https://filebox.tymoon.eu//file/TVRreU13PT0= ]
 
 ## Music & Sound Design
-Since the player will spend a lot of their time exploring, the primary music has to be quiet, somber and has to be able to loop smoothly for a long time without becoming grating. Having different variants depending on the current region would be great. The music has to smoothly transition (vertical mixing) to a battle variant whenever the player enters combat to emphasise the action. Special tracks might be needed to accentuate certain story beats and boss battles.
+We are using a sound system where distinct areas receive their own individual themes. Each of these themes comes in several variants, though not all themes must cover all variants:
 
-Most of the sounds will be required for combat, and there have to be several variants for each type to avoid it appearing repetitive. Sounds are played with stereo positional audio, with some distance attenuation.
+- High / High Vocal
+- Medium / Medium Vocal
+- Quiet / Quiet Vocal
+- Ambient / Ambient Vocal
 
-In order to enhance the believability of the music and sounds, dynamic reverb is applied depending on the surrounding geometry of the player. Other effects such as distortion when low on health would also be great.
+The variants imply different intensity levels and can be chosen as appropriate for the story at the given time. For instance, when first entering a new area, an ambient or quiet version should be chosen. After a significant plot element has occurred, the version can transition to a medium or high variant to give the story proper impact.
+
+The variants can also be used to implicitly communicate the current state of the area to the player.
+
+Battle themes and boss music tracks are not faded in dynamically, but will occur at set story points to lend them proper gravity and impact.
+
+In addition to the primary music tracks, each area will have an underlying atmosphere track that properly communicates the area's mood. When transitioning between areas, there must always be a chunk where only the atmospheric track is audible, to ensure that music tracks can seamlessly transition.
+
+Sound-design wise we will employ a programmatic reverb effect in order to attune sound effects to their spatial surroundings. The reverb will adjust depending on the dimensions of the room the player is currently in. We will also make use of directional and positional sounds to give events a proper spatial appearance in sound.
+
+Finally, we will use filter effects to adjust the music in menus and during cutscenes or dialogue.
 
 ## Technical Specs
 The game will be developed for PC using the custom Trial engine. A future port to Switch would be great, though is currently completely in the air and would depend on a large enough success on PC first.
 
 Being a 2D game the performance requirements have to be kept appropriately low. As such, sufficient optimisation needs to be performed later to make it run well on lower-end hardware.
-
-A google doc is used for planning and execution tracking of features and ideas.
 
 ## Finance
 This section will briefly discuss finances. A more detailed financing plan will need to be put together separately.
@@ -279,24 +220,18 @@ This section will briefly discuss finances. A more detailed financing plan will 
 ### Funding
 Primary funding will be private out of savings. Funding will be required to hire additional team members and commission art and music. Another application for a grant at ProHelvetia will be attempted in 2021, this time for the larger production grant.
 
-A kickstarter could also be considered if enough progress can be made to show a substantial game, and enough attention can be garnered to ensure the kickstarter will be successful. An unsuccessful kickstarter would do more damage than good.
+A kickstarter could also be considered if enough progress can be made to show a substantial game, and enough attention can be garnered to ensure the kickstarter will be successful.
 
 ### Demographics
 The game will target the 'hard core' demographic of late teens and upwards. The game handles mature topics that the player will need to understand, but it does not talk about sex and other topics in that area. Violence will be prominent, but in a less recognisable, cartoony way, which keep it in the Teens/PG13 rating area.
 
 ### Localisation
-The game will be written in English, with possible localisation to German, Spanish, and Japanese. Localisation will be very late in the development, though has to be done before release provided the game garners enough attention from foreign communities to warrant the extra cost.
+The game will be written in English, with possible localisation to German, French, Spanish, and Japanese. Localisation will be very late in the development, though has to be done before release provided the game garners enough attention from foreign communities to warrant the extra cost.
 
 ### Marketing
-Marketing during the production will proceed primarily through an email marketing campaign with weekly development updates, and monthly public updates to get more people into the mailing list. Twitter, Discord, and RSS Feeds are used to announce public updates. The Discord server also allows people to directly interact with the development team. Occasionally short update videos are posted to YouTube to showcase a particular change.
+Marketing during the production will proceed primarily through an email marketing campaign with weekly development updates, and monthly public updates to get more people into the mailing list. Twitter, Steam, Discord, and RSS Feeds are used to announce public updates. The Discord server also allows people to directly interact with the development team. Occasionally short update videos are posted to YouTube to showcase a particular change.
 
-Should also change the mailing list to move people (and more annoyingly the archive) to Courier.
-
-At some point an updated trailer needs to be produced to serve as a better introduction to the game than the pitch trailer.
-
-It might also be worth it to spread out further and create threads on TIG and SA to get some attention from there.
-
-In order to expand into non-English markets, consultation might also be necessary.
+Closer to release we'll have to consult a marketing firm to drive the necessary traffic and attention to the game.
 
 ### Sales and Market Research
 Initially the game will be sold primarily through steam. For this it'll be important to have a good store page and trailer, which will most definitely require professional consultation.
@@ -414,3 +349,6 @@ The following games are good points of reference:
 - ICEY (animation, combat)
 - Myst series (environmental storytelling)
 - Death Stranding (environment, mood)
+
+### Last Update
+This document was last updated on August 2021.
