@@ -76,6 +76,8 @@
 
 (defmethod item-order ((_ item)) 0)
 
+(defmethod collides-p :around (thing (item item) hit) NIL)
+
 (defmethod interactable-p ((item item))
   (let ((vel (velocity item)))
     (and (= 0 (vx vel)) (= 0 (vy vel)))))
