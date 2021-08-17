@@ -121,7 +121,7 @@
   ())
 
 (defmethod initialize-instance :after ((panel sales-menu) &key shop direction target)
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout
+  (let* ((layout (make-instance 'eating-constraint-layout
                                 :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
          (clipper (make-instance 'alloy:clip-view :limit :x))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
@@ -247,9 +247,7 @@
     (alloy:enter cancel layout :col 1 :row 3)
     (alloy:on alloy:exit (focus)
       (setf (alloy:focus cancel) :strong))
-    (let ((popup (make-instance 'popup-layout)))
-      (alloy:enter layout popup)
-      (alloy:finish-structure panel popup focus))))
+    (alloy:finish-structure panel layout focus)))
 
 (defmethod show :after ((panel transaction-panel) &key)
   (setf (alloy:focus (wheel panel)) :strong))

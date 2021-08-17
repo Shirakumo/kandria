@@ -50,11 +50,20 @@
 (presentations:define-animated-shapes main-menu-button
   (:border (simple:pattern :duration 0.2)))
 
+(defclass eating-constraint-layout (org.shirakumo.alloy.layouts.constraint:layout)
+  ())
+
+(defmethod alloy:handle ((ev alloy:pointer-event) (focus eating-constraint-layout))
+  (restart-case
+      (call-next-method)
+    (alloy:decline ()
+      T)))
+
 (defclass main-menu (menuing-panel)
   ())
 
 (defmethod initialize-instance :after ((panel main-menu) &key)
-  (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+  (let ((layout (make-instance 'eating-constraint-layout))
         (menu (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5) :min-size (alloy:size 100 30)))
         (focus (make-instance 'alloy:focus-list)))
     (alloy:enter menu layout :constraints `((:center :w) (:bottom 20) (:height 300) (:width 200)))
