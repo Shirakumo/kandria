@@ -53,6 +53,7 @@
               (climb-strength  5.0)
               (climb-jump-cost 1.7)
               (slide-limit    -1.2)
+              (slide-ramp-time 0.25)
               (crawl           0.5)
               (jump-acc        2.5)
               (jump-mult       1.12)
