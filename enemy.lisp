@@ -76,9 +76,9 @@
     (stage (// 'sound asset) area)))
 
 (defmethod hurt :after ((box box) (by integer))
-  (harmony:play (alexandria:random-elt (// 'sound 'box-hit-1)
-                                       (// 'sound 'box-hit-2)
-                                       (// 'sound 'box-hit-3))))
+  (harmony:play (alexandria:random-elt (list (// 'sound 'box-hit-1)
+                                             (// 'sound 'box-hit-2)
+                                             (// 'sound 'box-hit-3)))))
 
 (defmethod kill :after ((box box))
   (harmony:play (// 'sound 'box-break)))
