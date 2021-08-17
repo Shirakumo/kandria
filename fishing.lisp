@@ -263,52 +263,98 @@ void main(){
           (offset :initform ,(vec x y)))
          ,@body))))
 
-(define-fish crab 0 0 16 16)
-(define-fish machine-fish 0 16 16 8)
-(define-fish salmon 0 24 16 8)
-(define-fish shark 0 32 64 24)
-(define-fish seabass 0 56 24 8)
-(define-fish sneaky-seabass 0 64 24 8)
-(define-fish can 16 0 8 8)
-(define-fish boot 24 0 8 8)
-(define-fish can-fish 16 8 16 8)
-(define-fish tire 16 16 16 16)
-(define-fish coelacanth 24 56 40 16)
-(define-fish boot-crate 32 0 16 16)
-(define-fish megaroach 32 16 16 16)
-(define-fish roach 48 0 8 8)
-(define-fish seaweed 56 0 8 8)
-(define-fish piranha 64 0 8 8)
-(define-fish sandfish 48 8 24 8)
-(define-fish ratfish 48 16 24 8)
-(define-fish shroomfish 48 24 16 8)
-(define-fish diving-helmet 64 24 8 8)
-(define-fish three-eyed-fish 64 32 16 8)
-(define-fish gyofish 64 40 16 16)
-(define-fish ammonite 64 56 16 16)
-(define-fish sand-dollar 72 0 8 8)
-(define-fish clam 72 8 8 8)
-(define-fish dopefish 72 16 16 16)
-(define-fish blowfish 80 0 16 16)
-(define-fish blobfish 88 16 8 16)
-(define-fish jellyfish 80 32 24 8)
-(define-fish squid 80 40 16 8)
-(define-fish fishing-rod 80 48 32 8)
-(define-fish leaflet 80 56 8 8)
-(define-fish shell 80 64 8 8)
-(define-fish trout 88 56 24 8)
-(define-fish electric-eel 88 64 40 8)
-(define-fish anglerfish 96 0 32 16)
-(define-fish action-figure 112 56 16 8)
-(define-fish swordfish 0 72 64 24)
-(define-fish swordfish2 64 80 48 16)
-(define-fish nameplate 96 16 24 8)
-(define-fish car-battery 96 24 8 8)
-(define-fish seahorse 120 16 8 8)
-(define-fish trilobite 104 24 16 16)
-(define-fish rubber-duck 104 40 8 8)
-(define-fish toy-submarine 112 40 8 8)
-(define-fish alligator 64 72 48 8)
+(define-fish crab 0 0 16 16
+  :price 150)
+(define-fish machine-fish 0 16 16 8
+  :price 125)
+(define-fish salmon 0 24 16 8
+  :price 150)
+(define-fish shark 0 32 64 24
+  :price 500)
+(define-fish seabass 0 56 24 8
+  :price 150)
+(define-fish sneaky-seabass 0 64 24 8
+  :price 200)
+(define-fish can 16 0 8 8
+  :price 50)
+(define-fish boot 24 0 8 8
+  :price 50)
+(define-fish can-fish 16 8 16 8
+  :price 200)
+(define-fish tire 16 16 16 16
+  :price 50)
+(define-fish coelacanth 24 56 40 16
+  :price 1000)
+(define-fish boot-crate 32 0 16 16
+  :price 100)
+(define-fish megaroach 32 16 16 16
+  :price 100)
+(define-fish roach 48 0 8 8
+  :price 50)
+(define-fish seaweed 56 0 8 8
+  :price 100)
+(define-fish piranha 64 0 8 8
+  :price 150)
+(define-fish sandfish 48 8 24 8
+  :price 150)
+(define-fish ratfish 48 16 24 8
+  :price 150)
+(define-fish shroomfish 48 24 16 8
+  :price 200)
+(define-fish diving-helmet 64 24 8 8
+  :price 100)
+(define-fish three-eyed-fish 64 32 16 8
+  :price 150)
+(define-fish gyofish 64 40 16 16
+  :price 50)
+(define-fish ammonite 64 56 16 16
+  :price 100)
+(define-fish sand-dollar 72 0 8 8
+  :price 150)
+(define-fish clam 72 8 8 8
+  :price 150)
+(define-fish dopefish 72 16 16 16
+  :price 2000)
+(define-fish blowfish 80 0 16 16
+  :price 150)
+(define-fish blobfish 88 16 8 16
+  :price 150)
+(define-fish jellyfish 80 32 24 8
+  :price 150)
+(define-fish squid 80 40 16 8
+  :price 150)
+(define-fish fishing-rod 80 48 32 8
+  :price 200)
+(define-fish leaflet 80 56 8 8
+  :price 50)
+(define-fish shell 80 64 8 8
+  :price 50)
+(define-fish trout 88 56 24 8
+  :price 150)
+(define-fish electric-eel 88 64 40 8
+  :price 150)
+(define-fish anglerfish 96 0 32 16
+  :price 150)
+(define-fish action-figure 112 56 16 8
+  :price 50)
+(define-fish swordfish 0 72 64 24
+  :price 300)
+(define-fish swordfish2 64 80 48 16
+  :price 100)
+(define-fish nameplate 96 16 24 8
+  :price 50)
+(define-fish car-battery 96 24 8 8
+  :price 50)
+(define-fish seahorse 120 16 8 8
+  :price 50)
+(define-fish trilobite 104 24 16 16
+  :price 100)
+(define-fish rubber-duck 104 40 8 8
+  :price 50)
+(define-fish toy-submarine 112 40 8 8
+  :price 50)
+(define-fish alligator 64 72 48 8
+  :price 300)
 
 (define-random-draw desert-fishing
   (fish:can 1)

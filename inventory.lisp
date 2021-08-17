@@ -203,7 +203,7 @@
 (define-item (heavy-spring scrap value-item) 8 16 8 8
   :price 10)
 (define-item (satchel scrap value-item) 16 16 8 8
-  :price 10)
+  :price 30)
 (define-item (screw scrap value-item) 24 16 8 8
   :price 10)
 (define-item (bolt scrap value-item) 32 16 8 8
