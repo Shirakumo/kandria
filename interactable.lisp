@@ -20,10 +20,7 @@
 
 (defmethod interact ((entity dialog-entity) from)
   (when (interactable-p entity)
-    (show (make-instance 'dialog :interactions (or (loop for interaction in (interactions entity)
-                                                         when (eql :active (quest:status interaction))
-                                                         collect interaction)
-                                                   (interactions entity))))))
+    (show (make-instance 'dialog :interactions (interactions entity)))))
 
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity resizable)
   ((name :initform (generate-name "INTERACTABLE"))))
