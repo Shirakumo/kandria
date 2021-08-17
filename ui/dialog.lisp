@@ -102,8 +102,10 @@
 (defmethod handle ((ev advance) (dialog dialog))
   (when (<= (timeout dialog) 0.0)
     (cond ((/= 0 (alloy:element-count (choices dialog)))
-           (setf (prompt dialog) NIL)
-           (alloy:activate (choices dialog)))
+           (unless (typep (source-event ev) 'mouse-event)
+             ;; Do not auto-advance when clicking anywhere. The button will do it!
+             (setf (prompt dialog) NIL)
+             (alloy:activate (choices dialog))))
           ((prompt dialog)
            (setf (prompt dialog) NIL)
            (harmony:play (// 'sound 'dialogue-advance))
