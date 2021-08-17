@@ -153,11 +153,9 @@
                        (cond ((retained 'up)    +0.5)
                              ((retained 'down)  -0.5)
                              (T                    0)))
-                (setf (state player) :dashing)
-                (if (svref (collisions player) 2)
-                    (trigger 'dash player)
-                    (trigger 'air-dash player))
-                (setf (animation player) 'dash)
+                (when (and (eql :climbing (state player))
+                           (v= 0 vel))
+                  (setf (direction player) (- (direction player))))
                 (if (= (vx vel) 0.0)
                     (if (= (vy vel) 0.0)
                         (setf (vx vel) (direction player)))
@@ -166,7 +164,12 @@
                 (when (and (retained 'jump)
                            (svref (collisions player) 2))
                   (incf (vx vel) (* (direction player) (vx (p! hyperdash-bonus))))
-                  (incf (vy vel) (vy (p! hyperdash-bonus))))))))
+                  (incf (vy vel) (vy (p! hyperdash-bonus))))
+                (setf (state player) :dashing)
+                (if (svref (collisions player) 2)
+                    (trigger 'dash player)
+                    (trigger 'air-dash player))
+                (setf (animation player) 'dash)))))
       (:animated
        ;; Queue dash //except// for when we're being hit, as it's
        ;; unlikely the player will want to dash right after getting
