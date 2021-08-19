@@ -239,6 +239,9 @@ void main(){
   :animation 'air-dash
   :direction 1)
 
+(define-effect enter-passage sound-effect
+  :voice (// 'sound 'player-enter-passage))
+
 (define-effect slash sound-effect
   :voice (list (// 'sound 'sword-small-slash-1)
                (// 'sound 'sword-small-slash-2)
