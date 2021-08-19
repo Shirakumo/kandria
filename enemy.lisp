@@ -118,7 +118,7 @@
    :sprite-data (asset 'kandria 'wolf)))
 
 (defmethod stage :after ((wolf wolf) (area staging-area))
-  (dolist (sound '(wolf-damage-1 wolf-damage-2))
+  (dolist (sound '(wolf-die wolf-attack wolf-notice wolf-damage-1 wolf-damage-2))
     (stage (// 'sound sound) area)))
 
 (defmethod movement-speed ((enemy wolf))
@@ -153,10 +153,12 @@
         (ecase (ai-state enemy)
           (:normal
            (cond ((distance-p 5)
+                  (harmony:play (// 'sound 'wolf-notice))
                   (setf (retreat-time enemy) 0.0)
                   (setf (acc-time enemy) 0.0)
                   (setf (ai-state enemy) :retreat))
                  ((distance-p 20)
+                  (harmony:play (// 'sound 'wolf-notice))
                   (setf (ai-state enemy) :approach))))
           (:approach
            (incf (acc-time enemy) (dt ev))

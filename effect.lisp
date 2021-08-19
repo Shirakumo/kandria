@@ -251,8 +251,17 @@ void main(){
   :voice (list (// 'sound 'wolf-damage-1)
                (// 'sound 'wolf-damage-2)))
 
+(define-effect wolf-attack sound-effect
+  :voice (// 'sound 'wolf-attack))
+
+(define-effect wolf-die sound-effect
+  :voice (// 'sound 'wolf-die))
+
 (define-effect drone-damage sound-effect
   :voice (// 'sound 'drone-damage))
+
+(define-effect pickup sound-effect
+  :voice (// 'sound 'player-pick-up))
 
 (define-effect ground-hit basic-effect
   :voice (// 'sound 'hit-ground)
