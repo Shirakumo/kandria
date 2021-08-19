@@ -35,7 +35,7 @@
       (:ambient "desert ambient.oga")))
 
 (define-asset (music ambience/camp) trial-harmony:environment
-    '((:normal "ambience track_ camp day.ogg")))
+    '((:normal "ambience track_ camp.ogg")))
 
 (define-asset (music ambience/cave) trial-harmony:environment
     '((:normal "ambience track_ cave.ogg")))
