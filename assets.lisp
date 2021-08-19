@@ -14,6 +14,11 @@
          :texture (// 'kandria ',texture)
          ,@args))))
 
+(define-asset (music menu) trial-harmony:sound
+    #p"menu.oga"
+  :repeat T
+  :mixer :music)
+
 (define-asset (music music/region1) trial-harmony:environment
     '((:normal "region1 medium.oga")
       (:vocal "region1 medium vocal.oga")

@@ -383,10 +383,14 @@ void main(){
   }
 }")
 
+(defmethod stage :after ((menu main-menu) (area staging-area))
+  (stage (// 'music 'menu) area))
+
 (defmethod show :after ((menu main-menu) &key)
   (let* ((camera (unit :camera +world+))
          (tsize (target-size camera))
          (yspread (/ (vy tsize) 1.5)))
+    (harmony:play (// 'music 'menu))
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
     (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
     (enter-and-load (make-instance 'logo :location (vec 0 80)) +world+ +main+)
@@ -402,6 +406,7 @@ void main(){
                 +world+)))))
 
 (defmethod hide :after ((menu main-menu))
+  (harmony:stop (// 'music 'menu))
   (for:for ((entity over +world+))
     (when (typep entity '(or star fullscreen-background logo wave))
       (leave* entity T))))
