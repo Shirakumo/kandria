@@ -150,11 +150,19 @@
   :music 'music/desert
   :ambience 'ambience/desert)
 
-(define-environment (desert camp)
+(define-environment (desert entrance)
+  :music NIL
+  :ambience 'ambience/desert)
+
+(define-environment (camp entrance)
+  :music NIL
+  :ambience 'ambience/camp)
+
+(define-environment (camp camp)
   :music 'music/camp
   :ambience 'ambience/camp)
 
-(define-environment (desert building)
+(define-environment (camp building)
   :music NIL
   :ambience 'ambience/desolate-building)
 
