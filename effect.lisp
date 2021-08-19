@@ -219,6 +219,14 @@ void main(){
                    ,(// 'sound 'step-rocks-2)
                    ,(// 'sound 'step-rocks-3)
                    ,(// 'sound 'step-rocks-4))
+           (:metal ,(// 'sound 'step-metal-1)
+                   ,(// 'sound 'step-metal-2)
+                   ,(// 'sound 'step-metal-3)
+                   ,(// 'sound 'step-metal-4))
+           (:concrete ,(// 'sound 'step-concrete-1)
+                      ,(// 'sound 'step-concrete-2)
+                      ,(// 'sound 'step-concrete-3)
+                      ,(// 'sound 'step-concrete-4))
            (:grass ,(// 'sound 'step-tall-grass-1)
                    ,(// 'sound 'step-tall-grass-2)
                    ,(// 'sound 'step-tall-grass-3)
@@ -247,6 +255,17 @@ void main(){
                (// 'sound 'sword-small-slash-2)
                (// 'sound 'sword-small-slash-3)))
 
+(define-effect big-slash sound-effect
+  :voice (// 'sound 'sword-big-slash))
+
+(define-effect jab sound-effect
+  :voice (list (// 'sound 'sword-jab-1)
+               (// 'sound 'sword-jab-2)))
+
+(define-effect swing sound-effect
+  :voice (list (// 'sound 'sword-rotating-swing-1)
+               (// 'sound 'sword-rotating-swing-2)))
+
 (define-effect zombie-damage sound-effect
   :voice (// 'sound 'zombie-damage))
 
@@ -266,8 +285,11 @@ void main(){
 (define-effect pickup sound-effect
   :voice (// 'sound 'player-pick-up))
 
+(define-effect ground-hit-soft sound-effect
+  :voice (// 'sound 'sword-hit-ground-soft))
+
 (define-effect ground-hit basic-effect
-  :voice (// 'sound 'hit-ground)
+  :voice (// 'sound 'sword-hit-ground-hard)
   :animation 'hit2
   :offset (vec 38 -8)
   :layer-index 2

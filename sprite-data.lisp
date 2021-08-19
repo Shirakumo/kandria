@@ -190,3 +190,5 @@
       ;; Make sure all animations are in the correct class.
       (loop for animation across (animations sprite)
             do (unless (typep animation 'sprite-animation) (change-class animation 'sprite-animation))))))
+
+;; TODO: auto-stage effects' assets that are used in animation.
