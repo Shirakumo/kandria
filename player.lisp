@@ -55,7 +55,8 @@
     (T (p! walk-limit))))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(player-dash player-jump land-normal slide die-player slash enter-water hit-ground
+  (dolist (sound '(player-dash player-jump die-player slash enter-water hit-ground
+                   player-pickup player-enter-passage player-soft-land player-wall-lide
                    step-dirt-1 step-dirt-2 step-dirt-3 step-dirt-4
                    step-rocks-1 step-rocks-2 step-rocks-3 step-rocks-4
                    step-sand-1 step-sand-2 step-sand-3 step-sand-4
@@ -257,7 +258,7 @@
                   (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  ((and (< (vy (velocity player)) -0.5)
                        (< 0.2 (air-time player)))
-                  (harmony:play (// 'sound 'land-normal))))
+                  (harmony:play (// 'sound 'player-soft-land))))
            (unless (eql :dashing (state player))
              (setf (dash-time player) 0.0))
            (setf (used-aerial player) NIL))))
@@ -870,9 +871,9 @@
                   (setf (animation player) 'limp-stand)
                   (setf (animation player) 'stand))))))
     (cond ((eql (name (animation player)) 'slide)
-           (harmony:play (// 'sound 'slide)))
+           (harmony:play (// 'sound 'player-wall-slide)))
           (T
-           (harmony:stop (// 'sound 'slide))))))
+           (harmony:stop (// 'sound 'player-wall-slide))))))
 
 (defmethod handle ((ev switch-region) (player player))
   (let* ((region (slot-value ev 'region))

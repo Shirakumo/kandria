@@ -41,6 +41,9 @@
     (alloy:finish-structure dialog layout (choices dialog))
     (setf (interactions dialog) (interactions dialog))))
 
+(defmethod stage :after ((dialog dialog) (area staging-area))
+  (stage (// 'sound 'ui-start-dialogue) area))
+
 (defmethod show :after ((dialog dialog) &key)
   (when (= 1.0 (intended-zoom (unit :camera T)))
     (setf (intended-zoom (unit :camera T)) 1.5))
@@ -48,7 +51,8 @@
   (interrupt-walk-n-talk NIL)
   (walk-n-talk NIL)
   (setf (animation (unit 'player T)) 'stand)
-  (pause-game T (unit 'ui-pass T)))
+  (pause-game T (unit 'ui-pass T))
+  (harmony:play (// 'sound 'ui-start-dialogue)))
 
 (defmethod hide :after ((dialog dialog))
   (when (= 1.5 (intended-zoom (unit :camera T)))
