@@ -250,7 +250,7 @@ void main(){
 (defmethod apply-transforms progn ((fish fish))
   (translate #.(vec 0.5 0 0)))
 
-(defmacro define-fish (name x y w h &body body)
+(defmacro define-fish (name x y w h &key price)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish))
         (desc (intern (format NIL "~a/DESCRIPTION" name) '#:org.shirakumo.fraf.kandria.fish)))
     (export name (symbol-package name))
@@ -260,8 +260,9 @@ void main(){
        (export ',desc (symbol-package ',desc))
        (define-shader-entity ,name (fish)
          ((size :initform ,(vec w h))
-          (offset :initform ,(vec x y)))
-         ,@body))))
+          (offset :initform ,(vec x y))))
+       ,(when price
+          `(defmethod price ((_ ,name)) ,price)))))
 
 (define-fish crab 0 0 16 16
   :price 150)
