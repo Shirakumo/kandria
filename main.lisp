@@ -29,7 +29,8 @@
   (with-packet (packet (or world (pathname-utils:subdirectory (root) "world")) :direction :input)
     (setf (scene main) (make-instance 'world :packet packet)))
   ;; FIXME: Allow running without sound.
-  (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)))
+  (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)
+                                             :mixers '(:music :speech (:effect mixed:plane-mixer))))
   (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
   (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
   (loop for (k v) on (setting :audio :volume) by #'cddr

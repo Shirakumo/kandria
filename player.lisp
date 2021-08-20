@@ -790,6 +790,7 @@
     (nv+ (frame-velocity player) vel)))
 
 (defmethod handle :after ((ev tick) (player player))
+  (setf (mixed:location harmony:*server*) (location player))
   (incf (jump-time player) (dt ev))
   (when (< 0 (limp-time player))
     (decf (limp-time player) (dt ev)))
