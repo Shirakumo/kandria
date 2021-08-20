@@ -22,6 +22,7 @@
                  :gameplay (:rumble 1.0
                             :screen-shake 1.0
                             :god-mode NIL
+                            :infinite-dash NIL
                             :text-speed 0.02
                             :auto-advance-after 3.0)
                  :language :eng
