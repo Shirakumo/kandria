@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defmethod handle ((ev quit-game) (controller controller)))
+
 (define-action-set in-editor)
 (define-action undo (in-editor)
   (key-press (and (one-of key :z)
