@@ -273,7 +273,7 @@
                            ,@(when (< 1 count)
                                `(:full-progress ,count
                                  :progress-fun (item-count ',item))))))
-                 (:go-to ((place &key lead follow) . body)
+                 (:go-to ((place &key lead follow with) . body)
                          (form-fiddle:with-body-options (body initargs) body
                            `((,name
                               ,@initargs
@@ -284,6 +284,7 @@
                               :on-activate (action)
                               :on-complete ,next
                               (:action action
+                                       ,@(if with `((move-to ',place ',with)))
                                        ,@(if lead `((lead 'player ',place ',lead)))
                                        ,@(if follow `((follow 'player ',follow)))
                                        ,@(if body `((walk-n-talk (progn ,@body)))))))))

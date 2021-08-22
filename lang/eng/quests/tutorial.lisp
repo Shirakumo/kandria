@@ -33,15 +33,15 @@
    "~ catherine
 | My name's \"Catherine\"(yellow). You can follow me, it's alright.
   ")   
-  (:go-to (climb-start :lead catherine)
+  (:go-to (climb-start :with catherine)
   "~ catherine
 | Okay, here we go.
   ")  
-  (:go-to (rope-start :lead catherine)
+  (:go-to (rope-start :with catherine)
   "~ catherine
 | (:excited)I hope you like heights.
   ")
-  (:go-to (dash-start :lead catherine))
+  (:go-to (dash-start :with catherine))
   (:eval
    (ensure-nearby 'dash-start 'catherine)
    (move :freeze 'player)
@@ -58,7 +58,7 @@
   "~ catherine
 | (:cheer)That was __AMAZING!!__
   ")  
-  (:go-to (platform-end :lead catherine)
+  (:go-to (platform-end :with catherine)
   "~ catherine
 | We're almost \"home\"(red) - it's just up here.
   ")
