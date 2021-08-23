@@ -27,20 +27,19 @@
    (start-animation 'laying player))
   (:wait 1)
   (:animate (player wake-up))
-  (:go-to (walk-start))
-  (:go-to (jump-start :lead catherine)
-  ;; acknowledgement that the android's brain, memory, and faculties might not all be present and correct
+  (:interact (catherine :now T)
    "~ catherine
-| My name's \"Catherine\"(yellow). You can follow me, it's alright.
-  ")   
-  (:go-to (climb-start :with catherine)
-  "~ catherine
-| Okay, here we go.
-  ")  
+| (:shocked)Woah... can you move?")
+  (:go-to (walk-start))
+  (:interact (catherine :now T)
+   "~ catherine
+| (:excited)Damn, this is exciting! Looks like all systems are still functioning, that's gotta be the luck of a lifetime!
+| Come on, let's get out of there! I want to show you something.")
+  (:go-to (jump-start :lead catherine))
+  (:go-to (climb-start :with catherine))
   (:go-to (rope-start :with catherine)
   "~ catherine
-| (:excited)I hope you like heights.
-  ")
+| Make sure not to fall!")
   (:go-to (dash-start :with catherine))
   (:eval
    (ensure-nearby 'dash-start 'catherine)
@@ -54,15 +53,15 @@
   "~ catherine
 | <-Shit!->... (:disappointed)Umm, now what?...
   ")
-  (:go-to (platform-start :lead catherine)
+  (:go-to (platform-start :with catherine)
   "~ catherine
-| (:cheer)That was __AMAZING!!__
+| (:cheer)That was __AMAZING!!__ --Was that some kind of booster module?
   ")  
   (:go-to (platform-end :with catherine)
   "~ catherine
-| We're almost \"home\"(red) - it's just up here.
+| We're almost there - it's just through here.
   ")
-  (:go-to (tutorial-end :lead catherine))
+  (:go-to (tutorial-end :with catherine))
     ;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?
   ;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
   ;; REMARK: ^ Does \[Lie\] not work?
