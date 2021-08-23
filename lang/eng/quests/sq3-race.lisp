@@ -12,15 +12,35 @@
    :title "Talk to Catherine in Engineering to start a race"
    :on-activate T
    (:interaction start-race
-    :title "I want to race."
+    :title "About the race."
     :interactable catherine
     :repeatable T
     :dialogue "
-? (or (active-p 'race-1-start) (active-p 'race-2-start) (active-p 'race-3-start) (active-p 'race-4-start) (active-p 'race-5-start))
+? (or (active-p 'race-1-start) (active-p 'race-1))
 | ~ catherine
-| | (:cheer)You're already on the clock, get goin'!
+| | (:cheer)You're already on the clock for \"Route 1\"(orange).
+| | Remember: The can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
 | < quit
-
+|? (or (active-p 'race-2-start) (active-p 'race-2))
+| ~ catherine
+| | (:cheer)You're already on the clock for \"Route 2\"(orange).
+| | Remember: The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
+| < quit
+|? (or (active-p 'race-3-start) (active-p 'race-3))
+| ~ catherine
+| | (:cheer)You're already on the clock for \"Route 3\"(orange).
+| | Remember: The can is... \"where we first ventured together, and got our feet wet\"(orange).
+| < quit
+|? (or (active-p 'race-4-start) (active-p 'race-4))
+| ~ catherine
+| | (:cheer)You're already on the clock for \"Route 4\"(orange).
+| | Remember: The can is... \"deep to the west, where people once dreamed\"(orange).
+| < quit
+|? (or (active-p 'race-5-start) (active-p 'race-5))
+| ~ catherine
+| | (:cheer)You're already on the clock for \"Route 5\"(orange).
+| | Remember: The can is at... \"the furthest edge of the deepest cave in this region - there isn't \"much-room\"\"(orange).
+| < quit
 ~ catherine
 | (:cheer)Alright, race time!
 ? (not (complete-p 'race-1-start))
@@ -61,7 +81,7 @@
 | (:cheer)\"Route 1\"(orange)! The can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-1 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-1 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-1 'bronze))}.
 ? (var-of 'race-1 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange). Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange). Beat this and get bronze or higher to get a reward.
 ! eval (setf (quest:status (thing 'race-1-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-1)) :inactive)
 ! eval (activate 'race-1-start)
@@ -72,7 +92,7 @@
 | (:cheer)\"Route 2\"(orange)! The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-2 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-2 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-2 'bronze))}.
 ? (var-of 'race-2 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange). Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange). Beat this and get bronze or higher to get a reward.
 ! eval (setf (quest:status (thing 'race-2-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-2)) :inactive)
 ! eval (activate 'race-2-start)
@@ -83,7 +103,7 @@
 | (:cheer)\"Route 3\"(orange)! The can is... \"where we first ventured together, and got our feet wet\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-3 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-3 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-3 'bronze))}.
 ? (var-of 'race-3 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange). Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange). Beat this and get bronze or higher to get a reward.
 ! eval (setf (quest:status (thing 'race-3-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-3)) :inactive)
 ! eval (activate 'race-3-start)
@@ -94,7 +114,7 @@
 | (:cheer)\"Route 4\"(orange)! The can is... \"deep to the west, where people once dreamed\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
 ? (var-of 'race-4 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange). Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange). Beat this and get bronze or higher to get a reward.
 ! eval (setf (quest:status (thing 'race-4-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-4)) :inactive)
 ! eval (activate 'race-4-start)
@@ -105,7 +125,7 @@
 | (:cheer)\"Route 5\"(orange)! The can is at... \"the furthest edge of the deepest cave in this region - there isn't \"much-room\"\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-5 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-5 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-5 'bronze))}.
 ? (var-of 'race-5 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange). Beat this to get a reward.
+| | Your personal best for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange). Beat this and get bronze or higher to get a reward.
 ! eval (setf (quest:status (thing 'race-5-start)) :inactive)
 ! eval (setf (quest:status (thing 'race-5)) :inactive)
 ! eval (activate 'race-5-start)
@@ -170,7 +190,6 @@
 | (:normal)You did that in: \"{(format-relative-time (clock quest))}\"(orange).
 ? (and pb (< pb (clock quest)))
 | | (:concerned)Ah damn, no improvement on your record of \"{(format-relative-time pb)}\"(orange) this time I'm afraid.
-| < end
 |?
 | ? (not (null pb))
 | | | (:cheer)\"That's a new personal best\"(orange)!
@@ -190,13 +209,12 @@
 | |?
 | | | (:normal)That time was outside bronze. I guess your servos are still a little seized up.
 | | | Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.
-| ! label end
-| | (:excited)Let's do this again soon!
-| ! eval (complete task)
+  
+~ catherine
+| (:excited)Let's do this again soon!
+! eval (complete task)
 ")))))
-;; | ! eval (complete task)
-;; ! eval (complete ,name)
-;; ! eval (setf (quest:status (thing name)) :complete)
+
 
 ;; TODO These vars stored in save game? Problematic if we tweak after launch/testing?
 (define-race race-1
