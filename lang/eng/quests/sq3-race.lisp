@@ -202,7 +202,7 @@
 (define-race race-1
   :site race-1-site
   :title-start "The can is at... a literal high point of EASTERN civilisation, now long gone."
-  :title-complete "Complete Route 1"
+  :title-complete "(Complete Route 1)"
   :gold 60
   :silver 80
   :bronze 100)
@@ -210,7 +210,7 @@
 (define-race race-2
   :site race-2-site
   :title-start "The can is... where a shallow grave marks the end of the line at Zenith Crossing Station, East."
-  :title-complete "Complete Route 2"
+  :title-complete "(Complete Route 2)"
   :gold 60
   :silver 80
   :bronze 100)
@@ -218,7 +218,7 @@
 (define-race race-3
   :site race-3-site
   :title-start "The can is... where we first ventured together, and got our feet wet."
-  :title-complete "Complete Route 3"
+  :title-complete "(Complete Route 3)"
   :gold 105
   :silver 120
   :bronze 135)
@@ -226,7 +226,7 @@
 (define-race race-4
   :site race-4-site
   :title-start "The can is... deep to the west, where people once dreamed."
-  :title-complete "Complete Route 4"
+  :title-complete "(Complete Route 4)"
   :gold 90
   :silver 105
   :bronze 120)
@@ -234,7 +234,7 @@
 (define-race race-5
   :site race-5-site
   :title-start "The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room.\""
-  :title-complete "Complete Route 5"
+  :title-complete "(Complete Route 5)"
   :gold 135
   :silver 150
   :bronze 165)
