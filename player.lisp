@@ -64,7 +64,7 @@
                    step-concrete-1 step-concrete-2 step-concrete-3 step-concrete-4
                    step-tall-grass-1 step-tall-grass-2 step-tall-grass-3 step-tall-grass-4
                    sword-small-slash-1 sword-small-slash-2 sword-small-slash-3 sword-big-slash
-                   sword-hit-ground-soft sword-hit-ground-hard sword-jab-1 sword-jab-2
+                   sword-hit-ground-soft sword-hit-ground-hard sword-jab
                    sword-rotating-swing-1 sword-rotating-swing-2))
     (stage (// 'sound sound) area))
   (stage (fishing-line player) area)
