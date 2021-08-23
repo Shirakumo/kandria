@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="620"
+   height="100"
+   viewBox="0 0 164.04166 26.458334"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
+   sodipodi:docname="steam demo cta.svg"
+   inkscape:export-filename="/home/linus/Projects/cl/kandria/docs/media/steam demo cta.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     width="620px"
+     inkscape:zoom="2.1997092"
+     inkscape:cx="241.85015"
+     inkscape:cy="68.645437"
+     inkscape:window-width="2653"
+     inkscape:window-height="2109"
+     inkscape:window-x="1920"
+     inkscape:window-y="49"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="107.57248"
+       y="136.88311"
+       width="60.415257"
+       height="61.748108"
+       id="rect37025" />
+    <rect
+       x="150.70129"
+       y="28.339068"
+       width="1014.213"
+       height="115.1831"
+       id="rect11993" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Colorize"
+       id="filter7503"
+       x="0"
+       y="0"
+       width="1"
+       height="1">
+      <feColorMatrix
+         values="0.21 0.72 0.07 0 0 0.21 0.72 0.07 0 0 0.21 0.72 0.07 0 0 0 0 0 1 0 "
+         id="feColorMatrix7501"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix8305" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite8307"
+         operator="arithmetic"
+         k1="0"
+         k2="0.991929"
+         result="composite1"
+         in="fbSourceGraphic" />
+      <feColorMatrix
+         id="feColorMatrix8309"
+         in="composite1"
+         values="1"
+         type="saturate"
+         result="colormatrix1" />
+      <feFlood
+         id="feFlood8311"
+         flood-opacity="0.419608"
+         flood-color="rgb(36,63,138)"
+         result="flood1" />
+      <feBlend
+         in2="colormatrix1"
+         id="feBlend8313"
+         in="flood1"
+         mode="normal"
+         result="blend1" />
+      <feBlend
+         in2="blend1"
+         id="feBlend8315"
+         mode="lighten"
+         result="blend2" />
+      <feColorMatrix
+         id="feColorMatrix8317"
+         in="blend2"
+         values="1"
+         type="saturate"
+         result="colormatrix2" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite8319"
+         in="colormatrix2"
+         operator="in"
+         k2="1"
+         result="composite2" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <image
+       width="164.6198"
+       height="53.158478"
+       preserveAspectRatio="none"
+       xlink:href="library%20hero.png"
+       id="image3329"
+       x="-0.28906503"
+       y="-13.350072"
+       style="opacity:1;filter:url(#filter7503)"
+       transform="matrix(1.0018984,0,0,1.0018984,-0.15570503,-0.02511371)" />
+    <g
+       id="g40265">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.15397408,0,0,0.15397408,-19.330195,1.1791824)"
+         id="text11991"
+         style="font-size:85.3333px;line-height:1.25;font-family:chewy;-inkscape-font-specification:chewy;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect11993)"
+         x="307.62619"
+         y="0"><tspan
+           x="344.63481"
+           y="106.41981"
+           id="tspan40561"><tspan
+             style="font-weight:bold;font-family:Xolonium;-inkscape-font-specification:'Xolonium Bold';fill:#ffffff"
+             id="tspan40559">Get the demo</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-8.7231658,-29.980303)"
+         id="text37023"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect37025)"><tspan
+           x="107.57227"
+           y="176.16853"
+           id="tspan40565"><tspan
+             style="fill:#ffffff"
+             id="tspan40563"></tspan></tspan></text>
+    </g>
+  </g>
+</svg>
