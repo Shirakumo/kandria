@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass npc-block-zone (ephemeral resizable sized-entity collider)
-  ())
+  ((name :initform NIL)))
 
 (define-shader-entity npc (inventory ai-entity animatable ephemeral dialog-entity profile)
   ((bsize :initform (vec 8 15))
