@@ -114,13 +114,10 @@
    (fullscreen-prompt '(light-attack heavy-attack) :title 'attack))
   (:complete (q1-fight1)
    :title "Defeat the wolf at the leak"
-   ;; TODO: allow player to collect "wolf meat" as currency?
    "
 ~ catherine
 | (:shout)Look out! Keep it busy while I finish up here.
   ")
-  ;; TODO: has catherine seen the stranger in action in the prologue? If so, her reaction here would be less emphatic
-  ;; REMARK: ^ yes. The tutorial will include a brief fight section.
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
    (setf (animation (unit 'main-leak-2)) 'normal)
@@ -145,7 +142,7 @@
   | Do your thing!
 - What's a rogue?
   ~ catherine
-  | No time to explain! Take them out!
+  | No time to explain! Do your thing!
   ")
    ;; TODO catherine shocked - What the hell?!- Rogues? Here?
    ;; plus all sub choices
