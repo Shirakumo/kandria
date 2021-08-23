@@ -48,7 +48,7 @@
 (defmethod pause-game ((world world) pauser)
   (unless (handler-stack world)
     #++(setf (mixed:bypass (harmony:segment 'low-pass T)) NIL)
-    (setf (mixed:volume :music) (/ (mixed:volume :music) 4)))
+    (harmony:transition (unit 'environment world) 0.2 :in 0.5))
   (push pauser (handler-stack world)))
 
 (defmethod unpause-game ((world world) pauser)
@@ -56,7 +56,7 @@
         until (or (null handler) (eq handler pauser)))
   (unless (handler-stack world)
     #++(setf (mixed:bypass (harmony:segment 'low-pass T)) T)
-    (setf (mixed:volume :music) (setting :audio :volume :music))))
+    (harmony:transition (unit 'environment world) 1.0)))
 
 (defmethod region-entry ((name symbol) (world world))
   (or (gethash name (regions world))

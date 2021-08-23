@@ -55,6 +55,12 @@
       (switch-environment (environment controller) NIL))
   (harmony:transition override 1.0 :in 3.0))
 
+(defmethod harmony:transition ((controller environment-controller) (to real) &key (in 1.0))
+  (cond ((override controller)
+         (harmony:transition (override controller) to :in in))
+        ((environment controller)
+         (harmony:transition (environment controller) to :in in))))
+
 (defclass environment ()
   ((name :initarg :name :initform NIL :accessor name)
    (music :initarg :music :initform NIL :accessor music)
@@ -109,6 +115,12 @@
                (harmony:transition b state :in in :error NIL))))
       (tx (music from) (music to) 5.0)
       (tx (ambience from) (ambience to) 3.0))))
+
+(defmethod harmony:transition ((environment environment) (to real) &key (in 1.0))
+  (when (music environment)
+    (harmony:transition (music environment) to :in in))
+  (when (ambience environment)
+    (harmony:transition (ambience environment) to :in in)))
 
 (defmethod environment ((name symbol))
   (gethash name *environments*))
