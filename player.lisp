@@ -55,7 +55,7 @@
     (T (p! walk-limit))))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(player-dash player-jump die-player land-normal enter-water
+  (dolist (sound '(player-dash player-jump player-evade die-player land-normal enter-water
                    player-pick-up player-enter-passage player-soft-land player-wall-slide
                    step-dirt-1 step-dirt-2 step-dirt-3 step-dirt-4
                    step-rocks-1 step-rocks-2 step-rocks-3 step-rocks-4

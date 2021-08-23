@@ -259,8 +259,7 @@ void main(){
   :voice (// 'sound 'sword-big-slash))
 
 (define-effect jab sound-effect
-  :voice (list (// 'sound 'sword-jab-1)
-               (// 'sound 'sword-jab-2)))
+  :voice (// 'sound 'sword-jab))
 
 (define-effect swing sound-effect
   :voice (list (// 'sound 'sword-rotating-swing-1)
@@ -371,6 +370,7 @@ void main(){
 (define-effect evade closure-effect
   :closure (lambda (source &rest args)
              (declare (ignore args))
+             (harmony:play (// 'sound 'player-evade))
              (let ((spread (v* (bsize source) 2)))
                (spawn-lights (location source) (make-tile-uvs 8 6 128 128 48)
                              :amount 64 :multiplier 2.0
