@@ -8,7 +8,7 @@
  (key :one-of (:f11)))
 
 (trigger report-bug
- (key :one-of (:f12)))
+ (key :one-of (:f1)))
 
 (trigger toggle-menu
  (key :one-of (:tab :esc :escape))
