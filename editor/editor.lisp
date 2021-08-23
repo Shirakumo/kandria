@@ -348,7 +348,8 @@
   (let* ((entity (entity editor))
          (container (container entity)))
     (cond ((typep entity 'player)
-           (v:warn :kandria.editor "Refusing to delete player."))
+           (v:warn :kandria.editor "Refusing to delete the player.")
+           (alloy:message "Cannot delete the player." :title "Error" :ui (unit 'ui-pass T)))
           (T
            ;; FIXME: Clean up stale data files from region packet
            ;;        Should probably do that as an explicit command to invoke at some point.
@@ -366,8 +367,12 @@
   (make-instance 'creator :ui (unit 'ui-pass T)))
 
 (defmethod edit ((action (eql 'clone-entity)) (editor editor))
-  (let ((loc (vcopy (closest-acceptable-location (entity editor) (location (unit :camera T))))))
-    (edit (make-instance 'insert-entity :entity (clone (entity editor) :location loc)) editor)))
+  (cond ((typep (entity editor) 'player)
+         (v:warn :kandria.editor "Refusing to clone the player.")
+         (alloy:message "Cannot clone the player." :title "Error" :ui (unit 'ui-pass T)))
+        (T
+         (let ((loc (vcopy (closest-acceptable-location (entity editor) (location (unit :camera T))))))
+           (edit (make-instance 'insert-entity :entity (clone (entity editor) :location loc)) editor)))))
 
 (defmethod edit ((action (eql 'undo)) (editor editor))
   (undo editor (unit 'region T)))
