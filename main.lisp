@@ -213,8 +213,7 @@ Possible sub-commands:
     (connect (port sandstorm 'color) (port distortion 'previous-pass) scene)
     (connect (port distortion 'color) (port blend 'trial::a-pass) scene)
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
-  (register (make-instance 'walkntalk) scene)
-  (show (make-instance 'status-lines)))
+  (register (make-instance 'walkntalk) scene))
 
 (defmethod load-game (state (main main))
   (hide-panel 'save-menu)

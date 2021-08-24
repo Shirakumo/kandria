@@ -77,7 +77,6 @@
 (defun saving-possible-p ()
   (let ((player (unit 'player +world+)))
     (and (null (find-panel 'dialog))
-         (null (find-panel 'timer))
          player
          (svref (collisions player) 2)
          (eql :normal (state player)))))

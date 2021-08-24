@@ -22,7 +22,6 @@
    (profile-sprite-data :initform (asset 'kandria 'player-profile))
    (nametag :initform (@ player-nametag))
    (invincible :initform (setting :gameplay :god-mode))
-   (hud :accessor hud)
    (trace :initform (make-array (* 12 60 60 2) :element-type 'single-float :adjustable T :fill-pointer 0)
           :accessor movement-trace)
    (fishing-line :initform (make-instance 'fishing-line) :accessor fishing-line)
@@ -35,8 +34,13 @@
   (dotimes (i 5) (store 'item:small-health-pack player))
   (dotimes (i 2) (store 'item:medium-health-pack player))
   (setf (active-p (action-set 'in-game)) T)
-  (setf (spawn-location player) (vcopy (location player)))
-  (setf (hud player) (make-instance 'hud :player player)))
+  (setf (spawn-location player) (vcopy (location player))))
+
+(defmethod register :after ((player player) (world scene))
+  (show-panel 'hud))
+
+(defmethod deregister :after ((player player) (world scene))
+  (hide-panel 'hud))
 
 (defmethod minimum-idle-time ((player player)) 30)
 
@@ -371,12 +375,10 @@
            (setf (intended-zoom (unit :camera T))
                  (if (eql 'evade-left (name (animation player)))
                      1.6 1.2))
-           (unless (shown-p (hud player))
-             (show (hud player))))
-          ((and (< 5 (combat-time player))
-                (shown-p (hud player)))
-           (setf (intended-zoom (unit :camera T)) 1.0)
-           (hide (hud player))))
+           (setf (timeout (health (find-panel 'hud))) 5.0))
+          ((and (< 5 (combat-time player) 6)
+                (< 1 (intended-zoom (unit :camera T))))
+           (setf (intended-zoom (unit :camera T)) 1.0)))
     ;; Interaction checks
     (setf (interactable player) NIL)
     (when (and ground (interactable-p ground))

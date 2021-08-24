@@ -156,7 +156,7 @@
          :on-complete (,name)
          (:action spawn-can
                   (setf (clock quest) 0)
-                  (show (make-instance 'timer :quest quest))
+                  (show-timer quest)
                   (spawn ',site 'item:can)
                   (setf (quest:status (thing ',name)) :inactive))
          (:interaction speech
@@ -182,7 +182,7 @@
           :title ,title-complete
           :interactable catherine
           :dialogue "
-! eval (hide-panel 'timer)
+! eval (hide-timer)
 ~ catherine
 | (:cheer)Stop the clock!
 | (:excited)That's the correct can alright - nice!
