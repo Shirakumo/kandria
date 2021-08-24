@@ -89,7 +89,7 @@
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.1)
-  (ambience-water-pipe-leak :repeat T))
+  (ambience-water-pipe-leak :repeat T :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3)))
 
 (define-bg tundra
   :parallax (vec 2.0 1.0)

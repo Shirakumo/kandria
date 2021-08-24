@@ -2,6 +2,27 @@
 
 (defvar *environments* (make-hash-table :test 'eql))
 
+(defclass audible-entity (entity)
+  ((voice :initarg :voice :accessor voice)))
+
+(defmethod stage :after ((entity audible-entity) (area staging-area))
+  (when (typep (voice entity) 'placeholder-resource)
+    (let ((generator (generator (voice entity))))
+      (setf (voice entity) (apply #'generate-resources generator (input* generator) :resource NIL (trial::generation-arguments generator)))))
+  (stage (voice entity) area))
+
+(defmethod active-p ((entity audible-entity)) T)
+
+(defmethod handle :after ((ev tick) (entity audible-entity))
+  (when (active-p entity)
+    (let* ((voice (voice entity))
+           (max (expt (mixed:max-distance voice) 2))
+           (dist (vsqrdist2 (location entity) (location (unit 'player +world+)))))
+      (cond ((< dist (+ max 32)) ; Start a bit before the entrance to ensure we have a smooth ramp up.
+             (harmony:play voice :location (location entity)))
+            ((< (+ max 128) dist) ; Stop even farther out to ensure we don't accidentally flip-flop and overburden the sound server.
+             (harmony:stop voice))))))
+
 (defclass switch-music-state (event)
   ((area :initarg :area :initform NIL :reader area)
    (state :initarg :state :initform NIL :reader state)))

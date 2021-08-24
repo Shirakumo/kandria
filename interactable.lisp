@@ -38,6 +38,12 @@
   (when (pending-animation sprite)
     (setf (animation sprite) (pending-animation sprite))))
 
+(define-shader-entity leak (interactable-animated-sprite audible-entity)
+  ((voice :initform (// 'sound 'ambience-water-pipe-leak))))
+
+(defmethod active-p ((leak leak))
+  (not (eq 'normal (name (animation leak)))))
+
 (defclass profile ()
   ((profile-sprite-data :initform (error "PROFILE-SPRITE-DATA not set.") :accessor profile-sprite-data)
    (nametag :initform (error "NAMETAG not set.") :accessor nametag)))
