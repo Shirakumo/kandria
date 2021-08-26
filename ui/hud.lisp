@@ -134,7 +134,7 @@
          (list (setf (lines hud) (make-instance 'alloy:vertical-linear-layout)))
          (loc (setf (location hud) (make-instance 'location-info))))
     (alloy:enter bar layout :constraints `((:left 80) (:top 20) (:height 15) (:width 300)))
-    (alloy:enter list layout :constraints `((:left 20) (:top 120) (:size 1920 1000)))
+    (alloy:enter list layout :constraints `((:left 20) (:top 220) (:size 1920 1000)))
     (alloy:enter loc layout :constraints `((:right 50) (:top 50) (:height 20) (:width 500)))
     (alloy:finish-structure hud layout NIL)))
 
