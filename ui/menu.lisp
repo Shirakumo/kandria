@@ -8,6 +8,12 @@
    (alloy:margins)
    :pattern (colored:color 0.15 0.15 0.15 0.5)))
 
+(defmethod alloy:handle ((ev alloy:pointer-event) (focus menu-layout))
+  (restart-case
+      (call-next-method)
+    (alloy:decline ()
+      T)))
+
 (defclass vertical-tab-bar (alloy:vertical-linear-layout alloy:focus-list alloy:observable alloy:renderable)
   ((alloy:min-size :initform (alloy:size 250 50))
    (alloy:cell-margins :initform (alloy:margins))))
@@ -33,10 +39,10 @@
    :pattern colors:white))
 
 (defclass tab-view (alloy:structure)
-  ())
+  ((layout :accessor layout)))
 
 (defmethod initialize-instance :after ((view tab-view) &key layout-parent focus-parent tabs)
-  (let* ((layout (make-instance 'alloy:border-layout :layout-parent layout-parent))
+  (let* ((layout (setf (layout view) (make-instance 'alloy:border-layout :layout-parent layout-parent)))
          (list (make-instance 'vertical-tab-bar :focus-parent focus-parent)))
     (alloy:enter list layout :place :west :size (alloy:un 250))
     (dolist (tab tabs)
@@ -87,7 +93,7 @@
 (defmethod alloy:activate ((button tab))
   (harmony:play (// 'sound 'ui-focus-in) :reset T)
   (when (alloy:layout-element button)
-    (let ((layout (alloy:layout-element (tab-view button))))
+    (let ((layout (layout (tab-view button))))
       (when (alloy:index-element :center layout)
         (alloy:leave (alloy:index-element :center layout) layout))
       (alloy:enter (alloy:layout-element button) layout)))
@@ -96,7 +102,7 @@
 
 (defmethod (setf alloy:focus) :after ((value (eql :weak)) (button tab))
   (when (alloy:layout-element button)
-    (let ((layout (alloy:layout-element (tab-view button))))
+    (let ((layout (layout (tab-view button))))
       (when (alloy:index-element :center layout)
         (alloy:leave (alloy:index-element :center layout) layout))
       (alloy:enter (alloy:layout-element button) layout))))
@@ -145,8 +151,19 @@
 (defclass setting-label (alloy:label)
   ())
 
+(presentations:define-realization (ui setting-label)
+  ((:label simple:text)
+   (alloy:margins 0)
+   alloy:text
+   :font (setting :display :font)
+   :wrap T
+   :size (alloy:un 12)
+   :halign :start
+   :valign :middle))
+
 (presentations:define-update (ui setting-label)
-  (:label :size (alloy:un 15)))
+  (:label
+   :size (alloy:un 15)))
 
 (defclass task-widget (label)
   ())

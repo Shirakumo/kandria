@@ -156,7 +156,7 @@
                   (alloy:enter slider layout)
                   (alloy:enter slider focus)))
              (with-tab (name &body body)
-               `(let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(200 300) :row-sizes '(40)))
+               `(let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(300 300) :row-sizes '(40)))
                        (focus (make-instance 'alloy:focus-list)))
                   ,@body
                   (add-tab panel (@ ,name) layout focus))))
@@ -197,3 +197,15 @@
     (alloy:on alloy:exit ((alloy:focus-element panel))
       (when (active-p panel)
         (hide panel)))))
+
+(defclass back-button (tab)
+  ())
+
+(defmethod alloy:activate ((button back-button))
+  (alloy:exit (alloy:focus-element (tab-view button))))
+
+(defmethod show :before ((panel options-menu) &key)
+  (alloy:enter (make-instance 'back-button :value (@ go-backwards-in-ui)) panel)
+  (let ((layout (make-instance 'menu-layout)))
+    (alloy:enter (alloy:layout-element panel) layout :place :center)
+    (setf (slot-value panel 'alloy:layout-element) layout)))
