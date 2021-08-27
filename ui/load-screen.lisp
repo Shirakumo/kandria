@@ -48,19 +48,25 @@
    :wrap T
    :size (alloy:un 12)
    :halign :start
-   :valign :top))
+   :valign :bottom))
 
-(defclass load-screen (fullscreen-panel loader alloy:observable-object)
+(presentations:define-update (ui load-text)
+  (:label
+   :text alloy:text))
+
+(defclass load-screen (loader alloy:observable-object)
   ((progress :initform 0)
-   (text :accessor text)
    (cold-boot :accessor cold-boot)
    (last-time :accessor last-time)))
 
-(defmethod initialize-instance :after ((panel load-screen) &key)
+(defclass load-panel (fullscreen-panel)
+  ((text :accessor text)))
+
+(defmethod initialize-instance :after ((panel load-panel) &key loader)
   (let ((layout (make-instance 'load-screen-layout))
-        (bar (alloy:represent (slot-value panel 'progress) 'progress-bar))
+        (bar (alloy:represent (slot-value loader 'progress) 'progress-bar))
         (text (setf (text panel) (make-instance 'load-text :value ""))))
-    (alloy:enter text layout :constraints `((:left 20) (:top 20) (:bottom 0) (:right 20)))
+    (alloy:enter text layout :constraints `((:left 20) (:top 0) (:bottom 100) (:right 20)))
     (alloy:enter bar layout :constraints `((:bottom 50) (:center :w) (:width 500) (:height 30)))
     (alloy:finish-structure panel layout NIL)))
 
@@ -70,23 +76,20 @@
   (if show-screen
       (let ((*show-load-screen* T))
         (setf (cold-boot loader) cold)
-        (setf (alloy:value (text loader))
-              (if cold (@ load-screen-new-game) (@ load-screen-load-game)))
         (setf (slot-value loader 'progress) 0)
         (setf (last-time loader) (get-internal-real-time))
-        (unless (active-p loader)
-          (show loader))
+        (show-panel 'load-panel :loader loader)
         (prog1 (call-next-method)
-          (hide loader)))
+          (hide-panel 'load-panel)))
       (let ((*show-load-screen* NIL))
         (call-next-method))))
 
 (defmethod progress ((loader load-screen) so-far total)
   (when *show-load-screen*
-    (let ((prog (* 0.1 (floor (* 1000 (/ so-far total))))))
-      (setf (org.shirakumo.alloy.renderers.opengl.msdf::vertex-count
-             (presentations:find-shape :label (text loader)))
-            (* 6 (floor (* 0.01 prog (length (alloy:value (text loader)))))))
+    (let ((prog (* 0.1 (floor (* 1000 (/ so-far total)))))
+          (text (if (cold-boot loader) (@ load-screen-new-game) (@ load-screen-load-game))))
+      (setf (alloy:value (text (find-panel 'load-panel)))
+            (subseq text 0 (floor (* 0.01 prog (length text)))))
       (when (/= prog (slot-value loader 'progress))
         (setf (slot-value loader 'progress) prog)
         (let ((ui (unit 'ui-pass +world+)))

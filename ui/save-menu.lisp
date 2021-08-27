@@ -72,9 +72,7 @@
   ())
 
 (defmethod initialize-instance :after ((panel save-menu) &key intent)
-  (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout
-                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins)
-                                                               :pattern colors:black :name :bg))))
+  (let ((layout (make-instance 'load-screen-layout))
         (list (make-instance 'alloy:vertical-linear-layout))
         (focus (make-instance 'alloy:focus-list))
         (saves (list-saves)))
