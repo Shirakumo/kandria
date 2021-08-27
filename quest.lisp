@@ -25,7 +25,7 @@
 (defmethod quest:class-for ((storyline (eql 'quest:quest))) 'quest)
 
 (defmethod quest:activate :before ((quest quest))
-  (when (and (not (eql :active (status quest)))
+  (when (and (not (eql :active (quest:status quest)))
              (visible-p quest))
     (status :important "New quest: ~a" (quest:title quest)))
   (setf (clock quest) 0f0))
