@@ -79,8 +79,12 @@
         (setf (slot-value loader 'progress) 0)
         (setf (last-time loader) (get-internal-real-time))
         (show-panel 'load-panel :loader loader)
-        (prog1 (call-next-method)
-          (hide-panel 'load-panel)))
+        (stage (unit 'ui-pass +world+) area)
+        (call-next-method)
+        (transition
+          :kind :black
+          (hide-panel 'load-panel))
+        (invoke-restart 'trial::reset-render-loop))
       (let ((*show-load-screen* NIL))
         (call-next-method))))
 

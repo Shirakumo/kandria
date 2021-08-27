@@ -28,6 +28,7 @@
 
 (defmethod handle ((ev transition-event) (fade fade))
   (when (not (flare:running (progression 'transition +world+)))
+    (setf (kind fade) (kind ev))
     (setf (on-complete fade) (on-complete ev))
     (setf (clock (progression 'transition +world+)) 0f0)
     (start (progression 'transition +world+))))

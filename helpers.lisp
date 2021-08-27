@@ -254,8 +254,12 @@ void main(){
          (handle-oob entity))))))
 
 (defclass transition-event (event)
-  ((on-complete :initarg :on-complete :initform NIL :reader on-complete)))
+  ((on-complete :initarg :on-complete :initform NIL :reader on-complete)
+   (kind :initarg :kind :initform :transition :reader kind)))
 
 (defmacro transition (&body on-blank)
-  `(issue +world+ 'transition-event
-          :on-complete (lambda () ,@on-blank)))
+  (form-fiddle:with-body-options (body options kind) on-blank
+      `(issue +world+ 'transition-event
+              :kind ,kind
+              ,@options
+              :on-complete (lambda () ,@body))))
