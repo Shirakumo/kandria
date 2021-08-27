@@ -80,7 +80,8 @@
                              (:file "options-menu")
                              (:file "main-menu")
                              (:file "credits")
-                             (:file "shop")))
+                             (:file "shop")
+                             (:file "load-screen")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
