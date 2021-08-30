@@ -49,7 +49,10 @@
       :active))
 
 (defmethod trigger :after ((effect sound-effect) source &key)
-  (harmony:play (voice effect) :reset T))
+  (harmony:play (voice effect) :reset T :location (etypecase source
+                                                    (located-entity (location source))
+                                                    (vec2 source)
+                                                    (T NIL))))
 
 (defclass camera-effect (effect)
   ((duration :initarg :duration :initform 20 :accessor duration)
