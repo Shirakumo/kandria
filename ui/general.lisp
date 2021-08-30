@@ -163,9 +163,12 @@
       (show (apply #'make-instance panel-type initargs)))))
 
 (defun hide-panel (panel-type)
-  (let ((panel (find-panel panel-type)))
-    (when panel
-      (hide panel))))
+  (if (eq T panel-type)
+      (loop for panel = (first (panels (unit 'ui-pass T)))
+            while panel do (hide panel))
+      (let ((panel (find-panel panel-type)))
+        (when panel
+          (hide panel)))))
 
 (defclass panel (alloy:structure)
   ((active-p :initform NIL :accessor active-p)))

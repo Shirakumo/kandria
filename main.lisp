@@ -87,8 +87,6 @@
   (let ((state (or (state main) (make-instance 'save-state :filename "1"))))
     (load-state (initial-state (scene main)) (scene main))
     (trial:commit (scene main) (loader main) :show-screen T :cold T)
-    (clrhash +spawn-tracker+)
-    (clrhash *spawn-cache*)
     (setf (state main) state)))
 
 (defmethod load-state ((state save-state) (main main))
@@ -100,8 +98,6 @@
                                 (invoke-restart 'reset)))))
         (prog1 (load-state state (scene main))
           (trial:commit (scene main) (loader main) :show-screen T)
-          (clrhash +spawn-tracker+)
-          (clrhash *spawn-cache*)
           (unless (typep state 'quicksave-state)
             (setf (state main) state))
           (save-state main (quicksave main))
@@ -205,7 +201,7 @@ Possible sub-commands:
         ;; to both distortion and UI and then just make the UI pass not clear
         ;; the framebuffer when drawing.
         (ui (make-instance 'ui-pass :base-scale (setting :display :ui-scale)))
-        (blend (make-instance 'blend-pass :name 'blend)))
+        (blend (make-instance 'combine-pass)))
     (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
     (connect (port lighting 'color) (port rendering 'lighting) scene)
     (connect (port rendering 'color) (port displacement 'previous-pass) scene)
@@ -220,6 +216,17 @@ Possible sub-commands:
   (hide-panel 'save-menu)
   (hide-panel 'main-menu)
   (load-state state main))
+
+(defmethod reset ((main main))
+  (let ((scene (scene main)))
+    (hide-panel T)
+    (setf (state main) NIL)
+    (reset (unit :camera scene))
+    (leave (region scene) scene)
+    (setf (storyline scene) (make-instance 'quest:storyline))
+    (compile-to-pass scene scene)
+    (discard-events scene)
+    (show-panel 'main-menu)))
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test)

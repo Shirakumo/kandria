@@ -258,7 +258,7 @@ void main(){
    (kind :initarg :kind :initform :transition :reader kind)))
 
 (defmacro transition (&body on-blank)
-  (form-fiddle:with-body-options (body options kind) on-blank
+  (form-fiddle:with-body-options (body options (kind :transition)) on-blank
       `(issue +world+ 'transition-event
               :kind ,kind
               ,@options

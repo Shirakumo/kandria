@@ -74,6 +74,10 @@
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
+(defmethod leave :after ((region region) (world world))
+  (when (eq region (gethash 'region (name-map world)))
+    (remhash 'region (name-map world))))
+
 (defun saving-possible-p ()
   (let ((player (unit 'player +world+)))
     (and (null (find-panel 'dialog))
@@ -105,6 +109,7 @@
     (cond (handler
            (handle event (unit :controller world))
            (handle event (unit :camera world))
+           (handle event (unit 'fade world))
            (handle event handler))
           (T
            (call-next-method)))))

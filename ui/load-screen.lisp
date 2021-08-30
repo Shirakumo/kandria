@@ -72,7 +72,8 @@
 
 (defmethod trial:commit :after (thing (loader load-screen) &key unload show-screen cold))
 (defmethod trial:commit ((area staging-area) (loader load-screen) &key unload show-screen cold)
-  (declare (ignore unload))
+  (when unload
+    (clear-spawns))
   (if show-screen
       (let ((*show-load-screen* T))
         (setf (cold-boot loader) cold)
@@ -84,7 +85,8 @@
         (transition
           :kind :black
           (hide-panel 'load-panel))
-        (invoke-restart 'trial::reset-render-loop))
+        (when (find-restart 'trial::reset-render-loop)
+          (invoke-restart 'trial::reset-render-loop)))
       (let ((*show-load-screen* NIL))
         (call-next-method))))
 

@@ -1,7 +1,8 @@
 (in-package #:kandria)
 
-(defvar *random-draw* (make-hash-table :test 'eq))
-(defvar *spawn-cache* (make-hash-table :test 'eq))
+(define-global +random-draw+ (make-hash-table :test 'eq))
+(define-global +spawn-cache+ (make-hash-table :test 'eq))
+(define-global +spawn-tracker+ (make-hash-table :test 'eq))
 
 (defun weighted-random-elt (segments)
   (let* ((total (loop for segment in segments
@@ -14,13 +15,13 @@
                (return part)))))
 
 (defun random-drawer (name)
-  (gethash name *random-draw*))
+  (gethash name +random-draw+))
 
 (defun (setf random-drawer) (value name)
-  (setf (gethash name *random-draw*) value))
+  (setf (gethash name +random-draw+) value))
 
 (defmethod draw-item ((item symbol))
-  (funcall (gethash item *random-draw*)))
+  (funcall (gethash item +random-draw+)))
 
 (defmacro define-random-draw (name &body items)
   (let ((total (float (loop for (item weight) in items
@@ -31,8 +32,6 @@
                (cond ,@(nreverse (loop for prev = 0.0 then (+ prev weight)
                                        for (item weight) in items
                                        collect `((< ,prev r) ',item)))))))))
-
-(define-global +spawn-tracker+ (make-hash-table :test 'eq))
 
 (defun spawned-p (entity)
   (gethash entity +spawn-tracker+))
@@ -135,8 +134,8 @@
                 do (spawn region (create)))))))
 
 (defmethod spawn ((container container) (entity entity) &key)
-  (unless (gethash (class-of entity) *spawn-cache*)
-    (setf (gethash (class-of entity) *spawn-cache*) T)
+  (unless (gethash (class-of entity) +spawn-cache+)
+    (setf (gethash (class-of entity) +spawn-cache+) T)
     (trial:commit entity (loader +main+) :unload NIL))
   (enter* entity container)
   entity)
@@ -146,3 +145,7 @@
 
 (defmethod spawn ((name symbol) type &rest initargs &key &allow-other-keys)
   (apply #'spawn (location (unit name +world+)) type initargs))
+
+(defun clear-spawns ()
+  (clrhash +spawn-cache+)
+  (clrhash +spawn-tracker+))

@@ -146,6 +146,10 @@
     (incf (mix pass) (dt ev)))
   (update-lighting pass))
 
+(defmethod reset ((pass lighting-pass))
+  (setf (lighting pass) (gi 'none))
+  (force-lighting pass))
+
 (define-shader-entity light (ephemeral vertex-entity sized-entity)
   ())
 

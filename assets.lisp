@@ -134,6 +134,11 @@
   :scaling (vec 2.0 2.0)
   :lighting-strength 0.75)
 
+(define-gi one
+  :location NIL
+  :light (vec 0 0 0)
+  :ambient (vec 1.0 1.0 1.0))
+
 (define-gi none
   :location NIL
   :light (vec 0 0 0)

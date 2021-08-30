@@ -370,26 +370,28 @@
         (let ((resume (with-button resume-game
                         (hide panel)))
               (exit (with-button return-to-main-menu
-                      (setf (state +main+) NIL)
-                      (discard-events +world+)
-                      (with-packet (packet (pathname-utils:subdirectory (root) "world") :direction :input)
-                        (change-scene +main+ (make-instance 'world :packet packet)))
-                      (show-panel 'main-menu))))
+                      (reset (unit 'environment +world+))
+                      (transition
+                        :kind :black
+                        (reset +main+)
+                        (invoke-restart 'discard-events)))))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))
 
 (defun overview-text ()
   (let ((player (unit 'player +world+)))
-    (format NIL "~
+    (if player
+        (format NIL "~
 ~a: ~16t~a
 ~a: ~16t~a ~a
 ~a: ~16t~a
 ~a: ~16t~a%"
-            (@ in-game-datetime) (format-absolute-time (truncate (timestamp +world+)))
-            (@ current-play-time) (format-relative-time (session-time))
-            (if (< (* 60 60 4) (session-time)) (@ long-play-time-warning) "")
-            (@ total-play-time) (format-relative-time (total-play-time))
-            (@ player-health) (health-percentage player))))
+                (@ in-game-datetime) (format-absolute-time (truncate (timestamp +world+)))
+                (@ current-play-time) (format-relative-time (session-time))
+                (if (< (* 60 60 4) (session-time)) (@ long-play-time-warning) "")
+                (@ total-play-time) (format-relative-time (total-play-time))
+                (@ player-health) (health-percentage player))
+        "")))
 ;; FIXME: when changing language or font, UI needs to update immediately
 

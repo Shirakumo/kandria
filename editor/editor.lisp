@@ -125,8 +125,7 @@
   (setf (entity editor) (region +world+))
   (setf (background (unit 'background T)) (background 'editor))
   (update-background (unit 'background T) T)
-  (setf (lighting (unit 'lighting-pass T)) (gi 'none))
-  (force-lighting (unit 'lighting-pass T)))
+  (reset (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
   (hide (tool editor))

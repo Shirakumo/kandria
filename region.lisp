@@ -41,10 +41,7 @@
       (leave (unit 'region scene) scene))
     ;; KLUDGE: This is fucking shitty, but we have to ensure that
     ;;         the fader always comes after the region...
-    (when (unit 'fade scene)
-      (leave* (unit 'fade scene) T))
     (enter new scene)
-    (enter (make-instance 'fade) scene)
     new))
 
 (defmethod chunk-graph ((region region))

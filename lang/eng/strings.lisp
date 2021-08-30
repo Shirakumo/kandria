@@ -450,7 +450,6 @@ Pinging genera ...                                                 OK
        Base ver: 3305
        Core ver: 247
        Util ver: 554
-       Last boot: 24.3.2063 03:32:02.7425 UTC
 [WARN] Please service the GENERA system as soon as possible.
 [INFO] Restoring previous pattern
 [INFO] Successfully restored previous pattern

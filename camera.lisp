@@ -18,6 +18,16 @@
    :location (vec 0 0)
    :target-size (v* +tiles-in-view+ +tile-size+ .5)))
 
+(defmethod reset ((camera camera))
+  (setf (target camera) NIL)
+  (setf (chunk camera) NIL)
+  (setf (location camera) (vec 0 0))
+  (setf (intended-location camera) (vec 0 0))
+  (setf (zoom camera) 1.0)
+  (setf (intended-zoom camera) 1.0)
+  (setf (shake-timer camera) 0.0)
+  (setf (offset camera) (vec 0 0)))
+
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit 'player scene))
   (when (target camera)

@@ -36,6 +36,19 @@
    (area-states :initarg :area-states :initform NIL :accessor area-states)
    (override :initarg :override :initform NIL :accessor override)))
 
+(defmethod reset ((controller environment-controller))
+  (setf (area-states controller) ())
+  (when (override controller)
+    (harmony:transition (override controller) 0.0 :in 0.1)
+    (setf (slot-value controller 'override) NIL))
+  (let ((env (environment controller)))
+    (when env
+      (when (music env)
+        (harmony:transition (music env) 0.0 :in 0.1))
+      (when (ambience env)
+        (harmony:transition (ambience env) 0.0 :in 0.1))
+      (setf (environment controller) NIL))))
+
 (defmethod handle ((ev switch-chunk) (controller environment-controller))
   (switch-environment controller (environment (chunk ev))))
 
