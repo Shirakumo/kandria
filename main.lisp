@@ -86,6 +86,7 @@
 (defmethod load-state ((state null) (main main))
   (let ((state (or (state main) (make-instance 'save-state :filename "1"))))
     (load-state (initial-state (scene main)) (scene main))
+    (clear-spawns)
     (trial:commit (scene main) (loader main) :show-screen T :cold T)
     (setf (state main) state)))
 
@@ -97,6 +98,7 @@
                                 (v:debug :kandria.save e)
                                 (invoke-restart 'reset)))))
         (prog1 (load-state state (scene main))
+          (clear-spawns)
           (trial:commit (scene main) (loader main) :show-screen T)
           (unless (typep state 'quicksave-state)
             (setf (state main) state))
