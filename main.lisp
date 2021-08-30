@@ -225,6 +225,7 @@ Possible sub-commands:
     (leave (region scene) scene)
     (setf (storyline scene) (make-instance 'quest:storyline))
     (compile-to-pass scene scene)
+    (trial:commit scene (loader main))
     (discard-events scene)
     (show-panel 'main-menu)))
 
