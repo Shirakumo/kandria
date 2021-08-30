@@ -8,6 +8,7 @@
    (texture :initform (// 'kandria 'block-transition) :accessor texture)
    (on-complete :initform NIL :accessor on-complete)
    (strength :initform 0.0 :accessor strength)
+   (direction :initform 0.0 :accessor direction)
    (screen-color :initform (vec 0 0 0) :accessor screen-color)))
 
 (defmethod (setf kind) (kind (fade combine-pass))
@@ -39,6 +40,7 @@
 (defmethod render :before ((fade combine-pass) (program shader-program))
   (gl:active-texture :texture0)
   (gl:bind-texture :texture-2d (gl-name (texture fade)))
+  (setf (uniform program "direction") (direction fade))
   (setf (uniform program "transition_map") 0)
   (setf (uniform program "screen_color") (screen-color fade))
   (setf (uniform program "strength") (- 1 (strength fade))))
@@ -46,6 +48,7 @@
 (define-class-shader (combine-pass :fragment-shader)
   "uniform float strength = 0.0;
 uniform float smooth_size = 0.25;
+uniform float direction = 1.0;
 uniform vec3 screen_color = vec3(0,0,0);
 uniform sampler2D transition_map;
 uniform sampler2D a_pass;
@@ -57,7 +60,7 @@ void main(){
   vec4 b = texture(b_pass, tex_coord);
   color = mix(a, b, b.a);
 
-  float mask = texture(transition_map, gl_FragCoord.xy/200).r;
+  float mask = abs(direction-texture(transition_map, tex_coord).r);
   mask = smoothstep(strength, strength+smooth_size, mask*(1-smooth_size)+smooth_size);
   vec4 o = vec4(screen_color, mask);
   color = mix(color, o, o.a);
@@ -73,9 +76,11 @@ void main(){
   0.2 0.3 (distortion (set strength :from 0.7 :to 0.0 :ease expo-out)))
 
 (define-progression transition
+  0.0 0.0 (fade (set direction :to 0.0))
   0.0 0.5 (fade (set strength :from 0.0 :to 1.0))
   0.5 0.5 (fade (call (lambda (fade clock step)
-                        (funcall (shiftf (on-complete fade) (lambda ()))))))
+                        (funcall (shiftf (on-complete fade) (lambda ())))
+                        (setf (direction fade) 1.0))))
   0.5 1.0 (fade (set strength :from 1.0 :to 0.0)))
 
 (define-progression start-game
