@@ -84,7 +84,10 @@ void main(){
   0.5 1.0 (fade (set strength :from 1.0 :to 0.0)))
 
 (define-progression start-game
-  0.0 0.1 (fade (call (lambda (fade clock step) (setf (kind fade) :black (strength fade) 1.0))))
+  0.0 1.0 (fade (call (lambda (fade clock step)
+                        (setf (kind fade) :black)
+                        (setf (direction fade) 0.0)
+                        (setf (strength fade) (max (strength fade) 1.0)))))
   0.0 5.0 (fade (set strength :from 1.0 :to 0.0 :ease bounce-in)))
 
 (define-progression low-health

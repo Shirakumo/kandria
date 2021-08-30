@@ -8,7 +8,6 @@
   (:eval
    (setf (music-state 'camp) :ambient)
    (setf (music-state 'region1) :ambient)
-   (setf (strength (unit 'fade T)) 1.0)
    (activate (unit 'dash-prompt))
    (setf (location 'player) (location 'tutorial-start))
    (setf (state (unit 'player)) :animated)
