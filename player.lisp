@@ -771,7 +771,8 @@
          (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) (* 100 dt)))))
        ;; Jump progress
        (when (and (retained 'jump)
-                  (<= 0.05 (jump-time player) 0.15))
+                  (<= 0.05 (jump-time player) 0.15)
+                  (< 0 (vy vel)))
          (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) (* 100 dt)))))
        (nv+ vel (v* (gravity (medium player)) dt))
        ;; Limit when sliding down wall
