@@ -15,11 +15,11 @@
   (trial:commit (texture button) (loader +main+) :unload NIL))
 
 (defmethod alloy:activate ((button save-button))
+  (harmony:play (// 'sound 'ui-start-game))
   (ecase (intent button)
     (:new
      (setf (state +main+) (alloy:value button))
      ;; FIXME: allow user to enter name.
-     (harmony:play (// 'sound 'ui-start-game))
      (setf (author (state +main+)) (pathname-utils:directory-name (user-homedir-pathname)))
      (load-game NIL +main+))
     (:load
