@@ -18,7 +18,8 @@
   (setf (extended rope) extended))
 
 (defmethod stage :after ((rope rope) (area staging-area))
-  (stage (// 'sound 'rope-extend) area))
+  (dolist (sound '(rope-extend rope-climb-1 rope-climb-2 rope-climb-3 rope-slide-down))
+    (stage (// 'sound sound) area)))
 
 (defmethod (setf extended) :after (state (rope rope))
   (ecase state

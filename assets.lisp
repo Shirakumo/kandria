@@ -86,7 +86,8 @@
   (falling-platform-impact :volume 0.5)
   (player-dash :volume 0.2)
   (player-enter-passage :volume 0.5)
-  (player-red-flashing :repeat T :volume 0.2))
+  (player-red-flashing :repeat T :volume 0.2)
+  (elevator-move :repeat T :volume 0.1))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.1)

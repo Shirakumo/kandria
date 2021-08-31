@@ -73,6 +73,10 @@
    (fit-to-bsize :initform NIL)
    (texture :initform (// 'kandria 'elevator))))
 
+(defmethod stage :after ((elevator elevator) (area staging-area))
+  (dolist (sound '(elevator-start elevator-stop elevator-move))
+    (stage (// 'sound sound) area)))
+
 (defmethod action ((elevator elevator)) 'interact)
 
 (defmethod description ((elevator elevator))
@@ -83,8 +87,10 @@
     (:normal
      (vsetf (velocity elevator) 0 0))
     (:going-up
+     (setf (harmony:location (// 'sound 'elevator-move)) (location elevator))
      (vsetf (velocity elevator) 0 +1.0))
     (:going-down
+     (setf (harmony:location (// 'sound 'elevator-move)) (location elevator))
      (vsetf (velocity elevator) 0 -1.0))
     (:broken
      (vsetf (velocity elevator) 0 0)))
@@ -101,16 +107,30 @@
       (nv+ (location elevator) (v* vel (hit-time hit)))
       (vsetf vel 0 0))))
 
+(defmethod (setf state) :before (state (elevator elevator))
+  (case state
+    ((:going-up :going-down)
+     (unless (eq state (state elevator))
+       (harmony:play (// 'sound 'elevator-start))
+       (harmony:play (// 'sound 'elevator-move))))
+    (:normal
+     (when (or (eql :going-up (state elevator))
+               (eql :going-down (state elevator)))
+       (harmony:play (// 'sound 'elevator-stop))
+       (harmony:stop (// 'sound 'elevator-move))))))
+
 (defmethod interact ((elevator elevator) thing)
   (case (state elevator)
     (:normal
      (cond ((null (scan-collision +world+ (v+ (location elevator)
                                               (v_y (bsize elevator))
                                               1)))
+            (harmony:play (// 'sound 'elevator-start))
             (setf (state elevator) :going-up))
            ((null (scan-collision +world+ (v- (location elevator)
                                               (v_y (bsize elevator))
                                               1)))
+            (harmony:play (// 'sound 'elevator-start))
             (setf (state elevator) :going-down))))
     (:going-down
      (setf (state elevator) :going-up))
