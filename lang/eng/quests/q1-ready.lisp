@@ -21,7 +21,7 @@
 - I'm ready.
   ~ catherine
   | Alright. We're going down the ladder over there.
-  | Follow the \"red pipeline\"(orange) and \"stay close\"(orange).
+  | Follow the \"red pipeline\"(orange) and \"stay close\"(orange) to me.
   ! eval (deactivate interaction)
   ! eval (complete task)
 - Not yet.

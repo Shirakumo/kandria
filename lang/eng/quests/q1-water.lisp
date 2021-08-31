@@ -71,7 +71,7 @@
   | I'm sure it's fine. It's probably just a little data loss.
 ~ catherine
 | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you (:excited)\"__Stranger__\"(yellow).
-! eval (setf (nametag player) \"Stranger\")
+! eval (setf (nametag player) (@ player-nametag))
 | (:excited)Pretty cool, huh?
 | (:normal)Okay, we need to follow the pipeline further down.
 | (:excited)Let's go, Stranger!
@@ -260,18 +260,18 @@
   ~ catherine
   | There, see. Her memories might be all muddled, but that's one thing she is sure about.
   ~ fi
-  | Alright. Let's hope it's telling the truth. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | Alright. Let's hope it's telling the truth. (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I don't think I have.
   ~ catherine
   | Her memories are all muddled from before I brought her online. She hasn't, trust me.
   ~ fi
-  | Alright. Let's hope that's true. (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | Alright. Let's hope that's true. (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I suppose I could have.
   ~ catherine
   | (:concerned)She doesn't know what she's saying - her memories are all screwed up till the point I brought her online. She doesn't even remember her name!
   ~ fi
   | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
-  | (:unsure)If not, then the Wraw know our location, and their hunting packs are already on their way.
+  | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
 | (:annoyed)Jesus, Fi... you're just gonna take that at face value?
 ~ fi

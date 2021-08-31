@@ -24,22 +24,26 @@
    (start (progression 'start-game +world+))
    (harmony:play (// 'sound 'player-awaken))
    (setf (direction player) 1)
-   (start-animation 'laying player))
+   (start-animation 'laying player)
+   (setf (nametag (unit 'catherine)) "???")
+   (setf (nametag player) "Android"))
   (:wait 1)
   (:animate (player wake-up))
   (:interact (catherine :now T)
-   "~ catherine
-| (:shocked)Woah... can you move?")
+   "
+   ~ catherine
+| (:concerned)Woah... can you move?")
   (:go-to (walk-start))
   (:interact (catherine :now T)
    "~ catherine
-| (:excited)Damn, this is exciting! Looks like all systems are still functioning, that's gotta be the luck of a lifetime!
-| Come on, let's get out of there! I want to show you something.")
+| (:excited)I don't believe it... Looks like all systems are still functional!
+| My name's \"Catherine\"(yellow). Come on, let's get out of here.
+! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))")
   (:go-to (jump-start :lead catherine))
   (:go-to (climb-start :with catherine))
   (:go-to (rope-start :with catherine)
   "~ catherine
-| Make sure not to fall!")
+| Try not to fall.")
   (:go-to (dash-start :with catherine))
   (:eval
    (ensure-nearby 'dash-start 'catherine)
@@ -55,7 +59,7 @@
   ")
   (:go-to (platform-start :with catherine)
   "~ catherine
-| (:cheer)That was __AMAZING!!__ --Was that some kind of booster module?
+| (:cheer)That was __AMAZING!!__ Is that some kind of booster module?
   ")  
   (:go-to (platform-end :with catherine)
   "~ catherine

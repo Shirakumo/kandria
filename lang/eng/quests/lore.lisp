@@ -281,7 +281,7 @@
    "
 ~ player
 | (:thinking)\"//This is where it all began, and ended.//\"(light-gray)
-| (:giggle)\"//Not the most comfortable location to have spent a few decades. Little wonder I've a bad back.//\"(light-gray)
+| (:giggle)\"//Not the most comfortable place to have spent a few decades. Little wonder I've a bad back.//\"(light-gray)
 ")
 
   (:interaction grave-cliff
