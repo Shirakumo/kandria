@@ -32,13 +32,13 @@
   (setf (clock quest) 0f0))
 
 (defmethod quest:complete :before ((quest quest))
-  (when (and (not (eql :complete (status quest)))
+  (when (and (not (eql :complete (quest:status quest)))
              (visible-p quest))
     (harmony:play (// 'sound 'ui-quest-complete))
     (status :important "Quest completed: ~a" (quest:title quest))))
 
 (defmethod quest:fail :before ((quest quest))
-  (when (and (not (eql :failed (status quest)))
+  (when (and (not (eql :failed (quest:status quest)))
              (visible-p quest))
     (harmony:play (// 'sound 'ui-quest-fail))
     (status :important "Quest failed: ~a" (quest:title quest))))
