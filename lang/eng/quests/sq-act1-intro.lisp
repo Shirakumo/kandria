@@ -120,7 +120,7 @@
 |   ~ catherine
 |   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do!
 |   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and bring back.
-|   | I'll record your times for posterity too - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
+|   | I'll record your times for posterity - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
 |   | Once you've completed one, then I can tell you about the next route! Them's the rules.
 |   | (:excited)Just \"tell me when you want to start\"(orange), and we'll get this show on the road!
 |   | (:cheer)This is sooo exciting!
@@ -135,7 +135,7 @@
 | | (:disappointed)I wish I had something for you, but there's nothing right now. (:normal)That's a first 'round here!
 ! label end
 ~ player
-- I'll be going for now.
+- I'll be going.
   ~ catherine
   | You take it easy. See you soon.
 - How are you Catherine?
