@@ -98,7 +98,8 @@
          (vsetf vel 0 0)
          (v<- (location buoy) (vxy hurtbox))
          (when item
-           (v<- (location item) (location buoy))))))
+           (v<- (location item) (location buoy))
+           (incf (angle item) (* (- (float (* 1.5 PI) 0f0) (angle item)) (* 10 dt)))))))
     (typecase (medium buoy)
       (water
        (let ((dist (- (+ (vy (location (medium buoy))) (vy (bsize (medium buoy))))
