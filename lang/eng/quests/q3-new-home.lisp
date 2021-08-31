@@ -119,6 +119,7 @@
    :on-activate T
    ;; enemies on this quest will be world NPCs, not spawned for the quest
    ;; REMARK: The mansplain part feels like it touches on current real-life political commentary and sticks out too much to me.
+   ;; TW TODO: Seem to have missed this until now (31/8) - yes, I can easily remove this later. It's a minor structural change to the convo, which I'd rather not touch before the Sep 2021 demo, but I'll be going through remaining TODOs soon anyway. I quite like the loaded-ness and sharpness of the comment, and I could imagine the old world's near future politics were not that different to ours; but I'm not super married to it
    (:interaction new-home-return
     :interactable jack
     :dialogue "

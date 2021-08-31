@@ -21,7 +21,7 @@
 ~ player
 - Can I help with anything?
   ~ fi
-  | Yes, I think you can. But...
+  | Yes, I think you can. First though...
 - So you're the leader around here?
   ~ fi
   | Something like that.
@@ -58,7 +58,7 @@
   < questions
 ~ fi
 | I haven't told the others about the harvest, but they aren't blind. I'm telling you because I think you can help.
-| There's a place across the surface and beneath the Ruins to the \"east\"(orange), where we first found the seeds that you see growing before you.
+| There's a place \"across the surface\"(orange) and beneath the \"Ruins to the east\"(orange), where we first found the seeds that you see growing before you.
 | \"Alex\"(yellow) found it, our hunter. I want you to retrace their steps, \"find the cache\"(orange), and if it's intact \"recover all the seeds\"(orange) that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.

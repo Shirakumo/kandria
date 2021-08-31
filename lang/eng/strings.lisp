@@ -195,7 +195,7 @@ item:mushroom-bad-1/description "A fungus that looks like someone's insides if t
 item:walkie-talkie "Walkie-Talkie"
 item:walkie-talkie/description "An old-world one-way communications device. Over."
 item:semi-factory-key "Semi Factory Key"
-item:semi-factory-key/description "Fi gave me this key card to access the deeper Ruins, east of the camp. SEMI is written on it."
+item:semi-factory-key/description "Fi gave me this key card to access the deeper Ruins, east of the camp. \"Semi\" is written on it."
 item:can "Old Beer Can"
 item:can/description "I need to return this to Catherine to complete the current race. It'll be good riddance: any odour of alcohol is long gone, but it reeks of rust."
 ;; Fish

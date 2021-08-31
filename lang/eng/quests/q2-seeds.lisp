@@ -20,7 +20,7 @@
     :repeatable T
     :dialogue "
 ~ fi
-| Travel across the surface and beneath the Ruins to the \"east - retrieve whatever seeds remain\"(orange) in the cache.
+| Travel \"across the surface\"(orange) and beneath the \"Ruins to the east - retrieve whatever seeds remain\"(orange) in the cache.
 | Good luck, Stranger.
 ")
 
