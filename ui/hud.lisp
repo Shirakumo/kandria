@@ -110,12 +110,12 @@
     (multiple-value-bind (ts ms) (floor clock)
       (multiple-value-bind (tm s) (floor ts 60)
         (format NIL "~2,'0d:~2,'0d.~2,'0d"
-                tm s (floor (* 10 ms)))))))
+                tm s (floor (* 100 ms)))))))
 
 (presentations:define-realization (ui timer-line)
   ((:label simple:text)
    (alloy:margins) alloy:text
-   :font (setting :display :font)
+   :font "PromptFont"
    :valign :middle
    :halign :middle
    :size (alloy:un 26)))
@@ -174,10 +174,10 @@
   (hide-timer)
   (let ((panel (find-panel 'hud))
         (element (alloy:represent (clock quest) 'timer-line)))
-    (alloy:enter element (alloy:layout-element panel) :constraints `((:center :w) (:top 120) (:size 1920 30)))))
+    (alloy:enter element (alloy:layout-element panel) :constraints `((:center :w) (:top 120) (:size 300 30)))))
 
 (defun hide-timer ()
   (let ((layout (alloy:layout-element (find-panel 'hud))))
     (alloy:do-elements (el layout)
       (when (typep el 'timer-line)
-        (alloy:leave element layout)))))
+        (alloy:leave el layout)))))
