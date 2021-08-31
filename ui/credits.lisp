@@ -73,12 +73,16 @@
                              (- (offset panel) ideal)
                              (alloy:vw 1)
                              ideal))
-      (incf (offset panel) (* 100 (alloy:to-px (alloy:un 1)) (dt ev)))
+      (incf (offset panel) (* (if (retained 'skip)
+                                  1000
+                                  100)
+                              (alloy:to-px (alloy:un 1)) (dt ev)))
       (when (< (+ ideal (height *context*)) (offset panel))
         (hide panel)))))
 
-(defmethod handle ((ev back) (panel credits))
-  (hide panel))
+(defmethod handle :after (ev (panel credits))
+  (when (typep ev '(or back toggle-menu))
+    (hide panel)))
 
 (defmethod from-markless (path layout)
   (from-markless (cl-markless:parse path T) layout))
