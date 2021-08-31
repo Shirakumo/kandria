@@ -270,6 +270,9 @@
 (define-decoder (npc save-v0) (initargs _p)
   (call-next-method)
   (destructuring-bind (&key (ai-state :normal) walk target companion inventory &allow-other-keys) initargs
+    ;; Force state to normal if animated to get them unstuck on a bad save.
+    (when (eql :animated (state npc))
+      (setf (state npc) :normal))
     (setf (ai-state npc) ai-state)
     (setf (walk npc) walk)
     (setf (target npc) (when target (decode 'vec2 target)))
