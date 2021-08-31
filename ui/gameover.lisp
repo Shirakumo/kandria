@@ -27,28 +27,29 @@
   ())
 
 (defmethod initialize-instance :after ((panel game-over) &key)
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+  (let* ((layout (make-instance 'eating-constraint-layout))
          (focus (make-instance 'alloy:focus-list))
-         (header (make-instance 'header :value #@game-over-title))
-         (cont (make-instance 'pause-button :focus-parent focus :value #@resume-game
-                                            :on-activate (lambda ()
-                                                           (setf (health (unit 'player T))
-                                                                 (maximum-health (unit 'player T)))
-                                                           (hide panel))))
-         (load (make-instance 'pause-button :focus-parent focus :value #@load-last-save
-                                            :on-activate (lambda ()
-                                                           (load-state T +main+)
-                                                           (hide panel))))
-         (quit (make-instance 'pause-button :focus-parent focus :value #@exit-game
-                                            :on-activate (lambda ()
-                                                           (quit *context*)))))
+         (buttons (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 40)))
+         (header (make-instance 'header :value #@game-over-title)))
+    (macrolet ((with-button (name &body body)
+                 `(make-instance 'pause-button :focus-parent focus :layout-parent buttons
+                                               :value (@ ,name) :on-activate (lambda () ,@body))))
+      (unless (deploy:deployed-p)
+        (with-button resume-game
+          (setf (health (unit 'player T))
+                (maximum-health (unit 'player T)))
+          (hide panel)))
+      (with-button load-last-save
+        (load-state T +main+)
+        (hide panel))
+      (with-button return-to-main-menu
+        (reset (unit 'environment +world+))
+        (transition
+          :kind :black
+          (reset +main+)
+          (invoke-restart 'discard-events))))
     (alloy:enter header layout
                  :constraints `((:top 50) (:left 0) (:right 0) (:height 100)))
-    (unless (deploy:deployed-p)
-      (alloy:enter cont layout
-                   :constraints `((:below ,header 20) (:center :w) (:width 300) (:height 30))))
-    (alloy:enter load layout
-                 :constraints `((:below ,header 20) (:center :w) (:width 300) (:height 30)))
-    (alloy:enter quit layout
-                 :constraints `((:below ,load 5) (:center :w) (:width 300) (:height 30)))
+    (alloy:enter buttons layout
+                 :constraints `((:below ,header 50) (:center :w) (:width 300) (:bottom 50)))
     (alloy:finish-structure panel layout focus)))

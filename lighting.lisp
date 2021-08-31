@@ -73,7 +73,10 @@
         (null
          NIL)
         (symbol
-         (location (unit loc T)))))))
+         (let ((unit (unit loc +world+)))
+           (if unit
+               (location unit)
+               (vec 0 0))))))))
 
 (flet ((evaluate-light (light)
          (etypecase light
