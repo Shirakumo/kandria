@@ -5,8 +5,23 @@
   :author "Tim White"
   :title "Repair New Leaks"
   :description "There are new leaks to fix; I should follow the red pipeline down. Hopefully there'll be no surprises this time. My FFCS detects three locations."
-  :on-activate (leak-first leak-second leak-third)
+  :on-activate (leak-first leak-second leak-third task-sq1-reminder)
   :variables (first-leak)
+
+ (task-sq1-reminder
+   :title "Talk to Catherine if I need a reminder"
+   :visible NIL
+   :on-activate T
+   (:interaction sq1-reminder
+    :title "About the new leaks."
+    :interactable catherine
+    :repeatable T
+    :dialogue "
+~ catherine
+| \"Follow the red pipeline\"(orange) down like we did before and you'll find the new leaks.
+~ player
+| \"My FFCS indicates \"three leaks\"(orange), all close to the surface.\"(light-gray, italic)
+"))
 
   (leak-first
    :title "Find the first leak"
@@ -52,6 +67,7 @@
 |   | Oh man, you probably don't need reminding about landslides - sorry!
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
+| ! eval (deactivate 'task-sq1-reminder)
 | ! eval (activate 'return-leaks)
 "))
   ;; TODO: how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
@@ -75,7 +91,7 @@
 | | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
 | | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]
 | | (:normal)\"//Weld complete.//\"(light-gray)
-| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | \"//I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//\"(light-gray)
 |  
@@ -102,6 +118,7 @@
 |   | Oh man, you probably don't need reminding about landslides - sorry!
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
+| ! eval (deactivate 'task-sq1-reminder)
 | ! eval (activate 'return-leaks)
 "))
 
@@ -123,7 +140,7 @@
 | | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
 | | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]
 | | (:normal)\"//Weld complete.//\"(light-gray)
-| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | \"//I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//\"(light-gray)
 |  
@@ -150,6 +167,7 @@
 |   | Oh man, you probably don't need reminding about landslides - sorry!
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
+| ! eval (deactivate 'task-sq1-reminder)
 | ! eval (activate 'return-leaks)
 "))
 
@@ -164,7 +182,7 @@
     :dialogue "
 ~ catherine
 | (:cheer)The water pressure is back! I knew you could do it.
-| (:normal)Here, take these parts - you've earned them.
+| (:normal)Here, \"take these parts\"(orange) - you've earned them.
 ! eval (store 'item:parts 150)
 ? (have 'item:walkie-talkie)
 | | I'll take the walkie back for now in case someone else needs it.

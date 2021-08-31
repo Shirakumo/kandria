@@ -75,7 +75,7 @@
 ~ player
 | \"//It's crude, but I'm sure I can do something with it. If only poke my lenses out.//\"(light-gray)
 ~ trader
-| Just let me know when you want to buy one, okay?
+| Just \"let me know when you want to buy one\"(orange), okay?
 | You take it easy, habibti."
 )))
 ;; habibti = dear, my love, buddy (Arabic)
