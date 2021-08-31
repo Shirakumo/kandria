@@ -295,7 +295,7 @@
 (defmethod idleable-p ((drone drone)) NIL)
 
 (defmethod stage :after ((drone drone) (area staging-area))
-  (dolist (sound '(drone-damage drone-attack-001 drone-attack-002 drone-die))
+  (dolist (sound '(drone-damage drone-attack-001 drone-attack-002 drone-die drone-notice))
     (stage (// 'sound sound) area)))
 
 (defmethod movement-speed ((enemy drone))

@@ -82,8 +82,12 @@
          (cond ((< (abs (- (vx (location (unit 'player +world+))) (vx (location buoy)))) 8)
                 (cond (item
                        (harmony:play (// 'sound 'fishing-fish-caught))
-                       (when (<= 200 (price item))
-                         (harmony:play (// 'sound 'fishing-good-catch)))
+                       (cond ((< (price item) 100)
+                              (harmony:play (// 'sound 'fishing-bad-catch)))
+                             ((< (price item) 500)
+                              (harmony:play (// 'sound 'fishing-good-catch)))
+                             (T
+                              (harmony:play (// 'sound 'fishing-rare-catch))))
                        (setf (state buoy) :show)
                        (status "Caught ~a" (language-string (type-of item))))
                       (T
@@ -136,7 +140,8 @@
 (defmethod stage ((line fishing-line) (area staging-area))
   (dolist (sound '(fishing-bob-lands-in-water fishing-fish-bite fishing-fish-nibble
                    fishing-fish-bite fishing-fish-caught fishing-fish-escaped
-                   fishing-good-catch))
+                   fishing-good-catch fishing-bad-catch fishing-rare-catch
+                   fishing-big-splash))
     (stage (// 'sound sound) area))
   (stage (buoy line) area)
   (stage (// 'kandria 'fish) area))
@@ -208,6 +213,7 @@
            (store item player)))
        (leave* line T))
       (T
+       (harmony:play (// 'sound 'fishing-big-splash))
        (setf (animation player) 'fishing-reel)
        (when (item buoy)
          (enter* (item buoy) (region +world+)))
@@ -314,7 +320,7 @@ void main(){
 (define-fish three-eyed-fish 64 32 16 8
   :price 150)
 (define-fish gyofish 64 40 16 16
-  :price 50)
+  :price 300)
 (define-fish ammonite 64 56 16 16
   :price 100)
 (define-fish sand-dollar 72 0 8 8
@@ -344,17 +350,17 @@ void main(){
 (define-fish anglerfish 96 0 32 16
   :price 150)
 (define-fish action-figure 112 56 16 8
-  :price 50)
+  :price 500)
 (define-fish swordfish 0 72 64 24
   :price 300)
 (define-fish swordfish2 64 80 48 16
   :price 100)
 (define-fish nameplate 96 16 24 8
-  :price 50)
+  :price 100)
 (define-fish car-battery 96 24 8 8
   :price 50)
 (define-fish seahorse 120 16 8 8
-  :price 50)
+  :price 100)
 (define-fish trilobite 104 24 16 16
   :price 100)
 (define-fish rubber-duck 104 40 8 8

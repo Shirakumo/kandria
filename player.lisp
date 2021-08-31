@@ -60,8 +60,9 @@
 
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(player-dash player-jump player-evade player-die player-die-platforming
-                   player-low-health player-awaken player-damage land-normal enter-water
+                   player-low-health player-awaken player-damage enter-water
                    player-red-flashing zombie-die ; Used for explosion
+                   player-hard-land player-roll-land
                    player-pick-up player-enter-passage player-soft-land player-wall-slide
                    step-dirt-1 step-dirt-2 step-dirt-3 step-dirt-4
                    step-rocks-1 step-rocks-2 step-rocks-3 step-rocks-4
@@ -261,9 +262,12 @@
                        (not (eql :animated (state player))))
                   (trigger 'land player :location (nv+ (v* (velocity player) (hit-time hit))
                                                        (location player)))
-                  (if (or (retained 'left) (retained 'right))
-                      (start-animation 'roll player)
-                      (start-animation 'land player))
+                  (cond ((or (retained 'left) (retained 'right))
+                         (start-animation 'roll player)
+                         (harmony:play (// 'sound 'player-roll-land)))
+                        (T
+                         (start-animation 'land player)
+                         (harmony:play (// 'sound 'player-hard-land))))
                   (duck-camera (vx (velocity player)) (vy (velocity player)))
                   (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
                  ((and (< (vy (velocity player)) -0.5)

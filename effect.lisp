@@ -285,6 +285,9 @@ void main(){
   :voice (list (// 'sound 'drone-attack-001)
                (// 'sound 'drone-attack-002)))
 
+(define-effect drone-notice sound-effect
+  :voice (// 'sound 'drone-notice))
+
 (define-effect drone-damage sound-effect
   :voice (// 'sound 'drone-damage))
 
@@ -338,8 +341,7 @@ void main(){
                    :life 1.0 :life-var 0.5)
   :multiplier 1.5)
 
-(define-effect land basic-effect
-  :voice (// 'sound 'land-normal)
+(define-effect land sprite-effect
   :animation 'land-smash
   :layer-index 2)
 
