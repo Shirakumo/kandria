@@ -69,6 +69,7 @@
              ((< (catch-timer (item buoy)) (incf (catch-timer buoy) dt))
               (setf (catch-timer buoy) 5.0)
               (setf (item buoy) NIL)
+              (harmony:play (// 'sound 'fishing-fish-escaped))
               (setf (state buoy) :escaped))))
       (:escaped
        (when (<= (decf (catch-timer buoy) dt) 0.0)
@@ -80,6 +81,8 @@
          (incf (vx vel) (* 0.01 (signum (- (vx line) (vx (location buoy))))))
          (cond ((< (abs (- (vx (location (unit 'player +world+))) (vx (location buoy)))) 8)
                 (cond (item
+                       (when (<= 200 (price item))
+                         (harmony:play (// 'sound 'fishing-good-catch)))
                        (setf (state buoy) :show)
                        (status "Caught ~a" (language-string (type-of item))))
                       (T
@@ -130,7 +133,9 @@
 (defmethod layer-index ((fishing-line fishing-line)) +base-layer+)
 
 (defmethod stage ((line fishing-line) (area staging-area))
-  (dolist (sound '(fishing-bob-lands-in-water fishing-fish-bite fishing-fish-nibble))
+  (dolist (sound '(fishing-bob-lands-in-water fishing-fish-bite fishing-fish-nibble
+                   fishing-fish-bite fishing-fish-caught fishing-fish-escaped
+                   fishing-good-catch))
     (stage (// 'sound sound) area))
   (stage (buoy line) area)
   (stage (// 'kandria 'fish) area))
@@ -202,6 +207,7 @@
            (store item player)))
        (leave* line T))
       (T
+       (harmony:play (// 'sound 'fishing-fish-caught))
        (setf (animation player) 'fishing-reel)
        (when (item buoy)
          (enter* (item buoy) (region +world+)))

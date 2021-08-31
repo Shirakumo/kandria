@@ -285,10 +285,14 @@
   (setf (alloy:value (status-display menu)) (overview-text)))
 
 (defmethod show :before ((menu menu) &key)
+  (harmony:play (// 'sound 'ui-open-menu))
   (hide (unit 'walkntalk T)))
 
 (defmethod show :after ((menu menu) &key)
   (alloy:activate (alloy:focus-element menu)))
+
+(defmethod hide :after ((menu menu))
+  (harmony:play (// 'sound 'ui-close-menu)))
 
 (defmethod initialize-instance :after ((panel menu) &key)
   (let ((layout (make-instance 'menu-layout))

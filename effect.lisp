@@ -290,6 +290,9 @@ void main(){
 (define-effect ground-hit-soft sound-effect
   :voice (// 'sound 'sword-hit-ground-soft))
 
+(define-effect player-damage sound-effect
+  :voice (// 'sound 'player-damage))
+
 (define-effect ground-hit basic-effect
   :voice (// 'sound 'sword-hit-ground-hard)
   :animation 'hit2

@@ -110,26 +110,50 @@
         (return)))))
 
 (defmethod handle ((ev accept) (pass ui-pass))
-  (alloy:handle (make-instance 'alloy:activate) pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:activate)) pass))
 
 (defmethod handle ((ev back) (pass ui-pass))
-  (alloy:handle (make-instance 'alloy:exit) pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:exit)) pass))
 
 (defmethod handle ((ev next) (pass ui-pass))
-  (alloy:handle (make-instance 'alloy:focus-next) pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-next)) pass))
 
 (defmethod handle ((ev previous) (pass ui-pass))
-  (alloy:handle (make-instance 'alloy:focus-prev) pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-prev)) pass))
 
 (defmethod handle ((ev text-entered) (pass ui-pass))
   (or (call-next-method)
       (process-cheats (text ev))))
 
+(defmethod alloy:focus-next :around ((chain alloy:focus-chain))
+  (let ((focused (alloy:focused chain)))
+    (call-next-method)
+    (if (eql focused (alloy:focused chain))
+        (harmony:play (// 'sound 'ui-no-more-to-focus) :reset T)
+        (harmony:play (// 'sound 'ui-focus-next) :reset T))))
+
+(defmethod alloy:focus-prev :around ((chain alloy:focus-chain))
+  (let ((focused (alloy:focused chain)))
+    (call-next-method)
+    (if (eql focused (alloy:focused chain))
+        (harmony:play (// 'sound 'ui-no-more-to-focus) :reset T)
+        (harmony:play (// 'sound 'ui-focus-next) :reset T))))
+
+(defmethod alloy:notice-focus :before (thing (chain alloy:focus-chain))
+  (when (and (eql :strong (alloy:focus chain))
+             (not (eq thing (alloy:focused chain))))
+    (harmony:play (// 'sound 'ui-focus-next) :reset T)))
+
 (defmethod stage ((pass ui-pass) (area staging-area))
   (call-next-method)
   (dolist (panel (panels pass))
     (stage panel area))
-  (dolist (sound '(ui-focus-in ui-focus-out ui-location-enter))
+  (dolist (sound '(ui-focus-in ui-focus-out ui-location-enter
+                   ui-advance-dialogue ui-no-more-to-focus
+                   ui-quest-start ui-close-menu ui-dialogue-choice
+                   ui-focus-next ui-open-menu ui-quest-complete
+                   ui-quest-fail ui-scroll-dialogue ui-scroll
+                   ui-start-game ui-start-dialogue ui-use-item))
     (stage (// 'sound sound) area))
   (stage (simple:request-font pass (setting :display :font)) area)
   (stage (framebuffer pass) area))

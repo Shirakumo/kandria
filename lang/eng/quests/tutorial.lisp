@@ -22,6 +22,7 @@
   (:eval
    (setf (clock (progression 'start-game +world+)) 0)
    (start (progression 'start-game +world+))
+   (harmony:play (// 'sound 'player-awaken))
    (setf (direction player) 1)
    (start-animation 'laying player))
   (:wait 1)

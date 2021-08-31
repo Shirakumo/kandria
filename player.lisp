@@ -59,7 +59,9 @@
     (T (p! walk-limit))))
 
 (defmethod stage :after ((player player) (area staging-area))
-  (dolist (sound '(player-dash player-jump player-evade die-player land-normal enter-water
+  (dolist (sound '(player-dash player-jump player-evade player-die player-die-platforming
+                   player-low-health player-awaken player-damage land-normal enter-water
+                   player-red-flashing zombie-die ; Used for explosion
                    player-pick-up player-enter-passage player-soft-land player-wall-slide
                    step-dirt-1 step-dirt-2 step-dirt-3 step-dirt-4
                    step-rocks-1 step-rocks-2 step-rocks-3 step-rocks-4
@@ -250,7 +252,7 @@
   
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
-      (spawn (mouse-world-pos (pos ev)) (first type)))))
+      (spawn (mouse-world-pos (pos ev)) 'item:small-health-pack))))
 
 (flet ((handle-solid (player hit)
          (when (< 0 (vy (hit-normal hit)))
@@ -798,19 +800,23 @@
   (when (< 0 (limp-time player))
     (decf (limp-time player) (dt ev)))
   (let ((strength (climb-strength player)))
-    (when (< strength (p! climb-strength))
-      (let ((strength
-              (cond ((<= strength 0)
-                     (if (<= (mod (tt ev) 0.5) 0.2) 0.8 0.0))
-                    ((<= strength 1)
-                     (if (<= (mod (tt ev) 0.15) 0.08) 1.0 0.0))
-                    ((<= strength 2)
-                     (if (<= (mod (tt ev) 0.3) 0.12) 0.8 0.0))
-                    ((<= strength 3)
-                     (if (<= (mod (tt ev) 0.4) 0.15) 0.5 0.0))
-                    (T
-                     0.0))))
-        (vsetf (color player) 10 0 0 strength))))
+    (if (< strength (p! climb-strength))
+        (let ((color
+                (cond ((<= strength 0)
+                       (if (<= (mod (tt ev) 0.5) 0.2) 0.8 0.0))
+                      ((<= strength 1)
+                       (if (<= (mod (tt ev) 0.15) 0.08) 1.0 0.0))
+                      ((<= strength 2)
+                       (if (<= (mod (tt ev) 0.3) 0.12) 0.8 0.0))
+                      ((<= strength 3)
+                       (if (<= (mod (tt ev) 0.4) 0.15) 0.5 0.0))
+                      (T
+                       0.0))))
+          (if (and (< 0 strength 3) (eql :climbing (state player)))
+              (harmony:play (// 'sound 'player-red-flashing) :location (location player))
+              (harmony:stop (// 'sound 'player-red-flashing)))
+          (vsetf (color player) 10 0 0 color))
+        (harmony:stop (// 'sound 'player-red-flashing))))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
@@ -943,20 +949,24 @@
   (cond ((< (/ (health player) (maximum-health player)) 0.15))
         ((< 0 (/ health (maximum-health player)) 0.15)
          (setf (limp-time player) 10.0)
+         (harmony:play (// 'sound 'player-low-health))
          (setf (clock (progression 'low-health +world+)) 0)
          (start (progression 'low-health +world+)))
         (T
+         (harmony:stop (// 'sound 'player-low-health))
          (setf (limp-time player) 0.0))))
 
 (defmethod kill ((player player))
   (cond ((<= (health player) 0)
-         (harmony:play (// 'sound 'die-player))
-         (setf (clock (progression 'death +world+)) 0f0)
-         (start (progression 'death +world+)))
+         (unless (find (state player) '(:dying :respawning))
+           (harmony:play (// 'sound 'player-die))
+           (setf (clock (progression 'death +world+)) 0f0)
+           (start (progression 'death +world+))))
         (T
          (vsetf (velocity player) 0 0)
          (setf (animation player) 'die)
          (setf (state player) :respawning)
+         (harmony:play (// 'sound 'player-die-platforming))
          (transition
            (respawn player)))))
 

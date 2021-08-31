@@ -41,9 +41,6 @@
     (alloy:finish-structure dialog layout (choices dialog))
     (setf (interactions dialog) (interactions dialog))))
 
-(defmethod stage :after ((dialog dialog) (area staging-area))
-  (stage (// 'sound 'ui-start-dialogue) area))
-
 (defmethod show :after ((dialog dialog) &key)
   (when (= 1.0 (intended-zoom (unit :camera T)))
     (setf (intended-zoom (unit :camera T)) 1.5))
@@ -112,7 +109,7 @@
              (alloy:activate (choices dialog))))
           ((prompt dialog)
            (setf (prompt dialog) NIL)
-           (harmony:play (// 'sound 'dialogue-advance))
+           (harmony:play (// 'sound 'ui-advance-dialogue))
            (advance dialog))
           (T
            (loop until (or (pending dialog) (prompt dialog))

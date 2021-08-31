@@ -19,6 +19,7 @@
     (:new
      (setf (state +main+) (alloy:value button))
      ;; FIXME: allow user to enter name.
+     (harmony:play (// 'sound 'ui-start-game))
      (setf (author (state +main+)) (pathname-utils:directory-name (user-homedir-pathname)))
      (load-game NIL +main+))
     (:load

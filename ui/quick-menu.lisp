@@ -64,6 +64,7 @@
   (title (alloy:value button)))
 
 (defmethod alloy:activate ((button item-button))
+  (harmony:play (// 'sound 'ui-use-item) :reset T)
   (use (alloy:value button) (inventory button))
   (alloy:mark-for-render button)
   (when (= 0 (item-count (alloy:value button) (inventory button)))

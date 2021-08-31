@@ -115,17 +115,13 @@
    (scroll-index :initform 0 :accessor scroll-index)
    (textbox :accessor textbox)))
 
-(defmethod stage :after ((textbox textbox) (area staging-area))
-  (stage (// 'sound 'dialogue-scroll) area)
-  (stage (// 'sound 'dialogue-advance) area))
-
 (defmethod at-end-p ((textbox textbox))
   (<= (length (text textbox))
       (scroll-index textbox)))
 
 (defun scroll-text (textbox &optional (to (1+ (scroll-index textbox))))
   (when (<= to (length (text textbox)))
-    (harmony:play (// 'sound 'dialogue-scroll))
+    (harmony:play (// 'sound 'ui-scroll-dialogue))
     (setf (scroll-index textbox) to)
     (setf (org.shirakumo.alloy.renderers.opengl.msdf::vertex-count
            (presentations:find-shape :label (textbox textbox)))
@@ -147,7 +143,7 @@
                (setf (text textbox) (clear-text-string))
                (setf (scroll-index textbox) 0)
                (setf (choices textbox) ())
-               (harmony:play (// 'sound 'dialogue-advance))
+               (harmony:play (// 'sound 'ui-advance-dialogue))
                (etypecase target
                  (integer
                   (setf (ip textbox) target))
@@ -164,7 +160,7 @@
   (handle ev (profile textbox))
   (cond ((and (at-end-p textbox)
               (not (prompt textbox)))
-         (harmony:stop (// 'sound 'dialogue-scroll))
+         (harmony:stop (// 'sound 'ui-scroll-dialogue))
          (cond ((< 0 (pause-timer textbox))
                 (decf (pause-timer textbox) (dt ev)))
                ((pending textbox)
@@ -204,6 +200,7 @@
       (setf (pending textbox) (list :end))))
 
 (defmethod handle ((rq dialogue:choice-request) (textbox textbox))
+  (harmony:play (// 'sound 'ui-dialogue-choice))
   (setf (choices textbox) (cons (dialogue:choices rq)
                                 (dialogue:targets rq))))
 

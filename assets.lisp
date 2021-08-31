@@ -72,7 +72,7 @@
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.wav")
   (T :volume 0.1)
-  (dialogue-scroll :repeat T :volume 0.2)
+  (ui-scroll-dialogue :repeat T :volume 0.2)
   (die-box :volume 0.05)
   (earthquake :volume 0.5)
   (jump :volume 0.025)
@@ -85,10 +85,12 @@
   (falling-platform-rattle :volume 0.5)
   (falling-platform-impact :volume 0.5)
   (player-dash :volume 0.2)
-  (player-enter-passage :volume 0.5))
+  (player-enter-passage :volume 0.5)
+  (player-red-flashing :repeat T :volume 0.2))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.1)
+  (player-low-health :volume 0.1 :min-distance 100000000000.0 :max-distance 100000100000.0)
   (ambience-water-pipe-leak :repeat T :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3)))
 
 (define-bg tundra
