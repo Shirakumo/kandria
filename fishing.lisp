@@ -81,6 +81,7 @@
          (incf (vx vel) (* 0.01 (signum (- (vx line) (vx (location buoy))))))
          (cond ((< (abs (- (vx (location (unit 'player +world+))) (vx (location buoy)))) 8)
                 (cond (item
+                       (harmony:play (// 'sound 'fishing-fish-caught))
                        (when (<= 200 (price item))
                          (harmony:play (// 'sound 'fishing-good-catch)))
                        (setf (state buoy) :show)
@@ -207,7 +208,6 @@
            (store item player)))
        (leave* line T))
       (T
-       (harmony:play (// 'sound 'fishing-fish-caught))
        (setf (animation player) 'fishing-reel)
        (when (item buoy)
          (enter* (item buoy) (region +world+)))

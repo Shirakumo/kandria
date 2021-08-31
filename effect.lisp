@@ -406,3 +406,12 @@ void main(){
                                                 :offset (vec 64 144))))
                (enter flash +world+)
                (compile-into-pass flash NIL (unit 'lighting-pass +world+)))))
+
+(define-effect climb closure-effect
+  :closure (lambda (source &rest args)
+             (if (typep (interactable source) 'rope)
+                 (harmony:play (alexandria:random-elt
+                                (list (// 'sound 'rope-climb-1)
+                                      (// 'sound 'rope-climb-2)
+                                      (// 'sound 'rope-climb-3)))
+                               :reset T))))
