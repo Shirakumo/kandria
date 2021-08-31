@@ -153,6 +153,11 @@
          (:complete (setf (quest:status quest:interaction) :inactive)))
        (quest:activate quest:interaction))
       (:complete
+       ;; Repeatable interactions need to be activated again first to ensure they appear on
+       ;; the list of interactions.
+       (when (and (repeatable-p quest:interaction)
+                  (quest:active-p (quest:task quest:interaction)))
+         (quest:activate quest:interaction))
        (quest:complete quest:interaction)))))
 
 (define-encoder (region save-v0) (_b packet)
