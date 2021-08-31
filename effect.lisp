@@ -281,8 +281,18 @@ void main(){
 (define-effect wolf-die sound-effect
   :voice (// 'sound 'wolf-die))
 
+(define-effect drone-notice sound-effect
+  :voice (// 'sound 'drone-notice))
+
+(define-effect drone-attack sound-effect
+  :voice (list (// 'sound 'drone-attack-001)
+               (// 'sound 'drone-attack-002)))
+
 (define-effect drone-damage sound-effect
   :voice (// 'sound 'drone-damage))
+
+(define-effect drone-die sound-effect
+  :voice (// 'sound 'drone-die))
 
 (define-effect pickup sound-effect
   :voice (// 'sound 'player-pick-up))
@@ -301,7 +311,7 @@ void main(){
   :multiplier 10.0)
 
 (define-effect zombie-notice sound-effect
-  :voice (// 'sound 'notice-zombie))
+  :voice (// 'sound 'zombie-notice))
 
 (define-shader-entity explosion-effect (displacement-effect basic-effect)
   ((layer-index :initform 2)))

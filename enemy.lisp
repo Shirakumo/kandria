@@ -222,7 +222,7 @@
    :sprite-data (asset 'kandria 'zombie)))
 
 (defmethod stage :after ((zombie zombie) (area staging-area))
-  (dolist (sound '(notice-zombie zombie-attack zombie-damage zombie-die))
+  (dolist (sound '(zombie-notice zombie-attack zombie-damage zombie-die))
     (stage (// 'sound sound) area)))
 
 (defmethod movement-speed ((enemy zombie))
@@ -295,7 +295,8 @@
 (defmethod idleable-p ((drone drone)) NIL)
 
 (defmethod stage :after ((drone drone) (area staging-area))
-  (stage (// 'sound 'drone-damage) area))
+  (dolist (sound '(drone-damage drone-attack-001 drone-attack-002 drone-die))
+    (stage (// 'sound sound) area)))
 
 (defmethod movement-speed ((enemy drone))
   (case (ai-state enemy)
