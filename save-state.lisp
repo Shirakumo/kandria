@@ -70,7 +70,7 @@
       (apply #'make-instance 'save-state :file file initargs))))
 
 (defun current-save-version ()
-  (make-instance 'save-v1.1))
+  (make-instance 'save-v1.2))
 
 (defgeneric load-state (state world))
 (defgeneric save-state (world state &key version &allow-other-keys))
