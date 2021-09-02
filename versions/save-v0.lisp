@@ -18,7 +18,9 @@
       (princ* (list :region (name region)
                     :clock (clock world)
                     :timestamp (timestamp world)
-                    :zoom (zoom (unit :camera world)))
+                    :zoom (if (find-panel 'editor)
+                              1.0
+                              (zoom (unit :camera world))))
               stream))))
 
 (define-decoder (world save-v0) (_b packet)
