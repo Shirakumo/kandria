@@ -138,16 +138,6 @@
     (status :note "Screenshot saved to ~a" file)
     (v:info :kandria "Screenshot saved to ~a" file)))
 
-(defmethod handle :after ((ev quickmenu) (world world))
-  (cond ((find-panel 'quick-menu)
-         (hide-panel 'quick-menu))
-        ((find-panel 'menuing-panel)
-         (unless (or (find-panel 'menu)
-                     (find-panel 'main-menu))
-           (status "Can't pause right now.")))
-        (T
-         (show-panel 'quick-menu))))
-
 (defmethod handle :after ((ev toggle-menu) (world world))
   (cond ((pausing-possible-p)
          (show-panel 'menu))

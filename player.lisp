@@ -140,6 +140,10 @@
   (save-state +main+ T)
   (status "Game saved."))
 
+(defmethod handle :after ((ev quickmenu) (player player))
+  (unless (path player)
+    (toggle-panel 'quick-menu)))
+
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))
     (when endangering
