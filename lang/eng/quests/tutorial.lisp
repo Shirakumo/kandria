@@ -10,8 +10,11 @@
    (setf (music-state 'region1) :ambient)
    (activate (unit 'dash-prompt))
    (setf (location 'player) (location 'tutorial-start))
+   (setf (direction player) 1)
    (setf (state (unit 'player)) :animated)
-   (ensure-nearby 'walk-start 'catherine))
+   (ensure-nearby 'walk-start 'catherine)
+   (setf (nametag (unit 'catherine)) "???")
+   (setf (nametag player) "Android"))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
   ;;         the reason for this being that setting stuff like the animation on the player
   ;;         requires the player to have been fully loaded, which is not necessarily the
@@ -23,10 +26,7 @@
    (setf (clock (progression 'start-game +world+)) 0)
    (start (progression 'start-game +world+))
    (harmony:play (// 'sound 'player-awaken))
-   (setf (direction player) 1)
-   (start-animation 'laying player)
-   (setf (nametag (unit 'catherine)) "???")
-   (setf (nametag player) "Android"))
+   (start-animation 'laying player))
   (:wait 1)
   (:animate (player wake-up))
   (:interact (catherine :now T)
@@ -47,7 +47,7 @@
   (:go-to (dash-start :with catherine))
   (:eval
    (ensure-nearby 'dash-start 'catherine)
-   (move :freeze 'player)
+   (move :freeze player)
    (move :left 'catherine))
   (:nearby (dash-end catherine)
            (stop 'catherine)
