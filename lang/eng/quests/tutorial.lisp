@@ -6,8 +6,6 @@
   :title "Intro"
   :visible NIL
   (:eval
-   (setf (music-state 'camp) :ambient)
-   (setf (music-state 'region1) :ambient)
    (activate (unit 'dash-prompt))
    (setf (location 'player) (location 'tutorial-start))
    (setf (direction player) 1)

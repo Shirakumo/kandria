@@ -70,7 +70,9 @@
     (alloy:enter bar layout :constraints `((:bottom 50) (:center :w) (:width 500) (:height 30)))
     (alloy:finish-structure panel layout NIL)))
 
-(defmethod trial:commit :after (thing (loader load-screen) &key unload show-screen cold))
+(defmethod trial:commit :after (thing (loader load-screen) &key unload show-screen cold)
+  (declare (ignore unload show-screen cold)))
+
 (defmethod trial:commit ((area staging-area) (loader load-screen) &key unload show-screen cold)
   (when unload
     (clear-spawns))
@@ -85,6 +87,8 @@
         (transition
           :kind :black
           (hide-panel 'load-panel))
+        (when unload
+          (issue +world+ 'load-complete))
         (when (find-restart 'trial::reset-render-loop)
           (invoke-restart 'trial::reset-render-loop)))
       (let ((*show-load-screen* NIL))

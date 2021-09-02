@@ -21,25 +21,29 @@
                     :zoom (if (find-panel 'editor)
                               1.0
                               (zoom (unit :camera world))))
+              stream)
+      (princ* (encode (unit 'environment world))
               stream))))
 
 (define-decoder (world save-v0) (_b packet)
-  (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)) (zoom 1.0))
-      (first (parse-sexps (packet-entry "global.lisp" packet :element-type 'character)))
-    (setf (clock world) clock)
-    (setf (timestamp world) timestamp)
-    (setf (zoom (unit :camera world)) zoom)
-    (setf (intended-zoom (unit :camera world)) zoom)
-    (let* ((region (cond ((and (region world) (eql region (name (region world))))
-                          ;; Ensure we trigger necessary region reset events even if we're still in the same region.
-                          (issue world 'switch-region :region (region world))
-                          (region world))
-                         (T
-                          (load-region region world))))
-           (initargs (ignore-errors (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
-                                                                      packet :element-type 'character))))))
-      (when initargs (decode region initargs))
-      (setf (storyline world) (decode 'quest:storyline)))))
+  (destructuring-bind (world-data &optional env-data) (parse-sexps (packet-entry "global.lisp" packet :element-type 'character))
+    (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)) (zoom 1.0)) world-data
+      (setf (clock world) clock)
+      (setf (timestamp world) timestamp)
+      (setf (zoom (unit :camera world)) zoom)
+      (setf (intended-zoom (unit :camera world)) zoom)
+      (let* ((region (cond ((and (region world) (eql region (name (region world))))
+                            ;; Ensure we trigger necessary region reset events even if we're still in the same region.
+                            (issue world 'switch-region :region (region world))
+                            (region world))
+                           (T
+                            (load-region region world))))
+             (initargs (ignore-errors (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
+                                                                        packet :element-type 'character))))))
+        (when initargs (decode region initargs))
+        (setf (storyline world) (decode 'quest:storyline))))
+    (when env-data
+      (decode (unit 'environment world) env-data))))
 
 (define-encoder (quest:storyline save-v0) (_b packet)
   (with-packet-entry (stream "storyline.lisp" packet
@@ -358,7 +362,8 @@
       (setf (pending-animation interactable-animated-sprite) (getf initargs :animation))))
 
 (define-encoder (environment-controller save-v0) (_b _p)
-  `(:environment ,(name (environment environment-controller))
+  `(:environment ,(when (environment environment-controller)
+                    (name (environment environment-controller)))
     :area-states ,(area-states environment-controller)
     :override ,(if (symbolp (override environment-controller))
                    (override environment-controller)
@@ -367,5 +372,7 @@
 (define-decoder (environment-controller save-v0) (initargs _p)
   (destructuring-bind (&key area-states environment override) initargs
     (setf (area-states environment-controller) area-states)
-    (setf (override environment-controller) (decode override 'resource))
+    (setf (override environment-controller) (if (symbolp override)
+                                                override
+                                                (decode override 'resource)))
     (switch-environment environment-controller (environment environment))))

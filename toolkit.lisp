@@ -559,6 +559,9 @@
 (defclass force-lighting (event)
   ())
 
+(defclass load-complete (event)
+  ())
+
 (defclass unpausable () ())
 
 (defclass ephemeral (entity)

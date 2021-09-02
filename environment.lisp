@@ -30,6 +30,7 @@
 (defun (setf music-state) (state area)
   (issue +world+ 'switch-music-state :area area :state state))
 
+(defclass environment () ()) ; Early def
 (defclass environment-controller (unit listener)
   ((name :initform 'environment)
    (environment :initarg :environment :initform NIL :accessor environment)
@@ -68,9 +69,13 @@
       (when (ambience env)
         (harmony:transition (ambience env) state :in 3.0)))))
 
-(defmethod switch-environment ((controller environment-controller) environment)
+(defmethod switch-environment ((controller environment-controller) (name symbol))
+  (switch-environment controller (environment name)))
+
+(defmethod switch-environment ((controller environment-controller) (environment environment))
   (unless (override controller)
-    (switch-environment (environment controller) environment))
+    (when (allocated-p environment)
+      (switch-environment (environment controller) environment)))
   (setf (environment controller) environment))
 
 (defmethod (setf override) :before ((override null) (controller environment-controller))
@@ -83,11 +88,12 @@
     (harmony:transition (override controller) 0.0 :in 3.0))
   (switch-environment (environment controller) NIL))
 
-(defmethod (setf override) :before (override (controller environment-controller))
-  (if (override controller)
-      (harmony:transition (override controller) 0.0 :in 3.0)
-      (switch-environment (environment controller) NIL))
-  (harmony:transition override 1.0 :in 3.0))
+(defmethod (setf override) :before ((override resource) (controller environment-controller))
+  (when (allocated-p override)
+    (if (override controller)
+        (harmony:transition (override controller) 0.0 :in 3.0)
+        (switch-environment (environment controller) NIL))
+    (harmony:transition override 1.0 :in 3.0)))
 
 (defmethod harmony:transition ((controller environment-controller) (to real) &key (in 1.0))
   (cond ((override controller)
@@ -95,11 +101,21 @@
         ((environment controller)
          (harmony:transition (environment controller) to :in in))))
 
+(defmethod handle ((event load-complete) (controller environment-controller))
+  (setf (override controller) (override controller))
+  (switch-environment controller (environment controller)))
+
 (defclass environment ()
   ((name :initarg :name :initform NIL :accessor name)
    (music :initarg :music :initform NIL :accessor music)
    (ambience :initarg :ambience :initform NIL :accessor ambience)
    (area :initarg :area :initform NIL :accessor area)))
+
+(defmethod allocated-p ((environment environment))
+  (let ((music (music environment))
+        (ambience (ambience environment)))
+    (and (or (null ambience) (allocated-p ambience))
+         (or (null music) (allocated-p music)))))
 
 (defmethod stage ((environment environment) (area staging-area))
   (when (music environment) (stage (music environment) area))
@@ -120,10 +136,6 @@
     (when (not (eq environment (environment controller)))
       (switch-environment (environment controller) environment))))
 
-(defmethod switch-environment ((controller environment-controller) (environment environment))
-  (switch-environment (environment controller) environment)
-  (setf (environment controller) environment))
-
 (defmethod switch-environment ((a null) (b null)))
 
 (defmethod switch-environment ((none null) (environment environment))
@@ -141,14 +153,14 @@
 
 (defmethod switch-environment ((from environment) (to environment))
   (let ((state (state to)))
-    (flet ((tx (a b in)
+    (flet ((tx (a b in &optional (state state))
              (unless (eq a b)
                (when a
                  (harmony:transition a NIL :in in)))
              (when b
                (harmony:transition b state :in in :error NIL))))
       (tx (music from) (music to) 5.0)
-      (tx (ambience from) (ambience to) 3.0))))
+      (tx (ambience from) (ambience to) 3.0 :normal))))
 
 (defmethod harmony:transition ((environment environment) (to real) &key (in 1.0))
   (when (music environment)
