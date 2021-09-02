@@ -16,10 +16,11 @@
 (presentations:define-update (ui header)
   (:label
    :size (case (level alloy:renderable)
+           (0 (alloy:un 50))
            (1 (alloy:un 35))
            (2 (alloy:un 25))
            (T (alloy:un 20)))
-   :valign :bottom
+   :valign :middle
    :halign :middle))
 
 (defclass icon (alloy:direct-value-component alloy:icon)

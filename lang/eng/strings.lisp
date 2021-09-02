@@ -292,7 +292,8 @@ fish:toy-submarine/description "I think there was a famous song about one of the
 fish:alligator "Alligator"
 fish:alligator/description "It's not a crocodile - the snout gives it away."
 ;; UI
-game-over-title "Game Over"
+game-over-title "Game over"
+game-paused-title "Game paused"
 go-backwards-in-ui "Back"
 new-game "New game"
 load-game "Load game"

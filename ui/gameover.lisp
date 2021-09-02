@@ -1,14 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass header (label)
-  ())
-
-(presentations:define-update (ui header)
-  (:label
-   :size (alloy:un 70)
-   :halign :middle
-   :valign :middle))
-
 (defclass pause-button (button)
   ())
 
@@ -30,7 +21,7 @@
   (let* ((layout (make-instance 'eating-constraint-layout))
          (focus (make-instance 'alloy:focus-list))
          (buttons (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 40)))
-         (header (make-instance 'header :value #@game-over-title)))
+         (header (make-instance 'header :value #@game-over-title :level 0)))
     (macrolet ((with-button (name &body body)
                  `(make-instance 'pause-button :focus-parent focus :layout-parent buttons
                                                :value (@ ,name) :on-activate (lambda () ,@body))))
