@@ -43,11 +43,15 @@
 
 (defmethod update ((main main) tt dt fc)
   (let* ((scene (scene main))
-         (dt (* (time-scale scene) (float dt 1.0))))
+         (dt (* (time-scale scene) (float dt 1.0)))
+         (ev (load-time-value (make-instance 'tick))))
     (when (< 0 (pause-timer scene))
       (decf (pause-timer scene) dt)
       (setf dt (* dt 0.0)))
-    (issue scene 'tick :tt tt :dt dt :fc fc)
+    (setf (slot-value ev 'tt) tt)
+    (setf (slot-value ev 'dt) dt)
+    (setf (slot-value ev 'fc) fc)
+    (issue scene ev)
     (process scene)))
 
 (defmethod (setf scene) :after (scene (main main))
