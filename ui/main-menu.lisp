@@ -103,7 +103,10 @@
           (setf (alloy:focus exit) :weak)
           (setf (alloy:focus focus) :strong)))
       (let ((news (make-instance 'news-display)))
-        (alloy:enter news layout :constraints `((:left 5) (:bottom 5) (:height 50) (:width 500)))))
+        (alloy:enter news layout :constraints `((:left 5) (:bottom 5) (:height 60) (:width 500))))
+      (let ((version (make-instance 'label :value (format NIL "v~a" (version :app))
+                                           :style `((:label :pattern ,colors:gray :halign :right :valign :bottom :size ,(alloy:un 10))))))
+        (alloy:enter version layout :constraints `((:right 5) (:bottom 5) (:height 60) (:width 500)))))
     (alloy:finish-structure panel layout focus)))
 
 (define-shader-entity fullscreen-background (lit-entity textured-entity trial:fullscreen-entity)
