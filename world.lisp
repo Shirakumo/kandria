@@ -122,7 +122,8 @@
   (apply-video-settings))
 
 (defmethod handle :after ((ev toggle-editor) (world world))
-  (unless (find-panel 'menu)
+  (when (and (not (find-panel 'menu))
+             (region world))
     (toggle-panel 'editor)))
 
 (defmethod handle :after ((ev toggle-diagnostics) (world world))
