@@ -66,7 +66,7 @@
   (let ((layout (make-instance 'eating-constraint-layout))
         (menu (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5) :min-size (alloy:size 100 30)))
         (focus (make-instance 'alloy:focus-list)))
-    (alloy:enter menu layout :constraints `((:center :w) (:bottom 20) (:height 300) (:width 200)))
+    (alloy:enter menu layout :constraints `((:center :w) (:bottom 20) (:height 300) (:width 250)))
     (macrolet ((with-button ((name &rest initargs) &body body)
                  `(make-instance 'main-menu-button :value (@ ,name) :on-activate (lambda ()
                                                                                    (discard-events +world+)
