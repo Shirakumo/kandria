@@ -2,7 +2,7 @@
 
 (defmethod handle ((ev lose-focus) (main main))
   (when (and (setting :gameplay :pause-on-focus-loss)
-             (unit 'ui-pass T))
+             (unit 'environment (scene main)))
     (show-panel 'pause-screen)))
 
 (defmethod handle ((ev gain-focus) (main main))
