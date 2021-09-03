@@ -127,7 +127,7 @@
   ((health :accessor health)
    (location :accessor location)
    (lines :accessor lines)
-   (timer :accessor timer)))
+   (timer :initform NIL :accessor timer)))
 
 (defmethod initialize-instance :after ((hud hud) &key (player (unit 'player T)))
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
