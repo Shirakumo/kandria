@@ -119,7 +119,7 @@
 | - [(not (active-p 'sq3-race)) (Time trials)|]
 |   ~ catherine
 |   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do!
-|   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and bring back.
+|   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and return.
 |   | I'll record your times for posterity - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
 |   | Once you've completed one, then I can tell you about the next route! Them's the rules.
 |   | (:excited)Just \"tell me when you want to start\"(orange), and we'll get this show on the road!
