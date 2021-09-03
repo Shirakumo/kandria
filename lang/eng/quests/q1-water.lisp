@@ -163,7 +163,7 @@
 | Give me a second.
 | ...
 ! eval (setf (animation (unit 'main-leak-3)) 'normal)
-| There, that should do it.
+| There, that should hold it.
 | Now, where is that telephone?
   ")
   ;; TODO Catherine relieved - Oh man, we got here just in time.
