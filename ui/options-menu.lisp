@@ -189,6 +189,7 @@
       (control screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 1.0)
       (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01)
       (control auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 1.0)
+      (control pause-on-focus-loss (:gameplay :pause-on-focus-loss) 'alloy:switch)
       (control invincible-player (:gameplay :god-mode) 'alloy:switch)
       (control infinite-dash (:gameplay :infinite-dash) 'alloy:switch)
       (control player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))

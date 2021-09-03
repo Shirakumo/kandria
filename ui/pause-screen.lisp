@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defmethod handle ((ev lose-focus) (main main))
-  (show-panel 'pause-screen))
+  (when (setting :gameplay :pause-on-focus-loss)
+    (show-panel 'pause-screen)))
 
 (defmethod handle ((ev gain-focus) (main main))
   (hide-panel 'pause-screen))
