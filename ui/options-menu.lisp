@@ -196,7 +196,10 @@
       (control infinite-dash (:gameplay :infinite-dash) 'alloy:checkbox)
       (control player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
     (with-tab language-settings
-      (control game-language (:language) 'alloy:combo-set :value-set (languages)))
+      (control game-language (:language) 'alloy:combo-set :value-set (languages))
+      ;; TODO: options to replace swears
+      ;; TODO: options to avoid text effects
+      )
     (alloy:on alloy:exit ((alloy:focus-element panel))
       (when (active-p panel)
         (hide panel)))))
