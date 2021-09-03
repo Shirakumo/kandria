@@ -224,6 +224,10 @@
 
 (defmethod handle ((ev stop-fishing) (player player))
   (let ((line (fishing-line player)))
+    (let ((item (item (buoy line))))
+      (when item
+        (leave* item T)
+        (store item player)))
     (when (slot-boundp line 'container)
       (leave* line T))
     (hide (prompt player))
