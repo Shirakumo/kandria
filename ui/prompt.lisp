@@ -105,6 +105,17 @@
    :valign :middle
    :halign :middle))
 
+(animation:define-animation (pulse :loop T)
+  0.0 ((setf presentations:scale) (alloy:px-size 1.0))
+  0.3 ((setf presentations:scale) (alloy:px-size 1.2) :easing animation::quint-in)
+  0.6 ((setf presentations:scale) (alloy:px-size 1.0) :easing animation::quint-out))
+
+(defmethod presentations:realize-renderable :after ((ui ui) (prompt big-prompt))
+  (let ((text (presentations:find-shape :label prompt)))
+    ;; KLUDGE: no idea why this pivot is like this, but whatever...
+    (setf (presentations:pivot text) (alloy:point 180 45))
+    (animation:apply-animation 'pulse text)))
+
 (defclass big-prompt-title (alloy:label*)
   ())
 
