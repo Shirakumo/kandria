@@ -109,6 +109,9 @@
   (setf (override controller) (override controller))
   (switch-environment controller (environment controller)))
 
+(defmethod harmony:transition ((nothing (eql 'null)) to &key in)
+  (declare (ignore nothing to in)))
+
 (defclass environment ()
   ((name :initarg :name :initform NIL :accessor name)
    (music :initarg :music :initform NIL :accessor music)

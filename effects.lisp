@@ -67,10 +67,15 @@ void main(){
 }")
 
 (define-progression death
-  0 1.0 (distortion (set strength :from 0.0 :to 1.0))
-  1.5 1.5 (fade (set strength :to 1.0) (call (lambda (fade clock step) (setf (kind fade) :blue))))
+  0.0 1.0 (distortion (set strength :from 0.0 :to 1.0))
+  1.0 1.0 (fade (call (lambda (fade clock step)
+                        (setf (direction fade) 0.0)
+                        (setf (strength fade) 0.0)
+                        (setf (kind fade) :blue))))
+  1.0 1.5 (fade (set strength :from 0.0 :to 1.0 :ease expo-in))
+  1.5 1.5 (T (call (lambda (world clock step) (show-panel 'game-over))))
   1.5 2.0 (distortion (set strength :from 1.0 :to 0.0))
-          (fade (set strength :to 0.0)))
+          (fade (set strength :to 0.0 :ease expo-out)))
 
 (define-progression hurt
   0.0 0.2 (distortion (set strength :from 0.0 :to 0.7 :ease expo-out))

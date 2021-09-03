@@ -127,6 +127,8 @@
       (setf (strength (unit 'distortion T)) 0.0))
     (when (unit 'walkntalk world)
       (walk-n-talk NIL))
+    (dolist (progression (progressions world))
+      (reset progression))
     (setf (area-states (unit 'environment world)) NIL)
     (let ((version (coerce-version (getf header :version))))
       (decode-payload NIL world packet version)

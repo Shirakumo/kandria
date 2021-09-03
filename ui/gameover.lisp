@@ -18,7 +18,7 @@
   ())
 
 (defmethod initialize-instance :after ((panel game-over) &key)
-  (let* ((layout (make-instance 'eating-constraint-layout))
+  (let* ((layout (make-instance 'load-screen-layout :style `((:bg :pattern ,(colored:color 0.2 0.3 0.7 0.75)))))
          (focus (make-instance 'alloy:focus-list))
          (buttons (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 40)))
          (header (make-instance 'header :value #@game-over-title :level 0)))
@@ -29,10 +29,11 @@
         (with-button resume-game
           (setf (health (unit 'player T))
                 (maximum-health (unit 'player T)))
+          (setf (state (unit 'player T)) :normal)
           (hide panel)))
       (with-button load-last-save
-        (load-state T +main+)
-        (hide panel))
+        (hide panel)
+        (load-state T +main+))
       (with-button return-to-main-menu
         (reset (unit 'environment +world+))
         (transition

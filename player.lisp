@@ -959,8 +959,7 @@
 (defmethod (setf health) :before (health (player player))
   (when (< (health player) health)
     (setf (combat-time player) 0f0))
-  (cond ((< (/ (health player) (maximum-health player)) 0.15))
-        ((< 0 (/ health (maximum-health player)) 0.15)
+  (cond ((<= 0 (/ health (maximum-health player)) 0.15)
          (setf (limp-time player) 10.0)
          (harmony:play (// 'sound 'player-low-health))
          (setf (clock (progression 'low-health +world+)) 0)
@@ -971,10 +970,12 @@
 
 (defmethod kill ((player player))
   (cond ((<= (health player) 0)
-         (unless (find (state player) '(:dying :respawning))
-           (harmony:play (// 'sound 'player-die))
-           (setf (clock (progression 'death +world+)) 0f0)
-           (start (progression 'death +world+))))
+         (setf (state player) :dying)
+         (setf (animation player) 'die)
+         (setf (override (unit 'environment +world+)) 'null)
+         (harmony:play (// 'sound 'player-die))
+         (setf (clock (progression 'death +world+)) 0f0)
+         (start (progression 'death +world+)))
         (T
          (vsetf (velocity player) 0 0)
          (setf (animation player) 'die)
@@ -983,9 +984,7 @@
          (transition
            (respawn player)))))
 
-(defmethod die ((player player))
-  (unless (eql :respawning (state player))
-    (show-panel 'game-over)))
+(defmethod die ((player player)))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
