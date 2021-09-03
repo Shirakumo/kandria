@@ -6,7 +6,7 @@
 (quest:define-quest (kandria sq3-race)
   :author "Tim White"
   :title "Timed Travel"
-  :description "Catherine wants to see what I'm capable of. She's had Alex plant cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get."
+  :description "Catherine and her friends want to see what I'm capable of. She's had Alex plant cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get."
   :on-activate (race-hub)
   (race-hub
    :title "Talk to Catherine in Engineering to start a race"

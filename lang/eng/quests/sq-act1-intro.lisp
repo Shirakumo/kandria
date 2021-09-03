@@ -78,7 +78,7 @@
 | |?
 | | | (:normal)We've got enough mushrooms for the time being, so don't worry about that.
 | ? (and (not (active-p 'sq3-race)) (not (complete-p 'sq3-race)))
-| | | (:excited)Oh, I've been talking to my friends - we're all eager to see what you're really capable of.
+| | | (:excited)Oh, I've been speaking with my friends - we're all eager to see what you're really capable of.
 | | | How do time trial sweepstakes sound, eh?
 | |?
 | | | (:excited)Remember, you can tell me later if you want to race in the time trials too.
