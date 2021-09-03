@@ -70,7 +70,11 @@
         (harmony:transition (ambience env) state :in 3.0)))))
 
 (defmethod switch-environment ((controller environment-controller) (name symbol))
-  (switch-environment controller (environment name)))
+  (cond (name
+         (switch-environment controller (environment name)))
+        (T
+         (switch-environment (environment controller) NIL)
+         (setf (environment controller) NIL))))
 
 (defmethod switch-environment ((controller environment-controller) (environment environment))
   (unless (override controller)
