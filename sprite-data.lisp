@@ -174,7 +174,7 @@
                      ;; by updating frame data per-animation here. We have to assume that
                      ;; frames are only removed or added at the end of an animation, as we
                      ;; can't know anything more.
-                     (when (and start end)
+                     (when (and start end (< 0 (length frames)))
                        (let ((rstart (start animation))
                              (rend (end animation))
                              (rframes (frames sprite)))
