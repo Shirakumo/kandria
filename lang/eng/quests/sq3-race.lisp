@@ -164,7 +164,7 @@
           :repeatable T
           :dialogue "
 ~ player
-| \"This is the right place - \"the can must be close by\"(orange).\"(light-gray, italic)
+| \"This is the right place for the race - \"the can must be close by\"(orange).\"(light-gray, italic)
 "))
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine in Engineering ASAP"
