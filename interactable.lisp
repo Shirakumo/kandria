@@ -41,6 +41,10 @@
 (define-shader-entity leak (interactable-animated-sprite audible-entity)
   ((voice :initform (// 'sound 'ambience-water-pipe-leak))))
 
+(defmethod (setf animation) :after (animation (leak leak))
+  (unless (active-p leak)
+    (harmony:stop (voice leak))))
+
 (defmethod active-p ((leak leak))
   (not (eq 'normal (name (animation leak)))))
 
