@@ -11,7 +11,7 @@
  (key :one-of (:f1)))
 
 (trigger toggle-menu
- (key :one-of (:tab :esc :escape))
+ (key :one-of (:tab))
  (button :one-of (:select :home :start)))
 
 (trigger screenshot
@@ -43,7 +43,7 @@
  (button :one-of (:a)))
 
 (trigger back
- (key :one-of (:esc :escape))
+ (key :one-of (:esc :escape :backspace))
  (button :one-of (:b)))
 
 (trigger quickmenu
