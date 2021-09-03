@@ -57,7 +57,7 @@
   | And I value fresh perspective. I don't get much of that around here.
   < questions
 ~ fi
-| I haven't told the others about the harvest, but they aren't blind. I'm telling you because I think you can help.
+| I haven't told the others about the failing crops, but they aren't blind. I'm telling you because I think you can help.
 | There's a place \"across the surface\"(orange) and beneath the \"Ruins to the east\"(orange), where we first found the seeds that you see growing before you.
 | \"Alex\"(yellow) found it, our hunter. I want you to retrace their steps, \"find the cache\"(orange), and if it's intact \"recover all the seeds\"(orange) that remain.
 | If we can sow enough of them, and soon enough, then...
