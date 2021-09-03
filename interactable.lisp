@@ -43,7 +43,8 @@
 
 (defmethod (setf animation) :after (animation (leak leak))
   (unless (active-p leak)
-    (harmony:stop (voice leak))))
+    (when (allocated-p (voice leak))
+      (harmony:stop (voice leak)))))
 
 (defmethod active-p ((leak leak))
   (not (eq 'normal (name (animation leak)))))
