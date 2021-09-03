@@ -16,6 +16,32 @@
 (defmethod org.shirakumo.alloy.renderers.opengl.msdf:fontcache-directory ((ui ui))
   (pool-path 'kandria "font-cache/"))
 
+(presentations:define-realization (ui alloy:checkbox)
+  ((:border simple:rectangle)
+   (alloy:extent 0 0 (alloy:ph 1) (alloy:ph 1))
+   :pattern colors:white
+   :line-width (alloy:un 2))
+  ((:check simple:rectangle)
+   (alloy:extent (alloy:ph 0.15) (alloy:ph 0.15) (alloy:ph 0.7) (alloy:ph 0.7))
+   :hidden-p (not alloy:value)
+   :pattern colors:accent))
+
+(presentations:define-update (ui alloy:checkbox)
+  (:border
+   :hidden-p NIL
+   :pattern (if alloy:focus
+                colors:white
+                colors:gray))
+  (:check
+   :pattern (if alloy:focus colors:white colors:accent)
+   :hidden-p (not alloy:value)))
+
+(presentations:define-update (ui alloy:slider)
+  (:handle
+   :pattern (case alloy:focus
+              (:strong colors:white)
+              (T colors:accent))))
+
 (defclass button (alloy:button*)
   ())
 
