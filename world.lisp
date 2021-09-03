@@ -88,7 +88,8 @@
     (and (null (find-panel 'dialog))
          player
          (svref (collisions player) 2)
-         (eql :normal (state player)))))
+         (eql :normal (state player))
+         (null (timer (find-panel 'hud))))))
 
 (defun pausing-possible-p ()
   (let ((player (unit 'player +world+)))
