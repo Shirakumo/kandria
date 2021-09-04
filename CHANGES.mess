@@ -2,6 +2,50 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 0.2.1
+- Attacking while fishing doesn't despawn the line
+  Reported by Leslieanne White
+- Improved quest directions
+  Suggested by Leslieanne White
+- Implemented text styling for inner thoughts and vital info
+  Suggested by Leslieanne White
+- Improved clarity of quest log menu
+  Suggested by Leslieanne White
+- Fix quest tracking problems
+  Reported by Leslieanne White
+- Fix shopping menu
+  Reported by Leslieanne White
+- Fix NPC teleporting leaving in climbing state
+  Reported by Leandra Eberle
+- Fix item collisions
+  Reported by Hoot
+- Fix combat state machine bug
+  Reported by Hoot
+- Improve combat movement
+  Suggested by Hoot
+- Add a bit of slowdown at the start of a wall slide
+  Suggested by Hoot
+- Improve wolf enemy AI
+  Reported by Hoot
+- Show NPC locations on map
+  Suggested by Pierre Lippuner
+- Remove red arrows for exit markers
+  Reported by Leslieanne White
+- Remove C-q quit action
+  Reported by Felix Wilson
+- Improve music ducking during pausing actions
+  Reported by Felix Wilson
+- Improve UI layouting
+  Suggested by Christopher Hurley
+- Fix catherine profile animation loops
+  Reported by Christopher Hurley
+- Fix fishing catch not storing when exiting during catch
+  Reported by Christopher Hurley
+- Tighten up Fi dialogue a bit
+  Suggested by Christopher Hurley
+- Improve clarity of full screen prompts
+  Suggested by Christopher Hurley
+
 ## 0.2.0
 - Add selection tool
   Suggested by Monroth
