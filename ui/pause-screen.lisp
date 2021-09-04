@@ -2,6 +2,7 @@
 
 (defmethod handle ((ev lose-focus) (main main))
   (when (and (setting :gameplay :pause-on-focus-loss)
+             (not (find-panel 'load-panel))
              (unit 'environment (scene main)))
     (show-panel 'pause-screen)))
 
