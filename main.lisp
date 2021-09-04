@@ -150,11 +150,13 @@
              (loop (sleep 1))))
           ((equal arg "state")
            (if args
-               (launch :state (uiop:parse-native-namestring (pop args)))
+               (let ((path (format NIL "~{~a~^ ~}" args)))
+                 (launch :state (uiop:parse-native-namestring path)))
                (format T "~&Please pass a save file to load.~%")))
           ((equal arg "world")
            (if args
-               (launch :world (pop args))
+               (let ((path (format NIL "~{~a~^ ~}" args)))
+                 (launch :world path))
                "~&Please pass a world file to load.~%"))
           ((equal arg "help")
            (format T "~&Kandria v~a
