@@ -132,6 +132,10 @@
            (format T "~&~a~%" (uiop:native-namestring (config-directory))))
           ((equal arg "controller-config")
            (gamepad::configurator-main))
+          ((equal arg "system-info")
+           (loop for (header . info) in (org.shirakumo.feedback.client::gather-system-info)
+                 do (format T "~&~% ========== ~a ==========~%" header)
+                    (write-string info)))
           ((equal arg "credits")
            (format T "~&~a~%" (alexandria:read-file-into-string
                                (merge-pathnames "CREDITS.mess" (root)))))
