@@ -81,7 +81,8 @@
         (setf (cold-boot loader) cold)
         (setf (slot-value loader 'progress) 0)
         (setf (last-time loader) (get-internal-real-time))
-        (show-panel 'load-panel :loader loader)
+        (unless (find-panel 'load-panel)
+          (show-panel 'load-panel :loader loader))
         (stage (unit 'ui-pass +world+) area)
         (call-next-method)
         (transition

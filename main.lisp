@@ -229,6 +229,8 @@ Possible sub-commands:
 (defmethod load-game (state (main main))
   (hide-panel 'save-menu)
   (hide-panel 'main-menu)
+  (show-panel 'load-panel :loader (loader main))
+  (render main main)
   (load-state state main))
 
 (defmethod reset ((main main))
