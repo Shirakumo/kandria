@@ -153,10 +153,12 @@
              (format T "~&Started swank on port ~d.~%" port)
              (loop (sleep 1))))
           ((equal arg "state")
-           (if args
-               (let ((path (format NIL "~{~a~^ ~}" args)))
-                 (launch :state (uiop:parse-native-namestring path)))
-               (format T "~&Please pass a save file to load.~%")))
+           (let ((path (if args
+                           (uiop:parse-native-namestring (format NIL "~{~a~^ ~}" args))
+                           (org.shirakumo.file-select:existing :title "Select save state"
+                                                               :default (first (mapcar #'fil (list-saves)))
+                                                               :filter '(("Save Files" "zip"))))))
+             (launch :state path)))
           ((equal arg "world")
            (if args
                (let ((path (format NIL "~{~a~^ ~}" args)))
