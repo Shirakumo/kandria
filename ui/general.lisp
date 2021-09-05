@@ -178,7 +178,7 @@
                    ui-advance-dialogue ui-no-more-to-focus
                    ui-quest-start ui-close-menu ui-dialogue-choice
                    ui-focus-next ui-open-menu ui-quest-complete
-                   ui-quest-fail ui-scroll-dialogue ui-scroll
+                   ui-quest-fail dialogue-scroll ui-scroll
                    ui-start-game ui-start-dialogue ui-use-item))
     (stage (// 'sound sound) area))
   (stage (simple:request-font pass (setting :display :font)) area)
