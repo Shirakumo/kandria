@@ -188,6 +188,9 @@
 (defmethod interact ((prompt action-prompt) (player player))
   (when (eql :normal (state player))
     (when (interrupt prompt)
+      ;; KLUDGE: clear dash to ensure player can always recover.
+      (when (eql (action prompt) 'dash)
+        (setf (dash-time player) 0.0))
       (if (<= 0.01 (time-scale +world+))
           (setf (time-scale +world+) (* (time-scale +world+) 0.95))
           (setf (time-scale +world+) 0.0)))

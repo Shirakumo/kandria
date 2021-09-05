@@ -45,6 +45,12 @@ A big thanks to everyone for trying it out and reporting problems!
   Suggested by Christopher Hurley
 - Improve clarity of full screen prompts
   Suggested by Christopher Hurley
+- Fix alt+tabbing on Windows causing the game to crash
+  Reported by Nag
+- Fix load screen causing spurious hard crashes on Windows nVidia OpenGL drivers
+  Reported by Nag
+- Fix dash tutorial misbehaving if player dashes before entering trigger zone
+  Reported by Nag
 
 ## 0.2.0
 - Add selection tool
