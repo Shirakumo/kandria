@@ -290,7 +290,8 @@
                               :on-activate (action)
                               :on-complete ,next
                               (:action action
-                                       ,@(if with `((move-to ',place ',with)))
+                                       ,@(if with `((stop-following ',with)
+                                                    (move-to ',place ',with)))
                                        ,@(if lead `((lead 'player ',place ',lead)))
                                        ,@(if follow `((follow 'player ',follow)))
                                        ,@(if body `((walk-n-talk (progn ,@body)))))))))
