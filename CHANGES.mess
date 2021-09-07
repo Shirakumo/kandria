@@ -2,6 +2,12 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 0.2.2
+- Fix support for the Wayland display server on Linux
+  Reported by Atgreen
+- Fix weird AI behaviour for Catherine for a move-to state following a lead state.
+  Reported by Nag and Sammymammy2
+
 ## 0.2.1
 - Attacking while fishing doesn't despawn the line
   Reported by Leslieanne White
