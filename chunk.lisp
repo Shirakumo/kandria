@@ -45,6 +45,17 @@
   (replace (pixel-data (tilemap layer)) data)
   (update-layer layer))
 
+(defmethod find-ground ((layer layer) location)
+  (let ((w (truncate (vx (size layer))))
+        (data (pixel-data (tilemap layer))))
+    (%with-layer-xy (layer location)
+      (loop for pos = (* 2 (+ x (* y w)))
+            while (<= 0 y)
+            do (when (< 0 (aref data pos))
+                 (return (vec (vx location)
+                              (+ (* +tile-size+ (1+ y)) (- (vy2 (location layer)) (vy2 (bsize layer)))))))
+               (decf y)))))
+
 (defmethod resize ((layer layer) w h)
   (let ((size (vec2 (floor w +tile-size+) (floor h +tile-size+))))
     (unless (v= size (size layer))
