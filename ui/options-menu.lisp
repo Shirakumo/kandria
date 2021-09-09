@@ -198,19 +198,18 @@
           (make-instance 'input-action-button :value action :layout-parent list :focus-parent focus)))
       (add-tab panel (@ control-settings) layout focus))
     (with-tab gameplay-settings
-      (control rumble (:gameplay :rumble) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1)
-      (control screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 1.0)
-      (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01)
-      (control auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 1.0)
+      (control rumble (:gameplay :rumble) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1 :grid 0.1)
+      (control screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 0.1 :grid 0.1)
       (control pause-on-focus-loss (:gameplay :pause-on-focus-loss) 'alloy:checkbox)
       (control invincible-player (:gameplay :god-mode) 'alloy:checkbox)
       (control infinite-dash (:gameplay :infinite-dash) 'alloy:checkbox)
       (control player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
     (with-tab language-settings
       (control game-language (:language) 'alloy:combo-set :value-set (languages))
-      ;; TODO: options to replace swears
-      ;; TODO: options to avoid text effects
-      )
+      (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01 :grid 0.01)
+      (control auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 0.1 :grid 0.1)
+      (control display-text-effects (:gameplay :display-text-effects) 'alloy:checkbox)
+      (control display-swears (:gameplay :display-swears) 'alloy:checkbox))
     (alloy:on alloy:exit ((alloy:focus-element panel))
       (when (active-p panel)
         (hide panel)))))

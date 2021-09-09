@@ -24,8 +24,10 @@
                             :god-mode NIL
                             :infinite-dash NIL
                             :text-speed 0.02
-                            :palette "Model 1"
                             :auto-advance-after 3.0
+                            :display-text-effects T
+                            :display-swears T
+                            :palette "Model 1"
                             :pause-on-focus-loss T)
                  :language :eng
                  :debugging ())))

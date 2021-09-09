@@ -36,11 +36,29 @@
    :pattern (if alloy:focus (colored:color 0.9 0.9 0.9) colors:accent)
    :hidden-p (not alloy:value)))
 
+(presentations:define-realization (ui alloy:slider)
+  ((:background simple:rectangle)
+   (alloy:extent 0 (alloy:ph 0.4) (alloy:pw) (alloy:ph 0.2)))
+  ((:border simple:rectangle)
+   (alloy:margins -3)
+   :line-width (alloy:un 1))
+  ((:handle simple:rectangle)
+   (alloy:extent -5 0 10 (alloy:ph)))
+  ((:display simple:text)
+   (alloy:margins)
+   (format NIL "~,2f" alloy:value)
+   :pattern colors:white
+   :font (setting :display :font)
+   :halign :middle
+   :valign :middle))
+
 (presentations:define-update (ui alloy:slider)
   (:handle
    :pattern (case alloy:focus
               (:strong colors:white)
-              (T colors:accent))))
+              (T colors:accent)))
+  (:display
+   :text (format NIL "~,2f" alloy:value)))
 
 (defclass button (alloy:button*)
   ())
