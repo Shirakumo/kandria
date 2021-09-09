@@ -66,12 +66,12 @@
 
 (trigger climb
  (key :one-of (:left-control))
- (button :one-of (:l1 :l2))
+ (button :one-of (:l1) :edge :rise-only)
  (axis :one-of (:l2) :threshold 0.25))
 
 (trigger crawl
- (key :one-of (:q))
- (button :one-of (:l3)))
+ (key :one-of (:q) :edge :rise-only)
+ (button :one-of (:l3) :edge :rise-only))
 
 (trigger light-attack
  (key :one-of (:z))

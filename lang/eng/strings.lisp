@@ -359,6 +359,7 @@ trade-total "Total"
 suggested-input "Change Input"
 accept-input-change "Ok"
 cancel-input-change "Cancel"
+input-toggles-state "Use as toggle"
 ;; Misc
 load-screen-new-game "
 Initiating cold boot

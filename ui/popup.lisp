@@ -41,7 +41,7 @@
     (alloy:enter (alloy:layout-element panel) popup)
     (setf (slot-value panel 'alloy:layout-element) popup)))
 
-(defmethod show :after ((panel popup-panel) &key)
+(defmethod show :after ((panel popup-panel) &key (width (alloy:un 300)) (height (alloy:un 120)))
   (let ((bounds (if (source panel)
                     (alloy:bounds (source panel))
                     (alloy:extent (alloy:vw 0.5) (alloy:vh 0.5) 0 0))))
@@ -49,10 +49,10 @@
       (alloy:update (alloy:index-element 0 (alloy:layout-element panel))
                     (alloy:layout-element panel)
                     :x (+ (alloy:pxx bounds)
-                          (- (alloy:pxw bounds) (alloy:to-px (alloy:un 300))))
+                          (- (alloy:pxw bounds) (alloy:to-px width)))
                     :y (alloy:pxy bounds)
-                    :w (alloy:un 300)
-                    :h (alloy:un 120)))))
+                    :w width
+                    :h height))))
 
 (defmethod hide :after ((panel popup-panel))
   (when (source panel)

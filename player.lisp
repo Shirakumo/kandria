@@ -213,11 +213,7 @@
     (case (state player)
       (:normal
        (when (svref (collisions player) 2)
-         (setf (state player) :crawling)))
-      (:crawling
-       (when (and (not (svref (collisions player) 0))
-                  (null (scan-collision +world+ (vec (vx (location player)) (+ (vy (location player)) 18)))))
-         (setf (state player) :normal))))))
+         (setf (state player) :crawling))))))
 
 (defmethod handle ((ev light-attack) (player player))
   (cond ((path player))
@@ -666,9 +662,12 @@
                (T
                 (setf (vy vel) 0.0)))))
       (:crawling
-       ;; Uncrawl on ground loss
-       (when (and (not ground)
-                  (< 0.1 (air-time player)))
+       ;; Uncrawl on ground loss or manual
+       (when (or (and (not ground)
+                      (< 0.1 (air-time player)))
+                 (and (not (retained 'crawl))
+                      (and (not (svref collisions 0))
+                           (null (scan-collision +world+ (vec (vx loc) (+ (vy loc) 18)))))))
          (when (scan-collision +world+ (vec (vx loc) (vy loc) 16 32))
            (decf (vy loc) 16))
          (setf (state player) :normal))

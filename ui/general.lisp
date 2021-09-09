@@ -30,10 +30,10 @@
   (:border
    :hidden-p NIL
    :pattern (if alloy:focus
-                colors:white
+                (colored:color 0.9 0.9 0.9)
                 colors:gray))
   (:check
-   :pattern (if alloy:focus colors:white colors:accent)
+   :pattern (if alloy:focus (colored:color 0.9 0.9 0.9) colors:accent)
    :hidden-p (not alloy:value)))
 
 (presentations:define-update (ui alloy:slider)
