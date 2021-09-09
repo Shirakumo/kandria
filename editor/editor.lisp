@@ -82,7 +82,7 @@
                   ("Save Region" (edit 'save-region editor))
                   ("Save Region As..." (edit 'save-region-as editor))
                   :separator
-                  ("Close Editor" (hide editor)))
+                  ("Close Editor" (issue +world+ 'toggle-editor)))
                  ("State"
                   ("Save State" (edit 'save-game editor))
                   ("Save State As..." (edit 'save-game-as editor))
