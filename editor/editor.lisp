@@ -295,7 +295,8 @@
       (leave old +world+)
       (trial:commit +world+ +main+ :unload NIL)
       (setf (background (unit 'background T)) (background 'editor))
-      (vsetf (location (unit :camera T)) 0 0)
+      (reset (unit :camera T))
+      (setf (target (unit :camera T)) (unit 'player T))
       (update-background (unit 'background T) T))))
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))

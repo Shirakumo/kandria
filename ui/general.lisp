@@ -38,12 +38,16 @@
 
 (presentations:define-realization (ui alloy:slider)
   ((:background simple:rectangle)
-   (alloy:extent 0 (alloy:ph 0.4) (alloy:pw) (alloy:ph 0.2)))
+   (ecase (alloy:orientation alloy:renderable)
+     (:horizontal (alloy:extent 0 (alloy:ph 0.4) (alloy:pw) (alloy:ph 0.2)))
+     (:vertical (alloy:extent (alloy:pw 0.4) 0 (alloy:pw 0.2) (alloy:ph)))))
   ((:border simple:rectangle)
    (alloy:margins -3)
    :line-width (alloy:un 1))
   ((:handle simple:rectangle)
-   (alloy:extent -5 0 10 (alloy:ph)))
+   (ecase (alloy:orientation alloy:renderable)
+     (:horizontal (alloy:extent -5 0 10 (alloy:ph)))
+     (:vertical (alloy:extent 0 -5 (alloy:pw) 10))))
   ((:display simple:text)
    (alloy:margins)
    (format NIL "~,2f" alloy:value)
@@ -59,6 +63,14 @@
               (T colors:accent)))
   (:display
    :text (format NIL "~,2f" alloy:value)))
+
+(presentations:define-realization (ui alloy:scrollbar)
+  ((:background simple:rectangle)
+   (alloy:margins))
+  ((:handle simple:rectangle)
+   (ecase (alloy:orientation alloy:renderable)
+     (:horizontal (alloy:extent -10 0 20 (alloy:ph)))
+     (:vertical (alloy:extent 0 -10 (alloy:pw) 20)))))
 
 (defclass button (alloy:button*)
   ())
