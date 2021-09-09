@@ -419,7 +419,10 @@
                           (contained-p thing other)))
                        (located-entity
                         (lambda (other)
-                          (< (vsqrdist2 (location other) (location thing)) (expt 64 2)))))))
+                          (< (vsqrdist2 (location other) (location thing)) (expt 64 2))))
+                       (null
+                        (lambda (other)
+                          NIL)))))
       (loop for thing in things
             always (funcall test-fun (resolve thing))))))
 

@@ -293,7 +293,7 @@
       (enter region +world+)
       (setf (entity editor) region)
       (leave old +world+)
-      (trial:commit +world+ +main+)
+      (trial:commit +world+ +main+ :unload NIL)
       (setf (background (unit 'background T)) (background 'editor))
       (vsetf (location (unit :camera T)) 0 0)
       (update-background (unit 'background T) T))))
