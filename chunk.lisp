@@ -193,8 +193,8 @@ uniform sampler2D albedo;
 uniform sampler2D absorption;
 uniform sampler2D normal;
 uniform vec2 map_position;
-uniform int tile_size = 16;
 uniform float visibility = 1.0;
+const int tile_size = 16;
 in vec2 map_coord;
 in vec2 world_pos;
 out vec4 color;
@@ -217,6 +217,9 @@ void main(){
   else
     n = normalize(n);
   color = apply_lighting(color, vec2(0), 1-a, n, world_pos) * visibility;
+  
+  // Truncate off if the pixel is outside the map by setting the alpha to zero.
+  color.a *= clamp(min(map_xy.x,map_xy.y)+1, 0, 1);
 }")
 
 (define-shader-entity chunk (shadow-caster layer solid ephemeral collider)
