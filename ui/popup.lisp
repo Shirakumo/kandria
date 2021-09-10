@@ -65,6 +65,7 @@
 
 (presentations:define-update (ui info-label)
   (:label
+   :bounds (alloy:margins 20)
    :pattern colors:black
    :size (alloy:un 14)
    :valign :top
@@ -80,4 +81,5 @@
          (label (make-instance 'info-label :value text :layout-parent layout))
          (button (make-instance 'popup-button :value #@dismiss-info-panel :layout-parent layout
                                               :on-activate (lambda () (hide panel)))))
+    ;; FIXME: scroll
     (alloy:finish-structure panel layout button)))

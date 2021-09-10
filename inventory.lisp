@@ -211,13 +211,12 @@
 (define-item-category lore-item (unlock-item))
 
 (defmacro define-item ((name &rest superclasses) x y w h &key price)
-  (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item))
-        (desc (intern (format NIL "~a/DESCRIPTION" name) '#:org.shirakumo.fraf.kandria.item)))
+  (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item)))
     (export name (symbol-package name))
-    (export desc (symbol-package desc))
     `(progn
        (export ',name (symbol-package ',name))
-       (export ',desc (symbol-package ',desc))
+       ,(emit-export '#:org.shirakumo.fraf.kandria.item name '/description)
+       ,(emit-export '#:org.shirakumo.fraf.kandria.item name '/lore)
        (define-shader-entity ,name (,@superclasses item)
          ((size :initform ,(vec w h))
           (offset :initform ,(vec x y))))

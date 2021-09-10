@@ -289,6 +289,7 @@
 
 (presentations:define-update (ui unlock-button)
   (:border
+   :z-index 0
    :pattern (if (item-unlocked-p alloy:value (inventory alloy:renderable))
                 (if alloy:focus colors:accent colors:white)
                 (if alloy:focus colors:gray colors:black)))
@@ -304,6 +305,19 @@
       (show (make-instance 'info-panel :text (item-lore (alloy:value button)))
             :width (alloy:vw 0.5) :height (alloy:vh 0.5))
       (harmony:play (// 'sound 'ui-error) :reset T)))
+
+(defmethod (setf alloy:focus) :before (focus (button unlock-button))
+  (when (item-unlocked-p (alloy:value button) (inventory button))
+    (cond ((and (eql :weak focus) (null (alloy:focus button)))
+           (let ((bounds (alloy:bounds button)))
+             (alloy:enter (make-instance 'prompt :button 'accept :description #@show-lore-of-item)
+                          (unit 'ui-pass T) :x (alloy:pxx bounds) :y (+ (alloy:pxy bounds) (alloy:pxh bounds))
+                          :w 200 :h 40)))
+          ((and (eql NIL focus) (alloy:focus button))
+           (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
+             (when (typep el 'prompt)
+               (hide el)
+               (return)))))))
 
 (defclass menu (pausing-panel menuing-panel)
   ((status-display :initform NIL :accessor status-display)))
@@ -402,6 +416,7 @@
                    (list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 10) :col-sizes '(100 100 100 100 100 100 100) :row-sizes '(100)))
                    (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                    (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
+              (alloy:enter "" layout :place :north :size (alloy:un 50))
               (alloy:enter list clipper)
               (alloy:enter scroll layout :place :east :size (alloy:un 20))
               (dolist (item (list-items (c2mop:class-prototype (c2mop:ensure-finalized (find-class category))) T))
