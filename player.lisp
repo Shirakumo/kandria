@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity player (alloy:observable paletted-entity animatable profile ephemeral inventory)
+(define-shader-entity player (alloy:observable stats-entity paletted-entity animatable profile ephemeral inventory)
   ((name :initform 'player)
    (palette :initform (// 'kandria 'player-palette))
    (bsize :initform (vec 7.0 15.0))

@@ -250,6 +250,7 @@
   (vsetf (spawn-location player) (vx (location player)) (vy (location player)))
   (list* :inventory (alexandria:hash-table-alist (storage player))
          :unlocked (alexandria:hash-table-keys (unlock-table player))
+         :stats (stats player)
          (call-next-method)))
 
 (define-decoder (player save-v0) (initargs packet)
@@ -269,6 +270,7 @@
     (clrhash table)
     (dolist (item (getf initargs :unlocked))
       (setf (gethash item table) T)))
+  (setf (stats player) (getf initargs :stats (make-stats)))
   ;; Force state to normal to avoid being caught in save animation
   (setf (state player) :normal)
   (when (unit :camera T)

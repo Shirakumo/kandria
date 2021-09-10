@@ -42,6 +42,7 @@
                (:file "rope")
                (:file "fishing")
                (:file "trigger")
+               (:file "stats")
                (:file "player")
                (:file "toys")
                (:file "ai")

@@ -430,15 +430,16 @@
   (let ((player (unit 'player +world+)))
     (if player
         (format NIL "~
-~a: ~16t~a
-~a: ~16t~a ~a
-~a: ~16t~a
-~a: ~16t~a%"
+~a: ~22t~a
+~a: ~22t~a ~a
+~a: ~22t~a
+~a: ~22t~a%
+~a: ~22t~,1fm"
                 (@ in-game-datetime) (format-absolute-time (truncate (timestamp +world+)))
                 (@ current-play-time) (format-relative-time (session-time))
                 (if (< (* 60 60 4) (session-time)) (@ long-play-time-warning) "")
                 (@ total-play-time) (format-relative-time (total-play-time))
-                (@ player-health) (health-percentage player))
+                (@ player-health) (health-percentage player)
+                (@ distance-travelled) (/ (stats-distance (stats player)) 16))
         "")))
 ;; FIXME: when changing language or font, UI needs to update immediately
-
