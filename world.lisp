@@ -145,7 +145,7 @@
     (v:info :kandria "Screenshot saved to ~a" file)))
 
 (defmethod handle :after ((ev toggle-menu) (world world))
-  (cond ((find-panel 'menu)
+  (cond ((typep (first (panels (unit 'ui-pass T))) 'menu)
          (hide-panel 'menu))
         ((pausing-possible-p)
          (show-panel 'menu))
