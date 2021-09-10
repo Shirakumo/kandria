@@ -368,6 +368,7 @@ suggested-input "Change Input"
 accept-input-change "Ok"
 cancel-input-change "Cancel"
 input-toggles-state "Use as toggle"
+dismiss-info-panel "Ok"
 ;; Misc
 load-screen-new-game "
 Initiating cold boot

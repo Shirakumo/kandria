@@ -42,10 +42,12 @@
     (setf (slot-value panel 'alloy:layout-element) popup)))
 
 (defmethod show :after ((panel popup-panel) &key (width (alloy:un 300)) (height (alloy:un 120)))
-  (let ((bounds (if (source panel)
-                    (alloy:bounds (source panel))
-                    (alloy:extent (alloy:vw 0.5) (alloy:vh 0.5) 0 0))))
-    (alloy:with-unit-parent (source panel)
+  (alloy:with-unit-parent (or (source panel) (unit 'ui-pass +world+))
+    (let ((bounds (if (source panel)
+                      (alloy:bounds (source panel))
+                      (alloy:extent (alloy:u- (alloy:vw 0.5) (alloy:u/ width 2))
+                                    (alloy:u- (alloy:vh 0.5) (alloy:u/ height 2))
+                                    width 0))))
       (alloy:update (alloy:index-element 0 (alloy:layout-element panel))
                     (alloy:layout-element panel)
                     :x (+ (alloy:pxx bounds)
@@ -57,3 +59,25 @@
 (defmethod hide :after ((panel popup-panel))
   (when (source panel)
     (setf (alloy:focus (source panel)) :strong)))
+
+(defclass info-label (label)
+  ())
+
+(presentations:define-update (ui info-label)
+  (:label
+   :pattern colors:black
+   :size (alloy:un 12)
+   :valign :top
+   :halign :start
+   :wrap T))
+
+(defclass info-panel (popup-panel)
+  ())
+
+(defmethod initialize-instance :after ((panel info-panel) &key text)
+  (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 40)
+                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+         (label (make-instance 'info-label :value text :layout-parent layout))
+         (button (make-instance 'popup-button :value #@dismiss-info-panel :layout-parent layout
+                                              :on-activate (lambda () (hide panel)))))
+    (alloy:finish-structure panel layout button)))

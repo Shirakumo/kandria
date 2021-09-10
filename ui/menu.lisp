@@ -299,6 +299,12 @@
                        :source-over
                        :clear)))
 
+(defmethod alloy:activate ((button unlock-button))
+  (if (item-unlocked-p (alloy:value button) (inventory button))
+      (show (make-instance 'info-panel :text (item-description (alloy:value button)))
+            :width (alloy:vw 0.5) :height (alloy:vh 0.5))
+      (harmony:play (// 'sound 'ui-error))))
+
 (defclass menu (pausing-panel menuing-panel)
   ((status-display :initform NIL :accessor status-display)))
 
@@ -390,16 +396,19 @@
 
         (with-tab-view (@ lore-menu)
           (dolist (category '(fish lore-item))
-            (with-tab ((language-string category) 'alloy:border-layout)
-              (let* ((list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 10) :col-sizes '(100 100 100 100 100 100 100) :row-sizes '(100)))
-                     (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
-                     (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
-                (alloy:enter list clipper)
-                (alloy:enter scroll layout :place :east :size (alloy:un 20))
-                (dolist (item (list-items (c2mop:class-prototype (c2mop:ensure-finalized (find-class category))) T))
-                  (let ((button (make-instance 'unlock-button :value item :inventory inventory)))
-                    (alloy:enter button list)
-                    (alloy:enter button focus))))))))
+            ;; FIXME: due to dual-mapping up/down analog to focus-prev/next we can't do grid navigation properly...
+            (let* ((layout (make-instance 'alloy:border-layout))
+                   (focus (make-instance 'alloy:focus-grid :width 7))
+                   (list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 10) :col-sizes '(100 100 100 100 100 100 100) :row-sizes '(100)))
+                   (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
+                   (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
+              (alloy:enter list clipper)
+              (alloy:enter scroll layout :place :east :size (alloy:un 20))
+              (dolist (item (list-items (c2mop:class-prototype (c2mop:ensure-finalized (find-class category))) T))
+                (let ((button (make-instance 'unlock-button :value item :inventory inventory)))
+                  (alloy:enter button list)
+                  (alloy:enter button focus)))
+              (add-tab tabs (language-string category) layout focus)))))
 
       (let ((view (make-instance 'options-menu)))
         (add-tab tabs (@ open-options-menu) (alloy:layout-element view) (alloy:focus-element view)))
