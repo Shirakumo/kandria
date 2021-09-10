@@ -301,7 +301,7 @@
 
 (defmethod alloy:activate ((button unlock-button))
   (if (item-unlocked-p (alloy:value button) (inventory button))
-      (show (make-instance 'info-panel :text (item-description (alloy:value button)))
+      (show (make-instance 'info-panel :text (item-lore (alloy:value button)))
             :width (alloy:vw 0.5) :height (alloy:vh 0.5))
       (harmony:play (// 'sound 'ui-error) :reset T)))
 

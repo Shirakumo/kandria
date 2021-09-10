@@ -66,7 +66,7 @@
 (presentations:define-update (ui info-label)
   (:label
    :pattern colors:black
-   :size (alloy:un 12)
+   :size (alloy:un 14)
    :valign :top
    :halign :start
    :wrap T))
