@@ -251,7 +251,7 @@
 
 ;; VALUE ITEMS
 (define-item (parts value-item) 8 16 8 8
-  :price 10)
+  :price 1)
 
 (defclass scrap () ()) (defmethod item-order ((_ scrap)) 1)
 (define-item (heavy-spring scrap value-item) 8 16 8 8

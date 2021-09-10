@@ -26,6 +26,5 @@
     (incf (stats-play-time stats) (dt ev))
     (incf (stats-distance stats) (vlength (velocity entity)))))
 
-;; FIXME: this is bad as it does not properly handle trades and instead counts the trade double.
-(defmethod store :after ((item item) (entity stats-entity) &optional (count 1))
-  (incf (stats-money-accrued (stats entity)) (* count (price item))))
+(defmethod store :after ((item scrap) (entity stats-entity) &optional (count 1))
+  (incf (stats-money-accrued (stats entity)) count))
