@@ -332,5 +332,6 @@
              :on-activate (,(caar tasks))
              ,@tasks))))))
 
-(defmethod load-language :after (&optional (language (setting :language)))
+(defmethod load-language :after (&optional (language (setting :language)) replace)
+  (declare (ignore replace))
   (load-quests language))
