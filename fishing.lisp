@@ -256,11 +256,13 @@ void main(){
 }")
 
 
-(define-shader-entity fish (item value-item)
+(define-shader-entity fish (item unlock-item value-item item-category)
   ((texture :initform (// 'kandria 'fish))
    (size :initform (vec 8 8))
    (layer-index :initform +base-layer+)
    (catch-timer :initarg :catch-timer :initform 1.0 :accessor catch-timer)))
+
+(defmethod item-category ((fish fish)) 'fish)
 
 (defmethod item-order ((fish fish)) 100)
 

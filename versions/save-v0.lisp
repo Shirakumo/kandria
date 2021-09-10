@@ -249,6 +249,7 @@
   ;; Set spawn point as current loc.
   (vsetf (spawn-location player) (vx (location player)) (vy (location player)))
   (list* :inventory (alexandria:hash-table-alist (storage player))
+         :unlocked (alexandria:hash-table-keys (unlock-table player))
          (call-next-method)))
 
 (define-decoder (player save-v0) (initargs packet)
@@ -264,6 +265,10 @@
            (setf (aref trace i) (nibbles:read-ieee-single/le stream)))))))
   (let ((inventory (getf initargs :inventory)))
     (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq)))
+  (let ((table (unlock-table player)))
+    (clrhash table)
+    (dolist (item (getf initargs :unlocked))
+      (setf (gethash item table) T)))
   ;; Force state to normal to avoid being caught in save animation
   (setf (state player) :normal)
   (when (unit :camera T)

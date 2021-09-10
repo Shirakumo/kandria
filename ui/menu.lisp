@@ -256,11 +256,11 @@
    :bounds (if alloy:value
                (let ((ratio (/ (vx (size alloy:value)) (vy (size alloy:value)))))
                  (cond ((< 1 ratio)
-                        (let ((h (alloy:u/ (alloy:ph 1) ratio)))
-                          (alloy:extent 0 (alloy:u/ h 2) (alloy:pw 1) h)))
+                        (let ((h (alloy:u/ (alloy:ph) ratio)))
+                          (alloy:extent 0 (alloy:u/ (alloy:u- (alloy:ph) h) 2) (alloy:pw 1) h)))
                        ((< ratio 1)
-                        (let ((w (alloy:u* (alloy:pw 1) ratio)))
-                          (alloy:extent (alloy:u/ w 2) 0 w (alloy:ph 1))))
+                        (let ((w (alloy:u* (alloy:pw) ratio)))
+                          (alloy:extent (alloy:u/ (alloy:u- (alloy:pw) w) 2) 0 w (alloy:ph))))
                        (T
                         (alloy:margins))))
                (alloy:px-extent))
@@ -277,6 +277,27 @@
               (alloy:px-point (/ (vx (offset alloy:value)) (width (texture alloy:value)))
                               (/ (vy (offset alloy:value)) (height (texture alloy:value))))
               (alloy:point 0 0))))
+
+(defclass unlock-button (item-icon)
+  ((inventory :initarg :inventory :accessor inventory)))
+
+(presentations:define-realization (ui unlock-button T)
+  ((:border simple:rectangle)
+   (alloy:margins -4)
+   :line-width (alloy:un 3)
+   :pattern colors:gray))
+
+(presentations:define-update (ui unlock-button)
+  (:border
+   :pattern (if (item-unlocked-p alloy:value (inventory alloy:renderable))
+                (if alloy:focus colors:accent colors:white)
+                (if alloy:focus colors:gray colors:black)))
+  (icon
+   :rotation (float (/ PI -2) 0f0)
+   :pivot (alloy:point (alloy:ph 0.5) (alloy:ph 0.5))
+   :composite-mode (if (item-unlocked-p alloy:value (inventory alloy:renderable))
+                       :source-over
+                       :clear)))
 
 (defclass menu (pausing-panel menuing-panel)
   ((status-display :initform NIL :accessor status-display)))
@@ -342,8 +363,8 @@
                 (alloy:enter widget list)
                 (alloy:enter widget focus))))))
 
-      (with-tab-view (@ inventory-menu)
-        (let ((inventory (unit 'player T)))
+      (let ((inventory (unit 'player T)))
+        (with-tab-view (@ inventory-menu)
           (dolist (category '(consumable-item quest-item value-item special-item))
             (with-tab ((language-string category) 'alloy:border-layout)
               (let* ((list (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 50)))
@@ -364,6 +385,19 @@
                       (when value
                         (setf (alloy:value description) (item-description (alloy:value button)))
                         (setf (alloy:value icon) (make-instance (class-of (alloy:value button))))))
+                    (alloy:enter button list)
+                    (alloy:enter button focus)))))))
+
+        (with-tab-view (@ lore-menu)
+          (dolist (category '(fish lore-item))
+            (with-tab ((language-string category) 'alloy:border-layout)
+              (let* ((list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 10) :col-sizes '(100 100 100 100 100 100 100) :row-sizes '(100)))
+                     (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
+                     (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
+                (alloy:enter list clipper)
+                (alloy:enter scroll layout :place :east :size (alloy:un 20))
+                (dolist (item (list-items (c2mop:class-prototype (c2mop:ensure-finalized (find-class category))) T))
+                  (let ((button (make-instance 'unlock-button :value item :inventory inventory)))
                     (alloy:enter button list)
                     (alloy:enter button focus))))))))
 

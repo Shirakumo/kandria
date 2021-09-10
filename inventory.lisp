@@ -3,7 +3,8 @@
 (defgeneric item-order (item))
 
 (defclass inventory ()
-  ((storage :initform (make-hash-table :test 'eq) :accessor storage)))
+  ((storage :initform (make-hash-table :test 'eq) :accessor storage)
+   (unlock-table :initform (make-hash-table :test 'eq) :accessor unlock-table)))
 
 (defmethod have ((item symbol) (inventory inventory))
   (< 0 (gethash item (storage inventory) 0)))
@@ -15,7 +16,12 @@
   (hash-table-count (storage inventory)))
 
 (defmethod store ((item symbol) (inventory inventory) &optional (count 1))
+  (when (subtypep item 'unlock-item)
+    (setf (gethash item (unlock-table inventory)) T))
   (incf (gethash item (storage inventory) 0) count))
+
+(defmethod item-unlocked-p ((item symbol) (inventory inventory))
+  (gethash item (unlock-table inventory)))
 
 (defmethod retrieve ((item symbol) (inventory inventory) &optional (count 1))
   (let* ((have (gethash item (storage inventory) 0))
@@ -36,15 +42,10 @@
 
 (defmethod list-items ((inventory inventory) (type symbol))
   (sort (loop for item being the hash-keys of (storage inventory)
-              for prototype = (c2mop:class-prototype (find-class item))
+              for prototype = (c2mop:class-prototype (c2mop:ensure-finalized (find-class item)))
               when (typep prototype type)
               collect prototype)
-        (lambda (a b)
-          (let ((a-order (item-order a))
-                (b-order (item-order b)))
-            (if (= a-order b-order)
-                (string< (title a) (title b))
-                (< a-order b-order))))))
+        #'item<))
 
 (define-shader-entity item (lit-sprite game-entity interactable)
   ((texture :initform (// 'kandria 'items))
@@ -54,6 +55,13 @@
    (velocity :initform (vec 0 0))
    (light :initform NIL :accessor light)
    (medium :initform +default-medium+ :accessor medium)))
+
+(defun item< (a b)
+  (let ((a-order (item-order a))
+        (b-order (item-order b)))
+    (if (= a-order b-order)
+        (string< (title a) (title b))
+        (< a-order b-order))))
 
 (defmethod description ((item item))
   (language-string 'item))
@@ -67,6 +75,9 @@
 (defmethod item-description ((item item))
   (language-string (intern (format NIL "~a/DESCRIPTION" (string (type-of item)))
                            (symbol-package (class-name (class-of item))))))
+
+(defmethod item-unlocked-p ((item item) (inventory inventory))
+  (item-unlocked-p (type-of item) inventory))
 
 (defmethod kill ((item item))
   (leave* item T))
@@ -169,9 +180,16 @@
 (defmethod list-items ((inventory inventory) (category item-category))
   (list-items inventory (item-category category)))
 
-(defmacro define-item-category (name)
+(defmethod list-items ((category item-category) type)
+  (sort (loop for class in (c2mop:class-direct-subclasses (class-of category))
+              for prototype = (make-instance (c2mop:ensure-finalized class))
+              when (typep prototype type)
+              collect prototype)
+        #'item<))
+
+(defmacro define-item-category (name &optional superclasses)
   `(progn
-     (defclass ,name (item-category) ())
+     (defclass ,name (,@superclasses item-category) ())
 
      (defmethod item-category ((item ,name)) ',name)))
 
@@ -183,6 +201,8 @@
 (define-item-category quest-item)
 (define-item-category value-item)
 (define-item-category special-item)
+(define-item-category unlock-item)
+(define-item-category lore-item (unlock-item))
 
 (defmacro define-item ((name &rest superclasses) x y w h &key price)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item))
