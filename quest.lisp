@@ -180,6 +180,8 @@
                (loop for thing in things do (quest:complete (thing thing))))
              (fail (&rest things)
                (loop for thing in things do (quest:fail (thing thing))))
+             (reset (&rest things)
+               (loop for thing in things do (quest:reset (thing thing))))
              (active-p (&rest things)
                (loop for thing in things always (quest:active-p (thing thing))))
              (complete-p (&rest things)
