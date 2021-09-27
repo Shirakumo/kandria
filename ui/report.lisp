@@ -35,7 +35,7 @@
              (report (org.shirakumo.fraf.trial.feedback:submit-report
                       :user (if (string= "" username) "anonymous" username)
                       :description description)))
-        (status "Report submitted (#~d). Thank you!" (gethash "_id" report)))
+        (status (@formats 'feedback-report-submitted (gethash "_id" report))))
       (hide-panel 'report-panel))))
 
 (defmethod initialize-instance :after ((dialog report-dialog) &key)

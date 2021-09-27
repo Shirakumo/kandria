@@ -141,7 +141,7 @@
                               :type "png"
                               :defaults (user-homedir-pathname))))
     (capture NIL :file file)
-    (status :note "Screenshot saved to ~a" file)
+    (status :note (@formats 'screenshot-file-saved file))
     (v:info :kandria "Screenshot saved to ~a" file)))
 
 (defmethod handle :after ((ev toggle-menu) (world world))
@@ -152,7 +152,7 @@
         ((null (or (find-panel 'menu)
                    (find-panel 'main-menu)
                    (find-panel 'quick-menu)))
-         (status "Can't pause right now."))))
+         (status #@game-pausing-not-allowed))))
 
 (defmethod handle :after ((ev trial:tick) (world world))
   (let ((dt (dt ev)))

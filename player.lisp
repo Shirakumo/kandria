@@ -138,7 +138,7 @@
   (start-animation 'phone player)
   (setf (animation save-point) 'call)
   (save-state +main+ T)
-  (status "Game saved."))
+  (status #@game-save-complete))
 
 (defmethod handle :after ((ev quickmenu) (player player))
   (unless (path player)

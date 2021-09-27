@@ -151,7 +151,7 @@
 
 (defmethod interact ((item item) (inventory inventory))
   (store item inventory)
-  (status "Received ~a" (language-string (type-of item)))
+  (status (@formats 'new-item-in-inventory (language-string (type-of item))))
   (leave* item T))
 
 (defmethod leave* :after ((item item) thing)

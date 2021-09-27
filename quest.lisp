@@ -28,20 +28,20 @@
   (when (and (not (eql :active (quest:status quest)))
              (visible-p quest))
     (harmony:play (// 'sound 'ui-quest-start))
-    (status :important "New quest: ~a" (quest:title quest)))
+    (status :important (@formats 'new-quest-started (quest:title quest))))
   (setf (clock quest) 0f0))
 
 (defmethod quest:complete :before ((quest quest))
   (when (and (not (eql :complete (quest:status quest)))
              (visible-p quest))
     (harmony:play (// 'sound 'ui-quest-complete))
-    (status :important "Quest completed: ~a" (quest:title quest))))
+    (status :important (@formats 'quest-successfully-completed (quest:title quest)))))
 
 (defmethod quest:fail :before ((quest quest))
   (when (and (not (eql :failed (quest:status quest)))
              (visible-p quest))
     (harmony:play (// 'sound 'ui-quest-fail))
-    (status :important "Quest failed: ~a" (quest:title quest))))
+    (status :important (@formats 'quest-completion-failed (quest:title quest)))))
 
 (defmethod quest:make-assembly ((_ quest))
   (make-instance 'assembly))

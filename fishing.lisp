@@ -89,7 +89,7 @@
                              (T
                               (harmony:play (// 'sound 'fishing-rare-catch))))
                        (setf (state buoy) :show)
-                       (status "Caught ~a" (language-string (type-of item))))
+                       (status (@formats 'fish-caught-successfully (language-string (type-of item)))))
                       (T
                        (leave* (fishing-line buoy) T))))
                (item

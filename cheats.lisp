@@ -3,22 +3,24 @@
 (defvar *cheat-codes* ())
 
 (defstruct (cheat (:constructor make-cheat (name code effect)))
-  (name NIL :type string)
+  (name NIL :type symbol)
   (idx 0 :type (unsigned-byte 8))
   (code "" :type simple-base-string)
   (effect NIL :type function))
 
 (defun cheat (name)
-  (find name *cheat-codes* :key #'cheat-name :test #'string-equal))
+  (find name *cheat-codes* :key #'cheat-name))
 
 (defun (setf cheat) (cheat name)
-  (let ((cheats (remove name *cheat-codes* :key #'cheat-name :test #'string-equal)))
+  (let ((cheats (remove name *cheat-codes* :key #'cheat-name)))
     (setf *cheat-codes* (if cheat (list* cheat cheats) cheats))
     cheat))
 
-(defmacro define-cheat (code name &body action)
-  (check-type name string)
-  `(setf (cheat ,name) (make-cheat ,name ,(string-downcase code) (lambda () ,@action))))
+(defmacro define-cheat (code &body action)
+  (destructuring-bind (name code) (enlist code code)
+    `(setf (cheat ',name) (make-cheat ',name
+                                      ,(string-downcase code)
+                                      (lambda () ,@action)))))
 
 (defun process-cheats (key)
   (loop for cheat in *cheat-codes*
@@ -28,23 +30,24 @@
              (cond ((<= (length code) new)
                     (setf (cheat-idx cheat) 0)
                     (v:info :kandria.cheats "Activating cheat code ~s" (cheat-name cheat))
-                    (if (funcall (cheat-effect cheat))
-                        (status "Cheat ~s activated!" (cheat-name cheat))
-                        (status "Cheat ~s deactivated" (cheat-name cheat))))
+                    (let ((name (language-string (symb T 'cheat/ (cheat-name cheat)))))
+                      (if (funcall (cheat-effect cheat))
+                          (status (@formats 'game-cheat-activated name))
+                          (status (@formats 'game-cheat-deactivated name)))))
                    (T
                     (setf (cheat-idx cheat) new))))))
 
-(define-cheat hello "Test cheat"
-  (status "Hi there!"))
+(define-cheat hello
+  T)
 
-(define-cheat tpose "T-pose"
+(define-cheat tpose
   (clear-retained)
   (start-animation 't-pose (unit 'player T)))
 
-(define-cheat god "God mode"
+(define-cheat god
   (setf (invincible-p (unit 'player T)) (not (invincible-p (unit 'player T)))))
 
-(define-cheat armageddon "Armageddon"
+(define-cheat armageddon
   (cond ((= 1 +health-multiplier+)
          (for:for ((entity over (region +world+)))
            (when (typep entity 'enemy)
@@ -54,24 +57,24 @@
          (setf +health-multiplier+ 1f0)
          NIL)))
 
-(define-cheat campfire "Grill some marshmallows"
+(define-cheat campfire
   (cond ((<= (clock-scale +world+) 60)
          (setf (clock-scale +world+) (* 60 30)))
         (T
          (setf (clock-scale +world+) 60)
          NIL)))
 
-(define-cheat matrix "Enter the matrix"
+(define-cheat matrix
   (cond ((<= 0.9 (time-scale +world+))
          (setf (time-scale +world+) 0.1))
         (T
          (setf (time-scale +world+) 1.0)
          NIL)))
 
-(define-cheat |i can't see| "Let there be light"
+(define-cheat (i-cant-see |i can't see|)
   (setf (hour +world+) 12))
 
-(define-cheat test "Testing room"
+(define-cheat test
   (let ((room (unit 'debug T)))
     (when room
       (vsetf (location (unit 'player T))
@@ -80,7 +83,7 @@
       (setf (intended-zoom (unit :camera T)) 1.0)
       (snap-to-target (unit :camera T) (unit 'player T)))))
 
-(define-cheat self-destruct "Self destruct"
+(define-cheat self-destruct
   (trigger 'explosion (unit 'player T))
   (setf (health (unit 'player T)) 1))
 
@@ -90,24 +93,24 @@
                  (:noclip :normal)
                  (T :noclip)))
          (eql (state (unit 'player T)) :noclip)))
-  (define-cheat noclip "Noclip"
+  (define-cheat noclip
     (noclip))
 
-  (define-cheat SPISPOPD "Smashing Pumpkins Into Small Piles Of Putrid Debris"
+  (define-cheat SPISPOPD
     (noclip)))
 
-(define-cheat nanomachines "Nanomachines"
+(define-cheat nanomachines
   (setf (health (unit 'player T)) (maximum-health (unit 'player T))))
 
-(define-cheat |you must die| "reaper"
+(define-cheat (you-must-die |you must die|)
   (kill (unit 'player T)))
 
-(define-cheat |lp0 on fire| "Game on fire"
+(define-cheat (lp0-on-fire |lp0 on fire|)
   (error "Simulating an uncaught error."))
 
-(define-cheat blingee "Blinged out"
+(define-cheat blingee
   (dolist (class (list-leaf-classes 'value-item))
     (store (class-name class) (unit 'player T))))
 
-(define-cheat motherlode "I'm rich!"
+(define-cheat motherlode
   (store 'item:parts (unit 'player T) 10000))

@@ -685,8 +685,12 @@
 
 (trivial-indent:define-indentation match1 (4 &rest (&whole 2 4 &lambda &body)))
 
+(defun symb (package &rest symb)
+  (intern (format NIL "~{~a~}" symb)
+          (if (eql T package) *package* package)))
+
 (defun emit-export (package &rest symb)
-  (let ((symb (intern (format NIL "~{~a~}" symb) package)))
+  (let ((symb (apply #'symb package symb)))
     (export symb package)
     `(export ',symb ',package)))
 
