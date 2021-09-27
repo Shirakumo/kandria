@@ -68,6 +68,10 @@ The instruction ``! `` can execute a variety of commands when encountered:
     Eg: ``(stop 'catherine)
   - ``ensure-nearby`` Ensure that the characters are near a place and teleport them there if they're not yet there.
     Eg: ``(ensure-nearby 'market 'catherine 'fi)``
+  - ``reset`` Reset a quest, task, or trigger to its initial state. This will make it inactive again and reset all variables and descendant objects.
+    Eg: ``(reset 'sq3-race)``
+  - ``reset*`` Reset a quest, task, or trigger but without touching its variable state.
+    Eg: ``(reset* 'sq3-race)``
 
 Also see documentation on the "quest system"(link quest system.mess) for information on how quests, tasks, and interactions are meant to be understood.
 
