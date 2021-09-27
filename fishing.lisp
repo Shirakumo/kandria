@@ -211,7 +211,8 @@
          (when item
            (leave* item T)
            (store item player)))
-       (leave* line T))
+       (when (slot-boundp line 'container)
+         (leave* line T)))
       (T
        (harmony:play (// 'sound 'fishing-big-splash))
        (setf (animation player) 'fishing-reel)
