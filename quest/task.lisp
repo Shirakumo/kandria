@@ -23,10 +23,10 @@
 
 (defmethod class-for ((storyline (eql 'task))) 'task)
 
-(defmethod reset progn ((task task))
+(defmethod reset progn ((task task) &key (reset-vars T))
   (setf (status task) :inactive)
   (loop for trigger being the hash-values of (triggers task)
-        do (reset trigger)))
+        do (reset trigger :reset-vars reset-vars)))
 
 (defmethod parent ((task task))
   (quest task))

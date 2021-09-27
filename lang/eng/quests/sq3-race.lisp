@@ -82,7 +82,7 @@
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-1 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-1 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-1 'bronze))}.
 ? (var-of 'race-1 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange).
-! eval (reset 'race-1 'race-1-start)
+! eval (reset* 'race-1 'race-1-start)
 ! eval (activate 'race-1-start)
 < end
 
@@ -92,7 +92,7 @@
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-2 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-2 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-2 'bronze))}.
 ? (var-of 'race-2 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange).
-! eval (reset 'race-2 'race-2-start)
+! eval (reset* 'race-2 'race-2-start)
 ! eval (activate 'race-2-start)
 < end
 
@@ -102,7 +102,7 @@
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-3 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-3 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-3 'bronze))}.
 ? (var-of 'race-3 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange).
-! eval (reset 'race-3 'race-3-start)
+! eval (reset* 'race-3 'race-3-start)
 ! eval (activate 'race-3-start)
 < end
 
@@ -112,7 +112,7 @@
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
 ? (var-of 'race-4 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange).
-! eval (reset 'race-4 'race-4-start)
+! eval (reset* 'race-4 'race-4-start)
 ! eval (activate 'race-4-start)
 < end
 
@@ -122,7 +122,7 @@
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-5 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-5 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-5 'bronze))}.
 ? (var-of 'race-5 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange).
-! eval (reset 'race-5 'race-5-start)
+! eval (reset* 'race-5 'race-5-start)
 ! eval (activate 'race-5-start)
 < end
 

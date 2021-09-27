@@ -13,7 +13,8 @@
 (defmethod find-named (name (trigger trigger) &optional (error T))
   (find-named name (task trigger) error))
 
-(defmethod reset progn ((trigger trigger))
+(defmethod reset progn ((trigger trigger) &key reset-vars)
+  (declare (ignore reset-vars))
   (if (active-p trigger)
       (deactivate trigger)
       (setf (status trigger) :inactive)))

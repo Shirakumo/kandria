@@ -13,18 +13,19 @@
                                         (cons (cons (first binding) (second binding)))
                                         (symbol (cons binding NIL))))))
 
-(defgeneric reset (scope)
+(defgeneric reset (scope &key reset-vars)
   (:method-combination progn))
 (defgeneric parent (scope))
 (defgeneric binding (name scope))
 (defgeneric var (name scope &optional default))
 (defgeneric (setf var) (value name scope))
 
-(defmethod reset progn ((scope scope))
-  (setf (bindings scope) (loop for binding in (initial-bindings scope)
-                               collect (etypecase binding
-                                         (cons (cons (first binding) (second binding)))
-                                         (symbol (cons binding NIL))))))
+(defmethod reset progn ((scope scope) &key (reset-vars T))
+  (when reset-vars
+    (setf (bindings scope) (loop for binding in (initial-bindings scope)
+                                 collect (etypecase binding
+                                           (cons (cons (first binding) (second binding)))
+                                           (symbol (cons binding NIL)))))))
 
 (defmethod parent ((scope scope)) NIL)
 
