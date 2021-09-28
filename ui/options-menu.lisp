@@ -177,7 +177,10 @@
       (control master-volume (:audio :volume :master) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
       (control effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
       (control speech-volume (:audio :volume :speech) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
-      (control music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1))
+      (control music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
+      (when (typep (harmony:segment :drain (harmony:segment :output T)) 'org.shirakumo.fraf.mixed.dummy:drain)
+        (alloy:enter (make-instance 'label :value #@no-sound-backend-available-warning :style `((:label :pattern ,colors:red :offset ,(alloy:point 30 0))))
+                     layout-outer :place :north :size (alloy:un 40))))
     (with-tab video-settings
       (control screen-resolution (:display :resolution) 'org.shirakumo.fraf.trial.alloy:video-mode)
       (control should-application-fullscreen (:display :fullscreen) 'alloy:checkbox)

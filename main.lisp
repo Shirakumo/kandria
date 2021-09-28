@@ -14,7 +14,7 @@
    :title "Kandria"
    :app-id 1261430))
 
-(defmethod initialize-instance ((main main) &key app-id world state)
+(defmethod initialize-instance ((main main) &key app-id world state audio-backend)
   (declare (ignore app-id))
   (setf +main+ main)
   (call-next-method)
@@ -34,7 +34,7 @@
                                                       :mixers '(:music :speech (:effect mixed:plane-mixer))
                                                       :drain drain))))
     (handler-case (with-error-logging (:kandria "Failed to set up sound, falling back to dummy output.")
-                    (start (or (setting :audio :backend) :default)))
+                    (start (or audio-backend (setting :audio :backend) :default)))
       (error () (start :dummy))))
   (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
   (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
