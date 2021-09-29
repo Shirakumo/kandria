@@ -29,6 +29,7 @@
    (#:trial-harmony #:org.shirakumo.fraf.trial.harmony)
    (#:mixed #:org.shirakumo.fraf.mixed)
    (#:steam #:org.shirakumo.fraf.steamworks)
+   (#:steam* #:org.shirakumo.fraf.steamworks.cffi)
    (#:notify #:org.shirakumo.fraf.trial.notify)
    (#:bvh #:org.shirakumo.fraf.trial.bvh2)
    (#:markless #:org.shirakumo.markless)

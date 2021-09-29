@@ -9,6 +9,13 @@
 (defmethod handle ((ev gain-focus) (main main))
   (hide-panel 'pause-screen))
 
+(steam:define-callback steam*::game-overlay-activated (result active)
+  (when (and (not (find-panel 'load-panel))
+             (unit 'environment (scene main)))
+    (if active
+        (show-panel 'pause-screen)
+        (hide-panel 'pause-screen))))
+
 (defclass pause-screen (pausing-panel)
   ())
 
