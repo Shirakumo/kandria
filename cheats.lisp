@@ -114,3 +114,7 @@
 
 (define-cheat motherlode
   (store 'item:parts (unit 'player T) 10000))
+
+#-kandria-release
+(define-cheat snapshot
+  (submit-trace))

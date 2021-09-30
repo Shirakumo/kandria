@@ -434,9 +434,10 @@
               (exit (with-button return-to-main-menu
                       (reset (unit 'environment +world+))
                       (transition
-                        :kind :black
-                        (reset +main+)
-                        (invoke-restart 'discard-events)))))
+                       :kind :black
+                       #+kandria-release (submit-trace)
+                       (reset +main+)
+                       (invoke-restart 'discard-events)))))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))

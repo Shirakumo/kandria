@@ -31,7 +31,7 @@
                             :palette "Model 1"
                             :pause-on-focus-loss T)
                  :language :eng
-                 :debugging ())))
+                 :debugging (:send-diagnostics T))))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)

@@ -139,3 +139,15 @@
 
 (defclass quicksave-state (save-state)
   ((file :initform (save-state-path "quicksave"))))
+
+(defun submit-trace ()
+  (let ((state (state +main+))
+        (file (tempfile :type "dat"))
+        (trace (movement-trace (unit 'player +world+))))
+    (with-unwind-protection (delete-file file)
+      (with-open-file (stream file :direction :output :element-type '(unsigned-byte 8))
+        (nibbles:write-ub16/le (length trace) stream)
+        (dotimes (i (length trace))
+          (nibbles:write-ieee-single/le (aref trace i) stream)))
+      (org.shirakumo.fraf.trial.feedback:submit-snapshot
+       (id state) (play-time state) (session-time) :trace file))))

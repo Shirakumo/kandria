@@ -450,6 +450,7 @@ cheat/you-must-die "Reaper"
 cheat/lp0-on-fire "Game on fire"
 cheat/blingee "Blinged out"
 cheat/motherlode "I'm rich!"
+cheat/snapshot "Snapshot submitted."
 ;; Misc
 load-screen-new-game "
 Initiating cold boot
