@@ -145,7 +145,8 @@
         (trace (movement-trace (unit 'player +world+))))
     (trial::with-unwind-protection (delete-file file)
       (with-open-file (stream file :direction :output :element-type '(unsigned-byte 8))
-        (dotimes (i (length trace))
-          (nibbles:write-ieee-single/le (aref trace i) stream)))
+        (loop for float across trace
+              do (unless (float-features:float-nan-p float)
+                   (nibbles:write-ieee-single/le float stream))))
       (org.shirakumo.fraf.trial.feedback:submit-snapshot
        (id state) (play-time state) (session-time) :trace file))))
