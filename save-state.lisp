@@ -145,7 +145,6 @@
         (trace (movement-trace (unit 'player +world+))))
     (trial::with-unwind-protection (delete-file file)
       (with-open-file (stream file :direction :output :element-type '(unsigned-byte 8))
-        (nibbles:write-ub16/le (length trace) stream)
         (dotimes (i (length trace))
           (nibbles:write-ieee-single/le (aref trace i) stream)))
       (org.shirakumo.fraf.trial.feedback:submit-snapshot
