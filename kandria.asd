@@ -129,4 +129,5 @@
                :cl-mixed-vorbis
                :zpng
                :jsown
-               :swank))
+               :swank
+               :uuid))
