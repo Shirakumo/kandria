@@ -117,4 +117,6 @@
 
 #-kandria-release
 (define-cheat snapshot
-  (submit-trace))
+  (let ((state (or (state +main+) (first (list-saves)))))
+    (when state
+      (submit-trace state))))

@@ -435,7 +435,7 @@
                       (reset (unit 'environment +world+))
                       (transition
                        :kind :black
-                       #+kandria-release (submit-trace)
+                       #+kandria-release (submit-trace (state +main+))
                        (reset +main+)
                        (invoke-restart 'discard-events)))))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
