@@ -216,7 +216,7 @@
       (T
        (harmony:play (// 'sound 'fishing-big-splash))
        (setf (animation player) 'fishing-reel)
-       (when (item buoy)
+       (when (and (item buoy) (slot-unbound (item buoy) 'container))
          (enter* (item buoy) (region +world+)))
        (vsetf (velocity buoy)
               (* (- (vx (location line)) (vx (location buoy))) 0.05)
