@@ -140,9 +140,10 @@
 (defclass quicksave-state (save-state)
   ((file :initform (save-state-path "quicksave"))))
 
-(defun submit-trace (state)
+(defun submit-trace (state &optional (player (unit 'player +world+)))
+  (v:info :kandria.save "Submitting trace...")
   (let ((file (tempfile :type "dat"))
-        (trace (movement-trace (unit 'player +world+))))
+        (trace (movement-trace player)))
     (trial::with-unwind-protection (delete-file file)
       (with-open-file (stream file :direction :output :element-type '(unsigned-byte 8))
         (loop for float across trace

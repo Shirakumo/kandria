@@ -432,12 +432,17 @@
         (let ((resume (with-button resume-game
                         (hide panel)))
               (exit (with-button return-to-main-menu
-                      (reset (unit 'environment +world+))
-                      (transition
-                       :kind :black
-                       #+kandria-release (submit-trace (state +main+))
-                       (reset +main+)
-                       (invoke-restart 'discard-events)))))
+                      (let ((state (state +main+))
+                            (player (unit 'player +world+)))
+                        (reset (unit 'environment +world+))
+                        (transition
+                         :kind :black
+                         #+kandria-release
+                         (when (and state player)
+                           (submit-trace state player)
+                           (setf state NIL player NIL))
+                         (reset +main+)
+                         (invoke-restart 'discard-events))))))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))
