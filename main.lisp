@@ -4,7 +4,6 @@
                 org.shirakumo.fraf.trial.notify:main)
   ((scene :initform NIL)
    (state :initform NIL :accessor state)
-   (quicksave :initform (make-instance 'quicksave-state :play-time 0) :accessor quicksave)
    (timestamp :initform (get-universal-time) :accessor timestamp)
    (loader :initform (make-instance 'load-screen))
    (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL))
@@ -72,13 +71,9 @@
     (setf (state main) (make-instance 'save-state :filename "1")))
   (apply #'save-state main (state main) args))
 
-(defmethod save-state ((main main) (state (eql :quick)) &rest args)
-  (apply #'save-state main (quicksave main) args))
-
 (defmethod save-state ((main main) (state save-state) &rest args)
   (prog1 (apply #'save-state (scene main) state args)
-    (unless (typep state 'quicksave-state)
-      (setf (state main) state))))
+    (setf (state main) state)))
 
 (defmethod load-state ((state (eql T)) (main main))
   (cond ((state main)
@@ -88,15 +83,13 @@
         (T
          (load-state NIL main))))
 
-(defmethod load-state ((state (eql :quick)) (main main))
-  (load-state (quicksave main) main))
-
 (defmethod load-state ((state null) (main main))
   (let ((state (or (state main) (make-instance 'save-state :filename "1"))))
     (load-state (initial-state (scene main)) (scene main))
     (clear-spawns)
-    (trial:commit (scene main) (loader main) :show-screen T :cold T)
-    (setf (state main) state)))
+    (unwind-protect
+         (trial:commit (scene main) (loader main) :show-screen T :cold T)
+      (setf (state main) state))))
 
 (defmethod load-state ((state save-state) (main main))
   (restart-case
@@ -107,11 +100,10 @@
                                 (invoke-restart 'reset)))))
         (prog1 (load-state state (scene main))
           (clear-spawns)
-          (trial:commit (scene main) (loader main) :show-screen T)
-          (unless (typep state 'quicksave-state)
-            (setf (state main) state))
-          (save-state main (quicksave main))
-          (save-state main state)))
+          (unwind-protect
+               (trial:commit (scene main) (loader main) :show-screen T)
+            (setf (state main) state)
+            (save-state main state))))
     (reset ()
       :report "Ignore the save and reset to the initial state."
       (load-state NIL main))))

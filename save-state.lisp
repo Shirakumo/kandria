@@ -137,9 +137,6 @@
       (decode-payload NIL world packet version)
       (apply #'make-instance 'save-state initargs))))
 
-(defclass quicksave-state (save-state)
-  ((file :initform (save-state-path "quicksave"))))
-
 (defun submit-trace (state &optional (player (unit 'player +world+)))
   (v:info :kandria.save "Submitting trace...")
   (let ((file (tempfile :type "dat"))

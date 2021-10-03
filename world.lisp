@@ -23,7 +23,7 @@
       (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))
                         :name)))
         (setf (gethash name (regions world)) entry))))
-  (setf (initial-state world) (change-class (minimal-load-state (entry-path "init/" packet)) 'quicksave-state)))
+  (setf (initial-state world) (minimal-load-state (entry-path "init/" packet))))
 
 (defmethod hour ((world world))
   (mod (float (/ (nth-value 1 (truncate (+ (timestamp world) 432000) (* 60 60 24 7))) 60 60) 0d0) 24d0))
