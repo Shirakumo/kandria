@@ -1,17 +1,20 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defun should-show-pause-screen (main)
+  (and (not (find-panel 'load-panel))
+       (not (find-panel 'main-menu))
+       (unit 'environment (scene main))))
+
 (defmethod handle ((ev lose-focus) (main main))
   (when (and (setting :gameplay :pause-on-focus-loss)
-             (not (find-panel 'load-panel))
-             (unit 'environment (scene main)))
+             (should-show-pause-screen main))
     (show-panel 'pause-screen)))
 
 (defmethod handle ((ev gain-focus) (main main))
   (hide-panel 'pause-screen))
 
 (steam:define-callback steam*::game-overlay-activated (result active)
-  (when (and (not (find-panel 'load-panel))
-             (unit 'environment (scene main)))
+  (when (should-show-pause-screen +main+)
     (if active
         (show-panel 'pause-screen)
         (hide-panel 'pause-screen))))
