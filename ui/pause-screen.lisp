@@ -15,7 +15,7 @@
 
 (steam:define-callback steam*::game-overlay-activated (result active)
   (when (should-show-pause-screen +main+)
-    (if active
+    (if (= 1 active)
         (show-panel 'pause-screen)
         (hide-panel 'pause-screen))))
 
