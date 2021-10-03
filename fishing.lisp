@@ -16,6 +16,7 @@
   (setf (direction player) (direction spot))
   (setf (fishing-spot (fishing-line player)) spot)
   (setf (item (buoy (fishing-line player))) NIL)
+  (harmony:play (// 'sound 'fishing-begin-jingle))
   (setf (state player) :fishing)
   (setf (active-p (action-set 'fishing)) T)
   (vsetf (velocity player) 0 0)
@@ -141,7 +142,7 @@
   (dolist (sound '(fishing-bob-lands-in-water fishing-fish-bite fishing-fish-nibble
                    fishing-fish-bite fishing-fish-caught fishing-fish-escaped
                    fishing-good-catch fishing-bad-catch fishing-rare-catch
-                   fishing-big-splash))
+                   fishing-big-splash fishing-begin-jingle))
     (stage (// 'sound sound) area))
   (stage (buoy line) area)
   (stage (// 'kandria 'fish) area))
