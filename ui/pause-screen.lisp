@@ -14,6 +14,7 @@
   (hide-panel 'pause-screen))
 
 (steam:define-callback steam*::game-overlay-activated (result active)
+  (v:info :kandria "Steam game overlay ~:[deactivated~;activated~]" (= 1 active))
   (when (should-show-pause-screen +main+)
     (if (= 1 active)
         (show-panel 'pause-screen)

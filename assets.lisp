@@ -84,7 +84,10 @@
   (player-enter-passage :volume 0.5)
   (player-red-flashing :repeat T :volume 0.2)
   (elevator-move :repeat T :volume 0.1)
-  (fishing-begin-jingle :volume 0.2))
+  (fishing-begin-jingle :volume 0.2)
+  (fishing-bad-catch :volume 0.2)
+  (fishing-good-catch :volume 0.2)
+  (fishing-rare-catch :volume 0.3))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.1)

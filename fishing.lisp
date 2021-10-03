@@ -217,7 +217,7 @@
       (T
        (harmony:play (// 'sound 'fishing-big-splash))
        (setf (animation player) 'fishing-reel)
-       (when (and (item buoy) (slot-boundp (item buoy) 'container))
+       (when (and (item buoy) (not (slot-boundp (item buoy) 'container)))
          (enter* (item buoy) (region +world+)))
        (vsetf (velocity buoy)
               (* (- (vx (location line)) (vx (location buoy))) 0.05)
@@ -228,7 +228,8 @@
   (let ((line (fishing-line player)))
     (let ((item (item (buoy line))))
       (when item
-        (leave* item T)
+        (when (slot-boundp item 'container)
+          (leave* item T))
         (store item player)))
     (when (slot-boundp line 'container)
       (leave* line T))
