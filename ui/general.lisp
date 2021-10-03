@@ -298,7 +298,8 @@
   ;; Hide prompts
   (let ((els ()))
     (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
-      (push el els))
+      (when (typep el '(or prompt panel))
+        (push el els)))
     (mapc #'hide els)))
 
 (defclass menuing-panel (fullscreen-panel)
