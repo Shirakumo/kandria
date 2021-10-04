@@ -62,7 +62,8 @@
 
 (defmethod finalize :after ((main main))
   (setf +world+ NIL)
-  (harmony:free harmony:*server*)
+  (when harmony:*server*
+    (harmony:free harmony:*server*))
   (setf harmony:*server* NIL)
   (setf +main+ NIL))
 
