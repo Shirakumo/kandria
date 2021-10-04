@@ -303,16 +303,17 @@
 
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
-    (case state
-      (:normal
-       (setf (vw (color player)) 0.0))
-      (:crawling
-       (setf (vy (bsize player)) 7)
-       (decf (vy (location player)) 8)))
-    (case (state player)
-      (:crawling
-       (incf (vy (location player)) 8)
-       (setf (vy (bsize player)) 15)))))
+    (let ((bottom (- (vy (location player)) (vy (bsize player)))))
+      (case state
+        (:normal
+         (setf (vw (color player)) 0.0))
+        (:crawling
+         (setf (vy (bsize player)) 7)
+         (setf (vy (location player)) (+ bottom (vy (bsize player))))))
+      (case (state player)
+        (:crawling
+         (setf (vy (bsize player)) 15)
+         (setf (vy (location player)) (+ bottom (vy (bsize player)))))))))
 
 (defmethod (setf buffer) (thing (player player))
   (let ((buffer (slot-value player 'buffer)))
@@ -668,9 +669,10 @@
                  (and (not (retained 'crawl))
                       (and (not (svref collisions 0))
                            (null (scan-collision +world+ (vec (vx loc) (+ (vy loc) 18)))))))
-         (when (scan-collision +world+ (vec (vx loc) (vy loc) 16 32))
-           (decf (vy loc) 16))
-         (setf (state player) :normal))
+         (setf (state player) :normal)
+         ;; Check ceiling and clip out.
+         (when (scan-collision +world+ (vec (vx loc) (+ 2 (vy loc)) 8 16))
+           (decf (vy loc) 16)))
 
        (setf (vx vel) (* 0.9 (vx vel)))
        (cond ((retained 'left)
