@@ -438,7 +438,7 @@
                         (transition
                          :kind :black
                          #+kandria-release
-                         (when (and state player)
+                         (when (and state player (setting :debugging :send-diagnostics))
                            (submit-trace state player)
                            (setf state NIL player NIL))
                          (reset +main+)

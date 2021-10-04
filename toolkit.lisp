@@ -31,7 +31,11 @@
                             :palette "Model 1"
                             :pause-on-focus-loss T)
                  :language :eng
-                 :debugging (:send-diagnostics T))))
+                 :debugging (:show-debug-settings #+kandria-release NIL #-kandria-release T
+                             :send-diagnostics T
+                             :allow-editor #+kandria-release NIL #-kandria-release T
+                             :swank NIL
+                             :swank-port 4005))))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)

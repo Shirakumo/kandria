@@ -1,6 +1,8 @@
 # Kandria Editor
 This document is a user manual for the Kandria in-game editor. You can open up the editor at any point in time by hitting the section key (typically the top left key on your keyboard below Escape). Opening the editor will pause the game and open a bunch of editing tools. You can unpause and resume the game by hitting the section key again.
 
+You might need to first unlock the editor in the debugging options menu. To access the menu, type ``i am a developer``, open the options, navigate to ``debugging``, and check ``allow opening the editor``.
+
 Changes made in the editor will reflect immediately in the game -- you are literally editing the current game state. In order to persist the state, hit the save button. Using the load button you can reset your state to a previous load or load another region entirely.
 
 ## Game Architecture

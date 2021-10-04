@@ -120,3 +120,6 @@
   (let ((state (or (state +main+) (first (list-saves)))))
     (when state
       (submit-trace state))))
+
+(define-cheat (developer |i am a developer|)
+  (setf (setting :debugging :show-debug-settings) T))

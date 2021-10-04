@@ -213,6 +213,13 @@
       (control auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 0.1 :grid 0.1)
       (control display-text-effects (:gameplay :display-text-effects) 'alloy:checkbox)
       (control display-swears (:gameplay :display-swears) 'alloy:checkbox))
+    (when (setting :debugging :show-debug-settings)
+      (with-tab development-settings
+        (control show-debug-settings (:debugging :show-debug-settings) 'alloy:checkbox)
+        (control send-diagnostics (:debugging :send-diagnostics) 'alloy:checkbox)
+        (control allow-editor (:debugging :allow-editor) 'alloy:checkbox)
+        (control start-swank-server (:debugging :swank) 'alloy:checkbox)
+        (control swank-server-port (:debugging :swank-port) 'alloy:ranged-wheel :range '(1024 . 65535))))
     (alloy:on alloy:exit ((alloy:focus-element panel))
       (when (active-p panel)
         (hide panel)))))

@@ -191,7 +191,7 @@ Possible sub-commands:
     (ignore-errors
      (load-settings))
     (save-settings)
-    (maybe-start-swank)
+    (manage-swank)
     (apply #'trial:launch 'main
            :width (first (setting :display :resolution))
            :height (second (setting :display :resolution))
@@ -264,14 +264,17 @@ Possible sub-commands:
 (define-setting-observer video :display (value)
   (apply-video-settings value))
 
-(defun maybe-start-swank (&optional force)
-  (let ((swank (etypecase (or force (setting :debugging :swank))
-                 (null NIL)
-                 ((eql T) swank::default-server-port)
-                 (integer (setting :debugging :swank)))))
-    (when swank
-      (v:info :kandria.debugging "Launching SWANK server on port ~a." swank)
-      (swank:create-server :port swank :dont-close T)
-      (setf *inhibit-standalone-error-handler* T))))
+(defun manage-swank (&optional (mode (setting :debugging :swank)))
+  (let ((port (or (setting :debugging :swank-port) swank::default-server-port)))
+    (cond (mode
+           (v:info :kandria.debugging "Launching SWANK server on port ~a." port)
+           (swank:create-server :port port :dont-close T)
+           (setf *inhibit-standalone-error-handler* T))
+          (T
+           (ignore-errors (swank:stop-server port))
+           (setf *inhibit-standalone-error-handler* NIL)))))
+
+(define-setting-observer swank :debugging :swank (value)
+  (manage-swank value))
 
 (load-quests :eng)

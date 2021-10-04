@@ -57,7 +57,9 @@ We are especially interested in feedback from people with physical impairments. 
 ## Testing tools
 In order to help with testing, there's a couple of things you might want to know:
 
-You can press the section key (top left of your keyboard, below ESC) at any time to enter the "editor mode"(link editor.mess). Editor mode allows you to change the entire game, but most importantly, it allows you to reposition the player anywhere you want. In editor mode, hold Alt and drag to move the screen, and press H to move the player to the middle of the screen. You can also first select the player, and then drag to reposition.
+You can press the section key (top left of your keyboard, below ESC) at any time to enter the "editor mode"(link editor.mess). You might need to first unlock the editor in the debugging options menu. To access the menu, type ``i am a developer``, open the options, navigate to ``debugging``, and check ``allow opening the editor``.
+
+Editor mode allows you to change the entire game, but most importantly, it allows you to reposition the player anywhere you want. In editor mode, hold Alt and drag to move the screen, and press H to move the player to the middle of the screen. You can also first select the player, and then drag to reposition.
 
 You can quicksave and quickload at any time by pressing F5 and F9 respectively while in the editor.
 
