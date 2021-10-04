@@ -1,0 +1,44 @@
+# Kandria Level Design Doc
+This document should serve as a reference for level design patterns and goals. If you're about to build a level, you should consult this document to ensure it is consistent with the overall design in Kandria.
+
+## Overall goals
+In general you should aim for the following goals, from most important to least important:
+
+1. **Fun**
+   Is the level fun to play? Does navigation feel good? If it's more frustrating than fun, redesign it.
+2. **Replayability**
+   If a player were to go through this level again, would it still be fun? Is there a way to beat it that's not a chore? Since this is an open-world game, players might need to or want to go through a level multiple times. Check if the level is still fun after figuring out its puzzle.
+3. **Difficulty**
+   Is the level hard to get through? Does the difficulty scaling make sense? Levels higher up should be easier to beat than ones lower down, and levels on the main path even more so.
+6. **Composition**
+   How does the level relate to the others? Does it make sense for it to be there, or would it fit better somewhere else? Does it communicate that it's a main path or a side path? It's important that the player understand how to navigate the world intuitively, so side content and main content, as well as the directionality should be apparent.
+4. **Consistency**
+   Does the level make sense as a part of the overall game world? Does it realistically seem like something that could exist? If the geometry is very contrived to serve the puzzle, consider redesigning it to be more probable.
+5. **Speedrunning**
+   Is there a somewhat hidden way to beat the level very quickly if you know the movement mechanics very well? Speedrunning is not a necessity, but it can be a good way to design levels to have multiple paths for all of the above reasons.
+
+## Overworld design
+The overworld in Kandria is divided up vertically into five sections:
+
+1. **Surface**
+   This area holds the camp as well as the ruined city parts. it is gated on both sides by impenetrable sandstorms. There are multiple areas that lead to region 1 sections.
+2. **Region 1 (upper)**
+   This is a mostly abandoned section of old buildings with a mix of caves. It is much wider than deep, and has lots of branching paths and tunnels that connect the different buildings. The focus here was on designing realistic buildings and tunnel layouts, with some extra content to the side. This, along with the surface, serves as the tutorial area and should thus be mostly safe to traverse. Enemies are very sparse and very weak.
+3. **Region 1 (lower)**
+   This is the first "real" area of the game, and is, similar to the upper part, more wide than deep. This time there are more paths to the side, but the overall layout is more linearly structured, with multiple "layers" of linear paths, which are tied together by the Semi Sisters settlement in the middle. Enemies on the far ends of the paths should be more frequent and more dangerous.
+4. **Region 2**
+   This region corresponds to the midpoint of the game, and has a more "box"-like layout compared to region 1. Many diagonally oriented wind shafts intersperse more horizontally oriented waterways, rivers, and lakes. Enemies should be much more frequent and more dangerous in this area, as raiders and monsters are frequent. Secrets and side areas should also be much more frequent.
+5. **Region 3**
+   This area is the final area in the game and should thus be the most challenging by far. The overall design should be mostly vertical, with diagonal elements connecting different shafts. Frequent enemy encounters are also encouraged.
+
+## Detailed design
+
+### Platforming mechanics
+
+### Puzzle design
+
+### Combat arenas
+
+### Boss arenas
+
+### Item spawners
