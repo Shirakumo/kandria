@@ -7,7 +7,7 @@
 (defmethod initialize-instance :after ((scope scope) &key)
   (reset scope))
 
-(defmethod reinitialize-instance :after ((scope scope) &key)
+(defmethod shared-initialize :after ((scope scope) slots &key)
   (merge-bindings scope (loop for binding in (initial-bindings scope)
                               collect (etypecase binding
                                         (cons (cons (first binding) (second binding)))
