@@ -503,6 +503,7 @@
                      (light-ground-2 (start-animation 'light-ground-3 player))
                      (light-aerial-1 (start-animation 'light-aerial-2 player))
                      (light-aerial-2 (start-animation 'light-aerial-3 player))
+                     ((evade-left evade-right) (start-animation 'light-counter player))
                      (T
                       (cond ((not (svref (collisions player) 2))
                              (unless (used-aerial player)
@@ -512,6 +513,8 @@
                                    (start-animation 'light-aerial-1 player))))
                             ((retained 'up)
                              (start-animation 'light-up player))
+                            ((retained 'down)
+                             (start-animation 'light-down player))
                             (T
                              (start-animation 'light-ground-1 player))))))
                   (heavy-attack
@@ -520,6 +523,7 @@
                      (heavy-ground-2 (start-animation 'heavy-ground-3 player))
                      (heavy-aerial-1 (start-animation 'heavy-aerial-2 player))
                      (heavy-aerial-2 (start-animation 'heavy-aerial-3 player))
+                     ((evade-left evade-right) (start-animation 'heavy-counter player))
                      (T
                       (cond ((not (svref (collisions player) 2))
                              (unless (used-aerial player)
@@ -529,6 +533,8 @@
                                    (start-animation 'heavy-aerial-1 player))))
                             ((retained 'up)
                              (start-animation 'heavy-up player))
+                            ((retained 'down)
+                             (start-animation 'heavy-down player))
                             (T
                              (start-animation 'heavy-ground-1 player))))))
                   (dash
