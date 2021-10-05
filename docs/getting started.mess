@@ -35,6 +35,8 @@ The source tree is divided up as follows:
       A mood board with reference images and videos for the art direction.
     - "``beta.mess``"(link beta.mess)
       Documentation for beta testing.
+    - "``characters.mess``"(link characters.mess)
+      Documentation on the various characters in the game's story.
     - "``combat system.mess``"(link combat system.mess)
       Documentation on the combat system that the game employs.
     - "``design.mess``"(link design.mess)
@@ -43,6 +45,8 @@ The source tree is divided up as follows:
       Documentation on the dialogue format and syntax.
     - "``editor.mess``"(link editor.mess)
       Documentation on the in-game editor and how to use its features.
+    - "``level design.mess``"(link level design.mess)
+      Documentation on the level design practises.
     - "``lisp crash course.mess``"(link lisp crash course.mess)
       A short introduction to Lisp syntax and usage related to Kandria.
     - "``lore.mess``"(link lore.mess)

@@ -31,14 +31,107 @@ The overworld in Kandria is divided up vertically into five sections:
 5. **Region 3**
    This area is the final area in the game and should thus be the most challenging by far. The overall design should be mostly vertical, with diagonal elements connecting different shafts. Frequent enemy encounters are also encouraged.
 
+Each of the sections should have multiple connection points to the one below and above it. Singular connection points may be used in the beginning, but in the very least at the point where the player must return to a previous section, multiple paths must exist.
+
 ## Detailed design
+After the overall composition of chunks has been considered, the detailed design of each room must be considered. Generally each room should be one of the following types:
+
+- **Puzzle**
+  A room dedicated to a puzzle platforming challenge. These can be intricate designs with contrived layouts.
+- **Arena**
+  A room designed for a combat encounter. These should typically be quite flat, with little verticality to them, as combat depends on a mostly horizontal, wide open space.
+- **Connector**
+  A room that acts as a sort of hub to connect other rooms together. The primary design here lies in indicating to the player what types of rooms lie ahead of the various connecting spots.
+- **Setpiece**
+  A room primarily intended for story and world building reasons. The design should focus on the visual aspects, and ensure that it is coherent with the world itself. Typically these rooms are also connector rooms and house NPCs or lore items.
+
+You should not cross over different room types, and instead split them up so each room can have a clear purpose.
+
+### Player Moveset
+The player has access to the following moves. Keep them in mind when designing levels:
+
+- Stand
+- Look up
+- Look down
+- Slow walk
+- Run
+- Fast run (requires uninterrupted run)
+- Hop
+- Jump
+- Hard land
+- Hard land roll
+- Ground dash (will shoot off angled slopes)
+- Dashjump (causes much faster dash)
+- Aerial dash (locked to 8-axis)
+- Crawl
+- Wall slide
+- Wall jump
+- Climb hold
+- Climb down
+- Climb up (consumes stamina)
+- Climb leap up (consumes stamina)
+- Slide [TODO]
+- Dodge (auto-triggered from dash)
+- Light counter [TODO]
+- Heavy counter [TODO]
+- Light charge
+- Heavy charge
+- Light ground down [TODO]
+- Heavy ground down [TODO]
+- Light ground up
+- Heavy ground up
+- Light ground side 1
+- Light ground side 2
+- Light ground side 3
+- Heavy ground side 1
+- Heavy ground side 2
+- Heavy ground side 3
+- Light aerial down
+- Heavy aerial down
+- Light aerial side 1
+- Light aerial side 2
+- Light aerial side 3
+- Heavy aerial side 1
+- Heavy aerial side 2
+- Heavy aerial side 3
 
 ### Platforming mechanics
+This section will outline the available mechanical devices that can be used to construct a platforming section, as well as their behaviours and use-cases.
+
+- **Spawn points**
+  By default the player's position when entering a chunk will be set as the current spawn point. You can force a new spawn point by using a checkpoint. Occasionally it can be necessary to set a checkpoint in the middle of a room to ease a frustrating challenge.
+- **Pits**
+  If a chunk is not connected to another chunk below and has no platform to stand on, exiting below will cause the player to die and respawn. Since often times exiting below is expected to be safe, you must clearly indicate when it is not.
+- **Ropes**
+  Ropes can start out either extended or piled up. When piled, the player can kick the rope down to extend it, which will make it stay extended from there on out. The player can climb a rope without losing stamina, making it good for crossing long vertical chasms and gating off areas.
+- **Spikes**
+  Spikes are oriented death triggers. The player must hit the spike within an angle of 90° of the spike's direction in order to die. This especially means that the spike is pass-through if the player moves along the spike's direction. Useful to build one-way barriers and in general force certain jumping patterns.
+- **Jump-through platforms**
+  This element is rather simple and allows players to jump through from below, or drop down from above. Its primary use is to build "staircases" or provide players a bit of respite from a dangerous climb or jump section.
+- **Falling platforms**
+  These platforms will fall about half a second after the player stands on top of them. Climbing on the sides is fine, and will not trigger the fall. The platforms will restore to their initial position if the room is re-entered. While falling the player will be "glued" to the platform and keep standing on it, regardless of the platform's falling speed.
+- **Crumbling platforms [TODO]**
+  These platforms will crumble away half a second after the player stands on top of them or climbs onto them. They re-appear two seconds after disappearing. Primarily useful to add a timed element to platforming and force the player to move forward quickly.
+- **Elevators**
+  Elevators can cycle between two stops, and must be manually activated by the player. Once active, it will move in the current direction until a stopper block is encountered, or until the player activates the elevator again, inverting its direction. Elevators are primarily useful to connect long vertical sections together that would otherwise be a chore to climb manually.
+- **Springs [TODO]**
+  When colliding, the player will be launched in the direction of the spring. This also recharges the dash. Each spring has a constant amount of force to ensure the player can rely on their strength.
+- **Springboards [TODO]**
+  Unlike springs, springboards only bounce a small amount by default, and the player needs to press jump while on one to get a big upwards boost. They also only come in an upwards variant.
+- **Lanterns [TODO]**
+  When dashed into, lanterns recharge the dash and propel players forward and upwards a little bit. The lantern then breaks, until it restores two seconds later. This can be used to create chains of dashes to traverse longer pits.
+- **Sandstorms**
+  Sandstorms activate a simple full-screen effect that layers on top of everything and can be used to gate off the ends of the map.
+- **Wind [TODO]**
+  This area of effect will cause a constant force to be applied to the player while within it. You can vary the strength and direction of the wind, though be careful, as strong values can potentially make certain moves completely useless.
+- **Conveyor belts [TODO]**
+  When landing on or grabbing onto a conveyor belt, the player is stuck on the belt, and is then increasingly accelerated while on the belt. This can be useful for forcing the player into high momentum situations and crossing large gaps.
+- **Water**
+  Water provides vastly different physics. For one, gravity is greatly decreased and friction greatly increased. Jumping and dashing is very ineffective, but dashes are always immediately recharged allowing for infinite dashing.
 
 ### Puzzle design
-
+[TODO]
 ### Combat arenas
-
+[TODO]
 ### Boss arenas
-
-### Item spawners
+[TODO]
