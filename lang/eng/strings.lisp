@@ -6,6 +6,8 @@ trader-nametag "Sahil"
 ;; Actions
 toggle-menu "Toggle Menu"
 toggle-menu/description "Open the menu to access the inventory, quest log, and more"
+show-map "Show Map"
+show-map/description "Open the menu to access the map if you get lost"
 report-bug "Report Bug"
 report-bug/description "If you encounter a problem, or have feedback, please toggle on the feedback form"
 quickmenu "Quick Item Menu"

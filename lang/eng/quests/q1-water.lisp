@@ -212,11 +212,14 @@
 ! setf (direction 'fi) -1
 ! setf (direction 'jack) -1
   ")
-;; TODO catherine confused - What does that mean?...
-#|
-! eval (setf (location 'catherine) 'catherine-group)
-! eval (move-to 'catherine-group (unit 'catherine))
-|#
+  (:eval
+   :condition (not (find-panel 'fullscreen-prompt))
+   (fullscreen-prompt 'toggle-menu :title 'show-map))
+  ;; TODO catherine confused - What does that mean?...
+  #|
+  ! eval (setf (location 'catherine) 'catherine-group) ;
+  ! eval (move-to 'catherine-group (unit 'catherine)) ;
+  |#
   (:go-to (storage-shutter :follow catherine)
    :title "Return to camp with Catherine and find Jack and Fi"
    "~ catherine
