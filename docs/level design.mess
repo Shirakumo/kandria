@@ -33,6 +33,8 @@ The overworld in Kandria is divided up vertically into five sections:
 
 Each of the sections should have multiple connection points to the one below and above it. Singular connection points may be used in the beginning, but in the very least at the point where the player must return to a previous section, multiple paths must exist.
 
+Each of the regions should also have a dedicated metro station room for fast travel, which must be unlocked by the player first.
+
 ## Detailed design
 After the overall composition of chunks has been considered, the detailed design of each room must be considered. Generally each room should be one of the following types:
 
@@ -72,12 +74,12 @@ The player has access to the following moves. Keep them in mind when designing l
 - Climb leap up (consumes stamina)
 - Slide [TODO]
 - Dodge (auto-triggered from dash)
-- Light counter [TODO]
-- Heavy counter [TODO]
+- Light counter
+- Heavy counter
 - Light charge
 - Heavy charge
-- Light ground down [TODO]
-- Heavy ground down [TODO]
+- Light ground down
+- Heavy ground down
 - Light ground up
 - Heavy ground up
 - Light ground side 1
@@ -94,6 +96,16 @@ The player has access to the following moves. Keep them in mind when designing l
 - Heavy aerial side 1
 - Heavy aerial side 2
 - Heavy aerial side 3
+
+### General Design elements
+This section outlines design elements that are useful for general level design.
+
+- **Save points**
+  Save points (or telephones) should be set before difficult challenges as well as in central points such as in encampments and fast travel points. It is important that the save point is in a "safe" location where the player cannot be attacked, or that the telephone is made to be broken if the area becomes dangerous. The player can save from any spot in a room with a save point.
+- **Spawners**
+  Spawners create items or enemies in the level if the player enters a chunk adjacent to the spawner's. This ensures the item/enemy will always be spawned in and ready by the time the player enters the chunk. This is true even if the spawner becomes active while the player is still in the same chunk.
+- **Triggers**
+  Trigger volumes perform a variety of actions if the player enters their rectangular region. They're primarily useful for triggering quest changes and ensuring a proper flow of the quest logic.
 
 ### Platforming mechanics
 This section will outline the available mechanical devices that can be used to construct a platforming section, as well as their behaviours and use-cases.
@@ -131,7 +143,13 @@ This section will outline the available mechanical devices that can be used to c
 
 ### Puzzle design
 [TODO]
+
 ### Combat arenas
-[TODO]
+Combat arenas should be primarily flat stages with enough vertical room to perform aerial manoeuvres. The arena should be contained in a single room, with enough padding on the sides between enemy spawns to minimise risk of the player accidentally exiting the room during a fight.
+
+If the combat encounter is a regular one, the spawner should only spawn a few enemies, and at most three different types of enemy. The player may have to traverse the room many times, for which many enemies as well as difficult constellations would be very bothersome.
+
+If the combat encounter is story-driven, multiple tasks should be used that spawn enemies in in waves. Triggers can also be used to spawn enemies just off screen from the player, which eases the transition.
+
 ### Boss arenas
-[TODO]
+Boss arenas should be wide open rooms that accommodate the boss' fighting gimmick. Each boss arena should be prefaced by a corridor that houses a save point. Any exits or entrances to the boss arena must be sealable so that the player is locked in when the fight begins. Otherwise, the design philosophy should follow the combat arena design pretty closely.
