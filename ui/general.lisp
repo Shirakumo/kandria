@@ -78,6 +78,9 @@
 (presentations:define-realization (ui button)
   ((:background simple:rectangle)
    (alloy:margins))
+  ((border simple:rectangle)
+   (alloy:margins)
+   :line-width (alloy:un 1))
   ((:label simple:text)
    (alloy:margins 5 10 10 5)
    alloy:text
@@ -87,12 +90,16 @@
 
 (presentations:define-update (ui button)
   (:background
-   :pattern (case alloy:focus
-              ((:weak :strong) (colored:color 1 1 1 0.5))
-              (T colors:transparent)))
+   :pattern (if alloy:focus (colored:color 1 1 1 0.5) (colored:color 1 1 1 0.1)))
+  (border
+   :pattern (if alloy:focus colors:transparent colors:white))
   (:label
    :size (alloy:un 20)
    :pattern colors:white))
+
+(presentations:define-animated-shapes button
+  (:background (simple:pattern :duration 0.2))
+  (border (simple:pattern :duration 0.3)))
 
 (defclass label (alloy:label*)
   ())

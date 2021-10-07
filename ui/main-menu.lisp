@@ -414,3 +414,16 @@ void main(){
   (for:for ((entity over +world+))
     (when (typep entity '(or star fullscreen-background logo wave))
       (leave* entity T))))
+
+(defun return-to-main-menu ()
+  (let ((state (state +main+))
+        (player (unit 'player +world+)))
+    (reset (unit 'environment +world+))
+    (transition
+      :kind :black
+      #+kandria-release
+      (when (and state player (setting :debugging :send-diagnostics))
+        (submit-trace state player)
+        (setf state NIL player NIL))
+      (reset +main+)
+      (invoke-restart 'discard-events))))

@@ -429,20 +429,8 @@
         (add-tab tabs (@ open-options-menu) (alloy:layout-element view) (alloy:focus-element view)))
 
       (with-tab ((@ exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
-        (let ((resume (with-button resume-game
-                        (hide panel)))
-              (exit (with-button return-to-main-menu
-                      (let ((state (state +main+))
-                            (player (unit 'player +world+)))
-                        (reset (unit 'environment +world+))
-                        (transition
-                         :kind :black
-                         #+kandria-release
-                         (when (and state player (setting :debugging :send-diagnostics))
-                           (submit-trace state player)
-                           (setf state NIL player NIL))
-                         (reset +main+)
-                         (invoke-restart 'discard-events))))))
+        (let ((resume (with-button resume-game (hide panel)))
+              (exit (with-button return-to-main-menu (return-to-main-menu))))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))

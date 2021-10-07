@@ -83,7 +83,8 @@
                              (:file "credits")
                              (:file "shop")
                              (:file "load-screen")
-                             (:file "pause-screen")))
+                             (:file "pause-screen")
+                             (:file "end-screen")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
