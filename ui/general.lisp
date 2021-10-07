@@ -213,6 +213,8 @@
                    ui-error))
     (stage (// 'sound sound) area))
   (stage (simple:request-font pass (setting :display :font)) area)
+  (stage (simple:request-font pass "PromptFont") area)
+  (stage (simple:request-font pass "Brands") area)
   (stage (framebuffer pass) area))
 
 (defmethod compile-to-pass (object (pass ui-pass)))
