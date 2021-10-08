@@ -159,7 +159,7 @@
     (case (state player)
       (:crawling
        (handle (make-instance 'crawl) player))
-      ((:climbing :normal)
+      ((:normal :climbing :sliding)
        (let ((vel (velocity player)))
          (cond ((handle-evasion player))
                ((<= (dash-time player) 0)
@@ -206,6 +206,8 @@
         ((eql :crawling (state player))
          (handle (make-instance 'crawl) player))
         (T
+         (when (eql :sliding (state player))
+           (setf (state player) :normal))
          (setf (jump-time player) (- (p! coyote-time))))))
 
 (defmethod handle ((ev crawl) (player player))
@@ -694,7 +696,37 @@
                 (signum (- (vy (slope-l ground)) (vy (slope-r ground)))))
              (decf (vy vel) 1)))
        (nv+ vel (v* (gravity (medium player)) dt)))
+      (:sliding
+       (let ((dir (cond ((retained 'left)  -1)
+                        ((retained 'right) +1)
+                        (T                  0))))
+         ;; Allow the player to influence movement.
+         (if (= dir (float-sign (vx vel)))
+             (when (<= (abs (vx vel)) (p! slide-acclimit))
+               (incf (vx vel) (* dir (p! slide-acc))))
+             (when (<= (p! slide-dcc) (abs (vx vel)))
+               (incf (vx vel) (* dir (p! slide-dcc)))))
+         ;; Slope sticky
+         (when (typep ground 'slope)
+           (let ((slope-steepness (* (p! slide-slope-multiplier) (- (vy (slope-l ground)) (vy (slope-r ground))))))
+             (cond ((= (direction player) (float-sign slope-steepness))
+                    (incf (vx vel) slope-steepness))
+                   (T
+                    (incf (vx vel) (* 0.5 slope-steepness)))))))
+       (when (or (<= (abs (vx vel)) (p! slide-acc))
+                 (typep (svref collisions 1) 'ground)
+                 (typep (svref collisions 3) 'ground))
+         (setf (state player) :normal))
+       ;; Air friction
+       (unless ground
+         (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) (* 100 dt)))))
+       (nv+ vel (v* (gravity (medium player)) dt)))
       (:normal
+       ;; Handle slide
+       (when (and (retained 'down) (typep ground 'slope))
+         (setf (direction player) (float-sign (- (vy (slope-l ground)) (vy (slope-r ground)))))
+         (setf (state player) :sliding))
+       
        ;; Handle jumps
        (when (< (jump-time player) 0.0)
          (cond ((or (typep (svref collisions 1) '(and (not null) (not platform)))
@@ -859,6 +891,15 @@
        (setf (animation player) 'crawl)
        (when (= 0 (vx vel))
          (setf (clock player) 0.0)))
+      (:sliding
+       (if (typep (svref collisions 2) 'slope)
+           (let ((slope-steepness (- (vy (slope-l (svref collisions 2))) (vy (slope-r (svref collisions 2))))))
+             (if (= (float-sign slope-steepness) (direction player))
+                 (setf slope-steepness (abs slope-steepness))
+                 (setf slope-steepness (- (abs slope-steepness))))
+             (cond ((= 16 slope-steepness) (setf (animation player) 'slide-1x1))
+                   ((=  8 slope-steepness) (setf (animation player) 'slide-1x2))
+                   ((=  4 slope-steepness) (setf (animation player) 'slide-1x3))))))
       (:normal
        (cond ((and (< 0 (vy vel)) (not (typep (svref collisions 2) 'moving-platform)))
               (setf (animation player) 'jump))
