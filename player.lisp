@@ -723,6 +723,7 @@
        (nv+ vel (v* (gravity (medium player)) dt)))
       (:normal
        ;; Handle slide
+       #-kandria-release
        (when (and (retained 'down) (typep ground 'slope))
          (setf (direction player) (float-sign (- (vy (slope-l ground)) (vy (slope-r ground)))))
          (setf (state player) :sliding))
