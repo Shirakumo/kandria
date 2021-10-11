@@ -19,7 +19,7 @@
 ~ player
 - You're growing crops? In a desert?
   ~ catherine
-  | (:excited)Yep, isn't it amazing?!
+  | (:excited)Yep, isn't it amazing.
   | (:normal)...
   | (:disappointed)Well don't look too excited. This is a real feat, believe me.
 - How did you manage this?
@@ -45,7 +45,7 @@
 - Is it me?
   ~ catherine
   | (:concerned)You?... No of course not.
-  | Well... I mean, (:excited)I think you're amazing - a working android from the old world!
+  | Well... I mean, (:excited)I think you're amazing - a working android from the old world.
   | (:normal)But not everyone has fond tales to tell about androids, I guess. Their loss though.
   | But I'm sure it's not that.
 ~ catherine
@@ -65,7 +65,7 @@
    "~ jack
 | (:annoyed)... Don't give me that bullshit. Where the hell have you been? And who's this?
 ~ catherine
-| (:cheer)What do you mean? I've brought back the android. I got her working!
+| (:cheer)What do you mean? I've brought back the android. I got her working.
 ~ jack
 | (:annoyed)Jesus... this is all we need.
 ~ player
@@ -93,7 +93,7 @@
 ~ jack
 | No way. It's too dangerous.
 ~ catherine
-| (:excited)The android can come with me. You should see what she can do!
+| (:excited)The android can come with me. You should see what she can do.
 ~ jack
 | (:annoyed)Have you lost your mind? An android ain't no toy!
 | You'd be safer walking straight into \"Wraw territory\"(red) than you would goin' anywhere with that thing.

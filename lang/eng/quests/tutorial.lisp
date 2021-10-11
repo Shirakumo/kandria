@@ -69,23 +69,23 @@
   ;; REMARK: ^ Does \[Lie\] not work?
   (:interact (catherine :now T)
    "~ catherine
-| (:cheer)__Tada!__ Here we are!
+| (:cheer)__Tada!__ Here we are.
 | What do you think...?
 ~ player
 - It's a ruined city.
   ~ catherine
-  | (:excited)Yep! It's home.
+  | (:excited)Yep. It's home.
 - It's nice.
   ~ catherine
-  | (:excited)I knew you'd love it!
+  | (:excited)I knew you'd love it.
 - (Lie) It's nice.
   ~ catherine
-  | (:excited)Really? I knew you'd love it!
+  | (:excited)Really? I knew you'd love it.
 - You live here?
   ~ catherine
-  | (:excited)Yep! Pretty amazing, huh?
+  | (:excited)Yep. Pretty amazing, huh?
 ~ catherine
-| And come look at this - I guarantee you won't have ever seen anything like it!
+| And come look at this - I guarantee you won't have ever seen anything like it.
 ! eval (complete 'tutorial)
 ! eval (activate 'q0-settlement-arrive)
   ")
