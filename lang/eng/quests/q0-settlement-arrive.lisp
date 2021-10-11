@@ -19,7 +19,7 @@
 ~ player
 - You're growing crops? In a desert?
   ~ catherine
-  | (:excited)Yep, isn't it amazing.
+  | (:excited)Isn't it amazing.
   | (:normal)...
   | (:disappointed)Well don't look too excited. This is a real feat, believe me.
 - How did you manage this?
