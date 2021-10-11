@@ -285,7 +285,7 @@
 | Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
-| Oh, and we'd need a working computer, which we don't have.
+| Oh, and we'd need a working computer, which no one's had for decades.
 | (:disappointed)Anyway, even if we did, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
@@ -293,7 +293,7 @@
 ~ jack
 | (:annoyed)...
 ~ fi
-| Would you permit Catherine to examine you, assuming we can source a computer?
+| Would you permit Catherine to examine you, assuming we can find a way?
 ~ player
 - I'd rather she didn't.
   ~ fi
@@ -301,24 +301,21 @@
   ~ jack
   | (:annoyed)Really? You're gonna let this thing call the shots?
   ~ fi
-  | This \"thing\" is a person, Jack. And I expect you to treat her as such.
+  | This \"thing\" is a person. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
-  | Still, a computer may be useful to help us maintain Stranger - especially if she's having memory trouble.
-  | Jack, speak with \"Sahil\"(yellow) when he arrives, see what he can do for us.
+  | Jack, speak with \"Sahil\"(yellow) when he arrives, see if he has any ideas.
   ~ jack
   | (:annoyed)If you insist.
 - Sure, why not.
   ~ fi
-  | Good. Jack, speak with \"Sahil\"(yellow) when he arrives, see what he can do for us.
-  | A computer may also help us maintain Stranger - especially if she's having memory trouble.
+  | Good. Jack, speak with \"Sahil\"(yellow) when he arrives, see if he has any ideas.
   ~ jack
   | (:annoyed)If you insist.
 - As long as I'm still online afterwards.
   ~ catherine
   | Don't worry, I won't let them switch you off.
   ~ fi
-  | That's settled then. Jack, speak with \"Sahil\"(yellow) when he arrives, see what he can do for us.
-  | A computer may also help us maintain Stranger - especially if she's having memory trouble.
+  | That's settled then. Jack, speak with \"Sahil\"(yellow) when he arrives, see if he has any ideas.
   ~ jack
   | (:annoyed)If you insist.
 ~ fi
@@ -346,27 +343,9 @@
   ;; TODO fi thinking - Catherine, don't androids have a black box?
   ;; TODO fi firm -  This \"thing\" is a person, Jack. And I expect you to treat her as such.
 
-  ;; TODO future quest/plot point: find a working computer
+  ;; REMARK The finding a computer idea has been abandoned, so this uncertainty about the android's motives will hang over the player for the rest of the game. Perhaps the android faction ending hints at this finally being resolved, since they could scan the android - but by that point, the android's friends trust her (even Jack?), so I don't think they'll even need that confirmation.
 
-  ;; TODO restore walking for Jack and Fi? e.g. ! eval (setf (walk 'fi) T)
 
-  #| DIALOGUE REMOVED FOR THE EXAMINATION - COULD BE REUSED LATER
-  ~ fi                                  ; ;
-  | Thank you. Catherine, if you could proceed. ; ;
-  ~ catherine                           ; ;
-  | This won't hurt a bit.              ; ;
-  ~ player                              ; ;
-  | //Catherine takes my right forearm and opens up an access panel. A strange sensation - I can no longer feel my skin in that area.// ; ;
-  ~ catherine                           ; ;
-  | Nope, just like I said: her log is clean. ; ;
-  | If those rogue's were remote-controlled, the signal didn't come from her. ; ;
-  ~ jack                                ; ;
-  | You sure, Cathy?                    ; ;
-  ~ catherine                           ; ;
-  | Positive.                           ; ;
-  ~ fi                                  ; ;
-  | I am satisfied, for now. Thank you Catherine, Stranger. ; ;
-  |#
   (:interact (catherine)
    :title "Talk to Catherine at the camp"
    "~ catherine
@@ -390,10 +369,7 @@
 ;; TODO Catherine contented - Anyway, don't worry about them.
 
 ;; TODO: inventory item acquired onscreen pop-up / notification
-;; Let's not have catherine go to trader as well - player needs some time away from Catherine (which helps by delaying the trader arrive till after quest 2/3)
 
-;; Catherine got the android online, so she must know the basics about them
-;; also, don't want to have to go to the lab and do this, as too much travelling back and fourth (fetch quests) - and besides, player could run off
 
 #| TODO too much exposition too soon... This should be at the end of Act 1 / into Act 2?...
 | Indeed, allow me to formally welcome you to the Noka.
@@ -401,6 +377,3 @@
 | Just please understand that times are hard, and
 | And please bear with us - it will be more difficult for some of us than others to have an android around the camp.
 |#
-
-
-;; TODO: Explain Wraw yet? Hold off for quest 2/3? Say they have androids for parts/slave labour? Use them as electronic power supplies?)

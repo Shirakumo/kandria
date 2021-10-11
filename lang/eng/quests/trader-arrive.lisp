@@ -189,7 +189,7 @@ And then also add to the chatting sign off random selection: Goodbye! And if you
 |#
 
 
-#| TODO when get scrolling options, restore to talk menu (or add as replacement talking points, once the narrative has moved onto act 2)
+#| TODO when get scrolling options, restore to talk menu (or add as replacement talking points, once the narrative has moved onto act 2) - this would need editing now too to replace mention of a computer with anything Sahil can do or knows about to "scan" the android - which he won't, and it will remain unanswered for the rest of the game
 
 | - Do you know about finding a computer?
 |   ~ trader
