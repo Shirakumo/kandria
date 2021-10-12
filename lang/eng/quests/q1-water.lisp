@@ -236,9 +236,9 @@
 ~ catherine
 | What's the matter? Didn't think I'd come home in one piece?
 ~ jack
-| (:annoyed)Something like that...
+| (:annoyed)Something like that.
 ~ fi
-| You've done well, Catherine. An android will also be a great asset to us.
+| You've done well, Catherine. An android will be a great asset to us.
 | Assuming it can be trusted.
 ~ catherine
 | (:concerned)I don't understand.
@@ -261,7 +261,7 @@
 ~ player
 - No I have not.
   ~ catherine
-  | There, see. Her memories might be all muddled, but that's one thing she is sure about.
+  | There, see. I know her memories are all muddled, but that's one thing she is sure about.
   ~ fi
   | Alright. Let's hope it's telling the truth. (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - I don't think I have.
@@ -303,19 +303,20 @@
   ~ fi
   | This \"thing\" is a person. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
-  | Jack, speak with \"Sahil\"(yellow) when he arrives, see if he has any ideas.
+  | Nevertheless, Jack - speak with \"Sahil\"(yellow) when he arrives, see if he knows anything about androids.
+  | If Stranger is having memory problems, the least we can do is help her.
   ~ jack
   | (:annoyed)If you insist.
 - Sure, why not.
   ~ fi
-  | Good. Jack, speak with \"Sahil\"(yellow) when he arrives, see if he has any ideas.
+  | Good. Jack, speak with \"Sahil\"(yellow) when he arrives, see if he knows anything about androids.
   ~ jack
   | (:annoyed)If you insist.
 - As long as I'm still online afterwards.
   ~ catherine
   | Don't worry, I won't let them switch you off.
   ~ fi
-  | That's settled then. Jack, speak with \"Sahil\"(yellow) when he arrives, see if he has any ideas.
+  | That's settled then. Jack, speak with \"Sahil\"(yellow) when he arrives, see if he knows anything about androids.
   ~ jack
   | (:annoyed)If you insist.
 ~ fi
