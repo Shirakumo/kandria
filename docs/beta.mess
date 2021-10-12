@@ -73,6 +73,9 @@ Another useful tool are various cheats in the game. Cheats are toggled by typing
 - ``self-destruct`` Sets your HP to 1
 - ``nanomachines`` Sets your HP to full
 - ``noclip`` Toggles collision and lets you float through levels quickly
+- ``blingee`` Get one of every value item
+- ``motherlode`` Get 10000 parts
+- ``reveal-map`` Reveal the full map
 
 Be sure to check this section in the future for additional tools, and let us know if you have an idea for more tools that would help ease the testing process.
 
