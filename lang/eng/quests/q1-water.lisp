@@ -88,7 +88,7 @@
   ")
   (:interact (catherine :now T)
   "~ catherine
-| (:concerned)Look - the same cracks as we saw on the last pipe. This isn't right.
+| (:concerned)Look - the same cracks we saw on the last pipe. This isn't right.
 | (:normal)Jack, I think we've got trouble. Over.
 ~ jack
 | What is it?
@@ -177,7 +177,7 @@
 ~ catherine
 | (:disappointed)We found the saboteurs - servo robots from God knows where.
 ~ jack
-| (:annoyed)Those motherfuckers...
+| (:annoyed)Those motherfuckers.
 ~ catherine
 | Stranger dealt with them though.
 ~ jack
