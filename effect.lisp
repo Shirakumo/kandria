@@ -148,7 +148,7 @@ void main(){
       (setf (uniform shader "color") (vec4 1 1 1 (min (lifetime effect) 1)))
       ;; FIXME: this seems expensive, but maybe it would be worse to statically allocate for each text.
       (org.shirakumo.alloy.renderers.opengl:update-vertex-buffer vbo (vertex-data effect))
-      (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles (/ (length (vertex-data effect)) 4)))))
+      (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles (truncate (length (vertex-data effect)) 10)))))
 
 (defclass displacement-effect (effect)
   ((displacement-texture :initarg :displacement-texture :initform (// 'kandria 'shockwave) :accessor displacement-texture)))

@@ -129,7 +129,7 @@
        (setf (presentations:update-overrides (alloy:index-element (- (frame-idx tool) (start animation)) (frames timeline)))
              ())
        (setf (presentations:update-overrides (alloy:index-element (- idx (start animation)) (frames timeline)))
-             `((:background :pattern ,colors:accent)))))
+             `((:background :pattern ,(colored:color 1 1 1 0.25))))))
     (setf (frame-idx sprite) idx)
     (setf (location sprite) (v+ (original-location tool)
                                 (compute-frame-location animation (frames sprite) idx)))
