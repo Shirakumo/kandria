@@ -27,7 +27,7 @@
   | Something like that.
 - How's the water supply?
   ~ fi
-  | Fully restored, thanks to yours and Catherine's efforts.
+  | Fully-restored, thanks to yours and Catherine's efforts.
   | We might well owe you our lives.
 ~ fi
 | I wanted to apologise for Jack's behaviour - and my own short-sightedness. You are our guest, and you have helped us.
@@ -58,7 +58,7 @@
   < questions
 ~ fi
 | I haven't told the others about the failing crops, but they aren't blind. I'm telling you because I think you can help.
-| There's a place \"across the surface\"(orange) and beneath the \"Ruins to the east\"(orange), where we first found the seeds that you see growing before you.
+| There's a place \"across the surface to the east\"(orange) and beneath the \"Ruins there\"(orange), where we first found the seeds that you see growing before you.
 | \"Alex\"(yellow) found it, our hunter. I want you to retrace their steps, \"find the cache\"(orange), and if it's intact \"recover all the seeds\"(orange) that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.

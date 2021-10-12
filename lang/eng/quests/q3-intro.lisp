@@ -55,7 +55,7 @@
   | (:annoyed)Tough titty - I ain't repeating myself.
 - Do you think I'm stupid?
   ~ jack
-  | (:annoyed)I'm yet to see evidence to the contrary. Just do the job, okay?
+  | (:annoyed)I'm yet to see evidence otherwise. Just do the job, okay?
 ~ jack
 | Well, I guess I should say good luck.
 | Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.

@@ -62,7 +62,7 @@ toggle-trace "Toggle Trace"
 door "Enter"
 fishing-spot "Fish"
 npc "Talk"
-item "Pick up"
+item "Pick Up"
 elevator "Activate"
 ;; Chunks
 chunk-2129 "Engineering"

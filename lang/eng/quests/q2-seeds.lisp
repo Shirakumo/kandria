@@ -8,7 +8,7 @@
   :on-activate (find-seeds)
 
   (find-seeds
-   :title "Find the seed cache across the surface and beneath the Ruins to the east"
+   :title "Find the seed cache across the surface to the east and beneath the Ruins there"
    :description NIL
    :invariant T
    :condition (have 'item:seeds 20)
@@ -20,7 +20,7 @@
     :repeatable T
     :dialogue "
 ~ fi
-| Travel \"across the surface\"(orange) and beneath the \"Ruins to the east - retrieve whatever seeds remain\"(orange) in the cache.
+| Travel \"across the surface to the east\"(orange) and beneath the \"Ruins there - retrieve whatever seeds remain\"(orange) in the cache.
 | Good luck, Stranger.
 ")
 
@@ -116,4 +116,4 @@
 ;; player learns "Noka" for the first time
 ;; TODO fi happy - | Oh my. There must be... fifty sachets here. All fully stocked.
 
-;; Removing key unspoken, as it can't sound anything but negative at a positive time, if Fi takes it back. Also, there's nothing left of value in the cache now, so it can remain open, and undiscussed here (implied, save words)
+;; Removing key card unspoken, as it can't sound anything but negative at a positive time, if Fi takes it back. Also, there's nothing left of value in the cache now, so it can remain open, and undiscussed here (implied, save words)
