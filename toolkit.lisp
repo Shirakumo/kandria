@@ -29,7 +29,8 @@
                             :display-text-effects T
                             :display-swears T
                             :palette "Model 1"
-                            :pause-on-focus-loss T)
+                            :pause-on-focus-loss T
+                            :display-hud T)
                  :language :eng
                  :debugging (:show-debug-settings #+kandria-release NIL #-kandria-release T
                              :send-diagnostics T

@@ -206,6 +206,7 @@
       (control pause-on-focus-loss (:gameplay :pause-on-focus-loss) 'alloy:checkbox)
       (control invincible-player (:gameplay :god-mode) 'alloy:checkbox)
       (control infinite-dash (:gameplay :infinite-dash) 'alloy:checkbox)
+      (control display-hud (:gameplay :display-hud) 'alloy:checkbox)
       (control player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
     (with-tab language-settings
       (control game-language (:language) 'alloy:combo-set :value-set (languages))
