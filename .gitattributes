@@ -17,6 +17,7 @@
 *.oga filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
 *.opus filter=lfs diff=lfs merge=lfs -text
+*.indd filter=lfs diff=lfs merge=lfs -text
 * -crlf
 *.json eol=lf
 *.lisp eol=lf
