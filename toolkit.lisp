@@ -94,7 +94,7 @@
   `(gethash ',name +player-movement-data+))
 
 (defun initial-timestamp ()
-  (float (encode-universal-time 0 0 7 1 1 3196 0) 0d0))
+  (float (encode-universal-time 0 0 7 1 1 2396 0) 0d0))
 
 (defun format-absolute-time (&optional (time (get-universal-time)) &key (date-separator #\.) (time-separator #\:) (date-time-separator #\ ))
   (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
