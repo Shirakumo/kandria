@@ -213,7 +213,7 @@
    :repeatable T
    "
 ~ player
-| (:skeptical)\"//This sunken room must be a part of their reservoir, which the pump draws water from.//\"(light-gray)
+| (:skeptical)\"//This sunken room must be part of their reservoir, which the pump draws water from.//\"(light-gray)
 ")
 ;; was: They've had many leaks, if this sunken room is anything to go by.
 
@@ -224,7 +224,7 @@
 ~ player
 | (:skeptical)\"//How on earth did these mushrooms grow so large?//\"(light-gray)
 ? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
-| | (:normal)\"//Presumably these kind are inedible - otherwise their hunger problems would be over.//\"(light-gray)
+| | (:normal)\"//Presumably these are inedible - otherwise their hunger problems would be over.//\"(light-gray)
 ")
 
   (:interaction mush-cave-1a

@@ -59,7 +59,7 @@
 | | | | (:normal)I weaved them together with synthetic scraps; I needed a mask so their spores wouldn't give me lung disease.
 | | | ! eval (retrieve 'item:mushroom-good-2 T)
 | | ? (have 'item:mushroom-bad-1)
-| | | | (:disappointed)Oh, you got some \"black caps\"(red) huh? Not a lot I can do with poisonous ones.
+| | | | (:disappointed)Oh, \"black cap\"(red)... Not a lot I can do with poisonous ones.
 | | | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | | | ! eval (retrieve 'item:mushroom-bad-1 T)
 | |  
@@ -121,8 +121,8 @@
 |   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost fully-functional android can do!
 |   | (:normal)So Alex has been back, and I got them to plant some old-world beer cans for you to find and return.
 |   | I'll record your times for posterity - this is anthropology! The faster you are, the more parts you'll get from the sweepstake.
-|   | Once you've completed one, then I can tell you about the next route! Them's the rules.
-|   | (:excited)Just \"tell me when you want to start\"(orange), and we'll get this show on the road!
+|   | Once you've completed one, then I can tell you about the next route. Them's the rules.
+|   | (:excited)Just \"tell me when you want to start\"(orange), and we'll get this show on the road.
 |   | (:cheer)This is sooo exciting!
 |   ! eval (activate 'sq3-race)
 |   < task-choice
@@ -132,7 +132,7 @@
 |   < end
 |?
 | ~ catherine
-| | (:disappointed)I wish I had something for you, but there's nothing right now. (:normal)That's a first 'round here!
+| | (:disappointed)I wish I had something for you, but there's nothing right now. (:normal)That's a first around here!
 ! label end
 ~ player
 - I'll be going.

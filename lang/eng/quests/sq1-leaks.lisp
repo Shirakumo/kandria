@@ -86,7 +86,7 @@
     :dialogue "
 ~ player
 | \"//The pipe has split.//\"(light-gray)
-| \"//There's no subsidence, but it's close to Catherine's previous repair - I wonder if she accidentally damaged the pipe.//\"(light-gray)
+| \"//There's no subsidence, but it's close to Catherine's previous repair - I wonder if she accidentally damaged it.//\"(light-gray)
 ? (not (var 'first-leak))
 | | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
 | | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]

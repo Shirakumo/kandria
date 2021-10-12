@@ -34,12 +34,12 @@
 |? (or (active-p 'race-4-start) (active-p 'race-4))
 | ~ catherine
 | | (:cheer)You're already on the clock for \"Route 4\"(orange).
-| | Remember: The can is... \"deep to the west, where people once dreamed\"(orange).
+| | Remember: The can is... \"deep in the west, where people once dreamed\"(orange).
 | < quit
 |? (or (active-p 'race-5-start) (active-p 'race-5))
 | ~ catherine
 | | (:cheer)You're already on the clock for \"Route 5\"(orange).
-| | Remember: The can is at... \"the furthest edge of the deepest cave in this region - there isn't \"much-room\"\"(orange).
+| | Remember: The can is at... \"the furthest edge of the deepest cave in this region - there isn't //much-room//\"(orange).
 | < quit
 ~ catherine
 | (:cheer)Alright, race time!
@@ -59,7 +59,7 @@
 | | Finish this one and I'll tell you about the next route.
 | | You can try routes as many times as you want, but you'll \"only get a reward if you beat your previous best time\"(orange).
 | | Alex also gave me some \"riddles\"(orange) for each place, to give you a clue. Figuring these out might slow you down at first.
-| | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure! So...
+| | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure. So...
 | < race-1
 |?
 | | (:normal)Which route do you wanna do?
@@ -108,7 +108,7 @@
 
 # race-4
 ~ catherine
-| (:cheer)\"Route 4\"(orange)! The can is... \"deep to the west, where people once dreamed\"(orange).
+| (:cheer)\"Route 4\"(orange)! The can is... \"deep in the west, where people once dreamed\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
 ? (var-of 'race-4 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange).
@@ -118,7 +118,7 @@
 
 # race-5
 ~ catherine
-| (:cheer)\"Route 5\"(orange)! The can is at... \"the furthest edge of the deepest cave in this region - there isn't \"much-room\"\"(orange).
+| (:cheer)\"Route 5\"(orange)! The can is at... \"the furthest edge of the deepest cave in this region - there isn't //much-room//\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-5 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-5 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-5 'bronze))}.
 ? (var-of 'race-5 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange).
@@ -180,7 +180,7 @@
 ! eval (hide-timer)
 ~ catherine
 | (:cheer)Stop the clock!
-| (:excited)That's the correct can alright - nice!
+| (:excited)That's the correct can alright - nice.
 ! eval (retrieve 'item:can)
 | (:normal)You did that in: \"{(format-relative-time (clock quest))}\"(orange).
 ? (and pb (< pb (clock quest)))
@@ -238,7 +238,7 @@
 
 (define-race race-4
   :site race-4-site
-  :title-start "The can is... deep to the west, where people once dreamed."
+  :title-start "The can is... deep in the west, where people once dreamed."
   :title-complete "(Complete Route 4)"
   :gold 90
   :silver 105
@@ -246,7 +246,7 @@
 
 (define-race race-5
   :site race-5-site
-  :title-start "The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room.\""
+  :title-start "The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\"."
   :title-complete "(Complete Route 5)"
   :gold 135
   :silver 150
