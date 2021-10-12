@@ -202,8 +202,8 @@
 | | | That gets you \"100 scrap parts\"(orange).
 | | ! eval (store 'item:parts 100)
 | |?
-| | | (:normal)That time was outside bronze. I guess your servos are still a little seized up.
-| | | Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.
+| | | (:disappointed)That time was outside bronze. I didn't know artificial muscles could get sore too.
+| | | (:normal)Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.
   
 ~ catherine
 | (:excited)Let's do this again soon!
