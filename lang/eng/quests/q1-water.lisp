@@ -285,8 +285,8 @@
 | Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
-| Oh, and we'd need a working computer, which no one's had for decades.
-| (:disappointed)Anyway, even if we did, don't you think you should ask HER if taking her apart is okay?
+| (:concerned)Oh, and we'd need a working computer, which no one's had for decades.
+| (:disappointed)Anyway, even if we had all that, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
 | I'm sorry... Stranger, wasn't it?
@@ -360,7 +360,7 @@
 | (:normal)Well, I've got work to do.
 | Couldn't hurt to check in with Fi. I'm sure there's something you could help with, to show her you can be trusted.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
-| But right now you're a free agent. I doubt that will last very long, so make the most of it.
+| But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
 | (:excited)Take a look around and \"explore\"(orange)!
 | (:normal)Seeya later, Stranger!")
   (:eval
