@@ -123,3 +123,8 @@
 
 (define-cheat (developer |i am a developer|)
   (setf (setting :debugging :show-debug-settings) T))
+
+(define-cheat (reveal-map |i can see forever|)
+  (for:for ((unit over (region +world+)))
+    (when (typep unit 'chunk)
+      (setf (unlocked-p unit) T))))
