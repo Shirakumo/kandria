@@ -59,12 +59,14 @@
   ~ trader
   | Nonsense! You helped Catherine out - kicked some servo ass by the sounds of things!
 
+~ trader
 | The least I can do is help keep you in tip-top condition.
-| I've heard about androids - under the hood you're pretty much the same as those servos. No offence.
-| Thankfully you've got much more going on up here.
+| I've heard about androids - you're different to those servos on pretty much every level.
+| You've a lot more going on up here, that's for sure.
 ~ player
 | \"//Sahil taps his fingers on his temple.//\"(light-gray)
 ~ trader
+| Though I hear there are some similarities under the hood. No offence.
 | Here, I can assemble some useful bits and pieces into a handy repair pack for you.
 ~ player
 | \"//He turns to the stacks of shelves behind him and rummages around.//\"(light-gray)
