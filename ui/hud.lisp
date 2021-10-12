@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass hud-element ()
-  ((timeout :initarg :timeout :initform (if (setting :gameplay :display-hud) 0.0 5.0) :accessor timeout)))
+  ((timeout :initarg :timeout :initform (if (setting :gameplay :display-hud) 5.0 0.0) :accessor timeout)))
 
 (defmethod animation:update :after ((element hud-element) dt)
   (decf (timeout element) dt)
