@@ -3,7 +3,7 @@
 
 (quest:define-quest (kandria trader-arrive)
   :author "Tim White"
-  :title "Find the Trader"
+  :title "Meet the Trader"
   :description "Sahil the trader has arrived. I should speak with him."
   :on-activate (talk-trader)
   (talk-trader
@@ -50,14 +50,14 @@
 - What do you sell?
   ~ trader
   | What doesn't old Sahil sell!
-  | Listen: Catherine told me how you helped her out down here - kicked some servo ass by the sounds of things!
+  | Listen: Catherine told me how you helped her out down here - kicked some servo ass by the sounds of things.
 - What do I need?
   ~ trader
   | I don't know. What kind of work are you doing?
-  | Catherine said you helped her out down here - kicked some servo ass by the sounds of things!
+  | Catherine said you helped her out down here - kicked some servo ass by the sounds of things.
 - I think I can manage on my own.
   ~ trader
-  | Nonsense! You helped Catherine out - kicked some servo ass by the sounds of things!
+  | Nonsense! You helped Catherine out - kicked some servo ass by the sounds of things.
 
 ~ trader
 | The least I can do is help keep you in tip-top condition.
@@ -73,7 +73,7 @@
 | \"//Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//\"(light-gray)
 | \"//He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//\"(light-gray)
 ~ trader
-| Voila! I give you: \"The Android Health Pack\"(orange). Custom made just for you!
+| Voila! I give you: \"The Android Health Pack\"(orange)! Custom made just for you.
 ~ player
 | \"//It's crude, but I'm sure I can do something with it. If only poke my lenses out.//\"(light-gray)
 ~ trader
@@ -112,7 +112,7 @@
 |   | A long and sad one I'm afraid... Like most people's.
 |   | I used to hang with the Wraw too, just like the \"Noka\"(red) did.
 |   | I got out too, only with my caravan instead of a vendetta.
-|   | And now I tour the settlements, trading, making ends meet - and making things too!
+|   | And now I tour the settlements, trading, making ends meet - and making things too.
 |   < talk
 | - What do you make of this place?
 |   ~ trader
