@@ -50,17 +50,17 @@
 - What do you sell?
   ~ trader
   | What doesn't old Sahil sell!
-  | Listen: Catherine told me how you helped her out down here - kicked some rogue ass by the sounds of things!
+  | Listen: Catherine told me how you helped her out down here - kicked some servo ass by the sounds of things!
 - What do I need?
   ~ trader
   | I don't know. What kind of work are you doing?
-  | Catherine said you helped her out down here - kicked some rogue ass by the sounds of things!
+  | Catherine said you helped her out down here - kicked some servo ass by the sounds of things!
 - I think I can manage on my own.
   ~ trader
-  | Nonsense! You helped Catherine out - kicked some rogue ass by the sounds of things!
+  | Nonsense! You helped Catherine out - kicked some servo ass by the sounds of things!
 
 | The least I can do is help keep you in tip-top condition.
-| I've heard about androids - under the hood you're pretty much the same as those rogues. No offence.
+| I've heard about androids - under the hood you're pretty much the same as those servos. No offence.
 | Thankfully you've got much more going on up here.
 ~ player
 | \"//Sahil taps his fingers on his temple.//\"(light-gray)
@@ -99,7 +99,7 @@
 ? (< 80  (health player))
 | | [? You look well, Stranger! | And how robust you're looking! | I don't think I've seen you looking better.]
 |? (< 50  (health player))
-| | [? Have you been fighting, Stranger? | Are you alright? You look a little... worse for wear. | You've been pounding rogues, haven't you?]
+| | [? Have you been fighting, Stranger? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you?]
 |?
 | | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label talk
@@ -121,9 +121,9 @@
 |   < talk
 | - Catherine said you were later than expected.
 |   ~ trader
-|   | Yeah, those damn rogues prowling about.
+|   | Yeah, those damn servos prowling about.
 |   | Don't get me wrong, I can handle myself.
-|   | But it's not easy when you're pulling your own caravan.
+|   | But it's not easy when you pull your own caravan.
 |   ~ player
 |   | You pull your own caravan?
 |   ~ trader

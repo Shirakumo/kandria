@@ -135,19 +135,19 @@
   )
   (:interact (catherine :now T)   
   "~ catherine
-| What the hell?!- Rogues? Here?
+| What the hell?!- Servos? Here?
 ~ player
 - I think we found the saboteurs.
   ~ catherine
   | Do your thing!
-- What's a rogue?
+- What's a servo?
   ~ catherine
   | No time to explain! Do your thing!
   ")
-   ;; TODO catherine shocked - What the hell?!- Rogues? Here?
+   ;; TODO catherine shocked - What the hell?!- Servos? Here?
    ;; plus all sub choices
   (:complete (q1-fight2)
-   :title "Defeat the rogues"
+   :title "Defeat the servos"
    "~ catherine
 | (:shout)Smash 'em!
   ")
@@ -175,7 +175,7 @@
 ~ jack
 | Thank Christ. Good work, Cathy - the water's back on.
 ~ catherine
-| (:disappointed)We found the saboteurs - rogue robots from God knows where.
+| (:disappointed)We found the saboteurs - servo robots from God knows where.
 ~ jack
 | (:annoyed)Those motherfuckers...
 ~ catherine
@@ -245,7 +245,7 @@
 ~ fi
 | Is it not coincidental that you discovered it at the same time our water supply was sabotaged?
 ~ catherine
-| But we saw the rogues - they were dismantling the pump! It wasn't her.
+| But we saw the servos - they were dismantling the pump! It wasn't her.
 ~ jack
 | Maybe this thing can control them? Did you think of that?
 ~ catherine
@@ -354,7 +354,7 @@
 | Since those two aren't likely to be feeling generous, I'll give you these \"spare parts\"(red).
 ! eval (store 'item:parts 200)
 | It's not much, but you can \"trade them\"(orange) for things you might want. Or you will be able to \"once Sahil gets here\"(orange).
-| (:concerned)He's overdue, which is not like him at all. Maybe those rogues scared him off.
+| (:concerned)He's overdue, which is not like him at all. Maybe those servos scared him off.
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us.
 | (:normal)Well, I've got work to do.
 | Couldn't hurt to check in with Fi. I'm sure there's something you could help with, to show her you can be trusted.

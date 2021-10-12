@@ -106,7 +106,7 @@ Tutorial/prologue mission beats that must occur:
 
 Backstory beats:
 - Alex planted the android there on behalf of the enemy faction (traitor), knowing that Catherine could repair it for them
-- Rogue robots on behalf of the enemy faction then attack the settlement via the water supply, eventually hoping to capture the android in the confusion (but you beat them off - q1)
+- Servo robots on behalf of the enemy faction then attack the settlement via the water supply, eventually hoping to capture the android in the confusion (but you beat them off - q1)
 - Catherine, non-the-wiser to Alex's betrayal, returns to the settlement with the android
 (Meanwhile Alex has gone off doing hunter duties)
 (The enemy faction timed the android planting with their sabotage of the water pipes, so that Catherine would be away at a critical time)
