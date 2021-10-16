@@ -13,11 +13,14 @@
         (size (bsize moving))
         (collisions (collisions moving)))
     ;; Scan for medium
-    (setf (medium moving)
-          (bvh:do-fitting (entity (bvh (region +world+)) moving +default-medium+)
-            (when (typep entity 'medium)
-              (return entity))))
-    (nv* (velocity moving) (drag (medium moving)))
+    (let ((medium (bvh:do-fitting (entity (bvh (region +world+)) moving +default-medium+)
+                    (when (typep entity 'medium)
+                      (return entity)))))
+      (setf (medium moving) medium)
+      (nv* (velocity moving) (drag medium))
+      (when (and (typep medium 'sized-entity)
+                 (within-p medium moving))
+        (submerged moving medium)))
     ;; Scan for hits
     (fill collisions NIL)
     (loop for i from 0

@@ -10,7 +10,7 @@
      npc-block-zone catherine fi jack trader
      door passage locked-door save-point fishing-spot
      falling-platform elevator cycler-platform
-     chunk water rope grass heatwave)
+     chunk water sludge magma rope grass heatwave)
    #'string<))
 
 (defclass creator (alloy:dialog)

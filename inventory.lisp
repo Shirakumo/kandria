@@ -63,6 +63,9 @@
         (string< (title a) (title b))
         (< a-order b-order))))
 
+(defmethod enter :after ((entity item) (magma magma))
+  (kill entity))
+
 (defmethod description ((item item))
   (language-string 'item))
 

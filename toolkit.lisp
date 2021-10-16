@@ -397,15 +397,21 @@
 (defmethod contained-p (thing target)
   (scan target thing (constantly NIL)))
 
+(defun within-p (bigger smaller)
+  (let ((b-size (bsize bigger))
+        (s-size (bsize smaller))
+        (b-loc (location bigger))
+        (s-loc (location smaller)))
+    (and (<= (- (vx b-loc) (vx b-size)) (- (vx s-loc) (vx s-size)))
+         (<= (- (vy b-loc) (vy b-size)) (- (vy s-loc) (vy s-size)))
+         (<= (+ (vx s-loc) (vx s-size)) (+ (vx b-loc) (vx b-size)))
+         (<= (+ (vy s-loc) (vy s-size)) (+ (vy b-loc) (vy b-size))))))
+
 (defun find-chunk (thing &optional (region (region +world+)))
   (when region
     (bvh:do-fitting (entity (bvh region) thing)
       (when (typep entity 'chunk)
         (return entity)))))
-
-(defun overlapping-p (a a-size b b-size)
-  (and (< (- a a-size) (+ b b-size))
-       (< (- b b-size) (+ a a-size))))
 
 (defun nearby-p (thing &rest things)
   (flet ((resolve (thing)

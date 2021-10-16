@@ -140,6 +140,10 @@ This section will outline the available mechanical devices that can be used to c
   When landing on or grabbing onto a conveyor belt, the player is stuck on the belt, and is then increasingly accelerated while on the belt. This can be useful for forcing the player into high momentum situations and crossing large gaps.
 - **Water**
   Water provides vastly different physics. For one, gravity is greatly decreased and friction greatly increased. Jumping and dashing is very ineffective, but dashes are always immediately recharged allowing for infinite dashing.
+- **Black Sludge**
+  This is extremely thick and sticky, making it hard to walk and jump on. Getting submerged in it will lead to death.
+- **Magma**
+  Touching this will make you explode.
 
 ### Puzzle design
 [TODO]

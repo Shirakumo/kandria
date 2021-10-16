@@ -16,6 +16,8 @@
              (setf (aref array (+ i 3)) (+ h)))
     array))
 
+(defmethod submerged ((entity entity) (water water)))
+
 (defmethod layer-index ((water water)) +base-layer+)
 
 (defmethod gravity ((water water))
@@ -58,14 +60,19 @@
     (nudge water (location entity)
            (clamp 0.5 (* 2 (abs (vy (velocity entity)))) 10.0))))
 
+(defmethod propagation-speed ((water water))
+  4000.0)
+
 (defmethod handle ((ev tick) (water water))
   (declare (optimize speed))
-  (let ((data (buffer-data (vertex-buffer water)))
-        (prev (prev water))
-        (h (vy (bsize water)))
-        (c (float (* (dt ev) (dt ev) 4000.0) 0f0))
-        (damp 0.97))
+  (let* ((data (buffer-data (vertex-buffer water)))
+         (prev (prev water))
+         (h (vy (bsize water)))
+         (dt (dt ev))
+         (c (float (* dt dt (the single-float (propagation-speed water))) 0f0))
+         (damp 0.97))
     (declare (type (simple-array single-float (*)) data prev))
+    (declare (type single-float dt))
     ;; Discretized wave equation. We only care about i*4+3 indexes, as
     ;; those are the top edges. We then store our result for the next iteration
     ;; in the bottom edges. Once we're through we rotate and restore the bottom
@@ -112,3 +119,51 @@ in vec2 world_pos;
 void main(){
   color = apply_lighting(vec4(0.53, 0.76, 0.99, 0.8), vec2(0), 1-(height*height*height*height), vec2(0,0), world_pos);
 }")
+
+(define-shader-entity sludge (water)
+  ()
+  (:inhibit-shaders (water :fragment-shader)))
+
+(defmethod drag ((sludge sludge))
+  0.8)
+
+(define-class-shader (sludge :fragment-shader)
+  "in float height;
+out vec4 color;
+in vec2 world_pos;
+
+void main(){
+  color = apply_lighting(vec4(0.08, 0.05, 0.03, 1.0), vec2(0), 1-(height*height*height*height), vec2(0,0), world_pos);
+}")
+
+(defmethod nudge ((sludge sludge) pos strength)
+  (call-next-method sludge pos (* 0.2 strength)))
+
+(defmethod propagation-speed ((sludge sludge))
+  100.0)
+
+(defmethod (setf medium) :around ((slude sludge) (player player))
+  (setf (air-time player) 0.0)
+  (call-next-method))
+
+(define-shader-entity magma (water)
+  ()
+  (:inhibit-shaders (water :fragment-shader)))
+
+(defmethod drag ((magma magma))
+  0.8)
+
+(define-class-shader (magma :fragment-shader)
+  "in float height;
+out vec4 color;
+in vec2 world_pos;
+
+void main(){
+  color = apply_lighting(vec4(1.5, 0.5, 0.0, 1.0), vec2(0), 1-(height*height*height*height), vec2(0,0), world_pos);
+}")
+
+(defmethod nudge ((magma magma) pos strength)
+  (call-next-method magma pos (* 0.3 strength)))
+
+(defmethod propagation-speed ((magma magma))
+  400.0)

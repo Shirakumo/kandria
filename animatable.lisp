@@ -44,6 +44,12 @@
 (defmethod (setf health) :around (health (animatable animatable))
   (call-next-method (clamp 0 health (maximum-health animatable)) animatable))
 
+(defmethod enter :after ((entity animatable) (magma magma))
+  (kill entity))
+
+(defmethod submerged :after ((entity animatable) (sludge sludge))
+  (kill entity))
+
 (defmethod hurtbox ((animatable animatable))
   (let* ((location (location animatable))
          (direction (direction animatable))
