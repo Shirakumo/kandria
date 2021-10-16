@@ -725,7 +725,8 @@
       (:normal
        ;; Handle slide
        #-kandria-release
-       (when (and (retained 'down) (typep ground 'slope))
+       (when (and (and (retained 'down) (typep ground 'slope))
+                  (<= (p! walk-limit) (abs (vx vel))))
          (setf (direction player) (float-sign (- (vy (slope-l ground)) (vy (slope-r ground)))))
          (setf (state player) :sliding))
        
@@ -901,7 +902,11 @@
                  (setf slope-steepness (- (abs slope-steepness))))
              (cond ((= 16 slope-steepness) (setf (animation player) 'slide-1x1))
                    ((=  8 slope-steepness) (setf (animation player) 'slide-1x2))
-                   ((=  4 slope-steepness) (setf (animation player) 'slide-1x3))))))
+                   ((=  4 slope-steepness) (setf (animation player) 'slide-1x3))
+                   ((= -16 slope-steepness) (setf (animation player) 'slide-1x1up))
+                   ((=  -8 slope-steepness) (setf (animation player) 'slide-1x2up))
+                   ((=  -4 slope-steepness) (setf (animation player) 'slide-1x3up))))
+           (setf (animation player) 'slide-flat)))
       (:normal
        (cond ((and (< 0 (vy vel)) (not (typep (svref collisions 2) 'moving-platform)))
               (setf (animation player) 'jump))
