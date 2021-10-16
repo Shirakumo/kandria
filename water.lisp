@@ -147,8 +147,20 @@ void main(){
   (call-next-method))
 
 (define-shader-entity magma (water)
-  ()
+  ((emitter :accessor emitter))
   (:inhibit-shaders (water :fragment-shader)))
+
+(defmethod initialize-instance :after ((magma magma) &key)
+  (setf (emitter magma) (make-instance 'bubbler :tiles (make-tile-uvs 8 8 128 128 32) :parent magma)))
+
+(defmethod stage :after ((magma magma) (area staging-area))
+  (stage (emitter magma) area))
+
+(defmethod enter* :after ((magma magma) container)
+  (enter* (emitter magma) container))
+
+(defmethod leave* :after ((magma magma) container)
+  (leave* (emitter magma) container))
 
 (defmethod drag ((magma magma))
   0.8)
@@ -167,3 +179,27 @@ void main(){
 
 (defmethod propagation-speed ((magma magma))
   400.0)
+
+(define-shader-entity bubbler (light-emitter)
+  ((parent :initarg :parent :accessor parent)
+   (multiplier :initform 2.0)
+   (amount :initform 32)))
+
+(defmethod handle ((ev tick) (emitter bubbler))
+  (let* ((vio (vio emitter))
+         (live (update-particle-data (buffer-data vio) (* 2 (dt ev)) (gravity emitter))))
+    (when (< live 2)
+      (make-particle-data (make-tile-uvs 8 1 128 128 64)
+                          :count 2
+                          :scale 2.0 :scale-var 0.0
+                          :dir-var 0
+                          :speed 50 :speed-var 20
+                          :origin (vec (vx (location (parent emitter)))
+                                       (+ (vy (location (parent emitter)))
+                                          (vy (bsize (parent emitter)))))
+                          :spread (vec (* 2 (vx (bsize (parent emitter))))
+                                       0)
+                          :life 0.4 :life-var 0.6
+                          :elt (buffer-data vio)
+                          :start live))
+    (update-buffer-data vio T)))

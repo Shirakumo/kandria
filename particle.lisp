@@ -15,26 +15,27 @@
                                       (speed 70) (speed-var 100)
                                       (life 1.0) (life-var 0.5)
                                       (spread #.(vec 0 0))
-                                      (origin #.(vec 0 0)) (count 100))
-  (let ((elt (make-array (* 11 count) :element-type 'single-float)))
-    (macrolet ((insert (arr i &rest args)
-                 `(let ((off (* ,(length args) ,i)))
-                    ,@(loop for arg in args
-                            for j from 0
-                            collect `(setf (aref ,arr (+ ,j off)) (float ,arg 0f0))))))
-      (dotimes (i count elt)
-        (let ((s (random* scale scale-var))
-              (d (deg->rad (random* dir dir-var)))
-              (sp (random* speed speed-var))
-              (li (random* life life-var))
-              (x (+ (vx origin) (random* 0.0 (vx spread))))
-              (y (+ (vy origin) (random* 0.0 (vy spread)))))
-          (destructuring-bind (u- v- us vs) (alexandria:random-elt tiles)
-            (insert elt i
-                    x y s
-                    u- v- us vs 1.0
-                    (* sp (cos d)) (* sp (sin d))
-                    li)))))))
+                                      (origin #.(vec 0 0)) (count 100)
+                                      (elt (make-array (* 11 count) :element-type 'single-float))
+                                      (start 0))
+  (macrolet ((insert (arr i &rest args)
+               `(let ((off (* ,(length args) (+ start ,i))))
+                  ,@(loop for arg in args
+                          for j from 0
+                          collect `(setf (aref ,arr (+ ,j off)) (float ,arg 0f0))))))
+    (dotimes (i count elt)
+      (let ((s (random* scale scale-var))
+            (d (deg->rad (random* dir dir-var)))
+            (sp (random* speed speed-var))
+            (li (random* life life-var))
+            (x (random* (vx origin) (vx spread)))
+            (y (random* (vy origin) (vy spread))))
+        (destructuring-bind (u- v- us vs) (alexandria:random-elt tiles)
+          (insert elt i
+                  x y s
+                  u- v- us vs 1.0
+                  (* sp (cos d)) (* sp (sin d))
+                  li))))))
 
 (defun update-particle-data (array dt g)
   (declare (type (simple-array single-float (*)) array))
@@ -43,25 +44,25 @@
   (macrolet ((f (x)
                `(aref array (+ i ,(position x '(x y s u- v- us vs a vx vy li)))))
              (sf (x v)
-               `(setf (aref array (+ i ,(position x '(x y s u- v- us vs a vx vy li)))) ,v)))
-    (let ((count 0)
+               `(setf (aref array (+ si ,(position x '(x y s u- v- us vs a vx vy li)))) ,v)))
+    (let ((si 0)
           (gx (* dt (vx2 g)))
           (gy (* dt (vy2 g))))
-      (declare (type (unsigned-byte 32) count))
+      (declare (type (unsigned-byte 32) si))
       (loop for i from 0 below (length array) by 11
             for vx = (f vx)
             for vy = (f vy)
             for li = (f li)
-            do (sf li (- li dt))
+            do (sf li (- (f li) dt))
                (sf vx (+ vx gx))
                (sf vy (+ vy gy))
                (sf x (+ (f x) (* vx dt)))
                (sf y (+ (f y) (* vy dt)))
-               (when (<= li 0.0)
-                 (when (<= (sf a (max 0.0 (- (f a) (* 2 dt)))) 0.0)
-                   (incf count 11))))
-      ;; All done?
-      (= count (length array)))))
+               (cond ((< 0.0 li)
+                      (incf si 11))
+                     ((< 0.0 (sf a (max 0.0 (- li -1.0))))
+                      (incf si 11))))
+      (/ si 11))))
 
 (define-shader-entity emitter (renderable listener)
   ((vio :accessor vio)
@@ -70,7 +71,7 @@
    (amount :initarg :amount :initform 16 :accessor amount)
    (gravity :initarg :gravity :initform (vec 0 -100.0) :accessor gravity)))
 
-(defmethod initialize-instance :after ((emitter emitter) &key tiles location (scale 4) (scale-var 2)
+(defmethod initialize-instance :after ((emitter emitter) &key tiles (location #.(vec 0 0)) (scale 4) (scale-var 2)
                                                               (dir 90) (dir-var 180) (speed 70) (speed-var 100)
                                                               (life 1.0) (life-var 0.5) (spread #.(vec 0 0)))
   (let* ((inst (make-particle-data tiles :count (amount emitter) :origin location :spread spread
@@ -95,7 +96,7 @@
 
 (defmethod handle ((ev tick) (emitter emitter))
   (let ((vio (vio emitter)))
-    (cond ((update-particle-data (buffer-data vio) (* 2 (dt ev)) (gravity emitter))
+    (cond ((= 0 (update-particle-data (buffer-data vio) (* 2 (dt ev)) (gravity emitter)))
            (leave* emitter T))
           (T
            (update-buffer-data vio T)))))
