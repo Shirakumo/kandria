@@ -53,7 +53,7 @@
             for vx = (f vx)
             for vy = (f vy)
             for li = (f li)
-            do (sf li (- (f li) dt))
+            do (sf li (- li dt))
                (sf vx (+ vx gx))
                (sf vy (+ vy gy))
                (sf x (+ (f x) (* vx dt)))
@@ -61,6 +61,8 @@
                (sf a (clamp 0.0 (* 2 li) 1.0))
                (when (< 0.0 li)
                  (incf si 11)))
+      (loop for i from si below (length array)
+            do (setf (aref array i) 0.0))
       (/ si 11))))
 
 (define-shader-entity emitter (renderable listener)
