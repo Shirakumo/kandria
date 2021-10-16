@@ -58,10 +58,9 @@
                (sf vy (+ vy gy))
                (sf x (+ (f x) (* vx dt)))
                (sf y (+ (f y) (* vy dt)))
-               (cond ((< 0.0 li)
-                      (incf si 11))
-                     ((< 0.0 (sf a (max 0.0 (- li -1.0))))
-                      (incf si 11))))
+               (sf a (clamp 0.0 (* 2 li) 1.0))
+               (when (< 0.0 li)
+                 (incf si 11)))
       (/ si 11))))
 
 (define-shader-entity emitter (renderable listener)

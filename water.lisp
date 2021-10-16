@@ -63,6 +63,9 @@
 (defmethod propagation-speed ((water water))
   4000.0)
 
+(defmethod dampening-factor ((water water))
+  0.97)
+
 (defmethod handle ((ev tick) (water water))
   (declare (optimize speed))
   (let* ((data (buffer-data (vertex-buffer water)))
@@ -70,7 +73,7 @@
          (h (vy (bsize water)))
          (dt (dt ev))
          (c (float (* dt dt (the single-float (propagation-speed water))) 0f0))
-         (damp 0.97))
+         (damp (the single-float (dampening-factor water))))
     (declare (type (simple-array single-float (*)) data prev))
     (declare (type single-float dt))
     ;; Discretized wave equation. We only care about i*4+3 indexes, as
@@ -137,17 +140,21 @@ void main(){
 }")
 
 (defmethod nudge ((sludge sludge) pos strength)
-  (call-next-method sludge pos (* 0.2 strength)))
+  (call-next-method sludge pos (* 0.1 strength)))
 
 (defmethod propagation-speed ((sludge sludge))
-  100.0)
+  50.0)
+
+(defmethod dampening-factor ((sludge sludge))
+  0.98)
 
 (defmethod (setf medium) :around ((slude sludge) (player player))
   (setf (air-time player) 0.0)
   (call-next-method))
 
 (define-shader-entity magma (water)
-  ((emitter :accessor emitter))
+  ((emitter :accessor emitter)
+   (nudge-time :initform 0.0 :accessor nudge-time))
   (:inhibit-shaders (water :fragment-shader)))
 
 (defmethod initialize-instance :after ((magma magma) &key)
@@ -178,7 +185,17 @@ void main(){
   (call-next-method magma pos (* 0.3 strength)))
 
 (defmethod propagation-speed ((magma magma))
-  400.0)
+  100.0)
+
+(defmethod dampening-factor ((magma magma))
+  0.99)
+
+(defmethod handle :after ((ev tick) (magma magma))
+  (when (<= (decf (nudge-time magma) (dt ev)) 0.0)
+    (setf (nudge-time magma) (random* 1.0 1.0))
+    (nudge magma (vec (random* (vx (location magma)) (* 2 (vx (bsize magma))))
+                      (+ (vy (location magma)) (vy (bsize magma))))
+           1.0)))
 
 (define-shader-entity bubbler (light-emitter)
   ((parent :initarg :parent :accessor parent)
@@ -190,7 +207,7 @@ void main(){
          (live (update-particle-data (buffer-data vio) (* 2 (dt ev)) (gravity emitter))))
     (when (< live 2)
       (make-particle-data (make-tile-uvs 8 1 128 128 64)
-                          :count 2
+                          :count 1
                           :scale 2.0 :scale-var 0.0
                           :dir-var 0
                           :speed 50 :speed-var 20
@@ -199,7 +216,7 @@ void main(){
                                           (vy (bsize (parent emitter)))))
                           :spread (vec (* 2 (vx (bsize (parent emitter))))
                                        0)
-                          :life 0.4 :life-var 0.6
+                          :life 1.2 :life-var 0.3
                           :elt (buffer-data vio)
                           :start live))
     (update-buffer-data vio T)))
