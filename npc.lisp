@@ -149,9 +149,11 @@
                   (complete))
                  ((null (path npc))
                   (unless (move-to (target npc) npc)
-                    (if (~= (vx (location npc)) (vx (target npc)) 16)
-                        (complete)
-                        (error "What the fuck? Don't know how to get to ~a from ~a" (target npc) (location npc)))))
+                    (cond ((~= (vx (location npc)) (vx (target npc)) 16)
+                           (complete))
+                          (T
+                           (cerror "Clear the lead" "What the fuck? Don't know how to get to ~a from ~a" (target npc) (location npc))
+                           (stop-following npc)))))
                  (T
                   (execute-path npc ev))))))
       (:lead-check
