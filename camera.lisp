@@ -98,7 +98,7 @@
           (clamp-camera-target camera loc))))))
 
 (defmethod (setf zoom) :after (zoom (camera camera))
-  (setf (view-scale camera) (float (/ (width *context*) (* 2 (vx (target-size camera)))))))
+  (setf (view-scale camera) (max 0.0001 (float (/ (width *context*) (* 2 (vx (target-size camera))))))))
 
 (defmethod snap-to-target ((camera camera) target)
   (setf (target camera) target)
@@ -114,7 +114,7 @@
   ;; outside the chunk.
   (let* ((optimal-scale (float (/ (width ev) (* 2 (vx (target-size camera))))))
          (max-fit-scale (if (chunk camera) (/ (height ev) (vy (bsize (chunk camera))) 2) optimal-scale))
-         (scale (max optimal-scale max-fit-scale)))
+         (scale (max 0.0001 optimal-scale max-fit-scale)))
     (setf (view-scale camera) scale)
     (setf (vy (target-size camera)) (/ (height ev) scale 2))))
 
