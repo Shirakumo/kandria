@@ -102,7 +102,7 @@
 | No! I'm alright. I can fix it. Over.
 ~ jack
 | Okay, just be careful. I'll tell Fi what's going on.
-| Also the pressure is still screwed. You'd better follow the pipe right down to the pump, just to be sure you got all the leaks.
+| You'd better follow the pipe right down to the pump, just to be sure you got all the leaks.
 | The walkie won't work down there, but there's a telephone by the pump. Use that when you're done.
 | And keep your wits about you. Over and out.
 ~ catherine
