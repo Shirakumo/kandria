@@ -2,30 +2,47 @@
 
 (defclass news-display (label)
   ((alloy:value :initform "")
+   (up-to-date :initform T :accessor up-to-date)
    (markup :initform () :accessor markup)))
 
 (defmethod initialize-instance :after ((display news-display) &key)
   (fetch-news display))
 
+(presentations:define-realization (ui news-display)
+    ((version-warning simple:text)
+     (alloy:margins) #@update-game-notification
+     :size (alloy:un 15)
+     :pattern colors:red
+     :valign :top :halign :left
+     :font (setting :display :font))
+    ((label simple:text)
+     (alloy:margins) alloy:text
+     :size (alloy:un 15)
+     :pattern colors:gray
+     :valign :bottom :halign :left
+     :font (setting :display :font)))
+
 (presentations:define-update (ui news-display)
-  (:label
-   :size (alloy:un 15)
-   :pattern colors:gray
-   :valign :bottom :halign :left
+  (version-warning
+   :hidden-p (up-to-date alloy:renderable))
+  (label
    :markup (markup alloy:renderable)))
 
 (defun parse-news (source)
-  (let ((req (dialogue:resume (dialogue:run (dialogue:compile source T) (make-instance 'dialogue:vm)) 1)))
+  (let ((version-line (read-line source))
+        (req (dialogue:resume (dialogue:run (dialogue:compile source T) (make-instance 'dialogue:vm)) 1)))
     (values (dialogue:text req)
-            (normalize-markup (dialogue:markup req)))))
+            (normalize-markup (dialogue:markup req))
+            (subseq verssion-line 2))))
 
 (defun fetch-news (target &optional (url "https://kandria.com/news.mess"))
   (with-thread ("news-fetcher")
     (v:info :kandria.news "Fetching news...")
     (handler-case
-        (multiple-value-bind (text markup) (parse-news (drakma:http-request url :want-stream T))
+        (multiple-value-bind (text markup version) (parse-news (drakma:http-request url :want-stream T))
           (setf (alloy:value target) text)
-          (setf (markup target) markup))
+          (setf (markup target) markup)
+          (setf (up-to-date target) (search version (version :app))))
       (usocket:ns-try-again-condition ())
       (error (e)
         (v:severe :kandria.news "Failed to fetch news: ~a" e)))))
