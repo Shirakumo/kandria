@@ -640,6 +640,12 @@
     (unit unit)
     (symbol (unit unit +world+))))
 
+(defun ensure-location (unit)
+  (etypecase unit
+    (unit (location unit))
+    (vec unit)
+    (symbol (location (unit unit +world+)))))
+
 (defun set-tile (map width height x y tile)
   (destructuring-bind (&optional (tx 0) (ty 0) (w 1) (h 1)) tile
     (when (< w 0) (incf x w) (incf tx w) (setf w (1+ (- w))))

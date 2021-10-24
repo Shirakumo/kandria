@@ -50,7 +50,8 @@
   ((visible-p :initarg :visible :initform T :accessor visible-p)
    (progress-fun :initarg :progress-fun :initform NIL :accessor progress-fun)
    (full-progress :initarg :full-progress :initform 0 :accessor full-progress)
-   (last-progress :initform 0 :accessor last-progress)))
+   (last-progress :initform 0 :accessor last-progress)
+   (marker :initarg :marker :initform NIL :accessor marker)))
 
 (defmethod quest:try :before ((task task))
   (let ((fun (progress-fun task)))
@@ -293,6 +294,7 @@
                               :condition (nearby-p ',place 'player)
                               :on-activate (action)
                               :on-complete ,next
+                              :marker ',place
                               (:action action
                                        ,@(if with `((stop-following ',with)
                                                     (move-to ',place ',with)))
@@ -307,6 +309,7 @@
                                  :condition (complete-p 'interaction)
                                  :on-activate (interaction)
                                  :on-complete ,next
+                                 :marker ',with
                                  (:interaction interaction
                                   :interactable ,with
                                   :auto-trigger ,now
