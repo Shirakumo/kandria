@@ -29,12 +29,12 @@
 |? (or (active-p 'race-3-start) (active-p 'race-3))
 | ~ catherine
 | | (:cheer)You're already on the clock for \"Route 3\"(orange).
-| | Remember: The can is... \"where we first ventured together, and got our feet wet\"(orange).
+| | Remember: The can is... \"beneath where we first ventured together - you'll get your feet wet\"(orange).
 | < quit
 |? (or (active-p 'race-4-start) (active-p 'race-4))
 | ~ catherine
 | | (:cheer)You're already on the clock for \"Route 4\"(orange).
-| | Remember: The can is... \"deep in the west, where people once dreamed\"(orange).
+| | Remember: The can is... \"deep in the west, where we first met\"(orange).
 | < quit
 |? (or (active-p 'race-5-start) (active-p 'race-5))
 | ~ catherine
@@ -53,12 +53,12 @@
 |   < quit
 | ~ catherine
 | | (:normal)So remember: \"Find the can\"(orange) that Alex has planted.
-| | I told them to find devious places, (:excited)and knowing Alex they won't have disappointed.
+| | I told them to find devious places, (:excited)and they haven't disappointed.
 | | (:normal)\"Grab a can, bring it back here, and I'll stop the clock.\"(orange)
 | | We'll start you off with \"Route 1\"(orange), which is easy.
 | | Finish this one and I'll tell you about the next route.
 | | You can try routes as many times as you want, but you'll \"only get a reward if you beat your previous best time\"(orange).
-| | Alex also gave me some \"riddles\"(orange) for each place, to give you a clue. Figuring these out might slow you down at first.
+| | We've also got some \"riddles\"(orange) for each place, to give you a clue. Figuring these out might slow you down at first.
 | | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure. So...
 | < race-1
 |?
@@ -98,7 +98,7 @@
 
 # race-3
 ~ catherine
-| (:cheer)\"Route 3\"(orange)! The can is... \"where we first ventured together, and got our feet wet\"(orange).
+| (:cheer)\"Route 3\"(orange)! The can is... \"beneath where we first ventured together - you'll get your feet wet\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-3 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-3 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-3 'bronze))}.
 ? (var-of 'race-3 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange).
@@ -108,7 +108,7 @@
 
 # race-4
 ~ catherine
-| (:cheer)\"Route 4\"(orange)! The can is... \"deep in the west, where people once dreamed\"(orange).
+| (:cheer)\"Route 4\"(orange)! The can is... \"deep in the west, where we first met\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
 ? (var-of 'race-4 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange).
@@ -230,7 +230,7 @@
 
 (define-race race-3
   :site race-3-site
-  :title-start "The can is... where we first ventured together, and got our feet wet."
+  :title-start "The can is... beneath where we first ventured together - you'll get your feet wet."
   :title-complete "(Complete Route 3)"
   :gold 105
   :silver 120
@@ -238,7 +238,7 @@
 
 (define-race race-4
   :site race-4-site
-  :title-start "The can is... deep in the west, where people once dreamed."
+  :title-start "The can is... deep in the west, where we first met."
   :title-complete "(Complete Route 4)"
   :gold 90
   :silver 105
