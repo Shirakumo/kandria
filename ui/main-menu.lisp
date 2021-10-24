@@ -26,6 +26,7 @@
         (multiple-value-bind (text markup) (parse-news (drakma:http-request url :want-stream T))
           (setf (alloy:value target) text)
           (setf (markup target) markup))
+      (usocket:ns-try-again-condition ())
       (error (e)
         (v:severe :kandria.news "Failed to fetch news: ~a" e)))))
 
