@@ -83,3 +83,19 @@
                                               :on-activate (lambda () (hide panel)))))
     ;; FIXME: scroll
     (alloy:finish-structure panel layout button)))
+
+(defclass prompt-panel (popup-panel)
+  ())
+
+(defmethod initialize-instance :after ((panel prompt-panel) &key text on-accept)
+  (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 50)
+                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+         (focus (make-instance 'alloy:focus-list))
+         (label (make-instance 'info-label :value text :layout-parent layout))
+         (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout)))
+    (make-instance 'popup-button :value #@dismiss-prompt-panel :layout-parent buttons :focus-parent focus
+                                 :on-activate (lambda () (hide panel)))
+    (make-instance 'popup-button :value #@accept-prompt-panel :layout-parent buttons :focus-parent focus
+                                 :on-activate on-accept)
+    ;; FIXME: scroll
+    (alloy:finish-structure panel layout focus)))

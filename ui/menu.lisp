@@ -430,7 +430,14 @@
 
       (with-tab ((@ exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
         (let ((resume (with-button resume-game (hide panel)))
-              (exit (with-button return-to-main-menu (return-to-main-menu))))
+              (exit (with-button return-to-main-menu
+                      (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
+                        (when (< 60 mins)
+                          (setf mins "> 60"))
+                        (show (make-instance 'prompt-panel :text (@formats 'game-quit-reminder mins)
+                                                           :on-accept #'return-to-main-menu)
+                              :width (alloy:un 500)
+                              :height (alloy:un 300))))))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))
