@@ -26,6 +26,7 @@
   (version-warning
    :hidden-p (up-to-date alloy:renderable))
   (label
+   :text alloy:text
    :markup (markup alloy:renderable)))
 
 (defun parse-news (source)
