@@ -66,7 +66,7 @@
 
 (trigger climb
  (key :one-of (:left-control))
- (button :one-of (:l1) :edge :rise-only)
+ (button :one-of (:l1))
  (axis :one-of (:l2) :threshold 0.25))
 
 (trigger crawl
