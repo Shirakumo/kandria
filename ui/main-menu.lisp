@@ -33,7 +33,7 @@
         (req (dialogue:resume (dialogue:run (dialogue:compile source T) (make-instance 'dialogue:vm)) 1)))
     (values (dialogue:text req)
             (normalize-markup (dialogue:markup req))
-            (subseq verssion-line 2))))
+            (subseq version-line 2))))
 
 (defun fetch-news (target &optional (url "https://kandria.com/news.mess"))
   (with-thread ("news-fetcher")
