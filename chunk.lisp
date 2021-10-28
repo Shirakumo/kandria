@@ -524,8 +524,28 @@ void main(){
         while closest
         finally (return location)))
 
-(defun clear-chunk-cache (&optional (region "hub"))
+(defun clear-chunk-cache (&key (region "hub") dry-run)
   (dolist (path (directory (merge-pathnames (make-pathname :name :wild :type "graph")
                                             (pathname-utils:subdirectory (root) "world" "regions" region "data"))))
     (v:info :kandria.chunk "Deleting ~a" path)
-    (delete-file path)))
+    (unless dry-run
+      (delete-file path))))
+
+(defun delete-unlinked-chunk-data (&key (region "hub") dry-run)
+  (let ((chunks (make-hash-table :test 'equal)))
+    (for:for ((entity over (load-region (pathname-utils:subdirectory (root) "world" "regions" region) NIL)))
+      (when (typep entity 'chunk)
+        (setf (gethash (format NIL "~a" (name entity)) chunks) T)
+        (setf (gethash (format NIL "~a-0" (name entity)) chunks) T)
+        (setf (gethash (format NIL "~a-1" (name entity)) chunks) T)
+        (setf (gethash (format NIL "~a-2" (name entity)) chunks) T)
+        (setf (gethash (format NIL "~a-3" (name entity)) chunks) T)
+        (setf (gethash (format NIL "~a-4" (name entity)) chunks) T)
+        (setf (gethash (format NIL "~a-5" (name entity)) chunks) T)))
+    (dolist (path (directory (merge-pathnames (make-pathname :name :wild :type "raw")
+                                              (pathname-utils:subdirectory (root) "world" "regions" region "data"))))
+      (unless (gethash (pathname-name path) chunks)
+        (v:info :kandria.chunk "Deleting ~a" path)
+        (unless dry-run
+          (delete-file path))))))
+
