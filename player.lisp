@@ -206,8 +206,6 @@
         ((eql :crawling (state player))
          (handle (make-instance 'crawl) player))
         (T
-         (when (eql :sliding (state player))
-           (setf (state player) :normal))
          (setf (jump-time player) (- (p! coyote-time))))))
 
 (defmethod handle ((ev crawl) (player player))
@@ -568,8 +566,6 @@
       (:dashing
        (incf (dash-time player) dt)
        (setf (jump-time player) 100.0)
-       ;; (when (< (p! run-time) (run-time player))
-       ;;   (setf (run-time player) 0.0))
        (when (< (decf (vw (color player)) (* 4 dt)) 0)
          (setf (vw (color player)) 0.0))
        (or (and (< (dash-time player) (p! dash-evade-grace-time))
@@ -622,6 +618,56 @@
                 (setf (vw (color player)) 0.0)
                 (setf (vx vel) (- (vx (p! velocity-limit))))
                 (setf (state player) :crawling)))))
+      (:sliding
+       (let ((dir (cond ((retained 'left)  -1)
+                        ((retained 'right) +1)
+                        (T                  0))))
+         ;; Allow the player to influence movement.
+         (if (= dir (float-sign (vx vel)))
+             (when (<= (abs (vx vel)) (p! slide-acclimit))
+               (incf (vx vel) (* dir (p! slide-acc))))
+             (when (<= (p! slide-dcc) (abs (vx vel)))
+               (incf (vx vel) (* dir (p! slide-dcc)))))
+         ;; Slope sticky
+         (when (typep ground 'slope)
+           (let ((slope-steepness (*  (- (vy (slope-l ground)) (vy (slope-r ground))))))
+             (cond ((= (direction player) (float-sign slope-steepness))
+                    (incf (vy vel) -1)
+                    (incf (vx vel) (* slope-steepness (p! slide-slope-acc))))
+                   (T
+                    (incf (vx vel) (* slope-steepness (p! slide-slope-dcc)))
+                    (let* ((normal (nvunit (vec2 (- (vy2 (slope-l ground)) (vy2 (slope-r ground)))
+                                                 (- (vx2 (slope-r ground)) (vx2 (slope-l ground))))))
+                           (slope (vec (- (vy normal)) (vx normal)))
+                           (proj (v* slope (v. slope vel))))
+                      (vsetf vel (vx proj) (vy proj))))))))
+       ;; Handle jumps
+       (when (and (< (jump-time player) 0.0)
+                  (< (air-time player) (p! coyote-time)))
+         (trigger 'jump player)
+         (setf (vy vel) (+ (p! jump-acc)
+                           (if ground
+                               (* 0.25 (max 0 (vy (velocity ground))))
+                               0)))
+         (setf ground NIL)
+         (setf (jump-time player) 0.0))
+       ;; Friction
+       (if ground
+           (setf (vx vel) (* (vx vel) (damp* (p! slide-friction) (* 100 dt))))
+           (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) (* 100 dt)))))
+       (cond (ground
+              (setf (air-time player) 0.0)
+              (when (or (<= (abs (vx vel)) 1.0))
+                (start-animation 'stumble player)))
+             ((and (< 0.0 (vy vel))
+                   (< 0.1 (jump-time player))
+                   (< (air-time player) 0.02))
+              (nv* vel (damp* 1.17 (* 100 dt)))))
+       (when (and (retained 'jump)
+                  (<= 0.05 (jump-time player) 0.15)
+                  (< 0 (vy vel)))
+         (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) (* 100 dt)))))
+       (nv+ vel (v* (gravity (medium player)) dt)))
       (:climbing
        ;; Movement
        (let* ((top (if (= -1 (direction player))
@@ -701,37 +747,13 @@
                 (signum (- (vy (slope-l ground)) (vy (slope-r ground)))))
              (decf (vy vel) 1)))
        (nv+ vel (v* (gravity (medium player)) dt)))
-      (:sliding
-       (let ((dir (cond ((retained 'left)  -1)
-                        ((retained 'right) +1)
-                        (T                  0))))
-         ;; Allow the player to influence movement.
-         (if (= dir (float-sign (vx vel)))
-             (when (<= (abs (vx vel)) (p! slide-acclimit))
-               (incf (vx vel) (* dir (p! slide-acc))))
-             (when (<= (p! slide-dcc) (abs (vx vel)))
-               (incf (vx vel) (* dir (p! slide-dcc)))))
-         ;; Slope sticky
-         (when (typep ground 'slope)
-           (let ((slope-steepness (* (p! slide-slope-multiplier) (- (vy (slope-l ground)) (vy (slope-r ground))))))
-             (cond ((= (direction player) (float-sign slope-steepness))
-                    (incf (vx vel) slope-steepness))
-                   (T
-                    (incf (vx vel) (* 0.5 slope-steepness)))))))
-       (when (or (<= (abs (vx vel)) (p! slide-acc))
-                 (typep (svref collisions 1) 'ground)
-                 (typep (svref collisions 3) 'ground))
-         (setf (state player) :normal))
-       ;; Air friction
-       (unless ground
-         (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) (* 100 dt)))))
-       (nv+ vel (v* (gravity (medium player)) dt)))
       (:normal
        ;; Handle slide
        #-kandria-release
-       (when (and (and (retained 'down) (typep ground 'slope))
+       (when (and (and (retained 'down))
                   (<= (p! walk-limit) (abs (vx vel))))
-         (setf (direction player) (float-sign (- (vy (slope-l ground)) (vy (slope-r ground)))))
+         (when (typep ground 'slope)
+           (setf (direction player) (float-sign (- (vy (slope-l ground)) (vy (slope-r ground))))))
          (setf (state player) :sliding))
        
        ;; Handle jumps
@@ -899,18 +921,24 @@
        (when (= 0 (vx vel))
          (setf (clock player) 0.0)))
       (:sliding
-       (if (typep (svref collisions 2) 'slope)
-           (let ((slope-steepness (- (vy (slope-l (svref collisions 2))) (vy (slope-r (svref collisions 2))))))
-             (if (= (float-sign slope-steepness) (direction player))
-                 (setf slope-steepness (abs slope-steepness))
-                 (setf slope-steepness (- (abs slope-steepness))))
-             (cond ((= 16 slope-steepness) (setf (animation player) 'slide-1x1))
-                   ((=  8 slope-steepness) (setf (animation player) 'slide-1x2))
-                   ((=  4 slope-steepness) (setf (animation player) 'slide-1x3))
-                   ((= -16 slope-steepness) (setf (animation player) 'slide-1x1up))
-                   ((=  -8 slope-steepness) (setf (animation player) 'slide-1x2up))
-                   ((=  -4 slope-steepness) (setf (animation player) 'slide-1x3up))))
-           (setf (animation player) 'slide-flat)))
+       (typecase (svref collisions 2)
+         (slope
+          (let ((slope-steepness (- (vy (slope-l (svref collisions 2))) (vy (slope-r (svref collisions 2))))))
+            (if (= (float-sign slope-steepness) (direction player))
+                (setf slope-steepness (abs slope-steepness))
+                (setf slope-steepness (- (abs slope-steepness))))
+            (cond ((= 16 slope-steepness) (setf (animation player) 'slide-1x1))
+                  ((=  8 slope-steepness) (setf (animation player) 'slide-1x2))
+                  ((=  4 slope-steepness) (setf (animation player) 'slide-1x3))
+                  ((= -16 slope-steepness) (setf (animation player) 'slide-1x1up))
+                  ((=  -8 slope-steepness) (setf (animation player) 'slide-1x2up))
+                  ((=  -4 slope-steepness) (setf (animation player) 'slide-1x3up)))))
+         (null
+          (if (< 0 (vy vel))
+              (setf (animation player) 'jump)
+              (setf (animation player) 'fall)))
+         (T
+          (setf (animation player) 'slide-flat))))
       (:normal
        (cond ((and (< 0 (vy vel)) (not (typep (svref collisions 2) 'moving-platform)))
               (setf (animation player) 'jump))
