@@ -9,7 +9,7 @@
      dummy box wolf zombie drone tame-wolf ball balloon sawblade
      npc-block-zone catherine fi jack trader
      door passage locked-door save-point fishing-spot
-     falling-platform elevator cycler-platform
+     falling-platform elevator elevator-recall
      chunk water sludge magma rope grass heatwave)
    #'string<))
 

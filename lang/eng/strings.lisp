@@ -64,6 +64,7 @@ fishing-spot "Fish"
 npc "Talk"
 item "Pick Up"
 elevator "Activate"
+recall-button "Recall Elevator"
 ;; Chunks
 chunk-2129 "Engineering"
 chunk-1893 "Storage"

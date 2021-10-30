@@ -73,7 +73,8 @@
    (max-speed :initarg :max-speed :initform (vec 0.0 2.0) :accessor max-speed)
    (move-time :initform 1.0 :accessor move-time)
    (fit-to-bsize :initform NIL)
-   (texture :initform (// 'kandria 'elevator))))
+   (texture :initform (// 'kandria 'elevator))
+   (target :initform NIL :accessor target)))
 
 (defmethod stage :after ((elevator elevator) (area staging-area))
   (dolist (sound '(elevator-start elevator-stop elevator-move))
@@ -99,15 +100,27 @@
                            (vy (max-speed elevator))
                            dir)))))
     (:should-stop
-     (unless (scan-collision (chunk elevator)
-                             (tvec (vx (location elevator))
-                                   (vy (location elevator))
-                                   (vx (bsize elevator))
-                                   (vy (bsize elevator))))
-       (vsetf (velocity elevator) 0 0)
-       (vsetf (frame-velocity elevator) 0 0)
-       (nvalign (location elevator) 8)
-       (setf (state elevator) :normal)))
+     (let ((found NIL))
+       (scan (chunk elevator)
+             (tvec (vx (location elevator))
+                   (vy (location elevator))
+                   (vx (bsize elevator))
+                   (vy (bsize elevator)))
+             (lambda (hit)
+               (not (when (typep (hit-object hit) 'stopper)
+                      (setf found T)))))
+       (unless found
+         (vsetf (velocity elevator) 0 0)
+         (vsetf (frame-velocity elevator) 0 0)
+         (nvalign (location elevator) 8)
+         (setf (state elevator) :normal))))
+    (:recall
+     (let ((diff (- (vy (target elevator)) (+ (vy (location elevator)) (vy (bsize elevator))))))
+       (cond ((<= (abs diff) (vy (velocity elevator)))
+              (setf (vy (location elevator)) (- (vy (target elevator)) (vy (bsize elevator))))
+              (setf (state elevator) :normal))
+             (T
+              (setf (vy (velocity elevator)) (* (vy (max-speed elevator)) (float-sign diff)))))))
     (:broken
      (vsetf (velocity elevator) 0 0)))
   (nv+ (frame-velocity elevator) (velocity elevator))
@@ -118,7 +131,9 @@
 (defmethod collides-p ((elevator elevator) (solid stopper) hit)
   (when (<= 0.2 (+ (abs (vx (velocity elevator)))
                    (abs (vy (velocity elevator)))))
-    (cond ((< 0.0 (vy (velocity elevator)))
+    (cond ((eql :recall (state elevator))
+           NIL)
+          ((< 0.0 (vy (velocity elevator)))
            T)
           (T
            (setf (state elevator) :should-stop)
@@ -135,12 +150,12 @@
 
 (defmethod (setf state) :before (state (elevator elevator))
   (case state
-    (:moving
+    ((:moving :recall)
      (unless (eq state (state elevator))
        (harmony:play (// 'sound 'elevator-start))
        (harmony:play (// 'sound 'elevator-move))))
-    (:normal
-     (when (eql :moving (state elevator))
+    ((:normal :broken)
+     (when (find (state elevator) '(:moving :recall :should-stop))
        (harmony:play (// 'sound 'elevator-stop))
        (harmony:stop (// 'sound 'elevator-move))))))
 
@@ -160,7 +175,39 @@
      (setf (move-time elevator) 0.0))
     (:moving
      (setf (move-time elevator) 0.0)
-     (setf (vy (velocity elevator)) (* -0.01 (float-sign (vy (velocity elevator))))))))
+     (setf (vy (velocity elevator)) (* -0.01 (float-sign (vy (velocity elevator))))))
+    (:broken
+     #++(harmony:play (// 'sound 'elevator-broken)))))
+
+(define-shader-entity elevator-recall (lit-sprite interactable)
+  ((target :initarg :target :initform NIL :accessor target :type symbol)
+   (texture :initform (// 'kandria 'elevator-recall))
+   (bsize :initform (vec 8 16))
+   (size :initform (vec 16 32))))
+
+(defmethod initargs append ((button elevator-recall))
+  '(:target))
+
+(defmethod interactable-p ((button elevator-recall))
+  T)
+
+(defmethod description ((button elevator-recall))
+  #@recall-button)
+
+(defmethod interact ((button elevator-recall) thing)
+  (when (target button)
+    ;; FIXME: sound
+    (interact (unit (target button) +world+) button)))
+
+(defmethod interact ((elevator elevator) (button elevator-recall))
+  (case (state elevator)
+    (:broken
+     #++(harmony:play (// 'sound 'elevator-broken)))
+    (T
+     (setf (target elevator) (vec (vx (location button))
+                                  (- (vy (location button))
+                                     (vy (bsize button)))))
+     (setf (state elevator) :recall))))
 
 (define-shader-entity cycler-platform (lit-sprite moving-platform)
   ((velocity :initform (vec 0 0.5))))
