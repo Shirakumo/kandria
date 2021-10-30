@@ -70,6 +70,8 @@
 
 (define-shader-entity elevator (lit-sprite moving-platform)
   ((bsize :initform (nv/ (vec 32 16) 2))
+   (max-speed :initarg :max-speed :initform (vec 0.0 2.0) :accessor max-speed)
+   (move-time :initform 1.0 :accessor move-time)
    (fit-to-bsize :initform NIL)
    (texture :initform (// 'kandria 'elevator))))
 
@@ -85,57 +87,80 @@
 (defmethod handle ((ev tick) (elevator elevator))
   (ecase (state elevator)
     (:normal
+     (vsetf (max-speed elevator) 0 2)
      (vsetf (velocity elevator) 0 0))
-    (:going-up
+    (:moving
+     (incf (move-time elevator) (dt ev))
      (setf (harmony:location (// 'sound 'elevator-move)) (location elevator))
-     (vsetf (velocity elevator) 0 +1.0))
-    (:going-down
-     (setf (harmony:location (// 'sound 'elevator-move)) (location elevator))
-     (vsetf (velocity elevator) 0 -1.0))
+     (when (<= (move-time elevator) 1.0)
+       (let* ((vel (velocity elevator))
+              (dir (float-sign (vy vel))))
+         (setf (vy vel) (* (clamp 0.0 (move-time elevator) 1.0)
+                           (vy (max-speed elevator))
+                           dir)))))
+    (:should-stop
+     (unless (scan-collision (chunk elevator)
+                             (tvec (vx (location elevator))
+                                   (vy (location elevator))
+                                   (vx (bsize elevator))
+                                   (vy (bsize elevator))))
+       (vsetf (velocity elevator) 0 0)
+       (vsetf (frame-velocity elevator) 0 0)
+       (nvalign (location elevator) 8)
+       (setf (state elevator) :normal)))
     (:broken
      (vsetf (velocity elevator) 0 0)))
   (nv+ (frame-velocity elevator) (velocity elevator))
   (loop repeat 10 while (handle-collisions +world+ elevator)))
 
+(defmethod collides-p ((elevator elevator) (solid platform) hit) NIL)
+
+(defmethod collides-p ((elevator elevator) (solid stopper) hit)
+  (when (<= 0.2 (+ (abs (vx (velocity elevator)))
+                   (abs (vy (velocity elevator)))))
+    (cond ((< 0.0 (vy (velocity elevator)))
+           T)
+          (T
+           (setf (state elevator) :should-stop)
+           NIL))))
+
 (defmethod collide :before ((player player) (elevator elevator) hit)
   (setf (interactable player) elevator))
 
 (defmethod collide ((elevator elevator) (block block) hit)
-  (unless (typep block 'platform)
-    (let ((vel (frame-velocity elevator)))
-      (setf (state elevator) :normal)
-      (nv+ (location elevator) (v* vel (hit-time hit)))
-      (vsetf vel 0 0))))
+  (let ((vel (frame-velocity elevator)))
+    (setf (state elevator) :normal)
+    (nv+ (location elevator) (v* vel (hit-time hit)))
+    (vsetf vel 0 0)))
 
 (defmethod (setf state) :before (state (elevator elevator))
   (case state
-    ((:going-up :going-down)
+    (:moving
      (unless (eq state (state elevator))
        (harmony:play (// 'sound 'elevator-start))
        (harmony:play (// 'sound 'elevator-move))))
     (:normal
-     (when (or (eql :going-up (state elevator))
-               (eql :going-down (state elevator)))
+     (when (eql :moving (state elevator))
        (harmony:play (// 'sound 'elevator-stop))
        (harmony:stop (// 'sound 'elevator-move))))))
 
 (defmethod interact ((elevator elevator) thing)
   (case (state elevator)
     (:normal
-     (cond ((null (scan-collision +world+ (v+ (location elevator)
-                                              (v_y (bsize elevator))
-                                              1)))
-            (harmony:play (// 'sound 'elevator-start))
-            (setf (state elevator) :going-up))
-           ((null (scan-collision +world+ (v- (location elevator)
-                                              (v_y (bsize elevator))
-                                              1)))
-            (harmony:play (// 'sound 'elevator-start))
-            (setf (state elevator) :going-down))))
-    (:going-down
-     (setf (state elevator) :going-up))
-    (:going-up
-     (setf (state elevator) :going-down))))
+     (harmony:play (// 'sound 'elevator-start))
+     (setf (state elevator) :moving)
+     (let ((loc (location elevator))
+           (bsize (bsize elevator)))
+       (cond ((and (null (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy bsize) 1))))
+                   (not (retained 'down)))
+              (setf (vy (velocity elevator)) +0.01))
+             ((and (null (scan-collision +world+ (vec (vx loc) (- (vy loc) (vy bsize) 1))))
+                   (not (retained 'up)))
+              (setf (vy (velocity elevator)) -0.01))))
+     (setf (move-time elevator) 0.0))
+    (:moving
+     (setf (move-time elevator) 0.0)
+     (setf (vy (velocity elevator)) (* -0.01 (float-sign (vy (velocity elevator))))))))
 
 (define-shader-entity cycler-platform (lit-sprite moving-platform)
   ((velocity :initform (vec 0 0.5))))
