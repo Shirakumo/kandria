@@ -473,6 +473,7 @@ cheat/motherlode "I'm rich!"
 cheat/snapshot "Snapshot submitted."
 cheat/developer "Development options unlocked."
 cheat/reveal-map "I can see forever!"
+cheat/show-solids "The third eye can see all dimensions."
 ;; Misc
 load-screen-new-game "
 Initiating cold boot

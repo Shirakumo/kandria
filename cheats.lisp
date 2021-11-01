@@ -128,3 +128,8 @@
   (for:for ((unit over (region +world+)))
     (when (typep unit 'chunk)
       (setf (unlocked-p unit) T))))
+
+(define-cheat (show-solids |show solid tiles|)
+  (for:for ((unit over (region +world+)))
+    (when (typep unit 'chunk)
+      (setf (show-solids unit) T))))
