@@ -142,11 +142,10 @@
 (defmethod render ((layer layer) (program shader-program))
   (when (in-view-p (location layer) (bsize layer))
     (setf (uniform program "visibility") (visibility layer))
-    (setf (uniform program "view_size") (vec2 (width *context*) (height *context*)))
     (setf (uniform program "map_size") (size layer))
-    (setf (uniform program "map_position") (location layer))
-    (setf (uniform program "view_matrix") (minv *view-matrix*))
-    (setf (uniform program "model_matrix") (minv *model-matrix*))
+    (setf (uniform program "projection_matrix") *projection-matrix*)
+    (setf (uniform program "view_matrix") *view-matrix*)
+    (setf (uniform program "model_matrix") *model-matrix*)
     (setf (uniform program "tilemap") 0)
     ;; TODO: Could optimise by merging absorption with normal, absorption being in the B channel.
     ;;       Then could merge albedo and absorption into one texture array to minimise draw calls.
@@ -171,19 +170,20 @@
 layout (location = 1) in vec2 vertex_uv;
 uniform mat4 view_matrix;
 uniform mat4 model_matrix;
-uniform vec2 view_size;
+uniform mat4 projection_matrix;
 uniform vec2 map_size;
 uniform int tile_size = 16;
-out vec2 map_coord;
+out vec2 uv;
+out vec2 pix_uv;
 out vec2 world_pos;
 
 void main(){
-  // We start in view-space, so we have to inverse-map to world-space.
-  vec4 _position = view_matrix * vec4(vertex_uv*view_size, 0, 1);
-  world_pos = _position.xy;
-  ivec2 map_wh = (ivec2(map_size)*tile_size);
-  map_coord = (model_matrix * _position).xy+map_wh/2.;
-  gl_Position = vec4(vertex, 1);
+  vec2 vert = (vertex.xy*map_size*tile_size*0.5);
+  vec4 temp = model_matrix * vec4(vert, 0, 1);
+  gl_Position = projection_matrix * view_matrix * temp;
+  world_pos = temp.xy;
+  uv = vertex_uv;
+  pix_uv = uv * map_size * tile_size;
 }")
 
 (define-class-shader (layer :fragment-shader)
@@ -192,23 +192,21 @@ uniform usampler2D tilemap;
 uniform sampler2D albedo;
 uniform sampler2D absorption;
 uniform sampler2D normal;
-uniform vec2 map_position;
 uniform float visibility = 1.0;
 const int tile_size = 16;
-in vec2 map_coord;
+in vec2 uv;
+in vec2 pix_uv;
 in vec2 world_pos;
 out vec4 color;
 
 void main(){
-  ivec2 map_xy = ivec2(map_coord);
-
   // Calculate tilemap index and pixel offset within tile.
-  ivec2 tile_xy  = ivec2(map_xy.x / tile_size, map_xy.y / tile_size);
-  ivec2 pixel_xy = ivec2(map_xy.x % tile_size, map_xy.y % tile_size);
+  ivec2 pixel_xy = ivec2(pix_uv);
+  pixel_xy %= tile_size;
 
   // Look up tileset index from tilemap and pixel from tileset.
-  uvec2 tile = texelFetch(tilemap, tile_xy, 0).rg;
-  tile_xy = ivec2(tile)*tile_size+pixel_xy;
+  uvec2 tile = texture(tilemap, uv).rg;
+  ivec2 tile_xy = ivec2(tile)*tile_size+pixel_xy;
   color = texelFetch(albedo, tile_xy, 0);
   float a = texelFetch(absorption, tile_xy, 0).r;
   vec2 n = texelFetch(normal, tile_xy, 0).rg-0.5;
@@ -217,9 +215,6 @@ void main(){
   else
     n = normalize(n);
   color = apply_lighting(color, vec2(0), 1-a, n, world_pos) * visibility;
-  
-  // Truncate off if the pixel is outside the map by setting the alpha to zero.
-  color.a *= clamp(min(map_xy.x,map_xy.y)+1, 0, 1);
 }")
 
 (define-shader-entity chunk (shadow-caster layer solid ephemeral collider)
