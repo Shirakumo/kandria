@@ -161,7 +161,6 @@
 | (:disappointed)What have they done?...
 | (:normal)Oh man, we got here just in time. They were dismantling the turbine.
 | Give me a second.
-| ...
 ! eval (setf (animation (unit 'main-leak-3)) 'normal)
 | There, that should hold it.
 | Now, where is that telephone?
