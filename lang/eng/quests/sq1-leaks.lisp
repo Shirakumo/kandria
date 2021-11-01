@@ -48,12 +48,13 @@
 | ~ catherine
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
+| ~ player
+| | \"//Okay, \"two leaks\"(orange) remain.//\"(light-gray)
 | ! eval (setf (var 'first-leak) T)
-|?
+|? (complete-p 'leak-second 'leak-third)
+| ~ player
 | | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
-? (complete-p 'leak-second 'leak-third)
-| ~ player
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
@@ -65,10 +66,19 @@
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
 |   | Oh man, you probably don't need reminding about landslides - sorry!
+| - You caused one of the leaks.
+|   ~ catherine
+|   | (:concerned)I did? From the repair before? I'm sorry.
+|   | Must be losing my edge. Please don't tell Jack. (:normal)Anyway...
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (deactivate 'task-sq1-reminder)
 | ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | \"//Weld complete.//\"(light-gray)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| | \"//That's \"one more leak\"(orange) to go.//\"(light-gray)
 "))
   ;; TODO: how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
   ;; UNUSED: and a sprawl of soil and stones - subsidence caused this.
@@ -99,12 +109,13 @@
 | ~ catherine
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
+| ~ player
+| | \"//Okay, \"two leaks\"(orange) remain.//\"(light-gray)
 | ! eval (setf (var 'first-leak) T)
-|?
+|? (complete-p 'leak-first 'leak-third)
+| ~ player
 | | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
-? (complete-p 'leak-first 'leak-third)
-| ~ player
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
@@ -116,10 +127,19 @@
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
 |   | Oh man, you probably don't need reminding about landslides - sorry!
+| - You caused one of the leaks.
+|   ~ catherine
+|   | (:concerned)I did? From the repair before? I'm sorry.
+|   | Must be losing my edge. Please don't tell Jack. (:normal)Anyway...
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (deactivate 'task-sq1-reminder)
 | ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | \"//Weld complete.//\"(light-gray)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| | \"//That's \"one more leak\"(orange) to go.//\"(light-gray)
 "))
 
   (leak-third
@@ -148,12 +168,13 @@
 | ~ catherine
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
+| ~ player
+| | \"//Okay, \"two leaks\"(orange) remain.//\"(light-gray)
 | ! eval (setf (var 'first-leak) T)
-|?
+|? (complete-p 'leak-first 'leak-second)
+| ~ player
 | | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
-? (complete-p 'leak-first 'leak-second)
-| ~ player
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
@@ -164,11 +185,20 @@
 |   | That's what I like to hear.
 | - It was all subsidence, or wear and tear.
 |   ~ catherine
-|   | Oh man, you probably don't need reminding about landslides - sorry!
+|   | (:concerned)Oh man, you probably don't need reminding about landslides - sorry!
+| - You caused one of the leaks.
+|   ~ catherine
+|   | (:concerned)I did? From the repair before? I'm sorry.
+|   | Must be losing my edge. Please don't tell Jack. (:normal)Anyway...
 | ~ catherine
 | | (:excited)\"Hurry back\"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (deactivate 'task-sq1-reminder)
 | ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | \"//Weld complete.//\"(light-gray)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
+| | \"//That's \"one more leak\"(orange) to go.//\"(light-gray)
 "))
 
   (return-leaks
