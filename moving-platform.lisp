@@ -192,7 +192,7 @@
   T)
 
 (defmethod description ((button elevator-recall))
-  #@recall-button)
+  (language-string 'recall-button))
 
 (defmethod interact ((button elevator-recall) thing)
   (when (target button)
