@@ -207,5 +207,5 @@ void main(){
   vec4 color_a = texture(texture_a, map_coord_a);
   vec4 color_b = texture(texture_b, map_coord_b);
   color = mix(color_a, color_b, backgrounds.mix);
-  color = apply_lighting(color, vec2(0), 1-lighting_strength, vec2(0), world_xy);
+  color = apply_lighting_flat(color, vec2(0), 1-lighting_strength, world_xy);
 }")

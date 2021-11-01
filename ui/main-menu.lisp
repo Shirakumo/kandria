@@ -135,7 +135,7 @@
   "out vec4 color;
 
 void main(){
-  color = apply_lighting(color, vec2(0, -5), 0, vec2(0), vec2(0));
+  color = apply_lighting_flat(color, vec2(0, -5), 0, vec2(0));
 }")
 
 (define-shader-entity star (lit-sprite)

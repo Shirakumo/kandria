@@ -211,10 +211,10 @@ void main(){
   float a = texelFetch(absorption, tile_xy, 0).r;
   vec2 n = texelFetch(normal, tile_xy, 0).rg-0.5;
   if(abs(n.x) < 0.1 && abs(n.y) < 0.1)
-    n = vec2(0);
+    color = apply_lighting_flat(color, vec2(0), 1-a, world_pos) * visibility;
   else
-    n = normalize(n);
-  color = apply_lighting(color, vec2(0), 1-a, n, world_pos) * visibility;
+    color = apply_lighting(color, vec2(0), 1-a, normalize(n), world_pos) * visibility;
+  
 }")
 
 (define-shader-entity chunk (shadow-caster layer solid ephemeral collider)

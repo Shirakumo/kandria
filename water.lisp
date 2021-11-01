@@ -120,7 +120,7 @@ out vec4 color;
 in vec2 world_pos;
 
 void main(){
-  color = apply_lighting(vec4(0.53, 0.76, 0.99, 0.8), vec2(0), 1-(height*height*height*height), vec2(0,0), world_pos);
+  color = apply_lighting_flat(vec4(0.53, 0.76, 0.99, 0.8), vec2(0), 1-(height*height*height*height), world_pos);
 }")
 
 (define-shader-entity sludge (water)
@@ -136,7 +136,7 @@ out vec4 color;
 in vec2 world_pos;
 
 void main(){
-  color = apply_lighting(vec4(0.08, 0.05, 0.03, 1.0), vec2(0), 1-(height*height*height*height), vec2(0,0), world_pos);
+  color = apply_lighting_flat(vec4(0.08, 0.05, 0.03, 1.0), vec2(0), 1-(height*height*height*height), world_pos);
 }")
 
 (defmethod nudge ((sludge sludge) pos strength)
@@ -178,7 +178,7 @@ out vec4 color;
 in vec2 world_pos;
 
 void main(){
-  color = apply_lighting(vec4(1.5, 0.5, 0.0, 1.0), vec2(0), 1-(height*height*height*height), vec2(0,0), world_pos);
+  color = apply_lighting_flat(vec4(1.5, 0.5, 0.0, 1.0), vec2(0), 1-(height*height*height*height), world_pos);
 }")
 
 (defmethod nudge ((magma magma) pos strength)

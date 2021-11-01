@@ -233,6 +233,27 @@ uniform sampler2D shadow_map;
 
 #define PI 3.1415926538
 
+vec4 apply_lighting_flat(vec4 color, vec2 offset, float absorption, vec2 world_pos){
+  vec3 truecolor = pow(color.rgb, vec3(2.2));
+  ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
+  vec4 light = texelFetch(lighting, pos, 0);
+
+  absorption = pow(absorption, 1.0/2.2);
+
+  truecolor *= gi.ambient;
+  truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
+  
+  if(gi.activep != 0){
+    vec2 dir = gi.location - world_pos;
+    float dirl = (length(dir)-10)/10;
+    float attenuation = 1.0/max(1.0, pow(dirl, gi.attenuation));
+    float shade = clamp(2-3*texelFetch(shadow_map, pos, 0).r, 0, 1);
+    truecolor += gi.light*clamp(shade*(1-absorption)*attenuation, 0, 1)*color.rgb;
+  }
+
+  return vec4(truecolor, color.a);
+}
+
 vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2 world_pos){
   vec3 truecolor = pow(color.rgb, vec3(2.2));
   ivec2 pos = ivec2(gl_FragCoord.xy-vec2(0.5)+offset);
@@ -244,17 +265,13 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2
   truecolor += light.rgb*max(0, light.a-absorption)*color.rgb;
   
   if(gi.activep != 0){
-    float incidence = 1.0;
     vec2 dir = gi.location - world_pos;
     float dirl = (length(dir)-10)/10;
-    if(normal.x != 0 && normal.y != 0)
-      incidence = clamp(dot(normalize(dir), normal), 0, 1);
+    float incidence = clamp(dot(normalize(dir), normal), 0, 1);
     float attenuation = 1.0/max(1.0, pow(dirl, gi.attenuation));
     float shade = clamp(2-3*texelFetch(shadow_map, pos, 0).r, 0, 1);
     incidence = mix(1.0, incidence, clamp((dirl-1)/3, 0, 1));
     truecolor += gi.light*clamp(shade*(1-absorption)*incidence*attenuation, 0, 1)*color.rgb;
-    //truecolor = vec3(incidence, incidence, incidence);
-    //truecolor = vec3(normal, 0);
   }
 
   return vec4(truecolor, color.a);
@@ -278,7 +295,7 @@ void main(){
 in vec2 world_pos;
 
 void main(){
-  color = apply_lighting(color, vec2(0, -5), 0, vec2(0), world_pos);
+  color = apply_lighting_flat(color, vec2(0, -5), 0, world_pos);
 }")
 
 (define-shader-entity lit-sprite (lit-vertex-entity sprite-entity)

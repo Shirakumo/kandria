@@ -126,5 +126,5 @@ out vec4 color;
 
 void main(){
   color = texelFetch(tex_image, ivec2(tex_coord), 0);
-  color = apply_lighting(color, vec2(0, -5), 0.3, vec2(0), world_pos);
+  color = apply_lighting_flat(color, vec2(0, -5), 0.3, world_pos);
 }")

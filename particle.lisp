@@ -144,7 +144,7 @@ uniform sampler2D texture_image;
 out vec4 color;
 
 void main(){
-  color = apply_lighting(texture(texture_image, tex_coord)*alpha, vec2(0), 0, vec2(0), world_pos);
+  color = apply_lighting_flat(texture(texture_image, tex_coord)*alpha, vec2(0), 0, world_pos);
 }")
 
 (defun make-tile-uvs (grid count width height &optional (offset 0))
