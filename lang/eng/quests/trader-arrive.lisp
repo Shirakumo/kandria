@@ -105,7 +105,7 @@
 |?
 | | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label talk
-? (not (complete-p 'q4-find-allies))
+? (not (complete-p 'q4-find-alex))
 | ~ player
 | - What's your story?
 |   ~ trader

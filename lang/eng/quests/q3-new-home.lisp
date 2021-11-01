@@ -174,7 +174,9 @@
 | ~ jack
 | | (:normal)Oh, \"Cathy wants a word too\"(orange).
 | | (:annoyed)Know that my threat still stands if you touch her.
+| | (:normal)\"Fi's got a new job for you\"(orange) as well. From what I hear, should get you outta our hair for a bit. Can't wait.
 | ! eval (activate 'sq-act1-intro)
+| ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q2-seeds))
 | | ~ jack
@@ -187,4 +189,5 @@
 | | (:annoyed)I hear even androids ain't indestructible.
 | ! eval (activate 'trader-arrive)
 ")))
-;; TODO task order, as shown on UI, does not follow activation order
+;; TODO task order, as shown on UI, does not follow activation order?
+;; TODO Jack vindictive: From what I hear, should get you outta our hair for a bit. Can't wait.

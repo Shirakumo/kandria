@@ -49,7 +49,6 @@
 ! eval (store 'item:seeds 24)
 ! eval (deactivate 'q2-reminder)
 "))
-  ;; TODO: use a variable to track if you took none / destroyed, which could come back and bite you in the ass later (Alex finds out, and tries to frame you to cover his own tracks? - ties into the plot outline) - log as a var on the storyline
   ;; TODO: use an exact technical unit/amount of pressure e.g. X pounds per inch (research)
 
   #| TODO removed option to destroy the seeds, logged here in case needed in the future beyond act 1, where a choice like this might be more suitable (e.g. doing a task for another faction, playing them off against one another, etc.)
@@ -100,7 +99,9 @@
 ~ fi
 ? (complete-p 'q3-new-home)
 | | You should \"check in with Catherine\"(orange) - I'm sure she'd like to see you again.
+| | I think I know what I'd like you to do next as well. \"Let me know\"(orange) when you're ready.
 | ! eval (activate 'sq-act1-intro)
+| ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q3-new-home))
 | | | Oh, I've also \"given Jack a special assignment\"(orange) - something I think you'll be well-suited to help with.
