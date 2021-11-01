@@ -274,6 +274,15 @@
   ~ fi
   | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
   | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
+- Yes.
+  ~ catherine
+  | (:disappointed)...
+  | (:excited)Yes, of course she has. She's a traitor.
+  | (:concerned)Come on, guys!? I know I can be gullible, but do you really think I would have stuck with her if I thought that?
+  | Anyway, her memories are all screwed up till the point I brought her online. She doesn't even remember her name!
+  ~ fi
+  | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
+  | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
 | (:annoyed)Jesus, Fi... you're just gonna take that at face value?
 ~ fi
@@ -303,7 +312,7 @@
   | This \"thing\" is a person. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
   | Nevertheless, Jack - speak with \"Sahil\"(yellow) when he arrives, see if he knows anything about androids.
-  | If Stranger is having memory problems, the least we can do is help her.
+  | If Stranger is having memory problems, the least we can do is try to help her.
   ~ jack
   | (:annoyed)If you insist.
 - Sure, why not.
