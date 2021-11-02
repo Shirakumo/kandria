@@ -12,7 +12,7 @@
    :description NIL
    :invariant T
    :condition all-complete
-   :on-activate (q4-reminder alex-arrive)
+   :on-activate (q4-reminder innis-stop)
    :on-complete (return-seeds)
 
    (:interaction q4-reminder
@@ -24,10 +24,18 @@
 | Watch out for the Semi Sisters on your way. They're not our enemies, but they are unpredictable.
 ")
 
+   (:interaction innis-stop
+    :interactable innis
+    :dialogue "
+~ innis
+| Stop right there.
+")))
 
+#|
    (:interaction alex-arrive
     :interactable alex
     :dialogue "
 ~ player
 | Yo Alex.
 ")))
+|#

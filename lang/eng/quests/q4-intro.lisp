@@ -85,5 +85,8 @@
 | Catherine tells me your FFCS works with our radios. You'll be deep underground, and I'd like you to keep in contact.
 | As Alex has shown, falling off the grid isn't helpful.
 | So please stay in touch - you can call me day or night.
+! eval (setf (location 'innis) 'innis-intercept)
+! setf (direction 'innis) -1
+! eval (activate (unit 'innis-trigger))
 ")))
 ;; TODO Fi happy: I believe you will.

@@ -3,6 +3,7 @@ fi-nametag "Fi"
 catherine-nametag "Catherine"
 jack-nametag "Jack"
 trader-nametag "Sahil"
+innis-nametag "Innis"
 ;; Actions
 toggle-menu "Toggle Menu"
 toggle-menu/description "Open the menu to access the inventory, quest log, and more"
