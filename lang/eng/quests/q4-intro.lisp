@@ -63,7 +63,7 @@
   ~ fi
   | They're tech-witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
   | They keep the water and power on in this whole area, and don't seem to mind if we siphon a little off.  
-  | (:normal)Two sisters, \"Innis\"(yellow) and \"Islay\"(yellow), run the show. It would be best to avoid them for now.
+  | (:normal)Two sisters run the show. It would be best to avoid them for now.
   < questions
 - Tell me about the Cerebats.  
   ~ fi
@@ -90,6 +90,5 @@
 ! eval (activate (unit 'innis-trigger))
 ! eval (setf (location 'islay) 'islay-intercept)
 ! setf (direction 'islay) 1
-! eval (activate (unit 'islay-trigger))
 ")))
 ;; TODO Fi happy: I believe you will.

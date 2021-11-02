@@ -17,7 +17,7 @@
     :interactable trader
     :dialogue "
 ~ trader
-| Well, well... Are you who I think you are?
+| Well well... Are you who I think you are?
 ~ player
 - Who do you think I am?
   < identify
