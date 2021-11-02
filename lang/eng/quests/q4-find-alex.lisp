@@ -4,11 +4,11 @@
 (quest:define-quest (kandria q4-find-alex)
   :author "Tim White"
   :title "Find Alex"
-  :description ""
+  :description "Fi wants me to find Alex and bring them back to camp for debriefing, to see if they know anything about the Wraw's plans."
   :on-activate (find-alex)
 
   (find-alex
-   :title ""
+   :title "Travel down to the Cerebats township, but avoid the Semi Sisters en route."
    :description NIL
    :invariant T
    :condition all-complete
@@ -20,8 +20,8 @@
     :repeatable T
     :dialogue "
 ~ fi
-| REMINDER Travel \"across the surface to the east\"(orange) and beneath the \"Ruins there - retrieve whatever seeds remain\"(orange) in the cache.
-| Good luck, Stranger.
+| Go to the \"Cerebats township deep underground, find Alex and bring them back\"(orange) for debriefing.
+| Watch out for the Semi Sisters on your way. They're not our enemies, but they are unpredictable.
 ")
 
 

@@ -20,8 +20,8 @@
 | But we cannot defend ourselves without knowing their plans: where they'll attack, and more importantly //when//.
 | Alex was hunting in \"Cerebats territory\"(red), a faction of traders deeper underground, and might have the answers we need.
 | (:unsure)But they've been gone a long time now. Too long.
-| (:normal)I want you to find Alex and bring them back for debriefing.
-| To reach the Cerebats though you'll need to get past the \"Semi Sisters\"(red).
+| (:normal)I want you to \"find Alex and bring them back\"(orange) for debriefing.
+| To reach the Cerebats township you'll need to get past the tech-witch \"Semi Sisters\"(red).
 | We have good relations so it //should// be fine. They built the infrastructure that keeps us going, like the water pump and telephones.
 | You can reach their land \"through the floor in the pump room\"(orange).
 | But they've never seen an android before - not since before the Calamity, at least. Hopefully they'll play nice.
@@ -61,7 +61,7 @@
   < questions
 - Tell me about the Semi Sisters.
   ~ fi
-  | They're tech-heads, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
+  | They're tech-witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
   | They keep the water and power on in this whole area, and don't seem to mind if we siphon a little off.  
   | (:normal)Two sisters, \"Innis\"(yellow) and \"Islay\"(yellow), run the show. It would be best to avoid them for now.
   < questions
@@ -81,8 +81,9 @@
   < end
 # end
 ~ fi
+| See Sahil if you haven't already, and stock up - it will be a long journey.
 | Catherine tells me your FFCS works with our radios. You'll be deep underground, and I'd like you to keep in contact.
-| As Alex has shown, falling out of contact isn't helpful.
+| As Alex has shown, falling off the grid isn't helpful.
 | So please stay in touch - you can call me day or night.
 ")))
 ;; TODO Fi happy: I believe you will.
