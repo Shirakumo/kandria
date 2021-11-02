@@ -7,7 +7,7 @@
      zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker action-prompt
      interactable-sprite interactable-animated-sprite
      dummy box wolf zombie drone tame-wolf ball balloon sawblade
-     npc-block-zone catherine fi jack trader innis
+     npc-block-zone catherine fi jack trader innis islay alex
      door passage locked-door save-point fishing-spot
      falling-platform elevator elevator-recall
      chunk water sludge magma rope grass heatwave)

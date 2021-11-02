@@ -88,5 +88,8 @@
 ! eval (setf (location 'innis) 'innis-intercept)
 ! setf (direction 'innis) -1
 ! eval (activate (unit 'innis-trigger))
+! eval (setf (location 'islay) 'islay-intercept)
+! setf (direction 'islay) 1
+! eval (activate (unit 'islay-trigger))
 ")))
 ;; TODO Fi happy: I believe you will.

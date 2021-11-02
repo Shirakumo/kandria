@@ -28,8 +28,19 @@
     :interactable innis
     :dialogue "
 ~ innis
-| Stop right there.
-")))
+| Stop right there. I am Innis.
+! eval (deactivate (unit 'islay-trigger))
+")
+
+   (:interaction islay-stop
+    :interactable islay
+    :dialogue "
+~ islay
+| Stop right there. I am Islay.
+! eval (deactivate (unit 'innis-trigger))
+")
+
+))
 
 #|
    (:interaction alex-arrive

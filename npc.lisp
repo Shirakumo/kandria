@@ -335,6 +335,20 @@
    (nametag :initform (@ innis-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
+   
+(define-shader-entity islay (npc)
+  ((name :initform 'islay)
+   (profile-sprite-data :initform (asset 'kandria 'fi-profile))
+   (nametag :initform (@ islay-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'fi)))
+   
+(define-shader-entity alex (npc)
+  ((name :initform 'alex)
+   (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
+   (nametag :initform (@ alex-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'catherine)))
 
 (define-shader-entity pet (animatable ephemeral interactable)
   ())
