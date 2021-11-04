@@ -302,10 +302,10 @@
            (push (make-rope-node top entity) (svref (node-graph-grid graph) bot))
            (push (make-rope-node bot entity) (svref (node-graph-grid graph) top))))))))
 
-(defun make-node-graph (chunk)
+(defun make-node-graph (chunk &optional (region (region +world+)))
   (let ((graph (%make-node-graph (floor (vx (size chunk))) (floor (vy (size chunk))))))
     (create-connections (pixel-data chunk) graph)
-    (create-entity-connections chunk (region +world+) graph)
+    (create-entity-connections chunk region graph)
     graph))
 
 (defun shortest-chunk-path (graph start goal offset test)

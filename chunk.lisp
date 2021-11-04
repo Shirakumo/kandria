@@ -257,7 +257,7 @@ void main(){
 (defmethod observe-generation ((chunk chunk) (data tile-data) result)
   (compute-shadow-geometry chunk T)
   (unless (node-graph chunk)
-    (setf (node-graph chunk) (make-node-graph chunk))))
+    (setf (node-graph chunk) (make-node-graph chunk (or *region* (region +world+))))))
 
 (defmethod recompute ((chunk chunk))
   (compute-shadow-geometry chunk T)
