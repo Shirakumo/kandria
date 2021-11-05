@@ -208,6 +208,7 @@
       (control invincible-player (:gameplay :god-mode) 'alloy:checkbox)
       (control infinite-dash (:gameplay :infinite-dash) 'alloy:checkbox)
       (control display-hud (:gameplay :display-hud) 'alloy:checkbox)
+      (control game-speed (:gameplay :game-speed) 'alloy:ranged-slider :range '(0.1 2.0) :step 0.1 :grid 0.1)
       (control player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
     (with-tab language-settings
       (control game-language (:language) 'alloy:combo-set :value-set (languages))

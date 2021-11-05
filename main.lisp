@@ -6,7 +6,8 @@
    (state :initform NIL :accessor state)
    (timestamp :initform (get-universal-time) :accessor timestamp)
    (loader :initform (make-instance 'load-screen))
-   (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL))
+   (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL)
+   (game-speed :initform 1.0 :accessor game-speed))
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
    :version '(3 3) :profile :core
@@ -46,7 +47,7 @@
 
 (defmethod update ((main main) tt dt fc)
   (let* ((scene (scene main))
-         (dt (* (time-scale scene) (float dt 1.0)))
+         (dt (* (time-scale scene) (game-speed main) (float dt 1.0)))
          (ev (load-time-value (make-instance 'tick))))
     (when (< 0 (pause-timer scene))
       (decf (pause-timer scene) dt)
@@ -263,6 +264,9 @@ Possible sub-commands:
 
 (define-setting-observer video :display (value)
   (apply-video-settings value))
+
+(define-setting-observer game-speed :gameplay :game-speed (value)
+  (setf (game-speed +main+) (float value 0f0)))
 
 (defun manage-swank (&optional (mode (setting :debugging :swank)))
   (let ((port (or (setting :debugging :swank-port) swank::default-server-port)))

@@ -30,7 +30,8 @@
                             :display-swears T
                             :palette "Model 1"
                             :pause-on-focus-loss T
-                            :display-hud T)
+                            :display-hud T
+                            :game-speed 1.0)
                  :language :eng
                  :debugging (:show-debug-settings #+kandria-release NIL #-kandria-release T
                              :send-diagnostics T
