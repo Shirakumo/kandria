@@ -186,6 +186,7 @@
       (control screen-resolution (:display :resolution) 'org.shirakumo.fraf.trial.alloy:video-mode)
       (control should-application-fullscreen (:display :fullscreen) 'alloy:checkbox)
       (control activate-vsync (:display :vsync) 'alloy:checkbox)
+      (control gamma (:display :gamma) 'alloy:ranged-slider :range '(1.5 3.0) :step 0.1)
       (control user-interface-scale-factor (:display :ui-scale) 'alloy:ranged-slider :range '(0.25 . 2.0) :step 0.25)
       (control font (:display :font) 'alloy:combo-set :value-set '("PromptFont" "OpenDyslexic" "ComicSans")))
     (let* ((layout (make-instance 'alloy:border-layout :padding (alloy:margins 30)))

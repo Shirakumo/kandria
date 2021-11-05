@@ -18,6 +18,7 @@
                  :display (:resolution (1280 720)
                            :fullscreen NIL
                            :vsync T
+                           :gamma 2.2
                            :ui-scale 1.0
                            :font "PromptFont")
                  :gameplay (:rumble 1.0

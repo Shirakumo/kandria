@@ -252,7 +252,9 @@ Possible sub-commands:
 
 (defun apply-video-settings (&optional (settings (setting :display)))
   (when *context*
-    (destructuring-bind (&key resolution fullscreen vsync ui-scale &allow-other-keys) settings
+    (destructuring-bind (&key resolution fullscreen vsync ui-scale gamma &allow-other-keys) settings
+      (when (and gamma (unit 'render +main+))
+        (setf (monitor-gamma (unit 'render +main+)) gamma))
       (show *context* :fullscreen fullscreen :mode resolution)
       (setf (vsync *context*) vsync)
       (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale))))

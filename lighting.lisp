@@ -166,6 +166,7 @@
    (shadow-map :port-type input)
    (exposure :initform 0.5 :accessor exposure)
    (gamma :initform 2.2 :accessor gamma)
+   (monitor-gamma :initform (setting :display :gamma) :accessor monitor-gamma)
    (name :initform 'render)
    #++(color :port-type output :attachment :color-attachment0
           :texspec (:width 640 :height 416))
@@ -182,7 +183,7 @@
 
 (defmethod prepare-pass-program :after ((pass rendering-pass) (program shader-program))
   (setf (uniform program "exposure") (exposure pass))
-  (setf (uniform program "gamma") (gamma pass)))
+  (setf (uniform program "gamma") (* (gamma pass) (/ (monitor-gamma pass) 2.2))))
 
 (defun light-intensity (gi shade)
   (let ((color (vlerp (v+ (ambient gi) (light gi)) (ambient gi) (clamp 0 shade 1))))
