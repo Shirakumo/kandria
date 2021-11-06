@@ -1032,6 +1032,15 @@
   (setf (state player) :normal)
   (snap-to-target (unit :camera T) player))
 
+(defmethod damage-output ((player player))
+  (ceiling
+   (* (damage (frame player))
+      (setting :gameplay :damage-output))))
+
+(defmethod hurt ((player player) (damage integer))
+  (call-next-method player (floor (* damage
+                                     (setting :gameplay :damage-input)))))
+
 (defmethod hurt :after ((player player) (by integer))
   (setf (clock (progression 'hurt +world+)) 0)
   (start (progression 'hurt +world+))
