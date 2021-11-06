@@ -74,3 +74,42 @@
 
 (defmethod apply-transforms progn ((baloon balloon))
   (translate-by 0 -16 0))
+
+(define-shader-entity lantern (lit-animated-sprite collider ephemeral)
+  ((size :initform (vec 32 32))
+   (bsize :initform (vec 16 16))
+   (state :initform :active :accessor state :type symbol)
+   (respawn-time :initform 0.0 :accessor respawn-time)
+   (light :initform (make-instance 'textured-light :bsize (vec 48 48) :size (vec 96 96) :offset (vec 0 48)) :accessor light))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'lantern)))
+
+(defmethod collides-p ((lantern lantern) thing hit) NIL)
+(defmethod collides-p ((player player) (lantern lantern) hit)
+  (and (< 0.0 (dash-time player))
+       (eq :active (state lantern))))
+
+(defmethod collide ((player player) (lantern lantern) hit)
+  (setf (direction lantern) (direction player))
+  (setf (dash-pending player) T)
+  (setf (state lantern) :inactive)
+  (setf (respawn-time lantern) 5.0)
+  (setf (animation lantern) 'crash))
+
+(defmethod enter* :after ((lantern lantern) container)
+  (setf (slot-value (light lantern) 'location) (location lantern))
+  (setf (container (light lantern)) +world+)
+  (compile-into-pass (light lantern) NIL (unit 'lighting-pass +world+)))
+
+(defmethod leave* :after ((lantern lantern) (container container))
+  (remove-from-pass (light lantern) (unit 'lighting-pass +world+)))
+
+(defmethod handle :before ((ev tick) (lantern lantern))
+  (case (state lantern)
+    (:active
+     (setf (multiplier (light lantern)) 1.0))
+    (:inactive
+     (setf (multiplier (light lantern)) 0.0)
+     (when (<= (decf (respawn-time lantern) (dt ev)) 0.0)
+       (setf (state lantern) :active)
+       (setf (animation lantern) 'respawn)))))

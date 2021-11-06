@@ -5,7 +5,7 @@
    '(basic-light textured-light
      checkpoint story-trigger interaction-trigger walkntalk-trigger sandstorm-trigger
      zoom-trigger pan-trigger teleport-trigger earthquake-trigger spawner place-marker action-prompt
-     interactable-sprite interactable-animated-sprite
+     interactable-sprite interactable-animated-sprite lantern
      dummy box wolf zombie drone tame-wolf ball balloon sawblade
      npc-block-zone catherine fi jack trader innis islay alex
      door passage locked-door save-point fishing-spot
