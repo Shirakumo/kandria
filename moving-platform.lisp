@@ -8,7 +8,8 @@
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
 (define-shader-entity falling-platform (lit-sprite moving-platform)
-  ((fall-timer :initform 0.75 :accessor fall-timer)))
+  ((fall-timer :initform 0.75 :accessor fall-timer)
+   (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)))
 
 (defmethod stage :after ((platform falling-platform) (area staging-area))
   (stage (// 'sound 'falling-platform-impact) area)
@@ -16,12 +17,17 @@
 
 (defmethod (setf location) :after (location (platform falling-platform))
   (setf (state platform) :normal)
-  (setf (fall-timer platform) 0.75))
+  (vsetf (velocity platform) 0 0)
+  (setf (fall-timer platform) 0.75)
+  (setf (initial-location platform) (vcopy location)))
 
 (defmethod (setf state) :after (state (platform falling-platform))
   (case state
     (:falling (harmony:play (// 'sound 'falling-platform-rattle) :reset T))
     (:blocked (harmony:play (// 'sound 'falling-platform-impact) :reset T))))
+
+(defmethod handle ((ev switch-chunk) (platform falling-platform))
+  (setf (location platform) (initial-location platform)))
 
 (defmethod handle ((ev tick) (platform falling-platform))
   (ecase (state platform)

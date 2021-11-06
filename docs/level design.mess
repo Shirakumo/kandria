@@ -130,8 +130,8 @@ This section will outline the available mechanical devices that can be used to c
   When colliding, the player will be launched in the direction of the spring. This also recharges the dash. Each spring has a constant amount of force to ensure the player can rely on their strength.
 - **Springboards [TODO]**
   Unlike springs, springboards only bounce a small amount by default, and the player needs to press jump while on one to get a big upwards boost. They also only come in an upwards variant.
-- **Lanterns [TODO]**
-  When dashed into, lanterns recharge the dash and propel players forward and upwards a little bit. The lantern then breaks, until it restores two seconds later. This can be used to create chains of dashes to traverse longer pits.
+- **Lanterns**
+  When dashed into, lanterns recharge the dash. The lantern then breaks, until it restores two seconds later. This can be used to create chains of dashes to traverse longer pits.
 - **Sandstorms**
   Sandstorms activate a simple full-screen effect that layers on top of everything and can be used to gate off the ends of the map.
 - **Wind [TODO]**

@@ -136,6 +136,7 @@
 (define-additional-slot-coders (earthquake-trigger world-v0) (duration))
 (define-additional-slot-coders (action-prompt world-v0) (action interrupt))
 (define-additional-slot-coders (elevator-recall world-v0) (target))
+(define-additional-slot-coders (falling-platform world-v0) ((initial-location :type vec2)))
 (define-slot-coders (basic-light world-v0) ((color :type vec4)
                                             (location :type vec2)
                                             (data :reader (lambda (light) (buffer-data (caar (bindings (vertex-array light))))))))
