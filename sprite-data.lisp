@@ -152,7 +152,8 @@
         (re-encode-json animation-data)
         ;; Convert palette colours
         (when palette
-          (convert-palette albedo (merge-pathnames palette path)))))))
+          (convert-palette albedo (merge-pathnames palette path)))
+        (optipng albedo "-nb" "-nc" "-np")))))
 
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
   (destructuring-bind (&key source palette palettes animation-data animations frames &allow-other-keys) (read-src path)
