@@ -46,7 +46,9 @@
         (v:info :kandria.resources "Compiling tileset from ~a..." source)
         (aseprite source "--layer" "albedo" "--save-as" albedo)
         (aseprite source "--layer" "absorption" "--save-as" absorption)
-        (aseprite source "--layer" "normal" "--save-as" normal)))))
+        (img-convert absorption "-channel" "R" "-alpha" "off" absorption)
+        (aseprite source "--layer" "normal" "--save-as" normal)
+        (img-convert normal "-channel" "RGB" "-alpha" "off" normal)))))
 
 (defmethod generate-resources ((data tile-data) (path pathname) &key compile)
   (destructuring-bind (&key source albedo absorption normal tile-types) (read-src path)

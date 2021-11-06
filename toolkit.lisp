@@ -702,6 +702,15 @@
                     :output *standard-output*
                     :error-output *error-output*))
 
+(defun img-convert (&rest args)
+  (uiop:run-program (list* #-windows "convert" #+windows "convert.exe"
+                           (loop for arg in args
+                                 collect (typecase arg
+                                           (pathname (uiop:native-namestring arg))
+                                           (T (princ-to-string arg)))))
+                    :output *standard-output*
+                    :error-output *error-output*))
+
 (defmacro match1 (thing &body clauses)
   (let ((thingg (gensym "THING")))
     `(let ((,thingg ,thing))
