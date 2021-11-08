@@ -190,7 +190,7 @@
     (:broken
      #++(harmony:play (// 'sound 'elevator-broken)))))
 
-(define-shader-entity elevator-recall (lit-sprite interactable)
+(define-shader-entity elevator-recall (lit-sprite interactable ephemeral)
   ((target :initarg :target :initform NIL :accessor target :type symbol)
    (texture :initform (// 'kandria 'elevator-recall))
    (bsize :initform (vec 8 16))
