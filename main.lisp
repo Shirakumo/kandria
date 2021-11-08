@@ -43,7 +43,8 @@
 
 (defmethod initialize-instance :after ((main main) &key region)
   (when region
-    (load-region region T)))
+    (load-region region T))
+  (setf (game-speed main) (setting :gameplay :game-speed)))
 
 (defmethod update ((main main) tt dt fc)
   (let* ((scene (scene main))
@@ -253,8 +254,8 @@ Possible sub-commands:
 (defun apply-video-settings (&optional (settings (setting :display)))
   (when *context*
     (destructuring-bind (&key resolution fullscreen vsync ui-scale gamma &allow-other-keys) settings
-      (when (and gamma (unit 'render +main+))
-        (setf (monitor-gamma (unit 'render +main+)) gamma))
+      (when (and gamma (unit 'render (scene +main+)))
+        (setf (monitor-gamma (unit 'render (scene +main+))) gamma))
       (show *context* :fullscreen fullscreen :mode resolution)
       (setf (vsync *context*) vsync)
       (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale))))
@@ -268,7 +269,8 @@ Possible sub-commands:
   (apply-video-settings value))
 
 (define-setting-observer game-speed :gameplay :game-speed (value)
-  (setf (game-speed +main+) (float value 0f0)))
+  (when +main+
+    (setf (game-speed +main+) (float value 0f0))))
 
 (defun manage-swank (&optional (mode (setting :debugging :swank)))
   (let ((port (or (setting :debugging :swank-port) swank::default-server-port)))
