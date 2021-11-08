@@ -37,7 +37,7 @@
 - I'll be fine.
   ~ fi
   | I believe you will.
-- I was designed to do just that.
+- I'm designed for that.
   ~ fi
   | You're a remarkable piece of-
   |(:shocked)... person. You're a remarkable //person//.
@@ -53,10 +53,10 @@
   | Of course.
   < questions
 # questions
-- Tell me about Alex.
+- Describe Alex. What do they look like?
   ~ fi
-  | Alex is a hunter, like you. They've been with us from the beginning.
-  | I hope you'll meet them soon - it would be nice for you to get to know them yourself.
+  | They're a hunter, like you. You'll know when you see them.
+  | They've been with us from the beginning. I hope you'll meet them soon - it would be nice to get to know them yourself.
   | Two hunters is a luxury. I'm excited to see what you can do together.
   < questions
 - Tell me about the Semi Sisters.

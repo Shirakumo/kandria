@@ -73,7 +73,7 @@
   | You'll be pleased to know that the one you seek, \"Alex, is here\"(orange).
 ~ innis
 | Indulge me, would you? I want to see how smart you are.
-| See if you can \"find them\"(orange) for yourself.
+| See if you can \"find them up here\"(orange) for yourself.
 ")
 
    (:interaction islay-hint
@@ -81,7 +81,8 @@
     :dialogue "
 ~ islay
 | (:unhappy)I'm sorry about my sister.
-| (:nervous)If you're \"looking for Alex, try the bar\"(orange). Just don't tell Innis I told you.
+| (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"down this elevator shaft\"(orange).
+| Just don't tell Innis I told you.
 ")
 ))
 #|
