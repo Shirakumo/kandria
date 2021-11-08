@@ -265,7 +265,7 @@ void main(){
 
 (defmethod enter* :before ((chunk chunk) container)
   (loop for layer across (layers chunk)
-        do (compile-into-pass layer (preceding-entity layer container) *scene*)))
+        do (compile-into-pass layer (or (preceding-entity layer container) container) *scene*)))
 
 (defmethod remove-from-pass :after ((chunk chunk) (pass shader-pass))
   (loop for layer across (layers chunk)
