@@ -107,6 +107,10 @@
 (defmethod (setf location) :after (loc (lantern lantern))
   (setf (slot-value (light lantern) 'location) (location lantern)))
 
+(defmethod handle ((ev switch-chunk) (lantern lantern))
+  (setf (state lantern) :active)
+  (setf (animation lantern) 'active))
+
 (defmethod handle :before ((ev tick) (lantern lantern))
   (case (state lantern)
     (:active
