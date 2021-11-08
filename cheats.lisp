@@ -130,6 +130,14 @@
       (setf (unlocked-p unit) T))))
 
 (define-cheat (show-solids |show solid tiles|)
-  (for:for ((unit over (region +world+)))
-    (when (typep unit 'chunk)
-      (setf (show-solids unit) T))))
+  (let (mode)
+    (for:for ((unit over (region +world+)))
+      (when (typep unit 'chunk)
+        (unless mode
+          (setf mode (if (show-solids unit) :off :on)))
+        (case mode
+          (:off (setf (show-solids unit) NIL))
+          (:on (setf (show-solids unit) T)))))
+    (case mode
+      (:off NIL)
+      (:on T))))
