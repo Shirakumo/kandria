@@ -27,6 +27,9 @@
    (:interaction innis-stop
     :interactable innis
     :dialogue "
+! eval (setf (nametag (unit 'innis)) \"???\")
+! eval (setf (nametag (unit 'islay)) \"???\")
+! eval (setf (nametag (unit 'alex)) \"???\")
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!!
 | Did you think ya could just waltz right through here?
@@ -38,7 +41,8 @@
 | (:unhappy)I think you should leave her alone.
 ~ innis
 | (:exasperated)...
-| (:normal)Come now - the pinnacle of human engineering is standing before you, and that's all you can say?
+| (:normal)Come now, Islay - the pinnacle of human engineering is standing before you, and that's all you can say?
+! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 | (:sly)That wasn't a compliment by the way, android.
 | (:normal)But let's not get off on the wrong foot now.
 ~ player
@@ -73,7 +77,7 @@
   | You'll be pleased to know that the one you seek, \"Alex, is here\"(orange).
 ~ innis
 | Indulge me, would you? I want to see how smart you are.
-| See if you can \"find them up here\"(orange) for yourself.
+| See if you can \"find them\"(orange) for yourself.
 ")
 #|
 dinnae = don't (Scottish)
@@ -90,11 +94,13 @@ dinnae = don't (Scottish)
 
    (:interaction islay-hint
     :interactable islay
+    :repeatable T
     :dialogue "
 ~ islay
 | (:unhappy)I'm sorry about my sister.
-| (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"down this elevator shaft\"(orange).
+| (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us.\"(orange).
 | Just don't tell Innis I told you.
+! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ")
 
 
