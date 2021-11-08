@@ -84,6 +84,9 @@
 | (:nervous)If you're \"looking for Alex, try the bar\"(orange). Just don't tell Innis I told you.
 ")
 ))
+#|
+dinnae = don't (Scottish)
+|#
 
 #|
    (:interaction alex-arrive
