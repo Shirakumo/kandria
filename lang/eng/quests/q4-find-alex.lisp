@@ -43,8 +43,7 @@
 | (:exasperated)...
 | (:normal)Come now, Islay - the pinnacle of human engineering is standing before you, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
-| (:sly)That wasn't a compliment by the way, android.
-| (:normal)But let's not get off on the wrong foot now.
+| (:sly)That wasn't a compliment by the way, android. (:normal)But let's not get off on the wrong foot now.
 ~ player
 - (Keep quiet)
   ~ innis
@@ -78,19 +77,22 @@
 ~ innis
 | Indulge me, would you? I want to see how smart you are.
 | See if you can \"find them\"(orange) for yourself.
-")
+"))
+
 #|
 dinnae = don't (Scottish)
 |#
-)
 
+#|
+TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be questionined if they are Alex, as a variant on their world-building dialogue.
+|#
   (find-alex-semis
    :title "Search the Semi Sisters territory for any sign of Alex."
    :description NIL
    :invariant T
    :condition all-complete
    :on-activate (islay-hint alex-meet)
-   :on-complete ()
+   :on-complete (q5-intro)
 
    (:interaction islay-hint
     :interactable islay
@@ -98,7 +100,7 @@ dinnae = don't (Scottish)
     :dialogue "
 ~ islay
 | (:unhappy)I'm sorry about my sister.
-| (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us.\"(orange).
+| (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us\"(orange).
 | Just don't tell Innis I told you.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ")
@@ -108,23 +110,98 @@ dinnae = don't (Scottish)
     :interactable alex
     :dialogue "
 ~ alex
-| Yo
-
+| (:unhappy)What're you looking at? <-Hic->.
 ~ player
-| You're a hunter, you must have mapped the area?
-~ alex
-| I have, and I'm not giving them to you.
-~ alex
-| Did you know it was me that found you? Wish I'd smashed you instead.
-")
-)
-)
-
-#|
-   (:interaction alex-arrive
-    :interactable alex
-    :dialogue "
+| \"//Their breath smells like seaweed mixed with diesel.//\"(light-gray)
 ~ player
-| Yo Alex.
+- Alex?  
+- I wasn't looking at you as it happens.
+  ~ alex
+  | (:unhappy)Goes away then.
+  ~ player
+  | Are you Alex?
+- A drunk in a bar.
+  ~ alex
+  | (:angry)'Ow dare you.
+  ~ player
+  | Are you Alex?
+~ alex
+| (:unhappy)I ain't Alice.
+~ player
+| I said \"Alex\" not \"Alice\".
+~ alex
+| (:confused)<-Hic->. That's what I said.
+~ player
+| (:skeptical)Oh boy.
+| (:normal)Are you Alex from the Noka? Do you know Fi?
+~ alex
+| (:confused)...
+| (:normal)Yeah that's me. <-Hic->. Who's you?
+! eval (setf (nametag (unit 'alex)) (@ alex-nametag))
+~ player
+- My name is... Stranger.
+  ~ alex
+  | (:unhappy)<-Hic->. So you're the new hunter.
+  | The android.
+- I'm an android.
+  ~ alex
+  | (:unhappy)<-Hic->. So you're the new hunter.
+- Fi sent me.
+  ~ alex
+  | (:unhappy)<-Hic->. So you're the new hunter.
+  | The android.
+~ player
+| Correct.
+~ alex
+| (:unhappy)Lemme save you some trouble. I ain't going back.
+~ player
+- Why not?
+  ~ alex
+  | (:unhappy)You really gotta ask that?
+  | ...
+  | Alright, you asked for it: //Hic.// You're the reason.
+- It's important that you do.
+  ~ alex
+  | No it ain't. Far from it.
+~ alex
+| (:angry)I've heard about you- <-hic->. Innis even showed me the CCCTV.
+! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
+| So why would Fi need little ol' me anymore?
+| So run along matey - <-hic-> - an' tell her to spin on that one, why dontcha?
+~ player
+(:thinking)Do you know about the Wraw's plan to attack?
+~ alex
+| They're always planning to attack. I know they bust the water supply. That's is all I know.
+| (:unhappy)<-Hic->. Speaking o' supply, can't a geezer get a refill 'round 'ere? __BARKEEP!__
+~ player
+| \"//Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.//\"(light-gray)
+~ player
+- (Buy Alex another drink - 40)
+  ? (<= 40 (item-count 'parts))
+  | ! eval (retrieve 'parts 40)
+  | ~ alex
+  | | (:confused)Ugh, thansssks.
+  |? (> 40 (item-count 'parts))
+  | ~ player
+  | | (:embarassed)\"//I don't have enough scrap for that. Now the barkeep's scowling at me too.//\"(light-gray)
+- (Leave them be)
+~ player
+| \"//Alex looks me up and down, though seems to lose sight of me for a moment, before squinting and settling on me again. They seem surprised I'm still here.//\"(light-gray)
+~ alex
+| You're a stenacious bunch aren't ya, you androids. <-Hic->.
+~ player
+- Did you learn anything at all from the Cerebats?
+  ~ alex
+  | (:proud)I mapped this whole area, an' the one below that.
+- Where have you been all this time?
+  ~ alex
+  | (:confused)'Ere, mostly.
+  | Oh, an' I mapped this whole area, an' the one below that.
+~ player
+| Those maps could really help me.
+~ alex
+| (:angry)You mad? I give you these and I really would have nuffin'.
+| Now get lost.
+| (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told Catherine where you were.
+| (:angry)Now I wish I'd kept my mouth shut and smashed you up instead.
 ")))
-|#

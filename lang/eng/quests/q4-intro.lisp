@@ -21,7 +21,7 @@
 | Alex was hunting in \"Cerebats territory\"(red), a faction of traders deeper underground, and might have the answers we need.
 | (:unsure)But they've been gone a long time now. Too long.
 | (:normal)I want you to \"find Alex and bring them back\"(orange) for debriefing.
-| They've got blonde hair, which they usually wear up. They're probably not quite as tall as you. Oh, and they've got a British accent.
+| They've got blonde hair, they're probably not quite as tall as you. Oh, and they've a British accent.
 | To reach the Cerebats township you'll need to get past the tech-witch \"Semi Sisters\"(red).
 | We have good relations so it //should// be fine. They built the infrastructure that keeps us going, like the water pump and telephones.
 | You can reach their land \"through the floor in the pump room\"(orange).
