@@ -6,7 +6,7 @@
 (quest:define-quest (kandria sq3-race)
   :author "Tim White"
   :title "Timed Travel"
-  :description "Catherine and her friends want to see what I'm capable of. She's had Alex plant cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get."
+  :description "Catherine and her friends want to see what I'm capable of. They've planted cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get."
   :on-activate (race-hub)
   (race-hub
    :title "Talk to Catherine in Engineering to start a race"
@@ -52,9 +52,8 @@
 |   | No worries. (:excited)Let's do this soon!
 |   < quit
 | ~ catherine
-| | (:normal)So remember: \"Find the can\"(orange) that Alex has planted.
-| | I told them to find devious places, (:excited)and they haven't disappointed.
-| | (:normal)\"Grab a can, bring it back here, and I'll stop the clock.\"(orange)
+| | (:normal)So remember: \"Find the can\"(orange) that we've planted.
+| | (:normal)\"Grab the can, bring it back here, and I'll stop the clock.\"(orange)
 | | We'll start you off with \"Route 1\"(orange), which is easy.
 | | Finish this one and I'll tell you about the next route.
 | | You can try routes as many times as you want, but you'll \"only get a reward if you beat your previous best time\"(orange).
