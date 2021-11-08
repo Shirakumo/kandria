@@ -5,6 +5,7 @@
 
 (defmethod collides-p ((platform moving-platform) thing hit) NIL)
 (defmethod collides-p ((platform moving-platform) (block block) hit) T)
+(defmethod collides-p ((platform moving-platform) (spike spike) hit) NIL)
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
 (define-shader-entity falling-platform (lit-sprite moving-platform)
@@ -25,6 +26,10 @@
   (case state
     (:falling (harmony:play (// 'sound 'falling-platform-rattle) :reset T))
     (:blocked (harmony:play (// 'sound 'falling-platform-impact) :reset T))))
+
+(defmethod oob ((platform falling-platform) (none null))
+  (vsetf (velocity platform) 0 0)
+  (decf (vy (location platform)) 64))
 
 (defmethod handle ((ev switch-chunk) (platform falling-platform))
   (setf (location platform) (initial-location platform)))
