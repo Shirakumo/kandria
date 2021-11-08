@@ -104,8 +104,10 @@
          (call-next-method))))
 
 (defmethod interrupt-walk-n-talk ((string string))
-  (setf (interrupt (unit 'walkntalk +world+))
-        (make-instance 'stub-interaction :dialogue string)))
+  ;; KLUDGE: only avoid recaching if we're already displaying the same string.
+  (unless (interrupt (unit 'walkntalk +world+))
+    (setf (interrupt (unit 'walkntalk +world+))
+          (make-instance 'stub-interaction :dialogue string))))
 
 (defmethod interrupt-walk-n-talk ((null null))
   (setf (interrupt (unit 'walkntalk +world+)) null))
