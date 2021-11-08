@@ -12,8 +12,8 @@
    :description NIL
    :invariant T
    :condition all-complete
-   :on-activate (q4-reminder innis-stop islay-hint)
-   :on-complete (return-seeds)
+   :on-activate (q4-reminder innis-stop)
+   :on-complete (find-alex-semis)
 
    (:interaction q4-reminder
     :interactable fi
@@ -75,6 +75,18 @@
 | Indulge me, would you? I want to see how smart you are.
 | See if you can \"find them up here\"(orange) for yourself.
 ")
+#|
+dinnae = don't (Scottish)
+|#
+)
+
+  (find-alex-semis
+   :title "Search the Semi Sisters territory for any sign of Alex."
+   :description NIL
+   :invariant T
+   :condition all-complete
+   :on-activate (islay-hint alex-meet)
+   :on-complete ()
 
    (:interaction islay-hint
     :interactable islay
@@ -84,10 +96,23 @@
 | (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"down this elevator shaft\"(orange).
 | Just don't tell Innis I told you.
 ")
-))
-#|
-dinnae = don't (Scottish)
-|#
+
+
+   (:interaction alex-meet
+    :interactable alex
+    :dialogue "
+~ alex
+| Yo
+
+~ player
+| You're a hunter, you must have mapped the area?
+~ alex
+| I have, and I'm not giving them to you.
+~ alex
+| Did you know it was me that found you? Wish I'd smashed you instead.
+")
+)
+)
 
 #|
    (:interaction alex-arrive
