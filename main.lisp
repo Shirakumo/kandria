@@ -103,6 +103,8 @@
                                 (invoke-restart 'reset)))))
         (prog1 (load-state state (scene main))
           (clear-spawns)
+          #-kandria-release
+          (enter (make-instance 'trial::fps-counter) (scene main))
           (unwind-protect
                (trial:commit (scene main) (loader main) :show-screen T)
             (setf (state main) state)
