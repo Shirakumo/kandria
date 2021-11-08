@@ -163,7 +163,10 @@
       ((:normal :climbing :sliding)
        (let ((vel (velocity player)))
          (cond ((handle-evasion player))
-               ((<= (dash-time player) 0)
+               ((or (<= (dash-time player) 0)
+                    (dash-pending player))
+                (setf (dash-time player) 0.0)
+                (setf (dash-pending player) NIL)
                 (vsetf vel
                        (cond ((retained 'left)  -0.5)
                              ((retained 'right) +0.5)
@@ -817,6 +820,7 @@
 
        ;; Movement
        (cond (ground
+              (setf (dash-pending player) NIL)
               (when (<= (climb-strength player) (p! climb-strength))
                 (setf (vw (color player)) 0.0)
                 (setf (climb-strength player) (p! climb-strength)))

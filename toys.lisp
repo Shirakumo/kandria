@@ -104,6 +104,9 @@
 (defmethod leave* :after ((lantern lantern) (container container))
   (remove-from-pass (light lantern) (unit 'lighting-pass +world+)))
 
+(defmethod (setf location) :after (loc (lantern lantern))
+  (setf (slot-value (light lantern) 'location) (location lantern)))
+
 (defmethod handle :before ((ev tick) (lantern lantern))
   (case (state lantern)
     (:active
