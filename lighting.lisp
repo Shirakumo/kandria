@@ -303,7 +303,7 @@ void main(){
   ())
 
 (define-shader-entity lit-animated-sprite (lit-vertex-entity trial:animated-sprite facing-entity sized-entity)
-  ())
+  ((layer-index :initarg :layer-index :initform 0 :accessor layer-index)))
 
 (defmethod apply-transforms progn ((subject animated-sprite))
   (translate-by 0 (- (vy (bsize subject))) 0))
