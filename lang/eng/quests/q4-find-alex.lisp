@@ -171,7 +171,8 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ player
 (:thinking)Do you know about the Wraw's plan to attack?
 ~ alex
-| They're always planning to attack. I know they bust the water supply. That's is all I know.
+| They're always planning to attack.
+| I know they bust the water supply. That's is all I know. <-Hic->. Prolly just Fi getting her knickers in a twist.
 | (:unhappy)<-Hic->. Speaking o' supply, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
 | \"//Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.//\"(light-gray)
