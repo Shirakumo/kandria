@@ -5,10 +5,9 @@
   :author "Tim White"
   :title "Run Errands"
   :visible NIL
-  (:eval   
-   (setf (location 'islay) (location 'islay-errand-spawn))
-   (follow 'player 'islay))
-  (:nearby (player islay))
+  (:eval (setf (location 'islay) (location 'islay-errand-spawn)))
+  (:eval (setf (walk 'islay) T))
+  (:eval (follow 'player 'islay)) (:nearby (player islay))
   (:interact (islay :now T)
    "
 ~ islay
@@ -38,7 +37,7 @@
 ~ player
 | (:skeptical)So there is a catch.
 ~ islay
-| No. You're not a prisoner here. You're free to go and do anything you want.
+| No. This isn't a trade. You're free to go and do anything you want.
 | I just didn't want you to get bored.
 | (:expectant)And it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
 ~ player
@@ -55,10 +54,12 @@
 | (:happy)I can sweeten the deal too.
 | (:normal)I suppose I'm what you'd call the chief engineer around here. Just like Jack is for the Noka.
 | Which means I stock many things that might be useful to you.
-| We get the usual traders visiting too, but I think you'll find my range hard to beat.
-| (:unhappy)Now, much as I hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
+| We get the usual traders visiting too, but I'm giving you another option - and I stock more supplies than most.
+| (:unhappy)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent tasks.
 | (:happy)I guess you could see her as just another challenge to overcome.
 | (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis\"(orange).
-| Goodbye for now.
+| Ta-ta for now.
+! eval (stop-following 'islay)
+! eval (move-to 'alex (unit 'islay))
 "))
 ;;TODO different prices for different traders, so write in that Islay gives you a good discount?
