@@ -11,7 +11,7 @@
    :title NIL
    :on-activate T
    (:interaction chat-semi
-    :title "Can we talk?"
+    :title "Can I talk to you?"
     :interactable islay
     :repeatable T
     :dialogue "
