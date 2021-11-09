@@ -173,9 +173,11 @@ uniform mat4 model_matrix;
 uniform mat4 projection_matrix;
 uniform vec2 map_size;
 uniform int tile_size = 16;
+uniform usampler2D tilemap;
 out vec2 uv;
 out vec2 pix_uv;
 out vec2 world_pos;
+flat out ivec2 tex_size;
 
 void main(){
   vec2 vert = (vertex.xy*map_size*tile_size*0.5);
@@ -184,6 +186,7 @@ void main(){
   world_pos = temp.xy;
   uv = vertex_uv;
   pix_uv = uv * map_size * tile_size;
+  tex_size = textureSize(tilemap,0);
 }")
 
 (define-class-shader (layer :fragment-shader)
@@ -197,12 +200,13 @@ const int tile_size = 16;
 in vec2 uv;
 in vec2 pix_uv;
 in vec2 world_pos;
+flat in ivec2 tex_size;
 out vec4 color;
 
 void main(){
   // Calculate tilemap index and pixel offset within tile.
   ivec2 pixel_xy = ivec2(pix_uv) % tile_size;
-  ivec2 map_xy = ivec2(uv*textureSize(tilemap,0));
+  ivec2 map_xy = ivec2(uv*tex_size);
 
   // Look up tileset index from tilemap and pixel from tileset.
   uvec2 tile = texelFetch(tilemap, map_xy, 0).rg;
