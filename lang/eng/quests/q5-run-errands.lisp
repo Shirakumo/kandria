@@ -7,6 +7,8 @@
   :visible NIL
   (:eval (setf (location 'islay) (location 'islay-errand-spawn)))
   (:eval (setf (walk 'islay) T))
+  (:eval (move-to 'alex (unit 'islay)))
+  ;;(:eval (ensure-nearby 'alex 'islay))
   (:eval (follow 'player 'islay)) (:nearby (player islay))
   (:interact (islay :now T)
    "
@@ -54,12 +56,15 @@
 | (:happy)I can sweeten the deal too.
 | (:normal)I suppose I'm what you'd call the chief engineer around here. Just like Jack is for the Noka.
 | Which means I stock many things that might be useful to you.
-| We get the usual traders visiting too, but I'm giving you another option - and I stock more supplies than most.
+| We get the usual traders visiting too, but I'm giving you another option - and \"I stock more supplies than most\"(orange).
 | (:unhappy)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent tasks.
 | (:happy)I guess you could see her as just another challenge to overcome.
 | (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis\"(orange).
 | Ta-ta for now.
 ! eval (stop-following 'islay)
+! eval (setf (walk 'islay) T)
 ! eval (move-to 'alex (unit 'islay))
+! eval (activate 'trader-semi-chat)
+! eval (activate 'trader-shop-semi)
 "))
 ;;TODO different prices for different traders, so write in that Islay gives you a good discount?

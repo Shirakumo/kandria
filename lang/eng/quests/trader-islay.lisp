@@ -54,20 +54,20 @@
 ~ islay
 | [? Take care, Stranger. | Mind how you go. | I'll be seeing you.]")))
 
-(quest:define-quest (kandria trader-semi)
+(quest:define-quest (kandria trader-shop-semi)
   :title "Trade"
   :visible NIL
   :on-activate T
-  (trade-shop
+  (trade-shop-semi
    :title "Trade"
    :on-activate T
    (:interaction buy
     :interactable islay
     :repeatable T
     :title (@ shop-buy-items)
-    :dialogue "! eval (show-sales-menu :buy 'trader)")
+    :dialogue "! eval (show-sales-menu :buy 'islay)")
    (:interaction sell
     :interactable islay
     :repeatable T
     :title (@ shop-sell-items)
-    :dialogue "! eval (show-sales-menu :sell 'trader)")))
+    :dialogue "! eval (show-sales-menu :sell 'islay)")))
