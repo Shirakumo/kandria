@@ -201,11 +201,11 @@ out vec4 color;
 
 void main(){
   // Calculate tilemap index and pixel offset within tile.
-  ivec2 pixel_xy = ivec2(pix_uv);
-  pixel_xy %= tile_size;
+  ivec2 pixel_xy = ivec2(pix_uv) % tile_size;
+  ivec2 map_xy = ivec2(uv*textureSize(tilemap,0));
 
   // Look up tileset index from tilemap and pixel from tileset.
-  uvec2 tile = texture(tilemap, uv).rg;
+  uvec2 tile = texelFetch(tilemap, map_xy, 0).rg;
   ivec2 tile_xy = ivec2(tile)*tile_size+pixel_xy;
   color = texelFetch(albedo, tile_xy, 0);
   float a = texelFetch(absorption, tile_xy, 0).r;
