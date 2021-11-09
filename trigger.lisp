@@ -150,6 +150,9 @@
 (defmethod stage :after ((trigger earthquake-trigger) (area staging-area))
   (stage (// 'sound 'ambience-earthquake) area))
 
+(defmethod closest-acceptable-location ((trigger earthquake-trigger) location)
+  location)
+
 (defmethod interact ((trigger earthquake-trigger) (player player))
   (decf (clock trigger) 0.01)
   (let* ((max 7.0)

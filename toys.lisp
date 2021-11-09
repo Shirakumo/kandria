@@ -90,6 +90,7 @@
        (eq :active (state lantern))))
 
 (defmethod collide ((player player) (lantern lantern) hit)
+  (setf (climb-strength player) (p! climb-strength))
   (setf (direction lantern) (direction player))
   (setf (dash-pending player) T)
   (setf (state lantern) :inactive)

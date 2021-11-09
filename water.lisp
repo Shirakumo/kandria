@@ -7,13 +7,16 @@
 
 (defun make-water-vertex-data (bsize)
   (let ((array (make-array (* 2 2 (1+ (floor (vx bsize) 2))) :element-type 'single-float))
-        (h (vy bsize)))
+        (h (vy bsize))
+        (i 0))
     (loop for x from (- (vx bsize)) to (+ (vx bsize)) by 4
-          for i from 0 by 4
           do (setf (aref array (+ i 0)) x)
              (setf (aref array (+ i 1)) (- h))
              (setf (aref array (+ i 2)) x)
-             (setf (aref array (+ i 3)) (+ h)))
+             (setf (aref array (+ i 3)) (+ h))
+             (incf i 4))
+    (setf (aref array (- i 2)) (vx bsize))
+    (setf (aref array (- i 4)) (vx bsize))
     array))
 
 (defmethod submerged ((entity entity) (water water)))
