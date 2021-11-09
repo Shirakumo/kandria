@@ -110,7 +110,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
     :interactable alex
     :dialogue "
 ~ alex
-| (:unhappy)What're you looking at? <-Hic->.
+| (:unhappy)What you looking at? <-Hic->.
 ~ player
 | \"//Their breath smells like seaweed mixed with diesel.//\"(light-gray)
 ~ player
@@ -136,19 +136,19 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | (:normal)Are you Alex from the Noka? Do you know Fi?
 ~ alex
 | (:confused)...
-| (:normal)Yeah that's me. <-Hic->. Who's you?
+| (:normal)Yeah that's me. <-Hic->.
 ! eval (setf (nametag (unit 'alex)) (@ alex-nametag))
 ~ player
 - My name is... Stranger.
   ~ alex
-  | (:unhappy)<-Hic->. So you're the new hunter.
+  | (:unhappy)<-Hic->. I know. You're the new hunter.
   | The android.
 - I'm an android.
   ~ alex
-  | (:unhappy)<-Hic->. So you're the new hunter.
+  | (:unhappy)<-Hic->. I know. You're the new hunter.
 - Fi sent me.
   ~ alex
-  | (:unhappy)<-Hic->. So you're the new hunter.
+  | (:unhappy)<-Hic->. I know. You're the new hunter.
   | The android.
 ~ player
 | Correct.
@@ -169,7 +169,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | So why would Fi need little ol' me anymore?
 | So run along matey - <-hic-> - an' tell her to spin on that one, why dontcha?
 ~ player
-(:thinking)Do you know about the Wraw's plan to attack?
+| (:thinking)Do you know about the Wraw's plan to attack?
 ~ alex
 | They're always planning to attack.
 | I know they bust the water supply. That's is all I know. <-Hic->. Prolly just Fi getting her knickers in a twist.
