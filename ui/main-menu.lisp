@@ -138,14 +138,16 @@ void main(){
   color = apply_lighting_flat(color, vec2(0, -5), 0, vec2(0));
 }")
 
-(define-shader-entity star (lit-sprite)
+(define-shader-entity star (lit-sprite listener)
   ((multiplier :initform 1.0 :accessor multiplier)
    (texture :initform (// 'kandria 'star))
    (size :initform (vec 105 105))
    (clock :initform (random 1000.0) :accessor clock)))
 
+(defmethod handle ((ev tick) (star star))
+  (incf (clock star) (dt ev)))
+
 (defmethod render :before ((star star) (program shader-program))
-  (incf (clock star) 0.01)
   (setf (uniform program "multiplier")
         (float (+ 1.0 (/ (+ (sin (* 2 (clock star)))
                             (sin (* PI (clock star))))
