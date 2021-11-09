@@ -11,7 +11,7 @@
    :title "Travel down to the Cerebats township, but avoid the Semi Sisters en route."
    :description NIL
    :invariant T
-   :condition all-complete
+   :condition (complete-p 'innis-stop)
    :on-activate (q4-reminder innis-stop)
    :on-complete (find-alex-semis)
 
@@ -77,6 +77,7 @@
 ~ innis
 | Indulge me, would you? I want to see how smart you are.
 | See if you can \"find them\"(orange) for yourself.
+! eval (deactivate 'q4-reminder)
 "))
 
 #|
@@ -90,9 +91,9 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
    :title "Search the Semi Sisters territory for any sign of Alex."
    :description NIL
    :invariant T
-   :condition all-complete
+   :condition (complete-p 'alex-meet)
    :on-activate (islay-hint alex-meet)
-   :on-complete (q5-intro)
+   :on-complete (q5-run-errands)
 
    (:interaction islay-hint
     :interactable islay
@@ -201,8 +202,9 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ player
 | Those maps could really help me.
 ~ alex
-| (:angry)You mad? I give you these and I really would have nuffin'.
+| (:angry)You mad? I give you these and I really would have nuffin'. <-Hic->.
 | Now get lost.
 | (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told Catherine where you were.
 | (:angry)Now I wish I'd kept my mouth shut and smashed you up instead.
+! eval (deactivate 'islay-hint)
 ")))
