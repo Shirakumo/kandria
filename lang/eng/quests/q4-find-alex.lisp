@@ -88,7 +88,7 @@ dinnae = don't (Scottish)
 TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be questionined if they are Alex, as a variant on their world-building dialogue.
 |#
   (find-alex-semis
-   :title "Search the Semi Sisters territory for any sign of Alex."
+   :title "Search Semi Sisters territory for any sign of Alex."
    :description NIL
    :invariant T
    :condition (complete-p 'alex-meet)
@@ -160,7 +160,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ alex
   | (:unhappy)You really gotta ask that?
   | ...
-  | Alright, you asked for it: //Hic.// You're the reason.
+  | Alright, you asked for it: <-Hic->. You're the reason.
 - It's important that you do.
   ~ alex
   | No it ain't. Far from it.
@@ -168,12 +168,12 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | (:angry)I've heard about you- <-hic->. Innis even showed me the CCCTV.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | So why would Fi need little ol' me anymore?
-| So run along matey - <-hic-> - an' tell her to spin on that one, why dontcha?
+| So run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
 ~ player
 | (:thinking)Do you know about the Wraw's plan to attack?
 ~ alex
 | They're always planning to attack.
-| I know they bust the water supply. That's is all I know. <-Hic->. Prolly just Fi getting her knickers in a twist.
+| I know they bust the water supply. But that's is all I know. <-Hic->. Prolly just Fi getting her knickers in a twist.
 | (:unhappy)<-Hic->. Speaking o' supply, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
 | \"//Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.//\"(light-gray)
