@@ -226,7 +226,7 @@
          (setf (idle-time animatable) (minimum-idle-time animatable)))))
 
 (defmethod collide :before ((animatable animatable) (platform falling-platform) hit)
-  (when (< 0 (vy (hit-normal hit)))
+  (when (<= 0 (vy (hit-normal hit)))
     (case (state platform)
       (:normal
        (setf (state platform) :falling)))))
