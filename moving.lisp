@@ -134,20 +134,12 @@
   (kill moving))
 
 (defmethod collides-p ((moving moving) (block spike) hit)
-  (let* ((normal (spike-normal block))
-         (dot (v. (frame-velocity moving) normal)))
-    (or
-     ;; We can collide with spikes either head on (opposed normals)
-     (and (v= (hit-normal hit) normal)
-          (< dot 0.0)
-          (cond ((= +1.0 (vx normal)) (<= (- (vx (location moving)) (vx (bsize moving))) (vx (hit-location hit))))
-                ((= -1.0 (vx normal)) (<= (vx (hit-location hit)) (+ (vx (location moving)) (vx (bsize moving)))))
-                ((= +1.0 (vy normal)) (<= (- (vy (location moving)) (vy (bsize moving))) (vy (hit-location hit))))
-                ((= -1.0 (vy normal)) (<= (vy (hit-location hit)) (+ (vy (location moving)) (vy (bsize moving)))))))
-     ;; Or side-ways (perpendicular normals).
-     (and (= dot 0.0)
-          (<= (abs (- (vx (location moving)) (vx (hit-location hit)))) (vx (bsize moving)))
-          (<= (abs (- (vy (location moving)) (vy (hit-location hit)))) (vy (bsize moving)))))))
+  (let ((angle (vangle (spike-normal block) (frame-velocity moving)))
+        (loc (v+ (location moving) (frame-velocity moving))))
+    (and (<= 85 (rad->deg angle) 185)
+         (if (/= 0 (vx (spike-normal block)))
+             (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
+             (<= (abs (- (vy (hit-location hit)) (vy loc))) 7)))))
 
 (defmethod collides-p ((moving moving) (block slope) hit)
   (ignore-errors
