@@ -227,3 +227,13 @@
 
 (defmethod collides-p ((moving moving) (stopper stopper) hit) NIL)
 (defmethod interactable-p ((elevator elevator)) T)
+
+(defun place-on-ground (entity loc &optional (xdiff 0) (ydiff 0))
+  (let ((ground (find-ground (find-chunk loc) loc)))
+    (if ground
+        (vsetf (location entity)
+               (random* (vx ground) xdiff)
+               (+ (vy ground) (vy (bsize entity))))
+        (vsetf (location entity)
+               (random* (vx loc) xdiff)
+               (+ (- (vy loc) ydiff) (vy (bsize entity)) 1)))))

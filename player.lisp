@@ -1036,7 +1036,7 @@
   (setf (animation player) 'stand)
   (vsetf (velocity player) 0 0)
   (vsetf (frame-velocity player) 0 0)
-  (setf (location player) (vcopy (spawn-location player)))
+  (place-on-ground player (spawn-location player))
   (setf (state player) :normal)
   (snap-to-target (unit :camera T) player))
 
