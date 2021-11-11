@@ -130,6 +130,7 @@
   (setf (entity editor) (region +world+))
   (setf (background (unit 'background T)) (background 'editor))
   (update-background (unit 'background T) T)
+  (setf (zoom (unit :camera T)) (expt 0.8 5))
   (reset (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
