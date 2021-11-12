@@ -32,7 +32,9 @@
        (let ((vel (velocity critter)))
          (incf (vx vel) (* dt (vx (acceleration critter)) (direction critter)))
          (incf (vy vel) (* dt (vy (acceleration critter))))
-         (nv+ (frame-velocity critter) vel))))))
+         (nv+ (frame-velocity critter) vel)
+         (unless (find-chunk critter)
+           (oob critter NIL)))))))
 
 (defmethod oob :after ((critter critter) next)
   (when (and (eql :fleeing (state critter))
