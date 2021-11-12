@@ -75,7 +75,8 @@ Another useful tool are various cheats in the game. Cheats are toggled by typing
 - ``noclip`` Toggles collision and lets you float through levels quickly
 - ``blingee`` Get one of every value item
 - ``motherlode`` Get 10000 parts
-- ``reveal-map`` Reveal the full map
+- ``i can see forever`` Reveal the full map
+- ``show solid tiles`` Show the solid surface tile layer
 
 Be sure to check this section in the future for additional tools, and let us know if you have an idea for more tools that would help ease the testing process.
 
