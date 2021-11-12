@@ -203,6 +203,10 @@
     (loop for (name . state) in ephemeral
           for unit = (unit name region)
           do (if unit
+                 #-kandria-release
+                 (with-simple-restart (continue "Ignore")
+                   (decode unit state))
+                 #+kandria-release
                  (decode unit state)
                  (cerror "Ignore the entity." "Unit named ~s referenced but not found." name)))
     ;; Add new entities that exist in the state
