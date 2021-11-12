@@ -186,6 +186,7 @@
                            (svref (collisions player) 2))
                   (incf (vx vel) (* (direction player) (vx (p! hyperdash-bonus))))
                   (incf (vy vel) (vy (p! hyperdash-bonus))))
+                (rumble :duration 0.2 :intensity 0.5)
                 (setf (state player) :dashing)
                 (if (svref (collisions player) 2)
                     (trigger 'dash player)
@@ -1083,6 +1084,7 @@
          (setf (clock (progression 'death +world+)) 0f0)
          (start (progression 'death +world+)))
         (T
+         (rumble :intensity 10.0)
          (vsetf (velocity player) 0 0)
          (setf (animation player) 'die)
          (setf (state player) :respawning)
