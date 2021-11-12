@@ -426,6 +426,8 @@
   (let ((entity (entity action))
         (*package* #.*package*))
     (trial:commit entity (loader +main+) :unload NIL)
+    (when (typep entity 'chunk)
+      (setf (show-solids entity) T))
     (with-commit (editor)
       ((enter* entity (unit 'region T))
        (setf (entity editor) entity))
