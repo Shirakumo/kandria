@@ -704,6 +704,8 @@
                        (setf (direction player) -1)
                        (setf (vx loc) target-x))))))
            (moving-platform
+            (when (typep attached 'falling-platform)
+              (setf (state attached) :falling))
             (nv+ (frame-velocity player) (velocity attached))))
          (if (retained 'down)
              (if (typep attached 'rope)
