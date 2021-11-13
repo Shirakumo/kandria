@@ -440,13 +440,17 @@ void main(){
     chunk))
 
 (defmethod scan ((chunk chunk) (target vec2) on-hit)
-  (let ((tile (tile target chunk)))
-    (when tile
-      (destructuring-bind (x y) tile
-        (when (and (= 0 y) (< 0 x))
-          (let ((hit (make-hit (aref +surface-blocks+ x) target)))
-            (unless (funcall on-hit hit)
-              hit)))))))
+  (%with-layer-xy (chunk target)
+    (let* ((pos (* 2 (+ x (* y (truncate (vx (size chunk)))))))
+           (u (aref (pixel-data chunk) pos))
+           (v (aref (pixel-data chunk) (1+ pos))))
+      (when (and (= 0 v) (< 0 u))
+        (let* ((bsize (bsize chunk))
+               (loc (location chunk))
+               (hit (make-hit (aref +surface-blocks+ u)
+                              (nv+ (nv- (nv* (tvec (+ 0.5 x) (+ 0.5 y)) +tile-size+) bsize) loc))))
+          (unless (funcall on-hit hit)
+            hit))))))
 
 (defmethod scan ((chunk chunk) (target vec4) on-hit)
   (let* ((tilemap (pixel-data chunk))
