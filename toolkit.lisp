@@ -259,6 +259,13 @@
 (defun point-angle (point)
   (atan (vy point) (vx point)))
 
+(defun vrot2 (vec angle)
+  (let* ((angle (float angle 0f0))
+         (sin (sin angle))
+         (cos (cos angle)))
+    (vec (- (* (vx2 vec) cos) (* (vy2 vec) sin))
+         (+ (* (vx2 vec) sin) (* (vy2 vec) cos)))))
+
 (defun random* (x var)
   (if (= 0.0 var)
       x

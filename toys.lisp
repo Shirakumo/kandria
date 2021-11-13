@@ -121,3 +121,51 @@
      (when (<= (decf (respawn-time lantern) (dt ev)) 0.0)
        (setf (state lantern) :active)
        (setf (animation lantern) 'respawn)))))
+
+(define-shader-entity spring (lit-animated-sprite collider ephemeral)
+  ((size :initform (vec 16 16))
+   (bsize :initform (vec 8 8))
+   (iframes :initform 0.0 :accessor iframes)
+   (strength :initform (vec 0 7) :initarg :strength :accessor strength :type vec2))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'spring)))
+
+(defmethod initargs append ((spring spring))
+  '(:strength))
+
+(defmethod collides-p (thing (spring spring) hit) NIL)
+(defmethod collides-p ((moving moving) (spring spring) hit)
+  (< 0.5 (iframes spring)))
+
+(defmethod collide ((moving moving) (spring spring) hit)
+  (let ((strength (strength spring)))
+    (setf (iframes spring) 0.0)
+    (setf (animation spring) 'spring)
+    (v<- (velocity moving) strength)))
+
+(defmethod collide :after ((player player) (spring spring) hit)
+  (setf (climb-strength player) (p! climb-strength))
+  (setf (dash-time player) 0.0)
+  (setf (state player) :normal))
+
+(defmethod handle :after ((ev tick) (spring spring))
+  (incf (iframes spring) (dt ev)))
+
+(defmethod bsize ((spring spring))
+  (let ((strength (strength spring)))
+    (if (/= 0 (vx strength))
+        #.(vec 2 8)
+        #.(vec 8 2))))
+
+(defmethod apply-transforms progn ((spring spring))
+  (let ((strength (strength spring)))
+    (cond ((< 0 (vx2 strength))
+           (rotate-by 0 0 1 (/ PI -2))
+           (translate-by -8 -2 0))
+          ((> 0 (vx2 strength))
+           (rotate-by 0 0 1 (/ PI +2))
+           (translate-by +8 -2 0))
+          ((< 0 (vy2 strength)))
+          ((> 0 (vy2 strength))
+           (rotate-by 0 0 1 PI)
+           (translate-by 0 -4 0)))))
