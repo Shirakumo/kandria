@@ -94,7 +94,7 @@
   (setf (direction lantern) (direction player))
   (setf (dash-pending player) T)
   (setf (state lantern) :inactive)
-  (setf (respawn-time lantern) 5.0)
+  (setf (respawn-time lantern) 4.0)
   (setf (animation lantern) 'crash))
 
 (defmethod enter* :after ((lantern lantern) container)
