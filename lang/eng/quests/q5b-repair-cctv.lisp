@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q5b-repair-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV network along the lower Cerebats border has stopped transmitting. I need to investigate."
+  :description "The Semi Sisters' CCTV network along their lower border with the Cerebats has stopped transmitting."
   :on-activate (q5b-task-overview)
   :variables (first-cctv)
 

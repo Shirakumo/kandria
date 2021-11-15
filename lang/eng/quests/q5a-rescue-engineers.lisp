@@ -19,6 +19,7 @@
 | Engineers overview.
 ! eval (activate 'q5a-task-reminder)
 ! eval (activate 'q5a-task-engineers)
+! eval (activate (unit 'semi-engineers))
 "))
  
  (q5a-task-reminder
@@ -39,7 +40,7 @@
    :condition all-complete
    :on-activate T   
    (:interaction q5a-engineers
-    :interactable new-home-1
+    :interactable semi-engineer
     :dialogue "
 ~ player
 | Here be engineers.
