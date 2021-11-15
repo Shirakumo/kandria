@@ -143,12 +143,6 @@
   (setf (location entity) (target trigger))
   (vsetf (velocity entity) 0 0))
 
-(defclass wind (trigger creatable)
-  ((strength :initarg :strength :accessor strength)))
-
-(defmethod interact ((trigger wind) (player player))
-  (nv+ (velocity player) (strength trigger)))
-
 (defclass earthquake-trigger (trigger creatable)
   ((duration :initform 60.0 :initarg :duration :accessor duration)
    (clock :initform 0.0 :accessor clock)))
@@ -220,3 +214,91 @@
 
 (defmethod leave* :before ((prompt action-prompt) from)
   (hide (prompt prompt)))
+
+(define-shader-entity wind (lit-entity trigger listener creatable)
+  ((strength :initarg :strength :initform (vec 0 0) :accessor strength :type vec2)
+   (kind :initarg :kind :initform :constant :accessor kind :type symbol)
+   (texture :initform (// 'kandria 'wind) :accessor texture)
+   (vertex-array :initform (// 'trial 'trial::fullscreen-square) :accessor vertex-array)
+   (clock :initform 0.0 :accessor clock)
+   (accumulator :initform (vec 0 0) :accessor accumulator)
+   (active-time :initform 0.0 :accessor active-time)))
+
+(defmethod interact ((wind wind) (player player))
+  ;; FIXME: how do we get the actual dt here?
+  (unless (eq :dashing (state player))
+    (nv+ (velocity player) (v* (strength wind) 0.01))
+    (when (svref (collisions player) 2)
+      (nv+ (frame-velocity player) (v* (strength wind) 0.01))))
+  (incf (active-time wind) 0.02))
+
+(defmethod stage :after ((wind wind) (area staging-area))
+  (stage (texture wind) area)
+  (stage (vertex-array wind) area))
+
+(defmethod handle ((ev tick) (wind wind))
+  (incf (clock wind) (dt ev))
+  (nv+ (accumulator wind) (vmin (tvec 9 9) (strength wind)))
+  (setf (active-time wind) (clamp 0.0 (- (active-time wind) (dt ev)) 1.0))
+  (ecase (kind wind)
+    (:constant
+     (setf (vx (strength wind)) (* 5 (1+ (sin (clock wind))))))))
+
+(defmethod render ((wind wind) (program shader-program))
+  (when (in-view-p (location wind) (bsize wind))
+    (setf (uniform program "view_size") (vec2 (max 1 (width *context*)) (max 1 (height *context*))))
+    (setf (uniform program "view_matrix") (minv *view-matrix*))
+    (setf (uniform program "clock") (clock wind))
+    (setf (uniform program "strength") (vmin (tvec 9 9) (strength wind)))
+    (setf (uniform program "accumulator") (accumulator wind))
+    (setf (uniform program "visibility") (clamp 0.0 (active-time wind) 1.0))
+    (gl:active-texture :texture0)
+    (gl:bind-texture :texture-2d (gl-name (texture wind)))
+    (let ((vao (vertex-array wind)))
+      (with-pushed-attribs
+        (disable :depth-test)
+        (gl:bind-vertex-array (gl-name vao))
+        (%gl:draw-elements :triangles (size vao) :unsigned-int (cffi:null-pointer))
+        (gl:bind-vertex-array 0)))))
+
+(define-class-shader (wind :vertex-shader)
+  "layout (location = 0) in vec2 vertex_pos;
+layout (location = 1) in vec2 vertex_uv;
+uniform mat4 view_matrix;
+uniform vec2 view_size;
+out vec2 world_xy;
+
+void main(){
+  world_xy = (view_matrix*vec4(vertex_uv*view_size,0,1)).xy;
+  gl_Position = vec4(vertex_pos, 100, 1);
+}")
+
+(define-class-shader (wind :fragment-shader)
+  "#define ITERATIONS 10
+in vec2 world_xy;
+out vec4 color;
+uniform sampler2D tex_image;
+uniform float clock = 0.0;
+uniform vec2 strength = vec2(0);
+uniform vec2 accumulator = vec2(0);
+uniform float visibility = 0.0;
+
+vec2 compute_offset(float dt, float scalar){
+  float tt = clock - dt*2;
+  float shift = 1.0-(sin(tt*1.524)+cos(world_xy.y*0.1)*0.3)*0.0001;
+  return world_xy/scalar
+         + tt*(vec2(0.0,sin(tt*1.132)*0.0002+0.1))
+         - (accumulator-dt*100*strength)*0.01;
+}
+
+void main(){
+  vec2 coord = compute_offset(0, 128);
+  color = vec4(0);
+  for(int i=0; i<ITERATIONS; ++i){
+    color += texture(tex_image, coord)*(ITERATIONS-i)*(1.0/ITERATIONS);
+    coord = compute_offset(i*0.01*(1.0/ITERATIONS), 128);
+  }
+  color += texture(tex_image, compute_offset(0, 100));
+  color = apply_lighting_flat(color, vec2(0), 0, world_xy);
+  color *= visibility;
+}")
