@@ -47,7 +47,7 @@
     :dialogue "
 ~ player
 | Here be CCTV 1.
-? (complete-p 'cctv-2 'cctv-3 'cctv-4)
+? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | | (:normal)\"That's the last CCTV repair. I should \"return to Innis\"(orange).\"(light-gray, italic)
 | ! eval (activate 'q5b-task-return-cctv)
 | ! eval (deactivate 'q5b-task-reminder)
@@ -65,7 +65,7 @@
     :dialogue "
 ~ player
 | Here be CCTV 2.
-? (complete-p 'cctv-1 'cctv-3 'cctv-4)
+? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | | (:normal)\"That's the last CCTV repair. I should \"return to Innis\"(orange).\"(light-gray, italic)
 | ! eval (activate 'q5b-task-return-cctv)
 | ! eval (deactivate 'q5b-task-reminder)
@@ -83,7 +83,7 @@
     :dialogue "
 ~ player
 | Here be CCTV 3.
-? (complete-p 'cctv-1 'cctv-2 'cctv-4)
+? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-4)
 | | (:normal)\"That's the last CCTV repair. I should \"return to Innis\"(orange).\"(light-gray, italic)
 | ! eval (activate 'q5b-task-return-cctv)
 | ! eval (deactivate 'q5b-task-reminder)
@@ -101,7 +101,7 @@
     :dialogue "
 ~ player
 | Here be CCTV 4.
-? (complete-p 'cctv-1 'cctv-2 'cctv-3)
+? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
 | | (:normal)\"That's the last CCTV repair. I should \"return to Innis\"(orange).\"(light-gray, italic)
 | ! eval (activate 'q5b-task-return-cctv)
 | ! eval (deactivate 'q5b-task-reminder)
@@ -116,7 +116,7 @@
    :condition all-complete
    :on-activate T
    (:interaction q5b-return-cctv
-    :title "About the CCTV repairs."
+    :title "The CCTV is repaired."
     :interactable innis
     :dialogue "
 ~ player

@@ -36,7 +36,7 @@
 "))
 
   (q5a-task-engineers
-   :title "Find the trapped railway engineers in the caves to the east of Semi Sisters territory."
+   :title "Find the trapped railway engineers in the caves to the west of Semi Sisters territory."
    :condition all-complete
    :on-activate T   
    (:interaction q5a-engineers
@@ -54,13 +54,13 @@
    :condition all-complete
    :on-activate T
    (:interaction q5a-return-engineers
-    :title "About the trapped engineers."
+    :title "The engineers are freed."
     :interactable innis
     :dialogue "
 ~ player
 | Engineers saved.
 ~ innis
-| So I heard.
+| So I heard. Remind me not to get on your bad side.
 ? (complete-p 'q5b-repair-cctv)
 | ~ innis
 | | You can go.
