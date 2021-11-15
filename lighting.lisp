@@ -308,7 +308,7 @@ void main(){
 (defmethod apply-transforms progn ((subject animated-sprite))
   (translate-by 0 (- (vy (bsize subject))) 0))
 
-(define-shader-entity basic-light (light colored-entity)
+(define-shader-entity basic-light (light colored-entity creatable)
   ((color :initarg :color :initform (vec4 0.3 0.25 0.1 1.0)
           :type vec4 :documentation "The color of the light")))
 
@@ -379,7 +379,7 @@ void main(){
 (define-shader-entity per-vertex-light (light vertex-colored-entity)
   ())
 
-(define-shader-entity textured-light (light sprite-entity resizable)
+(define-shader-entity textured-light (light sprite-entity resizable creatable)
   ((multiplier :initform 1.0f0 :initarg :multiplier :accessor multiplier
                :type single-float :documentation "Light intensity multiplier")
    (texture :initform (locally (declare (notinline asset))

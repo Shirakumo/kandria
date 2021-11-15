@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity ball (axis-rotated-entity moving vertex-entity textured-entity)
+(define-shader-entity ball (axis-rotated-entity moving vertex-entity textured-entity creatable)
   ((vertex-array :initform (// 'kandria '1x))
    (texture :initform (// 'kandria 'ball))
    (bsize :initform (vec 6 6))
@@ -50,7 +50,7 @@
     (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
       (setf (vy loc) (+ 0.05 yrel (vy (bsize ball)) (vy (hit-location hit)))))))
 
-(define-shader-entity balloon (game-entity lit-animated-sprite ephemeral)
+(define-shader-entity balloon (game-entity lit-animated-sprite ephemeral creatable)
   ()
   (:default-initargs
    :sprite-data (asset 'kandria 'balloon)))
@@ -75,7 +75,7 @@
 (defmethod apply-transforms progn ((baloon balloon))
   (translate-by 0 -16 0))
 
-(define-shader-entity lantern (lit-animated-sprite collider ephemeral)
+(define-shader-entity lantern (lit-animated-sprite collider ephemeral creatable)
   ((size :initform (vec 32 32))
    (bsize :initform (vec 16 16))
    (state :initform :active :accessor state :type symbol)
@@ -122,7 +122,7 @@
        (setf (state lantern) :active)
        (setf (animation lantern) 'respawn)))))
 
-(define-shader-entity spring (lit-animated-sprite collider ephemeral)
+(define-shader-entity spring (lit-animated-sprite collider ephemeral creatable)
   ((size :initform (vec 16 16))
    (bsize :initform (vec 8 8))
    (iframes :initform 0.0 :accessor iframes)

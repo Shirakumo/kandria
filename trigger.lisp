@@ -21,7 +21,7 @@
 (defmethod interact :after ((trigger one-time-trigger) source)
   (setf (active-p trigger) NIL))
 
-(defclass checkpoint (trigger)
+(defclass checkpoint (trigger creatable)
   ())
 
 (defmethod interact ((trigger checkpoint) entity)
@@ -31,7 +31,7 @@
                    (vy (bsize trigger)))
                 (vy (bsize entity))))))
 
-(defclass story-trigger (one-time-trigger)
+(defclass story-trigger (one-time-trigger creatable)
   ((story-item :initarg :story-item :initform NIL :accessor story-item :type symbol)
    (target-status :initarg :target-status :initform :active :accessor target-status :type symbol)))
 
@@ -57,7 +57,7 @@
       (v:warn :kandria.quest "Could not find story-item named ~s when firing trigger ~s"
               name (name trigger)))))
 
-(defclass interaction-trigger (one-time-trigger)
+(defclass interaction-trigger (one-time-trigger creatable)
   ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)))
 
 (defmethod initargs append ((trigger interaction-trigger)) '(:interaction))
@@ -66,7 +66,7 @@
   (when (typep entity 'player)
     (show (make-instance 'dialog :interactions (list (quest:find-trigger (interaction trigger) +world+))))))
 
-(defclass walkntalk-trigger (one-time-trigger)
+(defclass walkntalk-trigger (one-time-trigger creatable)
   ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)
    (target :initarg :target :initform T :accessor target :type symbol)))
 
@@ -95,7 +95,7 @@
          (v (ease (clamp 0 x 1) (ease-fun trigger) (left trigger) (right trigger))))
     (setf (value trigger) v)))
 
-(defclass sandstorm-trigger (tween-trigger)
+(defclass sandstorm-trigger (tween-trigger creatable)
   ())
 
 (defmethod stage :after ((trigger sandstorm-trigger) (area staging-area))
@@ -110,19 +110,19 @@
            (harmony:stop (// 'sound 'sandstorm))))
     (setf (strength (unit 'sandstorm T)) value)))
 
-(defclass zoom-trigger (tween-trigger)
+(defclass zoom-trigger (tween-trigger creatable)
   ((easing :initform 'quint-in)))
 
 (defmethod (setf value) (value (trigger zoom-trigger))
   (setf (intended-zoom (unit :camera T)) value))
 
-(defclass pan-trigger (tween-trigger)
+(defclass pan-trigger (tween-trigger creatable)
   ())
 
 (defmethod (setf value) (value (trigger pan-trigger))
   (duck-camera (vx value) (vy value)))
 
-(defclass teleport-trigger (trigger)
+(defclass teleport-trigger (trigger creatable)
   ((target :initform NIL :initarg :target :accessor target)
    (primary :initform T :initarg :primary :accessor primary)))
 
@@ -143,7 +143,13 @@
   (setf (location entity) (target trigger))
   (vsetf (velocity entity) 0 0))
 
-(defclass earthquake-trigger (trigger)
+(defclass wind (trigger creatable)
+  ((strength :initarg :strength :accessor strength)))
+
+(defmethod interact ((trigger wind) (player player))
+  (nv+ (velocity player) (strength trigger)))
+
+(defclass earthquake-trigger (trigger creatable)
   ((duration :initform 60.0 :initarg :duration :accessor duration)
    (clock :initform 0.0 :accessor clock)))
 
@@ -169,7 +175,7 @@
            (harmony:play (// 'sound 'ambience-earthquake))))))
 ;; TODO: make dust fall down over screen.
 
-(defclass action-prompt (trigger listener)
+(defclass action-prompt (trigger listener creatable)
   ((action :initarg :action :initform NIL :accessor action
            :type alloy::any)
    (interrupt :initarg :interrupt :initform NIL :accessor interrupt

@@ -324,6 +324,10 @@
 (defclass solid () ())
 (defclass half-solid (solid) ())
 (defclass resizable () ())
+(defclass creatable () ())
+
+(defun list-creatable-classes ()
+  (mapcar #'class-name (c2mop:class-direct-subclasses (find-class 'creatable))))
 
 (defstruct (hit (:constructor %make-hit (object location &optional (time 0f0) (normal (vec 0 0)))))
   (object NIL)

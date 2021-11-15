@@ -22,13 +22,13 @@
   (when (interactable-p entity)
     (show (make-instance 'dialog :interactions (interactions entity)))))
 
-(define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity resizable)
+(define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity resizable creatable)
   ((name :initform (generate-name "INTERACTABLE"))))
 
 (defmethod description ((sprite interactable-sprite))
   (language-string 'examine))
 
-(define-shader-entity interactable-animated-sprite (ephemeral lit-animated-sprite dialog-entity resizable)
+(define-shader-entity interactable-animated-sprite (ephemeral lit-animated-sprite dialog-entity resizable creatable)
   ((name :initform (generate-name "INTERACTABLE"))
    (trial:sprite-data :initform (asset 'kandria 'dummy) :type asset)
    (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index :type integer)
@@ -57,7 +57,7 @@
   (stage (resource (profile-sprite-data profile) 'texture) area)
   (stage (resource (profile-sprite-data profile) 'vertex-array) area))
 
-(define-shader-entity door (lit-animated-sprite interactable ephemeral)
+(define-shader-entity door (lit-animated-sprite interactable ephemeral creatable)
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary)
@@ -88,13 +88,13 @@
   (when (slot-boundp (target door) 'container)
     (leave* (target door) T)))
 
-(define-shader-entity passage (door)
+(define-shader-entity passage (door creatable)
   ()
   (:default-initargs :sprite-data (asset 'kandria 'passage)))
 
 (defmethod object-renderable-p ((passage passage) (pass shader-pass)) NIL)
 
-(define-shader-entity locked-door (door)
+(define-shader-entity locked-door (door creatable)
   ((name :initform (generate-name "LOCKED-DOOR"))
    (key :initarg :key :initform NIL :accessor key :type symbol)
    (unlocked-p :initarg :unlocked-p :initform NIL :accessor unlocked-p :type boolean))
@@ -127,7 +127,7 @@
          (harmony:play (// 'sound 'door-access-denied))
          (setf (animation door) 'denied))))
 
-(define-shader-entity save-point (lit-animated-sprite interactable ephemeral)
+(define-shader-entity save-point (lit-animated-sprite interactable ephemeral creatable)
   ((bsize :initform (vec 8 18)))
   (:default-initargs :sprite-data (asset 'kandria 'telephone)))
 

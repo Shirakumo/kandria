@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity grass-patch (lit-entity sized-entity resizable renderable listener ephemeral)
+(define-shader-entity grass-patch (lit-entity sized-entity resizable renderable listener ephemeral creatable)
   ((texture :initform (// 'kandria 'grass) :accessor texture)
    (vertex-buffer :accessor vertex-buffer)
    (vertex-array :accessor vertex-array)

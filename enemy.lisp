@@ -39,7 +39,7 @@
     (incf (vy (velocity player)) 2.0)
     (stun player 0.1)))
 
-(define-shader-entity dummy (enemy half-solid immovable)
+(define-shader-entity dummy (enemy half-solid immovable creatable)
   ((bsize :initform (vec 8 16)))
   (:default-initargs
    :sprite-data (asset 'kandria 'dummy)))
@@ -48,7 +48,7 @@
 
 (defmethod (setf health) (value (dummy dummy)) value)
 
-(define-shader-entity sawblade (enemy solid immovable)
+(define-shader-entity sawblade (enemy solid immovable creatable)
   ((bsize :initform (vec 16 16)))
   (:default-initargs
    :sprite-data (asset 'kandria 'sawblade)))
@@ -59,7 +59,7 @@
 
 (defmethod (setf health) (value (sawblade sawblade)) value)
 
-(define-shader-entity box (enemy solid immovable)
+(define-shader-entity box (enemy solid immovable creatable)
   ((bsize :initform (vec 8 8)))
   (:default-initargs
    :sprite-data (asset 'kandria 'box)))
@@ -108,7 +108,7 @@
              (T
               (setf (animation enemy) 'stand)))))))
 
-(define-shader-entity wolf (paletted-entity ground-enemy half-solid)
+(define-shader-entity wolf (paletted-entity ground-enemy half-solid creatable)
   ((jitter :initform (random* 0 +tile-size+) :accessor jitter)
    (retreat-time :initform 0.0 :accessor retreat-time)
    (acc-time :initform 0.0 :accessor acc-time)
@@ -213,7 +213,7 @@
   (item:fine-pelt 0.1)
   (item:ruined-pelt 1))
 
-(define-shader-entity zombie (paletted-entity ground-enemy half-solid)
+(define-shader-entity zombie (paletted-entity ground-enemy half-solid creatable)
   ((bsize :initform (vec 4 16))
    (timer :initform 0.0 :accessor timer)
    (palette :initform (// 'kandria 'zombie-palette))
@@ -286,7 +286,7 @@
   (item:simple-circuit 1)
   (item:cable 1))
 
-(define-shader-entity drone (enemy immovable)
+(define-shader-entity drone (enemy immovable creatable)
   ((bsize :initform (vec 8 10))
    (timer :initform 1f0 :accessor timer))
   (:default-initargs

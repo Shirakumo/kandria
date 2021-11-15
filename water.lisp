@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity water (lit-entity vertex-entity sized-entity listener resizable ephemeral medium collider)
+(define-shader-entity water (lit-entity vertex-entity sized-entity listener resizable ephemeral medium collider creatable)
   ((vertex-buffer :accessor vertex-buffer)
    (prev :accessor prev))
   (:inhibit-shaders (vertex-entity :vertex-shader)))
@@ -126,7 +126,7 @@ void main(){
   color = apply_lighting_flat(vec4(0.53, 0.76, 0.99, 0.8), vec2(0), 1-(height*height*height*height), world_pos);
 }")
 
-(define-shader-entity sludge (water)
+(define-shader-entity sludge (water creatable)
   ()
   (:inhibit-shaders (water :fragment-shader)))
 
@@ -155,7 +155,7 @@ void main(){
   (setf (air-time player) 0.0)
   (call-next-method))
 
-(define-shader-entity magma (water)
+(define-shader-entity magma (water creatable)
   ((emitter :accessor emitter)
    (nudge-time :initform 0.0 :accessor nudge-time))
   (:inhibit-shaders (water :fragment-shader)))

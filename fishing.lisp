@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass fishing-spot (sized-entity interactable resizable ephemeral)
+(defclass fishing-spot (sized-entity interactable resizable ephemeral creatable)
   ((direction :initarg :direction :initform +1 :accessor direction
               :type integer)))
 

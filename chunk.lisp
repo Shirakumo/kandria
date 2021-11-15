@@ -221,7 +221,7 @@ void main(){
   
 }")
 
-(define-shader-entity chunk (shadow-caster layer solid ephemeral collider)
+(define-shader-entity chunk (shadow-caster layer solid ephemeral collider creatable)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
    (node-graph :initform NIL :initarg :node-graph :accessor node-graph)

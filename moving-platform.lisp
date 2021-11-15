@@ -8,7 +8,7 @@
 (defmethod collides-p ((platform moving-platform) (spike spike) hit) NIL)
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
-(define-shader-entity falling-platform (lit-sprite moving-platform)
+(define-shader-entity falling-platform (lit-sprite moving-platform creatable)
   ((fall-timer :initform 0.75 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)))
 
@@ -79,7 +79,7 @@
     (translate-by (random* 0 2.0) (random* 0 2.0) 0))
   (call-next-method))
 
-(define-shader-entity elevator (lit-sprite moving-platform)
+(define-shader-entity elevator (lit-sprite moving-platform creatable)
   ((bsize :initform (nv/ (vec 32 16) 2))
    (max-speed :initarg :max-speed :initform (vec 0.0 2.0) :accessor max-speed)
    (move-time :initform 1.0 :accessor move-time)
@@ -190,7 +190,7 @@
     (:broken
      #++(harmony:play (// 'sound 'elevator-broken)))))
 
-(define-shader-entity elevator-recall (lit-sprite interactable ephemeral)
+(define-shader-entity elevator-recall (lit-sprite interactable ephemeral creatable)
   ((target :initarg :target :initform NIL :accessor target :type symbol)
    (texture :initform (// 'kandria 'elevator-recall))
    (bsize :initform (vec 8 16))
@@ -220,7 +220,7 @@
                                      (vy (bsize button)))))
      (setf (state elevator) :recall))))
 
-(define-shader-entity cycler-platform (lit-sprite moving-platform)
+(define-shader-entity cycler-platform (lit-sprite moving-platform creatable)
   ((velocity :initform (vec 0 0.5))))
 
 (defmethod handle ((ev tick) (cycler cycler-platform))

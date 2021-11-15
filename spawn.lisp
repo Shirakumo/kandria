@@ -36,7 +36,7 @@
 (defun spawned-p (entity)
   (gethash entity +spawn-tracker+))
 
-(defclass spawner (listener sized-entity ephemeral resizable)
+(defclass spawner (listener sized-entity ephemeral resizable creatable)
   ((flare:name :initform (generate-name 'spawner))
    (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type symbol)
    (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer)

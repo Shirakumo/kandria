@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass npc-block-zone (ephemeral resizable sized-entity collider)
+(defclass npc-block-zone (ephemeral resizable sized-entity collider creatable)
   ((name :initform NIL)))
 
 (define-shader-entity npc (inventory ai-entity animatable ephemeral dialog-entity profile)
@@ -279,14 +279,14 @@
 (define-unit-resolver-methods stop-following (unit))
 (define-unit-resolver-methods lead (unit unit unit))
 
-(define-shader-entity fi (npc)
+(define-shader-entity fi (npc creatable)
   ((name :initform 'fi)
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
    (nametag :initform (@ fi-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
 
-(define-shader-entity catherine (npc)
+(define-shader-entity catherine (npc creatable)
   ((name :initform 'catherine)
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ catherine-nametag))
@@ -302,7 +302,7 @@
 (defmethod capable-p ((catherine catherine) (edge crawl-node)) T)
 (defmethod capable-p ((catherine catherine) (edge climb-node)) T)
 
-(define-shader-entity jack (npc)
+(define-shader-entity jack (npc creatable)
   ((name :initform 'jack)
    (profile-sprite-data :initform (asset 'kandria 'jack-profile))
    (nametag :initform (@ jack-nametag)))
@@ -315,28 +315,28 @@
 (defmethod (setf animation) ((_ (eql 'run)) (jack jack))
   (setf (animation jack) 'walk))
   
-(define-shader-entity trader (npc)
+(define-shader-entity trader (npc creatable)
   ((name :initform 'trader)
    (profile-sprite-data :initform (asset 'kandria 'sahil-profile))
    (nametag :initform (@ trader-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'sahil)))
 
-(define-shader-entity innis (npc)
+(define-shader-entity innis (npc creatable)
   ((name :initform 'innis)
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
    (nametag :initform (@ innis-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
    
-(define-shader-entity islay (npc)
+(define-shader-entity islay (npc creatable)
   ((name :initform 'islay)
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
    (nametag :initform (@ islay-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
    
-(define-shader-entity alex (npc)
+(define-shader-entity alex (npc creatable)
   ((name :initform 'alex)
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ alex-nametag)))
@@ -385,7 +385,7 @@
   (setf (animation npc) 'pet)
   (start-animation 'pet player))
 
-(define-shader-entity tame-wolf (pet)
+(define-shader-entity tame-wolf (pet creatable)
   ()
   (:default-initargs
    :sprite-data (asset 'kandria 'wolf)))

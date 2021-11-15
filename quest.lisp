@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass place-marker (sized-entity resizable ephemeral dialog-entity)
+(defclass place-marker (sized-entity resizable ephemeral dialog-entity creatable)
   ((name :accessor name)))
 
 (defmethod description ((marker place-marker))
