@@ -58,13 +58,16 @@
 | Which means I stock many things that might be useful to you.
 | We get the usual traders visiting too, but I'm giving you another option - and \"I stock more supplies than most\"(orange).
 | (:unhappy)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent tasks.
-| (:happy)I guess you could see her as just another challenge to overcome.
+| We've got railway engineers stuck after a tunnel collapse. And our CCTV network on the Cerebat border has gone down.
 | (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis\"(orange).
-| Ta-ta for now.
+| Perhaps see her also as a challenge to overcome. (:happy)I know I do.
+| (:normal)Ta-ta for now.
 ! eval (stop-following 'islay)
 ! eval (setf (walk 'islay) T)
 ! eval (move-to 'alex (unit 'islay))
 ! eval (activate 'trader-semi-chat)
 ! eval (activate 'trader-shop-semi)
+! eval (activate 'q5a-rescue-engineers)
+! eval (activate 'q5b-repair-cctv)
 "))
 ;;TODO different prices for different traders, so write in that Islay gives you a good discount?
