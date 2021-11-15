@@ -67,7 +67,6 @@
 ! eval (move-to 'alex (unit 'islay))
 ! eval (activate 'trader-semi-chat)
 ! eval (activate 'trader-shop-semi)
-! eval (activate 'q5a-rescue-engineers)
-! eval (activate 'q5b-repair-cctv)
+! eval (activate 'q5-intro)
 "))
 ;;TODO different prices for different traders, so write in that Islay gives you a good discount?

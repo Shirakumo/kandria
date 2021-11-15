@@ -5,26 +5,10 @@
   :author "Tim White"
   :title "Investigate CCTV"
   :description "The Semi Sisters' CCTV network along their lower border with the Cerebats has stopped transmitting."
-  :on-activate (q5b-task-overview)
+  :on-activate (q5b-task-reminder q5b-task-cctv-1 q5b-task-cctv-2 q5b-task-cctv-3 q5b-task-cctv-4)
   :variables (first-cctv)
-
- (q5b-task-overview
-   :title "Speak with Innis for more information, in the Semi Sisters housing complex."
-   :condition all-complete
-   :on-activate T
-   (:interaction q5b-overview
-    :title "Islay said the CCTV has gone down."
-    :interactable innis
-    :dialogue "
-~ innis
-| CCTV overview.
-! eval (activate 'q5b-task-reminder)
-! eval (activate 'q5b-task-cctv-1)
-! eval (activate 'q5b-task-cctv-2)
-! eval (activate 'q5b-task-cctv-3)
-! eval (activate 'q5b-task-cctv-4)
-"))
  
+ ;; Can't use FFCS to indicate sites, nor realise it's block, as narrative device to find out it's blocked later - ofc will still appear on meta map
  (q5b-task-reminder
    :title NIL
    :visible NIL
@@ -120,7 +104,7 @@
     :interactable innis
     :dialogue "
 ~ player
-| CCTV done saved.
+| CCTV done saved. Taken over?
 ~ innis
 | So I saw.
 ? (complete-p 'q5a-rescue-engineers)
