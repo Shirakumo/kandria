@@ -549,3 +549,13 @@ void main(){
         (unless dry-run
           (delete-file path))))))
 
+(defun find-illegal-chunks (&key (region "hub"))
+  (let ((chunks (make-hash-table :test 'equal)))
+    (handler-bind ((error #'continue))
+      (for:for ((entity over (load-region (pathname-utils:subdirectory (root) "world" "regions" region) NIL)))
+        (when (typep entity 'chunk)
+          (push entity (gethash (list (vx (location entity)) (vy (location entity))) chunks)))))
+    (loop for key being the hash-keys of chunks
+          for val being the hash-values of chunks
+          do (when (rest val)
+               (format T "Duplicate: ~{~a~^, ~}~%" (mapcar #'name val))))))
