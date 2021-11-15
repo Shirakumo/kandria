@@ -40,7 +40,7 @@
    :condition all-complete
    :on-activate T   
    (:interaction q5a-engineers
-    :interactable semi-engineer
+    :interactable semi-engineers-loc
     :dialogue "
 ~ player
 | Here be engineers.
