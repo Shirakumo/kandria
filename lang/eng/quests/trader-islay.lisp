@@ -26,7 +26,7 @@
 |   | (:normal)I think talking is helping though.
 |   | If I can get him out of this bar it will be a start.
 |   < talk
-| - Why do you spy on the Noka?
+| - Why spy on the Noka?
 |   ~ islay
 |   | (:nervous)We spy on everyone. It's just what we do, it's nothing personal.
 |   | (:normal)We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill each other.
