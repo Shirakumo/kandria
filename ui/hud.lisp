@@ -128,6 +128,13 @@
 (presentations:define-update (ui timer-line)
   (:label :pattern colors:white))
 
+(defclass hud-layout (org.shirakumo.alloy.layouts.constraint:layout)
+  ())
+
+(defmethod alloy:render :after ((ui ui) (layout hud-layout))
+  (with-pushed-matrix ()
+    (render (stamina-wheel (unit 'player +world+)) T)))
+
 (defclass hud (panel)
   ((health :accessor health)
    (location :accessor location)
@@ -135,7 +142,7 @@
    (timer :initform NIL :accessor timer)))
 
 (defmethod initialize-instance :after ((hud hud) &key (player (unit 'player T)))
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+  (let* ((layout (make-instance 'hud-layout))
          (bar (setf (health hud) (alloy:represent (health player) 'health-bar :maximum (maximum-health player))))
          (list (setf (lines hud) (make-instance 'alloy:vertical-linear-layout)))
          (loc (setf (location hud) (make-instance 'location-info))))

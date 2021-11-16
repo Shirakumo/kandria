@@ -1,5 +1,72 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-shader-entity stamina-wheel (vertex-entity standalone-shader-entity)
+  ((vertex-array :initform (// 'kandria '16x))
+   (visibility :initform 1.0 :accessor visibility)))
+
+(defmethod render :before ((stamina-wheel stamina-wheel) (program shader-program))
+  (let ((player (unit 'player +world+)))
+    (translate-by (vx (location player)) (vy (location player)) 10000)
+    (scale-by -0.8 0.8 1)
+    (translate-by (* -20 (direction player)) 20 0)
+    (setf (uniform program "stamina") (max 0.0 (float (/ (climb-strength player) (p! climb-strength)) 0f0)))
+    (setf (uniform program "visibility") (clamp 0.0 (visibility stamina-wheel) 1.0))))
+
+(define-class-shader (stamina-wheel :vertex-shader)
+  "layout (location = 1) in vec2 vertex_uv;
+out vec2 uv;
+
+void main(){ uv = vertex_uv; }")
+
+(define-class-shader (stamina-wheel :fragment-shader)
+  "
+#define PI 3.141592653589793
+in vec2 uv;
+out vec4 color;
+uniform float stamina;
+uniform float visibility;
+
+vec2 rotate(vec2 p, float angle){
+  float sine = sin(angle);
+  float cosine = cos(angle);
+  return vec2(cosine * p.x + sine * p.y, cosine * p.y - sine * p.x);
+}
+
+float sdPie(in vec2 p, in float gap, in float rot, in float r){
+  p = rotate(p, rot);
+  vec2 c = vec2(sin(gap), cos(gap));
+  p.x = abs(p.x);
+  float l = length(p) - r;
+  float m = length(p-c*clamp(dot(p,c),0.0,r));
+  return max(l,m*sign(c.y*p.x-c.x*p.y));
+}
+
+float sdCirc(in vec2 p, in float r){
+  return length(p)-r;
+}
+
+vec4 evalSDF(in float sdf, in vec4 color){
+  float dsdf = fwidth(sdf) * 0.5;
+  return color * smoothstep(dsdf, -dsdf, sdf);
+}
+
+vec4 add(vec4 a, vec4 b){
+   return mix(a, b, b.a);
+}
+
+void main(){
+  float b = stamina*PI;
+  vec2 p = uv-0.5;
+  float inner = -sdCirc(p, 0.225);
+  color = evalSDF(sdCirc(p, 0.5), vec4(0,0,0,0.5));
+  vec4 c = mix(vec4(1.0, 0, 0, 1), vec4(0.0,0.6,1.0,1), clamp(stamina*2-0.1, 0, 1));
+  if(stamina >= 0.9) c = vec4(1);
+  color = add(color, evalSDF(max(sdPie(p, b, b, 0.45), inner), c));
+  c = mix(vec4(1), vec4(0, 0, 0, 1), (sin(stamina*50))*0.5);
+  color = add(color, evalSDF(max(sdPie(p, 0.1, b*2, 0.45), inner), c));
+  color *= visibility;
+}")
+
 (define-shader-entity player (alloy:observable stats-entity paletted-entity animatable profile ephemeral inventory)
   ((name :initform 'player)
    (palette :initform (// 'kandria 'player-palette))
@@ -12,7 +79,7 @@
    (limp-time :initform 0.0 :accessor limp-time)
    (look-time :initform 0.0 :accessor look-time)
    (slide-time :initform 0.0 :accessor slide-time)
-   (climb-strength :initform 4.0 :accessor climb-strength)
+   (climb-strength :initform 5.0 :accessor climb-strength)
    (combat-time :initform 10000.0 :accessor combat-time)
    (attack-held :initform NIL :accessor attack-held)
    (used-aerial :initform NIL :accessor used-aerial)
@@ -26,6 +93,7 @@
    (trace :initform (make-array (* 12 60 60 2) :element-type 'single-float :adjustable T :fill-pointer 0)
           :accessor movement-trace)
    (fishing-line :initform (make-instance 'fishing-line) :accessor fishing-line)
+   (stamina-wheel :initform (make-instance 'stamina-wheel) :accessor stamina-wheel)
    (palette-index :initform (or (position (setting :gameplay :palette) (palettes (asset 'kandria 'player)) :test #'equal) 0))
    (color :initform (vec 1 1 1 0) :accessor color))
   (:default-initargs
@@ -76,6 +144,7 @@
                    sword-rotating-swing-1 sword-rotating-swing-2))
     (stage (// 'sound sound) area))
   (stage (fishing-line player) area)
+  (stage (stamina-wheel player) area)
   (stage (// 'kandria 'line-part) area)
   (stage (// 'kandria 'sting) area))
 
@@ -359,6 +428,8 @@
       (declare (type (array single-float (*))))
       (vector-push-extend (vx (location player)) trace)
       (vector-push-extend (vy (location player)) trace)))
+  (when (<= (p! climb-strength) (climb-strength player))
+    (decf (visibility (stamina-wheel player)) (dt ev)))
   (let* ((collisions (collisions player))
          (dt (dt ev))
          (loc (location player))
@@ -678,6 +749,7 @@
          (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) (* 100 dt)))))
        (nv+ vel (v* (gravity (medium player)) dt)))
       (:climbing
+       (setf (visibility (stamina-wheel player)) 1.0)
        ;; Movement
        (let* ((top (if (= -1 (direction player))
                        (scan-collision +world+ (vec (- (vx loc) (vx size) 10) (- (vy loc) (vy size) 2)))
@@ -828,8 +900,7 @@
        (cond (ground
               (setf (dash-pending player) NIL)
               (when (<= (climb-strength player) (p! climb-strength))
-                (setf (vw (color player)) 0.0)
-                (setf (climb-strength player) (p! climb-strength)))
+                (setf (climb-strength player) (min (p! climb-strength) (+ (climb-strength player) (* 10 (dt ev))))))
               (incf (vy vel) (min 0 (vy (velocity ground))))
               (cond ((retained 'left)
                      (setf (direction player) -1)
@@ -895,21 +966,9 @@
     (decf (limp-time player) (dt ev)))
   (let ((strength (climb-strength player)))
     (if (< strength (p! climb-strength))
-        (let ((color
-                (cond ((<= strength 0)
-                       (if (<= (mod (tt ev) 0.5) 0.2) 0.8 0.0))
-                      ((<= strength 1)
-                       (if (<= (mod (tt ev) 0.15) 0.08) 1.0 0.0))
-                      ((<= strength 2)
-                       (if (<= (mod (tt ev) 0.3) 0.12) 0.8 0.0))
-                      ((<= strength 3)
-                       (if (<= (mod (tt ev) 0.4) 0.15) 0.5 0.0))
-                      (T
-                       0.0))))
-          (if (and (< 0 strength 3) (eql :climbing (state player)))
-              (harmony:play (// 'sound 'player-red-flashing) :location (location player))
-              (harmony:stop (// 'sound 'player-red-flashing)))
-          (vsetf (color player) 10 0 0 color))
+        (if (and (< 0 strength 3) (eql :climbing (state player)))
+            (harmony:play (// 'sound 'player-red-flashing) :location (location player))
+            (harmony:stop (// 'sound 'player-red-flashing)))
         (harmony:stop (// 'sound 'player-red-flashing))))
   ;; Animations
   (let ((vel (velocity player))
