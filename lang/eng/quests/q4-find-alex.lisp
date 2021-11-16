@@ -127,9 +127,9 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ player
   | Are you Alex?
 ~ alex
-| (:unhappy)I ain't Alice.
+| (:unhappy)I ain't Axle.
 ~ player
-| I said \"Alex\" not \"Alice\".
+| I said \"Alex\" not \"Axle\".
 ~ alex
 | (:confused)<-Hic->. That's what I said.
 ~ player
