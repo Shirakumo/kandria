@@ -28,7 +28,7 @@
     :interactable semi-engineers-loc
     :dialogue "
 ~ player
-| Here be engineers. Only 6 remain of 10. Break in, or go around and then break out - works for both
+| Here be engineers. Only 6 remain of 10. Break in, or go around and then break out - works for both. Chief killed in the cave in.
 ! eval (activate 'q5a-task-return-engineers)
 ! eval (deactivate 'q5a-task-reminder)
 "))

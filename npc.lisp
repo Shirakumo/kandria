@@ -343,7 +343,7 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'catherine)))
 
-(define-shader-entity semi-engineer (npc)
+(define-shader-entity semi-engineer (npc creatable)
   ((name :initform 'semi-engineer)
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ semi-engineer-nametag)))
