@@ -12,8 +12,8 @@
 ;; Engineer bio: Calm leader, example to the rest (of the leaders in the game), African English, female - never a need to known their name
   (task-engineers-trapped
    :title NIL
-   :condition all-complete
-   :on-activate T   
+   :visible NIL
+   :on-activate T
    (:interaction talk-engineers-trapped
     :interactable semi-engineer-chief
     :repeatable T
@@ -37,6 +37,7 @@
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
 | | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | I can't tell you what we're working on, but I can tell you that the tunnel collapsed. We lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
 | | | \"The collapse is just head.\"(orange)
@@ -55,8 +56,11 @@
 | | - I'm an android.
 | |   ~ semi-engineer-chief
 | |   | (:shocked)... As I live and breathe.
-| | - It doesn't matter - you need medical attention.
+| | - What are you doing in here?
 | | ~ semi-engineer-chief
+| | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | | I can't tell you what we're working on, but I can tell you we lost the chief and half the company when the tunnel collapsed.
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
 | | | Thank you.
 | | ! eval (setf (var 'first-takj) T)
