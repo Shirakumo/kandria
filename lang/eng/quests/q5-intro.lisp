@@ -60,9 +60,42 @@
   | And if you weren't the world's most powerful walking battery.
 ~ innis
 | So how much did my esteemed sister say? You know what needs doing?
+? (not (active-p (unit 'engineers-wall)))
+| ~ innis
+| | Oh: she might have mentioned something about trapped railway engineers - don't worry about that.
+| | The latest report shows they've been freed - by whom I don't know.
+| ~ player
+| - It was me.
+|   ~ innis
+|   | (:sly)Oh really? You just helped us outta the goodness o' your heart?
+|   ~ player
+|   - That's what I do.
+|   - I was exploring, so figured why not.
+|   - I was bored.
+|   ~ innis
+|   | Well if that's true - and I'll know soon enough - then thanks.
+|   | But there's more to do.
+| - Your guardian angel.
+|   ~ innis
+|   | If only that were true.
+|   | (:sly)Wait- Are you trying to tell me something?
+|   ~ player
+|   - Yes.
+|     ~ innis
+|     | Well if you're saying what I think you're saying - and I'll know soon enough - then thanks.
+|     | But there's more to do.
+|   - No.
+|     ~ innis
+|     | (:angry)Well shut up then.
+|   - I don't know.
+|     | (:angry)Well shut up then.
+| - Why was her intel out of date?
+|   ~ innis
+|   | We might have the technological edge 'round here, but out in the sticks news travels slowly.
+|   | I only just got word o' this change.
 ! label questions
 ~ player
-- Tell me about the trapped engineers.
+- [(not (active-p (unit 'engineers-wall))) Tell me about the trapped engineers.|]
   ~ innis
   | There were ten of them, working in the \"upper-west of our territory\"(orange).
   | We're slowly digging out parts of the old maglev metro system. (:pleased)We've got a basic electrified rails system going.
@@ -78,7 +111,7 @@
 - I've got it.
 ~ innis
 | \"Report back to me\"(orange) about either job when you have something to report.
-! eval (activate 'q5a-rescue-engineers)
-! eval (activate (unit 'semi-engineers))
+? (not (active-p (unit 'engineers-wall)))
+| ! eval (activate 'q5a-rescue-engineers)
 ! eval (activate 'q5b-repair-cctv)
 ")))

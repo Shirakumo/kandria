@@ -40,7 +40,7 @@
 ~ islay
 | (:unhappy)I think you should leave her alone.
 ~ innis
-| (:exasperated)...
+| (:angry)...
 | (:normal)Come now, Islay - the pinnacle of human engineering is standing before you, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's not get off on the wrong foot now.
