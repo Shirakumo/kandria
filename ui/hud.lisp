@@ -132,8 +132,10 @@
   ())
 
 (defmethod alloy:render :after ((ui ui) (layout hud-layout))
-  (with-pushed-matrix ()
-    (render (stamina-wheel (unit 'player +world+)) T)))
+  (let ((wheel (stamina-wheel (unit 'player +world+))))
+    (when (allocated-p (shader-program wheel))
+      (with-pushed-matrix ()
+        (render wheel T)))))
 
 (defclass hud (panel)
   ((health :accessor health)

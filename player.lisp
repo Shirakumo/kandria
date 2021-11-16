@@ -2,7 +2,7 @@
 
 (define-shader-entity stamina-wheel (vertex-entity standalone-shader-entity)
   ((vertex-array :initform (// 'kandria '16x))
-   (visibility :initform 1.0 :accessor visibility)))
+   (visibility :initform 0.0 :accessor visibility)))
 
 (defmethod render :before ((stamina-wheel stamina-wheel) (program shader-program))
   (let ((player (unit 'player +world+)))
