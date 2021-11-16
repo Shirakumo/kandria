@@ -68,6 +68,12 @@
 | | ~ semi-engineer-chief
 | | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already made the journey home. Thank you.
 | | | And now I have a new team, we can resume our task. It'll be slow-going, but we'll be careful this time.
-")))
+")
+
+;; TODO - still needed? Empty interact from passing through the collapsed wall trigger engineers-wall, to prevent nil error, but not needed for logic
+ (:interaction engineers-wall-interact
+    :interactable NIL
+    :dialogue ""
+)))
 ;; engineer knows better than to send an android into Semis territory for help
 ;; also, could add a trigger on leaving the chunk to refresh the chat to reflect time has past; with current imp could step back, talk again, and time has moved on (but is plausible in accelerated time of game, and an edge case)
