@@ -8,6 +8,8 @@
 (defmethod collides-p ((platform moving-platform) (spike spike) hit) NIL)
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
+(defmethod trigger ((platform moving-platform) (moving moving) &key))
+
 (define-shader-entity falling-platform (lit-sprite moving-platform creatable)
   ((fall-timer :initform 0.75 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)))
@@ -21,6 +23,11 @@
   (vsetf (velocity platform) 0 0)
   (setf (fall-timer platform) 0.75)
   (setf (initial-location platform) (vcopy location)))
+
+(defmethod trigger ((platform falling-platform) (moving moving) &key)
+  (case (state platform)
+    (:normal
+     (setf (state platform) :falling))))
 
 (defmethod (setf state) :after (state (platform falling-platform))
   (case state
