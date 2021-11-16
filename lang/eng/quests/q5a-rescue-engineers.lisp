@@ -21,7 +21,7 @@
 "))
 
   (q5a-task-engineers
-   :title "Find the trapped railway engineers in the caves to the west of Semi Sisters territory."
+   :title "Find the trapped railway engineers in the caves to the west of Semi Sisters territory"
    :condition all-complete
    :on-activate T   
    (:interaction q5a-engineers
@@ -35,7 +35,7 @@
 
 
   (q5a-task-return-engineers
-   :title "Return to Innis in the Semi Sisters housing complex."
+   :title "Return to Innis in the Semi Sisters housing complex"
    :condition all-complete
    :on-activate T
    (:interaction q5a-return-engineers

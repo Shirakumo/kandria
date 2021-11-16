@@ -8,7 +8,7 @@
   :on-activate (q5a-task-overview)
 
  (q5a-task-overview
-   :title "Speak with Innis in the Semi Sisters housing complex."
+   :title "Speak with Innis in the Semi Sisters housing complex"
    :condition all-complete
    :on-activate T
    (:interaction q5a-overview

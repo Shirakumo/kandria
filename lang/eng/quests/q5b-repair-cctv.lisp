@@ -23,7 +23,7 @@
 "))
 
   (q5b-task-cctv-1
-   :title "Find CCTV camera 1."
+   :title "Find CCTV camera 1"
    :condition all-complete
    :on-activate T   
    (:interaction q5b-cctv-1
@@ -41,7 +41,7 @@
 "))
 
   (q5b-task-cctv-2
-   :title "Find CCTV camera 2."
+   :title "Find CCTV camera 2"
    :condition all-complete
    :on-activate T   
    (:interaction q5b-cctv-2
@@ -59,7 +59,7 @@
 "))
 
   (q5b-task-cctv-3
-   :title "Find CCTV camera 3."
+   :title "Find CCTV camera 3"
    :condition all-complete
    :on-activate T   
    (:interaction q5b-cctv-3
@@ -77,7 +77,7 @@
 "))
 
   (q5b-task-cctv-4
-   :title "Find CCTV camera 4."
+   :title "Find CCTV camera 4"
    :condition all-complete
    :on-activate T   
    (:interaction q5b-cctv-4
@@ -96,7 +96,7 @@
 
 
   (q5b-task-return-cctv
-   :title "Return to Innis in the Semi Sisters housing complex."
+   :title "Return to Innis in the Semi Sisters housing complex"
    :condition all-complete
    :on-activate T
    (:interaction q5b-return-cctv

@@ -8,7 +8,7 @@
   :on-activate (find-alex)
 
   (find-alex
-   :title "Travel down to the Cerebats township, but avoid the Semi Sisters en route."
+   :title "Travel down to the Cerebats township, but avoid the Semi Sisters en route"
    :description NIL
    :invariant T
    :condition (complete-p 'innis-stop)
@@ -88,7 +88,7 @@ dinnae = don't (Scottish)
 TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be questionined if they are Alex, as a variant on their world-building dialogue.
 |#
   (find-alex-semis
-   :title "Search Semi Sisters territory for any sign of Alex."
+   :title "Search Semi Sisters territory for any sign of Alex"
    :description NIL
    :invariant T
    :condition (complete-p 'alex-meet)
