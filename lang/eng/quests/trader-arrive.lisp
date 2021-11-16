@@ -12,7 +12,8 @@
    :on-activate T
    :on-complete (trader-chat trader-shop)
    (:action spawn-in
-    (setf (location 'trader) 'loc-trader))
+    (setf (location 'trader) 'loc-trader)
+    (setf (direction 'trader) 1))
    (:interaction talk-to-trader
     :interactable trader
     :dialogue "
