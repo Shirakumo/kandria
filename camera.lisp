@@ -162,6 +162,13 @@
            (+ (vx off) (* 0.1 (- x (vx off))))
            (+ (vy off) (* 0.1 (- y (vy off)))))))
 
+(defmethod bsize ((camera camera))
+  (let* ((context (context +main+))
+         (zoom (the single-float (zoom camera)))
+         (vscale (the single-float (view-scale camera))))
+    (tvec (/ (the (unsigned-byte 32) (width context)) (* zoom 2 vscale))
+          (/ (the (unsigned-byte 32) (height context)) (* zoom 2 vscale)))))
+
 (defun in-view-p (loc bsize)
   (declare (optimize speed))
   (let* ((camera (unit :camera +world+))
