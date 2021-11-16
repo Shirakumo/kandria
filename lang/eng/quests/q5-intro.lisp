@@ -95,12 +95,17 @@
 |   | I only just got word o' this change.
 ! label questions
 ~ player
-- [(not (active-p (unit 'engineers-wall))) Tell me about the trapped engineers.|]
+- [(active-p (unit 'engineers-wall)) Tell me about the trapped engineers.|]
   ~ innis
   | There were ten of them, working in the \"upper-west of our territory\"(orange).
   | We're slowly digging out parts of the old maglev metro system. (:pleased)We've got a basic electrified rails system going.
   | (:angry)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
   | The hunters can't go any further. But you can.
+  < questions
+- [(not (active-p (unit 'engineers-wall))) What were the engineers working on?|]
+  ~ innis
+  | We're slowly digging out parts of the old maglev metro system. (:pleased)We've got a basic electrified rails system going.
+  | (:angry)But it's dangerous work.
   < questions
 - Tell me about the downed CCTV.
   | We monitor the surrounding area, immediately above and below.

@@ -38,7 +38,7 @@
 | | ~ semi-engineer-chief
 | | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
-| | | I can't tell you what we're working on, but I can tell you that the tunnel collapsed. We lost the chief and half the company.
+| | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
 | | | \"The collapse is just head.\"(orange)
 | | ! eval (setf (var 'first-talk) T)
@@ -60,10 +60,10 @@
 | | ~ semi-engineer-chief
 | | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
-| | | I can't tell you what we're working on, but I can tell you we lost the chief and half the company when the tunnel collapsed.
+| | | We lost the chief and half the company when the tunnel collapsed.
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
 | | | Thank you.
-| | ! eval (setf (var 'first-takj) T)
+| | ! eval (setf (var 'first-talk) T)
 | |?
 | | ~ semi-engineer-chief
 | | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already made the journey home. Thank you.
