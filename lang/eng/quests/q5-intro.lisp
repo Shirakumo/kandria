@@ -18,15 +18,18 @@
 ~ innis
 | (:angry)What is it, android?
 ~ player
-- I found Alex.
-  ~ innis
-  | (:sly)Aye. It was hardly a challenge though really, was it?
-  | I take it Islay filled you in about the jobs? Those are challenges.
 - Islay sent me.
   ~ innis
   | (:sly)Good. Then I take it she filled you in about the jobs.
+- I'm here to help with the engineers and CCTV.
+  ~ innis
+  | (:pleased)Now that's more like it.
+- I found Alex.
+  ~ innis
+  | (:sly)Aye. It was hardly a challenge though really, was it?
+  | I take it Islay filled you in about the jobs? Those are real challenges.
 ~ innis
-| (:angry)They'd be done already if Alex wasn't propping up the bar.
+| (:angry)They'd be sorted already if Alex wasn't propping up the bar.
 | (:normal)Don't get me wrong, I like a drink as much as the next lass. But you Noka really can't hold ya booze.
 | I hope you're a tad more reliable.
 ~ player
@@ -59,25 +62,22 @@
 | So how much did my esteemed sister say? You know what needs doing?
 ! label questions
 ~ player
-- I've got it.
-  < end
 - Tell me about the trapped engineers.
   ~ innis
   | There were ten of them, working in the \"upper-west of our territory\"(orange).
   | We're slowly digging out parts of the old maglev metro system. (:pleased)We've got a basic electrified rails system going.
   | (:angry)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
-  | They can't go any further. But you can.
+  | The hunters can't go any further. But you can.
   < questions
 - Tell me about the downed CCTV.
   | We monitor the surrounding area, immediately above and below.
   | (:angry)Our cameras on the Cerebat border have gone down, at the \"bottom of our territory\"(orange).
   | It's probably just an electrical fault - unfortunately the way we daisy-chain them together means when one goes, they all go.
-  | (:normal)They're quite spread out across the various access point along the border - well-suited to an android's speed, I'd wager.
+  | (:normal)They're spread out across the various access point along the border - well-suited to an android's speed, I'd wager.
   < questions
-
-# end
+- I've got it.
 ~ innis
-| \"Report back to me\"(orange) about either job when you know what's happening.
+| \"Report back to me\"(orange) about either job when you have something to report.
 ! eval (activate 'q5a-rescue-engineers)
 ! eval (activate (unit 'semi-engineers))
 ! eval (activate 'q5b-repair-cctv)
