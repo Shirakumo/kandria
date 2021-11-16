@@ -29,7 +29,7 @@
   | (:sly)Aye. It was hardly a challenge though really, was it?
   | I take it Islay filled you in about the jobs? Those are real challenges.
 ~ innis
-| (:angry)They'd be sorted already if Alex wasn't propping up the bar.
+| (:angry)They'd have been sorted ages ago if Alex wasn't propping up the bar.
 | (:normal)Don't get me wrong, I like a drink as much as the next lass. But you Noka really can't hold ya booze.
 | I hope you're a tad more reliable.
 ~ player
