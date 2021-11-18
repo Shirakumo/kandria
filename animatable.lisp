@@ -208,6 +208,7 @@
 
 (defmethod idleable-p ((animatable animatable))
   (and (= 0 (vx (velocity animatable)))
+       (= 0 (vx (frame-velocity animatable)))
        (svref (collisions animatable) 2)
        (null (path animatable))
        (eql :normal (state animatable))))
