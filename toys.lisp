@@ -177,3 +177,62 @@
           ((> 0 (vy2 strength))
            (rotate-by 0 0 1 PI)
            (translate-by 0 -8 0)))))
+
+(define-shader-entity crumbling-platform (lit-animated-sprite collider ephemeral solid creatable)
+  ((bsize :initform (vec 24 4))
+   (size :initform (vec 48 32))
+   (state :initform :active :accessor state)
+   (respawn-time :initform 0.0 :accessor respawn-time))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'crumbling-platform)))
+
+(defmethod apply-transforms progn ((platform crumbling-platform))
+  (translate-by 0 -24 0))
+
+(defmethod handle :after ((ev tick) (platform crumbling-platform))
+  (ecase (state platform)
+    (:active)
+    (:inactive
+     (when (<= (decf (respawn-time platform) (dt ev)) 0.0)
+       (setf (animation platform) 'restore)))))
+
+(defmethod handle ((ev switch-chunk) (platform crumbling-platform))
+  (setf (state platform) :active)
+  (setf (animation platform) 'active))
+
+(defmethod velocity ((platform crumbling-platform))
+  #.(vec 0 0))
+
+(defmethod switch-animation :after ((platform crumbling-platform) (animation symbol))
+  (case animation
+    (crumble
+     (harmony:play (// 'sound 'falling-platform-rattle) :reset T))
+    (inactive
+     (setf (state platform) :inactive)
+     (setf (respawn-time platform) 4.0))
+    (active
+     (setf (state platform) :active))))
+
+(defmethod collides-p ((moving moving) (platform crumbling-platform) hit)
+  (and (eql :active (state platform))
+       (< (vy (frame-velocity moving)) 0)
+       (<= (+ (vy (hit-location hit)) (vy (bsize platform)))
+           (- (vy (location moving)) (vy (bsize moving))))))
+
+(defmethod collide ((moving moving) (platform crumbling-platform) hit)
+  (let* ((loc (location moving))
+         (vel (frame-velocity moving))
+         (pos (hit-location hit))
+         (normal (hit-normal hit))
+         (height (vy (bsize moving)))
+         (t-s (vy (bsize platform))))
+    (setf (animation platform) 'crumble)
+    (setf (svref (collisions moving) 2) platform)
+    (nv+ loc (v* vel (hit-time hit)))
+    (nv- vel (v* normal (v. vel normal)))
+    ;; Force clamp velocity to zero to avoid "speeding up while on ground"
+    (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
+    ;; Zip
+    (when (< (- (vy loc) height)
+             (+ (vy pos) t-s))
+      (setf (vy loc) (+ (vy pos) t-s height)))))

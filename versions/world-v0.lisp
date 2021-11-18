@@ -131,6 +131,7 @@
 (define-slot-coders (trigger world-v0) (name active-p (location :type vec2) (bsize :type vec2)))
 (define-slot-coders (spring world-v0) ((location :type vec2) (strength :type vec2)))
 (define-slot-coders (lantern world-v0) ((location :type vec2)))
+(define-slot-coders (crumbling-platform world-v0) ((location :type vec2)))
 (define-additional-slot-coders (interactable-animated-sprite world-v0) ((pending-animation :initarg :animation)))
 (define-additional-slot-coders (story-trigger world-v0) (story-item target-status))
 (define-additional-slot-coders (tween-trigger world-v0) (left right ease-fun horizontal))
