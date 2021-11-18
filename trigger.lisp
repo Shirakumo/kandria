@@ -215,14 +215,37 @@
 (defmethod leave* :before ((prompt action-prompt) from)
   (hide (prompt prompt)))
 
-(define-shader-entity wind (lit-entity trigger listener creatable)
-  ((strength :initarg :strength :initform (vec 0 0) :accessor strength :type vec2)
-   (kind :initarg :kind :initform :constant :accessor kind :type symbol)
-   (texture :initform (// 'kandria 'wind) :accessor texture)
-   (vertex-array :initform (// 'trial 'trial::fullscreen-square) :accessor vertex-array)
+(define-shader-entity wind (textured-entity lit-entity trigger listener creatable)
+  ((vertex-array :initform NIL :accessor vertex-array)
+   (vertex-buffer :initform NIL :accessor vertex-buffer)
+   (texture :initform (// 'kandria 'wind))
    (clock :initform 0.0 :accessor clock)
-   (accumulator :initform (vec 0 0) :accessor accumulator)
+   (strength :initarg :strength :initform (vec 0 0) :accessor strength :type vec2)
+   (kind :initarg :kind :initform :constant :accessor kind :type symbol)
    (active-time :initform 0.0 :accessor active-time)))
+
+(defmethod initialize-instance :after ((wind wind) &key)
+  ;; FIXME: cache between all
+  (let* ((arr (make-array (+ (* 4 4) (* 4 16)) :element-type 'single-float))
+         (vbo (make-instance 'vertex-buffer :data-usage :stream-draw :buffer-data arr))
+         (vao (make-instance 'vertex-array :bindings `((,vbo :size 2 :offset 0 :stride 16)
+                                                       (,vbo :size 2 :offset 8 :stride 16)
+                                                       (,vbo :size 2 :offset 64 :stride 16 :instancing 1)
+                                                       (,vbo :size 2 :offset 72 :stride 16 :instancing 1)))))
+    (setf (vertex-array wind) vao)
+    (setf (vertex-buffer wind) vbo)
+    (macrolet ((seta (&rest els)
+                 `(progn ,@(loop for i from 0 for el in els
+                                 collect `(setf (aref arr ,i) ,(float el))))))
+      (seta  -4 -4  0  0
+             +4 -4  1  0
+             +4 +4  1  1
+             -4 +4  0  1))
+    (loop for i from (* 4 4) below (length arr) by 4
+          do (setf (aref arr (+ i 0)) most-negative-single-float)
+             (setf (aref arr (+ i 1)) most-positive-single-float)
+             (setf (aref arr (+ i 2)) 1.0)
+             (setf (aref arr (+ i 3)) 1.0))))
 
 (defmethod interact ((wind wind) (player player))
   ;; FIXME: how do we get the actual dt here?
@@ -233,72 +256,71 @@
   (incf (active-time wind) 0.02))
 
 (defmethod stage :after ((wind wind) (area staging-area))
-  (stage (texture wind) area)
   (stage (vertex-array wind) area))
 
 (defmethod handle ((ev tick) (wind wind))
   (incf (clock wind) (dt ev))
-  (nv+ (accumulator wind) (vmin (tvec 9 9) (strength wind)))
   (setf (active-time wind) (clamp 0.0 (- (active-time wind) (dt ev)) 1.0))
   (ecase (kind wind)
     (:constant
-     (setf (vx (strength wind)) (* 5 (1+ (sin (clock wind))))))))
+     (setf (vx (strength wind)) (* 5 (+ (cos (tt ev)) (cos (* (tt ev) 1.5427)))))
+     (setf (vy (strength wind)) (* 5 (sin (* (tt ev) 0.542))))))
+  (let* ((vbo (vertex-buffer wind))
+         (arr (buffer-data vbo))
+         (camera (unit :camera +world+))
+         (view (bsize camera))
+         (spd (strength wind))
+         (dir (vunit spd))
+         (r (sqrt (+ (expt (vx view) 2) (expt (vy view) 2))))
+         (off (v* dir r))
+         (d (* r 1.75)))
+    (flet ((respawn (ai)
+             (let ((off (nv- (nv* (vec (- (vy dir)) (vx dir)) (- (random d) (* 0.5 d))) off)))
+               (setf (aref arr (+ ai 0)) (+ (vx off) (vx (location camera)) (random* 0 128)))
+               (setf (aref arr (+ ai 1)) (+ (vy off) (vy (location camera)) (random* 0 128)))))
+           (contained-p (x y)
+             (and (< (* (vx view) -2.5) (- x (vx (location camera))) (* (vx view) 2.5))
+                  (< (* (vy view) -2.5) (- y (vy (location camera))) (* (vy view) 2.5)))))
+      (dotimes (i 16)
+        (let ((ai (+ (* i 4) 16)))
+          (unless (contained-p (aref arr (+ ai 0)) (aref arr (+ ai 1)))
+            (respawn ai))
+          (incf (aref arr (+ ai 0)) (* (vx spd) 200 (dt ev)))
+          (incf (aref arr (+ ai 1)) (* (vy spd) 200 (dt ev)))
+          (setf (aref arr (+ ai 2)) (max 1.0 (vlength spd)))
+          (setf (aref arr (+ ai 3)) (atan (vy dir) (vx dir))))))
+    (update-buffer-data vbo arr)))
 
 (defmethod render ((wind wind) (program shader-program))
-  (when (in-view-p (location wind) (bsize wind))
-    (setf (uniform program "view_size") (vec2 (max 1 (width *context*)) (max 1 (height *context*))))
-    (setf (uniform program "view_matrix") (minv *view-matrix*))
-    (setf (uniform program "clock") (clock wind))
-    (setf (uniform program "strength") (vmin (tvec 9 9) (strength wind)))
-    (setf (uniform program "accumulator") (accumulator wind))
+  (when (< 0.0 (active-time wind))
+    (setf (uniform program "view_matrix") *view-matrix*)
+    (setf (uniform program "projection_matrix") *projection-matrix*)
     (setf (uniform program "visibility") (clamp 0.0 (active-time wind) 1.0))
-    (gl:active-texture :texture0)
-    (gl:bind-texture :texture-2d (gl-name (texture wind)))
-    (let ((vao (vertex-array wind)))
-      (with-pushed-attribs
-        (disable :depth-test)
-        (gl:bind-vertex-array (gl-name vao))
-        (%gl:draw-elements :triangles (size vao) :unsigned-int (cffi:null-pointer))
-        (gl:bind-vertex-array 0)))))
+    (let* ((vao (vertex-array wind)))
+      (gl:bind-vertex-array (gl-name vao))
+      (gl:draw-arrays-instanced :triangle-fan 0 4 16))))
 
 (define-class-shader (wind :vertex-shader)
-  "layout (location = 0) in vec2 vertex_pos;
-layout (location = 1) in vec2 vertex_uv;
+  "layout (location = 0) in vec2 position;
+layout (location = 2) in vec2 offset;
+layout (location = 3) in vec2 stretch;
+
 uniform mat4 view_matrix;
-uniform vec2 view_size;
-out vec2 world_xy;
+uniform mat4 projection_matrix;
+out vec2 world_pos;
 
 void main(){
-  world_xy = (view_matrix*vec4(vertex_uv*view_size,0,1)).xy;
-  gl_Position = vec4(vertex_pos, 100, 1);
+  float phi = stretch.y;
+  mat2 rot = mat2(cos(phi), sin(phi), -sin(phi), cos(phi));
+  world_pos = offset + rot*(position*vec2(stretch.x, 1));
+  gl_Position = projection_matrix * view_matrix * vec4(world_pos, 0, 1.0f);
 }")
 
 (define-class-shader (wind :fragment-shader)
-  "#define ITERATIONS 10
-in vec2 world_xy;
+  "uniform float visibility;
 out vec4 color;
-uniform sampler2D tex_image;
-uniform float clock = 0.0;
-uniform vec2 strength = vec2(0);
-uniform vec2 accumulator = vec2(0);
-uniform float visibility = 0.0;
-
-vec2 compute_offset(float dt, float scalar){
-  float tt = clock - dt*2;
-  float shift = 1.0-(sin(tt*1.524)+cos(world_xy.y*0.1)*0.3)*0.0001;
-  return world_xy/scalar
-         + tt*(vec2(0.0,sin(tt*1.132)*0.0002+0.1))
-         - (accumulator-dt*100*strength)*0.01;
-}
+in vec2 world_pos;
 
 void main(){
-  vec2 coord = compute_offset(0, 128);
-  color = vec4(0);
-  for(int i=0; i<ITERATIONS; ++i){
-    color += texture(tex_image, coord)*(ITERATIONS-i)*(1.0/ITERATIONS);
-    coord = compute_offset(i*0.01*(1.0/ITERATIONS), 128);
-  }
-  color += texture(tex_image, compute_offset(0, 100));
-  color = apply_lighting_flat(color, vec2(0), 0, world_xy);
-  color *= visibility;
+  color = apply_lighting_flat(color, vec2(0), 0, world_pos) * visibility;
 }")
