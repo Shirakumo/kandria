@@ -8,7 +8,7 @@
 (defmethod collides-p ((platform moving-platform) (spike spike) hit) NIL)
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
-(defmethod trigger ((platform moving-platform) (moving moving) &key))
+(defmethod trigger ((platform moving-platform) (thing game-entity) &key))
 
 (define-shader-entity falling-platform (lit-sprite moving-platform creatable)
   ((fall-timer :initform 0.75 :accessor fall-timer)
@@ -24,7 +24,7 @@
   (setf (fall-timer platform) 0.75)
   (setf (initial-location platform) (vcopy location)))
 
-(defmethod trigger ((platform falling-platform) (moving moving) &key)
+(defmethod trigger ((platform falling-platform) (thing game-entity) &key)
   (case (state platform)
     (:normal
      (setf (state platform) :falling))))
