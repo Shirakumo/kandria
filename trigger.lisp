@@ -252,7 +252,7 @@
   (unless (eq :dashing (state player))
     (nv+ (velocity player) (v* (strength wind) 0.01))
     (when (svref (collisions player) 2)
-      (nv+ (frame-velocity player) (v* (strength wind) 0.01))))
+      (incf (vx (frame-velocity player)) (* (vx (strength wind)) 0.01))))
   (incf (active-time wind) 0.02))
 
 (defmethod stage :after ((wind wind) (area staging-area))
