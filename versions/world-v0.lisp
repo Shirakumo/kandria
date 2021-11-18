@@ -139,7 +139,7 @@
 (define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
 (define-additional-slot-coders (earthquake-trigger world-v0) (duration))
 (define-additional-slot-coders (action-prompt world-v0) (action interrupt))
-(define-additional-slot-coders (wind world-v0) (strength))
+(define-additional-slot-coders (wind world-v0) ((max-strength :type vec2 :initarg :strength) period kind))
 (define-additional-slot-coders (elevator-recall world-v0) (target))
 (define-additional-slot-coders (falling-platform world-v0) ((initial-location :type vec2)))
 (define-slot-coders (basic-light world-v0) ((color :type vec4)
