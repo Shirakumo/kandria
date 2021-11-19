@@ -228,3 +228,43 @@
   :light (vec 1.5 1 0.5)
   :ambient-multiplier 0.2
   :ambient (vec 0.5 0.4 0.4))
+
+(define-environment (grave hall)
+  :music NIL
+  :ambience 'ambience/large-underground-hall)
+
+(define-environment (grave tutorial)
+  :music NIL
+  :ambience 'ambience/underground-building)
+
+(define-environment (desert surface)
+  :music 'music/desert
+  :ambience 'ambience/desert)
+
+(define-environment (desert entrance)
+  :music NIL
+  :ambience 'ambience/desert)
+
+(define-environment (camp entrance)
+  :music NIL
+  :ambience 'ambience/camp)
+
+(define-environment (camp camp)
+  :music 'music/camp
+  :ambience 'ambience/camp)
+
+(define-environment (camp building)
+  :music NIL
+  :ambience 'ambience/desolate-building)
+
+(define-environment (region1 cave)
+  :music 'music/region1
+  :ambience 'ambience/cave)
+
+(define-environment (region1 hall)
+  :music 'music/region1
+  :ambience 'ambience/large-underground-hall)
+
+(define-environment (region1 building)
+  :music 'music/region1
+  :ambience 'ambience/underground-building)
