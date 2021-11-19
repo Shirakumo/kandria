@@ -257,16 +257,19 @@
   (quest:active-p blocker))
 
 (defmethod collide ((player player) (blocker blocker) hit)
-  (cond ((and (eql :dashing (state player))
+  (cond ((and (or (eql :dashing (state player))
+                  (and (< 3.0 (vlength (velocity player)))
+                       (< 0.0 (dash-time player))))
               (ecase (weak-side blocker)
-                (:north (= +1 (vy (hit-normal hit))))
-                (:east  (= +1 (vx (hit-normal hit))))
-                (:south (= -1 (vy (hit-normal hit))))
-                (:west  (= -1 (vx (hit-normal hit))))
+                (:north (< (vy (velocity player)) 0))
+                (:east  (< (vx (velocity player)) 0))
+                (:south (< 0 (vy (velocity player))))
+                (:west  (< 0 (vx (velocity player))))
                 (:any T)))
          (setf (visibility blocker) 0.99)
-         (nv* (velocity player) -1)
-         (nv* (frame-velocity player) -1))
+         (nv* (nvunit (velocity player))  -5)
+         (nv* (frame-velocity player) -1)
+         (incf (vy (velocity player)) 4.0))
         (T
          (call-next-method))))
 
@@ -277,7 +280,7 @@
 
 (defmethod render :before ((blocker blocker) (program shader-program))
   (when (< 0.0 (visibility blocker) 1.0)
-    (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.01)))))
+    (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.005)))))
 
 (defmethod applicable-tools append ((_ blocker))
   '(paint rectangle line selection))
