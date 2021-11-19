@@ -14,10 +14,14 @@
          :texture (// 'kandria ',texture)
          ,@args))))
 
-(define-asset (music menu) trial-harmony:sound
-    #p"menu.oga"
-  :repeat T
-  :mixer :music)
+(defmacro define-track (name file)
+  `(define-asset (music ,name) trial-harmony:sound
+       ,file
+     :repeat T
+     :mixer :music))
+
+(define-track menu #p"menu.oga")
+(define-track scare #p"scare.oga")
 
 (define-asset (music music/region1) trial-harmony:environment
     '((:normal "region1 medium.oga")
@@ -33,6 +37,16 @@
 (define-asset (music music/desert) trial-harmony:environment
     '((:normal "desert medium.oga")
       (:ambient "desert ambient.oga")))
+
+(define-asset (music music/region2) trial-harmony:environment
+    '((:normal "region2 medium.oga")
+      (:quiet "region2 quiet.oga")
+      (:ambient "region2 ambient.oga")))
+
+(define-asset (music music/region3) trial-harmony:environment
+    '((:normal "region3 medium.oga")
+      (:quiet "region3 quiet.oga")
+      (:ambient "region3 ambient.oga")))
 
 (define-asset (music ambience/camp) trial-harmony:environment
     '((:normal "ambience track_ camp.ogg")))
