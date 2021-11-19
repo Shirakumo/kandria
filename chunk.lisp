@@ -2,6 +2,7 @@
 
 (define-shader-entity layer (lit-entity sized-entity resizable ephemeral)
   ((vertex-array :initform (// 'trial 'fullscreen-square) :accessor vertex-array)
+   (tile-data :initarg :tile-data :accessor tile-data :type tile-data)
    (tilemap :accessor tilemap)
    (layer-index :initarg :layer-index :initform 0 :accessor layer-index)
    (visibility :initform 1.0 :accessor visibility)
@@ -10,7 +11,8 @@
    (normal :initarg :normal :initform (// 'kandria 'debug) :accessor normal)
    (size :initarg :size :initform +tiles-in-view+ :accessor size
          :type vec2 :documentation "The size of the chunk in tiles."))
-  (:inhibit-shaders (shader-entity :fragment-shader)))
+  (:inhibit-shaders (shader-entity :fragment-shader))
+  (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((layer layer) &key pixel-data tile-data)
   (let* ((size (size layer))
@@ -50,10 +52,6 @@
     (unless (v= size (size layer))
       (setf (size layer) size))))
 
-(defmethod (setf size) :around (value (layer layer))
-  ;; Ensure the size is never lower than a screen.
-  (call-next-method (vmax value +tiles-in-view+) layer))
-
 (defmethod (setf size) :before (value (layer layer))
   (let* ((nw (floor (vx2 value)))
          (nh (floor (vy2 value)))
@@ -76,6 +74,21 @@
 
 (defmethod (setf size) :after (value (layer layer))
   (setf (bsize layer) (v* value +tile-size+ .5)))
+
+(defmethod contained-p ((a layer) (b layer))
+  (and (< (abs (- (vx (location a)) (vx (location b)))) (+ (vx (bsize a)) (vx (bsize b))))
+       (< (abs (- (vy (location a)) (vy (location b)))) (+ (vy (bsize a)) (vy (bsize b))))))
+
+(defmethod contained-p ((a vec4) (b layer))
+  (and (< (abs (- (vx a) (vx (location b)))) (+ (vz a) (vx (bsize b))))
+       (< (abs (- (vy a) (vy (location b)))) (+ (vw a) (vy (bsize b))))))
+
+(defmethod contained-p ((entity located-entity) (layer layer))
+  (contained-p (location entity) layer))
+
+(defmethod contained-p ((location vec2) (layer layer))
+  (%with-layer-xy (layer location)
+    layer))
 
 (defmacro %with-layer-xy ((layer location) &body body)
   `(let ((x (floor (+ (- (vx ,location) (vx2 (location ,layer))) (vx2 (bsize ,layer))) +tile-size+))
@@ -114,6 +127,15 @@
       (gl:bind-texture :texture-2d 0)))
   value)
 
+(defmethod tile ((location vec3) (layer layer))
+  (tile (vxy location) layer))
+
+(defmethod (setf tile) (value (location vec3) (layer layer))
+  (setf (tile (vxy location) layer) value))
+
+(defmethod layers ((layer layer))
+  (make-array +layer-count+ :initial-element layer))
+
 (defun update-layer (layer)
   (let ((dat (pixel-data layer)))
     (sb-sys:with-pinned-objects (dat)
@@ -138,6 +160,9 @@
            (height (truncate (vy (size layer)))))
       (%flood-fill (pixel-data layer) width height x y fill)
       (update-layer layer))))
+
+(defmethod flood-fill ((layer layer) (location vec3) fill)
+  (flood-fill layer (vxy location) fill))
 
 (defmethod render ((layer layer) (program shader-program))
   (when (in-view-p (location layer) (bsize layer))
@@ -266,6 +291,10 @@ void main(){
 (defmethod recompute ((chunk chunk))
   (compute-shadow-geometry chunk T)
   (setf (node-graph chunk) (make-node-graph chunk)))
+
+(defmethod (setf size) :around (value (chunk chunk))
+  ;; Ensure the size is never lower than a screen.
+  (call-next-method (vmax value +tiles-in-view+) chunk))
 
 (defmethod enter* :before ((chunk chunk) container)
   (loop for layer across (layers chunk)
@@ -423,21 +452,6 @@ void main(){
                        (cond ((= y 0)      (line -8 -8 +8 -8))
                              ((= y (1- h)) (line -8 +8 +8 +8))))))
             (map-tile-types #'tile x y)))))))
-
-(defmethod contained-p ((a chunk) (b chunk))
-  (and (< (abs (- (vx (location a)) (vx (location b)))) (+ (vx (bsize a)) (vx (bsize b))))
-       (< (abs (- (vy (location a)) (vy (location b)))) (+ (vy (bsize a)) (vy (bsize b))))))
-
-(defmethod contained-p ((a vec4) (b chunk))
-  (and (< (abs (- (vx a) (vx (location b)))) (+ (vz a) (vx (bsize b))))
-       (< (abs (- (vy a) (vy (location b)))) (+ (vw a) (vy (bsize b))))))
-
-(defmethod contained-p ((entity located-entity) (chunk chunk))
-  (contained-p (location entity) chunk))
-
-(defmethod contained-p ((location vec2) (chunk chunk))
-  (%with-layer-xy (chunk location)
-    chunk))
 
 (defmethod scan ((chunk chunk) (target vec2) on-hit)
   (%with-layer-xy (chunk target)

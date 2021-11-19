@@ -236,3 +236,45 @@
     (when (< (- (vy loc) height)
              (+ (vy pos) t-s))
       (setf (vy loc) (+ (vy pos) t-s height)))))
+
+(define-shader-entity blocker (layer solid ephemeral collider creatable)
+  ((size :initform (vec 10 10))
+   (visibility :type single-float)
+   (name :initform (generate-name "BLOCKER"))
+   (weak-side :initarg :weak-side :initform :west :accessor weak-side
+              :type (member :north :east :south :west :any))))
+
+(defmethod velocity ((blocker blocker))
+  #.(vec 0 0))
+
+(defmethod quest:active-p ((blocker blocker))
+  (<= 1.0 (visibility blocker)))
+
+(defmethod collides-p ((moving moving) (blocker blocker) hit)
+  (quest:active-p blocker))
+
+(defmethod collide ((player player) (blocker blocker) hit)
+  (cond ((and (eql :dashing (state player))
+              (ecase (weak-side blocker)
+                (:north (= +1 (vy (hit-normal hit))))
+                (:east  (= +1 (vx (hit-normal hit))))
+                (:south (= -1 (vy (hit-normal hit))))
+                (:west  (= -1 (vx (hit-normal hit))))
+                (:any T)))
+         (setf (visibility blocker) 0.99)
+         (nv* (velocity player) -1)
+         (nv* (frame-velocity player) -1))
+        (T
+         (call-next-method))))
+
+(defmethod entity-at-point (point (blocker blocker))
+  (or (call-next-method)
+      (when (contained-p point blocker)
+        blocker)))
+
+(defmethod render :before ((blocker blocker) (program shader-program))
+  (when (< 0.0 (visibility blocker) 1.0)
+    (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.01)))))
+
+(defmethod applicable-tools append ((_ blocker))
+  '(paint rectangle line selection))

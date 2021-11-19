@@ -18,7 +18,8 @@
   (with-packet-entry (stream "data.lisp" packet :element-type 'character)
     (for:for ((entity over region))
       (handler-case
-          (unless (spawned-p entity)
+          (when (and (not (spawned-p entity))
+                     (not (eql 'layer (type-of entity))))
             (princ* (encode entity) stream))
         (no-applicable-encoder ()))))
   (unless (packet-entry-exists-p "init.lisp" packet)
@@ -71,6 +72,24 @@
             :gi ,(encode (gi chunk))
             :environment ,(when (environment chunk) (name (environment chunk)))
             :visible-on-map-p ,(visible-on-map-p chunk))))
+
+(define-decoder (layer world-v0) (initargs packet)
+  (destructuring-bind (&key name location size tile-data pixel-data &allow-other-keys) initargs
+    (make-instance (class-of layer)
+                   :name name
+                   :location (decode 'vec2 location)
+                   :size (decode 'vec2 size)
+                   :tile-data (decode 'asset tile-data)
+                   :pixel-data (packet-entry pixel-data packet))))
+
+(define-encoder (layer world-v0) (_b packet)
+  (let ((pixel-data (format NIL "data/~a.raw" (name layer))))
+    (setf (packet-entry pixel-data packet) (pixel-data layer))
+    `(,(type-of layer) :name ,(name layer)
+                       :location ,(encode (location layer))
+                       :size ,(encode (size layer))
+                       :tile-data ,(encode (tile-data layer))
+                       :pixel-data ,pixel-data)))
 
 (define-decoder (gi-info world-v0) (name _p)
   (gi name))

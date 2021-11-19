@@ -406,7 +406,7 @@
                 (at-point = (entity-at-point point entity)))
         (when (and at-point
                    ;; FIXME: this is terrible
-                   (typep entity '(or chunk (not layer)))
+                   (not (eql 'layer (type-of entity)))
                    (or (null result)
                        (< (vlength (bsize at-point))
                           (vlength (bsize result)))))

@@ -212,7 +212,8 @@
                      while b
                      do (emit a b color))))
       (for:for ((entity over (region +world+)))
-        (when (typep entity '(and sized-entity (or chunk (not layer))))
+        (when (and (typep entity 'sized-entity)
+                   (not (eql 'layer (type-of entity))))
           (let* ((p (location entity))
                  (s (bsize entity))
                  (ul (vec3 (- (vx p) (vx s)) (+ (vy p) (vy s)) 0))

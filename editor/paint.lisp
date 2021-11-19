@@ -5,11 +5,13 @@
 
 (defmethod handle ((event mouse-press) (tool painter-tool))
   (paint-tile tool event)
-  (loop for layer across (layers (entity tool))
-        for i from 0
-        do (if (= i (layer (sidebar (editor tool))))
-               (setf (visibility layer) 1.0)
-               (setf (visibility layer) 0.5))))
+  (if (typep (entity tool) 'chunk)
+      (loop for layer across (layers (entity tool))
+            for i from 0
+            do (if (= i (layer (sidebar (editor tool))))
+                   (setf (visibility layer) 1.0)
+                   (setf (visibility layer) 0.5)))
+      (setf (visibility (entity tool)) 1.0)))
 
 (defmethod handle :after ((event mouse-release) (tool painter-tool))
   (loop for layer across (layers (entity tool))
@@ -40,9 +42,12 @@
 
 (defun cache-tile (chunk loc tile)
   (cache-tile-region
-   (if (vec3-p loc)
-       (aref (layers chunk) (floor (vz loc)))
-       chunk)
+   (cond ((not (typep chunk 'chunk))
+          chunk)
+         ((vec3-p loc)
+          (aref (layers chunk) (floor (vz loc))))
+         (T
+          chunk))
    (vxy loc) (vec (+ (vx loc) (* +tile-size+ (third tile)))
                   (+ (vy loc) (* +tile-size+ (fourth tile))))))
 

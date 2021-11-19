@@ -109,6 +109,9 @@
 (defmethod (setf tile-to-place) :after ((tile cons) (widget chunk-widget))
   (setf (alloy:value (slot-value widget 'show-solids)) (= 0 (second tile))))
 
+(defmethod show-solids ((layer layer)) NIL)
+(defmethod (setf show-solids) (value (layer layer)) value)
+
 (alloy:define-subcomponent (chunk-widget show-solids) ((show-solids (entity chunk-widget)) alloy:switch))
 (alloy:define-subcomponent (chunk-widget tile-set-list) ((slot-value chunk-widget 'tile-set) alloy:combo-set :value-set (mapcar #'first (tile-types (tile-data (entity chunk-widget))))))
 (alloy:define-subobject (chunk-widget tile-history) ('tile-history :widget chunk-widget))
@@ -163,7 +166,7 @@
     (alloy:focus-list)
   layer show-solids tile-set-list tile-history tiles place-width place-height clear background compute)
 
-(defmethod (setf entity) :after ((chunk chunk) (editor editor))
+(defmethod (setf entity) :after ((layer layer) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
 
 (defmethod applicable-tools append ((_ chunk))
