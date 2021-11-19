@@ -91,6 +91,8 @@
                        :tile-data ,(encode (tile-data layer))
                        :pixel-data ,pixel-data)))
 
+(define-additional-slot-coders (blocker world-v0) (weak-side))
+
 (define-decoder (gi-info world-v0) (name _p)
   (gi name))
 

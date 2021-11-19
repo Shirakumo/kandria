@@ -215,6 +215,27 @@
 (defmethod leave* :before ((prompt action-prompt) from)
   (hide (prompt prompt)))
 
+(define-asset (kandria wind-mesh) static
+    (let* ((arr (make-array (+ (* 4 4) (* 4 16)) :element-type 'single-float))
+           (vbo (make-instance 'vertex-buffer :data-usage :stream-draw :buffer-data arr))
+           (vao (make-instance 'vertex-array :bindings `((,vbo :size 2 :offset 0 :stride 16)
+                                                         (,vbo :size 2 :offset 8 :stride 16)
+                                                         (,vbo :size 2 :offset 64 :stride 16 :instancing 1)
+                                                         (,vbo :size 2 :offset 72 :stride 16 :instancing 1)))))
+      (macrolet ((seta (&rest els)
+                   `(progn ,@(loop for i from 0 for el in els
+                                   collect `(setf (aref arr ,i) ,(float el))))))
+        (seta  -4 -4  0  0
+               +4 -4  1  0
+               +4 +4  1  1
+               -4 +4  0  1))
+      (loop for i from (* 4 4) below (length arr) by 4
+            do (setf (aref arr (+ i 0)) most-negative-single-float)
+               (setf (aref arr (+ i 1)) most-positive-single-float)
+               (setf (aref arr (+ i 2)) 1.0)
+               (setf (aref arr (+ i 3)) 1.0))
+      vao))
+
 (define-shader-entity wind (textured-entity lit-entity trigger listener creatable)
   ((vertex-array :initform NIL :accessor vertex-array)
    (vertex-buffer :initform NIL :accessor vertex-buffer)
@@ -227,27 +248,9 @@
    (active-time :initform 0.0 :accessor active-time)))
 
 (defmethod initialize-instance :after ((wind wind) &key)
-  ;; FIXME: cache between all
-  (let* ((arr (make-array (+ (* 4 4) (* 4 16)) :element-type 'single-float))
-         (vbo (make-instance 'vertex-buffer :data-usage :stream-draw :buffer-data arr))
-         (vao (make-instance 'vertex-array :bindings `((,vbo :size 2 :offset 0 :stride 16)
-                                                       (,vbo :size 2 :offset 8 :stride 16)
-                                                       (,vbo :size 2 :offset 64 :stride 16 :instancing 1)
-                                                       (,vbo :size 2 :offset 72 :stride 16 :instancing 1)))))
+  (let ((vao (resource (asset 'kandria 'wind-mesh) T)))
     (setf (vertex-array wind) vao)
-    (setf (vertex-buffer wind) vbo)
-    (macrolet ((seta (&rest els)
-                 `(progn ,@(loop for i from 0 for el in els
-                                 collect `(setf (aref arr ,i) ,(float el))))))
-      (seta  -4 -4  0  0
-             +4 -4  1  0
-             +4 +4  1  1
-             -4 +4  0  1))
-    (loop for i from (* 4 4) below (length arr) by 4
-          do (setf (aref arr (+ i 0)) most-negative-single-float)
-             (setf (aref arr (+ i 1)) most-positive-single-float)
-             (setf (aref arr (+ i 2)) 1.0)
-             (setf (aref arr (+ i 3)) 1.0))))
+    (setf (vertex-buffer wind) (caar (bindings vao)))))
 
 (defmethod interact ((wind wind) (player player))
   ;; FIXME: how do we get the actual dt here?

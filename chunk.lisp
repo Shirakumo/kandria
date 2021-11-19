@@ -164,6 +164,16 @@
 (defmethod flood-fill ((layer layer) (location vec3) fill)
   (flood-fill layer (vxy location) fill))
 
+(defmethod (setf tile-data) :after ((data tile-data) (layer layer))
+  (let ((area (make-instance 'staging-area)))
+    (stage (resource data 'albedo) area)
+    (stage (resource data 'absorption) area)
+    (stage (resource data 'normal) area)
+    (trial:commit area (loader +main+) :unload NIL))
+  (setf (albedo layer) (resource data 'albedo))
+  (setf (absorption layer) (resource data 'absorption))
+  (setf (normal layer) (resource data 'normal)))
+
 (defmethod render ((layer layer) (program shader-program))
   (when (in-view-p (location layer) (bsize layer))
     (setf (uniform program "visibility") (visibility layer))
@@ -360,16 +370,10 @@ void main(){
         do (clear layer)))
 
 (defmethod (setf tile-data) :after ((data tile-data) (chunk chunk))
-  (let ((area (make-instance 'staging-area)))
-    (stage (resource data 'albedo) area)
-    (stage (resource data 'absorption) area)
-    (stage (resource data 'normal) area)
-    (trial:commit area (loader +main+) :unload NIL))
   (flet ((update-layer (layer)
            (setf (albedo layer) (resource data 'albedo))
            (setf (absorption layer) (resource data 'absorption))
            (setf (normal layer) (resource data 'normal))))
-    (update-layer chunk)
     (map NIL #'update-layer (layers chunk))))
 
 (defmethod (setf background) :after ((data background-info) (chunk chunk))

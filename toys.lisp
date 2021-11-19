@@ -247,6 +247,9 @@
 (defmethod velocity ((blocker blocker))
   #.(vec 0 0))
 
+(defmethod layer-index ((blocker blocker))
+  (1+ +base-layer+))
+
 (defmethod quest:active-p ((blocker blocker))
   (<= 1.0 (visibility blocker)))
 
