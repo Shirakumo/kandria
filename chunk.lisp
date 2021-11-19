@@ -75,6 +75,13 @@
 (defmethod (setf size) :after (value (layer layer))
   (setf (bsize layer) (v* value +tile-size+ .5)))
 
+(defmacro %with-layer-xy ((layer location) &body body)
+  `(let ((x (floor (+ (- (vx ,location) (vx2 (location ,layer))) (vx2 (bsize ,layer))) +tile-size+))
+         (y (floor (+ (- (vy ,location) (vy2 (location ,layer))) (vy2 (bsize ,layer))) +tile-size+)))
+     (when (and (< -1.0 x (vx2 (size ,layer)))
+                (< -1.0 y (vy2 (size ,layer))))
+       ,@body)))
+
 (defmethod contained-p ((a layer) (b layer))
   (and (< (abs (- (vx (location a)) (vx (location b)))) (+ (vx (bsize a)) (vx (bsize b))))
        (< (abs (- (vy (location a)) (vy (location b)))) (+ (vy (bsize a)) (vy (bsize b))))))
@@ -89,13 +96,6 @@
 (defmethod contained-p ((location vec2) (layer layer))
   (%with-layer-xy (layer location)
     layer))
-
-(defmacro %with-layer-xy ((layer location) &body body)
-  `(let ((x (floor (+ (- (vx ,location) (vx2 (location ,layer))) (vx2 (bsize ,layer))) +tile-size+))
-         (y (floor (+ (- (vy ,location) (vy2 (location ,layer))) (vy2 (bsize ,layer))) +tile-size+)))
-     (when (and (< -1.0 x (vx2 (size ,layer)))
-                (< -1.0 y (vy2 (size ,layer))))
-       ,@body)))
 
 (defmethod find-ground ((layer layer) location)
   (let ((w (truncate (vx (size layer))))
