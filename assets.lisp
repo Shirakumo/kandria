@@ -268,3 +268,11 @@
 (define-environment (region1 building)
   :music 'music/region1
   :ambience 'ambience/underground-building)
+
+(define-environment (region2 hall)
+  :music 'music/region2
+  :ambience 'ambience/large-underground-hall)
+
+(define-environment (region3 hall)
+  :music 'music/region3
+  :ambience 'ambience/large-underground-hall)
