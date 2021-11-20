@@ -151,6 +151,7 @@
 (define-slot-coders (grass-patch world-v0) ((location :type vec2) (bsize :type vec2) patches (tile-size :type vec2) (tile-start :type vec2) tile-count))
 (define-slot-coders (trigger world-v0) (name active-p (location :type vec2) (bsize :type vec2)))
 (define-slot-coders (spring world-v0) ((location :type vec2) (strength :type vec2)))
+(define-slot-coders (fountain world-v0) ((location :type vec2) (strength :type vec2)))
 (define-slot-coders (lantern world-v0) ((location :type vec2)))
 (define-slot-coders (crumbling-platform world-v0) ((location :type vec2)))
 (define-additional-slot-coders (interactable-animated-sprite world-v0) ((pending-animation :initarg :animation)))
