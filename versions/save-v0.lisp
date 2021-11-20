@@ -388,6 +388,12 @@
                                                 (decode override 'resource)))
     (switch-environment environment-controller (environment environment))))
 
+(define-encoder (hider save-v0) (_b _p)
+  `(:active-p ,(active-p hider)))
+
+(define-decoder (hider save-v0) (initargs _p)
+  (setf (active-p hider) (getf initargs :active-p)))
+
 (define-encoder (blocker save-v0) (_b _p)
   `(:active-p ,(<= 1.0 (visibility blocker))))
 

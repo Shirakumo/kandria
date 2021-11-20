@@ -237,8 +237,27 @@
              (+ (vy pos) t-s))
       (setf (vy loc) (+ (vy pos) t-s height)))))
 
+(define-shader-entity hider (layer trigger creatable)
+  ((size :initform (vec 5 5))
+   (visibility :type single-float)
+   (name :initform (generate-name "HIDER"))))
+
+(defmethod velocity ((hider hider))
+  #.(vec 0 0))
+
+(defmethod layer-index ((hider hider))
+  (1+ +base-layer+))
+
+(defmethod interact ((hider hider) source)
+  (when (<= (decf (visibility hider) 0.01) 0.0)
+    (setf (visibility hider) 0.0)
+    (setf (active-p hider) NIL)))
+
+(defmethod (setf active-p) :after (value (hider hider))
+  (setf (visibility hider) (if value 1.0 0.0)))
+
 (define-shader-entity blocker (layer solid ephemeral collider creatable)
-  ((size :initform (vec 10 10))
+  ((size :initform (vec 5 5))
    (visibility :type single-float)
    (name :initform (generate-name "BLOCKER"))
    (weak-side :initarg :weak-side :initform :west :accessor weak-side
