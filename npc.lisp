@@ -348,7 +348,7 @@
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ semi-engineer-nametag)))
   (:default-initargs
-   :sprite-data (asset 'kandria 'engineer)))
+   :sprite-data (asset 'kandria 'villager-engineer)))
 
 (define-shader-entity villager (npc creatable)
   ((name :initform (generate-name "VILLAGER"))
