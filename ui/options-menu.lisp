@@ -212,8 +212,7 @@
       (control damage-input-multiplier (:gameplay :damage-input) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)
       (control damage-output-multiplier (:gameplay :damage-output) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)
       (control level-multiplier (:gameplay :level-multiplier) 'alloy:ranged-slider :range '(0.0 . 10.0) :step 0.1)
-      (control display-hud (:gameplay :display-hud) 'alloy:checkbox)
-      (control player-palette (:gameplay :palette) 'alloy:combo-set :value-set (palettes (asset 'kandria 'player))))
+      (control display-hud (:gameplay :display-hud) 'alloy:checkbox))
     (with-tab language-settings
       (control game-language (:language) 'alloy:combo-set :value-set (languages))
       (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01 :grid 0.01)

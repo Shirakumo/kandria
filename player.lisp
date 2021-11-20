@@ -94,7 +94,6 @@ void main(){
           :accessor movement-trace)
    (fishing-line :initform (make-instance 'fishing-line) :accessor fishing-line)
    (stamina-wheel :initform (make-instance 'stamina-wheel) :accessor stamina-wheel)
-   (palette-index :initform (or (position (setting :gameplay :palette) (palettes (asset 'kandria 'player)) :test #'equal) 0))
    (color :initform (vec 1 1 1 0) :accessor color))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))

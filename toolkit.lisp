@@ -29,7 +29,6 @@
                             :auto-advance-after 3.0
                             :display-text-effects T
                             :display-swears T
-                            :palette "Model 1"
                             :pause-on-focus-loss T
                             :display-hud T
                             :game-speed 1.0

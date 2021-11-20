@@ -373,10 +373,23 @@
   :price 10)
 (define-item (mushroom-bad-1 value-quest-item) 16 8 8 8
   :price 20)
-(define-item (walkie-talkie value-quest-item) 0 0 8 8
+(define-item (walkie-talkie value-quest-item) 0 8 8 8
   :price 500)
 
 ;; SPECIAL ITEMS
+(defclass palette-unlock (special-item)
+  ())
+(defmethod unlocked-palettes ((inventory inventory))
+  (mapcar #'title (list-items inventory 'palette-unlock)))
+(macrolet ((define-palettes ()
+             `(progn
+                ,@(loop for palette in (getf (read-src (input* (asset 'kandria 'player))) :palettes)
+                        for name = (intern (format NIL "~:@(PALETTE-~a~)" (substitute #\- #\Space palette)) '#:item)
+                        for i from 0
+                        append `((define-item (,name palette-unlock) 0 16 8 8)
+                                 (defmethod title ((,name ,name)) ,palette)
+                                 (defmethod palette-index ((,name ,name)) ,i))))))
+  (define-palettes))
 
 ;; Draws
 (define-random-draw mushrooms
