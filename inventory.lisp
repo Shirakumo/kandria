@@ -380,7 +380,7 @@
 (defclass palette-unlock (special-item)
   ())
 (defmethod unlocked-palettes ((inventory inventory))
-  (mapcar #'title (list-items inventory 'palette-unlock)))
+  (list-items inventory 'palette-unlock))
 (macrolet ((define-palettes ()
              `(progn
                 ,@(loop for palette in (getf (read-src (input* (asset 'kandria 'player))) :palettes)

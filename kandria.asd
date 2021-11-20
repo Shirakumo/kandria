@@ -84,7 +84,8 @@
                              (:file "shop")
                              (:file "load-screen")
                              (:file "pause-screen")
-                             (:file "end-screen")))
+                             (:file "end-screen")
+                             (:file "wardrobe")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

@@ -115,6 +115,10 @@
 (define-cheat motherlode
   (store 'item:parts (unit 'player T) 10000))
 
+(define-cheat (unlock-palettes |clothes make the woman|)
+  (dolist (class (list-leaf-classes 'palette-unlock))
+    (store (class-name class) (unit 'player T))))
+
 #-kandria-release
 (define-cheat snapshot
   (let ((state (or (state +main+) (first (list-saves)))))
