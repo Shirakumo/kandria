@@ -41,26 +41,28 @@
     (when (eq (svref collisions 2) (svref collisions 3))
       (setf (svref collisions 3) NIL))
     ;; Point test for adjacent walls
-    (let ((l (scan-collision +world+ (vec (- (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))))))
-      (when (and l (collides-p moving (hit-object l) l))
-        (setf (aref collisions 3) (hit-object l))
-        ;; Zip L/R. Pretty bad kludge.
-        (when (and (typep (aref collisions 3) 'ground)
-                   (< 0 (- (vx loc) (vx (hit-location l))) (+ (/ +tile-size+ 2) (vx size))))
-          (setf (vx loc) (+ (vx (hit-location l)) (/ +tile-size+ 2) (vx size))))))
-    (let ((r (scan-collision +world+ (vec (+ (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))))))
-      (when (and r (collides-p moving (hit-object r) r))
-        (setf (aref collisions 1) (hit-object r))
-        ;; Zip L/R. Pretty bad kludge.
-        (when (and (typep (aref collisions 1) 'ground)
-                   (< 0 (- (vx (hit-location r)) (vx loc)) (+ (/ +tile-size+ 2) (vx size))))
-          (setf (vx loc) (- (vx (hit-location r)) (/ +tile-size+ 2) (vx size))))))
-    (let ((u (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy size) 1.5) (1- (vx size)) 1))))
-      (when (and u (collides-p moving (hit-object u) u))
-        (setf (aref collisions 0) (hit-object u))))
-    (let ((b (scan-collision +world+ (vec (vx loc) (- (vy loc) (vy size) 1.5) (1- (vx size)) 1))))
-      (when (and b (collides-p moving (hit-object b) b))
-        (setf (aref collisions 2) (hit-object b)))))
+    (flet ((test (hit)
+             (not (collides-p moving (hit-object hit) hit))))
+      (let ((l (scan +world+ (vec (- (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))) #'test)))
+        (when l
+          (setf (aref collisions 3) (hit-object l))
+          ;; Zip L/R. Pretty bad kludge.
+          (when (and (typep (aref collisions 3) 'ground)
+                     (< 0 (- (vx loc) (vx (hit-location l))) (+ (/ +tile-size+ 2) (vx size))))
+            (setf (vx loc) (+ (vx (hit-location l)) (/ +tile-size+ 2) (vx size))))))
+      (let ((r (scan +world+ (vec (+ (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))) #'test)))
+        (when r
+          (setf (aref collisions 1) (hit-object r))
+          ;; Zip L/R. Pretty bad kludge.
+          (when (and (typep (aref collisions 1) 'ground)
+                     (< 0 (- (vx (hit-location r)) (vx loc)) (+ (/ +tile-size+ 2) (vx size))))
+            (setf (vx loc) (- (vx (hit-location r)) (/ +tile-size+ 2) (vx size))))))
+      (let ((u (scan +world+ (vec (vx loc) (+ (vy loc) (vy size) 1.5) (1- (vx size)) 1) #'test)))
+        (when u
+          (setf (aref collisions 0) (hit-object u))))
+      (let ((b (scan +world+ (vec (vx loc) (- (vy loc) (vy size) 1.5) (1- (vx size)) 1) #'test)))
+        (when b
+          (setf (aref collisions 2) (hit-object b))))))
   (incf (air-time moving) (dt ev)))
 
 (defmethod collides-p ((moving moving) (solid half-solid) hit)
