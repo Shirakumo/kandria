@@ -169,8 +169,11 @@
 (defmethod (setf entity) :after ((layer layer) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
 
+(defmethod applicable-tools append ((_ layer))
+  '(paint rectangle))
+
 (defmethod applicable-tools append ((_ chunk))
-  '(paint rectangle line selection move-to))
+  '(line selection move-to))
 
 (defmethod default-tool ((_ chunk))
   'freeform)
