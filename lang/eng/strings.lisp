@@ -7,6 +7,7 @@ innis-nametag "Innis"
 islay-nametag "Islay"
 alex-nametag "Alex"
 semi-engineer-nametag "Engineer"
+villager-nametag "Villager"
 ;; Actions
 toggle-menu "Toggle Menu"
 toggle-menu/description "Open the menu to access the inventory, quest log, and more"

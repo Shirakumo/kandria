@@ -327,28 +327,36 @@
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
    (nametag :initform (@ innis-nametag)))
   (:default-initargs
-   :sprite-data (asset 'kandria 'fi)))
+   :sprite-data (asset 'kandria 'innis)))
    
 (define-shader-entity islay (npc creatable)
   ((name :initform 'islay)
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
    (nametag :initform (@ islay-nametag)))
   (:default-initargs
-   :sprite-data (asset 'kandria 'fi)))
+   :sprite-data (asset 'kandria 'islay)))
    
 (define-shader-entity alex (npc creatable)
   ((name :initform 'alex)
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ alex-nametag)))
   (:default-initargs
-   :sprite-data (asset 'kandria 'catherine)))
+   :sprite-data (asset 'kandria 'alex)))
 
 (define-shader-entity semi-engineer (npc creatable)
   ((name :initform 'semi-engineer)
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ semi-engineer-nametag)))
   (:default-initargs
-   :sprite-data (asset 'kandria 'catherine)))
+   :sprite-data (asset 'kandria 'engineer)))
+
+(define-shader-entity villager (npc creatable)
+  ((name :initform (generate-name "VILLAGER"))
+   (nametag :initform (@ villager-nametag)))
+  (:default-initargs
+   :sprite-data (alexandria:random-elt
+                 (list (asset 'kandria 'villager-male)
+                       (asset 'kandria 'villager-female)))))
 
 (define-shader-entity pet (animatable ephemeral interactable)
   ())
