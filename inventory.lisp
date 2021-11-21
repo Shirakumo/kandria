@@ -387,7 +387,6 @@
                         for name = (intern (format NIL "~:@(PALETTE-~a~)" (substitute #\- #\Space palette)) '#:item)
                         for i from 0
                         append `((define-item (,name palette-unlock) 0 16 8 8)
-                                 (defmethod title ((,name ,name)) ,palette)
                                  (defmethod palette-index ((,name ,name)) ,i))))))
   (define-palettes))
 
