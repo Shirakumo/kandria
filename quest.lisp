@@ -314,16 +314,18 @@
                                   :interactable ,with
                                   :auto-trigger ,now
                                                ,@body)))))
-                 (:complete ((thing) . body)
+                 (:complete ((&rest things) . body)
                             (form-fiddle:with-body-options (body initargs) body
                               `((,name
                                  ,@initargs
-                                 :title ,(format NIL "Complete ~a" thing)
-                                 :condition (complete-p (or (unit ',thing) ',thing))
+                                 :title ,(format NIL "Complete ~{~a~^, ~}" things)
+                                 :condition (complete-p ,@(loop for thing in things
+                                                                collect `(or (unit ',thing) ',thing)))
                                  :on-activate (action)
                                  :on-complete ,next
                                  (:action action
-                                          (activate (or (unit ',thing) ',thing))
+                                          ,@(loop for thing in things
+                                                  collect `(activate (or (unit ',thing) ',thing)))
                                           ,@(if body `((walk-n-talk (progn ,@body)))))))))))
              (sequence-form-name (form)
                (trial::mksym *package* (incf counter) :- (first form) :- (unlist (second form))))
