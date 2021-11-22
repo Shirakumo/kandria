@@ -348,7 +348,7 @@
 | | ! eval (setf (var 'first-talk) T)
 | |?
 | | ~ semi-engineer-chief
-| | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already made the journey home. Thank you.
-| | | And now I have a new team, we can resume our task. It'll be slow-going, but we'll be careful this time.
+| | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already started the journey home. Thank you.
+| | | We can resume our task. It'll be slow-going, but we'll be careful this time.
 "))
 
