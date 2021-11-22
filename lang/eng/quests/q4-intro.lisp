@@ -1,20 +1,12 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(quest:define-quest (kandria q4-intro)
+(define-sequence-quest (kandria q4-intro)
   :author "Tim White"
   :title "Speak With Fi"
-  :description "She has new work for me."
-  :on-activate (talk-to-fi)
-
-  (talk-to-fi
-   :title "Speak with Fi on the Farm"
-   :condition all-complete
-   :on-activate (talk-fi)
-   :on-complete (q4-find-alex)
-   (:interaction talk-fi
-    :interactable fi
-    :dialogue "
+  :description "She has new work for me." 
+  (:interact (fi)
+  "
 ~ fi
 | Alright, it's like this: The Wraw are almost certainly coming to reclaim us.
 | But we cannot defend ourselves without knowing their plans: where they'll attack, and more importantly //when//.
@@ -91,5 +83,7 @@
 ! eval (activate (unit 'innis-stop))
 ! eval (setf (location 'islay) 'islay-intercept)
 ! setf (direction 'islay) 1
-")))
+")
+(:eval
+   :on-complete (q4-find-alex)))
 ;; TODO Fi happy: I believe you will.
