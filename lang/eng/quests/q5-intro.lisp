@@ -30,7 +30,7 @@
   | I take it Islay filled you in about the jobs? Those are real challenges.
 ~ innis
 | (:angry)They'd have been sorted ages ago if Alex wasn't propping up the bar.
-| (:normal)Don't get me wrong, I like a drink as much as the next lass. But you Noka really can't hold ya booze.
+| (:normal)Don't get me wrong, I like a drink as much as the next lass. But you Noka really canna hold ya booze.
 | I hope you're a tad more reliable.
 ~ player
 - I am.
@@ -38,7 +38,7 @@
   | (:sly)We'll see.
 - I can't get inebriated.
   ~ innis
-  | Your programming prevents you from drinking alcohol, or you just physically can't get drunk?
+  | Your programming prevents you from drinking alcohol, or you just physically canna get drunk?
   ~ player
   - The latter.
     ~ innis
@@ -100,7 +100,7 @@
   | There were ten of them, working in the \"upper-west of our territory\"(orange).
   | We're slowly digging out parts of the old maglev metro system. (:pleased)We've got a basic electrified rails system going.
   | (:angry)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
-  | The hunters can't go any further. But you can.
+  | The hunters canna go any further. But you can.
   < questions
 - [(not (active-p (unit 'engineers-wall))) What were the engineers working on?|]
   ~ innis
