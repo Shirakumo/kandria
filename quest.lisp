@@ -303,17 +303,19 @@
                                        ,@(if body `((walk-n-talk (progn ,@body)))))))))
                  (:interact ((with &key now) . body)
                             (form-fiddle:with-body-options (body initargs) body
-                              `((,name
-                                 ,@initargs
-                                 :title ,(format NIL "Listen to ~a" with)
-                                 :condition (complete-p 'interaction)
-                                 :on-activate (interaction)
-                                 :on-complete ,next
-                                 :marker ',with
-                                 (:interaction interaction
-                                  :interactable ,with
-                                  :auto-trigger ,now
-                                               ,@body)))))
+                              (let ((repeatable (popf initargs :repeatable)))
+                                `((,name
+                                   ,@initargs
+                                   :title ,(format NIL "Listen to ~a" with)
+                                   :condition (complete-p 'interaction)
+                                   :on-activate (interaction)
+                                   :on-complete ,next
+                                   :marker ',with
+                                   (:interaction interaction
+                                    :interactable ,with
+                                    :auto-trigger ,now
+                                    :repeatable ,repeatable
+                                                 ,@body))))))
                  (:complete ((&rest things) . body)
                             (form-fiddle:with-body-options (body initargs) body
                               `((,name
