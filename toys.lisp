@@ -360,4 +360,4 @@
 
 (defmethod render :before ((blocker blocker) (program shader-program))
   (when (< 0.0 (visibility blocker) 1.0)
-    (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.005)))))
+    (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.01)))))
