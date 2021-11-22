@@ -86,7 +86,7 @@
 (defmethod save-state ((world world) (save-state save-state) &key version)
   (v:info :kandria.save "Saving state from ~a to ~a" world save-state)
   (setf (save-time save-state) (get-universal-time))
-  (let ((tmp (make-pathname :type "tmp" :defaults (file save-state))))
+  (let ((tmp (make-pathname :type "zip" :name "temp" :defaults (file save-state))))
     (with-packet (packet tmp :direction :output :if-exists :supersede)
       (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
         (princ* (list :identifier 'save-state :version (type-of version)) stream)

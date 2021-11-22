@@ -146,7 +146,9 @@
       (trial:commit tool (loader +main+) :unload NIL)
       (when (and (tool editor) (not (eq tool (tool editor))))
         (hide (tool editor)))
-      (call-next-method))))
+      (call-next-method)
+      (v:info :kandria.editor "Switched to ~a" (type-of tool)))
+    tool))
 
 (defmethod (setf tool) ((tool symbol) (editor editor))
   (setf (tool editor) (make-instance tool :editor editor)))
