@@ -308,6 +308,9 @@
             (setf (aref arr (+ ai 3)) (atan (vy dir) (vx dir))))))
       (update-buffer-data vbo arr))))
 
+(defmethod handle ((ev switch-chunk) (wind wind))
+  (setf (clock wind) 0.0))
+
 (defmethod render ((wind wind) (program shader-program))
   (when (< 0.0 (active-time wind))
     (setf (uniform program "view_matrix") *view-matrix*)

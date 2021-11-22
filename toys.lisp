@@ -222,6 +222,10 @@
     (setf (iframes fountain) 0)
     (setf (animation fountain) 'fire)))
 
+(defmethod handle ((ev switch-chunk) (fountain fountain))
+  (setf (timer fountain) 0.0)
+  (setf (animation fountain) 'idle))
+
 (defmethod apply-transforms progn ((fountain fountain))
   (let ((strength (strength fountain)))
     (cond ((< 0 (vx2 strength))
