@@ -400,17 +400,21 @@
 (define-random-draw mushrooms-good
   (item:mushroom-good-1 1)
   (item:mushroom-good-2 1))
+;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-good-1
   (item:mushroom-good-1 2)
   (item:mushroom-good-2 1))
+;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-good-2
   (item:mushroom-good-1 1)
   (item:mushroom-good-2 2))
+;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-bad-1
   (item:mushroom-bad-1 1))
+;; placement: where mushrooms wouldn't be expected to grow i.e. in non-soil areas
   
 (define-random-draw region1-cave
   (item:clay-clump 3)
@@ -420,6 +424,7 @@
   (item:rusted-clump 3)
   (item:dirt-clump 3)
   (item:ruined-pelt 3))
+;; placement: region 1 soil areas
 
 (define-random-draw region1-home
   (item:satchel 2)
@@ -428,12 +433,14 @@
   (item:cable 3)
   (item:broken-circuit 3)
   (item:simple-gadget 3))
+;; placement: region 1 apartment areas
 
 (define-random-draw region1-office
   (item:simple-circuit 2)
   (item:complex-circuit 1)
   (item:broken-ring 4)
   (item:metal-ring 3))
+;; placement: region 1 office areas
 
 (define-random-draw region1-factory
   (item:heavy-spring 3)
@@ -443,6 +450,7 @@
   (item:gear 3)
   (item:bent-rod 3)
   (item:crude-oil 1))
+;; placement: region 1 factory areas
 
 (define-random-draw region1-market
   (item:mossy-water 1)
@@ -450,6 +458,7 @@
   (item:bronze-clump 1)
   (item:rusted-key 2)
   (item:coin 3))
+;; placement: region 1 market areas
 
 #| ITEMS UNUSED IN SPAWNERS SO FAR
   
