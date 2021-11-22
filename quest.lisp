@@ -301,9 +301,9 @@
                                        ,@(if lead `((lead 'player ',place ',lead)))
                                        ,@(if follow `((follow 'player ',follow)))
                                        ,@(if body `((walk-n-talk (progn ,@body)))))))))
-                 (:interact ((with &key now) . body)
+                 (:interact ((with &key now repeatable) . body)
                             (form-fiddle:with-body-options (body initargs) body
-                              (let ((repeatable (popf initargs :repeatable)))
+                              (let ((repeatable (or repeatable (popf initargs :repeatable))))
                                 `((,name
                                    ,@initargs
                                    :title ,(format NIL "Listen to ~a" with)
