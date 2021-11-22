@@ -1,20 +1,13 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(quest:define-quest (kandria q5-intro)
+(define-sequence-quest (kandria q5-intro)
   :author "Tim White"
   :title "Talk to Innis"
   :description "Islay said she can give me more information about the trapped engineers and downed CCTV."
-  :on-activate (q5a-task-overview)
-
- (q5a-task-overview
+  (:interact (innis)
    :title "Speak with Innis in the Semi Sisters housing complex"
-   :condition all-complete
-   :on-activate T
-   (:interaction q5a-overview
-    :title "Hello again."
-    :interactable innis
-    :dialogue "
+ "
 ~ innis
 | (:angry)What is it, android?
 ~ player
@@ -119,4 +112,4 @@
 ? (not (active-p (unit 'blocker-engineers)))
 | ! eval (activate 'q5a-rescue-engineers)
 ! eval (activate 'q5b-repair-cctv)
-")))
+"))
