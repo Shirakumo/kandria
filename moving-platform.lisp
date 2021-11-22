@@ -88,7 +88,8 @@
 
 (define-shader-entity elevator (lit-sprite moving-platform creatable)
   ((name :initform (generate-name "ELEVATOR"))
-   (bsize :initform (nv/ (vec 32 16) 2))
+   (bsize :initform (vec 40 8))
+   (size :initform (vec 80 32))
    (max-speed :initarg :max-speed :initform (vec 0.0 2.0) :accessor max-speed)
    (move-time :initform 1.0 :accessor move-time)
    (fit-to-bsize :initform NIL)
