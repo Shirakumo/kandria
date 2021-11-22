@@ -165,14 +165,14 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ alex
   | No it ain't. Far from it.
 ~ alex
-| (:angry)I've heard about you- <-hic->. Innis even showed me the CCCTV.
+| (:angry)I've heard about you, doing my job- <-hic->. Innis even showed me the CCCTV.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | So why would Fi need little ol' me anymore?
 | So run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
 ~ player
 | (:thinking)Do you know about the Wraw's plan to attack?
 ~ alex
-| They're always planning to attack<-Hic->. Prolly just Fi getting her knickers in a twist.
+| They're always planning to attack. <-Hic->. Prolly just Fi getting her knickers in a twist.
 | (:unhappy)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
 | \"//Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.//\"(light-gray)
@@ -181,8 +181,16 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ? (<= 40 (item-count 'parts))
   | ! eval (retrieve 'parts 40)
   | ~ alex
-  | | (:confused)Ugh, thansssks.
+  | | (:confused)Ugh, thansssks. <-Hic->.
   |? (> 40 (item-count 'parts))
+  | ~ player
+  | | (:embarassed)\"//I don't have enough scrap for that. Now the barkeep's scowling at me too.//\"(light-gray)
+- (Buy Alex a soft drink - 20)
+  ? (<= 20 (item-count 'parts))
+  | ! eval (retrieve 'parts 20)
+  | ~ alex
+  | | (:confused)This ain't booze! What am I meant to do wiv that? <-Hic->. 
+  |? (> 20 (item-count 'parts))
   | ~ player
   | | (:embarassed)\"//I don't have enough scrap for that. Now the barkeep's scowling at me too.//\"(light-gray)
 - (Leave them be)
