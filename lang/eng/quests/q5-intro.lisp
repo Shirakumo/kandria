@@ -60,7 +60,7 @@
   | And if you weren't the world's most powerful walking battery.
 ~ innis
 | So how much did my esteemed sister say? You know what needs doing?
-? (not (active-p (unit 'engineers-wall)))
+? (not (active-p (unit 'blocker-engineers)))
 | ~ innis
 | | Oh: she might have mentioned something about trapped railway engineers - don't worry about that.
 | | The latest report shows they've been freed - by whom I don't know.
@@ -95,14 +95,14 @@
 |   | I only just got word o' this change.
 ! label questions
 ~ player
-- [(active-p (unit 'engineers-wall)) Tell me about the trapped engineers.|]
+- [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
   ~ innis
   | There were ten of them, working in the \"upper-west of our territory\"(orange).
   | We're slowly digging out parts of the old maglev metro system. (:pleased)We've got a basic electrified rails system going.
   | (:angry)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
   | The hunters canna go any further. But you can.
   < questions
-- [(not (active-p (unit 'engineers-wall))) What were the engineers working on?|]
+- [(not (active-p (unit 'blocker-engineers))) What were the engineers working on?|]
   ~ innis
   | We're slowly digging out parts of the old maglev metro system. (:pleased)We've got a basic electrified rails system going.
   | (:angry)But it's dangerous work.
@@ -116,7 +116,7 @@
 - I've got it.
 ~ innis
 | \"Report back to me\"(orange) about either job when you have something to report.
-? (not (active-p (unit 'engineers-wall)))
+? (not (active-p (unit 'blocker-engineers)))
 | ! eval (activate 'q5a-rescue-engineers)
 ! eval (activate 'q5b-repair-cctv)
 ")))
