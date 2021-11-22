@@ -372,7 +372,7 @@
 | (:excited)Take a look around and \"explore\"(orange)!
 | (:normal)Seeya later, Stranger!")
   (:eval
-   :on-complete (lore q2-intro q3-intro)
+   :on-complete (world q2-intro q3-intro)
    (move-to 'eng-cath (unit 'catherine))
    (fullscreen-prompt 'report-bug :input :keyboard)))
 ;; TODO Catherine contented - Anyway, don't worry about them.

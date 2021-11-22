@@ -1,7 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(quest:define-quest (kandria lore)
+(quest:define-quest (kandria world)
   :author "Tim White"
   :title "The World"
   :description "This world is unfamiliar to me. I should explore and learn more about it."
@@ -11,7 +11,7 @@
 ;; Lore tooltips that can be accessed throughout the entire game - this quest can never be completed; some interactions may alter based on world state conditions.
 ;; Though maybe we add an achievement for finding and interacting with all of these.
 ;; Could structure across multiple tasks per region? So when a new region is accessed, it activates a new task full of lore triggers for that region.
-(quest:define-task (kandria lore region1)
+(quest:define-task (kandria world region1)
   :title "Explore the world"
   :condition NIL
   :on-activate T
