@@ -73,7 +73,7 @@
 | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you (:excited)\"__Stranger__\"(yellow).
 ! eval (setf (nametag player) (@ player-nametag))
 | (:excited)Pretty cool, huh?
-| (:normal)Okay, we need to follow the pipeline further down.
+| (:normal)Okay, we need to \"follow the pipeline further down\"(orange).
 | (:excited)Let's go, Stranger!
   ")
   ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
@@ -128,7 +128,7 @@
   (:interact (catherine :now T)
    "~ catherine
 | Nice work. I've done the weld - good as new.
-| Let's get down to the pump room.
+| \"Let's get down to the pump room.\"(orange)
   ")
   (:go-to (leak-3-standoff :lead catherine)
    :title "Follow Catherine to the pump room, deeper underground"
@@ -139,10 +139,10 @@
 ~ player
 - I think we found the saboteurs.
   ~ catherine
-  | Do your thing!
+  | \"Do your thing!\"(orange)
 - What's a servo?
   ~ catherine
-  | No time to explain! Do your thing!
+  | No time to explain! \"Do your thing!\"(orange)
   ")
    ;; TODO catherine shocked - What the hell?!- Servos? Here?
    ;; plus all sub choices
@@ -163,7 +163,7 @@
 | Give me a second.
 ! eval (setf (animation (unit 'main-leak-3)) 'normal)
 | There, that should hold it.
-| Now, where is that telephone?
+| Now, \"where is that telephone?\"(orange)
   ")
   ;; TODO Catherine relieved - Oh man, we got here just in time.
   (:go-to (q1-phone :lead catherine)
@@ -372,7 +372,7 @@
 | (:excited)Take a look around and \"explore\"(orange)!
 | (:normal)Seeya later, Stranger!")
   (:eval
-   :on-complete (world q2-intro q3-intro)
+   :on-complete (q2-intro q3-intro)
    (move-to 'eng-cath (unit 'catherine))
    (fullscreen-prompt 'report-bug :input :keyboard)))
 ;; TODO Catherine contented - Anyway, don't worry about them.

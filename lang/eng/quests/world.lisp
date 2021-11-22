@@ -6,12 +6,12 @@
   :title "The World"
   :description "This world is unfamiliar to me. I should explore and learn more about it."
   :visible NIL
-  :on-activate (region1))
+  :on-activate (task-world-all))
 
 ;; Lore tooltips that can be accessed throughout the entire game - this quest can never be completed; some interactions may alter based on world state conditions.
 ;; Though maybe we add an achievement for finding and interacting with all of these.
 ;; Could structure across multiple tasks per region? So when a new region is accessed, it activates a new task full of lore triggers for that region.
-(quest:define-task (kandria world region1)
+(quest:define-task (kandria world task-world-all)
   :title "Explore the world"
   :condition NIL
   :on-activate T
@@ -132,21 +132,7 @@
 ? (complete-p 'q0-settlement-arrive)
 | | \"//Jack's workbench. I can smell body odour - does he work here, or work out?//\"(light-gray)
 |?
-| | \"//It's a workbench. Perhaps it belongs to this man - who come to think of it has a stare that could fry circuit boards.//\"(light-gray)
-")
-
-  ;; Farm - transition/view
-  ;; REMARK: Change to "[..] - not well though by the looks of it."
-  ;; TIM REPLY: I think this alt is weaker - the dying expression seems to capture the Stranger's wry wit?
-  (:interaction farm-view
-   :interactable lore-farm
-   :repeatable T
-   "
-~ player
-? (complete-p 'q1-water)
-| | \"//The irrigation is working again. The crops might be too far gone to make it though.//\"(light-gray)
-|?
-| | \"//This is farmland. They're growing potatoes - dying ones by the looks of it.//\"(light-gray)
+| | \"//It's a workbench. Perhaps it belongs to this man - who come to think of it has a stare that could fry circuits.//\"(light-gray)
 ")
 
   ;; Sandstorm transition/view
@@ -164,7 +150,7 @@
    :repeatable T
    "
 ~ player
-| //\"Zenith\"(red)\"... That was the name of the city, and this was the central station.\"(light-gray)//
+| \"//Zenith... That was the name of the city, and this was the central station.//\"(light-gray)
 | (:thinking)\"//Is it me, or was that insignia strangely prophetic?//\"(light-gray)
 ")
 
@@ -272,7 +258,21 @@
 ~ player
 | \"//That is quite the view.//\"(light-gray)
 | \"//The desert is bordered by mountains on all sides.//\"(light-gray)
-| \"//Judging by the cloud formations, I'd wager there's an ocean beyond the range to the east.//\"(light-gray)
+| \"//Judging by the cloud formations, and if I recall correctly, there's an ocean beyond the range to the east.//\"(light-gray)
+")
+
+  ;; Farm - transition/view
+  ;; REMARK: Change to "[..] - not well though by the looks of it."
+  ;; TIM REPLY: I think this alt is weaker - the dying expression seems to capture the Stranger's wry wit?
+  (:interaction farm-view
+   :interactable lore-farm
+   :repeatable T
+   "
+~ player
+? (complete-p 'q1-water)
+| | \"//The irrigation is working again. The crops might be too far gone to make it though.//\"(light-gray)
+|?
+| | \"//This is farmland. They're growing potatoes - dying ones by the looks of it.//\"(light-gray)
 ")
 
   (:interaction grave
@@ -290,22 +290,65 @@
    "
 ~ player
 | \"//It appears the old gasworks exploded. Was I something to do with that?//\"(light-gray)
-| \"//It's a pity: the gas holders could have been repurposed as grain silos.//\"(light-gray)
-"))
+? (complete-p 'q0-settlement-arrive)
+| | \"//It's a pity: the gas holders could have been repurposed as grain silos.//\"(light-gray)
+")
 ;; perhaps the old gasworks was being converted into something more modern, when an accident happened, perhaps involving the android. Like this explosion in Sheffield when an old gasworks was being converted in the 1970s: https://www.bbc.co.uk/news/uk-england-south-yorkshire-45097740
 
-#|
-;; TODO Old mushroom text interacts that could be repurposed as lore interacts:
-could reuse locations shrooms1 to 5?
 
-rusty puffball
-(:giggle)They make clothes out of these? Call me a fashion victim but I wouldn't be seen dead in them.
+  (:interaction trapped-engineers
+   :interactable semi-engineer-chief
+   :repeatable T
+  "
+! eval (setf (nametag (unit 'semi-engineer-chief)) \"???\")
+? (active-p (unit 'blocker-engineers))
+| ? (not (var 'first-talk))
+| | ~ semi-engineer-chief
+| | | (:weary)How in God's name did you get in here?
+| | ~ player
+| | | There's a tunnel above here - though it's not something a human could navigate.
+| | ~ semi-engineer-chief
+| | | ... A //human//? So you're...
+| | ~ player
+| | - Not human, yes.
+| |   ~ semi-engineer-chief
+| |   | (:shocked)... An android, as I live and breathe.
+| | - An android.
+| |   ~ semi-engineer-chief
+| |   | (:shocked)... As I live and breathe.
+| | - What are you doing in here?
+| | ~ semi-engineer-chief
+| | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | | The tunnel collapsed; we lost the chief and half the company.
+| | | We \"can't break through\"(orange) - can you? Can androids do that?
+| | | \"The collapse is just head.\"(orange)
+| | ! eval (setf (var 'first-talk) T)
+| |?
+| | ~ semi-engineer-chief
+| | | (:weary)How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
+|?
+| ? (not (var 'first-talk))
+| | ~ semi-engineer-chief
+| | | (:weary)Who are you? How did you break through the collapsed tunnel?
+| | ~ player
+| | - I'm... not human.
+| |   ~ semi-engineer-chief
+| |   | (:shocked)... An android, as I live and breathe.
+| | - I'm an android.
+| |   ~ semi-engineer-chief
+| |   | (:shocked)... As I live and breathe.
+| | - What are you doing in here?
+| | ~ semi-engineer-chief
+| | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | | We lost the chief and half the company when the tunnel collapsed.
+| | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
+| | | Thank you.
+| | ! eval (setf (var 'first-talk) T)
+| |?
+| | ~ semi-engineer-chief
+| | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already made the journey home. Thank you.
+| | | And now I have a new team, we can resume our task. It'll be slow-going, but we'll be careful this time.
+"))
 
-Why do they look like alien parasites from an old B-movie?
-
-black knight
-(:thinking)They remind me of decaying frogspawn. Yet I've never seen decaying frogspawn...
-
-They look like someone's insides if they were on the outside. That's probably what they'd do to you too. - used in item desc
-
-|#

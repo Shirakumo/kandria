@@ -77,13 +77,13 @@
   | (:excited)Yep. It's home.
 - It's nice.
   ~ catherine
-  | (:excited)I knew you'd love it.
+  | (:excited)I knew you'd love our home.
 - (Lie) It's nice.
   ~ catherine
-  | (:excited)Really? I knew you'd love it.
+  | (:excited)Really? I knew you'd love our home.
 - You live here?
   ~ catherine
-  | (:excited)Yep. Pretty amazing, huh?
+  | (:excited)Yep. Pretty amazing home, huh?
 ~ catherine
 | And come look at this - I guarantee you won't have ever seen anything like it.
 ! eval (complete 'tutorial)
