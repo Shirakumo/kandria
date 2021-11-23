@@ -6,8 +6,7 @@
   :title "The World"
   :description "This world is unfamiliar to me. I should explore and learn more about it."
   :visible NIL
-  :on-activate (task-world-all)
-  :variables (engineers-first-talk))
+  :on-activate (task-world-all))
 
 ;; Lore tooltips that can be accessed throughout the entire game - this quest can never be completed; some interactions may alter based on world state conditions.
 ;; Though maybe we add an achievement for finding and interacting with all of these.
@@ -308,7 +307,7 @@
 | | ~ semi-engineer-chief
 | | | (:weary)How in God's name did you get in here?
 | | ~ player
-| | | There's a tunnel above here - though it's not something a human could navigate.
+| | | There's a tunnel above this shaft - though it's not something a human could navigate.
 | | ~ semi-engineer-chief
 | | | ... A //human//? So you're...
 | | ~ player
@@ -324,9 +323,8 @@
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
-| | | \"The collapse is just head.\"(orange)
+| | | \"The collapse is just ahead.\"(orange)
 | | ! eval (setf (var 'engineers-first-talk) T)
-| | ! eval (setf (var 'q5a-engineers-met) T)
 | |?
 | | ~ semi-engineer-chief
 | | | (:weary)How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
@@ -349,7 +347,6 @@
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
 | | | Thank you.
 | | ! eval (setf (var 'engineers-first-talk) T)
-| | ! eval (setf (var 'q5a-engineers-met) T)
 | |?
 | | ~ semi-engineer-chief
 | | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already started the journey home. Thank you.

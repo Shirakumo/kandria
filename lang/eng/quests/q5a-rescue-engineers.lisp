@@ -30,12 +30,12 @@
     :title "Innis sent me. Are you the Semis engineers?"
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
-| ? (not (var 'q5a-engineers-met))
+| ? (not (var 'engineers-first-talk))
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) \"???\")
 | | ~ semi-engineer-chief
 | | | (:weary)How in God's name did you get in here?
 | | ~ player
-| | | There's a tunnel above here - though it's not something a human could navigate.
+| | | There's a tunnel above this shaft - though it's not something a human could navigate.
 | | ~ semi-engineer-chief
 | | | ... A //human//? So you're...
 | | ~ player
@@ -51,13 +51,13 @@
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
-| | | \"The collapse is just head.\"(orange)
-| | ! eval (setf (var 'q5a-engineers-met) T)
+| | | \"The collapse is just ahead.\"(orange)
+| | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
 | | | (:weary)How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
 |?
-| ? (not (var 'q5a-engineers-met))
+| ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
 | | | (:weary)Who are you? How did you break through the collapsed tunnel?
 | | ~ player
@@ -74,7 +74,7 @@
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
 | | | Thank you.
-| | ! eval (setf (var 'q5a-engineers-met) T)
+| | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
 | | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already started the journey home. Thank you.
