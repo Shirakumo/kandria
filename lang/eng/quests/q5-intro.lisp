@@ -46,9 +46,8 @@
 - It's not Alex's fault.
   ~ innis
   | Then whose fault is it?
-  | Look, life's harder than it used to be. It gets harder every day.
-  | People don't live in happy little bubbles any more, where survival's an afterthought.
-  | There's no empathy 'cause everyone's too busy trying not to die themselves.
+  | Look, life's harder than it used to be. People don't live in happy little bubbles any more, where survival's an afterthought.
+  | There's no empathy 'cause everyone's too busy trying not to die.
 ~ innis
 | So how much did my esteemed sister say? You know what needs doing?
 ? (not (active-p (unit 'blocker-engineers)))
@@ -102,7 +101,7 @@
   | We monitor the surrounding area, immediately above and below.
   | (:angry)Our cameras on the Cerebat border have gone down, at the \"bottom of our territory\"(orange).
   | It's probably just an electrical fault - unfortunately the way we daisy-chain them together means when one goes, they all go.
-  | (:normal)They're spread out across the access points along our border - well-suited to an android's speed, I'd wager.
+  | (:normal)They're spread out across the access points along our border - well-suited to an android's agility, I'd wager.
   < questions
 - I've got it.
 ~ innis
