@@ -18,7 +18,7 @@
     :interactable trader
     :dialogue "
 ~ trader
-| Well well... Are you who I think you are?
+| (:jolly)Well well... Are you who I think you are?
 ~ player
 - Who do you think I am?
   < identify
@@ -29,11 +29,11 @@
 
 # identify
 ~ trader
-| You're The Stranger!... Or is it just Stranger?
+| (:jolly)You're The Stranger!... Or is it just Stranger?
 ~ player
 - Technically it's just \"Stranger\".
   ~ trader
-  | Right you are, Stranger!
+  | (:jolly)Right you are, Stranger!
 - Take your pick.
   ~ trader
   | But it's __YOUR__ name. Now I think about it, I'm sure it was Stranger.
@@ -43,9 +43,9 @@
 
 # main
 ~ trader
-| Haha, yes sir. Guilty as charged.
+| (:jolly)Haha, yes sir. Guilty as charged.
 | She's such a great kid, you know? A talented engineer as well. Reminds me of...
-| Er-... well, never mind that.
+| (:normal)Er-... well, never mind that.
 | So you've come to trade with old Sahil, eh?
 ~ player
 - What do you sell?
@@ -74,7 +74,7 @@
 | \"//Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//\"(light-gray)
 | \"//He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//\"(light-gray)
 ~ trader
-| Voila! I give you: \"The Android Health Pack\"(orange)! Custom made just for you.
+| (:jolly)Voila! I give you: \"The Android Health Pack\"(orange)! Custom made just for you.
 ~ player
 | \"//It's crude, but I'm sure I can do something with it. If only poke my lenses out.//\"(light-gray)
 ~ trader
@@ -83,6 +83,7 @@
 )))
 ;; habibti = dear, my love, buddy (Arabic)
 
+;; TODO - added act 3 quest transition check to "|? (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex))" to ensure chat log updates in act 3
 (quest:define-quest (kandria trader-chat)
   :author "Tim White"
   :title "Trader Chat"
@@ -98,22 +99,22 @@
     :repeatable T
     :dialogue "
 ~ trader
-| Assalam alaikum! Let's talk.
+| (:jolly)Assalam alaikum! Let's talk.
 ? (< 80  (health player))
-| | [? You look well, Stranger! | And how robust you're looking! | I don't think I've seen you looking better.]
+| | (:jolly)[? You look well, Stranger! | And how robust you're looking! | I don't think I've seen you looking better.]
 |? (< 50  (health player))
-| | [? Have you been fighting, Stranger? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you?]
+| | [? Have you been fighting, Stranger? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
 |?
-| | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
+| | (:concerned)[? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label talk
-? (not (complete-p 'q4-find-alex))
+? (and (not (active-p 'q4-find-alex)) (not (complete-p 'q4-find-alex)))
 | ~ player
 | - What's your story?
 |   ~ trader
 |   | A long and sad one I'm afraid... Like most people's.
 |   | I used to hang with the Wraw too, just like the \"Noka\"(red) did.
 |   | I got out too, only with my caravan instead of a vendetta.
-|   | And now I tour the settlements, trading, making ends meet - and making things too.
+|   | And now I tour the settlements, trade supplies, (:jolly)and try not to get killed, haha.
 |   < talk
 | - What do you make of this place?
 |   ~ trader
@@ -136,11 +137,65 @@
 |   < talk
 | - That'll do.
 |   < leave
+|? (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex))
+| ~ player
+| - I thought you might have moved on by now.
+|   ~ trader
+|   | You tired of me already?- (:jolly)I'm just kidding.
+|   | You're right habibti, that is what I do. I'll be moving on soon.
+|   | If I stayed in one place too long I'd either run out of stock, or get run through by rogues. (:jolly)I'm not sure which is worse.
+|   | It feels good to have something to look after, you know? (:sad)Even if a business is no replacement for Khawla.
+|   ~ player
+|   - Who's Khawla?
+|     ~ trader
+|     | (:sad)She was my daughter. She's long dead.
+|     ~ player
+|     - I'm sorry.
+|       ~ trader
+|       | (:sad)Me too. It is what it is. Everyone's lost someone.
+|     - What happened?
+|       ~ trader
+|       | (:sad)I... (:normal)I'd rather not talk about it, if it's all the same. 
+|     - Let's talk about something else.
+|   - Let's talk about something else.
+|   < talk
+| - What do you know of the Semi Sisters?
+|   ~ trader
+|   | They're our resident tech gurus! (:jolly)Ha, remember those.
+|   | (:normal)I remember a presentation from the head of Semi actually - don't remember his name - unveiling new models of android, just like you.
+|   | Innis and Islay used to work on the production line, in the factories deep underground. (:concerned)Conditions were terrible by all accounts.
+|   | (:normal)I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
+|   < talk
+| - Do you know how to examine me?
+|   ~ trader
+|   | (:concerned)Ah... examine you?
+|   | (:jolly)Oh, examine you!
+|   | You've had a warm welcome, have you? Someone don't trust you?
+|   ~ player
+|   - Jack and Fi.
+      ~ trader
+|     | Oh really? I expected nothing less from Jack. Fi I'm surprised.
+|     | Mind you, she has a lot of alqarf on her plate. Give her some time.
+|   - Everyone.
+|     ~ trader
+|     | (:concerned)People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
+|     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
+|     | (:normal)And if they push it... I doubt they'll be bothering you again. (:jolly)Or anyone else.
+|   - Everyone except you and Catherine.
+|     ~ trader
+|     | (:concerned)People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
+|     | (:normal)I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
+|     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
+|     | (:normal)And if they push it... I doubt they'll be bothering you again. (:jolly)Or anyone else.
+|   < talk
+| - That'll do.
+|   < leave
 
 # leave
 ~ trader
 | [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah!]")))
 ;; nadhil = bastard (Arabic)
+;; alqarf = shit (Arabic), pronounce: al-kara-fu
 
 (quest:define-quest (kandria trader-shop)
   :title "Trade"
@@ -160,70 +215,10 @@
     :title (@ shop-sell-items)
     :dialogue "! eval (show-sales-menu :sell 'trader)")))
 
-#| TODO restore Sahil comment about the sword? Could be an NPC agency question he asks you, during chatting when asking him stuff; on first parting, have the dialogue trigger, then set a var so it doesn't happen again.
-Prev dialogue referece:
-
-~ trader
-| Say, I don't suppose you'd like to trade that sword of yours? I've never seen anything like it.
-~ player
-- It's an electronic stun blade. And I need it.
-  ~ trader
-  | Electronic?... That's downright incredible. And it transforms from your hand?
-  < sword-explain
-- It's paired to my NFCS. It'd just be a big stick to anyone else.
-  ~ trader
-  | It's electronic?... That's downright incredible. And it transforms from your hand?
-  < sword-explain
-- It's not for sale.
-  < end
-
-# sword-explain
-~ player
-| Correct - it conserves power that way, then auto-unsheathes when I need it.
-< end
-
-# end
-~ trader
-| Well, if you ever change your mind, don't go to anyone else. I'd trade handsomely for it, you can be sure of that.
-| You take it easy, habibti.
-
-And then also add to the chatting sign off random selection: Goodbye! And if you ever change your mind about that sword of yours... I know, I know. 
-
-|#
-
-
-#| TODO when get scrolling options, restore to talk menu (or add as replacement talking points, once the narrative has moved onto act 2) - this would need editing now too to replace mention of a computer with anything Sahil can do or knows about to "scan" the android - which he won't, and it will remain unanswered for the rest of the game
-
-| - Do you know about finding a computer?
-|   ~ trader
-|   | A computer? Now there's a word you don't hear anymore.
-|   | Does Catherine want to play one of those video games from the old world I was telling her about?
-|   | You remember them, right?
-|   ~ player
-|   - Sure, games were fun.
-|     ~ trader
-|     | You betcha! Boy do I miss the internet.
-|   - They were a new artform, sadly lost.
-|     ~ trader
-|     | Well said, Stranger. Well said.
-|   - They used similar technology to my own. I admired that.
-|     ~ trader
-|     | Indeed, there was a lot to admire - especially for a tech-head like me.
-|   ~ trader
-|   | But no, no one told me anything about a computer. Which is good, because working ones are impossible to find.
-|   < talk
-| - Do you like androids?
-|   ~ trader
-|   | Ah, you've had a warm welcome, have you?
-|   | Listen, it's nothing personal. It's just everyone has heard the stories, you know?
-|   | It's always androids this, androids that... Like a race of servile machines could destroy the world!
-|   | No offence. It's haraa, that's what it is.
-|   ~ player
-|   | So what did destroy the world?
-|   ~ trader
-|   | I don't know...
-|   | But what I do know is humanity could stand to take a good long look in the mirror.
-|   < talk
+#| Sahil subplot arc:
+1. had some tragedy
+2. find out his daughter died
+3. find out how his daughter died (link to Wraw/rogues?)
 
 |#
 
