@@ -100,7 +100,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
     :repeatable T
     :dialogue "
 ~ islay
-| (:unhappy)I'm sorry about my sister.
+| (:unhappy)Hello, Stranger. I'm sorry about my sister.
 | (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us\"(orange).
 | Just don't tell Innis I told you.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
@@ -165,7 +165,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ alex
   | No it ain't. Far from it.
 ~ alex
-| (:angry)I've heard about you, doing my job- <-hic->. Innis even showed me the CCCTV.
+| (:angry)I've heard about you, doing my job- <-Hic->. Innis even showed me the CCCTV.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | So why would Fi need little ol' me any more?
 | So run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
