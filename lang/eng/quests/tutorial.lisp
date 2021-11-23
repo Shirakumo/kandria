@@ -74,22 +74,25 @@
 ~ player
 - It's a ruined city.
   ~ catherine
-  | (:excited)Yep. It's home.
+  | (:excited)Yay, your voice box works too.
+  | Yep. This is home.
 - It's nice.
   ~ catherine
-  | (:excited)I knew you'd love our home.
+  | (:excited)Yay, your voice box works too.
+  | I knew you'd love our home.
 - (Lie) It's nice.
   ~ catherine
-  | (:excited)Really? I knew you'd love our home.
+  | (:excited)Yay, your voice box works too.
+  | Really? You like it? I knew you'd love our home.
 - You live here?
   ~ catherine
-  | (:excited)Yep. Pretty amazing home, huh?
+  | (:excited)Yay, your voice box works too.
+  | Yep. Pretty amazing home, huh?
 ~ catherine
 | And come look at this - I guarantee you won't have ever seen anything like it.
 ! eval (complete 'tutorial)
 ! eval (activate 'q0-settlement-arrive)
-  ")
-)
+  "))
 
 ;; TODO when name vars persist across saves, init Catherine's name to "Woman" or "???" (VN style), and then set it to Catherine here via: ! eval (setf (nametag player) \"Catherine\") once Catherine has introduced herself
 ;; SCRATCH Not too talkative though... Don't worry - (:excited)I can talk enough for both of us!
