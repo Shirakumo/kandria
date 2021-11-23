@@ -42,8 +42,8 @@
         (alloy:on alloy:activate (element)
           (setf (tile-to-place widget) (alloy:value element)))))
     (alloy:observe 'tile widget (lambda (value object)
-                                  (unless (equal value (aref +tile-history+ 0))
-                                    (loop for i downfrom (1- (length +tile-history+)) above 0
+                                  (let ((pos (or (position value +tile-history+ :test #'equal) (1- (length +tile-history+)))))
+                                    (loop for i downfrom pos above 0
                                           do (setf (aref +tile-history+ i) (aref +tile-history+ (1- i))))
                                     (setf (aref +tile-history+ 0) value)
                                     (alloy:do-elements (element layout)
