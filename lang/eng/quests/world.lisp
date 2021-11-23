@@ -230,14 +230,14 @@
 ")
 
   ;; This should be Brother (surveillance) offices? hint at an authoritarian former world? makes the joke work better? Leads into Semi Sisters next faction?
-  ;; North Star is a more original name for surveillance than Brother? And the link to Semi Sisters cool name is not required to keep it. Yes.
+  ;; North Star is a more original name for surveillance than Brother? And the link to Semi Sisters cool name is not required to keep it. Yes. Well, can have both listed as companies here.
   ;; Did not literally manufacture satellites here - it's not a factory, but offices.
   (:interaction offices
    :interactable lore-office
    :repeatable T
    "
 ~ player
-| (:thinking)\"//North Star offices. They manufactured guidance, satellite and surveillance systems.//\"(light-gray)
+| (:thinking)\"//Brother and North Star offices. They manufactured guidance, satellite and surveillance systems.//\"(light-gray)
 | (:normal)\"//Bet they never saw this coming.//\"(light-gray)
 ")
 
