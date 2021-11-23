@@ -22,9 +22,9 @@
 | ~ player
 | - How's Alex?
 |   ~ islay
-|   | (:unhappy)Not much better I'm afraid. He's an alcoholic. 
+|   | (:unhappy)Not much better I'm afraid. They're an alcoholic.
 |   | (:normal)I think talking is helping though.
-|   | If I can get him out of this bar it will be a start.
+|   | If I can get them out of this bar it will be a start.
 |   < talk
 | - Why spy on the Noka?
 |   ~ islay
@@ -33,18 +33,18 @@
 |   | For what it's worth I value our friendship with the Noka. Innis does too, in her own way.
 | - Are you really witches?
 |   ~ islay
-|   | (:unhappy)I'd have thought you of all people would know the cost of believing in superstition.
+|   | (:unhappy)I'd have thought you of all people would know the cost of superstition.
 |   | We're as much witches as you are a menace.
-|   | (:normal)People have never trusted what they don't understand. That hasn't changed just 'cause the world fell apart.
-|   | And why should they, really? Perhaps it's on people like us to educate them.
+|   | (:normal)People don't trust what they don't understand. That hasn't changed just 'cause the world fell apart.
+|   | And why should they, really? Perhaps it's on people like us to teach them.
 |   < talk
 | - What do you remember from before the Calamity?
 |   ~ islay
 |   | (:unhappy)It was another world, another lifetime.
 |   | (:normal)If you're wondering whether androids destroyed the world, I can't help you.
 |   | I wasn't on the surface - (:unhappy)few of us were, that's why we're still here.
-|   | (:normal)But I can't see how that would've been possible.
-|   | And even if you did, I doubt very much it was your own doing. No.
+|   | (:normal)But I don't see how that would've been possible.
+|   | And even if androids did, I doubt very much it was their own doing. No.
 |   | No one destroyed humanity except humanity.
 |   < talk
 | - That'll do.
@@ -52,7 +52,7 @@
 
 # leave
 ~ islay
-| [? Take care, Stranger. | Mind how you go. | I'll be seeing you.]")))
+| [? Take care, Stranger. | Mind how you go. | I'll be seeing you. | Ta-ta.]")))
 
 (quest:define-quest (kandria trader-shop-semi)
   :title "Trade"
