@@ -6,7 +6,8 @@
   :title "The World"
   :description "This world is unfamiliar to me. I should explore and learn more about it."
   :visible NIL
-  :on-activate (task-world-all))
+  :on-activate (task-world-all)
+  :variables (engineers-first-talk))
 
 ;; Lore tooltips that can be accessed throughout the entire game - this quest can never be completed; some interactions may alter based on world state conditions.
 ;; Though maybe we add an achievement for finding and interacting with all of these.
@@ -299,10 +300,11 @@
   (:interaction trapped-engineers
    :interactable semi-engineer-chief
    :repeatable T
+   :title "Who are you?"
   "
 ! eval (setf (nametag (unit 'semi-engineer-chief)) \"???\")
 ? (active-p (unit 'blocker-engineers))
-| ? (not (var 'first-talk))
+| ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
 | | | (:weary)How in God's name did you get in here?
 | | ~ player
@@ -323,12 +325,13 @@
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
 | | | \"The collapse is just head.\"(orange)
-| | ! eval (setf (var 'first-talk) T)
+| | ! eval (setf (var 'engineers-first-talk) T)
+| | ! eval (setf (var 'q5a-engineers-met) T)
 | |?
 | | ~ semi-engineer-chief
 | | | (:weary)How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
 |?
-| ? (not (var 'first-talk))
+| ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
 | | | (:weary)Who are you? How did you break through the collapsed tunnel?
 | | ~ player
@@ -345,10 +348,11 @@
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
 | | | Thank you.
-| | ! eval (setf (var 'first-talk) T)
+| | ! eval (setf (var 'engineers-first-talk) T)
+| | ! eval (setf (var 'q5a-engineers-met) T)
 | |?
 | | ~ semi-engineer-chief
 | | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already started the journey home. Thank you.
-| | | We can resume our task. It'll be slow-going, but we'll be careful this time.
+| | | We can resume our task. It'll be slow-going, but we'll get it done.
 "))
 

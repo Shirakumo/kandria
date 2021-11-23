@@ -21,10 +21,30 @@
 ? (not (complete-p 'q6-return-to-fi))
 | ~ player
 | - How's Alex?
-|   ~ islay
-|   | (:unhappy)Not much better I'm afraid. They're an alcoholic.
-|   | (:normal)I think talking is helping though.
-|   | If I can get them out of this bar it will be a start.
+|   ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-repair-cctv))
+|   | ~ alex
+|   | | (:angry)What's the matter? Afraid to talk to me yourself, android? <-Hic->.
+|   | ~ islay
+|   | | (:nervous)The barkeep has stopped serving them, which is something.
+|   | ~ alex
+|   | | (:angry)Eh, android. <-Hic->. I 'ear you even stole my jobs around 'ere now too.
+|   | | Go fuck yourself.
+|   | ~ islay
+|   | | (:expectant)You could work together Alex, for the Noka. Return to Fi together with Stranger, and get your old life back.
+|   | ~ alex
+|   | | (:unhappy)\"Stranger\", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people.
+|   | | I'm going nowhere. Get lost, both of you.
+|   | ~ islay
+|   | | (:normal)Perhaps it would be best if we leave them alone for a while.
+|   | | I suggest you relay your findings to Fi.
+|   | | We'll speak again.
+|   | ! eval (setf (walk 'islay) T)
+|   | ! eval (move-to 'islay-intercept (unit 'islay))
+|   |?
+|   | ~ islay
+|   | | (:unhappy)Not much better I'm afraid. They're an alcoholic.
+|   | | (:normal)I think talking is helping though.
+|   | | If I can get them out of this bar it will be a start.
 |   < talk
 | - Why spy on the Noka?
 |   ~ islay

@@ -83,6 +83,16 @@
 |   ~ innis
 |   | We might have the technological edge 'round here, but out in the sticks news travels slowly.
 |   | I only just got word o' this change myself.
+| ~ innis
+| | The good news for you is that it means our engineering works are back on schedule.
+| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we... (:awkward)if //I// officially grant you access to the metro.
+| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
+? (var 'metro-used)
+| | (:sly)I know you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
+| | (:normal)The stations run throughout our territory and beyond. Though not all are operational while we expand the network.
+|?
+| | (:normal)You'll find the stations run throughout our territory and beyond. Though not all are operational while we expand the network.
+| | \"Simply open the blast doors and call the train.\"(orange)
 ! label questions
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
@@ -92,9 +102,9 @@
   | (:angry)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
   | The hunters canna go any further. But you can.
   < questions
-- [(not (active-p (unit 'blocker-engineers))) What were the engineers working on?|]
+- [(not (active-p (unit 'blocker-engineers))) So the engineers were working on the metro?|]
   ~ innis
-  | We're slowly digging out parts of the old maglev metro system. (:pleased)We've got a basic electrified railway going.
+  | Correct. We're slowly digging out parts of the old maglev system. (:pleased)We've got a basic electrified railway going.
   | (:angry)But it's dangerous work.
   < questions
 - Tell me about the downed CCTV.
@@ -106,7 +116,8 @@
 - I've got it.
 ~ innis
 | \"Report back\"(orange) when you have news.
-? (not (active-p (unit 'blocker-engineers)))
+? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'q5a-rescue-engineers)
 ! eval (activate 'q5b-repair-cctv)
 "))
+;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station

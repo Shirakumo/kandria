@@ -67,7 +67,7 @@
 | We've got engineers stuck after a tunnel collapse. And our CCTV network on the Cerebat border has gone down.
 | (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis\"(orange).
 | Perhaps see her also as a challenge to overcome. (:happy)I know I do.
-| (:normal)Ta-ta for now.
+| (:normal)Ta-ta for now, Stranger.
 ! eval (stop-following 'islay)
 ! eval (setf (walk 'islay) T)
 ! eval (move-to 'alex (unit 'islay))
