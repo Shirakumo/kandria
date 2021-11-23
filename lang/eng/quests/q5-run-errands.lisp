@@ -20,8 +20,7 @@
 - See for yourself.
 ~ islay
 | (:nervous)I feared as much.
-| (:normal)What if I talk to them?
-| If you can give me some time, I could help them see reason.
+| (:normal)What if I talk to them? I could help them see reason.
 ~ player
 - I'd appreciate that.
   ~ islay
@@ -66,7 +65,7 @@
 | (:unhappy)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
 | We've got engineers stuck after a tunnel collapse. And our CCTV network on the Cerebat border has gone down.
 | (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis\"(orange).
-| Perhaps see her also as a challenge to overcome. (:happy)I know I do.
+| Perhaps see her too as a challenge to overcome. (:happy)I know I do.
 | (:normal)Ta-ta for now, Stranger.
 ! eval (stop-following 'islay)
 ! eval (setf (walk 'islay) T)
