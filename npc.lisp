@@ -14,6 +14,8 @@
   (print-unreadable-object (npc stream :type T)
     (format stream "~s ~s" (state npc) (ai-state npc))))
 
+(defmethod capable-p ((npc npc) (edge jump-node)) T)
+
 (defmethod description ((npc npc))
   (language-string 'npc))
 
@@ -298,7 +300,6 @@
 (defmethod movement-speed ((catherine catherine))
   (* 1.01 (call-next-method)))
 
-(defmethod capable-p ((catherine catherine) (edge jump-node)) T)
 (defmethod capable-p ((catherine catherine) (edge crawl-node)) T)
 (defmethod capable-p ((catherine catherine) (edge climb-node)) T)
 
