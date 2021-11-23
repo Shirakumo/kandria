@@ -55,9 +55,10 @@
   (defstruct* (climb-node (:include move-node) (:constructor make-climb-node (to))))
   (defstruct* (fall-node (:include move-node) (:constructor make-fall-node (to))))
   (defstruct* (jump-node (:include move-node) (:constructor make-jump-node (to strength)))
-    (strength NIL :type vec2))
+      (strength NIL :type vec2))
   (defstruct* (rope-node (:include climb-node) (:constructor make-rope-node (to rope)))
-    (rope NIL)))
+      (rope NIL))
+  (defstruct* (inter-door-node (:include move-node) (:constructor make-inter-door-node (to)))))
 
 (declaim (inline node-idx))
 (defun node-idx (graph x y)
@@ -286,21 +287,37 @@
            (create-jump-connections solids graph x y +1)))))))
 
 (defun create-entity-connections (chunk region graph)
-  (bvh:do-fitting (entity (bvh region) chunk)
-    (typecase entity
-      (rope
-       (let ((top (chunk-node-idx chunk (vec (+ (vx (location entity))
-                                                (* (direction entity) +tile-size+))
-                                             (+ (vy (location entity))
-                                                (vy (bsize entity))))))
-             (bot (chunk-node-idx chunk (vec (vx (location entity))
-                                             (- (vy (location entity))
-                                                (vy (bsize entity)))))))
-         ;; FIXME: Ropes across chunks
-         (when (and (< 0 top (length (node-graph-grid graph)))
-                    (< 0 bot (length (node-graph-grid graph))))
-           (push (make-rope-node top entity) (svref (node-graph-grid graph) bot))
-           (push (make-rope-node bot entity) (svref (node-graph-grid graph) top))))))))
+  (let ((grid (node-graph-grid graph)))
+    (bvh:do-fitting (entity (bvh region) chunk)
+      (typecase entity
+        (rope
+         (let ((top (chunk-node-idx chunk (vec (+ (vx (location entity))
+                                                  (* (direction entity) +tile-size+))
+                                               (+ (vy (location entity))
+                                                  (vy (bsize entity))))))
+               (bot (chunk-node-idx chunk (vec (vx (location entity))
+                                               (- (vy (location entity))
+                                                  (vy (bsize entity)))))))
+           ;; FIXME: Ropes across chunks
+           (when (and (< 0 top (length grid))
+                      (< 0 bot (length grid)))
+             (push (make-rope-node top entity) (svref grid bot))
+             (push (make-rope-node bot entity) (svref grid top)))))
+        (door
+         (flet ((closest-idx (entity)
+                  (loop for x from (- (vx (location entity)) (vx (bsize entity)))
+                        below (+ (vx (location entity)) (vx (bsize entity))) by +tile-size+
+                        do (loop for y from (- (vy (location entity)) (vy (bsize entity)))
+                                 below (+ (vy (location entity)) (vy (bsize entity))) by +tile-size+
+                                 for vec = (vec x y)
+                                 for idx = (chunk-node-idx chunk vec)
+                                 do (when (and (< idx (length grid)) (svref grid idx))
+                                      (return-from closest-idx idx))))))
+           (when (and (primary entity) (eq chunk (find-chunk (location (target entity)) region)))
+             (let ((a (closest-idx entity))
+                   (b (closest-idx (target entity))))
+               (push (make-inter-door-node b) (svref grid a))
+               (push (make-inter-door-node a) (svref grid b))))))))))
 
 (defun make-node-graph (chunk &optional (region (region +world+)))
   (let ((graph (%make-node-graph (floor (vx (size chunk))) (floor (vy (size chunk))))))
@@ -333,6 +350,7 @@
                (+ (vsqrdist2 (from-idx (move-node-to node)) (from-idx (to-idx goal)))
                   (etypecase node
                     (walk-node  0)
+                    (inter-door-node 0)
                     (fall-node  100000)
                     (crawl-node 100000000)
                     (climb-node 1000000000)
@@ -395,7 +413,8 @@
                         for loc = ,loc
                         for idx = (chunk-node-idx from loc)
                         while (< idx (length grid))
-                        do (when (svref grid idx)
+                        do (when (and (svref grid idx)
+                                      (contained-p (v+ loc ,to) to))
                              (make-chunk-node nodes from loc to (v+ loc ,to))))))
       (cond ((< (vx xcross) (vy xcross))
              (cond ((= (- (vy (location from)) (vy (bsize from)))
@@ -454,10 +473,11 @@
                       (to-loc (first (sort (locs-with-connections to-chunk to) #'<
                                            :key (lambda (a) (vsqrdist2 a (location to)))))))
                  (dolist (from-loc (locs-with-connections from-chunk from))
-                   (make-chunk-node nodes
-                                    from-chunk from-loc
-                                    to-chunk to-loc
-                                    constructor)))))
+                   (unless (eq from-chunk to-chunk)
+                     (make-chunk-node nodes
+                                      from-chunk from-loc
+                                      to-chunk to-loc
+                                      constructor))))))
       ;; Compute chunk list and assign IDs
       (for:for ((entity over region))
         (when (typep entity 'chunk)
@@ -546,6 +566,8 @@
 (defgeneric capable-p (movable edge))
 (defgeneric move-to (target movable))
 (defmethod capable-p ((movable movable) (edge walk-node)) T)
+(defmethod capable-p ((movable movable) (edge door-node)) T)
+(defmethod capable-p ((movable movable) (edge inter-door-node)) T)
 (defmethod capable-p ((movable movable) (edge fall-node)) T)
 (defmethod capable-p ((movable movable) (edge jump-node)) NIL)
 (defmethod capable-p ((movable movable) (edge crawl-node)) NIL)
@@ -700,6 +722,25 @@
           (crawl-node
            (move-towards source target)
            (setf (state movable) :crawling))
+          (inter-door-node
+           (flet ((teleport ()
+                    (pop (path movable))
+                    ;; FIXME: add a timer to let the animation complete
+                    (vsetf (location movable) (vx target) (+ (- (vy target) (/ +tile-size+ 2)) (vy (bsize movable))))
+                    (setf (current-node movable) target)))
+             (vsetf vel 0 0)
+             ;; FIXME: Need to properly distinguish whether we need to enter forward or backward
+             (typecase movable
+               (player
+                (start-animation 'enter movable)
+                (transition (teleport)))
+               (T
+                (start-animation 'enter movable)
+                (when (and (= (frame-idx movable) (1- (end (animation movable))))
+                           (<= (duration (aref (frames movable) (frame-idx movable)))
+                               (+ (dt tick) (clock movable))))
+                  (setf (state movable) :normal)
+                  (teleport))))))
           (teleport-node
            (bvh:do-fitting (entity (bvh (region +world+)) movable)
              (typecase entity
@@ -733,7 +774,7 @@
                (move-towards source target))))
         ;; Check whether to move on to the next step
         (typecase node
-          ((or door-node teleport-node symbol))
+          ((or door-node inter-door-node teleport-node symbol))
           (climb-node
            (when (<= (vy target) (vy loc))
              (pop (path movable))

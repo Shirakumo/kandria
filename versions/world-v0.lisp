@@ -190,7 +190,8 @@
             (5 (push (make-jump-node to (decode 'vec2)) (svref grid i)))
             (6 (let* ((name (decode-payload stream 'symbol packet 'binary-v0))
                       (unit (or (unit name *region*) (error "No such unit ~a" name))))
-                 (push (make-rope-node to unit) (svref grid i))))))))))
+                 (push (make-rope-node to unit) (svref grid i))))
+            (7 (push (make-inter-door-node to) (svref grid i)))))))))
 
 (define-encoder (node-graph binary-v0) (stream packet)
   (nibbles:write-ub16/le (node-graph-width node-graph) stream)
@@ -200,6 +201,9 @@
           do (nibbles:write-ub16/le (length nodes) stream)
              (dolist (node nodes)
                (etypecase node
+                 (inter-door-node
+                  (write-byte 7 stream)
+                  (nibbles:write-ub32/le (move-node-to node) stream))
                  (rope-node
                   (write-byte 6 stream)
                   (nibbles:write-ub32/le (move-node-to node) stream)
