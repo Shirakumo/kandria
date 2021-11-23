@@ -320,10 +320,11 @@
                (push (make-inter-door-node a) (svref grid b))))))))))
 
 (defun make-node-graph (chunk &optional (region (region +world+)))
-  (let ((graph (%make-node-graph (floor (vx (size chunk))) (floor (vy (size chunk))))))
-    (create-connections (pixel-data chunk) graph)
-    (create-entity-connections chunk region graph)
-    graph))
+  (trial::with-timing-report (:info :kandria.move-to "Computed node graph for ~a in ~fs run time, ~fs clock time." chunk)
+    (let ((graph (%make-node-graph (floor (vx (size chunk))) (floor (vy (size chunk))))))
+      (create-connections (pixel-data chunk) graph)
+      (create-entity-connections chunk region graph)
+      graph)))
 
 (defun shortest-chunk-path (graph start goal offset test)
   (declare (optimize speed))
@@ -453,50 +454,51 @@
                              (vec (+ +tile-size+) 0)))))))))
 
 (defun make-chunk-graph (region)
-  (let ((chunks ()) (i 0))
-    (labels ((locs-with-connections (chunk entity)
-               (let ((containing ()))
-                 (loop with nodes = (node-graph-grid (node-graph chunk))
-                       for x from (- (vx (location entity)) (vx (bsize entity)))
-                       below (+ (vx (location entity)) (vx (bsize entity))) by +tile-size+
-                       do (loop for y from (- (vy (location entity)) (vy (bsize entity)))
-                                below (+ (vy (location entity)) (vy (bsize entity))) by +tile-size+
-                                for vec = (vec x y)
-                                for idx = (chunk-node-idx chunk vec)
-                                do (when (and (< idx (length nodes))
-                                              (svref nodes idx))
-                                     (pushnew vec containing :test #'v=))))
-                 containing))
-             (connect-entities (nodes from to constructor)
-               (let* ((from-chunk (find-chunk (location from) region))
-                      (to-chunk (find-chunk (location to) region))
-                      (to-loc (first (sort (locs-with-connections to-chunk to) #'<
-                                           :key (lambda (a) (vsqrdist2 a (location to)))))))
-                 (dolist (from-loc (locs-with-connections from-chunk from))
-                   (unless (eq from-chunk to-chunk)
-                     (make-chunk-node nodes
-                                      from-chunk from-loc
-                                      to-chunk to-loc
-                                      constructor))))))
-      ;; Compute chunk list and assign IDs
-      (for:for ((entity over region))
-        (when (typep entity 'chunk)
-          (push entity chunks)
-          (setf (chunk-graph-id entity) i)
-          (incf i)))
-      ;; Compute internal connections
-      (let ((nodes (make-array (length chunks) :initial-element NIL)))
-        (dolist (chunk chunks nodes)
-          (dolist (other chunks)
-            (unless (eql chunk other)
-              (connect-chunks nodes chunk other)))
-          (bvh:do-fitting (entity (bvh region) chunk)
-            (typecase entity
-              (door
-               (connect-entities nodes entity (target entity) #'%make-door-node))
-              (teleport-trigger
-               (when (primary entity)
-                 (connect-entities nodes entity (target entity) #'%make-teleport-node))))))))))
+  (trial::with-timing-report (:info :kandria.move-to "Computed chunk graph for ~a in ~fs run time, ~fs clock time." region)
+    (let ((chunks ()) (i 0))
+      (labels ((locs-with-connections (chunk entity)
+                 (let ((containing ()))
+                   (loop with nodes = (node-graph-grid (node-graph chunk))
+                         for x from (- (vx (location entity)) (vx (bsize entity)))
+                         below (+ (vx (location entity)) (vx (bsize entity))) by +tile-size+
+                         do (loop for y from (- (vy (location entity)) (vy (bsize entity)))
+                                  below (+ (vy (location entity)) (vy (bsize entity))) by +tile-size+
+                                  for vec = (vec x y)
+                                  for idx = (chunk-node-idx chunk vec)
+                                  do (when (and (< idx (length nodes))
+                                                (svref nodes idx))
+                                       (pushnew vec containing :test #'v=))))
+                   containing))
+               (connect-entities (nodes from to constructor)
+                 (let* ((from-chunk (find-chunk (location from) region))
+                        (to-chunk (find-chunk (location to) region))
+                        (to-loc (first (sort (locs-with-connections to-chunk to) #'<
+                                             :key (lambda (a) (vsqrdist2 a (location to)))))))
+                   (dolist (from-loc (locs-with-connections from-chunk from))
+                     (unless (eq from-chunk to-chunk)
+                       (make-chunk-node nodes
+                                        from-chunk from-loc
+                                        to-chunk to-loc
+                                        constructor))))))
+        ;; Compute chunk list and assign IDs
+        (for:for ((entity over region))
+          (when (typep entity 'chunk)
+            (push entity chunks)
+            (setf (chunk-graph-id entity) i)
+            (incf i)))
+        ;; Compute internal connections
+        (let ((nodes (make-array (length chunks) :initial-element NIL)))
+          (dolist (chunk chunks nodes)
+            (dolist (other chunks)
+              (unless (eql chunk other)
+                (connect-chunks nodes chunk other)))
+            (bvh:do-fitting (entity (bvh region) chunk)
+              (typecase entity
+                (door
+                 (connect-entities nodes entity (target entity) #'%make-door-node))
+                (teleport-trigger
+                 (when (primary entity)
+                   (connect-entities nodes entity (target entity) #'%make-teleport-node)))))))))))
 
 (defun shortest-path (start goal test &optional (region (region +world+)))
   (let* ((graph (chunk-graph region))
