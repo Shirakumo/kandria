@@ -85,14 +85,14 @@
 |   | I only just got word o' this change myself.
 | ~ innis
 | | The good news for you is that it means our engineering works are back on schedule.
-| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we... (:awkward)if //I// officially grant you access to the metro.
+| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we... (:awkward)//if I// officially grant you access to the metro.
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
 | ? (var 'metro-used)
 | | | (:sly)I know you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
 | | | (:normal)The stations run throughout our territory and beyond. Though not all are operational while we expand the network.
 | |?
 | | | (:normal)You'll find the stations run throughout our territory and beyond. Though not all are operational while we expand the network.
-| | | \"Simply open the blast doors and call the train.\"(orange)
+| | | \"Simply open the blast doors and call a train.\"(orange)
 ! label questions
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]

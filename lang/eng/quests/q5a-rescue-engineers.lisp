@@ -85,40 +85,49 @@
 
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
   (q5a-task-return-engineers
-   :title "Return to Innis in the Semi Sisters housing complex"
-   :condition all-complete
+   :title "Once you've cleared the tunnel, return to Innis in the Semi Sisters housing complex"
+   :condition NIL
    :on-activate T
    (:interaction q5a-return-engineers
-    :title "The engineers are freed."
+    :title "(Discuss the engineers)"
     :interactable innis
+    :repeatable T
     :dialogue "
-~ innis
-| (:pleased)The injured engineers are already on their way back - I've sent hunters to guide them.
-| (:normal)How did you clear that debris? Is there something I don't know about androids?
-~ player
-- I found a weak point in the rocks and pushed.
-  ~ innis
-  | That sounds plausible. Your fusion reactor could certainly generate the force, and your nanotube muscles would withstand the impact.
-- I just smashed through.
-  | I believe you did. Your fusion reactor could certainly generate the force, and your nanotube muscles would withstand the impact.
-- Wouldn't you like to know.
-  ~ innis
-  | (:sly)I would indeed. Don't worry. Things don't remain secret 'round here very long.
-  | I suspect the combination of fusion reactor and nanotube muscles makes you quite formidable.
-~ innis
-| There's something else...
-| My sister, in her infinite wisdom, thought it might be a nice gesture if we... (:awkward)if //I// officially grant you access to the metro.
-| ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
-? (var 'metro-used)
-| | (:sly)I know you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
-| | (:normal)The stations run throughout our territory and beyond. Though not all are operational while we expand the network.
-|?
-| | (:normal)You'll find the stations run throughout our territory and beyond. Though not all are operational while we expand the network.
-| | \"Simply open the blast doors and call the train.\"(orange)
-? (complete-p 'q5b-repair-cctv)
+? (active-p (unit 'blocker-engineers))
 | ~ innis
-| | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
-| | It's a pity you couldn't persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
-| | I suppose androids can't do everything.
-| ! eval (activate 'q6-return-to-fi)
+| | Yes I'm glad you found the engineers, but \"they can't come home with that debris blocking their path\"(orange).
+|?
+| ~ innis
+| | (:pleased)The injured engineers are already on their way back - I've sent hunters to guide them.
+| | (:normal)How did you clear that debris? Is there something I don't know about androids?
+| ~ player
+| - I found a weak point in the rocks and pushed.
+|   ~ innis
+|   | That sounds plausible. Your fusion reactor could generate the necessary force, and your nanotube muscles would withstand the impact.
+| - I just smashed through.
+|   | I believe you did. Your fusion reactor could generate the necessary force, and your nanotube muscles would withstand the impact.
+| - Wouldn't you like to know.
+|   ~ innis
+|   | (:sly)I would indeed. Don't worry, things don't remain secret 'round here very long.
+|   | I suspect the combination of fusion reactor and nanotube muscles makes you quite formidable.
+| ~ innis
+| | There's something else...
+| | My sister, in her infinite wisdom, thought it might be a nice gesture if we... (:awkward)//if I// officially grant you access to the metro.
+| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
+| ? (var 'metro-used)
+| | | (:sly)I know you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
+| | | (:normal)The stations run throughout our territory and beyond. Though not all are operational while we expand the network.
+| |?
+| | | (:normal)You'll find the stations run throughout our territory and beyond. Though not all are operational while we expand the network.
+| | | \"Simply open the blast doors and call a train.\"(orange)
+| ? (complete-p 'q5b-repair-cctv)
+| | ~ innis
+| | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
+| | | It's a pity you couldn't persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
+| | | I suppose androids can't do everything.
+| | ! eval (activate 'q6-return-to-fi)
+| ~ innis
+| | I'll be seeing you.
+| ! eval (complete 'q5a-rescue-engineers)
+| ! eval (deactivate interaction)
 ")))
