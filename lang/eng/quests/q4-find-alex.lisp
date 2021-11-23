@@ -167,7 +167,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ alex
 | (:angry)I've heard about you, doing my job- <-hic->. Innis even showed me the CCCTV.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-| So why would Fi need little ol' me anymore?
+| So why would Fi need little ol' me any more?
 | So run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
 ~ player
 | (:thinking)Do you know about the Wraw's plan to attack?
