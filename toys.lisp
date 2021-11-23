@@ -137,6 +137,8 @@
 (defmethod collides-p ((moving moving) (spring spring) hit)
   (< 0.5 (iframes spring)))
 
+(defmethod velocity ((spring spring)) #.(vec 0 0))
+
 (defmethod collide ((moving moving) (spring spring) hit)
   (let ((strength (strength spring)))
     (when (/= 0 (vx strength))
