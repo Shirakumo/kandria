@@ -1,6 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
+;; TODO update this dialogue with chat options once been to the Semis in act 2? It seems reasonable Catherine would want to catch up (not Jack, and Fi's catchup is handled in the main questline); also the Semis mention Catherine by name...
 (quest:define-quest (kandria sq-act1-intro)
   :author "Tim White"
   :title "Talk to Catherine"
