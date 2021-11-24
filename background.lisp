@@ -52,7 +52,7 @@
 
 (defclass background-single (background-info)
   ((texture :initform (make-instance 'texture) :initarg :texture :accessor texture
-            :type texture)
+            :type (or placeholder-resource texture))
    (parallax :initform (vec 2 1) :initarg :parallax :accessor parallax
              :type vec2)
    (scaling :initform (vec 1.5 1.5) :initarg :scaling :accessor scaling
