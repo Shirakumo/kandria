@@ -3,6 +3,8 @@
 (defclass trigger (sized-entity resizable ephemeral collider)
   ((active-p :initarg :active-p :initform T :accessor active-p :accessor quest:active-p :type boolean)))
 
+(defmethod collides-p ((moving moving) (trigger trigger) hit) NIL)
+
 (defmethod initargs append ((trigger trigger)) '(:active-p))
 
 (defmethod interact :around ((trigger trigger) source)
