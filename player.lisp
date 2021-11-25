@@ -876,9 +876,6 @@ void main(){
        ;; Test for climbing
        (when (and (retained 'climb)
                   (not (retained 'jump))
-                  (or (typep (svref collisions 1) '(or (and ground (not slipblock)) (and solid (not half-solid))))
-                      (typep (svref collisions 3) '(or (and ground (not slipblock)) (and solid (not half-solid))))
-                      (typep (interactable player) 'rope))
                   (< 0 (climb-strength player)))
          (cond ((typep (interactable player) 'rope)
                 (let* ((direction (signum (- (vx (location (interactable player))) (vx loc))))
@@ -891,8 +888,12 @@ void main(){
                     (setf (vx loc) target-x)
                     (setf (state player) :climbing)
                     (return-from handle))))
-               (T
-                (setf (direction player) (if (typep (svref (collisions player) 1) '(or ground solid)) +1 -1))
+               ((and (< -0.5 (vx vel)) (typep (svref collisions 1) '(or (and ground (not slipblock)) (and solid (not half-solid)))))
+                (setf (direction player) +1)
+                (setf (state player) :climbing)
+                (return-from handle))
+               ((and (< (vx vel) +0.5) (typep (svref collisions 3) '(or (and ground (not slipblock)) (and solid (not half-solid)))))
+                (setf (direction player) -1)
                 (setf (state player) :climbing)
                 (return-from handle))))
 
