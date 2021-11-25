@@ -1,3 +1,9 @@
+(:font-face
+ :font-family "PromptFont"
+ :src (url "promptfont-webfont.woff")
+ :font-weight normal
+ :font-style normal)
+
 (body
  :margin 0
  :font-family sans-serif
@@ -70,12 +76,13 @@
    :margin 5em 0 0 0
    :border-bottom 0.5em solid white
    (h2
-    :font-family "Xolonium"
+    :font-family "PromptFont"
     :font-size 3em
     :margin 0
     :background black
     :color white
     :padding 0.2em 0 0.2em 2em
+    :font-weight normal
     (em
      :font-style normal
      :color (hex FF5500))
