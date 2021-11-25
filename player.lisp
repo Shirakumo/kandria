@@ -659,7 +659,7 @@ void main(){
                  ((< (p! dash-dcc-start) (dash-time player))
                   (nv* vel (damp* (p! dash-dcc) (* 100 dt))))
                  ((< (p! dash-acc-start) (dash-time player))
-                  (nv* vel (p! dash-acc)))
+                  (nv* vel (damp* (p! dash-acc) (* 100 dt))))
                  (T
                   (vsetf (color player) 1 1 1 1))))
        (when (typep (interactable player) 'rope)

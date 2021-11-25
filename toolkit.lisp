@@ -270,6 +270,12 @@
       x
       (+ x (- (random var) (/ var 2f0)))))
 
+(defun damp* (factor quotient)
+  (expt factor quotient))
+
+(define-compiler-macro damp* (factor quotient)
+  `(expt ,factor ,quotient))
+
 (defun grander (a b)
   (cond ((= 0 a)
          b)
