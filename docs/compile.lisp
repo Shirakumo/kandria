@@ -163,7 +163,6 @@ sbcl --noinform --load "$0" --eval '(kandria-docs:generate-all)' --quit && exit
                       (usocket:ns-try-again-condition ()))))
 
 (defun generate-all ()
-  (generate-website)
   (generate-press)
   (dolist (file (directory (file :wild "mess")))
     (with-simple-restart (continue "Ignore ~a" file)

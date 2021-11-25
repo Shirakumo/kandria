@@ -3,123 +3,129 @@
   <head>
     <meta charset="utf-8">
     <title>Kandria</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Kandria, a 2D hack and slash platformer. Currently in beta!">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content="Kandria, an open-world action RPG set in a post-apocalyptic future"/>
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@shinmera">
     <meta name="twitter:title" content="Kandria">
-    <meta name="twitter:description" content="Kandria, a 2D hack and slash platformer. Currently in beta!">
+    <meta name="twitter:description" content="Kandria, an open-world action RPG set in a post-apocalyptic future">
     <meta name="twitter:image" content="https://kandria.com/media/main%20capsule.png">
     <meta name="twitter:image:alt" content="Kandria">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Kandria">
-    <meta property="og:description" content="Kandria, a 2D hack and slash platformer. Currently in beta!">
+    <meta property="og:description" content="Kandria, an open-world action RPG set in a post-apocalyptic future">
     <meta property="og:url" content="https://kandria.com">
     <meta property="og:image" content="https://kandria.com/media/main%20capsule.png">
   </head>
   <body>
     <header>
-      <video poster="media/kandria.gif" loop="" muted="" autoplay="">
-        <source src="media/leaf.webm" type="video/webm">
-        <source src="media/leaf.mp4" type="video/mp4">
-        <img src="media/kandria.gif">
+      <video autoplay muted loop>
+        <source src="media/kandria.mp4" type="video/mp4" />
       </video>
-      <h1><img alt="Kandria" src="media/logo-inverted.svg"></h1>
+      <div class="centercontent">
+        <img alt="Kandria" src="media/logo-inverted.png" />
+        <iframe src="https://www.youtube.com/embed/nf9Z4MPBbfc" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://store.steampowered.com/widget/1261430/" frameborder="0" width="100%" height="190"></iframe>
+      </div>
       <nav>
-        <a href="#about">About</a>
-        <a href="prototype.html">Demo</a>
-        <a href="#media">Media</a>
-        <a href="#updates">Updates</a>
-        <a href="press/">Press Kit</a>
+        <a href="https://kandria.com/steam">
+          <i class="fab fa-steam"></i> Steam
+        </a>
+        <a href="prototype.html">
+          <i class="fas fa-download"></i> Demo
+        </a>
+        <a href="press/">
+          <i class="fas fa-newspaper"></i> Press
+        </a>
       </nav>
     </header>
     <main>
-      <div style="position:relative;padding-top:56.25%;">
-        <iframe src="https://www.youtube.com/embed/nf9Z4MPBbfc" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" allowfullscreen=""></iframe>
+      <section>
+        <h2>
+          <i class="fas fa-chevron-right"></i>
+          <em>Explore</em> a vast, <i>ruined world</i>
+        </h2>
+        <div class="preview" style='background-image: url("press/screenshot 4.png")'>
+        <p>
+          Awakened among a pile of rubble and unsure of what's going on, you're sent to explore the remains of an underground tunnel network. Talk to survivors, navigate the spiderweb of tunnels, and piece together what's left of the world.
+        </p>
       </div>
-      <a href="https://store.steampowered.com/app/1261430?utm_source=kandria.com" id="wishlist">
-        Wishlist Kandria on <i class="fab fa-steam"></i> Steam!
-      </a>
-      <section id="about">
-        <h2>About Kandria</h2>
-        <p>
-          <i>Kandria</i> is a hack and slash, puzzle platforming game set in a broken down, post-apocalyptic desert.
-        </p>
-        <p>
-          You play a lone android, who must help a struggling settlement survive. Travel far and wide, taking on missions for whomever you choose - explore the ruined surface, scale steep cliffs, or venture deep below ground to gather supplies and long-buried relics. Show off your combat skills by slashing your way through any opposition in a flurry of extravagant sword moves. As an android there is no limit to where you can go or what you can do.
-        </p>
-        <p>
-          As the story unfolds you'll get to know the flawed and diverse characters of the settlement that rescued you. But are they really your friends, or are you just their tool? On your travels you must determine who is truly friend or foe, and recruit what allies you can - because the end is coming.
-        </p>
       </section>
-      <section id="media">
-        <h2>Media</h2>
-        <form id="subscribe" action="https://courier.tymoon.eu/api/courier/subscription/new" method="post">
-          <p class="description">Subscribe for weekly development updates and a free prototype download!</p>
-          <div class="row _" style="display: none;">
-            <label for="username">Leave this empty</label>
-            <input autocomplete="off" type="text" id="username" name="username">
-          </div>
-          <div class="row _" style="display: none;">
-            <label for="email">Leave this as is</label>
-            <input autocomplete="off" type="text" id="email" name="email" value="680a65a2d1db6b133e2064a8c1f5f707e55e772d72fdf5b4472e754629eee02f">
-          </div>
-          <input type="email" name="address" id="address" placeholder="email@example.com" required="required">
-          <input type="hidden" name="browser" value="true">
-          <input type="hidden" name="campaign" value="1">
-          <input type="submit" value="Subscribe">
-        </form>
-        <ul class="icons">
-          <li><a href="https://store.steampowered.com/app/1261430" title="Wishlist on Steam">
-            <i class="fab fa-steam fa-fw"></i>
-          </a></li>
-          <li><a href="https://discord.gg/s7av57ZetQ" title="Join the Discord">
-            <i class="fab fa-discord fa-fw"></i>
-          </a></li>
-          <li><a href="https://twitter.com/shinmera" title="Follow news on Twitter">
-            <i class="fab fa-twitter fa-fw"></i>
-          </a></li>
-          <li><a href="https://www.youtube.com/playlist?list=PLkDl6Irujx9NUeqnEkRsFZ6bLS24B-6lT" title="Watch development videos on YouTube">
-            <i class="fab fa-youtube fa-fw"></i>
-          </a></li>
+      <section>
+        <h2>
+          <i class="fas fa-chevron-right"></i>
+          <em>Find</em> your own <i>path</i>
+        </h2>
+        <div class="preview" style='background-image: url("press/screenshot 9.png")'>
+          <p>
+            Go wherever you want, whenever you want. Explore alternate routes, discover lone survivors, fight hostile wildlife, or simply sit back and take in the atmosphere. 
+          </p>
+        </div>
+      </section>
+      <section>
+        <h2>
+          <i class="fas fa-chevron-right"></i>
+          <em>Discover</em> the secrets of the past
+        </h2>
+        <div class="preview" style='background-image: url("press/screenshot 1.png")'>
+          <p>
+            Not everything has been pillaged completely, and some ruins from the old world still lay dormant. Find your way around their security, use the destruction of the calamity to your advantage, and discover remnants of a society that met its end.
+          </p>
+        </div>
+      </section>
+      <section class="plain" id="screenshots">
+        <ul class="gallery">
+          <li><a href="press/screenshot 1.png" target="_blank"><img src="press/screenshot 1.png"></a></li>
+          <li><a href="press/screenshot 2.png" target="_blank"><img src="press/screenshot 2.png"></a></li>
+          <li><a href="press/screenshot 3.png" target="_blank"><img src="press/screenshot 3.png"></a></li>
+          <li><a href="press/screenshot 4.png" target="_blank"><img src="press/screenshot 4.png"></a></li>
+          <li><a href="press/screenshot 6.png" target="_blank"><img src="press/screenshot 6.png"></a></li>
+          <li><a href="press/screenshot 7.png" target="_blank"><img src="press/screenshot 7.png"></a></li>
+          <li><a href="press/screenshot 8.png" target="_blank"><img src="press/screenshot 8.png"></a></li>
+          <li><a href="press/screenshot 9.png" target="_blank"><img src="press/screenshot 9.png"></a></li>
+          <li><a href="press/screenshot 10.png" target="_blank"><img src="press/screenshot 10.png"></a></li>
+          <li><a href="press/screenshot 11.png" target="_blank"><img src="press/screenshot 11.png"></a></li>
         </ul>
       </section>
-      <section id="updates">
-        <h2>Latest Updates</h2>
-        
-          <article class="update">
-            <header>
-              <h3><a href="https://reader.tymoon.eu/article/402">GIC, Digital Dragons, and more - November Kandria Update</a></h3>
-              <time>2021-11-07</time>
-            </header>
-            <p class="excerpt"><p>An event-ful month passed by for Kandria! Lots of developments in terms of conferences and networking. This, in addition to falling ill for a few days, left little time for actual dev again, though even despite everything we still have some news to share on that front as well!</p></p>
-            <div class="read-more"><a class="button" href="https://reader.tymoon.eu/article/402">Read more</a></div>
-          </article>
-        
-          <article class="update">
-            <header>
-              <h3><a href="https://reader.tymoon.eu/article/401">Patch update, holidays, and the GIC - October Kandria Update</a></h3>
-              <time>2021-10-04</time>
-            </header>
-            <p class="excerpt"><p>A shorter monthly update for once, as this included two weeks of holidays, in which we were both morally, legally, and bound by higher powers unbeknown to us forbidden from working on Kandria. Regardless, progress was made, and news are here to be shared, so an update was written!</p></p>
-            <div class="read-more"><a class="button" href="https://reader.tymoon.eu/article/401">Read more</a></div>
-          </article>
-        
-          <article class="update">
-            <header>
-              <h3><a href="https://reader.tymoon.eu/article/400">0.2.2 Demo Release, Gamescom &amp; more - September Kandria Update</a></h3>
-              <time>2021-09-05</time>
-            </header>
-            <p class="excerpt"><p>Big news this month: there's a new free demo release (!!), news on the Pro Helvetia grant and on Gamescom, and a lot of stuff to look at that we worked on!</p></p>
-            <div class="read-more"><a class="button" href="https://reader.tymoon.eu/article/400">Read more</a></div>
-          </article>
-        
+      <section class="plain" id="subscribe">
+        <a href="https://courier.tymoon.eu/subscription/1" class="button">
+          Subscribe to our newsletter <i class="fas fa-mouse-pointer" style="padding-left:1em"></i>
+        </a>
+        <iframe src="https://store.steampowered.com/widget/1261430/" frameborder="0" width="100%" height="190"></iframe>
       </section>
-      <footer>
-        © 2020 <a rel="author" href="https://shinmera.com">Nicolas Hafner</a>, Shirakumo
-      </footer>
     </main>
+    <footer>
+      <div>
+        <h3>Developed by</h3>
+        <img src="https://shirakumo.org/logo tag text.png" alt="Shirakumo">
+      </div>
+      <div id="contact">
+        <h3>Contact</h3>
+        <nav>
+          <a href="https://shirakumo.org/games">
+            <i class="fas fa-globe-europe"></i> shirakumo.org
+          </a>
+          <a href="mailto:shirakumo@tymoon.eu">
+            <i class="fas fa-envelope"></i> shirakumo@tymoon.eu
+          </a>
+        </nav>
+      </div>
+      <div id="media">
+        <h3>Social media</h3>
+        <nav>
+          <a href="https://twitter.com/shinmera">
+            <i class="fab fa-twitter"></i> Twitter
+          </a>
+          <a href="https://kandria.com/discord">
+            <i class="fab fa-discord"></i> Discord
+          </a>
+          <a href="https://youtube.com/shinmera">
+            <i class="fab fa-youtube"></i> YouTube
+          </a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>
