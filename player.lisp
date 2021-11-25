@@ -689,7 +689,9 @@ void main(){
                    (when (and pprev (null prev) (or cur ground))
                      (setf (vw (color player)) 0.0)
                      (setf (vx vel) (* (float-sign (vx vel)) (vx (p! velocity-limit))))
-                     (setf (vy loc) (- (vy pprev) (vy size) 8))
+                     (if cur
+                         (setf (vy loc) (+ (vy (hit-location cur)) (vy size) 8))
+                         (setf (vy loc) (- (vy pprev) (vy size) 8)))
                      (setf (air-time player) 0.0)
                      (setf (state player) :crawling)
                      (return))
