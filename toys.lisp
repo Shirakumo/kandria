@@ -84,6 +84,8 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'lantern)))
 
+(defmethod velocity ((lantern lantern)) #.(vec 0 0))
+
 (defmethod collides-p ((lantern lantern) thing hit) NIL)
 (defmethod collides-p ((player player) (lantern lantern) hit)
   (and (< 0.0 (dash-time player))
@@ -142,10 +144,12 @@
 (defmethod collide ((moving moving) (spring spring) hit)
   (let ((strength (strength spring)))
     (when (/= 0 (vx strength))
-      (setf (direction moving) (float-sign (vx strength))))
+      (setf (direction moving) (float-sign (vx strength)))
+      (setf (vx (velocity moving)) (vx strength)))
+    (when (/= 0 (vy strength))
+      (setf (vy (velocity moving)) (vy strength)))
     (setf (iframes spring) 0.0)
-    (setf (animation spring) 'spring)
-    (v<- (velocity moving) strength)))
+    (setf (animation spring) 'spring)))
 
 (defmethod collide :after ((player player) (spring spring) hit)
   (setf (climb-strength player) (p! climb-strength))
