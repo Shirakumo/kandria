@@ -137,12 +137,14 @@
   (kill moving))
 
 (defmethod collides-p ((moving moving) (block spike) hit)
-  (let ((angle (vangle (spike-normal block) (frame-velocity moving)))
-        (loc (v+ (location moving) (frame-velocity moving))))
-    (and (<= 85 (rad->deg angle) 185)
-         (if (/= 0 (vx (spike-normal block)))
-             (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
-             (<= (abs (- (vy (hit-location hit)) (vy loc))) 7)))))
+  (let ((vel (if (v= (frame-velocity moving) 0.0) (velocity moving) (frame-velocity moving))))
+    (unless (v= vel 0.0)
+      (let ((angle (vangle (spike-normal block) vel))
+            (loc (v+ (location moving) vel)))
+        (and (<= 85 (rad->deg angle) 185)
+             (if (/= 0 (vx (spike-normal block)))
+                 (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
+                 (<= (abs (- (vy (hit-location hit)) (vy loc))) 7)))))))
 
 (defmethod collides-p ((moving moving) (block slope) hit)
   (ignore-errors
