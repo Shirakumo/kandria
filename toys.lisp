@@ -88,13 +88,14 @@
 
 (defmethod collides-p ((lantern lantern) thing hit) NIL)
 (defmethod collides-p ((player player) (lantern lantern) hit)
-  (and (< 0.0 (dash-time player))
+  (and (or (< 0.0 (dash-time player))
+           (dash-exhausted player))
        (eq :active (state lantern))))
 
 (defmethod collide ((player player) (lantern lantern) hit)
   (setf (climb-strength player) (p! climb-strength))
   (setf (direction lantern) (direction player))
-  (setf (dash-pending player) T)
+  (setf (dash-exhausted player) NIL)
   (setf (state lantern) :inactive)
   (setf (respawn-time lantern) 4.0)
   (setf (animation lantern) 'crash))
@@ -153,7 +154,7 @@
 
 (defmethod collide :after ((player player) (spring spring) hit)
   (setf (climb-strength player) (p! climb-strength))
-  (setf (dash-time player) 0.0)
+  (setf (dash-exhausted player) NIL)
   (setf (state player) :normal))
 
 (defmethod handle :after ((ev tick) (spring spring))
@@ -219,7 +220,7 @@
 
 (defmethod collide :after ((player player) (fountain fountain) hit)
   (setf (climb-strength player) (p! climb-strength))
-  (setf (dash-time player) 0.0)
+  (setf (dash-exhausted player) NIL)
   (setf (state player) :normal))
 
 (defmethod handle :after ((ev tick) (fountain fountain))

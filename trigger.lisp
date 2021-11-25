@@ -195,7 +195,7 @@
     (when (interrupt prompt)
       ;; KLUDGE: clear dash to ensure player can always recover.
       (when (eql (action prompt) 'dash)
-        (setf (dash-time player) 0.0))
+        (setf (dash-exhausted player) NIL))
       (if (<= 0.01 (time-scale +world+))
           (setf (time-scale +world+) (* (time-scale +world+) 0.95))
           (setf (time-scale +world+) 0.0)))
