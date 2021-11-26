@@ -9,7 +9,23 @@
          (content (parse-sexps (packet-entry "data.lisp" packet :element-type 'character))))
     (let ((*region* region))
       (loop for (type . initargs) in content
-            do (enter (decode type initargs) region))
+            for entity = (decode type initargs)
+            do #-kandria-release
+               (when (name entity)
+                 (let ((existing (unit (name entity) region)))
+                   (when existing
+                     (restart-case (error "Duplicate entity on name ~a:~%~a~%~a" (name entity) entity existing)
+                       (use-value (value)
+                         :report "Specify a new name for the new entity."
+                         (setf (name entity) value))
+                       (rename-random ()
+                         :report "Give the new entity a randomised name."
+                         (setf (name entity) (generate-name)))
+                       (clear-name ()
+                         :report "Clear the name of both entities."
+                         (setf (name entity) NIL)
+                         (setf (name existing) NIL))))))
+               (enter entity region))
       ;; Load initial state.
       (decode-payload (first (parse-sexps (packet-entry "init.lisp" packet :element-type 'character))) region packet 'save-v0))
     region))
