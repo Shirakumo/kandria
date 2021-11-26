@@ -12,7 +12,8 @@
 
 (define-shader-entity falling-platform (lit-sprite moving-platform creatable)
   ((fall-timer :initform 0.75 :accessor fall-timer)
-   (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)))
+   (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)
+   (name :initform NIL)))
 
 (defmethod stage :after ((platform falling-platform) (area staging-area))
   (stage (// 'sound 'falling-platform-impact) area)

@@ -345,7 +345,7 @@
    :sprite-data (asset 'kandria 'alex)))
 
 (define-shader-entity semi-engineer (npc creatable)
-  ((name :initform 'semi-engineer)
+  ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ semi-engineer-nametag)))
   (:default-initargs
