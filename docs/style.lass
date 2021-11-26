@@ -190,5 +190,6 @@
  "(min-width: 1900px)"
  (body
   (header
+   :min-height 1050px
    (.centercontent
     :width 45em))))
