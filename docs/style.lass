@@ -39,24 +39,27 @@
   :min-height 900px
   (video
    :display block
+   :position absolute
+   :top 0
+   :right 0
+   :left 0
    :width 100vw
    :height (calc (- 100% 5em))
-   :object-fit cover)
+   :object-fit cover
+   :z-index -1)
   (.centercontent
-   :position absolute
-   :top 3em
-   :left (calc (- 50vw 20em))
+   :margin 0 auto
    :width 40em
+   :height (calc (- 100% 5em))
    (img
     :display block
     :margin 0 auto
     :object-fit contain
     :max-width 75%)
    (iframe
-    :margin 2em auto
+    :margin 2em auto 0 auto
     :width 600px
     :max-width 100%
-    :height 320px
     :display block))
   (nav
    :display flex
