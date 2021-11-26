@@ -36,7 +36,10 @@
   :position relative
   :overflow hidden
   :height 100vh
-  :min-height 900px
+  :min-height 850px
+  :max-width 100vw
+  :display flex
+  :flex-direction column
   (video
    :display block
    :position absolute
@@ -49,18 +52,26 @@
    :z-index -1)
   (.centercontent
    :margin 0 auto
-   :width 40em
+   :width 30em
+   :max-width 100%
    :height (calc (- 100% 5em))
-   (img
+   (>*
     :display block
-    :margin 0 auto
-    :object-fit contain
-    :max-width 75%)
-   (iframe
-    :margin 2em auto 0 auto
-    :width 600px
     :max-width 100%
-    :display block))
+    :margin 2em auto 0 auto)
+   (>iframe
+    :width 600px
+    :display block)
+   (img
+    :margin-top 0
+    :object-fit contain)
+   (.videowrap
+    :position relative
+    :padding-bottom 56.25%
+    (iframe
+     :position absolute
+     :top 0 :left 0
+     :width 100% :height 100%)))
   (nav
    :display flex
    :background (hex 000000)
@@ -70,7 +81,8 @@
    (a
     :padding 0.75em 1.5em
     :color white
-    :text-decoration none)
+    :text-decoration none
+    :text-align center)
    ((:and a :hover)
     :background white
     :color black)))
@@ -158,4 +170,25 @@
   (>*
    :margin 0 1em)
   (nav)
-  (img :max-height 10em)))
+  (img :max-height 10em)
+  (a :white-space nowrap)))
+
+(:media
+ "(max-width: 600px)"
+ (body
+  :font-size 10pt
+  (header
+   :min-height 650px
+   (nav
+    (a :padding 0.25em 0.75em)))
+  (main
+   (section
+    (h2
+     :font-size 2em
+     :padding-left 1em)))))
+(:media
+ "(min-width: 1900px)"
+ (body
+  (header
+   (.centercontent
+    :width 45em))))
