@@ -357,6 +357,7 @@ void main(){
     ;; NOTE: Can't use region bvh here as we want to reach everything even things that aren't colliders
     (for:for ((entity over (region +world+)))
       (when (and (not (eql 'layer (type-of entity)))
+                 (not (eql 'chunk (type-of entity)))
                  (contained-p entity chunk))
         (nv+ (location entity) diff)))
     (call-next-method)))
