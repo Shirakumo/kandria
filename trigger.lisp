@@ -258,9 +258,12 @@
   ;; FIXME: how do we get the actual dt here?
   (unless (or (eq :dashing (state player))
               (eq :climbing (state player)))
-    (nv+ (velocity player) (v* (strength wind) 0.01))
-    (when (svref (collisions player) 2)
-      (incf (vx (frame-velocity player)) (* (vx (strength wind)) 0.01))))
+    (let ((strength (v* (strength wind) 0.01)))
+      (nv+ (velocity player) strength)
+      (when (svref (collisions player) 2)
+        (incf (vx (frame-velocity player)) (vx strength))
+        (when (< 0 (vy strength))
+          (incf (vy (frame-velocity player)) (vy strength))))))
   (incf (active-time wind) 0.02))
 
 (defmethod stage :after ((wind wind) (area staging-area))
