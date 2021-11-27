@@ -88,8 +88,7 @@
 
 (defmethod collides-p ((lantern lantern) thing hit) NIL)
 (defmethod collides-p ((player player) (lantern lantern) hit)
-  (and (or (< 0.0 (dash-time player))
-           (dash-exhausted player))
+  (and (dash-exhausted player)
        (eq :active (state lantern))))
 
 (defmethod collide ((player player) (lantern lantern) hit)
