@@ -218,6 +218,14 @@
   :ambient-multiplier 0.2
   :ambient (vec 0.5 0.4 0.4))
 
+(define-gi mushrooms
+  :attenuation 0.5
+  :location 'player
+  :light-multiplier 1.0
+  :light (vec 1 1 0.8)
+  :ambient-multiplier 2.0 
+  :ambient (vec 0.3 0.5 0.4))
+
 (define-gi desert
   :location :sun
   :light '(6 (0 0 0)
