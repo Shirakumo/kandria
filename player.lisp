@@ -951,6 +951,9 @@ void main(){
                   (< 0 (vy vel)))
          (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) (* 100 dt)))))
        (nv+ vel (v* (gravity (medium player)) dt))
+       (when (and (null ground)
+                  (null (retained 'down)))
+         (setf (vy vel) (max (- (p! slowfall-limit)) (vy vel))))
        ;; Limit when sliding down wall
        (cond ((and (null ground)
                    (or (typep (svref collisions 1) '(or ground moving-platform))

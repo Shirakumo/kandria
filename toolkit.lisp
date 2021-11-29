@@ -55,6 +55,7 @@
                                  collect `(list ',k ,v)))))
       (mktab* (coyote-time     0.08)
               (velocity-limit  (vec 10 20))
+              (slowfall-limit  5.0)
               (walk-acc        0.1)
               (slowwalk-limit  0.6)
               (walk-limit      1.9)
