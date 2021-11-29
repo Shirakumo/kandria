@@ -105,6 +105,7 @@
 |   ~ innis
 |   | That sounds plausible. Your fusion reactor could generate the necessary force, and your nanotube muscles would withstand the impact.
 | - I just smashed through.
+|   ~ innis
 |   | I believe you did. Your fusion reactor could generate the necessary force, and your nanotube muscles would withstand the impact.
 | - Wouldn't you like to know.
 |   ~ innis
