@@ -32,7 +32,7 @@
   (flet ((start (drain)
            (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)
                                                       :mixers '(:music :speech (:effect mixed:plane-mixer))
-                                                      :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass :bypass T))
+                                                      :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass))
                                                       :drain drain))))
     (handler-case (with-error-logging (:kandria "Failed to set up sound, falling back to dummy output.")
                     (start (or audio-backend (setting :audio :backend) :default)))
