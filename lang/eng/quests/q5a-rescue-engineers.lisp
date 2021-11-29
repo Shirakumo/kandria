@@ -5,14 +5,14 @@
   :author "Tim White"
   :title "Rescue Engineers"
   :description "Semi Sisters engineers are stuck in a collapsed rail tunnel."
-  :on-activate (q5a-task-reminder q5a-task-engineers)
+  :on-activate (q5a-task-reminder q5a-task-engineers q5a-task-return-engineers)
  
  (q5a-task-reminder
    :title NIL
    :visible NIL
    :on-activate T
    (:interaction q5a-reminder
-    :title "About the trapped engineers."
+    :title "Remind me about the trapped engineers."
     :interactable innis
     :repeatable T
     :dialogue "
@@ -79,7 +79,6 @@
 | | ~ semi-engineer-chief
 | | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already started the journey home. Thank you.
 | | | We can resume our task. It'll be slow-going, but we'll get it done.
-! eval (activate 'q5a-task-return-engineers)
 ! eval (deactivate 'q5a-task-reminder)
 "))
 
@@ -89,13 +88,13 @@
    :condition NIL
    :on-activate T
    (:interaction q5a-return-engineers
-    :title "(Discuss the engineers)"
+    :title "I've found the trapped engineers."
     :interactable innis
     :repeatable T
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
 | ~ innis
-| | Yes I'm glad you found the engineers, but \"they can't come home with that debris blocking their path\"(orange).
+| | Is that so? Well they aren't back yet. \"They can't come home with that debris blocking their path\"(orange).
 |?
 | ~ innis
 | | (:pleased)The injured engineers are already on their way back - I've sent hunters to guide them.
