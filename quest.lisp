@@ -152,13 +152,18 @@
                (location (unit thing +world+)))
              ((setf location) (loc thing)
                (setf (location (unit thing +world+)) loc))
-             (interaction (storyline quest task interaction)
+             (find-task (quest task)
+               (uiop:nest
+                (quest:find-task task)
+                (quest:find-quest quest)
+                (storyline world)))
+             (interaction (quest task interaction)
                (interaction
                 (uiop:nest
                  (quest:find-trigger interaction)
                  (quest:find-task task)
                  (quest:find-quest quest)
-                 (quest:storyline storyline))
+                 (storyline world))
                 T)))
        ,form)))
 
