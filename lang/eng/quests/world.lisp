@@ -295,15 +295,15 @@
 ")
 ;; perhaps the old gasworks was being converted into something more modern, when an accident happened, perhaps involving the android. Like this explosion in Sheffield when an old gasworks was being converted in the 1970s: https://www.bbc.co.uk/news/uk-england-south-yorkshire-45097740
 
-;; TODO Semi Engineers nametag completion not working
+;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (:interaction trapped-engineers
    :interactable semi-engineer-chief
    :repeatable T
    :title "Who are you?"
   "
-! eval (setf (nametag (unit 'semi-engineer-chief)) \"???\")
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) \"???\")
 | | ~ semi-engineer-chief
 | | | (:weary)How in God's name did you get in here?
 | | ~ player
