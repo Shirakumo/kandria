@@ -171,6 +171,20 @@
            (harmony:play (// 'sound 'ambience-earthquake))))))
 ;; TODO: make dust fall down over screen.
 
+(defclass music-trigger (trigger creatable)
+  ((track :initarg :track :initform (asset 'music 'scare) :accessor track
+          :type trial-harmony:sound)))
+
+(defmethod stage :after ((trigger music-trigger) (area staging-area))
+  (stage (resource (track trigger) T) area))
+
+(defmethod interact ((trigger music-trigger) (player player))
+  (let ((sdf (max (- (abs (- (vx (location player)) (vx (location trigger)))) (vx (bsize trigger)))
+                  (- (abs (- (vy (location player)) (vy (location trigger)))) (vy (bsize trigger))))))
+    (if (<= sdf -3)
+        (setf (override (unit 'environment +world+)) (resource (track trigger) T))
+        (setf (override (unit 'environment +world+)) NIL))))
+
 (defclass action-prompt (trigger listener creatable)
   ((action :initarg :action :initform NIL :accessor action
            :type alloy::any)

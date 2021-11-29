@@ -176,6 +176,7 @@
 (define-additional-slot-coders (interaction-trigger world-v0) (interaction))
 (define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
 (define-additional-slot-coders (earthquake-trigger world-v0) (duration))
+(define-additional-slot-coders (music-trigger world-v0) ((track :type asset)))
 (define-additional-slot-coders (action-prompt world-v0) (action interrupt))
 (define-additional-slot-coders (wind world-v0) ((max-strength :type vec2 :initarg :strength) period kind))
 (define-additional-slot-coders (elevator-recall world-v0) (target))
