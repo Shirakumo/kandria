@@ -46,6 +46,7 @@
   | Excellent.
   < end
 # questions
+~ player
 - Tell me about Alex.
   ~ fi
   | They're a hunter, like you. They've been with us from the beginning.
