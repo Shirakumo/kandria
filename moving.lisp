@@ -18,9 +18,10 @@
                       (return entity)))))
       (setf (medium moving) medium)
       (nv* (velocity moving) (drag medium))
-      (when (and (typep medium 'sized-entity)
-                 (within-p medium moving))
-        (submerged moving medium)))
+      (if (and (typep medium 'sized-entity)
+               (within-p medium moving))
+          (submerged moving medium)
+          (submerged moving +default-medium+)))
     ;; Scan for hits
     (fill collisions NIL)
     (loop for i from 0

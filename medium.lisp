@@ -5,6 +5,7 @@
 
 (defgeneric gravity (medium))
 (defgeneric drag (medium))
+(defgeneric submerged (thing medium))
 
 (defmethod (setf medium) :around (new object)
   (let ((old (medium object)))
@@ -14,6 +15,7 @@
       (enter object new))
     new))
 
+(defmethod submerged ((entity entity) (medium medium)))
 (defmethod enter (object (medium medium)))
 (defmethod leave (object (medium medium)))
 
