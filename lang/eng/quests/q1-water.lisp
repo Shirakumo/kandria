@@ -140,7 +140,7 @@
 - I think we found the saboteurs.
   ~ catherine
   | \"Do your thing!\"(orange)
-- What's a servo?
+- What's a servo? I assume you don't mean a servomechanism.
   ~ catherine
   | No time to explain! \"Do your thing!\"(orange)
   ")
