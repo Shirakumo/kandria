@@ -295,7 +295,7 @@
 ")
 ;; perhaps the old gasworks was being converted into something more modern, when an accident happened, perhaps involving the android. Like this explosion in Sheffield when an old gasworks was being converted in the 1970s: https://www.bbc.co.uk/news/uk-england-south-yorkshire-45097740
 
-
+;; TODO Semi Engineers nametag completion not working
   (:interaction trapped-engineers
    :interactable semi-engineer-chief
    :repeatable T

@@ -21,6 +21,7 @@
 | It's in the \"upper-west of our territory\"(orange).
 "))
 
+;; TODO Semi Engineers nametag completion not working
   (q5a-task-engineers
    :title "Find the trapped engineers in the upper-west of Semi Sisters territory."
    :condition all-complete
