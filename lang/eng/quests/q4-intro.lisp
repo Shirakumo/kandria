@@ -37,14 +37,14 @@
 ~ fi
 | Is everything clear? You know what you need to do?
 ~ player
-- It's clear.
-  ~ fi
-  | Excellent. 
-  < end
 - I have some questions.
   ~ fi
   | Of course.
   < questions
+- It's clear.
+  ~ fi
+  | Excellent.
+  < end
 # questions
 - Tell me about Alex.
   ~ fi
