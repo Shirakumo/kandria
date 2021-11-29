@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q5b-repair-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV network along their lower border with the Cerebats has stopped transmitting."
+  :description "The Semi Sisters' CCTV camera along their low-eastern border have gone down."
   :on-activate (q5b-task-reminder q5b-task-cctv-1 q5b-task-cctv-2 q5b-task-cctv-3 q5b-task-cctv-4)
   :variables (first-cctv)
  
@@ -14,12 +14,12 @@
    :visible NIL
    :on-activate T
    (:interaction q5b-reminder
-    :title "About the CCTV repairs."
+    :title "About the downed CCTV cameras."
     :interactable innis
     :repeatable T
     :dialogue "
 ~ innis
-| Repeatable clue.
+| Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong the CCTV cameras\"(orange).
 "))
 
   (q5b-task-cctv-1
@@ -85,6 +85,10 @@
     :dialogue "
 ~ player
 | Here be CCTV 4.
+| Come in confirming sabotage.
+~ innis
+| Look around the area for the saboteurs.
+! eval (activate 'q5b-boss)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
 | | (:normal)\"That's the last CCTV repair. I should \"return to Innis\"(orange).\"(light-gray, italic)
 | ! eval (activate 'q5b-task-return-cctv)
@@ -93,7 +97,7 @@
 | | (:normal)\"I should keep looking, and consult my \"Log Files\"(orange) for the remaining CCTV sites.\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
-
+   
 
   (q5b-task-return-cctv
    :title "Return to Innis in the Semi Sisters housing complex"

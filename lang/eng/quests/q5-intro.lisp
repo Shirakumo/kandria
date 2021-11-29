@@ -97,7 +97,7 @@
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
   ~ innis
-  | There were ten of them, working in the \"upper-west of our territory\"(orange).
+  | There were ten of them, working in the \"high-west of our territory\"(orange).
   | We're slowly digging out the old maglev metro system. (:pleased)We've got a basic electrified railway going.
   | (:angry)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
   | The hunters canna go any further. But you can.
@@ -110,9 +110,9 @@
 - Tell me about the downed CCTV.
   ~ innis
   | We monitor the surrounding area, immediately above and below.
-  | (:angry)Our cameras on the Cerebat border have gone down, at the \"bottom of our territory\"(orange).
-  | It's probably just an electrical fault - unfortunately the way we daisy-chain them together means when one goes, they all go.
-  | (:normal)They're spread out across the access points along our border - well-suited to an android's agility, I'd wager.
+  | (:angry)Our cameras on the Cerebat border have gone down, in the \"low-eastern region\"(orange).
+  | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together means when one goes, they all go.
+  | I want you to check them out.
   < questions
 - I've got it.
 ~ innis

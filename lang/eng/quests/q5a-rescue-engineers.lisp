@@ -87,7 +87,7 @@
 
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
   (q5a-task-return-engineers
-   :title "Once you've cleared the tunnel, return to Innis in the Semi Sisters housing complex"
+   :title "Once you've helped the engineers, return to Innis in the Semi Sisters housing complex"
    :condition NIL
    :on-activate T
    (:interaction q5a-return-engineers
