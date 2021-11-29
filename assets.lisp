@@ -18,7 +18,8 @@
   `(define-asset (music ,name) trial-harmony:sound
        ,file
      :repeat T
-     :mixer :music))
+     :mixer :music
+     :voice-class 'harmony:music-segment))
 
 (define-track menu #p"menu.oga")
 (define-track scare #p"scare.oga")
