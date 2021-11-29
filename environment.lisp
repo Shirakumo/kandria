@@ -94,10 +94,11 @@
 
 (defmethod (setf override) :before ((override resource) (controller environment-controller))
   (when (allocated-p override)
-    (if (override controller)
-        (harmony:transition (override controller) 0.0 :in 3.0)
-        (switch-environment (environment controller) NIL))
-    (harmony:transition override 1.0 :in 3.0)))
+    (unless (eq override (override controller))
+      (if (override controller)
+          (harmony:transition (override controller) 0.0 :in 3.0)
+          (switch-environment (environment controller) NIL))
+      (harmony:transition override 1.0 :in 3.0))))
 
 (defmethod harmony:transition ((controller environment-controller) (to real) &key (in 1.0))
   (cond ((override controller)
