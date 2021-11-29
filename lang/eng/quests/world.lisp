@@ -299,7 +299,7 @@
   (:interaction trapped-engineers
    :interactable semi-engineer-chief
    :repeatable T
-   :title "Who are you?"
+   :title "(Talk to engineers)"
   "
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))

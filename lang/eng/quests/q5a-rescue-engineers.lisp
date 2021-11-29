@@ -10,6 +10,7 @@
  (q5a-task-reminder
    :title NIL
    :visible NIL
+   :condition (complete-p 'q5a-task-return-engineers)
    :on-activate T
    (:interaction q5a-reminder
     :title "Remind me about the trapped engineers."
@@ -24,7 +25,7 @@
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (q5a-task-engineers
    :title "Find the trapped engineers in the upper-west of Semi Sisters territory."
-   :condition all-complete
+   :condition (complete-p 'q5a-task-return-engineers)
    :on-activate T   
    (:interaction q5a-engineers
     :interactable semi-engineer-chief
@@ -81,6 +82,7 @@
 | | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already started the journey home. Thank you.
 | | | We can resume our task. It'll be slow-going, but we'll get it done.
 ! eval (deactivate 'q5a-task-reminder)
+! eval (complete task)
 "))
 
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
@@ -129,6 +131,6 @@
 | | ! eval (activate 'q6-return-to-fi)
 | ~ innis
 | | I'll be seeing you.
-| ! eval (complete 'q5a-rescue-engineers)
+| ! eval (complete task)
 | ! eval (deactivate interaction)
 ")))
