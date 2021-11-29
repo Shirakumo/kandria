@@ -100,7 +100,7 @@
 | | Is that so? Well they aren't back yet. \"They can't come home with that debris blocking their path\"(orange).
 |?
 | ~ innis
-| | (:pleased)The injured engineers are already on their way back - I've sent hunters to guide them.
+| | (:pleased)The injured are already on their way back - I've sent hunters to guide them.
 | | (:normal)How did you clear that debris? Is there something I don't know about androids?
 | ~ player
 | - I found a weak point in the rocks and pushed.
