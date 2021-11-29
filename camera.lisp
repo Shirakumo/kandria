@@ -97,9 +97,6 @@
           (when (<= (abs (vy off)) 0.1) (setf (vy off) 0.0))
           (clamp-camera-target camera loc))))))
 
-(defmethod (setf zoom) :after (zoom (camera camera))
-  (setf (view-scale camera) (max 0.0001 (float (/ (width *context*) (* 2 (vx (target-size camera))))))))
-
 (defmethod snap-to-target ((camera camera) target)
   (setf (target camera) target)
   (setf (location camera) (vcopy (location target)))
@@ -110,6 +107,15 @@
     (setf (chunk camera) (find-chunk target))))
 
 (defmethod handle :before ((ev resize) (camera camera))
+  ;; Adjust max width based on aspect ratio to ensure ultrawides still get to see something.
+  (let ((aspect (/ (width ev) (height ev))))
+    (setf (vx (target-size camera))
+          (cond ((<= aspect 2.1)
+                 (* (vx +tiles-in-view+) +tile-size+ .5))
+                ((<= aspect 2.6)
+                 (* (vx +tiles-in-view+) +tile-size+ .75))
+                (T
+                 (* (vx +tiles-in-view+) +tile-size+)))))
   ;; Ensure we scale to fit width as much as possible without showing space
   ;; outside the chunk.
   (let* ((optimal-scale (float (/ (width ev) (* 2 (vx (target-size camera))))))
