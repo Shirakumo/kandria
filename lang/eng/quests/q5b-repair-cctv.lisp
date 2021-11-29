@@ -85,10 +85,11 @@
     :dialogue "
 ~ player
 | Here be CCTV 4.
-| Come in confirming sabotage.
+| Come in, confirming sabotage.
 ~ innis
 | Look around the area for the saboteurs.
 ! eval (activate 'q5b-boss)
+~ player
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
 | | (:normal)\"That's the last CCTV repair. I should \"return to Innis\"(orange).\"(light-gray, italic)
 | ! eval (activate 'q5b-task-return-cctv)

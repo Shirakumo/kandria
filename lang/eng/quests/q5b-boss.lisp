@@ -19,4 +19,5 @@
    :title "Defeat the saboteur robot"
    "~ player
 | Alright big boy, let's dance.
+| (:giggle)You know the robot, right?
   "))
