@@ -47,9 +47,6 @@
 (defmethod enter :after ((entity animatable) (magma magma))
   (kill entity))
 
-(defmethod submerged :after ((entity animatable) (sludge sludge))
-  (kill entity))
-
 (defmethod hurtbox ((animatable animatable))
   (let* ((location (location animatable))
          (direction (direction animatable))
