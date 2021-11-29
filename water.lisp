@@ -19,7 +19,21 @@
     (setf (aref array (- i 4)) (vx bsize))
     array))
 
-(defmethod submerged ((entity entity) (water water)))
+#+destroy-my-god-damn-ears
+(progn
+  (defmethod submerged :after ((player player) (water water))
+    (let ((segment (harmony:segment :lowpass T)))
+      (when (< 50 (abs (- (mixed:frequency segment) 400)))
+        (harmony:with-server (harmony:*server* :synchronize NIL)
+          (setf (mixed:frequency segment) (round (1-pole-lpf (mixed:frequency segment) 400)))
+          (print (mixed:frequency segment))))))
+
+  (defmethod submerged :after ((player player) (air air))
+    (let* ((segment (harmony:segment :lowpass T))
+           (target (1- (mixed:samplerate segment))))
+      (when (< 50 (abs (- (mixed:frequency segment) target)))
+        (harmony:with-server (harmony:*server* :synchronize NIL)
+          (setf (mixed:frequency segment) (round (1-pole-lpf (mixed:frequency segment) target))))))))
 
 (defmethod layer-index ((water water)) +base-layer+)
 

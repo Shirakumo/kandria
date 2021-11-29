@@ -465,6 +465,11 @@
       (loop for thing in things
             always (funcall test-fun (resolve thing))))))
 
+(defun 1-pole-lpf (current target)
+  (let* ((a 0.99)
+         (b (- 1.0 a)))
+    (+ (* target b) (* current a))))
+
 (defgeneric clone (thing &key &allow-other-keys))
 
 (defmethod clone (thing &key)
