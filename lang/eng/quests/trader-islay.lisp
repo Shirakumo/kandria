@@ -44,7 +44,7 @@
 |   | ~ islay
 |   | | (:unhappy)Not much better I'm afraid. They're an alcoholic.
 |   | | (:normal)I think talking is helping though.
-|   | | If I can get them out of this bar it will be a start.
+|   | | If I can get them out of this bar it'll be a start.
 |   < talk
 | - Why spy on the Noka?
 |   ~ islay
