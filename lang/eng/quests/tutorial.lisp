@@ -34,7 +34,7 @@
   (:go-to (walk-start))
   (:interact (catherine :now T)
    "~ catherine
-| (:excited)I don't believe it... Looks like most systems are still functional!
+| (:excited)I don't believe it!... Looks like most of your systems are still working.
 | My name's \"Catherine\"(yellow). Come on, let's get out of here.
 ! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))")
   (:go-to (jump-start :lead catherine))
