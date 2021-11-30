@@ -35,6 +35,7 @@
     :interactable leak-1
     :dialogue "
 ~ player
+| \"It's the \"first\"(red) leak.\"(light-gray, italic)
 | \"//There's a hole in the pipe - probably caused by duress where it bends around this corner.//\"(light-gray)
 ? (not (var 'first-leak))
 | | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
@@ -95,8 +96,8 @@
     :interactable leak-2
     :dialogue "
 ~ player
-| \"//The pipe has split.//\"(light-gray)
-| \"//There's no subsidence, but it's close to Catherine's previous repair - I wonder if she accidentally damaged it.//\"(light-gray)
+| \"It's the \"second\"(red) leak.\"(light-gray, italic)
+| \"//The pipe has split. There's no subsidence, but it's close to Catherine's previous repair - I wonder if she damaged it by accident.//\"(light-gray)
 ? (not (var 'first-leak))
 | | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
 | | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]
@@ -154,8 +155,8 @@
     :interactable leak-3
     :dialogue "
 ~ player
+| \"It's the \"third\"(red) leak.\"(light-gray, italic)
 | \"//The pipe is ruptured, like an artery oozing blood.//\"(light-gray)
-| \"//The ground feels uncannily unstable, like I've been in this situation before.//\"(light-gray)
 ? (not (var 'first-leak))
 | | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
 | | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]
