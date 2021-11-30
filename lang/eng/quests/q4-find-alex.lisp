@@ -213,7 +213,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | (:angry)You mad? I give you these and I really would have nuffin'. <-Hic->.
 | Now get lost.
 | (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told Catherine about you.
-| I was just walking along, and there you were. <-Hic->. Exposed by an earthquake, I reckon.
+| (:confused)I was just walking along, and there you were. <-Hic->. Exposed by an earthquake, I reckon.
 | (:angry)Now I wish I'd kept my mouth shut and smashed you up instead.
 ! eval (deactivate 'islay-hint)
 ")))
