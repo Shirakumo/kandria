@@ -271,7 +271,8 @@
 (defmethod interact ((wind wind) (player player))
   ;; FIXME: how do we get the actual dt here?
   (unless (or (eq :dashing (state player))
-              (eq :climbing (state player)))
+              (eq :climbing (state player))
+              (not (typep (medium player) 'air)))
     (let ((strength (v* (strength wind) 0.01)))
       (nv+ (velocity player) strength)
       (when (svref (collisions player) 2)
