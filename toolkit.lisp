@@ -72,7 +72,7 @@
               (slide-ramp-time 0.25)
               (crawl           0.5)
               (jump-acc        2.5)
-              (jump-mult       1.12)
+              (jump-hold-acc  22.0)
               (walljump-acc    (vec 2.5 2.5))
               (dash-acc        1.2)
               (dash-dcc        0.875)

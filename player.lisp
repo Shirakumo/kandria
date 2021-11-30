@@ -949,10 +949,11 @@ void main(){
        (when (and (retained 'jump)
                   (<= 0.05 (jump-time player) 0.15)
                   (< 0 (vy vel)))
-         (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) (* 100 dt)))))
+         (incf (vy vel) (* dt (p! jump-hold-acc))))
        (nv+ vel (v* (gravity (medium player)) dt))
        (when (and (null ground)
                   (null (retained 'down)))
+         ;; FIXME: this should not affect wind speedup...
          (setf (vy vel) (max (- (p! slowfall-limit)) (vy vel))))
        ;; Limit when sliding down wall
        (cond ((and (null ground)
