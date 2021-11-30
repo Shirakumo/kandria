@@ -384,9 +384,9 @@
 (defmethod edit ((action (eql 'delete-entity)) (editor editor))
   (let* ((entity (entity editor))
          (container (container entity)))
-    (cond ((typep entity 'player)
-           (v:warn :kandria.editor "Refusing to delete the player.")
-           (alloy:message "Cannot delete the player." :title "Error" :ui (unit 'ui-pass T)))
+    (cond ((typep entity '(or player world region camera))
+           (v:warn :kandria.editor "Refusing to delete ~a" entity)
+           (alloy:message (format NIL "Cannot delete the ~a" (type-of entity)) :title "Error" :ui (unit 'ui-pass T)))
           (T
            ;; FIXME: Clean up stale data files from region packet
            ;;        Should probably do that as an explicit command to invoke at some point.
