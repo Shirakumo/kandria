@@ -64,6 +64,12 @@
        (incf (vy (location npc)) 8)
        (setf (vy (bsize npc)) 15)))))
 
+(defmethod handle :before ((ev tick) (npc npc))
+  (case (state npc)
+    (:normal
+     (let ((vel (velocity npc)))
+       (setf (vy vel) (max (- (p! slowfall-limit)) (vy vel)))))))
+
 (defmethod handle :after ((ev tick) (npc npc))
   (let ((vel (velocity npc))
         (collisions (collisions npc)))
