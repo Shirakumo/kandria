@@ -10,7 +10,7 @@
 ~ fi
 | Alright, it's like this: The Wraw are almost certainly coming to reclaim us.
 | But we cannot defend ourselves without knowing their plans: where they'll attack, and more importantly //when//.
-| Alex was hunting in \"Cerebats territory\"(red), a faction of traders deeper underground, and might have the answers we need.
+| Alex was hunting in \"Cerebats territory\"(red) deeper underground, and might have the answers we need. It's a place of traders and diplomats.
 | (:unsure)But they've been gone a long time now. Too long.
 | (:normal)I want you to \"find Alex and bring them back\"(orange) for debriefing.
 | They've got blonde hair, they're probably not quite as tall as you. Oh, and they've a British accent.

@@ -87,11 +87,11 @@
 
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
   (q5a-task-return-engineers
-   :title "Once you've helped the engineers, return to Innis in the Semi Sisters housing complex"
+   :title "Once you've helped the engineers, return to Innis in the Semi Sisters control room"
    :condition NIL
    :on-activate T
    (:interaction q5a-return-engineers
-    :title "(Report on engineers)"
+    :title "(Report on the engineers)"
     :interactable innis
     :repeatable T
     :dialogue "
@@ -115,7 +115,7 @@
 |   | I suspect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 | ~ innis
 | | There's something else...
-| | My sister, in her infinite wisdom, thought it might be a nice gesture if we... (:awkward)//if I// officially grant you access to the metro.
+| | My sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you access to the metro.
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
 | ? (var 'metro-used)
 | | | (:sly)I know you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.

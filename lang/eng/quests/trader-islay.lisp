@@ -39,7 +39,7 @@
 |   | | I suggest you relay your findings to Fi.
 |   | | We'll speak again.
 |   | ! eval (setf (walk 'islay) T)
-|   | ! eval (move-to 'islay-intercept (unit 'islay))
+|   | ! eval (move-to 'islay-main-loc (unit 'islay))
 |   |?
 |   | ~ islay
 |   | | (:unhappy)Not much better I'm afraid. They're an alcoholic.

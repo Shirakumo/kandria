@@ -4,9 +4,9 @@
 (define-sequence-quest (kandria q5-intro)
   :author "Tim White"
   :title "Talk to Innis"
-  :description "Islay said she can give me more information about the trapped engineers and downed CCTV."
+  :description "Islay said she can give me more information about the trapped engineers and downed CCTV cameras."
   (:interact (innis)
-   :title "Speak with Innis in the Semi Sisters housing complex"
+   :title "Speak with Innis in the Semi Sisters control room"
  "
 ~ innis
 | (:angry)What is it, android?
@@ -85,7 +85,7 @@
 |   | I only just got word o' this change myself.
 | ~ innis
 | | The good news for you is that it means our engineering works are back on schedule.
-| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we... (:awkward)//if I// officially grant you access to the metro.
+| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you access to the metro.
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
 | ? (var 'metro-used)
 | | | (:sly)I know you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
@@ -107,10 +107,10 @@
   | Correct. We're slowly digging out the old maglev system. (:pleased)We've got a basic electrified railway going.
   | (:angry)But it's dangerous work.
   < questions
-- Tell me about the downed CCTV.
+- Tell me about the downed CCTV cameras.
   ~ innis
   | We monitor the surrounding area, immediately above and below.
-  | (:angry)Our cameras on the Cerebat border have gone down, in the \"low-eastern region\"(orange).
+  | (:angry)Four of our cameras on the Cerebat border have gone down, in the \"low-eastern region\"(orange).
   | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together means when one goes, they all go.
   | I want you to check them out.
   < questions

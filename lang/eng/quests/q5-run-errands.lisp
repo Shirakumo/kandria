@@ -5,9 +5,12 @@
   :author "Tim White"
   :title "Run Errands"
   :visible NIL
-  (:eval (setf (location 'islay) (location 'islay-errand-spawn)))
-  (:eval (setf (walk 'islay) T))
-  (:eval (move-to 'alex (unit 'islay)))
+  (:eval 
+   (setf (location 'innis) (location 'innis-main-loc))
+   (setf (direction 'innis) 1)
+   (setf (location 'islay) (location 'islay-errand-spawn))
+   (setf (walk 'islay) T)
+   (move-to 'alex (unit 'islay)))
   ;;(:eval (ensure-nearby 'alex 'islay))
   (:eval (follow 'player 'islay)) (:nearby (player islay))
   (:interact (islay :now T)
@@ -34,6 +37,7 @@
   | Were you yourself not a lost cause before Alex found you?
 ~ islay
 | You should stay with us a while, give me some time.
+| (:expectant)You don't want to disappoint Fi by returning without Alex, do you?
 | And there are things you could help us with.
 ~ player
 - So there is a catch.
@@ -63,8 +67,8 @@
 | Which means I stock many things that might be useful to you.
 | We get the usual traders visiting of course, but I'm giving you another option - and \"I stock more supplies than most\"(orange).
 | (:unhappy)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
-| We've got \"rail engineers stuck after a tunnel collapse in the high west\"(orange). And our \"CCTV network on the low-eastern Cerebat border\"(orange) has gone down.
-| (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis\"(orange).
+| We've got \"rail engineers stuck after a tunnel collapse in the high west\"(orange). And \"four of our CCTV cameras on the low-eastern Cerebat border\"(orange) have gone down.
+| (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis - she's gone up to the control room\"(orange).
 | Perhaps see her too as a challenge to overcome. (:happy)I know I do.
 | (:normal)Ta-ta for now, Stranger.
 ! eval (stop-following 'islay)

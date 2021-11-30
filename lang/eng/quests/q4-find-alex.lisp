@@ -56,6 +56,7 @@
   | (:sly)I'll ask the questions if you dinnae mind. Why are you here?
 ~ innis
 | (:sly)What //does// Fi send her robot dog to do?
+| To prove her loyalty, I think.
 ~ player
 - My business is my business.
   ~ innis
@@ -63,7 +64,7 @@
   | But you'll be pleased to know that \"Alex is here\"(orange).
 - I'm looking for someone called Alex, have you seen them?
   ~ innis
-  | (:pleased)You see, sister. The direct approach once again yields results.
+  | (:pleased)You see, sister. The direct approach once again yields results, and confirms my information.
   | (:normal)You'll be pleased to know that \"Alex is here\"(orange).
 - Go fuck yourself.
   ~ islay
