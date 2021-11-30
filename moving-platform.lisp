@@ -13,6 +13,8 @@
 (define-shader-entity falling-platform (lit-sprite moving-platform creatable)
   ((fall-timer :initform 0.75 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)
+   (max-speed :initarg :max-speed :initform (vec 0.0 10.0) :accessor max-speed :type vec2)
+   (fall-direction :initarg :fall-direction :initform (vec 0 -1) :accessor fall-direction :type vec2)
    (name :initform NIL)))
 
 (defmethod stage :after ((platform falling-platform) (area staging-area))
@@ -50,7 +52,8 @@
      (loop repeat 10 while (handle-collisions +world+ platform)))
     (:falling
      (when (< (decf (fall-timer platform) (dt ev)) 0.0)
-       (nv+ (velocity platform) (nv* (vec 0 -10) (dt ev)))
+       (nv+ (velocity platform) (v* (fall-direction platform) 10 (dt ev)))
+       (nvclamp (v- (max-speed platform)) (velocity platform) (max-speed platform))
        (nv+ (frame-velocity platform) (velocity platform))
        (loop repeat 10 while (handle-collisions +world+ platform))))))
 
