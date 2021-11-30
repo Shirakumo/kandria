@@ -327,7 +327,10 @@
                                  ,@initargs
                                  :title ,(format NIL "Complete ~{~a~^, ~}" things)
                                  :condition (complete-p ,@(loop for thing in things
-                                                                collect `(or (unit ',thing) ',thing)))
+                                                                collect (if (symbolp thing)
+                                                                            `(or (unit ',thing) ',thing)
+                                                                            (destructuring-bind (quest task) thing
+                                                                              `(find-task ',quest ',task)))))
                                  :on-activate (action)
                                  :on-complete ,next
                                  (:action action
@@ -335,7 +338,7 @@
                                                   collect `(activate (or (unit ',thing) ',thing)))
                                           ,@(if body `((walk-n-talk (progn ,@body)))))))))))
              (sequence-form-name (form)
-               (trial::mksym *package* (incf counter) :- (first form) :- (unlist (second form))))
+               (apply #'trial::mksym *package* (incf counter) :- (first form) :- (enlist (unlist (second form)))))
              (parse-sequence-to-tasks (forms)
                (let ((forms (loop for form in forms
                                   collect (list (sequence-form-name form) form))))
