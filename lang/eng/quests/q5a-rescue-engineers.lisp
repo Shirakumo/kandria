@@ -91,13 +91,13 @@
    :condition NIL
    :on-activate T
    (:interaction q5a-return-engineers
-    :title "I've found the trapped engineers."
+    :title "(Report on engineers)"
     :interactable innis
     :repeatable T
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
 | ~ innis
-| | Is that so? Well they aren't back yet. \"They can't come home with that debris blocking their path\"(orange).
+| | They aren't back yet. \"They can't come home with that debris blocking their path\"(orange).
 |?
 | ~ innis
 | | (:pleased)The injured are already on their way back - I've sent hunters to guide them.
