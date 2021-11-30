@@ -1174,6 +1174,14 @@ void main(){
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
      (view-scale (unit :camera T))))
 
+(defmethod apply-transforms progn ((player player))
+  (declare (optimize speed))
+  (let ((x (1+ (clamp -0.5
+                      (1+ (/ (- (vy (velocity player)) (p! slowfall-limit))
+                             (- (vy (p! velocity-limit)) (p! slowfall-limit))))
+                       0))))
+    (scale-by x 1 1)))
+
 (defmethod render :before ((player player) (program shader-program))
   (setf (uniform program "color_mask") (color player)))
 
