@@ -110,7 +110,8 @@
              (:active (activate object))
              (:inactive (deactivate object))
              (:complete (complete object))
-             (:failed (fail object))))
+             (:failed (fail object))
+             (:reset (reset object))))
   (print-storyline T :active-only T))
 
 (defmacro update (&rest changes)
