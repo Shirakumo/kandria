@@ -119,7 +119,8 @@
              ((< 0 (abs (vx vel)))
               (setf (playback-speed npc) (/ (abs (vx vel)) (p! slowwalk-limit)))
               (setf (animation npc) 'walk))
-             (T
+             ;; KLUDGE: Ugh.
+             ((not (eql :sit (ai-state npc)))
               (setf (animation npc) 'stand)))))
     (cond ((eql (name (animation npc)) 'slide)
            (harmony:play (// 'sound 'slide)))
@@ -281,6 +282,94 @@
         (unless (nearby-p place entity)
           (place-on-ground entity loc (vx bsize) (vy bsize)))))))
 
+(define-shader-entity roaming-npc (npc)
+  ((roam-time :initform (random* 5.0 2.0) :accessor roam-time)))
+
+(defmethod minimum-idle-time ((npc roaming-npc)) 5)
+
+(defmethod idleable-p ((npc roaming-npc))
+  (and (call-next-method)
+       (eq :normal (ai-state npc))))
+
+(defun crowding-level (npc)
+  (let* ((crowding-level 0.0)
+         (center (vx (location npc)))
+         (region (tvec (- center (* +tile-size+ 100))
+                       (- (vy (location npc)) 32)
+                       (+ center (* +tile-size+ 100))
+                       (+ (vy (location npc)) 32))))
+    (bvh:do-fitting (entity (bvh (region +world+)) region crowding-level)
+      (when (and (not (eq entity npc)) (typep entity 'npc))
+        (let* ((dist (- (vx (location entity)) center))
+               (gauss (* (/ (* 4 (sqrt (* 2 PI)))) (exp (* -0.5 (/ (* dist dist) 16))))))
+          (incf crowding-level gauss))))))
+
+(defun crowd-direction (npc)
+  (let* ((direction 0.0)
+         (center (vx (location npc)))
+         (region (tvec (- center (* +tile-size+ 100))
+                       (- (vy (location npc)) 32)
+                       (+ center (* +tile-size+ 100))
+                       (+ (vy (location npc)) 32))))
+    (bvh:do-fitting (entity (bvh (region +world+)) region direction)
+      (when (and (not (eq entity npc)) (typep entity 'npc))
+        (let* ((dist (- (vx (location entity)) center)))
+          (when (<= 0.1 (abs dist))
+            (incf direction (* (expt (abs dist) -1.1) (float-sign dist)))))))))
+
+(defmethod handle-ai-states ((npc roaming-npc) ev)
+  (when (eql :normal (state npc))
+    (let* ((speed (movement-speed npc))
+           (avg-time 2.0)
+           (dt (dt ev))
+           (time (decf (roam-time npc) dt))
+           (vel (velocity npc)))
+      (flet ((normalize ()
+               (setf (roam-time npc) (random* 30 15))
+               (cond ((< 0.5 (random 1.0))
+                      (setf (ai-state npc) :normal))
+                     (T
+                      (setf (ai-state npc) :sit)
+                      (setf (animation npc) 'sit)))))
+        (ecase (ai-state npc)
+          (:normal
+           (setf (vx vel) 0.0)
+           (when (<= time 0.0)
+             (let ((level (crowding-level npc)))
+               (cond ((<= 0.3 level)
+                      (setf (ai-state npc) :crowded)
+                      (setf (direction npc) (float-sign (random* 0.0 1.0)))
+                      (setf (roam-time npc) (random* (+ 0.5 level) 0.5)))
+                     (T
+                      (setf (ai-state npc) :lonely)
+                      (let ((dir (crowd-direction npc)))
+                        (setf (direction npc) (float-sign (if (<= dir 1) (random* 0.0 1.0) dir))))
+                      (setf (roam-time npc) (random* avg-time 1.0)))))))
+          (:sit
+           (setf (animation npc) 'sit)
+           (when (<= time 0.0)
+             (start-animation 'stand-up npc)
+             (setf (ai-state npc) :normal)))
+          (:lonely
+           (setf (vx vel) (* speed (direction npc)))
+           (when (svref (collisions npc) (if (< 0 (direction npc)) 1 3))
+             (setf (vx vel) 0))
+           (cond ((<= time 0.0)
+                  (normalize))
+                 ((<= time 0.5)
+                  (let ((level (crowding-level npc)))
+                    (cond ((<= 0.2 level)
+                           (normalize))
+                          (T
+                           (let ((dir (crowd-direction npc)))
+                             (setf (direction npc) (float-sign (if (<= dir 1) (random* 0.0 1.0) dir))))))))))
+          (:crowded
+           (setf (vx vel) (* speed (direction npc)))
+           (when (svref (collisions npc) (if (< 0 (direction npc)) 1 3))
+             (setf (vx vel) 0))
+           (cond ((<= time 0.0)
+                  (normalize)))))))))
+
 (define-unit-resolver-methods (setf lead-interrupt) (thing unit))
 (define-unit-resolver-methods (setf walk) (thing unit))
 (define-unit-resolver-methods follow (unit unit))
@@ -350,20 +439,27 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'alex)))
 
-(define-shader-entity semi-engineer (npc creatable)
+(define-shader-entity semi-engineer (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ semi-engineer-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-engineer)))
 
-(define-shader-entity villager (npc creatable)
+(define-shader-entity villager (roaming-npc creatable)
   ((name :initform (generate-name "VILLAGER"))
+   (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ villager-nametag)))
   (:default-initargs
    :sprite-data (alexandria:random-elt
                  (list (asset 'kandria 'villager-male)
                        (asset 'kandria 'villager-female)))))
+
+(defmethod stage :after ((villager villager) (area staging-area))
+  (stage (// 'kandria 'villager-male 'vertex-array) area)
+  (stage (// 'kandria 'villager-male 'texture) area)
+  (stage (// 'kandria 'villager-female 'vertex-array) area)
+  (stage (// 'kandria 'villager-female 'texture) area))
 
 (define-shader-entity pet (animatable ephemeral interactable)
   ())
