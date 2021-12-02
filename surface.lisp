@@ -91,10 +91,11 @@
                               (T
                                (tvec 0 (- sign-y))))))
             (unless (= 0 (v. normal seg-vel))
-              ;; KLUDGE: This test is necessary in order to ignore vertical edges
+              ;; KLUDGE: This test is necessary in order to ignore edges
               ;;         that seem to stick out of the blocks. I have no idea why.
-              (unless (and (/= 0 (vy2 normal))
-                           (<= (vx2 aabb-size) (abs (- (vx2 aabb-pos) (vx2 seg-pos)))))
+              (unless (if (/= 0 (vy2 normal))
+                          (<= (vx2 aabb-size) (abs (- (vx2 aabb-pos) (vx2 seg-pos))))
+                          (<= (vy2 aabb-size) (abs (- (vy2 aabb-pos) (vy2 seg-pos)))))
                 (make-hit NIL
                           aabb-pos
                           t-near
