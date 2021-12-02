@@ -74,6 +74,8 @@
               (jump-acc        2.5)
               (jump-hold-acc  22.0)
               (walljump-acc    (vec 2.5 2.5))
+              (inertia-coyote  0.3)
+              (inertia-time    0.2)
               (dash-acc        1.2)
               (dash-dcc        0.875)
               (dash-air-dcc    0.98)

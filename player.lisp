@@ -83,6 +83,8 @@ void main(){
    (combat-time :initform 10000.0 :accessor combat-time)
    (attack-held :initform NIL :accessor attack-held)
    (used-aerial :initform NIL :accessor used-aerial)
+   (inertia-time :initform 0.0 :accessor inertia-time)
+   (inertia :initform (vec2 0 0) :accessor inertia)
    (buffer :initform (cons NIL 0))
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (prompt-b :initform (make-instance 'prompt) :reader prompt-b)
@@ -283,6 +285,8 @@ void main(){
         ((eql :crawling (state player))
          (handle (make-instance 'crawl) player))
         (T
+         (when (< 0 (inertia-time player))
+           (setf (inertia-time player) -1.0))
          (setf (jump-time player) (- (p! coyote-time))))))
 
 (defmethod handle ((ev crawl) (player player))
@@ -334,22 +338,23 @@ void main(){
 
 (flet ((handle-solid (player hit)
          (when (< 0 (vy (hit-normal hit)))
-           (cond ((and (< (vy (velocity player)) -6)
-                       (< 1.0 (air-time player))
-                       (not (eql :animated (state player))))
-                  (trigger 'land player :location (nv+ (v* (velocity player) (hit-time hit))
-                                                       (location player)))
-                  (cond ((or (retained 'left) (retained 'right))
-                         (start-animation 'roll player)
-                         (harmony:play (// 'sound 'player-roll-land)))
-                        (T
-                         (start-animation 'land player)
-                         (harmony:play (// 'sound 'player-hard-land))))
-                  (duck-camera (vx (velocity player)) (vy (velocity player)))
-                  (shake-camera :intensity (* 3 (/ (abs (vy (velocity player))) (vy (p! velocity-limit))))))
-                 ((and (< (vy (velocity player)) -0.5)
-                       (< 0.2 (air-time player)))
-                  (harmony:play (// 'sound 'player-soft-land))))
+           (let ((vel (velocity player)))
+             (cond ((and (< (vy vel) -6)
+                         (< 1.0 (air-time player))
+                         (not (eql :animated (state player))))
+                    (trigger 'land player :location (nv+ (v* vel (hit-time hit))
+                                                         (location player)))
+                    (cond ((or (retained 'left) (retained 'right))
+                           (start-animation 'roll player)
+                           (harmony:play (// 'sound 'player-roll-land)))
+                          (T
+                           (start-animation 'land player)
+                           (harmony:play (// 'sound 'player-hard-land))))
+                    (duck-camera (vx vel) (vy vel))
+                    (shake-camera :intensity (* 3 (/ (abs (vy vel)) (vy (p! velocity-limit))))))
+                   ((and (< (vy vel) -0.5)
+                         (< 0.2 (air-time player)))
+                    (harmony:play (// 'sound 'player-soft-land)))))
            (unless (eql :dashing (state player))
              (setf (dash-exhausted player) NIL))
            (setf (used-aerial player) NIL))))
@@ -782,7 +787,12 @@ void main(){
                        (setf (vx loc) target-x))))))
            (moving-platform
             (trigger attached player)
-            (nv+ (frame-velocity player) (velocity attached))))
+            ;;(nv+ (frame-velocity player) (velocity attached))
+            (nv+ (velocity player) (velocity attached))
+            (when (and (v/= 0 (velocity attached))
+                       (not (retained 'jump)))
+              (setf (inertia-time player) (p! inertia-coyote))
+              (v<- (inertia player) (velocity attached)))))
          (if (retained 'down)
              (if (typep attached 'rope)
                  (harmony:play (// 'sound 'rope-slide-down)))
@@ -901,9 +911,17 @@ void main(){
        ;; Movement
        (cond (ground
               (setf (dash-exhausted player) NIL)
+              (unless (retained 'jump)
+                (typecase ground
+                  (moving-platform
+                   (when (v/= 0 (velocity ground))
+                     (setf (inertia-time player) (p! inertia-coyote))
+                     (v<- (inertia player) (velocity ground))))
+                  (T
+                   (when (<= (inertia-time player) 0.0)
+                     (vsetf (inertia player) 0 0)))))
               (when (<= (climb-strength player) (p! climb-strength))
                 (setf (climb-strength player) (min (p! climb-strength) (+ (climb-strength player) (* 10 (dt ev))))))
-              (incf (vy vel) (min 0 (vy (velocity ground))))
               (cond ((retained 'left)
                      (setf (direction player) -1)
                      ;; Quick turns on the ground.
@@ -930,6 +948,7 @@ void main(){
               (setf (direction player) +1)
               (when (< (vx vel) ground-limit)
                 (incf (vx vel) (p! air-acc)))))
+       ;; Water movement
        (when (typep (medium player) 'water)
          (cond ((retained 'down)
                 (when (< (- ground-limit) (vy vel))
@@ -942,8 +961,15 @@ void main(){
          (if (= (signum (vx vel))
                 (signum (- (vy (slope-l ground)) (vy (slope-r ground)))))
              (decf (vy vel) 1)))
-       ;; Air friction
+       ;; Air movement
+       (when (< 0 (inertia-time player))
+         (decf (inertia-time player) dt))
        (unless ground
+         (when (and (= -1.0 (inertia-time player))
+                    (< (air-time player) (p! inertia-time))
+                    (<= 0 (vy (inertia player))))
+           ;; FIXME: only apply inertia if we're not also jumping in the opposite direction.
+           (nv+ vel (v* (inertia player) (* 14 dt))))
          (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) (* 100 dt)))))
        ;; Jump progress
        (when (and (retained 'jump)
