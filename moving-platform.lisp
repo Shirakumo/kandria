@@ -13,9 +13,12 @@
 (define-shader-entity falling-platform (lit-sprite moving-platform creatable)
   ((fall-timer :initform 0.75 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)
-   (max-speed :initarg :max-speed :initform (vec 0.0 10.0) :accessor max-speed :type vec2)
+   (max-speed :initarg :max-speed :initform (vec 10.0 10.0) :accessor max-speed :type vec2)
    (fall-direction :initarg :fall-direction :initform (vec 0 -1) :accessor fall-direction :type vec2)
    (name :initform NIL)))
+
+(defmethod initargs append ((platform falling-platform))
+  '(:fall-direction :max-speed))
 
 (defmethod stage :after ((platform falling-platform) (area staging-area))
   (stage (// 'sound 'falling-platform-impact) area)
