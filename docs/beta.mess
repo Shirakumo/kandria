@@ -9,9 +9,13 @@ After activating the key with Steam, you'll have to switch it to the development
 Steam should also automatically start downloading new releases for you as they get published. If you notice Kandria popping up in Steam's download list, give it a try, there's probably new features to test!
 
 ## Providing feedback
-The easiest way to provide feedback is to use the game's integrated feedback system. Simply click the button in the top right of the game, or hit F12 at any point. This will pause the game and give you a text box to more closely describe your issue. Once you hit submit, it will automatically gather information about your machine, and send that along with your description, a screenshot, and a save state of your current point to us to analyse.
+Please submit feedback on our feedback tracking sheet:
 
-If possible, please also join our "Discord"(https://discord.gg/WNTygau), and include your Discord tag in the report so that we can get back to you in case we have trouble reproducing the issue. We'll occasionally use the Discord to ask for specific things to test, and you'll get a special role there to show your support for us!
+  https://docs.google.com/spreadsheets/d/1bW9JlPyMXOqpKBQr-dne8Xd27LObR8uPvLMwd9N6F5s/edit?usp=sharing
+
+Before submitting, also do a brief check to see whether your particular issue has already been submitted before or not. Sometimes we may also not agree and mark an issue ``wontfix``, in which case reporting it again wouldn't be helpful.
+
+If possible, please also join our "Discord"(https://discord.gg/WNTygau) so that we can get back to you in case we have trouble reproducing the issue. We'll occasionally use the Discord to ask for specific things to test, and you'll get a special role there to show your support for us!
 
 Generally in your reports, please make sure to describe the issue in a bit of detail, like this:
 
