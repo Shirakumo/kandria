@@ -79,8 +79,9 @@
             (current (nvalign (mouse-world-pos (pos event)) +tile-size+))
             (starting (nvalign (start-pos tool) +tile-size+))
             (new-pos (v+ (original-loc tool) (nv/ (v- current starting) 2)))
-            (new-size (vmax (nv/ (vec +tile-size+ +tile-size+) 2)
-                            (nvabs (v- current new-pos))))
+            (new-size (nvalign (vmax (nv/ (vec +tile-size+ +tile-size+) 2)
+                                     (nvabs (v- current new-pos)))
+                               (/ +tile-size+ 2)))
             (old-size (vcopy (bsize entity))))
        (when (v/= new-size old-size)
          ;; FIXME: this is destructive for chunks. Need some way to either copy state or not throw it away too eagerly.
