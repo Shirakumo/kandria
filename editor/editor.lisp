@@ -270,7 +270,8 @@
              with queue = (trial::listener-queue +world+)
              for listener = (pop queue)
              while listener
-             do (handle event listener))))))
+             do (handle event listener))
+       (update-marker editor)))))
 
 (defmethod handle ((event text-entered) (editor editor))
   (let ((camera (unit :camera T)))
