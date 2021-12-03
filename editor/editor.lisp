@@ -66,7 +66,8 @@
    (alt-tool :accessor alt-tool)
    (toolbar :accessor toolbar)
    (history :initform (make-instance 'linear-history) :accessor history)
-   (sidebar :initform NIL :accessor sidebar)))
+   (sidebar :initform NIL :accessor sidebar)
+   (last-tick :initform 0 :accessor last-tick)))
 
 (alloy:define-observable (setf entity) (entity alloy:observable))
 
@@ -243,6 +244,8 @@
   (v:info :kandria.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
 (defmethod handle :around ((ev event) (editor editor))
+  (when (typep ev 'tick)
+    (setf (last-tick editor) (fc ev)))
   (unless (call-next-method)
     (with-editor-error-handling
       (handle ev (cond ((retained :alt) (alt-tool editor))
@@ -266,7 +269,7 @@
       (:s (decf (vy (location camera)) move-value))
       (:d (incf (vx (location camera)) move-value))
       (:period
-       (loop with event = (make-instance 'tick :tt 0.0d0 :dt 0.01 :fc 1)
+       (loop with event = (make-instance 'tick :tt 0.0d0 :dt 0.01 :fc (last-tick editor))
              with queue = (trial::listener-queue +world+)
              for listener = (pop queue)
              while listener

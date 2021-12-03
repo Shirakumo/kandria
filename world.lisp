@@ -155,7 +155,7 @@
                    (find-panel 'quick-menu)))
          (status #@game-pausing-not-allowed))))
 
-(defmethod handle :after ((ev trial:tick) (world world))
+(defmethod handle :after ((ev tick) (world world))
   (let ((dt (dt ev)))
     (unless (handler-stack world)
       (incf (timestamp world) (* (clock-scale world) dt))

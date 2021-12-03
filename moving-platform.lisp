@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity moving-platform (game-entity resizable solid ephemeral)
-  ((layer-index :initform (1+ +base-layer+))))
+  ((layer-index :initform (1+ +base-layer+))
+   (last-tick :initform 0 :accessor last-tick)))
 
 (defmethod collides-p ((platform moving-platform) thing hit) NIL)
 (defmethod collides-p ((platform moving-platform) (block block) hit) T)
@@ -9,6 +10,11 @@
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
 (defmethod trigger ((platform moving-platform) (thing game-entity) &key))
+
+(defmethod handle :around ((ev tick) (platform moving-platform))
+  (when (< (last-tick platform) (fc ev))
+    (setf (last-tick platform) (fc ev))
+    (call-next-method)))
 
 (define-shader-entity falling-platform (lit-sprite moving-platform creatable)
   ((fall-timer :initform 0.75 :accessor fall-timer)

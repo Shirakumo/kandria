@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-global +default-medium+ (make-instance 'air))
+(defvar *current-event* NIL)
 
 (defclass moving (game-entity)
   ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
@@ -10,6 +11,7 @@
 (defmethod handle ((ev tick) (moving moving))
   (when (next-method-p) (call-next-method))
   (let ((loc (location moving))
+        (*current-event* ev)
         (size (bsize moving))
         (collisions (collisions moving)))
     ;; Scan for medium
@@ -174,6 +176,9 @@
            (yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
       (setf (vy loc) (max (vy loc) (+ yrel (vy (bsize moving)) (vy (hit-location hit))))))))
 
+(defmethod collides-p :before ((moving moving) (other moving-platform) hit)
+  (when *current-event*
+    (handle *current-event* other)))
 (defmethod collide ((moving moving) (other game-entity) hit)
   (let* ((loc (location moving))
          (vel (frame-velocity moving))
