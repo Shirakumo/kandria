@@ -971,11 +971,11 @@ void main(){
        (when (< 0 (inertia-time player))
          (decf (inertia-time player) dt))
        (unless ground
-         (when (and (= -1.0 (inertia-time player))
-                    (<= 0 (vy (inertia player))))
+         (when (and (= -1.0 (inertia-time player)))
            ;; FIXME: only apply inertia if we're not also jumping in the opposite direction.
            (if (< (air-time player) (p! inertia-time))
-               (nv+ vel (v* (inertia player) (* 14 dt)))
+               (setf (vx vel) (+ (vx vel) (* (vx (inertia player)) 14 dt))
+                     (vy vel) (+ (vy vel) (clamp 0 (* (vy (inertia player)) 14 dt) 0.4)))
                (setf (inertia-time player) -0.5)))
          (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) (* 100 dt)))))
        ;; Jump progress
