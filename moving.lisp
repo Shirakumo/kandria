@@ -137,13 +137,14 @@
       (setf (vy loc) (+ (vy pos) t-s height)))))
 
 (defmethod collide ((moving moving) (block death) hit)
-  (kill moving))
+  (when (collides-p moving block hit)ee
+    (kill moving)))
 
 (defmethod collides-p ((moving moving) (block spike) hit)
   (let ((vel (if (v= (frame-velocity moving) 0.0) (velocity moving) (frame-velocity moving))))
     (unless (v= vel 0.0)
       (let ((angle (vangle (spike-normal block) vel))
-            (loc (v+ (location moving) vel)))
+            (loc (nv+ (v* vel 0.5) (location moving))))
         (and (<= 85 (rad->deg angle) 185)
              (if (/= 0 (vx (spike-normal block)))
                  (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
