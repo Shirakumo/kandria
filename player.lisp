@@ -429,7 +429,7 @@ void main(){
     (return-from handle))
   ;; FIXME: Very bad! We cannot track time passage by frame count!
   ;;        Need to do proper test to check whether a second has passed.
-  (when (and (= (mod (fc ev) 60) 0)
+  (when (and (= (mod (fc ev) 100) 0)
              (chunk player)
              (visible-on-map-p (chunk player)))
     (let ((trace (movement-trace player)))
@@ -753,10 +753,11 @@ void main(){
        (when (and (retained 'jump)
                   (<= 0.05 (jump-time player) 0.15)
                   (< 0 (vy vel)))
-         (setf (vy vel) (* (vy vel) (damp* (p! jump-mult) (* 100 dt)))))
+         (incf (vy vel) (* dt (p! jump-hold-acc))))
        (nv+ vel (v* (gravity (medium player)) dt)))
       (:climbing
        (setf (visibility (stamina-wheel player)) 1.0)
+       (setf (air-time player) 0.0)
        ;; Movement
        (let* ((top (if (= -1 (direction player))
                        (scan-collision +world+ (vec (- (vx loc) (vx size) 10) (- (vy loc) (vy size) 2)))
@@ -787,8 +788,11 @@ void main(){
                        (setf (vx loc) target-x))))))
            (moving-platform
             (trigger attached player)
-            ;;(nv+ (frame-velocity player) (velocity attached))
-            (nv+ (velocity player) (velocity attached))
+            (handle ev attached)
+            (setf (vx loc) (+ (vx (location attached))
+                              (* (float-sign (- (vx loc) (vx (location attached))))
+                                 (+ (vx (bsize attached)) (vx size)))))
+            (incf (vy (frame-velocity player)) (vy (velocity attached)))
             (when (and (v/= 0 (velocity attached))
                        (not (retained 'jump)))
               (setf (inertia-time player) (p! inertia-coyote))
@@ -920,6 +924,8 @@ void main(){
                   (T
                    (when (<= (inertia-time player) 0.0)
                      (vsetf (inertia player) 0 0)))))
+              (when (typep ground 'moving-platform)
+                (incf (vy (frame-velocity player)) (min 0.0 (vy (velocity ground)))))
               (when (<= (climb-strength player) (p! climb-strength))
                 (setf (climb-strength player) (min (p! climb-strength) (+ (climb-strength player) (* 10 (dt ev))))))
               (cond ((retained 'left)
@@ -966,10 +972,11 @@ void main(){
          (decf (inertia-time player) dt))
        (unless ground
          (when (and (= -1.0 (inertia-time player))
-                    (< (air-time player) (p! inertia-time))
                     (<= 0 (vy (inertia player))))
            ;; FIXME: only apply inertia if we're not also jumping in the opposite direction.
-           (nv+ vel (v* (inertia player) (* 14 dt))))
+           (if (< (air-time player) (p! inertia-time))
+               (nv+ vel (v* (inertia player) (* 14 dt)))
+               (setf (inertia-time player) -0.5)))
          (setf (vx vel) (* (vx vel) (damp* (p! air-dcc) (* 100 dt)))))
        ;; Jump progress
        (when (and (retained 'jump)
@@ -985,14 +992,19 @@ void main(){
        (cond ((and (null ground)
                    (or (typep (svref collisions 1) '(or ground moving-platform))
                        (typep (svref collisions 3) '(or ground moving-platform))))
-              (when (and (< (vy vel) 0)
-                         (< (slide-time player) (p! slide-ramp-time)))
-                (setf (vy vel) (* (vy vel) (/ (slide-time player) (p! slide-ramp-time))))
-                (incf (slide-time player) dt))
-              (when (< (vy vel) (p! slide-limit))
-                (setf (vy vel) (p! slide-limit)))
-              (when (< (vy vel) -1)
-                (nv+ (frame-velocity player) (velocity (or (svref collisions 1) (svref collisions 3))))))
+              (let ((attached (or (svref collisions 1) (svref collisions 3))))
+                (when (and (< (vy vel) 0)
+                           (< (slide-time player) (p! slide-ramp-time)))
+                  (setf (vy vel) (* (vy vel) (/ (slide-time player) (p! slide-ramp-time))))
+                  (incf (slide-time player) dt))
+                (when (< (vy vel) (p! slide-limit))
+                  (setf (vy vel) (p! slide-limit)))
+                ;; Make sure we fit against the platform perfectly
+                (when (typep attached 'moving-platform)
+                  (let ((dir (float-sign (- (vx loc) (vx (location attached))))))
+                    (when (or (= 0 (vx vel)) (/= (float-sign (vx vel)) dir))
+                      (setf (vx loc) (+ (vx (location attached))
+                                        (* dir (+ (vx (bsize attached)) (vx size))))))))))
              (T
               (setf (slide-time player) 0.0)))))
     (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
