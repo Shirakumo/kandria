@@ -209,7 +209,7 @@
                      (not (eq (chunk npc) (chunk companion))))
                 ;; TODO: shout where are you, then timer it.
                 (setf (ai-state npc) :follow-teleport))
-               ((= 0 (mod (fc ev) 60))
+               ((= 0 (mod (fc ev) 100))
                 (when (move-to companion npc)
                   (setf (ai-state npc) :follow))))))
       (:follow-teleport

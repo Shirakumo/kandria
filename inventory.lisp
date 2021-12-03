@@ -119,7 +119,7 @@
     (vsetf (location (light item))
            (vx (location item))
            (+ 12 (vy (location item))))
-    (when (= 0 (mod (fc ev) 5))
+    (when (= 0 (mod (fc ev) 10))
       (setf (multiplier (light item)) (random* 1.0 0.2)))))
 
 (defmethod collide ((item item) (block block) hit)
