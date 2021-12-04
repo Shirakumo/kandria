@@ -137,7 +137,7 @@
       (setf (vy loc) (+ (vy pos) t-s height)))))
 
 (defmethod collide ((moving moving) (block death) hit)
-  (when (collides-p moving block hit)ee
+  (when (collides-p moving block hit)
     (kill moving)))
 
 (defmethod collides-p ((moving moving) (block spike) hit)
