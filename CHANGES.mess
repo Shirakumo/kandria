@@ -13,6 +13,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by GIC booth
 - Fix player marker not aligning properly with trace display on map
   Reported by GIC attendees
+- Remove long dash and retain only the more effective short dash
+  Reported by Tobias
+- Limit downwards speed much more strongly by default
+  Reported by Tobias
 
 ## 0.2.1
 - Attacking while fishing doesn't despawn the line
