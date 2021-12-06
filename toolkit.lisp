@@ -68,6 +68,8 @@
               (climb-down      1.5)
               (climb-strength  5.0)
               (climb-jump-cost 1.7)
+              (climb-hold-cost 0.1)
+              (climb-up-cost   1.0)
               (slide-limit    -1.2)
               (slide-ramp-time 0.25)
               (crawl           0.5)

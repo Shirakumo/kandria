@@ -816,13 +816,15 @@ void main(){
                 (setf (vx vel) (* (direction player) (p! climb-up))))
                ((retained 'up)
                 (unless (typep attached 'rope)
-                  (decf (climb-strength player) dt))
+                  (decf (climb-strength player) (* (p! climb-up-cost) dt)))
                 (if (< (vy vel) (p! climb-up))
                     (setf (vy vel) (p! climb-up))
                     (decf (vy vel) 0.1)))
                ((retained 'down)
                 (setf (vy vel) (* (p! climb-down) -1)))
                (T
+                (unless (typep attached 'rope)
+                  (decf (climb-strength player) (* (p! climb-hold-cost) dt)))
                 (setf (vy vel) 0.0)))))
       (:crawling
        ;; Uncrawl on ground loss or manual
