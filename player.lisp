@@ -694,7 +694,10 @@ void main(){
                 (pprev NIL)
                 (prev NIL))
            (loop (let ((cur (scan +world+ off (lambda (hit) (not (collides-p player (hit-object hit) hit))))))
-                   (when (and pprev (null prev) (or cur ground))
+                   (when (and pprev (null prev)
+                              (if (< (vy off) ymin)
+                                  (or cur ground)
+                                  cur))
                      (setf (vw (color player)) 0.0)
                      (setf (vx vel) (* (float-sign (vx vel)) (vx (p! velocity-limit))))
                      (if cur
