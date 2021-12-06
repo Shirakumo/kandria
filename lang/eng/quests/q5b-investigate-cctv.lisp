@@ -131,7 +131,7 @@
 ~ player
 | The power line to one of the cameras has been cut. By hand.
 ~ innis
-| (:angry)Then we have a \"saboteur\"(orange). (:sly)It might be a sly Cerebat spy, watching you right now.
+| (:angry)Then we have a \"saboteur\"(orange). (:sly)Probably a sly Cerebat spy, watching you right now.
 | (:angry)\"Find them and bring them to me.\"(orange)
 ! eval (activate 'q5b-boss)
 ~ player

@@ -119,6 +119,6 @@
 | \"Report back\"(orange) when you have news.
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'q5a-rescue-engineers)
-! eval (activate 'q5b-repair-cctv)
+! eval (activate 'q5b-investigate-cctv)
 "))
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station

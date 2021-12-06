@@ -1,7 +1,8 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; TODO replace with proper arena boss fight, leashed to this location or in a plausibly-enclosed arena
+;; TODO replace with proper arena boss fight, leashed to this location (preferable) or in a plausibly-enclosed arena
+;; TODO fix it so that running away (thus despawning the boss when chunk deletes) doesn't complete the fight - assuming we go with the leash solution and not the enclosed arena
 (define-sequence-quest (kandria q5b-boss)
   :author "Tim White"
   :title "Find the Saboteur"
@@ -24,6 +25,6 @@
 | (:giggle)You know the robot, right?
   ")
    (:eval
-    (when (complete-p (find-task 'q5b-repair-cctv 'q5b-task-cctv-1) (find-task 'q5b-repair-cctv 'q5b-task-cctv-2) (find-task 'q5b-repair-cctv 'q5b-task-cctv-3))
-     (activate (find-task 'q5b-repair-cctv 'q5b-task-return-cctv))
-     (deactivate (find-task 'q5b-repair-cctv 'q5b-task-reminder)))))
+    (when (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))
+     (activate (find-task 'q5b-investigate-cctv 'q5b-task-return-cctv))
+     (deactivate (find-task 'q5b-investigate-cctv 'q5b-task-reminder)))))

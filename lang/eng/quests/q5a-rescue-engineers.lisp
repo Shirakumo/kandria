@@ -123,7 +123,7 @@
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory\"(orange) and beyond. Though \"not all are operational\"(orange) while we expand the network.
 | | | \"Simply open the blast doors and call a train.\"(orange)
-| ? (complete-p 'q5b-repair-cctv)
+| ? (complete-p 'q5b-investigate-cctv)
 | | ~ innis
 | | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
 | | | (:normal)It's a pity you couldn't persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
