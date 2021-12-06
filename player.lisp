@@ -1037,6 +1037,11 @@ void main(){
             (harmony:play (// 'sound 'player-red-flashing) :location (location player))
             (harmony:stop (// 'sound 'player-red-flashing)))
         (harmony:stop (// 'sound 'player-red-flashing))))
+  (case (state player)
+    ((:climbing :normal)
+     (if (dash-exhausted player)
+         (vsetf (color player) 1 0 0 (clamp 0.0 (- (sin (* 5 (tt ev))) 0.5) 1.0))
+         (setf (vw (color player)) 0))))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
