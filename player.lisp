@@ -386,16 +386,20 @@ void main(){
 (defmethod (setf state) :before (state (player player))
   (unless (eq state (state player))
     (let ((bottom (- (vy (location player)) (vy (bsize player)))))
+      (case (state player)
+        (:crawling
+         (setf (vy (bsize player)) 15)
+         (setf (vy (location player)) (+ bottom (vy (bsize player)))))
+        (:dashing
+         (setf (vy (bsize player)) 15)))
       (case state
         (:normal
          (setf (vw (color player)) 0.0))
         (:crawling
          (setf (vy (bsize player)) 7)
-         (setf (vy (location player)) (+ bottom (vy (bsize player))))))
-      (case (state player)
-        (:crawling
-         (setf (vy (bsize player)) 15)
-         (setf (vy (location player)) (+ bottom (vy (bsize player)))))))))
+         (setf (vy (location player)) (+ bottom (vy (bsize player)))))
+        (:dashing
+         (setf (vy (bsize player)) 10))))))
 
 (defmethod (setf buffer) (thing (player player))
   (let ((buffer (slot-value player 'buffer)))
