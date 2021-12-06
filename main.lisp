@@ -151,7 +151,7 @@
               :files NIL :description report)
              (format T "~&Report sent. Thank you!~%")))
           ((equal arg "swank")
-           (let ((port (swank:create-server :dont-close T)))
+           (let ((port (manage-swank T)))
              (format T "~&Started swank on port ~d.~%" port)
              (loop (sleep 1))))
           ((equal arg "state")
@@ -277,13 +277,18 @@ Possible sub-commands:
 
 (defun manage-swank (&optional (mode (setting :debugging :swank)))
   (let ((port (or (setting :debugging :swank-port) swank::default-server-port)))
-    (cond (mode
-           (v:info :kandria.debugging "Launching SWANK server on port ~a." port)
-           (swank:create-server :port port :dont-close T)
-           (setf *inhibit-standalone-error-handler* T))
-          (T
-           (ignore-errors (swank:stop-server port))
-           (setf *inhibit-standalone-error-handler* NIL)))))
+    (handler-case
+        (cond (mode
+               (v:info :kandria.debugging "Launching SWANK server on port ~a." port)
+               (swank:create-server :port port :dont-close T)
+               (setf *inhibit-standalone-error-handler* T))
+              (T
+               (ignore-errors (swank:stop-server port))
+               (setf *inhibit-standalone-error-handler* NIL)))
+      (error (e)
+        (v:error :kandria.debugging "Failed to start swank: ~a" e)
+        (v:debug :kandria.debugging e)))
+    port))
 
 (define-setting-observer swank :debugging :swank (value)
   (manage-swank value))
