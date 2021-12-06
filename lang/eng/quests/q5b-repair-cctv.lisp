@@ -170,8 +170,7 @@
 | (:angry)I think we might have a problem. A mutual problem.
 | The Wraw.
 | They've been other signs lately. Islay warned me about this.
-| Fuck.
-| ...
+| Fuck me.
 | (:normal)I need to speak with my sister.
 ? (complete-p 'q5a-rescue-engineers)
 | ~ innis
@@ -181,4 +180,6 @@
 | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | (:sly)If she disagrees tell her I'll shut the water off.
 | ! eval (activate 'q6-return-to-fi)
+| ! eval (activate (unit 'fi-ffcs-1))
+| ! eval (activate (unit 'fi-ffcs-2))
 ")))
