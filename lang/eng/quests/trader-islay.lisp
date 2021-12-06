@@ -40,7 +40,6 @@
 |   | | We'll speak again.
 |   | ! eval (setf (walk 'islay) T)
 |   | ! eval (move-to 'islay-main-loc (unit 'islay))
-|   | < leave
 |   |?
 |   | ~ islay
 |   | | (:unhappy)Not much better I'm afraid. They're an alcoholic.
