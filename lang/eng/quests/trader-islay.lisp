@@ -40,6 +40,7 @@
 |   | | We'll speak again.
 |   | ! eval (setf (walk 'islay) T)
 |   | ! eval (move-to 'islay-main-loc (unit 'islay))
+|   | < leave
 |   |?
 |   | ~ islay
 |   | | (:unhappy)Not much better I'm afraid. They're an alcoholic.
@@ -51,6 +52,7 @@
 |   | (:nervous)We spy on everyone. It's just what we do, it's nothing personal.
 |   | (:normal)We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill each other.
 |   | For what it's worth I value our friendship with the Noka. Innis does too, in her own way.
+|   < talk
 | - Are you really witches?
 |   ~ islay
 |   | (:unhappy)I'd have thought you of all people would know the cost of superstition.
