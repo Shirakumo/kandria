@@ -6,7 +6,8 @@
   :title "Trade With Islay"
   :description NIL
   :visible NIL
-  :on-activate T  
+  :variables (alex-done)
+  :on-activate T
   (chat-semi
    :title NIL
    :on-activate T
@@ -20,7 +21,7 @@
 ! label talk
 ? (not (complete-p 'q6-return-to-fi))
 | ~ player
-| - How's Alex?
+| - [(not (var 'alex-done)) How's Alex?|]
 |   ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv))
 |   | ~ alex
 |   | | (:angry)What's the matter? Afraid to talk to me yourself, android? <-Hic->.
@@ -38,6 +39,7 @@
 |   | | (:normal)Perhaps it would be best if we leave them alone for a while.
 |   | | I suggest you relay your findings to Fi.
 |   | | We'll speak again.
+|   | ! eval (setf (var 'alex-done) T)
 |   | ! eval (setf (walk 'islay) T)
 |   | ! eval (move-to 'islay-main-loc (unit 'islay))
 |   |?
