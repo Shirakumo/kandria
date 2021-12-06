@@ -169,7 +169,8 @@
 | ...
 | (:angry)I think we might have a problem. A mutual problem.
 | The Wraw.
-| They've been other signs lately. Islay warned me about this.
+| They've been other signs along the border lately. Islay warned me about this.
+| I think they've invaded the Cerebats. Which means we're next.
 | Fuck me.
 | (:normal)I need to speak with my sister.
 ? (complete-p 'q5a-rescue-engineers)

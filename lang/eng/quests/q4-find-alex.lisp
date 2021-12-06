@@ -202,11 +202,11 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ player
 - Did you learn anything at all from the Cerebats?
   ~ alex
-  | (:proud)I learned where all the tunnels go. <-Hic->. Mapped this whole area, an' the one below that.
+  | (:proud)I learned where all the tunnels go. <-Hic->. Mapped that whole area, an' the one below that.
 - Where have you been all this time?
   ~ alex
   | (:confused)'Ere, mostly.
-  | (:proud)Oh, an' I mapped this whole area, an' the one below that.
+  | (:proud)Oh, an' I mapped this whole area, an' the ones below that.
 ~ player
 | Those maps could really help me.
 ~ alex
