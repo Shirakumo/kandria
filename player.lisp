@@ -10,7 +10,8 @@
     (scale-by -0.8 0.8 1)
     (translate-by (* -20 (direction player)) 20 0)
     (setf (uniform program "stamina") (max 0.0 (float (/ (climb-strength player) (p! climb-strength)) 0f0)))
-    (setf (uniform program "visibility") (clamp 0.0 (visibility stamina-wheel) 1.0))))
+    (setf (uniform program "visibility") (clamp 0.0 (visibility stamina-wheel) 1.0))
+    (setf (uniform program "dash") (if (dash-exhausted player) 0.0 1.0))))
 
 (define-class-shader (stamina-wheel :vertex-shader)
   "layout (location = 1) in vec2 vertex_uv;
@@ -25,6 +26,7 @@ in vec2 uv;
 out vec4 color;
 uniform float stamina;
 uniform float visibility;
+uniform float dash;
 
 vec2 rotate(vec2 p, float angle){
   float sine = sin(angle);
@@ -58,12 +60,13 @@ void main(){
   float b = stamina*PI;
   vec2 p = uv-0.5;
   float inner = -sdCirc(p, 0.225);
-  color = evalSDF(sdCirc(p, 0.5), vec4(0,0,0,0.5));
+  color = evalSDF(sdCirc(p, 0.4), vec4(0,0,0,0.5));
   vec4 c = mix(vec4(1.0, 0, 0, 1), vec4(0.0,0.6,1.0,1), clamp(stamina*2-0.1, 0, 1));
   if(stamina >= 0.9) c = vec4(1);
-  color = add(color, evalSDF(max(sdPie(p, b, b, 0.45), inner), c));
+  color = add(color, evalSDF(max(sdPie(p, b, b, 0.40), inner), c));
   c = mix(vec4(1), vec4(0, 0, 0, 1), (sin(stamina*50))*0.5);
   color = add(color, evalSDF(max(sdPie(p, 0.1, b*2, 0.45), inner), c));
+  color = add(color, evalSDF(sdCirc(p-0.4, 0.1), vec4(1-dash,dash,0,1)));
   color *= visibility;
 }")
 
@@ -105,6 +108,12 @@ void main(){
   (dotimes (i 2) (store 'item:medium-health-pack player))
   (setf (active-p (action-set 'in-game)) T)
   (setf (spawn-location player) (vcopy (location player))))
+
+#-kandria-release
+(defmethod handle ((ev trial::class-changed) (player player))
+  (when (eql (trial::changed-class ev) (find-class 'stamina-wheel))
+    (setf (shader-program (stamina-wheel player)) (make-class-shader-program (stamina-wheel player)))
+    (trial:commit (shader-program (stamina-wheel player)) (loader +main+) :unload NIL)))
 
 (defmethod register :after ((player player) (world scene))
   (show-panel 'hud))
