@@ -112,7 +112,6 @@
 | ! eval (activate 'trader-arrive)
 ")))
 
-;; kuso = shit (Japanese)
 ;; TODO: act 2 prelude too
 ;; player learns "Noka" for the first time
 ;; TODO fi happy - | Oh my. There must be... fifty sachets here. All fully stocked.

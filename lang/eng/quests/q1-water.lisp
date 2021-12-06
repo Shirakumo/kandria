@@ -350,7 +350,6 @@
   ;; TODO catherine pleading - But no, it's not that. She was offline for decades - there's no way she could have done that.
   ;; and others
   ;; TODO fi thinking - Catherine, don't androids have a black box?
-  ;; TODO fi firm -  This \"thing\" is a person, Jack. And I expect you to treat her as such.
 
   ;; REMARK The finding a computer idea has been abandoned, so this uncertainty about the android's motives will hang over the player for the rest of the game. Perhaps the android faction ending hints at this finally being resolved, since they could scan the android - but by that point, the android's friends trust her (even Jack?), so I don't think they'll even need that confirmation.
 
