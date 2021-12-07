@@ -127,7 +127,8 @@
    :title "Return to Catherine at the leak")
   (:interact (catherine :now T)
    "~ catherine
-| Nice work. I've done the weld - good as new.
+| Jeez, I'm glad you came along.
+| I've done the weld - good as new.
 | \"Let's get down to the pump room.\"(orange)
   ")
   (:go-to (leak-3-standoff :lead catherine)
