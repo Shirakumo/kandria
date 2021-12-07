@@ -17,6 +17,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Tobias
 - Limit downwards speed much more strongly by default
   Reported by Tobias
+- Decrease hitbox size when dashing
+  Reported by Yassin Sdiri
+- Fix crawlspace issue when standing below low ceilings
+  Reported by Yassin Sdiri
 
 ## 0.2.1
 - Attacking while fishing doesn't despawn the line
