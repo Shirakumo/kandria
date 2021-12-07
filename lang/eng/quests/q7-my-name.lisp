@@ -81,7 +81,7 @@
     < name
 - (Let Fi choose your name)
   ~ fi
-  | (:shocked)What? You'd let me do that? I thought you might want to choose a name yourself.
+  | (:shocked)What? You'd let me do that? I thought you might want to choose a name for yourself.
   ~ player
   - On second thoughts...
     < name
