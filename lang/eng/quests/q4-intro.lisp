@@ -16,7 +16,7 @@
 | They've got blonde hair, they're probably not quite as tall as you. Oh, and they've a British accent.
 | To reach the Cerebats township you'll need to get past the tech-witch \"Semi Sisters\"(red).
 | We have good relations so it //should// be fine. They built the infrastructure that keeps us going, like the water pump and telephones.
-| You can reach their land \"through the floor in the pump room\"(orange).
+| You can reach their land \"through the floor in the pump room\"(orange) - at least, that's the most direct route.
 | But they've never seen an android before - not since before the Calamity, at least. Hopefully they'll play nice.
 | If not... you'll have to improvise.
 ~ player
@@ -81,7 +81,12 @@
 | So please stay in touch - you can call me day or night.
 ! eval (setf (location 'innis) 'innis-intercept)
 ! setf (direction 'innis) -1
-! eval (activate (unit 'innis-stop))
+! eval (activate (unit 'innis-stop-1))
+! eval (activate (unit 'innis-stop-2))
+! eval (activate (unit 'innis-stop-3))
+! eval (activate (unit 'innis-stop-4))
+! eval (activate (unit 'innis-stop-5))
+! eval (activate (unit 'innis-stop-6))
 ! eval (setf (location 'islay) 'islay-intercept)
 ! setf (direction 'islay) 1
 ")

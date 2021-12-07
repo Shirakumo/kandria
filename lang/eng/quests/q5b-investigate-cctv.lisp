@@ -124,10 +124,9 @@
 - Sorry to interrupt.
   ~ innis
   | (:angry)I'll accept that apology if what you have to say has value.
-- Is there something wrong with FFCS?
+- How do you know about FFCS?
   ~ innis
-  | Not at all. (:sly)I think it's a marvellous technology.
-  | (:normal)We're just not used to it crossing our airwaves. (:angry)Now what is it?
+  | (:sly)I wouldnae have been very good at my old job if I didnae ken it.
 ~ player
 | The power line to one of the cameras has been cut. By hand.
 ~ innis
@@ -141,7 +140,9 @@
 | | (:normal)\"I also need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
-   
+;; wouldnae = wouldn't (Scottish)
+;; didnae = didn't (Scottish)
+;; ken = know (Scottish)
 
   (q5b-task-return-cctv
    :title "Return to Innis in the Semi Sisters control room to discuss the saboteur"
@@ -176,9 +177,10 @@
 ? (complete-p 'q5a-rescue-engineers)
 | ~ innis
 | | Perhaps you should \"return to Fi\"(orange).
-| | It's a pity you couldn't persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
+| | It's a pity you couldnae persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
 | | I suppose androids can't do everything.
 | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | (:sly)If she disagrees tell her I'll shut the water off.
 | ! eval (activate 'q6-return-to-fi)
 ")))
+;; couldnae = couldn't (Scots)

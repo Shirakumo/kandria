@@ -6,13 +6,14 @@
   :title "Find Alex"
   :description "Fi wants me to find Alex and bring them back to camp for debriefing, to see if they know anything about the Wraw's plans."
   :on-activate (find-alex)
+  :variables (innis-remote)
 
   (find-alex
    :title "Travel down to the Cerebats township, but avoid the Semi Sisters en route"
    :description NIL
    :invariant T
-   :condition (complete-p 'innis-stop)
-   :on-activate (q4-reminder innis-stop)
+   :condition (or (complete-p 'innis-stop-local) (complete-p 'innis-stop-remote))
+   :on-activate (q4-reminder innis-stop-local innis-stop-remote)
    :on-complete (find-alex-semis)
 
    (:interaction q4-reminder
@@ -24,16 +25,15 @@
 | Watch out for the Semi Sisters on your way. They're not our enemies, but they are unpredictable.
 ")
 
-   (:interaction innis-stop
+   (:interaction innis-stop-local
     :interactable innis
     :dialogue "
 ! eval (setf (nametag (unit 'innis)) \"???\")
 ! eval (setf (nametag (unit 'islay)) \"???\")
-! eval (setf (nametag (unit 'alex)) \"???\")
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!!
 | Did you think ya could just waltz right through here?
-| (:sly)We've been watching you, android. You and your little excursions with Catherine.
+| (:sly)We've been watching you, android. You and your wee excursions with Catherine.
 | And now you've come to visit us. How thoughtful.
 | (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, sister?
@@ -47,10 +47,10 @@
 ~ player
 - (Keep quiet)
   ~ innis
-  | (:sly)Why are you are here? I know lots about you, but I want to know more.
+  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
 - My name's Stranger.
   ~ innis
-  | This I know, android. (:sly)Tell me, why are you here?
+  | This I ken, android. (:sly)Tell me, why are you here?
 - What do you want?
   ~ innis
   | (:sly)I'll ask the questions if you dinnae mind. Why are you here?
@@ -61,11 +61,11 @@
 - My business is my business.
   ~ innis
   | If that's your prerogative.
-  | But you'll be pleased to know that \"Alex is here\"(orange).
+  | But you'll be pleased to ken that \"Alex is here\"(orange).
 - I'm looking for someone called Alex, have you seen them?
   ~ innis
   | (:pleased)You see, sister. The direct approach once again yields results, and confirms my information.
-  | (:normal)You'll be pleased to know that \"Alex is here\"(orange).
+  | (:normal)You'll be pleased to ken that \"Alex is here\"(orange).
 - Go fuck yourself.
   ~ islay
   | (:happy)...
@@ -74,11 +74,100 @@
   | I remember your kind! You think you're clever just 'cause you can mimic us.
   | You're a machine. And if I wished it I could have you pulled apart and scattered to the four corners of this desert.
   | (:normal)Now, let's try again.
-  | You'll be pleased to know that the one you seek, \"Alex, is here\"(orange).
+  | You'll be pleased to ken that the one you seek, \"Alex, is here\"(orange).
 ~ innis
 | Indulge me, would you? I want to see how smart you are.
 | See if you can \"find them\"(orange) for yourself.
 ! eval (deactivate 'q4-reminder)
+! eval (deactivate 'innis-stop-remote)
+! eval (deactivate (unit 'innis-stop-2))
+! eval (deactivate (unit 'innis-stop-3))
+! eval (deactivate (unit 'innis-stop-4))
+! eval (deactivate (unit 'innis-stop-5))
+! eval (deactivate (unit 'innis-stop-6))
+")
+#|
+dinnae = don't (Scottish)
+ken = know (Scottish)
+|#
+
+   (:interaction innis-stop-remote
+    :interactable innis
+    :dialogue "
+! eval (setf (nametag (unit 'innis)) \"???\")
+! eval (setf (nametag (unit 'islay)) \"???\")
+~ innis
+| (:angry)<-STOP-> WHERE YOU ARE!!
+| Did you think ya could just waltz right through here?
+| (:sly)We've been watching you, android. You and your wee excursions with Catherine.
+| And now you've come to visit us. How thoughtful.
+! label questions
+~ player
+- Where are you?
+  ~ innis
+  | (:pleased)Close by.
+  < questions
+- Who are you?
+  ~ innis
+  | You'll find out soon enough.
+  < questions
+- How are you communicating with me?
+  ~ innis
+  | You really dinnae ken? You're not as clever as I thought.
+  < questions
+- What do you want?
+~ innis
+| (:sly)I'll ask the questions, if you dinnae mind.
+| What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
+| What do you think, sister?
+~ islay
+| (:unhappy)I think you should leave her alone.
+~ innis
+| (:angry)...
+| (:normal)Come now, Islay - you're speaking with the pinnacle of human engineering, and that's all you can say?
+! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
+| (:sly)That wasn't a compliment by the way, android. (:normal)But let's not get off on the wrong foot now.
+~ player
+- (Keep quiet)
+- My name's Stranger.
+  ~ innis
+  | This I ken, android.
+~ innis
+| (:sly)Tell me, why are you here? What //does// Fi send her robot dog to do?
+| To prove her loyalty, I think.
+~ player
+- My business is my business.
+  ~ innis
+  | If that's your prerogative.
+  | But you'll be pleased to ken that \"Alex is here\"(orange).
+- I'm looking for someone called Alex, have you seen them?
+  ~ innis
+  | (:pleased)You see, sister. The direct approach once again yields results, and confirms my information.
+  | (:normal)You'll be pleased to ken that \"Alex is here\"(orange).
+- Go fuck yourself.
+  ~ islay
+  | (:happy)...
+  ~ innis
+  | (:angry)...
+  | I remember your kind! You think you're clever just 'cause you can mimic us.
+  | You're a machine. And if I wished it I could have you pulled apart and scattered to the four corners of this desert.
+  | (:normal)Now, let's try again.
+  | You'll be pleased to ken that the one you seek, \"Alex, is here\"(orange).
+~ innis
+| Indulge me, would you? I want to see how smart you are.
+| See if you can \"find them\"(orange) for yourself.
+~ player
+| \"She's gone. That was an FFCS broadcast, from somewhere nearby.\"(light-gray, italic)
+| \"That means \"Alex is close\"(orange). Unless it's a trap.\"(light-gray, italic)
+! eval (deactivate 'q4-reminder)
+! eval (deactivate 'innis-stop-local)
+! eval (deactivate (unit 'innis-stop-1))
+! eval (deactivate (unit 'innis-stop-2))
+! eval (deactivate (unit 'innis-stop-3))
+! eval (deactivate (unit 'innis-stop-4))
+! eval (deactivate (unit 'innis-stop-5))
+! eval (deactivate (unit 'innis-stop-6))
+! eval (setf (var 'innis-remote) T)
 "))
 
 #|
@@ -89,7 +178,7 @@ dinnae = don't (Scottish)
 TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be questionined if they are Alex, as a variant on their world-building dialogue.
 |#
   (find-alex-semis
-   :title "Search Semi Sisters territory for any sign of Alex"
+   :title "Search near the women that stopped you for any sign of Alex"
    :description NIL
    :invariant T
    :condition (complete-p 'alex-meet)
@@ -101,7 +190,8 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
     :repeatable T
     :dialogue "
 ~ islay
-| (:unhappy)Hello, Stranger. I'm sorry about my sister.
+| Hello, Stranger. [(var 'innis-remote) (:happy)It's an honour to meet you in person.]
+| (:unhappy)I'm sorry about my sister.
 | (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us\"(orange).
 | Just don't tell Innis I told you.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
@@ -111,6 +201,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
    (:interaction alex-meet
     :interactable alex
     :dialogue "
+! eval (setf (nametag (unit 'alex)) \"???\")
 ~ alex
 | (:unhappy)What you looking at? <-Hic->.
 ~ player
@@ -168,6 +259,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ alex
 | (:angry)I've 'eard about you, doing my job- <-Hic->. Innis even showed me the CCCTV.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
+| These Semi Sisters been nice to me.
 | So why would Fi need little ol' me any more?
 | So run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
 ~ player

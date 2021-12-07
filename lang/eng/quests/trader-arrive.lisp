@@ -163,7 +163,7 @@
 |   ~ trader
 |   | They're our resident tech gurus! (:jolly)Ha, remember those.
 |   | (:normal)I remember a presentation from the head of Semi actually - don't remember his name - unveiling new models of android, just like you.
-|   | Innis and Islay used to work on the production line, in the factories deep underground. (:concerned)Conditions were terrible by all accounts.
+|   | The sisters used to work on the production line, in the factories deep underground. (:concerned)Conditions were terrible by all accounts.
 |   | (:normal)I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
 |   < talk
 | - Do you know how to examine me?

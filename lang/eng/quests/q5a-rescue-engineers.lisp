@@ -101,7 +101,7 @@
 |?
 | ~ innis
 | | (:pleased)The injured are already on their way back - I've sent hunters to guide them.
-| | (:normal)How did you clear that debris? Is there something I don't know about androids?
+| | (:normal)How did you clear that debris? Is there something I dinnae ken about androids?
 | ~ player
 | - I found a weak point in the rocks and pushed.
 |   ~ innis
@@ -118,7 +118,7 @@
 | | My sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you access to the metro.
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
 | ? (var 'metro-used)
-| | | (:sly)I know you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
+| | | (:sly)I ken you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
 | | | (:normal)\"The stations run throughout our territory\"(orange) and beyond. Though \"not all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory\"(orange) and beyond. Though \"not all are operational\"(orange) while we expand the network.
@@ -126,7 +126,7 @@
 | ? (complete-p 'q5b-investigate-cctv)
 | | ~ innis
 | | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
-| | | (:normal)It's a pity you couldn't persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
+| | | (:normal)It's a pity you couldnae persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
 | | | I suppose androids can't do everything.
 | | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | | (:sly)If she disagrees tell her I'll shut the water off.
@@ -138,3 +138,6 @@
 | ! eval (complete task)
 | ! eval (deactivate interaction)
 ")))
+;; dinnae = don't (Scots)
+;; ken = know (Scots)
+;; couldnae = couldn't (Scots)
