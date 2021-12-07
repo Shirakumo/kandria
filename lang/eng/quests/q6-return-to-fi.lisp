@@ -34,7 +34,7 @@
    :title "Return to the Noka camp and speak with Fi"
    :invariant T
    :condition all-complete
-   :on-complete NIL
+   :on-complete (q7-my-name)
    :on-activate T
 
    (:interaction talk-fi
@@ -72,6 +72,8 @@
 - I met them both.
 - She's almost as bad as Jack.
 - How could I forget.
+~ fi
+| I'm sorry you had to meet them.
 ~ player
 | Innis also thinks the Wraw are on the move. That they've invaded the Cerebats.
 ~ fi
@@ -84,7 +86,7 @@
 ~ player
 - You won't like it.
   ~ fi
-  | (:annoyed)I'm certain I won't. But I want to hear it.
+  | (:annoyed)I'm certain I won't. But I want to hear it all the same.
   ~ player
   | She said she wants Catherine back or she'll shut the water off.
   ~ fi
@@ -117,12 +119,12 @@
   | (:annoyed)They treated her like shit. Just like they did you, I think.
 - Have you asked her?
   ~ fi
-  | I don't need to. (:annoyed)They treated her like shit. Just like they did with you, I think.
+  | I don't need to. (:annoyed)They treated her like shit. Just like they did you, I think.
 - She doesn't want to go back, or you don't want her to go back?
   ~ fi
   | Catherine is an asset, obviously she is.
-  | But she's also our friend. As are you.
-  | (:annoyed)The Semis treated her like shit. Just like they did with you, I think.
+  | But she's also our friend.
+  | (:annoyed)The Semis treated her like shit. Just like they did you, I think.
 ~ fi
 | (:thinking)Innis is bluffing. She's many things, but she's not a killer. She won't turn the water off.
 | (:normal)And as for the Wraw-Cerebat takeover: I know you fought their robot, but that's not proof.
@@ -138,7 +140,7 @@
   | (:happy)As do I.
 - It's good to be back.
 ~ fi
-| (:happy)Goodbye for now, Stranger.
+| (:happy)Goodbye \"for now\"(orange), Stranger.
 ")))
-;; talking to Catherine about going back to the Semis is not functionally possible, so we don't want to hint to the player that that is an option
+;; TODO it would make sense to allow talking to Catherine about going back to the Semis and her backstory there, at the next available opportunity, if only to corroborate what Fi has said.
 ;; kuso = shit (Japanese)

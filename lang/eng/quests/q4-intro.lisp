@@ -6,6 +6,7 @@
   :title "Speak With Fi"
   :description "She has new work for me." 
   (:interact (fi)
+   :title "Talk to Fi"
   "
 ~ fi
 | Alright, it's like this: The Wraw are almost certainly coming to reclaim us.
@@ -90,6 +91,6 @@
 ! eval (setf (location 'islay) 'islay-intercept)
 ! setf (direction 'islay) 1
 ")
-(:eval
+   (:eval
    :on-complete (q4-find-alex)))
 ;; TODO Fi happy: I believe you will.
