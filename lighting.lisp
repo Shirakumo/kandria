@@ -189,37 +189,27 @@
   (let ((color (vlerp (v+ (ambient gi) (light gi)) (ambient gi) (clamp 0 shade 1))))
     (clamp 0 (* (expt (vlength color) 1/3) 1.5) 2.75)))
 
-(defmethod render :before ((pass rendering-pass) target)
-  (let ((gi (struct (// 'kandria 'gi))))
-    (if (= 1 (active-p gi))
-        (let* ((shade (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
-               (current (local-shade pass)))
-          (let ((intensity (light-intensity gi current)))
-            (setf (exposure pass) (clamp 0.5 (- 3.5 intensity) 10.0)
-                  (gamma pass) (clamp 0.5 (- 3.75 intensity) 3.0)))
-          (setf (local-shade pass) (cond ((< (abs (- current shade)) 0.05)
-                                          shade)
-                                         ((< current shade)
-                                          (+ current 0.02))
-                                         (T
-                                          (- current 0.02)))))
-        (setf (exposure pass) 0.5
-              (gamma pass) 2.2))))
-
-(define-class-shader (rendering-pass :fragment-shader -100)
-  "out vec4 color;
-uniform float gamma = 2.2;
-uniform float exposure = 0.5;
-
-void main(){
-  vec3 mapped = vec3(1.0) - exp((-color.rgb) * exposure);
-  color.rgb = pow(mapped, vec3(1.0 / gamma));
-}")
+(defmethod handle ((ev tick) (pass rendering-pass))
+  (when (= 0 (mod (fc ev) 2))
+    (let ((gi (struct (// 'kandria 'gi))))
+      (if (= 1 (active-p gi))
+          (let* ((shade (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
+                 (current (local-shade pass)))
+            (let ((intensity (light-intensity gi current)))
+              (setf (exposure pass) (clamp 0.5 (- 3.5 intensity) 10.0)
+                    (gamma pass) (clamp 0.5 (- 3.75 intensity) 3.0)))
+            (setf (local-shade pass) (cond ((< (abs (- current shade)) 0.05)
+                                            shade)
+                                           ((< current shade)
+                                            (+ current 0.02))
+                                           (T
+                                            (- current 0.02)))))
+          (setf (exposure pass) 0.5
+                (gamma pass) 2.2)))))
 
 (define-shader-entity lit-entity (renderable)
   ()
   (:buffers (kandria gi)))
-
 
 ;; FIXME: We might want the incidence computation to smoothen when
 ;;        facing away from the light source to avoid extremely hard
