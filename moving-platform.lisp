@@ -6,7 +6,7 @@
 
 (defmethod collides-p ((platform moving-platform) thing hit) NIL)
 (defmethod collides-p ((platform moving-platform) (block block) hit) T)
-(defmethod collides-p ((platform moving-platform) (spike spike) hit) NIL)
+(defmethod collides-p ((platform moving-platform) (block death) hit) NIL)
 (defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
 
 (defmethod trigger ((platform moving-platform) (thing game-entity) &key))
