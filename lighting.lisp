@@ -207,6 +207,16 @@
           (setf (exposure pass) 0.5
                 (gamma pass) 2.2)))))
 
+(define-class-shader (rendering-pass :fragment-shader -100)
+  "out vec4 color;
+uniform float gamma = 2.2;
+uniform float exposure = 0.5;
+
+void main(){
+  vec3 mapped = vec3(1.0) - exp((-color.rgb) * exposure);
+  color.rgb = pow(mapped, vec3(1.0 / gamma));
+}")
+
 (define-shader-entity lit-entity (renderable)
   ()
   (:buffers (kandria gi)))
