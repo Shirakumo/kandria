@@ -106,7 +106,7 @@ void main(){
   (when (particles effect)
     (apply #'spawn-particles (location effect) (particles effect))))
 
-(define-shader-entity text-effect (shader-effect listener renderable)
+(define-shader-entity text-effect (located-entity effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
    (font :initarg :font :initform (simple:request-font (unit 'ui-pass T) (setting :display :font)) :accessor font)
    (vertex-data :accessor vertex-data)
