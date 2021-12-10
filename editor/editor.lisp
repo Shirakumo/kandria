@@ -245,6 +245,7 @@
 
 (defmethod handle :around ((ev event) (editor editor))
   (when (typep ev 'tick)
+    (handle ev (unit 'render T))
     (setf (last-tick editor) (fc ev)))
   (unless (call-next-method)
     (with-editor-error-handling
