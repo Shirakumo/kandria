@@ -108,7 +108,7 @@
 
 (defmethod handle :before ((ev resize) (camera camera))
   ;; Adjust max width based on aspect ratio to ensure ultrawides still get to see something.
-  (let ((aspect (/ (width ev) (height ev))))
+  (let ((aspect (/ (width ev) (max 1 (height ev)))))
     (setf (vx (target-size camera))
           (cond ((<= aspect 2.1)
                  (* (vx +tiles-in-view+) +tile-size+ .5))
