@@ -97,7 +97,9 @@
   (setf (dash-exhausted player) NIL)
   (setf (state lantern) :inactive)
   (setf (respawn-time lantern) 4.0)
-  (setf (animation lantern) 'crash))
+  (setf (animation lantern) 'crash)
+  (when (eql 'dash (buffer player))
+    (handle (make-instance 'dash) player)))
 
 (defmethod enter* :after ((lantern lantern) container)
   (setf (slot-value (light lantern) 'location) (location lantern))

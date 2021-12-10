@@ -274,7 +274,9 @@ void main(){
                 (if (svref (collisions player) 2)
                     (trigger 'dash player)
                     (trigger 'air-dash player))
-                (setf (animation player) 'dash)))))
+                (setf (animation player) 'dash))
+               (T
+                (setf (buffer player) 'dash)))))
       (:animated
        ;; Queue dash //except// for when we're being hit, as it's
        ;; unlikely the player will want to dash right after getting
