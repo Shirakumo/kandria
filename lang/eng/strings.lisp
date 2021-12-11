@@ -561,6 +561,7 @@ cheat/unlock-palettes "What should I wear today?"
 cheat/snapshot "Snapshot submitted."
 cheat/developer "Development options unlocked."
 cheat/reveal-map "I can see forever!"
+cheat/unlock-fast-travel "Car bad, train good."
 cheat/show-solids "The third eye can see all dimensions."
 ;; Misc
 load-screen-new-game "

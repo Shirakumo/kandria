@@ -151,9 +151,19 @@
 (define-shader-entity station (lit-animated-sprite interactable ephemeral creatable)
   ((name :initform (generate-name "STATION"))
    (bsize :initform (vec 24 16))
+   (train :initform (make-instance 'train) :accessor train)
    (unlocked-p :initform NIL :initarg :unlocked-p :accessor unlocked-p
                :type boolean))
   (:default-initargs :sprite-data (asset 'kandria 'station)))
+
+(defmethod initialize-instance :after ((station station) &key train-location)
+  (v<- (location (train station)) (or train-location (location station))))
+
+(defmethod enter :after ((station station) container)
+  (enter (train station) container))
+
+(defmethod leave :after ((station station) container)
+  (leave (train station) container))
 
 (defmethod description ((station station))
   (language-string 'station))
@@ -170,3 +180,19 @@
                     collect entity))))
 
 (defmethod interactable-p ((station station)) T)
+
+(define-shader-entity train (lit-sprite ephemeral)
+  ((name :initform NIL)
+   (texture :initform (// 'kandria 'train))
+   (size :initform (vec 1094 109))))
+
+(defmethod layer-index ((train train))
+  (1+ +base-layer+))
+
+(define-class-shader (train :fragment-shader)
+  "uniform float visibility = 0.5;
+out vec4 color;
+
+void main(){
+  color.a *= visibility;
+}")
