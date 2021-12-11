@@ -161,6 +161,7 @@
 (define-slot-coders (game-entity world-v0) ((location :type vec2) name))
 (define-slot-coders (sprite-entity world-v0) ((location :type vec2) (texture :type texture) (size :type vec2) (bsize :type vec2) (offset :type vec2) (layer-index :initarg :layer) name))
 (define-slot-coders (animated-sprite world-v0) (name (location :type vec2) (trial:sprite-data :type asset) (bsize :type vec2) layer-index))
+(define-slot-coders (station world-v0) (name (location :type vec2)))
 (define-slot-coders (rope world-v0) (name (location :type vec2) (bsize :type vec2) direction extended))
 (define-slot-coders (water world-v0) ((location :type vec2) (bsize :type vec2)))
 (define-slot-coders (place-marker world-v0) (name (location :type vec2) (bsize :type vec2)))

@@ -85,7 +85,8 @@
                              (:file "load-screen")
                              (:file "pause-screen")
                              (:file "end-screen")
-                             (:file "wardrobe")))
+                             (:file "wardrobe")
+                             (:file "fast-travel")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

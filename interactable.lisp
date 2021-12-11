@@ -147,3 +147,26 @@
 
 (defmethod layer-index ((save-point save-point))
   (1- +base-layer+))
+
+(define-shader-entity station (lit-animated-sprite interactable ephemeral creatable)
+  ((name :initform (generate-name "STATION"))
+   (bsize :initform (vec 24 16))
+   (unlocked-p :initform NIL :initarg :unlocked-p :accessor unlocked-p
+               :type boolean))
+  (:default-initargs :sprite-data (asset 'kandria 'station)))
+
+(defmethod description ((station station))
+  (language-string 'station))
+
+(defmethod interact ((station station) (player player))
+  (unless (unlocked-p station)
+    (status :important "~a" (@formats 'new-station-unlocked (language-string (name station)))))
+  (setf (unlocked-p station) T)
+  (show-panel 'fast-travel-menu :current-station station))
+
+(defun list-stations (&optional (region (region +world+)))
+  (for:for ((entity over region)
+            (status when (and (typep entity 'station) (unlocked-p entity))
+                    collect entity))))
+
+(defmethod interactable-p ((station station)) T)
