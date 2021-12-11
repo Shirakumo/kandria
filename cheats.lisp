@@ -133,6 +133,11 @@
     (when (typep unit 'chunk)
       (setf (unlocked-p unit) T))))
 
+(define-cheat (unlock-fast-travel |lots and lots of trains|)
+  (for:for ((unit over (region +world+)))
+    (when (typep unit 'station)
+      (setf (unlocked-p unit) T))))
+
 (define-cheat (show-solids |show solid tiles|)
   (let (mode)
     (for:for ((unit over (region +world+)))
