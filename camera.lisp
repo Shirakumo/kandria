@@ -99,10 +99,11 @@
 
 (defmethod snap-to-target ((camera camera) target)
   (setf (target camera) target)
-  (setf (location camera) (vcopy (location target)))
+  (v<- (location camera) (location target))
+  (v<- (intended-location camera) (location target))
   (clamp-camera-target camera (location camera)))
 
-(defmethod (setf target) :after ((target game-entity) (camera camera))
+(defmethod (setf target) :after ((target located-entity) (camera camera))
   (when (region +world+)
     (setf (chunk camera) (find-chunk target))))
 

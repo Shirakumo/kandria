@@ -181,13 +181,75 @@
 
 (defmethod interactable-p ((station station)) T)
 
+(defmethod trigger ((target station) (source station) &key)
+  (move :freeze (unit 'player +world+))
+  (setf (move-time (train source)) 0.0)
+  (setf (state (train source)) :depart)
+  (setf (move-time (train target)) 0.0)
+  (setf (state (train target)) :arrive))
+
+(defmethod handle :after ((ev tick) (station station))
+  (handle ev (train station)))
+
 (define-shader-entity train (lit-sprite ephemeral)
   ((name :initform NIL)
    (texture :initform (// 'kandria 'train))
-   (size :initform (vec 1094 109))))
+   (move-time :initform 0.0 :accessor move-time)
+   (visibility :initform 0.5 :accessor visibility)
+   (original-location :initform (vec 0 0) :accessor original-location)
+   (size :initform (vec 1094 109))
+   (state :initform :normal :accessor state)))
 
 (defmethod layer-index ((train train))
   (1+ +base-layer+))
+
+(defmethod render :before ((train train) (program shader-program))
+  (setf (uniform program "visibility") (visibility train)))
+
+(defmethod (setf state) :after (state (train train))
+  (print (list train state)))
+
+(defmethod handle ((ev tick) (train train))
+  (let ((acc 5.0)
+        (arrive-time 2.0)
+        (loc (location train)))
+    (ecase (state train)
+      (:normal
+       (if (contained-p (location (unit 'player +world+))
+                        (tvec (vx loc) (vy loc) (/ (vx (size train)) 2.0) (/ (vy (size train)) 2.0)))
+           (when (< 0.5 (visibility train))
+             (decf (visibility train) (dt ev)))
+           (when (< (visibility train) 1.0)
+             (incf (visibility train) (dt ev)))))
+      (:depart
+       (when (<= 1.0 (incf (visibility train) (dt ev)))
+         (setf (move-time train) 0.0)
+         (v<- (original-location train) loc)
+         (setf (state train) :departing)))
+      (:departing
+       (decf (vx loc) (* (move-time train) acc))
+       (when (<= 2.5 (incf (move-time train) (dt ev)))
+         (v<- loc (original-location train))
+         (setf (state train) :normal)))
+      (:arrive
+       (when (<= 2.0 (incf (move-time train) (dt ev)))
+         (transition
+           :kind :black
+           (v<- (original-location train) loc)
+           (snap-to-target (unit :camera +world+) train)
+           (incf (vx loc) (* 0.5 acc (expt arrive-time 2.0) 100.0))
+           (setf (move-time train) 0.0)
+           (setf (state train) :arriving))))
+      (:arriving
+       (decf (vx loc) (* (- arrive-time (move-time train)) acc))
+       (when (<= arrive-time (incf (move-time train) (dt ev)))
+         (let ((player (unit 'player +world+)))
+           (v<- loc (original-location train))
+           (v<- (location player) loc)
+           (place-on-ground player (location player))
+           (stop player)
+           (setf (target (unit :camera +world+)) player)
+           (setf (state train) :normal)))))))
 
 (define-class-shader (train :fragment-shader)
   "uniform float visibility = 0.5;

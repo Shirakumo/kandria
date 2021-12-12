@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass station-button (alloy:direct-value-component alloy:button)
-  ((current-p :initform NIL :initarg :current-p)
+  ((source :initarg :source :accessor source)
    (target :initarg :target :accessor target)))
 
 (defmethod alloy:text ((button station-button))
@@ -13,12 +13,9 @@
     ))
 
 (defmethod alloy:activate ((button station-button))
-  ;; FIXME: Perform train animation first
-  (transition
-    (hide-panel 'fast-travel-menu)
-    (setf (location (unit 'player T))
-          (location (alloy:value button)))
-    (snap-to-target (unit :camera T) (unit 'player T))))
+  (unless (eq (alloy:value button) (source button))
+    (trigger (alloy:value button) (source button)))
+  (hide-panel 'fast-travel-menu))
 
 (presentations:define-realization (ui station-button)
   ((:background simple:rectangle)
@@ -41,7 +38,7 @@
          (alloy:point (alloy:pw 0.7) (alloy:ph 0.8))
          (alloy:point (alloy:pw 1.0) (alloy:ph 0.8)))
    :pattern colors:red
-   :hidden-p (not (slot-value alloy:renderable 'current-p)))
+   :hidden-p (not (eq (source alloy:renderable) alloy:value)))
   ((:current-text simple:text)
    (alloy:extent (alloy:pw 0.72) (alloy:ph 0.3) (alloy:pw 0.3) (alloy:ph 0.4))
    "You are here"
@@ -50,7 +47,7 @@
    :pattern colors:white
    :valign :middle
    :halign :start
-   :hidden-p (not (slot-value alloy:renderable 'current-p))))
+   :hidden-p (not (eq (source alloy:renderable) alloy:value))))
 
 (presentations:define-update (ui station-button)
   (:background
@@ -75,7 +72,7 @@
     (alloy:enter scroll layout :constraints `((:width 20) (:right 50) (:bottom 100) (:top 100)))
     (alloy:enter (make-instance 'label :value (@ station-pick-destination)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 500 50)))
     (dolist (station (list-stations))
-      (make-instance 'station-button :value station :current-p (eql station current-station) :target panel
+      (make-instance 'station-button :value station :source current-station :target panel
                                      :layout-parent list :focus-parent focus))
     (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
       (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
