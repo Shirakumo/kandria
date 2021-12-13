@@ -705,7 +705,7 @@ void main(){
                 (ymin (- (vy loc) (vy size) 8))
                 (pprev NIL)
                 (prev NIL))
-           (loop (let ((cur (scan +world+ off (lambda (hit) (not (and (typep (hit-object hit) 'solid)
+           (loop (let ((cur (scan +world+ off (lambda (hit) (not (and (typep (hit-object hit) '(and solid (not death)))
                                                                       (collides-p player (hit-object hit) hit)))))))
                    (when (and pprev (null prev)
                               (if (< (vy off) ymin)
