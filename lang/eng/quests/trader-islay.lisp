@@ -54,12 +54,11 @@
 |   | (:normal)We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill each other.
 |   | For what it's worth I value our friendship with the Noka. Innis does too, in her own way.
 |   < talk
-| - Are you really witches?
+| - Can you read my black box?
 |   ~ islay
-|   | (:unhappy)I'd have thought you of all people would know the cost of superstition.
-|   | We're as much witches as you are a menace.
-|   | (:normal)People don't trust what they don't understand. That hasn't changed just 'cause the world fell apart.
-|   | And why should they, really? Perhaps it's on people like us to teach them.
+|   | You're curious if you betrayed the Noka.
+|   | We know a lot about you - but no, we can't read your black box. No one can any more. I'm sorry.
+|   | (:nervous)I saw what happened with the servo robots - whether they acted independently, or were being controlled, it's hard to say.
 |   < talk
 | - What do you remember from before the Calamity?
 |   ~ islay

@@ -312,20 +312,20 @@
   ~ fi
   | This \"thing\" is a person. And I expect you to treat her as such.
   | I trust Catherine's judgement. For now, Stranger is our guest.
-  | Nevertheless, Jack - speak with \"Sahil\"(yellow) when he arrives, see if he knows anything about androids.
+  | Nevertheless, Jack - speak with \"Sahil\"(yellow) when he arrives, see what he knows about androids.
   | If Stranger is having memory problems, the least we can do is try to help her.
   ~ jack
   | (:annoyed)If you insist.
 - Sure, why not.
   ~ fi
-  | Good. Jack, speak with \"Sahil\"(yellow) when he arrives, see if he knows anything about androids.
+  | Good. Jack, speak with \"Sahil\"(yellow) when he arrives, see what he knows about androids.
   ~ jack
   | (:annoyed)If you insist.
 - As long as I'm still online afterwards.
   ~ catherine
   | Don't worry, I won't let them switch you off.
   ~ fi
-  | That's settled then. Jack, speak with \"Sahil\"(yellow) when he arrives, see if he knows anything about androids.
+  | That's settled then. Jack, speak with \"Sahil\"(yellow) when he arrives, see what he knows about androids.
   ~ jack
   | (:annoyed)If you insist.
 ~ fi
