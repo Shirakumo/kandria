@@ -140,6 +140,8 @@
   | (:happy)As do I.
 - It's good to be back.
 ~ fi
+| Take these parts too - you've more than earned them.
+! eval (store 'item:parts 600)
 | (:happy)Goodbye \"for now\"(orange), Stranger.
 ")))
 ;; TODO it would make sense to allow talking to Catherine about going back to the Semis and her backstory there, at the next available opportunity, if only to corroborate what Fi has said.
