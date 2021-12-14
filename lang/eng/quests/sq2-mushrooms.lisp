@@ -1,13 +1,14 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
-;; TODO FIX this quest completes after first task interaction, when it should remain open and be completed manually later
+;; TODO store the target quantity in a variable, also used in the conditional? Then each time you talk to Catherine, she retrieves whatever you've got, and subtracts it from the variable for next time.
+;; The android can then use inner monologue to reflect on exact quantities remaining. See q8a-secret-supplies as an example.
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine wants mushrooms from beneath the camp. She needs at least: 25 flower fungi and/or rusty puffballs; I should avoid: black caps."
+  :description "Catherine wants me to gather mushrooms to bolster their food and textile reserves."
   :on-activate T
   (return-mushrooms
-   :title "Find mushrooms and return to Catherine when I have enough"
+   :title "Collect mushrooms from beneath the camp and return to Catherine when I have at least: 25 flower fungi and/or rusty puffballs; I should avoid black caps"
    :on-activate T
    (:interaction mushrooms-return
     :title "About the mushrooms."
