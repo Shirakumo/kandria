@@ -17,12 +17,12 @@
 - It's true.
   ~ fi
   | (:happy)...
-- It's about time.
+- About time.
   ~ fi
   | Yes, sorry about that. Things don't always happen the fastest around here.
   | And speaking from personal experience, I take a long time to trust someone.
 ~ fi
-| But there's something more.
+| But there's something else.
 | It's about your name. Do you still not remember it?
 ~ player
 | (:thinking)I don't. At least not completely.
@@ -44,7 +44,7 @@
     | (:happy)If you like it, I like it.
 - (Choose a new name)
   ~ player
-  | From the corrupted strings in my registry, I'd guess my name was one of these three:
+  | \"From the corrupted strings in my registry, I'd guess my name was one of these three:\"(light-gray, italic)
   ! label old-names
   ~ player
   - (Andréa)
@@ -87,7 +87,8 @@
     < name
   - You can choose.
     ~ fi
-    | (:thinking)Well, to me you've always felt like a Chiyo. What do you think?
+    | (:thinking)Okay, no pressure. Let me think...
+    | I think to me you've always felt like a Chiyo. What do you think?
     ~ player
     - (No - choose a different name)
        < name

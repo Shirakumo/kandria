@@ -44,7 +44,7 @@
 - What times?
   ~ cerebat-trader
   | ...
-  | (:jolly)Oh, you nearly 'ad me there, bud!
+  | (:jolly)Ah, you nearly 'ad me there, bud!
   | (:sly)But I want something first before I tell you anything.
 - What do you want?
   ~ cerebat-trader
@@ -54,13 +54,13 @@
   | (:jolly)Good. It's a simple matter of economics, innit?
 ~ cerebat-trader
 | (:cautious)If I'm gonna risk my neck, you gotta risk yours too.
-| See, the usual caravans aren't getting through, so it's kinda hard to get my usual stock.
+| See, the usual caravans aren't getting through, so it's kinda hard to get supplies.
 | I'm talking mushrooms (poisonous ones of course), purified water, and pearls - you know, the essentials.
-| Might as well get some thermal fluid and coolant liquid while you're at it.
+| Might as well throw in some thermal fluid and coolant liquid while you're at it.
 | A couple of each should do nicely, just to get me back on my feet. Then I'll spill the beans.
 | (:jolly)Don't be a stranger!
 ~ player
-| \"Indeed. Alright, unpicking that conversation, my grocery list is \"at least two of each of these: black cap mushrooms, purified water, pearls, thermal fluid, coolant liquid.\"(orange)
+| \"Indeed. Alright, unpicking that conversation, my grocery list is \"at least two of each of these: black cap mushrooms, purified water, pearls, thermal fluid, coolant liquid.\"(orange)\"(light-gray, italic)
 "
 )))
 
@@ -84,13 +84,13 @@
 ~ player
 - Why are you helping the Wraw?
   ~ cerebat-trader
-  | Why, don't you like them?
-  | (:cautious)They pay well, and that's all I care about. A man's gotta make a living.
+  | I know how it looks.
+  | (:cautious)But they pay well, and that's all I care about. A man's gotta make a living.
   < questions
 - What happened to the Cerebat Council?
   ~ cerebat-trader
   | (:cautious)Like I said, they're gone.
-  | Some might still be alive though, rotting in a Wraw jail.
+  | Some might still be alive though, rotting in some Wraw jail.
   < questions
 - What's your name?
   ~ cerebat-trader
@@ -119,7 +119,7 @@
     | (:jolly)I don't remember mine neither.
   < questions
 - I'm done.
-~ cerebrat-trader
+~ cerebat-trader
 | (:cautious)See you around.
 ")))
 

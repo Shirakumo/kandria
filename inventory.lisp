@@ -460,6 +460,19 @@
   (item:coin 3))
 ;; placement: region 1 market areas
 
+;; DEBUG SPAWNERS
+(define-random-draw debug-pure-water
+  (item:pure-water 1))
+  
+(define-random-draw debug-pearl
+  (item:pearl 1))
+  
+(define-random-draw debug-thermal
+  (item:thermal-fluid 1))
+  
+(define-random-draw debug-coolant
+  (item:coolant 1))
+
 #| ITEMS UNUSED IN SPAWNERS SO FAR
   
   (item:large-gear 1)

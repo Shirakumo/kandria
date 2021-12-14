@@ -5,11 +5,11 @@
 (quest:define-quest (kandria q8a-secret-supplies)
   :author "Tim White"
   :title "Supply Run"
-  :description "The Cerebat trader says he'll tell me about the Cerebat Council, if I bring him the items he needs to get his shop back on its feet."
+  :description "The Cerebat trader says he'll tell me about the Cerebat Council, if I bring him the essential supplies he needs to get his shop back on its feet."
   :variables ((black-cap-count 2) (pure-water-count 2) (pearl-count 2) (coolant-count 2) (thermal-count 2))
   :on-activate T
   (return-supplies
-   :title "Find 2 each of: black cap mushroom, purified water, pearl, thermal fluid, coolant liquid"
+   :title "Find 2 each of these and deliver them to the Cerebat trader: black cap mushroom, purified water, pearl, thermal fluid, coolant liquid"
    :on-complete (trader-cerebat-chat trader-cerebat-shop)
    :on-activate T
    (:interaction supplies-return
@@ -48,7 +48,7 @@
 | | - Ahem.
 | |   ~ cerebat-trader
 | |   | Don't worry, I 'aven't forgotten. Though I thought you mighta worked it out by now.
-| | - What customers?
+| | - What customer?
 | |   ~ cerebat-trader
 | |   | I gotta say, I thought you mighta worked it out by now.
 | | ~ cerebat-trader
