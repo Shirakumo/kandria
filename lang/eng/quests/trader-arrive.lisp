@@ -83,7 +83,7 @@
 )))
 ;; habibti = dear, my love, buddy (Arabic)
 
-;; TODO - added act 3 quest transition check to "|? (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex))" to ensure chat log updates in act 3
+;; TODO - add act 3 quest transition check to "|? (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex))" to ensure chat log updates in act 3
 (quest:define-quest (kandria trader-chat)
   :author "Tim White"
   :title "Trader Chat"
