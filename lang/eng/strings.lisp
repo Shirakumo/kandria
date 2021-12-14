@@ -9,6 +9,7 @@ islay-nametag "Islay"
 alex-nametag "Alex"
 semi-engineer-nametag "Engineer"
 villager-nametag "Villager"
+cerebat-trader-nametag "???"
 ;; Places
 chunk-2129 "Engineering"
 chunk-1893 "Storage"

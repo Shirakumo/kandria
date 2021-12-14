@@ -3,24 +3,21 @@
 
 (quest:define-quest (kandria q8-meet-council)
   :author "Tim White"
-  :title "Name"
-  :description "Description"
+  :title "Meet the Council"
+  :description "Fi wants me to go and talk to the Cerebat Council, to see if they really have been taken over by the Wraw, as Innis claims."
   :on-activate (task-1)
 
   (task-1
-   :title "Bullet point"
+   :title "Find the Cerebat council chamber, beneath Semis Sisters territory"
    :invariant T
-   :condition all-complete
-   :on-activate (interact-reminder interact-1)
-   :on-complete ()
+   :condition NIL
+   :on-activate (interact-reminder)
+   :on-complete NIL
 
    (:interaction interact-reminder
-    :interactable npc-giver
+    :interactable fi
     :repeatable T
     :dialogue "
-")
-
-   (:interaction interact-1
-    :interactable npc-1
-    :dialogue "
+~ fi
+| \"Go and see the Cerebat Council\"(orange), and \"see what you can learn\"(orange) about the supposed Wraw takeover.
 ")))

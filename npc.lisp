@@ -439,6 +439,13 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'alex)))
 
+(define-shader-entity cerebat-trader (npc creatable)
+  ((name :initform 'cerebat-trader)
+   (profile-sprite-data :initform (asset 'kandria 'sahil-profile))
+   (nametag :initform (@ cerebat-trader-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'sahil)))
+
 (define-shader-entity semi-engineer (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
