@@ -226,7 +226,8 @@
 (defmethod interactable-p ((elevator elevator)) T)
 
 (defun place-on-ground (entity loc &optional (xdiff 0) (ydiff 0))
-  (let ((ground (find-ground (find-chunk loc) loc)))
+  (let* ((chunk (find-chunk loc))
+         (ground (when chunk (find-ground chunk loc))))
     (if ground
         (vsetf (location entity)
                (random* (vx ground) xdiff)
