@@ -64,7 +64,7 @@
 "
 )))
 
-;; short and sweet questions and answers here, as this guy isn't really your friend
+;; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long
 (quest:define-quest (kandria trader-cerebat-chat)
   :author "Tim White"
   :title "Trader Chat"
