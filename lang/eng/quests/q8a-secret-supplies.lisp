@@ -10,7 +10,7 @@
   :on-activate T
   (return-supplies
    :title "Find 2 each of these and deliver them to the Cerebat trader: black cap mushroom, purified water, pearl, thermal fluid, coolant liquid"
-   :on-complete (trader-cerebat-chat trader-cerebat-shop)
+   :on-complete (trader-cerebat-chat trader-cerebat-shop q9-contact-fi)
    :on-activate T
    (:interaction supplies-return
     :title "I'm back."
@@ -57,10 +57,17 @@
 | | | It's the only good thing to come from them moving in, believe me. (:jolly)Don't tell anyone I said that.
 | | | (:normal)So now you know.
 | | | That's why you can't see the council. There isn't one any more.
+| | | (:jolly)I told you they wouldn't see anyone!
 | | | Toodle-oo.
+| | ~ player
+| | | (:embarassed)\"...\"(light-gray, italic)
+| | | \"Shit.\"(light-gray, italic)
+| | | (:normal)\"I need to \"contact Fi\"(orange). Though first I should \"put some distance between myself and this trader\"(orange).\"(light-gray, italic)
 | | ! eval (complete task)
 | | ! eval (setf (quest:status (thing 'return-supplies)) :inactive)
 | | ! eval (deactivate interaction)
+| | ! eval (activate (unit 'fi-ffcs-cerebat-1))
+| | ! eval (activate (unit 'fi-ffcs-cerebat-2))
 | |?
 | | ~ player
 | | | \"Remaining quantities to find are: \"black cap mushrooms: {(var 'black-cap-count)}\"(orange); \"purified water: {(var 'pure-water-count)}\"(orange); \"pearls: {(var 'pearl-count)}\"(orange); \"thermal fluid: {(var 'thermal-count)}\"(orange); \"coolant liquid: {(var 'coolant-count)}\"(orange).\"(light-gray, italic)

@@ -39,28 +39,29 @@
 | Anyway, you can't see the council - they won't see anyone.
 | (:sly)But lucky for you I'm a purveyor of fine information, as just demonstrated.
 | And I 'ave more to share.
-| But it's not all free. A trader got to make a livin', especially in these times.
+| But it's not all free. A trader gotta make a livin', especially in these times.
 ~ player
 - What times?
   ~ cerebat-trader
   | ...
-  | (:jolly)Ah, you nearly 'ad me there, bud!
+  | (:jolly)Ah, you nearly 'ad me there, matey!
   | (:sly)But I want something first before I tell you anything.
 - What do you want?
   ~ cerebat-trader
-  | (:sly)Oh nothing much. Nothing much at all, really.
+  | (:sly)Oh nothing much. Nothing much at all, really. It's just...
 - I understand.
   ~ cerebat-trader
   | (:jolly)Good. It's a simple matter of economics, innit?
 ~ cerebat-trader
-| (:cautious)If I'm gonna risk my neck, you gotta risk yours too.
+| (:cautious)If I'm gonna risk my neck, you gotta risk yours.
 | See, the usual caravans aren't getting through, so it's kinda hard to get supplies.
 | I'm talking mushrooms (poisonous ones of course), purified water, and pearls - you know, the essentials.
 | Might as well throw in some thermal fluid and coolant liquid while you're at it.
 | A couple of each should do nicely, just to get me back on my feet. Then I'll spill the beans.
 | (:jolly)Don't be a stranger!
 ~ player
-| \"Indeed. Alright, unpicking that conversation, my grocery list is \"at least two of each of these: black cap mushrooms, purified water, pearls, thermal fluid, coolant liquid.\"(orange)\"(light-gray, italic)
+| \"Indeed. Alright, unpicking that conversation, my grocery list is at least \"two each\"(orange) of : \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
+| (:skeptical)\"The essentials...\"(light-gray, italic)
 "
 )))
 

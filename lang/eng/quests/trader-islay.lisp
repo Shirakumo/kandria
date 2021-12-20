@@ -37,7 +37,7 @@
 |   | | I'm going nowhere. Get lost, both of you.
 |   | ~ islay
 |   | | (:normal)Perhaps it would be best if we leave them alone for a while.
-|   | | I suggest you relay your findings to Fi.
+|   | | I suggest you deliver your findings to Fi.
 |   | | We'll speak again.
 |   | ! eval (setf (var 'alex-done) T)
 |   | ! eval (setf (walk 'islay) T)
