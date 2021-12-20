@@ -9,12 +9,12 @@
   :variables (innis-remote)
 
   (find-alex
-   :title "Travel down to the Cerebats township, but avoid the Semi Sisters en route"
+   :title "Travel down to the Cerebats township and find Alex, but avoid the Semi Sisters en route"
    :description NIL
-   :invariant T
-   :condition (or (complete-p 'innis-stop-local) (complete-p 'innis-stop-remote))
+   :invariant (not (or (complete-p 'innis-stop-local) (complete-p 'innis-stop-remote)))
+   :condition NIL
    :on-activate (q4-reminder innis-stop-local innis-stop-remote)
-   :on-complete (find-alex-semis)
+   :on-complete NIL
 
    (:interaction q4-reminder
     :interactable fi
@@ -85,6 +85,7 @@
 ! eval (deactivate (unit 'innis-stop-4))
 ! eval (deactivate (unit 'innis-stop-5))
 ! eval (deactivate (unit 'innis-stop-6))
+! eval (activate 'find-alex-semis)
 ")
 #|
 dinnae = don't (Scottish)
@@ -168,6 +169,7 @@ ken = know (Scottish)
 ! eval (deactivate (unit 'innis-stop-5))
 ! eval (deactivate (unit 'innis-stop-6))
 ! eval (setf (var 'innis-remote) T)
+! eval (activate 'find-alex-semis)
 "))
 
 #|
