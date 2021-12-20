@@ -129,7 +129,7 @@
 | (:thinking)Innis is bluffing. She's many things, but she's not a killer. She won't turn the water off.
 | (:normal)And as for the Wraw-Cerebat takeover: I know you fought their robot, but that's not proof.
 | The Wraw want us, not the Cerebats - and certainly not the Semi Sisters.
-| Their leader, \"Zelah\"(red), takes the easy route, not the hard. He doesn't fight wars, he goes after the little guy.
+| Their leader, \"Zelah\"(red), takes the easy route, not the hard. He doesn't fight battles, he goes after the little guy.
 | Especially when the little guy has pissed him off.
 ~ fi
 | Well I'm glad your back safe and sound. (:happy)At least that's something.
