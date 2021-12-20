@@ -182,5 +182,7 @@
 | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | (:sly)If she disagrees tell her I'll shut the water off.
 | ! eval (activate 'q6-return-to-fi)
+| ! eval (activate (unit 'fi-ffcs-1))
+| ! eval (activate (unit 'fi-ffcs-2))
 ")))
 ;; couldnae = couldn't (Scots)
