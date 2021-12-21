@@ -19,7 +19,7 @@
 ~ islay
 | Of course.
 ! label talk
-? (not (complete-p 'q6-return-to-fi))
+? (not (complete-p 'q7-my-name))
 | ~ player
 | - [(not (var 'alex-done)) How's Alex?|]
 |   ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv))
@@ -71,10 +71,29 @@
 |   < talk
 | - That'll do.
 |   < leave
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
+| | Ask about Cerebats and Wraw and progress other subplots here.
+|? (and (complete-p 'q10-wraw) (not (active-p 'q11-recruit-semis)))
+| ~ player
+| | The Wraw are coming.
+| ~ islay
+| | (:nervous)Thank you, but we know. We're making preparations.
+| ~ player
+| - Of course you do.
+|   ~ islay
+|   | (:happy)...
+|   | Good luck, {#@player-nametag}.
+| - What preparations?
+|   ~ islay
+|   | (:nervous)I'm afraid I cannae share that. I'm sorry.
+|   | Good luck, {#@player-nametag}.
+| - Good luck.
+|   ~ islay
+|   | Thank you, {#@player-nametag}. To you too.
 
 # leave
 ~ islay
-| [? Take care, Stranger. | Mind how you go. | I'll be seeing you. | Ta-ta.]")))
+| [? Take care, {#@player-nametag}. | Mind how you go. | I'll be seeing you. | Ta-ta.]")))
 
 (quest:define-quest (kandria trader-shop-semi)
   :title "Trade"

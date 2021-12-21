@@ -101,9 +101,9 @@
 ~ trader
 | (:jolly)Assalam alaikum! Let's talk.
 ? (< 80  (health player))
-| | (:jolly)[? You look well, Stranger! | And how robust you're looking! | I don't think I've seen you looking better.]
+| | (:jolly)[? You look well, {#@player-nametag}! | And how robust you're looking! | I don't think I've seen you looking better.]
 |? (< 50  (health player))
-| | [? Have you been fighting, Stranger? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
+| | [? Have you been fighting, {#@player-nametag}? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
 |?
 | | (:concerned)[? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label talk
@@ -137,7 +137,7 @@
 |   < talk
 | - That'll do.
 |   < leave
-|? (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex))
+|? (and (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex)) (not (complete-p 'q7-my-name)))
 | ~ player
 | - I thought you might have moved on by now.
 |   ~ trader
@@ -193,6 +193,36 @@
 |   < talk
 | - That'll do.
 |   < leave
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
+| | Ask about Cerebats and Wraw and progress other subplots here.
+|? (and (complete-p 'q10-wraw) (not (active-p 'q11-recruit-semis)))
+| ~ player
+| - The Wraw are coming.
+|   ~ trader
+|   | What, right now?
+|   ~ player
+|   - I think so.
+|     ~ trader
+|     | They're coming for the Noka?
+|   - Save yourself!
+|     ~ trader
+|     | (:jolly)Oh, that's a good one!
+|   - They're planning to invade the entire valley.
+|     ~ trader
+|     | (:jolly)Oh, that's a good one!
+|   ~ player
+|   | They've amassed an invasion force, mechs and soldiers, big enough to take the entire valley.
+|   ~ trader
+|   | (:concerned)You're not joking are you?...
+|   | That would explain why traders haven't been allowed on their land for some time.
+|   | Thank you for telling me, {#@player-nametag}.
+| - Do androids live in the mountains?
+|   ~ trader
+|   | Ha, I wondered when you might hear about that.
+|   | I like to think they do - especially since I met you. Lots of other {#@player-nametag}s running around like gazelles. A real haven.
+|   | Assuming they're friendly like you, of course.
+|   | But I think I'm in the minority.
+| - I need to go.
 
 # leave
 ~ trader
