@@ -61,8 +61,6 @@
 - I'll do it for you.
   ~ fi
   | (:happy)...
-  ~ player
-  | \"She didn't say anything, but I think she liked that.\"(light-gray, italic)
 ~ fi
 | Even your FFCS might not work down there.
 | But \"contact me as soon as you can\"(orange) - even if that means returning to Cerebat territory to do so.
