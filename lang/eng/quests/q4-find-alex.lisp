@@ -72,7 +72,7 @@
   ~ innis
   | (:angry)...
   | I remember your kind! You think you're clever just 'cause you can mimic us.
-  | You're a machine. And if I wished it I could have you pulled apart and scattered to the four corners of this desert.
+  | You're a machine. And if I wished it I could have you pulled apart and scattered to the four corners of this valley.
   | (:normal)Now, let's try again.
   | You'll be pleased to ken that the one you seek, \"Alex, is here\"(orange).
 ~ innis
@@ -151,7 +151,7 @@ ken = know (Scottish)
   ~ innis
   | (:angry)...
   | I remember your kind! You think you're clever just 'cause you can mimic us.
-  | You're a machine. And if I wished it I could have you pulled apart and scattered to the four corners of this desert.
+  | You're a machine. And if I wished it I could have you pulled apart and scattered to the four corners of this valley.
   | (:normal)Now, let's try again.
   | You'll be pleased to ken that the one you seek, \"Alex, is here\"(orange).
 ~ innis
