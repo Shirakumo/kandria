@@ -3,7 +3,7 @@
 
 (quest:define-quest (kandria q9-contact-fi)
   :author "Tim White"
-  :title "Contact Fi"
+  :title "Report to Fi"
   :description "I should get some distance from the Cerebat trader and contact Fi."
   :on-activate (contact-fi)
   
@@ -65,7 +65,7 @@
   | \"She didn't say anything, but I think she liked that.\"(light-gray, italic)
 ~ fi
 | Even your FFCS might not work down there.
-| But \"contact me as soon as you can\"(orange) - even if that means returning to Cerebat territory.
+| But \"contact me as soon as you can\"(orange) - even if that means returning to Cerebat territory to do so.
 | Be safe.  
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))

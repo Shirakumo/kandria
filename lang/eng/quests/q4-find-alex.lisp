@@ -13,7 +13,7 @@
    :description NIL
    :invariant (not (or (complete-p 'innis-stop-local) (complete-p 'innis-stop-remote)))
    :condition NIL
-   :on-activate (q4-reminder innis-stop-local innis-stop-remote)
+   :on-activate (q4-reminder)
    :on-complete NIL
 
    (:interaction q4-reminder
