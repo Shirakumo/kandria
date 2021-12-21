@@ -62,7 +62,7 @@
   < questions
 - Tell me about the Cerebats.  
   ~ fi
-  | I suppose they're the closest thing the Valley has to a council.
+  | I suppose they're the closest thing there is to a council.
   | They manage trade and arbitrate disputes between factions.
   | But I think most people know who's really calling the shots.
   | Perhaps I should be surprised that politics survived the apocalypse. (:annoyed)But I'm not.
