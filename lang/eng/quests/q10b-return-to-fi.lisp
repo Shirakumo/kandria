@@ -158,3 +158,4 @@
 ! eval (setf (walk 'jack) T)
 ! eval (move-to 'eng-jack (unit 'jack))
 ")))
+;; no reward - it's battle stations. If player needs more currency here, they need to get it from sidequests and selling to traders.
