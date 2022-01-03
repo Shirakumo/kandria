@@ -80,7 +80,11 @@
 | And given I couldn't use my FFCS in Cerebat territory, I think they're on the march.
 ~ fi
 | (:shocked)...
-| I...
+| ... But why?
+~ jack
+| (:annoyed)To kill us all, or enslave us. Does it matter?!
+~ fi
+| (:shocked)I...
 ~ jack
 | (:shocked)Fi?...
 | Fi, what do we do?
@@ -130,9 +134,9 @@
 - I'm ready to fight.
   ~ fi
   | Thank you, {#@player-nametag}. You will be invaluable.
-- I'll take them all on!
+- I'll kill them all!
   ~ catherine
-  | (:excited)You can! I know you can!
+  | (:concerned)...
 - I can't fight an army.
   ~ jack
   | (:annoyed)Then what are you good for?

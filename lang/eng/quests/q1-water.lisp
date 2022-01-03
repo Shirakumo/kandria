@@ -201,7 +201,7 @@
   | (:excited)Great!
 - I didn't get my bearings.
   ~ catherine
-  | Oh... I'm sure you can figure it out though. (:excited)It'll be good practice, I promise.
+  | Oh... I'm sure you'll figure it out though. It's important that you do.
 - Jack mentioned Fi - who's that?
   ~ catherine
   | She's our leader. You'll see for yourself soon enough.
