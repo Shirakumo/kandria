@@ -75,7 +75,7 @@
 ~ fi
 | I'm sorry you had to meet them.
 ~ player
-| Innis also thinks the Wraw are on the move. That they've invaded the Cerebats.
+| Innis also thinks the Wraw are on the move. That they're in Cerebats territory.
 ~ fi
 | (:annoyed)Does she. And what proof is there of that?
 ~ player
