@@ -868,7 +868,7 @@ void main(){
        (nv+ vel (v* (gravity (medium player)) dt)))
       (:normal
        ;; Handle slide
-       #-kandria-release
+       #++
        (when (and (and (retained 'down))
                   (<= (p! walk-limit) (abs (vx vel))))
          (when (typep ground 'slope)
