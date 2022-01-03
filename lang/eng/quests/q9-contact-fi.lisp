@@ -26,7 +26,7 @@
 | Cerebat territory. The Council are dead. The Wraw have taken over.
 ~ fi
 | (:shocked)...
-| What happened? Are you safe?
+| What happened? Are you okay?
 ~ player
 - I'm fine.
   ~ fi
