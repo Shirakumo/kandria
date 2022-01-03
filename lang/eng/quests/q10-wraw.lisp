@@ -38,7 +38,7 @@
 | ~ player
 | | (:embarassed)\"It's at a scale to manufacture enough mechs and weapons for an invasion of the entire valley...\"(light-gray, italic)
 | | \"I need to \"contact Fi\"(orange).\"(light-gray, italic)
-| | \"FFCS can't punch through - whether it's the magnetic interference, or the Wraw themselves.\"(light-gray, italic)
+| | \"FFCS can't punch through - whether it's the magnetic interference from the magma, or the Wraw themselves.\"(light-gray, italic)
 | ? (complete-p 'q10-boss)
 | | | \"I'd better get \"back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
 | | ! eval (complete 'wraw-objective)
@@ -64,10 +64,10 @@
     :dialogue "
 ~ player
 | \"This mech was built from drills and turbines. They all were, these power suits too.\"(light-gray, italic)
-| \"This one has an interface port, which could forcibly extract data from a subdued android.\"(light-gray, italic)
+| \"This one has an interface port, which could forcibly extract data from an android.\"(light-gray, italic)
 | \"Perhaps I can verify what the mech's purpose is...\"(light-gray, italic)
 | (:giggle)\"Just gotta stick my finger in here... Pardon me.\"(light-gray, italic)
-| (:normal)\"Yep, this has been designed to counter an android.\"(light-gray, italic)
+| (:normal)\"Yep, this has been designed to subdue an android alright.\"(light-gray, italic)
 | (:skeptical)\"Make that androids, plural, judging from these weapon configurations.\"(light-gray, italic)
 | (:giggle)\"All this just for little old me? I'm flattered.\"(light-gray, italic)
 | (:normal)\"Hang on, what's this?...\"(light-gray, italic)
@@ -77,7 +77,7 @@
 | | (:embarassed)\"Given the raw materials I saw in the warehouse, their manufacturing ambitions are HUGE.\"(light-gray, italic)
 | | \"As in,\"(light-gray) \"\"invading the entire valley\"(light-gray)\" \"huge.\"(light-gray, italic)
 | | (:normal)\"I need to \"contact Fi\"(orange).\"(light-gray, italic)
-| | \"FFCS can't punch through - whether it's the magnetic interference, or the Wraw themselves.\"(light-gray, italic)
+| | \"FFCS can't punch through - whether it's the magnetic interference from the magma, or the Wraw themselves.\"(light-gray, italic)
 | | \"I'd better get \"back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
   
 ~ player

@@ -35,7 +35,7 @@
 | Fi...
 | (:skeptical)Fi...?
 | (:thinking)\"FFCS still can't punch through. I think the Wraw are on the move.\"(light-gray, italic)
-| \"I need to get \"back to the surface\"(orange) and quickly.\"(light-gray, italic)
+| \"I need to get \"back to the surface\"(orange) now.\"(light-gray, italic)
 ! eval (deactivate 'wraw-objective-return)
 ! eval (activate 'return-fi)
 ! eval (ensure-nearby 'outside-engineering 'fi 'jack 'catherine)
@@ -86,8 +86,8 @@
 ~ fi
 | (:shocked)I...
 ~ jack
-| (:shocked)Fi?...
-| Fi, what do we do?
+| Fi?...
+| (:shocked)Fi, what do we do?
 | ... Fuck me. We need to get out of here.
 ~ catherine
 | (:concerned)And go where exactly?
@@ -111,11 +111,11 @@
 | I found mention of what sounded like a faction of androids, the \"Genera\", living in the mountains to the west.
 | I think it was a directive for their mechs, to destroy them too.
 ~ jack
-| (:annoyed)Fuck me, they really have lost it if they want to wipe out people who don't even exist.
+| (:annoyed)Fuck me, the Wraw really have lost it if they wanna wipe out people who don't even exist.
 ~ catherine
 | (:concerned)We don't know they don't exist. {#@player-nametag}'s here, isn't she?
 ~ fi
-| There's been a long-held rumour about the mountains.
+| Androids in the mountains has been an age-old rumour.
 | But I don't think we can stake our future on it - the desert is impassable, never mind the mountains.
 ~ jack
 | (:annoyed)Then we're fucked. Pure and simple.
@@ -149,7 +149,7 @@
 | We must begin preparations immediately.
 | Jack, get on the walkie and call everyone back to camp.
 ~ jack
-| So this is really happening... Well fuck.
+| (:annoyed)So this is really happening... Well fuck.
 ~ fi
 | Catherine, go to storage and assemble what weapons you can find.
 ~ catherine

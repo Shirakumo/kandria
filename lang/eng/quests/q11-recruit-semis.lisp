@@ -1,27 +1,13 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(quest:define-quest (kandria q11-recruit-semis)
+(define-sequence-quest (kandria q11-recruit-semis)
   :author "Tim White"
-  :title "Name"
-  :description "Description"
-  :on-activate (task-1)
-
-  (task-1
-   :title "Bullet point"
-   :invariant T
-   :condition all-complete
-   :on-activate (interact-reminder interact-1)
-   :on-complete ()
-
-   (:interaction interact-reminder
-    :interactable npc-giver
-    :title "Reminder."
-    :repeatable T
-    :dialogue "
-")
-
-   (:interaction interact-1
-    :interactable npc-1
-    :dialogue "
-")))
+  :title "Recruit the Semis"
+  :description "Fi wants me to speak with the Semi Sisters, and convince them to join us against the Wraw."
+  (:interact (innis)
+   :title "Talk to Innis"
+  "
+~ innis
+| Yo.
+"))

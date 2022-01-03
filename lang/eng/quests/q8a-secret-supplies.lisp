@@ -62,7 +62,7 @@
 | | ~ player
 | | | (:embarassed)\"...\"(light-gray, italic)
 | | | \"Shit.\"(light-gray, italic)
-| | | (:normal)\"I need to \"contact Fi\"(orange). Though first I should \"put some distance between myself and this trader\"(orange).\"(light-gray, italic)
+| | | (:normal)\"I need to \"contact Fi\"(orange). Though first I should \"put some distance between myself and this slippery trader\"(orange).\"(light-gray, italic)
 | | ! eval (complete task)
 | | ! eval (setf (quest:status (thing 'return-supplies)) :inactive)
 | | ! eval (deactivate interaction)

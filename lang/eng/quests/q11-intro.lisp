@@ -8,14 +8,46 @@
   (:interact (fi)
   "
 ~ player
-| What can I do?
+- What can I do?
+  ~ fi
+  | (:happy)I'm glad you asked.
+- I think you forgot about me.
+  ~ fi
+  | (:happy)On the contrary.
+- Am I a free agent now?
+  ~ fi
+  | (:happy)You're always a free agent. (:normal)But I have an important mission for you.
 ~ fi
-| I have a special assignment for you.
-| Recruit the Semis.
-| Innis was right about the Cerebat takeover.
-| If they've marched as far as the Cerebats, then the Semis will be next.
-| They can help us with the fight.
-| You need to get to them first.
-| ...
-| before they part, Fi shares fears for Stranger's safety, and player can express this to different degrees too.
-"))
+| Innis was right about the Cerebat takeover, and you've come to know her better than any of us.
+| (:thinking)And if the Wraw have marched as far as the Cerebats, then the Semis are next.
+| (:normal)Now is not the time for division - the Wraw are a threat to them as much as they are to us.
+| Use whatever sway you have with \"Innis and Islay\"(orange) and \"ask them to stand with us\"(orange).
+~ player
+- Got it.
+- Don't count on it.  
+- What if they join the Wraw?
+- [(var 'semis-weapons)They have weapons.]
+  ~ fi
+  | (:unsure)So they say, although I've never seen any.
+  | But I'll take what we can get.
+~ fi
+| Innis is a lot of things but she isn't stupid.
+| Just make sure you get to them first.
+~ player
+| \"Fi looks like she wants to say something else, but then the moment passes.\"(light-gray, italic)
+- Are you okay?
+  ~ fi
+  | (:happy)I'm fine. Be safe.
+- I'll be fine.
+  ~ fi
+  | (:happy)I know you will. Be safe.
+- See you soon.
+  ~ fi
+  | (:happy)Be safe.
+- Goodbye.
+  ~ fi
+  | (:unsure)You say that with such finality.
+  | Please be safe.
+")
+  (:eval
+   :on-complete (q11-recruit-semis)))
