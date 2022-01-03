@@ -72,7 +72,41 @@
 | - That'll do.
 |   < leave
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
-| | Ask about Cerebats and Wraw and progress other subplots here.
+| ~ player
+| - What's happening on the Cerebat border?
+|   ~ islay
+|   | (:nervous)We're still trying to ascertain that - but we've lost more cameras since you left.
+|   | (:normal)Innis thinks we're next, but I'm not so sure.
+|   | The Wraw are primitive. Maybe they are messing with the Cerebats, but they wouldn't stand a chance against our technology.
+|   | (:expectant)And I'm not just talking about surveillance. We have weapons.
+|   < talk
+| - How's Alex now?
+|   ~ islay
+|   | (:nervous)They've gone. I don't know where. They just upped and left.
+|   | If they've not returned to the Noka then God knows.
+|   | I hope they're okay. And sober.
+| - Why are the Semis mostly women?
+|   ~ islay
+|   | (:unhappy)Why not?
+|   | (:normal)... Most of us who worked in the factories were women. After the Calamity we just stayed together.
+|   | And we've done better than most.
+|   | (:happy)Maybe the world wouldn't have fallen apart if more women were in charge.
+|   ~ player
+|   - Touché.
+|     < talk
+|   - You're so right.
+|     < talk
+|   - What about having kids?
+|     ~ islay
+|     | We have more than enough men.
+|     | Besides, technology can help us with that too.
+|     | But not everyone wants kids. I never did.
+|     | Some say we should repopulate as quickly as possible. Those with a brain say the world can't support a large population any more.
+|     < talk
+|   - Let's talk about something else.
+|   < talk
+| - I need to go.
+|   < leave
 |? (and (complete-p 'q10-wraw) (not (active-p 'q11-recruit-semis)))
 | ~ player
 | | The Wraw are coming.

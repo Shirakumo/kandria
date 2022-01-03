@@ -137,7 +137,7 @@
 ;; - in which case if have to return to Catherine anyway, is there much point? Just hand the race in anyway and get the fun poor performance dialogue?
 ;; TODO: acknowledge in the flow when a new route has unlocked?
 ;; TODO: have a different item per race, e.g. phone, bottle, etc. Need to render them though?
-;; TODO bug - deactivating this task causes it's title to appear as another bullet point in the journal (though not deactivating it anymore)
+;; TODO bug - deactivating this task causes it's title to appear as another bullet point in the journal (though not deactivating it any more)
 ;; TODO: plant multiple objects, encouraging cheating
 ;; could explain brackets at the start, or let player figure it out themselves from results? Latter
 (defmacro define-race (name &key site title-start title-complete bronze silver gold)

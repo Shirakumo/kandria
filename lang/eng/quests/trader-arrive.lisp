@@ -149,6 +149,7 @@
 |   - Who's Khawla?
 |     ~ trader
 |     | (:sad)She was my daughter. She's long dead.
+|     ! eval (setf (var 'trader-daughter) T)
 |     ~ player
 |     - I'm sorry.
 |       ~ trader
@@ -185,6 +186,8 @@
 |     | (:concerned)People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
 |     | (:normal)I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
 |     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
+|   - Let's talk about something else.
+|     < talk
 |   ~ trader
 |   | (:concerned)Yes... trust. It was always a common problem with androids, from what I hear.
 |   | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
@@ -194,7 +197,72 @@
 | - That'll do.
 |   < leave
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
-| | Ask about Cerebats and Wraw and progress other subplots here.
+| ~ player
+| - You're still here?
+|   ~ trader
+|   | (:jolly)What, you don't want to buy supplies?
+|   | (:concerned)Truth be told, I heard the rumours about the Wraw in Cerebat territory.
+|   | I would've moved on if not for that.
+|   | Are they true, the rumours?
+|   ~ player
+|   - [(complete-p 'q8a-secret-supplies)I'm afraid so. |]
+|     ~ trader
+|     | (:concerned)Alqarf!
+|     | I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil right now.
+|     < talk
+|   - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out. |]
+|     ~ trader
+|     | (:concerned)Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil right now.
+|     < talk
+|   - I'm not sure.
+|     ~ trader
+|     | (:concerned)Still, I'd rather not risk it. I think I'll stay here a while longer.
+|     < talk
+|   - I can't say.
+|     ~ trader
+|     | (:concerned)I understand, habibti.
+|     | I think it would be unwise for me to leave your borders right now. I'm staying right here.
+|   - Let's talk about something else.
+|     < talk
+| - What do you know about the Cerebats?
+|   ~ trader
+|   | (:concerned)You mean other than the rumours about Wraw being sighted on their land?
+|   | (:normal)Well, they're the self-proclaimed council around here.
+|   | (:jolly)But what good's a council that can't enforce its laws?
+|   | (:concerned)The only people who can enforce anything around here are the Wraw. Maybe the Semis.
+|   < talk
+| - [(var 'trader-daughter) What happened to your daughter? |]
+|   ~ trader
+|   | (:concerned)...
+|   | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
+|   | (:normal)Her name was Khawla - I think I told you that before.
+|   | I lost her on the roads, just like Celina, my oxen.
+|   | (:sad)'Cept it wasn't wolves for her. It was people.
+|   | Rogues, I think. Maybe a Wraw patrol. I wasn't really in a fit state to see who they were.
+|   | They took her, anyway. And I never saw her again.
+|   ~ player
+|   - I'm so sorry.
+|     ~ trader
+|     | Thank you, habibti.
+|     | It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
+|     < talk
+|   - Sorry for making you relive it.
+|     ~ trader
+|     | It's okay, habibti.
+|     | Khawla should be remembered and talked about. I should speak her name like I always did.
+|     < talk
+|   - Could she still be alive?
+|     ~ trader
+|     | (:sad)No. Khawla's dead. Slaves don't live very long.
+|     | Or she met an even worse end.
+|     | (:normal)I'd rather not think about that.
+|     | Now I remember the good times instead.
+|     | Times that should be remembered and talked about. I should speak her name like I always did.
+|     < talk
+|   - Let's talk about something else.
+|     < talk
+| - I need to go.
+|   < leave
 |? (and (complete-p 'q10-wraw) (not (active-p 'q11-recruit-semis)))
 | ~ player
 | - The Wraw are coming.
@@ -210,19 +278,24 @@
 |   - They're planning to invade the entire valley.
 |     ~ trader
 |     | (:jolly)Oh, that's a good one!
+|   - Let's talk about something else.
+|     < talk
 |   ~ player
 |   | They've amassed an invasion force, mechs and soldiers, big enough to take the entire valley.
 |   ~ trader
 |   | (:concerned)You're not joking are you?...
 |   | That would explain why traders haven't been allowed on their land for some time.
 |   | Thank you for telling me, {#@player-nametag}.
+|   < talk
 | - Do androids live in the mountains?
 |   ~ trader
 |   | Ha, I wondered when you might hear about that.
 |   | I like to think they do - especially since I met you. Lots of other {#@player-nametag}s running around like gazelles. A real haven.
 |   | Assuming they're friendly like you, of course.
 |   | But I think I'm in the minority.
+|   < talk
 | - I need to go.
+|   < leave
 
 # leave
 ~ trader
