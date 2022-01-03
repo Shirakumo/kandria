@@ -10,8 +10,7 @@
    (game-speed :initform 1.0 :accessor game-speed))
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
-   :version '(3 3) :profile :core
-   :title "Kandria"
+   :context '(:version (3 3) :profile :core :title "Kandria")
    :app-id 1261430))
 
 (defmethod initialize-instance ((main main) &key app-id world state audio-backend)
@@ -202,10 +201,13 @@ Possible sub-commands:
     (save-settings)
     (manage-swank)
     (apply #'trial:launch 'main
-           :width (first (setting :display :resolution))
-           :height (second (setting :display :resolution))
-           :vsync (setting :display :vsync)
-           :fullscreen (setting :display :fullscreen)
+           :context (list :width (first (setting :display :resolution))
+                          :height (second (setting :display :resolution))
+                          :vsync (setting :display :vsync)
+                          :fullscreen (setting :display :fullscreen)
+                          :title "Kandria"
+                          :version '(3 3)
+                          :profile :core)
            (append (setting :debugging :initargs) initargs))))
 
 (defmethod setup-scene ((main main) (scene world))
