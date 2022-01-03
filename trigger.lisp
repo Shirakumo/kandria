@@ -185,6 +185,40 @@
         (setf (override (unit 'environment +world+)) (resource (track trigger) T))
         (setf (override (unit 'environment +world+)) NIL))))
 
+(defclass shutter-trigger (trigger creatable)
+  ((shutters :initform () :initarg :shutters :accessor shutters)
+   (shutter-count :initform 0 :initarg :shutter-count :accessor shutter-count :type integer)))
+
+(defmethod (setf shutter-count) :after (count (trigger shutter-trigger))
+  (loop while (< count (length (shutters trigger)))
+        for shutter = (pop (shutters trigger))
+        do (when (slot-boundp shutter 'container)
+             (leave* shutter T)))
+  (loop while (< (length (shutters trigger)) count)
+        for shutter = (make-instance 'shutter :location (vcopy (location trigger)))
+        do (push shutter (shutters trigger))
+           (when (slot-boundp trigger 'container)
+             (trial:commit shutter (loader +main+) :unload NIL)
+             (enter* shutter (container trigger)))))
+
+(defmethod stage :after ((trigger shutter-trigger) (area staging-area))
+  (when (shutters trigger)
+    (stage (first (shutters trigger)) area)))
+
+(defmethod enter :after ((trigger shutter-trigger) (region region))
+  (dolist (shutter (shutters trigger))
+    (enter shutter region)))
+
+(defmethod leave* :after ((trigger shutter-trigger) thing)
+  (dolist (shutter (shutters trigger))
+    (leave* shutter T)))
+
+(defmethod interact ((trigger shutter-trigger) (player player))
+  (let ((state (bvh:do-fitting (entity (bvh (region +world+)) trigger :open)
+                 (when (typep entity 'enemy) (return :closed)))))
+    (dolist (shutter (shutters trigger))
+      (setf (state shutter) state))))
+
 (defclass action-prompt (trigger listener creatable)
   ((action :initarg :action :initform NIL :accessor action
            :type alloy::any)

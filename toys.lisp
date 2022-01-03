@@ -404,3 +404,23 @@
     (spawn (location chest) (or (draw-item chest) 'item:parts))
     (setf (state chest) :open)
     (start-animation 'pickup player)))
+
+(define-shader-entity shutter (lit-animated-sprite collider solid ephemeral)
+  ((name :initform (generate-name "SHUTTER"))
+   (bsize :initform (vec 24 40))
+   (state :initform :open :initarg :state :accessor state :type (member :open :closed)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'shutter)))
+
+(defmethod velocity ((shutter shutter)) #.(vec 0 0))
+
+(defmethod (setf state) :before (state (shutter shutter))
+  (unless (eq state (state shutter))
+    (when (< 0 (length (animations shutter)))
+      (ecase state
+        (:open (setf (animation shutter) 'opening))
+        (:closed (setf (animation shutter) 'closing))))))
+
+(defmethod collides-p ((moving moving) (shutter shutter) hit)
+  (and (eql :closed (state shutter))
+       (call-next-method)))

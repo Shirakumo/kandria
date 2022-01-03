@@ -194,6 +194,7 @@
 (define-slot-coders (npc-block-zone world-v0) ((location :type vec2) (bsize :type vec2)))
 (define-slot-coders (chest world-v0) (name (location :type vec2) item))
 
+
 (define-decoder (node-graph binary-v0) (stream packet)
   (let* ((width (nibbles:read-ub16/le stream))
          (height (nibbles:read-ub16/le stream))
@@ -249,3 +250,17 @@
                  (walk-node
                   (write-byte 1 stream)
                   (nibbles:write-ub32/le (move-node-to node) stream)))))))
+
+(define-encoder (shutter-trigger world-v0) (_b _p)
+  (nconc (call-next-method)
+         (list :shutters (loop for shutter in (shutters shutter-trigger)
+                               collect (encode (location shutter))))))
+
+(define-decoder (shutter-trigger world-v0) (initargs _)
+  (let ((shutter-trigger (call-next-method)))
+    (setf (shutters shutter-trigger) (loop for location in (getf initargs :shutters)
+                                           collect (make-instance 'shutter :location (decode 'vec2 location))))
+    shutter-trigger))
+
+(define-encoder (shutter world-v0) (_b _p)
+  (error 'no-applicable-encoder :source shutter))
