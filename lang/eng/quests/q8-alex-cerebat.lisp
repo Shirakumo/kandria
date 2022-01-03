@@ -5,7 +5,7 @@
   :author "Tim White"
   :title "Alex"
   :visible NIL
-  (:interact (alex)
+  (:interact (alex) :repeatable T
   "
 ~ alex
 | (:angry)Get lost.
