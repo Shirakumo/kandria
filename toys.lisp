@@ -369,3 +369,38 @@
 (defmethod render :before ((blocker blocker) (program shader-program))
   (when (< 0.0 (visibility blocker) 1.0)
     (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.01)))))
+
+(define-shader-entity chest (interactable-animated-sprite ephemeral)
+  ((name :initform (generate-name "CHEST"))
+   (bsize :initform (vec 8 8))
+   (item :initform NIL :initarg :item :accessor item :type symbol)
+   (state :initform :closed :initarg :state :accessor state :type (member :open :closed)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'chest)))
+
+(defmethod layer-index ((chest chest))
+  +base-layer+)
+
+(defmethod description ((interactable interactable))
+  #@chest)
+
+(defmethod interactable-p ((chest chest))
+  (eql :closed (state chest)))
+
+(defmethod draw-item ((chest chest))
+  (let ((drawer (random-drawer (item chest))))
+    (if drawer
+        (funcall drawer)
+        (item chest))))
+
+(defmethod (setf state) :after (state (chest chest))
+  (when (< 0 (length (animations chest)))
+    (ecase state
+      (:open (setf (animation chest) 'activate))
+      (:closed (setf (animation chest) 'closed)))))
+
+(defmethod interact ((chest chest) (player player))
+  (when (eql :closed (state chest))
+    (spawn (location chest) (or (draw-item chest) 'item:parts))
+    (setf (state chest) :open)
+    (start-animation 'pickup player)))

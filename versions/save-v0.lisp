@@ -407,3 +407,13 @@
 
 (define-decoder (station save-v0) (initargs _p)
   (setf (unlocked-p station) (getf initargs :unlocked-p)))
+
+(define-encoder (chest save-v0) (_b _p)
+  `(:state ,(state chest)))
+
+(define-decoder (chest save-v0) (initargs _p)
+  (setf (state chest) (getf initargs :state))
+  (setf (pending-animation chest)
+        (ecase (getf initargs :state)
+          (:open 'open)
+          (:closed 'closed))))
