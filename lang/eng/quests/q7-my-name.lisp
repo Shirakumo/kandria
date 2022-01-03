@@ -107,8 +107,10 @@
 | If they've been invaded by the Wraw, I think you'll know soon enough.
 | Just don't get caught - by the Wraw //or// the Semis - and hurry back.
 | Good luck, {#@player-nametag}.
+! eval (setf (location 'alex) 'alex-cerebat-loc)
+! setf (direction 'alex) 1
 ")
    (:eval
-   :on-complete (q8-meet-council cerebat-trader-arrive)))
+   :on-complete (q8-meet-council cerebat-trader-arrive q8-alex-cerebat)))
 
 ;; this could be a ceremony with Jack and Catherine in attendance, but it feels more personal with just you and Fi. Also, the others will acknowledge your new name later, the next time you speak to them, to suggest that word has travelled
