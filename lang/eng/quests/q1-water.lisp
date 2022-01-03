@@ -164,7 +164,7 @@
 | Give me a second.
 ! eval (setf (animation (unit 'main-leak-3)) 'normal)
 | There, that should hold it.
-| Now, \"where is that telephone?\"(orange)
+| Now, \"where is that telephone\"(orange)?
   ")
   ;; TODO Catherine relieved - Oh man, we got here just in time.
   (:go-to (q1-phone :lead catherine)
@@ -294,7 +294,7 @@
 | Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
-| (:concerned)Oh, and we'd need a working computer, which no one's had for decades.
+| (:concerned)Oh, and we'd need a working computer, which no one's had since before I was born.
 | (:disappointed)Anyway, even if we had all that, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
@@ -364,7 +364,7 @@
 ! eval (store 'item:parts 200)
 | It's not much, but you can \"trade them\"(orange) for things you might want. Or you will be able to \"once Sahil gets here\"(orange).
 | (:concerned)He's overdue, which is not like him at all. Maybe those servos scared him off.
-| (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us.
+| (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us!
 | (:normal)Well, I've got work to do.
 | Couldn't hurt to check in with Fi. I'm sure there's something you could help with, to show her you can be trusted.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
