@@ -90,13 +90,22 @@
             :visible-on-map-p ,(visible-on-map-p chunk))))
 
 (define-decoder (layer world-v0) (initargs packet)
-  (destructuring-bind (&key name location size tile-data pixel-data &allow-other-keys) initargs
-    (make-instance (class-of layer)
-                   :name name
-                   :location (decode 'vec2 location)
-                   :size (decode 'vec2 size)
-                   :tile-data (decode 'asset tile-data)
-                   :pixel-data (packet-entry pixel-data packet))))
+  (destructuring-bind (&key name location size bsize (tile-data '(kandria debug)) pixel-data &allow-other-keys) initargs
+    (let ((size (if size
+                    (decode 'vec2 size)
+                    (v/ (decode 'vec2 bsize) 8))))
+      (make-instance (class-of layer)
+                     :name (or name (generate-name (type-of layer)))
+                     :location (decode 'vec2 location)
+                     :size size
+                     :tile-data (decode 'asset tile-data)
+                     :pixel-data (if pixel-data
+                                     (packet-entry pixel-data packet)
+                                     (let ((temp (make-array (floor (* (vx size) (vy size) 2))
+                                                             :element-type '(unsigned-byte 8))))
+                                       (loop for i from 0 below (length temp) by 2
+                                             do (setf (aref temp i) 1))
+                                       temp))))))
 
 (define-encoder (layer world-v0) (_b packet)
   (let ((pixel-data (format NIL "data/~a.raw" (name layer))))

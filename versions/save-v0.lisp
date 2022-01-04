@@ -178,7 +178,7 @@
       (labels ((recurse (parent)
                  (for:for ((entity over parent))
                    (cond ((typep entity 'ephemeral)
-                          (when (name entity)
+                          (when (save-p entity)
                             (add ephemeral (list* (name entity) (encode entity))))
                           (when (typep entity 'container)
                             (recurse entity)))

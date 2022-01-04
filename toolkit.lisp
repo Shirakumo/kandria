@@ -623,6 +623,9 @@
 (defclass ephemeral (entity)
   ((flare:name :initform (generate-name))))
 
+(defmethod save-p ((entity ephemeral))
+  (name entity))
+
 (define-shader-entity player () ())
 (define-shader-entity enemy () ())
 
