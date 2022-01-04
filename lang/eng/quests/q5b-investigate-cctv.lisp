@@ -178,7 +178,7 @@
 | ~ innis
 | | Perhaps you should \"return to Fi\"(orange).
 | | It's a pity you couldnae persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
-| | I suppose androids can't do everything.
+| | I suppose androids cannae do everything.
 | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | (:sly)If she disagrees tell her I'll shut the water off.
 | ! eval (activate 'q6-return-to-fi)

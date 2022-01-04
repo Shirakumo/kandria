@@ -97,7 +97,7 @@
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
 | ~ innis
-| | They aren't back yet. \"They can't come home with that debris blocking their path\"(orange).
+| | They aren't back yet. \"They cannae come home with that debris blocking their path\"(orange).
 |?
 | ~ innis
 | | (:pleased)The injured are already on their way back - I've sent hunters to guide them.
@@ -127,7 +127,7 @@
 | | ~ innis
 | | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
 | | | (:normal)It's a pity you couldnae persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
-| | | I suppose androids can't do everything.
+| | | I suppose androids cannae do everything.
 | | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | | (:sly)If she disagrees tell her I'll shut the water off.
 | | ! eval (activate 'q6-return-to-fi)
