@@ -119,11 +119,25 @@
 |   | Good luck, {#@player-nametag}.
 | - What preparations?
 |   ~ islay
-|   | (:nervous)I'm afraid I cannae share that. I'm sorry.
+|   | (:nervous)I'm afraid I can't share that. I'm sorry.
 |   | Good luck, {#@player-nametag}.
 | - Good luck.
 |   ~ islay
 |   | Thank you, {#@player-nametag}. To you too.
+|? (active-p 'q11-recruit-semis)
+| ~ player
+| - How will the Noka and Semis work together?
+|   ~ innis
+|   | Living space will be tight, but only for short time, before we can move back home (bomb not intended to destroy area permanently)
+| - Tell me more about the bomb.
+|   ~ player
+|   | Get in joke about: Blasting caps - are they a kind of mushroom? ;)
+| - Are you in charge now?
+|   ~ innis
+|   | God no. Innis is the leader around here - which is the way we both like it.
+|   | I prefer to stand back. But I have her ear, and she listens to me.
+| - I need to go.
+|   < leave
 
 # leave
 ~ islay

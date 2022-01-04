@@ -106,6 +106,8 @@
 | Do you think she meant it?
 ~ player
 - You know her better than I do.
+  ~ fi
+  | I wouldn't go that far. But...
 - I think we have to assume that she did.
 - Knowing Innis, that's a big YES.
 ~ fi
@@ -126,7 +128,7 @@
   | But she's also our friend.
   | (:annoyed)The Semis treated her like shit. Just like they did you, I think.
 ~ fi
-| (:thinking)Innis is bluffing. She's many things, but she's not a killer. She won't turn the water off.
+| (:annoyed)Innis is bluffing. She's a spy, a technocrat, a fuheiwoiu! But she's not a killer. She won't turn the water off.
 | (:normal)And as for the Wraw-Cerebat takeover: I know you fought their robot, but that's not proof.
 | The Wraw want us, not the Cerebats - and certainly not the Semi Sisters.
 | Their leader, \"Zelah\"(red), takes the easy route, not the hard. He doesn't fight battles, he goes after the little guy.
@@ -146,3 +148,4 @@
 ")))
 ;; TODO it would make sense to allow talking to Catherine about going back to the Semis and her backstory there, at the next available opportunity, if only to corroborate what Fi has said.
 ;; kuso = shit (Japanese)
+;; fuheiwoiu = grouch (Japanese)

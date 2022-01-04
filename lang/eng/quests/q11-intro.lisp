@@ -24,7 +24,7 @@
 | Use whatever sway you have with \"Innis and Islay\"(orange) and \"ask them to stand with us\"(orange).
 ~ player
 - Got it.
-- Don't count on it.  
+- Don't count on it.
 - What if they join the Wraw?
 - [(var 'semis-weapons)They have weapons.]
   ~ fi
@@ -33,6 +33,7 @@
 ~ fi
 | Innis is a lot of things but she isn't stupid.
 | Just make sure you get to them first.
+| I'm going to see Sahil.
 ~ player
 | \"Fi looks like she wants to say something else, but then the moment passes.\"(light-gray, italic)
 - Are you okay?
@@ -48,6 +49,13 @@
   ~ fi
   | (:unsure)You say that with such finality.
   | Please be safe.
+~ player
+- I will.
+- You too.
+- Be safe yourself.
+! eval (setf (walk 'fi) NIL)
+! eval (move-to 'loc-trader (unit 'fi))
 ")
   (:eval
    :on-complete (q11-recruit-semis)))
+;; TODO hide Sahil at this stage, as if he's moved on
