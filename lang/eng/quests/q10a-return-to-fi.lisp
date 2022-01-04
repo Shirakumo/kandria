@@ -1,7 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(quest:define-quest (kandria q10b-return-to-fi)
+(quest:define-quest (kandria q10a-return-to-fi)
   :author "Tim White"
   :title "Contact Fi"
   :description "I need to warn Fi about the Wraw invasion of the entire valley."
@@ -154,6 +154,8 @@
 | Catherine, go to storage and assemble what weapons you can find.
 ~ catherine
 | (:excited)On it!
+~ fi
+| I'll see what Sahil can do for us.
 ! eval (move-to 'check-supplies (unit 'catherine))
 ! eval (setf (walk 'jack) T)
 ! eval (move-to 'eng-jack (unit 'jack))

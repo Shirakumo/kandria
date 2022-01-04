@@ -21,7 +21,7 @@
 | | (:skeptical)\"That's one less mech to worry about. Not that it will make much difference.\"(light-gray, italic)
 | | \"I'd better \"get back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
 | ! eval (complete (find-task 'q10-wraw 'wraw-objective))
-| ! eval (activate 'q10b-return-to-fi)
+| ! eval (activate 'q10a-return-to-fi)
 | ! eval (activate (unit 'fi-ffcs-wraw-1))
 | ! eval (activate (unit 'fi-ffcs-wraw-2))
 |?
