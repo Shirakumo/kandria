@@ -150,3 +150,6 @@
     (case mode
       (:off NIL)
       (:on T))))
+
+(define-cheat (level-up |i'm feeling stronger|)
+  (incf (level (unit 'player T))))
