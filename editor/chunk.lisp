@@ -160,7 +160,13 @@
    (alloy:grid-layout
     :col-sizes '(T T T)
     :row-sizes '(30)
-    clear background compute)))
+    clear
+    (typecase (entity chunk-widget)
+      (chunk background)
+      (T ""))
+    (typecase (entity chunk-widget)
+      (chunk compute)
+      (T "")))))
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
