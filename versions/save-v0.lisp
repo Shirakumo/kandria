@@ -225,10 +225,12 @@
       :animation ,(when animation (name animation))
       :frame ,(when animation (frame-idx animatable))
       :health ,(health animatable)
+      :level ,(level animatable)
+      :experience ,(experience animatable)
       :stun-time ,(stun-time animatable))))
 
 (define-decoder (animatable save-v0) (initargs _p)
-  (destructuring-bind (&key location (velocity '(0 0)) direction state animation frame health stun-time &allow-other-keys) initargs
+  (destructuring-bind (&key location (velocity '(0 0)) direction state animation frame health (level 1) (experience 0) stun-time &allow-other-keys) initargs
     (setf (slot-value animatable 'location) (decode 'vec2 location))
     (setf (velocity animatable) (decode 'vec2 velocity))
     (vsetf (frame-velocity animatable) 0 0)
@@ -240,6 +242,8 @@
     (when (and animation (< 0 (length (animations animatable))))
       (setf (animation animatable) animation)
       (setf (frame animatable) frame))
+    (setf (level animatable) level)
+    (setf (experience animatable) experience)
     (setf (health animatable) health)
     (setf (stun-time animatable) stun-time)
     animatable))

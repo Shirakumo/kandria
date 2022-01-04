@@ -11,7 +11,7 @@
 (defmethod collides-p ((enemy enemy) (other enemy) hit) NIL)
 (defmethod collides-p ((enemy enemy) (other stopper) hit) T)
 
-(defmethod maximum-health ((enemy enemy)) 100)
+(defmethod base-health ((enemy enemy)) 100)
 
 (defmethod initialize-instance :after ((enemy enemy) &key)
   (setf (health enemy) (* (health enemy) +health-multiplier+)))
@@ -64,7 +64,7 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'box)))
 
-(defmethod maximum-health ((box box)) 20)
+(defmethod base-health ((box box)) 20)
 
 (defmethod idleable-p ((box box)) NIL)
 

@@ -3,18 +3,27 @@
 (define-global +max-stun+ 1f0)
 (define-global +hard-hit+ 20)
 
+(defun maximum-health-for-level (base-health level)
+  (* base-health (expt 1.05 level)))
+
 (define-shader-entity animatable (movable lit-animated-sprite)
-  ((health :initarg :health :accessor health)
+  ((maximum-health :initarg :maximum-health :accessor maximum-health)
+   (health :initarg :health :accessor health)
    (stun-time :initform 0f0 :accessor stun-time)
    (idle-time :initform 0f0 :accessor idle-time)
    (cooldown-time :initform 0f0 :accessor cooldown-time)
    (iframes :initform 0 :accessor iframes)
    (iframe-idx :initform 0 :accessor iframe-idx)
    (knockback :initform (vec 0 0) :accessor knockback)
-   (invincible :initform NIL :initarg :invincible :accessor invincible-p)))
+   (invincible :initform NIL :initarg :invincible :accessor invincible-p)
+   (level :initform 1 :initarg :level :accessor level)
+   (experience :initform 0 :initarg :experience :accessor experience)))
 
 (defmethod initialize-instance :after ((animatable animatable) &key)
   (setf (idle-time animatable) (minimum-idle-time animatable))
+  (unless (slot-boundp animatable 'maximum-health)
+    (setf (slot-value animatable 'maximum-health)
+          (maximum-health-for-level (base-health animatable) (level animatable))))
   (unless (slot-boundp animatable 'health)
     (setf (slot-value animatable 'health) (maximum-health animatable))))
 
@@ -28,14 +37,23 @@
 (defgeneric stun (animatable stun))
 (defgeneric start-animation (name animatable))
 (defgeneric endangering (animatable))
-(defgeneric maximum-health (animatable))
+(defgeneric base-health (animatable))
 (defgeneric damage-output (animatable))
 
 (defmethod health-percentage ((animatable animatable))
   (truncate (* 100 (health animatable)) (maximum-health animatable)))
 
+(defmethod (setf level) :around (level (animatable animatable))
+  (let ((health-percentage (/ (health animatable) (maximum-health animatable)))
+        (level (clamp 1 level 99)))
+    (call-next-method level animatable)
+    (setf (maximum-health animatable) (maximum-health-for-level (base-health animatable) level))
+    (setf (health animatable) (* health-percentage (maximum-health animatable)))))
+
 (defmethod damage-output ((animatable animatable))
-  (damage (frame animatable)))
+  (let ((base (damage (frame animatable))))
+    (ceiling
+     (max base (* base 12 (expt 1.052 (level animatable)))))))
 
 (alloy:make-observable '(setf health) '(value alloy:observable))
 

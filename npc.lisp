@@ -31,7 +31,7 @@
   (and (eql (state npc) :normal)
        (interactions npc)))
 
-(defmethod maximum-health ((npc npc))
+(defmethod base-health ((npc npc))
   1000)
 
 (defmethod hurt ((npc npc) (player player)))

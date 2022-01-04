@@ -123,7 +123,7 @@ void main(){
 
 (defmethod minimum-idle-time ((player player)) 30)
 
-(defmethod maximum-health ((player player)) 100)
+(defmethod base-health ((player player)) 1000)
 
 (defmethod resize ((player player) w h))
 
@@ -1184,7 +1184,7 @@ void main(){
 
 (defmethod damage-output ((player player))
   (ceiling
-   (* (damage (frame player))
+   (* (call-next-method)
       (setting :gameplay :damage-output))))
 
 (defmethod hurt ((player player) (damage integer))
