@@ -72,7 +72,6 @@ The player has access to the following moves. Keep them in mind when designing l
 - Climb down
 - Climb up (consumes stamina)
 - Climb leap up (consumes stamina)
-- Slide [TODO]
 - Dodge (auto-triggered from dash)
 - Light counter
 - Heavy counter
@@ -121,23 +120,23 @@ This section will outline the available mechanical devices that can be used to c
 - **Jump-through platforms**
   This element is rather simple and allows players to jump through from below, or drop down from above. Its primary use is to build "staircases" or provide players a bit of respite from a dangerous climb or jump section.
 - **Falling platforms**
-  These platforms will fall about half a second after the player stands on top of them. Climbing on the sides is fine, and will not trigger the fall. The platforms will restore to their initial position if the room is re-entered. While falling the player will be "glued" to the platform and keep standing on it, regardless of the platform's falling speed.
-- **Crumbling platforms [TODO]**
+  These platforms will fall about half a second after the player stands on top of them. The platforms will restore to their initial position if the room is re-entered. While falling the player will be "glued" to the platform and keep standing on it, regardless of the platform's falling speed.
+- **Crumbling platforms**
   These platforms will crumble away half a second after the player stands on top of them or climbs onto them. They re-appear two seconds after disappearing. Primarily useful to add a timed element to platforming and force the player to move forward quickly.
 - **Elevators**
   Elevators can cycle between two stops, and must be manually activated by the player. Once active, it will move in the current direction until a stopper block is encountered, or until the player activates the elevator again, inverting its direction. Elevators are primarily useful to connect long vertical sections together that would otherwise be a chore to climb manually.
-- **Springs [TODO]**
+- **Springs**
   When colliding, the player will be launched in the direction of the spring. This also recharges the dash. Each spring has a constant amount of force to ensure the player can rely on their strength.
-- **Springboards [TODO]**
-  Unlike springs, springboards only bounce a small amount by default, and the player needs to press jump while on one to get a big upwards boost. They also only come in an upwards variant.
+- **Fountains**
+  Gusts of air that act like a spring but only at specified time intervals, adding a timing element to the challenge.
 - **Lanterns**
   When dashed into, lanterns recharge the dash. The lantern then breaks, until it restores two seconds later. This can be used to create chains of dashes to traverse longer pits.
+- **Gates**
+  Gates have a number of associated switches that the player must touch to move the gate out of the way.
 - **Sandstorms**
   Sandstorms activate a simple full-screen effect that layers on top of everything and can be used to gate off the ends of the map.
-- **Wind [TODO]**
+- **Wind**
   This area of effect will cause a constant force to be applied to the player while within it. You can vary the strength and direction of the wind, though be careful, as strong values can potentially make certain moves completely useless.
-- **Conveyor belts [TODO]**
-  When landing on or grabbing onto a conveyor belt, the player is stuck on the belt, and is then increasingly accelerated while on the belt. This can be useful for forcing the player into high momentum situations and crossing large gaps.
 - **Water**
   Water provides vastly different physics. For one, gravity is greatly decreased and friction greatly increased. Jumping and dashing is very ineffective, but dashes are always immediately recharged allowing for infinite dashing.
 - **Black Sludge**
