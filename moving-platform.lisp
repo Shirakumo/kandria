@@ -16,9 +16,18 @@
     (setf (last-tick platform) (fc ev))
     (call-next-method)))
 
-(define-shader-entity falling-platform (layer moving-platform creatable)
-  ((name :initform (generate-name "FALLING-PLATFORM"))
-   (fall-timer :initform 0.75 :accessor fall-timer)
+(define-shader-entity tiled-platform (layer moving-platform)
+  ((name :initform (generate-name "PLATFORM"))))
+
+(defmethod layer-index ((platform tiled-platform)) +base-layer+)
+
+(defmethod entity-at-point (point (tiled-platform tiled-platform))
+  (or (call-next-method)
+      (when (contained-p point tiled-platform)
+        tiled-platform)))
+
+(define-shader-entity falling-platform (tiled-platform creatable)
+  ((fall-timer :initform 0.75 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)
    (max-speed :initarg :max-speed :initform (vec 10.0 10.0) :accessor max-speed :type vec2)
    (fall-direction :initarg :fall-direction :initform (vec 0 -1) :accessor fall-direction :type vec2)))
@@ -27,8 +36,6 @@
   '(:fall-direction :max-speed))
 
 (defmethod save-p ((platform falling-platform)) NIL)
-
-(defmethod layer-index ((platform falling-platform)) +base-layer+)
 
 (defmethod stage :after ((platform falling-platform) (area staging-area))
   (stage (// 'sound 'falling-platform-impact) area)

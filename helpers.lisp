@@ -38,7 +38,7 @@
         do (when (slot-boundp child 'container)
              (leave* child T)))
   (loop while (< (length (children entity)) count)
-        for child = (make-child-entity entity NIL)
+        for child = (make-child-entity entity)
         do (push child (children entity))
            (when (slot-boundp entity 'container)
              (trial:commit child (loader +main+) :unload NIL)

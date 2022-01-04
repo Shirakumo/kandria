@@ -402,6 +402,12 @@
 (define-decoder (blocker save-v0) (initargs _p)
   (setf (visibility blocker) (if (getf initargs :active-p) 1.0 0.0)))
 
+(define-encoder (gate save-v0) (_b _p)
+  `(:state ,(state gate)))
+
+(define-decoder (gate save-v0) (initargs _p)
+  (setf (state gate) (getf initargs :state)))
+
 (define-encoder (station save-v0) (_b _p)
   `(:unlocked-p ,(unlocked-p station)))
 

@@ -193,6 +193,7 @@
 (define-additional-slot-coders (wind world-v0) ((max-strength :type vec2 :initarg :strength) period kind))
 (define-additional-slot-coders (elevator-recall world-v0) (target))
 (define-additional-slot-coders (falling-platform world-v0) ((initial-location :type vec2) (max-speed :type vec2) (fall-direction :type vec2)))
+(define-additional-slot-coders (gate world-v0) ((open-location :type vec2) (closed-location :type vec2) state))
 (define-slot-coders (basic-light world-v0) ((color :type vec4)
                                             (location :type vec2)
                                             (data :reader (lambda (light) (buffer-data (caar (bindings (vertex-array light))))))))

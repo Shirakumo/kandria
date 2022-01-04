@@ -427,3 +427,104 @@
 
 (defmethod spawned-p ((shutter shutter)) T)
 
+(define-shader-entity switch (lit-animated-sprite collider ephemeral creatable)
+  ((name :initform NIL)
+   (bsize :initform (vec 8 8))
+   (state :initform :off :initarg :state :accessor state :type (member :off :on)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'switch)))
+
+(defmethod layer-index ((switch switch))
+  (1- +base-layer+))
+
+(defmethod quest:active-p ((switch switch))
+  (eql :on (state switch)))
+
+(defmethod (setf state) :before (state (switch switch))
+  (unless (eq state (state switch))
+    (when (< 0 (length (animations switch)))
+      (ecase state
+        (:on (setf (animation switch) 'activate))
+        (:off (setf (animation switch) 'off))))))
+
+(defmethod handle :after ((ev tick) (switch switch))
+  (when (and (eql 'off (name (animation switch)))
+             (eql :on (state switch)))
+    (setf (animation switch) 'on)))
+
+(defmethod collides-p ((moving moving) (switch switch) hit)
+  (setf (state switch) :on)
+  NIL)
+
+(defmethod spawned-p ((switch switch)) T)
+
+(define-shader-entity gate (parent-entity tiled-platform creatable)
+  ((name :initform (generate-name "GATE"))
+   (size :initform (vec 1 5))
+   (state :initform :closed :type (member :closed :open :opening :closing))
+   (open-location :initform (vec 0 0) :initarg :open-location :accessor open-location :type vec2)
+   (closed-location :initform (vec 0 0) :initarg :closed-location :accessor closed-location :type vec2)))
+
+(defmethod initialize-instance :after ((gate gate) &key)
+  (when (v= 0 (open-location gate))
+    (v<- (open-location gate) (location gate)))
+  (when (v= 0 (closed-location gate))
+    (v<- (closed-location gate) (location gate))))
+
+(defmethod make-child-entity ((gate gate))
+  (make-instance 'switch :location (vcopy (location gate))))
+
+(defmethod quest:active-p ((gate gate))
+  (eql :open (state gate)))
+
+(defmethod quest:activate ((gate gate))
+  (dolist (switch (children gate))
+    (setf (state switch) :on)))
+
+(defmethod (setf location) :after (location (gate gate))
+  (case (state gate)
+    (:open (v<- (open-location gate) location))
+    (:closed (v<- (closed-location gate) location))))
+
+(defmethod (setf state) :after (state (gate gate))
+  (case state
+    (:open
+     (dolist (switch (children gate))
+       (setf (state switch) :on))
+     (v<- (location gate) (open-location gate)))
+    (:closed
+     (dolist (switch (children gate))
+       (setf (state switch) :off))
+     (v<- (location gate) (closed-location gate)))))
+
+(defmethod handle ((ev tick) (gate gate))
+  (flet ((reached (source target)
+           (let ((dir (v- target source)))
+             (<= 1.0
+                 (/ (v. (v- (location gate) source) dir)
+                    (max 0.001 (vsqrlen2 dir)))))))
+    (ecase (state gate)
+      (:closed
+       (vsetf (velocity gate) 0 0)
+       (when (loop for switch in (children gate)
+                   always (eql :on (state switch)))
+         (setf (state gate) :opening)))
+      (:open
+       (vsetf (velocity gate) 0 0)
+       (when (loop for switch in (children gate)
+                   thereis (eql :off (state switch)))
+         (setf (state gate) :closing)))
+      (:opening
+       (cond ((reached (closed-location gate) (open-location gate))
+              (setf (state gate) :open))
+             ((< (vsqrlen2 (velocity gate)) 2.0)
+              (let ((dir (nvunit (v- (open-location gate) (location gate)))))
+                (nv+ (velocity gate) (v* dir (dt ev))))))
+       (nv+ (frame-velocity gate) (velocity gate)))
+      (:closing
+       (cond ((reached (open-location gate) (closed-location gate))
+              (setf (state gate) :closed))
+             ((< (vsqrlen2 (velocity gate)) 2.0)
+              (let ((dir (nvunit (v- (closed-location gate) (location gate)))))
+                (nv+ (velocity gate) (v* dir (dt ev))))))
+       (nv+ (frame-velocity gate) (velocity gate))))))

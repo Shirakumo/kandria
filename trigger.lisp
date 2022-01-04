@@ -185,11 +185,11 @@
         (setf (override (unit 'environment +world+)) (resource (track trigger) T))
         (setf (override (unit 'environment +world+)) NIL))))
 
-(defclass shutter-trigger (trigger parent-entity creatable)
+(defclass shutter-trigger (parent-entity trigger creatable)
   ())
 
 (defmethod make-child-entity ((trigger shutter-trigger))
-  ())
+  (make-instance 'shutter :location (vcopy (location trigger))))
 
 (defmethod interact ((trigger shutter-trigger) (player player))
   (let ((state (bvh:do-fitting (entity (bvh (region +world+)) trigger :open)
