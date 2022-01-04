@@ -144,7 +144,8 @@
     (scan entity vec on-hit)))
 
 (defmethod scan-collision (target (entity sized-entity))
-  (let ((best-hit (load-time-value (%make-hit NIL (vec 0 0)))) (best-dist NIL))
+  (let ((best-hit (load-time-value (%make-hit NIL (vec 0 0))))
+        (best-dist float-features:single-float-positive-infinity))
     (setf (hit-time best-hit) float-features:single-float-positive-infinity)
     (flet ((on-find (hit)
              (when (collides-p entity (hit-object hit) hit)
