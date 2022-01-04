@@ -48,9 +48,9 @@
   (when (children entity)
     (stage (first (children entity)) area)))
 
-(defmethod enter :after ((entity parent-entity) (region region))
+(defmethod enter :after ((entity parent-entity) (container container))
   (dolist (child (children entity))
-    (enter child region)))
+    (enter child container)))
 
 (defmethod leave* :after ((entity parent-entity) thing)
   (dolist (child (children entity))
