@@ -406,7 +406,7 @@
     (start-animation 'pickup player)))
 
 (define-shader-entity shutter (lit-animated-sprite collider solid ephemeral)
-  ((name :initform (generate-name "SHUTTER"))
+  ((name :initform NIL)
    (bsize :initform (vec 24 40))
    (state :initform :open :initarg :state :accessor state :type (member :open :closed)))
   (:default-initargs
@@ -424,3 +424,6 @@
 (defmethod collides-p ((moving moving) (shutter shutter) hit)
   (and (eql :closed (state shutter))
        (call-next-method)))
+
+(defmethod spawned-p ((shutter shutter)) T)
+

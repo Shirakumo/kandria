@@ -33,7 +33,7 @@
                                        for (item weight) in items
                                        collect `((< ,prev r) ',item)))))))))
 
-(defun spawned-p (entity)
+(defmethod spawned-p (entity)
   (gethash entity +spawn-tracker+))
 
 (defclass spawner (listener sized-entity ephemeral resizable creatable)

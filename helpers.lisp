@@ -26,6 +26,36 @@
   (when (slot-boundp collider 'container)
     (bvh:bvh-update (bvh (container collider)) collider)))
 
+(defclass parent-entity (entity)
+  ((children :initform () :initarg :children :accessor children)
+   (child-count :initform 0 :initarg :child-count :accessor child-count :type integer)))
+
+(defgeneric make-child-entity (parent))
+
+(defmethod (setf child-count) :after (count (entity parent-entity))
+  (loop while (< count (length (children entity)))
+        for child = (pop (children entity))
+        do (when (slot-boundp child 'container)
+             (leave* child T)))
+  (loop while (< (length (children entity)) count)
+        for child = (make-child-entity entity NIL)
+        do (push child (children entity))
+           (when (slot-boundp entity 'container)
+             (trial:commit child (loader +main+) :unload NIL)
+             (enter* child (container entity)))))
+
+(defmethod stage :after ((entity parent-entity) (area staging-area))
+  (when (children entity)
+    (stage (first (children entity)) area)))
+
+(defmethod enter :after ((entity parent-entity) (region region))
+  (dolist (child (children entity))
+    (enter child region)))
+
+(defmethod leave* :after ((entity parent-entity) thing)
+  (dolist (child (children entity))
+    (leave* child T)))
+
 (defclass base-entity (entity)
   ((name :initarg :name :initform NIL :type symbol :documentation "The name of the entity")))
 
