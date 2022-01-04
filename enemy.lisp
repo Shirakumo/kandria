@@ -83,6 +83,23 @@
 (defmethod kill :after ((box box))
   (harmony:play (// 'sound 'box-break)))
 
+(define-shader-entity minor-enemy (enemy)
+  ((health-bar :accessor health-bar)))
+
+(defmethod initialize-instance :after ((enemy minor-enemy) &key)
+  (setf (health-bar enemy) (make-instance 'enemy-health-bar :maximum (maximum-health enemy))))
+
+(defmethod hurt :after ((enemy minor-enemy) by)
+  (when (setting :gameplay :display-hud)
+    (show (health-bar enemy) :enemy enemy)))
+
+(defmethod leave :after ((enemy minor-enemy) target)
+  (hide (health-bar enemy)))
+
+(defmethod handle :after ((ev tick) (enemy minor-enemy))
+  (when (slot-boundp (health-bar enemy) 'alloy:layout-parent)
+    (show (health-bar enemy) :enemy enemy)))
+
 (define-shader-entity ground-enemy (enemy)
   ())
 
@@ -108,7 +125,7 @@
              (T
               (setf (animation enemy) 'stand)))))))
 
-(define-shader-entity wolf (paletted-entity ground-enemy half-solid creatable)
+(define-shader-entity wolf (paletted-entity ground-enemy minor-enemy half-solid creatable)
   ((jitter :initform (random* 0 +tile-size+) :accessor jitter)
    (retreat-time :initform 0.0 :accessor retreat-time)
    (acc-time :initform 0.0 :accessor acc-time)
@@ -213,7 +230,7 @@
   (item:fine-pelt 0.1)
   (item:ruined-pelt 1))
 
-(define-shader-entity zombie (paletted-entity ground-enemy half-solid creatable)
+(define-shader-entity zombie (paletted-entity ground-enemy minor-enemy half-solid creatable)
   ((bsize :initform (vec 4 16))
    (timer :initform 0.0 :accessor timer)
    (palette :initform (// 'kandria 'zombie-palette))
@@ -286,7 +303,7 @@
   (item:simple-circuit 1)
   (item:cable 1))
 
-(define-shader-entity drone (enemy immovable creatable)
+(define-shader-entity drone (minor-enemy enemy immovable creatable)
   ((bsize :initform (vec 8 10))
    (timer :initform 1f0 :accessor timer))
   (:default-initargs
