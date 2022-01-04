@@ -1,5 +1,25 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+#++
+(defun test-damage-scales (&key (base-damage 50) (skip 1))
+  (flet ((p (enemy-level base-damage level health)
+           (let ((attack (* base-damage 5 (expt 1.06 enemy-level))))
+             (format T " | ~[  ~;->~;X>~] ~2d ~2d ~8d ~10d ~8d"
+                     (cond ((= enemy-level level) 1)
+                           ((<= health attack) 2)
+                           (T 0))
+                     level enemy-level
+                     (truncate health)
+                     (truncate attack)
+                     (truncate (max 0 (* 100 (/ (- health attack) health))))))))
+    (let ((levels '(0 10 30 70 99)))
+      (dolist (level levels (terpri))
+        (format T " |  PLVL ELVL  PHLTH        ATK     REM%"))
+      (loop for level from 0 to 99 by skip
+            for health = (maximum-health-for-level 1000 level)
+            do (dolist (enemy-level levels (terpri))
+                 (p enemy-level base-damage level health))))))
+
 (define-global +max-stun+ 1f0)
 (define-global +hard-hit+ 20)
 
@@ -53,7 +73,7 @@
 (defmethod damage-output ((animatable animatable))
   (let ((base (damage (frame animatable))))
     (ceiling
-     (max base (* base 12 (expt 1.052 (level animatable)))))))
+     (max base (* base 5 (expt 1.06 (level animatable)))))))
 
 (alloy:make-observable '(setf health) '(value alloy:observable))
 
