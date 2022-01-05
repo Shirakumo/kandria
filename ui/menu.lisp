@@ -320,10 +320,10 @@
                (return)))))))
 
 (defclass menu (pausing-panel menuing-panel)
-  ((status-display :initform NIL :accessor status-display)))
+  ())
 
 (defmethod handle ((ev tick) (menu menu))
-  (setf (alloy:value (status-display menu)) (overview-text)))
+  )
 
 (defmethod show :before ((menu menu) &key)
   (harmony:play (// 'sound 'ui-open-menu) :reset T)
@@ -358,11 +358,27 @@
       (with-tab ((@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
         (let ((resume (with-button resume-game (hide panel)))
               (map (with-button open-map (show-panel 'map-panel)))
-              (status (make-instance 'status-text :value (overview-text))))
-          (setf (status-display panel) status)
-          (alloy:enter status layout :constraints `((:margin 10)))
+              (status (make-instance 'alloy:grid-layout :col-sizes '(300 T) :row-sizes '(40)))
+              (player (unit 'player +world+)))
+          (flet ((add (label value &rest args)
+                   (alloy:enter (make-instance 'label :value label) status)
+                   (alloy:enter (apply #'make-instance 'label :value value args) status)))
+            (add (@ player-health) (format NIL "~a / ~a (~a%)"
+                                           (truncate (health player))
+                                           (truncate (maximum-health player))
+                                           (health-percentage player)))
+            (add (@ player-level-count) (princ-to-string (level player)))
+            (add (@ player-experience-points) (format NIL "~a / ~a" (experience player) (exp-needed-for-level (level player))))
+            (add (@ distance-travelled) (format NIL "~,2fm" (/ (stats-distance (stats player)) 16)))
+            (add (@ in-game-datetime) (format-absolute-time (truncate (timestamp +world+))))
+            (add (@ current-play-time) (format NIL "~a~@[ ~a~]"
+                                               (format-relative-time (session-time))
+                                               (when (< (* 60 60 4) (session-time)) (@ long-play-time-warning)))
+                 :style (when (< (* 60 60 4) (session-time)) `((:label :pattern ,colors:red))))
+            (add (@ total-play-time) (format-relative-time (total-play-time))))
           (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
           (alloy:enter map layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
+          (alloy:enter status layout :constraints `((:above ,resume 10) (:left 10) (:right 10) (:top 10)))
           (when (saving-possible-p)
             (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
               (when (typep object 'save-point)
@@ -442,20 +458,4 @@
           (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))
 
-(defun overview-text ()
-  (let ((player (unit 'player +world+)))
-    (if player
-        (format NIL "~
-~a: ~22t~a
-~a: ~22t~a ~a
-~a: ~22t~a
-~a: ~22t~a%
-~a: ~22t~,1fm"
-                (@ in-game-datetime) (format-absolute-time (truncate (timestamp +world+)))
-                (@ current-play-time) (format-relative-time (session-time))
-                (if (< (* 60 60 4) (session-time)) (@ long-play-time-warning) "")
-                (@ total-play-time) (format-relative-time (total-play-time))
-                (@ player-health) (health-percentage player)
-                (@ distance-travelled) (/ (stats-distance (stats player)) 16))
-        "")))
 ;; FIXME: when changing language or font, UI needs to update immediately
