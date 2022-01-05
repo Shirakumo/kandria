@@ -52,6 +52,52 @@
    :text alloy:text
    :pattern (colored:color 1 1 1 (min 1 (* 1.5 (timeout alloy:renderable))))))
 
+(defclass level-up (alloy:label* hud-element)
+  ((timeout :initform 0.0)
+   (alloy:value :initform 1)))
+
+(defmethod alloy:text ((element level-up))
+  (format NIL "LVL ~d" (alloy:value element)))
+
+(presentations:define-realization (ui level-up)
+  ((background simple:rectangle)
+   (alloy:margins 2 20 2 5)
+   :pattern (colored:color 0 0 0 0.25))
+  ((background-2 simple:rectangle)
+   (alloy:margins -5 40 -5 -5)
+   :pattern (colored:color 0 0 0 0.25))
+  ((bar simple:rectangle)
+   (alloy:extent 0 0 (alloy:pw 1) 2)
+   :pattern colors:white)
+  ((title simple:text)
+   (alloy:margins -10)
+   (@ level-up-notification)
+   :halign :middle
+   :valign :middle
+   :font (setting :display :font)
+   :size (alloy:un 50)
+   :pattern colors:white)
+  ((level simple:text)
+   (alloy:margins -10 -10 -10 -100)
+   alloy:text
+   :halign :middle
+   :valign :middle
+   :font (setting :display :font)
+   :size (alloy:un 30)
+   :pattern colors:white))
+
+(presentations:define-update (ui level-up)
+  (title
+   :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable))))
+  (level
+   :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable))))
+  (background
+   :pattern (colored:color 0 0 0 (* 0.25 (min 1 (timeout alloy:renderable)))))
+  (background-2
+   :pattern (colored:color 0 0 0 (* 0.25 (min 1 (timeout alloy:renderable)))))
+  (bar
+   :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable)))))
+
 (defclass health-bar (alloy:progress hud-element)
   ())
 
@@ -174,16 +220,19 @@
   ((health :accessor health)
    (location :accessor location)
    (lines :accessor lines)
+   (level-up :accessor level-up)
    (timer :initform NIL :accessor timer)))
 
 (defmethod initialize-instance :after ((hud hud) &key (player (unit 'player T)))
   (let* ((layout (make-instance 'hud-layout))
          (bar (setf (health hud) (alloy:represent (health player) 'health-bar :maximum (maximum-health player))))
          (list (setf (lines hud) (make-instance 'alloy:vertical-linear-layout)))
-         (loc (setf (location hud) (make-instance 'location-info))))
+         (loc (setf (location hud) (make-instance 'location-info)))
+         (level-up (setf (level-up hud) (make-instance 'level-up))))
     (alloy:enter bar layout :constraints `((:left 80) (:top 20) (:height 15) (:width 300)))
     (alloy:enter list layout :constraints `((:left 20) (:top 220) (:size 1920 1000)))
     (alloy:enter loc layout :constraints `((:right 50) (:top 50) (:height 20) (:width 500)))
+    (alloy:enter level-up layout :constraints `((:center :w) (:top 100) (:width 500) (:height 50)))
     (alloy:finish-structure hud layout NIL)))
 
 (defmethod alloy:enter ((string string) (panel hud) &key (importance :normal))
@@ -231,3 +280,9 @@
     (when timer
       (alloy:leave timer (alloy:layout-parent timer))
       (setf (timer panel) NIL))))
+
+(defmethod (setf level) :before (level (player player))
+  (when (= (1+ (level player)) level)
+    (let ((hud (find-panel 'hud)))
+      (when hud
+        (setf (alloy:value (level-up hud)) level)))))
