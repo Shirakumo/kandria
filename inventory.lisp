@@ -63,6 +63,9 @@
         (string< (title a) (title b))
         (< a-order b-order))))
 
+(defmethod experience-reward ((item item))
+  10)
+
 (defmethod enter :after ((entity item) (magma magma))
   (kill entity))
 

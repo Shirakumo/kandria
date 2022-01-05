@@ -64,6 +64,10 @@
 (defgeneric endangering (animatable))
 (defgeneric base-health (animatable))
 (defgeneric damage-output (animatable))
+(defgeneric experience-reward (animatable))
+
+(defmethod experience-reward ((animatable animatable))
+  10)
 
 (defmethod health-percentage ((animatable animatable))
   (truncate (* 100 (health animatable)) (maximum-health animatable)))
@@ -74,6 +78,13 @@
     (call-next-method level animatable)
     (setf (maximum-health animatable) (maximum-health-for-level (base-health animatable) level))
     (setf (health animatable) (* health-percentage (maximum-health animatable)))))
+
+(defmethod (setf experience) :around ((experience integer) (animatable animatable))
+  (loop for needed = (exp-needed-for-level (level animatable))
+        while (<= needed experience)
+        do (incf (level animatable))
+           (decf experience needed))
+  (call-next-method experience animatable))
 
 (defmethod damage-output ((animatable animatable))
   (let ((base (damage (frame animatable))))
@@ -121,14 +132,18 @@
       (return entity))))
 
 (defmethod hurt :around ((animatable animatable) (damage integer))
-  (prog1 (when (and (< 0 (health animatable))
-                    (not (invincible-p (frame animatable))))
-           (call-next-method))
-    (when (<= (health animatable) 0)
-      (kill animatable))))
+  (when (and (< 0 (health animatable))
+             (not (invincible-p (frame animatable))))
+    (prog1 (call-next-method)
+      (when (<= (health animatable) 0)
+        (kill animatable)))))
 
 (defmethod hurt ((animatable animatable) (attacker animatable))
   (hurt animatable (damage-output attacker)))
+
+(defmethod hurt :after ((animatable animatable) (attacker animatable))
+  (when (<= (health animatable) 0)
+    (incf (experience attacker) (experience-reward animatable))))
 
 (defmethod hurt ((animatable animatable) (damage integer))
   (cond ((invincible-p animatable)

@@ -306,6 +306,9 @@ void main(){
   ;; Ensure the size is never lower than a screen.
   (call-next-method (vmax value +tiles-in-view+) chunk))
 
+(defmethod experience-reward ((chunk chunk))
+  100)
+
 (defmethod enter* :before ((chunk chunk) container)
   (loop for layer across (layers chunk)
         do (compile-into-pass layer (or (preceding-entity layer container) container) *scene*)))

@@ -17,7 +17,8 @@
 
 (defclass quest (quest:quest alloy:observable)
   ((clock :initarg :clock :initform 0f0 :accessor clock)
-   (visible-p :initarg :visible :initform T :accessor visible-p)))
+   (visible-p :initarg :visible :initform T :accessor visible-p)
+   (experience-reward :initarg :experience-reward :initform 500 :accessor experience-reward)))
 
 (alloy:make-observable '(setf clock) '(value alloy:observable))
 (alloy:make-observable '(setf quest:status) '(value alloy:observable))
@@ -34,6 +35,7 @@
 (defmethod quest:complete :before ((quest quest))
   (when (and (not (eql :complete (quest:status quest)))
              (visible-p quest))
+    (incf (experience (unit 'player T)) (experience-reward quest))
     (harmony:play (// 'sound 'ui-quest-complete))
     (status :important (@formats 'quest-successfully-completed (quest:title quest)))))
 
