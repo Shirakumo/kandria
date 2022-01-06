@@ -399,7 +399,7 @@
   (when (< 0.0 (visibility blocker) 1.0)
     (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.01)))))
 
-(define-shader-entity chest (interactable-animated-sprite ephemeral)
+(define-shader-entity chest (interactable-animated-sprite ephemeral creatable)
   ((name :initform (generate-name "CHEST"))
    (bsize :initform (vec 8 8))
    (item :initform NIL :initarg :item :accessor item :type symbol)
