@@ -1,5 +1,21 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-shader-entity mirror (lit-animated-sprite interactable ephemeral creatable)
+  ()
+  (:default-initargs
+   :sprite-data (asset 'kandria 'mirror)))
+
+(defmethod interactable-p ((mirror mirror)) T)
+
+(defmethod layer-index ((mirror mirror))
+  (1- +base-layer+))
+
+(defmethod description ((mirror mirror))
+  (@ mirror))
+
+(defmethod interact ((mirror mirror) (player player))
+  (show-panel 'wardrobe))
+
 (define-shader-entity ball (axis-rotated-entity moving vertex-entity textured-entity creatable)
   ((vertex-array :initform (// 'kandria '1x))
    (texture :initform (// 'kandria 'ball))

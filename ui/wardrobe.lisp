@@ -32,10 +32,11 @@
   (:label
    :pattern (if alloy:focus colors:black colors:white)))
 
-(defclass sprite-preview (alloy:layout-element)
+(defclass sprite-preview (alloy:renderable alloy:layout-element)
   ((target :initarg :target :accessor target)))
 
 (defmethod alloy:render ((ui ui) (preview sprite-preview))
+  (call-next-method)
   (with-pushed-matrix ((view-matrix :identity))
     (let* ((program (shader-program-for-pass (unit 'render T) (target preview)))
            (bounds (alloy:bounds preview))
@@ -55,7 +56,8 @@
                                 :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
          (clipper (make-instance 'alloy:clip-view :limit :x))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
-         (preview (make-instance 'sprite-preview :target (clone (unit 'player T))))
+         (preview (make-instance 'sprite-preview :target (clone (unit 'player T))
+                                 :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
          (focus (make-instance 'alloy:focus-list))
          (list (make-instance 'alloy:vertical-linear-layout
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))

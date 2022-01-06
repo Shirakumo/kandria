@@ -93,6 +93,7 @@ elevator "Activate"
 recall-button "Recall Elevator"
 station "Choose Destination"
 chest "Open"
+mirror "Change Outfit"
 ;; Items
 consumable-item "Consumables"
 quest-item "Quest Items"
