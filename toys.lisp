@@ -213,10 +213,12 @@
 
 (defmethod collide ((moving moving) (fountain fountain) hit)
   (let ((strength (strength fountain)))
-    (incf (iframes fountain))
     (when (/= 0 (vx strength))
-      (setf (direction moving) (float-sign (vx strength))))
-    (v<- (velocity moving) strength)
+      (setf (direction moving) (float-sign (vx strength)))
+      (setf (vx (velocity moving)) (vx strength)))
+    (when (/= 0 (vy strength))
+      (setf (vy (velocity moving)) (vy strength)))
+    (incf (iframes fountain))
     (setf (svref (collisions moving) 2) NIL)))
 
 (defmethod collide :after ((player player) (fountain fountain) hit)
@@ -246,6 +248,16 @@
           ((> 0 (vy2 strength))
            (rotate-by 0 0 1 PI)
            (translate-by 0 -64 0)))))
+
+;; KLUDGE: the standard AABB-based test fucks up on zero velocity.
+;;         if I make it not fuck up on that, other things break all over.
+;;         I don't have time for this.
+(defmethod scan ((entity fountain) (target game-entity) on-hit)
+  (let ((vec (load-time-value (vec4 0 0 0 0)))
+        (loc (location target))
+        (bsize (bsize target)))
+    (vsetf vec (vx2 loc) (vy2 loc) (vx2 bsize) (vy2 bsize))
+    (scan entity vec on-hit)))
 
 (define-shader-entity crumbling-platform (lit-animated-sprite collider ephemeral solid creatable)
   ((bsize :initform (vec 24 4))
