@@ -218,20 +218,21 @@ void main(){
    (amount :initform 32)))
 
 (defmethod handle ((ev tick) (emitter bubbler))
-  (let* ((vio (vio emitter))
-         (live (update-particle-data (buffer-data vio) (* 2 (dt ev)) (gravity emitter))))
-    (when (< live 2)
-      (make-particle-data (make-tile-uvs 8 1 128 128 64)
-                          :count 1
-                          :scale 2.0 :scale-var 0.0
-                          :dir-var 0
-                          :speed 50 :speed-var 20
-                          :origin (vec (vx (location (parent emitter)))
-                                       (+ (vy (location (parent emitter)))
-                                          (vy (bsize (parent emitter)))))
-                          :spread (vec (* 2 (vx (bsize (parent emitter))))
-                                       0)
-                          :life 1.2 :life-var 0.3
-                          :elt (buffer-data vio)
-                          :start live))
-    (update-buffer-data vio T)))
+  (when (in-view-p (location (parent emitter)) (bsize (parent emitter)))
+    (let* ((vio (vio emitter))
+           (live (update-particle-data (buffer-data vio) (* 2 (dt ev)) (gravity emitter))))
+      (when (< live 2)
+        (make-particle-data (make-tile-uvs 8 1 128 128 64)
+                            :count 1
+                            :scale 2.0 :scale-var 0.0
+                            :dir-var 0
+                            :speed 50 :speed-var 20
+                            :origin (vec (vx (location (parent emitter)))
+                                         (+ (vy (location (parent emitter)))
+                                            (vy (bsize (parent emitter)))))
+                            :spread (vec (* 2 (vx (bsize (parent emitter))))
+                                         0)
+                            :life 1.2 :life-var 0.3
+                            :elt (buffer-data vio)
+                            :start live))
+      (update-buffer-data vio T))))
