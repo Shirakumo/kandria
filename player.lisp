@@ -224,6 +224,9 @@ void main(){
 (defmethod enter :after ((player player) (water water))
   (setf (dash-exhausted player) NIL))
 
+(defmethod enter :after ((player player) (magma magma))
+  (trigger 'explosion player))
+
 (defmethod handle :after ((ev quickmenu) (player player))
   (unless (path player)
     (toggle-panel 'quick-menu)))
@@ -417,6 +420,9 @@ void main(){
 (defmethod collides-p :around ((player player) thing hit)
   (unless (eql :noclip (state player))
     (call-next-method)))
+
+(defmethod apply-effect :after (effect (player player))
+  (setf (combat-time player) 0f0))
 
 (defmethod handle :before ((ev tick) (player player))
   (when (path player)
