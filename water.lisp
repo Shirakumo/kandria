@@ -178,8 +178,8 @@ void main(){
 (defmethod stage :after ((magma magma) (area staging-area))
   (stage (emitter magma) area))
 
-(defmethod enter* :after ((magma magma) container)
-  (enter* (emitter magma) container))
+(defmethod enter :after ((magma magma) (container container))
+  (enter (emitter magma) container))
 
 (defmethod leave* :after ((magma magma) container)
   (leave* (emitter magma) container))
@@ -187,13 +187,37 @@ void main(){
 (defmethod drag ((magma magma))
   0.8)
 
+(defmethod render :before ((magma magma) (program shader-program))
+  (gl:active-texture :texture0)
+  (gl:bind-texture :texture-2d (gl-name (// 'kandria 'region3 'albedo)))
+  (setf (uniform program "bsize") (bsize magma)))
+
+(define-class-shader (magma :vertex-shader)
+  "layout (location = 0) in vec2 position;
+out vec2 vpos;
+uniform sampler2D albedo;
+uniform vec2 bsize;
+
+void main(){
+  vec2 a_size = textureSize(albedo, 0).xy;
+  vpos.x = int(position.x+bsize.x);
+  vpos.y = bsize.y*sign(position.y) - bsize.y - (16*16);
+}")
+
 (define-class-shader (magma :fragment-shader)
   "in float height;
 out vec4 color;
 in vec2 world_pos;
+in vec2 vpos;
+uniform sampler2D albedo;
 
 void main(){
-  color = apply_lighting_flat(vec4(1.5, 0.5, 0.0, 1.0), vec2(0), 1-(height*height*height*height), world_pos);
+  ivec2 texpos = ivec2(vpos);
+  // This seems like it should be doable in the vertex shader but it leads to weird squishing? idk wtf.
+  texpos.x = texpos.x % 5*16 + 16;
+  if(texpos.y < 16*13) texpos.y = (texpos.y % 16)+(12*16);
+  color.rgb = texelFetch(albedo, texpos, 0).rgb;
+  color = apply_lighting_flat(color, vec2(0), 1-(height*height*height*height), world_pos);
 }")
 
 (defmethod nudge ((magma magma) pos strength)

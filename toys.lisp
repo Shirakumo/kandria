@@ -218,6 +218,9 @@
   (and (<= 0.05 (timer fountain) 0.4)
        (= 0 (iframes fountain))))
 
+(defmethod layer-index ((fountain fountain))
+  +base-layer+)
+
 (defmethod bsize ((fountain fountain))
   (let ((strength (strength fountain)))
     (if (/= 0 (vx strength))

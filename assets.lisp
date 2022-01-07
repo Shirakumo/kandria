@@ -227,6 +227,14 @@
   :ambient-multiplier 2.0 
   :ambient (vec 0.3 0.5 0.4))
 
+(define-gi lava-cave
+  :attenuation 0.5
+  :location 'player
+  :light-multiplier 2.0
+  :light (vec 2.0 1 0.5)
+  :ambient-multiplier 3.0
+  :ambient (vec 0.8 0.4 0.4))
+
 (define-gi desert
   :location :sun
   :light '(6 (0 0 0)
