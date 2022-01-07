@@ -42,7 +42,7 @@
 
 (defmethod list-items ((inventory inventory) (type symbol))
   (sort (loop for item being the hash-keys of (storage inventory)
-              for prototype = (c2mop:class-prototype (c2mop:ensure-finalized (find-class item)))
+              for prototype = (make-instance item)
               when (typep prototype type)
               collect prototype)
         #'item<))
@@ -179,7 +179,7 @@
   item)
 
 (defmethod use ((item symbol) on)
-  (use (c2mop:class-prototype (find-class item)) on))
+  (use (make-instance (find-class item)) on))
 
 (defmethod use ((item item) on))
 
@@ -199,9 +199,9 @@
               collect prototype)
         #'item<))
 
-(defmacro define-item-category (name &optional superclasses)
+(defmacro define-item-category (name &optional superclasses slots)
   `(progn
-     (defclass ,name (,@superclasses item-category) ())
+     (defclass ,name (,@superclasses item-category) ,slots)
 
      (defmethod item-category ((item ,name)) ',name)))
 
@@ -216,8 +216,9 @@
 (define-item-category unlock-item)
 (define-item-category lore-item (unlock-item))
 
-(defmacro define-item ((name &rest superclasses) x y w h &key price)
+(defmacro define-item ((name &rest superclasses) x y w h &rest default-initargs &key price &allow-other-keys)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item)))
+    (remf default-initargs :price)
     (export name (symbol-package name))
     `(progn
        (export ',name (symbol-package ',name))
@@ -225,7 +226,9 @@
        ,(emit-export '#:org.shirakumo.fraf.kandria.item name '/lore)
        (define-shader-entity ,name (,@superclasses item)
          ((size :initform ,(vec w h))
-          (offset :initform ,(vec x y))))
+          (offset :initform ,(vec x y)))
+         (:default-initargs
+          ,@default-initargs))
        ,(when price
           `(defmethod price ((_ ,name)) ,price)))))
 
@@ -233,11 +236,12 @@
 (define-shader-entity value-quest-item (item quest-item value-item) ())
 
 (defmethod use ((item health-pack) (animatable animatable))
-  (incf (health animatable) (health item))
-  (trigger (make-instance 'text-effect) animatable
-           :text (format NIL "+~d" (health item))
-           :location (vec (+ (vx (location animatable)))
-                          (+ (vy (location animatable)) 8 (vy (bsize animatable))))))
+  (let ((buff (ceiling (* (health item) 0.01 (maximum-health animatable)))))
+    (incf (health animatable) buff)
+    (trigger (make-instance 'text-effect) animatable
+             :text (format NIL "+~d" buff)
+             :location (vec (+ (vx (location animatable)))
+                            (+ (vy (location animatable)) 8 (vy (bsize animatable)))))))
 
 (define-item (small-health-pack health-pack) 0 0 8 8
   :price 100)
@@ -253,6 +257,31 @@
   :price 500)
 (defmethod health ((_ item:large-health-pack)) 50)
 (defmethod item-order ((_ item:large-health-pack)) 2)
+
+(define-item-category active-effect-item (consumable-item)
+  ((clock :initform 30.0 :initarg :duration :accessor clock)))
+
+(defmethod use ((item active-effect-item) (animatable animatable))
+  (push item (active-effects animatable)))
+
+(define-item (damage-shield active-effect-item value-item) 48 0 8 8
+  :price 200)
+
+(defmethod apply-effect ((effect item:damage-shield) (animatable animatable))
+  (decf (damage-input-scale animatable) 0.2))
+
+(define-item (combat-booster active-effect-item value-item) 40 0 8 8
+  :price 200)
+
+(defmethod apply-effect ((effect item:combat-booster) (animatable animatable))
+  (incf (damage-output-scale animatable) 0.2))
+
+(define-item (nanomachine-salve active-effect-item value-item) 32 0 8 8
+  :price 200 :duration 10.0)
+
+(defmethod apply-effect ((effect item:nanomachine-salve) (animatable animatable))
+  ;; We want to buff 25% by the end of the 10s.
+  (incf (health animatable) (* (maximum-health animatable) (/ 0.25 1000))))
 
 ;; VALUE ITEMS
 (define-item (parts value-item) 8 16 8 8
@@ -369,7 +398,7 @@
 (define-item (semi-factory-key quest-item) 8 0 8 8)
 (define-item (can quest-item) 0 16 8 8)
 
-;; VALUE-QUEST ITEMS (can be sold)
+;; VALUE-ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8
   :price 10)
 (define-item (mushroom-good-2 value-quest-item) 32 8 8 8

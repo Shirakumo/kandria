@@ -215,7 +215,7 @@ void main(){
   ivec2 texpos = ivec2(vpos);
   // This seems like it should be doable in the vertex shader but it leads to weird squishing? idk wtf.
   texpos.x = texpos.x % 5*16 + 16;
-  if(texpos.y < 16*13) texpos.y = (texpos.y % 16)+(12*16);
+  if(texpos.y < 16*13) texpos.y = (texpos.y % 16)+(13*16);
   color.rgb = texelFetch(albedo, texpos, 0).rgb;
   color = apply_lighting_flat(color, vec2(0), 1-(height*height*height*height), world_pos);
 }")

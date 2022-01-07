@@ -42,7 +42,11 @@
    (knockback :initform (vec 0 0) :accessor knockback)
    (invincible :initform NIL :initarg :invincible :accessor invincible-p)
    (level :initform 1 :initarg :level :accessor level)
-   (experience :initform 0 :initarg :experience :accessor experience)))
+   (experience :initform 0 :initarg :experience :accessor experience)
+   (active-effects :initform () :initarg :active-effects :accessor active-effects)
+   (active-effects-sprite :initform (make-instance 'lit-animated-sprite :sprite-data (asset 'kandria 'active-item)) :accessor active-effects-sprite)
+   (damage-output-scale :initform 1.0 :accessor damage-output-scale)
+   (damage-input-scale :initform 1.0 :accessor damage-input-scale)))
 
 (defmethod initialize-instance :after ((animatable animatable) &key)
   (setf (idle-time animatable) (minimum-idle-time animatable))
@@ -65,6 +69,9 @@
 (defgeneric base-health (animatable))
 (defgeneric damage-output (animatable))
 (defgeneric experience-reward (animatable))
+
+(defmethod stage :after ((animatable animatable) (area staging-area))
+  (stage (active-effects-sprite animatable) area))
 
 (defmethod experience-reward ((animatable animatable))
   10)
@@ -89,7 +96,8 @@
 (defmethod damage-output ((animatable animatable))
   (let ((base (damage (frame animatable))))
     (ceiling
-     (max base (* base 5 (expt 1.06 (level animatable)))))))
+     (* (max base (* base 5 (expt 1.06 (level animatable))))
+        (damage-output-scale animatable)))))
 
 (alloy:make-observable '(setf health) '(value alloy:observable))
 
@@ -146,16 +154,17 @@
     (incf (experience attacker) (experience-reward animatable))))
 
 (defmethod hurt ((animatable animatable) (damage integer))
-  (cond ((invincible-p animatable)
-         (setf damage 0))
-        ((interrupt animatable)
-         (when (<= +hard-hit+ damage)
-           (setf (animation animatable) 'hard-hit))))
-  (trigger (make-instance 'text-effect) animatable
-           :text (princ-to-string damage)
-           :location (vec (+ (vx (location animatable)))
-                          (+ (vy (location animatable)) 8 (vy (bsize animatable)))))
-  (decf (health animatable) damage))
+  (let ((damage (* (damage-input-scale animatable) damage)))
+    (cond ((invincible-p animatable)
+           (setf damage 0))
+          ((interrupt animatable)
+           (when (<= +hard-hit+ damage)
+             (setf (animation animatable) 'hard-hit))))
+    (trigger (make-instance 'text-effect) animatable
+             :text (princ-to-string damage)
+             :location (vec (+ (vx (location animatable)))
+                            (+ (vy (location animatable)) 8 (vy (bsize animatable)))))
+    (decf (health animatable) damage)))
 
 (defmethod kill :around ((animatable animatable))
   (unless (or (eql :dying (state animatable))
@@ -250,7 +259,7 @@
                   (when (<= (iframes entity) 0)
                     (setf (iframe-idx entity) (frame-idx animatable))
                     (setf (iframes entity) 60))))
-               (chest ; KLUDGE: generify this...
+               (chest                   ; KLUDGE: generify this...
                 (when (contained-p hurtbox entity)
                   (interact entity animatable))))))))
       (:stunned
@@ -273,6 +282,15 @@
        (eql :normal (state animatable))))
 
 (defmethod handle :before ((ev tick) (animatable animatable))
+  (setf (damage-input-scale animatable) 1.0)
+  (setf (damage-output-scale animatable) 1.0)
+  (when (active-effects animatable)
+    (setf (active-effects animatable)
+          (delete-if (lambda (effect)
+                       (apply-effect effect animatable)
+                       (<= (decf (clock effect) (dt ev)) 0))
+                     (active-effects animatable)))
+    (handle ev (active-effects-sprite animatable)))
   (decf (cooldown-time animatable) (dt ev))
   (when (and (< 0 (iframes animatable))
              (< 0 (dt ev)))
@@ -301,3 +319,7 @@
                     0.0)))
   (let ((offset (offset (frame animatable))))
     (translate-by (vx offset) (vy offset) 0)))
+
+(defmethod render :after ((animatable animatable) (program shader-program))
+  (when (active-effects animatable)
+    (render (active-effects-sprite animatable) program)))
