@@ -1188,7 +1188,8 @@ void main(){
 
 (defmethod damage-output ((player player))
   (ceiling
-   (* (call-next-method)
+   (* (+ (call-next-method)
+         (* 50 (sword-level player)))
       (setting :gameplay :damage-output))))
 
 (defmethod hurt ((player player) (damage integer))

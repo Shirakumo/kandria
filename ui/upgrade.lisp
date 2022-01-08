@@ -30,7 +30,7 @@
    :halign :middle
    :valign :middle)
   ((requirements simple:text)
-   (alloy:extent (alloy:pw 4) (alloy:ph -3) 500 (alloy:ph 5))
+   (alloy:extent (alloy:pw 2.8) (alloy:ph 1.8) 500 (alloy:ph 3.7))
    (@formats 'upgrade-ui-requirements
              (loop for (count item) in (materials alloy:renderable)
                    collect (list count (language-string item))))
@@ -40,9 +40,9 @@
    :valign :top
    :halign :left)
   ((indicator simple:line-strip)
-   (vector (alloy:point (alloy:pw 1.2) (alloy:ph 0.5))
-           (alloy:point (alloy:pw 3.8) (alloy:ph 1.5))
-           (alloy:point (alloy:pw 3.8) (alloy:ph 2.0)))
+   (vector (alloy:point (alloy:pw 0.5) (alloy:ph 1.8))
+           (alloy:point (alloy:pw 2.5) (alloy:ph 5.0))
+           (alloy:point (alloy:pw 2.5) (alloy:ph 5.5)))
    :pattern colors:white
    :line-width (alloy:un 2)))
 
@@ -71,11 +71,11 @@
          (data (make-instance 'alloy:accessor-data :object player :accessor 'sword-level))
          (focus (make-instance 'alloy:focus-list)))
     (loop for (level x y . materials) in
-          '((1 150 600 (1 item:rusted-clump) (50 item:parts))
-            (2 200 500)
-            (3 175 400)
-            (4 150 300)
-            (5 200 200))
+          '((1 100 150 (1 item:rusted-clump) (50 item:parts))
+            (2 300 150)
+            (3 500 150)
+            (4 700 150)
+            (5 900 150))
           for box = (alloy:represent-with 'upgrade-checkbox data :on level :materials materials)
           do (alloy:enter box focus)
              (alloy:enter box layout :constraints `((:left ,x) (:bottom ,y) (:size 50 50))))
