@@ -99,7 +99,8 @@ void main(){
           :accessor movement-trace)
    (fishing-line :initform (make-instance 'fishing-line) :accessor fishing-line)
    (stamina-wheel :initform (make-instance 'stamina-wheel) :accessor stamina-wheel)
-   (color :initform (vec 1 1 1 0) :accessor color))
+   (color :initform (vec 1 1 1 0) :accessor color)
+   (sword-level :initform 0 :initarg :sword-level :accessor sword-level))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
@@ -108,12 +109,6 @@ void main(){
   (dotimes (i 2) (store 'item:medium-health-pack player))
   (setf (active-p (action-set 'in-game)) T)
   (setf (spawn-location player) (vcopy (location player))))
-
-#-kandria-release
-(defmethod handle ((ev trial::class-changed) (player player))
-  (when (eql (trial::changed-class ev) (find-class 'stamina-wheel))
-    (setf (shader-program (stamina-wheel player)) (make-class-shader-program (stamina-wheel player)))
-    (trial:commit (shader-program (stamina-wheel player)) (loader +main+) :unload NIL)))
 
 (defmethod register :after ((player player) (world scene))
   (show-panel 'hud))

@@ -132,10 +132,13 @@
           (vx (offset frame)) (vy (offset frame))))
 
 (defmethod compile-resources ((sprite sprite-data) (path pathname) &key force)
-  (destructuring-bind (&key source palette albedo animation-data &allow-other-keys) (read-src path)
+  (destructuring-bind (&key palette
+                            (source (make-pathname :type "ase" :defaults path))
+                            (albedo (make-pathname :type "png" :defaults source))
+                            (animation-data (make-pathname :type "json" :defaults source)) &allow-other-keys) (read-src path)
     (let ((source (merge-pathnames source path))
           (animation-data (merge-pathnames animation-data path))
-          (albedo (merge-pathnames (or albedo (make-pathname :type "png" :defaults source)) path)))
+          (albedo (merge-pathnames albedo path)))
       (when (or force (recompile-needed-p (list albedo animation-data)
                                           (list source path)))
         (v:info :kandria.resources "Compiling spritesheet from ~a..." source)
@@ -156,7 +159,9 @@
         (optipng albedo "-nb" "-nc" "-np")))))
 
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
-  (destructuring-bind (&key source palette palettes animation-data animations frames &allow-other-keys) (read-src path)
+  (destructuring-bind (&key palette palettes animations frames
+                            (source (make-pathname :type "ase" :defaults path))
+                            (animation-data (make-pathname :type "json" :defaults source)) &allow-other-keys) (read-src path)
     (setf (json-file sprite) animation-data)
     (setf (source sprite) source)
     (setf (palette sprite) palette)

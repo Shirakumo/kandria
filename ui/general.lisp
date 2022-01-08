@@ -23,7 +23,7 @@
    :line-width (alloy:un 2))
   ((:check simple:rectangle)
    (alloy:extent (alloy:ph 0.15) (alloy:ph 0.15) (alloy:ph 0.7) (alloy:ph 0.7))
-   :hidden-p (not alloy:value)
+   :hidden-p (not (alloy:active-p alloy:renderable))
    :pattern colors:accent))
 
 (presentations:define-update (ui alloy:checkbox)
@@ -34,7 +34,7 @@
                 colors:gray))
   (:check
    :pattern (if alloy:focus (colored:color 0.9 0.9 0.9) colors:accent)
-   :hidden-p (not alloy:value)))
+   :hidden-p (not (alloy:active-p alloy:renderable))))
 
 (presentations:define-realization (ui alloy:slider)
   ((:background simple:rectangle)

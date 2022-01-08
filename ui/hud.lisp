@@ -62,10 +62,10 @@
 (presentations:define-realization (ui level-up)
   ((background simple:rectangle)
    (alloy:margins 2 20 2 5)
-   :pattern (colored:color 0 0 0 0.25))
+   :pattern (colored:color 0.1 0.1 0.1 0.25))
   ((background-2 simple:rectangle)
    (alloy:margins -5 40 -5 -5)
-   :pattern (colored:color 0 0 0 0.25))
+   :pattern (colored:color 0.1 0.1 0.1 0.25))
   ((bar simple:rectangle)
    (alloy:extent 0 0 (alloy:pw 1) 2)
    :pattern colors:white)
@@ -92,9 +92,9 @@
   (level
    :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable))))
   (background
-   :pattern (colored:color 0 0 0 (* 0.25 (min 1 (timeout alloy:renderable)))))
+   :pattern (colored:color 0.1 0.1 0.1 (min 1 (timeout alloy:renderable))))
   (background-2
-   :pattern (colored:color 0 0 0 (* 0.25 (min 1 (timeout alloy:renderable)))))
+   :pattern (colored:color 0.1 0.1 0.1 (* 0.75 (min 1 (timeout alloy:renderable)))))
   (bar
    :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable)))))
 

@@ -16,6 +16,22 @@
 (defmethod interact ((mirror mirror) (player player))
   (show-panel 'wardrobe))
 
+(define-shader-entity workbench (lit-animated-sprite interactable ephemeral creatable)
+  ()
+  (:default-initargs
+   :sprite-data (asset 'kandria 'workbench)))
+
+(defmethod interactable-p ((workbench workbench)) T)
+
+(defmethod layer-index ((workbench workbench))
+  (1- +base-layer+))
+
+(defmethod description ((workbench workbench))
+  (@ workbench))
+
+(defmethod interact ((workbench workbench) (player player))
+  (show-panel 'upgrade-ui))
+
 (define-shader-entity ball (axis-rotated-entity moving vertex-entity textured-entity creatable)
   ((vertex-array :initform (// 'kandria '1x))
    (texture :initform (// 'kandria 'ball))

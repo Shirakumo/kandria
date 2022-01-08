@@ -260,6 +260,7 @@
          :unlocked (alexandria:hash-table-keys (unlock-table player))
          :stats (stats player)
          :palette (palette-index player)
+         :sword-level (sword-level player)
          (call-next-method)))
 
 (define-decoder (player save-v0) (initargs packet)
@@ -281,6 +282,7 @@
       (setf (gethash item table) T)))
   (setf (stats player) (getf initargs :stats (make-stats)))
   (setf (palette-index player) (getf initargs :palette 0))
+  (setf (sword-level player) (getf initargs :sword-level 0))
   ;; Force state to normal to avoid being caught in save animation
   (setf (state player) :normal)
   (when (unit :camera T)
