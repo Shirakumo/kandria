@@ -52,13 +52,13 @@
   | I don't think so. More like Fi needs our help.
 - We need your help.
   ~ innis
-  | (:sly)You mean Fi needs our help.
-  | But you don't need our help - you're an android.
+  | (:sly)More like Fi needs our help, I bet.
+  | You don't need our help - you're an android.
 - We can help you.
   ~ innis
   | (:pleased)The Noka? Help us? Don't make me laugh.
 ~ innis
-| (:sly)... Don't tell me you've come to care for the Noka.
+| (:sly)... Don't tell me you care for the Noka.
 | I never understood why they gave androids emotions. Nothing but a distraction.
 ~ islay
 | (:unhappy)Listen to her Innis, for Christ's sake!
@@ -70,15 +70,15 @@
 ~ innis
 | (:angry)... It's not your call, Islay.
 ~ islay
-| (:unhappy)Well why don't you ask the people? They see our cameras shutting down one by one, and our guns still sat in storage.
-| What is your plan, sister?
+| (:unhappy)Well why don't you ask the people? They see our cameras shutting down one by one, and our guns sat in storage.
+| Just what exactly is your plan, sister?
 ~ innis
 | (:angry)Are you saying you could do better?
 ~ islay
 | (:unhappy)I'm saying we need help. We need the Noka - and we need {#@player-nametag}.
 ~ innis
 | ...
-| (:thinking)... Alright. So we ally with the Noka. Then what?
+| (:thinking)... Alright. Say we ally with the Noka. Then what?
 ~ islay
 | We pool our resources - our weapons and people.
 | ... And we abandon our home.
@@ -95,16 +95,15 @@
 - We blow up the Wraw!
 ~ islay
 | (:expectant)I've improvised an explosive, which could slow their advance.
-| We can still use it, but we're missing components to build it.
+| We can still use it, but we're missing a few components to build it.
 ~ innis
 | Send the android while we evacuate.
 ~ islay
 | (:nervous)Aye, that might work. You'll need to go behind enemy lines.
 | In normal times we'd get what we need from the Cerebat markets. But that's obviously not an option any more.
-| If you can avoid the patrols you might be able to scavenge what we need.
+| If you can avoid their patrols you might be able to scavenge what we need.
 | The only other option is in Wraw territory itself - they hoard this kind of stuff.
-| (:normal)We need: \"wire rolls\" to make trip wires, \"blasting caps\"(orange), and \"charge packs\" for the explosive.
-| We've got everything else.
+| (:normal)We need: \"wire rolls\"(orange) to make trip wires, \"blasting caps\"(orange) for the detonator, and \"charge packs\"(orange) for the explosive.
 | I think \"10 of each\"(orange) should be enough - always prudent to have a few spares. Except \"charge packs: get 20 of those\"(orange), so we have a big enough explosive yield.
 | You got it? This is important.
 ~ player
@@ -115,10 +114,9 @@
   ~ islay
   | Basically we need: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), and \"20 charge packs\"(orange).
 ~ islay
-| (:nervous)Now please hurry.
+| (:nervous)Please hurry.
 ~ player
-- I should tell Fi about our partnership.
-- I should tell Fi about the bomb.
+| I'll update Fi, then be on my way.
 ~ innis
 | (:sly)That's right, you be a good dog.
 ~ islay
