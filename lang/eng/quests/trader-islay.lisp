@@ -79,6 +79,7 @@
 |   | (:normal)Innis thinks we're next, but I'm not so sure.
 |   | The Wraw are primitive. Maybe they are messing with the Cerebats, but they wouldn't stand a chance against our technology.
 |   | (:expectant)And I'm not just talking about surveillance. We have weapons.
+|   ! eval (setf (var 'semis-weapons) T)
 |   < talk
 | - How's Alex now?
 |   ~ islay
