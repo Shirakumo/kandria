@@ -81,12 +81,18 @@
 | (:thinking)... Alright. Say we ally with the Noka. Then what?
 ~ islay
 | We pool our resources - our weapons and people.
+| We don't know the Wraw's exact numbers and capabilities, but I can hazard a guess from the hunters we sent - at least those that returned.
+~ player
+| I've seen their mechs and supplies too - it's a lot.
+~ islay
+| Right. It is. But I think we stand a fighting chance if we work together.
 | ... And we abandon our home.
 ~ innis
 | (:angry)No. Never.
 ~ islay
 | It's not forever. But the Wraw are already here, and we can't fight them alone.
 | We take what we can carry and leave for the surface.
+| Everything we leave behind is something the Wraw could use against us.
 ~ innis
 | And what about the bomb?
 ~ player
