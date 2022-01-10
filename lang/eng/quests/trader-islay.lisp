@@ -161,7 +161,7 @@
 |   | I'm still trying to decide whether one large device, or several smaller ones, will work the best.
 |   | I'll figure it out once I get to the surface - maybe Catherine can help.
 |   | The components will be the same though, so just make sure you bring what I asked for: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), and \"20 charge packs\"(orange).
-|   | (:happy)And just to be clear, because someone in my lab got confused: blasting caps are not a type of exploding mushroom.
+|   | (:happy)And just to be clear, because someone in my lab got confused: blasting caps are NOT a type of exploding mushroom.
 | - Are you in charge now?
 |   ~ islay
 |   | God no. Innis is the leader around here - which is the way we both like it.
