@@ -1,7 +1,6 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; TODO store the target quantity in a variable, also used in the conditional? Then each time you talk to Catherine, she retrieves whatever you've got, and subtracts it from the variable for next time.
 (quest:define-quest (kandria q8a-secret-supplies)
   :author "Tim White"
   :title "Supply Run"
