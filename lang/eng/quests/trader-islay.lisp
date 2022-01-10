@@ -160,7 +160,7 @@
 |   | The aim is to collapse the tunnels the Wraw are using to move their troops, while minimising damage to our common infrastructure.
 |   | I'm still trying to decide whether one large device, or several smaller ones, will work the best.
 |   | I'll figure it out once I get to the surface - maybe Catherine can help.
-|   | The components will be the same though, so just make sure you bring what I asked for: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), and \"20 charge packs\"(orange).
+|   | The components will be the same though, so just make sure you bring what I asked for: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), \"20 charge packs\"(orange).
 |   | (:happy)And just to be clear, because someone in my lab got confused: blasting caps are NOT a type of exploding mushroom.
 | - Are you in charge now?
 |   ~ islay

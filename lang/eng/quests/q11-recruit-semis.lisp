@@ -109,7 +109,7 @@
 | In normal times we'd get what we need from the Cerebat markets. But that's obviously not an option any more.
 | If you can avoid their patrols you might be able to scavenge what we need.
 | The only other option is in Wraw territory itself - they hoard this kind of stuff.
-| (:normal)We need: \"wire rolls\"(orange) to make trip wires, \"blasting caps\"(orange) for the detonator, and \"charge packs\"(orange) for the explosive.
+| (:normal)We need \"wire rolls\"(orange) to make trip wires, \"blasting caps\"(orange) for the detonator, and \"charge packs\"(orange) for the explosive.
 | I think \"10 of each\"(orange) should be enough - always prudent to have a few spares. Except \"charge packs: get 20 of those\"(orange), so we have a big enough explosive yield.
 | You got it? This is important.
 ~ player
@@ -118,7 +118,7 @@
   | Good.
 - One more time.
   ~ islay
-  | Basically we need: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), and \"20 charge packs\"(orange).
+  | Basically we need: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), \"20 charge packs\"(orange).
 ~ islay
 | (:nervous)Please hurry.
 ~ player
@@ -132,4 +132,6 @@
 | Good luck, {#@player-nametag}.
 ! eval (deactivate 'interact-reminder)
 ! eval (activate 'q11a-bomb-recipe)
+! eval (activate (unit 'wraw-border-1))
+! eval (activate (unit 'wraw-border-2))
 ")))
