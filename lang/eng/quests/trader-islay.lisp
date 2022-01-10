@@ -108,37 +108,67 @@
 |   < talk
 | - I need to go.
 |   < leave
-|? (and (complete-p 'q10-wraw) (not (active-p 'q11-recruit-semis)))
+|? (and (complete-p 'q10-wraw) (not (complete-p 'q11-recruit-semis)))
 | ~ player
-| | The Wraw are coming.
-| ~ islay
-| | (:nervous)Thank you, but we know. We're making preparations.
-| ~ player
-| - Of course you do.
+| - The Wraw are coming.
 |   ~ islay
-|   | (:happy)...
-|   | Good luck, {#@player-nametag}.
-| - What preparations?
-|   ~ islay
-|   | (:nervous)I'm afraid I can't share that. I'm sorry.
-|   | Good luck, {#@player-nametag}.
-| - Good luck.
-|   ~ islay
-|   | Thank you, {#@player-nametag}. To you too.
-|? (active-p 'q11-recruit-semis)
-| ~ player
-| - How will the Noka and Semis work together?
-|   ~ innis
-|   | Living space will be tight, but only for short time, before we can move back home (bomb not intended to destroy area permanently)
-| - Tell me more about the bomb.
+|   | (:nervous)Thank you, but we know. We're making preparations.
 |   ~ player
-|   | Get in joke about: Blasting caps - are they a kind of mushroom? ;)
+|   - Of course you are.
+|     ~ islay
+|     | (:happy)...
+|     | Good luck, {#@player-nametag}.
+|   - What preparations?
+|     ~ islay
+|     | (:nervous)I'm afraid I can't share that. I'm sorry.
+|     | Good luck, {#@player-nametag}.
+|   - Good luck.
+|     ~ islay
+|     | Thank you, {#@player-nametag}. To you too.
+|   - Let's talk about something else.
+|   < talk
+| - Do androids live in the mountains?
+|   ~ islay
+|   | Oh, that old chestnut.
+|   | Before the Calamity there were hundreds of thousands of androids, and and more in production.
+|   | Where did they all go? Were they all destroyed? - Present company excepted.
+|   | No one knows, and we'll probably never know.
+|   | But I doubt they're living in the mountains. We'd have seen or heard something, detected a signal... But there's been nothing.
+|   < talk
+| - I need to go.
+|   < leave
+|? (and (complete-p 'q11-recruit-semis) (not (complete-p 'q11a-bomb-recipe)))
+| ~ player
+| - How will the Semis and Noka work together?
+|   ~ islay
+|   | We'll talk to Fi, see how many collective weapons and fighters we have, and then reason out a strategy.
+|   | It will be crowded, but only for a little while - before we can move back home.
+|   ~ player
+|   - You're optimistic.
+|     ~ islay
+|     | (:expectant)Manifesting a positive outcome gives confidence, and improves the chance of success. You should try it.
+|   - If you have a home left.
+|     ~ islay
+|     | (:expectant)Manifesting a positive outcome gives confidence, and improves the chance of success. You should try it.
+|   - Do we really have a chance of winning?
+|     ~ islay
+|     | The numbers say we do.
+|     | (:expectant)And besides: manifesting a positive outcome gives confidence, and improves the chance of success.
+| - Tell me more about the bomb.
+|   ~ islay
+|   | It's more an improvised explosive than a bomb from before the Calamity, but it should do the job.
+|   | The aim is to collapse the tunnels the Wraw are using to move their troops, while minimising damage to our common infrastructure.
+|   | I'm still trying to decide whether one large device, or several smaller ones, will work the best.
+|   | I'll figure it out once I get to the surface - maybe Catherine can help.
+|   | The components will be the same though, so just make sure you bring what I asked for: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), and \"20 charge packs\"(orange).
+|   | (:happy)And just to be clear, because someone in my lab got confused: blasting caps are not a type of exploding mushroom.
 | - Are you in charge now?
-|   ~ innis
+|   ~ islay
 |   | God no. Innis is the leader around here - which is the way we both like it.
 |   | I prefer to stand back. But I have her ear, and she listens to me.
 | - I need to go.
 |   < leave
+| < talk
 
 # leave
 ~ islay
