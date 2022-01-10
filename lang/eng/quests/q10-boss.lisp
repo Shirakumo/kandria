@@ -22,8 +22,8 @@
 | | \"I'd better \"get back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
 | ! eval (complete (find-task 'q10-wraw 'wraw-objective))
 | ! eval (activate 'q10a-return-to-fi)
-| ! eval (activate (unit 'fi-ffcs-wraw-1))
-| ! eval (activate (unit 'fi-ffcs-wraw-2))
+| ! eval (activate (unit 'wraw-border-1))
+| ! eval (activate (unit 'wraw-border-2))
 |?
 | | (:skeptical)\"That's one less mech to worry about. Not that it will make much difference.\"(light-gray, italic)
 | | \"I'd better \"finish exploring this region\"(orange). Hopefully there'll be no more surprises.\"(light-gray, italic)

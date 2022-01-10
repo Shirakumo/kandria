@@ -43,8 +43,8 @@
 | | | \"I'd better get \"back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
 | | ! eval (complete 'wraw-objective)
 | | ! eval (activate 'q10a-return-to-fi)
-| | ! eval (activate (unit 'fi-ffcs-wraw-1))
-| | ! eval (activate (unit 'fi-ffcs-wraw-2))
+| | ! eval (activate (unit 'wraw-border-1))
+| | ! eval (activate (unit 'wraw-border-2))
 | |?
 | | | \"I'd better \"deal with that active mech in the factory\"(orange) though, before it wakes up the whole army.\"(light-gray, italic)
 | | | \"Then get \"back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
