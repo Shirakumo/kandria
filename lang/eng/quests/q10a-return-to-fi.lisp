@@ -27,7 +27,7 @@
    :on-complete NIL
    :visible NIL
 
-   (:interaction fi-ffcs-wraw
+   (:interaction wraw-border
     :interactable fi
     :dialogue "
 ~ player
