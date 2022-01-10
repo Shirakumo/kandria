@@ -72,7 +72,7 @@
 | (:cheer)__Tada!__ Here we are.
 | What do you think...?
 ~ player
-- It's a ruined city.
+- The city is ruined...
   ~ catherine
   | (:excited)Yay, your voice box works too.
   | Yep. This is home.
