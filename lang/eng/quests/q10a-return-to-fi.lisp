@@ -145,6 +145,7 @@
   ~ jack
   | (:shocked)...
   | Cathy...
+  ! eval (setf (var 'fight-army) T)
 ~ fi
 | We must begin preparations immediately.
 | Jack, get on the walkie and call everyone back to camp.

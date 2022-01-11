@@ -397,6 +397,9 @@
 (define-item (seeds quest-item) 16 16 8 8)
 (define-item (semi-factory-key quest-item) 8 0 8 8)
 (define-item (can quest-item) 0 16 8 8)
+(define-item (wire quest-item) 8 0 8 8)
+(define-item (blasting-cap quest-item) 8 0 8 8)
+(define-item (charge-pack quest-item) 8 0 8 8)
 
 ;; VALUE-ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8
@@ -491,6 +494,19 @@
   (item:rusted-key 2)
   (item:coin 3))
 ;; placement: region 1 market areas
+
+;; QUEST SPAWNERS
+;; placement idea: 3 disparate locations
+(define-random-draw bomb-wire
+  (item:wire 3))
+  
+;; placement idea: 5 locations, some close to one another
+(define-random-draw bomb-blasting-cap
+  (item:blasting-cap 2))
+
+;; placement idea: 4 locations, some close to one another - makes sense the explosives themselves would be stored in bulk and close together
+(define-random-draw bomb-charge-pack
+  (item:charge-pack 5))
 
 ;; DEBUG SPAWNERS
 (define-random-draw debug-pure-water

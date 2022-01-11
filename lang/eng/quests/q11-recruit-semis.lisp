@@ -91,7 +91,7 @@
 | (:angry)No. Never.
 ~ islay
 | It's not forever. But the Wraw are already here, and we can't fight them alone.
-| We take what we can carry and leave for the surface.
+| We take what we can carry and leave for the surface. Seal the metro tunnels behind us.
 | Everything we leave behind is something the Wraw could use against us.
 ~ innis
 | And what about the bomb?
@@ -120,7 +120,57 @@
   ~ islay
   | Basically we need: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), \"20 charge packs\"(orange).
 ~ islay
-| (:nervous)Please hurry.
+| And you'll get paid for your efforts: I'm a trader after all.
+! eval (setf (var 'bomb-fee) 25)
+~ player
+- Thank you.
+  ~ islay
+  | It's alright - we value your work. I can give you 25 parts per item.
+  | But don't thank me yet - this will be dangerous.
+- There's no need.
+  ~ islay
+  | No, I insist. We value your work, and this will be dangerous.
+  | I can give you 25 parts per item.
+  ~ innis
+  | ...
+- How much?
+  ~ innis
+  | (:angry)...
+  ~ islay
+  | I can give you 25 parts per item.
+  ~ player
+  - That works.
+    ~ islay
+    | Okay.
+  - Make it 50.
+    ~ innis
+    | (:angry)Fuck that. And what're ya gonna spend it on when the Wraw are done with us all?
+    ~ islay
+    | If we stop them, life might return to normal.
+    | But we can't afford 50 - we need those parts. How about 35? We do value your work, and this will be dangerous.
+    ~ player
+    - Deal.
+      ~ islay
+      | Great.
+      ! eval (setf (var 'bomb-fee) 35)
+      ~ innis
+      | (:angry)...
+    - Okay I'll be fine with 25.
+      ~ islay
+      | Alright then.
+    - I've changed my mind: I'll take less than 25.
+      ~ islay
+      | No, I insist. This won't be easy, and 25 is fair.
+      ~ innis
+      | (:angry)...
+  - I could take a little less, but not much.
+    ~ islay
+    | No, I insist. We value your work, and this will be dangerous. I think 25 is fair.
+    ~ innis
+    | ...
+~ islay
+| (:nervous)But please hurry.
+| And remember: we're closing the metro. \"The trains and stations won't be operational.\"(orange)
 ~ player
 | I'll update Fi, then be on my way.
 ~ innis
@@ -128,6 +178,9 @@
 ~ islay
 | (:unhappy)Innis!
 | (:nervous)You can't tell Fi - whatever the Wraw are doing to mess with our systems, it affects your FFCS too.
+~ player
+| \"Checking FFCS... She's right. Shit.\"(light-gray, italic)
+~ islay
 | (:normal)I'll explain everything to her once we reach \"the surface. Meet us there as soon as you have the components.\"(orange)
 | Good luck, {#@player-nametag}.
 ! eval (deactivate 'interact-reminder)
