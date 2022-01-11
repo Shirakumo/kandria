@@ -13,6 +13,7 @@
    :condition all-complete
    :on-activate (interact-reminder interact-1)
 
+   ;; TODO if we don't get Fi climb anims etc, she'll have to stay on the surface - which might be better anyway?
    ;; Fi could be running to Sahil's main location when this triggers
    ;; TODO Conditional based on whether she's en route to Sahil, or is nearby Sahil's now empty location? If the latter, leave her there for now, as would look too comical for her to run back.
    (:interaction interact-reminder
@@ -21,7 +22,7 @@
     :dialogue "
 ~ fi
 | \"Go and see the Semi Sisters, and convince them to stand with us.\"(orange)
-| (:unsure)As for me, I'm hoping Sahil is still here somewhere.
+| (:unsure)As for me, I'm hoping Sahil is still around here somewhere.
 ")
 
    (:interaction interact-1
@@ -101,25 +102,15 @@
 - We blow up the Wraw!
 ~ islay
 | (:expectant)I've improvised an explosive, which could slow their advance.
-| We can still use it, but we're missing a few components to build it.
+| We can still use it, but we're missing components to complete it.
 ~ innis
 | Send the android while we evacuate.
 ~ islay
 | (:nervous)Aye, that might work. You'll need to go behind enemy lines.
 | In normal times we'd get what we need from the Cerebat markets. But that's obviously not an option any more.
-| If you can avoid their patrols you might be able to scavenge what we need.
-| The only other option is in Wraw territory itself - they hoard this kind of stuff.
-| (:normal)We need \"wire rolls\"(orange) to make trip wires, \"blasting caps\"(orange) for the detonator, and \"charge packs\"(orange) for the explosive.
+| But \"the Wraw hoard this kind of stuff\"(orange) - they should have plenty lying around.
+| (:normal)We need \"wire rolls\"(orange) to make trip wires, \"blasting caps\"(orange) for the detonators, and \"charge packs\"(orange) for the explosive.
 | I think \"10 of each\"(orange) should be enough - always prudent to have a few spares. Except \"charge packs: get 20 of those\"(orange), so we have a big enough explosive yield.
-| You got it? This is important.
-~ player
-- Got it.
-  ~ islay
-  | Good.
-- One more time.
-  ~ islay
-  | Basically we need: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), \"20 charge packs\"(orange).
-~ islay
 | And you'll get paid for your efforts: I'm a trader after all.
 ! eval (setf (var 'bomb-fee) 25)
 ~ player
@@ -144,7 +135,7 @@
     | Okay.
   - Make it 50.
     ~ innis
-    | (:angry)Fuck that. And what're ya gonna spend it on when the Wraw are done with us all?
+    | (:angry)Fuck that. And what're ya gonna spend it on when the Wraw have been through here?
     ~ islay
     | If we stop them, life might return to normal.
     | But we can't afford 50 - we need those parts. How about 35? We do value your work, and this will be dangerous.
@@ -156,6 +147,8 @@
       ~ innis
       | (:angry)...
     - Okay I'll be fine with 25.
+      ~ innis
+      | (:angry)...
       ~ islay
       | Alright then.
     - I've changed my mind: I'll take less than 25.
@@ -179,9 +172,19 @@
 | (:unhappy)Innis!
 | (:nervous)You can't tell Fi - whatever the Wraw are doing to mess with our systems, it affects your FFCS too.
 ~ player
-| \"Checking FFCS... She's right. Shit.\"(light-gray, italic)
+| \"Checking FFCS...\"(light-gray, italic)
+| \"She's right. Shit.\"(light-gray, italic)
 ~ islay
-| (:normal)I'll explain everything to her once we reach \"the surface. Meet us there as soon as you have the components.\"(orange)
+| I'll explain everything to her once we reach the surface. \"Meet us up there once you have the components.\"(orange)
+| (:expectant)You got it? This is important.
+~ player
+- Got it.
+  ~ islay
+  | Okay.
+- One more time.
+  ~ islay
+  | Basically we need: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), \"20 charge packs\"(orange).
+  | You should find them in \"Wraw territory\"(orange). Get them, and \"meet us on the surface\"(orange).
 | Good luck, {#@player-nametag}.
 ! eval (deactivate 'interact-reminder)
 ! eval (activate 'q11a-bomb-recipe)

@@ -53,7 +53,7 @@
 - I will.
 - You too.
 - Be safe yourself.
-! eval (setf (walk 'fi) NIL)
+! eval (setf (walk 'fi) T)
 ! eval (move-to 'loc-trader (unit 'fi))
 ")
   (:eval

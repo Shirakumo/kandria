@@ -230,7 +230,7 @@ item:semi-factory-key/description "Fi gave me this key card to access the deeper
 item:can "Old Beer Can"
 item:can/description "I must return this to Catherine to complete the current race. It'll be good riddance: any odour of alcohol is long gone, but it reeks of rust."
 item:wire "Roll of Wire"
-item:wire/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It's a simple roll of copper wire, which can connect detonators with charge packs."
+item:wire/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It can be used to make a trip wire, and connect it to a detonator."
 item:blasting-cap "Blasting Cap"
 item:blasting-cap/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It's a detonation device."
 item:charge-pack "Charge Pack"

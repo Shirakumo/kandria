@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q11a-bomb-recipe)
   :author "Tim White"
   :title "Bomb Recipe"
-  :description "Islay needs several key components to assemble an improvised explosive, which could slow down the Wraw advance."
+  :description "Islay needs certain components to assemble an improvised explosive, which could slow down the Wraw advance."
   :variables ((wire-count 10) (blasting-cap-count 10) (charge-pack-count 20))
   :on-activate (task-reminder task-return-fi task-return)
 
@@ -117,7 +117,7 @@
 "))
 
   (task-return
-   :title "Search the Cerebat and Wraw regions for 10 rolls of wire, 10 blasting caps, and 20 charge packs, then return to Islay"
+   :title "Search Wraw territory for 10 rolls of wire, 10 blasting caps, and 20 charge packs, then return to Islay on the surface"
    :on-complete (q13-intro)
    :on-activate T
    (:interaction components-return
