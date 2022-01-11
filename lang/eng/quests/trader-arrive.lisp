@@ -205,12 +205,12 @@
 |   | I would've moved on if not for that.
 |   | Are they true, the rumours?
 |   ~ player
-|   - [(complete-p 'q8a-secret-supplies)I'm afraid so. |]
+|   - [(complete-p 'q8a-secret-supplies)I'm afraid so.|]
 |     ~ trader
 |     | (:concerned)Alqarf!
 |     | I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil right now.
 |     < talk
-|   - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out. |]
+|   - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out.|]
 |     ~ trader
 |     | (:concerned)Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil right now.
 |     < talk
@@ -231,7 +231,7 @@
 |   | (:jolly)But what good's a council that can't enforce its laws?
 |   | (:concerned)The only people who can enforce anything around here are the Wraw. Maybe the Semis.
 |   < talk
-| - [(var 'trader-daughter) What happened to your daughter? |]
+| - [(var 'trader-daughter) What happened to your daughter?|]
 |   ~ trader
 |   | (:concerned)...
 |   | ... I suppose with everything that's happening, now's as good a time as any to talk about her.

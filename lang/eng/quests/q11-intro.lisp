@@ -26,7 +26,7 @@
 - Got it.
 - I wouldn't count on it.
 - What if they join the Wraw?
-- [(var 'semis-weapons)They have weapons.]
+- [(var 'semis-weapons) They have weapons.]
   ~ fi
   | (:unsure)So they say, although I've never seen any.
   | But I'll take what we can get.
