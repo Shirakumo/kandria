@@ -34,7 +34,7 @@
 | \"I've crossed the Cerebat border. I should be able to call Fi now.\"(light-gray, italic)
 | Fi...
 | (:skeptical)Fi...?
-| (:thinking)\"FFCS still can't punch through. I think the Wraw are on the move.\"(light-gray, italic)
+| (:thinking)\"... Dammit. FFCS still can't punch through. I think the Wraw are on the move.\"(light-gray, italic)
 | \"I need to get \"back to the surface\"(orange) now.\"(light-gray, italic)
 ! eval (deactivate 'wraw-objective-return)
 ! eval (activate 'return-fi)

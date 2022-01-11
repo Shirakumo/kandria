@@ -8,7 +8,7 @@
   :on-activate (q5b-task-reminder q5b-task-cctv-1 q5b-task-cctv-2 q5b-task-cctv-3 q5b-task-cctv-4)
   :variables (first-cctv)
  
- ;; Can't use FFCS to indicate sites, nor realise it's block, as narrative device to find out it's blocked later - ofc will still appear on meta map
+ ;; Can't use FFCS to indicate sites, nor realise it's blocked, as narrative device to find out it's blocked later - ofc will still appear on meta map
  (q5b-task-reminder
    :title NIL
    :visible NIL

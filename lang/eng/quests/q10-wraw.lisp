@@ -38,7 +38,7 @@
 | ~ player
 | | (:embarassed)\"It's at a scale to manufacture enough mechs and weapons for an invasion of the entire valley...\"(light-gray, italic)
 | | \"I need to \"contact Fi\"(orange).\"(light-gray, italic)
-| | \"FFCS can't punch through - whether it's the magnetic interference from the magma, or the Wraw themselves.\"(light-gray, italic)
+| | \"... FFCS can't punch through - whether it's the magnetic interference from the magma, or the Wraw themselves.\"(light-gray, italic)
 | ? (complete-p 'q10-boss)
 | | | \"I'd better get \"back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
 | | ! eval (complete 'wraw-objective)
@@ -77,7 +77,7 @@
 | | (:embarassed)\"Given the raw materials I saw in the warehouse, their manufacturing ambitions are HUGE.\"(light-gray, italic)
 | | \"As in,\"(light-gray) \"\"invading the entire valley\"(light-gray)\" \"huge.\"(light-gray, italic)
 | | (:normal)\"I need to \"contact Fi\"(orange).\"(light-gray, italic)
-| | \"FFCS can't punch through - whether it's the magnetic interference from the magma, or the Wraw themselves.\"(light-gray, italic)
+| | \"... FFCS can't punch through - whether it's the magnetic interference from the magma, or the Wraw themselves.\"(light-gray, italic)
 | | \"I'd better get \"back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
   
 ~ player
