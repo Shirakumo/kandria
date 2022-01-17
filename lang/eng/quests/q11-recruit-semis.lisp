@@ -8,7 +8,7 @@
   :on-activate (task-1)
 
   (task-1
-   :title "Talk to Innis"
+   :title "Talk to Innis in Semi Sisters territory"
    :invariant T
    :condition all-complete
    :on-activate (interact-reminder interact-1)
