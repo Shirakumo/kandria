@@ -175,20 +175,20 @@
 | \"Checking FFCS...\"(light-gray, italic)
 | \"She's right. Shit.\"(light-gray, italic)
 ~ islay
-| I'll explain everything to her once we reach the surface. \"Meet us up there once you have the components.\"(orange)
+| I'll explain everything to Fi once we reach the surface. \"Meet us up there once you have the components.\"(orange)
 | (:expectant)You got it? This is important.
 ~ player
-- Got it.
-  ~ islay
-  | Okay.
 - One more time.
   ~ islay
   | Basically we need: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), \"20 charge packs\"(orange).
-  | You should find them in \"Wraw territory\"(orange). Get them, and \"meet us on the surface\"(orange).
+  | You should find them in \"Wraw territory\"(orange). Then \"meet us on the surface\"(orange).
+- Got it.
+  ~ islay
+  | Okay.
 | Good luck, {#@player-nametag}.
 ! eval (deactivate 'interact-reminder)
 ! eval (activate 'q11a-bomb-recipe)
-! eval (deactivate 'trader-semi-chat)
+! eval (complete 'trader-semi-chat)
 ! eval (activate (unit 'wraw-border-1))
 ! eval (activate (unit 'wraw-border-2))
 ")))
