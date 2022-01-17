@@ -5,13 +5,13 @@
   :author "Tim White"
   :title "Recruit the Semis"
   :description "Fi wants me to speak with the Semi Sisters, and convince them to join us against the Wraw."
-  :on-activate (task-1)
+  :on-activate (task-reminder task-destination)
 
-  (task-1
-   :title "Talk to Innis in Semi Sisters territory"
+  (task-reminder
+   :title ""
    :invariant T
    :condition all-complete
-   :on-activate (interact-reminder interact-1)
+   :on-activate T
 
    ;; TODO if we don't get Fi climb anims etc, she'll have to stay on the surface - which might be better anyway?
    ;; Fi could be running to Sahil's main location when this triggers
@@ -23,9 +23,15 @@
 ~ fi
 | \"Go and see the Semi Sisters, and convince them to stand with us.\"(orange)
 | (:unsure)As for me, I'm hoping Sahil is still around here somewhere.
-")
+"))
 
-   (:interaction interact-1
+  (task-destination
+   :title "Talk to Innis in Semi Sisters territory"
+   :invariant T
+   :condition all-complete
+   :on-activate T
+
+   (:interaction interact-innis
     :interactable innis
     :dialogue "
 ~ innis
@@ -186,7 +192,7 @@
   ~ islay
   | Okay.
 | Good luck, {#@player-nametag}.
-! eval (deactivate 'interact-reminder)
+! eval (deactivate 'task-reminder)
 ! eval (activate 'q11a-bomb-recipe)
 ! eval (complete 'trader-semi-chat)
 ! eval (activate (unit 'wraw-border-1))
