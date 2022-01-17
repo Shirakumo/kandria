@@ -350,7 +350,8 @@
   `(:location ,(encode (location item))))
 
 (define-decoder (item save-v0) (initargs _p)
-  (setf (location item) (decode (getf initargs :location) 'vec2)))
+  (setf (location item) (decode 'vec2 (getf initargs :location)))
+  item)
 
 (define-encoder (spawner save-v0) (_b _p)
   ;; KLUDGE: Ensure the spawner deactivates now if
