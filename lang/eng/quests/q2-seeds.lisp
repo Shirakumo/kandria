@@ -8,7 +8,7 @@
   :on-activate (find-seeds)
 
   (find-seeds
-   :title "Find the seed cache across the surface to the east and beneath the Ruins there"
+   :title "Find the seed cache across the surface to the east and beneath the Ruins there, then return to Fi on the Farm"
    :description NIL
    :invariant T
    :condition (have 'item:seeds 20)
