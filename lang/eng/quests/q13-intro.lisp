@@ -14,6 +14,7 @@
 | bombs plural reveal - surprise to Fi too
 | bit of rivalry between Fi and Islay, bit pointed, implication they've talked about having you plant the bomb before now.
 | will be dangerous, premature detonation risk, etc. foreboding for player's end...
+| Add conditional dialogue snippet if know about Alex not coming back x2 outcomes possible (vars) - IF spoken to Fi about it
 | Android will need to plant it, is that okay Fi?
 ~ fi
 | Ask her.
