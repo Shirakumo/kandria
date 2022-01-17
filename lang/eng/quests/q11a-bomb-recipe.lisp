@@ -6,12 +6,12 @@
   :title "Bomb Recipe"
   :description "Islay needs certain components to assemble an improvised explosive, which could slow down the Wraw advance."
   :variables ((wire-count 10) (blasting-cap-count 10) (charge-pack-count 20))
-  :on-activate (task-reminder task-return-fi task-return)
+  :on-activate (task-reminder task-deliveries task-border task-return-fi)
 
  (task-reminder
    :title ""
-   :visible NIL
    :on-activate T
+   :visible NIL
 
    (:interaction interact-reminder-innis
     :interactable innis
@@ -19,14 +19,49 @@
     :repeatable T
     :dialogue "
 ~ innis
-| You'd better shake a leg. Islay needs \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), and \"20 charge packs\"(orange) for the bomb.
-")
+| You'd better shake a leg. Altogether Islay needs \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), and \"20 charge packs\"(orange) for the bomb.
+"))
 
+ (task-deliveries
+   :title "Search Wraw territory for 10 rolls of wire, 10 blasting caps, and 20 charge packs, then return to Islay on the surface"
+   :on-activate T
+   :condition (and (>= 0 (- (var 'wire-count) (item-count 'item:wire))) (>= 0 (- (var 'blasting-cap-count) (item-count 'item:blasting-cap))) (>= 0 (- (var 'charge-pack-count) (item-count 'item:charge-pack))))
+   :on-complete (task-return)
+   :on-activate T
+   (:interaction interact-islay
+    :interactable islay
+    :title "(Deliver bomb components)"
+    :repeatable T
+    :dialogue "
+~ islay
+| Did you get the components for the explosive?
+? (= 0 (+ (item-count 'item:wire) (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
+| ~ islay
+| | Hurry, {#@player-nametag} - I still need: [(< 0 (var 'wire-count)) \"rolls of wire: {(var 'wire-count)}\"(orange); |] [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange); |] [(< 0 (var 'charge-pack-count)) \"charge packs: {(var 'charge-pack-count)}\"(orange).]
+|?
+| ~ islay
+| | Good. I'll see these are passed to Catherine and installed on the bomb. And here's your payment.
+| ! eval (setf (var 'wire-count) (- (var 'wire-count) (item-count 'item:wire)))
+| ! eval (store 'item:parts (* (item-count 'item:wire) (var 'bomb-fee)))
+| ! eval (retrieve 'item:wire T)
+| ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
+| ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
+| ! eval (retrieve 'item:blasting-cap T)
+| ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
+| ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
+| ! eval (retrieve 'item:charge-pack T)
+| | Hurry though, {#@player-nametag} - I still need: [(< 0 (var 'wire-count)) \"rolls of wire: {(var 'wire-count)}\"(orange); |] [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange); |] [(< 0 (var 'charge-pack-count)) \"charge packs: {(var 'charge-pack-count)}\"(orange).]
+"))
 
-;; move all the Semis to the surface
-;; TODO move all Semis world NPCs to the surface when we have them
-(:interaction wraw-border
-    :interactable innis
+ (task-border
+   :title ""
+   :on-activate T
+   :visible NIL
+
+   ;; move all the Semis to the surface
+   ;; TODO move all Semis world NPCs to the surface when we have them
+   (:interaction wraw-border
+    :interactable NIL
     :dialogue "
 ! eval (ensure-nearby 'storage-shutter 'fi 'jack 'innis 'islay)
 ! eval (setf (location 'catherine) 'eng-cath)
@@ -74,7 +109,7 @@
 ~ fi
 | Islay told me everything by the way, and why you couldn't call.
 | All things considered, things are surprisingly calm around here.
-| (:unsure)Everyone's buying into Islay's story that we can defeat the Wraw. I suppose this bomb is a convincing statement.
+| (:unsure)Although, everyone's buying into Islay's story that we can defeat the Wraw. I suppose this bomb is a convincing statement.
 | (:normal)She's had Catherine working on it for a while, that much I know. At least our weapons are ready.
 ! label questions
 ~ player
@@ -112,12 +147,12 @@
   < questions
 - I have to go.
   ~ fi
-  | [(active-p 'task-return) If you've got \"components for the bomb, I'd get them to Islay ASAP\"(orange). |]
+  | If you've got \"components for the bomb, I'd get them to Islay ASAP\"(orange).
   | We'll talk again soon.
 "))
 
   (task-return
-   :title "Search Wraw territory for 10 rolls of wire, 10 blasting caps, and 20 charge packs, then return to Islay on the surface"
+   :title "I've collected all the bomb components - I must return to Islay on the surface"
    :on-complete (q13-intro)
    :on-activate T
    (:interaction components-return
@@ -126,45 +161,34 @@
     :repeatable T
     :dialogue "
 ~ islay
-| Did you get the components for the explosive?
-? (= 0 (+ (item-count 'item:wire) (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
-| ~ islay
-| | Hurry, {#@player-nametag} - I still need: [(< 0 (var 'wire-count)) \"rolls of wire: {(var 'wire-count)}\"(orange); |] [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange); |] [(< 0 (var 'charge-pack-count)) \"charge packs: {(var 'charge-pack-count)}\"(orange).]
-|?
-| ~ islay
-| | Good. I'll see these are passed to Catherine and installed on the bomb.
-| ! eval (setf (var 'wire-count) (- (var 'wire-count) (item-count 'item:wire)))
-| ! eval (store 'item:parts (* (item-count 'item:wire) (var 'bomb-fee)))
-| ! eval (retrieve 'item:wire T)
-| ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
-| ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
-| ! eval (retrieve 'item:blasting-cap T)
-| ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
-| ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
-| ! eval (retrieve 'item:charge-pack T)
-| ? (and (>= 0 (var 'wire-count)) (>= 0 (var 'blasting-cap-count)) (>= 0 (var 'charge-pack-count)))
-| | ~ islay
-| | | [(> -5 (+ (var 'wire-count) (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)That's all the components we need, and then some. | (:happy)That's all the components we need.]
-| | | Thank you, {#@player-nametag}.
-| | | (:normal)Now we can complete the explosive.
-| | | Fi, would you join Catherine and I in Engineering?
-| | ~ fi
-| | | If you insist.
-| | | And what about {#@player-nametag}? Since she's the one that brought us together - and brought the components for your bomb.
-| | ~ islay
-| | | I was about to add... could you join us as well, {#@player-nametag}. This concerns you.
-| | | Innis, keep an eye on things here.
-| | ~ innis
-| | | Aye, alright.
-| | ! eval (complete task)
-| | ! eval (setf (quest:status (thing 'task-return)) :inactive)
-| | ! eval (deactivate interaction)
-| | ! eval (deactivate 'task-return-fi)
-| | ! eval (activate 'q13-intro)
-| | ! eval (setf (walk 'islay) T)
-| | ! eval (setf (walk 'fi) T)
-| | ! eval (ensure-nearby 'eng-cath 'fi 'islay)
-| |?
-| | ~ islay
-| | | Hurry, {#@player-nametag} - I still need: [(< 0 (var 'wire-count)) \"rolls of wire: {(var 'wire-count)}\"(orange); |] [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange); |] [(< 0 (var 'charge-pack-count)) \"charge packs: {(var 'charge-pack-count)}\"(orange).]
+| [(> -5 (+ (var 'wire-count) (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)Now we have all the components we need, and then some. | (:happy)Now we have all the components we need.]
+| Thank you, {#@player-nametag}. Here's your payment.
+! eval (setf (var 'wire-count) (- (var 'wire-count) (item-count 'item:wire)))
+! eval (store 'item:parts (* (item-count 'item:wire) (var 'bomb-fee)))
+! eval (retrieve 'item:wire T)
+! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
+! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
+! eval (retrieve 'item:blasting-cap T)
+! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
+! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
+! eval (retrieve 'item:charge-pack T)
+| (:normal)I'll take the parts to Catherine so she can complete the bomb.
+| Fi, would you join Catherine and I in Engineering?
+~ fi
+| If you insist.
+| And what about {#@player-nametag}? Since she's the one that brought us together - and brought the components for your bomb.
+~ islay
+| I was about to add... could you join us as well, {#@player-nametag}. This concerns you.
+| Innis, keep an eye on things here.
+~ innis
+| Aye, alright.
+! eval (complete task)
+! eval (setf (quest:status (thing 'task-return)) :inactive)
+! eval (deactivate interaction)
+! eval (deactivate 'task-return-fi)
+! eval (activate 'q13-intro)
+! eval (setf (walk 'islay) T)
+! eval (setf (walk 'fi) T)
+! eval (move-to 'eng-cath (unit 'fi))
+! eval (move-to 'eng-cath (unit 'islay))
 ")))
