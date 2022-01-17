@@ -11,6 +11,7 @@
    :title ""
    :invariant T
    :condition all-complete
+   :visible NIL
    :on-activate T
 
    ;; TODO if we don't get Fi climb anims etc, she'll have to stay on the surface - which might be better anyway?
