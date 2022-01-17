@@ -137,38 +137,6 @@
 |   < talk
 | - I need to go.
 |   < leave
-|? (and (complete-p 'q11-recruit-semis) (not (complete-p 'q11a-bomb-recipe)))
-| ~ player
-| - How will the Semis and Noka work together?
-|   ~ islay
-|   | We'll talk to Fi, see how many collective weapons and fighters we have, and then reason out a strategy.
-|   | It will be crowded, but only for a little while - before we can move back home.
-|   ~ player
-|   - You're optimistic.
-|     ~ islay
-|     | (:expectant)Manifesting a positive outcome gives confidence, and improves the chance of success. You should try it.
-|   - If you have a home left.
-|     ~ islay
-|     | (:expectant)Manifesting a positive outcome gives confidence, and improves the chance of success. You should try it.
-|   - Do we really have a chance of winning?
-|     ~ islay
-|     | The numbers say we do.
-|     | (:expectant)And besides: manifesting a positive outcome gives confidence, and improves the chance of success.
-| - Tell me more about the bomb.
-|   ~ islay
-|   | It's more an improvised explosive than a bomb from before the Calamity, but it should do the job.
-|   | The aim is to collapse the tunnels the Wraw are using to move their troops, while minimising damage to our common infrastructure.
-|   | I'm still trying to decide whether one large device, or several smaller ones, will work the best.
-|   | I'll figure it out once I get to the surface - maybe Catherine can help.
-|   | The components will be the same though, so just make sure you bring what I asked for: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), \"20 charge packs\"(orange).
-|   | (:happy)And just to be clear, because someone in my lab got confused: blasting caps are NOT a type of exploding mushroom.
-| - Are you in charge now?
-|   ~ islay
-|   | God no. Innis is the leader around here - which is the way we both like it.
-|   | I prefer to stand back. But I have her ear, and she listens to me.
-| - I need to go.
-|   < leave
-| < talk
 
 # leave
 ~ islay
