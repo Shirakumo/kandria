@@ -208,7 +208,7 @@
                    (decode unit state))
                  #+kandria-release
                  (decode unit state)
-                 (cerror "Ignore the entity." "Unit named ~s referenced but not found." name)))
+                 (warn "Unit named ~s referenced but not found." name)))
     ;; Add new entities that exist in the state
     (loop for (type . state) in create-new
           for entity = (with-simple-restart (continue "Ignore this entity.")
