@@ -121,7 +121,7 @@
    :on-complete (q13-intro)
    :on-activate T
    (:interaction components-return
-    :title "I'm back."
+    :title "(Deliver bomb components)"
     :interactable islay
     :repeatable T
     :dialogue "
