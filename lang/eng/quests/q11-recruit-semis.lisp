@@ -188,6 +188,7 @@
 | Good luck, {#@player-nametag}.
 ! eval (deactivate 'interact-reminder)
 ! eval (activate 'q11a-bomb-recipe)
+! eval (deactivate 'trader-semi-chat)
 ! eval (activate (unit 'wraw-border-1))
 ! eval (activate (unit 'wraw-border-2))
 ")))
