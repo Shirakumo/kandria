@@ -188,10 +188,11 @@
              (setf (ai-state npc) :lead-check))))
       (:follow
        (let ((distance (vsqrdist2 (location npc) (location companion))))
-         (cond ((path npc)
+         (cond ((< distance (expt max-distance 2))
+                (setf (vx (velocity npc)) 0)
+                (setf (path npc) NIL))
+               ((path npc)
                 (execute-path npc ev))
-               ((< distance (expt max-distance 2))
-                (setf (vx (velocity npc)) 0))
                (T
                 (setf (ai-state npc) :follow-check)))))
       (:follow-check
