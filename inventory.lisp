@@ -83,10 +83,9 @@
                            (symbol-package (class-name (class-of item))))))
 
 (defmethod item-lore ((item item))
-  (or (language-string (intern (format NIL "~a/LORE" (string (type-of item)))
-                               (symbol-package (class-name (class-of item))))
-                       NIL)
-      "<?>"))
+  (language-string (intern (format NIL "~a/LORE" (string (type-of item)))
+                           (symbol-package (class-name (class-of item))))
+                   NIL))
 
 (defmethod item-unlocked-p ((item item) (inventory inventory))
   (item-unlocked-p (type-of item) inventory))
