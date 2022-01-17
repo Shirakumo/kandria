@@ -933,6 +933,12 @@ void main(){
                ((and (< (vx vel) +0.5) (typep (svref collisions 3) '(or (and ground (not slipblock)) (and solid (not half-solid)))))
                 (setf (direction player) -1)
                 (setf (state player) :climbing)
+                (return-from handle))
+               ((and (retained 'down)
+                     ground
+                     (null (scan-collision +world+ (vec (vx (location player)) (- (vy (location player)) (vy (bsize player)) 8)))))
+                (decf (vy (location player)) 4)
+                (setf (state player) :climbing)
                 (return-from handle))))
 
        ;; Movement
