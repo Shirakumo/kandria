@@ -510,7 +510,7 @@
           do (when slot
                (push (clone (slot-value entity (c2mop:slot-definition-name slot))) initvalues)
                (push initarg initvalues)))
-    (apply #'make-instance (class-of entity) (append initargs initvalues))))
+    (apply #'make-instance (class-of entity) (append initargs initvalues (when (name entity) (list :name (generate-name (type-of entity))))))))
 
 (defun sigdist-rect (loc bsize x)
   (declare (type vec2 x loc bsize))

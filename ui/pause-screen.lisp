@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defun should-show-pause-screen (main)
-  (and (not (find-panel 'load-panel))
+  (and (unit 'ui-pass (scene main))
+       (not (find-panel 'load-panel))
        (not (find-panel 'main-menu))
        (unit 'environment (scene main))))
 

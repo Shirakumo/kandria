@@ -513,6 +513,9 @@
    (open-location :initform (vec 0 0) :initarg :open-location :accessor open-location :type vec2)
    (closed-location :initform (vec 0 0) :initarg :closed-location :accessor closed-location :type vec2)))
 
+(defmethod initargs append ((gate gate))
+  '(:size :child-count))
+
 (defmethod initialize-instance :after ((gate gate) &key)
   (when (v= 0 (open-location gate))
     (v<- (open-location gate) (location gate)))
@@ -564,6 +567,7 @@
          (setf (state gate) :closing)))
       (:opening
        (cond ((reached (closed-location gate) (open-location gate))
+              (vsetf (velocity gate) 0 0)
               (setf (state gate) :open))
              ((< (vsqrlen2 (velocity gate)) 2.0)
               (let ((dir (nvunit (v- (open-location gate) (location gate)))))
@@ -571,8 +575,12 @@
        (nv+ (frame-velocity gate) (velocity gate)))
       (:closing
        (cond ((reached (open-location gate) (closed-location gate))
+              (vsetf (velocity gate) 0 0)
               (setf (state gate) :closed))
              ((< (vsqrlen2 (velocity gate)) 2.0)
               (let ((dir (nvunit (v- (closed-location gate) (location gate)))))
                 (nv+ (velocity gate) (v* dir (dt ev))))))
        (nv+ (frame-velocity gate) (velocity gate))))))
+
+(defmethod handle ((ev switch-chunk) (gate gate))
+  (setf (state gate) (state gate)))
