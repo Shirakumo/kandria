@@ -495,17 +495,17 @@
 ;; placement: region 1 market areas
 
 ;; QUEST SPAWNERS
-;; placement idea: 3 disparate locations
+;; placement idea: 4 disparate locations (3 per spawner)
 (define-random-draw bomb-wire
-  (item:wire 3))
+  (item:wire 1))
   
-;; placement idea: 5 locations, some close to one another
+;; placement idea: 6 locations, some close to one another (2 per spawner)
 (define-random-draw bomb-blasting-cap
-  (item:blasting-cap 2))
+  (item:blasting-cap 1))
 
-;; placement idea: 4 locations, some close to one another - makes sense the explosives themselves would be stored in bulk and close together
+;; placement idea: 5 locations, some close to one another - makes sense the explosives themselves would be stored in bulk and close together (5 per spawner)
 (define-random-draw bomb-charge-pack
-  (item:charge-pack 5))
+  (item:charge-pack 1))
 
 ;; DEBUG SPAWNERS
 (define-random-draw debug-pure-water
