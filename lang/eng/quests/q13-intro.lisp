@@ -6,6 +6,7 @@
   :title "Name"
   :description "Desc."
   ;; TODO only allow interact when Islay has arrived in Engineering
+  (:wait 13.0)
   (:interact (islay)
    :title "Meet Islay and Fi in Engineering"
   "
