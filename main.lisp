@@ -54,7 +54,7 @@
     (when (< 0 (pause-timer scene))
       (decf (pause-timer scene) dt)
       (setf dt (* dt 0.0)))
-    (let ((target (expt 2 (/ (log (* dt 100.0) 2) 3)))
+    (let ((target (expt 2 (/ (log (max 0.1 (* dt 100.0)) 2) 3)))
           (source (mixed:speed-factor (harmony:segment :speed T))))
       (setf (mixed:speed-factor (harmony:segment :speed T)) (+ (* target 0.05) (* source 0.95))))
     (setf (slot-value ev 'tt) tt)
