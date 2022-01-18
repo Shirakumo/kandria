@@ -32,6 +32,10 @@
 
 (defgeneric make-child-entity (parent))
 
+(defmethod (setf children) :after (children (entity parent-entity))
+  (when (/= (length children) (child-count entity))
+    (setf (child-count entity) (length children))))
+
 (defmethod (setf child-count) :after (count (entity parent-entity))
   (loop while (< count (length (children entity)))
         for child = (pop (children entity))
@@ -50,11 +54,23 @@
 
 (defmethod enter :after ((entity parent-entity) (container container))
   (dolist (child (children entity))
-    (enter child container)))
+    (unless (slot-boundp child 'container)
+      (enter child container))))
 
-(defmethod leave* :after ((entity parent-entity) thing)
+(defmethod enter* :after ((entity parent-entity) (container container))
   (dolist (child (children entity))
-    (leave* child T)))
+    (unless (slot-boundp child 'container)
+      (enter* child container))))
+
+(defmethod leave :after ((entity parent-entity) (container container))
+  (dolist (child (children entity))
+    (when (slot-boundp child 'container)
+      (leave child T))))
+
+(defmethod leave* :after ((entity parent-entity) (container container))
+  (dolist (child (children entity))
+    (when (slot-boundp child 'container)
+      (leave* child T))))
 
 (defclass base-entity (entity)
   ((name :initarg :name :initform NIL :type symbol :documentation "The name of the entity")))
