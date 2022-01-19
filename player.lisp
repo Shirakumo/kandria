@@ -1239,7 +1239,7 @@ void main(){
          (harmony:play (// 'sound 'player-die))
          (setf (clock (progression 'death +world+)) 0f0)
          (start (progression 'death +world+)))
-        (T
+        ((null (transition-active-p))
          (rumble :intensity 10.0)
          (vsetf (velocity player) 0 0)
          (setf (animation player) 'die)

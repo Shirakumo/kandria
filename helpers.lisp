@@ -310,3 +310,7 @@ void main(){
               :kind ,kind
               ,@options
               :on-complete (lambda () ,@body))))
+
+(defun transition-active-p ()
+  (let ((pass (unit 'fade +world+)))
+    (< 0.0 (strength pass))))
