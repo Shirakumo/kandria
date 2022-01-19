@@ -185,7 +185,7 @@
         (setf (override (unit 'environment +world+)) (resource (track trigger) T))
         (setf (override (unit 'environment +world+)) NIL))))
 
-(defclass shutter-trigger (parent-entity trigger creatable)
+(defclass shutter-trigger (parent-entity listener trigger creatable)
   ())
 
 (defmethod make-child-entity ((trigger shutter-trigger))
@@ -196,6 +196,10 @@
                  (when (typep entity 'enemy) (return :closed)))))
     (dolist (shutter (children trigger))
       (setf (state shutter) state))))
+
+(defmethod handle ((ev switch-chunk) (trigger shutter-trigger))
+  (dolist (shutter (children trigger))
+    (setf (state shutter) :open)))
 
 (defclass action-prompt (trigger listener creatable)
   ((action :initarg :action :initform NIL :accessor action
