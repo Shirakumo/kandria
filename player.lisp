@@ -256,6 +256,8 @@ void main(){
               (setf (animation player) 'dash))
              (T
               (setf (buffer player) 'dash))))
+      (:dashing
+       (setf (buffer player) 'dash))
       (:animated
        ;; Queue dash //except// for when we're being hit, as it's
        ;; unlikely the player will want to dash right after getting
@@ -655,7 +657,9 @@ void main(){
                 (handle-evasion player)
                 (setf (vw (color player)) 0.0))
            (cond ((< (p! dash-min-time) (dash-time player))
-                  (setf (state player) :normal))
+                  (setf (state player) :normal)
+                  (when (eql 'dash (buffer player))
+                    (handle (load-time-value (make-instance 'dash)) player)))
                  ((< (p! dash-dcc-end) (dash-time player)))
                  ((< (p! dash-dcc-start) (dash-time player))
                   (nv* vel (damp* (p! dash-dcc) (* 100 dt))))
