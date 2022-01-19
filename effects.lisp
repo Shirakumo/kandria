@@ -83,11 +83,11 @@ void main(){
 
 (define-progression transition
   0.0 0.0 (fade (set direction :to 0.0))
-  0.0 0.5 (fade (set strength :from 0.0 :to 1.0))
-  0.5 0.5 (fade (call (lambda (fade clock step)
+  0.2 0.7 (fade (set strength :from 0.0 :to 1.0))
+  0.7 1.0 (fade (call (lambda (fade clock step)
                         (funcall (shiftf (on-complete fade) (lambda ())))
                         (setf (direction fade) 1.0))))
-  0.5 1.0 (fade (set strength :from 1.0 :to 0.0)))
+  1.0 1.5 (fade (set strength :from 1.0 :to 0.0)))
 
 (define-progression start-game
   0.0 1.0 (fade (call (lambda (fade clock step)
