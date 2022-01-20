@@ -19,9 +19,7 @@
 | Android will need to plant it, is that okay Fi?
 ~ fi
 | Ask her.
-! eval (setf (location 'innis) 'innis-intercept)
-")
-)
+"))
 
   ;;(:eval
    ;;:on-complete (qx-xxxx))
