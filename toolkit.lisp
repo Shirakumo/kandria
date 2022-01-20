@@ -390,10 +390,6 @@
 (defmethod collides-p (object target hit) NIL)
 (defmethod collides-p (object (target solid) hit) T)
 
-(flet ((test (hit)
-         (not (collides-p moving (hit-object hit) hit))))
-  (scan terget (vec (- (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))) #'test))
-
 (defmethod scan-collision (target region)
   (scan target region (lambda (hit) (unless (typep (hit-object hit) '(or block solid)) T))))
 
