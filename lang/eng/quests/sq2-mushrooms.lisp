@@ -5,10 +5,30 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine wants me to gather mushrooms to bolster their food and textile reserves."
-  :on-activate T
+  :description "Catherine wants me to gather mushrooms to help their food and textile reserves. Flower fungus and rusty puffball: yes. Black cap: no."
+  :on-activate (find-mushrooms)
+  
+  (find-mushrooms
+   :title "Collect 25 flower fungus and/or rusty puffball mushrooms from beneath the camp, then return to Catherine in Engineering"
+   :description NIL
+   :invariant T
+   :condition (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+   :on-activate (sq2-reminder)
+   :on-complete (return-mushrooms)
+
+   (:interaction sq2-reminder
+    :title "About the mushrooms."
+    :interactable catherine
+    :repeatable T
+    :dialogue "
+~ catherine
+| How was your mushrooming? Oh, I don't think you've got enough yet.
+| I need \"25 puffballs or flower fungus\"(orange). Keep \"searching underground\"(orange).
+| (:excited)Good luck!
+"))
+  
   (return-mushrooms
-   :title "Collect mushrooms from beneath the camp and return to Catherine when I have at least: 25 flower fungi and/or rusty puffballs; I should avoid black caps"
+   :title "Return to Catherine in Engineering and deliver the mushrooms"
    :on-activate T
    (:interaction mushrooms-return
     :title "About the mushrooms."
