@@ -783,6 +783,8 @@ void main(){
       (:climbing
        (setf (visibility (stamina-wheel player)) 1.0)
        (setf (air-time player) 0.0)
+       (when (< 0 (inertia-time player))
+         (decf (inertia-time player) dt))
        ;; Movement
        (let* ((offset (tvec (+ (vx loc) (* (direction player) (+ 8 (vx size)))) (- (vy loc) (vy size) 2)))
               (top (scan-collision-for player +world+ offset))
