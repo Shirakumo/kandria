@@ -390,8 +390,16 @@
 (defmethod collides-p (object target hit) NIL)
 (defmethod collides-p (object (target solid) hit) T)
 
+(flet ((test (hit)
+         (not (collides-p moving (hit-object hit) hit))))
+  (scan terget (vec (- (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))) #'test))
+
 (defmethod scan-collision (target region)
   (scan target region (lambda (hit) (unless (typep (hit-object hit) '(or block solid)) T))))
+
+(defun scan-collision-for (tester target region)
+  (let ((result (scan target region (lambda (hit) (not (collides-p tester (hit-object hit) hit))))))
+    (when result (hit-object result))))
 
 ;; Handle common collision operations. Uses SCAN-COLLISION to find the closest
 ;; valid HIT, then invokes COLLIDE using that hit, if any. Returns the closest
