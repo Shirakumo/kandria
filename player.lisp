@@ -1030,6 +1030,7 @@ void main(){
               (let ((attached (or (svref collisions 1) (svref collisions 3))))
                 (when (and (< (vy vel) 0)
                            (< (slide-time player) (p! slide-ramp-time)))
+                  (setf (vx vel) 0.0)
                   (setf (vy vel) (* (vy vel) (/ (slide-time player) (p! slide-ramp-time))))
                   (incf (slide-time player) dt))
                 (when (< (vy vel) (p! slide-limit))
