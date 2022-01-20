@@ -190,4 +190,3 @@
 | ! eval (activate 'trader-arrive)
 ")))
 ;; TODO task order, as shown on UI, does not follow activation order?
-;; TODO Jack vindictive: From what I hear, should get you outta our hair for a bit. Can't wait.
