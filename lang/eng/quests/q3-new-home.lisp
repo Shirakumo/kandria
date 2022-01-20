@@ -114,7 +114,7 @@
 "))
 
   (return-new-home
-   :title "Return to Jack in Engineering"
+   :title "Return to Jack in Engineering and deliver the bad news"
    :condition all-complete
    :on-activate T
    ;; enemies on this quest will be world NPCs, not spawned for the quest

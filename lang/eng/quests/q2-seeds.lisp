@@ -65,7 +65,7 @@
   |#
 
   (return-seeds
-   :title "Return to Fi on the Farm"
+   :title "Return to Fi on the Farm and deliver the seeds"
    :condition all-complete
    :on-activate T
 

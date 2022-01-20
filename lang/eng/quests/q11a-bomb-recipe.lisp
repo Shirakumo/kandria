@@ -154,7 +154,7 @@
 "))
 
   (task-return
-   :title "I've collected all the bomb components - I must return to Islay on the surface"
+   :title "Return to Islay on the surface and deliver the bomb components"
    :on-complete (q13-intro)
    :on-activate T
    (:interaction components-return
