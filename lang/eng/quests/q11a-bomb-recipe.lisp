@@ -6,7 +6,7 @@
   :title "Bomb Recipe"
   :description "Islay needs certain components to assemble an improvised explosive, which could slow down the Wraw advance."
   :variables ((wire-count 10) (blasting-cap-count 10) (charge-pack-count 20))
-  :on-activate (task-reminder task-deliveries task-border task-return-fi)
+  :on-activate (task-reminder task-deliveries task-border)
 
  (task-reminder
    :title ""
@@ -72,6 +72,8 @@
 ! setf (direction 'catherine) -1
 ! eval (deactivate (unit 'wraw-border-1))
 ! eval (deactivate (unit 'wraw-border-2))
+! eval (activate 'task-return-fi)
+! eval (activate (find-task 'q12-help-alex 'fi-task))
 "))
 
   ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb
@@ -80,7 +82,7 @@
    :visible NIL
    :on-activate T
    (:interaction fi-return-recruit
-    :title ""
+    :title "What did I miss?"
     :interactable fi
     :dialogue "
 ~ fi
@@ -160,16 +162,16 @@
     :interactable islay
     :repeatable T
     :dialogue "
-~ islay
-| [(> -5 (+ (var 'wire-count) (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)Now we have all the components we need, and then some. | (:happy)Now we have all the components we need.]
-| Thank you, {#@player-nametag}. Here's your payment.
 ! eval (setf (var 'wire-count) (- (var 'wire-count) (item-count 'item:wire)))
+! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
+! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
+~ islay
+| [(> -5 (+ (var 'wire-count) (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)That's the last of the components we needed, and then some! | (:happy)That's the last of the components we needed.]
+| Thank you, {#@player-nametag}. Here's your payment as promised.
 ! eval (store 'item:parts (* (item-count 'item:wire) (var 'bomb-fee)))
 ! eval (retrieve 'item:wire T)
-! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
 ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
 ! eval (retrieve 'item:blasting-cap T)
-! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
 ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 ! eval (retrieve 'item:charge-pack T)
 | (:normal)I'll take the parts to Catherine so she can complete the bomb.
@@ -186,9 +188,10 @@
 ! eval (setf (quest:status (thing 'task-return)) :inactive)
 ! eval (deactivate interaction)
 ! eval (deactivate 'task-return-fi)
+! eval (deactivate 'task-reminder)
+! eval (complete 'q12-help-alex)
 ! eval (activate 'q13-intro)
 ! eval (setf (walk 'islay) T)
 ! eval (setf (walk 'fi) T)
 ! eval (move-to 'eng-cath (unit 'fi))
-! eval (move-to 'eng-cath (unit 'islay))
 ")))

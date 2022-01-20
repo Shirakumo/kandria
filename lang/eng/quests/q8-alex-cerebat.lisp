@@ -17,4 +17,5 @@
 | (:angry)Mind your own business.
 | I'm doing my job, just like you. I'm still a hunter, ya know.
 | We're done.
+! eval (setf (var 'alex-cerebat) T)
 "))

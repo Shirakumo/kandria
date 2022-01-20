@@ -86,7 +86,7 @@
 | (:unhappy)I'm saying we need help. We need the Noka - and we need {#@player-nametag}.
 ~ innis
 | ...
-| (:thinking)... Alright. Say we ally with the Noka. Then what?
+| ... Alright. Say we ally with the Noka. Then what?
 ~ islay
 | We pool our resources - our weapons and people.
 | We don't know the Wraw's exact numbers and capabilities, but I can hazard a guess from the hunters we sent - at least those that returned.
@@ -195,6 +195,7 @@
 | Good luck, {#@player-nametag}.
 ! eval (deactivate 'task-reminder)
 ! eval (activate 'q11a-bomb-recipe)
+! eval (activate 'q12-help-alex)
 ! eval (complete 'trader-semi-chat)
 ! eval (activate (unit 'wraw-border-1))
 ! eval (activate (unit 'wraw-border-2))
