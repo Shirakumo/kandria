@@ -149,7 +149,7 @@
     ~ player
     - Deal.
       ~ islay
-      | Great.
+      | Great, 35 it is.
       ! eval (setf (var 'bomb-fee) 35)
       ~ innis
       | (:angry)...
@@ -157,7 +157,7 @@
       ~ innis
       | (:angry)...
       ~ islay
-      | Alright then.
+      | Alright then, 25 it is.
     - I've changed my mind: I'll take less than 25.
       ~ islay
       | No, I insist. This won't be easy, and 25 is fair.

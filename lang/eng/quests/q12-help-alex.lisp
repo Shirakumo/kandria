@@ -109,6 +109,6 @@
   ~ fi
   | (:annoyed)No, I don't he is.
 ~ fi
-| I suppose it was better to know this sooner rather than later.
+| It was better to know about Alex sooner rather than later.
 | Thank you, {#@player-nametag}.
 ")))
