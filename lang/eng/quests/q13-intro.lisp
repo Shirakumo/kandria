@@ -6,9 +6,9 @@
   :title "Name"
   :description "Desc."
   ;; TODO only allow interact when Islay has arrived in Engineering
-  (:wait 13.0)
-  (:interact (islay)
-   :title "Meet Islay and Fi in Engineering"
+  (:go-to (eng-cath :with islay)
+   :title "Meet Islay and Fi in Engineering")
+  (:interact (islay :now T)
   "
 ~ islay
 | also summarise war prep, in case not spoke to Fi (optional)
@@ -21,5 +21,7 @@
 | Ask her.
 ! eval (setf (location 'innis) 'innis-intercept)
 ")
-  (:eval
-   :on-complete (qx-xxxx)))
+)
+
+  ;;(:eval
+   ;;:on-complete (qx-xxxx))
