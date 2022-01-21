@@ -788,7 +788,7 @@ void main(){
        ;; Movement
        (let* ((offset (tvec (+ (vx loc) (* (direction player) (+ 8 (vx size)))) (- (vy loc) (vy size) 2)))
               (top (scan-collision-for player +world+ offset))
-              (ledge (scan-collision-for player +world+ (tv+ offset #.(vec 0 16))))
+              (ledge (scan-collision-for player +world+ (tv+ offset #.(vec 0 20))))
               (attached (or (if (typep (svref collisions (if (< 0 (direction player)) 1 3)) '(or ground solid))
                                 (svref collisions (if (< 0 (direction player)) 1 3)))
                             (interactable player)
