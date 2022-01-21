@@ -61,12 +61,13 @@
          (new-tilemap (make-array (* 4 nw nh) :element-type '(unsigned-byte 8)
                                               :initial-element 0)))
     ;; Allocate resized and copy data over. Slow!
-    (dotimes (y (min nh oh))
-      (dotimes (x (min nw ow))
-        (let ((npos (* 2 (+ x (* y nw))))
-              (opos (* 2 (+ x (* y ow)))))
-          (dotimes (c 2)
-            (setf (aref new-tilemap (+ npos c)) (aref tilemap (+ opos c)))))))
+    (ignore-errors
+     (dotimes (y (min nh oh))
+       (dotimes (x (min nw ow))
+         (let ((npos (* 2 (+ x (* y nw))))
+               (opos (* 2 (+ x (* y ow)))))
+           (dotimes (c 2)
+             (setf (aref new-tilemap (+ npos c)) (aref tilemap (+ opos c))))))))
     ;; Resize the tilemap. Internal mechanisms should take care of re-mapping the pixel data.
     (when (gl-name (tilemap layer))
       (setf (pixel-data (tilemap layer)) new-tilemap)
