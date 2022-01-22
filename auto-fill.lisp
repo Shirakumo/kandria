@@ -67,11 +67,11 @@
      _ o _)
     (:l
      _ s x
-     o s i
+     o s x
      _ s x)
     (:r
      x s _
-     i s o
+     x s o
      x s _)
     (:tr>
      _ _ o
@@ -206,8 +206,11 @@
                         (<= 0 y (1- height)))
                (aref solids (pos x y))))
            ((setf tile) (f x y)
-             (set-tile tiles width height x y (alexandria:random-elt f))))
+             (when f
+               (set-tile tiles width height x y (alexandria:random-elt f)))))
     (loop with x = ox with y = oy with px = x with py = y
+          with history = (make-hash-table :test 'equal)
+          with backtrack = NIL
           for i from 0 below 1000
           for edge = (filter-edge solids width height x y)
           for solid = (solid x y)
@@ -254,6 +257,15 @@
                  (:hr (decf x))
                  (:vt (decf y))
                  (:vb (incf y)))
+               (cond (backtrack
+                      (unless (gethash (cons x y) history)
+                        (setf backtrack NIL)))
+                     ((gethash (cons x y) history)
+                      (format T "REPEAT (~d) ~a ~a -> ~a ~a~%" i px py x y)
+                      (setf backtrack T)
+                      (cond ((< px x) (setf x (1- px)))
+                            ((> px x) (setf x (1+ px))))))
+               (setf (gethash (cons x y) history) T)
                (setf px ox py oy))
              (when (and (= x ox) (= y oy))
                (loop-finish))

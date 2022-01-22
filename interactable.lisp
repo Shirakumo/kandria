@@ -156,6 +156,9 @@
                :type boolean))
   (:default-initargs :sprite-data (asset 'kandria 'station)))
 
+(defmethod layer-index ((station station))
+  (1- +base-layer+))
+
 (defmethod initialize-instance :after ((station station) &key train-location)
   (v<- (location (train station)) (or train-location (location station))))
 
