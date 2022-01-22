@@ -28,39 +28,11 @@
                             (when (and (< 0 y) (v= (tile i (1- y)) find))
                               (pushnew (cons i (1- y)) q)))))))))
 
-(defun find-edge (solids width height x y)
-  (labels ((pos (x y)
-             (* (+ x (* y width)) 2)))
-    (loop with state = :up
-          while (= 255 (aref solids (+ 0 (pos x y))))
-          do (ecase state
-               (:up
-                (incf y)
-                (when (<= height y)
-                  (decf y)
-                  (setf state :right)))
-               (:right
-                (incf x)
-                (when (<= width x)
-                  (decf x)
-                  (setf state :down)))
-               (:down
-                (decf y)
-                (when (< y 0)
-                  (incf y)
-                  (setf state :left)))
-               (:left
-                (decf x)
-                (when (< x 0)
-                  (incf x)
-                  (error "There is no edge.")))))
-    (values x y)))
-
 (defparameter *tile-filters*
   '((:t
      _ o _
      s s s
-     x x x)
+     _ x _)
     (:b
      x x _
      s s s
@@ -154,9 +126,9 @@
     ;; Tiles that are edges
     (s (or (= 1 tile) (= 2 tile) (<= 4 tile 15) (= 21 tile)))
     ;; Tiles that are edges or inside
-    (x (or (<= 1 tile 15) (= 21 tile) (= 255 tile)))
+    (x (or (<= 1 tile 15) (= 21 tile) (= 255 tile) (= 22 tile)))
     ;; Tiles that are empty but inside
-    (i (= 255 tile))
+    (i (or (= 255 tile) (= 22 tile)))
     ;; Tiles that are platforms
     (p (= 2 tile))
     ;; Tiles that are only blocks
@@ -198,108 +170,33 @@
                          (tile -1 0) (tile 0 0) (tile +1 0)
                          (tile -1 -1) (tile 0 -1) (tile +1 -1)))))
 
-(defun fill-edge (solids tiles width height ox oy map)
-  (labels ((pos (x y)
-             (* (+ x (* y width)) 2))
-           (solid (x y)
-             (when (and (<= 0 x (1- width))
-                        (<= 0 y (1- height)))
-               (aref solids (pos x y))))
-           ((setf tile) (f x y)
-             (when f
-               (set-tile tiles width height x y (alexandria:random-elt f)))))
-    (loop with x = ox with y = oy with px = x with py = y
-          with history = (make-hash-table :test 'equal)
-          with backtrack = NIL
-          for i from 0 below 1000
-          for edge = (filter-edge solids width height x y)
-          for solid = (solid x y)
-          for tile = (case solid
-                       (2 :platform)
-                       (3 :spike)
-                       (T (if (and (numberp solid) (<= 4 solid 15))
-                              `(:slope ,(- solid 4))
-                              edge)))
-          do (setf (tile x y) (cdr (assoc tile map :test 'equal)))
-             (let ((ox x) (oy y))
-               (ecase edge
-                 (:l (incf y))
-                 (:r (decf y))
-                 (:t (incf x))
-                 (:b (decf x))
-                 (:tl> (incf x))
-                 (:tr> (decf y))
-                 (:br> (decf x))
-                 (:bl> (incf y))
-                 (:tl< (decf y))
-                 (:tr< (decf x))
-                 (:br< (incf y))
-                 (:bl< (incf x))
-                 (:ct (if (= px x)
-                          (incf x)
-                          (incf y)))
-                 (:cb (if (= px x)
-                          (decf x)
-                          (decf y)))
-                 (:cl (if (= py y)
-                          (incf y)
-                          (decf x)))
-                 (:cr (if (= py y)
-                          (decf y)
-                          (incf x)))
-                 (:h (if (< px x)
-                         (incf x)
-                         (decf x)))
-                 (:v (if (< py y)
-                         (incf y)
-                         (decf y)))
-                 (:hl (incf x))
-                 (:hr (decf x))
-                 (:vt (decf y))
-                 (:vb (incf y)))
-               (cond (backtrack
-                      (unless (gethash (cons x y) history)
-                        (setf backtrack NIL)))
-                     ((gethash (cons x y) history)
-                      (format T "REPEAT (~d) ~a ~a -> ~a ~a~%" i px py x y)
-                      (setf backtrack T)
-                      (cond ((< px x) (setf x (1- px)))
-                            ((> px x) (setf x (1+ px))))))
-               (setf (gethash (cons x y) history) T)
-               (setf px ox py oy))
-             (when (and (= x ox) (= y oy))
-               (loop-finish))
-          collect (vec x y))))
-
-(defun fill-innards (solids tiles edge width height x- x+ y- y+ map)
-  (labels ((pos (x y)
-             (* (+ x (* y width)) 2))
-           (tile (x y)
-             (aref solids (+ 0 (pos x y))))
-           ((setf tile) (f x y)
-             (set-tile tiles width height x y (alexandria:random-elt f))))
-    (loop with edge = (loop for pos in edge
-                            when (and (< -1 (vx pos) width)
-                                      (< -1 (vy pos) height))
-                            collect pos)
-          for y from (max 0 y-) to (min y+ (1- height))
-          do (loop for x from (max 0 x-) to (min x+ (1- width))
-                   do (when (and (= 255 (tile x y))
-                                 ;; KLUDGE: this is not ideal. we should instead somehow check whether
-                                 ;;         this tile has been filled with something else already.
-                                 (or (= y (1- height))
-                                     (not (<= 4 (tile x (1+ y)) 15))))
-                        (setf (tile x y)
-                              (cdr (or (assoc (round (mindist (vec x y) edge)) map)
-                                       (assoc T map)))))))))
-
 (defun %auto-tile (solids tiles width height x y map)
-  (let ((solids (copy-seq solids)))
-    (%flood-fill solids width height x y (list 255 0))
-    (multiple-value-bind (x y) (find-edge solids width height x y)
-      (let* ((edge (fill-edge solids tiles width height x y map))
-             (x- (truncate (loop for pos in edge minimize (vx pos))))
-             (x+ (truncate (loop for pos in edge maximize (vx pos))))
-             (y- (truncate (loop for pos in edge minimize (vy pos))))
-             (y+ (truncate (loop for pos in edge maximize (vy pos)))))
-        (fill-innards solids tiles edge width height x- x+ y- y+ map)))))
+  (flet ((tile (x y)
+           (if (and (< -1 x width) (< -1 y height))
+               (aref solids (* (+ x (* y width)) 2))
+               0))
+         ((setf tile) (tilelist x y)
+           (when tilelist
+             (set-tile tiles width height x y (alexandria:random-elt tilelist)))))
+    (when (= 0 (tile x y))
+      (%flood-fill solids width height x y (list 22 0)))
+    (dotimes (y height)
+      (dotimes (x width)
+        (let ((edge (ignore-errors (filter-edge solids width height x y)))
+              (solid (tile x y)))
+          (cond (edge
+                 (let ((tile (case solid
+                               (2 :platform)
+                               (3 :spike)
+                               (T (if (and (<= 4 solid 15))
+                                      `(:slope ,(- solid 4))
+                                      edge)))))
+                   (setf (tile x y) (cdr (assoc tile map :test 'equal)))))
+                ((= 22 solid)
+                 (let ((mindist 100))
+                   (loop for dy from -3 to +3
+                         do (loop for dx from -3 to +3
+                                  do (when (< 0 (tile (+ x dx) (+ y dy)) 22)
+                                       (setf mindist (min mindist (sqrt (+ (* dx dx) (* dy dy))))))))
+                   (setf (tile x y)
+                         (cdr (or (assoc (round mindist) map) (assoc T map))))))))))))

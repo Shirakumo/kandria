@@ -417,7 +417,8 @@ void main(){
       (%auto-tile (pixel-data chunk)
                   (pixel-data (aref (layers chunk) z))
                   width height x y types)
-      (update-layer (aref (layers chunk) z)))))
+      (update-layer (aref (layers chunk) z))
+      (update-layer chunk))))
 
 (defmethod compute-shadow-geometry ((chunk chunk) (vbo vertex-buffer))
   (let* ((w (truncate (vx (size chunk))))
