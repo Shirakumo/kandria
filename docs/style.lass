@@ -125,7 +125,8 @@
      :padding 1em 2em
      :background (hex FFFFFF)
      :font-size 1.5em
-     :z-index 10))
+     :z-index 10
+     :outline 0.2em solid (rgba 0 0 0 0.5)))
    (img
     :max-width 100%)
    (.gallery
