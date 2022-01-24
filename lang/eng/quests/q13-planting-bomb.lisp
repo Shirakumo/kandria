@@ -7,6 +7,11 @@
   :description "Description"
   :on-activate (task-1)
   
+  ;; plant bombs (moulding into place, then attaching detonators - 2 each bomb)
+  ;; when all bombs are planted activated trigger(s)
+  ;; when pass through trigger(s) call base
+  ;; but there's a problem - return to find Wraw leader there
+  
   (task-1
    :title "Bullet point"
    :invariant T

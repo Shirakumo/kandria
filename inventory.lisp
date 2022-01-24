@@ -399,6 +399,8 @@
 (define-item (wire quest-item) 8 0 8 8)
 (define-item (blasting-cap quest-item) 8 0 8 8)
 (define-item (charge-pack quest-item) 8 0 8 8)
+(define-item (explosive quest-item) 8 0 8 8)
+(define-item (receiver quest-item) 8 0 8 8)
 
 ;; VALUE-ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8
