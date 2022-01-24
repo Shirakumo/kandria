@@ -29,7 +29,19 @@
                               (pushnew (cons i (1- y)) q)))))))))
 
 (defparameter *tile-filters*
-  '((:t
+  '((:platform-l
+     _ _ _
+     s* p _
+     _ _ _)
+    (:platform-r
+     _ _ _
+     _ p s*
+     _ _ _)
+    (:platform
+     _ _ _
+     _ p _
+     _ _ _)
+    (:t
      _ o _
      s s s
      _ x _)
@@ -131,6 +143,8 @@
     (i (or (= 255 tile) (= 22 tile)))
     ;; Tiles that are platforms
     (p (= 2 tile))
+    ;; Tiles that are solid but not platforms
+    (s* (or (= 1 tile) (<= 4 tile 15) (= 21 tile)))
     ;; Tiles that are only blocks
     (b (or (= 1 tile) (= 21 tile)))
     ;; Tiles that are slopes
@@ -175,28 +189,42 @@
            (if (and (< -1 x width) (< -1 y height))
                (aref solids (* (+ x (* y width)) 2))
                0))
-         ((setf tile) (tilelist x y)
-           (when tilelist
-             (set-tile tiles width height x y (alexandria:random-elt tilelist)))))
+         ((setf tile) (kind x y &optional fallback)
+           (let ((tilelist (cdr (or (assoc kind map :test 'equal)
+                                    (assoc fallback map :test 'equal)))))
+             (when tilelist
+               (set-tile tiles width height x y (alexandria:random-elt tilelist))))))
     (when (= 0 (tile x y))
       (%flood-fill solids width height x y (list 22 0)))
     (dotimes (y height)
       (dotimes (x width)
-        (let ((edge (ignore-errors (filter-edge solids width height x y)))
-              (solid (tile x y)))
-          (cond (edge
-                 (let ((tile (case solid
-                               (2 :platform)
-                               (3 :spike)
-                               (T (if (and (<= 4 solid 15))
-                                      `(:slope ,(- solid 4))
-                                      edge)))))
-                   (setf (tile x y) (cdr (assoc tile map :test 'equal)))))
-                ((= 22 solid)
-                 (let ((mindist 100))
-                   (loop for dy from -3 to +3
-                         do (loop for dx from -3 to +3
-                                  do (when (< 0 (tile (+ x dx) (+ y dy)) 22)
-                                       (setf mindist (min mindist (sqrt (+ (* dx dx) (* dy dy))))))))
-                   (setf (tile x y)
-                         (cdr (or (assoc (round mindist) map) (assoc T map))))))))))))
+        (let ((edge (ignore-errors (filter-edge solids width height x y))))
+          (when edge
+            (setf (tile x y) edge)))))
+    (dotimes (y height)
+      (dotimes (x width)
+        (case (tile x y)
+          ( 3 (setf (tile x y) :spike))
+          ( 4 (setf (tile x y) `(:slope 0)))
+          ( 5 (setf (tile x y) `(:slope 1)))
+          ( 6 (setf (tile x y) `(:slope 2)))
+          ( 7 (setf (tile x y) `(:slope 3)))
+          ( 8 (setf (tile x y) `(:slope 4)))
+          ( 9 (setf (tile x y) `(:slope 5)))
+          (10 (setf (tile x y) `(:slope 6)))
+          (11 (setf (tile x y) `(:slope 7)))
+          (12 (setf (tile x y) `(:slope 8)))
+          (13 (setf (tile x y) `(:slope 9)))
+          (14 (setf (tile x y) `(:slope 10)))
+          (15 (setf (tile x y) `(:slope 11)))
+          (17 (setf (tile x y) :spike-t))
+          (18 (setf (tile x y) :spike-r))
+          (19 (setf (tile x y) :spike-b))
+          (20 (setf (tile x y) :spike-l))
+          (22
+           (let ((mindist 100))
+             (loop for dy from -3 to +3
+                   do (loop for dx from -3 to +3
+                            do (when (< 0 (tile (+ x dx) (+ y dy)) 22)
+                                 (setf mindist (min mindist (sqrt (+ (* dx dx) (* dy dy))))))))
+             (setf (tile x y T) (round mindist)))))))))
