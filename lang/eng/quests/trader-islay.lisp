@@ -11,6 +11,8 @@
   (chat-semi
    :title NIL
    :on-activate T
+   :condition (complete-p 'q11-recruit-semis)
+   
    (:interaction chat-semi
     :title "Can I talk to you?"
     :interactable islay
