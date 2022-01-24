@@ -100,6 +100,7 @@
 ~ islay
 | It's not forever. But the Wraw are already here, and we can't fight them alone.
 | We take what we can carry and leave for the surface. Seal the metro tunnels behind us.
+| That won't stop them because they have drilling machinery, but it might slow them down.
 | Everything we leave behind is something the Wraw could use against us.
 ~ innis
 | And what about the bomb?
@@ -108,7 +109,7 @@
 - Now you're talking.
 - We blow up the Wraw!
 ~ islay
-| (:expectant)I've improvised an explosive, which could slow their advance.
+| (:expectant)I've improvised an explosive that could stop their advance. Collapse the tunnels completely.
 | We can still use it, but we're missing components to complete it.
 ~ innis
 | Send the android while we evacuate.
