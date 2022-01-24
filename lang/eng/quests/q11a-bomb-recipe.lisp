@@ -142,7 +142,8 @@
 - What do you think about the bomb?
   ~ fi
   | It's a bold idea, and it might work.
-  | But I can't help but worry about the devastation it might cause to this whole area. To our way of life.
+  | (:thinking)But I can't help but worry about the devastation it might cause to this whole area. To our way of life.
+  | (:unsure)And I can't say I'm comfortable having a huge explosive assembled in the middle of our camp. 
   < questions
 - Who's in charge now?
   ~ fi
