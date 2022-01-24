@@ -49,7 +49,10 @@
 | (:angry)It's the least I could do to repay you and Fi for your loyalty.
 | Now if you don't mind, I've got a battle to fight.
 | Watch your back, {#@player-nametag}.
+? (and (not (active-p (unit 'wraw-border-1))) (not (active-p (unit 'wraw-border-2))))
+| ! eval (activate 'fi-task)
 "))
+;; if you've travelled into the Wraw region (i.e. these triggers are not active), then it's safe to activate the Fi return task, since Fi will now be on the surface with the others
 
   (fi-task
    :title ""

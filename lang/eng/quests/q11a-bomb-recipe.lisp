@@ -73,8 +73,10 @@
 ! eval (deactivate (unit 'wraw-border-1))
 ! eval (deactivate (unit 'wraw-border-2))
 ! eval (activate 'task-return-fi)
-! eval (activate (find-task 'q12-help-alex 'fi-task))
+? (complete-p (find-task 'q12-help-alex 'alex-task))
+| ! eval (activate (find-task 'q12-help-alex 'fi-task))
 "))
+;; if you've already spoken to alex in q12, then when you cross the border, activate the fi return task, since it's now safe to talk to her about alex, as she will be on the surface with the others
 
   ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb
   (task-return-fi
