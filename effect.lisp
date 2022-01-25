@@ -106,7 +106,7 @@ void main(){
   (when (particles effect)
     (apply #'spawn-particles (location effect) (particles effect))))
 
-(define-shader-entity text-effect (shader-effect listener renderable)
+(define-shader-entity text-effect (located-entity effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
    (font :initarg :font :initform (simple:request-font (unit 'ui-pass T) (setting :display :font)) :accessor font)
    (vertex-data :accessor vertex-data)
@@ -114,7 +114,8 @@ void main(){
 
 (defmethod layer-index ((effect text-effect)) (+ 2 +base-layer+))
 
-(defmethod trigger :after ((effect text-effect) source &key (text (text effect)))
+(defmethod trigger ((effect text-effect) source &key (text (text effect)) location)
+  (setf (location effect) (or location (vcopy (location source))))
   (let ((s (view-scale (unit :camera T))))
     (multiple-value-bind (breaks array x- y- x+ y+)
         (org.shirakumo.alloy.renderers.opengl.msdf::compute-text
@@ -122,7 +123,9 @@ void main(){
       (declare (ignore breaks))
       (decf (vx (location effect)) (/ (+ x- x+) 2 s))
       (decf (vy (location effect)) (/ (+ y- y+) 2 s))
-      (setf (vertex-data effect) array))))
+      (setf (vertex-data effect) array)))
+  (let ((region (region +world+)))
+    (enter* effect region)))
 
 (defmethod handle ((ev tick) (effect text-effect))
   (incf (vy (location effect)) (* 20 (dt ev)))
