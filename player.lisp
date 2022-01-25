@@ -319,14 +319,14 @@ void main(){
          (setf (state player) :animated))))
 
 #-kandria-release
-(let ((type (copy-seq '(zombie wolf box drone ball dummy))))
+(let ((type (copy-seq '(rogue zombie))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
   
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
-      (spawn (mouse-world-pos (pos ev)) (first type)))))
+      (spawn (mouse-world-pos (pos ev)) (first type) :level 100))))
 
 (flet ((handle-solid (player hit)
          (when (< 0 (vy (hit-normal hit)))

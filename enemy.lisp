@@ -5,7 +5,7 @@
 (define-shader-entity enemy (ai-entity animatable)
   ((bsize :initform (vec 8.0 8.0))
    (cooldown :initform 0.0 :accessor cooldown)
-   (ai-state :initform :normal :accessor ai-state)))
+   (ai-state :initform :normal :accessor ai-state :type symbol)))
 
 (defmethod collides-p ((enemy enemy) (moving moving) hit) T)
 (defmethod collides-p ((enemy enemy) (other enemy) hit) NIL)
@@ -87,7 +87,7 @@
   ((health-bar :accessor health-bar)))
 
 (defmethod initialize-instance :after ((enemy minor-enemy) &key)
-  (setf (health-bar enemy) (make-instance 'enemy-health-bar :maximum (maximum-health enemy))))
+  (setf (health-bar enemy) (make-instance 'enemy-health-bar :value enemy)))
 
 (defmethod hurt :after ((enemy minor-enemy) by)
   (when (setting :gameplay :display-hud)
@@ -387,3 +387,70 @@
   (item:bolt 1)
   (item:simple-circuit 1)
   (item:connector 1))
+
+(define-shader-entity rogue (paletted-entity ground-enemy minor-enemy half-solid creatable)
+  ((bsize :initform (vec 7 16))
+   (timer :initform 0.0 :accessor timer)
+   (palette :initform (// 'kandria 'rogue-palette))
+   (palette-index :initform 0))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'rogue)))
+
+(defmethod movement-speed ((enemy rogue))
+  (case (ai-state enemy)
+    (:stand 0.0)
+    (:walk (p! slowwalk-limit))
+    (T (p! walk-limit))))
+
+(defmethod handle-ai-states ((enemy rogue) ev)
+  (let* ((player (unit 'player T))
+         (ploc (location player))
+         (eloc (location enemy))
+         (vel (velocity enemy)))
+    (case (state enemy)
+      (:normal
+       (ecase (ai-state enemy)
+         (:normal
+          (cond ((< (vlength (v- ploc eloc)) (* +tile-size+ 11))
+                 (setf (ai-state enemy) :approach))
+                (T
+                 (setf (ai-state enemy) (alexandria:random-elt '(:stand :stand :walk)))
+                 (setf (timer enemy) (+ (ecase (ai-state enemy) (:stand 2.0) (:walk 1.0)) (random 2.0)))
+                 (setf (direction enemy) (alexandria:random-elt '(-1 +1))))))
+         ((:stand :walk)
+          (when (< (vlength (v- ploc eloc)) (* +tile-size+ 10))
+            (setf (ai-state enemy) :normal))
+          (when (<= (decf (timer enemy) (dt ev)) 0)
+            (setf (ai-state enemy) :normal))
+          (when (eql 0 (solid (vec (+ (vx eloc) (* (direction enemy) (+ (vx (bsize enemy)) 1)))
+                                   (- (vy eloc) (+ (vy (bsize enemy)) 1)))
+                              (chunk enemy)))
+            (setf (direction enemy) (* (direction enemy) -1)))
+          (case (ai-state enemy)
+            (:stand (setf (vx vel) 0))
+            (:walk (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))
+         (:approach
+          (cond ((< (* +tile-size+ 20) (vlength (v- ploc eloc)))
+                 (setf (ai-state enemy) :normal))
+                ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 1))
+                 (start-animation 'attack enemy))
+                (T
+                 (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
+                 (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))))))
+
+(defmethod hit :after ((enemy rogue) location)
+  (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8)))
+  (trigger 'hit enemy :location location))
+
+(defmethod draw-item ((rogue rogue))
+  (draw-item 'rogue/rewards))
+
+(define-random-draw rogue/rewards
+  (NIL 1)
+  (item:small-health-pack 0.5)
+  (item:medium-health-pack 0.1)
+  (item:large-health-pack 0.01)
+  (item:coolant 1)
+  (item:heavy-spring 1)
+  (item:simple-circuit 1)
+  (item:cable 1))
