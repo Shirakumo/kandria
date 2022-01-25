@@ -4,7 +4,7 @@
 (quest:define-quest (kandria sq1-leaks)
   :author "Tim White"
   :title "Repair New Leaks"
-  :description "There are new leaks to fix; I should follow the red pipeline down. Hopefully there'll be no surprises this time. My FFCS detects three locations."
+  :description "There are new leaks to fix; I should follow the red pipeline down. Hopefully there'll be no surprises this time. My FFCS detects 3 locations."
   :on-activate (leak-first leak-second leak-third task-sq1-reminder)
   :variables (first-leak)
 
@@ -20,7 +20,7 @@
 ~ catherine
 | \"Follow the red pipeline\"(orange) down like we did before and you'll find the new leaks.
 ~ player
-| \"My FFCS indicates \"three leaks\"(orange), all close to the surface.\"(light-gray, italic)
+| \"My FFCS indicates \"3 leaks\"(orange), all close to the surface.\"(light-gray, italic)
 "))
 
   (leak-first
@@ -50,7 +50,7 @@
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ~ player
-| | \"//Okay, \"two leaks\"(orange) remain.//\"(light-gray)
+| | \"//Okay, \"2 leaks\"(orange) remain.//\"(light-gray)
 | ! eval (setf (var 'first-leak) T)
 |? (complete-p 'leak-second 'leak-third)
 | ~ player
@@ -79,7 +79,7 @@
 | ~ player
 | | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
-| | \"//That's \"one more leak\"(orange) to go.//\"(light-gray)
+| | \"//That's \"1 more leak\"(orange) to go.//\"(light-gray)
 "))
   ;; TODO: how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
   ;; UNUSED: and a sprawl of soil and stones - subsidence caused this.
@@ -111,7 +111,7 @@
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ~ player
-| | \"//Okay, \"two leaks\"(orange) remain.//\"(light-gray)
+| | \"//Okay, \"2 leaks\"(orange) remain.//\"(light-gray)
 | ! eval (setf (var 'first-leak) T)
 |? (complete-p 'leak-first 'leak-third)
 | ~ player
@@ -140,7 +140,7 @@
 | ~ player
 | | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
-| | \"//That's \"one more leak\"(orange) to go.//\"(light-gray)
+| | \"//That's \"1 more leak\"(orange) to go.//\"(light-gray)
 "))
 
   (leak-third
@@ -170,7 +170,7 @@
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ~ player
-| | \"//Okay, \"two leaks\"(orange) remain.//\"(light-gray)
+| | \"//Okay, \"2 leaks\"(orange) remain.//\"(light-gray)
 | ! eval (setf (var 'first-leak) T)
 |? (complete-p 'leak-first 'leak-second)
 | ~ player
@@ -199,7 +199,7 @@
 | ~ player
 | | \"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
-| | \"//That's \"one more leak\"(orange) to go.//\"(light-gray)
+| | \"//That's \"1 more leak\"(orange) to go.//\"(light-gray)
 "))
 
   (return-leaks
