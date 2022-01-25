@@ -106,7 +106,7 @@ void main(){
   (when (particles effect)
     (apply #'spawn-particles (location effect) (particles effect))))
 
-(define-shader-entity text-effect (located-entity effect listener renderable)
+(define-shader-entity text-effect (shader-effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
    (font :initarg :font :initform (simple:request-font (unit 'ui-pass T) (setting :display :font)) :accessor font)
    (vertex-data :accessor vertex-data)
@@ -119,6 +119,7 @@ void main(){
     (multiple-value-bind (breaks array x- y- x+ y+)
         (org.shirakumo.alloy.renderers.opengl.msdf::compute-text
          (font effect) text (alloy:px-extent 0 0 500 30) (/ s 5) NIL NIL)
+      (declare (ignore breaks))
       (decf (vx (location effect)) (/ (+ x- x+) 2 s))
       (decf (vy (location effect)) (/ (+ y- y+) 2 s))
       (setf (vertex-data effect) array))))

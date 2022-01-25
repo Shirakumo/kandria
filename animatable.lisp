@@ -161,7 +161,7 @@
            (when (<= +hard-hit+ damage)
              (setf (animation animatable) 'hard-hit))))
     (trigger (make-instance 'text-effect) animatable
-             :text (princ-to-string damage)
+             :text (princ-to-string (truncate damage))
              :location (vec (+ (vx (location animatable)))
                             (+ (vy (location animatable)) 8 (vy (bsize animatable)))))
     (decf (health animatable) damage)))
