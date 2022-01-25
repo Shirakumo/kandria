@@ -21,7 +21,7 @@
                  (p enemy-level base-damage level health))))))
 
 (define-global +max-stun+ 1f0)
-(define-global +hard-hit+ 20)
+(define-global +hard-hit+ 40)
 
 (defun maximum-health-for-level (base-health level)
   (* base-health (expt 1.05 level)))
@@ -245,17 +245,18 @@
                     (hit entity (intersection-point (vxy hurtbox) (vzw hurtbox) (location entity) (bsize entity)))
                     (setf (direction entity) (float-sign (- (vx (location animatable))
                                                             (vx (location entity)))))
-                    (when (hurt entity animatable)
-                      (when (interruptable-p (frame entity))
-                        (cond ((<= (stun-time entity) 0)
-                               (vsetf (velocity entity)
-                                      (* (direction animatable) (vx (knockback frame)))
-                                      (vy (knockback frame))))
-                              (T
-                               (vsetf (knockback entity)
-                                      (* (direction animatable) (vx (knockback frame)))
-                                      (vy (knockback frame)))))
-                        (stun entity (stun-time frame)))))
+                    (let ((interruptable (interruptable-p (frame entity))))
+                      (when (hurt entity animatable)
+                        (when interruptable
+                          (cond ((<= (stun-time entity) 0)
+                                 (vsetf (velocity entity)
+                                        (* (direction animatable) (vx (knockback frame)))
+                                        (vy (knockback frame))))
+                                (T
+                                 (vsetf (knockback entity)
+                                        (* (direction animatable) (vx (knockback frame)))
+                                        (vy (knockback frame)))))
+                          (stun entity (stun-time frame))))))
                   (when (<= (iframes entity) 0)
                     (setf (iframe-idx entity) (frame-idx animatable))
                     (setf (iframes entity) 60))))
