@@ -34,7 +34,7 @@
     :repeatable T
     :dialogue "
 ~ islay
-| Did you get the components for the explosive?
+| Did you get the components for the bomb?
 ? (= 0 (+ (item-count 'item:wire) (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
 | ~ islay
 | | Hurry, {#@player-nametag} - I still need: [(< 0 (var 'wire-count)) \"rolls of wire: {(var 'wire-count)}\"(orange); |] [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange); |] [(< 0 (var 'charge-pack-count)) \"charge packs: {(var 'charge-pack-count)}\"(orange).]
