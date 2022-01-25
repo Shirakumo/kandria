@@ -440,6 +440,13 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'alex)))
 
+(define-shader-entity zelah (npc creatable)
+  ((name :initform 'zelah)
+   (profile-sprite-data :initform (asset 'kandria 'jack-profile))
+   (nametag :initform (@ zelah-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'jack)))
+
 (define-shader-entity cerebat-trader (npc creatable)
   ((name :initform 'cerebat-trader)
    (profile-sprite-data :initform (asset 'kandria 'sahil-profile))

@@ -10,6 +10,7 @@ alex-nametag "Alex"
 semi-engineer-nametag "Engineer"
 villager-nametag "Villager"
 cerebat-trader-nametag "???"
+zelah-nametag "Zelah"
 ;; Places
 chunk-2129 "Engineering"
 chunk-1893 "Storage"

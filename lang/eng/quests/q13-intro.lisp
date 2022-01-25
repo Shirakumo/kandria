@@ -6,7 +6,6 @@
   :title "Meet in Engineering"
   :description "I need to meet Islay, Fi and Catherine in Engineering, probably to talk about the bomb."
   :variables (brave)
-  ;; TODO only allow interact when Islay has arrived in Engineering
   (:go-to (eng-cath :with islay)
    :title "Meet Islay and Fi in Engineering")
   (:interact (islay :now T)
@@ -99,15 +98,15 @@
 ~ catherine
 | (:excited)When one goes boom, they all go!
 ~ fi
-| And where are they being detonated?
+| And where are they to be detonated?
 ~ islay
 | (:nervous)...
 ~ fi
 | (:annoyed)Well?
 ~ islay
-| \"The base of the old Semi factory to the east, near to your seed cache.\"(orange)
+| \"On your low-eastern border, beyond the Rootless apartments, beneath the old Semi factory.\"(orange)
 | \"The mushroom cave to the west of the old Dreamscape apartments.\"(orange)
-| \"The sunken room beside the pump room.\"(orange)
+| \"The flooded room beside the pump room.\"(orange)
 ~ fi
 | ...
 ~ fi
@@ -122,21 +121,21 @@
 ~ fi
 | ...
 ~ islay
-| And we're not exploding it, just the room beside it - enough to collapse the tunnels and close access.
+| And we're not exploding it, just the room beside it - enough to collapse the tunnels and close access, which the water in the sunken room will help with.
 | We can repair any damage to the pump and water supply afterwards, but I hope it will be minimal.
 ~ fi
-| Well it sounds like I have no choice.
+| It sounds like I have no choice.
+~ islay
+| It'll work.
 ~ islay
 | \"Affix all 3 bombs, then get to a safe distance\"(orange) - at least to the \"Zenith Hub\"(orange) I'd say.
-| Then \"contact us on FFCS\"(orange) - this area is still free of the interference they're running.
-~ player
-| \"Checking FFCS... Confirmed, we're still in business.\"(light-gray, italic)
-~ islay
+| Your FFCS probably won't work so close to the border, due to the interference they're running. But if it does, please report in after you've planted each bomb.
+| If not, then we'll wait for contact from you once you're in the Zenith Hub.
 | (:nervous)All the bombs need to be positioned first, because we're detonating them in a precise sequence.
 | (:normal)Remember where to \"plant them\"(orange):
-| \"The base of the old Semi factory.\"(orange)
+| \"East of the Rootless apartments, beneath the old Semi factory.\"(orange)
 | \"The mushroom cave to the west.\"(orange)
-| \"The sunken room beside the pump.\"(orange)
+| \"The flooded room beside the pump.\"(orange)
 ~ player
 - Got it.
   ~ islay
