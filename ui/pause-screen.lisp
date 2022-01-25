@@ -2,8 +2,8 @@
 
 (defun should-show-pause-screen (main)
   (and (unit 'ui-pass (scene main))
-       (not (find-panel 'load-panel))
-       (not (find-panel 'main-menu))
+       (not (find-panel 'load-panel (scene main)))
+       (not (find-panel 'main-menu (scene main)))
        (unit 'environment (scene main))))
 
 (defmethod handle ((ev lose-focus) (main main))
@@ -12,7 +12,7 @@
     (show-panel 'pause-screen)))
 
 (defmethod handle ((ev gain-focus) (main main))
-  (hide-panel 'pause-screen))
+  (hide-panel 'pause-screen (scene main)))
 
 (steam:define-callback steam*::game-overlay-activated (result active)
   (v:info :kandria "Steam game overlay ~:[deactivated~;activated~]" (= 1 active))

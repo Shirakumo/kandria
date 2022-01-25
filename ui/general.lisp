@@ -236,8 +236,8 @@
       (trial:commit font (loader +main+) :unload NIL))
     font))
 
-(defun find-panel (panel-type)
-  (loop for panel in (panels (unit 'ui-pass T))
+(defun find-panel (panel-type &optional (scene +world+))
+  (loop for panel in (panels (unit 'ui-pass scene))
         do (when (typep panel panel-type)
              (return panel))))
 
@@ -252,11 +252,11 @@
     (unless panel
       (show (apply #'make-instance panel-type initargs)))))
 
-(defun hide-panel (panel-type)
+(defun hide-panel (panel-type &optional (scene +world+))
   (if (eq T panel-type)
-      (loop for panel = (first (panels (unit 'ui-pass T)))
+      (loop for panel = (first (panels (unit 'ui-pass scene)))
             while panel do (hide panel))
-      (let ((panel (find-panel panel-type)))
+      (let ((panel (find-panel panel-type scene)))
         (when panel
           (hide panel)))))
 
