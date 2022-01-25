@@ -56,6 +56,7 @@
       (make 'spike (vec 0 -1))
       (make 'spike (vec -1 0))
       (make 'slipblock)
+      (make 'ground)
       (coerce (nreverse blocks) 'vector))))
 
 (sb-ext:defglobal +surface-blocks+ NIL)
