@@ -27,3 +27,4 @@
 ")))
 
 ;; chat to NPCs (short again), with one giving quest (Islay - force interrupt)
+;; go through reasons why might not have detonated, from design doc, but also signal interference?
