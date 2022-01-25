@@ -1,22 +1,38 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass enemy-health-bar (alloy:popup alloy:progress alloy:direct-value-component)
+(defclass enemy-health-bar (alloy:popup alloy:direct-value-component)
   ((offset :initform (random* 0 16) :accessor offset)))
+
+(defmethod alloy:text ((element enemy-health-bar))
+  (princ-to-string (level (alloy:value element))))
 
 (presentations:define-realization (ui enemy-health-bar)
   ((:background simple:rectangle)
    (alloy:margins -2 2 -2 -5))
   ((:bar simple:rectangle)
-   (alloy:margins)))
+   (alloy:margins))
+  ((:level simple:text)
+   (alloy:extent -105 -5 100 20)
+   alloy:text
+   :halign :end
+   :valign :middle
+   :font (setting :display :font)
+   :size (alloy:un 12)
+   :pattern colors:white))
 
 (presentations:define-update (ui enemy-health-bar)
   (:bar
-   :pattern colors:white))
+   :pattern colors:white
+   :scale (let ((p (/ (health alloy:value) (maximum-health alloy:value))))
+            (alloy:px-size p 1)))
+  (:level
+   :text alloy:text
+   :pattern (if (<= 10 (- (level alloy:value) (level (unit 'player +world+))))
+                colors:red colors:white)))
 
 (defmethod show ((prompt enemy-health-bar) &key enemy)
   (unless (slot-boundp prompt 'alloy:layout-parent)
     (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
-  (setf (alloy:value prompt) (health enemy))
   (alloy:mark-for-render prompt)
   (alloy:with-unit-parent prompt
     (let* ((screen-location (world-screen-pos (vec (vx (location enemy))
