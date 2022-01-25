@@ -320,17 +320,3 @@
     :repeatable T
     :title (@ shop-sell-items)
     :dialogue "! eval (show-sales-menu :sell 'trader)")))
-
-#| Sahil subplot arc:
-1. had some tragedy
-2. find out his daughter died
-3. find out how his daughter died (link to Wraw/rogues?)
-
-|#
-
-#| TODO:
-later talks with trader:
-- ask specifically about each faction member
-- get into his own history more
-- why don't you join up? - reveal he doesn't visit the enemy faction
-|#
