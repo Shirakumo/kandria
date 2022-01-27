@@ -31,10 +31,12 @@
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (textbox (alloy:represent (slot-value dialog 'text) 'dialog-textbox))
         (nametag (alloy:represent (slot-value dialog 'source) 'nametag))
-        (prompt (alloy:represent (slot-value dialog 'prompt) 'advance-prompt)))
+        (prompt (alloy:represent (slot-value dialog 'prompt) 'advance-prompt))
+        (clip-view (make-instance 'alloy:clip-view :limit :x)))
     (setf (textbox dialog) textbox)
-    (alloy:enter (choices dialog) layout :constraints `((:left 20) (:bottom 20) (:height 200)))
-    (alloy:enter textbox layout :constraints `((:right-of ,(choices dialog) 0) (:right 20) (:bottom 20) (:height 200)))
+    (alloy:enter (choices dialog) clip-view)
+    (alloy:enter clip-view layout :constraints `((:left 20) (:bottom 20) (:height 200)))
+    (alloy:enter textbox layout :constraints `((:right-of ,clip-view 0) (:right 20) (:bottom 20) (:height 200)))
     (alloy:enter (profile dialog) layout :constraints `((:left 80) (:above ,textbox) (:width 400) (:height 400)))
     (alloy:enter nametag layout :constraints `((:left 30) (:above ,textbox 10) (:height 30) (:right 20)))
     (alloy:enter prompt layout :constraints `((:inside ,textbox :halign :right :valign :bottom) (:size 100 30)))
@@ -134,11 +136,11 @@
 (defmethod (setf choices) :after ((choices cons) (dialog dialog))
   (setf (timeout dialog) 0.1)
   (org.shirakumo.alloy.layouts.constraint:suggest
-   (alloy:layout-element dialog) (choices dialog) :w (alloy:un 400)))
+   (alloy:layout-element dialog) (alloy:layout-parent (choices dialog)) :w (alloy:un 400)))
 
 (defmethod (setf choices) :after ((choices null) (dialog dialog))
   (org.shirakumo.alloy.layouts.constraint:suggest
-   (alloy:layout-element dialog) (choices dialog) :w (alloy:un 0)))
+   (alloy:layout-element dialog) (alloy:layout-parent (choices dialog)) :w (alloy:un 0)))
 
 (defmethod interact ((string string) target)
   (interact (make-instance 'stub-interaction :dialogue string) target))
