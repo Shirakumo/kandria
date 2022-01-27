@@ -35,11 +35,15 @@
         (clip-view (make-instance 'alloy:clip-view :limit :x)))
     (setf (textbox dialog) textbox)
     (alloy:enter (choices dialog) clip-view)
-    (alloy:enter clip-view layout :constraints `((:left 20) (:bottom 20) (:height 200)))
-    (alloy:enter textbox layout :constraints `((:right-of ,clip-view 0) (:right 20) (:bottom 20) (:height 200)))
-    (alloy:enter (profile dialog) layout :constraints `((:left 80) (:above ,textbox) (:width 400) (:height 400)))
-    (alloy:enter nametag layout :constraints `((:left 30) (:above ,textbox 10) (:height 30) (:right 20)))
+    (alloy:enter textbox layout :constraints `((:required (:max-width 1500) (:center :w))
+                                               (:right 20) (:bottom 20) (:height 200)))
+    (alloy:enter (profile dialog) layout :constraints `((:required (<= :h (- :rh 250)))
+                                                        (:align :left ,textbox) (:above ,textbox)
+                                                        (:height 700) (= :w :h)))
+    (alloy:enter nametag layout :constraints `((:align :left ,textbox) (:above ,textbox 10) (:height 30) (:width 400)))
     (alloy:enter prompt layout :constraints `((:inside ,textbox :halign :right :valign :bottom) (:size 100 30)))
+    (alloy:enter clip-view layout :constraints `((:required (<= 5 :x))
+                                                 (= :x (- (:x ,textbox) 100)) (:bottom 80) (:height 200)))
     (alloy:finish-structure dialog layout (choices dialog))
     (setf (interactions dialog) (interactions dialog))))
 
@@ -136,7 +140,7 @@
 (defmethod (setf choices) :after ((choices cons) (dialog dialog))
   (setf (timeout dialog) 0.1)
   (org.shirakumo.alloy.layouts.constraint:suggest
-   (alloy:layout-element dialog) (alloy:layout-parent (choices dialog)) :w (alloy:un 400)))
+   (alloy:layout-element dialog) (alloy:layout-parent (choices dialog)) :w (alloy:un 500)))
 
 (defmethod (setf choices) :after ((choices null) (dialog dialog))
   (org.shirakumo.alloy.layouts.constraint:suggest

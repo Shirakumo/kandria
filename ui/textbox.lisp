@@ -9,7 +9,7 @@
     (with-pushed-matrix ((view-matrix :identity)
                          (model-matrix :identity))
       (translate-by (+ (alloy:pxx extent) 256) (alloy:pxy extent) -100)
-      (scale-by (/ (alloy:pxw extent) 550) (/ (alloy:pxh extent) 550) 1)
+      (scale-by (/ (alloy:pxw extent) 1024) (/ (alloy:pxh extent) 1024) 1)
       (translate-by 64 0 0)
       (render picture NIL))))
 
@@ -96,7 +96,7 @@
 (presentations:define-realization (ui dialog-choice-list)
   ((:bg simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0 0 0 0.5)))
+   :pattern (colored:color 0 0 0 0.8)))
 
 (defun clear-text-string ()
   (load-time-value (make-array 0 :element-type 'character)))
