@@ -187,6 +187,12 @@
 (defmethod collide :before ((player player) (elevator elevator) hit)
   (setf (interactable player) elevator))
 
+(defmethod collide ((elevator elevator) (solid solid) hit)
+  (let ((vel (frame-velocity elevator)))
+    (setf (state elevator) :normal)
+    (nv+ (location elevator) (v* vel (hit-time hit)))
+    (vsetf vel 0 0)))
+
 (defmethod collide ((elevator elevator) (block block) hit)
   (let ((vel (frame-velocity elevator)))
     (setf (state elevator) :normal)
