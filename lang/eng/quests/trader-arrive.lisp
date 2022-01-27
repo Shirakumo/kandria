@@ -174,7 +174,7 @@
 |   | You've had a warm welcome, have you? Someone don't trust you?
 |   ~ player
 |   - Jack and Fi.
-      ~ trader
+|     ~ trader
 |     | (:concerned)Oh really? I expected nothing less from Jack. Fi I'm surprised.
 |     | (:normal)Mind you, she has a lot of alqarf on her plate. Give her some time.
 |   - Everyone.
