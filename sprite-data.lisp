@@ -85,7 +85,9 @@
    (palettes :initform NIL :accessor palettes)))
 
 (defmethod notify:files-to-watch append ((asset sprite-data))
-  (list (merge-pathnames (getf (read-src (input* asset)) :source) (input* asset))))
+  (let ((source (getf (read-src (input* asset)) :source)))
+    (when (typep source 'pathname)
+      (list (merge-pathnames source (input* asset))))))
 
 (defmethod notify:notify :before ((asset sprite-data) file)
   (when (string= "ase" (pathname-type file))
@@ -134,29 +136,37 @@
 (defmethod compile-resources ((sprite sprite-data) (path pathname) &key force)
   (destructuring-bind (&key palette
                             (source (make-pathname :type "ase" :defaults path))
-                            (albedo (make-pathname :type "png" :defaults source))
-                            (animation-data (make-pathname :type "json" :defaults source)) &allow-other-keys) (read-src path)
-    (let ((source (merge-pathnames source path))
+                            (animation-data (make-pathname :type "json" :defaults source))
+                            (albedo (make-pathname :type "png" :defaults animation-data))
+                             &allow-other-keys) (read-src path)
+    (let ((source-file (merge-pathnames (unlist source) path))
           (animation-data (merge-pathnames animation-data path))
           (albedo (merge-pathnames albedo path)))
       (when (or force (recompile-needed-p (list albedo animation-data)
-                                          (list source path)))
-        (v:info :kandria.resources "Compiling spritesheet from ~a..." source)
-        (aseprite "--sheet-pack"
-                  "--trim"
-                  "--shape-padding" "1"
-                  "--sheet" albedo
-                  "--format" "json-array"
-                  "--filename-format" "{tagframe} {tag}"
-                  "--list-tags"
-                  "--data" animation-data
-                  source)
-        ;; Make sure we have LF.
-        (re-encode-json animation-data)
-        ;; Convert palette colours
-        (when palette
-          (convert-palette albedo (merge-pathnames palette path)))
-        (optipng albedo "-nb" "-nc" "-np")))))
+                                          (list source-file path)))
+        (when (string= "ase" (pathname-type source-file))
+          (v:info :kandria.resources "Compiling spritesheet from ~a..." source)
+          (aseprite "--sheet-pack"
+                    "--trim"
+                    "--shape-padding" "1"
+                    "--sheet" albedo
+                    "--format" "json-array"
+                    "--filename-format" "{tagframe} {tag}"
+                    "--list-tags"
+                    "--data" animation-data
+                    source)
+          ;; Make sure we have LF.
+          (re-encode-json animation-data)
+          ;; Convert palette colours
+          (when palette
+            (convert-palette albedo (merge-pathnames palette path))))
+        (when (consp source)
+          (v:warn :kandria.resources "Don't know how to compile ~a" source)
+          (let ((base-file (merge-pathnames "/tmp/krita-gen/profiles/" (second source))))
+            (ensure-directories-exist base-file)
+            (generate-profile base-file :output-json animation-data :output-atlas albedo)))
+        (when (probe-file albedo)
+          (optipng albedo "-nb" "-nc" "-np"))))))
 
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
   (destructuring-bind (&key palette palettes animations frames
@@ -198,3 +208,39 @@
             do (unless (typep animation 'sprite-animation) (change-class animation 'sprite-animation))))))
 
 ;; TODO: auto-stage effects' assets that are used in animation.
+
+(defun generate-profile (profile &key (output-atlas (make-pathname :name (format NIL "~a-profile" (pathname-name profile)) :type "png" :defaults profile))
+                                      (output-json (make-pathname :name (format NIL "~a-profile" (pathname-name profile)) :type "json" :defaults profile))
+                                      (size 1024))
+  (let* ((paths (directory (merge-pathnames (format NIL "~a-*" (pathname-name profile)) profile)))
+         (names (loop for path in paths collect (aref (nth-value 1 (cl-ppcre:scan-to-strings "-(.*)" (pathname-name path))) 0))))
+    (apply #'img-montage
+           (append paths
+                   (list
+                    "-geometry" (format NIL "~ax~a+0+0" size size)
+                    "-tile" "x1"
+                    "-background" "none"
+                    output-atlas)))
+    (let ((*print-pretty* nil)
+          (data `(:obj
+                  ("frames"
+                   ,@(loop for name in names
+                           for x from 0 by size
+                           collect `(:obj
+                                     ("filename" . ,name)
+                                     ("frame" . (:obj ("x" . ,x) ("y" . 0) ("w" . ,size) ("h" . ,size)))
+                                     ("sourceSize" . (:obj ("w" . ,size) ("h" . ,size)))
+                                     ("spriteSourceSize" . (:obj ("x" . ,x) ("y" . 0) ("w" . ,size) ("h" . ,size)))
+                                     ("duration" . 1000))))
+                  ("meta" .
+                          (:obj
+                           ("image" . ,(uiop:native-namestring (pathname-utils:relative-pathname output-json output-atlas)))
+                           ("size" . (:obj ("w" . ,(* (length names) size)) ("h" . ,size)))
+                           ("frameTags" ,@(loop for name in names
+                                                for i from 0
+                                                collect `(:obj
+                                                          ("name" . ,name)
+                                                          ("from" . ,i)
+                                                          ("to" . ,i)))))))))
+      (with-open-file (output output-json :direction :output :if-exists :supersede)
+        (jsown::write-object-to-stream data output)))))

@@ -67,7 +67,15 @@
 (define-asset (music ambience/underground-building) trial-harmony:environment
     '((:normal "ambience track_ underground building.ogg")))
 
-(define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T))
+(define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T)
+  (player-profile :min-filter :nearest :mag-filter :nearest)
+  (catherine-profile :min-filter :nearest :mag-filter :nearest)
+  (jack-profile :min-filter :nearest :mag-filter :nearest)
+  (fi-profile :min-filter :nearest :mag-filter :nearest)
+  (alex-profile :min-filter :nearest :mag-filter :nearest)
+  (sahil-profile :min-filter :nearest :mag-filter :nearest)
+  (innis-profile :min-filter :nearest :mag-filter :nearest)
+  (islay-profile :min-filter :nearest :mag-filter :nearest))
 
 (define-assets-from-path (kandria tile-data "tileset/*.lisp" :ignore-directory T))
 

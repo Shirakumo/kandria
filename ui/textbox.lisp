@@ -8,8 +8,8 @@
   (let ((extent (alloy:bounds picture)))
     (with-pushed-matrix ((view-matrix :identity)
                          (model-matrix :identity))
-      (translate-by (alloy:pxx extent) (alloy:pxy extent) -100)
-      (scale-by (/ (alloy:pxw extent) 128) (/ (alloy:pxh extent) 128) 1)
+      (translate-by (+ (alloy:pxx extent) 256) (alloy:pxy extent) -100)
+      (scale-by (/ (alloy:pxw extent) 550) (/ (alloy:pxh extent) 550) 1)
       (translate-by 64 0 0)
       (render picture NIL))))
 
