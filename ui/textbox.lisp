@@ -8,9 +8,9 @@
   (let ((extent (alloy:bounds picture)))
     (with-pushed-matrix ((view-matrix :identity)
                          (model-matrix :identity))
-      (translate-by (+ (alloy:pxx extent) 256) (alloy:pxy extent) -100)
+      (translate-by (alloy:pxx extent) (alloy:pxy extent) -1000)
       (scale-by (/ (alloy:pxw extent) 1024) (/ (alloy:pxh extent) 1024) 1)
-      (translate-by 64 0 0)
+      (translate-by 256 0 0)
       (render picture NIL))))
 
 (defclass nametag (alloy:label) ())

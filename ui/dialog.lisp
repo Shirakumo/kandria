@@ -38,7 +38,7 @@
     (alloy:enter textbox layout :constraints `((:required (:max-width 1500) (:center :w))
                                                (:right 20) (:bottom 20) (:height 200)))
     (alloy:enter (profile dialog) layout :constraints `((:required (<= :h (- :rh 250)))
-                                                        (:align :left ,textbox) (:above ,textbox)
+                                                        (:align :left ,textbox 100) (:above ,textbox)
                                                         (:height 700) (= :w :h)))
     (alloy:enter nametag layout :constraints `((:align :left ,textbox) (:above ,textbox 10) (:height 30) (:width 400)))
     (alloy:enter prompt layout :constraints `((:inside ,textbox :halign :right :valign :bottom) (:size 100 30)))

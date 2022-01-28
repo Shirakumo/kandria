@@ -46,7 +46,7 @@
         (background (make-instance 'profile-background)))
     (setf (textbox walkntalk) textbox)
     (alloy:enter background layout :constraints `((:left 60) (:top 60) (:width 150) (:height 150)))
-    (alloy:enter (profile walkntalk) layout :constraints `((:inside ,background) (:width 150) (:height 150)))
+    (alloy:enter (profile walkntalk) layout :constraints `((:left 90) (:top 0) (:width 200) (:height 200)))
     (alloy:enter textbox layout :constraints `((:align :bottom ,background) (:right-of ,background 0) (:height 120) (:right 60)))
     ;; KLUDGE: for whatever fucking reason trying to use teh relative constraints here results in unsolvable expressions.
     (alloy:enter nametag layout :constraints `((:top 60) (:left 210) (:height 30) (:right 60)))
