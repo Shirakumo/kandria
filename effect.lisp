@@ -205,7 +205,15 @@ void main(){
                            (case (direction effect)
                              (-1. PI)
                              (+1. 0f0))
-                           0f0)))
+                           0f0))
+  (let ((flash (make-instance 'flash :location (location effect)
+                                     :multiplier 1.0
+                                     :time-scale 1.0
+                                     :bsize (vec 48 48)
+                                     :size (vec 96 96)
+                                     :offset (vec 0 48))))
+    (enter flash +world+)
+    (compile-into-pass flash NIL (unit 'lighting-pass +world+))))
 
 (defmethod apply-transforms progn ((effect dash-effect))
   (translate-by 0 -16 0))
