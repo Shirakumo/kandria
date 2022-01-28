@@ -834,7 +834,9 @@ void main(){
                 (harmony:stop (// 'sound 'rope-slide-down))
                 (setf (state player) :normal))
                ((retained 'up)
-                (cond ((and top
+                (cond ((and (or top
+                                (and (typep attached 'rope)
+                                     (< (+ (vy (location attached)) (vy (bsize attached))) (vy loc))))
                             (null (scan-collision-for player +world+ (tv+ offset #.(vec 0 40))))
                             (null ledge))
                        (start-animation 'climb-ledge player))
