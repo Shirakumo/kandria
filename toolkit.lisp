@@ -9,7 +9,7 @@
 (define-global +input-source+ :keyboard)
 (define-global +app-system+ "kandria")
 (define-global +settings+
-    (copy-tree '(:audio (:latency 0.05
+    (copy-tree '(:audio (:latency 0.02
                          :backend :default
                          :volume (:master 0.5
                                   :effect 1.0
