@@ -54,8 +54,9 @@
   (dolist (sound '(ambience-birds-fluttering ambience-birds-chirp-1))
     (stage (// 'sound sound) area)))
 
-(defmethod (setf state) :after (state (subject white-bird))
-  (harmony:play (// 'sound 'ambience-birds-fluttering)))
+(defmethod (setf state) :before (state (subject white-bird))
+  (when (and (eql state :fleeing) (not (eq state (state subject))))
+    (harmony:play (// 'sound 'ambience-birds-fluttering))))
 
 (defmethod apply-transforms progn ((subject white-bird))
   (translate-by 0 -9 0))
@@ -68,8 +69,9 @@
   (dolist (sound '(ambience-birds-fluttering ambience-birds-chirp-2))
     (stage (// 'sound sound) area)))
 
-(defmethod (setf state) :after (state (subject red-bird))
-  (harmony:play (// 'sound 'ambience-birds-fluttering)))
+(defmethod (setf state) :before (state (subject red-bird))
+  (when (and (eql state :fleeing) (not (eq state (state subject))))
+    (harmony:play (// 'sound 'ambience-birds-fluttering))))
 
 (defmethod apply-transforms progn ((subject red-bird))
   (translate-by 0 -9 0))
