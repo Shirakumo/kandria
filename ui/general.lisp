@@ -80,9 +80,9 @@
    (alloy:margins))
   ((border simple:rectangle)
    (alloy:margins)
-   :line-width (alloy:un 1))
+   :line-width (alloy:un 2))
   ((:label simple:text)
-   (alloy:margins 5 10 10 5)
+   (alloy:margins 0)
    alloy:text
    :font (setting :display :font)
    :halign :middle
@@ -92,14 +92,15 @@
   (:background
    :pattern (if alloy:focus (colored:color 1 1 1 0.5) (colored:color 1 1 1 0.1)))
   (border
-   :pattern (if alloy:focus colors:transparent colors:white))
+   :pattern (if alloy:focus (colored:color 0.9 0.9 0.9) colors:gray)
+   :line-width (if alloy:focus (alloy:un 3) (alloy:un 1)))
   (:label
    :size (alloy:un 20)
    :pattern colors:white))
 
 (presentations:define-animated-shapes button
   (:background (simple:pattern :duration 0.2))
-  (border (simple:pattern :duration 0.3)))
+  (border (simple:pattern :duration 0.3) (simple:line-width :duration 0.5)))
 
 (defclass label (alloy:label*)
   ())

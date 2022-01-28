@@ -30,12 +30,15 @@
         (T
          (setf (alloy:focused bar) (alloy:index-element (alloy:index bar) bar)))))
 
+(defmethod alloy:notice-focus :after (focus (bar vertical-tab-bar))
+  (alloy:mark-for-render bar))
+
 (presentations:define-realization (ui vertical-tab-bar)
   ((:bg simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0 0 0 0.2))
+   :pattern colors:black)
   ((:bord simple:rectangle)
-   (alloy:extent (alloy:pw 1) (alloy:ph 0.01) 1 (alloy:ph 0.98))
+   (alloy:extent (alloy:pw 1) (alloy:ph 0.01) -1 (alloy:ph 0.98))
    :pattern colors:white))
 
 (defclass tab-view (alloy:structure)
@@ -56,7 +59,55 @@
     (alloy:enter tab view)
     tab))
 
-(defclass tab (alloy:label*)
+(defmethod alloy:enter ((element alloy:focus-element) (view tab-view) &key)
+  (alloy:enter element (alloy:focus-element view)))
+
+(defclass tab-button (alloy:label*)
+  ())
+
+(defmethod alloy:active-p ((button tab-button))
+  (not (null (alloy:focus button))))
+
+(presentations:define-realization (ui tab-button)
+  ((:border simple:rectangle)
+   (alloy:extent 0 0 5 (alloy:ph 1))
+   :pattern colors:white)
+  ((:background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:transparent)
+  ((:label simple:text)
+   (alloy:margins 10 0 0 0) alloy:text
+   :font (setting :display :font)
+   :size (alloy:un 20)
+   :halign :start
+   :valign :middle))
+
+(presentations:define-update (ui tab-button)
+  (:border
+   :hidden-p NIL
+   :bounds (alloy:extent 0 0 (if (alloy:active-p alloy:renderable) 5.0 0.0) (alloy:ph 1)))
+  (:background
+   :pattern (cond ((eql :weak alloy:focus)
+                   (if (eql :strong (alloy:focus (alloy:focus-parent alloy:renderable)))
+                       (colored:color 0.5 0.5 0.5)
+                       (colored:color 0.2 0.2 0.2)))
+                  (T (if (alloy:active-p alloy:renderable)
+                         (colored:color 0.3 0.3 0.3)
+                         colors:transparent))))
+  (:label
+   :pattern (if (eql :strong (alloy:focus (alloy:focus-parent alloy:renderable)))
+                (if (alloy:active-p alloy:renderable)
+                    colors:white
+                    (colored:color 0.9 0.9 0.9))
+                (if (alloy:active-p alloy:renderable)
+                    (colored:color 0.5 0.5 0.5)
+                    (colored:color 0.3 0.3 0.3)))))
+
+(presentations:define-animated-shapes tab-button
+  (:border (simple:bounds :duration 0.2))
+  (:background (simple:pattern :duration 0.2)))
+
+(defclass tab (tab-button)
   ((tab-view :initarg :tab-view :accessor tab-view)
    (alloy:focus-element :initform NIL :accessor alloy:focus-element)
    (alloy:layout-element :initform NIL :accessor alloy:layout-element)))
@@ -109,44 +160,6 @@
 
 (defmethod (setf alloy:focus) :after ((value (eql :strong)) (element tab))
   (setf (alloy:focus (alloy:focus-element (tab-view element))) :strong))
-
-(defmethod alloy:active-p ((button tab))
-  (not (null (alloy:focus button))))
-
-(presentations:define-realization (ui tab)
-  ((:border simple:rectangle)
-   (alloy:extent 0 0 5 (alloy:ph 1))
-   :pattern colors:white)
-  ((:background simple:rectangle)
-   (alloy:margins)
-   :pattern colors:transparent)
-  ((:label simple:text)
-   (alloy:margins 10 0 0 0) alloy:text
-   :font (setting :display :font)
-   :size (alloy:un 20)
-   :halign :start
-   :valign :middle))
-
-(presentations:define-update (ui tab)
-  (:border
-   :hidden-p NIL
-   :bounds (alloy:extent 0 0 (if (alloy:active-p alloy:renderable) 5.0 0.0) (alloy:ph 1)))
-  (:background
-   :pattern (cond ((eql :weak alloy:focus)
-                   (if (eql :strong (alloy:focus (alloy:focus-parent alloy:renderable)))
-                       (colored:color 0.5 0.5 0.5)
-                       (colored:color 0.3 0.3 0.3)))
-                  (T (if (alloy:active-p alloy:renderable)
-                         (colored:color 0.3 0.3 0.3)
-                         colors:transparent))))
-  (:label
-   :pattern (if (alloy:active-p alloy:renderable)
-                colors:white
-                (colored:color 0.9 0.9 0.9))))
-
-(presentations:define-animated-shapes tab
-  (:border (simple:bounds :duration 0.2))
-  (:background (simple:pattern :duration 0.2)))
 
 (defclass setting-label (alloy:label)
   ())
@@ -357,8 +370,10 @@
                (with-button (name &body body)
                  `(make-instance 'button :value (@ ,name) :on-activate (lambda () ,@body) :focus-parent focus)))
       (with-tab ((@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
+        (setf (alloy:wrap-focus focus) NIL)
         (let ((resume (with-button resume-game (hide panel)))
               (map (with-button open-map (show-panel 'map-panel)))
+              (buttons (make-instance 'alloy:horizontal-linear-layout :min-size (alloy:size 200 40)))
               (status (make-instance 'alloy:grid-layout :col-sizes '(300 T) :row-sizes '(40)))
               (player (unit 'player +world+)))
           (flet ((add (label value &rest args)
@@ -377,14 +392,15 @@
                                                (when (< (* 60 60 4) (session-time)) (@ long-play-time-warning)))
                  :style (when (< (* 60 60 4) (session-time)) `((:label :pattern ,colors:red))))
             (add (@ total-play-time) (format-relative-time (total-play-time))))
-          (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
-          (alloy:enter map layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40)))
-          (alloy:enter status layout :constraints `((:above ,resume 10) (:left 10) (:right 10) (:top 10)))
+          (alloy:enter status layout :constraints `(:center (:size 1000 350)))
+          (alloy:enter buttons layout :constraints `((:chain :down ,status 10) (:height 40)))
+          (alloy:enter resume buttons)
+          (alloy:enter map buttons)
           (when (saving-possible-p)
             (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
               (when (typep object 'save-point)
                 (let ((save (with-button save-game (save-state +main+ T))))
-                  (alloy:enter save layout :constraints `((:bottom 10) (:right-of ,map 10) (:width 200) (:height 40))))
+                  (alloy:enter save buttons))
                 (return))))))
 
       (with-tab ((@ quest-menu) 'alloy:border-layout)
@@ -445,18 +461,17 @@
       (let ((view (make-instance 'options-menu)))
         (add-tab tabs (@ open-options-menu) (alloy:layout-element view) (alloy:focus-element view)))
 
-      (with-tab ((@ exit-game) 'org.shirakumo.alloy.layouts.constraint:layout)
-        (let ((resume (with-button resume-game (hide panel)))
-              (exit (with-button return-to-main-menu
-                      (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
-                        (when (< 60 mins)
-                          (setf mins "> 60"))
-                        (show (make-instance 'prompt-panel :text (@formats 'game-quit-reminder mins)
-                                                           :on-accept #'return-to-main-menu)
-                              :width (alloy:un 500)
-                              :height (alloy:un 300))))))
-          (alloy:enter resume layout :constraints `((:bottom 10) (:left 10) (:width 200) (:height 40)))
-          (alloy:enter exit layout :constraints `((:bottom 10) (:right-of ,resume 10) (:width 200) (:height 40))))))
+      (flet ((exit ()
+               (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
+                 (when (< 60 mins)
+                   (setf mins "> 60"))
+                 (show (make-instance 'prompt-panel :text (@formats 'game-quit-reminder mins)
+                                                    :on-accept #'return-to-main-menu)
+                       :width (alloy:un 500)
+                       :height (alloy:un 300)))))
+        (let ((button (make-instance 'tab-button :value (@ exit-game) :focus-parent tabs)))
+          (alloy:on alloy:activate (button)
+            (exit)))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))
 
 ;; FIXME: when changing language or font, UI needs to update immediately
