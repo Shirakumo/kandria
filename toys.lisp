@@ -231,10 +231,13 @@
 (defmethod initargs append ((fountain fountain))
   '(:strength))
 
-(defmethod collides-p (thing (fountain fountain) hit) NIL)
-(defmethod collides-p ((moving moving) (fountain fountain) hit)
+(defmethod active-p ((fountain fountain))
   (and (<= 0.05 (timer fountain) 0.4)
        (= 0 (iframes fountain))))
+
+(defmethod collides-p (thing (fountain fountain) hit) NIL)
+(defmethod collides-p ((moving moving) (fountain fountain) hit)
+  (active-p fountain))
 
 (defmethod layer-index ((fountain fountain))
   +base-layer+)
