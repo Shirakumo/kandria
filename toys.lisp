@@ -558,7 +558,7 @@
            (let ((dir (v- target source)))
              (<= 1.0
                  (/ (v. (v- (location gate) source) dir)
-                    (max 0.001 (v2norm dir)))))))
+                    (max 0.001 (vsqrlength dir)))))))
     (ecase (state gate)
       (:closed
        (vsetf (velocity gate) 0 0)
@@ -574,7 +574,7 @@
        (cond ((reached (closed-location gate) (open-location gate))
               (vsetf (velocity gate) 0 0)
               (setf (state gate) :open))
-             ((< (v2norm (velocity gate)) 2.0)
+             ((< (vsqrlength (velocity gate)) 2.0)
               (let ((dir (nvunit (v- (open-location gate) (location gate)))))
                 (nv+ (velocity gate) (v* dir (dt ev))))))
        (nv+ (frame-velocity gate) (velocity gate)))
@@ -582,7 +582,7 @@
        (cond ((reached (open-location gate) (closed-location gate))
               (vsetf (velocity gate) 0 0)
               (setf (state gate) :closed))
-             ((< (v2norm (velocity gate)) 2.0)
+             ((< (vsqrlength (velocity gate)) 2.0)
               (let ((dir (nvunit (v- (closed-location gate) (location gate)))))
                 (nv+ (velocity gate) (v* dir (dt ev))))))
        (nv+ (frame-velocity gate) (velocity gate))))))
