@@ -81,7 +81,7 @@
                  (vsetf a
                         (+ x (* (- x (vx b)) 0.99) (* dt2 (vx g)))
                         (+ y (* (- y (vy b)) 0.99) (* dt2 (vy g))))
-                 (if (< 300 (vsqrdist2 a b))
+                 (if (< 300 (vsqrdistance a b))
                      (vsetf b (vx a) (vy a))
                      (vsetf b x y))))
              (relax (a b i)

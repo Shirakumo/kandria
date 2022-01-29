@@ -165,7 +165,7 @@
     (setf (hit-time best-hit) float-features:single-float-positive-infinity)
     (flet ((on-find (hit)
              (when (collides-p entity (hit-object hit) hit)
-               (let ((dist (vsqrdist2 (hit-location hit) (location entity))))
+               (let ((dist (vsqrdistance (hit-location hit) (location entity))))
                  (when (or (< (hit-time hit) (hit-time best-hit))
                            (and (= (hit-time hit) (hit-time best-hit))
                                 (< dist best-dist)))

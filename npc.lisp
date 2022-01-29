@@ -138,7 +138,7 @@
       (:move-to
        (cond ((path npc)
               (execute-path npc ev))
-             ((< (vsqrdist2 (location npc) (target npc)) (expt min-distance 2))
+             ((< (vsqrdistance (location npc) (target npc)) (expt min-distance 2))
               (setf (ai-state npc) :normal))
              (T
               (vsetf (location npc)
@@ -146,7 +146,7 @@
                      (vy (target npc)))
               (stop-following npc))))
       (:lead
-       (let ((distance (vsqrdist2 (location npc) (location companion))))
+       (let ((distance (vsqrdistance (location npc) (location companion))))
          (flet ((complete ()
                   (setf (companion npc) NIL)
                   (setf (path npc) ())
@@ -154,7 +154,7 @@
            (cond ((and (< (expt (* 20 +tile-size+) 2) distance)
                        (not (eq (chunk npc) (chunk companion))))
                   (setf (ai-state npc) :lead-check))
-                 ((< (vsqrdist2 (location npc) (target npc)) (expt min-distance 2))
+                 ((< (vsqrdistance (location npc) (target npc)) (expt min-distance 2))
                   (complete))
                  ((null (path npc))
                   (unless (move-to (target npc) npc)
@@ -166,7 +166,7 @@
                  (T
                   (execute-path npc ev))))))
       (:lead-check
-       (let ((distance (vsqrdist2 (location npc) (location companion))))
+       (let ((distance (vsqrdistance (location npc) (location companion))))
          (cond ((< distance (expt (* 10 +tile-size+) 2))
                 (interrupt-walk-n-talk NIL)
                 (setf (ai-state npc) :lead))
@@ -187,7 +187,7 @@
              (setf (ai-state npc) :lead)
              (setf (ai-state npc) :lead-check))))
       (:follow
-       (let ((distance (vsqrdist2 (location npc) (location companion))))
+       (let ((distance (vsqrdistance (location npc) (location companion))))
          (cond ((< distance (expt max-distance 2))
                 (setf (vx (velocity npc)) 0)
                 (setf (path npc) NIL))
@@ -196,7 +196,7 @@
                (T
                 (setf (ai-state npc) :follow-check)))))
       (:follow-check
-       (let ((distance (vsqrdist2 (location npc) (location companion))))
+       (let ((distance (vsqrdistance (location npc) (location companion))))
          (cond ((target-blocked-p companion)
                 ;; TODO: make it customisable.
                 (walk-n-talk (format NIL "~~ ~a
@@ -224,7 +224,7 @@
                 (+ (vy (location companion)) 4))
          (setf (ai-state npc) :follow)))
       (:follow-wait
-       (let ((distance (vsqrdist2 (location npc) (location companion))))
+       (let ((distance (vsqrdistance (location npc) (location companion))))
          (when (and (< distance (expt (* 3 +tile-size+) 2))
                     (not (target-blocked-p companion)))
            (setf (ai-state npc) :follow))))
@@ -495,13 +495,13 @@
      (let ((player (unit 'player T)))
        (case (name (animation npc))
          (sleep
-          (when (< (vsqrdist2 (location player) (location npc))
+          (when (< (vsqrdistance (location player) (location npc))
                    (expt (* 3 +tile-size+) 2))
             (setf (animation npc) 'wake)))
          (pet)
          (wake
           (when (< (expt (* 4 +tile-size+) 2)
-                   (vsqrdist2 (location player) (location npc)))
+                   (vsqrdistance (location player) (location npc)))
             (setf (animation npc) 'lay))))))))
 
 (defmethod interactable-p ((npc pet))

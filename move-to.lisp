@@ -346,9 +346,9 @@
                      (when (tile-type-p idx 's) (return))
                      (decf idx w)))
              (cost (a b)
-               (vsqrdist2 (from-idx a) (from-idx b)))
+               (vsqrdistance (from-idx a) (from-idx b)))
              (score (node)
-               (+ (vsqrdist2 (from-idx (move-node-to node)) (from-idx (to-idx goal)))
+               (+ (vsqrdistance (from-idx (move-node-to node)) (from-idx (to-idx goal)))
                   (etypecase node
                     (walk-node  0)
                     (inter-door-node 0)
@@ -473,7 +473,7 @@
                  (let* ((from-chunk (find-chunk (location from) region))
                         (to-chunk (find-chunk (location to) region))
                         (to-loc (first (sort (locs-with-connections to-chunk to) #'<
-                                             :key (lambda (a) (vsqrdist2 a (location to)))))))
+                                             :key (lambda (a) (vsqrdistance a (location to)))))))
                    (dolist (from-loc (locs-with-connections from-chunk from))
                      (unless (eq from-chunk to-chunk)
                        (make-chunk-node nodes
@@ -506,7 +506,7 @@
          (goal-chunk (find-chunk goal region)))
     (when (and start-chunk goal-chunk)
       (labels ((cost (a b)
-                 (vsqrdist2 (location (chunk-node-from (first (svref graph a))))
+                 (vsqrdistance (location (chunk-node-from (first (svref graph a))))
                             (location (chunk-node-from (first (svref graph b))))))
                (target (a)
                  (chunk-graph-id (chunk-node-to a)))
@@ -689,7 +689,7 @@
           (jump-node
            (if ground
                (let ((node-dist (abs (- (vx loc) (vx source))))
-                     (targ-dist (vsqrdist2 loc target)))
+                     (targ-dist (vsqrdistance loc target)))
                  (cond ((<= node-dist 8)
                         (vsetf vel (vx (jump-node-strength node)) (vy (jump-node-strength node))))
                        ((< node-dist targ-dist)
@@ -799,7 +799,7 @@
 (defun close-to-path-p (loc path threshold)
   (let ((threshold (expt threshold 2)))
     (loop for (_ target) in path
-          thereis (< (vsqrdist2 loc target) threshold))))
+          thereis (< (vsqrdistance loc target) threshold))))
 
 (defmethod move (kind (movable movable) &key strength)
   (setf (path movable)

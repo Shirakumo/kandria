@@ -17,7 +17,7 @@
   (when (active-p entity)
     (let* ((voice (voice entity))
            (max (expt (mixed:max-distance voice) 2))
-           (dist (vsqrdist2 (location entity) (location (unit 'player +world+)))))
+           (dist (vsqrdistance (location entity) (location (unit 'player +world+)))))
       (cond ((< dist (+ max 32)) ; Start a bit before the entrance to ensure we have a smooth ramp up.
              (harmony:play voice :location (location entity)))
             ((< (+ max 128) dist) ; Stop even farther out to ensure we don't accidentally flip-flop and overburden the sound server.

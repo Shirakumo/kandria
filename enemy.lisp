@@ -348,7 +348,7 @@
        (setf (ai-state enemy) (alexandria:random-elt '(:stand :stand :wander)))
        (setf (timer enemy) (+ 1.0 (random 2.0)))
        (if (eql :wander (ai-state enemy))
-           (let ((dir (polar->cartesian (vec 1.0 (random (* 2 PI))))))
+           (let ((dir (vcartesian (vec 1.0 (random (* 2 PI))))))
              (vsetf vel (vx dir) (vy dir)))
            (vsetf vel 0 0)))
       ((:stand :wander)

@@ -177,57 +177,14 @@
 (defun ~= (a b &optional (delta 1))
   (< (abs (- a b)) delta))
 
-(defun v<- (target source)
-  (etypecase source
-    (vec2 (vsetf target (vx2 source) (vy2 source)))
-    (vec3 (vsetf target (vx3 source) (vy3 source) (vz3 source)))
-    (vec4 (vsetf target (vx4 source) (vy4 source) (vz4 source) (vw4 source)))))
-
-(defun vrand (x var)
-  (etypecase var
-    (real (vec (random* (vx x) var)
-               (random* (vy x) var)))
-    (vec2 (vec (random* (vx x) (vx var))
-               (random* (vy x) (vy var))))))
-
 (defun vrandr (min max &optional (deg (* 2 PI)))
   (let ((r (+ min (random (- max min))))
         (phi (random deg)))
     (vec (* r (cos phi))
          (* r (sin phi)))))
 
-(defun nvalign (vec grid)
-  (vsetf vec
-         (* grid (floor (+ (vx vec) (/ grid 2)) grid))
-         (* grid (floor (+ (vy vec) (/ grid 2)) grid))))
-
-(defun vunit* (vec)
-  (if (v= vec 0)
-      vec
-      (vunit vec)))
-
-(defun nvunit* (vec)
-  (if (v= vec 0)
-      vec
-      (nvunit vec)))
-
-(defun vfloor (vec &optional (divisor 1))
-  (vapply vec floor divisor divisor divisor divisor))
-
-(defun vsqrlen2 (a)
-  (declare (type vec2 a))
-  (declare (optimize speed))
-  (+ (expt (vx2 a) 2)
-     (expt (vy2 a) 2)))
-
-(defun vsqrdist2 (a b)
-  (declare (type vec2 a b))
-  (declare (optimize speed))
-  (+ (expt (- (vx2 a) (vx2 b)) 2)
-     (expt (- (vy2 a) (vy2 b)) 2)))
-
 (defun within-dist-p (a b x)
-  (< (vsqrdist2 a b) (expt x 2)))
+  (< (vsqrdistance a b) (expt x 2)))
 
 (defun mindist (pos candidates)
   (loop for candidate in candidates
@@ -262,13 +219,6 @@
 
 (defun point-angle (point)
   (atan (vy point) (vx point)))
-
-(defun vrot2 (vec angle)
-  (let* ((angle (float angle 0f0))
-         (sin (sin angle))
-         (cos (cos angle)))
-    (vec (- (* (vx2 vec) cos) (* (vy2 vec) sin))
-         (+ (* (vx2 vec) sin) (* (vy2 vec) cos)))))
 
 (defun random* (x var)
   (if (= 0.0 var)
@@ -455,7 +405,7 @@
            (test-fun (etypecase thing
                        (vec2
                         (lambda (other)
-                          (< (vsqrdist2 (location other) thing) (expt 64 2))))
+                          (< (vsqrdistance (location other) thing) (expt 64 2))))
                        (vec4
                         (lambda (other)
                           (contained-p (location other) thing)))
@@ -467,7 +417,7 @@
                           (contained-p thing other)))
                        (located-entity
                         (lambda (other)
-                          (< (vsqrdist2 (location other) (location thing)) (expt 64 2))))
+                          (< (vsqrdistance (location other) (location thing)) (expt 64 2))))
                        (null
                         (lambda (other)
                           NIL)))))

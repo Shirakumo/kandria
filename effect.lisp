@@ -337,7 +337,7 @@ void main(){
                                      :offset (vec 112 96))))
     (enter flash +world+)
     (compile-into-pass flash NIL (unit 'lighting-pass +world+)))
-  (let* ((distance (expt (vsqrdist2 (location effect) (location (unit 'player T))) 0.75))
+  (let* ((distance (expt (vsqrdistance (location effect) (location (unit 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))
     (when (< 0.1 strength)
       (shake-camera :intensity strength))))
