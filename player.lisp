@@ -927,6 +927,12 @@ void main(){
        (when (and (retained 'climb)
                   (not (retained 'jump))
                   (< 0 (climb-strength player)))
+         ;; KLUDGE: need to ignore walls after hitting fountain
+         (bvh:do-fitting (entity (bvh (region +world+)) loc)
+           (when (and (typep entity 'fountain) (<= 0.05 (timer entity) 0.4))
+             (setf (svref collisions 1) NIL)
+             (setf (svref collisions 3) NIL)
+             (return T)))
          (cond ((typep (interactable player) 'rope)
                 (let* ((direction (signum (- (vx (location (interactable player))) (vx loc))))
                        (target-x (+ (vx (location (interactable player))) (* direction -8))))
@@ -948,7 +954,7 @@ void main(){
                 (return-from handle))
                ((and (retained 'down)
                      ground
-                     (null (scan-collision-for player +world+ (vec (vx (location player)) (- (vy (location player)) (vy (bsize player)) 8)))))
+                     (null (scan-collision-for player +world+ (vec (vx (location player)) (- (vy (location player)) (vy (bsize player)) 10)))))
                 (decf (vy (location player)) 4)
                 (setf (state player) :climbing)
                 (return-from handle))))
