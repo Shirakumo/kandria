@@ -116,6 +116,8 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'lantern)))
 
+(defmethod layer-index ((lantern lantern)) (1- +base-layer+))
+
 (defmethod velocity ((lantern lantern)) #.(vec 0 0))
 
 (defmethod collides-p ((lantern lantern) thing hit) NIL)
