@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass main (org.shirakumo.fraf.trial.steam:main
-                org.shirakumo.fraf.trial.notify:main)
+                org.shirakumo.fraf.trial.notify:main
+                org.shirakumo.fraf.trial.harmony:main)
   ((scene :initform NIL)
    (state :initform NIL :accessor state)
    (timestamp :initform (get-universal-time) :accessor timestamp)
@@ -13,11 +14,9 @@
    :context '(:version (3 3) :profile :core :title "Kandria")
    :app-id 1261430))
 
-(defmethod initialize-instance ((main main) &key app-id world state audio-backend)
+(defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))
-  (setf +main+ main)
   (call-next-method)
-  (setf +input-source+ :keyboard)
   (etypecase state
     (null)
     (save-state
@@ -27,20 +26,19 @@
     ((eql T)
      (setf (state main) (first (list-saves)))))
   (with-packet (packet (or world (pathname-utils:subdirectory (root) "world")) :direction :input)
-    (setf (scene main) (make-instance 'world :packet packet)))
-  (flet ((start (drain)
-           (harmony:start (harmony:make-simple-server :name "Kandria" :latency (setting :audio :latency)
-                                                      :mixers '(:music :speech (:effect mixed:plane-mixer))
-                                                      :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass)
-                                                                 (mixed:speed-change :name :speed))
-                                                      :drain drain))))
-    (handler-case (with-error-logging (:kandria "Failed to set up sound, falling back to dummy output.")
-                    (start (or audio-backend (setting :audio :backend) :default)))
-      (error () (start :dummy))))
+    (setf (scene main) (make-instance 'world :packet packet))))
+
+(defmethod initialize-instance :after ((main main) &key)
   (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
   (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
   (loop for (k v) on (setting :audio :volume) by #'cddr
         do (setf (harmony:volume k) v)))
+
+(defmethod trial-harmony:server-initargs append ((main main))
+  (list :latency (setting :audio :latency)
+        :mixers '(:music :speech (:effect mixed:plane-mixer))
+        :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass)
+                   (mixed:speed-change :name :speed))))
 
 (defmethod initialize-instance :after ((main main) &key region)
   (when region
@@ -67,11 +65,7 @@
   (setf +world+ scene))
 
 (defmethod finalize :after ((main main))
-  (setf +world+ NIL)
-  (when harmony:*server*
-    (harmony:free harmony:*server*))
-  (setf harmony:*server* NIL)
-  (setf +main+ NIL))
+  (setf +world+ NIL))
 
 (defmethod save-state ((main main) (state (eql T)) &rest args)
   (unless (state main)
@@ -201,14 +195,16 @@ Possible sub-commands:
     (save-settings)
     (manage-swank)
     (apply #'trial:launch 'main
-           :context (list :width (first (setting :display :resolution))
-                          :height (second (setting :display :resolution))
-                          :vsync (setting :display :vsync)
-                          :fullscreen (setting :display :fullscreen)
-                          :title "Kandria"
-                          :version '(3 3)
-                          :profile :core)
-           (append (setting :debugging :initargs) initargs))))
+           (append (setting :debugging :initargs)
+                   initargs
+                   (list :context (list :width (first (setting :display :resolution))
+                                        :height (second (setting :display :resolution))
+                                        :vsync (setting :display :vsync)
+                                        :fullscreen (setting :display :fullscreen)
+                                        :title "Kandria"
+                                        :version '(3 3)
+                                        :profile :core)
+                         :audio-backend (setting :audio :backend))))))
 
 (defmethod setup-scene ((main main) (scene world))
   (enter (make-instance 'camera) scene)

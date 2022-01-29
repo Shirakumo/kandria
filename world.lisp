@@ -166,16 +166,6 @@
         (setf (update-timer world) 0.2)
         (quest:try (storyline world))))))
 
-(defmethod handle :after ((ev keyboard-event) (world world))
-  (setf +input-source+ :keyboard))
-
-(defmethod handle :after ((ev gamepad-press) (world world))
-  (setf +input-source+ (device ev)))
-
-(defmethod handle :after ((ev gamepad-move) (world world))
-  (when (< 0.1 (pos ev))
-    (setf +input-source+ (device ev))))
-
 (defmethod handle :after ((ev switch-chunk) (world world))
   (when (language-string (name (chunk ev)) NIL)
     (location-info (language-string (name (chunk ev))))))

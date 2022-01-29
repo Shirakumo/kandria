@@ -5,8 +5,6 @@
 (define-global +base-layer+ 2)
 (define-global +tiles-in-view+ (vec2 40 26))
 (define-global +world+ NIL)
-(define-global +main+ NIL)
-(define-global +input-source+ :keyboard)
 (define-global +app-system+ "kandria")
 (define-global +settings+
     (copy-tree '(:audio (:latency 0.02
@@ -137,13 +135,6 @@
             (T
              (format out "~d:~2,'0d" minutes seconds))))))
 
-(defun find-new-directory (dir base)
-  (loop for i from 0
-        for sub = dir then (format NIL "~a-~d" dir i)
-        for path = (pathname-utils:subdirectory base sub)
-        do (unless (uiop:directory-exists-p path)
-             (return path))))
-
 (defun parse-sexps (string)
   (with-trial-io-syntax (#.*package*)
     (loop with eof = (make-symbol "EOF")
@@ -171,7 +162,7 @@
   (when +world+
     (unit thing +world+)))
 
-(declaim (inline v<- vrand vrandr nvalign vfloor vsqrlen2 vsqrdist2 within-dist-p closer
+(declaim (inline within-dist-p closer
                  invclamp absinvclamp point-angle random* intersection-point ~=))
 
 (defun ~= (a b &optional (delta 1))
@@ -250,36 +241,6 @@
                 (+ (vy2 b) (vy2 bs)))))
     (vec2 (/ (+ l r) 2)
           (/ (+ b u) 2))))
-
-(defun initarg-slot (class initarg)
-  (let ((class (etypecase class
-                 (class class)
-                 (symbol (find-class class)))))
-    (find (list initarg) (c2mop:class-slots class)
-          :key #'c2mop:slot-definition-initargs
-          :test #'subsetp)))
-
-(defmethod parse-string-for-type (string type)
-  (read-from-string string))
-
-(defmethod parse-string-for-type (string (type (eql 'vec2)))
-  (with-input-from-string (stream string)
-    (vec2 (read stream) (read stream))))
-
-(defmethod parse-string-for-type (string (type (eql 'vec3)))
-  (with-input-from-string (stream string)
-    (vec3 (read stream) (read stream) (read stream))))
-
-(defmethod parse-string-for-type (string (type (eql 'asset)))
-  (with-input-from-string (stream string)
-    (asset (read stream) (read stream) T)))
-
-(defmethod parse-string-for-type :around (string type)
-  (let ((value (call-next-method)))
-    (with-new-value-restart (value) (new-value "Specify a new value")
-      (unless (typep value type)
-        (error 'type-error :expected-type type :datum value)))
-    value))
 
 (defclass solid () ())
 (defclass half-solid (solid) ())
@@ -429,43 +390,6 @@
          (b (- 1.0 a)))
     (+ (* target b) (* current a))))
 
-(defgeneric clone (thing &key &allow-other-keys))
-
-(defmethod clone (thing &key)
-  thing)
-
-(defmethod clone ((vec vec2) &key) (vcopy2 vec))
-(defmethod clone ((vec vec3) &key) (vcopy3 vec))
-(defmethod clone ((vec vec4) &key) (vcopy4 vec))
-(defmethod clone ((mat mat2) &key) (mcopy2 mat))
-(defmethod clone ((mat mat3) &key) (mcopy3 mat))
-(defmethod clone ((mat mat4) &key) (mcopy4 mat))
-(defmethod clone ((mat matn) &key) (mcopyn mat))
-
-(defmethod clone ((cons cons) &key)
-  (cons (clone (car cons)) (clone (cdr cons))))
-
-(defmethod clone ((array array) &key)
-  (if (array-has-fill-pointer-p array)
-      (make-array (array-dimensions array)
-                  :element-type (array-element-type array)
-                  :adjustable (adjustable-array-p array)
-                  :fill-pointer (fill-pointer array)
-                  :initial-contents array)
-      (make-array (array-dimensions array)
-                  :element-type (array-element-type array)
-                  :adjustable (adjustable-array-p array)
-                  :initial-contents array)))
-
-(defmethod clone ((entity entity) &rest initargs)
-  (let ((initvalues ()))
-    (loop for initarg in (initargs entity)
-          for slot = (initarg-slot (class-of entity) initarg)
-          do (when slot
-               (push (clone (slot-value entity (c2mop:slot-definition-name slot))) initvalues)
-               (push initarg initvalues)))
-    (apply #'make-instance (class-of entity) (append initargs initvalues (when (name entity) (list :name (generate-name (type-of entity))))))))
-
 (defun sigdist-rect (loc bsize x)
   (declare (type vec2 x loc bsize))
   (declare (optimize speed))
@@ -545,11 +469,6 @@
 
 (defun mouse-tile-pos (pos)
   (nvalign (mouse-world-pos (v- pos (/ +tile-size+ 2))) +tile-size+))
-
-(defun generate-name (&optional indicator)
-  (loop for name = (format NIL "~a-~d" (or indicator "ENTITY") (incf *gensym-counter*))
-        while (find-symbol name #.*package*)
-        finally (return (intern name #.*package*))))
 
 (defclass request-region (event)
   ((region :initarg :region :reader region)))

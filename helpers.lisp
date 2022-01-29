@@ -13,9 +13,6 @@
 (define-asset (kandria placeholder) image
     #p"placeholder.png")
 
-(defgeneric initargs (object)
-  (:method-combination append :most-specific-last))
-
 (defclass collider () ())
 
 (defmethod (setf location) :after (loc (collider collider))
