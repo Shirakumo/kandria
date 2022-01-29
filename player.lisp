@@ -839,7 +839,8 @@ void main(){
                                 (and (typep attached 'rope)
                                      (< (+ (vy (location attached)) (vy (bsize attached))) (vy loc))))
                             (null (scan-collision-for player +world+ (tv+ offset #.(vec 0 40))))
-                            (null ledge))
+                            (null ledge)
+                            (null (retained 'jump)))
                        (start-animation 'climb-ledge player))
                       (T
                        (unless (typep attached 'rope)
