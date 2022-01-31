@@ -421,21 +421,21 @@
 
 (define-shader-entity innis (npc creatable)
   ((name :initform 'innis)
-   (profile-sprite-data :initform (asset 'kandria 'fi-profile))
+   (profile-sprite-data :initform (asset 'kandria 'innis-profile))
    (nametag :initform (@ innis-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'innis)))
    
 (define-shader-entity islay (npc creatable)
   ((name :initform 'islay)
-   (profile-sprite-data :initform (asset 'kandria 'fi-profile))
+   (profile-sprite-data :initform (asset 'kandria 'islay-profile))
    (nametag :initform (@ islay-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'islay)))
    
 (define-shader-entity alex (npc creatable)
   ((name :initform 'alex)
-   (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
+   (profile-sprite-data :initform (asset 'kandria 'alex-profile))
    (nametag :initform (@ alex-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'alex)))
