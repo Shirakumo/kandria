@@ -69,7 +69,6 @@
 |   | I wasn't on the surface - (:unhappy)few of us were, that's why we're still here.
 |   | (:normal)But I don't see how that would've been possible.
 |   | And even if androids did, I doubt very much it was their own doing. No.
-|   | No one destroyed humanity except humanity.
 |   < talk
 | - That'll do.
 |   < leave
