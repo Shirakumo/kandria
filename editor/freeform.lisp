@@ -10,7 +10,7 @@
 (defmethod handle ((event mouse-press) (tool freeform))
   (let ((entity (entity tool)))
     (cond ((retained :control)
-           (let ((new (vcopy (mouse-world-pos (pos event))))
+           (let ((new (closest-acceptable-location (entity tool) (vcopy (mouse-world-pos (pos event)))))
                  (old (vcopy (location entity))))
              (with-commit (tool)
                ((setf (location entity) new))

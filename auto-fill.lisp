@@ -128,6 +128,10 @@
     (:vb
      _ s _
      o s o
+     _ o _)
+    (:c
+     _ o _
+     o s o
      _ o _)))
 
 (declaim (inline tile-type-p))
@@ -223,8 +227,8 @@
           (20 (setf (tile x y) :spike-l))
           (22
            (let ((mindist 100))
-             (loop for dy from -3 to +3
-                   do (loop for dx from -3 to +3
+             (loop for dy from -5 to +5
+                   do (loop for dx from -5 to +5
                             do (when (< 0 (tile (+ x dx) (+ y dy)) 22)
                                  (setf mindist (min mindist (sqrt (+ (* dx dx) (* dy dy))))))))
              (setf (tile x y T) (round mindist)))))))))

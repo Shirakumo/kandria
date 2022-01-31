@@ -383,8 +383,7 @@ void main(){
 
 (defmethod render :after ((sting sting-effect) program)
   (when (<= (decf (fc sting)) 0)
-    (let ((*scene* +world+))
-      (leave* sting T))))
+    (leave* sting T)))
 
 (defmethod layer-index ((effect sting-effect)) 2)
 

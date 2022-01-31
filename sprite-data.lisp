@@ -145,7 +145,7 @@
       (when (or force (recompile-needed-p (list albedo animation-data)
                                           (list source-file path)))
         (when (string= "ase" (pathname-type source-file))
-          (v:info :kandria.resources "Compiling spritesheet from ~a..." source)
+          (v:info :kandria.resources "Compiling spritesheet from ~a..." source-file)
           (aseprite "--sheet-pack"
                     "--trim"
                     "--shape-padding" "1"
@@ -154,7 +154,7 @@
                     "--filename-format" "{tagframe} {tag}"
                     "--list-tags"
                     "--data" animation-data
-                    source)
+                    source-file)
           ;; Make sure we have LF.
           (re-encode-json animation-data)
           ;; Convert palette colours

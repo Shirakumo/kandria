@@ -192,8 +192,7 @@
   (load-region (name (unit 'region world)) world))
 
 (defmethod load-region :around ((packet packet) (world world))
-  (let ((old-region (unit 'region world))
-        (*scene* world))
+  (let ((old-region (unit 'region world)))
     (restart-case
         (call-next-method)
       (abort ()

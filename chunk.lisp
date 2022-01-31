@@ -314,7 +314,7 @@ void main(){
 
 (defmethod enter* :before ((chunk chunk) container)
   (loop for layer across (layers chunk)
-        do (compile-into-pass layer (or (preceding-entity layer container) container) *scene*)))
+        do (compile-into-pass layer (or (preceding-entity layer container) container) +world+)))
 
 (defmethod remove-from-pass :after ((chunk chunk) (pass shader-pass))
   (loop for layer across (layers chunk)
@@ -541,7 +541,10 @@ void main(){
 (defmethod closest-acceptable-location ((entity chunk) location)
   (loop for i from 0
         for closest = NIL
-        do (for:for ((other over (region +world+)))
+        do (bvh:do-fitting (other (bvh (region +world+)) (vec4 (- (vx location) (vx (bsize entity)))
+                                                               (- (vy location) (vy (bsize entity)))
+                                                               (+ (vx location) (vx (bsize entity)))
+                                                               (+ (vy location) (vy (bsize entity)))))
              (when (and (typep other 'chunk)
                         (not (eq other entity))
                         (contained-p (vec4 (vx location) (vy location) (vx (bsize entity)) (vy (bsize entity))) other))
