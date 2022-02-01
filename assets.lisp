@@ -23,6 +23,7 @@
 
 (define-track menu #p"menu.oga")
 (define-track scare #p"scare.oga")
+(define-track bar #p"bar.oga")
 
 (define-asset (music music/region1) trial-harmony:environment
     '((:normal "region1 medium.oga")
@@ -229,6 +230,14 @@
   :light (vec 1.5 1 0.5)
   :ambient-multiplier 0.2
   :ambient (vec 0.5 0.4 0.4))
+
+(define-gi light
+  :attenuation 1.0
+  :location 'player
+  :light-multiplier 0.2
+  :light (vec 1.5 1 0.5)
+  :ambient-multiplier 2.0
+  :ambient (vec 0.5 0.5 0.6))
 
 (define-gi mushrooms
   :attenuation 0.5
