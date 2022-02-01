@@ -43,7 +43,7 @@
     :dialogue "
 ~ player
 | \"Here's the \"first\"(red) CCTV camera.\"(light-gray, italic)
-| \"The lens is smashed and the casing is charred like there was a fire.\"(light-gray, italic)
+| \"The lens is smashed and the casing is charred from a fire.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
 | | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteur.\"(light-gray, italic)
@@ -110,7 +110,7 @@
 ~ player
 | \"Here's the \"fourth\"(red) CCTV camera.\"(light-gray, italic)
 | (:thinking)\"The wiring has been cut, but otherwise it seems in good working order.\"(light-gray, italic)
-| (:skeptical)\"But without the others daisy-chained in sequence, it still won't work.\"(light-gray, italic)
+| (:skeptical)\"But without the others daisy-chained in sequence, it still wouldn't work.\"(light-gray, italic)
 | (:normal)\"I should tell Innis about the cut wires. Accessing FFCS protocols...\"(light-gray, italic)
 | Hello, Innis.
 ~ innis
@@ -128,9 +128,9 @@
   ~ innis
   | (:sly)I wouldnae have been very good at my old job if I didnae ken it.
 ~ player
-| The power line to one of the cameras has been cut. By hand.
+| The power line to one of the cameras has been cut by hand.
 ~ innis
-| (:angry)Then we have a \"saboteur\"(orange). (:sly)Probably a sly Cerebat spy, watching you right now.
+| (:angry)Then we have a \"saboteur\"(orange). (:sly)Maybe a sly Cerebat spy, watching you right now.
 | (:angry)\"Find them and bring them to me.\"(orange)
 ! eval (activate 'q5b-boss)
 ~ player
@@ -168,7 +168,7 @@
 ~ innis
 | (:thinking)They also don't make aggressive moves like crossing our border.
 | ...
-| (:angry)I think we might have a problem. A mutual problem.
+| (:angry)I think we might have a problem. A mutual problem:
 | The Wraw.
 | They've been other signs lately. Islay warned me about this.
 | Fuck.
@@ -177,7 +177,7 @@
 ? (complete-p 'q5a-rescue-engineers)
 | ~ innis
 | | Perhaps you should \"return to Fi\"(orange).
-| | It's a pity you couldnae persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
+| | It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
 | | I suppose androids cannae do everything.
 | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | (:sly)If she disagrees tell her I'll shut the water off.
