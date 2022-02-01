@@ -12,7 +12,7 @@
    (setf (walk 'islay) T)
    (move-to 'alex (unit 'islay)))
   ;;(:eval (ensure-nearby 'alex 'islay))
-  (:eval (follow 'player 'islay)) (:nearby (player islay))
+   (:go-to (islay :follow islay))
   (:interact (islay :now T)
    "
 ~ islay
