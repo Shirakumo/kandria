@@ -6,6 +6,12 @@
    (palette-index :initarg :palette-index :initform 0 :accessor palette-index
                   :type integer)))
 
+;; FIXME: auto-fill palette...
+#++
+(defmethod observe-generation :after ((sprite paletted-entity) (data sprite-data) result)
+  (when (palette sprite)
+    ()))
+
 (defmethod stage :after ((entity paletted-entity) (area staging-area))
   (stage (palette entity) area))
 

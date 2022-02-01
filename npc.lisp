@@ -471,16 +471,24 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-hunter)))
 
-(define-shader-entity villager (roaming-npc creatable)
+(define-shader-entity villager (paletted-entity roaming-npc creatable)
   ((name :initform (generate-name "VILLAGER"))
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
-   (nametag :initform (@ villager-nametag)))
-  (:default-initargs
-   :sprite-data (alexandria:random-elt
-                 (list (asset 'kandria 'villager-male)
-                       (asset 'kandria 'villager-female)))))
+   (nametag :initform (@ villager-nametag))))
+
+(defmethod initialize-instance :before ((villager villager) &key)
+  (case (random 2)
+    (0
+     (setf (slot-value villager 'trial:sprite-data) (asset 'kandria 'villager-male))
+     (setf (palette villager) (// 'kandria 'villager-male-palette)))
+    (1
+     (setf (slot-value villager 'trial:sprite-data) (asset 'kandria 'villager-female))
+     (setf (palette villager) (// 'kandria 'villager-female-palette))))
+  (setf (palette-index villager) (random 4)))
 
 (defmethod stage :after ((villager villager) (area staging-area))
+  (stage (// 'kandria 'villager-male-palette) area)
+  (stage (// 'kandria 'villager-female-palette) area)
   (stage (// 'kandria 'villager-male 'vertex-array) area)
   (stage (// 'kandria 'villager-male 'texture) area)
   (stage (// 'kandria 'villager-female 'vertex-array) area)
