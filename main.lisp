@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass main (org.shirakumo.fraf.trial.steam:main
-                org.shirakumo.fraf.trial.notify:main
+                #-kandria-release org.shirakumo.fraf.trial.notify:main
                 org.shirakumo.fraf.trial.harmony:main)
   ((scene :initform NIL)
    (state :initform NIL :accessor state)

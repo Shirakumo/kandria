@@ -112,7 +112,8 @@
                      (when (< (clock npc) 0.01)
                        (trigger 'slide npc :direction +1)))
                     (T
-                     (setf (animation npc) 'fall))))
+                     (ignore-errors
+                      (setf (animation npc) 'fall)))))
              ((< (p! slowwalk-limit) (abs (vx vel)))
               (setf (playback-speed npc) (/ (abs (vx vel)) (p! walk-limit)))
               (setf (animation npc) 'run))
@@ -285,6 +286,8 @@
 
 (define-shader-entity roaming-npc (npc)
   ((roam-time :initform (random* 5.0 2.0) :accessor roam-time)))
+
+(defmethod collides-p ((npc roaming-npc) (block stopper) hit) T)
 
 (defmethod minimum-idle-time ((npc roaming-npc)) 5)
 
@@ -475,6 +478,11 @@
   (stage (// 'kandria 'villager-male 'texture) area)
   (stage (// 'kandria 'villager-female 'vertex-array) area)
   (stage (// 'kandria 'villager-female 'texture) area))
+
+(define-random-draw bar
+  (villager 1.0)
+  (semi-engineer 0.2)
+  (cerebat-trader 0.1))
 
 (define-shader-entity pet (animatable ephemeral interactable)
   ())

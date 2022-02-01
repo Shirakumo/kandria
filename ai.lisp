@@ -28,3 +28,6 @@
 (defgeneric handle-ai-states (entity ev))
 
 (defmethod handle-ai-states ((immovable immovable) ev))
+
+(defmethod spawn :before (thing (entity ai-entity) &key)
+  (place-on-ground entity (location entity)))
