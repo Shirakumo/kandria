@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q5a-rescue-engineers)
   :author "Tim White"
   :title "Rescue Engineers"
-  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel."
+  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory."
   :on-activate (q5a-task-reminder q5a-task-engineers q5a-task-return-engineers)
  
  (q5a-task-reminder
@@ -24,7 +24,7 @@
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (q5a-task-engineers
-   :title "Find the trapped engineers in the upper-west of Semi Sisters territory."
+   :title "Find the trapped engineers"
    :condition (complete-p 'q5a-task-return-engineers)
    :on-activate T   
    (:interaction q5a-engineers
@@ -79,7 +79,7 @@
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
-| | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already started the journey home. Thank you.
+| | | I don't believe you got through... Now food and medical supplies can get through too. Thank you.
 | | | We can resume our task. It'll be slow-going, but we'll get it done.
 ! eval (deactivate 'q5a-task-reminder)
 ! eval (complete task)
@@ -97,7 +97,7 @@
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
 | ~ innis
-| | They aren't back yet. \"They cannae come home with that debris blocking their path\"(orange).
+| | They aren't back yet - you need to help them. They're in the \"upper-west of our territory\"(orange).
 |?
 | ~ innis
 | | (:pleased)The injured are already on their way back - I've sent hunters to guide them.
@@ -111,8 +111,8 @@
 |   | I believe you did. Your fusion reactor could generate the necessary force, and your nanotube muscles would withstand the impact.
 | - Wouldn't you like to know.
 |   ~ innis
-|   | (:sly)I would indeed. Don't worry, things don't remain secret 'round here very long.
-|   | I suspect the combination of fusion reactor and nanotube muscles makes you quite formidable.
+|   | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
+|   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 | ~ innis
 | | There's something else...
 | | My sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you access to the metro.
@@ -126,7 +126,7 @@
 | ? (complete-p 'q5b-investigate-cctv)
 | | ~ innis
 | | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
-| | | (:normal)It's a pity you couldnae persuade Alex to return. (:sly)I'd love to see the look on Fi's face when you tell her.
+| | | (:normal)It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
 | | | I suppose androids cannae do everything.
 | | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | | (:sly)If she disagrees tell her I'll shut the water off.
