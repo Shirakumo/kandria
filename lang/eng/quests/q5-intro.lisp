@@ -19,7 +19,7 @@
   | (:pleased)Now that's more like it.
 - I found Alex.
   ~ innis
-  | (:sly)Aye. It was hardly a challenge though really, was it?
+  | (:sly)Aye. It was hardly a challenge though, was it?
   | I take it Islay filled you in about the jobs? Those are real challenges.
 ~ innis
 | (:angry)They'd have been sorted ages ago if Alex wasn't propping up the bar.

@@ -349,7 +349,7 @@
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
-| | | (:normal)I can't believe you got through... Now food and medical supplies can get through too, and the injured have already started the journey home. Thank you.
+| | | I don't believe you got through... Now food and medical supplies can get through too. Thank you.
 | | | We can resume our task. It'll be slow-going, but we'll get it done.
 ? (active-p (find-task 'q5a-rescue-engineers 'q5a-task-engineers))
 | ! eval (complete (find-task 'q5a-rescue-engineers 'q5a-task-engineers))

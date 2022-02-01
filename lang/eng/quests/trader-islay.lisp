@@ -58,9 +58,10 @@
 |   < talk
 | - Can you read my black box?
 |   ~ islay
-|   | You're curious if you betrayed the Noka.
+|   | You're wondering if you betrayed the Noka.
 |   | We know a lot about you - but no, we can't read your black box. No one can any more. I'm sorry.
 |   | (:nervous)I saw what happened with the servo robots - whether they acted independently, or were being controlled, it's hard to say.
+|   | An android could certainly do that though.
 |   < talk
 | - What do you remember from before the Calamity?
 |   ~ islay
