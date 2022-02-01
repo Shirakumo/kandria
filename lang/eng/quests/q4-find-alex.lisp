@@ -35,6 +35,13 @@
 | Did you think ya could just waltz right through here?
 | (:sly)We've been watching you, android. You and your wee excursions with Catherine.
 | And now you've come to visit us. How thoughtful.
+~ player
+- Who are you?
+  ~ innis
+  | Alas, not too smart...
+- What do you want?
+~ innis
+| (:sly)I'll ask the questions, if you dinnae mind.
 | (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, sister?
 ~ islay
@@ -180,7 +187,7 @@ dinnae = don't (Scottish)
 TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be questionined if they are Alex, as a variant on their world-building dialogue.
 |#
   (find-alex-semis
-   :title "Search near the women that stopped you for any sign of Alex"
+   :title "Search near the women that stopped me for any sign of Alex"
    :description NIL
    :invariant T
    :condition (complete-p 'alex-meet)
@@ -245,8 +252,6 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ alex
   | (:unhappy)<-Hic->. I know. You're the new hunter.
   | The android.
-~ player
-| Correct.
 ~ alex
 | (:unhappy)Lemme save you some trouble. I ain't going back.
 ~ player
@@ -290,11 +295,11 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   | | (:embarassed)\"//I don't have enough scrap for that. Now the barkeep's scowling at me too.//\"(light-gray)
 - (Leave them be)
 ~ player
-| \"//Alex looks me up and down, though seems to lose sight of me for a moment, before squinting and settling on me again. They seem surprised I'm still here.//\"(light-gray)
+| \"//Alex looks me up and down, though seems to lose focus for a moment, before squinting and settling on me again. They seem surprised I'm still here.//\"(light-gray)
 ~ alex
 | You're a stenacious bunch aren't ya, you androids. <-Hic->.
 ~ player
-- Did you learn anything at all from the Cerebats?
+- Did you learn anything from the Cerebats?
   ~ alex
   | (:proud)I learned where all the tunnels go. <-Hic->. Mapped that whole area, an' the one below that.
 - Where have you been all this time?

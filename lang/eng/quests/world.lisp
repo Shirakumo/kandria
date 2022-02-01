@@ -258,7 +258,7 @@
 ~ player
 | \"//That is quite the view.//\"(light-gray)
 | \"//The desert is bordered by mountains on all sides.//\"(light-gray)
-| \"//Judging by the cloud formations, and if I recall correctly, there's an ocean beyond the range to the east.//\"(light-gray)
+| \"//Judging by the cloud formations - and if I recall correctly - there's an ocean beyond the range to the east.//\"(light-gray)
 ")
 
   ;; Farm - transition/view

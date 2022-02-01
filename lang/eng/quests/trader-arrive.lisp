@@ -62,8 +62,7 @@
 
 ~ trader
 | The least I can do is help keep you in tip-top condition.
-| I've heard about androids - you're different to those servos on pretty much every level.
-| You've a lot more going on up here, that's for sure.
+| I've heard about androids - you're different to those servos. You've a lot more going on up here, that's for sure.
 ~ player
 | \"//Sahil taps his fingers on his temple.//\"(light-gray)
 ~ trader
@@ -235,10 +234,10 @@
 |   ~ trader
 |   | (:concerned)...
 |   | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
-|   | (:normal)Her name was Khawla - I think I told you that before.
+|   | (:normal)Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as Catherine.
 |   | I lost her on the roads, just like Celina, my oxen.
 |   | (:sad)'Cept it wasn't wolves for her. It was people.
-|   | Rogues, I think. Maybe a Wraw patrol. I wasn't really in a fit state to see who they were.
+|   | Rogues, I think. Maybe a Wraw hunting pack. I wasn't really in a fit state to see who they were.
 |   | They took her, anyway. And I never saw her again.
 |   ~ player
 |   - I'm so sorry.

@@ -366,7 +366,7 @@
 | (:concerned)He's overdue, which is not like him at all. Maybe those servos scared him off.
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us!
 | (:normal)Well, I've got work to do.
-| Couldn't hurt to check in with Fi. I'm sure there's something you could help with, to show her you can be trusted.
+| Couldn't hurt to check in with Fi. I'm sure there's something you could help her with, to show you can be trusted.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
 | But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
 | (:excited)Take a look around and \"explore\"(orange)!

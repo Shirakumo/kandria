@@ -90,7 +90,7 @@
 | You can stay put and man Engineering. \"Fi and the others\"(yellow) might need you.
 | I'm goin' down there to check the supply pipe.
 ~ catherine
-| You can't - not with your leg. And you know there's nothing I can't fix. Let me go.
+| You can't - not with your leg. And you know there's nothing I can't fix.
 ~ jack
 | No way. It's too dangerous.
 ~ catherine
