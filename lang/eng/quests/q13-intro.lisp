@@ -7,6 +7,10 @@
   :description "I need to meet Islay, Fi and Catherine in Engineering, probably to talk about the bomb."
   :variables (brave)
   ;; TODO need to ensure islay in engineering before this triggers, otherwise there's only Catherine there
+  (:eval
+   (setf (walk 'islay) T)
+   (setf (walk 'fi) T)
+   (move-to 'eng-cath (unit 'fi)))
   (:go-to (eng-cath :with islay)
    :title "Meet Islay in Engineering")
   (:interact (islay :now T)

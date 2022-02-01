@@ -195,8 +195,5 @@
 ! eval (deactivate 'task-reminder)
 ! eval (complete 'q12-help-alex)
 ! eval (activate 'q13-intro)
-! eval (setf (walk 'islay) T)
-! eval (setf (walk 'fi) T)
-! eval (move-to 'eng-cath (unit 'fi))
 ")))
 ;; TODO need to space fi, catherine, islay further apart here, for different chats once q13 starts
