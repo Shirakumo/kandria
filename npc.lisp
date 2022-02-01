@@ -464,6 +464,13 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-engineer)))
 
+(define-shader-entity villager-hunter (roaming-npc creatable)
+  ((name :initform (generate-name "HUNTER"))
+   (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
+   (nametag :initform (@ semi-engineer-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'villager-hunter)))
+
 (define-shader-entity villager (roaming-npc creatable)
   ((name :initform (generate-name "VILLAGER"))
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
@@ -481,6 +488,7 @@
 
 (define-random-draw bar
   (villager 1.0)
+  (villager-hunter 0.3)
   (semi-engineer 0.2)
   (cerebat-trader 0.1))
 
