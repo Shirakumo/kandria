@@ -125,6 +125,7 @@
     (when state
       (submit-trace state))))
 
+#-kandria-demo
 (define-cheat (developer |i am a developer|)
   (setf (setting :debugging :show-debug-settings) T))
 
@@ -133,6 +134,7 @@
     (when (typep unit 'chunk)
       (setf (unlocked-p unit) T))))
 
+#-kandria-demo
 (define-cheat (unlock-fast-travel |lots and lots of trains|)
   (for:for ((unit over (region +world+)))
     (when (typep unit 'station)

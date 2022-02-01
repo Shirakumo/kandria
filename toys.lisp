@@ -589,3 +589,28 @@
 
 (defmethod handle ((ev switch-chunk) (gate gate))
   (setf (state gate) (state gate)))
+
+(define-shader-entity demo-blocker (lit-animated-sprite solid ephemeral collider creatable)
+  ((bsize :initform (vec 40 64))
+   (name :initform NIL)
+   (cooldown :initform 0.0 :accessor cooldown))
+  (:default-initargs :sprite-data (asset 'kandria 'demo-blocker)))
+
+(defmethod velocity ((blocker demo-blocker))
+  #.(vec 0 0))
+
+(defmethod layer-index ((blocker demo-blocker))
+  (1+ +base-layer+))
+
+(defmethod collides-p ((moving moving) (blocker blocker) hit)
+  #-kandria-demo NIL
+  #+kandria-demo T)
+
+(defmethod collide :after ((player player) (blocker demo-blocker) hit)
+  (setf (slot-value blocker 'animation) (aref (animations blocker) 1))
+  (setf (cooldown blocker) 1.0))
+
+(defmethod handle :after ((ev tick) (blocker demo-blocker))
+  (when (< 0.0 (cooldown blocker))
+    (when (< (decf (cooldown blocker) (dt ev)) 0.0)
+      (setf (slot-value blocker 'animation) (aref (animations blocker) 0)))))
