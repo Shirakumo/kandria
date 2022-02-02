@@ -270,6 +270,11 @@ Possible sub-commands:
     (loop for (k v) on value by #'cddr
           do (setf (harmony:volume k) v))))
 
+(define-setting-observer audio-device :audio :device (value)
+  (when harmony:*server*
+    (harmony:with-server ()
+      (setf (mixed:device (harmony:segment :drain (harmony:segment :output T))) value))))
+
 (define-setting-observer video :display (value)
   (apply-video-settings value))
 
