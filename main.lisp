@@ -2,7 +2,7 @@
 
 (defclass main (org.shirakumo.fraf.trial.steam:main
                 #-kandria-release org.shirakumo.fraf.trial.notify:main
-                org.shirakumo.fraf.trial.harmony:main)
+                org.shirakumo.fraf.trial.harmony:settings-main)
   ((scene :initform NIL)
    (state :initform NIL :accessor state)
    (timestamp :initform (get-universal-time) :accessor timestamp)
@@ -30,14 +30,10 @@
 
 (defmethod initialize-instance :after ((main main) &key)
   (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
-  (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
-  (loop for (k v) on (setting :audio :volume) by #'cddr
-        do (setf (harmony:volume k) v)))
+  (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+))))
 
 (defmethod trial-harmony:server-initargs append ((main main))
-  (list :latency (setting :audio :latency)
-        :device (setting :audio :device)
-        :mixers '(:music :speech (:effect mixed:plane-mixer))
+  (list :mixers '(:music :speech (:effect mixed:plane-mixer))
         :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass)
                    (mixed:speed-change :name :speed))))
 
@@ -265,27 +261,6 @@ Possible sub-commands:
       (show *context* :fullscreen fullscreen :mode resolution)
       (setf (vsync *context*) vsync)
       (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale))))
-
-(define-setting-observer volumes :audio :volume (value)
-  (when harmony:*server*
-    (loop for (k v) on value by #'cddr
-          do (setf (harmony:volume k) v))))
-
-(define-setting-observer audio-device :audio :device (value)
-  (when harmony:*server*
-    (let* ((seg (harmony:segment :drain (harmony:segment :output T)))
-           (prev (mixed:device seg))
-           (success NIL))
-      (harmony:with-server (harmony:*server* :synchronize T)
-        (handler-case
-            (progn (setf (mixed:device seg) value)
-                   (setf success T))
-          (error ()
-            (setf (mixed:device seg) prev))))
-      (unless success
-        (setf (setting :audio :device) prev)
-        (show (make-instance 'info-panel :text (@ audio-output-device-failed))
-              :width (alloy:vw 0.5) :height (alloy:vh 0.5))))))
 
 (define-setting-observer video :display (value)
   (apply-video-settings value))
