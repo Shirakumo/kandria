@@ -36,6 +36,7 @@
 
 (defmethod trial-harmony:server-initargs append ((main main))
   (list :latency (setting :audio :latency)
+        :device (setting :audio :device)
         :mixers '(:music :speech (:effect mixed:plane-mixer))
         :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass)
                    (mixed:speed-change :name :speed))))
@@ -272,8 +273,19 @@ Possible sub-commands:
 
 (define-setting-observer audio-device :audio :device (value)
   (when harmony:*server*
-    (harmony:with-server ()
-      (setf (mixed:device (harmony:segment :drain (harmony:segment :output T))) value))))
+    (let* ((seg (harmony:segment :drain (harmony:segment :output T)))
+           (prev (mixed:device seg))
+           (success NIL))
+      (harmony:with-server (harmony:*server* :synchronize T)
+        (handler-case
+            (progn (setf (mixed:device seg) value)
+                   (setf success T))
+          (error ()
+            (setf (mixed:device seg) prev))))
+      (unless success
+        (setf (setting :audio :device) prev)
+        (show (make-instance 'info-panel :text (@ audio-output-device-failed))
+              :width (alloy:vw 0.5) :height (alloy:vh 0.5))))))
 
 (define-setting-observer video :display (value)
   (apply-video-settings value))
