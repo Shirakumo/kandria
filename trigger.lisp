@@ -192,10 +192,11 @@
   (make-instance 'shutter :location (vcopy (location trigger))))
 
 (defmethod interact ((trigger shutter-trigger) (player player))
-  (let ((state (bvh:do-fitting (entity (bvh (region +world+)) trigger :open)
-                 (when (typep entity 'enemy) (return :closed)))))
-    (dolist (shutter (children trigger))
-      (setf (state shutter) state))))
+  (when (within-p trigger player)
+    (let ((state (bvh:do-fitting (entity (bvh (region +world+)) trigger :open)
+                   (when (typep entity 'enemy) (return :closed)))))
+      (dolist (shutter (children trigger))
+        (setf (state shutter) state)))))
 
 (defmethod handle ((ev switch-chunk) (trigger shutter-trigger))
   (dolist (shutter (children trigger))

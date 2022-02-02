@@ -602,7 +602,7 @@
 (defmethod layer-index ((blocker demo-blocker))
   (1+ +base-layer+))
 
-(defmethod collides-p ((moving moving) (blocker blocker) hit)
+(defmethod collides-p ((moving moving) (blocker demo-blocker) hit)
   #-kandria-demo NIL
   #+kandria-demo T)
 
