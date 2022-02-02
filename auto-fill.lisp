@@ -231,4 +231,6 @@
                    do (loop for dx from -5 to +5
                             do (when (< 0 (tile (+ x dx) (+ y dy)) 22)
                                  (setf mindist (min mindist (sqrt (+ (* dx dx) (* dy dy))))))))
-             (setf (tile x y T) (round mindist)))))))))
+             (setf (tile x y T) (round mindist)))))
+        (when (<= 4 (tile x y) 15)
+          (set-tile tiles width height x (1+ y) '(0 0 1 1)))))))

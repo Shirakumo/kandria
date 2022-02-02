@@ -13,8 +13,8 @@
 
 (presentations:define-update (ui tile-button)
   (:icon
-   :size (alloy:px-size (/ (width (tileset alloy:renderable)) +tile-size+ (third alloy:value))
-                        (/ (height (tileset alloy:renderable)) +tile-size+ (fourth alloy:value)))
+   :size (alloy:px-size (/ (width (tileset alloy:renderable)) +tile-size+ (max 1 (third alloy:value)))
+                        (/ (height (tileset alloy:renderable)) +tile-size+ (max 1 (fourth alloy:value))))
    :shift (alloy:px-point (* (first alloy:value) (/ +tile-size+ (width (tileset alloy:renderable))))
                           (* (second alloy:value) (/ +tile-size+ (height (tileset alloy:renderable)))))))
 
