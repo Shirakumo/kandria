@@ -144,8 +144,8 @@
 (defun update-player-tick (panel x y)
   (let ((shape (presentations:find-shape 'player (alloy:focus-element panel))))
     (when shape
-      (setf (slot-value (alloy:x (simple:bounds shape)) 'alloy:value) x)
-      (setf (slot-value (alloy:y (simple:bounds shape)) 'alloy:value) y))))
+      (setf (alloy:unit-value (the alloy:un (alloy:x (simple:bounds shape)))) x)
+      (setf (alloy:unit-value (the alloy:un (alloy:y (simple:bounds shape)))) y))))
 
 (defmethod handle ((ev tick) (panel map-panel))
   (let ((map (alloy:focus-element panel))

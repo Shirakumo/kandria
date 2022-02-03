@@ -154,8 +154,7 @@
   ")
   ;; TODO: spawn spare parts for the player to collect (barter currency) - would need to integrate with the zombies' death scripts?
   ;; TODO catherine shocked - What have they done?
-  (:eval
-   (move-to 'main-leak-3 'catherine))
+  (:eval (move-to 'main-leak-3 'catherine))
   (:nearby (main-leak-3 catherine))
   (:interact (catherine :now T)
    "~ catherine
