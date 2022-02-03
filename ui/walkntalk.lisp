@@ -66,7 +66,9 @@
   (cond (value
          (setf (ip textbox) 0)
          (dialogue:run (quest:dialogue value) (vm textbox))
-         (unless (shown-p textbox) (show textbox)))
+         (when (and (not (shown-p textbox))
+                    (not (find-panel 'dialog)))
+           (show textbox)))
         ((shown-p textbox)
          (hide textbox))))
 
@@ -76,7 +78,9 @@
         (setf (interrupt-ip textbox) (ip textbox))
         (setf (ip textbox) 0)
         (dialogue:run (quest:dialogue value) (vm textbox))
-        (unless (shown-p textbox) (show textbox)))
+        (when (and (not (shown-p textbox))
+                   (not (find-panel 'dialog)))
+          (show textbox)))
       (cond ((interaction textbox)
              (setf (ip textbox) (interrupt-ip textbox))
              (dialogue:run (quest:dialogue (interaction textbox)) (vm textbox)))
