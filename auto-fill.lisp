@@ -28,6 +28,60 @@
                             (when (and (< 0 y) (v= (tile i (1- y)) find))
                               (pushnew (cons i (1- y)) q)))))))))
 
+(defparameter *background-filters*
+  '((:bg-tl>
+     o o _
+     o s s
+     _ s s)
+    (:bg-tr>
+     _ o o
+     s s o
+     s s _)
+    (:bg-bl>
+     _ s s
+     o s s
+     o o _)
+    (:bg-br>
+     s s _
+     s s o
+     _ o o)
+    (:bg-tl<
+     o s _
+     s s _
+     _ _ s)
+    (:bg-tr<
+     _ _ s
+     s s _
+     o s _)
+    (:bg-bl<
+     _ s o
+     _ s s
+     s _ _)
+    (:bg-br<
+     s _ _
+     _ s s
+     _ s o)
+    (:bg-t
+     _ o _
+     _ s _
+     _ s _)
+    (:bg-b
+     _ s _
+     _ s _
+     _ o _)
+    (:bg-l
+     _ _ _
+     o s s
+     _ _ _)
+    (:bg-r
+     _ _ _
+     s s o
+     _ _ _)
+    (:bg-i
+     _ s _
+     s s s
+     _ s _)))
+
 (defparameter *tile-filters*
   '((:platform-l
      _ _ _
@@ -160,7 +214,7 @@
     ;; Any tile at all (don't care)
     (_ T)))
 
-(defun filter-edge (solids width height x y)
+(defun filter-edge (solids width height x y &optional (filters *tile-filters*))
   (labels ((pos (x y)
              (* (+ x (* y width)) 2))
            (tile (ox oy)
@@ -170,23 +224,14 @@
                (cond ((or (= -1 x) (= -1 y) (= width x) (= height y)) 1)
                      ((or (< x -1) (< y -1) (< width x) (< height y)) 0)
                      (T (aref solids pos))))))
-    (loop for (type . filter) in *tile-filters*
+    (loop for (type . filter) in filters
           do (when (loop for i from 0 below 9
                          for v in filter
                          for x = (- (mod i 3) 1)
                          for y = (- 1 (floor i 3))
                          for tile = (tile x y)
-                         always (tile-type-p tile v) )
-               #+(OR)
-               (warn "~a at ~3d,~3d:~%~3d ~3d ~3d~%~3d ~3d ~3d~%~3d ~3d ~3d" type x y
-                     (tile -1 +1) (tile 0 +1) (tile +1 +1)
-                     (tile -1 0) (tile 0 0) (tile +1 0)
-                     (tile -1 -1) (tile 0 -1) (tile +1 -1))
-               (return type))
-          finally (error "Unknown tile configuration at ~3d,~3d:~%~3d ~3d ~3d~%~3d ~3d ~3d~%~3d ~3d ~3d" x y
-                         (tile -1 +1) (tile 0 +1) (tile +1 +1)
-                         (tile -1 0) (tile 0 0) (tile +1 0)
-                         (tile -1 -1) (tile 0 -1) (tile +1 -1)))))
+                         always (tile-type-p tile v))
+               (return type)))))
 
 (defun %auto-tile (solids tiles width height x y map)
   (flet ((tile (x y)
@@ -202,7 +247,7 @@
       (%flood-fill solids width height x y (list 22 0)))
     (dotimes (y height)
       (dotimes (x width)
-        (let ((edge (ignore-errors (filter-edge solids width height x y))))
+        (let ((edge (filter-edge solids width height x y)))
           (when edge
             (setf (tile x y) edge)))))
     (dotimes (y height)
@@ -234,3 +279,32 @@
              (setf (tile x y T) (round mindist)))))
         (when (<= 4 (tile x y) 15)
           (set-tile tiles width height x (1+ y) '(0 0 1 1)))))))
+
+(defun %auto-tile-bg (tiles width height map)
+  (labels ((tile (x y)
+             (when (and (< -1 x width)
+                        (< -1 y height))
+               (+ (aref tiles (+ 0 (* (+ x (* y width)) 2)))
+                  (aref tiles (+ 1 (* (+ x (* y width)) 2))))))
+           ((setf tile) (kind x y &optional fallback)
+             (let ((tilelist (cdr (or (assoc kind map :test 'equal)
+                                      (assoc fallback map :test 'equal)))))
+               (when tilelist
+                 (set-tile tiles width height x y (alexandria:random-elt tilelist)))))
+           (filter-edge (x y)
+             (loop for (type . filter) in *background-filters*
+                   do (when (loop for i from 0 below 9
+                                  for v in filter
+                                  for dx = (- (mod i 3) 1)
+                                  for dy = (- 1 (floor i 3))
+                                  for tile = (tile (+ x dx) (+ y dy))
+                                  always (ecase v
+                                           (s (and tile (< 0 tile)))
+                                           (o (or (null tile) (= 0 tile)))
+                                           (_ T)))
+                        (return type)))))
+    (dotimes (y height)
+      (dotimes (x width)
+        (let ((edge (filter-edge x y)))
+          (when edge
+            (setf (tile x y) edge)))))))

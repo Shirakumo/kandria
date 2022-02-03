@@ -241,7 +241,7 @@
 (define-gi platform-cave
   :attenuation 0.3
   :location 'player
-  :light-multiplier 0.5
+  :light-multiplier 0.1
   :light (vec 1.5 1 0.5)
   :ambient-multiplier 1.0
   :ambient (vec 0.5 0.4 0.4))
