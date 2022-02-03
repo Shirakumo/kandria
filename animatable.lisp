@@ -84,10 +84,13 @@
     (setf (maximum-health animatable) (maximum-health-for-level (base-health animatable) level))
     (setf (health animatable) (* health-percentage (maximum-health animatable)))))
 
+(defmethod level-up ((animatable animatable))
+  (incf (level animatable)))
+
 (defmethod (setf experience) :around ((experience integer) (animatable animatable))
   (loop for needed = (exp-needed-for-level (level animatable))
         while (<= needed experience)
-        do (incf (level animatable))
+        do (level-up animatable)
            (decf experience needed))
   (call-next-method experience animatable))
 

@@ -305,8 +305,7 @@
       (alloy:leave timer (alloy:layout-parent timer))
       (setf (timer panel) NIL))))
 
-(defmethod (setf level) :before (level (player player))
-  (when (= (1+ (level player)) level)
-    (let ((hud (find-panel 'hud)))
-      (when hud
-        (setf (alloy:value (level-up hud)) level)))))
+(defmethod level-up :after ((player player))
+  (let ((hud (find-panel 'hud)))
+    (when hud
+      (setf (alloy:value (level-up hud)) (level player)))))
