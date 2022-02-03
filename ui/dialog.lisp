@@ -21,7 +21,7 @@
   (:label
    :markup (markup alloy:renderable)))
 
-(defclass dialog (pausing-panel menuing-panel textbox)
+(defclass dialog (menuing-panel textbox)
   ((interactions :initarg :interactions :initform () :accessor interactions)
    (interaction :initform NIL :accessor interaction)
    (one-shot :initform NIL :accessor one-shot)
@@ -54,7 +54,6 @@
   (interrupt-walk-n-talk NIL)
   (walk-n-talk NIL)
   (setf (animation (unit 'player T)) 'stand)
-  (pause-game T (unit 'ui-pass T))
   (harmony:play (// 'sound 'ui-start-dialogue)))
 
 (defmethod hide :after ((dialog dialog))
@@ -62,8 +61,7 @@
     (setf (intended-zoom (unit :camera T)) 1.0))
   (setf (clock-scale +world+) (* (clock-scale +world+) 2))
   (clear-retained)
-  (discard-events +world+)
-  (unpause-game T (unit 'ui-pass T)))
+  (discard-events +world+))
 
 (defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
   (dialogue:run (quest:dialogue interaction) (vm dialog)))
