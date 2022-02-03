@@ -53,6 +53,7 @@
   (setf (clock-scale +world+) (/ (clock-scale +world+) 2))
   (interrupt-walk-n-talk NIL)
   (walk-n-talk NIL)
+  (clear-retained)
   (setf (animation (unit 'player T)) 'stand)
   (harmony:play (// 'sound 'ui-start-dialogue)))
 
