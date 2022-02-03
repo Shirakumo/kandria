@@ -52,8 +52,9 @@
   ((timeout :initarg :timeout :initform (if (setting :gameplay :display-hud) 5.0 0.0) :accessor timeout)))
 
 (defmethod animation:update :after ((element hud-element) dt)
-  (decf (timeout element) dt)
-  (alloy:mark-for-render element))
+  (when (< 0.0 (timeout element))
+    (decf (timeout element) dt)
+    (alloy:mark-for-render element)))
 
 (defmethod (setf alloy:value) :after (value (info hud-element))
   (setf (timeout info) 5.0))
@@ -106,6 +107,7 @@
   (title
    :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable))))
   (level
+   :text alloy:text
    :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable))))
   (background
    :pattern (colored:color 0.1 0.1 0.1 (min 1 (timeout alloy:renderable))))
@@ -114,8 +116,12 @@
   (bar
    :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable)))))
 
-(defclass health-bar (alloy:progress hud-element)
+(defclass health-bar (alloy:direct-value-component hud-element)
   ())
+
+(defmethod initialize-instance :after ((bar health-bar) &key)
+  (alloy:on health (value (alloy:value bar))
+    (alloy:mark-for-render bar)))
 
 (presentations:define-realization (ui health-bar)
   ((:background simple:rectangle)
@@ -134,7 +140,9 @@
 
 (presentations:define-update (ui health-bar)
   (:bar
-   :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable))))
+   :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable)))
+   :scale (let ((p (/ (health alloy:value) (maximum-health alloy:value))))
+            (alloy:px-size p 1)))
   (:background
    :pattern (colored:color 0 0 0 (* 0.1 (min 1 (timeout alloy:renderable)))))
   (:border
@@ -142,7 +150,7 @@
    :z-index 0
    :pattern (colored:color 0 0 0 (min 1 (timeout alloy:renderable))))
   (:label
-   :text (format NIL "~3d%" (floor (* 100 alloy:value) (alloy:maximum alloy:renderable)))))
+   :text (format NIL "~3d%" (floor (* 100 (health alloy:value)) (maximum-health alloy:value)))))
 
 (defclass location-info (alloy:label* hud-element)
   ((alloy:value :initform "")
@@ -241,7 +249,7 @@
 
 (defmethod initialize-instance :after ((hud hud) &key (player (unit 'player T)))
   (let* ((layout (make-instance 'hud-layout))
-         (bar (setf (health hud) (alloy:represent (health player) 'health-bar :maximum (maximum-health player))))
+         (bar (setf (health hud) (make-instance 'health-bar :value player)))
          (list (setf (lines hud) (make-instance 'alloy:vertical-linear-layout)))
          (loc (setf (location hud) (make-instance 'location-info)))
          (level-up (setf (level-up hud) (make-instance 'level-up))))
