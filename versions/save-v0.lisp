@@ -242,7 +242,7 @@
     (when (and animation (< 0 (length (animations animatable))))
       (setf (animation animatable) animation)
       (setf (frame animatable) frame))
-    (setf (level animatable) level)
+    (setf (slot-value animatable 'level) level)
     (setf (experience animatable) experience)
     (setf (health animatable) health)
     (setf (stun-time animatable) stun-time)
