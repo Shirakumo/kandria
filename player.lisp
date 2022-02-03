@@ -477,7 +477,8 @@ void main(){
     (when (and ground (interactable-p ground))
       (setf (interactable player) ground))
     (let ((interactable (tvec (vx2 loc) (vy2 loc) 16 16))
-          (trigger (tvec (vx2 loc) (vy2 loc) 16 8)))
+          (trigger (tvec (vx2 loc) (vy2 loc) 16 8))
+          (closest NIL))
       (bvh:do-fitting (entity (bvh (region +world+)) (or (chunk player) player))
         (typecase entity
           (rope
@@ -487,11 +488,15 @@ void main(){
              (setf (interactable player) entity)))
           (interactable
            (when (and (contained-p interactable entity)
-                      (interactable-p entity))
-             (setf (interactable player) entity)))
+                      (interactable-p entity)
+                      (or (null closest) (<= (vsqrdistance (location entity) loc)
+                                             (vsqrdistance (location closest) loc))))
+             (setf closest entity)))
           (trigger
            (when (contained-p trigger entity)
-             (interact entity player))))))
+             (interact entity player)))))
+      (when closest
+        (setf (interactable player) closest)))
     (if (and (interactable player)
              (interactable-p (interactable player))
              (eql :normal (state player))
