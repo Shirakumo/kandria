@@ -90,6 +90,7 @@
                              (T
                               (harmony:play (// 'sound 'fishing-rare-catch))))
                        (setf (state buoy) :show)
+                       (incf (experience (unit 'player +world+)) (experience-reward item))
                        (status (@formats 'fish-caught-successfully (language-string (type-of item)))))
                       (T
                        (leave* (fishing-line buoy) T))))
@@ -271,6 +272,9 @@ void main(){
 
 (defmethod apply-transforms progn ((fish fish))
   (translate #.(vec 0.5 0 0)))
+
+(defmethod experience-reward ((fish fish))
+  50)
 
 (defmacro define-fish (name x y w h &key price)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish)))
