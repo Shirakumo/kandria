@@ -41,7 +41,8 @@
 (defmethod die ((npc npc))
   (error "WTF, NPC died for some reason. That shouldn't happen!"))
 (defmethod oob ((npc npc) (none null))
-  (error "~a fell out of the world." npc))
+  (warn "~a fell out of the world, TPing to player." npc)
+  (setf (location npc) 'player))
 
 (defmethod target-blocked-p ((entity located-entity))
   (bvh:do-fitting (entity (bvh (region +world+)) entity)
