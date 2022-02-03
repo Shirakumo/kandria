@@ -465,6 +465,9 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'shutter)))
 
+(defmethod layer-index ((shutter shutter))
+  (1+ +base-layer+))
+
 (defmethod velocity ((shutter shutter)) #.(vec 0 0))
 
 (defmethod (setf state) :before (state (shutter shutter))
