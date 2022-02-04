@@ -1210,6 +1210,8 @@ void main(){
   (interrupt-movement-trace player)
   ;; Actually respawn now.
   (switch-chunk (chunk player))
+  (setf (interactable player) NIL)
+  (fill (collisions player) NIL)
   (setf (animation player) 'stand)
   (vsetf (velocity player) 0 0)
   (vsetf (frame-velocity player) 0 0)
