@@ -148,7 +148,8 @@
     (trial::with-unwind-protection (delete-file file)
       (with-open-file (stream file :direction :output :element-type '(unsigned-byte 8))
         (loop for float across trace
-              do (unless (float-features:float-nan-p float)
+              do (unless (or (float-features:float-nan-p float)
+                             (float-features:float-infinity-p float))
                    (nibbles:write-ieee-single/le float stream))))
       (org.shirakumo.fraf.trial.feedback:submit-snapshot
        (id state) (play-time state) (session-time) :trace file))))

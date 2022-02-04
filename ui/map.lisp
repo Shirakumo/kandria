@@ -65,7 +65,12 @@
                  (setf (fill-pointer points) 0))))
         (loop for i from 0 below (length trace) by 2
               do (cond ((float-features:float-nan-p (aref trace i))
-                        (flush))
+                        (flush)
+                        (when (float-features:float-infinity-p (aref trace (1+ i)))
+                          (let ((bounds (alloy:extent (- (aref trace (- i 2)) 8)
+                                                      (- (aref trace (- i 1)) 8)
+                                                      16 16)))
+                            (vector-push-extend (cons :death (simple:rectangle renderer bounds :pattern colors:red :name :death :z-index 3)) array))))
                        (T
                         (vector-push-extend (alloy:point (aref trace i) (aref trace (1+ i))) points)))
               finally (flush))))

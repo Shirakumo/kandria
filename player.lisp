@@ -153,9 +153,15 @@ void main(){
   (stage (// 'kandria 'line-part) area)
   (stage (// 'kandria 'sting) area))
 
-(defun interrupt-movement-trace (player)
-  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player))
-  (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) (movement-trace player)))
+(defun interrupt-movement-trace (player &key death)
+  (let ((trace (movement-trace player)))
+    (declare (type (array single-float (*))))
+    (vector-push-extend (vx (location player)) trace)
+    (vector-push-extend (vy (location player)) trace)
+    (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) trace)
+    (if death
+        (vector-push-extend float-features:single-float-negative-infinity trace)
+        (vector-push-extend (float-features:bits-single-float #b01111111110000000000000000000000) trace))))
 
 (defmethod hurt :after (thing (player player))
   (let ((dir (nv- (vxy (hurtbox player)) (location thing))))
@@ -1210,7 +1216,7 @@ void main(){
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
-  (interrupt-movement-trace player)
+  (interrupt-movement-trace player :death T)
   ;; Actually respawn now.
   (switch-chunk (chunk player))
   (setf (interactable player) NIL)
