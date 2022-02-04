@@ -792,9 +792,9 @@ void main(){
        (when (< 0 (inertia-time player))
          (decf (inertia-time player) dt))
        ;; Movement
-       (let* ((offset (tvec (+ (vx loc) (* (direction player) (+ 8 (vx size)))) (- (vy loc) (vy size) 2)))
+       (let* ((offset (tvec (+ (vx loc) (* (direction player) (+ 8 (vx size)))) (- (vy loc) (vy size) -2)))
               (top (scan-collision-for player +world+ offset))
-              (ledge (scan-collision-for player +world+ (tv+ offset #.(vec 0 20))))
+              (ledge (scan-collision-for player +world+ (tv+ offset #.(vec 0 16))))
               (attached (or (if (typep (svref collisions (if (< 0 (direction player)) 1 3)) '(or ground solid))
                                 (svref collisions (if (< 0 (direction player)) 1 3)))
                             (interactable player)
@@ -843,7 +843,7 @@ void main(){
                 (cond ((and (or top
                                 (and (typep attached 'rope)
                                      (< (+ (vy (location attached)) (vy (bsize attached))) (vy loc))))
-                            (null (scan-collision-for player +world+ (tv+ offset #.(vec 0 40))))
+                            (null (scan-collision-for player +world+ (tv+ offset #.(vec 0 38))))
                             (null ledge)
                             (null (retained 'jump)))
                        (start-animation 'climb-ledge player))
