@@ -27,11 +27,13 @@
   ())
 
 (defmethod interact ((trigger checkpoint) entity)
-  (setf (spawn-location entity)
-        (vec (vx (location trigger))
-             (+ (- (vy (location trigger))
-                   (vy (bsize trigger)))
-                (vy (bsize entity))))))
+  (case (state entity)
+    ((:dying :respawning))
+    (T (setf (spawn-location entity)
+             (vec (vx (location trigger))
+                  (+ (- (vy (location trigger))
+                        (vy (bsize trigger)))
+                     (vy (bsize entity))))))))
 
 (defclass story-trigger (one-time-trigger creatable)
   ((story-item :initarg :story-item :initform NIL :accessor story-item :type symbol)
