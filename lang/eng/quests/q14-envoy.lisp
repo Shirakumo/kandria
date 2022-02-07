@@ -5,6 +5,8 @@
   :author "Tim White"
   :title "Return to the Surface"
   :description "Islay hasn't detonated the bombs and wants me to return to camp immediately. Something's wrong."
+  (:eval
+   (setf (nametag (unit 'zelah)) "???"))
   (:go-to (wraw-leader)
    :title "Return to the camp")
   (:interact (zelah :now T)
@@ -16,12 +18,16 @@
   ~ zelah
   | (:jovial)A'm your worst nightmare, love.
   | But ya can call mi Zelah.
+  ! eval (setf (nametag (unit 'zelah)) \"zelah\")
 - Let me guess: Zelah.
   ~ zelah
   | Got it in one.
+  ! eval (setf (nametag (unit 'zelah)) \"zelah\")
 - So you lead the Wraw?
   ~ zelah
   | A do. And everyone else 'round 'ere.
+  | Ya can call mi Zelah.
+  ! eval (setf (nametag (unit 'zelah)) \"zelah\")
 ~ fi
 | What do you want?
 ~ zelah
@@ -73,7 +79,6 @@
   | (:jovial)This is an envoy. Kill mi and ma army'll slaughter you all.
 ~ islay
 | {#@player-nametag}, we don't know what androids did or didn't do during the Calamity. No one does.
-| (:expectant)But I'm telling you that no one destroyed humanity except humanity.
 ~ fi
 | It doesn't matter anyway. You've shown us who you really are.
 ~ zelah

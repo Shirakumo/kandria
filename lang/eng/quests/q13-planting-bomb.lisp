@@ -219,9 +219,10 @@
 ! setf (direction 'islay) 1
 ! eval (setf (location 'trader) 'fi-farm)
 ! setf (direction 'trader) 1
-! eval (ensure-nearby 'wraw-envoy 'alex)
+! eval (setf (location 'alex) 'wraw-alex)
 ! setf (direction 'alex) -1
 ! eval (setf (location 'zelah) 'wraw-leader)
 ! setf (direction 'zelah) -1
 ")))
 ;; TODO hide zelah in the world before this point, and spawn him in here (currently placed in Wraw territory, but we want to keep him a secret till now)
+;; TODO move other Wraw soldiers to the wraw-envoy zone (ensure-nearby)
