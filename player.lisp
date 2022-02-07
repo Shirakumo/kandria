@@ -298,6 +298,8 @@ void main(){
 
 (defmethod handle ((ev light-attack) (player player))
   (cond ((path player))
+        ((eql :dying (state player)))
+        ((eql :respawning (state player)))
         ((eql :animated (state player))
          (setf (buffer player) 'light-attack))
         ((eql :crawling (state player))
@@ -313,6 +315,8 @@ void main(){
 
 (defmethod handle ((ev heavy-attack) (player player))
   (cond ((path player))
+        ((eql :dying (state player)))
+        ((eql :respawning (state player)))
         ((eql :animated (state player))
          (setf (buffer player) 'heavy-attack))
         ((eql :crawling (state player))
