@@ -921,6 +921,7 @@ void main(){
                       (mov-dir (cond ((retained 'left) -1)
                                      ((retained 'right) +1)
                                      (T 0))))
+                  (vsetf (inertia player) 0 0)
                   (setf (jump-time player) 0.0)
                   (harmony:play (// 'sound 'player-jump))
                   (cond ((or (= dir mov-dir)
