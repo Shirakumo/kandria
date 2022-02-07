@@ -31,5 +31,5 @@
 | Come with me to \"Engineering\"(orange).
 ")
   (:eval
-   (ensure-nearby 'bomb-1 'islay)
-   :on-complete (q15-start)))
+   :on-complete (q15-start)
+   (ensure-nearby 'bomb-1 'islay)))

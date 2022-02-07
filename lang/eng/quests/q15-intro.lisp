@@ -22,7 +22,7 @@
 ~ fi
 | Shouldn't we tell the others?
 ~ islay
-| No. We do it now - while we still have the element of surprise.
+| No. We do it while we still have the element of surprise.
 ~ fi
 | If you're sure.
 ~ islay
@@ -62,7 +62,7 @@
   | Then we need to find a way.
 - Teach me how to check them.
   ~ islay
-  |(:nervous)There's no time. And it's too risky if you can't figure it out.
+  | (:nervous)There's no time. And it's too risky if you can't figure it out.
 - What about Jack?
   ~ fi
   | ...
@@ -76,7 +76,7 @@
 | Please \"go and fetch her\"(orange).
 ")
   (:eval
-   (ensure-nearby 'wraw-rally 'zelah 'alex)
-   :on-complete (q15-catherine)))
+   :on-complete (q15-catherine)
+   (ensure-nearby 'wraw-rally 'zelah 'alex)))
    
 ;; TODO move rest of Wraw envoy entourage down to this position too

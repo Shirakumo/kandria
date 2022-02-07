@@ -92,9 +92,9 @@
 | Seeya on ' battlefield.
 ")
   (:eval
-   (move-to (unit 'leader-rally) 'zelah)
-   (move-to (unit 'alex-rally) 'alex)
-   :on-complete (q15-engineering)))
+    :on-complete (q15-engineering)
+    (move-to (unit 'leader-rally) 'zelah)
+    (move-to (unit 'alex-rally) 'alex)))
 
 ;; TODO why are we entertaining this person, kill them? - special ending?
 ;; TODO Zelah got to move away to a surface location - walk him to an army, spawned offscreen at end of this quest
