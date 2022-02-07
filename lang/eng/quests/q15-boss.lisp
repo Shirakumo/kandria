@@ -7,6 +7,7 @@
   :author "Tim White"
   :title "Destroy the Bomb Defusal Mech"
   :description "Islay believes a Wraw mech is defusing the bombs. I must destroy it."
+  (:go-to (q15-boss-loc))
   (:eval 
    (move-to 'catherine-boss (unit 'catherine)))
   (:complete (q15-boss-fight)

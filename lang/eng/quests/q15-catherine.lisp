@@ -75,9 +75,8 @@
 | \"Checking FFCS...\"(light-gray, italic)
 | (:skeptical)No. Wraw interference.
 ~ fi
-| Then take this walkie.
+| Then take this walkie. Try calling her once you're down there, find out where she is.
 ! eval (store 'item:walkie-talkie-2 1)
-| Stay in touch. And keep your eyes open down there.
 ! eval (follow 'player 'catherine)
 ")
   (:eval

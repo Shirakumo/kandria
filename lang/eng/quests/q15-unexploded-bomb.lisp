@@ -58,15 +58,16 @@
    :visible NIL
    :invariant T
    :condition all-complete
+   :on-complete (q15-boss)
    :on-activate (islay-call-bomb)
 
    (:interaction islay-call-bomb
     :interactable islay
     :dialogue "
-~ islay
-| Is anyone there? Over.
 ~ player
-- It's {#@player-nametag}. Over.
+| \"Okay, this should do. Let's find out where she is.\"(light-gray, italic)
+~ player
+- Islay this is {#@player-nametag}. Over.
   ~ islay
   | (:nervous)You shouldn't have come. I can handle it. Over.
   ~ player
@@ -114,4 +115,5 @@
 ~ catherine
 | Okay. Let's go together - after the mech.
 ! eval (complete 'check-bomb-1 'check-bomb-2 'check-bomb-3)
+! eval (deactivate 'task-reminder)
 ")))
