@@ -18,16 +18,16 @@
   ~ zelah
   | (:jovial)A'm your worst nightmare, love.
   | But ya can call mi Zelah.
-  ! eval (setf (nametag (unit 'zelah)) \"zelah\")
+  ! eval (setf (nametag (unit 'zelah)) \"Zelah\")
 - Let me guess: Zelah.
   ~ zelah
   | Got it in one.
-  ! eval (setf (nametag (unit 'zelah)) \"zelah\")
+  ! eval (setf (nametag (unit 'zelah)) \"Zelah\")
 - So you lead the Wraw?
   ~ zelah
   | A do. And everyone else 'round 'ere.
   | Ya can call mi Zelah.
-  ! eval (setf (nametag (unit 'zelah)) \"zelah\")
+  ! eval (setf (nametag (unit 'zelah)) \"Zelah\")
 ~ fi
 | What do you want?
 ~ zelah
