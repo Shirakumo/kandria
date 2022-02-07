@@ -1,7 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; TODO transition cutscene scripting here in the header
+;; TODO transition cutscene scripting here in the header - also freeze player and catherine in place (later will include explosion VFX)
 ;; No need to be visible, since the player will find their way to the destination through the altered level design
 (quest:define-quest (kandria epilogue)
   :author "Tim White"

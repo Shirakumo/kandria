@@ -45,3 +45,5 @@
 ! eval (deactivate (unit 'bomb-explode-3))
 ! eval (activate 'epilogue)
 ")))
+
+;; TODO animate player and catherine force crouching if player chooses "Get down"? (lock player controls early in this case, before epilogue script)
