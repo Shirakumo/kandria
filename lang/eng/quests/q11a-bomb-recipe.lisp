@@ -78,6 +78,7 @@
 "))
 ;; TODO position islay further from the others - easier to clarify hand-in NPC, and the trials of leadership etc.
 ;; if you've already spoken to alex in q12, then when you cross the border, activate the fi return task, since it's now safe to talk to her about alex, as she will be on the surface with the others
+;; TODO also need to move semi engineers (and other world NPCs?) to surface, and change the status of their world-state quest(s) so they can no longer be spoken too / updated dialogue
 
   ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb
   (task-return-fi
