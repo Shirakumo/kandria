@@ -1,7 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-global +default-medium+ (make-instance 'air))
-(defvar *current-event* NIL)
 
 (defclass moving (game-entity)
   ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
@@ -129,7 +128,7 @@
       (setf (svref collisions 3) NIL))
     ;; Point test for adjacent walls
     (flet ((test (hit)
-             (not (collides-p moving (hit-object hit) hit))))
+             (not (is-collider-for moving (hit-object hit)))))
       (let ((l (scan +world+ (vec (- (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))) #'test)))
         (when l
           (setf (aref collisions 3) (hit-object l))))
@@ -154,26 +153,6 @@
 (defmethod collide :after ((moving moving) (solid solid) hit)
   (when (< 0 (vy (hit-normal hit)))
     (setf (air-time moving) 0.0)))
-
-(defmethod collides-p :around ((moving moving) other hit)
-  (let* ((loc (location moving))
-         (siz (bsize moving))
-         (bloc (hit-location hit))
-         (bsiz (bsize other)))
-    (when (and (<= (- (vx loc) (vx siz) (vx bsiz)) (vx bloc) (+ (vx loc) (vx siz) (vx bsiz)))
-               (<= (- (vy loc) (vy siz) (vy bsiz)) (vy bloc) (+ (vy loc) (vy siz) (vy bsiz))))
-      ;; We are intersecting, compute normal
-      (let ((dx (- (vx loc) (vx bloc)))
-            (dy (- (vy loc) (vy bloc))))
-        (if (< (/ (abs dy) (+ (vy siz) (vy bsiz)))
-               (/ (abs dx) (+ (vx siz) (vx bsiz))))
-            (if (< 0 dx)
-                (vsetf (hit-normal hit) +1 0)
-                (vsetf (hit-normal hit) -1 0))
-            (if (< 0 dy)
-                (vsetf (hit-normal hit) 0 +1)
-                (vsetf (hit-normal hit) 0 -1))))
-      (call-next-method))))
 
 (defmethod collide ((moving moving) (block block) hit)
   ;; clamp velocity and push out
@@ -232,10 +211,6 @@
       (setf (svref (collisions moving) 2) block)
       (setf (vy (velocity moving)) (max 0 (vy (velocity moving)))))))
 
-(defmethod collides-p :before ((moving moving) (other moving-platform) hit)
-  (when *current-event*
-    (handle *current-event* other)))
-
 (defmethod collide ((moving moving) (other sized-entity) hit)
   ;; clamp velocity and push out
   (cond ((/= 0 (vx (hit-normal hit)))
@@ -274,3 +249,69 @@
         (vsetf (location entity)
                (random* (vx loc) xdiff)
                (+ (- (vy loc) ydiff) (vy (bsize entity)) 1)))))
+
+
+(defmethod collides-p :around ((entity game-entity) other hit)
+  (let* ((loc (location entity))
+         (siz (bsize entity))
+         (bloc (hit-location hit))
+         (bsiz (bsize other)))
+    (when (and (< (- (vx loc) (vx siz) (vx bsiz)) (vx bloc) (+ (vx loc) (vx siz) (vx bsiz)))
+               (< (- (vy loc) (vy siz) (vy bsiz)) (vy bloc) (+ (vy loc) (vy siz) (vy bsiz))))
+      ;; We are intersecting, compute normal
+      (let ((dx (- (vx loc) (vx bloc)))
+            (dy (- (vy loc) (vy bloc))))
+        (if (< (/ (abs dy) (+ (vy siz) (vy bsiz)))
+               (/ (abs dx) (+ (vx siz) (vx bsiz))))
+            (if (< 0 dx)
+                (vsetf (hit-normal hit) +1 0)
+                (vsetf (hit-normal hit) -1 0))
+            (if (< 0 dy)
+                (vsetf (hit-normal hit) 0 +1)
+                (vsetf (hit-normal hit) 0 -1))))
+      (call-next-method))))
+
+(defmethod collide ((entity game-entity) (block block) hit)
+  ;; clamp velocity and push out
+  (cond ((/= 0 (vx (hit-normal hit)))
+         (setf (vx (frame-velocity entity)) 0)
+         (cond ((< 0 (vx (hit-normal hit)))
+                (setf (vx (location entity)) (+ (vx (hit-location hit)) (vx (bsize block)) (vx (bsize entity)))))
+               (T
+                (setf (vx (location entity)) (- (vx (hit-location hit)) (vx (bsize block)) (vx (bsize entity)))))))
+        (T
+         (setf (vy (frame-velocity entity)) 0)
+         (cond ((< 0 (vy (hit-normal hit)))
+                (setf (vy (velocity entity)) (max 0 (vy (velocity entity))))
+                (setf (vy (location entity)) (+ (vy (hit-location hit)) (vy (bsize block)) (vy (bsize entity)))))
+               (T
+                (setf (vy (location entity)) (- (vy (hit-location hit)) (vy (bsize block)) (vy (bsize entity)))))))))
+
+(defmethod collide ((entity game-entity) (block slope) hit)
+  (let* ((loc (location entity))
+         (siz (bsize entity))
+         (bloc (hit-location hit))
+         (bsiz (bsize block))
+         (l (vy (slope-l block)))
+         (r (vy (slope-r block)))
+         (dx (- (vx loc) (- (vx siz)) (vx bloc)))
+         (tt (clamp 0.0 (/ (+ dx (float-sign (- r l) (vx bsiz))) 2 (vx bsiz)) 1.0))
+         (y (+ (vy bloc) (vy siz) l (* tt (- r l)))))
+    (when (<= (vy loc) y)
+      (setf (vy loc) y)
+      (setf (vy (velocity entity)) (max 0 (vy (velocity entity)))))))
+
+(defmethod collide ((entity game-entity) (other sized-entity) hit)
+  ;; clamp velocity and push out
+  (cond ((/= 0 (vx (hit-normal hit)))
+         (setf (vx (frame-velocity entity)) 0)
+         (cond ((< 0 (vx (hit-normal hit)))
+                (setf (vx (location entity)) (+ (vx (hit-location hit)) (vx (bsize other)) (vx (bsize entity)))))
+               (T
+                (setf (vx (location entity)) (- (vx (hit-location hit)) (vx (bsize other)) (vx (bsize entity)))))))
+        (T
+         (setf (vy (frame-velocity entity)) 0)
+         (cond ((< 0 (vy (hit-normal hit)))
+                (setf (vy (location entity)) (+ (vy (hit-location hit)) (vy (bsize other)) (vy (bsize entity)))))
+               (T
+                (setf (vy (location entity)) (- (vy (hit-location hit)) (vy (bsize other)) (vy (bsize entity)))))))))

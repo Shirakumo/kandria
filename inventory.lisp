@@ -102,10 +102,9 @@
 
 (defmethod is-collider-for ((item item) thing) NIL)
 (defmethod is-collider-for ((item item) (block block)) T)
+(defmethod is-collider-for ((item item) (block stopper)) NIL)
 (defmethod is-collider-for (thing (item item)) NIL)
 (defmethod is-collider-for ((moving moving) (item item)) NIL)
-(defmethod is-collider-for ((block block) (item item)) T)
-(defmethod is-collider-for ((block stopper) (item item)) NIL)
 (defmethod collide (thing (item item) hit) NIL)
 
 (defmethod interactable-p ((item item))
@@ -116,7 +115,7 @@
   (when (v/= 0 (velocity item))
     (nv+ (velocity item) (v* (gravity (medium item)) (dt ev)))
     (nv+ (frame-velocity item) (velocity item))
-    (handle-collisions +world+ item))
+    (perform-collision-tick item (dt ev)))
   (when (light item)
     (vsetf (location (light item))
            (vx (location item))
@@ -124,16 +123,11 @@
     (when (= 0 (mod (fc ev) 10))
       (setf (multiplier (light item)) (random* 1.0 0.2)))))
 
-(defmethod collide ((item item) (block block) hit)
+(defmethod collide :after ((item item) (block block) hit)
   (let ((vel (frame-velocity item))
         (normal (hit-normal hit)))
-    (nv* (velocity item) 0.9)
-    (nv+ (location item) (v* vel (hit-time hit)))
-    (nv- vel (v* normal (v. vel normal)))
     (when (= 1 (vy normal))
-      (setf (vx (velocity item)) 0))
-    (when (< 0 (vy normal))
-      (setf (vy (velocity item)) 0))
+      (setf (vx (velocity item)) (* 0.95 (vx (velocity item)))))
     (when (<= (abs (vx (velocity item))) 0.1)
       (setf (vx (velocity item)) 0))
     (unless (light item)
@@ -145,14 +139,6 @@
         (setf (light item) light)
         (setf (container light) +world+)
         (compile-into-pass light NIL (unit 'lighting-pass +world+))))))
-
-(defmethod collides-p ((moving item) (block slope) hit)
-  (ignore-errors
-   (let ((tt (slope (location moving) (frame-velocity moving) (bsize moving) block (hit-location hit))))
-     (when tt
-       (setf (hit-time hit) tt)
-       (setf (hit-normal hit) (nvunit (vec2 (- (vy2 (slope-l block)) (vy2 (slope-r block)))
-                                            (- (vx2 (slope-r block)) (vx2 (slope-l block))))))))))
 
 (defmethod interact ((item item) (inventory inventory))
   (store item inventory)

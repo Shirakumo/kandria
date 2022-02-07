@@ -1,8 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity moving-platform (game-entity resizable solid ephemeral)
-  ((layer-index :initform (1+ +base-layer+))
-   (last-tick :initform 0 :accessor last-tick)))
+  ((layer-index :initform (1+ +base-layer+))))
 
 (defmethod is-collider-for ((platform moving-platform) thing) NIL)
 (defmethod is-collider-for ((platform moving-platform) (block block)) T)
@@ -10,11 +9,6 @@
 (defmethod is-collider-for ((platform moving-platform) (solid solid)) T)
 
 (defmethod trigger ((platform moving-platform) (thing game-entity) &key))
-
-(defmethod handle :around ((ev tick) (platform moving-platform))
-  (when (< (last-tick platform) (fc ev))
-    (setf (last-tick platform) (fc ev))
-    (call-next-method)))
 
 (define-shader-entity tiled-platform (layer moving-platform)
   ((name :initform (generate-name "PLATFORM"))))
@@ -69,32 +63,27 @@
   (ecase (state platform)
     (:blocked
      (vsetf (velocity platform) 0 0))
-    (:normal
-     (loop repeat 10 while (handle-collisions +world+ platform)))
+    (:normal)
     (:falling
      (when (< (decf (fall-timer platform) (dt ev)) 0.0)
        (nv+ (velocity platform) (v* (fall-direction platform) 10 (dt ev)))
        (nvclamp (v- (max-speed platform)) (velocity platform) (max-speed platform))
        (nv+ (frame-velocity platform) (velocity platform))
-       (loop repeat 10 while (handle-collisions +world+ platform))))))
+       (perform-collision-tick platform (dt ev))))))
 
 (defmethod collide ((platform falling-platform) (other falling-platform) hit)
-  (when (and (eq :falling (state platform))
-             (< 0 (vy (hit-normal hit))))
-    (let ((vel (frame-velocity platform)))
-      (shake-camera)
-      (nv+ (location platform) (v* vel (hit-time hit)))
-      (vsetf vel (vx (velocity other)) (vy (velocity other)))
-      (if (eq :blocked (state other))
-          (setf (state platform) :blocked)
-          (setf (state other) :falling)))))
+  (when (eq :falling (state platform))
+    (call-next-method)
+    (if (eq :blocked (state other))
+        (setf (state platform) :blocked)
+        (setf (state platform) (setf (state other) :falling)))))
 
 (defmethod collide ((platform falling-platform) (solid solid) hit)
   (when (eq :falling (state platform))
     (let ((vel (frame-velocity platform)))
       (shake-camera :intensity 5)
       (setf (state platform) :blocked)
-      (nv+ (location platform) (v* vel (hit-time hit)))
+      (call-next-method)
       (vsetf vel 0 0))))
 
 (defmethod collide ((platform falling-platform) (block block) hit)
@@ -102,7 +91,7 @@
     (let ((vel (frame-velocity platform)))
       (shake-camera :intensity 5)
       (setf (state platform) :blocked)
-      (nv+ (location platform) (v* vel (hit-time hit)))
+      (call-next-method)
       (vsetf vel 0 0))))
 
 (defmethod apply-transforms :around ((platform falling-platform))
@@ -117,6 +106,7 @@
    (size :initform (vec 80 32))
    (max-speed :initarg :max-speed :initform (vec 0.0 2.0) :accessor max-speed)
    (move-time :initform 1.0 :accessor move-time)
+   (bypass-stopper :initform (cons NIL NIL) :accessor bypass-stopper)
    (fit-to-bsize :initform NIL)
    (texture :initform (// 'kandria 'elevator))
    (target :initform NIL :accessor target)))
@@ -136,6 +126,9 @@
      (vsetf (max-speed elevator) 0 2)
      (vsetf (velocity elevator) 0 0))
     (:moving
+     (if (null (cdr (bypass-stopper elevator)))
+         (setf (car (bypass-stopper elevator)) NIL)
+         (setf (cdr (bypass-stopper elevator)) NIL))
      (incf (move-time elevator) (dt ev))
      (setf (harmony:location (// 'sound 'elevator-move)) (location elevator))
      (when (<= (move-time elevator) 1.0)
@@ -162,6 +155,7 @@
     (:recall
      (let ((diff (- (vy (target elevator)) (+ (vy (location elevator)) (vy (bsize elevator))))))
        (cond ((<= (abs diff) (vy (velocity elevator)))
+              (vsetf (velocity elevator) 0 0)
               (setf (vy (location elevator)) (- (vy (target elevator)) (vy (bsize elevator))))
               (setf (state elevator) :normal))
              (T
@@ -169,40 +163,38 @@
     (:broken
      (vsetf (velocity elevator) 0 0)))
   (nv+ (frame-velocity elevator) (velocity elevator))
-  (loop repeat 10 while (handle-collisions +world+ elevator)))
+  (when (v/= 0 (frame-velocity elevator))
+    (perform-collision-tick elevator (dt ev))))
 
 (defmethod is-collider-for ((elevator elevator) (solid platform)) NIL)
 
 (defmethod collides-p ((elevator elevator) (solid stopper) hit)
-  (when (<= 0.2 (+ (abs (vx (velocity elevator)))
-                   (abs (vy (velocity elevator)))))
-    (cond ((eql :recall (state elevator))
-           NIL)
-          ((< 0.0 (vy (velocity elevator)))
-           T)
-          (T
-           (setf (state elevator) :should-stop)
-           NIL))))
+  (cond ((eql :recall (state elevator))
+         NIL)
+        ((<= 0.0 (vy (velocity elevator)))
+         (setf (cdr (bypass-stopper elevator)) solid)
+         (null (car (bypass-stopper elevator))))
+        (T
+         (setf (state elevator) :should-stop)
+         NIL)))
 
 (defmethod collide :before ((player player) (elevator elevator) hit)
   (setf (interactable player) elevator))
 
-(defmethod collide ((elevator elevator) (solid solid) hit)
-  (let ((vel (frame-velocity elevator)))
-    (setf (state elevator) :normal)
-    (nv+ (location elevator) (v* vel (hit-time hit)))
-    (vsetf vel 0 0)))
+(defmethod collide ((elevator elevator) (player player) hit))
 
-(defmethod collide ((elevator elevator) (block block) hit)
-  (let ((vel (frame-velocity elevator)))
-    (setf (state elevator) :normal)
-    (nv+ (location elevator) (v* vel (hit-time hit)))
-    (vsetf vel 0 0)))
+(defmethod collide :after ((elevator elevator) (solid solid) hit)
+  (setf (state elevator) :normal))
+
+(defmethod collide :after ((elevator elevator) (block block) hit)
+  (setf (state elevator) :normal))
 
 (defmethod (setf state) :before (state (elevator elevator))
   (case state
     ((:moving :recall)
      (unless (eq state (state elevator))
+       (setf (cdr (bypass-stopper elevator)) T)
+       (setf (car (bypass-stopper elevator)) T)
        (harmony:play (// 'sound 'elevator-start))
        (harmony:play (// 'sound 'elevator-move))))
     ((:normal :broken)
@@ -213,17 +205,18 @@
 (defmethod interact ((elevator elevator) thing)
   (case (state elevator)
     (:normal
-     (harmony:play (// 'sound 'elevator-start))
-     (setf (state elevator) :moving)
      (let ((loc (location elevator))
            (bsize (bsize elevator)))
-       (cond ((and (null (scan-collision +world+ (vec (vx loc) (+ (vy loc) (vy bsize) 1))))
+       (cond ((and (null (scan-collision-for elevator +world+ (vec (vx loc) (+ (vy loc) (vy bsize) 1))))
                    (not (retained 'down)))
               (setf (vy (velocity elevator)) +0.01))
-             ((and (null (scan-collision +world+ (vec (vx loc) (- (vy loc) (vy bsize) 1))))
+             ((and (null (scan-collision-for elevator +world+ (vec (vx loc) (- (vy loc) (vy bsize) 1))))
                    (not (retained 'up)))
               (setf (vy (velocity elevator)) -0.01))))
-     (setf (move-time elevator) 0.0))
+     (when (/= 0 (vy (velocity elevator)))
+       (harmony:play (// 'sound 'elevator-start))
+       (setf (state elevator) :moving)
+       (setf (move-time elevator) 0.0)))
     (:moving
      (setf (move-time elevator) 0.0)
      (setf (vy (velocity elevator)) (* -0.01 (float-sign (vy (velocity elevator))))))
@@ -259,20 +252,3 @@
                                   (- (vy (location button))
                                      (vy (bsize button)))))
      (setf (state elevator) :recall))))
-
-(define-shader-entity cycler-platform (lit-sprite moving-platform creatable)
-  ((velocity :initform (vec 0 0.5))))
-
-(defmethod handle ((ev tick) (cycler cycler-platform))
-  (nv+ (frame-velocity cycler) (velocity cycler))
-  (dotimes (i 10)
-    (unless (handle-collisions +world+ cycler)
-      (return))))
-
-(defmethod collide ((cycler cycler-platform) (block block) hit)
-  (let ((vel (velocity cycler)))
-    (cond ((< 0 (vy vel)) (vsetf vel (vy vel) 0))
-          ((< 0 (vx vel)) (vsetf vel 0 (- (vx vel))))
-          ((< (vy vel) 0) (vsetf vel (vy vel) 0))
-          ((< (vx vel) 0) (vsetf vel 0 (- (vx vel)))))
-    (vsetf (frame-velocity cycler) 0 0)))

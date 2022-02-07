@@ -156,23 +156,6 @@
     (vsetf vec (vx2 loc) (vy2 loc) (vx2 bsize) (vy2 bsize))
     (scan entity vec on-hit)))
 
-(defmethod scan-collision (target (entity sized-entity))
-  (let ((best-hit (load-time-value (%make-hit NIL (vec 0 0))))
-        (best-dist float-features:single-float-positive-infinity))
-    (setf (hit-time best-hit) float-features:single-float-positive-infinity)
-    (flet ((on-find (hit)
-             (when (collides-p entity (hit-object hit) hit)
-               (let ((dist (vsqrdistance (hit-location hit) (location entity))))
-                 (when (or (< (hit-time hit) (hit-time best-hit))
-                           (and (= (hit-time hit) (hit-time best-hit))
-                                (< dist best-dist)))
-                   (transfer-hit best-hit hit)
-                   (setf best-dist dist))))
-             T))
-      (scan target entity #'on-find)
-      (when (/= (hit-time best-hit) float-features:single-float-positive-infinity)
-        best-hit))))
-
 (define-shader-entity sprite-entity (vertex-entity textured-entity rotated-entity sized-entity facing-entity)
   ((vertex-array :initform (// 'kandria '1x))
    (texture :initform (// 'kandria 'placeholder) :initarg :texture :accessor albedo

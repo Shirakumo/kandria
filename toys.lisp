@@ -121,6 +121,7 @@
 (defmethod velocity ((lantern lantern)) #.(vec 0 0))
 
 (defmethod is-collider-for ((lantern lantern) thing) NIL)
+(defmethod is-collider-for :around (thing (lantern lantern)) NIL)
 
 (defmethod collides-p ((player player) (lantern lantern) hit)
   (and (dash-exhausted player)

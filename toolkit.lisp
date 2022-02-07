@@ -276,9 +276,6 @@
 ;; with a HIT instance. If ON-HIT returns true, the scan continues, otherwise
 ;; the HIT instance is returned.
 (defgeneric scan (target region on-hit))
-;; Similar to SCAN, but checks whether a HIT is valid through COLLIDES-P, and
-;; returns the closest HIT instance, if any.
-(defgeneric scan-collision (target region))
 ;; Should return T if the HIT should actually be counted as a valid collision.
 (defgeneric is-collider-for (object collider))
 (defgeneric collides-p (object tested hit))
@@ -306,21 +303,9 @@
 (defmethod is-collider-for (object target) NIL)
 (defmethod is-collider-for (object (target solid)) T)
 
-(defmethod scan-collision (target region)
-  (scan target region (lambda (hit) (unless (typep (hit-object hit) '(or block solid)) T))))
-
 (defun scan-collision-for (tester target region)
   (let ((result (scan target region (lambda (hit) (not (is-collider-for tester (hit-object hit)))))))
     (when result (hit-object result))))
-
-;; Handle common collision operations. Uses SCAN-COLLISION to find the closest
-;; valid HIT, then invokes COLLIDE using that hit, if any. Returns the closest
-;; HIT, if any.
-(defun handle-collisions (target object)
-  (let ((hit (scan-collision target object)))
-    (when hit
-      (collide object (hit-object hit) hit)
-      hit)))
 
 ;; Handle response to a collision of OBJECT with the TESTED entity on HIT.
 ;; HIT-OBJECT of the HIT instance must be EQ to TESTED.
