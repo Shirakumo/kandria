@@ -71,7 +71,9 @@
 (define-decoder (quest:storyline save-v1.1) (_b packet)
   (destructuring-bind ((storyline &key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
                                                                   :element-type 'character))
-    (let ((storyline (quest:find-named storyline T)))
+    (let ((storyline (if (null storyline)
+                         (make-instance 'quest:storyline)
+                         (quest:find-named storyline T))))
       (v:with-muffled-logging ()
         (quest:reset storyline))
       (quest:merge-bindings storyline (decode-payload variables 'bindings packet save-v1.1))
