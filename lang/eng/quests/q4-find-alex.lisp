@@ -40,8 +40,8 @@
   ~ innis
   | Alas, not too smart...
 - What do you want?
-~ innis
-| (:sly)I'll ask the questions, if you dinnae mind.
+  ~ innis
+  | (:sly)I'll ask the questions, if you dinnae mind.
 | (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, sister?
 ~ islay
@@ -58,9 +58,6 @@
 - My name's Stranger.
   ~ innis
   | This I ken, android. (:sly)Tell me, why are you here?
-- What do you want?
-  ~ innis
-  | (:sly)I'll ask the questions if you dinnae mind. Why are you here?
 ~ innis
 | (:sly)What //does// Fi send her robot dog to do?
 | To prove her loyalty, I think.
@@ -124,8 +121,8 @@ ken = know (Scottish)
   | You really dinnae ken? You're not as clever as I thought.
   < questions
 - What do you want?
-~ innis
-| (:sly)I'll ask the questions, if you dinnae mind.
+  ~ innis
+  | (:sly)I'll ask the questions, if you dinnae mind.
 | What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, sister?
 ~ islay
@@ -137,11 +134,13 @@ ken = know (Scottish)
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's not get off on the wrong foot now.
 ~ player
 - (Keep quiet)
+  ~ innis
+  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
 - My name's Stranger.
   ~ innis
-  | This I ken, android.
+  | This I ken, android. (:sly)Tell me, why are you here?
 ~ innis
-| (:sly)Tell me, why are you here? What //does// Fi send her robot dog to do?
+| (:sly)What //does// Fi send her robot dog to do?
 | To prove her loyalty, I think.
 ~ player
 - My business is my business.
