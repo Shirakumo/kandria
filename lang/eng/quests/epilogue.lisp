@@ -28,3 +28,5 @@
     :interactable npc-1
     :dialogue "
 ")))
+
+;; TODO mention no water too
