@@ -126,6 +126,20 @@
       (setf (svref collisions 1) NIL))
     (when (eq (svref collisions 2) (svref collisions 3))
       (setf (svref collisions 3) NIL))
+
+    (cond ((typep (svref collisions 0) 'moving-platform)
+           (when (and (svref collisions 2) (< (vy (velocity (svref collisions 0))) 0))
+             (kill moving)))
+          ((typep (svref collisions 2) 'moving-platform)
+           (when (and (svref collisions 0) (< 0 (vy (velocity (svref collisions 2)))))
+             (kill moving)))
+          ((typep (svref collisions 1) 'moving-platform)
+           (when (and (svref collisions 3) (< (vx (velocity (svref collisions 1))) 0))
+             (kill moving)))
+          ((typep (svref collisions 3) 'moving-platform)
+           (when (and (svref collisions 1) (< 0 (vx (velocity (svref collisions 3)))))
+             (kill moving))))
+    
     ;; Point test for adjacent walls
     (flet ((test (hit)
              (not (is-collider-for moving (hit-object hit)))))
