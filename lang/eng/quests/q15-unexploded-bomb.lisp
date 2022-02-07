@@ -64,6 +64,7 @@
    (:interaction islay-call-bomb
     :interactable islay
     :dialogue "
+! eval (ensure-nearby 'player 'catherine)
 ~ player
 | \"Okay, this should do. Let's find out where she is.\"(light-gray, italic)
 ~ player
@@ -87,7 +88,8 @@
 | They've got some kind of bomb defusal mech - I saw it \"heading towards the Zenith Hub.\"(orange)
 | I think I can rewire the receiver on this one.
 | Since you're here you can \"destroy that mech\"(orange).
-| \"Then go to the bomb in the mushroom cave to the west.\"(orange) I'll go to the one beneath the old Semi factory.
+| \"Then go to the bomb in the mushroom cave to the west - have Catherine rewire it.\"(orange) She'll know what to do.
+| I'll go to the one beneath the old Semi factory.
 | (:nervous)Good luck - over and out.
 ~ catherine
 | I can go to the mushroom cave while you take care of the mech.
@@ -116,4 +118,8 @@
 | Okay. Let's go together - after the mech.
 ! eval (complete 'check-bomb-1 'check-bomb-2 'check-bomb-3)
 ! eval (deactivate 'task-reminder)
+! eval (deactivate (unit 'islay-bomb-1))
+! eval (deactivate (unit 'islay-bomb-2))
+! eval (deactivate (unit 'islay-bomb-3))
+! eval (deactivate (unit 'islay-bomb-4))
 ")))

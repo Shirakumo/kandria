@@ -7,8 +7,10 @@
   :author "Tim White"
   :title "Destroy the Bomb Defusal Mech"
   :description "Islay believes a Wraw mech is defusing the bombs. I must destroy it."
-  (:go-to (q15-boss-loc))
+  (:go-to (q15-boss-loc)
+    :title "Defeat the bomb defusal mech in the Zenith Hub")
   (:eval 
+   (stop-following 'catherine)
    (move-to 'catherine-boss (unit 'catherine)))
   (:complete (q15-boss-fight)
    :title "Defeat the bomb defusal mech in the Zenith Hub"
@@ -18,7 +20,11 @@
 | (:shout)Smash it!
   ")
   (:wait 1)
-  (:interact (player :now T)
+  (:eval
+   (move-to 'player 'catherine))
+  (:go-to (catherine)
+   :title "Return to Catherine in the Zenith Hub")
+  (:interact (catherine :now T)
   "
 ~ catherine
 | (:concerned)Are you okay? (:excited)That was incredible.
@@ -33,7 +39,8 @@
   ~ catherine
   | (:excited)Me too! Somewhere without any sand or killer robots.
 ~ catherine
-| Alright, let's \"get to that mushroom cave to the west\"(orange)and \"see about that bomb\"(orange).
+| Alright, let's \"get to that mushroom cave to the west\"(orange) and \"see about that bomb\"(orange).
+! eval (follow 'player 'catherine)
 ! eval (activate 'q15-target-bomb)
 ! eval (activate (unit 'bomb-explode-1))
 ! eval (activate (unit 'bomb-explode-2))

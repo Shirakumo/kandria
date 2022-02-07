@@ -3,7 +3,7 @@
 
 (quest:define-quest (kandria q15-target-bomb)
   :author "Tim White"
-  :title "Rewire the Bomb"
+  :title "Reactivate the Bomb"
   :description "Islay is working on the other bombs - she needs Catherine and I to go the mushroom cave in the west to reactivate the bomb there."
   :on-activate (bomb-explode)
 
@@ -12,11 +12,13 @@
    :invariant T
    :condition all-complete
    :on-complete (epilogue)
+   :on-activate (call-explode)
 
    (:interaction call-explode
     :interactable islay
     :title ""
     :dialogue "
+! eval (ensure-nearby 'player 'catherine)
 ~ islay
 | {#@player-nametag}, the bomb at the pump room is rewired.
 | I've planted it back underwater. How'd you get on with the mech? Over.
@@ -38,5 +40,8 @@
 - Islay?
 - Is that an earthquake?
 - GET DOWN!
+! eval (deactivate (unit 'bomb-explode-1))
+! eval (deactivate (unit 'bomb-explode-2))
+! eval (deactivate (unit 'bomb-explode-3))
 ! eval (activate 'epilogue)
 ")))
