@@ -5,7 +5,7 @@
   :author "Tim White"
   :title "Check the Bombs"
   :description "I need to go with Catherine to find Islay at the bomb sites, to help her figure out why the bombs didn't detonate. I should be wary of Wraw soldiers."
-  :on-activate (task-reminder bomb-check-1 bomb-check-2 bomb-check-3 islay-call)
+  :on-activate (task-reminder check-bomb-1 check-bomb-2 check-bomb-3 islay-call)
   
   (task-reminder
    :title ""
@@ -58,9 +58,9 @@
    :visible NIL
    :invariant T
    :condition all-complete
-   :on-activate (islay-call)
+   :on-activate (islay-call-bomb)
 
-   (:interaction call-bomb
+   (:interaction islay-call-bomb
     :interactable islay
     :dialogue "
 ~ islay
