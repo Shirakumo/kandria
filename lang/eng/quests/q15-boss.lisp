@@ -32,8 +32,9 @@
   ~ catherine
   | (:excited)Me too! Somewhere without any sand or killer robots.
 ~ catherine
-| Alright, let's \"get to that mushroom cave in the west\"(orange)and see about that bomb.
-! eval (activate 'bomb-explode-1)
-! eval (activate 'bomb-explode-2)
-! eval (activate 'bomb-explode-3)
+| Alright, let's \"get to that mushroom cave to the west\"(orange)and \"see about that bomb\"(orange).
+! eval (activate 'q15-target-bomb)
+! eval (activate (unit 'bomb-explode-1))
+! eval (activate (unit 'bomb-explode-2))
+! eval (activate (unit 'bomb-explode-3))
 "))

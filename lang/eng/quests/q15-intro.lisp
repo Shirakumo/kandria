@@ -51,7 +51,7 @@
 - That's what I'm here for.
   ~ fi
   | (:happy)...
-- Lucky me.
+- I guess that means me.
 ~ islay
 | No. You don't know enough about the bombs. (:nervous)It has to be \"Catherine\"(orange)...
 ~ fi

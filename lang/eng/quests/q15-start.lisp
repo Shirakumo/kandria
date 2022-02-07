@@ -4,7 +4,7 @@
 (define-sequence-quest (kandria q15-start)
   :author "Tim White"
   :title "Return With Catherine to Engineering"
-  :description "Return with Catherine to Engineering, to speak with Islay about checking why the bombs didn't explode."
+  :description "Return with Catherine to Engineering, and speak with Islay about checking why the bombs didn't explode."
   (:eval
    (setf (walk 'catherine) NIL))
   (:go-to (eng-cath :with catherine)
@@ -19,7 +19,7 @@
 - She's too old.
   ~ fi
   | She might surprise you.
-- She's dead.
+- Then she's dead.
   ~ fi
   | She might surprise you.
 ~ catherine
@@ -33,12 +33,12 @@
   | Even though she said not to follow.
 - Did she say anything else?
   ~ fi
-  | She said for no one to follow.
+  | She said not to follow.
   | But I think she'll have better luck solving it with your help, Catherine.
   | I'm afraid you both need to go after her.
 - What now?
   ~ fi
-  | I'm afraid you both need to go after here - even though she said for no one to follow.
+  | I'm afraid you both need to go after here - even though she said not to follow.
   | She'll have better luck solving it with your help, Catherine.
 ~ catherine
 | (:shout)I agree. Let's go!

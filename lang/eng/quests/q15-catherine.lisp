@@ -4,9 +4,9 @@
 (define-sequence-quest (kandria q15-catherine)
   :author "Tim White"
   :title "Talk to Catherine"
-  :description "Islay needs to talk to Catherine in Engineering about checking why the bombs didn't explode."
+  :description "Islay needs to talk to Catherine about checking why the bombs didn't explode."
   (:go-to (catherine)
-   :title "Talk to Catherine")
+   :title "Talk to Catherine outside Engineering")
   (:interact (catherine :now T)
     "
 ~ catherine
