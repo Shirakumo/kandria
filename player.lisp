@@ -151,7 +151,8 @@ void main(){
   (stage (fishing-line player) area)
   (stage (stamina-wheel player) area)
   (stage (// 'kandria 'line-part) area)
-  (stage (// 'kandria 'sting) area))
+  (stage (// 'kandria 'sting) area)
+  (stage (// 'kandria 'lights) area))
 
 (defun interrupt-movement-trace (player &key death)
   (let ((trace (movement-trace player)))
@@ -774,7 +775,7 @@ void main(){
          (trigger 'jump player)
          (setf (vy vel) (+ (p! jump-acc)
                            (if ground
-                               (* 0.25 (max 0 (vy (velocity ground))))
+                               (max 0 (vy (velocity ground)))
                                0)))
          (setf ground NIL)
          (setf (jump-time player) 0.0))
