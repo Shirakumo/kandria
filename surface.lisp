@@ -3,7 +3,7 @@
 (defstruct (block (:constructor make-block (s)))
   (s 0 :type (unsigned-byte 16)))
 
-(defmethod collides-p ((entity game-entity) (block block) hit) T)
+(defmethod is-collider-for ((entity game-entity) (block block)) T)
 
 (defstruct (ground (:include block)
                    (:constructor make-ground (s))))
@@ -64,6 +64,9 @@
 
 (defmethod velocity ((block block))
   #.(vec2 0 0))
+
+(defmethod bsize ((block block))
+  #.(vec2 (/ +tile-size+ 2) (/ +tile-size+ 2)))
 
 (defun aabb (seg-pos seg-vel aabb-pos aabb-size)
   (declare (type vec2 seg-pos seg-vel aabb-pos aabb-size))

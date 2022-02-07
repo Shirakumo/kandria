@@ -35,9 +35,9 @@
   1000)
 
 (defmethod hurt ((npc npc) (player player)))
-(defmethod collides-p ((npc npc) (enemy enemy) hit) NIL)
-(defmethod collides-p ((enemy enemy) (npc npc) hit) NIL)
-(defmethod collides-p ((npc npc) (elevator elevator) hit) NIL)
+(defmethod is-collider-for ((npc npc) (enemy enemy)) NIL)
+(defmethod is-collider-for ((enemy enemy) (npc npc)) NIL)
+(defmethod is-collider-for ((npc npc) (elevator elevator)) NIL)
 (defmethod die ((npc npc))
   (error "WTF, NPC died for some reason. That shouldn't happen!"))
 (defmethod oob ((npc npc) (none null))

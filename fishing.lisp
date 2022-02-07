@@ -35,7 +35,7 @@
    (catch-timer :initform 0.0 :accessor catch-timer)
    (item :initform NIL :accessor item)))
 
-(defmethod collides-p ((buoy fishing-buoy) (moving moving) hit) NIL)
+(defmethod is-collider-for ((buoy fishing-buoy) (moving moving)) NIL)
 
 (defmethod catch-timer ((item item)) 1.0)
 

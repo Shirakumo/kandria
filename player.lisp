@@ -990,8 +990,6 @@ void main(){
                   (T
                    (when (<= (inertia-time player) 0.0)
                      (vsetf (inertia player) 0 0)))))
-              (when (typep ground 'moving-platform)
-                (incf (vy (frame-velocity player)) (min 0.0 (vy (velocity ground)))))
               (when (<= (climb-strength player) (p! climb-strength))
                 (setf (climb-strength player) (min (p! climb-strength) (+ (climb-strength player) (* 10 (dt ev))))))
               (cond ((retained 'left)

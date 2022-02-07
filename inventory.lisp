@@ -100,12 +100,12 @@
 
 (defmethod item-order ((_ item)) 0)
 
-(defmethod collides-p ((item item) thing hit) NIL)
-(defmethod collides-p ((item item) (block block) hit) T)
-(defmethod collides-p (thing (item item) hit) NIL)
-(defmethod collides-p ((moving moving) (item item) hit) NIL)
-(defmethod collides-p ((block block) (item item) hit) T)
-(defmethod collides-p ((block stopper) (item item) hit) NIL)
+(defmethod is-collider-for ((item item) thing) NIL)
+(defmethod is-collider-for ((item item) (block block)) T)
+(defmethod is-collider-for (thing (item item)) NIL)
+(defmethod is-collider-for ((moving moving) (item item)) NIL)
+(defmethod is-collider-for ((block block) (item item)) T)
+(defmethod is-collider-for ((block stopper) (item item)) NIL)
 (defmethod collide (thing (item item) hit) NIL)
 
 (defmethod interactable-p ((item item))

@@ -251,7 +251,7 @@
 (defun list-creatable-classes ()
   (mapcar #'class-name (c2mop:class-direct-subclasses (find-class 'creatable))))
 
-(defstruct (hit (:constructor %make-hit (object location &optional (time 0f0) (normal (vec 0 0)))))
+(defstruct (hit (:constructor %make-hit (&optional (object NIL) (location (vec 0 0)) (time 0f0) (normal (vec 0 0)))))
   (object NIL)
   (location NIL :type vec2)
   (time 0f0 :type single-float)
@@ -280,6 +280,7 @@
 ;; returns the closest HIT instance, if any.
 (defgeneric scan-collision (target region))
 ;; Should return T if the HIT should actually be counted as a valid collision.
+(defgeneric is-collider-for (object collider))
 (defgeneric collides-p (object tested hit))
 ;; Returns T if TARGET is contained in THING.
 (defgeneric contained-p (target thing))
@@ -299,14 +300,17 @@
         (return T)))))
 
 (defmethod scan (target region on-hit))
-(defmethod collides-p (object target hit) NIL)
-(defmethod collides-p (object (target solid) hit) T)
+(defmethod collides-p (object target hit)
+  (is-collider-for object target))
+
+(defmethod is-collider-for (object target) NIL)
+(defmethod is-collider-for (object (target solid)) T)
 
 (defmethod scan-collision (target region)
   (scan target region (lambda (hit) (unless (typep (hit-object hit) '(or block solid)) T))))
 
 (defun scan-collision-for (tester target region)
-  (let ((result (scan target region (lambda (hit) (not (collides-p tester (hit-object hit) hit))))))
+  (let ((result (scan target region (lambda (hit) (not (is-collider-for tester (hit-object hit)))))))
     (when result (hit-object result))))
 
 ;; Handle common collision operations. Uses SCAN-COLLISION to find the closest

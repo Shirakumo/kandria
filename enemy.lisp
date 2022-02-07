@@ -7,9 +7,9 @@
    (cooldown :initform 0.0 :accessor cooldown)
    (ai-state :initform :normal :accessor ai-state :type symbol)))
 
-(defmethod collides-p ((enemy enemy) (moving moving) hit) T)
-(defmethod collides-p ((enemy enemy) (other enemy) hit) NIL)
-(defmethod collides-p ((enemy enemy) (other stopper) hit) T)
+(defmethod is-collider-for ((enemy enemy) (moving moving)) T)
+(defmethod is-collider-for ((enemy enemy) (other enemy)) NIL)
+(defmethod is-collider-for ((enemy enemy) (other stopper)) T)
 
 (defmethod base-health ((enemy enemy)) 100)
 

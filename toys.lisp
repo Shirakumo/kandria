@@ -107,7 +107,7 @@
 (defmethod apply-transforms progn ((baloon balloon))
   (translate-by 0 -16 0))
 
-(define-shader-entity lantern (lit-animated-sprite collider ephemeral creatable)
+(define-shader-entity lantern (lit-animated-sprite solid collider ephemeral creatable)
   ((size :initform (vec 32 32))
    (bsize :initform (vec 16 16))
    (state :initform :active :accessor state :type symbol)
@@ -120,7 +120,8 @@
 
 (defmethod velocity ((lantern lantern)) #.(vec 0 0))
 
-(defmethod collides-p ((lantern lantern) thing hit) NIL)
+(defmethod is-collider-for ((lantern lantern) thing) NIL)
+
 (defmethod collides-p ((player player) (lantern lantern) hit)
   (and (dash-exhausted player)
        (eq :active (state lantern))))
@@ -160,7 +161,7 @@
        (setf (state lantern) :active)
        (setf (animation lantern) 'respawn)))))
 
-(define-shader-entity spring (lit-animated-sprite collider ephemeral creatable)
+(define-shader-entity spring (lit-animated-sprite solid collider ephemeral creatable)
   ((size :initform (vec 16 16))
    (bsize :initform (vec 8 8))
    (iframes :initform 0.0 :accessor iframes)
@@ -171,7 +172,7 @@
 (defmethod initargs append ((spring spring))
   '(:strength))
 
-(defmethod collides-p (thing (spring spring) hit) NIL)
+(defmethod is-collider-for (thing (spring spring)) NIL)
 (defmethod collides-p ((moving moving) (spring spring) hit)
   (< 0.5 (iframes spring)))
 
@@ -220,7 +221,7 @@
            (rotate-by 0 0 1 PI)
            (translate-by 0 -8 0)))))
 
-(define-shader-entity fountain (lit-animated-sprite collider ephemeral creatable)
+(define-shader-entity fountain (lit-animated-sprite solid collider ephemeral creatable)
   ((size :initform (vec 32 64))
    (bsize :initform (vec 16 32))
    (timer :initform 0.0 :accessor timer)
@@ -235,7 +236,7 @@
   (and (<= 0.05 (timer fountain) 0.4)
        (= 0 (iframes fountain))))
 
-(defmethod collides-p (thing (fountain fountain) hit) NIL)
+(defmethod is-collider-for (thing (fountain fountain)) NIL)
 (defmethod collides-p ((moving moving) (fountain fountain) hit)
   (active-p fountain))
 
@@ -337,21 +338,18 @@
 
 (defmethod collides-p ((moving moving) (platform crumbling-platform) hit)
   (and (eql :active (state platform))
-       (< (vy (frame-velocity moving)) 0)
-       (<= (+ (vy (hit-location hit)) (vy (bsize platform)))
+       (< 0 (vy (hit-normal hit)))
+       (<= (vy (velocity moving)) 0)
+       (<= (+ (vy (hit-location hit)) (vy (bsize platform)) -2)
            (- (vy (location moving)) (vy (bsize moving))))))
 
 (defmethod collide ((moving moving) (platform crumbling-platform) hit)
   (let* ((loc (location moving))
-         (vel (frame-velocity moving))
          (pos (hit-location hit))
-         (normal (hit-normal hit))
          (height (vy (bsize moving)))
          (t-s (vy (bsize platform))))
     (setf (animation platform) 'crumble)
     (setf (svref (collisions moving) 2) platform)
-    (nv+ loc (v* vel (hit-time hit)))
-    (nv- vel (v* normal (v. vel normal)))
     ;; Force clamp velocity to zero to avoid "speeding up while on ground"
     (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
     ;; Zip
@@ -605,7 +603,7 @@
 (defmethod layer-index ((blocker demo-blocker))
   (1+ +base-layer+))
 
-(defmethod collides-p ((moving moving) (blocker demo-blocker) hit)
+(defmethod is-collider-for ((player player) (blocker demo-blocker))
   #-kandria-demo NIL
   #+kandria-demo T)
 

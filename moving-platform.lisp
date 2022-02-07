@@ -4,10 +4,10 @@
   ((layer-index :initform (1+ +base-layer+))
    (last-tick :initform 0 :accessor last-tick)))
 
-(defmethod collides-p ((platform moving-platform) thing hit) NIL)
-(defmethod collides-p ((platform moving-platform) (block block) hit) T)
-(defmethod collides-p ((platform moving-platform) (block death) hit) NIL)
-(defmethod collides-p ((platform moving-platform) (solid solid) hit) T)
+(defmethod is-collider-for ((platform moving-platform) thing) NIL)
+(defmethod is-collider-for ((platform moving-platform) (block block)) T)
+(defmethod is-collider-for ((platform moving-platform) (block death)) NIL)
+(defmethod is-collider-for ((platform moving-platform) (solid solid)) T)
 
 (defmethod trigger ((platform moving-platform) (thing game-entity) &key))
 
@@ -171,7 +171,7 @@
   (nv+ (frame-velocity elevator) (velocity elevator))
   (loop repeat 10 while (handle-collisions +world+ elevator)))
 
-(defmethod collides-p ((elevator elevator) (solid platform) hit) NIL)
+(defmethod is-collider-for ((elevator elevator) (solid platform)) NIL)
 
 (defmethod collides-p ((elevator elevator) (solid stopper) hit)
   (when (<= 0.2 (+ (abs (vx (velocity elevator)))
