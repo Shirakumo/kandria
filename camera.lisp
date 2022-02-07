@@ -58,7 +58,7 @@
       (let ((int (intended-location camera)))
         (when (target camera)
           (let ((tar (location (target camera))))
-            (vsetf int (vx tar) (vy tar))))
+            (vsetf int (round (vx tar)) (round (vy tar)))))
         (clamp-camera-target camera int)
         (let* ((dir (v- int loc))
                (len (max 1 (vlength dir)))
