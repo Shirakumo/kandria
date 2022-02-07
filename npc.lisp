@@ -28,7 +28,9 @@
            (p! walk-limit)))))
 
 (defmethod interactable-p ((npc npc))
-  (and (eql (state npc) :normal)
+  (and (case (state npc)
+         (:normal T)
+         (:animated (eql 'idle (name (animation npc)))))
        (interactions npc)))
 
 (defmethod base-health ((npc npc))
