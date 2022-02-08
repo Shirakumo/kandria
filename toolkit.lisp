@@ -346,35 +346,6 @@
       (when (typep entity 'chunk)
         (return entity)))))
 
-(defun nearby-p (thing &rest things)
-  (flet ((resolve (thing)
-           (etypecase thing
-             (symbol (unit thing +world+))
-             (entity thing)
-             (vec thing))))
-    (let* ((thing (resolve thing))
-           (test-fun (etypecase thing
-                       (vec2
-                        (lambda (other)
-                          (< (vsqrdistance (location other) thing) (expt 64 2))))
-                       (vec4
-                        (lambda (other)
-                          (contained-p (location other) thing)))
-                       (chunk
-                        (lambda (other)
-                          (contained-p other thing)))
-                       (sized-entity
-                        (lambda (other)
-                          (contained-p thing other)))
-                       (located-entity
-                        (lambda (other)
-                          (< (vsqrdistance (location other) (location thing)) (expt 64 2))))
-                       (null
-                        (lambda (other)
-                          NIL)))))
-      (loop for thing in things
-            always (funcall test-fun (resolve thing))))))
-
 (defun 1-pole-lpf (current target)
   (let* ((a 0.99)
          (b (- 1.0 a)))
