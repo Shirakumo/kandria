@@ -17,7 +17,7 @@
   | (:expectant)Right, yes. The sooner we get started, the sooner we can turn your water back on.
 - What's her problem?
   ~ islay
-  | (:happy)How long have you got? Let's just say diplomacy isn't one of her strengths.
+  | (:happy)How long have you got? Let's just say diplomacy isn't one of Innis' strengths.
   | (:expectant)Anyway, about the job. The sooner we get started, the sooner we can turn your water back on.
 - Can't you just turn the water back on?
   | (:nervous)I'm afraid not. Much as I sympathise with your predicament.

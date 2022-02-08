@@ -4,7 +4,7 @@
 (quest:define-quest (kandria demo-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down."
+  :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down. I need to investigate them and report back to Innis, before she'll turn our water back on."
   :on-activate (task-reminder task-move-semis task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
   :variables (first-cctv)
  
@@ -33,6 +33,7 @@
 | | | Then \"return to Innis\"(orange).
 "))
 
+;; TODO this causes a gameplay stutter? stops movement? - same for the border task in main game?
   (task-move-semis
    :title NIL
    :visible NIL
@@ -50,7 +51,7 @@
   (task-cctv-1
    :title "Find CCTV camera 1"
    :condition all-complete
-   :on-activate T   
+   :on-activate T
    (:interaction cctv-1
     :interactable cctv-1
     :dialogue "
@@ -72,7 +73,7 @@
   (task-cctv-2
    :title "Find CCTV camera 2"
    :condition all-complete
-   :on-activate T   
+   :on-activate T
    (:interaction cctv-2
     :interactable cctv-2
     :dialogue "
@@ -94,7 +95,7 @@
   (task-cctv-3
    :title "Find CCTV camera 3"
    :condition all-complete
-   :on-activate T   
+   :on-activate T
    (:interaction cctv-3
     :interactable cctv-3
     :dialogue "
@@ -116,7 +117,7 @@
   (task-cctv-4
    :title "Find CCTV camera 4"
    :condition all-complete
-   :on-activate T   
+   :on-activate T
    (:interaction cctv-4
     :interactable cctv-4
     :dialogue "
