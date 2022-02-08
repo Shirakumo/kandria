@@ -8,7 +8,7 @@
   :on-activate (q5b-task-reminder q5b-task-cctv-1 q5b-task-cctv-2 q5b-task-cctv-3 q5b-task-cctv-4)
   :variables (first-cctv)
  
- ;; Can't use FFCS to indicate sites, nor realise it's blocked, as narrative device to find out it's blocked later - ofc will still appear on meta map
+ 
  (q5b-task-reminder
    :title NIL
    :visible NIL
@@ -25,12 +25,13 @@
 |?
 | ? (complete-p 'q5b-boss)
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
-| | | Hopefully you won't encounter any more saboteurs.
+| | | Then \"return to me\"(orange). Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'q5b-boss)
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
 | | | And don't forget to \"bring me back that saboteur\"(orange).
 | |?
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong the four downed CCTV cameras\"(orange).
+| | | Then \"return to me\"(orange).
 "))
 
 ;; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.

@@ -15,8 +15,8 @@
 | (:embarassed)They're quite big. And I don't think they'll come quietly.
 ~ innis
 | (:pleased)Then might I suggest you defend your wee self.
-| (:sly)If you survive I'll be happy to hear your report in person.
-| (:angry)Now don't interrupt me again unless it's something important.
+| (:sly)If you survive I'll be happy to \"hear your report in person\"(orange).
+| (:angry)Now don't interrupt me again.
   ")
   (:complete (q5b-boss-fight)
    :title "Defeat the saboteur robot in the Semis low-eastern region, along the Cerebat border"

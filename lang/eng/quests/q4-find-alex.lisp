@@ -6,7 +6,6 @@
   :title "Find Alex"
   :description "Fi wants me to find Alex and bring them back to camp for debriefing, to see if they know anything about the Wraw's plans."
   :on-activate (find-alex)
-  :variables (innis-remote)
 
   (find-alex
    :title "Travel down to the Cerebats township and find Alex, but avoid the Semi Sisters en route"
@@ -174,7 +173,6 @@ ken = know (Scottish)
 ! eval (deactivate (unit 'innis-stop-4))
 ! eval (deactivate (unit 'innis-stop-5))
 ! eval (deactivate (unit 'innis-stop-6))
-! eval (setf (var 'innis-remote) T)
 ! eval (activate 'find-alex-semis)
 "))
 
@@ -198,7 +196,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
     :repeatable T
     :dialogue "
 ~ islay
-| Hello, Stranger. [(var 'innis-remote) (:happy)It's an honour to meet you in person.]
+| Hello, Stranger. (:happy)It's an honour to meet you in person.
 | (:unhappy)I'm sorry about my sister.
 | (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us\"(orange).
 | Just don't tell Innis I told you.
