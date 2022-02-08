@@ -177,7 +177,7 @@
   | ... That's no' something the Cerebats would use.
 - I don't know. It's in pieces if you want to go look.
   ~ innis
-  | The Cerebats don't use robots.
+  | The Cerebats don't use robots. And no thank you.
 - Do the Cerebats use robots?
   ~ innis
   | No.
@@ -186,15 +186,15 @@
 | ...
 | (:angry)I think we might have a problem. A mutual problem:
 | The \"Wraw\"(red).
-| They've been other signs lately. Islay warned me about this.
+| There've been other signs lately. Islay warned me about this.
 | Dammit.
 | ...
 | (:normal)I need to speak with my sister.
-| Perhaps you should \"return to the surface\"(orange).
+| You should \"return to the surface\"(orange).
 | Don't worry, I've turned the water back on. Your friends can have a nice long drink.
 | (:sly)For what good it will do them.
 | If the Wraw are coming for us, they'll be coming for them too.
-| So long... Stranger.
+| (:normal)So long... Stranger.
 | Maybe I'll see you on the battlefield.
 ! eval (activate 'demo-end-2)
 ")))
