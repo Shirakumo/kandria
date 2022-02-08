@@ -62,7 +62,7 @@
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary)
    (facing-towards-screen-p :initform T :initarg :facing-towards-screen-p :accessor facing-towards-screen-p :type boolean))
-  (:default-initargs :sprite-data (asset 'kandria 'debug-door)))
+  (:default-initargs :sprite-data (asset 'kandria 'door)))
 
 (defmethod description ((door door))
   (language-string 'door))
