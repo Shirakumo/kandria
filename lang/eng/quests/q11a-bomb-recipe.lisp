@@ -53,6 +53,7 @@
 | | Hurry though, {#@player-nametag} - I still need: [(< 0 (var 'wire-count)) \"rolls of wire: {(var 'wire-count)}\"(orange); |] [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange); |] [(< 0 (var 'charge-pack-count)) \"charge packs: {(var 'charge-pack-count)}\"(orange).]
 "))
 
+  ;; TODO this stops the player when they hit the trigger? Need to find another way
  (task-border
    :title ""
    :on-activate T
