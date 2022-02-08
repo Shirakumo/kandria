@@ -132,7 +132,7 @@
    :condition (not (find-panel 'fullscreen-prompt))
    (fullscreen-prompt 'toggle-menu))
   (:eval
-   :condition (not (find-panel 'fullscreen-prompt))   
+   :condition (not (find-panel 'fullscreen-prompt))
    (fullscreen-prompt 'interact :title 'save)))
 ;; The mission here is too urgent for Catherine to think, oh, let's establish the android's name
 
