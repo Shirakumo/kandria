@@ -243,7 +243,7 @@ out vec4 color;
 
 void main(){
   // Calculate tilemap index and pixel offset within tile.
-  ivec2 pixel_xy = ivec2(pix_uv) % tile_size;
+  ivec2 pixel_xy = ivec2(pix_uv+0.0001) % tile_size;
   ivec2 map_xy = ivec2(uv*tex_size);
 
   // Look up tileset index from tilemap and pixel from tileset.
