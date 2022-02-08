@@ -30,7 +30,7 @@
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
 | | | And don't forget to \"bring me back that saboteur\"(orange).
 | |?
-| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong the four downed CCTV cameras\"(orange).
+| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 downed CCTV cameras\"(orange).
 | | | Then \"return to me\"(orange).
 "))
 
