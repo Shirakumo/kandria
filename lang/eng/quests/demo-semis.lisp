@@ -20,6 +20,9 @@
 - What do you want?
   ~ innis
   | (:sly)I'll ask the questions, if you dinnae mind.
+- Are you the Semi Sisters?
+  ~ innis
+  | (:sly)I'll ask the questions, if you dinnae mind.
 | (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, sister?
 ~ islay
@@ -58,7 +61,7 @@
 | (:sly)Once you've done something for us.
 | (:angry)Did your \"friends\" honestly think they could siphon it off forever?
 | That's no' how the world works.
-| (:normal)And I don't know why you bother - you don't need to drink. You should sack them off.
+| (:normal)And I don't know why you bother - you don't need to drink. I'd sack them off if I was you.
 | Anyway, my \"sister\"(orange) knows what we need. \"Talk to her.\"(orange)
   ")
   (:eval

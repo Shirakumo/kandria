@@ -5,7 +5,7 @@
   :author "Tim White"
   :title "Investigate CCTV"
   :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down. I need to investigate them and report back to Innis, before she'll turn our water back on."
-  :on-activate (task-reminder task-move-semis task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
+  :on-activate (task-reminder task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
   :variables (first-cctv)
  
   (task-reminder
@@ -29,7 +29,7 @@
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
 | | | And don't forget to \"bring Innis that saboteur\"(orange).
 | |?
-| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong the four downed CCTV cameras\"(orange).
+| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 downed CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange).
 "))
 
