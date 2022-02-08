@@ -196,5 +196,5 @@
 | If the Wraw are coming for us, they'll be coming for them as well.
 | (:normal)So long... Stranger.
 | Maybe I'll see you on the battlefield.
-! eval (activate 'demo-end-2)
+! eval (activate 'demo-end-prep)
 ")))
