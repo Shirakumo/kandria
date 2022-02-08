@@ -191,7 +191,7 @@
 | Don't worry, I've turned the water back on. Your friends can have a nice long drink.
 | (:sly)For what good it will do them.
 | If the Wraw are coming for us, they'll be coming for them too.
-| So long, Stranger.
+| So long... Stranger.
 | Maybe I'll see you on the battlefield.
 ! eval (activate 'demo-end-2)
 ")))
