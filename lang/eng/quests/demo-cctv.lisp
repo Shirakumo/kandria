@@ -190,10 +190,10 @@
 | Dammit.
 | ...
 | (:normal)I need to speak with my sister.
-| You should \"return to the surface\"(orange).
+| You should return to the surface.
 | Don't worry, I've turned the water back on. Your friends can have a nice long drink.
 | (:sly)For what good it will do them.
-| If the Wraw are coming for us, they'll be coming for them too.
+| If the Wraw are coming for us, they'll be coming for them as well.
 | (:normal)So long... Stranger.
 | Maybe I'll see you on the battlefield.
 ! eval (activate 'demo-end-2)
