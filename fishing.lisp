@@ -211,7 +211,8 @@
       (:show
        (let ((item (item (buoy line))))
          (when item
-           (leave* item T)
+           (when (slot-boundp item 'container)
+             (leave* item T))
            (store item player)))
        (when (slot-boundp line 'container)
          (leave* line T)))
