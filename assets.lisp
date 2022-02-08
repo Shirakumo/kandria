@@ -145,7 +145,7 @@
 
 (define-bg caves
   :wrapping '(:repeat :repeat :clamp-to-edge)
-  :parallax (vec 2.0 1.0)
+  :parallax (vec 2.0 2.0)
   :scaling (vec 1.5 1.5)
   :offset (vec 0.0 100.0)
   :lighting-strength 0.1)
