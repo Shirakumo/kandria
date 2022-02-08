@@ -76,7 +76,7 @@
   | But you'll be pleased to ken that we can turn the water back on for you.
 - I need your help.
   ~ innis
-  | (:pleased)You see, sister. The direct approach once again yields results, and confirms my information.
+  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my info.
   | (:normal)Well you'll be pleased to ken that we can turn the water back on for you.
 - Screw you!
   ~ islay
