@@ -33,20 +33,6 @@
 | | | Then \"return to Innis\"(orange).
 "))
 
-;; TODO this causes a gameplay stutter? stops movement? - same for the border task in main game?
-  (task-move-semis
-   :title NIL
-   :visible NIL
-   :on-activate T
-   (:interaction move-semis
-    :interactable NIL
-    :dialogue "
-! eval (setf (location 'innis) (location 'innis-main-loc))
-! eval (setf (direction 'innis) 1)
-! eval (setf (location 'islay) (location 'islay-main-loc))
-! eval (setf (direction 'islay) 1)
-"))
-
 ;; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.
   (task-cctv-1
    :title "Find CCTV camera 1"
@@ -68,6 +54,10 @@
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
+| ! eval (setf (location 'innis) (location 'innis-main-loc))
+| ! eval (setf (direction 'innis) 1)
+| ! eval (setf (location 'islay) (location 'islay-main-loc))
+| ! eval (setf (direction 'islay) 1)
 "))
 
   (task-cctv-2
@@ -90,6 +80,10 @@
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
+| ! eval (setf (location 'innis) (location 'innis-main-loc))
+| ! eval (setf (direction 'innis) 1)
+| ! eval (setf (location 'islay) (location 'islay-main-loc))
+| ! eval (setf (direction 'islay) 1)
 "))
 
   (task-cctv-3
@@ -112,6 +106,10 @@
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
+| ! eval (setf (location 'innis) (location 'innis-main-loc))
+| ! eval (setf (direction 'innis) 1)
+| ! eval (setf (location 'islay) (location 'islay-main-loc))
+| ! eval (setf (direction 'islay) 1)
 "))
 
   (task-cctv-4
@@ -153,6 +151,10 @@
 |? (not (var 'first-cctv))
 | | (:normal)\"I also need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
+| ! eval (setf (location 'innis) (location 'innis-main-loc))
+| ! eval (setf (direction 'innis) 1)
+| ! eval (setf (location 'islay) (location 'islay-main-loc))
+| ! eval (setf (direction 'islay) 1)
 "))
 ;; wouldnae = wouldn't (Scottish)
 ;; didnae = didn't (Scottish)
