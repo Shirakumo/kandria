@@ -67,7 +67,7 @@
   | But you'll be pleased to ken that \"Alex is here\"(orange).
 - I'm looking for someone called Alex, have you seen them?
   ~ innis
-  | (:pleased)You see, sister. The direct approach once again yields results, and confirms my information.
+  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my info.
   | (:normal)You'll be pleased to ken that \"Alex is here\"(orange).
 - Go fuck yourself.
   ~ islay
@@ -148,7 +148,7 @@ ken = know (Scottish)
   | But you'll be pleased to ken that \"Alex is here\"(orange).
 - I'm looking for someone called Alex, have you seen them?
   ~ innis
-  | (:pleased)You see, sister. The direct approach once again yields results, and confirms my information.
+  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my info.
   | (:normal)You'll be pleased to ken that \"Alex is here\"(orange).
 - Go fuck yourself.
   ~ islay
