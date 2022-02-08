@@ -162,7 +162,7 @@
   | ... That's no' something the Cerebats would use.
 - I don't know. It's in pieces if you want to go look.
   ~ innis
-  | The Cerebats don't use robots.
+  | The Cerebats don't use robots. And no thank you.
 - Do the Cerebats use robots?
   ~ innis
   | No.
@@ -171,7 +171,7 @@
 | ...
 | (:angry)I think we might have a problem. A mutual problem:
 | The Wraw.
-| They've been other signs lately. Islay warned me about this.
+| There've been other signs lately. Islay warned me about this.
 | Fuck.
 | ...
 | (:normal)I need to speak with my sister.
