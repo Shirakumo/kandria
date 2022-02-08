@@ -52,7 +52,7 @@
 | |?
 | | | (:normal)\"That was the last downed camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
+| | (:normal)\"This doesn't bode well. I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
@@ -78,7 +78,7 @@
 | |?
 | | | (:normal)\"That was the last downed camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
+| | (:normal)\"This doesn't bode well. I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
@@ -104,7 +104,7 @@
 | |?
 | | | (:normal)\"That was the last downed camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
+| | (:normal)\"This doesn't bode well. I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
