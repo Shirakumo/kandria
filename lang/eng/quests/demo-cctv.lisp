@@ -5,7 +5,7 @@
   :author "Tim White"
   :title "Investigate CCTV"
   :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down."
-  :on-activate (task-reminder task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
+  :on-activate (task-reminder task-move-semis task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
   :variables (first-cctv)
  
   (task-reminder
@@ -31,6 +31,19 @@
 | |?
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong the four downed CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange).
+"))
+
+  (task-move-semis
+   :title NIL
+   :visible NIL
+   :on-activate T
+   (:interaction move-semis
+    :interactable NIL
+    :dialogue "
+! eval (setf (location 'innis) (location 'innis-main-loc))
+! eval (setf (direction 'innis) 1)
+! eval (setf (location 'islay) (location 'islay-main-loc))
+! eval (setf (direction 'islay) 1)
 "))
 
 ;; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.

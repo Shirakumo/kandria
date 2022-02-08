@@ -32,6 +32,8 @@
 | \"Report back to Innis\"(orange) when you have news - by then we'll probably be back \"up in the control room\"(orange).
 | Good luck.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
+! eval (activate (unit 'move-semis-1))
+! eval (activate (unit 'move-semis-2))
 ")
   (:eval
    :on-complete (demo-cctv)))
