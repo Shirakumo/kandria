@@ -159,7 +159,7 @@
 ~ player
 - It was a big, badass robot.
   ~ innis
-  | ... That's not something the Cerebats would use.
+  | ... That's no' something the Cerebats would use.
 - I don't know. It's in pieces if you want to go look.
   ~ innis
   | The Cerebats don't use robots.

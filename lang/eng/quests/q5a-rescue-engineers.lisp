@@ -119,9 +119,9 @@
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
 | ? (var 'metro-used)
 | | | (:sly)I ken you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
-| | | (:normal)\"The stations run throughout our territory\"(orange) and beyond. Though \"not all are operational\"(orange) while we expand the network.
+| | | (:normal)\"The stations run throughout our territory\"(orange) and beyond. Though \"no' all are operational\"(orange) while we expand the network.
 | |?
-| | | (:normal)You'll find \"the stations run throughout our territory\"(orange) and beyond. Though \"not all are operational\"(orange) while we expand the network.
+| | | (:normal)You'll find \"the stations run throughout our territory\"(orange) and beyond. Though \"no' all are operational\"(orange) while we expand the network.
 | | | \"Simply open the blast doors and call a train.\"(orange)
 | ? (complete-p 'q5b-investigate-cctv)
 | | ~ innis

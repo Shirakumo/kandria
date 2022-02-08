@@ -76,7 +76,7 @@
 | (:unhappy)The Wraw are at our doorstep. Somehow they're running interference on our systems.
 | We're blind, and it's getting darker!
 ~ innis
-| (:angry)... It's not your call, Islay.
+| (:angry)... It's no' your call, Islay.
 ~ islay
 | (:unhappy)Well why don't you ask the people? They see our cameras shutting down one by one, and our guns sat in storage.
 | Just what exactly is your plan, sister?

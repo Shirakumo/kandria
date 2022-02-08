@@ -37,7 +37,7 @@
 ~ player
 - Who are you?
   ~ innis
-  | Alas, not too smart...
+  | Alas, no' too smart...
 - What do you want?
   ~ innis
   | (:sly)I'll ask the questions, if you dinnae mind.
@@ -49,7 +49,7 @@
 | (:angry)...
 | (:normal)Come now, Islay - the pinnacle of human engineering is standing before you, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
-| (:sly)That wasn't a compliment by the way, android. (:normal)But let's not get off on the wrong foot now.
+| (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
 - (Keep quiet)
   ~ innis
@@ -117,7 +117,7 @@ ken = know (Scottish)
   < questions
 - How are you communicating with me?
   ~ innis
-  | You really dinnae ken? You're not as clever as I thought.
+  | You really dinnae ken? You're no' as clever as I thought.
   < questions
 - What do you want?
   ~ innis
@@ -130,7 +130,7 @@ ken = know (Scottish)
 | (:angry)...
 | (:normal)Come now, Islay - you're speaking with the pinnacle of human engineering, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
-| (:sly)That wasn't a compliment by the way, android. (:normal)But let's not get off on the wrong foot now.
+| (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
 - (Keep quiet)
   ~ innis
