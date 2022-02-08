@@ -8,10 +8,10 @@
   (:eval    
    (setf (location 'player) 'demo-start)
    (setf (direction player) 1)
-   (setf (location 'innis) 'innis-intercept)
-   (setf (direction innis) -1)
-   (setf (location 'islay) 'islay-intercept)
-   (setf (direction islay) 1)
+   (setf (location 'innis) (location 'innis-intercept))
+   (setf (direction 'innis) -1)
+   (setf (location 'islay) (location 'islay-intercept))
+   (setf (direction 'islay) 1)
    (setf (nametag (unit 'innis)) "???")
    (setf (nametag (unit 'islay)) "???")
    (setf (state (unit 'player)) :animated))
@@ -36,7 +36,7 @@
 | (:thinking)Huh?
 | \"I can hear voices up ahead. I hope that's the Semi Sisters.\"(light-gray, italic)
 | \"My friends on the surface won't last much longer without water.\"(light-gray, italic)
-| \"Hopefully the rumours about them being tech witches are false.\"(light-gray, italic)
+| (:skeptical)\"Hopefully the rumours about them being tech witches are false.\"(light-gray, italic)
 ")
   (:go-to (innis)
    :title "Find the Semi Sisters")
@@ -49,7 +49,7 @@
 ~ player
 - Who are you?
   ~ innis
-  | Alas, not too smart...
+  | Alas, no' too smart...
 - What do you want?
   ~ innis
   | (:sly)I'll ask the questions, if you dinnae mind.
@@ -61,7 +61,7 @@
 | (:angry)...
 | (:normal)Come now, Islay - the pinnacle of human engineering is standing before you, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
-| (:sly)That wasn't a compliment by the way, android. (:normal)But let's not get off on the wrong foot now.
+| (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
 - (Keep quiet)
   ~ innis
@@ -90,8 +90,14 @@
 ~ innis
 | (:sly)Once you've done something for us.
 | (:angry)Did your \"friends\" honestly think they could siphon it off forever?
-| That's no how the world works.
-| (:normal)My \"sister\"(orange) knows what we need. \"Talk to her.\"(orange)
+| That's no' how the world works.
+| (:normal)And I don't know why you bother - you don't need to drink. You should sack them off.
+| Anyway, my \"sister\"(orange) knows what we need. \"Talk to her.\"(orange)
   ")
   (:eval
    :on-complete (demo-cctv-intro)))
+   
+#|
+dinnae = don't (Scottish)
+ken = know (Scottish)
+|#
