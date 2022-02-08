@@ -551,3 +551,16 @@ void main(){
           for val being the hash-values of chunks
           do (when (rest val)
                (format T "Duplicate: ~{~a~^, ~}~%" (mapcar #'name val))))))
+
+(define-shader-entity stuffer (layer creatable)
+  ((name :initform (generate-name "STUFFER"))))
+
+(defmethod closest-acceptable-location ((stuffer stuffer) loc) loc)
+
+(defmethod clone ((stuffer stuffer) &rest initargs)
+  (apply #'make-instance (class-of stuffer)
+         (append initargs
+                 (list
+                  :size (clone (size stuffer))
+                  :tile-data (tile-data stuffer)
+                  :pixel-data (clone (pixel-data stuffer))))))
