@@ -192,6 +192,6 @@
 | (:sly)For what good it will do them.
 | If the Wraw are coming for us, they'll be coming for them too.
 | So long, Stranger.
+| Maybe I'll see you on the battlefield.
 ! eval (activate 'demo-end-2)
 ")))
-
