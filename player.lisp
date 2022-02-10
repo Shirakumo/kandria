@@ -733,7 +733,7 @@ void main(){
                 (prev NIL))
            (loop (let ((cur (scan +world+ off (lambda (hit)
                                                 (not (and (typep (hit-object hit) '(and (or solid ground) (not death)))
-                                                          (collides-p player (hit-object hit) hit)))))))
+                                                          (is-collider-for player (hit-object hit))))))))
                    (when (and pprev (null prev)
                               (if (< (vy off) ymin)
                                   (or cur ground)
