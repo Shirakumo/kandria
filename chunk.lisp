@@ -210,12 +210,12 @@ uniform mat4 view_matrix;
 uniform mat4 model_matrix;
 uniform mat4 projection_matrix;
 uniform vec2 map_size;
-uniform int tile_size = 16;
 uniform usampler2D tilemap;
 out vec2 uv;
 out vec2 pix_uv;
 out vec2 world_pos;
 flat out ivec2 tex_size;
+const int tile_size = 16;
 
 void main(){
   vec2 vert = (vertex.xy*map_size*tile_size*0.5);
@@ -223,7 +223,7 @@ void main(){
   gl_Position = projection_matrix * view_matrix * temp;
   world_pos = temp.xy;
   uv = vertex_uv;
-  pix_uv = uv * map_size * tile_size;
+  pix_uv = uv * map_size * tile_size * tile_size;
   tex_size = textureSize(tilemap,0);
 }")
 
@@ -243,7 +243,7 @@ out vec4 color;
 
 void main(){
   // Calculate tilemap index and pixel offset within tile.
-  ivec2 pixel_xy = ivec2(pix_uv+0.0001) % tile_size;
+  ivec2 pixel_xy = ivec2(pix_uv * 0.0625) % tile_size;
   ivec2 map_xy = ivec2(uv*tex_size);
 
   // Look up tileset index from tilemap and pixel from tileset.
