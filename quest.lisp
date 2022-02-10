@@ -108,12 +108,8 @@
 
 (defclass stub-interaction (interaction)
   ((quest:dialogue :initform NIL :accessor quest:dialogue)
-   (quest:task :initform NIL)
+   (quest:task :initform (quest:find-named 'task-world-all (quest:find-named 'world (quest:storyline T))))
    (quest:name :initform 'stub)))
-
-(defmethod initialize-instance :after ((interaction stub-interaction) &key dialogue)
-  (with-trial-io-syntax ()
-    (setf (quest:dialogue interaction) (dialogue:compile* dialogue))))
 
 (defmethod quest:complete ((stub-interaction stub-interaction)))
 
@@ -239,6 +235,28 @@
                        (sb-kernel:redefinition-warning #'muffle-warning))
           (cl:load file)))
       (setf +loaded-quest-language+ language))))
+
+(defmacro define-default-interactions (npc &body body)
+  (labels ((compile-body (out body)
+             (with-input-from-string (in (format NIL "~{~a~^~%~}" body))
+               (loop for line = (read-line in NIL)
+                     while line
+                     do (format out "| ~a~%" line))))
+           (compile-dialogue ()
+             (with-output-to-string (out)
+               (format out "~~ ~a~%" npc)
+               (destructuring-bind (first . rest) body
+                 (if (eql (car first) T)
+                     (format out "? T~%")
+                     (format out "? (complete-p '~a)~%" (car first)))
+                 (compile-body out (cdr first))
+                 (loop for (quest . body) in rest
+                       do (if (eql quest T)
+                              (format out "|?~%")
+                              (format out "|? (complete-p '~a)~%" quest))
+                          (compile-body out body))))))
+    `(setf (gethash ',npc *default-interactions*)
+           (make-instance 'stub-interaction :dialogue ,(compile-dialogue)))))
 
 (defmacro define-sequence-quest ((storyline name) &body body)
   (let ((counter 0))

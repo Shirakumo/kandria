@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defvar *default-interactions* (make-hash-table :test 'eq))
+
 (defclass interactable (entity collider)
   ())
 
@@ -13,14 +15,21 @@
 (defmethod interactable-p ((block block)) NIL)
 
 (defclass dialog-entity (interactable)
-  ((interactions :initform () :accessor interactions)))
+  ((interactions :initform () :accessor interactions)
+   (default-interaction :initform NIL :initarg :default-interaction :accessor default-interaction)))
+
+(defmethod initialize-instance :after ((entity dialog-entity) &key)
+  (unless (default-interaction entity)
+    (setf (default-interaction entity) (gethash (name entity) *default-interactions*))))
 
 (defmethod interactable-p ((entity dialog-entity))
-  (interactions entity))
+  (or (interactions entity)
+      (default-interaction entity)))
 
 (defmethod interact ((entity dialog-entity) from)
   (when (interactable-p entity)
-    (show (make-instance 'dialog :interactions (interactions entity)))))
+    (show (make-instance 'dialog :interactions (or (interactions entity)
+                                                   (list (default-interaction entity)))))))
 
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity resizable creatable)
   ((name :initform (generate-name "INTERACTABLE"))))

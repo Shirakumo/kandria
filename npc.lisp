@@ -35,7 +35,7 @@
   (and (case (state npc)
          (:normal T)
          (:animated (eql 'idle (name (animation npc)))))
-       (interactions npc)))
+       (call-next-method)))
 
 (defmethod base-health ((npc npc))
   1000)

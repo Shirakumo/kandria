@@ -121,3 +121,20 @@ A sequence is defined as a list of clauses, with each clause defining a task wit
   The body can be arbitrary forms that should be executed once the character is nearby.
 - ``:wait seconds``
   Wait for the specified number of seconds before continuing with the next task.
+
+## Default interactions
+You can define default interactions to play back for NPC interactions when there's no other quest state active that would take precedence. This allows filling in "dead air" and avoids NPCs just completely ghosting the player outside of quests.
+
+To define default interactions, use ``define-default-interaction`` like so:
+
+::
+(define-default-interactions jack
+  (q2-seeds
+   "| Be careful out there")
+  (q0-settlement-arrive
+   "| Just to be clear, I still don't trust you.")
+  (T
+   "| Who are you?"))
+::
+
+Meaning each body form is composed of a quest name and a piece of dialogue to execute if that quest has been completed. Note since the first matching piece will fire first, you need to order the snippets in reverse, such that the last quest (from the perspective of the overall storyline) is listed first.

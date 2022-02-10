@@ -359,3 +359,10 @@
 
 ;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
+(define-default-interactions jack
+  (q2-seeds
+   "| Be careful out there")
+  (q0-settlement-arrive
+   "| Just to be clear, I still don't trust you.")
+  (T
+   "| Who are you?"))
