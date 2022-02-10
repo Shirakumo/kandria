@@ -91,14 +91,14 @@
 
 (defmethod hurt :after ((enemy minor-enemy) by)
   (when (setting :gameplay :display-hud)
-    (show (health-bar enemy) :enemy enemy)))
+    (show (health-bar enemy))))
 
 (defmethod leave :after ((enemy minor-enemy) target)
   (hide (health-bar enemy)))
 
 (defmethod handle :after ((ev tick) (enemy minor-enemy))
   (when (slot-boundp (health-bar enemy) 'alloy:layout-parent)
-    (show (health-bar enemy) :enemy enemy)))
+    (show (health-bar enemy))))
 
 (define-shader-entity ground-enemy (enemy)
   ())

@@ -11,6 +11,8 @@ semi-engineer-nametag "Engineer"
 villager-nametag "Villager"
 cerebat-trader-nametag "???"
 zelah-nametag "Zelah"
+villager-female-nametags ("Sandra" "Cath" "Monika" "Leandra" "Sarah" "Nathalie" "Maria" "Anneli" "Laura" "Karina" "Heidy" "Nick")
+villager-male-nametags ("Vincent" "Nick" "Till" "Brian" "Simon" "Chris" "Sean" "Luigi" "Johnny" "Arthur" "Sina" "Tom")
 ;; Places
 chunk-2129 "Engineering"
 chunk-1893 "Storage"

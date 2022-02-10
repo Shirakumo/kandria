@@ -1,7 +1,50 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass enemy-health-bar (alloy:popup alloy:direct-value-component)
+(defclass sticky-element (alloy:popup alloy:direct-value-component)
   ((offset :initform (random* 0 16) :accessor offset)))
+
+(defmethod show ((element sticky-element) &key)
+  (unless (slot-boundp element 'alloy:layout-parent)
+    (alloy:enter element (unit 'ui-pass T) :w 1 :h 1))
+  (alloy:with-unit-parent element
+    (let* ((target (alloy:value element))
+           (screen-location (world-screen-pos (vec (vx (location target))
+                                                   (+ (vy (location target)) (vy (bsize target)) 10
+                                                      (offset element)))))
+           (size (alloy:suggest-bounds (alloy:px-extent 0 0 96 8) element)))
+      (setf (alloy:bounds element) (alloy:px-extent (- (vx screen-location) (/ (alloy:pxw size) 2))
+                                                    (+ (vy screen-location) (alloy:pxh size))
+                                                    (max 1 (alloy:pxw size))
+                                                    (max 1 (alloy:pxh size)))))))
+
+(defmethod hide ((prompt sticky-element))
+  (when (slot-boundp prompt 'alloy:layout-parent)
+    (alloy:leave prompt T)))
+
+(defclass nametag-element (sticky-element)
+  ())
+
+(defmethod alloy:text ((element nametag-element))
+  (nametag (alloy:value element)))
+
+(presentations:define-realization (ui nametag-element)
+  ((:background simple:rectangle)
+   (alloy:margins -2 2 -2 -5))
+  ((:label simple:text)
+   (alloy:margins 0 -5)
+   alloy:text
+   :halign :start
+   :valign :middle
+   :font (setting :display :font)
+   :size (alloy:un 12)
+   :pattern colors:white))
+
+(presentations:define-update (ui nametag-element)
+  (:label
+   :text alloy:text))
+
+(defclass enemy-health-bar (sticky-element)
+  ())
 
 (defmethod alloy:text ((element enemy-health-bar))
   (princ-to-string (level (alloy:value element))))
@@ -29,24 +72,6 @@
    :text alloy:text
    :pattern (if (<= 10 (- (level alloy:value) (level (unit 'player +world+))))
                 colors:red colors:white)))
-
-(defmethod show ((prompt enemy-health-bar) &key enemy)
-  (unless (slot-boundp prompt 'alloy:layout-parent)
-    (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
-  (alloy:mark-for-render prompt)
-  (alloy:with-unit-parent prompt
-    (let* ((screen-location (world-screen-pos (vec (vx (location enemy))
-                                                   (+ (vy (location enemy)) (vy (bsize enemy)) 10
-                                                      (offset prompt)))))
-           (size (alloy:suggest-bounds (alloy:px-extent 0 0 96 8) prompt)))
-      (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) (/ (alloy:pxw size) 2))
-                                                   (+ (vy screen-location) (alloy:pxh size))
-                                                   (max 1 (alloy:pxw size))
-                                                   (max 1 (alloy:pxh size)))))))
-
-(defmethod hide ((prompt enemy-health-bar))
-  (when (slot-boundp prompt 'alloy:layout-parent)
-    (alloy:leave prompt T)))
 
 (defclass hud-element ()
   ((timeout :initarg :timeout :initform (if (setting :gameplay :display-hud) 5.0 0.0) :accessor timeout)))

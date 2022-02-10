@@ -8,7 +8,11 @@
    (target :initform NIL :accessor target)
    (companion :initform NIL :accessor companion)
    (walk :initform NIL :accessor walk)
-   (lead-interrupt :initform "| Where are you going? It's this way!" :accessor lead-interrupt)))
+   (lead-interrupt :initform "| Where are you going? It's this way!" :accessor lead-interrupt)
+   (nametag-element :accessor nametag-element)))
+
+(defmethod initialize-instance :after ((npc npc) &key)
+  (setf (nametag-element npc) (make-instance 'nametag-element :value npc)))
 
 (defmethod print-object ((npc npc) stream)
   (print-unreadable-object (npc stream :type T)
@@ -138,7 +142,10 @@
     (case (ai-state npc)
       (:normal
        (when (path npc)
-         (execute-path npc ev)))
+         (execute-path npc ev))
+       (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt min-distance 2))
+           (show (nametag-element npc))
+           (hide (nametag-element npc))))
       (:move-to
        (cond ((path npc)
               (execute-path npc ev))
@@ -334,6 +341,9 @@
             (incf direction (* (expt (abs dist) -1.1) (float-sign dist)))))))))
 
 (defmethod handle-ai-states ((npc roaming-npc) ev)
+  (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt 64 2))
+      (show (nametag-element npc))
+      (hide (nametag-element npc)))
   (when (eql :normal (state npc))
     (let* ((speed (movement-speed npc))
            (avg-time 2.0)
@@ -465,21 +475,21 @@
 (define-shader-entity cerebat-trader (npc creatable)
   ((name :initform 'cerebat-trader)
    (profile-sprite-data :initform (asset 'kandria 'sahil-profile))
-   (nametag :initform (@ cerebat-trader-nametag)))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
   (:default-initargs
    :sprite-data (asset 'kandria 'sahil)))
 
 (define-shader-entity semi-engineer (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
-   (nametag :initform (@ semi-engineer-nametag)))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-engineer)))
 
 (define-shader-entity villager-hunter (roaming-npc creatable)
   ((name :initform (generate-name "HUNTER"))
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
-   (nametag :initform (@ semi-engineer-nametag)))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-hunter)))
 
@@ -492,10 +502,14 @@
   (case (random 2)
     (0
      (setf (slot-value villager 'trial:sprite-data) (asset 'kandria 'villager-male))
-     (setf (palette villager) (// 'kandria 'villager-male-palette)))
+     ;;(setf (slot-value villager 'profile-sprite-data) (asset 'kandria 'villager-male-profile))
+     (setf (palette villager) (// 'kandria 'villager-male-palette))
+     (setf (nametag villager) (alexandria:random-elt (@ villager-male-nametags))))
     (1
      (setf (slot-value villager 'trial:sprite-data) (asset 'kandria 'villager-female))
-     (setf (palette villager) (// 'kandria 'villager-female-palette))))
+     ;;(setf (slot-value villager 'profile-sprite-data) (asset 'kandria 'villager-female-profile))
+     (setf (palette villager) (// 'kandria 'villager-female-palette))
+     (setf (nametag villager) (alexandria:random-elt (@ villager-female-nametags)))))
   (setf (palette-index villager) (random 4)))
 
 (defmethod stage :after ((villager villager) (area staging-area))
