@@ -18,6 +18,9 @@
   (print-unreadable-object (npc stream :type T)
     (format stream "~s ~s" (state npc) (ai-state npc))))
 
+(defmethod description ((npc npc))
+  (language-string 'talk-to))
+
 (defmethod capable-p ((npc npc) (edge jump-node)) T)
 
 (defmethod description ((npc npc))
