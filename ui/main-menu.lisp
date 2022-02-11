@@ -43,7 +43,7 @@
         (multiple-value-bind (text markup version) (parse-news (drakma:http-request url :want-stream T))
           (setf (alloy:value target) text)
           (setf (markup target) markup)
-          (setf (up-to-date target) (search version (version :app))))
+          (setf (up-to-date target) (version<= version (version :app))))
       (usocket:ns-try-again-condition ())
       (error (e)
         (v:severe :kandria.news "Failed to fetch news: ~a" e)))))
