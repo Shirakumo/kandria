@@ -238,7 +238,7 @@
        (= 0 (iframes fountain))))
 
 (defmethod is-collider-for (thing (fountain fountain)) NIL)
-(defmethod collides-p ((moving moving) (fountain fountain) hit)
+(defmethod is-collider-for ((moving moving) (fountain fountain))
   (active-p fountain))
 
 (defmethod layer-index ((fountain fountain))
@@ -337,8 +337,11 @@
     (active
      (setf (state platform) :active))))
 
+(defmethod is-collider-for ((moving moving) (platform crumbling-platform))
+  (eql :active (state platform)))
+
 (defmethod collides-p ((moving moving) (platform crumbling-platform) hit)
-  (and (eql :active (state platform))
+  (and (is-collider-for moving platform)
        (< 0 (vy (hit-normal hit)))
        (<= (vy (velocity moving)) 0)
        (<= (+ (vy (hit-location hit)) (vy (bsize platform)) -2)
@@ -393,7 +396,7 @@
 (defmethod quest:active-p ((blocker blocker))
   (<= 1.0 (visibility blocker)))
 
-(defmethod collides-p ((moving moving) (blocker blocker) hit)
+(defmethod is-collider-for ((moving moving) (blocker blocker))
   (quest:active-p blocker))
 
 (defmethod collide ((player player) (blocker blocker) hit)
@@ -475,6 +478,9 @@
       (ecase state
         (:open (setf (animation shutter) 'opening))
         (:closed (setf (animation shutter) 'closing))))))
+
+(defmethod is-collider-for ((moving moving) (shutter shutter))
+  (eql :closed (state shutter)))
 
 (defmethod collides-p ((moving moving) (shutter shutter) hit)
   (and (eql :closed (state shutter))

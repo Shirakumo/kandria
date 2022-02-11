@@ -81,9 +81,7 @@
                  (vsetf a
                         (+ x (* (- x (vx b)) 0.99) (* dt2 (vx g)))
                         (+ y (* (- y (vy b)) 0.99) (* dt2 (vy g))))
-                 (if (< 300 (vsqrdistance a b))
-                     (vsetf b (vx a) (vy a))
-                     (vsetf b x y))))
+                 (vsetf b x y)))
              (relax (a b i)
                (let* ((dist (v- b a))
                       (dir (if (v/= 0 dist) (nvunit dist) (vec 0 0)))

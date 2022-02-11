@@ -144,16 +144,16 @@
     (flet ((test (hit)
              (or (typep (hit-object hit) '(or slope platform))
                  (not (is-collider-for moving (hit-object hit))))))
-      (let ((l (scan +world+ (vec (- (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))) #'test)))
+      (let ((l (scan +world+ (vec (- (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
         (when l
           (setf (aref collisions 3) (hit-object l))))
-      (let ((r (scan +world+ (vec (+ (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))) #'test)))
+      (let ((r (scan +world+ (vec (+ (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
         (when r
           (setf (aref collisions 1) (hit-object r))))
-      (let ((u (scan +world+ (vec (vx loc) (+ (vy loc) (vy size) 1.5) (1- (vx size)) 1) #'test)))
+      (let ((u (scan +world+ (vec (vx loc) (+ (vy loc) (vy size) 1.5) (- (vx size) 2) 1) #'test)))
         (when u
           (setf (aref collisions 0) (hit-object u))))
-      (let ((b (scan +world+ (vec (vx loc) (- (vy loc) (vy size) 1.5) (1- (vx size)) 1) #'test)))
+      (let ((b (scan +world+ (vec (vx loc) (- (vy loc) (vy size) 1.5) (- (vx size) 2) 1) #'test)))
         (when b
           (setf (aref collisions 2) (hit-object b))))))
   (incf (air-time moving) (dt ev)))
