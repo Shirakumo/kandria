@@ -142,7 +142,7 @@
     
     ;; Point test for adjacent walls
     (flet ((test (hit)
-             (or (typep (hit-object hit) 'slope)
+             (or (typep (hit-object hit) '(or slope platform))
                  (not (is-collider-for moving (hit-object hit))))))
       (let ((l (scan +world+ (vec (- (vx loc) (vx size) 1) (vy loc) 1 (1- (vy size))) #'test)))
         (when l

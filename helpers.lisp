@@ -78,7 +78,7 @@
         entity)))
 
 (defmethod initargs append ((_ base-entity))
-  '(:name))
+  ())
 
 (defclass located-entity (base-entity transformed)
   ((location :initarg :location :initform (vec 0 0) :accessor location
