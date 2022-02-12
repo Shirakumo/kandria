@@ -97,6 +97,7 @@ toggle-trace "Toggle Trace"
 ;; Intearctions
 door "Enter"
 fishing-spot "Fish"
+water "Fish"
 npc "Talk"
 item "Pick Up"
 elevator "Activate"

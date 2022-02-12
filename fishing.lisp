@@ -1,30 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass fishing-spot (sized-entity interactable resizable ephemeral creatable)
-  ((direction :initarg :direction :initform +1 :accessor direction
-              :type integer)))
-
-(defmethod description ((spot fishing-spot))
-  (language-string 'fishing-spot))
-
-(defmethod interactable-p ((spot fishing-spot))
-  (let ((player (unit 'player +world+)))
-    (and (svref (collisions player) 2)
-         (< 5 (combat-time player)))))
-
-(defmethod interact ((spot fishing-spot) (player player))
-  (setf (direction player) (direction spot))
-  (setf (fishing-spot (fishing-line player)) spot)
-  (setf (item (buoy (fishing-line player))) NIL)
-  (harmony:play (// 'sound 'fishing-begin-jingle))
-  (setf (state player) :fishing)
-  (setf (active-p (action-set 'fishing)) T)
-  (vsetf (velocity player) 0 0)
-  (setf (animation player) 'fishing-start))
-
-(defmethod draw-item ((spot fishing-spot))
-  (make-instance (draw-item (name spot))))
-
 (define-shader-entity fishing-buoy (lit-sprite moving)
   ((texture :initform (// 'kandria 'items))
    (fishing-line :accessor fishing-line)
@@ -36,6 +11,7 @@
    (item :initform NIL :accessor item)))
 
 (defmethod is-collider-for ((buoy fishing-buoy) (moving moving)) NIL)
+(defmethod is-collider-for ((buoy fishing-buoy) (platform platform)) NIL)
 
 (defmethod catch-timer ((item item)) 1.0)
 
@@ -159,7 +135,7 @@
     (setf (tries buoy) 0)
     (setf (item buoy) NIL)
     (setf (intended-zoom (unit :camera +world+)) 1.0)
-    (vsetf (velocity buoy) (* (direction (fishing-spot line)) 8) 4)
+    (vsetf (velocity buoy) (* (- (vx (location (fishing-spot line))) (vx (location line))) 0.03) 4)
     (enter* (buoy line) target)))
 
 (defmethod leave* :after ((line fishing-line) from)

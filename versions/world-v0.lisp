@@ -174,7 +174,7 @@
 (defmethod encode-payload ((train train) payload packet (version world-v0))
   (error 'no-applicable-encoder :source train))
 (define-slot-coders (rope world-v0) (name (location :type vec2) (bsize :type vec2) direction extended))
-(define-slot-coders (water world-v0) ((location :type vec2) (bsize :type vec2)))
+(define-slot-coders (water world-v0) ((location :type vec2) (bsize :type vec2) fishing-spot))
 (define-slot-coders (place-marker world-v0) (name (location :type vec2) (bsize :type vec2)))
 (define-slot-coders (grass-patch world-v0) ((location :type vec2) (bsize :type vec2) patches (tile-size :type vec2) (tile-start :type vec2) tile-count))
 (define-slot-coders (trigger world-v0) (name active-p (location :type vec2) (bsize :type vec2)))

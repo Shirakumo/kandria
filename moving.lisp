@@ -190,7 +190,8 @@
                 (setf (vy (location moving)) (- (vy (hit-location hit)) (vy (bsize block)) (vy (bsize moving)))))))))
 
 (defmethod collides-p ((moving moving) (block platform) hit)
-  (and (< 0 (vy (hit-normal hit)))
+  (and (is-collider-for moving block)
+       (< 0 (vy (hit-normal hit)))
        (<= (+ (vy (hit-location hit)) (floor +tile-size+ 2) -2)
            (- (vy (location moving)) (vy (bsize moving))))))
 

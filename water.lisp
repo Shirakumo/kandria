@@ -2,8 +2,11 @@
 
 (define-shader-entity water (lit-entity vertex-entity sized-entity listener resizable ephemeral medium collider creatable)
   ((vertex-buffer :accessor vertex-buffer)
-   (prev :accessor prev))
+   (prev :accessor prev)
+   (fishing-spot :initarg :fishing-spot :initform NIL :accessor fishing-spot :type symbol))
   (:inhibit-shaders (vertex-entity :vertex-shader)))
+
+(defmethod initargs apppend ((water water)) '(:fishing-spot))
 
 (defun make-water-vertex-data (bsize)
   (let ((array (make-array (* 2 2 (1+ (floor (vx bsize) 2))) :element-type 'single-float))
@@ -112,6 +115,27 @@
     (loop for i from (+ 3 4) below (- (length data) 4) by 4
           do (shiftf (aref data i) (aref data (- i 2)) (- h)))
     (update-buffer-data (vertex-buffer water) T)))
+
+(defmethod description ((water water))
+  (language-string 'water))
+
+(defmethod interactable-p ((water water))
+  (fishing-spot water))
+
+(defmethod interact ((water water) (player player))
+  (setf (direction player) (float-sign (- (vx (location water)) (vx (location player)))))
+  (setf (fishing-spot (fishing-line player)) water)
+  (setf (item (buoy (fishing-line player))) NIL)
+  (harmony:play (// 'sound 'fishing-begin-jingle))
+  (setf (state player) :fishing)
+  (setf (active-p (action-set 'fishing)) T)
+  (vsetf (velocity player) 0 0)
+  (setf (animation player) 'fishing-start))
+
+(defmethod draw-item ((water water))
+  (make-instance (draw-item (fishing-spot water))))
+
+(defmethod action ((water water)) 'interact)
 
 (define-class-shader (water :vertex-shader)
   "layout (location = 0) in vec2 position;
