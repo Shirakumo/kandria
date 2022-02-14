@@ -124,7 +124,7 @@
   | (:angry)It'd better be. Get on with it then.
 - Sorry to interrupt.
   ~ innis
-  | (:angry)I'll accept that apology if what you have to say has value.
+  | (:angry)I'll accept that apology if you have something useful to say.
 - How do you know about FFCS?
   ~ innis
   | (:sly)I wouldnae have been very good at my old job if I didnae ken it.
@@ -155,7 +155,7 @@
     :dialogue "
 ~ innis
 | (:pleased)I'm glad you survived.
-| (:sly)So tell me, what are we dealing with?
+| (:sly)So what are we dealing with?
 ~ player
 - It was a big, badass robot.
   ~ innis
