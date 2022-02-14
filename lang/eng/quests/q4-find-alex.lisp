@@ -40,7 +40,7 @@
   | Alas, no' too smart...
 - What do you want?
   ~ innis
-  | (:sly)I'll ask the questions, if ya dinnae mind.
+  | (:sly)I'll ask the questions if ya dinnae mind.
 | (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, sister?
 ~ islay
@@ -121,7 +121,7 @@ ken = know (Scottish)
   < questions
 - What do you want?
   ~ innis
-  | (:sly)I'll ask the questions, if ya dinnae mind.
+  | (:sly)I'll ask the questions if ya dinnae mind.
 | What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, sister?
 ~ islay
