@@ -33,7 +33,7 @@
 | I wanted to apologise for Jack's behaviour - and my own short-sightedness. You are our guest, and you have helped us.
 | But you must also understand that as chieftain, I have responsibilities to keep. I must be diligent.
 | But I think I have a way that you can help us again.
-| Although the water is back, our crops are unlikely to survive much longer.
+| Though the water is back, our crops are unlikely to survive much longer.
 | I knew coming here would be hard, but we are on the brink - if we don't starve, then it seems the Wraw will get us in the end.
 | They'll be coming, sooner or later - no one escapes them and lives very long.
 ! label questions
@@ -58,8 +58,8 @@
 - What's next?
 ~ fi
 | I haven't told the others about the failing crops, but they aren't blind. I'm telling you because I think you can help.
-| There's a place \"across the surface to the east\"(orange) and beneath the \"Ruins there\"(orange), where we first found the seeds that you see growing here.
-| \"Alex\"(yellow) found it, our hunter. I want you to retrace their steps, \"find the cache\"(orange), and if it's intact \"recover all the seeds\"(orange) that remain.
+| There's a place \"across the surface to the east\"(orange) and beneath the \"Ruins\"(orange) there, where we first found the seeds that you see growing here.
+| \"Alex\"(yellow) found it, our hunter. I want you to retrace their steps, \"find the cache\"(orange), and if it's still intact \"recover all the seeds\"(orange) that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.
 ~ player
@@ -72,7 +72,7 @@
 - What if I fail?
   ~ fi
   | I don't know about the world you came from, but I discovered long ago that it's better to make one plan at a time.
-  | This world tries to pull you down, so you have to act quickly, and roll with the punches.
+  | This world tries to pull you down, so you have to act quickly and roll with the punches.
 ~ fi
 | You'll need a \"key card\"(orange) to access the area - take this one.
 ! eval (store 'item:semi-factory-key 1)

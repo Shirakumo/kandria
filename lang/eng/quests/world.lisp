@@ -258,7 +258,7 @@
 ~ player
 | \"//That is quite the view.//\"(light-gray)
 | \"//The desert is bordered by mountains on all sides.//\"(light-gray)
-| \"//Judging by the cloud formations - and if I recall correctly - there's an ocean beyond the range to the east.//\"(light-gray)
+| \"//Judging by the cloud formations there's an ocean beyond the range to the east.//\"(light-gray)
 ")
 
   ;; Farm - transition/view
@@ -359,6 +359,7 @@
 
 ;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
+#| TW: Commented out for now until they can be given proper attention, so they don't intervene on the VS demo for Pro Helvetia
 (define-default-interactions jack
   (q2-seeds
    "| Be careful out there")
@@ -366,3 +367,4 @@
    "| Just to be clear, I still don't trust you.")
   (T
    "| Who are you?"))
+|#

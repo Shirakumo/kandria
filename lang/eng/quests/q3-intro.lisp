@@ -46,8 +46,8 @@
 | I think the \"Ruins to the east\"(orange) are your best shot. It keeps us close to the Farm, and still gives us shelter.
 | So \"cross the surface\"(orange), scout around, climb, dig - do whatever an android does.
 | Just remember while you ninja around that we mere mortals gotta follow your path.
-| Your android brain might think the top of a skyscraper is the safest place there is.
-| But people can't climb up there, let alone live up there. You get me?
+| Your android brain might think the top of a skyscraper is the safest place there is; but people can't climb up there, let alone live up there.
+| You get me?
 ~ player
 - Got it.
 - Not really.
@@ -61,5 +61,6 @@
 | Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
 | Seeya.
 ~ player
+| (:giggle)\"Charming as always.\"(light-gray, italic)
 | \"Speaking of my FFCS: it indicates \"four candidate locations to the east\"(orange). That should help me narrow things down.\"(light-gray, italic)
 ")))

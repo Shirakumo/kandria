@@ -24,7 +24,7 @@
 ~ catherine
 | Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras.
 ~ player
-| \"//Catherine puts her goggles on and welds the crack with steady hands.//\"(light-gray)
+| \"//Catherine puts her goggles on and welds the cracked pipe with steady hands.//\"(light-gray)
 - (Enable UV filters)
   | \"//I watch the dull glow; sparks crackle and spit.//\"(light-gray)
 - (Don't enable filters)
@@ -180,7 +180,8 @@
 ~ catherine
 | Stranger dealt with them though.
 ~ jack
-| (:annoyed)Did they?... Look, Cathy, get your ass back here on the double.
+| (:annoyed)Did they?...
+| Look, Cathy, get your ass back here on the double.
 | And bring the android - Fi's on the warpath.
 ~ catherine
 | (:concerned)What does that mean?
@@ -242,7 +243,7 @@
 ~ catherine
 | (:concerned)I don't understand.
 ~ fi
-| Is it not coincidental that you discovered it at the same time our water supply was sabotaged?
+| Is it not a coincidence that you discovered it at the same time our water supply was sabotaged? Likely by the Wraw.
 ~ catherine
 | But we saw the servos - they were dismantling the pump! It wasn't her.
 ~ jack
@@ -252,7 +253,7 @@
 | (:concerned)Androids do have an FFCS- er, far-field comms system.
 | I guess something like that could penetrate deeper underground than our radios.
 | (:normal)But no, it's not that. She's been offline for decades, I'm sure of it.
-| And since I brought her online, she's been with me the whole time! She can't have done this.
+| And since I brought her online she's been with me the whole time! She can't have done this.
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
 ~ catherine
@@ -365,11 +366,11 @@
 | (:concerned)He's overdue, which is not like him at all. Maybe those servos scared him off.
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us!
 | (:normal)Well, I've got work to do.
-| Couldn't hurt to check in with Fi. I'm sure there's something you could help her with, to show you can be trusted.
+| Couldn't hurt to check in with Fi. I'm sure there's something you could help her with, to show her you can be trusted.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
 | But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
-| (:excited)Take a look around and \"explore\"(orange)!
-| (:normal)Seeya later, Stranger!")
+| (:excited)Take a look around and \"explore\"(orange)! (:normal)Though it's probably wise not to go too far from the camp.
+| Seeya later, Stranger!")
   (:eval
    :on-complete (q2-intro q3-intro)
    (move-to 'eng-cath (unit 'catherine))
