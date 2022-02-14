@@ -200,7 +200,6 @@
 (define-slot-coders (textured-light world-v0) (multiplier (texture :type texture) (location :type vec2) (size :type vec2) (bsize :type vec2) (offset :type vec2)))
 (define-slot-coders (heatwave world-v0) ((location :type vec2) (bsize :type vec2)))
 (define-slot-coders (save-point world-v0) ((location :type vec2)))
-(define-slot-coders (fishing-spot world-v0) (name (location :type vec2) (bsize :type vec2) direction))
 (define-slot-coders (npc-block-zone world-v0) ((location :type vec2) (bsize :type vec2)))
 (define-slot-coders (chest world-v0) (name (location :type vec2) item))
 (define-slot-coders (shutter world-v0) ((location :type vec2)))
