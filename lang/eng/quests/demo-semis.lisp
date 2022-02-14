@@ -19,10 +19,10 @@
   | Alas, no' too smart...
 - What do you want?
   ~ innis
-  | (:sly)I'll ask the questions, if you dinnae mind.
+  | (:sly)I'll ask the questions, if ya dinnae mind.
 - Are you the Semi Sisters?
   ~ innis
-  | (:sly)I'll ask the questions, if you dinnae mind.
+  | (:sly)I'll ask the questions, if ya dinnae mind.
 | (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, Islay?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
@@ -40,21 +40,21 @@
   ~ innis
   | This I ken, android. (:sly)Tell me, why are you here?
 ~ player
+- If you're the Semi Sisters I need your help.
+  ~ innis
+  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my info.
+  | (:normal)Well you'll be pleased to ken that we can turn the water back on for you.
 - My business is my business.
   ~ innis
   | If that's your prerogative.
   | But you'll be pleased to ken that we can turn the water back on for you.
-- I need your help.
-  ~ innis
-  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my info.
-  | (:normal)Well you'll be pleased to ken that we can turn the water back on for you.
 - Screw you!
   ~ islay
   | (:happy)...
   ~ innis
   | (:angry)...
   | I remember your kind! You think you're clever just 'cause you can mimic us.
-  | You're a machine. And if I wished it I could have you pulled apart and scattered to the four corners of this valley.
+  | You're a machine, and if I wanted I could have you pulled apart and scattered to the four corners of this valley.
   | (:normal)Now, let's try again.
   | You'll be pleased to ken that we can turn the water back on for you.
 ~ innis

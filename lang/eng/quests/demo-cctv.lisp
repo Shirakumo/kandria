@@ -135,7 +135,7 @@
   | (:angry)It'd better be. Get on with it then.
 - Sorry to interrupt.
   ~ innis
-  | (:angry)I'll accept that apology if what you have to say has value.
+  | (:angry)I'll accept that apology if you have something useful to say.
 - How do you know about FFCS?
   ~ innis
   | (:sly)I wouldnae have been very good at my old job if I didnae ken it.
@@ -170,7 +170,7 @@
     :dialogue "
 ~ innis
 | (:pleased)I'm glad you survived.
-| (:sly)So tell me, what are we dealing with?
+| (:sly)So what are we dealing with?
 ~ player
 - It was a big, badass robot.
   ~ innis
@@ -193,7 +193,7 @@
 | You should return to the surface.
 | Don't worry, I've turned the water back on. Your friends can have a nice long drink.
 | (:sly)For what good it will do them.
-| If the Wraw are coming for us, they'll be coming for them as well.
+| If the Wraw are coming for us, they'll be coming for them too.
 | (:normal)So long... Stranger.
 | Maybe I'll see you on the battlefield.
 ! eval (activate 'demo-end-prep)
