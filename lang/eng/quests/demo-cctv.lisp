@@ -4,7 +4,7 @@
 (quest:define-quest (kandria demo-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down. I need to investigate them and report back to Innis, before she'll turn our water back on."
+  :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down. I need to investigate them and report back to Innis in the control room, before they'll turn our water back on."
   :on-activate (task-reminder task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
   :variables (first-cctv)
  
@@ -30,7 +30,7 @@
 | | | And don't forget to \"bring Innis that saboteur\"(orange).
 | |?
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 downed CCTV cameras\"(orange).
-| | | Then \"return to Innis\"(orange).
+| | | Then \"return to Innis\"(orange) in the \"control room\"(orange).
 "))
 
 ;; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.

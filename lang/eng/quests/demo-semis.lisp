@@ -4,7 +4,7 @@
 (define-sequence-quest (kandria demo-semis)
   :author "Tim White"
   :title "Find the Semi Sisters"
-  :description "I need to find the tech-witch Semi Sisters, so they can restore the water supply for my friends on the surface."
+  :description "I need to find the tech-witch Semi Sisters, so they can fix the water supply for my friends on the surface."
   (:go-to (innis)
    :title "Find the Semi Sisters")
   (:interact (innis :now T)
@@ -19,10 +19,10 @@
   | Alas, no' too smart...
 - What do you want?
   ~ innis
-  | (:sly)I'll ask the questions, if ya dinnae mind.
+  | (:sly)I'll ask the questions if ya dinnae mind.
 - Are you the Semi Sisters?
   ~ innis
-  | (:sly)I'll ask the questions, if ya dinnae mind.
+  | (:sly)I'll ask the questions if ya dinnae mind.
 | (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
 | What do you think, Islay?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
