@@ -303,7 +303,6 @@
   "
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
-| | ! eval (setf (nametag (unit 'semi-engineer-chief)) \"???\")
 | | ~ semi-engineer-chief
 | | | (:weary)How in God's name did you get in here?
 | | ~ player

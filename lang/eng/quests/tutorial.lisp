@@ -12,7 +12,15 @@
    (setf (state (unit 'player)) :animated)
    (ensure-nearby 'walk-start 'catherine)
    (setf (nametag (unit 'catherine)) "???")
-   (setf (nametag player) "Android"))
+   (setf (nametag player) "Android")
+   (setf (nametag (unit 'fi)) "???")
+   (setf (nametag (unit 'jack)) "???")
+   (setf (nametag (unit 'trader)) "???")
+   (setf (nametag (unit 'alex)) "???")
+   (setf (nametag (unit 'innis)) "???")
+   (setf (nametag (unit 'islay)) "???")
+   (setf (nametag (unit 'zelah)) "???")
+   (setf (nametag (unit 'semi-engineer-chief)) "???"))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
   ;;         the reason for this being that setting stuff like the animation on the player
   ;;         requires the player to have been fully loaded, which is not necessarily the

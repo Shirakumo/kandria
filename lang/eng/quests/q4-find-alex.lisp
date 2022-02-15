@@ -27,8 +27,6 @@
    (:interaction innis-stop-local
     :interactable innis
     :dialogue "
-! eval (setf (nametag (unit 'innis)) \"???\")
-! eval (setf (nametag (unit 'islay)) \"???\")
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!!
 | Did you think ya could just waltz right through here?
@@ -98,8 +96,6 @@ ken = know (Scottish)
    (:interaction innis-stop-remote
     :interactable innis
     :dialogue "
-! eval (setf (nametag (unit 'innis)) \"???\")
-! eval (setf (nametag (unit 'islay)) \"???\")
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!!
 | Did you think ya could just waltz right through here?
@@ -207,7 +203,6 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
    (:interaction alex-meet
     :interactable alex
     :dialogue "
-! eval (setf (nametag (unit 'alex)) \"???\")
 ~ alex
 | (:unhappy)What you looking at? <-Hic->.
 ~ player

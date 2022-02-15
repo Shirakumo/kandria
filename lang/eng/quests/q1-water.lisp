@@ -229,6 +229,7 @@
   "
 ! eval (stop-following 'catherine)
 ! eval (ensure-nearby 'storage-shutter 'catherine)
+! eval (setf (nametag (unit 'fi)) (@ fi-nametag))
 ~ catherine
 | (:cheer)We're back! Did you miss us?
 ~ jack

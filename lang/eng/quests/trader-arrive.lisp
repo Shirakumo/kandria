@@ -47,6 +47,7 @@
 | She's such a great kid, you know? A talented engineer as well. Reminds me of...
 | (:normal)Er-... well, never mind that.
 | So you've come to trade with old Sahil, eh?
+! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 ~ player
 - What do you sell?
   ~ trader
