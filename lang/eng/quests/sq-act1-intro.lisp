@@ -93,12 +93,12 @@
 |   ~ player
 |   - I can do that?
 |     ~ catherine
-|     | Pretty sure you can. Try it out.
+|     | I'm pretty sure you can. Try it out.
 |     ~ player
 |     | \"I'm not certain how, but when I think about it, a small welding torch ignites from the index finger on my right hand.\"(light-gray, italic)
 |     | \"I keep the intensity low, so as not to blind us.\"(light-gray, italic)
 |     ~ catherine
-|     | (:excited)See?
+|     | (:excited)See!
 |     ~ player
 |     - Cool!
 |     - I guess I forgot I could do that.
@@ -118,7 +118,7 @@
 |   - And where did you hear that?
 |     ~ catherine
 |     | It's just one of those things I know about androids. (:excited)Why? Is it a big secret?
-|     | Let me see.
+|     | Let me see!
 |     ~ player
 |     | \"I ignite the small welding torch from the index finger on my right hand.\"(light-gray, italic)
 |     | \"I keep the intensity low, so as not to blind us.\"(light-gray, italic)
@@ -135,7 +135,7 @@
 |     ~ catherine
 |     | You got it.
 |   ~ catherine
-|   | Let me know what you find. Good luck!
+|   | \"Let me know what you find\"(orange). Good luck!
 |   ~ player
 |   | \"My FFCS indicates \"3 leaks\"(orange), close to the surface as Catherine said.\"(light-gray, italic)
 |   ! eval (activate 'sq1-leaks)
