@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q3-new-home)
   :author "Tim White"
   :title "Find a New Home"
-  :description "I need to find a new home for the settlement, across the surface in the Ruins to the east. My FFCS indicates four candidate locations."
+  :description "I need to find a new home for the settlement, across the surface in the Ruins to the east. My FFCS indicated 4 candidate locations."
   :on-activate (find-home-first find-home-second find-home-third find-home-fourth task-q3-reminder)
   :variables (first-home)
 
@@ -20,7 +20,7 @@
 ~ jack
 | (:annoyed)Our new home ain't gonna find itself. Be seein' ya.
 ~ player
-| \"Jack said I should \"search across the surface in the Ruins to the east\"(orange). My FFCS indicates \"four candidate locations\"(orange).\"(light-gray, italic)
+| \"Jack said I should \"search across the surface in the Ruins to the east\"(orange). My FFCS indicated \"4 candidate locations\"(orange).\"(light-gray, italic)
 "))
 
   (find-home-first

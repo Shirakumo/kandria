@@ -4,7 +4,7 @@
 (quest:define-quest (kandria sq1-leaks)
   :author "Tim White"
   :title "Repair New Leaks"
-  :description "There are new leaks to fix; I should follow the red pipeline down. Hopefully there'll be no surprises this time. My FFCS detects 3 locations."
+  :description "There are new leaks to fix; I should follow the red pipeline down. Hopefully there'll be no surprises this time. My FFCS indicated 3 locations close to the surface."
   :on-activate (leak-first leak-second leak-third task-sq1-reminder)
   :variables (first-leak)
 
@@ -20,7 +20,7 @@
 ~ catherine
 | \"Follow the red pipeline\"(orange) down like we did before and you'll find the new leaks.
 ~ player
-| \"My FFCS indicates \"3 leaks\"(orange), all close to the surface.\"(light-gray, italic)
+| \"My FFCS indicated \"3 leaks\"(orange), all close to the surface.\"(light-gray, italic)
 "))
 
   (leak-first
@@ -38,8 +38,8 @@
 | \"It's the \"first\"(red) leak.\"(light-gray, italic)
 | \"//There's a hole in the pipe - probably caused by duress where it bends around this corner.//\"(light-gray)
 ? (not (var 'first-leak))
-| | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
-| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]
+| | \"//I ignite the torch from my index finger.//\"(light-gray)
+| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//Once again I enable the UV filters on my cameras.//\"(light-gray)]
 | | (:normal)\"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
@@ -99,8 +99,8 @@
 | \"It's the \"second\"(red) leak.\"(light-gray, italic)
 | \"//The pipe has split. There's no subsidence, but it's close to Catherine's previous repair - I wonder if she damaged it by accident.//\"(light-gray)
 ? (not (var 'first-leak))
-| | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
-| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]
+| | \"//I ignite the torch from my index finger.//\"(light-gray)
+| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//Once again I enable the UV filters on my cameras.//\"(light-gray)]
 | | (:normal)\"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
 | ? (have 'item:walkie-talkie)
@@ -158,8 +158,8 @@
 | \"It's the \"third\"(red) leak.\"(light-gray, italic)
 | \"//The pipe is ruptured, like an artery oozing blood.//\"(light-gray)
 ? (not (var 'first-leak))
-| | \"//I ignite the torch from the index finger on my right hand.//\"(light-gray)
-| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//I enable the UV filters on my cameras.//\"(light-gray)]
+| | \"//I ignite the torch from my index finger.//\"(light-gray)
+| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//Once again I enable the UV filters on my cameras.//\"(light-gray)]
 | | (:normal)\"//Weld complete.//\"(light-gray)
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
 | ? (have 'item:walkie-talkie)

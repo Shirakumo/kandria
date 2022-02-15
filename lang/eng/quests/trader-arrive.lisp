@@ -118,7 +118,7 @@
 | - What do you make of this place?
 |   ~ trader
 |   | The \"Noka\"(red)? They're a nice bunch, what can I say?
-|   | Fi's a good person, which is rare in these parts.
+|   | Fi's a good person, which is rare these days.
 |   | They broke out all on their own, had enough of that Wraw bullshit.
 |   | Can't blame 'em. It was brave. It might also prove stupid. We'll see.
 |   < talk
@@ -127,11 +127,7 @@
 |   | Yeah, those damn servos prowling about.
 |   | Don't get me wrong, I can handle myself.
 |   | But it's not easy when you pull your own caravan.
-|   ~ player
-|   | You pull your own caravan?
-|   ~ trader
-|   | Well no other nadhil is going to do it for me.
-|   | I used to have an ox, believe it or not. Ha, an ox, in these parts! It's hard to imagine.
+|   | I used to have an ox, believe it or not. Ha, an ox, in this hellhole! It's hard to imagine.
 |   | Didn't last long after the wolves got at her throat though. Poor Celina.
 |   < talk
 | - That'll do.
@@ -299,7 +295,7 @@
 # leave
 ~ trader
 | [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah!]")))
-;; nadhil = bastard (Arabic)
+;; nadhil = bastard (Arabic) - unused at the moment
 ;; alqarf = shit (Arabic), pronounce: al-kara-fu
 
 (quest:define-quest (kandria trader-shop)

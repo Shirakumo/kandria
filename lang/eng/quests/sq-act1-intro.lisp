@@ -68,7 +68,7 @@
 | | | We get birds and fish when we can too, but they're harder to catch. Mushrooms don't run away.
 | | | (:cheer)We owe you big time. Here, take these parts, you've definitely earned them.
 | | ! eval (store 'item:parts 300)
-| | | (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them too.
+| | | (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them.
 | | | If we don't need them, the least you could do is \"trade them with Sahil\"(orange).
 | | ? (not (complete-p 'sq2-mushrooms))
 | | | ! eval (complete 'sq2-mushrooms)
@@ -89,7 +89,42 @@
 |   ~ catherine
 |   | (:excited)Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
 |   | (:normal)Just \"follow the red pipeline\"(orange) down like we did before.
-|   | Androids can weld from their fingertips, right? So you should be good to go.
+|   | Androids can weld from their fingertips, right?
+|   ~ player
+|   - I can do that?
+|     ~ catherine
+|     | Pretty sure you can. Try it out.
+|     ~ player
+|     | \"I'm not certain how, but when I think about it, a small welding torch ignites from the index finger on my right hand.\"(light-gray, italic)
+|     | \"I keep the intensity low, so as not to blind us.\"(light-gray, italic)
+|     ~ catherine
+|     | (:excited)See?
+|     ~ player
+|     - Cool!
+|     - I guess I forgot I could do that.
+|       ~ catherine
+|       | Don't worry.
+|     - Anyone need a light?
+|       ~ catherine
+|       | Sorry, I don't smoke.
+|   - That's right.
+|     ~ catherine
+|     | (:excited)Can I see?
+|     ~ player
+|     | \"I ignite the small welding torch from the index finger on my right hand.\"(light-gray, italic)
+|     | \"I keep the intensity low, so as not to blind us.\"(light-gray, italic)
+|     ~ catherine
+|     | (:excited)That's so cool!
+|   - And where did you hear that?
+|     ~ catherine
+|     | It's just one of those things I know about androids. (:excited)Why? Is it a big secret?
+|     | Let me see.
+|     ~ player
+|     | \"I ignite the small welding torch from the index finger on my right hand.\"(light-gray, italic)
+|     | \"I keep the intensity low, so as not to blind us.\"(light-gray, italic)
+|     ~ catherine
+|     | (:excited)That's so cool!
+|   | (:normal)Okay, I think you're good to go.
 |   | Based on the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range. You want to take a walkie, or just use your FFCS?
 |   ~ player
 |   - I'll take a walkie.
@@ -144,7 +179,7 @@
   | Me? Oh, same as usual. (:concerned)Jack's as overbearing as always. But I can take it.
   | (:normal)I think if I can just keep my head down and keep doing something, then I won't worry about the future. Or the past.
   | Just take it day by day, you know?
-  | Look, I should get back to my work. Hope to talk soon!
+  | I should get back to my work. Hope to talk soon!
 ")))
 ;; TODO "weld from fingertips" too implausible, or Catherine just wouldn't know that?
 ;; "We get birds and fish when we can too" meaning they hunt them themselves now they can, living on the surface; but they also trade them with sahil from time to time

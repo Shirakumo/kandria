@@ -21,6 +21,7 @@
 - I'm ready.
   ~ catherine
   | Alright. We're going down the ladder over there.
+  | \"Catherine grabs a welding torch and goggles from a shelf.\"(light-gray, italic)
   | Follow the \"red pipeline\"(orange) and \"stay close\"(orange) to me.
   ! eval (deactivate interaction)
   ! eval (complete task)

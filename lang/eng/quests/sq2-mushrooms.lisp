@@ -5,7 +5,7 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine wants me to gather mushrooms to help their food and textile reserves. Flower fungus and rusty puffball: yes. Black cap: no."
+  :description "Catherine wants me to gather mushrooms to help fill their food and textile reserves. Flower fungus and rusty puffball: yes. Black cap: no. She said 25 total should suffice."
   :on-activate (find-mushrooms)
   
   (find-mushrooms
@@ -62,7 +62,7 @@
 | We get birds and fish when we can too, but they're harder to catch. Mushrooms don't run away.
 | (:cheer)We owe you big time. Here, \"take these parts\"(orange), you've definitely earned them.
 ! eval (store 'item:parts 300)
-| (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them too.
+| (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them.
 | If we don't need them, the least you could do is \"trade them with Sahil\"(orange).
 | See you around, Stranger!
 ! eval (complete task)

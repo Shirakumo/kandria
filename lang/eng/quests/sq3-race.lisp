@@ -18,28 +18,28 @@
     :dialogue "
 ? (or (active-p 'race-1-start) (active-p 'race-1))
 | ~ catherine
-| | (:cheer)You're already on the clock for \"Route 1\"(orange).
-| | Remember: The can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
+| | (:cheer)You're on the clock for \"Route 1\"(orange).
+| | The can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
 | < quit
 |? (or (active-p 'race-2-start) (active-p 'race-2))
 | ~ catherine
-| | (:cheer)You're already on the clock for \"Route 2\"(orange).
-| | Remember: The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
+| | (:cheer)You're on the clock for \"Route 2\"(orange).
+| | The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
 | < quit
 |? (or (active-p 'race-3-start) (active-p 'race-3))
 | ~ catherine
-| | (:cheer)You're already on the clock for \"Route 3\"(orange).
-| | Remember: The can is... \"beneath where we first ventured together - you'll get your feet wet\"(orange).
+| | (:cheer)You're on the clock for \"Route 3\"(orange).
+| | The can is... \"beneath where we first ventured together, and got our feet wet\"(orange).
 | < quit
 |? (or (active-p 'race-4-start) (active-p 'race-4))
 | ~ catherine
-| | (:cheer)You're already on the clock for \"Route 4\"(orange).
-| | Remember: The can is... \"deep in the west, where we first met\"(orange).
+| | (:cheer)You're on the clock for \"Route 4\"(orange).
+| | The can is... \"deep in the west, where we first met\"(orange).
 | < quit
 |? (or (active-p 'race-5-start) (active-p 'race-5))
 | ~ catherine
-| | (:cheer)You're already on the clock for \"Route 5\"(orange).
-| | Remember: The can is at... \"the furthest edge of the deepest cave in this region - there isn't //much-room//\"(orange).
+| | (:cheer)You're on the clock for \"Route 5\"(orange).
+| | The can is at... \"the furthest edge of the deepest cave in this region - there isn't //much-room//\"(orange).
 | < quit
 ~ catherine
 | (:cheer)Alright, race time!
@@ -53,7 +53,7 @@
 |   < quit
 | ~ catherine
 | | (:normal)So remember: \"Find the can\"(orange) that we've planted.
-| | (:normal)\"Grab the can, bring it back here, and I'll stop the clock.\"(orange)
+| | (:normal)\"Grab it, bring it back here, and I'll stop the clock.\"(orange)
 | | We'll start you off with \"Route 1\"(orange), which is easy.
 | | Finish this one and I'll tell you about the next route.
 | | You can try routes as many times as you want, but you'll \"only get a reward if you beat your previous best time\"(orange).
@@ -77,7 +77,7 @@
 
 # race-1
 ~ catherine
-| (:cheer)\"Route 1\"(orange)! The can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
+| (:cheer)\"Route 1\"(orange)! The beer can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-1 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-1 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-1 'bronze))}.
 ? (var-of 'race-1 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange).
@@ -87,7 +87,7 @@
 
 # race-2
 ~ catherine
-| (:cheer)\"Route 2\"(orange)! The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
+| (:cheer)\"Route 2\"(orange)! The beer can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-2 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-2 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-2 'bronze))}.
 ? (var-of 'race-2 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange).
@@ -97,7 +97,7 @@
 
 # race-3
 ~ catherine
-| (:cheer)\"Route 3\"(orange)! The can is... \"beneath where we first ventured together - you'll get your feet wet\"(orange).
+| (:cheer)\"Route 3\"(orange)! The beer can is... \"beneath where we first ventured together, and got our feet wet\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-3 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-3 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-3 'bronze))}.
 ? (var-of 'race-3 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange).
@@ -107,7 +107,7 @@
 
 # race-4
 ~ catherine
-| (:cheer)\"Route 4\"(orange)! The can is... \"deep in the west, where we first met\"(orange).
+| (:cheer)\"Route 4\"(orange)! The beer can is... \"deep in the west, where we first met\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
 ? (var-of 'race-4 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange).
@@ -117,7 +117,7 @@
 
 # race-5
 ~ catherine
-| (:cheer)\"Route 5\"(orange)! The can is at... \"the furthest edge of the deepest cave in this region - there isn't //much-room//\"(orange).
+| (:cheer)\"Route 5\"(orange)! The beer can is at... \"the furthest edge of the deepest cave in this region - there isn't //much-room//\"(orange).
 | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-5 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-5 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-5 'bronze))}.
 ? (var-of 'race-5 'pb)
 | | Your personal best for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange).
@@ -181,12 +181,12 @@
 | (:cheer)Stop the clock!
 | (:excited)That's the correct can alright - nice.
 ! eval (retrieve 'item:can)
-| (:normal)You did that in: \"{(format-relative-time (clock quest))}\"(orange).
+| (:normal)Your time was: \"{(format-relative-time (clock quest))}\"(orange).
 ? (and pb (< pb (clock quest)))
-| | (:concerned)Ah damn, no improvement on your record of \"{(format-relative-time pb)}\"(orange) this time I'm afraid.
+| | (:concerned)Ah damn, \"no improvement\"(orange) on your record of \"{(format-relative-time pb)}\"(orange) I'm afraid.
 |?
 | ? (not (null pb))
-| | | (:cheer)\"That's a new personal best\"(orange)!
+| | | (:cheer)That's a \"new personal best\"(orange)!
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
 | | | (:cheer)How did you do that so fast? That's \"gold bracket\"(orange).
@@ -197,11 +197,11 @@
 | | | That nets you \"150 scrap parts\"(orange)!
 | | ! eval (store 'item:parts 150)
 | |? (< pb bronze)
-| | | (:excited)That wasn't a bad time at all - \"bronze bracket\"(orange).
+| | | (:excited)That wasn't bad at all - \"bronze bracket\"(orange).
 | | | That gets you \"100 scrap parts\"(orange).
 | | ! eval (store 'item:parts 100)
 | |?
-| | | (:disappointed)That time was outside bronze. I didn't know artificial muscles could get sore too.
+| | | (:disappointed)That's outside bronze. I didn't know artificial muscles could get sore too.
 | | | (:normal)Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.
   
 ~ catherine
@@ -217,7 +217,7 @@
   :title-complete "(Complete Route 1)"
   :gold 60
   :silver 80
-  :bronze 100)
+  :bronze 120)
 
 (define-race race-2
   :site race-2-site
@@ -225,15 +225,15 @@
   :title-complete "(Complete Route 2)"
   :gold 60
   :silver 80
-  :bronze 100)
+  :bronze 120)
 
 (define-race race-3
   :site race-3-site
-  :title-start "The can is... beneath where we first ventured together - you'll get your feet wet."
+  :title-start "The can is... beneath where we first ventured together, and got our feet wet."
   :title-complete "(Complete Route 3)"
   :gold 105
   :silver 120
-  :bronze 135)
+  :bronze 150)
 
 (define-race race-4
   :site race-4-site
@@ -241,7 +241,7 @@
   :title-complete "(Complete Route 4)"
   :gold 90
   :silver 105
-  :bronze 120)
+  :bronze 135)
 
 (define-race race-5
   :site race-5-site
@@ -249,4 +249,4 @@
   :title-complete "(Complete Route 5)"
   :gold 135
   :silver 150
-  :bronze 165)
+  :bronze 180)
