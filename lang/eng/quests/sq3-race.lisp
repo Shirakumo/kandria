@@ -19,31 +19,36 @@
 ? (or (active-p 'race-1-start) (active-p 'race-1))
 | ~ catherine
 | | (:cheer)You're on the clock for \"Route 1\"(orange).
-| | The can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
+| | (:excited)The can is at... \"a literal high point of EASTERN civilisation, now long gone\"(orange).
+| | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-1 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-1 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-1 'bronze))}.
 | < quit
 |? (or (active-p 'race-2-start) (active-p 'race-2))
 | ~ catherine
 | | (:cheer)You're on the clock for \"Route 2\"(orange).
-| | The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
+| | (:excited)The can is... \"where a shallow grave marks the end of the line at Zenith Crossing Station, East\"(orange).
+| | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-2 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-2 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-2 'bronze))}.
 | < quit
 |? (or (active-p 'race-3-start) (active-p 'race-3))
 | ~ catherine
 | | (:cheer)You're on the clock for \"Route 3\"(orange).
-| | The can is... \"beneath where we first ventured together, and got our feet wet\"(orange).
+| | (:excited)The can is... \"beneath where we first ventured together, and got our feet wet\"(orange).
+| | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-3 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-3 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-3 'bronze))}.
 | < quit
 |? (or (active-p 'race-4-start) (active-p 'race-4))
 | ~ catherine
 | | (:cheer)You're on the clock for \"Route 4\"(orange).
-| | The can is... \"deep in the west, where we first met\"(orange).
+| | (:excited)The can is... \"deep in the west, where we first met\"(orange).
+| | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
 | < quit
 |? (or (active-p 'race-5-start) (active-p 'race-5))
 | ~ catherine
 | | (:cheer)You're on the clock for \"Route 5\"(orange).
-| | The can is at... \"the furthest edge of the deepest cave in this region - there isn't //much-room//\"(orange).
+| | (:excited)The can is at... \"the furthest edge of the deepest cave in this region - there isn't //much-room//\"(orange).
+| | (:normal)The time brackets are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-5 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-5 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-5 'bronze))}.
 | < quit
 ~ catherine
 | (:cheer)Alright, race time!
-? (not (complete-p 'race-1-start))
+? (not (var-of 'race-1 'pb))
 | | (:excited)You ready for this?
 | ~ player
 | - Let's go.
@@ -56,8 +61,8 @@
 | | (:normal)\"Grab it, bring it back here, and I'll stop the clock.\"(orange)
 | | We'll start you off with \"Route 1\"(orange), which is easy.
 | | Finish this one and I'll tell you about the next route.
-| | You can try routes as many times as you want, but you'll \"only get a reward if you beat your previous best time\"(orange).
-| | We've also got some \"riddles\"(orange) for each place, to give you a clue. Figuring these out might slow you down at first.
+| | You can try routes as many times as you want, but you'll \"only get a reward on later runs if you beat your previous best time\"(orange).
+| | We've also got some \"riddles\"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
 | | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure. So...
 | < race-1
 |?
@@ -140,7 +145,7 @@
 ;; TODO bug - deactivating this task causes it's title to appear as another bullet point in the journal (though not deactivating it any more)
 ;; TODO: plant multiple objects, encouraging cheating
 ;; could explain brackets at the start, or let player figure it out themselves from results? Latter
-(defmacro define-race (name &key site title-start title-complete bronze silver gold)
+(defmacro define-race (name &key site title-start title-complete title-cancel bronze silver gold)
   (let ((name-start (trial::mksym #.*package* name '-start)))
     `(progn
        (quest:define-task (kandria sq3-race ,name-start)
@@ -153,13 +158,33 @@
                   (show-timer quest)
                   (spawn ',site 'item:can)
                   (setf (quest:status (thing ',name)) :inactive))
+                  
          (:interaction speech
           :interactable ,site
           :repeatable T
           :dialogue "
 ~ player
 | \"This is the right place for the race - \"the can must be close by\"(orange).\"(light-gray, italic)
+")
+                  
+         (:interaction cancel
+          :title ,title-cancel
+          :interactable catherine
+          :repeatable T
+          :dialogue "
+~ catherine
+| \"You want to stop the race?\"(orange) I can't give you any scrap parts if we do that.
+~ player
+- No, I'll continue the race.
+  ~ catherine
+  | Sure thing (:excited)- the clock is ticking!
+- Yes, end it.
+  ! eval (hide-timer)
+  ~ catherine
+  | No worries. (:excited)Let's do this again soon.
+  ! eval (reset* task)
 "))
+
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine in Engineering ASAP"
          :on-activate T
@@ -171,7 +196,28 @@
                      pb)
          (:action activate
                   (setf (quest:status (thing 'chat)) :inactive)
-                  (activate 'chat))
+                  (activate 'cancel 'chat))
+         
+         (:interaction cancel
+          :title ,title-cancel
+          :interactable catherine
+          :repeatable T
+          :dialogue "
+~ catherine
+| \"You want to stop the race?\"(orange) I can't give you any scrap parts if we do that, and I won't log your time.
+~ player
+- No, I'll continue the race.
+  ~ catherine
+  | Sure thing (:excited)- the clock is ticking!
+- Yes, end it.
+  ! eval (hide-timer)
+  ~ catherine
+  | No worries. (:excited)Let's do this again soon.
+  ! eval (complete task)
+  ? (have 'item:can)
+  | ! eval (retrieve 'item:can T)
+")
+         
          (:interaction chat
           :title ,title-complete
           :interactable catherine
@@ -180,7 +226,7 @@
 ~ catherine
 | (:cheer)Stop the clock!
 | (:excited)That's the correct can alright - nice.
-! eval (retrieve 'item:can)
+! eval (retrieve 'item:can T)
 | (:normal)Your time was: \"{(format-relative-time (clock quest))}\"(orange).
 ? (and pb (< pb (clock quest)))
 | | (:concerned)Ah damn, \"no improvement\"(orange) on your record of \"{(format-relative-time pb)}\"(orange) I'm afraid.
@@ -194,14 +240,14 @@
 | | ! eval (store 'item:parts 250)
 | |? (< pb silver)
 | | | (:excited)That was pretty quick! \"Silver bracket\"(orange).
-| | | That nets you \"150 scrap parts\"(orange)!
+| | | It gets you \"150 scrap parts\"(orange)!
 | | ! eval (store 'item:parts 150)
 | |? (< pb bronze)
 | | | (:excited)That wasn't bad at all - \"bronze bracket\"(orange).
-| | | That gets you \"100 scrap parts\"(orange).
+| | | It gets you \"100 scrap parts\"(orange).
 | | ! eval (store 'item:parts 100)
 | |?
-| | | (:disappointed)That's outside bronze. I didn't know artificial muscles could get sore too.
+| | | (:disappointed)But it's outside bronze. I didn't know artificial muscles could get sore too.
 | | | (:normal)Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.
   
 ~ catherine
@@ -214,7 +260,8 @@
 (define-race race-1
   :site race-1-site
   :title-start "The can is at... a literal high point of EASTERN civilisation, now long gone."
-  :title-complete "(Complete Route 1)"
+  :title-complete "(Complete Race Route 1)"
+  :title-cancel "(Cancel Race Route 1)"
   :gold 60
   :silver 80
   :bronze 120)
@@ -222,7 +269,8 @@
 (define-race race-2
   :site race-2-site
   :title-start "The can is... where a shallow grave marks the end of the line at Zenith Crossing Station, East."
-  :title-complete "(Complete Route 2)"
+  :title-complete "(Complete Race Route 2)"
+  :title-cancel "(Cancel Race Route 2)"
   :gold 60
   :silver 80
   :bronze 120)
@@ -230,7 +278,8 @@
 (define-race race-3
   :site race-3-site
   :title-start "The can is... beneath where we first ventured together, and got our feet wet."
-  :title-complete "(Complete Route 3)"
+  :title-complete "(Complete Race Route 3)"
+  :title-cancel "(Cancel Race Route 3)"
   :gold 105
   :silver 120
   :bronze 150)
@@ -238,7 +287,8 @@
 (define-race race-4
   :site race-4-site
   :title-start "The can is... deep in the west, where we first met."
-  :title-complete "(Complete Route 4)"
+  :title-complete "(Complete Race Route 4)"
+  :title-cancel "(Cancel Race Route 4)"
   :gold 90
   :silver 105
   :bronze 135)
@@ -246,7 +296,8 @@
 (define-race race-5
   :site race-5-site
   :title-start "The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\"."
-  :title-complete "(Complete Route 5)"
+  :title-complete "(Complete Race Route 5)"
+  :title-cancel "(Cancel Race Route 5)"
   :gold 135
   :silver 150
   :bronze 180)
