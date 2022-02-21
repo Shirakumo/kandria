@@ -153,6 +153,8 @@
              (leave (thing)
                (when (symbolp thing) (setf thing (unit thing +world+)))
                (when (slot-boundp thing 'container) (leave thing T)))
+             (clear-pending-interactions ()
+              (setf (interactions (find-panel 'dialog)) ()))
              (find-task (quest task)
                (uiop:nest
                 (quest:find-task task)
