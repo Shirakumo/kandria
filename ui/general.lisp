@@ -308,7 +308,7 @@
   ;; Hide prompts
   (let ((els ()))
     (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
-      (when (typep el '(or prompt panel))
+      (when (typep el '(or prompt panel sticky-element))
         (push el els)))
     (mapc #'hide els)))
 
