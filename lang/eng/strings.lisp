@@ -104,6 +104,8 @@ elevator "Activate"
 recall-button "Recall Elevator"
 station "Choose Destination"
 chest "Open"
+critter "Pet"
+leak "Weld"
 mirror "Change Outfit"
 workbench "Upgrade Sword"
 ;; Items

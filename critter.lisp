@@ -9,6 +9,9 @@
 (defmethod interactable-p ((critter critter))
   (eql :normal (state critter)))
 
+(defmethod description ((critter critter))
+  #@critter)
+
 (defmethod interact ((critter critter) (player player))
   (start-animation 'pet player))
 

@@ -436,7 +436,7 @@
 (defmethod layer-index ((chest chest))
   +base-layer+)
 
-(defmethod description ((interactable interactable))
+(defmethod description ((chest chest))
   #@chest)
 
 (defmethod interactable-p ((chest chest))

@@ -55,6 +55,9 @@
     (when (allocated-p (voice leak))
       (harmony:stop (voice leak)))))
 
+(defmethod description ((leak leak))
+  #@leak)
+
 (defmethod active-p ((leak leak))
   (not (eq 'normal (name (animation leak)))))
 
