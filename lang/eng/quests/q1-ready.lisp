@@ -8,6 +8,7 @@
   :on-activate (q1-ready-chat)
   (q1-ready-chat
    :title "Talk to Catherine in Engineering"
+   :marker '(catherine 500)
    :condition NIL
    :on-activate T
    :on-complete (q1-water)
