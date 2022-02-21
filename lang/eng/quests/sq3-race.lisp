@@ -184,6 +184,7 @@
   ~ catherine
   | No worries. (:excited)Let's do this again soon.
   ! eval (reset* task)
+  ! eval (leave 'item:can)
 "))
 
        (quest:define-task (kandria sq3-race ,name)
@@ -214,7 +215,7 @@
   ! eval (hide-timer)
   ~ catherine
   | No worries. (:excited)Let's do this again soon.
-  ! eval (complete task)
+  ! eval (reset* task)
   ? (have 'item:can)
   | ! eval (retrieve 'item:can T)
 ")
