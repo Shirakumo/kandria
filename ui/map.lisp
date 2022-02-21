@@ -18,14 +18,13 @@
                                            (- (vy (location unit)) (* gap 5))
                                            (* gap 5 2)
                                            (* gap 5 2))))
-                 (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern color :name (name unit) :z-index 2)) array))))
+                 (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern color :name (name unit) :z-index -8)) array))))
            (target-marker (location size color)
              (let ((bounds (alloy:extent (- (vx location) (/ size 2))
                                          (- (vy location) (/ size 2))
                                          size size))
-                   (fill (colored:color (colored:r color) (colored:g color) (colored:b color) 0.1)))
-               (vector-push-extend (cons :target (simple:ellipse renderer bounds :pattern fill :name :target :z-index 1)) array)
-               (vector-push-extend (cons :target (simple:ellipse renderer bounds :pattern color :line-width (alloy:un 8) :name :target :z-index 1)) array))))
+                   (fill (colored:color (colored:r color) (colored:g color) (colored:b color) 0.5)))
+               (vector-push-extend (cons :target (simple:ellipse renderer bounds :pattern fill :name :target :z-index -9)) array))))
       (for:for ((unit over (region +world+)))
         (typecase unit
           (chunk
@@ -35,11 +34,13 @@
                                          (- (* 2 (vx (bsize unit))) (* 2 gap))
                                          (- (* 2 (vy (bsize unit))) (* 2 gap)))))
                (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern (colored:color 1 1 1 0.75)
-                                                                                       :name (name unit))) array)
+                                                                                       :name (name unit)
+                                                                                       :z-index -10)) array)
                (when (eql unit (chunk player))
                  (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern colors:yellow
                                                                                          :name (name unit)
-                                                                                         :line-width (alloy:un 4)))
+                                                                                         :line-width (alloy:un 4)
+                                                                                         :z-index -10))
                                      array)))))
           (npc
            (unit-marker unit (colored:color 0.5 1 0.5 1))
@@ -60,7 +61,8 @@
                  (vector-push-extend (cons 'trace (simple:line-strip renderer points
                                                                      :pattern color
                                                                      :line-width (alloy:un 4)
-                                                                     :hidden-p T))
+                                                                     :hidden-p T
+                                                                     :z-index -5))
                                      array)
                  (setf (fill-pointer points) 0))))
         (loop for i from 0 below (length trace) by 2
@@ -70,7 +72,7 @@
                           (let ((bounds (alloy:extent (- (aref trace (- i 2)) 8)
                                                       (- (aref trace (- i 1)) 8)
                                                       16 16)))
-                            (vector-push-extend (cons :death (simple:rectangle renderer bounds :pattern colors:red :name :death :z-index 3)) array))))
+                            (vector-push-extend (cons :death (simple:rectangle renderer bounds :pattern colors:red :name :death :z-index -4)) array))))
                        (T
                         (vector-push-extend (alloy:point (aref trace i) (aref trace (1+ i))) points)))
               finally (flush))))
@@ -185,11 +187,15 @@
     (let ((popups (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
           (tt (* 1.3 (tt ev)))
           (off 0))
-      (alloy:do-elements (el popups)
-        (let ((tt (+ tt (* off) (/ PI 13))))
-          (alloy:update el popups :x (+ (* 20 (- 4 off)) (* 5 (cos tt)))
-                                  :y (+ 20 (* 50 off) (* 3 (sin tt) (cos tt))))
-          (incf off))))))
+      (alloy:with-unit-parent popups
+        (alloy:do-elements (el popups)
+          (let ((tt (+ tt (* off) (/ PI 13)))
+                (ui-scale (alloy:to-px (alloy:un 1))))
+            (alloy:update el popups :x (* ui-scale (+ (* 20 (- 4 off)) (* 5 (cos tt))))
+                                    :y (* ui-scale (+ 20 (* 50 off) (* 3 (sin tt) (cos tt))))
+                                    :w (* ui-scale 200)
+                                    :h (* ui-scale 40))
+            (incf off)))))))
 
 (defmethod handle ((ev toggle-trace) (panel map-panel))
   (let ((map (alloy:focus-element panel)))
