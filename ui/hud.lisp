@@ -29,9 +29,9 @@
 
 (presentations:define-realization (ui nametag-element)
   ((:background simple:rectangle)
-   (alloy:margins -2 2 -2 -5))
+   (alloy:extent -2 -8 100 10))
   ((:label simple:text)
-   (alloy:margins 0 -5)
+   (alloy:extent 0 -5 1000 15)
    alloy:text
    :halign :start
    :valign :middle
