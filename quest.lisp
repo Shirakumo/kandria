@@ -152,7 +152,7 @@
                (setf (location (unit thing +world+)) loc))
              (leave (thing)
                (when (symbolp thing) (setf thing (unit thing +world+)))
-               (when (slot-boundp thing 'container) (leave thing T)))
+               (when (slot-boundp thing 'container) (leave* thing T)))
              (clear-pending-interactions ()
               (setf (interactions (find-panel 'dialog)) ()))
              (find-task (quest task)
