@@ -6,7 +6,7 @@
 
 (defmethod render :before ((stamina-wheel stamina-wheel) (program shader-program))
   (let ((player (unit 'player +world+)))
-    (translate-by (vx (location player)) (vy (location player)) 10000)
+    (translate-by (vx (location player)) (vy (location player)) -1000)
     (scale-by -0.8 0.8 1)
     (translate-by (* -20 (direction player)) 20 0)
     (setf (uniform program "stamina") (max 0.0 (float (/ (climb-strength player) (p! climb-strength)) 0f0)))
