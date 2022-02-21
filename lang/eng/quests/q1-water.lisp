@@ -103,7 +103,7 @@
 ~ jack
 | Okay, just be careful. I'll tell Fi what's going on.
 | You'd better follow the pipe right down to the pump, just to be sure you got all the leaks.
-| The walkie won't work down there, but there's a telephone by the pump. Use that when you're done.
+| The walkie won't work down there - use the telephone by the pump when you're done.
 | And keep your wits about you. Over and out.
 ~ catherine
 | Alright, let me seal this one up.
@@ -127,7 +127,7 @@
    :title "Return to Catherine at the leak")
   (:interact (catherine :now T)
    "~ catherine
-| Jeez, I'm glad you came along.
+| Jeez, I'm glad you came along. You're a lot more than just a flashlight.
 | I've done the weld - good as new.
 | \"Let's get down to the pump room.\"(orange)
   ")
@@ -141,7 +141,7 @@
 - I think we found the saboteurs.
   ~ catherine
   | \"Do your thing!\"(orange)
-- What's a servo? I assume you don't mean a servomechanism.
+- I assume you don't mean a servomechanism?
   ~ catherine
   | No time to explain! \"Do your thing!\"(orange)
   ")
@@ -186,7 +186,7 @@
 ~ catherine
 | (:concerned)What does that mean?
 | Jack?... He hung up.
-| Well, whatever it is it doesn't sound good.
+| Well whatever it is it doesn't sound good.
 | Seems we'll have to wait a little longer for that welcome home we deserve.
 | (:normal)I need to think what to do next. \"Come back\"(orange) in a minute.
   ")
@@ -330,7 +330,7 @@
   ~ jack
   | (:annoyed)If you insist.
 ~ fi
-| (:annoyed)But irrespective of all this, I am certain that the Wraw are our attackers, one way or another.
+| (:annoyed)But irrespective of all this, I am certain the Wraw are our attackers, one way or another.
 | Which means they're close to discovering our location.
 | (:normal)I must consider our next course of action.
 ~ catherine
@@ -365,12 +365,12 @@
 ! eval (store 'item:parts 200)
 | It's not much, but you can \"trade them\"(orange) for things you might want. Or you will be able to \"once Sahil gets here\"(orange).
 | (:concerned)He's overdue, which is not like him at all. Maybe those servos scared him off.
-| (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a big friendly badass who can protect us!
+| (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a __big__ __friendly__ __badass__ who can protect us!
 | (:normal)Well, I've got work to do.
 | Couldn't hurt to check in with Fi. I'm sure there's something you could help her with, to show her you can be trusted.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
 | But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
-| (:excited)Take a look around and \"explore\"(orange)! (:normal)Though it's probably wise not to go too far from the camp.
+| (:excited)Take a \"look around and explore\"(orange)! (:normal)Though it's probably wise not to go too far from the camp.
 | Seeya later, Stranger!")
   (:eval
    :on-complete (q2-intro q3-intro)

@@ -38,7 +38,7 @@
   (:interact (catherine :now T)
    "
    ~ catherine
-| (:concerned)Woah... can you move?")
+| (:concerned)Woah... can you walk?")
   (:go-to (walk-start))
   (:interact (catherine :now T)
    "~ catherine
