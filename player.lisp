@@ -531,6 +531,8 @@ void main(){
                           (water (vx loc))
                           (T (vx (location (interactable player)))))
                         (+ (vy loc) (vy (bsize player))))))
+          (when (typep (interactable player) 'npc)
+            (incf (vy loc) (+ 5 (offset (nametag-element (interactable player))))))
           (show (prompt player)
                 :button (action (interactable player))
                 :location loc
