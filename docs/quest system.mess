@@ -9,7 +9,7 @@ A quest is a simple construct that has a description of itself for the player's 
 Quests should be used for bigger overarching story beats, analogous to chapters in a traditional story. A quest can contain branching narrative within its tasks, and multiple quests may be active at the same time.
 
 ## Task
-A task is much more involved and the primary workhorse that outlines the narrative structure of the game. Each task has a short description (``:description``) and title (``:title``) for the player to read, a set of triggers that are activated when this task is activated (``:on-activate``), a condition that causes the task to be completed if fulfilled (``:condition``), an invariant that causes the task to be failed if unfulfilled (``:invariant``), and a set of triggers that are activated if the task is completed (``:on-complete``).
+A task is much more involved and the primary workhorse that outlines the narrative structure of the game. Each task has a short description (``:description``) and title (``:title``) for the player to read, a set of triggers that are activated when this task is activated (``:on-activate``), a condition that causes the task to be completed if fulfilled (``:condition``), an invariant that causes the task to be failed if unfulfilled (``:invariant``), a set of triggers that are activated if the task is completed (``:on-complete``), and a marker for where the player should go on the map to do the task (``:marker``).
 
 While the game is running a task can be in one of the following states:
 
@@ -29,6 +29,8 @@ Tasks are strung together to form a non-linear narrative by having a task cause 
 Multiple tasks can also cause the same task, in which case they become alternative ways of advancing the plot. As soon as the player completes one of the possible tasks, the others become obsoleted.
 
 The task condition allows more complex behaviours to trigger completion of a task outside of dialogue. The task invariant allows you to ensure tasks only remain active while they can still be completed in a sensible fashion. Both the condition and invariant can be arbitrary "Lisp code"(link lisp crash course.mess).
+
+The task marker should be a list composed of a name for another entity that defines the marker's center, and a size of the marker in number of tiles. Eg ``:marker (hub 100)`` would place a marker centered on the hub chunk, 100 tiles in size, to make it more ambiguous.
 
 ## Triggers
 Triggers are an abstract concept for "things that happen when tasks change state". Triggers come in a couple of different types, outlined here.
