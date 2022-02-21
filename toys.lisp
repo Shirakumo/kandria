@@ -437,7 +437,7 @@
   +base-layer+)
 
 (defmethod description ((chest chest))
-  #@chest)
+  (language-string 'chest))
 
 (defmethod interactable-p ((chest chest))
   (eql :closed (state chest)))

@@ -10,7 +10,7 @@
   (eql :normal (state critter)))
 
 (defmethod description ((critter critter))
-  #@critter)
+  (language-string 'critter))
 
 (defmethod interact ((critter critter) (player player))
   (start-animation 'pet player))

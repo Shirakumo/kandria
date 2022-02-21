@@ -56,7 +56,7 @@
       (harmony:stop (voice leak)))))
 
 (defmethod description ((leak leak))
-  #@leak)
+  (language-string 'leak))
 
 (defmethod active-p ((leak leak))
   (not (eq 'normal (name (animation leak)))))
