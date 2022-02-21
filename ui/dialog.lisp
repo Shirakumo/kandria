@@ -77,7 +77,8 @@
          (setf (one-shot dialog) NIL))))
 
 (defmethod next-interaction ((dialog dialog))
-  (when (interaction dialog)
+  (when (and (interaction dialog)
+             (not (eql :inactive (quest:status (interaction dialog)))))
     (quest:complete (interaction dialog)))
   (setf (ip dialog) 0)
   (let ((interactions (loop for interaction in (interactions dialog)
