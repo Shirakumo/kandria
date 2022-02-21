@@ -488,7 +488,7 @@
 
 (defmethod spawned-p ((shutter shutter)) T)
 
-(define-shader-entity switch (lit-animated-sprite collider ephemeral creatable)
+(define-shader-entity switch (lit-animated-sprite solid collider ephemeral creatable)
   ((name :initform NIL)
    (bsize :initform (vec 8 8))
    (state :initform :off :initarg :state :accessor state :type (member :off :on)))
@@ -512,6 +512,8 @@
   (when (and (eql 'off (name (animation switch)))
              (eql :on (state switch)))
     (setf (animation switch) 'on)))
+
+(defmethod is-collider-for :around (thing (switch switch)) NIL)
 
 (defmethod collides-p ((moving moving) (switch switch) hit)
   (setf (state switch) :on)
