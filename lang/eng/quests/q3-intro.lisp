@@ -63,5 +63,5 @@
 | Seeya.
 ~ player
 | (:giggle)\"Charming as always.\"(light-gray, italic)
-| \"Speaking of my FFCS: it indicates \"four candidate locations to the east\"(orange). That should help me narrow things down.\"(light-gray, italic)
+| \"Speaking of my FFCS: it indicates \"4 candidate locations to the east\"(orange). That should help me narrow things down.\"(light-gray, italic)
 ")))
