@@ -32,21 +32,51 @@
   (:label
    :pattern (if alloy:focus colors:black colors:white)))
 
-(defclass sprite-preview (alloy:renderable alloy:layout-element)
+(define-shader-entity sprite-preview (alloy:renderable alloy:layout-element standalone-shader-entity)
   ((target :initarg :target :accessor target)))
 
 (defmethod alloy:render ((ui ui) (preview sprite-preview))
   (call-next-method)
   (with-pushed-matrix ((view-matrix :identity))
-    (let* ((program (shader-program-for-pass (unit 'render T) (target preview)))
+    (let* ((program (shader-program preview))
            (bounds (alloy:bounds preview))
            (scale (/ (alloy:pxh bounds) 2 (* 2 (vy (bsize (target preview)))))))
       (translate-by (+ (alloy:pxx bounds) (/ (alloy:pxw bounds) 2))
                     (- (+ (alloy:pxy bounds) (/ (alloy:pxh bounds) 2))
-                       (* (vy (bsize (target preview))) scale)) 0)
+                       (* (vy (bsize (target preview))) scale))
+                    0)
       (scale-by scale scale 1)
       (trial::activate program)
       (render (target preview) program))))
+
+(define-class-shader (sprite-preview :vertex-shader)
+  "
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec2 in_texcoord;
+out vec2 texcoord;
+
+uniform mat4 model_matrix;
+uniform mat4 view_matrix;
+uniform mat4 projection_matrix;
+
+void main(){
+  texcoord = in_texcoord;
+  gl_Position = (projection_matrix * (view_matrix * (model_matrix * vec4(position, 1.0))));
+}")
+
+(define-class-shader (sprite-preview :fragment-shader)
+  "
+uniform sampler2D texture_image;
+uniform sampler2D palette;
+uniform int palette_index = 0;
+in vec2 texcoord;
+
+void main(){
+  color = texture(texture_image, texcoord);
+  if(color.r*color.b == 1 && color.g < 0.1){
+    color = texelFetch(palette, ivec2(color.g*255, palette_index), 0);
+  }
+}")
 
 (defclass wardrobe (menuing-panel pausing-panel)
   ())
