@@ -53,7 +53,7 @@
 | |?
 | | | (:normal)\"That was the last downed camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
+| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
 
@@ -75,7 +75,7 @@
 | |?
 | | | (:normal)\"That was the last downed camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
+| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
 
@@ -97,7 +97,7 @@
 | |?
 | | | (:normal)\"That was the last downed camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
+| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
 
@@ -138,7 +138,7 @@
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
 | | (:normal)\"That was also the last of the downed cameras. I should \"find the nearby saboteur and then return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"I also need to find the other CCTV sites, as recorded in my \"Log Files\"(orange).\"(light-gray, italic)
+| | (:normal)\"I also need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
 ;; wouldnae = wouldn't (Scottish)
