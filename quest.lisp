@@ -150,6 +150,9 @@
                (location (unit thing +world+)))
              ((setf location) (loc thing)
                (setf (location (unit thing +world+)) loc))
+             (leave (thing)
+               (when (symbolp thing) (setf thing (unit thing +world+)))
+               (when (slot-boundp thing 'container) (leave thing T)))
              (find-task (quest task)
                (uiop:nest
                 (quest:find-task task)
