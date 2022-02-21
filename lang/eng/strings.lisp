@@ -320,6 +320,13 @@ item:palette-the-third "The Third"
 item:palette-the-third/description "This uniform has seen many a heist."
 item:palette-error "ERROR"
 item:palette-error/description "ERROR: Missing texture pack"
+item:manual "Combat Manual"
+item:manual/description "A manual for Genera combat model androids"
+item:manual/lore "Combat models are equipped with a standard Artemis EStuB and are trained to execute a variety of directional attack moves in two variants: light and heavy.
+
+Heavy moves trade an increase in power for slower wind-up and tail-end execution speed. Both light and heavy moves can be performed in different directions, both in air and on the ground.
+
+Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will perform an evade, which can be followed up by a punishing counter move."
 ;; Fish
 fish:crab "Crab"
 fish:crab/description "A sturdy little critter."

@@ -414,6 +414,8 @@
                                  (defmethod palette-index ((,name ,name)) ,i))))))
   (define-palettes))
 
+(define-item (manual lore-item) 56 0 8 8)
+
 ;; Draws
 (define-random-draw mushrooms
   (item:mushroom-good-1 1)
