@@ -74,6 +74,10 @@
        (incf (vy (location npc)) 8)
        (setf (vy (bsize npc)) 15)))))
 
+(defmethod (setf ai-state) :after (state npc)
+  (unless (eql state :normal)
+    (hide (nametag-element npc))))
+
 (defmethod handle :before ((ev tick) (npc npc))
   (case (state npc)
     (:normal
