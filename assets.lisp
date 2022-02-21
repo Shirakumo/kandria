@@ -182,7 +182,7 @@
   :parallax (vec 2.0 2.0)
   :scaling (vec 1.5 1.5)
   :offset (vec 0.0 0.0)
-  :lighting-strength 0.2)
+  :lighting-strength 0.5)
 
 (define-gi one
   :location NIL
@@ -267,7 +267,7 @@
   :location 'player
   :light-multiplier 2.0
   :light (vec 2.0 1 0.5)
-  :ambient-multiplier 3.0
+  :ambient-multiplier 4.0
   :ambient (vec 0.8 0.4 0.4))
 
 (define-gi desert

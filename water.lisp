@@ -241,7 +241,8 @@ void main(){
   texpos.x = texpos.x % 5*16 + 16;
   if(texpos.y < 16*13) texpos.y = (texpos.y % 16)+(13*16);
   color.rgb = texelFetch(albedo, texpos, 0).rgb;
-  color = apply_lighting_flat(color, vec2(0), 1-(height*height*height*height), world_pos);
+  color = apply_lighting_flat(color, vec2(0), 0.5, world_pos);
+  color.rgb *= max(1.0, vpos.y*0.02);
 }")
 
 (defmethod nudge ((magma magma) pos strength)
