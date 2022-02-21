@@ -25,6 +25,7 @@
 
   (find-home-first
    :title "Scout location Beta"
+   :marker '(new-home-1-mark 1000)
    :condition all-complete
    :on-activate T   
    (:interaction new-home-site-1
@@ -47,6 +48,7 @@
 ;; SCRATCH | Structural integrity can be described as \"may collapse at any moment\". ;; restore italics to "Structural integrity..." once back slashes don't impede
   (find-home-second
    :title "Scout location Gamma"
+   :marker '(new-home-2-mark 1000)
    :condition all-complete
    :on-activate T
 
@@ -69,6 +71,7 @@
 
   (find-home-third
    :title "Scout location Delta"
+   :marker '(new-home-3-mark 1000)
    :condition all-complete
    :on-activate T
 
@@ -90,6 +93,7 @@
 
   (find-home-fourth
    :title "Scout location Epsilon"
+   :marker '(new-home-4-mark 1000)
    :condition all-complete
    :on-activate T
 
@@ -115,6 +119,7 @@
 
   (return-new-home
    :title "Return to Jack in Engineering and deliver the bad news"
+   :marker '(jack 500)
    :condition all-complete
    :on-activate T
    ;; enemies on this quest will be world NPCs, not spawned for the quest

@@ -9,6 +9,7 @@
 
   (talk-to-fi
    :title "Talk to Fi on the Farm"
+   :marker '(fi 500)
    :condition all-complete
    :on-activate (talk-fi)
    :on-complete (q2-seeds)

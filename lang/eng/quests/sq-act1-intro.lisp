@@ -9,6 +9,7 @@
   :on-activate T
   (sq-act1-catherine
    :title "Talk to Catherine in Engineering"
+   :marker '(catherine 500)
    :on-activate T
    (:interaction talk-catherine
     :title "Hi Catherine."

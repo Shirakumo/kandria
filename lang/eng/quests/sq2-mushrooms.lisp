@@ -29,6 +29,7 @@
   
   (return-mushrooms
    :title "Return to Catherine in Engineering and deliver the mushrooms"
+   :marker '(catherine 500)
    :on-activate T
    (:interaction mushrooms-return
     :title "About the mushrooms."

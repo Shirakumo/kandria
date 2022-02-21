@@ -10,6 +10,7 @@
   :on-activate (race-hub)
   (race-hub
    :title "Talk to Catherine in Engineering to start a race"
+   :marker '(catherine 500)
    :on-activate T
    (:interaction start-race
     :title "About the race."
@@ -146,11 +147,12 @@
 ;; TODO bug - deactivating this task causes it's title to appear as another bullet point in the journal (though not deactivating it any more)
 ;; TODO: plant multiple objects, encouraging cheating
 ;; could explain brackets at the start, or let player figure it out themselves from results? Latter
-(defmacro define-race (name &key site title-start title-complete title-cancel bronze silver gold)
+(defmacro define-race (name &key site site-mark title-start title-complete title-cancel bronze silver gold)
   (let ((name-start (trial::mksym #.*package* name '-start)))
     `(progn
        (quest:define-task (kandria sq3-race ,name-start)
          :title ,title-start
+         :marker '(,site-mark 1000)
          :condition (have 'item:can)
          :on-activate T
          :on-complete (,name)
@@ -189,6 +191,7 @@
 
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine in Engineering ASAP"
+         :marker '(catherine 500)
          :on-activate T
          :condition all-complete
          :on-complete (race-hub)
@@ -261,6 +264,7 @@
 ;; TODO These vars stored in save game? Problematic if we tweak after launch/testing?
 (define-race race-1
   :site race-1-site
+  :site-mark race-1-mark
   :title-start "The can is at... a literal high point of EASTERN civilisation, now long gone."
   :title-complete "(Complete Race Route 1)"
   :title-cancel "(Cancel Race Route 1)"
@@ -270,6 +274,7 @@
 
 (define-race race-2
   :site race-2-site
+  :site-mark race-2-mark
   :title-start "The can is... where a shallow grave marks the end of the line at Zenith Crossing Station, East."
   :title-complete "(Complete Race Route 2)"
   :title-cancel "(Cancel Race Route 2)"
@@ -279,6 +284,7 @@
 
 (define-race race-3
   :site race-3-site
+  :site-mark race-3-mark
   :title-start "The can is... beneath where we first ventured together, and got our feet wet."
   :title-complete "(Complete Race Route 3)"
   :title-cancel "(Cancel Race Route 3)"
@@ -288,6 +294,7 @@
 
 (define-race race-4
   :site race-4-site
+  :site-mark race-4-mark
   :title-start "The can is... deep in the west, where we first met."
   :title-complete "(Complete Race Route 4)"
   :title-cancel "(Cancel Race Route 4)"
@@ -297,6 +304,7 @@
 
 (define-race race-5
   :site race-5-site
+  :site-mark race-5-mark
   :title-start "The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\"."
   :title-complete "(Complete Race Route 5)"
   :title-cancel "(Cancel Race Route 5)"

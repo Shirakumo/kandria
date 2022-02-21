@@ -25,6 +25,7 @@
 
   (leak-first
    :title "Find the first leak"
+   :marker '(leak-1-mark 1000)
    :condition all-complete
    :on-activate T
 
@@ -86,6 +87,7 @@
 
   (leak-second
    :title "Find the second leak"
+   :marker '(leak-2-mark 1000)
    :condition all-complete
    :on-activate T
 
@@ -145,6 +147,7 @@
 
   (leak-third
    :title "Find the third leak"
+   :marker '(leak-3-mark 1000)
    :condition all-complete
    :on-activate T
 
@@ -204,6 +207,7 @@
 
   (return-leaks
    :title "Return to Catherine in Engineering"
+   :marker '(catherine 500)
    :condition all-complete
    :on-activate T
 

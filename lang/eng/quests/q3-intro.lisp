@@ -9,6 +9,7 @@
   
   (talk-to-jack
    :title "Talk to Jack in Engineering"
+   :marker '(jack 500)
    :condition all-complete
    :on-activate T
    :on-complete (q3-new-home)

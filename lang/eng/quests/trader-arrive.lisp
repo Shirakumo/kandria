@@ -8,6 +8,7 @@
   :on-activate (talk-trader)
   (talk-trader
    :title "Talk to Sahil in the Midwest Market, beneath the Zenith Hub"
+   :marker '(trader-mark 2000)
    :condition all-complete
    :on-activate T
    :on-complete (trader-chat trader-shop)
