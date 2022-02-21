@@ -44,10 +44,10 @@
   | Another faction, deep underground. We were part of them.
   | Let's just say they have the monopoly on what's left of the geothermal power generators. And they don't like to share.
   < questions
-- Can't you move back underground?
+- Can't you move underground?
   ~ fi
   | The levels below us are unstable. And if we go even lower we'd enter the territory of other factions.
-  | We came to the surface because we honestly thought we could grow food, like people used to.
+  | We came to the surface because we honestly thought we could grow food like people used to.
   | But we also thought the Wraw wouldn't follow.
   | (:annoyed)I guess we were wrong. Well, I was wrong.
   < questions
@@ -59,7 +59,7 @@
 - What's next?
 ~ fi
 | I haven't told the others about the failing crops, but they aren't blind. I'm telling you because I think you can help.
-| There's a place \"across the surface to the east\"(orange) and beneath the \"Ruins\"(orange) there, where we first found the seeds that you see growing here.
+| There's a place \"across the surface to the east\"(orange) and beneath the \"Ruins\"(orange), where we first found the seeds that you see growing here.
 | \"Alex\"(yellow) found it, our hunter. I want you to retrace their steps, \"find the cache\"(orange), and if it's still intact \"recover all the seeds\"(orange) that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.
@@ -69,7 +69,7 @@
   | Thank you.
 - I'll retrieve what I can.
   ~ fi
-  | That's all I am asking.
+  | That is all I am asking.
 - What if I fail?
   ~ fi
   | I don't know about the world you came from, but I discovered long ago that it's better to make one plan at a time.

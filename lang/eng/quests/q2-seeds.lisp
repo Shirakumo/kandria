@@ -8,7 +8,7 @@
   :on-activate (find-seeds)
 
   (find-seeds
-   :title "Find the seed cache across the surface to the east and beneath the Ruins there, then return to Fi on the Farm"
+   :title "Find the seed cache across the surface to the east and beneath the Ruins, then return to Fi on the Farm"
    :marker '(seeds-mark 2000)
    :description NIL
    :invariant T
@@ -21,7 +21,7 @@
     :repeatable T
     :dialogue "
 ~ fi
-| Travel \"across the surface to the east\"(orange) and beneath the \"Ruins there - retrieve whatever seeds remain\"(orange) in the cache.
+| Travel \"across the surface to the east\"(orange) and beneath the \"Ruins - retrieve whatever seeds remain\"(orange) in the cache.
 | Good luck, Stranger.
 ")
 
