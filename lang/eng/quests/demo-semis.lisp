@@ -65,7 +65,7 @@
 | Anyway, my \"sister\"(orange) knows what we need. \"Talk to her.\"(orange)
   ")
   (:eval
-   :on-complete (demo-cctv-intro)))
+   :on-complete (demo-intro)))
    
 #|
 dinnae = don't (Scottish)

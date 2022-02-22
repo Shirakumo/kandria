@@ -1,7 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(quest:define-quest (kandria q5a-rescue-engineers)
+(quest:define-quest (kandria demo-engineers)
   :author "Tim White"
   :title "Rescue Engineers"
   :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory."
@@ -14,12 +14,12 @@
    :on-activate T
    (:interaction reminder
     :title "Remind me about the trapped engineers."
-    :interactable innis
+    :interactable islay
     :repeatable T
     :dialogue "
-~ innis
-| \"Find the trapped engineers\"(orange) in the collapsed rail tunnel, do what you can for them, and report back.
-| It's in the \"upper-west of our territory\"(orange).
+~ islay
+| \"Find our trapped engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
+| Do what you can for them, then \"report back to Innis\"(orange) in the \"control room\"(orange).
 "))
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
@@ -29,7 +29,7 @@
    :on-activate T   
    (:interaction engineers
     :interactable semi-engineer-chief
-    :title "Innis sent me. Are you the Semis engineers?"
+    :title "Islay sent me. Are you the Semis engineers?"
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
@@ -48,7 +48,7 @@
 | |   | (:shocked)... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're the engineers you're looking for. Thank God for Innis.
+| | | (:weary)We're the engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
@@ -70,7 +70,7 @@
 | |   | (:shocked)... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're the engineers you're looking for. Thank God for Innis.
+| | | (:weary)We're the engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
@@ -114,24 +114,23 @@
 |   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 | ~ innis
 | | There's something else...
-| | My sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you access to the metro.
-| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It'll certainly speed up your errands.\"(orange)
+| | My sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you \"access to the metro\"(orange).
+| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands.\"(orange)
 | ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-region1)))
 | | | (:sly)I ken you've seen the metro already, and that's alright. But now it's official. I'll send out word so you won't be... apprehended.
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | | | \"Just enter through the blast doors and you'll find the train.\"(orange)
-| ? (complete-p 'q5b-investigate-cctv)
+| ? (complete-p 'demo-cctv)
 | | ~ innis
-| | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
-| | | (:normal)It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
-| | | I suppose androids cannae do everything.
-| | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
-| | | (:sly)If she disagrees tell her I'll shut the water off.
-| | ! eval (activate 'q6-return-to-fi)
-| | ! eval (activate (unit 'fi-ffcs-1))
-| | ! eval (activate (unit 'fi-ffcs-2))
+| | | But now you should return to the surface.
+| | | Don't worry, I've turned the water back on. Your friends can have a nice long drink.
+| | | (:sly)For what good it will do them.
+| | | If the Wraw are coming for us, they'll be coming for them too.
+| | | (:normal)So long... //Stranger//.
+| | | Maybe I'll see you on the battlefield.
+| | ! eval (activate 'demo-end-prep)
 | | < end
 | ~ innis
 | | I'll be seeing you.

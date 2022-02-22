@@ -67,7 +67,8 @@
 | Which means I stock many things that might be useful to you.
 | We get the usual traders visiting of course, but I'm giving you another option - and \"I stock more supplies than most\"(orange).
 | (:unhappy)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
-| We've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange). And \"4 of our CCTV cameras on the low-eastern\"(orange) Cerebat border have gone down.
+| We've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange).
+| And \"4 of our CCTV cameras on the low-eastern\"(orange) Cerebat border have gone down.
 | (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis - she's gone up to the control room\"(orange).
 | Perhaps see her too as a challenge to overcome. (:happy)I know I do.
 | (:normal)Ta-ta for now, Stranger.

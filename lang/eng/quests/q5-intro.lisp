@@ -59,16 +59,16 @@
 |   ~ innis
 |   | (:sly)Oh really? You just helped us outta the goodness o' your heart?
 |   ~ player
+|   - What's wrong with that?
 |   - That's what I do.
 |   - I was exploring, so figured why not.
-|   - I was bored.
 |   ~ innis
 |   | Well if that's true - and I'll ken soon enough - then thanks.
 |   | But there's more to do.
 | - Your guardian angel.
 |   ~ innis
 |   | If only that were true.
-|   | (:sly)Wait- Are you trying to tell me something?
+|   | (:sly)Wait - are you trying to tell me something?
 |   ~ player
 |   - Yes.
 |     ~ innis
@@ -78,6 +78,7 @@
 |     ~ innis
 |     | (:angry)Well shut up then.
 |   - I don't know.
+|     ~ innis
 |     | (:angry)Well shut up then.
 | - Why was Islay's intel out of date?
 |   ~ innis
@@ -85,19 +86,19 @@
 |   | I only just got word o' this change myself.
 | ~ innis
 | | The good news for you is that it means our engineering works are back on schedule.
-| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you access to the metro.
-| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It will certainly speed up your errands.\"(orange)
-| ? (var 'metro-used)
-| | | (:sly)I ken you've been using it already, and that's alright. But now it's official. I'll send out word, so you won't be... apprehended.
-| | | (:normal)\"The stations run throughout our territory\"(orange) and beyond. Though \"not all are operational\"(orange) while we expand the network.
+| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you \"access to the metro\"(orange).
+| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)\"It'll certainly speed up your errands.\"(orange)
+| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-region1)))
+| | | (:sly)I ken you've seen the metro already, and that's alright. But now it's official. I'll send out word so you won't be... apprehended.
+| | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
 | |?
-| | | (:normal)You'll find \"the stations run throughout our territory\"(orange) and beyond. Though \"not all are operational\"(orange) while we expand the network.
-| | | \"Simply open the blast doors and call a train.\"(orange)
+| | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
+| | | \"Just enter through the blast doors and you'll find the train.\"(orange)
 ! label questions
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
   ~ innis
-  | There were ten of them, working in the \"high-west of our territory\"(orange).
+  | There were ten of them, working in the \"high west of our territory\"(orange).
   | We're slowly digging out the old maglev metro system. (:pleased)We've got a basic electrified railway going.
   | (:angry)But it's dangerous work. They didnae report in, and our hunters found the tunnel collapsed.
   | The hunters canna go any further. But you can.
@@ -109,9 +110,9 @@
   < questions
 - Tell me about the downed CCTV cameras.
   ~ innis
-  | We monitor the surrounding area, immediately above and below.
-  | (:angry)Basically 4 of our cameras on the Cerebat border have gone down, in the \"low-eastern region\"(orange).
-  | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together means when one goes, they all go.
+  | We monitor the surrounding areas, immediately above and below.
+  | (:angry)Basically \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low-eastern region\"(orange).
+  | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
   | I want you to check them out.
   < questions
 - I've got it.

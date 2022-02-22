@@ -349,12 +349,18 @@
 | |?
 | | ~ semi-engineer-chief
 | | | I don't believe you got through... Now food and medical supplies can get through too. Thank you.
-| | | We can resume our task. It'll be slow-going, but we'll get it done.
-? (active-p (find-task 'q5a-rescue-engineers 'q5a-task-engineers))
-| ! eval (complete (find-task 'q5a-rescue-engineers 'q5a-task-engineers))
-|? (active-p (find-task 'q5a-rescue-engineers 'q5a-task-reminder))
-| ! eval (complete (find-task 'q5a-rescue-engineers 'q5a-task-reminder))
+| | | We can resume our excavations. It'll be slow-going, but we'll get it done.
+? (active-p (find-task 'q5a-rescue-engineers 'task-engineers))
+| ! eval (complete (find-task 'q5a-rescue-engineers 'task-engineers))
+|? (active-p (find-task 'q5a-rescue-engineers 'task-reminder))
+| ! eval (complete (find-task 'q5a-rescue-engineers 'task-reminder))
+? (active-p (find-task 'demo-engineers 'task-engineers))
+| ! eval (complete (find-task 'demo-engineers 'task-engineers))
+|? (active-p (find-task 'demo-engineers 'task-reminder))
+| ! eval (complete (find-task 'demo-engineers 'task-reminder))
 "))
+
+;; TODO remove demo task checks at the end here, when no longer needed
 
 ;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
