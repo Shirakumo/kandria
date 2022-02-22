@@ -23,7 +23,7 @@
 - Are you the Semi Sisters?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
-| (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
+| (:normal)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
 | What do you think, Islay?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
@@ -61,7 +61,7 @@
 | (:sly)Once you've done something for us.
 | (:angry)Did your \"friends\" honestly think they could siphon it off forever?
 | That's no' how the world works.
-| (:normal)And I don't know why you bother - you don't need to drink. I'd sack them off if I was you.
+| (:normal)And I don't know why you bother - you don't need to drink. I'd sack them off if I were you.
 | Anyway, my \"sister\"(orange) knows what we need. \"Talk to her.\"(orange)
   ")
   (:eval

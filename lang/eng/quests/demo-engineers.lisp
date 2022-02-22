@@ -19,7 +19,7 @@
     :dialogue "
 ~ islay
 | \"Find our trapped engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
-| Do what you can for them, then \"report back to Innis\"(orange) in the \"control room\"(orange).
+| Do what you can for them, then \"report back to Innis\"(orange).
 "))
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
@@ -86,7 +86,7 @@
 
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
   (task-return-engineers
-   :title "Once you've helped the engineers, return to Innis in the Semi Sisters control room"
+   :title "Once you've helped the engineers, return to Innis in the Semi Sisters base"
    :condition NIL
    :on-activate T
    (:interaction return-engineers
@@ -114,9 +114,9 @@
 |   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 | ~ innis
 | | There's something else...
-| | My sister, in her infinite wisdom, thought it might be a nice gesture if we... //if I// officially grant you \"access to the metro\"(orange).
+| | My sister, in her infinite wisdom, thought it might be a nice gesture if we-... //if I// officially grant you \"access to the metro\"(orange).
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands.\"(orange)
-| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-region1)))
+| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
 | | | (:sly)I ken you've seen the metro already, and that's alright. But now it's official. I'll send out word so you won't be... apprehended.
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | |?

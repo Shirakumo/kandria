@@ -72,12 +72,12 @@
   | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
   | I'd like you to check them out.
   < questions
-- I've got it.
+- Understood.
 ~ islay
 | (:expectant)We've seen what you can do - you're better suited to this than our hunters.
 | (:nervous)Just don't tell Innis I said that. She'll think I've gone soft for androids.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-| \"Report back to Innis\"(orange) when you have news - by then we'll probably be \"up in the control room\"(orange).
+| \"Report back to Innis\"(orange) when you have news - by then we \"might be up in the control room\"(orange).
 | Good luck.
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'demo-engineers)
@@ -98,7 +98,7 @@
 ~ islay
 | This does mean our engineering works are back on schedule though.
 | With that in mind, I thought we could grant you \"access to the metro\"(orange). It will certainly \"speed up your errands.\"(orange)
-? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-region1)))
+? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
 | | We know you've seen the metro already, and that's alright. But now it's official.
 | | I'll send out word, so Innis won't have you... (:happy)apprehended.
 | ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
@@ -110,5 +110,3 @@
 ")
   (:eval
    :on-complete (demo-cctv)))
-   
-;; also use a trigger mid-explore to move Innis and Islay back to control room

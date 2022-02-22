@@ -12,9 +12,9 @@
   (:interact (innis :now T)
 "~ player
 | (:skeptical)Innis, I found the saboteur. I don't think they're a Cerebat.
-| (:embarassed)They're quite big. And I don't think they'll come quietly.
+| (:embarassed)They're quite big. I don't think they'll come quietly.
 ~ innis
-| (:pleased)Then might I suggest ya defend ya wee self.
+| (:pleased)Then might I suggest you defend ya wee self.
 | (:sly)If you survive ya can \"bring me your report in person\"(orange).
 | (:angry)Now don't interrupt me again.
   ")

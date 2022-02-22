@@ -4,7 +4,7 @@
 (quest:define-quest (kandria demo-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down. I need to investigate them and report back to Innis in the control room, before they'll turn our water back on."
+  :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down. I need to investigate them and report back to Innis, before they'll turn our water back on."
   :on-activate (task-reminder task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
   :variables (first-cctv)
  
@@ -30,7 +30,7 @@
 | | | And don't forget to \"bring Innis that saboteur\"(orange).
 | |?
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 downed CCTV cameras\"(orange).
-| | | Then \"return to Innis\"(orange) in the \"control room\"(orange).
+| | | Then \"return to Innis\"(orange).
 "))
 
 ;; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.
@@ -42,7 +42,7 @@
     :interactable cctv-1
     :dialogue "
 ~ player
-| \"Here's the \"first\"(red) CCTV camera.\"(light-gray, italic)
+| \"Here's \"CCTV camera 1\"(red).\"(light-gray, italic)
 | \"The lens is smashed and the casing is charred from a fire.\"(light-gray, italic)
 ? (complete-p 'task-cctv-2 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'q5b-boss)
@@ -68,7 +68,7 @@
     :interactable cctv-2
     :dialogue "
 ~ player
-| \"Here's the \"second\"(red) CCTV camera.\"(light-gray, italic)
+| \"Here's \"CCTV camera 2\"(red).\"(light-gray, italic)
 | \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit boards.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'q5b-boss)
@@ -94,7 +94,7 @@
     :interactable cctv-3
     :dialogue "
 ~ player
-| \"Here's the \"third\"(red) CCTV camera.\"(light-gray, italic)
+| \"Here's \"CCTV camera 3\"(red).\"(light-gray, italic)
 | \"It's in pieces on the floor, surrounded by rocks and stones.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-4)
 | ? (complete-p 'q5b-boss)
@@ -120,7 +120,7 @@
     :interactable cctv-4
     :dialogue "
 ~ player
-| \"Here's the \"fourth\"(red) CCTV camera.\"(light-gray, italic)
+| \"Here's \"CCTV camera 4\"(red).\"(light-gray, italic)
 | (:thinking)\"The wiring has been cut, but otherwise it seems in good working order.\"(light-gray, italic)
 | (:skeptical)\"But without the others daisy-chained in sequence, it still wouldn't work.\"(light-gray, italic)
 | (:normal)\"I should tell Innis about the cut wires. Accessing FFCS protocols...\"(light-gray, italic)
@@ -161,7 +161,7 @@
 ;; ken = know (Scottish)
 
   (task-return-cctv
-   :title "Return to Innis in the Semi Sisters control room to discuss the saboteur"
+   :title "Return to Innis in the Semi Sisters base to discuss the saboteur"
    :condition all-complete
    :on-activate T
    (:interaction return-cctv
