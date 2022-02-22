@@ -25,6 +25,7 @@
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (task-engineers
    :title "Find the trapped engineers"
+   :marker '(semi-engineer-mark 2500)
    :condition (complete-p 'task-return-engineers)
    :on-activate T   
    (:interaction engineers
@@ -87,6 +88,7 @@
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
   (task-return-engineers
    :title "Once you've helped the engineers, return to Innis in the Semi Sisters control room"
+   :marker '(innis 500)
    :condition NIL
    :on-activate T
    (:interaction return-engineers

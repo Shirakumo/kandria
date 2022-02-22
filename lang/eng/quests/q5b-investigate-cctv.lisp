@@ -37,6 +37,7 @@
 ;; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.
   (q5b-task-cctv-1
    :title "Find CCTV camera 1"
+   :marker '(cctv-1-mark 1000)
    :condition all-complete
    :on-activate T   
    (:interaction q5b-cctv-1
@@ -59,6 +60,7 @@
 
   (q5b-task-cctv-2
    :title "Find CCTV camera 2"
+   :marker '(cctv-2-mark 1000)
    :condition all-complete
    :on-activate T   
    (:interaction q5b-cctv-2
@@ -81,6 +83,7 @@
 
   (q5b-task-cctv-3
    :title "Find CCTV camera 3"
+   :marker '(cctv-3-mark 1000)
    :condition all-complete
    :on-activate T   
    (:interaction q5b-cctv-3
@@ -103,6 +106,7 @@
 
   (q5b-task-cctv-4
    :title "Find CCTV camera 4"
+   :marker '(cctv-4-mark 1000)
    :condition all-complete
    :on-activate T   
    (:interaction q5b-cctv-4
@@ -147,6 +151,7 @@
 
   (q5b-task-return-cctv
    :title "Return to Innis in the Semi Sisters control room to discuss the saboteur"
+   :marker '(innis 500)
    :condition all-complete
    :on-activate T
    (:interaction q5b-return-cctv
