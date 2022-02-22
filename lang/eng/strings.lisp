@@ -605,7 +605,7 @@ Bad shutdown detected, booting cold
        Base ver: 3305
        Core ver: 247
        Util ver: 554
-       Last boot: 24.3.2063 03:32:02.7425 UTC
+       Last boot: 17.3.2368 03:32:02.7425 UTC
 [WARN] Please service the GENERA system as soon as possible.
 [INFO] Initiating cold boot
 [INFO] Flushing network
