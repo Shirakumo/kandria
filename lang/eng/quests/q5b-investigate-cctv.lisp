@@ -43,7 +43,7 @@
     :interactable cctv-1
     :dialogue "
 ~ player
-| \"Here's the \"first\"(red) CCTV camera.\"(light-gray, italic)
+| \"Here's \"CCTV camera 1\"(red).\"(light-gray, italic)
 | \"The lens is smashed and the casing is charred from a fire.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
@@ -65,7 +65,7 @@
     :interactable cctv-2
     :dialogue "
 ~ player
-| \"Here's the \"second\"(red) CCTV camera.\"(light-gray, italic)
+| \"Here's \"CCTV camera 2\"(red).\"(light-gray, italic)
 | \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit boards.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
@@ -87,7 +87,7 @@
     :interactable cctv-3
     :dialogue "
 ~ player
-| \"Here's the \"third\"(red) CCTV camera.\"(light-gray, italic)
+| \"Here's \"CCTV camera 3\"(red).\"(light-gray, italic)
 | \"It's in pieces on the floor, surrounded by rocks and stones.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
@@ -109,7 +109,7 @@
     :interactable cctv-4
     :dialogue "
 ~ player
-| \"Here's the \"fourth\"(red) CCTV camera.\"(light-gray, italic)
+| \"Here's \"CCTV camera 4\"(red).\"(light-gray, italic)
 | (:thinking)\"The wiring has been cut, but otherwise it seems in good working order.\"(light-gray, italic)
 | (:skeptical)\"But without the others daisy-chained in sequence, it still wouldn't work.\"(light-gray, italic)
 | (:normal)\"I should tell Innis about the cut wires. Accessing FFCS protocols...\"(light-gray, italic)

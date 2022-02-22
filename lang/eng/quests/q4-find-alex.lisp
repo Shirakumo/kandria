@@ -39,7 +39,7 @@
 - What do you want?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
-| (:normal)What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
+| (:normal)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
 | What do you think, sister?
 ~ islay
 | (:unhappy)I think you should leave her alone.

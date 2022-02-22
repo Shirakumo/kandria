@@ -24,7 +24,7 @@
 "))
 
   (leak-first
-   :title "Find the first leak"
+   :title "Find leak 1"
    :marker '(leak-1-mark 1000)
    :condition all-complete
    :on-activate T
@@ -36,7 +36,7 @@
     :interactable leak-1
     :dialogue "
 ~ player
-| \"It's the \"first\"(red) leak.\"(light-gray, italic)
+| \"It's \"leak 1\"(red).\"(light-gray, italic)
 | \"//There's a hole in the pipe - probably caused by duress where it bends around this corner.//\"(light-gray)
 ? (not (var 'first-leak))
 | | \"//I ignite the torch from my index finger.//\"(light-gray)
@@ -86,7 +86,7 @@
   ;; UNUSED: and a sprawl of soil and stones - subsidence caused this.
 
   (leak-second
-   :title "Find the second leak"
+   :title "Find leak 2"
    :marker '(leak-2-mark 1000)
    :condition all-complete
    :on-activate T
@@ -98,7 +98,7 @@
     :interactable leak-2
     :dialogue "
 ~ player
-| \"It's the \"second\"(red) leak.\"(light-gray, italic)
+| \"It's \"leak 2\"(red).\"(light-gray, italic)
 | \"//The pipe has split. There's no subsidence, but it's close to Catherine's previous repair - I wonder if she damaged it by accident.//\"(light-gray)
 ? (not (var 'first-leak))
 | | \"//I ignite the torch from my index finger.//\"(light-gray)
@@ -146,7 +146,7 @@
 "))
 
   (leak-third
-   :title "Find the third leak"
+   :title "Find leak 3"
    :marker '(leak-3-mark 1000)
    :condition all-complete
    :on-activate T
@@ -158,7 +158,7 @@
     :interactable leak-3
     :dialogue "
 ~ player
-| \"It's the \"third\"(red) leak.\"(light-gray, italic)
+| \"It's \"leak 3\"(red).\"(light-gray, italic)
 | \"//The pipe is ruptured, like an artery oozing blood.//\"(light-gray)
 ? (not (var 'first-leak))
 | | \"//I ignite the torch from my index finger.//\"(light-gray)
