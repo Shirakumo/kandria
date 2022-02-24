@@ -1,0 +1,14 @@
+"appbuild"{
+  "appid" "1918910"
+  "desc" "Kandria demo build"
+  "buildoutput" "../steam/"
+  "contentroot" "$CONTENT"
+  "setlive" "$BRANCH"
+  "preview" "$PREVIEW"
+  "local" ""
+  "depots"{
+    "1918911" "../windows-depot.vdf"
+    "1918912" "../linux-depot.vdf"
+    "1918913" "../content-depot.vdf"
+  }
+}

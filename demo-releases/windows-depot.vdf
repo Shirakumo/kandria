@@ -1,0 +1,11 @@
+"DepotBuildConfig"{
+  "DepotID" "1918911"
+  "FileMapping"{
+    "LocalPath" "kandria-windows.exe"
+    "DepotPath" "."
+  }
+  "FileMapping"{
+    "LocalPath" "*.dll"
+    "DepotPath" "."
+  }
+}

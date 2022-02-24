@@ -12,7 +12,9 @@
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
    :context '(:version (3 3) :profile :core :title "Kandria")
-   :app-id 1261430))
+   :app-id
+   #-kandria-demo 1261430
+   #+kandria-demo 1918910))
 
 (defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))

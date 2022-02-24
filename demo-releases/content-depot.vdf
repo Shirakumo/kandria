@@ -1,0 +1,34 @@
+"DepotBuildConfig"{
+  "DepotID" "1918913"
+  "FileMapping"{
+    "LocalPath" "pool/*"
+    "DepotPath" "pool/"
+    "recursive" "1"
+  }
+  "FileMapping"{
+    "LocalPath" "lang/*"
+    "DepotPath" "lang/"
+    "recursive" "1"
+  }
+  "FileMapping"{
+    "LocalPath" "world/*"
+    "DepotPath" "world/"
+    "recursive" "1"
+  }
+  "FileMapping"{
+    "LocalPath" "keymap.lisp"
+    "DepotPath" "."
+  }
+  "FileMapping"{
+    "LocalPath" "CREDITS.mess"
+    "DepotPath" "."
+  }
+  "FileMapping"{
+    "LocalPath" "CHANGES.mess"
+    "DepotPath" "."
+  }
+  "FileMapping"{
+    "LocalPath" "README.mess"
+    "DepotPath" "."
+  }
+}
