@@ -4,7 +4,7 @@ This is a game project. Please see the official website at https://kandria.com f
 ## Controls
 You can use a keyboard or a gamepad to control the game. The standard key / button bindings are as follows:
 
-- W A S D      [L]
+- Arrow Keys   [L]
   Move
 - Space        [A]
   Jump
@@ -12,20 +12,17 @@ You can use a keyboard or a gamepad to control the game. The standard key / butt
   Dash (hold direction to dash in)
 - Ctrl        [L2]
   Climb walls
-- Q           [L3]
+- V           [L3]
   Toggle crawl
 - E            [B]
   Interact
-- Left Mouse   [X]
+- Z            [X]
   Light attack
-- Right Mouse  [Y]
+- X            [Y]
   Heavy attack
-- F5
-  Quick save
-- F9
-  Quick load
-- \~ / §
-  Toggle editor
+- C       [SELECT]
+  Quick menu
+
 
 The controls can also be changed to suit your preferences by editing ``keymap.lisp``.
 

@@ -39,7 +39,7 @@
  (axis :one-of (:l-v :dpad-v) :threshold -0.5))
 
 (trigger accept
- (key :one-of (:e :enter))
+ (key :one-of (:enter :e))
  (button :one-of (:a)))
 
 (trigger back
@@ -47,11 +47,11 @@
  (button :one-of (:b)))
 
 (trigger quickmenu
- (key :one-of (:c :v))
+ (key :one-of (:c))
  (button :one-of (:select)))
 
 (trigger interact
- (key :one-of (:e :enter))
+ (key :one-of (:enter :e))
  (button :one-of (:b)))
 
 (trigger jump
@@ -69,7 +69,7 @@
  (axis :one-of (:l2) :threshold 0.25))
 
 (trigger crawl
- (key :one-of (:q) :edge :rise-only)
+ (key :one-of (:v :q) :edge :rise-only)
  (button :one-of (:l3) :edge :rise-only))
 
 (trigger light-attack
@@ -83,22 +83,22 @@
  (button :one-of (:y)))
 
 (trigger left
- (key :one-of (:a :left))
+ (key :one-of (:left :a))
  (button :one-of (:dpad-l))
  (axis :one-of (:l-h :dpad-h) :threshold -0.5))
 
 (trigger right
- (key :one-of (:d :right))
+ (key :one-of (:right :d))
  (button :one-of (:dpad-r))
  (axis :one-of (:l-h :dpad-h) :threshold 0.5))
 
 (trigger up
- (key :one-of (:w :up))
+ (key :one-of (:up :w))
  (button :one-of (:dpad-u))
  (axis :one-of (:l-v :dpad-v) :threshold 0.5))
 
 (trigger down
- (key :one-of (:s :down))
+ (key :one-of (:down :s))
  (button :one-of (:dpad-d))
  (axis :one-of (:l-v :dpad-v) :threshold -0.5))
 
