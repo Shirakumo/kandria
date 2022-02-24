@@ -5,6 +5,11 @@
    (state :initform NIL :accessor state)
    (zoom :initform 0.15 :accessor zoom)))
 
+(animation:define-animation (pulse-marker :loop T)
+  0 ((setf simple:pattern) (colored:color 1 0 0 0.2) :easing animation:cubic-in-out)
+  1 ((setf simple:pattern) (colored:color 1 0 0 0.5) :easing animation:cubic-in-out)
+  2 ((setf simple:pattern) (colored:color 1 0 0 0.2) :easing animation:cubic-in-out))
+
 (defmethod presentations:realize-renderable ((renderer presentations:renderer) (map map-element))
   (presentations:clear-shapes map)
   (let ((array (make-array 0 :adjustable T :fill-pointer T))
@@ -20,11 +25,13 @@
                                            (* gap 5 2))))
                  (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern color :name (name unit) :z-index -8)) array))))
            (target-marker (location size color)
-             (let ((bounds (alloy:extent (- (vx location) (/ size 2))
-                                         (- (vy location) (/ size 2))
-                                         size size))
-                   (fill (colored:color (colored:r color) (colored:g color) (colored:b color) 0.5)))
-               (vector-push-extend (cons :target (simple:ellipse renderer bounds :pattern fill :name :target :z-index -9)) array))))
+             (let* ((bounds (alloy:extent (- (vx location) (/ size 2))
+                                          (- (vy location) (/ size 2))
+                                          size size))
+                    (fill (colored:color (colored:r color) (colored:g color) (colored:b color) 0.5))
+                    (shape (simple:ellipse renderer bounds :pattern fill :name :target :z-index -9)))
+               (vector-push-extend (cons :target shape) array)
+               (animation:apply-animation 'pulse-marker shape))))
       (for:for ((unit over (region +world+)))
         (typecase unit
           (chunk
