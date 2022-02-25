@@ -168,6 +168,9 @@
     (alloy:enter title layout :constraints `((:center :w) (:above ,button 20) (:align :left ,description -30) (:size 300 30)))
     (alloy:finish-structure prompt layout NIL)))
 
+(defmethod show :after ((prompt fullscreen-prompt) &key)
+  (harmony:play (// 'sound 'ui-tutorial-popup)))
+
 (defmethod handle ((ev event) (prompt fullscreen-prompt))
   (when (etypecase (button prompt)
           (list (loop for type in (button prompt)

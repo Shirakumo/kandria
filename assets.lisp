@@ -68,6 +68,12 @@
 (define-asset (music ambience/underground-building) trial-harmony:environment
     '((:normal "ambience track_ underground building.ogg")))
 
+(define-asset (music ambience/deep-tunnel) trial-harmony:environment
+    '((:normal "ambience track_ deep tunnel.ogg")))
+
+(define-asset (music ambience/magma-cave) trial-harmony:environment
+    '((:normal "ambience track_ magma cave.ogg")))
+
 (define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T)
   (player-profile :min-filter :nearest :mag-filter :nearest)
   (catherine-profile :min-filter :nearest :mag-filter :nearest)
@@ -119,6 +125,7 @@
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.1)
+  (ambience-strong-wind :repeat T)
   (player-low-health :volume 0.1 :min-distance 100000000000.0 :max-distance 100000100000.0)
   (ambience-water-pipe-leak :repeat T :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3)))
 
@@ -335,8 +342,8 @@
 
 (define-environment (region2 hall)
   :music 'music/region2
-  :ambience 'ambience/large-underground-hall)
+  :ambience 'ambience/deep-tunnel)
 
 (define-environment (region3 hall)
   :music 'music/region3
-  :ambience 'ambience/large-underground-hall)
+  :ambience 'ambience/magma-cave)

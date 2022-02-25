@@ -15,6 +15,7 @@
 (defmethod alloy:activate ((button station-button))
   (unless (eq (alloy:value button) (source button))
     (trigger (alloy:value button) (source button)))
+  (harmony:play (// 'sound 'train-departing-and-arriving))
   (hide-panel 'fast-travel-menu))
 
 (presentations:define-realization (ui station-button)
@@ -80,3 +81,6 @@
       (alloy:on alloy:exit (focus)
         (setf (alloy:focus back) :strong)))
     (alloy:finish-structure panel layout focus)))
+
+(defmethod show :after ((menu fast-travel-menu) &key)
+  (harmony:play (// 'sound 'ui-fast-travel-map-open)))

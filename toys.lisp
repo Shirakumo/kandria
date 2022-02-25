@@ -123,11 +123,16 @@
 (defmethod is-collider-for ((lantern lantern) thing) NIL)
 (defmethod is-collider-for :around (thing (lantern lantern)) NIL)
 
+(defmethod stage :after ((lantern lantern) (area staging-area))
+  (stage (// 'sound 'lantern-crash) area)
+  (stage (// 'sound 'lantern-restore) area))
+
 (defmethod collides-p ((player player) (lantern lantern) hit)
   (and (dash-exhausted player)
        (eq :active (state lantern))))
 
 (defmethod collide ((player player) (lantern lantern) hit)
+  (harmony:play (// 'sound 'lantern-crash) :reset T)
   (setf (climb-strength player) (p! climb-strength))
   (setf (direction lantern) (direction player))
   (setf (dash-exhausted player) NIL)
@@ -159,6 +164,7 @@
     (:inactive
      (setf (multiplier (light lantern)) 0.0)
      (when (<= (decf (respawn-time lantern) (dt ev)) 0.0)
+       (harmony:play (// 'sound 'lantern-restore) :reset T)
        (setf (state lantern) :active)
        (setf (animation lantern) 'respawn)))))
 
@@ -177,6 +183,9 @@
 (defmethod collides-p ((moving moving) (spring spring) hit)
   (< 0.5 (iframes spring)))
 
+(defmethod stage :after ((spring spring) (area staging-area))
+  (stage (// 'sound 'spring-fire) area))
+
 (defmethod velocity ((spring spring)) #.(vec 0 0))
 
 (defmethod collide ((moving moving) (spring spring) hit)
@@ -187,6 +196,7 @@
     (when (/= 0 (vy strength))
       (setf (vy (velocity moving)) (vy strength)))
     (setf (iframes spring) 0.0)
+    (harmony:play (// 'sound 'spring-fire) :reset T)
     (setf (animation spring) 'spring)))
 
 (defmethod collide :after ((player player) (spring spring) hit)
@@ -253,6 +263,12 @@
 (defmethod velocity ((fountain fountain))
   #.(vec 0 0))
 
+(defmethod stage :after ((fountain fountain) (area staging-area))
+  (stage (// 'sound 'fountain-blip-001) area)
+  (stage (// 'sound 'fountain-blip-002) area)
+  (stage (// 'sound 'fountain-blip-003) area)
+  (stage (// 'sound 'fountain-fire) area))
+
 (defmethod collide ((moving moving) (fountain fountain) hit)
   (let ((strength (strength fountain)))
     (when (/= 0 (vx strength))
@@ -272,6 +288,8 @@
   (when (<= 4.0 (incf (timer fountain) (dt ev)))
     (setf (timer fountain) 0.0)
     (setf (iframes fountain) 0)
+    ;; FIXME: only play when visible...
+    ;;(harmony:play (// 'sound 'fountain-fire) :reset T)
     (setf (animation fountain) 'fire)))
 
 (defmethod handle ((ev switch-chunk) (fountain fountain))
@@ -318,7 +336,9 @@
     (:active)
     (:inactive
      (when (<= (decf (respawn-time platform) (dt ev)) 0.0)
-       (setf (animation platform) 'restore)))))
+       (unless (eql (name (animation platform)) 'restore)
+         (harmony:play (// 'sound 'crumbling-platform-restore) :reset T)
+         (setf (animation platform) 'restore))))))
 
 (defmethod handle ((ev switch-chunk) (platform crumbling-platform))
   (setf (state platform) :active)
@@ -327,10 +347,12 @@
 (defmethod velocity ((platform crumbling-platform))
   #.(vec 0 0))
 
+(defmethod stage :after ((platform crumbling-platform) (area staging-area))
+  (stage (// 'sound 'crumbling-platform-crumble) area)
+  (stage (// 'sound 'crumbling-platform-restore) area))
+
 (defmethod switch-animation :after ((platform crumbling-platform) (animation symbol))
   (case animation
-    (crumble
-     (harmony:play (// 'sound 'falling-platform-rattle) :reset T))
     (inactive
      (setf (state platform) :inactive)
      (setf (respawn-time platform) 4.0))
@@ -352,6 +374,7 @@
          (pos (hit-location hit))
          (height (vy (bsize moving)))
          (t-s (vy (bsize platform))))
+    (harmony:play (// 'sound 'crumbling-platform-crumble))
     (setf (animation platform) 'crumble)
     (setf (svref (collisions moving) 2) platform)
     ;; Force clamp velocity to zero to avoid "speeding up while on ground"
@@ -396,6 +419,9 @@
 (defmethod quest:active-p ((blocker blocker))
   (<= 1.0 (visibility blocker)))
 
+(defmethod stage :after ((blocker blocker) (area staging-area))
+  (stage (// 'sound 'blocker-destroy) area))
+
 (defmethod is-collider-for ((moving moving) (blocker blocker))
   (quest:active-p blocker))
 
@@ -409,6 +435,7 @@
                 (:south (< 0 (vy (velocity player))))
                 (:west  (< 0 (vx (velocity player))))
                 (:any T)))
+         (harmony:play (// 'sound 'blocker-destroy) :reset T)
          (setf (visibility blocker) 0.99)
          (nv* (nvunit (velocity player))  -5)
          (nv* (frame-velocity player) -1)
@@ -442,6 +469,9 @@
 (defmethod interactable-p ((chest chest))
   (eql :closed (state chest)))
 
+(defmethod stage :after ((chest chest) (area staging-area))
+  (stage (// 'sound 'chest-open) area))
+
 (defmethod draw-item ((chest chest))
   (let ((drawer (random-drawer (item chest))))
     (if drawer
@@ -456,6 +486,7 @@
 
 (defmethod interact ((chest chest) (player player))
   (when (eql :closed (state chest))
+    (harmony:play (// 'sound 'chest-open) :reset T)
     (spawn (location chest) (or (draw-item chest) 'item:parts))
     (setf (state chest) :open)
     (start-animation 'pickup player)))
@@ -472,12 +503,20 @@
 
 (defmethod velocity ((shutter shutter)) #.(vec 0 0))
 
+(defmethod stage :after ((shutter shutter) (area staging-area))
+  (stage (// 'sound 'shutter-close) area)
+  (stage (// 'sound 'shutter-open) area))
+
 (defmethod (setf state) :before (state (shutter shutter))
   (unless (eq state (state shutter))
     (when (< 0 (length (animations shutter)))
       (ecase state
-        (:open (setf (animation shutter) 'opening))
-        (:closed (setf (animation shutter) 'closing))))))
+        (:open
+         (harmony:play (// 'sound 'shutter-open))
+         (setf (animation shutter) 'opening))
+        (:closed
+         (harmony:play (// 'sound 'shutter-close))
+         (setf (animation shutter) 'closing))))))
 
 (defmethod is-collider-for ((moving moving) (shutter shutter))
   (eql :closed (state shutter)))
@@ -501,11 +540,16 @@
 (defmethod quest:active-p ((switch switch))
   (eql :on (state switch)))
 
+(defmethod stage :after ((switch switch) (area staging-area))
+  (stage (// 'sound 'key-activate) area))
+
 (defmethod (setf state) :before (state (switch switch))
   (unless (eq state (state switch))
     (when (< 0 (length (animations switch)))
       (ecase state
-        (:on (setf (animation switch) 'activate))
+        (:on
+         (harmony:play (// 'sound 'key-activate) :reset T)
+         (setf (animation switch) 'activate))
         (:off (setf (animation switch) 'off))))))
 
 (defmethod handle :after ((ev tick) (switch switch))
@@ -539,6 +583,9 @@
 
 (defmethod make-child-entity ((gate gate))
   (make-instance 'switch :location (vcopy (location gate))))
+
+(defmethod stage :after ((gate gate) (area staging-area))
+  (stage (// 'sound 'gate-lift) area))
 
 (defmethod quest:active-p ((gate gate))
   (eql :open (state gate)))
@@ -574,6 +621,7 @@
        (vsetf (velocity gate) 0 0)
        (when (loop for switch in (children gate)
                    always (eql :on (state switch)))
+         (harmony:play (// 'sound 'gate-lift) :reset T)
          (setf (state gate) :opening)))
       (:open
        (vsetf (velocity gate) 0 0)

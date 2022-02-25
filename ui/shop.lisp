@@ -230,6 +230,7 @@
          (ok (make-instance 'popup-button
                             :value (@ accept-trade)
                             :on-activate (lambda ()
+                                           (harmony:play (// 'sound 'ui-buy))
                                            (retrieve T source (alloy:value count))
                                            (hide panel))
                             :focus-parent focus))

@@ -302,7 +302,8 @@
   (incf (active-time wind) 0.02))
 
 (defmethod stage :after ((wind wind) (area staging-area))
-  (stage (vertex-array wind) area))
+  (stage (vertex-array wind) area)
+  (stage (// 'sound 'ambience-strong-wind) area))
 
 (defmethod handle ((ev tick) (wind wind))
   (when (< 0.0 (active-time wind))
@@ -346,7 +347,10 @@
             (incf (aref arr (+ ai 1)) (* -90 (- 1 (min (abs (vx spd)) 1.0)) (+ 1.2 (sin (* i (clock wind)))) (dt ev)))
             (setf (aref arr (+ ai 2)) (max 1.0 (vlength spd)))
             (setf (aref arr (+ ai 3)) (atan (vy dir) (vx dir))))))
-      (update-buffer-data vbo arr))))
+      (update-buffer-data vbo arr))
+    (if (< 0 (active-time wind))
+        (harmony:play (// 'sound 'ambience-strong-wind) :volume (print (active-time wind)))
+        (harmony:stop (// 'sound 'ambience-strong-wind)))))
 
 (defmethod handle ((ev switch-chunk) (wind wind))
   (setf (clock wind) 0.0))

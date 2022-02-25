@@ -218,7 +218,10 @@
                    ui-focus-next ui-open-menu ui-quest-complete
                    ui-quest-fail dialogue-scroll ui-scroll
                    ui-start-game ui-start-dialogue ui-use-item
-                   ui-error))
+                   ui-error ui-warning ui-upgrade-placeholder
+                   ui-tutorial-popup ui-fast-travel-map-open
+                   ui-buy
+                   train-departing-and-arriving))
     (stage (// 'sound sound) area))
   (stage (simple:request-font pass (setting :display :font)) area)
   (stage (simple:request-font pass "PromptFont") area)
