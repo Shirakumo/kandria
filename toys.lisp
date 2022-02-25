@@ -23,6 +23,9 @@
 
 (defmethod interactable-p ((workbench workbench)) T)
 
+(defmethod stage :after ((workbench workbench) (area staging-area))
+  (stage (// 'kandria 'sword) area))
+
 (defmethod layer-index ((workbench workbench))
   (1- +base-layer+))
 

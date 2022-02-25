@@ -66,17 +66,19 @@
   ())
 
 (defmethod initialize-instance :after ((panel upgrade-ui) &key)
+  ;; FIXME: spruce this up a little.
   (let* ((player (unit 'player T))
          (layout (make-instance 'eating-constraint-layout
                                 :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
          (data (make-instance 'alloy:accessor-data :object player :accessor 'sword-level))
          (focus (make-instance 'alloy:focus-list)))
+    (alloy:enter (make-instance 'icon :value (// 'kandria 'sword)) layout :constraints `(:center (:fill :w) (:height 200)))
     (loop for (level x y . materials) in
-          '((1 100 150 (1 item:rusted-clump) (50 item:parts))
-            (2 300 150)
-            (3 500 150)
-            (4 700 150)
-            (5 900 150))
+          '((1 100 150 (1 item:rusted-clump) (50 item:parts) (2 item:silver-ore))
+            (2 300 150 (200 item:parts) (5 item:silver-ore) (1 item:gold-nugget))
+            (3 500 150 (500 item:parts) (10 item:gold-nugget) (1 item:coolant) (2 item:thermal-fluid))
+            (4 700 150 (1000 item:parts) (20 item:gold-nugget) (10 item:coolant) (2 item:thermal-fluid))
+            (5 900 150 (2000 item:parts) (50 item:gold-nugget) (2 item:pearl) (3 item:hardened-alloy) (3 item:coolant) (2 item:refined-oil)))
           for box = (alloy:represent-with 'upgrade-checkbox data :on level :materials materials)
           do (alloy:enter box focus)
              (alloy:enter box layout :constraints `((:left ,x) (:bottom ,y) (:size 50 50))))
