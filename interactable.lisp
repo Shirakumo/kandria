@@ -221,9 +221,6 @@
 (defmethod render :before ((train train) (program shader-program))
   (setf (uniform program "visibility") (visibility train)))
 
-(defmethod (setf state) :after (state (train train))
-  (print (list train state)))
-
 (defmethod handle ((ev tick) (train train))
   (let ((acc 5.0)
         (arrive-time 2.0)
