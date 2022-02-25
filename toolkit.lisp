@@ -574,6 +574,15 @@
                     :output *standard-output*
                     :error-output *error-output*))
 
+(defun img-montage (&rest args)
+  (uiop:run-program (list* #-windows "montage" #+windows "montage.exe"
+                           (loop for arg in args
+                                 collect (typecase arg
+                                           (pathname (uiop:native-namestring arg))
+                                           (T (princ-to-string arg)))))
+                    :output *standard-output*
+                    :error-output *error-output*))
+
 (defun optipng (&rest args)
   (uiop:run-program (list* #-windows "optipng" #+windows "optipng.exe"
                            "-quiet"
