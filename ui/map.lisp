@@ -76,10 +76,18 @@
               do (cond ((float-features:float-nan-p (aref trace i))
                         (flush)
                         (when (float-features:float-infinity-p (aref trace (1+ i)))
-                          (let ((bounds (alloy:extent (- (aref trace (- i 2)) 8)
-                                                      (- (aref trace (- i 1)) 8)
-                                                      16 16)))
-                            (vector-push-extend (cons :death (simple:rectangle renderer bounds :pattern colors:red :name :death :z-index -4)) array))))
+                          (let ((bounds (alloy:extent (- (aref trace (- i 2)) 32)
+                                                      (- (aref trace (- i 1)) 32)
+                                                      64 64)))
+                            (vector-push-extend (cons :death (simple:text renderer bounds "✗"
+                                                                          :size (alloy:un 64)
+                                                                          :pattern colors:red
+                                                                          :valign :middle
+                                                                          :halign :middle
+                                                                          :name :death
+                                                                          :z-index -4
+                                                                          :font "PromptFont"))
+                                                array))))
                        (T
                         (vector-push-extend (alloy:point (aref trace i) (aref trace (1+ i))) points)))
               finally (flush))))
