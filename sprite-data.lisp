@@ -106,8 +106,9 @@
     (format stream ")~% :frames~%  (")
     (loop for frame across (frames sprite)
           for i from 1
+          for animation = (find (1- i) (animations sprite) :key #'start)
           do (write-animation frame stream)
-             (format stream " ; ~3d" i))
+             (format stream " ; ~3d ~@[~a~]" i (when animation (name animation))))
     (format stream "~%))~%")))
 
 (defmethod write-animation ((animation sprite-animation) &optional (stream T))

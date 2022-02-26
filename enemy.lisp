@@ -11,7 +11,7 @@
 (defmethod is-collider-for ((enemy enemy) (other enemy)) NIL)
 (defmethod is-collider-for ((enemy enemy) (other stopper)) T)
 
-(defmethod base-health ((enemy enemy)) 100)
+(defmethod base-health ((enemy enemy)) 1000)
 
 (defmethod initialize-instance :after ((enemy enemy) &key)
   (setf (health enemy) (* (health enemy) +health-multiplier+)))

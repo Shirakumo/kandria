@@ -332,14 +332,14 @@ void main(){
          (setf (state player) :animated))))
 
 #-kandria-release
-(let ((type (copy-seq '(rogue zombie))))
+(let ((type (copy-seq '(zombie rogue))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
   
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
-      (spawn (mouse-world-pos (pos ev)) (first type) :level 100))))
+      (spawn (mouse-world-pos (pos ev)) (first type) :level 1))))
 
 (flet ((handle-solid (player hit)
          (when (< 0 (vy (hit-normal hit)))
@@ -956,10 +956,9 @@ void main(){
                ((< (air-time player) (p! coyote-time))
                 ;; Ground jump
                 (trigger 'jump player)
-                (setf (vy vel) (+ (p! jump-acc)
-                                  (if ground
-                                      (* 0.25 (max 0 (vy (velocity ground))))
-                                      0)))
+                (setf (vy vel) (p! jump-acc))
+                (when ground
+                  (incf (vy loc) (vy (velocity ground))))
                 (setf ground NIL)
                 (setf (jump-time player) 0.0))))
        

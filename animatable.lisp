@@ -21,7 +21,7 @@
                  (p enemy-level base-damage level health))))))
 
 (define-global +max-stun+ 1f0)
-(define-global +hard-hit+ 40)
+(define-global +hard-hit+ 0.1)
 
 (defun maximum-health-for-level (base-health level)
   (* base-health (expt 1.05 level)))
@@ -159,7 +159,7 @@
     (cond ((invincible-p animatable)
            (setf damage 0))
           ((interrupt animatable)
-           (when (<= +hard-hit+ damage)
+           (when (<= (* +hard-hit+ (maximum-health animatable)) damage)
              (setf (animation animatable) 'hard-hit))))
     (trigger (make-instance 'text-effect) animatable
              :text (princ-to-string (truncate damage))
