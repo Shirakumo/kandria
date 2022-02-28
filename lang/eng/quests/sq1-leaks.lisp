@@ -25,7 +25,7 @@
 
   (leak-first
    :title "Find leak 1"
-   :marker '(leak-1-mark 1000)
+   :marker '(hub 2600)
    :condition all-complete
    :on-activate T
 
@@ -87,7 +87,7 @@
 
   (leak-second
    :title "Find leak 2"
-   :marker '(leak-2-mark 1000)
+   :marker '(hub 2600)
    :condition all-complete
    :on-activate T
 
@@ -147,7 +147,7 @@
 
   (leak-third
    :title "Find leak 3"
-   :marker '(leak-3-mark 1000)
+   :marker '(chunk-1960 2600)
    :condition all-complete
    :on-activate T
 

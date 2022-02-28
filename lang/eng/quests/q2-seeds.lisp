@@ -9,7 +9,7 @@
 
   (find-seeds
    :title "Find the seed cache across the surface to the east and beneath the Ruins, then return to Fi on the Farm"
-   :marker '(seeds-mark 2500)
+   :marker '(chunk-2062 1000)
    :description NIL
    :invariant T
    :condition (have 'item:seeds 20)
