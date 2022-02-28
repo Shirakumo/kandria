@@ -23,7 +23,7 @@
   | I take it Islay filled you in about the jobs? Those are real challenges.
 ~ innis
 | (:angry)They'd have been sorted ages ago if Alex wasn't propping up the bar.
-| (:normal)Don't get me wrong, I like a drink as much as the next lass. But you Noka really canna hold ya booze.
+| (:normal)Dinnae get me wrong, I like a drink as much as the next lass. But you Noka really canna hold ya booze.
 | I hope you're a tad more reliable.
 ~ player
 - I am.
@@ -46,13 +46,13 @@
 - It's not Alex's fault.
   ~ innis
   | Then whose fault is it?
-  | Look, life's harder than it used to be. People don't live in happy wee bubbles any more, where survival's an afterthought.
+  | Look, life's harder than it used to be. People dinnae live in happy wee bubbles any more.
   | There's no empathy 'cause everyone's too busy trying not to die.
 ~ innis
 | So how much did my esteemed sister say? You ken what needs doing?
 ? (not (active-p (unit 'blocker-engineers)))
 | ~ innis
-| | Oh: about the trapped engineers - don't worry about them.
+| | Oh: about the trapped engineers - dinnae worry about them.
 | | The last report shows they've been freed - by whom I dinnae ken.
 | ~ player
 | - It was me.
@@ -124,4 +124,5 @@
 "))
 ;; ken = know (Scottish)
 ;; didnae = didn't (Scottish)
+;; dinnae = don't (Scottish)
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station

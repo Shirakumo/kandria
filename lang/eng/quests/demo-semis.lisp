@@ -61,7 +61,7 @@
 | (:sly)Once you've done something for us.
 | (:angry)Did your \"friends\" honestly think they could siphon it off forever?
 | That's no' how the world works.
-| (:normal)And I don't know why you bother - you don't need to drink. I'd sack them off if I were you.
+| (:normal)And I dinnae know why you bother - you dinnae need to drink. I'd sack them off if I were you.
 | Anyway, my \"sister\"(orange) knows what we need. \"Talk to her.\"(orange)
   ")
   (:eval

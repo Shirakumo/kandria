@@ -28,11 +28,12 @@
 | | | Then \"return to me\"(orange). Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'q5b-boss)
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
-| | | And don't forget to \"bring me back that saboteur\"(orange).
+| | | And dinnae forget to \"bring me back that saboteur\"(orange).
 | |?
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 downed CCTV cameras\"(orange).
 | | | Then \"return to me\"(orange).
 "))
+;; dinnae = don't (Scottish)
 
 ;; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.
   (q5b-task-cctv-1
@@ -167,12 +168,12 @@
   | ... That's no' something the Cerebats would use.
 - I don't know. It's in pieces if you want to go look.
   ~ innis
-  | The Cerebats don't use robots. And no thank you.
+  | The Cerebats dinnae use robots. And no thank you.
 - Do the Cerebats use robots?
   ~ innis
   | No.
 ~ innis
-| (:thinking)They also don't make aggressive moves like crossing our border.
+| (:thinking)They also dinnae make aggressive moves like crossing our border.
 | ...
 | (:angry)I think we might have a problem. A mutual problem:
 | The Wraw.
@@ -192,3 +193,4 @@
 | ! eval (activate (unit 'fi-ffcs-2))
 ")))
 ;; couldnae = couldn't (Scots)
+;; dinnae = don't (Scottish)

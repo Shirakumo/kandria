@@ -182,12 +182,12 @@
   | ... That's no' something the Cerebats would use.
 - I don't know. It's in pieces if you want to go look.
   ~ innis
-  | The Cerebats don't use robots. And no thank you.
+  | The Cerebats dinnae use robots. And no thank you.
 - Do the Cerebats use robots?
   ~ innis
   | No.
 ~ innis
-| (:thinking)They also don't make aggressive moves like crossing our border.
+| (:thinking)They also dinnae make aggressive moves like crossing our border.
 | ...
 | (:angry)I think we might have a problem. A mutual problem:
 | The \"Wraw\"(red).
@@ -197,10 +197,11 @@
 | (:normal)I need to speak with my sister.
 ? (complete-p 'demo-engineers)
 | | You should return to the surface.
-| | Don't worry, I've turned the water back on. Your friends can have a nice long drink.
+| | Dinnae worry, I've turned the water back on. Your friends can have a nice long drink.
 | | (:sly)For what good it will do them.
 | | If the Wraw are coming for us, they'll be coming for them too.
 | | (:normal)So long... //Stranger//.
 | | Maybe I'll see you on the battlefield.
 | ! eval (activate 'demo-end-prep)
 ")))
+;; dinnae = don't (Scottish)

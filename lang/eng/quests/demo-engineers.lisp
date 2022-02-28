@@ -127,7 +127,7 @@
 | ? (complete-p 'demo-cctv)
 | | ~ innis
 | | | But now you should return to the surface.
-| | | Don't worry, I've turned the water back on. Your friends can have a nice long drink.
+| | | Dinnae worry, I've turned the water back on. Your friends can have a nice long drink.
 | | | (:sly)For what good it will do them.
 | | | If the Wraw are coming for us, they'll be coming for them too.
 | | | (:normal)So long... //Stranger//.
