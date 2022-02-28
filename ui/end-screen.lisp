@@ -66,5 +66,3 @@
         (alloy:enter return layout :constraints `((:below ,inner 40) (:size 300 40) (= :x (- (+ :rx (/ :rw 2)) (/ :w 2) +180))))
         (alloy:enter menu   layout :constraints `((:below ,inner 40) (:size 300 40) (= :x (- (+ :rx (/ :rw 2)) (/ :w 2) -180))))))
     (alloy:finish-structure prompt layout focus)))
-
-(progn #!(show-panel 'end-screen))

@@ -176,12 +176,13 @@
 
 # continue
 ? (complete-p 'q2-seeds)
-| ~ jack
-| | (:normal)Oh, \"Cathy wants a word too\"(orange).
-| | (:annoyed)Know that my threat still stands if you touch her.
-| | (:normal)\"Fi's got a new job for you\"(orange) as well. From what I hear, should get you outta our hair for a bit. Can't wait.
-| ! eval (activate 'sq-act1-intro)
-| ! eval (activate 'q4-intro)
+| ? (not (find :kandria-demo *features*))
+| | ~ jack
+| | | (:normal)Oh, \"Cathy wants a word too\"(orange).
+| | | (:annoyed)Know that my threat still stands if you touch her.
+| | | (:normal)\"Fi's got a new job for you\"(orange) as well. From what I hear, should get you outta our hair for a bit. Can't wait.
+| | ! eval (activate 'sq-act1-intro)
+| | ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q2-seeds))
 | | ~ jack
