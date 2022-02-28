@@ -4,8 +4,12 @@
 (defclass save-v1 (save-v0) ())
 (defclass save-v1.1 (save-v1) ())
 (defclass save-v1.2 (save-v1.1) ())
+(defclass save-v1.3 (save-v1.2) ())
 
 (defmethod supported-p ((_ save-v1.2)) T)
+
+(defun current-save-version ()
+  (make-instance 'save-v1.3))
 
 (define-encoder (world save-v0) (_b packet)
   (let ((region (region world)))
