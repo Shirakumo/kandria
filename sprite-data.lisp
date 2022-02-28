@@ -231,7 +231,7 @@
                                      ("filename" . ,name)
                                      ("frame" . (:obj ("x" . ,x) ("y" . 0) ("w" . ,size) ("h" . ,size)))
                                      ("sourceSize" . (:obj ("w" . ,size) ("h" . ,size)))
-                                     ("spriteSourceSize" . (:obj ("x" . ,x) ("y" . 0) ("w" . ,size) ("h" . ,size)))
+                                     ("spriteSourceSize" . (:obj ("x" . 0) ("y" . 0) ("w" . ,size) ("h" . ,size)))
                                      ("duration" . 1000))))
                   ("meta" .
                           (:obj
