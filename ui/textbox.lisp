@@ -215,7 +215,8 @@
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
   (let ((unit (unit (dialogue:name rq) T)))
     (setf (source textbox) (nametag unit))
-    (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))))
+    (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
+    (ignore-errors (setf (animation (profile textbox)) :normal))))
 
 (defmethod handle ((rq dialogue:emote-request) (textbox textbox))
   (setf (pending textbox) (list :emote (dialogue:emote rq))))
