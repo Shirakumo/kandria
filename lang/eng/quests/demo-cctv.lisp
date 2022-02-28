@@ -19,13 +19,13 @@
     :dialogue "
 ~ islay
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-3 'task-cctv-4)
-| ? (not (complete-p 'q5b-boss))
+| ? (not (complete-p 'demo-boss))
 | | | You've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low-eastern region\"(orange).
 |?
-| ? (complete-p 'q5b-boss)
+| ? (complete-p 'demo-boss)
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange). Hopefully you won't encounter any more saboteurs.
-| |? (active-p 'q5b-boss)
+| |? (active-p 'demo-boss)
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
 | | | And don't forget to \"bring Innis that saboteur\"(orange).
 | |?
@@ -46,7 +46,7 @@
 | \"Here's \"CCTV camera 1\"(red).\"(light-gray, italic)
 | \"The lens is smashed and the casing is charred from a fire.\"(light-gray, italic)
 ? (complete-p 'task-cctv-2 'task-cctv-3 'task-cctv-4)
-| ? (complete-p 'q5b-boss)
+| ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteur.\"(light-gray, italic)
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
@@ -73,7 +73,7 @@
 | \"Here's \"CCTV camera 2\"(red).\"(light-gray, italic)
 | \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit boards.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-3 'task-cctv-4)
-| ? (complete-p 'q5b-boss)
+| ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteur.\"(light-gray, italic)
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
@@ -100,7 +100,7 @@
 | \"Here's \"CCTV camera 3\"(red).\"(light-gray, italic)
 | \"It's in pieces on the floor, surrounded by rocks and stones.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-4)
-| ? (complete-p 'q5b-boss)
+| ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteur.\"(light-gray, italic)
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
