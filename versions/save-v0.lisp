@@ -6,7 +6,9 @@
 (defclass save-v1.2 (save-v1.1) ())
 (defclass save-v1.3 (save-v1.2) ())
 
+#-kandria-demo
 (defmethod supported-p ((_ save-v1.2)) T)
+(defmethod supported-p ((_ save-v1.3)) T)
 
 (defun current-save-version ()
   (make-instance 'save-v1.3))
