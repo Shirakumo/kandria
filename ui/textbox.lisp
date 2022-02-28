@@ -170,7 +170,7 @@
                        (setf (animation (profile textbox)) (second (pending textbox)))
                      (error ()
                        (v:warn :sound.dialog "Requested missing emote ~s" (second (pending textbox)))
-                       (ignore-errors (setf (animation (profile textbox)) :normal)))))
+                       (ignore-errors (setf (animation (profile textbox)) 'normal)))))
                   (:prompt
                    (setf (prompt textbox) (second (pending textbox))))
                   (:end
@@ -216,7 +216,7 @@
   (let ((unit (unit (dialogue:name rq) T)))
     (setf (source textbox) (nametag unit))
     (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
-    (ignore-errors (setf (animation (profile textbox)) :normal))))
+    (setf (animation (profile textbox)) 'normal)))
 
 (defmethod handle ((rq dialogue:emote-request) (textbox textbox))
   (setf (pending textbox) (list :emote (dialogue:emote rq))))
