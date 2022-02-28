@@ -278,14 +278,18 @@
                              :on-complete ,next
                              (:action action
                                       ,@body)))))
-                 (:animate ((character animation &optional (end-state 'stand)))
-                           `((,name
-                              :title ,(format NIL "Wait for ~a to ~a." character animation)
-                              :visible NIL
-                              :condition (eql ',end-state (name (animation (unit ',character +world+))))
-                              :on-activate (action)
-                              :on-complete ,next
-                              (:action action (start-animation ',animation (unit ',character +world+))))))
+                 (:animate ((character animation &optional (end-state 'stand)) . body)
+                           (form-fiddle:with-body-options (body initargs) body
+                             `((,name
+                                ,@initargs
+                                :title ,(format NIL "Wait for ~a to ~a." character animation)
+                                :visible NIL
+                                :condition (eql ',end-state (name (animation (unit ',character +world+))))
+                                :on-activate (action)
+                                :on-complete ,next
+                                (:action action
+                                         (start-animation ',animation (unit ',character +world+))
+                                         ,@body)))))
                  (:nearby ((place character) . body)
                           (form-fiddle:with-body-options (body initargs) body
                             `((,name
@@ -347,7 +351,7 @@
                                     :repeatable ,repeatable
                                                  ,@body))))))
                  (:complete ((&rest things) . body)
-                            (form-fiddle:with-body-options (body initargs) body
+                            (form-fiddle:with-body-options (body initargs (activate T)) body
                               `((,name
                                  ,@initargs
                                  :title ,(format NIL "Complete ~{~a~^, ~}" things)
@@ -359,8 +363,9 @@
                                  :on-activate (action)
                                  :on-complete ,next
                                  (:action action
-                                          ,@(loop for thing in things
-                                                  collect `(activate (or (unit ',thing) ',thing)))
+                                          ,@(when activate
+                                              (loop for thing in things
+                                                    collect `(activate (or (unit ',thing) ',thing))))
                                           ,@(if body `((walk-n-talk (progn ,@body)))))))))))
              (sequence-form-name (form)
                (apply #'trial::mksym *package* (incf counter) :- (first form) :- (enlist (unlist (second form)))))

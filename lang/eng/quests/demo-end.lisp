@@ -5,6 +5,7 @@
   :author "Nicolas Hafner"
   :title "Demo end"
   :visible NIL
-  (:complete (q2-seeds q3-new-home))
+  (:complete (q2-seeds q3-new-home)
+             :activate NIL)
   (:wait 5.0)
   (:eval (show-panel 'end-screen)))
