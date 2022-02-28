@@ -105,6 +105,7 @@
           (unwind-protect
                (trial:commit (scene main) (loader main) :show-screen T)
             (setf (state main) state)
+            #++
             (save-state main state))))
     (reset ()
       :report "Ignore the save and reset to the initial state."
