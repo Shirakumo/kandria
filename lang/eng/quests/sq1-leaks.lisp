@@ -228,7 +228,7 @@
 | - Never again.
 |   ~ catherine
 |   | Oh, that bad huh?
-| - It did the job.
+| - It sufficed.
 |  
 ~ catherine
 | Well, you can definitely scratch water leaks off your bucket list, right?
