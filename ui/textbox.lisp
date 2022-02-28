@@ -169,7 +169,8 @@
                    (handler-case
                        (setf (animation (profile textbox)) (second (pending textbox)))
                      (error ()
-                       (v:warn :sound.dialog "Requested missing emote ~s" (second (pending textbox))))))
+                       (v:warn :sound.dialog "Requested missing emote ~s" (second (pending textbox)))
+                       (ignore-errors (setf (animation (profile textbox)) :normal)))))
                   (:prompt
                    (setf (prompt textbox) (second (pending textbox))))
                   (:end
