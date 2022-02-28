@@ -279,7 +279,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)\"//This is where it all began, and ended.//\"(light-gray)
+| (:thinking)\"//This is where it ended. And now begins.//\"(light-gray)
 | (:giggle)\"//Not the most comfortable place to have spent a few decades. Little wonder I've a bad back.//\"(light-gray)
 ")
 
