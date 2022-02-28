@@ -45,10 +45,9 @@
 ~ player
 | \"//Glass cracks under my feet like broken bones. There are human remains in the bed.//\"(light-gray)
 ")
-
-  ;; Housing exterior - roof top-right
-  (:interaction housing-roof
-   :interactable lore-apartment-roof
+  
+  (:interaction storm-east-view
+   :interactable lore-storm-east
    :repeatable T
    "
 ~ player
