@@ -109,6 +109,9 @@
               (if (steam:steamworks-available-p)
                   (with-button (subscribe-cta)
                     (open-in-browser "https://courier.tymoon.eu/subscription/1"))
+                  #++
+                  (with-button (kickstarter-cta)
+                    (open-in-browser "https://kandria.com/kickstarter"))
                   (with-button (wishlist-cta)
                     (open-in-browser "https://store.steampowered.com/app/1261430/Kandria/?utm_source=in-game")))))
         (alloy:on alloy:focus (value subbutton)
