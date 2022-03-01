@@ -11,7 +11,8 @@
                 (:reddit  #xF1A1)
                 (:steam   #xF1B6)
                 (:itchio  #xF83A)
-                (:email   #x0020))))
+                (:email   #x0020)
+                (:mail    #x0020))))
     (setf (icon button) (string (code-char code)))))
 
 (presentations:define-realization (ui cta-button)
