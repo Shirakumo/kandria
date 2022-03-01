@@ -341,6 +341,7 @@
 
 (defmethod show :before ((menu menu) &key)
   (harmony:play (// 'sound 'ui-open-menu) :reset T)
+  (clear-retained)
   (hide (unit 'walkntalk T)))
 
 (defmethod show :after ((menu menu) &key)
