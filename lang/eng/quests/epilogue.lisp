@@ -1,32 +1,24 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; TODO transition cutscene scripting here in the header - also freeze player and catherine in place (later will include explosion VFX)
-;; No need to be visible, since the player will find their way to the destination through the altered level design
-(quest:define-quest (kandria epilogue)
+(define-sequence-quest (kandria epilogue)
   :author "Tim White"
-  :visible NIL
-  :title "Name"
-  :description "Description"
-  :on-activate (task-1)
-
-  (task-1
-   :title "Bullet point"
-   :invariant T
-   :condition all-complete
-   :on-activate (interact-reminder interact-1)
-   :on-complete ()
-
-   (:interaction interact-reminder
-    :interactable npc-giver
-    :title "Reminder."
-    :repeatable T
-    :dialogue "
-")
-
-   (:interaction interact-1
-    :interactable npc-1
-    :dialogue "
-")))
-
-;; TODO mention no water too
+  :title "Return to the Camp"
+  :description "Catherine and I need to reach the surface and get back to the camp. I hope everyone is okay."
+  (:eval
+   (complete 'world)
+   (setf (location 'fi) (location 'epilogue-fi))
+   (setf (direction 'fi) -1)
+   (setf (location 'jack) (location 'epilogue-jack))
+   (setf (direction 'jack) -1)
+   (setf (location 'innis) (location 'epilogue-innis))
+   (setf (direction 'innis) -1))
+  (:go-to (platform-start :follow catherine)
+   :title "Return to the surface"
+   "~ catherine
+   (:concerned)I hope everyone's okay up there.")
+  (:go-to (tutorial-end :follow catherine)
+   :title "Return to the camp")
+  (:go-to (epilogue-end :follow catherine))
+  (:eval
+   (credits)))

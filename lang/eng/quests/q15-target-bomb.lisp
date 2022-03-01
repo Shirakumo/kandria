@@ -9,9 +9,9 @@
 
 (bomb-explode
    :title "Help Catherine rewire the bomb in the mushroom cave to the west of the old Dreamscape apartments"
-   :invariant T
-   :condition all-complete
-   :on-complete (epilogue)
+   :invariant (not (complete-p 'epilogue-talk))
+   :condition NIL
+   :on-complete NIL
    :on-activate (call-explode)
 
    (:interaction call-explode
@@ -43,7 +43,7 @@
 ! eval (deactivate (unit 'bomb-explode-1))
 ! eval (deactivate (unit 'bomb-explode-2))
 ! eval (deactivate (unit 'bomb-explode-3))
-! eval (activate 'epilogue)
+! eval (activate 'explosion)
 ")))
 
 ;; TODO animate player and catherine force crouching if player chooses "Get down"? (lock player controls early in this case, before epilogue script)
