@@ -106,7 +106,8 @@
       (with-button (changelog-menu)
         )
       (let ((subbutton
-              (if (steam:steamworks-available-p)
+              (if (and (steam:steamworks-available-p)
+                       (not (uiop:featurep :kandria-demo)))
                   (with-button (subscribe-cta)
                     (open-in-browser "https://courier.tymoon.eu/subscription/1"))
                   #++
