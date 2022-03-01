@@ -96,12 +96,8 @@
       (ignore-errors
        (with-packet-entry (out "image.png" packet :element-type '(unsigned-byte 8))
          (render +world+ NIL)
-         (let* ((temp (tempfile :type "png" :id (format NIL "kandria-~a" (pathname-name (file save-state)))))
-                (width 192) (height 108)
-                (data (trial::flip-image-vertically
-                       (trial::downscale-image (capture NIL) (width *context*) (height *context*) 3 width height)
-                       width height 3)))
-           (zpng:write-png (make-instance 'zpng:png :color-type :truecolor :width width :height height :image-data data) temp)
+         (let ((temp (tempfile :type "png" :id (format NIL "kandria-~a" (pathname-name (file save-state))))))
+           (capture NIL :target-width 192 :target-height 108 :file temp)
            (with-open-file (in temp :direction :input :element-type '(unsigned-byte 8))
              (uiop:copy-stream-to-stream in out :element-type '(unsigned-byte 8))))))
       (encode-payload world NIL packet version))
