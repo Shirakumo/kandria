@@ -71,11 +71,12 @@ void main(){
 }")
 
 (defstruct (map-marker
-            (:constructor make-map-marker (location &optional (type " ")))
+            (:constructor make-map-marker (location &optional (label " ") (color colors:white)))
             (:copier NIL)
             (:predicate NIL))
   (location NIL :type vec2)
-  (type " " :type T))
+  (color NIL :type colored:rgb)
+  (label " " :type T))
 
 (define-shader-entity player (alloy:observable stats-entity paletted-entity animatable profile ephemeral inventory)
   ((name :initform 'player)

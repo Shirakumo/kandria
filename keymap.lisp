@@ -138,6 +138,7 @@
 
 (trigger toggle-marker
  (key :one-of (:space))
+ (mouse :one-of (:middle))
  (button :one-of (:a :b)))
 
 (trigger pan-left

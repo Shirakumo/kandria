@@ -111,7 +111,31 @@
                          (T
                           (vector-push-extend (alloy:point (aref trace i) (aref trace (1+ i))) points)))
                 finally (flush)))))
-    (setf (presentations:shapes map) array)))
+    (setf (presentations:shapes map) array)
+    (update-markers map)))
+
+(defmethod update-markers ((map map-element))
+  (let ((shapes (presentations:shapes map))
+        (renderer (unit 'ui-pass T)))
+    (alloy:with-unit-parent map
+      (loop for i from 0
+            for shape across shapes
+            do (when (eql (car shape) 'marker)
+                 (setf (fill-pointer shapes) i)
+                 (return)))
+      (dolist (marker (map-markers (unit 'player T)))
+        (let ((bounds (alloy:extent (- (vx (map-marker-location marker)) 128)
+                                    (- (vy (map-marker-location marker)) 128)
+                                    256 256)))
+          (vector-push-extend (cons 'marker (simple:text renderer bounds (map-marker-label marker)
+                                                         :size (alloy:un 128)
+                                                         :pattern (map-marker-color marker)
+                                                         :valign :middle
+                                                         :halign :middle
+                                                         :name 'marker
+                                                         :z-index -3
+                                                         :font "PromptFont"))
+                              shapes))))))
 
 (defmethod alloy:suggest-bounds (bounds (map map-element))
   bounds)
@@ -142,7 +166,8 @@
   (setf (zoom panel) (clamp 0.01 (+ (zoom panel) (* 0.01 (alloy:dy ev))) 0.5)))
 
 (defmethod alloy:handle ((ev alloy:pointer-down) (panel map-element))
-  (setf (state panel) :drag))
+  (when (eql :left (alloy:kind ev))
+    (setf (state panel) :drag)))
 
 (defmethod alloy:handle ((ev alloy:pointer-up) (panel map-element))
   (setf (state panel) NIL))
@@ -151,9 +176,10 @@
   (case (state panel)
     (:drag
      (let ((l (alloy:location ev))
-           (o (alloy:old-location ev)))
-       (incf (vx (offset panel)) (/ (- (alloy:pxx o) (alloy:pxx l)) (zoom panel)))
-       (incf (vy (offset panel)) (/ (- (alloy:pxy o) (alloy:pxy l)) (zoom panel)))))))
+           (o (alloy:old-location ev))
+           (z (* (zoom panel) (alloy:with-unit-parent panel (alloy:to-px (alloy:un 1))))))
+       (incf (vx (offset panel)) (/ (- (alloy:pxx o) (alloy:pxx l)) z))
+       (incf (vy (offset panel)) (/ (- (alloy:pxy o) (alloy:pxy l)) z))))))
 
 (defclass map-panel (pausing-panel fullscreen-panel)
   ((show-trace :initform NIL :accessor show-trace)))
@@ -252,17 +278,28 @@
                (setf (presentations:hidden-p shape) (not (show-trace panel)))))))
 
 (defmethod handle ((ev toggle-marker) (panel map-panel))
-  (let ((loc (vcopy (offset (alloy:focus-element panel))))
-        (found NIL))
+  (let* ((map (alloy:focus-element panel))
+         (unfac (alloy:with-unit-parent map (alloy:to-px (alloy:un 1))))
+         (loc (v/ (offset map) unfac))
+         (found NIL))
+    (when (typep (source-event ev) 'mouse-event)
+      (nv+ loc (v/ (v- (pos (source-event ev))
+                       (v/ (vec (width *context*) (height *context*)) 2))
+                   (* (zoom map) unfac unfac))))
     (loop for marker in (map-markers (unit 'player T))
           for mloc = (map-marker-location marker)
-          do (when (and (< (vdistance mloc loc) 128)
+          do (when (and (< (vdistance mloc loc) 256)
                         (or (null found) (< (vdistance mloc loc) (vdistance (map-marker-location found) loc))))
                (setf found marker)))
-    (show (make-instance 'marker-menu :marker (or found (make-map-marker loc NIL))) :height (alloy:un 250))))
+    (show (make-instance 'marker-menu :marker (or found (make-map-marker loc)))
+          :height (alloy:un 250)
+          :hide-prompts NIL)))
 
 (defmethod handle ((ev close-map) (panel map-panel))
   (hide panel))
+
+(defmethod update-markers ((panel map-panel))
+  (update-markers (alloy:focus-element panel)))
 
 (defclass marker-button (button)
   ())
@@ -278,7 +315,7 @@
    :halign :middle
    :valign :middle))
 
-(presentations:define-update (ui button)
+(presentations:define-update (ui marker-button)
   (border
    :pattern (if alloy:focus (colored:color 0.9 0.9 0.9) colors:transparent))
   (:label
@@ -289,7 +326,7 @@
   (:background (simple:pattern :duration 0.2))
   (border (simple:pattern :duration 0.3) (simple:line-width :duration 0.5)))
 
-(defclass marker-menu (popup-panel menuing-panel)
+(defclass marker-menu (popup-panel)
   ((maker :initarg :marker :accessor marker)))
 
 (defmethod initialize-instance :after ((panel marker-menu) &key marker)
@@ -303,18 +340,39 @@
                      "⓺" "⓻" "⓼" "⓽" "⓿"))
       (let ((label label))
         (make-instance 'marker-button :value label :on-activate (lambda ()
-                                                           (setf (map-marker-type marker) label)
+                                                           (setf (map-marker-label marker) label)
                                                            (hide panel))
                                       :focus-parent focus :layout-parent layout)))
     (alloy:on alloy:exit (focus)
       (hide panel))
     (alloy:finish-structure panel layout focus)))
 
+(defparameter *marker-colors*
+  (mapcar #'colored:decode '(#xFFD300 #xF9A602 #xFA8072 #xE0115F #xB43757
+                             #x131E3A #x0B6623 #x4B3A26 #x787276 #xFFD300
+                             #xFADA3E #xFF7417 #x7C0A02 #xFDE6FA #xC64B8C
+                             #x95C8D8 #x708238 #x3A1F04 #xD9DDDC #x800000)))
+
 (defmethod hide :after ((panel marker-menu))
-  (if (string= " " (map-marker-type (marker panel)))
-      (setf (map-markers (unit 'player T)) (remove (marker panel) (map-markers (unit 'player T))))
-      (push (marker panel) (map-markers (unit 'player T))))
-  (print (map-markers (unit 'player T))))
+  (let ((markers (map-markers (unit 'player T)))
+        (marker (marker panel)))
+    (cond ((string= " " (map-marker-label marker))
+           (setf (map-markers (unit 'player T)) (remove marker markers)))
+          ((find marker markers))
+          ((null markers)
+           (setf (map-marker-color marker) (first *marker-colors*))
+           (setf (map-markers (unit 'player T)) (list marker)))
+          (T
+           (loop for color in *marker-colors*
+                 do (unless (loop for marker in markers
+                                  thereis (colored:color= color (map-marker-color marker)))
+                      (setf (map-marker-color marker) color)
+                      (return))
+                 finally (setf (map-marker-color marker) (first *marker-colors*)))
+           (setf (cdr (last markers)) (list marker)))))
+  (let ((panel (find-panel 'map-panel)))
+    (when panel
+      (update-markers panel))))
 
 (defun show-sales-menu (direction character)
   (show-panel 'sales-menu :shop (unit character T) :target (unit 'player T)  :direction direction))

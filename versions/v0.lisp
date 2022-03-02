@@ -29,6 +29,15 @@
         (vz vec4)
         (vw vec4)))
 
+(define-decoder (colored:rgb v0) (data _p)
+  (destructuring-bind (x y z) data
+    (colored:color x y z)))
+
+(define-encoder (colored:rgb v0) (_b _p)
+  (list (colored:r colored:rgb)
+        (colored:g colored:rgb)
+        (colored:b colored:rgb)))
+
 (define-decoder (asset v0) (data _p)
   (destructuring-bind (pool name) data
     (asset pool name)))

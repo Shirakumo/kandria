@@ -258,11 +258,14 @@
 
 (define-encoder (map-marker save-v0) (_b packet)
   (list (encode (map-marker-location map-marker))
-        (map-marker-type map-marker)))
+        (map-marker-label map-marker)
+        (map-marker-color map-marker)))
 
 (define-decoder (map-marker save-v0) (initargs _p)
-  (destructuring-bind (location type) initargs
-    (make-map-marker (decode 'vec2 location) type)))
+  (destructuring-bind (location label color) initargs
+    (make-map-marker (decode 'vec2 location)
+                     label
+                     (decode 'colored:rgb color))))
 
 (define-encoder (player save-v0) (_b packet)
   (let ((trace (movement-trace player)))
