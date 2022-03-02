@@ -1235,7 +1235,9 @@ void main(){
       (setf (spawn-location player) loc))))
 
 (defmethod oob ((player player) (new chunk))
-  (switch-chunk new))
+  (unless (or (eq :dying (state player))
+              (eq :respawning (state player)))
+    (switch-chunk new)))
 
 (defmethod oob ((player player) (none null))
   (unless (or (find-panel 'editor)
