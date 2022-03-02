@@ -19,7 +19,8 @@
                            :vsync T
                            :gamma 2.2
                            :ui-scale 1.0
-                           :font "PromptFont")
+                           :font "PromptFont"
+                           :shadows T)
                  :gameplay (:rumble 1.0
                             :screen-shake 1.0
                             :god-mode NIL

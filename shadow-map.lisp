@@ -81,6 +81,10 @@
 (defmethod compile-to-pass ((caster shadow-caster) (pass shadow-map-pass))
   (compile-to-pass (shadow-geometry caster) pass))
 
+(defmethod render ((pass shadow-map-pass) target)
+  (when (setting :display :shadows)
+    (call-next-method)))
+
 (defmethod render :before ((pass shadow-map-pass) target)
   (gl:blend-func :src-alpha :one)
   (gl:clear-color 0 0 0 0))
