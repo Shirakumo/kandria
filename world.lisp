@@ -94,6 +94,7 @@
 (defun pausing-possible-p ()
   (let ((player (unit 'player +world+)))
     (and (null (find-panel 'menuing-panel))
+         (null (find-panel 'map-panel))
          player
          (svref (collisions player) 2))))
 

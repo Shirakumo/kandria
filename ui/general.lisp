@@ -310,7 +310,7 @@
 (defclass fullscreen-panel (panel)
   ())
 
-(defmethod show :after ((panel fullscreen-panel) &key)
+(defmethod show :before ((panel fullscreen-panel) &key)
   ;; Hide prompts
   (let ((els ()))
     (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))

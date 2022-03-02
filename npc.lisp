@@ -23,6 +23,13 @@
 
 (defmethod capable-p ((npc npc) (edge jump-node)) T)
 
+(defmethod primary-npc-p ((npc npc)) NIL)
+
+(defmethod visible-on-map-p ((npc npc))
+  (and (primary-npc-p npc)
+       (unlocked-p (chunk npc))
+       (visible-on-map-p (chunk npc))))
+
 (defmethod description ((npc npc))
   (language-string 'npc))
 
@@ -416,6 +423,8 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
 
+(defmethod primary-npc-p ((npc fi)) T)
+
 (define-shader-entity catherine (npc creatable)
   ((name :initform 'catherine)
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
@@ -424,6 +433,8 @@
 | (:shout)[? This way. | Follow me. | Keep up. | Let's go.]"))
   (:default-initargs
    :sprite-data (asset 'kandria 'catherine)))
+
+(defmethod primary-npc-p ((npc catherine)) T)
 
 (defmethod movement-speed ((catherine catherine))
   (* 1.01 (call-next-method)))
@@ -438,6 +449,8 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'jack)))
 
+(defmethod primary-npc-p ((npc jack)) T)
+
 (defmethod movement-speed ((jack jack))
   (* 0.8 (call-next-method)))
 
@@ -451,12 +464,16 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'sahil)))
 
+(defmethod primary-npc-p ((npc trader)) T)
+
 (define-shader-entity innis (npc creatable)
   ((name :initform 'innis)
    (profile-sprite-data :initform (asset 'kandria 'innis-profile))
    (nametag :initform (@ innis-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'innis)))
+
+(defmethod primary-npc-p ((npc innis)) T)
    
 (define-shader-entity islay (npc creatable)
   ((name :initform 'islay)
@@ -464,6 +481,8 @@
    (nametag :initform (@ islay-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'islay)))
+
+(defmethod primary-npc-p ((npc islay)) T)
    
 (define-shader-entity alex (npc creatable)
   ((name :initform 'alex)
@@ -472,12 +491,16 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'alex)))
 
+(defmethod primary-npc-p ((npc alex)) T)
+
 (define-shader-entity zelah (npc creatable)
   ((name :initform 'zelah)
    (profile-sprite-data :initform (asset 'kandria 'jack-profile))
    (nametag :initform (@ zelah-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'jack)))
+
+(defmethod primary-npc-p ((npc zelah)) T)
 
 (define-shader-entity cerebat-trader (npc creatable)
   ((name :initform 'cerebat-trader)
