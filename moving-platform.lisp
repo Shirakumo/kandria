@@ -20,7 +20,7 @@
       (when (contained-p point tiled-platform)
         tiled-platform)))
 
-(define-shader-entity falling-platform (tiled-platform creatable)
+(define-shader-entity falling-platform (shadow-caster tiled-platform creatable)
   ((size :initform (vec 2 5))
    (fall-timer :initform 0.75 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)
@@ -29,6 +29,18 @@
 
 (defmethod initargs append ((platform falling-platform))
   '(:fall-direction :max-speed))
+
+(defmethod initialize-instance :after ((platform falling-platform) &key)
+  (compute-shadow-geometry platform T))
+
+(defmethod compute-shadow-geometry ((platform falling-platform) (vbo vertex-buffer))
+  (let* ((size (bsize platform))
+         (data (buffer-data vbo)))
+    (setf (fill-pointer data) 0)
+    (add-shadow-line vbo (vec (- (vx size)) (- (vy size))) (vec (+ (vx size)) (- (vy size))))
+    (add-shadow-line vbo (vec (+ (vx size)) (- (vy size))) (vec (+ (vx size)) (+ (vy size))))
+    (add-shadow-line vbo (vec (+ (vx size)) (+ (vy size))) (vec (- (vx size)) (+ (vy size))))
+    (add-shadow-line vbo (vec (- (vx size)) (+ (vy size))) (vec (- (vx size)) (- (vy size))))))
 
 (defmethod save-p ((platform falling-platform)) NIL)
 

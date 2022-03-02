@@ -36,10 +36,12 @@
   (let* ((caster (slot-value caster 'caster))
          (bsize (bsize caster)))
     ;; We increase the size of the caster and then fade it a bit in order to ensure shadows can cast onto other chunks.
-    (when (in-view-p (location caster) (tvec (* 4 (vx bsize)) (* 4 (vy bsize))))
-      (let ((camera (unit :camera +world+)))
-        (setf (uniform program "strength") (clamp 0.0 (- 4 (/ (abs (- (vx (location camera)) (vx (location caster)))) (vx bsize))) 1.0))
-        (call-next-method)))))
+    (cond ((not (typep caster 'chunk))
+           (call-next-method))
+          ((in-view-p (location caster) (tvec (* 4 (vx bsize)) (* 4 (vy bsize))))
+           (let ((camera (unit :camera +world+)))
+             (setf (uniform program "strength") (clamp 0.0 (- 4 (/ (abs (- (vx (location camera)) (vx (location caster)))) (vx bsize))) 1.0))
+             (call-next-method))))))
 
 (defclass shadow-caster ()
   ((shadow-geometry :accessor shadow-geometry)))
