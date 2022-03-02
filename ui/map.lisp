@@ -17,21 +17,23 @@
         (gap 10)
         (fac (alloy:to-px (alloy:un 1))))
     (setf (offset map) (v* (location player) fac))
-    (flet ((unit-marker (unit color)
-             (when (visible-on-map-p (chunk unit))
-               (let ((bounds (alloy:extent (- (vx (location unit)) (* gap 5))
-                                           (- (vy (location unit)) (* gap 5))
-                                           (* gap 5 2)
-                                           (* gap 5 2))))
-                 (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern color :name (name unit) :z-index -8)) array))))
-           (target-marker (location size color)
-             (let* ((bounds (alloy:extent (- (vx location) (/ size 2))
-                                          (- (vy location) (/ size 2))
-                                          size size))
-                    (fill (colored:color (colored:r color) (colored:g color) (colored:b color) 0.5))
-                    (shape (simple:ellipse renderer bounds :pattern fill :name :target :z-index -9)))
-               (vector-push-extend (cons :target shape) array)
-               (animation:apply-animation 'pulse-marker shape))))
+    (labels ((add-shape (shape)
+               (vector-push-extend (cons (presentations:name shape) shape) array))
+             (unit-marker (unit color)
+               (when (visible-on-map-p (chunk unit))
+                 (let ((bounds (alloy:extent (- (vx (location unit)) (* gap 5))
+                                             (- (vy (location unit)) (* gap 5))
+                                             (* gap 5 2)
+                                             (* gap 5 2))))
+                   (add-shape (simple:rectangle renderer bounds :pattern color :name (name unit) :z-index -8)))))
+             (target-marker (location size color)
+               (let* ((bounds (alloy:extent (- (vx location) (/ size 2))
+                                            (- (vy location) (/ size 2))
+                                            size size))
+                      (fill (colored:color (colored:r color) (colored:g color) (colored:b color) 0.5))
+                      (shape (simple:ellipse renderer bounds :pattern fill :name :target :z-index -9)))
+                 (add-shape shape)
+                 (animation:apply-animation 'pulse-marker shape))))
       (for:for ((unit over (region +world+)))
         (typecase unit
           (chunk
@@ -40,57 +42,75 @@
                                          (+ gap (- (vy (location unit)) (vy (bsize unit))))
                                          (- (* 2 (vx (bsize unit))) (* 2 gap))
                                          (- (* 2 (vy (bsize unit))) (* 2 gap)))))
-               (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern (colored:color 1 1 1 0.75)
-                                                                                       :name (name unit)
-                                                                                       :z-index -10)) array)
+               (add-shape (simple:rectangle renderer bounds :pattern (colored:color 1 1 1 0.75)
+                                                            :name (name unit)
+                                                            :z-index -10))
+               (when (language-string (name unit) NIL)
+                 (add-shape (simple:text renderer bounds (language-string (name unit))
+                                         :font (setting :display :font)
+                                         :pattern colors:black
+                                         :name (name unit)
+                                         :size (alloy:un 80)
+                                         :halign :middle
+                                         :valign :middle
+                                         :z-index -9)))
                (when (eql unit (chunk player))
-                 (vector-push-extend (cons (name unit) (simple:rectangle renderer bounds :pattern colors:yellow
-                                                                                         :name (name unit)
-                                                                                         :line-width (alloy:un 4)
-                                                                                         :z-index -10))
-                                     array)))))
+                 (add-shape (simple:rectangle renderer bounds :pattern colors:yellow
+                                                              :name (name unit)
+                                                              :line-width (alloy:un 4)
+                                                              :z-index -10))))))
           (npc
-           (unit-marker unit (colored:color 0.5 1 0.5 1))
-           (when (and (eql :lead (ai-state unit))
-                      (visible-on-map-p (chunk unit)))
-             (target-marker (location unit) (* 40 +tile-size+) colors:red)))))
+           (when (or (and (eql :lead (ai-state unit))
+                          (visible-on-map-p (chunk unit)))
+                     (visible-on-map-p unit))
+             (unit-marker unit (colored:color 0.5 1 0.5 1))
+             (add-shape (simple:text renderer (alloy:extent (- (vx (location unit)) 500)
+                                                            (+ (vy (location unit)) 50)
+                                                            1000 100)
+                                     (nametag unit)
+                                     :font (setting :display :font)
+                                     :pattern colors:white
+                                     :name (name unit)
+                                     :size (alloy:un 50)
+                                     :halign :middle
+                                     :valign :bottom
+                                     :z-index -2))))))
       (dolist (quest (quest:known-quests (storyline +world+)))
         (dolist (task (quest:active-tasks quest))
           (when (marker task)
             (destructuring-bind (location size &optional (color colors:red)) (enlist (marker task) (* 40 +tile-size+))
               (target-marker (ensure-location location) size color)))))
-      (unit-marker player (colored:color 0.5 0.5 1 1)))
-    (let ((trace (movement-trace player))
-          (points (make-array 0 :adjustable T :fill-pointer T))
-          (color (colored:color 0 0.8 1 0.5)))
-      (flet ((flush ()
-               (when (< 0 (length points))
-                 (vector-push-extend (cons 'trace (simple:line-strip renderer points
-                                                                     :pattern color
-                                                                     :line-width (alloy:un 4)
-                                                                     :hidden-p T
-                                                                     :z-index -5))
-                                     array)
-                 (setf (fill-pointer points) 0))))
-        (loop for i from 0 below (length trace) by 2
-              do (cond ((float-features:float-nan-p (aref trace i))
-                        (flush)
-                        (when (float-features:float-infinity-p (aref trace (1+ i)))
-                          (let ((bounds (alloy:extent (- (aref trace (- i 2)) 32)
-                                                      (- (aref trace (- i 1)) 32)
-                                                      64 64)))
-                            (vector-push-extend (cons :death (simple:text renderer bounds "✗"
-                                                                          :size (alloy:un 64)
-                                                                          :pattern colors:red
-                                                                          :valign :middle
-                                                                          :halign :middle
-                                                                          :name :death
-                                                                          :z-index -4
-                                                                          :font "PromptFont"))
-                                                array))))
-                       (T
-                        (vector-push-extend (alloy:point (aref trace i) (aref trace (1+ i))) points)))
-              finally (flush))))
+      (unit-marker player (colored:color 0.5 0.5 1 1))
+      (let ((trace (movement-trace player))
+            (points (make-array 0 :adjustable T :fill-pointer T))
+            (color (colored:color 0 0.8 1 0.5)))
+        (flet ((flush ()
+                 (when (< 0 (length points))
+                   (add-shape (simple:line-strip renderer points
+                                                 :name 'trace
+                                                 :pattern color
+                                                 :line-width (alloy:un 4)
+                                                 :hidden-p T
+                                                 :z-index -5))
+                   (setf (fill-pointer points) 0))))
+          (loop for i from 0 below (length trace) by 2
+                do (cond ((float-features:float-nan-p (aref trace i))
+                          (flush)
+                          (when (float-features:float-infinity-p (aref trace (1+ i)))
+                            (let ((bounds (alloy:extent (- (aref trace (- i 2)) 32)
+                                                        (- (aref trace (- i 1)) 32)
+                                                        64 64)))
+                              (add-shape (simple:text renderer bounds "✗"
+                                                      :size (alloy:un 64)
+                                                      :pattern colors:red
+                                                      :valign :middle
+                                                      :halign :middle
+                                                      :name :death
+                                                      :z-index -4
+                                                      :font "PromptFont")))))
+                         (T
+                          (vector-push-extend (alloy:point (aref trace i) (aref trace (1+ i))) points)))
+                finally (flush)))))
     (setf (presentations:shapes map) array)))
 
 (defmethod alloy:suggest-bounds (bounds (map map-element))
@@ -135,13 +155,16 @@
        (incf (vx (offset panel)) (/ (- (alloy:pxx o) (alloy:pxx l)) (zoom panel)))
        (incf (vy (offset panel)) (/ (- (alloy:pxy o) (alloy:pxy l)) (zoom panel)))))))
 
-(defclass map-panel (panel)
+(defclass map-panel (pausing-panel fullscreen-panel)
   ((show-trace :initform NIL :accessor show-trace)))
 
 (defmethod initialize-instance :after ((panel map-panel) &key)
   (clear-retained)
-  (let ((map (make-instance 'map-element))
-        (off 0))
+  (let ((map (make-instance 'map-element)))
+    (alloy:finish-structure panel map map)))
+
+(defmethod show :after ((panel map-panel) &key)
+  (let ((off 0))
     (flet ((prompt (action)
              (alloy:enter (make-instance 'prompt :button action :description (language-string action))
                           (unit 'ui-pass T) :x (* 20 (- 4 off)) :y (+ 20 (* 50 off)) :w 200 :h 40)
@@ -149,8 +172,7 @@
       (prompt 'toggle-trace)
       (prompt 'zoom-in)
       (prompt 'zoom-out)
-      (prompt 'close-map))
-    (alloy:finish-structure panel map map)))
+      (prompt 'close-map))))
 
 (defmethod hide :after ((panel map-panel))
   (let ((els ()))
