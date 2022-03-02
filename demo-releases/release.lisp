@@ -9,6 +9,7 @@
                   "pool/music/*.wav"
                   "pool/**/*.*~")
           :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"))
+  :upload (:targets (:itch :steam))
   :itch (:user "Shinmera"
          :project "kandria")
   :steam (:branch "developer"
