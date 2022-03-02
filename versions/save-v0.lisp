@@ -256,6 +256,14 @@
     (setf (stun-time animatable) stun-time)
     animatable))
 
+(define-encoder (map-marker save-v0) (_b packet)
+  (list (encode (map-marker-location map-marker))
+        (map-marker-type map-marker)))
+
+(define-decoder (map-marker save-v0) (initargs _p)
+  (destructuring-bind (location type) initargs
+    (make-map-marker (decode 'vec2 location) type)))
+
 (define-encoder (player save-v0) (_b packet)
   (let ((trace (movement-trace player)))
     (with-packet-entry (stream "trace.dat" packet :element-type '(unsigned-byte 8))
@@ -269,6 +277,7 @@
          :stats (stats player)
          :palette (palette-index player)
          :sword-level (sword-level player)
+         :map-markers (mapcar #'encode (map-markers player))
          (call-next-method)))
 
 (define-decoder (player save-v0) (initargs packet)
@@ -288,6 +297,8 @@
     (clrhash table)
     (dolist (item (getf initargs :unlocked))
       (setf (gethash item table) T)))
+  (setf (map-markers player) (loop for marker in (getf initargs :map-markers)
+                                   collect (decode 'map-marker marker)))
   (setf (stats player) (getf initargs :stats (make-stats)))
   (setf (palette-index player) (getf initargs :palette 0))
   (setf (sword-level player) (getf initargs :sword-level 0))

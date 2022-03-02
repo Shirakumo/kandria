@@ -167,8 +167,9 @@
   (let ((off 0))
     (flet ((prompt (action)
              (alloy:enter (make-instance 'prompt :button action :description (language-string action))
-                          (unit 'ui-pass T) :x (* 20 (- 4 off)) :y (+ 20 (* 50 off)) :w 200 :h 40)
+                          (unit 'ui-pass T) :x (* 20 (- 5 off)) :y (+ 20 (* 50 off)) :w 200 :h 40)
              (incf off)))
+      (prompt 'toggle-marker)
       (prompt 'toggle-trace)
       (prompt 'zoom-in)
       (prompt 'zoom-out)
@@ -228,7 +229,7 @@
         (alloy:do-elements (el popups)
           (let ((tt (+ tt (* off) (/ PI 13)))
                 (ui-scale (alloy:to-px (alloy:un 1))))
-            (alloy:update el popups :x (* ui-scale (+ (* 20 (- 4 off)) (* 5 (cos tt))))
+            (alloy:update el popups :x (* ui-scale (+ (* 20 (- 5 off)) (* 5 (cos tt))))
                                     :y (* ui-scale (+ 20 (* 50 off) (* 3 (sin tt) (cos tt))))
                                     :w (* ui-scale 200)
                                     :h (* ui-scale 40))
@@ -250,5 +251,70 @@
                  (:complete (setf (org.shirakumo.alloy.renderers.opengl::size shape) 1000000000)))
                (setf (presentations:hidden-p shape) (not (show-trace panel)))))))
 
+(defmethod handle ((ev toggle-marker) (panel map-panel))
+  (let ((loc (vcopy (offset (alloy:focus-element panel))))
+        (found NIL))
+    (loop for marker in (map-markers (unit 'player T))
+          for mloc = (map-marker-location marker)
+          do (when (and (< (vdistance mloc loc) 128)
+                        (or (null found) (< (vdistance mloc loc) (vdistance (map-marker-location found) loc))))
+               (setf found marker)))
+    (show (make-instance 'marker-menu :marker (or found (make-map-marker loc NIL))) :height (alloy:un 250))))
+
 (defmethod handle ((ev close-map) (panel map-panel))
   (hide panel))
+
+(defclass marker-button (button)
+  ())
+
+(presentations:define-realization (ui marker-button)
+  ((border simple:rectangle)
+   (alloy:margins)
+   :line-width (alloy:un 2))
+  ((:label simple:text)
+   (alloy:margins 0)
+   alloy:text
+   :font "PromptFont"
+   :halign :middle
+   :valign :middle))
+
+(presentations:define-update (ui button)
+  (border
+   :pattern (if alloy:focus (colored:color 0.9 0.9 0.9) colors:transparent))
+  (:label
+   :size (alloy:un 20)
+   :pattern colors:black))
+
+(presentations:define-animated-shapes button
+  (:background (simple:pattern :duration 0.2))
+  (border (simple:pattern :duration 0.3) (simple:line-width :duration 0.5)))
+
+(defclass marker-menu (popup-panel menuing-panel)
+  ((maker :initarg :marker :accessor marker)))
+
+(defmethod initialize-instance :after ((panel marker-menu) &key marker)
+  (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T T T T T) :row-sizes '(50)
+                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+         (focus (make-instance 'alloy:focus-grid :width 5)))
+    (dolist (label '(" " "★" "☠" "♥" "⚑"
+                     "🐟" "❓" "❗" "☹" "☺"
+                     "⌖" "↔" "A" "B" "C"
+                     "⓵" "⓶" "⓷" "⓸" "⓹"
+                     "⓺" "⓻" "⓼" "⓽" "⓿"))
+      (let ((label label))
+        (make-instance 'marker-button :value label :on-activate (lambda ()
+                                                           (setf (map-marker-type marker) label)
+                                                           (hide panel))
+                                      :focus-parent focus :layout-parent layout)))
+    (alloy:on alloy:exit (focus)
+      (hide panel))
+    (alloy:finish-structure panel layout focus)))
+
+(defmethod hide :after ((panel marker-menu))
+  (if (string= " " (map-marker-type (marker panel)))
+      (setf (map-markers (unit 'player T)) (remove (marker panel) (map-markers (unit 'player T))))
+      (push (marker panel) (map-markers (unit 'player T))))
+  (print (map-markers (unit 'player T))))
+
+(defun show-sales-menu (direction character)
+  (show-panel 'sales-menu :shop (unit character T) :target (unit 'player T)  :direction direction))

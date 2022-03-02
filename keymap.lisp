@@ -129,12 +129,16 @@
  (axis :one-of (:l2) :threshold 0.5))
 
 (trigger close-map
- (key :one-of (:esc :escape))
+ (key :one-of (:esc :escape :m))
  (button :one-of (:b :start)))
 
 (trigger toggle-trace
  (key :one-of (:c :capslock :tab))
  (button :one-of (:y)))
+
+(trigger toggle-marker
+ (key :one-of (:space))
+ (button :one-of (:a :b)))
 
 (trigger pan-left
  (key :one-of (:a :left))

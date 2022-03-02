@@ -55,3 +55,4 @@
 (define-action zoom-out (in-map))
 (define-action close-map (in-map))
 (define-action toggle-trace (in-map))
+(define-action toggle-marker (in-map))

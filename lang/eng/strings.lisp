@@ -95,6 +95,7 @@ zoom-in "Zoom In"
 zoom-out "Zoom Out"
 close-map "Close Map"
 toggle-trace "Toggle Trace"
+toggle-marker "Toggle Marker"
 ;; Intearctions
 door "Enter"
 fishing-spot "Fish"

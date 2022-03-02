@@ -70,6 +70,13 @@ void main(){
   color *= visibility;
 }")
 
+(defstruct (map-marker
+            (:constructor make-map-marker (location &optional (type " ")))
+            (:copier NIL)
+            (:predicate NIL))
+  (location NIL :type vec2)
+  (type " " :type T))
+
 (define-shader-entity player (alloy:observable stats-entity paletted-entity animatable profile ephemeral inventory)
   ((name :initform 'player)
    (palette :initform (// 'kandria 'player-palette))
@@ -100,7 +107,8 @@ void main(){
    (fishing-line :initform (make-instance 'fishing-line) :accessor fishing-line)
    (stamina-wheel :initform (make-instance 'stamina-wheel) :accessor stamina-wheel)
    (color :initform (vec 1 1 1 0) :accessor color)
-   (sword-level :initform 0 :initarg :sword-level :accessor sword-level))
+   (sword-level :initform 0 :initarg :sword-level :accessor sword-level)
+   (map-markers :initform () :initarg :map-maprkers :accessor map-markers))
   (:default-initargs
    :sprite-data (asset 'kandria 'player)))
 
