@@ -235,6 +235,9 @@ void main(){
   (unless (path player)
     (toggle-panel 'quick-menu)))
 
+(defmethod handle :after ((ev open-map) (player player))
+  (toggle-panel 'map-panel))
+
 (defun handle-evasion (player)
   (let ((endangering (endangering player)))
     (when endangering

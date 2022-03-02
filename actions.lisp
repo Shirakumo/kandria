@@ -28,6 +28,7 @@
 
 (define-action-set in-game (exclusive-action-set))
 (define-action quickmenu (in-game))
+(define-action open-map (in-game))
 (define-action interact (in-game))
 (define-action jump (in-game))
 (define-action dash (in-game directional-action))

@@ -50,6 +50,10 @@
  (key :one-of (:c))
  (button :one-of (:select)))
 
+(trigger open-map
+ (key :one-of (:m))
+ (button :one-of (:home)))
+
 (trigger interact
  (key :one-of (:enter :e))
  (button :one-of (:b)))
