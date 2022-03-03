@@ -139,7 +139,7 @@
 (trigger toggle-marker
  (key :one-of (:space))
  (mouse :one-of (:middle))
- (button :one-of (:a :b)))
+ (button :one-of (:a)))
 
 (trigger pan-left
  (key :one-of (:a :left))
