@@ -102,6 +102,7 @@
   (let ((player (unit 'player +world+)))
     (and (null (find-panel 'menuing-panel))
          (null (find-panel 'map-panel))
+         (null (find-panel 'load-panel))
          player
          (svref (collisions player) 2))))
 
