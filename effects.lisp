@@ -28,10 +28,13 @@
 
 (defmethod stage :after ((fade combine-pass) (area staging-area))
   (stage (// 'kandria 'block-transition) area)
-  (stage (// 'kandria 'plain-transition) area))
+  (stage (// 'kandria 'plain-transition) area)
+  (stage (// 'sound 'ui-transition) area))
 
 (defmethod handle ((ev transition-event) (fade combine-pass))
   (when (not (flare:running (progression 'transition +world+)))
+    (when (eql :transition (kind ev))
+      (harmony:play (// 'sound 'ui-transition)))
     (setf (kind fade) (kind ev))
     (setf (on-complete fade) (on-complete ev))
     (setf (clock (progression 'transition +world+)) 0f0)

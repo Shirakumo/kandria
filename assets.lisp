@@ -74,6 +74,9 @@
 (define-asset (music ambience/magma-cave) trial-harmony:environment
     '((:normal "ambience track_ magma cave.ogg")))
 
+(define-asset (music ambience/water-cave) trial-harmony:environment
+    '((:normal "ambience track_ big water cave.ogg")))
+
 (define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T)
   (player-profile :min-filter :nearest :mag-filter :nearest)
   (catherine-profile :min-filter :nearest :mag-filter :nearest)
@@ -108,6 +111,7 @@
   (ui-quest-complete :volume 0.5)
   (ui-quest-fail :volume 0.5)
   (ui-scroll-dialogue :repeat T :volume 0.2)
+  (ui-map-scroll :repeat T)
   (ambience-earthquake :volume 0.1 :min-distance 100000000000.0 :max-distance 100000100000.0)
   (sandstorm :volume 0.5 :repeat T :min-distance 100000000000.0 :max-distance 100000100000.0)
   (slash :volume 0.05)
@@ -345,6 +349,14 @@
   :music 'music/region2
   :ambience 'ambience/deep-tunnel)
 
+(define-environment (region2 water)
+  :music 'music/region2
+  :ambience 'ambience/water-cave)
+
 (define-environment (region3 hall)
+  :music 'music/region3
+  :ambience 'ambience/deep-tunnel)
+
+(define-environment (region3 magma)
   :music 'music/region3
   :ambience 'ambience/magma-cave)

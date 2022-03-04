@@ -73,8 +73,7 @@
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary)
-   (facing-towards-screen-p :initform T :initarg :facing-towards-screen-p :accessor facing-towards-screen-p :type boolean))
-  (:default-initargs :sprite-data (asset 'kandria 'door)))
+   (facing-towards-screen-p :initform T :initarg :facing-towards-screen-p :accessor facing-towards-screen-p :type boolean)))
 
 (defmethod description ((door door))
   (language-string 'door))
@@ -99,6 +98,16 @@
 (defmethod leave* :after ((door door) thing)
   (when (slot-boundp (target door) 'container)
     (leave* (target door) T)))
+
+(define-shader-entity basic-door (door creatable)
+  ()
+  (:default-initargs :sprite-data (asset 'kandria 'door)))
+
+(defmethod stage :after ((door basic-door) (area staging-area))
+  (stage (// 'sound 'door-open) area))
+
+(defmethod interact :before ((door basic-door) (entity game-entity))
+  (harmony:play (// 'sound 'door-open) :reset T))
 
 (define-shader-entity passage (door creatable)
   ()

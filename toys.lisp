@@ -24,7 +24,13 @@
 (defmethod interactable-p ((workbench workbench)) T)
 
 (defmethod stage :after ((workbench workbench) (area staging-area))
-  (stage (// 'kandria 'sword) area))
+  (stage (// 'kandria 'sword) area)
+  (stage (// 'sound 'ambience-interactable-shing) area))
+
+(defmethod (setf frame-idx) :after (index (workbench workbench))
+  (when (and (= 0 index)
+             (in-view-p (location workbench) (bsize workbench)))
+    (harmony:play (// 'sound 'ambience-interactable-shing))))
 
 (defmethod layer-index ((workbench workbench))
   (1- +base-layer+))
@@ -398,10 +404,17 @@
 (defmethod layer-index ((hider hider))
   (1+ +base-layer+))
 
+(defmethod stage :after ((hider hider) (area staging-area))
+  (stage (// 'sound 'hider-reveal) area))
+
 (defmethod interact ((hider hider) source)
-  (when (<= (decf (visibility hider) 0.01) 0.0)
-    (setf (visibility hider) 0.0)
-    (setf (active-p hider) NIL)))
+  (when (active-p hider)
+    (let ((visibility (decf (visibility hider) 0.02)))
+      (cond ((= 0.98 visibility)
+             (harmony:play (// 'sound 'hider-reveal)))
+            ((<= visibility 0.0)
+             (setf (visibility hider) 0.0)
+             (setf (active-p hider) NIL))))))
 
 (defmethod (setf active-p) :after (value (hider hider))
   (setf (visibility hider) (if value 1.0 0.0)))
