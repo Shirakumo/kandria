@@ -257,17 +257,20 @@ Possible sub-commands:
          (show-panel 'main-menu))))
 
 (define-setting-observer video-mode :display :resolution (value)
-  (show *context* :fullscreen (setting :display :fullscreen) :mode value))
+  (when *context*
+    (show *context* :fullscreen (setting :display :fullscreen) :mode value)))
 
 (define-setting-observer video-fullscreen :display :fullscreen (value)
-  (show *context* :fullscreen value :mode (setting :display :resolution)))
+  (when *context*
+    (show *context* :fullscreen value :mode (setting :display :resolution))))
 
 (define-setting-observer video-misc :display (value)
-  (destructuring-bind (&key vsync ui-scale gamma &allow-other-keys) value
-    (when (and gamma (unit 'render (scene +main+)))
-      (setf (monitor-gamma (unit 'render (scene +main+))) gamma))
-    (setf (vsync *context*) vsync)
-    (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))
+  (when *context*
+    (destructuring-bind (&key vsync ui-scale gamma &allow-other-keys) value
+      (when (and gamma (unit 'render (scene +main+)))
+        (setf (monitor-gamma (unit 'render (scene +main+))) gamma)
+        (setf (vsync *context*) vsync)
+        (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))))
 
 (define-setting-observer game-speed :gameplay :game-speed (value)
   (when +main+
