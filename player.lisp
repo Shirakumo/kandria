@@ -237,9 +237,6 @@ void main(){
 (defmethod enter :after ((player player) (water water))
   (setf (dash-exhausted player) NIL))
 
-(defmethod enter :after ((player player) (magma magma))
-  (trigger 'explosion player))
-
 (defmethod handle :after ((ev quickmenu) (player player))
   (unless (path player)
     (toggle-panel 'quick-menu)))
@@ -1315,13 +1312,20 @@ void main(){
         ((null (transition-active-p))
          (rumble :intensity 10.0)
          (vsetf (velocity player) 0 0)
-         (setf (animation player) 'die)
          (setf (state player) :respawning)
-         (harmony:play (// 'sound 'player-die-platforming))
-         (transition
-           (respawn player)))))
+         (etypecase (medium player)
+           (magma
+            (setf (animation player) 'magma-death)
+            (setf (vy (location player)) (+ (vy (location (medium player))) (vy (bsize (medium player))) -1
+                                            (vy (bsize player)))))
+           (T
+            (harmony:play (// 'sound 'player-die-platforming))
+            (transition
+              (respawn player)))))))
 
-(defmethod die ((player player)))
+(defmethod die ((player player))
+  (transition
+    (respawn player)))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))

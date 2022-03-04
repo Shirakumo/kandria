@@ -182,7 +182,8 @@
 
 (defmethod switch-animation :before ((animatable animatable) next)
   ;; Remove selves when death animation completes
-  (when (eql (name (animation animatable)) 'die)
+  (when (or (eql (name (animation animatable)) 'die)
+            (eql (name (animation animatable)) 'magma-death))
     (die animatable))
   (when (and (eql next 'stand)
              (find (state animatable) '(:dying :animated)))
