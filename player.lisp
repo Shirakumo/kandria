@@ -1319,6 +1319,7 @@ void main(){
             (setf (vy (location player)) (+ (vy (location (medium player))) (vy (bsize (medium player))) -1
                                             (vy (bsize player)))))
            (T
+            (setf (animation player) 'die)
             (harmony:play (// 'sound 'player-die-platforming))
             (transition
               (respawn player)))))))
