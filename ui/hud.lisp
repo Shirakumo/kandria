@@ -5,7 +5,7 @@
 
 (defmethod show ((element sticky-element) &key)
   (unless (find-panel 'fullscreen-panel)
-    (unless (slot-boundp element 'alloy:layout-parent)
+    (unless (alloy:layout-tree element)
       (alloy:enter element (unit 'ui-pass T) :w 1 :h 1))
     (alloy:with-unit-parent element
       (let* ((target (alloy:value element))
@@ -19,7 +19,7 @@
                                                       (max 1 (alloy:pxh size))))))))
 
 (defmethod hide ((prompt sticky-element))
-  (when (slot-boundp prompt 'alloy:layout-parent)
+  (when (alloy:layout-tree prompt)
     (alloy:leave prompt T)))
 
 (defclass nametag-element (sticky-element)
@@ -223,7 +223,7 @@
 
 (defmethod animation:update :after ((line status-line) dt)
   (when (and (< (timeout line) 0.0)
-             (slot-boundp line 'alloy:layout-parent))
+             (alloy:layout-tree line))
     (alloy:leave line T)))
 
 (defmethod alloy:suggest-bounds ((extent alloy:extent) (element status-line))
@@ -296,9 +296,9 @@
         (make-instance 'status-line :value string :importance importance :layout-parent layout))))
 
 (defmethod clear ((panel hud))
-  (let ((layout (lines hud)))
+  (let ((layout (lines panel)))
     (alloy:do-elements (element layout)
-      (when (slot-boundp element 'alloy:layout-parent)
+      (when (alloy:layout-tree element)
         (alloy:leave element layout)))))
 
 (defun location-info (string)

@@ -80,7 +80,7 @@
       (setf (alloy:value (label prompt)) (coerce-button-string button input)))
     (when description-p
       (setf (alloy:value (description prompt)) (or description "")))
-    (unless (slot-boundp prompt 'alloy:layout-parent)
+    (unless (alloy:layout-tree prompt)
       (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
     (alloy:mark-for-render prompt)
     (alloy:with-unit-parent prompt
@@ -92,7 +92,7 @@
                                                      (max 1 (alloy:pxh size))))))))
 
 (defmethod hide ((prompt prompt))
-  (when (slot-boundp prompt 'alloy:layout-parent)
+  (when (alloy:layout-tree prompt)
     (alloy:leave prompt T)))
 
 (defclass big-prompt (alloy:label*)

@@ -273,7 +273,7 @@
 (defmethod handle ((ev event) (panel panel)))
 
 (defmethod shown-p ((panel panel))
-  (slot-boundp (alloy:layout-element panel) 'alloy:layout-parent))
+  (alloy:layout-tree (alloy:layout-element panel)))
 
 (defmethod show ((panel panel) &key ui)
   (when *context*
