@@ -6,7 +6,8 @@
   :title "Tour Guide"
   :description "Catherine wants to show me something."
   (:eval (stop-following 'catherine)
-         (ensure-nearby 'tutorial-end 'catherine))
+         (ensure-nearby 'tutorial-end 'catherine)
+         (complete 'tutorial))
   (:go-to (farm-view-intro :lead catherine)
    :title "Follow Catherine")
   ;; TODO: force complete 'walk to ensure this whole task completes, even if walk-talk interrupted?
