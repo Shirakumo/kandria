@@ -8,14 +8,20 @@
         :width (alloy:un 400) :height (alloy:un 150)))
 
 (defmethod alloy:text ((button input-action-button))
-  (case +input-source+
-    (:keyboard
-     (string (or (prompt-char (alloy:value button) :bank :mouse)
-                 (prompt-char (alloy:value button) :bank :keyboard)
-                 "<?>")))
-    (T
-     (string (or (prompt-char (alloy:value button) :bank :gamepad)
-                 "<?>")))))
+  (flet ((out (a)
+           (with-output-to-string (out)
+             (loop for char across a
+                   do (write-char #\Space out)
+                      (write-char char out)))))
+    (out
+     (case +input-source+
+       (:keyboard
+        (let ((mouse (trial::action-prompts (alloy:value button) :bank :mouse)))
+          (if (string= "" mouse)
+              (trial::action-prompts (alloy:value button) :bank :keyboard)
+              mouse)))
+       (T
+        (trial::action-prompts (alloy:value button) :bank :gamepad))))))
 
 (defmethod (setf alloy:focus) :after ((focus (eql :strong)) (button input-action-button))
   (setf (alloy:focus (alloy:focus-parent button)) :strong))

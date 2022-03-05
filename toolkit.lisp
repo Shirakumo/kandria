@@ -640,3 +640,13 @@
                           (or (null ah)
                               (not (null bh))
                               (string= ah bh))))))))))))
+(defmacro or* (&rest stuff)
+  (cond ((rest stuff)
+         `(or ,@(loop for thing in stuff
+                      collect `(or* ,thing))))
+        (stuff
+         (let ((value (gensym "VALUE")))
+           `(let ((,value ,(first stuff)))
+              (when (and ,value (string/= ,value ""))
+                ,value))))
+        (T NIL)))
