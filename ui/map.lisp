@@ -189,6 +189,9 @@
   (let ((map (make-instance 'map-element)))
     (alloy:finish-structure panel map map)))
 
+(defmethod stage :after ((panel map-panel) (area staging-area))
+  (stage (// 'sound 'ui-map-scroll) area))
+
 (defmethod show :after ((panel map-panel) &key)
   (let ((off 0))
     (flet ((prompt (action)
@@ -248,6 +251,13 @@
       (setf (zoom map) (clamp 0.01 (+ (zoom map) 0.001) 0.5)))
     (when (retained 'zoom-out)
       (setf (zoom map) (clamp 0.01 (- (zoom map) 0.001) 0.5)))
+    ;; FIXME: This doesn't work with the lowpass.
+    #++
+    (if (or (retained 'zoom-out) (retained 'zoom-in)
+            (retained 'pan-up) (retained 'pan-down)
+            (retained 'pan-left) (retained 'pan-right))
+        (harmony:play (// 'sound 'ui-map-scroll))
+        (harmony:stop (// 'sound 'ui-map-scroll)))
     (let ((popups (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
           (tt (* 1.3 (tt ev)))
           (off 0))
