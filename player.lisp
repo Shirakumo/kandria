@@ -1325,6 +1325,10 @@ void main(){
               (respawn player)))))))
 
 (defmethod die ((player player))
+  (trigger 'explosion player)
+  (vsetf (velocity player) 0 0)
+  (setf (state player) :respawning)
+  (setf (animation player) 'dead)
   (transition
     (respawn player)))
 
