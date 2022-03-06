@@ -6,7 +6,11 @@
 (presentations:define-realization (ui dialog-textbox)
   ((:bg simple:rectangle)
    (alloy:margins)
-   :pattern (colored:color 0 0 0 0.5))
+   :pattern (simple:request-gradient alloy:renderer 'simple:linear-gradient
+                                     (alloy:px-point 0 0)
+                                     (alloy:px-point 500 0)
+                                     #((0.2 #.(colored:color 0.1 0.1 0.1 0.9))
+                                       (1.0 #.(colored:color 0.1 0.1 0.1 0.5)))))
   ((:label simple:text)
    (alloy:margins 30 40 60 30)
    alloy:text
