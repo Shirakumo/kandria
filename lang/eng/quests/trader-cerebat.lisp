@@ -1,6 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
+;; character voice: London cockney
 (quest:define-quest (kandria cerebat-trader-arrive)
   :author "Tim White"
   :title "Cerebat Trader"
@@ -58,13 +59,12 @@
 | I'm talking mushrooms (poisonous ones o' course), purified water, and pearls - you know, the essentials.
 | Might as well throw in some thermal fluid and coolant liquid while you're at it.
 | A couple o' each should do nicely, just to get me back on my feet. Then I'll spill the beans.
+| \"You shouldn't need to look too far away\"(orange) - what can I say, I'm lazy.
 | (:jolly)Don't be a stranger!
 ~ player
 | \"Indeed. Alright, unpicking that conversation, my grocery list is at least \"2 each\"(orange) of : \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
 | (:skeptical)\"The essentials...\"(light-gray, italic)
-| (:normal)\"All stuff I've seen \"in this general area\"(orange) at least.\"(light-gray, italic)
-"
-)))
+")))
 
 ;; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long
 (quest:define-quest (kandria trader-cerebat-chat)
