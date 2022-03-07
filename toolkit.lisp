@@ -40,7 +40,8 @@
                              :send-diagnostics T
                              :allow-editor #+kandria-release NIL #-kandria-release T
                              :swank NIL
-                             :swank-port 4005))))
+                             :swank-port 4005
+                             :camera-control NIL))))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)

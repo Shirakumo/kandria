@@ -13,7 +13,8 @@
    (shake-intensity :initform 3 :accessor shake-intensity)
    (shake-unique :initform 0 :accessor shake-unique)
    (rumble-intensity :initform 1.0 :accessor rumble-intensity)
-   (offset :initform (vec 0 0) :accessor offset))
+   (offset :initform (vec 0 0) :accessor offset)
+   (fix-offset :initform NIL :accessor fix-offset))
   (:default-initargs
    :location (vec 0 0)
    :target-size (v* +tiles-in-view+ +tile-size+ .5)))
@@ -92,7 +93,8 @@
           (vsetf loc
                  (+ (vx (intended-location camera)) (vx off))
                  (+ (vy (intended-location camera)) (vy off)))
-          (nv* off 0.98)
+          (unless (fix-offset camera)
+            (nv* off 0.98))
           (when (<= (abs (vx off)) 0.1) (setf (vx off) 0.0))
           (when (<= (abs (vy off)) 0.1) (setf (vy off) 0.0))
           (clamp-camera-target camera loc))))))

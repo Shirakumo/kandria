@@ -234,6 +234,7 @@
         (control show-debug-settings (:debugging :show-debug-settings) 'alloy:checkbox)
         (control send-diagnostics (:debugging :send-diagnostics) 'alloy:checkbox)
         (control allow-editor (:debugging :allow-editor) 'alloy:checkbox)
+        (control camera-control (:debugging :camera-control) 'alloy:checkbox)
         (control start-swank-server (:debugging :swank) 'alloy:checkbox)
         (control swank-server-port (:debugging :swank-port) 'alloy:ranged-wheel :range '(1024 . 65535))
         (alloy:enter (alloy:represent #@open-config-dir 'setting-label) layout)

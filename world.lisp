@@ -129,6 +129,60 @@
           (T
            (call-next-method)))))
 
+(defmethod handle :after ((ev key-press) (world world))
+  (when (setting :debugging :camera-control)
+    (let ((xoff 200)
+          (yoff 100))
+      (case (key ev)
+        (:kp-enter
+         (let ((player (unit 'player world))
+               (sentinel (unit :sentinel world)))
+           (cond ((null player))
+                 ((null sentinel)
+                  (setf sentinel (make-instance 'sentinel :location (vcopy (location player))))
+                  (enter sentinel world)
+                  (setf (target (unit :camera world)) sentinel))
+                 (T
+                  (leave sentinel world)
+                  (setf (target (unit :camera world)) player)))))
+        (:kp-multiply
+         (setf (game-speed +main+) (* (game-speed +main+) 2.0)))
+        (:kp-divide
+         (setf (game-speed +main+) (/ (game-speed +main+) 2.0)))
+        (:kp-add
+         (setf (intended-zoom (unit :camera T))
+               (clamp 0.1 (expt 2 (+ (log (intended-zoom (unit :camera T)) 2) 0.1)) 10.0)))
+        (:kp-subtract
+         (setf (intended-zoom (unit :camera T))
+               (clamp 0.1 (expt 2 (- (log (intended-zoom (unit :camera T)) 2) 0.1)) 10.0)))
+        (:kp-7
+         (setf (fix-offset (unit :camera world)) T)
+         (setf (offset (unit :camera world)) (vec (- xoff) (+ yoff))))
+        (:kp-8
+         (setf (fix-offset (unit :camera world)) T)
+         (setf (offset (unit :camera world)) (vec 0 (+ yoff))))
+        (:kp-9
+         (setf (fix-offset (unit :camera world)) T)
+         (setf (offset (unit :camera world)) (vec (+ xoff) (+ yoff))))
+        (:kp-4
+         (setf (fix-offset (unit :camera world)) T)
+         (setf (offset (unit :camera world)) (vec (- xoff) 0)))
+        (:kp-5
+         (setf (fix-offset (unit :camera world)) NIL)
+         (setf (offset (unit :camera world)) (vec 0 0)))
+        (:kp-6
+         (setf (fix-offset (unit :camera world)) T)
+         (setf (offset (unit :camera world)) (vec (+ xoff) 0)))
+        (:kp-1
+         (setf (fix-offset (unit :camera world)) T)
+         (setf (offset (unit :camera world)) (vec (- xoff) (- yoff))))
+        (:kp-2
+         (setf (fix-offset (unit :camera world)) T)
+         (setf (offset (unit :camera world)) (vec 0 (- yoff))))
+        (:kp-3
+         (setf (fix-offset (unit :camera world)) T)
+         (setf (offset (unit :camera world)) (vec (+ xoff) (- yoff))))))))
+
 (defmethod handle :after ((ev report-bug) (world world))
   (toggle-panel 'report-panel))
 

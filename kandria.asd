@@ -50,6 +50,7 @@
                (:file "npc")
                (:file "critter")
                (:file "cheats")
+               (:file "sentinel")
                (:file "world")
                (:file "save-state")
                (:file "camera")
