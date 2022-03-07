@@ -133,8 +133,7 @@
   (toggle-panel 'report-panel))
 
 (defmethod handle :after ((ev toggle-fullscreen) (world world))
-  (setf (setting :display :fullscreen) (not (setting :display :fullscreen)))
-  (apply-video-settings))
+  (setf (setting :display :fullscreen) (not (setting :display :fullscreen))))
 
 #-kandria-demo
 (defmethod handle :after ((ev toggle-editor) (world world))
