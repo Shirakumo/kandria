@@ -116,12 +116,20 @@
 (defmethod apply-transforms progn ((baloon balloon))
   (translate-by 0 -16 0))
 
+(define-shader-entity lantern-light (textured-light)
+  ((bsize :initform #.(vec 48 48))
+   (size :initform #.(vec 96 96))
+   (offset :initform #.(vec 0 48))
+   (location :initform NIL)))
+
+(defmethod spawned-p ((light lantern-light)) T)
+
 (define-shader-entity lantern (lit-animated-sprite solid collider ephemeral creatable)
   ((size :initform (vec 32 32))
    (bsize :initform (vec 16 16))
    (state :initform :active :accessor state :type symbol)
    (respawn-time :initform 0.0 :accessor respawn-time)
-   (light :initform (make-instance 'textured-light :bsize (vec 48 48) :size (vec 96 96) :offset (vec 0 48)) :accessor light))
+   (light :initform (make-instance 'lantern-light) :accessor light))
   (:default-initargs
    :sprite-data (asset 'kandria 'lantern)))
 

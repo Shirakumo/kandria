@@ -36,6 +36,9 @@
 (defmethod spawned-p (entity)
   (gethash entity +spawn-tracker+))
 
+(defun mark-as-spawned (entity)
+  (setf (gethash entity +spawn-tracker+) T))
+
 (defclass spawner (listener sized-entity ephemeral resizable creatable)
   ((flare:name :initform (generate-name 'spawner))
    (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type alloy::any)
@@ -78,7 +81,7 @@
                                          0))
                         (spawn-args spawner)))
            (dolist (entity (reflist spawner))
-             (setf (gethash entity +spawn-tracker+) T))))
+             (mark-as-spawned entity))))
         ((not (find chunk (adjacent spawner)))
          (dolist (entity (reflist spawner))
            (remhash entity +spawn-tracker+)
