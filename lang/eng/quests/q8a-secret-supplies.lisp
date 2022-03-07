@@ -22,7 +22,7 @@
 | ~ cerebat-trader
 | | Oh, that's a no.
 | ~ player
-| | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"black cap mushrooms: {(var 'black-cap-count)}\"(orange); |] [(< 0 (var 'pure-water-count)) \"purified water: {(var 'pure-water-count)}\"(orange); |] [(< 0 (var 'pearl-count)) \"pearls: {(var 'pearl-count)}\"(orange); |] [(< 0 (var 'thermal-count)) \"thermal fluid: {(var 'thermal-count)}\"(orange); |] [(< 0 (var 'coolant-count)) \"coolant liquid: {(var 'coolant-count)}\"(orange).]\"(light-gray, italic)
+| | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"black cap mushrooms: {(var 'black-cap-count)}\"(orange) |] [(< 0 (var 'pure-water-count)) ; \"purified water: {(var 'pure-water-count)}\"(orange) |] [(< 0 (var 'pearl-count)) ; \"pearls: {(var 'pearl-count)}\"(orange) |] [(< 0 (var 'thermal-count)) ; \"thermal fluid: {(var 'thermal-count)}\"(orange) |] [(< 0 (var 'coolant-count)) ; \"coolant liquid: {(var 'coolant-count)}\"(orange)].\"(light-gray, italic)
 |?
 | ~ cerebat-trader
 | | Nice, I'll take what you've got.
@@ -69,5 +69,5 @@
 | | ! eval (activate (unit 'fi-ffcs-cerebat-2))
 | |?
 | | ~ player
-| | | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"black cap mushrooms: {(var 'black-cap-count)}\"(orange); |] [(< 0 (var 'pure-water-count)) \"purified water: {(var 'pure-water-count)}\"(orange); |] [(< 0 (var 'pearl-count)) \"pearls: {(var 'pearl-count)}\"(orange); |] [(< 0 (var 'thermal-count)) \"thermal fluid: {(var 'thermal-count)}\"(orange); |] [(< 0 (var 'coolant-count)) \"coolant liquid: {(var 'coolant-count)}\"(orange).]\"(light-gray, italic)
+| | | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"black cap mushrooms: {(var 'black-cap-count)}\"(orange) |] [(< 0 (var 'pure-water-count)) ; \"purified water: {(var 'pure-water-count)}\"(orange) |] [(< 0 (var 'pearl-count)) ; \"pearls: {(var 'pearl-count)}\"(orange) |] [(< 0 (var 'thermal-count)) ; \"thermal fluid: {(var 'thermal-count)}\"(orange) |] [(< 0 (var 'coolant-count)) ; \"coolant liquid: {(var 'coolant-count)}\"(orange)].\"(light-gray, italic)
 ")))
