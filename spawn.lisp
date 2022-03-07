@@ -38,7 +38,7 @@
 
 (defclass spawner (listener sized-entity ephemeral resizable creatable)
   ((flare:name :initform (generate-name 'spawner))
-   (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type symbol)
+   (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type alloy::any)
    (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer)
    (spawn-args :initarg :spawn-args :initform NIL :accessor spawn-args :type alloy::any)
    (reflist :initform () :accessor reflist)
@@ -49,9 +49,6 @@
 
 (defmethod initargs append ((spawner spawner))
   '(:spawn-type :spawn-count :auto-deactivate :active-p :jitter-y-p))
-
-(defmethod alloy::object-slot-component-type ((spawner spawner) _ (slot (eql 'spawn-type)))
-  (find-class 'alloy:symb))
 
 (defmethod (setf location) :after (location (spawner spawner))
   (let ((chunk (find-chunk spawner))
@@ -113,6 +110,10 @@
 (defmethod handle ((ev switch-chunk) (spawner spawner))
   (when (active-p spawner)
     (handle-spawn spawner (chunk ev))))
+
+(defmethod spawn ((location vec2) (types cons) &rest initargs)
+  (loop for type in types
+        nconc (apply #'spawn location type initargs)))
 
 (defmethod spawn ((location vec2) type &rest initargs &key (count 1) (jitter +tile-size+) collect &allow-other-keys)
   (let ((initargs (remf* initargs :count :collect :jitter))
