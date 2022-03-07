@@ -151,9 +151,14 @@
   (when (eql 'dash (buffer player))
     (handle (make-instance 'dash) player)))
 
-(defmethod enter* :after ((lantern lantern) container)
+(defmethod enter :after ((lantern lantern) container)
   (setf (slot-value (light lantern) 'location) (location lantern))
-  (setf (container (light lantern)) +world+)
+  (enter (light lantern) container))
+
+(defmethod leave :after ((lantern lantern) (container container))
+  (leave (light lantern) container))
+
+(defmethod enter* :after ((lantern lantern) container)
   (compile-into-pass (light lantern) NIL (unit 'lighting-pass +world+)))
 
 (defmethod leave* :after ((lantern lantern) (container container))
