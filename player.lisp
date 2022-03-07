@@ -678,6 +678,8 @@ void main(){
                ((and (retained 'jump)
                      (eql 'climb-ledge (name animation)))
                 (setf (state player) :normal))
+               ((eql 'stand (name animation))
+                (setf (state player) :normal))
                ((not (retained (case (name animation)
                                  ((light-ground-1 light-charge-2) 'light-attack)
                                  ((heavy-ground-1 heavy-charge-2) 'heavy-attack))))
