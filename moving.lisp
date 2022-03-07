@@ -101,6 +101,8 @@
       ;; Process remainder
       (nv+ loc vel)
       (vsetf vel 0 0)
+      (try-collide)
+      ;; Do it again in case we were pushed into something in the last step
       (try-collide))))
 
 (defmethod handle ((ev tick) (moving moving))
@@ -229,7 +231,9 @@
                  (dy (- (vy loc) (vy siz) (vy bloc)))
                  (tt (/ (+ dy (float-sign (- rx lx) (vy bsiz))) 2 (vy bsiz)))
                  (x (+ (vx bloc) (vx siz) (float-sign (- l r) (* 1.5 (vx siz))) lx (* tt (- rx lx)))))
-            (setf (vx loc) x))
+            (when (= (float-sign (vx (velocity moving)))
+                     (float-sign (- r l)))
+              (setf (vx loc) x)))
           (setf (vy loc) y))
       (setf (svref (collisions moving) 2) block)
       (setf (vy (velocity moving)) (max 0 (vy (velocity moving)))))))
