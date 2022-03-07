@@ -5,10 +5,10 @@
 
 (defmethod bsize ((sentinel sentinel)) #.(vec 1 1))
 
-(defmethod enter ((sentinel sentinel) (world world))
+(defmethod enter ((sentinel sentinel) world)
   (setf (active-p (action-set 'in-map)) T))
 
-(defmethod leave ((sentinel sentinel) (world world))
+(defmethod leave ((sentinel sentinel) world)
   (setf (active-p (action-set 'in-game)) T))
 
 (defmethod handle ((ev tick) (sentinel sentinel))
