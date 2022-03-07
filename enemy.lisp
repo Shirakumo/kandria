@@ -10,6 +10,7 @@
 (defmethod is-collider-for ((enemy enemy) (moving moving)) T)
 (defmethod is-collider-for ((enemy enemy) (other enemy)) NIL)
 (defmethod is-collider-for ((enemy enemy) (other stopper)) T)
+(defmethod collides-p ((enemy enemy) (other enemy) hit) NIL)
 
 (defmethod base-health ((enemy enemy)) 1000)
 
