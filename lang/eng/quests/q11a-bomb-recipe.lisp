@@ -5,7 +5,7 @@
   :author "Tim White"
   :title "Bomb Recipe"
   :description "Islay needs certain components to assemble an improvised explosive, which could slow down the Wraw advance."
-  :variables ((wire-count 10) (blasting-cap-count 10) (charge-pack-count 20))
+  :variables ((blasting-cap-count 10) (charge-pack-count 20))
   :on-activate (task-reminder task-deliveries task-border)
 
  (task-reminder
@@ -19,13 +19,13 @@
     :repeatable T
     :dialogue "
 ~ innis
-| You'd better shake a leg. Altogether Islay needs \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), and \"20 charge packs\"(orange) for the bomb.
+| You'd better shake a leg. Altogether Islay needs \"10 blasting caps\"(orange) and \"20 charge packs\"(orange) for the bomb.
 "))
 
  (task-deliveries
-   :title "Search Wraw territory for 10 rolls of wire, 10 blasting caps, and 20 charge packs, then return to Islay on the surface"
+   :title "Search Wraw territory for 10 blasting caps and 20 charge packs, then return to Islay on the surface"
    :on-activate T
-   :condition (and (>= 0 (- (var 'wire-count) (item-count 'item:wire))) (>= 0 (- (var 'blasting-cap-count) (item-count 'item:blasting-cap))) (>= 0 (- (var 'charge-pack-count) (item-count 'item:charge-pack))))
+   :condition (and (>= 0 (- (var 'blasting-cap-count) (item-count 'item:blasting-cap))) (>= 0 (- (var 'charge-pack-count) (item-count 'item:charge-pack))))
    :on-complete (task-return)
    :on-activate T
    (:interaction interact-islay
@@ -35,22 +35,22 @@
     :dialogue "
 ~ islay
 | Did you get the components for the bomb?
-? (= 0 (+ (item-count 'item:wire) (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
+? (= 0 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
 | ~ islay
-| | Hurry, {#@player-nametag} - I still need: [(< 0 (var 'wire-count)) \"rolls of wire: {(var 'wire-count)}\"(orange); |] [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange); |] [(< 0 (var 'charge-pack-count)) \"charge packs: {(var 'charge-pack-count)}\"(orange).]
+| | Hurry, {#@player-nametag} - I still need: [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange) |] [(< 0 (var 'charge-pack-count)) ; \"charge packs: {(var 'charge-pack-count)}\"(orange)].
 |?
 | ~ islay
 | | Good. I'll see these are passed to Catherine and installed on the bomb. And here's your payment.
-| ! eval (setf (var 'wire-count) (- (var 'wire-count) (item-count 'item:wire)))
-| ! eval (store 'item:parts (* (item-count 'item:wire) (var 'bomb-fee)))
-| ! eval (retrieve 'item:wire T)
-| ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
-| ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
-| ! eval (retrieve 'item:blasting-cap T)
-| ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
-| ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
-| ! eval (retrieve 'item:charge-pack T)
-| | Hurry though, {#@player-nametag} - I still need: [(< 0 (var 'wire-count)) \"rolls of wire: {(var 'wire-count)}\"(orange); |] [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange); |] [(< 0 (var 'charge-pack-count)) \"charge packs: {(var 'charge-pack-count)}\"(orange).]
+| ? (< 0 (item-count 'item:blasting-cap))
+| | ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
+| | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
+| | ! eval (retrieve 'item:blasting-cap T)
+| |? (< 0 (item-count 'item:charge-pack))
+| | ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
+| | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
+| | ! eval (retrieve 'item:charge-pack T)
+|  
+| | Hurry though, {#@player-nametag} - I still need: [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange) |] [(< 0 (var 'charge-pack-count)) ; \"charge packs: {(var 'charge-pack-count)}\"(orange)].
 "))
 
   ;; TODO this stops the player when they hit the trigger? Need to find another way
@@ -168,14 +168,11 @@
     :interactable islay
     :repeatable T
     :dialogue "
-! eval (setf (var 'wire-count) (- (var 'wire-count) (item-count 'item:wire)))
 ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
 ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
 ~ islay
-| [(> -5 (+ (var 'wire-count) (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)That's the last of the components we needed, and then some! | (:happy)That's the last of the components we needed.]
+| [(> -5 (+ (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)That's the last of the components we needed, and then some! | (:happy)That's the last of the components we needed.]
 | Thank you, {#@player-nametag}. Here's your payment as promised.
-! eval (store 'item:parts (* (item-count 'item:wire) (var 'bomb-fee)))
-! eval (retrieve 'item:wire T)
 ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
 ! eval (retrieve 'item:blasting-cap T)
 ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))

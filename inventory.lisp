@@ -487,9 +487,6 @@
 ;; placement: region 1 market areas
 
 ;; QUEST SPAWNERS
-;; placement idea: 4 disparate locations (3 per spawner)
-(define-random-draw bomb-wire
-  (item:wire 1))
   
 ;; placement idea: 6 locations, some close to one another (2 per spawner)
 (define-random-draw bomb-blasting-cap

@@ -117,8 +117,9 @@
 | (:nervous)Aye, that might work. You'll need to go behind enemy lines.
 | In normal times we'd get what we need from the Cerebat markets. But that's obviously not an option any more.
 | But \"the Wraw hoard this kind of stuff\"(orange) - they should have plenty lying around.
-| (:normal)We need \"wire rolls\"(orange) to make trip wires, \"blasting caps\"(orange) for the detonators, and \"charge packs\"(orange) for the explosive.
-| I think \"10 of each\"(orange) should be enough - always prudent to have a few spares. Except \"charge packs: get 20 of those\"(orange), so we have a big enough explosive yield.
+| (:normal)We need \"blasting caps\"(orange) for the detonators, and \"charge packs\"(orange) for the explosive.
+| I think \"10 of each\"(orange) should be enough - always prudent to have a few spares.
+| Actually, make it \"20 charge packs\"(orange), just to be sure we have a big enough explosive yield.
 | And you'll get paid for your efforts: I'm a trader after all.
 ! eval (setf (var 'bomb-fee) 25)
 ~ player
@@ -188,7 +189,7 @@
 ~ player
 - One more time.
   ~ islay
-  | Basically we need: \"10 rolls of wire\"(orange), \"10 blasting caps\"(orange), \"20 charge packs\"(orange).
+  | Basically we need \"10 blasting caps\"(orange) and \"20 charge packs\"(orange).
   | You should find them in \"Wraw territory\"(orange). Then \"meet us on the surface\"(orange).
 - Got it.
   ~ islay
@@ -200,10 +201,6 @@
 ! eval (complete 'trader-semi-chat)
 ! eval (activate (unit 'wraw-border-1))
 ! eval (activate (unit 'wraw-border-2))
-! eval (activate (unit 'bomb-wire-1))
-! eval (activate (unit 'bomb-wire-2))
-! eval (activate (unit 'bomb-wire-3))
-! eval (activate (unit 'bomb-wire-4))
 ! eval (activate (unit 'bomb-cap-1))
 ! eval (activate (unit 'bomb-cap-2))
 ! eval (activate (unit 'bomb-cap-3))
