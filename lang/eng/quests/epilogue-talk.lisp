@@ -32,10 +32,10 @@
 - Not here again.
   ~ catherine
   | (:concerned)We really took a beating to end up over here.
-- I guess I'm a deep sleeper.
+- How many decades was I out this time?
   ~ catherine
-  | I could tell you were still online.
-  | (:concerned)You must have taken an even bigger beating than I did.
+  | None thankfully, only about fifteen minutes. Well, that's after I woke up.
+  | (:concerned)You must have taken an even bigger bump to the head than I did.
 ~ catherine
 | (:excited)Well I think the bombs exploded. Which means we won!
 | (:concerned)But that blast was bigger than it should've been. I think it's collapsed this whole area.
