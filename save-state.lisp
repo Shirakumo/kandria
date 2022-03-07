@@ -14,7 +14,7 @@
    (image :initarg :image :initform NIL :accessor image)
    (file :initarg :file :accessor file))
   (:default-initargs
-   :id (uuid:make-v4-uuid)
+   :id (make-uuid)
    :author (pathname-utils:directory-name (user-homedir-pathname))
    :start-time (get-universal-time)
    :save-time (get-universal-time)
