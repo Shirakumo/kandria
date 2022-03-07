@@ -252,11 +252,11 @@
                         (when interruptable
                           (cond ((<= (stun-time entity) 0)
                                  (vsetf (velocity entity)
-                                        (* (direction animatable) (vx (knockback frame)))
+                                        (* (direction animatable) (random* (vx (knockback frame)) 1.0))
                                         (vy (knockback frame))))
                                 (T
                                  (vsetf (knockback entity)
-                                        (* (direction animatable) (vx (knockback frame)))
+                                        (* (direction animatable) (random* (vx (knockback frame)) 1.0))
                                         (vy (knockback frame)))))
                           (stun entity (stun-time frame))))))
                   (when (<= (iframes entity) 0)
