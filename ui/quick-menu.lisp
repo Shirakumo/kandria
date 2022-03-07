@@ -69,7 +69,7 @@
   (alloy:mark-for-render button)
   (when (= 0 (item-count (alloy:value button) (inventory button)))
     (setf (alloy:focus (alloy:focus-parent button)) :strong)
-    (alloy:leave button (alloy:layout-parent button))))
+    (alloy:leave button T)))
 
 (defclass quick-menu (menuing-panel)
   ())
