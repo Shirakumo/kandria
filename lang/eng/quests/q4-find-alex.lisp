@@ -45,7 +45,7 @@
 | (:unhappy)I think you should leave her alone.
 ~ innis
 | (:angry)...
-| (:normal)Come now, Islay - the pinnacle of human engineering is standing before you, and that's all you can say?
+| (:normal)Come now, \"Islay\"(yellow) - the pinnacle of human engineering is standing before you, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
@@ -124,7 +124,7 @@ ken = know (Scottish)
 | (:unhappy)I think you should leave her alone.
 ~ innis
 | (:angry)...
-| (:normal)Come now, Islay - you're speaking with the pinnacle of human engineering, and that's all you can say?
+| (:normal)Come now, \"Islay\"(yellow) - you're speaking with the pinnacle of human engineering, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
@@ -195,7 +195,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | Hello, Stranger. (:happy)It's an honour to meet you in person.
 | (:unhappy)I'm sorry about my sister.
 | (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us\"(orange).
-| Just don't tell Innis I told you.
+| Just don't tell \"Innis\"(yellow) I told you.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ")
 
@@ -256,7 +256,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ alex
   | No it ain't. Far from it.
 ~ alex
-| (:angry)I've 'eard about you, doing my job- <-Hic->. Innis even showed me the CCCTV.
+| (:angry)I've 'eard about you, doing my job- <-Hic->. \"Innis\"(yellow) even showed me the CCCTV.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | These Semi Sisters been nice to me.
 | So why would Fi need little ol' me any more?

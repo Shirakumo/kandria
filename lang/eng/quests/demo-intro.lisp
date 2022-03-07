@@ -14,16 +14,16 @@
 ~ player
 - What do I need to do for you?
   ~ islay
-  | (:expectant)Right, yes. The sooner we get started, the sooner we can turn your water back on.
+  | (:expectant)Right, yes. The sooner we get started, the sooner \"Innis\"(yellow) will turn your water back on.
 - What's her problem?
   ~ islay
-  | (:happy)How long have you got? Let's just say diplomacy isn't one of Innis' strengths.
+  | (:happy)How long have you got? Let's just say diplomacy isn't one of \"Innis'\"(yellow) strengths.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
   | (:expectant)Anyway, about the job. The sooner we get started, the sooner we can turn your water back on.
 - Can't you just turn the water back on?
   ~ islay
   | (:nervous)I'm afraid not. Much as I sympathise with your predicament.
-  | (:normal)Innis is at least right about that - we need that water too.
+  | (:normal)\"Innis\"(yellow) is at least right about that - we need that water too.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
   | (:expectant)But a trade is acceptable. And the sooner we get started, the sooner we can turn it back on for you.
 ~ islay

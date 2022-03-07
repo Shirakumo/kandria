@@ -24,7 +24,7 @@
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
 | (:normal)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
-| What do you think, Islay?
+| What do you think, \"Islay\"(yellow)?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
 | (:unhappy)I think you should leave her alone.
