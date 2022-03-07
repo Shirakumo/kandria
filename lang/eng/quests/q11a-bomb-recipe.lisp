@@ -173,10 +173,12 @@
 ~ islay
 | [(> -5 (+ (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)That's the last of the components we needed, and then some! | (:happy)That's the last of the components we needed.]
 | Thank you, {#@player-nametag}. Here's your payment as promised.
-! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
-! eval (retrieve 'item:blasting-cap T)
-! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
-! eval (retrieve 'item:charge-pack T)
+? (< 0 (item-count 'item:blasting-cap))
+| ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
+| ! eval (retrieve 'item:blasting-cap T)
+|? (< 0 (item-count 'item:charge-pack))
+| ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
+| ! eval (retrieve 'item:charge-pack T)
 | (:normal)I'll take the parts to Catherine so she can complete the bomb.
 | Fi, would you join Catherine and I in Engineering?
 ~ fi
