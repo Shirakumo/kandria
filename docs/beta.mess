@@ -85,6 +85,19 @@ Another useful tool are various cheats in the game. Cheats are toggled by typing
 
 Be sure to check this section in the future for additional tools, and let us know if you have an idea for more tools that would help ease the testing process.
 
+### Camera control
+In the debug options you can also activate the ``advanced camera controls``. These allow you to control the camera detached from the player using the numpad:
+
+- ``/`` Halve the game speed
+- ``*`` Double the game speed
+- ``-`` Zoom out
+- ``+`` Zoom in
+- ``Enter`` Toggle free-camera mode. The buttons used are the same as configured for the in-map view in the game
+- ``1-9`` Set the camera to be offset from the player in the key's direction
+- ``5`` Reset the camera offset
+
+These camera controls are useful to capture better footage. Note that in order for these controls to work, ``Num Lock`` must be **off**.
+
 ## Privacy statement
 When submitting a report, the following information is sent to our servers and stored there:
 
