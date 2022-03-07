@@ -433,7 +433,7 @@
          (:approach
           (cond ((< (* +tile-size+ 20) (vlength (v- ploc eloc)))
                  (setf (ai-state enemy) :normal))
-                ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 1))
+                ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 2))
                  (start-animation 'attack enemy))
                 (T
                  (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
