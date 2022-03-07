@@ -2,6 +2,108 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 0.2.5
+- Fix pause screen tab-out causing crash
+  Reported by Kyle
+- Fix strange pixel seams due to FP precision issues
+  Reported by Kyle
+- Fix hybrid graphics rendering not requesting dedicated GPU automatically
+  Reported by Charlie
+- Add chunk and NPC names to the map display
+  Reported by Loladas
+- Fix slopes allowing you to clip into ceilings
+  Reported by Hayley Patton
+- Fix crash when trying to open the menu during the load screen
+  Reported by Drakonis
+- Fix unrecognised gamepad buttons crashing the gamepad configurator
+  Reported by RandomGuy
+- Fix settings not recovering properly
+  Reported by Charless
+- Improve readability of cave spikes
+  Reported by Leslieanne White
+- Add map markers for important locations during quests
+  Reported by Will and others
+- Fix attack animations allowing clipping into slopes with ceilings
+  Reported by Sasasigea
+- Fix charge attacks chaining with other attack freezing player
+  Reported by Sasasigea
+- Fix using items from menu allowing double-use with gamepad
+  Reported by KingMe
+- Fix crash caused from focus loss during game finalization
+  Reported by Leslieanne White and others
+
+## 0.2.4
+- Improve stamina display
+  Reported by Albert Martinez
+- Implement elevator recall buttons
+  Reported by Leandra Eberle
+- Fix dash near ceilings causing weird momentum
+  Reported by Yassin Sdiri
+- Implement shrinking hitbox during dashes
+  Reported by Yassin Sdiri
+- Allow redirecting dash for several frames after initiating it
+  Reported by Monroth
+- Restrict textbox width
+  Reported by Leandra Eberle
+- Display enemy health bars
+  Reported by Albert Martinez
+- Fix climbing in rooms with downwards wind
+  Reported by PincerAttack
+- Fix badly placed climb prompt
+  Reported by PincerAttack
+- Fix bad dialogue loop with Sahil
+  Reported by PincerAttack
+- Add slight delay before allowing to pick a dialogue choice to avoid mashing
+  Reported by Will
+- Fix excessive audio delay due to buffering
+  Reported by Will
+- Fix bad displays of the pause menu
+  Reported by Will
+- Fix rope stutter when reaching the top
+  Reported by Will, Albert Martinez
+- Fix low sound effect volume
+  Reported by Will
+- Fix stair display to always be in the background
+  Reported by Leslieanne White
+- Fix being able to dash perpendicular through spikes
+  Reported by Leslieanne White
+- Fix ledge jump interfering with ledge climb
+  Reported by Tobias
+- Fix lanterns appearing behind the background
+  Reported by Tobias
+- Fix fountains not interrupting the climbing state
+  Reported by Tobias
+- Fix gates opening too fast
+  Reported by Tobias
+- Allow switching the sound output device
+  Reported by Albert Martinez
+- Fix over-eager climbing state, especially on slopes
+  Reported by Monroth
+- Fix elevators glitching by letting the player clip through on sides with walls
+  Reported by PincerAttack
+- Fix wind causing you to fall through the floor
+  Reported by Tobias
+- Fix enemy attacks and time slowdown causing you to fall through the floor
+  Reported by Tobias
+- Fix jumping towards enemies from below bumping you
+  Reported by Will
+- Fix strange slope acceleration
+  Reported by Metal Alex
+- Fix fishing causing game to crash due to double-leave
+  Reported by Metal Alex
+- Fix final fight room causing you to be trapped when entering through secret entracen
+  Reported by Tobias
+- Fix shutters, lanterns, crumbling platforms, etc. being climbable
+  Reported by Monroth
+- Fix key repeats leading to double inputs
+  Reported by Monroth
+- Fix 1x1 slopes being grabbable
+  Reported by Monroth
+- Fix weird jitter animation state when trying to climb down from a ledge
+  Reported by Monroth
+- Fix picking up while crawling resetting state, clipping into ceiling
+  Reported by Monroth
+
 ## 0.2.2 / 0.2.3
 - Fix support for the Wayland display server on Linux
   Reported by Atgreen
