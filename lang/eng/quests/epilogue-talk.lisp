@@ -31,16 +31,19 @@
 - What happened?
   ~ catherine
   | (:concerned)What didn't happen...
+  | I don't know how long I was out - you've been out about fifteen minutes since I woke up.
 - Not here again.
   ~ catherine
   | (:concerned)We really took a beating to end up over here.
+  | I don't know how long I was out - you've been out about fifteen minutes since I woke up.
 - How many decades was I out this time?
   ~ catherine
   | None thankfully, only about fifteen minutes. Well, that's after I woke up.
   | (:concerned)You must have taken an even bigger bump to the head than I did.
 ~ catherine
-| (:excited)Well I think the bombs exploded. Which means we won!
-| (:concerned)But that blast was bigger than it should've been. I think it's collapsed this whole area.
+| (:excited)I think the bombs exploded. Which means we won!
+| (:concerned)But that blast was bigger than it should've been...
+| I had a look around - I think it's collapsed this whole area.
 | I hope Islay is okay.
 ~ player
 - She'll be fine.
