@@ -15,6 +15,5 @@
    (setf (direction player) -1)
    (setf (location 'catherine) (location 'epilogue-catherine))
    (setf (direction 'catherine) 1)))
-  
   (:eval
    :on-complete (epilogue-talk)))

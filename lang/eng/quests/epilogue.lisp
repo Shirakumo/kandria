@@ -21,4 +21,7 @@
    :title "Return to the camp")
   (:go-to (epilogue-end :follow catherine))
   (:eval
-   (credits)))
+   (move :freeze player))
+  (:wait 2.0)
+  (:eval
+    (transition :kind :black (show-panel 'credits))))

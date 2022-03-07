@@ -1,6 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
+;; forward game clock by 31:43 (1903 seconds) to represent being offline
 (define-sequence-quest (kandria epilogue-talk)
   :author "Tim White"
   :title ""
@@ -16,6 +17,7 @@
   ;;         until after the load has completed.
   (:wait 0.0)
   (:eval
+   (incf (timestamp +world+) 1903)
    (harmony:play (// 'sound 'player-awaken))
    (start-animation 'laying player))
   (:wait 1)
