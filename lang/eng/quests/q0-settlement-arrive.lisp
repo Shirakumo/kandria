@@ -19,11 +19,11 @@
    "~ catherine
 | (:excited)What do you think of this? Incredible, right?!
 ~ player
-- You're growing crops? In a desert?
+- Crops? In a desert?
   ~ catherine
   | (:excited)Isn't it amazing.
   | (:normal)...
-  | (:disappointed)Well don't look too excited. This is a real feat, believe me.
+  | (:disappointed)Well don't look too excited. Growing these is a real feat, believe me.
 - How did you manage this?
   ~ catherine
   | (:normal)Don't ask me - I'm just an engineer. I helped install the irrigation though.
@@ -31,7 +31,7 @@
   | (:excited)Heh, I knew you'd be impressed.
 - I've seen these before. Lots of times.
   ~ catherine
-  | (:normal)Oh, from the old world? I bet they had loads of plantations.
+  | (:normal)Oh, from the old world? I bet they had loads of plantations. We don't have many.
   | (:excited)That's so cool. I wish I could have seen that too.
 ~ catherine
 | (:concerned)Erm, hang on a second. Where is everyone?

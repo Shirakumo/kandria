@@ -258,7 +258,7 @@
 ? (complete-p 'q1-water)
 | | \"//The irrigation is working again. The crops might be too far gone to make it though.//\"(light-gray)
 |?
-| | \"//This is farmland. They're growing potatoes - dying ones by the looks of it.//\"(light-gray)
+| | \"//These are potatoes - dying ones by the looks of it.//\"(light-gray)
 ")
 
   (:interaction grave
