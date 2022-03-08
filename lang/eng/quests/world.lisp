@@ -354,11 +354,9 @@
 ;; Written to have minor arcs, should the player see them at the start/during, and the end. Generally based on how they regard the android early in the main story.
 ;; 3-5 alts
 (define-default-interactions innis
-  (demo-end-2
+  (demo-end-prep
    "| [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the right side.]")
   (demo-boss
-   "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
-  (demo-cctv
    "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (demo-engineers
    "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
@@ -372,25 +370,25 @@
 ;; ken = know (Scottish)
    
 (define-default-interactions islay
-  (demo-end-2
+  (demo-end-prep
    "| (:happy)[? I knew you'd come through for us. | If only people were as reliable as androids. | I'd love to hear your story - where you've been all these years. | Tell your friends we're sorry about the water. | I'll make sure Innis doesn't turn the water off again.]")
   (demo-start
    "| [? Mind how you go, {#@player-nametag}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]"))
 
 (define-default-interactions jack
-  (demo-end-2
+  (demo-end-prep
    "| [? The water's back on. Don't tell me that was you? | That was a close one. Don't think I ever been so thirsty. | Maybe you're alright after all. | I'm still keeping an eye on you, mind.]")
   (demo-start
    "| (:annoyed)[? I'm watching you, android. | Don't you have work to do? | Be seein' ya. | I'm thirsty, hurry it up! | What's the matter? You afraid?]"))
    
 (define-default-interactions fi
-  (demo-end-2
+  (demo-end-prep
    "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still in one piece. | Now our crops might stand a chance.]")
   (demo-start
    "| [? Please hurry, {#@player-nametag}. | Our survival depends on you. | You are earning my trust. Please, continue to do so. | You could be a hunter, and more besides.]"))
    
 (define-default-interactions catherine
-  (demo-end-2
+  (demo-end-prep
    "| (:excited)[? I never doubted you! | You're my hero, {#@player-nametag}! | I'm gonna take a bath! Well, once everyone's had their fill. | I won't take water for granted __EVER__ again.]")
   (demo-start
    "| (:concerned)[? The water's never been off this long. Why are they doing this? | I believe in you, {#@player-nametag}. | It's just another adventure, right? | Is this the end?]"))
