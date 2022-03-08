@@ -109,12 +109,13 @@
 
   ;; Engineering interior - shelves
   ;; branch if already spoken to Jack
+  ;; TODO remove demo checks when no longer needed
   (:interaction engineering-shelves
    :interactable lore-engineering
    :repeatable T
    "
 ~ player
-? (complete-p 'q0-settlement-arrive)
+? (or (complete-p 'q0-settlement-arrive) (active-p 'demo-start) (complete-p 'demo-start))
 | | \"//Engineering. This is where Jack and Catherine work.//\"(light-gray)
 |?
 | | \"//It's some sort of workshop. The technology is crude - what do they build here, tin openers?//\"(light-gray)
@@ -123,12 +124,13 @@
   ;; Engineering interior - desk
   ;; REMARK: Maybe soften to: "[..] He's glaring at me quite intently."
   ;; TIM REPLY: Added a variant of this, with one of the Stranger's striking metaphors
+  ;; TODO remove demo checks when no longer needed
   (:interaction engineering-bench
    :interactable lore-eng-bench
    :repeatable T
    "
 ~ player
-? (complete-p 'q0-settlement-arrive)
+? (or (complete-p 'q0-settlement-arrive) (active-p 'demo-start) (complete-p 'demo-start))
 | | \"//Jack's workbench. I can smell body odour - does he work here, or work out?//\"(light-gray)
 |?
 | | \"//It's a workbench. Perhaps it belongs to this man - who come to think of it has a stare that could fry circuits.//\"(light-gray)
