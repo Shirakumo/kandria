@@ -12,15 +12,8 @@
    (setf (direction 'innis) -1)
    (setf (location 'islay) (location 'islay-intercept))
    (setf (direction 'islay) 1)
-   (setf (nametag (unit 'catherine)) "???")
-   (setf (nametag (unit 'fi)) "???")
-   (setf (nametag (unit 'jack)) "???")
-   (setf (nametag (unit 'trader)) "???")
-   (setf (nametag (unit 'alex)) "???")
-   (setf (nametag (unit 'innis)) "???")
-   (setf (nametag (unit 'islay)) "???")
-   (setf (nametag (unit 'zelah)) "???")
-   (setf (nametag (unit 'semi-engineer-chief)) "???")
+   (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief))
+     (setf (nametag (unit unit)) "???"))
    (setf (state (unit 'player)) :animated))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
   ;;         the reason for this being that setting stuff like the animation on the player
