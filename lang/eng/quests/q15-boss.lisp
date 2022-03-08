@@ -45,4 +45,5 @@
 ! eval (activate (unit 'bomb-explode-1))
 ! eval (activate (unit 'bomb-explode-2))
 ! eval (activate (unit 'bomb-explode-3))
+! eval (activate (unit 'bomb-explode-4))
 "))

@@ -122,4 +122,5 @@
 ! eval (deactivate (unit 'islay-bomb-2))
 ! eval (deactivate (unit 'islay-bomb-3))
 ! eval (deactivate (unit 'islay-bomb-4))
+! eval (deactivate (unit 'islay-bomb-5))
 ")))

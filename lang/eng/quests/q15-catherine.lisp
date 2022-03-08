@@ -32,7 +32,7 @@
 | Come with me to \"Engineering\"(orange).
 ")
   (:eval
-   (ensure-nearby 'bomb-1 'islay)
+   (ensure-nearby 'bomb-2 'islay)
    (setf (walk 'catherine) NIL))
   (:go-to (eng-cath :with catherine)
    :title "Return with Catherine and talk to Islay in Engineering")
@@ -84,4 +84,5 @@
    (activate (unit 'islay-bomb-1))
    (activate (unit 'islay-bomb-2))
    (activate (unit 'islay-bomb-3))
-   (activate (unit 'islay-bomb-4))))
+   (activate (unit 'islay-bomb-4))
+   (activate (unit 'islay-bomb-5))))
