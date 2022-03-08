@@ -4,7 +4,7 @@
 (define-sequence-quest (kandria demo-semis)
   :author "Tim White"
   :title "Find the Semi Sisters"
-  :description "I need to find the tech-witch Semi Sisters, so they can fix the water supply for my friends on the surface."
+  :description "I need to find the Semi Sisters, so they can fix the water supply for my friends on the surface. Hopefully they aren't tech witches."
   (:go-to (innis)
    :title "Find the Semi Sisters")
   (:interact (innis :now T)

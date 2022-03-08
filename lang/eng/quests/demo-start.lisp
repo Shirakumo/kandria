@@ -34,9 +34,9 @@
 ~ player
 | (:embarassed)... __OUCH__. Stupid rock slide.
 | (:thinking)Huh? What's that sound?
-| \"I can hear voices up ahead. I hope that's the Semi Sisters.\"(light-gray, italic)
+| \"There are voices up ahead. I hope that's the Semi Sisters.\"(light-gray, italic)
 | \"My friends on the surface won't last much longer without water.\"(light-gray, italic)
-| (:skeptical)\"Hopefully the rumours about them being tech witches are false.\"(light-gray, italic)
+| (:skeptical)\"Hopefully the rumours about them being tech witches are false...\"(light-gray, italic)
 ")
   (:eval
    :on-complete (demo-semis)))
