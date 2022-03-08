@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-shader-entity profile-picture (trial:animated-sprite standalone-shader-entity alloy:layout-element)
-  ()
+  ((strength :initform 0.0 :accessor strength))
   (:default-initargs :sprite-data (asset 'kandria 'player-profile)))
 
 (defmethod alloy:render ((pass ui-pass) (picture profile-picture))
@@ -12,6 +12,33 @@
       (scale-by (/ (alloy:pxw extent) 1024) (/ (alloy:pxh extent) 1024) 1)
       (translate-by 256 0 0)
       (render picture NIL))))
+
+(defmethod render :before ((picture profile-picture) (program shader-program))
+  (setf (uniform program "clock") (* 0.3 (truncate (* 30 (clock +world+)))))
+  (setf (uniform program "fuzz") (strength picture)))
+
+(define-class-shader (profile-picture :fragment-shader)
+  "uniform float fuzz = 1.0;
+uniform float clock = 0.0;
+out vec4 color;
+
+float rand(vec2 co){
+    float a = 12.9898;
+    float b = 78.233;
+    float c = 43758.5453;
+    float dt= dot(co.xy ,vec2(a,b));
+    float sn= mod(dt,3.14);
+    return fract(sin(sn) * c);
+}
+
+void main(){
+  float rng = rand(texcoord * clock);
+  float gray = rng * color.r + 0.71 * color.g + 0.07 * color.b;
+  color.rgb = mix(color.rgb, vec3(gray), fuzz);
+
+  float line = min(1.0, max(0.0, 100.0*(0.25+rng)+sin(texcoord.y*10+clock*0.1)*100.0));
+  color.a = mix(color.a, color.a*line, fuzz);
+}")
 
 (defclass nametag (alloy:label) ())
 
@@ -214,6 +241,8 @@
 
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
   (let ((unit (unit (dialogue:name rq) T)))
+    (setf (strength (profile textbox))
+          (clamp 0.0 (- (vdistance (location unit) (location (unit 'player +world+))) (* 40 +tile-size+)) 1.0))
     (setf (source textbox) (nametag unit))
     (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
     (setf (animation (profile textbox)) 'normal)))
