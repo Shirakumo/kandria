@@ -8,7 +8,8 @@
 
 (defmethod handle ((ev lose-focus) (world world))
   (when (and (setting :gameplay :pause-on-focus-loss)
-             (should-show-pause-screen world))
+             (should-show-pause-screen world)
+             (pausing-possible-p))
     (show-panel 'pause-screen)))
 
 (defmethod handle ((ev gain-focus) (world world))
