@@ -64,17 +64,16 @@
 
 (trigger dash
  (key :one-of (:left-shift))
- (button :one-of (:r1 :r2))
+ (button :one-of (:r2))
  (axis :one-of (:r2) :threshold 0.25))
 
 (trigger climb
  (key :one-of (:left-control))
- (button :one-of (:l1))
  (axis :one-of (:l2) :threshold 0.25))
 
 (trigger crawl
  (key :one-of (:v :q) :edge :rise-only)
- (button :one-of (:l3) :edge :rise-only))
+ (button :one-of (:l1 :l3) :edge :rise-only))
 
 (trigger light-attack
  (key :one-of (:z))
