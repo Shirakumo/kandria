@@ -132,7 +132,7 @@
 | | | If the Wraw are coming for us, they'll be coming for them too.
 | | | (:normal)So long... //Stranger//.
 | | | Maybe I'll see you on the battlefield.
-| | ! eval (activate 'demo-end-prep)
+| | ! eval (activate 'demo-end-2)
 | | < end
 | ~ innis
 | | I'll be seeing you.
