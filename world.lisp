@@ -130,6 +130,10 @@
            (call-next-method)))))
 
 (defmethod handle :after ((ev key-press) (world world))
+  ;; KLUDGE: bind ESC to menu always
+  (when (eql :escape (key ev))
+    (when (pausing-possible-p)
+      (show-panel 'menu)))
   (when (setting :debugging :camera-control)
     (let ((xoff 200)
           (yoff 100))
