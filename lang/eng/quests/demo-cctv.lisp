@@ -20,7 +20,7 @@
 ~ islay
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-3 'task-cctv-4)
 | ? (not (complete-p 'demo-boss))
-| | | You've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low-eastern region\"(orange).
+| | | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low-eastern region\"(orange).
 |?
 | ? (complete-p 'demo-boss)
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
