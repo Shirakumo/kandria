@@ -55,7 +55,7 @@
  (button :one-of (:r1 :home)))
 
 (trigger interact
- (key :one-of (:enter :e))
+ (key :one-of (:e :enter))
  (button :one-of (:b)))
 
 (trigger jump
