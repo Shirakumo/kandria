@@ -12,7 +12,7 @@
    (setf (direction 'innis) -1)
    (setf (location 'islay) (location 'islay-intercept))
    (setf (direction 'islay) 1)
-   (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief))
+   (dolist (unit '(innis islay zelah semi-engineer-chief))
      (setf (nametag (unit unit)) "???"))
    (setf (state (unit 'player)) :animated))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
