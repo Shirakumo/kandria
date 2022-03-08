@@ -296,7 +296,7 @@ item:palette-boy "Boy"
 item:palette-boy/description "For that classic retro look."
 item:palette-san-diego "San Diego"
 item:palette-san-diego/description "Where in the world did the owner of this uniform go?"
-item:palette-captain "Captain".
+item:palette-captain "Captain"
 item:palette-captain/description "YEAS"
 item:palette-ultimate-lifeform "Ultimate Lifeform"
 item:palette-ultimate-lifeform/description "Somehow this outfit looks really edgy."
