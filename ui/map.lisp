@@ -181,6 +181,17 @@
        (incf (vx (offset panel)) (/ (- (alloy:pxx o) (alloy:pxx l)) z))
        (incf (vy (offset panel)) (/ (- (alloy:pxy o) (alloy:pxy l)) z))))))
 
+(defclass reticle (label)
+  ((alloy:value :initform "[ ]")))
+
+(presentations:define-update (ui reticle)
+  (:label
+   :size (alloy:un 30)
+   :halign :middle))
+
+(defmethod hide ((reticle reticle))
+  (alloy:leave reticle T))
+
 (defclass map-panel (pausing-panel fullscreen-panel)
   ((show-trace :initform NIL :accessor show-trace)))
 
@@ -194,6 +205,12 @@
 
 (defmethod show :after ((panel map-panel) &key)
   (let ((off 0))
+    (alloy:with-unit-parent (unit 'ui-pass T)
+      (alloy:enter (make-instance 'reticle)
+                   (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
+                   :x (alloy:u- (alloy:vw 0.5) (alloy:un 25))
+                   :y (alloy:u- (alloy:vh 0.5) (alloy:un 25))
+                   :w (alloy:un 50) :h (alloy:un 50)))
     (flet ((prompt (action)
              (alloy:enter (make-instance 'prompt :button action :description (language-string action))
                           (unit 'ui-pass T) :x (* 20 (- 5 off)) :y (+ 20 (* 50 off)) :w 200 :h 40)
@@ -263,13 +280,14 @@
           (off 0))
       (alloy:with-unit-parent popups
         (alloy:do-elements (el popups)
-          (let ((tt (+ tt (* off) (/ PI 13)))
-                (ui-scale (alloy:to-px (alloy:un 1))))
-            (alloy:update el popups :x (* ui-scale (+ (* 20 (- 5 off)) (* 5 (cos tt))))
-                                    :y (* ui-scale (+ 20 (* 50 off) (* 3 (sin tt) (cos tt))))
-                                    :w (* ui-scale 200)
-                                    :h (* ui-scale 40))
-            (incf off)))))))
+          (when (typep el 'prompt)
+            (let ((tt (+ tt (* off) (/ PI 13)))
+                  (ui-scale (alloy:to-px (alloy:un 1))))
+              (alloy:update el popups :x (* ui-scale (+ (* 20 (- 5 off)) (* 5 (cos tt))))
+                                      :y (* ui-scale (+ 20 (* 50 off) (* 3 (sin tt) (cos tt))))
+                                      :w (* ui-scale 200)
+                                      :h (* ui-scale 40))
+              (incf off))))))))
 
 (defmethod handle ((ev toggle-trace) (panel map-panel))
   (let ((map (alloy:focus-element panel)))
