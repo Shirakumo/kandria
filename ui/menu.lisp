@@ -400,7 +400,9 @@
           (when (saving-possible-p)
             (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
               (when (typep object 'save-point)
-                (let ((save (with-button save-game (save-state +main+ T))))
+                (let ((save (with-button save-game
+                              (save-state +main+ T)
+                              (harmony:play (// 'sound 'ui-confirm) :reset T))))
                   (alloy:enter save buttons))
                 (return))))))
 
@@ -470,7 +472,7 @@
                                                     :on-accept #'return-to-main-menu)
                        :width (alloy:un 500)
                        :height (alloy:un 300)))))
-        (let ((button (make-instance 'tab-button :value (@ exit-game) :focus-parent tabs)))
+        (let ((button (make-instance 'tab-button :value (@ return-to-main-menu) :focus-parent tabs)))
           (alloy:on alloy:activate (button)
             (exit)))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))
