@@ -11,6 +11,7 @@
     (setf (palette-index (target button)) (palette-index (alloy:value button)))))
 
 (defmethod alloy:activate ((button palette-button))
+  (harmony:play (// 'sound 'ui-confirm))
   (setf (palette-index (unit 'player T)) (palette-index (alloy:value button))))
 
 (presentations:define-realization (ui palette-button)

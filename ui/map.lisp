@@ -269,7 +269,6 @@
     (when (retained 'zoom-out)
       (setf (zoom map) (clamp 0.01 (- (zoom map) 0.001) 0.5)))
     ;; FIXME: This doesn't work with the lowpass.
-    #++
     (if (or (retained 'zoom-out) (retained 'zoom-in)
             (retained 'pan-up) (retained 'pan-down)
             (retained 'pan-left) (retained 'pan-right))

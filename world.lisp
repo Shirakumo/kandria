@@ -47,7 +47,7 @@
 
 (defmethod pause-game ((world world) pauser)
   (unless (handler-stack world)
-    (let ((segment (harmony:segment :lowpass T)))
+    (let ((segment (harmony:segment :music-lowpass T)))
       (when (< 50 (abs (- (mixed:frequency segment) 400)))
         (harmony:with-server (harmony:*server* :synchronize NIL)
           (setf (mixed:frequency segment) 400.0))))
@@ -63,7 +63,7 @@
                     (setf found T)))))
       (setf (handler-stack world) (remove-if #'test (handler-stack world))))
     (when (and found (null (handler-stack world)))
-      (let* ((segment (harmony:segment :lowpass T))
+      (let* ((segment (harmony:segment :music-lowpass T))
              (target (1- (mixed:samplerate segment))))
         (when (< 50 (abs (- (mixed:frequency segment) target)))
           (harmony:with-server (harmony:*server* :synchronize NIL)

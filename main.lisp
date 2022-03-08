@@ -35,7 +35,8 @@
   (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+))))
 
 (defmethod trial-harmony:server-initargs append ((main main))
-  (list :mixers '(:music :speech (:effect mixed:plane-mixer))
+  (list :mixers '((:music mixed:basic-mixer :effects ((mixed:biquad-filter :filter :lowpass :name :music-lowpass)))
+                  :speech (:effect mixed:plane-mixer))
         :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass)
                    (mixed:speed-change :name :speed))))
 
