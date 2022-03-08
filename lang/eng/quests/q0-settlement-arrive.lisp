@@ -125,10 +125,10 @@
 ~ catherine
 | (:disappointed)Thanks \"<-Dad->\". Well, we'll be going then.
 ~ jack
-| Hold on Cathy - take this walkie. Radio if you have any trouble.
+| Hold on Cathy - take this walkie. \"Radio if you have any trouble\"(orange).
 ~ catherine
 | I will. And don't worry - we'll be back before you know it.
-| Alright, android - \"let me know\"(orange) when you're ready to go.
+| Alright, android - \"let me know when you're ready to go\"(orange).
 ! eval (activate 'q1-ready)
   ")
   (:eval
