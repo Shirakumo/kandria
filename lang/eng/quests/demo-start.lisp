@@ -12,6 +12,8 @@
    (setf (direction 'innis) -1)
    (setf (location 'islay) (location 'islay-intercept))
    (setf (direction 'islay) 1)
+   (setf (location 'catherine) (location 'eng-cath))
+   (setf (direction 'catherine) -1)
    (dolist (unit '(innis islay zelah semi-engineer-chief))
      (setf (nametag (unit unit)) "???"))
    (setf (state (unit 'player)) :animated))
