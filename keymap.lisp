@@ -52,7 +52,7 @@
 
 (trigger open-map
  (key :one-of (:m))
- (button :one-of (:home)))
+ (button :one-of (:r1 :home)))
 
 (trigger interact
  (key :one-of (:enter :e))
