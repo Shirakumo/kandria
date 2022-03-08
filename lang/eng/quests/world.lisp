@@ -353,6 +353,24 @@
 ;; TODO flesh these out. Currently only done for the KS demo quests, with no (T) complete fallback
 ;; Written to have minor arcs, should the player see them at the start/during, and the end. Generally based on how they regard the android early in the main story.
 ;; 3-5 alts
+(define-default-interactions innis
+  (demo-end-2
+   "| [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the right side.]")
+  (demo-semis
+   "| (:angry)[? \"Talk to my sister.\"(orange) | You deaf? I said \"talk to Islay\"(orange).]")
+  (demo-start
+   "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]"))
+;; dinnae = don't (Scottish)
+;; wouldnae = wouldn't (Scottish)
+;; didnae = didn't (Scottish)
+;; ken = know (Scottish)
+   
+(define-default-interactions islay
+  (demo-end-2
+   "| (:happy)[? I knew you'd come through for us. | If only people were as reliable as androids. | I'd love to hear your story - where you've been all these years. | Tell your friends we're sorry about the water. | I'll make sure Innis doesn't turn the water off again.]")
+  (demo-start
+   "| [? Mind how you go, {#@player-nametag}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]"))
+
 (define-default-interactions jack
   (demo-end-2
    "| [? The water's back on. Don't tell me that was you? | That was a close one. Don't think I ever been so thirsty. | Maybe you're alright after all. | I'm still keeping an eye on you, mind.]")
