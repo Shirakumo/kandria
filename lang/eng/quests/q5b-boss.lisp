@@ -27,4 +27,13 @@
    (:eval
     (when (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))
      (activate (find-task 'q5b-investigate-cctv 'q5b-task-return-cctv))
-     (deactivate (find-task 'q5b-investigate-cctv 'q5b-task-reminder)))))
+     (deactivate (find-task 'q5b-investigate-cctv 'q5b-task-reminder))))
+   (:wait 1)
+   (:interact (player :now T)
+  "
+~ player
+? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
+| | I'd better \"get back to Innis\"(orange), on the double.
+|?
+| | I'd better \"check out the last of the CCTV cameras\" around here, then \"get back to Innis\"(orange) on the double.
+"))
