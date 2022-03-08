@@ -25,7 +25,7 @@
    :repeatable T
    "
 ~ player
-| \"//It's their storage shed. Their supplies are low and it smells like mating rats.//\"(light-gray)
+| \"//It's their storage shed. Supplies are low and it smells like mating rats.//\"(light-gray)
 ")
 
   ;; Large stone gate
@@ -158,7 +158,7 @@
    :repeatable T
    "
 ~ player
-| \"//These were Rootless hospital apartments.//\"(light-gray)
+| \"These were Rootless hospital apartments. Did people die in their sickbeds?\"(light-gray, italic)
 ")
 
   (:interaction market
@@ -166,7 +166,7 @@
    :repeatable T
    "
 ~ player
-| \"//The Midwest Market. You could almost imagine those mannequins behind the glass were real people.//\"(light-gray)
+| \"//The Midwest Market. You could imagine those mannequins behind the glass were real people.//\"(light-gray)
 | (:embarassed)\"//Like this place wasn't creepy enough.//\"(light-gray)
 ")
 
@@ -177,21 +177,6 @@
 ~ player
 | \"//Dreamscape West Side - once the height of luxury, now hell in the earth.//\"(light-gray)
 ")
-
-#|
-  (:interaction pump-room
-   :interactable lore-substation
-   :repeatable T
-   "
-~ player
-? (complete-p 'q1-water)
-| | //The central substation, now repurposed as a pump room.//
-|?
-| | //The central substation, now seemingly repurposed as a pump room.//
-  
-| (:thinking)//How is the power generated? Hydroelectricity, perhaps.//
-")
-|#
 
   (:interaction water-cave
    :interactable lore-water-cave
