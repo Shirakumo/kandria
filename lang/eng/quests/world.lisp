@@ -350,12 +350,23 @@
 
 ;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
-#| TW: Commented out for now until they can be given proper attention, so they don't intervene on the VS demo for Pro Helvetia
+;; TODO flesh these out. Currently only done for the KS demo quests, with no (T) complete fallback
+;; Written to have minor arcs, should the player see them at the start/during, and the end. Generally based on how they regard the android early in the main story.
+;; 3-5 alts
 (define-default-interactions jack
-  (q2-seeds
-   "| Be careful out there")
-  (q0-settlement-arrive
-   "| Just to be clear, I still don't trust you.")
-  (T
-   "| Who are you?"))
-|#
+  (demo-end-2
+   "| [? The water's back on. Don't tell me that was you? | That was a close one. Don't think I ever been so thirsty. | Maybe you're alright after all. | I'm still keeping an eye on you, mind.]")
+  (demo-start
+   "| (:annoyed)[? I'm watching you, android. | Don't you have work to do? | Be seein' ya. | I'm thirsty, hurry it up! | What's the matter? You afraid?]"))
+   
+(define-default-interactions fi
+  (demo-end-2
+   "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still in one piece. | Now our crops might stand a chance.]")
+  (demo-start
+   "| [? Please hurry, {#@player-nametag}. | Our survival depends on you. | You are earning my trust. Please, continue to do so. | You could be a hunter, and more besides.]"))
+   
+(define-default-interactions catherine
+  (demo-end-2
+   "| (:excited)[? I never doubted you! | You're my hero, {#@player-nametag}! | I'm gonna take a bath! Well, once everyone's had their fill. | I won't take water for granted __EVER__ again.]")
+  (demo-start
+   "| (:concerned)[? The water's never been off this long. Why are they doing this? | I believe in you, {#@player-nametag}. | It's just another adventure, right? | Is this the end?]"))
