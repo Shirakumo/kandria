@@ -37,7 +37,7 @@
 ~ player
 | (:embarassed)... __OUCH__. Stupid rock slide.
 | (:thinking)\"There are voices up ahead. I hope that's the \"Semi Sisters\"(red).\"(light-gray, italic)
-| \"My friends on the surface won't last much longer without water.\"(light-gray, italic)
+| \"My friends back on the surface won't last much longer without water.\"(light-gray, italic)
 | (:skeptical)\"Hopefully the rumours about them being tech witches are false...\"(light-gray, italic)
 | (:normal)\"My \"Map\"(orange) should be able to hone in on their position.\"(light-gray, italic)
 ! eval (activate (unit 'innis-stop-1))
