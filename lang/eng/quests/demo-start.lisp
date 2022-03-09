@@ -30,7 +30,8 @@
    (harmony:play (// 'sound 'player-awaken))
    (start-animation 'laying player))
   (:wait 1)
-  (:animate (player wake-up))
+  (:animate (player wake-up)
+    (save-state +main+ T))
   (:interact (player :now T)
   "
 ~ player
