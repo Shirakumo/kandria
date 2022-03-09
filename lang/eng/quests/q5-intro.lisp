@@ -118,9 +118,10 @@
 - I've got it.
 ~ innis
 | \"Report back\"(orange) when you have news.
+! eval (activate 'q5b-investigate-cctv)
+! eval (activate (unit 'cctv-4-trigger))
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'q5a-rescue-engineers)
-! eval (activate 'q5b-investigate-cctv)
 "))
 ;; ken = know (Scottish)
 ;; didnae = didn't (Scottish)

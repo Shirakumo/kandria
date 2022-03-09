@@ -41,7 +41,7 @@
    :marker '(cctv-1-mark 1000)
    :condition all-complete
    :on-activate T   
-   (:interaction q5b-cctv-1
+   (:interaction cctv-1
     :interactable cctv-1
     :dialogue "
 ~ player
@@ -64,7 +64,7 @@
    :marker '(cctv-2-mark 1000)
    :condition all-complete
    :on-activate T   
-   (:interaction q5b-cctv-2
+   (:interaction cctv-2
     :interactable cctv-2
     :dialogue "
 ~ player
@@ -87,7 +87,7 @@
    :marker '(cctv-3-mark 1000)
    :condition all-complete
    :on-activate T   
-   (:interaction q5b-cctv-3
+   (:interaction cctv-3
     :interactable cctv-3
     :dialogue "
 ~ player
@@ -110,14 +110,12 @@
    :marker '(cctv-4-mark 1000)
    :condition all-complete
    :on-activate T   
-   (:interaction q5b-cctv-4
-    :interactable cctv-4
+   (:interaction cctv-4
+    :interactable cctv-4-trigger
     :dialogue "
 ~ player
-| \"Here's \"CCTV camera 4\"(red).\"(light-gray, italic)
-| (:thinking)\"The wiring has been cut, but otherwise it seems in good working order.\"(light-gray, italic)
-| (:skeptical)\"But without the others daisy-chained in sequence, it still wouldn't work.\"(light-gray, italic)
-| (:normal)\"I should tell Innis about the cut wires. Accessing FFCS protocols...\"(light-gray, italic)
+| \"It's \"CCTV camera 4\"(red)... The wiring has been cut.\"(light-gray, italic)
+| \"Innis needs to know about this. Accessing FFCS protocols...\"(light-gray, italic)
 | Hello, Innis.
 ~ innis
 | (:angry)You! How did you reach me?...

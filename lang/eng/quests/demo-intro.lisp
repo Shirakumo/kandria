@@ -79,6 +79,7 @@
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | \"Report back to Innis\"(orange) when you have news - by then we \"might be up in the control room\"(orange).
 | Good luck.
+! eval (activate (unit 'cctv-4-trigger))
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'demo-engineers)
 
