@@ -18,8 +18,11 @@
     :repeatable T
     :dialogue "
 ~ islay
-| \"Find our trapped engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
-| Do what you can for them, then \"report back to Innis\"(orange).
+? (active-p (unit 'blocker-engineers))
+| | \"Find our trapped engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
+| | Do what you can for them, then \"report back to Innis\"(orange).
+|?
+| | I heard there's news on the engineers - you should \"talk to Innis\"(orange).
 "))
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
