@@ -126,7 +126,7 @@
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
-| | | \"Just enter through the blast doors and you'll find the train.\"(orange)
+| | | \"Just choose your destination from the route map and board the train.\"(orange)
 | ? (complete-p 'demo-cctv)
 | | ~ innis
 | | | But now you should return to the surface.

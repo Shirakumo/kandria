@@ -126,7 +126,7 @@
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
-| | | \"Just enter through the blast doors and you'll find the train.\"(orange)
+| | | \"Just choose your destination from the route map and board the train.\"(orange)
 | ? (complete-p 'q5b-investigate-cctv)
 | | ~ innis
 | | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
