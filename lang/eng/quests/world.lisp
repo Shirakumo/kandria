@@ -391,4 +391,4 @@
   (demo-end-prep
    "| (:excited)[? I never doubted you! | You're my hero, {#@player-nametag}! | I'm gonna take a bath! Well, once everyone's had their fill. | I won't take water for granted __EVER__ again.]")
   (demo-start
-   "| (:concerned)[? The water's never been off this long. Why are they doing this? | I believe in you, {#@player-nametag}. | It's just another adventure, right? | Is this the end?]"))
+   "| (:concerned)[? The water's never been off this long. | I believe in you, {#@player-nametag}. | It's just another adventure, right? | Is this the end?]"))
