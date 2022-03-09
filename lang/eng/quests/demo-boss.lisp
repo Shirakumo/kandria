@@ -32,8 +32,8 @@
    (:interact (player :now T)
   "
 ~ player
-? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-3 'task-cctv-4)
+? (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3) (find-task 'demo-cctv 'task-cctv-4))
 | | I'd better \"get back to Innis\"(orange), on the double.
 |?
-| | I'd better \"check out the last of the CCTV cameras\" around here, then \"get back to Innis\"(orange) on the double.
+| | I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.
 "))
