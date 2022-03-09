@@ -65,36 +65,7 @@
   "~ catherine
 | We're almost there - it's just through here.
   ")
-  (:go-to (tutorial-end :with catherine))
-    ;; TODO: the last player emotion in the choices is the one that will render; have it change per highlighted choice?
-  ;; TODO: replace (Lie) with [Lie] as per RPG convention, and to save parenthetical expressions for asides - currently square brackets not rendering correctly though
-  ;; REMARK: ^ Does \[Lie\] not work?
-  (:interact (catherine :now T)
-   "~ catherine
-| (:cheer)__Tada!__ Here we are.
-| What do you think...?
-~ player
-- The city is ruined...
-  ~ catherine
-  | (:excited)Yay, your voice box works too.
-  | Yep. This is home.
-- It's nice.
-  ~ catherine
-  | (:excited)Yay, your voice box works too.
-  | I knew you'd love our home.
-- (Lie) It's nice.
-  ~ catherine
-  | (:excited)Yay, your voice box works too.
-  | Really? You like it? I knew you'd love our home.
-- You live here?
-  ~ catherine
-  | (:excited)Yay, your voice box works too.
-  | Yep. Pretty amazing home, huh?
-~ catherine
-| And come look at this - I guarantee you won't have ever seen anything like it.
-! eval (complete 'tutorial)
-! eval (activate 'q0-settlement-arrive)
-  "))
+  (:go-to (tutorial-end :with catherine)))
 
 ;; TODO when name vars persist across saves, init Catherine's name to "Woman" or "???" (VN style), and then set it to Catherine here via: ! eval (setf (nametag player) \"Catherine\") once Catherine has introduced herself
 ;; SCRATCH Not too talkative though... Don't worry - (:excited)I can talk enough for both of us!
