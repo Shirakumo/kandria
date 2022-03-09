@@ -46,7 +46,7 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 1\"(red).\"(light-gray, italic)
-| \"The lens is smashed and the casing is charred from a fire.\"(light-gray, italic)
+| \"The lens is smashed and the casing is charred.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
 | | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteur.\"(light-gray, italic)
