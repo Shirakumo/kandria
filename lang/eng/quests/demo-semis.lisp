@@ -1,14 +1,22 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-sequence-quest (kandria demo-semis)
+(quest:define-quest (kandria demo-semis)
   :author "Tim White"
   :title "Find the Semi Sisters"
   :description "I need to find the Semi Sisters, so they can fix the water supply for my friends on the surface. Hopefully they aren't tech witches."
-  (:go-to (innis)
-   :title "Find the Semi Sisters")
-  (:interact (innis :now T)
-    "
+  :on-activate (find-semis)
+
+  (find-semis
+   :title "Find the Semi Sisters"
+   :marker '(innis-stop-1 500)
+   :on-activate (innis-stop-local)
+   :condition all-complete
+   :on-complete (demo-intro)
+
+   (:interaction innis-stop-local
+    :interactable innis
+    :dialogue "
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!!
 | Did you think ya could just waltz right through here?
@@ -63,10 +71,7 @@
 | That's no' how the world works.
 | (:normal)And I dinnae know why you bother - you dinnae need to drink. I'd sack them off if I were you.
 | Anyway, my \"sister\"(orange) knows what we need. \"Talk to her.\"(orange)
-  ")
-  (:eval
-   :on-complete (demo-intro)))
-   
+")))
 #|
 dinnae = don't (Scottish)
 ken = know (Scottish)

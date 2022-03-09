@@ -39,6 +39,7 @@
 | \"There are voices up ahead. I hope that's the \"Semi Sisters\"(red).\"(light-gray, italic)
 | \"My friends on the surface won't last much longer without water.\"(light-gray, italic)
 | (:skeptical)\"Hopefully the rumours about them being tech witches are false...\"(light-gray, italic)
+! eval (activate (unit 'innis-stop-1))
 ")
   (:eval
    :on-complete (demo-semis)))
