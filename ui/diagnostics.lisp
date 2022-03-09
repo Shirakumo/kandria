@@ -130,11 +130,11 @@
     (format stream "~
 Version:            ~a
 Implementation:     ~a ~a
-Machine:            ~a ~a
+Machine:            ~a ~a (~aGB heap)
 SWANK:              ~a"
             (version :app)
             (lisp-implementation-type) (lisp-implementation-version)
-            (machine-type) (machine-version)
+            (machine-type) (machine-version) (floor (nth-value 1 (trial:cpu-room)) (* 1024 1024))
             (setting :debugging :swank))
     (context-info *context* stream :show-extensions NIL)))
 
@@ -201,8 +201,8 @@ Collisions:
     (alloy:enter "VRAM" layout :constraints `((:size 100 20) (:inside ,vram :halign :left :valign :top :margin 5)))
     (alloy:enter "IO" layout :constraints `((:size 100 20) (:inside ,io :halign :left :valign :top :margin 5)))
     (alloy:enter "GC Pause" layout :constraints `((:size 100 20) (:inside ,gc :halign :left :valign :top :margin 5)))
-    (alloy:enter machine-info layout :constraints `((:size 600 300) (:right-of ,fps 10) (:top 10)))
-    (alloy:enter info layout :constraints `((:size 600 2000) (:right-of ,fps 10) (:below ,machine-info 10)))
+    (alloy:enter machine-info layout :constraints `((:right-of ,fps 10) (:top 10) (:right 10) (:height 300)))
+    (alloy:enter info layout :constraints `((:right-of ,fps 10) (:below ,machine-info 10) (:right 10) (:bottom 10)))
     (alloy:finish-structure panel layout NIL)))
 
 (defmethod handle ((ev tick) (panel diagnostics))
