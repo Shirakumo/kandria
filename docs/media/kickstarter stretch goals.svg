@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="680"
+   height="1225"
+   viewBox="0 0 179.91666 324.11458"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="kickstarter stretch goals.svg"
+   inkscape:export-filename="/home/linus/Projects/cl/kandria/docs/media/kickstarter stretch goal.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:snap-page="false"
+     borderlayer="true"
+     inkscape:zoom="1.0998546"
+     inkscape:cx="225.02974"
+     inkscape:cy="520.97795"
+     inkscape:window-width="2578"
+     inkscape:window-height="2109"
+     inkscape:window-x="1920"
+     inkscape:window-y="49"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g57765"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     height="1180px"
+     inkscape:snap-global="false" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient58550">
+      <stop
+         style="stop-color:#b20000;stop-opacity:1"
+         offset="0"
+         id="stop9882" />
+      <stop
+         style="stop-color:#b20000;stop-opacity:0"
+         offset="1"
+         id="stop9884" />
+    </linearGradient>
+    <rect
+       x="573.62036"
+       y="114.6291"
+       width="68.317589"
+       height="79.700058"
+       id="rect111455" />
+    <rect
+       x="21.52883"
+       y="171.67398"
+       width="508.98376"
+       height="114.90851"
+       id="rect29120" />
+    <rect
+       x="14.067095"
+       y="16.767635"
+       width="456.97748"
+       height="191.34119"
+       id="rect5315" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Nudge RGB"
+       id="filter62958"
+       x="0"
+       y="-0.015837319"
+       width="1.0017759"
+       height="1.0158373">
+      <feFlood
+         flood-opacity="0"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood62938" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 "
+         result="colormatrix1"
+         id="feColorMatrix62940" />
+      <feOffset
+         dy="-1.64894"
+         dx="0"
+         result="offset1"
+         id="feOffset62942" />
+      <feBlend
+         in2="flood"
+         mode="screen"
+         result="blend1"
+         id="feBlend62944" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 "
+         result="colormatrix2"
+         id="feColorMatrix62946" />
+      <feOffset
+         dy="-0.548013"
+         dx="0.28886"
+         result="offset2"
+         id="feOffset62948" />
+      <feBlend
+         in2="blend1"
+         mode="screen"
+         result="blend2"
+         id="feBlend62950" />
+      <feOffset
+         dy="0"
+         dx="0.5"
+         result="offset3"
+         id="feOffset62952" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 "
+         result="colormatrix3"
+         id="feColorMatrix62954" />
+      <feBlend
+         in2="offset3"
+         mode="screen"
+         result="blend3"
+         id="feBlend62956" />
+    </filter>
+    <rect
+       x="14.067095"
+       y="16.767635"
+       width="596.49103"
+       height="210.00214"
+       id="rect5315-8" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Nudge RGB"
+       id="filter62958-6"
+       x="0"
+       y="-0.015837319"
+       width="1.0015167"
+       height="1.0158373">
+      <feFlood
+         flood-opacity="0"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood62938-8" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 "
+         result="colormatrix1"
+         id="feColorMatrix62940-8" />
+      <feOffset
+         dy="-1.64894"
+         dx="0"
+         result="offset1"
+         id="feOffset62942-4" />
+      <feBlend
+         in2="flood"
+         mode="screen"
+         result="blend1"
+         id="feBlend62944-3" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 "
+         result="colormatrix2"
+         id="feColorMatrix62946-1" />
+      <feOffset
+         dy="-0.548013"
+         dx="0.28886"
+         result="offset2"
+         id="feOffset62948-4" />
+      <feBlend
+         in2="blend1"
+         mode="screen"
+         result="blend2"
+         id="feBlend62950-9" />
+      <feOffset
+         dy="0"
+         dx="0.5"
+         result="offset3"
+         id="feOffset62952-2" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 "
+         result="colormatrix3"
+         id="feColorMatrix62954-0" />
+      <feBlend
+         in2="offset3"
+         mode="screen"
+         result="blend3"
+         id="feBlend62956-6" />
+    </filter>
+    <rect
+       x="21.52883"
+       y="171.67398"
+       width="560.90118"
+       height="113.81531"
+       id="rect29120-8" />
+    <rect
+       x="14.067095"
+       y="16.767635"
+       width="551.01038"
+       height="207.77501"
+       id="rect5315-6" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Nudge RGB"
+       id="filter62958-64"
+       x="0"
+       y="-0.015674608"
+       width="1.0015563"
+       height="1.0156746">
+      <feFlood
+         flood-opacity="0"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood62938-9" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 "
+         result="colormatrix1"
+         id="feColorMatrix62940-5" />
+      <feOffset
+         dy="-1.64894"
+         dx="0"
+         result="offset1"
+         id="feOffset62942-0" />
+      <feBlend
+         in2="flood"
+         mode="screen"
+         result="blend1"
+         id="feBlend62944-4" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 "
+         result="colormatrix2"
+         id="feColorMatrix62946-8" />
+      <feOffset
+         dy="-0.548013"
+         dx="0.28886"
+         result="offset2"
+         id="feOffset62948-7" />
+      <feBlend
+         in2="blend1"
+         mode="screen"
+         result="blend2"
+         id="feBlend62950-1" />
+      <feOffset
+         dy="0"
+         dx="0.5"
+         result="offset3"
+         id="feOffset62952-7" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 "
+         result="colormatrix3"
+         id="feColorMatrix62954-2" />
+      <feBlend
+         in2="offset3"
+         mode="screen"
+         result="blend3"
+         id="feBlend62956-7" />
+    </filter>
+    <rect
+       x="21.52883"
+       y="171.67398"
+       width="508.98376"
+       height="114.90851"
+       id="rect29120-2" />
+    <rect
+       x="14.067095"
+       y="16.767635"
+       width="495.34329"
+       height="192.9276"
+       id="rect5315-1" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Nudge RGB"
+       id="filter62958-0"
+       x="0"
+       y="-0.015837319"
+       width="1.0016176"
+       height="1.0158373">
+      <feFlood
+         flood-opacity="0"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood62938-6" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 "
+         result="colormatrix1"
+         id="feColorMatrix62940-1" />
+      <feOffset
+         dy="-1.64894"
+         dx="0"
+         result="offset1"
+         id="feOffset62942-5" />
+      <feBlend
+         in2="flood"
+         mode="screen"
+         result="blend1"
+         id="feBlend62944-9" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 "
+         result="colormatrix2"
+         id="feColorMatrix62946-4" />
+      <feOffset
+         dy="-0.548013"
+         dx="0.28886"
+         result="offset2"
+         id="feOffset62948-9" />
+      <feBlend
+         in2="blend1"
+         mode="screen"
+         result="blend2"
+         id="feBlend62950-0" />
+      <feOffset
+         dy="0"
+         dx="0.5"
+         result="offset3"
+         id="feOffset62952-9" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 "
+         result="colormatrix3"
+         id="feColorMatrix62954-1" />
+      <feBlend
+         in2="offset3"
+         mode="screen"
+         result="blend3"
+         id="feBlend62956-77" />
+    </filter>
+    <rect
+       x="21.52883"
+       y="171.67398"
+       width="508.98376"
+       height="114.90851"
+       id="rect29120-1" />
+    <rect
+       x="14.067095"
+       y="16.767635"
+       width="618.98456"
+       height="215.9631"
+       id="rect5315-9" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Nudge RGB"
+       id="filter62958-7"
+       x="0"
+       y="-0.013944934"
+       width="1.0014088"
+       height="1.0139449">
+      <feFlood
+         flood-opacity="0"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood62938-7" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 "
+         result="colormatrix1"
+         id="feColorMatrix62940-6" />
+      <feOffset
+         dy="-1.64894"
+         dx="0"
+         result="offset1"
+         id="feOffset62942-7" />
+      <feBlend
+         in2="flood"
+         mode="screen"
+         result="blend1"
+         id="feBlend62944-36" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 "
+         result="colormatrix2"
+         id="feColorMatrix62946-5" />
+      <feOffset
+         dy="-0.548013"
+         dx="0.28886"
+         result="offset2"
+         id="feOffset62948-6" />
+      <feBlend
+         in2="blend1"
+         mode="screen"
+         result="blend2"
+         id="feBlend62950-3" />
+      <feOffset
+         dy="0"
+         dx="0.5"
+         result="offset3"
+         id="feOffset62952-94" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 "
+         result="colormatrix3"
+         id="feColorMatrix62954-8" />
+      <feBlend
+         in2="offset3"
+         mode="screen"
+         result="blend3"
+         id="feBlend62956-1" />
+    </filter>
+    <rect
+       x="21.52883"
+       y="171.67398"
+       width="528.53406"
+       height="113.81531"
+       id="rect29120-29" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient58550"
+       id="radialGradient9725"
+       cx="162.91763"
+       cy="39.506363"
+       fx="162.91763"
+       fy="39.506363"
+       r="13.891912"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.91266792,0,0,0.91266792,13.43877,3.9437513)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient58550"
+       id="radialGradient57845"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.91266792,0,0,0.91266792,13.43877,3.9437513)"
+       cx="162.91763"
+       cy="39.506363"
+       fx="162.91763"
+       fy="39.506363"
+       r="13.891912" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient58550"
+       id="radialGradient57847"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.91266792,0,0,0.91266792,13.43877,3.9437513)"
+       cx="162.91763"
+       cy="39.506363"
+       fx="162.91763"
+       fy="39.506363"
+       r="13.891912" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient58550"
+       id="radialGradient57849"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.91266792,0,0,0.91266792,13.43877,3.9437513)"
+       cx="162.91763"
+       cy="39.506363"
+       fx="162.91763"
+       fy="39.506363"
+       r="13.891912" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient58550"
+       id="radialGradient58057"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.91266792,0,0,0.91266792,13.43877,3.9437513)"
+       cx="162.91763"
+       cy="39.506363"
+       fx="162.91763"
+       fy="39.506363"
+       r="13.891912" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0.04012351,-11.538648)">
+    <g
+       id="g57805"
+       style="display:inline"
+       transform="translate(-0.04012927,261.45242)">
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 107.0556,11.075344 112.31061,44.2232 7.8131055,45.836286 2.1691171,11.674516 Z"
+         id="path58592" />
+      <image
+         width="59.917236"
+         height="58.285248"
+         preserveAspectRatio="none"
+         xlink:href="kickstarter%20stretch%20goals/Group%2010.PNG"
+         id="image868"
+         x="102.17939"
+         y="14.81855"
+         style="display:inline" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,11.240219,12.893936)"
+         id="text5313-2"
+         style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-6);fill:#ffffff;fill-opacity:1"><tspan
+           x="14.066406"
+           y="68.160841"
+           id="tspan63241">Coastline
+</tspan><tspan
+           x="14.066406"
+           y="130.63239"
+           id="tspan63243">  Region</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,13.759507)"
+         id="text29118-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-2);fill:#000000;fill-opacity:1"><tspan
+           x="21.529297"
+           y="194.79386"
+           id="tspan63245">A completely new area will be added
+</tspan><tspan
+           x="21.529297"
+           y="228.12723"
+           id="tspan63247">through post-launch DLC, in which you
+</tspan><tspan
+           x="21.529297"
+           y="261.46061"
+           id="tspan63249">visit the exotic coast!
+</tspan></text>
+      <g
+         id="g57670"
+         style="display:inline">
+        <path
+           style="display:inline;fill:#212121;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="M 172.66589,26.996495 V 10.001986 h 7.25078 v 64.978941 h -7.25078 V 54.73044 L 149.59736,47.66703 V 29.898291 Z"
+           id="path57658"
+           sodipodi:nodetypes="ccccccccc" />
+        <circle
+           style="display:inline;fill:url(#radialGradient57847);fill-opacity:1;stroke:none;stroke-width:0.482954;stroke-linecap:round;paint-order:markers fill stroke"
+           id="circle57660"
+           cx="162.12846"
+           cy="39.999943"
+           r="12.678702" />
+        <text
+           xml:space="preserve"
+           style="font-size:14.7163px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+           x="155.10367"
+           y="45.392525"
+           id="text57664"
+           inkscape:label="locked"><tspan
+             sodipodi:role="line"
+             id="tspan57662"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+             x="155.10367"
+             y="45.392525"></tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14.891px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;display:none;fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+           x="155.05815"
+           y="45.425625"
+           id="text57668"
+           inkscape:label="unlocked"><tspan
+             sodipodi:role="line"
+             id="tspan57666"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+             x="0"
+             y="0"></tspan></text>
+      </g>
+    </g>
+    <g
+       id="g57828"
+       transform="translate(-0.04012927,196.47348)">
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 113.51565,19.433184 4.1619767,11.859531 1.7702162,49.173702 102.0159,47.98105 Z"
+         id="path58524" />
+      <image
+         width="59.917236"
+         height="58.285248"
+         preserveAspectRatio="none"
+         xlink:href="kickstarter%20stretch%20goals/Group%209.PNG"
+         id="image856"
+         x="103.62411"
+         y="15.814143"
+         style="display:inline" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,4.6649916,17.106974)"
+         id="text5313-1"
+         style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-1);fill:#fcfcfc;fill-opacity:1"><tspan
+           x="14.066406"
+           y="68.160841"
+           id="tspan63251">Nintendo
+</tspan><tspan
+           x="14.066406"
+           y="130.63239"
+           id="tspan63253">   Switch</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,15.876175)"
+         id="text29118-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-1);fill:#000000;fill-opacity:1"><tspan
+           x="21.529297"
+           y="194.79386"
+           id="tspan63255">The game will be ported to the Nintendo Switch, </tspan><tspan
+           x="21.529297"
+           y="228.12723"
+           id="tspan63257">providing a convenient hand-held experience</tspan></text>
+      <g
+         id="g57684"
+         style="display:inline">
+        <path
+           style="display:inline;fill:#212121;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="M 172.66589,26.996495 V 10.001986 h 7.25078 v 64.978941 h -7.25078 V 54.73044 L 149.59736,47.66703 V 29.898291 Z"
+           id="path57672"
+           sodipodi:nodetypes="ccccccccc" />
+        <circle
+           style="display:inline;fill:url(#radialGradient57845);fill-opacity:1;stroke:none;stroke-width:0.482954;stroke-linecap:round;paint-order:markers fill stroke"
+           id="circle57674"
+           cx="162.12846"
+           cy="39.999943"
+           r="12.678702" />
+        <text
+           xml:space="preserve"
+           style="font-size:14.7163px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+           x="155.10367"
+           y="45.392525"
+           id="text57678"
+           inkscape:label="locked"><tspan
+             sodipodi:role="line"
+             id="tspan57676"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+             x="155.10367"
+             y="45.392525"></tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14.891px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;display:none;fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+           x="155.05815"
+           y="45.425625"
+           id="text57682"
+           inkscape:label="unlocked"><tspan
+             sodipodi:role="line"
+             id="tspan57680"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+             x="0"
+             y="0"></tspan></text>
+      </g>
+    </g>
+    <g
+       id="g57780"
+       style="display:inline"
+       transform="translate(-0.04012927,131.49454)">
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2.0524773,20.536985 110.60959,12.563637 116.78122,50.29145 10.289615,47.670609 Z"
+         id="path58421" />
+      <image
+         width="63.288975"
+         height="61.565147"
+         preserveAspectRatio="none"
+         xlink:href="kickstarter%20stretch%20goals/Group%2012.PNG"
+         id="image880"
+         x="105.55365"
+         y="11.538648"
+         style="display:inline" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,15.876175)"
+         id="text29118-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-8);fill:#000000;fill-opacity:1"><tspan
+           x="21.529297"
+           y="194.79386"
+           id="tspan63259">We will add a system that allows you to make use of </tspan><tspan
+           x="21.529297"
+           y="228.12723"
+           id="tspan63261">the engine's flexibility to create new NPCs, change </tspan><tspan
+           x="21.529297"
+           y="261.46061"
+           id="tspan63263">physics, add new platforming elements, and more!</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,12.96133,18.234755)"
+         id="text5313-9"
+         style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-8);fill:#ffffff;fill-opacity:1"><tspan
+           x="14.066406"
+           y="68.160841"
+           id="tspan63265">Modding
+</tspan><tspan
+           x="14.066406"
+           y="130.63239"
+           id="tspan63267">    Support</tspan></text>
+      <g
+         id="g57656"
+         style="display:inline">
+        <path
+           style="display:inline;fill:#212121;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="M 172.66589,26.996495 V 10.001986 h 7.25078 v 64.978941 h -7.25078 V 54.73044 L 149.59736,47.66703 V 29.898291 Z"
+           id="path57644"
+           sodipodi:nodetypes="ccccccccc" />
+        <circle
+           style="display:inline;fill:url(#radialGradient57849);fill-opacity:1;stroke:none;stroke-width:0.482954;stroke-linecap:round;paint-order:markers fill stroke"
+           id="circle57646"
+           cx="162.12846"
+           cy="39.999943"
+           r="12.678702" />
+        <text
+           xml:space="preserve"
+           style="font-size:14.7163px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+           x="155.10367"
+           y="45.392525"
+           id="text57650"
+           inkscape:label="locked"><tspan
+             sodipodi:role="line"
+             id="tspan57648"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+             x="155.10367"
+             y="45.392525"></tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14.891px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;display:none;fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+           x="155.05815"
+           y="45.425625"
+           id="text57654"
+           inkscape:label="unlocked"><tspan
+             sodipodi:role="line"
+             id="tspan57652"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+             x="0"
+             y="0"></tspan></text>
+      </g>
+    </g>
+    <g
+       id="g57765"
+       style="display:inline"
+       transform="translate(-0.04012927,66.515603)">
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 93.281364,18.241505 103.18499,49.207634 1.8910846,47.514481 7.107394,13.053298 Z"
+         id="path58353" />
+      <image
+         width="67.995842"
+         height="66.143806"
+         preserveAspectRatio="none"
+         xlink:href="kickstarter%20stretch%20goals/Clipping%20Group%2013.PNG"
+         id="image832"
+         x="94.482246"
+         y="8.0718145" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,5.2683349,17.257677)"
+         id="text5313"
+         style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315);fill:#fefefe;fill-opacity:1"><tspan
+           x="14.066406"
+           y="68.160841"
+           id="tspan63269">Level
+</tspan><tspan
+           x="14.066406"
+           y="130.63239"
+           id="tspan63271">    Editor</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,13.759507)"
+         id="text29118"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120);fill:#000000;fill-opacity:1"><tspan
+           x="21.529297"
+           y="194.79386"
+           id="tspan63273">An in-game editor will be added
+</tspan><tspan
+           x="21.529297"
+           y="228.12723"
+           id="tspan63275">through a post-launch update, to allow you to
+</tspan><tspan
+           x="21.529297"
+           y="261.46061"
+           id="tspan63277">create levels and share them with the community</tspan></text>
+      <g
+         id="g57339"
+         style="display:inline">
+        <path
+           style="display:inline;fill:#212121;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="M 172.66589,26.996495 V 10.001986 h 7.25078 v 64.978941 h -7.25078 V 54.73044 L 149.59736,47.66703 V 29.898291 Z"
+           id="path108433"
+           sodipodi:nodetypes="ccccccccc" />
+        <circle
+           style="display:inline;fill:url(#radialGradient58057);fill-opacity:1;stroke:none;stroke-width:0.482954;stroke-linecap:round;paint-order:markers fill stroke"
+           id="path9619"
+           cx="162.12846"
+           cy="39.999943"
+           r="12.678702" />
+        <text
+           xml:space="preserve"
+           style="font-size:14.7163px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+           x="155.10367"
+           y="45.392525"
+           id="text118523"
+           inkscape:label="locked"><tspan
+             sodipodi:role="line"
+             id="tspan118521"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+             x="155.10367"
+             y="45.392525"></tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14.891px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;display:none;fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+           x="155.05815"
+           y="45.425625"
+           id="text118523-8"
+           inkscape:label="unlocked"><tspan
+             sodipodi:role="line"
+             id="tspan118521-8"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+             x="0"
+             y="0"></tspan></text>
+      </g>
+    </g>
+    <g
+       id="g57843"
+       transform="translate(-0.04012927,1.536662)">
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.260435px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 113.92454,12.754266 1.7605844,15.419882 7.6234618,52.235243 103.71232,49.707623 Z"
+         id="path58285" />
+      <image
+         width="59.917236"
+         height="58.285248"
+         preserveAspectRatio="none"
+         xlink:href="kickstarter%20stretch%20goals/Group%208.PNG"
+         id="image844"
+         x="104.01445"
+         y="15.930376"
+         style="display:inline" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,6.7587511,14.425097)"
+         id="text5313-3"
+         style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-9);fill:#fdfdfd;fill-opacity:1"><tspan
+           x="14.066406"
+           y="68.160841"
+           id="tspan63279">   Extra
+</tspan><tspan
+           x="14.066406"
+           y="130.63239"
+           id="tspan63281">Questline</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,16.405342)"
+         id="text29118-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-29);fill:#000000;fill-opacity:1"><tspan
+           x="21.529297"
+           y="194.79386"
+           id="tspan63283">A side questline will be added surrounding
+</tspan><tspan
+           x="21.529297"
+           y="228.12723"
+           id="tspan63285">a strange figure calling themselves &quot;the synthesis&quot;</tspan></text>
+      <g
+         id="g57698"
+         style="display:inline">
+        <path
+           style="display:inline;fill:#212121;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="M 172.66589,26.996495 V 10.001986 h 7.25078 v 64.978941 h -7.25078 V 54.73044 L 149.59736,47.66703 V 29.898291 Z"
+           id="path57686"
+           sodipodi:nodetypes="ccccccccc" />
+        <circle
+           style="display:inline;fill:url(#radialGradient9725);fill-opacity:1;stroke:none;stroke-width:0.482954;stroke-linecap:round;paint-order:markers fill stroke"
+           id="circle57688"
+           cx="162.12846"
+           cy="39.999943"
+           r="12.678702" />
+        <text
+           xml:space="preserve"
+           style="font-size:14.7163px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+           x="155.10367"
+           y="45.392525"
+           id="text57692"
+           inkscape:label="locked"><tspan
+             sodipodi:role="line"
+             id="tspan57690"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:1;stroke-width:0.367907"
+             x="155.10367"
+             y="45.392525"></tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14.891px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;display:none;fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+           x="155.05815"
+           y="45.425625"
+           id="text57696"
+           inkscape:label="unlocked"><tspan
+             sodipodi:role="line"
+             id="tspan57694"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
+             x="0"
+             y="0"></tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
