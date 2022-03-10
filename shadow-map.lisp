@@ -39,7 +39,7 @@
     (cond ((not (typep caster 'chunk))
            (call-next-method))
           ((in-view-p (location caster) (tvec (* 4 (vx bsize)) (* 4 (vy bsize))))
-           (let ((camera (unit :camera +world+)))
+           (let ((camera (camera +world+)))
              (setf (uniform program "strength") (clamp 0.0 (- 4 (/ (abs (- (vx (location camera)) (vx (location caster)))) (vx bsize))) 1.0))
              (call-next-method))))))
 

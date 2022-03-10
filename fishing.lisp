@@ -80,7 +80,7 @@
               (hurtbox (hurtbox player))
               (item (item buoy)))
          (setf (animation player) 'show)
-         (setf (intended-zoom (unit :camera +world+)) 2.0)
+         (setf (intended-zoom (camera +world+)) 2.0)
          (vsetf vel 0 0)
          (v<- (location buoy) (vxy hurtbox))
          (when item
@@ -134,7 +134,7 @@
     (setf (state buoy) :escaped)
     (setf (tries buoy) 0)
     (setf (item buoy) NIL)
-    (setf (intended-zoom (unit :camera +world+)) 1.0)
+    (setf (intended-zoom (camera +world+)) 1.0)
     (vsetf (velocity buoy) (* (- (vx (location (fishing-spot line))) (vx (location line))) 0.03) 4)
     (enter* (buoy line) target)))
 
@@ -213,7 +213,7 @@
       (leave* line T))
     (hide (prompt player))
     (hide (prompt-b player))
-    (setf (intended-zoom (unit :camera +world+)) 1.0)
+    (setf (intended-zoom (camera +world+)) 1.0)
     (setf (active-p (action-set 'in-game)) T)
     (setf (state player) :normal)))
 

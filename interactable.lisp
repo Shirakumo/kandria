@@ -257,7 +257,7 @@
          (transition
            :kind :black
            (v<- (original-location train) loc)
-           (snap-to-target (unit :camera +world+) train)
+           (snap-to-target (camera +world+) train)
            (incf (vx loc) (* 0.5 acc (expt arrive-time 2.0) 100.0))
            (setf (move-time train) 0.0)
            (setf (state train) :arriving))))
@@ -269,7 +269,7 @@
            (v<- (location player) loc)
            (place-on-ground player (location player))
            (stop player)
-           (setf (target (unit :camera +world+)) player)
+           (setf (target (camera +world+)) player)
            (setf (state train) :normal)))))))
 
 (define-class-shader (train :fragment-shader)

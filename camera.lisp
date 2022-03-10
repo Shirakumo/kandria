@@ -150,7 +150,7 @@
     (translate-by (vx v) (vy v) 100 *view-matrix*)))
 
 (defun shake-camera (&key (duration 0.2) (intensity 3) (rumble-intensity 1.0))
-  (let ((camera (unit :camera +world+)))
+  (let ((camera (camera +world+)))
     (setf (shake-unique camera) (random 100))
     (setf (shake-timer camera) duration)
     (setf (shake-intensity camera) (* (setting :gameplay :screen-shake) intensity))
@@ -159,14 +159,14 @@
       (gamepad:call-with-devices (lambda (d) (gamepad:rumble d 0.0))))))
 
 (defun rumble (&key (duration 0.3) (intensity 1.0))
-  (let ((camera (unit :camera +world+)))
+  (let ((camera (camera +world+)))
     (setf (shake-timer camera) duration)
     (setf (rumble-intensity camera) (* (setting :gameplay :rumble) intensity))
     (when (= 0 duration)
       (gamepad:call-with-devices (lambda (d) (gamepad:rumble d 0.0))))))
 
 (defun duck-camera (x y)
-  (let ((off (offset (unit :camera +world+))))
+  (let ((off (offset (camera +world+))))
     (vsetf off
            (+ (vx off) (* 0.1 (- x (vx off))))
            (+ (vy off) (* 0.1 (- y (vy off)))))))
@@ -180,7 +180,7 @@
 
 (defun in-view-p (loc bsize)
   (declare (optimize speed))
-  (let* ((camera (unit :camera +world+))
+  (let* ((camera (camera +world+))
          (context (context +main+))
          (zoom (the single-float (zoom camera)))
          (vscale (the single-float (view-scale camera)))

@@ -118,7 +118,7 @@
   ((easing :initform 'quint-in)))
 
 (defmethod (setf value) (value (trigger zoom-trigger))
-  (setf (intended-zoom (unit :camera T)) value))
+  (setf (intended-zoom (camera +world+)) value))
 
 (defclass pan-trigger (tween-trigger creatable)
   ())
@@ -323,7 +323,7 @@
          (v<- (strength wind) (v* (max-strength wind) y)))))
     (let* ((vbo (vertex-buffer wind))
            (arr (buffer-data vbo))
-           (camera (unit :camera +world+))
+           (camera (camera +world+))
            (view (bsize camera))
            (spd (strength wind))
            (dir (if (v= 0.0 spd) #.(vec 1 0) (vunit spd)))

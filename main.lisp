@@ -208,7 +208,7 @@ Possible sub-commands:
                          :audio-backend (setting :audio :backend))))))
 
 (defmethod setup-scene ((main main) (scene world))
-  (enter (make-instance 'camera) scene)
+  (enter (camera scene) scene)
   (let ((shadow (make-instance 'shadow-map-pass))
         (lighting (make-instance 'lighting-pass))
         (rendering (make-instance 'rendering-pass))
@@ -242,7 +242,7 @@ Possible sub-commands:
   (let ((scene (scene main)))
     (hide-panel T)
     (setf (state main) NIL)
-    (reset (unit :camera scene))
+    (reset (camera +world+))
     (leave (region scene) scene)
     (setf (storyline scene) (make-instance 'quest:storyline))
     (compile-to-pass scene scene)

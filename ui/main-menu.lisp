@@ -415,7 +415,7 @@ void main(){
   (stage (// 'music 'menu) area))
 
 (defmethod show :after ((menu main-menu) &key)
-  (let* ((camera (unit :camera +world+))
+  (let* ((camera (camera +world+))
          (tsize (target-size camera))
          (yspread (/ (vy tsize) 1.5)))
     (setf (lighting (unit 'lighting-pass +world+)) (gi 'one))

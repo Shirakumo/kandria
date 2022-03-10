@@ -15,7 +15,7 @@
   (setf (state tool) NIL))
 
 (defmethod handle ((event mouse-move) (tool browser))
-  (let ((camera (unit :camera +world+)))
+  (let ((camera (camera +world+)))
     (case (state tool)
       (:drag
        (let ((loc (location camera)))

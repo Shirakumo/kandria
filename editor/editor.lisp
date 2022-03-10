@@ -79,7 +79,7 @@
          (layout (make-instance 'alloy:border-layout))
          (toolbar (make-instance 'toolbar :editor editor :entity NIL))
          (entity (make-instance 'entity-widget :editor editor :side :west))
-         (zoom (alloy:represent (zoom (unit :camera T)) 'zoom-slider))
+         (zoom (alloy:represent (zoom (camera +world+)) 'zoom-slider))
          (menu (alloy:with-menu
                  ("File"
                   ("New Region" (edit 'new-region editor))
@@ -108,7 +108,7 @@
                  ("View"
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
-                  ("Center on Player" (setf (location (unit :camera T)) (location (unit 'player T)))))
+                  ("Center on Player" (setf (location (camera +world+)) (location (unit 'player T)))))
                  ("Help"
                   ("About"))
                  zoom)))
@@ -131,14 +131,14 @@
   (setf (entity editor) (region +world+))
   (setf (background (unit 'background T)) (background 'editor))
   (update-background (unit 'background T) T)
-  (setf (zoom (unit :camera T)) (expt 0.8 5))
+  (setf (zoom (camera +world+)) (expt 0.8 5))
   (reset (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
   (hide (tool editor))
   (when (chunk (unit 'player T))
     (switch-chunk (chunk (unit 'player T))))
-  (snap-to-target (unit :camera T) (unit 'player T))
+  (snap-to-target (camera +world+) (unit 'player T))
   (issue +world+ 'force-lighting))
 
 (defmethod (setf tool) :around ((tool tool) (editor editor))
@@ -253,7 +253,7 @@
                        (T (tool editor)))))))
 
 (defmethod handle ((ev key-release) (editor editor))
-  (let ((camera (unit :camera T))
+  (let ((camera (camera +world+))
         (move-value (cond ((find :control (modifiers ev)) 0)
                           ((find :shift (modifiers ev)) 10)
                           (T 5))))
@@ -336,8 +336,8 @@
       (leave old +world+)
       (trial:commit +world+ +main+ :unload NIL)
       (setf (background (unit 'background T)) (background 'editor))
-      (reset (unit :camera T))
-      (setf (target (unit :camera T)) (unit 'player T))
+      (reset (camera +world+))
+      (setf (target (camera +world+)) (unit 'player T))
       (update-background (unit 'background T) T))))
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
@@ -413,7 +413,7 @@
          (v:warn :kandria.editor "Refusing to clone the player.")
          (alloy:message "Cannot clone the player." :title "Error" :ui (unit 'ui-pass T)))
         (T
-         (let ((loc (vcopy (closest-acceptable-location (entity editor) (location (unit :camera T))))))
+         (let ((loc (vcopy (closest-acceptable-location (entity editor) (location (camera +world+))))))
            (edit (make-instance 'insert-entity :entity (clone (entity editor) :location loc)) editor)))))
 
 (defmethod edit ((action (eql 'undo)) (editor editor))
@@ -450,6 +450,6 @@
   (let ((pass (unit 'lighting-pass T)))
     (setf (lighting pass)
           (if (eql (gi 'none) (lighting pass))
-              (gi (chunk (unit :camera T)))
+              (gi (chunk (camera +world+)))
               (gi 'none)))
     (force-lighting pass)))

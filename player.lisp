@@ -212,7 +212,7 @@ void main(){
         (setf (buffer player) NIL)
         (setf (location player) (vec (vx location) (- (vy location) 5)))
         (issue +world+ 'force-lighting)
-        (snap-to-target (unit :camera T) player)))))
+        (snap-to-target (camera +world+) player)))))
 
 (defmethod interact ((trigger teleport-trigger) (player player))
   (when (primary trigger)
@@ -223,7 +223,7 @@ void main(){
         (setf (location player) location)
         (issue +world+ 'force-lighting)
         (clear-retained)
-        (snap-to-target (unit :camera T) player)))))
+        (snap-to-target (camera +world+) player)))))
 
 (defmethod interact ((save-point save-point) (player player))
   (setf (vx (location player))
@@ -487,13 +487,13 @@ void main(){
     (incf (combat-time player) dt)
     ;; HUD
     (cond ((< (combat-time player) 5)
-           (setf (intended-zoom (unit :camera T))
+           (setf (intended-zoom (camera +world+))
                  (if (eql 'evade-left (name (animation player)))
                      1.6 1.2))
            (setf (timeout (health (find-panel 'hud))) 5.0))
           ((and (< 5 (combat-time player) 6)
-                (< 1 (intended-zoom (unit :camera T))))
-           (setf (intended-zoom (unit :camera T)) 1.0)))
+                (< 1 (intended-zoom (camera +world+))))
+           (setf (intended-zoom (camera +world+)) 1.0)))
     ;; Interaction checks
     (setf (interactable player) NIL)
     (when (and ground (interactable-p ground))
@@ -1244,7 +1244,7 @@ void main(){
                     (when (typep entity 'chunk) (return entity))))
       (unless other
         (error "What the fuck? Could not find any chunks.")))
-    (snap-to-target (unit :camera T) player)
+    (snap-to-target (camera +world+) player)
     (switch-chunk other)))
 
 (defmethod handle ((ev switch-chunk) (player player))
@@ -1280,7 +1280,7 @@ void main(){
   (vsetf (frame-velocity player) 0 0)
   (place-on-ground player (spawn-location player))
   (setf (state player) :normal)
-  (snap-to-target (unit :camera T) player))
+  (snap-to-target (camera +world+) player))
 
 (defmethod damage-output ((player player))
   (ceiling
@@ -1348,8 +1348,8 @@ void main(){
     (respawn player)))
 
 (defun player-screen-y ()
-  (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
-     (view-scale (unit :camera T))))
+  (* (- (vy (location (unit 'player T))) (vy (location (camera +world+))))
+     (view-scale (camera +world+))))
 
 (defmethod apply-transforms progn ((player player))
   (declare (optimize speed))

@@ -116,7 +116,7 @@ void main(){
 
 (defmethod trigger ((effect text-effect) source &key (text (text effect)) location)
   (setf (location effect) (or location (vcopy (location source))))
-  (let ((s (view-scale (unit :camera T))))
+  (let ((s (view-scale (camera +world+))))
     (multiple-value-bind (breaks array x- y- x+ y+)
         (org.shirakumo.alloy.renderers.opengl.msdf::compute-text
          (font effect) text (alloy:px-extent 0 0 500 30) (/ s 5) NIL NIL)

@@ -101,7 +101,7 @@ void main(){
    (strength :initform 1.0)))
 
 (defmethod apply-transforms progn ((displacer scanline))
-  (translate (vxy_ (location (unit :camera T))))
+  (translate (vxy_ (location (camera +world+))))
   (scale-by 40 25 1))
 
 (define-shader-pass displacement-render-pass (scene-pass per-object-pass)
