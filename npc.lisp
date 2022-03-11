@@ -157,9 +157,10 @@
       (:normal
        (when (path npc)
          (execute-path npc ev))
-       (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt min-distance 2))
-           (show (nametag-element npc))
-           (hide (nametag-element npc))))
+       (when (setting :gameplay :display-hud)
+         (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt min-distance 2))
+             (show (nametag-element npc))
+             (hide (nametag-element npc)))))
       (:move-to
        (cond ((path npc)
               (execute-path npc ev))
