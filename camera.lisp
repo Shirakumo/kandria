@@ -99,7 +99,7 @@
           (when (<= (abs (vx off)) 0.1) (setf (vx off) 0.0))
           (when (<= (abs (vy off)) 0.1) (setf (vy off) 0.0))
           (clamp-camera-target camera loc)))))
-  (setf (in-view-tester camera) (make-in-view-tester camera)))
+  (update-in-view-tester camera))
 
 (defmethod snap-to-target ((camera camera) target)
   (setf (target camera) target)
