@@ -6,7 +6,7 @@
    (fishing-spot :initarg :fishing-spot :initform NIL :accessor fishing-spot :type symbol))
   (:inhibit-shaders (vertex-entity :vertex-shader)))
 
-(defmethod initargs apppend ((water water)) '(:fishing-spot))
+(defmethod initargs append ((water water)) '(:fishing-spot))
 
 (defun make-water-vertex-data (bsize)
   (let ((array (make-array (* 2 2 (1+ (floor (vx bsize) 2))) :element-type 'single-float))
