@@ -379,6 +379,7 @@
              (let ((level (crowding-level npc)))
                (cond ((<= 0.3 level)
                       (setf (ai-state npc) :crowded)
+                      (setf (walk npc) (< 0.1 (random 1.0)))
                       (setf (direction npc) (float-sign (random* 0.0 1.0)))
                       (setf (roam-time npc) (random* (+ 0.5 level) 0.5)))
                      (T
@@ -392,9 +393,9 @@
              (start-animation 'stand-up npc)
              (setf (ai-state npc) :normal)))
           (:lonely
-           (setf (vx vel) (* speed (direction npc)))
            (when (svref (collisions npc) (if (< 0 (direction npc)) 1 3))
-             (setf (vx vel) 0))
+             (setf (direction npc) (* -1 (direction npc))))
+           (setf (vx vel) (* speed (direction npc)))
            (cond ((<= time 0.0)
                   (normalize))
                  ((<= time 0.5)
