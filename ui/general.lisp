@@ -182,11 +182,17 @@
 (defmethod handle ((ev back) (pass ui-pass))
   (alloy:handle (load-time-value (make-instance 'alloy:exit)) pass))
 
-(defmethod handle ((ev next) (pass ui-pass))
-  (alloy:handle (load-time-value (make-instance 'alloy:focus-next)) pass))
+(defmethod handle ((ev select-left) (pass ui-pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-left)) pass))
 
-(defmethod handle ((ev previous) (pass ui-pass))
-  (alloy:handle (load-time-value (make-instance 'alloy:focus-prev)) pass))
+(defmethod handle ((ev select-right) (pass ui-pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-right)) pass))
+
+(defmethod handle ((ev select-up) (pass ui-pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-up)) pass))
+
+(defmethod handle ((ev select-down) (pass ui-pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-down)) pass))
 
 (defmethod handle ((ev text-entered) (pass ui-pass))
   (or (call-next-method)

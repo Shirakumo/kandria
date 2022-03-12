@@ -26,17 +26,25 @@
  (mouse :one-of (:left))
  (button :one-of (:a :b)))
 
-(trigger previous
- (key :one-of (:left :up :w :a))
- (button :one-of (:dpad-l :dpad-u))
- (axis :one-of (:l-h :dpad-h) :threshold -0.5)
- (axis :one-of (:l-v :dpad-v) :threshold +0.5))
+(trigger select-left
+ (key :one-of (:left :a))
+ (button :one-of (:dpad-l))
+ (axis :one-of (:l-h :dpad-h) :threshold -0.5))
 
-(trigger next
- (key :one-of (:right :down :s :d))
- (button :one-of (:dpad-r :dpad-d))
- (axis :one-of (:l-h :dpad-h) :threshold +0.5)
+(trigger select-right
+ (key :one-of (:right :d))
+ (button :one-of (:dpad-r))
+ (axis :one-of (:l-h :dpad-h) :threshold +0.5))
+
+(trigger select-down
+ (key :one-of (:down :s))
+ (button :one-of (:dpad-d))
  (axis :one-of (:l-v :dpad-v) :threshold -0.5))
+
+(trigger select-up
+ (key :one-of (:up :w))
+ (button :one-of (:dpad-u))
+ (axis :one-of (:l-v :dpad-v) :threshold +0.5))
 
 (trigger accept
  (key :one-of (:enter :e))

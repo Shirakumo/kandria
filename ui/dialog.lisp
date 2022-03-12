@@ -125,10 +125,16 @@
                  do (advance dialog))
            (scroll-text dialog (array-total-size (text dialog)))))))
 
-(defmethod handle ((ev next) (dialog dialog))
+(defmethod handle ((ev select-right) (dialog dialog))
   (alloy:focus-next (choices dialog)))
 
-(defmethod handle ((ev previous) (dialog dialog))
+(defmethod handle ((ev select-down) (dialog dialog))
+  (alloy:focus-next (choices dialog)))
+
+(defmethod handle ((ev select-left) (dialog dialog))
+  (alloy:focus-prev (choices dialog)))
+
+(defmethod handle ((ev select-up) (dialog dialog))
   (alloy:focus-prev (choices dialog)))
 
 (defmethod handle ((ev skip) (dialog dialog))

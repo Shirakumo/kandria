@@ -14,7 +14,24 @@
     (alloy:decline ()
       T)))
 
-(defclass vertical-tab-bar (alloy:vertical-linear-layout alloy:focus-list alloy:observable alloy:renderable)
+(defclass overview-focus-list (alloy:horizontal-focus-list)
+  ())
+
+(defmethod alloy:focus-prev ((list overview-focus-list))
+  (if (= 0 (alloy:index list))
+      (alloy:exit list)
+      (call-next-method)))
+
+(defclass vertical-menu-focus-list (alloy:vertical-focus-list)
+  ())
+
+(defmethod alloy:handle ((event alloy:focus-left) (bar vertical-menu-focus-list))
+  (alloy:exit bar))
+
+(defmethod alloy:handle ((event alloy:focus-right) (bar vertical-menu-focus-list))
+  (alloy:activate bar))
+
+(defclass vertical-tab-bar (alloy:vertical-linear-layout vertical-menu-focus-list alloy:observable alloy:renderable)
   ((alloy:min-size :initform (alloy:size 250 50))
    (alloy:cell-margins :initform (alloy:margins))))
 
@@ -357,9 +374,9 @@
     (alloy:on alloy:exit ((alloy:focus-element tabs))
       (hide panel))
     (alloy:enter tabs layout :place :center)
-    (macrolet ((with-tab ((name layout &rest layout-args) &body body)
-                 `(let* ((layout (make-instance ,layout ,@layout-args))
-                         (focus (make-instance 'alloy:focus-list)))
+    (macrolet ((with-tab ((name layout &optional (focus ''vertical-menu-focus-list)) &body body)
+                 `(let* ((layout (make-instance ,layout))
+                         (focus (make-instance ,focus)))
                     ,@body
                     (add-tab tabs ,name layout focus)))
                (with-tab-view (name &body body)
@@ -370,7 +387,8 @@
                     ,@body))
                (with-button (name &body body)
                  `(make-instance 'button :value (@ ,name) :on-activate (lambda () ,@body) :focus-parent focus)))
-      (with-tab ((@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout)
+      (with-tab ((@ overview-menu) 'org.shirakumo.alloy.layouts.constraint:layout
+                 'overview-focus-list)
         (setf (alloy:wrap-focus focus) NIL)
         (let ((resume (with-button resume-game (hide panel)))
               (map (with-button open-map (show-panel 'map-panel)))
