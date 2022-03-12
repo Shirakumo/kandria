@@ -384,6 +384,7 @@
                       (setf (roam-time npc) (random* (+ 0.5 level) 0.5)))
                      (T
                       (setf (ai-state npc) :lonely)
+                      (setf (walk npc) (< 0.1 (random 1.0)))
                       (let ((dir (crowd-direction npc)))
                         (setf (direction npc) (float-sign (if (<= dir 1) (random* 0.0 1.0) dir))))
                       (setf (roam-time npc) (random* avg-time 1.0)))))))
