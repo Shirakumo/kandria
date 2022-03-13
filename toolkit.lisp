@@ -41,7 +41,8 @@
                              :allow-editor #+kandria-release NIL #-kandria-release T
                              :swank NIL
                              :swank-port 4005
-                             :camera-control NIL))))
+                             :camera-control NIL
+                             :fps-counter NIL))))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)
