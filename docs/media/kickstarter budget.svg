@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   sodipodi:docname="kickstarter budget.svg"
+   id="svg297737"
+   version="1.1"
+   viewBox="0 0 179.91666 132.29167"
+   height="500"
+   width="680"
+   inkscape:export-filename="/home/linus/Projects/cl/kandria/docs/media/kickstarter budget.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview297739"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="1"
+     inkscape:cx="624"
+     inkscape:cy="105"
+     inkscape:window-width="2871"
+     inkscape:window-height="2109"
+     inkscape:window-x="2885"
+     inkscape:window-y="49"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g301095"
+     inkscape:snap-global="true"
+     inkscape:snap-page="true" />
+  <defs
+     id="defs297734">
+    <rect
+       x="-21.059082"
+       y="404.95483"
+       width="354.2356"
+       height="238.05798"
+       id="rect308423" />
+    <rect
+       x="-21.059082"
+       y="404.95483"
+       width="354.2356"
+       height="238.05798"
+       id="rect308423-0" />
+    <rect
+       x="-21.059082"
+       y="404.95483"
+       width="354.2356"
+       height="238.05798"
+       id="rect308423-0-8" />
+    <rect
+       x="-21.059082"
+       y="404.95483"
+       width="354.2356"
+       height="238.05798"
+       id="rect308423-0-88" />
+    <rect
+       x="-21.059082"
+       y="404.95483"
+       width="354.2356"
+       height="238.05798"
+       id="rect308423-0-4" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Chart-Layer: Kickstarter Fees:10,Music &amp; Sound:20,Programming &amp; Design:30,Art:20,Writing:20"
+     id="g301095"
+     style="display:inline">
+    <text
+       x="48.463539"
+       y="122.71516"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Courier T6';-inkscape-font-specification:'Bitstream Charter';text-align:start;text-anchor:start;fill:#000000;stroke-width:1.18391"
+       id="text301067"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7'"
+         id="tspan352307">Kickstarter Fees</tspan></text>
+    <path
+       id="rect301069"
+       style="fill:#151515;stroke-width:1.18391"
+       d="m 0,113.37841 h 41.360077 l 4.931682,6.59544 -4.931682,5.24365 H 3.043959 L 0,132.29167 Z"
+       sodipodi:nodetypes="ccccccc" />
+    <text
+       x="48.463539"
+       y="104.42735"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Courier T6';-inkscape-font-specification:'Bitstream Charter';text-align:start;text-anchor:start;fill:#000000;stroke-width:1.18391"
+       id="text301073"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7'"
+         id="tspan349389">Music &amp; Sound</tspan></text>
+    <path
+       id="rect301075"
+       style="fill:#4e4e4e;stroke-width:1.18391"
+       d="m 0,89.700226 h 41.360077 l 4.931682,11.812754 -4.931682,11.86543 H 0 Z"
+       sodipodi:nodetypes="cccccc" />
+    <text
+       x="48.463539"
+       y="71.654625"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666662px;line-height:0.8;font-family:'Courier T6';-inkscape-font-specification:'Bitstream Charter';text-align:start;text-anchor:start;fill:#000000;stroke-width:1.18391"
+       id="text301079"><tspan
+         sodipodi:role="line"
+         id="tspan339817"
+         x="48.463539"
+         y="71.654625"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';font-size:8.46666662px"
+           id="tspan330634">Programming</tspan></tspan><tspan
+         sodipodi:role="line"
+         id="tspan339819"
+         x="48.463539"
+         y="81.633507"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';font-size:8.46666662px"
+           id="tspan339821">&amp; Design</tspan></tspan></text>
+    <path
+       id="rect301081"
+       style="fill:#747474;stroke-width:1.18391"
+       d="m 0,54.182957 41.360077,0 4.931682,18.339386 -4.931682,17.177883 -41.360077,0 z"
+       sodipodi:nodetypes="cccccc" />
+    <text
+       x="48.463539"
+       y="45.231892"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Courier T6';-inkscape-font-specification:'Bitstream Charter';text-align:start;text-anchor:start;fill:#000000;stroke-width:1.18391"
+       id="text301085"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7'"
+         id="tspan343265">Art</tspan></text>
+    <path
+       id="rect301087"
+       style="fill:#9a9a9a;stroke-width:1.18391"
+       d="m 0,30.504776 41.360077,0 4.931682,11.597037 -4.931682,12.081144 -41.360077,0 z"
+       sodipodi:nodetypes="cccccc" />
+    <text
+       x="48.463539"
+       y="21.553713"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Courier T6';-inkscape-font-specification:'Bitstream Charter';text-align:start;text-anchor:start;fill:#000000;stroke-width:1.18391"
+       id="text301091"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7'"
+         id="tspan346267">Writing</tspan></text>
+    <path
+       id="rect301093"
+       style="fill:#afafaf;stroke-width:1.18391"
+       d="M 3.043959,6.8265929 H 41.360077 L 46.291759,18.678475 41.360077,30.504774 0,30.504774 0,0 Z"
+       sodipodi:nodetypes="ccccccc" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,9.6708243,6.5965773)"
+       id="text308421"
+       style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect308423)"><tspan
+         x="-21.058594"
+         y="439.63508"
+         id="tspan358736"><tspan
+           style="fill:#ffffff"
+           id="tspan358734">10%</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,9.6708243,-10.865923)"
+       id="text308421-7"
+       style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect308423-0);display:inline"><tspan
+         x="-21.058594"
+         y="439.63508"
+         id="tspan358740"><tspan
+           style="fill:#ffffff"
+           id="tspan358738">20%</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,9.6708243,-70.132594)"
+       id="text308421-7-6"
+       style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect308423-0-8);display:inline"><tspan
+         x="-21.058594"
+         y="439.63508"
+         id="tspan358744"><tspan
+           style="fill:#ffffff"
+           id="tspan358742">20%</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,9.6708243,-94.474259)"
+       id="text308421-7-4"
+       style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect308423-0-88);display:inline"><tspan
+         x="-21.058594"
+         y="439.63508"
+         id="tspan358748"><tspan
+           style="fill:#ffffff"
+           id="tspan358746">20%</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,9.6708243,-41.028424)"
+       id="text308421-7-9"
+       style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect308423-0-4);display:inline"><tspan
+         x="-21.058594"
+         y="439.63508"
+         id="tspan358752"><tspan
+           style="fill:#ffffff"
+           id="tspan358750">30%</tspan></tspan></text>
+  </g>
+</svg>
