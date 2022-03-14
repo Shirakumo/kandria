@@ -487,9 +487,10 @@ void main(){
     (incf (combat-time player) dt)
     ;; HUD
     (cond ((< (combat-time player) 5)
-           (setf (intended-zoom (camera +world+))
-                 (if (eql 'evade-left (name (animation player)))
-                     1.6 1.2))
+           (when (= 1.0 (intended-zoom (camera +world+)))
+             (setf (intended-zoom (camera +world+))
+                   (if (eql 'evade-left (name (animation player)))
+                       1.6 1.2)))
            (setf (timeout (health (find-panel 'hud))) 5.0))
           ((and (< 5 (combat-time player) 6)
                 (< 1 (intended-zoom (camera +world+))))
