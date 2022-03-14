@@ -23,8 +23,10 @@
 (defmethod draw-item ((item symbol))
   (funcall (gethash item +random-draw+)))
 
-(defmacro define-random-draw (name &body items)
+(defmacro define-random-draw (&environment env name &body items)
   (let ((total (float (loop for (item weight) in items
+                            do (unless (find-class item NIL env)
+                                 (alexandria:simple-style-warning "Unknown item type: ~s"  item))
                             sum weight))))
     `(setf (random-drawer ',name)
            (lambda ()
