@@ -32,12 +32,13 @@
   (:interact (catherine :now T)
    "
    ~ catherine
-| (:concerned)Oh man... can you walk?")
+| (:excited)Woah...
+| (:concerned)Uh, can you walk?")
   (:go-to (walk-start))
   (:interact (catherine :now T)
    "~ catherine
 | (:excited)No way! Looks like most of your systems are still working.
-| My name's \"Catherine\"(yellow). Come on, let's get out of here.
+| (:normal)My name's \"Catherine\"(yellow). Come on, let's get out of here.
 ! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))")
   (:go-to (jump-start :lead catherine))
   (:go-to (climb-start :with catherine))
