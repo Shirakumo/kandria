@@ -287,6 +287,8 @@
     (setf (vertex-array wind) vao)
     (setf (vertex-buffer wind) (caar (bindings vao)))))
 
+(defmethod layer-index ((wind wind)) (+ 2 +base-layer+))
+
 (defmethod interact ((wind wind) (player player))
   ;; FIXME: how do we get the actual dt here?
   (unless (or (eq :dashing (state player))

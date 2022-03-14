@@ -415,7 +415,7 @@
     (setf (area-states environment-controller) area-states)
     (setf (override environment-controller) (if (symbolp override)
                                                 override
-                                                (decode override 'resource)))
+                                                (decode 'resource override)))
     (switch-environment environment-controller (environment environment))))
 
 (define-encoder (hider save-v0) (_b _p)

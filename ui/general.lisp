@@ -221,6 +221,7 @@
   (call-next-method)
   (dolist (panel (panels pass))
     (stage panel area))
+  (stage (// 'kandria 'ui-background) area)
   (dolist (sound '(ui-focus-in ui-focus-out ui-location-enter
                    ui-advance-dialogue ui-no-more-to-focus
                    ui-quest-start ui-close-menu ui-dialogue-choice

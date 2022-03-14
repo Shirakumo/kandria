@@ -201,6 +201,7 @@
 (defmethod initargs append ((spring spring))
   '(:strength))
 
+(defmethod layer-index ((platform spring)) +base-layer+)
 (defmethod is-collider-for (thing (spring spring)) NIL)
 (defmethod collides-p ((moving moving) (spring spring) hit)
   (< 0.5 (iframes spring)))
@@ -349,6 +350,8 @@
    (respawn-time :initform 0.0 :accessor respawn-time))
   (:default-initargs
    :sprite-data (asset 'kandria 'crumbling-platform)))
+
+(defmethod layer-index ((platform crumbling-platform)) +base-layer+)
 
 (defmethod apply-transforms progn ((platform crumbling-platform))
   (translate-by 0 -24 0))
