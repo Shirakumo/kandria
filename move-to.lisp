@@ -558,6 +558,7 @@
 (defclass movable (moving)
   ((current-node :initform NIL :accessor current-node)
    (path :initform NIL :accessor path)
+   (pending-direction :initform +1 :accessor pending-direction)
    (node-time :initform 0f0 :accessor node-time)))
 
 (defclass immovable (movable) ())
@@ -794,7 +795,9 @@
       (v:warn :kandria.move-to "Cancelling path, made no progress executing ~a towards ~a in 2s"
               (caar (path movable)) (current-node movable))
       (setf (state movable) :normal)
-      (setf (path movable) NIL))))
+      (setf (path movable) NIL)))
+  (unless (path movable)
+    (setf (direction movable) (pending-direction movable))))
 
 (defun close-to-path-p (loc path threshold)
   (let ((threshold (expt threshold 2)))
