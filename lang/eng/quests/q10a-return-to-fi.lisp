@@ -47,7 +47,7 @@
 ! eval (deactivate (unit 'wraw-border-1))
 ! eval (deactivate (unit 'wraw-border-2))
 "))
-;; TODO move cerebat trader somewhere "off-screen"
+;; TODO move cerebat trader somewhere "off-screen"; if can't, then deactivate his chat and trade options, to essentially remove him from the story, perhaps move him into Wraw territory too - he's now part of the Wraw war effort. Could have him interact as a trader in Wraw territory too? Give the player some trade options in the depths? He's playing you against the Wraw for profit? You don't have to tell him that you're working against the Wraw, but he can just not want to ask any questions. Or keep trade up in region 1 and the surface with Sahil and Islay? So trading is done between trips to the depths?
 
   ;; TODO post-horizontal would also set chat dialogues here on Jack and Catherine, perhaps as a vehicle for sidequests, or just to catchup (or both)
   (return-fi
