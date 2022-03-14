@@ -73,7 +73,7 @@
   :visible NIL
   :on-activate T
   (chat-trader
-   :title "Talk to Sahil"
+   :title "Talk to trader"
    :on-activate T
    (:interaction chat-with-trader
     :title "I have some questions."
