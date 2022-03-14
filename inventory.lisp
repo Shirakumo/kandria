@@ -429,13 +429,13 @@
 ;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-good-1
-  (item:mushroom-good-1 2)
-  (item:mushroom-good-2 1))
+  (item:mushroom-good-1 1)
+  (item:mushroom-good-2 2))
 ;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-good-2
-  (item:mushroom-good-1 1)
-  (item:mushroom-good-2 2))
+  (item:mushroom-good-1 2)
+  (item:mushroom-good-2 1))
 ;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-bad-1
@@ -496,7 +496,7 @@
 (define-random-draw bomb-charge-pack
   (item:charge-pack 1))
 
-;; DEBUG SPAWNERS
+;; DEBUG SPAWNERS for q8a (TODO remove once organic item placement done in region 2?)
 (define-random-draw debug-pure-water
   (item:pure-water 1))
   
