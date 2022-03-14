@@ -123,9 +123,7 @@
 (defmethod initialize-instance :after ((panel sales-menu) &key shop direction target)
   (alloy:with-unit-parent (unit 'ui-pass T)
     (let* ((layout (make-instance 'eating-constraint-layout
-                                  :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (simple:image-pattern (unit 'ui-pass T) (// 'kandria 'ui-background)
-                                                                                                                                   :scaling (alloy:size (alloy:u/ (alloy:px 32) (alloy:vw 1))
-                                                                                                                                                        (alloy:u/ (alloy:px 32) (alloy:vh 1))))))))
+                                  :shapes (list (make-basic-background))))
            (clipper (make-instance 'alloy:clip-view :limit :x))
            (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
            (focus (make-instance 'alloy:focus-list))

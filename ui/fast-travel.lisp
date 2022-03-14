@@ -61,7 +61,7 @@
 
 (defmethod initialize-instance :after ((panel fast-travel-menu) &key current-station)
   (let* ((layout (make-instance 'eating-constraint-layout
-                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
+                                :shapes (list (make-basic-background))))
          (clipper (make-instance 'alloy:clip-view :limit :x))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
          (focus (make-instance 'alloy:focus-list))

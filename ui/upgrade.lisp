@@ -31,7 +31,7 @@
    :halign :middle
    :valign :middle)
   ((requirements simple:text)
-   (alloy:extent (alloy:pw 2.8) (alloy:ph 1.8) 500 (alloy:ph 3.7))
+   (alloy:extent (alloy:pw 2.8) (alloy:ph 1.3) 500 (alloy:ph 3.7))
    (@formats 'upgrade-ui-requirements
              (loop for (count item) in (materials alloy:renderable)
                    collect (list count (language-string item))))
@@ -42,8 +42,8 @@
    :halign :left)
   ((indicator simple:line-strip)
    (vector (alloy:point (alloy:pw 0.5) (alloy:ph 1.8))
-           (alloy:point (alloy:pw 2.5) (alloy:ph 5.0))
-           (alloy:point (alloy:pw 2.5) (alloy:ph 5.5)))
+           (alloy:point (alloy:pw 2.5) (alloy:ph 4.5))
+           (alloy:point (alloy:pw 2.5) (alloy:ph 5.0)))
    :pattern colors:white
    :line-width (alloy:un 2)))
 
@@ -69,7 +69,7 @@
   ;; FIXME: spruce this up a little.
   (let* ((player (unit 'player T))
          (layout (make-instance 'eating-constraint-layout
-                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
+                                :shapes (list (make-basic-background))))
          (data (make-instance 'alloy:accessor-data :object player :accessor 'sword-level))
          (focus (make-instance 'alloy:focus-list)))
     (alloy:enter (make-instance 'icon :value (// 'kandria 'sword)) layout :constraints `(:center (:fill :w) (:height 200)))

@@ -366,3 +366,11 @@
                                                                 (alloy:u- (alloy:vh 0.5) 200)
                                                                 300 200))))
       (alloy:ensure-visible (alloy:layout-element box) T))))
+
+(defun make-basic-background ()
+  (let ((pass (unit 'ui-pass T)))
+    (alloy:with-unit-parent pass
+      (simple:rectangle pass (alloy:margins) :pattern
+                        (simple:image-pattern pass (// 'kandria 'ui-background)
+                                              :scaling (alloy:size (alloy:u/ (alloy:px 32) (alloy:vw 1))
+                                                                   (alloy:u/ (alloy:px 32) (alloy:vh 1))))))))
