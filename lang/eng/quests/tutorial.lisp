@@ -11,7 +11,7 @@
    (setf (direction player) 1)
    (setf (state (unit 'player)) :animated)
    (ensure-nearby 'walk-start 'catherine)
-   (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief cerebat-trader))
+   (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief cerebat-trader-quest))
      (setf (nametag (unit unit)) "???"))
    (setf (nametag player) "Android"))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.

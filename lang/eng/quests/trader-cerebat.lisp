@@ -13,47 +13,47 @@
    :on-complete (q8a-secret-supplies)
    :on-activate T
    (:interaction talk-to-trader
-    :interactable cerebat-trader
+    :interactable cerebat-trader-quest
     :dialogue "
-~ cerebat-trader
+~ cerebat-trader-quest
 | You 'ere to trade?
 ~ player
 | Where is the Cerebat Council?
-~ cerebat-trader
+~ cerebat-trader-quest
 | (:cautious)...
 | Keep ya voice down, will ya!
 | What ya wanna see them for?
 ~ player
 - It's private.
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | That so. Well just make sure it stays that way.
 - I want to ask them some questions.
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | (:cautious)Piece o' friendly advice: Now is not a good time to be asking questions.
   ~ player
   | \"He touches his nose with a dirty forefinger.\"(light-gray, italic)
 - I come from the Noka.
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | The Noka? That the new faction on the surface?
   | Bunch o' crazy bastards if you ask me. No offence.
-~ cerebat-trader
+~ cerebat-trader-quest
 | Anyway, you can't see the council - they won't see anyone.
 | (:sly)But lucky for you I'm a purveyor o' fine information, as just demonstrated.
 | And I 'ave more to share.
 | But it's not all free. A trader gotta make a livin', especially in these times.
 ~ player
 - What times are those?
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | ...
   | (:jolly)Ah, good one! You nearly 'ad me there, matey!
   | (:sly)But I want something first before I tell you anything.
 - What do you want?
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | (:sly)Oh nothing much. Nothing much at all, really. It's just...
 - I understand.
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | (:jolly)Good. It's a simple matter o' economics, innit?
-~ cerebat-trader
+~ cerebat-trader-quest
 | (:cautious)If I'm gonna risk my neck, you gotta risk yours.
 | See, the usual caravans aren't getting through, so it's kinda hard to get supplies.
 | I'm talking mushrooms (poisonous ones o' course), purified water, and pearls - you know, the essentials.
@@ -77,51 +77,51 @@
    :on-activate T
    (:interaction chat-with-trader
     :title "I have some questions."
-    :interactable cerebat-trader
+    :interactable cerebat-trader-quest
     :repeatable T
     :dialogue "
-~ cerebat-trader
+~ cerebat-trader-quest
 | Shoot.
 ! label questions
 ~ player
 - Why are you helping the Wraw?
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | I know how it looks.
   | (:cautious)But they pay well, and that's all I care about. A man's gotta make a living.
   < questions
 - What happened to the Cerebat Council?
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | (:cautious)Like I said, they're gone.
   | Some might still be alive though, rotting in some Wraw jail.
   < questions
 - What's your name?
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | Do you fink I got this far in business by sharing my name?
   | (:sly)You can call me... Stranger.
-  ! eval (setf (nametag (unit 'cerebat-trader)) \"Stranger\")
+  ! eval (setf (nametag (unit 'cerebat-trader-quest)) \"Stranger\")
   ~ player
   - Are you for real?
-    ~ cerebat-trader
+    ~ cerebat-trader-quest
     | You don't like it?
   - Okay, Stranger.
   - Why did you pick that name?
-    ~ cerebat-trader
+    ~ cerebat-trader-quest
     | (:jolly)Do you like it? I just made it up.
-  ~ cerebat-trader
+  ~ cerebat-trader-quest
   | What's your name?
   ~ player
   - Nice try.
-    ~ cerebat-trader
+    ~ cerebat-trader-quest
     | (:jolly)It was wasn't it.
   - Not Stranger.
-    ~ cerebat-trader
+    ~ cerebat-trader-quest
     | (:jolly)Well that would be a turn up for the books if it was.
   - (Lie) I don't remember my name.
-    ~ cerebat-trader
+    ~ cerebat-trader-quest
     | (:jolly)I don't remember mine neither.
   < questions
 - I'm done.
-~ cerebat-trader
+~ cerebat-trader-quest
 | (:cautious)See you around.
 ")))
 
@@ -133,12 +133,12 @@
    :title "Trade"
    :on-activate T
    (:interaction buy
-    :interactable cerebat-trader
+    :interactable cerebat-trader-quest
     :repeatable T
     :title (@ shop-buy-items)
-    :dialogue "! eval (show-sales-menu :buy 'cerebat-trader)")
+    :dialogue "! eval (show-sales-menu :buy 'cerebat-trader-quest)")
    (:interaction sell
-    :interactable cerebat-trader
+    :interactable cerebat-trader-quest
     :repeatable T
     :title (@ shop-sell-items)
-    :dialogue "! eval (show-sales-menu :sell 'cerebat-trader)")))
+    :dialogue "! eval (show-sales-menu :sell 'cerebat-trader-quest)")))

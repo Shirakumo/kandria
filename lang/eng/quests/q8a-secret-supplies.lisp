@@ -13,18 +13,18 @@
    :on-activate T
    (:interaction supplies-return
     :title "I'm back."
-    :interactable cerebat-trader
+    :interactable cerebat-trader-quest
     :repeatable T
     :dialogue "
-~ cerebat-trader
+~ cerebat-trader-quest
 | Did you get my supplies?
 ? (= 0 (+ (item-count 'item:mushroom-bad-1) (item-count 'item:pure-water) (item-count 'item:pearl) (item-count 'item:thermal-fluid) (item-count 'item:coolant)))
-| ~ cerebat-trader
+| ~ cerebat-trader-quest
 | | Oh, that's a no. Keep lookin' - \"the stuff's 'round 'ere\"(orange), I'm sure of it.
 | ~ player
 | | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"black cap mushrooms: {(var 'black-cap-count)}\"(orange) |] [(< 0 (var 'pure-water-count)) ; \"purified water: {(var 'pure-water-count)}\"(orange) |] [(< 0 (var 'pearl-count)) ; \"pearls: {(var 'pearl-count)}\"(orange) |] [(< 0 (var 'thermal-count)) ; \"thermal fluid: {(var 'thermal-count)}\"(orange) |] [(< 0 (var 'coolant-count)) ; \"coolant liquid: {(var 'coolant-count)}\"(orange)].\"(light-gray, italic)
 |?
-| ~ cerebat-trader
+| ~ cerebat-trader-quest
 | | Nice, I'll take what you've got.
 | ! eval (setf (var 'black-cap-count) (max (- (var 'black-cap-count) (item-count 'item:mushroom-bad-1)) 0))
 | ! eval (retrieve 'item:mushroom-bad-1 T)
@@ -37,20 +37,20 @@
 | ! eval (setf (var 'coolant-count) (max (- (var 'coolant-count) (item-count 'item:coolant)) 0))
 | ! eval (retrieve 'item:coolant T)
 | ? (and (= 0 (var 'black-cap-count)) (= 0 (var 'pure-water-count)) (= 0 (var 'pearl-count)) (= 0 (var 'thermal-count)) (= 0 (var 'coolant-count)))
-| | ~ cerebat-trader
+| | ~ cerebat-trader-quest
 | | | (:jolly)Well, I think that's everything I asked for.
 | | | (:sly)I'll just put them to one side. Gotta special customer lined up for these bad boys.
 | | ~ player
 | | - And now my information.
-| |   ~ cerebat-trader
+| |   ~ cerebat-trader-quest
 | |   | I gotta say, I thought you mighta worked it out by now.
 | | - Ahem.
-| |   ~ cerebat-trader
+| |   ~ cerebat-trader-quest
 | |   | Don't worry, I 'aven't forgotten. Though I thought you mighta worked it out by now.
 | | - What customer?
-| |   ~ cerebat-trader
+| |   ~ cerebat-trader-quest
 | |   | I gotta say, I thought you mighta worked it out by now.
-| | ~ cerebat-trader
+| | ~ cerebat-trader-quest
 | | | (:cautious)The Wraw.
 | | | I'm supplying the Wraw aren't I.
 | | | It's the only good thing to come from them moving in, believe me. (:jolly)Don't tell anyone I said that.
