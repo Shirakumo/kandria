@@ -275,7 +275,7 @@
    :repeatable T
    "
 ~ player
-| \"//It appears the old gasworks exploded. Was I something to do with that?//\"(light-gray)
+| \"//The old gasworks exploded. Was I something to do with that?//\"(light-gray)
 ? (complete-p 'q0-settlement-arrive)
 | | \"//It's a pity: the gas holders could have been repurposed as grain silos.//\"(light-gray)
 ")
