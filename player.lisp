@@ -589,12 +589,13 @@ void main(){
                    (t2 (+ tt (/ PI 3))))
               (nv+ loc (vec (* 5 (cos tt)) (* 3 (sin tt) (cos tt))))
               (nv+ bloc (vec (* 5 (cos t2)) (* 3 (sin t2) (cos t2))))
-              (show (prompt player) :button 'reel-in
-                                    :description (language-string 'reel-in)
-                                    :location loc)
-              (show (prompt-b player) :button 'stop-fishing
-                                      :description (language-string 'stop-fishing)
-                                      :location bloc)))
+              (when (setting :gameplay :display-hud)
+                (show (prompt player) :button 'reel-in
+                                      :description (language-string 'reel-in)
+                                      :location loc)
+                (show (prompt-b player) :button 'stop-fishing
+                                        :description (language-string 'stop-fishing)
+                                        :location bloc))))
            ((show stand)
             (let* ((loc (tv+ #.(vec 0 16) (location player)))
                    (bloc (tvec (+ (vx loc) -10)
@@ -603,12 +604,13 @@ void main(){
                    (t2 (+ tt (/ PI 3))))
               (nv+ loc (vec (* 5 (cos tt)) (* 3 (sin tt) (cos tt))))
               (nv+ bloc (vec (* 5 (cos t2)) (* 3 (sin t2) (cos t2))))
-              (show (prompt player) :button 'cast-line
-                                    :description (language-string 'cast-line)
-                                    :location loc)
-              (show (prompt-b player) :button 'stop-fishing
-                                      :description (language-string 'stop-fishing)
-                                      :location bloc)))
+              (when (setting :gameplay :display-hud)
+                (show (prompt player) :button 'cast-line
+                                      :description (language-string 'cast-line)
+                                      :location loc)
+                (show (prompt-b player) :button 'stop-fishing
+                                        :description (language-string 'stop-fishing)
+                                        :location bloc))))
            (T
             (hide (prompt player))
             (hide (prompt-b player))))))

@@ -298,7 +298,7 @@ Possible sub-commands:
 (define-setting-observer swank :debugging :fps-counter (value)
   (if value
       (unless (unit 'trial:fps-counter +world+)
-        (enter* (make-instance 'trial:fps-counter) +world+))
+        (enter-and-load (make-instance 'trial:fps-counter) +world+ +main+))
       (when (unit 'trial:fps-counter +world+)
         (leave* (unit 'trial:fps-counter +world+) +world+))))
 

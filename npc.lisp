@@ -356,9 +356,10 @@
             (incf direction (* (expt (abs dist) -1.1) (float-sign dist)))))))))
 
 (defmethod handle-ai-states ((npc roaming-npc) ev)
-  (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt 64 2))
-      (show (nametag-element npc))
-      (hide (nametag-element npc)))
+  (when (setting :gameplay :display-hud)
+    (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt 64 2))
+        (show (nametag-element npc))
+        (hide (nametag-element npc))))
   (when (eql :normal (state npc))
     (let* ((speed (movement-speed npc))
            (avg-time 2.0)
