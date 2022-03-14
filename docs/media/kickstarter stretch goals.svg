@@ -10,8 +10,8 @@
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    sodipodi:docname="kickstarter stretch goals.svg"
    inkscape:export-filename="/home/linus/Projects/cl/kandria/docs/media/kickstarter stretch goal.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
+   inkscape:export-xdpi="96.710121"
+   inkscape:export-ydpi="96.710121"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -31,14 +31,14 @@
      inkscape:snap-page="false"
      borderlayer="true"
      inkscape:zoom="1.0998546"
-     inkscape:cx="225.02974"
-     inkscape:cy="520.97795"
-     inkscape:window-width="2578"
+     inkscape:cx="304.13111"
+     inkscape:cy="530.97928"
+     inkscape:window-width="1916"
      inkscape:window-height="2109"
-     inkscape:window-x="1920"
+     inkscape:window-x="3840"
      inkscape:window-y="49"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g57765"
+     inkscape:current-layer="layer1"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -481,6 +481,26 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0.04012351,-11.538648)">
+    <path
+       style="fill:#000000;fill-opacity:0.38;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 4.9134823,309.57404 -0.4268568,-38.92162 105.5213645,3.996 -1.4005,34.27914 z"
+       id="path87324" />
+    <path
+       style="fill:#000000;fill-opacity:0.38;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1.2809712,212.44197 108.5581088,0.58118 -5.56417,36.19126 -98.2429548,-2.7334 z"
+       id="path87256" />
+    <path
+       style="fill:#000000;fill-opacity:0.38;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 114.1578,147.28759 6.8303441,147.58958 4.9725656,182.04305 118.8187,178.47964 Z"
+       id="path87186" />
+    <path
+       style="fill:#000000;fill-opacity:0.38;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 4.6157163,115.76579 5.3709966,82.420818 97.942182,81.265259 100.02044,117.47928 Z"
+       id="path87118" />
+    <path
+       style="fill:#000000;fill-opacity:0.38;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 4.8163413,14.341011 114.15957,16.825435 101.18824,54.289149 5.0328237,51.686986 Z"
+       id="path86917" />
     <g
        id="g57805"
        style="display:inline"
@@ -505,11 +525,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-6);fill:#ffffff;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan63241">Coastline
+           id="tspan233292">Coastline
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan63243">  Region</tspan></text>
+           id="tspan233294">  Region</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,13.759507)"
@@ -517,15 +537,15 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-2);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan63245">A completely new area will be added
+           id="tspan233296">A completely new area will be added
 </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan63247">through post-launch DLC, in which you
+           id="tspan233298">through post-launch DLC, in which you
 </tspan><tspan
            x="21.529297"
            y="261.46061"
-           id="tspan63249">visit the exotic coast!
+           id="tspan233300">visit the exotic coast!
 </tspan></text>
       <g
          id="g57670"
@@ -590,11 +610,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-1);fill:#fcfcfc;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan63251">Nintendo
+           id="tspan233302">Nintendo
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan63253">   Switch</tspan></text>
+           id="tspan233304">   Switch</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,15.876175)"
@@ -602,10 +622,10 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-1);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan63255">The game will be ported to the Nintendo Switch, </tspan><tspan
+           id="tspan233306">The game will be ported to the Nintendo Switch, </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan63257">providing a convenient hand-held experience</tspan></text>
+           id="tspan233308">providing a convenient hand-held experience</tspan></text>
       <g
          id="g57684"
          style="display:inline">
@@ -670,13 +690,13 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-8);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan63259">We will add a system that allows you to make use of </tspan><tspan
+           id="tspan233310">We will add a system that allows you to make use of </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan63261">the engine's flexibility to create new NPCs, change </tspan><tspan
+           id="tspan233312">the engine's flexibility to create new NPCs, change </tspan><tspan
            x="21.529297"
            y="261.46061"
-           id="tspan63263">physics, add new platforming elements, and more!</tspan></text>
+           id="tspan233314">physics, add new platforming elements, and more!</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,12.96133,18.234755)"
@@ -684,11 +704,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-8);fill:#ffffff;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan63265">Modding
+           id="tspan233316">Modding
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan63267">    Support</tspan></text>
+           id="tspan233318">    Support</tspan></text>
       <g
          id="g57656"
          style="display:inline">
@@ -732,7 +752,10 @@
     <g
        id="g57765"
        style="display:inline"
-       transform="translate(-0.04012927,66.515603)">
+       transform="translate(-0.04012927,66.515603)"
+       inkscape:export-filename="/home/linus/Projects/cl/kandria/docs/media/g57765.png"
+       inkscape:export-xdpi="97.019997"
+       inkscape:export-ydpi="97.019997">
       <path
          style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          d="M 93.281364,18.241505 103.18499,49.207634 1.8910846,47.514481 7.107394,13.053298 Z"
@@ -752,11 +775,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315);fill:#fefefe;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan63269">Level
+           id="tspan233320">Level
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan63271">    Editor</tspan></text>
+           id="tspan233322">    Editor</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,13.759507)"
@@ -764,15 +787,15 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan63273">An in-game editor will be added
+           id="tspan233324">An in-game editor will be added
 </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan63275">through a post-launch update, to allow you to
+           id="tspan233326">through a post-launch update, to allow you to
 </tspan><tspan
            x="21.529297"
            y="261.46061"
-           id="tspan63277">create levels and share them with the community</tspan></text>
+           id="tspan233328">create levels and share them with the community</tspan></text>
       <g
          id="g57339"
          style="display:inline">
@@ -836,11 +859,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-9);fill:#fdfdfd;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan63279">   Extra
+           id="tspan233330">   Extra
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan63281">Questline</tspan></text>
+           id="tspan233332">Questline</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,16.405342)"
@@ -848,11 +871,11 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-29);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan63283">A side questline will be added surrounding
+           id="tspan233334">A side questline will be added surrounding
 </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan63285">a strange figure calling themselves &quot;the synthesis&quot;</tspan></text>
+           id="tspan233336">a strange figure calling themselves &quot;the synthesis&quot;</tspan></text>
       <g
          id="g57698"
          style="display:inline">
