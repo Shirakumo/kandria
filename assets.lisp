@@ -91,6 +91,7 @@
 
 (define-assets-from-path (kandria image "texture/*.png" :ignore-directory T)
   (T :min-filter :nearest :mag-filter :nearest)
+  (ui-background :min-filter :linear :mag-filter :linear :wrapping :repeat)
   (sword :min-filter :linear :mag-filter :linear)
   (empty-save :min-filter :linear :mag-filter :linear)
   (noise :wrapping :repeat :min-filter :linear :mag-filter :linear)
