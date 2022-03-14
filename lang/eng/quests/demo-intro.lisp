@@ -12,7 +12,7 @@
 | Hello, Stranger. (:happy)It's an honour to meet you in person.
 | (:unhappy)I'm sorry about my sister.
 ~ player
-- What do I need to do for you?
+- What do I need to do?
   ~ islay
   | (:expectant)Right, yes. The sooner we get started, the sooner \"Innis\"(yellow) will turn your water back on.
 - What's her problem?
