@@ -51,7 +51,7 @@
  (button :one-of (:a)))
 
 (trigger back
- (key :one-of (:esc :escape))
+ (key :one-of (:escape))
  (button :one-of (:b)))
 
 (trigger quickmenu
@@ -126,7 +126,7 @@
  (button :one-of (:b)))
 
 (trigger zoom-in
- (key :one-of (:e :plus))
+ (key :one-of (:e))
  (button :one-of (:r1))
  (axis :one-of (:r2) :threshold 0.5))
 
@@ -136,11 +136,11 @@
  (axis :one-of (:l2) :threshold 0.5))
 
 (trigger close-map
- (key :one-of (:esc :escape :m))
+ (key :one-of (:escape :m))
  (button :one-of (:b :start)))
 
 (trigger toggle-trace
- (key :one-of (:c :capslock :tab))
+ (key :one-of (:c :tab))
  (button :one-of (:y)))
 
 (trigger toggle-marker
