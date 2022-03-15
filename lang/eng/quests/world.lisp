@@ -28,6 +28,14 @@
 | \"//It's their storage shed. Supplies are low and it smells like mating rats.//\"(light-gray)
 ")
 
+(:interaction noka-train
+   :interactable lore-noka-train
+   :repeatable T
+   "
+~ player
+| \"It's a train. Well, half a train.\"(light-gray, italic)
+")
+
   ;; Large stone gate
   (:interaction stone-gate-large
    :interactable lore-gate-rock
@@ -281,6 +289,157 @@
 ")
 ;; perhaps the old gasworks was being converted into something more modern, when an accident happened, perhaps involving the android. Like this explosion in Sheffield when an old gasworks was being converted in the 1970s: https://www.bbc.co.uk/news/uk-england-south-yorkshire-45097740
 
+(:interaction semi-cave-east-1
+   :interactable lore-semi-cave-east
+   :repeatable T
+   "
+~ player
+| \"Was the old world ruled by people or rabbits? These warrens go on forever.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-east-2
+   :interactable lore-semi-lights
+   :repeatable T
+   "
+~ player
+| \"It's lucky they lit these tunnels with lanterns - the charge is more than sufficient to recharge my boost.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-east-3
+   :interactable lore-semi-product-line
+   :repeatable T
+   "
+~ player
+| \"I think they assembled androids on this production line.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-east-4
+   :interactable lore-semi-pic
+   :repeatable T
+   "
+~ player
+| \"I suppose this is the equivalent of a cave painting these days.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-east-5
+   :interactable lore-semi-swim
+   :repeatable T
+   "
+~ player
+| \"It's a good job I can swim.\"(light-gray, italic)
+| \"(:giggle)And by swim I mean activate my aquatic water jets.\"(light-gray, italic)
+")
+
+(:interaction semi-train
+   :interactable lore-semi-train
+   :repeatable T
+   "
+~ player
+| \"This is a maglev bullet train. With rail trucks welded onto its chassis.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-1
+   :interactable lore-semi-hub-supplies
+   :repeatable T
+   "
+~ player
+| \"Do they trade in contraband? Well, I suppose nothing's illegal any more.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-2
+   :interactable lore-semi-bar
+   :repeatable T
+   "
+~ player
+| \"I suppose people need a watering hole wherever they go.\"(light-gray, italic)
+| \"This one's as loud with chatter and clinking glass as anywhere I remember.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-3
+   :interactable lore-semi-pic-2
+   :repeatable T
+   "
+~ player
+| \"Maybe the world will look like this picture again one day. But I doubt it.\"(light-gray, italic)
+")
+;; doubt it: either because things are too far gone, or because even if society recovers, they'll hopefully do things differently
+
+(:interaction semi-hub-4
+   :interactable lore-semi-control
+   :repeatable T
+   "
+~ player
+| \"The din of the rest of this base fades away up here.\"(light-gray, italic)
+| \"It's as relaxing a place as I've found since I woke up.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-5
+   :interactable lore-semi-broken-building
+   :repeatable T
+   "
+~ player
+| \"How this subscraper hasn't been completely crushed by the earth is beyond me.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-6
+   :interactable lore-semi-curtain
+   :repeatable T
+   "
+~ player
+| \"Machinery and modesty curtains - not the most logical combination. I suppose they have to make do with what they've got.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-7
+   :interactable lore-semi-plants
+   :repeatable T
+   "
+~ player
+| \"It's a hydroponic paradise. I don't think these people are wanting in the food department.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-8
+   :interactable lore-semi-vending
+   :repeatable T
+   "
+~ player
+| \"An empty vending machine - all the Candy Androids have gone.\"(light-gray, italic)
+")
+;; Candy Android = a candy bar from the old world. Suggests maybe it was a PR thing to make people more amenable to androids, by making chocolate bars out of them.
+
+(:interaction semi-hub-9
+   :interactable lore-semi-bedroom
+   :repeatable T
+   "
+~ player
+| \"An office turned bedroom. (:giggle)Brings new meaning to sleeping at work.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-west-1
+   :interactable lore-semi-sign
+   :repeatable T
+   "
+~ player
+| \"A fluorescent sign is not what I expected to find in a cave.\"(light-gray, italic)
+| \"The tubes are full of dead flies. I know the feeling.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-west-2
+   :interactable lore-semi-spikes
+   :repeatable T
+   "
+~ player
+| \"Who put all these spikes here? It's like a police state.\"(light-gray, italic)
+")
+;; maybe the Semi Sisters planted them for defence, even though it makes it harder for their own people to get around. Or maybe it's a legacy from when the Wraw inhabited this area?
+
+(:interaction semi-cave-west-3
+   :interactable lore-semi-eng-post
+   :repeatable T
+   "
+~ player
+| \"It's a temporary camp for these engineers. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
+")
+
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (:interaction trapped-engineers
    :interactable semi-engineer-chief
@@ -304,7 +463,7 @@
 | |   | (:shocked)... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
+| | | (:weary)We're glad you showed up. We're rail engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
@@ -326,7 +485,7 @@
 | |   | (:shocked)... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
+| | | (:weary)We're glad you showed up. We're rail engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
@@ -345,12 +504,11 @@
 |? (active-p (find-task 'demo-engineers 'task-reminder))
 | ! eval (complete (find-task 'demo-engineers 'task-reminder))
 "))
-
 ;; TODO remove demo task checks at the end here, when no longer needed
 
 ;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
-;; TODO flesh these out. Currently only done for the KS demo quests, with no (T) complete fallback
+;; TODO flesh these out. Currently only done for the KS demo quests, with only temporary (T) complete fallback
 ;; Written to have minor arcs, should the player see them at the start/during, and the end. Generally based on how they regard the android early in the main story.
 ;; 3-5 alts
 (define-default-interactions innis
