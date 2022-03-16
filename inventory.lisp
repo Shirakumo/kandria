@@ -508,11 +508,8 @@
   (item:rich-soil 5)
   (item:quartz-crystal 5)
   (item:fine-pelt 5)
-  (item:meteorite-fragment 6)
   (item:clay-clump 7)
-  (item:rusted-clump 7)
-  (item:dirt-clump 7)
-  (item:ruined-pelt 7))
+  (item:rusted-clump 7))
 ;; placement: region 1 lower soil areas
 
 (define-random-draw region1-lower-home
