@@ -227,6 +227,7 @@
       (prompt 'close-map))))
 
 (defmethod hide :after ((panel map-panel))
+  (harmony:stop (// 'sound 'ui-map-scroll))
   (let ((els ()))
     (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
       (push el els))
