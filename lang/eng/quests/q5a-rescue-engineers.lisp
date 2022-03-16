@@ -147,3 +147,4 @@
 ;; dinnae = don't (Scots)
 ;; ken = know (Scots)
 ;; couldnae = couldn't (Scots)
+;; canna = cannot (Scottish)

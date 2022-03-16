@@ -192,3 +192,4 @@
 ;; couldnae = couldn't (Scots)
 ;; dinnae = don't / do not (Scottish)
 ;; doesnae = does not / doesn't (Scottish)
+;; canna = cannot (Scottish)

@@ -126,4 +126,5 @@
 ;; ken = know (Scottish)
 ;; didnae = didn't (Scottish)
 ;; dinnae = don't (Scottish)
+;; canna = cannot (Scottish)
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
