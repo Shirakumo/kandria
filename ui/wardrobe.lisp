@@ -25,13 +25,36 @@
    :font (setting :display :font)
    :pattern colors:white
    :valign :middle
-   :halign :start))
+   :halign :start)
+  ((:current-bg simple:polygon)
+   (list (alloy:point (alloy:pw 1.0) (alloy:ph 0.2))
+         (alloy:point (alloy:pw 0.7) (alloy:ph 0.2))
+         (alloy:point (alloy:pw 0.7) (alloy:ph 0.4))
+         (alloy:point (alloy:pw 0.68) (alloy:ph 0.5))
+         (alloy:point (alloy:pw 0.7) (alloy:ph 0.6))
+         (alloy:point (alloy:pw 0.7) (alloy:ph 0.8))
+         (alloy:point (alloy:pw 1.0) (alloy:ph 0.8)))
+   :pattern colors:red
+   :hidden-p (not (eql (palette-index (unit 'player T)) (palette-index alloy:value))))
+  ((:current-text simple:text)
+   (alloy:extent (alloy:pw 0.72) (alloy:ph 0.3) (alloy:pw 0.3) (alloy:ph 0.4))
+   (@ current-outfit-selection)
+   :size (alloy:un 12)
+   :font (setting :display :font)
+   :pattern colors:white
+   :valign :middle
+   :halign :start
+   :hidden-p (not (eql (palette-index (unit 'player T)) (palette-index alloy:value)))))
 
 (presentations:define-update (ui palette-button)
   (:background
    :pattern (if alloy:focus colors:white colors:black))
   (:label
-   :pattern (if alloy:focus colors:black colors:white)))
+   :pattern (if alloy:focus colors:black colors:white))
+  (:current-bg
+   :hidden-p (not (eql (palette-index (unit 'player T)) (palette-index alloy:value))))
+  (:current-text
+   :hidden-p (not (eql (palette-index (unit 'player T)) (palette-index alloy:value)))))
 
 (define-shader-entity sprite-preview (alloy:renderable alloy:layout-element standalone-shader-entity)
   ((target :initarg :target :accessor target)))

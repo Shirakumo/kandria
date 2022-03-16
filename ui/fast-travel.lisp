@@ -42,7 +42,7 @@
    :hidden-p (not (eq (source alloy:renderable) alloy:value)))
   ((:current-text simple:text)
    (alloy:extent (alloy:pw 0.72) (alloy:ph 0.3) (alloy:pw 0.3) (alloy:ph 0.4))
-   "You are here"
+   (@ current-fast-travel-location)
    :size (alloy:un 12)
    :font (setting :display :font)
    :pattern colors:white

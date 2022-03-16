@@ -426,6 +426,8 @@ fish:toy-submarine/description "I think there was a famous song about one of the
 fish:alligator "Alligator"
 fish:alligator/description "It's not a crocodile - the snout gives it away."
 ;; UI
+current-fast-travel-location "You are here"
+current-outfit-selection "Current"
 game-over-title "Game Over"
 game-paused-title "Game Paused"
 go-backwards-in-ui "Back"
