@@ -628,6 +628,9 @@ void main(){
             (* 200 (gamepad:axis :l-h +input-source+))
             (* 200 (gamepad:axis :l-v +input-source+))))
        (when (retained 'jump)
+         (let ((segment (harmony:segment :lowpass T)))
+           (setf (mixed:frequency segment) (1- (mixed:samplerate segment))))
+         (setf (intended-zoom (camera +world+)) 1.0)
          (start-animation 'stand-up player)))
       (:animated
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
