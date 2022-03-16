@@ -114,6 +114,7 @@ critter "Pet"
 leak "Weld"
 mirror "Change Outfit"
 workbench "Upgrade Sword"
+bench "Sit"
 ;; Items
 consumable-item "Consumables"
 active-effect-item "Enhancements"

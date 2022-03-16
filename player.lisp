@@ -614,6 +614,21 @@ void main(){
            (T
             (hide (prompt player))
             (hide (prompt-b player))))))
+      (:sitting
+       (handle-animation-states player ev)
+       (if (eql :keyboard +input-source+)
+           (duck-camera
+            (cond ((retained 'left)  -200)
+                  ((retained 'right) +200)
+                  (T                    0))
+            (cond ((retained 'down)  -200)
+                  ((retained 'up)    +200)
+                  (T                    0)))
+           (duck-camera
+            (* 200 (gamepad:axis :l-h +input-source+))
+            (* 200 (gamepad:axis :l-v +input-source+))))
+       (when (retained 'jump)
+         (start-animation 'stand-up player)))
       (:animated
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
          (start-animation 'heavy-aerial-3-release player))

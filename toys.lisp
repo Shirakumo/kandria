@@ -1,5 +1,23 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-shader-entity bench (lit-sprite interactable ephemeral creatable)
+  ((texture :initform (// 'kandria 'region2 'albedo))))
+
+(defmethod interactable-p ((bench bench))
+  (eql :normal (state (unit 'player +world+))))
+
+(defmethod layer-index ((bench bench))
+  (1- +base-layer+))
+
+(defmethod description ((bench bench))
+  (@ bench))
+
+(defmethod interact ((bench bench) (player player))
+  (setf (vx (location player)) (+ (vx (location bench))
+                                  (* (direction player) 12)))
+  (start-animation 'sit-down player)
+  (setf (state player) :sitting))
+
 (define-shader-entity mirror (lit-animated-sprite interactable ephemeral creatable)
   ()
   (:default-initargs
