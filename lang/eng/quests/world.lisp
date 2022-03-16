@@ -327,7 +327,7 @@
    "
 ~ player
 | \"It's a good job I can swim.\"(light-gray, italic)
-| \"(:giggle)And by swim I mean activate my aquatic water jets.\"(light-gray, italic)
+| (:giggle)\"And by swim I mean activate my aquatic water jets.\"(light-gray, italic)
 ")
 
 (:interaction semi-train
@@ -351,7 +351,7 @@
    :repeatable T
    "
 ~ player
-| \"I suppose people need a watering hole wherever they go.\"(light-gray, italic)
+| \"I guess people need a watering hole wherever they go.\"(light-gray, italic)
 | \"This one's as loud with chatter and clinking glass as anywhere I remember.\"(light-gray, italic)
 ")
 
@@ -369,7 +369,7 @@
    :repeatable T
    "
 ~ player
-| \"The din of the rest of this base fades away up here.\"(light-gray, italic)
+| \"The din of the base fades away up here.\"(light-gray, italic)
 | \"It's as relaxing a place as I've found since I woke up.\"(light-gray, italic)
 ")
 
@@ -378,7 +378,7 @@
    :repeatable T
    "
 ~ player
-| \"How this subscraper hasn't been completely crushed by the earth is beyond me.\"(light-gray, italic)
+| \"How this subscraper hasn't completely collapsed is beyond me.\"(light-gray, italic)
 ")
 
 (:interaction semi-hub-6
@@ -386,7 +386,7 @@
    :repeatable T
    "
 ~ player
-| \"Machinery and modesty curtains - not the most logical combination. I suppose they have to make do with what they've got.\"(light-gray, italic)
+| \"Machinery and modesty curtains - not what I expected. I suppose they have to make do with what they've got.\"(light-gray, italic)
 ")
 
 (:interaction semi-hub-7
@@ -394,7 +394,7 @@
    :repeatable T
    "
 ~ player
-| \"It's a hydroponic paradise. I don't think these people are wanting in the food department.\"(light-gray, italic)
+| \"It's a hydroponic paradise. I don't think these people are wanting in the food and water department.\"(light-gray, italic)
 ")
 
 (:interaction semi-hub-8
@@ -402,7 +402,7 @@
    :repeatable T
    "
 ~ player
-| \"An empty vending machine - all the Candy Androids have gone.\"(light-gray, italic)
+| \"Any food left in here will be spoiled. Including those Candy Androids, looking at me mournfully through the glass.\"(light-gray, italic)
 ")
 ;; Candy Android = a candy bar from the old world. Suggests maybe it was a PR thing to make people more amenable to androids, by making chocolate bars out of them.
 
@@ -411,7 +411,16 @@
    :repeatable T
    "
 ~ player
-| \"An office turned bedroom. (:giggle)Brings new meaning to sleeping at work.\"(light-gray, italic)
+| \"An office turned bedroom.\"(light-gray, italic) (:giggle)\"Brings new meaning to sleeping at work.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-10
+   :interactable lore-semi-calendar
+   :repeatable T
+   "
+~ player
+| \"A calendar from 2368, still showing March. Some of those appointments never happened.\"(light-gray, italic)
+| \"Is that a picture of the people who worked here?\"(light-gray, italic)
 ")
 
 (:interaction semi-cave-west-1
@@ -419,8 +428,7 @@
    :repeatable T
    "
 ~ player
-| \"A fluorescent sign is not what I expected to find in a cave.\"(light-gray, italic)
-| \"The tubes are full of dead flies. I know the feeling.\"(light-gray, italic)
+| \"Well that's fluorescent. The tubes are full of dead flies. I know the feeling.\"(light-gray, italic)
 ")
 
 (:interaction semi-cave-west-2
@@ -437,8 +445,9 @@
    :repeatable T
    "
 ~ player
-| \"It's a temporary camp for these engineers. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
+| \"It's a temporary engineers' camp. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
 ")
+
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (:interaction trapped-engineers
