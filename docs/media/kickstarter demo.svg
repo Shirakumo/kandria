@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="680"
+   height="100"
+   viewBox="0 0 179.91666 26.458334"
+   version="1.1"
+   id="svg63290"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="kickstarter demo.svg"
+   inkscape:export-filename="/home/linus/Projects/cl/kandria/docs/media/kickstarter demo.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview63292"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="1.5554293"
+     inkscape:cx="270.34337"
+     inkscape:cy="99.008036"
+     inkscape:window-width="1916"
+     inkscape:window-height="2109"
+     inkscape:window-x="1920"
+     inkscape:window-y="49"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-global="false" />
+  <defs
+     id="defs63287">
+    <rect
+       x="732.76061"
+       y="128.22423"
+       width="155.93314"
+       height="129.66057"
+       id="rect16665" />
+    <rect
+       x="492.17"
+       y="5.9479707"
+       width="215.37117"
+       height="144.14664"
+       id="rect10501" />
+    <rect
+       x="117.11082"
+       y="13.283965"
+       width="625.51004"
+       height="88.007294"
+       id="rect66489" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Invert"
+       id="filter75160"
+       x="0"
+       y="0"
+       width="1"
+       height="1">
+      <feColorMatrix
+         type="hueRotate"
+         values="180"
+         result="color1"
+         id="feColorMatrix75156" />
+      <feColorMatrix
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 -0.21 -0.72 -0.07 2 0 "
+         result="color2"
+         id="feColorMatrix75158" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1.1820836,2.2970977 177.92496,1.5703596 173.98764,24.535585 6.1075871,25.517309 Z"
+       id="path74580"
+       sodipodi:nodetypes="ccccc" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-19.981197,5.3159085)"
+       id="text66487"
+       style="font-size:37.3333px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect66489);fill:#fdfdfd;fill-opacity:1"><tspan
+         x="117.11133"
+         y="45.651176"
+         id="tspan21676">Try out the free demo</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.19258804,-0.11119075,0.11119075,0.19258804,30.819471,59.709067)"
+       id="text10499"
+       style="font-size:85.3333px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect10501)"><tspan
+         x="492.16992"
+         y="89.756754"
+         id="tspan21680"><tspan
+           style="fill:#ffffff"
+           id="tspan21678"></tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-43.750922,-33.770561)"
+       id="text16663"
+       style="font-size:85.3333px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect16665)"><tspan
+         x="732.75977"
+         y="212.0341"
+         id="tspan21684"><tspan
+           style="fill:#ffffff"
+           id="tspan21682"></tspan></tspan></text>
+  </g>
+</svg>
