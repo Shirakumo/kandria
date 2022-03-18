@@ -95,22 +95,6 @@
      _ _ _
      _ p _
      _ _ _)
-    (:t
-     _ o _
-     s s s
-     _ x _)
-    (:b
-     x x _
-     s s s
-     _ o _)
-    (:l
-     _ s x
-     o s x
-     _ s x)
-    (:r
-     x s _
-     x s o
-     x s _)
     (:tr>
      _ _ o
      s s _
@@ -127,6 +111,22 @@
      _ s x
      _ s s
      o _ _)
+    (:t
+     _ o _
+     s s s
+     _ x _)
+    (:b
+     x x _
+     s s s
+     _ o _)
+    (:l
+     _ s x
+     o s x
+     _ s x)
+    (:r
+     x s _
+     x s o
+     x s _)
     (:tr<
      x x x
      s s x
