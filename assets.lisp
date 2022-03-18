@@ -114,6 +114,12 @@
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.wav")
   (T :volume 0.4)
+  (elevator-start :volume 0.3 :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
+  (elevator-stop :volume 0.3 :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
+  (elevator-recall :volume 0.8)
+  (ui-transition :volume 1.0)
+  (key-activate :volume 1.0)
+  (key-complete :volume 1.0)
   (ui-quest-start :volume 2.0)
   (ui-quest-complete :volume 0.5)
   (ui-quest-fail :volume 0.5)

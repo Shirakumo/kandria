@@ -207,11 +207,11 @@
      (unless (eq state (state elevator))
        (setf (cdr (bypass-stopper elevator)) T)
        (setf (car (bypass-stopper elevator)) T)
-       (harmony:play (// 'sound 'elevator-start))
+       (harmony:play (// 'sound 'elevator-start) :location (location elevator))
        (harmony:play (// 'sound 'elevator-move))))
     ((:normal :broken)
      (when (find (state elevator) '(:moving :recall :should-stop))
-       (harmony:play (// 'sound 'elevator-stop))
+       (harmony:play (// 'sound 'elevator-stop) :location (location elevator))
        (harmony:stop (// 'sound 'elevator-move))))))
 
 (defmethod interact ((elevator elevator) thing)
@@ -233,7 +233,7 @@
      (setf (move-time elevator) 0.0)
      (setf (vy (velocity elevator)) (* -0.01 (float-sign (vy (velocity elevator))))))
     (:broken
-     (harmony:play (// 'sound 'elevator-broken)))))
+     (harmony:play (// 'sound 'elevator-broken) :location (location elevator)))))
 
 (define-shader-entity elevator-recall (lit-sprite interactable ephemeral creatable)
   ((target :initarg :target :initform NIL :accessor target :type symbol)
@@ -252,13 +252,13 @@
 
 (defmethod interact ((button elevator-recall) thing)
   (when (target button)
-    (harmony:play (// 'sound 'elevator-recall))
+    (harmony:play (// 'sound 'elevator-recall) :reset T)
     (interact (unit (target button) +world+) button)))
 
 (defmethod interact ((elevator elevator) (button elevator-recall))
   (case (state elevator)
     (:broken
-     (harmony:play (// 'sound 'elevator-broken)))
+     (call-next-method))
     (T
      (setf (target elevator) (vec (vx (location button))
                                   (- (vy (location button))
