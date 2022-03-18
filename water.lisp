@@ -6,7 +6,7 @@
    (fishing-spot :initarg :fishing-spot :initform NIL :accessor fishing-spot :type symbol))
   (:inhibit-shaders (vertex-entity :vertex-shader)))
 
-(defmethod initargs apppend ((water water)) '(:fishing-spot))
+(defmethod initargs append ((water water)) '(:fishing-spot))
 
 (defun make-water-vertex-data (bsize)
   (let ((array (make-array (* 2 2 (1+ (floor (vx bsize) 2))) :element-type 'single-float))
@@ -24,12 +24,14 @@
 
 (progn ;; FIXME: Want to smoothen this out over time but I'm getting problems doing that...
   (defmethod submerged :after ((player player) (water water))
+    #++
     (let ((segment (harmony:segment :lowpass T)))
       (when (< 50 (abs (- (mixed:frequency segment) 400)))
         (harmony:with-server (harmony:*server* :synchronize NIL)
           (setf (mixed:frequency segment) 400.0)))))
 
   (defmethod submerged :after ((player player) (air air))
+    #++
     (let* ((segment (harmony:segment :lowpass T))
            (target (1- (mixed:samplerate segment))))
       (when (< 50 (abs (- (mixed:frequency segment) target)))

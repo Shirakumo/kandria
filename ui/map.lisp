@@ -46,14 +46,16 @@
                                                             :name (name unit)
                                                             :z-index -10))
                (when (language-string (name unit) NIL)
-                 (add-shape (simple:text renderer bounds (language-string (name unit))
+                 (add-shape (simple:text renderer bounds
+                                         (language-string (name unit))
                                          :font (setting :display :font)
                                          :pattern colors:black
                                          :name (name unit)
                                          :size (alloy:un 80)
                                          :halign :middle
                                          :valign :middle
-                                         :z-index -9)))
+                                         :z-index -9
+                                         :wrap T)))
                (when (eql unit (chunk player))
                  (add-shape (simple:rectangle renderer bounds :pattern colors:yellow
                                                               :name (name unit)
@@ -146,7 +148,9 @@
       (presentations:realize-renderable renderer map)
       (setf (slot-value map 'alloy:render-needed-p) NIL))
     (simple:with-pushed-transforms (renderer)
-      (alloy:render renderer (simple:rectangle renderer (alloy:bounds map) :pattern (colored:color 0 0 0 0.5)))
+      (alloy:render renderer (simple:rectangle renderer (alloy:bounds map) :pattern (simple:image-pattern renderer (// 'kandria 'ui-background)
+                                                                                                          :scaling (alloy:size (alloy:u/ (alloy:px 32) (alloy:vw 1))
+                                                                                                                               (alloy:u/ (alloy:px 32) (alloy:vh 1))))))
       (simple:translate renderer (alloy:px-point (/ (width *context*) 2) (/ (height *context*) 2)))
       (simple:scale renderer (alloy:size (zoom map) (zoom map)))
       (simple:translate renderer (alloy:px-point (- (vx (offset map))) (- (vy (offset map)))))
@@ -201,7 +205,8 @@
     (alloy:finish-structure panel map map)))
 
 (defmethod stage :after ((panel map-panel) (area staging-area))
-  (stage (// 'sound 'ui-map-scroll) area))
+  (stage (// 'sound 'ui-map-scroll) area)
+  (stage (// 'kandria 'ui-background) area))
 
 (defmethod show :after ((panel map-panel) &key)
   (let ((off 0))
@@ -222,6 +227,7 @@
       (prompt 'close-map))))
 
 (defmethod hide :after ((panel map-panel))
+  (harmony:stop (// 'sound 'ui-map-scroll))
   (let ((els ()))
     (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
       (push el els))

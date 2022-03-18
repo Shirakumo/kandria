@@ -69,5 +69,6 @@
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))
 ")))
 ;; TODO enable trader as killable NPC - he'll move on soon anyway, so killing him will have negligible impact on gameplay, and is player's choice anyway
+;; TODO move Zelah somewhere (offscreen?) to convey the Wraw are on the move
 ;; Ko nashi = bastard (Japanese)
 ;; Cannot give a reward here, as the player isn't in proximity to Fi. However, can sell stuff to the trader for parts.

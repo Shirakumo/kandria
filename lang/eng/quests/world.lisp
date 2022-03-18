@@ -28,6 +28,14 @@
 | \"//It's their storage shed. Supplies are low and it smells like mating rats.//\"(light-gray)
 ")
 
+(:interaction noka-train
+   :interactable lore-noka-train
+   :repeatable T
+   "
+~ player
+| \"It's a train. Well, half a train.\"(light-gray, italic)
+")
+
   ;; Large stone gate
   (:interaction stone-gate-large
    :interactable lore-gate-rock
@@ -275,11 +283,171 @@
    :repeatable T
    "
 ~ player
-| \"//It appears the old gasworks exploded. Was I something to do with that?//\"(light-gray)
+| \"//The old gasworks exploded. Was I something to do with that?//\"(light-gray)
 ? (complete-p 'q0-settlement-arrive)
 | | \"//It's a pity: the gas holders could have been repurposed as grain silos.//\"(light-gray)
 ")
 ;; perhaps the old gasworks was being converted into something more modern, when an accident happened, perhaps involving the android. Like this explosion in Sheffield when an old gasworks was being converted in the 1970s: https://www.bbc.co.uk/news/uk-england-south-yorkshire-45097740
+
+(:interaction semi-cave-east-1
+   :interactable lore-semi-cave-east
+   :repeatable T
+   "
+~ player
+| \"Was the old world ruled by people or rabbits? These warrens go on forever.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-east-2
+   :interactable lore-semi-lights
+   :repeatable T
+   "
+~ player
+| \"It's lucky they lit these tunnels with lanterns - the charge is more than sufficient to recharge my boost.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-east-3
+   :interactable lore-semi-product-line
+   :repeatable T
+   "
+~ player
+| \"I think they assembled androids on this production line.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-east-4
+   :interactable lore-semi-pic
+   :repeatable T
+   "
+~ player
+| \"I suppose this is the equivalent of a cave painting these days.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-east-5
+   :interactable lore-semi-swim
+   :repeatable T
+   "
+~ player
+| \"It's a good job I can swim.\"(light-gray, italic)
+| (:giggle)\"And by swim I mean activate my aquatic water jets.\"(light-gray, italic)
+")
+
+(:interaction semi-train
+   :interactable lore-semi-train
+   :repeatable T
+   "
+~ player
+| \"This is a maglev bullet train. With rail trucks welded onto its chassis.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-1
+   :interactable lore-semi-hub-supplies
+   :repeatable T
+   "
+~ player
+| \"Do they trade in contraband? Well, I suppose nothing's illegal any more.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-2
+   :interactable lore-semi-bar
+   :repeatable T
+   "
+~ player
+| \"I guess people need a watering hole wherever they go.\"(light-gray, italic)
+| \"This one's as loud with chatter and clinking glass as anywhere I remember.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-3
+   :interactable lore-semi-pic-2
+   :repeatable T
+   "
+~ player
+| \"Maybe the world will look like this picture again one day. But I doubt it.\"(light-gray, italic)
+")
+;; doubt it: either because things are too far gone, or because even if society recovers, they'll hopefully do things differently
+
+(:interaction semi-hub-4
+   :interactable lore-semi-control
+   :repeatable T
+   "
+~ player
+| \"The din of the base fades away up here.\"(light-gray, italic)
+| \"It's as relaxing a place as I've found since I woke up.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-5
+   :interactable lore-semi-broken-building
+   :repeatable T
+   "
+~ player
+| \"How this subscraper hasn't completely collapsed is beyond me.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-6
+   :interactable lore-semi-curtain
+   :repeatable T
+   "
+~ player
+| \"Machinery and modesty curtains - not what I expected. I suppose they have to make do with what they've got.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-7
+   :interactable lore-semi-plants
+   :repeatable T
+   "
+~ player
+| \"It's a hydroponic paradise. I don't think these people are wanting in the food and water department.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-8
+   :interactable lore-semi-vending
+   :repeatable T
+   "
+~ player
+| \"Any food left in here will be spoiled. Including those Candy Androids, looking at me mournfully through the glass.\"(light-gray, italic)
+")
+;; Candy Android = a candy bar from the old world. Suggests maybe it was a PR thing to make people more amenable to androids, by making chocolate bars out of them.
+
+(:interaction semi-hub-9
+   :interactable lore-semi-bedroom
+   :repeatable T
+   "
+~ player
+| \"An office turned bedroom.\"(light-gray, italic) (:giggle)\"Brings new meaning to sleeping at work.\"(light-gray, italic)
+")
+
+(:interaction semi-hub-10
+   :interactable lore-semi-calendar
+   :repeatable T
+   "
+~ player
+| \"A calendar from 2368, still showing March. Some of those appointments never happened.\"(light-gray, italic)
+| \"Is that a picture of the people who worked here?\"(light-gray, italic)
+")
+
+(:interaction semi-cave-west-1
+   :interactable lore-semi-sign
+   :repeatable T
+   "
+~ player
+| \"Well that's fluorescent. The tubes are full of dead flies. I know the feeling.\"(light-gray, italic)
+")
+
+(:interaction semi-cave-west-2
+   :interactable lore-semi-spikes
+   :repeatable T
+   "
+~ player
+| \"Who put all these spikes here? It's like a police state.\"(light-gray, italic)
+")
+;; maybe the Semi Sisters planted them for defence, even though it makes it harder for their own people to get around. Or maybe it's a legacy from when the Wraw inhabited this area?
+
+(:interaction semi-cave-west-3
+   :interactable lore-semi-eng-post
+   :repeatable T
+   "
+~ player
+| \"It's a temporary engineers' camp. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
+")
+
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (:interaction trapped-engineers
@@ -304,7 +472,7 @@
 | |   | (:shocked)... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
+| | | (:weary)We're glad you showed up. We're rail engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
@@ -326,7 +494,7 @@
 | |   | (:shocked)... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're glad you showed up. We're engineers from the Semi Sisters.
+| | | (:weary)We're glad you showed up. We're rail engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
@@ -345,12 +513,11 @@
 |? (active-p (find-task 'demo-engineers 'task-reminder))
 | ! eval (complete (find-task 'demo-engineers 'task-reminder))
 "))
-
 ;; TODO remove demo task checks at the end here, when no longer needed
 
 ;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
-;; TODO flesh these out. Currently only done for the KS demo quests, with no (T) complete fallback
+;; TODO flesh these out. Currently only done for the KS demo quests, with only temporary (T) complete fallback
 ;; Written to have minor arcs, should the player see them at the start/during, and the end. Generally based on how they regard the android early in the main story.
 ;; 3-5 alts
 (define-default-interactions innis
@@ -361,7 +528,9 @@
   (demo-semis
    "| (:angry)[? \"Talk to my sister.\"(orange) | You deaf? I said \"talk to Islay\"(orange).]")
   (demo-start
-   "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]"))
+   "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
+  (T
+  "| What do you want?"))
 ;; dinnae = don't (Scottish)
 ;; wouldnae = wouldn't (Scottish)
 ;; didnae = didn't (Scottish)
@@ -371,22 +540,30 @@
   (demo-end-prep
    "| (:happy)[? I knew you'd come through for us. | If only people were as reliable as androids. | I'd love to hear your story - where you've been all these years. | Tell your friends we're sorry about the water. | I'll make sure Innis doesn't turn the water off again.]")
   (demo-start
-   "| [? Mind how you go, {#@player-nametag}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]"))
+   "| [? Mind how you go, {#@player-nametag}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]")
+  (T
+  "| (:nervous)I'm sorry, I'm busy."))
 
 (define-default-interactions jack
   (demo-end-prep
    "| [? The water's back on. Don't tell me that was you? | That was a close one. Don't think I ever been so thirsty. | Maybe you're alright after all. | I'm still keeping an eye on you, mind.]")
   (demo-start
-   "| (:annoyed)[? I'm watching you, android. | Don't you have work to do? | Be seein' ya. | I'm thirsty, hurry it up! | What's the matter? You afraid?]"))
+   "| (:annoyed)[? I'm watching you, android. | Don't you have work to do? | Be seein' ya. | I'm thirsty, hurry it up! | What's the matter? You afraid?]")
+  (T
+  "| What?"))
    
 (define-default-interactions fi
   (demo-end-prep
    "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still in one piece. | Now our crops might stand a chance.]")
   (demo-start
-   "| [? Please hurry, {#@player-nametag}. | Our survival depends on you. | You are earning my trust. Please, continue to do so. | You could be a hunter, and more besides.]"))
+   "| [? Please hurry, {#@player-nametag}. | Our survival depends on you. | You are earning my trust. Please, continue to do so. | You could be a hunter, and more besides.]")
+  (T
+  "| Konnichiwa."))
    
 (define-default-interactions catherine
   (demo-end-prep
    "| (:excited)[? I never doubted you! | You're my hero, {#@player-nametag}! | I'm gonna take a bath! Well, once everyone's had their fill. | I won't take water for granted __EVER__ again.]")
   (demo-start
-   "| (:concerned)[? The water's never been off this long. | I believe in you, {#@player-nametag}. | It's just another adventure, right? | Is this the end?]"))
+   "| (:concerned)[? The water's never been off this long. | I believe in you, {#@player-nametag}. | It's just another adventure, right? | Is this the end?]")
+  (T
+  "| You okay?"))

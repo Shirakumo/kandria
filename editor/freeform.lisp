@@ -26,7 +26,7 @@
                      (d (+ (min 0 (max (vx d) (vy d)))
                            (vlength (vmax d 0)))))
                 ;; If close to borders, resize.
-                (setf (state tool) (if (< (abs d) (/ 1 (zoom (unit :camera T))))
+                (setf (state tool) (if (< (abs d) (/ 1 (zoom (camera +world+))))
                                        :resizing
                                        :moving))))
              (located-entity

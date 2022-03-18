@@ -118,7 +118,7 @@
   ((easing :initform 'quint-in)))
 
 (defmethod (setf value) (value (trigger zoom-trigger))
-  (setf (intended-zoom (unit :camera T)) value))
+  (setf (intended-zoom (camera +world+)) value))
 
 (defclass pan-trigger (tween-trigger creatable)
   ())
@@ -287,6 +287,8 @@
     (setf (vertex-array wind) vao)
     (setf (vertex-buffer wind) (caar (bindings vao)))))
 
+(defmethod layer-index ((wind wind)) (+ 2 +base-layer+))
+
 (defmethod interact ((wind wind) (player player))
   ;; FIXME: how do we get the actual dt here?
   (unless (or (eq :dashing (state player))
@@ -323,7 +325,7 @@
          (v<- (strength wind) (v* (max-strength wind) y)))))
     (let* ((vbo (vertex-buffer wind))
            (arr (buffer-data vbo))
-           (camera (unit :camera +world+))
+           (camera (camera +world+))
            (view (bsize camera))
            (spd (strength wind))
            (dir (if (v= 0.0 spd) #.(vec 1 0) (vunit spd)))

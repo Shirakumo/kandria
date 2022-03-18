@@ -11,18 +11,17 @@
    :title "Find the saboteur in the Semis' low-eastern region, along the Cerebat border")
   (:interact (innis :now T)
 "~ player
-| (:skeptical)Innis, I found the saboteur. I don't think they're a Cerebat.
-| (:embarassed)They're quite big. I don't think they'll come quietly.
+| (:embarassed)Innis, I found the <-saboteurs->. Plural.
+| (:skeptical)I don't think they'll come quietly.
 ~ innis
 | (:pleased)Then might I suggest you defend ya wee self.
 | (:sly)If you survive ya can \"bring me your report in person\"(orange).
 | (:angry)Now don't interrupt me again.
   ")
   (:complete (q5b-boss-fight)
-   :title "Defeat the saboteur robot in the Semis' low-eastern region, along the Cerebat border"
+   :title "Defeat the saboteurs"
    "~ player
-| Alright big boy, let's dance.
-| (:giggle)You know the robot, right?
+| Good doggy.
   ")
    (:eval
     (when (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3))
@@ -32,7 +31,7 @@
    (:interact (player :now T)
   "
 ~ player
-? (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3) (find-task 'demo-cctv 'task-cctv-4))
+? (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3))
 | | I'd better \"get back to Innis\"(orange), on the double.
 |?
 | | I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.

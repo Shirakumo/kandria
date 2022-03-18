@@ -1,0 +1,1086 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="680"
+   height="1800"
+   viewBox="0 0 179.91666 476.25001"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="kickstarter rewards.svg"
+   inkscape:export-filename="/home/linus/Projects/cl/kandria/docs/media/kickstarter rewards.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     width="640px"
+     inkscape:snap-page="true"
+     inkscape:snap-global="true"
+     inkscape:zoom="1"
+     inkscape:cx="343.5"
+     inkscape:cy="982"
+     inkscape:window-width="3836"
+     inkscape:window-height="2109"
+     inkscape:window-x="1920"
+     inkscape:window-y="49"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g105122" />
+  <defs
+     id="defs2">
+    <rect
+       x="583.75014"
+       y="1574.6703"
+       width="61.203407"
+       height="40.095445"
+       id="rect290419" />
+    <rect
+       x="798.07935"
+       y="309.26176"
+       width="319.47791"
+       height="101.30528"
+       id="rect259761" />
+    <rect
+       x="599.79273"
+       y="332.01353"
+       width="46.746277"
+       height="42.532822"
+       id="rect243449" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient86322">
+      <stop
+         style="stop-color:#00b3ff;stop-opacity:0.56078434"
+         offset="0"
+         id="stop86318" />
+      <stop
+         style="stop-color:#00b3ff;stop-opacity:0"
+         offset="1"
+         id="stop86320" />
+    </linearGradient>
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="427.0766"
+       height="87.818336"
+       id="rect62135" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect45337" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect5086" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient86324"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106"
+       gradientUnits="userSpaceOnUse" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect94765" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect94767" />
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="427.0766"
+       height="87.818336"
+       id="rect94769" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient94771"
+       gradientUnits="userSpaceOnUse"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect94806" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect94808" />
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="427.0766"
+       height="87.818336"
+       id="rect94810" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient94823"
+       gradientUnits="userSpaceOnUse"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect94858" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect94860" />
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="427.0766"
+       height="87.818336"
+       id="rect94862" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient94864"
+       gradientUnits="userSpaceOnUse"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect94899" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect94901" />
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="427.0766"
+       height="87.818336"
+       id="rect94903" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient94905"
+       gradientUnits="userSpaceOnUse"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect103081" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect103083" />
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="426.20705"
+       height="97.639628"
+       id="rect103085" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient105007"
+       gradientUnits="userSpaceOnUse"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect105042" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect105044" />
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="427.0766"
+       height="87.818336"
+       id="rect105046" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient105048"
+       gradientUnits="userSpaceOnUse"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect105083" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect105085" />
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="427.0766"
+       height="87.818336"
+       id="rect105087" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient105089"
+       gradientUnits="userSpaceOnUse"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106" />
+    <rect
+       x="29.497641"
+       y="61.783401"
+       width="149.38583"
+       height="88.061562"
+       id="rect105124" />
+    <rect
+       x="183.92479"
+       y="33.731487"
+       width="422.2471"
+       height="104.23197"
+       id="rect105126" />
+    <rect
+       x="175.33124"
+       y="89.86573"
+       width="427.0766"
+       height="87.818336"
+       id="rect105128" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient86322"
+       id="radialGradient105130"
+       gradientUnits="userSpaceOnUse"
+       cx="23.941156"
+       cy="26.279177"
+       fx="23.941156"
+       fy="26.279177"
+       r="19.008106" />
+    <rect
+       x="798.07935"
+       y="309.26175"
+       width="319.47791"
+       height="101.30528"
+       id="rect259761-5" />
+    <rect
+       x="599.79272"
+       y="332.01352"
+       width="46.746277"
+       height="42.532822"
+       id="rect243449-4" />
+    <rect
+       x="583.75012"
+       y="1574.6703"
+       width="61.203407"
+       height="40.095444"
+       id="rect290419-2" />
+    <rect
+       x="599.79272"
+       y="332.01352"
+       width="46.746277"
+       height="42.532822"
+       id="rect243449-4-5" />
+    <rect
+       x="798.07935"
+       y="309.26175"
+       width="319.47791"
+       height="101.30528"
+       id="rect259761-5-4" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g105122"
+       transform="translate(0,423.33335)">
+      <path
+         style="fill:#c60000;fill-opacity:0.996852;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 35.49121,3.5160629 25.660761,50.927862 158.58165,52.851569 167.0576,7.5874467 Z"
+         id="path105102"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 37.587363,5.3944696 28.067026,52.053293 164.65625,50.399463 162.78624,7.7895535 Z"
+         id="path105104"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path105106"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient105130);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="circle105108"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text105112"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105124)"
+         x="278.05206"
+         y="0"><tspan
+           x="32.430389"
+           y="103.3992"
+           id="tspan297536"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297534">~$750</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text105116"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105126)"
+         x="71.759987"
+         y="0"><tspan
+           x="277.92792"
+           y="89.220422"
+           id="tspan297540"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297538">Leader</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text105120"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105128);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297546"><tspan
+             style="fill:#a6a6a6"
+             id="tspan297542">- Everything from </tspan><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297544">Architect
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297550"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297548">- Design a custom NPC to be included in the game</tspan></tspan></text>
+      <path
+         id="rect234956-7-7"
+         style="fill:#fe0000;fill-opacity:0.997446;stroke-width:0.721276;stroke-linecap:round;paint-order:markers fill stroke"
+         d="m 118.99337,37.59011 h 60.92331 v 11.36738 h -60.92331 l 7.72564,-5.67284 z"
+         sodipodi:nodetypes="cccccc" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-70.323179,-43.835888)"
+         id="text259759-5-4"
+         style="font-size:21.3333px;line-height:0.85;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect259761-5-4);fill:#fdfdfd;fill-opacity:1"><tspan
+           x="798.08008"
+           y="323.49103"
+           id="tspan297554"><tspan
+   style="font-size:18.6667px"
+   id="tspan297552">Limited</tspan>
+</tspan><tspan
+           x="798.08008"
+           y="345.18171"
+           id="tspan297558"><tspan
+             style="font-size:26.6667px"
+             id="tspan297556">2x</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.31845533,0,0,0.31845533,-60.574305,-67.88792)"
+         id="text243447-6-4"
+         style="font-size:26.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect243449-4-5)"><tspan
+           x="599.79297"
+           y="358.20418"
+           id="tspan297562"><tspan
+             style="fill:#ffffff"
+             id="tspan297560"></tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-1.2886608e-6,-370.41389)"
+         id="text290417-3"
+         style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect290419-2)" />
+    </g>
+    <g
+       id="g105081"
+       transform="translate(0,370.41668)"
+       style="display:inline">
+      <path
+         style="fill:#c60000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 27.28454,4.4372922 34.4329,51.881131 158.58165,52.851569 167.0576,7.5874467 Z"
+         id="path105061"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 29.712004,3.9993997 36.739106,52.042861 162.70682,51.688855 165.59537,5.1491139 Z"
+         id="path105063"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path105065"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient105089);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="circle105067"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text105071"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105083)"
+         x="278.05206"
+         y="0"><tspan
+           x="30.990402"
+           y="103.3992"
+           id="tspan297566"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297564">~$300</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text105075"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105085)"
+         x="71.759987"
+         y="0"><tspan
+           x="224.16785"
+           y="89.220422"
+           id="tspan297570"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297568">Architect</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text105079"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105087);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297576"><tspan
+             style="fill:#a7a7a7"
+             id="tspan297572">- Everything from </tspan><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297574">Engineer
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297580"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297578">- Design a relic of the past that can be found in the game</tspan></tspan></text>
+      <path
+         id="rect234956-7"
+         style="fill:#fe0000;fill-opacity:0.997446;stroke-width:0.721276;stroke-linecap:round;paint-order:markers fill stroke"
+         d="m 118.99337,37.587321 h 60.92331 v 11.36738 h -60.92331 l 7.72564,-5.67284 z"
+         sodipodi:nodetypes="cccccc" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-70.323178,-43.838677)"
+         id="text259759-5"
+         style="font-size:21.3333px;line-height:0.85;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect259761-5);fill:#fdfdfd;fill-opacity:1"><tspan
+           x="798.08008"
+           y="323.49103"
+           id="tspan297584"><tspan
+   style="font-size:18.6667px"
+   id="tspan297582">Limited</tspan>
+</tspan><tspan
+           x="798.08008"
+           y="345.18171"
+           id="tspan297588"><tspan
+             style="font-size:26.6667px"
+             id="tspan297586">10x</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.31845533,0,0,0.31845533,-60.574304,-67.890709)"
+         id="text243447-6"
+         style="font-size:26.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect243449-4)"><tspan
+           x="599.79297"
+           y="358.20418"
+           id="tspan297592"><tspan
+             style="fill:#ffffff"
+             id="tspan297590"></tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-370.41668)"
+         id="text290417"
+         style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect290419)" />
+    </g>
+    <g
+       id="g105040"
+       transform="translate(0,317.50001)">
+      <path
+         style="fill:#000000;fill-opacity:0.382424;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 35.49121,3.5160629 35.732821,50.325315 158.58165,52.851569 167.0576,7.5874467 Z"
+         id="path105020"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 38.441251,2.7677243 37.520196,52.801891 164.82013,50.801732 168.16472,10.291242 Z"
+         id="path105022"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path105024"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient105048);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="circle105026"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text105030"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105042)"
+         x="278.05206"
+         y="0"><tspan
+           x="47.790421"
+           y="103.3992"
+           id="tspan297596"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297594">~$70</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text105034"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105044)"
+         x="71.759987"
+         y="0"><tspan
+           x="241.76782"
+           y="89.220422"
+           id="tspan297600"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297598">Engineer</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text105038"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect105046);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297606"><tspan
+             style="fill:#a5a5a5"
+             id="tspan297602">- Everything from </tspan><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297604">Hunter
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297610"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297608">- Name a survivor in the game</tspan></tspan></text>
+    </g>
+    <g
+       id="g103079"
+       transform="translate(0,264.58334)">
+      <path
+         style="fill:#000000;fill-opacity:0.382424;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 35.49121,3.5160629 25.660761,50.927862 158.58165,52.851569 167.0576,7.5874467 Z"
+         id="path103059"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 37.587363,5.3944696 27.146346,53.398722 164.11223,50.444002 161.00786,5.6074839 Z"
+         id="path103061"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path103063"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient105007);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="circle103065"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text103069"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect103081)"
+         x="278.05206"
+         y="0"><tspan
+           x="46.110428"
+           y="103.3992"
+           id="tspan297614"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297612">~$40</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text103073"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect103083)"
+         x="71.759987"
+         y="0"><tspan
+           x="268.64783"
+           y="89.220422"
+           id="tspan297618"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297616">Hunter</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text103077"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect103085);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297624"><tspan
+             style="fill:#a7a7a7"
+             id="tspan297620">- Everything from </tspan><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297622">Farmer
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297628"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297626">- Access to the early game releases
+</tspan></tspan><tspan
+           x="175.33203"
+           y="152.71601"
+           id="tspan297632"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297630">- Your name as a &quot;beta tester&quot; in the credits
+</tspan></tspan><tspan
+           x="175.33203"
+           y="176.04939"
+           id="tspan297636"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297634">- Beta tester discord role</tspan></tspan></text>
+    </g>
+    <g
+       id="g94897"
+       transform="translate(0,211.66667)"
+       style="display:inline">
+      <path
+         style="fill:#000000;fill-opacity:0.382424;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 35.49121,3.5160629 25.660761,50.927862 158.58165,52.851569 167.0576,7.5874467 Z"
+         id="path94877"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 37.587363,5.3944696 28.302735,48.815119 162.70682,51.688855 165.59537,5.1491139 Z"
+         id="path94879"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path94881"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient94905);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="circle94883"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text94887"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94899)"
+         x="278.05206"
+         y="0"><tspan
+           x="47.070404"
+           y="103.3992"
+           id="tspan297640"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297638">~$30</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text94891"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94901)"
+         x="71.759987"
+         y="0"><tspan
+           x="276.008"
+           y="89.220422"
+           id="tspan297644"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297642">Trader</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text94895"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94903);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297650"><tspan
+             style="fill:#a6a6a6"
+             id="tspan297646">- Everything from </tspan><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297648">Farmer
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297654"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297652">- An extra digital copy of the game</tspan></tspan></text>
+    </g>
+    <g
+       id="g94856"
+       transform="translate(0,158.75)">
+      <path
+         style="fill:#000000;fill-opacity:0.382424;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 28.719854,6.5543141 7.813434,42.9591969 123.021362,1.661836 2.3437,-48.7624875 z"
+         id="path94836"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 31.010439,4.776581 4.256728,41.25573 125.382473,2.286434 3.20662,-43.3285361 z"
+         id="path94838"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path94840"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient94864);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="circle94842"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text94846"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94858)"
+         x="278.05206"
+         y="0"><tspan
+           x="47.790421"
+           y="103.3992"
+           id="tspan297658"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297656">~$25</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text94850"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94860)"
+         x="71.759987"
+         y="0"><tspan
+           x="273.44794"
+           y="89.220422"
+           id="tspan297662"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297660">Farmer</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text94854"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94862);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297668"><tspan
+             style="fill:#a5a5a5"
+             id="tspan297664">- Everything from </tspan><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297666">Rogue
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297672"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297670">- A digital copy of the soundtrack</tspan></tspan></text>
+    </g>
+    <g
+       id="g94763"
+       transform="translate(0,105.83333)"
+       style="display:inline">
+      <path
+         style="fill:#000000;fill-opacity:0.382424;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 43.166259,-0.44617907 29.021796,50.414586 163.32503,51.219918 158.39669,3.9898304 Z"
+         id="path94743"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 37.217424,0.394904 31.565843,52.495934 161.17752,48.311897 162.04384,6.7628074 Z"
+         id="path94745"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path94747"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient94823);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="circle94749"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text94753"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94765)"
+         x="278.05206"
+         y="0"><tspan
+           x="46.590439"
+           y="103.3992"
+           id="tspan297676"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297674">~$20</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text94757"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94767)"
+         x="71.759987"
+         y="0"><tspan
+           x="290.40784"
+           y="89.220422"
+           id="tspan297680"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297678">Rogue</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text94761"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94769);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297686"><tspan
+             style="fill:#a5a5a5"
+             id="tspan297682">- Everything from </tspan><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297684">Hermit
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297690"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297688">- A digital copy of the game</tspan></tspan></text>
+    </g>
+    <g
+       id="g94804"
+       transform="translate(0,52.916666)"
+       style="display:inline">
+      <path
+         style="fill:#c70000;fill-opacity:0.997446;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 29.609528,8.0341172 29.021796,50.414586 164.02983,50.052386 161.4996,3.4235374 Z"
+         id="path94784"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 30.365905,4.5190708 34.164328,49.108803 163.13212,47.100602 166.23622,5.5990218 Z"
+         id="path94786"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         id="path94788"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient94771);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="circle94790"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text94794"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94806)"
+         x="278.05206"
+         y="0"><tspan
+           x="49.710419"
+           y="103.3992"
+           id="tspan297694"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297692">~$17</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text94798"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94808)"
+         x="71.759987"
+         y="0"><tspan
+           x="187.3678"
+           y="89.220422"
+           id="tspan297698"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297696">Early Rogue</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text94802"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect94810);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297704"><tspan
+             style="fill:#a5a5a5"
+             id="tspan297700">- Everything from </tspan><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297702">Hermit
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297708"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297706">- A digital copy of the game</tspan></tspan></text>
+      <path
+         id="rect234956"
+         style="fill:#fe0000;fill-opacity:0.997446;stroke-width:0.721276;stroke-linecap:round;paint-order:markers fill stroke"
+         d="m 118.99337,33.640572 h 60.92331 v 11.367373 h -60.92331 l 7.72564,-5.672838 z"
+         sodipodi:nodetypes="cccccc" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.31845533,0,0,0.31845533,-60.574303,-71.83746)"
+         id="text243447"
+         style="font-size:26.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect243449)"><tspan
+           x="599.79297"
+           y="358.68037"
+           id="tspan297712"><tspan
+             style="font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff"
+             id="tspan297710"></tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-70.323177,-46.535143)"
+         id="text259759"
+         style="font-size:21.3333px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect259761);fill:#fdfdfd;fill-opacity:1"><tspan
+           x="798.08008"
+           y="322.42436"
+           id="tspan297714">Limited Time
+</tspan><tspan
+           x="798.08008"
+           y="338.42433"
+           id="tspan297716">Only</tspan></text>
+    </g>
+    <g
+       id="g94741"
+       style="display:inline">
+      <path
+         style="fill:#000000;fill-opacity:0.382424;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 33.322609,2.6543907 29.021796,50.414586 166.19998,46.841923 158.39669,3.9898304 Z"
+         id="path82320" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 35.559063,5.0918072 27.337096,48.653824 163.95151,48.870875 161.22393,4.7072481 Z"
+         id="path857" />
+      <path
+         id="rect1027"
+         style="fill:#393939;fill-opacity:1;stroke:none;stroke-width:1.74369;stroke-linecap:round;paint-order:markers fill stroke"
+         d="M 0,0 V 200 H 34.388672 V 158.73047 L 162.78472,141.83032 175.0342,59.66334 34.388672,40.175781 V 0 Z"
+         transform="scale(0.26458333)"
+         sodipodi:nodetypes="ccccccccc" />
+      <circle
+         style="fill:url(#radialGradient86324);fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;paint-order:markers fill stroke"
+         id="path86128"
+         cx="23.941156"
+         cy="26.279177"
+         r="19.008106" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-4.931523,3.1303613)"
+         id="text5084"
+         style="font-size:48px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5086)"
+         x="278.05206"
+         y="0"><tspan
+           x="63.150406"
+           y="103.3992"
+           id="tspan297720"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297718">~$5</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-3.557453)"
+         id="text45335"
+         style="font-size:64px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect45337)"
+         x="71.759987"
+         y="0"><tspan
+           x="275.68787"
+           y="89.220422"
+           id="tspan297724"><tspan
+             style="text-align:center;text-anchor:middle;fill:#ffffff"
+             id="tspan297722">Hermit</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,3.1750001,0)"
+         id="text62133"
+         style="font-size:18.6667px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect62135);fill:#ffffff;fill-opacity:1"><tspan
+           x="175.33203"
+           y="106.04926"
+           id="tspan297728"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297726">- Name in the credits
+</tspan></tspan><tspan
+           x="175.33203"
+           y="129.38264"
+           id="tspan297732"><tspan
+             style="font-family:'Concourse T6';-inkscape-font-specification:'Concourse T6'"
+             id="tspan297730">- Special Discord role</tspan></tspan></text>
+    </g>
+  </g>
+</svg>

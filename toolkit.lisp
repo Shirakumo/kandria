@@ -41,7 +41,8 @@
                              :allow-editor #+kandria-release NIL #-kandria-release T
                              :swank NIL
                              :swank-port 4005
-                             :camera-control NIL))))
+                             :camera-control NIL
+                             :fps-counter NIL))))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)
@@ -421,12 +422,12 @@
                      (* (vy (bsize entity)) (signum (- (vy (location closest)) (vy location))))))))))
 
 (defun mouse-world-pos (pos)
-  (let ((camera (unit :camera T)))
+  (let ((camera (camera +world+)))
     (let ((pos (nv+ (v/ pos (view-scale camera) (zoom camera)) (location camera))))
       (nv- pos (v/ (target-size camera) (zoom camera))))))
 
 (defun world-screen-pos (pos)
-  (let ((camera (unit :camera T)))
+  (let ((camera (camera +world+)))
     (let ((pos (v+ pos (v/ (target-size camera) (zoom camera)))))
       (v* (nv- pos (location camera)) (view-scale camera) (zoom camera)))))
 

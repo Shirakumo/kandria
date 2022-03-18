@@ -177,7 +177,7 @@
                `(let* ((layout-outer (make-instance 'alloy:border-layout :padding (alloy:margins 30)))
                        (layout (make-instance 'alloy:grid-layout :col-sizes '(300 300) :row-sizes '(40)
                                                                  :layout-parent layout-outer))
-                       (focus (make-instance 'alloy:focus-list)))
+                       (focus (make-instance 'vertical-menu-focus-list)))
                   ,@body
                   (add-tab panel (@ ,name) layout-outer focus))))
     (with-tab audio-settings
@@ -203,7 +203,7 @@
            (list (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 2 10 2 2) :min-size (alloy:size 300 50)))
            (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
            (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
-           (focus (make-instance 'alloy:focus-list)))
+           (focus (make-instance 'vertical-menu-focus-list)))
       (alloy:enter list clipper)
       (alloy:enter scroll layout :place :east :size (alloy:un 20))
       (dolist (action-set '(in-game in-menu in-map fishing))
@@ -235,6 +235,7 @@
         (control send-diagnostics (:debugging :send-diagnostics) 'alloy:checkbox)
         (control allow-editor (:debugging :allow-editor) 'alloy:checkbox)
         (control camera-control (:debugging :camera-control) 'alloy:checkbox)
+        (control show-fps-counter (:debugging :fps-counter) 'alloy:checkbox)
         (control start-swank-server (:debugging :swank) 'alloy:checkbox)
         (control swank-server-port (:debugging :swank-port) 'alloy:ranged-wheel :range '(1024 . 65535))
         (alloy:enter (alloy:represent #@open-config-dir 'setting-label) layout)

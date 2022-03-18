@@ -19,8 +19,7 @@
     :dialogue "
 ~ islay
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-3 'task-cctv-4)
-| ? (not (complete-p 'demo-boss))
-| | | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low-eastern region\"(orange).
+| | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low-eastern region\"(orange).
 |?
 | ? (complete-p 'demo-boss)
 | | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining downed CCTV cameras\"(orange).
@@ -47,7 +46,7 @@
 | \"The lens is smashed and the casing is charred.\"(light-gray, italic)
 ? (complete-p 'task-cctv-2 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
-| | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteur.\"(light-gray, italic)
+| | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
@@ -74,7 +73,7 @@
 | \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit boards.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
-| | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteur.\"(light-gray, italic)
+| | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
@@ -101,7 +100,7 @@
 | \"It's in pieces on the floor, surrounded by rocks and stones.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-4)
 | ? (complete-p 'demo-boss)
-| | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteur.\"(light-gray, italic)
+| | | (:normal)\"That was the last of the downed cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
@@ -162,6 +161,7 @@
 ;; didnae = didn't (Scottish)
 ;; ken = know (Scottish)
 
+   ;; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4), nor employ rogues... The Wraw would do both though.
   (task-return-cctv
    :title "Return to Innis in the Semi Sisters base to discuss the saboteur"
    :marker '(innis 500)
@@ -175,13 +175,13 @@
 | (:pleased)I'm glad you survived.
 | (:sly)So what are we dealing with?
 ~ player
-- It was a big, badass robot.
+- It was a band of rogues.
   ~ innis
-  | ... That's no' something the Cerebats would use.
-- I don't know. It's in pieces if you want to go look.
+  | ... Rogues? They're no' the kind of people the Cerebats would employ.
+- Wannabe samurais and their pet dogs.
   ~ innis
-  | The Cerebats dinnae use robots. And no thank you.
-- Do the Cerebats use robots?
+  | Rogues then... and wolf packs? That doesnae sound like the Cerebats.
+- Do the Cerebats have a K-9 unit?
   ~ innis
   | No.
 ~ innis
@@ -191,7 +191,6 @@
 | The \"Wraw\"(red).
 | There've been other signs lately. Islay warned me about this.
 | Dammit.
-| ...
 | (:normal)I need to speak with my sister.
 ? (complete-p 'demo-engineers)
 | | You should return to the surface.
@@ -202,4 +201,5 @@
 | | Maybe I'll see you on the battlefield.
 | ! eval (activate 'demo-end-prep)
 ")))
-;; dinnae = don't (Scottish)
+;; dinnae = don't / do not (Scottish)
+;; doesnae = does not / doesn't (Scottish)

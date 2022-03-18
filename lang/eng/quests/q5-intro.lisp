@@ -57,7 +57,7 @@
 | ~ player
 | - It was me.
 |   ~ innis
-|   | (:sly)Oh really? You just helped us outta the goodness o' your heart?
+|   | (:sly)Oh really? You just helped us outta the goodness of your heart?
 |   ~ player
 |   - What's wrong with that?
 |   - That's what I do.
@@ -83,7 +83,7 @@
 | - Why was Islay's intel out of date?
 |   ~ innis
 |   | We might have the technological edge 'round here, but out in the sticks news travels slowly.
-|   | I only just got word o' this change myself.
+|   | I only just got word of this change myself.
 | ~ innis
 | | The good news for you is that it means our engineering works are back on schedule.
 | | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we-... //if I// officially grant you \"access to the metro\"(orange).
@@ -126,4 +126,5 @@
 ;; ken = know (Scottish)
 ;; didnae = didn't (Scottish)
 ;; dinnae = don't (Scottish)
+;; canna = cannot (Scottish)
 ;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station

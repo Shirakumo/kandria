@@ -60,7 +60,7 @@
     (flet ((time-position (hour)
              (let ((tt (* (/ hour 24) 2 PI)))
                (nv+ (vec2 (* 10000000 (sin tt)) (* -10000000 (cos tt)))
-                    (location (unit :camera T))))))
+                    (location (camera +world+))))))
       (etypecase loc
         (vec2
          loc)

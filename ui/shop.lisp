@@ -121,35 +121,36 @@
   ())
 
 (defmethod initialize-instance :after ((panel sales-menu) &key shop direction target)
-  (let* ((layout (make-instance 'eating-constraint-layout
-                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
-         (clipper (make-instance 'alloy:clip-view :limit :x))
-         (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
-         (focus (make-instance 'alloy:focus-list))
-         (list (make-instance 'alloy:vertical-linear-layout
-                              :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
-                              :min-size (alloy:size 100 50)))
-         (money (alloy:represent (item-count 'item:parts target) 'money-counter)))
-    (alloy:enter list clipper)
-    (alloy:enter clipper layout :constraints `((:left 50) (:right 70) (:bottom 100) (:top 100)))
-    (alloy:enter scroll layout :constraints `((:width 20) (:right 50) (:bottom 100) (:top 100)))
-    (alloy:enter money layout :constraints `((:right 50) (:above ,clipper 10) (:size 200 50)))
-    (ecase direction
-      (:buy
-       (alloy:enter (make-instance 'label :value (@ shop-buy-items)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 200 50)))
-       (dolist (item (list-items shop T))
-         (make-instance 'buy-button :value item :source shop :target target :layout-parent list :focus-parent focus)))
-      (:sell
-       (alloy:enter (make-instance 'label :value (@ shop-sell-items)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 200 50)))
-       (dolist (item (list-items target 'value-item))
-         (unless (typep item 'item:parts)
-           (make-instance 'sell-button :value item :source target :target shop :layout-parent list :focus-parent focus)))))
-    (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
-      (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
-      (alloy:enter back focus)
-      (alloy:on alloy:exit (focus)
-        (setf (alloy:focus back) :strong)))
-    (alloy:finish-structure panel layout focus)))
+  (alloy:with-unit-parent (unit 'ui-pass T)
+    (let* ((layout (make-instance 'eating-constraint-layout
+                                  :shapes (list (make-basic-background))))
+           (clipper (make-instance 'alloy:clip-view :limit :x))
+           (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
+           (focus (make-instance 'alloy:focus-list))
+           (list (make-instance 'alloy:vertical-linear-layout
+                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
+                                :min-size (alloy:size 100 50)))
+           (money (alloy:represent (item-count 'item:parts target) 'money-counter)))
+      (alloy:enter list clipper)
+      (alloy:enter clipper layout :constraints `((:left 50) (:right 70) (:bottom 100) (:top 100)))
+      (alloy:enter scroll layout :constraints `((:width 20) (:right 50) (:bottom 100) (:top 100)))
+      (alloy:enter money layout :constraints `((:right 50) (:above ,clipper 10) (:size 500 50)))
+      (ecase direction
+        (:buy
+         (alloy:enter (make-instance 'label :value (@ shop-buy-items)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 200 50)))
+         (dolist (item (list-items shop T))
+           (make-instance 'buy-button :value item :source shop :target target :layout-parent list :focus-parent focus)))
+        (:sell
+         (alloy:enter (make-instance 'label :value (@ shop-sell-items)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 200 50)))
+         (dolist (item (list-items target 'value-item))
+           (unless (typep item 'item:parts)
+             (make-instance 'sell-button :value item :source target :target shop :layout-parent list :focus-parent focus)))))
+      (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
+        (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
+        (alloy:enter back focus)
+        (alloy:on alloy:exit (focus)
+          (setf (alloy:focus back) :strong)))
+      (alloy:finish-structure panel layout focus))))
 
 (defclass item-wheel (alloy:ranged-wheel)
   ())

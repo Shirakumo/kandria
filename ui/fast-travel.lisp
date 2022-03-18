@@ -42,7 +42,7 @@
    :hidden-p (not (eq (source alloy:renderable) alloy:value)))
   ((:current-text simple:text)
    (alloy:extent (alloy:pw 0.72) (alloy:ph 0.3) (alloy:pw 0.3) (alloy:ph 0.4))
-   "You are here"
+   (@ current-fast-travel-location)
    :size (alloy:un 12)
    :font (setting :display :font)
    :pattern colors:white
@@ -61,7 +61,7 @@
 
 (defmethod initialize-instance :after ((panel fast-travel-menu) &key current-station)
   (let* ((layout (make-instance 'eating-constraint-layout
-                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
+                                :shapes (list (make-basic-background))))
          (clipper (make-instance 'alloy:clip-view :limit :x))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
          (focus (make-instance 'alloy:focus-list))

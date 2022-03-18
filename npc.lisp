@@ -47,6 +47,10 @@
          (:animated (eql 'idle (name (animation npc)))))
        (call-next-method)))
 
+(defmethod interact :after ((thing npc) (player player))
+  (move-to (v+ (location thing) (vec (* 16 (direction thing)) 0)) player)
+  (setf (pending-direction player) (- (direction thing))))
+
 (defmethod base-health ((npc npc))
   1000)
 
@@ -157,9 +161,10 @@
       (:normal
        (when (path npc)
          (execute-path npc ev))
-       (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt min-distance 2))
-           (show (nametag-element npc))
-           (hide (nametag-element npc))))
+       (when (setting :gameplay :display-hud)
+         (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt min-distance 2))
+             (show (nametag-element npc))
+             (hide (nametag-element npc)))))
       (:move-to
        (cond ((path npc)
               (execute-path npc ev))
@@ -355,9 +360,10 @@
             (incf direction (* (expt (abs dist) -1.1) (float-sign dist)))))))))
 
 (defmethod handle-ai-states ((npc roaming-npc) ev)
-  (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt 64 2))
-      (show (nametag-element npc))
-      (hide (nametag-element npc)))
+  (when (setting :gameplay :display-hud)
+    (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt 64 2))
+        (show (nametag-element npc))
+        (hide (nametag-element npc))))
   (when (eql :normal (state npc))
     (let* ((speed (movement-speed npc))
            (avg-time 2.0)
@@ -378,10 +384,12 @@
              (let ((level (crowding-level npc)))
                (cond ((<= 0.3 level)
                       (setf (ai-state npc) :crowded)
+                      (setf (walk npc) (< 0.1 (random 1.0)))
                       (setf (direction npc) (float-sign (random* 0.0 1.0)))
                       (setf (roam-time npc) (random* (+ 0.5 level) 0.5)))
                      (T
                       (setf (ai-state npc) :lonely)
+                      (setf (walk npc) (< 0.1 (random 1.0)))
                       (let ((dir (crowd-direction npc)))
                         (setf (direction npc) (float-sign (if (<= dir 1) (random* 0.0 1.0) dir))))
                       (setf (roam-time npc) (random* avg-time 1.0)))))))
@@ -391,9 +399,9 @@
              (start-animation 'stand-up npc)
              (setf (ai-state npc) :normal)))
           (:lonely
-           (setf (vx vel) (* speed (direction npc)))
            (when (svref (collisions npc) (if (< 0 (direction npc)) 1 3))
-             (setf (vx vel) 0))
+             (setf (direction npc) (* -1 (direction npc))))
+           (setf (vx vel) (* speed (direction npc)))
            (cond ((<= time 0.0)
                   (normalize))
                  ((<= time 0.5)

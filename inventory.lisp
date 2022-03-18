@@ -284,11 +284,11 @@
 (define-item (nut scrap value-item) 40 16 8 8
   :price 10)
 (define-item (gear scrap value-item) 48 16 8 8
-  :price 10)
+  :price 20)
 (define-item (bent-rod scrap value-item) 56 16 8 8
   :price 10)
 (define-item (large-gear scrap value-item) 64 16 8 8
-  :price 10)
+  :price 20)
 (define-item (copper-ring scrap value-item) 72 16 8 8
   :price 10)
 (define-item (metal-ring scrap value-item) 80 16 8 8
@@ -324,9 +324,9 @@
 (define-item (cable electronics value-item) 72 24 8 8
   :price 10)
 (define-item (memory electronics value-item) 80 24 8 8
-  :price 10)
-(define-item (genera-core electronics value-item) 88 24 8 8
   :price 20)
+(define-item (genera-core electronics value-item) 88 24 8 8
+  :price 40)
 (define-item (rusted-key electronics value-item) 96 24 8 8
   :price 10)
 
@@ -344,7 +344,7 @@
 (define-item (meteorite-fragment ores value-item) 40 32 8 8
   :price 40)
 (define-item (hardened-alloy ores value-item) 48 32 8 8
-  :price 30)
+  :price 60)
 (define-item (quartz-crystal ores value-item) 56 32 8 8
   :price 50)
 (define-item (rusted-clump ores value-item) 64 32 8 8
@@ -358,7 +358,7 @@
 (define-item (coolant liquids value-item) 0 40 8 8
   :price 30)
 (define-item (pure-water liquids value-item) 8 40 8 8
-  :price 100)
+  :price 150)
 (define-item (crude-oil liquids value-item) 16 40 8 8
   :price 100)
 (define-item (refined-oil liquids value-item) 24 40 8 8
@@ -368,7 +368,7 @@
 (define-item (mossy-water liquids value-item) 40 40 8 8
   :price 50)
 (define-item (cloudy-water liquids value-item) 48 40 8 8
-  :price 150)
+  :price 100)
 
 (defclass skins () ()) (defmethod item-order ((_ skins)) 5)
 (define-item (ruined-pelt skins value-item) 8 48 8 8
@@ -429,62 +429,131 @@
 ;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-good-1
-  (item:mushroom-good-1 2)
-  (item:mushroom-good-2 1))
+  (item:mushroom-good-1 1)
+  (item:mushroom-good-2 2))
 ;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-good-2
-  (item:mushroom-good-1 1)
-  (item:mushroom-good-2 2))
+  (item:mushroom-good-1 2)
+  (item:mushroom-good-2 1))
 ;; placement: where background big mushrooms are
   
 (define-random-draw mushrooms-bad-1
   (item:mushroom-bad-1 1))
 ;; placement: where mushrooms wouldn't be expected to grow i.e. in non-soil areas
-  
+
+;; REGION 1 UPPER + SURFACE
 (define-random-draw region1-cave
-  (item:clay-clump 3)
-  (item:rich-soil 1)
-  (item:meteorite-fragment 2)
-  (item:quartz-crystal 1)
-  (item:rusted-clump 3)
-  (item:dirt-clump 3)
-  (item:ruined-pelt 3))
+  (item:cloudy-water 1)
+  (item:mossy-water 2)
+  (item:rich-soil 2)
+  (item:quartz-crystal 2)
+  (item:meteorite-fragment 3)
+  (item:clay-clump 4)
+  (item:rusted-clump 4)
+  (item:dirt-clump 4)
+  (item:ruined-pelt 4))
 ;; placement: region 1 soil areas
 
 (define-random-draw region1-home
+  (item:controller 1)
   (item:satchel 2)
   (item:small-battery 2)
-  (item:controller 1)
   (item:cable 3)
   (item:broken-circuit 3)
   (item:simple-gadget 3))
 ;; placement: region 1 apartment areas
 
 (define-random-draw region1-office
-  (item:simple-circuit 2)
   (item:complex-circuit 1)
-  (item:broken-ring 4)
-  (item:metal-ring 3))
+  (item:simple-circuit 2)
+  (item:metal-ring 3)
+  (item:broken-ring 3))
 ;; placement: region 1 office areas
 
 (define-random-draw region1-factory
+  (item:crude-oil 1)
+  (item:gear 2)
   (item:heavy-spring 3)
   (item:screw 3)
   (item:bolt 3)
   (item:nut 3)
-  (item:gear 3)
-  (item:bent-rod 3)
-  (item:crude-oil 1))
+  (item:bent-rod 3))
 ;; placement: region 1 factory areas
 
 (define-random-draw region1-market
-  (item:mossy-water 1)
-  (item:cloudy-water 1)
   (item:bronze-clump 1)
-  (item:rusted-key 2)
-  (item:coin 3))
+  (item:cloudy-water 2)
+  (item:mossy-water 3)
+  (item:rusted-key 4)
+  (item:coin 4))
 ;; placement: region 1 market areas
+
+;; REGION 1 LOWER - silver introduced here, but can also buy from Islay in this area, once unlocked
+#| new items in this region:
+   gold-nugget
+   silver-ore
+   pure-water
+   fine-pelt
+   connector
+   large-gear
+|#
+
+(define-random-draw region1-lower-cave
+  (item:gold-nugget 1)
+  (item:silver-ore 3)
+  (item:pure-water 4)
+  (item:cloudy-water 5)
+  (item:mossy-water 5)
+  (item:rich-soil 5)
+  (item:quartz-crystal 5)
+  (item:fine-pelt 5)
+  (item:clay-clump 7)
+  (item:rusted-clump 7))
+;; placement: region 1 lower soil areas
+
+(define-random-draw region1-lower-home
+  (item:pure-water 1)
+  (item:fine-pelt 1)
+  (item:controller 3)
+  (item:satchel 4)
+  (item:small-battery 4)
+  (item:cable 5)
+  (item:broken-circuit 5)
+  (item:simple-gadget 5))
+;; placement: region 1 lower apartment areas
+
+(define-random-draw region1-lower-office
+  (item:silver-ore 1)
+  (item:complex-circuit 4)
+  (item:simple-circuit 5)
+  (item:metal-ring 6)
+  (item:connector 6)
+  (item:broken-ring 6))
+;; placement: region 1 lower office areas
+
+(define-random-draw region1-lower-factory
+  (item:crude-oil 1)
+  (item:gear 2)
+  (item:large-gear 2)
+  (item:coolant 2)
+  (item:heavy-spring 3)
+  (item:screw 3)
+  (item:bolt 3)
+  (item:nut 3)
+  (item:bent-rod 3))
+;; placement: region 1 lower factory areas
+
+(define-random-draw region1-lower-market
+  (item:silver-ore 1)
+  (item:bronze-clump 2)
+  (item:pure-water 3)
+  (item:fine-pelt 4)
+  (item:cloudy-water 4)
+  (item:mossy-water 5)
+  (item:rusted-key 6)
+  (item:coin 6))  
+;; placement: region 1 lower market areas
 
 ;; QUEST SPAWNERS
   
@@ -496,7 +565,7 @@
 (define-random-draw bomb-charge-pack
   (item:charge-pack 1))
 
-;; DEBUG SPAWNERS
+;; DEBUG SPAWNERS for q8a (TODO remove once organic item placement done in region 2?)
 (define-random-draw debug-pure-water
   (item:pure-water 1))
   
@@ -511,24 +580,19 @@
 
 #| ITEMS UNUSED IN SPAWNERS SO FAR
   
-  (item:large-gear 1)
+  Split between Cerebat and Wraw:
+  
+  (item:refined-oil 2) - Islay also sells
+  (item:thermal-fluid 3)
   (item:copper-ring 1)  
-  (item:genera-core 1)
+  (item:genera-core 1) - Wraw region only?
   (item:heavy-rod 1)
   (item:light-rod 1)  
   (item:dented-plate 1)    
-  (item:large-battery 1)
-  (item:connector 1)  
-  (item:memory 1)  
-  (item:hardened-alloy 3)
-  (item:pearl 1)
-  (item:gold-nugget 1)
-  (item:silver-ore 2)  
-  (item:coolant 3)
-  (item:pure-water 1)  
-  (item:refined-oil 2)
-  (item:thermal-fluid 3)
-  (item:fine-pelt 2)
+  (item:large-battery 1)  
+  (item:memory 1) - Islay also sells
+  (item:hardened-alloy 3) - Cerebat region (needed for later sword upgrade) / Islay also sells
+  (item:pearl 1) - Cerebat region (for trader quest)
   (item:pristine-pelt 1)
   
 |#

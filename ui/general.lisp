@@ -182,11 +182,17 @@
 (defmethod handle ((ev back) (pass ui-pass))
   (alloy:handle (load-time-value (make-instance 'alloy:exit)) pass))
 
-(defmethod handle ((ev next) (pass ui-pass))
-  (alloy:handle (load-time-value (make-instance 'alloy:focus-next)) pass))
+(defmethod handle ((ev select-left) (pass ui-pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-left)) pass))
 
-(defmethod handle ((ev previous) (pass ui-pass))
-  (alloy:handle (load-time-value (make-instance 'alloy:focus-prev)) pass))
+(defmethod handle ((ev select-right) (pass ui-pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-right)) pass))
+
+(defmethod handle ((ev select-up) (pass ui-pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-up)) pass))
+
+(defmethod handle ((ev select-down) (pass ui-pass))
+  (alloy:handle (load-time-value (make-instance 'alloy:focus-down)) pass))
 
 (defmethod handle ((ev text-entered) (pass ui-pass))
   (or (call-next-method)
@@ -215,6 +221,7 @@
   (call-next-method)
   (dolist (panel (panels pass))
     (stage panel area))
+  (stage (// 'kandria 'ui-background) area)
   (dolist (sound '(ui-focus-in ui-focus-out ui-location-enter
                    ui-advance-dialogue ui-no-more-to-focus
                    ui-quest-start ui-close-menu ui-dialogue-choice
@@ -359,3 +366,11 @@
                                                                 (alloy:u- (alloy:vh 0.5) 200)
                                                                 300 200))))
       (alloy:ensure-visible (alloy:layout-element box) T))))
+
+(defun make-basic-background ()
+  (let ((pass (unit 'ui-pass T)))
+    (alloy:with-unit-parent pass
+      (simple:rectangle pass (alloy:margins) :pattern
+                        (simple:image-pattern pass (// 'kandria 'ui-background)
+                                              :scaling (alloy:size (alloy:u/ (alloy:px 32) (alloy:vw 1))
+                                                                   (alloy:u/ (alloy:px 32) (alloy:vh 1))))))))

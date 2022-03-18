@@ -26,7 +26,7 @@
                     :timestamp (timestamp world)
                     :zoom (if (find-panel 'editor)
                               1.0
-                              (zoom (unit :camera world))))
+                              (zoom (camera +world+))))
               stream)
       (princ* (encode (unit 'environment world))
               stream))))
@@ -36,8 +36,8 @@
     (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)) (zoom 1.0)) world-data
       (setf (clock world) clock)
       (setf (timestamp world) timestamp)
-      (setf (zoom (unit :camera world)) zoom)
-      (setf (intended-zoom (unit :camera world)) zoom)
+      (setf (zoom (camera +world+)) zoom)
+      (setf (intended-zoom (camera +world+)) zoom)
       (let* ((region (cond ((and (region world) (eql region (name (region world))))
                             ;; Ensure we trigger necessary region reset events even if we're still in the same region.
                             (issue world 'switch-region :region (region world))
@@ -307,8 +307,7 @@
   (setf (sword-level player) (getf initargs :sword-level 0))
   ;; Force state to normal to avoid being caught in save animation
   (setf (state player) :normal)
-  (when (unit :camera T)
-    (snap-to-target (unit :camera T) player)))
+  (snap-to-target (camera +world+) player))
 
 (define-encoder (npc save-v0) (_b _p)
   (let ((last (car (last (path npc)))))
@@ -416,7 +415,7 @@
     (setf (area-states environment-controller) area-states)
     (setf (override environment-controller) (if (symbolp override)
                                                 override
-                                                (decode override 'resource)))
+                                                (decode 'resource override)))
     (switch-environment environment-controller (environment environment))))
 
 (define-encoder (hider save-v0) (_b _p)

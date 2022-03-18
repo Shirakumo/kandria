@@ -381,6 +381,5 @@
              :on-activate (,(caar tasks))
              ,@tasks))))))
 
-(defmethod load-language :after (&optional (language (setting :language)) replace)
-  (declare (ignore replace))
+(trial::define-language-change-hook load-quests (language)
   (load-quests language))

@@ -52,7 +52,7 @@
 | |   | (:shocked)... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're the engineers you're looking for. Thank God for Islay.
+| | | (:weary)We're the rail engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
@@ -74,7 +74,7 @@
 | |   | (:shocked)... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're the engineers you're looking for. Thank God for Islay.
+| | | (:weary)We're the rail engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.

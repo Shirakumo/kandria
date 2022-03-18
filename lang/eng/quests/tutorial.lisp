@@ -11,7 +11,7 @@
    (setf (direction player) 1)
    (setf (state (unit 'player)) :animated)
    (ensure-nearby 'walk-start 'catherine)
-   (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief))
+   (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief cerebat-trader-quest))
      (setf (nametag (unit unit)) "???"))
    (setf (nametag player) "Android"))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
@@ -32,12 +32,13 @@
   (:interact (catherine :now T)
    "
    ~ catherine
-| (:concerned)Woah... can you walk?")
+| (:excited)Woah...
+| (:concerned)Uh, can you walk?")
   (:go-to (walk-start))
   (:interact (catherine :now T)
    "~ catherine
-| (:excited)No way!... Looks like most of your systems are still working.
-| My name's \"Catherine\"(yellow). Come on, let's get out of here.
+| (:excited)No way! Looks like most of your systems are still working.
+| (:normal)My name's \"Catherine\"(yellow). Come on, let's get out of here.
 ! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))")
   (:go-to (jump-start :lead catherine))
   (:go-to (climb-start :with catherine))

@@ -10,7 +10,7 @@
 
 (defmethod alloy:accept ((selector selector))
   (setf (entity (find-panel 'editor)) (unit (entity selector) T))
-  (snap-to-target (unit :camera T) (unit (entity selector) T)))
+  (snap-to-target (camera +world+) (unit (entity selector) T)))
 
 (defclass entitylist (alloy:vertical-linear-layout alloy:focus-list)
   ())

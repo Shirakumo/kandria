@@ -101,8 +101,6 @@
                                 (invoke-restart 'reset)))))
         (prog1 (load-state state (scene main))
           (clear-spawns)
-          #-kandria-release
-          (enter (make-instance 'trial::fps-counter) (scene main))
           (unwind-protect
                (trial:commit (scene main) (loader main) :show-screen T)
             (setf (state main) state)
@@ -208,7 +206,7 @@ Possible sub-commands:
                          :audio-backend (setting :audio :backend))))))
 
 (defmethod setup-scene ((main main) (scene world))
-  (enter (make-instance 'camera) scene)
+  (enter (camera scene) scene)
   (let ((shadow (make-instance 'shadow-map-pass))
         (lighting (make-instance 'lighting-pass))
         (rendering (make-instance 'rendering-pass))
@@ -229,6 +227,8 @@ Possible sub-commands:
     (connect (port sandstorm 'color) (port distortion 'previous-pass) scene)
     (connect (port distortion 'color) (port blend 'trial::a-pass) scene)
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
+  (when (setting :debugging :fps-counter)
+    (enter (make-instance 'trial:fps-counter) (scene main)))
   (register (make-instance 'walkntalk) scene))
 
 (defmethod load-game (state (main main))
@@ -242,7 +242,7 @@ Possible sub-commands:
   (let ((scene (scene main)))
     (hide-panel T)
     (setf (state main) NIL)
-    (reset (unit :camera scene))
+    (reset (camera +world+))
     (leave (region scene) scene)
     (setf (storyline scene) (make-instance 'quest:storyline))
     (compile-to-pass scene scene)
@@ -294,5 +294,12 @@ Possible sub-commands:
 
 (define-setting-observer swank :debugging :swank (value)
   (manage-swank value))
+
+(define-setting-observer swank :debugging :fps-counter (value)
+  (if value
+      (unless (unit 'trial:fps-counter +world+)
+        (enter-and-load (make-instance 'trial:fps-counter) +world+ +main+))
+      (when (unit 'trial:fps-counter +world+)
+        (leave* (unit 'trial:fps-counter +world+) +world+))))
 
 (load-quests :eng)

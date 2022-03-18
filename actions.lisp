@@ -14,8 +14,10 @@
 (define-action-set in-menu (exclusive-action-set))
 (define-action skip (in-menu))
 (define-action advance (in-menu))
-(define-action previous (in-menu))
-(define-action next (in-menu))
+(define-action select-left (in-menu))
+(define-action select-right (in-menu))
+(define-action select-up (in-menu))
+(define-action select-down (in-menu))
 (define-action accept (in-menu))
 (define-action back (in-menu))
 

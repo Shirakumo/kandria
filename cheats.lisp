@@ -80,8 +80,8 @@
       (vsetf (location (unit 'player T))
              (vx (location room))
              (vy (location room)))
-      (setf (intended-zoom (unit :camera T)) 1.0)
-      (snap-to-target (unit :camera T) (unit 'player T)))))
+      (setf (intended-zoom (camera +world+)) 1.0)
+      (snap-to-target (camera +world+) (unit 'player T)))))
 
 (define-cheat self-destruct
   (trigger 'explosion (unit 'player T))

@@ -52,8 +52,8 @@
     (setf (interactions dialog) (interactions dialog))))
 
 (defmethod show :after ((dialog dialog) &key)
-  (when (= 1.0 (intended-zoom (unit :camera T)))
-    (setf (intended-zoom (unit :camera T)) 1.5))
+  (when (= 1.0 (intended-zoom (camera +world+)))
+    (setf (intended-zoom (camera +world+)) 1.5))
   (setf (clock-scale +world+) (/ (clock-scale +world+) 2))
   (interrupt-walk-n-talk NIL)
   (walk-n-talk NIL)
@@ -62,8 +62,8 @@
   (harmony:play (// 'sound 'ui-start-dialogue)))
 
 (defmethod hide :after ((dialog dialog))
-  (when (= 1.5 (intended-zoom (unit :camera T)))
-    (setf (intended-zoom (unit :camera T)) 1.0))
+  (when (= 1.5 (intended-zoom (camera +world+)))
+    (setf (intended-zoom (camera +world+)) 1.0))
   (setf (clock-scale +world+) (* (clock-scale +world+) 2))
   (clear-retained)
   (discard-events +world+))
@@ -125,10 +125,16 @@
                  do (advance dialog))
            (scroll-text dialog (array-total-size (text dialog)))))))
 
-(defmethod handle ((ev next) (dialog dialog))
+(defmethod handle ((ev select-right) (dialog dialog))
   (alloy:focus-next (choices dialog)))
 
-(defmethod handle ((ev previous) (dialog dialog))
+(defmethod handle ((ev select-down) (dialog dialog))
+  (alloy:focus-next (choices dialog)))
+
+(defmethod handle ((ev select-left) (dialog dialog))
+  (alloy:focus-prev (choices dialog)))
+
+(defmethod handle ((ev select-up) (dialog dialog))
   (alloy:focus-prev (choices dialog)))
 
 (defmethod handle ((ev skip) (dialog dialog))

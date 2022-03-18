@@ -212,7 +212,7 @@ void main(){
         (setf (buffer player) NIL)
         (setf (location player) (vec (vx location) (- (vy location) 5)))
         (issue +world+ 'force-lighting)
-        (snap-to-target (unit :camera T) player)))))
+        (snap-to-target (camera +world+) player)))))
 
 (defmethod interact ((trigger teleport-trigger) (player player))
   (when (primary trigger)
@@ -223,7 +223,7 @@ void main(){
         (setf (location player) location)
         (issue +world+ 'force-lighting)
         (clear-retained)
-        (snap-to-target (unit :camera T) player)))))
+        (snap-to-target (camera +world+) player)))))
 
 (defmethod interact ((save-point save-point) (player player))
   (setf (vx (location player))
@@ -487,13 +487,14 @@ void main(){
     (incf (combat-time player) dt)
     ;; HUD
     (cond ((< (combat-time player) 5)
-           (setf (intended-zoom (unit :camera T))
-                 (if (eql 'evade-left (name (animation player)))
-                     1.6 1.2))
+           (when (= 1.0 (intended-zoom (camera +world+)))
+             (setf (intended-zoom (camera +world+))
+                   (if (eql 'evade-left (name (animation player)))
+                       1.6 1.2)))
            (setf (timeout (health (find-panel 'hud))) 5.0))
           ((and (< 5 (combat-time player) 6)
-                (< 1 (intended-zoom (unit :camera T))))
-           (setf (intended-zoom (unit :camera T)) 1.0)))
+                (< 1 (intended-zoom (camera +world+))))
+           (setf (intended-zoom (camera +world+)) 1.0)))
     ;; Interaction checks
     (setf (interactable player) NIL)
     (when (and ground (interactable-p ground))
@@ -588,12 +589,13 @@ void main(){
                    (t2 (+ tt (/ PI 3))))
               (nv+ loc (vec (* 5 (cos tt)) (* 3 (sin tt) (cos tt))))
               (nv+ bloc (vec (* 5 (cos t2)) (* 3 (sin t2) (cos t2))))
-              (show (prompt player) :button 'reel-in
-                                    :description (language-string 'reel-in)
-                                    :location loc)
-              (show (prompt-b player) :button 'stop-fishing
-                                      :description (language-string 'stop-fishing)
-                                      :location bloc)))
+              (when (setting :gameplay :display-hud)
+                (show (prompt player) :button 'reel-in
+                                      :description (language-string 'reel-in)
+                                      :location loc)
+                (show (prompt-b player) :button 'stop-fishing
+                                        :description (language-string 'stop-fishing)
+                                        :location bloc))))
            ((show stand)
             (let* ((loc (tv+ #.(vec 0 16) (location player)))
                    (bloc (tvec (+ (vx loc) -10)
@@ -602,15 +604,34 @@ void main(){
                    (t2 (+ tt (/ PI 3))))
               (nv+ loc (vec (* 5 (cos tt)) (* 3 (sin tt) (cos tt))))
               (nv+ bloc (vec (* 5 (cos t2)) (* 3 (sin t2) (cos t2))))
-              (show (prompt player) :button 'cast-line
-                                    :description (language-string 'cast-line)
-                                    :location loc)
-              (show (prompt-b player) :button 'stop-fishing
-                                      :description (language-string 'stop-fishing)
-                                      :location bloc)))
+              (when (setting :gameplay :display-hud)
+                (show (prompt player) :button 'cast-line
+                                      :description (language-string 'cast-line)
+                                      :location loc)
+                (show (prompt-b player) :button 'stop-fishing
+                                        :description (language-string 'stop-fishing)
+                                        :location bloc))))
            (T
             (hide (prompt player))
             (hide (prompt-b player))))))
+      (:sitting
+       (handle-animation-states player ev)
+       (if (eql :keyboard +input-source+)
+           (duck-camera
+            (cond ((retained 'left)  -200)
+                  ((retained 'right) +200)
+                  (T                    0))
+            (cond ((retained 'down)  -200)
+                  ((retained 'up)    +200)
+                  (T                    0)))
+           (duck-camera
+            (* 200 (gamepad:axis :l-h +input-source+))
+            (* 200 (gamepad:axis :l-v +input-source+))))
+       (when (retained 'jump)
+         (let ((segment (harmony:segment :lowpass T)))
+           (setf (mixed:frequency segment) (1- (mixed:samplerate segment))))
+         (setf (intended-zoom (camera +world+)) 1.0)
+         (start-animation 'stand-up player)))
       (:animated
        (when (and ground (eql 'heavy-aerial-3 (name (animation player))))
          (start-animation 'heavy-aerial-3-release player))
@@ -1176,7 +1197,12 @@ void main(){
           (setf (animation player) 'slide-flat))))
       (:normal
        (cond ((and (< 0 (vy vel)) (not (typep (svref collisions 2) 'moving-platform)))
-              (setf (animation player) 'jump))
+              (if (and (typep (medium player) 'water)
+                       (< (vy (location player))
+                          (+ (vy (location (medium player)))
+                             (vy (bsize (medium player))))))
+                  (setf (animation player) 'swim)
+                  (setf (animation player) 'jump)))
              ((null (svref collisions 2))
               (setf (look-time player) 0.0)
               (cond ((< (air-time player) 0.1))
@@ -1190,8 +1216,12 @@ void main(){
                      (setf (direction player) -1)
                      (when (< (clock player) 0.01)
                        (trigger 'slide player :direction +1)))
+                    ((not (typep (medium player) 'water))
+                     (setf (animation player) 'fall))
+                    ((or (retained 'left) (retained 'right))
+                     (setf (animation player) 'swim))
                     (T
-                     (setf (animation player) 'fall))))
+                     (setf (animation player) 'float2))))
              ((< 0 (abs (vx vel)))
               (setf (look-time player) 0.0)
               (cond ((<= (abs (vx vel)) (+ (p! slowwalk-limit) 0.1))
@@ -1235,7 +1265,7 @@ void main(){
                     (when (typep entity 'chunk) (return entity))))
       (unless other
         (error "What the fuck? Could not find any chunks.")))
-    (snap-to-target (unit :camera T) player)
+    (snap-to-target (camera +world+) player)
     (switch-chunk other)))
 
 (defmethod handle ((ev switch-chunk) (player player))
@@ -1271,7 +1301,7 @@ void main(){
   (vsetf (frame-velocity player) 0 0)
   (place-on-ground player (spawn-location player))
   (setf (state player) :normal)
-  (snap-to-target (unit :camera T) player))
+  (snap-to-target (camera +world+) player))
 
 (defmethod damage-output ((player player))
   (ceiling
@@ -1339,8 +1369,8 @@ void main(){
     (respawn player)))
 
 (defun player-screen-y ()
-  (* (- (vy (location (unit 'player T))) (vy (location (unit :camera T))))
-     (view-scale (unit :camera T))))
+  (* (- (vy (location (unit 'player T))) (vy (location (camera +world+))))
+     (view-scale (camera +world+))))
 
 (defmethod apply-transforms progn ((player player))
   (declare (optimize speed))

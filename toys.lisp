@@ -1,5 +1,27 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-shader-entity bench (lit-sprite interactable ephemeral creatable)
+  ((texture :initform (// 'kandria 'region2 'albedo))))
+
+(defmethod interactable-p ((bench bench))
+  (eql :normal (state (unit 'player +world+))))
+
+(defmethod layer-index ((bench bench))
+  (1- +base-layer+))
+
+(defmethod description ((bench bench))
+  (@ bench))
+
+(defmethod interact ((bench bench) (player player))
+  (setf (vx (location player)) (+ (vx (location bench))
+                                  (* (direction player) 12)))
+  (vsetf (velocity player) 0 0)
+  (setf (intended-zoom (camera +world+)) 1.5)
+  (let ((segment (harmony:segment :lowpass T)))
+    (setf (mixed:frequency segment) 700))
+  (start-animation 'sit-down player)
+  (setf (state player) :sitting))
+
 (define-shader-entity mirror (lit-animated-sprite interactable ephemeral creatable)
   ()
   (:default-initargs
@@ -201,6 +223,7 @@
 (defmethod initargs append ((spring spring))
   '(:strength))
 
+(defmethod layer-index ((platform spring)) +base-layer+)
 (defmethod is-collider-for (thing (spring spring)) NIL)
 (defmethod collides-p ((moving moving) (spring spring) hit)
   (< 0.5 (iframes spring)))
@@ -349,6 +372,8 @@
    (respawn-time :initform 0.0 :accessor respawn-time))
   (:default-initargs
    :sprite-data (asset 'kandria 'crumbling-platform)))
+
+(defmethod layer-index ((platform crumbling-platform)) +base-layer+)
 
 (defmethod apply-transforms progn ((platform crumbling-platform))
   (translate-by 0 -24 0))

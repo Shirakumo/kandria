@@ -156,6 +156,12 @@
     (vsetf vec (vx2 loc) (vy2 loc) (vx2 bsize) (vy2 bsize))
     (scan entity vec on-hit)))
 
+;; KLUDGE: dumb to do it like this. Ideally the render passes should do it to avoid
+;;         needlessly pushing matrices around and such.
+(defmethod render :around ((entity sized-entity) (program shader-program))
+  (when (in-view-p (location entity) (bsize entity))
+    (call-next-method)))
+
 (define-shader-entity sprite-entity (vertex-entity textured-entity rotated-entity sized-entity facing-entity)
   ((vertex-array :initform (// 'kandria '1x))
    (texture :initform (// 'kandria 'placeholder) :initarg :texture :accessor albedo
@@ -167,7 +173,8 @@
    (layer-index :initform (1- +base-layer+) :initarg :layer :accessor layer-index
                 :type integer :documentation "The layer the sprite should be on.")
    (fit-to-bsize :initform T :initarg :fit-to-bsize :accessor fit-to-bsize
-                 :type boolean))
+                 :type boolean)
+   (color-mask :initform (vec 1 1 1 1) :accessor color-mask))
   (:inhibit-shaders (textured-entity :fragment-shader)))
 
 (defmethod initargs append ((_ sprite-entity))
@@ -188,7 +195,8 @@
 
 (defmethod render :before ((entity sprite-entity) (program shader-program))
   (setf (uniform program "size") (size entity))
-  (setf (uniform program "offset") (offset entity)))
+  (setf (uniform program "offset") (offset entity))
+  (setf (uniform program "color_mask") (color-mask entity)))
 
 (defmethod resize ((sprite sprite-entity) width height)
   (vsetf (size sprite) width height)
@@ -200,9 +208,11 @@ out vec4 color;
 uniform sampler2D texture_image;
 uniform vec2 size;
 uniform vec2 offset;
+uniform vec4 color_mask = vec4(1,1,1,1);
 
 void main(){
   color = texelFetch(texture_image, ivec2(offset+(texcoord*size)), 0);
+  color *= color_mask;
 }")
 
 (defclass game-entity (sized-entity listener collider)

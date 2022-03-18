@@ -8,6 +8,7 @@
   (let* ((region (apply #'make-instance 'region :packet packet info))
          (content (parse-sexps (packet-entry "data.lisp" packet :element-type 'character))))
     (let ((*region* region))
+      (v:debug :kandria.region "Decoding world.")
       (loop for (type . initargs) in content
             for entity = (decode type initargs)
             do #-kandria-release
@@ -27,6 +28,7 @@
                          (setf (name existing) NIL))))))
                (enter entity region))
       ;; Load initial state.
+      (v:debug :kandria.region "World decoded, loading initial state...")
       (decode-payload (first (parse-sexps (packet-entry "init.lisp" packet :element-type 'character))) region packet 'save-v0))
     region))
 

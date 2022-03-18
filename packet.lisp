@@ -34,7 +34,8 @@
          (:error (error 'file-error :pathname pathname))
          ((NIL) (funcall function NIL))
          (:create
-          (cond ((equal "zip" (pathname-type pathname))
+          (cond ((or (equal "zip" (pathname-type pathname))
+                     (equal "dat" (pathname-type pathname)))
                  (zip:with-zipfile (zip pathname)
                    (funcall function (make-instance 'zip-read-packet
                                                     :storage zip
@@ -53,7 +54,8 @@
          (:error (error 'file-error :pathname pathname))
          ((NIL) (funcall function NIL))
          ((:new-version :rename :rename-and-delete :overwrite :append :supersede)
-          (cond ((equal "zip" (pathname-type pathname))
+          (cond ((or (equal "zip" (pathname-type pathname))
+                     (equal "dat" (pathname-type pathname)))
                  (zip:with-output-to-zipfile (zip pathname :if-exists if-exists)
                    (funcall function (make-instance 'zip-write-packet
                                                     :storage zip

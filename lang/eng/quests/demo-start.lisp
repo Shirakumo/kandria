@@ -14,7 +14,7 @@
    (setf (direction 'islay) 1)
    (setf (location 'catherine) (location 'eng-cath))
    (setf (direction 'catherine) -1)
-   (dolist (unit '(innis islay zelah semi-engineer-chief))
+   (dolist (unit '(innis islay zelah semi-engineer-chief cerebat-trader-quest))
      (setf (nametag (unit unit)) "???"))
    (setf (state (unit 'player)) :animated))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
