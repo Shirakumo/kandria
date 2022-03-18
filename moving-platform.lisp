@@ -124,7 +124,7 @@
    (target :initform NIL :accessor target)))
 
 (defmethod stage :after ((elevator elevator) (area staging-area))
-  (dolist (sound '(elevator-start elevator-stop elevator-move))
+  (dolist (sound '(elevator-start elevator-stop elevator-move elevator-broken elevator-recall))
     (stage (// 'sound sound) area)))
 
 (defmethod action ((elevator elevator)) 'interact)
@@ -233,7 +233,7 @@
      (setf (move-time elevator) 0.0)
      (setf (vy (velocity elevator)) (* -0.01 (float-sign (vy (velocity elevator))))))
     (:broken
-     #++(harmony:play (// 'sound 'elevator-broken)))))
+     (harmony:play (// 'sound 'elevator-broken)))))
 
 (define-shader-entity elevator-recall (lit-sprite interactable ephemeral creatable)
   ((target :initarg :target :initform NIL :accessor target :type symbol)
@@ -252,13 +252,13 @@
 
 (defmethod interact ((button elevator-recall) thing)
   (when (target button)
-    ;; FIXME: sound
+    (harmony:play (// 'sound 'elevator-recall))
     (interact (unit (target button) +world+) button)))
 
 (defmethod interact ((elevator elevator) (button elevator-recall))
   (case (state elevator)
     (:broken
-     #++(harmony:play (// 'sound 'elevator-broken)))
+     (harmony:play (// 'sound 'elevator-broken)))
     (T
      (setf (target elevator) (vec (vx (location button))
                                   (- (vy (location button))

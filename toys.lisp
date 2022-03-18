@@ -639,7 +639,8 @@
   (make-instance 'switch :location (vcopy (location gate))))
 
 (defmethod stage :after ((gate gate) (area staging-area))
-  (stage (// 'sound 'gate-lift) area))
+  (stage (// 'sound 'gate-lift) area)
+  (stage (// 'sound 'key-complete) area))
 
 (defmethod quest:active-p ((gate gate))
   (eql :open (state gate)))
@@ -676,6 +677,7 @@
        (when (loop for switch in (children gate)
                    always (eql :on (state switch)))
          (harmony:play (// 'sound 'gate-lift) :reset T)
+         (harmony:play (// 'sound 'key-complete) :reset T)
          (setf (state gate) :opening)))
       (:open
        (vsetf (velocity gate) 0 0)

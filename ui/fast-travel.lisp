@@ -15,6 +15,7 @@
 (defmethod alloy:activate ((button station-button))
   (unless (eq (alloy:value button) (source button))
     (trigger (alloy:value button) (source button)))
+  (harmony:play (// 'sound 'ui-confirm))
   (harmony:play (// 'sound 'train-departing-and-arriving))
   (hide-panel 'fast-travel-menu))
 

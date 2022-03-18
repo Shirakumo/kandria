@@ -204,10 +204,6 @@
   (let ((map (make-instance 'map-element)))
     (alloy:finish-structure panel map map)))
 
-(defmethod stage :after ((panel map-panel) (area staging-area))
-  (stage (// 'sound 'ui-map-scroll) area)
-  (stage (// 'kandria 'ui-background) area))
-
 (defmethod show :after ((panel map-panel) &key)
   (let ((off 0))
     (alloy:with-unit-parent (unit 'ui-pass T)
@@ -227,7 +223,7 @@
       (prompt 'close-map))))
 
 (defmethod hide :after ((panel map-panel))
-  (harmony:stop (// 'sound 'ui-map-scroll))
+  (harmony:stop (// 'sound 'ui-scroll))
   (let ((els ()))
     (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
       (push el els))
@@ -278,8 +274,8 @@
     (if (or (retained 'zoom-out) (retained 'zoom-in)
             (retained 'pan-up) (retained 'pan-down)
             (retained 'pan-left) (retained 'pan-right))
-        (harmony:play (// 'sound 'ui-map-scroll))
-        (harmony:stop (// 'sound 'ui-map-scroll)))
+        (harmony:play (// 'sound 'ui-scroll))
+        (harmony:stop (// 'sound 'ui-scroll)))
     (let ((popups (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
           (tt (* 1.3 (tt ev)))
           (off 0))

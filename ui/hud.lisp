@@ -334,4 +334,5 @@
 (defmethod level-up :after ((player player))
   (let ((hud (find-panel 'hud)))
     (when hud
+      (harmony:play (// 'sound 'ui-level-up) :reset T)
       (setf (alloy:value (level-up hud)) (level player)))))

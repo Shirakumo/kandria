@@ -226,11 +226,11 @@
                    ui-advance-dialogue ui-no-more-to-focus
                    ui-quest-start ui-close-menu ui-dialogue-choice
                    ui-focus-next ui-open-menu ui-quest-complete
-                   ui-quest-fail dialogue-scroll ui-scroll
+                   ui-quest-fail ui-scroll-dialogue ui-scroll
                    ui-start-game ui-start-dialogue ui-use-item
                    ui-error ui-warning ui-upgrade-placeholder
                    ui-tutorial-popup ui-fast-travel-map-open
-                   ui-buy ui-confirm
+                   ui-buy ui-confirm ui-level-up ui-sell
                    train-departing-and-arriving))
     (stage (// 'sound sound) area))
   (stage (simple:request-font pass (setting :display :font)) area)

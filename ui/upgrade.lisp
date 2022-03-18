@@ -13,6 +13,7 @@
                    always (<= count (item-count item player)))
              (loop for (count item) in (materials checkbox)
                    do (retrieve item player count))
+             (harmony:play (// 'sound 'ui-confirm))
              (harmony:play (// 'sound 'ui-upgrade-placeholder))
              (call-next-method))
             (T

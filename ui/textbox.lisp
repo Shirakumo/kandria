@@ -148,7 +148,7 @@ void main(){
 
 (defun scroll-text (textbox &optional (to (1+ (scroll-index textbox))))
   (when (<= to (length (text textbox)))
-    (harmony:play (// 'sound 'dialogue-scroll))
+    (harmony:play (// 'sound 'ui-scroll-dialogue))
     (setf (scroll-index textbox) to)
     (setf (org.shirakumo.alloy.renderers.opengl.msdf::vertex-count
            (presentations:find-shape :label (textbox textbox)))
@@ -187,7 +187,7 @@ void main(){
   (handle ev (profile textbox))
   (cond ((and (at-end-p textbox)
               (not (prompt textbox)))
-         (harmony:stop (// 'sound 'dialogue-scroll))
+         (harmony:stop (// 'sound 'ui-scroll-dialogue))
          (cond ((< 0 (pause-timer textbox))
                 (decf (pause-timer textbox) (dt ev)))
                ((pending textbox)

@@ -56,7 +56,7 @@
   (setf (text textbox) (clear-text-string)))
 
 (defmethod hide :after ((textbox walkntalk))
-  (harmony:stop (// 'sound 'dialogue-scroll)))
+  (harmony:stop (// 'sound 'ui-scroll-dialogue)))
 
 (defmethod interactions ((textbox walkntalk))
   (when (interaction textbox)

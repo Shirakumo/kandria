@@ -50,6 +50,9 @@
       (:quiet "region3 quiet.oga")
       (:ambient "region3 ambient.oga")))
 
+(define-asset (music music/bar) trial-harmony:environment
+    '((:normal "bar.oga")))
+
 (define-asset (music ambience/camp) trial-harmony:environment
     '((:normal "ambience track_ camp.ogg")))
 
@@ -76,6 +79,9 @@
 
 (define-asset (music ambience/water-cave) trial-harmony:environment
     '((:normal "ambience track_ big water cave.ogg")))
+
+(define-asset (music ambience/bar) trial-harmony:environment
+    '((:normal "ambience track_ bar.ogg")))
 
 (define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T)
   (player-profile :min-filter :nearest :mag-filter :nearest)
@@ -361,3 +367,7 @@
 (define-environment (region3 magma)
   :music 'music/region3
   :ambience 'ambience/magma-cave)
+
+(define-environment (region2 bar)
+  :music 'music/bar
+  :ambience 'ambience/bar)
