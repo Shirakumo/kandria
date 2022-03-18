@@ -570,6 +570,12 @@
   (semi-engineer 0.2)
   (cerebat-trader 0.1))
 
+(define-random-draw cerebats
+  (villager 1.5)
+  (villager-hunter 0.75)
+  (semi-engineer 0.2)
+  (cerebat-trader 1.0))
+
 (define-shader-entity pet (animatable ephemeral interactable)
   ())
 
