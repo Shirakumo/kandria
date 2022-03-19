@@ -66,13 +66,10 @@
   (:label :pattern colors:white))
 
 (defun coerce-button-string (button &optional input)
-  (let ((input (or input (case +input-source+
-                           (:keyboard :keyboard)
-                           (T :gamepad)))))
-    (etypecase button
-      (string button)
-      (symbol (string (prompt-char button :bank input)))
-      (list (map 'string (lambda (c) (prompt-char c :bank input)) button)))))
+  (etypecase button
+    (string button)
+    (symbol (string (prompt-char button :bank input)))
+    (list (map 'string (lambda (c) (prompt-char c :bank input)) button))))
 
 (defmethod show ((prompt prompt) &key button input location (description NIL description-p))
   (unless (find-panel 'fullscreen-panel)

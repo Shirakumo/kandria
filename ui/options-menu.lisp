@@ -21,7 +21,7 @@
               (trial::action-prompts (alloy:value button) :bank :keyboard)
               mouse)))
        (T
-        (trial::action-prompts (alloy:value button) :bank :gamepad))))))
+        (trial::action-prompts (alloy:value button) :bank +input-source+))))))
 
 (defmethod (setf alloy:focus) :after ((focus (eql :strong)) (button input-action-button))
   (setf (alloy:focus (alloy:focus-parent button)) :strong))
@@ -144,7 +144,7 @@
 
 (defmethod handle ((ev gamepad-press) (panel input-change-panel))
   (when (eql :strong (alloy:focus (label panel)))
-    (setf (alloy:value (label panel)) (string (prompt-char (button ev) :bank :gamepad)))
+    (setf (alloy:value (label panel)) (string (prompt-char (button ev) :bank (device ev))))
     (setf (event panel) ev)
     (alloy:accept (label panel))))
 
@@ -159,7 +159,7 @@
                   (:dpad-h (if (< 0 (pos ev)) :dpad-r :dpad-l))
                   (:dpad-v (if (< 0 (pos ev)) :dpad-u :dpad-d))
                   (T (axis ev)))))
-      (setf (alloy:value (label panel)) (string (prompt-char char :bank :gamepad))))
+      (setf (alloy:value (label panel)) (string (prompt-char char :bank (device ev)))))
     (setf (event panel) ev)
     (alloy:accept (label panel))))
 
