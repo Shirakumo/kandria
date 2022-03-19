@@ -891,6 +891,7 @@ void main(){
             (setf (vx loc) (+ (vx (location attached))
                               (* (float-sign (- (vx loc) (vx (location attached))))
                                  (+ (vx (bsize attached)) (vx size)))))
+            (incf (vy loc) (vy (velocity attached)))
             (incf (vy (frame-velocity player)) (vy (velocity attached)))
             (when (and (v/= 0 (velocity attached))
                        (not (retained 'jump)))
