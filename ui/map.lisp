@@ -191,6 +191,7 @@
 (presentations:define-update (ui reticle)
   (:label
    :size (alloy:un 30)
+   :wrap NIL
    :halign :middle))
 
 (defmethod hide ((reticle reticle))
