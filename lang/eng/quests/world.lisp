@@ -31,7 +31,7 @@
    "
 ~ player
 | \"It's a train. Well, half a train.\"(light-gray, italic)
-| \"I wonder if people tried to use these stations to escape under ground.\"(light-gray, italic)
+| \"I wonder if people tried to use this station to escape under ground.\"(light-gray, italic)
 ")
 
   ;; Large stone rock/gate
@@ -419,7 +419,7 @@
    :repeatable T
    "
 ~ player
-| \"Any food left in here will be spoiled. Including those Candy Androids, looking at me mournfully through the broken glass.\"(light-gray, italic)
+| \"What food is left in here is spoiled. Including those Candy Androids, looking at me mournfully through the broken glass.\"(light-gray, italic)
 ")
 
 ;; an old office building is now a sleeping area in the Semi Sisters' base.
@@ -481,7 +481,7 @@
   (:interaction trapped-engineers
    :interactable semi-engineer-chief
    :repeatable T
-   :title "(Talk to engineers)"
+   :title "(Talk to engineer)"
   "
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
