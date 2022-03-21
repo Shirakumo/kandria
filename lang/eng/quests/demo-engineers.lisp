@@ -19,7 +19,7 @@
     :dialogue "
 ~ islay
 ? (active-p (unit 'blocker-engineers))
-| | \"Find our trapped engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
+| | \"Find our engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
 | | Do what you can for them, then \"report back to Innis\"(orange).
 |?
 | | I heard there's news on the engineers - you should \"talk to Innis\"(orange).
@@ -112,20 +112,26 @@
 | - I just smashed through.
 |   ~ innis
 |   | I believe you did. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
+| - I pulled a hidden lever in the rock and said, \"Open sesame!\"
+|   ~ innis
+|   | (:angry)...
+|   | (:normal)I suspect it was more to do with your formidable combination of fusion reactor and nanotube muscles.
 | - Wouldn't you like to know.
 |   ~ innis
 |   | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
 |   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 | ~ innis
 | | There's something else...
-| | My sister, in her infinite wisdom, thought it might be a nice gesture if we-... //if I// officially grant you \"access to the metro\"(orange).
+| | My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you \"access to the metro\"(orange).
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
 | ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
 | | | (:sly)I ken you've seen the metro already, and that's alright. But now it's official. I'll send out word so you won't be... apprehended.
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
-| | | \"Just choose your destination from the route map and board the train.\"(orange)
+| | | Just \"choose your destination from the route map\"(orange) and board the train.
+| ? (not (unlocked-p (unit 'station-semi-sisters)))
+| | | \"Our station is beneath this central bloc.\"(orange)
 | ? (complete-p 'demo-cctv)
 | | ~ innis
 | | | But now you should return to the surface.
