@@ -4,7 +4,7 @@
 (define-sequence-quest (kandria q5-intro)
   :author "Tim White"
   :title "Talk to Innis"
-  :description "Islay said she can give me more information about the trapped engineers and downed CCTV cameras."
+  :description "Islay said she can give me more information about the trapped engineers and down CCTV cameras."
   (:interact (innis)
    :title "Speak with Innis in the Semi Sisters control room"
  "
@@ -108,7 +108,7 @@
   | Correct. We're slowly digging out the old maglev system. (:pleased)We've got a basic electrified railway going.
   | (:angry)But it's dangerous work.
   < questions
-- Tell me about the downed CCTV cameras.
+- Tell me about the down CCTV cameras.
   ~ innis
   | We monitor the surrounding areas, immediately above and below.
   | (:angry)Basically \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low-eastern region\"(orange).

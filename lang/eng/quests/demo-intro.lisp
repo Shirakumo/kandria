@@ -65,7 +65,7 @@
   | Correct. We're slowly digging out the old maglev system. (:happy)We've got a basic electrified railway going.
   | (:nervous)But it's dangerous work.
   < questions
-- Tell me about the downed CCTV cameras.
+- Tell me about the down CCTV cameras.
   ~ islay
   | We monitor the surrounding areas, immediately above and below.
   | (:nervous)But \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low-eastern region\"(orange).
