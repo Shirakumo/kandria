@@ -131,7 +131,7 @@
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | | | Just \"choose your destination from the route map\"(orange) and board the train.
 | ? (not (unlocked-p (unit 'station-semi-sisters)))
-| | | \"Our station is beneath this central bloc.\"(orange)
+| | | \"Our station is beneath this central block.\"(orange)
 | ? (complete-p 'q5b-investigate-cctv)
 | | ~ innis
 | | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
