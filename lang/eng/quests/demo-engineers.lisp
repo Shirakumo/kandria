@@ -88,7 +88,6 @@
 ! eval (complete task)
 "))
 
-;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
   (task-return-engineers
    :title "Once you've helped the engineers, return to Innis in the Semi Sisters base"
    :marker '(innis 500)
