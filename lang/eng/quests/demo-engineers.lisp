@@ -106,16 +106,16 @@
 | | (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
 | | (:normal)How did you clear that debris? Is there something I dinnae ken about androids?
 | ~ player
-| - I found a weak point in the rocks and pushed.
+| - I found a weak point and pushed.
 |   ~ innis
 |   | That sounds plausible. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
 | - I just smashed through.
 |   ~ innis
 |   | I believe you did. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
-| - I pulled a hidden lever in the rock and said, \"Open sesame!\"
+| - I pulled a hidden lever and said, \"Open sesame!\"
 |   ~ innis
 |   | (:angry)...
-|   | (:normal)I suspect it was more to do with your formidable combination of fusion reactor and nanotube muscles.
+|   | (:normal)Funny. I suspect it was more to do with your formidable combination of fusion reactor and nanotube muscles.
 | - Wouldn't you like to know.
 |   ~ innis
 |   | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
