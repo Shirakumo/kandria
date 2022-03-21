@@ -50,7 +50,7 @@
 ~ player
 - If you're the Semi Sisters I need your help.
   ~ innis
-  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my info.
+  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my information.
   | (:normal)Well you'll be pleased to ken that we can turn the water back on for you.
 - My business is my business.
   ~ innis
