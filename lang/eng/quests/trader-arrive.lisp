@@ -66,18 +66,18 @@
 | The least I can do is help keep you in tip-top condition.
 | I've heard about androids - you're different to those servos. You've a lot more going on up here, that's for sure.
 ~ player
-| \"//Sahil taps his fingers on his temple.//\"(light-gray)
+| \"Sahil taps his fingers on his temple.\"(light-gray, italic)
 ~ trader
 | Though I hear there are some similarities under the hood. No offence.
 | Here, I can assemble some useful bits and pieces into a handy repair pack for you.
 ~ player
-| \"//He turns to the stacks of shelves behind him and rummages around.//\"(light-gray)
-| \"//Tools, screws and jury-rigged contraptions roll off and clatter to the floor.//\"(light-gray)
-| \"//He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.//\"(light-gray)
+| \"He turns to the stacks of shelves behind him and rummages around.\"(light-gray, italic)
+| \"Tools, screws and jury-rigged contraptions roll off and clatter to the floor.\"(light-gray, italic)
+| \"He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.\"(light-gray, italic)
 ~ trader
 | (:jolly)Voila! I give you: \"The Android Health Pack\"(orange)! Custom made just for you.
 ~ player
-| \"//It's crude, but I'm sure I can do something with it. If only poke my lenses out.//\"(light-gray)
+| \"It's crude, but I'm sure I can do something with it. If only poke my lenses out.\"(light-gray, italic)
 ~ trader
 | Just \"let me know when you want to buy one\"(orange), okay?
 | You take it easy, habibti."
@@ -87,12 +87,11 @@
 ;; TODO - add act 3 quest transition check to "|? (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex))" to ensure chat log updates in act 3
 (quest:define-quest (kandria trader-chat)
   :author "Tim White"
-  :title "Trader Chat"
-  :description "If I want to trade items, I should find Sahil in the Midwest Market, beneath the Zenith Hub."
+  :title ""
   :visible NIL
-  :on-activate T  
+  :on-activate T
   (chat-trader
-   :title "Talk to Sahil"
+   :title ""
    :on-activate T
    (:interaction chat-with-trader
     :title "Can we talk?"
@@ -122,13 +121,12 @@
 |   | The \"Noka\"(red)? They're a nice bunch, what can I say?
 |   | Fi's a good person, which is rare these days.
 |   | They broke out all on their own, had enough of that Wraw bullshit.
-|   | Can't blame 'em. It was brave. It might also prove stupid. We'll see.
+|   | Can't blame 'em. It was brave. It might also prove stupid.
 |   < talk
 | - Catherine said you were later than expected.
 |   ~ trader
 |   | Yeah, those damn servos prowling about.
-|   | Don't get me wrong, I can handle myself.
-|   | But it's not easy when you pull your own caravan.
+|   | Don't get me wrong, I can handle myself. But it's not easy when you pull your own caravan.
 |   | I used to have an ox, believe it or not. Ha, an ox, in this hellhole! It's hard to imagine.
 |   | Didn't last long after the wolves got at her throat though. Poor Celina.
 |   < talk
@@ -136,9 +134,9 @@
 |   < leave
 |? (and (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex)) (not (complete-p 'q7-my-name)))
 | ~ player
-| - I thought you might have moved on by now.
+| - You've not moved on yet.
 |   ~ trader
-|   | You tired of me already?- (:jolly)I'm just kidding.
+|   | You tired of me already? (:jolly)I'm just kidding.
 |   | You're right habibti, that is what I do. I'll be moving on soon.
 |   | If I stayed in one place too long I'd either run out of stock, or get run through by rogues. (:jolly)I'm not sure which is worse.
 |   | It feels good to have something to look after, you know? (:sad)Even if a business is no replacement for Khawla.
@@ -159,8 +157,8 @@
 |   < talk
 | - What do you know of the Semi Sisters?
 |   ~ trader
-|   | They're our resident tech gurus! (:jolly)Ha, remember those.
-|   | (:normal)I remember a presentation from the head of Semi actually - don't remember his name - unveiling new models of android, just like you.
+|   | They're our resident tech gurus! (:jolly)Ha, remember those?
+|   | (:normal)I remember a presentation from the head of Semi - don't remember his name - unveiling new models of android, just like you.
 |   | The sisters used to work on the production line, in the factories deep underground. (:concerned)Conditions were terrible by all accounts.
 |   | (:normal)I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
 |   < talk
@@ -168,11 +166,11 @@
 |   ~ trader
 |   | (:concerned)Ah... examine you?
 |   | (:jolly)Oh, examine you!
-|   | You've had a warm welcome, have you? Someone don't trust you?
+|   | Had a warm welcome, have you? Someone don't trust you?
 |   ~ player
 |   - Jack and Fi.
 |     ~ trader
-|     | (:concerned)Oh really? I expected nothing less from Jack. Fi I'm surprised.
+|     | (:concerned)Oh really? I expected nothing less from Jack. Fi I'm surprised at.
 |     | (:normal)Mind you, she has a lot of alqarf on her plate. Give her some time.
 |   - Everyone.
 |     ~ trader
@@ -186,7 +184,7 @@
 |   - Let's talk about something else.
 |     < talk
 |   ~ trader
-|   | (:concerned)Yes... trust. It was always a common problem with androids, from what I hear.
+|   | (:concerned)Yes... trust. It was always a common problem with androids.
 |   | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
 |   | I can fix superficial damage, but I'm no engineer. Let alone a software one.
 |   | Sorry, habibti. It looks like you'll have to change their minds the old-fashioned way.

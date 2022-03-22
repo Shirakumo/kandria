@@ -39,6 +39,9 @@
 - What do you want?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
+- Are you the Semi Sisters?
+  ~ innis
+  | (:sly)I'll ask the questions if ya dinnae mind.
 | (:normal)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
 | What do you think, sister?
 ~ islay
@@ -103,19 +106,16 @@ ken = know (Scottish)
 | And now you've come to visit us. How thoughtful.
 ! label questions
 ~ player
-- Where are you?
-  ~ innis
-  | (:pleased)Close by.
-  < questions
 - Who are you?
   ~ innis
-  | You'll find out soon enough.
-  < questions
-- How are you communicating with me?
+  | (:sly)You'll find out soon enough.
+- Where are you?
   ~ innis
-  | You really dinnae ken? You're no' as clever as I thought.
-  < questions
+  | (:sly)Close by.
 - What do you want?
+  ~ innis
+  | (:sly)I'll ask the questions if ya dinnae mind.
+- Are you the Semi Sisters?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
 | What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
@@ -171,16 +171,16 @@ ken = know (Scottish)
 ! eval (deactivate (unit 'innis-stop-6))
 ! eval (activate 'find-alex-semis)
 "))
-
 #|
 dinnae = don't (Scottish)
+ken = know (Scottish)
 |#
 
 #|
 TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be questionined if they are Alex, as a variant on their world-building dialogue.
 |#
   (find-alex-semis
-   :title "Search near the women that stopped me for any sign of Alex"
+   :title "Search near the woman that stopped me for any sign of Alex"
    :description NIL
    :invariant T
    :condition (complete-p 'alex-meet)
@@ -203,13 +203,13 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
    (:interaction alex-meet
     :interactable alex
     :dialogue "
+~ player
+| \"This person's breath smells like diesel mixed with seaweed.\"(light-gray, italic)
 ~ alex
 | (:unhappy)What you looking at? <-Hic->.
 ~ player
-| \"//Their breath smells like seaweed mixed with diesel.//\"(light-gray)
-~ player
-- Alex?  
-- I wasn't looking at you as it happens.
+- Alex?
+- (Lie) I wasn't looking at you.
   ~ alex
   | (:unhappy)Goes away then.
   ~ player
@@ -220,9 +220,9 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ player
   | Are you Alex?
 ~ alex
-| (:unhappy)I ain't Ali.
+| (:unhappy)I ain't Alice.
 ~ player
-| I said \"Alex\" not \"Ali\".
+| I said \"Alex\" not \"Alice\".
 ~ alex
 | (:confused)<-Hic->. That's what I said.
 ~ player
@@ -233,7 +233,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | (:normal)Yeah that's me. <-Hic->.
 ! eval (setf (nametag (unit 'alex)) (@ alex-nametag))
 ~ player
-- My name is... Stranger.
+- My name is Stranger.
   ~ alex
   | (:unhappy)<-Hic->. I know. You're the new hunter.
   | The android.
@@ -251,14 +251,14 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ alex
   | (:unhappy)You really gotta ask that?
   | ...
-  | Alright, you asked for it: <-Hic->. You're the reason.
+  | (:angry)Alright, you asked for it: <-Hic->. You're the reason.
 - It's important that you do.
   ~ alex
   | No it ain't. Far from it.
 ~ alex
-| (:angry)I've 'eard about you, doing my job- <-Hic->. \"Innis\"(yellow) even showed me the CCCTV.
+| (:angry)I've 'eard about you, doing my job- <-Hic->.
+| \"Innis\"(yellow) even showed me the CCCTV. These Semi Sisters been nice to me.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-| These Semi Sisters been nice to me.
 | So why would Fi need little ol' me any more?
 | So run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
 ~ player
@@ -267,29 +267,33 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | They're always planning to attack. <-Hic->. Prolly just Fi getting her knickers in a twist.
 | (:unhappy)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
-| \"//Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.//\"(light-gray)
+| \"Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.\"(light-gray, italic)
 ~ player
 - (Buy Alex another drink - 40)
   ? (<= 40 (item-count 'parts))
   | ! eval (retrieve 'parts 40)
   | ~ alex
   | | (:confused)Ugh, thansssks. <-Hic->.
+  | ~ player
+  | | \"They down it in one.\"(light-gray, italic)
   |? (> 40 (item-count 'parts))
   | ~ player
-  | | (:embarassed)\"//I don't have enough scrap for that. Now the barkeep's scowling at me too.//\"(light-gray)
+  | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
 - (Buy Alex a soft drink - 20)
   ? (<= 20 (item-count 'parts))
   | ! eval (retrieve 'parts 20)
   | ~ alex
-  | | (:confused)This ain't booze! What am I meant to do wiv that? <-Hic->. 
+  | | (:confused)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
+  | ~ player
+  | | \"They drink it anyway.\"(light-gray, italic)
   |? (> 20 (item-count 'parts))
   | ~ player
-  | | (:embarassed)\"//I don't have enough scrap for that. Now the barkeep's scowling at me too.//\"(light-gray)
+  | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
 - (Leave them be)
 ~ player
-| \"//Alex looks me up and down, though seems to lose focus for a moment, before squinting and settling on me again. They seem surprised I'm still here.//\"(light-gray)
+| \"Alex looks me up and down, though seems to lose focus for a moment. They squint, and settle on me again. They seem surprised I'm still here.\"(light-gray, italic)
 ~ alex
-| You're a stenacious bunch aren't ya, you androids. <-Hic->.
+| You're a stenacious one, aren't ya? <-Hic->.
 ~ player
 - Did you learn anything from the Cerebats?
   ~ alex
@@ -301,10 +305,10 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ player
 | Those maps could really help me.
 ~ alex
-| (:angry)You mad? I give you these and I really would have nuffin'. <-Hic->.
+| (:angry)You mad? I give you these an' I really would have nuffin'. <-Hic->.
 | Now get lost.
 | (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told Catherine about you.
-| (:confused)I was just walking along, and there you were. <-Hic->. Exposed by an earthquake, I reckon.
-| (:angry)Now I wish I'd kept my mouth shut and smashed you up instead.
+| (:confused)I was just walking along, an' there you were. <-Hic->. Exposed by an earthquake, I reckon.
+| (:angry)Now I wish I'd kept my mouth shut an' smashed you up instead.
 ! eval (deactivate 'islay-hint)
 ")))
