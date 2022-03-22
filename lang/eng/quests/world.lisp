@@ -318,7 +318,7 @@
 | \"I think they assembled androids on this production line.\"(light-gray, italic)
 ")
 
-;; a scenic picture on the wall from pre-calamity times - now it seems as ancient as a cave painting once did
+;; a scenic picture on the wall from pre-Calamity times - now it seems as ancient as a cave painting once did
 (:interaction semi-cave-east-4
    :interactable lore-semi-pic
    :repeatable T
@@ -365,7 +365,7 @@
 | \"This one's as loud with chatter and clinking glass as anywhere I remember.\"(light-gray, italic)
 ")
 
-;; another scenic picture on the wall from pre-calamity times
+;; another scenic picture on the wall from pre-Calamity times
 ;; the player character doubts it either because things are too far gone, or because even if society recovers, they'll hopefully do things differently
 (:interaction semi-hub-3
    :interactable lore-semi-pic-2
@@ -385,7 +385,7 @@
 | \"It's as relaxing a place as I've found since I woke up.\"(light-gray, italic)
 ")
 
-;; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the calamity)
+;; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the Calamity)
 (:interaction semi-hub-5
    :interactable lore-semi-broken-building
    :repeatable T
@@ -432,7 +432,7 @@
 | \"An office turned bedroom.\"(light-gray, italic) (:giggle)\"Brings new meaning to sleeping under your desk.\"(light-gray, italic)
 ")
 
-;; a calendar still on the wall in an old office block; March 2368 is when the calamity happened. There are faces on the calendar too.
+;; a calendar still on the wall in an old office block; March 2368 is when the Calamity happened. There are faces on the calendar too.
 (:interaction semi-hub-10
    :interactable lore-semi-calendar
    :repeatable T
@@ -453,7 +453,7 @@
 | \"Well that's fluorescent. The tubes are full of dead flies. I know the feeling.\"(light-gray, italic)
 ")
 
-;; spike traps and barbed wire litter areas around the Semi Sisters base - lethal to an android, as they reflect on police states from before the calamity.
+;; spike traps and barbed wire litter areas around the Semi Sisters base - lethal to an android, as they reflect on police states from before the Calamity.
 ;; Maybe the Semi Sisters planted them for defence, even though it makes it harder for their own people to get around. Or maybe it's a legacy from when the militaristic Wraw faction inhabited this area?
 (:interaction semi-cave-west-2
    :interactable lore-semi-spikes
