@@ -40,12 +40,13 @@
 | | Hurry, {#@player-nametag} - I still need: [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange) |] [(< 0 (var 'charge-pack-count)) ; \"charge packs: {(var 'charge-pack-count)}\"(orange)].
 |?
 | ~ islay
-| | Good. I'll see these are passed to Catherine and installed on the bomb. And here's your payment.
+| | Ah, good. I'll see these are passed to Catherine and installed right away.
+| | Here's your payment.
 | ? (< 0 (item-count 'item:blasting-cap))
 | | ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
 | | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
 | | ! eval (retrieve 'item:blasting-cap T)
-| |? (< 0 (item-count 'item:charge-pack))
+| ? (< 0 (item-count 'item:charge-pack))
 | | ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
 | | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | | ! eval (retrieve 'item:charge-pack T)
@@ -179,9 +180,10 @@
 ? (< 0 (item-count 'item:blasting-cap))
 | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
 | ! eval (retrieve 'item:blasting-cap T)
-|? (< 0 (item-count 'item:charge-pack))
+? (< 0 (item-count 'item:charge-pack))
 | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | ! eval (retrieve 'item:charge-pack T)
+  
 | (:normal)I'll take the parts to Catherine so she can complete the bomb.
 | Fi, would you join Catherine and I in Engineering?
 ~ fi
