@@ -107,7 +107,7 @@
 ~ fi
 | (:unsure)Well?
 ~ islay
-| \"On your low eastern border, beyond the Rootless apartments, beneath the old Semi factory;\"(orange)
+| \"On your low eastern border, beyond the Rootless hospital apartments, beneath the old Semi factory;\"(orange)
 | \"In the mushroom cave to the west of the old Dreamscape apartments;\"(orange)
 | (:nervous)\"In the flooded cave beside the pump room.\"(orange)
 ~ fi
@@ -139,7 +139,7 @@
 | (:excited)When one goes boom, they all go boom!
 ~ islay
 | (:normal)Remember where to \"plant them\"(orange):
-| \"East of the Rootless apartments, beneath the old Semi factory;\"(orange)
+| \"East of the Rootless hospital apartments, beneath the old Semi factory;\"(orange)
 | \"The flooded room beside the pump;\"(orange)
 | \"The mushroom cave to the west.\"(orange)
 ~ player

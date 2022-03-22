@@ -22,7 +22,7 @@
     :dialogue "
 ~ islay
 | (:normal)Remember where to \"plant them\"(orange):
-| \"East of the Rootless apartments, beneath the old Semi factory;\"(orange)
+| \"East of the Rootless hospital apartments, beneath the old Semi factory;\"(orange)
 | \"The mushroom cave to the west;\"(orange)
 | \"The sunken room beside the pump.\"(orange)
 | Good luck.
@@ -75,7 +75,7 @@
 "))
 
   (task-bomb-1
-   :title "Plant a bomb on the low eastern border, east of the Rootless apartments and below the old Semi factory"
+   :title "Plant a bomb on the low eastern border, east of the Rootless hospital apartments and below the old Semi factory"
    :invariant T
    :condition all-complete
    :on-activate (interact-bomb)
