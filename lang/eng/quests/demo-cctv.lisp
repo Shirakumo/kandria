@@ -13,7 +13,7 @@
    :visible NIL
    :on-activate T
    (:interaction reminder
-    :title "Remind me about the down CCTV cameras."
+    :title "(CCTV reminder)"
     :interactable islay
     :repeatable T
     :dialogue "

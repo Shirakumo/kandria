@@ -13,7 +13,7 @@
    :condition (complete-p 'task-return-engineers)
    :on-activate T
    (:interaction reminder
-    :title "Remind me about the trapped engineers."
+    :title "(Engineers reminder)"
     :interactable islay
     :repeatable T
     :dialogue "

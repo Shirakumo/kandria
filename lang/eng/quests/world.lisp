@@ -569,6 +569,7 @@
 ;; ken = know (Scottish)
    
 ;; Islay (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
+;; No longer used in the demo, since Islay has immediate dialogue after innis initial convo, and then trader options all the time
 (define-default-interactions islay
   (demo-end-prep
    "| (:happy)[? I knew you'd come through for us. | If only people were as reliable as androids. | I'd love to hear your story - where you've been all these years. | Tell your friends we're sorry about the water. | I'll make sure Innis doesn't turn the water off again.]")
