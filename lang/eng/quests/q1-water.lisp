@@ -29,7 +29,7 @@
   | \"//I watch the dull glow; sparks crackle and spit.//\"(light-gray)
 - (Don't enable filters)
   | \"//It's like staring into the sun. Into the centre of a cataclysm.//\"(light-gray)
-  ! eval (when (< 5 (health player)) (hurt player 5))
+  ! eval (when (< 20 (health player)) (hurt player 5))
   ! eval (setf (var 'q1-weld-burn) T)
   | (:embarassed)\"//Oops. I think that damaged my lenses.//\"(light-gray)
 ! eval (setf (animation (unit 'main-leak-1)) 'normal)
@@ -76,6 +76,7 @@
 | (:normal)Okay, we need to \"follow the pipeline further down\"(orange).
 | (:excited)Let's go, Stranger!
   ")
+  ;; only hurting player if greater than 20 HP, as at 15 HP the game goes into slow motion damage mode; so lowest health can go here is either 20 HP if no damage levied, or 16 HP if 5 damage done.
   ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
   ;; TODO when can rename player nametag: ! eval (setf (var 'player-nametag) \"Stranger\") - re-inflects the narrative tone. Does PC adopt this name, or not?
   ;; TODO catherine confused - I don't know. Everyone has a name. 
@@ -116,7 +117,8 @@
    :title "Defeat the wolf at the leak"
    "
 ~ catherine
-| (:shout)Look out! Keep it busy while I finish up here.
+| (:shout)Look out!
+| Keep it busy while I finish up here.
   ")
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
