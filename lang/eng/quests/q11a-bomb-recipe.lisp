@@ -103,7 +103,7 @@
 - Islay did most of the convincing.
   ~ fi
   | Well, she knows Innis the best I suppose.
-  | But without you talking to them, none of this would've happened.
+  | But without you going and speaking with them, none of this would've happened.
   ~ player
   - I guess I played my part.
     ~ fi
@@ -120,7 +120,7 @@
 ~ fi
 | Islay told me everything by the way, and why you couldn't call.
 | All things considered, things are surprisingly calm around here.
-| (:unsure)Although, everyone's buying into Islay's story that we can defeat the Wraw. I suppose this bomb is a convincing statement.
+| (:unsure)Everyone's buying into Islay's story that we can defeat the Wraw. I suppose this bomb is a convincing statement.
 | (:normal)She's had Catherine working on it for a while, that much I know. At least our weapons are ready.
 ! label questions
 ~ player
