@@ -36,7 +36,7 @@
 |   | (:proud)As a judge at the Last Judgement.
   
 ~ alex
-| (:proud)I can't wait to see the look on Fi's face when the Wraw come pouring out of the ground.
+| (:proud)I can't wait to see the look on Fi's face when the Wraw come pouring out o' the ground.
 ~ player
 | (:skeptical)...
 - What do you mean?
@@ -45,8 +45,8 @@
   ~ alex
   | (:proud)If that's that I've betrayed you to the Wraw, then yeah.
 ~ alex
-| I told them the exact location of the Noka camp.
-| (:angry)It's the least I could do to repay you and Fi for your loyalty.
+| I told them the exact location o' the Noka camp.
+| (:angry)It's the least I could do to repay you an' Fi for your loyalty.
 | Now if you don't mind, I've got a battle to fight.
 | Watch your back, {#@player-nametag}.
 ? (and (not (active-p (unit 'wraw-border-1))) (not (active-p (unit 'wraw-border-2))))
