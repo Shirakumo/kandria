@@ -3,7 +3,7 @@
 
 (define-sequence-quest (kandria q5-run-errands)
   :author "Tim White"
-  :title "Run Errands"
+  :title ""
   :visible NIL
   (:eval 
    (setf (location 'innis) (location 'innis-main-loc))
@@ -23,7 +23,7 @@
 - See for yourself.
 ~ islay
 | (:nervous)I feared as much.
-| (:normal)What if I talk to them? I could help them see reason.
+| (:normal)What if I talk to them?
 ~ player
 - I'd appreciate that.
   ~ islay
@@ -33,11 +33,10 @@
   | No catch. I just want to help.
 - I think they're a lost cause.
   ~ islay
-  | Forgive me for saying so, but I don't believe in those.
-  | Were you yourself not a lost cause before Alex found you?
+  | Maybe. But were you yourself not a lost cause before Alex found you?
 ~ islay
 | You should stay with us a while, give me some time.
-| (:expectant)You don't want to disappoint Fi by returning without Alex, do you?
+| (:expectant)That way you won't disappoint Fi by returning empty-handed.
 | And there are things you could help us with.
 ~ player
 - So there is a catch.
@@ -66,11 +65,11 @@
 | (:normal)I suppose I'm what you'd call the chief engineer around here. Just like Jack is for the Noka.
 | Which means I stock many things that might be useful to you.
 | We get the usual traders visiting of course, but I'm giving you another option - and \"I stock more supplies than most\"(orange).
-| (:unhappy)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
+| (:expectant)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
 | We've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange).
-| And \"4 of our CCTV cameras on the low-eastern\"(orange) Cerebat border have gone down.
+| And \"4 of our CCTV cameras on the low eastern\"(orange) Cerebat border have gone down.
 | (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis - she's gone up to the control room\"(orange).
-| Perhaps see her too as a challenge to overcome. (:happy)I know I do.
+| Perhaps see her as another challenge to overcome. (:happy)I know I do.
 | (:normal)Ta-ta for now, Stranger.
 ! eval (stop-following 'islay)
 ! eval (setf (walk 'islay) T)
