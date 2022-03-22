@@ -372,7 +372,7 @@
 
 (defclass skins () ()) (defmethod item-order ((_ skins)) 5)
 (define-item (ruined-pelt skins value-item) 8 48 8 8
-  :price 50)
+  :price 15)
 (define-item (fine-pelt skins value-item) 0 48 8 8
   :price 100)
 (define-item (pristine-pelt skins value-item) 16 48 8 8
