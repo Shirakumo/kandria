@@ -107,7 +107,7 @@
 ~ fi
 | (:unsure)Well?
 ~ islay
-| \"On your low-eastern border, beyond the Rootless apartments, beneath the old Semi factory;\"(orange)
+| \"On your low eastern border, beyond the Rootless apartments, beneath the old Semi factory;\"(orange)
 | \"In the mushroom cave to the west of the old Dreamscape apartments;\"(orange)
 | (:nervous)\"In the flooded cave beside the pump room.\"(orange)
 ~ fi

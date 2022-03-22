@@ -111,7 +111,7 @@
 - Tell me about the down CCTV cameras.
   ~ innis
   | We monitor the surrounding areas, immediately above and below.
-  | (:angry)Basically \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low-eastern region\"(orange).
+  | (:angry)Basically \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low eastern region\"(orange).
   | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
   | I want you to check them out.
   < questions

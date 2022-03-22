@@ -8,7 +8,7 @@
   :title "Find the Saboteur"
   :description "Innis wants me to find the Cerebat responsible for sabotaging at least one of their CCTV cameras, and bring them in."
   (:go-to (q5b-boss-loc)
-   :title "Find the saboteur in the Semis' low-eastern region, along the Cerebat border")
+   :title "Find the saboteur in the Semis' low eastern region, along the Cerebat border")
   (:interact (innis :now T)
 "~ player
 | (:embarassed)Innis, I found the <-saboteurs->. Plural.

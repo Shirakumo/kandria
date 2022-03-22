@@ -4,7 +4,7 @@
 (quest:define-quest (kandria demo-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down. I need to investigate them and report back to Innis, before they'll turn our water back on."
+  :description "The Semi Sisters' CCTV cameras along their low eastern border have gone down. I need to investigate them and report back to Innis, before they'll turn our water back on."
   :on-activate (task-reminder task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
   :variables (first-cctv)
  
@@ -19,16 +19,16 @@
     :dialogue "
 ~ islay
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-3 'task-cctv-4)
-| | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low-eastern region\"(orange).
+| | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low eastern region\"(orange).
 |?
 | ? (complete-p 'demo-boss)
-| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
+| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange). Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'demo-boss)
-| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
+| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
 | | | And don't forget to \"bring Innis that saboteur\"(orange).
 | |?
-| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
+| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange).
 "))
 
@@ -50,7 +50,7 @@
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -77,7 +77,7 @@
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -104,7 +104,7 @@
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)

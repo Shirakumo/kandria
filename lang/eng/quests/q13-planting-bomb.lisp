@@ -75,7 +75,7 @@
 "))
 
   (task-bomb-1
-   :title "Plant a bomb on the low-eastern border, east of the Rootless apartments and below the old Semi factory"
+   :title "Plant a bomb on the low eastern border, east of the Rootless apartments and below the old Semi factory"
    :invariant T
    :condition all-complete
    :on-activate (interact-bomb)

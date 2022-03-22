@@ -28,7 +28,7 @@
   | (:expectant)But a trade is acceptable. And the sooner we get started, the sooner we can turn it back on for you.
 ~ islay
 | Basically we've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange).
-| And \"4 of our CCTV cameras on the low-eastern\"(orange) \"Cerebat\"(red) border have gone down.
+| And \"4 of our CCTV cameras on the low eastern\"(orange) \"Cerebat\"(red) border have gone down.
 ? (not (active-p (unit 'blocker-engineers)))
 | ~ islay
 | | Actually, no: don't worry about the engineers.
@@ -68,7 +68,7 @@
 - Tell me about the down CCTV cameras.
   ~ islay
   | We monitor the surrounding areas, immediately above and below.
-  | (:nervous)But \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low-eastern region\"(orange).
+  | (:nervous)But \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low eastern region\"(orange).
   | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
   | I'd like you to check them out.
   < questions

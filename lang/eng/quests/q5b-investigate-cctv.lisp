@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q5b-investigate-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low-eastern border have gone down."
+  :description "The Semi Sisters' CCTV cameras along their low eastern border have gone down."
   :on-activate (q5b-task-reminder q5b-task-cctv-1 q5b-task-cctv-2 q5b-task-cctv-3 q5b-task-cctv-4)
   :variables (first-cctv)
  
@@ -20,16 +20,16 @@
     :dialogue "
 ~ innis
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
-| | You might've found all the CCTV sites, but I want you to \"bring me back that saboteur from the low-eastern region\"(orange).
+| | You might've found all the CCTV sites, but I want you to \"bring me back that saboteur from the low eastern region\"(orange).
 |?
 | ? (complete-p 'q5b-boss)
-| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
+| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
 | | | Then \"return to me\"(orange). Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'q5b-boss)
-| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
+| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
 | | | And dinnae forget to \"bring me back that saboteur\"(orange).
 | |?
-| | | Go to the \"low-eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
+| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
 | | | Then \"return to me\"(orange).
 "))
 ;; dinnae = don't (Scottish)
@@ -52,7 +52,7 @@
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -75,7 +75,7 @@
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -98,7 +98,7 @@
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low-eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
