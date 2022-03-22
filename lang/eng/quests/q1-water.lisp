@@ -208,8 +208,9 @@
   | She'll be glad to meet you, I'm sure of it.
 ~ catherine
 | Let's \"get back to camp\"(orange), find out what's happening.
-! eval (ensure-nearby 'storage-shutter 'fi 'jack)
+! eval (setf (location 'fi) (location 'shutter-2))
 ! setf (direction 'fi) -1
+! eval (setf (location 'jack) (location 'shutter-3))
 ! setf (direction 'jack) -1
   ")
   (:eval
@@ -220,7 +221,7 @@
   ! eval (setf (location 'catherine) 'catherine-group) ;
   ! eval (move-to 'catherine-group (unit 'catherine)) ;
   |#
-  (:go-to (storage-shutter :follow catherine)
+  (:go-to (shutter-1 :follow catherine)
    :title "Return to camp with Catherine and find Jack and Fi"
    "~ catherine
 | (:excited)Take us home, Stranger!
@@ -228,7 +229,7 @@
   (:interact (catherine :now T)
   "
 ! eval (stop-following 'catherine)
-! eval (ensure-nearby 'storage-shutter 'catherine)
+! eval (ensure-nearby 'shutter-1 'catherine)
 ! eval (setf (nametag (unit 'fi)) (@ fi-nametag))
 ~ catherine
 | (:cheer)We're back! Did you miss us?

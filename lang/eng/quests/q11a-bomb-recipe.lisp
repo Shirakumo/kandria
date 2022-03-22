@@ -64,12 +64,15 @@
    (:interaction wraw-border
     :interactable NIL
     :dialogue "
-! eval (ensure-nearby 'storage-shutter 'fi 'jack 'innis 'islay)
-! eval (setf (location 'catherine) 'eng-cath)
-! setf (direction 'fi) -1
-! setf (direction 'jack) 1
+! eval (setf (location 'islay) (location 'shutter-2))
+! eval (setf (location 'innis) (location 'shutter-1))
 ! setf (direction 'islay) 1
 ! setf (direction 'innis) -1
+! eval (setf (location 'fi) (location 'shutter-3))
+! eval (setf (location 'jack) (location 'shutter-4))
+! setf (direction 'fi) -1
+! setf (direction 'jack) -1
+! eval (setf (location 'catherine) 'eng-cath)
 ! setf (direction 'catherine) -1
 ! eval (deactivate (unit 'wraw-border-1))
 ! eval (deactivate (unit 'wraw-border-2))
