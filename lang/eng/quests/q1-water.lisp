@@ -295,7 +295,7 @@
 ~ jack
 | Examine the thing, find out for sure.
 ~ fi
-| Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
+| (:thinking)Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
 | (:concerned)Oh, and we'd need a working computer, which no one's had since before I was born.
@@ -354,7 +354,6 @@
   ;; sayonara = goodbye (Japanese)
   ;; TODO catherine pleading - But no, it's not that. She was offline for decades - there's no way she could have done that.
   ;; and others
-  ;; TODO fi thinking - Catherine, don't androids have a black box?
 
   ;; REMARK The finding a computer idea has been abandoned, so this uncertainty about the android's motives will hang over the player for the rest of the game. Perhaps the android faction ending hints at this finally being resolved, since they could scan the android - but by that point, the android's friends trust her (even Jack?), so I don't think they'll even need that confirmation.
 
