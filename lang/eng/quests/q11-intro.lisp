@@ -19,7 +19,7 @@
   | (:happy)You're always a free agent. (:normal)But I have an important mission for you.
 ~ fi
 | Innis was right about the Cerebat takeover, and you've come to know her better than anyone.
-| (:thinking)And if the Wraw have marched as far as the Cerebats, then the Semis are next.
+| (:thinking)And if the Wraw have marched as far as the Cerebats, then the Semi Sisters are next.
 | (:normal)Now is not the time for division - the Wraw are a threat to them as much as they are to us.
 | Use whatever sway you have with \"Innis and Islay\"(orange) and \"ask them to stand with us\"(orange).
 ~ player

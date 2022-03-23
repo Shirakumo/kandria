@@ -95,7 +95,7 @@
     :interactable fi
     :dialogue "
 ~ fi
-| (:happy)Welcome back, and well done with the Semis.
+| (:happy)Welcome back, and well done with the Semi Sisters.
 ~ player
 - Thanks.
   ~ fi
@@ -131,7 +131,7 @@
   < questions
 - What weapons do we have?
   ~ fi
-  | We've got some old, pre-Calamity guns that Catherine and Jack managed to get working. The Semis have some too, but in better condition.
+  | We've got some old, pre-Calamity guns that Catherine and Jack managed to get working. The Semi Sisters have some too, but in better condition.
   | I don't remember the Wraw having anything like that - they're more into swords and spears, so they can watch you die up close.
   | We've also got scythes, shears, and other sharp farming tools.
   | (:happy)And we've got you.

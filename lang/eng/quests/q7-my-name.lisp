@@ -103,9 +103,9 @@
 | (:normal)I wish we could talk, but I really need you to take this next assignment.
 | (:happy)Your first \"official\" one, no less.
 | (:thinking)I can't get what Innis said out of my head. We need to talk to the Cerebats.
-| (:normal)\"Go and see the Cerebat Council\"(orange) in the heart of their territory, \"beneath the Semis area\"(orange), and \"see what you can learn\"(orange).
+| (:normal)\"Go and see the Cerebat Council\"(orange) in the heart of their territory, \"beneath the Semi Sisters\"(orange), and \"see what you can learn\"(orange).
 | If they've been invaded by the Wraw, I think you'll know soon enough.
-| Just don't get caught - by the Wraw //or// the Semis - and hurry back.
+| Just don't get caught - by the Wraw //or// the Semi Sisters - and hurry back.
 | Good luck, {#@player-nametag}.
 ! eval (setf (location 'alex) 'alex-cerebat-loc)
 ! setf (direction 'alex) 1
