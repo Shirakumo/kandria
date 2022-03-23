@@ -13,14 +13,14 @@
 ~ player
 - Islay sent me.
   ~ innis
-  | (:sly)Good. Then I'll assume she filled you in about the jobs.
+  | Good. Then I'll assume she told you about the jobs.
 - I'm here to help with the engineers and CCTV.
   ~ innis
   | (:pleased)Now that's more like it.
 - I found Alex.
   ~ innis
   | (:sly)Aye. It was hardly a challenge though, was it?
-  | I take it Islay filled you in about the jobs? Those are real challenges.
+  | (:normal)I take it Islay told you about the jobs? Those are real challenges.
 ~ innis
 | (:angry)They'd have been sorted ages ago if Alex wasn't propping up the bar.
 | (:normal)Dinnae get me wrong, I like a drink as much as the next lass. But you Noka really canna hold ya booze.
@@ -36,7 +36,7 @@
   - The latter.
     ~ innis
     | Makes sense. Though you haven't tried what passes for beer these days.
-    | It would rot your systems from the inside, I guarantee it.
+    | (:pleased)It would rot your systems, I guarantee it.
   - Nothing prevents me, I just don't drink.
     ~ innis
     | Each to their own.
@@ -46,13 +46,13 @@
 - It's not Alex's fault.
   ~ innis
   | Then whose fault is it?
-  | Look, life's harder than it used to be. People dinnae live in happy wee bubbles any more.
-  | There's no empathy 'cause everyone's too busy trying not to die.
+  | (:angry)Life's harder than it used to be. People dinnae live in happy wee bubbles any more.
+  | If you canna cut it, you'll fall in the gutter.
 ~ innis
 | So how much did my esteemed sister say? You ken what needs doing?
 ? (not (active-p (unit 'blocker-engineers)))
 | ~ innis
-| | Oh: about the trapped engineers - dinnae worry about them.
+| | Oh: about the trapped rail engineers - dinnae worry about them.
 | | The last report shows they've been freed - by whom I dinnae ken.
 | ~ player
 | - It was me.
@@ -86,14 +86,16 @@
 |   | I only just got word of this change myself.
 | ~ innis
 | | The good news for you is that it means our engineering works are back on schedule.
-| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we-... //if I// officially grant you \"access to the metro\"(orange).
-| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
-| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
+| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you \"access to the metro\"(orange).
+| | ... In the interests of good relations, between the Semi Sisters and yourself. It'll certainly \"speed up your errands\"(orange).
+| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
 | | | (:sly)I ken you've seen the metro already, and that's alright. But now it's official. I'll send out word so you won't be... apprehended.
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
-| | | \"Just choose your destination from the route map and board the train.\"(orange)
+| | | Just \"choose your destination from the route map\"(orange) and board the train.
+| ? (not (unlocked-p (unit 'station-semi-sisters)))
+| | | \"Our station is beneath this central block.\"(orange)
 ! label questions
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
@@ -112,7 +114,7 @@
   ~ innis
   | We monitor the surrounding areas, immediately above and below.
   | (:angry)Basically \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low eastern region\"(orange).
-  | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
+  | (:normal)It's probably just an electrical fault. (:angry)Unfortunately the way Islay daisy-chains them together, when one goes they all go.
   | I want you to check them out.
   < questions
 - I've got it.
