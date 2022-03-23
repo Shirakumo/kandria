@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q5b-investigate-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low eastern border have gone down."
+  :description "The Semi Sisters' CCTV cameras along their low eastern border have gone down. It's something I can help with while Islay talks to Alex."
   :on-activate (q5b-task-reminder q5b-task-cctv-1 q5b-task-cctv-2 q5b-task-cctv-3 q5b-task-cctv-4)
   :variables (first-cctv)
  
@@ -20,14 +20,14 @@
     :dialogue "
 ~ innis
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
-| | You might've found all the CCTV sites, but I want you to \"bring me back that saboteur from the low eastern region\"(orange).
+| | (:angry)You might've found all the CCTV sites, but I want you to \"bring me back that saboteur from the low eastern region\"(orange).
 |?
 | ? (complete-p 'q5b-boss)
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
-| | | Then \"return to me\"(orange). Hopefully you won't encounter any more saboteurs.
+| | | Then \"return to me\"(orange). (:sly)Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'q5b-boss)
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
-| | | And dinnae forget to \"bring me back that saboteur\"(orange).
+| | | (:angry)And dinnae forget to \"bring me back that saboteur\"(orange).
 | |?
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
 | | | Then \"return to me\"(orange).
@@ -45,7 +45,7 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 1\"(red).\"(light-gray, italic)
-| \"The lens is smashed and the casing is charred.\"(light-gray, italic)
+| \"The lens is smashed, and judging by the charring on the case there's been a fire.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
@@ -54,7 +54,7 @@
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
+| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
 
@@ -68,7 +68,7 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 2\"(red).\"(light-gray, italic)
-| \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit boards.\"(light-gray, italic)
+| \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit board.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
@@ -77,7 +77,7 @@
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
+| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
 
@@ -100,7 +100,7 @@
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
+| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 "))
 
@@ -133,7 +133,7 @@
 ~ player
 | The power line to one of the cameras has been cut by hand.
 ~ innis
-| (:angry)Then we have a \"saboteur\"(orange). (:sly)Maybe a sly Cerebat spy, watching you right now.
+| (:angry)... Then we have a \"saboteur\"(orange). (:sly)Maybe a sly Cerebat spy, watching you right now.
 | (:angry)\"Find them and bring them to me.\"(orange)
 ! eval (activate 'q5b-boss)
 ~ player
@@ -147,7 +147,7 @@
 ;; didnae = didn't (Scottish)
 ;; ken = know (Scottish)
 
-  ;; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4), nor employ rogues... The Wraw would do both though.
+  ;; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4 - it was logical though), nor employ rogues... The Wraw would do both though. And nor would rogues attack CCTV alone
   (q5b-task-return-cctv
    :title "Return to Innis in the Semi Sisters control room to discuss the saboteur"
    :marker '(innis 500)
@@ -163,15 +163,16 @@
 ~ player
 - It was a band of rogues.
   ~ innis
-  | ... Rogues? They're no' the kind of people the Cerebats would employ.
+  | ... Rogues? They're no' the kind who would sabotage.
 - Wannabe samurais and their pet dogs.
   ~ innis
-  | Rogues then... and wolf packs? That doesnae sound like the Cerebats.
+  | Rogues then, with wolf packs. They're no' the kind who would sabotage.
 - Do the Cerebats have a K-9 unit?
   ~ innis
-  | No.
+  | (:angry)...
+  | (:normal)Rogues then, with wolf packs. They're no' the kind who would sabotage.
 ~ innis
-| (:thinking)They also dinnae make aggressive moves like crossing our border.
+| They're no' the kind who would cross our border neither.
 | ...
 | (:angry)I think we might have a problem. A mutual problem:
 | The Wraw.
@@ -180,7 +181,8 @@
 | (:normal)I need to speak with my sister.
 ? (complete-p 'q5a-rescue-engineers)
 | ~ innis
-| | Perhaps you should \"return to Fi\"(orange).
+| | You've proven your worth to us. I might have to call on your services again.
+| | But now you should \"return to Fi\"(orange).
 | | It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
 | | I suppose androids canna do everything.
 | | (:angry)And tell her we want Catherine back too. We need her now more than ever.

@@ -22,7 +22,7 @@
 | | \"Find our engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
 | | Do what you can for them, then \"report back to Innis\"(orange).
 |?
-| | I heard there's news on the engineers - you should \"talk to Innis\"(orange).
+| | (:expectant)I heard there's news on the engineers - you should \"talk to Innis\"(orange).
 "))
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
@@ -77,7 +77,7 @@
 | | | (:weary)We're the rail engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
-| | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
+| | | (:weary)We'll send someone for help now the route is open.
 | | | Thank you.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
@@ -100,7 +100,7 @@
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
 | ~ innis
-| | The engineers aren't back yet - you need to help them. They're in the \"upper-west of our territory\"(orange).
+| | (:angry)The engineers aren't back yet - you need to help them. They're in the \"upper-west of our territory\"(orange).
 |?
 | ~ innis
 | | (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
@@ -115,17 +115,17 @@
 | - I pulled a hidden lever and said, \"Open sesame!\"
 |   ~ innis
 |   | (:angry)...
-|   | (:normal)Funny. I suspect it was more to do with your formidable combination of fusion reactor and nanotube muscles.
+|   | Funny. (:sly)I suspect it has more to do with your formidable combination of fusion reactor and nanotube muscles.
 | - Wouldn't you like to know.
 |   ~ innis
 |   | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
 |   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 | ~ innis
-| | There's something else...
+| | There's something else as well...
 | | My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you \"access to the metro\"(orange).
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
 | ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
-| | | (:sly)I ken you've seen the metro already, and that's alright. But now it's official. I'll send out word so you won't be... apprehended.
+| | | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.

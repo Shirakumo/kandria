@@ -89,7 +89,7 @@
 | | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you \"access to the metro\"(orange).
 | | ... In the interests of good relations, between the Semi Sisters and yourself. It'll certainly \"speed up your errands\"(orange).
 | ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
-| | | (:sly)I ken you've seen the metro already, and that's alright. But now it's official. I'll send out word so you won't be... apprehended.
+| | | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.

@@ -525,7 +525,7 @@
 | | | (:weary)We're glad you showed up. We're rail engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
-| | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
+| | | (:weary)We'll send someone for help now the route is open.
 | | | Thank you.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
@@ -590,7 +590,7 @@
 ;; Fi (Noka faction leader, female) - somewhat indifferent and distanced to the player; formal, but warming to them. Japanese English accent and dialect.
 (define-default-interactions fi
   (demo-end-prep
-   "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still in one piece. | Now our crops might stand a chance.]")
+   "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still intact. | Now our crops might stand a chance.]")
   (demo-start
    "| [? Please hurry, {#@player-nametag}. | Our survival depends on you. | You are earning my trust. Please, continue to do so. | You could be a hunter, and more besides.]")
   (T

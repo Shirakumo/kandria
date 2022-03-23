@@ -3,8 +3,7 @@
 
 (quest:define-quest (kandria trader-semi-chat)
   :author "Tim White"
-  :title "Trade With Islay"
-  :description NIL
+  :title ""
   :visible NIL
   :variables (alex-done)
   :on-activate T
@@ -30,43 +29,42 @@
 |   | ~ islay
 |   | | (:nervous)The barkeep has stopped serving them, which is something.
 |   | ~ alex
-|   | | (:angry)Oi, android. <-Hic->. I 'ear you even stole my jobs around 'ere now too.
-|   | | Fucker.
+|   | | (:angry)Oi, android! <-Hic->. I 'ear you even stole my jobs 'round 'ere now too.
 |   | ~ islay
 |   | | (:expectant)You could work together Alex, for the Noka. Return to Fi together with Stranger, and get your old life back.
 |   | ~ alex
 |   | | (:unhappy)\"Stranger\", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people. Stranger to myself.
-|   | | I'm going nowhere. Get lost, both of you.
+|   | | Get lost, both of you.
 |   | ~ islay
-|   | | (:normal)Perhaps it would be best if we leave them alone for a while.
-|   | | I suggest you deliver your findings to Fi.
+|   | | Let's leave them in peace for a while.
+|   | | You should get back and update Fi. I'll keep an eye on Alex.
 |   | | We'll speak again.
 |   | ! eval (setf (var 'alex-done) T)
 |   | ! eval (setf (walk 'islay) T)
 |   | ! eval (move-to 'islay-main-loc (unit 'islay))
 |   |?
 |   | ~ islay
-|   | | (:unhappy)Not much better I'm afraid. They're an alcoholic.
-|   | | (:normal)I think talking is helping though.
+|   | | (:unhappy)Not much better I'm afraid. (:normal)I think talking is helping though.
 |   | | If I can get them out of this bar it'll be a start.
 |   | < talk
 | - Why spy on the Noka?
 |   ~ islay
 |   | (:nervous)We spy on everyone. It's just what we do, it's nothing personal.
 |   | (:normal)We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill each other.
-|   | For what it's worth I value our friendship with the Noka. Innis does too, in her own way.
+|   | For what it's worth I value our friendship with the Noka. Fi's a good leader.
 |   < talk
 | - Can you read my black box?
 |   ~ islay
-|   | You're wondering if you betrayed the Noka.
-|   | We know a lot about you - but no, we can't read your black box. No one can any more. I'm sorry.
-|   | (:nervous)I saw what happened with the servo robots - whether they acted independently, or were being controlled, it's hard to say.
+|   | (:expectant)You think you might have unwittingly betrayed the Noka.
+|   | (:normal)We know a lot about you - but no, we can't read your black box. No one can any more. (:unhappy)I'm sorry.
+|   | (:normal)I saw what happened with the servo robots - (:nervous)whether they acted independently, or were being controlled, it's hard to say.
 |   | An android could certainly do that though.
 |   < talk
-| - What do you remember from before the Calamity?
+| - What was it like before the Calamity?
 |   ~ islay
-|   | (:unhappy)It was another world, another lifetime.
-|   | (:normal)If you're wondering whether androids destroyed the world, I can't help you.
+|   | (:unhappy)...
+|   | It was another world, another lifetime.
+|   | (:normal)If you're wondering if androids destroyed the world, I can't help you.
 |   | I wasn't on the surface - (:unhappy)few of us were, that's why we're still here.
 |   | (:normal)But I don't see how that would've been possible.
 |   | And even if androids did, I doubt very much it was their own doing. No.
@@ -86,8 +84,9 @@
 | - How's Alex now?
 |   ~ islay
 |   | (:nervous)They've gone. I don't know where. They just upped and left.
-|   | If they've not returned to the Noka then God knows.
+|   | If they've not returned to the Noka then I don't know.
 |   | I hope they're okay. And sober.
+|   | (:unhappy)I'm sorry, I should've kept a closer eye...
 | - Why are the Semis mostly women?
 |   ~ islay
 |   | (:unhappy)Why not?

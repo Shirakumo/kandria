@@ -23,10 +23,10 @@
 |?
 | ? (complete-p 'demo-boss)
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
-| | | Then \"return to Innis\"(orange). Hopefully you won't encounter any more saboteurs.
+| | | Then \"return to Innis\"(orange). (:nervous)Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'demo-boss)
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
-| | | And don't forget to \"bring Innis that saboteur\"(orange).
+| | | (:expectant)And don't forget to \"bring Innis that saboteur\"(orange).
 | |?
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange).
@@ -43,7 +43,7 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 1\"(red).\"(light-gray, italic)
-| \"The lens is smashed and the casing is charred.\"(light-gray, italic)
+| \"The lens is smashed, and judging by the charring on the case there's been a fire.\"(light-gray, italic)
 ? (complete-p 'task-cctv-2 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
@@ -52,7 +52,7 @@
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
+| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
@@ -70,7 +70,7 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 2\"(red).\"(light-gray, italic)
-| \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit boards.\"(light-gray, italic)
+| \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit board.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
@@ -79,7 +79,7 @@
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
+| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
@@ -106,7 +106,7 @@
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"This doesn't bode well. I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
+| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
@@ -143,7 +143,7 @@
 ~ player
 | The power line to one of the cameras has been cut by hand.
 ~ innis
-| (:angry)Then we have a \"saboteur\"(orange). (:sly)Maybe a sly Cerebat spy, watching you right now.
+| (:angry)... Then we have a \"saboteur\"(orange). (:sly)Maybe a sly Cerebat spy, watching you right now.
 | (:angry)\"Find them and bring them to me.\"(orange)
 ! eval (activate 'demo-boss)
 ~ player
@@ -177,15 +177,16 @@
 ~ player
 - It was a band of rogues.
   ~ innis
-  | ... Rogues? They're no' the kind of people the Cerebats would employ.
+  | ... Rogues? They're no' the kind who would sabotage.
 - Wannabe samurais and their pet dogs.
   ~ innis
-  | Rogues then... and wolf packs? That doesnae sound like the Cerebats.
+  | Rogues then, with wolf packs. They're no' the kind who would sabotage.
 - Do the Cerebats have a K-9 unit?
   ~ innis
-  | No.
+  | (:angry)...
+  | (:normal)Rogues then, with wolf packs. They're no' the kind who would sabotage.
 ~ innis
-| (:thinking)They also dinnae make aggressive moves like crossing our border.
+| They're no' the kind who would cross our border neither.
 | ...
 | (:angry)I think we might have a problem. A mutual problem:
 | The \"Wraw\"(red).

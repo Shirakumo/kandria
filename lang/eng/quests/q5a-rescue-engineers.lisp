@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q5a-rescue-engineers)
   :author "Tim White"
   :title "Rescue Engineers"
-  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory."
+  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory. I can help while Islay talks to Alex."
   :on-activate (task-reminder task-engineers task-return-engineers)
  
  (task-reminder
@@ -19,10 +19,10 @@
     :dialogue "
 ~ innis
 ? (active-p (unit 'blocker-engineers))
-| | \"Find the engineers\"(orange) in the collapsed rail tunnel, do what you can for them, and report back.
+| | (:angry)You forgot already? (:normal)\"Find the engineers\"(orange) in the collapsed rail tunnel, do what you can for them, and report back.
 | | It's in the \"upper-west of our territory\"(orange).
 |?
-| | There's news on the engineers - care to \"deliver your report\"(orange)?
+| | (:sly)There's news on the engineers - care to \"deliver your report\"(orange)?
 "))
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
@@ -77,7 +77,7 @@
 | | | (:weary)We're the engineers you're looking for. Thank God for Innis.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
-| | | (:weary)We'll send someone for help now the route is open. Our sisters will be here soon to tend to us.
+| | | (:weary)We'll send someone for help now the route is open.
 | | | Thank you.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
@@ -100,7 +100,7 @@
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
 | ~ innis
-| | The engineers aren't back yet - you need to help them. They're in the \"upper-west of our territory\"(orange).
+| | (:angry)The engineers aren't back yet - you need to help them. They're in the \"upper-west of our territory\"(orange).
 |?
 | ~ innis
 | | (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
@@ -115,17 +115,17 @@
 | - I pulled a hidden lever and said, \"Open sesame!\"
 |   ~ innis
 |   | (:angry)...
-|   | (:normal)Funny. I suspect it was more to do with your formidable combination of fusion reactor and nanotube muscles.
+|   | Funny. (:sly)I suspect it has more to do with your formidable combination of fusion reactor and nanotube muscles.
 | - Wouldn't you like to know.
 |   ~ innis
 |   | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
 |   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 | ~ innis
-| | There's something else...
+| | There's something else as well...
 | | My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you access to the metro.
 | | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
 | ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
-| | | (:sly)I ken you've seen the metro already, and that's alright. But now it's official. I'll send out word so you won't be... apprehended.
+| | | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
 | | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | |?
 | | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
@@ -134,8 +134,9 @@
 | | | \"Our station is beneath this central block.\"(orange)
 | ? (complete-p 'q5b-investigate-cctv)
 | | ~ innis
-| | | (:pleased)Well, you've proven your worth to us. I may have to call on your services again.
-| | | (:normal)It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
+| | | You've proven your worth to us. I might have to call on your services again.
+| | | But now you should \"return to Fi\"(orange).
+| | | It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
 | | | I suppose androids canna do everything.
 | | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
 | | | (:sly)If she disagrees tell her I'll shut the water off.

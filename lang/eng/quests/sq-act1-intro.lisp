@@ -126,7 +126,8 @@
 |     ~ catherine
 |     | (:excited)That's so cool!
 |   | (:normal)Okay, I think you're good to go.
-|   | Based on the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range. You want to take a walkie, or just use your FFCS?
+|   | Based on the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range.
+|   | You want to take a walkie, or just use your FFCS? - It will work with our radios.
 |   ~ player
 |   - I'll take a walkie.
 |     ~ catherine

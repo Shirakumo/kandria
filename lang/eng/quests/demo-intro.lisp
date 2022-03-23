@@ -103,7 +103,7 @@
 | This does mean our engineering works are back on schedule though.
 | With that in mind, I think we could grant you \"access to the metro\"(orange). It will certainly \"speed up your errands\"(orange).
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
-| | We know you've seen the metro already, and that's alright. But now it's official.
+| | We know you know about the metro already, and that's alright. But now it's official.
 | | I'll send out word, so Innis won't have you... (:happy)apprehended.
 | ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
