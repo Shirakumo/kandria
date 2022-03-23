@@ -134,6 +134,8 @@
 - I can protect her.
   ~ jack
   | (:annoyed)The hell you can.
+  | Androids don't exactly grow on trees 'round here. And some say you're the reason there ain't no trees any more. Or buildings.
+  | Or people.
 - Why are you afraid of me?
   ~ jack
   | (:annoyed)Androids don't exactly grow on trees. And some say you're the reason there ain't no trees any more. Or buildings.
@@ -141,6 +143,10 @@
 - You're right to be afraid.
   ~ catherine
   | (:disappointed)She's kidding... Aren't you?!
+  ~ jack
+  | (:shocked)I ain't so sure...
+  | (:annoyed)Androids don't exactly grow on trees. And you know what they say - they're the reason there ain't no trees any more. Or buildings.
+  | Or people.
 ~ catherine
 | Look, we need to fix the water right now or we're goners. And I'm your best shot.
 | Me AND my android buddy.
