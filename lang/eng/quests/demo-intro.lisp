@@ -109,7 +109,9 @@
 | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
 |?
 | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
-| | \"Just choose your destination from the route map and board the train.\"(orange)
+| | Just \"choose your destination from the route map\"(orange) and board the train.
+? (not (unlocked-p (unit 'station-semi-sisters)))
+| | \"Our station is beneath this central block.\"(orange)
 < questions
 ")
   (:eval
