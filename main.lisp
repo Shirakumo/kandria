@@ -295,11 +295,12 @@ Possible sub-commands:
 (define-setting-observer swank :debugging :swank (value)
   (manage-swank value))
 
-(define-setting-observer swank :debugging :fps-counter (value)
-  (if value
-      (unless (unit 'trial:fps-counter +world+)
-        (enter-and-load (make-instance 'trial:fps-counter) +world+ +main+))
-      (when (unit 'trial:fps-counter +world+)
-        (leave* (unit 'trial:fps-counter +world+) +world+))))
+(define-setting-observer fps-counter :debugging :fps-counter (value)
+  (when +world+
+    (if value
+        (unless (unit 'trial:fps-counter +world+)
+          (enter-and-load (make-instance 'trial:fps-counter) +world+ +main+))
+        (when (unit 'trial:fps-counter +world+)
+          (leave* (unit 'trial:fps-counter +world+) +world+)))))
 
 (load-quests :eng)
