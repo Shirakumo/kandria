@@ -196,8 +196,9 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | Hello, Stranger. (:happy)It's an honour to meet you in person.
 | (:unhappy)I'm sorry about my sister.
 | (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us\"(orange).
-| Just don't tell \"Innis\"(yellow) I told you.
+| Just don't tell \"Innis\"(yellow) I told you. She'll think I've gone soft for androids.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
+! eval (setf (var 'android-soft) T)
 ")
 
 

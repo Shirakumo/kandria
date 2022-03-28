@@ -41,13 +41,17 @@
   ~ islay
   | No. This isn't a trade. You're free to go and do anything you want.
   | (:expectant)But it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
-- You mean like turning me into a battery?
+- Like turning me into a battery?
   ~ islay
   | Of course not. You're free to go and do anything you want.
   | (:expectant)But it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
 - What things?
   ~ islay
   | (:expectant)Well, it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+- [(var 'android-soft) Won't Innis think you've gone soft for androids?]
+  ~ islay
+  | (:nervous)... Touché.
+  | (:normal)I'll deal with that. But it couldn't hurt to show her what you can do, could it? Sow some seeds of diplomacy.
 ~ player
 - You're right.
   ~ islay
