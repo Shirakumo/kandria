@@ -186,7 +186,7 @@
          (alloy:enter (make-instance 'label :value #@no-sound-backend-available-warning :style `((:label :pattern ,colors:red :offset ,(alloy:point 30 0))))
                       layout-outer :place :north :size (alloy:un 40)))
         (org.shirakumo.fraf.mixed:device-drain
-         (control audio-output-device (:audio :device) 'alloy:combo-set :value-set (list* NIL (mixed:list-devices (harmony:segment :drain (harmony:segment :output T)))))))
+         (control audio-output-device (:audio :device) 'alloy:combo-set :value-set (list* :default (mixed:list-devices (harmony:segment :drain (harmony:segment :output T)))))))
       (control master-volume (:audio :volume :master) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
       (control effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
       (control speech-volume (:audio :volume :speech) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
