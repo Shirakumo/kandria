@@ -31,17 +31,17 @@
 |   | ~ alex
 |   | | (:angry)Oi, android! <-Hic->. I 'ear you even stole my jobs 'round 'ere now too.
 |   | ~ islay
-|   | | (:expectant)You could work together Alex, for the Noka. Return to Fi together with Stranger, and get your old life back.
+|   | | (:expectant)You could work together Alex, for the Noka - return to Fi with Stranger and get your old life back.
 |   | ~ alex
 |   | | (:unhappy)\"Stranger\", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people. Stranger to myself.
 |   | | Get lost, both of you.
 |   | ~ islay
-|   | | Let's leave them in peace for a while.
-|   | | You should get back and update Fi. I'll keep an eye on Alex.
+|   | | Let's leave them in peace for a while. They might feel differently once they've sobered up.
+|   | | [(not (complete-p 'q6-return-to-fi)) You should \"get back and update Fi\"(orange). I'll keep an eye on Alex. | Don't worry, I'll keep an eye on them.]
 |   | | We'll speak again.
 |   | ! eval (setf (var 'alex-done) T)
-|   | ! eval (setf (walk 'islay) T)
 |   | ! eval (move-to 'islay-main-loc (unit 'islay))
+|   | ! eval (clear-pending-interactions)
 |   |?
 |   | ~ islay
 |   | | (:unhappy)Not much better I'm afraid. (:normal)I think talking is helping though.
@@ -50,7 +50,7 @@
 | - Why spy on the Noka?
 |   ~ islay
 |   | (:nervous)We spy on everyone. It's just what we do, it's nothing personal.
-|   | (:normal)We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill each other.
+|   | (:normal)We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill one another.
 |   | For what it's worth I value our friendship with the Noka. Fi's a good leader.
 |   < talk
 | - Can you read my black box?
@@ -93,19 +93,6 @@
 |   | (:normal)... Most of us who worked in the factories were women. After the Calamity we just stayed together.
 |   | And we've done better than most.
 |   | (:happy)Maybe the world wouldn't have fallen apart if more women were in charge.
-|   ~ player
-|   - Touché.
-|     < talk
-|   - You're so right.
-|     < talk
-|   - What about having kids?
-|     ~ islay
-|     | We have more than enough men.
-|     | Besides, technology can help us with that too.
-|     | But not everyone wants kids. I never did.
-|     | Some say we should repopulate as quickly as possible. Those with a brain say the world can't support a large population any more.
-|     < talk
-|   - Let's talk about something else.
 |   < talk
 | - I need to go.
 |   < leave

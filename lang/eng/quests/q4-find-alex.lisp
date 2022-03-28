@@ -239,13 +239,13 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ~ alex
   | (:unhappy)<-Hic->. I know. You're the new hunter.
   | The android.
-- I'm an android.
-  ~ alex
-  | (:unhappy)<-Hic->. I know. You're the new hunter.
 - Fi sent me.
   ~ alex
   | (:unhappy)<-Hic->. I know. You're the new hunter.
   | The android.
+- I'm an android.
+  ~ alex
+  | (:unhappy)You wanna medal? <-Hic->. I know who you are. You're the new hunter.
 ~ alex
 | (:unhappy)Lemme save you some trouble. I ain't going back.
 ~ player
@@ -259,18 +259,19 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   | No it ain't. Far from it.
 ~ alex
 | (:angry)I've 'eard about you, doing my job- <-Hic->.
-| \"Innis\"(yellow) even showed me the CCCTV. These Semi Sisters been nice to me.
+| \"Innis\"(yellow) even showed me the CCCTV. Semi Sisters been nice to me.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | So why would Fi need little ol' me any more?
-| So run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
+| Run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
 ~ player
-| (:thinking)Do you know about the Wraw's plan to attack?
+| Do you know about the Wraw's plan to attack?
 ~ alex
-| They're always planning to attack. <-Hic->. Prolly just Fi getting her knickers in a twist.
+| They're always planning to attack. <-Hic->. This just Fi getting her knickers in a twist again.
 | (:unhappy)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
 | \"Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.\"(light-gray, italic)
 ~ player
+- (Leave them be)
 - (Buy Alex another drink - 40)
   ? (<= 40 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 40)
@@ -279,7 +280,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   | ~ player
   | | \"They down it in one.\"(light-gray, italic)
   | | (:skeptical)\"They look like they're about to throw up, but swallow it back down.\"(light-gray, italic)
-  | | (:normal)\"I'm glad that can't happen to androids.\"(light-gray, italic)
+  | | (:normal)\"I'm glad that doesn't happen to androids.\"(light-gray, italic)
   |?
   | ~ player
   | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
@@ -293,7 +294,6 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   |?
   | ~ player
   | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
-- (Leave them be)
 ~ player
 | \"Alex looks me up and down, though seems to lose focus for a moment. They squint, and settle on me again. They seem surprised I'm still here.\"(light-gray, italic)
 ~ alex
@@ -311,8 +311,8 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ alex
 | (:angry)You mad? I give you these an' I really would have nuffin'. <-Hic->.
 | Now get lost.
-| (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told Catherine about you.
-| (:confused)I was just walking along, an' there you were. <-Hic->. Exposed by an earthquake, I reckon.
+| (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told Catherine where you were.
+| (:confused)I was just walking along an' there you were. Exposed by an earthquake I reckon. <-Hic->. I pulled you outta the rubble.
 | (:angry)Now I wish I'd kept my mouth shut an' smashed you up instead.
 ! eval (deactivate 'islay-hint)
 ")))

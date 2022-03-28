@@ -134,10 +134,10 @@
 |   < leave
 |? (and (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex)) (not (complete-p 'q7-my-name)))
 | ~ player
-| - You've not moved on yet.
+| - When are you moving on?
 |   ~ trader
-|   | You tired of me already? (:jolly)I'm just kidding.
-|   | You're right habibti, that is what I do. I'll be moving on soon.
+|   | Tired of me already? (:jolly)I'm just kidding.
+|   | You're right habibti, that is what I do. I'll be gone soon.
 |   | If I stayed in one place too long I'd either run out of stock, or get run through by rogues. (:jolly)I'm not sure which is worse.
 |   | It feels good to have something to look after, you know? (:sad)Even if a business is no replacement for Khawla.
 |   ~ player
@@ -159,7 +159,7 @@
 |   ~ trader
 |   | They're our resident tech gurus! (:jolly)Ha, remember those?
 |   | (:normal)I remember a presentation from the head of Semi - don't remember his name - unveiling new models of android, just like you.
-|   | The sisters used to work on the production line, in the factories deep underground. (:concerned)Conditions were terrible by all accounts.
+|   | The sisters used to work on the production line, in the factories down here. (:concerned)Conditions were terrible by all accounts.
 |   | (:normal)I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
 |   < talk
 | - Do you know how to examine me?
@@ -170,7 +170,7 @@
 |   ~ player
 |   - Jack and Fi.
 |     ~ trader
-|     | (:concerned)Oh really? I expected nothing less from Jack. Fi I'm surprised at.
+|     | (:concerned)Oh really? I expected nothing less from Jack. Fi I'm surprised about.
 |     | (:normal)Mind you, she has a lot of alqarf on her plate. Give her some time.
 |   - Everyone.
 |     ~ trader
@@ -193,11 +193,11 @@
 |   < leave
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
 | ~ player
-| - You're still here?
+| - When are you moving on?
 |   ~ trader
 |   | (:jolly)What, you don't want to buy supplies?
 |   | (:concerned)Truth be told, I heard the rumours about the Wraw in Cerebat territory.
-|   | I would've moved on if not for that.
+|   | I would've moved on already if not for that.
 |   | Are they true, the rumours?
 |   ~ player
 |   - [(complete-p 'q8a-secret-supplies)I'm afraid so.|]

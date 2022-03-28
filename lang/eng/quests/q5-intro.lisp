@@ -4,7 +4,7 @@
 (define-sequence-quest (kandria q5-intro)
   :author "Tim White"
   :title "Talk to Innis"
-  :description "Islay said she can give me more information about the trapped engineers and down CCTV cameras."
+  :description "Islay said her sister can give me more information about the trapped engineers and down CCTV cameras, while she talks to Alex."
   (:interact (innis)
    :title "Speak with Innis in the Semi Sisters control room"
  "
@@ -36,10 +36,11 @@
   - The latter.
     ~ innis
     | Makes sense. Though you haven't tried what passes for beer these days.
-    | (:pleased)It would rot your systems, I guarantee it.
+    | (:pleased)It would rot even your insides, I guarantee it.
   - Nothing prevents me, I just don't drink.
     ~ innis
-    | Each to their own.
+    | Each to their own. Though you haven't tried what passes for beer these days.
+    | (:pleased)It would rot even your insides, I guarantee it.
   ~ innis
   | I suppose there was never a case for androids getting pissed.
   | (:sly)War zones, ghettos, hospitals - even sweeping the streets. Not the kind of places you want inefficiency.

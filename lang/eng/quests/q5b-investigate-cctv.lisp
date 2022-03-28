@@ -14,7 +14,7 @@
    :visible NIL
    :on-activate T
    (:interaction q5b-reminder
-    :title "Remind me about the down CCTV cameras."
+    :title "(CCTV reminder)"
     :interactable innis
     :repeatable T
     :dialogue "
@@ -45,14 +45,14 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 1\"(red).\"(light-gray, italic)
-| \"The lens is smashed, and judging by the charring on the case there's been a fire.\"(light-gray, italic)
+| \"The lens is smashed, and judging from the charring on the case there's been a fire.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -75,7 +75,7 @@
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -98,7 +98,7 @@
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -149,7 +149,7 @@
 
   ;; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4 - it was logical though), nor employ rogues... The Wraw would do both though. And nor would rogues attack CCTV alone
   (q5b-task-return-cctv
-   :title "Return to Innis in the Semi Sisters control room to discuss the saboteur"
+   :title "Return to Innis in the Semi Sisters control room to discuss the saboteurs"
    :marker '(innis 500)
    :condition all-complete
    :on-activate T
@@ -175,7 +175,7 @@
 | They're no' the kind who would cross our border neither.
 | ...
 | (:angry)I think we might have a problem. A mutual problem:
-| The Wraw.
+| \"The Wraw.\"(orange)
 | There've been other signs lately. Islay warned me about this.
 | Fuck.
 | (:normal)I need to speak with my sister.
@@ -185,8 +185,8 @@
 | | But now you should \"return to Fi\"(orange).
 | | It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
 | | I suppose androids canna do everything.
-| | (:angry)And tell her we want Catherine back too. We need her now more than ever.
-| | (:sly)If she disagrees tell her I'll shut the water off.
+| | (:angry)And tell her \"we want Catherine back\"(orange) too. We need her now more than ever.
+| | (:sly)If she disagrees tell her I'll \"shut the water off\"(orange).
 | ! eval (activate 'q6-return-to-fi)
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))

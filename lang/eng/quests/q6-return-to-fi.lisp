@@ -48,7 +48,7 @@
 - I got waylaid.
   ~ fi
   | (:annoyed)Waylaid? What was more important than bringing Alex back?
-- Alex isn't coming back.
+- Alex isn't coming back yet.
   ~ fi
   | (:unsure)Are they okay? What happened?
 - My FFCS couldn't cut through.
@@ -62,10 +62,10 @@
 | I found them in the Semi Sisters bar. Drunk. They won't budge.
 | They aren't happy that I became a hunter. They think I've stolen their job.
 ~ fi
-| Oh...
+| (:unsure)Oh...
 ~ player
 | They did say they'd mapped the regions beneath the Semi Sisters, so there might be something in that.
-| But they weren't exactly clear, or forthcoming. I let Islay talk to them while I ran some errands, but it didn't help.
+| But they weren't exactly clear, or forthcoming. I let Islay talk to them while I ran some errands.
 ~ fi
 | (:annoyed)Damn. This is not the time for this.
 | Alex has had this problem before. (:normal)Well, we'll just have to leave them for now.
@@ -81,12 +81,13 @@
 ~ fi
 | (:annoyed)Does she. And what proof does she have of that?
 ~ player
-| A group of rogues crossed the Semi-Cerebat border and took their CCTV down.
+| A group of rogues crossed the Semi-Cerebat border and took down their CCTV.
 | Then I took them down.
 ~ fi
 | I'm sure you did.
 | Did she say anything else?
 ~ player
+- She wants Catherine back or she's turning the water off.
 - You won't like it.
   ~ fi
   | (:annoyed)I don't like anything Innis says. But I still want to hear it.
@@ -94,10 +95,9 @@
   | She said she wants Catherine back or she'll turn the water off.
 - (Lie) Nothing of consequence.
   ~ fi
-  | I'll be the judge of that.  
+  | (:annoyed)I'll be the judge of that.
   ~ player
   | She said she wants Catherine back or she'll turn the water off.
-- She wants Catherine back or she's turning the water off.
 ~ fi
 | (:shocked)...
 | Do you think she meant it?
@@ -119,7 +119,7 @@
 - Have you asked her?
   ~ fi
   | I don't have to. (:annoyed)They treated her like shit. Just like they did with you.
-- She doesn't want to go back, or you don't want her to go back?
+- She doesn't want to go back? Or you don't want her to go back?
   ~ fi
   | Catherine is an asset, obviously she is. But she's also our friend.
   | (:annoyed)The Semi Sisters treated her like shit. Just like they did with you.
@@ -130,7 +130,7 @@
 | The Wraw want us, not the Cerebats - and certainly not the Semi Sisters.
 | Their leader, \"Zelah\"(yellow), takes the easy route. He doesn't fight battles, he goes after the little guy.
 ~ fi
-| Well I'm glad your back.
+| Well I'm glad you're back.
 ~ player
 - I'm glad to see you too.
 - I feel better now I'm back with you.
@@ -138,7 +138,7 @@
   | (:happy)Me too.
 - It's good to be back.
 ~ fi
-| Take these parts - you've earned them.
+| \"Take these parts\"(orange). You've earned them.
 ! eval (store 'item:parts 600)
 | (:happy)Goodbye \"for now\"(orange), Stranger.
 ")))

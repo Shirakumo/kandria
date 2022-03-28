@@ -9,7 +9,7 @@
    :title "Talk to Fi"
   "
 ~ fi
-| Alright, it's like this: The Wraw are almost certainly coming to reclaim us.
+| Okay, it's like this: The Wraw are almost certainly coming to reclaim us.
 | But we cannot defend ourselves without knowing their plans: where they'll attack, and more importantly //when//.
 | Alex was hunting in \"Cerebat territory\"(red) deeper underground, and might have the answers we need. It's a plentiful place of traders and diplomats.
 | (:unsure)But they've been gone a long time now. Too long.
@@ -18,7 +18,7 @@
 | To reach the Cerebats township you'll need to pass through lands controlled by the tech-witch \"Semi Sisters\"(red).
 | We have good relations so it //should// be okay. They built the infrastructure that keeps us going, like the water pump and telephones.
 | You can reach their land \"through the floor in the pump room\"(orange).
-| But they've never seen an android before - not since before the Calamity, at least. Hopefully they'll play nice.
+| But they've never seen an android before - not since before the Calamity at least. Hopefully they'll play nice.
 | If not... you'll have to improvise.
 ~ player
 - Improvise?
@@ -56,8 +56,8 @@
 - (Ask about the Semi Sisters)
   ~ fi
   | They're tech-witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
-  | They keep the water and power on in this whole area, and don't seem to mind if we siphon a little off.  
-  | Two sisters run the show. It would be best to avoid them for now.
+  | They keep the power and water on in this whole area, and don't seem to mind if we siphon a little off.
+  | Two sisters are in charge. It would be best to avoid them for now.
   < questions
 - (Ask about the Cerebats)
   ~ fi

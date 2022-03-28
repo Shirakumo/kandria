@@ -13,7 +13,7 @@
    :condition (complete-p 'task-return-engineers)
    :on-activate T
    (:interaction reminder
-    :title "Remind me about the trapped engineers."
+    :title "(Engineers reminder)"
     :interactable innis
     :repeatable T
     :dialogue "
@@ -138,8 +138,8 @@
 | | | But now you should \"return to Fi\"(orange).
 | | | It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
 | | | I suppose androids canna do everything.
-| | | (:angry)And tell her we want Catherine back too. We need her now more than ever.
-| | | (:sly)If she disagrees tell her I'll shut the water off.
+| | | (:angry)And tell her \"we want Catherine back\"(orange) too. We need her now more than ever.
+| | | (:sly)If she disagrees tell her I'll \"shut the water off\"(orange).
 | | ! eval (activate 'q6-return-to-fi)
 | | ! eval (activate (unit 'fi-ffcs-1))
 | | ! eval (activate (unit 'fi-ffcs-2))
@@ -148,7 +148,7 @@
 | | I'll be seeing you.
 | ! label end
 | ! eval (complete task)
-| ! eval (deactivate interaction)
+| ! eval (reset* interaction)
 ")))
 ;; dinnae = don't (Scots)
 ;; ken = know (Scots)
