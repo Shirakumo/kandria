@@ -117,10 +117,10 @@ void main(){
 (defmethod trigger ((effect text-effect) source &key (text (text effect)) location)
   (setf (location effect) (or location (vcopy (location source))))
   (let ((s (view-scale (camera +world+))))
-    (multiple-value-bind (breaks array x- y- x+ y+)
+    (multiple-value-bind (breaks array seq x- y- x+ y+)
         (org.shirakumo.alloy.renderers.opengl.msdf::compute-text
          (font effect) text (alloy:px-extent 0 0 500 30) (/ s 5) NIL NIL)
-      (declare (ignore breaks))
+      (declare (ignore breaks seq))
       (decf (vx (location effect)) (/ (+ x- x+) 2 s))
       (decf (vy (location effect)) (/ (+ y- y+) 2 s))
       (setf (vertex-data effect) array)))
@@ -152,7 +152,7 @@ void main(){
       (setf (uniform shader "color") (vec4 1 1 1 (min (lifetime effect) 1)))
       ;; FIXME: this seems expensive, but maybe it would be worse to statically allocate for each text.
       (org.shirakumo.alloy.renderers.opengl:update-vertex-buffer vbo (vertex-data effect))
-      (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles (truncate (length (vertex-data effect)) 10)))))
+      (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles 0 (truncate (length (vertex-data effect)) 10)))))
 
 (defclass displacement-effect (effect)
   ((displacement-texture :initarg :displacement-texture :initform (// 'kandria 'shockwave) :accessor displacement-texture)))
