@@ -9,9 +9,7 @@
    (setf (location 'innis) (location 'innis-main-loc))
    (setf (direction 'innis) 1)
    (setf (location 'islay) (location 'islay-errand-spawn))
-   (setf (walk 'islay) T)
    (move-to 'alex (unit 'islay)))
-  ;;(:eval (ensure-nearby 'alex 'islay))
    (:go-to (islay :follow islay))
   (:interact (islay :now T)
    "
@@ -72,8 +70,7 @@
 | Perhaps see her as another challenge to overcome. (:happy)I know I do.
 | (:normal)Ta-ta for now, Stranger.
 ! eval (stop-following 'islay)
-! eval (setf (walk 'islay) T)
-! eval (move-to 'alex (unit 'islay))
+! eval (move-to 'islay-alex-talk (unit 'islay))
 ! eval (activate 'trader-semi-chat)
 ! eval (activate 'trader-shop-semi)
 ! eval (activate 'q5-intro)
