@@ -12,7 +12,7 @@
 
 (trigger toggle-menu
  (key :one-of (:tab))
- (button :one-of (:home :start)))
+ (button :one-of (:start :home)))
 
 (trigger screenshot
  (key :one-of (:print-screen)))
