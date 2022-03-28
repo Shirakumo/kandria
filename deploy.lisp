@@ -16,8 +16,5 @@
  org.shirakumo.file-select.macos::foundation
  org.shirakumo.file-select.macos::appkit
  org.shirakumo.file-select.macos::cocoa)
-#+windows
-(trial::dont-deploy
- org.shirakumo.file-select.win32::ole32)
 
 (deploy:remove-hook :deploy 'org.shirakumo.fraf.trial.alloy::alloy)
