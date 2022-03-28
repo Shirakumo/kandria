@@ -16,6 +16,12 @@
     (v<- (hit-location hit) (location entity))
     (1+ offset)))
 
+(defmethod tentative-scan ((entity moving) bounds tentative offset)
+  (let ((hit (aref tentative offset)))
+    (setf (hit-object hit) entity)
+    (v<- (hit-location hit) (location entity))
+    (1+ offset)))
+
 (defmethod tentative-scan ((chunk chunk) bounds tentative offset)
   (declare (type vec4 bounds))
   (declare (type simple-vector tentative +surface-blocks+))
@@ -83,6 +89,7 @@
                    MOST-POSITIVE-SINGLE-FLOAT
                    (vsqrdistance l loc)))))
       (sort tentative #'< :key #'dist))
+    
     (flet ((try-collide ()
              (loop for i from 0 below found
                    for hit = (aref tentative i)
@@ -244,19 +251,23 @@
          (setf (vx (frame-velocity moving)) 0)
          (cond ((< 0 (vx (hit-normal hit)))
                 (setf (svref (collisions moving) 3) other)
-                (setf (vx (location moving)) (+ (vx (hit-location hit)) (vx (bsize other)) (vx (bsize moving)))))
+                (unless (svref (collisions moving) 1)
+                  (setf (vx (location moving)) (+ (vx (hit-location hit)) (vx (bsize other)) (vx (bsize moving))))))
                (T
                 (setf (svref (collisions moving) 1) other)
-                (setf (vx (location moving)) (- (vx (hit-location hit)) (vx (bsize other)) (vx (bsize moving)))))))
+                (unless (svref (collisions moving) 3)
+                  (setf (vx (location moving)) (- (vx (hit-location hit)) (vx (bsize other)) (vx (bsize moving))))))))
         (T
          (setf (vy (frame-velocity moving)) 0)
          (cond ((< 0 (vy (hit-normal hit)))
                 (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
                 (setf (svref (collisions moving) 2) other)
-                (setf (vy (location moving)) (+ (vy (hit-location hit)) (vy (bsize other)) (vy (bsize moving)))))
+                (unless (svref (collisions moving) 0)
+                  (setf (vy (location moving)) (+ (vy (hit-location hit)) (vy (bsize other)) (vy (bsize moving))))))
                (T
                 (setf (svref (collisions moving) 0) other)
-                (setf (vy (location moving)) (- (vy (hit-location hit)) (vy (bsize other)) (vy (bsize moving)))))))))
+                (unless (svref (collisions moving) 2)
+                  (setf (vy (location moving)) (- (vy (hit-location hit)) (vy (bsize other)) (vy (bsize moving))))))))))
 
 (defmethod collide :after ((moving moving) (entity game-entity) hit)
   (when (and (< 0 (vy (hit-normal hit)))
