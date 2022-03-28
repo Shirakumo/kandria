@@ -82,7 +82,7 @@
 | You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
 | Know that you are earning my trust, Stranger. Perhaps you will become a part of the \"Noka\"(red) yourself.
-| But for now, please accept these parts as a token of my appreciation.
+| But for now, please \"accept these parts\"(orange) as a token of my appreciation.
 ! eval (retrieve 'item:semi-factory-key 1)
 ! eval (store 'item:parts 200)
 ~ fi

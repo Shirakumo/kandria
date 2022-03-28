@@ -363,7 +363,7 @@
    "~ catherine
 | (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.
-| Since those two aren't likely to be feeling generous, I'll give you these \"spare parts\"(red).
+| Since those two aren't likely to be feeling generous, I'll \"give you these spare parts\"(orange).
 ! eval (store 'item:parts 200)
 | It's not much, but you can \"trade them\"(orange) for things you might want. Or you will be able to \"once Sahil gets here\"(orange).
 | (:concerned)He's overdue, which is not like him at all. Maybe those servos scared him off.

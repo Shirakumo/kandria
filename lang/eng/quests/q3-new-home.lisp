@@ -147,12 +147,12 @@
 ~ player
 - Yes please.
   ~ jack
-  | Figures. Here ya go.
+  | Figures. \"Here ya go\"(orange).
   ! eval (store 'item:parts 100)
   < continue
 - That's the normal etiquette, isn't it?
   ~ jack
-  | I guess so. Here ya go.
+  | I guess so. \"Here ya go\"(orange).
   ! eval (store 'item:parts 100)
   < continue
 - Not from you.

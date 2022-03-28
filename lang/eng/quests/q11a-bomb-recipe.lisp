@@ -41,7 +41,7 @@
 |?
 | ~ islay
 | | Ah, good. I'll see these are passed to Catherine and installed right away.
-| | Here's your payment.
+| | \"Here's your payment.\"(orange)
 | ? (< 0 (item-count 'item:blasting-cap))
 | | ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
 | | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
@@ -176,7 +176,7 @@
 ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
 ~ islay
 | [(> -5 (+ (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)That's the last of the components we needed, and then some! | (:happy)That's the last of the components we needed.]
-| Thank you, {#@player-nametag}. Here's your payment as promised.
+| Thank you, {#@player-nametag}. \"Here's your payment as promised\"(orange).
 ? (< 0 (item-count 'item:blasting-cap))
 | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
 | ! eval (retrieve 'item:blasting-cap T)
