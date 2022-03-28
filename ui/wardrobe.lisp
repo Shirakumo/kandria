@@ -12,6 +12,8 @@
 
 (defmethod alloy:activate ((button palette-button))
   (harmony:play (// 'sound 'ui-confirm))
+  (alloy:do-elements (button (alloy:focus-parent button))
+    (alloy:refresh button))
   (setf (palette-index (unit 'player T)) (palette-index (alloy:value button))))
 
 (presentations:define-realization (ui palette-button)
@@ -121,8 +123,10 @@ void main(){
     (alloy:enter clipper layout :constraints `((:width 500) (:right 70) (:bottom 100) (:top 100)))
     (alloy:enter scroll layout :constraints `((:width 20) (:right 50) (:bottom 100) (:top 100)))
     (alloy:enter (make-instance 'label :value (@ wardrobe-title)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 500 50)))
-    (dolist (palette (unlocked-palettes (unit 'player T)))
-      (make-instance 'palette-button :value palette :target (target preview) :layout-parent list :focus-parent focus))
+    (loop for palette in (unlocked-palettes (unit 'player T))
+          for button = (make-instance 'palette-button :value palette :target (target preview) :layout-parent list :focus-parent focus)
+          do (when (eql (palette-index palette) (palette-index (unit 'player T)))
+               (setf (alloy:focus button) :weak)))
     (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
       (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
       (alloy:enter back focus)
