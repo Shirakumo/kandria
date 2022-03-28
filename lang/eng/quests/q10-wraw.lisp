@@ -81,7 +81,7 @@
 | | \"I'd better get \"back to Cerebat territory\"(orange) and call this in.\"(light-gray, italic)
   
 ~ player
-! eval (when (< 5 (health player)) (hurt player 5))
+! eval (when (< 20 (health player)) (hurt player 5))
 | (:embarassed)Ouch!... Power surge from the mech.
 | I think this one is powering up.
 ! eval (activate 'q10-boss)
