@@ -208,7 +208,7 @@
 
 (presentations:define-realization (ui status-line)
   ((:label simple:text)
-   (alloy:margins) alloy:text
+   (alloy:margins 0 -10) alloy:text
    :font (setting :display :font)
    :valign :top
    :halign :left
