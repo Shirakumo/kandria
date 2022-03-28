@@ -118,7 +118,7 @@ ken = know (Scottish)
 - Are you the Semi Sisters?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
-| What //should// we do with you? I bet your \"Genera\"(red) core could run our entire operation.
+| What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
 | What do you think, sister?
 ~ islay
 | (:unhappy)I think you should leave her alone.
