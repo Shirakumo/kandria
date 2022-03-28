@@ -326,12 +326,14 @@
       (mapc #'hide els))))
 
 (defclass menuing-panel (fullscreen-panel)
-  ())
+  ((prior-action-set :initform 'in-game :accessor prior-action-set)))
 
 (defmethod (setf active-p) :after (value (panel menuing-panel))
-  (if value
-      (setf (active-p (action-set 'in-menu)) T)
-      (setf (active-p (action-set 'in-game)) T)))
+  (cond (value
+         (setf (prior-action-set panel) (or (trial:active-action-set) 'in-game))
+         (setf (active-p (action-set 'in-menu)) T))
+        (T
+         (setf (active-p (action-set (prior-action-set panel))) T))))
 
 (defclass pausing-panel (fullscreen-panel)
   ())
