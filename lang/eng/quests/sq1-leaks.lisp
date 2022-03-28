@@ -37,25 +37,25 @@
     :dialogue "
 ~ player
 | \"It's \"leak 1\"(red).\"(light-gray, italic)
-| \"//There's a hole in the pipe - probably caused by duress where it bends around this corner.//\"(light-gray)
+| \"There's a hole in the pipe - probably caused by duress where it bends around this corner.\"(light-gray, italic)
 ? (not (var 'first-leak))
-| | \"//I ignite the torch from my index finger.//\"(light-gray)
-| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//Once again I enable the UV filters on my cameras.//\"(light-gray)]
-| | (:normal)\"//Weld complete.//\"(light-gray)
+| | \"I ignite the torch from my index finger.\"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)\"This time I enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"Once again I enable the UV filters on my cameras.\"(light-gray, italic)]
+| | (:normal)\"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
-| | | \"//I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//\"(light-gray)
+| | | \"I turn on the walkie-talkie. It's heavy for such a simple piece of technology.\"(light-gray, italic)
 |  
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ~ player
-| | \"//Okay, \"2 leaks\"(orange) remain.//\"(light-gray)
+| | \"Okay, \"2 leaks\"(orange) remain.\"(light-gray, italic)
 | ! eval (setf (var 'first-leak) T)
 |? (complete-p 'leak-second 'leak-third)
 | ~ player
-| | \"//Weld complete.//\"(light-gray)
+| | \"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
@@ -78,9 +78,9 @@
 | ! eval (activate 'return-leaks)
 |?
 | ~ player
-| | \"//Weld complete.//\"(light-gray)
+| | \"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
-| | \"//That's \"1 more leak\"(orange) to go.//\"(light-gray)
+| | \"That's \"1 more leak\"(orange) to go.\"(light-gray, italic)
 "))
   ;; TODO: how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
   ;; UNUSED: and a sprawl of soil and stones - subsidence caused this.
@@ -99,25 +99,25 @@
     :dialogue "
 ~ player
 | \"It's \"leak 2\"(red).\"(light-gray, italic)
-| \"//The pipe has split. There's no subsidence, but it's close to Catherine's previous repair - I wonder if she damaged it by accident.//\"(light-gray)
+| \"The pipe has split. There's no subsidence, but it's close to Catherine's previous repair - I wonder if she damaged it by accident.\"(light-gray, italic)
 ? (not (var 'first-leak))
-| | \"//I ignite the torch from my index finger.//\"(light-gray)
-| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//Once again I enable the UV filters on my cameras.//\"(light-gray)]
-| | (:normal)\"//Weld complete.//\"(light-gray)
+| | \"I ignite the torch from my index finger.\"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)\"This time I enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"Once again I enable the UV filters on my cameras.\"(light-gray, italic)]
+| | (:normal)\"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
 | ? (have 'item:walkie-talkie)
-| | | \"//I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//\"(light-gray)
+| | | \"I turn on the walkie-talkie. It's heavy for such a simple piece of technology.\"(light-gray, italic)
 |  
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ~ player
-| | \"//Okay, \"2 leaks\"(orange) remain.//\"(light-gray)
+| | \"Okay, \"2 leaks\"(orange) remain.\"(light-gray, italic)
 | ! eval (setf (var 'first-leak) T)
 |? (complete-p 'leak-first 'leak-third)
 | ~ player
-| | \"//Weld complete.//\"(light-gray)
+| | \"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
@@ -140,9 +140,9 @@
 | ! eval (activate 'return-leaks)
 |?
 | ~ player
-| | \"//Weld complete.//\"(light-gray)
+| | \"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
-| | \"//That's \"1 more leak\"(orange) to go.//\"(light-gray)
+| | \"That's \"1 more leak\"(orange) to go.\"(light-gray, italic)
 "))
 
   (leak-third
@@ -159,25 +159,25 @@
     :dialogue "
 ~ player
 | \"It's \"leak 3\"(red).\"(light-gray, italic)
-| \"//The pipe is ruptured, like an artery oozing blood.//\"(light-gray)
+| \"The pipe is ruptured, like an artery oozing blood.\"(light-gray, italic)
 ? (not (var 'first-leak))
-| | \"//I ignite the torch from my index finger.//\"(light-gray)
-| | [(var 'q1-weld-burn) (:embarassed)\"//This time I enable the UV filters on my cameras.//\"(light-gray) | (:normal)\"//Once again I enable the UV filters on my cameras.//\"(light-gray)]
-| | (:normal)\"//Weld complete.//\"(light-gray)
+| | \"I ignite the torch from my index finger.\"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)\"This time I enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"Once again I enable the UV filters on my cameras.\"(light-gray, italic)]
+| | (:normal)\"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
 | ? (have 'item:walkie-talkie)
-| | | \"//I turn on the walkie-talkie. It's heavy for such a simple piece of technology.//\"(light-gray)
+| | | \"I turn on the walkie-talkie. It's heavy for such a simple piece of technology.\"(light-gray, italic)
 |  
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
 | | \"Keep going\"(orange) - let me know if you hit any trouble. [(have 'item:walkie-talkie) Over and out.|]
 | ~ player
-| | \"//Okay, \"2 leaks\"(orange) remain.//\"(light-gray)
+| | \"Okay, \"2 leaks\"(orange) remain.\"(light-gray, italic)
 | ! eval (setf (var 'first-leak) T)
 |? (complete-p 'leak-first 'leak-second)
 | ~ player
-| | \"//Weld complete.//\"(light-gray)
+| | \"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
 | | Catherine, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
@@ -200,9 +200,9 @@
 | ! eval (activate 'return-leaks)
 |?
 | ~ player
-| | \"//Weld complete.//\"(light-gray)
+| | \"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
-| | \"//That's \"1 more leak\"(orange) to go.//\"(light-gray)
+| | \"That's \"1 more leak\"(orange) to go.\"(light-gray, italic)
 "))
 
   (return-leaks

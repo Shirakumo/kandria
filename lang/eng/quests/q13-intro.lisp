@@ -35,7 +35,7 @@
 | Good.
 | (:expectant)... Well, that just leaves the question of how we plant them.
 ~ player
-| \"//Islay looks at Fi, and some kind of understanding passes between them.//\"(light-gray)
+| \"Islay looks at Fi, and some kind of understanding passes between them.\"(light-gray, italic)
 ~ islay
 | (:expectant)I think you're our best shot, {#@player-nametag}.
 ~ player
@@ -86,14 +86,14 @@
 ~ catherine
 | They're ready. Here you go, {#@player-nametag}.
 ~ player
-| \"//Catherine hands me \"3 parcels\"(orange), each the size of a small brick, but thankfully lighter.//\"(light-gray)
+| \"Catherine hands me \"3 parcels\"(orange), each the size of a small brick, but thankfully lighter.\"(light-gray, italic)
 ! eval (store 'item:explosive 3)
-| \"//They resemble plastic explosives, similar to what I've seen bomb disposal teams use.//\"(light-gray)
-| \"//These ones are dark red courtesy of the charge packs. I take them tentatively.//\"(light-gray)
+| \"They resemble plastic explosives, similar to what I've seen bomb disposal teams use.\"(light-gray, italic)
+| \"These ones are dark red courtesy of the charge packs. I take them tentatively.\"(light-gray, italic)
 ~ catherine
 | Don't worry, they're shock resistant. These babies will only blow when we send the signal.
 ~ player
-| \"//She also gives me a handful of RF receivers attached to blasting caps - the detonators.//\"(light-gray)
+| \"She also gives me a handful of RF receivers attached to blasting caps - the detonators.\"(light-gray, italic)
 ! eval (store 'item:receiver 13)
 ~ catherine
 | Just push the receivers into the explosives once you've planted them - two in each to be sure. This will prime the explosive and activate the receiver.

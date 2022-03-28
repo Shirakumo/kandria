@@ -33,10 +33,10 @@
     :dialogue "
 ~ player
 | \"It's new-home candidate site \"Beta\"(red).\"(light-gray, italic)
-| (:thinking)\"//There could be shelter inside this building.//\"(light-gray)
-| (:normal)\"//Scanning the interior...//\"(light-gray)
-| \"//Dirt and sand has intruded through almost every crack.//\"(light-gray)
-| \"//It's a quicksand deathtrap.//\"(light-gray)
+| (:thinking)\"There could be shelter inside this building.\"(light-gray, italic)
+| (:normal)\"Scanning the interior...\"(light-gray, italic)
+| \"Dirt and sand has intruded through almost every crack.\"(light-gray, italic)
+| \"It's a quicksand deathtrap.\"(light-gray, italic)
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
 | | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)
@@ -57,9 +57,9 @@
     :dialogue "
 ~ player
 | \"It's new-home candidate site \"Gamma\"(red).\"(light-gray, italic)
-| (:thinking)\"//This position is favourably elevated and well-concealed, offering a vantage point from which to spot intruders.//\"(light-gray)
-| \"//The building's foundations appear strong, but the rest is a sand-blasted shell.//\"(light-gray)
-| \"//It's a no go.//\"(light-gray)
+| (:thinking)\"This position is favourably elevated and well-concealed, offering a vantage point from which to spot intruders.\"(light-gray, italic)
+| \"The building's foundations appear strong, but the rest is a sand-blasted shell.\"(light-gray, italic)
+| \"It's a no go.\"(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
 | | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)
@@ -80,8 +80,8 @@
     :dialogue "
 ~ player
 | \"It's new-home candidate site \"Delta\"(red).\"(light-gray, italic)
-| (:thinking)\"//It's secure and concealed, and sheltered from the weather.//\"(light-gray)
-| (:skeptical)\"//But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.//\"(light-gray)
+| (:thinking)\"It's secure and concealed, and sheltered from the weather.\"(light-gray, italic)
+| (:skeptical)\"But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.\"(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
 | | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)
@@ -102,12 +102,12 @@
     :dialogue "
 ~ player
 | \"It's new-home candidate site \"Epsilon\"(red).\"(light-gray, italic)
-| (:thinking)\"//These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.//\"(light-gray)
-| \"//I could clear the barbed wire so children, and the elderly and infirm could get through.//\"(light-gray)
+| (:thinking)\"These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.\"(light-gray, italic)
+| \"I could clear the barbed wire so children, and the elderly and infirm could get through.\"(light-gray, italic)
 ? (or (complete-p 'q2-seeds) (have 'item:seeds))
-| | (:skeptical)\"//But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.//\"(light-gray)
+| | (:skeptical)\"But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.\"(light-gray, italic)
 |?
-| | (:skeptical)\"//But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.//\"(light-gray)
+| | (:skeptical)\"But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.\"(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
 | | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)

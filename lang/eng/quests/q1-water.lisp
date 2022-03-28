@@ -24,14 +24,14 @@
 ~ catherine
 | Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras.
 ~ player
-| \"//Catherine puts her goggles on and welds the cracked pipe with steady hands.//\"(light-gray)
+| \"Catherine puts her goggles on and welds the cracked pipe with steady hands.\"(light-gray, italic)
 - (Enable UV filters)
-  | \"//I watch the dull glow; sparks crackle and spit.//\"(light-gray)
+  | \"I watch the dull glow; sparks crackle and spit.\"(light-gray, italic)
 - (Don't enable filters)
-  | \"//It's like staring into the sun. Into the centre of a cataclysm.//\"(light-gray)
+  | \"It's like staring into the sun. Into the centre of a cataclysm.\"(light-gray, italic)
   ! eval (when (< 20 (health player)) (hurt player 5))
   ! eval (setf (var 'q1-weld-burn) T)
-  | (:embarassed)\"//Oops. I think that damaged my lenses.//\"(light-gray)
+  | (:embarassed)\"Oops. I think that damaged my lenses.\"(light-gray, italic)
 ! eval (setf (animation (unit 'main-leak-1)) 'normal)
 ~ catherine
 | That should hold it.
