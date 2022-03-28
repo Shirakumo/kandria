@@ -497,6 +497,7 @@
    fine-pelt
    connector
    large-gear
+   coolant
 |#
 
 (define-random-draw region1-lower-cave
