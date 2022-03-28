@@ -271,25 +271,25 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | \"Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.\"(light-gray, italic)
 ~ player
 - (Buy Alex another drink - 40)
-  ? (<= 40 (item-count 'parts))
-  | ! eval (retrieve 'parts 40)
+  ? (<= 40 (item-count 'item:parts))
+  | ! eval (retrieve 'item:parts 40)
   | ~ alex
   | | (:confused)Ugh, thansssks. <-Hic->.
   | ~ player
   | | \"They down it in one.\"(light-gray, italic)
   | | (:skeptical)\"They look like they're about to throw up, but swallow it back down.\"(light-gray, italic)
   | | (:normal)\"I'm glad that can't happen to androids.\"(light-gray, italic)
-  |? (> 40 (item-count 'parts))
+  |?
   | ~ player
   | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
 - (Buy Alex a soft drink - 20)
-  ? (<= 20 (item-count 'parts))
-  | ! eval (retrieve 'parts 20)
+  ? (<= 20 (item-count 'item:parts))
+  | ! eval (retrieve 'item:parts 20)
   | ~ alex
   | | (:confused)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
   | ~ player
   | | \"They drink it anyway.\"(light-gray, italic)
-  |? (> 20 (item-count 'parts))
+  |?
   | ~ player
   | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
 - (Leave them be)
