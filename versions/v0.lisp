@@ -30,8 +30,8 @@
         (vw vec4)))
 
 (define-decoder (colored:rgb v0) (data _p)
-  (destructuring-bind (x y z) data
-    (colored:color x y z)))
+  (destructuring-bind (x y z &optional (a 1.0)) data
+    (colored:color x y z a)))
 
 (define-encoder (colored:rgb v0) (_b _p)
   (list (colored:r colored:rgb)

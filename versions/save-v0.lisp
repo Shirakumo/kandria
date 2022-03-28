@@ -259,7 +259,7 @@
 (define-encoder (map-marker save-v0) (_b packet)
   (list (encode (map-marker-location map-marker))
         (map-marker-label map-marker)
-        (map-marker-color map-marker)))
+        (encode (map-marker-color map-marker))))
 
 (define-decoder (map-marker save-v0) (initargs _p)
   (destructuring-bind (location label color) initargs
