@@ -276,6 +276,8 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   | | (:confused)Ugh, thansssks. <-Hic->.
   | ~ player
   | | \"They down it in one.\"(light-gray, italic)
+  | | (:skeptical)\"They look like they're about to throw up, but swallow it back down.\"(light-gray, italic)
+  | | (:normal)\"I'm glad that can't happen to androids.\"(light-gray, italic)
   |? (> 40 (item-count 'parts))
   | ~ player
   | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
