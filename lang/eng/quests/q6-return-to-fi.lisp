@@ -33,6 +33,7 @@
 
   (return-fi
    :title "Return to the Noka camp and speak with Fi"
+   :marker '(fi 500)
    :invariant T
    :condition all-complete
    :on-complete (q7-my-name)

@@ -9,7 +9,7 @@
 
   (find-alex
    :title "Travel down to the Cerebats township and find Alex, but avoid the Semi Sisters en route"
-   :description NIL
+   :marker '(chunk-5526 2200)
    :invariant (not (or (complete-p 'innis-stop-local) (complete-p 'innis-stop-remote)))
    :condition NIL
    :on-activate (q4-reminder)
@@ -181,6 +181,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 |#
   (find-alex-semis
    :title "Search near the woman that stopped me for any sign of Alex"
+   :marker '(chunk-5628 1800)
    :description NIL
    :invariant T
    :condition (complete-p 'alex-meet)

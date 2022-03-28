@@ -28,7 +28,7 @@
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (task-engineers
    :title "Find the trapped engineers"
-   :marker '(semi-engineer-mark 2500)
+   :marker '(chunk-5676 1200)
    :condition (complete-p 'task-return-engineers)
    :on-activate T   
    (:interaction engineers
