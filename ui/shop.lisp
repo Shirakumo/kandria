@@ -100,8 +100,8 @@
 
 (defmethod retrieve (thing (button buy-button) &optional (count 1))
   (let ((item (alloy:value button)))
-    (retrieve item (source button) count)
     (retrieve 'item:parts (target button) (* count (price item)))
+    (retrieve item (source button) count)
     (store item (target button) count)
     (alloy:value-changed button)))
 
@@ -155,11 +155,15 @@
 (defclass item-wheel (alloy:ranged-wheel)
   ())
 
-(defmethod alloy:handle :around ((ev alloy:focus-next) (wheel item-wheel))
-  (decf (alloy:value wheel) (alloy:step wheel)))
+(defmethod alloy:handle :around ((ev alloy:focus-down) (wheel item-wheel))
+  (if (= (alloy:value wheel) (decf (alloy:value wheel) (alloy:step wheel)))
+      (harmony:play (// 'sound 'ui-no-more-to-focus) :reset T)
+      (harmony:play (// 'sound 'ui-focus-next) :reset T)))
 
-(defmethod alloy:handle :around ((ev alloy:focus-prev) (wheel item-wheel))
-  (incf (alloy:value wheel) (alloy:step wheel)))
+(defmethod alloy:handle :around ((ev alloy:focus-up) (wheel item-wheel))
+  (if (= (alloy:value wheel) (incf (alloy:value wheel) (alloy:step wheel)))
+      (harmony:play (// 'sound 'ui-no-more-to-focus) :reset T)
+      (harmony:play (// 'sound 'ui-focus-next) :reset T)))
 
 (defmethod alloy:accept :after ((wheel item-wheel))
   (alloy:focus-next (alloy:focus-parent wheel))
@@ -221,6 +225,10 @@
 (defclass transaction-panel (popup-panel)
   ((wheel :accessor wheel)))
 
+(animation:define-animation too-expensive
+  0.1 ((setf simple:pattern) colors:red)
+  0.5 ((setf simple:pattern) colors:black))
+
 (defmethod initialize-instance :after ((panel transaction-panel) &key source)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(150 150) :row-sizes '(40 40 T 40)
                                                    :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
@@ -231,9 +239,15 @@
          (ok (make-instance 'popup-button
                             :value (@ accept-trade)
                             :on-activate (lambda ()
-                                           (harmony:play (// 'sound 'ui-buy))
-                                           (retrieve T source (alloy:value count))
-                                           (hide panel))
+                                           (handler-case
+                                               (progn
+                                                 (retrieve T source (alloy:value count))
+                                                 (harmony:play (// 'sound 'ui-buy))
+                                                 (hide panel))
+                                             (error ()
+                                               (alloy:with-unit-parent total
+                                                 (animation:apply-animation 'too-expensive (presentations:find-shape 'label total)))
+                                               (harmony:play (// 'sound 'ui-error) :reset T))))
                             :focus-parent focus))
          (cancel (make-instance 'popup-button
                                 :value (@ cancel-trade)

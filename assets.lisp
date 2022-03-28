@@ -125,6 +125,7 @@
   (ui-quest-fail :volume 0.5)
   (ui-scroll-dialogue :repeat T :volume 0.2)
   (ui-map-scroll :repeat T)
+  (ui-no-more-to-focus :volume 1.0)
   (ambience-earthquake :volume 0.1 :min-distance 100000000000.0 :max-distance 100000100000.0)
   (sandstorm :volume 0.5 :repeat T :min-distance 100000000000.0 :max-distance 100000100000.0)
   (slash :volume 0.05)
