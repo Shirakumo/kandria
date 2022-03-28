@@ -281,6 +281,7 @@
          :palette (palette-index player)
          :sword-level (sword-level player)
          :map-markers (mapcar #'encode (map-markers player))
+         :nametag (nametag player)
          (call-next-method)))
 
 (define-decoder (player save-v0) (initargs packet)
@@ -294,20 +295,22 @@
          (setf (fill-pointer trace) count)
          (dotimes (i count)
            (setf (aref trace i) (nibbles:read-ieee-single/le stream)))))))
-  (let ((inventory (getf initargs :inventory)))
-    (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq)))
-  (let ((table (unlock-table player)))
-    (clrhash table)
-    (dolist (item (getf initargs :unlocked))
-      (setf (gethash item table) T)))
-  (setf (map-markers player) (loop for marker in (getf initargs :map-markers)
-                                   collect (decode 'map-marker marker)))
-  (setf (stats player) (getf initargs :stats (make-stats)))
-  (setf (palette-index player) (getf initargs :palette 0))
-  (setf (sword-level player) (getf initargs :sword-level 0))
-  ;; Force state to normal to avoid being caught in save animation
-  (setf (state player) :normal)
-  (snap-to-target (camera +world+) player))
+  (destructuring-bind (&key inventory unlocked map-markers (stats (make-stats)) (palette 0) (sword-level 0) nametag &allow-other-keys) initargs
+    (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq))
+    (let ((table (unlock-table player)))
+      (clrhash table)
+      (dolist (item unlocked)
+        (setf (gethash item table) T)))
+    (setf (map-markers player) (loop for marker in map-markers
+                                     collect (decode 'map-marker marker)))
+    (setf (stats player) stats)
+    (setf (palette-index player) palette)
+    (setf (sword-level player) sword-level)
+    (when nametag
+      (setf (nametag player) nametag))
+    ;; Force state to normal to avoid being caught in save animation
+    (setf (state player) :normal)
+    (snap-to-target (camera +world+) player)))
 
 (define-encoder (npc save-v0) (_b _p)
   (let ((last (car (last (path npc)))))
@@ -317,11 +320,12 @@
            :target (when (target npc) (encode (target npc)))
            :companion (when (companion npc) (name (companion npc)))
            :inventory (alexandria:hash-table-alist (storage npc))
+           :nametag (nametag npc)
            (call-next-method))))
 
 (define-decoder (npc save-v0) (initargs _p)
   (call-next-method)
-  (destructuring-bind (&key (ai-state :normal) walk target companion inventory &allow-other-keys) initargs
+  (destructuring-bind (&key (ai-state :normal) nametag walk target companion inventory &allow-other-keys) initargs
     ;; Force state to normal if animated to get them unstuck on a bad save.
     (when (eql :animated (state npc))
       (setf (state npc) :normal))
@@ -330,6 +334,8 @@
     (setf (target npc) (when target (decode 'vec2 target)))
     (setf (companion npc) (when companion (unit companion T)))
     (setf (storage npc) (alexandria:alist-hash-table inventory :test 'eq))
+    (when nametag
+      (setf (nametag npc) nametag))
     ;; KLUDGE: We ignore the path here and don't restore it, as restoring it
     ;;         requires a complete chunk graph, which we likely don't have yet
     ;;         at this stage, and thus can't compute a route. We instead rely
