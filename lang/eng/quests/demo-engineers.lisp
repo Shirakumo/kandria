@@ -134,10 +134,10 @@
 | | | \"Our station is beneath this central block.\"(orange)
 | ? (complete-p 'demo-cctv)
 | | ~ innis
-| | | But now you should return to the surface.
-| | | Dinnae worry, I've turned the water back on. Your friends can have a nice long drink.
+| | | But now you should \"return to the surface\"(orange).
+| | | Dinnae worry, I've \"turned the water back on\"(orange). Your friends can have a nice long drink.
 | | | (:sly)For what good it will do them.
-| | | If the Wraw are coming for us, they'll be coming for them too.
+| | | If the Wraw are coming for us, they'll be \"coming for them too\"(orange).
 | | | (:normal)So long... //Stranger//.
 | | | Maybe I'll see you on the battlefield.
 | | ! eval (activate 'demo-end-prep)
@@ -146,7 +146,7 @@
 | | I'll be seeing you.
 | ! label end
 | ! eval (complete task)
-| ! eval (deactivate interaction)
+| ! eval (reset* interaction)
 ")))
 ;; dinnae = don't (Scots)
 ;; ken = know (Scots)

@@ -43,14 +43,14 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 1\"(red).\"(light-gray, italic)
-| \"The lens is smashed, and judging by the charring on the case there's been a fire.\"(light-gray, italic)
+| \"The lens is smashed, and judging from the charring on the case there's been a fire.\"(light-gray, italic)
 ? (complete-p 'task-cctv-2 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -77,7 +77,7 @@
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -104,7 +104,7 @@
 | | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the saboteur in the low eastern area\"(orange), before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -163,7 +163,7 @@
 
    ;; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4), nor employ rogues... The Wraw would do both though.
   (task-return-cctv
-   :title "Return to Innis in the Semi Sisters base to discuss the saboteur"
+   :title "Return to Innis in the Semi Sisters base to discuss the saboteurs"
    :marker '(innis 500)
    :condition all-complete
    :on-activate T
@@ -194,10 +194,10 @@
 | Dammit.
 | (:normal)I need to speak with my sister.
 ? (complete-p 'demo-engineers)
-| | You should return to the surface.
-| | Dinnae worry, I've turned the water back on. Your friends can have a nice long drink.
+| | You should \"return to the surface\"(orange).
+| | Dinnae worry, \"I've turned the water back on\"(orange). Your friends can have a nice long drink.
 | | (:sly)For what good it will do them.
-| | If the Wraw are coming for us, they'll be coming for them too.
+| | If the Wraw are coming for us, they'll be \"coming for them too\"(orange).
 | | (:normal)So long... //Stranger//.
 | | Maybe I'll see you on the battlefield.
 | ! eval (activate 'demo-end-prep)
