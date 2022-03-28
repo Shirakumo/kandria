@@ -69,6 +69,7 @@
                        (incf (experience (unit 'player +world+)) (experience-reward item))
                        (status (@formats 'fish-caught-successfully (language-string (type-of item)))))
                       (T
+                       (setf (animation (unit 'player +world+)) 'stand)
                        (leave* (fishing-line buoy) T))))
                (item
                 (v<- (location item) (location buoy))
