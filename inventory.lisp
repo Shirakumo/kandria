@@ -274,7 +274,7 @@
 
 (defclass scrap () ()) (defmethod item-order ((_ scrap)) 1)
 (define-item (heavy-spring scrap value-item) 8 16 8 8
-  :price 10)
+  :price 20)
 (define-item (satchel scrap value-item) 16 16 8 8
   :price 30)
 (define-item (screw scrap value-item) 24 16 8 8
@@ -290,7 +290,7 @@
 (define-item (large-gear scrap value-item) 64 16 8 8
   :price 20)
 (define-item (copper-ring scrap value-item) 72 16 8 8
-  :price 10)
+  :price 20)
 (define-item (metal-ring scrap value-item) 80 16 8 8
   :price 10)
 (define-item (broken-ring scrap value-item) 88 16 8 8
@@ -456,10 +456,10 @@
 ;; placement: region 1 soil areas
 
 (define-random-draw region1-home
-  (item:controller 1)
-  (item:satchel 2)
+  (item:satchel 1)
   (item:small-battery 2)
   (item:cable 3)
+  (item:controller 3)
   (item:broken-circuit 3)
   (item:simple-gadget 3))
 ;; placement: region 1 apartment areas
@@ -474,7 +474,7 @@
 (define-random-draw region1-factory
   (item:crude-oil 1)
   (item:gear 2)
-  (item:heavy-spring 3)
+  (item:heavy-spring 2)
   (item:screw 3)
   (item:bolt 3)
   (item:nut 3)
@@ -482,79 +482,78 @@
 ;; placement: region 1 factory areas
 
 (define-random-draw region1-market
-  (item:bronze-clump 1)
-  (item:cloudy-water 2)
-  (item:mossy-water 3)
-  (item:rusted-key 4)
-  (item:coin 4))
+  (item:cloudy-water 1)
+  (item:mossy-water 2)
+  (item:rusted-key 3)
+  (item:coin 3))
 ;; placement: region 1 market areas
 
-;; REGION 1 LOWER - silver introduced here, but can also buy from Islay in this area, once unlocked
-#| new items in this region:
-   gold-nugget
+;; REGION 1 LOWER - silver and bronze introduced here, but can also buy from Islay in this area, once unlocked
+#| new items in this region:   
    silver-ore
+   bronze-clump
    pure-water
    fine-pelt
    connector
    large-gear
    coolant
+   large-battery
+   copper ring
 |#
 
 (define-random-draw region1-lower-cave
-  (item:gold-nugget 1)
-  (item:silver-ore 3)
-  (item:pure-water 4)
-  (item:cloudy-water 5)
-  (item:mossy-water 5)
-  (item:rich-soil 5)
-  (item:quartz-crystal 5)
-  (item:fine-pelt 5)
-  (item:clay-clump 7)
-  (item:rusted-clump 7))
+  (item:silver-ore 1)
+  (item:bronze-clump 2)
+  (item:pure-water 3)
+  (item:cloudy-water 4)
+  (item:fine-pelt 4)
+  (item:mossy-water 4)
+  (item:rich-soil 4)
+  (item:quartz-crystal 4)
+  (item:clay-clump 6)
+  (item:rusted-clump 6))
 ;; placement: region 1 lower soil areas
 
 (define-random-draw region1-lower-home
   (item:pure-water 1)
-  (item:fine-pelt 1)
-  (item:controller 3)
-  (item:satchel 4)
+  (item:fine-pelt 2)
+  (item:satchel 3)
   (item:small-battery 4)
-  (item:cable 5)
-  (item:broken-circuit 5)
-  (item:simple-gadget 5))
+  (item:copper-ring 4)
+  (item:controller 5)
+  (item:cable 5))
 ;; placement: region 1 lower apartment areas
 
 (define-random-draw region1-lower-office
-  (item:silver-ore 1)
-  (item:complex-circuit 4)
-  (item:simple-circuit 5)
-  (item:metal-ring 6)
-  (item:connector 6)
-  (item:broken-ring 6))
+  (item:complex-circuit 1)
+  (item:large-battery 1)
+  (item:metal-ring 3)
+  (item:connector 3)
+  (item:broken-ring 3))
 ;; placement: region 1 lower office areas
 
 (define-random-draw region1-lower-factory
   (item:crude-oil 1)
-  (item:gear 2)
-  (item:large-gear 2)
-  (item:coolant 2)
-  (item:heavy-spring 3)
-  (item:screw 3)
-  (item:bolt 3)
-  (item:nut 3)
-  (item:bent-rod 3))
+  (item:coolant 3)
+  (item:gear 4)
+  (item:large-gear 4)
+  (item:heavy-spring 4)
+  (item:screw 5)
+  (item:bolt 5)
+  (item:nut 5))
 ;; placement: region 1 lower factory areas
 
 (define-random-draw region1-lower-market
-  (item:silver-ore 1)
-  (item:bronze-clump 2)
-  (item:pure-water 3)
-  (item:fine-pelt 4)
-  (item:cloudy-water 4)
-  (item:mossy-water 5)
-  (item:rusted-key 6)
-  (item:coin 6))  
+  (item:pure-water 1)
+  (item:fine-pelt 2)
+  (item:cloudy-water 2)
+  (item:mossy-water 3)
+  (item:rusted-key 4)
+  (item:coin 4))
 ;; placement: region 1 lower market areas
+
+;; REGION 2 - increase spawn frequency of bronze and silver (in caves by reducing number of other items; and in market areas too?)
+;; - very different architecture and geology too, so whereas a lot of overlap between region 1 upper and lower, this will feel quite different
 
 ;; QUEST SPAWNERS
   
@@ -584,16 +583,15 @@
   Split between Cerebat and Wraw:
   
   (item:refined-oil 2) - Islay also sells
-  (item:thermal-fluid 3)
-  (item:copper-ring 1)  
+  (item:thermal-fluid 3)    
   (item:genera-core 1) - Wraw region only?
   (item:heavy-rod 1)
   (item:light-rod 1)  
-  (item:dented-plate 1)    
-  (item:large-battery 1)  
+  (item:dented-plate 1)   
   (item:memory 1) - Islay also sells
   (item:hardened-alloy 3) - Cerebat region (needed for later sword upgrade) / Islay also sells
   (item:pearl 1) - Cerebat region (for trader quest)
   (item:pristine-pelt 1)
+  (item:gold-nugget 1) - Wraw only
   
 |#
