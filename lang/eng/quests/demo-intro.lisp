@@ -75,7 +75,7 @@
   < questions
 - Understood.
 ~ islay
-| (:expectant)We've seen what you can do - you're better suited to this than our hunters.
+| (:expectant)We've seen what you can do - you're better suited to this than even our hunters.
 | (:nervous)Just don't tell Innis I said that. She'll think I've gone soft for androids.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | I can also \"trade any items you find for scrap parts\"(orange), the currency we use around here. Then you can \"buy supplies\"(orange) to help you in the field.

@@ -36,7 +36,7 @@
   (:interact (player :now T)
   "
 ~ player
-| (:embarassed)... __OUCH__. Stupid rock slide.
+| (:embarassed)... __OUCH__. Stupid rockslide.
 | (:thinking)\"There are \"voices up ahead\"(orange). I hope that's the \"Semi Sisters\"(red).\"(light-gray, italic)
 | \"My friends back on the surface \"won't last much longer without water\"(orange).\"(light-gray, italic)
 | (:skeptical)\"Hopefully the rumours about them being tech witches are false...\"(light-gray, italic)
