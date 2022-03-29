@@ -15,6 +15,7 @@
 - What do I need to do?
   ~ islay
   | (:expectant)Right, yes. The sooner we get started, the sooner \"Innis\"(yellow) will turn your water back on.
+  ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 - What's her problem?
   ~ islay
   | (:happy)How long have you got? Let's just say diplomacy isn't one of \"Innis'\"(yellow) strengths.
