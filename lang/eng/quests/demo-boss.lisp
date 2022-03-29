@@ -21,7 +21,7 @@
   (:complete (q5b-boss-fight)
    :title "Defeat the saboteurs"
    "~ player
-| Good doggy.
+| (:embarassed)Good doggy.
   ")
    (:eval
     (when (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3))
