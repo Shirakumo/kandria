@@ -14,6 +14,7 @@
    (setf (direction 'islay) 1)
    (setf (location 'catherine) (location 'eng-cath))
    (setf (direction 'catherine) -1)
+   (deactivate (unit 'tutorial-end))
    (dolist (unit '(innis islay zelah semi-engineer-chief cerebat-trader-quest))
      (setf (nametag (unit unit)) "???"))
    (setf (state (unit 'player)) :animated))
