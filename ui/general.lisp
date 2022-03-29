@@ -290,7 +290,9 @@
   (let ((ui (or ui (unit 'ui-pass T))))
     (when (alloy:focus-element panel)
       (dolist (panel (panels ui))
-        (setf (active-p panel) NIL)))
+        (when (active-p panel)
+          (setf (active-p panel) NIL)
+          (return))))
     (alloy:enter panel (alloy:root (alloy:layout-tree ui)))
     (alloy:register panel ui)
     (when (alloy:focus-element panel)
@@ -306,12 +308,13 @@
       (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
       (alloy:leave panel (alloy:root (alloy:focus-tree ui)))
       (setf (panels ui) (remove panel (panels ui))))
-    (setf (active-p panel) NIL)
-    (dolist (panel (panels ui))
-      (setf (active-p panel) T)
-      (when (alloy:focus-element panel)
-        (setf (alloy:focus (alloy:focus-element panel)) :strong)
-        (return)))
+    (when (active-p panel)
+      (setf (active-p panel) NIL)
+      (dolist (panel (panels ui))
+        (when (alloy:focus-element panel)
+          (setf (active-p panel) T)
+          (setf (alloy:focus (alloy:focus-element panel)) :strong)
+          (return))))
     panel))
 
 (defclass fullscreen-panel (panel)
@@ -328,12 +331,15 @@
 (defclass menuing-panel (fullscreen-panel)
   ((prior-action-set :initform 'in-game :accessor prior-action-set)))
 
+(defmethod show :before ((panel menuing-panel) &key)
+  (setf (prior-action-set panel) (or (trial:active-action-set) 'in-game)))
+
+(defmethod hide :after ((panel menuing-panel))
+  (setf (active-p (action-set (prior-action-set panel))) T))
+
 (defmethod (setf active-p) :after (value (panel menuing-panel))
-  (cond (value
-         (setf (prior-action-set panel) (or (trial:active-action-set) 'in-game))
-         (setf (active-p (action-set 'in-menu)) T))
-        (T
-         (setf (active-p (action-set (prior-action-set panel))) T))))
+  (when value
+    (setf (active-p (action-set 'in-menu)) T)))
 
 (defclass pausing-panel (fullscreen-panel)
   ())
