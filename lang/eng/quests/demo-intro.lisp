@@ -77,7 +77,7 @@
 | (:expectant)We've seen what you can do - you're better suited to this than our hunters.
 | (:nervous)Just don't tell Innis I said that. She'll think I've gone soft for androids.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-| I can also \"trade any items you find for scrap parts, the currency we use around here\"(orange). Then you can \"buy supplies\"(orange) to help you in the field.
+| I can also \"trade any items you find for scrap parts\"(orange), the currency we use around here. Then you can \"buy supplies\"(orange) to help you in the field.
 | \"Let me know if you want to trade.\"(orange)
 | \"Report back to Innis\"(orange) when you have news - by then we \"might be up in the control room\"(orange).
 | Good luck.
