@@ -149,6 +149,8 @@
 | ! label end
 | ! eval (complete task)
 | ! eval (reset* interaction)
+| ! eval (deactivate 'task-reminder)
+| ! eval (reset* 'task-reminder)
 ")))
 ;; dinnae = don't (Scots)
 ;; ken = know (Scots)
