@@ -192,6 +192,7 @@
 (define-additional-slot-coders (earthquake-trigger world-v0) (duration))
 (define-additional-slot-coders (music-trigger world-v0) ((track :type asset)))
 (define-additional-slot-coders (action-prompt world-v0) (action interrupt))
+(define-additional-slot-coders (fullscreen-prompt-trigger world-v0) (action title))
 (define-additional-slot-coders (wind world-v0) ((max-strength :type vec2 :initarg :strength) period kind))
 (define-additional-slot-coders (elevator-recall world-v0) (target))
 (define-additional-slot-coders (falling-platform world-v0) ((initial-location :type vec2) (max-speed :type vec2) (fall-direction :type vec2)))

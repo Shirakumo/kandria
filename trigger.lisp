@@ -250,6 +250,19 @@
 (defmethod leave* :before ((prompt action-prompt) from)
   (hide (prompt prompt)))
 
+(defclass fullscreen-prompt-trigger (trigger creatable)
+  ((action :initarg :action :initform NIL :accessor action
+           :type alloy::any)
+   (title :initarg :title :initform NIL :accessor title
+          :type alloy::any)))
+
+(defmethod interactable-p ((trigger fullscreen-prompt-trigger))
+  (active-p trigger))
+
+(defmethod interact ((trigger fullscreen-prompt-trigger) (player player))
+  (fullscreen-prompt (action trigger) :title (or (title trigger) (action trigger)))
+  (setf (active-p trigger) NIL))
+
 (define-asset (kandria wind-mesh) static
     (let* ((arr (make-array (+ (* 4 4) (* 4 16)) :element-type 'single-float))
            (vbo (make-instance 'vertex-buffer :data-usage :stream-draw :buffer-data arr))
