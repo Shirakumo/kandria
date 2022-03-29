@@ -115,7 +115,6 @@
 (defmethod handle ((ev tick) (moving moving))
   (when (next-method-p) (call-next-method))
   (let ((loc (location moving))
-        (*current-event* ev)
         (size (bsize moving))
         (collisions (collisions moving)))
     ;; Scan for medium
@@ -124,10 +123,11 @@
                       (return entity)))))
       (setf (medium moving) medium)
       (nv* (velocity moving) (drag medium))
-      (if (and (typep medium 'sized-entity)
-               (within-p medium moving))
-          (submerged moving medium)
-          (submerged moving +default-medium+)))
+      (cond ((and (typep medium 'sized-entity)
+                  (within-p medium moving))
+             (submerged moving medium))
+            ((typep medium 'air)
+             (submerged moving medium))))
     ;; Scan for hits
     (fill collisions NIL)
     (perform-collision-tick moving (dt ev))

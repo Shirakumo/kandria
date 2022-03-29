@@ -24,14 +24,12 @@
 
 (progn ;; FIXME: Want to smoothen this out over time but I'm getting problems doing that...
   (defmethod submerged :after ((player player) (water water))
-    #++
     (let ((segment (harmony:segment :lowpass T)))
       (when (< 50 (abs (- (mixed:frequency segment) 400)))
         (harmony:with-server (harmony:*server* :synchronize NIL)
           (setf (mixed:frequency segment) 400.0)))))
 
   (defmethod submerged :after ((player player) (air air))
-    #++
     (let* ((segment (harmony:segment :lowpass T))
            (target (1- (mixed:samplerate segment))))
       (when (< 50 (abs (- (mixed:frequency segment) target)))
