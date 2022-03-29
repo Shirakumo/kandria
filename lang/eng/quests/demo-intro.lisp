@@ -81,8 +81,8 @@
 | \"Let me know if you want to trade.\"(orange)
 | \"Report back to Innis\"(orange) when you have news - by then we \"might be up in the control room\"(orange).
 | Good luck.
+! eval (activate 'demo-cctv)
 ! eval (activate (unit 'cctv-4-trigger))
-! eval (activate 'trader-shop-semi)
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'demo-engineers)
 
@@ -115,4 +115,4 @@
 < questions
 ")
   (:eval
-   :on-complete (demo-cctv)))
+   :on-complete (trader-shop-semi)))
