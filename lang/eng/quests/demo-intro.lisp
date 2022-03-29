@@ -19,13 +19,13 @@
   ~ islay
   | (:happy)How long have you got? Let's just say diplomacy isn't one of \"Innis'\"(yellow) strengths.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-  | (:expectant)Anyway, about the job. The sooner we get started, the sooner we can turn your water back on.
+  | (:expectant)Anyway, about the job. The sooner we get started, the sooner she'll turn your water back on.
 - Can't you just turn the water back on?
   ~ islay
   | (:nervous)I'm afraid not. Much as I sympathise with your predicament.
   | (:normal)\"Innis\"(yellow) is at least right about that - we need that water too.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-  | (:expectant)But a trade is acceptable. And the sooner we get started, the sooner we can turn it back on for you.
+  | (:expectant)But a trade is acceptable. And the sooner we get started, the sooner she'll turn it back on for you.
 ~ islay
 | Basically we've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange).
 | And \"4 of our CCTV cameras on the low eastern\"(orange) \"Cerebat\"(red) border have gone down.

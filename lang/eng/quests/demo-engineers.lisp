@@ -4,7 +4,7 @@
 (quest:define-quest (kandria demo-engineers)
   :author "Tim White"
   :title "Rescue Engineers"
-  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory. I need to find them so the Semis will turn our water back on."
+  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory. I need to find them so Innis will turn our water back on."
   :on-activate (task-reminder task-engineers task-return-engineers)
  
  (task-reminder

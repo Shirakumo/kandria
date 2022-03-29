@@ -4,7 +4,7 @@
 (quest:define-quest (kandria demo-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low eastern border have gone down. I need to investigate them and report back to Innis, before they'll turn our water back on."
+  :description "The Semi Sisters' CCTV cameras along their low eastern border have gone down. I need to investigate them and report back to Innis, before she'll turn our water back on."
   :on-activate (task-reminder task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
   :variables (first-cctv)
  

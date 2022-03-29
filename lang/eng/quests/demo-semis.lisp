@@ -51,11 +51,11 @@
 - If you're the Semi Sisters I need your help.
   ~ innis
   | (:pleased)You see, sister, the direct approach once again yields results - and confirms my information.
-  | (:normal)Well you'll be pleased to ken that we can turn the water back on for you.
+  | (:normal)Well you'll be pleased to ken that we can fix the water for you. (:sly)Or rather, turn it back on.
 - My business is my business.
   ~ innis
   | If that's your prerogative.
-  | But you'll be pleased to ken that we can turn the water back on for you.
+  | But you'll be pleased to ken that we can fix the water for you. (:sly)Or rather, turn it back on.
 - Screw you!
   ~ islay
   | (:happy)...
@@ -64,7 +64,7 @@
   | I remember your kind! You think you're clever just 'cause you can mimic us.
   | You're a machine, and if I wanted I could have you pulled apart and scattered to the four corners of this valley.
   | (:normal)Now, let's try again.
-  | You'll be pleased to ken that we can turn the water back on for you.
+  | You'll be pleased to ken that we can fix the water for you. (:sly)Or rather, turn it back on.
 ~ innis
 | (:sly)Once you've done something for us.
 | (:angry)Did your \"friends\" honestly think they could siphon it off forever?
