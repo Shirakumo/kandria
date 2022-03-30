@@ -38,7 +38,7 @@
 |   | (:concerned)Can't remember it though, right?
 |   | (:normal)Don't worry. And speaking of remembering, I'm sure it was just Stranger.
 |?
-| ? (string= (@player-name-0) (nametag player))
+| ? (string= (@ player-name-1) (nametag player))
 | | ~ player
 | | - It's Stranger.
 | |   ~ trader
@@ -53,25 +53,25 @@
 | |   | (:jolly)Well it's nice to meet you, Stranger!
 | |?
 | | ~ player
-| | - Actually now it's {#@player-nametag}.
+| | - Actually now it's {(nametag player)}.
 | |   ~ trader
 | |   | Old Sahil got old information, huh? (:concerned)I'm sorry, habibti.
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
-| |   | (:jolly)Well it's nice to meet you, {#@player-nametag}!
+| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 | | - It used to be Stranger.
 | |   ~ trader 
 | |   | Used to be? Old Sahil got old information, huh?
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 | |   | What is it now?
 | |   ~ player
-| |   | {#@player-nametag}.
+| |   | {(nametag player)}.
 | |   ~ trader
 | |   | (:concerned)Oh, sorry habibti.
-| |   | (:jolly)Well it's nice to meet you, {#@player-nametag}!
-| | - Now it's {#@player-nametag}, which was possibly my original name.
+| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
+| | - Now it's {(nametag player)}, which was possibly my original name.
 | |   ~ trader
 | |   | (:concerned)Right - because you can't remember.
-| |   | (:jolly)Well it's nice to meet you, {#@player-nametag}!
+| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 ~ trader
 | (:jolly)Word spreads quickly around here. And Catherine couldn't stop talking about you.
 | Such a great kid, you know? A talented engineer as well. Reminds me of...
@@ -129,9 +129,9 @@
 ~ trader
 | (:jolly)Assalam alaikum! Let's talk.
 ? (< 80  (health player))
-| | (:jolly)[? You look well, {#@player-nametag}! | And how robust you're looking! | I don't think I've seen you looking better.]
+| | (:jolly)[? You look well, {(nametag player)}! | And how robust you're looking! | I don't think I've seen you looking better.]
 |? (< 50  (health player))
-| | [? Have you been fighting, {#@player-nametag}? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
+| | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
 |?
 | | (:concerned)[? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
 ! label talk
@@ -309,12 +309,12 @@
 |   ~ trader
 |   | (:concerned)You're not joking are you?...
 |   | That would explain why traders haven't been allowed on their land for some time.
-|   | Thank you for telling me, {#@player-nametag}.
+|   | Thank you for telling me, {(nametag player)}.
 |   < talk
 | - Do androids live in the mountains?
 |   ~ trader
 |   | Ha, I wondered when you might hear about that.
-|   | I like to think they do - especially since I met you. Lots of other {#@player-nametag}s running around like gazelles. A real haven.
+|   | I like to think they do - especially since I met you. Lots of other {(nametag player)}s running around like gazelles. A real haven.
 |   | Assuming they're friendly like you, of course.
 |   | But I think I'm in the minority.
 |   < talk

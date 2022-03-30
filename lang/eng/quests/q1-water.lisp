@@ -71,7 +71,7 @@
   | I'm sure it's fine. It's probably just a little data loss.
 ~ catherine
 | Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you (:excited)\"__Stranger__\"(yellow).
-! eval (setf (nametag player) (@ player-nametag))
+! eval (setf (nametag player) (@ player-name-1))
 | (:excited)Pretty cool, huh?
 | (:normal)Okay, we need to \"follow the pipeline further down\"(orange).
 | (:excited)Let's go, Stranger!

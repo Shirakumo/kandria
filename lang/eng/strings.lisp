@@ -1,9 +1,10 @@
 ;; Characters
 player-nametag "Stranger"
-player-name-0  "Stranger"
-player-name-1 "Andréa"
-player-name-2 "Katriona"
-player-name-3 "Nadia"
+player-name-0  "Android"
+player-name-1  "Stranger"
+player-name-2 "Andréa"
+player-name-3 "Katriona"
+player-name-4 "Nadia"
 player-name-fi "Chiyo"
 fi-nametag "Fi"
 catherine-nametag "Catherine"
@@ -15,6 +16,7 @@ alex-nametag "Alex"
 semi-engineer-nametag "Engineer"
 villager-nametag "Villager"
 cerebat-trader-nametag "???"
+unknown-nametag "???"
 zelah-nametag "Zelah"
 villager-female-nametags ("Sandra" "Cath" "Monika" "Leandra" "Sarah" "Nathalie" "Maria" "Anneli" "Laura" "Karina" "Heidy" "Nick")
 villager-male-nametags ("Vincent" "Nick" "Till" "Brian" "Simon" "Chris" "Sean" "Luigi" "Johnny" "Arthur" "Sina" "Tom")

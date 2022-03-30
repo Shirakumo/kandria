@@ -16,7 +16,8 @@
    (setf (direction 'catherine) -1)
    (deactivate (unit 'tutorial-end))
    (dolist (unit '(innis islay zelah semi-engineer-chief cerebat-trader-quest))
-     (setf (nametag (unit unit)) "???"))
+     (setf (nametag (unit unit)) (@ unknown-nametag)))
+   (setf (nametag player) (@ player-name-1))
    (setf (state (unit 'player)) :animated))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
   ;;         the reason for this being that setting stuff like the animation on the player

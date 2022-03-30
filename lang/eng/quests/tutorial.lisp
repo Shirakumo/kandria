@@ -12,8 +12,8 @@
    (setf (state (unit 'player)) :animated)
    (ensure-nearby 'walk-start 'catherine)
    (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief cerebat-trader-quest))
-     (setf (nametag (unit unit)) "???"))
-   (setf (nametag player) "Android"))
+     (setf (nametag (unit unit)) (@ unknown-nametag)))
+   (setf (nametag player) (@ player-name-0)))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
   ;;         the reason for this being that setting stuff like the animation on the player
   ;;         requires the player to have been fully loaded, which is not necessarily the
