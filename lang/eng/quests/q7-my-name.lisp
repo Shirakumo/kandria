@@ -13,19 +13,17 @@
 ~ player
 - Thank you.
   ~ fi
-  | No, thank you. Thank you for everything you've done.
+  | (:happy)No, thank you. Thank you for everything you've done.
 - It's true.
   ~ fi
   | (:happy)...
 - About time.
   ~ fi
   | Yes, sorry about that. Things don't always happen the fastest around here.
-  | And speaking from personal experience, I take a long time to trust someone.
 ~ fi
-| But there's something else.
-| It's about your name. Do you still not remember it?
+| And about your name. Do you still not remember it?
 ~ player
-| (:thinking)I don't. At least not completely.
+| (:thinking)No. At least not completely.
 | There are corrupted data strings in my matrix - one of them could be my name, but I'd have to guess at exactly what it was.
 ~ fi
 | Well, I think Catherine was sincere when she called you Stranger, but I wonder if that's really the name you'd choose for yourself.
@@ -52,21 +50,21 @@
     | Are you sure? You want us to call you Andréa?
     ~ player
     - (No - choose a different name)
-       < old-names
+      < old-names
     - (Yes - confirm name as \"Andréa\")
       ! eval (setf (nametag player) \"Andréa\")
       ~ fi
-      | (:happy)I like it.
+      | (:happy)I like it. Especially since it might have been your original name.
   - (Katriona)
     ~ fi
     | Are you sure? You want us to call you Katriona?
     ~ player
     - (No - choose a different name)
-       < old-names
+      < old-names
     - (Yes - confirm name as \"Katriona\")
       ! eval (setf (nametag player) \"Katriona\")
       ~ fi
-      | (:happy)I like it.
+      | (:happy)I like it. Especially since it might have been your original name.
   - (Nadia)
     ~ fi
     | Are you sure? You want us to call you Nadia?
@@ -76,22 +74,22 @@
     - (Yes - confirm name as \"Nadia\")
       ! eval (setf (nametag player) \"Nadia\")
       ~ fi
-      | (:happy)I like it.
+      | (:happy)I like it. Especially since it might have been your original name.
   - (None of these)
     < name
 - (Let Fi choose your name)
   ~ fi
-  | (:shocked)What? You'd let me do that? I thought you might want to choose a name for yourself.
+  | (:unsure)You'd let me do that? I thought you might want to choose a name for yourself.
   ~ player
   - On second thoughts...
     < name
   - You can choose.
     ~ fi
-    | (:thinking)Okay, no pressure. Let me think...
-    | I think to me you've always felt like a Chiyo. What do you think?
+    | (:thinking)Okay, no pressure then...
+    | I guess to me you seem like... Chiyo. What do you think?
     ~ player
     - (No - choose a different name)
-       < name
+      < name
     - (Yes - confirm name as \"Chiyo\")
       ! eval (setf (nametag player) \"Chiyo\")
       ~ player
@@ -99,12 +97,21 @@
       ~ fi
       | (:happy)Thank you. It means a lot that you let me do that.
 ~ fi
-| (:happy)That's settled then, {#@player-nametag}. And once again, welcome to the Noka.
+| (:happy)That's settled then, {#@player-nametag}. And again, welcome to the Noka.
 | (:normal)I wish we could talk, but I really need you to take this next assignment.
 | (:happy)Your first \"official\" one, no less.
-| (:thinking)I can't get what Innis said out of my head. We need to talk to the Cerebats.
-| (:normal)\"Go and see the Cerebat Council\"(orange) in the heart of their territory, \"beneath the Semi Sisters\"(orange), and \"see what you can learn\"(orange).
-| If they've been invaded by the Wraw, I think you'll know soon enough.
+| (:thinking)It's just... I cannot get what Innis said out of my head. We need to talk to the Cerebats.
+| (:normal)\"Go and see the Cerebat Council\"(orange) in the heart of their territory, \"beneath the Semi Sisters\"(orange).
+| \"See what you can learn\"(orange). If they've been invaded by the Wraw, I think you'll know soon enough.
+| player
+- I will.
+- I don't think there's anything to worry about.
+  ~ fi
+  | I hope you're right.
+- So you're sending me into the lion's den?
+  ~ fi
+  | I hope not.
+~ fi
 | Just don't get caught - by the Wraw //or// the Semi Sisters - and hurry back.
 | Good luck, {#@player-nametag}.
 ! eval (setf (location 'alex) 'alex-cerebat-loc)
