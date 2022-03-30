@@ -116,6 +116,8 @@
 | Good luck, {#@player-nametag}.
 ! eval (setf (location 'alex) 'alex-cerebat-loc)
 ! setf (direction 'alex) 1
+! eval (setf (location 'islay) 'islay-main-loc)
+! setf (direction 'islay) 1
 ")
    (:eval
    :on-complete (q8-meet-council cerebat-trader-arrive q8-alex-cerebat)))
