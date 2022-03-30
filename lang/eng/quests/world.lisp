@@ -574,7 +574,7 @@
   (demo-end-prep
    "| (:happy)[? I knew you'd come through for us. | If only people were as reliable as androids. | I'd love to hear your story - where you've been all these years. | Tell your friends we're sorry about the water. | I'll make sure Innis doesn't turn the water off again.]")
   (demo-start
-   "| [? Mind how you go, {#@player-nametag}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]")
+   "| [? Mind how you go, {(nametag player)}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]")
   (T
   "| (:nervous)I'm sorry, I'm busy."))
 
@@ -592,15 +592,15 @@
   (demo-end-prep
    "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still intact. | Now our crops might stand a chance.]")
   (demo-start
-   "| [? Please hurry, {#@player-nametag}. | Our survival depends on you. | You are earning my trust. Please, continue to do so. | You could be a hunter, and more besides.]")
+   "| [? Please hurry, {(nametag player)}. | Our survival depends on you. | You are earning my trust. Please, continue to do so. | You could be a hunter, and more besides.]")
   (T
   "| Konnichiwa."))
    
 ;; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
 (define-default-interactions catherine
   (demo-end-prep
-   "| (:excited)[? I never doubted you! | You're my hero, {#@player-nametag}! | I'm gonna take a bath! Well, once everyone's had their fill. | I won't take water for granted __EVER__ again.]")
+   "| (:excited)[? I never doubted you! | You're my hero, {(nametag player)}! | I'm gonna take a bath! Well, once everyone's had their fill. | I won't take water for granted __EVER__ again.]")
   (demo-start
-   "| (:concerned)[? The water's never been off this long. | I believe in you, {#@player-nametag}. | It's just another adventure, right? | Is this the end?]")
+   "| (:concerned)[? The water's never been off this long. | I believe in you, {(nametag player)}. | It's just another adventure, right? | Is this the end?]")
   (T
   "| You okay?"))

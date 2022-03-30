@@ -110,14 +110,14 @@
 |   - Of course you are.
 |     ~ islay
 |     | (:happy)...
-|     | Good luck, {#@player-nametag}.
+|     | Good luck, {(nametag player)}.
 |   - What preparations?
 |     ~ islay
 |     | (:nervous)I'm afraid I can't share that. I'm sorry.
-|     | Good luck, {#@player-nametag}.
+|     | Good luck, {(nametag player)}.
 |   - Good luck.
 |     ~ islay
-|     | Thank you, {#@player-nametag}. To you too.
+|     | Thank you, {(nametag player)}. To you too.
 |   - Let's talk about something else.
 |   < talk
 | - Do androids live in the mountains?
@@ -133,7 +133,7 @@
 
 # leave
 ~ islay
-| [? Take care, {#@player-nametag}. | Mind how you go. | I'll be seeing you. | Ta-ta.]")))
+| [? Take care, {(nametag player)}. | Mind how you go. | I'll be seeing you. | Ta-ta.]")))
 
 (quest:define-quest (kandria trader-shop-semi)
   :title "Trade"

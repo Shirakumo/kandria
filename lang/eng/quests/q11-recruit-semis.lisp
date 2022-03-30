@@ -52,7 +52,7 @@
 | (:unhappy)Sister! She isn't our enemy. The Noka are not our enemy.
 ~ innis
 | (:angry)You speak out of turn, Islay. Remember who's in charge.
-| (:normal)And anyway, this time I dinnae ken why you're here, {#@player-nametag}.
+| (:normal)And anyway, this time I dinnae ken why you're here, {(nametag player)}.
 ~ player
 - I need your help.
   ~ innis
@@ -83,7 +83,7 @@
 ~ innis
 | (:angry)Are you saying you could do better?
 ~ islay
-| (:unhappy)I'm saying we need help. We need the Noka - and we need {#@player-nametag}.
+| (:unhappy)I'm saying we need help. We need the Noka - and we need {(nametag player)}.
 ~ innis
 | ...
 | ... Alright. Say we ally with the Noka. Then what?
@@ -194,7 +194,7 @@
 - Got it.
   ~ islay
   | Okay.
-| Good luck, {#@player-nametag}.
+| Good luck, {(nametag player)}.
 ! eval (deactivate 'task-reminder)
 ! eval (activate 'q11a-bomb-recipe)
 ! eval (activate 'q12-help-alex)

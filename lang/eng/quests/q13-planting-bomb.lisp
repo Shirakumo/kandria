@@ -37,7 +37,7 @@
 | Islay can remind you where to plant the bombs.
 | I'm sorry, my mind is elsewhere.
 | One was the sunken room beside the pump, I remember that much.
-| (:happy)Be careful, {#@player-nametag}. Please.
+| (:happy)Be careful, {(nametag player)}. Please.
 ")
 
    (:interaction interact-catherine
@@ -46,7 +46,7 @@
     :repeatable T
     :dialogue "
 ~ catherine
-| Hey, {#@player-nametag}! You still good to go? Talk to Islay if you need anything.
+| Hey, {(nametag player)}! You still good to go? Talk to Islay if you need anything.
 | (:excited)I can't wait to see us win, and you'll be the hero.
 | (:normal)I'm glad I got to help build the bombs. Feels like sticking it to the Wraw myself.
 | You be careful, okay?
@@ -196,7 +196,7 @@
 | (:skeptical)\"... Hello, anyone?...\"(light-gray, italic)
 | \"... The connection is open...\"(light-gray, italic)
 ~ islay
-| (:nervous){#@player-nametag}, I read you. We have a problem - return to the surface now.
+| (:nervous){(nametag player)}, I read you. We have a problem - return to the surface now.
 ~ player
 - What about the bombs?
 - What problem?

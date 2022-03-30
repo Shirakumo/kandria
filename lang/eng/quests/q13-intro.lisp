@@ -18,9 +18,9 @@
 ~ islay
 | Here's the last of the components.
 ~ fi
-| ... Courtesy of {#@player-nametag}.
+| ... Courtesy of {(nametag player)}.
 ~ catherine
-| Oh, hey! I didn't see you there {#@player-nametag}. (:excited)I knew you'd come through for us.
+| Oh, hey! I didn't see you there {(nametag player)}. (:excited)I knew you'd come through for us.
 | (:normal)Well, the bombs are almost ready.
 ~ fi
 | Bombs? I thought there was only one bomb.
@@ -37,7 +37,7 @@
 ~ player
 | \"Islay looks at Fi, and some kind of understanding passes between them.\"(light-gray, italic)
 ~ islay
-| (:expectant)I think you're our best shot, {#@player-nametag}.
+| (:expectant)I think you're our best shot, {(nametag player)}.
 ~ player
 - I agree.
   ~ fi
@@ -84,7 +84,7 @@
   | (:happy)You're a great engineer, Catherine. They're lucky to have you- //We're// lucky to have you.
   | (:normal)Speaking of which, how are we looking?
 ~ catherine
-| They're ready. Here you go, {#@player-nametag}.
+| They're ready. Here you go, {(nametag player)}.
 ~ player
 | \"Catherine hands me \"3 parcels\"(orange), each the size of a small brick, but thankfully lighter.\"(light-gray, italic)
 ! eval (store 'item:explosive 3)
@@ -147,12 +147,12 @@
   ~ islay
   | Travel well.
   ~ catherine
-  | Bye {#@player-nametag}.
+  | Bye {(nametag player)}.
 - Wish me luck.
   ~ islay
   | Good luck.
   ~ catherine
-  | Good luck {#@player-nametag}!
+  | Good luck {(nametag player)}!
   ~ fi
   | (:happy)You won't need it.
 - I'll be seeing you.
@@ -161,7 +161,7 @@
     ~ islay
   | Travel well.
   ~ catherine
-  | Bye {#@player-nametag}.
+  | Bye {(nametag player)}.
 ")
 
   (:eval

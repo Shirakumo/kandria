@@ -57,7 +57,7 @@
 ~ islay
 | (:unhappy)You really believe that?
 ~ catherine
-| (:concerned)Don't go, {#@player-nametag}.
+| (:concerned)Don't go, {(nametag player)}.
 ~ zelah
 | 'Ow nice, it 'as a name.
 ~ player
@@ -75,11 +75,11 @@
   ~ zelah
   | (:jovial)This is an envoy. Kill mi, an' ma army'll slaughter you all.
 ~ islay
-| {#@player-nametag}, we don't know what androids did or didn't do during the Calamity. No one does.
+| {(nametag player)}, we don't know what androids did or didn't do during the Calamity. No one does.
 ~ fi
 | It doesn't matter anyway. You've shown us who you really are.
 ~ zelah
-| (:jovial)It's ya last chance... {#@player-nametag}. Come with me, or ya friends'll die.
+| (:jovial)It's ya last chance... {(nametag player)}. Come with me, or ya friends'll die.
 ~ player
 - Nice try.
 - Fuck you.

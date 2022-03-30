@@ -61,7 +61,7 @@
     :interactable fi
     :dialogue "
 ~ fi
-| (:unsure){#@player-nametag}, we've been waiting for you.
+| (:unsure){(nametag player)}, we've been waiting for you.
 | That you didn't contact me remotely fills me with dread. What did you find?
 ~ player
 - The Wraw are coming.
@@ -113,7 +113,7 @@
 ~ jack
 | (:annoyed)Fuck me, the Wraw really have lost it if they wanna wipe out people who don't even exist.
 ~ catherine
-| (:concerned)We don't know they don't exist. {#@player-nametag}'s here, isn't she?
+| (:concerned)We don't know they don't exist. {(nametag player)}'s here, isn't she?
 ~ fi
 | Androids in the mountains has been an age-old rumour.
 | But I don't think we can stake our future on it - the desert is impassable, never mind the mountains.
@@ -133,7 +133,7 @@
 ~ player
 - I'm ready to fight.
   ~ fi
-  | Thank you, {#@player-nametag}. You will be invaluable.
+  | Thank you, {(nametag player)}. You will be invaluable.
 - I'll kill them all!
   ~ catherine
   | (:concerned)...

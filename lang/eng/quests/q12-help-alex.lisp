@@ -48,7 +48,7 @@
 | I told them the exact location o' the Noka camp.
 | (:angry)It's the least I could do to repay you an' Fi for your loyalty.
 | Now if you don't mind, I've got a battle to fight.
-| Watch your back, {#@player-nametag}.
+| Watch your back, {(nametag player)}.
 ? (and (not (active-p (unit 'wraw-border-1))) (not (active-p (unit 'wraw-border-2))))
 | ! eval (activate 'fi-task)
 "))
@@ -103,7 +103,7 @@
   | I bet you've lost count.
   | Not to mention all those you killed before the Calamity.
   ~ fi
-  | {#@player-nametag} has helped and defended us. And I will not indulge lazy suppositions!
+  | {(nametag player)} has helped and defended us. And I will not indulge lazy suppositions!
   ~ jack
   | (:normal)...
 - Maybe you're right.
@@ -113,5 +113,5 @@
   | (:annoyed)No, I don't he is.
 ~ fi
 | It was better to know about Alex sooner rather than later.
-| Thank you, {#@player-nametag}.
+| Thank you, {(nametag player)}.
 ")))

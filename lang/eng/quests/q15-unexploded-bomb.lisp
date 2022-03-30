@@ -68,7 +68,7 @@
 ~ player
 | \"Okay, this should do. Let's find out where she is.\"(light-gray, italic)
 ~ player
-- Islay this is {#@player-nametag}. Over.
+- Islay this is {(nametag player)}. Over.
   ~ islay
   | (:nervous)You shouldn't have come. I can handle it. Over.
   ~ player
@@ -77,10 +77,10 @@
   | (:unhappy)Dammit Fi...
 - Islay, I'm here with Catherine. Over.
   ~ islay
-  | {#@player-nametag}? (:nervous)Dammit... I can handle it. You shouldn't have come.
+  | {(nametag player)}? (:nervous)Dammit... I can handle it. You shouldn't have come.
 - Islay, where are you? Over.
   ~ islay
-  | {#@player-nametag}? (:nervous)Dammit... I can handle it. You shouldn't have come.
+  | {(nametag player)}? (:nervous)Dammit... I can handle it. You shouldn't have come.
   ~ player
   | Catherine's with me. We can help. Over.
 ~ islay

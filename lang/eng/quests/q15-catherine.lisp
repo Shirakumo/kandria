@@ -11,7 +11,7 @@
    :title "Talk to Catherine outside Engineering"
     "
 ~ catherine
-| Hey, {#@player-nametag}.
+| Hey, {(nametag player)}.
 ~ player
 - Islay needs to talk to you urgently.
   ~ catherine

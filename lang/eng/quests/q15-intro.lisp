@@ -69,7 +69,7 @@
   ~ islay
   | He doesn't know anything about the bombs.
 ~ islay
-| You can go with her though, {#@player-nametag}. To protect her.
+| You can go with her though, {(nametag player)}. To protect her.
 ~ fi
 | ...
 ~ islay

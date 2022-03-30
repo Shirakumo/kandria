@@ -37,7 +37,7 @@
 | Did you get the components for the bomb?
 ? (= 0 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
 | ~ islay
-| | Hurry, {#@player-nametag} - I still need: [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange) |] [(< 0 (var 'charge-pack-count)) ; \"charge packs: {(var 'charge-pack-count)}\"(orange)].
+| | Hurry, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange) |] [(< 0 (var 'charge-pack-count)) ; \"charge packs: {(var 'charge-pack-count)}\"(orange)].
 |?
 | ~ islay
 | | Ah, good. I'll see these are passed to Catherine and installed right away.
@@ -51,7 +51,7 @@
 | | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | | ! eval (retrieve 'item:charge-pack T)
 |  
-| | Hurry though, {#@player-nametag} - I still need: [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange) |] [(< 0 (var 'charge-pack-count)) ; \"charge packs: {(var 'charge-pack-count)}\"(orange)].
+| | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) \"blasting caps: {(var 'blasting-cap-count)}\"(orange) |] [(< 0 (var 'charge-pack-count)) ; \"charge packs: {(var 'charge-pack-count)}\"(orange)].
 "))
 
   ;; TODO this stops the player when they hit the trigger? Need to find another way
@@ -176,7 +176,7 @@
 ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
 ~ islay
 | [(> -5 (+ (var 'blasting-cap-count) (var 'charge-pack-count))) (:happy)That's the last of the components we needed, and then some! | (:happy)That's the last of the components we needed.]
-| Thank you, {#@player-nametag}. \"Here's your payment as promised\"(orange).
+| Thank you, {(nametag player)}. \"Here's your payment as promised\"(orange).
 ? (< 0 (item-count 'item:blasting-cap))
 | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
 | ! eval (retrieve 'item:blasting-cap T)
@@ -188,9 +188,9 @@
 | Fi, would you join Catherine and I in Engineering?
 ~ fi
 | If you insist.
-| And what about {#@player-nametag}? Since she's the one that brought us together - and brought the components for your bomb.
+| And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
 ~ islay
-| I was about to add... could you join us as well, {#@player-nametag}. This concerns you.
+| I was about to add... could you join us as well, {(nametag player)}. This concerns you.
 | Innis, keep an eye on things here.
 ~ innis
 | Aye, alright.

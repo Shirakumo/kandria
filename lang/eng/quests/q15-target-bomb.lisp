@@ -20,7 +20,7 @@
     :dialogue "
 ! eval (ensure-nearby 'player 'catherine)
 ~ islay
-| {#@player-nametag}, the bomb at the pump room is rewired.
+| {(nametag player)}, the bomb at the pump room is rewired.
 | (:unhappy)I'm soaking wet and freezing, but it's rewired and back underwater.
 | (:normal)How'd you get on with the mech? Over.
 ~ player
