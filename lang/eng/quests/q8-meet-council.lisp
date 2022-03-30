@@ -19,5 +19,5 @@
     :repeatable T
     :dialogue "
 ~ fi
-| \"Go and see the Cerebat Council beneath Semi Sisters territory\"(orange), and \"see what you can learn\"(orange) about the supposed Wraw takeover.
+| Go and \"see the Cerebat Council beneath Semi Sisters territory\"(orange) - see what you can \"learn about the supposed Wraw takeover\"(orange).
 ")))
