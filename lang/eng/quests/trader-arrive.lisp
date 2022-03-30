@@ -203,11 +203,11 @@
 |   - [(complete-p 'q8a-secret-supplies)I'm afraid so.|]
 |     ~ trader
 |     | (:concerned)Alqarf!
-|     | I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil right now.
+|     | I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
 |     < talk
 |   - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out.|]
 |     ~ trader
-|     | (:concerned)Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil right now.
+|     | (:concerned)Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
 |     < talk
 |   - I'm not sure.
 |     ~ trader
@@ -216,15 +216,16 @@
 |   - I can't say.
 |     ~ trader
 |     | (:concerned)I understand, habibti.
-|     | I think it would be unwise for me to leave your borders right now. I'm staying right here.
+|     | Still, I think it would be unwise for me to leave your borders right now. I'm staying right here.
+|     < talk
 |   - Let's talk about something else.
 |     < talk
 | - What do you know about the Cerebats?
 |   ~ trader
-|   | (:concerned)You mean other than the rumours about Wraw being sighted on their land?
-|   | (:normal)Well, they're the self-proclaimed council around here.
-|   | (:jolly)But what good's a council that can't enforce its laws?
+|   | Well, they're the self-proclaimed council around here.
+|   | But what good's a council that can't enforce its laws?
 |   | (:concerned)The only people who can enforce anything around here are the Wraw. Maybe the Semis.
+|   | (:jolly)Maybe you, too.
 |   < talk
 | - [(var 'trader-daughter) What happened to your daughter?|]
 |   ~ trader
@@ -238,21 +239,21 @@
 |   ~ player
 |   - I'm so sorry.
 |     ~ trader
-|     | Thank you, habibti.
-|     | It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
+|     | (:concerned)Thank you, habibti.
+|     | (:normal)It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
 |     < talk
 |   - Sorry for making you relive it.
 |     ~ trader
-|     | It's okay, habibti.
-|     | Khawla should be remembered and talked about. I should speak her name like I always did.
+|     | (:concerned)It's okay, habibti.
+|     | (:normal)Khawla should be remembered and talked about. I should speak her name like I always did.
 |     < talk
 |   - Could she still be alive?
 |     ~ trader
-|     | (:sad)No. Khawla's dead. Slaves don't live very long.
-|     | Or she met an even worse end.
-|     | (:normal)I'd rather not think about that.
+|     | (:concerned)No. Khawla's dead. Slaves don't live very long.
+|     | (:sad)Or she met an even worse end.
+|     | (:concerned)... I'd rather not think about that.
 |     | Now I remember the good times instead.
-|     | Times that should be remembered and talked about. I should speak her name like I always did.
+|     | (:normal)Times that should be remembered and talked about. I should speak her name like I always did.
 |     < talk
 |   - Let's talk about something else.
 |     < talk
