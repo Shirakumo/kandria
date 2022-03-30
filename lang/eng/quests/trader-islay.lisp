@@ -22,8 +22,8 @@
 ! label talk
 ? (not (complete-p 'q7-my-name))
 | ~ player
-| - [(not (var 'alex-done)) How's Alex?|]
-|   ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv))
+| - How's Alex?
+|   ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv) (not (var 'alex-done)))
 |   | ~ alex
 |   | | (:angry)What's the matter? Afraid to talk to me yourself, android? <-Hic->.
 |   | ~ islay
@@ -42,6 +42,11 @@
 |   | ! eval (setf (var 'alex-done) T)
 |   | ! eval (move-to 'islay-main-loc (unit 'islay))
 |   | ! eval (clear-pending-interactions)
+|   |? (var 'alex-done)
+|   | ~ islay
+|   | | (:nervous)They're still in the bar, (:normal)but I've ordered the barkeeps not to serve them.
+|   | | I've got a hidden camera trained on them as well - they won't fart without me knowing about it.
+|   | < talk
 |   |?
 |   | ~ islay
 |   | | (:unhappy)Not much better I'm afraid. (:normal)I think talking is helping though.
@@ -83,7 +88,7 @@
 |   < talk
 | - How's Alex now?
 |   ~ islay
-|   | (:nervous)They've gone. I don't know where. They just upped and left.
+|   | (:nervous)They've gone. I don't know where. They just upped and left. Managed to evade most of our cameras.
 |   | If they've not returned to the Noka then I don't know.
 |   | I hope they're okay. And sober.
 |   | (:unhappy)I'm sorry, I should've kept a closer eye...
