@@ -22,30 +22,59 @@
 | (:jolly)Well well... Are you who I think you are?
 ~ player
 - Who do you think I am?
-  < identify
 - Most likely.
-  < identify
-- You've been speaking with Catherine.
-  < main
-
-# identify
 ~ trader
-| (:jolly)You're The Stranger!... Or is it just Stranger?
-~ player
-- Technically it's just \"Stranger\".
-  ~ trader
-  | (:jolly)Right you are, Stranger!
-- Take your pick.
-  ~ trader
-  | But it's __YOUR__ name. Now I think about it, I'm sure it was Stranger.
-~ player
-| I see you've been speaking with Catherine.
-< main
-
-# main
+| (:jolly)You're The Stranger!... (:concerned)Or was it just Stranger?
+? (not (complete-p 'q7-my-name))
+| ~ player
+| - Technically it's just Stranger.
+|   ~ trader
+|   | (:jolly)Right you are, Stranger!
+| - Take your pick.
+|   ~ trader
+|   | (:jolly)But it's __YOUR__ name. Now I think about it, I'm sure it was just Stranger.
+| - I used to have a different name.
+|   ~ trader
+|   | (:concerned)Can't remember it though, right?
+|   | (:normal)Don't worry. And speaking of remembering, I'm sure it was just Stranger.
+|?
+| ? (string= (@player-name-0) (nametag player))
+| | ~ player
+| | - It's Stranger.
+| |   ~ trader
+| |   | (:jolly)Right you are, Stranger!
+| | - It's Stranger, but I used to have a different name.
+| |   ~ trader
+| |   | (:concerned)Can't remember it though, right?
+| |   | (:jolly)Well it's nice to meet you, Stranger!
+| | - It's Stranger. It was never The Stranger.
+| |   ~ trader
+| |   | (:concerned)Oh, my bad, habibti.
+| |   | (:jolly)Well it's nice to meet you, Stranger!
+| |?
+| | ~ player
+| | - Actually now it's {#@player-nametag}.
+| |   ~ trader
+| |   | Old Sahil got old information, huh? (:concerned)I'm sorry, habibti.
+| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   | (:jolly)Well it's nice to meet you, {#@player-nametag}!
+| | - It used to be Stranger.
+| |   ~ trader 
+| |   | Used to be? Old Sahil got old information, huh?
+| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   | What is it now?
+| |   ~ player
+| |   | {#@player-nametag}.
+| |   ~ trader
+| |   | (:concerned)Oh, sorry habibti.
+| |   | (:jolly)Well it's nice to meet you, {#@player-nametag}!
+| | - Now it's {#@player-nametag}, which was possibly my original name.
+| |   ~ trader
+| |   | (:concerned)Right - because you can't remember.
+| |   | (:jolly)Well it's nice to meet you, {#@player-nametag}!
 ~ trader
-| (:jolly)Haha, yes sir. Guilty as charged.
-| She's such a great kid, you know? A talented engineer as well. Reminds me of...
+| (:jolly)Word spreads quickly around here. And Catherine couldn't stop talking about you.
+| Such a great kid, you know? A talented engineer as well. Reminds me of...
 | (:normal)Er-... well, never mind that.
 | So you've come to trade with old Sahil, eh?
 ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
@@ -61,7 +90,6 @@
 - I think I can manage on my own.
   ~ trader
   | Nonsense! You helped Catherine out - kicked some servo ass by the sounds of things.
-
 ~ trader
 | The least I can do is help keep you in tip-top condition.
 | I've heard about androids - you're different to those servos. You've a lot more going on up here, that's for sure.
@@ -82,7 +110,7 @@
 | Just \"let me know when you want to buy one\"(orange), okay?
 | You take it easy, habibti."
 )))
-;; habibti = dear, my love, buddy (Arabic)
+;; habibti = dear, my love, buddy (Arabic) (female form)
 
 ;; TODO - add act 3 quest transition check to "|? (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex))" to ensure chat log updates in act 3
 (quest:define-quest (kandria trader-chat)

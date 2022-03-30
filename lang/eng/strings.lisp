@@ -1,5 +1,10 @@
 ;; Characters
 player-nametag "Stranger"
+player-name-0  "Stranger"
+player-name-1 "Andréa"
+player-name-2 "Katriona"
+player-name-3 "Nadia"
+player-name-fi "Chiyo"
 fi-nametag "Fi"
 catherine-nametag "Catherine"
 jack-nametag "Jack"

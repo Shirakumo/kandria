@@ -45,36 +45,36 @@
   | \"From the corrupted strings in my registry, I'd guess my name was one of these three:\"(light-gray, italic)
   ! label old-names
   ~ player
-  - (Andréa)
+  - ({#@player-name-1})
     ~ fi
-    | Are you sure? You want us to call you Andréa?
+    | Are you sure? You want us to call you {#@player-name-1}?
     ~ player
     - (No - choose a different name)
       < old-names
-    - (Yes - confirm name as \"Andréa\")
-      ! eval (setf (nametag player) \"Andréa\")
+    - (Yes - confirm name as \"{#@player-name-1}\")
+      ! eval (setf (nametag player) \"{#@player-name-1}\")
       ~ fi
-      | (:happy)I like it. Especially since it might have been your original name.
-  - (Katriona)
+      | (:happy)I like it. Especially since it might have been your old name.
+  - ({#@player-name-2})
     ~ fi
-    | Are you sure? You want us to call you Katriona?
+    | Are you sure? You want us to call you {#@player-name-2}?
     ~ player
     - (No - choose a different name)
       < old-names
-    - (Yes - confirm name as \"Katriona\")
-      ! eval (setf (nametag player) \"Katriona\")
+    - (Yes - confirm name as \"{#@player-name-2}\")
+      ! eval (setf (nametag player) \"{#@player-name-2}\")
       ~ fi
-      | (:happy)I like it. Especially since it might have been your original name.
-  - (Nadia)
+      | (:happy)I like it. Especially since it might have been your old name.
+  - ({#@player-name-3})
     ~ fi
-    | Are you sure? You want us to call you Nadia?
+    | Are you sure? You want us to call you {#@player-name-3}?
     ~ player
     - (No - choose a different name)
       < old-names
-    - (Yes - confirm name as \"Nadia\")
-      ! eval (setf (nametag player) \"Nadia\")
+    - (Yes - confirm name as \"{#@player-name-3}\")
+      ! eval (setf (nametag player) \"{#@player-name-3}\")
       ~ fi
-      | (:happy)I like it. Especially since it might have been your original name.
+      | (:happy)I like it. Especially since it might have been your old name.
   - (None of these)
     < name
 - (Let Fi choose your name)
@@ -86,12 +86,12 @@
   - You can choose.
     ~ fi
     | (:thinking)Okay, no pressure then...
-    | I guess to me you seem like... Chiyo. What do you think?
+    | I guess to me you seem like... {#@player-name-fi}. What do you think?
     ~ player
     - (No - choose a different name)
       < name
-    - (Yes - confirm name as \"Chiyo\")
-      ! eval (setf (nametag player) \"Chiyo\")
+    - (Yes - confirm name as \"{#@player-name-fi}\")
+      ! eval (setf (nametag player) \"{#@player-name-fi}\")
       ~ player
       | (:giggle)I like it.
       ~ fi
