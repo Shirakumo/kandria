@@ -219,7 +219,7 @@
   ")
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
-   (fullscreen-prompt 'toggle-menu :title 'show-map))
+   (fullscreen-prompt 'open-map))
   ;; TODO catherine confused - What does that mean?...
   #|
   ! eval (setf (location 'catherine) 'catherine-group) ;
