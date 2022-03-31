@@ -25,6 +25,7 @@
                             :screen-shake 1.0
                             :god-mode NIL
                             :infinite-dash NIL
+                            :infinite-climb NIL
                             :text-speed 0.02
                             :auto-advance-after 3.0
                             :display-text-effects T

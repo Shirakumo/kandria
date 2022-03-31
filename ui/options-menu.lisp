@@ -218,6 +218,7 @@
       (control pause-on-focus-loss (:gameplay :pause-on-focus-loss) 'alloy:checkbox)
       (control invincible-player (:gameplay :god-mode) 'alloy:checkbox)
       (control infinite-dash (:gameplay :infinite-dash) 'alloy:checkbox)
+      (control infinite-climb (:gameplay :infinite-climb) 'alloy:checkbox)
       (control game-speed (:gameplay :game-speed) 'alloy:ranged-slider :range '(0.1 . 2.0) :step 0.1 :grid 0.1)
       (control damage-input-multiplier (:gameplay :damage-input) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)
       (control damage-output-multiplier (:gameplay :damage-output) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)

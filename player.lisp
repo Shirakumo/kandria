@@ -1321,6 +1321,10 @@ void main(){
   (setf (combat-time player) 0f0)
   (shake-camera :intensity 5))
 
+(defmethod (setf climb-strength) :around (value (player player))
+  (unless (setting :gameplay :infinite-climb)
+    (call-next-method)))
+
 (defmethod (setf limp-time) :after (time (player player))
   (when (< 0 time)
     (setf (combat-time player) 0.0))
