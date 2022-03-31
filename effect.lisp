@@ -119,7 +119,7 @@ void main(){
   (let ((s (view-scale (camera +world+))))
     (multiple-value-bind (breaks array seq x- y- x+ y+)
         (org.shirakumo.alloy.renderers.opengl.msdf::compute-text
-         (font effect) text (alloy:px-extent 0 0 500 30) (/ s 5) NIL NIL)
+         (font effect) text (alloy:px-extent 0 0 500 30) (/ s 0.2) NIL NIL)
       (declare (ignore breaks seq))
       (decf (vx (location effect)) (/ (+ x- x+) 2 s))
       (decf (vy (location effect)) (/ (+ y- y+) 2 s))
@@ -138,7 +138,7 @@ void main(){
   (gl:active-texture :texture0)
   (gl:bind-texture :texture-2D (gl-name (org.shirakumo.alloy.renderers.opengl.msdf:atlas (font effect))))
   ;; FIXME: this is horribly inefficient and stupid
-  (let* ((renderer (unit 'ui-pass T))
+  (let* ((renderer (unit 'ui-pass +world+))
          (shader (org.shirakumo.alloy.renderers.opengl:resource 'org.shirakumo.alloy.renderers.opengl.msdf::text-shader renderer))
          (vbo (org.shirakumo.alloy.renderers.opengl:resource 'org.shirakumo.alloy.renderers.opengl.msdf::text-vbo renderer))
          (vao (org.shirakumo.alloy.renderers.opengl:resource 'org.shirakumo.alloy.renderers.opengl.msdf::text-vao renderer)))
@@ -146,10 +146,11 @@ void main(){
     (let ((pos (world-screen-pos (location effect)))
           (f1 (/ 2.0 (max 1.0 (width *context*))))
           (f2 (/ 2.0 (max 1.0 (height *context*)))))
-      (setf (uniform shader "transform") (mat3 (list f1 0 (+ -1 (* f1 (vx pos)))
-                                                     0 f2 (+ -1 (* f2 (vy pos)))
-                                                     0 0 1)))
+      (setf (uniform shader "transform") (mat f1 0 (+ -1 (* f1 (vx pos)))
+                                              0 f2 (+ -1 (* f2 (vy pos)))
+                                              0 0 1))
       (setf (uniform shader "color") (vec4 1 1 1 (min (lifetime effect) 1)))
+      (setf (uniform shader "pxRange") (org.shirakumo.alloy.renderers.opengl.msdf::px-range (font effect)))
       ;; FIXME: this seems expensive, but maybe it would be worse to statically allocate for each text.
       (org.shirakumo.alloy.renderers.opengl:update-vertex-buffer vbo (vertex-data effect))
       (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles 0 (truncate (length (vertex-data effect)) 10)))))
