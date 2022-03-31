@@ -425,7 +425,8 @@
 (define-shader-entity fi (npc creatable)
   ((name :initform 'fi)
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
-   (nametag :initform (@ fi-nametag)))
+   (nametag :initform (@ fi-nametag))
+   (pitch :initform 0.97))
   (:default-initargs
    :sprite-data (asset 'kandria 'fi)))
 
@@ -435,6 +436,7 @@
   ((name :initform 'catherine)
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ catherine-nametag))
+   (pitch :initform 1.02)
    (lead-interrupt :initform "~ catherine
 | (:shout)[? This way. | Follow me. | Keep up. | Let's go.]"))
   (:default-initargs
@@ -451,7 +453,8 @@
 (define-shader-entity jack (npc creatable)
   ((name :initform 'jack)
    (profile-sprite-data :initform (asset 'kandria 'jack-profile))
-   (nametag :initform (@ jack-nametag)))
+   (nametag :initform (@ jack-nametag))
+   (pitch :initform 0.95))
   (:default-initargs
    :sprite-data (asset 'kandria 'jack)))
 
@@ -493,7 +496,8 @@
 (define-shader-entity alex (npc creatable)
   ((name :initform 'alex)
    (profile-sprite-data :initform (asset 'kandria 'alex-profile))
-   (nametag :initform (@ alex-nametag)))
+   (nametag :initform (@ alex-nametag))
+   (pitch :initform 1.01))
   (:default-initargs
    :sprite-data (asset 'kandria 'alex)))
 

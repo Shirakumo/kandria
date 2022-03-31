@@ -63,7 +63,8 @@
 
 (defclass profile ()
   ((profile-sprite-data :initform (error "PROFILE-SPRITE-DATA not set.") :accessor profile-sprite-data)
-   (nametag :initform (error "NAMETAG not set.") :accessor nametag)))
+   (nametag :initform (error "NAMETAG not set.") :accessor nametag)
+   (pitch :initform 1.0 :initarg :pitch :accessor pitch)))
 
 (defmethod stage :after ((profile profile) (area staging-area))
   (stage (resource (profile-sprite-data profile) 'texture) area)

@@ -243,6 +243,7 @@ void main(){
   (let ((unit (unit (dialogue:name rq) T)))
     (setf (strength (profile textbox))
           (clamp 0.0 (- (vdistance (location unit) (location (unit 'player +world+))) (* 40 +tile-size+)) 1.0))
+    (setf (mixed:speed-factor (harmony:segment 2 (// 'sound 'ui-scroll-dialogue))) (print (pitch unit)))
     (setf (source textbox) (nametag unit))
     (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
     (setf (animation (profile textbox)) 'normal)))
