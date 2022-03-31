@@ -13,11 +13,14 @@
     ))
 
 (defmethod alloy:activate ((button station-button))
-  (unless (eq (alloy:value button) (source button))
-    (trigger (alloy:value button) (source button)))
-  (harmony:play (// 'sound 'ui-confirm))
-  (harmony:play (// 'sound 'train-departing-and-arriving))
-  (hide-panel 'fast-travel-menu))
+  (cond ((unlocked-p (alloy:value button))
+         (unless (eq (alloy:value button) (source button))
+           (trigger (alloy:value button) (source button))
+           (harmony:play (// 'sound 'train-departing-and-arriving)))
+         (harmony:play (// 'sound 'ui-confirm))
+         (hide-panel 'fast-travel-menu))
+        (T
+         (harmony:play (// 'sound 'ui-error) :reset T))))
 
 (presentations:define-realization (ui station-button)
   ((:background simple:rectangle)
@@ -28,7 +31,6 @@
    alloy:text
    :size (alloy:un 15)
    :font (setting :display :font)
-   :pattern colors:white
    :valign :middle
    :halign :start)
   ((:current-bg simple:polygon)
@@ -53,9 +55,13 @@
 
 (presentations:define-update (ui station-button)
   (:background
-   :pattern (if alloy:focus colors:white colors:black))
+   :pattern (if (unlocked-p alloy:value)
+                (if alloy:focus colors:white colors:black)
+                (if alloy:focus colors:dim-gray colors:black)))
   (:label
-   :pattern (if alloy:focus colors:black colors:white)))
+   :pattern (if (unlocked-p alloy:value)
+                (if alloy:focus colors:black colors:white)
+                colors:gray)))
 
 (defclass fast-travel-menu (menuing-panel pausing-panel)
   ())
@@ -65,11 +71,13 @@
                                 :shapes (list (make-basic-background))))
          (clipper (make-instance 'alloy:clip-view :limit :x))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
+         (preview (make-instance 'icon :value (// 'kandria 'empty-save)))
          (focus (make-instance 'alloy:focus-list))
          (list (make-instance 'alloy:vertical-linear-layout
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
                               :min-size (alloy:size 100 50))))
     (alloy:enter list clipper)
+    (alloy:enter preview layout :constraints `((:left 50) (:right 570) (:bottom 100) (:top 100)))
     (alloy:enter clipper layout :constraints `((:width 500) (:right 70) (:bottom 100) (:top 100)))
     (alloy:enter scroll layout :constraints `((:width 20) (:right 50) (:bottom 100) (:top 100)))
     (alloy:enter (make-instance 'label :value (@ station-pick-destination)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 500 50)))
@@ -82,6 +90,9 @@
       (alloy:on alloy:exit (focus)
         (setf (alloy:focus back) :strong)))
     (alloy:finish-structure panel layout focus)))
+
+(defmethod stage :after ((menu fast-travel-menu) (area staging-area))
+  (stage (// 'kandria 'empty-save) area))
 
 (defmethod show :after ((menu fast-travel-menu) &key)
   (harmony:play (// 'sound 'ui-fast-travel-map-open)))

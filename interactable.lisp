@@ -201,7 +201,7 @@
 
 (defun list-stations (&optional (region (region +world+)))
   (for:for ((entity over region)
-            (status when (and (typep entity 'station) (unlocked-p entity))
+            (status when (typep entity 'station)
                     collect entity))))
 
 (defmethod interactable-p ((station station)) T)
