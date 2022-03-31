@@ -107,7 +107,8 @@
     (call-next-method (list x y w h) widget)))
 
 (defmethod (setf tile-to-place) :after ((tile cons) (widget chunk-widget))
-  (setf (alloy:value (slot-value widget 'show-solids)) (= 0 (second tile))))
+  (unless (and (= 0 (first tile)) (= 0 (second tile)))
+    (setf (alloy:value (slot-value widget 'show-solids)) (= 0 (second tile)))))
 
 (defmethod show-solids ((layer layer)) NIL)
 (defmethod (setf show-solids) (value (layer layer)) value)

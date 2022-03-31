@@ -364,7 +364,8 @@
             (setf (aref arr (+ ai 3)) (atan (vy dir) (vx dir))))))
       (update-buffer-data vbo arr))
     (if (< 0 (active-time wind))
-        (harmony:play (// 'sound 'ambience-strong-wind) :volume (active-time wind))
+        (harmony:play (// 'sound 'ambience-strong-wind) :volume (* (max 0.1 (/ (vlength (strength wind)) (vlength (max-strength wind))))
+                                                                   (active-time wind)))
         (harmony:stop (// 'sound 'ambience-strong-wind)))))
 
 (defmethod handle ((ev switch-chunk) (wind wind))

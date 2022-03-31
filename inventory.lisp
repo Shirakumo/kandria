@@ -414,6 +414,41 @@
                                  (defmethod palette-index ((,name ,name)) ,i))))))
   (define-palettes))
 
+;;;; Used palettes marked with a x
+;; x Model-1
+;; x Model-2
+;;   Model-3
+;;   Model-4
+;; x Model-5
+;; x YoRHa
+;;   Wayneright
+;; x Mountain
+;;   Vampire
+;;   Trek
+;;   Blingee
+;; x Ninja
+;;   Wahoo
+;;   Shopping
+;;   Invisible
+;;   Camo
+;;   Garlic
+;; x Curly
+;;   Quote
+;;   Boy
+;;   San-Diego
+;;   Captain
+;;   Ultimate-Lifeform
+;;   Space
+;;   Street
+;;   K
+;;   Planet
+;;   Desu
+;;   Dandy
+;; x Ghost
+;; x Bill
+;;   The-Third
+;;   ERROR
+
 (define-item (manual lore-item) 56 0 8 8)
 
 ;; Draws

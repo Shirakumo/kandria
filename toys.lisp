@@ -492,9 +492,12 @@
                 (:any T)))
          (harmony:play (// 'sound 'blocker-destroy) :reset T)
          (setf (visibility blocker) 0.99)
-         (nv* (nvunit (velocity player))  -5)
-         (nv* (frame-velocity player) -1)
-         (incf (vy (velocity player)) 4.0))
+         (vsetf (frame-velocity player) 0 0)
+         (case (weak-side blocker)
+           (:north (vsetf (velocity player) 0.0 +5.0))
+           (:east (vsetf (velocity player) +2.0 4.0))
+           (:south (vsetf (velocity player) 0.0 -4.0))
+           (:west (vsetf (velocity player) -2.0 4.0))))
         (T
          (call-next-method))))
 
