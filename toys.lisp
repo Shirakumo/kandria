@@ -51,7 +51,8 @@
 
 (defmethod (setf frame-idx) :after (index (workbench workbench))
   (when (and (= 0 index)
-             (in-view-p (location workbench) (bsize workbench)))
+             (in-view-p (location workbench) (bsize workbench))
+             (not (find-panel 'dialog)))
     (harmony:play (// 'sound 'ambience-interactable-shing))))
 
 (defmethod layer-index ((workbench workbench))
