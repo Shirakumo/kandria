@@ -97,7 +97,7 @@
 
 (presentations:define-realization (ui big-prompt)
   ((:label simple:text)
-   (alloy:margins) alloy:text
+   (alloy:margins -10) alloy:text
    :font "PromptFont"
    :size (alloy:un 90)
    :valign :middle
