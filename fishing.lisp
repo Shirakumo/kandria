@@ -66,7 +66,7 @@
                              (T
                               (harmony:play (// 'sound 'fishing-rare-catch))))
                        (setf (state buoy) :show)
-                       (incf (experience (unit 'player +world+)) (experience-reward item))
+                       (award-experience (unit 'player +world+) (experience-reward item))
                        (status (@formats 'fish-caught-successfully (language-string (type-of item)))))
                       (T
                        (setf (animation (unit 'player +world+)) 'stand)

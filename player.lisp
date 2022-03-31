@@ -196,7 +196,7 @@ void main(){
   (hide (prompt player)))
 
 (defmethod interact :after ((thing item) (player player))
-  (incf (experience player) (experience-reward thing))
+  (award-experience player (experience-reward thing))
   (unless (eql :crawling (state player))
     (start-animation 'pickup player)))
 
@@ -1276,7 +1276,7 @@ void main(){
       (when (v/= 0 (velocity player))
         (nv+ loc (v* (vunit (velocity player)) +tile-size+)))
       (unless (unlocked-p (chunk ev))
-        (incf (experience player) (experience-reward (chunk ev))))
+        (award-experience player (experience-reward (chunk ev))))
       (setf (unlocked-p (chunk ev)) T)
       (setf (chunk player) (chunk ev))
       (setf (spawn-location player) loc))))

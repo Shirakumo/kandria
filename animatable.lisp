@@ -67,6 +67,7 @@
 (defgeneric base-health (animatable))
 (defgeneric damage-output (animatable))
 (defgeneric experience-reward (animatable))
+(defgeneric award-experience (animatable exp))
 
 (defmethod stage :after ((animatable animatable) (area staging-area))
   (stage (active-effects-sprite animatable) area))
@@ -86,6 +87,13 @@
 
 (defmethod level-up ((animatable animatable))
   (incf (level animatable)))
+
+(defmethod award-experience ((animatable animatable) exp)
+  (trigger (make-instance 'text-effect) animatable
+           :text (format NIL "+~d XP" exp)
+           :location (vec (+ (vx (location animatable)))
+                          (+ (vy (location animatable)) 8 (vy (bsize animatable)))))
+  (incf (experience animatable) exp))
 
 (defmethod (setf experience) :around ((experience integer) (animatable animatable))
   (loop for needed = (exp-needed-for-level (level animatable))
@@ -152,7 +160,7 @@
 
 (defmethod hurt :after ((animatable animatable) (attacker animatable))
   (when (<= (health animatable) 0)
-    (incf (experience attacker) (experience-reward animatable))))
+    (award-experience attacker (experience-reward animatable))))
 
 (defmethod hurt ((animatable animatable) (damage integer))
   (let ((damage (* (damage-input-scale animatable) damage)))

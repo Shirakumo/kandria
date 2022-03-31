@@ -35,7 +35,7 @@
 (defmethod quest:complete :before ((quest quest))
   (when (and (not (eql :complete (quest:status quest)))
              (visible-p quest))
-    (incf (experience (unit 'player T)) (experience-reward quest))
+    (award-experience (unit 'player T) (experience-reward quest))
     (harmony:play (// 'sound 'ui-quest-complete))
     (status :important (@formats 'quest-successfully-completed (quest:title quest)))))
 
