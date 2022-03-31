@@ -146,7 +146,7 @@
   (T :volume 0.4)
   (ambience-strong-wind :repeat T)
   (player-low-health :volume 0.1 :min-distance 100000000000.0 :max-distance 100000100000.0)
-  (ambience-water-pipe-leak :repeat T :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3)))
+  (ambience-water-pipe-leak :repeat T :volume 0.2 :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3)))
 
 (define-bg tundra
   :parallax (vec 2.0 1.0)
