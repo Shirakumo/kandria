@@ -57,12 +57,15 @@ void main(){
 (defclass advance-prompt (alloy:label) ())
 
 (presentations:define-realization (ui advance-prompt)
+  ((bg simple:rectangle)
+   (alloy:margins)
+   :pattern colors:accent)
   ((:bord simple:rectangle)
    (alloy:extent 0 0 (alloy:pw 1) 1)
    :pattern colors:white)
   ((:label simple:text)
    (alloy:margins 1)
-   alloy:text
+   (string (prompt-char :right :bank :keyboard))
    :valign :middle
    :halign :right
    :font "PromptFont"
@@ -70,11 +73,16 @@ void main(){
    :pattern colors:white))
 
 (presentations:define-update (ui advance-prompt)
-  (:background
-   :hidden-p (null alloy:value)
-   :pattern colors:accent)
+  (bg
+   :bounds (alloy:margins 0 0
+                          (alloy:pw (case alloy:value
+                                      ((T NIL) 1.0)
+                                      (T (clamp 0.0
+                                                (/ alloy:value (setting :gameplay :auto-advance-after))
+                                                1.0))))
+                          0))
   (:label
-   :text alloy:text
+   :text (string (prompt-char :right :bank :keyboard))
    :hidden-p (null alloy:value)))
 
 (defclass dialog-choice (alloy:button) ())
@@ -181,7 +189,7 @@ void main(){
   (setf (alloy:index (choices textbox)) 0)
   (when (active-p textbox)
     (setf (alloy:focus (choices textbox)) :strong))
-  (setf (prompt textbox) (string (prompt-char :right :bank :keyboard))))
+  (setf (prompt textbox) T))
 
 (defmethod handle ((ev tick) (textbox textbox))
   (handle ev (profile textbox))
@@ -207,7 +215,11 @@ void main(){
                 (advance textbox))
                (T
                 (next-interaction textbox))))
-        ((at-end-p textbox))
+        ((at-end-p textbox)
+         (when (numberp (prompt textbox))
+           (decf (prompt textbox) (dt ev))
+           (when (<= (prompt textbox) 0.0)
+             (handle (make-instance 'advance) textbox))))
         ((< 0 (char-timer textbox))
          (decf (char-timer textbox) (dt ev)))
         ((< 0 (length (text textbox)))
@@ -233,7 +245,9 @@ void main(){
                                 (dialogue:targets rq))))
 
 (defmethod handle ((rq dialogue:confirm-request) (textbox textbox))
-  (setf (pending textbox) (list :prompt (string (prompt-char :right :bank :keyboard)))))
+  (setf (pending textbox) (list :prompt (if (setting :gameplay :auto-advance-dialog)
+                                            (setting :gameplay :auto-advance-after)
+                                            T))))
 
 (defmethod handle ((rq dialogue:clear-request) (textbox textbox))
   (setf (text textbox) (clear-text-string))
@@ -243,7 +257,7 @@ void main(){
   (let ((unit (unit (dialogue:name rq) T)))
     (setf (strength (profile textbox))
           (clamp 0.0 (- (vdistance (location unit) (location (unit 'player +world+))) (* 40 +tile-size+)) 1.0))
-    (setf (mixed:speed-factor (harmony:segment 2 (// 'sound 'ui-scroll-dialogue))) (print (pitch unit)))
+    (setf (mixed:speed-factor (harmony:segment 2 (// 'sound 'ui-scroll-dialogue))) (pitch unit))
     (setf (source textbox) (nametag unit))
     (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
     (setf (animation (profile textbox)) 'normal)))

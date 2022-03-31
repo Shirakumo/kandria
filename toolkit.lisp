@@ -28,6 +28,7 @@
                             :infinite-climb NIL
                             :text-speed 0.02
                             :auto-advance-after 3.0
+                            :auto-advance-dialog NIL
                             :display-text-effects T
                             :display-swears T
                             :pause-on-focus-loss T

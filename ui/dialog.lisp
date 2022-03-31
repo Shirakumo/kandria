@@ -145,7 +145,7 @@
           ((= (alloy:index (choices dialog)) (position back els))
            (hide dialog))
           (T
-           (setf (prompt dialog) "")
+           (setf (prompt dialog) T)
            (setf (alloy:index (choices dialog)) (position back els))))))
 
 (defmethod (setf choices) :after ((choices cons) (dialog dialog))

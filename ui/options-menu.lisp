@@ -228,6 +228,7 @@
       (control game-language (:language) 'alloy:combo-set :value-set (languages))
       (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01 :grid 0.01)
       (control auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 0.1 :grid 0.1)
+      (control should-auto-advance-dialog (:gameplay :auto-advance-dialog) 'alloy:checkbox)
       (control display-text-effects (:gameplay :display-text-effects) 'alloy:checkbox)
       (control display-swears (:gameplay :display-swears) 'alloy:checkbox))
     (when (setting :debugging :show-debug-settings)
