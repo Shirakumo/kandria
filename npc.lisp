@@ -267,6 +267,7 @@
               (setf (state npc) :normal)
               (follow (companion npc) npc)))))))
 
+#++
 (defmethod hurt :after ((npc npc) (enemy enemy))
   (setf (state npc) :cowering))
 
