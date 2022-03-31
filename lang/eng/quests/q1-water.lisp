@@ -123,8 +123,10 @@
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
    (setf (animation (unit 'main-leak-2)) 'normal)
-   (fullscreen-prompt 'quickmenu)
    (move-to 'player 'catherine))
+  (:wait 1)
+  (:eval
+   (fullscreen-prompt 'quickmenu))
   (:go-to (catherine)
    :title "Return to Catherine at the leak")
   (:interact (catherine :now T)
