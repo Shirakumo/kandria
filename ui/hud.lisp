@@ -197,6 +197,26 @@
   (:bord
    :pattern (colored:color 1 1 1 (min 1 (timeout alloy:renderable)))))
 
+(defclass saving-status (alloy:label*)
+  ((alloy:value :initform (@ saving-currently-possible))
+   (hidden-p :initform T :accessor hidden-p)))
+
+(defmethod (setf hidden-p) :after (value (status saving-status))
+  (alloy:mark-for-render status))
+
+(presentations:define-realization (ui saving-status)
+  ((:label simple:text)
+   (alloy:margins) alloy:text
+   :font (setting :display :font)
+   :valign :top
+   :halign :right
+   :size (alloy:un 20)))
+
+(presentations:define-update (ui saving-status)
+  (:label
+   :pattern colors:white
+   :hidden-p (hidden-p alloy:renderable)))
+
 (defclass status-line (alloy:label* hud-element)
   ((importance :initarg :importance :initform :normal :accessor importance)
    (times :initarg :times :initform 1 :accessor times)))
@@ -271,6 +291,7 @@
    (location :accessor location)
    (lines :accessor lines)
    (level-up :accessor level-up)
+   (saving :accessor saving)
    (timer :initform NIL :accessor timer)))
 
 (defmethod initialize-instance :after ((hud hud) &key (player (unit 'player T)))
@@ -278,11 +299,13 @@
          (bar (setf (health hud) (make-instance 'health-bar :value player)))
          (list (setf (lines hud) (make-instance 'alloy:vertical-linear-layout)))
          (loc (setf (location hud) (make-instance 'location-info)))
-         (level-up (setf (level-up hud) (make-instance 'level-up))))
+         (level-up (setf (level-up hud) (make-instance 'level-up)))
+         (saving (setf (saving hud) (make-instance 'saving-status))))
     (alloy:enter bar layout :constraints `((:left 80) (:top 20) (:height 15) (:width 300)))
     (alloy:enter list layout :constraints `((:left 20) (:top 220) (:size 1920 1000)))
     (alloy:enter loc layout :constraints `((:right 50) (:top 50) (:height 20) (:width 500)))
     (alloy:enter level-up layout :constraints `((:center :w) (:top 100) (:width 500) (:height 50)))
+    (alloy:enter saving layout :constraints `((:right 50) (:top 20) (:height 50) (:width 500)))
     (alloy:finish-structure hud layout NIL)))
 
 (defmethod alloy:enter ((string string) (panel hud) &key (importance :normal))
@@ -336,3 +359,7 @@
     (when hud
       (harmony:play (// 'sound 'ui-level-up) :reset T)
       (setf (alloy:value (level-up hud)) (level player)))))
+
+(defmethod handle ((ev switch-chunk) (hud hud))
+  (setf (hidden-p (saving hud)) (or (not (setting :gameplay :display-hud))
+                                    (not (save-point-available-p)))))

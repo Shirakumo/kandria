@@ -415,14 +415,12 @@
           (alloy:enter buttons layout :constraints `((:chain :down ,status 10) (:height 40)))
           (alloy:enter resume buttons)
           (alloy:enter map buttons)
-          (when (saving-possible-p)
-            (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
-              (when (typep object 'save-point)
-                (let ((save (with-button save-game
-                              (save-state +main+ T)
-                              (harmony:play (// 'sound 'ui-confirm) :reset T))))
-                  (alloy:enter save buttons))
-                (return))))))
+          (when (and (saving-possible-p)
+                     (save-point-available-p))
+            (let ((save (with-button save-game
+                          (save-state +main+ T)
+                          (harmony:play (// 'sound 'ui-confirm) :reset T))))
+              (alloy:enter save buttons)))))
 
       (with-tab ((@ quest-menu) 'alloy:border-layout)
         (let* ((list (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 2 10 2 2)))
