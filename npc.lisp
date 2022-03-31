@@ -171,9 +171,7 @@
              ((< (vsqrdistance (location npc) (target npc)) (expt min-distance 2))
               (setf (ai-state npc) :normal))
              (T
-              (vsetf (location npc)
-                     (vx (target npc))
-                     (vy (target npc)))
+              (place-on-ground npc (target npc))
               (stop-following npc))))
       (:lead
        (let ((distance (vsqrdistance (location npc) (location companion))))
