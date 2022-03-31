@@ -31,6 +31,12 @@
    :size (alloy:un 20)
    :halign :middle
    :valign :middle)
+  ((backdrop simple:rectangle)
+   (alloy:extent (alloy:pw 2.5) (alloy:ph 1.4) 250 (alloy:ph 3.7))
+   :pattern (simple:request-gradient alloy:renderer 'simple:linear-gradient
+                                     (alloy:point 0 (alloy:ph 3.7)) (alloy:point 0 (alloy:ph 1.4))
+                                     #((0.2 #.(colored:color 0.1 0.1 0.1 0.9))
+                                       (1.0 #.(colored:color 0.1 0.1 0.1 0.1)))))
   ((requirements simple:text)
    (alloy:extent (alloy:pw 2.8) (alloy:ph 1.3) 500 (alloy:ph 3.7))
    (@formats 'upgrade-ui-requirements
@@ -50,6 +56,8 @@
 
 (presentations:define-update (ui upgrade-checkbox)
   (level)
+  (backdrop
+   :hidden-p (not alloy:focus))
   (requirements
    :pattern (if alloy:focus colors:white colors:transparent))
   (indicator

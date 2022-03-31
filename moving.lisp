@@ -210,7 +210,7 @@
 
 (defmethod collides-p ((moving moving) (block spike) hit)
   (let ((vel (if (v= (frame-velocity moving) 0.0) (velocity moving) (frame-velocity moving))))
-    (unless (v= vel 0.0)
+    (when (< 0.1 (+ (abs (vx vel)) (abs (vy vel))))
       (let ((angle (vangle (spike-normal block) vel))
             (loc (nv+ (v* vel 0.5) (location moving))))
         (and (<= 85 (rad->deg angle) 185)
