@@ -5,7 +5,7 @@
 
 (defmethod alloy:activate ((button input-action-button))
   (show (make-instance 'input-change-panel :source button)
-        :width (alloy:un 400) :height (alloy:un 150)))
+        :width (alloy:un 800) :height (alloy:un 170)))
 
 (defmethod alloy:text ((button input-action-button))
   (flet ((out (a)
@@ -56,13 +56,78 @@
    :text alloy:text
    :pattern (if alloy:focus colors:black colors:white)))
 
-(defclass input-label (alloy:direct-value-component)
+(defclass input-mapping-structure (alloy:observable-object org.shirakumo.alloy.layouts.constraint:layout alloy:focus-list alloy:renderable)
+  ((toggle :initform NIL :accessor toggle)
+   (event :initform NIL :accessor event)))
+
+(defmethod initialize-instance :after ((structure input-mapping-structure) &key binding)
+  (when binding
+    (setf (event structure) (trial::make-event-from-binding binding))
+    (setf (toggle structure) (eql :rise-only (getf (rest binding) :edge))))
+  (let* ((label (alloy:represent (slot-value structure 'event) 'input-label))
+         (toggle (alloy:represent (slot-value structure 'toggle) 'alloy:labelled-switch :text (@ input-toggles-state)))
+         (remove (make-instance 'popup-button
+                                :value (@ remove-input-mapping)
+                                :on-activate (lambda () (alloy:leave structure T)))))
+    (alloy:enter label structure
+                 :constraints `((:left 5) (:right 5) (:top 5) (= :b 50)))
+    (alloy:enter toggle structure
+                 :constraints `((:left 5) (:right 5) (:below ,label 2) (:height 20)))
+    (alloy:enter remove structure
+                 :constraints `((:left 5) (:right 5) (:below ,toggle 2) (:height 20)))))
+
+(defmethod (setf alloy:focus) :after (a (structure input-mapping-structure))
+  (alloy:mark-for-render structure))
+
+(defmethod input-binding ((structure input-mapping-structure))
+  (trial::binding-from-event (event structure) :edge (if (toggle structure) :rise-only :rise)))
+
+(presentations:define-realization (ui input-mapping-structure)
+  ((:background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:transparent)
+  ((:border simple:rectangle)
+   (alloy:extent 0 0 (alloy:pw 1) 5)))
+
+(presentations:define-update (ui input-mapping-structure)
+  (:background
+   :pattern (if alloy:focus (colored:color 0 0 0 0.1) colors:transparent))
+  (:border
+   :pattern (if alloy:focus colors:accent colors:transparent)))
+
+(defclass input-label (alloy:value-component)
   ())
 
+(defmethod alloy:text ((label input-label))
+  (let ((event (alloy:value label)))
+    (if event
+        (string (prompt-char event))
+        "...")))
+
 (defmethod alloy:accept ((label input-label))
+  (print :accept)
   (setf (alloy:focus (alloy:focus-parent label)) :strong)
   (discard-events +world+)
   (alloy:focus-prev (alloy:focus-parent label)))
+
+(defmethod handle (thing (label input-label)))
+
+(defmethod handle ((ev mouse-press) (label input-label))
+  (setf (alloy:value label) ev)
+  (alloy:accept label))
+
+(defmethod handle ((ev key-press) (label input-label))
+  (setf (alloy:value label) ev)
+  (alloy:accept label))
+
+(defmethod handle ((ev gamepad-press) (label input-label))
+  (setf (alloy:value label) ev)
+  (alloy:accept label))
+
+(defmethod handle ((ev gamepad-move) (label input-label))
+  (when (< 0.5 (abs (pos ev)))
+    (setf (alloy:value label) ev)
+    (alloy:accept label)))
 
 (presentations:define-realization (ui input-label)
   ((background simple:rectangle)
@@ -82,86 +147,69 @@
    :valign :middle))
 
 (presentations:define-update (ui input-label)
-  (background :pattern (if alloy:focus (colored:color 0.9 0.9 0.9) colors:white))
+  (background :pattern (if alloy:focus (colored:color 0.8 0.8 0.8) (colored:color 0.9 0.9 0.9)))
   (label :text alloy:text)
   (border :pattern (if (eq :strong alloy:focus) colors:black colors:transparent)))
 
 (defclass input-change-panel (alloy:observable-object popup-panel)
-  ((label :accessor label)
-   (toggle :initform NIL :accessor toggle)
-   (event :initform NIL :accessor event)))
+  ())
 
 (defmethod initialize-instance :after ((panel input-change-panel) &key source)
-  (let ((binding (trial::action-binding 'trial::keymap (alloy:value source) :device (case +input-source+ (:keyboard :keyboard) (T :gamepad))))
-        (label "..."))
-    (when binding
-      (setf (event panel) (trial::make-event-from-binding binding))
-      (setf (toggle panel) (eql :rise-only (getf (rest binding) :edge)))
-      (setf label (prompt-char (event panel))))
-    (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T 150) :row-sizes '(80 40 T 40)
-                                                     :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
-           (focus (make-instance 'alloy:focus-list))
-           (label (setf (label panel) (make-instance 'input-label :value label :focus-parent focus)))
-           (toggle (alloy:represent (slot-value panel 'toggle) 'alloy:checkbox :focus-parent focus))
-           (ok (make-instance 'popup-button
-                              :value (@ accept-input-change)
-                              :on-activate (lambda ()
-                                             (when (event panel)
-                                               (set-trigger-from-event (event panel) (alloy:value source) :edge (if (toggle panel) :rise-only :rise))
-                                               (save-keymap)
-                                               (alloy:mark-for-render source))
-                                             (hide panel))
-                              :focus-parent focus))
-           (cancel (make-instance 'popup-button
-                                  :value (@ cancel-input-change)
-                                  :on-activate (lambda ()
-                                                 (hide panel))
-                                  :focus-parent focus)))
-      (alloy:enter (make-instance 'popup-label :value (language-string (alloy:value source))) layout)
-      (alloy:enter label layout)
-      (alloy:enter (make-instance 'popup-label :value #@input-toggles-state) layout)
-      (alloy:enter toggle layout)
-      (alloy:enter ok layout :col 0 :row 3)
-      (alloy:enter cancel layout :col 1 :row 3)
-      (alloy:on alloy:exit (focus)
-        (setf (alloy:focus cancel) :strong))
-      (alloy:finish-structure panel layout focus))))
+  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout
+                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+         (bindings (make-instance 'alloy:horizontal-linear-layout :min-size (alloy:size 120 50) :cell-margins (alloy:margins)))
+         (focus (make-instance 'alloy:focus-list))
+         (label (make-instance 'popup-label :value (language-string (alloy:value source))))
+         (ok (make-instance 'popup-button
+                            :value (@ accept-input-change)
+                            :on-activate (lambda ()
+                                           (let ((bindings (map 'list #'input-binding (alloy:elements bindings))))
+                                             (trial::update-action-bindings bindings (alloy:value source)
+                                                                            :prune-types (if (eql +input-source+ :keyboard)
+                                                                                             '(key mouse)
+                                                                                             '(button axis))))
+                                           (save-keymap)
+                                           (alloy:mark-for-render source)
+                                           (hide panel))))
+         (cancel (make-instance 'popup-button
+                                :value (@ cancel-input-change)
+                                :on-activate (lambda ()
+                                               (hide panel))))
+         (add (make-instance 'popup-button
+                             :value (@ add-input-mapping)
+                             :on-activate (lambda ()
+                                            (let ((binding (make-instance 'input-mapping-structure)))
+                                              (alloy:enter binding bindings)
+                                              (alloy:enter binding focus))))))
+    (dolist (binding (action-bindings 'trial::keymap (alloy:value source) :device (case +input-source+ (:keyboard :keyboard) (T :gamepad))))
+      (let ((binding (make-instance 'input-mapping-structure :binding binding)))
+        (alloy:enter binding bindings)
+        (alloy:enter binding focus)))
+    (alloy:enter add focus)
+    (alloy:enter ok focus)
+    (alloy:enter cancel focus)
+    (alloy:enter label layout
+                 :constraints `((:top 0) (:left 5) (:right 5) (:height 20)))
+    (alloy:enter cancel layout
+                 :constraints `((:bottom 5) (:right 5) (:size 150 30)))
+    (alloy:enter ok layout
+                 :constraints `((:bottom 5) (:left-of ,cancel 5) (:size 150 30)))
+    (alloy:enter add layout
+                 :constraints `((:below ,label 5) (:above ,ok 5) (:right 0) (:width 50)))
+    (alloy:enter bindings layout
+                 :constraints `((:below ,label 5) (:above ,ok 5) (:left 0) (:right 50)))
+    (alloy:on alloy:exit (focus)
+      (setf (alloy:focus cancel) :strong))
+    (alloy:finish-structure panel layout focus)))
 
 (defmethod show :after ((panel input-change-panel) &key)
-  (setf (alloy:focus (label panel)) :strong))
+  ;;(setf (alloy:focus (label panel)) :strong)
+  )
 
-(defmethod handle ((ev mouse-press) (panel input-change-panel))
-  (when (eql :strong (alloy:focus (label panel)))
-    (setf (alloy:value (label panel)) (string (prompt-char (button ev) :bank :mouse)))
-    (setf (event panel) ev)
-    (alloy:accept (label panel))))
-
-(defmethod handle ((ev key-press) (panel input-change-panel))
-  (when (eql :strong (alloy:focus (label panel)))
-    (setf (alloy:value (label panel)) (string (prompt-char (key ev) :bank :keyboard)))
-    (setf (event panel) ev)
-    (alloy:accept (label panel))))
-
-(defmethod handle ((ev gamepad-press) (panel input-change-panel))
-  (when (eql :strong (alloy:focus (label panel)))
-    (setf (alloy:value (label panel)) (string (prompt-char (button ev) :bank (device ev))))
-    (setf (event panel) ev)
-    (alloy:accept (label panel))))
-
-(defmethod handle ((ev gamepad-move) (panel input-change-panel))
-  (when (and (eql :strong (alloy:focus (label panel)))
-             (< 0.5 (abs (pos ev))))
-    (let ((char (case (axis ev)
-                  (:l-h (if (< 0 (pos ev)) :l-r :l-l))
-                  (:l-v (if (< 0 (pos ev)) :l-u :l-d))
-                  (:r-h (if (< 0 (pos ev)) :r-r :r-l))
-                  (:r-v (if (< 0 (pos ev)) :r-u :r-d))
-                  (:dpad-h (if (< 0 (pos ev)) :dpad-r :dpad-l))
-                  (:dpad-v (if (< 0 (pos ev)) :dpad-u :dpad-d))
-                  (T (axis ev)))))
-      (setf (alloy:value (label panel)) (string (prompt-char char :bank (device ev)))))
-    (setf (event panel) ev)
-    (alloy:accept (label panel))))
+(defmethod handle :after ((ev event) (panel input-change-panel))
+  (let ((focused (alloy:focused (unit 'ui-pass T))))
+    (when (typep focused 'input-label)
+      (handle ev focused))))
 
 (defclass options-menu (tab-view menuing-panel)
   ())

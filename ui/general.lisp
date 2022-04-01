@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (colored:define-color #:accent #x0088EE)
+(colored:define-color #:dark-accent #x0055AA)
 
 (defclass ui (org.shirakumo.fraf.trial.alloy:ui
               org.shirakumo.alloy:fixed-scaling-ui
@@ -35,6 +36,48 @@
   (:check
    :pattern (if alloy:focus (colored:color 0.9 0.9 0.9) colors:accent)
    :hidden-p (not (alloy:active-p alloy:renderable))))
+
+(presentations:define-realization (ui alloy:switch)
+  ((:border simple:rectangle)
+   (alloy:margins)
+   :pattern colors:white
+   :line-width (alloy:un 2))
+  ((:background simple:rectangle)
+   (alloy:margins))
+  ((:switch simple:rectangle)
+   (alloy:extent 0 0 (alloy:pw 0.3) (alloy:ph))))
+
+(presentations:define-update (ui alloy:switch)
+  (:border
+   :hidden-p NIL
+   :pattern (if alloy:focus
+                (colored:color 0.9 0.9 0.9)
+                colors:gray))
+  (:background
+   :pattern (if (alloy:active-p alloy:renderable)
+                colors:dark-accent
+                (colored:color 0 0 0 0.5)))
+  (:switch
+   :pattern (if (alloy:active-p alloy:renderable)
+                colors:accent
+                colors:black)))
+
+(presentations:define-animated-shapes alloy:switch
+  (:background (simple:pattern :duration 0.2))
+  (:switch (simple:pattern :duration 0.3) (simple:bounds :duration 0.5)))
+
+(presentations:define-realization (ui alloy:labelled-switch T)
+  ((:label simple:text)
+   (alloy:margins)
+   alloy:text
+   :font (setting :display :font)
+   :halign :middle
+   :valign :middle))
+
+(presentations:define-update (ui alloy:labelled-switch)
+  (:label
+   :text alloy:text
+   :pattern colors:white))
 
 (presentations:define-realization (ui alloy:slider)
   ((:background simple:rectangle)
