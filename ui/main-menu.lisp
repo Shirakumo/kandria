@@ -51,6 +51,9 @@
 (defclass main-menu-button (button)
   ())
 
+(defmethod alloy:activate :after ((button main-menu-button))
+  (harmony:play (// 'sound 'ui-confirm)))
+
 (presentations:define-realization (ui main-menu-button)
   ((:label simple:text)
    (alloy:margins) alloy:text

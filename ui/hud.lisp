@@ -282,7 +282,8 @@
 (defmethod alloy:render :after ((ui ui) (layout hud-layout))
   (let ((wheel (stamina-wheel (unit 'player +world+))))
     (when (and (allocated-p (shader-program wheel))
-               (< 0.0 (visibility wheel)))
+               (< 0.0 (visibility wheel))
+               (setting :gameplay :display-hud))
       (with-pushed-matrix ()
         (render wheel T)))))
 

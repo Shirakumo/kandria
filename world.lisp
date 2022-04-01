@@ -165,6 +165,8 @@
         (:kp-subtract
          (setf (intended-zoom (camera +world+))
                (clamp 0.1 (expt 2 (- (log (intended-zoom (camera +world+)) 2) 0.1)) 10.0)))
+        (:kp-0
+         (setf (intended-zoom (camera +world+)) 1.0))
         (:kp-7
          (setf (fix-offset (camera +world+)) T)
          (setf (offset (camera +world+)) (vec (- xoff) (+ yoff))))

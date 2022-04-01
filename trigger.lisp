@@ -224,7 +224,8 @@
   (setf (triggered prompt) NIL))
 
 (defmethod interact ((prompt action-prompt) (player player))
-  (when (eql :normal (state player))
+  (when (and (eql :normal (state player))
+             (setting :gameplay :display-hud))
     (when (interrupt prompt)
       ;; KLUDGE: clear dash to ensure player can always recover.
       (when (eql (action prompt) 'dash)

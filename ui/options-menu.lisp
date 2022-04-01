@@ -223,7 +223,7 @@
                   (alloy:enter slider focus)))
              (with-tab (name &body body)
                `(let* ((layout-outer (make-instance 'alloy:border-layout :padding (alloy:margins 30)))
-                       (layout (make-instance 'alloy:grid-layout :col-sizes '(300 300) :row-sizes '(40)
+                       (layout (make-instance 'alloy:grid-layout :col-sizes '(400 300) :row-sizes '(40)
                                                                  :layout-parent layout-outer))
                        (focus (make-instance 'vertical-menu-focus-list)))
                   ,@body
@@ -299,6 +299,7 @@
   ())
 
 (defmethod alloy:activate ((button back-button))
+  (harmony:play (// 'sound 'ui-focus-out))
   (alloy:exit (alloy:focus-element (tab-view button))))
 
 (defmethod show :before ((panel options-menu) &key)
