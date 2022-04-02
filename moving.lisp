@@ -212,11 +212,11 @@
   (let ((vel (if (v= (frame-velocity moving) 0.0) (velocity moving) (frame-velocity moving))))
     (when (< 0.1 (+ (abs (vx vel)) (abs (vy vel))))
       (let ((angle (vangle (spike-normal block) vel))
-            (loc (nv+ (v* vel 0.5) (location moving))))
+            (loc (location moving)))
+        ;; FIXME: This allows you to stand in spikes if you're *super* precise...
         (and (<= 85 (rad->deg angle) 185)
-             (if (/= 0 (vx (spike-normal block)))
-                 (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
-                 (<= (abs (- (vy (hit-location hit)) (vy loc))) 7)))))))
+             (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
+             (<= (abs (- (vy (hit-location hit)) (vy loc))) 7))))))
 
 (defmethod collide ((moving moving) (block spike) hit)
   (kill moving))
