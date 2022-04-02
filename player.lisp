@@ -919,6 +919,8 @@ void main(){
                             (null ledge)
                             (null (retained 'jump)))
                        (start-animation 'climb-ledge player))
+                      ((typep ledge 'spike)
+                       (setf (vy vel) 0.0))
                       (T
                        (unless (typep attached 'rope)
                          (decf (climb-strength player) (* (p! climb-up-cost) dt)))
