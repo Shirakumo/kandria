@@ -450,7 +450,7 @@
    :repeatable T
    "
 ~ player
-| \"Well that's fluorescent. The tubes are full of dead flies. I know the feeling.\"(light-gray, italic)
+| \"Well that's fluorescent. Wonder how they made the paint.\"(light-gray, italic)
 ")
 
 ;; spike traps and barbed wire litter areas around the Semi Sisters base - lethal to an android, as they reflect on police states from before the Calamity.
