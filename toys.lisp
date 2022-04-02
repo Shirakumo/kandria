@@ -455,6 +455,10 @@
              (setf (visibility hider) 0.0)
              (setf (active-p hider) NIL))))))
 
+(defmethod interact :before ((hider hider) (entity stats-entity))
+  (when (active-p hider)
+    (incf (secrets-found entity))))
+
 (defmethod (setf active-p) :after (value (hider hider))
   (setf (visibility hider) (if value 1.0 0.0)))
 

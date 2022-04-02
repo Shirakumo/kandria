@@ -14,6 +14,8 @@
 (defclass stats-entity ()
   ((stats :initform (make-stats) :accessor stats)))
 
+;; FIXME: track longest-session
+
 (defmethod hurt :after ((animatable animatable) (attacker stats-entity))
   (when (<= (health animatable) 0)
     (incf (stats-kills (stats attacker)))))
