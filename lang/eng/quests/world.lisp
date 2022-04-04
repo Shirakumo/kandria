@@ -25,7 +25,7 @@
 ")
 
 ;; a half-ruined train from the old-world
-(:interaction noka-train
+  (:interaction noka-train
    :interactable lore-noka-train
    :repeatable T
    "
