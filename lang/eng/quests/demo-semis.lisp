@@ -18,7 +18,7 @@
     :interactable innis
     :dialogue "
 ~ innis
-| (:angry)<-STOP-> WHERE YOU ARE!!
+| (:angry)<-STOP-> WHERE YOU ARE!
 | Did you think ya could just waltz right through here?
 | (:sly)We've been watching you, android.
 ~ player
