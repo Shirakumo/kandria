@@ -43,4 +43,7 @@
 ! eval (activate (unit 'innis-stop-demo))
 ")
   (:eval
+   :condition (not (find-panel 'fullscreen-prompt))
+   (fullscreen-prompt 'open-map))
+  (:eval
    :on-complete (demo-semis)))

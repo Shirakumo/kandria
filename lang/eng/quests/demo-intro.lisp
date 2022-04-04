@@ -116,4 +116,10 @@
 < questions
 ")
   (:eval
+   :condition (not (find-panel 'fullscreen-prompt))
+   (fullscreen-prompt 'toggle-menu))
+  (:eval
+   :condition (not (find-panel 'fullscreen-prompt))
+   (fullscreen-prompt 'interact :title 'save-demo))
+  (:eval
    :on-complete (trader-shop-semi)))
