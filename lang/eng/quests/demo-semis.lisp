@@ -32,7 +32,7 @@
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
 | (:pleased)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
-| \"Islay\"(yellow), are you seeing this? What do you think?
+| What do you think, \"Islay\"(yellow)? Are you seeing this?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
 | (:unhappy)I think you should leave her alone.
