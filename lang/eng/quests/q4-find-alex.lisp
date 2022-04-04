@@ -42,13 +42,13 @@
 - Are you the Semi Sisters?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
-| (:normal)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
-| What do you think, sister?
+| (:pleased)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
+| What do you think, \"Islay\"(yellow)?
 ~ islay
 | (:unhappy)I think you should leave her alone.
 ~ innis
 | (:angry)...
-| (:normal)Come now, \"Islay\"(yellow) - the pinnacle of human engineering is standing before you, and that's all you can say?
+| (:normal)Come now, sister - the pinnacle of human engineering is standing before you, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
@@ -118,13 +118,13 @@ ken = know (Scottish)
 - Are you the Semi Sisters?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
-| What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
-| What do you think, sister?
+| (:pleased)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
+| What do you think, \"Islay\"(yellow)?
 ~ islay
 | (:unhappy)I think you should leave her alone.
 ~ innis
 | (:angry)...
-| (:normal)Come now, \"Islay\"(yellow) - you're speaking with the pinnacle of human engineering, and that's all you can say?
+| (:normal)Come now, sister - you're speaking with the pinnacle of human engineering, and that's all you can say?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
