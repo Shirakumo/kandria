@@ -197,6 +197,45 @@
 (defmethod hide ((reticle reticle))
   (alloy:leave reticle T))
 
+(defclass map-legend-label (label)
+  ())
+
+(presentations:define-realization (ui map-legend-label)
+  ((label simple:text)
+   (alloy:margins -10)
+   alloy:text
+   :font (setting :display :font)
+   :wrap T
+   :size (alloy:un 20)
+   :pattern colors:white
+   :halign :middle
+   :valign :middle))
+
+(defclass map-legend (alloy:grid-layout alloy:renderable)
+  ())
+
+(defmethod initialize-instance :after ((legend map-legend) &key)
+  (setf (alloy:row-sizes legend) '(30 30))
+  (setf (alloy:col-sizes legend) '(T 150 150 150 150 150 T))
+  (loop for prompt in '(toggle-marker toggle-trace zoom-in zoom-out close-map)
+        for i from 0
+        do (alloy:enter (make-instance 'map-legend-label :value (prompt-char prompt)
+                                                         :style `((label :size ,(alloy:un 25))))
+                        legend :col (1+ i) :row 0)
+           (alloy:enter (make-instance 'map-legend-label :value (language-string prompt)
+                                                         :style `((label :size ,(alloy:un 10))))
+                        legend :col (1+ i) :row 1)))
+
+(defmethod hide ((legend map-legend))
+  (alloy:leave legend T))
+
+(presentations:define-realization (ui map-legend)
+  ((bg simple:rectangle)
+   (alloy:margins)
+   :pattern (simple:request-gradient alloy:renderer 'simple:linear-gradient (alloy:point 0 0) (alloy:point 0 60)
+                                     #((0.2 #.(colored:color 0.1 0.1 0.1 0.9))
+                                       (1.0 #.(colored:color 0.1 0.1 0.1 0.5))))))
+
 (defclass map-panel (pausing-panel fullscreen-panel)
   ((show-trace :initform NIL :accessor show-trace)))
 
@@ -206,22 +245,15 @@
     (alloy:finish-structure panel map map)))
 
 (defmethod show :after ((panel map-panel) &key)
-  (let ((off 0))
-    (alloy:with-unit-parent (unit 'ui-pass T)
-      (alloy:enter (make-instance 'reticle)
-                   (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
-                   :x (alloy:u- (alloy:vw 0.5) (alloy:un 25))
-                   :y (alloy:u- (alloy:vh 0.5) (alloy:un 25))
-                   :w (alloy:un 50) :h (alloy:un 50)))
-    (flet ((prompt (action)
-             (alloy:enter (make-instance 'prompt :button action :description (language-string action))
-                          (unit 'ui-pass T) :x (* 20 (- 5 off)) :y (+ 20 (* 50 off)) :w 200 :h 40)
-             (incf off)))
-      (prompt 'toggle-marker)
-      (prompt 'toggle-trace)
-      (prompt 'zoom-in)
-      (prompt 'zoom-out)
-      (prompt 'close-map))))
+  (alloy:with-unit-parent (unit 'ui-pass T)
+    (alloy:enter (make-instance 'reticle)
+                 (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
+                 :x (alloy:u- (alloy:vw 0.5) (alloy:un 25))
+                 :y (alloy:u- (alloy:vh 0.5) (alloy:un 25))
+                 :w (alloy:un 50) :h (alloy:un 50))
+    (alloy:enter (make-instance 'map-legend)
+                 (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
+                 :x 0 :y 0 :w (alloy:vw 1) :h (alloy:un 60))))
 
 (defmethod hide :after ((panel map-panel))
   (harmony:stop (// 'sound 'ui-scroll))
@@ -276,20 +308,7 @@
             (retained 'pan-up) (retained 'pan-down)
             (retained 'pan-left) (retained 'pan-right))
         (harmony:play (// 'sound 'ui-scroll))
-        (harmony:stop (// 'sound 'ui-scroll)))
-    (let ((popups (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
-          (tt (* 1.3 (tt ev)))
-          (off 0))
-      (alloy:with-unit-parent popups
-        (alloy:do-elements (el popups)
-          (when (typep el 'prompt)
-            (let ((tt (+ tt (* off) (/ PI 13)))
-                  (ui-scale (alloy:to-px (alloy:un 1))))
-              (alloy:update el popups :x (* ui-scale (+ (* 20 (- 5 off)) (* 5 (cos tt))))
-                                      :y (* ui-scale (+ 20 (* 50 off) (* 3 (sin tt) (cos tt))))
-                                      :w (* ui-scale 200)
-                                      :h (* ui-scale 40))
-              (incf off))))))))
+        (harmony:stop (// 'sound 'ui-scroll)))))
 
 (defmethod handle ((ev toggle-trace) (panel map-panel))
   (let ((map (alloy:focus-element panel)))
@@ -322,8 +341,7 @@
                         (or (null found) (< (vdistance mloc loc) (vdistance (map-marker-location found) loc))))
                (setf found marker)))
     (show (make-instance 'marker-menu :marker (or found (make-map-marker loc)))
-          :height (alloy:un 250)
-          :hide-prompts NIL)))
+          :height (alloy:un 250))))
 
 (defmethod handle ((ev close-map) (panel map-panel))
   (hide panel))
