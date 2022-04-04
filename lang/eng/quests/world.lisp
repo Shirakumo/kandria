@@ -292,7 +292,7 @@
 ")
 
 ;; the character reflects while navigating deep and complex tunnels through the ground
-(:interaction semi-cave-east-1
+  (:interaction semi-cave-east-1
    :interactable lore-semi-cave-east
    :repeatable T
    "
@@ -301,7 +301,7 @@
 ")
 
 ;; the player can use the lanterns to recharge their jump/boost
-(:interaction semi-cave-east-2
+  (:interaction semi-cave-east-2
    :interactable lore-semi-lights
    :repeatable T
    "
@@ -310,7 +310,7 @@
 ")
 
 ;; another old Semi factory space
-(:interaction semi-cave-east-3
+  (:interaction semi-cave-east-3
    :interactable lore-semi-product-line
    :repeatable T
    "
@@ -319,7 +319,7 @@
 ")
 
 ;; a scenic picture on the wall from pre-Calamity times - now it seems as ancient as a cave painting once did
-(:interaction semi-cave-east-4
+  (:interaction semi-cave-east-4
    :interactable lore-semi-pic
    :repeatable T
    "
@@ -328,7 +328,7 @@
 ")
 
 ;; the player character reflects on their artificial method of swimming
-(:interaction semi-cave-east-5
+  (:interaction semi-cave-east-5
    :interactable lore-semi-swim
    :repeatable T
    "
@@ -338,7 +338,7 @@
 ")
 
 ;; examining one of the old-world trains refitted by the Semi Sisters
-(:interaction semi-train
+  (:interaction semi-train
    :interactable lore-semi-train
    :repeatable T
    "
@@ -347,7 +347,7 @@
 ")
 
 ;; while examining the Semi Sisters' storage area
-(:interaction semi-hub-1
+  (:interaction semi-hub-1
    :interactable lore-semi-hub-supplies
    :repeatable T
    "
@@ -356,7 +356,7 @@
 ")
 
 ;; a bar in the Semi Sisters hub area
-(:interaction semi-hub-2
+  (:interaction semi-hub-2
    :interactable lore-semi-bar
    :repeatable T
    "
@@ -367,7 +367,7 @@
 
 ;; another scenic picture on the wall from pre-Calamity times
 ;; the player character doubts it either because things are too far gone, or because even if society recovers, they'll hopefully do things differently
-(:interaction semi-hub-3
+  (:interaction semi-hub-3
    :interactable lore-semi-pic-2
    :repeatable T
    "
@@ -376,7 +376,7 @@
 ")
 
 ;; the Semi Sisters' council chamber / control room, where Innis and Islay, the leaders, mostly hang out. It's quite deluxe and well-furnished compared to the makeshift areas of the rest of their base
-(:interaction semi-hub-4
+  (:interaction semi-hub-4
    :interactable lore-semi-control
    :repeatable T
    "
@@ -385,7 +385,7 @@
 ")
 
 ;; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the Calamity)
-(:interaction semi-hub-5
+  (:interaction semi-hub-5
    :interactable lore-semi-broken-building
    :repeatable T
    "
@@ -394,7 +394,7 @@
 ")
 
 ;; makeshift areas of the Semi Sisters' base, where people have strung up modesty curtains on rails to give themselves privacy amongst the old factories and machinery where they now live
-(:interaction semi-hub-6
+  (:interaction semi-hub-6
    :interactable lore-semi-curtain
    :repeatable T
    "
@@ -403,7 +403,7 @@
 ")
 
 ;; a hydroponic "garden" in the Semi Sisters' base. Compared to the Noka faction on the surface, they're doing very well here at growing food and they have plenty of water
-(:interaction semi-hub-7
+  (:interaction semi-hub-7
    :interactable lore-semi-plants
    :repeatable T
    "
@@ -413,7 +413,7 @@
 
 ;; a mostly empty vending machine from the old world.
 ;; Candy Android = a candy bar from the old world. Suggests maybe it was a PR thing to make people more amenable to androids, by making chocolate bars that resemble them.
-(:interaction semi-hub-8
+  (:interaction semi-hub-8
    :interactable lore-semi-vending
    :repeatable T
    "
@@ -423,7 +423,7 @@
 
 ;; an old office building is now a sleeping area in the Semi Sisters' base.
 ;; sly joke reference to crunch culture and sleeping under your desk.
-(:interaction semi-hub-9
+  (:interaction semi-hub-9
    :interactable lore-semi-bedroom
    :repeatable T
    "
@@ -432,7 +432,7 @@
 ")
 
 ;; a calendar still on the wall in an old office block; March 2368 is when the Calamity happened. There are faces on the calendar too.
-(:interaction semi-hub-10
+  (:interaction semi-hub-10
    :interactable lore-semi-calendar
    :repeatable T
    "
@@ -444,7 +444,7 @@
 ;; a fluorescent sign in the caves near the Semi Sisters base, directing people towards it. Like most lights, especially one in a musty cave, it's attracted flies to their doom.
 ;; The character reflects that they also feel like a dead fly in an endless warren of tubes/tunnels.
 ;; The player may or may not have encountered the Semi Sisters when they find this.
-(:interaction semi-cave-west-1
+  (:interaction semi-cave-west-1
    :interactable lore-semi-sign
    :repeatable T
    "
@@ -454,7 +454,7 @@
 
 ;; spike traps and barbed wire litter areas around the Semi Sisters base - lethal to an android, as they reflect on police states from before the Calamity.
 ;; Maybe the Semi Sisters planted them for defence, even though it makes it harder for their own people to get around. Or maybe it's a legacy from when the militaristic Wraw faction inhabited this area?
-(:interaction semi-cave-west-2
+  (:interaction semi-cave-west-2
    :interactable lore-semi-spikes
    :repeatable T
    "
@@ -464,7 +464,7 @@
 
 ;; these are the rail engineers from the Semi Sisters, who are digging out more of the old metro tunnels and expanding the rail network, but who got cut off when the tunnel collapsed.
 ;; The player may encounter them before the quest from the Semis to actually rescue them.
-(:interaction semi-cave-west-3
+  (:interaction semi-cave-west-3
    :interactable lore-semi-eng-post
    :repeatable T
    "
@@ -472,7 +472,7 @@
 | \"It's a temporary engineers' camp. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
 ")
 
-(:interaction engineers-wall
+  (:interaction engineers-wall
    :interactable lore-engineers-wall
    :repeatable T
    "
