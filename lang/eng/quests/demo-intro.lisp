@@ -6,7 +6,7 @@
   :title "Talk to Islay"
   :description "The Semi in charge (I didn't catch her name) said I should talk to her sister, Islay, about what I can do for them, in exchange for turning the water back on."
   (:interact (islay)
-   :title "Talk to Islay in the Semi Sisters base"
+   :title "Talk to Islay up in the Semi Sisters control room"
   "
 ~ islay
 | Hello, Stranger. (:happy)It's an honour to meet you in person.
@@ -80,7 +80,7 @@
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | I can also \"trade any items you find for scrap parts\"(orange), the currency we use around here. Then you can \"buy supplies\"(orange) to help you in the field.
 | \"Let me know if you want to trade.\"(orange)
-| \"Report back to Innis\"(orange) when you have news - by then we \"might be up in the control room\"(orange).
+| \"Report to Innis\"(orange) when you have news - by then she should be \"back here in the control room\"(orange).
 | Good luck.
 ! eval (activate 'demo-cctv)
 ! eval (activate (unit 'cctv-4-trigger))

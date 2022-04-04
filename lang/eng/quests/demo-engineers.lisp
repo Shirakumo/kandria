@@ -89,7 +89,7 @@
 "))
 
   (task-return-engineers
-   :title "Once you've helped the engineers, return to Innis in the Semi Sisters base"
+   :title "Once you've helped the engineers, return to Innis in the Semi Sisters control room"
    :marker '(innis 500)
    :condition NIL
    :on-activate T

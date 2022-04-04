@@ -31,14 +31,14 @@
 - Are you the Semi Sisters?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
-| (:normal)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
-| What do you think, \"Islay\"(yellow)?
+| (:pleased)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
+| \"Islay\"(yellow), are you seeing this? What do you think?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
 | (:unhappy)I think you should leave her alone.
 ~ innis
 | (:angry)...
-| (:normal)Come now, sister - the pinnacle of human engineering is standing before you, and that's all you can say?
+| (:normal)Come now, sister - you're speaking with the pinnacle of human engineering, and that's all you can say?
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
 - (Keep quiet)
@@ -70,7 +70,7 @@
 | (:angry)Did your \"friends\" honestly think they could siphon it off forever?
 | That's no' how the world works.
 | (:normal)And I dinnae know why you bother - you dinnae need to drink. I'd sack them off if I were you.
-| Anyway, my \"sister\"(orange) knows what we need. \"Talk to her.\"(orange)
+| Anyway, my \"sister\"(orange) knows what we need. \"Talk to her - she's up in the control room.\"(orange)
 ")))
 #|
 dinnae = don't (Scottish)

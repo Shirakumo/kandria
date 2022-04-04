@@ -163,7 +163,7 @@
 
    ;; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4), nor employ rogues... The Wraw would do both though.
   (task-return-cctv
-   :title "Return to Innis in the Semi Sisters base to discuss the saboteurs"
+   :title "Return to Innis in the Semi Sisters control room to discuss the saboteurs"
    :marker '(innis 500)
    :condition all-complete
    :on-activate T
