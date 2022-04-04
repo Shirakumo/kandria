@@ -65,8 +65,6 @@
 |   - I was exploring, so figured why not.
 |   ~ innis
 |   | Well if that's true - and I'll ken soon enough - then thanks.
-|   ! eval (activate 'q5a-rescue-engineers)
-|   ! eval (complete 'q5a-rescue-engineers)
 |   | But there's more to do.
 | - Your guardian angel.
 |   ~ innis
@@ -76,8 +74,6 @@
 |   - Yes.
 |     ~ innis
 |     | Well if you're saying what I think you're saying - and I'll ken soon enough - then thanks.
-|     ! eval (activate 'q5a-rescue-engineers)
-|     ! eval (complete 'q5a-rescue-engineers)
 |     | But there's more to do.
 |   - No.
 |     ~ innis
@@ -120,7 +116,7 @@
   | We monitor the surrounding areas, immediately above and below.
   | (:angry)Basically \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low eastern region\"(orange).
   | (:normal)It's probably just an electrical fault. (:angry)Unfortunately the way Islay daisy-chains them together, when one goes they all go.
-  | I want you to check them out.
+  | I want you to \"check them out\"(orange).
   < questions
 - I've got it.
 ~ innis
@@ -129,6 +125,8 @@
 ! eval (activate (unit 'cctv-4-trigger))
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'q5a-rescue-engineers)
+|?
+| ! eval (complete 'q5a-rescue-engineers)
 "))
 ;; ken = know (Scottish)
 ;; didnae = didn't (Scottish)

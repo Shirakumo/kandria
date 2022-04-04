@@ -71,7 +71,7 @@
   | We monitor the surrounding areas, immediately above and below.
   | (:nervous)But \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low eastern region\"(orange).
   | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
-  | I'd like you to check them out.
+  | I'd like you to \"check them out\"(orange).
   < questions
 - Understood.
 ~ islay
@@ -86,6 +86,8 @@
 ! eval (activate (unit 'cctv-4-trigger))
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'demo-engineers)
+|?
+| ! eval (complete 'demo-engineers)
 
 # thank-you
 ~ islay
@@ -96,8 +98,6 @@
 - I was exploring, so figured why not.
 ~ islay
 | (:happy)Well in that case, thank you. We owe you.
-! eval (activate 'demo-engineers)
-! eval (complete 'demo-engineers)
 | But there's more to do.
 < metro
 
