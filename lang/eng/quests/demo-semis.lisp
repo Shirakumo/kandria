@@ -9,7 +9,7 @@
 
   (find-semis
    :title "Find the Semi Sisters"
-   :marker '(innis-stop-1 500)
+   :marker '(innis 500)
    :on-activate (innis-stop-local)
    :condition all-complete
    :on-complete (demo-intro)
