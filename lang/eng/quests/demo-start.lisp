@@ -8,10 +8,8 @@
   (:eval    
    (setf (location 'player) 'demo-start)
    (setf (direction player) 1)
-   (setf (location 'innis) (location 'innis-intercept))
+   (setf (location 'innis) (location 'innis-intercept-demo))
    (setf (direction 'innis) -1)
-   (setf (location 'islay) (location 'islay-intercept))
-   (setf (direction 'islay) 1)
    (setf (location 'catherine) (location 'eng-cath))
    (setf (direction 'catherine) -1)
    (deactivate (unit 'tutorial-end))
@@ -42,7 +40,7 @@
 | \"My friends back on the surface \"won't last much longer without water\"(orange).\"(light-gray, italic)
 | (:skeptical)\"Hopefully the rumours about them being tech witches are false...\"(light-gray, italic)
 | (:normal)\"My \"Map\"(orange) should help me \"hone in on their position\"(orange).\"(light-gray, italic)
-! eval (activate (unit 'innis-stop-1))
+! eval (activate (unit 'innis-stop-demo))
 ")
   (:eval
    :on-complete (demo-semis)))
