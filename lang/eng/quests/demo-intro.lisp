@@ -96,6 +96,8 @@
 - I was exploring, so figured why not.
 ~ islay
 | (:happy)Well in that case, thank you. We owe you.
+! eval (activate 'demo-engineers)
+! eval (complete 'demo-engineers)
 | But there's more to do.
 < metro
 

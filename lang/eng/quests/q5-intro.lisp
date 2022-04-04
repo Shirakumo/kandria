@@ -65,6 +65,8 @@
 |   - I was exploring, so figured why not.
 |   ~ innis
 |   | Well if that's true - and I'll ken soon enough - then thanks.
+|   ! eval (activate 'q5a-rescue-engineers)
+|   ! eval (complete 'q5a-rescue-engineers)
 |   | But there's more to do.
 | - Your guardian angel.
 |   ~ innis
@@ -74,6 +76,8 @@
 |   - Yes.
 |     ~ innis
 |     | Well if you're saying what I think you're saying - and I'll ken soon enough - then thanks.
+|     ! eval (activate 'q5a-rescue-engineers)
+|     ! eval (complete 'q5a-rescue-engineers)
 |     | But there's more to do.
 |   - No.
 |     ~ innis
