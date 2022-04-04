@@ -345,6 +345,17 @@
          (<= (+ (vx s-loc) (vx s-size)) (+ (vx b-loc) (vx b-size)))
          (<= (+ (vy s-loc) (vy s-size)) (+ (vy b-loc) (vy b-size))))))
 
+(defun in-bounds-p (loc bounds)
+  (declare (optimize speed))
+  (declare (type vec2 loc))
+  (declare (type vec4 bounds))
+  (let* ((lx (vx2 loc))
+         (ly (vy2 loc)))
+    (and (< (vx4 bounds) lx)
+         (< (vy4 bounds) ly)
+         (< lx (vz4 bounds))
+         (< ly (vw4 bounds)))))
+
 (defun find-chunk (thing &optional (region (region +world+)))
   (when region
     (bvh:do-fitting (entity (bvh region) thing)

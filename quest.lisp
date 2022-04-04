@@ -69,6 +69,10 @@
 (defmethod quest:make-assembly ((task task))
   (make-instance 'assembly))
 
+(defmethod quest:activate :after ((task task))
+  (when (and (marker task) (setting :gameplay :display-hud))
+    (show (make-instance 'quest-indicator :target (unlist (marker task))))))
+
 (defclass interaction (quest:interaction)
   ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)
    (auto-trigger :initform NIL :initarg :auto-trigger :accessor auto-trigger)))

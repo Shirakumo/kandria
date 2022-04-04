@@ -177,3 +177,97 @@
 
 (defun fullscreen-prompt (action &key (title action) input (description (trial::mksym #.*package* title '/description)))
   (show (make-instance 'fullscreen-prompt :button action :input input :title title :description description)))
+
+(defclass quest-indicator (alloy:popup alloy:renderable popup)
+  ((angle :initform 0f0 :accessor angle)
+   (target :initarg :target :accessor target)
+   (clock :initarg :clock :initform 10f0 :accessor clock)))
+
+(defmethod initialize-instance :after ((prompt quest-indicator) &key target)
+  (setf (target prompt) (typecase target
+                          (entity target)
+                          (symbol (unit target +world+))
+                          (T target))))
+
+(defmethod animation:update :after ((prompt quest-indicator) dt)
+  (let* ((target (target prompt))
+         (tloc (ensure-location target))
+         (bounds (in-view-tester (camera +world+))))
+    (cond ((in-bounds-p tloc bounds)
+           (alloy:with-unit-parent prompt
+             (let* ((yoff (typecase target
+                            (layer 0.0)
+                            (sized-entity (vy (bsize target)))
+                            (T 0.0)))
+                    (screen-location (world-screen-pos (tvec (vx tloc) (+ (vy tloc) yoff)))))
+               (setf (angle prompt) (* 1.5 PI))
+               (setf (alloy:bounds prompt) (alloy:px-extent (vx screen-location) (alloy:u+ (alloy:un 60) (vy screen-location))
+                                                            1 1)))))
+          (T
+           (labels ((div (x)
+                      (if (= 0.0 x) 100000.0 (/ x)))
+                    (ray-rect (bounds origin direction)
+                      ;; Project ray from inside bounds to border and compute intersection.
+                      (let* ((scale-x (div (vx direction)))
+                             (scale-y (div (vy direction)))
+                             (tx1 (* scale-x (- (vx bounds) (vx origin))))
+                             (tx2 (* scale-x (- (vz bounds) (vx origin))))
+                             (ty1 (* scale-y (- (vy bounds) (vy origin))))
+                             (ty2 (* scale-y (- (vw bounds) (vy origin))))
+                             (tt (min (max tx1 tx2) (max ty1 ty2))))
+                        (nv+ (v* direction tt) origin))))
+             (let* ((middle (tvec (* (+ (vx bounds) (vz bounds)) 0.5)
+                                  (* (+ (vy bounds) (vw bounds)) 0.5)))
+                    (direction (v- tloc middle))
+                    (position (ray-rect (tvec (+ (vx bounds) 30) (+ (vy bounds) 30)
+                                              (- (vz bounds) 30) (- (vw bounds) 30))
+                                        middle direction))
+                    (screen-location (world-screen-pos position)))
+               (setf (alloy:bounds prompt) (alloy:px-extent (vx screen-location) (vy screen-location) 1 1))
+               (setf (angle prompt) (point-angle direction))))))
+    (alloy:mark-for-render prompt)
+    (when (<= (decf (clock prompt) dt) 0f0)
+      (hide prompt))))
+
+(presentations:define-realization (ui quest-indicator)
+  ((:indicator simple:polygon)
+   (list (alloy:point 0 -20)
+         (alloy:point 50 0)
+         (alloy:point 0 20))
+   :pattern colors:white)
+  ((:bg simple:ellipse)
+   (alloy:extent -28 -28 56 56)
+   :pattern colors:white)
+  ((:indicator-fill simple:polygon)
+   (list (alloy:point 0 -15)
+         (alloy:point 45 0)
+         (alloy:point 0 15))
+   :pattern (colored:color 0.2 0.2 0.2))
+  ((:fg simple:ellipse)
+   (alloy:extent -25 -25 50 50)
+   :pattern (colored:color 0.2 0.2 0.2))
+  ((:text simple:text)
+   (alloy:extent -32 -28 60 60)
+   "⌖"
+   :font "PromptFont"
+   :pattern colors:white
+   :size (alloy:un 35)
+   :halign :middle
+   :valign :middle))
+
+(presentations:define-update (ui quest-indicator)
+  (:indicator
+   :rotation (angle alloy:renderable))
+  (:indicator-fill
+   :rotation (angle alloy:renderable)))
+
+(defmethod show ((prompt quest-indicator) &key target)
+  (unless (alloy:layout-tree prompt)
+    (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
+  (when target
+    (setf (target prompt) target))
+  (alloy:mark-for-render prompt))
+
+(defmethod hide ((prompt quest-indicator))
+  (when (alloy:layout-tree prompt)
+    (alloy:leave prompt T)))
