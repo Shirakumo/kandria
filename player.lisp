@@ -1309,6 +1309,7 @@ void main(){
   (setf (animation player) 'stand)
   (vsetf (velocity player) 0 0)
   (vsetf (frame-velocity player) 0 0)
+  (setf (time-scale +world+) 1.0)
   (place-on-ground player (spawn-location player))
   (setf (state player) :normal)
   (snap-to-target (camera +world+) player))
