@@ -558,7 +558,7 @@
   (demo-intro
    "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (demo-semis
-   "| (:angry)[? \"Talk to my sister.\"(orange) | You deaf? I said \"talk to Islay\"(orange).]")
+   "| (:angry)[? \"Talk to my sister up in the control room.\"(orange) | You deaf? I said \"talk to Islay - she's up in the control room\"(orange).]")
   (demo-start
    "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (T
