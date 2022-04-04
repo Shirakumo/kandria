@@ -327,9 +327,13 @@
 
 (defun location-info (string)
   (let ((hud (find-panel 'hud)))
-    (when (and hud (string/= string (alloy:value (location hud))))
-      (setf (alloy:value (location hud)) string)
-      (harmony:play (// 'sound 'ui-location-enter)))))
+    (when hud
+      (cond ((null string)
+             (setf (alloy:value (location hud)) "")
+             (setf (timeout (location hud)) 0.0))
+            ((string/= string (alloy:value (location hud)))
+             (setf (alloy:value (location hud)) string)
+             (harmony:play (// 'sound 'ui-location-enter)))))))
 
 (defun status (importance &optional string &rest args)
   (let ((panel (find-panel 'hud)))

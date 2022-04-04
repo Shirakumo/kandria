@@ -243,8 +243,7 @@
         (quest:try (storyline world))))))
 
 (defmethod handle :after ((ev switch-chunk) (world world))
-  (when (language-string (name (chunk ev)) NIL)
-    (location-info (language-string (name (chunk ev))))))
+  (location-info (language-string (name (chunk ev)) NIL)))
 
 (defmethod save-region (region (world world) &rest args)
   (with-packet (packet (packet world) :offset (region-entry region world)
