@@ -434,7 +434,7 @@
 ;;   Garlic
 ;; x Curly
 ;;   Quote
-;;   Boy
+;; x Boy
 ;;   San-Diego
 ;;   Captain
 ;;   Ultimate-Lifeform
