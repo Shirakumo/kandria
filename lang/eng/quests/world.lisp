@@ -472,6 +472,24 @@
 | \"It's a temporary engineers' camp. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
 ")
 
+(:interaction engineers-wall
+   :interactable lore-engineers-wall
+   :repeatable T
+   "
+~ player
+? (active-p (unit 'blocker-engineers))
+| ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers))
+| | | \"This might be the collapsed tunnel that trapped the Semis engineers.\"(light-gray, italic)
+| | | (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)
+| |?
+| | | \"A collapsed tunnel. (:thinking)I'll need to \"find another way around\"(orange).\"(light-gray, italic)
+|?
+| ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers) (complete-p 'demo-engineers) (complete-p 'q5a-rescue-engineers))
+| | | \"The remnants of the collapsed rail tunnel. (:skeptical)It looks stable enough - for now.\"(light-gray, italic)
+| |?
+| | | \"The remnants of the collapsed tunnel. (:skeptical)It looks stable enough - for now.\"(light-gray, italic)
+")
+
 
 ;; conversation with a Semi Sisters rail engineer, if you encounter them independently of the quest to rescue them.
 ;; This is dialogue with the player, not inner monologue.
