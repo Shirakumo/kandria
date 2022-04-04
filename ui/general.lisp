@@ -294,9 +294,15 @@
     font))
 
 (defun find-panel (panel-type &optional (scene +world+))
+  (declare (optimize speed))
   (loop for panel in (panels (unit 'ui-pass scene))
         do (when (typep panel panel-type)
              (return panel))))
+
+(define-compiler-macro find-panel (panel-type &optional (scene '+world+))
+  `(loop for panel in (panels (unit 'ui-pass ,scene))
+         do (when (typep panel ,panel-type)
+              (return panel))))
 
 (defun toggle-panel (panel-type &rest initargs)
   (let ((panel (find-panel panel-type)))
@@ -363,16 +369,12 @@
 (defclass popup ()
   ())
 
+(defmethod alloy:render :around ((ui ui) (popup popup))
+  (unless (find-panel 'fullscreen-panel)
+    (call-next-method)))
+
 (defclass fullscreen-panel (panel)
   ())
-
-(defmethod show :before ((panel fullscreen-panel) &key (hide-prompts T))
-  (when hide-prompts
-    (let ((els ()))
-      (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
-        (when (typep el 'popup)
-          (push el els)))
-      (mapc #'hide els))))
 
 (defclass menuing-panel (fullscreen-panel)
   ((prior-action-set :initform 'in-game :accessor prior-action-set)))

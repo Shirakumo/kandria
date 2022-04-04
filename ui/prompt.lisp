@@ -72,21 +72,20 @@
     (list (map 'string (lambda (c) (prompt-char c :bank input)) button))))
 
 (defmethod show ((prompt prompt) &key button input location (description NIL description-p))
-  (unless (find-panel 'fullscreen-panel)
-    (when button
-      (setf (alloy:value (label prompt)) (coerce-button-string button input)))
-    (when description-p
-      (setf (alloy:value (description prompt)) (or description "")))
-    (unless (alloy:layout-tree prompt)
-      (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
-    (alloy:mark-for-render prompt)
-    (alloy:with-unit-parent prompt
-      (let* ((screen-location (world-screen-pos location))
-             (size (alloy:suggest-bounds (alloy:px-extent 0 0 16 16) prompt)))
-        (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) (alloy:to-px (alloy:un 10)))
-                                                     (+ (vy screen-location) (alloy:pxh size))
-                                                     (max 1 (alloy:pxw size))
-                                                     (max 1 (alloy:pxh size))))))))
+  (when button
+    (setf (alloy:value (label prompt)) (coerce-button-string button input)))
+  (when description-p
+    (setf (alloy:value (description prompt)) (or description "")))
+  (unless (alloy:layout-tree prompt)
+    (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
+  (alloy:mark-for-render prompt)
+  (alloy:with-unit-parent prompt
+    (let* ((screen-location (world-screen-pos location))
+           (size (alloy:suggest-bounds (alloy:px-extent 0 0 16 16) prompt)))
+      (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) (alloy:to-px (alloy:un 10)))
+                                                   (+ (vy screen-location) (alloy:pxh size))
+                                                   (max 1 (alloy:pxw size))
+                                                   (max 1 (alloy:pxh size)))))))
 
 (defmethod hide ((prompt prompt))
   (when (alloy:layout-tree prompt)

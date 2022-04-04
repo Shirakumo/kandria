@@ -4,19 +4,18 @@
   ((offset :initform (random* 0 16) :accessor offset)))
 
 (defmethod show ((element sticky-element) &key)
-  (unless (find-panel 'fullscreen-panel)
-    (unless (alloy:layout-tree element)
-      (alloy:enter element (unit 'ui-pass T) :w 1 :h 1))
-    (alloy:with-unit-parent element
-      (let* ((target (alloy:value element))
-             (screen-location (world-screen-pos (vec (vx (location target))
-                                                     (+ (vy (location target)) (vy (bsize target)) 10
-                                                        (offset element)))))
-             (size (alloy:suggest-bounds (alloy:px-extent 0 0 96 8) element)))
-        (setf (alloy:bounds element) (alloy:px-extent (- (vx screen-location) (/ (alloy:pxw size) 2))
-                                                      (+ (vy screen-location) (alloy:pxh size))
-                                                      (max 1 (alloy:pxw size))
-                                                      (max 1 (alloy:pxh size))))))))
+  (unless (alloy:layout-tree element)
+    (alloy:enter element (unit 'ui-pass T) :w 1 :h 1))
+  (alloy:with-unit-parent element
+    (let* ((target (alloy:value element))
+           (screen-location (world-screen-pos (vec (vx (location target))
+                                                   (+ (vy (location target)) (vy (bsize target)) 10
+                                                      (offset element)))))
+           (size (alloy:suggest-bounds (alloy:px-extent 0 0 96 8) element)))
+      (setf (alloy:bounds element) (alloy:px-extent (- (vx screen-location) (/ (alloy:pxw size) 2))
+                                                    (+ (vy screen-location) (alloy:pxh size))
+                                                    (max 1 (alloy:pxw size))
+                                                    (max 1 (alloy:pxh size)))))))
 
 (defmethod hide ((prompt sticky-element))
   (when (alloy:layout-tree prompt)
