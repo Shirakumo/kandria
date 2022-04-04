@@ -270,8 +270,7 @@
                   (setf (vy (location moving)) (- (vy (hit-location hit)) (vy (bsize other)) (vy (bsize moving))))))))))
 
 (defmethod collide :after ((moving moving) (entity game-entity) hit)
-  (when (and (< 0 (vy (hit-normal hit)))
-             (<= (vy (velocity entity)) 0))
+  (when (and (< 0 (vy (hit-normal hit))))
     (nv+ (frame-velocity moving) (velocity entity))))
 
 (defmethod is-collider-for ((moving moving) (stopper stopper)) NIL)
