@@ -381,8 +381,7 @@
    :repeatable T
    "
 ~ player
-| \"The din of the base fades away up here.\"(light-gray, italic)
-| \"It's as relaxing a place as I've found since I woke up.\"(light-gray, italic)
+| \"The din of the base fades away up here - save for the occasional interruption of fuzzy audio feeds and communications chatter.\"(light-gray, italic)
 ")
 
 ;; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the Calamity)
