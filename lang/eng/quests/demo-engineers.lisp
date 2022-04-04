@@ -104,7 +104,8 @@
 |?
 | ~ innis
 | | (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
-| | (:normal)How did you clear that debris? Is there something I dinnae ken about androids?
+| | (:normal)It's tough that we lost people, but sometimes that's the price of progress. I'll have Islay notify their families.
+| | More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
 | ~ player
 | - I found a weak point and pushed.
 |   ~ innis
