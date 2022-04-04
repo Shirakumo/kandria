@@ -32,7 +32,7 @@
 (presentations:define-update (ui prompt-description)
   (:label :pattern colors:white))
 
-(defclass prompt (alloy:popup alloy:horizontal-linear-layout alloy:renderable)
+(defclass prompt (alloy:popup alloy:horizontal-linear-layout alloy:renderable popup)
   ((alloy:cell-margins :initform (alloy:margins))
    (alloy:min-size :initform (alloy:size))
    (label :accessor label)

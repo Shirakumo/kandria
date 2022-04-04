@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass sticky-element (alloy:popup alloy:direct-value-component)
+(defclass sticky-element (alloy:popup alloy:direct-value-component popup)
   ((offset :initform (random* 0 16) :accessor offset)))
 
 (defmethod show ((element sticky-element) &key)

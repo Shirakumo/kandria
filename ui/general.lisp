@@ -317,7 +317,7 @@
         (when panel
           (hide panel)))))
 
-(defclass panel (alloy:structure)
+(defclass panel (alloy:structure popup)
   ((active-p :initform NIL :accessor active-p)))
 
 (defmethod handle ((ev event) (panel panel)))
@@ -360,6 +360,9 @@
           (return))))
     panel))
 
+(defclass popup ()
+  ())
+
 (defclass fullscreen-panel (panel)
   ())
 
@@ -367,7 +370,7 @@
   (when hide-prompts
     (let ((els ()))
       (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
-        (when (typep el '(or prompt panel sticky-element))
+        (when (typep el 'popup)
           (push el els)))
       (mapc #'hide els))))
 
