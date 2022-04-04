@@ -482,12 +482,12 @@
 | | | \"This might be the collapsed tunnel that trapped the Semis engineers.\"(light-gray, italic)
 | | | (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)
 | |?
-| | | \"A collapsed tunnel. (:thinking)I'll need to \"find another way around\"(orange).\"(light-gray, italic)
+| | | \"A collapsed tunnel.\"(light-gray, italic) (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)
 |?
 | ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers) (complete-p 'demo-engineers) (complete-p 'q5a-rescue-engineers))
-| | | \"The remnants of the collapsed rail tunnel. (:skeptical)It looks stable enough - for now.\"(light-gray, italic)
+| | | \"The remnants of the collapsed rail tunnel.\"(light-gray, italic) (:skeptical)\"It looks stable enough - for now.\"(light-gray, italic)
 | |?
-| | | \"The remnants of the collapsed tunnel. (:skeptical)It looks stable enough - for now.\"(light-gray, italic)
+| | | \"The remnants of the collapsed tunnel.\"(light-gray, italic) (:skeptical)\"It looks stable enough - for now.\"(light-gray, italic)
 ")
 
 
