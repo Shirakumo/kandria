@@ -5,7 +5,7 @@
   :author "Tim White"
   :title "Rescue Engineers"
   :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory. I can help while Islay talks to Alex."
-  :on-activate (task-reminder task-engineers task-return-engineers)
+  :on-activate (task-reminder task-wall task-engineers)
  
  (task-reminder
    :title NIL
@@ -18,12 +18,15 @@
     :repeatable T
     :dialogue "
 ~ innis
-? (active-p (unit 'blocker-engineers))
-| | (:angry)You forgot already? (:normal)\"Find the engineers\"(orange) in the collapsed rail tunnel, do what you can for them, and report back.
-| | It's in the \"upper-west of our territory\"(orange).
-|?
-| | (:sly)There's news on the engineers - care to \"deliver your report\"(orange)?
+| (:angry)You forgot already? (:normal)\"Find the engineers\"(orange) in the collapsed rail tunnel, do what you can for them, and report back.
+| It's in the \"upper-west of our territory\"(orange).
 "))
+
+  (task-wall
+   :title NIL
+   :visible NIL
+   :condition (not (active-p (unit 'blocker-engineers)))
+   :on-complete (q5a-engineers-return))
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (task-engineers
@@ -89,7 +92,7 @@
 "))
 
   (task-return-engineers
-   :title "Once you've helped the engineers, return to Innis in the Semi Sisters control room"
+   :title "Return to Innis in the Semi Sisters control room"
    :marker '(innis 500)
    :condition NIL
    :on-activate T
@@ -98,60 +101,56 @@
     :interactable innis
     :repeatable T
     :dialogue "
-? (active-p (unit 'blocker-engineers))
-| ~ innis
-| | (:angry)The engineers aren't back yet - you need to help them. They're in the \"upper-west of our territory\"(orange).
+~ innis
+| (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
+| (:normal)It's tough that we lost people, but sometimes that's the price of progress. I'll get Islay to notify their families.
+| More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
+~ player
+- I found a weak point and pushed.
+  ~ innis
+  | That sounds plausible. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
+- I just smashed through.
+  ~ innis
+  | I believe you did. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
+- I pulled a hidden lever and said, \"Open sesame!\"
+  ~ innis
+  | (:angry)...
+  | Funny. (:sly)I suspect it has more to do with your formidable combination of fusion reactor and nanotube muscles.
+- Wouldn't you like to know.
+  ~ innis
+  | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
+  | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
+~ innis
+| There's something else as well...
+| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you access to the metro.
+| ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
+? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
+| | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
+| | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 |?
+| | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
+| | Just \"choose your destination from the route map\"(orange) and board the train.
+? (not (unlocked-p (unit 'station-semi-sisters)))
+| | \"Our station is beneath this central block.\"(orange)
+? (complete-p 'q5b-investigate-cctv)
 | ~ innis
-| | (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
-| | (:normal)It's tough that we lost people, but sometimes that's the price of progress. I'll get Islay to notify their families.
-| | More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
-| ~ player
-| - I found a weak point and pushed.
-|   ~ innis
-|   | That sounds plausible. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
-| - I just smashed through.
-|   ~ innis
-|   | I believe you did. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
-| - I pulled a hidden lever and said, \"Open sesame!\"
-|   ~ innis
-|   | (:angry)...
-|   | Funny. (:sly)I suspect it has more to do with your formidable combination of fusion reactor and nanotube muscles.
-| - Wouldn't you like to know.
-|   ~ innis
-|   | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
-|   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
-| ~ innis
-| | There's something else as well...
-| | My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you access to the metro.
-| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
-| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
-| | | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
-| | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
-| |?
-| | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
-| | | Just \"choose your destination from the route map\"(orange) and board the train.
-| ? (not (unlocked-p (unit 'station-semi-sisters)))
-| | | \"Our station is beneath this central block.\"(orange)
-| ? (complete-p 'q5b-investigate-cctv)
-| | ~ innis
-| | | You've proven your worth to us. I might have to call on your services again.
-| | | But now you should \"return to Fi\"(orange).
-| | | It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
-| | | I suppose androids canna do everything.
-| | | (:angry)And tell her \"we want Catherine back\"(orange) too. We need her now more than ever.
-| | | (:sly)If she disagrees tell her I'll \"shut the water off\"(orange).
-| | ! eval (activate 'q6-return-to-fi)
-| | ! eval (activate (unit 'fi-ffcs-1))
-| | ! eval (activate (unit 'fi-ffcs-2))
-| | < end
-| ~ innis
-| | I'll be seeing you.
-| ! label end
-| ! eval (complete task)
-| ! eval (reset* interaction)
-| ! eval (deactivate 'task-reminder)
-| ! eval (reset* 'task-reminder)
+| | You've proven your worth to us. I might have to call on your services again.
+| | But now you should \"return to Fi\"(orange).
+| | It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
+| | I suppose androids canna do everything.
+| | (:angry)And tell her \"we want Catherine back\"(orange) too. We need her now more than ever.
+| | (:sly)If she disagrees tell her I'll \"shut the water off\"(orange).
+| ! eval (activate 'q6-return-to-fi)
+| ! eval (activate (unit 'fi-ffcs-1))
+| ! eval (activate (unit 'fi-ffcs-2))
+| < end
+~ innis
+| I'll be seeing you.
+! label end
+! eval (complete task)
+! eval (reset* interaction)
+! eval (deactivate 'task-reminder)
+! eval (reset* 'task-reminder)
 ")))
 ;; dinnae = don't (Scots)
 ;; ken = know (Scots)
