@@ -5,7 +5,7 @@
   :author "Tim White"
   :title "Rescue Engineers"
   :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory. I need to find them so Innis will turn our water back on."
-  :on-activate (task-reminder task-engineers task-return-engineers)
+  :on-activate (task-reminder task-wall task-engineers)
  
  (task-reminder
    :title NIL
@@ -24,6 +24,13 @@
 |?
 | | (:expectant)I heard there's news on the engineers - you should \"talk to Innis\"(orange).
 "))
+
+  (task-wall
+   :title NIL
+   :visible NIL
+   :condition (not (active-p (unit 'blocker-engineers)))
+   :on-complete (demo-engineers-return))
+   
 
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
   (task-engineers
@@ -89,7 +96,7 @@
 "))
 
   (task-return-engineers
-   :title "Once you've helped the engineers, return to Innis in the Semi Sisters control room"
+   :title "Return to Innis in the Semi Sisters control room"
    :marker '(innis 500)
    :condition NIL
    :on-activate T
@@ -98,56 +105,52 @@
     :interactable innis
     :repeatable T
     :dialogue "
-? (active-p (unit 'blocker-engineers))
-| ~ innis
-| | (:angry)The engineers aren't back yet - you need to help them. They're in the \"upper-west of our territory\"(orange).
+~ innis
+| (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
+| (:normal)It's tough that we lost people, but sometimes that's the price of progress. I'll have Islay notify their families.
+| More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
+~ player
+- I found a weak point and pushed.
+  ~ innis
+  | That sounds plausible. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
+- I just smashed through.
+  ~ innis
+  | I believe you did. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
+- I pulled a hidden lever and said, \"Open sesame!\"
+  ~ innis
+  | (:angry)...
+  | Funny. (:sly)I suspect it has more to do with your formidable combination of fusion reactor and nanotube muscles.
+- Wouldn't you like to know.
+  ~ innis
+  | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
+  | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
+~ innis
+| There's something else as well...
+| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you \"access to the metro\"(orange).
+| ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
+? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
+| | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
+| | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 |?
+| | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
+| | Just \"choose your destination from the route map\"(orange) and board the train.
+? (not (unlocked-p (unit 'station-semi-sisters)))
+| | \"Our station is beneath this central block.\"(orange)
+? (complete-p 'demo-cctv)
 | ~ innis
-| | (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
-| | (:normal)It's tough that we lost people, but sometimes that's the price of progress. I'll have Islay notify their families.
-| | More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
-| ~ player
-| - I found a weak point and pushed.
-|   ~ innis
-|   | That sounds plausible. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
-| - I just smashed through.
-|   ~ innis
-|   | I believe you did. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
-| - I pulled a hidden lever and said, \"Open sesame!\"
-|   ~ innis
-|   | (:angry)...
-|   | Funny. (:sly)I suspect it has more to do with your formidable combination of fusion reactor and nanotube muscles.
-| - Wouldn't you like to know.
-|   ~ innis
-|   | (:sly)I would indeed. Dinnae worry, things dinnae remain secret 'round here very long.
-|   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
-| ~ innis
-| | There's something else as well...
-| | My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you \"access to the metro\"(orange).
-| | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
-| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
-| | | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
-| | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
-| |?
-| | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
-| | | Just \"choose your destination from the route map\"(orange) and board the train.
-| ? (not (unlocked-p (unit 'station-semi-sisters)))
-| | | \"Our station is beneath this central block.\"(orange)
-| ? (complete-p 'demo-cctv)
-| | ~ innis
-| | | But now you should \"return to the surface\"(orange).
-| | | Dinnae worry, I've \"turned the water back on\"(orange). Your friends can have a nice long drink.
-| | | (:sly)For what good it will do them.
-| | | If the Wraw are coming for us, they'll be \"coming for them too\"(orange).
-| | | (:normal)So long... //Stranger//.
-| | | Maybe I'll see you on the battlefield.
-| | ! eval (activate 'demo-end-prep)
-| | < end
-| ~ innis
-| | I'll be seeing you.
-| ! label end
-| ! eval (complete task)
-| ! eval (reset* interaction)
+| | But now you should \"return to the surface\"(orange).
+| | Dinnae worry, I've \"turned the water back on\"(orange). Your friends can have a nice long drink.
+| | (:sly)For what good it will do them.
+| | If the Wraw are coming for us, they'll be \"coming for them too\"(orange).
+| | (:normal)So long... //Stranger//.
+| | Maybe I'll see you on the battlefield.
+| ! eval (activate 'demo-end-prep)
+| < end
+~ innis
+| I'll be seeing you.
+! label end
+! eval (complete task)
+! eval (reset* interaction)
 ")))
 ;; dinnae = don't (Scots)
 ;; ken = know (Scots)
