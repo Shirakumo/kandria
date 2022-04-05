@@ -193,15 +193,14 @@
          (tloc (ensure-location target))
          (bounds (in-view-tester (camera +world+))))
     (cond ((in-bounds-p tloc bounds)
-           (alloy:with-unit-parent prompt
-             (let* ((yoff (typecase target
-                            (layer 0.0)
-                            (sized-entity (vy (bsize target)))
-                            (T 0.0)))
-                    (screen-location (world-screen-pos (tvec (vx tloc) (+ (vy tloc) yoff)))))
-               (setf (angle prompt) (* 1.5 PI))
-               (setf (alloy:bounds prompt) (alloy:px-extent (vx screen-location) (alloy:u+ (alloy:un 60) (vy screen-location))
-                                                            1 1)))))
+           (let* ((yoff (typecase target
+                          (layer 0.0)
+                          (sized-entity (vy (bsize target)))
+                          (T 0.0)))
+                  (screen-location (world-screen-pos (tvec (vx tloc) (+ (vy tloc) yoff)))))
+             (setf (angle prompt) (* 1.5 PI))
+             (setf (alloy:bounds prompt) (alloy:px-extent (vx screen-location) (alloy:u+ (alloy:un 60) (vy screen-location))
+                                                          1 1))))
           (T
            (labels ((div (x)
                       (if (= 0.0 x) 100000.0 (/ x)))
@@ -224,9 +223,9 @@
                     (screen-location (world-screen-pos position)))
                (setf (alloy:bounds prompt) (alloy:px-extent (vx screen-location) (vy screen-location) 1 1))
                (setf (angle prompt) (point-angle direction))))))
-    (alloy:mark-for-render prompt)
-    (when (<= (decf (clock prompt) dt) 0f0)
-      (hide prompt))))
+    (if (<= (decf (clock prompt) dt) 0f0)
+        (hide prompt)
+        (alloy:mark-for-render prompt))))
 
 (presentations:define-realization (ui quest-indicator)
   ((:indicator simple:polygon)
