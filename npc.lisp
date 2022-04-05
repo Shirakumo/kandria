@@ -522,21 +522,21 @@
 
 (define-shader-entity semi-engineer (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
-   (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
+   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
    (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-engineer)))
 
 (define-shader-entity villager-hunter (roaming-npc creatable)
   ((name :initform (generate-name "HUNTER"))
-   (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-hunter)))
 
 (define-shader-entity villager (paletted-entity roaming-npc creatable)
   ((name :initform (generate-name "VILLAGER"))
-   (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ villager-nametag))))
 
 (defmethod initialize-instance :before ((villager villager) &key)
