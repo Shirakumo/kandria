@@ -167,7 +167,7 @@
             (ensure-directories-exist base-file)
             (generate-profile base-file :output-json animation-data :output-atlas albedo)))
         (when (probe-file albedo)
-          (optipng albedo "-nb" "-nc" "-np"))))))
+          (optipng albedo))))))
 
 (defmethod generate-resources ((sprite sprite-data) (path pathname) &key)
   (destructuring-bind (&key palette palettes animations frames

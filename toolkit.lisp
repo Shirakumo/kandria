@@ -600,8 +600,8 @@
                     :error-output *error-output*))
 
 (defun optipng (&rest args)
-  (uiop:run-program (list* #-windows "optipng" #+windows "optipng.exe"
-                           "-quiet"
+  (uiop:run-program (list* #-windows "pngcrush" #+windows "pngcrush.exe"
+                           "-brute" "-reduce" "-speed" "-ow"
                            (loop for arg in args
                                  collect (typecase arg
                                            (pathname (uiop:native-namestring arg))
