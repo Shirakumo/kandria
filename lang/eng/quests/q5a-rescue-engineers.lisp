@@ -109,7 +109,7 @@
 - I found a weak point and pushed.
   ~ innis
   | That sounds plausible. (:sly)Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
-- I smashed through with my sword.
+- I cut through with my sword.
   ~ innis
   | I believe you did. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
   | (:sly)Not to mention the inherent strength of your Artemis blade.
