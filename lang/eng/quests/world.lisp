@@ -572,7 +572,7 @@
 ;; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
 (define-default-interactions innis
   (demo-end-prep
-   "| [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the right side.]")
+   "| [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the winning side.]")
   (demo-intro
    "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (demo-semis
