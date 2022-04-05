@@ -11,6 +11,7 @@
   (task-reminder
    :title NIL
    :visible NIL
+   :condition (complete-p 'task-return-cctv)
    :on-activate T
    (:interaction reminder
     :title "(CCTV reminder)"
@@ -19,7 +20,10 @@
     :dialogue "
 ~ islay
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-3 'task-cctv-4)
-| | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low eastern region\"(orange).
+| ? (complete-p 'demo-boss)
+| | | Saboteurs, huh? You'd better \"deliver your report to Innis\"(orange).
+| |?
+| | | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low eastern region\"(orange).
 |?
 | ? (complete-p 'demo-boss)
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
@@ -47,7 +51,6 @@
 ? (complete-p 'task-cctv-2 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
-| | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
@@ -74,7 +77,6 @@
 ? (complete-p 'task-cctv-1 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
-| | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
@@ -101,7 +103,6 @@
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-4)
 | ? (complete-p 'demo-boss)
 | | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
-| | ! eval (deactivate 'task-reminder)
 | | ! eval (activate 'task-return-cctv)
 | |?
 | | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)

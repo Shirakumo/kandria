@@ -25,8 +25,7 @@
   ")
    (:eval
     (when (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3))
-     (activate (find-task 'demo-cctv 'task-return-cctv))
-     (deactivate (find-task 'demo-cctv 'task-reminder))))
+     (activate (find-task 'demo-cctv 'task-return-cctv))))
    (:wait 1)
    (:interact (player :now T)
   "
