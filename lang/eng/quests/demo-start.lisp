@@ -32,7 +32,7 @@
   (:wait 1)
   (:animate (player wake-up)
     (save-state +main+ T))
-  (:interact (player :now T)
+  (:interact (NIL :now T)
   "
 ~ player
 | (:embarassed)... __OUCH__. Not another rockslide...

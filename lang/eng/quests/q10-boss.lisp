@@ -14,7 +14,7 @@
 | Do your worst.
   ")
   (:wait 1)
-  (:interact (player :now T)
+  (:interact (NIL :now T)
   "
 ~ player
 ? (complete-p (find-task 'q10-wraw 'wraw-warehouse))

@@ -28,7 +28,7 @@
      (activate (find-task 'q5b-investigate-cctv 'q5b-task-return-cctv))
      (deactivate (find-task 'q5b-investigate-cctv 'q5b-task-reminder))))
    (:wait 1)
-   (:interact (player :now T)
+   (:interact (NIL :now T)
   "
 ~ player
 ? (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))

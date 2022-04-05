@@ -6,7 +6,7 @@
   :title "Engineers Return"
   :visible NIL
   (:wait 1.5)
-  (:interact (player :now T)
+  (:interact (NIL :now T)
   "
 ~ player
 | \"That's the \"tunnel cleared\"(orange). Now the Semis should be able to reach their engineers.\"(light-gray, italic)
