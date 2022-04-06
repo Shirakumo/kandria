@@ -143,7 +143,7 @@
    :halign :middle
    :wrap T))
 
-(defclass big-prompt-layout (org.shirakumo.alloy.layouts.constraint:layout alloy:renderable)
+(defclass big-prompt-layout (eating-constraint-layout alloy:renderable)
   ())
 
 (presentations:define-realization (ui big-prompt-layout)

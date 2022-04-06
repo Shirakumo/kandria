@@ -88,6 +88,7 @@
                              (:file "end-screen")
                              (:file "wardrobe")
                              (:file "upgrade")
+                             (:file "stats")
                              (:file "fast-travel")))
                (:module "editor"
                 :components ((:file "history")
