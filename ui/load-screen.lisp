@@ -85,6 +85,7 @@
           (show-panel 'load-panel :loader loader))
         (stage (unit 'ui-pass +world+) area)
         (call-next-method)
+        (clear-retained)
         (transition
           :kind :black
           (hide-panel 'load-panel))
