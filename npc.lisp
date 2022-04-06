@@ -376,7 +376,7 @@
                      (T
                       (setf (ai-state npc) :sit)
                       (setf (animation npc) 'sit)))))
-        (ecase (ai-state npc)
+        (case (ai-state npc)
           (:normal
            (setf (vx vel) 0.0)
            (when (<= time 0.0)
@@ -415,7 +415,9 @@
            (when (svref (collisions npc) (if (< 0 (direction npc)) 1 3))
              (setf (vx vel) 0))
            (cond ((<= time 0.0)
-                  (normalize)))))))))
+                  (normalize))))
+          (T
+           (call-next-method)))))))
 
 (define-unit-resolver-methods (setf lead-interrupt) (thing unit))
 (define-unit-resolver-methods (setf walk) (thing unit))
