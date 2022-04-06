@@ -115,6 +115,7 @@
 | | Just \"choose your destination from the route map\"(orange) and board the train.
 ? (not (unlocked-p (unit 'station-semi-sisters)))
 | | \"Our station is beneath this central block.\"(orange)
+| ! eval (activate 'semi-station-marker)
 < questions
 ")
   (:eval
