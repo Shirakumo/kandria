@@ -54,10 +54,12 @@
 (defmethod base-health ((npc npc))
   1000)
 
+(defmethod hurt ((npc npc) amount) NIL)
 (defmethod hurt ((npc npc) (player player)))
 (defmethod is-collider-for ((npc npc) (enemy enemy)) NIL)
 (defmethod is-collider-for ((enemy enemy) (npc npc)) NIL)
 (defmethod is-collider-for ((npc npc) (elevator elevator)) NIL)
+(defmethod collides-p ((npc npc) (enemy enemy) hit) NIL)
 (defmethod die ((npc npc))
   (error "WTF, NPC died for some reason. That shouldn't happen!"))
 (defmethod oob ((npc npc) (none null))
@@ -324,7 +326,14 @@
 (define-shader-entity roaming-npc (npc)
   ((roam-time :initform (random* 5.0 2.0) :accessor roam-time)))
 
-(defmethod collides-p ((npc roaming-npc) (block stopper) hit) T)
+(defmethod move-to :after ((target vec2) (npc npc))
+  (setf (target npc) target)
+  (setf (walk npc) NIL)
+  (setf (state npc) :normal)
+  (setf (ai-state npc) :move-to))
+
+(defmethod collides-p ((npc roaming-npc) (block stopper) hit)
+  (not (eql :move-to (ai-state npc))))
 
 (defmethod minimum-idle-time ((npc roaming-npc)) 5)
 
