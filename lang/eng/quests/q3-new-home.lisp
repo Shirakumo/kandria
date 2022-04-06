@@ -42,7 +42,7 @@
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
-| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) for the remaining sites.\"(light-gray, italic)
+| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold) for the remaining sites.\"(light-gray, italic)
 | ! eval (setf (var 'first-home) T)
 "))
 ;; SCRATCH | Structural integrity can be described as \"may collapse at any moment\". ;; restore italics to "Structural integrity..." once back slashes don't impede
@@ -65,7 +65,7 @@
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
-| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) for the remaining sites.\"(light-gray, italic)
+| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold) for the remaining sites.\"(light-gray, italic)
 | ! eval (setf (var 'first-home) T)
 "))
 
@@ -87,7 +87,7 @@
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
-| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) for the remaining sites.\"(light-gray, italic)
+| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold) for the remaining sites.\"(light-gray, italic)
 | ! eval (setf (var 'first-home) T)
 "))
 
@@ -113,7 +113,7 @@
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
-| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) for the remaining sites.\"(light-gray, italic)
+| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold) for the remaining sites.\"(light-gray, italic)
 | ! eval (setf (var 'first-home) T)
 "))
 
