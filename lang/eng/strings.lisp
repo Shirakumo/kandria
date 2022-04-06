@@ -713,4 +713,4 @@ Pinging genera ...                                                 OK
 [ERR ] NFCS unavailable, failed to mark route
 [INFO] Initiating core loop"
 end-screen-title "You've reached the end of the demo!"
-end-screen-thanks "Thanks a lot for playing! The full game will feature many more quests, new areas, enemies, and secrets to discover. Don't forget to wishlist the game on Steam, and back us on Kickstarter!"
+end-screen-thanks "Thanks a lot for playing! The full game will feature many more quests, as well as new areas, characters, enemies, and secrets to discover. Don't forget to wishlist the game on Steam, and back us on Kickstarter!"
