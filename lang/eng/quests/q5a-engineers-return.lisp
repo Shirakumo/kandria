@@ -9,7 +9,7 @@
   (:interact (NIL :now T)
   "
 ~ player
-| \"That's the \"tunnel cleared\"(orange). Now the Semis should be able to reach their engineers.\"(light-gray, italic)
+| \"That's the \"tunnel cleared\"(orange). Now the Semis can reach their engineers.\"(light-gray, italic)
 | \"I should \"report back to Innis in the Semis control room\"(orange).\"(light-gray, italic)
 ! eval (move-to 'engineer-home-1 'semi-engineer-1)
 ! eval (move-to 'engineer-home-2 'semi-engineer-2)
