@@ -205,6 +205,11 @@
   (make-instance 'alloy:fullscreen-layout :layout-parent (alloy:layout-tree pass))
   (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree pass)))
 
+(defmethod alloy:clear :after ((pass ui-pass))
+  (setf (panels pass) ())
+  (make-instance 'alloy:fullscreen-layout :layout-parent (alloy:layout-tree pass))
+  (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree pass)))
+
 (defmethod render :before ((pass ui-pass) target)
   (gl:enable :depth-test)
   (gl:clear-color 0 0 0 0))
