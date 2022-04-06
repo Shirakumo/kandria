@@ -138,6 +138,8 @@
 ? (not (unlocked-p (unit 'station-semi-sisters)))
 | | \"Our station is beneath this central block.\"(orange)
 | ! eval (activate 'semi-station-marker)
+|?
+| ! eval (complete 'semi-station-marker)
 ? (complete-p 'demo-cctv)
 | ~ innis
 | | But now you should \"return to the surface\"(orange).

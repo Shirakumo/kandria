@@ -116,6 +116,8 @@
 ? (not (unlocked-p (unit 'station-semi-sisters)))
 | | \"Our station is beneath this central block.\"(orange)
 | ! eval (activate 'semi-station-marker)
+|?
+| ! eval (complete 'semi-station-marker)
 < questions
 ")
   (:eval

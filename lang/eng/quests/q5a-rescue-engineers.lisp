@@ -134,6 +134,8 @@
 ? (not (unlocked-p (unit 'station-semi-sisters)))
 | | \"Our station is beneath this central block.\"(orange)
 | ! eval (activate 'semi-station-marker)
+|?
+| ! eval (complete 'semi-station-marker)
 ? (complete-p 'q5b-investigate-cctv)
 | ~ innis
 | | You've proven your worth to us. I might have to call on your services again.
