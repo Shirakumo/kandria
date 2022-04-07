@@ -417,7 +417,7 @@
 ;;;; Used palettes marked with a x
 ;; x Model-1
 ;; x Model-2
-;;   Model-3
+;; x Model-3
 ;;   Model-4
 ;; x Model-5
 ;; x YoRHa
