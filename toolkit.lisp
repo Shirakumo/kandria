@@ -12,7 +12,6 @@
                          :device NIL
                          :volume (:master 0.5
                                   :effect 1.0
-                                  :speech 1.0
                                   :music 1.0))
                  :display (:resolution (1280 720)
                            :fullscreen NIL
