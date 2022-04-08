@@ -17,14 +17,13 @@
 | (:pleased)Then might I suggest you defend ya wee self.
 | (:sly)If you survive ya can \"bring me your report in person\"(orange).
 | (:angry)Now don't interrupt me again.
+! eval (override-music 'battle)
   ")
   (:complete (q5b-boss-fight)
-   :title "Defeat the saboteurs"
-   "~ player
-| (:embarassed)Good doggy.
-  ")
-   (:eval
-    (when (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))
+   :title "Defeat the saboteurs")
+  (:eval
+   (override-music NIL)
+   (when (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))
      (activate (find-task 'q5b-investigate-cctv 'q5b-task-return-cctv))
      (deactivate (find-task 'q5b-investigate-cctv 'q5b-task-reminder))))
    (:wait 1)

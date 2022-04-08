@@ -158,7 +158,9 @@
                (when (symbolp thing) (setf thing (unit thing +world+)))
                (when (slot-boundp thing 'container) (leave* thing T)))
              (clear-pending-interactions ()
-              (setf (interactions (find-panel 'dialog)) ()))
+               (setf (interactions (find-panel 'dialog)) ()))
+             (override-music (track)
+               (setf (override (unit 'environment +world+)) (when track (// 'music track))))
              (find-task (quest task)
                (uiop:nest
                 (quest:find-task task)

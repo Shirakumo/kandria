@@ -17,14 +17,13 @@
 | (:pleased)Then might I suggest you defend ya wee self.
 | (:sly)If you survive ya can \"bring me your report in person\"(orange).
 | (:angry)Now don't interrupt me again.
+! eval (override-music 'battle)
   ")
   (:complete (q5b-boss-fight)
-   :title "Defeat the saboteurs"
-   "~ player
-| (:embarassed)Good doggy.
-  ")
-   (:eval
-    (when (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3))
+   :title "Defeat the saboteurs")
+  (:eval
+   (override-music NIL)
+   (when (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3))
      (activate (find-task 'demo-cctv 'task-return-cctv))))
    (:wait 1)
    (:interact (NIL :now T)
@@ -35,3 +34,4 @@
 |?
 | | I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.
 "))
+

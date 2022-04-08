@@ -117,7 +117,9 @@
   (stage (// 'kandria 'effects 'texture) area)
   (stage (// 'kandria 'effects 'vertex-array) area)
   (stage (// 'kandria 'items) area)
-  (stage (// 'kandria 'particles) area))
+  (stage (// 'kandria 'particles) area)
+  ;; KLUDGE: This suuuuckkkss
+  (stage (// 'music 'battle) area))
 
 (defmethod compile-to-pass :after ((world world) (pass render-pass))
   (register-object-for-pass pass (c2mop:ensure-finalized (find-class 'sprite-effect))))

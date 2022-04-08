@@ -14,16 +14,19 @@
          :texture (// 'kandria ',texture)
          ,@args))))
 
-(defmacro define-track (name file)
+(defmacro define-track (name file &rest args)
   `(define-asset (music ,name) trial-harmony:sound
        ,file
      :repeat T
      :mixer :music
-     :voice-class 'harmony:music-segment))
+     :voice-class 'harmony:music-segment
+     ,@args))
 
 (define-track menu #p"menu.oga")
 (define-track scare #p"scare.oga")
 (define-track bar #p"bar.oga")
+(define-track battle #p"battle.oga"
+  :repeat-start 4.8)
 
 (define-asset (music music/region1) trial-harmony:environment
     '((:normal "region1 medium.oga")
