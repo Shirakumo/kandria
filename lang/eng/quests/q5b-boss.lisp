@@ -32,6 +32,8 @@
 ~ player
 ? (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))
 | | I'd better \"get back to Innis\"(orange), on the double.
+| | (:thinking)Then again I could make the most of being out this way, and \"map more of the area\"(orange).
 |?
-| | I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.
+| | I'd better \"check out the last of the CCTV cameras around here\"(orange), and \"get back to Innis\"(orange) on the double.
+| | (:thinking)I could also make the most of being out this way, and \"map more of the area\"(orange).
 "))
