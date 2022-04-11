@@ -574,11 +574,11 @@
   (demo-end-prep
    "| [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the winning side.]")
   (demo-intro
-   "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
+   "| [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (demo-semis
    "| (:angry)[? \"Talk to my sister up in the control room.\"(orange) | Are your audio receivers offline? I said \"talk to Islay - she's up in the control room\"(orange).]")
   (demo-start
-   "| (:sly)[? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
+   "| [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (T
   "| What do you want?"))
 ;; dinnae = don't (Scottish)
@@ -590,11 +590,11 @@
 ;; No longer used in the demo, since Islay has immediate dialogue after innis initial convo, and then trader options all the time
 (define-default-interactions islay
   (demo-end-prep
-   "| (:happy)[? I knew you'd come through for us. | If only people were as reliable as androids. | I'd love to hear your story - where you've been all these years. | Tell your friends we're sorry about the water. | I'll make sure Innis doesn't turn the water off again.]")
+   "| [? I knew you'd come through for us. | If only people were as reliable as androids. | I'd love to hear your story - where you've been all these years. | Tell your friends we're sorry about the water. | I'll make sure Innis doesn't turn the water off again.]")
   (demo-start
    "| [? Mind how you go, {(nametag player)}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]")
   (T
-  "| (:nervous)I'm sorry, I'm busy."))
+  "| I'm sorry, I'm busy."))
 
 ;; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
 (define-default-interactions jack
