@@ -25,7 +25,7 @@
     (macrolet ((with-button (name &body body)
                  `(make-instance 'pause-button :focus-parent focus :layout-parent buttons
                                                :value (@ ,name) :on-activate (lambda () ,@body))))
-      (unless (deploy:deployed-p)
+      (when (setting :gameplay :allow-resuming-death)
         (with-button resume-game
           (setf (health (unit 'player T))
                 (maximum-health (unit 'player T)))
