@@ -89,8 +89,12 @@
       (snap-to-target (camera +world+) (unit 'player T)))))
 
 (define-cheat self-destruct
-  (trigger 'explosion (unit 'player T))
-  (setf (health (unit 'player T)) 1))
+  (cond ((<= (health (unit 'player T)) 1)
+         (setf (health (unit 'player T)) 0)
+         (kill (unit 'player T)))
+        (T
+         (trigger 'explosion (unit 'player T))
+         (setf (health (unit 'player T)) 1))))
 
 #-kandria-demo
 (flet ((noclip ()
