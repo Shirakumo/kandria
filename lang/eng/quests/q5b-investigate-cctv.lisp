@@ -158,8 +158,8 @@
     :interactable innis
     :dialogue "
 ~ innis
-| (:pleased)I'm glad you survived.
-| (:sly)So what are we dealing with?
+| (:pleased)I'm glad you made it back.
+| (:normal)So what are we dealing with?
 ~ player
 - It was a band of rogues.
   ~ innis
