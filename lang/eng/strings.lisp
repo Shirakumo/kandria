@@ -593,6 +593,7 @@ station-pick-destination "Select your destination"
 new-station-unlocked "~a station has been activated."
 ;; Cheat codes
 cheat/hello "HELLO and welcome back to video games"
+cheat/cheat-console "Cheat menu active"
 cheat/tpose "T-pose"
 cheat/god "God mode"
 cheat/armageddon "Armageddon"

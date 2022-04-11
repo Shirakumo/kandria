@@ -29,6 +29,7 @@
         do (let ((new (if (string= key code :start2 i :end2 (+ i (length key))) (1+ i) 0)))
              (cond ((<= (length code) new)
                     (setf (cheat-idx cheat) 0)
+                    (hide-panel 'cheat-panel)
                     (v:info :kandria.cheats "Activating cheat code ~s" (cheat-name cheat))
                     (let ((name (language-string (symb T 'cheat/ (cheat-name cheat)))))
                       (if (funcall (cheat-effect cheat))
@@ -38,6 +39,10 @@
                     (setf (cheat-idx cheat) new))))))
 
 (define-cheat hello
+  T)
+
+(define-cheat (cheat-console cheater)
+  (show-panel 'cheat-panel)
   T)
 
 (define-cheat tpose

@@ -89,7 +89,8 @@
                              (:file "wardrobe")
                              (:file "upgrade")
                              (:file "stats")
-                             (:file "fast-travel")))
+                             (:file "fast-travel")
+                             (:file "cheats")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
