@@ -212,7 +212,7 @@
    :font (setting :display :font)))
 
 (defclass quest-widget (alloy:vertical-linear-layout alloy:focus-element alloy:observable alloy:renderable)
-  ((alloy:cell-margins :initform (alloy:margins 5))
+  ((alloy:cell-margins :initform (alloy:margins 10 5 5 5))
    (quest :initarg :quest :accessor quest)
    (offset :initform (alloy:point 0 0) :accessor offset)))
 
@@ -247,18 +247,30 @@
   ((:bg simple:rectangle)
    (alloy:margins))
   ((:bord simple:rectangle)
-   (alloy:extent 0 0 (alloy:pw 1) -2)
+   (alloy:extent 2 0 -5 (alloy:ph 1))
    :pattern (ecase (quest:status (quest alloy:renderable))
-              (:active colors:white)
+              (:active colors:accent)
               (:complete colors:dim-gray)
-              (:failed colors:dark-red))))
+              (:failed colors:dark-red)))
+  ((check simple:text)
+   (alloy:margins 10)
+   (ecase (quest:status (quest alloy:renderable))
+     (:active (@ quest-active-tag))
+     (:complete (@ quest-complete-tag))
+     (:failed (@ quest-failed-tag)))
+   :pattern (colored:color 1 1 1 0.15)
+   :size (alloy:un 30)
+   :font "PromptFont"
+   :halign :end
+   :valign :bottom))
 
 (presentations:define-update (ui quest-widget)
   (:bg
    :pattern (ecase (quest:status (quest alloy:renderable))
               (:active (colored:color 0.15 0.15 0.15))
               (:complete (colored:color 0.15 0.15 0.15 0.5))
-              (:failed (colored:color 0.5 0.1 0.1 0.5)))))
+              (:failed (colored:color 0.5 0.1 0.1 0.5))))
+  (check))
 
 (defclass status-text (label)
   ())
