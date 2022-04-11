@@ -4,7 +4,9 @@
   ((name :accessor name)))
 
 (defmethod description ((marker place-marker))
-  (language-string 'examine))
+  (if (eql :complete (quest:status (first (interactions marker))))
+      (language-string 'examine-again)
+      (language-string 'examine)))
 
 (defmethod compile-to-pass (pass (marker place-marker)))
 (defmethod register-object-for-pass (pass (marker place-marker)))
