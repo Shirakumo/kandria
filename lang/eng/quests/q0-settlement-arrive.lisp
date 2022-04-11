@@ -3,7 +3,7 @@
 
 (define-sequence-quest (kandria q0-settlement-arrive)
   :author "Tim White"
-  :title "Tour Guide"
+  :title "Follow Catherine"
   :description "Catherine wants to show me something."
   (:eval (complete 'tutorial)
          (stop-following 'catherine)

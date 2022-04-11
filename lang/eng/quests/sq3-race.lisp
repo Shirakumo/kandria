@@ -5,7 +5,7 @@
 
 (quest:define-quest (kandria sq3-race)
   :author "Tim White"
-  :title "Timed Travel"
+  :title "Time Trials"
   :description "Catherine and her friends want to see what I'm capable of. They've planted cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get."
   :on-activate (race-hub)
   (race-hub

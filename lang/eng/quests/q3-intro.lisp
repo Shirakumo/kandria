@@ -3,7 +3,7 @@
 
 (quest:define-quest (kandria q3-intro)
   :author "Tim White"
-  :title "Query Jack"
+  :title "Talk to Jack"
   :description "It's been intimated that I could help Jack with something."
   :on-activate T
   

@@ -3,7 +3,7 @@
 
 (quest:define-quest (kandria q2-intro)
   :author "Tim White"
-  :title "Query Fi"
+  :title "Talk to Fi"
   :description "Catherine said Fi may have work for me."
   :on-activate (talk-to-fi)
 
