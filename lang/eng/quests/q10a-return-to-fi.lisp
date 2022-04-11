@@ -42,8 +42,6 @@
 ! setf (direction 'fi) 1
 ! setf (direction 'jack) 1
 ! setf (direction 'catherine) 1
-! eval (setf (location 'islay) 'islay-main-loc)
-! setf (direction 'islay) -1
 ! eval (deactivate (unit 'wraw-border-1))
 ! eval (deactivate (unit 'wraw-border-2))
 "))
