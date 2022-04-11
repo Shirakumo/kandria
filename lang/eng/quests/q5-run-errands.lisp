@@ -18,10 +18,10 @@
 ~ player
 - Drunk as a skunk.
 - They won't cooperate.
-- See for yourself.
+- Angry.
 ~ islay
-| (:nervous)I feared as much.
-| (:normal)What if I talk to them?
+| Alcohol can do that.
+| What if I talk to them?
 ~ player
 - I'd appreciate that.
   ~ islay
