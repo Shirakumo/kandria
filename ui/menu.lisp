@@ -320,6 +320,27 @@
                               (/ (vy (offset alloy:value)) (height (texture alloy:value))))
               (alloy:point 0 0))))
 
+(defclass lore-panel (menuing-panel)
+  ())
+
+(defmethod initialize-instance :after ((panel lore-panel) &key item)
+  (let* ((layout (make-instance 'eating-constraint-layout
+                                :shapes (list (make-basic-background))))
+         (focus (make-instance 'alloy:focus-list))
+         (clipper (make-instance 'alloy:clip-view :limit :x :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
+         (scroll (alloy:represent-with 'alloy:y-scrollbar clipper :focus-parent focus))
+         (text (make-instance 'label :value (item-lore item) :style `((:label :bounds ,(alloy:margins 10))))))
+    (alloy:enter text clipper)
+    (alloy:enter clipper layout :constraints `((:width 800) (:required (<= 20 :l) (<= 20 :r)) (:center :w) (:bottom 100) (:top 100)))
+    (alloy:enter scroll layout :constraints `((:width 20) (:right-of ,clipper 0) (:bottom 100) (:top 100)))
+    (alloy:enter (make-instance 'label :value (title item)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 500 50)))
+    (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
+      (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
+      (alloy:enter back focus)
+      (alloy:on alloy:exit (focus)
+        (setf (alloy:focus back) :strong)))
+    (alloy:finish-structure panel layout focus)))
+(progn #! (show-panel 'lore-panel :item (make-instance 'item:manual)))
 (defclass unlock-button (item-icon)
   ((inventory :initarg :inventory :accessor inventory)))
 
@@ -345,8 +366,7 @@
 (defmethod alloy:activate ((button unlock-button))
   (if (item-unlocked-p (alloy:value button) (inventory button))
       (when (item-lore (alloy:value button))
-        (show (make-instance 'info-panel :text (item-lore (alloy:value button)))
-              :width (alloy:vw 0.5) :height (alloy:vh 0.5)))
+        (show (make-instance 'lore-panel :item (alloy:value button))))
       (harmony:play (// 'sound 'ui-error) :reset T)))
 
 (defmethod (setf alloy:focus) :before (focus (button unlock-button))

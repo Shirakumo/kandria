@@ -21,7 +21,8 @@
   (incf (gethash item (storage inventory) 0) count))
 
 (defmethod item-unlocked-p ((item symbol) (inventory inventory))
-  (gethash item (unlock-table inventory)))
+  (or (< 0 (gethash item (storage inventory) 0))
+      (gethash item (unlock-table inventory))))
 
 (defmethod retrieve ((item symbol) (inventory inventory) &optional (count 1))
   (let* ((have (gethash item (storage inventory) 0))
