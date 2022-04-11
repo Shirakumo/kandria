@@ -90,7 +90,7 @@
               (dash-dcc-end    0.35)
               (dash-min-time   0.30)
               (dash-max-time   0.675)
-              (dash-evade-grace-time 0.25)
+              (dash-evade-grace-time 0.35)
               (hyperdash-bonus (vec 0.5 0.2))
               (slide-acc       0.02)
               (slide-dcc       0.1)
