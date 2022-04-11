@@ -60,8 +60,6 @@
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
-| ! eval (setf (location 'islay) (location 'islay-main-loc))
-| ! eval (setf (direction 'islay) 1)
 "))
 
   (task-cctv-2
@@ -87,8 +85,6 @@
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
-| ! eval (setf (location 'islay) (location 'islay-main-loc))
-| ! eval (setf (direction 'islay) 1)
 "))
 
   (task-cctv-3
@@ -114,8 +110,6 @@
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
-| ! eval (setf (location 'islay) (location 'islay-main-loc))
-| ! eval (setf (direction 'islay) 1)
 "))
 
   (task-cctv-4
@@ -184,8 +178,6 @@
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
-| ! eval (setf (location 'islay) (location 'islay-main-loc))
-| ! eval (setf (direction 'islay) 1)
 |? (complete-p 'demo-boss)
 | | \"I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.\"(light-gray, italic)
 "))
