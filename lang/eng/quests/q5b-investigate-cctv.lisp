@@ -48,7 +48,8 @@
 | \"The lens is smashed, and judging from the charring on the case there's been a fire.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | \"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | \"That was the last of the down cameras. I'd better get \"back to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
@@ -71,7 +72,8 @@
 | \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit board.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | \"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | \"That was the last of the down cameras. I'd better get \"back to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
@@ -94,7 +96,8 @@
 | \"It's mostly in pieces on the floor, surrounded by rocks and stones.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | \"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | \"That was the last of the down cameras. I'd better get \"back to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
@@ -134,14 +137,43 @@
 | The power line to one of the cameras has been cut by hand.
 ~ innis
 | (:angry)... Then we have a \"saboteur\"(orange). (:sly)Maybe a sly Cerebat spy, watching you right now.
-| (:angry)\"Find them and bring them to me.\"(orange)
-! eval (activate 'q5b-boss)
+? (complete-p (unit 'q5b-boss-fight))
+| ~ player
+| - I think I killed them already.
+|   ~ innis
+|   | Go on.
+| - They were \"saboteurs\". Plural.
+|   ~ innis
+|   | What do you mean?
+| - Way ahead of you.
+|   ~ innis
+|   | Explain.
+| ~ player
+| | I came this way before and was attacked by a gang. I dispatched them.
+| ~ innis
+| | (:sly)Is that so?
+| | (:angry)Well in that case I'll await your report in the flesh-
+| | ... You know what I mean.
+| ! eval (complete 'q5b-boss)
+| ! eval (activate 'q5b-task-return-cctv)
+| ! eval (deactivate 'q5b-task-reminder)
+|?
+| ~ innis
+| | (:angry)\"Find them and bring them to me.\"(orange)
+| ! eval (activate 'q5b-boss)
+  
 ~ player
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
-| | \"That was also the last of the down cameras. I should \"find the nearby saboteur and then return to Innis\"(orange).\"(light-gray, italic)
+| ? (not (complete-p 'demo-boss))
+| | | \"That was also the last of the down cameras. I'd better \"find the nearby saboteur and then return to Innis\"(orange).\"(light-gray, italic)
+| |?
+| | | \"That was also the last of the down cameras. I'd better get \"back to Innis\"(orange), on the double.\"(light-gray, italic)
+| | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
 | | \"I also need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
+|? (complete-p 'demo-boss)
+| | \"I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.\"(light-gray, italic)
 "))
 ;; wouldnae = wouldn't (Scottish)
 ;; didnae = didn't (Scottish)
