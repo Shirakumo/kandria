@@ -39,7 +39,7 @@
 | (:thinking)\"There are \"voices up ahead\"(orange). I hope that's the \"Semi Sisters\"(red).\"(light-gray, italic)
 | \"My friends back on the surface \"won't last much longer without water\"(orange).\"(light-gray, italic)
 | (:skeptical)\"Hopefully the rumours about them being tech witches are false...\"(light-gray, italic)
-| (:normal)\"My \"Map\"(orange) should help me \"hone in on their position\"(orange).\"(light-gray, italic)
+| (:normal)\"My \"Map\"(orange) should help me \"zero in on their position\"(orange).\"(light-gray, italic)
 ! eval (activate (unit 'innis-stop-demo))
 ")
   (:eval
