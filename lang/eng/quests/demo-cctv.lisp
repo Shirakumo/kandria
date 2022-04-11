@@ -175,7 +175,7 @@
 ~ player
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-3)
 | ? (not (complete-p 'demo-boss))
-| | | \"That was also the last of the down cameras. I should \"find the nearby saboteur and then return to Innis\"(orange).\"(light-gray, italic)
+| | | \"That was also the last of the down cameras. I'd better \"find the nearby saboteur and then return to Innis\"(orange).\"(light-gray, italic)
 | |?
 | | | \"That was also the last of the down cameras. I'd better get \"back to Innis\"(orange), on the double.\"(light-gray, italic)
 | | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
