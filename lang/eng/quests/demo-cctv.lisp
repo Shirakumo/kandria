@@ -50,12 +50,13 @@
 | \"The lens is smashed, and judging from the charring on the case there's been a fire.\"(light-gray, italic)
 ? (complete-p 'task-cctv-2 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
-| | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | \"That was the last of the down cameras. I'd better get \"back to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | \"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
+| | \"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
@@ -76,12 +77,13 @@
 | \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit board.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-3 'task-cctv-4)
 | ? (complete-p 'demo-boss)
-| | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | \"That was the last of the down cameras. I'd better get \"back to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | \"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
+| | \"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
@@ -102,12 +104,13 @@
 | \"It's mostly in pieces on the floor, surrounded by rocks and stones.\"(light-gray, italic)
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-4)
 | ? (complete-p 'demo-boss)
-| | | (:normal)\"That was the last of the down cameras. I should \"return to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | \"That was the last of the down cameras. I'd better get \"back to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
+| | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 | | ! eval (activate 'task-return-cctv)
 | |?
-| | | (:normal)\"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
+| | | \"That was the last down camera. But I still need to \"find the nearby saboteur\"(orange) before I \"return to Innis\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
+| | \"I need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
@@ -145,18 +148,46 @@
 | The power line to one of the cameras has been cut by hand.
 ~ innis
 | (:angry)... Then we have a \"saboteur\"(orange). (:sly)Maybe a sly Cerebat spy, watching you right now.
-| (:angry)\"Find them and bring them to me.\"(orange)
-! eval (activate 'demo-boss)
+? (complete-p (unit 'q5b-boss-fight))
+| ~ player
+| - I think I killed them already.
+|   ~ innis
+|   | Go on.
+| - They were \"saboteurs\". Plural.
+|   ~ innis
+|   | What do you mean?
+| - Way ahead of you.
+|   ~ innis
+|   | Explain.
+| ~ player
+| | I came this way before and was attacked by a gang. I dispatched them.
+| ~ innis
+| | (:sly)Is that so?
+| | (:angry)Well in that case I'll await your report in the flesh-
+| | ... You know what I mean.
+| ! eval (complete 'demo-boss)
+| ! eval (activate 'task-return-cctv)
+|?
+| ~ innis
+| | (:angry)\"Find them and bring them to me.\"(orange)
+| ! eval (activate 'demo-boss)
+  
 ~ player
 ? (complete-p 'task-cctv-1 'task-cctv-2 'task-cctv-3)
-| | (:normal)\"That was also the last of the down cameras. I should \"find the nearby saboteur and then return to Innis\"(orange).\"(light-gray, italic)
+| ? (not (complete-p 'demo-boss))
+| | | \"That was also the last of the down cameras. I should \"find the nearby saboteur and then return to Innis\"(orange).\"(light-gray, italic)
+| |?
+| | | \"That was also the last of the down cameras. I'd better get \"back to Innis\"(orange), on the double.\"(light-gray, italic)
+| | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 |? (not (var 'first-cctv))
-| | (:normal)\"I also need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
+| | \"I also need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 | ! eval (setf (location 'innis) (location 'innis-main-loc))
 | ! eval (setf (direction 'innis) 1)
 | ! eval (setf (location 'islay) (location 'islay-main-loc))
 | ! eval (setf (direction 'islay) 1)
+|? (complete-p 'demo-boss)
+| | \"I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.\"(light-gray, italic)
 "))
 ;; wouldnae = wouldn't (Scottish)
 ;; didnae = didn't (Scottish)
