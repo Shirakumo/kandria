@@ -374,7 +374,7 @@
 | Couldn't hurt to check in with Fi. I'm sure there's something you could help her with, to show her you can be trusted.
 | Knowing Jack he'll have something for you too - if only a mouthful of abuse.
 | But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
-| (:excited)Take a \"look around and explore\"(orange)! (:normal)Though it's probably wise not to go too far from the camp.
+| (:excited)Take a \"look around and explore\"(orange)! (:normal)Though it's probably best not to go too far from the camp.
 | Seeya later, Stranger!")
   (:eval
    :on-complete (q2-intro q3-intro)
