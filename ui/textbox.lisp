@@ -165,6 +165,22 @@ void main(){
 (defmethod advance ((textbox textbox))
   (handle (dialogue:resume (vm textbox) (ip textbox)) textbox))
 
+(defmethod fast-forward ((textbox textbox))
+  (loop for i from 0 to 1000 ; Safety to avoid infinite loops
+        do (cond ((equal (pending textbox) '(:end))
+                  (hide textbox)
+                  (return))
+                 ((/= 0 (alloy:element-count (choices textbox)))
+                  ;; Pick last choice as it is usually the "nevermind" option.
+                  (alloy:activate (alloy:index-element
+                                   (1- (alloy:element-count (choices textbox)))
+                                   (choices textbox))))
+                 (T
+                  (advance textbox)))
+        finally (progn
+                  (quest:complete (interaction textbox))
+                  (hide textbox))))
+
 (defmethod (setf choices) ((choices null) (textbox textbox))
   (alloy:clear (choices textbox)))
 

@@ -1325,6 +1325,11 @@ void main(){
                                      (setting :gameplay :damage-input)))))
 
 (defmethod hurt :after ((player player) (by integer))
+  (let ((dialog (find-panel 'dialog)))
+    (when dialog
+      (quest:complete (interaction dialog))
+      (fast-forward dialog)
+      (walk-n-talk (@ player-hurt-while-talking))))
   (setf (clock (progression 'hurt +world+)) 0)
   (start (progression 'hurt +world+))
   (setf (combat-time player) 0f0)

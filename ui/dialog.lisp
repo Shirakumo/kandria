@@ -73,12 +73,16 @@
 
 (defmethod (setf interactions) :after (list (dialog dialog))
   ;; If we only have one, activate "one shot mode"
-  (cond ((and list (null (rest list)))
-         (setf (quest:status (first list)) :active)
-         (setf (interaction dialog) (first list))
-         (setf (one-shot dialog) T))
-        (T
-         (setf (one-shot dialog) NIL))))
+  (when list
+    (cond ((null (rest list))
+           (setf (quest:status (first list)) :active)
+           (setf (interaction dialog) (first list))
+           (setf (one-shot dialog) T))
+          (T
+           (setf (one-shot dialog) NIL)))))
+
+(defmethod fast-forward :before ((dialog dialog))
+  (setf (interactions dialog) NIL))
 
 (defmethod next-interaction ((dialog dialog))
   (when (and (interaction dialog)
