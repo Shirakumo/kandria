@@ -68,7 +68,8 @@
 | But they weren't exactly clear, or forthcoming. I let Islay talk to them while I ran some errands.
 ~ fi
 | (:annoyed)Damn. This is not the time for this.
-| Alex has had this problem before. (:normal)Well, we'll just have to leave them for now.
+| Alex has had this problem before.
+| (:normal)We'll have to leave them for now, and hope Islay can get through to them.
 | So, you met Islay. (:unsure)What about Innis?
 ~ player
 - I met them both.
