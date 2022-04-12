@@ -149,7 +149,7 @@
       (return entity))))
 
 (defmethod hurt :around ((animatable animatable) (damage integer))
-  (when (and (< 0 (health animatable))
+  (when (and (<= 0 (health animatable))
              (not (invincible-p (frame animatable))))
     (prog1 (call-next-method)
       (when (<= (health animatable) 0)
