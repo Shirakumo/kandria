@@ -9,24 +9,24 @@
    :title "Talk to Islay up in the Semi Sisters control room"
   "
 ~ islay
-| Hello, Stranger. (:happy)It's an honour to meet you in person.
+| Hello, Stranger. It's an honour to meet you in person.
 | (:unhappy)I'm sorry about my sister.
 ~ player
 - What do I need to do?
   ~ islay
-  | (:expectant)Right, yes. The sooner we get started, the sooner \"Innis\"(yellow) will turn your water back on.
+  | (:nervous)Right, yes. The sooner we get started, the sooner \"Innis\"(yellow) will turn your water back on.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 - What's her problem?
   ~ islay
-  | (:happy)How long have you got? Let's just say diplomacy isn't one of \"Innis'\"(yellow) strengths.
+  | How long have you got? Let's just say diplomacy isn't one of \"Innis'\"(yellow) strengths.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-  | (:expectant)Anyway, about the job. The sooner we get started, the sooner she'll turn your water back on.
+  | (:nervous)Anyway, about the job. The sooner we get started, the sooner she'll turn your water back on.
 - Can't you just turn the water back on?
   ~ islay
   | (:nervous)I'm afraid not. Much as I sympathise with your predicament.
   | (:normal)\"Innis\"(yellow) is at least right about that - we need that water too.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-  | (:expectant)But a trade is acceptable. And the sooner we get started, the sooner she'll turn it back on for you.
+  | But a trade is acceptable. And the sooner we get started, the sooner she'll turn it back on for you.
 ~ islay
 | Basically we've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange).
 | And \"4 of our CCTV cameras on the low eastern\"(orange) \"Cerebat\"(red) border have gone down.
@@ -39,7 +39,7 @@
 |   < thank-you
 | - Your guardian angel.
 |   ~ islay
-|   | (:expectant)Wait - are you saying...?
+|   | Wait - are you saying...?
 |   ~ player
 |   - Yes.
 |     < thank-you
@@ -58,12 +58,12 @@
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
   ~ islay
   | (:nervous)There were ten of them, working in the \"high west of our territory\"(orange).
-  | We're slowly digging out the old maglev metro system. (:happy)We've got a basic electrified railway going.
+  | We're slowly digging out the old maglev metro system. We've got a basic electrified railway going.
   | (:unhappy)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
   < questions
 - [(not (active-p (unit 'blocker-engineers))) So the engineers were working on the metro?|]
   ~ islay
-  | Correct. We're slowly digging out the old maglev system. (:happy)We've got a basic electrified railway going.
+  | Correct. We're slowly digging out the old maglev system. We've got a basic electrified railway going.
   | (:nervous)But it's dangerous work.
   < questions
 - Tell me about the down CCTV cameras.
@@ -75,7 +75,7 @@
   < questions
 - Understood.
 ~ islay
-| (:expectant)We've seen what you can do - you're better suited to this than even our hunters.
+| We've seen what you can do - you're better suited to this than even our hunters.
 | (:nervous)Just don't tell Innis I said that. She'll think I've gone soft for androids.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | (:normal)I can also \"trade any items you find for scrap parts\"(orange), the currency we use around here. Then you can \"buy supplies\"(orange) to help you in the field.
@@ -97,7 +97,7 @@
 - That's what I do.
 - I was exploring, so figured why not.
 ~ islay
-| (:happy)Well in that case, thank you. We owe you.
+| Well in that case, thank you. We owe you.
 | But there's more to do.
 < metro
 
@@ -106,8 +106,8 @@
 | This does mean our engineering works are back on schedule though.
 | With that in mind, I think we could grant you \"access to the metro\"(orange). It will certainly \"speed up your errands\"(orange).
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
-| | We know you know about the metro already, and that's alright. But now it's official.
-| | I'll send out word, so Innis won't have you... (:happy)apprehended.
+| | (:nervous)We know you know about the metro already, and that's alright. But now it's official.
+| | (:normal)I'll send out word, so Innis won't have you... (:nervous)apprehended.
 | ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
 |?

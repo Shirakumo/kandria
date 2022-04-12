@@ -31,7 +31,8 @@
 - Are you the Semi Sisters?
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
-| (:pleased)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
+~ innis
+| (:sly)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
 | What do you think, \"Islay\"(yellow)? Are you seeing this?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
@@ -50,15 +51,15 @@
 ~ player
 - If you're the Semi Sisters I need your help.
   ~ innis
-  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my information.
-  | (:normal)Well you'll be pleased to ken that we can fix the water for you. (:sly)Or rather, turn it back on.
+  | You see, sister, the direct approach once again yields results - and confirms my information.
+  | Well you'll be pleased to ken that we can fix the water for you. (:sly)Or rather, turn it back on.
 - My business is my business.
   ~ innis
   | If that's your prerogative.
   | But you'll be pleased to ken that we can fix the water for you. (:sly)Or rather, turn it back on.
 - Screw you!
   ~ islay
-  | (:happy)...
+  | ...
   ~ innis
   | (:angry)...
   | I remember your kind! You think you're clever just 'cause you can mimic us.
