@@ -191,7 +191,7 @@
    :repeatable T
    "
 ~ player
-| (:skeptical)\"This sunken room must be part of their reservoir, which the pump draws water from.\"(light-gray, italic)
+| (:thinking)\"This sunken room must be part of their reservoir, which the pump draws water from.\"(light-gray, italic)
 ")
 ;; was: They've had many leaks, if this sunken room is anything to go by.
 
@@ -201,9 +201,9 @@
    :repeatable T
    "
 ~ player
-| (:skeptical)\"How on earth did these mushrooms grow so large?\"(light-gray, italic)
+| (:thinking)\"How on earth did these mushrooms grow so large?\"(light-gray, italic)
 ? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
-| | (:normal)\"Presumably these are inedible - otherwise their hunger problems would be over.\"(light-gray, italic)
+| | (:normal)\"Presumably they are inedible, otherwise their hunger problems would be over.\"(light-gray, italic)
 ")
 
   ;; the sarcastic player character laments there are no truffles, only these huge giant mushrooms everywhere
@@ -486,9 +486,9 @@
 | | | \"A collapsed tunnel.\"(light-gray, italic) (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)
 |?
 | ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers) (complete-p 'demo-engineers) (complete-p 'q5a-rescue-engineers))
-| | | \"The remnants of the collapsed rail tunnel.\"(light-gray, italic) (:skeptical)\"It looks stable enough - for now.\"(light-gray, italic)
+| | | \"The remnants of the collapsed rail tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
 | |?
-| | | \"The remnants of the collapsed tunnel.\"(light-gray, italic) (:skeptical)\"It looks stable enough - for now.\"(light-gray, italic)
+| | | \"The remnants of the collapsed tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
 ")
 
 
@@ -504,7 +504,7 @@
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | (:weary)How in God's name did you get in here?
+| | | How in God's name did you get in here?
 | | ~ player
 | | | There's a tunnel above this shaft - though it's not something a human could navigate.
 | | ~ semi-engineer-chief
@@ -512,13 +512,13 @@
 | | ~ player
 | | - Not human, yes.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... An android, as I live and breathe.
+| |   | ... An android, as I live and breathe.
 | | - An android.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... As I live and breathe.
+| |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're glad you showed up. We're rail engineers from the Semi Sisters.
+| | | We're glad you showed up. We're rail engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
@@ -526,24 +526,24 @@
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
-| | | (:weary)How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
+| | | How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
 |?
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | (:weary)Who are you? How did you break through the collapsed tunnel?
+| | | Who are you? How did you break through the collapsed tunnel?
 | | ~ player
 | | - I'm... not human.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... An android, as I live and breathe.
+| |   | ... An android, as I live and breathe.
 | | - I'm an android.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... As I live and breathe.
+| |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're glad you showed up. We're rail engineers from the Semi Sisters.
+| | | We're glad you showed up. We're rail engineers from the Semi Sisters.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
-| | | (:weary)We'll send someone for help now the route is open.
+| | | We'll send someone for help now the route is open.
 | | | Thank you.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
@@ -600,7 +600,7 @@
 ;; TODO don't have the fallback of "hic" be possible once they've left the Semi bar at the start of act 3 (q7), as they're meant to have sobered up by then
 (define-default-interactions alex
   (T
-  "| <-Hic->. Go away."))
+  "| (:angry)<-Hic->. Go away."))
 
 (define-default-interactions trader
   (T
