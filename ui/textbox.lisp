@@ -205,6 +205,10 @@ void main(){
   (setf (alloy:index (choices textbox)) 0)
   (when (active-p textbox)
     (setf (alloy:focus (choices textbox)) :strong))
+  (let ((player (unit 'player +world+)))
+    (setf (source textbox) (nametag player))
+    (setf (trial:sprite-data (profile textbox)) (profile-sprite-data player))
+    (setf (animation (profile textbox)) 'normal))
   (setf (prompt textbox) T))
 
 (defmethod handle ((ev tick) (textbox textbox))
