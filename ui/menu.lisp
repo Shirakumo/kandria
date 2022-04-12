@@ -443,7 +443,7 @@
                                                (when (< (* 60 60 4) (session-time)) (@ long-play-time-warning)))
                  :style (when (< (* 60 60 4) (session-time)) `((:label :pattern ,colors:red))))
             (add (@ total-play-time) (format-relative-time (total-play-time))))
-          (alloy:enter status layout :constraints `(:center (:size 1000 350)))
+          (alloy:enter status layout :constraints `(:center (:required (<= 100 :l)) (:size 1000 350)))
           (alloy:enter buttons layout :constraints `((:chain :down ,status 10) (:height 40)))
           (alloy:enter resume buttons)
           (alloy:enter map buttons)
