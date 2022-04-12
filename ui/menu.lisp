@@ -298,11 +298,13 @@
    :bounds (if alloy:value
                (let ((ratio (/ (vx (size alloy:value)) (vy (size alloy:value)))))
                  (cond ((< 1 ratio)
-                        (let ((h (alloy:u/ (alloy:ph) ratio)))
-                          (alloy:extent 0 (alloy:u/ (alloy:u- (alloy:ph) h) 2) (alloy:pw 1) h)))
+                        (let* ((ph (alloy:to-px (alloy:ph)))
+                               (h (/ ph ratio)))
+                          (alloy:px-extent 0 (* (- ph h) 0.5) (alloy:pw) h)))
                        ((< ratio 1)
-                        (let ((w (alloy:u* (alloy:pw) ratio)))
-                          (alloy:extent (alloy:u/ (alloy:u- (alloy:pw) w) 2) 0 w (alloy:ph))))
+                        (let* ((pw (alloy:to-px (alloy:pw)))
+                               (w (/ pw ratio)))
+                          (alloy:px-extent (* (- pw w) 0.5) 0 w (alloy:ph))))
                        (T
                         (alloy:margins))))
                (alloy:px-extent))
