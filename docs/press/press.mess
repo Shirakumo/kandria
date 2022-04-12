@@ -15,29 +15,25 @@
 
 Explore a ruined open world of caverns, settlements, and puzzle-platform challenges. Hack and slash your way through missions: patrol borders, repair machines, scavenge supplies - choose your quests and dialogue. Or go fishing, forage mushrooms, and race the clock! The old world is gone - the future is up to you.
 
-As the story unfolds you’ll get to know the flawed and diverse characters of the settlement that rescued you. But are they really your friends, or are you just a tool to them? On your travels you must determine who is truly friend or foe, and recruit what allies you can - because the end is coming.
+Right from the start you're pulled into a conflict between two of the remaining factions in the valley. Despite your strength and abilities, this is not something you can solve on your own, and being an outsider trust is hard to come by.
+
+Inspired by NieR:Automata, Kandria has a heavy focus on atmosphere and immersion: aside from quests, combat, and platforming, you can also just go fishing in whatever lakes you com across, gather and trade materials, search for secrets, or simply sit back in the bar and take your time.
 
 ## History
 Inspired by //Celeste// and other precision platformers, //Kandria// began its life as a testing ground for an in-house engine in late 2019, created by Nicolas Hafner aka Shinmera. As Nicolas added more ideas to the game, it developed into its own world, complete with characters, backstory and plot. To meet the demands of this new game, the team expanded during 2020 and 2021 to include artist Frederic Tarabout, writer Tim White, composer Mikel Dale, and sound designer Cai Jones.
 
 In September 2021 we completed a polished vertical slice of the game’s first act, featuring 1-2 hours of gameplay. This demo is available "for free"(https://kandria.com/prototype).
+On 13th of July of 2022 we will launch a "Kickstarter campaign"(https://kandria.com/kickstarter) simultaneously with a new, never before seen demo released in the "Steam Next Fest"(https://kandria.com/steam).
 
 ## Features
-**FIGHT TO SURVIVE**
-- Play as the Stranger, a powerful android recently unearthed from the ruins of the old world.
-- Perform tight, smooth hack and slash combat against rogue robots and malcontent humans - you’re faster, stronger, and can jump higher. But are you smarter?
-- When you think you’ve mastered things, prepare yourself for epic boss battles with beasts and machines, which lurk and slumber deep beneath the earth.
-
-**STRUGGLE WITH HUMANITY**
-- Explore vast, open and interconnected levels full of non-linear missions, challenging platforming, and gorgeous pixel art decay - cross the barren surface, or spelunk deep underground.
-- Meet flawed characters and factions struggling to survive. Determine friend from foe, and choose allies wisely as you forge your own future amongst the ruins.
-- Experience an epic story of mystery, grit and self-determination, all the way to its inevitable end.
-
-**INDIE HEART & SOUL, MODDING SUPPORT**
-- Made by a tiny team headed by Shinmera, an indie developer of not only games but also art and software, who crafted the unique engine, world, art style and story.
-- Features thousands of frames of hand-drawn, hand-animated pixel art characters and locations, and an atmospheric orchestral soundtrack, with vocals by Julie Elven.
-- Built in Trial, a highly-moddable, custom game engine and toolset created just for this title, which lets you mod content and create your own levels.
-- Indie love and passion guaranteed.
+- Explore over 2'100x1'200m of gameplay area
+- Beat 250 individual, hand-crafted rooms
+- Experience 50 quests that lead you through the world
+- Immerse yourself in the world with more than 2 hours of unique music
+- Choose your look from 33 different outfits
+- Discover secrets and lore from the old world
+- Craft your own levels with the integrated editor and share them with the community
+- Developed in a custom game engine suited especially well for modding
 
 ## Videos
 [ youtube https://youtu.be/nf9Z4MPBbfc ]
@@ -71,7 +67,7 @@ In September 2021 we completed a polished vertical slice of the game’s first a
 
 ## About Shirakumo Games
 ### Boilerplate
-Shirakumo Games is an independent game studio from Switzerland, building things from scratch.
+Shirakumo Games is an independent game studio from Switzerland, focused on building games while staying fully remote and avoiding crunch at all costs.
 
 ### More information
 More information on Shirakumo Games and related things is available "here"(https://shirakumo.org/games).
