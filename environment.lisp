@@ -37,6 +37,10 @@
    (area-states :initarg :area-states :initform NIL :accessor area-states)
    (override :initarg :override :initform NIL :accessor override)))
 
+(defmethod stage :after ((controller environment-controller) (area staging-area))
+  (when (environment controller) (stage (environment controller) area))
+  (when (override controller) (stage (override controller) area)))
+
 (defmethod reset ((controller environment-controller))
   (setf (area-states controller) ())
   (when (override controller)
@@ -100,10 +104,6 @@
           (switch-environment (environment controller) NIL))
       (harmony:transition override 1.0 :in 3.0))))
 
-(defmethod (setf override) ((override placeholder-resource) (controller environment-controller))
-  (trial:commit override (loader +main+) :unload NIL)
-  (setf (override controller) override))
-
 (defmethod harmony:transition ((controller environment-controller) (to real) &key (in 1.0))
   (cond ((override controller)
          (harmony:transition (override controller) to :in in))
@@ -111,8 +111,12 @@
          (harmony:transition (environment controller) to :in in))))
 
 (defmethod handle ((event load-complete) (controller environment-controller))
-  (setf (override controller) (override controller))
-  (switch-environment controller (environment controller)))
+  (let ((override (override controller))
+        (environment (environment controller)))
+    (setf (override controller) NIL)
+    (setf (environment controller) NIL)
+    (setf (override controller) override)
+    (switch-environment controller environment)))
 
 (defmethod harmony:transition ((nothing (eql 'null)) to &key in)
   (declare (ignore nothing to in)))

@@ -422,7 +422,7 @@
     (setf (override environment-controller) (if (symbolp override)
                                                 override
                                                 (decode 'resource override)))
-    (switch-environment environment-controller (environment environment))))
+    (setf (environment environment-controller) (environment environment))))
 
 (define-encoder (hider save-v0) (_b _p)
   `(:active-p ,(active-p hider)))

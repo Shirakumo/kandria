@@ -89,8 +89,7 @@
         (transition
           :kind :black
           (hide-panel 'load-panel))
-        (when unload
-          (issue +world+ 'load-complete))
+        (issue +world+ 'load-complete)
         (when (find-restart 'trial::reset-render-loop)
           (invoke-restart 'trial::reset-render-loop)))
       (let ((*show-load-screen* NIL))
