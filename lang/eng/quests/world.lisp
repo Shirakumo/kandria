@@ -362,7 +362,7 @@
    "
 ~ player
 | \"I guess people need a watering hole wherever they go.\"(light-gray, italic)
-| \"This one's as loud with chatter and clinking glass as anywhere I remember.\"(light-gray, italic)
+| \"This one's as loud with chatter as anywhere I remember - but instead of clinking glass they're clinking with tin cans.\"(light-gray, italic)
 ")
 
 ;; another scenic picture on the wall from pre-Calamity times
@@ -381,7 +381,7 @@
    :repeatable T
    "
 ~ player
-| \"The din of the base fades away up here - save for the occasional interruption of fuzzy audio feeds and communications chatter.\"(light-gray, italic)
+| \"The din of the base fades away up here - save for the interruption of fuzzy video feeds and communications chatter.\"(light-gray, italic)
 ")
 
 ;; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the Calamity)
