@@ -123,7 +123,7 @@
   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 ~ innis
 | There's something else as well...
-| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you access to the metro.
+| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... (:angry)well, //if I// officially grant you access to the metro.
 | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
 | | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
@@ -132,7 +132,7 @@
 | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | | Just \"choose your destination from the route map\"(orange) and board the train.
 ? (not (unlocked-p (unit 'station-semi-sisters)))
-| | \"Our station is beneath this central block.\"(orange)
+| | (:normal)\"Our station is beneath this central block.\"(orange)
 | ! eval (activate 'semi-station-marker)
 |?
 | ! eval (complete 'semi-station-marker)

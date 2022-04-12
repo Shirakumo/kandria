@@ -11,10 +11,10 @@
    :title "Find the saboteur in the Semis' low eastern region, along the Cerebat border")
   (:interact (innis :now T)
 "~ player
-| (:embarassed)Innis, I found the <-saboteurs->. Plural.
-| (:skeptical)I don't think they'll come quietly.
+| Innis, I found the <-saboteurs->. Plural.
+| (:thinking)I don't think they'll come quietly.
 ~ innis
-| (:pleased)Then might I suggest you defend ya wee self.
+| Then might I suggest you defend ya wee self.
 | (:sly)If you survive ya can \"bring me your report in person\"(orange).
 | (:angry)Now don't interrupt me again.
 ! eval (override-music 'battle)

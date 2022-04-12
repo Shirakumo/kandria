@@ -30,7 +30,7 @@
 | | | Then \"return to Innis\"(orange). (:nervous)Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'demo-boss)
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
-| | | (:expectant)And don't forget to \"bring Innis that saboteur\"(orange).
+| | | (:nervous)And don't forget to \"bring Innis that saboteur\"(orange).
 | |?
 | | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange).
@@ -196,7 +196,7 @@
     :interactable innis
     :dialogue "
 ~ innis
-| (:pleased)I'm glad you made it back.
+| (:sly)I'm glad you made it back.
 | (:normal)So what are we dealing with?
 ~ player
 - It was a band of rogues.

@@ -22,7 +22,7 @@
 | | \"Find our engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
 | | Do what you can for them, then \"report back to Innis\"(orange).
 |?
-| | (:expectant)I heard there's news on the engineers - you should \"talk to Innis\"(orange).
+| | I heard there's news on the engineers - you should \"talk to Innis\"(orange).
 "))
 
   (task-wall
@@ -45,7 +45,7 @@
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | (:weary)How in God's name did you get in here?
+| | | How in God's name did you get in here?
 | | ~ player
 | | | There's a tunnel above this shaft - though it's not something a human could navigate.
 | | ~ semi-engineer-chief
@@ -53,13 +53,13 @@
 | | ~ player
 | | - Not human, yes.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... An android, as I live and breathe.
+| |   | ... An android, as I live and breathe.
 | | - An android.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... As I live and breathe.
+| |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're the rail engineers you're looking for. Thank God for Islay.
+| | | We're the rail engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
@@ -67,24 +67,24 @@
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
-| | | (:weary)How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
+| | | How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
 |?
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | (:weary)Who are you? How did you break through the collapsed tunnel?
+| | | Who are you? How did you break through the collapsed tunnel?
 | | ~ player
 | | - I'm... not human.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... An android, as I live and breathe.
+| |   | ... An android, as I live and breathe.
 | | - I'm an android.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... As I live and breathe.
+| |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're the rail engineers you're looking for. Thank God for Islay.
+| | | We're the rail engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
-| | | (:weary)We'll send someone for help now the route is open.
+| | | We'll send someone for help now the route is open.
 | | | Thank you.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
@@ -106,8 +106,8 @@
     :repeatable T
     :dialogue "
 ~ innis
-| (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
-| (:normal)It's tough that we lost people, but sometimes that's the price of progress. I'll have Islay notify their families.
+| The hurt engineers are already on their way back - I've sent hunters to guide them.
+| It's tough that we lost people, but sometimes that's the price of progress. I'll have Islay notify their families.
 | More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
 ~ player
 - I found a weak point and pushed.
@@ -127,7 +127,7 @@
   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 ~ innis
 | There's something else as well...
-| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... well, //if I// officially grant you \"access to the metro\"(orange).
+| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... (:angry)well, //if I// officially grant you \"access to the metro\"(orange).
 | ... In the interests of good relations, between the Semi Sisters and yourself. (:normal)It'll certainly \"speed up your errands\"(orange).
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
 | | (:sly)I ken you know about the metro already. But now it's official. I'll send out word so you won't be... apprehended.
@@ -136,7 +136,7 @@
 | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"no' all are operational\"(orange) while we expand the network.
 | | Just \"choose your destination from the route map\"(orange) and board the train.
 ? (not (unlocked-p (unit 'station-semi-sisters)))
-| | \"Our station is beneath this central block.\"(orange)
+| | (:normal)\"Our station is beneath this central block.\"(orange)
 | ! eval (activate 'semi-station-marker)
 |?
 | ! eval (complete 'semi-station-marker)
