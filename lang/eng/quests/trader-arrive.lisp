@@ -9,6 +9,7 @@
   (talk-trader
    :title "Talk to Sahil in the Midwest Market, beneath the Zenith Hub"
    :marker '(chunk-1960 2600)
+   :invariant (not (complete-p 'q11-intro))
    :condition all-complete
    :on-activate T
    :on-complete (trader-chat trader-shop)
@@ -127,13 +128,21 @@
     :repeatable T
     :dialogue "
 ~ trader
-| (:jolly)Assalam alaikum! Let's talk.
-? (< 80  (health player))
-| | (:jolly)[? You look well, {(nametag player)}! | And how robust you're looking! | I don't think I've seen you looking better.]
-|? (< 50  (health player))
-| | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
+? (complete-p 'q13-planting-bomb)
+| | (:concerned)If we must, habibti.
+|? (complete-p 'q11-intro)
+| | (:sad)... I'm sorry, I can't.
+| | (:concerned)I'll still trade though, if you want.
+| ! eval (clear-pending-interactions)
 |?
-| | (:concerned)[? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
+| | (:jolly)Assalam alaikum! Let's talk.
+| ? (< 80  (health player))
+| | | (:jolly)[? You look well, {(nametag player)}! | And how robust you're looking! | I don't think I've seen you looking better.]
+| |? (< 50  (health player))
+| | | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
+| |?
+| | | (:concerned)[? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
+  
 ! label talk
 ? (and (not (active-p 'q4-find-alex)) (not (complete-p 'q4-find-alex)))
 | ~ player
@@ -287,7 +296,7 @@
 |     < talk
 | - I need to go.
 |   < leave
-|? (and (complete-p 'q10-wraw) (not (active-p 'q11-recruit-semis)))
+|? (and (complete-p 'q10-wraw) (not (complete-p 'q11-intro)))
 | ~ player
 | - The Wraw are coming.
 |   ~ trader
@@ -320,12 +329,19 @@
 |   < talk
 | - I need to go.
 |   < leave
+|? (complete-p 'q13-planting-bomb)
+| ~ trader
+| | (:concerned)Look, I'm not proud that I ran. But I'm here now, and I'm ready to fight.
+| | (:normal)Let's talk later, okay?
+| ! eval (clear-pending-interactions)
 
 # leave
 ~ trader
 | [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah!]")))
+;; habibti = dear, my love, buddy (Arabic) (female form)
 ;; nadhil = bastard (Arabic) - unused at the moment
 ;; alqarf = shit (Arabic), pronounce: al-kara-fu
+;; masalamah = goodbye (Arabic)
 
 (quest:define-quest (kandria trader-shop)
   :title "Trade"

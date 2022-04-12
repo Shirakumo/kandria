@@ -55,7 +55,10 @@
 - Be safe yourself.
 ! eval (setf (walk 'fi) T)
 ! eval (move-to 'loc-trader (unit 'fi))
+? (not (complete-p 'trader-arrive))
+| ! eval (activate 'trader-chat)
+| ! eval (activate 'trader-shop)
 ")
   (:eval
    :on-complete (q11-recruit-semis)))
-;; TODO hide Sahil at this stage, as if he's moved on
+;; TODO hide Sahil at this stage, as if he's moved on (or move to a secret location, in hiding)
