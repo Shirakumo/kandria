@@ -30,7 +30,7 @@
 (presentations:define-realization (ui nametag-element)
   ((:background simple:rectangle)
    (alloy:extent -2 -8 100 10))
-  ((:label simple:text)
+  ((label simple:text)
    (alloy:extent 0 -5 1000 15)
    alloy:text
    :halign :start
@@ -40,7 +40,7 @@
    :pattern colors:white))
 
 (presentations:define-update (ui nametag-element)
-  (:label
+  (label
    :text alloy:text))
 
 (defclass enemy-health-bar (sticky-element)
