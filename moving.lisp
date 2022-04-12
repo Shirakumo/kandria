@@ -257,7 +257,7 @@
                 (setf (svref (collisions moving) 1) other)
                 (unless (svref (collisions moving) 3)
                   (setf (vx (location moving)) (- (vx (hit-location hit)) (vx (bsize other)) (vx (bsize moving))))))))
-        (T
+        ((not (typep moving 'half-solid))
          (setf (vy (frame-velocity moving)) 0)
          (cond ((< 0 (vy (hit-normal hit)))
                 (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
