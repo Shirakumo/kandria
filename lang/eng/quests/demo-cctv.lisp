@@ -160,7 +160,6 @@
 | | (:angry)Well in that case I'll await your report in the flesh-
 | | ... You know what I mean.
 | ! eval (complete 'demo-boss)
-| ! eval (activate 'task-return-cctv)
 |?
 | ~ innis
 | | (:angry)\"Find them and bring them to me.\"(orange)
@@ -173,6 +172,7 @@
 | |?
 | | | \"That was also the last of the down cameras. I'd better get \"back to Innis\"(orange), on the double.\"(light-gray, italic)
 | | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
+| | ! eval (activate 'task-return-cctv)
 |? (not (var 'first-cctv))
 | | \"I also need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)

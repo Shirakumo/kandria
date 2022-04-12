@@ -155,8 +155,6 @@
 | | (:angry)Well in that case I'll await your report in the flesh-
 | | ... You know what I mean.
 | ! eval (complete 'q5b-boss)
-| ! eval (activate 'q5b-task-return-cctv)
-| ! eval (deactivate 'q5b-task-reminder)
 |?
 | ~ innis
 | | (:angry)\"Find them and bring them to me.\"(orange)
@@ -164,15 +162,17 @@
   
 ~ player
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
-| ? (not (complete-p 'demo-boss))
+| ? (not (complete-p 'q5b-boss))
 | | | \"That was also the last of the down cameras. I'd better \"find the nearby saboteur and then return to Innis\"(orange).\"(light-gray, italic)
 | |?
 | | | \"That was also the last of the down cameras. I'd better get \"back to Innis\"(orange), on the double.\"(light-gray, italic)
 | | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
+| | ! eval (deactivate 'q5b-task-reminder)
+| | ! eval (activate 'q5b-task-return-cctv)
 |? (not (var 'first-cctv))
 | | \"I also need to \"find the other CCTV sites\"(orange), as recorded in my \"Log Files\"(orange) and on my \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold).\"(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
-|? (complete-p 'demo-boss)
+|? (complete-p 'q5b-boss)
 | | \"I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.\"(light-gray, italic)
 "))
 ;; wouldnae = wouldn't (Scottish)
