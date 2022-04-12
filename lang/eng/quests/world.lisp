@@ -595,6 +595,16 @@
    "| [? Mind how you go, {(nametag player)}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]")
   (T
   "| I'm sorry, I'm busy."))
+  
+;; alex - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka
+;; TODO don't have the fallback of "hic" be possible once they've left the Semi bar at the start of act 3 (q7), as they're meant to have sobered up by then
+(define-default-interactions alex
+  (T
+  "| <-Hic->. Go away."))
+
+(define-default-interactions trader
+  (T
+  "| Sorry, habibti. I'm closed for business while I fix my caravan."))
 
 ;; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
 (define-default-interactions jack
