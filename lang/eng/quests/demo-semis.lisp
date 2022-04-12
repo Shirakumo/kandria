@@ -42,12 +42,12 @@
 | (:normal)Come now, sister - you're speaking with the pinnacle of human engineering, and that's all you can say?
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
-- (Keep quiet)
-  ~ innis
-  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
 - My name's Stranger.
   ~ innis
   | This I ken, android. (:sly)Tell me, why are you here?
+- (Keep quiet)
+  ~ innis
+  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
 ~ player
 - If you're the Semi Sisters I need your help.
   ~ innis

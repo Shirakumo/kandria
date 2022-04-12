@@ -53,12 +53,12 @@
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
-- (Keep quiet)
-  ~ innis
-  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
 - My name's Stranger.
   ~ innis
   | This I ken, android. (:sly)Tell me, why are you here?
+- (Keep quiet)
+  ~ innis
+  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
 ~ innis
 | (:sly)What //does// Fi send her robot dog to do?
 | To prove her loyalty, I think.
@@ -130,12 +130,12 @@ ken = know (Scottish)
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
-- (Keep quiet)
-  ~ innis
-  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
 - My name's Stranger.
   ~ innis
   | This I ken, android. (:sly)Tell me, why are you here?
+- (Keep quiet)
+  ~ innis
+  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
 ~ innis
 | (:sly)What //does// Fi send her robot dog to do?
 | To prove her loyalty, I think.
