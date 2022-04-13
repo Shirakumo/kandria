@@ -96,21 +96,21 @@
      _ p _
      _ _ _)
     (:tr>
-     _ _ o
-     s s _
+     _ o o
+     s s o
      x s _)
     (:tl>
-     o _ _
-     _ s s
+     o o _
+     o s s
      _ s x)
     (:br>
      x s _
-     s s _
-     _ _ o)
+     s s o
+     _ o o)
     (:bl>
      _ s x
-     _ s s
-     o _ _)
+     o s s
+     o o _)
     (:t
      _ o _
      s s s
