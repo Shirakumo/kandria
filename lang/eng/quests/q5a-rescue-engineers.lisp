@@ -61,6 +61,7 @@
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
 | | | \"The collapse is just ahead.\"(orange)
 | | ! eval (setf (var 'engineers-first-talk) T)
+| | ! eval (activate 'task-wall-location)
 | |?
 | | ~ semi-engineer-chief
 | | | (:weary)How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
@@ -80,16 +81,21 @@
 | | | (:weary)We're the engineers you're looking for. Thank God for Innis.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
-| | | (:weary)We'll send someone for help now the route is open.
+| | | But things are looking up now the route is open.
 | | | Thank you.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
 | | | I don't believe you got through... Now food and medical supplies can get through too. Thank you.
 | | | We can resume our excavations. It'll be slow-going, but we'll get it done.
-! eval (deactivate 'task-reminder)
 ! eval (complete task)
 "))
+
+  (task-wall-location
+   :title "Clear the collapsed tunnel to free the engineers"
+   :marker '(chunk-6034 2200)
+   :condition (not (active-p (unit 'blocker-engineers)))
+   :on-complete NIL)
 
   (task-return-engineers
    :title "Return to Innis in the Semi Sisters control room"
@@ -103,7 +109,13 @@
     :dialogue "
 ~ innis
 | (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
-| (:normal)It's tough that we lost people, but sometimes that's the price of progress. I'll get Islay to notify their families.
+? (complete-p 'task-engineers)
+| | They appreciated you checking in on them as well - thank you.
+|?
+| | (:angry)A shame you didnae speak to them though - they could have really used someone to talk to, to let them know what was happening.
+  
+~ innis
+| It's tough that we lost people, but sometimes that's the price of progress. I'll get Islay to notify their families.
 | More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
 ~ player
 - I found a weak point and pushed.
@@ -153,10 +165,9 @@
 ! label end
 ! eval (complete task)
 ! eval (reset* interaction)
-! eval (deactivate 'task-reminder)
-! eval (reset* 'task-reminder)
 ")))
 ;; dinnae = don't (Scots)
+;; didnae = didn't (Scottish)
 ;; ken = know (Scots)
 ;; couldnae = couldn't (Scots)
 ;; canna = cannot (Scottish)
