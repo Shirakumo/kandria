@@ -133,6 +133,7 @@
 - How do you know about FFCS?
   ~ innis
   | (:sly)I wouldnae have been very good at my old job if I didnae ken it.
+  | (:angry)Get on with it then.
 ~ player
 | The power line to one of the cameras has been cut by hand.
 ~ innis
