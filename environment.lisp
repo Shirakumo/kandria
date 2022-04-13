@@ -113,8 +113,8 @@
 (defmethod handle ((event load-complete) (controller environment-controller))
   (let ((override (override controller))
         (environment (environment controller)))
-    (setf (override controller) NIL)
-    (setf (environment controller) NIL)
+    (setf (slot-value controller 'environment) NIL)
+    (setf (slot-value controller 'override) NIL)
     (setf (override controller) override)
     (switch-environment controller environment)))
 
@@ -126,6 +126,10 @@
    (music :initarg :music :initform NIL :accessor music)
    (ambience :initarg :ambience :initform NIL :accessor ambience)
    (area :initarg :area :initform NIL :accessor area)))
+
+(defmethod print-object ((environment environment) stream)
+  (print-unreadable-object (environment stream :type T)
+    (format stream "~s" (name environment))))
 
 (defmethod allocated-p ((environment environment))
   (let ((music (music environment))
@@ -206,6 +210,9 @@
                             :music ,(when music `(// 'music ,music))
                             :ambience ,(when ambience `(// 'music ,ambience))
                             ,@initargs))))
+
+(defmethod harmony:transition :before ((voice harmony::voice) (to real) &key)
+  (v:info :kandria.harmony "Transitioning ~a to ~a" voice to))
 
 (trial-alloy:define-set-representation environment/combo
   :represents environment
