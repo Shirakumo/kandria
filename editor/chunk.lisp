@@ -42,12 +42,13 @@
         (alloy:on alloy:activate (element)
           (setf (tile-to-place widget) (alloy:value element)))))
     (alloy:observe 'tile widget (lambda (value object)
-                                  (let ((pos (or (position value +tile-history+ :test #'equal) (1- (length +tile-history+)))))
-                                    (loop for i downfrom pos above 0
-                                          do (setf (aref +tile-history+ i) (aref +tile-history+ (1- i))))
-                                    (setf (aref +tile-history+ 0) value)
-                                    (alloy:do-elements (element layout)
-                                      (alloy:refresh (alloy:data element))))))
+                                  (when value
+                                    (let ((pos (or (position value +tile-history+ :test #'equal) (1- (length +tile-history+)))))
+                                      (loop for i downfrom pos above 0
+                                            do (setf (aref +tile-history+ i) (aref +tile-history+ (1- i))))
+                                      (setf (aref +tile-history+ 0) value)
+                                      (alloy:do-elements (element layout)
+                                        (alloy:refresh (alloy:data element)))))))
     (alloy:finish-structure structure layout focus)))
 
 (defclass tile-picker (alloy:structure)

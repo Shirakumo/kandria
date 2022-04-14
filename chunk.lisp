@@ -443,10 +443,16 @@ void main(){
                    (tile (tile)
                      ;; Surface tiles
                      (case* tile
-                       ((:t :vt :h :hl :hr :tl> :tr> :bl< :br< :ct) (line -8 +8 +8 +8))
-                       ((:r :v :vt :vb :hr :tr> :br> :tl< :bl< :cr) (line +8 -8 +8 +8))
-                       ((:b :vb :h :hl :hr :br> :bl> :tl< :tr< :cb) (line -8 -8 +8 -8))
-                       ((:l :v :vt :vb :hl :tl> :bl> :tr< :br< :cl) (line -8 -8 -8 +8)))
+                       ((:t :vt :h :hl :hr :tl> :tr> :bl< :br<) (line -8 +8 +8 +8))
+                       ((:r :v :vt :vb :hr :tr> :br> :tl< :bl<) (line +8 -8 +8 +8))
+                       ((:b :vb :h :hl :hr :br> :bl> :tl< :tr<) (line -8 -8 +8 -8))
+                       ((:l :v :vt :vb :hl :tl> :bl> :tr< :br<) (line -8 -8 -8 +8))
+                       (:cr (line -8 -8 +8 0) (line -8 +8 +8 0))
+                       (:cl (line +8 -8 -8 0) (line +8 +8 -8 0))
+                       (:ct (line -8 -8 0 +8) (line +8 -8 0 +8))
+                       (:cb (line -8 +8 0 -8) (line +8 +8 0 -8))
+                       (:h (line -8 0 +8 0))
+                       (:v (line 0 -8 0 +8)))
                      ;; Slopes
                      (when (and (listp tile) (eql :slope (first tile)))
                        (let ((t-info (aref +surface-blocks+ (+ 4 (second tile)))))
