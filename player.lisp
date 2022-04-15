@@ -1321,8 +1321,12 @@ void main(){
       (setting :gameplay :damage-output))))
 
 (defmethod hurt ((player player) (damage integer))
-  (call-next-method player (floor (* damage
-                                     (setting :gameplay :damage-input)))))
+  (let ((real-damage (floor (* damage (setting :gameplay :damage-input)))))
+    ;; Prevent instant kills
+    (when (and (<= (maximum-health player) (health player))
+               (<= (health player) real-damage))
+      (setf real-damage (1- (health player))))
+    (call-next-method player real-damage)))
 
 (defmethod hurt :after ((player player) (by integer))
   (let ((dialog (find-panel 'dialog)))
