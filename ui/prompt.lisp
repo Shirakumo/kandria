@@ -180,7 +180,7 @@
 (defclass quest-indicator (alloy:popup alloy:renderable popup)
   ((angle :initform 0f0 :accessor angle)
    (target :initarg :target :accessor target)
-   (clock :initarg :clock :initform 10f0 :accessor clock)))
+   (clock :initarg :clock :initform 5f0 :accessor clock)))
 
 (defmethod initialize-instance :after ((prompt quest-indicator) &key target)
   (setf (target prompt) (typecase target
