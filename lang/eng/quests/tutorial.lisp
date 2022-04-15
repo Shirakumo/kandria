@@ -34,18 +34,18 @@
    ~ catherine
 | (:excited)Woah...
 | (:concerned)Uh, can you walk?")
-  (:go-to (walk-start))
+  (:go-to (walk-start) :marker NIL)
   (:interact (catherine :now T)
    "~ catherine
 | (:excited)No way! Looks like most of your systems are still working.
 | (:normal)My name's \"Catherine\"(yellow). Come on, let's get out of here.
 ! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))")
-  (:go-to (jump-start :lead catherine))
-  (:go-to (climb-start :with catherine))
-  (:go-to (rope-start :with catherine)
+  (:go-to (jump-start :lead catherine) :marker NIL)
+  (:go-to (climb-start :with catherine) :marker NIL)
+  (:go-to (rope-start :with catherine) :marker NIL
   "~ catherine
 | Try not to fall.")
-  (:go-to (dash-start :with catherine))
+  (:go-to (dash-start :with catherine) :marker NIL)
   (:eval
    (ensure-nearby 'dash-start 'catherine)
    (move :freeze player)
@@ -54,19 +54,19 @@
            (stop 'catherine)
            (setf (direction 'catherine) +1)
            (stop 'player))
-  (:go-to (dash-end)
+  (:go-to (dash-end) :marker NIL
   "~ catherine
 | <-Shit!->... (:disappointed)Umm, now what?...
   ")
-  (:go-to (platform-start :with catherine)
+  (:go-to (platform-start :with catherine) :marker NIL
   "~ catherine
 | (:cheer)That was __AMAZING!!__ Is that some kind of booster module?
   ")  
-  (:go-to (platform-end :with catherine)
+  (:go-to (platform-end :with catherine) :marker NIL
   "~ catherine
 | We're almost there - it's just through here.
   ")
-  (:go-to (tutorial-end :with catherine)))
+  (:go-to (tutorial-end :with catherine) :marker NIL))
 
 ;; TODO when name vars persist across saves, init Catherine's name to "Woman" or "???" (VN style), and then set it to Catherine here via: ! eval (setf (nametag player) \"Catherine\") once Catherine has introduced herself
 ;; SCRATCH Not too talkative though... Don't worry - (:excited)I can talk enough for both of us!
