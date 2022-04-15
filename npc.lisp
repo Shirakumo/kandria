@@ -45,6 +45,7 @@
   (and (case (state npc)
          (:normal T)
          (:animated (eql 'idle (name (animation npc)))))
+       (= 0 (vx (velocity npc)))
        (call-next-method)))
 
 (defmethod interact :after ((thing npc) (player player))
