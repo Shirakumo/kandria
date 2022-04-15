@@ -43,7 +43,7 @@
    :size (alloy:un 15)
    :pattern colors:white)
   ((:label simple:text)
-   (alloy:margins 70 10 10 10)
+   (alloy:margins 100 10 10 10)
    alloy:text
    :valign :middle
    :halign :start
@@ -92,6 +92,6 @@
     (dolist (item (list-items inventory 'consumable-item))
       (alloy:enter (make-instance 'item-button :value item :inventory inventory) list))
     (alloy:enter list scroll)
-    (alloy:enter scroll layout :constraints `((:left 0) (:bottom 0) (:width 300) (:height 400)))
-    (alloy:enter label layout :constraints `((:left 0) (:above ,scroll 0) (:width 300) (:height 40)))
+    (alloy:enter scroll layout :constraints `((:left 0) (:bottom 0) (:width 400) (:height 400)))
+    (alloy:enter label layout :constraints `((:left 0) (:above ,scroll 0) (:width 400) (:height 40)))
     (alloy:finish-structure panel layout list)))
