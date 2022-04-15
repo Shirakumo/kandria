@@ -352,7 +352,7 @@
                                    :condition (complete-p 'interaction)
                                    :on-activate (interaction)
                                    :on-complete ,next
-                                   :marker ',with
+                                   :marker ',(if now NIL with)
                                    (:interaction interaction
                                     :interactable ,with
                                     :auto-trigger ,now
