@@ -163,11 +163,13 @@
     (award-experience attacker (experience-reward animatable))))
 
 (defmethod hurt ((animatable animatable) (damage integer))
-  (let ((damage (* (damage-input-scale animatable) damage)))
+  (let* ((damage (* (damage-input-scale animatable) damage))
+         (hard-hit-p (<= (* +hard-hit+ (maximum-health animatable)) damage)))
     (cond ((invincible-p animatable)
            (setf damage 0))
-          ((interrupt animatable)
-           (when (<= (* +hard-hit+ (maximum-health animatable)) damage)
+          (hard-hit-p
+           (setf (pause-timer +world+) 0.12)
+           (when (interrupt animatable)
              (setf (animation animatable) 'hard-hit))))
     (trigger (make-instance 'text-effect) animatable
              :text (princ-to-string (truncate damage))
