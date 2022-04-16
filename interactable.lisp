@@ -208,6 +208,7 @@
 
 (defmethod trigger ((target station) (source station) &key)
   (move :freeze (unit 'player +world+))
+  (hide (prompt (unit 'player +world+)))
   (setf (move-time (train source)) 0.0)
   (setf (state (train source)) :depart)
   (setf (move-time (train target)) 0.0)

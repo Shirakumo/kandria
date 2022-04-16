@@ -381,3 +381,7 @@
 (define-environment (region2 bar)
   :music 'music/bar
   :ambience 'ambience/bar)
+
+(define-environment (region2 transition)
+  :music NIL
+  :ambience 'ambience/desolate-building)
