@@ -118,6 +118,7 @@
                :trial-steam
                :trial-notify
                :trial-feedback
+               :trial-png
                :alloy-constraint
                :zip
                :fast-io
