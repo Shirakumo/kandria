@@ -31,6 +31,22 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by KingMe
 - Fix crash caused from focus loss during game finalization
   Reported by Leslieanne White and others
+- Allow configuring multiple inputs per action
+  Reported by Monroth
+- Show button prompts native to chosen controller
+  Reported by Albert Martinez
+- Fix map markers leading to corrupted saves
+  Reported by Joram Schrijver
+- Fix fishing being possible for media without a fishing spot set
+  Reported by Joram Schrijver
+- Fix the action set not being restored properly when opening a panel while fishing
+  Reported by Joram Schrijver
+- Allow using directional inputs to tab in menus
+  Reported by Leslieanne White
+- Add fuzz effect for profiles if correspondent is not nearby
+  Reported by Leslieanne White
+- Fix movement direction not being carried across input set changes
+  Reported by Will
 
 ## 0.2.4
 - Improve stamina display
