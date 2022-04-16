@@ -280,7 +280,8 @@ void main(){
     (setf (mixed:speed-factor (harmony:segment 2 (// 'sound 'ui-scroll-dialogue))) (pitch unit))
     (setf (source textbox) (nametag unit))
     (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
-    (setf (animation (profile textbox)) 'normal)))
+    (unless (eq (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
+      (setf (animation (profile textbox)) 'normal))))
 
 (defmethod handle ((rq dialogue:emote-request) (textbox textbox))
   (setf (pending textbox) (list :emote (dialogue:emote rq))))
