@@ -99,7 +99,7 @@
          (* (- (* 2 (random 2)) 1) (random* 2 1))
          (random* 4 2)))
 
-(defmethod item-order ((_ item)) 0)
+(defmethod item-order ((_ item)) 1000)
 
 (defmethod is-collider-for ((item item) thing) NIL)
 (defmethod is-collider-for ((item item) (block block)) T)
@@ -232,17 +232,17 @@
 (define-item (small-health-pack health-pack) 0 0 8 8
   :price 100)
 (defmethod health ((_ item:small-health-pack)) 10)
-(defmethod item-order ((_ item:small-health-pack)) 0)
+(defmethod item-order ((_ item:small-health-pack)) 100)
 
 (define-item (medium-health-pack health-pack) 0 0 8 8
   :price 250)
 (defmethod health ((_ item:medium-health-pack)) 25)
-(defmethod item-order ((_ item:medium-health-pack)) 1)
+(defmethod item-order ((_ item:medium-health-pack)) 101)
 
 (define-item (large-health-pack health-pack) 0 0 8 8
   :price 500)
 (defmethod health ((_ item:large-health-pack)) 50)
-(defmethod item-order ((_ item:large-health-pack)) 2)
+(defmethod item-order ((_ item:large-health-pack)) 102)
 
 (define-item-category active-effect-item (consumable-item)
   ((clock :initform 30.0 :initarg :duration :accessor clock)))
@@ -273,7 +273,8 @@
 (define-item (parts value-item) 8 16 8 8
   :price 1)
 
-(defclass scrap () ()) (defmethod item-order ((_ scrap)) 1)
+(defclass scrap () ())
+(defmethod item-order ((_ scrap)) 200)
 (define-item (heavy-spring scrap value-item) 8 16 8 8
   :price 20)
 (define-item (satchel scrap value-item) 16 16 8 8
@@ -305,7 +306,8 @@
 (define-item (dented-plate scrap value-item) 120 16 8 8
   :price 10)
 
-(defclass electronics () ()) (defmethod item-order ((_ electronics)) 2)
+(defclass electronics () ())
+(defmethod item-order ((_ electronics)) 300)
 (define-item (simple-circuit electronics value-item) 8 24 8 8
   :price 20)
 (define-item (complex-circuit electronics value-item) 16 24 8 8
@@ -331,7 +333,8 @@
 (define-item (rusted-key electronics value-item) 96 24 8 8
   :price 10)
 
-(defclass ores () ()) (defmethod item-order ((_ ores)) 3)
+(defclass ores () ())
+(defmethod item-order ((_ ores)) 400)
 (define-item (clay-clump ores value-item) 0 32 8 8
   :price 20)
 (define-item (gold-nugget ores value-item) 8 32 8 8
@@ -355,7 +358,8 @@
 (define-item (dirt-clump ores value-item) 80 32 8 8
   :price 10)
 
-(defclass liquids () ()) (defmethod item-order ((_ liquids)) 4)
+(defclass liquids () ())
+(defmethod item-order ((_ liquids)) 500)
 (define-item (coolant liquids value-item) 0 40 8 8
   :price 30)
 (define-item (pure-water liquids value-item) 8 40 8 8
@@ -371,7 +375,8 @@
 (define-item (cloudy-water liquids value-item) 48 40 8 8
   :price 100)
 
-(defclass skins () ()) (defmethod item-order ((_ skins)) 5)
+(defclass skins () ())
+(defmethod item-order ((_ skins)) 600)
 (define-item (ruined-pelt skins value-item) 8 48 8 8
   :price 15)
 (define-item (fine-pelt skins value-item) 0 48 8 8
