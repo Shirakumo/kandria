@@ -81,7 +81,6 @@
 
 (defmethod hide :after ((panel quick-menu))
   (setf (time-scale +world+) 1.0)
-  (clear-retained)
   (discard-events +world+))
 
 (defmethod initialize-instance :after ((panel quick-menu) &key (inventory (unit 'player T)))
