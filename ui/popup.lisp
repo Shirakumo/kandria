@@ -92,10 +92,12 @@
                                                    :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
          (label (make-instance 'info-label :value text :layout-parent layout))
-         (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout)))
-    (make-instance 'popup-button :value #@dismiss-prompt-panel :layout-parent buttons :focus-parent focus
-                                 :on-activate (lambda () (hide panel)))
+         (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout))
+         (cancel (make-instance 'popup-button :value #@dismiss-prompt-panel :layout-parent buttons :focus-parent focus
+                                              :on-activate (lambda () (hide panel)))))
     (make-instance 'popup-button :value #@accept-prompt-panel :layout-parent buttons :focus-parent focus
                                  :on-activate on-accept)
+    (alloy:on alloy:exit (focus)
+      (setf (alloy:focus cancel) :strong))
     ;; FIXME: scroll
     (alloy:finish-structure panel layout focus)))
