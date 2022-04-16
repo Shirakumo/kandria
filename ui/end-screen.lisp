@@ -70,5 +70,5 @@
         (make-instance 'button :focus-parent focus :layout-parent buttons :value #@return-to-main-menu :on-activate (lambda () (return-to-main-menu)))
         (alloy:enter buttons layout :constraints `((:center :w) (:size 700 50) (:below ,cta-links 40)))
         (alloy:on alloy:exit (focus)
-          (setf (alloy:index focus) (1- (alloy:element-count focus))))))
+          (setf (alloy:focus (alloy:index-element (1- (alloy:element-count focus)) focus)) :strong))))
     (alloy:finish-structure prompt layout focus)))
