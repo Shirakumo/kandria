@@ -228,13 +228,13 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ player
 | I said \"Alex\" not \"Alice\".
 ~ alex
-| (:confused)<-Hic->. That's what I said.
+| <-Hic->. That's what I said.
 ~ player
 | Oh boy.
 | Are you Alex from the Noka? Do you know Fi?
 ~ alex
-| (:confused)...
-| (:normal)Yeah that's me. <-Hic->.
+| ...
+| Yeah that's me. <-Hic->.
 ! eval (setf (nametag (unit 'alex)) (@ alex-nametag))
 ~ player
 - My name is Stranger.
@@ -278,7 +278,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ? (<= 40 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 40)
   | ~ alex
-  | | (:confused)Ugh, thansssks. <-Hic->.
+  | | Ugh, thansssks. <-Hic->.
   | ~ player
   | | \"They down it in one.\"(light-gray, italic)
   | | \"They look like they're about to throw up, but swallow it back down.\"(light-gray, italic)
@@ -290,7 +290,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   ? (<= 20 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 20)
   | ~ alex
-  | | (:confused)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
+  | | (:unhappy)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
   | ~ player
   | | \"They drink it anyway.\"(light-gray, italic)
   |?
@@ -303,18 +303,18 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ player
 - Did you learn anything from the Cerebats?
   ~ alex
-  | (:proud)I learned where all the tunnels go. <-Hic->. Mapped that whole area, an' the one below that.
+  | I learned where all the tunnels go. <-Hic->. Mapped that whole area, an' the one below that.
 - Where have you been all this time?
   ~ alex
-  | (:confused)'Ere, mostly.
-  | (:proud)Oh, an' I mapped this whole area, an' the ones below that.
+  | 'Ere, mostly.
+  | Oh, an' I mapped this whole area, an' the ones below that.
 ~ player
 | Those maps could really help me.
 ~ alex
 | (:angry)You mad? I give you these an' I really would have nuffin'. <-Hic->.
 | Now get lost.
 | (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told Catherine where you were.
-| (:confused)I was just walking along an' there you were. Exposed by an earthquake I reckon. <-Hic->. I pulled you outta the rubble.
+| I was just walking along an' there you were. Exposed by an earthquake I reckon. <-Hic->. I pulled you outta the rubble.
 | (:angry)Now I wish I'd kept my mouth shut an' smashed you up instead.
 ! eval (deactivate 'islay-hint)
 ")))

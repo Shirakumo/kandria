@@ -22,27 +22,27 @@
 | ~ player
 | | You're still here?
 | ~ alex
-| | (:proud)Not for much longer.
+| | (:angry)Not for much longer.
 |?
 | ~ player
 | - Alex?
 |   ~ alex
-|   | (:proud)Not for much longer.
+|   | (:angry)Not for much longer.
 | - What are you doing here?
 |   ~ alex
-|   | (:proud)Biding my time.
+|   | (:angry)Biding my time.
 | - Are you sober?
 |   ~ alex
-|   | (:proud)As a judge at the Last Judgement.
+|   | (:angry)As a judge at the Last Judgement.
   
 ~ alex
-| (:proud)I can't wait to see the look on Fi's face when the Wraw come pouring out the ground.
+| (:angry)I can't wait to see the look on Fi's face when the Wraw come pouring out the ground.
 ~ player
 - What do you mean?
 - What have you done?
 - Are you saying what I think you're saying?
   ~ alex
-  | (:proud)If that's that I've betrayed you to the Wraw, then yeah.
+  | (:angry)If that's that I've betrayed you to the Wraw, then yeah.
 ~ alex
 | I told them the exact location o' the Noka camp.
 | (:angry)It's the least I could do to repay you an' Fi for your loyalty.
