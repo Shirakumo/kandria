@@ -137,11 +137,11 @@
 | [? Take care, {(nametag player)}. | Mind how you go. | I'll be seeing you. | Ta-ta.]")))
 
 (quest:define-quest (kandria trader-shop-semi)
-  :title "Trade"
+  :title ""
   :visible NIL
   :on-activate T
   (trade-shop-semi
-   :title "Trade"
+   :title ""
    :on-activate T
    (:interaction buy
     :interactable islay

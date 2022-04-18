@@ -344,11 +344,11 @@
 ;; masalamah = goodbye (Arabic)
 
 (quest:define-quest (kandria trader-shop)
-  :title "Trade"
+  :title ""
   :visible NIL
   :on-activate T
   (trade-shop
-   :title "Trade"
+   :title ""
    :on-activate T
    (:interaction buy
     :interactable trader
