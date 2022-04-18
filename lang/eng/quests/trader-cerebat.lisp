@@ -20,7 +20,7 @@
 ~ player
 | Where is the Cerebat Council?
 ~ cerebat-trader-quest
-| (:cautious)...
+| ...
 | Keep ya voice down, will ya!
 | What ya wanna see them for?
 ~ player
@@ -29,7 +29,7 @@
   | That so. Well just make sure it stays that way.
 - I want to ask them some questions.
   ~ cerebat-trader-quest
-  | (:cautious)Piece o' friendly advice: Now is not a good time to be asking questions.
+  | Piece o' friendly advice: Now is not a good time to be asking questions.
   ~ player
   | \"He touches his nose with a dirty forefinger.\"(light-gray, italic)
 - I come from the Noka.
@@ -38,29 +38,29 @@
   | Bunch o' crazy bastards if you ask me. No offence.
 ~ cerebat-trader-quest
 | Anyway, you can't see the council - they won't see anyone.
-| (:sly)But lucky for you I'm a purveyor o' fine information, as just demonstrated.
+| But lucky for you I'm a purveyor o' fine information, as just demonstrated.
 | And I 'ave more to share.
 | But it's not all free. A trader gotta make a livin', especially in these times.
 ~ player
 - What times are those?
   ~ cerebat-trader-quest
   | ...
-  | (:jolly)Ah, good one! You nearly 'ad me there, matey!
-  | (:sly)But I want something first before I tell you anything.
+  | Ah, good one! You nearly 'ad me there, matey!
+  | But I want something first before I tell you anything.
 - What do you want?
   ~ cerebat-trader-quest
-  | (:sly)Oh nothing much. Nothing much at all, really. It's just...
+  | Oh nothing much. Nothing much at all, really. It's just...
 - I understand.
   ~ cerebat-trader-quest
-  | (:jolly)Good. It's a simple matter o' economics, innit?
+  | Good. It's a simple matter o' economics, innit?
 ~ cerebat-trader-quest
-| (:cautious)If I'm gonna risk my neck, you gotta risk yours.
+| If I'm gonna risk my neck, you gotta risk yours.
 | See, the usual caravans aren't getting through, so it's kinda hard to get supplies.
 | I'm talking mushrooms (poisonous ones o' course), purified water, and pearls - you know, the essentials.
 | Might as well throw in some thermal fluid and coolant liquid while you're at it.
 | A couple o' each should do nicely, just to get me back on my feet. Then I'll spill the beans.
 | \"You shouldn't need to look too far away\"(orange) - what can I say, I'm lazy.
-| (:jolly)Don't be a stranger!
+| Don't be a stranger!
 ~ player
 | \"Indeed. Alright, unpicking that conversation, my grocery list is at least \"2 each\"(orange) of : \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
 | \"The //essentials//...\"(light-gray, italic)
@@ -87,17 +87,17 @@
 - Why are you helping the Wraw?
   ~ cerebat-trader-quest
   | I know how it looks.
-  | (:cautious)But they pay well, and that's all I care about. A man's gotta make a living.
+  | But they pay well, and that's all I care about. A man's gotta make a living.
   < questions
 - What happened to the Cerebat Council?
   ~ cerebat-trader-quest
-  | (:cautious)Like I said, they're gone.
+  | Like I said, they're gone.
   | Some might still be alive though, rotting in some Wraw jail.
   < questions
 - What's your name?
   ~ cerebat-trader-quest
   | Do you fink I got this far in business by sharing my name?
-  | (:sly)You can call me... Stranger.
+  | You can call me... Stranger.
   ! eval (setf (nametag (unit 'cerebat-trader-quest)) \"Stranger\")
   ~ player
   - Are you for real?
@@ -106,23 +106,23 @@
   - Okay, Stranger.
   - Why did you pick that name?
     ~ cerebat-trader-quest
-    | (:jolly)Do you like it? I just made it up.
+    | Do you like it? I just made it up.
   ~ cerebat-trader-quest
   | What's your name?
   ~ player
   - Nice try.
     ~ cerebat-trader-quest
-    | (:jolly)It was wasn't it.
+    | It was wasn't it.
   - Not Stranger.
     ~ cerebat-trader-quest
-    | (:jolly)Well that would be a turn up for the books if it was.
+    | Well that would be a turn up for the books if it was.
   - (Lie) I don't remember my name.
     ~ cerebat-trader-quest
-    | (:jolly)I don't remember mine neither.
+    | I don't remember mine neither.
   < questions
 - I'm done.
 ~ cerebat-trader-quest
-| (:cautious)See you around.
+| See you around.
 ")))
 
 (quest:define-quest (kandria trader-cerebat-shop)
