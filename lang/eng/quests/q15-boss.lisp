@@ -17,7 +17,7 @@
    "~ player
 | Stay back Catherine.
 ~ catherine
-| (:shout)Smash it!
+| Smash it!
   ")
   (:wait 1)
   (:eval

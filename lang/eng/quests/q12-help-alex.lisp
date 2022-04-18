@@ -36,9 +36,8 @@
 |   | (:proud)As a judge at the Last Judgement.
   
 ~ alex
-| (:proud)I can't wait to see the look on Fi's face when the Wraw come pouring out o' the ground.
+| (:proud)I can't wait to see the look on Fi's face when the Wraw come pouring out the ground.
 ~ player
-| (:skeptical)...
 - What do you mean?
 - What have you done?
 - Are you saying what I think you're saying?

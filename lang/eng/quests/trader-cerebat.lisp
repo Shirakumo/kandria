@@ -63,7 +63,7 @@
 | (:jolly)Don't be a stranger!
 ~ player
 | \"Indeed. Alright, unpicking that conversation, my grocery list is at least \"2 each\"(orange) of : \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
-| (:skeptical)\"The essentials...\"(light-gray, italic)
+| \"The //essentials//...\"(light-gray, italic)
 ")))
 
 ;; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long

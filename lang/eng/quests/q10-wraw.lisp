@@ -68,11 +68,11 @@
 | \"Perhaps I can verify what the mech's purpose is...\"(light-gray, italic)
 | (:giggle)\"Just gotta stick my finger in here... Pardon me.\"(light-gray, italic)
 | (:normal)\"Yep, this has been designed to subdue an android alright.\"(light-gray, italic)
-| (:skeptical)\"Make that androids, plural, judging from these weapon configurations.\"(light-gray, italic)
+| (:thinking)\"Make that //androids// judging from these weapon configurations.\"(light-gray, italic)
 | (:giggle)\"All this just for little old me? I'm flattered.\"(light-gray, italic)
 | (:normal)\"Hang on, what's this?...\"(light-gray, italic)
 | \"\"... Neutralise additional android targets: \"Genera\"(red) in the \"western mountains\"(red). Targets unknown.\"(light-gray, italic)\"
-| (:skeptical)\"... A faction of androids in the mountains? Am I not alone?\"(light-gray, italic)
+| (:thinking)\"... A faction of androids in the mountains? Am I not alone?\"(light-gray, italic)
 ? (complete-p 'wraw-warehouse)
 | | (:embarassed)\"Given the raw materials I saw in the warehouse, their manufacturing ambitions are HUGE.\"(light-gray, italic)
 | | \"As in,\"(light-gray) \"\"invading the entire valley\"(light-gray)\" \"huge.\"(light-gray, italic)

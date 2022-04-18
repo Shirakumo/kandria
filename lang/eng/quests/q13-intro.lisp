@@ -68,7 +68,7 @@
   ~ fi
   | (:unsure)But you do.
   ~ player
-  | (:skeptical)I don't, not really.
+  | I don't, not really.
   ~ fi
   | (:thinking)...
   ~ islay

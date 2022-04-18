@@ -20,10 +20,10 @@
 ~ player
 | \"I might as well call Fi from here. There's nowhere the Semis don't have eyes and ears.\"(light-gray, italic)
 | (:normal)Hello, Fi, it's me.
-| (:skeptical)... Fi?
+| ... Fi?
 | (:thinking)\"Something's interfering with my FFCS signal.\"(light-gray, italic)
 | (:normal)\"I probably have Innis to thank for that.\"(light-gray, italic)
-| (:normal)\"Alright, if they don't want me calling home, \"I'll go on foot\"(orange).\"(light-gray, italic)
+| \"Alright, if they don't want me calling home, \"I'll go on foot\"(orange).\"(light-gray, italic)
 ? (unlocked-p (unit 'station-surface))
 | | (:giggle)\"Or maybe I'll take the train.\"(light-gray, italic)
 ! eval (activate 'return-fi)

@@ -81,13 +81,13 @@
 ~ player
 | \"It's new-home candidate site \"Delta\"(red).\"(light-gray, italic)
 | (:thinking)\"It's secure and concealed, and sheltered from the weather.\"(light-gray, italic)
-| (:skeptical)\"But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.\"(light-gray, italic)
+| (:normal)\"But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.\"(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
+| | \"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
-| | (:normal)\"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold) for the remaining sites.\"(light-gray, italic)
+| | \"I should \"keep looking\"(orange), and consult my \"Log Files\"(orange) and \"Map\"(orange) \"< {(prompt-char 'open-map)} >\"(gold) for the remaining sites.\"(light-gray, italic)
 | ! eval (setf (var 'first-home) T)
 "))
 
@@ -105,9 +105,9 @@
 | (:thinking)\"These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.\"(light-gray, italic)
 | \"I could clear the barbed wire so children, and the elderly and infirm could get through.\"(light-gray, italic)
 ? (or (complete-p 'q2-seeds) (have 'item:seeds))
-| | (:skeptical)\"But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.\"(light-gray, italic)
+| | (:thinking)\"But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.\"(light-gray, italic)
 |?
-| | (:skeptical)\"But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.\"(light-gray, italic)
+| | (:thinking)\"But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.\"(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
 | | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)

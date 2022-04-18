@@ -116,8 +116,8 @@
    :title "Defeat the wolf at the leak"
    "
 ~ catherine
-| (:shout)Look out!
-| Keep it busy while I finish up here.
+| (:concerned)Look out!
+| (:normal)Keep it busy while I finish up here.
   ")
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
@@ -153,7 +153,7 @@
   (:complete (q1-fight2)
    :title "Defeat the servos"
    "~ catherine
-| (:shout)Smash 'em!
+| Smash 'em!
   ")
   ;; TODO: spawn spare parts for the player to collect (barter currency) - would need to integrate with the zombies' death scripts?
   ;; TODO catherine shocked - What have they done?

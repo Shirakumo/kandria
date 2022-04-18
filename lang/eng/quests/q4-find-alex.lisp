@@ -230,8 +230,8 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ~ alex
 | (:confused)<-Hic->. That's what I said.
 ~ player
-| (:skeptical)Oh boy.
-| (:normal)Are you Alex from the Noka? Do you know Fi?
+| Oh boy.
+| Are you Alex from the Noka? Do you know Fi?
 ~ alex
 | (:confused)...
 | (:normal)Yeah that's me. <-Hic->.
@@ -281,8 +281,8 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
   | | (:confused)Ugh, thansssks. <-Hic->.
   | ~ player
   | | \"They down it in one.\"(light-gray, italic)
-  | | (:skeptical)\"They look like they're about to throw up, but swallow it back down.\"(light-gray, italic)
-  | | (:normal)\"I'm glad that doesn't happen to androids.\"(light-gray, italic)
+  | | \"They look like they're about to throw up, but swallow it back down.\"(light-gray, italic)
+  | | \"I'm glad that doesn't happen to androids.\"(light-gray, italic)
   |?
   | ~ player
   | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)

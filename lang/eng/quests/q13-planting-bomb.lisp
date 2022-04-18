@@ -193,7 +193,7 @@
 | \"That should be far enough.\"(light-gray, italic)
 | \"Checking FFCS... OK. I have a signal.\"(light-gray, italic)
 | \"Islay, do you read me? The bombs are in position.\"(light-gray, italic)
-| (:skeptical)\"... Hello, anyone?...\"(light-gray, italic)
+| \"... Hello, anyone?...\"(light-gray, italic)
 | \"... The connection is open...\"(light-gray, italic)
 ~ islay
 | (:nervous){(nametag player)}, I read you. We have a problem - return to the surface now.
@@ -202,7 +202,7 @@
 - What problem?
 - Can I talk to Fi?
 ~ player
-| (:skeptical)\"... She closed the connection.\"(light-gray, italic)
+| \"... She closed the connection.\"(light-gray, italic)
 | \"<-Shit.->\"(light-gray, italic)
 | \"There's only one way to find out what's happening: \"go back to camp\"(orange).\"(light-gray, italic)
 | ! eval (deactivate (unit 'ffcs-bomb-1))

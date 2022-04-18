@@ -133,7 +133,7 @@
 
 # end
 | ~ catherine
-| (:shout)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger! | Sync your chronometer and... Go!]
+| (:excited)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger! | Sync your chronometer and... Go!]
 ! eval (clear-pending-interactions)
 # quit
 ")))

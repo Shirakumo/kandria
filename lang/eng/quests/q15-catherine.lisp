@@ -27,7 +27,7 @@
 | \"I lower my vocal volume so only Catherine can hear.\"(light-gray, italic)
 | (:embarassed)The bombs didn't detonate.
 ~ catherine
-| (:shout)<-WHAT?!->
+| (:concerned)<-WHAT?!->
 ~ player
 | Come with me to \"Engineering\"(orange).
 ")
@@ -68,12 +68,12 @@
   | I'm afraid you both need to go after her - even though she said not to follow.
   | She'll have better luck solving it with your help, Catherine.
 ~ catherine
-| (:shout)Then let's go!
+| Then let's go!
 ~ fi
 | Is your FFCS working?
 ~ player
 | \"Checking FFCS...\"(light-gray, italic)
-| (:skeptical)No. Wraw interference.
+| No. Wraw interference.
 ~ fi
 | Then take this walkie. Try calling her once you're down there, find out where she is.
 ! eval (store 'item:walkie-talkie-2 1)
