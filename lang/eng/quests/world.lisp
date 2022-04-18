@@ -191,7 +191,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)\"This sunken room must be part of their reservoir, which the pump draws water from.\"(light-gray, italic)
+| (:thinking)\"This sunken room must be part of their reservoir, from which the pump draws water.\"(light-gray, italic)
 ")
 ;; was: They've had many leaks, if this sunken room is anything to go by.
 
