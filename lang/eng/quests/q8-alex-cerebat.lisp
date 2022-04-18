@@ -7,14 +7,12 @@
   :visible NIL
   :on-activate (task-1)
 
-  (task-1
+(quest:define-task (kandria q8-alex-cerebat task-1)
    :title ""
-   :condition all-complete
-   :on-activate (interact)
-
+   :condition NIL
+   :on-activate T
    (:interaction interact
     :interactable alex
-    :repeatable T
     :dialogue "
 ~ alex
 | (:angry)Get lost.
