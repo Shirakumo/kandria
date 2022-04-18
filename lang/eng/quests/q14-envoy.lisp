@@ -51,7 +51,7 @@
 ~ fi
 | She's not going anywhere.
 ~ jack
-| (:thinking)Fi...
+| (:shocked)Fi...
 ~ innis
 | (:angry)He's giving us a way out.
 ~ islay

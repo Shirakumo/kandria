@@ -77,16 +77,16 @@
 | They've built enough mechs and power-suited soldiers to take this entire valley by force.
 | And given I couldn't use my FFCS in Cerebat territory, I think they're on the march.
 ~ fi
-| (:shocked)...
+| (:unsure)...
 | ... But why?
 ~ jack
 | (:annoyed)To kill us all, or enslave us. Does it matter?!
 ~ fi
-| (:shocked)I...
+| (:unsure)I...
 ~ jack
 | Fi?...
-| (:shocked)Fi, what do we do?
-| ... Fuck me. We need to get out of here.
+| (:annoyed)Fi, what do we do?
+| (:shocked)... Fuck me. We need to get out of here.
 ~ catherine
 | (:concerned)And go where exactly?
 | We've got old people and kids to think about.

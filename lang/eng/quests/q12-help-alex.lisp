@@ -64,7 +64,7 @@
     :title "Alex has betrayed us."
     :dialogue "
 ~ fi
-| (:shocked)Alex has... betrayed us? What do you mean?
+| (:unsure)Alex has... betrayed us? What do you mean?
 ~ player
 | I found them in Cerebat territory. They told the Wraw our location.
 | Oh, and they are coming back after all.
@@ -77,17 +77,17 @@
   ~ player
   | (:embarassed)They're coming back on the side of the Wraw.
   ~ fi
-  | (:shocked)...
+  | (:annoyed)...
 - On the side of the Wraw.
   ~ fi
-  | (:shocked)...
+  | (:annoyed)...
 - We might have to kill them.
   ~ fi
   | What do you mean?
   ~ player
   | (:embarassed)They're coming back on the side of the Wraw.
   ~ fi
-  | (:shocked)...
+  | (:annoyed)...
 ~ jack
 | (:annoyed)Why didn't you put 'em outta their misery when you had the chance? Who knows what else they told the Wraw, and how many they might kill.
 ~ player

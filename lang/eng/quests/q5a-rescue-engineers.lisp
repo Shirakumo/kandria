@@ -41,7 +41,7 @@
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | (:weary)How in God's name did you get in here?
+| | | How in God's name did you get in here?
 | | ~ player
 | | | There's a tunnel above this shaft - though it's not something a human could navigate.
 | | ~ semi-engineer-chief
@@ -49,13 +49,13 @@
 | | ~ player
 | | - Not human, yes.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... An android, as I live and breathe.
+| |   | ... An android, as I live and breathe.
 | | - An android.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... As I live and breathe.
+| |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're the engineers you're looking for. Thank God for Innis.
+| | | We're the engineers you're looking for. Thank God for Innis.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
@@ -64,21 +64,21 @@
 | | ! eval (activate 'task-wall-location)
 | |?
 | | ~ semi-engineer-chief
-| | | (:weary)How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
+| | | How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
 |?
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | (:weary)Who are you? How did you break through the collapsed tunnel?
+| | | Who are you? How did you break through the collapsed tunnel?
 | | ~ player
 | | - I'm... not human.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... An android, as I live and breathe.
+| |   | ... An android, as I live and breathe.
 | | - I'm an android.
 | |   ~ semi-engineer-chief
-| |   | (:shocked)... As I live and breathe.
+| |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | (:weary)We're the engineers you're looking for. Thank God for Innis.
+| | | We're the engineers you're looking for. Thank God for Innis.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | | But things are looking up now the route is open.

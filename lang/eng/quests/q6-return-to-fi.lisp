@@ -100,7 +100,7 @@
   ~ player
   | She said she wants Catherine back or she'll turn the water off.
 ~ fi
-| (:shocked)...
+| (:unsure)...
 | Do you think she meant it?
 ~ player
 - You know her better than I do.

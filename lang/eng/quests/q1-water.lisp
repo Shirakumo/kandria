@@ -296,7 +296,7 @@
 ~ jack
 | Examine the thing, find out for sure.
 ~ fi
-| (:thinking)Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
+| (:unsure)Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
 | (:concerned)Oh, and we'd need a working computer, which no one's had since before I was born.

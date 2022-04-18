@@ -70,7 +70,7 @@
   ~ player
   | I don't, not really.
   ~ fi
-  | (:thinking)...
+  | ...
   ~ islay
   | Okay, how are we looking?
 - How confident?

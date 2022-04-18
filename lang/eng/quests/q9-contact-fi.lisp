@@ -25,12 +25,12 @@
 ~ player
 | Cerebat territory. The Council are dead. The Wraw have taken over.
 ~ fi
-| (:shocked)...
+| ...
 | What happened? Are you okay?
 ~ player
 - I'm fine.
   ~ fi
-  | (:shocked)Thank God.
+  |(:happy)Good.
 - I helped the Wraw by mistake.
   ~ fi
   | What do you mean?
@@ -45,7 +45,7 @@
 | Well, you weren't to know.
 | But now he's our enemy.
 | ...
-| (:thinking)What are the Wraw up to?...
+| (:unsure)What are the Wraw up to?...
 | (:normal)I'm sorry to send you \"deeper, but I really need need to know what they're doing\"(orange).
 | Can do you that?
 ~ player

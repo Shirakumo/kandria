@@ -24,8 +24,8 @@
 - Improvise?
   ~ fi
   | Are you familiar with the concept?
-  | (:unsure)... I apologise, that came out wrong. I meant, (:shocked)can androids...?
-  | (:normal)I think you've answered this question already.
+  | (:unsure)... I apologise, that came out wrong. I meant, can androids...?
+  | (:normal)... I think you've answered this question already.
   | I'm sorry I can't be more specific. Just be prepared for anything.
 - I'll be fine.
   ~ fi
@@ -33,7 +33,7 @@
 - I'm designed for that.
   ~ fi
   | You're a remarkable piece of-
-  |(:shocked)... person. (:normal)You're a remarkable //person//.
+  |(:unsure)... person. (:normal)You're a remarkable //person//.
 ~ fi
 | Is everything clear? You know what you need to do?
 ~ player

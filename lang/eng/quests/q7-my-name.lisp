@@ -85,8 +85,8 @@
     < name
   - You can choose.
     ~ fi
-    | (:thinking)Okay, no pressure then...
-    | I guess to me you seem like... \"{#@player-name-fi}\"(yellow). What do you think?
+    | (:unsure)Okay, no pressure then...
+    | (:normal)I guess to me you seem like... \"{#@player-name-fi}\"(yellow). What do you think?
     ~ player
     - (No - choose a different name)
       < name
@@ -100,7 +100,7 @@
 | (:happy)That's settled then, {(nametag player)}. And again, welcome to the Noka.
 | (:normal)I wish we could talk, but I really need you to take this next assignment.
 | (:happy)Your first \"official\" one, no less.
-| (:thinking)It's just... I cannot get what Innis said out of my head. We need to talk to the Cerebats.
+| (:unsure)It's just... I can't get what Innis said out of my head. We need to talk to the Cerebats.
 | (:normal)\"Go and see the Cerebat Council\"(orange) in the heart of their territory, \"beneath the Semi Sisters\"(orange).
 | \"See what you can learn\"(orange). If they've been invaded by the Wraw, I think you'll know soon enough.
 ~ player
