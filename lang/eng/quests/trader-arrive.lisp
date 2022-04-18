@@ -25,7 +25,7 @@
 - Who do you think I am?
 - Most likely.
 ~ trader
-| (:jolly)You're The Stranger!... (:concerned)Or was it just Stranger?
+| (:jolly)You're The Stranger!... (:normal)Or was it just Stranger?
 ? (not (complete-p 'q7-my-name))
 | ~ player
 | - Technically it's just Stranger.
@@ -36,8 +36,8 @@
 |   | (:jolly)But it's __YOUR__ name. Now I think about it, I'm sure it was just Stranger.
 | - I used to have a different name.
 |   ~ trader
-|   | (:concerned)Can't remember it though, right?
-|   | (:normal)Don't worry. And speaking of remembering, I'm sure it was just Stranger.
+|   | Can't remember it though, right?
+|   | Don't worry. And speaking of remembering, I'm sure it was just Stranger.
 |?
 | ? (string= (@ player-name-1) (nametag player))
 | | ~ player
@@ -46,17 +46,17 @@
 | |   | (:jolly)Right you are, Stranger!
 | | - It's Stranger, but I used to have a different name.
 | |   ~ trader
-| |   | (:concerned)Can't remember it though, right?
+| |   | Can't remember it though, right?
 | |   | (:jolly)Well it's nice to meet you, Stranger!
 | | - It's Stranger. It was never The Stranger.
 | |   ~ trader
-| |   | (:concerned)Oh, my bad, habibti.
+| |   | Oh, my bad, habibti.
 | |   | (:jolly)Well it's nice to meet you, Stranger!
 | |?
 | | ~ player
 | | - Actually now it's {(nametag player)}.
 | |   ~ trader
-| |   | Old Sahil got old information, huh? (:concerned)I'm sorry, habibti.
+| |   | Old Sahil got old information, huh? I'm sorry, habibti.
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 | |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 | | - It used to be Stranger.
@@ -67,11 +67,11 @@
 | |   ~ player
 | |   | {(nametag player)}.
 | |   ~ trader
-| |   | (:concerned)Oh, sorry habibti.
+| |   | Oh, sorry habibti.
 | |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 | | - Now it's {(nametag player)}, which was possibly my original name.
 | |   ~ trader
-| |   | (:concerned)Right - because you can't remember.
+| |   | Right - because you can't remember.
 | |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 ~ trader
 | (:jolly)Word spreads quickly around here. And Catherine couldn't stop talking about you.
@@ -129,10 +129,10 @@
     :dialogue "
 ~ trader
 ? (complete-p 'q13-planting-bomb)
-| | (:concerned)If we must, habibti.
+| | If we must, habibti.
 |? (complete-p 'q11-intro)
-| | (:sad)... I'm sorry, I can't.
-| | (:concerned)I'll still trade though, if you want.
+| | ... I'm sorry, I can't.
+| | I'll still trade though, if you want.
 | ! eval (clear-pending-interactions)
 |?
 | | (:jolly)Assalam alaikum! Let's talk.
@@ -141,7 +141,7 @@
 | |? (< 50  (health player))
 | | | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
 | |?
-| | | (:concerned)[? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
+| | | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
   
 ! label talk
 ? (and (not (active-p 'q4-find-alex)) (not (complete-p 'q4-find-alex)))
@@ -174,21 +174,21 @@
 | - When are you moving on?
 |   ~ trader
 |   | Tired of me already? (:jolly)I'm just kidding.
-|   | You're right habibti, that is what I do. I'll be gone soon.
+|   | (:normal)You're right habibti, that is what I do. I'll be gone soon.
 |   | If I stayed in one place too long I'd either run out of stock, or get run through by rogues. (:jolly)I'm not sure which is worse.
-|   | It feels good to have something to look after, you know? (:sad)Even if a business is no replacement for Khawla.
+|   | (:normal)It feels good to have something to look after, you know? Even if a business is no replacement for Khawla.
 |   ~ player
 |   - Who's Khawla?
 |     ~ trader
-|     | (:sad)She was my daughter. She's long dead.
+|     | She was my daughter. She's long dead.
 |     ! eval (setf (var 'trader-daughter) T)
 |     ~ player
 |     - I'm sorry.
 |       ~ trader
-|       | (:sad)Me too. It is what it is. Everyone's lost someone.
+|       | Me too. It is what it is. Everyone's lost someone.
 |     - What happened?
 |       ~ trader
-|       | (:sad)I... (:normal)I'd rather not talk about it, if it's all the same. 
+|       | I... I'd rather not talk about it, if it's all the same. 
 |     - Let's talk about something else.
 |   - Let's talk about something else.
 |   < talk
@@ -196,32 +196,32 @@
 |   ~ trader
 |   | They're our resident tech gurus! (:jolly)Ha, remember those?
 |   | (:normal)I remember a presentation from the head of Semi - don't remember his name - unveiling new models of android, just like you.
-|   | The sisters used to work on the production line, in the factories down here. (:concerned)Conditions were terrible by all accounts.
-|   | (:normal)I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
+|   | The sisters used to work on the production line, in the factories down here. Conditions were terrible by all accounts.
+|   | I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
 |   < talk
 | - Do you know how to examine me?
 |   ~ trader
-|   | (:concerned)Ah... examine you?
+|   | Ah... examine you?
 |   | (:jolly)Oh, examine you!
 |   | Had a warm welcome, have you? Someone don't trust you?
 |   ~ player
 |   - Jack and Fi.
 |     ~ trader
-|     | (:concerned)Oh really? I expected nothing less from Jack. Fi I'm surprised about.
-|     | (:normal)Mind you, she has a lot of alqarf on her plate. Give her some time.
+|     | Oh really? I expected nothing less from Jack. Fi I'm surprised about.
+|     | Mind you, she has a lot of alqarf on her plate. Give her some time.
 |   - Everyone.
 |     ~ trader
-|     | (:concerned)People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
+|     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
 |     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
 |   - Everyone except you and Catherine.
 |     ~ trader
-|     | (:concerned)People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|     | (:normal)I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
+|     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
+|     | I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
 |     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
 |   - Let's talk about something else.
 |     < talk
 |   ~ trader
-|   | (:concerned)Yes... trust. It was always a common problem with androids.
+|   | Yes... trust. It was always a common problem with androids.
 |   | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
 |   | I can fix superficial damage, but I'm no engineer. Let alone a software one.
 |   | Sorry, habibti. It looks like you'll have to change their minds the old-fashioned way.
@@ -233,26 +233,26 @@
 | - When are you moving on?
 |   ~ trader
 |   | (:jolly)What, you don't want to buy supplies?
-|   | (:concerned)Truth be told, I heard the rumours about the Wraw in Cerebat territory.
+|   | (:normal)Truth be told, I heard the rumours about the Wraw in Cerebat territory.
 |   | I would've moved on already if not for that.
 |   | Are they true, the rumours?
 |   ~ player
 |   - [(complete-p 'q8a-secret-supplies)I'm afraid so.|]
 |     ~ trader
-|     | (:concerned)Alqarf!
+|     | Alqarf!
 |     | I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
 |     < talk
 |   - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out.|]
 |     ~ trader
-|     | (:concerned)Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
+|     | Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
 |     < talk
 |   - I'm not sure.
 |     ~ trader
-|     | (:concerned)Still, I'd rather not risk it. I think I'll stay here a while longer.
+|     | Still, I'd rather not risk it. I think I'll stay here a while longer.
 |     < talk
 |   - I can't say.
 |     ~ trader
-|     | (:concerned)I understand, habibti.
+|     | I understand, habibti.
 |     | Still, I think it would be unwise for me to leave your borders right now. I'm staying right here.
 |     < talk
 |   - Let's talk about something else.
@@ -261,36 +261,36 @@
 |   ~ trader
 |   | Well, they're the self-proclaimed council around here.
 |   | But what good's a council that can't enforce its laws?
-|   | (:concerned)The only people who can enforce anything around here are the Wraw. Maybe the Semis.
+|   | The only people who can enforce anything around here are the Wraw. Maybe the Semis.
 |   | (:jolly)Maybe you, too.
 |   < talk
 | - [(var 'trader-daughter) What happened to your daughter?|]
 |   ~ trader
-|   | (:concerned)...
+|   | ...
 |   | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
-|   | (:normal)Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as Catherine.
+|   | Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as Catherine.
 |   | I lost her on the roads, just like Celina, my oxen.
-|   | (:sad)'Cept it wasn't wolves for her. It was people.
+|   | 'Cept it wasn't wolves for her. It was people.
 |   | Rogues, I think. Maybe a Wraw hunting pack. I wasn't really in a fit state to see who they were.
 |   | They took her, anyway. And I never saw her again.
 |   ~ player
 |   - I'm so sorry.
 |     ~ trader
-|     | (:concerned)Thank you, habibti.
-|     | (:normal)It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
+|     | Thank you, habibti.
+|     | It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
 |     < talk
 |   - Sorry for making you relive it.
 |     ~ trader
-|     | (:concerned)It's okay, habibti.
-|     | (:normal)Khawla should be remembered and talked about. I should speak her name like I always did.
+|     | It's okay, habibti.
+|     | Khawla should be remembered and talked about. I should speak her name like I always did.
 |     < talk
 |   - Could she still be alive?
 |     ~ trader
-|     | (:concerned)No. Khawla's dead. Slaves don't live very long.
-|     | (:sad)Or she met an even worse end.
-|     | (:concerned)... I'd rather not think about that.
+|     | No. Khawla's dead. Slaves don't live very long.
+|     | Or she met an even worse end.
+|     | ... I'd rather not think about that.
 |     | Now I remember the good times instead.
-|     | (:normal)Times that should be remembered and talked about. I should speak her name like I always did.
+|     | Times that should be remembered and talked about. I should speak her name like I always did.
 |     < talk
 |   - Let's talk about something else.
 |     < talk
@@ -316,7 +316,7 @@
 |   ~ player
 |   | They've amassed an invasion force, mechs and soldiers, big enough to take the entire valley.
 |   ~ trader
-|   | (:concerned)You're not joking are you?...
+|   | You're not joking are you?...
 |   | That would explain why traders haven't been allowed on their land for some time.
 |   | Thank you for telling me, {(nametag player)}.
 |   < talk
@@ -331,8 +331,8 @@
 |   < leave
 |? (complete-p 'q13-planting-bomb)
 | ~ trader
-| | (:concerned)Look, I'm not proud that I ran. But I'm here now, and I'm ready to fight.
-| | (:normal)Let's talk later, okay?
+| | Look, I'm not proud that I ran. But I'm here now, and I'm ready to fight.
+| | Let's talk later, okay?
 | ! eval (clear-pending-interactions)
 
 # leave
