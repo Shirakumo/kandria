@@ -5,9 +5,8 @@
   :author "Tim White"
   :title ""
   :visible NIL
-  :on-activate (task-1)
-
-(quest:define-task (kandria q8-alex-cerebat task-1)
+  :on-activate T
+  (task-1
    :title ""
    :condition NIL
    :on-activate T
