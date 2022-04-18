@@ -60,7 +60,7 @@
 | \"You shouldn't need to look too far away\"(orange) - what can I say, I'm lazy.
 | Don't be a stranger!
 ~ player
-| \"Indeed. Alright, unpicking that conversation, my grocery list is at least \"2 each\"(orange) of : \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
+| \"Indeed. Alright, unpicking that conversation, my grocery list is at least \"2 each\"(orange) of: \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
 | \"The //essentials//...\"(light-gray, italic)
 ? (= 10 (+ (item-count 'item:mushroom-bad-1) (item-count 'item:pure-water) (item-count 'item:pearl) (item-count 'item:thermal-fluid) (item-count 'item:coolant)))
 | ~ player
