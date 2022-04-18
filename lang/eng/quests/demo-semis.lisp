@@ -20,7 +20,8 @@
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!
 | Did you think ya could just waltz right through here?
-| (:sly)We've been watching you, android.
+| (:normal)We've been watching you, android.
+| It was quite impressive how you rode that rockslide. (:sly)Shame you couldn't stick the landing.
 ~ player
 - Who are you?
   ~ innis
