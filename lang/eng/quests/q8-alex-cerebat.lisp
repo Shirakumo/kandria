@@ -1,12 +1,21 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-sequence-quest (kandria q8-alex-cerebat)
+(quest:define-quest (kandria q8-alex-cerebat)
   :author "Tim White"
-  :title "Alex"
+  :title ""
   :visible NIL
-  (:interact (alex) :repeatable T
-  "
+  :on-activate (task-1)
+
+  (task-1
+   :title ""
+   :condition all-complete
+   :on-activate (interact)
+
+   (:interaction interact
+    :interactable alex
+    :repeatable T
+    :dialogue "
 ~ alex
 | (:angry)Get lost.
 ~ player
@@ -18,4 +27,4 @@
 | I'm doing my job, just like you. I'm still a hunter, ya know.
 | We're done.
 ! eval (setf (var 'alex-cerebat) T)
-"))
+")))

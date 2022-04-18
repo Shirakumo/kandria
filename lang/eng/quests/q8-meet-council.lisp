@@ -9,6 +9,7 @@
 
   (task-1
    :title "Find the Cerebat council chamber, beneath Semi Sisters territory"
+   :marker '(chunk-5549 1000)
    :invariant (not (complete-p 'q8a-secret-supplies))
    :condition NIL
    :on-activate (interact-reminder)

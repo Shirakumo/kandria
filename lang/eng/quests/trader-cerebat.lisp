@@ -4,7 +4,7 @@
 ;; character voice: London cockney
 (quest:define-quest (kandria cerebat-trader-arrive)
   :author "Tim White"
-  :title "Cerebat Trader"
+  :title ""
   :visible NIL
   :on-activate T
   (talk-trader
