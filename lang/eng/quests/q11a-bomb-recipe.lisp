@@ -37,7 +37,7 @@
 | Did you get the components for the bomb?
 ? (= 0 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
 | ~ islay
-| | Hurry, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) \"Blasting caps: {(var 'blasting-cap-count)}\"(orange). |] [(< 0 (var 'charge-pack-count)) \"Charge packs: {(var 'charge-pack-count)}\"(orange).]
+| | Hurry, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) \"Blasting caps: {(var 'blasting-cap-count)}\"(orange).|] [(< 0 (var 'charge-pack-count)) \"Charge packs: {(var 'charge-pack-count)}\"(orange).]
 |?
 | ~ islay
 | | Ah, good. I'll see these are passed to Catherine and installed right away.
@@ -51,7 +51,7 @@
 | | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | | ! eval (retrieve 'item:charge-pack T)
 |  
-| | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) \"Blasting caps: {(var 'blasting-cap-count)}\"(orange). |] [(< 0 (var 'charge-pack-count)) \"Charge packs: {(var 'charge-pack-count)}\"(orange).]
+| | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) \"Blasting caps: {(var 'blasting-cap-count)}\"(orange).|] [(< 0 (var 'charge-pack-count)) \"Charge packs: {(var 'charge-pack-count)}\"(orange).]
 "))
 
   ;; TODO this stops the player when they hit the trigger? Need to find another way

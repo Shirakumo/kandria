@@ -35,7 +35,7 @@
   | The Noka? That the new faction on the surface?
   | Bunch o' crazy bastards if you ask me. No offence.
 ~ cerebat-trader-quest
-| Anyway, you can't see the council - they won't see anyone.
+| Anyway, you can't see the Council - they won't see anyone.
 | But lucky for you I'm a purveyor o' fine information, as just demonstrated.
 | And I 'ave more to share.
 | But it ain't all free. A trader gotta make a livin', especially in these times.
@@ -54,17 +54,20 @@
 ~ cerebat-trader-quest
 | If I'm gonna risk my neck, you gotta risk yours.
 | See, the usual caravans aren't getting through, so it's kinda hard to get supplies.
-| I'm talking mushrooms (poisonous ones o' course), purified water, and pearls - you know, the essentials.
-| Might as well throw in some thermal fluid and coolant liquid while you're at it.
+| I'm talking \"mushrooms (poisonous ones\"(orange) o' course), \"purified water\"(orange), and \"pearls\"(orange) - you know, the essentials.
+| Might as well throw in some \"thermal fluid\"(orange) and \"coolant liquid\"(orange) while you're at it.
 | A couple o' each should do nicely, just to get me back on my feet. Then I'll spill the beans.
 | \"You shouldn't need to look too far away\"(orange) - what can I say, I'm lazy.
 | Don't be a stranger!
 ~ player
-| \"Indeed. Alright, unpicking that conversation, my grocery list is at least \"2 each\"(orange) of: \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
+| \"Indeed. So unpicking that conversation, my grocery list is \"2 each\"(orange) of: \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
 | \"The //essentials//...\"(light-gray, italic)
-? (= 10 (+ (item-count 'item:mushroom-bad-1) (item-count 'item:pure-water) (item-count 'item:pearl) (item-count 'item:thermal-fluid) (item-count 'item:coolant)))
+? (and (<= 2 (item-count 'item:mushroom-bad-1)) (<= 2 (item-count 'item:pure-water)) (<= 2 (item-count 'item:pearl)) (<= 2 (item-count 'item:thermal-fluid)) (<= 2 (item-count 'item:coolant)))
 | ~ player
 | | (:giggle)\"Actually, \"I have all of those already\"(orange)!\"(light-gray, italic)
+|? (< 0 (+ (item-count 'item:mushroom-bad-1) (item-count 'item:pure-water) (item-count 'item:pearl) (item-count 'item:thermal-fluid) (item-count 'item:coolant)))
+| ~ player
+| | \"At least \"I have something of those already\"(orange).\"(light-gray, italic)
 ")))
 
 ;; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long
