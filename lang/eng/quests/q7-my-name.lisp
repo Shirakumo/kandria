@@ -21,13 +21,13 @@
   ~ fi
   | Yes, sorry about that. Things don't always happen the fastest around here.
 ~ fi
-| I've been thinking about your name. Do you still not remember it?
+| I've been thinking about your name too. Do you still not remember it?
 ~ player
 | (:thinking)No. At least not completely.
 | There are corrupted data strings in my matrix - one of them could be my name, but I'd have to guess at exactly what it was.
 ~ fi
-| Well, I think Catherine was sincere when she called you Stranger, but I wonder if that's really the name you'd choose for yourself.
-| You're no longer a stranger to us, after all.
+| Well, I think Catherine was sincere when she called you Stranger; but I wonder if that's the name you'd really choose for yourself.
+| You're not a stranger any more.
 | Do you want to change your name?
 ! label name
 ~ player
@@ -97,7 +97,7 @@
       ~ fi
       | (:happy)Thank you. It means a lot that you let me do that.
 ~ fi
-| (:happy)That's settled then, {(nametag player)}. And again, welcome to the Noka.
+| (:happy)That's settled then, {(nametag player)}. Welcome to the Noka.
 | (:normal)I wish we could talk, but I really need you to take this next assignment.
 | (:happy)Your first \"official\" one, no less.
 | (:unsure)It's just... I can't get what Innis said out of my head. We need to talk to the Cerebats.
