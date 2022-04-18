@@ -297,7 +297,7 @@
    :repeatable T
    "
 ~ player
-| \"Was the old world ruled by people or rabbits? These warrens go on forever.\"(light-gray, italic)
+| \"Were those that lived beneath the old world people or rabbits? These warrens go on forever.\"(light-gray, italic)
 ")
 
 ;; the player can use the lanterns to recharge their jump/boost
