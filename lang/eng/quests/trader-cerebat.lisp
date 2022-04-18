@@ -30,8 +30,6 @@
 - I want to ask them some questions.
   ~ cerebat-trader-quest
   | Piece o' friendly advice: Now is not a good time to be asking questions.
-  ~ player
-  | \"He touches his nose with a dirty forefinger.\"(light-gray, italic)
 - I come from the Noka.
   ~ cerebat-trader-quest
   | The Noka? That the new faction on the surface?
@@ -40,7 +38,7 @@
 | Anyway, you can't see the council - they won't see anyone.
 | But lucky for you I'm a purveyor o' fine information, as just demonstrated.
 | And I 'ave more to share.
-| But it's not all free. A trader gotta make a livin', especially in these times.
+| But it ain't all free. A trader gotta make a livin', especially in these times.
 ~ player
 - What times are those?
   ~ cerebat-trader-quest
@@ -64,16 +62,19 @@
 ~ player
 | \"Indeed. Alright, unpicking that conversation, my grocery list is at least \"2 each\"(orange) of : \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
 | \"The //essentials//...\"(light-gray, italic)
+? (= 10 (+ (item-count 'item:mushroom-bad-1) (item-count 'item:pure-water) (item-count 'item:pearl) (item-count 'item:thermal-fluid) (item-count 'item:coolant)))
+| ~ player
+| | (:giggle)\"Actually, \"I have all of those already\"(orange)!\"(light-gray, italic)
 ")))
 
 ;; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long
 (quest:define-quest (kandria trader-cerebat-chat)
   :author "Tim White"
-  :title "Trader Chat"
+  :title ""
   :visible NIL
   :on-activate T
   (chat-trader
-   :title "Talk to trader"
+   :title ""
    :on-activate T
    (:interaction chat-with-trader
     :title "I have some questions."
@@ -92,12 +93,12 @@
 - What happened to the Cerebat Council?
   ~ cerebat-trader-quest
   | Like I said, they're gone.
-  | Some might still be alive though, rotting in some Wraw jail.
+  | Some might still be alive though, rotting in a Wraw jail.
   < questions
 - What's your name?
   ~ cerebat-trader-quest
-  | Do you fink I got this far in business by sharing my name?
-  | You can call me... Stranger.
+  | You fink I got this far in business by sharing my name?
+  | You can call me... //Stranger//.
   ! eval (setf (nametag (unit 'cerebat-trader-quest)) \"Stranger\")
   ~ player
   - Are you for real?
@@ -113,10 +114,13 @@
   - Nice try.
     ~ cerebat-trader-quest
     | It was wasn't it.
-  - Not Stranger.
+  - [(string= (@ player-name-1) (nametag player)) (Lie) Not Stranger.|]
+    ~ cerebat-trader-quest
+    | Really? Well that would be a turn up for the books if it was.
+  - [(not (string= (@ player-name-1) (nametag player))) Not Stranger.|]
     ~ cerebat-trader-quest
     | Well that would be a turn up for the books if it was.
-  - (Lie) I don't remember my name.
+  - I don't remember my name.
     ~ cerebat-trader-quest
     | I don't remember mine neither.
   < questions
@@ -126,11 +130,11 @@
 ")))
 
 (quest:define-quest (kandria trader-cerebat-shop)
-  :title "Trade"
+  :title ""
   :visible NIL
   :on-activate T
   (trade-shop
-   :title "Trade"
+   :title ""
    :on-activate T
    (:interaction buy
     :interactable cerebat-trader-quest

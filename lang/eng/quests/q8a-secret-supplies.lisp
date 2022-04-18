@@ -4,8 +4,8 @@
 (quest:define-quest (kandria q8a-secret-supplies)
   :author "Tim White"
   :title "Supply Run"
-  :description "The Cerebat trader says he'll tell me about the Cerebat Council, if I bring him the essential supplies he needs to get his shop back on its feet."
-  :variables ((black-cap-count 2) (pure-water-count 2) (pearl-count 2) (coolant-count 2) (thermal-count 2))
+  :description "The Cerebat trader says he'll tell me where the Cerebat Council are, if I bring him the essential supplies he needs to get his merchant shop back on its feet."
+  :variables ((black-cap-count 2) (pure-water-count 2) (pearl-count 2) (thermal-count 2) (coolant-count 2))
   :on-activate T
   (return-supplies
    :title "Find 2 each of these and deliver them to the Cerebat trader: black cap mushroom, purified water, pearl, thermal fluid, coolant liquid"
@@ -38,8 +38,8 @@
 | ! eval (retrieve 'item:coolant T)
 | ? (and (= 0 (var 'black-cap-count)) (= 0 (var 'pure-water-count)) (= 0 (var 'pearl-count)) (= 0 (var 'thermal-count)) (= 0 (var 'coolant-count)))
 | | ~ cerebat-trader-quest
-| | | (:jolly)Well, I think that's everything I asked for.
-| | | (:sly)I'll just put them to one side. Gotta special customer lined up for these bad boys.
+| | | I fink that's everything I asked for.
+| | | I'll just put them to one side. Got a special customer lined up for these bad boys.
 | | ~ player
 | | - And now my information.
 | |   ~ cerebat-trader-quest
@@ -51,20 +51,19 @@
 | |   ~ cerebat-trader-quest
 | |   | I gotta say, I thought you mighta worked it out by now.
 | | ~ cerebat-trader-quest
-| | | (:cautious)The Wraw.
+| | | The Wraw.
 | | | I'm supplying the Wraw aren't I.
-| | | It's the only good thing to come from them moving in, believe me. (:jolly)Don't tell anyone I said that.
-| | | (:normal)So now you know.
+| | | It's the only good thing to come from them moving in, believe me. Though don't tell anyone I said that.
+| | | So now you know.
 | | | That's why you can't see the council. There isn't one any more.
-| | | (:jolly)I told you they wouldn't see anyone!
+| | | I told you they wouldn't see anyone!
 | | | Toodle-oo.
 | | ~ player
 | | | (:embarassed)\"...\"(light-gray, italic)
-| | | \"Shit.\"(light-gray, italic)
+| | | Shit.
 | | | (:normal)\"I need to \"contact Fi\"(orange). Though first I should \"put some distance between myself and this slippery fella\"(orange).\"(light-gray, italic)
 | | ! eval (complete task)
-| | ! eval (setf (quest:status (thing 'return-supplies)) :inactive)
-| | ! eval (deactivate interaction)
+| | ! eval (reset* interaction)
 | | ! eval (activate (unit 'fi-ffcs-cerebat-1))
 | | ! eval (activate (unit 'fi-ffcs-cerebat-2))
 | |?

@@ -624,7 +624,7 @@
   Split between Cerebat and Wraw:
   
   (item:refined-oil 2) - Islay also sells
-  (item:thermal-fluid 3)    
+  (item:thermal-fluid 3) - Cerebat region (for trader quest)
   (item:genera-core 1) - Wraw region only?
   (item:heavy-rod 1)
   (item:light-rod 1)  
