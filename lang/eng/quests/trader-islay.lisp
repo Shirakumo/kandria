@@ -82,7 +82,7 @@
 |   ~ islay
 |   | (:nervous)We're still trying to ascertain that - but we've lost more cameras since you left.
 |   | (:normal)Innis thinks we're next, but I'm not so sure.
-|   | The Wraw are primitive. Maybe they are messing with the Cerebats, but they wouldn't stand a chance against our technology.
+|   | The Wraw are primitive. Maybe they're messing with the Cerebats, but they wouldn't stand a chance against our technology.
 |   | And I'm not just talking about surveillance. We have weapons.
 |   ! eval (setf (var 'semis-weapons) T)
 |   < talk
@@ -90,12 +90,13 @@
 |   ~ islay
 |   | (:nervous)They've gone. I don't know where. They just upped and left. Managed to evade most of our cameras.
 |   | If they've not returned to the Noka then I don't know.
-|   | I hope they're okay. And sober.
+|   | (:normal)I hope they're okay. And sober.
 |   | (:unhappy)I'm sorry, I should've kept a closer eye...
+|   < talk
 | - Why are the Semis mostly women?
 |   ~ islay
 |   | (:unhappy)Why not?
-|   | (:normal)... Most of us who worked in the factories were women. After the Calamity we just stayed together.
+|   | (:normal)... Most who worked in the factories were women. After the Calamity we just stayed together.
 |   | And we've done better than most.
 |   | Maybe the world wouldn't have fallen apart if more women were in charge.
 |   < talk
