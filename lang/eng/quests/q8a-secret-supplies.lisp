@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q8a-secret-supplies)
   :author "Tim White"
   :title "Supply Run"
-  :description "The Cerebat trader says he'll tell me where the Cerebat Council are, if I bring him the essential supplies he needs to get his merchant shop back on its feet."
+  :description "The Cerebat trader says he'll tell me where the Council are, if I bring him the essential supplies he needs for his merchant shop."
   :variables ((black-cap-count 2) (pure-water-count 2) (pearl-count 2) (thermal-count 2) (coolant-count 2))
   :on-activate T
   (return-supplies
@@ -22,7 +22,7 @@
 | ~ cerebat-trader-quest
 | | Oh, that's a no. Keep lookin' - \"the stuff's 'round 'ere\"(orange), I'm sure of it.
 | ~ player
-| | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"black cap mushrooms: {(var 'black-cap-count)}\"(orange) |] [(< 0 (var 'pure-water-count)) ; \"purified water: {(var 'pure-water-count)}\"(orange) |] [(< 0 (var 'pearl-count)) ; \"pearls: {(var 'pearl-count)}\"(orange) |] [(< 0 (var 'thermal-count)) ; \"thermal fluid: {(var 'thermal-count)}\"(orange) |] [(< 0 (var 'coolant-count)) ; \"coolant liquid: {(var 'coolant-count)}\"(orange)].\"(light-gray, italic)
+| | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"Black cap mushrooms: {(var 'black-cap-count)}\"(orange). |] [(< 0 (var 'pure-water-count)) \"Purified water: {(var 'pure-water-count)}\"(orange). |] [(< 0 (var 'pearl-count)) \"Pearls: {(var 'pearl-count)}\"(orange). |] [(< 0 (var 'thermal-count)) \"Thermal fluid: {(var 'thermal-count)}\"(orange). |] [(< 0 (var 'coolant-count)) \"Coolant liquid: {(var 'coolant-count)}\"(orange).]\"(light-gray, italic)
 |?
 | ~ cerebat-trader-quest
 | | Nice, I'll take what you've got.
@@ -68,5 +68,5 @@
 | | ! eval (activate (unit 'fi-ffcs-cerebat-2))
 | |?
 | | ~ player
-| | | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"black cap mushrooms: {(var 'black-cap-count)}\"(orange) |] [(< 0 (var 'pure-water-count)) ; \"purified water: {(var 'pure-water-count)}\"(orange) |] [(< 0 (var 'pearl-count)) ; \"pearls: {(var 'pearl-count)}\"(orange) |] [(< 0 (var 'thermal-count)) ; \"thermal fluid: {(var 'thermal-count)}\"(orange) |] [(< 0 (var 'coolant-count)) ; \"coolant liquid: {(var 'coolant-count)}\"(orange)].\"(light-gray, italic)
+| | | \"Remaining quantities to find are: [(< 0 (var 'black-cap-count)) \"Black cap mushrooms: {(var 'black-cap-count)}\"(orange). |] [(< 0 (var 'pure-water-count)) \"Purified water: {(var 'pure-water-count)}\"(orange). |] [(< 0 (var 'pearl-count)) \"Pearls: {(var 'pearl-count)}\"(orange). |] [(< 0 (var 'thermal-count)) \"Thermal fluid: {(var 'thermal-count)}\"(orange). |] [(< 0 (var 'coolant-count)) \"Coolant liquid: {(var 'coolant-count)}\"(orange).]\"(light-gray, italic)
 ")))
