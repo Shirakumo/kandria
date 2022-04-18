@@ -64,7 +64,7 @@
   | You don't need our help - you're an android.
 - We can help you.
   ~ innis
-  | (:pleased)The Noka? Help us? Don't make me laugh.
+  | The Noka? Help us? Don't make me laugh.
 ~ innis
 | (:sly)... Don't tell me you care for the Noka.
 | I never understood why they gave androids emotions. Nothing but a distraction.
@@ -109,7 +109,7 @@
 - Now you're talking.
 - We blow up the Wraw!
 ~ islay
-| (:expectant)I've improvised an explosive that could stop their advance. Collapse the tunnels completely.
+| I've improvised an explosive that could stop their advance. Collapse the tunnels completely.
 | We can still use it, but we're missing components to complete it.
 ~ innis
 | Send the android while we evacuate.
@@ -185,7 +185,7 @@
 | \"She's right. Shit.\"(light-gray, italic)
 ~ islay
 | I'll explain everything to Fi once we reach the surface. \"Meet us up there once you have the components.\"(orange)
-| (:expectant)You got it? This is important.
+| You got it? This is important.
 ~ player
 - One more time.
   ~ islay

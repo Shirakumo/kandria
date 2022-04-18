@@ -33,11 +33,11 @@
 | And we don't need any more components to do it this way - not now we've got this delivery.
 ~ islay
 | Good.
-| (:expectant)... Well, that just leaves the question of how we plant them.
+| (:nervous)... Well, that just leaves the question of how we plant them.
 ~ player
 | \"Islay looks at Fi, and some kind of understanding passes between them.\"(light-gray, italic)
 ~ islay
-| (:expectant)I think you're our best shot, {(nametag player)}.
+| I think you're our best shot, {(nametag player)}.
 ~ player
 - I agree.
   ~ fi
@@ -81,8 +81,8 @@
   ~ catherine
   | I've mostly just been doing what Islay told me.
   ~ islay
-  | (:happy)You're a great engineer, Catherine. They're lucky to have you- //We're// lucky to have you.
-  | (:normal)Speaking of which, how are we looking?
+  | You're a great engineer, Catherine. They're lucky to have you- //We're// lucky to have you.
+  | Speaking of which, how are we looking?
 ~ catherine
 | They're ready. Here you go, {(nametag player)}.
 ~ player

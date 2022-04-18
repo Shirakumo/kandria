@@ -16,7 +16,7 @@
   | Good. Then I'll assume she told you about the jobs.
 - I'm here to help with the engineers and CCTV.
   ~ innis
-  | (:pleased)Now that's more like it.
+  | Now that's more like it.
 - I found Alex.
   ~ innis
   | (:sly)Aye. It was hardly a challenge though, was it?
@@ -36,11 +36,11 @@
   - The latter.
     ~ innis
     | Makes sense. Though you haven't tried what passes for beer these days.
-    | (:pleased)It would rot even your insides, I guarantee it.
+    | (:sly)It would rot even your insides, I guarantee it.
   - Nothing prevents me, I just don't drink.
     ~ innis
     | Each to their own. Though you haven't tried what passes for beer these days.
-    | (:pleased)It would rot even your insides, I guarantee it.
+    | (:sly)It would rot even your insides, I guarantee it.
   ~ innis
   | I suppose there was never a case for androids getting pissed.
   | (:sly)War zones, ghettos, hospitals - even sweeping the streets. Not the kind of places you want inefficiency.
@@ -105,13 +105,13 @@
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
   ~ innis
   | There were ten of them, working in the \"high west of our territory\"(orange).
-  | We're slowly digging out the old maglev metro system. (:pleased)We've got a basic electrified railway going.
+  | We're slowly digging out the old maglev metro system. We've got a basic electrified railway going.
   | (:angry)But it's dangerous work. They didnae report in, and our hunters found the tunnel collapsed.
   | The hunters canna go any further. But you can.
   < questions
 - [(not (active-p (unit 'blocker-engineers))) So the engineers were working on the metro?|]
   ~ innis
-  | Correct. We're slowly digging out the old maglev system. (:pleased)We've got a basic electrified railway going.
+  | Correct. We're slowly digging out the old maglev system. We've got a basic electrified railway going.
   | (:angry)But it's dangerous work.
   < questions
 - Tell me about the down CCTV cameras.

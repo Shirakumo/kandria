@@ -68,7 +68,7 @@
   ~ catherine
   | (:concerned)...
   ~ islay
-  | (:expectant)It's not for the best.
+  | It's not for the best.
   ~ fi
   | We're staying with you.
 - How about I kill you right now?

@@ -31,7 +31,7 @@
 |   | ~ alex
 |   | | (:angry)Oi, android! <-Hic->. I 'ear you even stole my jobs 'round 'ere now too.
 |   | ~ islay
-|   | | (:expectant)You could work together Alex, for the Noka - return to Fi with Stranger and get your old life back.
+|   | | You could work together Alex, for the Noka - return to Fi with Stranger and get your old life back.
 |   | ~ alex
 |   | | (:unhappy)\"Stranger\", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people. Stranger to myself.
 |   | | Get lost, both of you.
@@ -60,8 +60,8 @@
 |   < talk
 | - Can you read my black box?
 |   ~ islay
-|   | (:expectant)You think you might have unwittingly betrayed the Noka.
-|   | (:normal)We know a lot about you - but no, we can't read your black box. No one can any more. (:unhappy)I'm sorry.
+|   | You think you might have unwittingly betrayed the Noka.
+|   | We know a lot about you - but no, we can't read your black box. No one can any more. (:unhappy)I'm sorry.
 |   | (:normal)I saw what happened with the servo robots - (:nervous)whether they acted independently, or were being controlled, it's hard to say.
 |   | An android could certainly do that though.
 |   < talk
@@ -83,7 +83,7 @@
 |   | (:nervous)We're still trying to ascertain that - but we've lost more cameras since you left.
 |   | (:normal)Innis thinks we're next, but I'm not so sure.
 |   | The Wraw are primitive. Maybe they are messing with the Cerebats, but they wouldn't stand a chance against our technology.
-|   | (:expectant)And I'm not just talking about surveillance. We have weapons.
+|   | And I'm not just talking about surveillance. We have weapons.
 |   ! eval (setf (var 'semis-weapons) T)
 |   < talk
 | - How's Alex now?
@@ -97,7 +97,7 @@
 |   | (:unhappy)Why not?
 |   | (:normal)... Most of us who worked in the factories were women. After the Calamity we just stayed together.
 |   | And we've done better than most.
-|   | (:happy)Maybe the world wouldn't have fallen apart if more women were in charge.
+|   | Maybe the world wouldn't have fallen apart if more women were in charge.
 |   < talk
 | - I need to go.
 |   < leave
@@ -109,7 +109,7 @@
 |   ~ player
 |   - Of course you are.
 |     ~ islay
-|     | (:happy)...
+|     | ...
 |     | Good luck, {(nametag player)}.
 |   - What preparations?
 |     ~ islay

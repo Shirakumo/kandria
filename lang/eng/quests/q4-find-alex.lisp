@@ -43,7 +43,7 @@
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
 ~ innis
-| (:pleased)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
+| (:sly)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
 | What do you think, \"Islay\"(yellow)?
 ~ islay
 | (:unhappy)I think you should leave her alone.
@@ -69,11 +69,11 @@
   | But you'll be pleased to ken that \"Alex is here\"(orange).
 - I'm looking for someone called Alex, have you seen them?
   ~ innis
-  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my information.
+  | (:sly)You see, sister, the direct approach once again yields results - and confirms my information.
   | (:normal)You'll be pleased to ken that \"Alex is here\"(orange).
 - Go fuck yourself.
   ~ islay
-  | (:happy)...
+  | ...
   ~ innis
   | (:angry)...
   | I remember your kind! You think you're clever just 'cause you can mimic us.
@@ -120,7 +120,7 @@ ken = know (Scottish)
   ~ innis
   | (:sly)I'll ask the questions if ya dinnae mind.
 ~ innis
-| (:pleased)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
+| (:sly)What //should// we do with you? I bet your \"Genera core\"(red) could run our entire operation.
 | What do you think, \"Islay\"(yellow)?
 ~ islay
 | (:unhappy)I think you should leave her alone.
@@ -146,11 +146,11 @@ ken = know (Scottish)
   | But you'll be pleased to ken that \"Alex is here\"(orange).
 - I'm looking for someone called Alex, have you seen them?
   ~ innis
-  | (:pleased)You see, sister, the direct approach once again yields results - and confirms my information.
+  | (:sly)You see, sister, the direct approach once again yields results - and confirms my information.
   | (:normal)You'll be pleased to ken that \"Alex is here\"(orange).
 - Go fuck yourself.
   ~ islay
-  | (:happy)...
+  | ...
   ~ innis
   | (:angry)...
   | I remember your kind! You think you're clever just 'cause you can mimic us.
@@ -195,7 +195,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
     :repeatable T
     :dialogue "
 ~ islay
-| Hello, Stranger. (:happy)It's an honour to meet you in person.
+| Hello, Stranger. It's an honour to meet you in person.
 | (:unhappy)I'm sorry about my sister.
 | (:nervous)If you're looking for \"Alex, try the bar\"(orange). It's \"on the level above us\"(orange).
 | Just don't tell \"Innis\"(yellow) I told you. She'll think I've gone soft for androids.

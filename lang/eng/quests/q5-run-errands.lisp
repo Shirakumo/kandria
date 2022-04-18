@@ -25,7 +25,7 @@
 ~ player
 - I'd appreciate that.
   ~ islay
-  | (:happy)It's the least I can do.
+  | It's the least I can do.
 - What's the catch?
   ~ islay
   | No catch. I just want to help.
@@ -33,21 +33,20 @@
   ~ islay
   | Maybe. But were you yourself not a lost cause before Alex found you?
 ~ islay
-| You should stay with us a while, give me some time.
-| (:expectant)That way you won't disappoint Fi by returning empty-handed.
+| You should stay with us a while, give me some time. That way you won't disappoint Fi by returning empty-handed.
 | And there are things you could help us with.
 ~ player
 - So there is a catch.
   ~ islay
   | No. This isn't a trade. You're free to go and do anything you want.
-  | (:expectant)But it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+  | But it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
 - Like turning me into a battery?
   ~ islay
   | Of course not. You're free to go and do anything you want.
-  | (:expectant)But it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+  | But it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
 - What things?
   ~ islay
-  | (:expectant)Well, it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+  | Well, it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
 - [(var 'android-soft) Won't Innis think you've gone soft for androids?]
   ~ islay
   | (:nervous)... Touché.
@@ -63,16 +62,16 @@
   ~ islay
   | Come now, you're no mere servo. I know you understand.
 ~ islay
-| (:happy)I can sweeten the deal too.
-| (:normal)I suppose I'm what you'd call the chief engineer around here. Just like Jack is for the Noka.
+| I can sweeten the deal too.
+| I suppose I'm what you'd call the chief engineer around here. Just like Jack is for the Noka.
 | Which means I stock many things that might be useful to you.
 | We get the usual traders visiting of course, but I'm giving you another option - and \"I stock more supplies than most\"(orange).
-| (:expectant)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
-| We've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange).
+| (:nervous)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
+| (:normal)We've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange).
 | And \"4 of our CCTV cameras on the low eastern\"(orange) Cerebat border have gone down.
-| (:normal)So leave Alex to me, and if you'd like to help, \"speak with Innis - she's gone up to the control room\"(orange).
-| Perhaps see her as another challenge to overcome. (:happy)I know I do.
-| (:normal)Ta-ta for now, Stranger.
+| So leave Alex to me, and if you'd like to help, \"speak with Innis - she's gone up to the control room\"(orange).
+| Perhaps see her as another challenge to overcome. I know I do.
+| Ta-ta for now, Stranger.
 ! eval (stop-following 'islay)
 ! eval (move-to 'islay-alex-talk (unit 'islay))
 ! eval (activate 'trader-semi-chat)

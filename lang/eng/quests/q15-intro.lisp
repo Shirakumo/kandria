@@ -27,21 +27,21 @@
 | If you're sure.
 ~ islay
 | I'm sure.
-| (:expectant)Alright, here goes. Sending the signals...
+| (:nervous)Alright, here goes. Sending the signals...
 | ...
 ~ fi
 | ...
 ~ islay
-| (:nervous)It didn't work.
+| (:unhappy)It didn't work.
 ~ fi
 | (:annoyed)What?... Why?
 ~ islay
-| I don't know.
+| (:nervous)I don't know.
 ~ fi
 | (:unsure)Could they have defused them?
 ~ islay
 | I don't think so. Not this quickly.
-| And I think the signal is getting through; their comms interference isn't running yet - Zelah's probably talking to his own people.
+| And I think the signal is getting through; their comms interference isn't running yet - Zelah's probably organising his own people.
 | (:unhappy)Fuck.
 | Someone needs to go down there.
 ~ player

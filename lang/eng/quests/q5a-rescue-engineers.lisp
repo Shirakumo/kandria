@@ -108,7 +108,7 @@
     :repeatable T
     :dialogue "
 ~ innis
-| (:pleased)The hurt engineers are already on their way back - I've sent hunters to guide them.
+| The hurt engineers are already on their way back - I've sent hunters to guide them.
 ? (complete-p 'task-engineers)
 | | They appreciated you checking in on them as well - thank you.
 |?

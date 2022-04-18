@@ -9,7 +9,7 @@
   (:interact (islay :now T)
     "
 ~ islay
-| (:expectant)Fi, {(nametag player)} - \"come to Engineering\"(orange).
+| Fi, {(nametag player)} - \"come to Engineering\"(orange).
 | We need to talk.
 ")
   (:eval
