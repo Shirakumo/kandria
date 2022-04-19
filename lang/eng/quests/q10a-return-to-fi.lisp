@@ -10,7 +10,7 @@
   (wraw-objective-return
    :title "Leave Wraw territory and report to Fi by any means necessary"
    :invariant T
-   :condition all-complete
+   :condition (complete-p 'wraw-fi-ffcs)
    :on-activate (objective)
    :on-complete NIL
    
@@ -60,7 +60,6 @@
    :on-activate T
    :visible NIL
    (:action
-      (deactivate 'wraw-objective-return)
       (setf (location 'fi) (location 'wraw-leader))
       (setf (direction 'fi) -1)
       (setf (location 'jack) (location 'fi-wraw))
