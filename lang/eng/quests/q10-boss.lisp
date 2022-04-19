@@ -6,7 +6,7 @@
   :title "Destroy the Mech"
   :description "A Wraw mech has activated while I was examining it."
   (:eval
-   (override-music battle))
+   (override-music 'battle))
   (:complete (q10-boss-fight)
    :title "Defeat the mech"
    "~ player
