@@ -56,8 +56,8 @@
   (wraw-fi-ffcs-functions
    :title ""
    :condition all-complete
-   :on-activate NIL
    :on-complete (return-fi)
+   :on-activate T
    :visible NIL
    (:action
       (deactivate 'wraw-objective-return)
@@ -75,7 +75,10 @@
       (deactivate (unit 'station-semi-trigger))
       (deactivate (unit 'station-surface-trigger))
       (setf (location 'cerebat-trader-quest) (location 'cerebat-trader-wraw))
-      (setf (direction 'cerebat-trader-quest) 1)))
+      (setf (direction 'cerebat-trader-quest) 1)
+      (complete task)))
+      
+
 
   (return-fi
    :title "Return to the Noka camp ASAP to tell Fi about the Wraw invasion"
