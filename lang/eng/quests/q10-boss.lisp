@@ -10,8 +10,8 @@
   (:complete (q10-boss-fight)
    :title "Defeat the mech"
    "~ player
-| ... That's right I'm an android.
-| Do your worst.
+| (:giggle)... Oh, hello.
+| (:normal)Do your worst.
   ")
   (:eval
    (override-music NIL))
