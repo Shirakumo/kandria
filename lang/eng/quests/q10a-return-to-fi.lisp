@@ -110,9 +110,9 @@
 | I think they're on the march.
 ~ fi
 | (:unsure)...
-| ... But why?
+| ... But why? Zelah is not a warmonger.
 ~ jack
-| (:annoyed)To kill us all, or enslave us. Does it matter?!
+| (:annoyed)He is now! He'll enslave us, or kill us all.
 ~ fi
 | (:unsure)I...
 ~ jack
@@ -131,7 +131,7 @@
   | (:annoyed)Spare us your sordid sex life, android.
   ~ fi
   | (:annoyed)<-JACK!-> Not now!
-  | (:normal)Go on...
+  | (:normal)Go on.
 - Do androids live in the mountains?
   ~ jack
   | (:annoyed)Oh boy, here we go.
@@ -146,7 +146,7 @@
 | (:concerned)We don't know they don't exist. {(nametag player)}'s here, isn't she?
 ~ fi
 | Androids in the mountains is an age-old rumour.
-| But I don't think we can stake our future on it - the desert is impassable, not to mention the mountains.
+| But I don't think we can stake our future on it - the desert is impassable, not to mention the mountain terrain.
 ~ jack
 | (:annoyed)We're fucked. Pure and simple.
 ~ catherine
