@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q10a-return-to-fi)
   :author "Tim White"
   :title "Contact Fi"
-  :description "I need to warn Fi about the Wraw invasion of the entire valley."
+  :description "I need to warn Fi about the Wraw invasion of the valley."
   :on-activate (wraw-objective-return wraw-fi-ffcs)
 
   (wraw-objective-return
@@ -12,12 +12,7 @@
    :invariant T
    :condition all-complete
    :on-activate (objective)
-   :on-complete NIL
-   
-   (:interaction objective
-    :interactable player
-    :dialogue "
-    "))
+   :on-complete NIL)
 
   (wraw-fi-ffcs
    :title ""

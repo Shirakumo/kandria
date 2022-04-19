@@ -11,7 +11,6 @@
    :title "Leave the Cerebat trader then call Fi"
    :invariant T
    :condition all-complete
-   :on-activate NIL
    :on-complete (q10-wraw)
 
    (:interaction fi-ffcs-cerebat
@@ -19,42 +18,43 @@
     :dialogue "
 ~ player
 | \"That should be far enough.\"(light-gray, italic)
-| (:normal)Fi, can you hear me?
+| (:normal)Fi, are you there?
 ~ fi
 | Loud and clear. Where are you?
 ~ player
-| Cerebat territory. The Council are dead. The Wraw have taken over.
+| Cerebat territory. The Council are gone. The Wraw have taken over.
 ~ fi
 | ...
 | What happened? Are you okay?
 ~ player
 - I'm fine.
   ~ fi
-  |(:happy)Good.
+  | (:happy)Good.
+  | (:normal)So what's the situation?
 - I helped the Wraw by mistake.
   ~ fi
   | What do you mean?
 - I want to come home.
   ~ fi
   | First give me your report.
-~ player
-| The council chamber is shuttered, but I found a trader willing to talk - if I sourced him some supplies.
+  ~ player
+| The council chamber is empty, but I found a trader willing to talk - if I sourced him some supplies.
 | I did, and that's when he told me. He also told me he's working for the Wraw.
 ~ fi
 | (:annoyed)Ko nashi!
-| Well, you weren't to know.
+| Well, you couldn't have known.
 | But now he's our enemy.
 | ...
-| (:unsure)What are the Wraw up to?...
-| (:normal)I'm sorry to send you \"deeper, but I really need need to know what they're doing\"(orange).
-| Can do you that?
+| (:unsure)What's Zelah up to?...
+| (:normal)I'm sorry to send you \"deeper, but we really need to know what he's doing\"(orange).
+| Can do you that? \"Go into Wraw territory\"(orange)?
 ~ player
 - It's my job.
   ~ fi
   | (:happy)And you're very good at it.
-- This will be fun.
+- It'll be fun.
   ~ fi
-  | I'm glad you enjoy your work. But this will be very dangerous. Please be careful.
+  | (:unsure)I'm glad you enjoy your work. But this will be very dangerous. Please be careful.
 - Do I have to?
   ~ fi
   | You always have a choice. But I need you to do this.
@@ -62,9 +62,9 @@
   ~ fi
   | (:happy)...
 ~ fi
-| Even your FFCS might not work down there.
-| But \"contact me as soon as you can\"(orange) - even if that means returning to Cerebat territory to do so.
-| Be safe.  
+| Your \"FFCS might not work down there\"(orange).
+| But \"contact me as soon as you can\"(orange) - even if that means \"returning to Cerebat territory\"(orange) to do so.
+| Be safe.
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))
 ")))
