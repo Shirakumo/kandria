@@ -38,7 +38,7 @@
     :dialogue "
 ~ player
 | \"This warehouse has plentiful supplies.\"(light-gray, italic)
-| (:thinking)\"The coal and vats of oil indicate mass production, augmenting their already-considerable geothermal reserves.\"(light-gray, italic)
+| (:thinking)\"The coal and vats of oil indicate \"mass production\"(orange), on top of their already-considerable geothermal reserves.\"(light-gray, italic)
 ? (complete-p 'wraw-mechs)
 | ~ player
 | | (:embarassed)\"It's at a scale to manufacture enough mechs and weapons for an \"invasion of the entire valley\"(orange)...\"(light-gray, italic)
@@ -76,18 +76,19 @@
 | \"This mech was built from drills and turbines. They all were, these power suits too.\"(light-gray, italic)
 | \"This one has an interface port, which could forcibly extract data from an android.\"(light-gray, italic)
 | (:thinking)\"Perhaps I can check what this mech's purpose is...\"(light-gray, italic)
-| (:normal)\"Just gotta stick my finger in here... (:giggle)Pardon me.\"(light-gray, italic)
-| (:normal)\"Yep, this has been designed to subdue an android.\"(light-gray, italic)
-| (:thinking)\"Make that //androids//, judging from these weapon configurations.\"(light-gray, italic)
+| (:normal)\"Just gotta stick my finger in here...\"(light-gray, italic) (:giggle)\"Pardon me.\"(light-gray, italic)
+| (:normal)\"Yep, designed to subdue an android.\"(light-gray, italic)
+| (:thinking)\"Make that\"(light-gray, italic)  \"androids\"(light-gray)\", judging from these weapon configurations.\"(light-gray, italic)
 | (:normal)\"Hang on, what's this?\"(light-gray, italic)
 | \"\"... Neutralise additional android targets: \"Genera\"(red) in the \"western mountains\"(red). Targets unknown.\"(light-gray, italic)\"
-| (:thinking)\"... A faction of androids in the mountains? I'm not alone?\"(light-gray, italic)
+| (:thinking)\"... A faction of androids? In the mountains?\"(light-gray, italic)
+| \"I'm not alone?\"(light-gray, italic)
 ? (complete-p 'wraw-warehouse)
 | | (:embarassed)\"Given the raw materials I saw in the warehouse, their manufacturing ambitions are __HUGE__.\"(light-gray, italic)
 | | (:normal)\"As in,\"(light-gray, italic) \"\"invading the entire valley\"(orange, italic)\" \"huge.\"(light-gray, italic)
   
 ~ player
 | (:embarassed)Ouch!... Power surge from the mech.
-| (:normal)I think this one is activating.
+| (:normal)This one is activating...
 ! eval (activate 'q10-boss)
 ")))
