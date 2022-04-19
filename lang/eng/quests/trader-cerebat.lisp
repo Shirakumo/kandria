@@ -43,7 +43,7 @@
 - What times are those?
   ~ cerebat-trader-quest
   | ...
-  | Ah, good one! You nearly 'ad me there, matey!
+  | Ah, good one! You nearly 'ad me there, pal!
   | But I want something first before I tell you anything.
 - What do you want?
   ~ cerebat-trader-quest
@@ -84,52 +84,60 @@
     :interactable cerebat-trader-quest
     :repeatable T
     :dialogue "
-~ cerebat-trader-quest
-| Shoot.
-! label questions
-~ player
-- Why are you helping the Wraw?
-  ~ cerebat-trader-quest
-  | I know how it looks.
-  | But they pay well, and that's all I care about. A man's gotta make a living.
-  < questions
-- What happened to the Cerebat Council?
-  ~ cerebat-trader-quest
-  | Like I said, they're gone.
-  | Some might still be alive though, rotting in a Wraw jail.
-  < questions
-- What's your name?
-  ~ cerebat-trader-quest
-  | You fink I got this far in business by sharing my name?
-  | You can call me... //Stranger//.
-  ! eval (setf (nametag (unit 'cerebat-trader-quest)) \"Stranger\")
-  ~ player
-  - Are you for real?
-    ~ cerebat-trader-quest
-    | You don't like it?
-  - Okay, Stranger.
-  - Why did you pick that name?
-    ~ cerebat-trader-quest
-    | Do you like it? I just made it up.
-  ~ cerebat-trader-quest
-  | What's your name?
-  ~ player
-  - Nice try.
-    ~ cerebat-trader-quest
-    | It was wasn't it.
-  - [(string= (@ player-name-1) (nametag player)) (Lie) Not Stranger.|]
-    ~ cerebat-trader-quest
-    | Really? Well that would be a turn up for the books if it was.
-  - [(not (string= (@ player-name-1) (nametag player))) Not Stranger.|]
-    ~ cerebat-trader-quest
-    | Well that would be a turn up for the books if it was.
-  - I don't remember my name.
-    ~ cerebat-trader-quest
-    | I don't remember mine neither.
-  < questions
-- I'm done.
-~ cerebat-trader-quest
-| See you around.
+? (not (complete-p 'q10a-return-to-fi))
+| ~ cerebat-trader-quest
+| | Shoot.
+| ! label questions
+| ~ player
+| - Why are you helping the Wraw?
+|   ~ cerebat-trader-quest
+|   | I know how it looks.
+|   | But they pay well, and that's all I care about. A man's gotta make a living.
+|   < questions
+| - What happened to the Cerebat Council?
+|   ~ cerebat-trader-quest
+|   | Like I said, they're gone.
+|   | Some might still be alive though, rotting in a Wraw jail.
+|   < questions
+| - What's your name?
+|   ~ cerebat-trader-quest
+|   | You fink I got this far in business by sharing my name?
+|   | You can call me... //Stranger//.
+|   ! eval (setf (nametag (unit 'cerebat-trader-quest)) \"Stranger\")
+|   ~ player
+|   - Are you for real?
+|     ~ cerebat-trader-quest
+|     | You don't like it?
+|   - Okay, Stranger.
+|   - Why did you pick that name?
+|     ~ cerebat-trader-quest
+|     | Do you like it? I just made it up.
+|   ~ cerebat-trader-quest
+|   | What's your name?
+|   ~ player
+|   - Nice try.
+|     ~ cerebat-trader-quest
+|     | It was wasn't it.
+|   - [(string= (@ player-name-1) (nametag player)) (Lie) Not Stranger.|]
+|     ~ cerebat-trader-quest
+|     | Really? Well that would be a turn up for the books if it was.
+|   - [(not (string= (@ player-name-1) (nametag player))) Not Stranger.|]
+|     ~ cerebat-trader-quest
+|     | Well that would be a turn up for the books if it was.
+|   - I don't remember my name.
+|     ~ cerebat-trader-quest
+|     | I don't remember mine neither.
+|   < questions
+| - I'm done.
+| ~ cerebat-trader-quest
+| | See you around.
+|? (and (complete-p 'q10a-return-to-fi) (not (complete-p 'q11a-bomb-recipe)))
+| ~ cerebat-trader-quest
+| | Soz pal, no time. Lots happenin'. I can trade though, if you're game.
+|? (complete-p 'q11a-bomb-recipe)
+| ~ cerebat-trader-quest
+| | No can do I'm afraid. I'm leaving while I've got the chance.
+| | Good luck, pal.
 ")))
 
 (quest:define-quest (kandria trader-cerebat-shop)

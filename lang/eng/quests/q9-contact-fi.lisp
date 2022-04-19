@@ -18,7 +18,7 @@
     :dialogue "
 ~ player
 | \"That should be far enough.\"(light-gray, italic)
-| (:normal)Fi, are you there?
+| (:normal)Fi, are you there? Can you hear me?
 ~ fi
 | Loud and clear. Where are you?
 ~ player
@@ -38,7 +38,7 @@
   ~ fi
   | First give me your report.
   ~ player
-| The council chamber is empty, but I found a trader willing to talk - if I sourced him some supplies.
+| I found a trader willing to talk - if I sourced him some supplies.
 | I did, and that's when he told me. He also told me he's working for the Wraw.
 ~ fi
 | (:annoyed)Ko nashi!
@@ -62,8 +62,7 @@
   ~ fi
   | (:happy)...
 ~ fi
-| Your \"FFCS might not work down there\"(orange).
-| But \"contact me as soon as you can\"(orange) - even if that means \"returning to Cerebat territory\"(orange) to do so.
+| Your \"FFCS might not work down there\"(orange). But \"contact me as soon as you can\"(orange).
 | Be safe.
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))

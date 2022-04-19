@@ -8,19 +8,17 @@
   :on-activate (wraw-objective-return wraw-fi-ffcs)
 
   (wraw-objective-return
-   :title "Return to Cerebat territory so I can reach Fi with my FFCS"
-   :invariant T
+   :title "Leave Wraw territory so I can reach Fi with my FFCS"
    :condition all-complete
-   :on-activate (objective)
+   :on-activate NIL
    :on-complete NIL)
 
   (wraw-fi-ffcs
    :title ""
-   :invariant T
-   :condition all-complete
-   :on-activate NIL
-   :on-complete NIL
    :visible NIL
+   :condition (or (complete-p 'wraw-border) (complete-p 'station-trigger) (complete-p 'station-surface-trigger))
+   :on-complete (wraw-fi-ffcs-functions)
+   :on-activate T
 
    (:interaction wraw-border
     :interactable fi
@@ -30,21 +28,52 @@
 | Fi...
 | Fi...?
 | (:thinking)\"... Dammit. FFCS still can't punch through. I think the Wraw are on the move.\"(light-gray, italic)
-| \"I need to get \"back to the surface\"(orange) now.\"(light-gray, italic)
-! eval (deactivate 'wraw-objective-return)
-! eval (activate 'return-fi)
-! eval (ensure-nearby 'outside-engineering 'fi 'jack 'catherine)
-! setf (direction 'fi) 1
-! setf (direction 'jack) 1
-! setf (direction 'catherine) 1
-! eval (deactivate (unit 'wraw-border-1))
-! eval (deactivate (unit 'wraw-border-2))
-"))
-;; TODO move cerebat trader somewhere "off-screen"; if can't, then deactivate his chat and trade options, to essentially remove him from the story, perhaps move him into Wraw territory too - he's now part of the Wraw war effort. Could have him interact as a trader in Wraw territory too? Give the player some trade options in the depths? He's playing you against the Wraw for profit? You don't have to tell him that you're working against the Wraw, but he can just not want to ask any questions. Or keep trade up in region 1 and the surface with Sahil and Islay? So trading is done between trips to the depths?
+| (:normal)\"I need to get \"back to the surface\"(orange). NOW.\"(light-gray, italic)")
 
-  ;; TODO post-horizontal would also set chat dialogues here on Jack and Catherine, perhaps as a vehicle for sidequests, or just to catchup (or both)
+   (:interaction station-trigger
+    :interactable fi
+    :dialogue "
+~ player
+| \"I'm out of Wraw territory. I should be able to call Fi now.\"(light-gray, italic)
+| Fi...
+| Fi...?
+| (:thinking)\"... Dammit. FFCS still can't punch through. I think the Wraw are on the move.\"(light-gray, italic)
+| (:normal)\"I need to get \"back to the surface\"(orange). NOW.\"(light-gray, italic)")
+
+   (:interaction station-surface-trigger
+    :interactable fi
+    :dialogue "
+~ player
+| \"Home sweet home.\"(light-gray, italic)
+| \"I should \"report to Fi about the impending Wraw invasion\"(orange) ASAP.\"(light-gray, italic)"))
+
+  (wraw-fi-ffcs-functions
+   :title ""
+   :condition all-complete
+   :on-activate NIL
+   :on-complete (return-fi)
+   :visible NIL
+   (:action
+      (deactivate 'wraw-objective-return)
+      (setf (location 'fi) (location 'wraw-leader))
+      (setf (direction 'fi) -1)
+      (setf (location 'jack) (location 'fi-wraw))
+      (setf (direction 'jack) 1)
+      (setf (location 'catherine) (location 'islay-wraw))
+      (setf (direction 'catherine) 1)
+      (deactivate (unit 'wraw-border-1))
+      (deactivate (unit 'wraw-border-2))
+      (deactivate (unit 'wraw-border-3))
+      (deactivate (unit 'station-east-lab-trigger))
+      (deactivate (unit 'station-cerebat-trigger))
+      (deactivate (unit 'station-semi-trigger))
+      (deactivate (unit 'station-surface-trigger))
+      (setf (location 'cerebat-trader-quest) (location 'cerebat-trader-wraw))
+      (setf (direction 'cerebat-trader-quest) 1)))
+
   (return-fi
    :title "Return to the Noka camp ASAP to tell Fi about the Wraw invasion"
+   :marker '(fi 500)
    :invariant T
    :condition all-complete
    :on-complete (q11-intro)
