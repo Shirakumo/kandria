@@ -11,7 +11,6 @@
    :title "Defeat the mech"
    "~ player
 | (:giggle)... Oh, hello.
-| (:normal)Do your worst.
   ")
   (:eval
    (override-music NIL))
