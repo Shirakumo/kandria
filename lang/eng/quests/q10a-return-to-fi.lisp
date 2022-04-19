@@ -8,10 +8,16 @@
   :on-activate (wraw-objective-return wraw-fi-ffcs)
 
   (wraw-objective-return
-   :title "Leave Wraw territory so I can reach Fi with my FFCS"
+   :title "Leave Wraw territory and report to Fi by any means necessary"
+   :invariant T
    :condition all-complete
-   :on-activate NIL
-   :on-complete NIL)
+   :on-activate (objective)
+   :on-complete NIL
+   
+   (:interaction objective
+    :interactable player
+    :dialogue "
+    "))
 
   (wraw-fi-ffcs
    :title ""
