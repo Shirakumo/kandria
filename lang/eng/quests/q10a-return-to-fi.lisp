@@ -92,7 +92,7 @@
     :interactable fi
     :dialogue "
 ~ fi
-| (:unsure){(nametag player)}, we've been waiting for you.
+| (:unsure){(nametag player)}, we've been waiting.
 | That you didn't contact me remotely fills me with dread. What did you find?
 ~ player
 - The Wraw are coming.
@@ -100,15 +100,15 @@
   | (:annoyed)We know that already.
 - They've built an invasion army.
   ~ fi
-  | ...
+  | (:unsure)...
   ~ catherine
   | (:concerned)Oh my god.
 - They're coming for the entire valley.
   ~ fi
-  | What do you mean the entire valley?
+  | (:unsure)What do you mean the entire valley?
 ~ player
 | They've built enough mechs and power-suited soldiers to take this entire valley by force.
-| And given I couldn't use my FFCS in Cerebat territory, I think they're on the march.
+| I think they're on the march.
 ~ fi
 | (:unsure)...
 | ... But why?
@@ -119,25 +119,25 @@
 ~ jack
 | Fi?...
 | (:annoyed)Fi, what do we do?
-| (:shocked)... Fuck me. We need to get out of here.
+| (:shocked)... Fuck me. We need to get outta here.
 ~ catherine
 | (:concerned)And go where exactly?
 | We've got old people and kids to think about.
 ~ player
-- There might be somewhere...
+- There might be somewhere.
   ~ fi
   | Where?
 - I interfaced with one of their mechs...
   ~ jack
-  | (:annoyed)Spare us your sordid sex life android.
+  | (:annoyed)Spare us your sordid sex life, android.
   ~ fi
-  | (:annoyed)__JACK!__ Not now!
+  | (:annoyed)<-JACK!-> Not now!
   | (:normal)Go on...
 - Do androids live in the mountains?
   ~ jack
-  | (:annoyed)Oh boy here we go.
+  | (:annoyed)Oh boy, here we go.
   ~ fi
-  | Why do you ask?
+  | (:unsure)Why do you ask?
 ~ player
 | I found mention of what sounded like a faction of androids, the \"Genera\", living in the mountains to the west.
 | I think it was a directive for their mechs, to destroy them too.
@@ -146,19 +146,19 @@
 ~ catherine
 | (:concerned)We don't know they don't exist. {(nametag player)}'s here, isn't she?
 ~ fi
-| Androids in the mountains has been an age-old rumour.
-| But I don't think we can stake our future on it - the desert is impassable, never mind the mountains.
+| Androids in the mountains is an age-old rumour.
+| But I don't think we can stake our future on it - the desert is impassable, not to mention the mountains.
 ~ jack
-| (:annoyed)Then we're fucked. Pure and simple.
+| (:annoyed)We're fucked. Pure and simple.
 ~ catherine
 | (:concerned)...
 ~ fi
 | Not yet. Not while we can still fight.
 ~ jack
-| (:shocked)... Fight?! What, against Wraw soldiers and mechs?
+| (:shocked)... Fight?! What, against Wraw mechs, soldiers and hunting packs?
 | It's suicide. They'll cut us to ribbons and eat what's left.
 ~ catherine
-| It's not suicide - we have an android.
+| It's not suicide. We have an android.
 ~ fi
 | (:unsure)...
 ~ player
@@ -178,7 +178,7 @@
   | Cathy...
   ! eval (setf (var 'fight-army) T)
 ~ fi
-| We must begin preparations immediately.
+| We must begin preparations.
 | Jack, get on the walkie and call everyone back to camp.
 ~ jack
 | (:annoyed)So this is really happening... Well fuck.
