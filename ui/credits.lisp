@@ -68,16 +68,14 @@
 (defmethod handle ((ev tick) (panel credits))
   (let* ((extent (alloy:bounds (credits panel)))
          (ideal (or (ideal panel) (setf (ideal panel) (alloy:pxh (alloy:suggest-bounds extent (credits panel)))))))
+    (setf (game-speed +main+) (if (retained 'skip) 10.0 1.0))
     (alloy:with-unit-parent (alloy:layout-element panel)
       (setf (alloy:bounds (credits panel)) 
             (alloy:px-extent (alloy:pxx extent)
                              (- (offset panel) ideal)
                              (alloy:vw 1)
                              ideal))
-      (incf (offset panel) (* (if (retained 'skip)
-                                  1000
-                                  100)
-                              (alloy:to-px (alloy:un 1)) (dt ev)))
+      (incf (offset panel) (* (alloy:to-px (alloy:un 100)) (dt ev)))
       (when (< (+ ideal (height *context*)) (offset panel))
         (hide panel)))))
 
