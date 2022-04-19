@@ -51,7 +51,7 @@
 ~ islay
 | (:unhappy)Sister! She isn't our enemy. The Noka are not our enemy.
 ~ innis
-| (:angry)You speak out of turn, Islay. Remember who's in charge.
+| (:angry)You speak outta turn, Islay. Remember who's in charge.
 | (:normal)And anyway, this time I dinnae ken why you're here, {(nametag player)}.
 ~ player
 - I need your help.
