@@ -380,13 +380,3 @@
    (move-to 'eng-cath (unit 'catherine))
    (fullscreen-prompt 'report-bug :input :keyboard)))
 ;; TODO Catherine contented - Anyway, don't worry about them.
-
-;; TODO: inventory item acquired onscreen pop-up / notification
-
-
-#| TODO too much exposition too soon... This should be at the end of Act 1 / into Act 2?...
-| Indeed, allow me to formally welcome you to the Noka.
-| We don't have much, but we hope you'll be comfortable here.
-| Just please understand that times are hard, and
-| And please bear with us - it will be more difficult for some of us than others to have an android around the camp.
-|#
