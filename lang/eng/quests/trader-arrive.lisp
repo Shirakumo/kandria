@@ -131,9 +131,8 @@
 ? (complete-p 'q13-planting-bomb)
 | | If we must, habibti.
 |? (complete-p 'q11-intro)
-| | ... I'm sorry, I can't.
+| | ... I'm sorry, {(nametag player)}, I can't.
 | | I'll still trade though, if you want.
-| ! eval (clear-pending-interactions)
 |?
 | | (:jolly)Assalam alaikum! Let's talk.
 | ? (< 80  (health player))
@@ -333,7 +332,6 @@
 | ~ trader
 | | Look, I'm not proud that I ran. But I'm here now, and I'm ready to fight.
 | | Let's talk later, okay?
-| ! eval (clear-pending-interactions)
 
 # leave
 ~ trader
