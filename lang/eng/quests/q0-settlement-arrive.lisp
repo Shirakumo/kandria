@@ -16,7 +16,7 @@
 | (:cheer)__Tada!__ Here we are.
 | What do you think...?
 ~ player
-- The city is ruined...
+- The city was destroyed...
   ~ catherine
   | (:excited)Yay, your voice box works too.
   | Yep. This is home.
@@ -52,15 +52,15 @@
   ~ catherine
   | (:excited)Isn't it amazing.
   | (:normal)...
-  | (:disappointed)Well don't look too excited. Growing these is a real feat, believe me.
+  | (:disappointed)Well don't look too excited. Growing these \"post-Calamity\"(red) is a real feat, believe me.
 - How did you manage this?
   ~ catherine
   | (:normal)Don't ask me - I'm just an engineer. I helped install the irrigation though.
-  | Needless to say, growing crops here isn't easy.
+  | Needless to say, growing crops \"post-Calamity\"(red) isn't easy.
   | (:excited)Heh, I knew you'd be impressed.
 - I've seen these before. Lots of times.
   ~ catherine
-  | (:normal)Oh, from the old world? I bet they had loads of plantations. We don't have many.
+  | (:normal)Oh, from before the \"Calamity\"(red)? I bet they had loads of plantations. We don't have many.
   | (:excited)That's so cool. I wish I could have seen that too.
 ~ catherine
 | (:concerned)Erm, hang on a second. Where is everyone?
@@ -68,15 +68,15 @@
 ~ player
 - Is something wrong?
   ~ catherine
-  | (:concerned)Well, I just reactivated an android. I thought they'd all be here to see you.
+  | (:concerned)Well, I just reactivated an \"old-world\"(red) android. I thought they'd all be here to see you.
 - What were you expecting?
   ~ catherine
   | (:concerned)I don't know...
-  | Though I just reactivated an android. I guess I thought everyone would be here to see you.
+  | Though I just reactivated an \"old-world\"(red) android. I guess I thought everyone would be here to see you.
 - Is it me?
   ~ catherine
   | (:concerned)You?... No of course not.
-  | Well... I mean, (:excited)I think you're amazing - a working android from the old world.
+  | Well... I mean, (:excited)I think you're amazing - a working android from the \"old world\"(red).
   | (:normal)But not everyone has fond tales to tell about androids, I guess. Their loss though.
   | But I'm sure it's not that.
 ~ catherine
