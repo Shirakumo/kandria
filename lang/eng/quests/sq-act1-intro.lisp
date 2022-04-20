@@ -106,7 +106,7 @@
 |     - I guess I forgot I could do that.
 |       ~ catherine
 |       | Don't worry.
-|     - Anyone need a light?
+|     - Need a light?
 |       ~ catherine
 |       | Sorry, I don't smoke.
 |   - That's right.
