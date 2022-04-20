@@ -316,7 +316,7 @@
 |   | They've amassed an invasion force, mechs and soldiers, big enough to take the whole valley.
 |   ~ trader
 |   | You're not joking are you?...
-|   | That would explain why traders haven't been permitted on Wraw land for some time.
+|   | That would explain why traders haven't been allowed on Wraw land for some time.
 |   | Thank you for telling me, {(nametag player)}.
 |   < talk
 | - Do androids live in the mountains?
