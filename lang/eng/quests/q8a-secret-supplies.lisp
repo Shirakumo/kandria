@@ -9,27 +9,27 @@
   :on-activate (return-supplies task-mushroom task-water task-pearl task-thermal task-coolant)
   
   (task-mushroom
-   :title "Deliver 2 black cap mushrooms total"
+   :title "Deliver 2 black cap mushrooms in total"
    :condition (= 0 (var 'black-cap-count))
    :on-complete NIL)
 
   (task-water
-   :title "Deliver 2 purified water total"
+   :title "Deliver 2 purified water in total"
    :condition (= 0 (var 'pure-water-count))
    :on-complete NIL)
    
   (task-pearl
-   :title "Deliver 2 pearls total"
+   :title "Deliver 2 pearls in total"
    :condition (= 0 (var 'pearl-count))
    :on-complete NIL)
 
   (task-thermal
-   :title "Deliver 2 thermal fluid total"
+   :title "Deliver 2 thermal fluid in total"
    :condition (= 0 (var 'thermal-count))
    :on-complete NIL)
 
   (task-coolant
-   :title "Deliver 2 coolant liquid total"
+   :title "Deliver 2 coolant liquid in total"
    :condition (= 0 (var 'coolant-count))
    :on-complete NIL)
   
