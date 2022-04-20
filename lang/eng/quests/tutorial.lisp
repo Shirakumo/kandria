@@ -67,18 +67,3 @@
 | We're almost there - it's just through here.
   ")
   (:go-to (tutorial-end :with catherine) :marker NIL))
-
-;; TODO when name vars persist across saves, init Catherine's name to "Woman" or "???" (VN style), and then set it to Catherine here via: ! eval (setf (nametag player) \"Catherine\") once Catherine has introduced herself
-;; SCRATCH Not too talkative though... Don't worry - (:excited)I can talk enough for both of us!
-
-#|
-
-|#
-
-#|
-Tutorial/prologue mission beats that must occur:
-- Android has memory/function issues, and has been offline for an unknown number of years, probably decades
-- Catherine has determined android is a "she" - or assumed...
-- Catherine introduced herself by name, but hasn't asked the android's name
-
-|#
