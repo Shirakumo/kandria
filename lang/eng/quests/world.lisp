@@ -5,7 +5,7 @@
   :author "Tim White"
   :title ""
   :visible NIL
-  :on-activate (task-world-all))
+  :on-activate (task-world-all task-world-engineers))
 
 ;; Lore interacts that can be accessed throughout the entire game at ANY time if the player explores far enough.
 ;; Some are conditional to determine which line is shown; however, most are written in a way that works no matter what point in the story the player discovers them.
@@ -489,13 +489,19 @@
 | | | \"The remnants of the collapsed rail tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
 | |?
 | | | \"The remnants of the collapsed tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
-")
-
+"))
 
 ;; conversation with a Semi Sisters rail engineer, if you encounter them independently of the quest to rescue them.
 ;; This is dialogue with the player, not inner monologue.
 ;; Conditionals determine what they say based on first of all whether you've cleared the tunnel yet that's blocking them in, and second whether you've spoken to them before.
+;; Task resolves once all the Semis move to the surface during q11a-bomb-recipe
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
+(quest:define-task (kandria world task-world-engineers)
+  :title ""
+  :condition (or (have 'item:blasting-cap 1) (have 'item:charge-pack 1))
+  :on-complete (task-engineers-surface)
+  :on-activate T
+
   (:interaction trapped-engineers
    :interactable semi-engineer-chief
    :repeatable T
@@ -558,6 +564,22 @@
 | ! eval (complete (find-task 'q5a-rescue-engineers 'task-engineers))
 |? (active-p (find-task 'demo-engineers 'task-engineers))
 | ! eval (complete (find-task 'demo-engineers 'task-engineers))
+"))
+
+;; replacement interact when the engineer is now on the surface in the final act, preparing for the battle
+(quest:define-task (kandria world task-engineers-surface)
+  :title ""
+  :condition NIL
+  :on-activate T
+
+  (:interaction engineer-surface
+   :interactable semi-engineer-chief
+   :repeatable T
+   :title "(Talk to engineer)"
+  "
+~ semi-engineer-chief
+| It's strange being on the surface. You live here? It's hot.
+| I hope the metro will be okay.
 "))
 ;; TODO remove demo task checks at the end here, when no longer needed
 
