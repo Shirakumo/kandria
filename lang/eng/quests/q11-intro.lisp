@@ -52,8 +52,9 @@
 ~ player
 - I will.
 - You too.
-- I promise.
+- No promises.
 ! eval (setf (location 'trader) (location 'trader-semi-loc))
+! eval (setf (direction 'cerebat-trader-quest) -1)
 ! eval (setf (walk 'fi) T)
 ! eval (move-to 'loc-trader (unit 'fi))
 ? (not (complete-p 'trader-arrive))
