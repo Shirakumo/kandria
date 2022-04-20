@@ -41,7 +41,7 @@
 | (:thinking)\"The coal and vats of oil indicate \"mass production\"(orange), on top of their already-considerable geothermal reserves.\"(light-gray, italic)
 ? (complete-p 'wraw-mechs)
 | ~ player
-| | (:embarassed)\"It's at a scale to manufacture enough mechs and weapons for an \"invasion of the entire valley\"(orange)...\"(light-gray, italic)
+| | (:embarassed)\"It's at a scale to manufacture enough mechs and weapons for an \"invasion of the entire valley\"(orange) - from the mountains to the coast...\"(light-gray, italic)
 | | (:normal)\"I need to \"contact Fi\"(orange).\"(light-gray, italic)
 | | \"... \"FFCS can't punch through\"(orange) - whether it's magnetic interference from the magma, or the Wraw themselves I'm not sure.\"(light-gray, italic)
 | | \"I'd better \"get out of here\"(orange) and \"deliver my report\"(orange).\"(light-gray, italic)
@@ -85,7 +85,7 @@
 | \"I'm not alone?\"(light-gray, italic)
 ? (complete-p 'wraw-warehouse)
 | | (:embarassed)\"Given the raw materials I saw in the warehouse, their manufacturing ambitions are __HUGE__.\"(light-gray, italic)
-| | (:normal)\"As in \"invading the entire valley\"(orange) huge.\"(light-gray, italic)
+| | (:normal)\"As in \"invading the entire valley\"(orange) huge - from the mountains to the coast.\"(light-gray, italic)
   
 ~ player
 | (:embarassed)Ouch!... Power surge from the mech.

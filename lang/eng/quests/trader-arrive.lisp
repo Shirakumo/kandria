@@ -314,18 +314,18 @@
 |   - Let's talk about something else.
 |     < talk
 |   ~ player
-|   | They've amassed an invasion force, mechs and soldiers, big enough to take the entire valley.
+|   | They've amassed an invasion force, mechs and soldiers, big enough to take the whole valley.
 |   ~ trader
 |   | You're not joking are you?...
-|   | That would explain why traders haven't been allowed on their land for some time.
+|   | That would explain why traders haven't been permitted on Wraw land for some time.
 |   | Thank you for telling me, {(nametag player)}.
 |   < talk
 | - Do androids live in the mountains?
 |   ~ trader
 |   | Ha, I wondered when you might hear about that.
 |   | I like to think they do - especially since I met you. Lots of other {(nametag player)}s running around like gazelles. A real haven.
-|   | Assuming they're friendly like you, of course.
-|   | But I think I'm in the minority.
+|   | Assuming they're friendly, of course.
+|   | But I think I'm in the minority on that particular issue.
 |   < talk
 | - I need to go.
 |   < leave

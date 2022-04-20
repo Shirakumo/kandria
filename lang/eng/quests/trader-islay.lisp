@@ -104,14 +104,15 @@
 |   < leave
 |? (and (complete-p 'q10-wraw) (not (complete-p 'q11-recruit-semis)))
 | ~ player
-| - The Wraw are coming.
+| - The Wraw are coming for everyone in the valley.
 |   ~ islay
-|   | (:nervous)Thank you, but we know. We're making preparations.
+|   | Thank you, but we already know about the scale of their operation.
+|   | We're making preparations.
 |   ~ player
-|   - Of course you are.
+|   - You've been spying on me again.
 |     ~ islay
-|     | ...
-|     | Good luck, {(nametag player)}.
+|     | (:nervous)... I'm afraid so.
+|     | (:normal)Good luck, {(nametag player)}.
 |   - What preparations?
 |     ~ islay
 |     | (:nervous)I'm afraid I can't share that. I'm sorry.

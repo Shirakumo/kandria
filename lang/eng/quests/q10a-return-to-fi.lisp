@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q10a-return-to-fi)
   :author "Tim White"
   :title "Contact Fi"
-  :description "I need to warn Fi about the Wraw invasion of the valley."
+  :description "I need to warn Fi about the Wraw invasion of the entire valley."
   :on-activate (wraw-objective-return wraw-fi-ffcs)
 
   (wraw-objective-return
@@ -106,8 +106,8 @@
   ~ fi
   | (:unsure)What do you mean the entire valley?
 ~ player
-| They've built enough mechs and power-suited soldiers to take this entire valley by force.
-| I think they're on the march.
+| They have enough mechs and power-suited soldiers to take the whole desert by force, all the way to the ocean.
+| And I think they're on the march.
 ~ fi
 | (:unsure)...
 | ... But why? Zelah is not a warmonger.
