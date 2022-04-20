@@ -36,7 +36,7 @@
    :on-activate T   
    (:interaction engineers
     :interactable semi-engineer-chief
-    :title "Innis sent me. Are you the Semis engineers?"
+    :title "Innis sent me. Are you the missing Semis engineers?"
     :dialogue "
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
