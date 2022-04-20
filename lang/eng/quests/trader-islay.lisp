@@ -128,7 +128,7 @@
 |   | (:normal)Before the Calamity there were hundreds of thousands of androids, and more in production.
 |   | Where did they all go? Were they all destroyed? - Present company excepted.
 |   | The truth is no one knows, and we'll probably never know.
-|   | But I doubt any are living in the mountains. We'd have seen or heard something, detected a signal... (:unhappy)But there's been nothing.
+|   | But I doubt any are living in the mountains. We'd have seen or heard something, detected a signal... (:unhappy)But there's nothing.
 |   < talk
 | - I need to go.
 |   < leave
