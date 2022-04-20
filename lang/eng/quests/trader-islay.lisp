@@ -107,7 +107,7 @@
 | - The Wraw are coming for everyone in the valley.
 |   ~ islay
 |   | Thank you, but we already know about the scale of their operation.
-|   | We're making preparations.
+|   | (:nervous)We're making... preparations.
 |   ~ player
 |   - You've been spying on me again.
 |     ~ islay
@@ -116,7 +116,7 @@
 |   - What preparations?
 |     ~ islay
 |     | (:nervous)I'm afraid I can't share that. I'm sorry.
-|     | Good luck, {(nametag player)}.
+|     | (:normal)Good luck, {(nametag player)}.
 |   - Good luck.
 |     ~ islay
 |     | Thank you, {(nametag player)}. To you too.
