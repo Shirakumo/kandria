@@ -11,7 +11,7 @@
   (find-mushrooms
    :title "Collect 25 flower fungus and/or rusty puffball mushrooms from beneath the camp, then return to Catherine in Engineering"
    :description NIL
-   :invariant T
+   :invariant (not (complete-p 'q10-wraw))
    :condition (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
    :on-activate (sq2-reminder)
    :on-complete (return-mushrooms)
@@ -30,6 +30,7 @@
   (return-mushrooms
    :title "Return to Catherine in Engineering and deliver the mushrooms"
    :marker '(catherine 500)
+   :invariant (not (complete-p 'q10-wraw))
    :on-activate T
    (:interaction mushrooms-return
     :title "About the mushrooms."

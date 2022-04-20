@@ -10,6 +10,7 @@
   (sq-act1-catherine
    :title "Talk to Catherine in Engineering"
    :marker '(catherine 500)
+   :invariant (not (complete-p 'q10-wraw))
    :on-activate T
    (:interaction talk-catherine
     :title "Hi Catherine."

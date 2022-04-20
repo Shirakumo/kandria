@@ -11,6 +11,7 @@
  (task-sq1-reminder
    :title "Talk to Catherine if I need a reminder"
    :visible NIL
+   :invariant (not (complete-p 'q10-wraw))
    :on-activate T
    (:interaction sq1-reminder
     :title "About the new leaks."
@@ -26,6 +27,7 @@
   (leak-first
    :title "Find leak 1"
    :marker '(hub 2600)
+   :invariant (not (complete-p 'q10-wraw))
    :condition all-complete
    :on-activate T
 
@@ -88,6 +90,7 @@
   (leak-second
    :title "Find leak 2"
    :marker '(hub 2600)
+   :invariant (not (complete-p 'q10-wraw))
    :condition all-complete
    :on-activate T
 
@@ -148,6 +151,7 @@
   (leak-third
    :title "Find leak 3"
    :marker '(chunk-1960 2600)
+   :invariant (not (complete-p 'q10-wraw))
    :condition all-complete
    :on-activate T
 
@@ -208,6 +212,7 @@
   (return-leaks
    :title "Return to Catherine in Engineering"
    :marker '(catherine 500)
+   :invariant (not (complete-p 'q10-wraw))
    :condition all-complete
    :on-activate T
 

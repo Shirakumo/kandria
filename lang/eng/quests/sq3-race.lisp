@@ -11,6 +11,7 @@
   (race-hub
    :title "Talk to Catherine in Engineering to start a race"
    :marker '(catherine 500)
+   :invariant (not (complete-p 'q10-wraw))
    :on-activate T
    (:interaction start-race
     :title "About the race."
@@ -153,6 +154,7 @@
        (quest:define-task (kandria sq3-race ,name-start)
          :title ,title-start
          :marker '(,site-mark ,mark-size)
+         :invariant (not (complete-p 'q10-wraw))
          :condition (have 'item:can)
          :on-activate T
          :on-complete (,name)
@@ -192,6 +194,7 @@
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine in Engineering ASAP"
          :marker '(catherine 500)
+         :invariant (not (complete-p 'q10-wraw))
          :on-activate T
          :condition all-complete
          :on-complete (race-hub)
