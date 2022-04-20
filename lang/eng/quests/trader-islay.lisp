@@ -135,7 +135,7 @@
 
 # leave
 ~ islay
-| [? Take care, {(nametag player)}. | Mind how you go. | I'll be seeing you. | Ta-ta.]")))
+| [? Take care, {(nametag player)}. | Mind how you go, {(nametag player)}. | I'll be seeing you. | Ta-ta.]")))
 
 (quest:define-quest (kandria trader-shop-semi)
   :title ""

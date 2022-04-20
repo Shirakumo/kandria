@@ -276,12 +276,12 @@
 |   ~ player
 |   - I'm so sorry.
 |     ~ trader
-|     | Thank you, habibti.
+|     | Thank you, {(nametag player)}.
 |     | It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
 |     < talk
 |   - Sorry for making you relive it.
 |     ~ trader
-|     | It's okay, habibti.
+|     | It's okay, {(nametag player)}.
 |     | Khawla should be remembered and talked about. I should speak her name like I always did.
 |     < talk
 |   - Could she still be alive?
