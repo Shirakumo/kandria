@@ -107,6 +107,8 @@
     (activate (unit 'semi-surface-spawner-4))
     (activate (unit 'semi-surface-spawner-5))
     (activate (unit 'bar-surface-spawner-1))
+    (deactivate (find-task 'world 'task-world-engineers))
+    (activate (find-task 'world 'task-engineers-surface))
     (when (complete-p (find-task 'q12-help-alex 'alex-task))
       (activate (find-task 'q12-help-alex 'fi-task)))
     ))

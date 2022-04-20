@@ -498,8 +498,8 @@
 ;; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
 (quest:define-task (kandria world task-world-engineers)
   :title ""
-  :condition (or (have 'item:blasting-cap 1) (have 'item:charge-pack 1))
-  :on-complete (task-engineers-surface)
+  :condition NIL
+  :on-complete ()
   :on-activate T
 
   (:interaction trapped-engineers
@@ -565,6 +565,7 @@
 |? (active-p (find-task 'demo-engineers 'task-engineers))
 | ! eval (complete (find-task 'demo-engineers 'task-engineers))
 "))
+;; TODO remove demo task checks at the end here, when no longer needed
 
 ;; replacement interact when the engineer is now on the surface in the final act, preparing for the battle
 (quest:define-task (kandria world task-engineers-surface)
@@ -581,7 +582,6 @@
 | It's strange being on the surface. You live here? It's hot.
 | I hope the metro will be okay.
 "))
-;; TODO remove demo task checks at the end here, when no longer needed
 
 ;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
