@@ -33,7 +33,7 @@
 ~ fi
 | Innis is a lot of things but she isn't stupid.
 | Just make sure you get to them first.
-| I'm going to see Sahil.
+| I'm going to see Sahil. \"Call me when you have news.\"(orange)
 ~ player
 | \"Fi looks like she wants to say something else, but then the moment passes.\"(light-gray, italic)
 - Are you okay?
