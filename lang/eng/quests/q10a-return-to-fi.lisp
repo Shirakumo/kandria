@@ -15,7 +15,7 @@
    :on-complete NIL
    
    (:interaction objective
-    :interactable player
+    :interactable fi
     :dialogue "
     "))
 
@@ -60,12 +60,12 @@
    :on-activate T
    :visible NIL
    (:action
-      (setf (location 'fi) (location 'wraw-leader))
-      (setf (direction 'fi) -1)
       (setf (location 'jack) (location 'fi-wraw))
       (setf (direction 'jack) 1)
       (setf (location 'catherine) (location 'islay-wraw))
       (setf (direction 'catherine) 1)
+      (setf (location 'fi) (location 'wraw-leader))
+      (setf (direction 'fi) -1)
       (deactivate (unit 'wraw-border-1))
       (deactivate (unit 'wraw-border-2))
       (deactivate (unit 'wraw-border-3))
