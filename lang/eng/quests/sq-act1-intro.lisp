@@ -152,7 +152,7 @@
 |   | We combine them with recycled synthetic clothes from the old world - like yours - and pelts from animals we hunt.
 |   | Just don't breathe in their spores - though I doubt they will affect you.
 |   | Other kinds are deadly poisonous, like the \"black cap - avoid those if you can\"(orange).
-|   | I think \"25 puffballs or flower fungus\"(orange) should suffice for now. (:excited)Happy mushrooming, Stranger!
+|   | At least \"25 puffballs or flower fungus\"(orange) should suffice for now. (:excited)Happy mushrooming, Stranger!
 |   ! eval (activate 'sq2-mushrooms)
 |   < task-choice
 | - [(not (active-p 'sq3-race)) (Time trials)|]

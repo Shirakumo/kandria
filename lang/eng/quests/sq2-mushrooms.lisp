@@ -5,11 +5,11 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine wants me to gather mushrooms to help fill their food and textile reserves. Flower fungus and rusty puffball: yes. Black cap: no. She said 25 total should suffice."
+  :description "Catherine wants me to gather mushrooms to help fill their food and textile reserves. Flower fungus and rusty puffball: yes. Black cap: no. She said at least 25 total should suffice."
   :on-activate (find-mushrooms)
   
   (find-mushrooms
-   :title "Collect 25 flower fungus and/or rusty puffball mushrooms from beneath the camp, then return to Catherine in Engineering"
+   :title "Collect at least 25 flower fungus and/or rusty puffball mushrooms from beneath the camp, then return to Catherine in Engineering"
    :description NIL
    :invariant (not (complete-p 'q10-wraw))
    :condition (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
@@ -23,7 +23,7 @@
     :dialogue "
 ~ catherine
 | How was your mushrooming? Oh, I don't think you've got enough yet.
-| I need \"25 puffballs or flower fungus\"(orange). Keep \"searching underground\"(orange).
+| I need at least \"25 puffballs or flower fungus\"(orange). Keep \"searching underground\"(orange).
 | (:excited)Good luck!
 "))
   
