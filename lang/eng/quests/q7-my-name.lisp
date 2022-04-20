@@ -112,7 +112,8 @@
   ~ fi
   | I hope not.
 ~ fi
-| Just don't get caught - by the Wraw //or// the Semi Sisters - and hurry back.
+| Just don't get caught - by the Wraw //or// the Semi Sisters.
+| And \"please stay in touch\"(orange).
 | Good luck, {(nametag player)}.
 ! eval (setf (location 'alex) 'alex-cerebat-loc)
 ! setf (direction 'alex) 1
