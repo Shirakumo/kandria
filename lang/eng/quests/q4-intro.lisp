@@ -68,7 +68,7 @@
   < questions
 - Do you trust me yet?
   ~ fi
-  | This is not the kind of mission for someone you don't trust.
+  | This is not the kind of task for someone you don't trust.
   | Of course, you'd be right if you said I don't have a choice. No one else can do this.
   < questions
 - I'm done.

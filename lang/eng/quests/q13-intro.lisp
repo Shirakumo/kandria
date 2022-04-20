@@ -49,7 +49,7 @@
   | ...
   | You are the best we have for this, much as I hate to admit it.
   ! eval (setf (var 'brave) T)
-- A suicide mission, then.
+- It's suicide, then.
   ~ fi
   | (:unsure)...
   | I hope not.

@@ -58,7 +58,7 @@
     :repeatable T
     :dialogue "
 ~ islay
-| Islay can remind you about your mission. I dinnae think I've anything to add, if she told you what she said she would.
+| Islay can remind you about your task. I dinnae think I've anything to add, if she told you what she said she would.
 | (:sly)I hope I was wrong about you, android.
 | (:normal)We need you.
 ")
