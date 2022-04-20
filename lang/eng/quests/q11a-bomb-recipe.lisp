@@ -3,13 +3,14 @@
 
 (quest:define-quest (kandria q11a-bomb-recipe)
   :author "Tim White"
-  :title "Bomb Recipe"
-  :description "Islay needs certain components to assemble an improvised explosive, which could slow down the Wraw advance."
+  :title "Bomb Components"
+  :description "Islay needs certain components for an improvised explosive, which could slow down the Wraw advance. They can only be found in Wraw territory."
   :variables ((blasting-cap-count 10) (charge-pack-count 20))
-  :on-activate (task-reminder task-deliveries task-border)
+  :on-activate (task-reminder task-blasting task-charge task-deliveries task-trigger-move-semis)
 
  (task-reminder
    :title ""
+   :condition (complete-p 'task-return)
    :on-activate T
    :visible NIL
 
@@ -19,11 +20,24 @@
     :repeatable T
     :dialogue "
 ~ innis
-| You'd better shake a leg. Altogether Islay needs \"10 blasting caps\"(orange) and \"20 charge packs\"(orange) for the bomb.
+| (:angry)You'd better shake a leg. Altogether Islay needs \"10 blasting caps\"(orange) and \"20 charge packs\"(orange) for the bomb.
+| (:sly)Have fun in \"Wraw territory\"(orange).
 "))
 
+  (task-blasting
+   :title "Deliver 10 blasting caps in total"
+   :condition (complete-p 'task-deliveries)
+   :on-complete NIL)
+
+  (task-charge
+   :title "Deliver 20 charge packs in total"
+   :condition (complete-p 'task-deliveries)
+   :on-complete NIL)
+
  (task-deliveries
-   :title "Search Wraw territory for 10 blasting caps and 20 charge packs, then return to Islay on the surface"
+   :title ""
+   :visible NIL
+   :marker '(islay 500)
    :on-activate T
    :condition (and (>= 0 (- (var 'blasting-cap-count) (item-count 'item:blasting-cap))) (>= 0 (- (var 'charge-pack-count) (item-count 'item:charge-pack))))
    :on-complete (task-return)
@@ -40,7 +54,7 @@
 | | Hurry, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) \"Blasting caps: {(var 'blasting-cap-count)}\"(orange).|] [(< 0 (var 'charge-pack-count)) \"Charge packs: {(var 'charge-pack-count)}\"(orange).]
 |?
 | ~ islay
-| | Ah, good. I'll see these are passed to Catherine and installed right away.
+| | Good. I'll see these are passed to Catherine and fitted right away.
 | | \"Here's your payment.\"(orange)
 | ? (< 0 (item-count 'item:blasting-cap))
 | | ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
@@ -53,49 +67,65 @@
 |  
 | | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) \"Blasting caps: {(var 'blasting-cap-count)}\"(orange).|] [(< 0 (var 'charge-pack-count)) \"Charge packs: {(var 'charge-pack-count)}\"(orange).]
 "))
-
-  ;; TODO this stops the player when they hit the trigger? Need to find another way
- (task-border
+  
+ ;; move all the Semi Sisters to the surface
+ (task-trigger-move-semis
    :title ""
+   :condition (or (have 'item:blasting-cap 1) (have 'item:charge-pack 1))
+   :on-complete (task-move-semis task-return-fi)   
+   :visible NIL)
+
+ (task-move-semis
+   :title ""
+   :condition all-complete
+   :on-complete ()
    :on-activate T
    :visible NIL
-
-   ;; move all the Semis to the surface
-   ;; TODO move all Semis world NPCs to the surface when we have them
-   (:interaction wraw-border
-    :interactable NIL
-    :dialogue "
-! eval (setf (location 'islay) (location 'shutter-2))
-! eval (setf (location 'innis) (location 'shutter-1))
-! setf (direction 'islay) 1
-! setf (direction 'innis) -1
-! eval (setf (location 'fi) (location 'shutter-3))
-! eval (setf (location 'jack) (location 'shutter-4))
-! setf (direction 'fi) -1
-! setf (direction 'jack) -1
-! eval (setf (location 'catherine) 'eng-cath)
-! setf (direction 'catherine) -1
-! eval (deactivate (unit 'wraw-border-1))
-! eval (deactivate (unit 'wraw-border-2))
-! eval (activate 'task-return-fi)
-? (complete-p (find-task 'q12-help-alex 'alex-task))
-| ! eval (activate (find-task 'q12-help-alex 'fi-task))
-"))
+   (:action
+    (setf (location 'innis) (location 'shutter-1))
+    (setf (direction 'innis) -1)
+    (setf (location 'islay) (location 'shutter-2))
+    (setf (direction 'islay) 1)
+    (setf (location 'fi) (location 'shutter-3))
+    (setf (direction 'fi) -1)
+    (setf (location 'jack) (location 'shutter-4))
+    (setf (direction 'jack) -1)
+    (setf (location 'catherine) 'eng-cath)
+    (setf (direction 'catherine) -1)
+    (ensure-nearby 'semi-surface-spawner-2 'semi-engineer-chief 'semi-engineer-1 'semi-engineer-2 'semi-engineer-3)
+    (deactivate (unit 'spawner-5885))
+    (deactivate (unit 'entity-4686))
+    (deactivate (unit 'entity-4687))
+    (deactivate (unit 'entity-4688))
+    (deactivate (unit 'entity-4689))
+    (deactivate (unit 'entity-4690))
+    (deactivate (unit 'entity-4691))
+    (deactivate (unit 'spawner-5767))
+    (activate (unit 'semi-surface-spawner-1))
+    (activate (unit 'semi-surface-spawner-2))
+    (activate (unit 'semi-surface-spawner-3))
+    (activate (unit 'semi-surface-spawner-4))
+    (activate (unit 'semi-surface-spawner-5))
+    (activate (unit 'bar-surface-spawner-1))
+    (when (complete-p (find-task 'q12-help-alex 'alex-task))
+      (activate (find-task 'q12-help-alex 'fi-task)))
+    ))
 ;; TODO position islay further from the others - easier to clarify hand-in NPC, and the trials of leadership etc.
-;; if you've already spoken to alex in q12, then when you cross the border, activate the fi return task, since it's now safe to talk to her about alex, as she will be on the surface with the others
-;; TODO also need to move semi engineers (and other world NPCs?) to surface, and change the status of their world-state quest(s) so they can no longer be spoken too / updated dialogue
+;; TODO also deactivate semis world NPC spawners (deletes all Semis NPCs?) and instead activate smaller Semis spawners on surface
 
-  ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb
+  ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb; marker added though, as adds further depth
   (task-return-fi
    :title ""
+   :marker '(fi 500)
    :visible NIL
+   :condition (complete-p 'task-return)
    :on-activate T
    (:interaction fi-return-recruit
     :title "What did I miss?"
     :interactable fi
     :dialogue "
 ~ fi
-| (:happy)Welcome back, and well done with the Semi Sisters.
+| (:happy)Well done with the Semi Sisters.
 ~ player
 - Thanks.
   ~ fi
@@ -103,37 +133,37 @@
 - Islay did most of the convincing.
   ~ fi
   | Well, she knows Innis the best I suppose.
-  | But without you going and speaking with them, none of this would've happened.
+  | But without you speaking with them, none of this would've happened.
   ~ player
   - I guess I played my part.
     ~ fi
-    | (:happy)An important part.
+    | (:happy)An important part. And on dangerous roads.
   - Just doing my job.
     ~ fi
-    | (:happy)It's not more to you than that?
+    | (:happy)More than that I think. Especially with how dangerous the roads are now.
   - This was your idea though.
     ~ fi
-    | Yes, but you had their ear - and took the journey to reach them on dangerous roads.
+    | Yes, but you had their ear - and took the journey on dangerous roads.
 - It was your idea.
   ~ fi
-  | Yes, but you had their ear - and took the journey to reach them on dangerous roads.
+  | Yes, but you had their ear - and took the journey on dangerous roads.
 ~ fi
-| Islay told me everything by the way, and why you couldn't call.
-| All things considered, things are surprisingly calm around here.
-| (:unsure)Everyone's buying into Islay's story that we can defeat the Wraw. I suppose this bomb is a convincing statement.
-| (:normal)She's had Catherine working on it for a while, that much I know. At least our weapons are ready.
+| Islay told me everything, about why you couldn't call.
+| All things considered, it's surprisingly calm around here.
+| (:unsure)Everyone's buying into Islay's story that we can stop the Wraw. I suppose this bomb is a convincing statement.
+| (:normal)She's been working Catherine hard to build it, that much I know. (:happy)At least our weapons are ready.
 ! label questions
 ~ player
 - You don't think we can win?
   ~ fi
-  | Islay says we have the numbers. (:unsure)But she also says she doesn't know how many the Wraw are.
+  | Islay says we have good numbers. (:unsure)But she also says she doesn't know how many the Wraw are.
   | It doesn't fill me with confidence, bomb or no bomb.
   < questions
 - What weapons do we have?
   ~ fi
-  | We've got some old, pre-Calamity guns that Catherine and Jack managed to get working. The Semi Sisters have some too, but in better condition.
+  | We've got some old, pre-Calamity guns that Catherine and Jack got working. The Semi Sisters have some too, but in better condition.
   | I don't remember the Wraw having anything like that - they're more into swords and spears, so they can watch you die up close.
-  | We've also got scythes, shears, and other sharp farming tools.
+  | (:unsure)We've also got scythes, shears, and other sharp farming tools.
   | (:happy)And we've got you.
   ~ player
   - I'll do my best.
@@ -142,40 +172,41 @@
   - You know it.
     ~ fi
     | (:happy)More than most, I think.
-  - [(var 'fight-army) I still can't fight an army. | I can't fight an army.]
+  - [(var 'fight-army) I still can't fight an army.| I can't fight an army.]
     ~ fi
-    | You might not have to. I think Islay has something special planned for you.
+    | You might not have to. (:unsure)I think Islay has something special planned for you.
   < questions
 - What do you think about the bomb?
   ~ fi
   | It's a bold idea, and it might work.
   | (:unsure)But I can't help but worry about the devastation it might cause to this whole area. To our way of life.
-  | And I can't say I'm comfortable having a huge explosive assembled in the middle of our camp.
+  | Though I suppose the Wraw tearing through us would be even worse...
+  | (:normal)And I can't say I'm comfortable having a huge explosive assembled in the middle of our camp.
   < questions
 - Who's in charge now?
   ~ fi
-  | Islay has the plan, but she's quite diplomatic. It feels like a partnership between me, Islay, and Innis.
-  | (:happy)I'm not so sure Innis sees it that way though.
+  | Islay has the plan, but she's quite diplomatic. (:happy)It feels like a partnership.
+  | (:annoyed)I'm not sure Innis sees it that way though.
   < questions
 - I have to go.
   ~ fi
-  | If you've got \"components for the bomb, I'd get them to Islay ASAP\"(orange).
+  | If you've got \"components for the bomb, take them to Islay\"(orange).
   | We'll talk again soon.
 "))
 
   (task-return
-   :title "Return to Islay on the surface and deliver the bomb components"
+   :title "Return to Islay on the surface and deliver the last of the bomb components"
+   :marker '(islay 500)
    :on-complete (q13-intro)
    :on-activate T
    (:interaction components-return
     :title "(Deliver bomb components)"
     :interactable islay
-    :repeatable T
     :dialogue "
 ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
 ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
 ~ islay
-| [(> -5 (+ (var 'blasting-cap-count) (var 'charge-pack-count))) That's the last of the components we needed, and then some! | That's the last of the components we needed.]
+| [(>= -3 (+ (var 'blasting-cap-count) (var 'charge-pack-count))) That's the last of the components we needed, and then some! | That's the last of the components we needed.]
 | Thank you, {(nametag player)}. \"Here's your payment as promised\"(orange).
 ? (< 0 (item-count 'item:blasting-cap))
 | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
@@ -184,22 +215,19 @@
 | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | ! eval (retrieve 'item:charge-pack T)
   
-| (:normal)I'll take the parts to Catherine so she can complete the bomb.
+~ islay
+| I'll take the parts to Catherine so she can finish the bomb.
 | Fi, would you join Catherine and I in Engineering?
 ~ fi
 | If you insist.
 | And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
 ~ islay
-| I was about to add... could you join us as well, {(nametag player)}. This concerns you.
+| I was about to add... could you join us as well, {(nametag player)}? This concerns you.
 | Innis, keep an eye on things here.
 ~ innis
-| Aye, alright.
+| (:angry)Aye, alright.
 ! eval (complete task)
-! eval (setf (quest:status (thing 'task-return)) :inactive)
-! eval (deactivate interaction)
-! eval (deactivate 'task-return-fi)
-! eval (deactivate 'task-reminder)
-! eval (complete 'q12-help-alex)
+! eval (reset* interaction)
 ! eval (activate 'q13-intro)
+! eval (clear-pending-interactions)
 ")))
-;; TODO need to space fi, catherine, islay further apart here, for different chats once q13 starts

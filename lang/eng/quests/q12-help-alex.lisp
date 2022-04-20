@@ -9,7 +9,7 @@
 
   (alex-task
    :title ""
-   :invariant T
+   :invariant (not (complete-p 'q11a-bomb-recipe))
    :condition all-complete
    :on-activate (alex-interact)
 
@@ -17,12 +17,11 @@
     :interactable alex
     :title ""    
     :dialogue "
-! eval (complete 'q8-alex-cerebat)
-? (var 'alex-cerebat)
+? (complete-p 'q8-alex-cerebat)
 | ~ player
-| | You're still here?
+| | Why are you here?
 | ~ alex
-| | (:angry)Not for much longer.
+| | (:angry)Why do you think?
 |?
 | ~ player
 | - Alex?
@@ -40,22 +39,20 @@
 ~ player
 - What do you mean?
 - What have you done?
-- Are you saying what I think you're saying?
-  ~ alex
-  | (:angry)If that's that I've betrayed you to the Wraw, then yeah.
 ~ alex
-| I told them the exact location o' the Noka camp.
+| \"I told them the exact location o' the Noka camp.\"(orange)
 | (:angry)It's the least I could do to repay you an' Fi for your loyalty.
-| Now if you don't mind, I've got a battle to fight.
-| Watch your back, {(nametag player)}.
-? (and (not (active-p (unit 'wraw-border-1))) (not (active-p (unit 'wraw-border-2))))
+| (:normal)Now if you don't mind, I've got a battle to fight.
+| (:angry)Watch your back, {(nametag player)}.
+? (complete-p (find-task 'q11a-bomb-recipe 'task-move-semis))
 | ! eval (activate 'fi-task)
 "))
-;; if you've travelled into the Wraw region (i.e. these triggers are not active), then it's safe to activate the Fi return task, since Fi will now be on the surface with the others
 
+  ;; optional dialogue - marker added though, as adds further depth
   (fi-task
    :title ""
-   :invariant T
+   :marker '(fi 500)
+   :invariant (not (complete-p 'q11a-bomb-recipe))
    :condition all-complete
    :on-activate (fi-interact)
 
@@ -66,30 +63,11 @@
 ~ fi
 | (:unsure)Alex has... betrayed us? What do you mean?
 ~ player
-| I found them in Cerebat territory. They told the Wraw our location.
-| Oh, and they are coming back after all.
+| I found them in Wraw territory. They told them our location.
 ~ fi
-| (:unsure)They are?
-~ player
-- Just not how you think.
-  ~ fi
-  | What do you mean?
-  ~ player
-  | (:embarassed)They're coming back on the side of the Wraw.
-  ~ fi
-  | (:annoyed)...
-- On the side of the Wraw.
-  ~ fi
-  | (:annoyed)...
-- We might have to kill them.
-  ~ fi
-  | What do you mean?
-  ~ player
-  | (:embarassed)They're coming back on the side of the Wraw.
-  ~ fi
-  | (:annoyed)...
+| (:unsure)...
 ~ jack
-| (:annoyed)Why didn't you put 'em outta their misery when you had the chance? Who knows what else they told the Wraw, and how many they might kill.
+| (:annoyed)Why didn't ya put 'em outta their misery when you had the chance?! Who knows what else they've told them.
 ~ player
 - In cold blood?
   ~ jack
@@ -98,19 +76,19 @@
   | (:annoyed)I beg to differ, Jack.
 - I'm not a killer.
   ~ jack
-  | (:annoyed)Oh really? What's your body count since you came back online?
-  | I bet you've lost count.
-  | Not to mention all those you killed before the Calamity.
+  | (:annoyed)Oh really? What's your body count since you woke up?
+  | (:normal)I bet you've lost count.
+  | (:annoyed)Not to mention all those you killed before the Calamity.
   ~ fi
-  | {(nametag player)} has helped and defended us. And I will not indulge lazy suppositions!
+  | {(nametag player)} has helped and defended us. (:annoyed)And I won't hear your superstitions!
   ~ jack
-  | (:normal)...
+  | (:annoyed)...
 - Maybe you're right.
   ~ jack
-  | ... 
+  | (:shocked)...
   ~ fi
-  | (:annoyed)No, I don't he is.
+  | (:annoyed)No, I don't think he is.
 ~ fi
-| It was better to know about Alex sooner rather than later.
+| It was better to know about Alex sooner rather than later. At least we know what we're up against.
 | Thank you, {(nametag player)}.
 ")))

@@ -8,7 +8,8 @@
   :on-activate T
   (task-1
    :title ""
-   :condition NIL
+   :invariant (not (complete-p 'q11-recruit-semis))
+   :condition all-complete
    :on-activate T
    (:interaction interact
     :interactable alex
@@ -23,5 +24,4 @@
 | (:angry)Mind your own business.
 | I'm doing my job, just like you. I'm still a hunter, ya know.
 | We're done.
-! eval (setf (var 'alex-cerebat) T)
 ")))

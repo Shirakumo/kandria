@@ -639,6 +639,10 @@
 
 ;; Fi (Noka faction leader, female) - somewhat indifferent and distanced to the player; formal, but warming to them. Japanese English accent and dialect.
 (define-default-interactions fi
+  (q11a-bomb-recipe
+  "| Konnichiwa.")
+  (q11-recruit-semis
+  "| (:unsure)Whatever you're doing, please hurry.")
   (demo-end-prep
    "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still intact. | Now our crops might stand a chance.]")
   (demo-start

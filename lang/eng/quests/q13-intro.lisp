@@ -7,6 +7,7 @@
   :description "I need to meet Islay, Fi and Catherine in Engineering, probably to talk about the bomb."
   :variables (brave)
   ;; TODO need to ensure islay in engineering before this triggers, otherwise there's only Catherine there
+  ;; TODO - can remove (:interact (islay :now T) and it will still trigger on arrival? To avoid duplicate map markers?
   (:eval
    (setf (walk 'islay) T)
    (setf (walk 'fi) T)
