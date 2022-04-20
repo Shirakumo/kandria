@@ -124,11 +124,11 @@
 |   < talk
 | - Do androids live in the mountains?
 |   ~ islay
-|   | Oh, that old chestnut.
-|   | Before the Calamity there were hundreds of thousands of androids, and and more in production.
+|   | (:nervous)Oh, that old chestnut...
+|   | (:normal)Before the Calamity there were hundreds of thousands of androids, and more in production.
 |   | Where did they all go? Were they all destroyed? - Present company excepted.
-|   | No one knows, and we'll probably never know.
-|   | But I doubt they're living in the mountains. We'd have seen or heard something, detected a signal... But there's been nothing.
+|   | The truth is no one knows, and we'll probably never know.
+|   | But I doubt any are living in the mountains. We'd have seen or heard something, detected a signal... (:unhappy)But there's been nothing.
 |   < talk
 | - I need to go.
 |   < leave
