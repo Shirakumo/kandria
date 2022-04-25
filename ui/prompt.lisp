@@ -69,7 +69,7 @@
   (etypecase button
     (string button)
     (symbol (string (prompt-char button :bank input)))
-    (list (map 'string (lambda (c) (prompt-char c :bank input)) button))))
+    (list (map 'string (lambda (c) (or (prompt-char c :bank input) #\Space)) button))))
 
 (defmethod show ((prompt prompt) &key button input location (description NIL description-p))
   (when button
