@@ -145,7 +145,7 @@ void main(){
   (dolist (sound '(player-dash player-jump player-evade player-die player-die-platforming
                    player-low-health player-awaken player-damage enter-water
                    player-red-flashing zombie-die ; Used for explosion
-                   player-hard-land player-roll-land
+                   player-hard-land player-roll-land player-counter
                    player-pick-up player-enter-passage player-soft-land player-wall-slide
                    step-dirt-1 step-dirt-2 step-dirt-3 step-dirt-4
                    step-rocks-1 step-rocks-2 step-rocks-3 step-rocks-4

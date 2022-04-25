@@ -285,6 +285,9 @@ void main(){
   :voice (list (// 'sound 'sword-rotating-swing-1)
                (// 'sound 'sword-rotating-swing-2)))
 
+(define-effect counter sound-effect
+  :voice (// 'sound 'player-counter))
+
 (define-effect zombie-damage sound-effect
   :voice (// 'sound 'zombie-damage))
 
