@@ -200,9 +200,10 @@
   (show-panel 'fast-travel-menu :current-station station))
 
 (defun list-stations (&optional (region (region +world+)))
-  (for:for ((entity over region)
-            (status when (typep entity 'station)
-                    collect entity))))
+  (sort (for:for ((entity over region)
+                  (status when (typep entity 'station)
+                          collect entity)))
+        #'> :key (lambda (station) (vy (location station)))))
 
 (defmethod interactable-p ((station station)) T)
 
