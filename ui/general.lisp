@@ -389,7 +389,9 @@
 
 (defmethod hide :after ((panel menuing-panel))
   (setf (active-p (action-set (prior-action-set panel))) T)
-  (reset-retained +world+))
+  (when (eql (action-set (prior-action-set panel))
+             (action-set 'in-game))
+    (reset-retained +world+)))
 
 (defmethod (setf active-p) :after (value (panel menuing-panel))
   (when value
