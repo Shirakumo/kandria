@@ -599,15 +599,16 @@
                     :output *standard-output*
                     :error-output *error-output*))
 
-(defun optipng (&rest args)
-  (uiop:run-program (list* #-windows "pngcrush" #+windows "pngcrush.exe"
-                           "-brute" "-reduce" "-speed" "-ow"
-                           (loop for arg in args
-                                 collect (typecase arg
-                                           (pathname (uiop:native-namestring arg))
-                                           (T (princ-to-string arg)))))
-                    :output *standard-output*
-                    :error-output *error-output*))
+(defun optipng (file)
+  #-windows
+  (progn
+    (uiop:run-program (list "pngcrush"
+                            "-brute" "-reduce" "-speed"
+                            (uiop:native-namestring file)
+                            (uiop:native-namestring (make-pathname :type "tmp" :defaults file)))
+                      :output *standard-output*
+                      :error-output *error-output*)
+    (rename-file (make-pathname :type "tmp" :defaults file) file)))
 
 (defmacro match1 (thing &body clauses)
   (let ((thingg (gensym "THING")))
