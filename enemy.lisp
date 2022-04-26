@@ -455,3 +455,52 @@
   (item:heavy-spring 1)
   (item:simple-circuit 1)
   (item:cable 1))
+
+(define-shader-entity mech (ground-enemy solid immovable creatable)
+  ((bsize :initform (vec 20 42))
+   (last-action :initform NIL :accessor last-action)
+   (timer :initform 0.0 :accessor timer))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'mech)))
+
+(defmethod idleable-p ((enemy mech)) NIL)
+
+(defmethod handle-ai-states ((enemy mech) ev)
+  (case (state enemy)
+    (:normal
+     (let* ((player (unit 'player +world+))
+            (direction (- (vx (location player)) (vx (location enemy))))
+            (distance (abs direction))
+            (tentative (cond ((< (* +tile-size+ 12) distance) 'pierce)
+                             ((< (* +tile-size+ 6) distance) 'jump)
+                             (T 'bash))))
+       (flet ((select (move)
+                (setf (timer enemy) 1.0)
+                (setf (last-action enemy) move)
+                (start-animation move enemy)))
+         (setf (direction enemy) (float-sign direction))
+         (cond ((not (eql tentative (last-action enemy)))
+                (select tentative))
+               ((<= 0.0 (decf (timer enemy) (dt ev))))
+               ((< distance (* +tile-size+ 6)) ;; Jump over
+                (select 'jump))
+               (T
+                (setf (vx (velocity enemy)) 0.8))))))))
+
+(defmethod hurt ((animatable mech) (damage integer))
+  (let* ((damage (* (damage-input-scale animatable) damage))
+         (hard-hit-p (<= (* +hard-hit+ (maximum-health animatable)) damage)))
+    (cond ((invincible-p animatable)
+           (setf damage 0))
+          (hard-hit-p
+           (setf (pause-timer +world+) 0.12)))
+    (trigger (make-instance 'text-effect) animatable
+             :text (princ-to-string (truncate damage))
+             :location (vec (+ (vx (location animatable)))
+                            (+ (vy (location animatable)) 8 (vy (bsize animatable)))))
+    (decf (health animatable) damage)))
+
+(defmethod interrupt ((animatable mech))
+  (when (interruptable-p (frame animatable))
+    (unless (eql :stunned (state animatable))
+      (setf (state animatable) :animated))))

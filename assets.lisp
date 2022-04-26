@@ -166,7 +166,7 @@
 (define-bg debug
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)
-  :offset (vec 0.0 -2000.0)
+  :offset (vec 0.0 10800.0)
   :lighting-strength 0.1)
 
 (define-bg black
