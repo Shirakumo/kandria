@@ -475,17 +475,19 @@
                              ((< (* +tile-size+ 6) distance) 'jump)
                              (T 'bash))))
        (flet ((select (move)
-                (setf (timer enemy) 1.0)
+                (setf (timer enemy) 2.0)
                 (setf (last-action enemy) move)
                 (start-animation move enemy)))
          (setf (direction enemy) (float-sign direction))
          (cond ((not (eql tentative (last-action enemy)))
                 (select tentative))
+               ((<= distance (vx (bsize enemy))) ;; Player is probably on top, bash always.
+                (select 'bash))
                ((<= 0.0 (decf (timer enemy) (dt ev))))
                ((< distance (* +tile-size+ 6)) ;; Jump over
                 (select 'jump))
                (T
-                (setf (vx (velocity enemy)) 0.8))))))))
+                (setf (vx (velocity enemy)) (float-sign direction 0.8)))))))))
 
 (defmethod hurt ((animatable mech) (damage integer))
   (let* ((damage (* (damage-input-scale animatable) damage))
