@@ -1326,7 +1326,11 @@ void main(){
     (when (and (<= (maximum-health player) (health player))
                (<= (health player) real-damage))
       (setf real-damage (1- (health player))))
-    (call-next-method player real-damage)))
+    ;; Evasions
+    (if (and (eql :dashing (state player))
+               (< (dash-time player) (p! dash-evade-grace-time)))
+        (handle-evasion player)
+        (call-next-method player real-damage))))
 
 (defmethod hurt :after ((player player) (by integer))
   (let ((dialog (find-panel 'dialog)))
