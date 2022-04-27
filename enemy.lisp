@@ -489,6 +489,16 @@
                (T
                 (setf (vx (velocity enemy)) (float-sign direction 0.8)))))))))
 
+(defmethod handle :before ((ev tick) (enemy mech))
+  (case (state enemy)
+    (:dying
+     (when (<= (decf (timer enemy) (dt ev)) 0.0)
+       (setf (timer enemy) (+ 0.1 (random 0.1)))
+       (trigger 'explosion enemy :location (nv+ (vrand (location enemy) (vec 96 48)) (vec (* (direction enemy) -16) -30)))))))
+
+(defmethod kill :after ((animatable mech))
+  (setf (timer animatable) 0.5))
+
 (defmethod hurt ((animatable mech) (damage integer))
   (let* ((damage (* (damage-input-scale animatable) damage))
          (hard-hit-p (<= (* +hard-hit+ (maximum-health animatable)) damage)))
