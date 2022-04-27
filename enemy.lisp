@@ -101,6 +101,20 @@
   (when (slot-boundp (health-bar enemy) 'alloy:layout-parent)
     (show (health-bar enemy))))
 
+(define-shader-entity major-enemy (enemy)
+  ((health-bar :accessor health-bar)))
+
+(defmethod initialize-instance :after ((enemy major-enemy) &key)
+  (setf (health-bar enemy) (make-instance 'boss-health-bar :value enemy)))
+
+(defmethod leave :after ((enemy major-enemy) target)
+  (hide (health-bar enemy)))
+
+(defmethod (setf ai-state) :after (state (enemy major-enemy))
+  (case state
+    (:active (show (health-bar enemy)))
+    (:normal (hide (health-bar enemy)))))
+
 (define-shader-entity ground-enemy (enemy)
   ())
 
@@ -456,38 +470,52 @@
   (item:simple-circuit 1)
   (item:cable 1))
 
-(define-shader-entity mech (ground-enemy solid immovable creatable)
+(define-shader-entity mech (ground-enemy major-enemy solid immovable creatable)
   ((bsize :initform (vec 20 42))
    (last-action :initform NIL :accessor last-action)
-   (timer :initform 0.0 :accessor timer))
+   (timer :initform 0.0 :accessor timer)
+   (damage-input-scale :initform 0.5)
+   (damage-accumulated :initform 0.0 :accessor damage-accumulated)
+   (level :initform 30))
   (:default-initargs
    :sprite-data (asset 'kandria 'mech)))
 
 (defmethod idleable-p ((enemy mech)) NIL)
 
+(defmethod base-health ((enemy mech)) 2200)
+
+(defmethod quest:activate ((enemy mech))
+  (setf (ai-state enemy) :active))
+
 (defmethod handle-ai-states ((enemy mech) ev)
   (case (state enemy)
     (:normal
-     (let* ((player (unit 'player +world+))
-            (direction (- (vx (location player)) (vx (location enemy))))
-            (distance (abs direction))
-            (tentative (cond ((< (* +tile-size+ 12) distance) 'pierce)
-                             ((< (* +tile-size+ 6) distance) 'jump)
-                             (T 'bash))))
-       (flet ((select (move)
-                (setf (timer enemy) 2.0)
-                (setf (last-action enemy) move)
-                (start-animation move enemy)))
-         (setf (direction enemy) (float-sign direction))
-         (cond ((not (eql tentative (last-action enemy)))
-                (select tentative))
-               ((<= distance (vx (bsize enemy))) ;; Player is probably on top, bash always.
-                (select 'bash))
-               ((<= 0.0 (decf (timer enemy) (dt ev))))
-               ((< distance (* +tile-size+ 6)) ;; Jump over
-                (select 'jump))
-               (T
-                (setf (vx (velocity enemy)) (float-sign direction 0.8)))))))))
+     (case (ai-state enemy)
+       (:normal)
+       (:active
+        (let* ((player (unit 'player +world+))
+               (direction (- (vx (location player)) (vx (location enemy))))
+               (distance (abs direction))
+               (tentative (cond ((< (* 0.25 (maximum-health enemy)) (damage-accumulated enemy)) 'stun)
+                                ((< (* +tile-size+ 12) distance) 'pierce)
+                                ((< (* +tile-size+ 6) distance) 'jump)
+                                (T 'bash))))
+          (when (< (* +tile-size+ 100) distance)
+            (setf (ai-state enemy) :normal))
+          (flet ((select (move)
+                   (setf (timer enemy) 2.0)
+                   (setf (last-action enemy) move)
+                   (start-animation move enemy)))
+            (setf (direction enemy) (float-sign direction))
+            (cond ((not (eql tentative (last-action enemy)))
+                   (select tentative))
+                  ((<= distance (vx (bsize enemy))) ;; Player is probably on top, bash always.
+                   (select 'bash))
+                  ((<= 0.0 (decf (timer enemy) (dt ev))))
+                  ((< distance (* +tile-size+ 6)) ;; Jump over
+                   (select 'jump))
+                  (T
+                   (setf (vx (velocity enemy)) (float-sign direction 0.8)))))))))))
 
 (defmethod handle :before ((ev tick) (enemy mech))
   (case (state enemy)
@@ -495,6 +523,10 @@
      (when (<= (decf (timer enemy) (dt ev)) 0.0)
        (setf (timer enemy) (+ 0.1 (random 0.1)))
        (trigger 'explosion enemy :location (nv+ (vrand (location enemy) (vec 96 48)) (vec (* (direction enemy) -16) -30)))))))
+
+(defmethod switch-animation :before ((enemy mech) next)
+  (when (eql (name (animation enemy)) 'stun)
+    (setf (damage-accumulated enemy) 0)))
 
 (defmethod kill :after ((animatable mech))
   (setf (timer animatable) 0.5))
@@ -510,6 +542,7 @@
              :text (princ-to-string (truncate damage))
              :location (vec (+ (vx (location animatable)))
                             (+ (vy (location animatable)) 8 (vy (bsize animatable)))))
+    (incf (damage-accumulated animatable) damage)
     (decf (health animatable) damage)))
 
 (defmethod interrupt ((animatable mech))

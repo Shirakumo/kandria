@@ -18,6 +18,8 @@ villager-nametag "Villager"
 cerebat-trader-nametag "???"
 unknown-nametag "???"
 zelah-nametag "Zelah"
+player "Player"
+mech "Wraw Machine Suit Prototype"
 villager-female-nametags ("Sandra" "Cath" "Monika" "Leandra" "Sarah" "Nathalie" "Maria" "Anneli" "Laura" "Karina" "Heidy" "Nick")
 villager-male-nametags ("Vincent" "Nick" "Till" "Brian" "Simon" "Chris" "Sean" "Luigi" "Johnny" "Arthur" "Sina" "Tom")
 ;; Walk-n-talk blurbs
