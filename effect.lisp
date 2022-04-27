@@ -267,6 +267,44 @@ void main(){
   :animation 'air-dash
   :direction 1)
 
+(define-effect mech-jump-back sprite-effect
+  :animation 'mech-jump
+  :offset (vec 0 -34)
+  :layer-index (1- +base-layer+))
+
+(define-effect mech-jump-front sprite-effect
+  :animation 'mech-jump2
+  :offset (vec 0 -34)
+  :layer-index +base-layer+)
+
+(define-effect mech-land-back sprite-effect
+  :animation 'mech-land
+  :offset (vec 0 -34)
+  :layer-index (1- +base-layer+))
+
+(define-effect mech-land-front sprite-effect
+  :animation 'mech-land2
+  :offset (vec 0 -34)
+  :layer-index +base-layer+)
+
+(define-effect mech-bash-back sprite-effect
+  :animation 'mech-bash
+  :offset (vec 90 -34)
+  :layer-index (1- +base-layer+))
+
+(define-effect mech-bash-front sprite-effect
+  :animation 'mech-bash2
+  :offset (vec 90 -34)
+  :layer-index +base-layer+)
+
+(define-effect mech-pierce-propulsion sprite-effect
+  :animation 'mech-pierceboom
+  :offset (vec -30 -16)
+  :layer-index +base-layer+)
+
+(progn (compile-resources (asset 'kandria 'effects) T)
+       #! (reload (asset 'kandria 'effects)))
+
 (define-effect enter-passage sound-effect
   :voice (// 'sound 'player-enter-passage))
 
