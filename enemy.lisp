@@ -104,11 +104,14 @@
 (define-shader-entity major-enemy (enemy)
   ((health-bar :accessor health-bar)))
 
-(defmethod initialize-instance :after ((enemy major-enemy) &key)
+(defmethod initialize-instance :before ((enemy major-enemy) &key)
   (setf (health-bar enemy) (make-instance 'boss-health-bar :value enemy)))
 
 (defmethod leave :after ((enemy major-enemy) target)
   (hide (health-bar enemy)))
+
+(defmethod (setf health) :after (value (enemy major-enemy))
+  (alloy:mark-for-render (health-bar enemy)))
 
 (defmethod (setf ai-state) :after (state (enemy major-enemy))
   (case state
@@ -528,10 +531,24 @@
   (when (eql (name (animation enemy)) 'stun)
     (setf (damage-accumulated enemy) 0)))
 
+(defmethod collide :before ((moving mech) (player player) hit)
+  (when (< 0 (vy (hit-normal hit)))
+    (let* ((bsize (bsize player))
+           (dir (float-sign (- (vx (location player)) (vx (location moving)))))
+           (xd (* dir (+ (vx (bsize moving)) (vx bsize)))))
+      (setf (direction player) (- dir))
+      (cond ((null (scan-collision-for player +world+ (tvec (+ (vx (location moving)) xd) (vy (location player)) (vx bsize) (vy bsize))))
+             (setf (vx (location player)) (+ (vx (location moving)) xd)))
+            ((null (scan-collision-for player +world+ (tvec (- (vx (location moving)) xd) (vy (location player)) (vx bsize) (vy bsize))))
+             (setf (vx (location player)) (- (vx (location moving)) xd)))
+            (T
+             (setf (vy (location player)) (+ (vy (location moving)) (vy (bsize moving)) (vy bsize))))))))
+
 (defmethod kill :after ((animatable mech))
   (setf (timer animatable) 0.5))
 
 (defmethod hurt ((animatable mech) (damage integer))
+  (setf (ai-state animatable) :active)
   (let* ((damage (* (damage-input-scale animatable) damage))
          (hard-hit-p (<= (* +hard-hit+ (maximum-health animatable)) damage)))
     (cond ((invincible-p animatable)

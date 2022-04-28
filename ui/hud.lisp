@@ -101,9 +101,10 @@
   (princ-to-string (ceiling (health (alloy:value element)))))
 
 (defmethod show ((element boss-health-bar) &key)
-  (alloy:enter element (alloy:layout-element (find-panel 'hud))
-               :constraints `((:required (:max-width 1500) (:center :w))
-                              (:right 20) (:bottom 75) (:height 30))))
+  (unless (alloy:layout-tree element)
+    (alloy:enter element (alloy:layout-element (find-panel 'hud))
+                 :constraints `((:required (:max-width 1500) (:center :w))
+                                (:right 20) (:bottom 75) (:height 30)))))
 
 (defmethod hide ((element boss-health-bar))
   (when (alloy:layout-tree element)
@@ -113,7 +114,11 @@
   ((:background simple:rectangle)
    (alloy:margins -2 2 -2 -5))
   ((:bar simple:rectangle)
-   (alloy:margins))
+   (alloy:margins)
+   :pattern colors:orange)
+  ((:fbar simple:rectangle)
+   (alloy:margins)
+   :pattern colors:white)
   ((:health simple:text)
    (alloy:margins -10)
    alloy:text
@@ -133,11 +138,16 @@
 
 (presentations:define-update (ui boss-health-bar)
   (:bar
-   :pattern colors:white
+   :scale (let ((p (/ (health alloy:value) (maximum-health alloy:value))))
+            (alloy:px-size p 1)))
+  (:fbar
    :scale (let ((p (/ (health alloy:value) (maximum-health alloy:value))))
             (alloy:px-size p 1)))
   (:health
    :text alloy:text))
+
+(presentations:define-animated-shapes boss-health-bar
+  (:bar (presentations:scale :duration 0.5 :easing :cubic-in)))
 
 (defclass level-up (alloy:label* hud-element)
   ((timeout :initform 0.0)
