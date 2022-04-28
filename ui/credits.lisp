@@ -55,6 +55,7 @@
    (ideal :initform NIL :accessor ideal)))
 
 (defmethod hide :after ((credits credits))
+  (setf (game-speed +main+) 1.0)
   (labels ((traverse (node)
              (typecase node
                (alloy:layout
