@@ -352,7 +352,7 @@ void main(){
   
   (defmethod handle ((ev mouse-release) (player player))
     (when (eql :middle (button ev))
-      (spawn (mouse-world-pos (pos ev)) (first type) :level 1))))
+      (spawn (mouse-world-pos (pos ev)) (first type)))))
 
 (flet ((handle-solid (player hit)
          (when (< 0 (vy (hit-normal hit)))
