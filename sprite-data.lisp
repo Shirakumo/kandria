@@ -162,10 +162,9 @@
           (when palette
             (convert-palette albedo (merge-pathnames palette path))))
         (when (consp source)
-          (v:warn :kandria.resources "Don't know how to compile ~a" source)
           (let ((base-file (merge-pathnames "/tmp/krita-gen/profiles/" (second source))))
             (ensure-directories-exist base-file)
-            (generate-profile base-file :output-json animation-data :output-atlas albedo)))
+            (ignore-errors (generate-profile base-file :output-json animation-data :output-atlas albedo))))
         (when (probe-file albedo)
           (optipng albedo))))))
 
