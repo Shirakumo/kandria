@@ -33,6 +33,7 @@
    (#:notify #:org.shirakumo.fraf.trial.notify)
    (#:bvh #:org.shirakumo.fraf.trial.bvh2)
    (#:markless #:org.shirakumo.markless)
-   (#:components #:org.shirakumo.markless.components))
+   (#:components #:org.shirakumo.markless.components)
+   (#:depot #:org.shirakumo.depot))
   (:export
    #:launch))

@@ -8,12 +8,12 @@
    (preview :initform NIL :initarg :preview :accessor preview)
    (chunk-graph :initform NIL :accessor chunk-graph)
    (bvh :initform (bvh:make-bvh) :reader bvh)
-   (packet :initarg :packet :accessor packet))
+   (depot :initarg :depot :accessor depot))
   (:default-initargs
    :layer-count +layer-count+))
 
-(defgeneric load-region (packet region))
-(defgeneric save-region (region packet &key version &allow-other-keys))
+(defgeneric load-region (depot region))
+(defgeneric save-region (region depot &key version &allow-other-keys))
 
 (defmethod save-region ((scene scene) target &rest args)
   (apply #'save-region (unit 'region scene) target args))
@@ -22,18 +22,20 @@
   (apply #'call-next-method region target :version (ensure-version version) args))
 
 (defmethod save-region (region (pathname pathname) &key version (if-exists :supersede))
-  (with-packet (packet pathname :direction :output :if-exists if-exists)
-    (save-region region packet :version version)))
+  (let ((depot (depot:realize-entry (depot:from-pathname pathname) T)))
+    (save-region region depot :version version)
+    (depot:commit depot)))
 
-(defmethod save-region ((region region) (packet packet) &key version)
-  (v:info :kandria.region "Saving ~a to ~a" region packet)
-  (with-packet-entry (stream "meta.lisp" packet :element-type 'character)
-    (princ* (list :identifier 'region :version (type-of version)) stream)
-    (princ* (encode-payload region NIL packet version) stream)))
+(defmethod save-region ((region region) (depot depot:depot) &key version)
+  (v:info :kandria.region "Saving ~a to ~a" region depot)
+  (depot:with-open (tx (depot:ensure-entry "meta.lisp" depot) :output 'character)
+    (let ((stream (depot:to-stream tx)))
+      (princ* (list :identifier 'region :version (type-of version)) stream)
+      (princ* (encode-payload region NIL depot version) stream))))
 
 (defmethod load-region ((pathname pathname) scene)
-  (with-packet (packet pathname :direction :input)
-    (load-region packet scene)))
+  (depot:with-depot (depot pathname)
+    (load-region depot scene)))
 
 (defmethod load-region (thing (scene scene))
   (let ((new (load-region thing NIL)))
@@ -48,11 +50,11 @@
   (or (slot-value region 'chunk-graph)
       (setf (chunk-graph region) (make-chunk-graph region))))
 
-(defmethod load-region ((packet packet) (null null))
-  (v:info :kandria.region "Loading ~a" packet)
-  (destructuring-bind (header info) (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character))
+(defmethod load-region ((depot depot:depot) (null null))
+  (v:info :kandria.region "Loading ~a" depot)
+  (destructuring-bind (header info) (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))
     (decode-payload
-     info (type-prototype 'region) packet
+     info (type-prototype 'region) depot
      (destructuring-bind (&key identifier version) header
        (assert (eql 'region identifier))
        (coerce-version version)))))

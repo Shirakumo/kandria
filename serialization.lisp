@@ -33,25 +33,25 @@
 
 (defmethod supported-p ((version version)) NIL)
 
-(defgeneric decode-payload (payload target packet version))
-(defgeneric encode-payload (source payload packet version))
+(defgeneric decode-payload (payload target depot version))
+(defgeneric encode-payload (source payload depot version))
 
-(defmethod decode-payload (payload target packet (version version))
+(defmethod decode-payload (payload target depot (version version))
   (error 'no-applicable-decoder :target target :version version))
 
-(defmethod encode-payload (source payload packet (version version))
+(defmethod encode-payload (source payload depot (version version))
   (error 'no-applicable-encoder :source source :version version))
 
-(defmethod decode-payload (payload (target symbol) packet version)
+(defmethod decode-payload (payload (target symbol) depot version)
   (if (eql target 'symbol)
       (call-next-method)
-      (decode-payload payload (type-prototype target) packet version)))
+      (decode-payload payload (type-prototype target) depot version)))
 
-(defmethod decode-payload (payload target packet (version symbol))
-  (decode-payload payload target packet (ensure-version version)))
+(defmethod decode-payload (payload target depot (version symbol))
+  (decode-payload payload target depot (ensure-version version)))
 
-(defmethod encode-payload (source payload packet (version symbol))
-  (encode-payload source payload packet (ensure-version version)))
+(defmethod encode-payload (source payload depot (version symbol))
+  (encode-payload source payload depot (ensure-version version)))
 
 (defmacro define-encoder ((type version) &rest args)
   (let ((object (gensym "OBJECT"))
@@ -59,13 +59,13 @@
                                   until (listp option)
                                   collect (pop args))))
     (destructuring-bind (version-instance version) (enlist version version)
-      (destructuring-bind ((buffer packet) &rest body) args
+      (destructuring-bind ((buffer depot) &rest body) args
         (let ((buffer-name (unlist buffer)))
-          `(defmethod encode-payload ,@method-combination ((,type ,type) ,buffer ,packet (,version-instance ,version))
+          `(defmethod encode-payload ,@method-combination ((,type ,type) ,buffer ,depot (,version-instance ,version))
              (flet ((encode (,object &optional (,buffer-name ,buffer-name))
                       (encode-payload ,object
                                       ,buffer-name
-                                      ,(unlist packet)
+                                      ,(unlist depot)
                                       ,version-instance)))
                (declare (ignorable #'encode))
                ,@body)))))))
@@ -78,15 +78,15 @@
                                   until (listp option)
                                   collect (pop args))))
     (destructuring-bind (version-instance version) (enlist version version)
-      (destructuring-bind ((buffer packet) &rest body) args
+      (destructuring-bind ((buffer depot) &rest body) args
         (let ((buffer-name (unlist buffer)))
-          `(defmethod decode-payload ,@method-combination (,buffer (,type ,type) ,packet (,version-instance ,version))
+          `(defmethod decode-payload ,@method-combination (,buffer (,type ,type) ,depot (,version-instance ,version))
              (flet ((decode (,object &optional (,buffer-name ,buffer-name))
                       (decode-payload ,buffer-name
                                       (if (symbolp ,object)
                                           (type-prototype ,object)
                                           ,object)
-                                      ,(unlist packet)
+                                      ,(unlist depot)
                                       ,version-instance)))
                (declare (ignorable #'decode))
                ,@body)))))))

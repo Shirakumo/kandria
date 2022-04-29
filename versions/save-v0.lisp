@@ -13,26 +13,25 @@
 (defun current-save-version ()
   (make-instance 'save-v1.3))
 
-(define-encoder (world save-v0) (_b packet)
+(define-encoder (world save-v0) (_b depot)
   (let ((region (region world)))
     (encode (storyline world))
-    (with-packet-entry (stream (format NIL "regions/~(~a~).lisp" (name region)) packet
-                               :element-type 'character)
-      (princ* (encode region) stream))
-    (with-packet-entry (stream "global.lisp" packet
-                               :element-type 'character)
-      (princ* (list :region (name region)
-                    :clock (clock world)
-                    :timestamp (timestamp world)
-                    :zoom (if (find-panel 'editor)
-                              1.0
-                              (zoom (camera +world+))))
-              stream)
-      (princ* (encode (unit 'environment world))
-              stream))))
+    (depot:with-open (tx (depot:ensure-entry (format NIL "regions/~(~a~).lisp" (name region)) depot) :output 'character)
+      (princ* (encode region) (depot:to-stream tx)))
+    (depot:with-open (tx (depot:ensure-entry "global.lisp" depot) :output 'character)
+      (let ((stream (depot:to-stream tx)))
+        (princ* (list :region (name region)
+                      :clock (clock world)
+                      :timestamp (timestamp world)
+                      :zoom (if (find-panel 'editor)
+                                1.0
+                                (zoom (camera +world+))))
+                stream)
+        (princ* (encode (unit 'environment world))
+                stream)))))
 
-(define-decoder (world save-v0) (_b packet)
-  (destructuring-bind (world-data &optional env-data) (parse-sexps (packet-entry "global.lisp" packet :element-type 'character))
+(define-decoder (world save-v0) (_b depot)
+  (destructuring-bind (world-data &optional env-data) (parse-sexps (depot:read-from (depot:entry "global.lisp" depot) 'character))
     (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)) (zoom 1.0)) world-data
       (setf (clock world) clock)
       (setf (timestamp world) timestamp)
@@ -44,28 +43,28 @@
                             (region world))
                            (T
                             (load-region region world))))
-             (initargs (ignore-errors (first (parse-sexps (packet-entry (format NIL "regions/~(~a~).lisp" (name region))
-                                                                        packet :element-type 'character))))))
+             (initargs (handler-case (first (parse-sexps (depot:read-from (depot:entry* depot "regions" (format NIL "~(~a~).lisp" (name region))) 'character)))
+                         (error (e)
+                           (v:warn :kandria.save "Falied to load region initargs: ~a" e)))))
         (when initargs (decode region initargs))
         (setf (storyline world) (decode 'quest:storyline))))
     (when env-data
       (decode (unit 'environment world) env-data))))
 
-(define-encoder (quest:storyline save-v0) (_b packet)
-  (with-packet-entry (stream "storyline.lisp" packet
-                             :element-type 'character)
-    (princ* `(,(quest:name quest:storyline)
-              :variables ,(encode-payload 'bindings (quest:bindings quest:storyline) packet save-v0)) stream)
-    (loop for quest being the hash-values of (quest:quests quest:storyline)
-          do (princ* (encode quest) stream))))
+(define-encoder (quest:storyline save-v0) (_b depot)
+  (depot:with-open (tx (depot:ensure-entry "storyline.lisp" depot) :output 'character)
+    (let ((stream (depot:to-stream tx)))
+      (princ* `(,(quest:name quest:storyline)
+                :variables ,(encode-payload 'bindings (quest:bindings quest:storyline) depot save-v0)) stream)
+      (loop for quest being the hash-values of (quest:quests quest:storyline)
+            do (princ* (encode quest) stream)))))
 
-(define-decoder (quest:storyline save-v1) (_b packet)
-  (destructuring-bind ((&key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
-                                                                  :element-type 'character))
+(define-decoder (quest:storyline save-v1) (_b depot)
+  (destructuring-bind ((&key variables) . quests) (parse-sexps (depot:read-from (depot:entry "storyline.lisp" depot) 'character))
     (let ((storyline (quest:find-named 'kandria T)))
       (v:with-muffled-logging ()
         (quest:reset storyline))
-      (quest:merge-bindings storyline (decode-payload variables 'bindings packet save-v1))
+      (quest:merge-bindings storyline (decode-payload variables 'bindings depot save-v1))
       (loop for (name . initargs) in quests
             for quest = (handler-case (quest:find-quest name storyline)
                           (error ()
@@ -74,15 +73,14 @@
             do (when quest (decode quest initargs)))
       storyline)))
 
-(define-decoder (quest:storyline save-v1.1) (_b packet)
-  (destructuring-bind ((storyline &key variables) . quests) (parse-sexps (packet-entry "storyline.lisp" packet
-                                                                  :element-type 'character))
+(define-decoder (quest:storyline save-v1.1) (_b depot)
+  (destructuring-bind ((storyline &key variables) . quests) (parse-sexps (depot:read-from (depot:entry "storyline.lisp" depot) 'character))
     (let ((storyline (if (null storyline)
                          (make-instance 'quest:storyline)
                          (quest:find-named storyline T))))
       (v:with-muffled-logging ()
         (quest:reset storyline))
-      (quest:merge-bindings storyline (decode-payload variables 'bindings packet save-v1.1))
+      (quest:merge-bindings storyline (decode-payload variables 'bindings depot save-v1.1))
       (loop for (name . initargs) in quests
             for quest = (handler-case (quest:find-quest name storyline)
                           (error ()
@@ -99,7 +97,7 @@
         :clock (clock quest:quest)
         :bindings (encode-payload 'bindings (quest:bindings quest:quest) _p save-v0)))
 
-(define-decoder (quest:quest save-v0) (initargs packet)
+(define-decoder (quest:quest save-v0) (initargs depot)
   (destructuring-bind (&key status (clock 0.0) tasks bindings) initargs
     (cond (tasks
            (setf (quest:status quest:quest) status)
@@ -120,7 +118,7 @@
              (:complete (quest:complete quest:quest))
              (:failed (quest:fail quest:quest)))))
     (setf (clock quest:quest) clock)
-    (quest:merge-bindings quest:quest (decode-payload bindings 'bindings packet save-v0))))
+    (quest:merge-bindings quest:quest (decode-payload bindings 'bindings depot save-v0))))
 
 (define-encoder (quest:task save-v0) (_b _p)
   (list (quest:name quest:task)
@@ -129,10 +127,10 @@
         :triggers (loop for trigger being the hash-values of (quest:triggers quest:task)
                         collect (encode trigger))))
 
-(define-decoder (quest:task save-v0) (initargs packet)
+(define-decoder (quest:task save-v0) (initargs depot)
   (destructuring-bind (&key status bindings triggers) initargs
     (setf (quest:status quest:task) status)
-    (quest:merge-bindings quest:task (decode-payload bindings 'bindings packet save-v0))
+    (quest:merge-bindings quest:task (decode-payload bindings 'bindings depot save-v0))
     (loop for (name . initargs) in triggers
           for trigger = (handler-case (quest:find-trigger name quest:task)
                           (error ()
@@ -175,7 +173,7 @@
          (quest:activate quest:interaction))
        (quest:complete quest:interaction)))))
 
-(define-encoder (region save-v0) (_b packet)
+(define-encoder (region save-v0) (_b depot)
   (let ((create-new (list NIL))
         (ephemeral (list NIL)))
     (macrolet ((add (target value)
@@ -196,7 +194,7 @@
     (list :create-new (rest create-new)
           :ephemeral (rest ephemeral))))
 
-(define-decoder (region save-v0) (initargs packet)
+(define-decoder (region save-v0) (initargs depot)
   (destructuring-bind (&key create-new ephemeral (delete-existing T) &allow-other-keys) initargs
     ;; Remove all entities that are not ephemeral
     (when delete-existing
@@ -220,7 +218,7 @@
     ;; Add new entities that exist in the state
     (loop for (type . state) in create-new
           for entity = (with-simple-restart (continue "Ignore this entity.")
-                         (decode-payload state (make-instance type) packet save-v0))
+                         (decode-payload state (make-instance type) depot save-v0))
           do (when entity (enter entity region)))
     region))
 
@@ -256,7 +254,7 @@
     (setf (stun-time animatable) stun-time)
     animatable))
 
-(define-encoder (map-marker save-v0) (_b packet)
+(define-encoder (map-marker save-v0) (_b depot)
   (list (encode (map-marker-location map-marker))
         (map-marker-label map-marker)
         (encode (map-marker-color map-marker))))
@@ -267,12 +265,13 @@
                      label
                      (decode 'colored:rgb color))))
 
-(define-encoder (player save-v0) (_b packet)
+(define-encoder (player save-v0) (_b depot)
   (let ((trace (movement-trace player)))
-    (with-packet-entry (stream "trace.dat" packet :element-type '(unsigned-byte 8))
-      (nibbles:write-ub16/le (length trace) stream)
-      (dotimes (i (length trace))
-        (nibbles:write-ieee-single/le (aref trace i) stream))))
+    (depot:with-open (tx (depot:ensure-entry "trace.dat" depot) :output  '(unsigned-byte 8))
+      (let ((stream (depot:to-stream tx)))
+        (nibbles:write-ub16/le (length trace) stream)
+        (dotimes (i (length trace))
+          (nibbles:write-ieee-single/le (aref trace i) stream)))))
   ;; Set spawn point as current loc.
   (vsetf (spawn-location player) (vx (location player)) (vy (location player)))
   (list* :inventory (alexandria:hash-table-alist (storage player))
@@ -284,17 +283,18 @@
          :nametag (nametag player)
          (call-next-method)))
 
-(define-decoder (player save-v0) (initargs packet)
+(define-decoder (player save-v0) (initargs depot)
   (call-next-method)
   (let ((trace (movement-trace player)))
     (ignore-errors
-     (with-packet-entry (stream "trace.dat" packet :element-type '(unsigned-byte 8))
-       (let ((count (nibbles:read-ub16/le stream)))
-         (when (< (array-total-size trace) count)
-           (adjust-array trace count))
-         (setf (fill-pointer trace) count)
-         (dotimes (i count)
-           (setf (aref trace i) (nibbles:read-ieee-single/le stream)))))))
+     (depot:with-open (tx (depot:entry "trace.dat" depot) :output '(unsigned-byte 8))
+       (let ((stream (depot:to-stream tx)))
+         (let ((count (nibbles:read-ub16/le stream)))
+           (when (< (array-total-size trace) count)
+             (adjust-array trace count))
+           (setf (fill-pointer trace) count)
+           (dotimes (i count)
+             (setf (aref trace i) (nibbles:read-ieee-single/le stream))))))))
   (destructuring-bind (&key inventory unlocked map-markers (stats (make-stats)) (palette 0) (sword-level 0) nametag &allow-other-keys) initargs
     (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq))
     (let ((table (unlock-table player)))

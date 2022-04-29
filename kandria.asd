@@ -16,7 +16,6 @@
                (:file "gradient")
                (:file "auto-fill")
                (:file "serialization")
-               (:file "packet")
                (:file "region")
                (:file "actions")
                (:file "surface")
@@ -120,6 +119,8 @@
                :trial-feedback
                :trial-png
                :alloy-constraint
+               :depot
+               :depot-zip
                :zip
                :fast-io
                :ieee-floats

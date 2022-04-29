@@ -27,8 +27,13 @@
      (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1")))))
     ((eql T)
      (setf (state main) (first (list-saves)))))
-  (with-packet (packet (or world (pathname-utils:subdirectory (root) "world")) :direction :input)
-    (setf (scene main) (make-instance 'world :packet packet))))
+  (let ((depot (depot:ensure-depot (or world
+                                       (probe-file (merge-pathnames "world.zip" (root)))
+                                       (probe-file (merge-pathnames "world/" (root)))
+                                       (error "No world present.")))))
+    (when (typep depot 'org.shirakumo.zippy:zip-file)
+      (org.shirakumo.zippy:move-in-memory depot))
+    (setf (scene main) (make-instance 'world :depot depot))))
 
 (defmethod initialize-instance :after ((main main) &key)
   (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))

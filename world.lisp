@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass world (pipelined-scene)
-  ((packet :initarg :packet :accessor packet)
+  ((depot :initarg :depot :accessor depot)
    (storyline :initarg :storyline :initform (make-instance 'quest:storyline) :accessor storyline)
    (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
    (handler-stack :initform () :accessor handler-stack)
@@ -13,18 +13,22 @@
    (timestamp :initform (initial-timestamp) :accessor timestamp)
    (camera :initform (make-instance 'camera) :accessor camera))
   (:default-initargs
-   :packet (error "PACKET required.")))
+   :depot (error "DEPOT required.")))
 
-(defmethod initialize-instance :after ((world world) &key packet)
+(defmethod initialize-instance :after ((world world) &key depot)
   (enter (make-instance 'environment-controller) world)
   (dolist (progression '(death hurt transition start-game low-health))
     (enter (progression-instance progression) world))
-  (dolist (entry (list-entries "regions/" packet))
-    (with-packet (packet packet :offset entry)
-      (let ((name (getf (second (parse-sexps (packet-entry "meta.lisp" packet :element-type 'character)))
-                        :name)))
-        (setf (gethash name (regions world)) entry))))
-  (setf (initial-state world) (minimal-load-state (entry-path "init/" packet))))
+  (let ((sub (depot:ensure-depot (depot:entry "regions" depot))))
+    (dolist (entry (depot:list-entries sub))
+      (let ((depot (depot:ensure-depot entry)))
+        (let ((name (getf (second (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character)))
+                          :name)))
+          (setf (gethash name (regions world)) depot)))))
+  (setf (initial-state world) (minimal-load-state (depot:entry "init" depot))))
+
+(defmethod finalize :after ((world world))
+  (close (depot world) :abort T))
 
 (defmethod hour ((world world))
   (mod (float (/ (nth-value 1 (truncate (+ (timestamp world) 432000) (* 60 60 24 7))) 60 60) 0d0) 24d0))
@@ -83,7 +87,8 @@
   ;; Register region in region table if the region is new.
   (unless (gethash (name region) (regions world))
     (setf (gethash (name region) (regions world))
-          (format NIL "regions/~a/" (string-downcase (name region)))))
+          (depot:ensure-depot (depot:ensure-entry (format NIL "regions/~a/" (string-downcase (name region)))
+                                                  (depot world)))))
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
@@ -248,9 +253,9 @@
   (location-info (language-string (name (chunk ev)) NIL)))
 
 (defmethod save-region (region (world world) &rest args)
-  (with-packet (packet (packet world) :offset (region-entry region world)
-                                      :direction :output)
-    (apply #'save-region region packet args)))
+  (let ((depot (region-entry region world)))
+    (apply #'save-region region depot args)
+    (depot:commit depot)))
 
 (defmethod save-region (region (world (eql T)) &rest args)
   (apply #'save-region region +world+ args))
@@ -259,8 +264,7 @@
   (apply #'save-region (unit 'region world) world args))
 
 (defmethod load-region ((name symbol) (world world))
-  (with-packet (packet (packet world) :offset (region-entry name world))
-    (load-region packet world)))
+  (load-region (region-entry name world) world))
 
 (defmethod load-region (region (world (eql T)))
   (load-region region +world+))
@@ -268,7 +272,7 @@
 (defmethod load-region ((region (eql T)) (world world))
   (load-region (name (unit 'region world)) world))
 
-(defmethod load-region :around ((packet packet) (world world))
+(defmethod load-region :around ((depot depot:depot) (world world))
   (let ((old-region (unit 'region world)))
     (restart-case
         (call-next-method)

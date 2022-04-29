@@ -356,21 +356,19 @@
   (save-region T T))
 
 (defmethod edit ((action (eql 'save-region-as)) (editor editor))
-  (let ((path (file-select:new :title "Select Region File" :default (storage (packet +world+)) :filter '(("ZIP files" "zip")))))
+  (let ((path (file-select:new :title "Select Region File" :default (depot:to-pathname (depot +world+)) :filter '(("ZIP files" "zip")))))
     (when path
       (save-region (region +world+) path))))
 
 ;; FIXME: This information does not belong here. where else to put it? world-v0?
 (defmethod edit ((action (eql 'load-initial-state)) (editor editor))
-  (with-packet (packet (packet +world+) :offset (region-entry (region +world+) +world+)
-                                        :direction :input)
-    (decode-payload (first (parse-sexps (packet-entry "init.lisp" packet :element-type 'character))) (region +world+) packet 'save-v0)))
+  (let ((depot (region-entry (region +world+) +world+)))
+    (decode-payload (first (parse-sexps (depot:read-from (depot:entry "init.lisp" depot) 'character))) (region +world+) depot 'save-v0)))
 
 (defmethod edit ((action (eql 'save-initial-state)) (editor editor))
-  (with-packet (packet (packet +world+) :offset (region-entry (region +world+) +world+)
-                                        :direction :output)
-    (with-packet-entry (stream "init.lisp" packet :element-type 'character)
-      (princ* (encode-payload (region +world+) NIL packet 'save-v0) stream))))
+  (let ((depot (region-entry (region +world+) +world+)))
+    (depot:with-open (tx (depot:ensure-entry "init.lisp" depot) :output 'character)
+      (princ* (encode-payload (region +world+) NIL depot 'save-v0) (depot:to-stream tx)))))
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
   (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)) :filter '(("ZIP files" "zip")))))

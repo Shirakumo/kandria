@@ -4,13 +4,14 @@
 
 (defclass world-v0 (v0) ())
 
-(define-decoder (region world-v0) (info packet)
-  (let* ((region (apply #'make-instance 'region :packet packet info))
-         (content (parse-sexps (packet-entry "data.lisp" packet :element-type 'character))))
+(define-decoder (region world-v0) (info depot)
+  (let* ((region (apply #'make-instance 'region :depot depot info))
+         (content (parse-sexps (depot:read-from (depot:entry "data.lisp" depot) 'character)))
+         (data (depot:ensure-depot (depot:entry "data" depot))))
     (let ((*region* region))
       (v:debug :kandria.region "Decoding world.")
       (loop for (type . initargs) in content
-            for entity = (decode type initargs)
+            for entity = (decode-payload initargs type data world-v0)
             do #-kandria-release
                (when (name entity)
                  (let ((existing (unit (name entity) region)))
@@ -29,30 +30,32 @@
                (enter entity region))
       ;; Load initial state.
       (v:debug :kandria.region "World decoded, loading initial state...")
-      (decode-payload (first (parse-sexps (packet-entry "init.lisp" packet :element-type 'character))) region packet 'save-v0))
+      (decode-payload (first (parse-sexps (depot:read-from (depot:entry "init.lisp" depot) 'character))) region depot 'save-v0))
     region))
 
-(define-encoder (region world-v0) (_b packet)
-  (with-packet-entry (stream "data.lisp" packet :element-type 'character)
-    (for:for ((entity over region))
-      (handler-case
-          (when (and (not (spawned-p entity))
-                     (not (eql 'layer (type-of entity))))
-            (princ* (encode entity) stream))
-        (no-applicable-encoder ()))))
-  (unless (packet-entry-exists-p "init.lisp" packet)
-    (with-packet-entry (stream "init.lisp" packet :element-type 'character)
-      (princ* (encode-payload region NIL packet 'save-v0) stream)))
+(define-encoder (region world-v0) (_b depot)
+  (depot:with-open (tx (depot:ensure-entry "data.lisp" depot) :output 'character)
+    (let ((stream (depot:to-stream tx))
+          (data (depot:ensure-depot (depot:ensure-entry "data" depot :directory T))))
+      (for:for ((entity over region))
+               (handler-case
+                   (when (and (not (spawned-p entity))
+                              (not (eql 'layer (type-of entity))))
+                     (princ* (encode-payload entity _b data world-v0) stream))
+                 (no-applicable-encoder ())))))
+  (unless (depot:entry-exists-p "init.lisp" depot)
+    (depot:with-open (tx (depot:ensure-entry "init.lisp" depot) :output 'character)
+      (princ* (encode-payload region NIL depot 'save-v0) (depot:to-stream tx))))
   (list :name (name region)
         :author (author region)
         :version (version region)
         :description (description region)))
 
-(define-decoder (chunk world-v0) (initargs packet)
+(define-decoder (chunk world-v0) (initargs depot)
   (destructuring-bind (&key name location size tile-data pixel-data layers background gi environment (visible-on-map-p T)) initargs
-    (let ((graph (when (packet-entry-exists-p (format NIL "data/~a.graph" name) packet)
-                   (with-packet-entry (stream (format NIL "data/~a.graph" name) packet :element-type '(unsigned-byte 8))
-                     (handler-case (decode-payload stream 'node-graph packet 'binary-v0)
+    (let ((graph (when (depot:entry-exists-p (format NIL "~a.graph" name) depot)
+                   (depot:with-open (tx (depot:entry (format NIL "~a.graph" name) depot) :input '(unsigned-byte 8))
+                     (handler-case (decode-payload (depot:to-stream tx) 'node-graph depot 'binary-v0)
                        (error (e)
                          (v:error :kandria.serializer "Failed to read node-graph for ~a" name)
                          (v:info :kandria.serializer e)))))))
@@ -60,26 +63,26 @@
                             :location (decode 'vec2 location)
                             :size (decode 'vec2 size)
                             :tile-data (decode 'asset tile-data)
-                            :pixel-data (packet-entry pixel-data packet)
+                            :pixel-data (depot:read-from (depot:entry pixel-data depot) 'byte)
                             :layers (loop for file in layers
-                                          collect (packet-entry file packet))
+                                          collect (depot:read-from (depot:entry file depot) 'byte))
                             :background (decode 'background-info background)
                             :gi (decode 'gi-info gi)
                             :environment (when environment (environment environment))
                             :node-graph graph
                             :visible-on-map-p visible-on-map-p))))
 
-(define-encoder (chunk world-v0) (_b packet)
-  (with-packet-entry (stream (format NIL "data/~a.graph" (name chunk)) packet :element-type '(unsigned-byte 8))
-    (encode-payload (node-graph chunk) stream packet 'binary-v0))
+(define-encoder (chunk world-v0) (_b depot)
+  (depot:with-open (tx (depot:ensure-entry (format NIL "~a.graph" (name chunk)) depot) :output '(unsigned-byte 8))
+    (encode-payload (node-graph chunk) (depot:to-stream tx) depot 'binary-v0))
   (let ((layers (loop for i from 0
                       for layer across (layers chunk)
                       ;; KLUDGE: no png saving lib handy. Hope ZIP compression is Good Enough
-                      for path = (format NIL "data/~a-~d.raw" (name chunk) i)
-                      do (setf (packet-entry path packet) (pixel-data layer))
+                      for path = (format NIL "~a-~d.raw" (name chunk) i)
+                      do (depot:write-to (depot:ensure-entry path depot) (pixel-data layer))
                       collect path))
-        (pixel-data (format NIL "data/~a.raw" (name chunk))))
-    (setf (packet-entry pixel-data packet) (pixel-data chunk))
+        (pixel-data (format NIL "~a.raw" (name chunk))))
+    (depot:write-to (depot:ensure-entry pixel-data depot) (pixel-data chunk))
     `(chunk :name ,(name chunk)
             :location ,(encode (location chunk))
             :size ,(encode (size chunk))
@@ -91,7 +94,7 @@
             :environment ,(when (environment chunk) (name (environment chunk)))
             :visible-on-map-p ,(visible-on-map-p chunk))))
 
-(define-decoder (layer world-v0) (initargs packet)
+(define-decoder (layer world-v0) (initargs depot)
   (destructuring-bind (&key name location size bsize (tile-data '(kandria debug)) pixel-data &allow-other-keys) initargs
     (let ((size (if size
                     (decode 'vec2 size)
@@ -102,16 +105,16 @@
                      :size size
                      :tile-data (decode 'asset tile-data)
                      :pixel-data (if pixel-data
-                                     (packet-entry pixel-data packet)
+                                     (depot:read-from (depot:entry pixel-data depot) 'byte)
                                      (let ((temp (make-array (floor (* (vx size) (vy size) 2))
                                                              :element-type '(unsigned-byte 8))))
                                        (loop for i from 0 below (length temp) by 2
                                              do (setf (aref temp i) 1))
                                        temp))))))
 
-(define-encoder (layer world-v0) (_b packet)
-  (let ((pixel-data (format NIL "data/~a.raw" (name layer))))
-    (setf (packet-entry pixel-data packet) (pixel-data layer))
+(define-encoder (layer world-v0) (_b depot)
+  (let ((pixel-data (format NIL "~a.raw" (name layer))))
+    (depot:write-to (depot:ensure-entry pixel-data depot) (pixel-data layer))
     `(,(type-of layer) :name ,(name layer)
                        :location ,(encode (location layer))
                        :size ,(encode (size layer))
@@ -173,7 +176,7 @@
 (define-slot-coders (sprite-entity world-v0) ((location :type vec2) (texture :type texture) (size :type vec2) (bsize :type vec2) (offset :type vec2) (layer-index :initarg :layer) name))
 (define-slot-coders (animated-sprite world-v0) (name (location :type vec2) (trial:sprite-data :type asset) (bsize :type vec2) layer-index))
 (define-slot-coders (station world-v0) (name (location :type vec2) (train-location :type vec2 :reader (lambda (x) (location (train x))))))
-(defmethod encode-payload ((train train) payload packet (version world-v0))
+(defmethod encode-payload ((train train) payload depot (version world-v0))
   (error 'no-applicable-encoder :source train))
 (define-slot-coders (rope world-v0) (name (location :type vec2) (bsize :type vec2) direction extended))
 (define-slot-coders (water world-v0) ((location :type vec2) (bsize :type vec2) fishing-spot))
@@ -208,7 +211,7 @@
 (define-slot-coders (shutter world-v0) ((location :type vec2)))
 (define-slot-coders (switch world-v0) ((location :type vec2) state))
 
-(define-decoder (node-graph binary-v0) (stream packet)
+(define-decoder (node-graph binary-v0) (stream depot)
   (let* ((width (nibbles:read-ub16/le stream))
          (height (nibbles:read-ub16/le stream))
          (grid (make-array (* width height) :initial-element NIL)))
@@ -223,12 +226,12 @@
             (3 (push (make-climb-node to) (svref grid i)))
             (4 (push (make-fall-node to) (svref grid i)))
             (5 (push (make-jump-node to (decode 'vec2)) (svref grid i)))
-            (6 (let* ((name (decode-payload stream 'symbol packet 'binary-v0))
+            (6 (let* ((name (decode-payload stream 'symbol depot 'binary-v0))
                       (unit (or (unit name *region*) (error "No such unit ~a" name))))
                  (push (make-rope-node to unit) (svref grid i))))
             (7 (push (make-inter-door-node to) (svref grid i)))))))))
 
-(define-encoder (node-graph binary-v0) (stream packet)
+(define-encoder (node-graph binary-v0) (stream depot)
   (nibbles:write-ub16/le (node-graph-width node-graph) stream)
   (nibbles:write-ub16/le (node-graph-height node-graph) stream)
   (let ((grid (node-graph-grid node-graph)))
@@ -246,7 +249,7 @@
                     (encode-payload (etypecase target
                                       (symbol target)
                                       (rope (name target)))
-                                    stream packet 'binary-v0)))
+                                    stream depot 'binary-v0)))
                  (jump-node
                   (write-byte 5 stream)
                   (nibbles:write-ub32/le (move-node-to node) stream)

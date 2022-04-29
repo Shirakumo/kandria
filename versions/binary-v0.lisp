@@ -2,23 +2,23 @@
 
 (defclass binary-v0 (version) ())
 
-(define-encoder (string binary-v0) (stream packet)
+(define-encoder (string binary-v0) (stream depot)
   (let ((bin (babel:string-to-octets string :encoding :utf-8)))
     (when (< (ash 1 16) (length bin))
       (error "String way too long to dump!"))
     (nibbles:write-ub16/le (length bin) stream)
     (write-sequence bin stream)))
 
-(define-decoder (string binary-v0) (stream packet)
+(define-decoder (string binary-v0) (stream depot)
   (let ((bin (make-array (nibbles:read-ub16/le stream) :element-type '(unsigned-byte 8))))
     (read-sequence bin stream)
     (babel:octets-to-string bin :encoding :utf-8)))
 
-(define-encoder (symbol binary-v0) (stream packet)
+(define-encoder (symbol binary-v0) (stream depot)
   (encode (package-name (symbol-package symbol)))
   (encode (symbol-name symbol)))
 
-(define-decoder (symbol binary-v0) (stream packet)
+(define-decoder (symbol binary-v0) (stream depot)
   (let ((package (decode ""))
         (name (decode "")))
     (intern name package)))
