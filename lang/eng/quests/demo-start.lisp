@@ -5,7 +5,7 @@
   :author "Tim White"
   :title NIL
   :visible NIL
-  (:eval    
+  (:eval
    (setf (location 'player) 'demo-start)
    (setf (direction player) 1)
    (setf (location 'innis) (location 'innis-intercept-demo))
@@ -24,6 +24,12 @@
   ;;         load, but before asset load. The wait sufficiently defers the next stuff
   ;;         until after the load has completed.
   (:wait 0.0)
+  (:eval
+   (show-panel 'demo-intro-panel))
+  (:wait 10.0)
+  (:eval
+   (transition
+     (hide-panel 'demo-intro-panel)))
   (:eval
    (setf (clock (progression 'start-game +world+)) 0)
    (start (progression 'start-game +world+))

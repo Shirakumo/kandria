@@ -89,7 +89,8 @@
                              (:file "upgrade")
                              (:file "stats")
                              (:file "fast-travel")
-                             (:file "cheats")))
+                             (:file "cheats")
+                             (:file "demo-intro")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
