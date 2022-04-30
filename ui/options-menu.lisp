@@ -111,9 +111,15 @@
 
 (defmethod handle (thing (label input-label)))
 
-(defmethod handle ((ev mouse-press) (label input-label))
-  (setf (alloy:value label) ev)
-  (alloy:accept label))
+(defmethod (setf alloy:focus) :after ((focus (eql :strong)) (label input-label))
+  (setf (alloy:value label) NIL))
+
+(defmethod alloy:handle ((ev alloy:pointer-up) (label input-label))
+  (cond ((eql :strong (alloy:focus label))
+         (setf (alloy:value label) (make-instance 'mouse-press :pos (vec 0 0) :button (alloy:kind ev)))
+         (alloy:accept label))
+        (T
+         (call-next-method))))
 
 (defmethod handle ((ev key-press) (label input-label))
   (setf (alloy:value label) ev)
