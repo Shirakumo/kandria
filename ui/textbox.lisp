@@ -273,6 +273,9 @@ void main(){
   (setf (text textbox) (clear-text-string))
   (setf (scroll-index textbox) 0))
 
+(defmethod handle :after ((rq dialogue:clear-request) (textbox textbox))
+  (advance textbox))
+
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
   (let ((unit (unit (dialogue:name rq) T)))
     (setf (strength (profile textbox))
@@ -281,6 +284,9 @@ void main(){
     (setf (source textbox) (nametag unit))
     (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
     (setf (animation (profile textbox)) 'normal)))
+
+(defmethod handle :after ((rq dialogue:source-request) (textbox textbox))
+  (advance textbox))
 
 (defmethod handle ((rq dialogue:emote-request) (textbox textbox))
   (setf (pending textbox) (list :emote (dialogue:emote rq))))
