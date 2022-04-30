@@ -402,12 +402,12 @@
 
 (defmethod show :after ((panel pausing-panel) &key)
   ;; Clear pending events to avoid spurious inputs
-  (discard-events +world+)
+  (discard-events +world+ '(or action input-event))
   (pause-game T (unit 'ui-pass T)))
 
 (defmethod hide :after ((panel pausing-panel))
   ;; Clear pending events to avoid spurious inputs
-  (discard-events +world+)
+  (discard-events +world+ '(or action input-event))
   (unpause-game T (unit 'ui-pass T)))
 
 (defclass messagebox (alloy:dialog alloy:observable)

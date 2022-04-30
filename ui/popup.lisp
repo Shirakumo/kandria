@@ -96,7 +96,8 @@
          (cancel (make-instance 'popup-button :value #@dismiss-prompt-panel :layout-parent buttons :focus-parent focus
                                               :on-activate (lambda () (hide panel)))))
     (make-instance 'popup-button :value #@accept-prompt-panel :layout-parent buttons :focus-parent focus
-                                 :on-activate (lambda () (hide panel) (funcall on-accept)))
+                                 :on-activate (lambda () (hide panel)
+                                                (funcall on-accept)))
     (alloy:on alloy:exit (focus)
       (setf (alloy:focus cancel) :strong))
     ;; FIXME: scroll
