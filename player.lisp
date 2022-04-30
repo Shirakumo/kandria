@@ -417,7 +417,7 @@ void main(){
          (setf (vy (bsize player)) 7)
          (setf (vy (location player)) (+ bottom (vy (bsize player)))))
         (:dashing
-         (setf (vy (bsize player)) 10))))))
+         (setf (vy (bsize player)) 8))))))
 
 (defmethod (setf buffer) (thing (player player))
   (let ((buffer (slot-value player 'buffer)))
