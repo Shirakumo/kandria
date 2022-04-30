@@ -422,8 +422,9 @@
          (pos (hit-location hit))
          (height (vy (bsize moving)))
          (t-s (vy (bsize platform))))
-    (harmony:play (// 'sound 'crumbling-platform-crumble) :reset T)
-    (setf (animation platform) 'crumble)
+    (unless (eql 'crumble (name (animation platform)))
+      (harmony:play (// 'sound 'crumbling-platform-crumble) :reset T)
+      (setf (animation platform) 'crumble))
     (setf (svref (collisions moving) 2) platform)
     ;; Force clamp velocity to zero to avoid "speeding up while on ground"
     (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
