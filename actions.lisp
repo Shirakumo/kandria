@@ -58,3 +58,9 @@
 (define-action close-map (in-map))
 (define-action toggle-trace (in-map))
 (define-action toggle-marker (in-map))
+
+(defmethod (setf active-p) :after (value (set in-game))
+  (when *context*
+    (if value
+        (hide-cursor *context*)
+        (show-cursor *context*))))
