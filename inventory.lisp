@@ -430,7 +430,7 @@
 ;;   Wayneright
 ;; x Mountain
 ;;   Vampire
-;;   Trek
+;; x Trek
 ;;   Blingee
 ;; x Ninja
 ;;   Wahoo
