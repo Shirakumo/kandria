@@ -180,7 +180,9 @@
 
 (defmethod collide ((moving moving) (block block) hit)
   ;; clamp velocity and push out
-  (cond ((/= 0 (vx (hit-normal hit)))
+  (cond ((and (/= 0 (vx (hit-normal hit)))
+              (< (abs (- (vy (location moving)) (vy (hit-location hit))))
+                 (- (+ (vy (bsize block)) (vy (bsize moving))) 3)))
          (setf (vx (frame-velocity moving)) 0)
          (cond ((< 0 (vx (hit-normal hit)))
                 (setf (svref (collisions moving) 3) block)
@@ -190,7 +192,7 @@
                 (setf (vx (location moving)) (- (vx (hit-location hit)) (vx (bsize block)) (vx (bsize moving)))))))
         (T
          (setf (vy (frame-velocity moving)) 0)
-         (cond ((< 0 (vy (hit-normal hit)))
+         (cond ((<= 0 (vy (hit-normal hit)))
                 (setf (vy (velocity moving)) (max 0 (vy (velocity moving))))
                 (setf (svref (collisions moving) 2) block)
                 (setf (vy (location moving)) (+ (vy (hit-location hit)) (vy (bsize block)) (vy (bsize moving)))))
