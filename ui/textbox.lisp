@@ -278,12 +278,15 @@ void main(){
 
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
   (let ((unit (unit (dialogue:name rq) T)))
-    (setf (strength (profile textbox))
-          (clamp 0.0 (- (vdistance (location unit) (location (unit 'player +world+))) (* 40 +tile-size+)) 1.0))
-    (setf (mixed:speed-factor (harmony:segment 2 (// 'sound 'ui-scroll-dialogue))) (pitch unit))
-    (setf (source textbox) (nametag unit))
-    (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
-    (setf (animation (profile textbox)) 'normal)))
+    (cond (unit
+           (setf (strength (profile textbox))
+                 (clamp 0.0 (- (vdistance (location unit) (location (unit 'player +world+))) (* 40 +tile-size+)) 1.0))
+           (setf (mixed:speed-factor (harmony:segment 2 (// 'sound 'ui-scroll-dialogue))) (pitch unit))
+           (setf (source textbox) (nametag unit))
+           (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))
+           (setf (animation (profile textbox)) 'normal))
+          (T
+           (v:warn :kandria.dialogue "Couldn't find requested dialogue source: ~s" (dialogue:name rq))))))
 
 (defmethod handle :after ((rq dialogue:source-request) (textbox textbox))
   (advance textbox))

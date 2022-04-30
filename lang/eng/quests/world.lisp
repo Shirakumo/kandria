@@ -658,3 +658,7 @@
    "| (:concerned)[? The water's never been off this long. | I believe in you, {(nametag player)}. | It's just another adventure, right? | Is this the end?]")
   (T
   "| You okay?"))
+
+(define-default-interactions npc
+  (T
+   "| [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat. ]"))
