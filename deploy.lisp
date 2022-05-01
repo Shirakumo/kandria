@@ -1,9 +1,10 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; TODO: compress world in a zip
-;; TODO: run oxping/optipng/pngcrush to compress pngs
 (deploy:define-hook (:deploy kandria -1) (directory)
-  (deploy:copy-directory-tree (pathname-utils:subdirectory (root) "world") directory))
+  (org.shirakumo.zippy:compress-zip
+   (pathname-utils:subdirectory (root) "world")
+   (make-pathname :name "world" :type "zip" :defaults directory)
+   :strip-root T :if-exists :supersede))
 
 #+linux
 (trial::dont-deploy

@@ -16,6 +16,10 @@
     "recursive" "1"
   }
   "FileMapping"{
+    "LocalPath" "world.zip"
+    "DepotPath" "."
+  }
+  "FileMapping"{
     "LocalPath" "keymap.lisp"
     "DepotPath" "."
   }
