@@ -186,7 +186,75 @@
     (:c
      _ o _
      o s o
-     _ o _)))
+     _ o _)
+    (:spike-tr>
+     _ _ _
+     sp _ _
+     s sp _)
+    (:spike-tl>
+     _ _ _
+     _ _ sp
+     _ sp s)
+    (:spike-bl>
+     _ sp s
+     _ _ sp
+     _ _ _)
+    (:spike-br>
+     s sp _
+     sp _ _
+     _ _ _)
+    (:spike-bl<
+     _ sp _
+     _ _ sp
+     x _ _)
+    (:spike-br<
+     _ sp _
+     sp _ _
+     _ _ x)
+    (:spike-tr<
+     _ _ x
+     sp _ _
+     _ sp _)
+    (:spike-tl<
+     x _ _
+     _ _ sp
+     _ sp _)
+    (:spike-bl<
+     sp _ _
+     s _ sp
+     x _ _)
+    (:spike-br<
+     _ _ sp
+     sp _ s
+     _ _ x)
+    (:spike-tr<
+     sp s x
+     _ _ _
+     _ sp _)
+    (:spike-tl<
+     x s sp
+     _ _ _
+     _ sp _)
+    (:spike-t
+     _ z _
+     _ sp _
+     _ _ _)
+    (:spike-b
+     _ _ _
+     _ sp _
+     _ z _)
+    (:spike-l
+     _ _ _
+     z sp _
+     _ _ _)
+    (:spike-r
+     _ _ _
+     _ sp z
+     _ _ _)
+    (:spike
+     _ _ _
+     _ sp _
+     _ _ _)))
 
 (declaim (inline tile-type-p))
 (defun tile-type-p (tile type)
@@ -211,6 +279,11 @@
     (k (or (= 1 tile) (<= 17 tile 20) (= 21 tile)))
     ;; Tiles that can be climbed on
     (c (= 1 tile))
+    ;; Spikes
+    (sp (or (= 3 tile) (<= 17 tile 20)))
+    ;; Zero
+    (z (= 0 tile))
+    (nz (< 0 tile))
     ;; Any tile at all (don't care)
     (_ T)))
 
@@ -253,7 +326,6 @@
     (dotimes (y height)
       (dotimes (x width)
         (case (tile x y)
-          ( 3 (setf (tile x y) :spike))
           ( 4 (setf (tile x y) `(:slope 0)))
           ( 5 (setf (tile x y) `(:slope 1)))
           ( 6 (setf (tile x y) `(:slope 2)))
@@ -266,10 +338,6 @@
           (13 (setf (tile x y) `(:slope 9)))
           (14 (setf (tile x y) `(:slope 10)))
           (15 (setf (tile x y) `(:slope 11)))
-          (17 (setf (tile x y) :spike-t))
-          (18 (setf (tile x y) :spike-r))
-          (19 (setf (tile x y) :spike-b))
-          (20 (setf (tile x y) :spike-l))
           (22
            (let ((mindist 100))
              (loop for dy from -5 to +5
