@@ -459,7 +459,7 @@
    (nametag :initform (@ catherine-nametag))
    (pitch :initform 1.02)
    (lead-interrupt :initform "~ catherine
-| (:shout)[? This way. | Follow me. | Keep up. | Let's go.]"))
+| [? This way. | Follow me. | Keep up. | Let's go.]"))
   (:default-initargs
    :sprite-data (asset 'kandria 'catherine)))
 
