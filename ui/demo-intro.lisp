@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass demo-intro-panel (fullscreen-panel)
+(defclass demo-intro-panel (menuing-panel fullscreen-panel)
   ())
 
 (defmethod initialize-instance :after ((panel demo-intro-panel) &key)
