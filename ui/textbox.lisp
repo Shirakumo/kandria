@@ -273,6 +273,7 @@ void main(){
   (setf (text textbox) (clear-text-string))
   (setf (scroll-index textbox) 0))
 
+#++
 (defmethod handle :after ((rq dialogue:clear-request) (textbox textbox))
   (advance textbox))
 
@@ -288,6 +289,7 @@ void main(){
           (T
            (v:warn :kandria.dialogue "Couldn't find requested dialogue source: ~s" (dialogue:name rq))))))
 
+#++
 (defmethod handle :after ((rq dialogue:source-request) (textbox textbox))
   (advance textbox))
 
