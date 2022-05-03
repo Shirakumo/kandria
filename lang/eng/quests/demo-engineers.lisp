@@ -66,6 +66,7 @@
 | | ~ semi-engineer-chief
 | | | We're the rail engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
 | | | \"The collapse is just ahead.\"(orange)
@@ -90,6 +91,7 @@
 | | ~ semi-engineer-chief
 | | | We're the rail engineers you're looking for. Thank God for Islay.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | | But things are looking up now the route is open.
 | | | Thank you.

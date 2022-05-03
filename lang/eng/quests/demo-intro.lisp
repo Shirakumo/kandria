@@ -80,7 +80,6 @@
 ~ islay
 | We've seen what you can do - you're better suited to this than even our hunters.
 | (:nervous)Just don't tell Innis I said that. She'll think I've gone soft for androids.
-! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | (:normal)I can also \"trade any items you find for scrap parts\"(orange), the currency we use around here.
 | Then you can \"buy supplies\"(orange) to help you in the field.
 | \"Let me know if you want to trade.\"(orange)
@@ -113,7 +112,6 @@
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
 | | (:nervous)We know you know about the metro already, and that's alright. But now it's official.
 | | (:normal)I'll send out word, so Innis won't have you... (:nervous)apprehended.
-| ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
 |?
 | | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.

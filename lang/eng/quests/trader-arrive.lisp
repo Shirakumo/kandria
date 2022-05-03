@@ -56,18 +56,19 @@
 | | ~ player
 | | - Actually now it's {(nametag player)}.
 | |   ~ trader
-| |   | Old Sahil got old information, huh? I'm sorry, habibti.
+| |   | Old \"Sahil\"(yellow) got old information, huh? I'm sorry, habibti.
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   ~ trader
 | |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 | | - It used to be Stranger.
 | |   ~ trader 
-| |   | Used to be? Old Sahil got old information, huh?
+| |   | Used to be? Old \"Sahil\"(yellow) got old information, huh?
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
-| |   | What is it now?
+| |   ~ trader
+| |   | Sorry, habibti. What is it now?
 | |   ~ player
 | |   | {(nametag player)}.
 | |   ~ trader
-| |   | Oh, sorry habibti.
 | |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 | | - Now it's {(nametag player)}, which was possibly my original name.
 | |   ~ trader
@@ -77,7 +78,7 @@
 | (:jolly)Word spreads quickly around here. And Catherine couldn't stop talking about you.
 | Such a great kid, you know? A talented engineer as well. Reminds me of...
 | (:normal)Er-... well, never mind that.
-| So you've come to trade with old Sahil, eh?
+| So you've come to trade with old \"Sahil\"(yellow), eh?
 ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 ~ player
 - What do you sell?
@@ -127,6 +128,9 @@
     :interactable trader
     :repeatable T
     :dialogue "
+? (not (string= (@ trader-nametag) (nametag (unit 'trader))))
+| ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+  
 ~ trader
 ? (complete-p 'q13-planting-bomb)
 | | If we must, habibti.
