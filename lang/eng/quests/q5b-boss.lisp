@@ -22,10 +22,7 @@
   (:complete (q5b-boss-fight)
    :title "Defeat the saboteurs")
   (:eval
-   (override-music NIL)
-   (when (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))
-     (activate (find-task 'q5b-investigate-cctv 'q5b-task-return-cctv))
-     (deactivate (find-task 'q5b-investigate-cctv 'q5b-task-reminder))))
+   (override-music NIL))
    (:wait 1)
    (:interact (NIL :now T)
   "
@@ -35,4 +32,8 @@
 | | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
 |?
 | | \"I'd better \"check out the last of the CCTV cameras around here\"(orange), and \"get back to Innis\"(orange) on the double.\"(light-gray, italic)
-"))
+")
+  (:eval
+   (when (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))
+     (activate (find-task 'q5b-investigate-cctv 'q5b-task-return-cctv))
+     (deactivate (find-task 'q5b-investigate-cctv 'q5b-task-reminder)))))
