@@ -128,6 +128,7 @@
 ! eval (activate (unit 'cctv-4-trigger))
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'q5a-rescue-engineers)
+| ! eval (deactivate (find-task 'world 'task-world-engineers))
 |?
 | ! eval (complete 'q5a-rescue-engineers)
 "))

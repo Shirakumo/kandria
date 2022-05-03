@@ -6,6 +6,7 @@
   :title "Rescue Engineers"
   :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory. I need to free them so Innis will turn our water back on."
   :on-activate (task-reminder task-wall task-engineers)
+  :variables (engineers-intro)
  
  (task-reminder
    :title NIL
@@ -40,8 +41,12 @@
    :on-activate T   
    (:interaction engineers
     :interactable semi-engineer-chief
-    :title "Islay sent me. Are you the missing Semis engineers?"
+    :title ""
     :dialogue "
+? (not (var 'engineers-intro))
+| ~ player
+| | Islay sent me. Are you the missing Semis engineers?
+| ! eval (setf (var 'engineers-intro) T)
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
@@ -69,6 +74,7 @@
 | |?
 | | ~ semi-engineer-chief
 | | | How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
+| | ! eval (activate 'task-wall-location)
 |?
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
@@ -92,6 +98,9 @@
 | | ~ semi-engineer-chief
 | | | I don't believe you got through... Now food and medical supplies can get through too. Thank you.
 | | | We can resume our excavations. It'll be slow-going, but we'll get it done.
+  
+! eval (reset (find-task 'world 'task-world-engineers))
+! eval (activate (find-task 'world 'task-world-engineers))
 ! eval (complete task)
 "))
 
@@ -161,10 +170,12 @@
 | | (:normal)So long... //Stranger//.
 | | Maybe I'll see you on the battlefield.
 | ! eval (activate 'demo-end-prep)
-| < end
-~ innis
-| I'll be seeing you.
-! label end
+|?
+| ~ innis
+| | I'll be seeing you.
+? (not (active-p (find-task 'world 'task-world-engineers)))
+| ! eval (activate (find-task 'world 'task-world-engineers))
+  
 ! eval (complete task)
 ! eval (reset* interaction)
 ")))

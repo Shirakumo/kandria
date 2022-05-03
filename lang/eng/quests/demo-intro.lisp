@@ -90,6 +90,7 @@
 ! eval (activate (unit 'cctv-4-trigger))
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'demo-engineers)
+| ! eval (deactivate (find-task 'world 'task-world-engineers))
 |?
 | ! eval (complete 'demo-engineers)
 

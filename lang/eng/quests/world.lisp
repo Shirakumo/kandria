@@ -505,7 +505,7 @@
   (:interaction trapped-engineers
    :interactable semi-engineer-chief
    :repeatable T
-   :title "(Talk to engineer)"
+   :title ""
   "
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
@@ -530,10 +530,6 @@
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
 | | | \"The collapse is just ahead.\"(orange)
 | | ! eval (setf (var 'engineers-first-talk) T)
-| | ? (active-p 'demo-engineers)
-| | | ! eval (activate (find-task 'demo-engineers 'task-wall-location))
-| | |? (active-p 'q5a-rescue-engineers)
-| | | ! eval (activate (find-task 'q5a-rescue-engineers 'task-wall-location))
 | |?
 | | ~ semi-engineer-chief
 | | | How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
@@ -560,12 +556,7 @@
 | | ~ semi-engineer-chief
 | | | I don't believe you got through... Now food and medical supplies can get through too. Thank you.
 | | | We can resume our excavations. It'll be slow-going, but we'll get it done.
-? (active-p (find-task 'q5a-rescue-engineers 'task-engineers))
-| ! eval (complete (find-task 'q5a-rescue-engineers 'task-engineers))
-|? (active-p (find-task 'demo-engineers 'task-engineers))
-| ! eval (complete (find-task 'demo-engineers 'task-engineers))
 "))
-;; TODO remove demo task checks at the end here, when no longer needed
 
 ;; replacement interact when the engineer is now on the surface in the final act, preparing for the battle
 (quest:define-task (kandria world task-engineers-surface)
@@ -576,7 +567,7 @@
   (:interaction engineer-surface
    :interactable semi-engineer-chief
    :repeatable T
-   :title "(Talk to engineer)"
+   :title ""
   "
 ~ semi-engineer-chief
 | It's strange being on the surface. You live here? It's hot.
