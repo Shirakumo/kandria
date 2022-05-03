@@ -72,7 +72,7 @@
  (task-trigger-move-semis
    :title ""
    :condition (or (have 'item:blasting-cap 1) (have 'item:charge-pack 1))
-   :on-complete (task-move-semis task-return-fi)   
+   :on-complete (task-move-semis task-return-fi)
    :visible NIL)
 
  (task-move-semis
