@@ -302,6 +302,11 @@ void main(){
   :offset (vec -30 -16)
   :layer-index +base-layer+)
 
+(define-effect mech-walk sprite-effect
+  :animation 'mech-walk
+  :offset (vec 0 -34)
+  :layer-index +base-layer+)
+
 (define-effect enter-passage sound-effect
   :voice (// 'sound 'player-enter-passage))
 

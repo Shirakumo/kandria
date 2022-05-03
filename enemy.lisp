@@ -518,7 +518,7 @@
                   ((< distance (* +tile-size+ 6)) ;; Jump over
                    (select 'jump))
                   (T
-                   (setf (vx (velocity enemy)) (float-sign direction 0.8)))))))))))
+                   (select 'walk))))))))))
 
 (defmethod handle :before ((ev tick) (enemy mech))
   (case (state enemy)
