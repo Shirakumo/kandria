@@ -197,7 +197,7 @@
     :interactable innis
     :dialogue "
 ~ innis
-| (:sly)I'm glad you made it back.
+| (:sly)I'm glad you survived the saboteurs.
 | (:normal)So what are we dealing with?
 ~ player
 - It was a band of rogues.
