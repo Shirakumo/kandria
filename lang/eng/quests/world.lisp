@@ -598,7 +598,7 @@
   (demo-intro
    "| [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (demo-semis
-   "| (:angry)[? \"Talk to my sister up in the control room.\"(orange) | Are your audio receivers offline? I said \"talk to Islay - she's up in the control room\"(orange).]")
+   "| (:angry)[? \"Talk to my sister up in the control room.\"(orange) | Are your audio receivers offline? I said \"talk to my sister - she's up in the control room\"(orange). | Do you want the water turned back on or not? If you do, then \"talk to my sister up in the control room\"(orange).]")
   (demo-start
    "| [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (T

@@ -3,13 +3,15 @@
 
 (define-sequence-quest (kandria demo-intro)
   :author "Tim White"
-  :title "Talk to Islay"
-  :description "The Semi in charge (I didn't catch her name) said I should talk to her sister, Islay, about what I can do for them, in exchange for turning the water back on."
+  :title "Find the Control Room"
+  :description "I think I found the Semi Sisters. The one that seemed in charge said I should talk to her sister in the control room, about what I can do in exchange for her turning the water back on."
   (:interact (islay)
-   :title "Talk to Islay up in the Semi Sisters control room"
+   :title "Find the sister in the control room"
   "
 ~ islay
-| Hello, Stranger. It's an honour to meet you in person.
+| Hello, Stranger. It's an honour to meet you. I'm \"Islay\"(yellow).
+! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
+~ islay
 | (:unhappy)I'm sorry about my sister.
 ~ player
 - What do I need to do?
@@ -20,7 +22,8 @@
   ~ islay
   | How long have you got? Let's just say diplomacy isn't one of \"Innis'\"(yellow) strengths.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-  | (:nervous)Anyway, about the job. The sooner we get started, the sooner she'll turn your water back on.
+  | She's right about the water though - we need it too.
+  | But a trade is acceptable. And the sooner we get started, the sooner she'll turn it back on for you.
 - Can't you just turn the water back on?
   ~ islay
   | (:nervous)I'm afraid not. Much as I sympathise with your predicament.
