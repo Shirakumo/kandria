@@ -589,11 +589,11 @@
   (demo-end-prep
    "| [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the winning side.]")
   (demo-intro
-   "| [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
+   "| [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (demo-semis
    "| (:angry)[? \"Talk to my sister up in the control room.\"(orange) | Are your audio receivers offline? I said \"talk to my sister - she's up in the control room\"(orange). | Do you want the water turned back on or not? If you do, then \"talk to my sister up in the control room\"(orange).]")
   (demo-start
-   "| [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you, ya ken. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
+   "| [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]")
   (T
   "| What do you want?"))
 ;; dinnae = don't (Scottish)
