@@ -272,6 +272,10 @@ void main(){
   :offset (vec 0 -34)
   :layer-index (1- +base-layer+))
 
+(define-effect camera-shake camera-effect
+  :intensity 15
+  :duration 0.2)
+
 (define-effect mech-jump-front sprite-effect
   :animation 'mech-jump2
   :offset (vec 0 -34)
