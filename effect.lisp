@@ -302,9 +302,6 @@ void main(){
   :offset (vec -30 -16)
   :layer-index +base-layer+)
 
-(progn (compile-resources (asset 'kandria 'effects) T)
-       #! (reload (asset 'kandria 'effects)))
-
 (define-effect enter-passage sound-effect
   :voice (// 'sound 'player-enter-passage))
 
