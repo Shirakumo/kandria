@@ -82,17 +82,6 @@
    :on-activate T
    :visible NIL
    (:action
-    (setf (location 'innis) (location 'shutter-1))
-    (setf (direction 'innis) -1)
-    (setf (location 'islay) (location 'shutter-2))
-    (setf (direction 'islay) 1)
-    (setf (location 'fi) (location 'shutter-3))
-    (setf (direction 'fi) -1)
-    (setf (location 'jack) (location 'shutter-4))
-    (setf (direction 'jack) -1)
-    (setf (location 'catherine) 'eng-cath)
-    (setf (direction 'catherine) -1)
-    (ensure-nearby 'semi-surface-spawner-2 'semi-engineer-chief 'semi-engineer-1 'semi-engineer-2 'semi-engineer-3)
     (deactivate (unit 'spawner-5885))
     (deactivate (unit 'entity-4686))
     (deactivate (unit 'entity-4687))
@@ -107,8 +96,19 @@
     (activate (unit 'semi-surface-spawner-4))
     (activate (unit 'semi-surface-spawner-5))
     (activate (unit 'bar-surface-spawner-1))
+    (ensure-nearby 'semi-surface-spawner-2 'semi-engineer-chief 'semi-engineer-1 'semi-engineer-2 'semi-engineer-3)
     (deactivate (find-task 'world 'task-world-engineers))
     (activate (find-task 'world 'task-engineers-surface))
+    (setf (location 'islay) (location 'shutter-2))
+    (setf (direction 'islay) 1)
+    (setf (location 'innis) (location 'shutter-1))
+    (setf (direction 'innis) -1)
+    (setf (location 'fi) (location 'shutter-3))
+    (setf (direction 'fi) -1)
+    (setf (location 'jack) (location 'shutter-4))
+    (setf (direction 'jack) -1)
+    (setf (location 'catherine) 'eng-cath)
+    (setf (direction 'catherine) -1)
     ))
 ;; TODO position islay further from the others - easier to clarify hand-in NPC, and the trials of leadership etc.
 ;; TODO also deactivate semis world NPC spawners (deletes all Semis NPCs?) and instead activate smaller Semis spawners on surface

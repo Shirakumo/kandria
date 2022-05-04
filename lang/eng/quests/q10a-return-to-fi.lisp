@@ -60,12 +60,6 @@
    :on-activate T
    :visible NIL
    (:action
-      (setf (location 'jack) (location 'fi-wraw))
-      (setf (direction 'jack) 1)
-      (setf (location 'catherine) (location 'islay-wraw))
-      (setf (direction 'catherine) 1)
-      (setf (location 'fi) (location 'wraw-leader))
-      (setf (direction 'fi) -1)
       (deactivate (unit 'wraw-border-1))
       (deactivate (unit 'wraw-border-2))
       (deactivate (unit 'wraw-border-3))
@@ -75,6 +69,12 @@
       (deactivate (unit 'station-surface-trigger))
       (setf (location 'cerebat-trader-quest) (location 'cerebat-trader-wraw))
       (setf (direction 'cerebat-trader-quest) 1)
+      (setf (location 'jack) (location 'fi-wraw))
+      (setf (direction 'jack) 1)
+      (setf (location 'catherine) (location 'islay-wraw))
+      (setf (direction 'catherine) 1)
+      (setf (location 'fi) (location 'wraw-leader))
+      (setf (direction 'fi) -1)
       (complete task)))
       
 
