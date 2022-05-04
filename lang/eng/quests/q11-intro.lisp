@@ -54,7 +54,7 @@
 - You too.
 - No promises.
 ! eval (setf (location 'trader) (location 'trader-semi-loc))
-! eval (setf (direction 'trader) -1)
+! eval (setf (direction 'trader) 1)
 ! eval (setf (walk 'fi) T)
 ! eval (move-to 'loc-trader (unit 'fi))
 ? (not (complete-p 'trader-arrive))
