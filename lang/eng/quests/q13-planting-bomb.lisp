@@ -30,7 +30,7 @@
 
    (:interaction interact-fi
     :interactable fi
-    :title ""
+    :title "About the bombs."
     :repeatable T
     :dialogue "
 ~ fi
