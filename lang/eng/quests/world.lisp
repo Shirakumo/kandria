@@ -297,7 +297,7 @@
    :repeatable T
    "
 ~ player
-| \"Were those that lived beneath the old world people or rabbits? These warrens go on forever.\"(light-gray, italic)
+| \"Were the inhabitants here people or rabbits? These warrens go on forever.\"(light-gray, italic)
 ")
 
 ;; the player can use the lanterns to recharge their jump/boost
@@ -362,7 +362,7 @@
    "
 ~ player
 | \"I guess people need a watering hole wherever they go.\"(light-gray, italic)
-| \"This one's as loud with chatter as anywhere I remember - but instead of clinking glass they're clinking with tin cans.\"(light-gray, italic)
+| \"This one's as loud with chatter as anywhere I remember - but instead of clinking glass they're clinking tin cans.\"(light-gray, italic)
 ")
 
 ;; another scenic picture on the wall from pre-Calamity times
