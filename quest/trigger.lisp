@@ -6,6 +6,10 @@
    (title :initarg :title :initform "<unknown>" :accessor title)
    (status :initarg :status :initform :inactive :accessor status)))
 
+(defmethod shared-initialize :before ((trigger trigger) slots &key name)
+  (unless (symbolp name)
+    (error "NAME must be a symbol, not ~s" name)))
+
 (defmethod print-object ((trigger trigger) stream)
   (print-unreadable-object (trigger stream :type T)
     (format stream "~s ~a" (name trigger) (status trigger))))
