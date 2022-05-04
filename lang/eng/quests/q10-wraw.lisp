@@ -43,7 +43,7 @@
 | ~ player
 | | (:embarassed)\"It's at a scale to manufacture enough mechs and weapons for an \"invasion of the entire valley\"(orange) - from the mountains to the coast...\"(light-gray, italic)
 | | (:normal)\"I need to \"contact Fi\"(orange).\"(light-gray, italic)
-| | \"... \"FFCS can't punch through\"(orange) - whether it's magnetic interference from the magma, or the Wraw themselves I'm not sure.\"(light-gray, italic)
+| | \"... \"FFCS can't punch through\"(orange) - it's either magnetic interference from the magma, or the \"Wraw are on the move\"(orange).\"(light-gray, italic)
 | | \"I'd better \"get out of here\"(orange) and \"deliver my report\"(orange).\"(light-gray, italic)
 | ! eval (complete 'wraw-objective)
 | ! eval (activate 'q10a-return-to-fi)

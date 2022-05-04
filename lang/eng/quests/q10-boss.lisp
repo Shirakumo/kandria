@@ -21,7 +21,7 @@
 ? (complete-p (find-task 'q10-wraw 'wraw-warehouse))
 | | \"That's one less mech to worry about. Not that it will make much difference.\"(light-gray, italic)
 | | \"I need to \"contact Fi\"(orange).\"(light-gray, italic)
-| | \"... \"FFCS can't punch through\"(orange) - whether it's magnetic interference from the magma, or the Wraw themselves I'm not sure.\"(light-gray, italic)
+| | \"... \"FFCS can't punch through\"(orange) - it's either magnetic interference from the magma, or the \"Wraw are on the move\"(orange).\"(light-gray, italic)
 | | \"I'd better \"get out of here\"(orange) and \"deliver my report\"(orange).\"(light-gray, italic)
 | ! eval (complete (find-task 'q10-wraw 'wraw-objective))
 | ! eval (activate 'q10a-return-to-fi)
