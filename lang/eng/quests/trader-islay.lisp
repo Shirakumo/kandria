@@ -98,7 +98,7 @@
 |   | (:unhappy)Why not?
 |   | (:normal)... Most who worked in the factories were women. After the Calamity we just stayed together.
 |   | And we've done better than most.
-|   | Maybe the world wouldn't have fallen apart if more women were in charge.
+|   | Maybe the world wouldn't have fallen apart if there were more women in charge. Present company included.
 |   < talk
 | - I need to go.
 |   < leave
