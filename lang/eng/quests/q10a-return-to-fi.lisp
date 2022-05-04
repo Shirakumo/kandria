@@ -59,7 +59,7 @@
    :on-complete (return-fi)
    :on-activate T
    :visible NIL
-   (:action
+   (:action functions
       (deactivate (unit 'wraw-border-1))
       (deactivate (unit 'wraw-border-2))
       (deactivate (unit 'wraw-border-3))

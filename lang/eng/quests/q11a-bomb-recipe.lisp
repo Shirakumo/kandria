@@ -81,7 +81,7 @@
    :on-complete ()
    :on-activate T
    :visible NIL
-   (:action
+   (:action functions
     (deactivate (unit 'spawner-5885))
     (deactivate (unit 'entity-4686))
     (deactivate (unit 'entity-4687))
