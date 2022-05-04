@@ -109,18 +109,16 @@
     (activate (unit 'bar-surface-spawner-1))
     (deactivate (find-task 'world 'task-world-engineers))
     (activate (find-task 'world 'task-engineers-surface))
-    (when (complete-p (find-task 'q12-help-alex 'alex-task))
-      (activate (find-task 'q12-help-alex 'fi-task)))
     ))
 ;; TODO position islay further from the others - easier to clarify hand-in NPC, and the trials of leadership etc.
 ;; TODO also deactivate semis world NPC spawners (deletes all Semis NPCs?) and instead activate smaller Semis spawners on surface
 
-  ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb; marker added though, as adds further depth
+  ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb. Not adding a marker, since it would trigger a distracting quest arrow while collecting bomb parts
   (task-return-fi
    :title ""
-   :marker '(fi 500)
    :visible NIL
-   :condition (complete-p 'task-return)
+   :invariant (not (complete-p 'task-return))
+   :condition all-complete
    :on-activate T
    (:interaction fi-return-recruit
     :title "What did I miss?"
@@ -202,7 +200,7 @@
    :on-complete (q13-intro)
    :on-activate T
    (:interaction components-return
-    :title "(Deliver bomb components)"
+    :title "(Deliver final bomb components)"
     :interactable islay
     :dialogue "
 ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
