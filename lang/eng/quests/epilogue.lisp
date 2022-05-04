@@ -12,7 +12,9 @@
    (setf (location 'jack) (location 'epilogue-jack))
    (setf (direction 'jack) -1)
    (setf (location 'innis) (location 'epilogue-innis))
-   (setf (direction 'innis) -1))
+   (setf (direction 'innis) -1)
+   (deactivate (unit 'semi-surface-spawner-1))
+   (deactivate (unit 'semi-surface-spawner-3)))
   (:go-to (platform-start :follow catherine)
    :title "Return to the surface"
    "~ catherine
