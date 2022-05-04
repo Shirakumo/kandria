@@ -573,7 +573,7 @@
   "
 ~ semi-engineer-chief
 | It's strange being on the surface. You live here? It's hot.
-| I hope the metro will be okay.
+| I hope our metro will fare better than this shoddy water pipe.
 "))
 
 ;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
