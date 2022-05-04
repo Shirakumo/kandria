@@ -202,14 +202,14 @@
 ~ player
 - It was a band of rogues.
   ~ innis
-  | ... Rogues? They're no' the kind who would sabotage.
+  | ... Rogues? They're no' who the Cerebats would employ.
 - Wannabe samurais and their pet dogs.
   ~ innis
-  | Rogues then, with wolf packs. They're no' the kind who would sabotage.
+  | Rogues then, with wolf packs. They're no' who the Cerebats would employ.
 - Do the Cerebats have a K-9 unit?
   ~ innis
   | (:angry)...
-  | (:normal)Rogues then, with wolf packs. They're no' the kind who would sabotage.
+  | (:normal)Rogues then, with wolf packs. They're no' who the Cerebats would employ.
 ~ innis
 | They're no' the kind who would cross our border neither.
 | ...
