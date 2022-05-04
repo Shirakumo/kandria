@@ -93,6 +93,14 @@
 |   | (:normal)I hope they're okay. And sober.
 |   | (:unhappy)I'm sorry, I should've kept a closer eye...
 |   < talk
+| - What's it like living underground?
+|   ~ islay
+|   | (:nervous)You mean apart from not knowing what time of day it is, or the lack of sunlight?
+|   | (:normal)At least we get vitamin D from mushrooms like the flower fungus, once we expose them to UV light.
+|   | Apart from that it's fine - most of us spent our lives underground even before the Calamity.
+|   | (:unhappy)I suppose fresh air is a problem, as you've probably noticed - wind tunnels do help though.
+|   | (:normal)Sometimes I envy the Noka. I know living on the surface has it challenges, but it must be nice living under the sky.
+|   < talk
 | - Why are the Semis mostly women?
 |   ~ islay
 |   | (:unhappy)Why not?
