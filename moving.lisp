@@ -202,7 +202,9 @@
   (and (is-collider-for moving block)
        (< 0 (vy (hit-normal hit)))
        (<= (+ (vy (hit-location hit)) (floor +tile-size+ 2) -2)
-           (- (vy (location moving)) (vy (bsize moving))))))
+           (- (vy (location moving)) (vy (bsize moving))))
+       (let ((vel (if (v= (frame-velocity moving) 0.0) (velocity moving) (frame-velocity moving))))
+         (<= (vy vel) 0.0))))
 
 (defmethod collide ((moving moving) (block death) hit)
   (kill moving)
