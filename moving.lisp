@@ -217,15 +217,13 @@
 
 (defmethod collides-p ((moving moving) (block spike) hit)
   (let ((vel (if (v= (frame-velocity moving) 0.0) (velocity moving) (frame-velocity moving))))
-    (cond ((< 0.1 (+ (abs (vx vel)) (abs (vy vel))))
-           (let ((angle (vangle (spike-normal block) vel))
-                 (loc (location moving)))
-             ;; FIXME: This allows you to stand in spikes if you're *super* precise...
-             (and (<= 85 (rad->deg angle) 185)
-                  (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
-                  (<= (abs (- (vy (hit-location hit)) (vy loc))) 7))))
-          ((svref (collisions moving) 2)
-           T))))
+    (when (< 0.1 (+ (abs (vx vel)) (abs (vy vel))))
+      (let ((angle (round (rad->deg (vangle (spike-normal block) (nv- (vunit vel))))))
+            (loc (location moving)))
+        ;; FIXME: This allows you to stand in spikes if you're *super* precise...
+        (and (<= angle 90)
+             (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
+             (<= (abs (- (vy (hit-location hit)) (vy loc))) 7))))))
 
 (defmethod collide ((moving moving) (block spike) hit)
   (kill moving))
