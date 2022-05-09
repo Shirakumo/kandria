@@ -342,7 +342,7 @@
       (alloy:on alloy:exit (focus)
         (setf (alloy:focus back) :strong)))
     (alloy:finish-structure panel layout focus)))
-(progn #! (show-panel 'lore-panel :item (make-instance 'item:manual)))
+
 (defclass unlock-button (item-icon)
   ((inventory :initarg :inventory :accessor inventory)))
 

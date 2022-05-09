@@ -30,4 +30,3 @@
           do (make-instance 'alloy:label* :value (string k) :layout-parent buttons))
     (alloy:finish-structure panel layout focus)))
 
-(progn #! (toggle-panel 'language-test))
