@@ -1,6 +1,10 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defgeneric item-order (item))
+(defgeneric trade (source target item count)
+  (:method-combination progn :most-specific-first))
+(defgeneric price-for-buy (item inventory))
+(defgeneric price-for-sell (item inventory))
 
 (defclass inventory ()
   ((storage :initform (make-hash-table :test 'eq) :accessor storage)
@@ -69,6 +73,26 @@
         (string< (title a) (title b))
         (< a-order b-order))))
 
+(defmethod trade progn (source target (item symbol) count)
+  (trade source target (type-prototype item) count))
+
+(defmethod trade progn ((source inventory) target (item item) count)
+  (retrieve item source count))
+
+(defmethod trade progn (source (target inventory) (item item) count)
+  (store item target count))
+
+(defmethod trade progn ((source inventory) (target player) (item item) count)
+  (let ((price (* count (price-for-buy item source))))
+    (retrieve 'item:parts target price)))
+
+(defmethod trade progn ((source player) (target inventory) (item item) count)
+  (let ((price (* count (price-for-sell item target))))
+    (store 'item:parts source price)))
+
+(defmethod trade progn (source (target player) (item item) count)
+  (status (@formats 'new-item-in-inventory (language-string (type-of item)))))
+
 (defmethod experience-reward ((item item))
   10)
 
@@ -83,6 +107,12 @@
 
 (defmethod price ((item item))
   0)
+
+(defmethod price-for-buy ((item item) (inventory inventory))
+  (price item))
+
+(defmethod price-for-sell ((item item) (inventory inventory))
+  (price item))
 
 (defmethod item-description ((item item))
   (language-string (intern (format NIL "~a/DESCRIPTION" (string (type-of item)))
@@ -147,8 +177,7 @@
         (compile-into-pass light NIL (unit 'lighting-pass +world+))))))
 
 (defmethod interact ((item item) (inventory inventory))
-  (store item inventory)
-  (status (@formats 'new-item-in-inventory (language-string (type-of item))))
+  (trade NIL inventory item 1)
   (leave* item T))
 
 (defmethod leave* :after ((item item) thing)

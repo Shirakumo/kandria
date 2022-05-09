@@ -98,12 +98,12 @@
 (defmethod active-p ((button buy-button))
   (<= (price (alloy:value button)) (item-count 'item:parts (target button))))
 
+(defmethod price ((button buy-button))
+  (price-for-buy (alloy:value button) (source button)))
+
 (defmethod retrieve (thing (button buy-button) &optional (count 1))
-  (let ((item (alloy:value button)))
-    (retrieve 'item:parts (target button) (* count (price item)))
-    (retrieve item (source button) count)
-    (store item (target button) count)
-    (alloy:value-changed button)))
+  (trade (source button) (target button) (alloy:value button) count)
+  (alloy:value-changed button))
 
 (defclass sell-button (shop-button)
   ())
@@ -111,11 +111,12 @@
 (defmethod active-p ((button sell-button))
   (< 0 (item-count (alloy:value button) (source button))))
 
+(defmethod price ((button sell-button))
+  (price-for-sell (alloy:value button) (target button)))
+
 (defmethod retrieve (thing (button sell-button) &optional (count 1))
-  (let ((item (alloy:value button)))
-    (retrieve item (source button) count)
-    (store 'item:parts (source button) (* count (price item)))
-    (alloy:value-changed button)))
+  (trade (source button) (target button) (alloy:value button) count)
+  (alloy:value-changed button))
 
 (defclass sales-menu (menuing-panel pausing-panel)
   ())
