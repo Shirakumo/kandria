@@ -15,6 +15,11 @@
 (defmethod item-count ((item (eql T)) (inventory inventory))
   (hash-table-count (storage inventory)))
 
+(defmethod price ((inventory inventory))
+  (loop for item being the hash-keys of (storage inventory)
+        for count being the hash-values of (storage inventory)
+        sum (* count (price (type-prototype item)))))
+
 (defmethod store ((item symbol) (inventory inventory) &optional (count 1))
   (when (subtypep item 'unlock-item)
     (setf (gethash item (unlock-table inventory)) T))
