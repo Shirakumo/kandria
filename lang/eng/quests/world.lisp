@@ -623,6 +623,8 @@
 
 ;; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
 (define-default-interactions jack
+  (q11a-bomb-recipe
+   "| (:annoyed)Innis is a real bitch, don't ya think?")
   (demo-end-prep
    "| [? The water's back on. Don't tell me that was you? | That was a close one. Don't think I ever been so thirsty. | Maybe you're alright after all. | I'm still keeping an eye on you, mind.]")
   (demo-start
