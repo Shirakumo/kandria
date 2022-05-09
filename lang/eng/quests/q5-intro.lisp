@@ -129,8 +129,7 @@
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'q5a-rescue-engineers)
 | ! eval (deactivate (find-task 'world 'task-world-engineers))
-|?
-| ! eval (complete 'q5a-rescue-engineers)
+| ! eval (deactivate (find-task 'world 'task-engineers-wall-listen))
 "))
 ;; ken = know (Scottish)
 ;; didnae = didn't (Scottish)

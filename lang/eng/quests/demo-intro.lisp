@@ -90,8 +90,7 @@
 ? (active-p (unit 'blocker-engineers))
 | ! eval (activate 'demo-engineers)
 | ! eval (deactivate (find-task 'world 'task-world-engineers))
-|?
-| ! eval (complete 'demo-engineers)
+| ! eval (deactivate (find-task 'world 'task-engineers-wall-listen))
 
 # thank-you
 ~ islay

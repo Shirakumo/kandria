@@ -5,7 +5,7 @@
   :author "Tim White"
   :title ""
   :visible NIL
-  :on-activate (task-world-all task-world-engineers))
+  :on-activate (task-world-all task-world-engineers task-engineers-wall-listen))
 
 ;; Lore interacts that can be accessed throughout the entire game at ANY time if the player explores far enough.
 ;; Some are conditional to determine which line is shown; however, most are written in a way that works no matter what point in the story the player discovers them.
@@ -531,6 +531,7 @@
 | | | We \"can't break through\"(orange) - can you? Can androids do that?
 | | | \"The collapse is just ahead.\"(orange)
 | | ! eval (setf (var 'engineers-first-talk) T)
+| | ! eval (activate 'world-engineers-wall)
 | |?
 | | ~ semi-engineer-chief
 | | | How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
@@ -559,6 +560,22 @@
 | | | I don't believe you got through... Now food and medical supplies can get through too. Thank you.
 | | | We can resume our excavations. It'll be slow-going, but we'll get it done.
 "))
+
+;; listen in case the player clears the wall before talking to the engineers in the world - and if so, complete the quest to get XP
+(quest:define-task (kandria world task-engineers-wall-listen)
+   :title NIL
+   :visible NIL
+   :condition (not (active-p (unit 'blocker-engineers)))
+   :on-complete (task-engineers-wall-complete))
+
+;; complete the world engineers quest and get XP, even if not spoken to them yet
+(quest:define-task (kandria world task-engineers-wall-complete)
+   :title NIL
+   :visible NIL
+   :condition all-complete
+   :on-activate T
+   (:action functions
+     (complete 'world-engineers-wall)))
 
 ;; replacement interact when the engineer is now on the surface in the final act, preparing for the battle
 (quest:define-task (kandria world task-engineers-surface)
