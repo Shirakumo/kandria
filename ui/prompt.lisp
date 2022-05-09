@@ -186,16 +186,8 @@
   (let* ((target (typecase target
                   (entity target)
                   (symbol (unit target +world+))
-                  (T target)))
-         (tloc (ensure-location target))
-         (chunk (find-chunk tloc)))
-    (unless (visible-on-map-p chunk)
-      (let* ((path (shortest-path (location (unit 'player +world+)) tloc (constantly T)))
-             (door (loop for (node target) in path
-                         when (typep node 'door-node)
-                         do (return target))))
-        (when door (setf target door))))
-    (setf (target prompt) target)))
+                  (T target))))
+    (setf (target prompt) (closest-visible-target target))))
 
 (defmethod animation:update :after ((prompt quest-indicator) dt)
   (when (alloy:layout-tree prompt)

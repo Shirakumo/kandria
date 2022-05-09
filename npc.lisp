@@ -27,8 +27,7 @@
 
 (defmethod visible-on-map-p ((npc npc))
   (and (primary-npc-p npc)
-       (unlocked-p (chunk npc))
-       (visible-on-map-p (chunk npc))))
+       (unlocked-p (chunk npc))))
 
 (defmethod description ((npc npc))
   (language-string 'npc))

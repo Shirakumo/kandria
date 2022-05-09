@@ -821,3 +821,14 @@
   (setf (path movable) ()))
 
 (define-unit-resolver-methods stop (unit))
+
+(defun closest-visible-target (target)
+  (let* ((tloc (ensure-location target))
+         (chunk (find-chunk tloc)))
+    (unless (visible-on-map-p chunk)
+      (let* ((path (shortest-path (location (unit 'player +world+)) tloc (constantly T)))
+             (door (loop for (node target) in path
+                         when (typep node 'door-node)
+                         do (return target))))
+        (when door (setf target door))))
+    target))
