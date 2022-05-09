@@ -30,6 +30,9 @@
 | - What are you doing here?
 |   ~ alex
 |   | (:angry)Biding my time.
+| - Are you okay?
+|   ~ alex
+|   | (:normal)Never better.
 | - Are you sober?
 |   ~ alex
 |   | (:angry)As a judge at the Last Judgement.

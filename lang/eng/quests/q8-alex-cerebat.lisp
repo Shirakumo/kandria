@@ -19,6 +19,7 @@
 ~ player
 - Alex?
 - What are you doing here?
+- Are you okay?
 - Are you sober?
 ~ alex
 | (:angry)Mind your own business.
