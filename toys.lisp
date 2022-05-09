@@ -447,18 +447,15 @@
 (defmethod stage :after ((hider hider) (area staging-area))
   (stage (// 'sound 'hider-reveal) area))
 
-(defmethod interact ((hider hider) source)
+(defmethod interact ((hider hider) (player player))
   (when (active-p hider)
     (let ((visibility (decf (visibility hider) 0.02)))
       (cond ((= 0.98 visibility)
              (harmony:play (// 'sound 'hider-reveal)))
             ((<= visibility 0.0)
              (setf (visibility hider) 0.0)
-             (setf (active-p hider) NIL))))))
-
-(defmethod interact :before ((hider hider) (entity stats-entity))
-  (when (active-p hider)
-    (incf (stats-secrets-found (stats entity)))))
+             (setf (active-p hider) NIL)
+             (incf (stats-secrets-found (stats player))))))))
 
 (defmethod (setf active-p) :after (value (hider hider))
   (setf (visibility hider) (if value 1.0 0.0)))
