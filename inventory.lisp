@@ -84,11 +84,11 @@
 
 (defmethod trade progn ((source inventory) (target player) (item item) count)
   (let ((price (* count (price-for-buy item source))))
-    (retrieve 'item:parts target price)))
+    (retrieve 'item::parts target price)))
 
 (defmethod trade progn ((source player) (target inventory) (item item) count)
   (let ((price (* count (price-for-sell item target))))
-    (store 'item:parts source price)))
+    (store 'item::parts source price)))
 
 (defmethod trade progn (source (target player) (item item) count)
   (status (@formats 'new-item-in-inventory (language-string (type-of item)))))
