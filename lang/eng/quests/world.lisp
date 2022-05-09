@@ -352,7 +352,7 @@
    :repeatable T
    "
 ~ player
-| \"Do they trade in contraband? Well, I suppose nothing's illegal any more.\"(light-gray, italic)
+| \"Do they trade in contraband? I suppose nothing's illegal any more.\"(light-gray, italic)
 ")
 
 ;; a bar in the Semi Sisters hub area
@@ -428,7 +428,7 @@
    :repeatable T
    "
 ~ player
-| \"An office turned bedroom.\"(light-gray, italic) (:giggle)\"Brings new meaning to sleeping at work.\"(light-gray, italic)
+| \"An office turned bedroom.\"(light-gray, italic) (:giggle)\"Brings new meaning to sleeping under your desk.\"(light-gray, italic)
 ")
 
 ;; a calendar still on the wall in an old office block; March 2368 is when the Calamity happened. There are faces on the calendar too.
