@@ -36,7 +36,7 @@
 | Good.
 | (:nervous)... Well, that just leaves the question of how we plant them.
 ~ player
-| \"Islay looks at Fi, and some kind of understanding passes between them.\"(light-gray, italic)
+| \"Islay is looking at Fi. I think an understanding is passing between them.\"(light-gray, italic)
 ~ islay
 | I think you're our best shot, {(nametag player)}.
 ~ player
@@ -87,20 +87,19 @@
 ~ catherine
 | They're ready. Here you go, {(nametag player)}.
 ~ player
-| \"Catherine hands me \"3 parcels\"(orange), each the size of a small brick, but thankfully lighter.\"(light-gray, italic)
+| \"So I've got \"3 parcels\"(orange), each the size of a small brick, but thankfully lighter.\"(light-gray, italic)
 ! eval (store 'item:explosive 3)
 | \"They resemble plastic explosives, similar to what I've seen bomb disposal teams use.\"(light-gray, italic)
-| \"These ones are dark red courtesy of the charge packs. I take them tentatively.\"(light-gray, italic)
 ~ catherine
 | Don't worry, they're shock resistant. These babies will only blow when we send the signal.
 ~ player
-| \"She also gives me a handful of RF receivers attached to blasting caps - the detonators.\"(light-gray, italic)
+| \"There's also a handful of RF receivers attached to blasting caps - the detonators.\"(light-gray, italic)
 ! eval (store 'item:receiver 13)
 ~ catherine
 | Just push the receivers into the explosives once you've planted them - two in each to be sure. This will prime the explosive and activate the receiver.
 | I've given you a few spares, just in case.
 ~ islay
-| Each receiver is set to an isolated frequency, so only we can trigger them. And it should cut through their interference.
+| Each receiver is set to an isolated frequency, so only we can trigger them. And it should cut through the Wraw's interference.
 ~ fi
 | Where are they being detonated?
 ~ islay
@@ -125,14 +124,15 @@
 ~ fi
 | (:annoyed)...
 ~ islay
-| And we're not destroying the pump, just the room beside it - enough to collapse the tunnels and close access. The water in the sunken room will help do that.
+| And we're not destroying the pump, just the room beside it - enough to collapse the tunnels and close access.
+| The water in the sunken room will help do that.
 | We can repair any damage to the pump later, but it will be minimal.
 ~ fi
 | (:unsure)It sounds like I have no choice.
 ~ islay
 | It'll work.
 ~ islay
-| \"Affix all 3 bombs, then get to a safe distance\"(orange) - at least to the \"Zenith Hub\"(orange) I'd say.
+| Alright, {(nametag player)}: \"Affix all 3 bombs, then get to a safe distance\"(orange) - at least to the \"Zenith Hub\"(orange) I'd say.
 | Your FFCS probably won't work at the bomb locations, as they're so close to the border. But if it does, please report in after you've planted each bomb.
 | If not, then we'll wait for your call once you've planted them all and you're in the Zenith Hub.
 | (:nervous)All the bombs need to be positioned first, because we're detonating them in a precise sequence. We need to bury the Wraw in one fell swoop.
