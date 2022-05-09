@@ -6,7 +6,7 @@
 (define-sequence-quest (kandria q5b-boss)
   :author "Tim White"
   :title "Find the Saboteur"
-  :description "Innis wants me to find the Cerebat responsible for sabotaging at least one of their CCTV cameras, and bring them in."
+  :description "Innis wants me to find the Cerebat responsible for sabotaging their CCTV cameras, and bring them in."
   (:go-to (q5b-boss-loc)
    :title "Find the saboteur in the Semis' low eastern region, along the Cerebat border")
   (:interact (innis :now T)

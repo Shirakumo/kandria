@@ -12,7 +12,7 @@
 | \"That's the \"tunnel cleared\"(orange). Now the Semis can reach their engineers.\"(light-gray, italic)
 | \"I should \"report to Innis in the Semis control room\"(orange).\"(light-gray, italic)
 ? (not (complete-p (find-task 'demo-engineers 'task-engineers)))
-| | \"Although I've not found the engineers yet - I could \"look for them nearby, or trust they'll be okay\"(orange).\"(light-gray, italic)
+| | \"Although I've \"not confirmed the engineers are alright\"(orange) yet - I could \"look nearby, or trust they'll be okay\"(orange).\"(light-gray, italic)
   
 ! eval (setf (location 'innis) (location 'innis-main-loc))
 ! eval (setf (direction 'innis) 1)
