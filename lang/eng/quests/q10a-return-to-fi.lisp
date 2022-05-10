@@ -138,13 +138,13 @@
   | (:unsure)Why do you ask?
 ~ player
 | I found mention of what sounded like a faction of androids, the \"Genera\", living in the mountains to the west.
-| I think it was a directive for their mechs, to destroy them too.
+| I think it was a directive for their mechs, to search for them.
 ~ jack
-| (:annoyed)Fuck me, the Wraw really have lost it if they wanna wipe out people who don't even exist.
+| (:annoyed)Fuck me, the Wraw really have lost it if they wanna find people who don't even exist.
 ~ catherine
 | (:concerned)We don't know they don't exist. {(nametag player)}'s here, isn't she?
 ~ fi
-| Androids in the mountains is an age-old rumour.
+| Androids in the mountains is an old rumour.
 | But I don't think we can stake our future on it - the desert is impassable, not to mention the mountain terrain.
 ~ jack
 | (:annoyed)We're fucked. Pure and simple.
