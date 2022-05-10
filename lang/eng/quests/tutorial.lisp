@@ -32,7 +32,7 @@
   (:interact (catherine :now T)
    "
    ~ catherine
-| (:excited)Woah...
+| (:excited)Yes!
 | (:concerned)Uh, can you walk?")
   (:go-to (walk-start) :marker NIL)
   (:interact (catherine :now T)
