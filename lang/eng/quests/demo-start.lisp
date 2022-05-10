@@ -41,7 +41,7 @@
   (:interact (NIL :now T)
   "
 ~ player
-| ... __OUCH__. Not another rockslide...
+| ... __OUCH__. Not another rockslide.
 | (:thinking)\"There are \"voices up ahead\"(orange). I hope that's the \"Semi Sisters\"(red).\"(light-gray, italic)
 | (:normal)\"My friends back on the surface \"won't last much longer without water\"(orange).\"(light-gray, italic)
 | \"Hopefully the rumours about them being tech witches are false...\"(light-gray, italic)

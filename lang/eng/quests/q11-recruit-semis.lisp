@@ -77,7 +77,7 @@
 | (:unhappy)The Wraw are on our doorstep. Somehow they're running interference on our network.
 | We're deaf and blind.
 ~ innis
-| (:angry)... It's no' your call.
+| (:angry)It's no' your call.
 ~ islay
 | (:unhappy)Well why don't you ask our people? They see our cameras shutting down one by one, and our guns sat in storage.
 | Just what exactly is your plan, sister?
@@ -87,7 +87,7 @@
 | (:unhappy)I'm saying we need help. We need the Noka - and we need {(nametag player)}.
 ~ innis
 | (:angry)...
-| ... Alright. Say we ally with the Noka. Then what?
+| Alright. Say we ally with the Noka. Then what?
 ~ islay
 | We pool our resources - our weapons and people.
 | We don't know the Wraw's exact numbers and capabilities, but I can hazard a guess from the hunters we sent. And how many came back.
@@ -191,7 +191,7 @@
   | (:embarassed)\"She's right. Shit.\"(light-gray, italic)
   ~ innis
   | (:sly)I think she just checked her FFCS.
-  | (:angry)And you want us to trust you?...
+  | (:angry)And you want us to trust you?
 - (Trust Islay)
 ~ islay
 | I'll explain everything to Fi once we reach the surface. \"Meet us there when you have the components.\"(orange)
