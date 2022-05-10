@@ -130,6 +130,8 @@
 | ! eval (activate 'q5a-rescue-engineers)
 | ! eval (deactivate (find-task 'world 'task-world-engineers))
 | ! eval (deactivate (find-task 'world 'task-engineers-wall-listen))
+|?
+| ! eval (complete 'q5a-rescue-engineers)
 "))
 ;; ken = know (Scottish)
 ;; didnae = didn't (Scottish)

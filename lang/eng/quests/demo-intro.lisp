@@ -91,6 +91,8 @@
 | ! eval (activate 'demo-engineers)
 | ! eval (deactivate (find-task 'world 'task-world-engineers))
 | ! eval (deactivate (find-task 'world 'task-engineers-wall-listen))
+|?
+| ! eval (complete 'demo-engineers)
 
 # thank-you
 ~ islay
