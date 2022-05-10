@@ -10,6 +10,10 @@
   1 ((setf simple:pattern) (colored:color 1 0 0 0.5) :easing animation:cubic-in-out)
   2 ((setf simple:pattern) (colored:color 1 0 0 0.2) :easing animation:cubic-in-out))
 
+(animation:define-animation (chunk-in)
+  0.0 ((setf simple:pattern) (colored:color 1 1 1 0.0) :easing animation:cubic-in-out)
+  0.5 ((setf simple:pattern) (colored:color 1 1 1 0.75) :easing animation:cubic-in-out))
+
 (defmethod presentations:realize-renderable ((renderer presentations:renderer) (map map-element))
   (presentations:clear-shapes map)
   (let ((array (make-array 0 :adjustable T :fill-pointer T))
@@ -18,6 +22,7 @@
         (fac (alloy:to-px (alloy:un 1))))
     (setf (offset map) (v* (location player) fac))
     (labels ((add-shape (shape)
+               (setf (presentations:hidden-p shape) T)
                (vector-push-extend (cons (presentations:name shape) shape) array))
              (unit-marker (unit color)
                (let* ((target (ensure-location (closest-visible-target unit)))
@@ -44,9 +49,10 @@
                                          (+ gap (- (vy (location unit)) (vy (bsize unit))))
                                          (- (* 2 (vx (bsize unit))) (* 2 gap))
                                          (- (* 2 (vy (bsize unit))) (* 2 gap)))))
-               (add-shape (simple:rectangle renderer bounds :pattern (colored:color 1 1 1 0.75)
-                                                            :name (name unit)
-                                                            :z-index -10))
+               (let ((shape (simple:rectangle renderer bounds :pattern (colored:color 1 1 1 0.0)
+                                                              :name 'chunk
+                                                              :z-index -10)))
+                 (add-shape shape))
                (when (language-string (name unit) NIL)
                  (add-shape (simple:text renderer bounds
                                          (language-string (name unit))
@@ -57,12 +63,7 @@
                                          :halign :middle
                                          :valign :middle
                                          :z-index -9
-                                         :wrap T)))
-               (when (eql unit (chunk player))
-                 (add-shape (simple:rectangle renderer bounds :pattern colors:yellow
-                                                              :name (name unit)
-                                                              :line-width (alloy:un 4)
-                                                              :z-index -10))))))
+                                         :wrap T))))))
           (npc
            (when (or (and (eql :lead (ai-state unit))
                           (visible-on-map-p (chunk unit)))
@@ -239,7 +240,8 @@
                                        (1.0 #.(colored:color 0.1 0.1 0.1 0.5))))))
 
 (defclass map-panel (pausing-panel fullscreen-panel)
-  ((show-trace :initform NIL :accessor show-trace)))
+  ((show-trace :initform NIL :accessor show-trace)
+   (clock :initform 0.2 :accessor clock)))
 
 (defmethod initialize-instance :after ((panel map-panel) &key)
   (clear-retained)
@@ -293,6 +295,17 @@
                            (unless (= 0.0 x y)
                              (update-player-tick panel (alloy:to-un x) (alloy:to-un y))))))
                      (return))))))
+    (when (< (clock panel) 5.0)
+      (loop for (name . shape) across (presentations:shapes map)
+            do (when (and (not (eql name 'trace)) (presentations:hidden-p shape))
+                 (let ((distance (sqrt (vdistance (offset map) (vec (+ (alloy:unit-value (alloy:x (simple:bounds shape)))
+                                                                       (/ (alloy:unit-value (alloy:w (simple:bounds shape))) 2))
+                                                                    (+ (alloy:unit-value (alloy:y (simple:bounds shape)))
+                                                                       (/ (alloy:unit-value (alloy:h (simple:bounds shape))) 2)))))))
+                   (when (< distance (* 100.0 (clock panel)))
+                     (setf (presentations:hidden-p shape) NIL)
+                     (when (eql 'chunk name) (animation:apply-animation 'chunk-in shape))))))
+      (incf (clock panel) (dt ev)))
     (when (retained 'pan-left)
       (incf (vx (offset map)) (- speed)))
     (when (retained 'pan-right)
