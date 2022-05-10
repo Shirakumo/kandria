@@ -300,7 +300,7 @@
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
 | (:concerned)Oh, and we'd need a working computer, which no one's had since before I was born.
-| (:disappointed)Anyway, even if we had all that, don't you think you should ask HER if taking her apart is okay?
+| (:disappointed)But even if we had all that, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
 | I'm sorry... Stranger, wasn't it?
