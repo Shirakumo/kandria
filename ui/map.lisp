@@ -3,7 +3,7 @@
 (defclass map-element (alloy:renderable alloy:focus-element alloy:layout-element)
   ((offset :initform (vec 0 0) :accessor offset)
    (state :initform NIL :accessor state)
-   (zoom :initform 0.15 :accessor zoom)))
+   (zoom :initform 0.125 :accessor zoom)))
 
 (animation:define-animation (pulse-marker :loop T)
   0 ((setf simple:pattern) (colored:color 1 0 0 0.2) :easing animation:cubic-in-out)
