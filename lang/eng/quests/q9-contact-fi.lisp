@@ -11,7 +11,7 @@
    :title "Leave the Cerebat trader then call Fi"
    :invariant T
    :condition all-complete
-   :on-complete (q10-wraw)
+   :on-complete (q10-wraw q10-boss)
 
    (:interaction fi-ffcs-cerebat
     :interactable fi
