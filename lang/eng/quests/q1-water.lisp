@@ -299,7 +299,7 @@
 | (:unsure)Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
-| (:concerned)Oh, and we'd need a working computer, which no one's had since before I was born.
+| (:concerned)Oh, and we'd need a working computer, which no one's seen since before I was born.
 | (:disappointed)But even if we had all that, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
