@@ -5,19 +5,19 @@
 ;; TODO fix it so that running away (thus despawning the boss when chunk deletes) doesn't complete the fight - assuming we go with the leash solution and not the enclosed arena
 (define-sequence-quest (kandria q15-boss)
   :author "Tim White"
-  :title "Destroy the Bomb Defusal Mech"
-  :description "Islay believes a Wraw mech is defusing the bombs. I must destroy it."
+  :title "Destroy the Bomb Defusal Mechs"
+  :description "Islay thinks Wraw mechs are defusing the bombs. I must destroy them."
   (:go-to (q15-boss-loc)
-    :title "Defeat the bomb defusal mech in the Zenith Hub")
+    :title "Defeat the bomb defusal mechs in the Zenith Hub")
   (:eval 
    (stop-following 'catherine)
    (move-to 'catherine-boss (unit 'catherine)))
   (:complete (q15-boss-fight)
-   :title "Defeat the bomb defusal mech in the Zenith Hub"
+   :title "Defeat the bomb defusal mechs in the Zenith Hub"
    "~ player
 | Stay back Catherine.
 ~ catherine
-| Smash it!
+| Smash 'em!
   ")
   (:wait 1)
   (:eval
@@ -34,10 +34,10 @@
   | I could tell.
 - That was a harder fight than I expected.
   ~ catherine
-  | Well it's all over now. (:concerned)Assuming there's only one of them...
+  | Well it's all over now. (:concerned)Assuming there aren't any more.
 - When this is all over I'm taking a vacation.
   ~ catherine
-  | (:excited)Me too! Somewhere without any sand or killer robots.
+  | (:excited)Me too! Somewhere without sand or killer robots.
 ~ catherine
 | Alright, let's \"get to that mushroom cave to the west\"(orange) and \"see about that bomb\"(orange).
 ! eval (follow 'player 'catherine)

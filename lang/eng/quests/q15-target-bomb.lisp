@@ -22,21 +22,21 @@
 ~ islay
 | {(nametag player)}, the bomb at the pump room is rewired.
 | (:unhappy)I'm soaking wet and freezing, but it's rewired and back underwater.
-| (:normal)How'd you get on with the mech? Over.
+| (:normal)How'd you get on with the mechs? Over.
 ~ player
-- It's no longer a threat. Over.
+- They're no longer a threat. Over.
   ~ islay
   | Good.
-- I kicked its ass. Over.
+- I kicked their asses. Over.
   ~ islay
   | Good.
-- It's in pieces. Hopefully there aren't any more. Over.
+- They're in pieces. Hopefully there aren't any more. Over.
   ~ islay
   | I've not seen any.
 ~ islay
 | You head for the mushroom cave. I'm heading for the-
 ~ player
-| \"Something cut her off. And what's that sound?\"(light-gray, italic)
+| \"Something cut her off. What's that sound?\"(light-gray, italic)
 ~ player
 - Islay?
 - Is that an earthquake?
