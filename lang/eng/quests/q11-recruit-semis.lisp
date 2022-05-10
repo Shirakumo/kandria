@@ -21,7 +21,7 @@
     :repeatable T
     :dialogue "
 ~ fi
-| \"Go and see the Semi Sisters, and convince them to stand with us.\"(orange)
+| \"Go and see the Semi Sisters, and convince them to join us.\"(orange)
 | (:unsure)As for me, I'm hoping Sahil is still around here somewhere.
 "))
 
@@ -74,7 +74,7 @@
 ~ innis
 | (:angry)...
 ~ islay
-| (:unhappy)The Wraw are on our doorstep. Somehow they're running interference on our systems.
+| (:unhappy)The Wraw are on our doorstep. Somehow they're running interference on our network.
 | We're deaf and blind.
 ~ innis
 | (:angry)... It's no' your call.
@@ -90,7 +90,7 @@
 | ... Alright. Say we ally with the Noka. Then what?
 ~ islay
 | We pool our resources - our weapons and people.
-| We don't know the Wraw's exact numbers and capabilities - but I can hazard a guess from the hunters we sent and how many came back.
+| We don't know the Wraw's exact numbers and capabilities, but I can hazard a guess from the hunters we sent. And how many came back.
 ~ player
 | I've seen their mechs and supplies too - they're considerable.
 ~ islay
@@ -115,7 +115,6 @@
 ~ innis
 | (:sly)Send the android while we evacuate.
 ~ islay
-| (:nervous)...
 | (:normal)Aye, that might work. You'd need to go behind enemy lines.
 | \"The Wraw hoard this kind of stuff\"(orange) - they should have plenty lying around.
 | (:normal)We need \"blasting caps\"(orange) for the detonators, and \"charge packs\"(orange) for the explosive.
@@ -177,14 +176,14 @@
 ~ innis
 | (:angry)Or they'll derail the trains.
 ~ islay
-| Let's hope it doesn't come to that. Be careful.
+| (:nervous)Let's hope they don't.
 ~ player
 | I'll update Fi, then be on my way.
 ~ innis
 | (:sly)That's right, you be a good dog.
 ~ islay
 | (:unhappy)Innis!
-| (:nervous)... You can't tell Fi - whatever the Wraw are doing to mess with our systems, it affects your FFCS too.
+| (:nervous)... You can't tell Fi - whatever the Wraw are doing to mess with our network, it affects your FFCS too.
 ~ player
 - (Check FFCS)
   ~ player

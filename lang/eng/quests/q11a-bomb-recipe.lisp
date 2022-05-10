@@ -25,12 +25,12 @@
 "))
 
   (task-blasting
-   :title "Deliver 10 blasting caps in total"
+   :title "Collect 10 blasting caps in total"
    :condition (complete-p 'task-deliveries)
    :on-complete NIL)
 
   (task-charge
-   :title "Deliver 20 charge packs in total"
+   :title "Collect 20 charge packs in total"
    :condition (complete-p 'task-deliveries)
    :on-complete NIL)
 

@@ -21,7 +21,7 @@
 | Innis was right about the Cerebat takeover. And if the Wraw have marched that far, then the Semi Sisters are next.
 | (:annoyed)Now is no time for division - the Wraw are a threat to them as much as they are to us.
 | (:normal)I think you've come to earn \"Innis' trust\"(orange).
-| I want you to use whatever sway you have with her and \"ask her to stand with us\"(orange).
+| I want you to use whatever sway you have with her and \"ask her to join us\"(orange).
 ~ player
 - Got it.
 - I wouldn't get your hopes up.
@@ -35,7 +35,7 @@
 | Just make sure you get to them first.
 | I'm going to see Sahil. \"Call me when you have news.\"(orange)
 ~ player
-| \"Fi looks like she wants to say something else, but then the moment passes.\"(light-gray, italic)
+| \"Fi looks like she wants to say something else, but I think the moment has passed.\"(light-gray, italic)
 - Are you okay?
   ~ fi
   | (:happy)I'm fine. Be safe.
@@ -57,6 +57,10 @@
 ! eval (setf (direction 'trader) 1)
 ! eval (setf (walk 'fi) T)
 ! eval (move-to 'loc-trader (unit 'fi))
+! eval (setf (location 'innis) (location 'innis-org-loc))
+! eval (setf (direction 'innis) -1)
+! eval (setf (location 'islay) (location 'islay-org-loc))
+! eval (setf (direction 'islay) -1)
 ? (not (complete-p 'trader-arrive))
 | ! eval (activate 'trader-chat)
 | ! eval (activate 'trader-shop)
