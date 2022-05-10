@@ -75,13 +75,13 @@
 ~ player
 | \"This mech was built from drills and turbines. They all were, these power suits too.\"(light-gray, italic)
 | \"This one has an interface port, which could forcibly extract data from an android.\"(light-gray, italic)
-| (:thinking)\"Perhaps I can verify what this mech's purpose is...\"(light-gray, italic)
+| (:thinking)\"Perhaps I can verify what this mech's purpose is.\"(light-gray, italic)
 | (:normal)\"Just gotta stick my finger in here...\"(light-gray, italic) (:giggle)\"Pardon me.\"(light-gray, italic)
-| (:normal)\"Yep, designed to subdue an android.\"(light-gray, italic)
+| (:normal)\"Yep, designed to subdue an android alright.\"(light-gray, italic)
 | (:thinking)\"Make that\"(light-gray, italic)  \"androids\"(light-gray)\", judging from these weapon configurations.\"(light-gray, italic)
 | (:normal)\"Hang on, what's this?\"(light-gray, italic)
 | \"\"... Neutralise additional android targets: \"Genera\"(red) in the \"western mountains\"(red). Targets unknown.\"(light-gray, italic)\"
-| (:thinking)\"... A faction of androids? In the mountains?\"(light-gray, italic)
+| (:thinking)\"... A faction of androids, in the mountains?\"(light-gray, italic)
 | \"I'm not alone?\"(light-gray, italic)
 ? (complete-p 'wraw-warehouse)
 | | (:embarassed)\"Given the raw materials I saw in the warehouse, their manufacturing ambitions are __HUGE__.\"(light-gray, italic)
