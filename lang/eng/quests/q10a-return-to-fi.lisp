@@ -33,7 +33,7 @@
 | \"I've crossed the Cerebat border. I should be able to call Fi now.\"(light-gray, italic)
 | Fi...
 | Fi...?
-| (:thinking)\"... Dammit. FFCS still can't punch through. I think the \"Wraw are definitely on the move\"(orange).\"(light-gray, italic)
+| (:thinking)\"... Dammit. \"FFCS still can't punch through\"(orange). I think the \"Wraw are definitely on the move\"(orange).\"(light-gray, italic)
 | (:normal)\"I need to get \"back to the surface\"(orange). NOW.\"(light-gray, italic)")
 
    (:interaction station-trigger
@@ -43,7 +43,7 @@
 | \"I'm out of Wraw territory. I should be able to call Fi now.\"(light-gray, italic)
 | Fi...
 | Fi...?
-| (:thinking)\"... Dammit. FFCS still can't punch through. I think the \"Wraw are definitely on the move\"(orange).\"(light-gray, italic)
+| (:thinking)\"... Dammit. \"FFCS still can't punch through\"(orange). I think the \"Wraw are definitely on the move\"(orange).\"(light-gray, italic)
 | (:normal)\"I need to get \"back to the surface\"(orange). NOW.\"(light-gray, italic)")
 
    (:interaction station-surface-trigger
@@ -74,8 +74,7 @@
       (setf (location 'catherine) (location 'islay-wraw))
       (setf (direction 'catherine) 1)
       (setf (location 'fi) (location 'wraw-leader))
-      (setf (direction 'fi) -1)
-      (complete task)))
+      (setf (direction 'fi) -1)))
       
 
 
