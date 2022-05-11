@@ -199,8 +199,8 @@
   ")
   (:wait 2)
   (:eval
-    (setf (animation (unit 'main-leak-3)) 'normal))
-  (move-to 'player 'catherine)
+    (setf (animation (unit 'main-leak-3)) 'normal)
+    (move-to 'player 'catherine))
   (:interact (catherine :now T)
    :title "Talk to Catherine in the pump room"
   "~ catherine
