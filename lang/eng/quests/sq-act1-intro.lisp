@@ -44,7 +44,7 @@
 ? (or (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) (and (not (active-p 'sq3-race))))
 | | [? You are strangely perceptive... (:excited)Man I'd love to understand how your core works. | (:excited)I'm glad you asked! | (:excited)You sure can! | (:excited)I was hoping you'd ask that!]
 | ? (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks)))
-| | | (:normal)The water supply is leaking again, so you could help with that.
+| | | (:normal)The water is leaking again, so you could help with that.
 | |? (not (complete-p 'sq1-leaks))
 | | | (:normal)You know about \"fixing the new leaks\"(orange) - just \"follow the red pipeline\"(orange) down like we did before.
 | |?
@@ -89,21 +89,20 @@
 | ~ player
 | - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (Fix the leaks)|]
 |   ~ catherine
-|   | (:excited)Great! Hopefully the saboteurs aren't back - but you know what to do if they are.
-|   | (:normal)Just \"follow the red pipeline\"(orange) down like we did before.
+|   | (:excited)Great! I've secured the pump now, so I'm pretty sure it's just a few leaks. Hopefully the saboteurs aren't back.
 |   | Androids can weld from their fingertips, right?
 |   ~ player
 |   - I can do that?
 |     ~ catherine
 |     | I'm pretty sure you can. Try it out.
 |     ~ player
-|     | \"I'm not certain how, but when I think about it, a small welding torch ignites from the index finger on my right hand.\"(light-gray, italic)
-|     | \"I keep the intensity low, so as not to blind us.\"(light-gray, italic)
+|     | \"She's right. I thought about it, and now a small welding torch is glowing from the index finger on my right hand.\"(light-gray, italic)
+|     | \"Better keep the intensity low, so as not to blind us.\"(light-gray, italic)
 |     ~ catherine
 |     | (:excited)See!
 |     ~ player
 |     - Cool!
-|     - I guess I forgot I could do that.
+|     - I forgot I could do that.
 |       ~ catherine
 |       | Don't worry.
 |     - Need a light?
@@ -113,20 +112,21 @@
 |     ~ catherine
 |     | (:excited)Can I see?
 |     ~ player
-|     | \"I ignite the small welding torch from the index finger on my right hand.\"(light-gray, italic)
-|     | \"I keep the intensity low, so as not to blind us.\"(light-gray, italic)
+|     | \"She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here.\"(light-gray, italic)
+|     | \"Better keep the intensity low, so as not to blind us.\"(light-gray, italic)
 |     ~ catherine
 |     | (:excited)That's so cool!
-|   - And where did you hear that?
+|   - Where did you hear that?
 |     ~ catherine
-|     | It's just one of those things I know about androids. (:excited)Why? Is it a big secret?
+|     | It's just one of those things I know about androids. (:excited)Why, is it a big secret?
 |     | Let me see!
 |     ~ player
-|     | \"I ignite the small welding torch from the index finger on my right hand.\"(light-gray, italic)
-|     | \"I keep the intensity low, so as not to blind us.\"(light-gray, italic)
+|     | \"She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here.\"(light-gray, italic)
+|     | \"Better keep the intensity low, so as not to blind us.\"(light-gray, italic)
 |     ~ catherine
 |     | (:excited)That's so cool!
 |   | (:normal)Okay, I think you're good to go.
+|   | (:normal)Just \"follow the red pipeline\"(orange) down like we did before.
 |   | Based on the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range.
 |   | You want to take a walkie, or just use your FFCS? - It will work with our radios.
 |   ~ player

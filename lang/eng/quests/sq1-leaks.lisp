@@ -234,15 +234,55 @@
 |   ~ catherine
 |   | Oh, that bad huh?
 | - It sufficed.
-|  
+|?
+| ~ catherine
+| | Um, where's the walkie-talkie?
+| ~ player
+| - I sold it.
+    ~ catherine
+|   | (:concerned)Oh, I see.
+|   | (:normal)Points for resourcefulness, I guess.
+|   | (:concerned)We do have a few spares - though it was valuable, in parts as well as usefulness.
+|   < payback
+| - (Lie) I lost it.
+|   ~ catherine
+|   | Oh, don't worry. These things happen. We've got a couple of spares, it's okay.
+| - Oh, you needed that back?
+|   ~ catherine
+|   | Ah, don't worry about it. We've got a couple of spares.
+|   < payback
+  
+! label end
 ~ catherine
 | Well, you can definitely scratch water leaks off your bucket list, right?
+| See you, {(nametag player)}!
+
+# payback
+~ player
+- I'll pay you back.
+  ~ catherine
+  | Don't worry, it's fine. You'll need all the parts you can get out there, anyway.
+  ~ player
+  - Okay, thanks.
+  - Please, I insist.
+    ~ catherine
+    | Alright, but only because it will make you feel better.
+    | I don't know what you got for it, and it doesn't matter really. Call it the parts I just gave you, if you like: 150.
+    ~ player
+    - Agreed.
+      ~ catherine
+      | Cool. Thank you.
+      ! eval (retrieve 'item:parts 150)
+    - That's more than I was expecting.
+      ~ catherine
+      | (:concerned)Oh. Well in that case, forget it, it's fine.
+- I'll go and get it back.
+  ~ catherine
+  | Don't worry, it's fine. You'll need all the parts you can get out there, anyway.
+- I'm sorry.
+  ~ catherine
+  | Don't worry, it's fine. You'll need all the parts you can get out there, anyway.
+< end
 ")))
 
-;; TODO if don't have the walkie, but you took it (so you've sold it to Sahil), should she say something? Or just not comment or forget? Doing so would get you into hot water about lying, etc. which we might not want in act 1 (we removed similar things from the seed quest). If we did it, would need to set a var during any of the leaks tasks, based on whether you have the walkie or not; can't set on first receiving the walkie, as it's in another quest (act 1 hub), unless used a global var...
-#|
-TODO is it okay that Catherine breaks off convo here, and to access more sidequests you need to click on here again? What if on returning to her, you want to discuss another quest before handing this one in? Or you have multiple to hand in?
-should be able to choose which ones you want to hand in and in what order? but the necessary var checks to accomodate those options would mean all these sidequests need housing under a single quest folder, and all their tasks list would overlap
-- could use var checks? though they only check hierarchical, not between tasks?
-Also means that sq return dialogues cannot be repeatable - having to fire once only, to then allow user to get back to sq hub
-|#
+;; during quest, if not using walkie, she just assumes you decided not to use it after all, and use your FFCS instead
