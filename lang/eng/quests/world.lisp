@@ -116,7 +116,7 @@
    :repeatable T
    "
 ~ player
-? (or (complete-p 'q0-settlement-arrive) (active-p 'demo-start) (complete-p 'demo-start))
+? (or (complete-p 'q0-find-jack) (active-p 'demo-start) (complete-p 'demo-start))
 | | \"Engineering. This is where Jack and Catherine work.\"(light-gray, italic)
 |?
 | | \"It's some sort of workshop. The technology is crude - what do they build here, tin openers?\"(light-gray, italic)
@@ -130,10 +130,10 @@
    :repeatable T
    "
 ~ player
-? (or (complete-p 'q0-settlement-arrive) (active-p 'demo-start) (complete-p 'demo-start))
+? (or (complete-p 'q0-find-jack) (active-p 'demo-start) (complete-p 'demo-start))
 | | \"Jack's workbench. I can smell body odour - does he work here, or work out?\"(light-gray, italic)
 |?
-| | \"It's a workbench. Perhaps it belongs to this man - who come to think of it has a stare that could fry circuits.\"(light-gray, italic)
+| | \"It's a workbench. Perhaps it belongs to this man - who come to think of it looks like he wants to kill me.\"(light-gray, italic)
 ")
 
   ;; a sandstorm blocks the player from crossing further into the desert to the west
@@ -287,7 +287,7 @@
    "
 ~ player
 | \"The old gasworks exploded. Was I something to do with that?\"(light-gray, italic)
-? (complete-p 'q0-settlement-arrive)
+? (complete-p 'q0-find-jack)
 | | \"It's a pity: the gas holders could have been repurposed as grain silos.\"(light-gray, italic)
 ")
 
