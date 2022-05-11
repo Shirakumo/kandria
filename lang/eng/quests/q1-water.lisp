@@ -135,9 +135,9 @@
 | \"Let's get down to the pump room.\"(orange)
   ")
   (:go-to (leak-3-standoff :lead catherine)
-   :title "Follow Catherine to the pump room, deeper underground"
-  )
-  (:interact (catherine :now T)   
+   :title "Follow Catherine to the pump room, deeper underground")
+  (:eval (override-music 'battle))
+  (:interact (catherine :now T)
   "~ catherine
 | What the hell?!- Servos? Here?
 ~ player
@@ -154,7 +154,9 @@
    "~ catherine
 | Smash 'em!
   ")  
-  (:eval (move-to 'main-leak-3 'catherine))
+  (:eval
+    (move-to 'main-leak-3 'catherine)
+    (override-music NIL))
   (:nearby (main-leak-3 catherine))
   (:interact (catherine :now T)
    "~ catherine
@@ -179,14 +181,14 @@
 ~ player
 - Hi.
   ~ jack
-  | (:shocked)... You?! Where's Cathy?
+  | (:shocked)... You! Where's Cathy?
 - It's not Catherine.
   ~ jack
-  | (:shocked)... You?! Where's Cathy?
+  | (:shocked)... You! Where's Cathy?
 - It's Stranger.
   ~ jack
   | (:annoyed)Who's Stranger?
-  | (:shocked)... This is the android, isn't it? Where's Cathy?!
+  | (:shocked)... This is the android, isn't it. Where's Cathy?!
 ~ player
 | She's fixing the pump. It was sabotaged by servo robots.
 ~ jack
@@ -204,7 +206,7 @@
   (:interact (catherine :now T)
    :title "Talk to Catherine in the pump room"
   "~ catherine
-| I jury-rigged the pump. Should be okay for a while - though it'll need a more permanent fix later.
+| I jury-rigged the pump. Should be okay for a while - but it'll need a more permanent fix later.
 | What did Jack say?
 ~ player
 - He wants us to go back - Fi's on the warpath.
@@ -212,16 +214,16 @@
   ~ catherine
   | But what?
   ~ player
-  | But you should go back ASAP, and I should be there - Fi's on the warpath.
+  | But you should go back ASAP, and I should be there too - Fi's on the warpath.
 - He wasn't happy to hear me.
   ~ catherine
   | (:concerned)I can believe it. (:normal)Did he say anything else?
   ~ player
-  | That you should go back ASAP, and I should be there - Fi's on the warpath.
+  | That you should go back ASAP, and I should be there too - Fi's on the warpath.
 ~ catherine
 | (:concerned)Well that doesn't sound good.
 | (:normal)Seems we'll have to wait a little longer for that welcome home we deserve.
-| Why don't \"you lead the way\"(orange)? See if you managed to get your bearings.
+| Why don't \"you lead the way\"(orange)? See if you got your bearings.
 ~ player
 - Sure thing.
   ~ catherine
@@ -242,11 +244,6 @@
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
    (fullscreen-prompt 'open-map))
-  ;; TODO catherine confused - What does that mean?...
-  #|
-  ! eval (setf (location 'catherine) 'catherine-group) ;
-  ! eval (move-to 'catherine-group (unit 'catherine)) ;
-  |#
   (:go-to (shutter-1 :follow catherine)
    :title "Return to camp with Catherine and find Jack and Fi"
    "~ catherine
@@ -313,7 +310,7 @@
   | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
   | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
-| (:annoyed)Jesus, Fi... you're just gonna take that at face value?
+| (:annoyed)Jesus, Fi... you're just gonna accept that?
 ~ fi
 | What choice do I have?
 ~ jack
@@ -372,15 +369,7 @@
 ! eval (move-to 'fi-farm (unit 'fi))
 ! eval (move-to 'eng-jack (unit 'jack))
   ")
-  ;; TODO set Catherine facing direction on move-to arrival once got code support; else consider restoring to below, once they don't glitch out and cause Catherine to run to the ruins:
-  ;; ! eval (setf (location 'catherine) 'catherine-group)
-  ;; ! eval (setf (direction (unit 'catherine)) -1)
   ;; sayonara = goodbye (Japanese)
-  ;; TODO catherine pleading - But no, it's not that. She was offline for decades - there's no way she could have done that.
-  ;; and others
-
-  ;; REMARK The finding a computer idea has been abandoned, so this uncertainty about the android's motives will hang over the player for the rest of the game. Perhaps the android faction ending hints at this finally being resolved, since they could scan the android - but by that point, the android's friends trust her (even Jack?), so I don't think they'll even need that confirmation.
-
 
   (:interact (catherine)
    :title "Talk to Catherine at the camp"
