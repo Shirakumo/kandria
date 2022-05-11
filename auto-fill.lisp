@@ -61,6 +61,10 @@
      s _ _
      _ s s
      _ s o)
+    (:bg-i
+     _ x _
+     x s x
+     _ x _)
     (:bg-t
      _ o _
      _ s _
@@ -76,11 +80,7 @@
     (:bg-r
      _ _ _
      s s o
-     _ _ _)
-    (:bg-i
-     _ s _
-     s s s
-     _ s _)))
+     _ _ _)))
 
 (defparameter *tile-filters*
   '((:platform-l
@@ -368,6 +368,7 @@
                                   for tile = (tile (+ x dx) (+ y dy))
                                   always (ecase v
                                            (s (and tile (< 0 tile)))
+                                           (x (or (null tile) (< 0 tile)))
                                            (o (or (null tile) (= 0 tile)))
                                            (_ T)))
                         (return type)))))
