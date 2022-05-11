@@ -117,12 +117,12 @@
    "
 ~ catherine
 | (:concerned)Look out!
-| (:normal)Keep it busy while I finish up here.
   ")
   (:eval
    :condition (not (find-panel 'fullscreen-prompt))
    (setf (animation (unit 'main-leak-2)) 'normal)
-   (move-to 'player 'catherine))
+   (move-to 'player 'catherine)
+   (activate (unit 'q1-fight2)))
   (:wait 1)
   (:eval
    (fullscreen-prompt 'quickmenu))
@@ -130,7 +130,7 @@
    :title "Return to Catherine at the leak")
   (:interact (catherine :now T)
    "~ catherine
-| Jeez, I'm glad you came along. You're a lot more than just a flashlight.
+| Jeez, I'm glad you came along.
 | I've done the weld - good as new.
 | \"Let's get down to the pump room.\"(orange)
   ")
@@ -144,60 +144,84 @@
 - I think we found the saboteurs.
   ~ catherine
   | \"Do your thing!\"(orange)
-- I assume you don't mean a servomechanism?
+- Robots with servomechanisms?
   ~ catherine
   | No time to explain! \"Do your thing!\"(orange)
+- (Fight)
   ")
-   ;; TODO catherine shocked - What the hell?!- Servos? Here?
-   ;; plus all sub choices
   (:complete (q1-fight2)
-   :title "Defeat the servos"
+   :title "Defeat the servo robots"
    "~ catherine
 | Smash 'em!
-  ")
-  ;; TODO: spawn spare parts for the player to collect (barter currency) - would need to integrate with the zombies' death scripts?
-  ;; TODO catherine shocked - What have they done?
+  ")  
   (:eval (move-to 'main-leak-3 'catherine))
   (:nearby (main-leak-3 catherine))
   (:interact (catherine :now T)
    "~ catherine
 | (:disappointed)What have they done?...
-| (:normal)Oh man, we got here just in time. They were dismantling the turbine.
-| Give me a second.
-! eval (setf (animation (unit 'main-leak-3)) 'normal)
-| There, that should hold it.
-| Now, \"where is that telephone\"(orange)?
+| (:concerned)Oh man, we got here just in time. They were dismantling the turbine.
+| (:normal)I need to fix this. The \"telephone's just over there - call Jack and tell him what happened\"(orange).
+~ player
+- Okay.
+- Do I have to talk to that guy?
+  ~ catherine
+  | (:concerned)This is important. Please.
+- Can I use my FFCS instead?
+  ~ catherine
+  | Your comms system? I don't doubt that would work, but it would definitely freak Jack out.
+  | Use the telephone for now.
   ")
-  ;; TODO Catherine relieved - Oh man, we got here just in time.
-  (:go-to (q1-phone :lead catherine)
-   :title "Follow Catherine to the telephone in the pump room")
-  (:interact (catherine :now T)
-   "~ catherine
-| Jack, it's me.
-~ jack
+  (:go-to (q1-phone)
+   :title "Use the telephone in the pump room to call Jack")
+  (:interact (jack :now T)
+  "~ jack
 | Thank Christ. Good work, Cathy - the water's back on.
-~ catherine
-| (:disappointed)We found the saboteurs - servo robots from God knows where.
+~ player
+- Hi.
+  ~ jack
+  | (:shocked)... You?! Where's Cathy?
+- It's not Catherine.
+  ~ jack
+  | (:shocked)... You?! Where's Cathy?
+- It's Stranger.
+  ~ jack
+  | (:annoyed)Who's Stranger?
+  | (:shocked)... This is the android, isn't it? Where's Cathy?!
+~ player
+| She's fixing the pump. It was sabotaged by servo robots.
 ~ jack
 | (:annoyed)Those motherfuckers.
-~ catherine
-| Stranger dealt with them though.
 ~ jack
-| (:annoyed)Did they?...
-| Look, Cathy, get your ass back here on the double.
-| And bring the android - Fi's on the warpath.
-~ catherine
-| (:concerned)What does that mean?
-| Jack?... He hung up.
-| Well whatever it is it doesn't sound good.
-| Seems we'll have to wait a little longer for that welcome home we deserve.
-| (:normal)I need to think what to do next. \"Come back\"(orange) in a minute.
+| Look, \"tell Cathy to get her ass back here\"(orange) on the double.
+| And you need to come too, android - \"Fi's\"(yellow) on the warpath.
+~ player
+| \"He hung up.\"(light-gray, italic)
   ")
-  (:interact (catherine)
+  (:wait 2)
+  (:eval
+    (setf (animation (unit 'main-leak-3)) 'normal))
+  (move-to 'player 'catherine)
+  (:interact (catherine :now T)
    :title "Talk to Catherine in the pump room"
   "~ catherine
-| Okay, I think we should head back, see what's going on.
-| Why don't you lead the way? See if you managed to get your bearings.
+| I jury-rigged the pump. Should be okay for a while - though it'll need a more permanent fix later.
+| What did Jack say?
+~ player
+- He wants us to go back - Fi's on the warpath.
+- He said well done, but...
+  ~ catherine
+  | But what?
+  ~ player
+  | But you should go back ASAP, and I should be there - Fi's on the warpath.
+- He wasn't happy to hear me.
+  ~ catherine
+  | (:concerned)I can believe it. (:normal)Did he say anything else?
+  ~ player
+  | That you should go back ASAP, and I should be there - Fi's on the warpath.
+~ catherine
+| (:concerned)Well that doesn't sound good.
+| (:normal)Seems we'll have to wait a little longer for that welcome home we deserve.
+| Why don't \"you lead the way\"(orange)? See if you managed to get your bearings.
 ~ player
 - Sure thing.
   ~ catherine
@@ -205,10 +229,9 @@
 - I didn't get my bearings.
   ~ catherine
   | Oh... I'm sure you'll figure it out though. It's important that you do.
-- Jack mentioned Fi - who's that?
+- Who's Fi?
   ~ catherine
-  | She's our leader. You'll see for yourself soon enough.
-  | She'll be glad to meet you, I'm sure of it.
+  | She's our leader. She'll be glad to meet you, I'm sure of it.
 ~ catherine
 | Let's \"get back to camp\"(orange), find out what's happening.
 ! eval (setf (location 'fi) (location 'shutter-2))
@@ -338,7 +361,7 @@
 | Which means they're close to discovering our location.
 | (:normal)I must consider our next course of action.
 ~ catherine
-| Well if there's nothing else, I'll see you both later.
+| If there's nothing else, I'll see you both later.
 | Hey Stranger, wait here - \"I want to talk\"(orange).
 ~ fi
 | Sayonara Catherine, Stranger.
@@ -371,8 +394,8 @@
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a __big__ __friendly__ __badass__ who can protect us!
 | (:normal)Well, I've got work to do.
 | Couldn't hurt to check in with Fi. I'm sure there's something you could help her with, to show her you can be trusted.
-| Knowing Jack he'll have something for you too - if only a mouthful of abuse.
-| But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
+| Knowing Jack he'll have something for you too - (:concerned)if only a mouthful of abuse.
+| (:normal)But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
 | (:excited)Take a \"look around and explore\"(orange)! (:normal)Though it's probably best not to go too far from the camp.
 | Seeya later, Stranger!")
   (:eval
