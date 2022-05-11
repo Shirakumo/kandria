@@ -39,7 +39,7 @@
     :dialogue "
 ~ player
 | \"It's \"leak 1\"(red).\"(light-gray, italic)
-| \"There's a hole in the pipe - probably caused by duress where it bends around this corner.\"(light-gray, italic)
+| \"There's a hole in the pipe - probably caused by duress from where it bends around this corner.\"(light-gray, italic)
 ? (not (var 'first-leak))
 | | \"I ignite the torch from my index finger.\"(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)\"This time I enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"Once again I enable the UV filters on my cameras.\"(light-gray, italic)]
@@ -224,7 +224,7 @@
 | (:cheer)The water pressure is back! I knew you could do it.
 | (:normal)Here, \"take these parts\"(orange) - you've earned them.
 ! eval (store 'item:parts 150)
-? (have 'item:walkie-talkie)
+? (and (var 'take-walkie) (have 'item:walkie-talkie))
 | | I'll take the walkie back for now in case someone else needs it.
 | ! eval (retrieve 'item:walkie-talkie 1)
 | | Bet it was weird using such archaic technology.
@@ -234,12 +234,12 @@
 |   ~ catherine
 |   | Oh, that bad huh?
 | - It sufficed.
-|?
+|? (and (var 'take-walkie) (not (have 'item:walkie-talkie)))
 | ~ catherine
 | | Um, where's the walkie-talkie?
 | ~ player
 | - I sold it.
-    ~ catherine
+|   ~ catherine
 |   | (:concerned)Oh, I see.
 |   | (:normal)Points for resourcefulness, I guess.
 |   | (:concerned)We do have a few spares - though it was valuable, in parts as well as usefulness.
@@ -267,7 +267,7 @@
   - Please, I insist.
     ~ catherine
     | Alright, but only because it will make you feel better.
-    | I don't know what you got for it, and it doesn't matter really. Call it the parts I just gave you, if you like: 150.
+    | I don't know what you sold it for, and it doesn't matter really. Call it \"the parts I just gave you, if you like: 150\"(orange).
     ~ player
     - Agreed.
       ~ catherine

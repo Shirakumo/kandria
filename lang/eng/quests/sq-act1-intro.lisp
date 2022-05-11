@@ -44,13 +44,13 @@
 ? (or (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) (and (not (active-p 'sq3-race))))
 | | [? You are strangely perceptive... (:excited)Man I'd love to understand how your core works. | (:excited)I'm glad you asked! | (:excited)You sure can! | (:excited)I was hoping you'd ask that!]
 | ? (and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks)))
-| | | (:normal)The water is leaking again, so you could help with that.
+| | | (:normal)The water pressure is off again, so you could help with that.
 | |? (not (complete-p 'sq1-leaks))
 | | | (:normal)You know about \"fixing the new leaks\"(orange) - just \"follow the red pipeline\"(orange) down like we did before.
 | |?
-| | | (:normal)Well, there aren't any new leaks right now, so that's fine.
+| | | (:normal)Well, the water pressure is good, so that's alright.
 | ? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
-| | | (:normal)I was going to say we need some mushrooms, what with food stocks getting low.
+| | | (:normal)I was going to say we need some mushrooms, what with food stocks running out.
 | | | (:excited)But is it me, or are those \"mushrooms you're carrying\"(orange)?
 | | | (:excited)You're very proactive, Stranger, I like that! Let's see what you've got.
 | | ? (have 'item:mushroom-good-1)
@@ -75,7 +75,7 @@
 | | ? (not (complete-p 'sq2-mushrooms))
 | | | ! eval (complete 'sq2-mushrooms)
 | |? (and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms)))
-| | | (:normal)With food stocks getting low, Fi wants to forage for more mushrooms.
+| | | (:normal)With food stocks running out, Fi wants to forage for more mushrooms.
 | |? (not (complete-p 'sq2-mushrooms))
 | | | (:normal)You already know about \"gathering the mushrooms\"(orange) - search around, especially \"below ground\"(orange) where the soil is rich.
 | |?
@@ -87,7 +87,7 @@
 | | | (:excited)Remember, you can tell me later if you want to race in the time trials too.
 | ! label task-choice
 | ~ player
-| - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (Fix the leaks)|]
+| - [(and (not (active-p 'sq1-leaks)) (not (complete-p 'sq1-leaks))) (Help with the water)|]
 |   ~ catherine
 |   | (:excited)Great! I've secured the pump now, so I'm pretty sure it's just a few leaks. Hopefully the saboteurs aren't back.
 |   | Androids can weld from their fingertips, right?
@@ -96,8 +96,8 @@
 |     ~ catherine
 |     | I'm pretty sure you can. Try it out.
 |     ~ player
-|     | \"She's right. I thought about it, and now a small welding torch is glowing from the index finger on my right hand.\"(light-gray, italic)
-|     | \"Better keep the intensity low, so as not to blind us.\"(light-gray, italic)
+|     | (:giggle)\"She's right. I thought about it, and now a small welding torch is glowing from the index finger on my right hand.\"(light-gray, italic)
+|     | (:normal)\"Better keep the intensity low, so as not to blind us.\"(light-gray, italic)
 |     ~ catherine
 |     | (:excited)See!
 |     ~ player
@@ -127,13 +127,14 @@
 |     | (:excited)That's so cool!
 |   | (:normal)Okay, I think you're good to go.
 |   | (:normal)Just \"follow the red pipeline\"(orange) down like we did before.
-|   | Based on the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range.
-|   | You want to take a walkie, or just use your FFCS? - It will work with our radios.
+|   | Judging from the pressure drop, these leaks \"aren't too far away\"(orange), so you'll be within radio range.
+|   | You want to \"take a walkie, or just use your FFCS\"(orange)? - It will work with our radios.
 |   ~ player
 |   - I'll take a walkie.
 |     ~ catherine
 |     | You got it - take this one.
 |     ! eval (store 'item:walkie-talkie 1)
+|     ! eval (setf (var 'take-walkie) T)
 |   - My FFCS will suffice.
 |     ~ catherine
 |     | You got it.
