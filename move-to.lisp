@@ -824,11 +824,20 @@
 
 (defun closest-visible-target (target)
   (let* ((tloc (ensure-location target))
-         (chunk (find-chunk tloc)))
+         (region (region +world+))
+         (chunk (find-chunk tloc region)))
     (unless (visible-on-map-p chunk)
-      (let* ((path (shortest-path (location (unit 'player +world+)) tloc (constantly T)))
-             (door (loop for (node target) in path
-                         when (typep node 'door-node)
-                         do (return target))))
-        (when door (setf target door))))
+      (bvh:do-fitting (entity (bvh region) chunk)
+        (when (typep entity 'door)
+          (let ((other (find-chunk (target entity) region)))
+            (when (and other (visible-on-map-p other))
+              (setf target (target entity))
+              (return)))))
+      ;;;; The following is better but way too expensive if the player is far
+      ;; (let* ((path (shortest-path (location (unit 'player +world+)) tloc (constantly T)))
+      ;;        (door (loop for (node target) in path
+      ;;                    when (typep node 'door-node)
+      ;;                    do (return target))))
+      ;;   (when door (setf target door)))
+      )
     target))
