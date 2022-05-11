@@ -5,7 +5,6 @@
   :author "Tim White"
   :title ""
   :visible NIL
-  :variables (alex-done)
   :on-activate T
   (chat-semi
    :title NIL
@@ -22,36 +21,6 @@
 ! label talk
 ? (not (complete-p 'q7-my-name))
 | ~ player
-| - How's Alex?
-|   ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv) (not (var 'alex-done)))
-|   | ~ alex
-|   | | (:angry)What's the matter? Afraid to talk to me yourself, android? <-Hic->.
-|   | ~ islay
-|   | | (:nervous)The barkeep has stopped serving them, which is something.
-|   | ~ alex
-|   | | (:angry)Oi, android! <-Hic->. I 'ear you even stole my jobs 'round 'ere now too.
-|   | ~ islay
-|   | | You could work together Alex, for the Noka - return to Fi with Stranger and get your old life back.
-|   | ~ alex
-|   | | (:unhappy)\"Stranger\", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people. Stranger to myself.
-|   | | Get lost, both of you.
-|   | ~ islay
-|   | | Let's leave them in peace for a while. They might feel differently once they've sobered up.
-|   | | [(not (complete-p 'q6-return-to-fi)) You should \"get back and update Fi\"(orange). I'll keep an eye on Alex. | Don't worry, I'll keep an eye on them.]
-|   | | We'll speak again.
-|   | ! eval (setf (var 'alex-done) T)
-|   | ! eval (move-to 'islay-main-loc (unit 'islay))
-|   | ! eval (clear-pending-interactions)
-|   |? (var 'alex-done)
-|   | ~ islay
-|   | | (:nervous)They're still in the bar, (:normal)but I've ordered the barkeeps not to serve them.
-|   | | I've got a hidden camera trained on them as well - they won't fart without me knowing about it.
-|   | < talk
-|   |?
-|   | ~ islay
-|   | | (:unhappy)Not much better I'm afraid. (:normal)I think talking is helping though.
-|   | | If I can get them out of this bar it'll be a start.
-|   | < talk
 | - Why spy on the Noka?
 |   ~ islay
 |   | (:nervous)We spy on everyone. It's just what we do, it's nothing personal.
@@ -85,13 +54,6 @@
 |   | The Wraw are primitive. Maybe they're messing with the Cerebats, but they wouldn't stand a chance against our technology.
 |   | And I'm not just talking about surveillance. We have weapons.
 |   ! eval (setf (var 'semis-weapons) T)
-|   < talk
-| - How's Alex now?
-|   ~ islay
-|   | (:nervous)They've gone. I don't know where. They just upped and left. Managed to evade most of our cameras.
-|   | If they've not returned to the Noka then I don't know.
-|   | (:normal)I hope they're okay. And sober.
-|   | (:unhappy)I'm sorry, I should've kept a closer eye...
 |   < talk
 | - What's it like living underground?
 |   ~ islay
@@ -144,6 +106,71 @@
 # leave
 ~ islay
 | [? Take care, {(nametag player)}. | Mind how you go, {(nametag player)}. | I'll be seeing you. | Ta-ta.]")))
+
+(quest:define-quest (kandria trader-semi-alex)
+  :author "Tim White"
+  :title ""
+  :visible NIL
+  :variables (alex-done alex-fee)
+  :on-activate T
+  (chat-semi-alex
+   :title NIL
+   :on-activate T
+   :condition (complete-p 'q10-wraw)
+   
+   (:interaction chat-semi-alex
+    :title "How's Alex?"
+    :interactable islay
+    :repeatable T
+    :dialogue "
+! label talk
+? (not (complete-p 'q7-my-name))
+| ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv) (not (var 'alex-done)))
+| | ~ alex
+| | | (:angry)What's the matter? Afraid to talk to me yourself, android? <-Hic->.
+| | ~ islay
+| | | (:nervous)The barkeep has stopped serving them, which is something.
+| | ~ alex
+| | | (:angry)Oi, android! <-Hic->. I 'ear you even stole my jobs 'round 'ere now too.
+| | ~ islay
+| | | You could work together Alex, for the Noka - return to Fi with Stranger and get your old life back.
+| | ~ alex
+| | | (:unhappy)\"Stranger\", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people. Stranger to myself.
+| | | Get lost, both of you.
+| | ~ islay
+| | | Let's \"leave them in peace for a while\"(orange). They might feel differently once they've sobered up.
+| | | You've done a lot for us though, with little to show for it.
+| | | \"Take these parts as recompense\"(orange) - though hopefully soon you'll have Alex to show for it as well.
+| | ! eval (store 'item:parts 600)
+| | ! eval (setf (var 'alex-fee) T)
+| | | [(not (complete-p 'q6-return-to-fi)) You should \"get back and update Fi\"(orange). I'll keep an eye on Alex. | Don't worry, I'll keep an eye on them.]
+| | | We'll speak again.
+| | ! eval (setf (var 'alex-done) T)
+| | ! eval (move-to 'islay-main-loc (unit 'islay))
+| | ! eval (clear-pending-interactions)
+| |? (var 'alex-done)
+| | ~ islay
+| | | (:nervous)They're still in the bar, (:normal)but I've ordered the barkeeps not to serve them.
+| | | I've got a hidden camera trained on them as well - they won't fart without me knowing about it.
+| | < talk
+| |?
+| | ~ islay
+| | | (:unhappy)Not much better I'm afraid. (:normal)I think talking is helping though.
+| | | If I can get them out of this bar it'll be a start.
+| | < talk
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
+| ~ islay
+| | (:nervous)\"They've gone. I don't know where.\"(orange) They just upped and left. Managed to evade most of our cameras.
+| | If they've not returned to the Noka then I don't know.
+| | (:normal)I hope they're okay. And sober.
+| | (:unhappy)I'm sorry, I should've kept a closer eye...
+| ? (not (var 'alex-fee))
+| | | You've done a lot for us, with little to show for it.
+| | | Please \"take these parts as recompense\"(orange).
+| | ! eval (store 'item:parts 600)
+| | ! eval (setf (var 'alex-fee) T)
+| < talk
+")))
 
 (quest:define-quest (kandria trader-shop-semi)
   :title ""

@@ -139,8 +139,6 @@
   | (:happy)Me too.
 - It's good to be back.
 ~ fi
-| \"Take these parts\"(orange). You've earned them.
-! eval (store 'item:parts 600)
 | (:happy)Goodbye \"for now\"(orange), Stranger.
 ")))
 ;; kuso = shit (Japanese)

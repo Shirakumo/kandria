@@ -75,6 +75,7 @@
 ! eval (stop-following 'islay)
 ! eval (move-to 'islay-alex-talk (unit 'islay))
 ! eval (activate 'trader-semi-chat)
+! eval (activate 'trader-semi-alex)
 ! eval (activate 'trader-shop-semi)
 ! eval (activate 'q5-intro)
 "))

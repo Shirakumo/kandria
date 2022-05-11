@@ -209,6 +209,7 @@
 ! eval (setf (location 'alex) 'alex-wraw-loc)
 ! setf (direction 'alex) 1
 ! eval (complete 'trader-semi-chat)
+! eval (complete 'trader-semi-alex)
 ! eval (activate (unit 'bomb-cap-1))
 ! eval (activate (unit 'bomb-cap-2))
 ! eval (activate (unit 'bomb-cap-3))

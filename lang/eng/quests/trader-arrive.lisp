@@ -268,6 +268,10 @@
 |   | The only people who can enforce anything around here are the Wraw. Maybe the Semis.
 |   | (:jolly)Maybe you, too.
 |   < talk
+| - Have you seen Alex?
+|   ~ trader
+|   | I'm afraid not, habibti.
+|   < talk
 | - [(var 'trader-daughter) What happened to your daughter?|]
 |   ~ trader
 |   | ...
