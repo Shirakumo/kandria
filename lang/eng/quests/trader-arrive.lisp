@@ -107,7 +107,8 @@
 ~ trader
 | (:jolly)Voila! I give you: \"The Android Health Pack\"(orange)! Custom made just for you.
 ~ player
-| \"It's crude, but I'm sure I can do something with it. If only poke my lenses out.\"(light-gray, italic)
+| \"It's crude, but does resemble the ones I used to use.\"(light-gray, italic)
+| \"I'm sure I can do something with it - if only poke my lenses out.\"(light-gray, italic)
 ~ trader
 | Just \"let me know when you want to buy one\"(orange), okay?
 | You take it easy, habibti."
