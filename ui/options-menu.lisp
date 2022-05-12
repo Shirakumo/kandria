@@ -221,7 +221,7 @@
 
 (defmethod initialize-instance :after ((panel options-menu) &key)
   (macrolet ((control (label setting type &rest args)
-               `(let ((label (alloy:represent (@ ,label) 'setting-label))
+               `(let ((label (alloy:represent ,(if (stringp label) label `(@ ,label)) 'setting-label))
                       (slider (alloy:represent (setting ,@setting) ,type ,@args)))
                   (alloy:enter label layout)
                   (alloy:enter slider layout)
@@ -299,6 +299,7 @@
         (control show-fps-counter (:debugging :fps-counter) 'alloy:checkbox)
         (control start-swank-server (:debugging :swank) 'alloy:checkbox)
         (control swank-server-port (:debugging :swank-port) 'alloy:ranged-wheel :range '(1024 . 65535))
+        (control "Don't take screenshots" (:debugging :dont-save-screenshot) 'alloy:checkbox)
         (alloy:enter (alloy:represent #@open-config-dir 'setting-label) layout)
         (make-instance 'button :value #@generic-proceed-button :on-activate (lambda () (open-in-file-manager (config-directory)))
                                :layout-parent layout :focus-parent focus)))

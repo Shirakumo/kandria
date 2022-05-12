@@ -44,7 +44,8 @@
                              :swank NIL
                              :swank-port 4005
                              :camera-control NIL
-                             :fps-counter NIL))))
+                             :fps-counter NIL
+                             :dont-save-screenshot NIL))))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)
