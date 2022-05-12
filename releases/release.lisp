@@ -8,7 +8,8 @@
                   "pool/kandria/*/*.ase"
                   "pool/music/*.wav"
                   "pool/**/*.*~")
-          :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"))
+          :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"
+                                "pool/trial/fps-texture.png"))
   :itch (:user "Shinmera")
   :steam (:branch "developer"
           :user "shirakumo_org")
