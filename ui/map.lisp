@@ -33,7 +33,7 @@
                  (add-shape (simple:rectangle renderer bounds :pattern color :name (name unit) :z-index -8))
                  target))
              (target-marker (location size color)
-               (let* ((location (closest-visible-target location))
+               (let* ((location (ensure-location (closest-visible-target location)))
                       (bounds (alloy:extent (- (vx location) (/ size 2))
                                             (- (vy location) (/ size 2))
                                             size size))
