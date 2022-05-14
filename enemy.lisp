@@ -485,7 +485,7 @@
 
 (defmethod idleable-p ((enemy mech)) NIL)
 
-(defmethod base-health ((enemy mech)) 2200)
+(defmethod base-health ((enemy mech)) 5000)
 
 (defmethod quest:activate ((enemy mech))
   (setf (ai-state enemy) :active))
@@ -506,7 +506,7 @@
           (when (< (* +tile-size+ 100) distance)
             (setf (ai-state enemy) :normal))
           (flet ((select (move)
-                   (setf (timer enemy) 2.0)
+                   (setf (timer enemy) 3.0)
                    (setf (last-action enemy) move)
                    (start-animation move enemy)))
             (setf (direction enemy) (float-sign direction))

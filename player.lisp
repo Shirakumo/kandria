@@ -1330,7 +1330,7 @@ void main(){
     (if (and (eql :dashing (state player))
                (< (dash-time player) (p! dash-evade-grace-time)))
         (handle-evasion player)
-        (call-next-method player real-damage))))
+        (call-next-method player (floor real-damage)))))
 
 (defmethod hurt :after ((player player) (by integer))
   (let ((dialog (find-panel 'dialog)))
