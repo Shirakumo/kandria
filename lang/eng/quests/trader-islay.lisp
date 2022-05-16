@@ -152,12 +152,10 @@
 | | ~ islay
 | | | (:nervous)They're still in the bar, (:normal)but I've ordered the barkeeps not to serve them.
 | | | I've got a hidden camera trained on them as well - they won't fart without me knowing about it.
-| | < talk
 | |?
 | | ~ islay
 | | | (:unhappy)Not much better I'm afraid. (:normal)I think talking is helping though.
 | | | If I can get them out of this bar it'll be a start.
-| | < talk
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
 | ~ islay
 | | (:nervous)\"They've gone. I don't know where.\"(orange) They just upped and left. Managed to evade most of our cameras.
@@ -169,7 +167,6 @@
 | | | Please \"take these parts as recompense\"(orange).
 | | ! eval (store 'item:parts 600)
 | | ! eval (setf (var 'alex-fee) T)
-| < talk
 ")))
 
 (quest:define-quest (kandria trader-shop-semi)
