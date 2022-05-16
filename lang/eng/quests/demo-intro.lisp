@@ -109,13 +109,14 @@
 # metro
 ~ islay
 | This does mean our engineering works are back on schedule though.
-| With that in mind, I think we could grant you \"access to the metro\"(orange). It will certainly \"speed up your errands\"(orange).
+| With that in mind, I think we could grant you \"access to the metro\"(orange).
+| It will certainly \"speed up your errands - once you've found the other stations\"(orange).
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-semi-sisters)))
-| | (:nervous)We know you know about the metro already, and that's alright. But now it's official.
-| | (:normal)I'll send out word, so Innis won't have you... (:nervous)apprehended.
-| | (:normal)\"The stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
+| | We know you know about the metro already, and that's alright. But now it's official.
+| | I'll send out word, so Innis won't have you... (:nervous)apprehended.
+| | (:normal)\"The stations run throughout the valley\"(orange). Though \"not all are operational\"(orange) while we expand the network.
 |?
-| | (:normal)You'll find \"the stations run throughout our territory and beyond\"(orange). Though \"not all are operational\"(orange) while we expand the network.
+| | (:normal)\"They run throughout the valley\"(orange), though \"not all are operational\"(orange) while we expand the network.
 | | Just \"choose your destination from the route map\"(orange) and board the train.
 ? (not (unlocked-p (unit 'station-semi-sisters)))
 | | (:normal)\"Our station is beneath this central block.\"(orange)
