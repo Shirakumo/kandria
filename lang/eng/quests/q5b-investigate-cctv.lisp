@@ -85,7 +85,7 @@
 
   (q5b-task-cctv-3
    :title "Find CCTV camera 3"
-   :marker '(chunk-5685 1600)
+   :marker '(chunk-5681 1600)
    :condition all-complete
    :on-activate T   
    (:interaction cctv-3
