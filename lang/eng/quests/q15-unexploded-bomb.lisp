@@ -90,7 +90,9 @@
 | Since you're here you can \"destroy that mechs\"(orange).
 | \"Then go to the bomb in the mushroom cave to the west - have Catherine rewire it.\"(orange) She'll know what to do.
 | I'll go to the one beneath the old Semi factory.
-| (:nervous)Good luck - over and out.
+| (:nervous)Good luck.
+| (:normal)And, {(nametag player)}, for what it's worth: \"I don't think you're a traitor\"(orange).
+| Over and out.
 ~ catherine
 | I can go to the mushroom cave while you take care of the mech.
 ~ player

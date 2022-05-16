@@ -55,7 +55,9 @@
 ~ islay
 | No. You don't know enough about the bombs. (:nervous)It has to be \"Catherine\"(orange)...
 ~ fi
-| (:unsure)... There must be another way.
+| You don't trust her?
+~ islay
+| (:nervous)It's not that.
 ~ player
 - Some of the bombs are hard to reach.
   ~ islay
@@ -63,15 +65,13 @@
 - Teach me how to check them.
   ~ islay
   | (:nervous)There's no time. And it's too risky if you can't figure it out.
-- What about Jack?
+- Catherine might get hurt.
   ~ fi
-  | ...
+  | (:unsure)She's only a child, Islay.
   ~ islay
-  | He doesn't know anything about the bombs.
+  | She isn't. And she knows what she's doing.
 ~ islay
-| You can go with her though, {(nametag player)}. To protect her.
-~ fi
-| ...
+| You could go with Catherine, though, {(nametag player)}. To protect her.
 ~ islay
 | Please \"go and fetch her\"(orange).
 ")

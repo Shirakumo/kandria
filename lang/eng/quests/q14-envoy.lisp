@@ -10,88 +10,85 @@
   (:interact (zelah :now T)
   "
 ~ zelah
-| Ah, ' guest of honour. We've bin waitin' for ya.
+| Ah, the guest of honour. We've been waitin' for ya.
 ~ player
 - Who are you?
   ~ zelah
-  | (:jovial)A'm your worst nightmare, love.
-  | But ya can call mi Zelah.
+  | (:jovial)I'm your worst nightmare, love.
+  | But ya can call me Zelah.
 - Let me guess: Zelah.
   ~ zelah
   | Got it in one.
 - So you lead the Wraw?
   ~ zelah
-  | A do. An' everyone else 'round 'ere.
-  | Ya can call mi Zelah.
+  | I do. And everyone else 'round here.
+  | Ya can call me Zelah.
 ! eval (setf (nametag (unit 'zelah)) \"Zelah\")
 ~ fi
 | (:annoyed)What do you want?
 ~ zelah
-| You 'ave a traitor in ya midst. A'm 'ere for ' android.
+| I'm here for the android. \"My android.\"(orange)
+~ jack
+| (:shocked)I knew it.
+~ zelah
+| (:jovial)It's my property. I've been \"usin' it to monitor you all, and plan this attack\"(orange).
+~ catherine
+| (:concerned)That can't be true...
+~ zelah
+| Now I \"want it back\"(orange).
+~ fi
+| (:annoyed)Touch her and you're dead.
+~ zelah
+| (:jovial)I won't be touchin' no one. My army will though.
+| (:normal)Come, android. The masquerade is over. You're a traitor to these people, remember? It's \"time to come home\"(orange).
+| \"If you do, I'll even spare the lives of these so-called friends.\"(orange)
 ~ fi
 | (:annoyed)I see only one traitor here.
 ~ alex
 | (:angry)You betrayed me first.
 | An' maybe I wouldn't o' done it, if you hadn't sent this thing after me.
-~ fi
-| (:annoyed)...
 ~ zelah
-| Ya betrayed us all Fi, when ya took this android in.
-| Androids are why we're in this mess o' a world in ' first place.
-| They wa wiped out, but clearly not all.
-| A'm 'ere t' finish ' job.
+| You betrayed your people, Fi, when ya took this android in.
+| (:jovial)And now I understand you're quite fond of it.
 ~ fi
-| (:annoyed)Touch her and you're dead.
-~ zelah
-| A won't be touchin' no one. Ma army will though.
-| There'll be touchin' all o' ya by ' time this day is done.
-| Androids an' android lovers - you're all same t' them.
-| O' course, there don't 'av to be any dyin' o' people.
-| 'And this one over an' we'll be on our way.
-~ fi
-| She's not going anywhere.
+| (:annoyed)She's not going anywhere.
 ~ jack
 | (:shocked)Fi...
 ~ innis
-| (:angry)He's giving us a way out.
+| (:angry)We dinnae need the android. I kent this alliance was a mistake.
 ~ islay
-| (:unhappy)You really believe that?
+| (:unhappy)And having her fight for them, or not at all, would be better?
 ~ catherine
 | (:concerned)Don't go, {(nametag player)}.
 ~ zelah
-| 'Ow nice, it 'as a name.
+| (:jovial)Oh, it has a name. How quaint.
 ~ player
-- I'm staying right here.
+- I'm staying here.
   ~ zelah
-  | (:jovial)A was 'oping ya'd say that.
-- I should go. It's for the best.
+  | (:jovial)I was hopin' ya'd say that.
+- Maybe I should go. He could be telling the truth.
   ~ catherine
   | (:concerned)...
-  ~ islay
-  | It's not for the best.
   ~ fi
-  | We're staying with you.
-- How about I kill you right now?
+  | (:annoyed)He's not.
+- What if I kill you right now?
   ~ zelah
-  | (:jovial)This is an envoy. Kill mi, an' ma army'll slaughter you all.
-~ islay
-| {(nametag player)}, we don't know what androids did or didn't do during the Calamity. No one does.
+  | (:jovial)This is an envoy. Kill me and you'll sign everyone's death warrant.
+  | (:normal)And prove you're a traitor.
 ~ fi
-| It doesn't matter anyway. You've shown us who you really are.
+| It doesn't matter what he says, {(nametag player)}. You've shown us who you really are.
 ~ zelah
-| (:jovial)It's ya last chance... {(nametag player)}. Come with me, or ya friends'll die.
+| (:jovial)It's ya last chance... //{(nametag player)}//. Come with me, or ya friends'll die.
 ~ player
 - Nice try.
 - Fuck you.
 - You'll be dead soon.
 ~ zelah
-| Well in that case, a'll be off then.
-| Seeya on ' battlefield.
+| Alright. We'll see ya on the battlefield.
 ")
   (:eval
     :on-complete (q15-engineering)
     (move-to (unit 'leader-rally) 'zelah)
     (move-to (unit 'alex-rally) 'alex)))
-
-;; TODO why are we entertaining this person, kill them? - special ending?
-;; TODO Zelah got to move away to a surface location - walk him to an army, spawned offscreen at end of this quest
+;; TODO Zelah got to move away to a surface location - walk him to an army, spawned offscreen at end of this quest?
+;; Zelah motivation: greed, resource/people acquisition
