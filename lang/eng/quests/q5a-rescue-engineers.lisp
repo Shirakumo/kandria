@@ -94,7 +94,7 @@
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
-| | | I don't believe you got through... Now food and medical supplies can get through too. Thank you.
+| | | I can't believe you got through... Now food and medical supplies can get through too. Thank you.
 | | | We can resume our excavations. It'll be slow-going, but we'll get it done.
   
 ! eval (reset (find-task 'world 'task-world-engineers))
