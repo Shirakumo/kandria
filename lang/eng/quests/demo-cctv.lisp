@@ -4,7 +4,7 @@
 (quest:define-quest (kandria demo-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low eastern border have gone down. I need to investigate them and report back to Innis, before she'll turn our water back on."
+  :description "The Semi Sisters' CCTV cameras along their distant low eastern border have gone down. I need to investigate them and report back to Innis, before she'll turn our water back on."
   :on-activate (task-reminder task-cctv-1 task-cctv-2 task-cctv-3 task-cctv-4)
   :variables (first-cctv)
  
@@ -23,16 +23,16 @@
 | ? (complete-p 'demo-boss)
 | | | Saboteurs, huh? You'd better \"deliver your report to Innis\"(orange).
 | |?
-| | | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the low eastern region\"(orange).
+| | | You might've found all the CCTV sites, but you need to \"bring Innis the saboteur from the distant low eastern region\"(orange).
 |?
 | ? (complete-p 'demo-boss)
-| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
+| | | Go to the \"distant low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange). Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'demo-boss)
-| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
+| | | Go to the \"distant low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
 | | | And don't forget to \"bring Innis that saboteur\"(orange).
 | |?
-| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
+| | | Go to the \"distant low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
 | | | Then \"return to Innis\"(orange).
 "))
 

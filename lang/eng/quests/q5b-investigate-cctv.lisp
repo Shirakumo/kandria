@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q5b-investigate-cctv)
   :author "Tim White"
   :title "Investigate CCTV"
-  :description "The Semi Sisters' CCTV cameras along their low eastern border have gone down. It's something I can help with while Islay talks to Alex."
+  :description "The Semi Sisters' CCTV cameras along their distant low eastern border have gone down. It's something I can help with while Islay talks to Alex."
   :on-activate (q5b-task-reminder q5b-task-cctv-1 q5b-task-cctv-2 q5b-task-cctv-3 q5b-task-cctv-4)
   :variables (first-cctv)
  
@@ -20,16 +20,16 @@
     :dialogue "
 ~ innis
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
-| | (:angry)You might've found all the CCTV sites, but I want you to \"bring me back that saboteur from the low eastern region\"(orange).
+| | (:angry)You might've found all the CCTV sites, but I want you to \"bring me back that saboteur from the distant low eastern region\"(orange).
 |?
 | ? (complete-p 'q5b-boss)
-| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
+| | | Go to the \"distant low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
 | | | Then \"return to me\"(orange). (:sly)Hopefully you won't encounter any more saboteurs.
 | |? (active-p 'q5b-boss)
-| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
+| | | Go to the \"distant low eastern region\"(orange) along the Cerebat border, and \"investigate the remaining down CCTV cameras\"(orange).
 | | | (:angry)And dinnae forget to \"bring me back that saboteur\"(orange).
 | |?
-| | | Go to the \"low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
+| | | Go to the \"distant low eastern region\"(orange) along the Cerebat border, and \"find out what's wrong with the 4 down CCTV cameras\"(orange).
 | | | Then \"return to me\"(orange).
 "))
 ;; dinnae = don't (Scottish)

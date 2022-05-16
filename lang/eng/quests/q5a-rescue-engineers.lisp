@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q5a-rescue-engineers)
   :author "Tim White"
   :title "Rescue Engineers"
-  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory. I can help while Islay talks to Alex."
+  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the far upper-west of their territory. I can help while Islay talks to Alex."
   :on-activate (task-reminder task-wall task-engineers)
   :variables (engineers-intro)
  
@@ -20,7 +20,7 @@
     :dialogue "
 ~ innis
 | (:angry)You forgot already? (:normal)\"Find the engineers\"(orange) in the collapsed rail tunnel, do what you can for them, and report back.
-| It's in the \"upper-west of our territory\"(orange).
+| It's in the \"far upper-west of our territory\"(orange).
 "))
 
   (task-wall

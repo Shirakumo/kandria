@@ -31,8 +31,8 @@
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
   | But a trade is acceptable. And the sooner we get started, the sooner she'll turn it back on for you.
 ~ islay
-| Basically we've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"high west\"(orange).
-| And \"4 of our CCTV cameras on the low eastern\"(orange) \"Cerebat\"(red) border have gone down.
+| Basically we've got \"rail engineers stuck\"(orange) after a tunnel collapse in the \"far high west\"(orange).
+| And \"4 of our CCTV cameras on the distant low eastern\"(orange) \"Cerebat\"(red) border have gone down.
 ? (not (active-p (unit 'blocker-engineers)))
 | ~ islay
 | | Actually, no: don't worry about the engineers.
@@ -60,7 +60,7 @@
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
   ~ islay
-  | There were ten of them, working in the \"high west of our territory\"(orange).
+  | There were ten of them, working in the \"far high west of our territory\"(orange).
   | We're slowly digging out the old maglev metro system. We've got a basic electrified railway going.
   | (:unhappy)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
   < questions
@@ -72,7 +72,7 @@
 - Tell me about the down CCTV cameras.
   ~ islay
   | We monitor the surrounding areas, immediately above and below.
-  | But \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low eastern region\"(orange).
+  | But \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"distant low eastern region\"(orange).
   | It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
   | I'd like you to \"check them out\"(orange).
   < questions

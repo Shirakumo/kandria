@@ -4,7 +4,7 @@
 (quest:define-quest (kandria demo-engineers)
   :author "Tim White"
   :title "Rescue Engineers"
-  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the upper-west of their territory. I need to free them so Innis will turn our water back on."
+  :description "Semi Sisters engineers are stuck in a collapsed rail tunnel in the far upper-west of their territory. I need to free them so Innis will turn our water back on."
   :on-activate (task-reminder task-wall task-engineers)
   :variables (engineers-intro)
  
@@ -20,7 +20,7 @@
     :dialogue "
 ~ islay
 ? (active-p (unit 'blocker-engineers))
-| | \"Find our engineers\"(orange) in the collapsed rail tunnel. It's in the \"upper-west of our territory\"(orange).
+| | \"Find our engineers\"(orange) in the collapsed rail tunnel. It's in the \"far upper-west of our territory\"(orange).
 | | Do what you can for them, then \"report back to Innis\"(orange).
 |?
 | | I heard there's news on the engineers - you should \"talk to Innis\"(orange).
