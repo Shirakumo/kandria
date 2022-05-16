@@ -6,7 +6,7 @@
 (defmethod initialize-instance :after ((panel demo-intro-panel) &key)
   (let ((layout (make-instance 'eating-constraint-layout
                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
-        (label (make-instance 'label :value "This demo shows content from part way through the story.
+        (label (make-instance 'label :value "This demo showcases content from part way through the story.
 
 The full game features a different intro, and many new environments, characters and quests."
                                      :style `((:label :halign :middle :pattern ,colors:black :size ,(alloy:un 15))))))
