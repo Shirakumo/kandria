@@ -69,5 +69,6 @@
 ")))
 ;; TODO enable trader as killable NPC - he'll move on soon anyway, so killing him will have negligible impact on gameplay, and is player's choice anyway
 ;; TODO move Zelah somewhere (offscreen?) to convey the Wraw are on the move
+;; TODO also turn off "some" of Wraw base NPC spawners here, to show their numbers are thinning as most have departed for the surface (should player have come to Wraw territory before now); q11-recruit done further turns off spawners, leaving base completely empty
 ;; Ko nashi = bastard (Japanese)
 ;; Cannot give a reward here, as the player isn't in proximity to Fi. However, can sell stuff to the trader for parts.

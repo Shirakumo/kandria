@@ -223,3 +223,5 @@
 ! eval (activate (unit 'bomb-charge-5))
 ")))
 ;; dinnae = don't / do not (Scottish)
+
+;; TODO turn off most if not all of Wraw base NPC spawners at this point, to show they are clearly on the move towards the surface
