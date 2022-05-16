@@ -35,8 +35,7 @@
    :on-complete NIL)
 
  (task-deliveries
-   :title ""
-   :visible NIL
+   :title "Deliver the components to Islay on the surface"
    :marker '(islay 500)
    :on-activate T
    :condition (and (>= 0 (- (var 'blasting-cap-count) (item-count 'item:blasting-cap))) (>= 0 (- (var 'charge-pack-count) (item-count 'item:charge-pack))))
