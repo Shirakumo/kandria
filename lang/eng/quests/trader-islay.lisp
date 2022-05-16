@@ -161,12 +161,15 @@
 | | (:nervous)\"They've gone. I don't know where.\"(orange) They just upped and left. Managed to evade most of our cameras.
 | | If they've not returned to the Noka then I don't know.
 | | (:normal)I hope they're okay. And sober.
-| | (:unhappy)I'm sorry, I should've kept a closer eye...
+| | (:unhappy)I'm sorry, I should've kept a closer eye.
 | ? (not (var 'alex-fee))
 | | | You've done a lot for us, with little to show for it.
 | | | Please \"take these parts as recompense\"(orange).
 | | ! eval (store 'item:parts 600)
 | | ! eval (setf (var 'alex-fee) T)
+|   
+| ~ islay
+| | Be careful, {(nametag player)}.
 ")))
 
 (quest:define-quest (kandria trader-shop-semi)
