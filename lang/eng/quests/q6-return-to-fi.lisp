@@ -22,7 +22,7 @@
 | (:normal)Hello, Fi, it's me.
 | ... Fi?
 | (:thinking)\"Something's interfering with my FFCS signal.\"(light-gray, italic)
-| (:normal)\"I probably have Innis to thank for that.\"(light-gray, italic)
+| (:normal)\"I probably have Innis to thank for that. I doubt I'll be able to use the phone either.\"(light-gray, italic)
 | \"Alright, if they don't want me calling home, \"I'll go on foot\"(orange).\"(light-gray, italic)
 ? (unlocked-p (unit 'station-surface))
 | | (:giggle)\"Or maybe I'll take the train.\"(light-gray, italic)
