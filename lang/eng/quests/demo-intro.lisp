@@ -16,7 +16,7 @@
 ~ player
 - What do I need to do?
   ~ islay
-  | (:nervous)Right, yes. The sooner we get started, the sooner \"Innis\"(yellow) will turn your water back on.
+  | Right, yes. The sooner we get started, the sooner \"Innis\"(yellow) will turn your water back on.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 - What's her problem?
   ~ islay
@@ -26,8 +26,8 @@
   | But a trade is acceptable. And the sooner we get started, the sooner she'll turn it back on for you.
 - Can't you just turn the water back on?
   ~ islay
-  | (:nervous)I'm afraid not. Much as I sympathise with your predicament.
-  | (:normal)\"Innis\"(yellow) is at least right about that - we need that water too.
+  | I'm afraid not. Much as I sympathise with your predicament.
+  | \"Innis\"(yellow) is at least right about that - we need that water too.
   ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
   | But a trade is acceptable. And the sooner we get started, the sooner she'll turn it back on for you.
 ~ islay
@@ -60,20 +60,20 @@
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
   ~ islay
-  | (:nervous)There were ten of them, working in the \"high west of our territory\"(orange).
+  | There were ten of them, working in the \"high west of our territory\"(orange).
   | We're slowly digging out the old maglev metro system. We've got a basic electrified railway going.
   | (:unhappy)But it's dangerous work. They didn't report in, and our hunters found the tunnel collapsed.
   < questions
 - [(not (active-p (unit 'blocker-engineers))) So the engineers were working on the metro?|]
   ~ islay
   | Correct. We're slowly digging out the old maglev system. We've got a basic electrified railway going.
-  | (:nervous)But it's dangerous work.
+  | But it's dangerous work.
   < questions
 - Tell me about the down CCTV cameras.
   ~ islay
   | We monitor the surrounding areas, immediately above and below.
-  | (:nervous)But \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low eastern region\"(orange).
-  | (:normal)It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
+  | But \"4 of our cameras\"(orange) on the Cerebat border have gone down, in the \"low eastern region\"(orange).
+  | It's probably just an electrical fault. Unfortunately the way we daisy-chain them together, when one goes they all go.
   | I'd like you to \"check them out\"(orange).
   < questions
 - Understood.
