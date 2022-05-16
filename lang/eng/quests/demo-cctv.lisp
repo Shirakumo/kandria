@@ -219,12 +219,21 @@
 | Dammit.
 | (:normal)I need to speak with my sister.
 ? (complete-p 'demo-engineers)
-| | You should \"return to the surface\"(orange).
-| | Dinnae worry, \"I've turned the water back on\"(orange). Your friends can have a nice long drink.
+| ~ innis
+| | Still, you've done what we asked.
+| | Islay, \"turn the water back on\"(orange).
+| ~ islay
+| | Right away.
+| | Pump room - open the valve to the surface.
+| | ...
+| | It's done.
+| ~ innis
+| | Now your friends can have a nice long drink.
 | | (:sly)For what good it will do them.
 | | If the Wraw are coming for us, they'll be \"coming for them too\"(orange).
-| | (:normal)So long... //Stranger//.
-| | Maybe I'll see you on the battlefield.
+| | (:normal)You should \"return to the surface\"(orange).
+| | So long... //Stranger//.
+| | (:sly)Maybe I'll see you on the battlefield.
 | ! eval (activate 'demo-end-prep)
 ")))
 ;; dinnae = don't / do not (Scottish)
