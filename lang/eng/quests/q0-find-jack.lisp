@@ -5,7 +5,7 @@
   :author "Tim White"
   :title "Find Jack"
   :description "Catherine is concerned about where everyone is. She wants to find someone called Jack in Engineering."
-  (:go-to (eng-jack-2 :lead catherine)
+  (:go-to (eng-cath-2 :lead catherine)
   :title "Follow Catherine to Engineering and find Jack"
   )
     ;; meet Jack for the first time - Stranger already presumes this is Jack

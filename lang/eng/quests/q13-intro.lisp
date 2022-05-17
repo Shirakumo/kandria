@@ -11,8 +11,8 @@
   (:eval
    (setf (walk 'islay) T)
    (setf (walk 'fi) T)
-   (move-to 'eng-cath (unit 'fi)))
-  (:go-to (eng-cath :with islay)
+   (move-to 'eng-jack (unit 'fi)))
+  (:go-to (eng-cath-2 :with islay)
    :title "Meet Islay in Engineering")
   (:interact (islay :now T)
   "

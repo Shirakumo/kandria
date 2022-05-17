@@ -105,8 +105,8 @@
     (setf (direction 'fi) -1)
     (setf (location 'jack) (location 'shutter-4))
     (setf (direction 'jack) -1)
-    (setf (location 'catherine) 'eng-cath)
-    (setf (direction 'catherine) -1)
+    (setf (location 'catherine) 'eng-bombs)
+    (setf (direction 'catherine) 1)
     ))
 ;; TODO position islay further from the others - easier to clarify hand-in NPC, and the trials of leadership etc.
 ;; TODO also deactivate semis world NPC spawners (deletes all Semis NPCs?) and instead activate smaller Semis spawners on surface
