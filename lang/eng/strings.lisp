@@ -1,26 +1,26 @@
 ;; Characters
-player-nametag "Stranger"
-player-name-0  "Android"
-player-name-1  "Stranger"
-player-name-2 "Andréa"
-player-name-3 "Katriona"
-player-name-4 "Nadia"
-player-name-fi "Chiyo"
-fi-nametag "Fi"
-catherine-nametag "Catherine"
-jack-nametag "Jack"
-trader-nametag "Sahil"
-innis-nametag "Innis"
-islay-nametag "Islay"
-alex-nametag "Alex"
-semi-engineer-nametag "Engineer"
-villager-nametag "Villager"
-cerebat-trader-nametag "???"
-unknown-nametag "???"
-zelah-nametag "Zelah"
-soldier-nametag "Wraw Soldier"
+player-nametag "Stranger" ;; female, player character (default setting)
+player-name-0  "Android" ;; female
+player-name-1  "Stranger" ;; female, player character
+player-name-2 "Andréa" ;; female
+player-name-3 "Katriona" ;; female
+player-name-4 "Nadia" ;; female
+player-name-fi "Chiyo" ;; female
+fi-nametag "Fi" ;; female
+catherine-nametag "Catherine" ;; female
+jack-nametag "Jack" ;; male
+trader-nametag "Sahil" ;; male
+innis-nametag "Innis" ;; female
+islay-nametag "Islay" ;; female
+alex-nametag "Alex" ;; non-binary
+semi-engineer-nametag "Engineer" ;; gender unknown
+villager-nametag "Villager" ;; gender unknown
+cerebat-trader-stranger "Stranger" ;; male trader
+unknown-nametag "???" ;; gender unknown
+zelah-nametag "Zelah" ;; male
+soldier-nametag "Wraw Soldier" ;; gender unknown
 player "Player"
-mech "Wraw Machine Suit Prototype"
+mech "Wraw Machine Suit Prototype" ;; gender unknown
 villager-female-nametags ("Sandra" "Cath" "Monika" "Leandra" "Sarah" "Nathalie" "Maria" "Anneli" "Laura" "Karina" "Heidy" "Nick")
 villager-male-nametags ("Vincent" "Nick" "Till" "Brian" "Simon" "Chris" "Sean" "Luigi" "Johnny" "Arthur" "Sina" "Tom")
 ;; Walk-n-talk blurbs
