@@ -515,6 +515,7 @@ void main(){
              (setf (interactable player) entity)))
           (interactable
            (when (and (contained-p interactable entity)
+                      (not (eql :climbing (state player)))
                       (interactable-p entity)
                       (or (null closest) (<= (vsqrdistance (location entity) loc)
                                              (vsqrdistance (location closest) loc))))
