@@ -26,7 +26,8 @@
   ())
 
 (defmethod alloy:handle ((event alloy:focus-left) (bar vertical-menu-focus-list))
-  (alloy:exit bar))
+  (when (typep (alloy:focus-parent bar) 'tab)
+    (alloy:exit bar)))
 
 (defmethod alloy:handle ((event alloy:focus-right) (bar vertical-menu-focus-list))
   (alloy:activate bar))
