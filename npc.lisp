@@ -546,10 +546,12 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-engineer)))
 
-(define-shader-entity soldier (npc creatable)
+(define-shader-entity soldier (paletted-entity npc creatable)
   ((name :initform 'soldier)
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
-   (nametag :initform (@ soldier-nametag)))
+   (nametag :initform (@ soldier-nametag))
+   (palette :initform (// 'kandria 'rogue-palette))
+   (palette-index :initform 0))
   (:default-initargs
    :sprite-data (asset 'kandria 'rogue)))
 
