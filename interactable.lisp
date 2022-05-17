@@ -77,7 +77,9 @@
    (facing-towards-screen-p :initform T :initarg :facing-towards-screen-p :accessor facing-towards-screen-p :type boolean)))
 
 (defmethod description ((door door))
-  (language-string 'door))
+  (if (< (vy (location door)) (vy (location (target door))))
+      (language-string 'door-up)
+      (language-string 'door-down)))
 
 (defmethod interactable-p ((door door)) T)
 

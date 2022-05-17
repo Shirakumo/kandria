@@ -118,6 +118,8 @@ toggle-trace "Toggle Trace"
 toggle-marker "Toggle Marker"
 ;; Intearctions
 door "Enter"
+door-up "Go upstairs"
+door-down "Go downstairs"
 fishing-spot "Fish"
 water "Fish"
 npc "Talk"
