@@ -11,7 +11,7 @@
    (setf (direction player) 1)
    (setf (state (unit 'player)) :animated)
    (ensure-nearby 'walk-start 'catherine)
-   (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief cerebat-trader-quest))
+   (dolist (unit '(catherine fi jack trader alex innis islay zelah semi-engineer-chief cerebat-trader-quest soldier-1 soldier-2 soldier-3))
      (setf (nametag (unit unit)) (@ unknown-nametag)))
    (setf (nametag player) (@ player-name-0)))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
