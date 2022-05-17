@@ -60,7 +60,7 @@
 | |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | We're the engineers you're looking for. Thank God for Innis.
+| | | \"We're the engineers you're looking for\"(orange). Thank God for Innis.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
 | | | The tunnel collapsed; we lost the chief and half the company.
@@ -85,7 +85,7 @@
 | |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | We're the engineers you're looking for. Thank God for Innis.
+| | | \"We're the engineers you're looking for\"(orange). Thank God for Innis.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
 | | | We lost the chief and half the company when the tunnel collapsed.

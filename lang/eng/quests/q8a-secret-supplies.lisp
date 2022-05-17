@@ -93,7 +93,7 @@
 | | | I'm supplying the Wraw aren't I.
 | | | It's the only good thing to come from \"them moving in\"(orange), believe me. Though don't tell anyone I said that.
 | | | So now you know.
-| | | That's why you can't see the \"Council. There isn't one any more.\"(orange)
+| | | That's why you can't see the \"Council. There isn't one any more\"(orange).
 | | | I told you they wouldn't see anyone!
 | | | Toodle-oo.
 | | ~ player

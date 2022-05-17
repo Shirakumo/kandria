@@ -194,7 +194,7 @@
   | (:angry)And you want us to trust you?
 - (Trust Islay)
 ~ islay
-| I'll explain everything to Fi once we reach the surface. \"Meet us there when you have the components.\"(orange)
+| I'll explain everything to Fi once we reach the surface. \"Meet us there when you have the components\"(orange).
 | You got it? This is important.
 ~ player
 - One more time.

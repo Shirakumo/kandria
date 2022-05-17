@@ -86,7 +86,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)\"Café Alpha... Did I used to come here?\"(light-gray, italic)
+| (:thinking)\"\"Café Alpha\"(red). Did I used to come here?\"(light-gray, italic)
 | (:giggle)\"If so I'm sure the service was much better.\"(light-gray, italic)
 ")
 
@@ -153,7 +153,7 @@
    :repeatable T
    "
 ~ player
-| \"Zenith... That was the name of the city, and this was the central station.\"(light-gray, italic)
+| \"\"Zenith\"(red) - that was the name of the city, and this was the central station.\"(light-gray, italic)
 | (:thinking)\"Is it me, or was that insignia strangely prophetic?\"(light-gray, italic)
 ")
 
@@ -163,7 +163,7 @@
    :repeatable T
    "
 ~ player
-| \"These were Rootless hospital apartments. Did people die in their sickbeds?\"(light-gray, italic)
+| \"These were \"Rootless hospital apartments\"(red). Did people die in their sickbeds?\"(light-gray, italic)
 ")
 
   ;; a market area; behind dark glass windows stand the shadows of clothing mannequins from the old world
@@ -172,7 +172,7 @@
    :repeatable T
    "
 ~ player
-| \"The Midwest Market. You could imagine those mannequins behind the glass were real people.\"(light-gray, italic)
+| \"The \"Midwest Market\"(red). You could imagine those mannequins behind the glass were real people.\"(light-gray, italic)
 | (:embarassed)\"Like this place wasn't creepy enough.\"(light-gray, italic)
 ")
 
@@ -182,7 +182,7 @@
    :repeatable T
    "
 ~ player
-| \"Dreamscape West Side - once the height of luxury, now hell in the earth.\"(light-gray, italic)
+| \"\"Dreamscape West Side\"(red) - once the height of luxury, now hell in the earth.\"(light-gray, italic)
 ")
 
   ;; a flooded room near the water pump
@@ -231,7 +231,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)\"Brother and North Star offices. They manufactured guidance, satellite and surveillance systems.\"(light-gray, italic)
+| (:thinking)\"\"Brother\"(red) and \"North Star\"(red) offices. They manufactured guidance, satellite and surveillance systems.\"(light-gray, italic)
 | (:normal)\"Bet they never saw this coming.\"(light-gray, italic)
 ")
 
@@ -241,7 +241,7 @@
    :repeatable T
    "
 ~ player
-| \"Semi were the manufacturers of electronic components - not least for androids.\"(light-gray, italic)
+| \"\"Semi\"(red) were the manufacturers of electronic components - not least for androids.\"(light-gray, italic)
 | \"It's sad to see the factory so silent.\"(light-gray, italic)
 ")
 ;; TODO android emote - sad
@@ -480,7 +480,7 @@
 ~ player
 ? (active-p (unit 'blocker-engineers))
 | ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers))
-| | | \"This might be the collapsed tunnel that trapped the Semis engineers.\"(light-gray, italic)
+| | | \"This might be the \"collapsed tunnel\"(orange) that trapped the Semis engineers.\"(light-gray, italic)
 | | | (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)
 | |?
 | | | \"A collapsed tunnel.\"(light-gray, italic) (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)

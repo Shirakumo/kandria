@@ -158,7 +158,7 @@
 | | | If I can get them out of this bar it'll be a start.
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
 | ~ islay
-| | (:nervous)\"They've gone. I don't know where.\"(orange) They just upped and left. Managed to evade most of our cameras.
+| | (:nervous)\"They've gone. I don't know where\"(orange). They just upped and left. Managed to evade most of our cameras.
 | | If they've not returned to the Noka then I don't know.
 | | (:normal)I hope they're okay. And sober.
 | | (:unhappy)I'm sorry, I should've kept a closer eye.

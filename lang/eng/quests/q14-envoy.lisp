@@ -27,7 +27,7 @@
 ~ fi
 | (:annoyed)What do you want?
 ~ zelah
-| I'm here for the android. \"My android.\"(orange)
+| I'm here for the android. \"My android\"(orange).
 ~ jack
 | (:shocked)I knew it.
 ~ zelah
