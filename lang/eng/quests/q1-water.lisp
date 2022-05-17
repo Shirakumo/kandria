@@ -75,11 +75,6 @@
 | (:normal)Okay, we need to \"follow the pipeline further down\"(orange).
 | (:excited)Let's go, Stranger!
   ")
-  ;; only hurting player if greater than 20 HP, as at 15 HP the game goes into slow motion damage mode; so lowest health can go here is either 20 HP if no damage levied, or 16 HP if 5 damage done.
-  ;; health decrement without stagger: ! eval (when (< 5 (health player)) (decf (health player) 5))
-  ;; TODO when can rename player nametag: ! eval (setf (var 'player-nametag) \"Stranger\") - re-inflects the narrative tone. Does PC adopt this name, or not?
-  ;; TODO catherine confused - I don't know. Everyone has a name. 
-  ;; TODO catherine giggle - What's right with it?
 
   (:go-to (main-leak-2 :lead catherine)
    :title "Follow Catherine further below ground, staying close to the red pipeline"
