@@ -75,6 +75,7 @@
 
   (task-bomb-1
    :title "Plant a bomb on the low eastern border, east of the Rootless hospital apartments and below the old Semi factory"
+   :marker '(chunk-2041 1400)
    :invariant T
    :condition all-complete
    :on-activate (interact-bomb)
@@ -109,6 +110,7 @@
 
   (task-bomb-2
    :title "Plant a bomb in the flooded room beside the pump room"
+   :marker '(chunk-2482 1600)
    :invariant T
    :condition all-complete
    :on-activate (interact-bomb)
@@ -144,6 +146,7 @@
 
   (task-bomb-3
    :title "Plant a bomb in the mushroom cave to the west of the old Dreamscape apartments"
+   :marker '(chunk-1979 2400)
    :invariant T
    :condition all-complete
    :on-activate (call-bomb)
