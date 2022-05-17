@@ -241,9 +241,9 @@
    (alloy:extent 0 -5 (alloy:pw 1) 1)
    :pattern colors:white)
   ((:label simple:text)
-   (alloy:margins) alloy:text
+   (alloy:margins -10) alloy:text
    :font (setting :display :font)
-   :valign :top
+   :valign :middle
    :halign :right
    :size (alloy:un 16)))
 
