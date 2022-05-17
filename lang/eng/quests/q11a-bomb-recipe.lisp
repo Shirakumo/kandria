@@ -81,7 +81,6 @@
    :on-activate T
    :visible NIL
    (:action functions
-    (deactivate (unit 'spawner-5885))
     (deactivate (unit 'entity-4686))
     (deactivate (unit 'entity-4687))
     (deactivate (unit 'entity-4688))
@@ -95,7 +94,7 @@
     (activate (unit 'semi-surface-spawner-4))
     (activate (unit 'semi-surface-spawner-5))
     (activate (unit 'bar-surface-spawner-1))
-    (ensure-nearby 'semi-surface-spawner-2 'semi-engineer-chief 'semi-engineer-1 'semi-engineer-2 'semi-engineer-3)
+    (ensure-nearby 'semi-surface-spawner-2 'semi-engineer-chief 'semi-engineer-1 'semi-engineer-2 'semi-engineer-3 'semi-engineer-4 'semi-engineer-5)
     (deactivate (find-task 'world 'task-world-engineers))
     (activate (find-task 'world 'task-engineers-surface))
     (setf (location 'islay) (location 'shutter-2))
