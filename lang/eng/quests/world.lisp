@@ -670,7 +670,55 @@
    "| (:concerned)[? The water's never been off this long. | I believe in you, {(nametag player)}. | It's just another adventure, right? | Is this the end?]")
   (T
   "| You okay?"))
+  
+(define-default-interactions zelah
+  (q14-envoy
+  "| It's too late for you. It's too late for everyone.")
+  (T
+  "| Keep going."))
+
+;; same for each engineer
+;; TODO more efficient way to structure this?
+(define-default-interactions semi-engineer-1
+  (T
+   "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
+
+(define-default-interactions semi-engineer-2
+  (T
+   "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
+   
+(define-default-interactions semi-engineer-3
+  (T
+   "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
+
+(define-default-interactions semi-engineer-4
+  (T
+   "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
+   
+(define-default-interactions semi-engineer-5
+  (T
+   "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
+
+;; same for each soldier
+;; TODO more efficient way to structure this?
+(define-default-interactions soldier-1
+  (q14-envoy
+  "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  (T
+   "| [? Huh? | Yeah? | What?]"))
+
+(define-default-interactions soldier-2
+  (q14-envoy
+  "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  (T
+   "| [? Huh? | Yeah? | What?]"))
+   
+(define-default-interactions soldier-3
+  (q14-envoy
+  "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  (T
+   "| [? Huh? | Yeah? | What?]"))
 
 (define-default-interactions npc
   (T
-   "| [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat. ]"))
+   "| [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat.]"))
