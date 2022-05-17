@@ -103,7 +103,7 @@
 |   ~ cerebat-trader-quest
 |   | You fink I got this far in business by sharing my name?
 |   | You can call me... //Stranger//.
-|   ! eval (setf (nametag (unit 'cerebat-trader-quest)) \"Stranger\")
+|   ! eval (setf (nametag (unit 'cerebat-trader-quest)) (@ cerebat-trader-stranger))
 |   ~ player
 |   - Are you for real?
 |     ~ cerebat-trader-quest
