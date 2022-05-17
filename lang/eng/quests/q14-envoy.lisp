@@ -23,7 +23,7 @@
   ~ zelah
   | I do. And everyone else 'round here.
   | Ya can call me Zelah.
-! eval (setf (nametag (unit 'zelah)) \"Zelah\")
+! eval (setf (nametag (unit 'zelah)) (@ zelah-nametag))
 ~ fi
 | (:annoyed)What do you want?
 ~ zelah
@@ -89,6 +89,6 @@
   (:eval
     :on-complete (q15-engineering)
     (move-to (unit 'leader-rally) 'zelah)
-    (move-to (unit 'alex-rally) 'alex)))
-;; TODO Zelah got to move away to a surface location - walk him to an army, spawned offscreen at end of this quest?
+    (move-to (unit 'alex-rally) 'alex)
+    (ensure-nearby 'soldier-rally 'soldier-1 'soldier-2 'soldier-3)))
 ;; Zelah motivation: greed, resource/people acquisition

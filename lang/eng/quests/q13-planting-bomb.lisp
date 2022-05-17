@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q13-planting-bomb)
   :author "Tim White"
   :title "Planting the Bombs"
-  :description "I need to plant each of the 3 bombs at key locations along the Noka-Semi border, then return to the Zenith Hub to radio in. Once detonated, they should stop the Wraw."
+  :description "I need to plant each of the 3 bombs at key locations along the Noka-Semi border, then radio in. Once detonated, they should stop the Wraw."
   :on-activate (task-reminder task-bomb-1 task-bomb-2 task-bomb-3)
   :variables (first-bomb-done)
   
@@ -23,8 +23,8 @@
 ~ islay
 | (:normal)Remember where to \"plant them\"(orange):
 | \"East of the Rootless hospital apartments, beneath the old Semi factory;\"(orange)
-| \"The mushroom cave to the west;\"(orange)
-| \"The sunken room beside the pump.\"(orange)
+| \"The sunken room beside the pump;\"(orange)
+| \"The mushroom cave to the west.\"(orange)
 | Good luck.
 ")
 
@@ -57,10 +57,9 @@
     :title ""
     :repeatable T
     :dialogue "
-~ islay
+~ innis
 | Islay can remind you about your task. I dinnae think I've anything to add, if she told you what she said she would.
 | (:sly)I hope I was wrong about you, android.
-| (:normal)We need you.
 ")
 
    (:interaction interact-jack
@@ -69,7 +68,7 @@
     :repeatable T
     :dialogue "
 ~ jack
-| I can't help you, I'm outta the loop now. They didn't even need me to make the bomb.
+| I can't help you, I'm outta the loop now. They didn't even need me for the bomb.
 | All I can do is keep an eye on everyone, make sure they don't freak out.
 | (:annoyed)And the sooner you get goin', the less people will freak out.
 "))
@@ -84,14 +83,14 @@
     :interactable bomb-1
     :dialogue "
 ~ player
-| \"This is the bomb site beneath the Semi factory.\"(light-gray, italic)
-| \"I mould the explosive into a wall crevice, then push two RF detonators into the plastic.\"(light-gray, italic)
+| \"This is the \"bomb site beneath the Semi factory\"(red).\"(light-gray, italic)
+| \"I can mould the explosive into this wall crevice, then push two RF detonators into the plastic.\"(light-gray, italic)
 ! eval (retrieve 'item:explosive 1)
 ! eval (retrieve 'item:receiver 2)
 | \"It's ready.\"(light-gray, italic)
 ? (not (var 'first-bomb-done))
-| | \"Checking FFCS... No signal. Wraw interference, as expected.\"(light-gray, italic)
-| | \"Okay, 2 more bombs to go.\"(light-gray, italic)
+| | \"Checking FFCS... \"No signal. Wraw interference\"(orange), as expected.\"(light-gray, italic)
+| | \"Okay, \"2 more bombs to go\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
 |? (complete-p 'task-bomb-2 'task-bomb-3)
 | | \"Checking FFCS... More interference.\"(light-gray, italic)
@@ -104,8 +103,8 @@
 | ! eval (activate (unit 'ffcs-bomb-3))
 | ! eval (activate (unit 'ffcs-bomb-4))
 |?
-| | \"Checking FFCS... There's still interference.\"(light-gray, italic)
-| | \"Now I only have the last bomb to plant.\"(light-gray, italic)
+| | \"Checking FFCS... \"There's still interference\"(orange).\"(light-gray, italic)
+| | \"Now I only have the \"last bomb to plant\"(orange).\"(light-gray, italic)
 "))
 
   (task-bomb-2
@@ -118,15 +117,15 @@
     :interactable bomb-2
     :dialogue "
 ~ player
-| \"This is the bomb site beneath the pump room.\"(light-gray, italic)
-| \"I mould the explosive into a crack in the concrete floor, which sticks despite being wet.\"(light-gray, italic)
+| \"This is the \"bomb site beneath the pump room\"(red).\"(light-gray, italic)
+| \"I could mould the explosive into this crack in the concrete floor, which should stick, despite being submerged.\"(light-gray, italic)
 ! eval (retrieve 'item:explosive 1)
-| \"I push two RF detonators into the plastic. Thankfully they seem to be waterproof.\"(light-gray, italic)
 ! eval (retrieve 'item:receiver 2)
+| \"Thankfully the RF detonators seem to be waterproof.\"(light-gray, italic)
 | \"It's ready.\"(light-gray, italic)
 ? (not (var 'first-bomb-done))
-| | \"Checking FFCS... No signal. Wraw interference, as expected.\"(light-gray, italic)
-| | \"Okay, 2 more bombs to go.\"(light-gray, italic)
+| | \"Checking FFCS... \"No signal. Wraw interference\"(orange), as expected.\"(light-gray, italic)
+| | \"Okay, \"2 more bombs to go\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
 |? (complete-p 'task-bomb-1 'task-bomb-3)
 | | \"Checking FFCS... More interference.\"(light-gray, italic)
@@ -139,8 +138,8 @@
 | ! eval (activate (unit 'ffcs-bomb-3))
 | ! eval (activate (unit 'ffcs-bomb-4))
 |?
-| | \"Checking FFCS... There's still interference.\"(light-gray, italic)
-| | \"Now I only have the last bomb to plant.\"(light-gray, italic)
+| | \"Checking FFCS... \"There's still interference\"(orange).\"(light-gray, italic)
+| | \"Now I only have the \"last bomb to plant\"(orange).\"(light-gray, italic)
 "))
 
   (task-bomb-3
@@ -153,15 +152,16 @@
     :interactable bomb-3
     :dialogue "
 ~ player
-| \"This is the bomb site in the mushroom cave.\"(light-gray, italic)
-| \"I mould the explosive into the giant mushroom. Why not? Might as well cover them in fungus when they come through.\"(light-gray, italic)
+| \"This is the \"bomb site in the mushroom cave\"(red).\"(light-gray, italic)
+| \"I think I'll mould the explosive into this giant mushroom.\"(light-gray, italic)
+| \"Why not? Might as well cover them in fungus when they come through.\"(light-gray, italic)
 ! eval (retrieve 'item:explosive 1)
-| \"I push two RF detonators into the plastic.\"(light-gray, italic)
+| \"I can conceal the RF detonators beneath the cap.\"(light-gray, italic)
 ! eval (retrieve 'item:receiver 2)
 | \"It's ready.\"(light-gray, italic)
 ? (not (var 'first-bomb-done))
-| | \"Checking FFCS... No signal. Wraw interference, as expected.\"(light-gray, italic)
-| | \"Okay, 2 more bombs to go.\"(light-gray, italic)
+| | \"Checking FFCS... \"No signal. Wraw interference\"(orange), as expected.\"(light-gray, italic)
+| | \"Okay, \"2 more bombs to go\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
 |? (complete-p 'task-bomb-1 'task-bomb-2)
 | | \"Checking FFCS... More interference.\"(light-gray, italic)
@@ -174,15 +174,15 @@
 | ! eval (activate (unit 'ffcs-bomb-3))
 | ! eval (activate (unit 'ffcs-bomb-4))
 |?
-| | \"Checking FFCS... There's still interference.\"(light-gray, italic)
-| | \"Now I only have the last bomb to plant.\"(light-gray, italic)
+| | \"Checking FFCS... \"There's still interference\"(orange).\"(light-gray, italic)
+| | \"Now I only have the \"last bomb to plant\"(orange).\"(light-gray, italic)
 "))
 
 (task-return-bombs
    :title "Return to the Zenith Hub and contact Islay to detonate the bombs"
    :invariant T
    :condition all-complete
-   :on-activate (return-bombs)
+   :on-activate (call-bomb)
    :on-complete (q14-envoy)
 
    (:interaction call-bomb
@@ -192,23 +192,23 @@
 ~ player
 | \"That should be far enough.\"(light-gray, italic)
 | \"Checking FFCS... OK. I have a signal.\"(light-gray, italic)
-| \"Islay, do you read me? The bombs are in position.\"(light-gray, italic)
-| \"... Hello, anyone?...\"(light-gray, italic)
-| \"... The connection is open...\"(light-gray, italic)
+| Islay, do you read me? The bombs are in position and primed.
+| ... Hello, anyone?
+| (:thinking)... The connection is open.
 ~ islay
-| (:nervous){(nametag player)}, I read you. We have a problem - return to the surface now.
+| (:nervous){(nametag player)}, I read you. We have a problem - \"return to the surface now\"(orange).
 ~ player
 - What about the bombs?
 - What problem?
 - Can I talk to Fi?
 ~ player
 | \"... She closed the connection.\"(light-gray, italic)
-| \"<-Shit.->\"(light-gray, italic)
+| <-Shit.->
 | \"There's only one way to find out what's happening: \"go back to camp\"(orange).\"(light-gray, italic)
-| ! eval (deactivate (unit 'ffcs-bomb-1))
-| ! eval (deactivate (unit 'ffcs-bomb-2))
-| ! eval (deactivate (unit 'ffcs-bomb-3))
-| ! eval (deactivate (unit 'ffcs-bomb-4))
+! eval (deactivate (unit 'ffcs-bomb-1))
+! eval (deactivate (unit 'ffcs-bomb-2))
+! eval (deactivate (unit 'ffcs-bomb-3))
+! eval (deactivate (unit 'ffcs-bomb-4))
 ! eval (ensure-nearby 'outside-engineering 'innis 'catherine 'jack)
 ! setf (direction 'innis) 1
 ! setf (direction 'catherine) 1
@@ -223,6 +223,8 @@
 ! setf (direction 'alex) -1
 ! eval (setf (location 'zelah) 'wraw-leader)
 ! setf (direction 'zelah) -1
+! eval (ensure-nearby 'wraw-envoy 'soldier-1 'soldier-2 'soldier-3)
+! eval (setf (nametag (unit 'soldier-1)) (@ soldier-nametag))
+! eval (setf (nametag (unit 'soldier-2)) (@ soldier-nametag))
+! eval (setf (nametag (unit 'soldier-3)) (@ soldier-nametag))
 ")))
-;; TODO hide zelah in the world before this point, and spawn him in here (currently placed in Wraw territory, but we want to keep him a secret till now)
-;; TODO move other Wraw soldiers to the wraw-envoy zone (ensure-nearby)

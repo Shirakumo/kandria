@@ -18,8 +18,6 @@
   "
 ~ islay
 | Here's the last of the components.
-~ fi
-| ... Courtesy of {(nametag player)}.
 ~ catherine
 | Oh, hey! I didn't see you there {(nametag player)}. (:excited)I knew you'd come through for us.
 | (:normal)Well, the bombs are almost ready.
@@ -27,13 +25,13 @@
 | Bombs? I thought there was only one bomb.
 ~ islay
 | We now think several smaller explosives will be more effective.
-| We want to collapse the tunnels they're using to move troops, ahead of where they are now, while minimising damage to our common infrastructure.
+| We want to collapse the tunnels they're using to move troops, while minimising damage to our common infrastructure.
 ~ fi
 | Okay, well that sounds good to me.
 ~ catherine
 | And we don't need any more components to do it this way - not now we've got this delivery.
 ~ islay
-| Good.
+| Good. Finish the assembly, Catherine, as quickly as you can.
 | (:nervous)... Well, that just leaves the question of how we plant them.
 ~ player
 | \"Islay is looking at Fi. I think an understanding is passing between them.\"(light-gray, italic)
@@ -42,13 +40,13 @@
 ~ player
 - I agree.
   ~ fi
-  | ...
-  | You are the best we have for this, much as I hate to admit it.
+  | (:unsure)...
+  | (:normal)You are the best we have for this, as much as I wish you weren't.
   ! eval (setf (var 'brave) T)
 - I wouldn't have it any other way.
   ~ fi
-  | ...
-  | You are the best we have for this, much as I hate to admit it.
+  | (:unsure)...
+  | (:normal)You are the best we have for this, as much as I wish you weren't.
   ! eval (setf (var 'brave) T)
 - It's suicide, then.
   ~ fi
@@ -57,37 +55,33 @@
   ~ catherine
   | (:concerned)Me too.
   ~ fi
-  | But you are the best we have for this, much as I hate to admit it.
+  | But you are the best we have for this, as much as I wish you weren't.
 ~ islay
 | There's danger yes. But you can defend yourself against their soldiers.
 | And I'm confident the bombs won't detonate prematurely.
 ~ player
-- [(var 'brave) I said I'll do it. |]
+- [(var 'brave) I said I'll do it.|]
   ~ islay
-  | Okay, how are we looking?
-- [(not (var 'brave)) It's alright. I know I don't have a choice. |]
+  | Alright. How are we looking?
+- [(not (var 'brave)) It's alright. I know I don't have a choice.|]
   ~ fi
   | (:unsure)But you do.
-  ~ player
-  | I don't, not really.
-  ~ fi
-  | ...
   ~ islay
-  | Okay, how are we looking?
+  | Alright. How are we looking?
 - How confident?
   ~ islay
   | VERY confident.
   | Catherine, how are we looking?
 - I trust Catherine's handiwork.
   ~ catherine
-  | I've mostly just been doing what Islay told me.
+  | Thank you, {(nametag player)}. I've just been doing what Islay told me.
   ~ islay
   | You're a great engineer, Catherine. They're lucky to have you- //We're// lucky to have you.
   | Speaking of which, how are we looking?
 ~ catherine
 | They're ready. Here you go, {(nametag player)}.
 ~ player
-| \"So I've got \"3 parcels\"(orange), each the size of a small brick, but thankfully lighter.\"(light-gray, italic)
+| \"So I've got \"3 bombs\"(orange), each the size of a small brick.\"(light-gray, italic)
 ! eval (store 'item:explosive 3)
 | \"They resemble plastic explosives, similar to what I've seen bomb disposal teams use.\"(light-gray, italic)
 ~ catherine
@@ -96,7 +90,8 @@
 | \"There's also a handful of RF receivers attached to blasting caps - the detonators.\"(light-gray, italic)
 ! eval (store 'item:receiver 13)
 ~ catherine
-| Just push the receivers into the explosives once you've planted them - two in each to be sure. This will prime the explosive and activate the receiver.
+| Just \"push the receivers into the explosives\"(orange) once you've planted them - \"2 in each to be sure\"(orange).
+| This will prime the charge packs and activate the receiver.
 | I've given you a few spares, just in case.
 ~ islay
 | Each receiver is set to an isolated frequency, so only we can trigger them. And it should cut through the Wraw's interference.
@@ -107,16 +102,14 @@
 ~ fi
 | (:unsure)Well?
 ~ islay
-| \"On your low eastern border, beyond the Rootless hospital apartments, beneath the old Semi factory;\"(orange)
-| \"In the mushroom cave to the west of the old Dreamscape apartments;\"(orange)
-| (:nervous)\"In the flooded cave beside the pump room.\"(orange)
+| On your \"low eastern border, beyond the Rootless hospital apartments, beneath the old Semi factory\"(orange);
+| In the \"mushroom cave to the west of the old Dreamscape apartments\"(orange);
+| (:nervous)In the \"flooded cave beside the pump room\"(orange).
 ~ fi
-| ...
-~ fi
-| You're not serious?
+| (:unsure)You're not serious?
 ~ islay
-| The Wraw are already here - our monitoring devices at the foot of your territory are going offline.
-| We need to stop them here and now.
+| Our monitoring devices at the foot of your territory are already going offline.
+| We need to stop the Wraw here and now.
 ~ fi
 | And exploding our water pump is the way to do that?
 ~ islay
@@ -133,16 +126,16 @@
 | It'll work.
 ~ islay
 | Alright, {(nametag player)}: \"Affix all 3 bombs, then get to a safe distance\"(orange) - at least to the \"Zenith Hub\"(orange) I'd say.
-| Your FFCS probably won't work at the bomb locations, as they're so close to the border. But if it does, please report in after you've planted each bomb.
-| If not, then we'll wait for your call once you've planted them all and you're in the Zenith Hub.
-| (:nervous)All the bombs need to be positioned first, because we're detonating them in a precise sequence. We need to bury the Wraw in one fell swoop.
+| Your \"FFCS probably won't work at the bomb locations\"(orange), as they're close to the border.
+| If it does, \"report in after you've planted each bomb\"(orange). If not, then we'll \"wait for your call from the Zenith Hub\"(orange).
+| Then we'll detonate them in sequence, and bury the Wraw in one fell swoop.
 ~ catherine
 | (:excited)When one goes boom, they all go boom!
 ~ islay
 | (:normal)Remember where to \"plant them\"(orange):
 | \"East of the Rootless hospital apartments, beneath the old Semi factory;\"(orange)
-| \"The flooded room beside the pump;\"(orange)
 | \"The mushroom cave to the west.\"(orange)
+| \"The flooded room beside the pump;\"(orange)
 ~ player
 - Got it.
   ~ islay
@@ -155,11 +148,11 @@
   ~ catherine
   | Good luck {(nametag player)}!
   ~ fi
-  | (:happy)You won't need it.
+  | You won't need it.
 - I'll be seeing you.
   ~ fi
   | You will.
-    ~ islay
+  ~ islay
   | Travel well.
   ~ catherine
   | Bye {(nametag player)}.

@@ -546,6 +546,13 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-engineer)))
 
+(define-shader-entity soldier (npc creatable)
+  ((name :initform 'soldier)
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (@ soldier-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'rogue)))
+
 (define-shader-entity villager-hunter (roaming-npc creatable)
   ((name :initform (generate-name "HUNTER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))

@@ -18,6 +18,7 @@ villager-nametag "Villager"
 cerebat-trader-nametag "???"
 unknown-nametag "???"
 zelah-nametag "Zelah"
+soldier-nametag "Wraw Soldier"
 player "Player"
 mech "Wraw Machine Suit Prototype"
 villager-female-nametags ("Sandra" "Cath" "Monika" "Leandra" "Sarah" "Nathalie" "Maria" "Anneli" "Laura" "Karina" "Heidy" "Nick")
