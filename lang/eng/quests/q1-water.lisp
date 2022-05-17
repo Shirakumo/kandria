@@ -264,7 +264,7 @@
 | (:annoyed)Something like that.
 ~ fi
 | You've done well, Catherine. An android will be a great asset to us.
-| Assuming it can be trusted.
+| \"Assuming it can be trusted.\"(orange)
 ~ catherine
 | (:concerned)I don't understand.
 ~ fi
@@ -282,7 +282,7 @@
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
 ~ catherine
-| Well, ask her. Have you betrayed us, Stranger?
+| Well, ask her. \"Have you betrayed us, Stranger?\"(orange)
 ~ player
 - No I have not.
   ~ catherine
@@ -327,7 +327,7 @@
 ~ jack
 | (:annoyed)...
 ~ fi
-| Would you permit Catherine to examine you, assuming we can find a way?
+| \"Would you permit Catherine to examine you\"(orange), assuming we can find a way?
 ~ player
 - I'd rather she didn't.
   ~ fi
@@ -354,9 +354,9 @@
   ~ jack
   | (:annoyed)If you insist.
 ~ fi
-| (:annoyed)But irrespective of all this, I am certain the Wraw are our attackers, one way or another.
+| (:annoyed)But irrespective of all this, I am certain \"the Wraw are our attackers\"(orange), one way or another.
 | Which means they're close to discovering our location.
-| (:normal)I must consider our next course of action.
+| (:normal)\"I must consider our next course of action.\"(orange)
 ~ catherine
 | If there's nothing else, I'll see you both later.
 | Hey Stranger, wait here - \"I want to talk\"(orange).
@@ -382,8 +382,8 @@
 | (:concerned)He's overdue, which is not like him at all. Maybe those servos scared him off.
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a __big__ __friendly__ __badass__ who can protect us!
 | (:normal)Well, I've got work to do.
-| Couldn't hurt to check in with Fi. I'm sure there's something you could help her with, to show her you can be trusted.
-| Knowing Jack he'll have something for you too - (:concerned)if only a mouthful of abuse.
+| Couldn't hurt to \"check in with Fi\"(orange). I'm sure there's something you could help her with, to show her you can be trusted.
+| \"Knowing Jack he'll have something for you too\"(orange) - (:concerned)if only a mouthful of abuse.
 | (:normal)But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
 | (:excited)Take a \"look around and explore\"(orange)! (:normal)Though it's probably best not to go too far from the camp.
 | Seeya later, Stranger!")
