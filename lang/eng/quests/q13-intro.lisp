@@ -22,16 +22,20 @@
 | Oh, hey! I didn't see you there {(nametag player)}. (:excited)I knew you'd come through for us.
 | (:normal)Well, the bombs are almost ready.
 ~ fi
-| Bombs? I thought there was only one bomb.
+| (:unsure)Bombs? I thought there was only one bomb.
 ~ islay
 | We now think several smaller explosives will be more effective.
+~ fi
+| (:annoyed)And you were going to tell me when?
+~ islay
+| Now.
 | We want to collapse the tunnels they're using to move troops, while minimising damage to our common infrastructure.
 ~ fi
 | Okay, well that sounds good to me.
 ~ catherine
 | And we don't need any more components to do it this way - not now we've got this delivery.
 ~ islay
-| Good. Finish the assembly, Catherine, as quickly as you can.
+| Good. Finish the assembly as quickly as you can.
 | (:nervous)... Well, that just leaves the question of how we plant them.
 ~ player
 | \"Islay is looking at Fi. I think an understanding is passing between them.\"(light-gray, italic)
@@ -74,7 +78,7 @@
   | Catherine, how are we looking?
 - I trust Catherine's handiwork.
   ~ catherine
-  | Thank you, {(nametag player)}. I've just been doing what Islay told me.
+  | Thank you. I've just been doing what Islay told me.
   ~ islay
   | You're a great engineer, Catherine. They're lucky to have you- //We're// lucky to have you.
   | Speaking of which, how are we looking?
@@ -91,7 +95,7 @@
 ! eval (store 'item:receiver 13)
 ~ catherine
 | Just \"push the receivers into the explosives\"(orange) once you've planted them - \"2 in each to be sure\"(orange).
-| This will prime the charge packs and activate the receiver.
+| This will prime the charge packs and activate the receivers.
 | I've given you a few spares, just in case.
 ~ islay
 | Each receiver is set to an isolated frequency, so only we can trigger them. And it should cut through the Wraw's interference.
@@ -128,14 +132,14 @@
 | Alright, {(nametag player)}: \"Affix all 3 bombs, then get to a safe distance\"(orange) - at least to the \"Zenith Hub\"(orange) I'd say.
 | Your \"FFCS probably won't work at the bomb locations\"(orange), as they're close to the border.
 | If it does, \"report in after you've planted each bomb\"(orange). If not, then we'll \"wait for your call from the Zenith Hub\"(orange).
-| Then we'll detonate them in sequence, and bury the Wraw in one fell swoop.
+| \"Then we'll detonate them\"(orange) in sequence, and bury the Wraw in one fell swoop.
 ~ catherine
 | (:excited)When one goes boom, they all go boom!
 ~ islay
 | (:normal)Remember where to \"plant them\"(orange):
 | \"East of the Rootless hospital apartments, beneath the old Semi factory;\"(orange)
-| \"The mushroom cave to the west.\"(orange)
 | \"The flooded room beside the pump;\"(orange)
+| \"The mushroom cave to the west.\"(orange)
 ~ player
 - Got it.
   ~ islay

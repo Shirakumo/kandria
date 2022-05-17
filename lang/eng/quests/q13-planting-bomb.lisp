@@ -12,7 +12,6 @@
    :title ""
    :visible NIL
    :invariant T
-   :condition all-complete
    :on-activate (interact-islay interact-fi interact-catherine interact-innis interact-jack)
 
    (:interaction interact-islay
@@ -35,9 +34,9 @@
     :dialogue "
 ~ fi
 | Islay can remind you where to plant the bombs.
-| I'm sorry, my mind is elsewhere.
-| One was the sunken room beside the pump, I remember that much.
-| (:happy)Be careful, {(nametag player)}. Please.
+| (:unsure)I'm sorry, my mind is somewhere else.
+| (:normal)One was the sunken room beside the pump, I remember that.
+| (:unsure)Be careful, {(nametag player)}. Please.
 ")
 
    (:interaction interact-catherine
@@ -149,9 +148,9 @@
    :marker '(chunk-1979 2400)
    :invariant T
    :condition all-complete
-   :on-activate (call-bomb)
+   :on-activate (interact-bomb)
 
-   (:interaction call-bomb
+   (:interaction interact-bomb
     :interactable bomb-3
     :dialogue "
 ~ player
