@@ -484,8 +484,9 @@
 
 (defmethod collide ((player player) (blocker blocker) hit)
   (cond ((and (or (eql :dashing (state player))
-                  (and (< 3.0 (vlength (velocity player)))
-                       (< 0.0 (dash-time player))))
+                  #++
+                  (and (< 2.0 (vlength (velocity player)))
+                       (eql :animated (state player))))
               (ecase (weak-side blocker)
                 (:north (< (vy (velocity player)) 0))
                 (:east  (< (vx (velocity player)) 0))
@@ -495,11 +496,13 @@
          (harmony:play (// 'sound 'blocker-destroy) :reset T)
          (setf (visibility blocker) 0.99)
          (vsetf (frame-velocity player) 0 0)
-         (case (weak-side blocker)
-           (:north (vsetf (velocity player) 0.0 +5.0))
-           (:east (vsetf (velocity player) +2.0 4.0))
-           (:south (vsetf (velocity player) 0.0 -4.0))
-           (:west (vsetf (velocity player) -2.0 4.0))))
+         (when (eql :dashing (state player))
+           (setf (state player) :normal)
+           (case (weak-side blocker)
+             (:north (vsetf (velocity player) 0.0 +5.0))
+             (:east (vsetf (velocity player) +2.0 4.0))
+             (:south (vsetf (velocity player) 0.0 -4.0))
+             (:west (vsetf (velocity player) -2.0 4.0)))))
         (T
          (call-next-method))))
 
