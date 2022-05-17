@@ -602,14 +602,14 @@
 
 (defun optipng (file)
   #-windows
-  (progn
-    (uiop:run-program (list "pngcrush"
-                            "-brute" "-reduce" "-speed"
-                            (uiop:native-namestring file)
-                            (uiop:native-namestring (make-pathname :type "tmp" :defaults file)))
-                      :output *standard-output*
-                      :error-output *error-output*)
-    (rename-file (make-pathname :type "tmp" :defaults file) file)))
+  (ignore-errors
+   (uiop:run-program (list "pngcrush"
+                           "-brute" "-reduce" "-speed"
+                           (uiop:native-namestring file)
+                           (uiop:native-namestring (make-pathname :type "tmp" :defaults file)))
+                     :output *standard-output*
+                     :error-output *error-output*)
+   (rename-file (make-pathname :type "tmp" :defaults file) file)))
 
 (defmacro match1 (thing &body clauses)
   (let ((thingg (gensym "THING")))
