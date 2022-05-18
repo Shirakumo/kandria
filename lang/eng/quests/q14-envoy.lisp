@@ -41,7 +41,7 @@
 ~ zelah
 | (:jovial)I won't be touchin' no one. My army will though.
 | (:normal)Come, android. The masquerade is over. You're a traitor to these people, remember? It's \"time to come home\"(orange).
-| \"If you do, I'll even spare the lives of these so-called friends.\"(orange)
+| \"If you do, I'll even spare the lives of this lot.\"(orange)
 ~ fi
 | (:annoyed)I see only one traitor here.
 ~ alex
@@ -61,7 +61,7 @@
 ~ catherine
 | (:concerned)Don't go, {(nametag player)}.
 ~ zelah
-| (:jovial)Oh, it has a name. How quaint.
+| (:jovial)Oh, I forgot you'd given it a name. How quaint.
 ~ player
 - I'm staying here.
   ~ zelah
@@ -78,7 +78,7 @@
 ~ fi
 | It doesn't matter what he says, {(nametag player)}. You've shown us who you really are.
 ~ zelah
-| (:jovial)It's ya last chance... //{(nametag player)}//. Come with me, or ya friends'll die.
+| (:jovial)It's ya last chance... //{(nametag player)}//. Come with me, or ya friends will die.
 ~ player
 - Nice try.
 - Fuck you.
@@ -91,4 +91,5 @@
     (move-to (unit 'leader-rally) 'zelah)
     (move-to (unit 'alex-rally) 'alex)
     (ensure-nearby 'soldier-rally 'soldier-1 'soldier-2 'soldier-3)))
+;; kent = knew (Scottish)
 ;; Zelah motivation: greed, resource/people acquisition
