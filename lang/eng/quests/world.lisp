@@ -637,9 +637,14 @@
 ;; alex - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka
 ;; TODO don't have the fallback of "hic" be possible once they've left the Semi bar at the start of act 3 (q7), as they're meant to have sobered up by then
 (define-default-interactions alex
+  (q14-envoy
+   "| (:angry)You picked the wrong side.")
+  (q13-planting-bomb
+   "| (:angry)Hello again.")
   (T
   "| (:angry)<-Hic->. Go away."))
 
+;; can only appear in the demo
 (define-default-interactions trader
   (T
   "| Sorry, habibti. I'm closed for business while I fix my caravan."))
@@ -657,6 +662,10 @@
 
 ;; Fi (Noka faction leader, female) - somewhat indifferent and distanced to the player; formal, but warming to them. Japanese English accent and dialect.
 (define-default-interactions fi
+  (q14-envoy
+   "| You're one of us.")
+  (q13-planting-bomb
+   "| (:unsure){(nametag player)}...")
   (q11a-bomb-recipe
   "| Konnichiwa.")
   (q11-recruit-semis
@@ -670,6 +679,10 @@
    
 ;; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
 (define-default-interactions catherine
+  (q14-envoy
+   "| (:concerned)You don't belong to him. You don't belong to anyone but yourself.")
+  (q13-planting-bomb
+   "| He doesn't look so tough. (:excited)I could take him.")
   (demo-end-prep
    "| (:excited)[? I never doubted you! | You're my hero, {(nametag player)}! | I'm gonna take a bath! Well, once everyone's had their fill. | I won't take water for granted __EVER__ again.]")
   (demo-start
