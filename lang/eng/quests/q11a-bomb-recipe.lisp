@@ -108,8 +108,6 @@
     (setf (location 'catherine) 'eng-bombs)
     (setf (direction 'catherine) 1)
     ))
-;; TODO position islay further from the others - easier to clarify hand-in NPC, and the trials of leadership etc.
-;; TODO also deactivate semis world NPC spawners (deletes all Semis NPCs?) and instead activate smaller Semis spawners on surface
 
   ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb. Not adding a marker, since it would trigger a distracting quest arrow while collecting bomb parts
   (task-return-fi
