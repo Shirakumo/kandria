@@ -90,6 +90,8 @@
     :on-complete (q15-engineering)
     (move-to (unit 'leader-rally) 'zelah)
     (move-to (unit 'alex-rally) 'alex)
-    (ensure-nearby 'soldier-rally 'soldier-1 'soldier-2 'soldier-3)))
+    (move-to (unit 'soldier-rally-1) 'soldier-1)
+    (move-to (unit 'soldier-rally-2) 'soldier-2)
+    (move-to (unit 'soldier-rally-3) 'soldier-3)))
 ;; kent = knew (Scottish)
 ;; Zelah motivation: greed, resource/people acquisition
