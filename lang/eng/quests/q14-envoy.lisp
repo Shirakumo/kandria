@@ -46,7 +46,7 @@
 | (:annoyed)I see only one traitor here.
 ~ alex
 | (:angry)You betrayed me first.
-| An' maybe I wouldn't o' done it, if you hadn't sent this thing after me.
+| An' maybe I wouldn't o' done it if you hadn't sent this thing after me.
 ~ zelah
 | You betrayed your people, Fi, when ya took this android in.
 | (:jovial)And now I understand you're quite fond of it.
@@ -57,7 +57,7 @@
 ~ innis
 | (:angry)We dinnae need the android. I kent this alliance was a mistake.
 ~ islay
-| (:unhappy)And having her fight for them, or not at all, would be better?
+| (:unhappy)And having her fight for the Wraw, or not at all, would be better?
 ~ catherine
 | (:concerned)Don't go, {(nametag player)}.
 ~ zelah
