@@ -468,9 +468,9 @@
 ;;   Blingee
 ;; x Ninja
 ;;   Wahoo
-;;   Shopping
+;; x Shopping
 ;;   Invisible
-;;   Camo
+;; x Camo
 ;;   Garlic
 ;; x Curly
 ;;   Quote
