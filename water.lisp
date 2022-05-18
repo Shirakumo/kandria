@@ -159,7 +159,9 @@ out vec4 color;
 in vec2 world_pos;
 
 void main(){
-  color = apply_lighting_flat(vec4(0.53, 0.76, 0.99, 0.8), vec2(0), 1-(height*height*height*height), world_pos);
+  vec4 base_color = vec4(0.53, 0.76, 0.99, 0.8);
+  base_color.rgb += vec3(clamp((height-0.99)*1000.0,0,1));
+  color = apply_lighting_flat(base_color, vec2(0), 1-(height*height*height*height), world_pos);
 }")
 
 (define-shader-entity sludge (water creatable)
