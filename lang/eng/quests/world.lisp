@@ -723,18 +723,24 @@
 (define-default-interactions soldier-1
   (q14-envoy
   "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  (q13-planting-bomb
+   "| Step away.")
   (T
    "| [? Huh? | Yeah? | What?]"))
 
 (define-default-interactions soldier-2
   (q14-envoy
   "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  (q13-planting-bomb
+   "| Step away.")
   (T
    "| [? Huh? | Yeah? | What?]"))
    
 (define-default-interactions soldier-3
   (q14-envoy
   "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  (q13-planting-bomb
+   "| Step away.")
   (T
    "| [? Huh? | Yeah? | What?]"))
 
