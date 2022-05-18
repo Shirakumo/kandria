@@ -92,6 +92,7 @@
 | | \"Checking \"FFCS... No signal. Wraw interference\"(orange), as expected.\"(light-gray, italic)
 | | \"Okay, \"2 more bombs to go\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
 |? (complete-p 'task-bomb-2 'task-bomb-3)
 | | \"Checking \"FFCS... More interference\"(orange).\"(light-gray, italic)
 | | \"That's the last bomb planted.\"(light-gray, italic)
@@ -128,6 +129,7 @@
 | | \"Checking \"FFCS... No signal. Wraw interference\"(orange), as expected.\"(light-gray, italic)
 | | \"Okay, \"2 more bombs to go\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
 |? (complete-p 'task-bomb-1 'task-bomb-3)
 | | \"Checking \"FFCS... More interference\"(orange).\"(light-gray, italic)
 | | \"That's the last bomb planted.\"(light-gray, italic)
@@ -165,6 +167,7 @@
 | | \"Checking \"FFCS... No signal. Wraw interference\"(orange), as expected.\"(light-gray, italic)
 | | \"Okay, \"2 more bombs to go\"(orange).\"(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
 |? (complete-p 'task-bomb-1 'task-bomb-2)
 | | \"Checking \"FFCS... More interference\"(orange).\"(light-gray, italic)
 | | \"That's the last bomb planted.\"(light-gray, italic)
@@ -179,6 +182,21 @@
 | | \"Checking \"FFCS... There's still interference\"(orange).\"(light-gray, italic)
 | | \"Now I only have the \"last bomb to plant\"(orange).\"(light-gray, italic)
 "))
+
+;; move alex and the wraw leader and soldiers part way towards the surface, so keen-eyed players won't see them suddenly go from wraw territory to the surface
+(task-part-move-wraw
+   :title ""
+   :condition all-complete
+   :on-complete ()
+   :on-activate T
+   :visible NIL
+   (:action functions
+    (setf (location 'alex) 'alex-cerebat-loc)
+    (setf (direction 'alex) 1)
+    (setf (location 'zelah) 'wraw-leader-cerebat)
+    (setf (direction 'zelah) -1)
+    (ensure-nearby 'soldiers-cerebat 'soldier-1 'soldier-2 'soldier-3)
+    ))
 
 (task-return-bombs
    :title "Return to the Zenith Hub and contact Islay to detonate the bombs"
