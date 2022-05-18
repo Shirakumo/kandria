@@ -609,6 +609,10 @@
 
 ;; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
 (define-default-interactions innis
+  (q14-envoy
+   "| (:angry)I'm watching you.")
+  (q13-planting-bomb
+   "| (:angry)Where've you been?")
   (demo-end-prep
    "| [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the winning side.]")
   (demo-intro
@@ -651,6 +655,10 @@
 
 ;; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
 (define-default-interactions jack
+  (q14-envoy
+   "| Was I wrong about you?")
+  (q13-planting-bomb
+   "| Look what the cat dragged in.")
   (q11a-bomb-recipe
    "| (:annoyed)Innis is a real bitch, don't ya think?")
   (demo-end-prep
@@ -722,7 +730,7 @@
 ;; TODO more efficient way to structure this?
 (define-default-interactions soldier-1
   (q14-envoy
-  "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  "| [? I'm not afraid of an android. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
   (q13-planting-bomb
    "| Step away.")
   (T
@@ -730,7 +738,7 @@
 
 (define-default-interactions soldier-2
   (q14-envoy
-  "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  "| [? I'm not afraid of an android. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
   (q13-planting-bomb
    "| Step away.")
   (T
@@ -738,7 +746,7 @@
    
 (define-default-interactions soldier-3
   (q14-envoy
-  "| [? You don't look so tough. | I'm supposed to be afraid of you? Ha. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
+  "| [? I'm not afraid of an android. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]")
   (q13-planting-bomb
    "| Step away.")
   (T
