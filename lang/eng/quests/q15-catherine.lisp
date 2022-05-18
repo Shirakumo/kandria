@@ -81,6 +81,7 @@
 ")
   (:eval
    :on-complete (q15-unexploded-bomb)
+   (ensure-nearby 'wraw-rally 'zelah 'alex)
    (activate (unit 'islay-bomb-1))
    (activate (unit 'islay-bomb-2))
    (activate (unit 'islay-bomb-3))

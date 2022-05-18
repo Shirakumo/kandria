@@ -10,7 +10,7 @@
     "
 ~ islay
 | Fi, {(nametag player)} - \"come to Engineering\"(orange).
-| We need to talk.
+| We \"need to talk\"(orange).
 ")
   (:eval
    :on-complete (q15-intro)))
