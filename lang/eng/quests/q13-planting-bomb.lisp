@@ -194,8 +194,8 @@
     :dialogue "
 ~ player
 | \"That should be far enough.\"(light-gray, italic)
-| \"Checking FFCS... OK. I have a signal.\"(light-gray, italic)
-| Islay, do you read me? The bombs are in position and primed.
+| \"Checking \"FFCS... OK. I have a signal\"(orange).\"(light-gray, italic)
+| Islay, do you read me? The bombs are primed and in position.
 | ... Hello, anyone?
 | (:thinking)... The connection is open.
 ~ islay
