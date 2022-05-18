@@ -182,6 +182,7 @@
 
 (task-return-bombs
    :title "Return to the Zenith Hub and contact Islay to detonate the bombs"
+   :marker '(hub 2600)
    :invariant T
    :condition all-complete
    :on-activate (call-bomb)
