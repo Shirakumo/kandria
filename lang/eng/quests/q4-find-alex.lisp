@@ -58,7 +58,7 @@
   | This I ken, android. (:sly)Tell me, why are you here?
 - (Keep quiet)
   ~ innis
-  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
+  | (:sly)Why are you are here? I ken lots about you, but I want more.
 ~ innis
 | (:sly)What //does// Fi send her robot dog to do?
 | To prove her loyalty, I think.
@@ -135,7 +135,7 @@ ken = know (Scottish)
   | This I ken, android. (:sly)Tell me, why are you here?
 - (Keep quiet)
   ~ innis
-  | (:sly)Why are you are here? I ken lots about you, but I wanna ken more.
+  | (:sly)Why are you are here? I ken lots about you, but I want more.
 ~ innis
 | (:sly)What //does// Fi send her robot dog to do?
 | To prove her loyalty, I think.
