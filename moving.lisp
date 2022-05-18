@@ -220,10 +220,9 @@
     (when (< 0.1 (+ (abs (vx vel)) (abs (vy vel))))
       (let ((angle (round (rad->deg (vangle (spike-normal block) (nv- (vunit vel))))))
             (loc (location moving)))
-        ;; FIXME: This allows you to stand in spikes if you're *super* precise...
         (and (<= angle 90)
-             (<= (abs (- (vx (hit-location hit)) (vx loc))) 7)
-             (<= (abs (- (vy (hit-location hit)) (vy loc))) 7))))))
+             (<= (abs (- (vx (hit-location hit)) (vx loc))) 8)
+             (<= (abs (- (vy (hit-location hit)) (vy loc))) 8))))))
 
 (defmethod collide ((moving moving) (block spike) hit)
   (kill moving))
