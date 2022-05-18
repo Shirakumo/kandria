@@ -183,7 +183,7 @@
 | (:sly)That's right, you be a good dog.
 ~ islay
 | (:unhappy)Innis!
-| (:nervous)... You can't tell Fi - whatever the Wraw are doing to mess with our network, it affects your FFCS too.
+| (:nervous)... You \"can't tell Fi\"(orange) - whatever the \"Wraw are doing to mess with our network, it affects your FFCS\"(orange) too.
 ~ player
 - (Check FFCS)
   ~ player

@@ -73,9 +73,9 @@
 | Is your FFCS working?
 ~ player
 | \"Checking FFCS...\"(light-gray, italic)
-| No. Wraw interference.
+| No. \"Wraw interference\"(orange).
 ~ fi
-| Then take this walkie. Try calling her once you're down there, find out where she is.
+| Then \"take this walkie. Try calling her once you're down there\"(orange), find out where she is.
 ! eval (store 'item:walkie-talkie-2 1)
 ! eval (follow 'player 'catherine)
 ")
