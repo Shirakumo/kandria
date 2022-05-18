@@ -183,7 +183,7 @@
 | | \"Now I only have the \"last bomb to plant\"(orange).\"(light-gray, italic)
 "))
 
-;; move alex and the wraw leader and soldiers part way towards the surface, so keen-eyed players won't see them suddenly go from wraw territory to the surface
+;; move alex and the wraw leader and soldiers part way towards the surface, so keen-eyed players won't see them suddenly go from wraw territory to the surface (longest distance in the game)
 (task-part-move-wraw
    :title ""
    :condition all-complete
