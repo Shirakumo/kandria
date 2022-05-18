@@ -112,7 +112,16 @@
            (setf (mixed:volume (// 'sound 'sandstorm)) (/ value 4)))
           (T
            (harmony:stop (// 'sound 'sandstorm))))
-    (setf (strength (unit 'sandstorm T)) value)))
+    (setf (strength (unit 'sandstorm T)) value)
+    (setf (velocity (unit 'sandstorm T)) 1.0)))
+
+(defclass dust-trigger (tween-trigger creatable)
+  ())
+
+(defmethod (setf value) (value (trigger dust-trigger))
+  (let ((value (* 0.3 (max 0.0 (- value 0.01)))))
+    (setf (strength (unit 'sandstorm T)) value)
+    (setf (velocity (unit 'sandstorm T)) 0.05)))
 
 (defclass zoom-trigger (tween-trigger creatable)
   ((easing :initform 'quint-in)))

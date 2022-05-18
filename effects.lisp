@@ -175,7 +175,8 @@ void main(){
    (active-p :initform NIL)
    (noise :port-type fixed-input :texture (// 'kandria 'noise))
    (noise-cloud :port-type fixed-input :texture (// 'kandria 'noise-cloud))
-   (strength :initform 0f0 :accessor strength)))
+   (strength :initform 0f0 :accessor strength)
+   (velocity :initform 1f0 :accessor velocity)))
 
 (defmethod (setf strength) :after (strength (pass sandstorm-pass))
   (unless (eq (active-p pass) (< 0 strength))
@@ -187,6 +188,11 @@ void main(){
 
 (defmethod render :before ((pass sandstorm-pass) (program shader-program))
   (setf (uniform program "strength") (strength pass))
+  (setf (uniform program "speed") (velocity pass))
+  (let* ((loc (location (unit 'player +world+)))
+         (loc (m* (projection-matrix) (view-matrix) (tvec (vx loc) (vy loc) 0 1))))
+    (setf (uniform program "focus_center") (tvec (* 0.5 (1+ (vx loc)))
+                                                 (* 0.5 (1+ (vy loc))))))
   (setf (uniform program "time") (clock +world+)))
 
 (define-class-shader (sandstorm-pass :fragment-shader)
@@ -196,6 +202,8 @@ uniform sampler2D previous_pass;
 uniform sampler2D noise;
 uniform sampler2D noise_cloud;
 uniform float strength = 1.0;
+uniform float speed = 1.0;
+uniform vec2 focus_center = vec2(0.5,0.5);
 in vec2 tex_coord;
 out vec4 color;
 
@@ -203,11 +211,16 @@ void main(){
   vec3 previous = texture(previous_pass, tex_coord).rgb;
   float t = time*3;
   float r = (sin(t)+sin(t*0.3)+sin(t*0.1))*0.1;
-  vec3  n = texture(noise,       (tex_coord+r*vec2(1, 0.20)+vec2(0, 0.0)+t*vec2(0.4, 0.1))*1.5).rgb;
-  float a = texture(noise_cloud, (tex_coord+r*vec2(1, 0.21)+vec2(0, 0.0)+t*vec2(0.5, 0.05))*0.3).r;
-  float b = texture(noise_cloud, (tex_coord+r*vec2(1, 0.22)+vec2(0, 0.5)+t*vec2(0.6, 0.1))*0.2).r;
-  float c = texture(noise_cloud, (tex_coord+r*vec2(1, 0.23)+vec2(0, 0.3)+t*vec2(0.65,0.1))*0.1).r;
+  float off = sin(t*0.25)*0.0025*speed;
+  vec3  n = texture(noise,       (tex_coord+r*vec2(speed, 0.20)+vec2(0, 0.0)+t*vec2(speed*0.4,  off*0.1))*1.5).rgb;
+  float a = texture(noise_cloud, (tex_coord+r*vec2(speed, 0.21)+vec2(0, 0.0)+t*vec2(speed*0.5,  off*0.05))*0.3).r;
+  float b = texture(noise_cloud, (tex_coord+r*vec2(speed, 0.22)+vec2(0, 0.5)+t*vec2(speed*0.6,  off*0.1))*0.2).r;
+  float c = texture(noise_cloud, (tex_coord+r*vec2(speed, 0.23)+vec2(0, 0.3)+t*vec2(speed*0.65, off*0.1))*0.1).r;
   float s = a*b*c*(length(n)*0.1+0.95)*strength;
   vec3 sand = vec3(0.9, 0.8, 0.7)*(s+0.5)+n/20;
-  color = vec4(mix(sand, previous, clamp(1.3-s*5+strength, 0, 1)), 1);
+  float cdist = distance(tex_coord,focus_center);
+  cdist = clamp((0.3-cdist)*2.0, 0.0, 1.0);
+  float mix_factor = clamp(1.3-s*5+strength, 0, 1);
+  color = vec4(mix(mix(sand, previous, mix_factor), previous, cdist), 1);
+//  color.rgb = vec3(cdist);
 }")
