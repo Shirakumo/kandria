@@ -225,15 +225,17 @@
 ~ player
 | \"... She closed the connection.\"(light-gray, italic)
 | <-Shit.->
-| \"There's only one way to find out what's happening: \"go back to camp\"(orange).\"(light-gray, italic)
+| \"I'd better\"get back to camp\"(orange).\"(light-gray, italic)
 ! eval (deactivate (unit 'ffcs-bomb-1))
 ! eval (deactivate (unit 'ffcs-bomb-2))
 ! eval (deactivate (unit 'ffcs-bomb-3))
 ! eval (deactivate (unit 'ffcs-bomb-4))
-! eval (ensure-nearby 'outside-engineering 'innis 'catherine 'jack)
+! eval (setf (location 'innis) 'outside-eng-1)
 ! setf (direction 'innis) 1
-! setf (direction 'catherine) 1
+! eval (setf (location 'jack) 'outside-eng-2)
 ! setf (direction 'jack) 1
+! eval (setf (location 'catherine) 'outside-eng-3)
+! setf (direction 'catherine) 1
 ! eval (setf (location 'fi) 'fi-wraw)
 ! setf (direction 'fi) 1
 ! eval (setf (location 'islay) 'islay-wraw)
