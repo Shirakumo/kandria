@@ -14,7 +14,7 @@
 
 (alloy:define-subcontainer (entity-widget layout)
     (alloy:vertical-linear-layout)
-  region entity
+  region
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T T T) :row-sizes '(30) :cell-margins (alloy:margins 1 0 0 0)
