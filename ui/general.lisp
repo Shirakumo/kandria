@@ -183,6 +183,9 @@
   ()
   (:metaclass alloy:widget-class))
 
+(defmethod alloy:layout-element ((widget single-widget))
+  (slot-value widget 'representation))
+
 (defmethod alloy:enter ((widget single-widget) target &rest initargs)
   (apply #'alloy:enter (slot-value widget 'representation) target initargs))
 

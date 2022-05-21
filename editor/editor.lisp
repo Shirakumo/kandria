@@ -181,8 +181,12 @@
       (alloy:leave (sidebar editor) (alloy:focus-element editor)))))
 
 (defmethod (setf sidebar) :after ((sidebar sidebar) (editor editor))
-  (alloy:enter sidebar (alloy:layout-element editor) :place :east :size (alloy:un 300))
-  (alloy:enter sidebar (alloy:focus-element editor)))
+  (alloy:enter sidebar (alloy:layout-element editor) :place :east)
+  (alloy:enter sidebar (alloy:focus-element editor))
+  ;; KLUDGE: Manually fix the sidebar to start out as 300. Setting the size in the parent would
+  ;; not allow it to resize by dragging.
+  (setf (alloy:bounds (alloy:layout-element sidebar)) (alloy:px-extent 0 0 300 0))
+  (alloy:notice-bounds (alloy:layout-element (alloy:layout-element sidebar)) (alloy:layout-element editor)))
 
 (defun update-marker (editor)
   (let* ((selected (entity editor))
