@@ -7,6 +7,9 @@
 
 (defmethod label ((tool rectangle)) "Rectangle")
 
+(defmethod handle ((ev lose-focus) (tool rectangle))
+  (handle (make-instance 'mouse-release :button :left :pos (or (end-pos tool) (vec 0 0))) tool))
+
 (defmethod handle ((event mouse-release) (tool rectangle))
   (case (state tool)
     (:placing
@@ -16,8 +19,8 @@
            (whole (retained :shift)))
        (destructuring-bind (tile . cache) (cache tool)
          (with-commit (tool)
-             ((repeat-tile-region entity start end tile whole))
-             ((repeat-tile-region entity start end cache))))))))
+           ((repeat-tile-region entity start end tile whole))
+           ((repeat-tile-region entity start end cache))))))))
 
 (defun match-tile-layer (start x y)
   (let ((x (+ (vx start) (* x +tile-size+)))

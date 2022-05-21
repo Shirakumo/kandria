@@ -109,7 +109,8 @@
                              (:file "creator")
                              (:file "animation")
                              (:file "move-to")
-                             (:file "lighting"))))
+                             (:file "lighting")
+                             (:file "drag"))))
   :serial T
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
