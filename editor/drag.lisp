@@ -1,16 +1,16 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity sentinel (vertex-entity colored-entity sized-entity standalone-shader-entity)
+(define-shader-entity drag-sentinel (vertex-entity colored-entity sized-entity standalone-shader-entity)
   ((vertex-array :initform (// 'kandria '1x))
    (color :initform (vec 1 0 0 0.5))))
 
-(defmethod apply-transforms progn ((sentinel sentinel))
+(defmethod apply-transforms progn ((sentinel drag-sentinel))
   (let ((size (bsize sentinel)))
     (translate-by (- (vx size)) (- (vy size)) 100)
     (scale-by (* 2 (vx size)) (* 2 (vy size)) 1)))
 
 (defclass drag (tool)
-  ((sentinel :initform (make-instance 'sentinel) :accessor sentinel)
+  ((sentinel :initform (make-instance 'drag-sentinel) :accessor sentinel)
    (start-pos :initform (vec 0 0) :accessor start-pos)
    (offset :initform (vec 0 0) :accessor offset)
    (layer :initform NIL :accessor layer)
