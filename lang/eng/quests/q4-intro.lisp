@@ -33,7 +33,7 @@
 - I'm designed for that.
   ~ fi
   | You're a remarkable piece of-
-  |(:unsure)... person. (:normal)You're a remarkable //person//.
+  | (:unsure)... Person. (:normal)You're a remarkable //person//.
 ~ fi
 | Is everything clear? You know what you need to do?
 ~ player
@@ -55,7 +55,7 @@
   < questions
 - (Ask about the Semi Sisters)
   ~ fi
-  | They're tech-witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
+  | They're tech witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
   | They keep the power and water on in this whole area, and don't seem to mind if we siphon a little off.
   | Two sisters are in charge. It would be best to avoid them for now.
   < questions
@@ -77,7 +77,7 @@
 ~ fi
 | See Sahil if you haven't already, and stock up - it will be a long journey.
 | Catherine tells me your \"FFCS works with our radios\"(orange). You'll be deep underground, and I'd like you to \"keep in contact\"(orange).
-| As Alex has shown, falling off the grid isn't helpful.
+| Like Alex has shown, falling off the grid isn't helpful.
 | So please stay in touch - you can call me day or night.
 ! eval (setf (location 'innis) 'innis-intercept)
 ! setf (direction 'innis) -1
