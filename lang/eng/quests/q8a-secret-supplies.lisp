@@ -76,7 +76,7 @@
 | | ! eval (retrieve 'item:coolant (min (var 'coolant-prev-count) (item-count 'item:coolant)))
 | ? (and (= 0 (var 'black-cap-count)) (= 0 (var 'pure-water-count)) (= 0 (var 'pearl-count)) (= 0 (var 'thermal-count)) (= 0 (var 'coolant-count)))
 | | ~ cerebat-trader-quest
-| | | I fink that's everything I asked for.
+| | | I fink that's everythin' I asked for.
 | | | I'll just put them to one side. Got a special customer lined up for these bad boys.
 | | ~ player
 | | - And now my information.
@@ -90,8 +90,8 @@
 | |   | I gotta say, I thought you mighta worked it out by now.
 | | ~ cerebat-trader-quest
 | | | The \"Wraw\"(orange).
-| | | I'm supplying the Wraw aren't I.
-| | | It's the only good thing to come from \"them moving in\"(orange), believe me. Though don't tell anyone I said that.
+| | | I'm supplyin' the Wraw aren't I.
+| | | It's the only good thing to come from \"them movin' in\"(orange), believe me. Though don't tell anyone I said that.
 | | | So now you know.
 | | | That's why you can't see the \"Council. There isn't one any more\"(orange).
 | | | I told you they wouldn't see anyone!

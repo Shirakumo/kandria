@@ -98,7 +98,7 @@
       | (:happy)Thank you. It means a lot that you let me do that.
 ~ fi
 | (:happy)That's settled then, \"{(nametag player)}\"(yellow). Welcome to the Noka.
-| (:normal)I wish we could talk, but I really need you to take this next assignment.
+| (:normal)I wish we could talk, but I really need you to take this next job.
 | (:happy)Your first \"official\" one, no less.
 | (:unsure)It's just... I can't get what Innis said out of my head. We need to talk to the Cerebats.
 | (:normal)\"Go and see the Cerebat Council\"(orange) in the heart of their territory, \"beneath the Semi Sisters\"(orange).

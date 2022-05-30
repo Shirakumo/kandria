@@ -29,10 +29,10 @@
   | That so. Well just make sure it stays that way.
 - I want to ask them some questions.
   ~ cerebat-trader-quest
-  | Piece o' friendly advice: Now is not a good time to be asking questions.
+  | Piece o' friendly advice: Now is not a good time to be askin' questions.
 - I come from the Noka.
   ~ cerebat-trader-quest
-  | The Noka? That the new faction on the surface?
+  | The Noka? That the new faction tryin' to live on the surface?
   | Bunch o' crazy bastards if you ask me. No offence.
 ~ cerebat-trader-quest
 | Anyway, you can't see the Council - they won't see anyone.
@@ -44,17 +44,17 @@
   ~ cerebat-trader-quest
   | ...
   | Ah, good one! You nearly 'ad me there, pal!
-  | But I want something first before I tell you anything.
+  | But I want somethin' first before I tell you anythin'.
 - What do you want?
   ~ cerebat-trader-quest
-  | Oh nothing much. Nothing much at all, really. It's just...
+  | Oh nothin' much. Nothin' much at all, really. It's just...
 - I understand.
   ~ cerebat-trader-quest
   | Good. It's a simple matter o' economics, innit?
 ~ cerebat-trader-quest
 | If I'm gonna risk my neck, you gotta risk yours.
-| See, the usual caravans aren't getting through, so it's kinda hard to get supplies.
-| I'm talking \"mushrooms (poisonous ones\"(orange) o' course), \"purified water\"(orange), and \"pearls\"(orange) - you know, the essentials.
+| See, the usual caravans aren't gettin' through, so it's kinda 'ard to get supplies.
+| I'm talkin' \"mushrooms (poisonous ones\"(orange) o' course), \"purified water\"(orange), and \"pearls\"(orange) - you know, the essentials.
 | Might as well throw in some \"thermal fluid\"(orange) and \"coolant liquid\"(orange) while you're at it.
 | A couple o' each should do nicely, just to get me back on my feet. Then I'll spill the beans.
 | \"You shouldn't need to look too far away\"(orange) - what can I say, I'm lazy.
@@ -94,17 +94,17 @@
 | ~ player
 | - Why are you helping the Wraw?
 |   ~ cerebat-trader-quest
-|   | I know how it looks.
-|   | But they pay well, and that's all I care about. A man's gotta make a living.
+|   | I know 'ow it looks.
+|   | But they pay well, and that's all I care about. A man's gotta make a livin'.
 |   < questions
 | - What happened to the Cerebat Council?
 |   ~ cerebat-trader-quest
 |   | Like I said, they're gone.
-|   | Some might still be alive though, rotting in a Wraw jail.
+|   | Some might still be alive though, rottin' in a Wraw jail.
 |   < questions
 | - What's your name?
 |   ~ cerebat-trader-quest
-|   | You fink I got this far in business by sharing my name?
+|   | You fink I got this far in business by sharin' my name?
 |   | You can call me... //Stranger//.
 |   ! eval (setf (nametag (unit 'cerebat-trader-quest)) (@ cerebat-trader-stranger))
 |   ~ player
@@ -136,10 +136,10 @@
 | | See you around.
 |? (and (complete-p 'q10a-return-to-fi) (not (complete-p 'q11a-bomb-recipe)))
 | ~ cerebat-trader-quest
-| | Soz pal, no time. Lots happenin'. I can trade though, if you're game.
+| | Soz pal, no time. Lots 'appenin'. I can trade though, if you're game.
 |? (complete-p 'q11a-bomb-recipe)
 | ~ cerebat-trader-quest
-| | No can do I'm afraid. I'm leaving while I've got the chance.
+| | No can do I'm afraid. I'm leavin' while I've got the chance.
 | | Good luck, pal.
 ")))
 

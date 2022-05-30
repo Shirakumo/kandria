@@ -94,7 +94,7 @@
 | | ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q3-new-home))
-| | | Oh, I've also \"given Jack a special assignment\"(orange) - something I think you'll be well-suited to help with.
+| | | Oh, I've also \"given Jack a special job\"(orange) - something I think you'll be well-suited to help with.
 | | | He'll be in Engineering.
 |   
 | | I also heard \"Sahil is here - our trader friend\"(orange). His caravan is down in the Midwest Market, beneath the \"Zenith Hub\"(red).
