@@ -678,6 +678,10 @@
   "| Konnichiwa.")
   (q11-recruit-semis
   "| (:unsure)Whatever you're doing, please hurry.")
+  (q6-return-to-fi
+  "| Konnichiwa.")
+  (q4-intro
+  "| Any news on Alex? I still need them back.")
   (demo-end-prep
    "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still intact. | Now our crops might stand a chance.]")
   (demo-start

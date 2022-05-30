@@ -4,25 +4,34 @@
 (quest:define-quest (kandria q4-find-alex)
   :author "Tim White"
   :title "Find Alex"
-  :description "Fi wants me to find Alex and bring them back to camp for debriefing, to see if they know anything about the Wraw's plans."
-  :on-activate (find-alex)
+  :description "Fi wants me to find Alex and bring them back to camp for debriefing, to see if they know anything about the Wraw's plans. Their last known location was Cerebat territory, deep underground. I should avoid the Semi Sisters en route."
+  :on-activate (find-alex-reminder find-alex find-alex-cerebats)
 
-  (find-alex
-   :title "Travel down to the Cerebats township and find Alex, but avoid the Semi Sisters en route"
-   :marker '(chunk-5526 2200)
-   :invariant (not (or (complete-p 'innis-stop-local) (complete-p 'innis-stop-remote)))
-   :condition NIL
+  (find-alex-reminder
+   :title ""
+   :visible NIL
+   :condition (complete-p 'find-alex)
    :on-activate (q4-reminder)
-   :on-complete NIL
 
    (:interaction q4-reminder
     :interactable fi
     :repeatable T
     :dialogue "
 ~ fi
-| Go to the \"Cerebats township deep underground, find Alex and bring them back\"(orange) for debriefing.
-| Watch out for the Semi Sisters on your way. They're not our enemies, but they are unpredictable.
-")
+? (not (complete-p 'find-alex-cerebats))
+| | Go to the \"Cerebats township deep underground, find Alex and bring them back\"(orange) for debriefing.
+| | Watch out for the Semi Sisters on your way. They're not our enemies, but they are unpredictable.
+|?
+| | (:unsure)Alex isn't with the Cerebats? That is worrying.
+| | (:normal)Well they still haven't returned. I suggest you \"search the tunnels between the Semis and the Cerebats\"(orange).
+| | I hope they're okay.
+"))
+
+  (find-alex
+   :title "Find Alex"
+   :condition (or (complete-p 'innis-stop-local) (complete-p 'innis-stop-remote))
+   :on-activate NIL
+   :on-complete NIL
 
    (:interaction innis-stop-local
     :interactable innis
@@ -83,14 +92,19 @@
 ~ innis
 | Indulge me, would you? I want to see how smart you are.
 | See if you can \"find them\"(orange) for yourself.
-! eval (deactivate 'q4-reminder)
 ! eval (deactivate 'innis-stop-remote)
 ! eval (deactivate (unit 'innis-stop-2))
 ! eval (deactivate (unit 'innis-stop-3))
 ! eval (deactivate (unit 'innis-stop-4))
 ! eval (deactivate (unit 'innis-stop-5))
 ! eval (deactivate (unit 'innis-stop-6))
+! eval (deactivate (unit 'innis-stop-semi-station))
 ! eval (activate 'find-alex-semis)
+? (active-p 'find-alex-cerebats)
+| ! eval (deactivate 'find-alex-cerebats)
+| ! eval (deactivate (unit 'player-stop-cerebats))
+? (active-p 'find-alex-semis-route)
+| ! eval (deactivate 'find-alex-semis-route)
 ")
 #|
 dinnae = don't (Scottish)
@@ -163,7 +177,6 @@ ken = know (Scottish)
 ~ player
 | \"She's gone. That was an FFCS broadcast, from somewhere nearby.\"(light-gray, italic)
 | \"That means \"Alex is close\"(orange). Unless it's a trap.\"(light-gray, italic)
-! eval (deactivate 'q4-reminder)
 ! eval (deactivate 'innis-stop-local)
 ! eval (deactivate (unit 'innis-stop-1))
 ! eval (deactivate (unit 'innis-stop-2))
@@ -171,12 +184,40 @@ ken = know (Scottish)
 ! eval (deactivate (unit 'innis-stop-4))
 ! eval (deactivate (unit 'innis-stop-5))
 ! eval (deactivate (unit 'innis-stop-6))
+! eval (deactivate (unit 'innis-stop-semi-station))
 ! eval (activate 'find-alex-semis)
+? (active-p 'find-alex-cerebats)
+| ! eval (deactivate 'find-alex-cerebats)
+| ! eval (deactivate (unit 'player-stop-cerebats))
+? (active-p 'find-alex-semis-route)
+| ! eval (deactivate 'find-alex-semis-route)
 "))
 #|
 dinnae = don't (Scottish)
 ken = know (Scottish)
 |#
+
+  (find-alex-cerebats
+   :title ""
+   :marker '(chunk-5526 2200)
+   :visible NIL
+   :condition all-complete
+   :on-activate NIL
+   :on-complete (find-alex-semis-route)
+
+   (:interaction player-stop-cerebats
+    :interactable player
+    :dialogue "
+~ player
+| \"I don't think Alex is here.\"(orange, italic)
+| \"Perhaps I missed them en route - I should \"follow the path back up towards the Semi Sisters\"(orange).\"(light-gray, italic)
+"))
+
+  (find-alex-semis-route
+   :title "Alex isn't in Cerebats territory - follow the path back up towards the Semi Sisters"
+   :condition NIL
+   :on-activate NIL
+   :on-complete NIL)
 
 #|
 TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be questionined if they are Alex, as a variant on their world-building dialogue.

@@ -89,6 +89,8 @@
 ! eval (activate (unit 'innis-stop-4))
 ! eval (activate (unit 'innis-stop-5))
 ! eval (activate (unit 'innis-stop-6))
+! eval (activate (unit 'innis-stop-semi-station))
+! eval (activate (unit 'player-stop-cerebats))
 ")
    (:eval
    :on-complete (q4-find-alex)))
