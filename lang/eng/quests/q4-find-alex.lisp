@@ -210,7 +210,7 @@ ken = know (Scottish)
     :dialogue "
 ~ player
 | \"I don't think Alex is here.\"(orange, italic)
-| \"Perhaps I missed them en route - I should \"follow the path back up towards the Semi Sisters\"(orange).\"(light-gray, italic)
+| (:thinking)\"Perhaps I missed them en route - I should \"follow the path back up towards the Semi Sisters\"(orange).\"(light-gray, italic)
 "))
 
   (find-alex-semis-route
