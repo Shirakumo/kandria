@@ -127,17 +127,15 @@
 
 (trigger zoom-in
  (key :one-of (:e))
- (button :one-of (:r1))
  (axis :one-of (:r2) :threshold 0.5))
 
 (trigger zoom-out
  (key :one-of (:q :minus))
- (button :one-of (:l1))
  (axis :one-of (:l2) :threshold 0.5))
 
 (trigger close-map
  (key :one-of (:escape :m))
- (button :one-of (:b :start)))
+ (button :one-of (:b :start :r1)))
 
 (trigger toggle-trace
  (key :one-of (:c :tab))
