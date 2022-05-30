@@ -104,6 +104,8 @@
 | | ! eval (reset* interaction)
 | | ! eval (activate (unit 'fi-ffcs-cerebat-1))
 | | ! eval (activate (unit 'fi-ffcs-cerebat-2))
+| | ? (active-p 'q8-meet-council)
+| | | ! eval (deactivate (unit 'player-council-chamber))
 | |?
 | | ~ player
 | | | \"Remaining quantities to find nearby are: [(< 0 (var 'black-cap-count)) \"Black cap mushrooms: {(var 'black-cap-count)}\"(orange).|] [(< 0 (var 'pure-water-count)) \"Purified water: {(var 'pure-water-count)}\"(orange).|] [(< 0 (var 'pearl-count)) \"Pearls: {(var 'pearl-count)}\"(orange).|] [(< 0 (var 'thermal-count)) \"Thermal fluid: {(var 'thermal-count)}\"(orange).|] [(< 0 (var 'coolant-count)) \"Coolant liquid: {(var 'coolant-count)}\"(orange).]\"(light-gray, italic)

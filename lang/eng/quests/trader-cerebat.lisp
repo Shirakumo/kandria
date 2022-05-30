@@ -68,6 +68,9 @@
 |? (< 0 (+ (item-count 'item:mushroom-bad-1) (item-count 'item:pure-water) (item-count 'item:pearl) (item-count 'item:thermal-fluid) (item-count 'item:coolant)))
 | ~ player
 | | \"At least \"I have something of those already\"(orange).\"(light-gray, italic)
+? (active-p (find-task 'q8-meet-council 'task-search))
+| ! eval (deactivate (find-task 'q8-meet-council 'task-search))
+| ! eval (activate (find-task 'q8-meet-council 'task-search-hold))
 ")))
 
 ;; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long

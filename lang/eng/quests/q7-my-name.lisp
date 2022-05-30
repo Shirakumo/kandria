@@ -119,6 +119,7 @@
 ! setf (direction 'alex) 1
 ! eval (setf (location 'islay) 'islay-main-loc)
 ! setf (direction 'islay) 1
+! eval (activate (unit 'player-council-chamber))
 ")
    (:eval
    :on-complete (q8-meet-council cerebat-trader-arrive q8-alex-cerebat)))

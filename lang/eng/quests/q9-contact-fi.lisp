@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q9-contact-fi)
   :author "Tim White"
   :title "Report to Fi"
-  :description "I should get some distance from the Cerebat trader and contact Fi."
+  :description "I should put some distance between myself and the Cerebat trader, then contact Fi to tell her the Wraw have taken over the Cerebats."
   :on-activate (contact-fi)
   
   (contact-fi
