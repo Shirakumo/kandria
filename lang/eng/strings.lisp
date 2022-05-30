@@ -189,117 +189,168 @@ item:medium-health-pack/description "[Heals 25% HP instantly] Like a small healt
 item:large-health-pack "Large Health Pack"
 item:large-health-pack/description "[Heals 50% HP instantly] Use this to avoid spending another few decades offline."
 item:damage-shield "Damage Shield"
-item:damage-shield/description "Reduces damage taken by 20% for 30s."
+item:damage-shield/description "[-20% Damage taken for 30s]"
 item:combat-booster "Combat Booster"
-item:combat-booster/description "Increases damage dealt by 20% for 30s."
+item:combat-booster/description "[+20% Damage dealt for 30s]"
 item:nanomachine-salve "Nanomachine Salve"
 item:nanomachine-salve/description "[Heals 25% HP over 10s] Looks like an ointment, but on closer inspection is made of too many nanomachines to count."
 item:parts "Scrap Parts"
 item:parts/description "Miscellaneous scrap, used as currency in this world."
 item:heavy-spring "Heavy Spring"
-item:heavy-spring/description "A heavy-duty spring, perhaps from the suspension of an old rail truck."
+item:heavy-spring/description "A heavy-duty spring, perhaps from the suspension of an old rail truck.
+Can be sold for scrap."
 item:satchel "Satchel"
-item:satchel/description "A bag that once contained someone's personal belongings. It's empty."
+item:satchel/description "A bag that once contained someone's personal belongings. It's empty.
+Can be sold for scrap."
 item:screw "Screw"
-item:screw/description "Where would the world be without screws? Well, it fell apart anyway so..." ;; the "..." acknowledges it's a dry/crap joke
+item:screw/description "Where would the world be without screws? Well, it fell apart anyway so...
+Can be sold for scrap." ;; the "..." acknowledges it's a dry/crap joke
 item:bolt "Bolt"
-item:bolt/description "Useless without a nut of the same diameter."
+item:bolt/description "Useless without a nut of the same diameter.
+Can be sold for scrap."
 item:nut "Nut"
-item:nut/description "Pair with a bolt to secure heavy things together. Tidier and more reusable than a screw."
+item:nut/description "Pair with a bolt to secure heavy things together. Tidier and more reusable than a screw.
+Can be sold for scrap."
 item:gear "Gear"
-item:gear/description "Gears for basic mechanical machinery. The first computers were built with these!"
+item:gear/description "Gears for basic mechanical machinery. The first computers were built with these!
+Can be sold for scrap."
 item:bent-rod "Bent Rod"
-item:bent-rod/description "May have come in handy as a weapon. If it wasn't bent. And if I didn't have a sword."
+item:bent-rod/description "May have come in handy as a weapon. If it wasn't bent. And if I didn't have a sword.
+Can be sold for scrap."
 item:large-gear "Large Gear"
-item:large-gear/description "Once part of something greater. Now all alone in this world."
+item:large-gear/description "Once part of something greater. Now all alone in this world.
+Can be sold for scrap."
 item:copper-ring "Copper Ring"
-item:copper-ring/description "The kind used in plumbing."
+item:copper-ring/description "The kind used in plumbing.
+Can be sold for scrap."
 item:metal-ring "Metal Ring"
-item:metal-ring/description "This could have come from practically anything. Too large for a wedding ring."
+item:metal-ring/description "This could have come from practically anything. Too large for a wedding ring.
+Can be sold for scrap."
 item:broken-ring "Broken Ring"
-item:broken-ring/description "A broken token, perhaps waiting to be reunited with its other half."
+item:broken-ring/description "A broken token, perhaps waiting to be reunited with its other half.
+Can be sold for scrap."
 item:heavy-rod "Heavy Rod"
-item:heavy-rod/description "Some kind of strut or support? I'm no engineer that's for sure."
+item:heavy-rod/description "Some kind of strut or support? I'm no engineer that's for sure.
+Can be sold for scrap."
 item:light-rod "Light Rod"
-item:light-rod/description "I wonder if Catherine has ever played baseball? This might make a good bat."
+item:light-rod/description "I wonder if Catherine has ever played baseball? This might make a good bat.
+Can be sold for scrap."
 item:simple-gadget "Simple Gadget"
-item:simple-gadget/description "Some kind of electronic gadget. No idea what its function was."
+item:simple-gadget/description "Some kind of electronic gadget. No idea what its function was.
+Can be sold for scrap."
 item:dented-plate "Dented Plate"
-item:dented-plate/description "A dented part of a former machine."
+item:dented-plate/description "A dented part of a former machine.
+Can be sold for scrap."
 item:simple-circuit "Simple Circuit"
-item:simple-circuit/description "This circuit board is quite small. It's got a few resistors and integrated circuits on it."
+item:simple-circuit/description "This circuit board is quite small. It's got a few resistors and integrated circuits on it.
+Can be sold for scrap."
 item:complex-circuit "Complex Circuit"
-item:complex-circuit/description "It's covered in microchips, like lichen on rock." ;; some self-loathing, fearing that androids (and thus microchips) destroyed the world?
+item:complex-circuit/description "It's covered in microchips, like lichen on rock.
+Can be sold for scrap." ;; some self-loathing, fearing that androids (and thus microchips) destroyed the world?
 item:broken-circuit "Broken Circuit"
-item:broken-circuit/description "Some of these integrated circuits look like they exploded."
+item:broken-circuit/description "Some of these integrated circuits look like they exploded.
+Can be sold for scrap."
 item:large-battery "Large Battery"
-item:large-battery/description "A traction battery from an old electric vehicle."
+item:large-battery/description "A traction battery from an old electric vehicle.
+Can be sold for scrap."
 item:small-battery "Small Battery"
-item:small-battery/description "Fits into small handheld devices. No charge, though."
+item:small-battery/description "Fits into small handheld devices. No charge, though.
+Can be sold for scrap."
 item:coin "Old Coin"
-item:coin/description "Old-world physical currency, though from which continent I'm not sure - the detail has rubbed off."
+item:coin/description "Old-world physical currency, though from which continent I'm not sure - the detail has rubbed off.
+Can be sold for scrap."
 item:controller "Game Controller"
-item:controller/description "Used to interface with a video game console. Remember those?"
+item:controller/description "Used to interface with a video game console. Remember those?
+Can be sold for scrap."
 item:connector "Connector"
-item:connector/description "Some kind of data connection cable. I don't have a port for this."
+item:connector/description "Some kind of data connection cable. I don't have a port for this.
+Can be sold for scrap."
 item:cable "Electronics Cable"
-item:cable/description "Can carry power."
+item:cable/description "Can carry power.
+Can be sold for scrap."
 item:memory "Memory Unit"
-item:memory/description "This is pre-pre-Calamity. Can you imagine storing data on something so easily misplaced? I'm glad they found a better solution."
+item:memory/description "This is pre-pre-Calamity. Can you imagine storing data on something so easily misplaced? I'm glad they found a better solution.
+Can be sold for scrap."
 item:genera-core "Broken Genera Core"
-item:genera-core/description "This belonged to an android like me. The refraction matrix is cracked - there's nothing I can learn about them beyond their serial number." ;; minigame - collect dog tags? Unlock VR mission?
+item:genera-core/description "This belonged to an android like me. The refraction matrix is cracked - there's nothing I can learn about them beyond their serial number.
+Can be sold for scrap." ;; minigame - collect dog tags? Unlock VR mission?
 item:rusted-key "Rusted Key"
-item:rusted-key/description "It would likely break in half, even if used in the correct lock."
+item:rusted-key/description "It would likely break in half, even if used in the correct lock.
+Can be sold for scrap."
 item:clay-clump "Clump of Clay"
-item:clay-clump/description "I imagine this is quite valuable to contemporary humans, much as it was to their distant ancestors."
+item:clay-clump/description "I imagine this is quite valuable to contemporary humans, much as it was to their distant ancestors.
+Can be sold for scrap."
 item:gold-nugget "Gold Nugget"
-item:gold-nugget/description "Gold always holds it value. Even in the apocalypse." ;; an assumption if not sold it yet, and a statement if have sold some
+item:gold-nugget/description "Gold always holds it value. Even in the apocalypse.
+Can be sold for scrap or used in upgrades." ;; an assumption if not sold it yet, and a statement if have sold some
 item:silver-ore "Silver Ore"
-item:silver-ore/description "Acanthite ore, from which silver can be extracted. Tarnishes, unlike gold, but it's still pretty."
+item:silver-ore/description "Acanthite ore, from which silver can be extracted. Tarnishes, unlike gold, but it's still pretty.
+Can be sold for scrap or used in upgrades."
 item:bronze-clump "Clump of Bronze"
-item:bronze-clump/description "An alloy of copper and tin. I might as well be living in the Bronze Age right now."
+item:bronze-clump/description "An alloy of copper and tin. I might as well be living in the Bronze Age right now.
+Can be sold for scrap."
 item:rich-soil "Ore-Rich Soil"
-item:rich-soil/description "Useful for growing crops or extracting minerals."
+item:rich-soil/description "Useful for growing crops or extracting minerals.
+Can be sold for scrap."
 item:meteorite-fragment "Meteorite Fragment"
-item:meteorite-fragment/description "Meteor strikes are not uncommon."
+item:meteorite-fragment/description "Meteor strikes are not uncommon.
+Can be sold for scrap."
 item:hardened-alloy "Hardened Alloy"
-item:hardened-alloy/description "I'm not sure about the constituent metals, although anyone but an android would struggle to bend this."
+item:hardened-alloy/description "I'm not sure about the constituent metals, although anyone but an android would struggle to bend this.
+Can be sold for scrap or used in upgrades."
 item:quartz-crystal "Quartz Crystal"
-item:quartz-crystal/description "It might be less valuable than gold, but it's a whole lot prettier."
+item:quartz-crystal/description "It might be less valuable than gold, but it's a whole lot prettier.
+Can be sold for scrap."
 item:rusted-clump "Rusted Clump"
-item:rusted-clump/description "Was there ever a greater sign of entropy than rust? Kipple, maybe." ;; reference to Do Androids Dream of Electric Sheep?, where "kipple" is a term coined by Dick: junk and waste items, which build up seemingly exponentially. Could also be a diegetic reference, as if the android has read the book.
+item:rusted-clump/description "Was there ever a greater sign of entropy than rust? Kipple, maybe.
+Can be sold for scrap or used in upgrades." ;; reference to Do Androids Dream of Electric Sheep?, where "kipple" is a term coined by Dick: junk and waste items, which build up seemingly exponentially. Could also be a diegetic reference, as if the android has read the book.
 item:pearl "Pearl"
-item:pearl/description "It's genuine, I'm pretty sure of that. Unless this used to be ocean, this was someone's jewellery."
+item:pearl/description "It's genuine, I'm pretty sure of that. Unless this used to be ocean, this was someone's jewellery.
+Can be sold for scrap or used in upgrades."
 item:dirt-clump "Dirt Clump"
-item:dirt-clump/description "A hefty clump of... dirt and dust. Might be worth something to someone?"
+item:dirt-clump/description "A hefty clump of... dirt and dust. Might be worth something to someone?
+Can be sold for scrap."
 item:coolant "Coolant Liquid"
-item:coolant/description "This resembles the fluid used in my fusion reactor. It's a closed system though and does not require top up."
+item:coolant/description "This resembles the fluid used in my fusion reactor. It's a closed system though and does not require top up.
+Can be sold for scrap or used in upgrades."
 item:pure-water "Purified Water"
-item:pure-water/description "Is it better than other waters? Only if you say it is."
+item:pure-water/description "Is it better than other waters? Only if you say it is.
+Can be sold for scrap."
 item:crude-oil "Crude Oil"
-item:crude-oil/description "Useful only for burning unless distilled for a specific purpose."
+item:crude-oil/description "Useful only for burning unless distilled for a specific purpose.
+Can be sold for scrap."
 item:refined-oil "Refined Oil"
-item:refined-oil/description "A desirable commodity since it powers most machines here. Except me." ;; assuming the people distil crude oil into petroleum (relatively simple); and that the android can see this power things
+item:refined-oil/description "A desirable commodity since it powers most machines here. Except me.
+Can be sold for scrap or used in upgrades." ;; assuming the people distil crude oil into petroleum (relatively simple); and that the android can see this power things
 item:thermal-fluid "Thermal Fluid"
-item:thermal-fluid/description "This could have been used in any number of thermodynamic applications, including in android subsystems."
+item:thermal-fluid/description "This could have been used in any number of thermodynamic applications, including in android subsystems.
+Can be sold for scrap or used in upgrades."
 item:mossy-water "Mossy Water"
-item:mossy-water/description "Algae-infested water. Might quench your thirst, if you're desperate."
+item:mossy-water/description "Algae-infested water. Might quench your thirst, if you're desperate.
+Can be sold for scrap."
 item:cloudy-water "Cloudy Water"
-item:cloudy-water/description "Would require further analysis to determine the impurities. It's probably safe to drink though."
+item:cloudy-water/description "Would require further analysis to determine the impurities. It's probably safe to drink though.
+Can be sold for scrap."
 item:ruined-pelt "Ruined Pelt"
-item:ruined-pelt/description "The skin of an animal, but it's shredded and missing most of its fur." ;; only works for furry animals
+item:ruined-pelt/description "The skin of an animal, but it's shredded and missing most of its fur.
+Can be sold for scrap." ;; only works for furry animals
 item:fine-pelt "Fine Pelt"
-item:fine-pelt/description "Good-conditioned pelt, which could be used to make clothing. Humans had moved away from this practice, but now they have little choice."
+item:fine-pelt/description "Good-conditioned pelt, which could be used to make clothing. Humans had moved away from this practice, but now they have little choice.
+Can be sold for scrap."
 item:pristine-pelt "Pristine Pelt"
-item:pristine-pelt/description "This pelt is remarkably well-preserved, almost ornamental. Though I'd hope it gets put to more practical use."
+item:pristine-pelt/description "This pelt is remarkably well-preserved, almost ornamental. Though I'd hope it gets put to more practical use.
+Can be sold for scrap."
 item:seeds "Seed Sachets"
 item:seeds/description "Unknown seeds from the old world, which Fi will use to plant another crop."
 item:mushroom-good-1 "Flower Fungus"
-item:mushroom-good-1/description "It's pretty. For a fungus." ;; need to work before/after Catherine explains to you what they are; best to riff off of something else, like their appearance. Though android already knows the names from the old world
+item:mushroom-good-1/description "It's pretty. For a fungus.
+Can be sold for scrap." ;; need to work before/after Catherine explains to you what they are; best to riff off of something else, like their appearance. Though android already knows the names from the old world
 item:mushroom-good-2 "Rusty Puffball"
-item:mushroom-good-2/description "Even the mushrooms are rusting around here." ;; not literally, it's a joke based on their look
+item:mushroom-good-2/description "Even the mushrooms are rusting around here.
+Can be sold for scrap." ;; not literally, it's a joke based on their look
 item:mushroom-bad-1 "Black Cap"
-item:mushroom-bad-1/description "A fungus that looks like someone's insides if they were on the outside. That's probably what it would do to you too."
+item:mushroom-bad-1/description "A fungus that looks like someone's insides if they were on the outside. That's probably what it would do to you too.
+Can be sold for scrap."
 item:walkie-talkie "Walkie-Talkie"
 item:walkie-talkie/description "An old-world one-way communications device. Over."
 item:walkie-talkie-2 "Walkie-Talkie"
