@@ -1,0 +1,36 @@
+<article><style>article{
+    max-width: 800px;
+    font-size: 12pt;
+    font-family: sans-serif;
+    margin: 3em auto;
+}
+
+article h1{
+    text-align: center;
+    font-size: 2em;
+}
+
+article img{
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+article blockquote{
+    border-left: 0.2em solid gray;
+    margin-left: 1em;
+    padding-left: 1em;
+}
+
+article figcaption{
+    padding: 0.2em 1em;
+    background: #E0E0E0;
+}
+
+article code{
+    background: #F0F0F0;
+    padding: 0 0.1em;
+}
+
+article .code-block{
+    padding: 0.1em 0.5em;
+}</style><h1 id="sound editing guide">Sound Editing Guide</h1><p>To tweak sound effects as they're played back in the game (primarily their volume), work as follows.</p><h2 id="getting set up">Getting set up</h2><p>First, get the game running:</p><ol><li value="1"><p>Start up Portacle</p></li><li value="2"><p>Load up the game <code>(ql:quickload :kandria)</code></p></li><li value="3"><p>Start the game <code>(kandria:launch :state T)</code></p></li></ol><h2 id="tweaking volumes">Tweaking volumes</h2><p>Once you got the game going, </p><ol><li value="1"><p>Find the <code>assets.lisp</code> file in the Kandria source folder and drag it onto Portacle's window. That should open it up.</p></li><li value="2"><p>This file describes all the assets the game uses. Scroll down to a line like <code>(define-assets-from-path (sound trial-harmony:sound &quot;**/*.wav&quot;)</code>, which is a block that describes the properties of all sound files.</p></li><li value="3"><p>The first line, <code>(T :volume 0.4)</code> defines the standard properties for all sounds. Lines after that describe overrides for specific effects.</p></li><li value="4"><p>The <code>:volume</code> can be specified as a number in actual volume, so <code>0.5</code> would be half volume, or using decibels by using (say) <code>(db -6)</code>.</p></li><li value="5"><p>The names of the files are normalised so that any space, underscore, or other bit gets turned into a simple dash. Meaning if the sound file is called <code>player_ dash.wav</code> the sound in-engine will be called <code>player-dash</code>.</p></li><li value="6"><p>To specify the volume for a new effect, simply add a new line within the <code>define-assets-from-path</code> block, like this:</p><code style="display:block" class="code-block" data-language="common lisp"><pre>  (player-jump :volume (db -6))</pre></code></li><li value="7"><p>Once you've made the change, you can have it update in-game right away by pressing Ctrl+c twice while you have the cursor within the block. When you do that, the entire block should flash briefly, signifying that the change has gone through.</p></li><li value="8"><p>If you've made a mistake with the syntax or some kinda typo, it might also pop up a new window with an error description. In that window, simply press on the <code>[ABORT]</code> button, and it should go away and discard your change.</p></li><li value="9"><p>Since getting to the place where a sound is played back can be tedious, you can also cause a sound to be played back immediately as follows:</p><ol><li value="1"><p>On a new line outside the block, type something like this:</p><code style="display:block" class="code-block" data-language="common lisp"><pre>(harmony:play (// 'sound 'player-jump))</pre></code></li><li value="2"><p>Press Ctrl+c again twice with the cursor on that line. The line should flash and you should hear the sound as it would be played in-game. You can simply swap out the name of the sound to whatever you want to hear.</p></li></ol></li><li value="10"><p>Once you're done editing and tuning sounds, please remove the above debug line again if you've made any, then Go to <code>File &gt; Save</code> in the menu bar to save the changes to disk. Don't forget to commit and push them with Git!</p></li></ol><h2 id="tweaking effect pools">Tweaking effect pools</h2><p>This is currently a bit more finicky than I'd like so please prod me again some other time to clean it up and make it usable for artists!</p></article>

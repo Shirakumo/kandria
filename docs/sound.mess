@@ -1,0 +1,34 @@
+# Sound Editing Guide
+To tweak sound effects as they're played back in the game (primarily their volume), work as follows.
+
+## Getting set up
+First, get the game running:
+
+1. Start up Portacle
+2. Load up the game ``(ql:quickload :kandria)``
+3. Start the game ``(kandria:launch :state T)``
+
+## Tweaking volumes
+Once you got the game going, 
+
+1. Find the ``assets.lisp`` file in the Kandria source folder and drag it onto Portacle's window. That should open it up.
+2. This file describes all the assets the game uses. Scroll down to a line like ``(define-assets-from-path (sound trial-harmony:sound "**/*.wav")``, which is a block that describes the properties of all sound files.
+3. The first line, ``(T :volume 0.4)`` defines the standard properties for all sounds. Lines after that describe overrides for specific effects.
+4. The ``:volume`` can be specified as a number in actual volume, so ``0.5`` would be half volume, or using decibels by using (say) ``(db -6)``.
+5. The names of the files are normalised so that any space, underscore, or other bit gets turned into a simple dash. Meaning if the sound file is called ``player_ dash.wav`` the sound in-engine will be called ``player-dash``.
+6. To specify the volume for a new effect, simply add a new line within the ``define-assets-from-path`` block, like this:
+   :: common lisp
+     (player-jump :volume (db -6))
+   ::
+7. Once you've made the change, you can have it update in-game right away by pressing Ctrl+c twice while you have the cursor within the block. When you do that, the entire block should flash briefly, signifying that the change has gone through.
+8. If you've made a mistake with the syntax or some kinda typo, it might also pop up a new window with an error description. In that window, simply press on the ``[ABORT]`` button, and it should go away and discard your change.
+9. Since getting to the place where a sound is played back can be tedious, you can also cause a sound to be played back immediately as follows:
+   1. On a new line outside the block, type something like this:
+     :: common lisp
+     (harmony:play (// 'sound 'player-jump))
+     ::
+   2. Press Ctrl+c again twice with the cursor on that line. The line should flash and you should hear the sound as it would be played in-game. You can simply swap out the name of the sound to whatever you want to hear.
+10. Once you're done editing and tuning sounds, please remove the above debug line again if you've made any, then Go to ``File > Save`` in the menu bar to save the changes to disk. Don't forget to commit and push them with Git!
+
+## Tweaking effect pools
+This is currently a bit more finicky than I'd like so please prod me again some other time to clean it up and make it usable for artists!
