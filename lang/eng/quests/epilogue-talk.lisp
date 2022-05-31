@@ -25,24 +25,24 @@
   (:interact (catherine :now T)
   "
 ~ catherine
-| ... Oh man, you had me worried for a second.
+| (:concerned)... Oh man, you had me worried for a second.
 | Are you okay?
 ~ player
 - What happened?
   ~ catherine
-  | (:concerned)What didn't happen...
-  | I don't know how long I was out - you've been out about fifteen minutes since I woke up.
+  | (:concerned)What didn't happen.
+  | I don't know how long I was out. It's been about fifteen minutes since I woke up.
 - Not here again.
   ~ catherine
   | (:concerned)We really took a beating to end up over here.
-  | I don't know how long I was out - you've been out about fifteen minutes since I woke up.
+  | I don't know how long I was out. It's been about fifteen minutes since I woke up.
 - How many decades was I out this time?
   ~ catherine
   | None thankfully, only about fifteen minutes. Well, that's after I woke up.
   | (:concerned)You must have taken an even bigger bump to the head than I did.
 ~ catherine
 | (:excited)I think the bombs exploded. Which means we won!
-| (:concerned)But that blast was bigger than it should've been...
+| (:concerned)But that blast was bigger than it should've been.
 | I had a look around - I think it's collapsed this whole area.
 | I hope Islay is okay.
 ~ player
@@ -51,12 +51,12 @@
   | (:concerned)I hope so.
 - Are you okay?
   ~ catherine
-  | My head hurts. I might have a mild concussion, but I'll be okay.
-- She was next to a bomb...
+  | (:concerned)My head hurts. I might have a mild concussion, but I'll be okay.
+- She was next to a bomb so...
   ~ catherine
   | (:concerned)...
 ~ catherine
-| (:concerned)This place isn't safe. We should get back to the surface. Can you walk?
+| (:concerned)This place isn't safe. We should \"get back to the surface\"(orange). \"Can you walk\"(orange)?
 ~ player
 - I think so.
 - One way to find out.

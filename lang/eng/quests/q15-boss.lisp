@@ -1,24 +1,25 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; TODO replace with proper arena boss fight, leashed to this location (preferable) or in a plausibly-enclosed arena
-;; TODO fix it so that running away (thus despawning the boss when chunk deletes) doesn't complete the fight - assuming we go with the leash solution and not the enclosed arena
 (define-sequence-quest (kandria q15-boss)
   :author "Tim White"
   :title "Destroy the Bomb Defusal Mechs"
-  :description "Islay thinks Wraw mechs are defusing the bombs. I must destroy them."
+  :description "Islay thinks Wraw mechs are defusing the bombs. I must stop them."
   (:go-to (q15-boss-loc)
-    :title "Defeat the bomb defusal mechs in the Zenith Hub")
-  (:eval 
+    :title "Destroy the bomb defusal mechs in the Zenith Hub")
+  (:eval
    (stop-following 'catherine)
-   (move-to 'catherine-boss (unit 'catherine)))
+   (move-to 'catherine-boss (unit 'catherine))
+   (override-music 'battle))
   (:complete (q15-boss-fight)
-   :title "Defeat the bomb defusal mechs in the Zenith Hub"
+   :title "Destroy the bomb defusal mechs in the Zenith Hub"
    "~ player
 | Stay back Catherine.
 ~ catherine
 | Holy shit!
   ")
+  (:eval
+   (override-music NIL))
   (:wait 1)
   (:eval
    (move-to 'player 'catherine))
@@ -31,11 +32,11 @@
 ~ player
 - I had it under control.
   ~ catherine
-  | I could tell.
-- That was a harder fight than I expected.
+  | (:excited)I could tell.
+- That was harder than I expected.
   ~ catherine
   | Well it's all over now. (:concerned)Assuming there aren't any more.
-- When this is all over I'm taking a vacation.
+- I need a vacation.
   ~ catherine
   | (:excited)Me too! Somewhere without sand or killer robots.
 ~ catherine

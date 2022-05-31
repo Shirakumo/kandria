@@ -25,6 +25,7 @@
 
  (check-bomb-1
    :title "Check the bomb on the low eastern border, east of the Rootless hospital apartments and below the old Semi factory"
+   :marker '(chunk-2041 1400)
    :invariant T
    :condition all-complete
    :on-activate (interact-bomb)
@@ -35,6 +36,7 @@
     
   (check-bomb-2
    :title "Check the bomb in the flooded room beside the pump room"
+   :marker '(chunk-2482 1600)
    :invariant T
    :condition all-complete
    :on-activate (interact-bomb)
@@ -45,6 +47,7 @@
     
  (check-bomb-3
    :title "Check the bomb in the mushroom cave to the west of the old Dreamscape apartments"
+   :marker '(chunk-1979 2400)
    :invariant T
    :condition all-complete
    :on-activate (interact-bomb)
@@ -84,17 +87,17 @@
   ~ player
   | Catherine's with me. We can help. Over.
 ~ islay
-| Look, I've recovered the bomb from the flooded room - it's been been tampered with.
-| They've got some kind of bomb defusal mechs - I saw them \"heading towards the Zenith Hub\"(orange).
-| I think I can rewire the receiver on this one.
-| Since you're here you can \"destroy that mechs\"(orange).
-| \"Then go to the bomb in the mushroom cave to the west - have Catherine rewire it\"(orange). She'll know what to do.
+| (:unhappy)Look, I've recovered the bomb from the flooded room - it's been defused.
+| (:nervous)But I think I can rewire the receiver on this one.
+| (:normal)I think they've got bomb defusal mechs - I saw them \"heading towards the Zenith Hub\"(orange).
+| Since you're here now you can \"stop them\"(orange).
+| Do that \"then go to the bomb in the mushroom cave to the west - have Catherine rewire it\"(orange). She'll know what to do.
 | I'll go to the one beneath the old Semi factory.
 | (:nervous)Good luck.
-| (:normal)And, {(nametag player)}, for what it's worth: \"I don't think you're a traitor\"(orange).
+| (:normal)And {(nametag player)}, for what it's worth: I don't think you're a traitor.
 | Over and out.
 ~ catherine
-| I can go to the mushroom cave while you take care of the mech.
+| I can go to the mushroom cave while you take care of the mechs.
 ~ player
 - We should stick together.
   ~ catherine
@@ -107,7 +110,7 @@
   ~ catherine
   | (:concerned)...
   | I suppose not.
-- You'll never get through that area.
+- You'll never get through there on your own.
   ~ catherine
   | What do you mean?
   ~ player
@@ -117,7 +120,7 @@
   ~ player
   | (:embarassed)We'll figure it out.
 ~ catherine
-| Okay. Let's go together - after the mechs.
+| Okay. Let's go together - \"after the mechs\"(orange).
 ! eval (complete 'check-bomb-1 'check-bomb-2 'check-bomb-3)
 ! eval (deactivate 'task-reminder)
 ! eval (deactivate (unit 'islay-bomb-1))

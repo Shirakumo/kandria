@@ -69,7 +69,7 @@
   ~ islay
   | She isn't. And she knows what she's doing.
 ~ islay
-| You could go with Catherine, though. To protect her.
+| You could go with Catherine though, {(nametag player)}. To protect her.
 ~ islay
 | Please \"fetch her\"(orange).
 ")

@@ -32,9 +32,10 @@
 | Come with me to \"Engineering\"(orange).
 ")
   (:eval
-   (ensure-nearby 'bomb-2 'islay)
-   (setf (direction 'fi) 1))
-  (:go-to (eng-cath :with catherine)
+   (move-to 'islay-flood-bomb (unit 'islay))
+   (move-to 'eng-fi (unit 'fi))
+   (move-to 'eng-cath (unit 'catherine)))
+  (:go-to (eng-trigger)
    :title "Return with Catherine and talk to Islay in Engineering")
   (:interact (fi :now T)
     "
@@ -56,17 +57,16 @@
 ~ player
 - We should go after her.
   ~ fi
-  | I'm afraid I agree. She'll have better luck solving it with your help, Catherine.
+  | (:unsure)I'm afraid I agree. She'll have better luck fixing it with your help.
   | Even though she said not to follow.
 - Did she say anything else?
   ~ fi
-  | She said not to follow.
-  | But I think she'll have better luck solving it with your help, Catherine.
-  | I'm afraid you both need to go after her.
+  | (:unsure)She said not to follow.
+  | But I think she'll have better luck fixing it with your help.
 - What now?
   ~ fi
-  | I'm afraid you both need to go after her - even though she said not to follow.
-  | She'll have better luck solving it with your help, Catherine.
+  | (:unsure)I'm afraid you need to go after her - even though she said not to follow.
+  | She'll have better luck fixing it with your help.
 ~ catherine
 | Then let's go!
 ~ fi

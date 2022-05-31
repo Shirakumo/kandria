@@ -3,12 +3,13 @@
 
 (quest:define-quest (kandria q15-target-bomb)
   :author "Tim White"
-  :title "Reactivate the Bomb"
+  :title "Rewire the Bomb in the Mushroom Cave"
   :description "Islay is working on the other bombs - she needs Catherine and I to go the mushroom cave in the west to reactivate the bomb there."
   :on-activate (bomb-explode)
 
 (bomb-explode
    :title "Help Catherine rewire the bomb in the mushroom cave to the west of the old Dreamscape apartments"
+   :marker '(chunk-1979 2400)
    :invariant (not (complete-p 'epilogue-talk))
    :condition NIL
    :on-complete NIL
@@ -20,7 +21,7 @@
     :dialogue "
 ! eval (ensure-nearby 'player 'catherine)
 ~ islay
-| {(nametag player)}, the bomb at the pump room is rewired.
+| {(nametag player)}, the bomb in the pump room is rewired.
 | (:unhappy)I'm soaking wet and freezing, but it's rewired and back underwater.
 | (:normal)How'd you get on with the mechs? Over.
 ~ player
@@ -30,11 +31,11 @@
 - I kicked their asses. Over.
   ~ islay
   | Good.
-- They're in pieces. Hopefully there aren't any more. Over.
+- Scratch two mechs. Hopefully there aren't any more. Over.
   ~ islay
   | I've not seen any.
 ~ islay
-| You head for the mushroom cave. I'm heading for the-
+| You \"head for the mushroom cave\"(orange). I'm heading for the-
 ~ player
 | \"Something cut her off. What's that sound?\"(light-gray, italic)
 ~ player
