@@ -187,7 +187,7 @@
 ~ fi
 | I'll see what Sahil can do for us.
 ! eval (move-to 'check-supplies (unit 'catherine))
-! eval (setf (walk 'jack) T)
 ! eval (move-to 'eng-jack (unit 'jack))
+! eval (setf (walk 'jack) T)
 ")))
 ;; no reward - it's battle stations. If player needs more currency here, they need to get it from sidequests and selling to traders.

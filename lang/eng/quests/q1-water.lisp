@@ -359,10 +359,10 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
-! eval (setf (walk 'fi) T)
-! eval (setf (walk 'jack) T)
 ! eval (move-to 'fi-farm (unit 'fi))
+! eval (setf (walk 'fi) T)
 ! eval (move-to 'eng-jack (unit 'jack))
+! eval (setf (walk 'jack) T)
   ")
   ;; sayonara = goodbye (Japanese)
 

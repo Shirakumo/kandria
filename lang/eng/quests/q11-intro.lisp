@@ -55,8 +55,8 @@
 - No promises.
 ! eval (setf (location 'trader) (location 'trader-semi-loc))
 ! eval (setf (direction 'trader) 1)
-! eval (setf (walk 'fi) T)
 ! eval (move-to 'loc-trader (unit 'fi))
+! eval (setf (walk 'fi) T)
 ! eval (setf (location 'innis) (location 'innis-org-loc))
 ! eval (setf (direction 'innis) -1)
 ! eval (setf (location 'islay) (location 'islay-org-loc))

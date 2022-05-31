@@ -9,8 +9,6 @@
   ;; TODO need to ensure islay in engineering before this triggers, otherwise there's only Catherine there
   ;; TODO - can remove (:interact (islay :now T) and it will still trigger on arrival? To avoid duplicate map markers?
   (:eval
-   (setf (walk 'islay) T)
-   (setf (walk 'fi) T)
    (move-to 'eng-jack (unit 'fi)))
   (:go-to (eng-cath-2 :with islay)
    :title "Meet Islay in Engineering")

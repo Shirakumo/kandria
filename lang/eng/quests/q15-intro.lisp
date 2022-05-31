@@ -6,8 +6,6 @@
   :title "Go to Engineering"
   :description "Islay wants to meet Fi and I in Engineering."
   (:eval
-   (setf (walk 'islay) T)
-   (setf (walk 'fi) T)
    (move-to 'eng-jack (unit 'fi)))
   (:go-to (eng-cath-2 :with islay)
    :title "Meet Islay in Engineering")

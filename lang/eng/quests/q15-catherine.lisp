@@ -33,7 +33,7 @@
 ")
   (:eval
    (ensure-nearby 'bomb-2 'islay)
-   (setf (walk 'catherine) NIL))
+   (setf (direction 'fi) 1))
   (:go-to (eng-cath :with catherine)
    :title "Return with Catherine and talk to Islay in Engineering")
   (:interact (fi :now T)
