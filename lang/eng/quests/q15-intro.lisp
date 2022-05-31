@@ -74,6 +74,7 @@
 | Please \"fetch her\"(orange).
 ")
   (:eval
-   :on-complete (q15-catherine)))
+   :on-complete (q15-catherine)
+   (ensure-nearby 'wraw-rally 'zelah 'alex 'soldier-1 'soldier-2 'soldier-3)))
    
 ;; TODO move rest of Wraw envoy entourage down to this position too
