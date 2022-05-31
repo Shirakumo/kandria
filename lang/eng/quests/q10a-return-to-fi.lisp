@@ -111,7 +111,7 @@
 | (:unsure)...
 | ... But why? Zelah is not a warmonger.
 ~ jack
-| (:annoyed)He is now! He'll enslave us, or kill us all.
+| (:annoyed)He is now! He'll enslave us, or kill us.
 ~ fi
 | (:unsure)I...
 ~ jack
@@ -140,7 +140,7 @@
 | I found mention of what sounded like a faction of androids, the \"Genera\", living in the mountains to the west.
 | I think it was a directive for their mechs, to search for them.
 ~ jack
-| (:annoyed)Fuck me, the Wraw really have lost it if they wanna find people who don't even exist.
+| (:annoyed)Fuck me, the Wraw really have lost it if they wanna find stuff that doesn't even exist.
 ~ catherine
 | (:concerned)We don't know they don't exist. {(nametag player)}'s here, isn't she?
 ~ fi
@@ -157,8 +157,6 @@
 | It's suicide. They'll cut us to ribbons and eat what's left.
 ~ catherine
 | It's not suicide. We have an android.
-~ fi
-| (:unsure)...
 ~ player
 - I'm ready to fight.
   ~ fi

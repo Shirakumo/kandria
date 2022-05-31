@@ -31,7 +31,7 @@
 ~ jack
 | (:shocked)I knew it.
 ~ zelah
-| (:jovial)It's my property. I've been \"usin' it to monitor you all, and plan this attack\"(orange).
+| (:jovial)It's my property. I've been \"usin' it to watch you, and plan this attack\"(orange).
 ~ catherine
 | (:concerned)That can't be true...
 ~ zelah
@@ -40,7 +40,8 @@
 | (:annoyed)Touch her and you're dead.
 ~ zelah
 | (:jovial)I won't be touchin' no one. My army will though.
-| (:normal)Come, android. The masquerade is over. You're a traitor to these people, remember? It's \"time to come home\"(orange).
+| (:normal)Come, android. You've done well - thanks to you there'll be peace in the valley, the factions united together.
+| But now the masquerade is over. You're a traitor to these people, remember? It's \"time to come home\"(orange).
 | \"If you do, I'll even spare the lives of this lot.\"(orange)
 ~ fi
 | (:annoyed)I see only one traitor here.
