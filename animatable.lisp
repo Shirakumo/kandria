@@ -83,7 +83,7 @@
         (level (clamp 1 level 99)))
     (call-next-method level animatable)
     (setf (maximum-health animatable) (maximum-health-for-level (base-health animatable) level))
-    (setf (health animatable) (* health-percentage (maximum-health animatable)))))
+    (setf (slot-value animatable 'health) (* health-percentage (maximum-health animatable)))))
 
 (defmethod level-up ((animatable animatable))
   (incf (level animatable)))
