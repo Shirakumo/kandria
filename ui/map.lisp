@@ -93,31 +93,35 @@
         (dolist (task (quest:active-tasks quest))
           (when (marker task)
             (destructuring-bind (location size &optional (color colors:red)) (enlist (marker task) (* 40 +tile-size+))
+              (target-marker location size color)))))
+      (dolist (quest (quest:known-quests (storyline +world+)))
+        (dolist (task (quest:active-tasks quest))
+          (when (marker task)
+            (destructuring-bind (location size &optional c) (enlist (marker task) (* 40 +tile-size+))
               (let ((location (ensure-location (closest-visible-target location))))
-                (target-marker (ensure-location location) size color)
                 (let* ((shape (simple:line-strip renderer (list (alloy:point (vx location) (vy location))
                                                                 (alloy:point (vx location) (+ (vy location) (/ size 2) 100)))
-                                                 :pattern colors:red
+                                                 :pattern colors:white
                                                  :line-width (alloy:un 2)
                                                  :z-index -2)))
                   (add-shape shape))
                 (let* ((bounds (alloy:extent (- (vx location) (/ 1000 2))
-                                             (+ (vy location) (/ size 2) 100)
+                                             (+ (vy location) (/ size 2) 150)
                                              1000 200))
                        (shape (simple:text renderer bounds (quest:title quest)
                                            :font (setting :display :font)
-                                           :size (alloy:un 50)
+                                           :size (alloy:un 70)
                                            :halign :middle
                                            :valign :bottom
                                            :wrap T
-                                           :pattern colors:red
+                                           :pattern colors:white
                                            :z-index -2)))
                   (add-shape shape))
                 (let* ((bounds (alloy:extent (- (vx location) (/ 50 2))
                                              (- (vy location) (/ 50 2))
                                              50 50))
                        (shape (simple:ellipse renderer bounds
-                                              :pattern colors:red
+                                              :pattern colors:white
                                               :z-index -2)))
                   (add-shape shape)))))))
       (animation:apply-animation 'flash-marker (unit-marker player (colored:color 0.5 0.5 1 1)))
