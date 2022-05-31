@@ -32,7 +32,8 @@
 | Come with me to \"Engineering\"(orange).
 ")
   (:eval
-   (move-to 'islay-flood-bomb (unit 'islay))
+   (setf (location 'islay) (location 'islay-flood-bomb))
+   (setf (direction 'islay) 1)
    (move-to 'eng-fi (unit 'fi))
    (move-to 'eng-cath (unit 'catherine)))
   (:go-to (eng-trigger)
@@ -57,16 +58,16 @@
 ~ player
 - We should go after her.
   ~ fi
-  | (:unsure)I'm afraid I agree. She'll have better luck fixing it with your help.
+  | (:unsure)I'm afraid I agree. She'll have better luck fixing them with your help.
   | Even though she said not to follow.
 - Did she say anything else?
   ~ fi
   | (:unsure)She said not to follow.
-  | But I think she'll have better luck fixing it with your help.
+  | But I think she'll have better luck fixing them with your help.
 - What now?
   ~ fi
   | (:unsure)I'm afraid you need to go after her - even though she said not to follow.
-  | She'll have better luck fixing it with your help.
+  | She'll have better luck fixing them with your help.
 ~ catherine
 | Then let's go!
 ~ fi
@@ -75,14 +76,10 @@
 | \"Checking FFCS...\"(light-gray, italic)
 | No. \"Wraw interference\"(orange).
 ~ fi
-| Then \"take this walkie. Try calling her once you're down there\"(orange), find out where she is.
+| \"Take this walkie\"(orange) - (:unsure)she's not responding, but she might call if she needs help.
+| You'll have to \"find her yourself - check the bomb sites\"(orange).
 ! eval (store 'item:walkie-talkie-2 1)
 ! eval (follow 'player 'catherine)
 ")
   (:eval
-   :on-complete (q15-unexploded-bomb)
-   (activate (unit 'islay-bomb-1))
-   (activate (unit 'islay-bomb-2))
-   (activate (unit 'islay-bomb-3))
-   (activate (unit 'islay-bomb-4))
-   (activate (unit 'islay-bomb-5))))
+   :on-complete (q15-unexploded-bomb)))

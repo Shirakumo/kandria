@@ -21,9 +21,10 @@
    (:concerned)I hope everyone's okay up there.")
   (:go-to (tutorial-end :follow catherine)
    :title "Return to the camp")
-  (:go-to (epilogue-end :follow catherine))
+  (:go-to (epilogue-end :follow catherine)
+   :title "Return to the camp")
   (:eval
    (move :freeze player))
   (:wait 2.0)
   (:eval
-    (transition :kind :black (show-panel 'credits))))
+   :on-complete (epilogue-2)))

@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q15-target-bomb)
   :author "Tim White"
   :title "Rewire the Bomb in the Mushroom Cave"
-  :description "Islay is working on the other bombs - she needs Catherine and I to go the mushroom cave in the west to reactivate the bomb there."
+  :description "Islay is working on the other bomb - she needs Catherine and I to go the mushroom cave in the west and reactivate the bomb there."
   :on-activate (bomb-explode)
 
 (bomb-explode
@@ -16,22 +16,21 @@
    :on-activate (call-explode)
 
    (:interaction call-explode
-    :interactable islay
+    :interactable player
     :title ""
     :dialogue "
 ! eval (ensure-nearby 'player 'catherine)
 ~ islay
-| {(nametag player)}, the bomb in the pump room is rewired.
-| (:unhappy)I'm soaking wet and freezing, but it's rewired and back underwater.
-| (:normal)How'd you get on with the mechs? Over.
+| {(nametag player)}, Catherine - the \"bomb beneath the old Semi factory is rewired\"(orange).
+| (:normal)How'd you get on with that mech? Over.
 ~ player
-- They're no longer a threat. Over.
+- It's no longer a threat. Over.
   ~ islay
   | Good.
-- I kicked their asses. Over.
+- I kicked its ass. Over.
   ~ islay
   | Good.
-- Scratch two mechs. Hopefully there aren't any more. Over.
+- Scratch one mech. Hopefully there aren't any more. Over.
   ~ islay
   | I've not seen any.
 ~ islay
@@ -44,8 +43,6 @@
 - GET DOWN!
 ! eval (deactivate (unit 'bomb-explode-1))
 ! eval (deactivate (unit 'bomb-explode-2))
-! eval (deactivate (unit 'bomb-explode-3))
-! eval (deactivate (unit 'bomb-explode-4))
 ! eval (activate 'explosion)
 ")))
 

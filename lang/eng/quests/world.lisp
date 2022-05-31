@@ -691,8 +691,10 @@
    
 ;; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
 (define-default-interactions catherine
+  (epilogue-talk
+   "| (:concerned)So we won? I hope everyone is okay.")
   (q14-envoy
-   "| (:concerned)You don't belong to him. You don't belong to anyone but yourself.")
+   "| (:concerned)You don't belong to Zelah. You don't belong to anyone but yourself.")
   (q13-planting-bomb
    "| He doesn't look so tough. (:excited)I could take him.")
   (demo-end-prep

@@ -3,16 +3,16 @@
 
 (define-sequence-quest (kandria q15-boss)
   :author "Tim White"
-  :title "Destroy the Bomb Defusal Mechs"
-  :description "Islay thinks Wraw mechs are defusing the bombs. I must stop them."
-  (:go-to (q15-boss-loc)
-    :title "Destroy the bomb defusal mechs in the Zenith Hub")
+  :title "Destroy the Bomb Mech"
+  :description "Islay thinks a Wraw mech is defusing the bombs. I must stop it."
   (:eval
-   (stop-following 'catherine)
-   (move-to 'catherine-boss (unit 'catherine))
+   (move-to 'catherine-boss (unit 'catherine)))
+  (:go-to (q15-boss-loc)
+    :title "Destroy the bomb defusal mech in the pump room")
+  (:eval
    (override-music 'battle))
   (:complete (q15-boss-fight)
-   :title "Destroy the bomb defusal mechs in the Zenith Hub"
+   :title "Destroy the bomb defusal mech in the pump room"
    "~ player
 | Stay back Catherine.
 ~ catherine
@@ -22,9 +22,11 @@
    (override-music NIL))
   (:wait 1)
   (:eval
+   (setf (location 'islay) (location 'islay-bomb-1-loc))
+   (setf (direction 'islay) -1)
    (move-to 'player 'catherine))
   (:go-to (catherine)
-   :title "Return to Catherine in the Zenith Hub")
+   :title "Return to Catherine in the pump room")
   (:interact (catherine :now T)
   "
 ~ catherine
@@ -40,11 +42,12 @@
   ~ catherine
   | (:excited)Me too! Somewhere without sand or killer robots.
 ~ catherine
-| Alright, let's \"get to that mushroom cave to the west\"(orange) and \"see about that bomb\"(orange).
+| \"Islay rewired the bomb and put it back in the flooded room.\"(orange)
+| Now she's gone to the one beneath the old Semi factory.
+| (:excited)We should \"get to the mushroom cave in the west and see about that last bomb\"(orange).
+| She's counting on us.
 ! eval (follow 'player 'catherine)
 ! eval (activate 'q15-target-bomb)
 ! eval (activate (unit 'bomb-explode-1))
 ! eval (activate (unit 'bomb-explode-2))
-! eval (activate (unit 'bomb-explode-3))
-! eval (activate (unit 'bomb-explode-4))
 "))
