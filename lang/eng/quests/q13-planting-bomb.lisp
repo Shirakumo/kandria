@@ -99,10 +99,12 @@
 | | \"I'd better \"get back to the Zenith Hub\"(orange) ASAP and request detonation.\"(light-gray, italic)
 | ! eval (deactivate 'task-reminder)
 | ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
 | ! eval (activate (unit 'ffcs-bomb-1))
 | ! eval (activate (unit 'ffcs-bomb-2))
 | ! eval (activate (unit 'ffcs-bomb-3))
 | ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
 |?
 | | \"Checking \"FFCS... There's still interference\"(orange).\"(light-gray, italic)
 | | \"Now I only have the \"last bomb to plant\"(orange).\"(light-gray, italic)
@@ -136,10 +138,12 @@
 | | \"I'd better \"get back to the Zenith Hub\"(orange) ASAP and request detonation.\"(light-gray, italic)
 | ! eval (deactivate 'task-reminder)
 | ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
 | ! eval (activate (unit 'ffcs-bomb-1))
 | ! eval (activate (unit 'ffcs-bomb-2))
 | ! eval (activate (unit 'ffcs-bomb-3))
 | ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
 |?
 | | \"Checking \"FFCS... There's still interference\"(orange).\"(light-gray, italic)
 | | \"Now I only have the \"last bomb to plant\"(orange).\"(light-gray, italic)
@@ -174,17 +178,19 @@
 | | \"I'd better \"get back to the Zenith Hub\"(orange) ASAP and request detonation.\"(light-gray, italic)
 | ! eval (deactivate 'task-reminder)
 | ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
 | ! eval (activate (unit 'ffcs-bomb-1))
 | ! eval (activate (unit 'ffcs-bomb-2))
 | ! eval (activate (unit 'ffcs-bomb-3))
 | ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
 |?
 | | \"Checking \"FFCS... There's still interference\"(orange).\"(light-gray, italic)
 | | \"Now I only have the \"last bomb to plant\"(orange).\"(light-gray, italic)
 "))
 
 ;; move alex and the wraw leader and soldiers part way towards the surface, so keen-eyed players won't see them suddenly go from wraw territory to the surface (longest distance in the game)
-(task-part-move-wraw
+  (task-part-move-wraw
    :title ""
    :condition all-complete
    :on-complete ()
@@ -198,16 +204,15 @@
     (ensure-nearby 'soldiers-cerebat 'soldier-1 'soldier-2 'soldier-3)
     ))
 
-(task-return-bombs
+  (task-return-bombs
    :title "Return to the Zenith Hub and contact Islay to detonate the bombs"
    :marker '(hub 2600)
-   :invariant T
    :condition all-complete
    :on-activate (call-bomb)
-   :on-complete (q14-envoy)
+   :on-complete (return-bombs-functions)
 
    (:interaction call-bomb
-    :interactable islay
+    :interactable player
     :title ""
     :dialogue "
 ~ player
@@ -225,29 +230,69 @@
 ~ player
 | \"... She closed the connection.\"(light-gray, italic)
 | <-Shit.->
-| \"I'd better\"get back to Camp\"(orange).\"(light-gray, italic)
-! eval (deactivate (unit 'ffcs-bomb-1))
-! eval (deactivate (unit 'ffcs-bomb-2))
-! eval (deactivate (unit 'ffcs-bomb-3))
-! eval (deactivate (unit 'ffcs-bomb-4))
-! eval (setf (location 'innis) 'outside-eng-1)
-! setf (direction 'innis) 1
-! eval (setf (location 'jack) 'outside-eng-2)
-! setf (direction 'jack) 1
-! eval (setf (location 'catherine) 'outside-eng-3)
-! setf (direction 'catherine) 1
-! eval (setf (location 'fi) 'fi-wraw)
-! setf (direction 'fi) 1
-! eval (setf (location 'islay) 'islay-wraw)
-! setf (direction 'islay) 1
-! eval (setf (location 'trader) 'fi-farm)
-! setf (direction 'trader) 1
-! eval (setf (location 'alex) 'wraw-alex)
-! setf (direction 'alex) -1
-! eval (setf (location 'zelah) 'wraw-leader)
-! setf (direction 'zelah) -1
-! eval (ensure-nearby 'wraw-envoy 'soldier-1 'soldier-2 'soldier-3)
-! eval (setf (nametag (unit 'soldier-1)) (@ soldier-nametag))
-! eval (setf (nametag (unit 'soldier-2)) (@ soldier-nametag))
-! eval (setf (nametag (unit 'soldier-3)) (@ soldier-nametag))
-")))
+| \"I'd better \"get back to Camp\"(orange).\"(light-gray, italic)
+! eval (complete 'task-return-bombs-station)
+"))
+
+  ;; alternate return of the quest, if go via Noka train station - slightly different wording to suit different context
+  (task-return-bombs-station
+   :title ""
+   :visible NIL
+   :condition all-complete
+   :on-activate NIL
+   :on-complete NIL
+
+   (:interaction station-surface-trigger
+    :interactable player
+    :dialogue "
+~ player
+| \"I'd better hurry up and call this in.\"(light-gray, italic)
+| \"Checking \"FFCS... OK. I have a signal\"(orange).\"(light-gray, italic)
+| Islay, do you read me? The bombs are primed and in position.
+| ... Hello, anyone?
+| (:thinking)... The connection is open. It might be quicker just to walk from here.
+~ islay
+| (:nervous){(nametag player)}, I read you. We have a problem - \"return to the surface now\"(orange).
+~ player
+- What about the bombs?
+- What problem?
+- I'm already here, practically.
+~ player
+| \"... She closed the connection.\"(light-gray, italic)
+| <-Shit.->
+| \"I'd better \"get back to Camp\"(orange).\"(light-gray, italic)
+! eval (complete 'task-return-bombs)
+"))
+
+  (return-bombs-functions
+   :title ""
+   :condition all-complete
+   :on-complete (q14-envoy)
+   :on-activate T
+   :visible NIL
+   (:action functions
+      (deactivate (unit 'ffcs-bomb-1))
+      (deactivate (unit 'ffcs-bomb-2))
+      (deactivate (unit 'ffcs-bomb-3))
+      (deactivate (unit 'ffcs-bomb-4))
+      (deactivate (unit 'station-surface-trigger))
+      (setf (location 'innis) 'outside-eng-1)
+      (setf (direction 'innis) 1)
+      (setf (location 'jack) 'outside-eng-2)
+      (setf (direction 'jack) 1)
+      (setf (location 'catherine) 'outside-eng-3)
+      (setf (direction 'catherine) 1)
+      (setf (location 'fi) 'fi-wraw)
+      (setf (direction 'fi) 1)
+      (setf (location 'islay) 'islay-wraw)
+      (setf (direction 'islay) 1)
+      (setf (location 'trader) 'fi-farm)
+      (setf (direction 'trader) 1)
+      (setf (location 'alex) 'wraw-alex)
+      (setf (direction 'alex) -1)
+      (setf (location 'zelah) 'wraw-leader)
+      (setf (direction 'zelah) -1)
+      (ensure-nearby 'wraw-envoy 'soldier-1 'soldier-2 'soldier-3)
+      (setf (nametag (unit 'soldier-1)) (@ soldier-nametag))
+      (setf (nametag (unit 'soldier-2)) (@ soldier-nametag))
+      (setf (nametag (unit 'soldier-3)) (@ soldier-nametag)))))
