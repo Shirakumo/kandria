@@ -7,7 +7,7 @@
   :description "Islay is working on the other bomb - she needs Catherine and I to go the mushroom cave in the west and reactivate the bomb there."
   :on-activate (bomb-explode)
 
-(bomb-explode
+  (bomb-explode
    :title "Help Catherine rewire the bomb in the mushroom cave to the west of the old Dreamscape apartments"
    :marker '(chunk-1979 2400)
    :invariant (not (complete-p 'epilogue-talk))
