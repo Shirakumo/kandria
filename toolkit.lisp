@@ -13,8 +13,8 @@
                          :volume (:master 0.5
                                   :effect 1.0
                                   :music 1.0))
-                 :display (:resolution (1280 720)
-                           :fullscreen NIL
+                 :display (:resolution (T T)
+                           :fullscreen T
                            :vsync T
                            :gamma 2.2
                            :ui-scale 1.0
