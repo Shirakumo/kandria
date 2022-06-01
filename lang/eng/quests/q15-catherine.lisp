@@ -76,7 +76,7 @@
 | \"Checking FFCS...\"(light-gray, italic)
 | No. \"Wraw interference\"(orange).
 ~ fi
-| \"Take this walkie\"(orange) - (:unsure)she's not responding, but she might call if she needs help.
+| Okay, \"take this walkie\"(orange) - (:unsure)she's not responding, but she might call if she needs help.
 | You'll have to \"find her yourself - check the bomb sites\"(orange).
 ! eval (store 'item:walkie-talkie-2 1)
 ! eval (follow 'player 'catherine)

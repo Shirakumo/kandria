@@ -7,6 +7,6 @@
   :visible NIL
   (:eval
    (move :freeze player))
-  (:wait 5.0)
+  (:wait 6.0)
   (:eval
     (transition :kind :black (show-panel 'credits))))

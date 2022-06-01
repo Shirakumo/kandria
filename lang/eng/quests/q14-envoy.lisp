@@ -4,9 +4,9 @@
 (define-sequence-quest (kandria q14-envoy)
   :author "Tim White"
   :title "Return to the Surface"
-  :description "Islay hasn't detonated the bombs and wants me to return to camp immediately. Something's wrong."
+  :description "Islay hasn't detonated the bombs and wants me to return to Camp immediately. Something's wrong."
   (:go-to (wraw-leader)
-   :title "Return to the camp")
+   :title "Return to Camp")
   (:interact (zelah :now T)
   "
 ~ zelah

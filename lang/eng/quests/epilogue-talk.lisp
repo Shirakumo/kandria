@@ -7,6 +7,7 @@
   :title ""
   :visible NIL
   (:eval
+   (move :freeze player)
    (stop 'player)
    (setf (state (unit 'player)) :animated))
   ;; KLUDGE: we have to do this wait 0 business here to defer the next few statements.
@@ -25,7 +26,7 @@
   (:interact (catherine :now T)
   "
 ~ catherine
-| (:concerned)... Oh man, you had me worried for a second.
+| (:concerned)... Oh man, you had me worried there.
 | Are you okay?
 ~ player
 - What happened?
@@ -51,7 +52,7 @@
   | (:concerned)I hope so.
 - Are you okay?
   ~ catherine
-  | (:concerned)My head hurts. I might have a mild concussion, but I'll be okay.
+  | (:concerned)My head hurts. I might have a mild concussion, but I'll be fine.
 - She was next to a bomb so...
   ~ catherine
   | (:concerned)...
@@ -59,7 +60,7 @@
 | (:concerned)This place isn't safe. We should \"get back to the surface\"(orange). \"Can you walk\"(orange)?
 ~ player
 - I think so.
-- One way to find out.
+- Only one way to find out.
 - If not I don't think you can carry me.
 ")
   (:eval

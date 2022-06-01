@@ -3,8 +3,8 @@
 
 (define-sequence-quest (kandria epilogue)
   :author "Tim White"
-  :title "Return to the Camp"
-  :description "Catherine and I need to reach the surface and get back to the camp. I hope everyone is okay."
+  :title "Return to Camp"
+  :description "Catherine and I need to reach the surface and get back to Camp. I hope everyone is okay."
   (:eval
    (complete 'world)
    (setf (location 'fi) (location 'epilogue-fi))
@@ -20,9 +20,9 @@
    "~ catherine
    (:concerned)I hope everyone's okay up there.")
   (:go-to (tutorial-end :follow catherine)
-   :title "Return to the camp")
+   :title "Return to Camp")
   (:go-to (epilogue-end :follow catherine)
-   :title "Return to the camp")
+   :title "Return to Camp")
   (:eval
    (move :freeze player))
   (:wait 2.0)

@@ -43,11 +43,10 @@
   | (:excited)Me too! Somewhere without sand or killer robots.
 ~ catherine
 | \"Islay rewired the bomb and put it back in the flooded room.\"(orange)
-| Now she's gone to the one beneath the old Semi factory.
+| Now \"she's gone to the one beneath the old Semi factory\"(orange).
 | (:excited)We should \"get to the mushroom cave in the west and see about that last bomb\"(orange).
 | She's counting on us.
 ! eval (follow 'player 'catherine)
 ! eval (activate 'q15-target-bomb)
 ! eval (activate (unit 'bomb-explode-1))
-! eval (activate (unit 'bomb-explode-2))
 "))

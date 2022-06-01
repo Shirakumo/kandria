@@ -3,7 +3,7 @@
 
 (quest:define-quest (kandria q15-target-bomb)
   :author "Tim White"
-  :title "Rewire the Bomb in the Mushroom Cave"
+  :title "Rewire the Bomb"
   :description "Islay is working on the other bomb - she needs Catherine and I to go the mushroom cave in the west and reactivate the bomb there."
   :on-activate (bomb-explode)
 
@@ -42,8 +42,8 @@
 - Is that an earthquake?
 - GET DOWN!
 ! eval (deactivate (unit 'bomb-explode-1))
-! eval (deactivate (unit 'bomb-explode-2))
 ! eval (activate 'explosion)
+! eval (move :freeze player)
 ")))
 
 ;; TODO animate player and catherine force crouching if player chooses "Get down"? (lock player controls early in this case, before epilogue script)
