@@ -200,7 +200,7 @@
 - One more time.
   ~ islay
   | So: we need \"10 blasting caps\"(orange) and \"20 charge packs\"(orange).
-  | You should find them in \"Wraw territory\"(orange). Then \"meet us at the Noka camp on the surface\"(orange).
+  | You should find them in \"Wraw territory\"(orange). Then \"meet us at the Noka Camp on the surface\"(orange).
 - Got it.
 ~ islay
 | Good luck, {(nametag player)}.

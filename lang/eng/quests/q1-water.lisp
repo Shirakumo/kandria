@@ -134,7 +134,7 @@
   (:eval (override-music 'battle))
   (:interact (catherine :now T)
   "~ catherine
-| What the hell?!- Servos? Here?
+| What the hell?!- \"Servos\"(red)? Here?
 ~ player
 - I think we found the saboteurs.
   ~ catherine
@@ -230,7 +230,7 @@
   ~ catherine
   | She's our leader. She'll be glad to meet you, I'm sure of it.
 ~ catherine
-| Let's \"get back to camp\"(orange), find out what's happening.
+| Let's \"get back\"(orange) to \"Camp\"(red), find out what's happening.
 ! eval (setf (location 'fi) (location 'shutter-2))
 ! setf (direction 'fi) -1
 ! eval (setf (location 'jack) (location 'shutter-3))
@@ -240,9 +240,9 @@
    :condition (not (find-panel 'fullscreen-prompt))
    (fullscreen-prompt 'open-map))
   (:go-to (shutter-1 :follow catherine)
-   :title "Return to camp with Catherine and find Jack and Fi"
+   :title "Return to Camp with Catherine and find Jack and Fi"
    "~ catherine
-| (:excited)Take us home, Stranger!
+| (:excited)\"Take us home\"(orange), Stranger!
   ")
   (:interact (catherine :now T)
   "
@@ -367,7 +367,7 @@
   ;; sayonara = goodbye (Japanese)
 
   (:interact (catherine)
-   :title "Talk to Catherine at the camp"
+   :title "Talk to Catherine at Camp"
    "~ catherine
 | (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.
@@ -380,7 +380,7 @@
 | Couldn't hurt to \"check in with Fi\"(orange). I'm sure there's something you could help her with, to show her you can be trusted.
 | \"Knowing Jack he'll have something for you too\"(orange) - (:concerned)if only a mouthful of abuse.
 | (:normal)But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
-| (:excited)Take a \"look around and explore\"(orange)! (:normal)Though it's probably best not to go too far from the camp.
+| (:excited)Take a \"look around and explore\"(orange)! (:normal)Though it's probably best not to go too far from Camp.
 | Seeya later, Stranger!")
   (:eval
    :on-complete (q2-intro q3-intro)

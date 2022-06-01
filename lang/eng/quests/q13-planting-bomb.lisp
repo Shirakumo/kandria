@@ -225,7 +225,7 @@
 ~ player
 | \"... She closed the connection.\"(light-gray, italic)
 | <-Shit.->
-| \"I'd better\"get back to camp\"(orange).\"(light-gray, italic)
+| \"I'd better\"get back to Camp\"(orange).\"(light-gray, italic)
 ! eval (deactivate (unit 'ffcs-bomb-1))
 ! eval (deactivate (unit 'ffcs-bomb-2))
 ! eval (deactivate (unit 'ffcs-bomb-3))

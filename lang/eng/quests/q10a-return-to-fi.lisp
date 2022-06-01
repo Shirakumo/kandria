@@ -79,7 +79,7 @@
 
 
   (return-fi
-   :title "Return to the Noka camp ASAP to tell Fi about the Wraw invasion"
+   :title "Return to Camp ASAP to tell Fi about the Wraw invasion"
    :marker '(fi 500)
    :invariant T
    :condition all-complete
@@ -175,11 +175,11 @@
   ! eval (setf (var 'fight-army) T)
 ~ fi
 | We must begin preparations.
-| Jack, get on the walkie and call everyone back to camp.
+| Jack, get on the walkie and call everyone back to Camp.
 ~ jack
 | (:annoyed)So this is really happening... Well fuck.
 ~ fi
-| Catherine, go to storage and assemble what weapons you can find.
+| Catherine, go to \"Storage\"(red) and assemble what weapons you can find.
 ~ catherine
 | (:excited)On it!
 ~ fi

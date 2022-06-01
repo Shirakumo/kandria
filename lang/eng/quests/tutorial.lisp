@@ -33,18 +33,18 @@
    "
    ~ catherine
 | (:excited)Yes!
-| (:concerned)Uh, can you walk?")
+| (:concerned)Uh, \"can you walk\"(orange)?")
   (:go-to (walk-start) :marker NIL)
   (:interact (catherine :now T)
    "~ catherine
-| (:excited)No way! Looks like most of your systems are still working.
-| (:normal)My name's \"Catherine\"(yellow). Come on, let's get out of here.
+| (:excited)No way! Looks like \"most of your systems are still working\"(orange).
+| (:normal)My name's \"Catherine\"(yellow). Come on, \"let's get out of here\"(orange).
 ! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))")
   (:go-to (jump-start :lead catherine) :marker NIL)
   (:go-to (climb-start :with catherine) :marker NIL)
   (:go-to (rope-start :with catherine) :marker NIL
   "~ catherine
-| Try not to fall.")
+| \"Try not to fall.\"(orange)")
   (:go-to (dash-start :with catherine) :marker NIL)
   (:eval
    (ensure-nearby 'dash-start 'catherine)
@@ -56,7 +56,7 @@
            (stop 'player))
   (:go-to (dash-end) :marker NIL
   "~ catherine
-| <-Shit!->... (:disappointed)Umm, now what?...
+| <-Shit!->... (:disappointed)Umm, \"now what\"(orange)?...
   ")
   (:go-to (platform-start :with catherine) :marker NIL
   "~ catherine
@@ -64,6 +64,6 @@
   ")  
   (:go-to (platform-end :with catherine) :marker NIL
   "~ catherine
-| We're almost there - it's just through here.
+| We're almost there - it's \"just through here\"(orange).
   ")
   (:go-to (tutorial-end :with catherine) :marker NIL))

@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q4-find-alex)
   :author "Tim White"
   :title "Find Alex"
-  :description "Fi wants me to find Alex and bring them back to camp for debriefing, to see if they know anything about the Wraw's plans. Their last known location was Cerebat territory, deep underground. I should avoid the Semi Sisters en route."
+  :description "Fi wants me to find Alex and bring them back to Camp for debriefing, to see if they know anything about the Wraw's plans. Their last known location was Cerebat territory, deep underground. I should avoid the Semi Sisters en route."
   :on-activate (find-alex-reminder find-alex find-alex-cerebats)
 
   (find-alex-reminder

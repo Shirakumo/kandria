@@ -9,7 +9,7 @@
   :on-activate (find-mushrooms)
   
   (find-mushrooms
-   :title "Collect at least 25 flower fungus and/or rusty puffball mushrooms from beneath the camp, then return to Catherine in Engineering"
+   :title "Collect at least 25 flower fungus and/or rusty puffball mushrooms from underground, then return to Catherine in Engineering"
    :description NIL
    :invariant (not (complete-p 'q10-wraw))
    :condition (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))

@@ -59,7 +59,7 @@
 - What's next?
 ~ fi
 | I haven't told the others about the failing crops, but they aren't blind. I'm telling you because I think you can help.
-| There's a place \"across the surface to the east\"(orange) and beneath the \"Ruins\"(orange), where we first found the seeds that you see growing here.
+| There's a place \"across the surface to the east\"(orange) and beneath the \"Ruins\"(red), where we first found the seeds that you see growing here.
 | \"Alex\"(yellow) found it, our hunter. I want you to retrace their steps, \"find the cache\"(orange), and if it's still intact \"recover all the seeds\"(orange) that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.

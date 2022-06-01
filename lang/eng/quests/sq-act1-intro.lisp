@@ -146,7 +146,7 @@
 |   < task-choice
 | - [(and (not (active-p 'sq2-mushrooms)) (not (complete-p 'sq2-mushrooms))) (Forage for mushrooms)|]
 |   ~ catherine
-|   | (:excited)Awesome! They grow in the \"caves beneath the camp\"(orange), in the dim light and moisture there.
+|   | (:excited)Awesome! They grow in the \"caves beneath Camp\"(orange), in the dim light and moisture there.
 |   | (:normal)Edible mushrooms like the \"flower fungus\"(orange) can sustain us even if the crop fails.
 |   | They're all we used to eat before we moved to the surface.
 |   | Fibrous ones like the \"rusty puffball\"(orange) can be used to weave clothing. 

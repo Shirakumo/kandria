@@ -43,7 +43,7 @@
 - What do you mean?
 - What have you done?
 ~ alex
-| \"I told them the exact location o' the Noka camp.\"(orange)
+| \"I told them the exact location o' the Noka Camp.\"(orange)
 | (:angry)It's the least I could do to repay you an' Fi for your loyalty.
 | (:normal)Now if you don't mind, I've got a battle to fight.
 | (:angry)Watch your back, {(nametag player)}.

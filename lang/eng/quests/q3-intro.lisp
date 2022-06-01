@@ -44,7 +44,7 @@
   ~ jack
   | (:annoyed)Don't you try and sweet-talk me, darlin'. Look...
 ~ jack
-| I think the \"Ruins to the east\"(orange) are your best shot. It keeps us close to the Farm, and still gives us shelter.
+| I think the \"Ruins\"(red) to the \"east\"(orange) are your best shot. It keeps us close to the \"Farm\"(red), and still gives us shelter.
 | So \"cross the surface\"(orange), scout around, climb, dig - do whatever an android does.
 | Just remember while you ninja around that we mere mortals gotta follow your path.
 | Your android brain might think the top of a skyscraper is the safest place there is; but people can't climb up there, let alone live up there.
