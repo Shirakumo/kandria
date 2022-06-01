@@ -5,13 +5,14 @@
 (defclass save-v1.1 (save-v1) ())
 (defclass save-v1.2 (save-v1.1) ())
 (defclass save-v1.3 (save-v1.2) ())
+(defclass save-v1.4 (save-v1.3) ())
 
 #-kandria-demo
 (defmethod supported-p ((_ save-v1.2)) T)
-(defmethod supported-p ((_ save-v1.3)) T)
+(defmethod supported-p ((_ save-v1.4)) T)
 
 (defun current-save-version ()
-  (make-instance 'save-v1.3))
+  (make-instance 'save-v1.4))
 
 (define-encoder (world save-v0) (_b depot)
   (let ((region (region world)))
