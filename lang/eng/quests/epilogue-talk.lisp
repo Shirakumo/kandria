@@ -57,7 +57,7 @@
   ~ catherine
   | (:concerned)...
 ~ catherine
-| (:concerned)This place isn't safe. We should \"get back to the surface\"(orange). \"Can you walk\"(orange)?
+| (:concerned)This place isn't safe. Let's \"go home\"(orange). \"Can you walk\"(orange)?
 ~ player
 - I think so.
 - Only one way to find out.

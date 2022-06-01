@@ -3,7 +3,7 @@
 
 (define-sequence-quest (kandria epilogue)
   :author "Tim White"
-  :title "Return to Camp"
+  :title "Go Home"
   :description "Catherine and I need to reach the surface and get back to Camp. I hope everyone is okay."
   (:eval
    (complete 'world)
