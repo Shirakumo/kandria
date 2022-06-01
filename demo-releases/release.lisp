@@ -9,6 +9,7 @@
                   "pool/music/*.wav"
                   "pool/**/*.*~"
                   "lang/eng/quests/demo-end.lisp"
+                  "lang/eng/quests/epilogue-2.lisp"
                   "lang/eng/quests/epilogue.lisp"
                   "lang/eng/quests/epilogue-talk.lisp"
                   "lang/eng/quests/explosion.lisp"
