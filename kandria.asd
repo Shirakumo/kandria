@@ -1,5 +1,5 @@
 (asdf:defsystem kandria
-  :version "0.2.5"
+  :version "0.2.6"
   :build-operation "deploy-op"
   :build-pathname #+linux "kandria-linux.run"
                   #+darwin "kandria-macos.o"
