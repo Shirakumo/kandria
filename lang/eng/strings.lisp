@@ -193,7 +193,7 @@ item:damage-shield/description "[-20% Damage taken for 30s]"
 item:combat-booster "Combat Booster"
 item:combat-booster/description "[+20% Damage dealt for 30s]"
 item:nanomachine-salve "Nanomachine Salve"
-item:nanomachine-salve/description "[Heals 25% HP over 10s] Looks like an ointment, but on closer inspection is made of too many nanomachines to count."
+item:nanomachine-salve/description "[Heals 25% HP over 10s] Looks like ointment, but on closer inspection is made of many nanomachines."
 item:parts "Scrap Parts"
 item:parts/description "Miscellaneous scrap, used as currency in this world."
 item:heavy-spring "Heavy Spring"
@@ -203,7 +203,7 @@ item:satchel "Satchel"
 item:satchel/description "A bag that once contained someone's personal belongings. It's empty.
 Can be sold for scrap."
 item:screw "Screw"
-item:screw/description "Where would the world be without screws? Well, it fell apart anyway so...
+item:screw/description "Where would the world be without screws? I guess it fell apart anyway.
 Can be sold for scrap." ;; the "..." acknowledges it's a dry/crap joke
 item:bolt "Bolt"
 item:bolt/description "Useless without a nut of the same diameter.
@@ -215,7 +215,7 @@ item:gear "Gear"
 item:gear/description "Gears for basic mechanical machinery. The first computers were built with these!
 Can be sold for scrap."
 item:bent-rod "Bent Rod"
-item:bent-rod/description "May have come in handy as a weapon. If it wasn't bent. And if I didn't have a sword.
+item:bent-rod/description "May have come in handy as a weapon. If it wasn't bent. And I didn't have a sword.
 Can be sold for scrap."
 item:large-gear "Large Gear"
 item:large-gear/description "Once part of something greater. Now all alone in this world.
@@ -258,7 +258,7 @@ item:small-battery/description "Fits into small handheld devices. No charge, tho
 Can be sold for scrap."
 item:coin "Old Coin"
 item:coin/description "Old-world physical currency, though from which continent I'm not sure - the detail has rubbed off.
-Can be sold for scrap."
+Can be sold for scrap." ;; implies continental currencies were in circulation pre-calamity
 item:controller "Game Controller"
 item:controller/description "Used to interface with a video game console. Remember those?
 Can be sold for scrap."
@@ -269,10 +269,10 @@ item:cable "Electronics Cable"
 item:cable/description "Can carry power.
 Can be sold for scrap."
 item:memory "Memory Unit"
-item:memory/description "This is pre-pre-Calamity. Can you imagine storing data on something so easily misplaced? I'm glad they found a better solution.
+item:memory/description "This is pre-pre-Calamity. Can you imagine storing data on something so easily misplaced?
 Can be sold for scrap."
 item:genera-core "Broken Genera Core"
-item:genera-core/description "This belonged to an android like me. The refraction matrix is cracked - there's nothing I can learn about them beyond their serial number.
+item:genera-core/description "Came from an android. The refraction matrix is cracked - there's nothing to learn here but their serial number.
 Can be sold for scrap." ;; minigame - collect dog tags? Unlock VR mission?
 item:rusted-key "Rusted Key"
 item:rusted-key/description "It would likely break in half, even if used in the correct lock.
@@ -323,7 +323,7 @@ item:refined-oil "Refined Oil"
 item:refined-oil/description "A desirable commodity since it powers most machines here. Except me.
 Can be sold for scrap or used in upgrades." ;; assuming the people distil crude oil into petroleum (relatively simple); and that the android can see this power things
 item:thermal-fluid "Thermal Fluid"
-item:thermal-fluid/description "This could have been used in any number of thermodynamic applications, including in android subsystems.
+item:thermal-fluid/description "Could have been used in any number of thermodynamic applications, including android subsystems.
 Can be sold for scrap or used in upgrades."
 item:mossy-water "Mossy Water"
 item:mossy-water/description "Algae-infested water. Might quench your thirst, if you're desperate.
@@ -335,7 +335,7 @@ item:ruined-pelt "Ruined Pelt"
 item:ruined-pelt/description "The skin of an animal, but it's shredded and missing most of its fur.
 Can be sold for scrap." ;; only works for furry animals
 item:fine-pelt "Fine Pelt"
-item:fine-pelt/description "Good-conditioned pelt, which could be used to make clothing. Humans had moved away from this practice, but now they have little choice.
+item:fine-pelt/description "Good-quality pelt, which could be used to make clothing - especially now synthetics aren't readily available.
 Can be sold for scrap."
 item:pristine-pelt "Pristine Pelt"
 item:pristine-pelt/description "This pelt is remarkably well-preserved, almost ornamental. Though I'd hope it gets put to more practical use.
@@ -386,7 +386,7 @@ item:palette-mountain/description "This would be perfect for mountain climbing, 
 item:palette-vampire "Vampire"
 item:palette-vampire/description "Some say this outfit gives one an appetite for blood."
 item:palette-trek "Trek"
-item:palette-trek/description "Perfect for space adventures."
+item:palette-trek/description "Ideal for space adventures."
 item:palette-blingee "Blingee"
 item:palette-blingee/description "Only for the most wealthy."
 item:palette-ninja "Ninja"
@@ -394,7 +394,7 @@ item:palette-ninja/description "Silent and deadly as the night."
 item:palette-wahoo "Wahoo"
 item:palette-wahoo/description "Wearing this makes you want to jump all over the place."
 item:palette-shopping "Alpha"
-item:palette-shopping/description "A former uniform of the alpha cafe."
+item:palette-shopping/description "A former uniform of Café Alpha."
 item:palette-invisible "Invisible"
 item:palette-invisible/description "Literally invisible. Don't get lost now!"
 item:palette-camo "Camo"
@@ -414,7 +414,7 @@ item:palette-captain/description "YEAS"
 item:palette-ultimate-lifeform "Ultimate Lifeform"
 item:palette-ultimate-lifeform/description "Somehow this outfit looks really edgy."
 item:palette-space "Space"
-item:palette-space/description "Ideal fashion for busting a move."
+item:palette-space/description "Perfect fashion for busting a move."
 item:palette-street "Street"
 item:palette-street/description "Especially suited for street fights."
 item:palette-k "K"
@@ -424,11 +424,11 @@ item:palette-planet/description "A uniform reserved for captains."
 item:palette-desu "Desu"
 item:palette-desu/description "Boosts your gardening abilities."
 item:palette-dandy "Dandy"
-item:palette-dandy/description "You're feeling positively dandy wearing this one!"
+item:palette-dandy/description "You'll feel positively dandy wearing this one!"
 item:palette-ghost "Ghost"
 item:palette-ghost/description "With this you can hear your ghost whisper to you..."
 item:palette-bill "Bill"
-item:palette-bill/description "Perfect for revenge missions."
+item:palette-bill/description "Precisely cut for revenge missions."
 item:palette-the-third "The Third"
 item:palette-the-third/description "This uniform has seen many a heist."
 item:palette-error "ERROR"
@@ -442,97 +442,143 @@ Heavy moves trade an increase in power for slower wind-up and tail-end execution
 Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will perform an evade, which can be followed up by a punishing counter move."
 ;; Fish
 fish:crab "Crab"
-fish:crab/description "A sturdy little critter."
+fish:crab/description "A sturdy little critter.
+Can be sold for scrap."
 fish:machine-fish "Machine Fish"
-fish:machine-fish/description "Why would someone make this?"
+fish:machine-fish/description "Why would someone make this?
+Can be sold for scrap."
 fish:salmon "Salmon"
-fish:salmon/description "Jumped upstream and then onto a fish hook." ;; assuming others catch fish in these regions in the same way as the android: with a rod in these small pools
+fish:salmon/description "Jumped upstream and then onto a fish hook.
+Can be sold for scrap." ;; assuming others catch fish in these regions in the same way as the android: with a rod in these small pools
 fish:shark "Shark"
-fish:shark/description "Much maligned by popular culture. I know the feeling."
+fish:shark/description "Much maligned by popular culture. I know the feeling.
+Can be sold for scrap."
 fish:seabass "Sea Bass"
-fish:seabass/description "Could be any number of species, but I'm pretty sure it's edible."
+fish:seabass/description "Could be any number of species, but I'm pretty sure it's edible.
+Can be sold for scrap."
 fish:sneaky-seabass "Sneaky Sea Bass"
-fish:sneaky-seabass/description "This one really didn't want to get caught."
+fish:sneaky-seabass/description "This one really didn't want to get caught.
+Can be sold for scrap."
 fish:can "Metal Can"
-fish:can/description "An old-world can used to preserve food. But it's open and empty."
+fish:can/description "An old-world can used to preserve food. But it's open and empty.
+Can be sold for scrap."
 fish:boot "Dirty Boot"
-fish:boot/description "Every fisherman's worst nightmare."
+fish:boot/description "Every fisherman's worst nightmare.
+Can be sold for scrap."
 fish:can-fish "Can Fish"
-fish:can-fish/description "A species evolved to camouflage as useless junk."
+fish:can-fish/description "A species evolved to camouflage as useless junk.
+Can be sold for scrap."
 fish:tire "Old Tyre"
-fish:tire/description "This belonged to a ground-based car. They were old even in the old world."
+fish:tire/description "This belonged to a ground-based car. They were old even in the old world.
+Can be sold for scrap."
 fish:coelacanth "Coelacanth"
-fish:coelacanth/description "Once thought extinct, but came back from the dead - AND survived the Calamity. Then got fished."
+fish:coelacanth/description "Once thought extinct, but came back from the dead - AND survived the Calamity. Then got fished.
+Can be sold for scrap."
 fish:boot-crate "Crate of Dirty Boots"
-fish:boot-crate/description "Highly-unfashionable and filled with sludge."
+fish:boot-crate/description "Highly-unfashionable and filled with sludge.
+Can be sold for scrap."
 fish:megaroach "Megaroach"
-fish:megaroach/description "This was also a common android insult."
+fish:megaroach/description "This was also a common android insult.
+Can be sold for scrap."
 fish:roach "Cockroach"
-fish:roach/description "Naturally this guy survived the apocalypse."
+fish:roach/description "Naturally this guy survived the apocalypse.
+Can be sold for scrap."
 fish:seaweed "Seaweed"
-fish:seaweed/description "Slimy but healthy. Revolting but moreish."
+fish:seaweed/description "Slimy but healthy. Revolting but moreish.
+Can be sold for scrap."
 fish:piranha "Piranha"
-fish:piranha/description "Not the monster most people think it is. It's quite cute, actually." ;; a common theme emerging here: like androids
+fish:piranha/description "Not the monster most people think it is. It's quite cute, actually.
+Can be sold for scrap." ;; a common theme emerging here: like androids
 fish:sandfish "Sandfish"
-fish:sandfish/description "The beach bum of the fish world, in a manner of speaking."
+fish:sandfish/description "The beach bum of the fish world, in a manner of speaking.
+Can be sold for scrap."
 fish:ratfish "Ratfish"
-fish:ratfish/description "Just as misunderstood as its land-based namesake."
+fish:ratfish/description "Just as misunderstood as its land-based namesake.
+Can be sold for scrap."
 fish:shroomfish "Shroomfish"
-fish:shroomfish/description "It's covered in coral that looks more like fungus so..." ;; the android has named this one herself
+fish:shroomfish/description "It's covered in coral that looks more like fungus so...
+Can be sold for scrap." ;; the android has named this one herself
 fish:diving-helmet "Diver's Helmet"
-fish:diving-helmet/description "Predates the Calamity. I hope whoever lost this did so on land."
+fish:diving-helmet/description "Predates the Calamity. I hope whoever lost this did so on land.
+Can be sold for scrap."
 fish:three-eyed-fish "Three-Eyed Fish"
-fish:three-eyed-fish/description "If two eyes let you see in three dimensions, it follows that three let you see in four."
+fish:three-eyed-fish/description "If two eyes let you see in three dimensions, it follows that three let you see in four.
+Can be sold for scrap."
 fish:gyofish "Gyofish"
-fish:gyofish/description "This thing is creepy! And yet... strangely compelling."
+fish:gyofish/description "This thing is creepy! And yet... strangely compelling.
+Can be sold for scrap."
 fish:ammonite "Ammonite"
-fish:ammonite/description "Not a fossilised worm that curled up when it died."
+fish:ammonite/description "Not a fossilised worm that curled up when it died.
+Can be sold for scrap."
 fish:sand-dollar "Sand Dollar"
-fish:sand-dollar/description "Maybe I can find a raccoon to trade this with."
+fish:sand-dollar/description "Maybe I can find a raccoon to trade this with.
+Can be sold for scrap."
 fish:clam "Clam"
-fish:clam/description "Doesn't bite. Well it closes, just very slowly. But then how did it take the bait?"
+fish:clam/description "Bites very slowly. One for the patient angler.
+Can be sold for scrap."
 fish:dopefish "Dopefish"
-fish:dopefish/description "I think it's kinda cute."
+fish:dopefish/description "I think it's kinda cute.
+Can be sold for scrap."
 fish:blowfish "Blowfish"
-fish:blowfish/description "Inflates in self-defence. Doesn't everyone?"
+fish:blowfish/description "Inflates in self-defence. Doesn't everyone?
+Can be sold for scrap."
 fish:blobfish "Blobfish"
-fish:blobfish/description "If you took a human being to a depth of 4,000 feet, they'd probably look like this too." ;; https://www.smithsonianmag.com/smart-news/in-defense-of-the-blobfish-why-the-worlds-ugliest-animal-isnt-as-ugly-as-you-think-it-is-6676336/
+fish:blobfish/description "If you took a human being to a depth of 4,000 feet, they'd probably look like this too.
+Can be sold for scrap." ;; https://www.smithsonianmag.com/smart-news/in-defense-of-the-blobfish-why-the-worlds-ugliest-animal-isnt-as-ugly-as-you-think-it-is-6676336/
 fish:jellyfish "Jellyfish"
-fish:jellyfish/description "It's an alien. It has to be."
+fish:jellyfish/description "It's an alien. It has to be.
+Can be sold for scrap."
 fish:squid "Squid"
-fish:squid/description "Can squirt ink and change colour. Some say they'll take over the world some day."
+fish:squid/description "Can squirt ink and change colour. Some say they'll take over the world one day.
+Can be sold for scrap."
 fish:fishing-rod "Fishing Rod"
-fish:fishing-rod/description "Not as cool as my own. I wonder what happened to the fisherman."
+fish:fishing-rod/description "Not as cool as my own. I wonder what happened to the fisherman.
+Can be sold for scrap."
 fish:leaflet "Holiday Leaflet"
-fish:leaflet/description "I could go for a holiday myself..."
+fish:leaflet/description "I could use a holiday myself.
+Can be sold for scrap."
 fish:shell "Shell"
-fish:shell/description "If I raise this to my ear I can hear the sea. How is that possible?" ;; suggests androids have fluid rushing near their ear canals too
+fish:shell/description "If I raise this to my ear I can hear the sea. How is that possible?
+Can be sold for scrap." ;; suggests androids have fluid rushing near their ear canals too
 fish:trout "Trout"
-fish:trout/description "People used to hunt these for sport. Now it's a good meal."
+fish:trout/description "People used to hunt these for sport. Now it's a good meal.
+Can be sold for scrap."
 fish:electric-eel "Electric Eel"
-fish:electric-eel/description "Talk about a cool defence mechanism." ;; freshwater only?
+fish:electric-eel/description "Talk about a cool defence mechanism.
+Can be sold for scrap." ;; freshwater only?
 fish:anglerfish "Anglerfish"
-fish:anglerfish/description "Oh the irony. Though not the kind of fish you expect to catch with a rod."
+fish:anglerfish/description "Oh the irony. Though not the kind of fish you expect to catch with a rod.
+Can be sold for scrap."
 fish:action-figure "Action Figurine"
-fish:action-figure/description "Hey, this is pretty cool! I like her silver hair."
+fish:action-figure/description "Hey, this is pretty cool! I like her silver hair.
+Can be sold for scrap."
 fish:swordfish "Swordfish"
-fish:swordfish/description "Well if my sword breaks down at least I have a backup."
+fish:swordfish/description "Well if my sword breaks down at least I have a backup.
+Can be sold for scrap."
 fish:swordfish2 "Swordfish 2.0"
-fish:swordfish2/description "Bigger, stronger, better in every way."
+fish:swordfish2/description "Bigger, stronger, better in every way.
+Can be sold for scrap."
 fish:nameplate "Ship Nameplate"
-fish:nameplate/description "The inscribed name says \"Denali\"."
+fish:nameplate/description "The inscribed name says \"Denali\".
+Can be sold for scrap."
 fish:car-battery "Car Battery"
-fish:car-battery/description "A chemical battery once used in a pre-electric car."
+fish:car-battery/description "A chemical battery once used in a pre-electric car.
+Can be sold for scrap."
 fish:seahorse "Seahorse"
-fish:seahorse/description "I wonder where that name came from. It doesn't resemble a horse in the slightest!"
+fish:seahorse/description "I wonder where that name came from. It doesn't resemble a horse in the slightest!
+Can be sold for scrap."
 fish:trilobite "Trilobite"
-fish:trilobite/description "It looks like a fossilised marine beetle."
+fish:trilobite/description "It looks like a fossilised marine beetle.
+Can be sold for scrap."
 fish:rubber-duck "Rubber Duck"
-fish:rubber-duck/description "I'm sure this trusty friend will help me figure out all sorts of issues!"
+fish:rubber-duck/description "I'm sure this trusty friend will help me figure out all sorts of issues!
+Can be sold for scrap."
 fish:toy-submarine "Toy Submarine"
-fish:toy-submarine/description "I think there was a famous song about one of these."
+fish:toy-submarine/description "I think there was a famous song about one of these.
+Can be sold for scrap."
 fish:alligator "Alligator"
-fish:alligator/description "It's not a crocodile - the snout gives it away."
+fish:alligator/description "It's not a crocodile - the snout gives it away.
+Can be sold for scrap."
 ;; UI
 saving-currently-possible "Saving possible"
 current-fast-travel-location "You are here"
