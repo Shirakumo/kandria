@@ -253,6 +253,12 @@
              (incf (visibility train) (dt ev)))))
       (:depart
        (when (<= 1.0 (incf (visibility train) (dt ev)))
+         ;; KLUDGE: absolutely terrible
+         (let* ((player (unit 'player +world+))
+                (sentinel (make-instance 'sentinel :location (vcopy (location player)))))
+           (enter sentinel +world+)
+           (setf (target (camera +world+)) sentinel)
+           (incf (vy (location player)) 200))
          (setf (move-time train) 0.0)
          (v<- (original-location train) loc)
          (setf (state train) :departing)))
@@ -266,6 +272,9 @@
          (transition
            :kind :black
            (v<- (original-location train) loc)
+           (when (typep (target (camera +world+)) 'sentinel)
+             (leave (target (camera +world+)) +world+))
+           (setf (target (camera +world+)) (unit 'player +world+))
            (snap-to-target (camera +world+) train)
            (incf (vx loc) (* 0.5 acc (expt arrive-time 2.0) 100.0))
            (setf (move-time train) 0.0)
