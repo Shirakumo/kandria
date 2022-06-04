@@ -115,7 +115,9 @@
          (null (find-panel 'map-panel))
          (null (find-panel 'load-panel))
          player
-         (svref (collisions player) 2))))
+         (svref (collisions player) 2)
+         (not (eql :dying (state player)))
+         (not (eql :respawning (state player))))))
 
 ;; Preloading
 (defmethod stage :after ((world world) (area staging-area))
