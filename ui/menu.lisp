@@ -400,7 +400,6 @@
 (defmethod initialize-instance :after ((panel menu) &key)
   (let ((layout (make-instance 'menu-layout))
         (tabs (make-instance 'tab-view)))
-    (trial:commit (// 'kandria 'placeholder) (loader +main+) :unload NIL)
     (alloy:on alloy:exit ((alloy:focus-element tabs))
       (hide panel))
     (alloy:enter tabs layout :place :center)
