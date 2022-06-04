@@ -90,7 +90,8 @@
                              (:file "stats")
                              (:file "fast-travel")
                              (:file "cheats")
-                             (:file "demo-intro")))
+                             (:file "demo-intro")
+                             (:file "save-icon")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

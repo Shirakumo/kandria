@@ -84,6 +84,8 @@
   (apply #'call-next-method world target :version (ensure-version version (current-save-version)) args))
 
 (defmethod save-state ((world world) (save-state save-state) &key version)
+  (when (unit 'ui-pass world)
+    (toggle-panel 'save-done))
   (v:info :kandria.save "Saving state from ~a to ~a" world save-state)
   (setf (save-time save-state) (get-universal-time))
   (with-timing-report (:info :kandria.save "Saved state in ~fs run time, ~fs clock time.")
