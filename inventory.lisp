@@ -630,6 +630,24 @@
 ;; REGION 2 - increase spawn frequency of bronze and silver (in caves by reducing number of other items; and in market areas too?)
 ;; - very different architecture and geology too, so whereas a lot of overlap between region 1 upper and lower, this will feel quite different
 
+#| new items in this region:   
+ thermal-fluid (also for trader quest)
+ pearl (also for trader quest)
+ pristine-pelt
+ memory
+ heavy-rod
+ light-rod
+ gold-nugget
+ 
+ prev region items also required for trader quest nearby:
+ pure-water
+ coolant
+|#
+
+;; REGION 3
+;; 
+
+
 ;; QUEST SPAWNERS
   
 ;; placement idea: 6 locations, some close to one another (2 per spawner)
@@ -655,18 +673,11 @@
 
 #| ITEMS UNUSED IN SPAWNERS SO FAR
   
-  Split between Cerebat and Wraw:
+  Wraw region todo:
   
-  (item:refined-oil 2) - Islay also sells
-  (item:thermal-fluid 3) - Cerebat region (for trader quest)
-  (item:genera-core 1) - Wraw region only?
-  (item:heavy-rod 1)
-  (item:light-rod 1)  
-  (item:dented-plate 1)   
-  (item:memory 1) - Islay also sells
-  (item:hardened-alloy 3) - Cerebat region (needed for later sword upgrade) / Islay also sells
-  (item:pearl 1) - Cerebat region (for trader quest)
-  (item:pristine-pelt 1)
-  (item:gold-nugget 1) - Wraw only
+  (item:refined-oil 2) - Wraw region (needed for later sword upgrade) / Islay also sells
+  (item:hardened-alloy 3) - Wraw region (needed for later sword upgrade) / Islay also sells
+  (item:genera-core 1) - Wraw region only  
+  (item:dented-plate 1)
   
 |#
