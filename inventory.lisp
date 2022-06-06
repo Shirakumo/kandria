@@ -547,13 +547,12 @@
 ;; placement: region 1 office areas
 
 (define-random-draw region1-factory
-  (item:crude-oil 1)
-  (item:gear 2)
-  (item:heavy-spring 2)
-  (item:screw 3)
-  (item:bolt 3)
-  (item:nut 3)
-  (item:bent-rod 3))
+  (item:gear 1)
+  (item:heavy-spring 1)
+  (item:screw 2)
+  (item:bolt 2)
+  (item:nut 2)
+  (item:bent-rod 2))
 ;; placement: region 1 factory areas
 
 (define-random-draw region1-market
@@ -650,6 +649,7 @@
   (item:silver-ore 2)
   (item:bronze-clump 3)
   (item:pure-water 4)
+  (item:crude-oil 5)
   (item:cloudy-water 5)
   (item:fine-pelt 5)
   (item:rich-soil 5)
