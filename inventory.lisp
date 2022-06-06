@@ -682,12 +682,20 @@
   (item:crude-oil 1)
   (item:coolant 3)
   (item:thermal-fluid 3)
-  (item:memory 4)
   (item:large-gear 4)
   (item:heavy-spring 4)
   (item:heavy-rod 4)
-  (item:light-rod 4))
+  (item:light-rod 4)
+  (item:screw 5))
 ;; placement: region 2 lab/factory
+
+(define-random-draw region2-office
+  (item:complex-circuit 1)
+  (item:large-battery 1)
+  (item:memory 2)
+  (item:metal-ring 3)
+  (item:connector 3))
+;; placement: region 2 office/council chambers
 
 
 ;; REGION 3
