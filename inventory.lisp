@@ -332,9 +332,9 @@
 (define-item (broken-ring scrap value-item) 88 16 8 8
   :price 10)
 (define-item (heavy-rod scrap value-item) 96 16 8 8
-  :price 10)
+  :price 20)
 (define-item (light-rod scrap value-item) 104 16 8 8
-  :price 10)
+  :price 20)
 (define-item (simple-gadget scrap value-item) 112 16 8 8
   :price 10)
 (define-item (dented-plate scrap value-item) 120 16 8 8
@@ -642,7 +642,53 @@
  prev region items also required for trader quest nearby:
  pure-water
  coolant
+ black-cap
 |#
+
+(define-random-draw region2-cave
+  (item:gold-nugget 1)
+  (item:silver-ore 2)
+  (item:bronze-clump 3)
+  (item:pure-water 4)
+  (item:cloudy-water 5)
+  (item:fine-pelt 5)
+  (item:rich-soil 5)
+  (item:quartz-crystal 5)
+  (item:pearl 5)
+  (item:rusted-clump 7))
+;; placement: region 2 empty cave areas (having more items here than otherwise would have due to most of the region being caves - using mushroom spawners too ofc)
+
+(define-random-draw region2-market
+ (item:pristine-pelt 1)
+  (item:pure-water 2)
+  (item:fine-pelt 3)
+  (item:cloudy-water 3)
+  (item:pearl 4)
+  (item:rusted-key 5)
+  (item:coin 5))
+;; placement: market areas of region 2
+
+(define-random-draw region2-home
+  (item:pristine-pelt 1)
+  (item:pure-water 2)
+  (item:fine-pelt 3)
+  (item:satchel 4)
+  (item:small-battery 5)
+  (item:copper-ring 5)
+  (item:controller 6))
+;; placement: region 2 housing areas
+
+(define-random-draw region2-factory
+  (item:crude-oil 1)
+  (item:coolant 3)
+  (item:thermal-fluid 3)
+  (item:memory 4)
+  (item:large-gear 4)
+  (item:heavy-spring 4)
+  (item:heavy-rod 4)
+  (item:light-rod 4))
+;; placement: region 2 lab/factory
+
 
 ;; REGION 3
 ;; 
