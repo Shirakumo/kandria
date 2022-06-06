@@ -58,16 +58,16 @@
 ~ player
 - We should go after her.
   ~ fi
-  | (:unsure)I'm afraid I agree. She'll have better luck fixing them with your help.
+  | (:unsure)I'm afraid I agree. She'll have better luck with your help.
   | Even though she said not to follow.
 - Did she say anything else?
   ~ fi
   | (:unsure)She said not to follow.
-  | But I think she'll have better luck fixing them with your help.
+  | But I think she'll have better luck with your help.
 - What now?
   ~ fi
   | (:unsure)I'm afraid you need to go after her - even though she said not to follow.
-  | She'll have better luck fixing them with your help.
+  | She'll have better luck with your help.
 ~ catherine
 | Then let's go!
 ~ fi

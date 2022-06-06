@@ -11,21 +11,21 @@
    :title "Meet Islay in Engineering")
   (:interact (islay :now T)
     "
-~ islay
-| We should \"detonate the bombs now\"(orange).
 ~ fi
-| But Zelah's still on the surface.
+| (:unsure)What is it? Should we detonate the bombs now?
 ~ islay
-| We do it now, bury the army, then finish off the rest.
+| (:nervous)Zelah's still on the surface. And what if he knows about them? Won't his army have pulled back?
 ~ fi
-| (:unsure)Should we not tell the others first?
+| (:annoyed)He doesn't know about them.
 ~ islay
-| No. We do it while we still have the element of surprise.
+| ...
+| Alright.
+| We'll do it now. Collapse the tunnels, then finish off the rest.
 ~ fi
 | If you're sure.
 ~ islay
 | I'm sure.
-| (:nervous)Alright, here goes. Sending the signals...
+| (:nervous)Here goes. Sending the signals...
 | ...
 ~ fi
 | ...
@@ -35,11 +35,11 @@
 | (:annoyed)What?... Why?
 ~ islay
 | (:nervous)I don't know.
+| \"The signal is getting through\"(orange); their comms interference isn't running yet - Zelah's probably organising his own people.
 ~ fi
-| (:unsure)Could they have tampered with them?
+| (:unsure)Could they have found the bombs?
 ~ islay
-| I don't think so. Not this quickly.
-| And I think \"the signal is getting through\"(orange); their comms interference isn't running yet - Zelah's probably organising his own people.
+| ... Let's hope not.
 | (:unhappy)Fuck.
 | Someone needs to go down there.
 ~ player

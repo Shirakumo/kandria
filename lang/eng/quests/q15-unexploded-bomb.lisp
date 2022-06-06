@@ -85,7 +85,7 @@
   | (:concerned){(nametag player)}'s right. Let us help you.
 ~ islay
 | (:unhappy)...
-| This is the \"bomb from the flooded room - it's been defused\"(orange).
+| This is the \"bomb from the flooded room - (:unhappy)it's been defused\"(orange)...
 | (:nervous)But I think \"I can rewire its receiver\"(orange).
 | (:normal)I think they've got a \"bomb defusal mech\"(orange) - I saw \"one heading towards the pump room\"(orange).
 | Since you're here now you can \"destroy the mech\"(orange).
