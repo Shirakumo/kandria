@@ -67,7 +67,7 @@
 | | | ! eval (retrieve 'item:mushroom-bad-1 T)
 | |  
 | | | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
-| | | We get birds and fish when we can too, but they're harder to catch. Mushrooms don't run away.
+| | | We get birds, fish and bats when we can too, but they're harder to catch. Mushrooms don't run away.
 | | | (:cheer)We owe you big time. Here, \"take these parts\"(orange), you've definitely earned them.
 | | ! eval (store 'item:parts 300)
 | | | (:normal)If you \"find any more mushrooms\"(orange), make sure you grab them.
@@ -185,5 +185,4 @@
   | Just take it day by day, you know?
   | I should get back to my work. Hope to talk soon!
 ")))
-;; TODO "weld from fingertips" too implausible, or Catherine just wouldn't know that?
 ;; "We get birds and fish when we can too" meaning they hunt them themselves now they can, living on the surface; but they also trade them with sahil from time to time
