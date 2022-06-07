@@ -712,18 +712,6 @@
 (define-random-draw bomb-charge-pack
   (item:charge-pack 1))
 
-;; DEBUG SPAWNERS for q8a (TODO remove once organic item placement done in region 2?)
-(define-random-draw debug-pure-water
-  (item:pure-water 1))
-  
-(define-random-draw debug-pearl
-  (item:pearl 1))
-  
-(define-random-draw debug-thermal
-  (item:thermal-fluid 1))
-  
-(define-random-draw debug-coolant
-  (item:coolant 1))
 
 #| ITEMS UNUSED IN SPAWNERS SO FAR
   
