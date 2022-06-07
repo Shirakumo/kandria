@@ -271,12 +271,13 @@
 ")
 
   ;; the area of rubble where the player character is first awakened; they're reflecting on what happened in their previous life that led to their stranding here (which they can't fully remember, and the player themselves is not privy too). A bit of humour about their bad back due to lying on rocks for thirty years.
+  ;; needs to work whether they encounter this at the beginning of the game, or at any point later
   (:interaction grave
    :interactable lore-grave
    :repeatable T
    "
 ~ player
-| (:thinking)\"This is where it ended. And now begins.\"(light-gray, italic)
+| (:thinking)\"So this is where it ended. And now begins.\"(light-gray, italic)
 | (:giggle)\"Not the most comfortable place to have spent a few decades. Little wonder I've a bad back.\"(light-gray, italic)
 ")
 
