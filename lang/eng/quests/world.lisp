@@ -15,6 +15,8 @@
   :condition NIL
   :on-activate T
 
+;; REGION 1 UPPER
+
     ;; Storage interior - shelves
   (:interaction storage-shelves
    :interactable lore-storage
@@ -244,7 +246,6 @@
 | \"\"Semi\"(red) were the manufacturers of electronic components - not least for androids.\"(light-gray, italic)
 | \"It's sad to see the factory so silent.\"(light-gray, italic)
 ")
-;; TODO android emote - sad
 
   ;; view from the top of a ruined skyscraper if the player manages to climb up there (the player can't actually see these things due to the camera, but we describe them anyway)
   (:interaction skyscraper
@@ -290,6 +291,8 @@
 ? (complete-p 'q0-find-jack)
 | | \"It's a pity: the gas holders could have been repurposed as grain silos.\"(light-gray, italic)
 ")
+
+;; REGION 1 LOWER
 
 ;; the character reflects while navigating deep and complex tunnels through the ground
   (:interaction semi-cave-east-1
@@ -447,8 +450,7 @@
 | \"Is that a picture of the people who worked here?\"(light-gray, italic)
 ")
 
-;; a fluorescent sign in the caves near the Semi Sisters base, directing people towards it. Like most lights, especially one in a musty cave, it's attracted flies to their doom.
-;; The character reflects that they also feel like a dead fly in an endless warren of tubes/tunnels.
+;; a fluorescent painted sign in the caves near the Semi Sisters base, directing people towards it.
 ;; The player may or may not have encountered the Semi Sisters when they find this.
   (:interaction semi-cave-west-1
    :interactable lore-semi-sign
@@ -477,6 +479,158 @@
 ~ player
 | \"It's a temporary engineers' camp. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
 ")
+
+;; REGION 2
+
+;; abandoned laboratory
+  (:interaction cerebat-lab-1
+   :interactable lore-cerebat-lab-1
+   :repeatable T
+   "
+~ player
+| (:thinking)\"I don't think this laboratory has been used since before the calamity.\"(light-gray, italic)
+")
+
+;; abandoned lab, looking at an unusual sample in a glass tube (like something from Aliens)
+  (:interaction cerebat-lab-2
+   :interactable lore-cerebat-lab-2
+   :repeatable T
+   "
+~ player
+| (:embarassed)\"What the hell is that? I think it's organic. And dead.\"(light-gray, italic)
+| \"Well it's staying where it is, just in case.\"(light-gray, italic) (:giggle)\"I don't want anything jumping on my face.\"(light-gray, italic)
+")
+
+;; in a big lush water cave
+;; (works even if they've seen the deeper volcanic Wraw area, since here they're comparing it to the drier less habitable areas above)
+  (:interaction cerebat-water-cave
+   :interactable lore-cerebat-water-cave
+   :repeatable T
+   "
+~ player
+| \"At this depth I was expecting magma not water.\"(light-gray, italic)
+")
+
+;; big mushrooms in a big lush water cave
+  (:interaction cerebat-mush-cave
+   :interactable lore-cerebat-mush-cave
+   :repeatable T
+   "
+~ player
+| \"These are different kinds of giant mushrooms. I don't know if they're edible.\"(light-gray, italic)
+| (:giggle)\"Though maybe they're drinkable.\"(light-gray, italic)
+")
+
+;; bottomless pit which would cause insta-death
+  (:interaction cerebat-pit
+   :interactable lore-cerebat-pit
+   :repeatable T
+   "
+~ player
+| (:embarassed)\"I fall in there and no one's gonna find me.\"(light-gray, italic)
+")
+
+;; a painted Cerebats faction sign and direction arrow, though it only says "BATS"
+;; play turns it into a joke, since chances are they've seen bats flying around in the caves before.
+;; They may or may not have encountered / know about the Cerebats faction at this point
+  (:interaction cerebat-bats-1
+   :interactable lore-cerebat-bats-1
+   :repeatable T
+   "
+~ player
+| (:giggle)\"Yes, there are indeed bats in these parts.\"(light-gray, italic)
+")
+
+;; another painted Cerebats faction sign and direction arrow, though it only says "BATS" (and is written in red paint)
+;; They may or may not have encountered / know about the Cerebats faction at this point
+  (:interaction cerebat-bats-2
+   :interactable lore-cerebat-bats-2
+   :repeatable T
+   "
+~ player
+| \"I hope that's not written in blood. Or thermal fluid.\"(light-gray, italic)
+")
+
+;; a mushroom cave, but also referring to the lush backdrop
+  (:interaction cerebat-mush
+   :interactable lore-cerebat-mush
+   :repeatable T
+   "
+~ player
+| \"It's so humid down here, no wonder it's lush.\"(light-gray, italic)
+| (:giggle)\"Thank God I don't sweat, or I'd be watering the plants as well.\"(light-gray, italic)
+")
+
+;; the water is pumped from here to the Semis and Noka living areas far above
+  (:interaction cerebat-lake
+   :interactable lore-cerebat-lake
+   :repeatable T
+   "
+~ player
+| (:thinking)\"Water must get pumped up from these lakes to the levels above.\"(light-gray, italic)
+")
+
+;; because this is a light area, even though it's deep underground
+  (:interaction cerebat-light
+   :interactable lore-cerebat-light
+   :repeatable T
+   "
+~ player
+| (:thinking)\"Where's all the light coming from? Phosphorescent flora?\"(light-gray, italic)
+")
+
+;; wind in the tunnels - difference in temperature with the levels above, and with the air over water and land
+  (:interaction cerebat-wind
+   :interactable lore-cerebat-wind
+   :repeatable T
+   "
+~ player
+| (:thinking)\"The water must be cooling the air and causing the winds.\"(light-gray, italic)
+")
+
+;; wind power
+;; may have encountered wind farming in the tunnels already in Semi/Cerebat territory (sidequest), or may not have - but can assume the character has observed this in the environment while exploring
+;; not "the doldrums" - in wind and light/mood
+  (:interaction cerebat-wind-power
+   :interactable lore-cerebat-wind-power
+   :repeatable T
+   "
+~ player
+| \"This is hardly the doldrums I was expecting.\"(light-gray, italic)
+| \"No wonder they use wind for power -\"(light-gray, italic) (:giggle)\"much as my thrusters do the reverse.\"(light-gray, italic)
+")
+
+;; bouncing springs like in Sonic
+;; Helps (non-android) people/hunters (assuming you know of hunters at this point) to move around
+;; Derived from old railway buffers
+  (:interaction cerebat-bouncer
+   :interactable lore-cerebat-bouncer
+   :repeatable T
+   "
+~ player
+| \"Rail buffers repurposed as springboards? An ingenious way to help people navigate these tunnels.\"(light-gray, italic)
+")
+
+;; oil slick in a cave
+;; may not have had the harsh treatment from Jack (and others yet), but we can assume the character remembers that part of their old life
+  (:interaction cerebat-oil
+   :interactable lore-cerebat-oil
+   :repeatable T
+   "
+~ player
+| \"Oil and water. Like humans and androids.\"(light-gray, italic)
+")
+;; could have said something about fossils/androids, but you'll see there are fossils in there if you fish in the oil
+
+;; hideouts
+
+;; council chamber
+;; living quarters
+;; shady backstreets
+;; busy market
+;; factory
+
+
 
   ;; the caved-in tunnel that trapped the Semi Sisters engineers. A different line plays depending on whether or not the debris has been cleared yet, and whether or not the player knows about the trapped engineers quests yet
   (:interaction engineers-wall

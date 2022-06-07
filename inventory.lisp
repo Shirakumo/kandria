@@ -394,7 +394,7 @@
 
 (defclass liquids () ())
 (defmethod item-order ((_ liquids)) 500)
-(define-item (coolant liquids value-item) 0 40 8 8
+(define-item (coolant liquids value-item) 32 40 8 8
   :price 30)
 (define-item (pure-water liquids value-item) 8 40 8 8
   :price 150)
@@ -402,7 +402,7 @@
   :price 100)
 (define-item (refined-oil liquids value-item) 24 40 8 8
   :price 200)
-(define-item (thermal-fluid liquids value-item) 32 40 8 8
+(define-item (thermal-fluid liquids value-item) 0 40 8 8
   :price 30)
 (define-item (mossy-water liquids value-item) 40 40 8 8
   :price 50)
