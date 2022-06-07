@@ -57,7 +57,7 @@
 | I'm talkin' \"mushrooms (poisonous ones\"(orange) o' course), \"purified water\"(orange), and \"pearls\"(orange) - you know, the essentials.
 | Might as well throw in some \"thermal fluid\"(orange) and \"coolant liquid\"(orange) while you're at it.
 | A couple o' each should do nicely, just to get me back on my feet. Then I'll spill the beans.
-| \"You shouldn't need to look too far away\"(orange) - what can I say, I'm lazy.
+| \"You shouldn't need to look too far away\"(orange). What can I say, I'm lazy - and you're agile.
 | Don't be a stranger!
 ~ player
 | \"Indeed. So unpicking that conversation, my grocery list is \"2 each\"(orange) of: \"black cap mushrooms\"(orange), \"purified water\"(orange), \"pearls\"(orange), \"thermal fluid\"(orange), \"coolant liquid\"(orange).\"(light-gray, italic)
