@@ -37,7 +37,7 @@
 - I want to come home.
   ~ fi
   | First give me your report.
-  ~ player
+~ player
 | I found a trader willing to talk - if I sourced him some supplies.
 | I did, and that's when he told me. He also told me he's working for the Wraw.
 ~ fi

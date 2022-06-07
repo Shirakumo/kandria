@@ -4,7 +4,7 @@
 (quest:define-quest (kandria q8a-secret-supplies)
   :author "Tim White"
   :title "Supply Run"
-  :description "The Cerebat trader says he'll tell me where the Council are, if I bring him the essential supplies he needs for his merchant shop. They can be found nearby."
+  :description "The Cerebat trader says he'll tell me where the Council are, if I bring him the essentials he needs for his shop. They can be found nearby."
   :variables ((black-cap-count 2) (black-cap-prev-count) (pure-water-count 2) (pure-water-prev-count) (pearl-count 2) (pearl-prev-count) (thermal-count 2) (thermal-prev-count) (coolant-count 2) (coolant-prev-count))
   :on-activate (return-supplies task-mushroom task-water task-pearl task-thermal task-coolant)
   
