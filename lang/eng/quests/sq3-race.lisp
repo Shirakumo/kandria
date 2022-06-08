@@ -6,7 +6,7 @@
 (quest:define-quest (kandria sq3-race)
   :author "Tim White"
   :title "Time Trials"
-  :description "Catherine and her friends want to see what I'm capable of. They've planted cans around the region for me to find and bring back. The faster I can do it, the more parts I'll get."
+  :description "Catherine and her friends want to see what I'm capable of. They've planted cans for me to find and bring back. The faster I can do it, the more parts I'll get."
   :on-activate (race-hub)
   (race-hub
    :title "Talk to Catherine in Engineering to start a race"
@@ -62,7 +62,7 @@
 | | (:normal)So remember: \"Find the can\"(orange) that we've planted.
 | | (:normal)\"Grab it, bring it back here, and I'll stop the clock.\"(orange)
 | | We'll start you off with \"Route 1\"(orange), which is easy.
-| | Finish this one and I'll tell you about the next route.
+| | \"Finish this one and I'll tell you about the next route.\"(orange)
 | | You can try routes as many times as you want, but you'll \"only get a reward on later runs if you beat your previous best time\"(orange).
 | | We've also got some \"riddles\"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
 | | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure. So...
@@ -139,15 +139,6 @@
 # quit
 ")))
 
-;; TODO different rewards for different routes, without copy-paste?
-;; TODO: allow play to opt out of first race encountered, not forced
-;; TODO: cancel a race in progress? restart a race that's gone wrong? - not sure; it would have to be done by returning to Catherine, not from the UI, to preserve immersion (death is different, but restarting races from UI is fine in a driving game, not in an RPG?)
-;; - in which case if have to return to Catherine anyway, is there much point? Just hand the race in anyway and get the fun poor performance dialogue?
-;; TODO: acknowledge in the flow when a new route has unlocked?
-;; TODO: have a different item per race, e.g. phone, bottle, etc. Need to render them though?
-;; TODO bug - deactivating this task causes it's title to appear as another bullet point in the journal (though not deactivating it any more)
-;; TODO: plant multiple objects, encouraging cheating
-;; could explain brackets at the start, or let player figure it out themselves from results? Latter
 (defmacro define-race (name &key site site-mark mark-size title-start title-complete title-cancel bronze silver gold)
   (let ((name-start (trial::mksym #.*package* name '-start)))
     `(progn
@@ -261,6 +252,7 @@
 ~ catherine
 | (:excited)Let's do this again soon!
 ! eval (complete task)
+! eval (reset* interaction)
 ")))))
 
 

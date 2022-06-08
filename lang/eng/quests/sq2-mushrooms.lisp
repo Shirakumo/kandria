@@ -5,7 +5,7 @@
 (quest:define-quest (kandria sq2-mushrooms)
   :author "Tim White"
   :title "Mushrooming"
-  :description "Catherine wants me to gather mushrooms to help fill their food and textile reserves. Flower fungus and rusty puffball: yes. Black cap: no. She said at least 25 total should suffice."
+  :description "Catherine wants me to gather mushrooms for their food and textile reserves. Flower fungus and rusty puffball: yes. Black cap: no. She said at least 25 total should suffice."
   :on-activate (find-mushrooms)
   
   (find-mushrooms

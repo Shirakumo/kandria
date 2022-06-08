@@ -9,7 +9,7 @@
   :variables (first-leak)
 
  (task-sq1-reminder
-   :title "Talk to Catherine if I need a reminder"
+   :title ""
    :visible NIL
    :invariant (not (complete-p 'q10-wraw))
    :on-activate T
@@ -89,7 +89,7 @@
 
   (leak-second
    :title "Find leak 2"
-   :marker '(hub 2600)
+   :marker '(hub 2300)
    :invariant (not (complete-p 'q10-wraw))
    :condition all-complete
    :on-activate T
@@ -276,12 +276,12 @@
     - That's more than I was expecting.
       ~ catherine
       | (:concerned)Oh. Well in that case, forget it, it's fine.
-- I'll go and get it back.
+- I'll go and buy it back.
   ~ catherine
   | Don't worry, it's fine. You'll need all the parts you can get out there, anyway.
 - I'm sorry.
   ~ catherine
-  | Don't worry, it's fine. You'll need all the parts you can get out there, anyway.
+  | Don't worry, it's fine.
 < end
 ")))
 
