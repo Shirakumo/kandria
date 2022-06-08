@@ -481,159 +481,7 @@
 | \"It's a temporary engineers' camp. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
 ")
 
-;; REGION 2
-
-;; abandoned laboratory
-  (:interaction cerebat-lab-1
-   :interactable lore-cerebat-lab-1
-   :repeatable T
-   "
-~ player
-| (:thinking)\"I don't think this laboratory has been used since before the calamity.\"(light-gray, italic)
-")
-
-;; abandoned lab, looking at an unusual sample in a glass tube (like something from Aliens)
-  (:interaction cerebat-lab-2
-   :interactable lore-cerebat-lab-2
-   :repeatable T
-   "
-~ player
-| (:embarassed)\"What the hell is that? I think it's organic. And dead.\"(light-gray, italic)
-| \"Well it's staying where it is, just in case.\"(light-gray, italic) (:giggle)\"I don't want anything jumping on my face.\"(light-gray, italic)
-")
-
-;; in a big lush water cave
-;; (works even if they've seen the deeper volcanic Wraw area, since here they're comparing it to the drier less habitable areas above)
-  (:interaction cerebat-water-cave
-   :interactable lore-cerebat-water-cave
-   :repeatable T
-   "
-~ player
-| \"At this depth I was expecting magma not water.\"(light-gray, italic)
-")
-
-;; big mushrooms in a big lush water cave
-  (:interaction cerebat-mush-cave
-   :interactable lore-cerebat-mush-cave
-   :repeatable T
-   "
-~ player
-| \"These are different kinds of giant mushrooms. I don't know if they're edible.\"(light-gray, italic)
-| (:giggle)\"Though maybe they're drinkable.\"(light-gray, italic)
-")
-
-;; bottomless pit which would cause insta-death
-  (:interaction cerebat-pit
-   :interactable lore-cerebat-pit
-   :repeatable T
-   "
-~ player
-| (:embarassed)\"I fall in there and no one's gonna find me.\"(light-gray, italic)
-")
-
-;; a painted Cerebats faction sign and direction arrow, though it only says "BATS"
-;; play turns it into a joke, since chances are they've seen bats flying around in the caves before.
-;; They may or may not have encountered / know about the Cerebats faction at this point
-  (:interaction cerebat-bats-1
-   :interactable lore-cerebat-bats-1
-   :repeatable T
-   "
-~ player
-| (:giggle)\"Yes, there are indeed bats in these parts.\"(light-gray, italic)
-")
-
-;; another painted Cerebats faction sign and direction arrow, though it only says "BATS" (and is written in red paint)
-;; They may or may not have encountered / know about the Cerebats faction at this point
-  (:interaction cerebat-bats-2
-   :interactable lore-cerebat-bats-2
-   :repeatable T
-   "
-~ player
-| \"I hope that's not written in blood. Or thermal fluid.\"(light-gray, italic)
-")
-
-;; a mushroom cave, but also referring to the lush backdrop
-  (:interaction cerebat-mush
-   :interactable lore-cerebat-mush
-   :repeatable T
-   "
-~ player
-| \"It's so humid down here, no wonder it's lush.\"(light-gray, italic)
-| (:giggle)\"Thank God I don't sweat, or I'd be watering the plants as well.\"(light-gray, italic)
-")
-
-;; the water is pumped from here to the Semis and Noka living areas far above
-  (:interaction cerebat-lake
-   :interactable lore-cerebat-lake
-   :repeatable T
-   "
-~ player
-| (:thinking)\"Water must get pumped up from these lakes to the levels above.\"(light-gray, italic)
-")
-
-;; because this is a light area, even though it's deep underground
-  (:interaction cerebat-light
-   :interactable lore-cerebat-light
-   :repeatable T
-   "
-~ player
-| (:thinking)\"Where's all the light coming from? Phosphorescent flora?\"(light-gray, italic)
-")
-
-;; wind in the tunnels - difference in temperature with the levels above, and with the air over water and land
-  (:interaction cerebat-wind
-   :interactable lore-cerebat-wind
-   :repeatable T
-   "
-~ player
-| (:thinking)\"The water must be cooling the air and causing the winds.\"(light-gray, italic)
-")
-
-;; wind power
-;; may have encountered wind farming in the tunnels already in Semi/Cerebat territory (sidequest), or may not have - but can assume the character has observed this in the environment while exploring
-;; not "the doldrums" - in wind and light/mood
-  (:interaction cerebat-wind-power
-   :interactable lore-cerebat-wind-power
-   :repeatable T
-   "
-~ player
-| \"This is hardly the doldrums I was expecting.\"(light-gray, italic)
-| \"No wonder they use wind for power -\"(light-gray, italic) (:giggle)\"much as my thrusters do the reverse.\"(light-gray, italic)
-")
-
-;; bouncing springs like in Sonic
-;; Helps (non-android) people/hunters (assuming you know of hunters at this point) to move around
-;; Derived from old railway buffers
-  (:interaction cerebat-bouncer
-   :interactable lore-cerebat-bouncer
-   :repeatable T
-   "
-~ player
-| \"Rail buffers repurposed as springboards? An ingenious way to help people navigate these tunnels.\"(light-gray, italic)
-")
-
-;; oil slick in a cave
-;; may not have had the harsh treatment from Jack (and others yet), but we can assume the character remembers that part of their old life
-  (:interaction cerebat-oil
-   :interactable lore-cerebat-oil
-   :repeatable T
-   "
-~ player
-| \"Oil and water. Like humans and androids.\"(light-gray, italic)
-")
-;; could have said something about fossils/androids, but you'll see there are fossils in there if you fish in the oil
-
-;; hideouts
-
-;; council chamber
-;; living quarters
-;; shady backstreets
-;; busy market
-;; factory
-
-
-
-  ;; the caved-in tunnel that trapped the Semi Sisters engineers. A different line plays depending on whether or not the debris has been cleared yet, and whether or not the player knows about the trapped engineers quests yet
+;; the caved-in tunnel that trapped the Semi Sisters engineers. A different line plays depending on whether or not the debris has been cleared yet, and whether or not the player knows about the trapped engineers quests yet
   (:interaction engineers-wall
    :interactable lore-engineers-wall
    :repeatable T
@@ -650,7 +498,250 @@
 | | | \"The remnants of the collapsed rail tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
 | |?
 | | | \"The remnants of the collapsed tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
+")
+
+;; REGION 2
+
+;; abandoned laboratory
+;; The player does know the term "Calamity" by this point
+  (:interaction cerebat-lab-1
+   :interactable lore-cerebat-lab-1
+   :repeatable T
+   "
+~ player
+| (:thinking)\"I don't think this lab has been used since before the Calamity.\"(light-gray, italic)
+")
+
+;; abandoned lab, looking at an unusual sample in a glass tube (like something from Aliens)
+  (:interaction cerebat-lab-2
+   :interactable lore-cerebat-lab-2
+   :repeatable T
+   "
+~ player
+| (:embarassed)\"What the hell is that? I think it's organic. And dead.\"(light-gray, italic)
+| \"Well it's staying where it is.\"(light-gray, italic) (:giggle)\"I don't want anything jumping on my face.\"(light-gray, italic)
+")
+
+;; in a big lush water cave
+;; (works even if they've seen the deeper volcanic Wraw area, since here they're comparing it to the drier less habitable areas above)
+  (:interaction cerebat-water-cave
+   :interactable lore-cerebat-water-cave
+   :repeatable T
+   "
+~ player
+| \"At this depth I was expecting magma not water.\"(light-gray, italic)
+")
+
+;; big mushrooms in a big lush water cave, different to the ones higher up. And hence the drinkable joke
+  (:interaction cerebat-mush-cave
+   :interactable lore-cerebat-mush-cave
+   :repeatable T
+   "
+~ player
+| \"These are different kinds of giant mushrooms. I don't know if they're edible.\"(light-gray, italic)
+| (:giggle)\"Though judging from this place, they might be drinkable.\"(light-gray, italic)
+")
+
+;; bottomless pit which would cause insta-death
+  (:interaction cerebat-pit
+   :interactable lore-cerebat-pit
+   :repeatable T
+   "
+~ player
+| (:embarassed)\"I fall in there and no one's gonna find me.\"(light-gray, italic)
+")
+
+;; a painted Cerebats faction sign and direction arrow, though it only says "BATS"
+;; character turns it into a joke, since chances are they've seen bats flying around in the caves before. Even if they haven't, they'll know the meaning.
+;; They may or may not have encountered / know about the Cerebats faction at this point
+  (:interaction cerebat-bats-1
+   :interactable lore-cerebat-bats-1
+   :repeatable T
+   "
+~ player
+| (:giggle)\"Yes, there are indeed bats in these parts.\"(light-gray, italic)
+")
+
+;; another painted Cerebats faction sign and direction arrow, though it only says "BATS" (and is written in red paint, the same colour as blood AND thermal fluid in androids)
+;; They may or may not have encountered / know about the Cerebats faction at this point
+  (:interaction cerebat-bats-2
+   :interactable lore-cerebat-bats-2
+   :repeatable T
+   "
+~ player
+| (:embarassed)\"I hope that's not written in blood. Or thermal fluid.\"(light-gray, italic)
+")
+
+;; a mushroom cave, but also referring to the lush backdrop
+  (:interaction cerebat-mush
+   :interactable lore-cerebat-mush
+   :repeatable T
+   "
+~ player
+| \"It's so humid down here, no wonder it's lush.\"(light-gray, italic)
+| (:giggle)\"Thank God I don't sweat, or I'd be watering the plants too.\"(light-gray, italic)
+")
+
+;; a lake area; the water is pumped from here to the Semis and Noka living areas far above
+;; may or may not know the names of the factions in the levels above at this point, hence ambiguity
+  (:interaction cerebat-lake
+   :interactable lore-cerebat-lake
+   :repeatable T
+   "
+~ player
+| (:thinking)\"Water must get pumped up from these lakes to the levels above.\"(light-gray, italic)
+")
+
+;; because this is a light area, even though it's deep underground
+;; teasing the concept of phosphorescent (radioactive?) fauna - though you never see anything
+  (:interaction cerebat-light
+   :interactable lore-cerebat-light
+   :repeatable T
+   "
+~ player
+| (:thinking)\"Where's all the light coming from? Phosphorescent flora?\"(light-gray, italic)
+| (:embarassed)\"Phosphorescent fauna...\"(light-gray, italic)
+")
+
+;; wind in the tunnels, caused by difference in temperature with the levels above, and with the air over water and land
+  (:interaction cerebat-wind
+   :interactable lore-cerebat-wind
+   :repeatable T
+   "
+~ player
+| (:thinking)\"The water must be cooling the warm air and causing the wind.\"(light-gray, italic)
+")
+
+;; wind power
+;; may have encountered wind farming in the tunnels already in Semi/Cerebat territory (sidequest), or may not have - but can assume the character has observed this in the environment while exploring
+;; not "the doldrums" - since the wind is light, and so is the mood here; not what she was expecting deep underground
+;; her thrusters use power for wind!
+  (:interaction cerebat-wind-power
+   :interactable lore-cerebat-wind-power
+   :repeatable T
+   "
+~ player
+| \"Not exactly the doldrums.\"(light-gray, italic)
+| \"No wonder they use wind for power -\"(light-gray, italic) (:giggle)\"much as my thrusters do the reverse.\"(light-gray, italic)
+")
+
+;; bouncing springs like in Sonic
+;; Helps people/hunters/androids (assuming you know of hunters at this point) to navigate these tunnels
+;; Derived from old railway buffers (those round sprung buffers, use in pairs on the front and back of rail carriages/trucks/cars, to help avoid impacts when connecting them together)
+  (:interaction cerebat-bouncer
+   :interactable lore-cerebat-bouncer
+   :repeatable T
+   "
+~ player
+| \"Those springboards are repurposed rail buffers... Ingenious!\"(light-gray, italic)
+")
+
+;; oil slick in a cave
+;; may not have had the harsh treatment from Jack (and others yet), but we can assume the character remembers that part of their old life, that humans and androids don't get along
+;; TODO remove this if Nick removed them from the game
+  (:interaction cerebat-oil
+   :interactable lore-cerebat-oil
+   :repeatable T
+   "
+~ player
+| \"Oil and water. Like humans and androids.\"(light-gray, italic)
+")
+;; could have said something about fossils/androids, but you'll see there are fossils in there if you fish in the oil
+;; the free availability of oil also shows why the Cerebats are a wealthy faction (or were, before the Wraw took them over)
+
+;; a hideout of neutral rogue enemies, who ambush passers by (might not be obvious to player, so description clarifies). Well stocked due to all the item spawners.
+;; player may or may not know about rogues by this point
+  (:interaction cerebat-hideout
+   :interactable lore-cerebat-hideout
+   :repeatable T
+   "
+~ player
+| \"A well-off hideout. Though if that stench is anything to go by,\"(light-gray, italic) (:giggle)\"it's seriously lacking in bathroom facilities.\"(light-gray, italic)
+")
+
+;; an abandoned hideout of neutral rogue enemies, who used to ambush passers by (might not be obvious to player, so description clarifies)
+;; player may or may not know about rogues by this point, and the Semi Sisters (by name) on the level above; though to reach here, they will have seen that the level above is populated/watched
+  (:interaction cerebat-old-hideout
+   :interactable lore-cerebat-old-hideout
+   :repeatable T
+   "
+~ player
+| \"A long-abandoned hideout - most of the litter has blown away, but a few footprints remain.\"(light-gray, italic)
+| (:thinking)\"Its position was probably too open and exposed, not to mention too close to the level above.\"(light-gray, italic)
+")
+
+;; an encampment of raiders on the edge of the Cerebat base
+;; player may or may not have discovered the Cerebat base by this point - if they have, then this makes sense; if not, then it's a slight clue (but not a spoiler) that a base is nearby
+;; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot); if they do suspect, then this fuels the fire
+  (:interaction cerebat-encampment
+   :interactable lore-cerebat-encampment
+   :repeatable T
+   "
+~ player
+| \"This reminds me of a shady backstreet cache. I think they're running a black market out of here.\"(light-gray, italic)
+")
+
+;; cerebat council chamber - it's empty, no council
+;; the room is modern and shiny, like the Calamity never happened (unlike most other places the player has seen)
+;; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+;; the player does know the term "Calamity" by this point
+  (:interaction cerebat-council
+   :interactable lore-cerebat-council
+   :repeatable T
+   "
+~ player
+| \"Instead of a shadow there's a reflection staring back at me from the shiny black floor.\"(light-gray, italic)
+| \"You'd think the Calamity never happened here.\"(light-gray, italic)
+")
+
+;; living quarters - tents set up in rooms, deep underground
+;; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+  (:interaction cerebat-housing
+   :interactable lore-cerebat-housing
+   :repeatable T
+   "
+~ player
+| \"This is a cosy little corner to set up camp. Not exactly under the stars though, is it.\"(light-gray, italic)
+")
+
+;; shady backstreets
+;; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+  (:interaction cerebat-backstreet
+   :interactable lore-cerebat-backstreet
+   :repeatable T
+   "
+~ player
+| \"You've seen one seedy backstreet, you've seen them all.\"(light-gray, italic)
+")
+
+;; busy market
+;; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot) - thus we raise suspicion here if they don't know, or confirm suspicion if they do
+;; if player spoken to cerebat trader, the "innocent produce" may make them smile, since his shopping list is anything but. If they speak to him after this, then his shopping list will contrast with this
+  (:interaction cerebat-market
+   :interactable lore-cerebat-market
+   :repeatable T
+   "
+~ player
+| \"It's a busy market day. The produce looks innocent enough, but I'm getting a disproportionate number of sideways glances.\"(light-gray, italic)
+")
+
+;; warehouse/factory
+;; "Some of the boxes are covered in ash." - this is a clue that the Wraw have been suppling / have taken over the Cerebats. But it needs to be vague enough to make sense both before and after the player has discovered the Wraw takeover, at a time when they may or may not know as well that the Wraw come from a volcanic area. It also can't be too specific to serve as a plot clue, since this confirmation only comes from the cerebat trader during q8a.
+  (:interaction cerebat-warehouse
+   :interactable lore-cerebat-warehouse
+   :repeatable T
+   "
+~ player
+| \"I don't think I've seen a more stocked warehouse, and that includes before the Calamity.\"(light-gray, italic)
+| \"Some of the boxes are covered in ash.\"(light-gray, italic)
 "))
+
+;; REGION 3
+
+;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
+
+
+;; SEMI SISTERS ENGINEERS
 
 ;; conversation with a Semi Sisters rail engineer, if you encounter them independently of the quest to rescue them.
 ;; This is dialogue with the player, not inner monologue.
@@ -753,8 +844,6 @@
 | It's strange being on the surface. You live here? It's hot.
 | I hope our metro will fare better than this shoddy water pipe.
 "))
-
-;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
 ;; NPC FALLBACK DIALOGUE
 
@@ -916,3 +1005,6 @@
 (define-default-interactions npc
   (T
    "| [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat.]"))
+
+;; TODO - faction generic NPC granularity
+;; Cerebats/traders: Sorry, we're closed. etc.
