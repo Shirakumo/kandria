@@ -258,7 +258,7 @@ item:small-battery/description "Fits into small handheld devices. No charge, tho
 Can be sold for scrap."
 item:coin "Old Coin"
 item:coin/description "Old-world physical currency, though from which continent I'm not sure - the detail has rubbed off.
-Can be sold for scrap." ;; implies continental currencies were in circulation pre-calamity
+Can be sold for scrap." ;; implies continental currencies were in circulation pre-Calamity
 item:controller "Game Controller"
 item:controller/description "Used to interface with a video game console. Remember those?
 Can be sold for scrap."
@@ -305,7 +305,7 @@ item:rusted-clump "Rusted Clump"
 item:rusted-clump/description "Was there ever a greater sign of entropy than rust? Kipple, maybe.
 Can be sold for scrap or used in upgrades." ;; reference to Do Androids Dream of Electric Sheep?, where "kipple" is a term coined by Dick: junk and waste items, which build up seemingly exponentially. Could also be a diegetic reference, as if the android has read the book.
 item:pearl "Pearl"
-item:pearl/description "It's genuine, I'm pretty sure of that. Unless this used to be ocean, this was someone's jewellery.
+item:pearl/description "It's genuine, I'm pretty sure of that. Unless this used to be an estuary, this was someone's jewellery.
 Can be sold for scrap or used in upgrades."
 item:dirt-clump "Dirt Clump"
 item:dirt-clump/description "A hefty clump of... dirt and dust. Might be worth something to someone?
@@ -561,6 +561,7 @@ Can be sold for scrap."
 fish:nameplate "Ship Nameplate"
 fish:nameplate/description "The inscribed name says \"Denali\".
 Can be sold for scrap."
+;; named after the mountain? If the player finds multiple of these, we can assume the ship went down around here, and various nameplates got scattered/scavenged
 fish:car-battery "Car Battery"
 fish:car-battery/description "A chemical battery once used in a pre-electric car.
 Can be sold for scrap."
