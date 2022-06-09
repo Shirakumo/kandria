@@ -80,7 +80,8 @@
   (alloy:mark-for-render structure))
 
 (defmethod input-binding ((structure input-mapping-structure))
-  (trial::binding-from-event (event structure) :edge (if (toggle structure) :rise-only :rise)))
+  (when (event structure)
+    (trial::binding-from-event (event structure) :edge (if (toggle structure) :rise-only :rise))))
 
 (presentations:define-realization (ui input-mapping-structure)
   ((:background simple:rectangle)
@@ -168,7 +169,7 @@
          (ok (make-instance 'popup-button
                             :value (@ accept-input-change)
                             :on-activate (lambda ()
-                                           (let ((bindings (map 'list #'input-binding (alloy:elements bindings))))
+                                           (let ((bindings (remove-if #'null (map 'list #'input-binding (alloy:elements bindings)))))
                                              (trial::update-action-bindings bindings (alloy:value source)
                                                                             :prune-types (if (eql +input-source+ :keyboard)
                                                                                              '(key mouse)
