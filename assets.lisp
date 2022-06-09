@@ -56,6 +56,9 @@
 (define-asset (music music/bar) trial-harmony:environment
     '((:normal "bar.oga")))
 
+(define-asset (music music/underground-camp) trial-harmony:environment
+    '((:normal "underground camp.oga")))
+
 (define-asset (music ambience/camp) trial-harmony:environment
     '((:normal "ambience track_ camp.ogg")))
 
@@ -384,4 +387,8 @@
 
 (define-environment (region2 transition)
   :music NIL
+  :ambience 'ambience/desolate-building)
+
+(define-environment (region2 camp)
+  :music 'music/underground-camp
   :ambience 'ambience/desolate-building)
