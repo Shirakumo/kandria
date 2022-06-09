@@ -68,7 +68,9 @@
          (toggle (alloy:represent (slot-value structure 'toggle) 'alloy:labelled-switch :text (@ input-toggles-state)))
          (remove (make-instance 'popup-button
                                 :value (@ remove-input-mapping)
-                                :on-activate (lambda () (alloy:leave structure T)))))
+                                :on-activate (lambda ()
+                                               (setf (alloy:focus (alloy:focus-parent structure)) :strong)
+                                               (alloy:leave structure T)))))
     (alloy:enter label structure
                  :constraints `((:left 5) (:right 5) (:top 5) (= :b 50)))
     (alloy:enter toggle structure
