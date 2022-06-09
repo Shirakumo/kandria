@@ -18,10 +18,18 @@
   (harmony:play (// 'sound 'ui-start-game))
   (ecase (intent button)
     (:new
-     (setf (state +main+) (alloy:value button))
-     ;; FIXME: allow user to enter name.
-     (setf (author (state +main+)) (pathname-utils:directory-name (user-homedir-pathname)))
-     (load-game NIL +main+))
+     (flet ((launch-new-game ()
+              (setf (state +main+) (alloy:value button))
+              ;; FIXME: let pick name.
+              (setf (author (state +main+)) (pathname-utils:directory-name (user-homedir-pathname)))
+              (load-game NIL +main+)))
+       (if (equal (@ empty-save-file) (print (author (alloy:value button))))
+           (launch-new-game)
+           (show (make-instance 'prompt-panel :text (@formats 'save-overwrite-reminder
+                                                              (format-absolute-time (save-time (alloy:value button))))
+                                              :on-accept #'launch-new-game)
+                 :width (alloy:un 500)
+                 :height (alloy:un 300)))))
     (:load
      (when (exists-p (alloy:value button))
        (load-game (alloy:value button) +main+)))))

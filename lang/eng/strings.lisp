@@ -726,6 +726,9 @@ dismiss-prompt-panel "Cancel"
 accept-prompt-panel "Ok"
 game-quit-reminder "Are you sure you want to quit?
 Your last save was ~d minutes ago."
+save-overwrite-reminder "This will overwrite a save from
+~a
+Are you sure?"
 show-lore-of-item "Examine"
 new-quest-started "New quest: ~a"
 quest-successfully-completed "Quest completed: ~a"
