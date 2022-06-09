@@ -170,14 +170,20 @@
     (setf (alloy:focus (alloy:focus-element button)) :strong)))
 
 (defmethod (setf alloy:focus) :after ((value (eql :weak)) (button tab))
+  (unless (eql +input-source+ :keyboard)
+    (when (alloy:layout-element button)
+      (let ((layout (layout (tab-view button))))
+        (when (alloy:index-element :center layout)
+          (alloy:leave (alloy:index-element :center layout) layout))
+        (alloy:enter (alloy:layout-element button) layout)))))
+
+(defmethod (setf alloy:focus) :after ((value (eql :strong)) (button tab))
   (when (alloy:layout-element button)
     (let ((layout (layout (tab-view button))))
       (when (alloy:index-element :center layout)
         (alloy:leave (alloy:index-element :center layout) layout))
-      (alloy:enter (alloy:layout-element button) layout))))
-
-(defmethod (setf alloy:focus) :after ((value (eql :strong)) (element tab))
-  (setf (alloy:focus (alloy:focus-element (tab-view element))) :strong))
+      (alloy:enter (alloy:layout-element button) layout)))
+  (setf (alloy:focus (alloy:focus-element (tab-view button))) :strong))
 
 (defclass setting-label (alloy:label)
   ())
