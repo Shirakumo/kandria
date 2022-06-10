@@ -726,8 +726,7 @@
   (1+ +base-layer+))
 
 (defmethod is-collider-for ((player player) (blocker demo-blocker))
-  #-kandria-demo NIL
-  #+kandria-demo T)
+  T)
 
 (defmethod collide :after ((player player) (blocker demo-blocker) hit)
   (setf (slot-value blocker 'animation) (aref (animations blocker) 1))
