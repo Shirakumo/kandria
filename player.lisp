@@ -468,6 +468,7 @@ void main(){
          (loc (location player))
          (vel (velocity player))
          (size (bsize player))
+         (chunk (chunk player))
          (ground (svref collisions 2))
          (ground-limit (cond
                          ((and (not (eql :keyboard +input-source+))
@@ -528,15 +529,16 @@ void main(){
     ;; Handle fishing
     (when (and (v= 0 vel)
                ground
+               chunk
                (null (interactable player))
                (typep (medium player) 'air))
       (bvh:do-fitting (entity (bvh (region +world+)) (tvec (max (- (vx loc) (* +tile-size+ 13))
-                                                                (- (vx (location (chunk player)))
-                                                                   (vx (bsize (chunk player)))))
+                                                                (- (vx (location chunk))
+                                                                   (vx (bsize chunk))))
                                                            (- (vy loc) (* +tile-size+ 10))
                                                            (min (+ (vx loc) (* +tile-size+ 13))
-                                                                (+ (vx (location (chunk player)))
-                                                                   (vx (bsize (chunk player)))))
+                                                                (+ (vx (location chunk))
+                                                                   (vx (bsize chunk))))
                                                            (vy loc)))
         (when (and (typep entity 'water) (< (vy (location entity)) (vy (location player))))
           (let ((dx (/ (- (vx (location entity)) (vx loc)) 2.0)))
