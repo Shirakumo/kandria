@@ -421,4 +421,5 @@
 
 (defmethod handle ((ev switch-chunk) (hud hud))
   (setf (hidden-p (saving hud)) (or (not (setting :gameplay :display-hud))
+                                    (timer hud)
                                     (not (save-point-available-p)))))
