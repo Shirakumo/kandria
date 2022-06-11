@@ -1,5 +1,58 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defclass name-input (alloy:input-line)
+  ())
+
+(presentations:define-realization (ui name-input)
+  ((background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black)
+  ((:border simple:rectangle)
+   (alloy:margins)
+   :pattern colors:white
+   :line-width (alloy:un 1))
+  ((:label simple:text)
+   (alloy:margins 1)
+   alloy:text
+   :font (setting :display :font)
+   :wrap T
+   :size (alloy:un 20)
+   :halign :start
+   :valign :middle)
+  ((:cursor simple:cursor)
+   (presentations:find-shape :label alloy:renderable)
+   0
+   :pattern colors:white))
+
+(presentations:define-update (ui name-input)
+  (:label
+   :pattern colors:white))
+
+(defclass name-input-panel (menuing-panel)
+  ())
+
+(defmethod initialize-instance :after ((panel name-input-panel) &key data on-complete)
+  (let* ((layout (make-instance 'load-screen-layout))
+         (focus (make-instance 'alloy:focus-list))
+         (input (make-instance 'name-input :data data :focus-parent focus))
+         (button (make-instance 'button :value (@ accept-prompt-panel) :focus-parent focus
+                                        :on-activate (lambda ()
+                                                       (hide panel)
+                                                       (funcall on-complete (alloy:value data))))))
+    (alloy:on alloy:accept (input)
+      (alloy:activate button))
+    (alloy:on alloy:exit (focus)
+      (hide panel))
+    (alloy:enter input layout :constraints `((:size 300 50) (:center :w :h)))
+    (alloy:enter button layout :constraints `((:size 100 50) (:center :h) (:right-of ,input 0)))
+    (alloy:enter (make-instance 'label :value (@ enter-name-prompt)) layout
+                 :constraints `((:size 300 50) (:center :w) (:above ,input 5))
+                 :style `((:label :halign :middle)))
+    (alloy:finish-structure panel layout focus)))
+
+(defmethod show :after ((panel name-input-panel) &key)
+  (alloy:activate (alloy:focus-element panel)))
+
 (defclass save-button (alloy:direct-value-component)
   ((intent :initarg :intent :initform :new :accessor intent)
    (texture :initform NIL :accessor texture)
@@ -18,16 +71,18 @@
   (harmony:play (// 'sound 'ui-start-game))
   (ecase (intent button)
     (:new
-     (flet ((launch-new-game ()
-              (setf (state +main+) (alloy:value button))
-              ;; FIXME: let pick name.
-              (setf (author (state +main+)) (pathname-utils:directory-name (user-homedir-pathname)))
-              (load-game NIL +main+)))
+     (labels ((launch-new-game (name)
+                (setf (state +main+) (alloy:value button))
+                (setf (author (state +main+)) name)
+                (load-game NIL +main+))
+              (prompt-name ()
+                (let ((data (make-instance 'alloy:value-data :value (pathname-utils:directory-name (user-homedir-pathname)))))
+                  (show-panel 'name-input-panel :data data :on-complete #'launch-new-game))))
        (if (equal (@ empty-save-file) (print (author (alloy:value button))))
-           (launch-new-game)
+           (prompt-name)
            (show (make-instance 'prompt-panel :text (@formats 'save-overwrite-reminder
                                                               (format-absolute-time (save-time (alloy:value button))))
-                                              :on-accept #'launch-new-game)
+                                              :on-accept #'prompt-name)
                  :width (alloy:un 500)
                  :height (alloy:un 300)))))
     (:load
