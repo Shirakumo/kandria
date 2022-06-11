@@ -329,6 +329,34 @@
                               (/ (vy (offset alloy:value)) (height (texture alloy:value))))
               (alloy:point 0 0))))
 
+(defclass lore-text (label)
+  ())
+
+(presentations:define-realization (ui lore-text)
+  ((background simple:rectangle)
+   (alloy:margins)
+   :pattern (simple:request-gradient alloy:renderer 'simple:linear-gradient
+                                     (alloy:px-point 0 0)
+                                     (alloy:px-point 0 100)
+                                     #((0.2 #.(colored:color 0.1 0.1 0.1 0.9))
+                                       (1.0 #.(colored:color 0.1 0.1 0.1 0.5)))))
+  ((border simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black
+   :line-width (alloy:un 1))
+  ((label simple:text)
+   (alloy:margins 10)
+   alloy:text
+   :pattern colors:white
+   :font (setting :display :font)
+   :halign :middle
+   :valign :top
+   :size (alloy:un 16)
+   :wrap T))
+
+(presentations:define-update (ui lore-text)
+  (label))
+
 (defclass lore-panel (menuing-panel)
   ())
 
@@ -338,13 +366,18 @@
          (focus (make-instance 'alloy:focus-list))
          (clipper (make-instance 'alloy:clip-view :limit :x :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper :focus-parent focus))
-         (text (make-instance 'label :value (item-lore item) :style `((:label :bounds ,(alloy:margins 10))))))
-    (alloy:enter text clipper)
-    (alloy:enter clipper layout :constraints `((:width 800) (:required (<= 20 :l) (<= 20 :r)) (:center :w) (:bottom 100) (:top 100)))
-    (alloy:enter scroll layout :constraints `((:width 20) (:right-of ,clipper 0) (:bottom 100) (:top 100)))
-    (alloy:enter (make-instance 'label :value (title item)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 500 50)))
+         (text (make-instance 'lore-text :value (item-lore item))))
+    (alloy:enter text layout :constraints `((:width 800) (:required (<= 20 :l) (<= 20 :r)) (:center :w) (:bottom 100) (:top 100)))
+    (alloy:enter (make-instance 'item-icon :value item) layout
+                 :constraints `((:left-of ,text 10) (:align :top ,text) (:size 100 100)))
+    #++
+    (progn
+      (alloy:enter text clipper)
+      (alloy:enter clipper layout :constraints `((:width 800) (:required (<= 20 :l) (<= 20 :r)) (:center :w) (:bottom 100) (:top 100)))
+      (alloy:enter scroll layout :constraints `((:width 20) (:right-of ,clipper 0) (:bottom 100) (:top 100))))
+    (alloy:enter (make-instance 'label :value (title item)) layout :constraints `((:left 50) (:above ,text 10) (:size 500 50)))
     (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
-      (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
+      (alloy:enter back layout :constraints `((:left 50) (:below ,text 10) (:size 200 50)))
       (alloy:enter back focus)
       (alloy:on alloy:exit (focus)
         (setf (alloy:focus back) :strong)))
