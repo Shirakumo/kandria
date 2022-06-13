@@ -581,7 +581,7 @@ fish:alligator "Alligator"
 fish:alligator/description "It's not a crocodile - the snout gives it away.
 Can be sold for scrap."
 ;; UI
-enter-name-prompt "Enter your name"
+enter-name-prompt "Enter the save file name"
 saving-currently-possible "Saving possible"
 current-fast-travel-location "You are here"
 current-outfit-selection "Current"
