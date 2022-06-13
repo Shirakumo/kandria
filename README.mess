@@ -44,3 +44,6 @@ Windows: ``%AppData%/Roaming/shirakumo/kandria/keymap.lisp``
 If you encounter a problem with Kandria, first of all, apologies! The best way to report them is to hit ``F12`` in-game. That will bring up a dialogue that lets you enter a description of the problem. Once you OK the dialogue it'll gather some information about the current game state and send it to us. It'll also try to do that automatically should the game crash entirely.
 
 Changes that are realised thanks to public feedback like this will be noted in the "CHANGES.mess"(link CHANGES.mess) file.
+
+## Support
+Kandria was made possible in part to the Pro Helvetia Interactive Media grant and the KPT Poland Prize Digital Dragons Accelerator.
