@@ -51,11 +51,18 @@
 
 (defclass credits (menuing-panel)
   ((credits :accessor credits)
-   (offset :initform 0 :accessor offset)
+   (offset :initform -100 :accessor offset)
    (ideal :initform NIL :accessor ideal)))
+
+(defmethod stage :after ((credits credits) (area staging-area))
+  (stage (// 'music 'credits) area))
+
+(defmethod show :after ((credits credits) &key)
+  (setf (override (unit 'environment +world+)) (// 'music 'credits)))
 
 (defmethod hide :after ((credits credits))
   (setf (game-speed +main+) 1.0)
+  (setf (override (unit 'environment +world+)) NIL)
   (labels ((traverse (node)
              (typecase node
                (alloy:layout
@@ -76,7 +83,7 @@
                              (- (offset panel) ideal)
                              (alloy:vw 1)
                              ideal))
-      (incf (offset panel) (* (alloy:to-px (alloy:un 100)) (dt ev)))
+      (incf (offset panel) (* (alloy:to-px (alloy:un 50)) (dt ev)))
       (when (< (+ ideal (height *context*)) (offset panel))
         (hide panel)))))
 

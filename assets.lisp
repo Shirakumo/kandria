@@ -24,6 +24,7 @@
 
 (define-track menu #p"menu.oga")
 (define-track scare #p"scare.oga")
+(define-track credits #p"credits.oga")
 (define-track bar #p"bar.oga")
 (define-track battle #p"battle.oga"
   :repeat-start 4.8)
