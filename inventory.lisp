@@ -518,6 +518,7 @@
 ;; placement: where mushrooms wouldn't be expected to grow i.e. in non-soil areas
 
 ;; REGION 1 UPPER + SURFACE
+;; meteorites only close to the surface, to hint at another possible Calamity cause
 (define-random-draw region1-cave
   (item:cloudy-water 1)
   (item:mossy-water 2)
@@ -658,16 +659,6 @@
   (item:rusted-clump 7))
 ;; placement: region 2 empty cave areas (having more items here than otherwise would have due to most of the region being caves - using mushroom spawners too ofc)
 
-(define-random-draw region2-market
- (item:pristine-pelt 1)
-  (item:pure-water 2)
-  (item:fine-pelt 3)
-  (item:cloudy-water 3)
-  (item:pearl 4)
-  (item:rusted-key 5)
-  (item:coin 5))
-;; placement: market areas of region 2
-
 (define-random-draw region2-home
   (item:pristine-pelt 1)
   (item:pure-water 2)
@@ -677,6 +668,14 @@
   (item:copper-ring 5)
   (item:controller 6))
 ;; placement: region 2 housing areas
+
+(define-random-draw region2-office
+  (item:complex-circuit 1)
+  (item:large-battery 1)
+  (item:memory 2)
+  (item:metal-ring 3)
+  (item:connector 3))
+;; placement: region 2 office/council chambers
 
 (define-random-draw region2-factory
   (item:crude-oil 1)
@@ -689,17 +688,78 @@
   (item:screw 5))
 ;; placement: region 2 lab/factory
 
-(define-random-draw region2-office
-  (item:complex-circuit 1)
-  (item:large-battery 1)
-  (item:memory 2)
-  (item:metal-ring 3)
-  (item:connector 3))
-;; placement: region 2 office/council chambers
+(define-random-draw region2-market
+  (item:pristine-pelt 1)
+  (item:pure-water 2)
+  (item:fine-pelt 3)
+  (item:cloudy-water 3)
+  (item:pearl 4)
+  (item:rusted-key 5)
+  (item:coin 5))
+;; placement: market areas of region 2
 
 
 ;; REGION 3
-;; 
+
+#| new items in this region:   
+
+  refined-oil - needed for later sword upgrade / Islay also sells
+  hardened-alloy - needed for later sword upgrade / Islay also sells
+  genera-core
+  dented-plate
+  
+  no pearls here, needed for level 5 sword upgrade - need to go to region 2 for these (replaced with genera core)
+ 
+|#
+
+(define-random-draw region3-cave
+  (item:gold-nugget 1)
+  (item:silver-ore 2)
+  (item:bronze-clump 3)
+  (item:crude-oil 4)
+  (item:cloudy-water 4)
+  (item:quartz-crystal 4)
+  (item:genera-core 5)
+  (item:dented-plate 6))
+;; placement: region 3 empty cave areas (having more items here than otherwise would have due to most of the region being caves - using mushroom spawners too ofc)
+;; fewer items here compared to previous caves, to increase gold draw (a lot needed for lvl 5 sword upgrade)
+
+(define-random-draw region3-home
+  (item:pure-water 1)
+  (item:fine-pelt 2)
+  (item:satchel 3)
+  (item:small-battery 4)
+  (item:copper-ring 4)
+  (item:controller 5)
+  (item:metal-ring 5)
+  (item:connector 5))
+;; placement: region 3 housing areas
+
+;; no office spawners, though it's a smaller area so it's fine - and their items are rolled into the others
+
+(define-random-draw region3-factory
+  (item:refined-oil 1)
+  (item:hardened-alloy 3)
+  (item:large-battery 4)
+  (item:coolant 4)
+  (item:thermal-fluid 4)
+  (item:large-gear 5)
+  (item:heavy-spring 5)
+  (item:heavy-rod 5)
+  (item:light-rod 5))
+;; placement: region 2 lab/factory
+
+(define-random-draw region3-market
+  (item:pristine-pelt 1)
+  (item:pure-water 2)
+  (item:fine-pelt 3)
+  (item:cloudy-water 3)
+  (item:genera-core 4)
+  (item:complex-circuit 5)
+  (item:memory 5)
+  (item:rusted-key 6)
+  (item:coin 6))
+;; placement: market areas of region 2
 
 
 ;; QUEST SPAWNERS
@@ -711,15 +771,3 @@
 ;; placement idea: 5 locations, some close to one another - makes sense the explosives themselves would be stored in bulk and close together (5 per spawner)
 (define-random-draw bomb-charge-pack
   (item:charge-pack 1))
-
-
-#| ITEMS UNUSED IN SPAWNERS SO FAR
-  
-  Wraw region todo:
-  
-  (item:refined-oil 2) - Wraw region (needed for later sword upgrade) / Islay also sells
-  (item:hardened-alloy 3) - Wraw region (needed for later sword upgrade) / Islay also sells
-  (item:genera-core 1) - Wraw region only  
-  (item:dented-plate 1)
-  
-|#
