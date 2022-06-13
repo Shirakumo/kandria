@@ -461,7 +461,7 @@
 ;;   Model-4
 ;; x Model-5
 ;; x YoRHa
-;;   Wayneright
+;; x Wayneright
 ;; x Mountain
 ;;   Vampire
 ;; x Trek
