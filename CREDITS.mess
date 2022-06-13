@@ -83,7 +83,7 @@ Michael Fiano
 Kandria was supported by the Pro Helvetia grant for Interactive Media and the KPT Poland Prize Digital Dragons Accelerator.
 
 [ image texture/prohelvetia-logo.png ]
-; [ image texture/dda-logo.png ]
+[ image texture/dda-logo.png ]
 
 # Special Thanks
 The Steel Bank Common Lisp compiler team and all its contributors without which this would never have happened.
