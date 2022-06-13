@@ -501,21 +501,21 @@
 (define-random-draw mushrooms-good
   (item:mushroom-good-1 1)
   (item:mushroom-good-2 1))
-;; placement: where background big mushrooms are
+;; placement: where background big mushrooms are (not in region 3)
   
 (define-random-draw mushrooms-good-1
   (item:mushroom-good-1 1)
   (item:mushroom-good-2 2))
-;; placement: where background big mushrooms are
+;; placement: where background big mushrooms are (not in region 3)
   
 (define-random-draw mushrooms-good-2
   (item:mushroom-good-1 2)
   (item:mushroom-good-2 1))
-;; placement: where background big mushrooms are
+;; placement: where background big mushrooms are (not in region 3)
   
 (define-random-draw mushrooms-bad-1
   (item:mushroom-bad-1 1))
-;; placement: where mushrooms wouldn't be expected to grow i.e. in non-soil areas
+;; placement: where mushrooms wouldn't be expected to grow i.e. in non-soil areas (yes in region 3)
 
 ;; REGION 1 UPPER + SURFACE
 ;; meteorites only close to the surface, to hint at another possible Calamity cause
@@ -700,6 +700,8 @@
 
 
 ;; REGION 3
+;; placement: generally more spawners and quantities per spawner here, to offset the smaller region, and to warrant non-quest trips this far down
+;; also helps show that despite the desolate environment, the Wraw are well off
 
 #| new items in this region:   
 
