@@ -2,6 +2,50 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 0.2.6
+- Fix mouse buttons being unbindable in the controls configurator
+  Reported by Christopher Hurley
+- Fix dialogue showing a single frame of previous animation when switching
+  Reported by Albert Martinez
+- Improve the dash tutorial to note diagonals
+  Reported by Lolodas
+- Add default interations for random NPCs
+  Suggested by Markus
+- Default the crawl button to be a hold rather than a toggle
+  Suggested by Markus
+- Add a button to restore the default input configuration
+  Suggested by Markus
+- Fix odd behaviour for wall jumps at corners
+  Reported by Micha Stettler
+- Fix crash when overwriting save files on Windows
+  Reported by Max and Nihiloss
+- Fix weird input duping for Xinput controllers on Windows
+  Reported by Nihiloss
+- Fix pushing left closing the pause menu
+  Reported by Leslieanne White
+- Add more names to chunks
+  Suggested by Klabater SA
+- Note in item descriptions whether needed for upgrades or not
+  Suggested by Klabater SA
+- Add the item description to the shop UI
+  Suggested by Klabater SA
+- Add a graphic to display when saving is in progress
+  Suggested by Leslieanne White
+- Fix strange behaviour of rogue enemies sticking to walls
+  Reported by Klabater SA
+- Fix spawn point of servos in pump room
+  Reported by Leslieanne White
+- Fix crash when saving input config with an empty mapping
+  Reported by Monroth
+- Fix strange focus behaviour when removing an action binding
+  Reported by Monroth
+- Add confirmation dialogue when overwriting save file
+  Suggested by Monroth
+- Require clicking on menu tabs to activate them when using a mouse
+  Suggested by Monroth
+- Fix double-binds untriggering an action incorrectly when another bind is still held
+  Reported by Monroth
+  
 ## 0.2.5
 - Fix pause screen tab-out causing crash
   Reported by Kyle
