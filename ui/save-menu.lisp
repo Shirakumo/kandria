@@ -45,9 +45,8 @@
       (hide panel))
     (alloy:enter input layout :constraints `((:size 300 50) (:center :w :h)))
     (alloy:enter button layout :constraints `((:size 100 50) (:center :h) (:right-of ,input 0)))
-    (alloy:enter (make-instance 'label :value (@ enter-name-prompt)) layout
-                 :constraints `((:size 300 50) (:center :w) (:above ,input 5))
-                 :style `((:label :halign :middle)))
+    (alloy:enter (make-instance 'label :value (@ enter-name-prompt) :style `((:label :halign :middle))) layout
+                 :constraints `((:size 1000 50) (:center :w) (:above ,input 5)))
     (alloy:finish-structure panel layout focus)))
 
 (defmethod show :after ((panel name-input-panel) &key)
