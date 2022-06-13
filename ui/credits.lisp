@@ -54,10 +54,8 @@
    (offset :initform -100 :accessor offset)
    (ideal :initform NIL :accessor ideal)))
 
-(defmethod stage :after ((credits credits) (area staging-area))
-  (stage (// 'music 'credits) area))
-
 (defmethod show :after ((credits credits) &key)
+  #++
   (setf (override (unit 'environment +world+)) (// 'music 'credits)))
 
 (defmethod hide :after ((credits credits))

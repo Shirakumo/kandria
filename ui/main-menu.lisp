@@ -415,7 +415,8 @@ void main(){
 }")
 
 (defmethod stage :after ((menu main-menu) (area staging-area))
-  (stage (// 'music 'menu) area))
+  (stage (// 'music 'menu) area)
+  (stage (// 'music 'credits) area))
 
 (defmethod show :after ((menu main-menu) &key)
   (let* ((camera (camera +world+))
