@@ -166,6 +166,10 @@
        (T 0.5)))
     (T 2.0)))
 
+(defmethod die :before ((enemy wolf))
+  (when (setting :gameplay :exploding-wolves)
+    (trigger 'explosion enemy)))
+
 (defmethod idleable-p ((enemy wolf)) NIL)
 
 ;; FIXME: Instead of testing distance to player, we should be
