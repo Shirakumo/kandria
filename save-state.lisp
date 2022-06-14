@@ -151,5 +151,7 @@
               do (unless (or (float-features:float-nan-p float)
                              (float-features:float-infinity-p float))
                    (nibbles:write-ieee-single/le float stream))))
-      (org.shirakumo.fraf.trial.feedback:submit-snapshot
-       (id state) (play-time state) (session-time) :trace file))))
+      (ignore-errors
+       (trial:with-error-logging (:kandria.save)
+         (org.shirakumo.fraf.trial.feedback:submit-snapshot
+          (id state) (play-time state) (session-time) :trace file))))))
