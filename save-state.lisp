@@ -90,6 +90,7 @@
   (setf (save-time save-state) (get-universal-time))
   (with-timing-report (:info :kandria.save "Saved state in ~fs run time, ~fs clock time.")
     (let ((tmp (make-pathname :type "zip" :name "temp" :defaults (file save-state))))
+      (uiop:delete-file-if-exists tmp)
       (depot:with-depot (depot tmp :commit T)
         (depot:with-open (tx (depot:ensure-entry "meta.lisp" depot) :output 'character)
           (let ((stream (depot:to-stream tx)))
