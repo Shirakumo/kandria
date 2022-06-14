@@ -734,11 +734,65 @@
 ~ player
 | \"I don't think I've seen a more stocked warehouse, and that includes before the Calamity.\"(light-gray, italic)
 | \"Some of the boxes are covered in ash.\"(light-gray, italic)
-"))
+")
 
 ;; REGION 3
+;; fewer lore entries here, to preserve the mystery
 
-;; TODO region 3 lore entries: about the geothermal generators and the old company that ran them; about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
+;; geothermal tube
+;; part of the old underground power station, which circulated water into the heat of the earth to produce steam, which in turn powered a turbine
+;; parts of it are still active, used exclusively by the Wraw faction
+  (:interaction wraw-tube
+   :interactable lore-wraw-tube
+   :repeatable T
+   "
+~ player
+| \"This was one of Trickle's geothermal power stations. The pipes carried water here to be heated up.\"(light-gray, italic)
+| (:thinking)\"The steam then powered turbines to produce electricity.\"(light-gray, italic)
+")
+
+;; lava fishing spot
+;; the player can fish certain rare and exotic (and machine) types of fish/waste from the lava
+  (:interaction wraw-fish
+   :interactable lore-wraw-fish
+   :repeatable T
+   "
+~ player
+| \"It takes a special kind of life form to swim in lava.\"(light-gray, italic) (:embarassed)\"And I'm not it.\"(light-gray, italic)
+")
+
+;; lava and spikes area
+;; "smell" because of the burning everywhere, accentuated by the blasts of hot air that the player can ride to platform around
+  (:interaction wraw-lava
+   :interactable lore-wraw-lava
+   :repeatable T
+   "
+~ player
+| (:embarassed)\"I'm not religious, but this place is starting to look and smell more like Hell by the second.\"(light-gray, italic)
+")
+
+;; peoples' homes
+;; the player may or may not know that these people are the enemy Wraw faction by this point; if they don't, then the negative tone here can be because this lava area seems a stupid place to live
+  (:interaction wraw-people
+   :interactable lore-wraw-people
+   :repeatable T
+   "
+~ player
+| \"It's a hardy bunch who choose to live in a lava tube, I'll give them that.\"(light-gray, italic)
+")
+
+;; cache of supplies (and weapons)
+;; the player may or may not know that these people are the enemy Wraw faction by this point; so this is a more general comment about their living conditions
+  (:interaction wraw-cache
+   :interactable lore-wraw-cache
+   :repeatable T
+   "
+~ player
+| \"This is the most well-stocked settlement I've seen.\"(light-gray, italic)
+| \"Life could be quite comfortable here - if you weren't living on a lava floodplain.\"(light-gray, italic)
+"))
+
+;; TODO region 3 lore entries: about the Wraw massing supplies and building mechs and power suits, hinting at invasion (quest covers this explicitly), further deets to support the Cerebat takeover perhaps (though inflected based on whether that has happened yet or not). In the early game, the Wraw area could be sparse in NPCs and lore interacts are vague. And ofc player will never be able to access compounds at any time to learn too much about them.
 
 
 ;; SEMI SISTERS ENGINEERS
