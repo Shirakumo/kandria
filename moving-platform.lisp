@@ -22,7 +22,7 @@
 
 (define-shader-entity falling-platform (shadow-caster tiled-platform creatable)
   ((size :initform (vec 2 5))
-   (fall-timer :initform 0.75 :accessor fall-timer)
+   (fall-timer :initform 0.9 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)
    (max-speed :initarg :max-speed :initform (vec 10.0 10.0) :accessor max-speed :type vec2)
    (fall-direction :initarg :fall-direction :initform (vec 0 -1) :accessor fall-direction :type vec2)))
@@ -51,7 +51,7 @@
 (defmethod (setf location) :after (location (platform falling-platform))
   (setf (state platform) :normal)
   (vsetf (velocity platform) 0 0)
-  (setf (fall-timer platform) 0.75)
+  (setf (fall-timer platform) 0.9)
   (setf (initial-location platform) (vcopy location)))
 
 (defmethod trigger ((platform falling-platform) (thing game-entity) &key)
