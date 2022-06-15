@@ -31,7 +31,7 @@
 ~ jack
 | (:shocked)I knew it.
 ~ zelah
-| (:jovial)It's my property. I've been \"usin' it to watch you, and plan this attack\"(orange).
+| (:jovial)It's my property. I've been \"usin' it to watch you, sabotage your water supply, and plan this attack\"(orange).
 ~ catherine
 | (:concerned)That can't be true...
 ~ zelah
