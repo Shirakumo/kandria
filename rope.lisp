@@ -89,14 +89,15 @@
                       (off (v* delta dir 0.5)))
                  (nv+ a off)
                  (nv- b off))))
-        (loop for (a b) across chain
-              do (verlet a b))
-        (vsetf (first (aref chain 0)) 0 0)
-        (dotimes (i 50)
-          (loop for i from 1 below (length chain)
-                do (relax (first (aref chain (+ -1 i)))
-                          (first (aref chain (+  0 i)))
-                          8)))))))
+        (dotimes (i 2)
+          (loop for (a b) across chain
+                do (verlet a b))
+          (vsetf (first (aref chain 0)) 0 0)
+          (dotimes (i 25)
+            (loop for i from 1 below (length chain)
+                  do (relax (first (aref chain (+ -1 i)))
+                            (first (aref chain (+  0 i)))
+                            8))))))))
 
 (defmethod render ((rope rope) (program shader-program))
   (when (in-view-p (location rope) (bsize rope))
