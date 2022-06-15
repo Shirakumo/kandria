@@ -838,6 +838,7 @@
 | | | \"The collapse is just ahead.\"(orange)
 | | ! eval (setf (var 'engineers-first-talk) T)
 | | ! eval (activate 'world-engineers-wall)
+| | ! eval (deactivate 'task-engineers-wall-listen)
 | |?
 | | ~ semi-engineer-chief
 | | | How'd it go with the \"collapsed wall\"(orange)? We can't stay here forever.
@@ -881,7 +882,8 @@
    :condition all-complete
    :on-activate T
    (:action functions
-     (complete 'world-engineers-wall)))
+     (complete 'world-engineers-wall)
+     (activate 'world-move-engineers)))
 
 ;; replacement interact when the engineer is now on the surface in the final act, preparing for the battle
 (quest:define-task (kandria world task-engineers-surface)

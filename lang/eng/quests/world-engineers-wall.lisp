@@ -10,5 +10,4 @@
   (task-wall-location
    :title "Clear the collapsed tunnel to free the engineers"
    :marker '(chunk-6034 2200)
-   :condition (not (active-p (unit 'blocker-engineers)))
-   :on-complete NIL))
+   :condition (not (active-p (unit 'blocker-engineers)))))
