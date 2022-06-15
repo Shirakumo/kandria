@@ -9,7 +9,7 @@
 (define-global +settings+
     (copy-tree '(:audio (:latency 0.02
                          :backend :default
-                         :device NIL
+                         :device :default
                          :volume (:master 0.5
                                   :effect 1.0
                                   :music 1.0))
