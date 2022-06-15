@@ -145,9 +145,6 @@
           (T
            (call-next-method)))))
 
-(defmethod handle :after ((ev lose-focus) (world world))
-  (clear-retained))
-
 (defmethod handle :after ((ev key-press) (world world))
   ;; KLUDGE: bind ESC to menu always
   (when (eql :escape (key ev))

@@ -6,13 +6,14 @@
        (not (find-panel 'main-menu world))
        (unit 'environment world)))
 
-(defmethod handle ((ev lose-focus) (world world))
+(defmethod handle :after ((ev lose-focus) (world world))
   (when (and (setting :gameplay :pause-on-focus-loss)
              (should-show-pause-screen world)
              (pausing-possible-p))
-    (show-panel 'pause-screen)))
+    (show-panel 'pause-screen))
+  (clear-retained))
 
-(defmethod handle ((ev gain-focus) (world world))
+(defmethod handle :after ((ev gain-focus) (world world))
   (hide-panel 'pause-screen world))
 
 (steam:define-callback steam*::game-overlay-activated (result active)
@@ -30,3 +31,8 @@
          (header (make-instance 'header :level 0 :value #@game-paused-title)))
     (alloy:enter header layout :constraints `(:center (:size 1000 1000)))
     (alloy:finish-structure panel layout NIL)))
+
+(defmethod handle ((ev input-event) (panel pause-screen))
+  (unless (or (typep ev 'mouse-move)
+              (typep ev 'gamepad-move))
+    (hide panel)))
