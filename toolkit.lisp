@@ -81,7 +81,7 @@
               (crawl           0.5)
               (jump-acc        2.5)
               (jump-hold-acc  22.0)
-              (walljump-acc    (vec 2.8 2.5))
+              (walljump-acc    (vec 3.0 2.5))
               (inertia-coyote  0.3)
               (inertia-time    0.2)
               (dash-acc        1.2)
