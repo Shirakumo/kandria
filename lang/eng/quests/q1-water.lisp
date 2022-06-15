@@ -187,10 +187,11 @@
 ~ player
 | She's fixing the pump. It was sabotaged by servo robots.
 ~ jack
-| (:annoyed)Those motherfuckers.
+| (:annoyed)... You'd better be telling the truth.
+| (:normal)Servos, huh?... Sounds about right.
 ~ jack
 | Look, \"tell Cathy to get her ass back here\"(orange) on the double.
-| And you need to come too, android - \"Fi's\"(yellow) on the warpath.
+| And \"you need to come too\"(orange), //android// - \"Fi's\"(yellow) on the warpath.
 ~ player
 | \"He hung up.\"(light-gray, italic)
   ")
