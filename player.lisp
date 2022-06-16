@@ -409,7 +409,10 @@ void main(){
          (setf (vy (bsize player)) 15)
          (setf (vy (location player)) (+ bottom (vy (bsize player)))))
         (:dashing
-         (setf (vy (bsize player)) 15)))
+         (setf (vy (bsize player)) 15))
+        (:fishing
+         (setf (slot-value player 'state) state)
+         (handle (make-instance 'stop-fishing) player)))
       (case state
         (:normal
          (setf (vw (color player)) 0.0))
