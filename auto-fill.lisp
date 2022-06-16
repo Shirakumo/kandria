@@ -82,6 +82,61 @@
      s s o
      _ _ _)))
 
+(defparameter *spike-filters*
+  '(
+    (:spike-tr>
+     _ _ _
+     se _ _
+     si se _)
+    (:spike-tl>
+     _ _ _
+     _ _ se
+     _ se si)
+    (:spike-bl>
+     _ se si
+     _ _ se
+     _ _ _)
+    (:spike-br>
+     si se _
+     se _ _
+     _ _ _)
+    (:spike-bl<
+     _ se _
+     _ sp se
+     x _ _)
+    (:spike-br<
+     _ se _
+     se sp _
+     _ _ x)
+    (:spike-tr<
+     _ _ x
+     se sp _
+     _ se _)
+    (:spike-tl<
+     x _ _
+     _ sp se
+     _ se _)
+    (:spike-t
+     _ _ _
+     _ st _
+     _ _ _)
+    (:spike-b
+     _ _ _
+     _ sb _
+     _ _ _)
+    (:spike-l
+     _ _ _
+     _ sl _
+     _ _ _)
+    (:spike-r
+     _ _ _
+     _ sr _
+     _ _ _)
+    (:spike
+     _ _ _
+     _ si _
+     _ _ _)))
+
 (defparameter *tile-filters*
   '((:platform-l
      _ _ _
@@ -186,75 +241,7 @@
     (:c
      _ o _
      o s o
-     _ o _)
-    (:spike-tr>
-     _ _ _
-     sp _ _
-     s sp _)
-    (:spike-tl>
-     _ _ _
-     _ _ sp
-     _ sp s)
-    (:spike-bl>
-     _ sp s
-     _ _ sp
-     _ _ _)
-    (:spike-br>
-     s sp _
-     sp _ _
-     _ _ _)
-    (:spike-bl<
-     _ sp _
-     _ _ sp
-     x _ _)
-    (:spike-br<
-     _ sp _
-     sp _ _
-     _ _ x)
-    (:spike-tr<
-     _ _ x
-     sp _ _
-     _ sp _)
-    (:spike-tl<
-     x _ _
-     _ _ sp
-     _ sp _)
-    (:spike-bl<
-     sp _ _
-     s _ sp
-     x _ _)
-    (:spike-br<
-     _ _ sp
-     sp _ s
-     _ _ x)
-    (:spike-tr<
-     sp s x
-     _ _ _
-     _ sp _)
-    (:spike-tl<
-     x s sp
-     _ _ _
-     _ sp _)
-    (:spike-t
-     _ z _
-     _ sp _
-     _ _ _)
-    (:spike-b
-     _ _ _
-     _ sp _
-     _ z _)
-    (:spike-l
-     _ _ _
-     z sp _
-     _ _ _)
-    (:spike-r
-     _ _ _
-     _ sp z
-     _ _ _)
-    (:spike
-     _ _ _
-     _ sp _
-     _ _ _)))
+     _ o _)))
 
 (declaim (inline tile-type-p))
 (defun tile-type-p (tile type)
@@ -281,6 +268,12 @@
     (c (= 1 tile))
     ;; Spikes
     (sp (or (= 3 tile) (<= 17 tile 20)))
+    (si (= 3 tile))
+    (st (= 17 tile))
+    (sr (= 18 tile))
+    (sb (= 19 tile))
+    (sl (= 20 tile))
+    (se (<= 17 tile 20))
     ;; Zero
     (z (= 0 tile))
     (nz (< 0 tile))
@@ -321,6 +314,11 @@
     (dotimes (y height)
       (dotimes (x width)
         (let ((edge (filter-edge solids width height x y)))
+          (when edge
+            (setf (tile x y) edge)))))
+    (dotimes (y height)
+      (dotimes (x width)
+        (let ((edge (filter-edge solids width height x y *spike-filters*)))
           (when edge
             (setf (tile x y) edge)))))
     (dotimes (y height)
