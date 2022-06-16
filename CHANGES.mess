@@ -45,6 +45,16 @@ A big thanks to everyone for trying it out and reporting problems!
   Suggested by Monroth
 - Fix double-binds untriggering an action incorrectly when another bind is still held
   Reported by Monroth
+- Fix focus loss not clearing button retentions
+  Reported by Haruspex
+- Fix directions being inverted for the Steam Controller on Linux
+  Reported by A.Fettouhi
+- Make the pause screen disappear on any input
+  Reported by Duuqnd
+- Fix engineers getting stuck at doors
+  Reported by Haruspex
+- Fix attack moves not clearing away blockers
+  Reported by Schir
   
 ## 0.2.5
 - Fix pause screen tab-out causing crash
