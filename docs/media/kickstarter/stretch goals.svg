@@ -7,8 +7,8 @@
    viewBox="0 0 179.91666 324.11458"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   sodipodi:docname="kickstarter stretch goals.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   sodipodi:docname="stretch goals.svg"
    inkscape:export-filename="/home/linus/Projects/cl/kandria/docs/media/kickstarter stretch goal.png"
    inkscape:export-xdpi="96.710121"
    inkscape:export-ydpi="96.710121"
@@ -30,23 +30,31 @@
      units="px"
      inkscape:snap-page="false"
      borderlayer="true"
-     inkscape:zoom="1.0998546"
-     inkscape:cx="304.13111"
-     inkscape:cy="530.97928"
-     inkscape:window-width="1916"
+     inkscape:zoom="1.5554293"
+     inkscape:cx="674.09043"
+     inkscape:cy="351.6714"
+     inkscape:window-width="3836"
      inkscape:window-height="2109"
-     inkscape:window-x="3840"
+     inkscape:window-x="1920"
      inkscape:window-y="49"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g57698"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
      height="1180px"
-     inkscape:snap-global="false" />
+     inkscape:snap-global="false"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2">
+    <rect
+       x="509.54488"
+       y="160.19626"
+       width="234.38403"
+       height="59.740432"
+       id="rect600" />
     <linearGradient
        inkscape:collect="always"
        id="linearGradient58550">
@@ -475,6 +483,54 @@
        fx="162.91763"
        fy="39.506363"
        r="13.891912" />
+    <rect
+       x="509.54489"
+       y="160.19626"
+       width="203.467"
+       height="62.968227"
+       id="rect600-3" />
+    <rect
+       x="509.54489"
+       y="160.19626"
+       width="203.467"
+       height="62.968227"
+       id="rect600-3-7" />
+    <rect
+       x="509.54489"
+       y="160.19626"
+       width="234.38403"
+       height="59.740433"
+       id="rect600-35" />
+    <rect
+       x="509.54489"
+       y="160.19626"
+       width="234.38403"
+       height="59.740433"
+       id="rect600-35-2" />
+    <rect
+       x="509.54489"
+       y="160.19626"
+       width="234.38403"
+       height="59.740433"
+       id="rect600-1" />
+    <rect
+       x="509.54489"
+       y="160.19626"
+       width="234.38403"
+       height="59.740433"
+       id="rect600-7" />
+    <rect
+       x="509.54489"
+       y="160.19626"
+       width="234.38403"
+       height="59.740433"
+       id="rect600-7-9" />
+    <rect
+       x="509.54489"
+       y="160.19626"
+       width="234.38403"
+       height="59.740433"
+       id="rect600-7-9-6" />
   </defs>
   <g
      inkscape:label="Layer 1"
@@ -525,11 +581,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-6);fill:#ffffff;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan233292">Coastline
+           id="tspan3474">Coastline
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan233294">  Region</tspan></text>
+           id="tspan3476">  Region</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,13.759507)"
@@ -537,15 +593,15 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-2);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan233296">A completely new area will be added
+           id="tspan3478">A completely new area will be added
 </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan233298">through post-launch DLC, in which you
+           id="tspan3480">through free post-launch DLC, in which you
 </tspan><tspan
            x="21.529297"
            y="261.46061"
-           id="tspan233300">visit the exotic coast!
+           id="tspan3482">visit the exotic coast!
 </tspan></text>
       <g
          id="g57670"
@@ -610,11 +666,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-1);fill:#fcfcfc;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan233302">Nintendo
+           id="tspan3484">Nintendo
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan233304">   Switch</tspan></text>
+           id="tspan3486">   Switch</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,15.876175)"
@@ -622,10 +678,10 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-1);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan233306">The game will be ported to the Nintendo Switch, </tspan><tspan
+           id="tspan3488">The game will be ported to the Nintendo Switch, </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan233308">providing a convenient hand-held experience</tspan></text>
+           id="tspan3490">providing a convenient hand-held experience</tspan></text>
       <g
          id="g57684"
          style="display:inline">
@@ -690,13 +746,13 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-8);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan233310">We will add a system that allows you to make use of </tspan><tspan
+           id="tspan3492">We will add a system that allows you to make use of </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan233312">the engine's flexibility to create new NPCs, change </tspan><tspan
+           id="tspan3494">the engine's flexibility to create new NPCs, change </tspan><tspan
            x="21.529297"
            y="261.46061"
-           id="tspan233314">physics, add new platforming elements, and more!</tspan></text>
+           id="tspan3496">physics, add new platforming elements, and more!</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,12.96133,18.234755)"
@@ -704,11 +760,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-8);fill:#ffffff;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan233316">Modding
+           id="tspan3498">Modding
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan233318">    Support</tspan></text>
+           id="tspan3500">    Support</tspan></text>
       <g
          id="g57656"
          style="display:inline">
@@ -775,11 +831,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315);fill:#fefefe;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan233320">Level
+           id="tspan3502">Level
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan233322">    Editor</tspan></text>
+           id="tspan3504">    Editor</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,13.759507)"
@@ -787,15 +843,15 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan233324">An in-game editor will be added
+           id="tspan3506">An in-game editor will be added
 </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan233326">through a post-launch update, to allow you to
+           id="tspan3508">through a post-launch update, to allow you to
 </tspan><tspan
            x="21.529297"
            y="261.46061"
-           id="tspan233328">create levels and share them with the community</tspan></text>
+           id="tspan3510">create levels and share them with the community</tspan></text>
       <g
          id="g57339"
          style="display:inline">
@@ -859,11 +915,11 @@
          style="font-size:83.2954px;line-height:0.75;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5315-9);fill:#fdfdfd;fill-opacity:1"><tspan
            x="14.066406"
            y="68.160841"
-           id="tspan233330">   Extra
+           id="tspan3512">   Extra
 </tspan><tspan
            x="14.066406"
            y="130.63239"
-           id="tspan233332">Questline</tspan></text>
+           id="tspan3514">Questline</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.21176317,0,0,0.21176317,-1.4480693,16.405342)"
@@ -871,11 +927,11 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'Concourse T3';-inkscape-font-specification:'Concourse T3';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect29120-29);fill:#000000;fill-opacity:1"><tspan
            x="21.529297"
            y="194.79386"
-           id="tspan233334">A side questline will be added surrounding
+           id="tspan3516">A side questline will be added surrounding
 </tspan><tspan
            x="21.529297"
            y="228.12723"
-           id="tspan233336">a strange figure calling themselves &quot;the synthesis&quot;</tspan></text>
+           id="tspan3518">a strange figure calling themselves &quot;the synthesis&quot;</tspan></text>
       <g
          id="g57698"
          style="display:inline">
@@ -914,6 +970,56 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Font Awesome 6 Free';-inkscape-font-specification:'Font Awesome 6 Free';fill:#ffffff;fill-opacity:0.999799;stroke-width:0.372274"
              x="0"
              y="0"></tspan></text>
+        <text
+           xml:space="preserve"
+           transform="matrix(0.36642931,0.00239164,-0.00239164,0.36642931,-88.389014,-49.904702)"
+           id="text598"
+           style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect600);stroke:#ffbf00;stroke-width:3;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"><tspan
+             x="509.54492"
+             y="194.87531"
+             id="tspan3522"><tspan
+   style="font-size:26.6667px"
+   id="tspan3520">CHF</tspan>11'000</tspan></text>
+        <text
+           xml:space="preserve"
+           transform="matrix(0.36642931,0.00239164,-0.00239164,0.36642931,-88.389014,13.5953)"
+           id="text598-2"
+           style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect600-1);display:inline;stroke:#ffbf00;stroke-width:3;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"><tspan
+             x="509.54492"
+             y="194.87531"
+             id="tspan3526"><tspan
+   style="font-size:26.6667px"
+   id="tspan3524">CHF</tspan>12'000</tspan></text>
+        <text
+           xml:space="preserve"
+           transform="matrix(0.36642931,0.00239164,-0.00239164,0.36642931,-88.389014,77.095304)"
+           id="text598-0"
+           style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect600-7);display:inline;stroke:#ffbf00;stroke-width:3;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"><tspan
+             x="509.54492"
+             y="194.87531"
+             id="tspan3530"><tspan
+   style="font-size:26.6667px"
+   id="tspan3528">CHF</tspan>14'000</tspan></text>
+        <text
+           xml:space="preserve"
+           transform="matrix(0.36642931,0.00239164,-0.00239164,0.36642931,-88.389014,144.82866)"
+           id="text598-0-3"
+           style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect600-7-9);display:inline;stroke:#ffbf00;stroke-width:3;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"><tspan
+             x="509.54492"
+             y="194.87531"
+             id="tspan3534"><tspan
+   style="font-size:26.6667px"
+   id="tspan3532">CHF</tspan>20'000</tspan></text>
+        <text
+           xml:space="preserve"
+           transform="matrix(0.36642931,0.00239164,-0.00239164,0.36642931,-88.389014,204.62451)"
+           id="text598-0-3-0"
+           style="font-size:40px;line-height:1.25;font-family:'Concourse C7';-inkscape-font-specification:'Concourse C7';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect600-7-9-6);display:inline;stroke:#ffbf00;stroke-width:3;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"><tspan
+             x="509.54492"
+             y="194.87531"
+             id="tspan3538"><tspan
+   style="font-size:26.6667px"
+   id="tspan3536">CHF</tspan>30'000</tspan></text>
       </g>
     </g>
   </g>
