@@ -484,9 +484,7 @@
 
 (defmethod collide ((player player) (blocker blocker) hit)
   (cond ((and (or (eql :dashing (state player))
-                  #++
-                  (and (< 2.0 (vlength (velocity player)))
-                       (eql :animated (state player))))
+                  (eql :animated (state player)))
               (ecase (weak-side blocker)
                 (:north (< (vy (velocity player)) 0))
                 (:east  (< (vx (velocity player)) 0))
