@@ -83,7 +83,9 @@
                                          :halign :middle
                                          :valign :middle
                                          :z-index -9
-                                         :wrap T))))))
+                                         :wrap T))))))))
+      (for:for ((unit over (region +world+)))
+        (typecase unit
           (npc
            (when (or (and (eql :lead (ai-state unit))
                           (visible-on-map-p (chunk unit)))
@@ -99,6 +101,17 @@
                                        :size (alloy:un 50)
                                        :halign :middle
                                        :valign :bottom
+                                       :z-index -2)))))
+          (save-point
+           (let ((location (location unit)))
+             (when (unlocked-p (find-chunk location))
+               (add-shape (simple:text renderer (alloy:extent (- (vx location) 100) (- (vy location) 100) 200 200)
+                                       "💾"
+                                       :font "PromptFont"
+                                       :pattern colors:black
+                                       :size (alloy:un 100)
+                                       :halign :middle
+                                       :valign :middle
                                        :z-index -2)))))))
       (dolist (quest (quest:known-quests (storyline +world+)))
         (dolist (task (quest:active-tasks quest))
