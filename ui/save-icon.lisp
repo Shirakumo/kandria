@@ -58,6 +58,14 @@
    :rotation (* PI 6/3)
    :pattern colors:white))
 
+(presentations:define-update (ui save-icon)
+  (:b1)
+  (:b2)
+  (:b3)
+  (:1)
+  (:2)
+  (:3))
+
 (animation:define-animation spin
   0.0 ((setf presentations:rotation) 0.0)
   2.0 ((setf presentations:rotation) (float (* PI 6) 0f0) :easing :cubic-in-out))
