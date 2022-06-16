@@ -409,7 +409,12 @@ void main(){
          (setf (vy (bsize player)) 15)
          (setf (vy (location player)) (+ bottom (vy (bsize player)))))
         (:dashing
-         (setf (vy (bsize player)) 15))
+         (setf (vy (bsize player)) 15)
+         ;; Need to shift to ensure that we don't glitch through platforms.
+         (cond ((svref (collisions player) 0)
+                (decf (vy (location player)) 4))
+               ((svref (collisions player) 2)
+                (incf (vy (location player)) 4))))
         (:fishing
          (setf (slot-value player 'state) state)
          (handle (make-instance 'stop-fishing) player)))
