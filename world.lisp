@@ -54,8 +54,7 @@
   (unless (handler-stack world)
     (let ((segment (harmony:segment :music-lowpass T)))
       (when (< 50 (abs (- (mixed:frequency segment) 400)))
-        (harmony:with-server (harmony:*server* :synchronize NIL)
-          (setf (mixed:frequency segment) 400.0))))
+        (setf (mixed:frequency segment) 400.0)))
     (harmony:transition (unit 'environment world) 0.2 :in 0.5))
   (push pauser (handler-stack world)))
 
@@ -71,8 +70,7 @@
       (let* ((segment (harmony:segment :music-lowpass T))
              (target (1- (mixed:samplerate segment))))
         (when (< 50 (abs (- (mixed:frequency segment) target)))
-          (harmony:with-server (harmony:*server* :synchronize NIL)
-            (setf (mixed:frequency segment) target))))
+          (setf (mixed:frequency segment) target)))
       (harmony:transition (unit 'environment world) 1.0))))
 
 (defmethod region-entry ((name symbol) (world world))
