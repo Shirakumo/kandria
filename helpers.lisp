@@ -278,8 +278,10 @@ void main(){
   (handle-oob entity))
 
 (defmethod handle :after ((ev tick) (entity game-entity))
-  (let ((vel (frame-velocity entity)))
-    (nv+ (location entity) (v* vel (* 100 (dt ev))))
+  (let ((vel (frame-velocity entity))
+        (loc (location entity)))
+    (incf (vx loc) (* (vx vel) 100 (dt ev)))
+    (incf (vy loc) (* (vy vel) 100 (dt ev)))
     (vsetf vel 0 0)
     (bvh:bvh-update (bvh (region +world+)) entity)
     ;; OOB

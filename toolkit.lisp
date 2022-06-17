@@ -216,6 +216,14 @@
   `(vsetf (load-time-value (vec ,@(loop repeat (length args) collect 0)))
           ,@args))
 
+(defmacro with-tvec ((v &rest args) &body body)
+  `(let ((,v ,(ecase (length args)
+                (2 `(3d-vectors::%vec2 ,(first args) ,(second args)))
+                (3 `(3d-vectors::%vec3 ,(first args) ,(second args) ,(third args)))
+                (4 `(3d-vectors::%vec4 ,(first args) ,(second args) ,(third args) ,(fourth args))))))
+     (declare (dynamic-extent ,v))
+     ,@body))
+
 (defun point-angle (point)
   (atan (vy point) (vx point)))
 
