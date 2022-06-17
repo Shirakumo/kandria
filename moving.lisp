@@ -66,7 +66,7 @@
          (loc (location moving))
          (siz (bsize moving))
          (v/2 (tvec (* 0.5 (vx vel))
-                    (* 0.5 (vx vel))))
+                    (* 0.5 (vy vel))))
          (bounds (vec (- (+ (vx v/2) (vx loc)) (abs (vx v/2)) (vx siz))
                       (- (+ (vy v/2) (vy loc)) (abs (vy v/2)) (vy siz))
                       (+ (+ (vx v/2) (vx loc)) (abs (vx v/2)) (vx siz))
