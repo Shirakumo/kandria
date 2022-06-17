@@ -648,7 +648,11 @@
                     (setf (direction movable) -1)))
              (let ((dir (float-sign (- (vx target) (vx source))))
                    (diff (abs (- (vx target) (vx loc)))))
-               (setf (vx vel) (* dir (movement-speed movable))))))
+               (setf (vx vel) (* dir (movement-speed movable)))))
+           (trigger-door (location)
+             (bvh:do-fitting (entity (bvh (region +world+)) location)
+               (when (typep entity 'door)
+                 (setf (animation entity) 'open)))))
       ;; Handle current step
       (destructuring-bind (node target) (car (path movable))
         (etypecase node
@@ -729,6 +733,7 @@
            (flet ((teleport ()
                     (pop (path movable))
                     ;; FIXME: add a timer to let the animation complete
+                    (trigger-door (location movable))
                     (vsetf (location movable) (vx target) (+ (- (vy target) (/ +tile-size+ 2)) (vy (bsize movable))))
                     (setf (current-node movable) target)))
              (vsetf vel 0 0)
@@ -739,9 +744,7 @@
                 (transition (teleport)))
                (T
                 (start-animation 'enter movable)
-                (when (and (= (frame-idx movable) (1- (end (animation movable))))
-                           (<= (duration (aref (frames movable) (frame-idx movable)))
-                               (+ (dt tick) (clock movable))))
+                (when (= (frame-idx movable) (1- (end (animation movable))))
                   (setf (state movable) :normal)
                   (teleport))))))
           (teleport-node
@@ -759,6 +762,7 @@
                         (let ((node-vec (chunk-node-vec (chunk-node-to node) (chunk-node-to-node node))))
                           (pop (path movable))
                           ;; FIXME: add a timer to let the animation complete
+                          (trigger-door (location movable))
                           (vsetf (location movable) (vx node-vec) (+ (- (vy node-vec) (/ +tile-size+ 2)) (vy (bsize movable))))
                           (setf (current-node movable) node-vec))))
                  (vsetf vel 0 0)
