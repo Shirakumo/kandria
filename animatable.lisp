@@ -217,6 +217,7 @@
   (when (interruptable-p (frame animatable))
     (unless (eql :stunned (state animatable))
       (setf (animation animatable) 'light-hit)
+      (setf (path animatable) ())
       (setf (state animatable) :animated))))
 
 (defmethod stun ((animatable animatable) stun)
@@ -224,6 +225,7 @@
              (not (eql :dying (state animatable)))
              (interruptable-p (frame animatable)))
     (setf (stun-time animatable) (min +max-stun+ (+ (stun-time animatable) stun)))
+    (setf (path animatable) ())
     (setf (state animatable) :stunned)))
 
 (defmethod start-animation (name (animatable animatable))
