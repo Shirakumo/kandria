@@ -121,6 +121,10 @@
 (defmethod harmony:transition ((nothing (eql 'null)) to &key in)
   (declare (ignore nothing to in)))
 
+#+kandria-release
+(defmethod harmony:transition ((nothing placeholder-resource) to &key in)
+  (declare (ignore nothing to in)))
+
 (defclass environment ()
   ((name :initarg :name :initform NIL :accessor name)
    (music :initarg :music :initform NIL :accessor music)
