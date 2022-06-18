@@ -1,5 +1,12 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defmethod trial:report-on-error ((error org.shirakumo.fraf.mixed.wav:wave-format-error))
+  (trial:emessage "The file ~a is corrupted and could not be read. Please verify your installation."
+                  (org.shirakumo.fraf.mixed.wav:file error)))
+
+(defmethod trial:report-on-error ((error org.shirakumo.fraf.vorbis:vorbis-error))
+  (trial:emessage "An audio file is corrupted and could not be read. Please verify your installation."))
+
 (deploy:define-hook (:deploy kandria -1) (directory)
   (org.shirakumo.zippy:compress-zip
    (pathname-utils:subdirectory (root) "world")
