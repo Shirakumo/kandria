@@ -118,6 +118,12 @@
 (define-cheat (lp0-on-fire |lp0 on fire|)
   (error "Simulating an uncaught error."))
 
+(define-cheat (lp1-on-fire |lp1 on fire|)
+  (error 'gl:opengl-error :error-code :out-of-memory))
+
+(define-cheat (lp2-on-fire |lp2 on fire|)
+  (error 'gl:opengl-error :error-code :invalid-operation))
+
 (define-cheat blingee
   (dolist (class (list-leaf-classes 'value-item))
     (store (class-name class) (unit 'player T))))
