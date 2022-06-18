@@ -302,7 +302,8 @@ void main(){
 }")
 
 (define-class-shader (wave :tess-control-shader)
-  "#version 400
+  "#version 330
+#extension GL_ARB_tessellation_shader : require
 layout (vertices = 4) out;
 in vec3 vPosition[];
 in vec2 vUV[];
@@ -324,7 +325,8 @@ void main(){
 }")
 
 (define-class-shader (wave :tess-evaluation-shader)
-  "#version 400
+  "#version 330
+#extension GL_ARB_tessellation_shader : require
 layout (quads) in;
 uniform sampler2D heightmap;
 uniform mat4 transform_matrix;
