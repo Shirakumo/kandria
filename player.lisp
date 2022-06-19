@@ -120,10 +120,13 @@ void main(){
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod register :after ((player player) (world scene))
-  (show-panel 'hud))
+  (show-panel 'hud)
+  (when (setting :gameplay :show-splits)
+    (show-panel 'splits)))
 
 (defmethod deregister :after ((player player) (world scene))
-  (hide-panel 'hud))
+  (hide-panel 'hud)
+  (hide-panel 'splits))
 
 (defmethod minimum-idle-time ((player player)) 30)
 

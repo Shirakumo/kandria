@@ -113,3 +113,9 @@
 (defmethod alloy:enter ((quest quest) (panel splits) &key)
   (when (and (visible-p quest) (quest:title quest))
     (alloy:enter (alloy:represent (slot-value quest 'clock) 'quest-timer :quest quest) (slot-value panel 'list))))
+
+(define-setting-observer show-splits :gameplay :show-splits (value)
+  (when (and +world+ (unit 'player +world+))
+    (if value
+        (show-panel 'splits)
+        (hide-panel 'splits))))

@@ -37,7 +37,8 @@
                             :damage-input 1.0
                             :damage-output 1.0
                             :level-multiplier 1.0
-                            :exploding-wolves NIL)
+                            :exploding-wolves NIL
+                            :show-splits NIL)
                  :language :eng
                  :debugging (:show-debug-settings #+kandria-release NIL #-kandria-release T
                              :send-diagnostics T
