@@ -19,6 +19,7 @@
 
 (defclass quest (quest:quest alloy:observable)
   ((clock :initarg :clock :initform 0f0 :accessor clock)
+   (start-time :initarg :start-time :initform 0f0 :accessor start-time)
    (visible-p :initarg :visible :initform T :accessor visible-p)
    (experience-reward :initarg :experience-reward :initform 500 :accessor experience-reward)))
 
@@ -32,6 +33,7 @@
              (visible-p quest))
     (harmony:play (// 'sound 'ui-quest-start))
     (status :important (@formats 'new-quest-started (quest:title quest))))
+    (setf (start-time quest) (clock +world+))
   (setf (clock quest) 0f0))
 
 (defmethod quest:complete :before ((quest quest))

@@ -96,10 +96,11 @@
         :tasks (loop for quest being the hash-values of (quest:tasks quest:quest)
                      collect (encode quest))
         :clock (clock quest:quest)
+        :start-time (start-time quest:quest)
         :bindings (encode-payload 'bindings (quest:bindings quest:quest) _p save-v0)))
 
 (define-decoder (quest:quest save-v0) (initargs depot)
-  (destructuring-bind (&key status (clock 0.0) tasks bindings) initargs
+  (destructuring-bind (&key status (clock 0.0) (start-time 0.0) tasks bindings) initargs
     (cond (tasks
            (setf (quest:status quest:quest) status)
            (loop for (name . initargs) in tasks
@@ -119,6 +120,7 @@
              (:complete (quest:complete quest:quest))
              (:failed (quest:fail quest:quest)))))
     (setf (clock quest:quest) clock)
+    (setf (start-time quest:quest) start-time)
     (quest:merge-bindings quest:quest (decode-payload bindings 'bindings depot save-v0))))
 
 (define-encoder (quest:task save-v0) (_b _p)

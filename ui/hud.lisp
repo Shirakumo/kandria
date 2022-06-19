@@ -310,7 +310,7 @@
                   (:important 32))))
 
 (defclass timer-line (alloy:label)
-  ((alloy:value :initform "00:00")))
+  ((alloy:value :initform 0.0)))
 
 (defmethod alloy:text ((timer timer-line))
   (let ((clock (alloy:value timer)))
