@@ -171,3 +171,6 @@
 
 (define-cheat (level-up |i'm feeling stronger|)
   (incf (level (unit 'player T))))
+
+(define-cheat (splits-panel |gotta go fast|)
+  (toggle-panel 'splits))

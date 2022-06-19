@@ -91,7 +91,8 @@
                              (:file "fast-travel")
                              (:file "cheats")
                              (:file "demo-intro")
-                             (:file "save-icon")))
+                             (:file "save-icon")
+                             (:file "speedrun")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
