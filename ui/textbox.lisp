@@ -251,6 +251,7 @@ void main(){
                       ((#\,) 2.5)
                       (T 1))))
            (when (<= (char-timer textbox) 0.0)
+             (harmony:stop (// 'sound 'ui-scroll-dialogue))
              (setf (scroll-index textbox) (array-total-size (text textbox)))))
          (scroll-text textbox))))
 
