@@ -78,7 +78,7 @@ void main(){
                           (alloy:pw (case alloy:value
                                       ((T NIL) 1.0)
                                       (T (clamp 0.0
-                                                (/ alloy:value (setting :gameplay :auto-advance-after))
+                                                (/ alloy:value (max 0.01 (setting :gameplay :auto-advance-after)))
                                                 1.0))))
                           0))
   (:label
@@ -243,14 +243,16 @@ void main(){
         ((< 0 (char-timer textbox))
          (decf (char-timer textbox) (dt ev)))
         ((< 0 (length (text textbox)))
-         (scroll-text textbox)
          (unless (at-end-p textbox)
            (setf (char-timer textbox)
                  (* (setting :gameplay :text-speed)
                     (case (char (text textbox) (scroll-index textbox))
                       ((#\. #\! #\? #\: #\;) 7.5)
                       ((#\,) 2.5)
-                      (T 1))))))))
+                      (T 1))))
+           (when (<= (char-timer textbox) 0.0)
+             (setf (scroll-index textbox) (array-total-size (text textbox)))))
+         (scroll-text textbox))))
 
 (defmethod handle ((rq dialogue:request) (textbox textbox)))
 
