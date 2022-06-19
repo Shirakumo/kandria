@@ -12,6 +12,7 @@
 (defmethod class-for ((storyline (eql 'storyline))) 'storyline)
 
 (defmethod reset progn ((storyline storyline) &key (reset-vars T))
+  (setf (known-quests storyline) ())
   (loop for quest being the hash-values of (quests storyline)
         do (reset quest :reset-vars reset-vars)))
 
