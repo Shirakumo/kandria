@@ -286,13 +286,13 @@
                              :on-complete ,next
                              (:action action
                                       ,@body)))))
-                 (:animate ((character animation &optional (end-state 'stand)) . body)
+                 (:animate ((character animation) . body)
                            (form-fiddle:with-body-options (body initargs) body
                              `((,name
                                 ,@initargs
                                 :title ,(format NIL "Wait for ~a to ~a." character animation)
                                 :visible NIL
-                                :condition (eql ',end-state (name (animation (unit ',character +world+))))
+                                :condition (not (eql ',animation (name (animation (unit ',character +world+)))))
                                 :on-activate (action)
                                 :on-complete ,next
                                 (:action action
