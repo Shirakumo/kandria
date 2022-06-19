@@ -132,4 +132,5 @@
    :condition (not (find-panel 'fullscreen-prompt))
    (fullscreen-prompt 'interact :title 'save-demo))
   (:eval
-   :on-complete (trader-shop-semi)))
+   :on-complete (trader-shop-semi)
+   (setf (music-state 'region1) :quiet)))
