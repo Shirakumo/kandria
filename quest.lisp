@@ -23,6 +23,15 @@
    (visible-p :initarg :visible :initform T :accessor visible-p)
    (experience-reward :initarg :experience-reward :initform 500 :accessor experience-reward)))
 
+(defclass quest-started (event)
+  ((quest :initarg :quest :reader quest)))
+
+(defclass quest-completed (event)
+  ((quest :initarg :quest :reader quest)))
+
+(defclass quest-failed (event)
+  ((quest :initarg :quest :reader quest)))
+
 (alloy:make-observable '(setf clock) '(value alloy:observable))
 (alloy:make-observable '(setf quest:status) '(value alloy:observable))
 
@@ -32,8 +41,9 @@
   (when (and (not (eql :active (quest:status quest)))
              (visible-p quest))
     (harmony:play (// 'sound 'ui-quest-start))
-    (status :important (@formats 'new-quest-started (quest:title quest))))
+    (status :important (@formats 'new-quest-started (quest:title quest)))
     (setf (start-time quest) (clock +world+))
+    (issue +world+ 'quest-started :quest quest))
   (setf (clock quest) 0f0))
 
 (defmethod quest:complete :before ((quest quest))
@@ -41,13 +51,15 @@
              (visible-p quest))
     (award-experience (unit 'player T) (experience-reward quest))
     (harmony:play (// 'sound 'ui-quest-complete))
-    (status :important (@formats 'quest-successfully-completed (quest:title quest)))))
+    (status :important (@formats 'quest-successfully-completed (quest:title quest)))
+    (issue +world+ 'quest-completed :quest quest)))
 
 (defmethod quest:fail :before ((quest quest))
   (when (and (not (eql :failed (quest:status quest)))
              (visible-p quest))
     (harmony:play (// 'sound 'ui-quest-fail))
-    (status :important (@formats 'quest-completion-failed (quest:title quest)))))
+    (status :important (@formats 'quest-completion-failed (quest:title quest)))
+    (issue +world+ 'quest-failed :quest quest)))
 
 (defmethod quest:make-assembly ((_ quest))
   (make-instance 'assembly))
