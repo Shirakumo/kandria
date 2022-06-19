@@ -26,8 +26,8 @@
 
 (defmethod try ((storyline storyline))
   (loop for quest in (known-quests storyline)
-        while (active-p quest)
-        do (try quest)))
+        do (when (active-p quest)
+             (try quest))))
 
 (defmethod find-quest (name (storyline storyline) &optional (error T))
   (or (gethash name (quests storyline))
