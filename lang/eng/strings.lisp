@@ -112,7 +112,7 @@ save/description "Use the phone box outside to save progress, or save from the m
 save-demo "Saving"
 save-demo/description "Use the phone box beneath this room to save progress, or save from the menu while you're near one"
 attack "Attacking"
-attack/description "Combine light and heavy attacks with different directions for different moves"
+attack/description "Hold different directions together with a light or heavy attack for various moves"
 cast-line "Cast Line"
 reel-in "Reel In"
 stop-fishing "Stop"
@@ -435,11 +435,11 @@ item:palette-error "ERROR"
 item:palette-error/description "ERROR: Missing texture pack"
 item:manual "Combat Manual"
 item:manual/description "A manual for Genera combat model androids"
-item:manual/lore "Combat models are equipped with a standard Artemis EStuB and are trained to execute a variety of directional attack moves in two variants: light and heavy.
+item:manual/lore "Combat models are equipped with a standard Artemis EStuB and are trained to execute a variety of directional attack moves in two types: light and heavy.
 
-Heavy moves trade an increase in power for slower wind-up and tail-end execution speed. Both light and heavy moves can be performed in different directions, both in the air and on the ground.
+Heavy moves trade an increase in power for slower wind-up and tail-end execution speed. Both types can be performed in different directions, both in the air and on the ground. Both types can also be charged for a stronger variant.
 
-Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will perform an evade, which can be followed up by a punishing counter move."
+Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will chain into an evade, which can be followed up by a punishing counter move of either type."
 ;; Fish
 fish:crab "Crab"
 fish:crab/description "A sturdy little critter.
