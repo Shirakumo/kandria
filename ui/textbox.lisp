@@ -150,6 +150,9 @@ void main(){
    (scroll-index :initform 0 :accessor scroll-index)
    (textbox :accessor textbox)))
 
+(defmethod hide :before ((textbox textbox))
+  (harmony:stop (// 'sound 'ui-scroll-dialogue)))
+
 (defmethod at-end-p ((textbox textbox))
   (<= (length (text textbox))
       (scroll-index textbox)))
