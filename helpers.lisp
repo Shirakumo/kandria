@@ -246,7 +246,8 @@ void main(){
 (defmethod oob ((entity entity) (none null))
   (unless (or (null (region +world+)) (find-panel 'editor))
     (setf (state entity) :oob)
-    (leave* entity T)))
+    (when (slot-boundp entity 'container)
+      (leave* entity T))))
 
 (defmethod (setf chunk) :after (chunk (entity game-entity))
   (when (and chunk (eql :oob (state entity)))
