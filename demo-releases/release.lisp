@@ -60,7 +60,9 @@
                   "lang/eng/quests/trader-arrive.lisp"
                   "lang/eng/quests/trader-cerebat.lisp"
                   "lang/eng/quests/tutorial.lisp")
-          :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"))
+          :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"
+                                ("bin/pool/trial/fps-texture.png"
+                                 "pool/trial/fps-texture.png")))
   :upload (:targets (:itch :steam))
   :itch (:user "Shinmera"
          :project "kandria")
