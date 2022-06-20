@@ -830,7 +830,7 @@
   (let* ((tloc (ensure-location target))
          (region (region +world+))
          (chunk (find-chunk tloc region)))
-    (unless (visible-on-map-p chunk)
+    (when (and chunk (not (visible-on-map-p chunk)))
       (bvh:do-fitting (entity (bvh region) chunk)
         (when (typep entity 'door)
           (let ((other (find-chunk (target entity) region)))
