@@ -257,7 +257,7 @@ void main(){
   (setf (chunk entity) new-chunk))
 
 (defun handle-oob (entity)
-  (let ((other (find-chunk entity))
+  (let ((other (find-chunk (location entity)))
         (chunk (chunk entity)))
     (cond ((eq other chunk))
           (other
@@ -272,7 +272,14 @@ void main(){
                                                   (vx (bsize chunk)))
                                                (vx (location entity))
                                                (+ (vx (location chunk))
-                                                  (vx (bsize chunk)))))))))
+                                                  (vx (bsize chunk)))))
+           (unless (< (vy (location entity))
+                      (- (vy (location chunk)) (vy (bsize chunk))))
+             (setf (vy (location entity)) (clamp (- (vy (location chunk))
+                                                    (vy (bsize chunk)))
+                                                 (vy (location entity))
+                                                 (+ (vy (location chunk))
+                                                    (vy (bsize chunk))))))))))
 
 (defmethod (setf location) (location (entity game-entity))
   (vsetf (location entity) (vx location) (vy location))
