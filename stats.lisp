@@ -12,7 +12,15 @@
   (money-accrued 0 :type (unsigned-byte 32)))
 
 (defclass stats-entity ()
-  ((stats :initform (make-stats) :accessor stats)))
+  ((stats :initform (make-stats) :reader stats)))
+
+(defmethod (setf stats) ((stats stats) (entity stats-entity))
+  (let ((orig (stats entity)))
+    (macrolet ((transfer (&rest fields)
+                 `(progn
+                    ,@(loop for field in fields
+                            collect `(setf (,field orig) (,field stats))))))
+      (transfer stats-distance stats-play-time stats-kills stats-deaths stats-longest-session stats-secrets-found stats-money-accrued))))
 
 ;; FIXME: track longest-session
 

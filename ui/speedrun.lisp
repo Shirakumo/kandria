@@ -111,7 +111,8 @@
   (setf (alloy:bounds (slot-value panel 'list)) (alloy:bounds (slot-value panel 'list))))
 
 (defmethod alloy:enter ((quest quest) (panel splits) &key)
-  (when (and (visible-p quest) (quest:title quest))
+  (when (and (visible-p quest) (quest:title quest)
+             (null (find quest (alloy:elements (slot-value panel 'list)) :key #'quest)))
     (alloy:enter (alloy:represent (slot-value quest 'clock) 'quest-timer :quest quest) (slot-value panel 'list))))
 
 (define-setting-observer show-splits :gameplay :show-splits (value)
