@@ -1307,6 +1307,7 @@ void main(){
         (award-experience player (experience-reward (chunk ev))))
       (setf (unlocked-p (chunk ev)) T)
       (setf (chunk player) (chunk ev))
+      (setf (dash-exhausted player) NIL)
       (setf (spawn-location player) loc))))
 
 (defmethod oob ((player player) (new chunk))
