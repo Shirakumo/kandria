@@ -25,6 +25,7 @@
 (define-action toggle-menu ())
 (define-action screenshot ())
 (define-action report-bug ())
+(define-action load-state ())
 (define-action toggle-fullscreen ())
 (define-action toggle-diagnostics ())
 

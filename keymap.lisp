@@ -7,6 +7,9 @@
 (trigger toggle-fullscreen
  (key :one-of (:f11)))
 
+(trigger load-state
+ (key :one-of (:f9)))
+
 (trigger report-bug
  (key :one-of (:f1)))
 

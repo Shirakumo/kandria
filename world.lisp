@@ -219,6 +219,9 @@
 (defmethod handle :after ((ev toggle-diagnostics) (world world))
   (toggle-panel 'diagnostics))
 
+(defmethod handle :after ((ev load-state) (world world))
+  (load-state (state +main+) +world+))
+
 (defmethod handle :after ((ev screenshot) (world world))
   (let* ((date (format-absolute-time (get-universal-time) :time-separator #+windows #\- #-windows #\:))
          (file (make-pathname :name (format NIL "kandria ~a" date)
