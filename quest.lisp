@@ -285,6 +285,13 @@
     `(setf (gethash ',npc *default-interactions*)
            (make-instance 'stub-interaction :dialogue ,(compile-dialogue)))))
 
+(defun find-mess (name &optional chapter)
+  (let ((file (merge-pathnames name
+                               (merge-pathnames "quests/a.mess" (language-dir (setting :language))))))
+    (if chapter
+        (list file chapter)
+        file)))
+
 (defmacro define-sequence-quest ((storyline name) &body body)
   (let ((counter 0))
     (labels ((parse-sequence-form (form name next)

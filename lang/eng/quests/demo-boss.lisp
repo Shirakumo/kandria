@@ -9,30 +9,13 @@
   :description "Innis wants me to find the Cerebat responsible for sabotaging their CCTV cameras, and bring them in."
   (:go-to (q5b-boss-loc)
    :title "Find the saboteur in the Semis' distant low eastern region, along the Cerebat border")
-  (:interact (innis :now T)
-"~ player
-| Innis, I found the <-saboteurs->. Plural.
-| (:thinking)I don't think they'll come quietly.
-~ innis
-| Then might I suggest you defend ya wee self.
-| (:sly)If you survive ya can \"bring me your report in person\"(orange).
-| (:angry)Now don't interrupt me again.
-! eval (override-music 'battle)
-  ")
+  (:interact (innis :now T) (find-mess "demo-boss" "a"))
   (:complete (q5b-boss-fight)
    :title "Defeat the saboteurs")
   (:eval
    (override-music NIL))
    (:wait 1)
-   (:interact (NIL :now T)
-  "
-~ player
-? (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3))
-| | \"I'd better \"get back to Innis\"(orange), on the double.\"(light-gray, italic)
-| | (:thinking)\"Then again, I could also make the most of being out this way, and \"map more of the area\"(orange).\"(light-gray, italic)
-|?
-| | \"I'd better \"check out the last of the CCTV cameras around here\"(orange), then \"get back to Innis\"(orange) on the double.\"(light-gray, italic)
-")
+   (:interact (NIL :now T) (find-mess "demo-boss" "b"))
   (:eval
    (when (complete-p (find-task 'demo-cctv 'task-cctv-1) (find-task 'demo-cctv 'task-cctv-2) (find-task 'demo-cctv 'task-cctv-3))
      (activate (find-task 'demo-cctv 'task-return-cctv)))))
