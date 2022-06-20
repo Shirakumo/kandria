@@ -91,32 +91,8 @@
    (dialogue :accessor dialogue)))
 
 (defmethod shared-initialize :after ((interaction interaction) slots &key dialogue)
-  (etypecase dialogue
-    (null)
-    (dialogue:assembly
-     (setf (dialogue interaction) dialogue))
-    (string
-     (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))
-    (pathname
-     (setf (dialogue interaction) (dialogue:compile* (merge-pathnames dialogue) (make-assembly interaction))))
-    (cons
-     (destructuring-bind (source tag) dialogue
-       (let* ((root (dialogue:parse (merge-pathnames source)))
-              (start (loop for i from 0 below (length (org.shirakumo.markless.components:children root))
-                           for element = (aref (org.shirakumo.markless.components:children root) i)
-                           do (when (and (typep element 'org.shirakumo.markless.components:header)
-                                         (string-equal tag (org.shirakumo.markless.components:text element)))
-                                (return (1+ i)))
-                           finally (error "No section called ~s found in source!" tag)))
-              (end (loop for i from start below (length (org.shirakumo.markless.components:children root))
-                         for element = (aref (org.shirakumo.markless.components:children root) i)
-                         do (when (typep element 'org.shirakumo.markless.components:header)
-                              (return i))))
-              (new-root (make-instance 'org.shirakumo.markless.components:root-component
-                                       :children (subseq (org.shirakumo.markless.components:children root) start end))))
-         (setf (org.shirakumo.markless.components:labels new-root)
-               (org.shirakumo.markless.components:labels root))
-         (dialogue:compile* new-root (make-assembly interaction)))))))
+  (when dialogue
+    (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction)))))
 
 (defmethod class-for ((storyline (eql 'interaction))) 'interaction)
 
@@ -136,8 +112,7 @@
     `(let* ((task (find-task ',task (find-quest ',quest (or (storyline ',storyline)
                                                             (error "No such storyline ~s" ',storyline)))))
             (action (or (find-trigger ',name task NIL)
-                        (setf (find-trigger ',name task) (make-instance ',class :name ',name :task task ,@initargs))))
-            (*default-pathname-defaults* ,(or *compile-file-pathname* *load-pathname* *default-pathname-defaults*)))
+                        (setf (find-trigger ',name task) (make-instance ',class :name ',name :task task ,@initargs)))))
        (reinitialize-instance action
                               :dialogue ,(or dialogue `(progn ,@body))
                               :interactable ',interactable

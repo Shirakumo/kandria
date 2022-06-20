@@ -161,8 +161,7 @@
     `(let* ((quest (or (find-quest ',quest (or (storyline ',storyline)
                                                (error "No such storyline ~s" ',storyline)))))
             (task (or (find-task ',name quest NIL)
-                      (setf (find-task ',name quest) (make-instance ',class :name ',name :quest quest ,@initargs))))
-            (*default-pathname-defaults* ,(or *compile-file-pathname* *load-pathname* *default-pathname-defaults*)))
+                      (setf (find-task ',name quest) (make-instance ',class :name ',name :quest quest ,@initargs)))))
        (reinitialize-instance task :condition ',(or condition 'NIL)
                                    :invariant ',(or invariant 'T)
                                    :on-activate ',on-activate

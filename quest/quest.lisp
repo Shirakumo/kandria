@@ -108,8 +108,7 @@
     `(let* ((story (or (storyline ',storyline)
                        (error "No such storyline ~s" ',storyline)))
             (quest (or (find-quest ',name story NIL)
-                       (setf (find-quest ',name story) (make-instance ',class :name ',name :storyline story ,@initargs))))
-            (*default-pathname-defaults* ,(or *compile-file-pathname* *load-pathname* *default-pathname-defaults*)))
+                       (setf (find-quest ',name story) (make-instance ',class :name ',name :storyline story ,@initargs)))))
        (reinitialize-instance quest :on-activate ',on-activate
                                     :variables ',variables
                                     ,@initargs)
