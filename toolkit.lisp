@@ -721,3 +721,8 @@
               (when (and ,value (string/= ,value ""))
                 ,value))))
         (T NIL)))
+
+(defun language-string* (thing &rest subset)
+  (language-string (intern (format NIL "~a~{/~a~}" (string thing) subset)
+                           (symbol-package thing))
+                   NIL))
