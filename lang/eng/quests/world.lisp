@@ -482,6 +482,7 @@
 ")
 
 ;; the caved-in tunnel that trapped the Semi Sisters engineers. A different line plays depending on whether or not the debris has been cleared yet, and whether or not the player knows about the trapped engineers quests yet
+;; the "UP and around" clue is important here, to tell the player they need to go up not down. We can imagine the player character has used FFCS to scan and know there's a way up but not down
   (:interaction engineers-wall
    :interactable lore-engineers-wall
    :repeatable T
@@ -490,7 +491,7 @@
 ? (active-p (unit 'blocker-engineers))
 | ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers))
 | | | \"This might be the \"collapsed tunnel\"(orange) that trapped the Semis engineers.\"(light-gray, italic)
-| | | (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)
+| | | (:thinking)\"I'll need to \"find another way up and around\"(orange).\"(light-gray, italic)
 | |?
 | | | \"A collapsed tunnel.\"(light-gray, italic) (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)
 |?
