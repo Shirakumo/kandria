@@ -5,7 +5,6 @@
 (define-sequence-quest (kandria world-move-engineers)
   :title NIL
   :visible NIL
-  (:wait 3)
   (:eval
     (move-to 'engineer-home-1 'semi-engineer-1)
     (move-to 'engineer-home-2 'semi-engineer-2)
