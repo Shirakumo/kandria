@@ -61,7 +61,7 @@
 
   (q5b-task-cctv-2
    :title "Find CCTV camera 2"
-   :marker '(chunk-5683 1200)
+   :marker '(chunk-5681 1600)
    :condition all-complete
    :on-activate T   
    (:interaction cctv-2
@@ -69,7 +69,7 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 2\"(red).\"(light-gray, italic)
-| \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit board.\"(light-gray, italic)
+| \"It's mostly in pieces on the floor, surrounded by rocks and stones.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
 | | | \"That was the last of the down cameras. I'd better get \"back to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
@@ -85,7 +85,7 @@
 
   (q5b-task-cctv-3
    :title "Find CCTV camera 3"
-   :marker '(chunk-5681 1600)
+   :marker '(chunk-5683 1200)
    :condition all-complete
    :on-activate T   
    (:interaction cctv-3
@@ -93,7 +93,7 @@
     :dialogue "
 ~ player
 | \"Here's \"CCTV camera 3\"(red).\"(light-gray, italic)
-| \"It's mostly in pieces on the floor, surrounded by rocks and stones.\"(light-gray, italic)
+| \"The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit board.\"(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
 | | | \"That was the last of the down cameras. I'd better get \"back to Innis\"(orange) and report on the saboteurs.\"(light-gray, italic)
