@@ -91,8 +91,21 @@
    (dialogue :accessor dialogue)))
 
 (defmethod shared-initialize :after ((interaction interaction) slots &key dialogue)
-  (when dialogue
-    (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction)))))
+  (etypecase dialogue
+    (null)
+    (dialogue:assembly
+     (setf (dialogue interaction) dialogue))
+    (string
+     (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))
+    (pathname
+     (setf (dialogue interaction) (dialogue:compile* (merge-pathnames dialogue) (make-assembly interaction))))
+    (cons
+     (destructuring-bind (source tag) dialogue
+       (let* ((source (etypecase source
+                        (string source)
+                        (pathname (alexandria:read-file-into-string source))))
+              (dialogue (format NIL "< ~a~%~%~a" tag source)))
+         (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))))))
 
 (defmethod class-for ((storyline (eql 'interaction))) 'interaction)
 

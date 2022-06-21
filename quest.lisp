@@ -141,9 +141,23 @@
   (loop for trigger being the hash-values of (quest:triggers task)
         do (refresh-language trigger)))
 
+(defun find-mess (name &optional chapter)
+  (let ((file (merge-pathnames name
+                               (merge-pathnames "quests/a.mess" (language-dir (setting :language))))))
+    (if chapter
+        (list file chapter)
+        file)))
+
 (defclass interaction (quest:interaction)
-  ((repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)
+  ((source :initform NIL :initarg :source :accessor source)
+   (repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)
    (auto-trigger :initform NIL :initarg :auto-trigger :accessor auto-trigger)))
+
+(defmethod shared-initialize :around ((interaction interaction) slots &rest args &key source dialogue)
+  (if (or dialogue (null source))
+      (call-next-method)
+      (let ((dialogue (apply #'find-mess (enlist source))))
+        (apply #'call-next-method interaction slots :dialogue dialogue args))))
 
 (defmethod quest:class-for ((storyline (eql 'quest:interaction))) 'interaction)
 
@@ -196,6 +210,9 @@
                                  (quest:name (quest:task trigger))
                                  (quest:name trigger))))
     (when title (setf (quest:title trigger) title))))
+
+(defmethod refresh-language :after ((interaction interaction))
+  (reinitialize-instance interaction :source (source interaction)))
 
 (defclass stub-interaction (interaction)
   ((quest:dialogue :initform NIL :accessor quest:dialogue)
@@ -431,7 +448,8 @@
                                        ,@(if body `((walk-n-talk (progn ,@body)))))))))
                  (:interact ((with &key now repeatable) . body)
                             (form-fiddle:with-body-options (body initargs) body
-                              (let ((repeatable (or repeatable (popf initargs :repeatable))))
+                              (let ((repeatable (or repeatable (popf initargs :repeatable)))
+                                    (source (popf initargs :source)))
                                 `((,name
                                    ,@initargs
                                    :title ,(format NIL "Listen to ~a" with)
@@ -443,6 +461,7 @@
                                     :interactable ,with
                                     :auto-trigger ,now
                                     :repeatable ,repeatable
+                                    :source ,source
                                                  ,@body))))))
                  (:complete ((&rest things) . body)
                             (form-fiddle:with-body-options (body initargs (activate T)) body
