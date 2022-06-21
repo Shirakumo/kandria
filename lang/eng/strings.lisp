@@ -439,7 +439,7 @@ item:manual/lore "Combat models are equipped with a standard Artemis EStuB and a
 
 Heavy moves trade an increase in power for slower wind-up and tail-end execution speed. Both types can be performed in different directions, both in the air and on the ground. Both types can also be charged for a stronger variant.
 
-Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will chain into an evade, which can be followed up by a punishing counter move of either type."
+Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will chain into an evade, which can be followed by a punishing counter move of either type."
 ;; Fish
 fish:crab "Crab"
 fish:crab/description "A sturdy little critter.
