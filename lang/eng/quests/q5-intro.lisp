@@ -31,7 +31,8 @@
   | (:sly)We'll see.
 - I can't get inebriated.
   ~ innis
-  | Your programming prevents you from drinking alcohol, or you just physically canna get drunk?
+  | (:sly)Enlighten me. I never fully understood how an android core makes decisions.
+  | (:normal)Does your programming prevent you from drinking, or is it that you just physically canna get drunk?
   ~ player
   - The latter.
     ~ innis
@@ -101,6 +102,9 @@
 | | ! eval (activate 'semi-station-marker)
 | |?
 | | ! eval (complete 'semi-station-marker)
+|?
+| ~ innis
+| | We need both the engineers and the CCTV sorting out, so \"do them in whatever order you want\"(orange). Just do it quickly.
 ! label questions
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]

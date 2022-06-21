@@ -36,7 +36,7 @@
 ? (not (active-p (unit 'blocker-engineers)))
 | ~ islay
 | | Actually, no: don't worry about the engineers.
-| | The last report shows they've been freed - by whom I'm not sure.
+| | The last report shows the survivors have been freed - by whom I'm not sure.
 | ~ player
 | - It was me.
 |   < thank-you
@@ -56,6 +56,9 @@
 |     < metro
 | - Who do you think?
 |   < thank-you
+|?
+| ~ islay
+| | I'd prioritise the engineers, but we need both jobs doing. \"Do them in whatever order you see fit\"(orange).
 ! label questions
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
@@ -102,7 +105,7 @@
 - That's what I do.
 - I was exploring, so figured why not.
 ~ islay
-| Well in that case, thank you. We owe you.
+| Well in that case, thank you. I owe you. As do their families.
 | But there's more to do.
 < metro
 
