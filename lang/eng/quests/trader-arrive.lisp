@@ -115,7 +115,7 @@
 )))
 ;; habibti = dear, my love, buddy (Arabic) (female form)
 
-;; TODO - add act 3 quest transition check to "|? (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex))" to ensure chat log updates in act 3
+;; If not done Sahil intro (above) by q11-intro complete, it gets voided, and this quest opens up automatically (as do the buy/sell quests); Sahil's name also then gets force set during the only dialogue chat with him, since by that point, even if not chatted to him, it's plausible that you'd know who Sahil is (buy/sell options and hub don't show his name)
 (quest:define-quest (kandria trader-chat)
   :author "Tim White"
   :title ""
