@@ -490,10 +490,12 @@
 ~ player
 ? (active-p (unit 'blocker-engineers))
 | ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers))
-| | | \"This might be the \"collapsed tunnel\"(orange) that trapped the Semis engineers.\"(light-gray, italic)
+| | | \"This might be the \"collapsed tunnel\"(orange) that trapped the \"Semis engineers\"(orange).\"(light-gray, italic)
+| | | \"I don't think I can clear it from this side.\"(light-gray, italic)
 | | | (:thinking)\"I'll need to \"find another way up and around\"(orange).\"(light-gray, italic)
 | |?
-| | | \"A collapsed tunnel.\"(light-gray, italic) (:thinking)\"I'll need to \"find another way around\"(orange).\"(light-gray, italic)
+| | | \"A collapsed tunnel. I don't think I can clear it from this side.\"(light-gray, italic)
+| | | (:thinking)\"I'll need to \"find another way up and around\"(orange).\"(light-gray, italic)
 |?
 | ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers) (complete-p 'demo-engineers) (complete-p 'q5a-rescue-engineers))
 | | | \"The remnants of the collapsed rail tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
