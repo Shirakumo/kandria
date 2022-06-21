@@ -284,5 +284,5 @@
   | Don't worry, it's fine.
 < end
 ")))
-
+;; player always has 150 parts to give here, since they just received that as a reward
 ;; during quest, if not using walkie, she just assumes you decided not to use it after all, and use your FFCS instead
