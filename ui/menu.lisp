@@ -390,7 +390,16 @@
   ((:border simple:rectangle)
    (alloy:margins -4)
    :line-width (alloy:un 3)
-   :pattern colors:gray))
+   :pattern colors:gray)
+  ((:text simple:text)
+   (alloy:extent (alloy:pw -0.5) -18 (alloy:pw 2) (alloy:ph 1))
+   (title alloy:value)
+   :wrap T
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 12)
+   :valign :bottom
+   :halign :middle))
 
 (presentations:define-update (ui unlock-button)
   (:border
@@ -403,7 +412,9 @@
    :pivot (alloy:point (alloy:ph 0.5) (alloy:ph 0.5))
    :composite-mode (if (item-unlocked-p alloy:value (inventory alloy:renderable))
                        :source-over
-                       :clear)))
+                       :clear))
+  (:text
+   :hidden-p (not alloy:focus)))
 
 (defmethod alloy:activate ((button unlock-button))
   (if (item-unlocked-p (alloy:value button) (inventory button))
@@ -534,7 +545,7 @@
             ;; FIXME: due to dual-mapping up/down analog to focus-prev/next we can't do grid navigation properly...
             (let* ((layout (make-instance 'alloy:border-layout))
                    (focus (make-instance 'alloy:focus-grid :width 7))
-                   (list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 10) :col-sizes '(100 100 100 100 100 100 100) :row-sizes '(100)))
+                   (list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 20) :col-sizes '(120 120 120 120 120 120 120) :row-sizes '(120)))
                    (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                    (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
               (alloy:enter "" layout :place :north :size (alloy:un 50))
