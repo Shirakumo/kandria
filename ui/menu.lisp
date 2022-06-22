@@ -310,7 +310,7 @@
                           (alloy:px-extent 0 (* (- ph h) 0.5) (alloy:pw) h)))
                        ((< ratio 1)
                         (let* ((pw (alloy:to-px (alloy:pw)))
-                               (w (/ pw ratio)))
+                               (w (* pw ratio)))
                           (alloy:px-extent (* (- pw w) 0.5) 0 w (alloy:ph))))
                        (T
                         (alloy:margins))))
