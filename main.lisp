@@ -91,8 +91,8 @@
 
 (defmethod load-state ((state null) (main main))
   (let ((state (or (state main) (make-instance 'save-state :filename "1"))))
-    (load-state (initial-state (scene main)) (scene main))
     (clear-spawns)
+    (load-state (initial-state (scene main)) (scene main))
     (unwind-protect
          (trial:commit (scene main) (loader main) :show-screen T :cold T)
       (setf (state main) state))))
@@ -104,8 +104,8 @@
                                 (v:severe :kandria.save "Failed to load save state ~a: ~a" state e)
                                 (v:debug :kandria.save e)
                                 (invoke-restart 'reset)))))
+        (clear-spawns)
         (prog1 (load-state state (scene main))
-          (clear-spawns)
           (unwind-protect
                (trial:commit (scene main) (loader main) :show-screen T)
             (setf (state main) state)

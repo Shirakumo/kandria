@@ -74,8 +74,6 @@
   (declare (ignore unload show-screen cold)))
 
 (defmethod trial:commit ((area staging-area) (loader load-screen) &key unload show-screen cold)
-  (when unload
-    (clear-spawns))
   (if show-screen
       (let ((*show-load-screen* T))
         (setf (cold-boot loader) cold)
