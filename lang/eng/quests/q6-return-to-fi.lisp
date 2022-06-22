@@ -126,18 +126,19 @@
   | (:annoyed)The Semi Sisters treated her like shit. Just like they did with you.
 ~ fi
 | (:annoyed)Innis is bluffing. She's a spy, a technocrat - a fuheiwoiu! (:normal)But she's not a killer. She won't turn the water off.
-| And as for the Wraw invading the Cerebats: I know you fought rogues, but that's not proof.
-| Rogues are many in Cerebats territory - it's a market district!
-| The Wraw want us, not the Cerebats - and certainly not the Semi Sisters.
+| (:normal)And as for the Wraw invading the Cerebats: I know you fought rogues, but that's not proof.
+| (:happy)Rogues are many in Cerebats territory - it's a market district!
+| (:normal)The Wraw might meddle with Cerebat law, but they're not invaders.
+| They want us, not the Cerebats - and certainly not the Semi Sisters.
 | Their leader, \"Zelah\"(yellow), takes the easy route. He doesn't fight battles, he goes after the little guy.
 ~ fi
-| Well I'm glad you're back.
+| (:happy)Regardless, I'm glad you're back.
 ~ player
+- It's good to be back.
 - I'm glad to see you too.
 - I feel better now I'm back with you.
   ~ fi
   | (:happy)Me too.
-- It's good to be back.
 ~ fi
 | (:happy)Goodbye \"for now\"(orange), Stranger.
 ")))
