@@ -188,11 +188,11 @@
                  (for:for ((entity over parent))
                    (cond ((typep entity 'ephemeral)
                           (when (save-p entity)
-                            (add ephemeral (list* (name entity) (encode entity))))
-                          (when (typep entity 'container)
-                            (recurse entity)))
+                            (add ephemeral (list* (name entity) (encode entity)))))
                          ((not (spawned-p entity))
-                          (add create-new (list* (type-of entity) (encode entity))))))))
+                          (add create-new (list* (type-of entity) (encode entity)))))
+                   (when (typep entity 'container)
+                     (recurse entity)))))
         (recurse region)))
     (list :create-new (rest create-new)
           :ephemeral (rest ephemeral))))
@@ -203,10 +203,10 @@
     (when delete-existing
       (labels ((recurse (parent)
                  (for:for ((entity over parent))
-                   (typecase entity
-                     ((not ephemeral)
-                      (leave entity parent))
-                     (container (recurse entity))))))
+                   (unless (typep entity 'ephemeral)
+                     (leave* entity parent))
+                   (when (typep entity 'container)
+                     (recurse entity)))))
         (recurse region)))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
