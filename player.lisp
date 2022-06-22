@@ -1383,6 +1383,7 @@ void main(){
            (setf (clock (progression 'low-health +world+)) 0)
            (start (progression 'low-health +world+))))
         (T
+         (setf (strength (unit 'fade +world+)) 0.0)
          (harmony:stop (// 'sound 'player-low-health))
          (setf (limp-time player) 0.0))))
 
