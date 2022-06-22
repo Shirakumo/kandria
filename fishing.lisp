@@ -359,6 +359,8 @@ void main(){
   :price 50)
 (define-fish alligator 64 72 48 8
   :price 300)
+(define-fish distilled-water-bottle 120 24 8 8
+  :price 100)
 
 (define-random-draw desert-fishing
   (fish:fishing-rod     1.0)
@@ -382,7 +384,8 @@ void main(){
   (fish:salmon          1.0)
   (fish:coelacanth      0.3)
   (fish:trout           1.0)
-  (fish:electric-eel    1.0))
+  (fish:electric-eel    1.0)
+  (fish:distilled-water-bottle 1.0))
 
 (define-random-draw cave-fishing
   (fish:tire            1.0)
