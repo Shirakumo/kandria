@@ -7,7 +7,9 @@
                   "pool/kandria/sound/"
                   "pool/kandria/*/*.ase"
                   "pool/music/*.wav"
-                  "pool/**/*.*~")
+                  "pool/**/*.*~"
+                  "pool/**/*.kra"
+                  "pool/**/#*#")
           :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"
                                 ("bin/pool/trial/fps-texture.png"
                                  "pool/trial/fps-texture.png")))

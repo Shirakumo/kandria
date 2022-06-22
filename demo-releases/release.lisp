@@ -8,6 +8,8 @@
                   "pool/kandria/*/*.ase"
                   "pool/music/*.wav"
                   "pool/**/*.*~"
+                  "pool/**/*.kra"
+                  "pool/**/#*#"
                   "lang/eng/quests/demo-end.lisp"
                   "lang/eng/quests/epilogue-2.lisp"
                   "lang/eng/quests/epilogue.lisp"
