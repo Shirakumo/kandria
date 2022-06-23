@@ -3,13 +3,8 @@
 (defmethod handle ((ev quit-game) (controller controller)))
 
 (define-action-set in-editor)
-(define-action undo (in-editor)
-  (key-press (and (one-of key :z)
-                  (retained :control))))
-
-(define-action redo (in-editor)
-  (key-press (and (one-of key :y)
-                  (retained :control))))
+(define-action undo (in-editor))
+(define-action redo (in-editor))
 
 (define-action-set in-menu (exclusive-action-set))
 (define-action skip (in-menu))

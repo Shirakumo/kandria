@@ -60,10 +60,10 @@
   ((toggle :initform NIL :accessor toggle)
    (event :initform NIL :accessor event)))
 
-(defmethod initialize-instance :after ((structure input-mapping-structure) &key binding)
-  (when binding
-    (setf (event structure) (trial::make-event-from-binding binding))
-    (setf (toggle structure) (eql :rise-only (getf (rest binding) :edge))))
+(defmethod initialize-instance :after ((structure input-mapping-structure) &key mapping)
+  (when mapping
+    (setf (event structure) (event-from-action-mapping mapping))
+    (setf (toggle structure) (toggle-p mapping)))
   (let* ((label (alloy:represent (slot-value structure 'event) 'input-label))
          (toggle (alloy:represent (slot-value structure 'toggle) 'alloy:labelled-switch :text (@ input-toggles-state)))
          (remove (make-instance 'popup-button
@@ -80,10 +80,6 @@
 
 (defmethod (setf alloy:focus) :after (a (structure input-mapping-structure))
   (alloy:mark-for-render structure))
-
-(defmethod input-binding ((structure input-mapping-structure))
-  (when (event structure)
-    (trial::binding-from-event (event structure) :edge (if (toggle structure) :rise-only :rise))))
 
 (presentations:define-realization (ui input-mapping-structure)
   ((:background simple:rectangle)
@@ -171,11 +167,14 @@
          (ok (make-instance 'popup-button
                             :value (@ accept-input-change)
                             :on-activate (lambda ()
-                                           (let ((bindings (remove-if #'null (map 'list #'input-binding (alloy:elements bindings)))))
-                                             (trial::update-action-bindings bindings (alloy:value source)
-                                                                            :prune-types (if (eql +input-source+ :keyboard)
-                                                                                             '(key mouse)
-                                                                                             '(button axis))))
+                                           (let ((bindings (loop for element across (alloy:elements bindings)
+                                                                 when (event element)
+                                                                 collect (event-to-action-mapping (event element) (alloy:value source)
+                                                                                                  :toggle-p (toggle element)))))
+                                             (update-action-mappings bindings
+                                                                     :prune-event-type (if (eql +input-source+ :keyboard)
+                                                                                           '(or key-event mouse-event)
+                                                                                           'gamepad-event)))
                                            (save-keymap)
                                            (alloy:mark-for-render source)
                                            (hide panel))))
@@ -189,8 +188,10 @@
                                             (let ((binding (make-instance 'input-mapping-structure)))
                                               (alloy:enter binding bindings)
                                               (alloy:enter binding focus))))))
-    (dolist (binding (action-bindings 'trial::keymap (alloy:value source) :device (case +input-source+ (:keyboard :keyboard) (T :gamepad))))
-      (let ((binding (make-instance 'input-mapping-structure :binding binding)))
+    (dolist (mapping (find-action-mappings (alloy:value source) (case +input-source+
+                                                                  (:keyboard '(or key-event mouse-event))
+                                                                  (T 'gamepad-event))))
+      (let ((binding (make-instance 'input-mapping-structure :mapping mapping)))
         (alloy:enter binding bindings)
         (alloy:enter binding focus)))
     (alloy:enter add focus)

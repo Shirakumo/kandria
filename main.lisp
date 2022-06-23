@@ -159,7 +159,7 @@
            (let ((path (if args
                            (uiop:parse-native-namestring (format NIL "~{~a~^ ~}" args))
                            (org.shirakumo.file-select:existing :title "Select save state"
-                                                               :default (first (mapcar #'fil (list-saves)))
+                                                               :default (first (mapcar #'file (list-saves)))
                                                                :filter '(("Save Files" "zip"))))))
              (launch :state path)))
           ((equal arg "world")

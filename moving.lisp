@@ -1,7 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-global +default-medium+ (make-instance 'air))
-
 (defclass moving (game-entity)
   ((collisions :initform (make-array 4 :initial-element NIL) :reader collisions)
    (medium :initform +default-medium+ :accessor medium)
