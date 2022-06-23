@@ -102,12 +102,12 @@
     :dialogue "
 ~ player
 | \"It's new-home candidate site \"Epsilon\"(red).\"(light-gray, italic)
-| (:thinking)\"These factory cubicles would make for excellent storage, and perhaps even a base for Engineering.\"(light-gray, italic)
+| (:thinking)\"These factory cubicles would make for excellent storage, and perhaps could even be a base for Engineering.\"(light-gray, italic)
 | \"I could clear the barbed wire so children, and the elderly and infirm could get through.\"(light-gray, italic)
 ? (or (complete-p 'q2-seeds) (have 'item:seeds))
 | | (:thinking)\"But its proximity to the soiled seed cache is problematic. And that's before they even consider the earthquakes.\"(light-gray, italic)
 |?
-| | (:thinking)\"But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale oneself.\"(light-gray, italic)
+| | (:thinking)\"But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale yourself.\"(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
 | | (:normal)\"That's the last site surveyed. I should \"return to Jack\"(orange) with the bad news.\"(light-gray, italic)
 | ! eval (activate 'return-new-home)

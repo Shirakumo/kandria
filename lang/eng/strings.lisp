@@ -272,7 +272,7 @@ item:memory "Memory Unit"
 item:memory/description "This is pre-pre-Calamity. Can you imagine storing data on something so easily misplaced?
 Can be sold for scrap."
 item:genera-core "Broken Genera Core"
-item:genera-core/description "Came from an android. The refraction matrix is cracked - there's nothing to learn here but their serial number.
+item:genera-core/description "Came from an android. The refraction matrix is cracked - there's nothing to learn here except their serial number.
 Can be sold for scrap." ;; minigame - collect dog tags? Unlock VR mission?
 item:rusted-key "Rusted Key"
 item:rusted-key/description "It would likely break in half, even if used in the correct lock.

@@ -33,7 +33,7 @@
    "
 ~ player
 | \"It's a train. Well, half a train.\"(light-gray, italic)
-| \"I wonder if people tried to use this station to escape under ground.\"(light-gray, italic)
+| \"I wonder if people tried to use this station to escape below ground.\"(light-gray, italic)
 ")
 
   ;; Large stone rock/gate
@@ -51,7 +51,7 @@
    :repeatable T
    "
 ~ player
-| \"Glass cracks under my feet like broken bones. There are human remains in the bed.\"(light-gray, italic)
+| \"Is that glass cracking beneath my feet, or broken bones? I don't think I want to look.\"(light-gray, italic)
 ")
   
   ;; a sandstorm blocks the player from crossing further into the desert to the east
@@ -139,13 +139,15 @@
 ")
 
   ;; a sandstorm blocks the player from crossing further into the desert to the west
+  ;; does this say androids are bulletproof? Perhaps, though could just be a turn of phrase. Guns don't feature in the game, except when people are massing arms at the end;
+  ;; which could suggest the android would be formidable on the battlefield, if bulletproof, and thus why Zelah wants them out of the way.
   (:interaction sandstorm-view
    :interactable lore-storm
    :repeatable T
    "
 ~ player
-| \"Particulates ping off my body like bullets.\"(light-gray, italic)
-| \"The mountains lay beyond, though I can hardly see them in this storm.\"(light-gray, italic)
+| \"The particulates are pinging off my body like bullets.\"(light-gray, italic)
+| \"Mountains lay beyond, though I can hardly see them in this storm.\"(light-gray, italic)
 ")
 
   ;; Zenith was the name of the city in the old world. The city's logo is presented front and centre on the wall, a star glowing over a valley, which the player's character notices resembles an explosion levelling a city... Is that what happened?
@@ -174,7 +176,7 @@
    :repeatable T
    "
 ~ player
-| \"The \"Midwest Market\"(red). You could imagine those mannequins behind the glass were real people.\"(light-gray, italic)
+| \"The \"Midwest Market\"(red). Those mannequins behind the glass could almost be real people.\"(light-gray, italic)
 | (:embarassed)\"Like this place wasn't creepy enough.\"(light-gray, italic)
 ")
 
@@ -205,7 +207,7 @@
 ~ player
 | (:thinking)\"How on earth did these mushrooms grow so large?\"(light-gray, italic)
 ? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
-| | (:normal)\"Presumably they are inedible, otherwise their hunger problems would be over.\"(light-gray, italic)
+| | (:normal)\"Presumably they are inedible, otherwise their food problems would be over.\"(light-gray, italic)
 ")
 
   ;; the sarcastic player character laments there are no truffles, only these huge giant mushrooms everywhere
@@ -243,7 +245,7 @@
    :repeatable T
    "
 ~ player
-| \"\"Semi\"(red) were the manufacturers of electronic components - not least for androids.\"(light-gray, italic)
+| \"\"Semi\"(red) were the manufacturers of electronic components, not least for androids.\"(light-gray, italic)
 | \"It's sad to see the factory so silent.\"(light-gray, italic)
 ")
 
@@ -310,7 +312,7 @@
    :repeatable T
    "
 ~ player
-| \"It's lucky they lit these tunnels with lanterns - the charge is more than sufficient to recharge my boost.\"(light-gray, italic)
+| \"It's fortunate they lit these tunnels with lanterns - the charge is more than sufficient for my boost.\"(light-gray, italic)
 ")
 
 ;; another old Semi factory space
@@ -360,6 +362,7 @@
 ")
 
 ;; a bar in the Semi Sisters hub area
+;; conditional for when the base is empty later on
   (:interaction semi-hub-2
    :interactable lore-semi-bar
    :repeatable T
@@ -383,15 +386,16 @@
 ")
 
 ;; the Semi Sisters' council chamber / control room, where Innis and Islay, the leaders, mostly hang out. It's quite deluxe and well-furnished compared to the makeshift areas of the rest of their base
+;; conditional for when the base is empty later on
   (:interaction semi-hub-4
    :interactable lore-semi-control
    :repeatable T
    "
 ~ player
 ? (not (complete-p (find-task 'q11a-bomb-recipe 'task-move-semis)))
-| | \"The din of the base fades away up here - save for the interruption of fuzzy video feeds and communications chatter.\"(light-gray, italic)
+| | \"The din of the base fades away up here - save for the interruption of fuzzy video feeds and comms chatter.\"(light-gray, italic)
 |?
-| | \"Dark screens. It's either pitch black in the tunnels, or their CCTV cameras have gone offline.\"(light-gray, italic)
+| | \"Dark screens. It's either pitch black in the tunnels, or the rest of their CCTV cameras have gone offline.\"(light-gray, italic)
 ")
 
 ;; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the Calamity)
@@ -498,9 +502,9 @@
 | | | (:thinking)\"I'll need to \"find another way up and around\"(orange).\"(light-gray, italic)
 |?
 | ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers) (complete-p 'demo-engineers) (complete-p 'q5a-rescue-engineers))
-| | | \"The remnants of the collapsed rail tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
+| | | \"The remnants of the collapsed rail tunnel. It looks stable enough - for now.\"(light-gray, italic)
 | |?
-| | | \"The remnants of the collapsed tunnel.\"(light-gray, italic) \"It looks stable enough - for now.\"(light-gray, italic)
+| | | \"The remnants of the collapsed tunnel. It looks stable enough - for now.\"(light-gray, italic)
 ")
 
 ;; REGION 2
@@ -522,7 +526,7 @@
    "
 ~ player
 | (:embarassed)\"What the hell is that? I think it's organic. And dead.\"(light-gray, italic)
-| \"Well it's staying where it is.\"(light-gray, italic) (:giggle)\"I don't want anything jumping on my face.\"(light-gray, italic)
+| \"Well it's staying where it is. I don't want anything jumping on my face.\"(light-gray, italic)
 ")
 
 ;; in a big lush water cave
@@ -541,8 +545,8 @@
    :repeatable T
    "
 ~ player
-| \"These are different kinds of giant mushrooms. I don't know if they're edible.\"(light-gray, italic)
-| (:giggle)\"Though judging from this place, they might be drinkable.\"(light-gray, italic)
+| \"These are a different kind of giant mushroom. I don't know if they're edible.\"(light-gray, italic)
+| (:giggle)\"Though given how wet this place is, they might be drinkable.\"(light-gray, italic)
 ")
 
 ;; bottomless pit which would cause insta-death
@@ -582,7 +586,7 @@
    "
 ~ player
 | \"It's so humid down here, no wonder it's lush.\"(light-gray, italic)
-| (:giggle)\"Thank God I don't sweat, or I'd be watering the plants too.\"(light-gray, italic)
+| (:giggle)\"Thank God I don't sweat, or I'd be watering the plants from my armpits.\"(light-gray, italic)
 ")
 
 ;; a lake area; the water is pumped from here to the Semis and Noka living areas far above
@@ -596,14 +600,14 @@
 ")
 
 ;; because this is a light area, even though it's deep underground
-;; teasing the concept of phosphorescent (radioactive?) fauna - though you never see anything
+;; teasing the concept of big phosphorescent (radioactive?) fauna - though you never see anything
   (:interaction cerebat-light
    :interactable lore-cerebat-light
    :repeatable T
    "
 ~ player
 | (:thinking)\"Where's all the light coming from? Phosphorescent flora?\"(light-gray, italic)
-| (:embarassed)\"Phosphorescent fauna...\"(light-gray, italic)
+| (:embarassed)\"Phosphorescent fauna?...\"(light-gray, italic)
 ")
 
 ;; wind in the tunnels, caused by difference in temperature with the levels above, and with the air over water and land
@@ -612,7 +616,7 @@
    :repeatable T
    "
 ~ player
-| (:thinking)\"The water must be cooling the warm air and causing the wind.\"(light-gray, italic)
+| (:thinking)\"The water must be cooling the hot air and causing the wind.\"(light-gray, italic)
 ")
 
 ;; wind power
@@ -624,7 +628,7 @@
    :repeatable T
    "
 ~ player
-| \"Not exactly the doldrums.\"(light-gray, italic)
+| \"It's not exactly the doldrums down here.\"(light-gray, italic)
 | \"No wonder they use wind for power -\"(light-gray, italic) (:giggle)\"much as my thrusters do the reverse.\"(light-gray, italic)
 ")
 
@@ -704,7 +708,7 @@
    :repeatable T
    "
 ~ player
-| \"This is a cosy little corner to set up camp. Not exactly under the stars though, is it.\"(light-gray, italic)
+| \"This is a cosy little corner to set up camp. Not exactly under the stars though.\"(light-gray, italic)
 ")
 
 ;; shady backstreets
@@ -718,14 +722,13 @@
 ")
 
 ;; busy market
-;; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot) - thus we raise suspicion here if they don't know, or confirm suspicion if they do
-;; if player spoken to cerebat trader, the "innocent produce" may make them smile, since his shopping list is anything but. If they speak to him after this, then his shopping list will contrast with this
+;; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot) - thus we raise suspicion here if they don't know, or confirm suspicion if they do (or it may just be interpreted as prejudice towards androids)
   (:interaction cerebat-market
    :interactable lore-cerebat-market
    :repeatable T
    "
 ~ player
-| \"It's a busy market day. The produce looks innocent enough, but I'm getting a disproportionate number of sideways glances.\"(light-gray, italic)
+| \"It's a busy market day, and I'm getting a disproportionate number of sideways glances.\"(light-gray, italic)
 ")
 
 ;; warehouse/factory
@@ -766,12 +769,13 @@
 
 ;; lava and spikes area
 ;; "smell" because of the burning everywhere, accentuated by the blasts of hot air that the player can ride to platform around
+;; android may or may not be religious - probably not. But keeps it open for the player. If not, then ofc this is just a turn of phrase
   (:interaction wraw-lava
    :interactable lore-wraw-lava
    :repeatable T
    "
 ~ player
-| (:embarassed)\"I'm not religious, but this place is starting to look and smell more like Hell by the second.\"(light-gray, italic)
+| (:embarassed)\"This place is starting to look and smell more like Hell by the second.\"(light-gray, italic)
 ")
 
 ;; peoples' homes
@@ -791,7 +795,6 @@
    :repeatable T
    "
 ~ player
-| \"This is the most well-stocked settlement I've seen.\"(light-gray, italic)
 | \"Life could be quite comfortable here - if you weren't living on a lava floodplain.\"(light-gray, italic)
 "))
 

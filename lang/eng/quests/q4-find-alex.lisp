@@ -312,33 +312,33 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 | They're always planning to attack. <-Hic->. This just Fi getting her knickers in a twist again.
 | (:unhappy)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
-| \"Alex looks around, but doesn't notice the barkeep scowling from a dark corner. The barkeep meets my eye.\"(light-gray, italic)
+| \"They're not going to get anyone's attention like that.\"(light-gray, italic) (:embarassed)\"Oh great, now the the barkeep's scowling at me too.\"(light-gray, italic)
 ~ player
-- (Buy Alex a soft drink - 20)
-  ? (<= 20 (item-count 'item:parts))
-  | ! eval (retrieve 'item:parts 20)
-  | ~ alex
-  | | (:unhappy)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
-  | ~ player
-  | | \"They drink it anyway.\"(light-gray, italic)
-  |?
-  | ~ player
-  | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
 - (Buy Alex another drink - 40)
   ? (<= 40 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 40)
   | ~ alex
   | | Ugh, thansssks. <-Hic->.
   | ~ player
-  | | \"They down it in one.\"(light-gray, italic)
-  | | \"They look like they're about to throw up, but swallow it back down.\"(light-gray, italic)
-  | | \"I'm glad that doesn't happen to androids.\"(light-gray, italic)
+  | | \"Wow, they downed it in one.\"(light-gray, italic)
+  | | (:embarassed)\"Are they going to throw up?!... I need to move.\"(light-gray, italic) (:normal)\"Oh, they swallowed it back down. Lovely.\"(light-gray, italic)
+  | | \"I'm glad that can't happen to androids.\"(light-gray, italic)
   |?
   | ~ player
-  | | (:embarassed)\"I don't have enough scrap for that. Now the barkeep's scowling at me too.\"(light-gray, italic)
+  | | (:embarassed)\"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has.\"(light-gray, italic)
+- (Buy Alex a soft drink - 20)
+  ? (<= 20 (item-count 'item:parts))
+  | ! eval (retrieve 'item:parts 20)
+  | ~ alex
+  | | (:unhappy)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
+  | ~ player
+  | | \"Oh, they're drinking it anyway.\"(light-gray, italic)
+  |?
+  | ~ player
+  | | (:embarassed)\"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has.\"(light-gray, italic)
 - (Leave them be)
 ~ player
-| \"Alex looks me up and down, though seems to lose focus for a moment. They squint, and settle on me again. They seem surprised I'm still here.\"(light-gray, italic)
+| \"Whoa, Alex nearly fell over. I'm not sure they can see straight. Ah, now they're looking at me again.\"(light-gray, italic)
 ~ alex
 | You're a stenacious one, aren't ya? <-Hic->.
 ~ player

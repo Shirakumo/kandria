@@ -96,14 +96,13 @@
 | The least I can do is help keep you in tip-top condition.
 | I've heard about androids - you're different to those servos. You've a lot more going on up here, that's for sure.
 ~ player
-| \"Sahil taps his fingers on his temple.\"(light-gray, italic)
+| \"He's tapping his fingers on his temple. Yes, the crystalline matrix is quite sophisticated\"(light-gray, italic) (:embarassed)\"- when it's not corrupting your memories.\"(light-gray, italic)
 ~ trader
 | Though I hear there are some similarities under the hood. No offence.
 | Here, I can assemble some useful bits and pieces into a handy repair pack for you.
 ~ player
-| \"He turns to the stacks of shelves behind him and rummages around.\"(light-gray, italic)
-| \"Tools, screws and jury-rigged contraptions roll off and clatter to the floor.\"(light-gray, italic)
-| \"He crams old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.\"(light-gray, italic)
+| \"Why is he rummaging around on those shelves? Surely there's nothing of value up there, judging by all the crap that's clattering to the floor.\"(light-gray, italic)
+| \"Maybe I spoke too soon: he's cramming old circuit boards, clipped wires, and rolls of solder into several tins of different sizes.\"(light-gray, italic)
 ~ trader
 | (:jolly)Voila! I give you: \"The Android Health Pack\"(orange)! Custom made just for you.
 ~ player

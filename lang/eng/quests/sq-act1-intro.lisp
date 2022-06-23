@@ -92,7 +92,7 @@
   |   ~ catherine
   |   | I'm pretty sure you can. Try it out.
   |   ~ player
-  |   | (:giggle)\"She's right. I thought about it, and now a small welding torch is glowing from the index finger on my right hand.\"(light-gray, italic)
+  |   | (:giggle)\"She's right. I thought about it, and now a small welding torch is glowing from the index finger on my right hand. It tickles.\"(light-gray, italic)
   |   | (:normal)\"Better keep the intensity low, so as not to blind us.\"(light-gray, italic)
   |   ~ catherine
   |   | (:excited)See!

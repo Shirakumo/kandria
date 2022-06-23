@@ -24,7 +24,7 @@
   | What, you and I?
   | (:excited)What's the plan?
 ~ player
-| \"I lower my vocal volume so only Catherine can hear.\"(light-gray, italic)
+| \"I'd better lower my vocal volume so only Catherine can hear.\"(light-gray, italic)
 | (:embarassed)The bombs didn't detonate.
 ~ catherine
 | (:concerned)<-WHAT?!->

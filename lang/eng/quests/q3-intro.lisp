@@ -62,6 +62,6 @@
 | Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
 | Seeya.
 ~ player
-| (:giggle)\"Charming as always.\"(light-gray, italic)
+| \"Charming as always.\"(light-gray, italic)
 | \"Speaking of my FFCS: it indicates \"4 candidate locations to the east\"(orange). That should help me narrow things down.\"(light-gray, italic)
 ")))

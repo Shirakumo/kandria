@@ -97,7 +97,7 @@
 | | | I told you they wouldn't see anyone!
 | | | Toodle-oo.
 | | ~ player
-| | | (:embarassed)\"...\"(light-gray, italic)
+| | | (:embarassed)...
 | | | Shit.
 | | | (:normal)\"I need to \"contact Fi\"(orange). Though first I should \"put some distance between myself and this slippery fella\"(orange).\"(light-gray, italic)
 | | ! eval (complete task)

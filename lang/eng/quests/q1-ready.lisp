@@ -23,7 +23,7 @@
   ~ catherine
   | Alright. We're going down the ladder over there.
   ~ player
-  | \"Catherine grabs a welding torch and goggles from a shelf.\"(light-gray, italic)
+  | \"She's grabbing a welding torch and goggles from the shelf - she means business.\"(light-gray, italic)
   ~ catherine
   | Follow the \"red pipeline\"(orange) and \"stay close\"(orange) to me.
   ! eval (deactivate interaction)

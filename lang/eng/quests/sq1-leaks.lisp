@@ -39,14 +39,14 @@
     :dialogue "
 ~ player
 | \"It's \"leak 1\"(red).\"(light-gray, italic)
-| \"There's a hole in the pipe - probably caused by duress from where it bends around this corner.\"(light-gray, italic)
+| \"There's a hole in the pipe - probably caused by duress where it bends around this corner.\"(light-gray, italic)
 ? (not (var 'first-leak))
-| | \"I ignite the torch from my index finger.\"(light-gray, italic)
-| | [(var 'q1-weld-burn) (:embarassed)\"This time I enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"Once again I enable the UV filters on my cameras.\"(light-gray, italic)]
+| | \"There's the welding torch at my fingertip.\"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)\"This time I'll enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"It's camera UV-filter time again.\"(light-gray, italic)]
 | | (:normal)\"Weld complete.\"(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
-| | | \"I turn on the walkie-talkie. It's heavy for such a simple piece of technology.\"(light-gray, italic)
+| | | \"Now for the walkie-talkie.\"(light-gray, italic) (:thinking)\"How's this thing work?\"(light-gray, italic)
 |  
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
@@ -104,12 +104,12 @@
 | \"It's \"leak 2\"(red).\"(light-gray, italic)
 | \"The pipe has split. There's no subsidence, but it's close to Catherine's previous repair - I wonder if she damaged it by accident.\"(light-gray, italic)
 ? (not (var 'first-leak))
-| | \"I ignite the torch from my index finger.\"(light-gray, italic)
-| | [(var 'q1-weld-burn) (:embarassed)\"This time I enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"Once again I enable the UV filters on my cameras.\"(light-gray, italic)]
+| | \"There's the welding torch at my fingertip.\"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)\"This time I'll enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"It's camera UV-filter time again.\"(light-gray, italic)]
 | | (:normal)\"Weld complete.\"(light-gray, italic)
-| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
-| | | \"I turn on the walkie-talkie. It's heavy for such a simple piece of technology.\"(light-gray, italic)
+| | | \"Now for the walkie-talkie.\"(light-gray, italic) (:thinking)\"How's this thing work?\"(light-gray, italic)
 |  
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
@@ -165,12 +165,12 @@
 | \"It's \"leak 3\"(red).\"(light-gray, italic)
 | \"The pipe is ruptured, like an artery oozing blood.\"(light-gray, italic)
 ? (not (var 'first-leak))
-| | \"I ignite the torch from my index finger.\"(light-gray, italic)
-| | [(var 'q1-weld-burn) (:embarassed)\"This time I enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"Once again I enable the UV filters on my cameras.\"(light-gray, italic)]
+| | \"There's the welding torch at my fingertip.\"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)\"This time I'll enable the UV filters on my cameras.\"(light-gray, italic) | (:normal)\"It's camera UV-filter time again.\"(light-gray, italic)]
 | | (:normal)\"Weld complete.\"(light-gray, italic)
-| ! eval (setf (animation (unit 'leak-3)) 'normal)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
-| | | \"I turn on the walkie-talkie. It's heavy for such a simple piece of technology.\"(light-gray, italic)
+| | | \"Now for the walkie-talkie.\"(light-gray, italic) (:thinking)\"How's this thing work?\"(light-gray, italic)
 |  
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine

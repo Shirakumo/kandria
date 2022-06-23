@@ -24,9 +24,9 @@
 ~ catherine
 | Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras.
 ~ player
-| \"Catherine puts her goggles on and welds the cracked pipe with steady hands.\"(light-gray, italic)
+| \"Catherine looks menacing in her goggles, but she's got steady hands with the welding torch.\"(light-gray, italic)
 - (Enable UV filters)
-  | \"I watch the dull glow; sparks crackle and spit.\"(light-gray, italic)
+  | \"The arc dims behind my filters, as sparks crackle and spit.\"(light-gray, italic)
 - (Don't enable filters)
   | \"It's like staring into the sun. Into the centre of a cataclysm.\"(light-gray, italic)
   ! eval (setf (var 'q1-weld-burn) T)
