@@ -24,7 +24,7 @@
 "))
 
   (find-home-first
-   :title "Scout location Beta"
+   :title "Scout location 1"
    :marker '(chunk-1831 1200)
    :condition all-complete
    :on-activate T   
@@ -32,7 +32,7 @@
     :interactable new-home-1
     :dialogue "
 ~ player
-| \"It's new-home candidate site \"Beta\"(red).\"(light-gray, italic)
+| \"It's \"new-home candidate site 1\"(red).\"(light-gray, italic)
 | (:thinking)\"There could be shelter inside this building.\"(light-gray, italic)
 | (:normal)\"Scanning the interior...\"(light-gray, italic)
 | \"Dirt and sand has intruded through almost every crack.\"(light-gray, italic)
@@ -47,7 +47,7 @@
 "))
 ;; SCRATCH | Structural integrity can be described as \"may collapse at any moment\". ;; restore italics to "Structural integrity..." once back slashes don't impede
   (find-home-second
-   :title "Scout location Gamma"
+   :title "Scout location 2"
    :marker '(chunk-1841 1400)
    :condition all-complete
    :on-activate T
@@ -56,7 +56,7 @@
     :interactable new-home-2
     :dialogue "
 ~ player
-| \"It's new-home candidate site \"Gamma\"(red).\"(light-gray, italic)
+| \"It's \"new-home candidate site 2\"(red).\"(light-gray, italic)
 | (:thinking)\"This position is favourably elevated and well-concealed, offering a vantage point from which to spot intruders.\"(light-gray, italic)
 | \"The building's foundations appear strong, but the rest is a sand-blasted shell.\"(light-gray, italic)
 | \"It's a no go.\"(light-gray, italic)
@@ -70,7 +70,7 @@
 "))
 
   (find-home-third
-   :title "Scout location Delta"
+   :title "Scout location 3"
    :marker '(chunk-1847 1400)
    :condition all-complete
    :on-activate T
@@ -79,7 +79,7 @@
     :interactable new-home-3
     :dialogue "
 ~ player
-| \"It's new-home candidate site \"Delta\"(red).\"(light-gray, italic)
+| \"It's \"new-home candidate site 3\"(red).\"(light-gray, italic)
 | (:thinking)\"It's secure and concealed, and sheltered from the weather.\"(light-gray, italic)
 | (:normal)\"But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes.\"(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
@@ -92,7 +92,7 @@
 "))
 
   (find-home-fourth
-   :title "Scout location Epsilon"
+   :title "Scout location 4"
    :marker '(chunk-2030 1800)
    :condition all-complete
    :on-activate T
@@ -101,7 +101,7 @@
     :interactable new-home-4
     :dialogue "
 ~ player
-| \"It's new-home candidate site \"Epsilon\"(red).\"(light-gray, italic)
+| \"It's \"new-home candidate site 4\"(red).\"(light-gray, italic)
 | (:thinking)\"These factory cubicles would make for excellent storage, and perhaps could even be a base for Engineering.\"(light-gray, italic)
 | \"I could clear the barbed wire so children, and the elderly and infirm could get through.\"(light-gray, italic)
 ? (or (complete-p 'q2-seeds) (have 'item:seeds))
