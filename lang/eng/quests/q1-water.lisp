@@ -145,7 +145,7 @@
 - (Fight)
   ")
   (:complete (q1-fight2)
-   :title "Defeat the servo robots"
+   :title "Defeat the Servo robots"
    "~ catherine
 | Smash 'em!
   ")  
@@ -185,7 +185,7 @@
   | (:annoyed)Who's Stranger?
   | (:shocked)... This is the android, isn't it. Where's Cathy?!
 ~ player
-| She's fixing the pump. It was sabotaged by servo robots.
+| She's fixing the pump. It was sabotaged by Servo robots.
 ~ jack
 | (:annoyed)... You'd better be telling the truth.
 | (:normal)Servos, huh?... Sounds about right.
@@ -266,7 +266,7 @@
 ~ fi
 | Is it not a coincidence that you discovered it at the same time our water supply was sabotaged? Likely by the Wraw.
 ~ catherine
-| But we saw the servos - they were dismantling the pump! It wasn't her.
+| But we saw the Servos - they were dismantling the pump! It wasn't her.
 ~ jack
 | Maybe this thing can control them? Did you think of that?
 ~ catherine
@@ -375,7 +375,7 @@
 | Since those two aren't likely to be feeling generous, I'll \"give you these spare parts\"(orange).
 ! eval (store 'item:parts 200)
 | It's not much, but you can \"trade them\"(orange) for things you might want. Or you will be able to \"once Sahil gets here\"(orange).
-| (:concerned)He's overdue, which is not like him at all. Maybe those servos scared him off.
+| (:concerned)He's overdue, which is not like him at all. Maybe those Servos scared him off.
 | (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a __big__ __friendly__ __badass__ who can protect us!
 | (:normal)Well, I've got work to do.
 | Couldn't hurt to \"check in with Fi\"(orange). I'm sure there's something you could help her with, to show her you can be trusted.

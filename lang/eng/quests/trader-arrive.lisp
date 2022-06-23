@@ -84,17 +84,17 @@
 - What do you sell?
   ~ trader
   | What doesn't old Sahil sell!
-  | Listen: Catherine told me how you helped her out down here - kicked some servo ass by the sounds of things.
+  | Listen: Catherine told me how you helped her out down here - kicked some Servo ass by the sounds of things.
 - What do I need?
   ~ trader
   | I don't know. What kind of work are you doing?
-  | Catherine said you helped her out down here - kicked some servo ass by the sounds of things.
+  | Catherine said you helped her out down here - kicked some Servo ass by the sounds of things.
 - I think I can manage on my own.
   ~ trader
-  | Nonsense! You helped Catherine out - kicked some servo ass by the sounds of things.
+  | Nonsense! You helped Catherine out - kicked some Servo ass by the sounds of things.
 ~ trader
 | The least I can do is help keep you in tip-top condition.
-| I've heard about androids - you're different to those servos. You've a lot more going on up here, that's for sure.
+| I've heard about androids - you're different to those Servos. You've a lot more going on up here, that's for sure.
 ~ player
 | \"He's tapping his fingers on his temple. Yes, the crystalline matrix is quite sophisticated\"(light-gray, italic) (:embarassed)\"- when it's not corrupting your memories.\"(light-gray, italic)
 ~ trader
@@ -142,7 +142,7 @@
 | ? (< 80  (health player))
 | | | (:jolly)[? You look well, {(nametag player)}! | And how robust you're looking! | I don't think I've seen you looking better.]
 | |? (< 50  (health player))
-| | | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering servos, haven't you? I can tell.]
+| | | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering Servos, haven't you?]
 | |?
 | | | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
   
@@ -165,7 +165,7 @@
 |   < talk
 | - Catherine said you were later than expected.
 |   ~ trader
-|   | Yeah, those damn servos prowling about.
+|   | Yeah, those damn Servos prowling about.
 |   | Don't get me wrong, I can handle myself. But it's not easy when you pull your own caravan.
 |   | I used to have an ox, believe it or not. Ha, an ox, in this hellhole! It's hard to imagine.
 |   | Didn't last long after the wolves got at her throat though. Poor Celina.

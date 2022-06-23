@@ -312,7 +312,7 @@
    :repeatable T
    "
 ~ player
-| \"It's fortunate they lit these tunnels with lanterns - the charge is more than sufficient for my boost.\"(light-gray, italic)
+| \"It's fortunate they lit these tunnels with lanterns - the charge is more than sufficient to power my boost.\"(light-gray, italic)
 ")
 
 ;; another old Semi factory space
@@ -934,7 +934,7 @@
 ;; didnae = didn't (Scottish)
 ;; ken = know (Scottish)
    
-;; Islay (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
+;; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
 ;; No longer used in the demo, since Islay has immediate dialogue after innis initial convo, and then trader options all the time
 (define-default-interactions islay
   (demo-end-prep
@@ -944,7 +944,7 @@
   (T
   "| I'm sorry, I'm busy."))
   
-;; alex - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka
+;; alex, non binary - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka; speaks London multicultural English
 ;; TODO don't have the fallback of "hic" be possible once they've left the Semi bar at the start of act 3 (q7), as they're meant to have sobered up by then
 (define-default-interactions alex
   (q14-envoy
@@ -954,7 +954,7 @@
   (T
   "| (:angry)<-Hic->. Go away."))
 
-;; can only appear in the demo
+;; Sahil, trader, male, Arabic code switching (used in demo and main game)
 (define-default-interactions trader
   (T
   "| Sorry, habibti. I'm closed for business while I fix my caravan."))
@@ -1016,7 +1016,7 @@
   (T
   "| Keep going."))
 
-;; same for each engineer
+;; Semi Sisters engineers, a variety of genders represented here
 ;; TODO more efficient way to structure this?
 (define-default-interactions semi-engineer-1
   (T
@@ -1038,7 +1038,7 @@
   (T
    "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
 
-;; same for each soldier
+;; Wraw soldiers and personal bodyguards of Zelah - a variety of genders represented here
 ;; TODO more efficient way to structure this?
 (define-default-interactions soldier-1
   (q14-envoy

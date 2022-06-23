@@ -60,7 +60,7 @@
   | I do. Frequently. Innis has her qualities. Diplomacy isn't one of them.
 - Diplomacy does not compute.
   ~ islay
-  | Come now, you're no mere servo. I know you understand.
+  | Come now, you're no mere Servo. I know you understand.
 ~ islay
 | I can sweeten the deal too.
 | I suppose I'm what you'd call the chief engineer around here. Just like Jack is for the Noka.

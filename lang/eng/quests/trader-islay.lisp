@@ -31,7 +31,7 @@
 |   ~ islay
 |   | You think you might have unwittingly betrayed the Noka.
 |   | We know a lot about you - but no, we can't read your black box. No one can any more. (:unhappy)I'm sorry.
-|   | (:normal)I saw what happened with the servo robots - (:nervous)whether they acted independently, or were being controlled, it's hard to say.
+|   | (:normal)I saw what happened with the Servos in the pump room - (:nervous)whether they acted independently, or were being controlled, it's hard to say.
 |   | An android could certainly do that though.
 |   < talk
 | - What was it like before the Calamity?
