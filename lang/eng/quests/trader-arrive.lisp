@@ -170,6 +170,33 @@
 |   | I used to have an ox, believe it or not. Ha, an ox, in this hellhole! It's hard to imagine.
 |   | Didn't last long after the wolves got at her throat though. Poor Celina.
 |   < talk
+| - Do you know how to examine me?
+|   ~ trader
+|   | Ah... examine you?
+|   | (:jolly)Oh, examine you!
+|   | Someone given you a warm welcome, have they?
+|   ~ player
+|   - Jack and Fi.
+|     ~ trader
+|     | Oh really? I expected nothing less from Jack. Fi I'm surprised about.
+|     | Mind you, she has a lot of alqarf on her plate. Give her some time.
+|   - Everyone.
+|     ~ trader
+|     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
+|     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
+|   - Everyone except you and Catherine.
+|     ~ trader
+|     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
+|     | I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
+|     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
+|   - Let's talk about something else.
+|     < talk
+|   ~ trader
+|   | Yes... trust. It was always a common problem with androids.
+|   | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
+|   | I can fix superficial damage, but I'm no engineer. Let alone a software one.
+|   | Sorry, habibti. It looks like you'll have to change their minds the old-fashioned way.
+|   < talk
 | - That'll do.
 |   < leave
 |? (and (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex)) (not (complete-p 'q7-my-name)))
@@ -201,33 +228,6 @@
 |   | (:normal)I remember a presentation from the head of Semi - don't remember his name - unveiling new models of android, just like you.
 |   | The sisters used to work on the production line, in the factories down here. Conditions were terrible by all accounts.
 |   | I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
-|   < talk
-| - Do you know how to examine me?
-|   ~ trader
-|   | Ah... examine you?
-|   | (:jolly)Oh, examine you!
-|   | Had a warm welcome, have you? Someone don't trust you?
-|   ~ player
-|   - Jack and Fi.
-|     ~ trader
-|     | Oh really? I expected nothing less from Jack. Fi I'm surprised about.
-|     | Mind you, she has a lot of alqarf on her plate. Give her some time.
-|   - Everyone.
-|     ~ trader
-|     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
-|   - Everyone except you and Catherine.
-|     ~ trader
-|     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|     | I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
-|     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
-|   - Let's talk about something else.
-|     < talk
-|   ~ trader
-|   | Yes... trust. It was always a common problem with androids.
-|   | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
-|   | I can fix superficial damage, but I'm no engineer. Let alone a software one.
-|   | Sorry, habibti. It looks like you'll have to change their minds the old-fashioned way.
 |   < talk
 | - That'll do.
 |   < leave
