@@ -3,7 +3,7 @@
 (defclass map-element (alloy:renderable alloy:focus-element alloy:layout-element)
   ((offset :initform (vec 0 0) :accessor offset)
    (state :initform NIL :accessor state)
-   (zoom :initform 0.125 :accessor zoom)))
+   (zoom :initform (/ 0.125 (alloy:resolution-scale (unit 'ui-pass T))) :accessor zoom)))
 
 (animation:define-animation (flash-marker :loop T)
   0 ((setf simple:pattern) colors:gold)
