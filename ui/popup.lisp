@@ -22,7 +22,14 @@
    :pattern (if alloy:focus colors:white colors:black)
    :size (alloy:un 15))
   (:background
-   :pattern (if alloy:focus colors:black (colored:color 0.9 0.9 0.9))))
+   :pattern (if alloy:focus colors:black (colored:color 0.9 0.9 0.9))
+   :bounds (if alloy:focus (alloy:margins -5) (alloy:margins)))
+  (border
+   :hidden-p T))
+
+(presentations:define-animated-shapes popup-button
+  (:background (simple:pattern :duration 0.2)
+               (simple:bounds :duration 0.2)))
 
 (defclass popup-label (label)
   ())
