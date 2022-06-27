@@ -384,7 +384,7 @@ item:palette-wayneright/description "Piano skills not included."
 item:palette-mountain "Mountain"
 item:palette-mountain/description "This would be perfect for mountain climbing, if you just had a backpack."
 item:palette-vampire "Vampire"
-item:palette-vampire/description "Some say this outfit gives one an appetite for blood."
+item:palette-vampire/description "I hope this outfit doesn't give you an appetite for blood."
 item:palette-trek "Trek"
 item:palette-trek/description "Ideal for space adventures."
 item:palette-blingee "Blingee"
@@ -529,7 +529,7 @@ fish:jellyfish "Jellyfish"
 fish:jellyfish/description "It's an alien. It has to be.
 Can be sold for scrap."
 fish:squid "Squid"
-fish:squid/description "Can squirt ink and change colour. Some say they'll take over the world one day.
+fish:squid/description "Can squirt ink and change colour. People used to say they'd take over the world one day.
 Can be sold for scrap."
 fish:fishing-rod "Fishing Rod"
 fish:fishing-rod/description "Not as cool as my own. I wonder what happened to the fisherman.
@@ -569,7 +569,7 @@ fish:seahorse "Seahorse"
 fish:seahorse/description "I wonder where that name came from. It doesn't resemble a horse in the slightest!
 Can be sold for scrap."
 fish:trilobite "Trilobite"
-fish:trilobite/description "It looks like a fossilised marine beetle.
+fish:trilobite/description "It looks like a fossilised beetle.
 Can be sold for scrap."
 fish:rubber-duck "Rubber Duck"
 fish:rubber-duck/description "I'm sure this trusty friend will help me figure out all sorts of issues!
