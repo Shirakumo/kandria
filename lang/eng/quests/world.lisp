@@ -112,13 +112,12 @@
 ")
 
   ;; Engineering workshop
-  ;; TODO remove demo checks when no longer needed
   (:interaction engineering-shelves
    :interactable lore-engineering
    :repeatable T
    "
 ~ player
-? (or (complete-p 'q0-find-jack) (active-p 'demo-start) (complete-p 'demo-start))
+? (complete-p 'q0-find-jack)
 | | \"Engineering. This is where Jack and Catherine work.\"(light-gray, italic)
 |?
 | | \"It's some sort of workshop. The technology is crude - what do they build here, tin openers?\"(light-gray, italic)
@@ -126,13 +125,12 @@
 
   ;; Jack's workbench in the engineering workshop; "work out" = exercise/gym
   ;; "who come to think of it has a stare that could fry circuits." - this is before the player has met Jack, so we can imagine he's glaring at them
-  ;; TODO remove demo checks when no longer needed
   (:interaction engineering-bench
    :interactable lore-eng-bench
    :repeatable T
    "
 ~ player
-? (or (complete-p 'q0-find-jack) (active-p 'demo-start) (complete-p 'demo-start))
+? (complete-p 'q0-find-jack)
 | | \"Jack's workbench. I can smell body odour - does he work here, or work out?\"(light-gray, italic)
 |?
 | | \"It's a workbench. Perhaps it belongs to this man - who come to think of it looks like he wants to kill me.\"(light-gray, italic)
@@ -909,10 +907,6 @@
 
 ;; NPC FALLBACK DIALOGUE
 
-;; TODO flesh these out. Currently only done for the KS demo quests, with only temporary (T) complete fallback dialogue
-;; Written to have minor arcs, should the player talk to them at the start/during, and the end of the demo quests. Generally based on how they regard the android early in the main story.
-;; 3-5 alts each
-
 ;; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
 (define-default-interactions innis
   (q14-envoy
@@ -935,12 +929,7 @@
 ;; ken = know (Scottish)
    
 ;; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
-;; No longer used in the demo, since Islay has immediate dialogue after innis initial convo, and then trader options all the time
 (define-default-interactions islay
-  (demo-end-prep
-   "| [? I knew you'd come through for us. | If only people were as reliable as androids. | I'd love to hear your story - where you've been all these years. | Tell your friends we're sorry about the water. | I'll make sure Innis doesn't turn the water off again.]")
-  (demo-start
-   "| [? Mind how you go, {(nametag player)}. | You're a rare specimen indeed. | I never thought I'd see another working android. | You scratch our back, we'll do the rest.]")
   (T
   "| I'm sorry, I'm busy."))
   
@@ -967,10 +956,6 @@
    "| Look what the cat dragged in.")
   (q11a-bomb-recipe
    "| (:annoyed)Innis is a real bitch, don't ya think?")
-  (demo-end-prep
-   "| [? The water's back on. Don't tell me that was you? | That was a close one. Don't think I ever been so thirsty. | Maybe you're alright after all. | I'm still keeping an eye on you, mind.]")
-  (demo-start
-   "| (:annoyed)[? I'm watching you, android. | Don't you have work to do? | Be seein' ya. | I'm thirsty, hurry it up! | What's the matter? You afraid?]")
   (T
   "| What?"))
 
@@ -988,10 +973,6 @@
   "| Konnichiwa.")
   (q4-intro
   "| Any news on Alex? I still need them back.")
-  (demo-end-prep
-   "| (:happy)[? You did it! But how did you do it? | People rarely return from the Semi Sisters. Yet here you are. | I knew I could trust you. | I'm so glad you're still intact. | Now our crops might stand a chance.]")
-  (demo-start
-   "| [? Please hurry, {(nametag player)}. | Our survival depends on you. | You are earning my trust. Please, continue to do so. | You could be a hunter, and more besides.]")
   (T
   "| Konnichiwa."))
    
@@ -1003,10 +984,6 @@
    "| (:concerned)You don't belong to Zelah. You don't belong to anyone but yourself.")
   (q13-planting-bomb
    "| He doesn't look so tough. (:excited)I could take him.")
-  (demo-end-prep
-   "| (:excited)[? I never doubted you! | You're my hero, {(nametag player)}! | I'm gonna take a bath! Well, once everyone's had their fill. | I won't take water for granted __EVER__ again.]")
-  (demo-start
-   "| (:concerned)[? The water's never been off this long. | I believe in you, {(nametag player)}. | It's just another adventure, right? | Is this the end?]")
   (T
   "| You okay?"))
   
