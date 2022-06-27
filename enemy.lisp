@@ -47,8 +47,6 @@
 
 (defmethod idleable-p ((dummy dummy)) NIL)
 
-(defmethod (setf health) (value (dummy dummy)) value)
-
 (define-shader-entity sawblade (enemy solid immovable creatable)
   ((bsize :initform (vec 16 16)))
   (:default-initargs
