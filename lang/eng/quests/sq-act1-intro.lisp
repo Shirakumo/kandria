@@ -13,11 +13,12 @@
    :title "Talk to Catherine in Engineering"
    :marker '(catherine 500)
    :invariant (not (complete-p 'q10-wraw))
-   :condition all-complete
+   :condition NIL
    :on-activate T
    (:interaction talk-catherine
     :title "Hi Catherine."
     :interactable catherine
+    :repeatable T
     :dialogue "
 ~ catherine
 | Hey, Stranger. How are you?
@@ -40,14 +41,18 @@
   | Anyone that's different, they've already made up their minds about them.
   | (:normal)You just keep being you. I'll talk to them, I promise.
   < continue
+- I need to go.
+  < leave
 
 # continue
 ~ player
-| Can I help out?
+- Can I help out?
+- I need to go.
+  < leave
 ! label choices
 ~ catherine
 | You are strangely perceptive... (:excited)Man I'd love to understand how your core works.
-| (:normal)The \"water pressure is off again\"(orange), so you could help with that.
+| (:normal)The \"water pressure is off again\"(orange), so you could \"check the pipeline\"(orange).
 ? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
 | | (:normal)I was going to say we need some \"mushrooms, what with food stocks running out\"(orange).
 | | (:excited)But is it me, or are those \"mushrooms you're carrying\"(orange)?
@@ -158,14 +163,14 @@
 ~ catherine
 | You can handle yourself, but check in if you feel the need. You want to \"take a walkie, or just use your FFCS\"(orange)? - It will work with our radios.
 ~ player
+- My FFCS will suffice.
+  ~ catherine
+  | You got it.
 - I'll take a walkie.
   ~ catherine
   | You got it - take this one.
   ! eval (store 'item:walkie-talkie 1)
   ! eval (setf (var 'take-walkie) T)
-- My FFCS will suffice.
-  ~ catherine
-  | You got it.
 ~ catherine
 | \"Let me know if you need more info\"(orange) - and \"if you want to start a time trial\"(orange).
 | (:excited)Good luck!
@@ -174,6 +179,11 @@
 | ! eval (activate 'sq2-mushrooms)
   
 ! eval (activate 'sq3-race)
+! eval (complete task)
+! eval (reset* interaction)
+# leave
+~ catherine
+| Hey, no worries! Let's talk again soon - I've got a couple jobs you might like.
 ")))
 ;; "We get birds and fish when we can too" meaning they hunt them themselves now they can, living on the surface; but they also trade them with sahil from time to time
 ;; tasks get added to journal in one fell swoop (player did ask) - but they're sidequests, so they don't have to do them
