@@ -187,7 +187,16 @@
 ~ player
 | She's fixing the pump. It was sabotaged by Servo robots.
 ~ jack
-| (:annoyed)... You'd better be telling the truth.
+| (:shocked)<-Servos->?!... Where are they now?
+~ player
+- I took care of them.
+- In tiny pieces on the floor.
+- You don't have to worry about them.
+  ~ jack
+  | (:annoyed)Don't I? Let me guess: you trashed them.
+~ jack
+| (:annoyed)...
+| You'd better be telling the truth.
 | (:normal)Servos, huh?... Sounds about right.
 ~ jack
 | Look, \"tell Cathy to get her ass back here\"(orange) on the double.
@@ -210,7 +219,7 @@
   ~ catherine
   | But what?
   ~ player
-  | But you should go back ASAP, and I should be there too - Fi's on the warpath.
+  | But you should get back ASAP, and I should be there too - Fi's on the warpath.
 - He wasn't happy to hear me.
   ~ catherine
   | (:concerned)I can believe it. (:normal)Did he say anything else?
@@ -266,7 +275,7 @@
 ~ fi
 | Is it not a coincidence that you discovered it at the same time our water supply was sabotaged? Likely by the Wraw.
 ~ catherine
-| But we saw the Servos - they were dismantling the pump! It wasn't her.
+| But we saw the Servos, they were dismantling the pump. It wasn't her - she smashed them into little pieces!
 ~ jack
 | Maybe this thing can control them? Did you think of that?
 ~ catherine
