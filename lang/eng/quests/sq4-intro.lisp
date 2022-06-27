@@ -73,7 +73,8 @@
 | \"I'll be waiting for you.\"(orange)
 | Don't get killed.
 ! eval (activate 'sq4-analyse-robots 'sq4-boss)
-! eval (deactivate interaction)
+! eval (complete task)
+! eval (reset* interaction)
 # leave
 ~ semi-roboticist
 | Suit yourself. But you're missing out - and I'm not just talking about scrap parts.
