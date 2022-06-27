@@ -12,7 +12,8 @@
    (nametag-element :accessor nametag-element)))
 
 (defmethod initialize-instance :after ((npc npc) &key)
-  (setf (nametag-element npc) (make-instance 'nametag-element :value npc)))
+  (unless (slot-boundp npc 'nametag-element)
+    (setf (nametag-element npc) (make-instance 'nametag-element :value npc))))
 
 (defmethod print-object ((npc npc) stream)
   (print-unreadable-object (npc stream :type T)
@@ -88,7 +89,7 @@
        (setf (vy (bsize npc)) 15)))))
 
 (defmethod (setf ai-state) :after (state (npc npc))
-  (unless (eql state :normal)
+  (when (and (nametag-element npc) (not (eql state :normal)))
     (hide (nametag-element npc))))
 
 (defmethod handle :before ((ev tick) (npc npc))
@@ -163,7 +164,8 @@
       (:normal
        (when (path npc)
          (execute-path npc ev))
-       (when (setting :gameplay :display-hud)
+       (when (and (setting :gameplay :display-hud)
+                  (nametag-element npc))
          (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt min-distance 2))
              (show (nametag-element npc))
              (hide (nametag-element npc)))))
@@ -393,7 +395,8 @@
             (incf direction (* (expt (abs dist) -1.1) (float-sign dist)))))))))
 
 (defmethod handle-ai-states ((npc roaming-npc) ev)
-  (when (setting :gameplay :display-hud)
+  (when (and (setting :gameplay :display-hud)
+             (nametag-element npc))
     (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt 64 2))
         (show (nametag-element npc))
         (hide (nametag-element npc))))
@@ -623,46 +626,3 @@
   (villager-hunter 0.75)
   (semi-engineer 0.2)
   (cerebat-trader 1.0))
-
-(define-shader-entity pet (animatable ephemeral interactable)
-  ())
-
-(defmethod handle :before ((ev tick) (npc pet))
-  (let ((vel (velocity npc))
-        (dt (dt ev)))
-    (case (state npc)
-      ((:dying :animated :stunned)
-       (handle-animation-states npc ev))
-      (T
-       (nv+ vel (v* (gravity (medium npc)) dt))))
-    (nv+ (frame-velocity npc) vel)))
-
-(defmethod handle :after ((ev tick) (npc pet))
-  (case (state npc)
-    (:normal
-     (let ((player (unit 'player T)))
-       (case (name (animation npc))
-         (sleep
-          (when (< (vsqrdistance (location player) (location npc))
-                   (expt (* 3 +tile-size+) 2))
-            (setf (animation npc) 'wake)))
-         (pet)
-         (wake
-          (when (< (expt (* 4 +tile-size+) 2)
-                   (vsqrdistance (location player) (location npc)))
-            (setf (animation npc) 'lay))))))))
-
-(defmethod interactable-p ((npc pet))
-  (eql 'wake (name (animation npc))))
-
-(defmethod interact ((npc pet) (player player))
-  (setf (animation npc) 'pet)
-  (start-animation 'pet player))
-
-(define-shader-entity tame-wolf (pet creatable)
-  ()
-  (:default-initargs
-   :sprite-data (asset 'kandria 'wolf)))
-
-;; KLUDGE: add proper idle at some point.
-(defmethod idleable-p ((npc tame-wolf)) NIL)

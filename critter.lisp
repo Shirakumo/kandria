@@ -111,3 +111,41 @@
   (translate-by 0 -6 0))
 
 (defmethod interactable-p ((bat bat)) NIL)
+
+(define-shader-entity pet (roaming-npc)
+  ((profile-sprite-data :initform (asset 'kandria 'player-profile))
+   (nametag :initform (@ player-nametag))
+   (timer :initform 0.0 :accessor timer)))
+
+(defmethod interactable-p ((npc pet))
+  (eql 'wake (name (animation npc))))
+
+(defmethod interact ((npc pet) (player player))
+  (setf (animation npc) 'pet)
+  (start-animation 'pet player))
+
+(defmethod description ((pet pet))
+  (language-string 'critter))
+
+(define-shader-entity tame-wolf (paletted-entity pet creatable)
+  ((palette :initform (// 'kandria 'wolf-palette))
+   (palette-index :initform 3)
+   (nametag-element :initform NIL))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'wolf)))
+
+;; KLUDGE: add proper idle at some point.
+(defmethod base-health ((npc tame-wolf)) 1000)
+
+(defmethod interactable-p ((npc pet))
+  (or (eql 'stand (name (animation npc)))
+      (eql 'sit (name (animation npc)))))
+
+(defmethod idleable-p ((npc pet))
+  (find (name (animation npc)) '(stand walk run)))
+
+(defmethod interact :around ((npc tame-wolf) (player player))
+  (start-animation 'pet npc)
+  (setf (vx (location player)) (vx (location npc)))
+  (setf (direction player) (direction npc))
+  (start-animation 'pet player))
