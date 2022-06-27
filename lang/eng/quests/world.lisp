@@ -995,23 +995,34 @@
 
 ;; Semi Sisters engineers, a variety of genders represented here
 ;; TODO more efficient way to structure this?
+;; top ones are when they're on the surface, before the battle
 (define-default-interactions semi-engineer-1
+  (q11a-bomb-recipe
+   "| [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]")
   (T
    "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
 
 (define-default-interactions semi-engineer-2
+  (q11a-bomb-recipe
+   "| [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]")
   (T
    "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
    
 (define-default-interactions semi-engineer-3
+  (q11a-bomb-recipe
+   "| [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]")
   (T
    "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
 
 (define-default-interactions semi-engineer-4
+  (q11a-bomb-recipe
+   "| [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]")
   (T
    "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
    
 (define-default-interactions semi-engineer-5
+  (q11a-bomb-recipe
+   "| [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]")
   (T
    "| [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]"))
 
