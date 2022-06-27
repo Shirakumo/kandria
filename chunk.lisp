@@ -178,7 +178,8 @@
   (setf (normal layer) (resource data 'normal)))
 
 (defmethod render ((layer layer) (program shader-program))
-  (when (in-view-p (location layer) (bsize layer))
+  (when (and (in-view-p (location layer) (bsize layer))
+             (< 0.0 (visibility layer)))
     (setf (uniform program "visibility") (visibility layer))
     (setf (uniform program "map_size") (size layer))
     (setf (uniform program "projection_matrix") *projection-matrix*)

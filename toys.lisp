@@ -513,6 +513,48 @@
   (when (< 0.0 (visibility blocker) 1.0)
     (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.01)))))
 
+(define-class-shader (blocker :fragment-shader)
+  "uniform float visibility = 1.0;
+in vec2 world_pos;
+
+float smooth_size = 0.125;
+
+vec3 hash3(vec2 p){
+  vec3 q = vec3(dot(p,vec2(127.1,311.7)),
+                dot(p,vec2(269.5,183.3)),
+                dot(p,vec2(419.2,371.9)));
+  return fract(sin(q)*43758.5453);
+}
+
+float voronoise(in vec2 p){
+  float k = 1.0+63.0*pow(0.5,6.0);
+
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+
+  vec2 a = vec2(0.0,0.0);
+  for(int y=-2; y<=2; y++)
+  for(int x=-2; x<=2; x++){
+    vec2  g = vec2( x, y );
+    vec3  o = hash3( i + g );
+    vec2  d = g - f + o.xy;
+    float w = pow( 1.0-smoothstep(0.0,1.414,length(d)), k );
+    a += vec2(o.z*w,w);
+  }
+  return a.x/a.y;
+}
+
+void main(){
+  float inv_visibility = 1-visibility;
+  inv_visibility *= inv_visibility;
+  vec2 off = world_pos*0.2;
+  off.y += inv_visibility*50;
+  float noise = voronoise(off);
+  noise = smoothstep(inv_visibility, inv_visibility+smooth_size, noise*(1-smooth_size)+smooth_size);
+  color.a /= visibility;
+  color.a *= noise;
+}")
+
 (define-shader-entity chest (interactable-animated-sprite ephemeral creatable)
   ((name :initform (generate-name "CHEST"))
    (bsize :initform (vec 8 8))
