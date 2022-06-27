@@ -1064,6 +1064,16 @@
   (T
    "| [? Huh? | Yeah? | What?]"))
 
+;; Semi Sisters roboticist, female
+;; top one is when they're on the surface, before the battle
+(define-default-interactions semi-robiticist
+  (q11a-bomb-recipe
+   "| We could really use some Servos on our side, right about now.")
+  (sq4-analyse-robots
+   "| I'm getting closer to understanding how Servos think. How //you//think too.")
+  (T
+  "| Can't talk now, sorry. Science waits for no one. Maybe later?"))
+
 (define-default-interactions npc
   (T
    "| [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat.]"))

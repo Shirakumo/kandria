@@ -107,6 +107,8 @@
     (setf (direction 'jack) -1)
     (setf (location 'catherine) 'eng-bombs)
     (setf (direction 'catherine) 1)
+    (setf (location 'semi-roboticist) 'check-supplies)
+    (setf (direction 'semi-roboticist) -1)
     ))
 
   ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb. Not adding a marker, since it would trigger a distracting quest arrow while collecting bomb parts

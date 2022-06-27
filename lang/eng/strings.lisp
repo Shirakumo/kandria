@@ -14,6 +14,7 @@ innis-nametag "Innis" ;; female
 islay-nametag "Islay" ;; female
 alex-nametag "Alex" ;; non-binary
 semi-engineer-nametag "Engineer" ;; gender unknown
+semi-roboticist-nametag "Roboticist" ;; female
 villager-nametag "Villager" ;; gender unknown
 cerebat-trader-stranger "Stranger" ;; male trader
 unknown-nametag "???" ;; gender unknown

@@ -559,6 +559,13 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'sahil)))
 
+(define-shader-entity semi-roboticist (npc creatable)
+  ((name :initform 'semi-roboticist)
+   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
+   (nametag :initform (@ semi-roboticist-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'villager-engineer)))
+
 (define-shader-entity semi-engineer (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
