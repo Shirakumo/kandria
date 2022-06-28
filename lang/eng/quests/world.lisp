@@ -1054,7 +1054,7 @@
 
 ;; Semi Sisters roboticist, female
 ;; top one is when they're on the surface, before the battle
-(define-default-interactions semi-robiticist
+(define-default-interactions semi-roboticist
   (q11a-bomb-recipe
    "| We could really use some Servos on our side, right about now.")
   (sq4-analyse-robots
