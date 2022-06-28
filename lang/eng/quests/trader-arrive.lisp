@@ -139,10 +139,10 @@
 | | I'll still trade though, if you want.
 |?
 | | (:jolly)Assalam alaikum! Let's talk.
-| ? (< 80  (health player))
+| ? (< 80 (health-percentage player))
 | | | (:jolly)[? You look well, {(nametag player)}! | And how robust you're looking! | I don't think I've seen you looking better.]
-| |? (< 50  (health player))
-| | | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering Servos, haven't you?]
+| |? (< 50 (health-percentage player))
+| | | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering Servos again, haven't you?]
 | |?
 | | | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
   
