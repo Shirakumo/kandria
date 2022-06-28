@@ -272,10 +272,15 @@ Possible sub-commands:
 
 (define-setting-observer video-misc :display (value)
   (when *context*
-    (destructuring-bind (&key vsync ui-scale gamma &allow-other-keys) value
+    (destructuring-bind (&key vsync target-framerate ui-scale gamma &allow-other-keys) value
+      (setf (vsync *context*) vsync)
+      (setf (target-frame-time +main+) (typecase target-framerate
+                                         (real (/ target-framerate))
+                                         (T 0.0)))
+      (with-eval-in-render-loop (+world+)
+        (invoke-restart 'trial::reset-render-loop))
       (when (and gamma (unit 'render (scene +main+)))
         (setf (monitor-gamma (unit 'render (scene +main+))) gamma)
-        (setf (vsync *context*) vsync)
         (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))))
 
 (define-setting-observer game-speed :gameplay :game-speed (value)

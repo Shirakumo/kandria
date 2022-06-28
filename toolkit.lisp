@@ -16,6 +16,7 @@
                  :display (:resolution (T T)
                            :fullscreen T
                            :vsync T
+                           :target-framerate :none
                            :gamma 2.2
                            :ui-scale 1.0
                            :font "PromptFont"
