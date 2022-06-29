@@ -412,7 +412,7 @@
   ((bsize :initform (vec 7 16))
    (timer :initform 0.0 :accessor timer)
    (palette :initform (// 'kandria 'rogue-palette))
-   (palette-index :initform 0))
+   (palette-index :initform (random 4)))
   (:default-initargs
    :sprite-data (asset 'kandria 'rogue)))
 
@@ -481,6 +481,12 @@
   (item:heavy-spring 1)
   (item:simple-circuit 1)
   (item:cable 1))
+
+(define-shader-entity wraw (rogue)
+  ((palette :initform (// 'kandria 'wraw-npc-palette))
+   (palette-index :initform (random 4)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'wraw-npc)))
 
 (define-shader-entity mech (ground-enemy major-enemy solid immovable creatable)
   ((bsize :initform (vec 20 42))
