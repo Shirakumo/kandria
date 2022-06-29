@@ -109,6 +109,14 @@
     (setf (direction 'catherine) 1)
     (setf (location 'semi-roboticist) 'check-supplies)
     (setf (direction 'semi-roboticist) -1)
+    (setf (location 'semi-barkeep) 'barkeep-surface)
+    (setf (direction 'semi-barkeep) 1)
+    (setf (location 'semi-patron-1) 'patron-1-surface)
+    (setf (direction 'semi-patron-1) -1)
+    (setf (location 'semi-patron-2) 'patron-2-surface)
+    (setf (direction 'semi-patron-2) -1)
+    (setf (location 'semi-barkeep-2) 'barkeep-2-surface)
+    (setf (direction 'semi-barkeep-2) -1)
     ))
 
   ;; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb. Not adding a marker, since it would trigger a distracting quest arrow while collecting bomb parts

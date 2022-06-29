@@ -244,7 +244,7 @@ TODO: IDEA: while find-alex-semis is active, enable NPCs in the Semis area to be
 ! eval (setf (var 'android-soft) T)
 ")
 
-
+;; the barkeep in this scene is female
    (:interaction alex-meet
     :interactable alex
     :dialogue "

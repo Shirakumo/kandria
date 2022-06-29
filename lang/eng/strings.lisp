@@ -15,6 +15,10 @@ islay-nametag "Islay" ;; female
 alex-nametag "Alex" ;; non-binary
 semi-engineer-nametag "Engineer" ;; gender unknown
 semi-roboticist-nametag "Roboticist" ;; female
+semi-barkeep-nametag "Barkeep" ;; non-binary
+semi-barkeep-2-nametag "Barkeep" ;; female
+semi-patron-1-nametag "Sober Patron" ;; female
+semi-patron-2-nametag "Drunk Patron" ;; female
 villager-nametag "Villager" ;; gender unknown
 cerebat-trader-stranger "Stranger" ;; male trader
 unknown-nametag "???" ;; gender unknown
@@ -360,6 +364,8 @@ item:semi-factory-key "Semi Factory Key"
 item:semi-factory-key/description "Fi gave me this key card to access the deeper Ruins, east of Camp. \"Semi\" is written on it."
 item:can "Old Beer Can"
 item:can/description "I must return this to Catherine to complete the current race. It'll be good riddance: any odour of alcohol is long gone, but it reeks of rust."
+item:semi-genera-core "Broken Genera Core"
+item:semi-genera-core/description "I must return this to the barkeep to complete the current race. Hardly a fitting end to life for whomever this was part of."
 item:blasting-cap "Blasting Cap"
 item:blasting-cap/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It's a detonation device - not an explosive mushroom."
 item:charge-pack "Charge Pack"

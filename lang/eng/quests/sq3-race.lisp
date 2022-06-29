@@ -5,7 +5,7 @@
 
 (quest:define-quest (kandria sq3-race)
   :author "Tim White"
-  :title "Time Trials"
+  :title "Catherine's Time Trials"
   :description "Catherine and her friends want to see what I'm capable of. They've planted cans for me to find and bring back. The faster I can do it, the more parts I'll get."
   :on-activate (race-hub)
   (race-hub
@@ -246,13 +246,13 @@
 | | | It gets you \"100 scrap parts\"(orange).
 | | ! eval (store 'item:parts 100)
 | |?
-| | | (:disappointed)But it's outside bronze. I didn't know artificial muscles could get sore too.
-| | | (:normal)Don't worry, you can always try again. (:concerned)But I don't think I can give you any parts for that, sorry.
+| | | (:disappointed)But it's \"outside bronze\"(orange). I didn't know artificial muscles could get sore too.
+| | | (:normal)Don't worry, you can always try again. (:concerned)But I \"don't think I can give you any parts for that\"(orange), sorry.
   
 ~ catherine
 | (:excited)Let's do this again soon!
 ! eval (complete task)
-! eval (reset* interaction)
+! eval (clear-pending-interactions)
 ")))))
 
 
@@ -261,7 +261,7 @@
   :site race-1-site
   :site-mark chunk-1841
   :mark-size 1400
-  :title-start "The can is at... a literal high point of EASTERN civilisation, now long gone."
+  :title-start "\"The can is at... a literal high point of EASTERN civilisation, now long gone.\""
   :title-complete "(Complete Race Route 1)"
   :title-cancel "(Cancel Race Route 1)"
   :gold 60
@@ -272,7 +272,7 @@
   :site race-2-site
   :site-mark chunk-2480
   :mark-size 3000
-  :title-start "The can is... where a shallow grave marks the end of the line at Zenith Crossing Station, East."
+  :title-start "\"The can is... where a shallow grave marks the end of the line at Zenith Crossing Station, East.\""
   :title-complete "(Complete Race Route 2)"
   :title-cancel "(Cancel Race Route 2)"
   :gold 60
@@ -283,7 +283,7 @@
   :site race-3-site
   :site-mark chunk-2482
   :mark-size 1600
-  :title-start "The can is... beneath where we first ventured together, and got our feet wet."
+  :title-start "\"The can is... beneath where we first ventured together, and got our feet wet.\""
   :title-complete "(Complete Race Route 3)"
   :title-cancel "(Cancel Race Route 3)"
   :gold 105
@@ -294,7 +294,7 @@
   :site race-4-site
   :site-mark chunk-5426
   :mark-size 1600
-  :title-start "The can is... deep in the west, where we first met."
+  :title-start "\"The can is... deep in the west, where we first met.\""
   :title-complete "(Complete Race Route 4)"
   :title-cancel "(Cancel Race Route 4)"
   :gold 90
@@ -305,7 +305,7 @@
   :site race-5-site
   :site-mark chunk-2019
   :mark-size 2600
-  :title-start "The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\"."
+  :title-start "\"The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\".\""
   :title-complete "(Complete Race Route 5)"
   :title-cancel "(Cancel Race Route 5)"
   :gold 135

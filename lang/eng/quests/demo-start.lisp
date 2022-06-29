@@ -13,7 +13,7 @@
    (setf (location 'catherine) (location 'eng-cath))
    (setf (direction 'catherine) -1)
    (deactivate (unit 'tutorial-end))
-   (dolist (unit '(innis islay zelah semi-engineer-chief cerebat-trader-quest semi-roboticist))
+   (dolist (unit '(innis islay zelah semi-engineer-chief cerebat-trader-quest semi-roboticist semi-barkeep semi-patron-1 semi-patron-2))
      (setf (nametag (unit unit)) (@ unknown-nametag)))
    (setf (nametag player) (@ player-name-1))
    (setf (state (unit 'player)) :animated))

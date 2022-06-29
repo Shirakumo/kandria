@@ -1062,6 +1062,38 @@
   (T
   "| Can't talk now, sorry. Science waits for no one. Maybe later?"))
 
+;; Semi Sisters barkeep, non-binary
+;; doesn't comment post-race quest (sq5) start, since the race chat occupies them
+(define-default-interactions semi-barkeep
+  (q11a-bomb-recipe
+   "| No time for racing. No time for drinking either.")
+  (T
+  "| Who's this fancy pants?"))
+  
+(define-default-interactions semi-barkeep-2
+  (q11a-bomb-recipe
+   "| I knew you'd bring trouble down on us.")
+  (T
+  "| I don't serve your kind."))
+
+;; female Semis bar patron
+(define-default-interactions semi-patron-1
+  (q11a-bomb-recipe
+   "| We never knew how good we had it.")
+  (sq5-intro
+   "| I've high hopes for you, android.")
+  (T
+  "| You the betting sort? Maybe you could be."))
+
+;; female Semis bar patron (drunkard)
+(define-default-interactions semi-patron-2
+  (q11a-bomb-recipe
+   "| Where's the goddamn bar around here?")
+  (sq5-intro
+   "| Did you start the race yet? <-Hic->. Where am I?")
+  (T
+  "| <-Hic->. Cheers! <-Hic->."))
+
 (define-default-interactions npc
   (T
    "| [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat.]"))

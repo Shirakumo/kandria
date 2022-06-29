@@ -423,6 +423,8 @@
 (define-item (semi-factory-key quest-item) 8 0 8 8)
 (define-item (can quest-item) 0 16 8 8)
 (defmethod name ((can item:can)) 'item:can)
+(define-item (semi-genera-core quest-item) 88 24 8 8)
+(defmethod name ((semi-genera-core item:semi-genera-core)) 'item:semi-genera-core)
 (define-item (blasting-cap quest-item) 8 0 8 8)
 (define-item (charge-pack quest-item) 8 0 8 8)
 (define-item (explosive quest-item) 8 0 8 8)

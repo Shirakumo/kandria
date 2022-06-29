@@ -1,7 +1,6 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; TODO update this dialogue with chat options once been to the Semis in act 2? It seems reasonable Catherine would want to catch up (not Jack, and Fi's catchup is handled in the main questline); also the Semis mention Catherine by name...
 (quest:define-quest (kandria sq-act1-intro)
   :author "Tim White"
   :title "Talk to Catherine"
@@ -149,7 +148,7 @@
   ~ catherine
   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost-fully-functional android can do!
   | (:normal)So yeah, we've planted old-world \"beer cans around the area for you to find and return\"(orange).
-  | I'll \"record your times\"(orange) for posterity - this is anthropology! The \"faster you are, the more parts you'll get from the sweepstake\"(orange).
+  | I'll \"record your times\"(orange) for posterity - this is anthropology! The \"faster you are, the more parts you'll get\"(orange).
   | Once you've \"completed one I can tell you about the next route\"(orange). Them's the rules.
   | (:excited)Just \"tell me when you want to start\"(orange), and we'll get this show on the road.
   | (:cheer)This is sooo exciting!  

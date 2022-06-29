@@ -566,6 +566,35 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-engineer)))
 
+;; used for various sidequest NPCs, name set in the quest
+(define-shader-entity villager-male (paletted-entity npc creatable)
+  ((name :initform 'villager-male)
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (@ unknown-nametag))
+   (palette :initform (// 'kandria 'villager-male-palette))
+   (palette-index :initform 0))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'villager-male)))
+
+;; used for various sidequest NPCs, name set in the quest
+(define-shader-entity villager-female (paletted-entity npc creatable)
+  ((name :initform 'villager-female)
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (@ unknown-nametag))
+   (palette :initform (// 'kandria 'villager-female-palette))
+   (palette-index :initform 0))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'villager-female)))
+
+(define-shader-entity semi-barkeep-2 (paletted-entity npc creatable)
+  ((name :initform 'semi-barkeep-2)
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (@ semi-barkeep-2-nametag))
+   (palette :initform (// 'kandria 'villager-female-palette))
+   (palette-index :initform 0))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'villager-female)))
+
 (define-shader-entity semi-engineer (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
