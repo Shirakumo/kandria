@@ -778,6 +778,7 @@ cheat/unlock-fast-travel "Car bad, train good."
 cheat/show-solids "The third eye can see all dimensions."
 cheat/level-up "Growing up so fast"
 cheat/splits-panel "Saving frames"
+cheat/complete-quests "Oh, ok."
 ;; Misc
 load-screen-new-game "
 Initiating cold boot

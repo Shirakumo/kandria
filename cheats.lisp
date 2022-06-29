@@ -174,3 +174,7 @@
 
 (define-cheat (splits-panel |gotta go fast|)
   (toggle-panel 'splits))
+
+(define-cheat (complete-quests |i implore you to reconsider|)
+  (dolist (quest (remove-if-not #'quest:active-p (quest:known-quests (storyline +world+))))
+    (quest:complete quest)))
