@@ -53,7 +53,7 @@
    (jitter-y-p :initarg :jitter-y-p :initform T :accessor jitter-y-p :type boolean)))
 
 (defmethod initargs append ((spawner spawner))
-  '(:spawn-type :spawn-count :auto-deactivate :active-p :jitter-y-p))
+  '(:spawn-type :spawn-count :spawn-args :auto-deactivate :active-p :jitter-y-p))
 
 (defmethod (setf location) :after (location (spawner spawner))
   (let ((chunk (find-chunk spawner))
