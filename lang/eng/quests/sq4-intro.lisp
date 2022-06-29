@@ -21,7 +21,7 @@
     :repeatable T
     :dialogue "
 ~ semi-roboticist
-| Hey, you're the android!
+| Hey, android!
 | You want to help a roboticist out? It's important work: \"investigating Servo robots for sapience. And even sentience\"(orange).
 ! eval (setf (nametag (unit 'semi-roboticist)) (@ semi-roboticist-nametag))
 ~ player
@@ -66,6 +66,8 @@
   ~ semi-roboticist
   | Sometimes, although we don't have cameras in that area. There's also the small matter of... bait.
   < questions
+- I want out.
+  < leave
 - Where are the targets?
 ~ semi-roboticist
 | The \"group I'm studying\"(orange) right now are in the \"far east of our territory\"(orange). It's kinda hard to reach, but I think you'll be fine.
