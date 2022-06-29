@@ -142,4 +142,4 @@
 ;; didnae = didn't (Scottish)
 ;; dinnae = don't (Scottish)
 ;; canna = cannot (Scottish)
-;; TODO add fast travel tutorial pop-up if not already encountered the pop-up via a station
+;; player may know of trapped engineers from the barkeep races; but you're not going to just reveal that to Innis, whether you've rescued them already or not
