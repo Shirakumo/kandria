@@ -32,7 +32,7 @@
    :on-complete (task-return))
 
  (task-return
-   :title "Return to the roboticist in the Semi Sisters central block"
+   :title "Return to the roboticist in the Semi Sisters Central Block"
    :marker '(semi-roboticist 500)
    :invariant (not (complete-p 'q10-wraw))
    :condition all-complete

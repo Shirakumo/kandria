@@ -480,7 +480,7 @@
    :repeatable T
    "
 ~ player
-| \"It's a temporary engineers' camp. They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
+| \"It's a temporary \"engineers' camp\"(red). They've got food enough to be self-sufficient, at least for a while.\"(light-gray, italic)
 ")
 
 ;; the caved-in tunnel that trapped the Semi Sisters engineers. A different line plays depending on whether or not the debris has been cleared yet, and whether or not the player knows about the trapped engineers quests yet

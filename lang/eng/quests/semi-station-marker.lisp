@@ -4,7 +4,7 @@
 (quest:define-quest (kandria semi-station-marker)
   :author "Tim White"
   :title "Access the Semi Sisters Station"
-  :description "I can find the Semis train station beneath their central block."
+  :description "I can find the Semis train station beneath their Central Block."
   :on-activate (task-1)
 
   (task-1
