@@ -82,8 +82,10 @@
   (alloy:with-unit-parent prompt
     (let* ((screen-location (world-screen-pos location))
            (size (alloy:suggest-bounds (alloy:px-extent 0 0 16 16) prompt)))
-      (setf (alloy:bounds prompt) (alloy:px-extent (- (vx screen-location) (alloy:to-px (alloy:un 10)))
-                                                   (+ (vy screen-location) (alloy:pxh size))
+      (setf (alloy:bounds prompt) (alloy:px-extent (min (- (vx screen-location) (alloy:to-px (alloy:un 10)))
+                                                        (- (alloy:to-px (alloy:vw 1)) (alloy:pxw size)))
+                                                   (min (+ (vy screen-location) (alloy:pxh size))
+                                                        (- (alloy:to-px (alloy:vh 1)) (alloy:pxh size)))
                                                    (max 1 (alloy:pxw size))
                                                    (max 1 (alloy:pxh size)))))))
 
