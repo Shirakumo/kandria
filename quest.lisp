@@ -143,7 +143,7 @@
 
 (defun find-mess (name &optional chapter)
   (let ((file (merge-pathnames name
-                               (merge-pathnames "quests/a.mess" (language-dir (setting :language))))))
+                               (merge-pathnames "quests/a.spess" (language-dir (setting :language))))))
     (if chapter
         (list file chapter)
         file)))
