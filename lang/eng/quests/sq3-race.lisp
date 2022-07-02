@@ -158,29 +158,13 @@
          (:interaction speech
           :interactable ,site
           :repeatable T
-          :dialogue "
-~ player
-| \"This is the right place for the race - \"the can must be close by\"(orange).\"(light-gray, italic)
-")
+          :source ("catherine-race" "site"))
                   
          (:interaction cancel
           :title ,title-cancel
           :interactable catherine
           :repeatable T
-          :dialogue "
-~ catherine
-| \"You want to stop the race?\"(orange) I can't give you any scrap parts if we do that.
-~ player
-- No, I'll continue the race.
-  ~ catherine
-  | Sure thing (:excited)- the clock is ticking!
-- Yes, end it.
-  ! eval (hide-timer)
-  ~ catherine
-  | No worries. (:excited)Let's do this again soon.
-  ! eval (reset* task)
-  ! eval (leave 'item:can)
-"))
+          :source ("catherine-race" "cancel")))
 
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine in Engineering ASAP"
@@ -201,59 +185,12 @@
           :title ,title-cancel
           :interactable catherine
           :repeatable T
-          :dialogue "
-~ catherine
-| \"You want to stop the race?\"(orange) I can't give you any scrap parts if we do that, and I won't log your time.
-~ player
-- No, I'll continue the race.
-  ~ catherine
-  | Sure thing (:excited)- the clock is ticking!
-- Yes, end it.
-  ! eval (hide-timer)
-  ~ catherine
-  | No worries. (:excited)Let's do this again soon.
-  ! eval (reset* task)
-  ? (have 'item:can)
-  | ! eval (retrieve 'item:can T)
-")
+          :source ("catherine-race" "cancel"))
          
          (:interaction chat
           :title ,title-complete
           :interactable catherine
-          :dialogue "
-! eval (hide-timer)
-~ catherine
-| (:cheer)Stop the clock!
-| (:excited)That's the correct can alright - nice.
-! eval (retrieve 'item:can T)
-| (:normal)Your time was: \"{(format-relative-time (clock quest))}\"(orange).
-? (and pb (< pb (clock quest)))
-| | (:concerned)Ah damn, \"no improvement\"(orange) on your record of \"{(format-relative-time pb)}\"(orange) I'm afraid.
-|?
-| ? (not (null pb))
-| | | (:cheer)That's a \"new personal best\"(orange)!
-| ! eval (setf pb (clock quest))
-| ? (< pb gold)
-| | | (:cheer)How did you do that so fast? That's \"gold bracket\"(orange).
-| | | You get the top reward - \"250 scrap parts\"(orange)!
-| | ! eval (store 'item:parts 250)
-| |? (< pb silver)
-| | | (:excited)That was pretty quick! \"Silver bracket\"(orange).
-| | | It gets you \"150 scrap parts\"(orange)!
-| | ! eval (store 'item:parts 150)
-| |? (< pb bronze)
-| | | (:excited)That wasn't bad at all - \"bronze bracket\"(orange).
-| | | It gets you \"100 scrap parts\"(orange).
-| | ! eval (store 'item:parts 100)
-| |?
-| | | (:disappointed)But it's \"outside bronze\"(orange). I didn't know artificial muscles could get sore too.
-| | | (:normal)Don't worry, you can always try again. (:concerned)But I \"don't think I can give you any parts for that\"(orange), sorry.
-  
-~ catherine
-| (:excited)Let's do this again soon!
-! eval (complete task)
-! eval (clear-pending-interactions)
-")))))
+          :source ("catherine-race" "complete"))))))
 
 
 ;; TODO These vars stored in save game? Problematic if we tweak after launch/testing?
