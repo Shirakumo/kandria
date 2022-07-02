@@ -158,13 +158,13 @@
          (:interaction speech
           :interactable ,site
           :repeatable T
-          :source ("catherine-race" "site"))
+          :source '("catherine-race" "site"))
                   
          (:interaction cancel
           :title ,title-cancel
           :interactable catherine
           :repeatable T
-          :source ("catherine-race" "cancel")))
+          :source '("catherine-race" "cancel")))
 
        (quest:define-task (kandria sq3-race ,name)
          :title "Return the can to Catherine in Engineering ASAP"
@@ -185,12 +185,12 @@
           :title ,title-cancel
           :interactable catherine
           :repeatable T
-          :source ("catherine-race" "cancel"))
+          :source '("catherine-race" "cancel"))
          
          (:interaction chat
           :title ,title-complete
           :interactable catherine
-          :source ("catherine-race" "complete"))))))
+          :source '("catherine-race" "complete"))))))
 
 
 ;; TODO These vars stored in save game? Problematic if we tweak after launch/testing?
