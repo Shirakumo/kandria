@@ -225,7 +225,7 @@
                  (<= (abs (- (vx (hit-location hit)) (vx loc))) (vy (bsize moving))))
              (if (/= 0.0 (vx (spike-normal block)))
                  (<= (abs (- (vy (hit-location hit)) (vy loc))) (vy (bsize moving)))
-                 (<= (abs (- (vy (hit-location hit)) (vy loc))) 4)))))))
+                 (<= (abs (- (vy (hit-location hit)) (vy loc))) 7)))))))
 
 (defmethod collide ((moving moving) (block spike) hit)
   (kill moving))
