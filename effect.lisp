@@ -437,6 +437,10 @@ void main(){
   (when (<= (decf (fc sting)) 0)
     (leave* sting T)))
 
+(defmethod trigger :around ((effect sting-effect) source &key)
+  (when (setting :gameplay :show-hit-stings)
+    (call-next-method)))
+
 (defmethod layer-index ((effect sting-effect)) 2)
 
 (define-class-shader (sting-effect :fragment-shader)

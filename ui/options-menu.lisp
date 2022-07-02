@@ -286,6 +286,7 @@
       (control allow-resume-after-death (:gameplay :allow-resuming-death) 'alloy:checkbox)
       (control wolves-explode-on-death (:gameplay :exploding-wolves) 'alloy:checkbox)
       (control show-speedrun-splits (:gameplay :show-splits) 'alloy:checkbox)
+      (control show-hit-sting-lines (:gameplay :show-hit-stings) 'alloy:checkbox)
       (control game-speed (:gameplay :game-speed) 'alloy:ranged-slider :range '(0.1 . 2.0) :step 0.1 :grid 0.1)
       (control damage-input-multiplier (:gameplay :damage-input) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)
       (control damage-output-multiplier (:gameplay :damage-output) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)
