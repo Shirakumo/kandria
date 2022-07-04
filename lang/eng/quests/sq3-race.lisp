@@ -149,6 +149,10 @@
          :condition (have 'item:can)
          :on-activate T
          :on-complete (,name)
+         :variables ((gold ,gold)
+                     (silver ,silver)
+                     (bronze ,bronze)
+                     pb)
          (:action spawn-can
                   (setf (clock quest) 0)
                   (show-timer quest)
