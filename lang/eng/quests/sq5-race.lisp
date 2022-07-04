@@ -1,7 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-;; TODO: remove duplication in race choice, factor out into define-race, possibly by allowing you to branch out into separate interactions directly from another interaction.
+;; TODO: remove duplication in race choice, factor out into define-sq5, possibly by allowing you to branch out into separate interactions directly from another interaction.
 
 ;; uses walkie-talkie when talking to hunters, since these poorer Semis don't have access to the FFCS tech. Though they are more powerful walkie-talkies, able to cover larger distances than the Noka's
 (quest:define-quest (kandria sq5-race)
@@ -164,7 +164,7 @@
 ;; this is also how they know the tunnel got cleared soon after you clear it
 ;; they speak using "our" a lot, despite being disparaging towards Innis and Islay, because they still view themselves as part of the Semi Sisters - just a different faction within them
 
-(defmacro define-race (name &key site site-mark mark-size title-start title-complete title-cancel bronze silver gold)
+(defmacro define-sq5 (name &key site site-mark mark-size title-start title-complete title-cancel bronze silver gold)
   (let ((name-start (trial::mksym #.*package* name '-start)))
     `(progn
        (quest:define-task (kandria sq5-race ,name-start)
@@ -294,7 +294,7 @@
 ")))))
 
 ;; more organic/dynamic par times here than with Catherine's sq3 races, since they are meant to be records set by real people, rather than neat brackets
-(define-race race-1
+(define-sq5 race-1
   :site sq5-race-1-site
   :site-mark chunk-5602
   :mark-size 1000
@@ -305,7 +305,7 @@
   :silver 79
   :bronze 124)
 
-(define-race race-2
+(define-sq5 race-2
   :site sq5-race-2-site
   :site-mark chunk-5677
   :mark-size 1000
@@ -316,7 +316,7 @@
   :silver 139
   :bronze 163)
 
-(define-race race-3
+(define-sq5 race-3
   :site sq5-race-3-site
   :site-mark chunk-2482
   :mark-size 1600
@@ -327,7 +327,7 @@
   :silver 148
   :bronze 187)
 
-(define-race race-4
+(define-sq5 race-4
   :site sq5-race-4-site
   :site-mark chunk-2019
   :mark-size 2600
@@ -338,7 +338,7 @@
   :silver 146
   :bronze 173)
 
-(define-race race-5
+(define-sq5 race-5
   :site sq5-race-5-site
   :site-mark chunk-5426
   :mark-size 1600
@@ -349,7 +349,7 @@
   :silver 176
   :bronze 221)
   
-(define-race race-6
+(define-sq5 race-6
   :site sq5-race-6-site
   :site-mark chunk-2019
   :mark-size 2600
