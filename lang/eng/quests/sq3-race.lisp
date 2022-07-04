@@ -246,7 +246,7 @@
   :site race-5-site
   :site-mark chunk-2019
   :mark-size 2600
-  :title-start "\"The can is at... the furthest edge of the deepest cave in this region - there isn't \"much-room\".\""
+  :title-start "\"The can is at... the furthest edge of the deepest cave in this region - there isn't 'much-room'.\""
   :title-complete "(Complete Race Route 5)"
   :title-cancel "(Cancel Race Route 5)"
   :gold 135
