@@ -99,6 +99,14 @@
   (setf (active-tasks quest) ())
   quest)
 
+(defmethod deactivate ((quest quest))
+  (v:info :kandria.quest "Deactivating ~a" quest)
+  (loop for task being the hash-values of (tasks quest)
+        do (deactivate task))
+  (setf (status quest) :inactive)
+  (setf (active-tasks quest) ())
+  quest)
+
 (defmethod try ((quest quest))
   (dolist (task (active-tasks quest))
     (try task)))
