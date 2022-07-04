@@ -1,3 +1,29 @@
+# hub
+~ catherine
+| (:cheer)Alright, about the races. Here's how it works:
+| (:normal)"Find the can"(orange) that we've planted.
+| "Grab it, bring it back here, and I'll stop the clock."(orange)
+| We've got five routes planned out, and you'll get a new one for each you complete.
+| You can try routes as many times as you want, but you'll "only get a reward on later runs if you beat your previous best time"(orange).
+| We've also got some "riddles"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
+| But once you know where they are, (:excited)you'll be clocking even faster times I'm sure.
+? (not (active-p 'race-1-start))
+| I've unlocked "Route 1"(orange). Just let me know when you want to give it a go.
+| ! eval (activate 'race-1-start)
+
+# start
+~ catherine
+| (:cheer)"{(quest:title task)}"(orange)
+| (:normal)The time brackets are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
+? pb
+| | Your personal best for this route is "{(format-relative-time pb)}"(orange).
+| ~ catherine
+| (:excited)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger! | Sync your chronometer and... Go!]
+! eval (reset* 'spawn-can)
+! eval (activate 'spawn-can)
+! eval (clear-pending-interactions)
+! eval (deactivate interaction)
+
 # site
 ~ player
 | "This is the right place for the race - "the can must be close by"(orange)."(light-gray, italic)
@@ -10,13 +36,14 @@
   ~ catherine
   | Sure thing (:excited)- the clock is ticking!
 - Yes, end it.
-  ! eval (hide-timer)
   ~ catherine
   | No worries. (:excited)Let's do this again soon.
-  ! eval (reset* task)
-  ! eval (leave 'item:can)
   ? (have 'item:can)
   | ! eval (retrieve 'item:can T)
+  ! eval (hide-timer)
+  ! eval (reset* task)
+  ! eval (activate task)
+  ! eval (leave 'item:can)
 
 # complete
 ! eval (hide-timer)
@@ -51,3 +78,5 @@
 | (:excited)Let's do this again soon!
 ! eval (complete task)
 ! eval (clear-pending-interactions)
+! eval (reset* start-task)
+! eval (activate start-task)
