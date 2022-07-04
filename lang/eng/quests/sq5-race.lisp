@@ -57,7 +57,7 @@
 | | Our best hunter times are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-6 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-6 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-6 'bronze))}.
 | < quit
 ~ semi-barkeep
-| Is it show time? You ready to race?
+| Is it showtime? You ready to race?
 ~ player
 - I'm ready.
 - Not now.
