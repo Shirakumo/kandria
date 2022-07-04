@@ -88,24 +88,29 @@
 
 (defclass interaction (trigger scope)
   ((interactable :initarg :interactable :reader interactable)
-   (dialogue :accessor dialogue)))
+   (dialogue :reader dialogue)))
 
 (defmethod shared-initialize :after ((interaction interaction) slots &key dialogue)
-  (etypecase dialogue
-    (null)
-    (dialogue:assembly
-     (setf (dialogue interaction) dialogue))
-    (string
-     (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))
-    (pathname
-     (setf (dialogue interaction) (dialogue:compile* (merge-pathnames dialogue) (make-assembly interaction))))
-    (cons
-     (destructuring-bind (source tag) dialogue
-       (let* ((source (etypecase source
-                        (string source)
-                        (pathname (alexandria:read-file-into-string source))))
-              (dialogue (format NIL "< ~a~%~%~a" tag source)))
-         (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))))))
+  (when dialogue (setf (dialogue interaction) dialogue)))
+
+(defmethod (setf dialogue) ((dialogue dialogue:assembly) (interaction interaction))
+  (setf (slot-value interaction 'dialogue) dialogue))
+
+(defmethod (setf dialogue) ((dialogue string) (interaction interaction))
+  (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))
+
+(defmethod (setf dialogue) ((dialogue pathname) (interaction interaction))
+  (setf (dialogue interaction) (alexandria:read-file-into-string dialogue)))
+
+(defmethod (setf dialogue) ((dialogue cons) (interaction interaction))
+  (destructuring-bind (source &optional tag) dialogue
+    (let* ((source (etypecase source
+                     (string source)
+                     (pathname (alexandria:read-file-into-string source))))
+           (dialogue (if tag
+                         (format NIL "< ~a~%~%~a" tag source)
+                         source)))
+      (setf (dialogue interaction) dialogue))))
 
 (defmethod class-for ((storyline (eql 'interaction))) 'interaction)
 
