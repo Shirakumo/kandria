@@ -20,7 +20,7 @@
 | (:cheer)"{(quest:title (quest:find-named 'race task))}"(orange)
 | (:normal)The time brackets are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? pb
-| | Your personal best for this route is "{(format-relative-time pb)}"(orange).
+| | Your "personal best"(orange) for this route is "{(format-relative-time pb)}"(orange).
 | ~ catherine
 | (:excited)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger! | Sync your chronometer and... Go!]
 ! eval (complete task)

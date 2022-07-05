@@ -24,30 +24,45 @@
 | | You're in the middle of \"Route 1\"(orange)!
 | | \"Find the Genera core\"(orange) near the \"Semi sign, to the high west of the Central Block\"(orange), then return it to me.
 | | Our best hunter times are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-1 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-1 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-1 'bronze))}.
+| ? (var-of 'race-1 'pb)
+| | | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange).
+|  
 | < quit
 |? (or (active-p 'race-2-start) (active-p 'race-2))
 | ~ semi-barkeep
 | | You're in the middle of \"Route 2\"(orange)!
 | | \"Find the Genera core\"(orange) in the \"engineers' camp, to the far high west of our territory\"(orange), then return it to me.
 | | Our best hunter times are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-2 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-2 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-2 'bronze))}.
+| ? (var-of 'race-2 'pb)
+| | | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange).
+|  
 | < quit
 |? (or (active-p 'race-3-start) (active-p 'race-3))
 | ~ semi-barkeep
 | | You're in the middle of \"Route 3\"(orange)!
 | | \"Find the Genera core\"(orange) in the \"old android factory, to the far east of our territory\"(orange), then return it to me.
 | | Our best hunter times are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-3 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-3 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-3 'bronze))}.
+| ? (var-of 'race-3 'pb)
+| | | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange).
+|  
 | < quit
 |? (or (active-p 'race-4-start) (active-p 'race-4))
 | ~ semi-barkeep
 | | You're in the middle of \"Route 4\"(orange)!
 | | \"Find the Genera core\"(orange) in a \"crevice to the high east of our territory, beneath the old Semi factory in the Ruins\"(orange) - then return it to me.
 | | Our best hunter times are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
+| ? (var-of 'race-4 'pb)
+| | | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange).
+|  
 | < quit
 |? (or (active-p 'race-5-start) (active-p 'race-5))
 | ~ semi-barkeep
 | | You're in the middle of \"Route 5\"(orange)!
-| | \"Find the Genera core\"(orange) in a \"cave to the high east of our territory, beneath the old Rootless hospital apartments\"(orange) - then return it to me.
+| | \"Find the Genera core\"(orange) in a \"cave to the high east of our territory, beneath the unstable bridge\"(orange) - then return it to me.
 | | Our best hunter times are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-5 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-5 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-5 'bronze))}.
+| ? (var-of 'race-5 'pb)
+| | | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange).
+|  
 | < quit
 |? (or (active-p 'race-6-start) (active-p 'race-6))
 | ~ semi-barkeep
@@ -55,6 +70,9 @@
 | | \"Find the Genera core\"(orange) near the \"Cerebats sign - the second one en route to their land, via our low-western border\"(orange). Then return it to me.
 | | \"Beware\"(orange): it's foreign territory.
 | | Our best hunter times are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-6 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-6 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-6 'bronze))}.
+| ? (var-of 'race-6 'pb)
+| | | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-6 'pb))}\"(orange).
+|  
 | < quit
 ~ semi-barkeep
 | Is it showtime? You ready to race?
@@ -87,7 +105,7 @@
 | Hunter, did you overhear that? Drop the core at this location. Over and out.
 | Our best hunter times for this route are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-1 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-1 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-1 'bronze))}.
 ? (var-of 'race-1 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange).
+| | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-1 'pb))}\"(orange).
 ! eval (reset* 'race-1 'race-1-start)
 ! eval (activate 'race-1-start)
 < end
@@ -105,7 +123,7 @@
 ? (active-p (unit 'blocker-engineers))
 | | Admittedly, these were set when the tunnel was clear.
 ? (var-of 'race-2 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange).
+| | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-2 'pb))}\"(orange).
 ! eval (reset* 'race-2 'race-2-start)
 ! eval (activate 'race-2-start)
 < end
@@ -116,7 +134,7 @@
 | Hunter, did you overhear that? Drop the core at this location. Over and out.
 | Our best hunter times for this route are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-3 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-3 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-3 'bronze))}.
 ? (var-of 'race-3 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange).
+| | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-3 'pb))}\"(orange).
 ! eval (reset* 'race-3 'race-3-start)
 ! eval (activate 'race-3-start)
 < end
@@ -127,18 +145,18 @@
 | Hunter, did you overhear that? Drop the core at this location. Over and out.
 | Our best hunter times for this route are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-4 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-4 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-4 'bronze))}.
 ? (var-of 'race-4 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange).
+| | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-4 'pb))}\"(orange).
 ! eval (reset* 'race-4 'race-4-start)
 ! eval (activate 'race-4-start)
 < end
 
 # race-5
 ~ semi-barkeep
-| \"Route 5\"(orange): You'll \"find the Genera core\"(orange) in a \"cave to the high east of our territory, beneath the old Rootless hospital apartments\"(orange).
+| \"Route 5\"(orange): You'll \"find the Genera core\"(orange) in a \"cave to the high east of our territory, beneath the unstable bridge\"(orange).
 | Hunter, did you overhear that? Drop the core at this location. Over and out.
 | Our best hunter times for this route are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-5 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-5 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-5 'bronze))}.
 ? (var-of 'race-5 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange).
+| | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-5 'pb))}\"(orange).
 ! eval (reset* 'race-5 'race-5-start)
 ! eval (activate 'race-5-start)
 < end
@@ -149,7 +167,7 @@
 | Hunter, did you overhear that? Drop the core at this location. Over and out.
 | Our best hunter times for this route are: \"Gold:\"(orange) {(format-relative-time (var-of 'race-6 'gold))} - \"Silver:\"(orange) {(format-relative-time (var-of 'race-6 'silver))} - \"Bronze:\"(orange) {(format-relative-time (var-of 'race-6 'bronze))}.
 ? (var-of 'race-6 'pb)
-| | Your personal best for this route is \"{(format-relative-time (var-of 'race-6 'pb))}\"(orange).
+| | Your \"personal best\"(orange) for this route is \"{(format-relative-time (var-of 'race-6 'pb))}\"(orange).
 ! eval (reset* 'race-6 'race-6-start)
 ! eval (activate 'race-6-start)
 < end
@@ -294,6 +312,7 @@
 ")))))
 
 ;; more organic/dynamic par times here than with Catherine's sq3 races, since they are meant to be records set by real people, rather than neat brackets
+;; however, they are still too fast for real people versus an android - but that's so there's still a challenge to get gold (we could imagine the barkeep is artificially contracting the hunter times)
 (define-sq5 race-1
   :site sq5-race-1-site
   :site-mark chunk-5602
@@ -314,11 +333,11 @@
   :title-cancel "(Cancel Race Route 2)"
   :gold 122
   :silver 139
-  :bronze 163)
+  :bronze 183)
 
 (define-sq5 race-3
   :site sq5-race-3-site
-  :site-mark chunk-2482
+  :site-mark chunk-5681
   :mark-size 1600
   :title-start "Retrieve the broken Genera core from the old android factory, in the far east of Semi Sisters territory"
   :title-complete "(Complete Race Route 3)"
@@ -329,33 +348,34 @@
 
 (define-sq5 race-4
   :site sq5-race-4-site
-  :site-mark chunk-2019
-  :mark-size 2600
+  :site-mark sq5-race-4-site
+  :mark-size 600
   :title-start "Retrieve the broken Genera core from the crevice in the high east of Semi Sisters territory, beneath the old Semi factory in the Ruins"
   :title-complete "(Complete Race Route 4)"
   :title-cancel "(Cancel Race Route 4)"
   :gold 134
   :silver 146
-  :bronze 173)
+  :bronze 193)
 
 (define-sq5 race-5
   :site sq5-race-5-site
-  :site-mark chunk-5426
-  :mark-size 1600
-  :title-start "Retrieve the broken Genera core from a cave in the high east of Semi Sisters territory, beneath the old Rootless hospital apartments"
+  :site-mark chunk-5675
+  :mark-size 1000
+  :title-start "Retrieve the broken Genera core from a cave in the high east of Semi Sisters territory, beneath the unstable bridge"
   :title-complete "(Complete Race Route 5)"
   :title-cancel "(Cancel Race Route 5)"
-  :gold 151
-  :silver 176
-  :bronze 221)
-  
+  :gold 221
+  :silver 239
+  :bronze 282)
+
+;; these times assume they were set by hunters when the tunnel in the bottom-left of Semis territory was open, and that they didn't use the train ;)
 (define-sq5 race-6
   :site sq5-race-6-site
-  :site-mark chunk-2019
-  :mark-size 2600
+  :site-mark chunk-5641
+  :mark-size 1200
   :title-start "Retrieve the broken Genera core from near the Cerebats sign - the second one en route to their land, via the Semi Sisters' low-western border"
   :title-complete "(Complete Race Route 6)"
   :title-cancel "(Cancel Race Route 6)"
-  :gold 135
-  :silver 150
-  :bronze 180)
+  :gold 199
+  :silver 214
+  :bronze 246)
