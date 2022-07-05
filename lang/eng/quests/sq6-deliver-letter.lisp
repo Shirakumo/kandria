@@ -112,7 +112,7 @@
   < breakup
 - He wants to break up.
   ~ cerebat-partner
-  | He does? Well at least we agree about that. Maybe we do still have something in common.
+  | He does?... Well at least we agree about that. Maybe we do still have something in common.
   < breakup
 
 # given
