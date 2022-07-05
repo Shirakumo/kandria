@@ -1,7 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defmacro define-race (name &key site source marker title return-title description bronze silver gold on-complete)
+(defmacro define-race (name &key npc site source marker title return-title description bronze silver gold on-complete)
   (let ((title-start (format NIL "(Start ~a)" title))
         (title-cancel (format NIL "(Cancel ~a)" title))
         (title-complete (format NIL "(Complete ~a)" title)))
@@ -19,7 +19,7 @@
         :on-complete (race)
         (:interaction init
          :title ,title-start
-         :interactable catherine
+         :interactable ,npc
          :repeatable T
          :source '(,source "start")))
        
@@ -49,13 +49,13 @@
 
         (:interaction cancel
          :title ,title-cancel
-         :interactable catherine
+         :interactable ,npc
          :repeatable T
          :source '(,source "cancel")))
 
        (return
          :title ,return-title
-         :marker '(catherine 500)
+         :marker '(,npc 500)
          :invariant (not (complete-p 'q10-wraw))
          :on-activate (complete)
          :condition all-complete
@@ -63,7 +63,7 @@
          
          (:interaction complete
           :title ,title-complete
-          :interactable catherine
+          :interactable ,npc
           :source '(,source "return"))
 
          (:action complete-it
@@ -73,7 +73,7 @@
                   (clear-pending-interactions))))))
 
 (defmacro define-races (base-quest &body races)
-  (form-fiddle:with-body-options (races other source return) races
+  (form-fiddle:with-body-options (npc other races source return) races
     (declare (ignore other))
     (let* ((quest (quest:find-named base-quest (quest:storyline 'kandria)))
            (all-names (loop for i from 1 to (length races)
@@ -85,6 +85,7 @@
                  collect (destructuring-bind ((gold silver bronze) &rest body) race
                            `(define-race ,(pop names)
                               ,@body
+                              :npc ,npc
                               :gold ,gold
                               :silver ,silver
                               :bronze ,bronze
@@ -112,6 +113,7 @@
     :source '("catherine-race" "hub"))))
 
 (define-races sq3-race
+  :npc catherine
   :source "catherine-race"
   :return "Return the can to Catherine in Engineering ASAP"
   ((60 80 120)
