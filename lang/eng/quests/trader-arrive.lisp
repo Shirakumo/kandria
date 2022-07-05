@@ -228,6 +228,7 @@
 |   | (:normal)I remember a presentation from the head of Semi - don't remember his name - unveiling new models of android, just like you.
 |   | The sisters used to work on the production line, in the factories down here. Conditions were terrible by all accounts.
 |   | I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
+|   | Needless to say they aren't too popular, what with their past associations with androids.
 |   < talk
 | - That'll do.
 |   < leave
