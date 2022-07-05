@@ -76,3 +76,22 @@ The instruction ``! `` can execute a variety of commands when encountered:
 Also see documentation on the "quest system"(link quest system.mess) for information on how quests, tasks, and interactions are meant to be understood.
 
 If you're worried about the use of Lisp code, see the "Lisp crash course"(link lisp crash course.mess) for a quick introduction and explanation.
+
+## Editor integration
+### Visual Studio Code
+We created an extension to offer syntax highlighting in VSC. To use it, simply clone our extension into VSC's extensions folder. On Windows, that's ``%USERPROFILE%\\.vscode\\extensions\\`` and elsewhere that's ``~/.vscode/extensions/``.
+
+The extension can be found here: https://github.com/shirakumo/markless-vsc
+
+Once it has been cloned in, restart VSC, and it should automatically be activated. You can test this by opening any file with the ``.mess`` or ``.spess`` extension.
+
+### Emacs
+The emacs package ``markless`` can be installed from melpa. To activate it after installing, simply add this to your config:
+
+:: elisp
+(autoload 'markless-mode "markless" "" t nil)
+(add-to-list 'auto-mode-alist '("\\.mess\\'" . markless-mode))
+(add-to-list 'auto-mode-alist '("\\.spess\\'" . markless-mode))
+::
+
+Alternatively you can find the source here: https://github.com/shirakumo/markless.el
