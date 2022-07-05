@@ -14,7 +14,7 @@
   ;; TW: Don't colour code "android" here; yes it's the first time it's made explicit to the player; but they can figure it out themselves by now or soon after (boosting in earlier tutorial, reading steam blurb, and it's explained more soon after when talking to Jack)
   (:interact (catherine :now T)
    "~ catherine
-| (:excited)What do you think of this? Incredible, right?!
+| (:excited)What did I tell you? Incredible, right!
 ~ player
 - Crops? In a desert?
   ~ catherine
