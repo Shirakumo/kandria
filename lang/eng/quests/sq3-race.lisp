@@ -32,7 +32,7 @@
         :on-complete (return)
         
         (:action init
-                 (reset* 'return)
+                 (reset* 'return 'cancel-it)
                  (deactivate 'start)
                  (setf (clock quest) 0)
                  (show-timer quest)
