@@ -82,15 +82,17 @@
       `(progn
          ,@(loop for race in races
                  for i from 1
-                 collect (destructuring-bind ((gold silver bronze) &rest body) race
+                 collect (destructuring-bind ((site gold silver bronze) &rest body) race
                            `(define-race ,(pop names)
                               ,@body
+                              :site ,site
                               :npc ,npc
                               :gold ,gold
                               :silver ,silver
                               :bronze ,bronze
                               :title ,(format NIL "~a ~d" (quest:title quest) i)
                               :source ,source
+                              :marker ',site
                               :on-complete (,(first names))
                               :return-title ,return)))))))
 
@@ -116,27 +118,22 @@
   :npc catherine
   :source "catherine-race"
   :return "Return the can to Catherine in Engineering ASAP"
-  ((60 80 120)
-   :site race-1-site
+  ((race-1-site 60 80 120)
    :marker (chunk-1841 1400)
    :description "The can is at... a literal high point of EASTERN civilisation, now long gone.")
   
-  ((60 80 120)
-   :site race-2-site
+  ((race-2-site 60 80 120)
    :marker (chunk-2480 3000)
    :description "The can is... where a shallow grave marks the end of the line at Zenith Crossing Station, East.")
 
-  ((105 120 150)
-   :site race-3-site
+  ((race-3-site 105 120 150)
    :marker (chunk-2482 1600)
    :description "The can is... beneath where we first ventured together, and got our feet wet."    :bronze 150)
 
-  ((90 105 135)
-   :site race-4-site
+  ((race-4-site 90 105 135)
    :marker (chunk-5426 1600)
    :description "The can is... deep in the west, where we first met.")
 
-  ((135 150 180)
-   :site race-5-site
+  ((race-5-site 135 150 180)
    :marker (chunk-2019 1600)
    :description "The can is at... the furthest edge of the deepest cave in this region - there isn't 'much-room'."))
