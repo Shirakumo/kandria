@@ -1,13 +1,13 @@
 # hub
 ~ catherine
-| (:cheer)Alright, race time!
-| (:normal)So remember: "Find the can"(orange) that we've planted.
-| "Grab it, bring it back here, and I'll stop the clock."(orange)
-| We've got "five routes"(orange) for you - but I can only tell you about "the next route, once you've done the one before"(orange).
+| So the "races"(orange), yes: "Find the can"(orange) that we've planted.
+| (:excited)"Grab it, bring it back here, and I'll stop the clock."(orange) The "faster you are, the more parts you'll get"(orange)!
+| (:normal)We've got "5 routes"(orange) for you. Once you've "completed one I'll tell you about the next"(orange). Them's the rules.
 | You can try routes as many times as you want, but you'll "only get a reward on later runs if you beat your previous best time"(orange).
-| We've also got some "riddles"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
+| We've also got "riddles"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
 | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure.
-| We'll "start you off with Route 1"(orange), which is easiest. Just "say when you're ready"(orange).
+| (:normal)We'll "start with Route 1"(orange), which is easy. (:excited)Just "say when you're ready"(orange) and we'll get this show on the road!
+! eval (clear-pending-interactions)
 
 # start
 ? (timer-quest)
@@ -16,19 +16,19 @@
 | < quit
 
 ~ catherine
-| (:excited)Alright, let's do this!
-| (:cheer)"{(quest:title (quest:find-named 'race task))}"(orange)
+| (:cheer)Alright, let's do this!
+| (:excited)"{(quest:title (quest:find-named 'race task))}"(orange)
 | (:normal)The time brackets are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
-? pb
+? (var 'pb)
 | | Your "personal best"(orange) for this route is "{(format-relative-time pb)}"(orange).
-| ~ catherine
+~ catherine
 | (:excited)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger! | Sync your chronometer and... Go!]
 ! eval (complete task)
 ! eval (clear-pending-interactions)
 
 # cancel
 ~ catherine
-| "You want to stop the race"(orange)? I "can't give you any scrap parts"(orange) if we do that, and I "won't log your time"(orange).
+| "You want to stop the race"(orange)? I can't give you any scrap parts if we do that, and I won't log your time.
 ~ player
 - No, I'll continue the race.
   ~ catherine

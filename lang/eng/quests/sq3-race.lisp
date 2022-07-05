@@ -128,12 +128,12 @@
 
   ((race-3-site 105 120 150)
    :marker (chunk-2482 1600)
-   :description "The can is... beneath where we first ventured together, and got our feet wet."    :bronze 150)
+   :description "The can is... beneath where we first ventured together, and got our feet wet.")
 
   ((race-4-site 90 105 135)
    :marker (chunk-5426 1600)
    :description "The can is... deep in the west, where we first met.")
 
   ((race-5-site 135 150 180)
-   :marker (chunk-2019 1600)
+   :marker (chunk-2019 2600)
    :description "The can is at... the furthest edge of the deepest cave in this region - there isn't 'much-room'."))

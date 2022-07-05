@@ -82,7 +82,7 @@
   
 | (:excited)Oh, I've been speaking with my friends - we're all eager to see what you're really capable of.
 | How do \"time trial races\"(orange) sound, eh?
-| (:normal)Basically we've planted \"beer cans for you to find and bring back\"(orange). (:excited)The \"faster you can do it, the more parts you'll get\"(orange)!
+| (:normal)Basically we've planted \"beer cans for you to find and bring back\"(orange).
 | So there you go - lots to do, if you fancy it. You want any more info?
 ! label task-choice
 ~ player
@@ -149,9 +149,7 @@
   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost-fully-functional android can do!
   | (:normal)So yeah, we've planted old-world \"beer cans around the area for you to find and return\"(orange).
   | I'll \"record your times\"(orange) for posterity - this is anthropology! The \"faster you are, the more parts you'll get\"(orange).
-  | Once you've \"completed one I can tell you about the next route\"(orange). Them's the rules.
-  | (:excited)Just \"tell me when you want to start\"(orange), and we'll get this show on the road.
-  | (:cheer)This is sooo exciting!  
+  | (:cheer)This is sooo exciting!
   < task-choice
 - I'm ready.
   ~ catherine
