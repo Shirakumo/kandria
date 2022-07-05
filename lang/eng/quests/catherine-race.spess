@@ -7,26 +7,24 @@
 | You can try routes as many times as you want, but you'll "only get a reward on later runs if you beat your previous best time"(orange).
 | We've also got some "riddles"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
 | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure.
-? (not (active-p 'race-1-start))
-| I've unlocked "Route 1"(orange). Just let me know when you want to give it a go.
-| ! eval (activate 'race-1-start)
+| I've unlocked "Route 1"(orange) for now. Just let me know when you want to give it a go.
 
 # start
+? (timer-quest)
+| ~ catherine
+| | You're already on the clock for another race. Please finish that first.
+| < quit
+
 ~ catherine
-| (:cheer)"{(quest:title task)}"(orange)
+| Okey, then let's do this!
+| (:cheer)"{(quest:title (quest:find-named 'race task))}"(orange)
 | (:normal)The time brackets are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? pb
 | | Your personal best for this route is "{(format-relative-time pb)}"(orange).
 | ~ catherine
 | (:excited)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger! | Sync your chronometer and... Go!]
-! eval (reset* 'spawn-can)
-! eval (activate 'spawn-can)
+! eval (complete task)
 ! eval (clear-pending-interactions)
-! eval (deactivate interaction)
-
-# site
-~ player
-| "This is the right place for the race - "the can must be close by"(orange)."(light-gray, italic)
 
 # cancel
 ~ catherine
@@ -38,19 +36,12 @@
 - Yes, end it.
   ~ catherine
   | No worries. (:excited)Let's do this again soon.
-  ? (have 'item:can)
-  | ! eval (retrieve 'item:can T)
-  ! eval (hide-timer)
-  ! eval (reset* task)
-  ! eval (activate task)
-  ! eval (leave 'item:can)
+  ! eval (activate 'cancel-it)
 
-# complete
-! eval (hide-timer)
+# return
 ~ catherine
 | (:cheer)Stop the clock!
 | (:excited)That's the correct can alright - nice.
-! eval (retrieve 'item:can T)
 | (:normal)Your time was: "{(format-relative-time (clock quest))}"(orange).
 ? (and pb (< pb (clock quest)))
 | | (:concerned)Ah damn, "no improvement"(orange) on your record of "{(format-relative-time pb)}"(orange) I'm afraid.
@@ -76,7 +67,6 @@
   
 ~ catherine
 | (:excited)Let's do this again soon!
-! eval (complete task)
-! eval (clear-pending-interactions)
-! eval (reset* start-task)
-! eval (activate start-task)
+! eval (activate 'complete-it)
+
+# quit

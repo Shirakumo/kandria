@@ -310,7 +310,8 @@
                   (:important 32))))
 
 (defclass timer-line (alloy:label)
-  ((alloy:value :initform 0.0)))
+  ((alloy:value :initform 0.0)
+   (quest :initform NIL :initarg :quest)))
 
 (defmethod alloy:text ((timer timer-line))
   (let ((clock (alloy:value timer)))
@@ -402,9 +403,14 @@
 (defun show-timer (quest)
   (hide-timer)
   (let ((panel (find-panel 'hud))
-        (timer (alloy:represent (clock quest) 'timer-line)))
+        (timer (alloy:represent (clock quest) 'timer-line :quest quest)))
     (alloy:enter timer (alloy:layout-element panel) :constraints `((:center :w) (:top 120) (:size 300 30)))
     (setf (timer panel) timer)))
+
+(defun timer-quest ()
+  (let* ((panel (find-panel 'hud))
+         (timer (timer panel)))
+    (when timer (slot-value timer 'quest))))
 
 (defun hide-timer ()
   (let* ((panel (find-panel 'hud))
@@ -423,3 +429,4 @@
   (setf (hidden-p (saving hud)) (or (not (setting :gameplay :display-hud))
                                     (timer hud)
                                     (not (save-point-available-p)))))
+
