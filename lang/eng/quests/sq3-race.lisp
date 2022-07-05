@@ -73,7 +73,7 @@
                   (clear-pending-interactions))))))
 
 (defmacro define-races (base-quest &body races)
-  (form-fiddle:with-body-options (npc other races source return) races
+  (form-fiddle:with-body-options (races other npc source return) races
     (declare (ignore other))
     (let* ((quest (quest:find-named base-quest (quest:storyline 'kandria)))
            (all-names (loop for i from 1 to (length races)
