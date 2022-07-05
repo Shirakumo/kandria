@@ -430,6 +430,7 @@
 (define-item (explosive quest-item) 8 0 8 8)
 (define-item (receiver quest-item) 8 0 8 8)
 (define-item (walkie-talkie-2 quest-item) 0 8 8 8)
+(define-item (love-letter quest-item) 16 48 8 8)
 
 ;; VALUE-ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8

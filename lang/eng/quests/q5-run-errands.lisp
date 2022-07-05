@@ -80,5 +80,6 @@
 ! eval (activate 'q5-intro)
 ! eval (activate 'sq4-intro)
 ! eval (activate 'sq5-intro)
+! eval (activate 'sq6-intro)
 "))
 ;;TODO different prices for different traders, so write in that Islay gives you a good discount?

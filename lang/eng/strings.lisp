@@ -21,6 +21,8 @@ semi-patron-1-nametag "Sober Patron" ;; female
 semi-patron-2-nametag "Drunk Patron" ;; female
 villager-nametag "Villager" ;; gender unknown
 cerebat-trader-stranger "Stranger" ;; male trader
+semi-partner-nametag "Tobias" ;; male
+cerebat-partner-nametag "Kacey" ;; female
 unknown-nametag "???" ;; gender unknown
 zelah-nametag "Zelah" ;; male
 soldier-nametag "Wraw Soldier" ;; gender unknown
@@ -374,6 +376,8 @@ item:explosive "Explosive"
 item:explosive/description "It's made of connected charge packs, which resemble plastic explosives I've seen in the past. It's soft and malleable."
 item:receiver "RF Detonator"
 item:receiver/description "An RF receiver coupled to a blasting cap. Once inserted into a plastic explosive, it can receive a signal and detonate."
+item:love-letter "Tobias' Letter"
+item:love-letter/description "A letter from Tobias to his girlfriend, Kacey. It's private."
 item:palette-model-1 "Model 1"
 item:palette-model-1/description "The standard uniform for all civilian detective units."
 item:palette-model-2 "Model 2"

@@ -1069,7 +1069,8 @@
    "| No time for racing. No time for drinking either.")
   (T
   "| Who's this fancy pants?"))
-  
+
+;; female barkeep (other barkeep)
 (define-default-interactions semi-barkeep-2
   (q11a-bomb-recipe
    "| I knew you'd bring trouble down on us.")
@@ -1079,7 +1080,7 @@
 ;; female Semis bar patron
 (define-default-interactions semi-patron-1
   (q11a-bomb-recipe
-   "| We never knew how good we had it.")
+   "| Tends to put things in perspective, doesn't it? War, I mean. We never knew how good we had it.")
   (sq5-intro
    "| I've high hopes for you, android.")
   (T
@@ -1093,6 +1094,22 @@
    "| Did you start the race yet? <-Hic->. Where am I?")
   (T
   "| <-Hic->. Cheers! <-Hic->."))
+
+(define-default-interactions semi-partner
+  (q11a-bomb-recipe
+   "| I'm going nowhere without Kacey.")
+  (sq6-deliver-letter
+   "| Kacey called me. We're still friends, though.")
+  (T
+  "| ... Hold on, there's someone here. Over. Er, hi? Can I help you? - Can't you see I'm on a call?"))
+  
+(define-default-interactions cerebat-partner
+  (q10-wraw
+   "| So the world's going to shit again. Great.")
+  (sq6-deliver-letter
+   "| You understand privacy, yes?")
+  (T
+  "| Keep walking, pal."))
 
 (define-default-interactions npc
   (T
