@@ -1,22 +1,22 @@
 # hub
 ~ catherine
-| (:cheer)Alright, about the races. Here's how it works:
-| (:normal)"Find the can"(orange) that we've planted.
+| (:cheer)Alright, race time!
+| (:normal)So remember: "Find the can"(orange) that we've planted.
 | "Grab it, bring it back here, and I'll stop the clock."(orange)
-| We've got five routes planned out, and you'll get a new one for each you complete.
+| We've got "five routes"(orange) for you - but I can only tell you about "the next route, once you've done the one before"(orange).
 | You can try routes as many times as you want, but you'll "only get a reward on later runs if you beat your previous best time"(orange).
 | We've also got some "riddles"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
 | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure.
-| I've unlocked "Route 1"(orange) for now. Just let me know when you want to give it a go.
+| We'll "start you off with Route 1"(orange), which is easiest. Just "say when you're ready"(orange).
 
 # start
 ? (timer-quest)
 | ~ catherine
-| | You're already on the clock for another race. Please finish that first.
+| | You're already on the clock for a time trial. "Finish that one first"(orange) - or "let me know if you want to stop"(orange).
 | < quit
 
 ~ catherine
-| Okey, then let's do this!
+| (:excited)Alright, let's do this!
 | (:cheer)"{(quest:title (quest:find-named 'race task))}"(orange)
 | (:normal)The time brackets are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? pb
@@ -28,7 +28,7 @@
 
 # cancel
 ~ catherine
-| "You want to stop the race?"(orange) I can't give you any scrap parts if we do that, and I won't log your time.
+| "You want to stop the race"(orange)? I "can't give you any scrap parts"(orange) if we do that, and I "won't log your time"(orange).
 ~ player
 - No, I'll continue the race.
   ~ catherine
