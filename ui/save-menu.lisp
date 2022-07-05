@@ -3,6 +3,10 @@
 (defclass name-input (alloy:input-line)
   ())
 
+(defmethod alloy:handle ((ev alloy:focus-right) (input name-input))
+  (alloy:exit input)
+  (alloy:focus-next (alloy:focus-parent input)))
+
 (presentations:define-realization (ui name-input)
   ((background simple:rectangle)
    (alloy:margins)
