@@ -166,7 +166,11 @@ void main(){
           (* 6 to))))
 
 (defmethod advance ((textbox textbox))
-  (handle (dialogue:resume (vm textbox) (ip textbox)) textbox))
+  (restart-case
+      (handle (dialogue:resume (vm textbox) (ip textbox)) textbox)
+    (continue ()
+      :report "Abort the interaction textbox."
+      (hide textbox))))
 
 (defmethod fast-forward ((textbox textbox))
   (loop for i from 0 to 1000 ; Safety to avoid infinite loops

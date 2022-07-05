@@ -1448,8 +1448,3 @@ void main(){
 (define-setting-observer god-mode :gameplay :god-mode (value)
   (when (unit 'player T)
     (setf (invincible-p (unit 'player T)) value)))
-
-(define-setting-observer palette :gameplay :palette (value)
-  (when (unit 'player T)
-    (setf (palette-index (unit 'player T))
-          (or (position value (palettes (asset 'kandria 'player)) :test #'equal) 0))))
