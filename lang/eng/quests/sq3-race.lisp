@@ -93,7 +93,7 @@
                               :title ,(format NIL "~a ~d" (quest:title quest) i)
                               :source ,source
                               :marker ',site
-                              :on-complete (,(first names))
+                              :on-complete ,(when names (list (first names)))
                               :return-title ,return)))))))
 
 (quest:define-quest (kandria sq3-race)
