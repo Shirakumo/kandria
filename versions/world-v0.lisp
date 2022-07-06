@@ -170,7 +170,7 @@
                                     :target-bsize ,(encode (bsize (target teleport-trigger))))
       (error 'no-applicable-encoder :source teleport-trigger)))
 
-(define-slot-coders (spawner world-v0) (name (location :type vec2) (bsize :type vec2) spawn-type spawn-count active-p jitter-y-p auto-deactivate))
+(define-slot-coders (spawner world-v0) (name (location :type vec2) (bsize :type vec2) spawn-type spawn-count spawn-args active-p jitter-y-p auto-deactivate))
 (define-slot-coders (background world-v0) ())
 (define-slot-coders (game-entity world-v0) ((location :type vec2) name))
 (define-slot-coders (sprite-entity world-v0) ((location :type vec2) (texture :type texture) (size :type vec2) (bsize :type vec2) (offset :type vec2) (layer-index :initarg :layer) name))
