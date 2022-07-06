@@ -1,0 +1,100 @@
+# hub
+~ semi-barkeep
+| I knew you'd be back. Alright then:
+| "Find the Genera core, return it to me, and I'll stop the clock"(orange).
+| The "faster you do it, the more parts you'll get"(orange).
+| I think we can organise "6 routes"(orange) for you. "Complete one and I'll tell you about the next"(orange). Got it?
+| I'll radio ahead for each race, have a hunter drop the Genera core at the site.
+! label end
+| "Tell me when you're ready to start"(orange), and we'll get this show on the road!
+! eval (clear-pending-interactions)
+; uses walkie-talkie when talking to hunters, since these poorer Semis don't have access to the FFCS tech. Though they are more powerful walkie-talkies, able to cover larger distances than the Noka's
+
+# start
+? (timer-quest)
+| ~ semi-barkeep
+| | You're "already racing"(orange) - "finish or stop that one first"(orange).
+| < quit
+
+~ semi-barkeep
+| Showtime! And let me tell you, the stash is getting fat!
+| "{(quest:title (quest:find-named 'race task))}."(orange)
+? (eq (quest:name quest) 'sq5-race-2)
+| ? (active-p (unit 'blocker-engineers))
+| | | I know for a fact that the engineers have some cores - but they're trapped. You might want to "help them as well"(orange), if you have time.
+| |?
+| | | Now the tunnel is cleared - well done, by the way - the hunters can get through and plant the core.
+  
+| Our best hunter times for this route are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
+? (eq (quest:name quest) 'sq5-race-2)
+| ? (active-p (unit 'blocker-engineers))
+| | | Admittedly, these were set when the tunnel was clear.
+? (var 'pb)
+| | Your "personal best"(orange) for this route is "{(format-relative-time pb)}"(orange).
+~ semi-barkeep
+| Commencer!
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+; the barkeep knows about the trapped engineers, more so than Innis (they have radio contact) - hence what they say, and the mention of rescue; they're still more interested in the races though
+; this is also how they know the tunnel got cleared soon after you clear it
+; they speak using "our" a lot, despite being disparaging towards Innis and Islay, because they still view themselves as part of the Semi Sisters - just a different faction within them
+
+
+# cancel
+~ semi-barkeep
+| "You want to stop the race?"(orange) There's no reward if you do that - and you'll be making everyone very sad.
+~ player
+- No, I'll continue the race.
+  ~ semi-barkeep
+  | Good. Now get going. Time is money.
+- Yes, end it.
+  ~ semi-barkeep
+  | If you insist. But you'll be back, I just know it.
+  ! eval (activate 'cancel-it)
+
+# return
+~ semi-barkeep
+| Stop the clock!
+| Let me see the serial number on that Genera core. Yes, that's the right one. Now then...
+| Your time was: "{(format-relative-time (clock quest))}"(orange).
+? (and pb (< pb (clock quest)))
+| | I'm afraid that's "no improvement"(orange) on your record of "{(format-relative-time pb)}"(orange).
+|?
+| ? (not (null pb))
+| | | That's a "new personal best"(orange) for you.
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | That was faster than the "gold"(orange) hunter.
+| | ~ semi-patron-1
+| | | Holy shite...
+| | ~ semi-barkeep
+| | | It's impressive, though not unexpected. Still, here's your cut from the sweepstake: "500 scrap parts"(orange).
+| | ! eval (store 'item:parts 500)
+| | | The question is, do you have even more in the tank?
+| |? (< pb silver)
+| | | That was faster than the "silver"(orange) hunter. Not bad. Though we think you can do better.
+| | ~ semi-patron-2
+| | | You're just getting warmed up - <-hic-> - right?
+| | ~ semi-barkeep
+| | | Here's your cut from the sweepstake: "300 scrap parts"(orange).
+| | ! eval (store 'item:parts 300)
+| |? (< pb bronze)
+| | | That was faster than the "bronze"(orange) hunter. Not bad.
+| | ~ semi-patron-1
+| | | Not good either, especially for an android!
+| | ~ semi-barkeep
+| | | Here's your cut from the sweepstake, as promised: "200 scrap parts"(orange).
+| | ! eval (store 'item:parts 200)
+| |?
+| | | But it's "slower than the bronze"(orange) hunter, I'm sorry to say.
+| | ~ semi-patron-2
+| | | Pitiful is what that was. <-Hic->. Pitifu-fu-ful.
+| | ~ semi-barkeep
+| | | "Nothing for you from the sweepstake"(orange) this time. But will you come back stronger?
+  
+~ semi-barkeep
+| Until next time.
+! eval (activate 'complete-it)
+
+# quit

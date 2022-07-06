@@ -368,7 +368,7 @@ item:semi-factory-key/description "Fi gave me this key card to access the deeper
 item:can "Old Beer Can"
 item:can/description "I must return this to Catherine to complete the current race. It'll be good riddance: any odour of alcohol is long gone, but it reeks of rust."
 item:semi-genera-core "Broken Genera Core"
-item:semi-genera-core/description "I must return this to the barkeep to complete the current race. Hardly a fitting end to life for whomever this was part of."
+item:semi-genera-core/description "I must return this to the barkeep to complete the current race. Hardly a fitting end for whomever this was part of."
 item:blasting-cap "Blasting Cap"
 item:blasting-cap/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It's a detonation device - not an explosive mushroom."
 item:charge-pack "Charge Pack"

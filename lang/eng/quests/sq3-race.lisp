@@ -2,7 +2,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defmacro define-race (name &key npc item site source marker title return-title description bronze silver gold on-complete)
-  (let ((title-start (format NIL "(Start ~a)" title))
+  (let ((title-start (format NIL "Start ~a" title))
         (title-cancel (format NIL "(Cancel ~a)" title))
         (title-complete (format NIL "(Complete ~a)" title)))
     `(quest:define-quest (kandria ,name)
@@ -18,7 +18,7 @@
         :on-activate T
         :on-complete (race)
         (:interaction init
-         :title ,title-start
+         :title (concatenate 'string (concatenate 'string "(" ,title-start) ")")
          :interactable ,npc
          :repeatable T
          :source '(,source "start")))

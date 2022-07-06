@@ -52,6 +52,8 @@
     | Boom! Fifty scrap parts, thank you very much.
     ~ semi-patron-2
     | Ah, shit. Take it.
+    ~ player
+    | Yep, that tasted like diesel mixed with seaweed.
     ! eval (setf (var 'lost-bet-2) T)
   - (Leave it)
     ~ semi-patron-2
@@ -64,14 +66,14 @@
   | As you wish.
 - You're smooth.
   ~ semi-barkeep
-  | Merci beaucoup. It does help, in this line of work.
-  | So, about that drink?
+  | Merci beaucoup. It does help in this line of work.
+  | So, about that drink? Though I can't promise it will be as smooth.
   < choice
 - I'll be going.
   < leave
 ~ semi-barkeep
 | As I was saying, life here can get a little... //stale//. For those of us not favoured by our esteemed leaders, at least.
-| We have a good life, as you can see - by post-Calamity standards, of course. But not a lot happens around here.
+| We have a //good// life, as you can see - by post-Calamity standards, of course. But not a lot happens around here.
 | So when an android arrives, people take notice.
 ~ semi-patron-2
 | Get to the point, will ya? <-Hic->. The android ain't got all day.
@@ -82,39 +84,13 @@
 | | Neither have I if I'm gonna win my money back.
   
 ~ semi-barkeep
-| Hold your horses folks. All in good time.
+| Hold your horses! All in good time.
 | So it goes like this: We train our best hunters by sending them out on \"patrol to retrieve a unique item\"(orange). And we \"time them\"(orange).
 | We want you to see if - or rather //when// - you can \"beat their times\"(orange).
 | We'll run a sweepstake, and give you a \"cut of the winnings - you'll get more the faster you are\"(orange).
-? (complete-p 'sq-act1-intro)
-| ~ player
-| - I know about races like these.
-|   ~ semi-barkeep
-|   | You've done them before? Where?
-|   ~ player
-|   - With the Noka.
-|     ~ semi-barkeep
-|     | Oh, the people on the surface? Interesting.
-|   - Somewhere.
-|     ~ semi-barkeep
-|     | ...
-|   ~ semi-barkeep
-|   Okay, well, if you know the rules already, should I skip to the end?
-|   ~ player
-|   - I'd like a refresher.
-|   - Skip to the end.
-|   < end
-| - Sounds good.
-  
-~ semi-barkeep
 | Let's see... We've got some \"broken Genera cores\"(orange) lying around. These will do nicely.
-| I'll have the hunters \"plant them far and wide\"(orange) - around our territory, and perhaps even beyond.
-| All you need to do is \"find the right item for the race you're doing, then bring it back\"(orange).
-| You're an android, so I don't think we need to mollycoddle you by starting with easy routes.
-! label end
-~ semi-barkeep
-| Just \"pick any route you want\"(orange). Then I'll make the call, and have a hunter plant the Genera core.
-| \"Tell me when you're ready to race\"(orange). In the meantime, I'll organise this motley crew and take some bets.
+| The hunters can \"plant them far and wide\"(orange) - around our territory, and perhaps even beyond.
+| \"Let me know if you want in\"(orange). In the meantime, I'll try organise this motley crew and take some bets.
 ! eval (activate 'sq5-race)
 ! eval (complete task)
 ! eval (reset* interaction)
