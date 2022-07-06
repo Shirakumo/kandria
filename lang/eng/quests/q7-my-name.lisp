@@ -3,7 +3,7 @@
 
 (define-sequence-quest (kandria q7-my-name)
   :author "Tim White"
-  :title "My Name"
+  :title ""
   :visible NIL
   (:interact (fi)
   "
