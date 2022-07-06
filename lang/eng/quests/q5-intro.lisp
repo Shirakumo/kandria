@@ -32,7 +32,7 @@
 - I can't get inebriated.
   ~ innis
   | (:sly)Enlighten me. I never fully understood how an android core makes decisions.
-  | (:normal)Does your programming prevent you from drinking, or is it that you just physically canna get drunk?
+  | (:normal)Does your programming prevent you from drinking? Or can you just physically not get drunk?
   ~ player
   - The latter.
     ~ innis
