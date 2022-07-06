@@ -1,7 +1,7 @@
 ;; -*- mode: poly-dialog; -*-
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defmacro define-race (name &key npc site source marker title return-title description bronze silver gold on-complete)
+(defmacro define-race (name &key npc item site source marker title return-title description bronze silver gold on-complete)
   (let ((title-start (format NIL "(Start ~a)" title))
         (title-cancel (format NIL "(Cancel ~a)" title))
         (title-complete (format NIL "(Complete ~a)" title)))
@@ -27,7 +27,7 @@
         :title ,description
         :marker ',marker
         :invariant (not (complete-p 'q10-wraw))
-        :condition (have 'item:can)
+        :condition (have ',item)
         :on-activate (init cancel)
         :on-complete (return)
         
@@ -36,15 +36,15 @@
                  (deactivate 'start)
                  (setf (clock quest) 0)
                  (show-timer quest)
-                 (spawn ',site 'item:can))
+                 (spawn ',site ',item))
 
         (:action cancel-it
-                 (when (have 'item:can)
-                   (retrieve 'item:can T))
+                 (when (have ',item)
+                   (retrieve ',item T))
                  (hide-timer)
                  (reset* 'start 'race 'return)
                  (activate 'start)
-                 (leave 'item:can)
+                 (leave ',item)
                  (clear-pending-interactions))
 
         (:interaction cancel
@@ -68,12 +68,12 @@
 
          (:action complete-it
                   (hide-timer)
-                  (retrieve 'item:can T)
+                  (retrieve ',item T)
                   (reset* 'start 'race)
                   (clear-pending-interactions))))))
 
 (defmacro define-races (base-quest &body races)
-  (form-fiddle:with-body-options (races other npc source return) races
+  (form-fiddle:with-body-options (races other npc item source return) races
     (declare (ignore other))
     (let* ((quest (quest:find-named base-quest (quest:storyline 'kandria)))
            (all-names (loop for i from 1 to (length races)
@@ -87,6 +87,7 @@
                               ,@body
                               :site ,site
                               :npc ,npc
+                              :item ,item
                               :gold ,gold
                               :silver ,silver
                               :bronze ,bronze
@@ -116,6 +117,7 @@
 
 (define-races sq3-race
   :npc catherine
+  :item item:can
   :source "catherine-race"
   :return "Return the can to Catherine in Engineering ASAP"
   ((race-1-site 60 80 120)
