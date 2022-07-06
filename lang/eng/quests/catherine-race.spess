@@ -6,18 +6,18 @@
 | You can try routes as many times as you want, but you'll "only get a reward on later runs if you beat your previous best time"(orange).
 | We've also got "riddles"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
 | But once you know where they are, (:excited)you'll be clocking even faster times I'm sure.
-| (:normal)We'll "start with Route 1"(orange), which is easy. (:excited)Just "say when you're ready"(orange) and we'll get this show on the road!
+| (:normal)We'll "start with Route 1"(orange), which is easy. (:excited)Just "say when you're ready"(orange). This is sooo exciting!
 ! eval (clear-pending-interactions)
 
 # start
 ? (timer-quest)
 | ~ catherine
-| | You're already on the clock for a time trial. "Finish that one first"(orange) - or "let me know if you want to stop"(orange).
+| | (:concerned)Looks like you're "already on the clock"(orange) for a time trial. You've got to "finish or stop that one first"(orange).
 | < quit
 
 ~ catherine
 | (:cheer)Alright, let's do this!
-| (:excited)"{(quest:title (quest:find-named 'race task))}"(orange)
+| (:excited)"{(quest:title (quest:find-named 'race task))}."(orange)
 | (:normal)The time brackets are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (var 'pb)
 | | Your "personal best"(orange) for this route is "{(format-relative-time pb)}"(orange).

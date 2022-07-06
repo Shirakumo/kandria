@@ -149,7 +149,7 @@
   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost-fully-functional android can do!
   | (:normal)So yeah, we've planted old-world \"beer cans around the area for you to find and return\"(orange).
   | I'll \"record your times\"(orange) for posterity - this is anthropology! The \"faster you are, the more parts you'll get\"(orange).
-  | (:cheer)This is sooo exciting!
+  | (:excited)Pretty cool, huh?
   < task-choice
 - I'm ready.
   ~ catherine
