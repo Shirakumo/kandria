@@ -98,7 +98,7 @@
 
 (quest:define-quest (kandria sq3-race)
   :author "Tim White"
-  :title "Talk to Catherine About Time Trials"
+  :title "Catherine's Time Trials"
   :description "Catherine and her friends want to see what I'm capable of. They've planted cans for me to find and bring back. I should talk to her if I want to start a race."
   :on-activate T
   :variables (gold silver bronze pb start-task active-race)
