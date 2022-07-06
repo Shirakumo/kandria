@@ -15,6 +15,11 @@
   (unless (slot-boundp npc 'nametag-element)
     (setf (nametag-element npc) (make-instance 'nametag-element :value npc))))
 
+(defmethod update-instance-for-different-class :before ((npc npc) (cur ai-entity) &key)
+  (unless (typep cur 'npc)
+    (when (nametag-element npc)
+      (hide (nametag-element npc)))))
+
 (defmethod print-object ((npc npc) stream)
   (print-unreadable-object (npc stream :type T)
     (format stream "~s ~s" (state npc) (ai-state npc))))
@@ -543,15 +548,6 @@
 
 (defmethod primary-npc-p ((npc alex)) T)
 
-(define-shader-entity zelah (npc creatable)
-  ((name :initform 'zelah)
-   (profile-sprite-data :initform (asset 'kandria 'jack-profile))
-   (nametag :initform (@ zelah-nametag)))
-  (:default-initargs
-   :sprite-data (asset 'kandria 'jack)))
-
-(defmethod primary-npc-p ((npc zelah)) T)
-
 (define-shader-entity cerebat-trader (npc creatable)
   ((name :initform 'cerebat-trader)
    (profile-sprite-data :initform (asset 'kandria 'sahil-profile))
@@ -644,6 +640,16 @@
   (stage (// 'kandria 'villager-male 'texture) area)
   (stage (// 'kandria 'villager-female 'vertex-array) area)
   (stage (// 'kandria 'villager-female 'texture) area))
+
+(define-shader-entity zelah (npc creatable)
+  ((name :initform 'zelah)
+   (profile-sprite-data :initform (asset 'kandria 'zelah-profile))
+   (nametag :initform (@ zelah-nametag))
+   (level :initform 40))
+  (:default-initargs :sprite-data (asset 'kandria 'zelah)))
+
+(defmethod hurt ((npc zelah) (player player))
+  (change-class npc 'zelah-enemy))
 
 (define-random-draw bar
   (villager 1.0)

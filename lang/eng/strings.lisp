@@ -28,6 +28,7 @@ zelah-nametag "Zelah" ;; male
 soldier-nametag "Wraw Soldier" ;; gender unknown
 player "Player"
 mech "Wraw Machine Suit Prototype" ;; gender unknown
+zelah-enemy "Wraw Leader, Zelah"
 villager-female-nametags ("Sandra" "Cath" "Monika" "Leandra" "Sarah" "Nathalie" "Maria" "Anneli" "Laura" "Karina" "Heidy" "Nick")
 villager-male-nametags ("Vincent" "Nick" "Till" "Brian" "Simon" "Chris" "Sean" "Luigi" "Johnny" "Arthur" "Sina" "Tom")
 ;; Walk-n-talk blurbs

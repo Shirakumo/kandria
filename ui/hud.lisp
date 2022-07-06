@@ -128,7 +128,7 @@
    :size (alloy:ph 0.75)
    :pattern colors:accent)
   ((:name simple:text)
-   (alloy:extent 10 (alloy:ph 1.0) (alloy:pw 1.0) (alloy:ph 1.0))
+   (alloy:extent 10 (alloy:ph 1.0) (alloy:pw 1.0) (alloy:ph 1.5))
    (language-string (type-of alloy:value))
    :halign :start
    :valign :middle

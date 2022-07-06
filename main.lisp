@@ -247,7 +247,7 @@ Possible sub-commands:
   (let ((scene (scene main)))
     (hide-panel T)
     (setf (state main) NIL)
-    (reset (camera +world+))
+    (reset (camera scene))
     (leave (region scene) scene)
     (setf (storyline scene) (make-instance 'quest:storyline))
     (compile-to-pass scene scene)

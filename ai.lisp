@@ -9,7 +9,7 @@
   (let ((collisions (collisions entity))
         (vel (velocity entity)))
     (case (state entity)
-      ((:dying :animated :stunned)
+      ((:dying :animated :stunned :dead)
        (handle-animation-states entity ev))
       (T
        (unless (path entity)
@@ -22,7 +22,7 @@
            (incf (vy vel) (* (vy g) (dt ev)))
            (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))))))
     (case (state entity)
-      ((:dying :stunned))
+      ((:dying :stunned :dead))
       (T (handle-ai-states entity ev)))
     (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
     (nv+ (frame-velocity entity) vel)))

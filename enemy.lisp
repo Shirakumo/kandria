@@ -83,10 +83,11 @@
   (harmony:play (// 'sound 'box-break)))
 
 (define-shader-entity minor-enemy (enemy)
-  ((health-bar :accessor health-bar)))
+  ((health-bar :initform NIL :accessor health-bar)))
 
-(defmethod initialize-instance :after ((enemy minor-enemy) &key)
-  (setf (health-bar enemy) (make-instance 'enemy-health-bar :value enemy)))
+(defmethod shared-initialize :after ((enemy minor-enemy) slots &key)
+  (unless (health-bar enemy)
+    (setf (health-bar enemy) (make-instance 'enemy-health-bar :value enemy))))
 
 (defmethod hurt :after ((enemy minor-enemy) by)
   (when (setting :gameplay :display-hud)
@@ -100,10 +101,11 @@
     (show (health-bar enemy))))
 
 (define-shader-entity major-enemy (enemy)
-  ((health-bar :accessor health-bar)))
+  ((health-bar :initform NIL :accessor health-bar)))
 
-(defmethod initialize-instance :before ((enemy major-enemy) &key)
-  (setf (health-bar enemy) (make-instance 'boss-health-bar :value enemy)))
+(defmethod shared-initialize :after ((enemy major-enemy) slots &key)
+  (unless (health-bar enemy)
+    (setf (health-bar enemy) (make-instance 'boss-health-bar :value enemy))))
 
 (defmethod leave :after ((enemy major-enemy) target)
   (hide (health-bar enemy)))
@@ -122,7 +124,7 @@
 (defmethod handle :after ((ev tick) (enemy ground-enemy))
   ;; Animations
   (case (state enemy)
-    ((:dying :animated :stunned))
+    ((:dying :animated :stunned :dead))
     (T
      (let ((vel (velocity enemy))
            (collisions (collisions enemy)))
@@ -487,6 +489,55 @@
    (palette-index :initform (random 4)))
   (:default-initargs
    :sprite-data (asset 'kandria 'wraw-npc)))
+
+(define-shader-entity zelah-enemy (ground-enemy major-enemy half-solid)
+  ((timer :initform 0f0 :accessor timer)))
+
+(defmethod movement-speed ((enemy zelah-enemy))
+  (case (ai-state enemy)
+    (:stand 0.0)
+    (:walk (p! slowwalk-limit))
+    (T (p! walk-limit))))
+
+(defmethod interrupt ((enemy zelah-enemy)) NIL)
+
+(defmethod handle-ai-states ((enemy zelah-enemy) ev)
+  (case (state enemy)
+    (:normal
+     (case (ai-state enemy)
+       (:normal
+        (setf (health enemy) 1)
+        (setf (ai-state enemy) :active))
+       (:active
+        (let* ((player (unit 'player T))
+               (ploc (location player))
+               (eloc (location enemy))
+               (vel (velocity enemy)))
+          (cond ((<= (decf (timer enemy) (dt ev)) 0.0)
+                 (setf (ai-state enemy) :gloat)
+                 (start-animation 'idle enemy)
+                 (setf (timer enemy) (random* 3.0 1.0)))
+                ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 2))
+                 (start-animation 'attack enemy))
+                ((or (svref (collisions enemy) 1)
+                     (svref (collisions enemy) 3))
+                 (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
+                 (setf (vx vel) (* (direction enemy) (movement-speed enemy)))
+                 (when (svref (collisions enemy) 2)
+                   (setf (vy vel) 3.0)))
+                (T
+                 (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
+                 (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))
+       (:gloat
+        (when (<= (decf (timer enemy) (dt ev)) 0.0)
+          (setf (ai-state enemy) :active)
+          (setf (timer enemy) (random* 5.0 3.0))))))))
+
+(defmethod die ((enemy zelah-enemy))
+  (setf (state enemy) :dead)
+  (setf (ai-state enemy) :dead)
+  (setf (animation enemy) 'dead)
+  (show-credits))
 
 (define-shader-entity mech (ground-enemy major-enemy solid immovable creatable)
   ((bsize :initform (vec 20 42))
