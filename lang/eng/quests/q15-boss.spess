@@ -1,0 +1,22 @@
+# 9-interact-catherine/interaction
+~ catherine
+| (:concerned)Are you okay? (:excited)That was incredible.
+~ player
+- I had it under control.
+  ~ catherine
+  | (:excited)I could tell.
+- That was harder than I expected.
+  ~ catherine
+  | Well it's all over now. (:concerned)Assuming there aren't any more.
+- I need a vacation.
+  ~ catherine
+  | (:excited)Me too! Somewhere without sand or killer robots.
+~ catherine
+| "Islay rewired the bomb and put it back in the flooded room."(orange)
+| Now "she's gone to the one beneath the old Semi factory"(orange).
+| (:excited)We should "get to the mushroom cave in the west and see about that last bomb"(orange).
+| She's counting on us.
+! eval (follow 'player 'catherine)
+! eval (activate 'q15-target-bomb)
+! eval (activate (unit 'bomb-explode-1))
+

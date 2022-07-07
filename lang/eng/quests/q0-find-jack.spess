@@ -1,0 +1,74 @@
+# 2-interact-catherine/interaction
+~ jack
+| (:annoyed)... Don't give me that bullshit. Where the hell have you been? And who's this?
+~ catherine
+| (:cheer)What do you mean? I've brought back the android. I got her working.
+~ jack
+| (:annoyed)Jesus... this is all we need.
+~ player
+- Pleased to meet you.
+- Jack, I presume.
+- What's your problem? I'm here to help.
+~ jack
+| (:shocked)Fuck me it speaks...
+~ catherine
+| (:disappointed)Jack, what's wrong? Talk to me.
+! eval (setf (nametag (unit 'jack)) (@ jack-nametag))
+~ jack
+| The water has failed again, and this time I don't think it's the pump. Must be a leak somewhere.
+| If we don't get it back soon we're screwed. We'll lose the whole goddamn crop.
+~ catherine
+| (:disappointed)Shit!... I should have been here.
+~ jack
+| Yeah you should.
+~ catherine
+| Well I'm here now. What can I do?
+~ jack
+| You can stay put and man Engineering. The others might need you.
+| I'm goin' down there to check the supply pipe.
+~ catherine
+| You can't - not with your leg. And you know there's nothing I can't fix.
+~ jack
+| No way. It's too dangerous.
+~ catherine
+| (:excited)The android can come with me. You should see what she can do.
+~ jack
+| (:annoyed)Have you lost your mind? An android ain't no toy!
+| You'd be safer walking straight into "Wraw territory"(red) than you would goin' anywhere with that thing.
+~ player
+- I can protect her.
+  ~ jack
+  | (:annoyed)The hell you can.
+  | Androids don't exactly grow on trees 'round here. And some say you're the reason there ain't no trees any more. Or buildings.
+  | Or people.
+- Why are you afraid of me?
+  ~ jack
+  | (:annoyed)Androids don't exactly grow on trees. And some say you're the reason there ain't no trees any more. Or buildings.
+  | Or people.
+- You're right to be afraid.
+  ~ catherine
+  | (:disappointed)She's kidding... Aren't you?!
+  ~ jack
+  | (:shocked)I ain't so sure...
+  | (:annoyed)Androids don't exactly grow on trees. And you know what they say - they're the reason there ain't no trees any more. Or buildings.
+  | Or people.
+~ catherine
+| Look, we need to fix the water right now or we're goners. And I'm your best shot.
+| Me AND my android buddy.
+~ jack
+| (:annoyed)Shit...
+| (:normal)Alright. You'd better not let me down.
+~ catherine
+| (:cheer)Yes!!
+~ jack
+| (:annoyed)But I'm warning you android: Touch one hair on her head and I'll bury you for another thirty years!
+~ catherine
+| (:disappointed)Thanks "<-Dad->". We'll be going then.
+~ jack
+| Hold on Cathy - take this walkie. "Radio if you have any trouble"(orange).
+~ catherine
+| I will. And don't worry - we'll be back before you know it.
+| Alright, android - "let me know when you're ready to go"(orange).
+! eval (activate 'q1-ready)
+  
+

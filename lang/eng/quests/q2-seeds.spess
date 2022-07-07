@@ -1,0 +1,46 @@
+# find-seeds/q2-reminder
+~ fi
+| Travel "across the surface to the east"(orange) and beneath the "Ruins - retrieve whatever seeds remain"(orange) in the cache.
+| Good luck, Stranger.
+
+# find-seeds/seeds-arrive
+~ player
+| "It's an old-world bunker. This must be the storage cache."(light-gray, italic)
+| "It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before."(light-gray, italic)
+| "Most of this is spoiled, but some of the drawers may still house usable seeds. Let's see..."(light-gray, italic)
+| "This is all that's left: "24 sachets"(orange). Inside each one the seeds are tiny and hard like grit."(light-gray, italic)
+| (:thinking)"Will they still grow? I guess we'll find out."(light-gray, italic)
+| (:normal)"I should "return to Fi"(orange)."(light-gray, italic)
+! eval (store 'item:seeds 24)
+! eval (deactivate 'q2-reminder)
+
+# return-seeds/seeds-return-fi
+~ fi
+| You're back - did you find the seeds?
+~ player
+| I've got the last of them right here.
+~ fi
+! eval (retrieve 'item:seeds T)
+| Oh my. There must be... twenty sachets. All fully stocked.
+| You've done well. Very well. I'll see these are sown right away.
+| This buys us hope I never thought we'd have.
+| Know that you are earning my trust, Stranger. Perhaps you will become a part of the "Noka"(red) yourself.
+| But for now, please "accept these parts"(orange) as a token of my appreciation.
+! eval (retrieve 'item:semi-factory-key 1)
+! eval (store 'item:parts 200)
+~ fi
+? (complete-p 'q3-new-home)
+| ? (not (find :kandria-demo *features*))
+| | | You should "check in with Catherine"(orange) - I'm sure she'd like to see you again.
+| | | I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
+| | ! eval (activate 'sq-act1-intro)
+| | ! eval (activate 'q4-intro)
+|?
+| ? (not (active-p 'q3-new-home))
+| | | Oh, I've also "given Jack a special job"(orange) - something I think you'll be well-suited to help with.
+| | | He'll be in Engineering.
+|   
+| | I also heard "Sahil is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
+| | You would be wise to equip well for your work.
+| ! eval (activate 'trader-arrive)
+

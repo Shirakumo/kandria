@@ -1,0 +1,158 @@
+# task-reminder/interact-islay
+~ islay
+| (:normal)Remember where to "plant them"(orange):
+| "East of the Rootless hospital apartments, beneath the old Semi factory;"(orange)
+| "The sunken room beside the pump;"(orange)
+| "The mushroom cave to the west."(orange)
+| Good luck.
+
+# task-reminder/interact-fi
+~ fi
+| Islay can remind you where to plant the bombs.
+| (:unsure)I'm sorry, my mind is somewhere else.
+| (:normal)One was the sunken room beside the pump, I remember that.
+| (:unsure)Be careful, {(nametag player)}. Please.
+
+# task-reminder/interact-catherine
+~ catherine
+| Hey, {(nametag player)}! You still good to go? Talk to Islay if you need anything.
+| (:excited)I can't wait to see us win, and you'll be the hero.
+| (:normal)I'm glad I got to help build the bombs. Feels like sticking it to the Wraw myself.
+| You be careful, okay?
+
+# task-reminder/interact-innis
+~ innis
+| Islay can remind you about your task. I dinnae think I've anything to add, if she told you what she said she would.
+| (:sly)I hope I was wrong about you, android.
+
+# task-reminder/interact-jack
+~ jack
+| I can't help you, I'm outta the loop now. They didn't even need me for the bomb.
+| All I can do is keep an eye on everyone, make sure they don't freak out.
+| (:annoyed)And the sooner you get goin', the less people will freak out.
+
+# task-bomb-1/interact-bomb
+~ player
+| "This is the "bomb site beneath the Semi factory"(red)."(light-gray, italic)
+| "I can mould the explosive into this wall crevice, then push two RF detonators into the plastic."(light-gray, italic)
+! eval (retrieve 'item:explosive 1)
+! eval (retrieve 'item:receiver 2)
+| "It's ready."(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | "Checking "FFCS... No signal. Wraw interference"(orange), as expected."(light-gray, italic)
+| | "Okay, "2 more bombs to go"(orange)."(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-2 'task-bomb-3)
+| | "Checking "FFCS... More interference"(orange)."(light-gray, italic)
+| | "That's the last bomb planted."(light-gray, italic)
+| | "I'd better "get back to the Zenith Hub"(orange) ASAP and request detonation."(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | "Checking "FFCS... There's still interference"(orange)."(light-gray, italic)
+| | "Now I only have the "last bomb to plant"(orange)."(light-gray, italic)
+
+# task-bomb-2/interact-bomb
+~ player
+| "This is the "bomb site beneath the pump room"(red)."(light-gray, italic)
+| "I could mould the explosive into this crack in the concrete floor, which should stick, despite being submerged."(light-gray, italic)
+! eval (retrieve 'item:explosive 1)
+! eval (retrieve 'item:receiver 2)
+| "Thankfully the RF detonators seem to be waterproof."(light-gray, italic)
+| "It's ready."(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | "Checking "FFCS... No signal. Wraw interference"(orange), as expected."(light-gray, italic)
+| | "Okay, "2 more bombs to go"(orange)."(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-1 'task-bomb-3)
+| | "Checking "FFCS... More interference"(orange)."(light-gray, italic)
+| | "That's the last bomb planted."(light-gray, italic)
+| | "I'd better "get back to the Zenith Hub"(orange) ASAP and request detonation."(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | "Checking "FFCS... There's still interference"(orange)."(light-gray, italic)
+| | "Now I only have the "last bomb to plant"(orange)."(light-gray, italic)
+
+# task-bomb-3/interact-bomb
+~ player
+| "This is the "bomb site in the mushroom cave"(red)."(light-gray, italic)
+| "I think I'll mould the explosive into this giant mushroom."(light-gray, italic)
+| "Why not? Might as well cover them in fungus when they come through."(light-gray, italic)
+! eval (retrieve 'item:explosive 1)
+| "I can conceal the RF detonators beneath the cap."(light-gray, italic)
+! eval (retrieve 'item:receiver 2)
+| "It's ready."(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | "Checking "FFCS... No signal. Wraw interference"(orange), as expected."(light-gray, italic)
+| | "Okay, "2 more bombs to go"(orange)."(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-1 'task-bomb-2)
+| | "Checking "FFCS... More interference"(orange)."(light-gray, italic)
+| | "That's the last bomb planted."(light-gray, italic)
+| | "I'd better "get back to the Zenith Hub"(orange) ASAP and request detonation."(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | "Checking "FFCS... There's still interference"(orange)."(light-gray, italic)
+| | "Now I only have the "last bomb to plant"(orange)."(light-gray, italic)
+
+# task-return-bombs/call-bomb
+~ player
+| "That should be far enough."(light-gray, italic)
+| "Checking "FFCS... OK. I have a signal"(orange)."(light-gray, italic)
+| Islay, do you read me? The bombs are primed and in position.
+| ... Hello, anyone?
+| (:thinking)... The connection is open.
+~ islay
+| (:nervous){(nametag player)}, I read you. We have a problem - "return to the surface now"(orange).
+~ player
+- What about the bombs?
+- What problem?
+- Can I talk to Fi?
+~ player
+| "... She closed the connection."(light-gray, italic)
+| <-Shit.->
+| "I'd better "get back to Camp"(orange)."(light-gray, italic)
+! eval (complete 'task-return-bombs-station)
+
+# task-return-bombs-station/station-surface-trigger
+~ player
+| "I'd better hurry up and call this in."(light-gray, italic)
+| "Checking "FFCS... OK. I have a signal"(orange)."(light-gray, italic)
+| Islay, do you read me? The bombs are primed and in position.
+| ... Hello, anyone?
+| (:thinking)... The connection is open. It might be quicker just to walk from here.
+~ islay
+| (:nervous){(nametag player)}, I read you. We have a problem - "return to the surface now"(orange).
+~ player
+- What about the bombs?
+- What problem?
+- I'm already here, practically.
+~ player
+| "... She closed the connection."(light-gray, italic)
+| <-Shit.->
+| "I'd better "get back to Camp"(orange)."(light-gray, italic)
+! eval (complete 'task-return-bombs)
+

@@ -1,0 +1,69 @@
+# task-reminder/interact-fi
+~ fi
+| Hurry - "find Islay and fix those bombs"(orange).
+
+# check-bomb-1/interact-bomb
+
+# check-bomb-2/interact-bomb
+
+# check-bomb-3/interact-bomb
+
+# islay-person/islay-talk-bomb
+! eval (ensure-nearby 'player 'catherine)
+~ catherine
+| (:concerned)Islay, you're soaking wet.
+~ islay
+| (:nervous)Dammit... You shouldn't have come. I can handle this.
+~ player
+- Let us help.
+  ~ catherine
+  | We can do this together. (:excited)And save time.
+- We're more efficient together.
+  ~ catherine
+  | (:excited)Right. What she said.
+- The hell you can.
+  ~ catherine
+  | (:concerned){(nametag player)}'s right. Let us help you.
+~ islay
+| (:unhappy)...
+| This is the "bomb from the flooded room - (:unhappy)it's been defused"(orange)...
+| (:nervous)But I think "I can rewire its receiver"(orange).
+| (:normal)I think they've got a "bomb defusal mech"(orange) - I saw "one heading towards the pump room"(orange).
+| Since you're here now you can "destroy the mech"(orange).
+| Do that "then go to the bomb in the mushroom cave to the west. Catherine, you can rewire it"(orange).
+~ catherine
+| (:excited)Got it.
+~ islay
+| (:nervous)"I'll go to the one beneath the old Semi factory."(orange)
+| (:normal)And {(nametag player)}, for what it's worth: I don't think you're a traitor.
+| Now, please: I need to work.
+~ catherine
+| I can go to the mushroom cave while you take care of the mech.
+~ player
+- We should stick together.
+  ~ catherine
+  | (:concerned)... But I can do it.
+  ~ player
+  | I know you can, but if you don't make it to the bomb, we're in trouble.
+  ~ catherine
+  | (:concerned)...
+- Getting yourself killed won't help us.
+  ~ catherine
+  | (:concerned)...
+  | I suppose not.
+- You'll never get through there on your own.
+  ~ catherine
+  | What do you mean?
+  ~ player
+  | The mushroom cave is a labyrinth - even I can only make it through with my thrusters.
+  ~ catherine
+  | (:concerned)Then how can I rewire the bomb?
+  ~ player
+  | (:embarassed)We'll figure it out.
+~ catherine
+| Okay. Let's go together - "after the mech"(orange).
+! eval (complete 'check-bomb-1 'check-bomb-2 'check-bomb-3)
+! eval (deactivate 'task-reminder)
+! eval (activate (unit 'q15-boss-fight))
+! eval (clear-pending-interactions)
+

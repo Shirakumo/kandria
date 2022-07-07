@@ -337,20 +337,32 @@
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
      ,(task-wrap-lexenv form (interaction assembly))))
 
-(define-global +loaded-quest-language+ NIL)
 (defun load-quests (&optional (language (setting :language)))
-  (unless (equal language +loaded-quest-language+)
-    (let ((dir (language-dir language)))
-      (cl:load (merge-pathnames "storyline.lisp" dir))
-      (dolist (file (directory (merge-pathnames "quests/**/*.lisp" dir)))
-        (handler-bind (((or error warning)
-                         (lambda (e)
-                           (v:severe :kandria.quest "Failure loading ~a:~%~a" file e)))
-                       (sb-ext:code-deletion-note #'muffle-warning)
-                       (sb-kernel:redefinition-warning #'muffle-warning))
-          (cl:load file)))
-      (setf +loaded-quest-language+ language)))
-  (refresh-language (quest:storyline T)))
+  (dolist (file (directory (merge-pathnames "world/quests/*.lisp" (root))))
+    (handler-bind (((or error warning)
+                     (lambda (e)
+                       (v:severe :kandria.quest "Failure loading ~a:~%~a" file e)))
+                   (sb-ext:code-deletion-note #'muffle-warning)
+                   (sb-kernel:redefinition-warning #'muffle-warning))
+      (cl:load file))))
+
+(defun extract-spess-files (&optional (storyline (quest:storyline T)) (language "eng"))
+  (loop with dir = (pathname-utils:subdirectory (root) "lang" language "quests")
+        for quest being the hash-values of (quest:quests storyline)
+        for name = (string-downcase (quest:name quest))
+        for stream = NIL
+        do (flet ((emit (interaction)
+                    (when (stringp (dialogue interaction))
+                      (unless stream
+                        (setf stream (open (make-pathname :name name :type "spess" :defaults dir)
+                                           :direction :output :if-exists :supersede)))
+                      (format stream "~&# ~(~a/~a~)~%~a~&~%"
+                              (quest:name (quest:task interaction)) (quest:name interaction) (dialogue interaction)))))
+             (loop for task being the hash-values of (quest:tasks quest)
+                   do (loop for trigger being the hash-values of (quest:triggers task)
+                            do (when (typep trigger 'interaction)
+                                 (emit trigger))))
+             (when stream (close stream)))))
 
 (defmacro define-default-interactions (npc &body body)
   (labels ((compile-body (out body)
@@ -493,6 +505,3 @@
              ,@initargs
              :on-activate (,(caar tasks))
              ,@tasks))))))
-
-(trial::define-language-change-hook load-quests (language)
-  (load-quests language))

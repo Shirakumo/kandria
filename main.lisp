@@ -312,5 +312,3 @@ Possible sub-commands:
           (enter-and-load (make-instance 'trial:fps-counter) +world+ +main+))
         (when (unit 'trial:fps-counter +world+)
           (leave* (unit 'trial:fps-counter +world+) +world+)))))
-
-(load-quests :eng)

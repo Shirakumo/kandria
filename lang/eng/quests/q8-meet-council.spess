@@ -1,0 +1,22 @@
+# task-find/interact-reminder
+~ fi
+| Go and "see the Cerebat Council beneath Semi Sisters territory"(orange) - see what you can "learn about the supposed Wraw takeover"(orange).
+
+# task-find/player-council-chamber
+~ player
+| "This would seem to be the Cerebat Council chamber, but there's "no Council"(orange)."(light-gray, italic)
+? (not (active-p 'q8a-secret-supplies))
+| | "I should "ask around, find out where they are"(orange) - "local traders might know something"(orange)."(light-gray, italic)
+| ! eval (activate 'task-search)
+|?
+| | "Looks like I'll need to "give that trader what he wants to find out where they are"(orange)."(light-gray, italic)
+| ! eval (activate 'task-search-hold)
+
+# task-search-hold/interact-reminder
+~ fi
+| If the Council aren't there, you'll need to investigate. "See if any of the Cerebat traders know anything"(orange).
+
+# task-search/interact-reminder
+~ fi
+| If the Council aren't there, you'll need to investigate. "See if any of the Cerebat traders know anything"(orange).
+

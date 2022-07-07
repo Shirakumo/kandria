@@ -1,0 +1,6 @@
+# trade-shop-semi/buy
+! eval (show-sales-menu :buy 'islay)
+
+# trade-shop-semi/sell
+! eval (show-sales-menu :sell 'islay)
+

@@ -1,0 +1,94 @@
+# talk-trader/talk-to-trader
+~ trader
+| (:jolly)Well well... Are you who I think you are?
+~ player
+- Who do you think I am?
+- Most likely.
+~ trader
+| (:jolly)You're The Stranger!... (:normal)Or was it just Stranger?
+? (not (complete-p 'q7-my-name))
+| ~ player
+| - Technically it's just Stranger.
+|   ~ trader
+|   | (:jolly)Right you are, Stranger!
+| - Take your pick.
+|   ~ trader
+|   | (:jolly)But it's __YOUR__ name. Now I think about it, I'm sure it was just Stranger.
+| - I used to have a different name.
+|   ~ trader
+|   | Can't remember it though, right?
+|   | Don't worry. And speaking of remembering, I'm sure it was just Stranger.
+|?
+| ? (string= (@ player-name-1) (nametag player))
+| | ~ player
+| | - It's Stranger.
+| |   ~ trader
+| |   | (:jolly)Right you are, Stranger!
+| | - It's Stranger, but I used to have a different name.
+| |   ~ trader
+| |   | Can't remember it though, right?
+| |   | (:jolly)Well it's nice to meet you, Stranger!
+| | - It's Stranger. It was never The Stranger.
+| |   ~ trader
+| |   | Oh, my bad, habibti.
+| |   | (:jolly)Well it's nice to meet you, Stranger!
+| |?
+| | ~ player
+| | - Actually now it's {(nametag player)}.
+| |   ~ trader
+| |   | Old "Sahil"(yellow) got old information, huh? I'm sorry, habibti.
+| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   ~ trader
+| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
+| | - It used to be Stranger.
+| |   ~ trader 
+| |   | Used to be? Old "Sahil"(yellow) got old information, huh?
+| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   ~ trader
+| |   | Sorry, habibti. What is it now?
+| |   ~ player
+| |   | {(nametag player)}.
+| |   ~ trader
+| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
+| | - Now it's {(nametag player)}, which was possibly my original name.
+| |   ~ trader
+| |   | Right - because you can't remember.
+| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
+~ trader
+| (:jolly)Word spreads quickly around here. And Catherine couldn't stop talking about you.
+| Such a great kid, you know? A talented engineer as well. Reminds me of...
+| (:normal)Er-... well, never mind that.
+| So you've come to trade with old "Sahil"(yellow), eh?
+! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+~ player
+- What do you sell?
+  ~ trader
+  | What doesn't old Sahil sell!
+  | Listen: Catherine told me how you helped her out down here - kicked some Servo ass by the sounds of things.
+- What do I need?
+  ~ trader
+  | I don't know. What kind of work are you doing?
+  | Catherine said you helped her out down here - kicked some Servo ass by the sounds of things.
+- I think I can manage on my own.
+  ~ trader
+  | Nonsense! You helped Catherine out - kicked some Servo ass by the sounds of things.
+~ trader
+| The least I can do is help keep you in tip-top condition.
+| I've heard about androids - you're different to those Servos. You've a lot more going on up here, that's for sure.
+~ player
+| "He's tapping his fingers on his temple. Yes, the crystalline matrix is quite sophisticated"(light-gray, italic) (:embarassed)"- when it's not corrupting your memories."(light-gray, italic)
+~ trader
+| Though I hear there are some similarities under the hood. No offence.
+| Here, I can assemble some useful bits and pieces into a handy repair pack for you.
+~ player
+| "Why is he rummaging around on those shelves? Surely there's nothing of value up there, judging by all the crap that's clattering to the floor."(light-gray, italic)
+| "Maybe I spoke too soon: he's cramming old circuit boards, clipped wires, and rolls of solder into several tins of different sizes."(light-gray, italic)
+~ trader
+| (:jolly)Voila! I give you: "The Android Health Pack"(orange)! Custom made just for you.
+~ player
+| "It's crude, but does resemble the ones I used to use."(light-gray, italic)
+| "I'm sure I can do something with it - if only poke my lenses out."(light-gray, italic)
+~ trader
+| Just "let me know when you want to buy one"(orange), okay?
+| You take it easy, habibti.
+

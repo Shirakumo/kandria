@@ -1,0 +1,11 @@
+# 6-interact-catherine/interaction
+   ~ catherine
+| (:excited)Yes!
+| (:concerned)Uh, "can you walk"(orange)?
+
+# 8-interact-catherine/interaction
+~ catherine
+| (:excited)No way! Looks like "most of your systems are still working"(orange).
+| (:normal)My name's "Catherine"(yellow). Come on, "let's get out of here"(orange).
+! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))
+

@@ -1,0 +1,38 @@
+# q1-ready-chat/talk-catherine
+~ catherine
+| You ready to "fix that leak"(orange)?
+~ player
+- I'm ready.
+  ~ catherine
+  | Alright. We're going down the ladder over there.
+  ~ player
+  | "She's grabbing a welding torch and goggles from the shelf - she means business."(light-gray, italic)
+  ~ catherine
+  | Follow the "red pipeline"(orange) and "stay close"(orange) to me.
+  ! eval (deactivate interaction)
+  ! eval (complete task)
+- Not yet.
+  ~ catherine
+  | [? Alright, you can have a minute. | Okay but we need to hurry - the water supply isn't gonna fix itself. | Okay, but whatever you need to do, please be quick about it.]
+- (Review task log)
+  ~ player
+  | "My "Log Files"(orange) record data about my assigned tasks; if I'm ever unsure what to do next, I should access and review them."(light-gray, italic)
+  | (:giggle)"The benefits of being an android!"(light-gray, italic)
+- What are we doing again?
+  ~ catherine
+  | (:concerned)Um, did your short-term memory corrupt? We need to fix the leak - before we lose the crop and everyone starves!
+  ~ player
+  - I don't need to eat.
+    ~ catherine
+    | (:disappointed)Well the rest of us aren't so lucky. Aren't so unlucky, actually.
+  - Ah, I remember now.
+    ~ catherine
+    | (:concerned)Good. Well...
+  - But my systems are currently sub-optimal.
+    ~ catherine
+    | Decades sat on your ass in a cave will do that.
+    | (:concerned)I don't think there's much I can do for you right now though. Sorry.
+  ~ catherine
+  | "Let me know"(orange) when you're ready to go. But we can't afford to wait too long.
+  
+
