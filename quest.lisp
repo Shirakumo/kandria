@@ -315,8 +315,6 @@
                (loop for thing in things always (eql :complete (quest:status (thing thing)))))
              (failed-p (&rest things)
                (loop for thing in things always (eql :failed (quest:status (thing thing)))))
-             (walk-n-talk (thing)
-               (walk-n-talk (if (stringp thing) thing (quest:find-named thing ,task))))
              (interrupt-walk-n-talk (thing)
                (interrupt-walk-n-talk (quest:find-named thing ,task))))
        (symbol-macrolet ,(loop for variable in (quest:list-variables task)
@@ -511,3 +509,8 @@
              ,@initargs
              :on-activate (,(caar tasks))
              ,@tasks))))))
+
+(trial::define-language-change-hook load-quests (language)
+  (declare (ignore language))
+  (when (and +world+ (storyline +world+))
+    (refresh-language (storyline +world+))))

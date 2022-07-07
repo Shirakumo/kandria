@@ -11,11 +11,11 @@
 
 # rope-start/walkntalk
 ~ catherine
-| \"Try not to fall.\"(orange)
+| "Try not to fall."(orange)
 
 # dash-end/walkntalk
 ~ catherine
-| <-Shit!->... (:disappointed)Umm, \"now what\"(orange)?...
+| <-Shit!->... (:disappointed)Umm, "now what"(orange)?...
 
 # platform-start/walkntalk
 ~ catherine
@@ -23,4 +23,4 @@
 
 # platform-end/walkntalk
 ~ catherine
-| We're almost there - it's \"just through here\"(orange).
+| We're almost there - it's "just through here"(orange).

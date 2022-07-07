@@ -23,5 +23,3 @@
 | And come look at this - I guarantee you won't have ever seen anything like it.
 ! eval (complete 'tutorial)
 ! eval (activate 'q0-settlement-arrive)
-  
-
