@@ -98,7 +98,8 @@
   (alex-profile :min-filter :nearest :mag-filter :nearest)
   (sahil-profile :min-filter :nearest :mag-filter :nearest)
   (innis-profile :min-filter :nearest :mag-filter :nearest)
-  (islay-profile :min-filter :nearest :mag-filter :nearest))
+  (islay-profile :min-filter :nearest :mag-filter :nearest)
+  (zelah-profile :min-filter :nearest :mag-filter :nearest))
 
 (define-assets-from-path (kandria tile-data "tileset/*.lisp" :ignore-directory T))
 
