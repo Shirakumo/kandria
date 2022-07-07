@@ -96,6 +96,9 @@
 (defmethod (setf dialogue) ((dialogue dialogue:assembly) (interaction interaction))
   (setf (slot-value interaction 'dialogue) dialogue))
 
+(defmethod (setf dialogue) ((dialogue components:component) (interaction interaction))
+  (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))
+
 (defmethod (setf dialogue) ((dialogue string) (interaction interaction))
   (setf (dialogue interaction) (dialogue:compile* dialogue (make-assembly interaction))))
 

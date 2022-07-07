@@ -2,7 +2,8 @@
   (:use #:cl)
   (:shadow #:condition)
   (:local-nicknames
-   (#:dialogue #:org.shirakumo.fraf.speechless))
+   (#:dialogue #:org.shirakumo.fraf.speechless)
+   (#:components #:org.shirakumo.markless.components))
   ;; scope
   (:export
    #:scope

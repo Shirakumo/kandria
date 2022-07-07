@@ -564,8 +564,7 @@
 
 ;; used for various sidequest NPCs, name set in the quest
 (define-shader-entity villager-male (paletted-entity npc creatable)
-  ((name :initform 'villager-male)
-   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+  ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ unknown-nametag))
    (palette :initform (// 'kandria 'villager-male-palette))
    (palette-index :initform 0))
@@ -574,8 +573,7 @@
 
 ;; used for various sidequest NPCs, name set in the quest
 (define-shader-entity villager-female (paletted-entity npc creatable)
-  ((name :initform 'villager-female)
-   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+  ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ unknown-nametag))
    (palette :initform (// 'kandria 'villager-female-palette))
    (palette-index :initform 0))
@@ -596,15 +594,16 @@
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
    (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
   (:default-initargs
+   :default-interaction 'semi-engineer
    :sprite-data (asset 'kandria 'villager-engineer)))
 
 (define-shader-entity soldier (paletted-entity npc creatable)
-  ((name :initform 'soldier)
-   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+  ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ soldier-nametag))
    (palette :initform (// 'kandria 'rogue-palette))
    (palette-index :initform 0))
   (:default-initargs
+   :default-interaction 'soldier
    :sprite-data (asset 'kandria 'rogue)))
 
 (define-shader-entity villager-hunter (roaming-npc creatable)
@@ -612,12 +611,15 @@
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
   (:default-initargs
+   :default-interaction 'npc
    :sprite-data (asset 'kandria 'villager-hunter)))
 
 (define-shader-entity villager (paletted-entity roaming-npc creatable)
   ((name :initform (generate-name "VILLAGER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
-   (nametag :initform (@ villager-nametag))))
+   (nametag :initform (@ villager-nametag)))
+  (:default-initargs
+   :default-interaction 'npc))
 
 (defmethod initialize-instance :before ((villager villager) &key)
   (case (random 2)

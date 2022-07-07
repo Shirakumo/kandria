@@ -1,7 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defvar *default-interactions* (make-hash-table :test 'eq))
-
 (defclass interactable (entity collider)
   ())
 
@@ -18,13 +16,16 @@
   ((interactions :initform () :accessor interactions)
    (default-interaction :initform NIL :initarg :default-interaction :accessor default-interaction)))
 
-(defmethod initialize-instance :after ((entity dialog-entity) &key)
-  (unless (default-interaction entity)
-    (setf (default-interaction entity) (gethash (name entity) *default-interactions*))))
-
 (defmethod interactable-p ((entity dialog-entity))
-  (or (interactions entity)
-      (default-interaction entity)))
+  (let ((default (default-interaction entity)))
+    (when (symbolp default)
+      (let ((defaults (default-interactions (storyline +world+))))
+        (setf (default-interaction entity)
+              (or (gethash default defaults)
+                  (gethash (name entity) defaults)
+                  (gethash 'npc defaults)))))
+    (or (interactions entity)
+        default)))
 
 (defmethod interact ((entity dialog-entity) from)
   (when (interactable-p entity)

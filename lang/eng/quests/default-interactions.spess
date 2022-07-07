@@ -1,0 +1,174 @@
+# innis
+; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
+~ innis
+? (complete-p 'Q14-ENVOY)
+| | (:angry)I'm watching you.
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:angry)Where've you been?
+|? (complete-p 'DEMO-END-PREP)
+| | [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the winning side.]
+|? (complete-p 'DEMO-INTRO)
+| | [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]
+|? (complete-p 'DEMO-SEMIS)
+| | (:angry)[? "Talk to my sister up in the control room."(orange) | Are your audio receivers offline? I said "talk to my sister - she's up in the control room"(orange). | Do you want the water turned back on or not? If you do, then "talk to my sister up in the control room"(orange).]
+|? (complete-p 'DEMO-START)
+| | [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]
+|?
+| | What do you want?
+
+# islay
+; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
+~ islay
+? T
+| | I'm sorry, I'm busy.
+
+# alex
+; alex, non binary - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka; speaks London multicultural English
+; TODO don't have the fallback of "hic" be possible once they've left the Semi bar at the start of act 3 (q7), as they're meant to have sobered up by then
+~ alex
+? (complete-p 'Q14-ENVOY)
+| | (:angry)You picked the wrong side.
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:angry)Hello again.
+|?
+| | (:angry)<-Hic->. Go away.
+
+# trader
+; Sahil, trader, male, Arabic code switching (used in demo and main game)
+~ trader
+? T
+| | Sorry, habibti. I'm closed for business while I fix my caravan.
+
+# jack
+; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
+~ jack
+? (complete-p 'Q14-ENVOY)
+| | Was I wrong about you?
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | Look what the cat dragged in.
+|? (complete-p 'Q11A-BOMB-RECIPE)
+| | (:annoyed)Innis is a real bitch, don't ya think?
+|?
+| | What?
+
+# fi
+; Fi (Noka faction leader, female) - somewhat indifferent and distanced to the player; formal, but warming to them. Japanese English accent and dialect.
+~ fi
+? (complete-p 'Q14-ENVOY)
+| | You're one of us.
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:unsure){(nametag player)}...
+|? (complete-p 'Q11A-BOMB-RECIPE)
+| | Konnichiwa.
+|? (complete-p 'Q11-RECRUIT-SEMIS)
+| | (:unsure)Whatever you're doing, please hurry.
+|? (complete-p 'Q6-RETURN-TO-FI)
+| | Konnichiwa.
+|? (complete-p 'Q4-INTRO)
+| | Any news on Alex? I still need them back.
+|?
+| | Konnichiwa.
+
+# catherine
+; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
+~ catherine
+? (complete-p 'EPILOGUE-TALK)
+| | (:concerned)So we won? I hope everyone is okay.
+|? (complete-p 'Q14-ENVOY)
+| | (:concerned)You don't belong to Zelah. You don't belong to anyone but yourself.
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | He doesn't look so tough. (:excited)I could take him.
+|?
+| | You okay?
+
+# zelah
+~ zelah
+? (complete-p 'Q14-ENVOY)
+| | It's too late for you. It's too late for everyone.
+|?
+| | Keep going.
+
+# semi-engineer
+~ semi-engineer
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]
+|?
+| | [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]
+
+# soldier
+~ soldier
+? (complete-p 'Q14-ENVOY)
+| | [? I'm not afraid of an android. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | Step away.
+|?
+| | [? Huh? | Yeah? | What?]
+
+# semi-roboticist
+~ semi-roboticist
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | We could really use some Servos on our side, right about now.
+|? (complete-p 'SQ4-ANALYSE-ROBOTS)
+| | I'm getting closer to understanding how Servos think. How //you//think too.
+|?
+| | Can't talk now, sorry. Science waits for no one. Maybe later?
+
+# semi-barkeep
+; Semi Sisters barkeep, non-binary
+~ semi-barkeep
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | No time for racing. No time for drinking either.
+|?
+| | Who's this fancy pants?
+
+# semi-barkeep-2
+; female barkeep (other barkeep)
+~ semi-barkeep-2
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | I knew you'd bring trouble down on us.
+|?
+| | I don't serve your kind.
+
+# semi-patron-1
+~ semi-patron-1
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | Tends to put things in perspective, doesn't it? War, I mean. We never knew how good we had it.
+|? (complete-p 'SQ5-INTRO)
+| | I've high hopes for you, android.
+|?
+| | You the betting sort? Maybe you could be.
+
+# semi-patron-2
+~ semi-patron-2
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | Where's the goddamn bar around here?
+|? (complete-p 'SQ5-INTRO)
+| | Did you start the race yet? <-Hic->. Where am I?
+|?
+| | <-Hic->. Cheers! <-Hic->.
+
+# semi-partner
+~ semi-partner
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | I'm going nowhere without Kacey.
+|? (complete-p 'SQ6-DELIVER-LETTER)
+| | Kacey called me. We're still friends, though.
+|?
+| | ... Hold on, there's someone here. Over. Er, hi? Can I help you? - Can't you see I'm on a call?
+
+# cerebat-partner
+~ cerebat-partner
+? (complete-p 'Q10-WRAW)
+| | So the world's going to shit again. Great.
+|? (complete-p 'SQ6-DELIVER-LETTER)
+| | You understand privacy, yes?
+|?
+| | Keep walking, pal.
+
+# npc
+~ npc
+? T
+| | [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat.]
+
+; TODO - faction generic NPC granularity
+; Cerebats/traders: Sorry, we're closed. etc.

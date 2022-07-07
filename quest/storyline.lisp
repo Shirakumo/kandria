@@ -64,13 +64,17 @@
   (setf *storylines* (list* storyline (remove name *storylines* :key #'name)))
   storyline)
 
+(defmethod (setf storyline) ((none null) (name symbol))
+  (setf *storylines* (remove name *storylines* :key #'name))
+  none)
+
 (defmacro define-storyline (name &body initargs)
   (form-fiddle:with-body-options (body initargs variables on-activate (class (class-for 'storyline))) initargs
     `(let ((storyline (or (storyline ',name)
                           (setf (storyline ',name) (make-instance ',class :name ',name ,@initargs)))))
        (reinitialize-instance storyline :variables ',variables
                                         :on-activate ',on-activate
-                              ,@initargs)
+                                        ,@initargs)
        ,@(loop for (quest . options) in body
                collect `(define-quest (,name ,quest)
                           ,@options))

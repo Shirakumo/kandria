@@ -8,6 +8,9 @@
 (defclass place-marker (sized-entity resizable ephemeral dialog-entity creatable)
   ((name :accessor name)))
 
+(defmethod interactable-p ((marker place-marker))
+  (interactions marker))
+
 (defmethod description ((marker place-marker))
   (if (eql :complete (quest:status (first (interactions marker))))
       (language-string 'examine-again)
@@ -30,6 +33,9 @@
 (defmethod refresh-language ((storyline quest:storyline))
   (loop for quest being the hash-values of (quest:quests storyline)
         do (refresh-language quest)))
+
+(defclass storyline (quest:storyline)
+  ((default-interactions :initform (make-hash-table :test 'eql) :reader default-interactions)))
 
 (defclass quest (quest:quest alloy:observable)
   ((clock :initarg :clock :initform 0f0 :accessor clock)
@@ -341,54 +347,23 @@
      (declare (ignorable interaction task quest all-complete has-more-dialogue))
      ,(task-wrap-lexenv form (interaction assembly))))
 
-(defun load-quests (&optional (language (setting :language)))
-  (dolist (file (directory (merge-pathnames "world/quests/*.lisp" (root))))
-    (handler-bind (((or error warning)
-                     (lambda (e)
-                       (v:severe :kandria.quest "Failure loading ~a:~%~a" file e)))
-                   (sb-ext:code-deletion-note #'muffle-warning)
-                   (sb-kernel:redefinition-warning #'muffle-warning))
-      (cl:load file))))
-
-(defun extract-spess-files (&optional (storyline (quest:storyline T)) (language "eng"))
-  (loop with dir = (pathname-utils:subdirectory (root) "lang" language "quests")
-        for quest being the hash-values of (quest:quests storyline)
-        for name = (string-downcase (quest:name quest))
-        for stream = NIL
-        do (flet ((emit (interaction)
-                    (when (stringp (dialogue interaction))
-                      (unless stream
-                        (setf stream (open (make-pathname :name name :type "spess" :defaults dir)
-                                           :direction :output :if-exists :supersede)))
-                      (format stream "~&# ~(~a/~a~)~%~a~&~%"
-                              (quest:name (quest:task interaction)) (quest:name interaction) (dialogue interaction)))))
-             (loop for task being the hash-values of (quest:tasks quest)
-                   do (loop for trigger being the hash-values of (quest:triggers task)
-                            do (when (typep trigger 'interaction)
-                                 (emit trigger))))
-             (when stream (close stream)))))
-
-(defmacro define-default-interactions (npc &body body)
-  (labels ((compile-body (out body)
-             (with-input-from-string (in (format NIL "~{~a~^~%~}" body))
-               (loop for line = (read-line in NIL)
-                     while line
-                     do (format out "| ~a~%" line))))
-           (compile-dialogue ()
-             (with-output-to-string (out)
-               (format out "~~ ~a~%" npc)
-               (destructuring-bind (first . rest) body
-                 (if (eql (car first) T)
-                     (format out "? T~%")
-                     (format out "? (complete-p '~a)~%" (car first)))
-                 (compile-body out (cdr first))
-                 (loop for (quest . body) in rest
-                       do (if (eql quest T)
-                              (format out "|?~%")
-                              (format out "|? (complete-p '~a)~%" quest))
-                          (compile-body out body))))))
-    `(setf (gethash ',npc *default-interactions*)
-           (make-instance 'stub-interaction :dialogue ,(compile-dialogue)))))
+(defun load-default-interactions (&optional (storyline (quest:storyline T)) (file (merge-pathnames "quests/default-interactions.spess" (language-dir))))
+  (let ((*package* #.*package*)
+        (interactions (default-interactions storyline))
+        (root (dialogue:parse file))
+        (section NIL))
+    (flet ((start-new (name)
+             (let ((root (make-instance 'components:root-component)))
+               (setf (gethash name interactions) root)
+               (setf section root))))
+      (loop for component across (components:children root)
+            do (if (typep component 'components:header)
+                   (start-new (read-from-string (aref (components:children component) 0)))
+                   (vector-push-extend component (components:children section))))
+      (loop for name being the hash-keys of interactions
+            for root being the hash-values of interactions
+            do (when (typep root 'components:root-component)
+                 (setf (gethash name interactions) (make-instance 'stub-interaction :dialogue root)))))))
 
 (defmacro define-sequence-quest ((storyline name) &body body)
   (let ((counter 0))
@@ -510,7 +485,8 @@
              :on-activate (,(caar tasks))
              ,@tasks))))))
 
-(trial::define-language-change-hook load-quests (language)
+(define-language-change-hook refresh-quests (language)
   (declare (ignore language))
   (when (and +world+ (storyline +world+))
-    (refresh-language (storyline +world+))))
+    (refresh-language (storyline +world+))
+    (load-default-interactions)))
