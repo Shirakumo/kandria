@@ -142,7 +142,7 @@
         do (refresh-language trigger)))
 
 (defun find-mess (name &optional chapter)
-  (let ((file (merge-pathnames name
+  (let ((file (merge-pathnames (string-downcase name)
                                (merge-pathnames "quests/a.spess" (language-dir (setting :language))))))
     (if chapter
         (list file chapter)
@@ -153,11 +153,17 @@
    (repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)
    (auto-trigger :initform NIL :initarg :auto-trigger :accessor auto-trigger)))
 
-(defmethod shared-initialize :around ((interaction interaction) slots &rest args &key source dialogue)
-  (if (or dialogue (null source))
-      (call-next-method)
-      (let ((dialogue (apply #'find-mess (enlist source))))
-        (apply #'call-next-method interaction slots :dialogue dialogue args))))
+(defmethod shared-initialize :around ((interaction interaction) slots &rest args &key source dialogue task name)
+  (cond (source
+         (let ((dialogue (apply #'find-mess (enlist source))))
+           (apply #'call-next-method interaction slots :dialogue dialogue args)))
+        ((or dialogue (slot-boundp interaction 'source))
+         (call-next-method))
+        (T
+         (let* ((source (list (quest:name (quest:quest task)) (format NIL "~(~a/~a~)" (quest:name task) name)))
+                (dialogue (apply #'find-mess source)))
+           (setf (source interaction) source)
+           (apply #'call-next-method interaction slots :dialogue dialogue args)))))
 
 (defmethod quest:class-for ((storyline (eql 'quest:interaction))) 'interaction)
 

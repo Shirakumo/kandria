@@ -119,6 +119,9 @@
 (defmethod walk-n-talk ((string string))
   (walk-n-talk (make-instance 'stub-interaction :dialogue string)))
 
+(defmethod walk-n-talk ((cons cons))
+  (walk-n-talk (make-instance 'stub-interaction :source cons)))
+
 (defmethod walk-n-talk ((interaction interaction))
   (setf (interaction (unit 'walkntalk +world+)) interaction))
 
