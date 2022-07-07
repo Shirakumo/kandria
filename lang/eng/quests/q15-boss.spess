@@ -20,3 +20,8 @@
 ! eval (activate 'q15-target-bomb)
 ! eval (activate (unit 'bomb-explode-1))
 
+# q15-boss-fight/walkntalk
+~ player
+| Stay back Catherine.
+~ catherine
+| Holy shit!

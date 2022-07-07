@@ -9,3 +9,18 @@
 | (:normal)My name's "Catherine"(yellow). Come on, "let's get out of here"(orange).
 ! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))
 
+# rope-start/walkntalk
+~ catherine
+| \"Try not to fall.\"(orange)
+
+# dash-end/walkntalk
+~ catherine
+| <-Shit!->... (:disappointed)Umm, \"now what\"(orange)?...
+
+# platform-start/walkntalk
+~ catherine
+| (:cheer)That was __AMAZING!!__ Is that some kind of booster module?
+
+# platform-end/walkntalk
+~ catherine
+| We're almost there - it's \"just through here\"(orange).

@@ -327,3 +327,20 @@
 | (:normal)But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
 | (:excited)Take a "look around and explore"(orange)! (:normal)Though it's probably best not to go too far from Camp.
 | Seeya later, Stranger!
+
+# main-leak-2/walkntalk
+~ catherine
+| (:excited)Catch me if you can!
+
+# q1-fight1/walkntalk
+~ catherine
+| (:concerned)Look out!
+
+# q1-fight2/walkntalk
+~ catherine
+| Smash 'em!
+
+# shutter-1/walkntalk
+~ catherine
+| (:excited)\"Take us home\"(orange), Stranger!
+
