@@ -307,9 +307,9 @@
 | Sayonara Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
-! eval (move-to 'fi-farm (unit 'fi))
+! eval (move-to 'fi-farm 'fi)
 ! eval (setf (walk 'fi) T)
-! eval (move-to 'eng-jack (unit 'jack))
+! eval (move-to 'eng-jack 'jack)
 ! eval (setf (walk 'jack) T)
 
 # 27-interact-catherine/interaction

@@ -59,7 +59,7 @@
 | Perhaps see her as another challenge to overcome. I know I do.
 | Ta-ta for now, Stranger.
 ! eval (stop-following 'islay)
-! eval (move-to 'islay-alex-talk (unit 'islay))
+! eval (move-to 'islay-alex-talk 'islay)
 ! eval (activate 'trader-semi-chat)
 ! eval (activate 'trader-semi-alex)
 ! eval (activate 'trader-shop-semi)

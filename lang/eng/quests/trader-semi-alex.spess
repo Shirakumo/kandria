@@ -22,7 +22,7 @@
 | | | [(not (complete-p 'q6-return-to-fi)) You should "get back and update Fi"(orange). I'll keep an eye on Alex. | Don't worry, I'll keep an eye on them.]
 | | | We'll speak again.
 | | ! eval (setf (var 'alex-done) T)
-| | ! eval (move-to 'islay-main-loc (unit 'islay))
+| | ! eval (move-to 'islay-main-loc 'islay)
 | | ! eval (clear-pending-interactions)
 | |? (var 'alex-done)
 | | ~ islay
