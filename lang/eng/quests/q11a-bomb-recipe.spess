@@ -119,7 +119,7 @@
 ~ innis
 | (:angry)Aye, alright.
 ! eval (complete task)
-! eval (reset* interaction)
+! eval (reset interaction)
 ! eval (activate 'q13-intro)
 ! eval (clear-pending-interactions)
 

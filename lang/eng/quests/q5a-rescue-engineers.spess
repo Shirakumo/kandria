@@ -127,5 +127,5 @@
 | ! eval (activate (find-task 'world 'task-world-engineers))
   
 ! eval (complete task)
-! eval (reset* interaction)
+! eval (reset interaction)
 

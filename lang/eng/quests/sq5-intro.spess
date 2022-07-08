@@ -70,7 +70,7 @@
 | "Let me know if you want in"(orange). In the meantime, I'll try organise this motley crew and take some bets.
 ! eval (activate 'sq5-race)
 ! eval (complete task)
-! eval (reset* interaction)
+! eval (reset interaction)
 ! label leave
 ~ semi-barkeep
 | Allez, salut. Don't stay away too long.

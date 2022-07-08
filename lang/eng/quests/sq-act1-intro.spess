@@ -157,7 +157,7 @@
   
 ! eval (activate 'sq3-race)
 ! eval (complete task)
-! eval (reset* interaction)
+! eval (reset interaction)
 
 # leave
 ~ catherine

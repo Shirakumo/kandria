@@ -34,7 +34,7 @@
 ! eval (activate 'check-note)
 ! eval (activate 'sq6-deliver-letter)
 ! eval (complete task)
-! eval (reset* interaction)
+! eval (reset interaction)
 # leave
 ~ semi-partner
 | Please, please just "think about it"(orange).

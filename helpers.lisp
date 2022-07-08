@@ -106,6 +106,8 @@
 
 (define-unit-resolver-methods direction (unit))
 (define-unit-resolver-methods (setf direction) (direction unit))
+(define-unit-resolver-methods location (unit))
+(define-unit-resolver-methods (setf location) (location unit))
 
 (defclass rotated-entity (base-entity transformed)
   ((angle :initarg :angle :initform 0f0 :accessor angle

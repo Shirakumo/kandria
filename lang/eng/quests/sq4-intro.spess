@@ -55,7 +55,7 @@
 | Don't get killed.
 ! eval (activate 'sq4-analyse-robots 'sq4-boss)
 ! eval (complete task)
-! eval (reset* interaction)
+! eval (reset interaction)
 # leave
 ~ semi-roboticist
 | Suit yourself. But you're missing out - and I'm not just talking about scrap parts.

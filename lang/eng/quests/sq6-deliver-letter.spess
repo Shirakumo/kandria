@@ -11,7 +11,7 @@
 | Just deliver it, alright. I need to know she's safe.
 | Can you do that?
 ! eval (complete task)
-! eval (reset* interaction)
+! eval (reset interaction)
 
 # deliver-letter/deliver-chat
 ~ cerebat-partner
