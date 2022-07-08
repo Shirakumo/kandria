@@ -28,6 +28,7 @@
 
 (presentations:define-update (ui icon)
   (:icon
+   :image alloy:value
    :sizing :contain))
 
 (defmethod alloy:suggest-bounds ((bounds alloy:extent) (icon icon))

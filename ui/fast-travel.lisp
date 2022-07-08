@@ -77,13 +77,18 @@
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
                               :min-size (alloy:size 100 50))))
     (alloy:enter list clipper)
-    (alloy:enter preview layout :constraints `((:left 50) (:right 570) (:bottom 100) (:top 100)))
+    (alloy:enter preview layout :constraints `((:left 100) (:right 630) (:bottom 100) (:top 100)))
     (alloy:enter clipper layout :constraints `((:width 500) (:right 70) (:bottom 100) (:top 100)))
     (alloy:enter scroll layout :constraints `((:width 20) (:right 50) (:bottom 100) (:top 100)))
     (alloy:enter (make-instance 'label :value (@ station-pick-destination)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 500 50)))
     (dolist (station (list-stations))
-      (make-instance 'station-button :value station :source current-station :target panel
-                                     :layout-parent list :focus-parent focus))
+      (let ((station (make-instance 'station-button :value station :source current-station :target panel
+                                                    :layout-parent list :focus-parent focus)))
+        (alloy:on alloy:focus (focus station)
+          (when focus
+            (setf (alloy:value preview) (if (unlocked-p (alloy:value station))
+                                            (// 'kandria (name (alloy:value station)))
+                                            (// 'kandria 'empty-save)))))))
     (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
       (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
       (alloy:enter back focus)

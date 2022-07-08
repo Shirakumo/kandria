@@ -200,6 +200,10 @@
 (defmethod description ((station station))
   (language-string 'station))
 
+(defmethod stage :after ((station station) (area staging-area))
+  (when (name station)
+    (stage (// 'kandria (name station)) area)))
+
 (defmethod interact ((station station) (player player))
   (unless (unlocked-p station)
     (status :important "~a" (@formats 'new-station-unlocked (language-string (name station)))))

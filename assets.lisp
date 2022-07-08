@@ -107,7 +107,7 @@
   (T :min-filter :nearest :mag-filter :nearest)
   (ui-background :min-filter :linear :mag-filter :linear :wrapping :repeat)
   (sword :min-filter :linear :mag-filter :linear)
-  (empty-save :min-filter :linear :mag-filter :linear)
+  (empty-save :min-filter :nearest :mag-filter :nearest)
   (noise :wrapping :repeat :min-filter :linear :mag-filter :linear)
   (noise-cloud :wrapping :repeat :min-filter :linear :mag-filter :linear)
   (shockwave :min-filter :linear :mag-filter :linear)
