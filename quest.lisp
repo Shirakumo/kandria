@@ -96,7 +96,9 @@
 (defmethod quest:make-assembly ((task task))
   (make-instance 'assembly))
 
-(defmethod quest:activate :after ((task task))
+(defmethod quest:activate :around ((task task))
+  (let ((*current-task* task))
+    (call-next-method))
   (when (and (marker task) (setting :gameplay :display-hud))
     (show (make-instance 'quest-indicator :target (unlist (marker task))))))
 
@@ -246,7 +248,8 @@
   (compile NIL `(lambda () ,(task-wrap-lexenv form))))
 
 (defmethod dialogue:wrap-lexenv ((assembly assembly) form)
-  `(let ((interaction *current-interaction*))
+  `(let* ((interaction *current-interaction*)
+          (*current-task* (quest:task interaction)))
      ,(task-wrap-lexenv form)))
 
 (defun load-default-interactions (&optional (storyline (quest:storyline T)) (file (merge-pathnames "quests/default-interactions.spess" (language-dir))))
