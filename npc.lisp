@@ -350,10 +350,6 @@
 (define-shader-entity roaming-npc (npc)
   ((roam-time :initform (random* 5.0 2.0) :accessor roam-time)))
 
-(defmethod initialize-instance :after ((entity roaming-npc) &key)
-  (unless (default-interaction entity)
-    (setf (default-interaction entity) (gethash 'npc *default-interactions*))))
-
 (defmethod interact :before ((entity roaming-npc) from)
   ;; KLUDGE: to make each npc act as the canonical npc from the dialogue
   (setf (gethash 'npc (name-map +world+)) entity))
