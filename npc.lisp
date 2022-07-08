@@ -337,16 +337,20 @@
               ((not (in-view-p loc bsize))
                (place-on-ground entity loc (vx bsize) (vy bsize)))
               ((typep entity 'npc)
-               (case (ai-state entity)
-                 ((:follow :follow-check :follow-teleport :follow-wait)
-                  (place-to-reach loc entity)
-                  (setf (ai-state entity) :follow-check))
-                 ((:lead :lead-check :lead-teleport)
-                  (setf (ai-state entity) :lead-check))
-                 (T
-                  (stop-following entity)
-                  (place-to-reach loc entity)))
-               (setf (state entity) :normal))
+               ;; Don't teleport if we're already visible and have a path.
+               (or (and (in-view-p (location entity) (bsize entity))
+                        (move-to loc entity))
+                   (progn
+                     (case (ai-state entity)
+                       ((:follow :follow-check :follow-teleport :follow-wait)
+                        (place-to-reach loc entity)
+                        (setf (ai-state entity) :follow-check))
+                       ((:lead :lead-check :lead-teleport)
+                        (setf (ai-state entity) :lead-check))
+                       (T
+                        (stop-following entity)
+                        (place-to-reach loc entity)))
+                     (setf (state entity) :normal))))
               (T
                (place-on-ground entity loc (vx bsize) (vy bsize))))))))
 
