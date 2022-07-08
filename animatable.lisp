@@ -149,7 +149,6 @@
                      (let ((hurtbox (hurtbox entity)))
                        (aabb (location animatable) (tv- (velocity animatable) (velocity entity))
                              (vxy hurtbox) (nv+ (vwz hurtbox) (bsize animatable) 16)))))
-        (print entity)
         (return entity)))))
 
 (defmethod hurt :around ((animatable animatable) (damage integer))

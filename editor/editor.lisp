@@ -383,7 +383,7 @@
   (save-state +main+ T))
 
 (defmethod edit ((action (eql 'save-game-as)) (editor editor))
-  (let ((path (file-select:new :title "Select Save File" :default (print (file (state +main+))))))
+  (let ((path (file-select:new :title "Select Save File" :default (file (state +main+)))))
     (when path
       (save-state (scene +main+)
                   (make-instance 'save-state :file path)))))
