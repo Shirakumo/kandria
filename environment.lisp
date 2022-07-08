@@ -125,6 +125,9 @@
 (defmethod harmony:transition ((nothing placeholder-resource) to &key in)
   (declare (ignore nothing to in)))
 
+(defun override-music (track)
+  (setf (override (unit 'environment +world+)) (when track (// 'music track))))
+
 (defclass environment ()
   ((name :initarg :name :initform NIL :accessor name)
    (music :initarg :music :initform NIL :accessor music)

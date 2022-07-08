@@ -65,6 +65,7 @@
 (defmethod (setf interaction) :after (value (textbox walkntalk))
   (cond (value
          (setf (ip textbox) 0)
+         (setf *current-task* (quest:task interaction))
          (dialogue:run (quest:dialogue value) (vm textbox))
          (when (and (not (shown-p textbox))
                     (not (find-panel 'dialog)))

@@ -69,6 +69,7 @@
   (discard-events +world+))
 
 (defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
+  (setf *current-task* (quest:task interaction))
   (dialogue:run (quest:dialogue interaction) (vm dialog)))
 
 (defmethod (setf interactions) :after (list (dialog dialog))
@@ -168,3 +169,6 @@
   (let ((dialog (or (find-panel 'dialog)
                     (show (make-instance 'dialog)))))
     (setf (interactions dialog) (list interaction))))
+
+(defun clear-pending-interactions ()
+  (setf (interactions (find-panel 'dialog)) ()))

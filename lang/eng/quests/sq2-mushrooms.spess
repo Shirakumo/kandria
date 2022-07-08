@@ -36,7 +36,7 @@
 | If we don't need them, the least you could do is "trade them with Sahil"(orange).
 | See you around, Stranger!
 ! eval (complete task)
-! eval (setf (quest:status (thing 'return-mushrooms)) :inactive)
+! eval (deactivate 'return-mushrooms)
 ! eval (deactivate interaction)
 
 # end
