@@ -1,11 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defvar *current-task*)
-
-(defgeneric extract-language (thing))
-(defgeneric refresh-language (thing))
-(defun useful-language-string-p (thing)
-  (and thing (string/= "" thing) (string/= "-" thing) (string/= "<unknown>" thing)))
+(defvar *current-interaction*)
 
 (defclass place-marker (sized-entity resizable ephemeral dialog-entity creatable)
   ((name :accessor name)))
@@ -26,15 +22,6 @@
 
 (defmethod (setf location) ((name symbol) (entity located-entity))
   (setf (location entity) (location (unit name +world+))))
-
-(defmethod extract-language ((storyline quest:storyline))
-  (reduce #'append (sort (loop for quest being the hash-values of (quest:quests storyline)
-                               append (extract-language quest))
-                         #'string< :key #'car)))
-
-(defmethod refresh-language ((storyline quest:storyline))
-  (loop for quest being the hash-values of (quest:quests storyline)
-        do (refresh-language quest)))
 
 (defclass storyline (quest:storyline)
   ((default-interactions :initform (make-hash-table :test 'eql) :reader default-interactions)))
@@ -86,27 +73,6 @@
 (defmethod quest:make-assembly ((_ quest))
   (make-instance 'assembly))
 
-(defun %langname (thing &rest subset)
-  (intern (format NIL "~a~{/~a~}" (string thing) subset)
-          (symbol-package thing)))
-
-(defmethod extract-language ((quest quest:quest))
-  (list*
-   (when (useful-language-string-p (quest:title quest))
-     (list (%langname (quest:name quest) 'title) (quest:title quest)))
-   (when (useful-language-string-p (quest:description quest))
-     (list (%langname (quest:name quest) 'description) (quest:description quest)))
-   (loop for task being the hash-values of (quest:tasks quest)
-         append (extract-language task))))
-
-(defmethod refresh-language ((quest quest:quest))
-  (let ((title (language-string* (quest:name quest) 'title)))
-    (when title (setf (quest:title quest) title)))
-  (let ((description (language-string* (quest:name quest) 'description)))
-    (when description (setf (quest:description quest) description)))
-  (loop for task being the hash-values of (quest:tasks quest)
-        do (refresh-language task)))
-
 (defclass task (quest:task)
   ((visible-p :initarg :visible :initform T :accessor visible-p)
    (progress-fun :initarg :progress-fun :initform NIL :accessor progress-fun)
@@ -134,30 +100,6 @@
   (when (and (marker task) (setting :gameplay :display-hud))
     (show (make-instance 'quest-indicator :target (unlist (marker task))))))
 
-(defmethod extract-language ((task quest:task))
-  (list*
-   (when (useful-language-string-p (quest:title task))
-     (list (%langname (quest:name (quest:quest task)) (quest:name task) 'title) (quest:title task)))
-   (when (useful-language-string-p (quest:description task))
-     (list (%langname (quest:name (quest:quest task)) (quest:name task) 'description) (quest:description task)))
-   (loop for task being the hash-values of (quest:triggers task)
-         append (extract-language task))))
-
-(defmethod refresh-language ((task quest:task))
-  (let ((title (language-string* (quest:name (quest:quest task)) (quest:name task) 'title)))
-    (when title (setf (quest:title task) title)))
-  (let ((description (language-string* (quest:name (quest:quest task)) (quest:name task) 'description)))
-    (when description (setf (quest:description task) description)))
-  (loop for trigger being the hash-values of (quest:triggers task)
-        do (refresh-language trigger)))
-
-(defun find-mess (name &optional chapter)
-  (let ((file (merge-pathnames (string-downcase name)
-                               (merge-pathnames "quests/a.spess" (language-dir (setting :language))))))
-    (if chapter
-        (list file chapter)
-        file)))
-
 (defclass interaction (quest:interaction)
   ((source :initform NIL :initarg :source :accessor source)
    (repeatable :initform NIL :initarg :repeatable :accessor repeatable-p)
@@ -178,7 +120,7 @@
 (defmethod quest:class-for ((storyline (eql 'quest:interaction))) 'interaction)
 
 (defmethod quest:make-assembly ((interaction interaction))
-  (make-instance 'assembly :interaction interaction))
+  (make-instance 'assembly))
 
 (defmethod quest:activate ((trigger interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
@@ -214,22 +156,6 @@
                         (quest:name (quest:task interaction))
                         (quest:name interaction))))
 
-(defmethod extract-language ((trigger quest:trigger))
-  (when (useful-language-string-p (quest:title trigger))
-    (list (list (%langname (quest:name (quest:quest (quest:task trigger)))
-                           (quest:name (quest:task trigger))
-                           (quest:name trigger))
-                (quest:title trigger)))))
-
-(defmethod refresh-language ((trigger quest:trigger))
-  (let ((title (language-string* (quest:name (quest:quest (quest:task trigger)))
-                                 (quest:name (quest:task trigger))
-                                 (quest:name trigger))))
-    (when title (setf (quest:title trigger) title))))
-
-(defmethod refresh-language :after ((interaction interaction))
-  (reinitialize-instance interaction :source (source interaction)))
-
 (defclass stub-interaction (interaction)
   ((quest:dialogue :initform NIL :accessor quest:dialogue)
    (quest:task :initform (quest:find-named 'task-world-all (quest:find-named 'world (quest:storyline T))))
@@ -237,11 +163,14 @@
 
 (defmethod quest:complete ((stub-interaction stub-interaction)))
 
-(defmethod quest:make-assembly ((stub-interaction stub-interaction))
-  (make-instance 'assembly :interaction stub-interaction))
-
 (defclass assembly (dialogue:assembly)
-  ((interaction :initform NIL :initarg :interaction :accessor interaction)))
+  ())
+
+(defmethod clone ((assembly assembly) &key)
+  (let ((clone (make-instance (class-of assembly))))
+    (loop for instruction across (dialogue:instructions assembly)
+          do (vector-push-extend instruction (dialogue:instructions clone)))
+    clone))
 
 (defun find-task (quest task)
   (uiop:nest
@@ -317,7 +246,7 @@
   (compile NIL `(lambda () ,(task-wrap-lexenv form))))
 
 (defmethod dialogue:wrap-lexenv ((assembly assembly) form)
-  `(let ((interaction ,(interaction assembly)))
+  `(let ((interaction *current-interaction*))
      ,(task-wrap-lexenv form)))
 
 (defun load-default-interactions (&optional (storyline (quest:storyline T)) (file (merge-pathnames "quests/default-interactions.spess" (language-dir))))
@@ -458,8 +387,4 @@
              :on-activate (,(caar tasks))
              ,@tasks))))))
 
-(define-language-change-hook refresh-quests (language)
-  (declare (ignore language))
-  (when (and +world+ (storyline +world+))
-    (refresh-language (storyline +world+))
-    (load-default-interactions)))
+

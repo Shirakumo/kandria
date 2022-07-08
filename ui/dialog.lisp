@@ -70,6 +70,7 @@
 
 (defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
   (setf *current-task* (quest:task interaction))
+  (setf *current-interaction* interaction)
   (dialogue:run (quest:dialogue interaction) (vm dialog)))
 
 (defmethod (setf interactions) :after (list (dialog dialog))

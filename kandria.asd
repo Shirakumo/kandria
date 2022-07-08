@@ -24,6 +24,7 @@
                (:file "environment")
                (:file "assets")
                (:file "quest")
+               (:file "language")
                (:file "shadow-map")
                (:file "particle")
                (:file "chunk")
