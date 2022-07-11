@@ -137,6 +137,7 @@
 | "I'd better "get back to Camp"(orange)."(light-gray, italic)
 ! eval (complete 'task-return-bombs-station)
 
+; alternate return of the quest, if go via Noka train station - slightly different wording to suit different context
 # task-return-bombs-station/station-surface-trigger
 ~ player
 | "I'd better hurry up and call this in."(light-gray, italic)

@@ -36,5 +36,4 @@
 ~ catherine
 | (:concerned)We'd better find "Jack"(yellow). He'll be in "Engineering"(red).
 ! eval (activate 'q0-find-jack)
- 
 

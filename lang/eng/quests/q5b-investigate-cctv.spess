@@ -12,7 +12,9 @@
 | |?
 | | | Go to the "distant low eastern region"(orange) along the Cerebat border, and "find out what's wrong with the 4 down CCTV cameras"(orange).
 | | | Then "return to me"(orange).
+; dinnae = don't (Scottish)
 
+; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.
 # q5b-task-cctv-1/cctv-1
 ~ player
 | "Here's "CCTV camera 1"(red)."(light-gray, italic)
@@ -122,7 +124,11 @@
 | ! eval (setf (var 'first-cctv) T)
 |? (complete-p 'q5b-boss)
 | | "I'd better "check out the last of the CCTV cameras around here"(orange), then "get back to Innis"(orange) on the double."(light-gray, italic)
+; wouldnae = wouldn't (Scottish)
+; didnae = didn't (Scottish)
+; ken = know (Scottish)
 
+; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4 - it was logical though), nor employ rogues... The Wraw would do both though. And nor would rogues attack CCTV alone
 # q5b-task-return-cctv/q5b-return-cctv
 ~ innis
 | (:sly)I'm glad you survived the saboteurs.
@@ -157,4 +163,7 @@
 | ! eval (activate 'q6-return-to-fi)
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))
-
+; couldnae = couldn't (Scots)
+; dinnae = don't / do not (Scottish)
+; doesnae = does not / doesn't (Scottish)
+; canna = cannot (Scottish)

@@ -43,4 +43,4 @@
 | | I also heard "Sahil is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
 | | You would be wise to equip well for your work.
 | ! eval (activate 'trader-arrive)
-
+; Removing key card unspoken, as it can't sound anything but negative at a positive time, if Fi takes it back. Also, there's nothing left of value in the cache now, so it can remain open, and undiscussed here (implied, save words)

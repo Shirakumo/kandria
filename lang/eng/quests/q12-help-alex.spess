@@ -35,6 +35,8 @@
 ! eval (setf (direction 'jack) -1)
 ! eval (activate 'fi-task)
 
+; optional dialogue
+; could occur with either Jack and Fi alone, or with Islay if Semis are on surface now; or with Fi and Islay alone in Engineering. Either way, Islay doesn't weigh in on this Noka business, and we can assume Fi will tell her later
 # fi-task/fi-interact
 ~ fi
 | (:unsure)Alex has... betrayed us? What do you mean?

@@ -78,6 +78,8 @@
 | ! eval (deactivate (unit 'player-stop-cerebats))
 ? (active-p 'find-alex-semis-route)
 | ! eval (deactivate 'find-alex-semis-route)
+; dinnae = don't (Scots)
+; ken = know (Scots)
 
 # find-alex/innis-stop-remote
 ~ innis
@@ -157,6 +159,8 @@
 | ! eval (deactivate (unit 'player-stop-cerebats))
 ? (active-p 'find-alex-semis-route)
 | ! eval (deactivate 'find-alex-semis-route)
+; dinnae = don't (Scots)
+; ken = know (Scots)
 
 # find-alex-cerebats/player-stop-cerebats
 ~ player
@@ -172,6 +176,7 @@
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ! eval (setf (var 'android-soft) T)
 
+; the barkeep in this scene is female
 # find-alex-semis/alex-meet
 ~ player
 | "This person's breath smells like diesel mixed with seaweed."(light-gray, italic)

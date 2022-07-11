@@ -1,3 +1,7 @@
+; Semi Sisters barkeep, non-binary, French code switching from time to time
+; semi-patron-1 - sober, female
+; semi-patron-2 - drunk, female
+; ambiguous whether this is an alcoholic drink or not, as in q5-intro player can choose that they don't drink alcohol if they prefer
 # intro/intro-chat
 ! eval (setf (nametag (unit 'semi-barkeep)) (@ semi-barkeep-nametag))
 ! eval (setf (nametag (unit 'semi-patron-1)) (@ semi-patron-1-nametag))
@@ -75,3 +79,4 @@
 ~ semi-barkeep
 | Allez, salut. Don't stay away too long.
 
+; mate/matey = friend, in this context

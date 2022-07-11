@@ -3,6 +3,8 @@
 | Oh, you're back... I still need you to "go into Wraw territory"(orange) and "find out exactly what Zelah is up to"(orange).
 | Be safe, and "contact me as soon as you can"(orange).
 
+; TODO update description to match tiling
+; a new spawn item in this area too is refined oil, which matches this description
 # wraw-warehouse/warehouse
 ~ player
 | "This warehouse has plentiful supplies."(light-gray, italic)

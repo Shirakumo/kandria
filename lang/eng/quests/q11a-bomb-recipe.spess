@@ -24,6 +24,7 @@
 |  
 | | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).]
 
+; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb.
 # task-return-fi/fi-return-recruit
 ~ fi
 | (:happy)Well done with the Semi Sisters.

@@ -1,3 +1,4 @@
+; male Semi Sister
 # intro/intro-chat
 ~ semi-partner
 | Can you help me? There's no one else who can.
@@ -64,3 +65,4 @@
 ! eval (activate (find-task 'sq6-deliver-letter 'read-letter))
 ! eval (setf (var 'read-letter) T)
 
+; he can't make the journey on foot as it's too dangerous - and even via train now, due to the Semi-Cerebat situation, it's too dangerous for him

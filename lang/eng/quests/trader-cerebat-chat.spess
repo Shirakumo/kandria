@@ -1,3 +1,5 @@
+; character voice: London cockney
+; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long
 # chat-trader/chat-with-trader
 ? (not (complete-p 'q10a-return-to-fi))
 | ~ cerebat-trader-quest

@@ -82,6 +82,9 @@
 | | You okay?
 
 # zelah
+; male, main antagonist, leader of the Wraw faction.
+; "Keep going" is deliberately ambiguous - are you working for him, that's why he says this (as encouragement); or are you not, and he doesn't like you, so is telling you to move along? He says in q14-envoy that you are working for him, but are you really?
+; Speech changes after the envoy confrontation, just before the battle
 ~ zelah
 ? (complete-p 'Q14-ENVOY)
 | | It's too late for you. It's too late for everyone.
@@ -89,13 +92,17 @@
 | | Keep going.
 
 # semi-engineer
+; mix of engineers of different genders who were involved in the tunnel collapse
+; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-engineer
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]
 |?
-| | [? Talk to the new chief. | I'm busy. | It's been a long shift. | The new chief's the one you want.  | Sorry, can't chat. | I've got a lot of work to do. | Not a good time, sorry.]
+| | [? Talk to the new chief. | It's been a long shift. | The new chief's the one you want.  | Not good timing, sorry. | I'd check in with the new chief.]
 
 # soldier
+; mix of soldiers of different genders who follow Zelah around, serving as his bodyguards
+; Speech changes after the envoy confrontation, just before the battle
 ~ soldier
 ? (complete-p 'Q14-ENVOY)
 | | [? I'm not afraid of an android. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]
@@ -105,6 +112,8 @@
 | | [? Huh? | Yeah? | What?]
 
 # semi-roboticist
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-roboticist
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | We could really use some Servos on our side, right about now.
@@ -115,6 +124,7 @@
 
 # semi-barkeep
 ; Semi Sisters barkeep, non-binary
+; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-barkeep
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | No time for racing. No time for drinking either.
@@ -123,6 +133,7 @@
 
 # semi-barkeep-2
 ; female barkeep (other barkeep)
+; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-barkeep-2
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | I knew you'd bring trouble down on us.
@@ -130,6 +141,8 @@
 | | I don't serve your kind.
 
 # semi-patron-1
+; female, sober
+; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-patron-1
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | Tends to put things in perspective, doesn't it? War, I mean. We never knew how good we had it.
@@ -139,6 +152,8 @@
 | | You the betting sort? Maybe you could be.
 
 # semi-patron-2
+; female, drunk
+; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-patron-2
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | Where's the goddamn bar around here?
@@ -148,6 +163,8 @@
 | | <-Hic->. Cheers! <-Hic->.
 
 # semi-partner
+; male, Tobias, was in a relationship with Kacey
+; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-partner
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | I'm going nowhere without Kacey.
@@ -157,6 +174,8 @@
 | | ... Hold on, there's someone here. Over. Er, hi? Can I help you? - Can't you see I'm on a call?
 
 # cerebat-partner
+; female, KAcey, was in a relationship with Tobias
+; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ cerebat-partner
 ? (complete-p 'Q10-WRAW)
 | | So the world's going to shit again. Great.
@@ -165,10 +184,11 @@
 |?
 | | Keep walking, pal.
 
+; Generic NPCs, gender unknown
 # npc
 ~ npc
 ? T
 | | [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat.]
 
-; TODO - faction generic NPC granularity
+; TODO - faction generic NPC granularity; can then use the system more for world building in each area, and plot hints, rather than simply "Too busy to talk" etc
 ; Cerebats/traders: Sorry, we're closed. etc.

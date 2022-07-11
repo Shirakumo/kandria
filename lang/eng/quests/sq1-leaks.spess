@@ -51,6 +51,7 @@
 | | "Weld complete."(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | | "That's "1 more leak"(orange) to go."(light-gray, italic)
+; how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
 
 # leak-second/leak-2
 ~ player
@@ -185,6 +186,9 @@
 ~ catherine
 | Well, you can definitely scratch water leaks off your bucket list, right?
 | See you, {(nametag player)}!
+
+; player always has 150 parts to give here, since they just received that as a reward
+; during quest, if not using walkie, she just assumes you decided not to use it after all, and use your FFCS instead
 
 # payback
 ~ player

@@ -1,9 +1,10 @@
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
 # boss-reminder/reminder
 ~ semi-roboticist
 | Android brains aren't all they're cracked up to be, huh? Or maybe your head got cracked.
 | You need to "find the Servo robots in the far east"(orange), "fight them"(orange), then "bring me your analysis of their behaviour"(orange).
 
-# task-return/reminder
+# task-return/servo-return
 ~ semi-roboticist
 | Welcome back. How went the study? I've got "4 questions"(orange), which will help me parse the results.
 | Think carefully now.
@@ -110,3 +111,7 @@
 | Thank you again. Goodbye, {(nametag player)}.
 ! eval (activate (unit 'spawner-7608))
 
+; reactivate world spawner again, now you're away from it
+; the ability to lie here is to skew the results, when you might sense that the roboticist is also discreetly psycho-analysing you (the frequency of questions, and esp the last one)
+; don't have so many questions that the player would want to skip the experiment - need to keep them small in number, but potent (hence no skip choice, which would void the purpose of the quest anyway)
+; no conclusive (lie) answers from the player, which would go against the actual AI behaviour of the Servos - only "maybes"

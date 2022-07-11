@@ -128,4 +128,8 @@
 | ! eval (deactivate (find-task 'world 'task-engineers-wall-listen))
 |?
 | ! eval (complete 'q5a-rescue-engineers)
-
+; ken = know (Scottish)
+; didnae = didn't (Scottish)
+; dinnae = don't (Scottish)
+; canna = cannot (Scottish)
+; player may know of trapped engineers from the barkeep races; but you're not going to just reveal that to Innis, whether you've rescued them already or not
