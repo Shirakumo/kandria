@@ -25,7 +25,8 @@
 
 (defclass shop-button (alloy:direct-value-component)
   ((source :initarg :source :accessor source)
-   (target :initarg :target :accessor target)))
+   (target :initarg :target :accessor target)
+   (marked :initarg :marked :initform NIL :accessor marked)))
 
 (defmethod item-count ((button shop-button) thing)
   (item-count (alloy:value button) (source button)))
@@ -33,12 +34,11 @@
 (defmethod price ((button shop-button))
   (price (alloy:value button)))
 
-(defmethod alloy:activate ((button shop-button))
-  (when (active-p button)
-    (show-panel 'transaction-panel :source button)))
-
 (defmethod (setf alloy:focus) :after ((focus (eql :strong)) (button shop-button))
   (setf (alloy:focus (alloy:focus-parent button)) :strong))
+
+(defmethod (setf marked) :after (value (button shop-button))
+  (alloy:mark-for-render button))
 
 (presentations:define-realization (ui shop-button)
   ((:background simple:rectangle)
@@ -71,11 +71,17 @@
 
 (presentations:define-update (ui shop-button)
   (:background
-   :pattern (if alloy:focus colors:white colors:black))
+   :pattern (if alloy:focus colors:white colors:black)
+   :offset (if (marked alloy:renderable)
+               (alloy:point 20 0)
+               (alloy:point)))
   (name
    :pattern (if (active-p alloy:renderable)
                 (if alloy:focus colors:black colors:white)
-                colors:gray))
+                colors:gray)
+   :offset (if (marked alloy:renderable)
+               (alloy:point 20 0)
+               (alloy:point)))
   (count
    :text (princ-to-string (item-count alloy:renderable T))
    :pattern (if (active-p alloy:renderable)
@@ -118,9 +124,32 @@
   (trade (source button) (target button) (alloy:value button) count)
   (alloy:value-changed button))
 
+(defmethod alloy:handle ((ev alloy:button-down) (button sell-button))
+  (when (and (eql :y (alloy:button ev))
+             (active-p button))
+    (setf (marked button) (not (marked button)))))
+
+(defmethod alloy:handle ((ev alloy:pointer-down) (button sell-button))
+  (when (and (eql :middle (alloy:kind ev))
+             (active-p button))
+    (setf (marked button) (not (marked button)))))
+
+(defmethod alloy:activate ((button sell-button))
+  (when (active-p button)
+    (let ((marked (loop for child across (alloy:elements (alloy:focus-parent button))
+                        when (and (typep child 'sell-button) (marked child))
+                        collect child)))
+      (if marked
+          (dolist (button marked (harmony:play (// 'sound 'ui-buy)))
+            (setf (marked button) NIL)
+            (trade (source button) (target button) (alloy:value button) T))
+          (show-panel 'transaction-panel :source button)))))
+
 (defclass sales-menu (menuing-panel pausing-panel)
   ())
+
 (progn #! (show-panel 'sales-menu :shop (unit 'trader T) :target (unit 'player T)  :direction :sell))
+
 (defmethod initialize-instance :after ((panel sales-menu) &key shop direction target)
   (alloy:with-unit-parent (unit 'ui-pass T)
     (let* ((layout (make-instance 'eating-constraint-layout

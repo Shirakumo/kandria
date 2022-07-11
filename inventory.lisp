@@ -76,21 +76,24 @@
 (defmethod trade progn (source target (item symbol) count)
   (trade source target (type-prototype item) count))
 
-(defmethod trade progn ((source inventory) target (item item) count)
+(defmethod trade progn ((source inventory) target (item item) (count integer))
   (retrieve item source count))
 
-(defmethod trade progn (source (target inventory) (item item) count)
+(defmethod trade progn (source (target inventory) (item item) (count integer))
   (store item target count))
 
-(defmethod trade progn ((source inventory) (target player) (item item) count)
+(defmethod trade progn ((source inventory) target (item item) (count (eql T)))
+  (trade source target item (item-count item source)))
+
+(defmethod trade progn ((source inventory) (target player) (item item) (count integer))
   (let ((price (* count (price-for-buy item source))))
     (retrieve 'item::parts target price)))
 
-(defmethod trade progn ((source player) (target inventory) (item item) count)
+(defmethod trade progn ((source player) (target inventory) (item item) (count integer))
   (let ((price (* count (price-for-sell item target))))
     (store 'item::parts source price)))
 
-(defmethod trade progn (source (target player) (item item) count)
+(defmethod trade progn (source (target player) (item item) (count integer))
   (status (@formats 'new-item-in-inventory (language-string (type-of item)))))
 
 (defmethod experience-reward ((item item))
