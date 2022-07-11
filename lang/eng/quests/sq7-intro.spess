@@ -1,0 +1,28 @@
+# intro/intro-chat
+~ catherine
+| Actually, I do have a "little project you could help with"(orange), if you have the time.
+| It's on the down-low, but I think it could be our  saviour: "wind power"(orange)!
+| (:excited)I don't know if you noticed, but it can get pretty windy on the surface - stormy even. I want to "build turbines" and turn wind into electricity"(orange).
+| Pretty cool huh?
+~ player
+- Count me in.
+- Like in the old world?
+  ~ catherine
+  | (:excited)Right! I've heard those massive windmills.
+  | (:normal)These would be much more modestly sized though.
+  ~ player
+  - I'm interested.
+  - I'll pass for now.
+    < leave
+- Not now, sorry.
+  < leave
+~ catherine
+| First thing I'm gonna need is some essential components: "anemometers"(orange), "disc brakes"(orange), "transformers"(orange).
+| Call it "5 of each"(orange) I think, just to get me started.
+| The "Semis should have some lying around"(orange). The "Cerebats too - they've already got turbines in their wind tunnels"(orange).
+| Thanks, {(nametag player)}.
+
+# leave
+
+; there's an implication here that there'll be more stages to this quest, and that the player may eventually see the windmills assembled; but neither happens, due to the confirmation of the Wraw invasion of the entire valley (q10-wraw)
+; if the player does this quest, or any other quest where Catherine refers to them by name (such as sq1-leaks), after changing their name in q7, then how has Catherine gotten word so quickly to use their new name, if you've come straight from Fi? Can assume Fi let people know quickly. And I don't really want to limit use of the player's new name to avoid this, as it's a cool reflection of the player's choice
