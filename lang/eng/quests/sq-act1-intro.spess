@@ -76,8 +76,10 @@
   |   ~ catherine
   |   | I'm pretty sure you can. Try it out.
   |   ~ player
-  |   | (:giggle)"She's right. I thought about it, and now a small welding torch is glowing from the index finger on my right hand. It tickles."(light-gray, italic)
-  |   | (:normal)"Better keep the intensity low, so as not to blind us."(light-gray, italic)
+  |   | "She's right. Kinda of. I thought about it, and now a small torch is glowing from the index finger on my right hand."(light-gray, italic)
+  |   | (:thinking)"It's not hot enough to weld, though it could solder - it's probably for self repairs. But what if I increased the power significantly?..."(light-gray, italic)
+  |   | (:giggle)"Now that's a welding torch! It tickles."(light-gray, italic)
+  |   | (:embarassed)"Better keep the intensity low, so as not to blind us."(light-gray, italic)
   |   ~ catherine
   |   | (:excited)See!
   |   ~ player
@@ -88,12 +90,14 @@
   |   - Need a light?
   |     ~ catherine
   |     | Sorry, I don't smoke.
-  | - That's right.
+  | - Solder, not weld - for self repairs.
   |   ~ catherine
-  |   | (:excited)Can I see?
+  |   | Oh okay, that's cool. Maybe you should take a welding torch then.
   |   ~ player
-  |   | "She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here."(light-gray, italic)
-  |   | "Better keep the intensity low, so as not to blind us."(light-gray, italic)
+  |   | "That said, what if I increased the power significantly?..."(light-gray, italic)
+  |   | (:giggle)"That worked! It tickles."(light-gray, italic)
+  |   | (:normal)"She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here."(light-gray, italic)
+  |   | (:embarassed)"Better keep the intensity low, so as not to blind us."(light-gray, italic)
   |   ~ catherine
   |   | (:excited)That's so cool!
   | - Where did you hear that?
@@ -101,8 +105,10 @@
   |   | It's just one of those things I know about androids. (:excited)Why, is it a big secret?
   |   | Let me see!
   |   ~ player
-  |   | "She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here."(light-gray, italic)
-  |   | "Better keep the intensity low, so as not to blind us."(light-gray, italic)
+  |   | "Technically I can solder, not weld, for self repairs. But what if I increased the power significantly?..."(light-gray, italic)
+  |   | (:giggle)"That worked! It tickles."(light-gray, italic)
+  |   | (:normal)"She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here."(light-gray, italic)
+  |   | (:embarassed)"Better keep the intensity low, so as not to blind us."(light-gray, italic)
   |   ~ catherine
   |   | (:excited)That's so cool!
   | | (:normal)Okay, I think you're good to go.
