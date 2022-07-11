@@ -428,14 +428,14 @@
 (defmethod name ((can item:can)) 'item:can)
 (define-item (semi-genera-core quest-item) 88 24 8 8)
 (defmethod name ((semi-genera-core item:semi-genera-core)) 'item:semi-genera-core)
-(define-item (blasting-cap quest-item) 8 0 8 8)
-(define-item (charge-pack quest-item) 8 0 8 8)
-(define-item (explosive quest-item) 8 0 8 8)
-(define-item (receiver quest-item) 8 0 8 8)
+(define-item (blasting-cap quest-item) 8 0 8 8) ;; TODO - needs icon
+(define-item (charge-pack quest-item) 8 0 8 8) ;; TODO - needs icon
+(define-item (explosive quest-item) 8 0 8 8) ;; TODO - needs icon
+(define-item (receiver quest-item) 8 0 8 8) ;; TODO - needs icon
 (define-item (walkie-talkie-2 quest-item) 0 8 8 8)
-(define-item (love-letter quest-item) 16 48 8 8)
+(define-item (love-letter quest-item) 16 48 8 8) ;; TODO - needs icon
 
-;; VALUE-ITEMS (can be sold)
+;; VALUE-QUEST-ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8
   :price 10)
 (define-item (mushroom-good-2 value-quest-item) 32 8 8 8
@@ -444,6 +444,13 @@
   :price 20)
 (define-item (walkie-talkie value-quest-item) 0 8 8 8
   :price 500)
+;; TODO - these 3 reusing existing icons; get new ones
+(define-item (anemometer value-quest-item) 64 16 8 8
+  :price 40)
+(define-item (disc-brake value-quest-item) 48 16 8 8
+  :price 40)
+(define-item (transformer value-quest-item) 112 16 8 8
+  :price 40)
 
 ;; SPECIAL ITEMS
 (defclass palette-unlock (special-item)
@@ -521,6 +528,18 @@
 (define-random-draw mushrooms-bad-1
   (item:mushroom-bad-1 1))
 ;; placement: where mushrooms wouldn't be expected to grow i.e. in non-soil areas (yes in region 3)
+
+(define-random-draw wind-parts-rare
+  (item:anemometer 1)
+  (item:disc-brake 5)
+  (item:transformer 5))
+;; placement: for sq7: semis storage, and nearby caves; no more than 8 spawners max, so you'll need to go to Cerebats wind tunnels to make up the quest quantity, and chances are, to get the rare item (or farm them)
+
+(define-random-draw wind-parts-common
+  (item:anemometer 1)
+  (item:disc-brake 1)
+  (item:transformer 1))
+  ;; placement: for sq7: Cerebat wind tunnels: most wind tunnels can have 1 or more spawners, so more plentiful than in Semis base (to reward venturing deeper)
 
 ;; REGION 1 UPPER + SURFACE
 ;; meteorites only close to the surface, to hint at another possible Calamity cause
