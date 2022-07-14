@@ -23,7 +23,9 @@
         (setf (default-interaction entity)
               (or (gethash default defaults)
                   (gethash (name entity) defaults)
-                  (gethash 'npc defaults)))))
+                  ;; KLUDGE: dirty
+                  (when (typep entity 'npc)
+                    (gethash 'npc defaults))))))
     (or (interactions entity)
         default)))
 
