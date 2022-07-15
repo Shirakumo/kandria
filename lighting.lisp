@@ -154,7 +154,7 @@
   (force-lighting pass))
 
 (define-shader-entity light (ephemeral vertex-entity sized-entity)
-  ())
+  ((name :initform NIL)))
 
 (defmethod object-renderable-p ((light light) (pass lighting-pass)) T)
 (defmethod object-renderable-p ((light light) (pass render-pass)) NIL)
