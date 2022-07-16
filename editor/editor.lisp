@@ -80,6 +80,7 @@
          (toolbar (make-instance 'toolbar :editor editor :entity NIL))
          (entity (make-instance 'entity-widget :editor editor :side :west))
          (zoom (alloy:represent (zoom (camera +world+)) 'zoom-slider))
+         (top (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 10 30) :cell-margins (alloy:margins)))
          (menu (alloy:with-menu
                  ("File"
                   ("New Region" (edit 'new-region editor))
@@ -117,10 +118,11 @@
     (setf (toolbar editor) toolbar)
     (setf (zoom editor) zoom)
     (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
-    (alloy:enter menu layout :place :north :size (alloy:un 30))
+    (alloy:enter menu top)
     (alloy:enter menu focus)
-    (alloy:enter toolbar layout :place :south :size (alloy:un 30))
+    (alloy:enter toolbar top)
     (alloy:enter toolbar focus)
+    (alloy:enter top layout :place :north :size (alloy:un 60))
     (alloy:enter entity layout :place :west :size (alloy:un 300))
     (alloy:enter entity focus)
     (alloy:enter (marker editor) layout :place :center)
