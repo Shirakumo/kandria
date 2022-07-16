@@ -113,7 +113,8 @@
                              (:file "animation")
                              (:file "move-to")
                              (:file "lighting")
-                             (:file "drag")))
+                             (:file "drag")
+                             (:file "auto-tile")))
                (:module "world/quests"
                 :components ((:file "storyline")
                              (:file "demo-boss")

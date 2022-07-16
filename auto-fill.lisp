@@ -299,7 +299,8 @@
                          always (tile-type-p tile v))
                (return type)))))
 
-(defun %auto-tile (solids tiles width height x y map)
+(defun %auto-tile (solids tiles width height map &optional (sx 0) (sy 0) (sw width) (sh height))
+  (print (list width height sx sy sw sh))
   (flet ((tile (x y)
            (if (and (< -1 x width) (< -1 y height))
                (aref solids (* (+ x (* y width)) 2))
@@ -309,44 +310,43 @@
                                     (assoc fallback map :test 'equal)))))
              (when tilelist
                (set-tile tiles width height x y (alexandria:random-elt tilelist))))))
-    (when (= 0 (tile x y))
-      (%flood-fill solids width height x y (list 22 0)))
-    (dotimes (y height)
-      (dotimes (x width)
-        (let ((edge (filter-edge solids width height x y)))
-          (when edge
-            (setf (tile x y) edge)))))
-    (dotimes (y height)
-      (dotimes (x width)
-        (let ((edge (filter-edge solids width height x y *spike-filters*)))
-          (when edge
-            (setf (tile x y) edge)))))
-    (dotimes (y height)
-      (dotimes (x width)
-        (case (tile x y)
-          ( 4 (setf (tile x y) `(:slope 0)))
-          ( 5 (setf (tile x y) `(:slope 1)))
-          ( 6 (setf (tile x y) `(:slope 2)))
-          ( 7 (setf (tile x y) `(:slope 3)))
-          ( 8 (setf (tile x y) `(:slope 4)))
-          ( 9 (setf (tile x y) `(:slope 5)))
-          (10 (setf (tile x y) `(:slope 6)))
-          (11 (setf (tile x y) `(:slope 7)))
-          (12 (setf (tile x y) `(:slope 8)))
-          (13 (setf (tile x y) `(:slope 9)))
-          (14 (setf (tile x y) `(:slope 10)))
-          (15 (setf (tile x y) `(:slope 11)))
-          (22
-           (let ((mindist 100))
-             (loop for dy from -5 to +5
-                   do (loop for dx from -5 to +5
-                            do (when (< 0 (tile (+ x dx) (+ y dy)) 22)
-                                 (setf mindist (min mindist (sqrt (+ (* dx dx) (* dy dy))))))))
-             (setf (tile x y T) (round mindist)))))
+    (macrolet ((do-tiles (&body body)
+                 `(loop for y from sy below (+ sy sh)
+                        do (loop for x from sx below (+ sx sw)
+                                 do ,@body))))
+      (do-tiles
+          (let ((edge (filter-edge solids width height x y)))
+            (when edge
+              (setf (tile x y) edge))))
+      (do-tiles
+          (let ((edge (filter-edge solids width height x y *spike-filters*)))
+            (when edge
+              (setf (tile x y) edge))))
+      (do-tiles
+          (case (tile x y)
+            ( 4 (setf (tile x y) `(:slope 0)))
+            ( 5 (setf (tile x y) `(:slope 1)))
+            ( 6 (setf (tile x y) `(:slope 2)))
+            ( 7 (setf (tile x y) `(:slope 3)))
+            ( 8 (setf (tile x y) `(:slope 4)))
+            ( 9 (setf (tile x y) `(:slope 5)))
+            (10 (setf (tile x y) `(:slope 6)))
+            (11 (setf (tile x y) `(:slope 7)))
+            (12 (setf (tile x y) `(:slope 8)))
+            (13 (setf (tile x y) `(:slope 9)))
+            (14 (setf (tile x y) `(:slope 10)))
+            (15 (setf (tile x y) `(:slope 11)))
+            (22
+             (let ((mindist 100))
+               (loop for dy from -5 to +5
+                     do (loop for dx from -5 to +5
+                              do (when (< 0 (tile (+ x dx) (+ y dy)) 22)
+                                   (setf mindist (min mindist (sqrt (+ (* dx dx) (* dy dy))))))))
+               (setf (tile x y T) (round mindist)))))
         (when (<= 4 (tile x y) 15)
           (set-tile tiles width height x (1+ y) '(0 0 1 1)))))))
 
-(defun %auto-tile-bg (tiles etiles width height map)
+(defun %auto-tile-bg (tiles etiles width height map &optional (sx 0) (sy 0) (sw width) (sh height))
   (labels ((tile (x y)
              (when (and (< -1 x width)
                         (< -1 y height))
@@ -370,11 +370,15 @@
                                            (o (or (null tile) (= 0 tile)))
                                            (_ T)))
                         (return type)))))
-    (dotimes (y height)
-      (dotimes (x width)
-        (let ((edge (filter-edge x y)))
-          (when edge
-            (setf (tile x y) edge)))))
+    (macrolet ((do-tiles (&body body)
+                 `(loop for y from sy below (+ sy sh)
+                        do (loop for x from sx below (+ sx sw)
+                                 do ,@body))))
+      (do-tiles
+          (let ((edge (filter-edge x y)))
+            (when edge
+              (setf (tile x y) edge)))))
+    #++
     (let ((sdf (compute-sdf (tilemap-bitmap tiles width height (second (assoc :bg-i map :test 'equal))) width height)))
       (fill etiles 0)
       (tagbody repeat
