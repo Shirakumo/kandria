@@ -407,7 +407,7 @@ void main(){
   (%with-layer-xy (chunk location)
     (let* ((width (truncate (vx (size chunk))))
            (height (truncate (vy (size chunk)))))
-      (when (= 0 (tile x y))
+      (when (= 0 (aref (pixel-data chunk) (* (+ x (* y width)) 2)))
         (%flood-fill (pixel-data chunk) width height x y (list 22 0)))
       (%auto-tile (pixel-data chunk)
                   (pixel-data (aref (layers chunk) +base-layer+))

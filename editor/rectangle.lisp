@@ -29,20 +29,23 @@
 
 (defun repeat-tile-region (entity start end template &optional whole-chunks)
   (destructuring-bind (w h) (array-dimensions template)
-    (let ((rw (max 0 (ceiling (- (vx end) (vx start)) +tile-size+)))
-          (rh (max 0 (ceiling (- (vy end) (vy start)) +tile-size+))))
-      (when whole-chunks
-        (setf rw (* (floor rw (max 1 w)) w))
-        (setf rh (* (floor rh (max 1 h)) h)))
-      (loop for y from 0 below rh
-            do (loop for x from 0 below rw
-                     do (setf (tile (match-tile-layer start x y) entity)
-                              (aref template (mod x w) (mod y h))))))))
+    (when (and (< 0 w) (< 0 h))
+      (let ((rw (abs (ceiling (- (vx end) (vx start)) +tile-size+)))
+            (rh (abs (ceiling (- (vy end) (vy start)) +tile-size+)))
+            (start (vmin start end)))
+        (when whole-chunks
+          (setf rw (* (floor rw (max 1 w)) w))
+          (setf rh (* (floor rh (max 1 h)) h)))
+        (loop for y from 0 below rh
+              do (loop for x from 0 below rw
+                       do (setf (tile (match-tile-layer start x y) entity)
+                                (aref template (mod x w) (mod y h)))))))))
 
 (defun cache-tile-region (entity start end)
-  (let* ((w (max 0 (ceiling (- (vx end) (vx start)) +tile-size+)))
-         (h (max 0 (ceiling (- (vy end) (vy start)) +tile-size+)))
-         (template (make-array (list w h))))
+  (let* ((w (abs (ceiling (- (vx end) (vx start)) +tile-size+)))
+         (h (abs (ceiling (- (vy end) (vy start)) +tile-size+)))
+         (template (make-array (list w h)))
+         (start (vmin start end)))
     (loop for y from 0 below h
           do (loop for x from 0 below w
                    do (setf (aref template x y)
@@ -71,7 +74,7 @@
            (setf (state tool) :placing)
            (unless (start-pos tool)
              (setf (start-pos tool) loc)
-             (setf (end-pos tool) loc)
+             (setf (end-pos tool) (vcopy loc))
              (setf (car (cache tool)) (create-tile-region (tile-to-place tool)))
              (setf (cdr (cache tool)) NIL))
            (when (v/= (end-pos tool) loc)
