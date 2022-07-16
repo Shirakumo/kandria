@@ -213,6 +213,7 @@
                :speechless
                :kandria-quest
                :alexandria
+               :random-state
                :file-select
                :cl-mixed-wav
                :cl-mixed-vorbis

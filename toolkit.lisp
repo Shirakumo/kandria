@@ -181,9 +181,9 @@
 (defun ~= (a b &optional (delta 1))
   (< (abs (- a b)) delta))
 
-(defun vrandr (min max &optional (deg (* 2 PI)))
-  (let ((r (+ min (random (- max min))))
-        (phi (random deg)))
+(defun vrandr (min max &optional (deg (* 2 PI)) (rng #'random))
+  (let ((r (+ min (funcall rng (- max min))))
+        (phi (funcall rng deg)))
     (vec (* r (cos phi))
          (* r (sin phi)))))
 

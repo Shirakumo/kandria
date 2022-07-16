@@ -391,10 +391,11 @@
              (not (null (reflist spawner)))
              (done-p spawner))
     (setf (active-p spawner) NIL))
-  `(:active-p ,(active-p spawner)))
+  `(:active-p ,(active-p spawner) :rng ,(encode (rng spawner))))
 
 (define-decoder (spawner save-v0) (initargs _p)
   (setf (reflist spawner) ())
+  (setf (rng spawner) (decode 'random-state:squirrel (getf initargs :rng (list (sxhash (name spawner)) 0))))
   (setf (active-p spawner) (getf initargs :active-p)))
 
 (define-encoder (locked-door save-v0) (_b _p)

@@ -4,10 +4,10 @@
 (define-global +spawn-cache+ (make-hash-table :test 'eq))
 (define-global +spawn-tracker+ (make-hash-table :test 'eq))
 
-(defun weighted-random-elt (segments)
+(defun weighted-random-elt (segments &optional (random-fun #'random))
   (let* ((total (loop for segment in segments
                       sum (second segment)))
-         (index (random total)))
+         (index (funcall random-fun total)))
     ;; Could try to binsearch, but eh. Probably fine.
     (loop for prev = 0.0 then (+ prev weight)
           for (part weight) in segments
@@ -29,8 +29,8 @@
                                  (alexandria:simple-style-warning "Unknown item type: ~s"  item))
                             sum weight))))
     `(setf (random-drawer ',name)
-           (lambda ()
-             (let ((r (random ,total)))
+           (lambda (&optional (f #'random))
+             (let ((r (funcall f ,total)))
                (cond ,@(nreverse (loop for prev = 0.0 then (+ prev weight)
                                        for (item weight) in items
                                        collect `((< ,prev r) ',item)))))))))
@@ -50,7 +50,8 @@
    (adjacent :initform () :accessor adjacent)
    (auto-deactivate :initarg :auto-deactivate :initform NIL :accessor auto-deactivate :type boolean)
    (active-p :initarg :active-p :initform T :accessor active-p :type boolean)
-   (jitter-y-p :initarg :jitter-y-p :initform T :accessor jitter-y-p :type boolean)))
+   (jitter-y-p :initarg :jitter-y-p :initform T :accessor jitter-y-p :type boolean)
+   (rng :initarg :rng :initform (random-state:make-generator :squirrel T) :accessor rng)))
 
 (defmethod initargs append ((spawner spawner))
   '(:spawn-type :spawn-count :spawn-args :auto-deactivate :active-p :jitter-y-p))
@@ -81,6 +82,7 @@
                                      (if (jitter-y-p spawner)
                                          (* 2.0 (vy (bsize spawner)))
                                          0))
+                        :rng (rng spawner)
                         (spawn-args spawner)))
            (dolist (entity (reflist spawner))
              (mark-as-spawned entity))))
@@ -121,20 +123,22 @@
   (loop for type in types
         nconc (apply #'spawn location type initargs)))
 
-(defmethod spawn ((location vec2) type &rest initargs &key (count 1) (jitter +tile-size+) collect &allow-other-keys)
-  (let ((initargs (remf* initargs :count :collect :jitter))
+(defmethod spawn ((location vec2) type &rest initargs &key (count 1) (jitter +tile-size+) collect (rng *random-state*) &allow-other-keys)
+  (let ((initargs (remf* initargs :count :collect :jitter :rng))
         (region (region +world+))
-        (spawner (random-drawer type)))
+        (spawner (random-drawer type))
+        (rng (lambda (max) (random-state:random max rng))))
     (labels ((draw ()
                (if spawner
-                   (funcall spawner)
+                   (funcall spawner rng)
                    type))
              (create ()
                (apply #'make-instance (draw)
                       :location (v+ location
                                     (etypecase jitter
-                                      (real (vrandr 0 jitter PI))
-                                      (vec2 (vrand (vec 0 0) jitter))))
+                                      (real (vrandr 0 jitter PI rng))
+                                      (vec2 (vec (- (funcall rng (vx jitter)) (* 0.5 (vx jitter)))
+                                                 (- (funcall rng (vy jitter)) (* 0.5 (vy jitter)))))))
                       initargs)))
       (if collect
           (loop repeat count

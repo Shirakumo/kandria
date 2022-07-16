@@ -55,6 +55,16 @@
         (name (generator resource))
         (name resource)))
 
+(define-decoder (random-state:squirrel v0) (data _p)
+  (destructuring-bind (seed index) data
+    (let ((gen (random-state:make-generator 'random-state:squirrel seed)))
+      (setf (random-state:index gen) index)
+      gen)))
+
+(define-encoder (random-state:squirrel v0) (_b _p)
+  (list (random-state:seed random-state:squirrel)
+        (random-state:index random-state:squirrel)))
+
 (defmethod decode-payload (_b (bindings (eql 'bindings)) _p (v0 v0))
   (loop for binding in _b
         for (var type val) = (enlist binding T)
