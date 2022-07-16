@@ -658,9 +658,8 @@
                     :error-output *error-output*))
 
 (defun optipng (file)
-  #-windows
   (ignore-errors
-   (uiop:run-program (list "pngcrush"
+   (uiop:run-program (list #-windows "pngcrush" #+windows "pngcrush.exe"
                            "-brute" "-reduce" "-speed"
                            (uiop:native-namestring file)
                            (uiop:native-namestring (make-pathname :type "tmp" :defaults file)))
