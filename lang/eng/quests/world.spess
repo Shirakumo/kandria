@@ -17,12 +17,12 @@
 ; Large stone rock/gate
 # task-world-all/stone-gate-large
 ~ player
-| (:thinking)"Did this fall here, or did they move it into place?"(light-gray, italic)
+| "Did they cut a doorway through this slab, or did it fall like that?"(light-gray, italic)
 
 ; Trashed apartment from the old world, with a broken window
 # task-world-all/housing-apartment
 ~ player
-| "Is that glass cracking beneath my feet, or broken bones? I don't think I want to look."(light-gray, italic)
+| "Is that glass cracking beneath my feet, or broken bones? I don't think I want to know."(light-gray, italic)
 
 ; a sandstorm blocks the player from crossing further into the desert to the east
 # task-world-all/storm-east-view

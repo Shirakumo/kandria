@@ -93,7 +93,9 @@
 
 # semi-engineer
 ; mix of engineers of different genders who were involved in the tunnel collapse
+; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest
 ; Speech changes once they're on the surface as Noka allies, just before the battle
+; also needs to work for regular engineers around the Semis (and later) the Noka bases - "new chief" in this context could mean the chief who replaced the killed one - or if it's before then, just the new local chief, while the old one is out in the tunnels with the others
 ~ semi-engineer
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]
