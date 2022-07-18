@@ -533,13 +533,14 @@
   (item:anemometer 1)
   (item:disc-brake 5)
   (item:transformer 5))
-;; placement: for sq7: semis storage, and nearby caves; no more than 8 spawners max, so you'll need to go to Cerebats wind tunnels to make up the quest quantity, and chances are, to get the rare item (or farm them)
+;; placement: for sq7: semis storage, and nearby caves; no more than 8 items max, so you'll need to go to Cerebats wind tunnels to make up the quest quantity, and chances are, to get the rare item (or farm them)
 
 (define-random-draw wind-parts-common
   (item:anemometer 1)
   (item:disc-brake 1)
   (item:transformer 1))
   ;; placement: for sq7: Cerebat wind tunnels: most wind tunnels can have 1 or more spawners, so more plentiful than in Semis base (to reward venturing deeper)
+  ;; assume no rare items spawn in semis area, so need 5 of them from Cerebats; since 1/3 chance, have 15 items here
 
 ;; REGION 1 UPPER + SURFACE
 ;; meteorites only close to the surface, to hint at another possible Calamity cause
