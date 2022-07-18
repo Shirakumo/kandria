@@ -98,7 +98,7 @@
 ? (complete-p 'Q11A-BOMB-RECIPE)
 | | [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]
 |?
-| | [? Talk to the new chief. | It's been a long shift. | The new chief's the one you want.  | Not good timing, sorry. | I'd check in with the new chief.]
+| | [? Talk to the new chief. | It's been a long shift. | The new chief's the one you want.  | An... android? Nah, can't be. That's impossible. | I'd check in with the new chief.]
 
 # soldier
 ; mix of soldiers of different genders who follow Zelah around, serving as his bodyguards
