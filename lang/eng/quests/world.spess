@@ -3,7 +3,7 @@
 ; They are written as the thoughts or inner monologue of the player character.
 
 ; REGION 1 UPPER
-; Storage interior - shelves
+; Storage interior area
 # task-world-all/storage-shelves
 ~ player
 | "Their storage shed. Supplies are low and it smells like mating rats."(light-gray, italic)
@@ -35,6 +35,7 @@
 | "This was the stairwell. The building used to be much taller."(light-gray, italic)
 
 ; a dirty kitchen the survivors use to cook
+; they have some electricity, but while they're still getting set up on the surface, they haven't got it in the kitchen yet - prioritised comms
 # task-world-all/housing-kitchen
 ~ player
 | "There's no gas or electrical supply. It smells like a wrecked oil tanker."(light-gray, italic)
@@ -46,11 +47,10 @@
 | (:thinking)""Café Alpha"(red). Did I used to come here?"(light-gray, italic)
 | (:giggle)"If so I'm sure the service was much better."(light-gray, italic)
 
-; one of the old apartment rooms looks like it's been slept in recently
-# task-world-all/housing-bed
+; a shelf of books and figurines (visually obvious/implied) in one of the old apartment rooms - someone's assembled them neatly
+# task-world-all/housing-shelf
 ~ player
-| (:giggle)"This bed was recently made up - I doubt it was room service."(light-gray, italic)
-| (:normal)"I don't sleep, but it looks incredibly inviting."(light-gray, italic)
+| "How did these survive, yet so many people died? Someone cared enough to save them."(light-gray, italic)
 
 ; vista of the ruined city in the background, collapsed skyscrapers, etc.
 # task-world-all/ruins-view
