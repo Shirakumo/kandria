@@ -32,12 +32,13 @@
   - (Yes - confirm name as "{#@player-name-1}")
     ~ fi
     | (:happy)If you like it, I like it.
+    < continue
 - (Choose a new name)
   ~ player
-  | "From the corrupted strings in my registry, I'd guess my name was one of these three:"(light-gray, italic)
+  | "From the corrupted strings in my registry, I'd guess my name was one of these:"(light-gray, italic)
   ! label old-names
   ~ player
-  - ({#@player-name-2})
+  - {#@player-name-2}.
     ~ fi
     | Are you sure? You want us to call you "{#@player-name-2}"(yellow)?
     ~ player
@@ -45,9 +46,8 @@
       < old-names
     - (Yes - confirm name as "{#@player-name-2}")
       ! eval (setf (nametag player) (@ player-name-2))
-      ~ fi
-      | (:happy)I like it. Especially since it might have been your old name.
-  - ({#@player-name-3})
+      < old-name-chosen
+  - {#@player-name-3}.
     ~ fi
     | Are you sure? You want us to call you "{#@player-name-3}"(yellow)?
     ~ player
@@ -55,9 +55,8 @@
       < old-names
     - (Yes - confirm name as "{#@player-name-3}")
       ! eval (setf (nametag player) (@ player-name-3))
-      ~ fi
-      | (:happy)I like it. Especially since it might have been your old name.
-  - ({#@player-name-4})
+      < old-name-chosen
+  - {#@player-name-4}.
     ~ fi
     | Are you sure? You want us to call you "{#@player-name-4}"(yellow)?
     ~ player
@@ -65,13 +64,21 @@
       < old-names
     - (Yes - confirm name as "{#@player-name-4}")
       ! eval (setf (nametag player) (@ player-name-4))
-      ~ fi
-      | (:happy)I like it. Especially since it might have been your old name.
+      < old-name-chosen
+  - {#@player-name-5}.
+    ~ fi
+    | Are you sure? You want us to call you "{#@player-name-5}"(yellow)?
+    ~ player
+    - (No - choose a different name)
+      < old-names
+    - (Yes - confirm name as "{#@player-name-5}")
+      ! eval (setf (nametag player) (@ player-name-5))
+      < old-name-chosen
   - (Go back)
     < name
-- (Let Fi choose your name)
+- (Let Fi choose a name)
   ~ fi
-  | (:unsure)You'd let me do that? I thought you might want to choose a name for yourself.
+  | (:unsure)You'd let me do that? I thought you might want to choose one for yourself.
   ~ player
   - On second thoughts...
     < name
@@ -88,6 +95,14 @@
       | (:giggle)I like it.
       ~ fi
       | (:happy)Thank you. It means a lot that you let me do that.
+      < continue
+
+# old-name-chosen
+~ fi
+| (:happy)I like it. Especially since it might have been your old name.
+< continue
+
+# continue
 ~ fi
 | (:happy)That's settled then, "{(nametag player)}"(yellow). Welcome to the Noka.
 | (:normal)I wish we could talk, but I really need you to take this next job.

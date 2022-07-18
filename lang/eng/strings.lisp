@@ -5,6 +5,7 @@ player-name-1  "Stranger" ;; female, player character
 player-name-2 "Andréa" ;; female
 player-name-3 "Katriona" ;; female
 player-name-4 "Nadia" ;; female
+player-name-5 "Rhianna" ;; female
 player-name-fi "Chiyo" ;; female
 fi-nametag "Fi" ;; female
 catherine-nametag "Catherine" ;; female
