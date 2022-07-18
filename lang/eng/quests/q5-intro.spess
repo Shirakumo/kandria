@@ -93,9 +93,11 @@
 | | ! eval (activate 'semi-station-marker)
 | |?
 | | ! eval (complete 'semi-station-marker)
+| ~ innis
+| | Anyway, this means it's just the "CCTV you need to investigate"(orange).
 |?
 | ~ innis
-| | We need both the engineers and the CCTV sorting out, so "do them in whatever order you want"(orange). Just do it quickly.
+| | We need both the "engineers and CCTV"(orange) sorting out, so "investigate them in whatever order you want"(orange). Just do it quickly.
 ! label questions
 ~ player
 - [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]

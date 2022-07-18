@@ -23,7 +23,7 @@
   | But a trade is acceptable. And the sooner we get started, the sooner she'll turn it back on for you.
 ~ islay
 | Basically we've got "rail engineers stuck"(orange) after a tunnel collapse in the "far high west"(orange).
-| And "4 of our CCTV cameras on the distant low eastern"(orange) "Cerebat"(red) border have gone down.
+| And "4 of our CCTV cameras on the distant low eastern"(orange) "Cerebat"(red) border have gone down. You need to "investigate"(orange).
 ? (not (active-p (unit 'blocker-engineers)))
 | ~ islay
 | | Actually, no: don't worry about the engineers.
