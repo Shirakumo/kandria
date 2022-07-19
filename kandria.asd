@@ -181,6 +181,8 @@
                              (:file "sq5-race")
                              (:file "sq6-deliver-letter")
                              (:file "sq6-intro")
+                             (:file "sq7-intro")
+                             (:file "sq7-wind-parts")
                              (:file "sq-act1-intro")
                              (:file "trader-arrive")
                              (:file "trader-cerebat")

@@ -1,6 +1,6 @@
 # intro/intro-chat
 ~ catherine
-| Actually, I do have a "little project you could help with"(orange), if you have the time.
+| Actually, I do have a "little project you could help with"(orange), if you have time.
 | It's on the down-low, but I think it could be our saviour: "wind power"(orange)!
 | (:excited)I don't know if you noticed, but it can get pretty windy on the surface - stormy even. I want to "build turbines"(orange) and use wind to produce electricity.
 | Pretty sweet, huh?
@@ -18,9 +18,11 @@
   < leave
 ~ catherine
 | First thing I'm gonna need is some essential components: "anemometers"(orange), "disc brakes"(orange), "transformers"(orange).
-| Call it "5 of each"(orange) I think, just to get me started.
+| Call it "5 of each"(orange) I think, just to get me started. I can "pay you"(orange).
 | The "Semis should have some lying around"(orange). The "Cerebats too - they've already got turbines in their wind tunnels"(orange).
 | Thanks, {(nametag player)}.
+! eval (complete task)
+! eval (reset interaction)
 
 # leave
 

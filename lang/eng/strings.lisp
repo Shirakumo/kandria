@@ -361,13 +361,13 @@ item:mushroom-bad-1 "Black Cap"
 item:mushroom-bad-1/description "A fungus that looks like someone's insides if they were on the outside. That's probably what it would do to you too.
 Can be sold for scrap."
 item:anemometer "Anemometer"
-item:anemometer/description "A device for measuring wind speed. Or a series of tin cans on a wheel.
+item:anemometer/description "A device for measuring wind speed. Or a selection of tin cans glued to a wheel.
 Can be sold for scrap."
 item:disc-brake "Disc Brake"
 item:disc-brake/description "Could be used to stop any circular motion, such as on a vehicle or turbine.
 Can be sold for scrap."
 item:transformer "Transformer"
-item:transformer/description "Can reduce or increase the voltage of an alternating current. It seems to be in good working order.
+item:transformer/description "Reduces or increases the voltage of an alternating current. It seems to be in good working order.
 Can be sold for scrap."
 item:walkie-talkie "Walkie-Talkie"
 item:walkie-talkie/description "An old-world one-way communications device. Over."
