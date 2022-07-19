@@ -5,7 +5,7 @@
 - Not good.
   ~ catherine
   | (:concerned)... Uh, how so?
-  | (:normal)You know what: don't worry about it. I'm sure you've got enough on your plate right now. I'll talk to Fi.
+  | (:normal)You know what: don't worry about it. I'm sure you've got enough on your plate. I'll talk to Fi.
   | (:concerned)... Although there are rumours flying around, about the Wraw invading the Cerebats.
   | Is it true?
 - We've got bigger problems.
@@ -41,7 +41,7 @@
   | (:concerned)You don't sound too convinced.
 - I'm not sure.
   ~ catherine
-  | (:concerned)Well that's not good.
+  | (:concerned)Well that's no good.
 - I think it might be.
   ~ catherine
   | (:disappointed)...
