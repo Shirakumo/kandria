@@ -1,9 +1,3 @@
-# find-mushrooms/sq2-reminder
-~ catherine
-| How was your mushrooming? Oh, I don't think you've got enough yet.
-| I need at least "25 puffballs or flower fungus"(orange). Keep "searching underground"(orange).
-| (:excited)Good luck!
-
 # return-mushrooms/mushrooms-return
 ~ catherine
 | How was your mushrooming? Let's see what you've got.
@@ -36,7 +30,6 @@
 | If we don't need them, the least you could do is "trade them with Sahil"(orange).
 | See you around, Stranger!
 ! eval (complete task)
-! eval (deactivate 'return-mushrooms)
-! eval (deactivate interaction)
+! eval (reset interaction)
 
 # end
