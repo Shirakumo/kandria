@@ -5,14 +5,6 @@
 | | (:angry)I'm watching you.
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | (:angry)Where've you been?
-|? (complete-p 'DEMO-END-PREP)
-| | [? You might be useful after all. | You should think about joining us - leave those lowlifes you call friends behind. | Maybe you are better off intact than in pieces. | I hope getting the water back was worth it. | There's a war coming, android. Make sure you're on the winning side.]
-|? (complete-p 'DEMO-INTRO)
-| | [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]
-|? (complete-p 'DEMO-SEMIS)
-| | (:angry)[? "Talk to my sister up in the control room."(orange) | Are your audio receivers offline? I said "talk to my sister - she's up in the control room"(orange). | Do you want the water turned back on or not? If you do, then "talk to my sister up in the control room"(orange).]
-|? (complete-p 'DEMO-START)
-| | [? Dinnae you have Semis' business to attend to? | I ken everything about you, android. So dinnae try anything funny. | I'm still contemplating dismantling you. So I wouldnae wait around here too long. | I didnae turn the water off lightly, you understand. But business is business.]
 |?
 | | What do you want?
 
@@ -34,7 +26,7 @@
 | | (:angry)<-Hic->. Go away.
 
 # trader
-; Sahil, trader, male, Arabic code switching (used in demo and main game)
+; Sahil, trader, male, Arabic code switching
 ~ trader
 ? T
 | | Sorry, habibti. I'm closed for business while I fix my caravan.

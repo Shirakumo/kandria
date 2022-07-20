@@ -292,7 +292,7 @@
 # task-world-all/engineers-wall
 ~ player
 ? (active-p (unit 'blocker-engineers))
-| ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers))
+| ? (active-p 'q5a-rescue-engineers)
 | | | "This might be the "collapsed tunnel"(orange) that trapped the "Semis engineers"(orange)."(light-gray, italic)
 | | | "I don't think I can clear it from this side."(light-gray, italic)
 | | | (:thinking)"I'll need to "find another way up and around"(orange)."(light-gray, italic)
@@ -300,7 +300,7 @@
 | | | "A collapsed tunnel. I don't think I can clear it from this side."(light-gray, italic)
 | | | (:thinking)"I'll need to "find another way up and around"(orange)."(light-gray, italic)
 |?
-| ? (or (active-p 'demo-engineers) (active-p 'q5a-rescue-engineers) (complete-p 'demo-engineers) (complete-p 'q5a-rescue-engineers))
+| ? (or (active-p 'q5a-rescue-engineers) (complete-p 'q5a-rescue-engineers))
 | | | "The remnants of the collapsed rail tunnel. It looks stable enough - for now."(light-gray, italic)
 | |?
 | | | "The remnants of the collapsed tunnel. It looks stable enough - for now."(light-gray, italic)

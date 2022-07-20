@@ -118,8 +118,6 @@ crawl "Crawl"
 crawl/description "Crawl to fit through tight spaces"
 save "Saving"
 save/description "Use the phone box outside to save progress, or save from the menu while you're near one"
-save-demo "Saving"
-save-demo/description "Use the phone box beneath this room to save progress, or save from the menu while you're near one"
 attack "Attacking"
 attack/description "Hold different directions together with a light or heavy attack for various moves"
 cast-line "Cast Line"
@@ -901,5 +899,3 @@ Pinging genera ...                                                 OK
 [INFO] Marking route to closest service facility
 [ERR ] NFCS unavailable, failed to mark route
 [INFO] Initiating core loop"
-end-screen-title "You've reached the end of the demo!"
-end-screen-thanks "Thanks a lot for playing! The full game will feature many more quests, as well as new areas, characters, enemies, and secrets to discover. Don't forget to wishlist the game on Steam, and back us on Kickstarter!"

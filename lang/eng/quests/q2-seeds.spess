@@ -30,11 +30,10 @@
 ! eval (store 'item:parts 200)
 ~ fi
 ? (complete-p 'q3-new-home)
-| ? (not (find :kandria-demo *features*))
-| | | You should "check in with Catherine"(orange) - I'm sure she'd like to see you again.
-| | | I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
-| | ! eval (activate 'sq-act1-intro)
-| | ! eval (activate 'q4-intro)
+| | You should "check in with Catherine"(orange) - I'm sure she'd like to see you again.
+| | I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
+| ! eval (activate 'sq-act1-intro)
+| ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q3-new-home))
 | | | Oh, I've also "given Jack a special job"(orange) - something I think you'll be well-suited to help with.
