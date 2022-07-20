@@ -1,49 +1,44 @@
 # About Kandria
 This is a game project. Please see the official website at https://kandria.com for more information.
 
-## Controls
-You can use a keyboard or a gamepad to control the game. The standard key / button bindings are as follows:
+## Getting Set Up
+In order to get set up with a development environment capable of working with Kandria, please follow one of the following sections depending on your setup.
 
-- Arrow Keys   [L]
-  Move
-- Space        [A]
-  Jump
-- Shift       [R2]
-  Dash (hold direction to dash in)
-- Ctrl        [L2]
-  Climb walls
-- V           [L3]
-  Toggle crawl
-- E            [B]
-  Interact
-- Z            [X]
-  Light attack
-- X            [Y]
-  Heavy attack
-- C       [SELECT]
-  Quick menu
+### Quickstart
+If you are new to Lisp, welcome! The easiest way to get a development environment up and running is "Portacle"(https://portacle.github.io). Simply download and extract the appropriate package for your system, then launch the ``Portacle`` application.
 
+This should launch an Emacs editor window along with a command line at the bottom (the REPL). First thing we should do now is clone the Kandria sources into the Portacle projects folder. To do so, press Alt+x, then type: ``clone-project``. It should prompt you for an address. Type the address of this repo: ``https://github.com/shirakumo/kandria``. It'll take a bit, but after a while the repository will be in the ``projects`` folder of your Portacle installation.
 
-The controls can also be changed to suit your preferences by editing ``keymap.lisp``.
+Next, you'll want to click into the REPL and run: ``(load "projects/kandria/install.lisp")`` It might ask you some stuff about your setup, just enter the answers into the REPL. Again, this step will take a while, as it'll compile the game from source.
 
-## Minimum Requirements
-In order to play Kandria you need an x86-64 Windows, Linux, or macOS system with at least 4GB RAM and a video driver capable of OpenGL 3.3 or higher.
+Once this is done, you're all set up to tinker with Kandria. In the future when you start Portacle, you'll only have to type the following command into the REPL to get back up to speed: ``(ql:quickload :kandria)``
 
-## Changing Settings
-Settings are saved in a plain text file that you can find here:
+From here you can launch Kandria with ``(kandria:launch)``.
 
-Linux/MacOS: ``~/.config/shirakumo/kandria/settings.lisp``
-Windows: ``%AppData%/Roaming/shirakumo/kandria/settings.lisp``
+### Setup Without IDE
+If you'd like to get Kandria set up without an IDE like Portacle, go as follows:
 
-Key bindings can be found in the same directory in the ``keymap.lisp`` file:
+1. Clone the repository or download its sources someplace.
+2. Navigate there in a command line.
+3. Run ``./install.lisp``
+4. This should install all the prerequisites and compile Kandria.
+5. In the future, whenever you'd like to get set up, simply run ``./setup.lisp``.
 
-Linux/MacOS: ``~/.config/shirakumo/kandria/keymap.lisp``
-Windows: ``%AppData%/Roaming/shirakumo/kandria/keymap.lisp``
+### Prior Lisp Setup
+If you already have an existing Common Lisp setup, you can still make use of the ``install.lisp`` file. However, if you would like to do things manually, all you should have to do is this:
 
-## Reporting Problems and Feedback
-If you encounter a problem with Kandria, first of all, apologies! The best way to report them is to hit ``F12`` in-game. That will bring up a dialogue that lets you enter a description of the problem. Once you OK the dialogue it'll gather some information about the current game state and send it to us. It'll also try to do that automatically should the game crash entirely.
-
-Changes that are realised thanks to public feedback like this will be noted in the "CHANGES.mess"(link CHANGES.mess) file.
+1. Install the Shirakumo dist:
+   ::
+   (ql-dist:install-dist "http://dist.tymoon.eu/shirakumo.txt" :prompt NIL)
+   ::
+2. Clone Kandria to a folder where it can be found, such as Quicklisp's local-projects.
+   ::
+   git clone https://github.com/shirakumo/kandria.git ~/quicklisp/local-projects/kandria
+   ::
+3. Load Kandria with Quicklisp:
+   ::
+   (ql:quickload :kandria)
+   ::
 
 ## Support
 Kandria was made possible in part to the Pro Helvetia Interactive Media grant and the KPT Poland Prize Digital Dragons Accelerator.
