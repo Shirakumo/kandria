@@ -1,6 +1,6 @@
 # 6-interact-catherine/interaction
    ~ catherine
-| (:excited)Yes!
+| (:cheer)YES!!
 | (:concerned)Uh, "can you walk"(orange)?
 
 # 8-interact-catherine/interaction
@@ -19,7 +19,7 @@
 
 # platform-start/walkntalk
 ~ catherine
-| (:cheer)That was __AMAZING!!__ Is that some kind of booster module?
+| (:cheer)That was __AMAZING!__ Is that some kind of booster module?
 
 # platform-end/walkntalk
 ~ catherine
