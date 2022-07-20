@@ -4,6 +4,11 @@
 (define-pool sound :base "sound/")
 (define-pool music :base "music/")
 
+(defun set-pool-paths-from-install (install)
+  (setf (base (find-pool 'kandria)) (pathname-utils:subdirectory install "pool" "kandria"))
+  (setf (base (find-pool 'music)) (pathname-utils:subdirectory install "pool" "music"))
+  (setf (base (find-pool 'sound)) (pathname-utils:subdirectory install "pool" "sound")))
+
 (define-asset (kandria 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))
 
