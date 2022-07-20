@@ -74,7 +74,7 @@
               (run-limit       4.0)
               (air-acc         0.08)
               (air-dcc         0.97)
-              (air-neutral-dcc 0.95)
+              (air-neutral-dcc 0.97)
               (climb-up        0.8)
               (climb-down      1.5)
               (climb-strength  5.0)
