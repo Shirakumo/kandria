@@ -20,6 +20,6 @@
   | (:excited)Yay, your voice box works too.
   | Yep. Pretty amazing home, huh?
 ~ catherine
-| And come look at this - I guarantee you won't have ever seen anything like it.
+| And "come look at this"(orange) - I guarantee you won't have ever seen anything like it.
 ! eval (complete 'tutorial)
 ! eval (activate 'q0-settlement-arrive)
