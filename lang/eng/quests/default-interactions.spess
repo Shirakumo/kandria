@@ -38,7 +38,7 @@
 | | Was I wrong about you?
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | Look what the cat dragged in.
-|? (complete-p 'Q11A-BOMB-RECIPE)
+|? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | (:annoyed)Innis is a real bitch, don't ya think?
 |?
 | | What?
@@ -89,7 +89,7 @@
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ; also needs to work for regular engineers around the Semis (and later) the Noka bases - "new chief" in this context could mean the chief who replaced the killed one - or if it's before then, just the new local chief, while the old one is out in the tunnels with the others
 ~ semi-engineer
-? (complete-p 'Q11A-BOMB-RECIPE)
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]
 |?
 | | [? Talk to the new chief. | It's been a long shift. | The new chief's the one you want.  | An... android? Nah, can't be. That's impossible. | I'd check in with the new chief.]
@@ -109,7 +109,7 @@
 ; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-roboticist
-? (complete-p 'Q11A-BOMB-RECIPE)
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | We could really use some Servos on our side, right about now.
 |? (complete-p 'SQ4-ANALYSE-ROBOTS)
 | | I'm getting closer to understanding how Servos think. How //you//think too.
@@ -120,7 +120,7 @@
 ; Semi Sisters barkeep, non-binary
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-barkeep
-? (complete-p 'Q11A-BOMB-RECIPE)
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | No time for racing. No time for drinking either.
 |?
 | | Who's this fancy pants?
@@ -129,7 +129,7 @@
 ; female barkeep (other barkeep)
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-barkeep-2
-? (complete-p 'Q11A-BOMB-RECIPE)
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | I knew you'd bring trouble down on us.
 |?
 | | I don't serve your kind.
@@ -138,7 +138,7 @@
 ; female, sober
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-patron-1
-? (complete-p 'Q11A-BOMB-RECIPE)
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | Tends to put things in perspective, doesn't it? War, I mean. We never knew how good we had it.
 |? (complete-p 'SQ5-INTRO)
 | | I've high hopes for you, android.
@@ -149,7 +149,7 @@
 ; female, drunk
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-patron-2
-? (complete-p 'Q11A-BOMB-RECIPE)
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | Where's the goddamn bar around here?
 |? (complete-p 'SQ5-INTRO)
 | | Did you start the race yet? <-Hic->. Where am I?
@@ -160,7 +160,7 @@
 ; male, Tobias, was in a relationship with Kacey
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-partner
-? (complete-p 'Q11A-BOMB-RECIPE)
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | I'm going nowhere without Kacey.
 |? (complete-p 'SQ6-DELIVER-LETTER)
 | | Kacey called me. We're still friends, though.
@@ -169,10 +169,10 @@
 
 # cerebat-partner
 ; female, KAcey, was in a relationship with Tobias
-; Speech changes once they're on the surface as Noka allies, just before the battle
+; Speech changes once you know of the Wraw invasion
 ~ cerebat-partner
 ? (complete-p 'Q10-WRAW)
-| | So the world's going to shit again. Great.
+| | So the world's gone to shit again. Great.
 |? (complete-p 'SQ6-DELIVER-LETTER)
 | | You understand privacy, yes?
 |?
