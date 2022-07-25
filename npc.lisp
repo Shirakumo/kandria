@@ -583,14 +583,12 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-female)))
 
-(define-shader-entity semi-barkeep-2 (paletted-entity npc creatable)
-  ((name :initform 'semi-barkeep-2)
+(define-shader-entity npc-hunter (npc creatable)
+  ((name :initform 'npc-hunter)
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
-   (nametag :initform (@ semi-barkeep-2-nametag))
-   (palette :initform (// 'kandria 'villager-female-palette))
-   (palette-index :initform 0))
+   (nametag :initform (@ hunter-nametag)))
   (:default-initargs
-   :sprite-data (asset 'kandria 'villager-female)))
+   :sprite-data (asset 'kandria 'villager-hunter)))
 
 (define-shader-entity semi-engineer-roam (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))

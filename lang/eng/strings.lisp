@@ -21,6 +21,7 @@ semi-barkeep-2-nametag "Barkeep" ;; female
 semi-patron-1-nametag "Sober Patron" ;; female
 semi-patron-2-nametag "Drunk Patron" ;; female
 villager-nametag "Villager" ;; gender unknown
+hunter-nametag "Hunter" ;; gender unknown
 cerebat-trader-stranger "Stranger" ;; male trader
 semi-partner-nametag "Tobias" ;; male
 cerebat-partner-nametag "Kacey" ;; female

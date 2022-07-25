@@ -26,10 +26,17 @@
 | | (:angry)<-Hic->. Go away.
 
 # trader
-; Sahil, trader, male, Arabic code switching
+; Sahil, trader, male, Arabic code switching; after the intro quest, default chat interacts takeover, but this is for before the quest
 ~ trader
 ? T
 | | Sorry, habibti. I'm closed for business while I fix my caravan.
+
+# cerebat-trader-quest
+; Cerebat trader from q8a; after the quest, default chat interacts takeover, but this is for before the quest
+; stop being nosy!
+~ cerebat-trader-quest
+? T
+| | Stick your big nez somewhere else!
 
 # jack
 ; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
