@@ -22,7 +22,7 @@
   ~ semi-patron-1
   | So androids //can// drink. You owe me fifty.
   ~ semi-patron-2
-  | Dammit, android. But you don't //drink// drink, do you? <-Hic->.
+  | Dammsit, android. But you don't //drink// drink, do you?
   ~ semi-patron-1
   | Don't get technical, mate. If the android drinks it, it counts.
   ~ player
@@ -32,13 +32,13 @@
     ~ semi-patron-1
     | Boom! Fifty scrap parts, thank you very much.
     ~ semi-patron-2
-    | Ah, shit. Take it.
+    | Ah, shits. Take it.
     ~ player
     | Yep, that tasted like diesel mixed with seaweed.
     ! eval (setf (var 'lost-bet-2) T)
   - (Leave it)
     ~ semi-patron-2
-    | Looks like you owe me, matey.
+    | Looks likes you owe me, matey.
     ~ semi-patron-1
     | Screw you, android.
     ! eval (setf (var 'lost-bet-1) T)
@@ -57,7 +57,7 @@
 | We have a //good// life, as you can see - by post-Calamity standards, of course. But not a lot happens around here.
 | So when an android arrives, people take notice.
 ~ semi-patron-2
-| Get to the point, will ya? <-Hic->. The android ain't got all day.
+| Get to the point, wills ya? Android ain't got all day.
 ? (var 'lost-bet-2)
 | | And neither have I if I'm gonna win my money back.
 |? (var 'lost-bet-1)

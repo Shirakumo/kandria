@@ -75,7 +75,7 @@
 | |? (< pb silver)
 | | | That was faster than the "silver"(orange) hunter. Not bad. Though we think you can do better.
 | | ~ semi-patron-2
-| | | You're just getting warmed up - <-hic-> - right?
+| | | You're just getting shwarmed up, right?
 | | ~ semi-barkeep
 | | | Here's your cut from the sweepstake: "300 scrap parts"(orange).
 | | ! eval (store 'item:parts 300)
@@ -89,7 +89,7 @@
 | |?
 | | | But it's "slower than the bronze"(orange) hunter, I'm sorry to say.
 | | ~ semi-patron-2
-| | | Pitiful is what that was. <-Hic->. Pitifu-fu-ful.
+| | | Pitiful is what that was. Pitifu-fu-ful.
 | | ~ semi-barkeep
 | | | "Nothing for you from the sweepstake"(orange) this time. But will you come back stronger?
   

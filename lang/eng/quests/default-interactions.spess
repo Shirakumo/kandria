@@ -152,9 +152,9 @@
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | Where's the goddamn bar around here?
 |? (complete-p 'SQ5-INTRO)
-| | Did you start the race yet? <-Hic->. Where am I?
+| | Did you start the race yet? Where am I?
 |?
-| | <-Hic->. Cheers! <-Hic->.
+| | Cheers!
 
 # semi-partner
 ; male, Tobias, was in a relationship with Kacey
