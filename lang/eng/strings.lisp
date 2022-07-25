@@ -14,7 +14,7 @@ trader-nametag "Sahil" ;; male
 innis-nametag "Innis" ;; female
 islay-nametag "Islay" ;; female
 alex-nametag "Alex" ;; non-binary
-semi-engineer-nametag "Engineer" ;; gender unknown
+semi-engineer-nametag "New Chief" ;; gender unknown, engineering chief
 semi-roboticist-nametag "Roboticist" ;; female
 semi-barkeep-nametag "Barkeep" ;; non-binary
 semi-barkeep-2-nametag "Barkeep" ;; female

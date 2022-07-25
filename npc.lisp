@@ -558,10 +558,10 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'sahil)))
 
-(define-shader-entity semi-roboticist (npc creatable)
-  ((name :initform 'semi-roboticist)
+(define-shader-entity semi-engineer (npc creatable)
+  ((name :initform 'semi-engineer)
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
-   (nametag :initform (@ semi-roboticist-nametag)))
+   (nametag :initform (@ unknown-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-engineer)))
 
@@ -592,10 +592,10 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-female)))
 
-(define-shader-entity semi-engineer (roaming-npc creatable)
+(define-shader-entity semi-engineer-roam (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
-   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
+   (nametag :initform (@ unknown-nametag)))
   (:default-initargs
    :default-interaction 'semi-engineer
    :sprite-data (asset 'kandria 'villager-engineer)))
