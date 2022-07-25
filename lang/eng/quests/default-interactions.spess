@@ -32,7 +32,7 @@
 | | Sorry, habibti. I'm closed for business while I fix my caravan.
 
 # cerebat-trader-quest
-; Cerebat trader from q8a; after the quest, default chat interacts takeover, but this is for before the quest
+; Cerebat trader from q8a, male; after the quest, default chat interacts takeover, but this is for before the quest
 ; stop being nosy!
 ~ cerebat-trader-quest
 ? T
@@ -90,16 +90,26 @@
 |?
 | | Keep going.
 
-# semi-engineer
+# semi-engineer-team
 ; mix of engineers of different genders who were involved in the tunnel collapse
 ; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest
 ; Speech changes once they're on the surface as Noka allies, just before the battle
-; also needs to work for regular engineers around the Semis (and later) the Noka bases - "new chief" in this context could mean the chief who replaced the killed one - or if it's before then, just the new local chief, while the old one is out in the tunnels with the others
-~ semi-engineer
+~ semi-engineer-team
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | [? I hope there's something left to rebuild. | After all that work on the railway... Now this. | It's strange, just waiting. | I'm use to welding rails not cleaning guns. | Who are you again?]
+| | [? After all that work on the railway... Now this. | I'm use to welding rails not cleaning guns. | You're the one that saved us, aren't you.]
+? (not (active-p (unit 'blocker-engineers)))
+| | [? It's good to be home. | I need a lie down after that shift. | I can't thank you enough for clearing the tunnel. Thank you thank you thank you! | If I don't see another cave for the rest of my life, it will be too soon.]
 |?
 | | [? Talk to the new chief. | It's been a long shift. | The new chief's the one you want.  | An... android? Nah, can't be. That's impossible. | I'd check in with the new chief.]
+
+# semi-engineer-base
+; mix of engineers of different genders to be found around the Semis base
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-engineer-base
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | [? I hope there's something left to rebuild. | It's strange, just waiting. | With an android on our side, we can't lose. Can we? | I hope your fusion reactor is up to this fight.]
+|?
+| | [? You any good at fixing things? | You look like you know your way around a screwdriver. | I wouldn't mind seeing how you work on the inside. | What's the maximum stress tolerance of your body? | You're a regular walking toolbox aren't you.]
 
 # soldier
 ; mix of soldiers of different genders who follow Zelah around, serving as his bodyguards
@@ -175,7 +185,7 @@
 | | ... Hold on, there's someone here. Over. Er, hi? Can I help you? - Can't you see I'm on a call?
 
 # cerebat-partner
-; female, KAcey, was in a relationship with Tobias
+; female, Kacey, was in a relationship with Tobias
 ; Speech changes once you know of the Wraw invasion
 ~ cerebat-partner
 ? (complete-p 'Q10-WRAW)

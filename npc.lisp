@@ -551,13 +551,6 @@
 
 (defmethod primary-npc-p ((npc alex)) T)
 
-(define-shader-entity cerebat-trader (npc creatable)
-  ((name :initform 'cerebat-trader)
-   (profile-sprite-data :initform (asset 'kandria 'sahil-profile))
-   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
-  (:default-initargs
-   :sprite-data (asset 'kandria 'sahil)))
-
 (define-shader-entity semi-engineer (npc creatable)
   ((name :initform 'semi-engineer)
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
@@ -590,14 +583,6 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-hunter)))
 
-(define-shader-entity semi-engineer-roam (roaming-npc creatable)
-  ((name :initform (generate-name "ENGINEER"))
-   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
-   (nametag :initform (@ unknown-nametag)))
-  (:default-initargs
-   :default-interaction 'semi-engineer
-   :sprite-data (asset 'kandria 'villager-engineer)))
-
 (define-shader-entity soldier (paletted-entity npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ soldier-nametag))
@@ -621,6 +606,30 @@
    (nametag :initform (@ villager-nametag)))
   (:default-initargs
    :default-interaction 'npc))
+
+(define-shader-entity semi-engineer-team (roaming-npc creatable)
+  ((name :initform (generate-name "ENGINEER"))
+   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
+  (:default-initargs
+   :default-interaction 'semi-engineer-team
+   :sprite-data (asset 'kandria 'villager-engineer)))
+
+(define-shader-entity semi-engineer-base (roaming-npc creatable)
+  ((name :initform (generate-name "ENGINEER"))
+   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
+  (:default-initargs
+   :default-interaction 'semi-engineer-base
+   :sprite-data (asset 'kandria 'villager-engineer)))
+
+(define-shader-entity cerebat-trader (npc creatable)
+  ((name :initform (generate-name "TRADER"))
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
+  (:default-initargs
+   :default-interaction 'npc
+   :sprite-data (asset 'kandria 'sahil)))
 
 (defmethod initialize-instance :before ((villager villager) &key)
   (case (random 2)
@@ -657,20 +666,19 @@
 (define-random-draw bar
   (villager 1.0)
   (villager-hunter 0.3)
-  (semi-engineer 0.2)
+  (semi-engineer-base 0.2)
   (cerebat-trader 0.1)
   (tame-wolf 0.1))
 
 (define-random-draw semi
   (villager 1.0)
   (villager-hunter 0.1)
-  (semi-engineer 0.2)
+  (semi-engineer-base 0.2)
   (cerebat-trader 0.1)
   (tame-wolf 0.1))
 
 (define-random-draw cerebats
   (villager 1.5)
   (villager-hunter 0.75)
-  (semi-engineer 0.2)
   (cerebat-trader 1.0)
   (tame-wolf 0.1))
