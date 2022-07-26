@@ -28,7 +28,7 @@
 | |?
 | | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to Innis"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
-| | "I need to "find the other CCTV sites"(orange), as recorded in my "Log Files"(orange) and on my "Map"(orange) "< {(prompt-char 'open-map)} >"(gold)."(light-gray, italic)
+| | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 
 # q5b-task-cctv-2/cctv-2
@@ -44,7 +44,7 @@
 | |?
 | | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to Innis"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
-| | "I need to "find the other CCTV sites"(orange), as recorded in my "Log Files"(orange) and on my "Map"(orange) "< {(prompt-char 'open-map)} >"(gold)."(light-gray, italic)
+| | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 
 # q5b-task-cctv-3/cctv-3
@@ -60,7 +60,7 @@
 | |?
 | | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to Innis"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
-| | "I need to "find the other CCTV sites"(orange), as recorded in my "Log Files"(orange) and on my "Map"(orange) "< {(prompt-char 'open-map)} >"(gold)."(light-gray, italic)
+| | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 
 # q5b-task-cctv-4/cctv-4
@@ -120,7 +120,7 @@
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 |? (not (var 'first-cctv))
-| | "I also need to "find the other CCTV sites"(orange), as recorded in my "Log Files"(orange) and on my "Map"(orange) "< {(prompt-char 'open-map)} >"(gold)."(light-gray, italic)
+| | "I also need to "find the other CCTV sites"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 |? (complete-p 'q5b-boss)
 | | "I'd better "check out the last of the CCTV cameras around here"(orange), then "get back to Innis"(orange) on the double."(light-gray, italic)

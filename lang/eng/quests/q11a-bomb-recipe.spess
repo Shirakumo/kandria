@@ -22,7 +22,7 @@
 | | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | | ! eval (retrieve 'item:charge-pack T)
 |  
-| | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).]
+| | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).] "Search through Wraw territory"(orange).
 
 ; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb.
 # task-return-fi/fi-return-recruit

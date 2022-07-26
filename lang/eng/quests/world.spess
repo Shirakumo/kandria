@@ -418,7 +418,7 @@
 ~ player
 | "This reminds me of a shady backstreet cache. I think they're running a black market out of here."(light-gray, italic)
 
-; cerebat council chamber - it's empty, no council
+; cerebat council chamber - it's empty, no Council
 ; the room is modern and shiny, like the Calamity never happened (unlike most other places the player has seen)
 ; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
 ; the player does know the term "Calamity" by this point
@@ -460,8 +460,8 @@
 ; parts of it are still active, used exclusively by the Wraw faction
 # task-world-all/wraw-tube
 ~ player
-| "This was one of Trickle's geothermal power stations. The pipes carried water here to be heated up."(light-gray, italic)
-| (:thinking)"The steam then powered turbines to produce electricity."(light-gray, italic)
+| "This was one of Trickle's geothermal power stations. The pipes carried water here for boiling."(light-gray, italic)
+| "The steam then powered turbines to produce electricity."(light-gray, italic)
 
 ; lava fishing spot
 ; the player can fish certain rare and exotic (and machine) types of fish/waste from the lava

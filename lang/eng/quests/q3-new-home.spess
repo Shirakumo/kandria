@@ -39,11 +39,11 @@
 | (:thinking)"It's secure and concealed, and sheltered from the weather."(light-gray, italic)
 | (:normal)"But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes."(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | "That's the last site surveyed. I should "return to Jack"(orange) with the bad news."(light-gray, italic)
+| | (:normal)"That's the last site surveyed. I should "return to Jack"(orange) with the bad news."(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
-| | "I should "keep looking"(orange), and consult my "Log Files"(orange) and "Map"(orange) "< {(prompt-char 'open-map)} >"(gold) for the remaining sites."(light-gray, italic)
+| | (:normal)"I should "keep looking"(orange), and consult my "Log Files"(orange) and "Map"(orange) "< {(prompt-char 'open-map)} >"(gold) for the remaining sites."(light-gray, italic)
 | ! eval (setf (var 'first-home) T)
 
 # find-home-fourth/new-home-site-4

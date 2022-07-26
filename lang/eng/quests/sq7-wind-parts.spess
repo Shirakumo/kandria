@@ -35,6 +35,6 @@
 | | ! eval (reset interaction)
 | |?
 | | ~ catherine
-| | | (:excited)Keep 'em coming!
+| | | (:excited)Keep 'em coming! Keep searching in "Semis and Cerebats territory"(orange).
 | | ~ player
 | | | "Remaining quantities to find are: [(< 0 (var 'anemometer-count)) "Anemometers: {(var 'anemometer-count)}"(orange).|] [(< 0 (var 'disc-brake-count)) "Disc brakes: {(var 'disc-brake-count)}"(orange).|] [(< 0 (var 'transformer-count)) "Transformers: {(var 'transformer-count)}"(orange).]"(light-gray, italic)
