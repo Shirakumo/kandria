@@ -14,6 +14,11 @@
 ~ cerebat-good-trader
 | But if you can "find the Council, bring them back"(orange)...
 | I mean, the Wraw won't like it, but at least we could mount a resistance.
+~ player
+- I'm in.
+- I need to go.
+  < leave
+~ cerebat-good-trader
 | Here, take this. It's one of the "councillor's headdresses"(orange)... I found it.
 ! eval (store 'item:headdress 1)
 ~ player
