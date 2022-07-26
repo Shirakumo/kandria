@@ -8,9 +8,11 @@
 ? (not (active-p 'q8a-secret-supplies))
 | | "I should "ask around, find out where they are"(orange) - "local traders might know something"(orange)."(light-gray, italic)
 | ! eval (activate 'task-search)
+| ! eval (deactivate 'task-find)
 |?
 | | "Looks like I'll need to "give that trader what he wants to find out where they are"(orange)."(light-gray, italic)
 | ! eval (activate 'task-search-hold)
+| ! eval (deactivate 'task-find)
 
 # task-search-hold/interact-reminder
 ~ fi

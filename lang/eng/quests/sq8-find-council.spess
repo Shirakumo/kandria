@@ -4,18 +4,21 @@
 | "Go to Wraw territory, find the Cerebat Council, and bring them back."(orange)
 | Only then can we think about mounting a resistance.
 ~ player
-| "My FFCS indicates "3 likely locations"(orange)."(light-gray, italic)
+| "My FFCS indicated "3 likely locations"(orange)."(light-gray, italic)
 
 ; use the task move-npc to determine if this is the first site visited or not, and if it is, activate move-npc
 # site-1/interact-site
 ~ player
 | "This is "site 1"(red), where the "councillors might have been held"(orange)."(light-gray, italic)
-| "There's blood on the floor, and faeces in the corner."(light-gray, italic)
+| (:thinking)"There's blood on the floor, and faeces in the corner."(light-gray, italic)
+| (:normal)"There's also "nothing else to see here"(orange)."(light-gray, italic)
 ? (not (complete-p 'move-npc))
-| ! eval (activate 'move-npc)
-|? (complete-p 'site-2 'site-3)
 | ~ player
-| | That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange).
+| | "I need to "check the other 2 sites"(orange) for any sign of the councillors."(light-gray, italic)
+| ! eval (activate 'move-npc)
+|? (complete-p 'site-2 'site-3-listener)
+| ~ player
+| | "That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
 | ! eval (activate 'task-return)
 |?
 | ~ player
@@ -23,13 +26,16 @@
 
 # site-2/interact-site
 ~ player
-| "This is "site 2"(red) - "no sign of councillors"(orange)."(light-gray, italic)
-| "I think this is a maximum security prison though - a quad-lock system, //and// a natural barrier[(active-p (unit 'blocker-5663))  (until I broke out!)]."(light-gray, italic)
+| "This is "site 2"(red). "No sign of the councillors though"(orange)."(light-gray, italic)
+| (:thinking)"I think this is a maximum security prison - a quad-lock system"(light-gray, italic) "and"(light-gray) "a natural [(not (active-p (unit 'blocker-5663))) barrier (until I broke out!) | barrier]."(light-gray, italic)
+| (:thinking)"Did the councillors somehow break [(not (active-p (unit 'blocker-5663))) out too | out]?"(light-gray, italic)
 ? (not (complete-p 'move-npc))
-| ! eval (activate 'move-npc)
-|? (complete-p 'site-1 'site-3)
 | ~ player
-| | That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange).
+| | "I need to "check the other 2 sites"(orange) for any sign of them."(light-gray, italic)
+| ! eval (activate 'move-npc)
+|? (complete-p 'site-1 'site-3-listener)
+| ~ player
+| | "That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
 | ! eval (activate 'task-return)
 |?
 | ~ player
@@ -44,6 +50,11 @@
   | Oh no.
   | What's that?...
   < tunic
+- Bad news only I'm afraid.
+  ~ cerebat-good-trader
+  | ...
+  | What's that?...
+  < tunic
 - I found this.
   < tunic
 - They might still be alive.
@@ -56,18 +67,18 @@
 ~ cerebat-good-trader
 | This was torn from a councillor's tunic.
 | Oh God... it's covered in blood.
-| So there was nothing else...
+| So there was nothing else?...
 ~ player
 | (:embarassed)"I wish I could do more than just shake my head."(light-gray, italic)
 ~ cerebat-good-trader
 | Do you still have the headdress?
 ! eval (retrieve 'item:headdress 1)
 | Thank you. This might be all that's left of the council.
-| ... Of Antonio.
+| ... Of "Antonio"(yellow).
 | I'm grateful, but I need some time on my own. Please.
 ~ player
 - I'm sorry.
 - Of course.
 - What about the resistance?
   ~ cerebat-good-trader
-  | There won't be one.
+  | There won't be one. Not now.

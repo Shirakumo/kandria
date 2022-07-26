@@ -22,7 +22,7 @@
 | Here, take this. It's one of the "councillor's headdresses"(orange)... I found it.
 ! eval (store 'item:headdress 1)
 ~ player
-| "It's damp, and stinks of algae."(light-gray, italic)
+| "It's ornate and covered in pearls."(light-gray, italic) (:embarassed)"But it's also damp and stinks of algae."(light-gray, italic)
 ~ cerebat-good-trader
 | Look for anything similar in "Wraw territory"(orange) - that's where I think they've taken them.
 ! label questions
@@ -63,7 +63,7 @@
 | Meet me in the "back alleys instead, beneath the market"(orange).
 | Stay safe.
 ~ player
-| "I think my FFCS can isolate "3 Wraw locations"(orange) where the councillors are likely being held. If they're alive."(light-gray, italic)"
+| "I think my FFCS can isolate "3 Wraw locations"(orange) where the councillors are likely being held. If they're even alive."(light-gray, italic)
 ! eval (complete task)
 ! eval (reset interaction)
 ! eval (activate (unit 'sq8-spawner))

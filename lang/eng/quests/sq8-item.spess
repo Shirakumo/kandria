@@ -1,13 +1,15 @@
 # 3-interact-/interaction
 ~ player
-| "It's "site 3's item"(red)."(light-gray, italic)
-| "There's a hole in the pipe - probably caused by duress where it bends around this corner."(light-gray, italic)
-! eval (store 'item:tunic 1)
+| (:thinking)"A "scrap of tunic"(orange)... It's the "same pelt as the councillor's headdress"(orange), and "both are trimmed with pearls"(orange)."(light-gray, italic)
+| (:embarassed)"It's also "covered in blood"(orange)."(light-gray, italic)
+| "The "councillors aren't here"(orange), but I think I can scratch "site 3"(red) off my list."(light-gray, italic)
 ? (not (complete-p (find-task 'sq8-find-council 'move-npc)))
+| ~ player
+| | "I need to "check the other 2 sites"(orange)."(light-gray, italic)
 | ! eval (activate (find-task 'sq8-find-council 'move-npc))
 |? (complete-p (find-task 'sq8-find-council 'site-1) (find-task 'sq8-find-council 'site-2))
 | ~ player
-| | That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange).
+| | "That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
 | ! eval (activate (find-task 'sq8-find-council 'task-return))
 |?
 | ~ player
