@@ -173,6 +173,8 @@
                              (:file "sq6-intro")
                              (:file "sq7-intro")
                              (:file "sq7-wind-parts")
+                             (:file "sq8-intro")
+                             (:file "sq8-find-council")
                              (:file "sq7a-catherine-semis")
                              (:file "sq-act1-intro")
                              (:file "trader-arrive")

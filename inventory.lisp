@@ -434,6 +434,8 @@
 (define-item (receiver quest-item) 8 0 8 8) ;; TODO - needs icon
 (define-item (walkie-talkie-2 quest-item) 0 8 8 8)
 (define-item (love-letter quest-item) 16 48 8 8) ;; TODO - needs icon
+(define-item (headdress quest-item) 16 16 8 8) ;; TODO - needs icon
+(define-item (tunic quest-item) 8 48 8 8) ;; TODO - needs icon
 
 ;; VALUE-QUEST-ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8

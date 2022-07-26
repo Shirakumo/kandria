@@ -195,6 +195,18 @@
 |?
 | | Keep walking, pal.
 
+# cerebat-good-trader
+; non-binary, Cerebat trader who's concerned for the well-being of the missing Cerebat Council
+; Speech changes once you know of the Wraw invasion
+; "I need some time alone." - grieving over the seeming confirmed loss of the Cerebat Council, especially Antonio
+~ cerebat-good-trader
+? (complete-p 'Q10-WRAW)
+| | I'm still here. Somehow. Be well.
+|? (complete-p 'SQ8-FIND-COUNCIL)
+| | I need some time.
+|?
+| | I've a lot on my mind, sorry.
+
 ; Generic NPCs, gender unknown
 # npc
 ~ npc

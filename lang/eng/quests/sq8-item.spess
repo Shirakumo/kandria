@@ -1,0 +1,14 @@
+# 3-interact-/interaction
+~ player
+| "It's "site 3's item"(red)."(light-gray, italic)
+| "There's a hole in the pipe - probably caused by duress where it bends around this corner."(light-gray, italic)
+! eval (store 'item:tunic 1)
+? (not (complete-p (find-task 'sq8-find-council 'move-npc)))
+| ! eval (activate (find-task 'sq8-find-council 'move-npc))
+|? (complete-p (find-task 'sq8-find-council 'site-1) (find-task 'sq8-find-council 'site-2))
+| ~ player
+| | That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange).
+| ! eval (activate (find-task 'sq8-find-council 'task-return))
+|?
+| ~ player
+| | "That leaves "1 more location"(orange) to check."(light-gray, italic)

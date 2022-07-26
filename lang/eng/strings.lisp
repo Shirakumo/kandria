@@ -25,6 +25,7 @@ hunter-nametag "Hunter" ;; gender unknown
 cerebat-trader-stranger "Stranger" ;; male trader
 semi-partner-nametag "Tobias" ;; male
 cerebat-partner-nametag "Kacey" ;; female
+cerebat-good-trader-nametag "Cerebat Trader" ;; non-binary
 unknown-nametag "???" ;; gender unknown
 zelah-nametag "Zelah" ;; male
 soldier-nametag "Wraw Soldier" ;; gender unknown
@@ -378,6 +379,12 @@ item:can "Old Beer Can"
 item:can/description "I must return this to Catherine to complete the current race. It'll be good riddance: any odour of alcohol is long gone, but it reeks of rust."
 item:semi-genera-core "Broken Genera Core"
 item:semi-genera-core/description "I must return this to the barkeep to complete the current race. Hardly a fitting end for whomever this was part of."
+item:love-letter "Tobias' Letter"
+item:love-letter/description "A letter from Tobias to his girlfriend, Kacey. It's private."
+item:headdress "Headdress"
+item:headdress/description "An ornate headdress belonging to a Cerebat councillor. It's decorated with pearls."
+item:tunic "Tunic Scrap"
+item:tunic/description "A scrap of pelt from a Cerebat councillor's tunic. It's covered in pearls - and blood."
 item:blasting-cap "Blasting Cap"
 item:blasting-cap/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It's a detonation device - not an explosive mushroom."
 item:charge-pack "Charge Pack"
@@ -386,8 +393,6 @@ item:explosive "Explosive"
 item:explosive/description "It's made of connected charge packs, which resemble plastic explosives I've seen in the past. It's soft and malleable."
 item:receiver "RF Detonator"
 item:receiver/description "An RF receiver coupled to a blasting cap. Once inserted into a plastic explosive, it can receive a signal and detonate."
-item:love-letter "Tobias' Letter"
-item:love-letter/description "A letter from Tobias to his girlfriend, Kacey. It's private."
 item:palette-model-1 "Model 1"
 item:palette-model-1/description "The standard uniform for all civilian detective units."
 item:palette-model-2 "Model 2"
