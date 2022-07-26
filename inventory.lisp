@@ -422,7 +422,7 @@
   :price 200)
 
 ;; QUEST ITEMS
-(define-item (seeds quest-item) 16 16 8 8)
+(define-item (seeds quest-item) 16 16 8 8) ;; TODO - needs icon
 (define-item (semi-factory-key quest-item) 8 0 8 8)
 (define-item (can quest-item) 0 16 8 8)
 (defmethod name ((can item:can)) 'item:can)
