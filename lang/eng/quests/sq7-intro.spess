@@ -21,6 +21,12 @@
 | Call it "5 of each"(orange) I think, just to get me started. I can "pay you"(orange).
 | The "Semis should have some lying around"(orange). The "Cerebats too - they've already got turbines in their wind tunnels"(orange).
 | Thanks, {(nametag player)}.
+? (and (<= 5 (item-count 'item:anemometer)) (<= 5 (item-count 'item:disc-brake)) (<= 5 (item-count 'item:transformer)))
+| ~ player
+| | (:giggle)"Oh, wait a sec - "I have enough of those items already"(orange)!"(light-gray, italic)
+|? (< 0 (+ (item-count 'item:anemometer) (item-count 'item:disc-brake) (item-count 'item:transformer)))
+| ~ player
+| | "Well at least "I've got some of those items already"(orange)."(light-gray, italic)
 ! eval (complete task)
 ! eval (reset interaction)
 
