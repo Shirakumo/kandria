@@ -4,7 +4,15 @@
 ? (complete-p 'Q14-ENVOY)
 | | (:angry)I'm watching you.
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | (:angry)Where've you been?
+| | (:sly)Look who it is.
+|? (complete-p 'Q11A-BOMB-RECIPE)
+| | Who knew an android could sweet-talk an entire faction.
+|? (complete-p 'Q7-MY-NAME)
+| | (:angry)Go away, we're busy.
+|? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
+| | (:angry)Keep hovering around me like that and I'll have you dismantled.
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | (:sly)What's the matter, you lost?
 |?
 | | What do you want?
 
@@ -12,7 +20,7 @@
 ; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
 ~ islay
 ? T
-| | I'm sorry, I'm busy.
+| | Hello there.
 
 # alex
 ; alex, non binary - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka; speaks London multicultural English
@@ -22,6 +30,8 @@
 | | (:angry)You picked the wrong side.
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | (:angry)Hello again.
+|? (complete-p 'Q7-MY-NAME)
+| | (:angry)Go away.
 |?
 | | (:angry)<-Hic->. Go away.
 
@@ -47,8 +57,18 @@
 | | Look what the cat dragged in.
 |? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | (:annoyed)Innis is a real bitch, don't ya think?
-|?
+|? (complete-p 'Q10A-RETURN-TO-FI)
+| | (:annoyed)How has it come to this? HOW?
+|? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
+| | Oh, it's you.
+|? (complete-p 'Q3-NEW-HOME)
+| | (:annoyed)You'd better get comfortable - we're going nowhere.
+|? (complete-p 'Q1-WATER)
+| | I've got my eye on you.
+|? (complete-p 'Q0-FIND-JACK)
 | | What?
+|?
+| | Who are you?
 
 # fi
 ; Fi (Noka faction leader, female) - somewhat indifferent and distanced to the player; formal, but warming to them. Japanese English accent and dialect.
@@ -58,13 +78,15 @@
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | (:unsure){(nametag player)}...
 |? (complete-p 'Q11A-BOMB-RECIPE)
-| | Konnichiwa.
+| | Hey.
 |? (complete-p 'Q11-RECRUIT-SEMIS)
 | | (:unsure)Whatever you're doing, please hurry.
-|? (complete-p 'Q6-RETURN-TO-FI)
-| | Konnichiwa.
-|? (complete-p 'Q4-INTRO)
+|? (complete-p 'Q4-FIND-ALEX)
 | | Any news on Alex? I still need them back.
+|? (complete-p 'Q2-SEEDS)
+| | What are we, without food and water?
+|? (complete-p 'Q1-WATER)
+| | {(nametag player)}.
 |?
 | | Konnichiwa.
 
@@ -77,6 +99,18 @@
 | | (:concerned)You don't belong to Zelah. You don't belong to anyone but yourself.
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | He doesn't look so tough. (:excited)I could take him.
+|? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | (:concerned)Sorry, {(nametag player)} - I need to concentrate.
+|? (complete-p 'Q10A-RETURN-TO-FI)
+| | We'll be fine. I just know we'll be fine.
+|? (complete-p 'Q10-WRAW)
+| | (:excited)Oh man, am I glad to see you!
+|? (complete-p 'TRADER-ARRIVE)
+| | (:excited)Did you see Sahil yet? He's great, isn't he!
+|? (complete-p 'Q1-WATER)
+| | Hey {(nametag player)}!
+|? (complete-p 'Q1-READY)
+| | (:excited)Stick with me, you'll be fine.
 |?
 | | You okay?
 
