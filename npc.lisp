@@ -551,6 +551,14 @@
 
 (defmethod primary-npc-p ((npc alex)) T)
 
+(define-shader-entity cerebat-trader-quest (npc creatable)
+  ((name :initform 'cerebat-trader-quest)
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (@ unknown-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'cerebat-trader)))
+
+;; non-roaming engineer used in the questline
 (define-shader-entity semi-engineer (npc creatable)
   ((name :initform 'semi-engineer)
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
@@ -576,6 +584,7 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-female)))
 
+;; used for sidequest NPCs
 (define-shader-entity npc-hunter (npc creatable)
   ((name :initform 'npc-hunter)
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
@@ -583,6 +592,7 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-hunter)))
 
+;; Zelah's bodyguards
 (define-shader-entity soldier (paletted-entity npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ soldier-nametag))
@@ -592,6 +602,7 @@
    :default-interaction 'soldier
    :sprite-data (asset 'kandria 'rogue)))
 
+;; world NPCs
 (define-shader-entity villager-hunter (roaming-npc creatable)
   ((name :initform (generate-name "HUNTER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
@@ -600,6 +611,7 @@
    :default-interaction 'npc
    :sprite-data (asset 'kandria 'villager-hunter)))
 
+;; world NPCs
 (define-shader-entity villager (paletted-entity roaming-npc creatable)
   ((name :initform (generate-name "VILLAGER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
@@ -607,6 +619,7 @@
   (:default-initargs
    :default-interaction 'npc))
 
+;; roaming engineers used in the questline
 (define-shader-entity semi-engineer-team (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
@@ -615,6 +628,7 @@
    :default-interaction 'semi-engineer-team
    :sprite-data (asset 'kandria 'villager-engineer)))
 
+;; world NPCs
 (define-shader-entity semi-engineer-base (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
@@ -623,6 +637,7 @@
    :default-interaction 'semi-engineer-base
    :sprite-data (asset 'kandria 'villager-engineer)))
 
+;; world NPCs (non-roaming)
 (define-shader-entity cerebat-trader (npc creatable)
   ((name :initform (generate-name "TRADER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
