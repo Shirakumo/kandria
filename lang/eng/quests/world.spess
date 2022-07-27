@@ -22,7 +22,7 @@
 ; Trashed apartment from the old world, with a broken window
 # task-world-all/housing-apartment
 ~ player
-| "Is that glass cracking beneath my feet, or broken bones? I don't think I want to know."(light-gray, italic)
+| "Is that glass cracking beneath my feet, or broken bones? I don't want to look."(light-gray, italic)
 
 ; a sandstorm blocks the player from crossing further into the desert to the east
 # task-world-all/storm-east-view
@@ -50,7 +50,7 @@
 ; a shelf of books and figurines (visually obvious/implied) in one of the old apartment rooms - someone's assembled them neatly
 # task-world-all/housing-shelf
 ~ player
-| "How did these survive, yet so many people died? Someone cared enough to save them."(light-gray, italic)
+| "How did these collectibles survive, yet so many people died? Someone cared enough to save them."(light-gray, italic)
 
 ; vista of the ruined city in the background, collapsed skyscrapers, etc.
 # task-world-all/ruins-view

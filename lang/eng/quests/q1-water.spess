@@ -262,7 +262,7 @@
 | (:unsure)Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
-| (:concerned)Oh, and we'd need a working computer, which no one's seen since before I was born.
+| (:concerned)Oh, and we'd need a working computer, which no one's had since before I was born.
 | (:disappointed)But even if we had all that, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
@@ -311,8 +311,6 @@
 ! eval (setf (walk 'fi) T)
 ! eval (move-to 'eng-jack 'jack)
 ! eval (setf (walk 'jack) T)
-
-# 27-interact-catherine/interaction
 ~ catherine
 | (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.

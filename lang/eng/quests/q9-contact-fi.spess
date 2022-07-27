@@ -46,9 +46,12 @@
   | (:happy)...
 ~ fi
 | Your "FFCS might not work down there"(orange). But "contact me as soon as you can"(orange).
-| Be safe.
+| (:unsure)Things could change quickly down there. Although this is now your "top priority"(orange), if you have "other errands to finish, now is the time"(orange).
+| (:normal)Be safe.
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))
 
 ; Ko nashi = bastard (Japanese)
 ; Cannot give a reward here, as the player isn't in proximity to Fi. However, can sell stuff to the trader for parts.
+
+; Fi's parting words about a bad feeling here, is a clue that most if not all sidequests will get invalidated once q10 is complete, as the plot escalates
