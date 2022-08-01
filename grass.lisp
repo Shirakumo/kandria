@@ -5,6 +5,8 @@
    (velocity :initarg :velocity :initform (vec 0 0) :accessor velocity)
    (face :initarg :face :accessor face)))
 
+(defmethod layer-index ((patch grass-part)) (1- +base-layer+))
+
 (defmethod initialize-instance :after ((part grass-part) &key (face +1))
   (setf (angle part) (* face -1 (random 0.5)))
   (incf (vy (velocity part)) (random 3.0))
@@ -39,6 +41,9 @@
                                                    (,vbo :size 2 :offset 40 :stride 24 :instancing 1)
                                                    (,vbo :size 2 :offset 48 :stride 24 :instancing 1))))
     (resize patch (* (patches patch) (vx (tile-size patch))) (vy (tile-size patch)))))
+
+(defmethod initargs append ((patch grass-patch))
+  '(:patches :tile-size :tile-start :tile-count))
 
 (defmethod layer-index ((patch grass-patch)) (1- +base-layer+))
 
