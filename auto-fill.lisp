@@ -300,7 +300,6 @@
                (return type)))))
 
 (defun %auto-tile (solids tiles width height map &optional (sx 0) (sy 0) (sw width) (sh height))
-  (print (list width height sx sy sw sh))
   (flet ((tile (x y)
            (if (and (< -1 x width) (< -1 y height))
                (aref solids (* (+ x (* y width)) 2))
