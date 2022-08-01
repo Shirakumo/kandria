@@ -40,6 +40,10 @@
 (defmethod (setf marked) :after (value (button shop-button))
   (alloy:mark-for-render button))
 
+(defmethod alloy:activate ((button shop-button))
+  (when (active-p button)
+    (show-panel 'transaction-panel :source button)))
+
 (presentations:define-realization (ui shop-button)
   ((:background simple:rectangle)
    (alloy:margins)
