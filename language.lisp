@@ -69,14 +69,14 @@
     (when title (setf (quest:title trigger) title))))
 
 (defmethod refresh-language :after ((interaction interaction))
-  ;; Do *not* use reinitialize-instance, as that would cause constant cache elimination.
-  (shared-initialize interaction () :source (source interaction)))
+  (reinitialize-instance interaction))
 
-(defmethod reinitialize-instance :before ((interaction interaction) &key (source (source interaction)))
+(defmethod reinitialize-instance :before ((task task) &key)
   ;; Hook for redef, clear out first to make sure we get a fresh assembly.
   ;; KLUDGE: will cause assemblies to get recached for each interaction within the redefined quest, even if shared.
-  (when source
-    (remhash (unlist source) *cached-dialogue-assemblies*)))
+  (loop for trigger being the hash-values of (quest:triggers task)
+        do (when (and (typep trigger 'interaction) (source trigger))
+             (remhash (string-downcase (first (source trigger))) *cached-dialogue-assemblies*))))
 
 (defun find-mess (name &optional chapter)
   (let* ((name (string-downcase name))
