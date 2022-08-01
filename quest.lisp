@@ -232,6 +232,18 @@
        (declare (ignorable #'have #'item-count #'store #'retrieve #'move-to #'unit))
        ,form)))
 
+(defun find-all-variables ()
+  (let ((vars ()))
+    (flet ((handle-scope (thing)
+             (loop for binding in (quest:bindings thing)
+                   do (pushnew (car binding) vars))))
+      (dolist (storyline quest::*storylines* vars)
+        (handle-scope storyline)
+        (loop for quest being the hash-values of (quest:quests storyline)
+              do (handle-scope quest)
+                 (loop for task being the hash-values of (quest:tasks quest)
+                       do (handle-scope task)))))))
+
 (defun task-wrap-lexenv (form)
   `(let* ((task *current-task*)
           (quest (quest:quest task))
@@ -247,7 +259,10 @@
               (active-p (&rest things)
                 (loop for thing in things always (quest:active-p (thing thing)))))
          (declare (ignorable #'reset #'active-p))
-         ,(global-wrap-lexenv form)))))
+         ;; KLUDGE: this sucks, lmao
+         (symbol-macrolet ,(loop for var in (find-all-variables)
+                                 collect `(,var (var ',var)))
+           ,(global-wrap-lexenv form))))))
 
 (defmethod quest:compile-form ((task task) form)
   (compile NIL `(lambda () ,(task-wrap-lexenv form))))
