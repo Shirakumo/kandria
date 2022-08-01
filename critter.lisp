@@ -6,6 +6,8 @@
    (alert-distance :initform (* +tile-size+ (random* 8 6)) :accessor alert-distance)
    (acceleration :initform (vec 0 0) :accessor acceleration)))
 
+(defmethod layer-index ((critter critter)) (1- +base-layer+))
+
 (defmethod interactable-p ((critter critter))
   (eql :normal (state critter)))
 
@@ -53,8 +55,6 @@
   ((acceleration :initform (vec (random* 3.0 0.7) (random* 1.5 0.2))))
   (:default-initargs :sprite-data (asset 'kandria 'critter-white-bird)))
 
-(defmethod layer-index ((bird white-bird)) (1- +base-layer+))
-
 (defmethod stage :after ((bird white-bird) (area staging-area))
   (dolist (sound '(ambience-birds-fluttering ambience-birds-chirp-1))
     (stage (// 'sound sound) area)))
@@ -69,8 +69,6 @@
 (define-shader-entity red-bird (critter)
   ((acceleration :initform (vec (random* 2.0 0.5) (random* 2.5 0.5))))
   (:default-initargs :sprite-data (asset 'kandria 'critter-red-bird)))
-
-(defmethod layer-index ((bird red-bird)) (1- +base-layer+))
 
 (defmethod stage :after ((bird red-bird) (area staging-area))
   (dolist (sound '(ambience-birds-fluttering ambience-birds-chirp-2))
@@ -87,26 +85,40 @@
   ((acceleration :initform (vec (random* 3.0 0.5) 0)))
   (:default-initargs :sprite-data (asset 'kandria 'critter-rat)))
 
-(defmethod layer-index ((rat rat)) (1- +base-layer+))
-
 (defmethod interactable-p ((rat rat)) NIL)
+
+(define-shader-entity chameleon (critter)
+  ((acceleration :initform (vec 0 0)))
+  (:default-initargs :sprite-data (asset 'kandria 'critter-chameleon)))
+
+(defmethod apply-transforms progn ((subject chameleon))
+  (translate-by 0 -7 0))
+
+(defmethod interactable-p ((critter chameleon)) NIL)
+
+(define-shader-entity frog (critter)
+  ((acceleration :initform (vec 0 0)))
+  (:default-initargs :sprite-data (asset 'kandria 'critter-frog)))
+
+(defmethod apply-transforms progn ((subject frog))
+  (translate-by 0 -2 0))
+
+(defmethod interactable-p ((critter frog)) NIL)
 
 (define-shader-entity mole (critter)
   ((acceleration :initform (vec 0 0)))
   (:default-initargs :sprite-data (asset 'kandria 'critter-mole)))
 
-(defmethod layer-index ((mole mole)) (1- +base-layer+))
-
 (defmethod switch-animation :before ((mole mole) animation)
   (when (eql (name (animation mole)) 'run)
     (leave* mole T)))
+
+(defmethod interactable-p ((critter mole)) NIL)
 
 (define-shader-entity bat (critter)
   ((acceleration :initform (vec (random* 2.0 0.7) (random* 1.5 0.2)))
    (alert-distance :initform (* +tile-size+ (random* 12 6)) :accessor alert-distance))
   (:default-initargs :sprite-data (asset 'kandria 'critter-bat)))
-
-(defmethod layer-index ((bat bat)) (1- +base-layer+))
 
 (defmethod (setf state) :after ((state (eql :fleeing)) (bat bat))
   (vsetf (velocity bat) 0 (random* -1.0 0.5)))
@@ -122,7 +134,11 @@
    (timer :initform 0.0 :accessor timer)))
 
 (defmethod interactable-p ((npc pet))
-  (eql 'wake (name (animation npc))))
+  (or (eql 'stand (name (animation npc)))
+      (eql 'sit (name (animation npc)))))
+
+(defmethod idleable-p ((npc pet))
+  (find (name (animation npc)) '(stand walk run)))
 
 (defmethod interact ((npc pet) (player player))
   (setf (animation npc) 'pet)
@@ -141,15 +157,22 @@
 ;; KLUDGE: add proper idle at some point.
 (defmethod base-health ((npc tame-wolf)) 1000)
 
-(defmethod interactable-p ((npc pet))
-  (or (eql 'stand (name (animation npc)))
-      (eql 'sit (name (animation npc)))))
-
 (defmethod idleable-p ((npc pet))
   (find (name (animation npc)) '(stand walk run)))
 
 (defmethod interact :around ((npc tame-wolf) (player player))
   (start-animation 'pet npc)
+  (setf (vx (location player)) (vx (location npc)))
+  (setf (direction player) (direction npc))
+  (start-animation 'pet player))
+
+(define-shader-entity tame-cat (pet creatable)
+  ((nametag-element :initform NIL)
+   (bsize :initform (vec 5 4)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'critter-cat)))
+
+(defmethod interact :around ((npc tame-cat) (player player))
   (setf (vx (location player)) (vx (location npc)))
   (setf (direction player) (direction npc))
   (start-animation 'pet player))
