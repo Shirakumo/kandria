@@ -95,7 +95,7 @@
   | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
 ~ innis
 | This does mean our engineering works are back on schedule. With that in mind...
-| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... (:angry)well, //if I// officially grant you access to the metro.
+| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... (:angry)well, //if I//, officially grant you access to the metro.
 | ... In the interests of good relations, between the Semi Sisters and yourself.
 | (:normal)It'll certainly "speed up your errands - once you've found the other stations"(orange).
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
@@ -113,7 +113,7 @@
 | ~ innis
 | | You've proven your worth to us. I might have to call on your services again.
 | | But now you should "return to Fi"(orange).
-| | It's a pity you couldnae persuade Alex to come home. (:sly)I'd love to see the look on Fi's face when you tell her.
+| | It's a pity you couldnae persuade Alex to come home. (:sly)I wish I could see the look on Fi's face when you tell her.
 | | I suppose androids canna do everything.
 | | (:angry)And tell her "we want Catherine back"(orange) too. We need her now more than ever.
 | | (:sly)If she disagrees tell her I'll "shut the water off"(orange).

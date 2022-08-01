@@ -1,5 +1,4 @@
 # chat-semi-alex/chat-semi-alex
-! label talk
 ? (not (complete-p 'q7-my-name))
 | ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv) (not (var 'alex-done)))
 | | ~ alex
@@ -43,7 +42,6 @@
 | | | Please "take these parts as recompense"(orange).
 | | ! eval (store 'item:parts 600)
 | | ! eval (setf (var 'alex-fee) T)
-|   
+|  
 | ~ islay
 | | Be careful, {(nametag player)}.
-

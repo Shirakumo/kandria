@@ -32,6 +32,8 @@
 | | (:angry)Hello again.
 |? (complete-p 'Q7-MY-NAME)
 | | (:angry)Go away.
+|? (complete-p 'Q4-FIND-ALEX)
+| | (:angry)Don't test me, android.
 |?
 | | (:angry)<-Hic->. Go away.
 

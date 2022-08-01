@@ -12,7 +12,7 @@
 # task-world-all/noka-train
 ~ player
 | "It's a train. Well, half a train."(light-gray, italic)
-| "I wonder if people tried to use this station to escape below ground."(light-gray, italic)
+| "I wonder if people used this station to escape underground."(light-gray, italic)
 
 ; Large stone rock/gate
 # task-world-all/stone-gate-large
@@ -204,7 +204,7 @@
 ; It was a maglev train, which has now had traditional rail wheels welded onto it, to work with the Semi's electrical railway
 # task-world-all/semi-train
 ~ player
-| "This is a maglev bullet train. With rail trucks welded onto its chassis."(light-gray, italic)
+| "This is a maglev bullet train - with rail trucks welded onto its chassis!"(light-gray, italic)
 
 ; while examining the Semi Sisters' storage area
 # task-world-all/semi-hub-1
@@ -388,15 +388,6 @@
 # task-world-all/cerebat-bouncer
 ~ player
 | "Those springboards are repurposed rail buffers... Ingenious!"(light-gray, italic)
-
-; oil slick in a cave
-; may not have had the harsh treatment from Jack (and others yet), but we can assume the character remembers that part of their old life, that humans and androids don't get along
-; TODO remove this if Nick removed them from the game
-# task-world-all/cerebat-oil
-~ player
-| "Oil and water. Like humans and androids."(light-gray, italic)
-; could have said something about fossils/androids, but you'll see there are fossils in there if you fish in the oil
-; the free availability of oil also shows why the Cerebats are a wealthy faction (or were, before the Wraw took them over)
 
 ; a hideout of neutral rogue enemies, who ambush passers by (might not be obvious to player, so description clarifies). Well stocked due to all the item spawners.
 ; player may or may not know about rogues by this point
