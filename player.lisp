@@ -598,7 +598,8 @@ void main(){
               (visible (slot-boundp line 'container)))
          (when visible
            (v<- (location line) (hurtbox player))
-           (duck-camera (+ 32 (- (vx (location (buoy line))) (vx loc)))
+           ;; FIXME: If camera is near borders, duck small amount. Otherwise, duck full.
+           (duck-camera (* 0.2 (- (vx (location (buoy line))) (vx loc)))
                         (+ 32 (- (vy (location (buoy line))) (vy loc)))))
          (case (name (animation player))
            (fishing-start
