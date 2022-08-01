@@ -47,7 +47,7 @@
 - (Ask about the Semi Sisters)
   ~ fi
   | They're tech witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
-  | They keep the power and water on in this whole area, and don't seem to mind if we siphon a little off.
+  | They keep the power and water on in this whole area, and don't seem to mind if we siphon off a little.
   | Two sisters are in charge. It would be best to avoid them for now.
   < questions
 - (Ask about the Cerebats)
@@ -62,11 +62,11 @@
   | This is not the kind of task for someone you don't trust.
   | Of course, you'd be right if you said I don't have a choice. No one else can do this.
   < questions
-- I'm done.
+- That'll do.
   < end
 # end
 ~ fi
-| See Sahil if you haven't already, and stock up - it will be a long journey.
+| See Sahil if you haven't already, and buy supplies - it will be a long journey.
 | Catherine tells me your "FFCS works with our radios"(orange). You'll be deep underground, and I'd like you to "keep in contact"(orange).
 | Like Alex has shown, falling off the grid isn't helpful.
 | So please stay in touch - you can call me day or night.

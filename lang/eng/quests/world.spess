@@ -255,7 +255,7 @@
 ; Candy Android = a candy bar from the old world. Suggests maybe it was a PR thing to make people more amenable to androids, by making chocolate bars that resemble them.
 # task-world-all/semi-hub-8
 ~ player
-| "What food is left in here is spoiled. Including those Candy Androids, looking at me mournfully through the broken glass."(light-gray, italic)
+| "What food is left in here is spoiled. Including those Candy Androids, staring at me mournfully through the broken glass."(light-gray, italic)
 
 ; an old office building is now a sleeping area in the Semi Sisters' base.
 ; sly joke reference to crunch culture and sleeping under your desk.

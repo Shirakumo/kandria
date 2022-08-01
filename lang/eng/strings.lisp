@@ -119,7 +119,7 @@ climb/description "Climb walls and ropes - climbing walls drains stamina, be car
 crawl "Crawl"
 crawl/description "Crawl to fit through tight spaces"
 save "Saving"
-save/description "Use the phone box outside to save progress, or save from the menu while you're near one"
+save/description "Use the phone box outside to save progress, or save from the menu while you're near one (save often!)"
 attack "Attacking"
 attack/description "Hold different directions together with a light or heavy attack for various moves"
 cast-line "Cast Line"
@@ -206,7 +206,7 @@ item:nanomachine-salve/description "[Heals 25% HP over 10s] Looks like ointment,
 item:parts "Scrap Parts"
 item:parts/description "Miscellaneous scrap, used as currency in this world."
 item:heavy-spring "Heavy Spring"
-item:heavy-spring/description "A heavy-duty spring, perhaps from the suspension of an old rail truck.
+item:heavy-spring/description "A heavy-duty spring, perhaps from the suspension of a rail truck.
 Can be sold for scrap."
 item:satchel "Satchel"
 item:satchel/description "A bag that once contained someone's personal belongings. It's empty.
@@ -370,9 +370,9 @@ item:transformer "Transformer"
 item:transformer/description "Reduces or increases the voltage of an alternating current. It seems to be in good working order.
 Can be sold for scrap."
 item:walkie-talkie "Walkie-Talkie"
-item:walkie-talkie/description "An old-world one-way communications device. Over."
+item:walkie-talkie/description "A one-way communications device. Over."
 item:walkie-talkie-2 "Walkie-Talkie"
-item:walkie-talkie-2/description "An old-world one-way communications device. Over."
+item:walkie-talkie-2/description "A one-way communications device. Over."
 item:semi-factory-key "Semi Factory Key"
 item:semi-factory-key/description "Fi gave me this key card to access the deeper Ruins, east of Camp. \"Semi\" is written on it."
 item:can "Old Beer Can"

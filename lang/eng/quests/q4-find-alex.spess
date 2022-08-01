@@ -220,7 +220,7 @@
   ~ alex
   | (:unhappy)You wanna medal? <-Hic->. I know who you are. You're the new hunter.
 ~ alex
-| (:unhappy)Lemme save you some trouble. I ain't going back.
+| (:unhappy)Lemme save you some trouble. "I ain't going back"(orange).
 ~ player
 - Why not?
   ~ alex
@@ -234,7 +234,7 @@
 | (:angry)I've 'eard about you, doing my job- <-Hic->.
 | "Innis"(yellow) even showed me the CCCTV. Semi Sisters been nice to me.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-| So why would Fi need little ol' me any more?
+| "So why would Fi need little ol' me any more?"(orange)
 | Run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
 ~ player
 | Do you know about the Wraw's plan to attack?
@@ -242,7 +242,7 @@
 | They're always planning to attack. <-Hic->. This just Fi getting her knickers in a twist again.
 | (:unhappy)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
-| "They're not going to get anyone's attention like that."(light-gray, italic) (:embarassed)"Oh great, now the the barkeep's scowling at me too."(light-gray, italic)
+| "They're not going to get anyone's attention like that."(light-gray, italic) (:embarassed)"Oh great, now the barkeep's scowling at me too."(light-gray, italic)
 ~ player
 - (Buy Alex another drink - 40)
   ? (<= 40 (item-count 'item:parts))
@@ -251,7 +251,7 @@
   | | Ugh, thansssks. <-Hic->.
   | ~ player
   | | "Wow, they downed it in one."(light-gray, italic)
-  | | (:embarassed)"Are they going to throw up?!... I need to move."(light-gray, italic) (:normal)"Oh, they swallowed it back down. Lovely."(light-gray, italic)
+  | | (:embarassed)"Are they going to throw up?!... I should move."(light-gray, italic) (:normal)"Oh, they swallowed it back down. Lovely."(light-gray, italic)
   | | "I'm glad that can't happen to androids."(light-gray, italic)
   |?
   | ~ player
@@ -268,7 +268,7 @@
   | | (:embarassed)"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has."(light-gray, italic)
 - (Leave them be)
 ~ player
-| "Whoa, Alex nearly fell over. I'm not sure they can see straight. Ah, now they're looking at me again."(light-gray, italic)
+| "Whoa, Alex nearly fell over. I'm not sure they can see straight. Now they're looking at me again."(light-gray, italic)
 ~ alex
 | You're a stenacious one, aren't ya? <-Hic->.
 ~ player
@@ -284,7 +284,7 @@
 ~ alex
 | (:angry)You mad? I give you these an' I really would have nuffin'. <-Hic->.
 | Now get lost.
-| (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told Catherine where you were.
+| (:normal)Actually, before you do: Did you know it was me that found you? <-Hic->. I told Catherine where you were.
 | I was just walking along an' there you were. Exposed by an earthquake I reckon. <-Hic->. I pulled you outta the rubble.
 | (:angry)Now I wish I'd kept my mouth shut an' smashed you up instead.
 ! eval (deactivate 'islay-hint)

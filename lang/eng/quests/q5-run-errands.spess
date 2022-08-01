@@ -24,12 +24,12 @@
 ~ player
 - So there is a catch.
   ~ islay
-  | No. This isn't a trade. You're free to go and do anything you want.
-  | But it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+  | Not a catch. Think of it more like a trade.
+  | And it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
 - Like turning me into a battery?
   ~ islay
-  | Of course not. You're free to go and do anything you want.
-  | But it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+  | Of course not. I'm talking about errands.
+  | And it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
 - What things?
   ~ islay
   | Well, it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
@@ -54,8 +54,8 @@
 | (:nervous)Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
 | (:normal)We've got "rail engineers stuck"(orange) after a tunnel collapse in the "far high west"(orange).
 | And "4 of our CCTV cameras on the distant low eastern"(orange) Cerebat border have gone down.
-| Word's getting around about your arrival too - you might "find some of my "sisters" willing to pay for your skills as well"(orange).
-| So leave Alex to me, and if you'd like to help, "speak with Innis - she's gone up to the control room"(orange).
+| Word's getting around about your arrival too - you might "find some of my sisters are also willing to pay for your skills"(orange).
+| So "leave Alex to me and speak with Innis"(orange) - she's gone up to the "control room"(orange).
 | Perhaps see her as another challenge to overcome. I know I do.
 | Ta-ta for now, Stranger.
 ! eval (stop-following 'islay)

@@ -18,7 +18,7 @@
 | | | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
   
 ! label talk
-? (and (not (active-p 'q4-find-alex)) (not (complete-p 'q4-find-alex)))
+? (not (complete-p 'q4-find-alex))
 | ~ player
 | - What's your story?
 |   ~ trader
@@ -47,6 +47,10 @@
 |   | (:jolly)Oh, examine you!
 |   | Someone given you a warm welcome, have they?
 |   ~ player
+|   - Jack.
+|     ~ trader
+|     | Yeah, that figures. He doesn't like new people.
+|     | Heck, he still doesn't like me - I mean, what's not to love?
 |   - Jack and Fi.
 |     ~ trader
 |     | Oh really? I expected nothing less from Jack. Fi I'm surprised about.
@@ -54,23 +58,22 @@
 |   - Everyone.
 |     ~ trader
 |     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
 |   - Everyone except you and Catherine.
 |     ~ trader
 |     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
 |     | I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
-|     | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
 |   - Let's talk about something else.
 |     < talk
 |   ~ trader
-|   | Yes... trust. It was always a common problem with androids.
+|   | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
+|   | (:normal)Yes... trust. It was always a common problem with androids.
 |   | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
 |   | I can fix superficial damage, but I'm no engineer. Let alone a software one.
 |   | Sorry, habibti. It looks like you'll have to change their minds the old-fashioned way.
 |   < talk
 | - That'll do.
 |   < leave
-|? (and (or (active-p 'q4-find-alex) (complete-p 'q4-find-alex)) (not (complete-p 'q7-my-name)))
+|? (and (complete-p 'q4-find-alex) (not (complete-p 'q7-my-name)))
 | ~ player
 | - When are you moving on?
 |   ~ trader
