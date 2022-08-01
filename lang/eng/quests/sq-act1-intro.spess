@@ -94,7 +94,7 @@
   |   ~ catherine
   |   | Oh okay, that's cool. Maybe you should take a welding torch then.
   |   ~ player
-  |   | "That said, what if I increased the power significantly?..."(light-gray, italic)
+  |   | "That said, what if I significantly increased the power to the soldering iron?..."(light-gray, italic)
   |   | (:giggle)"That worked! It tickles."(light-gray, italic)
   |   | (:normal)"She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here."(light-gray, italic)
   |   | (:embarassed)"Better keep the intensity low, so as not to blind us."(light-gray, italic)
@@ -105,7 +105,7 @@
   |   | It's just one of those things I know about androids. (:excited)Why, is it a big secret?
   |   | Let me see!
   |   ~ player
-  |   | "Technically I can solder, not weld, for self repairs. But what if I increased the power significantly?..."(light-gray, italic)
+  |   | "Technically I can solder, not weld, for self repairs. But what if I significantly increased the power to the soldering iron?..."(light-gray, italic)
   |   | (:giggle)"That worked! It tickles."(light-gray, italic)
   |   | (:normal)"She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here."(light-gray, italic)
   |   | (:embarassed)"Better keep the intensity low, so as not to blind us."(light-gray, italic)

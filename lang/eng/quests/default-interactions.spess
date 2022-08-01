@@ -61,6 +61,8 @@
 | | (:annoyed)Innis is a real bitch, don't ya think?
 |? (complete-p 'Q10A-RETURN-TO-FI)
 | | (:annoyed)How has it come to this? HOW?
+|? (complete-p 'Q6-RETURN-TO-FI)
+| | Why is it wherever you go, trouble ain't far behind?
 |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
 | | Oh, it's you.
 |? (complete-p 'Q3-NEW-HOME)
@@ -107,6 +109,8 @@
 | | We'll be fine. I just know we'll be fine.
 |? (complete-p 'Q10-WRAW)
 | | (:excited)Oh man, am I glad to see you!
+|? (complete-p 'Q6-RETURN-TO-FI)
+| | (:concerned)I don't like this, living with all this doubt.
 |? (complete-p 'TRADER-ARRIVE)
 | | (:excited)Did you see Sahil yet? He's great, isn't he!
 |? (complete-p 'Q1-WATER)

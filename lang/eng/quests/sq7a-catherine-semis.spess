@@ -41,11 +41,14 @@
   | (:concerned)You don't sound too convinced.
 - I'm not sure.
   ~ catherine
-  | (:concerned)Well that's no good.
+  | (:concerned)Well that's not good.
 - I think it might be.
   ~ catherine
   | (:disappointed)...
   | Like we didn't have enough to worry about.
+- I don't think it is.
+  ~ catherine
+  | (:concerned)I hope you're right.
 - What does it matter?
 ~ catherine
 | (:concerned)What little glue holds things together around here is thanks to the Cerebats.

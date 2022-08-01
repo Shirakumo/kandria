@@ -59,7 +59,7 @@
 | Let me see the serial number on that Genera core. Yes, that's the right one. Now then...
 | Your time was: "{(format-relative-time (clock quest))}"(orange).
 ? (and pb (< pb (clock quest)))
-| | I'm afraid that's "no improvement"(orange) on your record of "{(format-relative-time pb)}"(orange).
+| | Alas that's "no improvement"(orange) on your record of "{(format-relative-time pb)}"(orange).
 |?
 | ? (not (null pb))
 | | | That's a "new personal best"(orange) for you.
@@ -94,7 +94,7 @@
 | | | "Nothing for you from the sweepstake"(orange) this time. But will you come back stronger?
   
 ~ semi-barkeep
-| Until next time.
+| Until next time!
 ! eval (activate 'complete-it)
 
 # quit

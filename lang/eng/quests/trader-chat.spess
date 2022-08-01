@@ -115,7 +115,7 @@
 |   | I would've moved on already if not for that.
 |   | Are they true, the rumours?
 |   ~ player
-|   - [(complete-p 'q8a-secret-supplies)I'm afraid so.|]
+|   - [(complete-p 'q8a-secret-supplies) I'm afraid so.|]
 |     ~ trader
 |     | Alqarf!
 |     | I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
@@ -124,7 +124,11 @@
 |     ~ trader
 |     | Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
 |     < talk
-|   - I'm not sure.
+|   -  [(complete-p 'q8a-secret-supplies) (Lie) I'm not sure.|]
+|     ~ trader
+|     | Still, I'd rather not risk it. I think I'll stay here a while longer.
+|     < talk
+|   - [(not (complete-p 'q8a-secret-supplies)) I'm not sure.|]
 |     ~ trader
 |     | Still, I'd rather not risk it. I think I'll stay here a while longer.
 |     < talk
@@ -151,8 +155,8 @@
 |   | ...
 |   | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
 |   | Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as Catherine.
-|   | I lost her on the roads, just like Celina, my oxen.
-|   | 'Cept it wasn't wolves for her. It was people.
+|   | I lost her on the roads, just like Celina, my ox.
+|   | 'Cept it wasn't wolves that got her. It was people.
 |   | Rogues, I think. Maybe a Wraw hunting pack. I wasn't really in a fit state to see who they were.
 |   | They took her, anyway. And I never saw her again.
 |   ~ player
