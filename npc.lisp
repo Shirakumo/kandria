@@ -35,6 +35,20 @@
   (and (primary-npc-p npc)
        (unlocked-p (chunk npc))))
 
+(defmethod subregion ((entity located-entity))
+  ;; KLUDGE: This is pretty bad lmao.
+  (let ((y (vy (location entity))))
+    (flet ((try (name result)
+             (let ((unit (unit name +world+)))
+               (when (and unit (< (- (vy (location unit)) (vy (bsize unit))) y))
+                 result))))
+      (or (try 'hub-station 'surface)
+          (try 'chunk-5637 'region1)
+          (try 'chunk-5576 'region2)
+          (try 'chunk-6017 'region3)))))
+
+(define-unit-resolver-methods subregion (unit))
+
 (defmethod description ((npc npc))
   (language-string 'npc))
 
