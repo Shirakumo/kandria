@@ -551,6 +551,9 @@
 
 (defmethod primary-npc-p ((npc alex)) T)
 
+(define-shader-entity paletted-npc (paletted-entity npc)
+  ())
+
 (define-shader-entity cerebat-trader-quest (npc creatable)
   ((name :initform 'cerebat-trader-quest)
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
@@ -567,7 +570,7 @@
    :sprite-data (asset 'kandria 'villager-engineer)))
 
 ;; used for various sidequest NPCs, name set in the quest
-(define-shader-entity villager-male (paletted-entity npc creatable)
+(define-shader-entity villager-male (paletted-npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ unknown-nametag))
    (palette :initform (// 'kandria 'villager-male-palette))
@@ -576,7 +579,7 @@
    :sprite-data (asset 'kandria 'villager-male)))
 
 ;; used for various sidequest NPCs, name set in the quest
-(define-shader-entity villager-female (paletted-entity npc creatable)
+(define-shader-entity villager-female (paletted-npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ unknown-nametag))
    (palette :initform (// 'kandria 'villager-female-palette))
@@ -593,7 +596,7 @@
    :sprite-data (asset 'kandria 'villager-hunter)))
 
 ;; Zelah's bodyguards
-(define-shader-entity soldier (paletted-entity npc creatable)
+(define-shader-entity soldier (paletted-npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ soldier-nametag))
    (palette :initform (// 'kandria 'rogue-palette))
@@ -612,39 +615,12 @@
    :sprite-data (asset 'kandria 'villager-hunter)))
 
 ;; world NPCs
-(define-shader-entity villager (paletted-entity roaming-npc creatable)
+(define-shader-entity villager (paletted-npc roaming-npc creatable)
   ((name :initform (generate-name "VILLAGER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ villager-nametag)))
   (:default-initargs
    :default-interaction 'npc))
-
-;; roaming engineers used in the questline
-(define-shader-entity semi-engineer-team (roaming-npc creatable)
-  ((name :initform (generate-name "ENGINEER"))
-   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
-   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
-  (:default-initargs
-   :default-interaction 'semi-engineer-team
-   :sprite-data (asset 'kandria 'villager-engineer)))
-
-;; world NPCs
-(define-shader-entity semi-engineer-base (roaming-npc creatable)
-  ((name :initform (generate-name "ENGINEER"))
-   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
-   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
-  (:default-initargs
-   :default-interaction 'semi-engineer-base
-   :sprite-data (asset 'kandria 'villager-engineer)))
-
-;; world NPCs (non-roaming)
-(define-shader-entity cerebat-trader (npc creatable)
-  ((name :initform (generate-name "TRADER"))
-   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
-   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
-  (:default-initargs
-   :default-interaction 'npc
-   :sprite-data (asset 'kandria 'sahil)))
 
 (defmethod initialize-instance :before ((villager villager) &key)
   (case (random 2)
@@ -677,6 +653,33 @@
 
 (defmethod hurt ((npc zelah) (player player))
   (change-class npc 'zelah-enemy))
+
+;; roaming engineers used in the questline
+(define-shader-entity semi-engineer-team (roaming-npc creatable)
+  ((name :initform (generate-name "ENGINEER"))
+   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
+  (:default-initargs
+   :default-interaction 'semi-engineer-team
+   :sprite-data (asset 'kandria 'villager-engineer)))
+
+;; world NPCs
+(define-shader-entity semi-engineer-base (roaming-npc creatable)
+  ((name :initform (generate-name "ENGINEER"))
+   (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
+  (:default-initargs
+   :default-interaction 'semi-engineer-base
+   :sprite-data (asset 'kandria 'villager-engineer)))
+
+;; world NPCs (non-roaming)
+(define-shader-entity cerebat-trader (npc creatable)
+  ((name :initform (generate-name "TRADER"))
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
+  (:default-initargs
+   :default-interaction 'npc
+   :sprite-data (asset 'kandria 'sahil)))
 
 (define-random-draw bar
   (villager 1.0)
