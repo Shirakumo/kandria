@@ -1,0 +1,37 @@
+; Semi Sisters spy, female, deep in Cerebat territory, and organising races for the player to help themselves blend in undercover
+; formal speaker
+# intro/intro-chat
+~ semi-spy
+| Aha, {(nametag player)}. This is opportune timing.
+~ player
+| "Why is she whispering - and glancing around like a mouse peeking from a mouse hole?"(light-gray, italic)
+~ semi-spy
+| I'm a hunter from the Semi Sisters. I'm undercover, but I think someone's onto me.
+! eval (setf (nametag (unit 'semi-spy)) (@ semi-spy-nametag))
+~ semi-spy
+| Can you assist me? I need to look busy - like organising the kind of "time trials"(orange) they seem to love around here.
+~ player
+- I'll help.
+  ~ semi-spy
+  | You will? __THANK YOU!__
+  | ... I mean, "thank you"(small).
+- I like time trials.
+  ~ semi-spy
+  | You do? __GREAT!__
+  | ... I mean, "great"(small).
+- I need to go.
+  < leave
+~ semi-spy
+| I've mapped out this area pretty extensively, and left some hip flasks lying around.
+| "Collect a flask, return it to me, and I'll stop the clock."(orange)
+| I've also set some arbitrary times that I think will give you a realistic challenge - this has got to seem plausible after all.
+| I've got a generous bursary of scrap parts here from Innis, so I can "reward you generously for taking part - and for helping me out"(orange).
+| "Just give me a second"(orange) to make a call, then we can "begin"(orange).
+! eval (activate 'sq9-race)
+! eval (complete task)
+! eval (reset interaction)
+! label leave
+~ semi-spy
+| Alright. But if you have a change of heart, I could really use the assist.
+
+; "make a call" - communicating with Semi HQ perhaps, via modified FFCS

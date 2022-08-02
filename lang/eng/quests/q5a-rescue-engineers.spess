@@ -120,6 +120,7 @@
 | ! eval (activate 'q6-return-to-fi)
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))
+| ! eval (activate 'sq9-intro)
 |?
 | ~ innis
 | | I'll be seeing you.

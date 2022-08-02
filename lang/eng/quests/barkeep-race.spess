@@ -5,7 +5,6 @@
 | The "faster you do it, the more parts you'll get"(orange).
 | I think we can organise "6 routes"(orange) for you. "Complete one and I'll tell you about the next"(orange). Got it?
 | I'll radio ahead for each race, have a hunter drop the Genera core at the site.
-! label end
 | "Tell me when you're ready to start"(orange), and we'll get this show on the road!
 ! eval (clear-pending-interactions)
 ; uses walkie-talkie when talking to hunters, since these poorer Semis don't have access to the FFCS tech. Though they are more powerful walkie-talkies, able to cover larger distances than the Noka's

@@ -176,6 +176,7 @@
 # semi-barkeep
 ; Semi Sisters barkeep, non-binary
 ; Speech changes once they're on the surface as Noka allies, just before the battle
+; "No time for drinking" - in a literal sense in that there's no time, but also because the battle is imminent, this is also not an appropriate time for drinking
 ~ semi-barkeep
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | No time for racing. No time for drinking either.
@@ -246,6 +247,16 @@
 | | I need some time.
 |?
 | | I've a lot on my mind, sorry.
+
+# semi-spy
+; female, Semi Sisters spy deep in Cerebat territory, and organising races for the player to help themselves blend in undercover; formal speaker
+; Speech changes once they're on the surface as Noka allies, just before the battle
+; "Talk about out of the frying pan and into the burning sun" (riff off of "out of the frying pan and into the fire"); it could be night-time, but we can assume the heat of the sun's influence remains at night
+~ semi-spy
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | What kind of hellhole is this? Talk about out of the frying pan and into the burning sun.
+|?
+| | <-Shoo->. Go away! What're you trying to do, blow my cover?
 
 ; Generic NPCs, gender unknown
 # npc

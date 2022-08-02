@@ -26,6 +26,7 @@ cerebat-trader-stranger "Stranger" ;; male trader
 semi-partner-nametag "Tobias" ;; male
 cerebat-partner-nametag "Kacey" ;; female
 cerebat-good-trader-nametag "Cerebat Trader" ;; non-binary
+semi-spy-nametag "Semi Spy" ;; female
 unknown-nametag "???" ;; gender unknown
 zelah-nametag "Zelah" ;; male
 soldier-nametag "Wraw Soldier" ;; gender unknown

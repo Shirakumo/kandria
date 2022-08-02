@@ -55,7 +55,7 @@
 | | ! eval (store 'item:parts 250)
 | |? (< pb silver)
 | | | (:excited)That was pretty quick! "Silver bracket"(orange).
-| | | It gets you "150 scrap parts"(orange)!
+| | | It gets you "150 scrap parts"(orange).
 | | ! eval (store 'item:parts 150)
 | |? (< pb bronze)
 | | | (:excited)That wasn't bad at all - "bronze bracket"(orange).

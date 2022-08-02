@@ -424,10 +424,12 @@
 ;; QUEST ITEMS
 (define-item (seeds quest-item) 16 16 8 8) ;; TODO - needs icon
 (define-item (semi-factory-key quest-item) 8 0 8 8)
-(define-item (can quest-item) 0 16 8 8)
+(define-item (can quest-item) 0 16 8 8) ;; race item
 (defmethod name ((can item:can)) 'item:can)
-(define-item (semi-genera-core quest-item) 88 24 8 8)
+(define-item (semi-genera-core quest-item) 88 24 8 8) ;; race item
 (defmethod name ((semi-genera-core item:semi-genera-core)) 'item:semi-genera-core)
+(define-item (hip-flask quest-item) 8 40 8 8) ;; race item ;; TODO - needs icon
+(defmethod name ((hip-flask item:hip-flask)) 'item:hip-flask)
 (define-item (blasting-cap quest-item) 8 0 8 8) ;; TODO - needs icon
 (define-item (charge-pack quest-item) 8 0 8 8) ;; TODO - needs icon
 (define-item (explosive quest-item) 8 0 8 8) ;; TODO - needs icon
