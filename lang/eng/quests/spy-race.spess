@@ -2,7 +2,7 @@
 ~ semi-spy
 | Okay, I think I'm ready.
 | Remember: "Find the hip flask, bring it back here, and I'll stop the clock"(orange).
-| And hopefully no one will be none the wiser that this is a complete farce - I'll continue to look like a bona fide Cerebat hustler.
+| And hopefully no one will be any the wiser that this is a complete farce - I'll continue to look like a bona fide Cerebat hustler.
 | I've got "5 routes"(orange) lined up for you, which you can do one at a time.
 | So, "you ready for the first race"(orange)?
 ! eval (clear-pending-interactions)
@@ -15,7 +15,7 @@
 
 ~ semi-spy
 | Hear ye, hear ye! A time trial is about to begin!
-| "Am I over-egging it? I'll tone it down."
+| "Am I over-egging it? I'll tone it down."(small)
 | "{(quest:title (quest:find-named 'race task))}."(orange)
 | The time brackets for this route are as follows: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (var 'pb)
