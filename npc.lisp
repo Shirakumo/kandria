@@ -570,7 +570,7 @@
 
 (define-shader-entity cerebat-trader-quest (npc creatable)
   ((name :initform 'cerebat-trader-quest)
-   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (profile-sprite-data :initform (asset 'kandria 'cerebat-trader-profile))
    (nametag :initform (@ unknown-nametag)))
   (:default-initargs
    :sprite-data (asset 'kandria 'cerebat-trader)))
