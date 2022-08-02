@@ -14,15 +14,14 @@
 | < quit
 
 ~ semi-spy
-| Hear ye, hear ye! A time trial is about to begin!
+| HEAR YE, HEAR YE! A time trial is about to begin!
 | "Am I over-egging it? I'll tone it down."(small)
 | "{(quest:title (quest:find-named 'race task))}."(orange)
 | The time brackets for this route are as follows: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (var 'pb)
 | | Your "personal best"(orange) for this route is "{(format-relative-time pb)}"(orange).
 ~ semi-spy
-| On your marks. Get set...
-| __GO!__
+| On your marks. Get set... GO!
 ! eval (complete task)
 ! eval (clear-pending-interactions)
 
@@ -68,7 +67,7 @@
 | | ! eval (store 'item:parts 300)
 | |?
 | | | But it's "not even bronze-standard"(orange), I'm sorry to say.
-| | | "In the interests of plausibility, I must withhold your prize. You should probably look a little upset as well."(small)
+| | | "In the interests of plausibility, I must withhold your prize. You should probably look upset as well."(small)
 | | ~ player
 | | | (:embarassed)"I'm not sure what my face is doing. Do I look upset?"(light-gray, italic)
   

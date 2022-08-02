@@ -256,7 +256,7 @@
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | What kind of hellhole is this? Talk about out of the frying pan and into the burning sun.
 |?
-| | <-Shoo->. Go away! What're you trying to do, blow my cover?
+| | <-Shoo->. Get out of here! What're you trying to do, blow my cover?
 
 ; Generic NPCs, gender unknown
 # npc
