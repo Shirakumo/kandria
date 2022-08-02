@@ -94,8 +94,8 @@
 (trivial-indent:define-indentation define-decoder (4 4 &body))
 
 (defun translate-slot-spec (spec)
-  (destructuring-bind (name &key (reader name) (type T) (initarg (kw name))) (enlist spec)
-    (list reader name type initarg)))
+  (destructuring-bind (name &key (reader name) (type T) (initarg (kw name)) (default NIL)) (enlist spec)
+    (list reader name type initarg default)))
 
 (defmacro define-slot-coders ((type version) slots)
   (let ((slots (mapcar #'translate-slot-spec slots)))
@@ -108,8 +108,8 @@
                                    `(,reader ,type)
                                    `(encode (,reader ,type))))))
        (define-decoder (,type ,version) (initargs _)
-         (destructuring-bind (&key ,@(loop for (reader name type kw) in slots
-                                           collect `((,kw ,name))) &allow-other-keys) initargs
+         (destructuring-bind (&key ,@(loop for (reader name type kw default) in slots
+                                           collect `((,kw ,name) ,default)) &allow-other-keys) initargs
            (make-instance (class-of ,type)
                           ,@(loop for (reader name slot-type kw) in slots
                                   collect kw
@@ -130,8 +130,8 @@
                                      `(encode (,reader ,type)))))))
        (define-decoder (,type ,version) (initargs _)
          (let ((,type (call-next-method)))
-           (destructuring-bind (&key ,@(loop for (reader name type kw) in slots
-                                             collect `((,kw ,name))) &allow-other-keys) initargs
+           (destructuring-bind (&key ,@(loop for (reader name type kw default) in slots
+                                             collect `((,kw ,name) ,default)) &allow-other-keys) initargs
              ,@(loop for (reader name slot-type kw) in slots
                      collect `(setf (slot-value ,type ',name)
                                     ,(if (eql slot-type T)
