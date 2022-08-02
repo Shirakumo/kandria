@@ -113,7 +113,11 @@
   (setf (active-p spawner) T))
 
 (defmethod quest:deactivate ((spawner spawner))
-  (setf (active-p spawner) NIL))
+  (setf (active-p spawner) NIL)
+  (dolist (entity (reflist spawner))
+    (remhash entity +spawn-tracker+)
+    (when (slot-boundp entity 'container)
+      (leave* entity T))))
 
 (defmethod handle ((ev switch-chunk) (spawner spawner))
   (when (active-p spawner)
