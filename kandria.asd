@@ -177,6 +177,7 @@
                              (:file "sq8-find-council")
                              (:file "sq8-item")
                              (:file "sq7a-catherine-semis")
+                             (:file "sq10-race")
                              (:file "sq-act1-intro")
                              (:file "trader-arrive")
                              (:file "trader-cerebat")
