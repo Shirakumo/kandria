@@ -1,5 +1,5 @@
 #|
-sbcl --noinform --no-sysinit --no-userinit --load "$0" --eval '(org.shirakumo.fraf.kandria.install:install)' --quit
+sbcl --noinform --no-sysinit --no-userinit --load "$0" --quit
 exit
 |#
 
@@ -20,6 +20,9 @@ exit
 (unless (asdf:find-system "kandria")
   (asdf:load-asd (merge-pathnames "kandria.asd" *kandria-root*)))
 
+;;; Ensure extra projects are known
+(push (merge-pathnames "local-projects/" *kandria-root*) ql:*local-project-directories*)
+
 ;;; Load er in
 (ql:quickload "kandria")
 
@@ -29,7 +32,7 @@ exit
                 (merge-pathnames "install/" *kandria-root*)))
       ((probe-file (merge-pathnames ".install" *kandria-root*))
        (funcall (find-symbol (string '#:set-pool-paths-from-install) '#:kandria)
-                (uiop:read-file-string (merge-pathnames ".install" *kandria-root*)))))
+                (pathname (uiop:read-file-string (merge-pathnames ".install" *kandria-root*))))))
 
 ;;; Launch Emacs
 (unless (or swank::*connections*
