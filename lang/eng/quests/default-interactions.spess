@@ -284,10 +284,43 @@
 |?
 | | <-Shoo->. Get out of here! What're you trying to do, blow my cover?
 
-; Generic NPCs, gender unknown
+; WORLD NPC
+
+; Generic NPCs, gender unknown, split per region
+; generic voice, no sign of strong accent or dialect, drunk, etc. as needs to work across the same and multiple NPCs
+
+; use the fallback for each area to do the most world building, before the plot conditionals steer the content
+; contradictory statements can be made in the same block, since it's rare the player will click on the same NPC many times - but even if they do, we can assume the NPC has changed their mind, or is sounding out different perspectives
+; surface = Semi Sisters after moved to surface (Noka don't have surface NPCs); region 1 = Semi Sisters before moved to surface; region 2 = Cerebats; region 3 = Wraw
+
+; final catch-all is just in case any NPCs slip through the net - generic region-independent replies (though no NPCs should be using these)
+
+; CONTENT GUIDE (could also branch here based on main quest state):
+; Semis (region 1): initially Semis world building; after q6, acknowledge word spread that Wraw invading Cerebats; after q10 when you (and they) have confirmed Wraw's wider invasion plans the speech reflects this; after q11a task when moved to surface, reflect this (covered by surface check)
+; Cerebats: can tease from the beginning that something is afoot, but don't spoiler the Wraw invasion reveal in q5a; once things have progressed to q10 complete and the player and Semis know about wider Wraw invasion, the Cerebats can hint at this, that plans are happening/afoot
+; Wraw: can tease from the beginning that something is afoot, but don't spoiler the q1 reveal that they're after the Noka, nor the q5a reveal that they've invaded the Cerebats; after q10 complete when the invasion of the entire valley is afoot, they can hint that things are happening 
 # npc
 ~ npc
-? T
+? (eql 'surface (subregion 'player))
+| | [? Okay, maybe now's the time to get angry and change things. | I've never been in battle. What's it like? | How have these guys managed to survive up here? Well if they can, we can. | It feels good to have friends. I like these Noka. | So this is where Catherine went. She's been keeping busy, I see. | Is it true Catherine found you somewhere round here? | Everyone's busy doing something - at least it stops the mind from wandering. | It smells different up here. Cleaner, but also like death. | Looks like these folks tried growing crops. And failed. We could help them with that. | Who's that guy frowning at everyone? I think his name was John. | These Noka are more resourceful than I thought - maybe we do stand a chance. | This place is seriously lacking amenities, but there's no doubting their spirit. | So, you live here too? | I hope we get to go home soon. | I left so much of my life back there. I guess it's gone now. | A lot has changed, and quickly. I don't do well with change. | I think we lost people en route. And this is only the beginning. | There's something about the sky. It just sort of... puts things in perspective, I guess. | I've been living in subscrapers so long, I'd forgotten what a skyscraper looked like. | Birdsong... That almost makes this all worthwhile. | Can you hear it? The wind sounds angry. | Thank God the water's running - you could dehydrate without realising in this heat. | How do you live up here? It feels like the ground is melting.]
+|? (eql 'region1 (subregion 'player))
+| ? (complete-p 'Q10-WRAW)
+| | | [? Who knew the Wraw had this in them? | I think we could bring the Wraw a fair fight - defeat them, even. But not if they conquer half the valley! | Suddenly I don't feel settled any more. What's going to happen? | I guess it's that time again to find a new normal. Good job we're used to it. | I'm gonna fight. If the Wraw come down these tunnels I'll stop them dead in their tracks. | I'm not worried about me - it's my family, they can't fight. | Now we find out how strong our friendships really are. | I knew we should have assembled an army - hopefully our hunters can handle whatever's coming. | I've got pets to worry about, never mind parents and children. | This will all pass soon, won't it? | I think our leaders have lost the plot. | Are we safe here? Can we stay in our homes? No one's telling me anything. | Are you here to defend us? | After everything we've built, then this happens.]
+| |? (complete-p 'Q6-RETURN-TO-FI)
+| | | [? The Wraw wouldn't dare cross our border. No, I don't want to hear about that. | Didn't the Wraw always manipulate the Cerebats though? Nothing's changed, really. | If now isn't the time to dust off our guns, I don't know when is. 'Course, I got my own. | I think morale has taken a knock around here lately. If only I could do something to cheer people up. | After all we've been through, surely things can't get any worse. | Invasions and an android, what's the world coming too? | Are you an Innis or an Islay person? | Whatever happens, if we stick together we'll be alright. | I think the Wraw might have underestimated us. | Still, things could be worse: we could be living on the surface. | Sometimes Rogues are just Rogues - what's all the fuss about? | People need to calm the hell down. We've all got jobs to go, so we should just carry on.]
+| |?
+| | | [? Wow! It's you. I've heard a lot about you. | I swear to God, if I have to fix another leak I'm gonna kill someone. | Those Servos are getting closer by the day - if you ask me we need automated turrets. | What to do when we're getting older, and hardly anyone's having kids? Not that this is a fit world for kids. | Pretty impressive place, ain't it? Not bad a bunch of "old biddies". | I'm knackered. But there's a drink with my name on it - and a cold shower. | Our hunters say it's too quiet out there, but surely that's a good sign? | You look like you could be valuable. | What are you made out of... //exactly//? | Have you got any medical supplies? We don't value them enough round here. | Sometimes I wonder if I'd be better off still working the production line. | You can't be an android... Can you? | Watch your back - people don't like androids, unless they're offering up their parts. | So tell me: did androids destroy the world? | I used to assemble the likes of you - I know everything, from how to attach your skin, to the resolution of those cameras you call eyes. | I know how to activate you. And deactivate you. | It's too hot - we need to reroute some of those wind tunnels. | You came from the surface - you don't stink of sweat, you see. I know it's hot up there, but at least you've got the breeze. | I'm sick of eating fish - can't we get frogs instead? | Is it true there are birds on the surface? | Thank God they built these subscrapers as well as they did - otherwise we'd have nowhere.]
+|? (eql 'region2 (subregion 'player))
+| ? (complete-p 'Q10-WRAW)
+| | | [? Line1. | Line2.]
+| |?
+| | | [? Line1. | Line2.]
+|? (eql 'region3 (subregion 'player))
+| ? (complete-p 'Q10-WRAW)
+| | | [? Line1. | Line2.]
+| |?
+| | | [? Line1. | Line2.]
+|?
 | | [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat.]
 
 ; TODO - faction generic NPC granularity; can then use the system more for world building in each area, and plot hints, rather than simply "Too busy to talk" etc
