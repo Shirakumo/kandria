@@ -86,36 +86,68 @@
   '(
     (:spike-tr>
      _ _ _
-     se _ _
-     si se _)
+     st  o _
+     si sr _)
     (:spike-tl>
      _ _ _
-     _ _ se
-     _ se si)
+     _  o st
+     _ sl si)
     (:spike-bl>
-     _ se si
-     _ _ se
+     _ sl si
+     _  o sb
      _ _ _)
     (:spike-br>
-     si se _
-     se _ _
+     si sr _
+     sb  o _
      _ _ _)
     (:spike-bl<
-     _ se _
-     _ sp se
+     _ sr _
+     _ sp st
      x _ _)
     (:spike-br<
-     _ se _
-     se sp _
+     _  sl _
+     st sp _
      _ _ x)
     (:spike-tr<
      _ _ x
-     se sp _
-     _ se _)
+     sb sp _
+     _  sl _)
     (:spike-tl<
      x _ _
-     _ sp se
-     _ se _)
+     _ sp sb
+     _ sr _)
+    (:spike-br<
+     _ _  st
+     _ st sp
+     _ _ x)
+    (:spike-bl<
+     st _  _
+     sp st _
+     x _ _)
+    (:spike-tr<
+     _ _  x
+     _ sb sp
+     _ _  sb)
+    (:spike-tl<
+     x _  _
+     sp sb _
+     sb _ _)
+    (:spike-br<
+     _ _ _
+     _ sl _
+     sl sp x)
+    (:spike-bl<
+     _ _ _
+     _ sr _
+     x sp sr)
+    (:spike-tr<
+     sl sp x
+     _ sl _
+     _ _ _)
+    (:spike-tl<
+     x sp sr
+     _ sr _
+     _ _ _)
     (:spike-t
      _ _ _
      _ st _
