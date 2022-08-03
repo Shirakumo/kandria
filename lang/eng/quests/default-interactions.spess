@@ -1,3 +1,5 @@
+; PRIMARY NPC
+
 # innis
 ; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
 ~ innis
@@ -18,6 +20,7 @@
 
 # islay
 ; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
+; Islay soon becomes a trader, so will never need default interacts after that
 ~ islay
 ? T
 | | Hello there.
@@ -39,6 +42,7 @@
 
 # trader
 ; Sahil, trader, male, Arabic code switching; after the intro quest, default chat interacts takeover, but this is for before the quest
+; Sahil soon becomes a trader, so has no needed for more default interacts
 ~ trader
 ? T
 | | Sorry, habibti. I'm closed for business while I fix my caravan.
@@ -46,6 +50,7 @@
 # cerebat-trader-quest
 ; Cerebat trader from q8a, male; after the quest, default chat interacts takeover, but this is for before the quest
 ; stop being nosy!
+; Soon becomes a trader, so has no needed for more default interacts
 ~ cerebat-trader-quest
 ? T
 | | Stick your big nez somewhere else!
@@ -96,6 +101,7 @@
 
 # catherine
 ; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
+; (complete-p 'Q6-RETURN-TO-FI) may not be needed, as Catherine should at least a time trial giver, if not also a sidequest giver, until q10-wraw complete - added for completeness though
 ~ catherine
 ? (complete-p 'EPILOGUE-TALK)
 | | (:concerned)So we won? I hope everyone is okay.
@@ -130,14 +136,19 @@
 |?
 | | Keep going.
 
+; SIDEQUEST NPC
+
+; speech that updates based on major plot events e.g. q10 and q11a, needs to also work whether the player did the sidequest involving that NPC or not (and if not, remember their name will still show as "???" so can't give clues as to who they are - teasing content for a following playthrough maybe)
+
 # semi-engineer-team
 ; mix of engineers of different genders who were involved in the tunnel collapse
 ; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest
+; Don't spoiler the engineers' realisation of you being an android - save that for the new chief
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-engineer-team
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | [? After all that work on the railway... Now this. | I'm use to welding rails not cleaning guns. | You're the one that saved us, aren't you.]
-? (not (active-p (unit 'blocker-engineers)))
+|? (not (active-p (unit 'blocker-engineers)))
 | | [? It's good to be home. | I need a lie down after that shift. | I can't thank you enough for clearing the tunnel. Thank you thank you thank you! | If I don't see another cave for the rest of my life, it will be too soon.]
 |?
 | | [? Talk to the new chief. | It's been a long shift. | The new chief's the one you want.  | An... android? Nah, can't be. That's impossible. | I'd check in with the new chief.]
@@ -149,7 +160,7 @@
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | [? I hope there's something left to rebuild. | It's strange, just waiting. | With an android on our side, we can't lose. Can we? | I hope your fusion reactor is up to this fight.]
 |?
-| | [? You any good at fixing things? | You look like you know your way around a screwdriver. | I wouldn't mind seeing how you work on the inside. | What's the maximum stress tolerance of your body? | You're a regular walking toolbox aren't you.]
+| | [? You any good at fixing things? | You look like you know your way around a screwdriver. | I wouldn't mind seeing how you work on the inside. | What's the maximum stress tolerance of your body? | You're a regular walking toolbox aren't you. | You look like you could fight.]
 
 # soldier
 ; mix of soldiers of different genders who follow Zelah around, serving as his bodyguards
@@ -168,17 +179,22 @@
 ~ semi-roboticist
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | We could really use some Servos on our side, right about now.
+|? (complete-p 'Q10-WRAW)
+| | To think, all I used to worry about was understanding Servos.
 |? (complete-p 'SQ4-ANALYSE-ROBOTS)
 | | I'm getting closer to understanding how Servos think. How //you//think too.
 |?
-| | Can't talk now, sorry. Science waits for no one. Maybe later?
+| | Can't talk now, sorry. Servo science waits for no one.
 
 # semi-barkeep
 ; Semi Sisters barkeep, non-binary
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ; "No time for drinking" - in a literal sense in that there's no time, but also because the battle is imminent, this is also not an appropriate time for drinking
+; Soon becomes a time trail giver, so has no needed for more default interacts - but a brief window after sidequest is closed after q10
 ~ semi-barkeep
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | So this is the surface? The facilities are a little... meagre. But I see time trial potential here!
+|? (complete-p 'Q10-WRAW)
 | | No time for racing. No time for drinking either.
 |?
 | | Who's this fancy pants?
@@ -188,6 +204,8 @@
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-barkeep-2
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | Can't say I'm thrilled to be here. Where are the beer barrels for a start?
+|? (complete-p 'Q10-WRAW)
 | | I knew you'd bring trouble down on us.
 |?
 | | I don't serve your kind.
@@ -198,6 +216,8 @@
 ~ semi-patron-1
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | Tends to put things in perspective, doesn't it? War, I mean. We never knew how good we had it.
+|? (complete-p 'Q10-WRAW)
+| | Even I've lost my mojo for time trials.
 |? (complete-p 'SQ5-INTRO)
 | | I've high hopes for you, android.
 |?
@@ -209,6 +229,8 @@
 ~ semi-patron-2
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | Where's the goddamn bar around here?
+|? (complete-p 'Q10-WRAW)
+| | Ugh, what's happenings? I think I'm gonna hurl.
 |? (complete-p 'SQ5-INTRO)
 | | Did you start the race yet? Where am I?
 |?
@@ -219,7 +241,9 @@
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-partner
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | I'm going nowhere without Kacey.
+| | I'm going nowhere without her.
+|? (complete-p 'Q10-WRAW)
+| | I hope she's okay. And thinking of me.
 |? (complete-p 'SQ6-DELIVER-LETTER)
 | | Kacey called me. We're still friends, though.
 |?
@@ -254,7 +278,9 @@
 ; "Talk about out of the frying pan and into the burning sun" (riff off of "out of the frying pan and into the fire"); it could be night-time, but we can assume the heat of the sun's influence remains at night
 ~ semi-spy
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | What kind of hellhole is this? Talk about out of the frying pan and into the burning sun.
+| | What kind of hellhole is this? Talk about out of the frying pan and into the burning hot sun.
+|? (complete-p 'Q10-WRAW)
+| | The Cerebats have bigger things on their minds right now - which suits me just fine.
 |?
 | | <-Shoo->. Get out of here! What're you trying to do, blow my cover?
 
