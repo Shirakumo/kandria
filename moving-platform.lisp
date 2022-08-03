@@ -153,6 +153,13 @@
                            (vy (max-speed elevator))
                            dir)))))
     (:should-stop
+     (incf (move-time elevator) (dt ev))
+     (when (<= (move-time elevator) 1.0)
+       (let* ((vel (velocity elevator))
+              (dir (float-sign (vy vel))))
+         (setf (vy vel) (* (clamp 0.0 (move-time elevator) 1.0)
+                           (vy (max-speed elevator))
+                           dir))))
      (let ((found NIL))
        (scan (chunk elevator)
              (tvec (vx (location elevator))
