@@ -1,6 +1,6 @@
+# innis
 ; PRIMARY NPCs
 ; all lines in this file are the NPC speaking directly to the player, though some are more like musings to themselves as well
-# innis
 ; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
 ~ innis
 ? (complete-p 'Q14-ENVOY)
