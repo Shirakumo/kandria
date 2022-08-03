@@ -28,8 +28,12 @@
     ((eql T)
      (setf (state main) (first (list-saves)))))
   (let ((depot (depot:ensure-depot (or world
-                                       (probe-file (merge-pathnames "world.zip" (root)))
                                        (probe-file (merge-pathnames "world/" (root)))
+                                       (probe-file (merge-pathnames "world.zip" (root)))
+                                       (when *install-root*
+                                         (probe-file (merge-pathnames "world/" *install-root*)))
+                                       (when *install-root*
+                                         (probe-file (merge-pathnames "world.zip" *install-root*)))
                                        (error "No world present.")))))
     (when (typep depot 'org.shirakumo.zippy:zip-file)
       (org.shirakumo.zippy:move-in-memory depot))
