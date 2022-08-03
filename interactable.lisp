@@ -134,6 +134,11 @@
    (unlocked-p :initarg :unlocked-p :initform NIL :accessor unlocked-p :type boolean))
   (:default-initargs :sprite-data (asset 'kandria 'electronic-door)))
 
+(defmethod description ((door locked-door))
+  (if (unlocked-p door)
+      (call-next-method)
+      (language-string 'door-locked)))
+
 (defmethod stage :after ((door locked-door) (area staging-area))
   (dolist (sound '(door-access-denied door-unlock door-open-sliding-inside door-shut-sliding-inside))
     (stage (// 'sound sound) area)))
