@@ -25,6 +25,11 @@ hunter-nametag "Hunter" ;; gender unknown
 cerebat-trader-stranger "Stranger" ;; male trader
 semi-partner-nametag "Tobias" ;; male
 cerebat-partner-nametag "Kacey" ;; female
+semi-engineer-1-nametag "Heidy" ;; female
+semi-engineer-2-nametag "Anneli" ;; female
+semi-engineer-3-nametag "Till" ;; female
+semi-engineer-4-nametag "Nathalie" ;; female
+semi-engineer-5-nametag "Cath" ;; female
 cerebat-good-trader-nametag "Cerebat Trader" ;; non-binary
 semi-spy-nametag "Semi Spy" ;; female
 unknown-nametag "???" ;; gender unknown
