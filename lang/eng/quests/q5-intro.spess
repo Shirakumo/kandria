@@ -88,6 +88,8 @@
 | |?
 | | | (:normal)"They run throughout the valley"(orange), though "no' all are operational"(orange) while we expand the network.
 | | | Just "choose your destination from the route map"(orange) and board the train.
+| ? (not (unlocked-p (unit 'station-surface)))
+| | ! eval (activate (unit 'station-surface))
 | ? (not (unlocked-p (unit 'station-semi-sisters)))
 | | | (:normal)"Our station is beneath this central block."(orange)
 | | ! eval (activate 'semi-station-marker)
