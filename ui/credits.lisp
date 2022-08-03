@@ -93,26 +93,26 @@
 (defmethod from-markless (path layout)
   (from-markless (cl-markless:parse path T) layout))
 
-(defmethod from-markless ((markless cl-markless-components:root-component) layout)
-  (let ((renderer (unit 'ui-pass T)))
-    (labels ((traverse (element)
-               (typecase element
-                 (cl-markless-components:header
-                  (alloy:enter (make-instance 'header :value (cl-markless-components:text element)
-                                                      :level (cl-markless-components:depth element))
-                               layout))
-                 (cl-markless-components:image
-                  (let ((image (simple:request-image renderer (pool-path 'kandria (cl-markless-components:target element)))))
-                    (allocate image)
-                    (alloy:enter (make-instance 'icon :value image) layout)))
-                 (cl-markless-components:paragraph
-                  (alloy:enter (make-instance 'paragraph :value (cl-markless-components:text element)) layout))
-                 (cl-markless-components:parent-component
-                  (loop for child across (cl-markless-components:children element)
-                        do (traverse child)))
-                 (string
-                  (alloy:enter (make-instance 'paragraph :value element) layout)))))
-      (traverse markless))))
+(defmethod from-markless ((element cl-markless-components:header) layout)
+  (alloy:enter (make-instance 'header :value (cl-markless-components:text element)
+                                      :level (cl-markless-components:depth element))
+               layout))
+
+(defmethod from-markless ((element cl-markless-components:image) layout)
+  (let* ((renderer (unit 'ui-pass T))
+         (image (simple:request-image renderer (pool-path 'kandria (cl-markless-components:target element)))))
+    (allocate image)
+    (alloy:enter (make-instance 'icon :value image) layout)))
+
+(defmethod from-markless ((element cl-markless-components:parent-component) layout)
+  (loop for child across (cl-markless-components:children element)
+        do (from-markless child layout)))
+
+(defmethod from-markless ((element cl-markless-components:paragraph) layout)
+  (alloy:enter (make-instance 'paragraph :value (cl-markless-components:text element)) layout))
+
+(defmethod from-markless ((element string) layout)
+  (alloy:enter (make-instance 'paragraph :value element) layout))
 
 (defmethod initialize-instance :after ((panel credits) &key (file "CREDITS.mess"))
   (let* ((layout (make-instance 'credits-layout))
