@@ -389,14 +389,14 @@
 ~ player
 | "Those springboards are repurposed rail buffers... Ingenious!"(light-gray, italic)
 
-; a hideout of neutral rogue enemies, who ambush passers by (might not be obvious to player, so description clarifies). Well stocked due to all the item spawners.
-; player may or may not know about rogues by this point
+; a hideout of neutral Rogue enemies, who ambush passers by (might not be obvious to player, so description clarifies). Well stocked due to all the item spawners.
+; player may or may not know about Rogues by this point
 # task-world-all/cerebat-hideout
 ~ player
 | "A well-off hideout. Though if that stench is anything to go by,"(light-gray, italic) (:giggle)"it's seriously lacking in bathroom facilities."(light-gray, italic)
 
-; an abandoned hideout of neutral rogue enemies, who used to ambush passers by (might not be obvious to player, so description clarifies)
-; player may or may not know about rogues by this point, and the Semi Sisters (by name) on the level above; though to reach here, they will have seen that the level above is populated/watched
+; an abandoned hideout of neutral Rogue enemies, who used to ambush passers by (might not be obvious to player, so description clarifies)
+; player may or may not know about Rogues by this point, and the Semi Sisters (by name) on the level above; though to reach here, they will have seen that the level above is populated/watched
 # task-world-all/cerebat-old-hideout
 ~ player
 | "A long-abandoned hideout - most of the litter has blown away, but a few footprints remain."(light-gray, italic)

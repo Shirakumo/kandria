@@ -128,13 +128,13 @@
 ; didnae = didn't (Scottish)
 ; ken = know (Scottish)
 
-; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4 - it was logical though), nor employ rogues... The Wraw would do both though. And nor would rogues attack CCTV alone
+; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4 - it was logical though), nor employ Rogues... The Wraw would do both though. And nor would Rogues attack CCTV alone
 # q5b-task-return-cctv/q5b-return-cctv
 ~ innis
 | (:sly)I'm glad you survived the saboteurs.
 | (:normal)So what are we dealing with?
 ~ player
-- It was a band of rogues.
+- It was a band of Rogues.
   ~ innis
   | ... Rogues? They're no' who the Cerebats would employ.
 - Wannabe samurais and their pet dogs.
