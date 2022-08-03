@@ -5,7 +5,7 @@
 ~ fi
 | Loud and clear. Where are you?
 ~ player
-| Cerebat territory. The Council are gone. The Wraw have taken over.
+| Cerebat territory. The Council are gone. They turned the Wraw's water off. The Wraw have taken over.
 ~ fi
 | ...
 | What happened? Are you okay?
@@ -29,7 +29,9 @@
 | But now he's our enemy.
 | ...
 | (:unsure)What's Zelah up to?...
-| (:normal)I'm sorry to send you "deeper, but we really need to know what he's doing"(orange).
+| (:normal)Turning their water off was foolish, and it would certainly get his attention.
+| But to invade? There's got to be more to this.
+| I'm sorry to send you "deeper, but we really need to know what he's doing"(orange).
 | Can do you that? "Go into Wraw territory"(orange)?
 ~ player
 - It's my job.
