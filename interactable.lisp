@@ -31,6 +31,9 @@
 
 (defmethod interact ((entity dialog-entity) from)
   (when (interactable-p entity)
+    ;; KLUDGE: default interaction causes lookup on NPC to resolve profile.
+    ;;         we set it here to refer to whoever is being talked to.
+    (setf (gethash 'npc (name-map +world+)) entity)
     (show (make-instance 'dialog :interactions (or (interactions entity)
                                                    (list (default-interaction entity)))))))
 
