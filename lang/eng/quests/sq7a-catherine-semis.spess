@@ -36,17 +36,20 @@
   | (:concerned)Anyway, what about these rumours? About the Wraw invading the Cerebats?
   | Is it true?
 ~ player
-- Fi doesn't think so.
+- [(complete-p 'q8a-secret-supplies) Yes, the Cerebats turned their water off.|]
+  ~ catherine
+  | (:excited)They did what? Heh, maybe they had spines after all. Still...
+- [(not (complete-p 'q8a-secret-supplies)) Fi doesn't think so.|]
   ~ catherine
   | (:concerned)You don't sound too convinced.
-- I'm not sure.
-  ~ catherine
-  | (:concerned)Well that's not good.
-- I think it might be.
+- [(complete-p 'q8a-secret-supplies) They seem to be.|]
   ~ catherine
   | (:disappointed)...
   | Like we didn't have enough to worry about.
-- I don't think it is.
+- [(not (complete-p 'q8a-secret-supplies)) I don't know.|]
+  ~ catherine
+  | (:concerned)Well that's not good.
+- [(not (complete-p 'q8a-secret-supplies)) I don't think it is.|]
   ~ catherine
   | (:concerned)I hope you're right.
 - What does it matter?

@@ -115,36 +115,34 @@
 |   | I would've moved on already if not for that.
 |   | Are they true, the rumours?
 |   ~ player
-|   - [(complete-p 'q8a-secret-supplies) I'm afraid so.|]
+|   - [(complete-p 'q8a-secret-supplies) I'm afraid so - but there's a good reason.|]
 |     ~ trader
 |     | Alqarf!
-|     | I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
-|     < talk
+|     | I'm sure there is. I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
 |   - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out.|]
 |     ~ trader
 |     | Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
-|     < talk
 |   -  [(complete-p 'q8a-secret-supplies) (Lie) I'm not sure.|]
 |     ~ trader
 |     | Still, I'd rather not risk it. I think I'll stay here a while longer.
-|     < talk
 |   - [(not (complete-p 'q8a-secret-supplies)) I'm not sure.|]
 |     ~ trader
 |     | Still, I'd rather not risk it. I think I'll stay here a while longer.
-|     < talk
+|   - [(not (complete-p 'q8a-secret-supplies)) I don't think so.|]
+|     ~ trader
+|     | Well that's something. But I think I'll stay here a while longer, just in case.
 |   - I can't say.
 |     ~ trader
 |     | I understand, habibti.
 |     | Still, I think it would be unwise for me to leave your borders right now. I'm staying right here.
-|     < talk
 |   - Let's talk about something else.
-|     < talk
+|   < talk
 | - What do you know about the Cerebats?
 |   ~ trader
-|   | Well, they're the self-proclaimed council around here.
+|   | They're the self-proclaimed council around here, I know that much.
 |   | But what good's a council that can't enforce its laws?
 |   | The only people who can enforce anything around here are the Wraw. Maybe the Semis.
-|   | (:jolly)Maybe you, too.
+|   | (:jolly)Maybe you, too!
 |   < talk
 | - Have you seen Alex?
 |   ~ trader

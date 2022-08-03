@@ -27,11 +27,10 @@
 | (:annoyed)Ko nashi!
 | Well, you couldn't have known.
 | But now he's our enemy.
-| ...
-| (:unsure)What's Zelah up to?...
-| (:normal)Turning their water off was foolish, and it would certainly get his attention.
-| But to invade? There's got to be more to this.
-| I'm sorry to send you "deeper, but we really need to know what he's doing"(orange).
+| (:normal)At least that explains why the Wraw invaded. Turning the water off would certainly get Zelah's attention.
+| I knew Innis was overreacting.
+| (:unsure)But I still need to know the information I originally wanted from Alex: "when and where the Wraw will try and capture us"(orange).
+| (:normal)I'm sorry to send you "deeper, but we really need to know what he's planning"(orange).
 | Can do you that? "Go into Wraw territory"(orange)?
 ~ player
 - It's my job.
@@ -39,7 +38,7 @@
   | (:happy)And you're very good at it.
 - It'll be fun.
   ~ fi
-  | (:unsure)I'm glad you enjoy your work. But this will be very dangerous. Please be careful.
+  | (:unsure)I'm glad you enjoy your work. But this could be dangerous. Please be careful.
 - Do I have to?
   ~ fi
   | You always have a choice. But I need you to do this.
@@ -47,7 +46,7 @@
   ~ fi
   | (:happy)...
 ~ fi
-| Your "FFCS might not work down there"(orange). But "contact me as soon as you can"(orange).
+| Your "FFCS might not work so deep"(orange). But "contact me as soon as you can"(orange).
 | (:unsure)Things could change quickly down there. Although this is now your "top priority"(orange), if you have "other errands to finish, now is the time"(orange).
 | (:normal)Be safe.
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
