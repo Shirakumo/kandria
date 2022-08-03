@@ -109,15 +109,8 @@
       (with-button (changelog-menu)
         )
       (let ((subbutton
-              (with-button (kickstarter-cta)
-                (open-in-browser "https://kandria.com/kickstarter"))
-              #++
-              (if (and (steam:steamworks-available-p)
-                       (not (uiop:featurep :kandria-demo)))
-                  (with-button (subscribe-cta)
-                    (open-in-browser "https://courier.tymoon.eu/subscription/1"))
-                  (with-button (wishlist-cta)
-                    (open-in-browser "https://store.steampowered.com/app/1261430/Kandria/?utm_source=in-game")))))
+              (with-button (subscribe-cta)
+                (open-in-browser "https://courier.tymoon.eu/subscription/1"))))
         (alloy:on alloy:focus (value subbutton)
           (setf (presentations:update-overrides subbutton)
                 (if value
