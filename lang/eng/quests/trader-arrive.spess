@@ -83,6 +83,7 @@
 ~ player
 | "Why is he rummaging around on those shelves? Surely there's nothing of value up there, judging by all the crap that's clattering to the floor."(light-gray, italic)
 | "Maybe I spoke too soon: he's cramming old circuit boards, clipped wires, and rolls of solder into several tins of different sizes."(light-gray, italic)
+| "There's even a needle and thread."(light-gray, italic)
 ~ trader
 | (:jolly)Voila! I give you: "The Android Health Pack"(orange)! Custom made just for you.
 ~ player
