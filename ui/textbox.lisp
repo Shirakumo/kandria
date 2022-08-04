@@ -158,12 +158,14 @@ void main(){
       (scroll-index textbox)))
 
 (defun scroll-text (textbox &optional (to (1+ (scroll-index textbox))))
-  (when (<= to (length (text textbox)))
-    (harmony:play (// 'sound 'ui-scroll-dialogue))
-    (setf (scroll-index textbox) to)
-    (setf (org.shirakumo.alloy.renderers.opengl.msdf::vertex-count
-           (presentations:find-shape :label (textbox textbox)))
-          (* 6 to))))
+  (cond ((<= to (length (text textbox)))
+         (harmony:play (// 'sound 'ui-scroll-dialogue))
+         (setf (scroll-index textbox) to)
+         (setf (org.shirakumo.alloy.renderers.opengl.msdf::vertex-count
+                (presentations:find-shape :label (textbox textbox)))
+               (* 6 to)))
+        (T
+         (harmony:stop (// 'sound 'ui-scroll-dialogue)))))
 
 (defmethod advance ((textbox textbox))
   (restart-case
