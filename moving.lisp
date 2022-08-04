@@ -230,6 +230,23 @@
 (defmethod collide ((moving moving) (block spike) hit)
   (kill moving))
 
+(defmethod collides-p ((moving moving) (block slope) hit)
+  (and (call-next-method)
+       (let* ((loc (location moving))
+              (siz (bsize moving))
+              (bloc (hit-location hit))
+              (bsiz (bsize block))
+              (l (vy (slope-l block)))
+              (r (vy (slope-r block)))
+              (dx (- (vx loc) (- (vx siz)) (vx bloc)))
+              (tt (clamp 0.0 (/ (+ dx (float-sign (- r l) (vx bsiz))) 2 (vx bsiz)) 1.0))
+              (y (+ (vy bloc) (vy siz) l (* tt (- r l))))
+              (vel (if (v= (frame-velocity moving) 0.0) (velocity moving) (frame-velocity moving))))
+         ;; KLUDGE: lmao this blows.
+         (if (<= (vy vel) 0.0)
+             (<= (- y 10) (vy loc))
+             (<= (- y 5) (vy loc))))))
+
 (defmethod collide ((moving moving) (block slope) hit)
   (let* ((loc (location moving))
          (siz (bsize moving))
