@@ -53,12 +53,16 @@
 
 (define-decoder (chunk world-v0) (initargs depot)
   (destructuring-bind (&key name location size tile-data pixel-data layers background gi environment (visible-on-map-p T)) initargs
-    (let ((graph (when (depot:entry-exists-p (format NIL "~a.graph" name) depot)
-                   (depot:with-open (tx (depot:entry (format NIL "~a.graph" name) depot) :input '(unsigned-byte 8))
-                     (handler-case (decode-payload (depot:to-stream tx) 'node-graph depot 'binary-v0)
-                       (error (e)
-                         (v:error :kandria.serializer "Failed to read node-graph for ~a" name)
-                         (v:info :kandria.serializer e)))))))
+    (let ((graph (if (and (depot:entry-exists-p (format NIL "~a.graph" name) depot)
+                          (<= (depot:attribute :write-date (depot:entry (format NIL "~a.graph" name) depot))
+                              (depot:attribute :write-date (depot:entry pixel-data depot))))
+                     (depot:with-open (tx (depot:entry (format NIL "~a.graph" name) depot) :input '(unsigned-byte 8))
+                       (handler-case (decode-payload (depot:to-stream tx) 'node-graph depot 'binary-v0)
+                         (error (e)
+                           (v:error :kandria.serializer "Failed to read node-graph for ~a" name)
+                           (v:info :kandria.serializer e))))
+                     (progn (v:info :kandria.serializer "Chunk graph for ~a is out of date. Ignoring.")
+                            NIL))))
       (make-instance 'chunk :name name
                             :location (decode 'vec2 location)
                             :size (decode 'vec2 size)
