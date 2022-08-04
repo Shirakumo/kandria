@@ -902,7 +902,7 @@ void main(){
          (typecase attached
            (rope
             (setf (climb-strength player) (p! climb-strength))
-            (vsetf (color player) 10 0 0 0)
+            (vsetf (color player) 0 0 0 0)
             (nudge attached loc (* (direction player) -8))
             (cond ((retained 'left)
                    (let ((target-x (- (vx (location (interactable player))) (vx size))))
@@ -1175,6 +1175,12 @@ void main(){
     (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
     (nv+ (frame-velocity player) vel)))
 
+;;;; Attempt at making it more obvious when dash recharges, but... idk.
+#++
+(defmethod (setf dash-exhausted) :before (value (player player))
+  (when (and (null value) (dash-exhausted player))
+    (vsetf (color player) 3 3 0 1)))
+
 (defmethod handle :after ((ev tick) (player player))
   (setf (mixed:location harmony:*server*) (location player))
   (incf (jump-time player) (dt ev))
@@ -1190,7 +1196,7 @@ void main(){
     ((:climbing :normal)
      (if (dash-exhausted player)
          (vsetf (color player) 1 0 0 (clamp 0.0 (- (sin (* 5 (tt ev))) 0.5) 1.0))
-         (setf (vw (color player)) 0))))
+         (setf (vw (color player)) (max 0.0 (- (vw (color player)) (* 3 (dt ev))))))))
   ;; Animations
   (let ((vel (velocity player))
         (collisions (collisions player)))
