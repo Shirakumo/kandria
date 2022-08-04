@@ -108,7 +108,9 @@
                  ((setf (pixel-data base-layer) layer)
                   (setf (pixel-data entity) solids))))))
           ((retained :shift)
-           (let* ((base-layer (aref (layers entity) (floor (vz loc))))
+           (let* ((base-layer (aref (layers entity) (if (show-solids entity)
+                                                        5
+                                                        (floor (vz loc)))))
                   (original (copy-seq (pixel-data base-layer))))
              (with-commit (tool)
                ((flood-fill entity loc tile))
