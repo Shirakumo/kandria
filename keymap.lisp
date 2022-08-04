@@ -57,6 +57,11 @@
  (key :one-of (:escape))
  (button :one-of (:b)))
 
+(trigger mark-for-bulk
+ (key :one-of (:m))
+ (mouse :one-of (:middle))
+ (button :one-of (:y)))
+
 (trigger quickmenu
  (key :one-of (:c))
  (button :one-of (:select)))

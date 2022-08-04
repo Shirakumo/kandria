@@ -15,6 +15,7 @@
 (define-action select-down (in-menu))
 (define-action accept (in-menu))
 (define-action back (in-menu))
+(define-action mark-for-bulk (in-menu))
 
 (define-action toggle-editor ())
 (define-action toggle-menu ())
