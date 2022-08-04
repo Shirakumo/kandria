@@ -38,8 +38,15 @@ soldier-nametag "Wraw Soldier" ;; gender unknown
 player "Player"
 mech "Wraw Machine Suit Prototype" ;; gender unknown
 zelah-enemy "Wraw Leader, Zelah"
-villager-female-nametags ("Sandra" "Cath" "Monika" "Leandra" "Sarah" "Nathalie" "Maria" "Anneli" "Laura" "Karina" "Heidy" "Nick")
-villager-male-nametags ("Vincent" "Nick" "Till" "Brian" "Simon" "Chris" "Sean" "Luigi" "Johnny" "Arthur" "Sina" "Tom")
+villager-female-nametags ("Anneli" "Avedon" "Cath" "Fawn" "Heidy" "Kaitryn" "Karina" "Laura" "Leandra" "Lynne Marshall"
+                                   "Maelie" "Maria" "Mandragor Mistica" "Minerva Raeck" "Mobi" "Monika" "Nathalie"
+                                   "Nick" "Nola" "Ran" "Rednael" "Sandra" "Sarah" "Sasha" "Scoopa" "Tabitha Riddle")
+villager-male-nametags ("Ajrion" "Arthur" "Avedon" "Blake Ashwell" "Brian" "Chris" "Codody"
+                                 "Cody Shores" "Dipwood" "Dr. Grimbles" "Fabrellius" "Fawn" "Gerald" "Gosper"
+                                 "Ikharios" "John McCarthy" "Johnny" "Kieron Stoff" "Luigi" "Malcolm Darby"
+                                 "Mandragor Mistica" "Mcilwaft" "Murk Uglustraxi" "Nick" "Poplar" "Sasha"
+                                 "Sean" "Simon" "Sina" "Tagg" "Till" "Tom" "Tom H. Cavalry" "Velho" "Vic"
+                                 "Vincent")
 ;; Walk-n-talk blurbs
 player-hurt-while-talking "~ player
 | Ugh! Damn it!"

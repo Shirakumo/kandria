@@ -34,9 +34,10 @@
         (format T "**~a**~@[~%  ~a~]~%" (or (getf user :name) "Anonymous") (getf user :message))))))
 
 (defun compile-dwellers (file)
-  (loop for user in (process file)
-        for dweller = (getf user :dweller)
-        when dweller collect dweller))
+  (sort (loop for user in (process file)
+              for dweller = (getf user :dweller)
+              when dweller collect dweller)
+        #'string<))
 
 (defun compile-discord-tags (file)
   (loop for user in (process file)
