@@ -1150,8 +1150,8 @@ void main(){
          (setf (vy vel) (max (- (p! slowfall-limit)) (vy vel))))
        ;; Limit when sliding down wall
        (cond ((and (null ground)
-                   (or (typep (svref collisions 1) '(or ground moving-platform))
-                       (typep (svref collisions 3) '(or ground moving-platform))))
+                   (or (typep (svref collisions 1) '(or (and ground (not slipblock)) moving-platform))
+                       (typep (svref collisions 3) '(or (and ground (not slipblock)) moving-platform))))
               (let ((attached (or (svref collisions 1) (svref collisions 3))))
                 (when (or (and (eq attached (svref collisions 1))
                                (<= 0 (vx vel)))
