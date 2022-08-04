@@ -396,7 +396,9 @@
    :pattern colors:gray)
   ((:text simple:text)
    (alloy:extent (alloy:pw -0.5) -18 (alloy:pw 2) (alloy:ph 1))
-   (title alloy:value)
+   (if (item-unlocked-p alloy:value (inventory alloy:renderable))
+       (title alloy:value)
+       (language-string 'unknown-lore-item))
    :wrap T
    :pattern colors:white
    :font (setting :display :font)
@@ -548,7 +550,7 @@
             ;; FIXME: due to dual-mapping up/down analog to focus-prev/next we can't do grid navigation properly...
             (let* ((layout (make-instance 'alloy:border-layout))
                    (focus (make-instance 'alloy:focus-grid :width 7))
-                   (list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 20) :col-sizes '(120 120 120 120 120 120 120) :row-sizes '(120)))
+                   (list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 20) :col-sizes '(120 120 120 120 120 120) :row-sizes '(120)))
                    (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                    (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
               (alloy:enter "" layout :place :north :size (alloy:un 50))

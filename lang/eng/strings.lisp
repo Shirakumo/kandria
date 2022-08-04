@@ -775,6 +775,7 @@ save-overwrite-reminder "This will overwrite a save from
 ~a
 Are you sure?"
 show-lore-of-item "Examine"
+unknown-lore-item "???"
 new-quest-started "New quest: ~a"
 quest-successfully-completed "Quest completed: ~a"
 quest-completion-failed "Quest incomplete: ~a"
