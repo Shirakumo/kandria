@@ -222,6 +222,16 @@
       (harmony:play (// 'sound 'ui-no-more-to-focus) :reset T)
       (harmony:play (// 'sound 'ui-focus-next) :reset T)))
 
+(defmethod alloy:handle :around ((ev alloy:focus-left) (wheel item-wheel))
+  (if (= (alloy:value wheel) (decf (alloy:value wheel) (* (alloy:step wheel) 10)))
+      (harmony:play (// 'sound 'ui-no-more-to-focus) :reset T)
+      (harmony:play (// 'sound 'ui-focus-next) :reset T)))
+
+(defmethod alloy:handle :around ((ev alloy:focus-right) (wheel item-wheel))
+  (if (= (alloy:value wheel) (incf (alloy:value wheel) (* (alloy:step wheel) 10)))
+      (harmony:play (// 'sound 'ui-no-more-to-focus) :reset T)
+      (harmony:play (// 'sound 'ui-focus-next) :reset T)))
+
 (defmethod alloy:accept :after ((wheel item-wheel))
   (alloy:focus-next (alloy:focus-parent wheel))
   (alloy:focus-next (alloy:focus-parent wheel)))
