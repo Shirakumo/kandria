@@ -18,7 +18,7 @@
 | ! eval (activate 'move-npc)
 |? (complete-p 'site-2 'site-3-listener)
 | ~ player
-| | "That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
+| | "That was the last place to check. If the Council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
 | ! eval (activate 'task-return)
 |?
 | ~ player
@@ -35,7 +35,7 @@
 | ! eval (activate 'move-npc)
 |? (complete-p 'site-1 'site-3-listener)
 | ~ player
-| | "That was the last place to check. If the council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
+| | "That was the last place to check. If the Council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
 | ! eval (activate 'task-return)
 |?
 | ~ player
@@ -43,7 +43,7 @@
 
 # task-return/interact-return
 ~ cerebat-good-trader
-| I see no council. Tell me there's good news.
+| I see no Council. Tell me there's good news.
 ~ player
 - I wish I could.
   ~ cerebat-good-trader
@@ -73,7 +73,7 @@
 ~ cerebat-good-trader
 | Do you still have the headdress?
 ! eval (retrieve 'item:headdress 1)
-| Thank you. This might be all that's left of the council.
+| Thank you. This might be all that's left of the Council.
 | ... Of "Antonio"(yellow).
 | I'm grateful, but I need some time on my own. Please.
 ~ player
