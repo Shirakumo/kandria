@@ -19,7 +19,7 @@
 | We put greens like ye through the vegetable grinder.
 | It's an assault course - designed it meself o' course, and naturally I hold all the records.
 | "Find the locations, don't get killed, destroy the targets"(orange). Them's yer orders.
-| Beat me times - heck, just impress me - and maybe ye will call yerself a Wraw. Better than been a lilly-livered Cerebat, right?!
+| Beat me times - heck, just impress me - and maybe ye will call yerself a Wraw. Better than been a lily-livered Cerebat, right?
 | "I'll be waiting"(orange), greeny.
 ! eval (activate 'sq10-race)
 ! eval (complete task)

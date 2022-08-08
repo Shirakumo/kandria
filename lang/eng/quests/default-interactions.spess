@@ -289,9 +289,9 @@
 ; Northern accent, similar to Zelah
 ~ wraw-sergeant
 ? (complete-p 'Q10-WRAW)
-| | You missed the boat, bud.
+| | Ye missed the boat, buddy.
 |?
-| | Report for training, you scum.
+| | Report for training, ye scum.
 
 ; WORLD NPC
 
