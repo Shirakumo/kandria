@@ -614,11 +614,19 @@
 ;; soldier template (used for some minor quest NPCs e.g. Zelah's bodyguards)
 (define-shader-entity soldier (paletted-npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
-   (nametag :initform (@ soldier-nametag))
+   (nametag :initform (@ unknown-nametag))
    (palette :initform (// 'kandria 'rogue-palette))
    (palette-index :initform 0))
   (:default-initargs
    :default-interaction 'soldier
+   :sprite-data (asset 'kandria 'rogue)))
+
+(define-shader-entity npc-soldier (paletted-npc creatable)
+  ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (@ unknown-nametag))
+   (palette :initform (// 'kandria 'rogue-palette))
+   (palette-index :initform 0))
+  (:default-initargs
    :sprite-data (asset 'kandria 'rogue)))
 
 ;; WORLD NPCs (they roam)
