@@ -32,6 +32,7 @@ semi-engineer-4-nametag "Nathalie" ;; female
 semi-engineer-5-nametag "Cath" ;; female
 cerebat-good-trader-nametag "Cerebat Trader" ;; non-binary
 semi-spy-nametag "Semi Spy" ;; female
+wraw-sergeant-nametag "Wraw Drill Sergeant" ;; female
 unknown-nametag "???" ;; gender unknown
 zelah-nametag "Zelah" ;; male
 soldier-nametag "Wraw Soldier" ;; gender unknown

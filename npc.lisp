@@ -484,6 +484,7 @@
 (define-unit-resolver-methods stop-following (unit))
 (define-unit-resolver-methods lead (unit unit unit))
 
+;; PRIMARY NPCs
 (define-shader-entity fi (npc creatable)
   ((name :initform 'fi)
    (profile-sprite-data :initform (asset 'kandria 'fi-profile))
@@ -568,6 +569,7 @@
 (define-shader-entity paletted-npc (paletted-entity npc)
   ())
 
+;; QUEST NPCs (don't roam)
 (define-shader-entity cerebat-trader-quest (npc creatable)
   ((name :initform 'cerebat-trader-quest)
    (profile-sprite-data :initform (asset 'kandria 'cerebat-trader-profile))
@@ -609,7 +611,7 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-hunter)))
 
-;; Zelah's bodyguards
+;; soldier template (used for some minor quest NPCs e.g. Zelah's bodyguards)
 (define-shader-entity soldier (paletted-npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ soldier-nametag))
@@ -619,7 +621,7 @@
    :default-interaction 'soldier
    :sprite-data (asset 'kandria 'rogue)))
 
-;; world NPCs
+;; WORLD NPCs (they roam)
 (define-shader-entity villager-hunter (roaming-npc creatable)
   ((name :initform (generate-name "HUNTER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
@@ -628,7 +630,6 @@
    :default-interaction 'npc
    :sprite-data (asset 'kandria 'villager-hunter)))
 
-;; world NPCs
 (define-shader-entity villager (paletted-npc roaming-npc creatable)
   ((name :initform (generate-name "VILLAGER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
@@ -658,6 +659,16 @@
   (stage (// 'kandria 'villager-female 'vertex-array) area)
   (stage (// 'kandria 'villager-female 'texture) area))
 
+;; trader world NPCs (don't roam - don't have walk animation, and consistent with traders staying put)
+(define-shader-entity cerebat-trader (npc creatable)
+  ((name :initform (generate-name "TRADER"))
+   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
+  (:default-initargs
+   :default-interaction 'npc
+   :sprite-data (asset 'kandria 'sahil)))
+
+;; ZELAH special enemy
 (define-shader-entity zelah (npc creatable)
   ((name :initform 'zelah)
    (profile-sprite-data :initform (asset 'kandria 'zelah-profile))
@@ -677,7 +688,7 @@
    :default-interaction 'semi-engineer-team
    :sprite-data (asset 'kandria 'villager-engineer)))
 
-;; world NPCs
+;; engineer world NPCs
 (define-shader-entity semi-engineer-base (roaming-npc creatable)
   ((name :initform (generate-name "ENGINEER"))
    (profile-sprite-data :initform (asset 'kandria 'engineer-profile))
@@ -685,15 +696,6 @@
   (:default-initargs
    :default-interaction 'semi-engineer-base
    :sprite-data (asset 'kandria 'villager-engineer)))
-
-;; world NPCs (non-roaming)
-(define-shader-entity cerebat-trader (npc creatable)
-  ((name :initform (generate-name "TRADER"))
-   (profile-sprite-data :initform (asset 'kandria 'villager-profile))
-   (nametag :initform (alexandria:random-elt (append (@ villager-female-nametags) (@ villager-male-nametags)))))
-  (:default-initargs
-   :default-interaction 'npc
-   :sprite-data (asset 'kandria 'sahil)))
 
 (define-random-draw bar
   (villager 1.0)

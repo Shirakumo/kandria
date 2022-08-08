@@ -1,0 +1,34 @@
+; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
+; Northern/pirate accent, similar to Zelah
+# intro/intro-chat
+~ wraw-sergeant
+| Who are ye? Why aren't ye in uniform?
+| Je-suss, we're really scraping the barrel now. How'd I land this ass-end of a job...
+| Ye'd better show me what ye can do and quickly if ye wanna join the Wraw.
+! eval (setf (nametag (unit 'wraw-sergeant)) (@ wraw-sergeant-nametag))
+~ player
+- Yessir!
+  ~ wraw-sergeant
+  | Mmm, maybe there's hope for ye yet.
+- What do I have to do?
+  ~ wraw-sergeant
+  | Haha, what //don't// ye have to do.
+- No thanks.
+  < leave
+~ wraw-sergeant
+| We put greens like ye through the vegetable grinder.
+| It's an assault course - designed it meself o' course, and naturally I hold all the records.
+| "Find the locations, don't get killed, destroy the targets"(orange). Them's yer orders.
+| Beat me times - heck, just impress me - and maybe ye will call yerself a Wraw. Better than been a lilly-livered Cerebat, right?!
+| "I'll be waiting"(orange), greeny.
+! eval (activate 'sq10-race)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ wraw-sergeant
+| Get outta me sight.
+
+; player can never join the Wraw, no matter how well they do - if they do badly, then it speaks for itself, if they do well, then the sergeant is spiteful; and before long the quest is curtailed since both the player, and the sergeant have bigger things to worry about - the full-scale Wraw invasion
+; We don't clarify here either, but hopefully through gameplay the player will understand, that they are basically using the Wraw here for practice - the quest log does acknowledge this though
+; these par times are supposedly set by the sergeant themselves, but given they're challenging even for an android, I think we can doubt that

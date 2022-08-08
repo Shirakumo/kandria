@@ -1,0 +1,74 @@
+# hub
+~ wraw-sergeant
+| So, ye still interested are ya? There's no turning back now.
+| "Find the locations, don't get killed, destroy the targets"(orange). I'll drill that into ye skull if it's the last thing I do.
+| Ye'll be facing "training mannequins and feral dogs"(orange).
+| What did ye expect? That's the extent of the threats to us out there, so it's what ye'll do.
+| They say the mannequins are what androids used to look like - so don't get scared!
+| The prize for ye is nothing short of Wraw immortality. Sound good?
+| <-GOOD!->
+| There are "5 courses"(orange) for ye to go at, easy to hard. Though honestly, I can't see ye getting past the first one.
+| Alright then: "are ye ready to die"(orange)?
+! eval (clear-pending-interactions)
+
+;  "They say the mannequins are what androids used to look like" - a joke amongst the Wraw. Ofc, few know that Zelah actually has an android (you), if that's even true that he has one...
+
+# start
+? (timer-quest)
+| ~ wraw-sergeant
+| | What're ye playing at? "Ye're on the clock already"(orange)!
+| < quit
+
+~ wraw-sergeant
+| This is ye mission:
+| "{(quest:title (quest:find-named 'race task))}."(orange)
+| My times to beat for this course are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
+? (var 'pb)
+| | Ye "personal best"(orange) for this course is "{(format-relative-time pb)}"(orange).
+~ wraw-sergeant
+| Deploy!
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+# cancel
+~ wraw-sergeant
+| I knew this would be too much for ya. "Ye sur ye want to stop the race?"(orange) There's much shame in that.
+~ player
+- No, I'll continue the race.
+  ~ wraw-sergeant
+  | That's the spirit. Now <-GET MOVING!->
+- Yes, end it.
+  ~ wraw-sergeant
+  | Ye'll always be green. Or yella.
+  ! eval (activate 'cancel-it)
+
+# return
+~ wraw-sergeant
+| Stop the clock!
+| Reports confirm ye eliminated the targets. Well done.
+| The time was: "{(format-relative-time (clock quest))}"(orange).
+? (and pb (< pb (clock quest)))
+| | Ye "didn't better"(orange) yer record of "{(format-relative-time pb)}"(orange).
+| | So ye won't be joining the Wraw today. Lucky for us.
+|?
+| ? (not (null pb))
+| | | Ye got a "personal best"(orange) - whoop-di-doo.
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | ... Wait. How was that quicker than me "gold"(orange) time?!...
+| | | <-WHAT-> are ye not telling me?
+| |? (< pb silver)
+| | | And that was quicker than me "silver"(orange) time...
+| | | No, that can't be right. Something's wrong. Something's very wrong.
+| |? (< pb bronze)
+| | | Hang on, that was quicker than me "bronze"(orange) time...
+| | | Something smells fishy here.
+| |?
+| | | But it was "slower than me bronze time"(orange). To be expected.
+| | | That's nowt to be ashamed of. Ye're just not at me calibre. Or the calibre of any Wraw.
+  
+~ wraw-sergeant
+| Ye ain't the real deal. Keep tryin'.
+! eval (activate 'complete-it)
+
+# quit

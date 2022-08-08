@@ -284,6 +284,15 @@
 |?
 | | <-Shoo->. Get out of here! What're you trying to do, blow my cover?
 
+# wraw-sergeant
+; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
+; Northern accent, similar to Zelah
+~ wraw-sergeant
+? (complete-p 'Q10-WRAW)
+| | You missed the boat, bud.
+|?
+| | Report for training, you scum.
+
 ; WORLD NPC
 
 ; Generic NPCs, gender unknown, split per region

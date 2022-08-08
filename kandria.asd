@@ -179,6 +179,7 @@
                              (:file "sq8-item")
                              (:file "sq9-intro")
                              (:file "sq9-race")
+                             (:file "sq10-intro")
                              (:file "sq10-race")
                              (:file "sq-act1-intro")
                              (:file "trader-arrive")
