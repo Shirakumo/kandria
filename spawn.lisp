@@ -101,7 +101,7 @@
         never (slot-boundp entity 'container)))
 
 (defmethod quest:status ((spawner spawner))
-  (if (done-p spawner) :complete :unresolved))
+  (if (active-p spawner) :unresolved :complete))
 
 (define-unit-resolver-methods done-p (unit))
 
