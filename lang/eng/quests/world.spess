@@ -353,7 +353,7 @@
 # task-world-all/cerebat-mush
 ~ player
 | "It's so humid down here, no wonder it's lush."(light-gray, italic)
-| (:giggle)"Thank God I don't sweat, or I'd be watering the plants from my armpits."(light-gray, italic)
+| (:giggle)"Thank God I don't sweat, or I'd be watering the plants with my armpits."(light-gray, italic)
 
 ; a lake area; the water is pumped from here to the Semis and Noka living areas far above
 ; may or may not know the names of the factions in the levels above at this point, hence ambiguity
