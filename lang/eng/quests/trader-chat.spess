@@ -42,35 +42,42 @@
 |   | Didn't last long after the wolves got at her throat though. Poor Celina.
 |   < talk
 | - Do you know how to examine me?
-|   ~ trader
-|   | Ah... examine you?
-|   | (:jolly)Oh, examine you!
-|   | Someone given you a warm welcome, have they?
-|   ~ player
-|   - Jack.
-|     ~ trader
-|     | Yeah, that figures. He doesn't like new people.
-|     | Heck, he still doesn't like me - I mean, what's not to love?
-|   - Jack and Fi.
-|     ~ trader
-|     | Oh really? I expected nothing less from Jack. Fi I'm surprised about.
-|     | Mind you, she has a lot of alqarf on her plate. Give her some time.
-|   - Everyone.
-|     ~ trader
-|     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|   - Everyone except you and Catherine.
-|     ~ trader
-|     | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|     | I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
-|   - Let's talk about something else.
-|     < talk
-|   ~ trader
-|   | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
-|   | (:normal)Yes... trust. It was always a common problem with androids.
-|   | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
-|   | I can fix superficial damage, but I'm no engineer. Let alone a software one.
-|   | Sorry, habibti. It looks like you'll have to change their minds the old-fashioned way.
-|   < talk
+|   ? (not (var 'examine-chat))
+|   | ~ trader
+|   | | Ah... examine you?
+|   | | (:jolly)Oh, examine you!
+|   | | Someone given you a warm welcome, have they?
+|   | ~ player
+|   | - Jack.
+|   |   ~ trader
+|   |   | Yeah, that figures. He doesn't like new people.
+|   |   | Heck, he still doesn't like me - I mean, what's not to love?
+|   | - Jack and Fi.
+|   |   ~ trader
+|   |   | Oh really? I expected nothing less from Jack. Fi I'm surprised about.
+|   |   | Mind you, she has a lot of alqarf on her plate. Give her some time.
+|   | - Everyone.
+|   |   ~ trader
+|   |   | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
+|   | - Everyone except you and Catherine.
+|   |   ~ trader
+|   |   | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
+|   |   | I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
+|   | - Let's talk about something else.
+|   |   < talk
+|   | ~ trader
+|   | | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon come around.
+|   | | (:normal)Yes... trust. It was always a common problem with androids.
+|   | | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
+|   | | I can fix superficial damage, but I'm no engineer. Let alone a software one.
+|   | | Sorry, habibti. It looks like you'll have to change their minds the old-fashioned way.
+|   | ! eval (setf (var 'examine-chat) T)
+|   | < talk
+|   |?
+|   | ~ trader
+|   | | That's still a no I'm afraid, habibti.
+|   | | I hope you can show them you can be trusted. I really do.
+|   | < talk
 | - That'll do.
 |   < leave
 |? (and (complete-p 'q4-find-alex) (not (complete-p 'q7-my-name)))
@@ -109,34 +116,40 @@
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
 | ~ player
 | - When are you moving on?
-|   ~ trader
-|   | (:jolly)What, you don't want to buy supplies?
-|   | (:normal)Truth be told, I heard the rumours about the Wraw in Cerebat territory.
-|   | I would've moved on already if not for that.
-|   | Are they true, the rumours?
-|   ~ player
-|   - [(complete-p 'q8a-secret-supplies) I'm afraid so - but there's a good reason.|]
-|     ~ trader
-|     | Alqarf!
-|     | I'm sure there is. I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
-|   - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out.|]
-|     ~ trader
-|     | Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
-|   -  [(complete-p 'q8a-secret-supplies) (Lie) I'm not sure.|]
-|     ~ trader
-|     | Still, I'd rather not risk it. I think I'll stay here a while longer.
-|   - [(not (complete-p 'q8a-secret-supplies)) I'm not sure.|]
-|     ~ trader
-|     | Still, I'd rather not risk it. I think I'll stay here a while longer.
-|   - [(not (complete-p 'q8a-secret-supplies)) I don't think so.|]
-|     ~ trader
-|     | Well that's something. But I think I'll stay here a while longer, just in case.
-|   - I can't say.
-|     ~ trader
-|     | I understand, habibti.
-|     | Still, I think it would be unwise for me to leave your borders right now. I'm staying right here.
-|   - Let's talk about something else.
-|   < talk
+|   ? (not (var 'rumours-told))
+|   | ~ trader
+|   | | (:jolly)What, you don't want to buy supplies?
+|   | | (:normal)Truth be told, I heard the rumours about the Wraw in Cerebat territory.
+|   | | I would've moved on already if not for that.
+|   | | Are they true, the rumours?
+|   | ~ player
+|   | - [(complete-p 'q8a-secret-supplies) I'm afraid so - but there's a good reason.|]
+|   |   ~ trader
+|   |   | Alqarf!
+|   |   | I'm sure there is. I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
+|   | - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out.|]
+|   |   ~ trader
+|   |   | Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
+|   | -  [(complete-p 'q8a-secret-supplies) (Lie) I'm not sure.|]
+|   |   ~ trader
+|   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.
+|   | - [(not (complete-p 'q8a-secret-supplies)) I'm not sure.|]
+|   |   ~ trader
+|   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.
+|   | - [(not (complete-p 'q8a-secret-supplies)) I don't think so.|]
+|   |   ~ trader
+|   |   | Well that's something. But I think I'll stay here a while longer, just in case.
+|   | - I can't say.
+|   |   ~ trader
+|   |   | I understand, habibti.
+|   |   | Still, I think it would be unwise for me to leave your borders right now. I'm staying right here.
+|   | - Let's talk about something else.
+|   | ! eval (setf (var 'rumours-told) T)
+|   | < talk
+|   |?
+|   | ~ trader
+|   | | Not yet, that's for sure - not with these Wraw and Cerebat rumours swilling around like... well, like swill.
+|   | < talk
 | - What do you know about the Cerebats?
 |   ~ trader
 |   | They're the self-proclaimed council around here, I know that much.
@@ -149,35 +162,38 @@
 |   | I'm afraid not, habibti.
 |   < talk
 | - [(var 'trader-daughter) What happened to your daughter?|]
-|   ~ trader
-|   | ...
-|   | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
-|   | Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as Catherine.
-|   | I lost her on the roads, just like Celina, my ox.
-|   | 'Cept it wasn't wolves that got her. It was people.
-|   | Rogues, I think. Maybe a Wraw hunting pack. I wasn't really in a fit state to see who they were.
-|   | They took her, anyway. And I never saw her again.
-|   ~ player
-|   - I'm so sorry.
-|     ~ trader
-|     | Thank you, {(nametag player)}.
-|     | It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
-|     < talk
-|   - Sorry for making you relive it.
-|     ~ trader
-|     | It's okay, {(nametag player)}.
-|     | Khawla should be remembered and talked about. I should speak her name like I always did.
-|     < talk
-|   - Could she still be alive?
-|     ~ trader
-|     | No. Khawla's dead. Slaves don't live very long.
-|     | Or she met an even worse end.
-|     | ... I'd rather not think about that.
-|     | Now I remember the good times instead.
-|     | Times that should be remembered and talked about. I should speak her name like I always did.
-|     < talk
-|   - Let's talk about something else.
-|     < talk
+|   ? (not (var 'daughter-told))
+|   | ~ trader
+|   | | ...
+|   | | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
+|   | | Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as Catherine.
+|   | | I lost her on the roads, just like Celina, my ox.
+|   | | 'Cept it wasn't wolves that got her. It was people.
+|   | | Rogues, I think. Maybe a Wraw hunting pack. I wasn't really in a fit state to see who they were.
+|   | | They took her, anyway. And I never saw her again.
+|   | ~ player
+|   | - I'm so sorry.
+|   |   ~ trader
+|   |   | Thank you, {(nametag player)}.
+|   |   | It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
+|   | - Sorry for making you relive it.
+|   |   ~ trader
+|   |   | It's okay, {(nametag player)}.
+|   |   | Khawla should be remembered and talked about. I should speak her name like I always did.
+|   | - Could she still be alive?
+|   |   ~ trader
+|   |   | No. Khawla's dead. Slaves don't live very long.
+|   |   | Or she met an even worse end.
+|   |   | ... I'd rather not think about that.
+|   |   | Now I remember the good times instead.
+|   |   | Times that should be remembered and talked about. I should speak her name like I always did.
+|   | - Let's talk about something else.
+|   | ! eval (setf (var 'daughter-told) T)
+|   | < talk
+|   |?
+|   | ~ trader
+|   | | Khawla's gone, that's all there is to it. Now I just have to remember the good times instead.
+|   | < talk
 | - I need to go.
 |   < leave
 |? (and (complete-p 'q10-wraw) (not (complete-p 'q11-intro)))
