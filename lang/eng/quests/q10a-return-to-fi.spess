@@ -28,7 +28,7 @@
 ~ player
 - The Wraw are coming.
   ~ jack
-  | (:annoyed)We know that already.
+  | (:annoyed)We know that already - they're coming for us.
 - They've built an invasion army.
   ~ fi
   | (:unsure)...
@@ -42,7 +42,7 @@
 | And I think they're on the march.
 ~ fi
 | (:unsure)...
-| ... But why? Zelah is not a warmonger.
+| ... But why? Zelah only attacked the Cerebats over the water. He's not a warmonger.
 ~ jack
 | (:annoyed)He is now! He'll enslave us, or kill us.
 ~ fi
