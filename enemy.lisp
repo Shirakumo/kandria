@@ -483,7 +483,7 @@
   (item:small-health-pack 0.5)
   (item:medium-health-pack 0.1)
   (item:large-health-pack 0.01)
-  (item:coolant 1)
+  (item:thermal-fluid 1)
   (item:heavy-spring 1)
   (item:simple-circuit 1)
   (item:cable 1))

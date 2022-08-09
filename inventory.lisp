@@ -685,6 +685,7 @@
   (item:rich-soil 5)
   (item:quartz-crystal 5)
   (item:pearl 5)
+  (item:thermal-fluid 5)
   (item:rusted-clump 7))
 ;; placement: region 2 empty cave areas (having more items here than otherwise would have due to most of the region being caves - using mushroom spawners too ofc)
 
