@@ -434,7 +434,7 @@
 ; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot) - thus we raise suspicion here if they don't know, or confirm suspicion if they do (or it may just be interpreted as prejudice towards androids)
 # task-world-all/cerebat-market
 ~ player
-| "It's a busy market day, and I'm getting a disproportionate number of sideways glances."(light-gray, italic)
+| "It's a busy market, and I'm getting a disproportionate number of sideways glances."(light-gray, italic)
 
 ; warehouse/factory
 ; "Some of the boxes are covered in ash." - this is a clue that the Wraw have been suppling / have taken over the Cerebats. But it needs to be vague enough to make sense both before and after the player has discovered the Wraw takeover, at a time when they may or may not know as well that the Wraw come from a volcanic area. It also can't be too specific to serve as a plot clue, since this confirmation only comes from the cerebat trader during q8a.
