@@ -121,6 +121,10 @@
   (plain-transition :wrapping :repeat)
   (main-menu :min-filter :linear :mag-filter :linear)
   (logo :min-filter :linear :mag-filter :linear)
+  (dda-logo :min-filter :linear :mag-filter :linear)
+  (prohelvetia-logo :min-filter :linear :mag-filter :linear)
+  (shirakumo-logo :min-filter :linear :mag-filter :linear)
+  (trial-logo :min-filter :linear :mag-filter :linear)
   (wind :wrapping :repeat :min-filter :nearest :mag-filter :nearest)
   (region2-overlay :wrapping :repeat))
 

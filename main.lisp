@@ -264,7 +264,7 @@ Possible sub-commands:
   (cond ((state main)
          (load-game (state main) main))
         (T
-         (show-panel 'main-menu))))
+         (show-panel 'startup-screen))))
 
 (define-setting-observer video-mode :display :resolution (value)
   (when *context*

@@ -93,7 +93,8 @@
                              (:file "cheats")
                              (:file "demo-intro")
                              (:file "save-icon")
-                             (:file "speedrun")))
+                             (:file "speedrun")
+                             (:file "startup")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
