@@ -40,7 +40,8 @@
       (for:for ((entity over region))
                (handler-case
                    (when (and (not (spawned-p entity))
-                              (not (eql 'layer (type-of entity))))
+                              (not (eql 'layer (type-of entity)))
+                              (not (eql 'bg-layer (type-of entity))))
                      (princ* (encode-payload entity _b data world-v0) stream))
                  (no-applicable-encoder ())))))
   (unless (depot:entry-exists-p "init.lisp" depot)
@@ -52,7 +53,7 @@
         :description (description region)))
 
 (define-decoder (chunk world-v0) (initargs depot)
-  (destructuring-bind (&key name location size tile-data pixel-data layers background gi environment (visible-on-map-p T)) initargs
+  (destructuring-bind (&key name location size tile-data pixel-data layers background bg-overlay gi environment (visible-on-map-p T)) initargs
     (let ((graph (if (and (depot:entry-exists-p (format NIL "~a.graph" name) depot)
                           (<= (depot:attribute :write-date (depot:entry (format NIL "~a.graph" name) depot))
                               (depot:attribute :write-date (depot:entry pixel-data depot))))
@@ -71,6 +72,7 @@
                             :layers (loop for file in layers
                                           collect (depot:read-from (depot:entry file depot) 'byte))
                             :background (decode 'background-info background)
+                            :bg-overlay (if bg-overlay (decode 'asset bg-overlay) (// 'kandria 'placeholder))
                             :gi (decode 'gi-info gi)
                             :environment (when environment (environment environment))
                             :node-graph graph
@@ -94,6 +96,7 @@
             :pixel-data ,pixel-data
             :layers ,layers
             :background ,(encode (background chunk))
+            :bg-overlay ,(encode (bg-overlay chunk))
             :gi ,(encode (gi chunk))
             :environment ,(when (environment chunk) (name (environment chunk)))
             :visible-on-map-p ,(visible-on-map-p chunk))))

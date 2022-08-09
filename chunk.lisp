@@ -257,6 +257,53 @@ void main(){
   color.a *= visibility;
 }")
 
+(define-shader-entity bg-layer (layer)
+  ((overlay :initarg :overlay :initform (// 'kandria 'placeholder) :accessor overlay :type texture))
+  (:inhibit-shaders (layer :fragment-shader)))
+
+(defmethod stage :after ((layer bg-layer) (area staging-area))
+  (stage (overlay layer) area))
+
+(defmethod render :before ((layer bg-layer) (program shader-program))
+  (setf (uniform program "overlay") 4)
+  (gl:active-texture :texture4)
+  (gl:bind-texture :texture-2d (gl-name (overlay layer))))
+
+(define-class-shader (bg-layer :fragment-shader)
+  "
+uniform usampler2D tilemap;
+uniform sampler2D albedo;
+uniform sampler2D absorption;
+uniform sampler2D normal;
+uniform sampler2D overlay;
+uniform float visibility = 1.0;
+const int tile_size = 16;
+in vec2 pix_uv;
+in vec2 world_pos;
+out vec4 color;
+
+void main(){
+  // Calculate tilemap index and pixel offset within tile.
+  ivec2 pixel_xy = ivec2((pix_uv-floor(pix_uv)) * tile_size);
+  ivec2 map_xy = ivec2(pix_uv);
+
+  // Look up tileset index from tilemap and pixel from tileset.
+  uvec2 tile = texelFetch(tilemap, map_xy, 0).rg;
+  ivec2 tile_xy = ivec2(tile)*tile_size+pixel_xy;
+  color = texelFetch(albedo, tile_xy, 0);
+  float a = texelFetch(absorption, tile_xy, 0).r;
+  vec2 n = texelFetch(normal, tile_xy, 0).rg-0.5;
+
+  if(color.rgb == vec3(1,0,1))
+    color = texture(overlay, world_pos/textureSize(overlay, 0), 0);
+
+  if(abs(n.x) < 0.1 && abs(n.y) < 0.1)
+    color = apply_lighting_flat(color, vec2(0), 1-a, world_pos);
+  else
+    color = apply_lighting(color, vec2(0), 1-a, normalize(n), world_pos);
+  color.a *= visibility;
+}")
+
 (define-shader-entity chunk (shadow-caster layer solid ephemeral collider creatable)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
@@ -266,6 +313,8 @@ void main(){
               :type tile-data :documentation "The tile data used to display the chunk.")
    (background :initform (background 'debug) :initarg :background :accessor background
                :type background-info :documentation "The background to show in the chunk.")
+   (bg-overlay :initform (// 'kandria 'placeholder) :initarg :bg-overlay :accessor bg-overlay
+               :type texture)
    (gi :initform (gi 'none) :initarg :gi :accessor gi
        :type gi-info :documentation "The lighting to show in the chunk.")
    (name :initform (generate-name "CHUNK"))
@@ -280,13 +329,13 @@ void main(){
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
   (let* ((size (size chunk))
-         (layers (loop for i from 0
-                       for data in layers
-                       collect (make-instance 'layer :size size
-                                                     :location (location chunk)
-                                                     :tile-data tile-data
-                                                     :pixel-data data
-                                                     :layer-index i))))
+         (layers (list* (make-instance 'bg-layer :size size :location (location chunk) :layer-index 0
+                                                 :tile-data tile-data :pixel-data (first layers)
+                                                 :overlay (bg-overlay chunk))
+                  (loop for i from 1
+                        for data in (rest layers)
+                        collect (make-instance 'layer :size size :location (location chunk) :layer-index i
+                                                      :tile-data tile-data :pixel-data data)))))
     (setf (layers chunk) (coerce layers 'vector))
     (register-generation-observer chunk tile-data)))
 
@@ -306,6 +355,9 @@ void main(){
 (defmethod (setf size) :around (value (chunk chunk))
   ;; Ensure the size is never lower than a screen.
   (call-next-method (vmax value +tiles-in-view+) chunk))
+
+(defmethod (setf bg-overlay) :after (value (chunk chunk))
+  (setf (overlay (aref (layers chunk) 0)) value))
 
 (defmethod experience-reward ((chunk chunk))
   100)
@@ -361,6 +413,7 @@ void main(){
     ;; NOTE: Can't use region bvh here as we want to reach everything even things that aren't colliders
     (for:for ((entity over (region +world+)))
       (when (and (not (eql 'layer (type-of entity)))
+                 (not (eql 'bg-layer (type-of entity)))
                  (not (eql 'chunk (type-of entity)))
                  (contained-p entity chunk))
         (nv+ (location entity) diff)))
@@ -544,7 +597,8 @@ void main(){
     (handler-bind ((error #'continue))
       (for:for ((entity over (load-region (pathname-utils:subdirectory (root) "world" "regions" region) NIL)))
         (when (and (typep entity 'layer)
-                   (not (eql 'layer (type-of entity))))
+                   (not (eql 'layer (type-of entity)))
+                   (not (eql 'bg-layer (type-of entity))))
           (setf (gethash (format NIL "~a" (name entity)) chunks) T)
           (dotimes (i +layer-count+)
             (setf (gethash (format NIL "~a-~d" (name entity) i) chunks) T)))))

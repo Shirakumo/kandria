@@ -342,6 +342,7 @@
         (when (and at-point
                    ;; FIXME: this is terrible
                    (not (eql 'layer (type-of entity)))
+                   (not (eql 'bg-layer (type-of entity)))
                    (or (null result)
                        (< (vlength (bsize at-point))
                           (vlength (bsize result)))))
