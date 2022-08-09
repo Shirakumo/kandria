@@ -382,7 +382,9 @@
   (setf (ai-state npc) :move-to))
 
 (defmethod collides-p ((npc roaming-npc) (block stopper) hit)
-  (not (eql :move-to (ai-state npc))))
+  (and (not (eql :move-to (ai-state npc)))
+       (/= 2 (car (tile (tv- (hit-location hit) #.(vec 0 16))
+                        (chunk npc))))))
 
 (defmethod minimum-idle-time ((npc roaming-npc)) 5)
 
