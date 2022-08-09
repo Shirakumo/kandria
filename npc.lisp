@@ -383,6 +383,7 @@
 
 (defmethod collides-p ((npc roaming-npc) (block stopper) hit)
   (and (not (eql :move-to (ai-state npc)))
+       (chunk npc)
        (/= 2 (car (tile (tv- (hit-location hit) #.(vec 0 16))
                         (chunk npc))))))
 
