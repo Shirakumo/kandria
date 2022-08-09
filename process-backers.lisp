@@ -62,7 +62,7 @@
 
 (defun clean-discord-name (name)
   (destructuring-bind (name &optional tag) (uiop:split-string name :separator "#")
-    (format NIL "~a~@[#~a~]" (trim name) (when tag (trim tag)))))
+    (format NIL "~a~@[#~a~]" (string-left-trim "@" (trim name)) (when tag (trim tag)))))
 
 (defun compile-discord (tag-file rewards-file)
   (let ((rewards (process-rewards rewards-file)))
