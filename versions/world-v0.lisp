@@ -72,7 +72,7 @@
                             :layers (loop for file in layers
                                           collect (depot:read-from (depot:entry file depot) 'byte))
                             :background (decode 'background-info background)
-                            :bg-overlay (if bg-overlay (decode 'asset bg-overlay) (// 'kandria 'placeholder))
+                            :bg-overlay (if bg-overlay (decode 'resource bg-overlay) (// 'kandria 'placeholder))
                             :gi (decode 'gi-info gi)
                             :environment (when environment (environment environment))
                             :node-graph graph
