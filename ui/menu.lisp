@@ -113,15 +113,12 @@
                          (colored:color 0.3 0.3 0.3)
                          colors:transparent))))
   (:label
-   :pattern (if (eql :strong (alloy:focus (alloy:focus-parent alloy:renderable)))
-                (if (alloy:active-p alloy:renderable)
-                    colors:white
-                    (colored:color 0.9 0.9 0.9))
-                (if (alloy:active-p alloy:renderable)
-                    (colored:color 0.5 0.5 0.5)
-                    (colored:color 0.3 0.3 0.3)))))
+   :pattern (if (alloy:active-p alloy:renderable)
+                colors:white
+                (colored:color 0.5 0.5 0.5))))
 
 (presentations:define-animated-shapes tab-button
+  (:label (simple:pattern :duration 0.2))
   (:border (simple:bounds :duration 0.2))
   (:background (simple:pattern :duration 0.2)))
 
