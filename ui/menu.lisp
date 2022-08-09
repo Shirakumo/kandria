@@ -545,13 +545,12 @@
 
         (with-tab-view (@ lore-menu)
           (dolist (category '(fish lore-item))
-            ;; FIXME: due to dual-mapping up/down analog to focus-prev/next we can't do grid navigation properly...
+            ;; FIXME: don't know how to navigate up/down rows due to flow layout
             (let* ((layout (make-instance 'alloy:border-layout))
-                   (focus (make-instance 'alloy:focus-grid :width 7))
-                   (list (make-instance 'alloy:grid-layout :cell-margins (alloy:margins 20) :col-sizes '(120 120 120 120 120 120) :row-sizes '(120)))
+                   (focus (make-instance 'alloy:focus-list))
+                   (list (make-instance 'alloy:flow-layout :cell-margins (alloy:margins 10 20) :min-size (alloy:size 100)))
                    (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                    (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
-              (alloy:enter "" layout :place :north :size (alloy:un 50))
               (alloy:enter list clipper)
               (alloy:enter scroll layout :place :east :size (alloy:un 20))
               (dolist (item (list-items (c2mop:class-prototype (c2mop:ensure-finalized (find-class category))) T))
