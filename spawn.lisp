@@ -101,7 +101,11 @@
         never (slot-boundp entity 'container)))
 
 (defmethod quest:status ((spawner spawner))
-  (if (active-p spawner) :unresolved :complete))
+  (if (or (not (active-p spawner))
+          ;; We only have a reflist if we got the spawns done...
+          (and (reflist spawner) (done-p spawner)))
+      :complete
+      :unresolved))
 
 (define-unit-resolver-methods done-p (unit))
 
