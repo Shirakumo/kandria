@@ -418,7 +418,7 @@ void main(){
          (tsize (target-size camera))
          (yspread (/ (vy tsize) 1.5)))
     (setf (lighting (unit 'lighting-pass +world+)) (gi 'one))
-    (harmony:play (// 'music 'menu))
+    (harmony:transition (// 'music 'menu) 1.0)
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
     (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
     (enter-and-load (make-instance 'logo :location (vec 0 80)) +world+ +main+)

@@ -22,7 +22,8 @@
      :voice-class 'harmony:music-segment
      ,@args))
 
-(define-track menu #p"menu.oga")
+(define-track menu #p"menu.oga"
+  :voice-class 'harmony:music-segment)
 (define-track scare #p"scare.oga")
 (define-track credits #p"credits.oga")
 (define-track bar #p"bar.oga")
