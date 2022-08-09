@@ -69,11 +69,11 @@
 # 4-interact-catherine/interaction
 ~ catherine
 | (:concerned)Look - the same cracks we saw on the last pipe. This isn't right.
-| (:normal)Jack, I think we've got trouble. Over.
+| Jack, I think we've got trouble. Over.
 ~ jack
 | What is it?
 ~ catherine
-| We're in the "Midwest Market"(red) - just like before the pipe is cracked, but there's no sign of a cave-in. Over.
+| (:concerned)We're in the "Midwest Market"(red) - just like before the pipe is cracked, but there's no sign of a cave-in. Over.
 ~ jack
 | ...
 | (:annoyed)It's sabotage. I knew it.
