@@ -46,18 +46,18 @@
 | (:unsure)...
 ? (not (complete-p 'q11a-bomb-recipe))
 | ~ jack
-| | (:annoyed)Why didn't ya put 'em outta their misery when you had the chance?! Who knows what else they've told them.
+| | (:annoyed)Why didn't ya put 'em outta their misery when you had the chance?! Who knows what else they'll tell them.
 | ~ player
 | - In cold blood?
 |   ~ jack
-|   | (:annoyed)Androids don't have blood.
+|   | Androids don't have blood.
 |   ~ fi
 |   | (:annoyed)I beg to differ, Jack.
 | - I'm not a killer.
 |   ~ jack
-|   | (:annoyed)Oh really? What's your body count since you woke up?
-|   | (:normal)I bet you've lost count.
-|   | (:annoyed)Not to mention all those you killed before the Calamity.
+|   | Oh really? What's your body count since you woke up?
+|   | I bet you've lost count.
+|   | Not to mention all those you killed before the Calamity.
 |   ~ fi
 |   | {(nametag player)} has helped and defended us. (:annoyed)And I won't hear your superstitions!
 |   ~ jack

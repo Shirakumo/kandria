@@ -12,7 +12,7 @@
 # task-world-all/noka-train
 ~ player
 | "It's a train. Well, half a train."(light-gray, italic)
-| "I wonder if people used this station to escape underground."(light-gray, italic)
+| "I wonder if during the Calamity, people used this station to escape underground."(light-gray, italic)
 
 ; Large stone rock/gate
 # task-world-all/stone-gate-large
