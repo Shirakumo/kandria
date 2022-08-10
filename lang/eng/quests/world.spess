@@ -234,7 +234,7 @@
 ? (not (complete-p (find-task 'q11a-bomb-recipe 'task-move-semis)))
 | | "The din of the base fades away up here - save for the interruption of fuzzy video feeds and comms chatter."(light-gray, italic)
 |?
-| | "Dark screens. It's either pitch black in the tunnels, or the rest of their CCTV cameras have gone offline."(light-gray, italic)
+| | "Dark screens. It's either pitch black in the tunnels, or the rest of their CCTV cameras have gone down."(light-gray, italic)
 
 ; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the Calamity)
 # task-world-all/semi-hub-5
