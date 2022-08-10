@@ -305,7 +305,7 @@
 
 (defmethod bsize ((fountain fountain))
   (let ((strength (strength fountain)))
-    (if (/= 0 (vx strength))
+    (if (<= (abs (vy strength)) (abs (vx strength)))
         #.(vec 32 16)
         #.(vec 16 32))))
 
@@ -347,15 +347,17 @@
   (setf (animation fountain) 'fire))
 
 (defmethod apply-transforms progn ((fountain fountain))
-  (let ((strength (strength fountain)))
-    (cond ((< 0 (vx2 strength))
+  (let* ((strength (strength fountain))
+         (x (vx2 strength))
+         (y (vy2 strength)))
+    (cond ((< (abs x) (abs y)))
+          ((< 0 x)
            (rotate-by 0 0 1 (/ PI -2))
            (translate-by -16 -32 0))
-          ((> 0 (vx2 strength))
+          ((> 0 x)
            (rotate-by 0 0 1 (/ PI +2))
            (translate-by +16 -32 0))
-          ((< 0 (vy2 strength)))
-          ((> 0 (vy2 strength))
+          ((> 0 y)
            (rotate-by 0 0 1 PI)
            (translate-by 0 -64 0)))))
 
