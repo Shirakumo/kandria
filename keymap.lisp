@@ -54,8 +54,8 @@
  (button :one-of (:a)))
 
 (trigger back
- (key :one-of (:escape))
- (button :one-of (:b)))
+ (key :one-of (:escape :c))
+ (button :one-of (:b :select)))
 
 (trigger mark-for-bulk
  (key :one-of (:m))
