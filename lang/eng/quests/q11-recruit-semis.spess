@@ -83,7 +83,7 @@
 ~ innis
 | (:sly)Send the android while we evacuate.
 ~ islay
-| (:normal)Aye, that might work. You'd need to go behind enemy lines.
+| (:normal)Aye, that might work. You'd need to go behind enemy lines again.
 | "The Wraw hoard this kind of stuff"(orange) - they should have plenty lying around.
 | (:normal)We need "blasting caps"(orange) for the detonators, and "charge packs"(orange) for the explosive.
 | I think "10 of each"(orange) should be enough, allowing for a few spares.
@@ -168,7 +168,7 @@
 - One more time.
   ~ islay
   | So: we need "10 blasting caps"(orange) and "20 charge packs"(orange).
-  | You should find them in "Wraw territory"(orange). Then "meet us at the Noka Camp on the surface"(orange).
+  | You should find them "deep in Wraw territory"(orange). Then "meet us at the Noka Camp on the surface"(orange).
 - Got it.
 ~ islay
 | Good luck, {(nametag player)}.

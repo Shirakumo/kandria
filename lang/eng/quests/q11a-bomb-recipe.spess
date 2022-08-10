@@ -8,7 +8,7 @@
 | Did you get the components for the bomb?
 ? (= 0 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
 | ~ islay
-| | Hurry, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).]
+| | Hurry, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).] "Search through Wraw territory"(orange).
 |?
 | ~ islay
 | | Good. I'll see these are passed to Catherine and fitted right away.
