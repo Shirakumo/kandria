@@ -10,7 +10,7 @@
                   "pool/**/*.*~"
                   "pool/**/*.kra"
                   "pool/**/#*#")
-          :copy ("CHANGES.mess" "CREDITS.mess" "README.mess"
+          :copy ("CHANGES.mess" "README.mess"
                                 ("bin/pool/trial/fps-texture.png"
                                  "pool/trial/fps-texture.png")))
   :itch (:user "Shinmera")
