@@ -58,7 +58,8 @@
   ((:label simple:text)
    (alloy:margins) alloy:text
    :font (setting :display :font)
-   :halign :middle :valign :middle)
+   :halign :middle :valign :middle
+   :wrap T)
   ((:border simple:rectangle)
    (alloy:extent 0 0 (alloy:pw 1) 1)))
 
@@ -86,9 +87,9 @@
 
 (defmethod initialize-instance :after ((panel main-menu) &key)
   (let ((layout (make-instance 'eating-constraint-layout))
-        (menu (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5) :min-size (alloy:size 100 30)))
+        (menu (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5) :min-size (alloy:size 120 30)))
         (focus (make-instance 'alloy:focus-list)))
-    (alloy:enter menu layout :constraints `((:center :w) (:bottom 20) (:height 300) (:width 250)))
+    (alloy:enter menu layout :constraints `((:center :w) (:bottom 20) (:height 300) (:width 300)))
     (macrolet ((with-button ((name &rest initargs) &body body)
                  `(make-instance 'main-menu-button :value (@ ,name) :on-activate (lambda ()
                                                                                    (discard-events +world+)
