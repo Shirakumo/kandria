@@ -167,7 +167,7 @@
 # soldier
 ; mix of soldiers of different genders who follow Zelah around, serving as his bodyguards
 ; Speech changes after the envoy confrontation, just before the battle
-~ soldier
+~ npc
 ? (complete-p 'Q14-ENVOY)
 | | [? I'm not afraid of an android. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]
 |? (complete-p 'Q13-PLANTING-BOMB)
