@@ -228,6 +228,9 @@
 (defmethod is-collider-for (thing (spring spring)) NIL)
 (defmethod collides-p ((moving moving) (spring spring) hit)
   (< 0.5 (iframes spring)))
+(defmethod collides-p ((player player) (spring spring) hit)
+  (and (call-next-method)
+       (not (eql 'climb-ledge (name (animation player))))))
 
 (defmethod stage :after ((spring spring) (area staging-area))
   (stage (// 'sound 'spring-fire) area))
