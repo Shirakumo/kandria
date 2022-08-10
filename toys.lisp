@@ -779,3 +779,9 @@ void main(){
   (when (< 0.0 (cooldown blocker))
     (when (< (decf (cooldown blocker) (dt ev)) 0.0)
       (setf (slot-value blocker 'animation) (aref (animations blocker) 0)))))
+
+(define-shader-entity windmill (ephemeral lit-animated-sprite creatable)
+  ((name :initform NIL)
+   (clock :initform (random 0.5))
+   (trial:sprite-data :initform (asset 'kandria 'windmill) :type asset)
+   (layer-index :initarg :layer-index :initform (1- +base-layer+) :accessor layer-index :type integer)))
