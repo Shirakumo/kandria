@@ -550,7 +550,7 @@
    (timer :initform 0.0 :accessor timer)
    (damage-input-scale :initform 0.5)
    (damage-accumulated :initform 0.0 :accessor damage-accumulated)
-   (level :initform 30))
+   (level :initform 20))
   (:default-initargs
    :sprite-data (asset 'kandria 'mech)))
 
