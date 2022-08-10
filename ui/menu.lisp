@@ -552,6 +552,7 @@
                    (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                    (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
               (alloy:enter list clipper)
+              (alloy:enter "" layout :place :south :size (alloy:un 20))
               (alloy:enter scroll layout :place :east :size (alloy:un 20))
               (dolist (item (list-items (c2mop:class-prototype (c2mop:ensure-finalized (find-class category))) T))
                 (let ((button (make-instance 'unlock-button :value item :inventory inventory)))
