@@ -73,7 +73,7 @@
   (stage (active-effects-sprite animatable) area))
 
 (defmethod experience-reward ((animatable animatable))
-  10)
+  (* (level animatable) 10))
 
 (defmethod health-percentage ((animatable animatable))
   (truncate (* 100 (health animatable)) (maximum-health animatable)))
