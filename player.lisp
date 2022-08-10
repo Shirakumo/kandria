@@ -246,6 +246,7 @@ void main(){
 
 (defmethod handle :after ((ev quickmenu) (player player))
   (unless (path player)
+    (setf (combat-time player) 0f0)
     (toggle-panel 'quick-menu)))
 
 (defmethod handle :after ((ev open-map) (player player))
