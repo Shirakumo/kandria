@@ -147,7 +147,7 @@
 ; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest
 ; Don't spoiler the engineers' realisation of you being an android - save that for the new chief
 ; Speech changes once they're on the surface as Noka allies, just before the battle
-~ semi-engineer-team
+~ npc
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | [? After all that work on the railway... Now this. | I'm use to welding rails not cleaning guns. | You're the one that saved us, aren't you.]
 |? (not (active-p (unit 'blocker-engineers)))
@@ -158,7 +158,7 @@
 # semi-engineer-base
 ; mix of engineers of different genders to be found around the Semis base
 ; Speech changes once they're on the surface as Noka allies, just before the battle
-~ semi-engineer-base
+~ npc
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | [? I hope there's something left to rebuild. | It's strange, just waiting. | With an android on our side, we can't lose. Can we? | I hope your fusion reactor is up to this fight.]
 |?
