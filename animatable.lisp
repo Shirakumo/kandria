@@ -27,7 +27,7 @@
   (* base-health (expt 1.05 level)))
 
 (defun exp-needed-for-level (level)
-  (floor (+ (* 1658 level) (* 100 (cos (* level 0.1))))))
+  (floor (+ (* 658 level) (* 500 (cos (* level 0.8))))))
 
 (define-shader-entity animatable (movable lit-animated-sprite)
   ((maximum-health :initarg :maximum-health :accessor maximum-health)
