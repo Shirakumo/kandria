@@ -252,7 +252,12 @@ void main(){
   (translate #.(vec 0.5 0 0)))
 
 (defmethod experience-reward ((fish fish))
-  50)
+  (cond ((< (price fish) 100)
+         50)
+        ((< (price fish) 500)
+         150)
+        (T
+         300)))
 
 (defmacro define-fish (name x y w h &key price)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.fish)))
