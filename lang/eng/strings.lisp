@@ -460,7 +460,7 @@ item:palette-ultimate-lifeform/description "Somehow this outfit looks really edg
 item:palette-space "Space"
 item:palette-space/description "Perfect fashion for busting a move."
 item:palette-street "Street"
-item:palette-street/description "Especially suited for street fights."
+item:palette-street/description "An outfit for those willing to risk anything, even their lives..."
 item:palette-k "K"
 item:palette-k/description "Gives you an advantage during baseline tests."
 item:palette-planet "Planet"
