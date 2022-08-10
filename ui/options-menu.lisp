@@ -290,7 +290,10 @@
       (control game-speed (:gameplay :game-speed) 'alloy:ranged-slider :range '(0.1 . 2.0) :step 0.1 :grid 0.1)
       (control damage-input-multiplier (:gameplay :damage-input) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)
       (control damage-output-multiplier (:gameplay :damage-output) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)
-      (control level-multiplier (:gameplay :level-multiplier) 'alloy:ranged-slider :range '(0.0 . 10.0) :step 0.1))
+      (control level-multiplier (:gameplay :level-multiplier) 'alloy:ranged-slider :range '(0.0 . 10.0) :step 0.1)
+      (alloy:enter (alloy:represent #@open-cheat-menu 'setting-label) layout)
+      (make-instance 'button :value #@generic-proceed-button :on-activate (lambda () (show-panel 'cheat-panel))
+                             :layout-parent layout :focus-parent focus))
     (with-tab language-settings
       (control game-language (:language) 'alloy:combo-set :value-set (languages))
       (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01 :grid 0.01)
