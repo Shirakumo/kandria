@@ -68,8 +68,11 @@
        (call-next-method)))
 
 (defmethod interact :after ((thing npc) (player player))
-  (move-to (v+ (location thing) (vec (* 16 (direction thing)) 0)) player)
-  (setf (pending-direction player) (- (direction thing))))
+  (let ((pos (v+ (location thing) (vec (* 16 (direction thing)) 0))))
+    (when (and (null (scan-collision-for player +world+ pos))
+               (not (null (scan-collision-for player +world+ (v+ pos (vec 0 -16))))))
+      (move-to pos player)
+      (setf (pending-direction player) (- (direction thing))))))
 
 (defmethod base-health ((npc npc))
   1000)
