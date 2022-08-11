@@ -130,8 +130,8 @@
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.wav")
   (T :volume 0.4)
-  (elevator-start :volume (db -6)) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
-  (elevator-stop :volume (db -6)) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
+  (elevator-start :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
+  (elevator-stop :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
   (elevator-recall :volume 0.8)
   (ui-transition :volume 1.0)
   (key-activate :volume 1.0)
@@ -168,7 +168,7 @@
   (fishing-begin-jingle :volume 0.2)
   (fishing-bad-catch :volume 0.2)
   (fishing-good-catch :volume 0.2)
-  (fishing-rare-catch :volume 0.3))
+  (fishing-rare-catch :volume 0.3)
   (gate-lift :volume (db -2))
   (door-open :volume (db -2))
   (door-open-sliding-inside :volume (db -2))
@@ -177,7 +177,7 @@
   (fountain-fire :volume (db -6))
   (hit-ground :volume (db -6))
   (sword-hit-ground-hard :volume (db -6))
-  (sword-hit-ground-soft :volume (db -6))
+  (sword-hit-ground-soft :volume (db -6)))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.4)
