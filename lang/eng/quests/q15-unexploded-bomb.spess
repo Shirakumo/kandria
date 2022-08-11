@@ -1,12 +1,8 @@
 # task-reminder/interact-fi
 ~ fi
-| Hurry - "find Islay and fix those bombs"(orange).
-
-# check-bomb-1/interact-bomb
+| Hurry - "find Islay near the pump room and fix those bombs"(orange).
 
 # check-bomb-2/interact-bomb
-
-# check-bomb-3/interact-bomb
 
 # islay-person/islay-talk-bomb
 ! eval (ensure-nearby 'player 'catherine)
@@ -26,7 +22,7 @@
   | (:concerned){(nametag player)}'s right. Let us help you.
 ~ islay
 | (:unhappy)...
-| This is the "bomb from the flooded room - (:unhappy)it's been defused"(orange)...
+| This "bomb has been defused"(orange)...
 | (:nervous)But I think "I can rewire its receiver"(orange).
 | (:normal)I think they've got a "bomb defusal mech"(orange) - I saw "one heading towards the pump room"(orange).
 | Since you're here now you can "destroy the mech"(orange).
@@ -62,7 +58,7 @@
   | (:embarassed)We'll figure it out.
 ~ catherine
 | Okay. Let's go together - "after the mech"(orange).
-! eval (complete 'check-bomb-1 'check-bomb-2 'check-bomb-3)
+! eval (complete 'check-bomb-2)
 ! eval (deactivate 'task-reminder)
 ! eval (activate (unit 'q15-boss-fight))
 ! eval (clear-pending-interactions)

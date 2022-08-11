@@ -58,7 +58,6 @@
 | No. "Wraw interference"(orange).
 ~ fi
 | Okay, "take this walkie"(orange) - (:unsure)she's not responding, but she might call if she needs help.
-| You'll have to "find her yourself - check the bomb sites"(orange).
 ! eval (store 'item:walkie-talkie-2 1)
+| "She's probably gone to the pump room bomb"(orange) first - I'd try there. And "watch out for Wraw soldiers"(orange).
 ! eval (follow 'player 'catherine)
-
