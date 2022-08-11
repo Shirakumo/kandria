@@ -350,16 +350,16 @@
   (let* ((strength (strength fountain))
          (x (vx2 strength))
          (y (vy2 strength)))
-    (cond ((< (abs x) (abs y)))
+    (cond ((< (abs x) (abs y))
+           (when (< y 0)
+             (rotate-by 0 0 1 PI)
+             (translate-by 0 -64 0)))
           ((< 0 x)
            (rotate-by 0 0 1 (/ PI -2))
            (translate-by -16 -32 0))
           ((> 0 x)
            (rotate-by 0 0 1 (/ PI +2))
-           (translate-by +16 -32 0))
-          ((> 0 y)
-           (rotate-by 0 0 1 PI)
-           (translate-by 0 -64 0)))))
+           (translate-by +16 -32 0)))))
 
 ;; KLUDGE: the standard AABB-based test fucks up on zero velocity.
 ;;         if I make it not fuck up on that, other things break all over.
