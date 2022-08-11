@@ -56,7 +56,7 @@
   | Alright. How are we looking?
 - [(not (var 'brave)) It's alright. I know I don't have a choice.|]
   ~ fi
-  | (:unsure)But you do.
+  | (:unsure)But you do. You always did.
   ~ islay
   | Alright. How are we looking?
 - How confident?

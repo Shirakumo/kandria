@@ -134,7 +134,7 @@
 ; Speech changes after the envoy confrontation, just before the battle
 ~ zelah
 ? (complete-p 'Q14-ENVOY)
-| | It's too late for you. It's too late for everyone.
+| | It's too late for you. It's too late for them too.
 |?
 | | Keep going.
 

@@ -8,7 +8,7 @@
 ~ islay
 | ...
 | Alright.
-| We'll do it now. Collapse the tunnels, then finish off the rest.
+| We'll do it now. Collapse the tunnels, then finish off any survivors.
 ~ fi
 | If you're sure.
 ~ islay
@@ -41,7 +41,7 @@
 ~ islay
 | No. You don't know enough about the bombs. (:nervous)It has to be "Catherine"(orange).
 ~ fi
-| (:annoyed)You don't trust {(nametag player)}?
+| (:annoyed)You don't trust her?
 ~ islay
 | (:nervous)It's not that.
 ~ player
