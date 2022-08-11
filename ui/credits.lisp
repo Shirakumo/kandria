@@ -90,8 +90,10 @@
   (when (typep ev '(or back toggle-menu))
     (hide panel)))
 
-(defmethod from-markless (path layout)
+(defmethod from-markless ((path pathname) layout)
   (from-markless (cl-markless:parse path T) layout))
+
+(defmethod from-markless ((element cl-markless-components:unit-component) layout))
 
 (defmethod from-markless ((element cl-markless-components:header) layout)
   (alloy:enter (make-instance 'header :value (cl-markless-components:text element)

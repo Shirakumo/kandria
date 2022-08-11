@@ -62,7 +62,7 @@
                          (error (e)
                            (v:error :kandria.serializer "Failed to read node-graph for ~a" name)
                            (v:info :kandria.serializer e))))
-                     (progn (v:info :kandria.serializer "Chunk graph for ~a is out of date. Ignoring.")
+                     (progn (v:info :kandria.serializer "Chunk graph for ~a is out of date. Ignoring." name)
                             NIL))))
       (make-instance 'chunk :name name
                             :location (decode 'vec2 location)
