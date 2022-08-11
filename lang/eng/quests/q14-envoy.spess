@@ -68,7 +68,7 @@
   | (:jovial)This is an envoy. Kill me and you'll sign everyone's death warrant.
   | (:normal)And prove you're a traitor.
 ~ fi
-| It doesn't matter what he says, {(nametag player)}. You've shown us who you really are.
+| It doesn't matter what he says, {(nametag player)}. You've shown us who you really are. You didn't even need to.
 ~ zelah
 | (:jovial)It's ya last chance... //{(nametag player)}//. Come with me, or ya friends will die.
 ~ player
