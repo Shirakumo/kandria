@@ -245,7 +245,8 @@ void main(){
   (setf (dash-exhausted player) NIL))
 
 (defmethod handle :after ((ev quickmenu) (player player))
-  (unless (path player)
+  (unless (or (path player)
+              (<= (health player) 0))
     (setf (combat-time player) 0f0)
     (toggle-panel 'quick-menu)))
 
