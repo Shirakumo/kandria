@@ -684,7 +684,8 @@
            (move-towards source target))
           (fall-node
            (typecase ground
-             (null (setf (vx vel) 0))
+             (null (setf (vx vel) 0)
+              (node-time movable))
              (platform (decf (vy (location movable)) 2))
              (T (move-towards source target)))
            (when (and (or (typep (svref collisions 1) 'ground)
