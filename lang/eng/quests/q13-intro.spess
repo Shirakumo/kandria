@@ -14,27 +14,21 @@
 | Now.
 | We want to collapse the tunnels they're using to move troops, while minimising damage to our common infrastructure.
 ~ fi
-| Okay, well that sounds good to me.
+| Okay, well that sounds fine to me.
 ~ catherine
 | And we don't need any more components to do it this way - not now we've got this delivery.
 ~ islay
 | Good. Finish the assembly as quickly as you can.
-| (:nervous)... Well, that just leaves the question of how we plant them.
+| (:nervous)... That just leaves the question of how we plant them.
 ~ player
 | "Islay is looking at Fi. I think an understanding is passing between them."(light-gray, italic)
 ~ islay
 | I think you're our best shot, {(nametag player)}.
 ~ player
 - I agree.
-  ~ fi
-  | (:unsure)...
-  | (:normal)You are the best we have for this, as much as I wish you weren't.
-  ! eval (setf (var 'brave) T)
+  < brave
 - I wouldn't have it any other way.
-  ~ fi
-  | (:unsure)...
-  | (:normal)You are the best we have for this, as much as I wish you weren't.
-  ! eval (setf (var 'brave) T)
+  < brave
 - It's suicide, then.
   ~ fi
   | (:unsure)...
@@ -43,6 +37,16 @@
   | (:concerned)Me too.
   ~ fi
   | But you are the best we have for this, as much as I wish you weren't.
+  < continue
+
+# brave
+~ fi
+| (:unsure)...
+| (:normal)You are the best we have for this, as much as I wish you weren't.
+! eval (setf (var 'brave) T)
+< continue
+
+# continue
 ~ islay
 | There's danger yes. But you can defend yourself against their soldiers.
 | And I'm confident the bombs won't detonate prematurely.
@@ -89,7 +93,7 @@
 ~ fi
 | (:unsure)Well?
 ~ islay
-| On your "low eastern border, beyond the Rootless hospital apartments, beneath the old Semi factory"(orange);
+| On your "low eastern border, beyond the Rootless hospital apartments - beneath the old Semi factory"(orange);
 | In the "mushroom cave to the west of the old Dreamscape apartments"(orange);
 | (:nervous)In the "flooded cave beside the pump room"(orange).
 ~ fi

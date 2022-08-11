@@ -126,7 +126,7 @@
 | ... Hello, anyone?
 | (:thinking)... The connection is open.
 ~ islay
-| (:nervous){(nametag player)}, I read you. We have a problem - "return to the surface now"(orange).
+| (:nervous){(nametag player)}, I read you. We have a problem - "return to the surface NOW"(orange).
 ~ player
 - What about the bombs?
 - What problem?
@@ -146,7 +146,7 @@
 | ... Hello, anyone?
 | (:thinking)... The connection is open. It might be quicker just to walk from here.
 ~ islay
-| (:nervous){(nametag player)}, I read you. We have a problem - "return to the surface now"(orange).
+| (:nervous){(nametag player)}, I read you. We have a problem - "return to the surface NOW"(orange).
 ~ player
 - What about the bombs?
 - What problem?

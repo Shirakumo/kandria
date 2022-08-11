@@ -32,7 +32,7 @@
 | (:jovial)I won't be touchin' no one. My army will though.
 | (:normal)Come, android. You've done well - thanks to you there'll be peace in the valley, the factions united together.
 | But now the masquerade is over. You're a traitor to these people, remember? It's "time to come home"(orange).
-| "If you do, I'll even spare the lives of this lot."(orange)
+| "If ya do, I'll even spare the lives of this lot."(orange)
 ~ fi
 | (:annoyed)I see only one traitor here.
 ~ alex
@@ -40,7 +40,7 @@
 | An' maybe I wouldn't o' done it if you hadn't sent this thing after me.
 ~ zelah
 | Alex has merely come home - just like the rest of ya should have.
-| But no, you betrayed your people, Fi. And then ya took this android in.
+| But no, ya betrayed your people when ya ran way, Fi. And when ya took in this android.
 | (:jovial)I understand you're now quite fond of it.
 ~ fi
 | (:annoyed)She's not going anywhere.
@@ -53,7 +53,7 @@
 ~ catherine
 | (:concerned)Don't go, {(nametag player)}.
 ~ zelah
-| (:jovial)Oh, I forgot you'd given it a name. How quaint.
+| (:jovial)Oh, I forgot ya'd given it a name. How quaint.
 ~ player
 - I'm staying here.
   ~ zelah
