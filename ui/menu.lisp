@@ -548,7 +548,7 @@
             ;; FIXME: don't know how to navigate up/down rows due to flow layout
             (let* ((layout (make-instance 'alloy:border-layout))
                    (focus (make-instance 'alloy:focus-list))
-                   (list (make-instance 'alloy:flow-layout :cell-margins (alloy:margins 10 20) :min-size (alloy:size 100)))
+                   (list (make-instance 'alloy:flow-layout :cell-margins (alloy:margins 20 20) :min-size (alloy:size 100)))
                    (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                    (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
               (alloy:enter list clipper)
