@@ -13,5 +13,3 @@
 
 (defmethod hide :after ((panel early-end-screen))
   (show-credits :transition NIL))
-
-(die (unit 'catherine T))
