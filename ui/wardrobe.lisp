@@ -104,7 +104,7 @@ void main(){
   }
 }")
 
-(defclass wardrobe (menuing-panel pausing-panel)
+(defclass wardrobe (pausing-panel menuing-panel)
   ())
 
 (defmethod initialize-instance :after ((panel wardrobe) &key)

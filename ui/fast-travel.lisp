@@ -63,7 +63,7 @@
                 (if alloy:focus colors:black colors:white)
                 colors:gray)))
 
-(defclass fast-travel-menu (menuing-panel pausing-panel)
+(defclass fast-travel-menu (pausing-panel menuing-panel)
   ())
 
 (defmethod initialize-instance :after ((panel fast-travel-menu) &key current-station)

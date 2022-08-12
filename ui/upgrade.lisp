@@ -71,7 +71,7 @@
   0.1 ((setf simple:pattern) colors:red)
   0.5 ((setf simple:pattern) colors:white))
 
-(defclass upgrade-ui (menuing-panel pausing-panel)
+(defclass upgrade-ui (pausing-panel menuing-panel)
   ())
 
 (defmethod initialize-instance :after ((panel upgrade-ui) &key)
