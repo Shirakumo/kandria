@@ -571,6 +571,9 @@
 (defmethod quest:activate ((enemy mech))
   (setf (ai-state enemy) :active))
 
+(defmethod quest:deactivate ((enemy mech))
+  (setf (ai-state enemy) :normal))
+
 (defmethod handle-ai-states ((enemy mech) ev)
   (case (state enemy)
     (:normal
