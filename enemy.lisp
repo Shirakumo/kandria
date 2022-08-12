@@ -542,7 +542,9 @@
   (setf (state enemy) :dead)
   (setf (ai-state enemy) :dead)
   (setf (animation enemy) 'dead)
-  (show-credits))
+  (transition
+    :kind :black
+    (show-panel 'early-end-screen :message (language-string 'zelah-early-death-ending))))
 
 (define-shader-entity mech (ground-enemy major-enemy solid immovable creatable)
   ((bsize :initform (vec 20 42))

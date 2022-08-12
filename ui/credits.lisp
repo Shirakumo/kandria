@@ -126,26 +126,30 @@
     (from-markless (merge-pathnames file (root)) credits)
     (alloy:finish-structure panel layout layout)))
 
-(defun show-credits (&key)
+(defun show-credits (&key (transition T))
   (reset (unit 'environment +world+))
-  (transition
-    :kind :black
-    ;; First, hide everything.
-    #+kandria-release
-    (when (and state player (setting :debugging :send-diagnostics))
-      (submit-trace state player)
-      (setf state NIL player NIL))
-    (let ((els ()))
-      (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass +world+))))
-        (when (typep el 'popup)
-          (push el els)))
-      (mapc #'hide els))
-    ;; show the end screen and the credits panel, which will hide to reveal the end screen.
-    (show-panel 'stats-screen :next #'return-to-main-menu)
-    (show-panel 'credits)
-    ;; Reset the camera and remove the region to reduce lag
-    (reset (camera +world+))
-    (leave (region +world+) +world+)
-    (setf (storyline +world+) (make-instance 'quest:storyline))
-    (compile-to-pass +world+ +world+)
-    (invoke-restart 'discard-events)))
+  (flet ((thunk ()
+           ;; First, hide everything.
+           #+kandria-release
+           (when (and state player (setting :debugging :send-diagnostics))
+             (submit-trace state player)
+             (setf state NIL player NIL))
+           (let ((els ()))
+             (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass +world+))))
+               (when (typep el 'popup)
+                 (push el els)))
+             (mapc #'hide els))
+           ;; show the end screen and the credits panel, which will hide to reveal the end screen.
+           (show-panel 'stats-screen :next #'return-to-main-menu)
+           (show-panel 'credits)
+           ;; Reset the camera and remove the region to reduce lag
+           (reset (camera +world+))
+           (leave (region +world+) +world+)
+           (setf (storyline +world+) (make-instance 'quest:storyline))
+           (compile-to-pass +world+ +world+)
+           (invoke-restart 'discard-events)))
+    (if transition
+        (transition
+          :kind :black
+          (thunk))
+        (thunk))))

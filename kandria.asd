@@ -94,7 +94,8 @@
                              (:file "demo-intro")
                              (:file "save-icon")
                              (:file "speedrun")
-                             (:file "startup")))
+                             (:file "startup")
+                             (:file "early-end")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

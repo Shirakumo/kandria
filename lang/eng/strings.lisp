@@ -926,3 +926,18 @@ Pinging genera ...                                                 OK
 [INFO] Marking route to closest service facility
 [ERR ] NFCS unavailable, failed to mark route
 [INFO] Initiating core loop"
+critical-npc-death-ending "
+The android's genera system had experienced a sudden critical
+failure, leading it to suddenly turn and kill whoever was in sight.
+
+The failure escalated, destabilising the internal fusion core,
+and approximately 1.256 seconds after the initial failure,
+the entire valley was wiped out in a massive fireball.
+
+Good job!"
+zelah-early-death-ending "
+With Zelah defeated, the Wraw chain of command quickly fell apart.
+The valley entered an uneasy state of peace, but peace it was
+nevertheless.
+
+Good job!"

@@ -84,7 +84,9 @@
 (defmethod is-collider-for ((npc npc) (elevator elevator)) NIL)
 (defmethod collides-p ((npc npc) (enemy enemy) hit) NIL)
 (defmethod die ((npc npc))
-  (error "WTF, NPC died for some reason. That shouldn't happen!"))
+  (transition
+    :kind :black
+    (show-panel 'early-end-screen :message (language-string 'critical-npc-death-ending))))
 (defmethod oob ((npc npc) (none null))
   (warn "~a fell out of the world, TPing to player." npc)
   (setf (location npc) 'player))
