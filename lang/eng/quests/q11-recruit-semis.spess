@@ -5,7 +5,7 @@
 
 # task-destination/interact-innis
 ~ innis
-| (:angry)Catherine still isn't here. What's the hold up?
+| (:angry)Catherine still isn't here. What's the hold up? Or do the Noka prefer drinking sand instead of water?
 ~ player
 - I thought you'd have bigger things to worry about.
   ~ innis
@@ -13,14 +13,14 @@
   | (:angry)Now run along - I've nothing more to say to you.
 - She isn't coming.
   ~ innis
-  | (:angry)Then I hope the Noka will enjoy drinking sand instead of water.
+  | (:angry)What?
 - We need to talk.
   ~ innis
   | (:angry)Unless you can explain why Catherine isn't here, I've nothing more to say to you.
 ~ islay
 | (:unhappy)Sister! She isn't our enemy. The Noka are not our enemy.
 ~ innis
-| (:angry)Shut up, Islay. Remember who's in charge.
+| (:angry)Shut up, Islay. Remember who's in charge!
 | (:normal)And anyway, this time I dinnae ken why you're here, {(nametag player)}.
 ~ player
 - I need your help.
