@@ -496,7 +496,7 @@
 ;;   Ultimate-Lifeform
 ;;   Space
 ;;   Street
-;;   K
+;; x K
 ;;   Planet
 ;;   Desu
 ;;   Dandy
