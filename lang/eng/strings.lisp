@@ -927,7 +927,7 @@ Pinging genera ...                                                 OK
 [ERR ] NFCS unavailable, failed to mark route
 [INFO] Initiating core loop"
 critical-npc-death-ending "
-The android's genera system had experienced a sudden critical
+The android's Genera system had experienced a sudden critical
 failure, leading it to suddenly turn and kill whoever was in sight.
 
 The failure escalated, destabilising the internal fusion core,
