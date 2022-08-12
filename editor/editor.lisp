@@ -310,6 +310,10 @@
     (#\+ (incf (alloy:value (zoom editor)) 0.1))
     (#\- (decf (alloy:value (zoom editor)) 0.1))))
 
+(defmethod handle ((event mouse-press) (editor editor))
+  (setf (alloy:focus (alloy:focus-element editor)) :strong)
+  NIL)
+
 (defmethod handle ((event mouse-release) (editor editor))
   (when (and (eq (entity editor) (region +world+))
              (eq :left (button event)))
