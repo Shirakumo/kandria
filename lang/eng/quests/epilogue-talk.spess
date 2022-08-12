@@ -34,10 +34,20 @@
 | (:concerned)This place isn't safe. Let's "go home"(orange). "Can you walk"(orange)?
 ~ player
 - I think so.
+  ~ catherine
+  | (:excited)Alright, give it your best shot.
 - Only one way to find out.
+  ~ catherine
+  | Take it slow.
 - If not I don't think you can carry me.
+  ~ catherine
+  | You're heavier than you look.
 ; place is unsafe, so even with concussion, it's better for Catherine to leave. You lead the way though
 
-# platform-start/walkntalk
+# tutorial-end/walkntalk
+~ catherine
+| (:excited)Yes!! Let's go.
+
+# epilogue-end/walkntalk
 ~ catherine
 | (:concerned)I hope everyone's okay up there.
