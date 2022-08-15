@@ -529,7 +529,8 @@
                                                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:extent 0 (alloy:ph 1) (alloy:pw 1) 1) :name :top :pattern colors:white))))
                      (icon (make-instance 'item-icon :value NIL))
                      (description (make-instance 'label :layout-parent info :value ""
-                                                        :style `((:label :bounds ,(alloy:margins 10))))))
+                                                        :style `((:label :bounds ,(alloy:margins 5)
+                                                                         :size ,(alloy:un 16))))))
                 (alloy:enter list clipper)
                 (alloy:enter icon info :place :west :size (alloy:un 120))
                 (alloy:enter info layout :place :south :size (alloy:un 120))
