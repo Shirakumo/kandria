@@ -113,7 +113,7 @@
 
 (defmethod handle :before ((ev resize) (camera camera))
   ;; Adjust max width based on aspect ratio to ensure ultrawides still get to see something.
-  (let ((aspect (/ (width ev) (max 1 (height ev)))))
+  (let ((aspect (float (/ (width ev) (max 1 (height ev))))))
     (setf (vx (target-size camera))
           (cond ((<= aspect 2.1)
                  (* (vx +tiles-in-view+) +tile-size+ .5))
@@ -127,6 +127,7 @@
          (max-fit-scale (if (chunk camera) (/ (height ev) (vy (bsize (chunk camera))) 2) optimal-scale))
          (scale (max 0.0001 optimal-scale max-fit-scale)))
     (setf (view-scale camera) scale)
+    (setf (vx (target-size camera)) (/ (width ev) scale 2))
     (setf (vy (target-size camera)) (/ (height ev) scale 2))))
 
 (defmethod (setf chunk) :after (chunk (camera camera))
