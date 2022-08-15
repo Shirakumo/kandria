@@ -479,20 +479,20 @@
 ;; x YoRHa
 ;; x Wayneright
 ;; x Mountain
-;;   Vampire
+;; x Vampire
 ;; x Trek
 ;;   Blingee
 ;; x Ninja
 ;;   Wahoo
 ;; x Shopping
-;;   Invisible
+;; x Invisible
 ;; x Camo
 ;;   Garlic
 ;; x Curly
 ;;   Quote
 ;; x Boy
 ;;   San-Diego
-;;   Captain
+;; x Captain
 ;;   Ultimate-Lifeform
 ;;   Space
 ;;   Street

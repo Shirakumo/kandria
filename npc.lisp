@@ -380,7 +380,7 @@
   ;; KLUDGE: to make each npc act as the canonical npc from the dialogue
   (setf (gethash 'npc (name-map +world+)) entity))
 
-(defmethod move-to :after ((target vec2) (npc npc))
+(defmethod move-to :after ((target vec2) (npc roaming-npc))
   (setf (target npc) target)
   (setf (walk npc) NIL)
   (setf (state npc) :normal)
