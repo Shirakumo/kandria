@@ -329,13 +329,15 @@
 (defun shortest-chunk-path (graph start goal offset test)
   (declare (optimize speed))
   (let ((w (node-graph-width graph))
+        (h (node-graph-height graph))
         (grid (node-graph-grid graph)))
     (labels ((to-idx (vec)
                (etypecase vec
                  (integer vec)
                  (vec2
-                  (+ (the (unsigned-byte 32) (floor (- (vx vec) (vx offset)) +tile-size+))
-                     (* w (the (unsigned-byte 32) (floor (- (vy vec) (vy offset)) +tile-size+)))))))
+                  (the (unsigned-byte 32)
+                       (+ (clamp 0 (the (unsigned-byte 32) (floor (- (vx vec) (vx offset)) +tile-size+)) (1- w))
+                          (* w (clamp 0 (the (unsigned-byte 32) (floor (- (vy vec) (vy offset)) +tile-size+)) (1- h))))))))
              (from-idx (idx)
                (vec (+ (vx offset) (* (+ (mod idx w) 0.5) +tile-size+))
                     (+ (vy offset) (* (+ (floor idx w) 0.5) +tile-size+))))
