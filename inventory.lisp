@@ -474,36 +474,36 @@
 ;; x Model-1
 ;; x Model-2
 ;; x Model-3
-;;   Model-4
+;; x Model-4
 ;; x Model-5
 ;; x YoRHa
 ;; x Wayneright
 ;; x Mountain
 ;; x Vampire
 ;; x Trek
-;;   Blingee
+;; x Blingee
 ;; x Ninja
-;;   Wahoo
+;; x Wahoo
 ;; x Shopping
 ;; x Invisible
 ;; x Camo
-;;   Garlic
+;; x Garlic
 ;; x Curly
-;;   Quote
+;; x Quote
 ;; x Boy
-;;   San-Diego
+;; x San-Diego
 ;; x Captain
-;;   Ultimate-Lifeform
-;;   Space
-;;   Street
+;; x Ultimate-Lifeform
+;; x Space
+;; x Street
 ;; x K
-;;   Planet
-;;   Desu
-;;   Dandy
+;; x Planet
+;; x Desu
+;; x Dandy
 ;; x Ghost
 ;; x Bill
-;;   The-Third
-;;   ERROR
+;; x The-Third
+;; x ERROR
 
 (define-item (manual lore-item) 56 0 8 8)
 
