@@ -317,7 +317,7 @@
 ; Having Cerebats (and Wraw) vageuly acknowledge the invasion after (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV) is fine, though doesn't count as evidence (hearsay), hence why it's not brought up when you might then return to Fi in q6, and she's asking for proof
 ; In a nutshell: trading, politics
 
-; Wraw: can tease from the beginning that something is afoot, but don't spoiler the q1 reveal that they're after the Noka, nor the q5a reveal that they've invaded the Cerebats; after q10 complete when the invasion of the entire valley is afoot, they can hint that things are happening.
+; Wraw (mix in with Cerebat ones): can tease from the beginning that something is afoot, but don't spoiler the q1 reveal that they're after the Noka, nor the q5a reveal that they've invaded the Cerebats; after q10 complete when the invasion of the entire valley is afoot, they can hint that things are happening.
 ; Can also hint about the poison/potion done to Wraw subjects, which ties into Synthesis quest - just don't spoiler too much e.g. explicit black cap association
 ; The Wraw don't need a conditional for (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV), since although the Cerebats are covering things up a little before this time, the Wraw are clearer about having taken over the Cerebats from the start (albeit things remaining ambiguous for the player)
 ; Zelah, the Wraw leader, has potentially known about you from early on in the game (or has he? We're never clear on this); but his inner circle, and certainly not the average Wraw villager, don't know who you are
