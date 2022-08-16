@@ -59,5 +59,6 @@
 ~ fi
 | Okay, "take this walkie"(orange) - (:unsure)she's not responding, but she might call if she needs help.
 ! eval (store 'item:walkie-talkie-2 1)
-| "She's probably gone to the pump room bomb"(orange) first - I'd try there. And "watch out for Wraw soldiers"(orange).
+| "She's probably gone to the pump room"(orange) first as it's closest to the border.
+| She also "took the signal detonator"(orange)...
 ! eval (follow 'player 'catherine)

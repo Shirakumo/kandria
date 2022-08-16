@@ -1,7 +1,7 @@
 # bomb-explode/call-explode
 ! eval (ensure-nearby 'player 'catherine)
 ~ islay
-| {(nametag player)}, Catherine - the "bomb beneath the old Semi factory is rewired"(orange).
+| {(nametag player)}, Catherine - the "bomb in the hospital apartments is rewired"(orange).
 | (:normal)How'd you get on with that mech? Over.
 ~ player
 - It's no longer a threat. Over.
@@ -9,12 +9,12 @@
   | Good.
 - I kicked its ass. Over.
   ~ islay
-  | Good.
+  | Excellent.
 - Scratch one mech. Hopefully there aren't any more. Over.
   ~ islay
   | I've not seen any.
 ~ islay
-| You "head for the mushroom cave"(orange). I'm heading for the-
+| You "head for the Brother offices"(orange). I'm heading for the-
 ~ player
 | "Something cut her off. What's that sound?"(light-gray, italic)
 ~ player
@@ -22,6 +22,7 @@
 - Is that an earthquake?
 - GET DOWN!
 ! eval (deactivate (unit 'bomb-explode-1))
+! eval (deactivate (unit 'bomb-explode-2))
 ! eval (activate 'explosion)
 ! eval (move :freeze player)
 ; TODO animate player and catherine force crouching if player chooses "Get down"?

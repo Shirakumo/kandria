@@ -10,15 +10,17 @@
   | Well it's all over now. (:concerned)Assuming there aren't any more.
 - I need a vacation.
   ~ catherine
-  | (:excited)Me too! Somewhere without sand or killer robots.
+  | (:excited)Me too! Somewhere without sand or soldiers. Unless it's the beach.
 ~ catherine
 | "Islay rewired the bomb and put it back in the flooded room."(orange)
-| Now "she's gone to the one beneath the old Semi factory"(orange).
-| (:excited)We should "get to the mushroom cave in the west and see about that last bomb"(orange).
-| She's counting on us.
+| Now "she's gone to the one near the hospital apartments"(orange).
+| (:excited)We should "get to the Brother offices and see about that last bomb"(orange).
+| Islay's counting on us.
 ! eval (follow 'player 'catherine)
 ! eval (activate 'q15-target-bomb)
 ! eval (activate (unit 'bomb-explode-1))
+! eval (activate (unit 'bomb-explode-2))
+! eval (deactivate (unit 'spawner-7817))
 
 # q15-boss-fight/walkntalk
 ~ player

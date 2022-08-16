@@ -16,7 +16,8 @@
   | None thankfully, "only about fifteen minutes"(orange). Well, that's "after I woke up"(orange).
   | (:concerned)You must have taken an even bigger bump to the head than I did.
 ~ catherine
-| (:excited)I think the "bombs exploded"(orange). Which means we won!
+| (:concerned)That bomb practically "exploded in our faces"(orange) - I think "they all exploded"(orange).
+| (:excited)Does that mean "we won?!"(orange)
 | (:concerned)But "that blast was bigger than it should've been"(orange).
 | I had a look around - I think it's "collapsed this whole area"(orange).
 | I hope Islay is okay.
@@ -26,10 +27,11 @@
   | (:concerned)I hope so.
 - Are you okay?
   ~ catherine
-  | (:concerned)My head hurts. I might have a mild concussion, but I'll be fine.
+  | (:concerned)My head hurts. I might have a concussion, but I'll be fine.
 - She was next to a bomb so...
   ~ catherine
   | (:concerned)...
+  | But so were we and we're alright. Mostly.
 ~ catherine
 | (:concerned)This place isn't safe. Let's "go home"(orange). "Can you walk"(orange)?
 ~ player
@@ -41,7 +43,7 @@
   | Take it slow.
 - If not I don't think you can carry me.
   ~ catherine
-  | You're heavier than you look.
+  | You're heavier than you look. Believe me I've tried.
 ; place is unsafe, so even with concussion, it's better for Catherine to leave. You lead the way though
 
 # tutorial-end/walkntalk
