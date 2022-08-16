@@ -174,7 +174,7 @@
 | Good luck, {(nametag player)}.
 ~ player
 | (:thinking)"I think I have a "bearing on where I might find components like these"(orange), after my last foray into Wraw territory."(light-gray, italic)
-| (:normal)"I'll "update my map"(orange)."(light-gray, italic)
+| (:normal)"I should "check their factories and warehouses"(orange) - I'll "update my map"(orange)."(light-gray, italic)
 ! eval (deactivate 'task-reminder)
 ! eval (activate 'q12-help-alex)
 ! eval (setf (location 'alex) 'alex-wraw-loc)

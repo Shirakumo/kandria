@@ -2,6 +2,8 @@
 ~ innis
 | (:angry)You'd better shake a leg. Altogether Islay needs "10 blasting caps"(orange) and "20 charge packs"(orange) for the bomb.
 | (:sly)Have fun in "Wraw territory"(orange).
+~ player
+| "I need to "check Wraw factories and warehouses"(orange)."(light-gray, italic)
 
 # task-deliveries/interact-islay
 ~ islay
@@ -23,6 +25,9 @@
 | | ! eval (retrieve 'item:charge-pack T)
 |  
 | | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).] "Search through Wraw territory"(orange).
+  
+~ player
+| "I need to "check Wraw factories and warehouses"(orange)."(light-gray, italic)
 
 ; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb.
 # task-return-fi/fi-return-recruit
