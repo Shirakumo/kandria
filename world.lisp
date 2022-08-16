@@ -36,6 +36,9 @@
 (defmethod (setf timestamp) :after (timestamp (world world))
   (issue world 'change-time :timestamp timestamp))
 
+(defmethod (setf time-scale) :around (scale (world world))
+  (call-next-method (max scale 0.0001) world))
+
 (defmethod (setf hour) (hour (world world))
   (multiple-value-bind (ss mm hh d m y) (decode-universal-time (truncate (timestamp world)))
     (declare (ignore hh))
