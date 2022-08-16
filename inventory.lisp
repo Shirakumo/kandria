@@ -422,22 +422,22 @@
   :price 200)
 
 ;; QUEST ITEMS
-(define-item (seeds quest-item) 16 16 8 8) ;; TODO - needs icon: Sachet containing plant seeds, each one inside tiny and hard like grit.
+(define-item (seeds quest-item) 16 16 8 8)
 (define-item (semi-factory-key quest-item) 8 0 8 8)
 (define-item (can quest-item) 0 16 8 8) ;; race item
 (defmethod name ((can item:can)) 'item:can)
 (define-item (semi-genera-core quest-item) 88 24 8 8) ;; race item
 (defmethod name ((semi-genera-core item:semi-genera-core)) 'item:semi-genera-core)
-(define-item (hip-flask quest-item) 8 40 8 8) ;; race item ;; TODO - needs icon: hip-flask belonging to a Semi Spy (race item for sq9); made from animal skin. May contain water or something stronger :)
+(define-item (hip-flask quest-item) 0 56 8 8) ;; race item
 (defmethod name ((hip-flask item:hip-flask)) 'item:hip-flask)
-(define-item (blasting-cap quest-item) 8 0 8 8) ;; TODO - needs icon: detonators for the bombs
-(define-item (charge-pack quest-item) 8 0 8 8) ;; TODO - needs icon: the explosive yield for the bombs; chunky packs that resemble plastic explosive; about 5 of them will be connected together to form a bomb (the resulting bomb the size of a large brick)
-(define-item (explosive quest-item) 8 0 8 8) ;; TODO - needs icon: a bomb itself, the size of a large brick, made of about 5 connected charge packs
-(define-item (receiver quest-item) 8 0 8 8) ;; TODO - needs icon: an AV receiver connected to a blasting cap, which the stranger will push into the bomb; serves as a detonator activated by a radio signal
-(define-item (walkie-talkie-2 quest-item) 0 8 8 8)
-(define-item (love-letter quest-item) 16 48 8 8) ;; TODO - needs icon: a letter written from a Semi to their estranged Cerebat lover, on something resembling ink on vellum
-(define-item (headdress quest-item) 16 16 8 8) ;; TODO - needs icon: a headress belonging to a missing Cerebat councillor, described as: It's ornate and covered in pearls. But it's also damp and stinks of algae.
-(define-item (tunic quest-item) 8 48 8 8) ;; TODO - needs icon: a torn scrap of tunic resembling the above headress, trimmed with pearls but also covered in blood
+(define-item (blasting-cap quest-item) 24 56 8 8)
+(define-item (charge-pack quest-item) 32 56 8 8)
+(define-item (explosive quest-item) 8 56 8 8)
+(define-item (receiver quest-item) 16 56 8 8)
+(define-item (walkie-talkie-2 quest-item) 16 0 8 8)
+(define-item (love-letter quest-item) 40 56 8 8)
+(define-item (headdress quest-item) 48 56 8 8)
+(define-item (tunic quest-item) 56 56 8 8)
 
 ;; VALUE-QUEST-ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8
@@ -446,7 +446,7 @@
   :price 10)
 (define-item (mushroom-bad-1 value-quest-item) 16 8 8 8
   :price 20)
-(define-item (walkie-talkie value-quest-item) 0 8 8 8
+(define-item (walkie-talkie value-quest-item) 16 0 8 8
   :price 500)
 ;; TODO - these 3 reusing existing icons; get new ones
 (define-item (anemometer value-quest-item) 64 16 8 8
