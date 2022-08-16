@@ -303,6 +303,11 @@ void main(){
          (decf (vy (location player)) 2))
         ((eql :crawling (state player))
          (handle (make-instance 'crawl) player))
+        ;; Prevent jumps on elevators that are too fast, as it just leads to stutter.
+        ;; This stutter is unavoidable as air friction slows the player down instantly
+        ;; causing the elevator to slam into them again.
+        ((and (typep (svref (collisions player) 2) 'moving-platform)
+              (< 5.0 (vy (velocity (svref (collisions player) 2))))))
         (T
          (when (< 0 (inertia-time player))
            (setf (inertia-time player) -1.0))
