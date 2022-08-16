@@ -72,7 +72,7 @@
 ~ catherine
 | They're ready. Here you go, {(nametag player)}.
 ~ player
-| "So I've got "3 bombs"(orange), each the size of a small brick."(light-gray, italic)
+| "So I've got "3 bombs"(orange), each the size of a large brick."(light-gray, italic)
 ! eval (store 'item:explosive 3)
 | "They resemble plastic explosives, similar to what I've seen bomb disposal teams use."(light-gray, italic)
 ~ catherine
