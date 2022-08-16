@@ -156,9 +156,11 @@
 ~ player
 | "He hung up."(light-gray, italic)
 
+; using frequent repetition of Catherine speaker tag initially here, in case she's far away at first (radio effect), but then comes closer - to refresh it
 # 23-interact-catherine/interaction
 ~ catherine
 | I jury-rigged the pump. Should be okay for a while - but it'll need a more permanent fix later.
+~ catherine
 | What did Jack say?
 ~ player
 - He wants us to go back - Fi's on the warpath.
@@ -174,7 +176,9 @@
   | That you should go back ASAP, and I should be there too - Fi's on the warpath.
 ~ catherine
 | (:concerned)Well that doesn't sound good.
+~ catherine
 | (:normal)Seems we'll have to wait a little longer for that welcome home we deserve.
+~ catherine
 | Why don't "you lead the way"(orange)? See if you got your bearings.
 ~ player
 - Sure thing.
