@@ -448,12 +448,11 @@
   :price 20)
 (define-item (walkie-talkie value-quest-item) 16 0 8 8
   :price 500)
-;; TODO - these 3 reusing existing icons; get new ones
-(define-item (anemometer value-quest-item) 64 16 8 8
+(define-item (anemometer value-quest-item) 64 56 8 8
   :price 40)
-(define-item (disc-brake value-quest-item) 48 16 8 8
+(define-item (disc-brake value-quest-item) 72 56 8 8
   :price 40)
-(define-item (transformer value-quest-item) 112 16 8 8
+(define-item (transformer value-quest-item) 80 56 8 8
   :price 40)
 
 ;; SPECIAL ITEMS
