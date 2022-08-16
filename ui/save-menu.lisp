@@ -69,7 +69,7 @@
                           (with-error-logging (:kandria.save)
                             (generate-resources 'image-loader image :min-filter :linear :mag-filter :linear))
                         (error ()
-                          (// 'kandria 'empty-save))))
+                          (// 'kandria 'corrupted-save))))
             (vector (error "TODO"))
             (null (// 'kandria 'empty-save)))))
   (trial:commit (texture button) (loader +main+) :unload NIL))
@@ -141,6 +141,9 @@
 
 (defclass save-menu (menuing-panel)
   ())
+
+(defmethod stage :after ((menu save-menu) (area staging-area))
+  (stage (// 'kandria 'corrupted-save) area))
 
 (defmethod initialize-instance :after ((panel save-menu) &key intent)
   (let ((layout (make-instance 'load-screen-layout))
