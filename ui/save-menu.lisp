@@ -65,7 +65,11 @@
   (setf (texture button)
         (let ((image (image (alloy:value button))))
           (etypecase image
-            (pathname (generate-resources 'image-loader image :min-filter :linear :mag-filter :linear))
+            (pathname (handler-case
+                          (with-error-logging (:kandria.save)
+                            (generate-resources 'image-loader image :min-filter :linear :mag-filter :linear))
+                        (error ()
+                          (// 'kandria 'empty-save))))
             (vector (error "TODO"))
             (null (// 'kandria 'empty-save)))))
   (trial:commit (texture button) (loader +main+) :unload NIL))
