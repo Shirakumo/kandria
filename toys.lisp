@@ -785,10 +785,15 @@ void main(){
 (define-shader-entity windmill (ephemeral lit-animated-sprite creatable)
   ((name :initform NIL)
    (clock :initform (random 0.5))
-   (trial:sprite-data :initform (asset 'kandria 'windmill) :type asset)
-   (layer-index :initarg :layer-index :initform (1- +base-layer+) :accessor layer-index :type integer)))
+   (trial:sprite-data :initform (asset 'kandria 'windmill))
+   (layer-index :initform (1- +base-layer+) :accessor layer-index :type integer)))
 
 (defmethod handle ((ev switch-region) (windmill windmill))
   (bvh:do-fitting (entity (bvh (region +world+)) windmill)
     (when (typep entity 'wind)
       (setf (animation windmill) 'strong))))
+
+(define-shader-entity bomb (lit-animated-sprite)
+  ((name :initform NIL)
+   (trial:sprite-data :initform (asset 'kandria 'bomb))
+   (layer-index :initform (1- +base-layer+))))
