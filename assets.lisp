@@ -126,7 +126,9 @@
   (shirakumo-logo :min-filter :linear :mag-filter :linear)
   (trial-logo :min-filter :linear :mag-filter :linear)
   (wind :wrapping :repeat :min-filter :nearest :mag-filter :nearest)
-  (region2-overlay :wrapping :repeat))
+  (region1-overlay :wrapping :repeat)
+  (region2-overlay :wrapping :repeat)
+  (region3-overlay :wrapping :repeat))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.wav")
   (T :volume 0.4)
