@@ -3,9 +3,9 @@
 | So, ye still interested are ya? There's no turning back now.
 | "Find the locations, don't get killed, destroy the targets"(orange). I'll drill that into ye skull if it's the last thing I do.
 | Ye'll be facing "training mannequins and feral dogs"(orange).
-| What did ye expect? That's the extent of the threat to us out there, so it's what ye'll do.
+| What did ye expect? That's the extent o' the threat to us out there, so it's what ye'll do.
 | They say the mannequins are what androids used to look like - so don't get scared!
-| The prize for ye is nothing short of Wraw immortality. Sound good?
+| The prize for ye is nothing short o' Wraw immortality. Sound good?
 | <-GOOD!->
 | There are "5 courses"(orange) for ye to go at, easy to hard. Though honestly, I can't see ye getting past the first one.
 | Alright then: "are ye ready to die"(orange)?
@@ -22,7 +22,7 @@
 ~ wraw-sergeant
 | This is ye mission:
 | "{(quest:title (quest:find-named 'race task))}."(orange)
-| My times to beat for this course are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
+| Me times to beat for this course are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (var 'pb)
 | | Ye "personal best"(orange) for this course is "{(format-relative-time pb)}"(orange).
 ~ wraw-sergeant
@@ -48,7 +48,7 @@
 | Reports confirm ye eliminated the targets. Well done.
 | The time was: "{(format-relative-time (clock quest))}"(orange).
 ? (and pb (< pb (clock quest)))
-| | Ye "didn't better"(orange) yer record of "{(format-relative-time pb)}"(orange).
+| | Ye "didn't better"(orange) yer record o' "{(format-relative-time pb)}"(orange).
 | | So ye won't be joining the Wraw today. Lucky for us.
 |?
 | ? (not (null pb))
@@ -65,7 +65,7 @@
 | | | Something smells fishy here.
 | |?
 | | | But it was "slower than me bronze time"(orange). To be expected.
-| | | That's nowt to be ashamed of. Ye're just not at me calibre. Or the calibre of any Wraw.
+| | | That's nowt to be ashamed o'. Ye're just not at me calibre. Or the calibre o' any Wraw.
   
 ~ wraw-sergeant
 | Ye ain't the real deal. Keep tryin'.

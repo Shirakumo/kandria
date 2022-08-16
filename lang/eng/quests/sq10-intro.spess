@@ -3,7 +3,7 @@
 # intro/intro-chat
 ~ wraw-sergeant
 | Who are ye? Why aren't ye in uniform?
-| Je-suss, we're really scraping the barrel now. How'd I land this ass-end of a job...
+| Je-suss, we're really scraping the barrel now. How'd I land this ass-end o' a job...
 | Ye'd better show me what ye can do and quickly if ye wanna join the Wraw.
 ! eval (setf (nametag (unit 'wraw-sergeant)) (@ wraw-sergeant-nametag))
 ~ player
