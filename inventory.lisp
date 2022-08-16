@@ -531,6 +531,7 @@
 (define-random-draw mushrooms-bad-1
   (item:mushroom-bad-1 1))
 ;; placement: where mushrooms wouldn't be expected to grow i.e. in non-soil areas (yes in region 3)
+;; leave as draw in case we add a second bad mushroom type, and to keep consistent with the good mushroom draws
 
 (define-random-draw wind-parts-rare
   (item:anemometer 1)
@@ -791,14 +792,3 @@
   (item:rusted-key 6)
   (item:coin 6))
 ;; placement: market areas of region 2
-
-
-;; QUEST SPAWNERS
-  
-;; placement idea: 6 locations, some close to one another (2 per spawner)
-(define-random-draw bomb-blasting-cap
-  (item:blasting-cap 1))
-
-;; placement idea: 5 locations, some close to one another - makes sense the explosives themselves would be stored in bulk and close together (5 per spawner)
-(define-random-draw bomb-charge-pack
-  (item:charge-pack 1))
