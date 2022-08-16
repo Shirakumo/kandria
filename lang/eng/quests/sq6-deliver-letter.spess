@@ -13,6 +13,7 @@
 ! eval (complete task)
 ! eval (reset interaction)
 
+; Kacey, female Cerebat, speaks casual
 # deliver-letter/deliver-chat
 ~ cerebat-partner
 | Who are you?
@@ -23,25 +24,25 @@
 ~ player
 - My name's {(nametag player)}.
   ~ cerebat-partner
-  | Are you an android?
-  ~ player
-  - How did you know?
-    ~ cerebat-partner
-    | You're insignia. I've heard about androids.
-  - Yes.
-    ~ cerebat-partner
-    | Wow. I guess I should be amazed. There was a time when I would've been.
-  - It's not important.
-    ~ cerebat-partner
-    | That's a yes.
-  ~ cerebat-partner
   | Let me guess: Tobias. This reeks of his overzealousness.
 - Tobias sent me.
   ~ cerebat-partner
-  | Shit. He shouldn't have done that.
+  | Shit. Yep, this reeks of his overzealousness. He shouldn't have done that.
 - I was sent by a Semi, who's looking for their girlfriend.
   ~ cerebat-partner
-  | Let me guess: Tobias. This reeks of his overzealousness.
+  | Tobias then. This reeks of his overzealousness.
+~ cerebat-partner
+| Wait... Are you an android?
+~ player
+- How did you know?
+  ~ cerebat-partner
+  | You're insignia. I've heard about androids.
+- Yes.
+  ~ cerebat-partner
+  | Wow. I guess I should be amazed. There was a time when I would've been.
+- It's not important.
+  ~ cerebat-partner
+  | That was hardly a no.
 ~ cerebat-partner
 | Yes, "I'm Kacey"(orange). Is he alright?
 ! eval (setf (nametag (unit 'cerebat-partner)) (@ cerebat-partner-nametag))
