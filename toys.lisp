@@ -787,3 +787,8 @@ void main(){
    (clock :initform (random 0.5))
    (trial:sprite-data :initform (asset 'kandria 'windmill) :type asset)
    (layer-index :initarg :layer-index :initform (1- +base-layer+) :accessor layer-index :type integer)))
+
+(defmethod handle ((ev switch-region) (windmill windmill))
+  (bvh:do-fitting (entity (bvh (region +world+)) windmill)
+    (when (typep entity 'wind)
+      (setf (animation windmill) 'strong))))
