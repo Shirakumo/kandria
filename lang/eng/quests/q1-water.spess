@@ -308,7 +308,7 @@
 | If there's nothing else, I'll see you both later.
 | Hey Stranger, wait here - "I want to talk"(orange).
 ~ fi
-| Sayonara Catherine, Stranger.
+| さようなら Catherine, Stranger.
 ~ jack
 | You take care, Cathy.
 ! eval (move-to 'fi-farm 'fi)

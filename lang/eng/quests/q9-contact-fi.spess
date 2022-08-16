@@ -24,7 +24,7 @@
 | I found a trader willing to talk - if I sourced him some supplies.
 | I did, and that's when he told me. He also told me he's working for the Wraw.
 ~ fi
-| (:annoyed)Ko nashi!
+| (:annoyed)あの野郎!
 | Well, you couldn't have known.
 | But now he's our enemy.
 | (:normal)At least that explains why the Wraw invaded. Turning the water off would certainly get Zelah's attention.
@@ -55,7 +55,7 @@
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))
 
-; Ko nashi = bastard (Japanese)
+; あの野郎 = that bastard (Japanese)
 ; Cannot give a reward here, as the player isn't in proximity to Fi. However, can sell stuff to the trader for parts.
 
 ; Fi's parting words about a bad feeling here, is a clue that most if not all sidequests will get invalidated once q10 is complete, as the plot escalates
