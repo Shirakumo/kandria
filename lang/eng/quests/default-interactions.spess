@@ -239,7 +239,7 @@
 | | Cheers!
 
 # semi-partner
-; male, Tobias, was in a relationship with Kacey
+; male Semi, Tobias, was in a relationship with Kacey; speaks informal
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-partner
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
@@ -252,25 +252,38 @@
 | | ... Hold on, there's someone here. Over. Er, hi? Can I help you? - Can't you see I'm on a call?
 
 # cerebat-partner
-; female, Kacey, was in a relationship with Tobias
+; female Cerebat, Kacey, was in a relationship with Tobias; speaks casual
 ; Speech changes once you know of the Wraw invasion
+; (complete-p 'Q7-MY-NAME) though the (complete-p 'CEREBAT-TRADER-ARRIVE) check is written ambigious so works whether you've completed the sidequest or not
 ~ cerebat-partner
 ? (complete-p 'Q10-WRAW)
 | | So the world's gone to shit again. Great.
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | Why don't you draw a picture? It lasts longer. Though I suppose an android can remember everything.
+|? (complete-p 'Q7-MY-NAME)
+| | The "Council"(orange)? They can stay lost for all I care, fact lot of good they've done.
+| | It's their fault this place is crawling with snivelling swindlers, like that "guy in the backstreet above here"(orange).
 |? (complete-p 'SQ6-DELIVER-LETTER)
 | | You understand privacy, yes?
 |?
 | | Keep walking, pal.
 
 # cerebat-good-trader
-; non-binary, Cerebat trader who's concerned for the well-being of the missing Cerebat Council
+; non-binary, Cerebat trader who's concerned for the well-being of the missing Cerebat Council; well spoken
 ; Speech changes once you know of the Wraw invasion
 ; "I need some time alone." - grieving over the seeming confirmed loss of the Cerebat Council, especially Antonio
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
 ~ cerebat-good-trader
 ? (complete-p 'Q10-WRAW)
 | | I'm still here. Somehow. Be well.
 |? (complete-p 'SQ8-FIND-COUNCIL)
 | | I need some time.
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | I'll find the Council. They'll see.
+|? (complete-p 'Q7-MY-NAME)
+| | It seems we have a vested interest in finding the "Council"(orange). Perhaps soon you can assist me.
+| | Though you could do worse than trying to wring something from that "insidious chap in the backstreet below here"(orange).
+| | Either that, or just wring his neck.
 |?
 | | I've a lot on my mind, sorry.
 
@@ -278,20 +291,33 @@
 ; female, Semi Sisters spy deep in Cerebat territory, and organising races for the player to help themselves blend in undercover; formal speaker
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ; "Talk about out of the frying pan and into the burning sun" (riff off of "out of the frying pan and into the fire"); it could be night-time, but we can assume the heat of the sun's influence remains at night
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
 ~ semi-spy
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | What kind of hellhole is this? Talk about out of the frying pan and into the burning hot sun.
 |? (complete-p 'Q10-WRAW)
 | | The Cerebats have bigger things on their minds right now - which suits me just fine.
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | I told you nothing, alright. Nothing!
+|? (complete-p 'Q7-MY-NAME)
+| | The "Council"(orange) aren't here right now, as you might have noticed. I've got my sources, but even they don't know anything.
+| | Someone said there's a "trader who might know where they are"(orange), but they didn't give me a name.
+| | Try the "middle-west backstreet, outside the abandoned bar"(orange).
 |?
 | | <-Shoo->. Get out of here! What're you trying to do, blow my cover?
 
 # wraw-sergeant
 ; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
 ; Northern accent, similar to Zelah
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
 ~ wraw-sergeant
 ? (complete-p 'Q10-WRAW)
 | | Ye missed the boat, buddy.
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | How'd ye slip through the net? The barracks are //that// way.
+|? (complete-p 'Q7-MY-NAME)
+| | If ye want a one-way ticket to the bowels of the earth, you keeping asking about the "Council"(orange).
+| | Who'd ye think I am, that scummy nameless trader who skulks around the "upper backstreets"(orange)?
 |?
 | | Report for training, ye scum.
 
