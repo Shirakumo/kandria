@@ -138,7 +138,6 @@
 (defmethod handle ((ev tick) (elevator elevator))
   (ecase (state elevator)
     (:normal
-     (vsetf (max-speed elevator) 0 2)
      (vsetf (velocity elevator) 0 0))
     (:moving
      (if (null (cdr (bypass-stopper elevator)))
@@ -286,3 +285,9 @@
                                   (- (vy (location button))
                                      (vy (bsize button)))))
      (setf (state elevator) :recall))))
+
+(define-shader-entity service-elevator (elevator creatable)
+  ((texture :initform (// 'kandria 'service-elevator))
+   (bsize :initform (vec 16 8))
+   (size :initform (vec 32 32))
+   (max-speed :initarg :max-speed :initform (vec 0.0 10.0) :accessor max-speed)))
