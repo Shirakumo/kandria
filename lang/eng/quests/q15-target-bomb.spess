@@ -1,3 +1,9 @@
+# bomb-explode/islay-reminder
+~ islay
+| (:nervous)I need to concentrate on this bomb.
+| (:normal)You need to "go to the one in the Brother offices"(orange). Catherine, you can "rewire it"(orange).
+| (:nervous)HURRY!
+
 # bomb-explode/call-explode
 ! eval (ensure-nearby 'player 'catherine)
 ~ islay
