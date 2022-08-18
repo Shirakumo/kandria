@@ -80,6 +80,8 @@
     (values count found)))
 
 (defmethod completion ((player player))
+  ;; FIXME: Include lore items
+  ;; FIXME: Include quest completion count
   (let ((count 0)
         (found 0))
     (dolist (func '(chunk-find-rate secret-find-rate fish-find-rate))
