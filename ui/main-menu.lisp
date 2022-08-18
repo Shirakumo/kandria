@@ -105,7 +105,7 @@
       (with-button (options-menu)
         (show-panel 'options-menu))
       (with-button (credits-menu)
-        (show-panel 'credits))
+        (show-credits :on-hide (lambda () (show-panel 'main-menu))))
       #++
       (with-button (changelog-menu)
         )

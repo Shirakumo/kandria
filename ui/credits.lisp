@@ -53,7 +53,8 @@
 (defclass credits (menuing-panel)
   ((credits :accessor credits)
    (offset :initform -100 :accessor offset)
-   (ideal :initform NIL :accessor ideal)))
+   (ideal :initform NIL :accessor ideal)
+   (on-hide :initarg :on-hide :initform (lambda ()) :accessor on-hide)))
 
 (defmethod show :after ((credits credits) &key)
   #++
@@ -70,7 +71,8 @@
                 (map NIL #'traverse (presentations:shapes node)))
                (simple:icon
                 (deallocate (simple:image node))))))
-    (traverse (credits credits))))
+    (traverse (credits credits)))
+  (funcall (on-hide credits)))
 
 (defmethod handle ((ev tick) (panel credits))
   (let* ((extent (alloy:bounds (credits panel)))
@@ -84,11 +86,13 @@
                              ideal))
       (incf (offset panel) (* (alloy:to-px (alloy:un 50)) (dt ev)))
       (when (< (+ ideal (height *context*)) (offset panel))
-        (hide panel)))))
+        (transition :kind :black (hide panel))))))
 
 (defmethod handle :after (ev (panel credits))
-  (when (typep ev '(or back toggle-menu))
-    (hide panel)))
+  (when (or (typep ev '(or back toggle-menu))
+            (and (typep ev 'key-press)
+                 (eql :escape (key ev))))
+    (transition :kind :black (hide panel))))
 
 (defmethod from-markless ((path pathname) layout)
   (from-markless (cl-markless:parse path T) layout))
@@ -126,28 +130,30 @@
     (from-markless (merge-pathnames file (root)) credits)
     (alloy:finish-structure panel layout layout)))
 
-(defun show-credits (&key (transition T) (state (state +main+)))
+(defun show-credits (&key (transition T) (state (state +main+)) on-hide)
   (reset (unit 'environment +world+))
   (flet ((thunk ()
-           ;; First, hide everything.
-           #+kandria-release
-           (when (and state player (setting :debugging :send-diagnostics))
-             (submit-trace state player)
-             (setf state NIL player NIL))
-           (let ((els ()))
-             (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass +world+))))
-               (when (typep el 'popup)
-                 (push el els)))
-             (mapc #'hide els))
-           ;; show the end screen and the credits panel, which will hide to reveal the end screen.
-           (show-panel 'stats-screen :next #'return-to-main-menu)
-           (show-panel 'credits)
-           ;; Reset the camera and remove the region to reduce lag
-           (reset (camera +world+))
-           (leave (region +world+) +world+)
-           (setf (storyline +world+) (make-instance 'quest:storyline))
-           (compile-to-pass +world+ +world+)
-           (invoke-restart 'discard-events)))
+           (let ((player (unit 'player +world+)))
+             ;; First, hide everything.
+             #+kandria-release
+             (when (and state player (setting :debugging :send-diagnostics))
+               (submit-trace state (unit 'player +world+)))
+             (let ((els ()))
+               (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass +world+))))
+                 (when (typep el 'popup)
+                   (push el els)))
+               (mapc #'hide els))
+             ;; show the end screen and the credits panel, which will hide to reveal the end screen.
+             (if on-hide
+                 (show-panel 'credits :on-hide on-hide)
+                 (show-panel 'credits :on-hide (lambda ()
+                                                 (show-panel 'stats-screen :next #'return-to-main-menu :player player))))
+             ;; Reset the camera and remove the region to reduce lag
+             (reset (camera +world+))
+             (leave (region +world+) +world+)
+             (setf (storyline +world+) (make-instance 'quest:storyline))
+             (compile-to-pass +world+ +world+)
+             (invoke-restart 'discard-events))))
     (if transition
         (transition
           :kind :black
