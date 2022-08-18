@@ -109,7 +109,7 @@
 | Well, I need to compare this data with my previous findings, see what conclusions I can draw.
 | I'll use those to plan my next study.
 | Thank you again. Goodbye, {(nametag player)}.
-! eval (activate (unit 'spawner-7608))
+! eval (activate (unit 'spawner-5032))
 
 ; reactivate world spawner again, now you're away from it
 ; the ability to lie here is to skew the results, when you might sense that the roboticist is also discreetly psycho-analysing you (the frequency of questions, and esp the last one)
