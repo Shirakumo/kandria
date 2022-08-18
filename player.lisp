@@ -691,7 +691,9 @@ void main(){
                      (light-ground-2 (start-animation 'light-ground-3 player))
                      (light-aerial-1 (start-animation 'light-aerial-2 player))
                      (light-aerial-2 (start-animation 'light-aerial-3 player))
-                     ((evade-left evade-right) (start-animation 'light-counter player))
+                     ((evade-left evade-right)
+                      (harmony:play (// 'sound 'player-counter))
+                      (start-animation 'light-counter player))
                      (T
                       (cond ((not (svref (collisions player) 2))
                              (unless (used-aerial player)
@@ -711,7 +713,9 @@ void main(){
                      (heavy-ground-2 (start-animation 'heavy-ground-3 player))
                      (heavy-aerial-1 (start-animation 'heavy-aerial-2 player))
                      (heavy-aerial-2 (start-animation 'heavy-aerial-3 player))
-                     ((evade-left evade-right) (start-animation 'heavy-counter player))
+                     ((evade-left evade-right)
+                      (harmony:play (// 'sound 'player-counter))
+                      (start-animation 'heavy-counter player))
                      (T
                       (cond ((not (svref (collisions player) 2))
                              (unless (used-aerial player)
