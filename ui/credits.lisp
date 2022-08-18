@@ -126,7 +126,7 @@
     (from-markless (merge-pathnames file (root)) credits)
     (alloy:finish-structure panel layout layout)))
 
-(defun show-credits (&key (transition T))
+(defun show-credits (&key (transition T) (state (state +main+)))
   (reset (unit 'environment +world+))
   (flet ((thunk ()
            ;; First, hide everything.
