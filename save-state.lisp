@@ -41,7 +41,7 @@
 
 (defun list-saves ()
   (sort
-   (loop for file in (directory (merge-pathnames "?.zip" (config-directory)))
+   (loop for file in (directory (merge-pathnames "*.zip" (config-directory)))
          for state = (handler-case (minimal-load-state file)
                        (unsupported-save-file ()
                          (v:warn :kandria.save "Save state ~s is too old, ignoring." file)

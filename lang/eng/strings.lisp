@@ -783,6 +783,10 @@ Your last save was ~d minutes ago."
 save-overwrite-reminder "This will overwrite a save from
 ~a
 Are you sure?"
+recover-crashed-save "It looks like the game crashed previously. An emergency save was created right before the crash, which we can recover now. 
+
+If you Ok this dialog, the save will replace save #4.
+If you Cancel it, the emergency save will be deleted."
 show-lore-of-item "Examine"
 unknown-lore-item "???"
 new-quest-started "New quest: ~a"

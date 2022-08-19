@@ -432,7 +432,16 @@ void main(){
                                :bsize (vec s s)
                                :location (vec (random* 0 (* 2 (vx tsize)))
                                               (- (vy tsize) 10 (* yspread (/ (expt (random 10.0) 3) 1000.0)))))
-                +world+)))))
+                +world+))))
+
+  (let ((report (find "report" (list-saves) :key (lambda (s) (pathname-name (file s))) :test #'string=)))
+    (when report
+      (show (make-instance 'prompt-panel
+                           :text (@ recover-crashed-save)
+                           :on-accept (lambda () (ignore-errors (rename-file (file report) (make-pathname :name "4" :defaults (file report)))))
+                           :on-cancel (lambda () (ignore-errors (delete-file (file report)))))
+            :width (alloy:un 500)
+            :height (alloy:un 300)))))
 
 (defmethod hide :after ((menu main-menu))
   (harmony:stop (// 'music 'menu))
