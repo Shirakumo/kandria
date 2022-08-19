@@ -15,6 +15,7 @@
     (alloy:enter grid layout :constraints `((:center :w) (:below ,title 20) (:size 600 300)))
     (loop for (value label format) in `((,(stats-distance stats) distance-travelled :metres)
                                         (,(stats-play-time stats) full-play-time :clock)
+                                        (,(level player) player-level-count)
                                         (,(stats-kills stats) number-of-kills)
                                         (,(stats-deaths stats) number-of-deaths)
                                         (,(stats-secrets-found stats) number-of-secrets-found)

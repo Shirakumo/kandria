@@ -9,7 +9,10 @@
   (deaths 0 :type (unsigned-byte 32))
   (longest-session 0 :type (unsigned-byte 32))
   (secrets-found 0 :type (unsigned-byte 32))
-  (money-accrued 0 :type (unsigned-byte 32)))
+  (money-accrued 0 :type (unsigned-byte 32))
+  (chunks-uncovered 0 :type (unsigned-byte 32))
+  (secrets-total 0 :type (unsigned-byte 32))
+  (chunks-total 0 :type (unsigned-byte 32)))
 
 (defclass stats-entity ()
   ((stats :initform (make-stats) :reader stats)))
@@ -20,7 +23,7 @@
                  `(progn
                     ,@(loop for field in fields
                             collect `(setf (,field orig) (,field stats))))))
-      (transfer stats-distance stats-play-time stats-kills stats-deaths stats-longest-session stats-secrets-found stats-money-accrued))))
+      (transfer stats-distance stats-play-time stats-kills stats-deaths stats-longest-session stats-secrets-found stats-money-accrued stats-chunks-uncovered))))
 
 ;; FIXME: track longest-session
 
@@ -36,6 +39,22 @@
     (incf (stats-play-time stats) (dt ev))
     (incf (stats-distance stats) (vlength (velocity entity)))))
 
+(defmethod handle :before ((ev switch-chunk) (entity stats-entity))
+  (when (and (not (unlocked-p (chunk ev)))
+             (visible-on-map-p (chunk ev)))
+    (incf (stats-chunks-uncovered (stats entity)))))
+
+(defmethod handle :after ((ev switch-region) (entity stats-entity))
+  (let ((stats (stats entity))
+        (chunks 0)
+        (secrets 0))
+    (for:for ((entity over (region +world+)))
+      (typecase entity
+        (hider (incf secrets))
+        (chunk (incf chunks))))
+    (setf (stats-secrets-total stats) secrets)
+    (setf (stats-chunks-total stats) chunks)))
+
 (defmethod score ((stats stats))
   (floor
    (+ (/ (stats-distance stats) 16.0 10.0)
@@ -48,43 +67,31 @@
      (floor (price player) 5)))
 
 (defmethod chunk-find-rate ((player player))
-  (let ((count 0)
-        (found 0))
-    (for:for ((entity over (region +world+)))
-      (typecase entity
-        (chunk
-         (when (visible-on-map-p entity)
-           (incf count)
-           (when (unlocked-p entity)
-             (incf found))))))
-    (values count found)))
+  (values (stats-chunks-total (stats player))
+          (stats-chunks-uncovered (stats player))))
 
 (defmethod secret-find-rate ((player player))
-  (let ((count 0)
-        (found 0))
-    (for:for ((entity over (region +world+)))
-      (typecase entity
-        (hider
-         (incf count)
-         (unless (active-p entity)
-           (incf found)))))
-    (values count found)))
+  (values (stats-secrets-total (stats player))
+          (stats-secrets-found (stats player))))
 
-(defmethod fish-find-rate ((player player))
+(defmethod lore-find-rate ((player player))
   (let ((count 0)
         (found 0))
     (dolist (item (c2mop:class-direct-subclasses (find-class 'fish)))
       (incf count)
       (when (item-unlocked-p (c2mop:class-prototype item) player)
         (incf found)))
+    (dolist (item (c2mop:class-direct-subclasses (find-class 'lore-item)))
+      (incf count)
+      (when (item-unlocked-p (c2mop:class-prototype item) player)
+        (incf found)))
     (values count found)))
 
 (defmethod completion ((player player))
-  ;; FIXME: Include lore items
   ;; FIXME: Include quest completion count
   (let ((count 0)
         (found 0))
-    (dolist (func '(chunk-find-rate secret-find-rate fish-find-rate))
+    (dolist (func '(chunk-find-rate secret-find-rate lore-find-rate))
       (multiple-value-bind (c f) (funcall func player)
         (incf count c)
         (incf found f)))
@@ -95,7 +102,7 @@
          'rank-boss)
         ((multiple-value-bind (c f) (secret-find-rate player) (= c f))
          'rank-magpie)
-        ((multiple-value-bind (c f) (fish-find-rate player) (= c f))
+        ((multiple-value-bind (c f) (lore-find-rate player) (= c f))
          'rank-coelacanth)
         ((multiple-value-bind (c f) (chunk-find-rate player) (= c f))
          'rank-penguin)
