@@ -176,3 +176,13 @@
   (setf (vx (location player)) (vx (location npc)))
   (setf (direction player) (direction npc))
   (start-animation 'pet player))
+
+(define-shader-entity baba (pet creatable)
+  ((nametag-element :initform NIL)
+   (bsize :initform (vec 8 8)))
+  (:default-initargs :sprite-data (asset 'kandria 'critter-baba)))
+
+(defmethod interact :around ((npc baba) (player player))
+  (setf (vx (location player)) (- (vx (location npc)) (* 8 (direction npc))))
+  (setf (direction player) (direction npc))
+  (start-animation 'pet player))
