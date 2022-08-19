@@ -440,9 +440,11 @@
                (setf (roam-time npc) (random* 30 15))
                (cond ((< 0.5 (random 1.0))
                       (setf (ai-state npc) :normal))
-                     (T
+                     ((find-animation 'sit npc NIL)
                       (setf (ai-state npc) :sit)
-                      (setf (animation npc) 'sit)))))
+                      (setf (animation npc) 'sit))
+                     (T
+                      (setf (ai-state npc) :normal)))))
         (case (ai-state npc)
           (:normal
            (setf (vx vel) 0.0)
