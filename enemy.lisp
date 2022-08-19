@@ -639,7 +639,7 @@
     (cond ((invincible-p animatable)
            (setf damage 0))
           (hard-hit-p
-           (setf (pause-timer +world+) 0.12)))
+           (setf (pause-timer +world+) 0.08)))
     (trigger (make-instance 'text-effect) animatable
              :text (princ-to-string (truncate damage))
              :location (vec (+ (vx (location animatable)))

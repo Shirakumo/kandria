@@ -63,7 +63,7 @@
       (setf (mixed:speed-factor (harmony:segment :speed T)) (+ (* target 0.05) (* source 0.95))))
     (when (< 0 (pause-timer scene))
       (decf (pause-timer scene) dt)
-      (setf dt (* dt 0.0)))
+      (setf dt (* dt 0.1)))
     (setf (slot-value ev 'tt) tt)
     (setf (slot-value ev 'dt) dt)
     (setf (slot-value ev 'fc) fc)
