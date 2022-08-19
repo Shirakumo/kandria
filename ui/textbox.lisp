@@ -133,6 +133,11 @@ void main(){
    (alloy:margins)
    :pattern (colored:color 0 0 0 0.8)))
 
+(defmethod alloy:exit ((list dialog-choice-list))
+  (when (< 0 (alloy:element-count list))
+    (let ((el (alloy:index-element (1- (alloy:element-count list)) list)))
+      (setf (alloy:focus el) :weak))))
+
 (defun clear-text-string ()
   (load-time-value (make-array 0 :element-type 'character)))
 
