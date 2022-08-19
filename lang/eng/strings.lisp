@@ -787,6 +787,7 @@ recover-crashed-save "It looks like the game crashed previously. An emergency sa
 
 If you Ok this dialog, the save will replace save #4.
 If you Cancel it, the emergency save will be deleted."
+press-prompted-button "Please press one of the indicated buttons now to continue"
 show-lore-of-item "Examine"
 unknown-lore-item "???"
 new-quest-started "New quest: ~a"
