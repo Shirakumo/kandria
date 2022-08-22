@@ -11,7 +11,7 @@
            (screen-location (world-screen-pos (vec (vx (location target))
                                                    (+ (vy (location target)) (vy (bsize target)) 10
                                                       (offset element)))))
-           (size (alloy:suggest-bounds (alloy:px-extent 0 0 96 8) element)))
+           (size (alloy:suggest-size (alloy:px-extent 96 8) element)))
       (setf (alloy:bounds element) (alloy:px-extent (- (vx screen-location) (/ (alloy:pxw size) 2))
                                                     (+ (vy screen-location) (alloy:pxh size))
                                                     (max 1 (alloy:pxw size))
@@ -300,14 +300,12 @@
              (alloy:layout-tree line))
     (alloy:leave line T)))
 
-(defmethod alloy:suggest-bounds ((extent alloy:extent) (element status-line))
-  (alloy:extent (alloy:x extent)
-                (alloy:y extent)
-                500
-                (ecase (importance element)
-                  (:note 20)
-                  (:normal 26)
-                  (:important 32))))
+(defmethod alloy:suggest-size ((size alloy:size) (element status-line))
+  (alloy:size 500
+              (ecase (importance element)
+                (:note 20)
+                (:normal 26)
+                (:important 32))))
 
 (defclass timer-line (alloy:label)
   ((alloy:value :initform 0.0)

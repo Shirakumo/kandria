@@ -31,10 +31,8 @@
    :image alloy:value
    :sizing :contain))
 
-(defmethod alloy:suggest-bounds ((bounds alloy:extent) (icon icon))
-  (alloy:extent (alloy:x bounds)
-                (alloy:y bounds)
-                (alloy:w bounds)
+(defmethod alloy:suggest-size ((size alloy:size) (icon icon))
+  (alloy:extent (alloy:w size)
                 (alloy:un 200)))
 
 (defclass credits-layout (alloy:fullscreen-layout alloy:focus-element alloy:renderable)
@@ -76,14 +74,14 @@
 
 (defmethod handle ((ev tick) (panel credits))
   (let* ((extent (alloy:bounds (credits panel)))
-         (ideal (or (ideal panel) (setf (ideal panel) (alloy:pxh (alloy:suggest-bounds extent (credits panel)))))))
-    (setf (game-speed +main+) (if (retained 'skip) 10.0 1.0))
+         (ideal (or (ideal panel) (setf (ideal panel) (alloy:pxh (alloy:suggest-size extent (credits panel)))))))
+    (setf (game-speed +main+) (if (retained 'skip) 30.0 1.0))
     (alloy:with-unit-parent (alloy:layout-element panel)
       (setf (alloy:bounds (credits panel)) 
-            (alloy:px-extent (alloy:pxx extent)
-                             (- (offset panel) ideal)
-                             (alloy:vw 1)
-                             ideal))
+            (alloy:extent (alloy:pxx extent)
+                          (- (offset panel) ideal)
+                          (alloy:vw 1)
+                          ideal))
       (incf (offset panel) (* (alloy:to-px (alloy:un 50)) (dt ev)))
       (when (< (+ ideal (height *context*)) (offset panel))
         (transition :kind :black (hide panel))))))

@@ -205,8 +205,8 @@
                                                          :font "PromptFont"))
                               shapes))))))
 
-(defmethod alloy:suggest-bounds (bounds (map map-element))
-  bounds)
+(defmethod alloy:suggest-size (size (map map-element))
+  size)
 
 (defmethod alloy:render :around ((renderer alloy:renderer) (map map-element))
   (alloy:with-unit-parent map

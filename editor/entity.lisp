@@ -2,7 +2,7 @@
 
 (alloy:define-widget entity-widget (sidebar)
   ((entity :initarg :entity :initform NIL :accessor entity
-           :representation (alloy:label :ideal-bounds (alloy:extent 0 0)))))
+           :representation (alloy:label :ideal-size (alloy:size 0 0)))))
 
 (alloy:define-subcomponent (entity-widget region) ((name (unit 'region T)) alloy:label))
 (alloy:define-subbutton (entity-widget insert) () (edit 'insert-entity T))

@@ -38,7 +38,7 @@
     (dotimes (i (length +tile-history+))
       (let ((element (alloy:represent (aref +tile-history+ i) 'tile-button
                                       :tileset tileset :layout-parent layout :focus-parent focus
-                                      :ideal-bounds (alloy:size 64 64))))
+                                      :ideal-size (alloy:size 64 64))))
         (alloy:on alloy:activate (element)
           (setf (tile-to-place widget) (alloy:value element)))))
     (alloy:observe 'tile widget (lambda (value object)

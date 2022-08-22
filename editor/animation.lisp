@@ -16,7 +16,7 @@
 
 (defmethod alloy:render ((pass ui-pass) (hurtbox hurtbox)))
 
-(defmethod alloy:suggest-bounds (bounds (hurtbox hurtbox)) bounds)
+(defmethod alloy:suggest-size (size (hurtbox hurtbox)) size)
 
 (defun compute-frame-location (animation frames frame-idx)
   (let ((loc (vec 0 0))

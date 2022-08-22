@@ -150,7 +150,7 @@
     (alloy::set-layout-tree value (alloy:layout-element item))))
 
 (defmethod alloy:notice-focus (sub (item tab)))
-(defmethod alloy:notice-bounds (sub (item tab)))
+(defmethod alloy:notice-size (sub (item tab)))
 
 (defmethod alloy:register :after ((item tab) (renderer alloy:renderer))
   (when (alloy:layout-element item)

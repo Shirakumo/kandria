@@ -21,7 +21,7 @@
    :range '(0.3 . 1.3)
    :step 0.05
    :grid 0.05
-   :ideal-bounds (alloy:extent 0 0 100 20)))
+   :ideal-size (alloy:extent 0 0 100 20)))
 
 (defmethod alloy:value ((slider zoom-slider))
   (let ((val (call-next-method)))
@@ -52,10 +52,10 @@
                                                           :size 0)))))
 
 (defmethod alloy:render ((pass ui-pass) (marker marker))
-  (alloy:with-constrained-visibility ((alloy:bounds marker) pass)
-    (render marker NIL)))
+  (alloy:constrain-visibility (alloy:size (alloy:w marker) (alloy:h marker)) pass)
+  (render marker NIL))
 
-(defmethod alloy:suggest-bounds (bounds (marker marker)) bounds)
+(defmethod alloy:suggest-size (size (marker marker)) size)
 
 (defclass editor (pausing-panel menuing-panel alloy:observable-object)
   ((flare:name :initform :editor)
@@ -188,7 +188,7 @@
   ;; KLUDGE: Manually fix the sidebar to start out as 300. Setting the size in the parent would
   ;; not allow it to resize by dragging.
   (setf (alloy:bounds (alloy:layout-element sidebar)) (alloy:px-extent 0 0 300 0))
-  (alloy:notice-bounds (alloy:layout-element (alloy:layout-element sidebar)) (alloy:layout-element editor)))
+  (alloy:notice-size (alloy:layout-element (alloy:layout-element sidebar)) (alloy:layout-element editor)))
 
 (defun update-marker (editor)
   (let* ((selected (entity editor))
