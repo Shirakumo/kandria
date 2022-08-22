@@ -23,6 +23,7 @@ semi-patron-2-nametag "Drunk Patron" ;; female
 villager-nametag "Villager" ;; gender unknown
 hunter-nametag "Hunter" ;; gender unknown
 cerebat-trader-stranger "Stranger" ;; male trader
+synthesis-nametag "The Synthesis" ;; gender unknown, shady character
 semi-partner-nametag "Tobias" ;; male
 cerebat-partner-nametag "Kacey" ;; female
 semi-engineer-1-nametag "Heidy" ;; female

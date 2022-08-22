@@ -1,0 +1,72 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect
+# intro/intro-chat
+~ synthesis
+| (:grin)It's time, android.
+~ player
+- ...
+- Could you sound any more mysterious?
+  ~ synthesis
+  | (:grin)Perhaps.
+- No it's not.
+  < leave
+~ synthesis
+| (:grin)I have "answers, about the old world"(orange), if you help me.
+~ player
+- What answers?
+  ~ synthesis
+  | It concerns the... "unethical treatment of a social class of the populace"(orange).
+- What do you want?
+- I could take those answers by force.
+  ~ synthesis
+  | (:grin)You could try. But you would fail.
+- Not interested.
+  < leave
+~ synthesis
+| ...
+~ player
+| "I can hardly see their face, but they seem to be having the world's worst headache."(light-gray, italic)
+~ synthesis
+| Kuhkuhkuh...
+~ player
+- Are you okay?
+- ...
+- You don't look well.
+- I hope that's not contagious.
+~ synthesis
+| I need my poison. Get it for me.
+| Do you have any "black cap mushrooms"(orange)? Ja, the poisonous ones.
+~ player
+- [(<= 4 (item-count 'item:mushroom-bad-1)) I have {(item-count 'item:mushroom-bad-1)} - take them.|]
+  ~ synthesis
+  ! eval (retrieve 'item:mushroom-bad-1 (item-count 'item:mushroom-bad-1))
+  | Danke. You have a good heart.
+  | "Give me a minute here"(orange), they shouldn't take long to administer.
+  ~ player
+  | (:embarassed)"I can't see what they're doing, but I definitely saw a needle."(light-gray, italic)
+  ! eval (setf (var 'synthesis-given) T)
+  < exit
+- [(<= 1 (item-count 'item:mushroom-bad-1)) (Lie) I'm afraid not.|]
+  ~ synthesis
+  | Ack, that's too bad.
+- How many do you need?
+- I can get some.
+~ synthesis
+| "Bring me 4 black caps"(orange).
+| Schnell.
+? (= 4 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | (:thinking)"I do "have what they need already"(orange)."(light-gray, italic)
+|? (< 4 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | (:thinking)"I do "have more than they need already"(orange)."(light-gray, italic)
+|? (< 0 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | (:thinking)"I do "have some of what they need already"(orange)."(light-gray, italic)
+  
+! eval (activate 'sq14a-synthesis)
+! eval (complete task)
+! eval (reset interaction)
+# leave
+~ synthesis
+| (:grin)When you're ready to accept your fate, "I'll be here"(orange).
+# exit

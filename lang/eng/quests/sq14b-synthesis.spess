@@ -1,0 +1,17 @@
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+# boss-reminder/reminder
+~ synthesis
+| Reminder
+
+# task-return/boss-return
+~ synthesis
+| Talk
+~ synthesis
+| (:grin)The "lab to the east, near the abandoned station"(orange). The answers are there.
+| You need them, as do I.
+| "Access the terminals"(orange) and you'll see. "Search the database for "black caps""(orange).
+! eval (activate (unit 'spawner-5703))
+! eval (activate (unit 'spawner-5705))
+
+
+; reactivate world spawner again

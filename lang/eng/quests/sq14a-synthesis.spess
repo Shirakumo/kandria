@@ -1,0 +1,76 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect
+# return-supplies/supplies-return
+? (var 'synthesis-given)
+| < next
+|?
+| ~ synthesis
+| | Where's my poison?
+| ? (= 0 (item-count 'item:mushroom-bad-1))
+| | ~ synthesis
+| | | Schnell! I "still need black caps"(orange) - bring me "{(var 'black-cap-count)}"(orange).
+| |?
+| | ~ synthesis
+| | | (:grin)Das ist gut. Give me those black caps.
+| | ? (< 0 (var 'black-cap-count))
+| | | ! eval (setf (var 'black-cap-count) (- (var 'black-cap-count) (min (var 'black-cap-count) (item-count 'item:mushroom-bad-1))))
+| | | ! eval (retrieve 'item:mushroom-bad-1 (item-count 'item:mushroom-bad-1))
+| | ? (= 0 (var 'black-cap-count))
+| | | < result
+| | |?
+| | | ~ synthesis
+| | | | But I "still need more"(orange) - bring me "{(var 'black-cap-count)}"(orange). Schnell!
+
+# result
+~ synthesis
+| (:grin)Danke. That is all.
+| (:normal)Give me a minute here, they shouldn't take long to administer.
+~ player
+| (:embarassed)"I can't see what they're doing, but I definitely saw a needle."(light-gray, italic)
+| ...
+< next
+
+# next
+~ synthesis
+| ...
+| (:grin)Aha! We are back in business.
+| Now I feel like they should pay for crossing "The Synthesis"(yellow).
+~ player
+- Now you tell me about the old world.
+  ~ synthesis
+  | (:grin)You can see for yourself - once it's safe.
+- Is that your name?
+  | (:grin)My name. And my purpose. In the meantime...
+- Who should pay?
+  ~ synthesis
+  | Bandits. Rogues. Headless Highwaymen. Whatever they call them around here.
+  < task
+! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
+~ synthesis
+| I have my own enemies: Bandits. Rogues. Headless Highwaymen. Whatever they call them around here.
+! label task
+! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
+~ synthesis
+| They are looking for this information too, and they got close.
+| (:grin)But I took pre-emptive action: hit their camp on the Semi border. Hit it hard. Most ended, but some escaped.
+| Their new camp is "low-east of here, in the middle of this region"(orange).
+| They want to end me. But if I die, so does my knowledge.
+| You're going to "kill them for me"(orange).
+~ player
+- I am?
+  ~ synthesis
+  | (:grin)You are if you want to know more.
+- How do I know they're the bad guys and not you?
+  ~ synthesis
+  | (:grin)You don't.
+- Here's where we part ways.
+  ~ synthesis
+  | (:grin)If it has to be like that.
+  | But "my offer still stands"(orange). Us outcasts, we should stick together.
+  < end
+~ synthesis
+| (:grin)"Do what I ask and we shall proceed."(orange)
+< end
+
+# end
+! eval (complete task)
+! eval (reset interaction)
