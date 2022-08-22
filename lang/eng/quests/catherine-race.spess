@@ -16,7 +16,7 @@
 | < quit
 
 ~ catherine
-| (:cheer)Alright, let's do this!
+| (:cheer)Alright, let's race!
 | (:excited)"{(quest:title (quest:find-named 'race task))}."(orange)
 | (:normal)The time brackets are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (var 'pb)
