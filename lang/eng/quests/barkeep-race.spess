@@ -12,7 +12,7 @@
 # start
 ? (timer-quest)
 | ~ semi-barkeep
-| | You're "already racing"(orange) - "finish or stop that one first"(orange).
+| | Impossible - you're "already racing"(orange). "Finish or stop that one first"(orange).
 | < quit
 
 ~ semi-barkeep
