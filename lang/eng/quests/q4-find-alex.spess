@@ -3,6 +3,7 @@
 ? (not (complete-p 'find-alex-cerebats))
 | | Go to the "Cerebats township deep underground, find Alex and bring them back"(orange) for debriefing.
 | | Watch out for the Semi Sisters on your way. They're not our enemies, but they are unpredictable.
+| | You can "access the lower levels through the floor in the pump room"(orange).
 |?
 | | (:unsure)Alex isn't with the Cerebats? That is worrying.
 | | (:normal)Well they still haven't returned. I suggest you "search the tunnels between the Semis and the Cerebats"(orange).
@@ -266,7 +267,7 @@
   |?
   | ~ player
   | | (:embarassed)"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has."(light-gray, italic)
-- (Leave them be)
+- (Don't buy them a drink)
 ~ player
 | "Whoa, Alex nearly fell over. I'm not sure they can see straight. Now they're looking at me again."(light-gray, italic)
 ~ alex
