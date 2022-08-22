@@ -6,13 +6,14 @@
 (defclass save-v1.2 (save-v1.1) ())
 (defclass save-v1.3 (save-v1.2) ())
 (defclass save-v1.4 (save-v1.3) ())
+(defclass save-v1.5 (save-v1.4) ())
 
 #-kandria-demo
 (defmethod supported-p ((_ save-v1.2)) T)
 (defmethod supported-p ((_ save-v1.4)) T)
 
 (defun current-save-version ()
-  (make-instance 'save-v1.4))
+  (make-instance 'save-v1.5))
 
 (define-encoder (world save-v0) (_b depot)
   (let ((region (region world)))
@@ -268,13 +269,52 @@
                      label
                      (decode 'colored:rgb color))))
 
+(defmethod encode-payload ((_ (eql 'trace)) trace depot (save-v0 save-v0))
+  (depot:with-open (tx (depot:ensure-entry "trace.dat" depot) :output  '(unsigned-byte 8))
+    (let ((stream (depot:to-stream tx)))
+      (nibbles:write-ub16/le (length trace) stream)
+      (dotimes (i (length trace))
+        (nibbles:write-ieee-single/le (aref trace i) stream)))))
+
+(defmethod encode-payload ((_ (eql 'trace)) trace depot (save-v1.5 save-v1.5))
+  (depot:with-open (tx (depot:ensure-entry "trace.dat" depot) :output  '(unsigned-byte 8))
+    (let ((stream (depot:to-stream tx)))
+      (nibbles:write-ub32/le (length trace) stream)
+      (dotimes (i (length trace))
+        (nibbles:write-ieee-single/le (aref trace i) stream)))))
+
+(defmethod decode-payload (trace (_ (eql 'trace)) depot (save-v0 save-v0))
+  (when (depot:entry-exists-p "trace.dat" depot)
+    (handler-case
+        (let* ((data (depot:read-from (depot:entry "trace.dat" depot) 'byte))
+               (count (nibbles:ub16ref/le data 0)))
+          (trial::with-pointer-to-vector-data (src data)
+            (cffi:incf-pointer src 2)
+            (when (< (array-total-size trace) count)
+              (adjust-array trace count))
+            (setf (fill-pointer trace) count)
+            (trial::with-pointer-to-vector-data (dst trace)
+              (static-vectors:replace-foreign-memory dst src (* count 4)))))
+      (error (e)
+        (v:warn :kandria.save "Failed to restore movement trace: ~a" e)))))
+
+(defmethod decode-payload (trace (_ (eql 'trace)) depot (save-v0 save-v1.5))
+  (when (depot:entry-exists-p "trace.dat" depot)
+    (handler-case
+        (let* ((data (depot:read-from (depot:entry "trace.dat" depot) 'byte))
+               (count (nibbles:ub32ref/le data 0)))
+          (trial::with-pointer-to-vector-data (src data)
+            (cffi:incf-pointer src 4)
+            (when (< (array-total-size trace) count)
+              (adjust-array trace count))
+            (setf (fill-pointer trace) count)
+            (trial::with-pointer-to-vector-data (dst trace)
+              (static-vectors:replace-foreign-memory dst src (* count 4)))))
+      (error (e)
+        (v:warn :kandria.save "Failed to restore movement trace: ~a" e)))))
+
 (define-encoder (player save-v0) (_b depot)
-  (let ((trace (movement-trace player)))
-    (depot:with-open (tx (depot:ensure-entry "trace.dat" depot) :output  '(unsigned-byte 8))
-      (let ((stream (depot:to-stream tx)))
-        (nibbles:write-ub16/le (length trace) stream)
-        (dotimes (i (length trace))
-          (nibbles:write-ieee-single/le (aref trace i) stream)))))
+  (encode-payload 'trace (movement-trace player) depot save-v0)
   ;; Set spawn point as current loc.
   (vsetf (spawn-location player) (vx (location player)) (vy (location player)))
   (list* :inventory (alexandria:hash-table-alist (storage player))
@@ -288,20 +328,7 @@
 
 (define-decoder (player save-v0) (initargs depot)
   (call-next-method)
-  (let ((trace (movement-trace player)))
-    (when (depot:entry-exists-p "trace.dat" depot)
-      (handler-case
-          (let* ((data (depot:read-from (depot:entry "trace.dat" depot) 'byte))
-                 (count (nibbles:ub16ref/le data 0)))
-            (when (< (array-total-size trace) count)
-              (adjust-array trace count))
-            (setf (fill-pointer trace) count)
-            (trial::with-pointer-to-vector-data (src data)
-              (let ((src (cffi:inc-pointer src 2)))
-                (trial::with-pointer-to-vector-data (dst trace)
-                  (static-vectors:replace-foreign-memory dst src (* count 4))))))
-        (error (e)
-          (v:warn :kandria.save "Failed to restore movement trace: ~a" e)))))
+  (decode-payload (movement-trace player) 'trace depot save-v0)
   (destructuring-bind (&key inventory unlocked map-markers (stats (make-stats)) (palette 0) (sword-level 0) nametag &allow-other-keys) initargs
     (setf (storage player) (alexandria:alist-hash-table inventory :test 'eq))
     (let ((table (unlock-table player)))
