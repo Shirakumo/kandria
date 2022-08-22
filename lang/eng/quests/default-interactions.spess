@@ -261,7 +261,7 @@
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
 | | Why don't you draw a picture? It lasts longer.
 |? (complete-p 'Q7-MY-NAME)
-| | The "Council"(orange)? They can stay lost for all I care, fact lot of good they've done.
+| | The "Council"(orange)? They can stay lost for all I care, fat lot of good they've done.
 | | It's their fault this place is crawling with snivelling swindlers, like that "guy in the backstreet above here"(orange).
 |? (complete-p 'SQ6-DELIVER-LETTER)
 | | You understand privacy, yes?
