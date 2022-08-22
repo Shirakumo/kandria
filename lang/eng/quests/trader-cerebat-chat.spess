@@ -21,7 +21,7 @@
 |   | ~ cerebat-trader-quest
 |   | | You fink I got this far in business by sharin' my name?
 |   | | You can call me... //Stranger//.
-|   | ! eval (setf (nametag (unit 'cerebat-trader-quest)) (@ cerebat-trader-stranger))
+|   | ! eval (setf (nametag (unit 'cerebat-trader-quest)) (@ cerebat-trader-nametag))
 |   | ~ player
 |   | - Are you for real?
 |   |   ~ cerebat-trader-quest
