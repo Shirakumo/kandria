@@ -191,18 +191,18 @@
                (alloy:on alloy:focus (value button)
                  (when value
                    (setf (alloy:value description) (item-description (alloy:value button)))
-                   (setf (alloy:value icon) (make-instance (class-of (alloy:value button)))))))))))
+                   (setf (alloy:value icon) (make-instance (class-of (alloy:value button)))))))))
+         (let ((input (make-instance 'label :value (trial::action-prompts 'mark-for-bulk :bank +input-source+) :style `((:label :halign :middle
+                                                                                                                                :valign :middle))))
+               (info (make-instance 'label :value (@ shop-mark-item-for-bulk-selling) :style `((:label :size ,(alloy:un 15)
+                                                                                                       :halign :right)))))
+           (alloy:enter input layout :constraints `((:right 50) (:below ,inner 10) (:size 50 50)))
+           (alloy:enter info layout :constraints `((:right 120) (:below ,inner 10) (:size 500 50))))))
       (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
         (alloy:enter back layout :constraints `((:left 50) (:below ,inner 10) (:size 200 50)))
         (alloy:enter back focus)
         (alloy:on alloy:exit (focus)
           (setf (alloy:focus back) :strong)))
-      (let ((input (make-instance 'label :value (trial::action-prompts 'mark-for-bulk :bank +input-source+) :style `((:label :halign :middle
-                                                                                                                             :valign :middle))))
-            (info (make-instance 'label :value (@ shop-mark-item-for-bulk-selling) :style `((:label :size ,(alloy:un 15)
-                                                                                                    :halign :right)))))
-        (alloy:enter input layout :constraints `((:right 50) (:below ,inner 10) (:size 50 50)))
-        (alloy:enter info layout :constraints `((:right 120) (:below ,inner 10) (:size 500 50))))
       (alloy:finish-structure panel layout focus))))
 
 (defmethod handle ((ev mark-for-bulk) (panel sales-menu))
