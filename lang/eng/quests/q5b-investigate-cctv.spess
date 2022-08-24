@@ -164,6 +164,7 @@
 | ! eval (activate 'q6-return-to-fi)
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))
+| ! eval (activate (unit 'fi-ffcs-3))
 ; couldnae = couldn't (Scots)
 ; dinnae = don't / do not (Scottish)
 ; doesnae = does not / doesn't (Scottish)

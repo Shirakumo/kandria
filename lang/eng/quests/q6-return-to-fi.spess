@@ -11,6 +11,7 @@
 ! eval (activate 'return-fi)
 ! eval (deactivate (unit 'fi-ffcs-1))
 ! eval (deactivate (unit 'fi-ffcs-2))
+! eval (deactivate (unit 'fi-ffcs-3))
 
 # return-fi/talk-fi
 ~ fi
