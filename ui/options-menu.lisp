@@ -16,10 +16,9 @@
     (out
      (case +input-source+
        (:keyboard
-        (let ((mouse (trial::action-prompts (alloy:value button) :bank :mouse)))
-          (if (string= "" mouse)
-              (trial::action-prompts (alloy:value button) :bank :keyboard)
-              mouse)))
+        (concatenate 'string
+                     (trial::action-prompts (alloy:value button) :bank :mouse)
+                     (trial::action-prompts (alloy:value button) :bank :keyboard)))
        (T
         (trial::action-prompts (alloy:value button) :bank +input-source+))))))
 
