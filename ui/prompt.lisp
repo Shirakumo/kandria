@@ -163,7 +163,7 @@
         (description (make-instance 'big-prompt-description :value (ensure-language-string description)))
         (confirm (make-instance 'label :value (@ press-prompted-button) :style `((:label :size ,(alloy:un 14)) :halign :middle))))
     (alloy:enter button layout :constraints `(:center (:size 500 120)))
-    (alloy:enter description layout :constraints `((:center :w) (:below ,button 20) (:size 1000 120)))
+    (alloy:enter description layout :constraints `((:center :w) (:below ,button 20) (:size 1000 150)))
     (alloy:enter title layout :constraints `((:center :w) (:above ,button 20) (:align :left ,description -30) (:size 300 30)))
     (alloy:enter confirm layout :constraints `((:center :w) (:below ,description 20) (:size 1000 30)))
     (alloy:finish-structure prompt layout NIL)))
