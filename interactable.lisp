@@ -122,6 +122,10 @@
 (defmethod interact :before ((door basic-door) (entity game-entity))
   (harmony:play (// 'sound 'door-open) :reset T))
 
+(define-shader-entity train-door (basic-door)
+  ()
+  (:default-initargs :sprite-data (asset 'kandria 'train-door)))
+
 (define-shader-entity passage (door creatable)
   ()
   (:default-initargs :sprite-data (asset 'kandria 'passage)))
