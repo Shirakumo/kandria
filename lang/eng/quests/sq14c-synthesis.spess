@@ -435,7 +435,7 @@
   - I'm serious.
   - That's everything the file contains. VERBATIM.
   ~ synthesis
-  | ... 
+  | ...
   | There might be enough here for us to work out the rest, but we're not sure.
   | (:grin)Still, this is better than nothing. Perhaps we can learn more from the lab.
   < end-end
@@ -452,7 +452,7 @@
   ! eval (retrieve 'item:synthesis-file 1)
   | "File deleted."(orange, italic)
   ~ player
-  - I don't have it.
+  - I don't have it any more.
   - I deleted my file on it.
   ~ synthesis
   | ... You try our patience, android.
