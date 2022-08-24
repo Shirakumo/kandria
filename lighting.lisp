@@ -320,7 +320,8 @@ void main(){
            (vao (make-instance 'vertex-array :vertex-form :triangle-fan
                                              :bindings `((,vbo :size 2 :offset 0 :stride 8))
                                              :size (/ (length data) 2))))
-      (setf (vertex-array light) vao))))
+      (setf (vertex-array light) vao))
+    (update-bounding-box light)))
 
 (defmethod initargs append ((light basic-light))
   '(:color :vertex-array))
