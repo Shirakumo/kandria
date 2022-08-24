@@ -12,6 +12,7 @@
 ! eval (deactivate (unit 'fi-ffcs-1))
 ! eval (deactivate (unit 'fi-ffcs-2))
 ! eval (deactivate (unit 'fi-ffcs-3))
+; (unlocked-p (unit 'station-surface)) - should be force unlocked now by this point, so the check is redundant; but a good safeguard to keep
 
 # return-fi/talk-fi
 ~ fi
