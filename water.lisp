@@ -128,7 +128,8 @@
   (setf (state player) :fishing)
   (setf (active-p (action-set 'fishing)) T)
   (vsetf (velocity player) 0 0)
-  (setf (animation player) 'fishing-start))
+  (setf (animation player) 'fishing-start)
+  (clear-retained))
 
 (defmethod draw-item ((water water))
   (make-instance (draw-item (fishing-spot water))))
