@@ -496,6 +496,7 @@
                              #x95C8D8 #x708238 #x3A1F04 #xD9DDDC #x800000)))
 
 (defmethod hide :after ((panel marker-menu))
+  (clear-retained)
   (let ((markers (map-markers (unit 'player T)))
         (marker (marker panel)))
     (cond ((string= " " (map-marker-label marker))

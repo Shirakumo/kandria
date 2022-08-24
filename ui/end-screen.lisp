@@ -44,5 +44,5 @@
   (:label (simple:size :duration 0.2) (presentations:offset :duration 0.2))
   (:icon (simple:size :duration 0.3) (presentations:offset :duration 0.2)))
 
-(defclass end-screen (menuing-panel pausing-panel)
+(defclass end-screen (pausing-panel menuing-panel)
   ())

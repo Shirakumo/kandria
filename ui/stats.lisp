@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass stats-screen (menuing-panel pausing-panel)
+(defclass stats-screen (pausing-panel menuing-panel)
   ())
 
 (defmethod initialize-instance :after ((prompt stats-screen) &key (player (unit 'player T)) next)

@@ -143,7 +143,7 @@
             (trade (source button) (target button) (alloy:value button) T))
           (show-panel 'transaction-panel :source button)))))
 
-(defclass sales-menu (menuing-panel pausing-panel)
+(defclass sales-menu (pausing-panel menuing-panel)
   ())
 
 (progn #! (show-panel 'sales-menu :shop (unit 'trader T) :target (unit 'player T)  :direction :sell))
