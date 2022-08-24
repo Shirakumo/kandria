@@ -36,6 +36,7 @@
       (let ((rank (make-instance 'label :value (language-string (compute-rank player)) :style `((:label :size ,(alloy:un 50) :halign :middle)))))
         (alloy:enter rank layout :constraints `((:below ,grid 5) (:above ,return 5) (:fill :w))))
       (alloy:on alloy:exit (focus)
-        (setf (alloy:focus return) :strong)))
+        (setf (alloy:focus focus) :strong)
+        (setf (alloy:focus return) :weak)))
     (alloy:finish-structure prompt layout focus)))
 

@@ -207,7 +207,8 @@
     (alloy:enter bindings layout
                  :constraints `((:below ,label 5) (:above ,ok 5) (:left 0) (:right 50)))
     (alloy:on alloy:exit (focus)
-      (setf (alloy:focus cancel) :strong))
+      (setf (alloy:focus focus) :strong)
+      (setf (alloy:focus cancel) :weak))
     (alloy:finish-structure panel layout focus)))
 
 (defmethod show :after ((panel input-change-panel) &key)

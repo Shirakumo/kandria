@@ -108,7 +108,8 @@
                                  :on-activate (lambda () (hide panel)
                                                 (funcall on-accept)))
     (alloy:on alloy:exit (focus)
-      (setf (alloy:focus cancel) :strong))
+      (setf (alloy:focus focus) :strong)
+      (setf (alloy:focus cancel) :weak))
     ;; FIXME: scroll
     (alloy:finish-structure panel layout focus)))
 

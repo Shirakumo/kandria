@@ -380,7 +380,8 @@
       (alloy:enter back layout :constraints `((:left 50) (:below ,text 10) (:size 200 50)))
       (alloy:enter back focus)
       (alloy:on alloy:exit (focus)
-        (setf (alloy:focus back) :strong)))
+        (setf (alloy:focus focus) :strong)
+        (setf (alloy:focus back) :weak)))
     (alloy:finish-structure panel layout focus)))
 
 (defclass unlock-button (item-icon)

@@ -146,8 +146,6 @@
 (defclass sales-menu (pausing-panel menuing-panel)
   ())
 
-(progn #! (show-panel 'sales-menu :shop (unit 'trader T) :target (unit 'player T)  :direction :sell))
-
 (defmethod initialize-instance :after ((panel sales-menu) &key shop direction target)
   (alloy:with-unit-parent (unit 'ui-pass T)
     (let* ((layout (make-instance 'eating-constraint-layout
@@ -202,7 +200,8 @@
         (alloy:enter back layout :constraints `((:left 50) (:below ,inner 10) (:size 200 50)))
         (alloy:enter back focus)
         (alloy:on alloy:exit (focus)
-          (setf (alloy:focus back) :strong)))
+          (setf (alloy:focus focus) :strong)
+          (setf (alloy:focus back) :weak)))
       (alloy:finish-structure panel layout focus))))
 
 (defmethod handle ((ev mark-for-bulk) (panel sales-menu))
@@ -329,7 +328,8 @@
     (alloy:enter ok layout :col 0 :row 3)
     (alloy:enter cancel layout :col 1 :row 3)
     (alloy:on alloy:exit (focus)
-      (setf (alloy:focus cancel) :strong))
+      (setf (alloy:focus focus) :strong)
+      (setf (alloy:focus cancel) :weak))
     (alloy:finish-structure panel layout focus)))
 
 (defmethod show :after ((panel transaction-panel) &key)
