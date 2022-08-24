@@ -1,17 +1,29 @@
-; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect
 # boss-reminder/reminder
 ~ synthesis
-| Reminder
+| "Clear out the Rogues' hideout to the low east of here, in the central part of Cerebat territory."(orange)
+| (:grin)Then we can safely retrieve the "information"(italic).
 
 # task-return/boss-return
 ~ synthesis
-| Talk
+| (:grin)It is done.
+~ player
+- How do you know?
+  ~ synthesis
+  | (:grin)We just know.
+- Is that a question?
+  ~ synthesis
+  | ...
+- It is.
+  ~ synthesis
+  | We know.
 ~ synthesis
-| (:grin)The "lab to the east, near the abandoned station"(orange). The answers are there.
-| You need them, as do I.
-| "Access the terminals"(orange) and you'll see. "Search the database for "black caps""(orange).
+| (:grin)Now you can "retrieve the old-world information"(orange).
+| The "lab in the far east, near the abandoned station"(orange) - the answers are there.
+| You need them, as do we. And only an android can "access those terminals"(orange).
+| There are "3 of them"(orange). You'll see. "Search the databases for "black caps""(orange).
 ! eval (activate (unit 'spawner-5703))
 ! eval (activate (unit 'spawner-5705))
 
-
 ; reactivate world spawner again
+; "You need them" - the recipe could help the player's allies, the Noka, survive in the desert, on the surface

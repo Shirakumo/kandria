@@ -10,11 +10,21 @@
 - No it's not.
   < leave
 ~ synthesis
-| (:grin)I have "answers, about the old world"(orange), if you help me.
+| (:grin)We have "answers, about the old world"(orange), if you help us.
+~ player
+- Do you use plural pronouns, or are there more of you?
+  ~ synthesis
+  | (:grin)This is only me. "Us"(italic).
+- Is this the royal "we"?
+  ~ synthesis
+  | ...
+- ...
+~ synthesis
+| (:grin)Do you want them? The answers?
 ~ player
 - What answers?
   ~ synthesis
-  | It concerns the... "unethical treatment of a social class of the populace"(orange).
+  | Answers that would be valuable to you.
 - What do you want?
 - I could take those answers by force.
   ~ synthesis
@@ -22,36 +32,36 @@
 - Not interested.
   < leave
 ~ synthesis
-| ...
+| Gah...
 ~ player
-| "I can hardly see their face, but they seem to be having the world's worst headache."(light-gray, italic)
+| "... I can hardly see their face, but they seem to be having the world's worst headache."(light-gray, italic)
 ~ synthesis
-| Kuhkuhkuh...
+| Ack... AH...
 ~ player
 - Are you okay?
 - ...
 - You don't look well.
 - I hope that's not contagious.
 ~ synthesis
-| I need my poison. Get it for me.
-| Do you have any "black cap mushrooms"(orange)? Ja, the poisonous ones.
+| We need our potion. Get it for us.
+| Do you have "black caps"(orange)? Ja, the poisonous ones.
 ~ player
 - [(<= 4 (item-count 'item:mushroom-bad-1)) I have {(item-count 'item:mushroom-bad-1)} - take them.|]
   ~ synthesis
   ! eval (retrieve 'item:mushroom-bad-1 (item-count 'item:mushroom-bad-1))
-  | Danke. You have a good heart.
-  | "Give me a minute here"(orange), they shouldn't take long to administer.
+  | Danke. You are kind.
+  | "Give us a minute"(orange), they shouldn't take long to administer.
   ~ player
   | (:embarassed)"I can't see what they're doing, but I definitely saw a needle."(light-gray, italic)
   ! eval (setf (var 'synthesis-given) T)
   < exit
+- How many do you need?
+- I can get some.
 - [(<= 1 (item-count 'item:mushroom-bad-1)) (Lie) I'm afraid not.|]
   ~ synthesis
   | Ack, that's too bad.
-- How many do you need?
-- I can get some.
 ~ synthesis
-| "Bring me 4 black caps"(orange).
+| "Bring us 4 black caps"(orange).
 | Schnell.
 ? (= 4 (item-count 'item:mushroom-bad-1))
 | ~ player
@@ -68,5 +78,5 @@
 ! eval (reset interaction)
 # leave
 ~ synthesis
-| (:grin)When you're ready to accept your fate, "I'll be here"(orange).
+| (:grin)When you're ready to know the truth, "we'll be here"(orange). But not forever.
 # exit
