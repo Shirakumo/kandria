@@ -940,7 +940,7 @@ Pinging genera ...                                                 OK
 [INFO] Initiating core loop"
 critical-npc-death-ending "
 The android's Genera system had experienced a sudden critical
-failure, leading it to suddenly turn and kill whoever was in sight.
+failure, leading it to turn and kill whomever was in sight.
 
 The failure escalated, destabilising the internal fusion core,
 and approximately 1.256 seconds after the initial failure,
