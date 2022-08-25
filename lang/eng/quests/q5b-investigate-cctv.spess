@@ -165,6 +165,8 @@
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))
 | ! eval (activate (unit 'fi-ffcs-3))
+| ! eval (setf (location 'synthesis) 'synthesis-cerebat)
+| ! setf (direction 'synthesis) 1
 ; couldnae = couldn't (Scots)
 ; dinnae = don't / do not (Scottish)
 ; doesnae = does not / doesn't (Scottish)

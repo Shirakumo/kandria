@@ -144,7 +144,7 @@
 
 # semi-engineer-team
 ; mix of engineers of different genders who were involved in the tunnel collapse
-; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest
+; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest (q5a)
 ; Don't spoiler the engineers' realisation of you being an android - save that for the new chief
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ npc
@@ -177,6 +177,7 @@
 
 # semi-roboticist
 ; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+; used in sq4
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-roboticist
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
@@ -190,6 +191,7 @@
 
 # semi-barkeep
 ; Semi Sisters barkeep, non-binary
+; used in sq5
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ; "No time for drinking" - in a literal sense in that there's no time, but also because the battle is imminent, this is also not an appropriate time for drinking
 ; Soon becomes a time trail giver, so has no needed for more default interacts - but a brief window after sidequest is closed after q10
@@ -203,6 +205,7 @@
 
 # semi-barkeep-2
 ; female barkeep (other barkeep)
+; world NPC
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-barkeep-2
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
@@ -214,6 +217,7 @@
 
 # semi-patron-1
 ; female, sober
+; used in sq5
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-patron-1
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
@@ -227,6 +231,7 @@
 
 # semi-patron-2
 ; female, drunk
+; used in sq5
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-patron-2
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
@@ -240,6 +245,7 @@
 
 # semi-partner
 ; male Semi, Tobias, was in a relationship with Kacey; speaks informal
+; used in sq6
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-partner
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
@@ -253,13 +259,14 @@
 
 # cerebat-partner
 ; female Cerebat, Kacey, was in a relationship with Tobias; speaks casual
+; used in sq6
 ; Speech changes once you know of the Wraw invasion
 ; (complete-p 'Q7-MY-NAME) though the (complete-p 'CEREBAT-TRADER-ARRIVE) check is written ambigious so works whether you've completed the sidequest or not
 ~ cerebat-partner
 ? (complete-p 'Q10-WRAW)
 | | So the world's gone to shit again. Great.
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | Why don't you draw a picture? It lasts longer.
+| | Why don't you draw a picture? It'll last longer.
 |? (complete-p 'Q7-MY-NAME)
 | | The "Council"(orange)? They can stay lost for all I care, fat lot of good they've done.
 | | It's their fault this place is crawling with snivelling swindlers, like that "guy in the backstreet above here"(orange).
@@ -270,6 +277,7 @@
 
 # cerebat-good-trader
 ; non-binary, Cerebat trader who's concerned for the well-being of the missing Cerebat Council; well spoken
+; used in sq8
 ; Speech changes once you know of the Wraw invasion
 ; "I need some time alone." - grieving over the seeming confirmed loss of the Cerebat Council, especially Antonio
 ; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
@@ -289,6 +297,7 @@
 
 # semi-spy
 ; female, Semi Sisters spy deep in Cerebat territory, and organising races for the player to help themselves blend in undercover; formal speaker
+; used in sq9
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ; "Talk about out of the frying pan and into the burning sun" (riff off of "out of the frying pan and into the fire"); it could be night-time, but we can assume the heat of the sun's influence remains at night
 ; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
@@ -309,6 +318,7 @@
 # wraw-sergeant
 ; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
 ; Northern accent, similar to Zelah
+; used in sq10
 ; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
 ~ wraw-sergeant
 ? (complete-p 'Q10-WRAW)
@@ -317,9 +327,29 @@
 | | How'd ye slip through the net? The barracks are //that// way.
 |? (complete-p 'Q7-MY-NAME)
 | | If ye want a one-way ticket to the bowels of the earth, you keeping asking about the "Council"(orange).
-| | Who'd ye think I am, that scummy nameless trader who skulks around the "upper backstreets"(orange)?
+| | Who'd ye think I am, that "scummy nameless trader"(orange) who skulks around the "upper backstreets"(orange)?
 |?
 | | Report for training, ye scum.
+
+# synthesis
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+; used in sq14
+; Is looking for a secret formula for a drug used by the Wraw, and used pre-Calamity for workers, which increases pain tolerance and resistance to heat, but has many bad side effect
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
+; Before q5a and q5b complete, the NPC is in an inaccessible location, so the true fallback will never play - but here for completeness / in case we move them
+; (complete-p 'SQ14-FIND-COUNCIL) has to work whether they're happy/unhappy with sq14 outcome - you helped them speed up making the drug, or hindered
+; as with others, (complete-p 'Q10-WRAW) needs to work whether you did the quest or not, and even if you never spoke to them before
+~ synthesis
+? (complete-p 'Q10-WRAW)
+| | (:grin)The answers are here, and we know where to look.
+|? (complete-p 'SQ14C-SYNTHESIS)
+| | (:normal)When migraines don't blur our vision, we see the way forward.
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | (:grin)We know you.
+|? (complete-p 'Q7-MY-NAME)
+| | (:grin)You don't seek us - not yet. But perhaps the "stranger on the middle-west backstreet up there, is the one you seek"(orange).
+|?
+| | (:grin)We know you.
 
 ; WORLD NPC
 

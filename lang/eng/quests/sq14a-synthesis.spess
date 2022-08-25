@@ -1,4 +1,4 @@
-; Synthesis, shady character, unknown gender, Swiss-German accent and dialect
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
 # return-supplies/supplies-return
 ? (var 'synthesis-given)
 | < next

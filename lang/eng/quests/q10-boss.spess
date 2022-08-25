@@ -22,6 +22,8 @@
 | ! eval (activate (unit 'station-cerebat-trigger))
 | ! eval (activate (unit 'station-semi-trigger))
 | ! eval (activate (unit 'station-surface-trigger))
+| ! eval (setf (location 'synthesis) 'synthesis-lab)
+| ! setf (direction 'synthesis) -1
 |?
 | | "I'd better "finish exploring this region"(orange). Hopefully there'll be no more surprises."(light-gray, italic)
 

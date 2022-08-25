@@ -123,6 +123,8 @@
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))
 | ! eval (activate (unit 'fi-ffcs-3))
+| ! eval (setf (location 'synthesis) 'synthesis-cerebat)
+| ! setf (direction 'synthesis) 1
 |?
 | ~ innis
 | | I'll be seeing you.

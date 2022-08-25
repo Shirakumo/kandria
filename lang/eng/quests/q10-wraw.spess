@@ -24,6 +24,8 @@
 | ! eval (activate (unit 'station-cerebat-trigger))
 | ! eval (activate (unit 'station-semi-trigger))
 | ! eval (activate (unit 'station-surface-trigger))
+| ! eval (setf (location 'synthesis) 'synthesis-lab)
+| ! setf (direction 'synthesis) -1
 |?
 | ~ player
 | | I need to "keep looking for more signs of their activity"(orange).

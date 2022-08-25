@@ -1,7 +1,7 @@
-; Synthesis, shady character, unknown gender, Swiss-German accent and dialect
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
 # task-reminder/reminder
 ~ synthesis
-| (:grin)Go to the "lab in the far east of this region, access the 3 terminals, and bring me back the information"(orange).
+| (:grin)Go to the "lab in the far east of this region, access the 3 remaining terminals, and bring us back the information"(orange).
 | "Search the databases for black caps."(orange)
 | You'll be glad you did.
 
