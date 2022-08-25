@@ -57,12 +57,18 @@
   ~ player
   | "Help functions xjuiifme due to low power: speak with b nfncfs32pg tubgg for32assistance or to sftupsf qpxfs"
   < terminal-1-query
-- [(var 'terminal-1-clue) (Exit)]
+- [(var 'terminal-1-clue) (Sleep the system)]
+  ~ player
+  (Confirm sleep the system?)
+  ~ player
+  - (No)
+    < terminal-1-query
+  - (Yes)
 ? (not (var 'first-one))
 | ~ player
 | | "Alright, "2 more terminals"(orange) to check."(light-gray, italic)
 | ! eval (setf (var 'first-one) T)
-|? (complete-p 'terminal-1 'terminal-2)
+|? (complete-p 'terminal-2 'terminal-3)
 | < summary
 |?
 | ~ player
@@ -180,7 +186,13 @@
     < terminal-2-help
   - (Return to top level)
     < terminal-2-query
-- [(var 'terminal-2-clue) (Exit)]
+- [(var 'terminal-2-clue) (Sleep the system)]
+  ~ player
+  (Confirm sleep the system?)
+  ~ player
+  - (No)
+    < terminal-2-query
+  - (Yes)
 ? (not (var 'first-one))
 | ~ player
 | | "Alright, "2 more terminals"(orange) to check."(light-gray, italic)
@@ -277,7 +289,13 @@
   | ""guest3324568"(bold) left the session
   | "Session ufsnjobufe. Chat log saved."
   < terminal-3-query
-- [(var 'terminal-3-clue) (Exit)]
+- [(var 'terminal-3-clue) (Sleep the system)]
+  ~ player
+  (Confirm sleep the system?)
+  ~ player
+  - (No)
+    < terminal-3-query
+  - (Yes)
 ? (not (var 'first-one))
 | ~ player
 | | "Alright, "2 more terminals"(orange) to check."(light-gray, italic)
