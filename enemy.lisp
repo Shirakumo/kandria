@@ -96,7 +96,8 @@
 
 (defmethod hurt :after ((enemy minor-enemy) by)
   (when (setting :gameplay :display-hud)
-    (show (health-bar enemy))))
+    (show (health-bar enemy))
+    (alloy:mark-for-render (health-bar enemy))))
 
 (defmethod leave :after ((enemy minor-enemy) target)
   (hide (health-bar enemy)))

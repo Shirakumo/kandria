@@ -11,7 +11,7 @@
            (screen-location (world-screen-pos (vec (vx (location target))
                                                    (+ (vy (location target)) (vy (bsize target)) 10
                                                       (offset element)))))
-           (size (alloy:suggest-size (alloy:px-extent 96 8) element)))
+           (size (alloy:suggest-size (alloy:px-size 96 8) element)))
       (setf (alloy:bounds element) (alloy:px-extent (- (vx screen-location) (/ (alloy:pxw size) 2))
                                                     (+ (vy screen-location) (alloy:pxh size))
                                                     (max 1 (alloy:pxw size))
@@ -60,7 +60,7 @@
    :halign :end
    :valign :middle
    :font (setting :display :font)
-   :size (alloy:un 12)
+   :size (alloy:un 16)
    :pattern colors:white))
 
 (presentations:define-update (ui enemy-health-bar)
