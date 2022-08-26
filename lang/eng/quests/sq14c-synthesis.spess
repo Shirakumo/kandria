@@ -6,6 +6,8 @@
 | You'll be glad you did.
 
 ; terminal system messages written in US English spellings
+; including for the Zenith newspaper articles, so assuming Zenith is in US/Canada/NA (maybe eastern seaboard, given ocean is to the east?)
+; shorthand dates in US style due to most software being US e.g. 3.19.2368
 
 ; Network terminal
 ; drug immune system main clue
@@ -95,7 +97,7 @@
 ; "15%", "holding"
 ; "data"
 ; synthesis cipher words
-; using an actual Oxford Dictionaries definition, example, and citation format, 1) so properly cited, and 2) to work with the calamity fiction
+; using an actual Oxford Dictionaries definition, example, and citation format, 1) so properly cited, and 2) to work with the Calamity fiction
 ; "from archive"
 ; "plural", "queried"
 ; "chemical compounds"
@@ -106,6 +108,7 @@
 
 
 ; Library terminal
+; on image corruption here, only text corruption
 ; drug painkiller main clue
 # terminal-2/terminal
 ~ player
@@ -122,10 +125,10 @@
 - (Search "black caps")
   ~ player
   | "Gah, corruption, as expected. I can't read any of this. Though there's a partial scan of a newspaper front page:"(light-gray, italic)
-  | ""ZENITH ZONAL ZODIAC - 21 July 2367""(bold)
+  | ""ZENITH ZONAL ZODIAC - Friday, July 21, 2367""(bold)
   | ""OPIATE TRIAL SUCCESS SPELLS NEW CHAPTER FOR ECONOMY""(bold)
   | "Chase Yasiri, Chief labour correspondent"
-  | "The man and woman stood on the front steps of that huge glass building, hands joined and raised to the sky, are apparently Professor Molly Jacobson and Doctor Devan Kerr."(light-gray, italic)
+  | "The man and woman stood on the front steps of that huge glass building, hands joined and raised to the sky, are captioned as Professor Molly Jacobson and Doctor Devan Kerr."(light-gray, italic)
   | "Okay, let's see what the article has to say."(light-gray, italic)
   | ""Long-running trial a superhuman success for increasing pain tolerance.""(bold)
   | "Rootless have finally come good on their "new labour drug"(orange), soon to be fast-tracked to market under the new brand name, "Expediate"(orange)."
@@ -135,7 +138,7 @@
   | "Employee contracts will of course undergo amendment to make doses a mandatory part of the working day."
   | "Despite being developed from poisonous black cap mushrooms, side effects are negligible."
   | "Instead, the drug has the ability to "greatly inhibit pain, especially in response to heat"(orange). The benefits the economy are self-evident: "longer working hours, and less consumption of dwindling food and water sources"(orange)."
-  | "The Guiding Light education program is already underway, to ensure the next generation understand and appreciate the clear benefits of Expediate."
+  | ""The Guiding Light education program is already underway, to ensure the next generation understand and appreciate the clear benefits of Expediate," added Rootless' head of PR, Tamsin Shultz."
   | ""Story continues on p5""(italic)
   | "Not in this edition it doesn't - there aren't any more scans. Not that I want to read any more of this tabloid rag."(light-gray, italic)
   | (:embarassed)"No wonder people called it the three Zs - it puts you in a coma."
