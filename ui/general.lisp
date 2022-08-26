@@ -384,17 +384,20 @@
 (defclass fullscreen-panel (panel)
   ())
 
-(defclass menuing-panel (fullscreen-panel)
+(defclass action-set-change-panel (panel)
   ((prior-action-set :initform 'in-game :accessor prior-action-set)))
 
-(defmethod show :before ((panel menuing-panel) &key)
+(defmethod show :before ((panel action-set-change-panel) &key)
   (setf (prior-action-set panel) (or (trial:active-action-set) 'in-game)))
 
-(defmethod hide :after ((panel menuing-panel))
+(defmethod hide :after ((panel action-set-change-panel))
   (setf (active-p (action-set (prior-action-set panel))) T)
   (when (eql (action-set (prior-action-set panel))
              (action-set 'in-game))
     (reset-retained +world+)))
+
+(defclass menuing-panel (action-set-change-panel fullscreen-panel)
+  ())
 
 (defmethod (setf active-p) :after (value (panel menuing-panel))
   (when value

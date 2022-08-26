@@ -153,7 +153,7 @@
    (alloy:margins)
    :pattern (colored:color 0 0 0 0.5)))
 
-(defclass fullscreen-prompt (pausing-panel)
+(defclass fullscreen-prompt (action-set-change-panel pausing-panel)
   ((button :initarg :button :accessor button)))
 
 (defmethod initialize-instance :after ((prompt fullscreen-prompt) &key button input title description)
@@ -177,6 +177,10 @@
                       thereis (typep ev type)))
           (symbol (typep ev (button prompt))))
     (hide prompt)))
+
+(defmethod (setf active-p) :after (value (panel fullscreen-prompt))
+  (when value
+    (setf (active-p (action-set 'in-game)) T)))
 
 (defun fullscreen-prompt (action &key (title action) input (description (trial::mksym #.*package* title '/description)))
   (show (make-instance 'fullscreen-prompt :button action :input input :title title :description description)))
