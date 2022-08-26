@@ -416,6 +416,23 @@ Selwyn Simsek
 |3b|
 Michael Fiano
 
+## Libraries
+Thanks to the various authors, maintainers, and contributors of the following libraries that Kandria makes use of:
+
+3b-bmfont 3bz 3d-matrices 3d-vectors alexandria alloy alloy-animation alloy-constraint alloy-opengl alloy-opengl-msdf alloy-simple alloy-simple-presentations array-utils atomics babel binpack/2 bordeaux-threads cffi cffi-grovel cffi-toolchain chipz chunga cl+ssl cl-aa cl-aa-misc cl-base64 cl-fad cl-gamepad cl-glfw3 cl-jpeg cl-markless cl-mixed cl-mixed-alsa cl-mixed-pulse cl-mixed-vorbis cl-mixed-wav cl-opengl cl-paths cl-paths-ttf cl-ppcre cl-steamworks cl-tga cl-vectors cl-vorbis classowary closer-mop clss clx colored crypto-shortcuts damn-fast-updatable-priority-queue deflate deploy depot depot-zip dissect dns-client documentation-utils drakma fast-io file-attributes file-notify file-select flare flexi-streams float-features flow font-discovery for form-fiddle glsl-toolkit harmony ieee-floats jsown lambda-fiddle local-time lquery messagebox mmap nibbles north-core north-drakma opticl opticl-core parse-float parse-number pathname-utils piping plump pngload puri random-state retrospectiff salza2 sdf sdf/base sdf/bmfont sdf/ttf simple-tasks skippy speechless split-sequence static-vectors stealth-mixin swap-bytes trial trial-alloy trial-feedback trial-glfw trial-harmony trial-notify trial-steam trivial-arguments trivial-features trivial-garbage trivial-gray-streams trivial-indent trivial-main-thread trivial-utf-8 uax-14 uiop usocket uuid verbose yason zip zippy zpb-exif zpb-ttf zpng
+
+## Fonts
+Thanks to the authors of the following fonts which are used in Kandria:
+
+Comic Sans MS
+Font Awesome
+Hline
+Nicokaku
+Noto Sans
+Open Dyslexic
+PromptFont
+Xolonium
+
 # Support
 Kandria was supported by the Pro Helvetia grant for Interactive Media and the KPT Poland Prize Digital Dragons Accelerator.
 
