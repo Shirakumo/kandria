@@ -508,6 +508,16 @@
 ;; x ERROR
 
 (define-item (manual lore-item) 56 0 8 8)
+(define-item (cd lore-item) 56 0 8 8) ;; TODO lore relic artwork for this one and the rest. See art column: https://docs.google.com/spreadsheets/d/1U1NCNqimABMk-NkG-E2_uOZfLnM5S6gWC3YKliRPX8g/edit#gid=0
+(define-item (novel lore-item) 56 0 8 8)
+(define-item (newspaper lore-item) 56 0 8 8)
+(define-item (helmet lore-item) 56 0 8 8)
+(define-item (tin lore-item) 56 0 8 8)
+(define-item (ball lore-item) 56 0 8 8)
+(define-item (shoe lore-item) 56 0 8 8)
+(define-item (diary lore-item) 56 0 8 8)
+(define-item (poster lore-item) 56 0 8 8)
+(define-item (phone lore-item) 56 0 8 8)
 
 ;; Draws
 (define-random-draw mushrooms

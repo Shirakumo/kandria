@@ -485,12 +485,121 @@ item:palette-the-third/description "This uniform has seen many a heist."
 item:palette-error "ERROR"
 item:palette-error/description "ERROR: Missing texture pack"
 item:manual "Combat Manual"
-item:manual/description "A manual for Genera combat model androids"
-item:manual/lore "Combat models are equipped with a standard Artemis EStuB and are trained to execute a variety of directional attack moves in two types: light and heavy.
+item:manual/description "" ;; descriptions not needed for lore relics
+item:manual/lore "Combat Manual
+
+Combat models are equipped with a standard Artemis EStuB and are trained to execute a variety of directional attack moves in two types: light and heavy.
 
 Heavy moves trade an increase in power for slower wind-up and tail-end execution speed. Both types can be performed in different directions, both in the air and on the ground. Both types can also be charged for a stronger variant.
 
 Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will chain into an evade, which can be followed by a punishing counter move of either type."
+item:cd "Compact Disc"
+item:cd/description ""
+item:cd/lore "MELITA [unreadable - Manning?]
+
+Night-Time Horizon
+
+1. Blue [unreadable]
+2. Mountain Dew
+3. Trailer
+4. Space [unreadable]
+5. Out of Reach
+6. Which Way
+7. Love on [unreadable]
+8. Peace in Pieces
+9. [unreadable - Lifeboat?]
+
+(c) 2057 Recreational Records
+
+[The artwork shows an overcast sky and endless highway, as night comes over. If I had to guess at a genre I'd say it was synth-pop. The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player. This was a relic even before the Calamity. I've never heard of the artist, nor any of the track names I can discern.]"
+item:novel "Novel"
+item:novel/description ""
+item:novel/lore "Rebecca
+
+by Daphne du Maurier
+
+(c) 23[unreadable] [unreadable]
+
+[I remember this book. How has it survived down here? Pages are missing and some are unreadable, but there's a surprising amount intact. Even the blood-red rhododendrons on the cover have barely faded.]"
+item:newspaper "Newspaper Scrap"
+item:newspaper/description ""
+item:newspaper/lore "[missing] - Thursday, September [unreadable] [missing]
+
+ROBOTS AUTHORIZED TO [unreadable]
+
+by [unreadable - Jacen?] Barrera
+
+Semi recently actioned the [unreadable] that permits robots from their top-tier service line (more commonly known as [unreadable - \"Servos\", I expect]) to self-identify by choosing a name.
+
+It is expected they will [unreadable] assign themselves a random name (or \"string\") using a pre-programmed name generator, which is claimed to realistically generate names from a diverse [unreadable] of cultures and ethnicities. This would replace their existing name, which is typically a phonetic contraction of their serial number. But AI activists are concerned this may spark a new era of human-AI relations, with fears continuing to grow over so-called \"AI [unreadable].\"
+
+Speaking from her office at Semi headquarters in Boston, MA, Chief Marketing Officer Adrienne Carson-Miln was keen to clarify the move: \"This is indeed an opportunity to enhance consumer accessibility, so that robots feel like a part of the family.\" She added: \"Of course we want to improve relations with our smart AI companions. But sentience is impossible, and a very different thing to sapience. People should read a dictionary once in a while.\"
+
+[The rest of the article is missing, as are the details of the publication, and the lower half of the photo and its caption: it's just a Servo's face looking at the camera. But the inflammatory journalistic style is practically a trademark of the Zenith Zodiac.]"
+item:helmet "Riot Helmet"
+item:helmet/description ""
+item:helmet/lore "ZPD
+
+[Not much to say: it's a black and blue masked riot helmet from the Zenith Police Department. Looking at the dents and cracks, whoever was wearing this also came out black and blue to say the least.]"
+item:tin "Food Tin"
+item:tin/description ""
+item:tin/lore "[missing]
+
+[The label is long gone, save for the dried up remains of the glue that held it on. The tin is also rusting. But it's sealed, and judging from the weight its contents are still inside. It's a vacuum-sealed piece of history! What could be in there? I'll take a guess: baked beans.]"
+item:ball "Soccer Ball"
+item:ball/description ""
+item:ball/lore "[missing] Aerofoil
+
+World Cup 2338
+
+[This must have been a souvenir - from one of the last World Cups if I recall. The material and stitching are ripped open and the bladder deflated. Still, the rainbow colours and shapes remind me of a better, more united time.]"
+item:shoe "Child's Shoe"
+item:shoe/description ""
+item:shoe/lore "[missing] [missing]
+
+Size 3.5
+
+[It's a child's sneaker. The manufacturer's name has rubbed off; the size is the only thing I can read. This means the wearer was probably between 6 and 12 years old. It's filled with dirt; it's impossible to tell even what the original colour was.]"
+item:diary "Diary Page"
+item:diary/description ""
+item:diary/lore "10 May
+It's hard to know if having these thoughts is normal. I feel like if I told my [unreadable] they'd call the police. I don't think your [sic] meant to visualize stabbing random [unreadable] with a six-foot sword. Am I a closet killer? I can't stop thinking that I am.
+
+Its [sic] getting worse though, these last couple of years. And the times I think I might have hurt someone (never with a sword) the more I just don't want to go out. Nothing makes you feel crazy like a 45 minute walk home from work, worrying if you checked the reception door was locked - what if it didn't close properly, then someone got in and stabbed M? That'd be on me. And then I walk aaaaaall [sic] the way back to check - and finally get home gone 7! I need to be more present, stop thinking about [unreadable] and instead actually remember what I'm doing. Unless my memory is failing like [unreadable]. It's exhausting and I feel like I'm gonna EXPLODE.
+
+H knows - I had to say something when she found me stood bolt upright staring into the corner. Fuck was I embarassed [sic], it hurts to think about. Things you do when you think no one's looking. She said it sounds like OCD, or \"the doubting disease\" - and that compulsions make obsessions worse. How's she now [sic] so much? I always thought OCD was just hygiene obsession. I did some [unreadable] online and I think she might be right though. How'd I miss this? I need to look at it more, but it would be good to put a name to all this bullshit. I think I've had this my whole life, but now it's getting worse - probably cuz the world is getting worse. Or maybe it just feels like that the older you get? What would the treatment be? If there's a cure then how many things might I have done different without getting stuck my whole life.
+
+I've set a [unreadable] to book a Root doc in the morning. If I can even get a [unreadable] appointment now. Isn't it emergencies only, even with androids?
+
+[The rest of the book was nowhere to be found. Without the cover there's no way to know what year this is from. I wonder who wrote it, and what happened to them. Sounds like an infinite-loop nightmare. Maybe an android helped them.]"
+item:poster "Android Poster"
+item:poster/description ""
+item:poster/lore "SAY HELLO TO YOUR FELLOW CITIZEN!
+
+He shares your hopes and dreams
+He chooses his friends and career
+He can protect and serve, or cut your hair
+Be your confidante or your au pair
+
+HE'S A PEOPLE PERSON - ARE YOU?
+
+(TM) Semi, 2364
+
+[With my sword I can protect and serve AND cut people's hair! More seriously, I don't think the propaganda worked. Maybe if they'd just been open and honest, acknowledged that androids were different, and talked about that.]"
+item:phone "Smartphone"
+item:phone/description ""
+item:phone/lore "\"EYEGER\"(bold)
+\"LUCID\"(italic)
+
+Battery: 0%
+
+
+Model: EYG1100
+S/X: EG523H8UJ901
+
+Made in Switzerland
+
+[The screen isn't cracked and it's in surprisingly good condition. There's somehow enough juice left to show the dead battery notification, but this hasn't turned on in a long time. There's no way to charge it, and no interface for an android - even if there was I probably couldn't guess the PIN.]"
 ;; Fish
 fish:crab "Crab"
 fish:crab/description "A sturdy little critter.
@@ -696,7 +805,7 @@ auto-advance-after "Text advance delay"
 should-auto-advance-dialog "Auto-advance dialogue"
 display-text-effects "Display text effects"
 display-swears "Display swear words"
-swears "(?i)fuck|shit|cunt|damn|dammit|goddamn|bitch|ass|arse|bastard|nadhil|ko nashi|kuso|shite|piss"
+swears "(?i)fuck|shit|cunt|damn|dammit|goddamn|bitch|ass|arse|bastard|nadhil|ko nashi|kuso|shite|piss|bullshit"
 swear-replacement-characters "#!@*"
 pause-on-focus-loss "Pause game on focus loss"
 invincible-player "God mode"
