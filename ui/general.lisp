@@ -12,7 +12,25 @@
                              (1920 T 1.25)
                              (1280 T 1.0)
                              (1000 T 0.8)
-                             (T T 0.5)))))
+                             (T T 0.5)))
+   (first-hold-time :initform (cons NIL 0.0) :accessor first-hold-time)))
+
+(defmethod handle :after ((ev tick) (ui ui))
+  (let ((hold (first-hold-time ui)))
+    (loop for action in '(select-left select-right select-up select-down)
+          do (when (retained action)
+               (if (eql action (car hold))
+                   (incf (cdr hold) (dt ev))
+                   (setf (car hold) action
+                         (cdr hold) 0.0))
+               (return))
+          finally (setf (car hold) NIL
+                        (cdr hold) 0.0))
+    ;; 0.5 is the initial repeat delay
+    (when (< 0.5 (cdr hold))
+      (issue +world+ (make-instance (car hold)))
+      ;; 0.1 is the delay between repeats
+      (setf (cdr hold) (- 0.5 0.1)))))
 
 (defmethod org.shirakumo.alloy.renderers.opengl.msdf:fontcache-directory ((ui ui))
   (pool-path 'kandria "font-cache/"))
