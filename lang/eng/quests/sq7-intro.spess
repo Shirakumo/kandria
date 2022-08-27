@@ -27,6 +27,9 @@
 |? (< 0 (+ (item-count 'item:anemometer) (item-count 'item:disc-brake) (item-count 'item:transformer)))
 | ~ player
 | | "Well at least "I've got some of those items already"(orange)."(light-gray, italic)
+|?
+| ~ player
+| | "I don't have any of those on me. Bummer."(orange, italic)
 ! eval (complete task)
 ! eval (reset interaction)
 

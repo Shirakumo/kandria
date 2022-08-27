@@ -59,6 +59,12 @@
 |?
 | | (:normal)With food stocks running out, Fi wants to "forage for more mushrooms"(orange). They're good for clothing too.
 | | I'd say at least "25 puffballs or flower fungus"(orange) should do. "Avoid black caps"(orange) though.
+| ? (< 0 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| | ~ player
+| | | "I have some of those already - but I need to find more."(orange, italic)
+| |?
+| | ~ player
+| | | "I don't have any right now - I need to search underground."(orange, italic)
   
 | (:excited)Oh, I've been speaking with my friends - we're all eager to see what you're really capable of.
 | How do "time trial races"(orange) sound, eh?
