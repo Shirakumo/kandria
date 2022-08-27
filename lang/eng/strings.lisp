@@ -409,7 +409,7 @@ item:synthesis-file/description "A legacy file from the old world (34KB!) contai
 item:synthesis-file-1 "Expediate (doctored).txt"
 item:synthesis-file-1/description "A legacy file from the old world containing the incorrect recipe for the drug Expediate, along with other impractical information."
 item:synthesis-file-2 "Expediate (corrupted).txt"
-item:synthesis-file-2/description "A legacy file from the old world, corrupted to obscure the recipe for the drug Expediate, along with other corrupted information."
+item:synthesis-file-2/description "A legacy file from the old world, corrupted to obscure the recipe for the drug Expediate, along with other redacted information."
 item:blasting-cap "Blasting Cap"
 item:blasting-cap/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It's a detonation device - not an explosive mushroom."
 item:charge-pack "Charge Pack"
@@ -527,7 +527,7 @@ item:newspaper/lore "[missing] - Thursday, September [unreadable] [missing]
 
 ROBOTS AUTHORIZED TO [unreadable]
 
-by [unreadable - Jacen?] Barrera
+by [unreadable - Jacen?] Barrera, AI correspondent
 
 Semi recently actioned the [unreadable] that permits robots from their top-tier service line (more commonly known as [unreadable - \"Servos\", I expect]) to self-identify by choosing a name.
 

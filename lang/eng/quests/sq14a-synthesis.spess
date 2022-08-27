@@ -32,7 +32,7 @@
 # next
 ~ synthesis
 | ...
-| (:grin)Aha! We are back in business.
+| (:grin)Aha! We are in business.
 | Now I feel like making them pay for crossing "The Synthesis"(yellow).
 ~ player
 - Now you tell me about the old world.
@@ -42,11 +42,11 @@
   | (:grin)Our name. And our purpose. In the meantime...
 - Who should pay?
   ~ synthesis
-  | Bandits. Rogues. Headless Highwaymen. Whoever gets in our way.
+  | Bandits. "Rogues"(orange). Headless Highwaymen. Whoever gets in our way.
   < task
 ! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
 ~ synthesis
-| I have my enemies: Bandits. Rogues. Headless Highwaymen. Whoever gets in our way.
+| I have my enemies: Bandits. "Rogues"(orange). Headless Highwaymen. Whoever gets in our way.
 ! label task
 ! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
 ~ synthesis
@@ -65,7 +65,7 @@
 - Here's where we part ways.
   ~ synthesis
   | (:grin)If it has to be like that.
-  | But "my offer still stands"(orange). Us outcasts, we should stick together.
+  | But "my offer still stands"(orange). We outcasts, we should stick together.
   < end
 ~ synthesis
 | (:grin)"Do what we ask and we shall proceed."(orange)

@@ -4,20 +4,21 @@
 | (:grin)It's time, android.
 ~ player
 - ...
+~ player
 - Could you sound any more mysterious?
   ~ synthesis
   | (:grin)Perhaps.
 - No it's not.
   < leave
 ~ synthesis
-| (:grin)We have "answers, about the old world"(orange), if you help us.
+| (:grin)We have "answers, about the old world"(orange), if you'll help us.
 ~ player
 - Do you use plural pronouns, or are there more of you?
   ~ synthesis
-  | (:grin)This is only me. "Us"(italic).
+  | (:grin)It is only I. "Us"(italic).
 - Is this the royal "we"?
   ~ synthesis
-  | ...
+  | Do we look like royalty?
 - ...
 ~ synthesis
 | (:grin)Do you want them? The answers?
@@ -36,14 +37,14 @@
 ~ player
 | "... I can hardly see their face, but they seem to be having the world's worst headache."(light-gray, italic)
 ~ synthesis
-| Ack... AH...
+| Ack... <-AH...->
 ~ player
 - Are you okay?
 - ...
 - You don't look well.
 - I hope that's not contagious.
 ~ synthesis
-| We need our potion. Get it for us.
+| We need our "potion"(orange). Get it for us.
 | Do you have "black caps"(orange)? Ja, the poisonous ones.
 ~ player
 - [(<= 4 (item-count 'item:mushroom-bad-1)) I have {(item-count 'item:mushroom-bad-1)} - take them.|]

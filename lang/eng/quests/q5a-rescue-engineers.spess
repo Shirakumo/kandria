@@ -123,6 +123,7 @@
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))
 | ! eval (activate (unit 'fi-ffcs-3))
+| ! eval (activate 'sq14-intro)
 | ! eval (setf (location 'synthesis) 'synthesis-cerebat)
 | ! setf (direction 'synthesis) 1
 |?
