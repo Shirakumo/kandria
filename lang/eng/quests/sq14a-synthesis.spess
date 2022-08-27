@@ -1,24 +1,23 @@
 ; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
 # return-supplies/supplies-return
-? (var 'synthesis-given)
-| < next
+~ synthesis
+| Where's our potion?
+? (= 0 (item-count 'item:mushroom-bad-1))
+| ~ synthesis
+| | Schnell! We "still need black caps"(orange) - bring us "{(var 'black-cap-count)}"(orange).
+| | "Check the settlement up there, or the caves."(orange)
 |?
 | ~ synthesis
-| | Where's our potion?
-| ? (= 0 (item-count 'item:mushroom-bad-1))
-| | ~ synthesis
-| | | Schnell! We "still need black caps"(orange) - bring us "{(var 'black-cap-count)}"(orange).
+| | (:grin)Das ist gut. Give us those black caps.
+| ? (< 0 (var 'black-cap-count))
+| | ! eval (setf (var 'black-cap-count) (- (var 'black-cap-count) (min (var 'black-cap-count) (item-count 'item:mushroom-bad-1))))
+| | ! eval (retrieve 'item:mushroom-bad-1 (item-count 'item:mushroom-bad-1))
+| ? (= 0 (var 'black-cap-count))
+| | < result
 | |?
 | | ~ synthesis
-| | | (:grin)Das ist gut. Give us those black caps.
-| | ? (< 0 (var 'black-cap-count))
-| | | ! eval (setf (var 'black-cap-count) (- (var 'black-cap-count) (min (var 'black-cap-count) (item-count 'item:mushroom-bad-1))))
-| | | ! eval (retrieve 'item:mushroom-bad-1 (item-count 'item:mushroom-bad-1))
-| | ? (= 0 (var 'black-cap-count))
-| | | < result
-| | |?
-| | | ~ synthesis
-| | | | But we "still need more"(orange) - bring us "{(var 'black-cap-count)}"(orange). Schnell!
+| | | But we "still need more"(orange) - bring us "{(var 'black-cap-count)}"(orange). Schnell!
+| | | "Check the settlement up there, or the caves."(orange)
 
 # result
 ~ synthesis
@@ -27,13 +26,10 @@
 ~ player
 | (:embarassed)"I can't see what they're doing, but I definitely saw a needle."(light-gray, italic)
 | ...
-< next
-
-# next
 ~ synthesis
 | ...
-| (:grin)Aha! We are in business.
-| Now I feel like making them pay for crossing "The Synthesis"(yellow).
+| (:grin)We are in business.
+| Now we feel like making them pay for crossing "The Synthesis"(yellow).
 ~ player
 - Now you tell me about the old world.
   ~ synthesis
@@ -46,7 +42,7 @@
   < task
 ! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
 ~ synthesis
-| I have my enemies: Bandits. "Rogues"(orange). Headless Highwaymen. Whoever gets in our way.
+| We have our enemies: Bandits. "Rogues"(orange). Headless Highwaymen. Whoever gets in our way.
 ! label task
 ! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
 ~ synthesis

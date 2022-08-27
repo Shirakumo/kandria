@@ -20,18 +20,19 @@
 | "It's "terminal 1"(red)."(light-gray, italic)
 ? (not (var 'first-one))
 | | "These are old internet servers - they're in low power mode."(light-gray, italic) (:giggle)"Glad I'm not the only computer still working."(light-gray, italic)
-| | (:normal)"They're too primitive to even read my black box."(light-gray, italic)
-| | (:embarassed)"There's no monitor or keyboard - I'll have to interface directly with my finger. I hope it's clean."(light-gray, italic)
+| | (:normal)"Though they're too primitive to even read my black box."(light-gray, italic)
+| | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
   
 | "Opening access..."(light-gray, italic)
-| "[WARN] Cloud service unavailable. Query local database?"
+| "\[WARN\] Cloud service unavailable. Query local database?"
 ! label terminal-1-query
 ~ player
 - (Search "black caps")
   ~ player
   | "Archive retrieved:"
   | "Tricholoma gvswvt44 dpnnpomz known bt "black caps"(orange)."
-  | "Not gbubm jo32uifntfmwft, and once accepted as a reliable source of vitamin D. But sustained consumption pwfs tfwfsbm xfflt has recently been shown to tfwfsfmz "weaken the immune system"(orange)."
+  | "Not gbubm jo32uifntfmwft, and once accepted as a reliable source of vitamin D."
+  | "But sustained consumption pwfs tfwfsbm xfflt has recently been shown to tfwfsfmz "weaken the immune system"(orange)."
   | "Thus fatality often occurs as the sftvmu pg jogfdujpo46"
   | "Usjbmfe as a biological deterrent by Xftufso tvqfsqpxfst in the nje45twenty-fourth century."
   | "Not surprisingly it's corrupted, but I think I've "got what I need from this one"(orange). Now I can "sleep the system"(orange) or "search for more"(orange)."(light-gray, italic)
@@ -63,7 +64,7 @@
   < terminal-1-query
 - [(var 'terminal-1-clue) (Sleep the system)]
   ~ player
-  (Confirm sleep the system?)
+  | (Confirm sleep the system?)
   ~ player
   - (No)
     < terminal-1-query
@@ -87,7 +88,8 @@
 
 ; black caps cipher words
 ; "furvus,", "commonly", "as"
-; "not fatal in themselves", "over several weeks", "severely",
+; "not fatal in themselves",
+; "over several weeks", "severely",
 ; "result of infection"
 ; "Trialed", "Western superpowers", "mid"
 ; cloud services cipher words
@@ -116,11 +118,11 @@
 | "It's "terminal 2"(red)."(light-gray, italic)
 ? (not (var 'first-one))
 | | "These are old internet servers - they're in low power mode."(light-gray, italic) (:giggle)"Glad I'm not the only computer still working."(light-gray, italic)
-| | (:normal)"They're too primitive to even read my black box."(light-gray, italic)
-| | (:embarassed)"There's no monitor or keyboard - I'll have to interface directly with my finger. I hope it's clean."(light-gray, italic)
+| | (:normal)"Though they're too primitive to even read my black box."(light-gray, italic)
+| | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
   
 | "Opening access..."(light-gray, italic)
-| "[SEVERE] Multiple cores inaccessible. Suspected hardware damage. Query local database?"
+| "\[SEVERE\] Multiple cores inaccessible. Suspected hardware damage. Query local database?"
 ! label terminal-2-query
 ~ player
 - (Search "black caps")
@@ -133,12 +135,14 @@
   | "Okay, let's see what the article has to say. Nothing good knowing the Zodiac."(light-gray, italic)
   | ""Long-running trial a superhuman success for the increase of pain tolerance."(bold)"
   | "Rootless have finally come good on their "new labour drug"(orange), soon to be fast-tracked to market under the brand name, "Expediate"(orange)."
-  | "Core subterranean industry giants like Trickle, Artemis, Cross-Section, Aegis, and Semi are all inline to receive doses as early as October, with Bridges and Swift pulling out all the stops to ensure smooth distribution."
-  | "The product of course cannot arrive soon enough, given the extent to which recent heatwaves have impacted productivity."
+  | "Core subterranean industry giants like Trickle, Artemis, Cross Section, Aegis, and Semi are all inline to receive doses as early as October."
+  | "Bridges and Swift are believed to be pulling out all the stops to ensure smooth and efficient distribution."
+  | "The drug of course "cannot arrive soon enough, given the extent to which recent heatwaves have disrupted productivity"(orange)."
   | "Employee contracts will of course undergo amendment to make doses a mandatory part of the working day."
   | "Despite being "developed from poisonous black cap mushrooms"(orange), clinical trials have reliably shown side effects to be negligible."
-  | "Instead, the drug "greatly inhibits pain, especially in response to heat"(orange). The benefits to the economy are self-evident: "longer working hours, and less consumption of dwindling food and water resources"(orange)."
-  | ""The Guiding Light education program is already underway, to ensure the next generation understand and appreciate the clear benefits of Expediate," said Rootless' head of PR, Tamsin Shultz."
+  | "Instead, the drug "greatly inhibits pain, especially in response to heat"(orange)."
+  | "The benefits to the economy are self-evident: "longer working hours, and less consumption of dwindling food and water resources"(orange)."
+  | "'The Guiding Light education program is already underway, to ensure the next generation understand and appreciate the clear benefits of Expediate,' said Rootless' head of PR, Tamsin Shultz."
   | "Story continues on p5"
   | "Not in this edition it doesn't - there aren't any more scans. Not that I want to read any more of this rag."(light-gray, italic)
   | (:embarassed)"No wonder people called it the three Zs - it puts you in a coma."
@@ -161,7 +165,7 @@
   ~ player
   | "Archive retrieved:"
   | "Synthesis Corporation was a gbsnjoh nvmujobujpobm headquartered in Ebmmbt, TX."
-  | "Officially declared cbolsvqu in 2361, the company lost a protracted court battle with the Department of the Treasury over uby fwbtjpo with respect to its subterranean pqjvn qpqqz gbsnt."
+  | "Officially declared cbolsvqu in 2361, the company lost a protracted court battle with the Department of the Treasury over uby fwbtjpo, with respect to its subterranean pqjvn qpqqz gbsnt."
   | "Sppumftt are understood to have acquired many of the company's assets sold off by mjrvjebupst46"
   < terminal-2-query
 - (Search "help")
@@ -175,7 +179,8 @@
   - (2. I can't access the internet)
     ~ player
     | "That's not ufdiojdbmmz b rvftujpo, but we'll let it slide! Unfortunately internet connectivity is a frequent casualty of npefso mjwjoh."
-    | "Thankfully, most things you might need to know about how to mfbe b ifbmuiz boe qspevdujwf mjgf are right here, stored on these ibse ejtlt you can see with your own eyes - if you opened the server case. Usvtu vt46"
+    | "Thankfully, most things you might need to know about how to mfbe b ifbmuiz boe qspevdujwf mjgf are right here, stored on these ibse ejtlt you can see with your own eyes."
+    | "Assuming you opened the server case. Usvtu vt46"
     < terminal-2-help
   - (3. I need help)
     | ~ player
@@ -191,7 +196,7 @@
     < terminal-2-query
 - [(var 'terminal-2-clue) (Sleep the system)]
   ~ player
-  (Confirm sleep the system?)
+  | (Confirm sleep the system?)
   ~ player
   - (No)
     < terminal-2-query
@@ -234,29 +239,31 @@
 | "It's "terminal 3"(red)."(light-gray, italic)
 ? (not (var 'first-one))
 | | "These are old internet servers - they're in low power mode."(light-gray, italic) (:giggle)"Glad I'm not the only computer still working."(light-gray, italic)
-| | (:normal)"They're too primitive to even read my black box."(light-gray, italic)
-| | (:embarassed)"There's no monitor or keyboard - I'll have to interface directly with my finger. I hope it's clean."(light-gray, italic)
+| | (:normal)"Though they're too primitive to even read my black box."(light-gray, italic)
+| | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
   
 | "Opening access..."(light-gray, italic)
-| "[SEVERE] Support modules not responding. Potential cyber attack in progress. Query local database?"
+| "\[SEVERE\] Support modules not responding. Potential cyber attack in progress. Query local database?"
 ! label terminal-3-query
 ~ player
 - (Search "black caps")
   ~ player
   | "DRUG BUST - Honest information about drugs"(bold)
   | "E 45 most sfbe article: "Expediate"(orange)"
-  | "Expediate, also called "uif qpujpo". Manufactured by Rootless and marketed with the slogan "35FyqfejufZpvsMjgf"".
-  | ""What does it look, taste and smell like?"(bold) Commonly available as ubcmfut boe dbqtvmft, but also as syrups and solutions. Typically odourless and tasteless, but can have a txffu tnfmm ps ubtuf."
+  | "Expediate, also called 'uif qpujpo'. Manufactured by Rootless and marketed with the slogan '35FyqfejufZpvsMjgf'".
+  | ""What does it look, taste and smell like?"(bold) Commonly available as ubcmfut boe dbqtvmft, but also as syrups and solutions."
+  | "Typically odourless and tasteless, but can have a txffu tnfmm ps ubtuf."
   | ""How long does it last63"(bold) The duration of the effects depends on the quantity consumed, your size, and xibu puifs esvht njhiu cf jo zpvs tztufn."
   | "If the drug is administered through your employer, how long the effects last depends on uif joevtusz zpv bsf xpsljoh jo. Consult your dpousbdu."
   | ""Know the sjtlt58"(bold) Properly prescribed small doses can serve as an effective qbjoljmmfs. However, many recommended doses as stipulated in employment contracts far exceed this."
   | ""Typical symptoms include: vomiting, mfuibshz44 dizziness, migraines, addiction"(orange)4632However, more are being actively researched."
-  | ""How is it made?"(bold) The drug is derived from a "chemical synthesis of opium poppy juice and antibiotics from Usjdipmpnb furvus ("black cap mushrooms"(orange)), combined with a catalyst 40typically the enzyme cfub-hmvdbobtf41"(orange)."
+  | ""How is it made?"(bold) The drug is derived from a "chemical synthesis of opium poppy juice and antibiotics from Usjdipmpnb furvus (black cap mushrooms"(orange))."
+  | "A "catalyst, 40typically the enzyme cfub-hmvdbobtf41, is also required"(orange)."
   | ""Download Expediate.txt"(orange, bold) for more information."
   | "I think I will - there's no way I can remember all those big words, and "The Synthesis needs to know exact quantities"(orange)."(light-gray, italic)
   | "Downloading Expediate.txt..."(italic)
   ! eval (store 'item:synthesis-file 1)
-  | "Wow that was quick. Oh, it's only 34KB..."(light-gray, italic) (:giggle)"These legacy file types! At least it's not corrupted."(light-gray, italic)
+  | "Wow that was quick. Oh, it's only 34KB..."(light-gray, italic) (:giggle)"These legacy file types! At least it's not corrupted like the terminal logs."(light-gray, italic)
   | "Well I've "got what I need from this one"(orange). Now I can "sleep the system"(orange) or "search for more"(orange)."(light-gray, italic)
   ! eval (setf (var 'terminal-3-clue) T)
   < terminal-3-query
@@ -276,8 +283,8 @@
   ~ player
   | "Cjphsbqijdbm data retrieved:"
   | "Known alias of b ibdlfs dpmmfdujwf44 active in the late uxfouz-tfdpoe century."
-  | "Noted for their political and corporate activism, especially surrounding the widespread ejttpmvujpo of qvcmjd health services around the world."
-  | "The group were known publicly for their ippefe spcft, akin to the dpxmt worn cz Dbuipmjd npolt46"
+  | "Noted for their political and corporate activism, especially regarding the widespread ejttpmvujpo of qvcmjd health services around the world."
+  | "The group were known for their ippefe spcft, akin to the dpxmt worn cz Dbuipmjd npolt46"
   < terminal-3-query
 - (Search "help")
   ~ player
@@ -285,7 +292,7 @@
   | "Huh, what's this? It's dumped some kind of chat history:"(light-gray, italic)
   | "Welcome "guest3324568"(bold)33 You've been assigned to Sppumftt Sfq Bmbob"
   | ""Alana:"(bold) Hi my name's Alana. What can I help you with today?"
-  | ""Bmbob58"(bold) Can I help you with any of our services today?"
+  | ""Bmbob58"(bold) Would you like to book an appointment with your general practitioner?"
   | ""Alana:"(bold) Are you tujmm uifsf63"
   | ""guest3324568:"(bold) ittssss startedd 45 mppl pvutjef"
   | ""guest332456858"(bold) u need to go"
@@ -295,7 +302,7 @@
   < terminal-3-query
 - [(var 'terminal-3-clue) (Sleep the system)]
   ~ player
-  (Confirm sleep the system?)
+  | (Confirm sleep the system?)
   ~ player
   - (No)
     < terminal-3-query
@@ -343,10 +350,11 @@
 ~ player
 | "That was the last terminal."(light-gray, italic)
 | (:thinking)"So to summarise: This is a "method of combining black caps with opium to create some kind of drug"(orange)."(light-gray, italic)
-| "It "increases the human body's tolerance for pain"(orange), perhaps as an analgesic, and so in theory "extends how long people can work without food or water (or sleep), and means they can work in more extreme temperatures"(orange)."(light-gray, italic)
+| "It "increases the human body's tolerance for pain"(orange), perhaps as an analgesic."(light-gray, italic)
+| "In theory it also "extends how long people can work without food or water (or sleep), and means they can work in more extreme temperatures"(orange)."(light-gray, italic)
 | (:embarassed)"And it has a variety of fun "side effects"(orange), not least migraines and addiction - and perhaps even reduced immune response..."(light-gray, italic)
 | (:normal)"Oh but hey, it's also a source of vitamin D!"(light-gray, italic)
-| So this is the information they wanted?
+| "So this is the information they wanted?"(light-gray, italic)
 | (:thinking)"Do I really want to "hand this over to The Synthesis"(orange)? I can see the benefits for people living underground - and on the surface. But this doesn't feel right, does it?"(light-gray, italic)
 | "Maybe I just don't go back."(light-gray, italic)
 ! eval (activate 'task-return)
@@ -380,10 +388,10 @@
   ~ synthesis
   | That remains to be seen.
 ~ synthesis
-| Give me the information now, or we'll forcibly extract it from your cranial case.
+| Give us the information now, or we'll forcibly extract it from your cranium.
 | (:grin)I'm sure the Semi Sisters could find a way for a disembodied Genera core, and severed android hand, to interface with those terminals in the lab.
 | We have ideas about that ourselves. We'll get what we need, even over your dead body.
-| But I thought we were friends - especially since this information also helps you.
+| But we thought we were friends - especially since this information also helps you.
 ~ player
 - This drug is bad news.
   ~ synthesis
@@ -391,7 +399,7 @@
 - How does it help me?
   ~ synthesis
   | (:grin)Come, you're not so slow, are you?
-- Haven't people done just fine without this?
+- Haven't people done just fine without it?
   ~ synthesis
   | (:grin)You must be joking. Does it look like people are doing fine?
   | (:normal)Some survivors have powered through and learned to live without it. Many didn't.
@@ -407,7 +415,7 @@
   | (:grin)Isn't that what's already happening? At least this way it'll be a fair fight. Or there'll be no fight at all.
 - Why do you care?
   ~ synthesis
-  | (:grin)I live here too. If there is a fight, at least it will be a fair one. Or they'll be no fight at all.
+  | (:grin)We live here too. If there is a fight, at least it will be a fair one. Or there'll be no fight at all.
 - Are you working for the Wraw?
   ~ synthesis
   | (:grin)We despise the Wraw. They believe in unity by control. At least this levels the playing field. And even keeps the peace.
@@ -418,17 +426,17 @@
 | (:grin)There's such a thing as a deterrent, you know.
 | So are you going to give us the information or not?
 ~ player
-- (Share the contents of Expediate.txt)
+- (Share Expediate.txt)
   ~ player
   | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
   | "Ah, they've come prepared with a pencil and paper, how organised."(light-gray, italic)
   | (:embarassed)"The chemistry of the formula is mind-numbing: I think I'll disengage my log and let the text-to-speech algorithm do its thing."(light-gray, italic)
   | (:normal)"..."(light-gray, italic)
-  | "Oh, done already. That didn't take long."(light-gray, italic)
+  | "Oh, done already? That didn't take long."(light-gray, italic)
   ~ synthesis
-  | (:grin)We have it... This is fascinating.
+  | (:grin)We have it. This recipe is... fascinating.
   < good-end
-- (Modify the contents of the file)
+- (Modify the file)
   ~ player
   | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
   | "But not before I make some subtle alterations, copy-paste-edit style. I'm no chemist, but I think changing the quantity of compounds should scupper the chemical reaction."(light-gray, italic)
@@ -436,11 +444,11 @@
   | (:embarassed)"Oh, they've come prepared with pencil and paper - I was hoping they might try and memorise it and forget."(light-gray, italic)
   | "The chemistry of the formula is mind-numbing: I think I'll disengage my log and let the text-to-speech algorithm do its thing."(light-gray, italic)
   | (:normal)"..."(light-gray, italic)
-  | "Oh, done already. That didn't take long."(light-gray, italic)
+  | "Oh, done already? That didn't take long."(light-gray, italic)
   ~ synthesis
-  | (:grin)We have it. This is... "unexpected"(italic).
+  | We have it. This recipe is... "unexpected"(italic).
   < good-end
-- (Partially corrupt the contents of the file)
+- (Partially corrupt it)
   ~ player
   | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
   | "But not before I plausibly corrupt some choice key words and quantities, similar to those corruptions I saw in the terminals."(light-gray, italic)
@@ -450,7 +458,7 @@
   | "The chemistry of the formula was mind-numbing, even before my corruptions: I think I'll disengage my log and let the text-to-speech algorithm do its thing."(light-gray, italic)
   | "The last thing I want to hear right now is me saying: gps b dbubmztu vtf uif tzouifujd foaznf cfub45hmvdbobtf jo uif tqfdjgjfe rvboujuz58"(light-gray, italic)
   | (:normal)"..."(light-gray, italic)
-  | "Oh, done already. That didn't take long."(light-gray, italic)
+  | "Oh, done already? That didn't take long."(light-gray, italic)
   ~ synthesis
   | Didn't you hear us? Half of that was gobbledygook.
   | (:grin)Was there corruption, or are you playing with us?
@@ -500,4 +508,11 @@
 | "When"(italic) it works.
 
 ; ciper words: "for a catalyst use the synthetic enzyme beta-glucanase in the specified quantity"
+
 ; Watch your back: Semis too busy to help him get you though (Wraw-Cerebat concern) / you've helped them already - though this is always before the official Semi alliance; hollow threat anyway, as goes to lab themself and tries to brute force it; gets buried underground with Wraw at end?
+
+; presumably they could try and get the recipe from the Wraw - but they're clearly opposed to the Wraw, and it would be too difficult
+
+; good-end: in theory, could stop the Wraw invasion? But I think the implication here is that The Synthesis needs time, which the invasion doesn't have
+
+; "Growing sufficient opium poppies will be challenging" - sufficient quantities for them and everyone in the valley, irrespecitve of the contents of the recipe shared

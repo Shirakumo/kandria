@@ -527,7 +527,7 @@ item:newspaper/lore "[missing] - Thursday, September [unreadable] [missing]
 
 ROBOTS AUTHORIZED TO [unreadable]
 
-by [unreadable - Jacen?] Barrera, AI correspondent
+[unreadable - Jacen?] Barrera, AI correspondent
 
 Semi recently actioned the [unreadable] that permits robots from their top-tier service line (more commonly known as [unreadable - \"Servos\", I expect]) to self-identify by choosing a name.
 

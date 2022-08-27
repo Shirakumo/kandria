@@ -4,7 +4,6 @@
 | (:grin)It's time, android.
 ~ player
 - ...
-~ player
 - Could you sound any more mysterious?
   ~ synthesis
   | (:grin)Perhaps.
@@ -19,7 +18,6 @@
 - Is this the royal "we"?
   ~ synthesis
   | Do we look like royalty?
-- ...
 ~ synthesis
 | (:grin)Do you want them? The answers?
 ~ player
@@ -40,44 +38,43 @@
 | Ack... <-AH...->
 ~ player
 - Are you okay?
-- ...
 - You don't look well.
 - I hope that's not contagious.
 ~ synthesis
 | We need our "potion"(orange). Get it for us.
 | Do you have "black caps"(orange)? Ja, the poisonous ones.
 ~ player
-- [(<= 4 (item-count 'item:mushroom-bad-1)) I have {(item-count 'item:mushroom-bad-1)} - take them.|]
-  ~ synthesis
-  ! eval (retrieve 'item:mushroom-bad-1 (item-count 'item:mushroom-bad-1))
-  | Danke. You are kind.
-  | "Give us a minute"(orange), they shouldn't take long to administer.
-  ~ player
-  | (:embarassed)"I can't see what they're doing, but I definitely saw a needle."(light-gray, italic)
-  ! eval (setf (var 'synthesis-given) T)
-  < exit
 - How many do you need?
 - I can get some.
-- [(<= 1 (item-count 'item:mushroom-bad-1)) (Lie) I'm afraid not.|]
+- [(<= 1 (item-count 'item:mushroom-bad-1)) (Lie) I'm afraid not.]
   ~ synthesis
   | Ack, that's too bad.
 ~ synthesis
-| "Bring us 4 black caps"(orange).
+| "Bring us 4 black caps."(orange)
+| Search the "Cerebat backstreets, or even the caves"(orange).
 | Schnell.
 ? (= 4 (item-count 'item:mushroom-bad-1))
 | ~ player
-| | (:thinking)"I do "have what they need already"(orange)."(light-gray, italic)
+| | "I do "have exactly what they need already"(orange)."(light-gray, italic)
 |? (< 4 (item-count 'item:mushroom-bad-1))
 | ~ player
-| | (:thinking)"I do "have more than they need already"(orange)."(light-gray, italic)
-|? (< 0 (item-count 'item:mushroom-bad-1))
+| | "I do "have more than they need already"(orange)."(light-gray, italic)
+|? (< 1 (item-count 'item:mushroom-bad-1))
 | ~ player
-| | (:thinking)"I do "have some of what they need already"(orange)."(light-gray, italic)
+| | "I do "have {(item-count 'item:mushroom-bad-1)} black caps already"(orange)."(light-gray, italic)
+|? (= 1 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "Well I only "have 1 black cap at the moment"(orange) so."(light-gray, italic)
+|?
+| ~ player
+| | "I "don't have any black caps right now"(orange). Crud."(light-gray, italic)
   
 ! eval (activate 'sq14a-synthesis)
 ! eval (complete task)
 ! eval (reset interaction)
+
 # leave
 ~ synthesis
 | (:grin)When you're ready to know the truth, "we'll be here"(orange). But not forever.
-# exit
+
+; too ill to collect them themselves
