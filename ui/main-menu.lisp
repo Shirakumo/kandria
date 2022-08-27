@@ -191,7 +191,8 @@ void main(){
 
 (defmethod render :after ((pass wave-propagate-pass) thing)
   ;; Swap out the next and previous.
-  (rotatef (previous pass) (next pass))
+  (v:with-muffled-logging ()
+    (rotatef (previous pass) (next pass)))
   (gl:bind-framebuffer :framebuffer (gl-name (framebuffer pass)))
   (%gl:framebuffer-texture :framebuffer :color-attachment0 (gl-name (next pass)) 0))
 
