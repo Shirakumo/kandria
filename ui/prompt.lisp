@@ -68,8 +68,8 @@
 (defun coerce-button-string (button &optional input)
   (etypecase button
     (string button)
-    (symbol (string (prompt-char button :bank input)))
-    (list (map 'string (lambda (c) (or (prompt-char c :bank input) #\Space)) button))))
+    (symbol (string (prompt-char button :bank input :default (@ unbound-action-label))))
+    (list (format NIL "~{~a~^ ~}" (mapcar (lambda (c) (prompt-char c :bank input :default "")) button)))))
 
 (defmethod show ((prompt prompt) &key button input location (description NIL description-p))
   (when button

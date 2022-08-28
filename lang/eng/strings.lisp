@@ -178,6 +178,7 @@ zoom-out "Zoom Out"
 close-map "Close Map"
 toggle-trace "Toggle Trace"
 toggle-marker "Toggle Marker"
+unbound-action-label "<Unbound>"
 ;; Intearctions
 door "Enter"
 door-up "Go Upstairs"
