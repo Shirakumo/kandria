@@ -11,4 +11,3 @@
                  page :constraints `((:fill)))
     (alloy:enter page layout)))
 
-(show-panel 'intro-panel)
