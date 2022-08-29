@@ -688,13 +688,10 @@
     (export symb package)
     `(export ',symb ',package)))
 
-(set-dispatch-macro-character
- #\# #\! (lambda (s c a)
-           (declare (ignore c a))
-           (let ((inner (read s T NIL T)))
-             `(when +world+
-                (with-eval-in-render-loop (+world+)
-                  ,inner)))))
+(defmacro ! (&body body)
+  `(when +world+
+     (with-eval-in-render-loop (+world+)
+       ,@body)))
 
 (defun version<= (a b)
   (flet ((parse-version (v)
