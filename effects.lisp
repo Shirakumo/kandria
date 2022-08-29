@@ -32,13 +32,17 @@
   (stage (// 'sound 'ui-transition) area))
 
 (defmethod handle ((ev transition-event) (fade combine-pass))
-  (when (not (flare:running (progression 'transition +world+)))
-    (when (eql :transition (kind ev))
-      (harmony:play (// 'sound 'ui-transition)))
-    (setf (kind fade) (kind ev))
-    (setf (on-complete fade) (on-complete ev))
-    (setf (clock (progression 'transition +world+)) 0f0)
-    (start (progression 'transition +world+))))
+  (cond ((not (flare:running (progression 'transition +world+)))
+         (when (eql :transition (kind ev))
+           (harmony:play (// 'sound 'ui-transition)))
+         (setf (kind fade) (kind ev))
+         (push (on-complete ev) (on-complete fade))
+         (setf (clock (progression 'transition +world+)) 0f0)
+         (start (progression 'transition +world+)))
+        ((< (flare:clock (progression 'transition +world+)) 0.7)
+         (push (on-complete ev) (on-complete fade)))
+        (T
+         (funcall (on-complete ev)))))
 
 (defmethod render :before ((fade combine-pass) (program shader-program))
   (gl:active-texture :texture0)
@@ -88,7 +92,9 @@ void main(){
   0.0 0.0 (fade (set direction :to 0.0))
   0.2 0.7 (fade (set strength :from 0.0 :to 1.0))
   0.7 1.0 (fade (call (lambda (fade clock step)
-                        (funcall (shiftf (on-complete fade) (lambda ())))
+                        (loop for func = (pop (on-complete fade))
+                              while func
+                              do (funcall func))
                         (setf (direction fade) 1.0))))
   1.0 1.5 (fade (set strength :from 1.0 :to 0.0)))
 
