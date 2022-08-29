@@ -87,11 +87,16 @@
         (setf (gethash name *cached-dialogue-assemblies*) assembly)))
     (let ((clone (clone assembly)))
       (when chapter
-        (setf (aref (dialogue:instructions clone) 0)
-              (make-instance 'dialogue:jump :target (or (position chapter (dialogue:instructions clone)
-                                                                  :key #'dialogue:label :test #'string-equal)
-                                                        (error "No chapter named ~s found in ~a.~%The following chapters are defined: ~{~%  ~a~}"
-                                                               chapter name (remove-if #'null (map 'list #'dialogue:label (dialogue:instructions clone))))))))
+        (restart-case
+            (setf (aref (dialogue:instructions clone) 0)
+                  (make-instance 'dialogue:jump :target (or (position chapter (dialogue:instructions clone)
+                                                                      :key #'dialogue:label :test #'string-equal)
+                                                            (error "No chapter named ~s found in ~a.~%The following chapters are defined: ~{~%  ~a~}"
+                                                                   chapter name (remove-if #'null (map 'list #'dialogue:label (dialogue:instructions clone)))))))
+          (retry ()
+            :report "Try reloading the spess file."
+            (remhash name *cached-dialogue-assemblies*)
+            (find-mess name chapter))))
       clone)))
 
 (define-language-change-hook refresh-quests (language)
