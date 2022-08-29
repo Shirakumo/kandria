@@ -8,7 +8,7 @@
    (alloy:margins)
    :pattern colors:black))
 
-(defclass swap-screen (menuing-panel)
+(defclass swap-screen (pausing-panel menuing-panel)
   ((timer :initform 1.0 :accessor timer)
    (time-between-pages :initform 2.0 :accessor time-between-pages)))
 
@@ -31,12 +31,19 @@
                (setf (timer panel) 0f0)
                (setf (alloy:index layout) index)))
             (T
-             (hide panel))))))
+             (hide panel))))
+    index))
 
 (defmethod handle ((ev tick) (screen swap-screen))
   (when (<= (time-between-pages screen) (incf (timer screen) (dt ev)))
     (setf (timer screen) 0f0)
     (incf (alloy:index screen))))
+
+(defmethod handle ((ev skip) (screen swap-screen))
+  (setf (timer screen) (time-between-pages screen)))
+
+(defmethod handle ((ev advance) (screen swap-screen))
+  (setf (timer screen) (time-between-pages screen)))
 
 (defclass startup-screen (swap-screen)
   ())

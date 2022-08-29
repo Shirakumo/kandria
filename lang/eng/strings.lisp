@@ -1048,6 +1048,10 @@ Pinging genera ...                                                 OK
 [INFO] Marking route to closest service facility
 [ERR ] NFCS unavailable, failed to mark route
 [INFO] Initiating core loop"
+game-intro-notice "
+This game does NOT feature any auto saving. It is your responsibility to save regularly as you see fit.
+
+Should you get frustrated, please use the gameplay options to tune the difficulty to your liking."
 critical-npc-death-ending "
 The android's Genera system had experienced a sudden critical
 failure, leading it to turn and kill whomever was in sight.
