@@ -290,7 +290,9 @@
          (v<- loc (original-location train))
          (setf (state train) :normal)))
       (:arrive
-       (when (<= 2.0 (incf (move-time train) (dt ev)))
+       (when (<= 2.0 (incf (move-time train) (dt ev)) 3.0)
+         ;; KLUDGE: ensure that we trigger the transition only once.
+         (setf (move-time train) 3.1)
          (transition
            :kind :black
            (v<- (original-location train) loc)
@@ -299,8 +301,8 @@
            (setf (target (camera +world+)) (unit 'player +world+))
            (snap-to-target (camera +world+) train)
            (incf (vx loc) (* 0.5 acc (expt arrive-time 2.0) 100.0))
-           (setf (move-time train) 0.0)
-           (setf (state train) :arriving))))
+           (setf (state train) :arriving)
+           (setf (move-time train) 0.0))))
       (:arriving
        (decf (vx loc) (* (- arrive-time (move-time train)) acc))
        (when (<= arrive-time (incf (move-time train) (dt ev)))
