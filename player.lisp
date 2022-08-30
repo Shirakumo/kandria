@@ -838,6 +838,7 @@ void main(){
                          (setf (vy loc) (- (vy pprev) (vy size) 8)))
                      (setf (air-time player) 0.0)
                      (setf (state player) :crawling)
+                     (setf (dash-exhausted player) NIL)
                      (return))
                    (shiftf pprev prev (if cur (vcopy (hit-location cur)))))
                  (when (< (vy off) ymin)

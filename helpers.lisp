@@ -62,7 +62,7 @@
     (unless (slot-boundp child 'container)
       (enter child container))))
 
-(defmethod enter* :after ((entity parent-entity) (container container))
+(defmethod enter* :before ((entity parent-entity) (container container))
   (dolist (child (children entity))
     (unless (slot-boundp child 'container)
       (enter* child container))))
@@ -72,7 +72,7 @@
     (when (slot-boundp child 'container)
       (leave child T))))
 
-(defmethod leave* :after ((entity parent-entity) (container container))
+(defmethod leave* :before ((entity parent-entity) (container container))
   (dolist (child (children entity))
     (when (slot-boundp child 'container)
       (leave* child T))))
