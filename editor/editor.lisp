@@ -93,7 +93,8 @@
                  ("State"
                   ("Save State" (edit 'save-game editor))
                   ("Save State As..." (edit 'save-game-as editor))
-                  ("Load State..." (edit 'load-game editor))
+                  ("Load State" (edit 'load-game editor))
+                  ("Load State..." (edit 'load-game-as editor))
                   :separator
                   ("Save Initial State" (edit 'save-initial-state editor)))
                  ("Edit"
@@ -382,6 +383,9 @@
       (princ* (encode-payload (region +world+) NIL depot 'save-v0) (depot:to-stream tx)))))
 
 (defmethod edit ((action (eql 'load-game)) (editor editor))
+  (load-state (file (state +main+)) T))
+
+(defmethod edit ((action (eql 'load-game-as)) (editor editor))
   (let ((path (file-select:existing :title "Select Save File" :default (file (state +main+)) :filter '(("ZIP files" "zip")))))
     (when path
       (load-state path T))))
