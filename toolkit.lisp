@@ -118,8 +118,9 @@
 (defun initial-timestamp ()
   (float (encode-universal-time 11 8 7 22 2 2396 0) 0d0))
 
-(defun format-absolute-time (&optional (time (get-universal-time)) &key (date-separator #\.) (time-separator #\:) (date-time-separator #\ ))
-  (multiple-value-bind (s m h dd mm yy) (decode-universal-time time 0)
+(defun format-absolute-time (&optional (time (get-universal-time)) &key (date-separator #\.) (time-separator #\:) (date-time-separator #\ )
+                                                                        (time-zone 0))
+  (multiple-value-bind (s m h dd mm yy) (decode-universal-time time time-zone)
     (format NIL "~4,'0d~c~2,'0d~c~2,'0d~c~2,'0d~c~2,'0d~c~2,'0d"
             yy date-separator mm date-separator dd date-time-separator
             h time-separator m time-separator s)))

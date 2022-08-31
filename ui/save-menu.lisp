@@ -116,7 +116,7 @@
   ((:save-time simple:text)
    (alloy:margins 210 10 10 10)
    (if (exists-p alloy:value)
-       (format-absolute-time (save-time alloy:value))
+       (format-absolute-time (save-time alloy:value) :time-zone NIL)
        "")
    :size (alloy:un 20)
    :pattern colors:white
