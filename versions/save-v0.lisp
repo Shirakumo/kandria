@@ -88,7 +88,10 @@
                           (error ()
                             (v:warn :kandria.save "Reference to unknown quest ~s, ignoring!" name)
                             NIL))
-            do (when quest (decode quest initargs)))
+            do (when quest
+                 (decode quest initargs)
+                 (when (find (quest:status quest) '(:active :complete :failed))
+                   (pushnew quest (quest:known-quests storyline)))))
       storyline)))
 
 (define-encoder (quest:quest save-v0) (buffer _p)
