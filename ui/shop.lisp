@@ -336,4 +336,9 @@
   (setf (alloy:focus (wheel panel)) :strong))
 
 (defun show-sales-menu (direction character)
-  (show-panel 'sales-menu :shop (unit character T) :target (unit 'player T)  :direction direction))
+  (let ((shop (ensure-unit character)))
+    (when (typep shop 'npc)
+      (dolist (item '(item:small-health-pack item:medium-health-pack item:large-health-pack
+                      item:damage-shield item:combat-booster item:nanomachine-salve))
+        (ensure-stored item shop 100)))
+    (show-panel 'sales-menu :shop shop :target (unit 'player T)  :direction direction)))

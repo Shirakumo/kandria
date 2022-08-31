@@ -29,6 +29,9 @@
     (setf (gethash item (unlock-table inventory)) T))
   (incf (gethash item (storage inventory) 0) count))
 
+(defun ensure-stored (item inventory count)
+  (store item inventory (max 0 (- count (item-count item inventory)))))
+
 (defmethod item-unlocked-p ((item symbol) (inventory inventory))
   (or (< 0 (gethash item (storage inventory) 0))
       (gethash item (unlock-table inventory))))
