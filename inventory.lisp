@@ -289,18 +289,21 @@
 
 (define-item (damage-shield active-effect-item value-item) 48 0 8 8
   :price 200)
+(defmethod item-order ((_ item:damage-shield)) 110)
 
 (defmethod apply-effect ((effect item:damage-shield) (animatable animatable))
   (decf (damage-input-scale animatable) 0.2))
 
 (define-item (combat-booster active-effect-item value-item) 40 0 8 8
   :price 200)
+(defmethod item-order ((_ item:combat-booster)) 111)
 
 (defmethod apply-effect ((effect item:combat-booster) (animatable animatable))
   (incf (damage-output-scale animatable) 0.2))
 
 (define-item (nanomachine-salve active-effect-item value-item) 32 0 8 8
   :price 200 :duration 10.0)
+(defmethod item-order ((_ item:nanomachine-salve)) 112)
 
 (defmethod apply-effect ((effect item:nanomachine-salve) (animatable animatable))
   ;; We want to buff 25% by the end of the 10s.
