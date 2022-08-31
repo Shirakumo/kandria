@@ -233,6 +233,8 @@
   (simple:with-pushed-transforms (renderer)
     (when (alloy:focus widget)
       (simple:translate renderer (offset widget)))
+    ;; KLUDGE: don't know why this is necessary...
+    (alloy:reset-visibility renderer)
     (call-next-method)))
 
 (animation:define-animation focus-in
