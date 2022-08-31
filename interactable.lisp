@@ -321,3 +321,38 @@ out vec4 color;
 void main(){
   color.a *= visibility;
 }")
+
+(defclass place-marker (sized-entity resizable ephemeral dialog-entity creatable)
+  ((name :accessor name)))
+
+(defmethod interactable-p ((marker place-marker))
+  (interactions marker))
+
+(defmethod description ((marker place-marker))
+  (if (eql :complete (quest:status (first (interactions marker))))
+      (language-string 'examine-again)
+      (language-string 'examine)))
+
+(defmethod compile-to-pass (pass (marker place-marker)))
+(defmethod register-object-for-pass (pass (marker place-marker)))
+
+(defmethod (setf location) ((marker located-entity) (entity located-entity))
+  (setf (location entity) (location marker)))
+
+(defmethod (setf location) ((name symbol) (entity located-entity))
+  (setf (location entity) (location (unit name +world+))))
+
+(defclass bomb-marker (place-marker)
+  ())
+
+(defmethod interactable-p ((marker bomb-marker))
+  (and (call-next-method)
+       (not (eql :complete (quest:status (first (interactions marker))))))
+  T)
+
+(defmethod description ((marker bomb-marker))
+  (language-string 'place-bomb))
+
+(defmethod interact :after ((marker bomb-marker) (player player))
+  ;; (start-animation 'player 'place-bomb)
+  (spawn player 'bomb))
