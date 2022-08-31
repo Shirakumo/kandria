@@ -538,6 +538,8 @@
                                                        (error "No unit named ~s found." ,(nth i list))))
                                list)))))))
 
+(define-unit-resolver-methods start-animation (animation unit))
+
 (defun ensure-unit (unit)
   (etypecase unit
     (unit unit)
