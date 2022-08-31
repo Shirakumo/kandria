@@ -125,14 +125,6 @@
   (:display
    :text (format NIL "~,2f" alloy:value)))
 
-(presentations:define-realization (ui alloy:scrollbar)
-  ((:background simple:rectangle)
-   (alloy:margins))
-  ((:handle simple:rectangle)
-   (ecase (alloy:orientation alloy:renderable)
-     (:horizontal (alloy:extent -10 0 20 (alloy:ph)))
-     (:vertical (alloy:extent 0 -10 (alloy:pw) 20)))))
-
 (defclass icon (alloy:icon alloy:direct-value-component)
   ())
 
@@ -224,7 +216,8 @@
 
 (defmethod initialize-instance :after ((pass ui-pass) &key)
   (make-instance 'alloy:fullscreen-layout :layout-parent (alloy:layout-tree pass))
-  (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree pass)))
+  (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree pass))
+  (show (make-instance 'prerelease-notice) :ui pass))
 
 (defmethod alloy:clear :after ((pass ui-pass))
   (setf (panels pass) ())

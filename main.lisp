@@ -249,7 +249,7 @@ Possible sub-commands:
 
 (defmethod reset ((main main))
   (let ((scene (scene main)))
-    (hide-panel T)
+    (hide-panel '(not prerelease-notice))
     (setf (state main) NIL)
     (reset (camera scene))
     (leave (region scene) scene)
