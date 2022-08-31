@@ -347,8 +347,7 @@ void main(){
 
 (defmethod interactable-p ((marker bomb-marker))
   (and (call-next-method)
-       (not (eql :complete (quest:status (first (interactions marker))))))
-  T)
+       (not (eql :complete (quest:status (first (interactions marker)))))))
 
 (defmethod description ((marker bomb-marker))
   (language-string 'place-bomb))
