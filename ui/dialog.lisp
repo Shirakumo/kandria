@@ -25,6 +25,32 @@
   (:label
    :markup (markup alloy:renderable)))
 
+(defclass choice-clip-view (alloy:clip-view alloy:renderable)
+  ())
+
+(presentations:define-realization (ui choice-clip-view)
+  ((:marker simple:rectangle)
+   (alloy:extent 0 0 (alloy:pw 1) -5)
+   :z-index 10
+   :pattern colors:accent)
+  ((:tip simple:polygon)
+   (list (alloy:point 10 -4)
+         (alloy:point 0 -4)
+         (alloy:point 5 -10))
+   :z-index 10
+   :pattern colors:accent))
+
+(presentations:define-update (ui choice-clip-view)
+  (:marker
+   :hidden-p (or (not (alloy:clipped-p alloy:renderable))
+                 (= 0 (alloy:pxy (alloy:offset alloy:renderable)))))
+  (:tip
+   :hidden-p (or (not (alloy:clipped-p alloy:renderable))
+                 (= 0 (alloy:pxy (alloy:offset alloy:renderable))))))
+
+(defmethod (setf alloy:offset) :after (value (layout choice-clip-view))
+  (alloy:mark-for-render layout))
+
 (defclass dialog (menuing-panel textbox)
   ((interactions :initarg :interactions :initform () :accessor interactions)
    (interaction :initform NIL :accessor interaction)
@@ -36,7 +62,7 @@
         (textbox (alloy:represent (slot-value dialog 'text) 'dialog-textbox))
         (nametag (alloy:represent (slot-value dialog 'source) 'nametag))
         (prompt (alloy:represent (slot-value dialog 'prompt) 'advance-prompt))
-        (clip-view (make-instance 'alloy:clip-view :limit :x)))
+        (clip-view (make-instance 'choice-clip-view :limit :x)))
     (setf (textbox dialog) textbox)
     (alloy:enter (choices dialog) clip-view)
     (alloy:enter textbox layout :constraints `((:required (:max-width 1500) (:center :w))
