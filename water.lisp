@@ -267,6 +267,9 @@ void main(){
    (multiplier :initform 2.0)
    (amount :initform 32)))
 
+(defmethod entity-at-point (point (bubbler bubbler))
+  NIL)
+
 (defmethod handle ((ev tick) (emitter bubbler))
   (let ((loc (location (parent emitter)))
         (bsize (bsize (parent emitter))))
