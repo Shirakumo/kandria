@@ -190,9 +190,10 @@
     (dolist (mapping (find-action-mappings (alloy:value source) (case +input-source+
                                                                   (:keyboard '(or key-event mouse-event))
                                                                   (T 'gamepad-event))))
-      (let ((binding (make-instance 'input-mapping-structure :mapping mapping)))
-        (alloy:enter binding bindings)
-        (alloy:enter binding focus)))
+      (dolist (mapping (trial:stratify-action-mapping mapping))
+        (let ((binding (make-instance 'input-mapping-structure :mapping mapping)))
+          (alloy:enter binding bindings)
+          (alloy:enter binding focus))))
     (alloy:enter add focus)
     (alloy:enter ok focus)
     (alloy:enter cancel focus)
