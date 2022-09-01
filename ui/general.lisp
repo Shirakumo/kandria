@@ -125,6 +125,14 @@
   (:display
    :text (format NIL "~,2f" alloy:value)))
 
+(presentations:define-realization (ui alloy:scrollbar)
+  ((:background simple:rectangle)
+   (alloy:margins))
+  ((:handle simple:rectangle)
+   (ecase (alloy:orientation alloy:renderable)
+     (:horizontal (alloy:extent -10 0 20 (alloy:ph)))
+     (:vertical (alloy:extent 0 -10 (alloy:pw) 20)))))
+
 (defclass icon (alloy:icon alloy:direct-value-component)
   ())
 
