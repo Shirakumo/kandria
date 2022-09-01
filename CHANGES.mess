@@ -2,6 +2,92 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 0.3.0
+- Mark up save points on the map for easier navigation
+  Reported by Haruspex
+- Fix dual-controls mapping on DualSense controllers on Windows
+  Reported by Klabater SA
+- Fix the use of tesselation shaders in the main menu
+  Reported by Virtual Gamer
+- Fix the quest log not always being consistent after a reload
+  Reported by Mithent
+- Fix being able to bypass interaction triggers by jumping continuously
+  Reported by Duuqnd
+- Fix the map crashing if the player is outside map boundaries on the same frame
+  Reported by Duuqnd
+- Fix white screen when low on health and using a healing item
+  Reported by Goorakh
+- Fix enemies not despawning when reloading a save after death
+  Reported by Goorakh
+- Add distilled water bottle as a fishing item
+  Reported by Goorakh
+- Remove Krita source files from the deployment
+  Reported by Duuqnd
+- Fix issue with default zoom level of map being dependent on resolution
+  Reported by Leslieanne White
+- Fix iconsistencies in narration styling for internal monologues
+  Reported by Leslieanne White
+- Fix switching from a surround sound device to a stereo or other device resulting in no sound
+  Reported by Dieting Hippo
+- Add a frame limiter option besides vsync
+  Reported by Justin
+- Fix being able to stand on spikes when climbing down onto them
+  Reported by Jessyabeb
+- Add an option to disable hit sting lines
+  Reported by Jessyabeb
+- Fix stagger animation while crawling leading to clipping
+  Reported by Jessyabeb
+- Fix crash when starting Catherine's time trials
+  Reported by Selwyn Simsek
+- Fix shop UI not letting you buy stuff
+  Reported by Selwyn Simsek
+- Fix some automated respawn points clipping into the walls
+  Reported by Selwyn Simsek
+- Fix extensive camera offsetting when fishing near a chunk border
+  Reported by Selwyn Simsek
+- Fix elevators getting bad velocities when moving down within a stopper
+  Reported by Selwyn Simsek
+- Add an option to resume from the autosave on a crash when starting the game
+  Reported by Nihiloss
+- Fix wolves not being able to enter doors leading to a pathing crash
+  Reported by Nihiloss
+- Add note on which key to press to dismiss large prompts
+  Reported by Hempuli
+- Fix pressing escape in a popup menu causing focus loss
+  Reported by Hempuli
+- Fix not being able to interact anymore after fishing
+  Reported by Hempuli
+- Fix light bounding boxes not matching geometry
+  Reported by Hempuli
+- Add small offsets to map markers to make overlap less likely
+  Reported by Hempuli
+- Remove the mark for bulk sale hint on the buy menu
+  Reported by Hempuli
+- Fix mouse bindings not being listed when customising keyboard controls
+  Reported by Hempuli
+- Fix marker menu focus glitching after placing one marker
+  Reported by Hempuli
+- Fix missing interior collision tiles in region1/upper
+  Reported by Sean Dick
+- Fix bad input and focus behaviour when a fullscreen prompt is shown on the same frame as a dialogue box opens
+  Reported by Gamescom Visitor
+- Fix enemy health bar display being broken
+  Reported by Gamescom Visitor
+- Fix gamepad library crashing on Linux when trying to rumble a device that has been disconnected
+  Reported by Gamescom Visitor
+- Fix odd left margin inconsistency on menu
+  Reported by Selwyn Simsek
+- Fix bad alignment of popups in shop and keybind menu
+  Reported by Albert Martinez
+- Fast travel transition causing you to void out due to transition stacking
+  Reported by Albert Martinez
+- Fix bad alignment when mixing fonts
+  Reported by Albert Martinez and Nihiloss
+- Fix bad clipping on log file menu
+  Reported by Albert Martinez
+- Fix save menu timestamps being reported in UTC rather than local time
+  Reported by Albert Martinez
+
 ## 0.2.6
 - Fix mouse buttons being unbindable in the controls configurator
   Reported by Christopher Hurley
