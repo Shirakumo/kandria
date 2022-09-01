@@ -1334,7 +1334,14 @@ void main(){
       (setf (unlocked-p (chunk ev)) T)
       (setf (chunk player) (chunk ev))
       (setf (dash-exhausted player) NIL)
-      (setf (spawn-location player) loc))))
+      (let ((ground (find-ground (chunk ev) loc)))
+        (unless (bvh:do-fitting (entity (bvh (region +world+)) ground)
+                  (typecase entity
+                    (magma (return T))
+                    (chunk (when (tile-type-p (car (tile (v- ground (vec 0 8)) entity)) 'sp)
+                             (return T)))))
+          (v:info :kandria.player "Moving spawn to ~a" loc)
+          (setf (spawn-location player) loc))))))
 
 (defmethod oob ((player player) (new chunk))
   (unless (or (eq :dying (state player))
