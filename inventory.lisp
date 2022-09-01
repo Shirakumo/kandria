@@ -513,16 +513,16 @@
 ;; x The-Third
 ;; x ERROR
 ;; x Manual
-;;   CD
-;;   Novel
-;;   Newspaper
+;; x CD
+;; x Novel
+;; x Newspaper
 ;; x Helmet
-;;   Tin
-;;   Ball
-;;   Shoe
-;;   Diary
-;;   Poster
-;;   Phone
+;; x Tin
+;; x Ball
+;; x Shoe
+;; x Diary
+;; x Poster
+;; x Phone
 
 (define-item (manual lore-item) 56 0 8 8)
 (define-item (cd lore-item) 0 64 8 8)
