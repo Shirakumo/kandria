@@ -82,9 +82,7 @@
 (define-cheat test
   (let ((room (unit 'debug T)))
     (when room
-      (vsetf (location (unit 'player T))
-             (vx (location room))
-             (vy (location room)))
+      (place-on-ground (unit 'player T) (location room))
       (setf (intended-zoom (camera +world+)) 1.0)
       (snap-to-target (camera +world+) (unit 'player T)))))
 
