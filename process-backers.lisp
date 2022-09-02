@@ -1,3 +1,4 @@
+(in-package #:cl-user)
 (ql:quickload '(cl-csv))
 
 (defun question-type (text)
@@ -49,7 +50,7 @@
                     :key (lambda (a) (string-downcase (getf a :name))))))
     (dolist (user data)
       (when (or (getf user :name) (getf user :message))
-        (format T "**~a**~@[~%  ~a~]~%" (or (getf user :name) "Anonymous") (getf user :message))))))
+        (format T "**~a**~@[~%— ~a~]~%" (or (getf user :name) "Anonymous") (getf user :message))))))
 
 (defun compile-dwellers (file)
   (sort (loop for user being the hash-values of (process-freeform file)

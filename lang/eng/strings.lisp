@@ -42,13 +42,15 @@ mech "Wraw Machine Suit Prototype" ;; gender unknown
 zelah-enemy "Wraw Leader, Zelah"
 villager-female-nametags ("Anneli" "Avedon" "Cath" "Fawn" "Heidy" "Kaitryn" "Karina" "Laura" "Leandra" "Lynne Marshall"
                                    "Maelie" "Maria" "Mandragor Mistica" "Minerva Raeck" "Mobi" "Monika" "Nathalie"
-                                   "Nick" "Nola" "Ran" "Rednael" "Sandra" "Sarah" "Sasha" "Scoopa" "Tabitha Riddle")
+                                   "Nick" "Nola" "Ran" "Rednael" "Sandra" "Sarah" "Sasha" "Scoopa" "Tabitha Riddle"
+                                   "Alva" "Livia")
 villager-male-nametags ("Ajrion" "Arthur" "Avedon" "Blake Ashwell" "Brian" "Chris" "Codody"
                                  "Cody Shores" "Dipwood" "Dr. Grimbles" "Fabrellius" "Fawn" "Gerald" "Gosper"
                                  "Ikharios" "John McCarthy" "Johnny" "Kieron Stoff" "Luigi" "Malcolm Darby"
                                  "Mandragor Mistica" "Mcilwaft" "Murk Uglustraxi" "Nick" "Poplar" "Sasha"
                                  "Sean" "Simon" "Sina" "Tagg" "Till" "Tom" "Tom H. Cavalry" "Velho" "Vic"
-                                 "Vincent")
+                                 "Vincent" "Ajrion" "Alva" "Maglord" "Mark Carls" "Will Halliburton"
+                                 "Yamamoto" "Jfred")
 ;; Walk-n-talk blurbs
 player-hurt-while-talking "~ player
 | Ugh! Damn it!"
