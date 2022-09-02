@@ -807,3 +807,9 @@ void main(){
   ((name :initform NIL)
    (trial:sprite-data :initform (asset 'kandria 'bomb))
    (layer-index :initform (1- +base-layer+))))
+
+(defmethod stage :after ((bomb bomb) (area staging-area))
+  (stage (// 'sound 'bomb-active) area))
+
+(defmethod enter :after ((bomb bomb) container)
+  (harmony:play (// 'sound 'bomb-active) :location (location bomb)))

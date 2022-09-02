@@ -178,7 +178,8 @@
   (fountain-fire :volume (db -6))
   (hit-ground :volume (db -6))
   (sword-hit-ground-hard :volume (db -6))
-  (sword-hit-ground-soft :volume (db -6)))
+  (sword-hit-ground-soft :volume (db -6))
+  (bomb-active :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3)))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.4)

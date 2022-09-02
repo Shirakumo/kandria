@@ -34,8 +34,10 @@
     ;; KLUDGE: default interaction causes lookup on NPC to resolve profile.
     ;;         we set it here to refer to whoever is being talked to.
     (setf (gethash 'npc (name-map +world+)) entity)
-    (show (make-instance 'dialog :interactions (or (interactions entity)
-                                                   (list (default-interaction entity)))))))
+    (let ((interactions (or (interactions entity)
+                            (default-interaction entity))))
+      (when interactions
+        (show (make-instance 'dialog :interactions (enlist interactions)))))))
 
 (define-shader-entity interactable-sprite (ephemeral lit-sprite dialog-entity resizable creatable)
   ((name :initform (generate-name "INTERACTABLE"))))
@@ -343,15 +345,17 @@ void main(){
   (setf (location entity) (location (unit name +world+))))
 
 (defclass bomb-marker (place-marker)
-  ())
+  ((active-p :initform T :accessor quest:active-p)))
 
 (defmethod interactable-p ((marker bomb-marker))
   (and (call-next-method)
-       (not (eql :complete (quest:status (first (interactions marker)))))))
+       (quest:active-p marker)))
 
 (defmethod description ((marker bomb-marker))
   (language-string 'place-bomb))
 
 (defmethod interact :after ((marker bomb-marker) (player player))
-  (start-animation 'player 'place-bomb)
-  (spawn player 'bomb))
+  (harmony:play (// 'sound 'bomb-plant))
+  (start-animation 'place-bomb 'player)
+  (spawn player 'bomb)
+  (setf (quest:active-p marker) NIL))
