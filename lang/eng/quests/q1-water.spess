@@ -22,7 +22,7 @@
   | "It's like staring into the sun. Into the centre of a cataclysm."(light-gray, italic)
   ! eval (setf (var 'q1-weld-burn) T)
   | (:embarassed)"Oops. I think that damaged my lenses."(light-gray, italic)
-! eval (start-animation 'repair 'catherine)
+! eval (start-animation 'repair2 'catherine)
 ! eval (setf (animation (unit 'main-leak-1)) 'normal)
 ~ catherine
 | That should hold it.
@@ -88,7 +88,7 @@
 | And keep your wits about you. Over and out.
 ~ catherine
 | Alright, let me seal this one up.
-! eval (start-animation 'repair 'catherine)
+! eval (start-animation 'repair2 'catherine)
 ! eval (setf (animation (unit 'main-leak-2)) 'normal)
 | (:concerned)Wait... Who's there?
   

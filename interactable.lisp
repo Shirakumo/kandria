@@ -353,5 +353,5 @@ void main(){
   (language-string 'place-bomb))
 
 (defmethod interact :after ((marker bomb-marker) (player player))
-  ;; (start-animation 'player 'place-bomb)
+  (start-animation 'player 'place-bomb)
   (spawn player 'bomb))

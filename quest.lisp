@@ -328,7 +328,7 @@
                                `(:full-progress ,count
                                  :progress-fun (item-count ',item))))))
                  (:go-to ((place &key lead follow with) . body)
-                         (form-fiddle:with-body-options (body initargs) body
+                         (form-fiddle:with-body-options (body initargs eval) body
                            `((,name
                               ,@initargs
                               :title ,(cond (lead (format NIL "Follow ~a to ~a" lead place))
@@ -343,6 +343,7 @@
                                                     (move-to ',place ',with)))
                                        ,@(if lead `((lead 'player ',place ',lead)))
                                        ,@(if follow `((follow 'player ',follow)))
+                                       ,eval
                                        ,@(if body `((walk-n-talk (progn ,@body)))))))))
                  (:interact ((with &key now repeatable) . body)
                             (form-fiddle:with-body-options (body initargs) body
