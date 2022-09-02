@@ -119,7 +119,7 @@ void main(){
   (let ((s (view-scale (camera +world+))))
     (multiple-value-bind (breaks array seq x- y- x+ y+)
         (org.shirakumo.alloy.renderers.opengl.msdf::compute-text
-         (font effect) text (alloy:px-extent 0 0 500 30) (/ s 0.2) NIL NIL)
+         (font effect) text (alloy:px-extent 0 0 500 30) (/ s 0.2) NIL NIL :left)
       (declare (ignore breaks seq))
       (decf (vx (location effect)) (/ (+ x- x+) 2 s))
       (decf (vy (location effect)) (/ (+ y- y+) 2 s))
