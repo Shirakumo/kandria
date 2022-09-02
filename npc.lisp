@@ -198,6 +198,9 @@
               (execute-path npc ev))
              ((< (vsqrdistance (location npc) (target npc)) (expt min-distance 2))
               (setf (ai-state npc) :normal))
+             ;; Retry if not too far
+             ((< (vsqrdistance (location npc) (target npc)) (expt (* 20 +tile-size+) 2))
+              (move-to (target npc) npc))
              (T
               (place-on-ground npc (target npc))
               (stop-following npc))))
