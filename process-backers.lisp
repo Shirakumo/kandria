@@ -40,9 +40,10 @@
         (flet ((field (name)
                  (nth (position name fields :test #'equalp) row)))
           (let ((id (parse-integer (field "Id"))))
-            (setf (gethash id backers) (loop for field in rewards
-                                             when (string= "1" (field field))
-                                             collect field)))))
+            (setf (gethash id backers) (list :rewards (loop for field in rewards
+                                                            when (string= "1" (field field))
+                                                            collect field)
+                                             :email (field "Email"))))))
       backers)))
 
 (defun compile-credits (file)
@@ -69,8 +70,15 @@
   (let ((rewards (process-rewards rewards-file)))
     (loop for user being the hash-values of (process-freeform tag-file)
           for discord = (getf user :discord)
-          for roles = (loop for reward in (gethash (getf user :id) rewards)
+          for roles = (loop for reward in (getf (gethash (getf user :id) rewards) :rewards)
                             for role = (second (assoc reward *reward-role-map* :test #'string-equal))
                             when role collect role)
           do (when (and discord roles)
                (format T "~s~{,~s~}~%" (clean-discord-name discord) roles)))))
+
+(defun emails-for-rewards (rewards-file rewards &key not)
+  (loop for user being the hash-values of (process-rewards rewards-file)
+        for have = (getf user :rewards)
+        when (and (loop for reward in rewards always (find reward have :test #'string-equal))
+                  (loop for reward in not never (find reward have :test #'string-equal)))
+        collect (getf user :email)))
