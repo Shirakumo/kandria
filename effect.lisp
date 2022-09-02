@@ -367,6 +367,28 @@ void main(){
 (define-effect player-damage sound-effect
   :voice (// 'sound 'player-damage))
 
+(define-effect mech-bash sound-effect
+  :voice (// 'sound 'mech-bash))
+
+(define-effect mech-die sound-effect
+  :voice (// 'sound 'mech-die))
+
+(define-effect mech-jump sound-effect
+  :voice (// 'sound 'mech-jump))
+
+(define-effect mech-land sound-effect
+  :voice (// 'sound 'mech-land))
+
+(define-effect mech-pierce sound-effect
+  :voice (// 'sound 'mech-pierce))
+
+(define-effect mech-stun sound-effect
+  :voice (// 'sound 'mech-stun))
+
+(define-effect mech-step sound-effect
+  :voice (list (// 'sound 'mech-step-1)
+               (// 'sound 'mech-step-2)))
+
 (define-effect ground-hit basic-effect
   :voice (// 'sound 'sword-hit-ground-hard)
   :animation 'hit2

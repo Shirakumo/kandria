@@ -565,6 +565,10 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'mech)))
 
+(defmethod stage :after ((enemy mech) (area staging-area))
+  (dolist (sound '(mech-bash mech-die mech-jump mech-land mech-pierce mech-step-1 mech-step-2 mech-stun))
+    (stage (// 'sound sound) area)))
+
 (defmethod idleable-p ((enemy mech)) NIL)
 
 (defmethod base-health ((enemy mech)) 5000)
