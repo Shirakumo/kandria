@@ -277,6 +277,10 @@
 (defmethod initialize-instance :after ((edit frame-edit) &key)
   (alloy:finish-structure edit (slot-value edit 'layout) (slot-value edit 'focus)))
 
+(defmethod alloy:render ((ui ui) (layout frame-layout))
+  (alloy:reset-visibility ui)
+  (call-next-method))
+
 (alloy:define-subcomponent (frame-edit hurtbox) ((hurtbox (frame frame-edit)) trial-alloy::vec4))
 (alloy:define-subcomponent (frame-edit offset) ((offset (frame frame-edit)) trial-alloy::vec2 :step 1))
 (alloy:define-subcomponent (frame-edit acceleration) ((acceleration (frame frame-edit)) trial-alloy::vec2))
