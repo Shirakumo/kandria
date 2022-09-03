@@ -683,7 +683,10 @@
            (when (and ground (or (typep (svref collisions 1) 'ground)
                                  (typep (svref collisions 3) 'ground)))
              (incf (vy vel) 0.8))
-           (move-towards source target))
+           (unless (and (or (svref collisions 1)
+                            (svref collisions 3))
+                        (<= (vy vel) 0.0))
+             (move-towards source target)))
           (fall-node
            (typecase ground
              (null (setf (vx vel) 0)
