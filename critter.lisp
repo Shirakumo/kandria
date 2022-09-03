@@ -87,24 +87,6 @@
 
 (defmethod interactable-p ((rat rat)) NIL)
 
-(define-shader-entity chameleon (critter)
-  ((acceleration :initform (vec 0 0)))
-  (:default-initargs :sprite-data (asset 'kandria 'critter-chameleon)))
-
-(defmethod apply-transforms progn ((subject chameleon))
-  (translate-by 0 -7 0))
-
-(defmethod interactable-p ((critter chameleon)) NIL)
-
-(define-shader-entity frog (critter)
-  ((acceleration :initform (vec 0 0)))
-  (:default-initargs :sprite-data (asset 'kandria 'critter-frog)))
-
-(defmethod apply-transforms progn ((subject frog))
-  (translate-by 0 -2 0))
-
-(defmethod interactable-p ((critter frog)) NIL)
-
 (define-shader-entity mole (critter)
   ((acceleration :initform (vec 0 0)))
   (:default-initargs :sprite-data (asset 'kandria 'critter-mole)))
@@ -166,14 +148,17 @@
   (setf (direction player) (direction npc))
   (start-animation 'pet player))
 
-(define-shader-entity tame-cat (pet creatable)
-  ((nametag-element :initform NIL)
+(define-shader-entity tame-cat (paletted-entity pet creatable)
+  ((palette :initform (// 'kandria 'cat-palette))
+   (palette-index :initform (random 4))
+   (nametag-element :initform NIL)
    (bsize :initform (vec 5 4)))
   (:default-initargs
    :sprite-data (asset 'kandria 'critter-cat)))
 
 (defmethod interact :around ((npc tame-cat) (player player))
-  (setf (vx (location player)) (vx (location npc)))
+  (setf (vx (location player)) (- (vx (location npc))
+                                  (* (direction npc) 9)))
   (setf (direction player) (direction npc))
   (start-animation 'pet player))
 
@@ -186,3 +171,23 @@
   (setf (vx (location player)) (- (vx (location npc)) (* 8 (direction npc))))
   (setf (direction player) (direction npc))
   (start-animation 'pet player))
+
+(define-shader-entity chameleon (pet)
+  ((nametag-element :initform NIL)
+   (bsize :initform (vec 8 8)))
+  (:default-initargs :sprite-data (asset 'kandria 'critter-chameleon)))
+
+(defmethod interactable-p ((critter chameleon)) NIL)
+
+(defmethod movement-speed ((chameleon chameleon))
+  0.1)
+
+(define-shader-entity frog (pet)
+  ((nametag-element :initform NIL)
+   (bsize :initform (vec 8 8)))
+  (:default-initargs :sprite-data (asset 'kandria 'critter-frog)))
+
+(defmethod interactable-p ((critter frog)) NIL)
+
+(defmethod movement-speed ((frog frog))
+  0.2)

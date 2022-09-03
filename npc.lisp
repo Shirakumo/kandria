@@ -167,10 +167,10 @@
                      (ignore-errors
                       (setf (animation npc) 'fall)))))
              ((< (p! slowwalk-limit) (abs (vx vel)))
-              (setf (playback-speed npc) (/ (abs (vx vel)) (p! walk-limit)))
+              (setf (playback-speed npc) (/ (abs (vx vel)) (movement-speed npc)))
               (setf (animation npc) 'run))
              ((< 0 (abs (vx vel)))
-              (setf (playback-speed npc) (/ (abs (vx vel)) (p! slowwalk-limit)))
+              (setf (playback-speed npc) (/ (abs (vx vel)) (movement-speed npc)))
               (setf (animation npc) 'walk))
              ;; KLUDGE: Ugh.
              ((not (eql :sit (ai-state npc)))
