@@ -7,6 +7,12 @@
   (alloy:exit input)
   (alloy:focus-next (alloy:focus-parent input)))
 
+(defmethod alloy:activate :after ((input name-input))
+  (when (steam:steamworks-available-p)
+    (steam:show-text-input (steam:interface 'steam:steamutils T)
+                           :default (alloy:text input)
+                           :description (@ enter-name-prompt))))
+
 (presentations:define-realization (ui name-input)
   ((background simple:rectangle)
    (alloy:margins)
