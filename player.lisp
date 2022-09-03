@@ -1338,7 +1338,7 @@ void main(){
         (unless (bvh:do-fitting (entity (bvh (region +world+)) ground)
                   (typecase entity
                     (magma (return T))
-                    (chunk (when (tile-type-p (car (tile (v- ground (vec 0 8)) entity)) 'sp)
+                    (chunk (when (tile-type-p (or (car (tile (v- ground (vec 0 8)) entity)) 0) 'sp)
                              (return T)))))
           (v:info :kandria.player "Moving spawn to ~a" loc)
           (setf (spawn-location player) loc))))))
