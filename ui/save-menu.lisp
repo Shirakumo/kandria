@@ -4,14 +4,18 @@
   ())
 
 (defmethod alloy:handle ((ev alloy:focus-right) (input name-input))
+  ;; FIXME: avoid issues with events also being fired from letter keys
   (alloy:exit input)
   (alloy:focus-next (alloy:focus-parent input)))
 
 (defmethod alloy:activate :after ((input name-input))
-  (when (steam:steamworks-available-p)
-    (steam:show-text-input (steam:interface 'steam:steamutils T)
-                           :default (alloy:text input)
-                           :description (@ enter-name-prompt))))
+  (when (and (steam:steamworks-available-p)
+             (not (eql :keyboard +input-source+)))
+    (or (steam:show-text-input (steam:interface 'steam:steamutils T)
+                               :default (alloy:text input)
+                               :description (@ enter-name-prompt))
+        (steam:show-floating-text-input (steam:interface 'steam:steamutils T))
+        (v:warn :trial.steam "Failed to open gamepad text input panel..."))))
 
 (presentations:define-realization (ui name-input)
   ((background simple:rectangle)
