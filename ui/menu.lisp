@@ -204,19 +204,21 @@
 
 (presentations:define-realization (ui task-widget)
   ((:indicator simple:polygon)
-   (list (alloy:point 0 0)
-         (alloy:point 0 20)
-         (alloy:point 10 10))
+   (list (alloy:point 0 5)
+         (alloy:point 0 15)
+         (alloy:point 5 10))
    :pattern colors:white)
   ((:label simple:text)
-   (alloy:margins (alloy:ph 1.0) 0 0 0)
+   (alloy:margins 10 -5 5 -5)
    alloy:text
    :valign :middle
+   :wrap T
    :size (alloy:un 15)
    :font (setting :display :font)))
 
 (defclass quest-widget (alloy:vertical-linear-layout alloy:focus-element alloy:observable alloy:renderable)
   ((alloy:cell-margins :initform (alloy:margins 10 5 5 5))
+   (alloy:min-size :initform (alloy:size 10 10))
    (quest :initarg :quest :accessor quest)
    (offset :initform (alloy:point 0 0) :accessor offset)))
 
