@@ -8,8 +8,7 @@
 
 (defmethod handle :after ((ev lose-focus) (world world))
   (when (and (setting :gameplay :pause-on-focus-loss)
-             (should-show-pause-screen world)
-             (pausing-possible-p))
+             (should-show-pause-screen world))
     (show-panel 'pause-screen))
   (clear-retained))
 
@@ -28,10 +27,14 @@
 
 (defmethod initialize-instance :after ((panel pause-screen) &key)
   (let* ((layout (make-instance 'load-screen-layout :style `((:bg :pattern ,(colored:color 0 0 0 0.5)))))
-         (header (make-instance 'header :level 0 :value #@game-paused-title)))
+         (header (make-instance 'header :level 0 :value #@game-paused-title))
+         (focus (make-instance 'alloy:focus-list)))
     (alloy:enter header layout :constraints `(:center (:size 1000 1000)))
-    (alloy:finish-structure panel layout NIL)))
+    (alloy:on alloy:exit (focus)
+      (setf (alloy:focus focus) :strong))
+    (alloy:finish-structure panel layout focus)))
 
+#++
 (defmethod handle ((ev input-event) (panel pause-screen))
   (unless (or (typep ev 'mouse-move)
               (typep ev 'gamepad-move))
