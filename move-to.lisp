@@ -560,8 +560,11 @@
 (defclass movable (moving)
   ((current-node :initform NIL :accessor current-node)
    (path :initform NIL :accessor path)
-   (pending-direction :initform +1 :accessor pending-direction)
+   (pending-action :initform NIL :accessor pending-action)
    (node-time :initform 0f0 :accessor node-time)))
+
+(defmethod (setf pending-direction) (value (movable movable))
+  (setf (pending-action movable) (lambda (movable) (setf (direction movable) value))))
 
 (defclass immovable (movable) ())
 
@@ -810,7 +813,9 @@
       (setf (state movable) :normal)
       (setf (path movable) NIL)))
   (unless (path movable)
-    (setf (direction movable) (pending-direction movable))))
+    (let ((action (shiftf (pending-action movable) NIL)))
+      (when action
+        (funcall action movable)))))
 
 (defun close-to-path-p (loc path threshold)
   (let ((threshold (expt threshold 2)))
