@@ -730,17 +730,20 @@
   (villager-hunter 0.3)
   (semi-engineer-base 0.2)
   (cerebat-trader 0.1)
-  (tame-wolf 0.1))
+  (tame-wolf 0.1)
+  (tame-cat 0.1))
 
 (define-random-draw semi
-  (villager 1.0)
+  (villager 0.5)
   (villager-hunter 0.1)
   (semi-engineer-base 0.2)
   (cerebat-trader 0.1)
-  (tame-wolf 0.1))
+  (tame-wolf 0.1)
+  (tame-cat 0.1))
 
 (define-random-draw cerebats
   (villager 1.5)
   (villager-hunter 0.75)
   (cerebat-trader 1.0)
-  (tame-wolf 0.1))
+  (tame-wolf 0.2)
+  (tame-cat 0.2))
