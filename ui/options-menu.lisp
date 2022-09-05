@@ -17,10 +17,10 @@
      (case +input-source+
        (:keyboard
         (concatenate 'string
-                     (trial::action-prompts (alloy:value button) :bank :mouse)
-                     (trial::action-prompts (alloy:value button) :bank :keyboard)))
+                     (action-string (alloy:value button) :bank :mouse)
+                     (action-string (alloy:value button) :bank :keyboard)))
        (T
-        (trial::action-prompts (alloy:value button) :bank +input-source+))))))
+        (action-string (alloy:value button) :bank +input-source+))))))
 
 (defmethod (setf alloy:focus) :after ((focus (eql :strong)) (button input-action-button))
   (setf (alloy:focus (alloy:focus-parent button)) :strong))
@@ -99,7 +99,7 @@
 (defmethod alloy:text ((label input-label))
   (let ((event (alloy:value label)))
     (if event
-        (string (prompt-char event))
+        (prompt-string event)
         "...")))
 
 (defmethod alloy:accept ((label input-label))
@@ -190,7 +190,7 @@
     (dolist (mapping (find-action-mappings (alloy:value source) (case +input-source+
                                                                   (:keyboard '(or key-event mouse-event))
                                                                   (T 'gamepad-event))))
-      (dolist (mapping (trial:stratify-action-mapping mapping))
+      (dolist (mapping (stratify-action-mapping mapping))
         (let ((binding (make-instance 'input-mapping-structure :mapping mapping)))
           (alloy:enter binding bindings)
           (alloy:enter binding focus))))

@@ -134,7 +134,7 @@
            (setf (source dialog) (nametag (unit 'player T)))
            (setf (choices dialog)
                  (cons (mapcar #'quest:title interactions) interactions))
-           (let* ((label (string (prompt-char :left :bank :keyboard)))
+           (let* ((label (prompt-string :left :bank :keyboard))
                   (button (alloy:represent label 'dialog-choice)))
              (alloy:on alloy:activate (button)
                (hide dialog))
@@ -171,7 +171,7 @@
 
 (defmethod handle ((ev skip) (dialog dialog))
   (let* ((els (alloy:elements (choices dialog)))
-         (back (find (string (prompt-char :left :bank :keyboard))
+         (back (find (prompt-string :left :bank :keyboard)
                      els :key #'alloy:value :test #'string=)))
     (cond ((null back))
           ((= (alloy:index (choices dialog)) (position back els))

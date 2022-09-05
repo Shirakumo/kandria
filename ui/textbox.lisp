@@ -65,7 +65,7 @@ void main(){
    :pattern colors:white)
   ((:label simple:text)
    (alloy:margins 1)
-   (string (prompt-char :right :bank :keyboard))
+   (prompt-string :right :bank :keyboard)
    :valign :middle
    :halign :right
    :font "PromptFont"
@@ -82,7 +82,6 @@ void main(){
                                                 1.0))))
                           0))
   (:label
-   :text (string (prompt-char :right :bank :keyboard))
    :hidden-p (null alloy:value)))
 
 (defclass dialog-choice (alloy:button) ())

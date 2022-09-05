@@ -190,8 +190,8 @@
                  (when value
                    (setf (alloy:value description) (item-description (alloy:value button)))
                    (setf (alloy:value icon) (make-instance (class-of (alloy:value button)))))))))
-         (let ((input (make-instance 'label :value (trial::action-prompts 'mark-for-bulk :bank +input-source+) :style `((:label :halign :middle
-                                                                                                                                :valign :middle))))
+         (let ((input (make-instance 'label :value (action-string 'mark-for-bulk :bank +input-source+) :style `((:label :halign :middle
+                                                                                                                        :valign :middle))))
                (info (make-instance 'label :value (@ shop-mark-item-for-bulk-selling) :style `((:label :size ,(alloy:un 15)
                                                                                                        :halign :right)))))
            (alloy:enter input layout :constraints `((:right 50) (:below ,inner 10) (:size 50 50)))

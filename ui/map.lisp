@@ -286,7 +286,7 @@
   (setf (alloy:col-sizes legend) '(T 150 150 150 150 150 T))
   (loop for prompt in '(toggle-marker toggle-trace zoom-in zoom-out close-map)
         for i from 0
-        do (alloy:enter (make-instance 'map-legend-label :value (prompt-char prompt)
+        do (alloy:enter (make-instance 'map-legend-label :value (prompt-string prompt)
                                                          :style `((label :size ,(alloy:un 25))))
                         legend :col (1+ i) :row 0)
            (alloy:enter (make-instance 'map-legend-label :value (language-string prompt)
