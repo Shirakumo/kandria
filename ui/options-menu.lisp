@@ -18,6 +18,7 @@
        (:keyboard
         (concatenate 'string
                      (action-string (alloy:value button) :bank :mouse)
+                     " "
                      (action-string (alloy:value button) :bank :keyboard)))
        (T
         (action-string (alloy:value button) :bank +input-source+))))))
