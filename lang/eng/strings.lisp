@@ -604,6 +604,13 @@ S/X: EG523H8UJ901
 Made in Switzerland
 
 [The screen isn't cracked and it's in surprisingly good condition. There's somehow enough juice left to show the dead battery notification, but this hasn't turned on in a long time. There's no way to charge it, and no interface for an android - even if there was I probably couldn't guess the PIN.]"
+item:singing-bowl "Singing Bowl"
+item:singing-bowl/description "The metal bowl is drity, dusty, and stained. It rings an F# when hit."
+item:singing-bowl/lore "The monk was given this bowl at the begining of his monastic journey. He would ring it regularly to mark the begining and end of meditation practice sessions. 
+
+Since it was one of his few posessions, it was treated with great care; the monk was careful not to drop the bowl and cleaned and polished it frequently. This behaviour continuted into the monk's old age. 
+
+One day the bowl waited attentivly to commence the morning meditation, but the monk never arrived. The bowl had to continue waiting for a long time, and never came to know what happened to the monk."
 ;; Fish
 fish:crab "Crab"
 fish:crab/description "A sturdy little critter.

@@ -523,6 +523,7 @@
 ;; x Diary
 ;; x Poster
 ;; x Phone
+;; x Singing Bowl
 
 (define-item (manual lore-item) 56 0 8 8)
 (define-item (cd lore-item) 0 64 8 8)
@@ -535,6 +536,8 @@
 (define-item (diary lore-item) 56 64 8 8)
 (define-item (poster lore-item) 64 64 8 8)
 (define-item (phone lore-item) 72 64 8 8)
+
+(define-item (singing-bowl lore-item) 0 72 8 8)
 
 ;; Draws
 (define-random-draw mushrooms
