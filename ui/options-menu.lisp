@@ -39,7 +39,7 @@
    :halign :start
    :valign :middle)
   ((binding simple:text)
-   (alloy:margins 5)
+   (alloy:margins 0 0 5 0)
    alloy:text
    :pattern colors:white
    :size (alloy:un 30)
