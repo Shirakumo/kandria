@@ -27,7 +27,7 @@
 # site-2/interact-site
 ~ player
 | "This is "site 2"(red). "No sign of the councillors though"(orange)."(light-gray, italic)
-| (:thinking)"I think this is a maximum security prison - a quad-lock system"(light-gray, italic) "and"(light-gray) "a natural [(not (active-p (unit 'blocker-5663))) barrier (until I broke out!) | barrier]."(light-gray, italic)
+| (:thinking)"It's a pretty robust prison, between the spikes down there"(light-gray, italic) "and"(light-gray) "the natural [(not (active-p (unit 'blocker-5663))) barrier (until I broke out!) | barrier]."(light-gray, italic)
 | (:thinking)"Did the councillors somehow break [(not (active-p (unit 'blocker-5663))) out too | out]?"(light-gray, italic)
 ? (not (complete-p 'move-npc))
 | ~ player
