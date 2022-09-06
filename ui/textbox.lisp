@@ -82,6 +82,7 @@ void main(){
                                                 1.0))))
                           0))
   (:label
+   :text (prompt-string :right :bank :keyboard)
    :hidden-p (null alloy:value)))
 
 (defclass dialog-choice (alloy:button) ())
