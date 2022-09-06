@@ -315,8 +315,7 @@
                  (setf (vx vel) (* (direction enemy) (movement-speed enemy)))))))))))
 
 (defmethod hit :after ((enemy zombie) location)
-  (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8)))
-  (trigger 'hit enemy :location location))
+  (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8))))
 
 (defmethod draw-item ((zombie zombie))
   (draw-item 'zombie/rewards))
@@ -338,6 +337,8 @@
    :sprite-data (asset 'kandria 'ruddydrone)))
 
 (defmethod idleable-p ((drone drone)) NIL)
+(defmethod collides-p ((drone drone) (other stopper) hit) NIL)
+(defmethod collides-p ((drone drone) (other platform) hit) NIL)
 
 (defmethod stage :after ((drone drone) (area staging-area))
   (dolist (sound '(drone-damage drone-attack-001 drone-attack-002 drone-die drone-notice))
@@ -424,6 +425,11 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'rogue)))
 
+(defmethod stage :after ((enemy rogue) (area staging-area))
+  (dolist (asset '(human-damage-1 human-damage-2 human-damage-3 human-damage-4
+                   human-die))
+    (stage (// 'sound asset) area)))
+
 (defmethod movement-speed ((enemy rogue))
   (case (ai-state enemy)
     (:stand 0.0)
@@ -475,8 +481,7 @@
                    (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))))))))
 
 (defmethod hit :after ((enemy rogue) location)
-  (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8)))
-  (trigger 'hit enemy :location location))
+  (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8))))
 
 (defmethod draw-item ((rogue rogue))
   (draw-item 'rogue/rewards))

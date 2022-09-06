@@ -704,6 +704,11 @@
    (level :initform 40))
   (:default-initargs :sprite-data (asset 'kandria 'zelah)))
 
+(defmethod stage :after ((enemy zelah) (area staging-area))
+  (dolist (asset '(human-damage-1 human-damage-2 human-damage-3 human-damage-4
+                   human-die))
+    (stage (// 'sound asset) area)))
+
 (defmethod hurt ((npc zelah) (player player))
   (change-class npc 'zelah-enemy))
 

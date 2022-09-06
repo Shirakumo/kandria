@@ -389,6 +389,19 @@ void main(){
   :voice (list (// 'sound 'mech-step-1)
                (// 'sound 'mech-step-2)))
 
+(define-effect human-damage sound-effect
+  :voice (list (// 'sound 'human-damage-1)
+               (// 'sound 'human-damage-2)
+               (// 'sound 'human-damage-3)
+               (// 'sound 'human-damage-4)))
+
+(define-effect human-die sound-effect
+  :voice (// 'sound 'human-die))
+
+(define-effect human-notice sound-effect
+  :voice (list (// 'sound 'human-notice-1)
+               (// 'sound 'human-notice-2)))
+
 (define-effect ground-hit basic-effect
   :voice (// 'sound 'sword-hit-ground-hard)
   :animation 'hit2

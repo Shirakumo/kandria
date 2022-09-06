@@ -210,7 +210,8 @@
           (trigger effect animatable))))))
 
 (defmethod hit ((animatable animatable) location)
-  (setf (vy (velocity animatable)) (max 0.0 (vy (velocity animatable)))))
+  (setf (vy (velocity animatable)) (max 0.0 (vy (velocity animatable))))
+  (trigger 'hit animatable :location location))
 
 (defmethod interrupt ((animatable animatable))
   (when (interruptable-p (frame animatable))

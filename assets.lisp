@@ -179,6 +179,10 @@
   (hit-ground :volume (db -6))
   (sword-hit-ground-hard :volume (db -6))
   (sword-hit-ground-soft :volume (db -6))
+  (human-damage-1 :volume (db -7))
+  (human-damage-2 :volume (db -7))
+  (human-damage-3 :volume (db -7))
+  (human-damage-4 :volume (db -7))
   (bomb-active :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3)))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
