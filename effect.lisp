@@ -402,6 +402,9 @@ void main(){
   :voice (list (// 'sound 'human-notice-1)
                (// 'sound 'human-notice-2)))
 
+(define-effect weld sound-effect
+  :voice (// 'sound 'ambience-welding))
+
 (define-effect ground-hit basic-effect
   :voice (// 'sound 'sword-hit-ground-hard)
   :animation 'hit2

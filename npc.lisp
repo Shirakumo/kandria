@@ -520,6 +520,9 @@
 
 (defmethod primary-npc-p ((npc catherine)) T)
 
+(defmethod stage :after ((npc catherine) (area staging-area))
+  (stage (// 'sound 'ambience-welding) area))
+
 (defmethod movement-speed ((catherine catherine))
   (* 1.01 (call-next-method)))
 
