@@ -28,7 +28,8 @@
   (language-string 'talk-to))
 
 (defmethod (setf nametag) :after (tag (npc npc))
-  (alloy:mark-for-render (nametag-element npc)))
+  (when (slot-boundp npc 'nametag-element)
+    (alloy:mark-for-render (nametag-element npc))))
 
 (defmethod capable-p ((npc npc) (edge jump-node)) T)
 
