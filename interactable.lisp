@@ -344,6 +344,9 @@ void main(){
 (defmethod (setf location) ((name symbol) (entity located-entity))
   (setf (location entity) (location (unit name +world+))))
 
+(defclass audio-marker (sized-entity resizable ephemeral audible-entity creatable)
+  ((voice :initarg :voice :accessor voice :initform (asset 'sound 'ambience-fluorescent-light-1) :type trial-harmony:sound)))
+
 (defclass bomb-marker (place-marker)
   ((active-p :initform T :accessor quest:active-p)))
 

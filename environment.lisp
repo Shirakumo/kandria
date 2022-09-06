@@ -2,7 +2,7 @@
 
 (defvar *environments* (make-hash-table :test 'eql))
 
-(defclass audible-entity (entity)
+(defclass audible-entity (listener entity)
   ((voice :initarg :voice :accessor voice)))
 
 (defmethod stage :after ((entity audible-entity) (area staging-area))

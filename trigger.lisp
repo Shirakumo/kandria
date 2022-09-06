@@ -189,12 +189,35 @@
 (defmethod stage :after ((trigger music-trigger) (area staging-area))
   (stage (resource (track trigger) T) area))
 
+(defmethod (setf sound) :after ((sound trial-harmony:sound) (trigger music-trigger))
+  (when +main+
+    (trial:commit trigger (loader +main+) :unload NIL)))
+
 (defmethod interact ((trigger music-trigger) (player player))
   (let ((sdf (max (- (abs (- (vx (location player)) (vx (location trigger)))) (vx (bsize trigger)))
                   (- (abs (- (vy (location player)) (vy (location trigger)))) (vy (bsize trigger))))))
     (if (<= sdf -3)
         (setf (override (unit 'environment +world+)) (resource (track trigger) T))
         (setf (override (unit 'environment +world+)) NIL))))
+
+(defclass audio-trigger (trigger creatable)
+  ((sound :initarg :sound :initform (asset 'sound 'ambience-pebbles-fall) :accessor sound
+          :type trial-harmony:sound)
+   (played-p :initform NIL :accessor played-p)))
+
+(defmethod stage :after ((trigger audio-trigger) (area staging-area))
+  (stage (resource (sound trigger) T) area))
+
+(defmethod (setf sound) :after ((sound trial-harmony:sound) (trigger audio-trigger))
+  (when +main+
+    (trial:commit trigger (loader +main+) :unload NIL)))
+
+(defmethod interact ((trigger audio-trigger) (player player))
+  (if (within-p trigger player)
+      (unless (played-p trigger)
+        (harmony:play (resource (sound trigger) T))
+        (setf (played-p trigger) T))
+      (setf (played-p trigger) NIL)))
 
 (defclass shutter-trigger (parent-entity listener trigger creatable)
   ())
