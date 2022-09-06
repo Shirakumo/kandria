@@ -220,7 +220,13 @@
     (toggle-panel 'editor)))
 
 (defmethod handle :after ((ev toggle-diagnostics) (world world))
-  (toggle-panel 'diagnostics))
+  (cond ((find-panel 'gamepad-diagnostics)
+         (hide-panel 'gamepad-diagnostics))
+        ((find-panel 'diagnostics)
+         (hide-panel 'diagnostics)
+         (show-panel 'gamepad-diagnostics))
+        (T
+         (show-panel 'diagnostics))))
 
 (defmethod handle :after ((ev load-state) (world world))
   (load-state (state +main+) +world+))

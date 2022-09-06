@@ -95,7 +95,8 @@
                              (:file "save-icon")
                              (:file "speedrun")
                              (:file "startup")
-                             (:file "early-end")))
+                             (:file "early-end")
+                             (:file "gamepad")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
