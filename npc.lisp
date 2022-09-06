@@ -27,6 +27,9 @@
 (defmethod description ((npc npc))
   (language-string 'talk-to))
 
+(defmethod (setf nametag) :after (tag (npc npc))
+  (alloy:mark-for-render (nametag-element npc)))
+
 (defmethod capable-p ((npc npc) (edge jump-node)) T)
 
 (defmethod primary-npc-p ((npc npc)) NIL)
