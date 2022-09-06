@@ -479,6 +479,17 @@
 ~ player
 | "Life could be quite comfortable here - if you weren't living on a lava floodplain."(light-gray, italic)
 
+; NOKA SEEDS
+; can be done before q2-seeds is given
+# task-world-seeds/seeds-arrive
+~ player
+| (:thinking)"Hmm, what's this? An old-world bunker?"(light-gray, italic)
+| "I think it's a "storage cache"(orange), but it smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before."(light-gray, italic)
+| (:normal)"Most of this is spoiled, but some of the drawers may still house "usable seeds - could be useful to someone"(orange). Let's see..."(light-gray, italic)
+| "This is all that's left: "24 sachets"(orange). Inside each one the seeds are tiny and hard like grit."(light-gray, italic)
+| (:thinking)"Will they still grow?"(light-gray, italic)
+! eval (store 'item:seeds 24)
+
 ; SEMI SISTERS ENGINEERS
 
 ; conversation with a Semi Sisters rail engineer, if you encounter them independently of the quest to rescue them.

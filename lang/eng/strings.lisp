@@ -136,7 +136,8 @@ climb/description "Climb walls and ropes - climbing walls drains stamina, be car
 crawl "Crawl"
 crawl/description "Crawl to fit through tight spaces"
 save "Saving"
-save/description "Use the phone box outside to save progress, or save from the menu while you're near one (save often!)"
+save/description "Use the phone box outside to save progress, or save from the menu while you're near one
+(save often!)"
 attack "Attacking"
 attack/description "Hold different directions together with a light or heavy attack for various moves"
 cast-line "Cast Line"
@@ -371,7 +372,7 @@ item:pristine-pelt "Pristine Pelt"
 item:pristine-pelt/description "This pelt is remarkably well-preserved, almost ornamental. Though I'd hope it gets put to more practical use.
 Can be sold for scrap."
 item:seeds "Seed Sachets"
-item:seeds/description "Unknown seeds from the old world, which Fi will use to plant a new crop."
+item:seeds/description "Unknown seeds from the old world, tucked neatly into a sachet. Or a bag of dead insects."
 item:mushroom-good-1 "Flower Fungus"
 item:mushroom-good-1/description "It's pretty. For a fungus.
 Can be sold for scrap." ;; need to work before/after Catherine explains to you what they are; best to riff off of something else, like their appearance. Though android already knows the names from the old world

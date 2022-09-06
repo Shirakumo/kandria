@@ -18,28 +18,33 @@
 ~ fi
 | You're back - did you find the seeds?
 ~ player
-| I've got the last of them right here.
+- I've got them right here.
+- I've got a surprise for you.
+- (Give her the seeds)
 ~ fi
 ! eval (retrieve 'item:seeds T)
-| Oh my. There must be... twenty sachets. All fully stocked.
-| You've done well. Very well. I'll see these are sown right away.
+| (:happy)Oh my. There must be... twenty sachets. All fully stocked. Was this all of them?
+~ player
+- It was.
+- There are 24 actually.
+- I was thorough.
+~ fi
+| (:happy)You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
-| Know that you are earning my trust, Stranger. Perhaps you will become a part of the "Noka"(red) yourself.
+| (:normal)Know that you are earning my trust, Stranger. Perhaps you will become a part of the "Noka"(red) yourself.
 | But for now, please "accept these parts"(orange) as a token of my appreciation.
-! eval (retrieve 'item:semi-factory-key 1)
 ! eval (store 'item:parts 200)
 ~ fi
 ? (complete-p 'q3-new-home)
 | | You should "check in with Catherine"(orange) - I'm sure she'd like to see you again.
-| | I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
+| | (:happy)I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
 | ! eval (activate 'sq-act1-intro)
 | ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q3-new-home))
 | | | Oh, I've also "given Jack a special job"(orange) - something I think you'll be well-suited to help with.
-| | | He'll be in Engineering.
+| | | He'll be in "Engineering"(orange).
 |   
 | | I also heard "Sahil is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
 | | You would be wise to equip well for your work.
 | ! eval (activate 'trader-arrive)
-; Removing key card unspoken, as it can't sound anything but negative at a positive time, if Fi takes it back. Also, there's nothing left of value in the cache now, so it can remain open, and undiscussed here (implied, save words)
