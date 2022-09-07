@@ -14,8 +14,9 @@
 
 (defmethod collides-p ((enemy enemy) (other stopper) hit)
   (when (chunk enemy)
-    (/= 2 (car (tile (tv- (hit-location hit) #.(vec 0 16))
-                     (chunk enemy))))))
+    (let ((tile (tile (tv- (hit-location hit) #.(vec 0 16))
+                      (chunk enemy))))
+      (when tile (/= 2 (car tile))))))
 
 (defmethod base-health ((enemy enemy)) 1000)
 
