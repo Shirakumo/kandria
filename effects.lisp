@@ -85,8 +85,8 @@ void main(){
   2.0 4.0 (distortion (set strength :from 1.0 :to 0.0 :ease circ-in)))
 
 (define-progression hurt
-  0.0 0.2 (distortion (set strength :from 0.0 :to 0.7 :ease expo-out))
-  0.2 0.3 (distortion (set strength :from 0.7 :to 0.0 :ease expo-out)))
+  0.0 0.2 (distortion (set strength :from 0.0 :to 0.5 :ease expo-out))
+  0.2 0.3 (distortion (set strength :from 0.5 :to 0.0 :ease expo-out)))
 
 (define-progression transition
   0.0 0.0 (fade (set direction :to 0.0))
