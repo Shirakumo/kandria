@@ -74,15 +74,15 @@ void main(){
 }")
 
 (define-progression death
-  0.0 1.0 (distortion (set strength :from 0.0 :to 1.0))
-  1.0 1.0 (fade (call (lambda (fade clock step)
+  0.0 1.5 (distortion (set strength :from 0.0 :to 1.0 :ease circ-out))
+  1.5 1.5 (fade (call (lambda (fade clock step)
                         (setf (direction fade) 0.0)
                         (setf (strength fade) 0.0)
                         (setf (kind fade) :blue))))
-  1.0 1.5 (fade (set strength :from 0.0 :to 1.0 :ease expo-in))
-  1.5 1.5 (T (call (lambda (world clock step) (show-panel 'game-over))))
-  1.5 2.0 (distortion (set strength :from 1.0 :to 0.0))
-          (fade (set strength :to 0.0 :ease expo-out)))
+  1.5 2.0 (fade (set strength :from 0.0 :to 1.0 :ease expo-in))
+  2.0 2.0 (T (call (lambda (world clock step) (show-panel 'game-over))))
+  2.0 2.5 (fade (set strength :to 0.0 :ease expo-out))
+  2.0 4.0 (distortion (set strength :from 1.0 :to 0.0 :ease circ-in)))
 
 (define-progression hurt
   0.0 0.2 (distortion (set strength :from 0.0 :to 0.7 :ease expo-out))
@@ -107,10 +107,10 @@ void main(){
 
 (define-progression low-health
   0.0 0.0 (fade (call (lambda (fade clock step) (setf (kind fade) :white))))
-  0.0 0.05 (fade (set strength :from 0.0 :to 0.8))
-  0.05 0.2 (fade (set strength :from 0.8 :to 0.0 :ease expo-out))
-  0.0 0.1 (T (set time-scale :from 1.0 :to 0.2 :ease quint-in))
-  1.0 1.2 (T (set time-scale :from 0.2 :to 1.0 :ease quint-out)))
+  0.0 0.2 (fade (set strength :from 0.0 :to 0.5))
+  0.2 0.5 (fade (set strength :from 0.5 :to 0.0 :ease expo-out))
+  0.5 0.6 (T (set time-scale :from 1.0 :to 0.2 :ease quint-in))
+  1.0 1.5 (T (set time-scale :from 0.2 :to 1.0 :ease quint-out)))
 
 (define-shader-pass distortion-pass (simple-post-effect-pass)
   ((name :initform 'distortion)
@@ -129,7 +129,8 @@ void main(){
   (gl:active-texture :texture0)
   (gl:bind-texture :texture-2d (gl-name (texture pass)))
   (setf (uniform program "pixelfont") 0)
-  (setf (uniform program "seed") (logand #xFFFF (sxhash (floor (* 10 (clock +world+))))))
+  (setf (uniform program "seed") (logand #xFFFF (sxhash (floor (* 2 (clock +world+))))))
+  ;; Discretize the strength progression to reduce the flicker speed.
   (setf (uniform program "strength") (strength pass)))
 
 (defmethod handle ((event event) (pass distortion-pass)))
@@ -142,7 +143,7 @@ uniform float strength = 0.0;
 in vec2 tex_coord;
 out vec4 color;
 
-const vec2 num = vec2(40, 26)*2;
+const vec2 num = vec2(40, 26)*1.5;
 const ivec2 glyphs = ivec2(10, 13);
 const int glyph_count = 10*13;
 
