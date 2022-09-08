@@ -64,7 +64,7 @@
         (clamp-camera-target camera int)
         (let* ((dir (v- int loc))
                (len (max 1 (vlength dir)))
-               (ease (clamp 0 (+ 0.2 (/ (expt len 1.5) 100)) 20)))
+               (ease (clamp 0 (+ 0.2 (/ (expt len 1.4) 100)) 20)))
           (nv* dir (/ ease len))
           (nv+ loc dir)))
       ;; Camera zoom
