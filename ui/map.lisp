@@ -104,8 +104,9 @@
                                        :valign :bottom
                                        :z-index -2)))))
           (save-point
-           (let ((location (location unit)))
-             (when (unlocked-p (find-chunk location))
+           (let* ((location (location unit))
+                  (chunk (find-chunk location)))
+             (when (and chunk (unlocked-p chunk))
                (add-shape (simple:text renderer (alloy:extent (- (vx location) 100) (- (vy location) 100) 200 200)
                                        "💾"
                                        :font "PromptFont"
