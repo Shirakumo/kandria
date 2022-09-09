@@ -72,7 +72,7 @@
    (amount :initarg :amount :initform 16 :accessor amount)
    (gravity :initarg :gravity :initform (vec 0 -100.0) :accessor gravity)))
 
-(defmethod initialize-instance :after ((emitter emitter) &key tiles (location #.(vec 0 0)) (scale 4) (scale-var 2)
+(defmethod initialize-instance :after ((emitter emitter) &key tiles (location #.(vec 0 0)) (scale 8) (scale-var 2)
                                                               (dir 90) (dir-var 180) (speed 70) (speed-var 100)
                                                               (life 1.0) (life-var 0.5) (spread #.(vec 0 0)))
   (let* ((inst (make-particle-data tiles :count (amount emitter) :origin location :spread spread
