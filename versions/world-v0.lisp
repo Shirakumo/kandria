@@ -198,6 +198,7 @@
 (define-additional-slot-coders (interactable-animated-sprite world-v0) ((pending-animation :initarg :animation)))
 (define-additional-slot-coders (story-trigger world-v0) (story-item target-status))
 (define-additional-slot-coders (tween-trigger world-v0) (left right ease-fun horizontal))
+(define-additional-slot-coders (sandstorm-trigger world-v0) (velocity))
 (define-additional-slot-coders (interaction-trigger world-v0) (interaction))
 (define-additional-slot-coders (walkntalk-trigger world-v0) (interaction target))
 (define-additional-slot-coders (earthquake-trigger world-v0) (duration))

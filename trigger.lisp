@@ -100,7 +100,7 @@
     (setf (value trigger) v)))
 
 (defclass sandstorm-trigger (tween-trigger creatable)
-  ())
+  ((velocity :initform 1.0 :initarg :velocity :accessor velocity :type single-float)))
 
 (defmethod stage :after ((trigger sandstorm-trigger) (area staging-area))
   (stage (// 'sound 'sandstorm) area))
@@ -113,7 +113,7 @@
           (T
            (harmony:stop (// 'sound 'sandstorm))))
     (setf (strength (unit 'sandstorm T)) value)
-    (setf (velocity (unit 'sandstorm T)) 1.0)))
+    (setf (velocity (unit 'sandstorm T)) (velocity trigger))))
 
 (defclass dust-trigger (tween-trigger creatable)
   ())
