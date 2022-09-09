@@ -238,6 +238,7 @@ out vec4 color;
 void main(){
   vec3 previous = texture(previous_pass, tex_coord).rgb;
   if(0 < strength){
+    color.a = 1;
     float t = time*3;
     float r = (sin(t)+sin(t*0.3)+sin(t*0.1))*0.1;
     float off = sin(t*0.25)*0.0025*speed*0.1;
@@ -247,15 +248,20 @@ void main(){
     float c = texture(noise_cloud, (tex_coord+r*vec2(speed, 0.20)+vec2(0, 0.3)+t*vec2(speed*0.4, off))*0.1).r;
     float s = a*b*c*(length(n)*0.1+0.95)*strength;
     vec3 sand = vec3(0.9, 0.8, 0.7)*(s+0.5)+n/20;
+    float mix_factor = clamp(1.3-s*5+strength, 0, 1);
+    mix_factor = clamp((mix_factor-0.5)*0.5, -0.5, 0.5)+0.75;
+    color.rgb = mix(sand, previous, mix_factor);
+// Focus sphere
     float cdist = distance(tex_coord,focus_center);
     cdist = clamp((0.3-cdist)*2.0, 0.0, 1.0);
-    float mix_factor = clamp(1.3-s*5+strength, 0, 1);
-    color = vec4(mix(mix(sand, previous, mix_factor), previous, cdist), 1);
+    color.rgb = mix(color.rgb, previous, cdist);
 // Vignette
     vec2 d = abs(tex_coord-0.5)-vec2(0.1);
     float sdf = length(max(d, 0.0)) + min(max(d.x,d.y), 0.0) - 0.2;
-    color = mix(color, vec4(0,0,0,1), clamp(sdf*2*strength, 0, 1));
+    color = mix(color, vec4(0.9,0.8,0.7,1), clamp(sdf*3*strength, 0, 1));
   }else{
     color = vec4(previous, 1);
   }
 }")
+
+
