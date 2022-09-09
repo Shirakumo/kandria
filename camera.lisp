@@ -101,7 +101,7 @@
           (clamp-camera-target camera loc)))))
   (update-in-view-tester camera))
 
-(defmethod snap-to-target ((camera camera) target)
+(defun snap-to-target (camera &optional (target (target camera)))
   (setf (target camera) target)
   (v<- (location camera) (location target))
   (v<- (intended-location camera) (location target))

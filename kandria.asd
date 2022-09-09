@@ -122,7 +122,6 @@
                 :components ((:file "storyline")
                              (:file "epilogue-2")
                              (:file "epilogue")
-                             (:file "epilogue-talk")
                              (:file "explosion")
                              (:file "q0-find-jack")
                              (:file "q0-settlement-arrive")
