@@ -105,6 +105,26 @@ void main(){
                         (setf (strength fade) (max (strength fade) 1.0)))))
   0.0 5.0 (fade (set strength :from 1.0 :to 0.0 :ease bounce-in)))
 
+(define-progression game-end
+  0.0 0.0 (:camera (set shake-timer :to 5.0))
+  0.0 0.0 (:camera (set shake-intensity :from 0.0 :to 10.0))
+  0.2 0.3 (:camera (set shake-intensity :from 10.0 :to 0.0))
+  0.0 0.0 (sandstorm (set velocity :to 0.05))
+  1.0 1.0 (T (call (lambda (f c s) (harmony:play (// 'sound 'ambience-earthquake)))))
+  1.0 3.0 (:camera (set shake-intensity :from 0.0 :to 20.0 :ease cubic-in))
+  1.0 3.0 (sandstorm (set strength :to 0.3))
+  1.5 1.5 (T (call (lambda (f c s) (trigger 'rockslide NIL :location (v+ (location (camera +world+))
+                                                                         (v_y (bsize (camera +world+)))
+                                                                         (vec 0 300))))))
+  1.9 1.9 (T (call (lambda (f c s) (trigger 'rockslide NIL :location (v+ (location (camera +world+))
+                                                                         (v_y (bsize (camera +world+)))
+                                                                         (vec 0 300))))))
+  2.0 2.0 (T (call (lambda (f c s) (trigger 'rockslide NIL :location (v+ (location (camera +world+))
+                                                                         (v_y (bsize (camera +world+)))
+                                                                         (vec 0 300))))))
+  3.6 3.6 (fade (set strength :to 1.0))
+  4.0 5.0 (:camera (set shake-intensity :to 0.0)))
+
 (define-progression low-health
   0.0 0.0 (fade (call (lambda (fade clock step) (setf (kind fade) :white))))
   0.0 0.2 (fade (set strength :from 0.0 :to 0.5))

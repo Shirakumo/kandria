@@ -87,7 +87,7 @@
         (when (< 0 (shake-intensity camera))
           (let ((frame-id (sxhash (+ (shake-unique camera) (mod (floor (* (shake-timer camera) 100)) 100)))))
             (nv+ loc (vcartesian (vec (* (logand #xFF (1+ frame-id)) (shake-intensity camera) 0.001)
-                                      (* (logand #xFF frame-id) (/ (* 2 PI) #xFF))))))
+                                      (* (* 2 PI) (/ (logand #xFF frame-id) #xFF))))))
           (clamp-camera-target camera loc)))
       (let ((off (offset camera)))
         (when (v/= 0 off)

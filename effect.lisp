@@ -81,10 +81,17 @@ void main(){
   color = vec4(color.rgb*multiplier, color.a);
 }")
 
-(define-shader-entity sprite-effect (lit-animated-sprite shader-effect)
+(defclass particle-effect (located-entity effect)
+  ((particles :initarg :particles :initform () :accessor particles)))
+
+(defmethod trigger :after ((effect particle-effect) source &key location)
+  (when (particles effect)
+    (setf (location effect) (or location (vcopy (location source))))
+    (apply #'spawn-particles (location effect) (particles effect))))
+
+(define-shader-entity sprite-effect (lit-animated-sprite shader-effect particle-effect)
   ((offset :initarg :offset :initform (vec 0 0) :accessor offset)
    (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index)
-   (particles :initarg :particles :initform () :accessor particles)
    (direction :initform NIL))
   (:default-initargs :sprite-data (asset 'kandria 'effects)))
 
@@ -102,9 +109,7 @@ void main(){
 (defmethod trigger :after ((effect sprite-effect) source &key direction)
   (setf (direction effect) (or direction (direction effect) (direction source)))
   (incf (vx (location effect)) (* (direction effect) (vx (offset effect))))
-  (incf (vy (location effect)) (vy (offset effect)))
-  (when (particles effect)
-    (apply #'spawn-particles (location effect) (particles effect))))
+  (incf (vy (location effect)) (vy (offset effect))))
 
 (define-shader-entity text-effect (located-entity effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
@@ -463,6 +468,15 @@ void main(){
 (define-effect splash sprite-effect
   :animation '(water-splash)
   :layer-index +base-layer+)
+
+(define-effect rockslide particle-effect
+  :particles (list (make-tile-uvs 16 16 128 128 (* 6 8))
+                   :amount 200
+                   :dir 270 :dir-var 0
+                   :spread (vec (* (vx +tiles-in-view+) +tile-size+) 300)
+                   :life 5.0
+                   :scale 8 :scale-var 0
+                   :speed 0 :speed-var 100))
 
 (define-asset (kandria sting) mesh
     (make-rectangle 1000000 1))

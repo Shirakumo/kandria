@@ -17,7 +17,7 @@
 
 (defmethod initialize-instance :after ((world world) &key depot)
   (enter (make-instance 'environment-controller) world)
-  (dolist (progression '(death hurt transition start-game low-health))
+  (dolist (progression '(death hurt transition start-game game-end low-health))
     (enter (progression-instance progression) world))
   (let ((sub (depot:ensure-depot (depot:entry "regions" depot))))
     (dolist (entry (depot:list-entries sub))
