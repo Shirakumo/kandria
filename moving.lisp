@@ -153,22 +153,23 @@
     (flet ((test (hit)
              (or (typep (hit-object hit) '(or slope platform))
                  (not (is-collider-for moving (hit-object hit))))))
-      (let ((l (scan +world+ (tvec (- (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
-        (when l
-          (when (< (vx vel) 0.0)
-            (setf (vx loc) (+ (vx (hit-location l)) (vx (bsize moving)) (vx (bsize (hit-object l))))))
-          (setf (aref collisions 3) (hit-object l))))
-      (let ((r (scan +world+ (tvec (+ (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
-        (when r
-          (when (< 0.0 (vx vel))
-            (setf (vx loc) (- (vx (hit-location r)) (vx (bsize moving)) (vx (bsize (hit-object r))))))
-          (setf (aref collisions 1) (hit-object r))))
-      (let ((u (scan +world+ (tvec (vx loc) (+ (vy loc) (vy size) 1.5) (- (vx size) 2) 1) #'test)))
-        (when u
-          (setf (aref collisions 0) (hit-object u))))
-      (let ((b (scan +world+ (tvec (vx loc) (- (vy loc) (vy size) 1.5) (- (vx size) 2) 1) #'test)))
-        (when b
-          (setf (aref collisions 2) (hit-object b))))))
+      (unless (eq :noclip (state moving))
+        (let ((l (scan +world+ (tvec (- (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
+          (when l
+            (when (< (vx vel) 0.0)
+              (setf (vx loc) (+ (vx (hit-location l)) (vx (bsize moving)) (vx (bsize (hit-object l))))))
+            (setf (aref collisions 3) (hit-object l))))
+        (let ((r (scan +world+ (tvec (+ (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
+          (when r
+            (when (< 0.0 (vx vel))
+              (setf (vx loc) (- (vx (hit-location r)) (vx (bsize moving)) (vx (bsize (hit-object r))))))
+            (setf (aref collisions 1) (hit-object r))))
+        (let ((u (scan +world+ (tvec (vx loc) (+ (vy loc) (vy size) 1.5) (- (vx size) 2) 1) #'test)))
+          (when u
+            (setf (aref collisions 0) (hit-object u))))
+        (let ((b (scan +world+ (tvec (vx loc) (- (vy loc) (vy size) 1.5) (- (vx size) 2) 1) #'test)))
+          (when b
+            (setf (aref collisions 2) (hit-object b)))))))
   (incf (air-time moving) (dt ev)))
 
 (defmethod collides-p ((moving moving) (solid half-solid) hit)
