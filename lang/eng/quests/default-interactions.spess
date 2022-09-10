@@ -103,7 +103,7 @@
 ; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
 ; (complete-p 'Q6-RETURN-TO-FI) may not be needed, as Catherine should at least a time trial giver, if not also a sidequest giver, until q10-wraw complete - added for completeness though
 ~ catherine
-? (complete-p 'EPILOGUE-TALK)
+? (complete-p 'EXPLOSION)
 | | (:concerned)So we won? I hope everyone is okay.
 |? (complete-p 'Q14-ENVOY)
 | | (:concerned)You don't belong to Zelah. You don't belong to anyone but yourself.
