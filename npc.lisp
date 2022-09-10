@@ -266,7 +266,8 @@
 | This doesn't look safe. I'm going to wait here for you, alright?"
                                      (type-of npc)))
                 (setf (vx (velocity npc)) 0)
-                (setf (ai-state npc) :follow-wait))
+                (setf (ai-state npc) :follow-wait)
+                (setf (state npc) :normal))
                ((< distance (expt (* 3 +tile-size+) 2))
                 (setf (ai-state npc) :follow))
                ((and (< (expt (* 40 +tile-size+) 2) distance)
