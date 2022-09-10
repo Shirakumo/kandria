@@ -36,8 +36,10 @@
 (defmethod primary-npc-p ((npc npc)) NIL)
 
 (defmethod visible-on-map-p ((npc npc))
-  (and (primary-npc-p npc)
-       (unlocked-p (chunk npc))))
+  (let ((chunk (chunk npc)))
+    (and (primary-npc-p npc)
+         chunk
+         (unlocked-p chunk))))
 
 (defmethod subregion ((entity located-entity))
   ;; KLUDGE: This is pretty bad lmao.
