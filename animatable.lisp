@@ -186,8 +186,8 @@
     (call-next-method)))
 
 (defmethod kill ((animatable animatable))
-  (setf (state animatable) :dying)
-  (setf (animation animatable) 'die))
+  (when (setf (animation animatable) 'die)
+    (setf (state animatable) :dying)))
 
 (defmethod die ((animatable animatable))
   (when (slot-boundp animatable 'container)
