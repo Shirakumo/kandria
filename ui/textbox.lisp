@@ -241,7 +241,9 @@ void main(){
                        (v:warn :sound.dialog "Requested missing emote ~s" (second (pending textbox)))
                        (ignore-errors (setf (animation (profile textbox)) 'normal)))))
                   (:prompt
-                   (setf (prompt textbox) (second (pending textbox))))
+                   (if (string= "" (text textbox))
+                       (setf (prompt textbox) NIL)
+                       (setf (prompt textbox) (second (pending textbox)))))
                   (:end
                    (next-interaction textbox)))
                 (setf (pending textbox) NIL))
@@ -290,10 +292,6 @@ void main(){
   (setf (text textbox) (clear-text-string))
   (setf (scroll-index textbox) 0))
 
-#++
-(defmethod handle :after ((rq dialogue:clear-request) (textbox textbox))
-  (advance textbox))
-
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
   (let ((unit (unit (dialogue:name rq) T)))
     (cond (unit
@@ -305,10 +303,6 @@ void main(){
            (setf (animation (profile textbox)) 'normal))
           (T
            (v:warn :kandria.dialogue "Couldn't find requested dialogue source: ~s" (dialogue:name rq))))))
-
-#++
-(defmethod handle :after ((rq dialogue:source-request) (textbox textbox))
-  (advance textbox))
 
 (defmethod handle ((rq dialogue:emote-request) (textbox textbox))
   (setf (pending textbox) (list :emote (dialogue:emote rq))))
