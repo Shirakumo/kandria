@@ -169,6 +169,7 @@
 (defmethod handle ((ev select-up) (dialog dialog))
   (alloy:focus-prev (choices dialog)))
 
+#++
 (defmethod handle ((ev skip) (dialog dialog))
   (let* ((els (alloy:elements (choices dialog)))
          (back (find (prompt-string :left :bank :keyboard)
