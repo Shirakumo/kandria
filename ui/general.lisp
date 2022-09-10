@@ -199,8 +199,8 @@
 
 (defmethod (setf alloy:focus) :after (value (text alloy:text-input-component))
   (case value
-    ((NIL :weak) (setf (active-p (action-set 'in-menu)) T))
-    (:strong (setf (active-p (action-set 'in-text)) T))))
+    ((NIL :weak) (setf +map-key-events+ T))
+    (:strong (setf +map-key-events+ NIL))))
 
 (defclass single-widget (alloy:widget)
   ()

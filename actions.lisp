@@ -6,8 +6,6 @@
 (define-action undo (in-editor))
 (define-action redo (in-editor))
 
-(define-action-set in-text (exclusive-action-set))
-
 (define-action-set in-menu (exclusive-action-set))
 (define-action skip (in-menu))
 (define-action advance (in-menu))
