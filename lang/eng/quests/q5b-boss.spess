@@ -7,7 +7,7 @@
 | (:sly)If you survive ya can "bring me your report in person"(orange).
 | (:angry)Now don't interrupt me again.
 ! eval (override-music 'battle)
-  
+
 
 # 6-interact-/interaction
 ~ player

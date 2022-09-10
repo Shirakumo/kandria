@@ -61,7 +61,7 @@
 | | ~ semi-engineer-chief
 | | | I can't believe you got through... Now food and medical supplies can get through too. Thank you.
 | | | We can resume our excavations. It'll be slow-going, but we'll get it done.
-  
+
 ! eval (reset (find-task 'world 'task-world-engineers))
 ! eval (activate (find-task 'world 'task-world-engineers))
 ! eval (complete task)
@@ -73,7 +73,7 @@
 | | They appreciated you checking in on them as well - thank you.
 |?
 | | (:angry)A shame you didnae speak to them though - they could have really used someone to talk to, to let them know what was happening.
-  
+
 ~ innis
 | It's tough that we lost people, but sometimes that's the price of progress. I'll have Islay notify their families.
 | More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
@@ -131,7 +131,7 @@
 | | I'll be seeing you.
 ? (not (active-p (find-task 'world 'task-world-engineers)))
 | ! eval (activate (find-task 'world 'task-world-engineers))
-  
+
 ! eval (complete task)
 ! eval (reset interaction)
 

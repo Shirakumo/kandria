@@ -64,7 +64,7 @@
 | |?
 | | | (:disappointed)But it's "outside bronze"(orange). I didn't know artificial muscles could get sore too.
 | | | (:normal)Don't worry, you can always try again. (:concerned)But I "don't think I can give you any parts for that"(orange), sorry.
-  
+
 ~ catherine
 | (:excited)Let's do this again soon!
 ! eval (activate 'complete-it)

@@ -48,7 +48,7 @@
 | | | (:disappointed)Oh, "black cap"(red)... Not a lot I can do with poisonous ones.
 | | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | | ! eval (retrieve 'item:mushroom-bad-1 T)
-|  
+| 
 | | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
 | | We get birds, fish and bats when we can too, but they're harder to catch. Mushrooms don't run away.
 | | (:cheer)We owe you big time. Here, "take these parts"(orange), you've definitely earned them.
@@ -65,7 +65,7 @@
 | |?
 | | ~ player
 | | | "I don't have any right now - I need to search underground."(orange, italic)
-  
+
 | (:excited)Oh, I've been speaking with my friends - we're all eager to see what you're really capable of.
 | How do "time trial races"(orange) sound, eh?
 | (:normal)Basically we've planted "beer cans for you to find and bring back"(orange).
@@ -119,7 +119,7 @@
   |   | (:excited)That's so cool!
   | | (:normal)Okay, I think you're good to go.
   | ! eval (setf (var 'asked-leaks) T)
-    
+
   | (:normal)Just "follow the red pipeline"(orange) down like we did before.
   | Judging from the pressure drop, these leaks "aren't too far away"(orange), so you'll be within radio range.
   ~ player
@@ -130,7 +130,7 @@
   | They grow in the "caves beneath Camp"(orange), in the dim light and moisture there.
   | Edible mushrooms like the "flower fungus"(orange) can sustain us even if the crop fails.
   | They're all we used to eat before we moved to the surface.
-  | Fibrous ones like the "rusty puffball"(orange) can be used to weave clothing. 
+  | Fibrous ones like the "rusty puffball"(orange) can be used to weave clothing.
   | We combine them with recycled synthetic clothes from the old world - like yours - and pelts from animals we hunt.
   | Just don't breathe in their spores - though I doubt they will affect you.
   | Other kinds are deadly poisonous, like the "black cap - avoid those if you can"(orange).
@@ -166,7 +166,7 @@
 ! eval (activate 'sq1-leaks)
 ? (not (complete-p 'sq2-mushrooms))
 | ! eval (activate 'sq2-mushrooms)
-  
+
 ! eval (activate 'sq3-race)
 ! eval (complete task)
 ! eval (reset interaction)

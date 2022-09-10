@@ -68,7 +68,7 @@
 |?
 | ~ player
 | | "I "don't have any black caps right now"(orange). Crud."(light-gray, italic)
-  
+
 ! eval (activate 'sq14a-synthesis)
 ! eval (complete task)
 ! eval (reset interaction)

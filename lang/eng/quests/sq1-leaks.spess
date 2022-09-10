@@ -15,7 +15,7 @@
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | "Now for the walkie-talkie."(light-gray, italic) (:thinking)"How's this thing work?"(light-gray, italic)
-|  
+| 
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
@@ -64,7 +64,7 @@
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | "Now for the walkie-talkie."(light-gray, italic) (:thinking)"How's this thing work?"(light-gray, italic)
-|  
+| 
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
@@ -112,7 +112,7 @@
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | "Now for the walkie-talkie."(light-gray, italic) (:thinking)"How's this thing work?"(light-gray, italic)
-|  
+| 
 | | Catherine, I've sealed one of the leaks. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
 | | Great work - the pressure is much better already.
@@ -181,7 +181,7 @@
 |   ~ catherine
 |   | Ah, don't worry about it. We've got a couple of spares.
 |   < payback
-  
+
 ! label end
 ~ catherine
 | Well, you can definitely scratch water leaks off your bucket list, right?

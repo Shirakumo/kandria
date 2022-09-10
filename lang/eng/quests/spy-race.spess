@@ -70,7 +70,7 @@
 | | | "In the interests of plausibility, I must withhold your prize. You should probably look upset as well."(small)
 | | ~ player
 | | | (:embarassed)"I'm not sure what my face is doing. Do I look upset?"(light-gray, italic)
-  
+
 ~ semi-spy
 | Can I interest you in going again? Don't keep me waiting too long.
 ! eval (activate 'complete-it)
