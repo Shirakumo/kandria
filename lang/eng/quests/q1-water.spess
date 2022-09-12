@@ -66,7 +66,7 @@
 | (:excited)Pretty cool, huh?
 | (:normal)Okay, we need to "follow the pipeline further down"(orange).
 | (:excited)Let's go, Stranger!
-
+  
 # 4-interact-catherine/interaction
 ~ catherine
 | (:concerned)Look - the same cracks we saw on the last pipe. This isn't right.
@@ -91,7 +91,7 @@
 ! eval (start-animation 'repair2 'catherine)
 ! eval (setf (animation (unit 'main-leak-2)) 'normal)
 | (:concerned)Wait... Who's there?
-
+  
 # 11-interact-catherine/interaction
 ~ catherine
 | Jeez, I'm glad you came along.

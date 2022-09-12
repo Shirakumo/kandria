@@ -23,9 +23,9 @@
 | | ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
 | | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | | ! eval (retrieve 'item:charge-pack T)
-| 
+|  
 | | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).] "Search through Wraw territory"(orange).
-
+  
 ~ player
 | "I need to "check Wraw factories and warehouses"(orange)."(light-gray, italic)
 
@@ -112,7 +112,7 @@
 ? (< 0 (item-count 'item:charge-pack))
 | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | ! eval (retrieve 'item:charge-pack T)
-
+  
 ~ islay
 | I'll take the parts to Catherine so she can finish the bomb.
 | Fi, would you join Catherine and I in Engineering?

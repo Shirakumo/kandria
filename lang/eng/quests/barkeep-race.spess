@@ -23,7 +23,7 @@
 | | | I know for a fact that the engineers have some cores - but they're trapped. You might want to "help them as well"(orange), if you have time.
 | |?
 | | | Now the tunnel is cleared - well done, by the way - the hunters can get through and plant the core.
-
+  
 | Our best hunter times for this route are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (eq (quest:name quest) 'sq5-race-2)
 | ? (active-p (unit 'blocker-engineers))
@@ -91,7 +91,7 @@
 | | | Pitiful is what that was. Pitifu-fu-ful.
 | | ~ semi-barkeep
 | | | "Nothing for you from the sweepstake"(orange) this time. But will you come back stronger?
-
+  
 ~ semi-barkeep
 | Until next time!
 ! eval (activate 'complete-it)

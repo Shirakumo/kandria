@@ -22,7 +22,7 @@
 | | "These are old internet servers - they're in low power mode."(light-gray, italic) (:giggle)"Glad I'm not the only computer still working."(light-gray, italic)
 | | (:normal)"Though they're too primitive to even read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
-
+  
 | "Opening access..."(light-gray, italic)
 | "\[WARN\] Cloud service unavailable. Query local database?"
 ! label terminal-1-query
@@ -93,7 +93,7 @@
 ; "result of infection"
 ; "Trialed", "Western superpowers", "mid"
 ; cloud services cipher words
-; "reach IP address",
+; "reach IP address", 
 ; "data center", "@semi-servers.com"
 ; low power cipher words
 ; "Backup power at 15% and holding" - solar power / oil generators (Synthesis maintaining?)
@@ -120,7 +120,7 @@
 | | "These are old internet servers - they're in low power mode."(light-gray, italic) (:giggle)"Glad I'm not the only computer still working."(light-gray, italic)
 | | (:normal)"Though they're too primitive to even read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
-
+  
 | "Opening access..."(light-gray, italic)
 | "\[SEVERE\] Multiple cores inaccessible. Suspected hardware damage. Query local database?"
 ! label terminal-2-query
@@ -213,7 +213,7 @@
 ; since Semi had the drug, but the Semi Sisters don't seem to use it, it suggests they've weaned themselves off of it, or these survivors were never exposed
 ; hardware damage cipher words
 ; "3.9.2368", "3.14.2368"
-; "anti-shock frame",
+; "anti-shock frame", 
 ; "ventilation", "INOPERATIVE"
 ; "COOLANT"
 ; synthesis cipher words
@@ -241,7 +241,7 @@
 | | "These are old internet servers - they're in low power mode."(light-gray, italic) (:giggle)"Glad I'm not the only computer still working."(light-gray, italic)
 | | (:normal)"Though they're too primitive to even read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
-
+  
 | "Opening access..."(light-gray, italic)
 | "\[SEVERE\] Support modules not responding. Potential cyber attack in progress. Query local database?"
 ! label terminal-3-query
@@ -317,14 +317,14 @@
 | ~ player
 | | "That's "1 more terminal"(orange) left to check."(light-gray, italic)
 ; black caps cipher words
-; "read",
-; "the potion", "#ExpediteYourLife",
+; "read", 
+; "the potion", "#ExpediteYourLife", 
 ; "tablets and capsules", "sweet smell or taste"
 ; "what other drugs might be in your system"
 ; "the industry you are working in", "contract"
 ; "risks", "painkiller"
-; "lethargy",
-; "Tricholoma",
+; "lethargy", 
+; "Tricholoma", 
 ; "beta-glucanase", - from oat and barley grains
 ; cyber attack cipher words
 ; "404 Page"
@@ -336,7 +336,7 @@
 ; "Motherboard", "100C"
 ; synthesis cipher words
 ; "Biographical"
-; "a hacker collective,", "twenty-second",
+; "a hacker collective,", "twenty-second", 
 ; "dissolution", "public"
 ; "hooded robes", "cowls", "by Catholic monks"
 ; help cipher words

@@ -1,6 +1,7 @@
 # chat-trader/chat-with-trader
 ? (not (string= (@ trader-nametag) (nametag (unit 'trader))))
 | ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+  
 ~ trader
 ? (complete-p 'q13-planting-bomb)
 | | If we must, habibti.
@@ -15,7 +16,7 @@
 | | | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering Servos again, haven't you?]
 | |?
 | | | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
-
+  
 ! label talk
 ? (not (complete-p 'q4-find-alex))
 | ~ player
@@ -98,7 +99,7 @@
 |       | Me too. It is what it is. Everyone's lost someone.
 |     - What happened?
 |       ~ trader
-|       | I... I'd rather not talk about it, if it's all the same.
+|       | I... I'd rather not talk about it, if it's all the same. 
 |     - Let's talk about something else.
 |   - Let's talk about something else.
 |   < talk

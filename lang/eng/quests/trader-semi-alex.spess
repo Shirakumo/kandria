@@ -42,6 +42,6 @@
 | | | Please "take these parts as recompense"(orange).
 | | ! eval (store 'item:parts 600)
 | | ! eval (setf (var 'alex-fee) T)
-| 
+|  
 | ~ islay
 | | Be careful, {(nametag player)}.

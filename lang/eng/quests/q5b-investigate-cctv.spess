@@ -109,7 +109,7 @@
 | ~ innis
 | | (:angry)"Find them and bring them to me."(orange)
 | ! eval (activate 'q5b-boss)
-
+  
 ~ player
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
 | ? (not (complete-p 'q5b-boss))

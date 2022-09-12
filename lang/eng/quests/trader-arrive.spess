@@ -41,7 +41,7 @@
 | |   ~ trader
 | |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 | | - It used to be Stranger.
-| |   ~ trader
+| |   ~ trader 
 | |   | Used to be? Old Sahil got old information, huh?
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 | |   ~ trader
