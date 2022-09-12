@@ -18,10 +18,10 @@
   ~ innis
   | (:angry)Unless you can explain why Catherine isn't here, I've nothing more to say to you.
 ~ islay
-| (:unhappy)Sister! She isn't our enemy. The Noka are not our enemy.
+| (:unhappy)Sister! {(nametag player)} isn't our enemy. The Noka are not our enemy.
 ~ innis
 | (:angry)Shut up, Islay. Remember who's in charge!
-| (:normal)And anyway, this time I dinnae ken why you're here, {(nametag player)}.
+| (:normal)And anyway, this time I dinnae ken why you're here, android.
 ~ player
 - I need your help.
   ~ innis
