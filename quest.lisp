@@ -60,6 +60,11 @@
    (last-progress :initform 0 :accessor last-progress)
    (marker :initarg :marker :initform NIL :accessor marker)))
 
+(defmethod shared-initialize :after ((task task) slots &key progress-fun)
+  (typecase progress-fun
+    ((or function null))
+    (T (setf (progress-fun task) (compile NIL `(lambda () (task-wrap-lexenv progress-fun)))))))
+
 (defmethod quest:try :around ((task task))
   (let ((fun (progress-fun task))
         (*current-task* task))
@@ -326,7 +331,7 @@
                            :on-complete ,next
                            ,@(when (< 1 count)
                                `(:full-progress ,count
-                                 :progress-fun (item-count ',item))))))
+                                 :progress-fun '(item-count ',item))))))
                  (:go-to ((place &key lead follow with) . body)
                          (form-fiddle:with-body-options (body initargs eval) body
                            `((,name
