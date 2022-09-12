@@ -519,13 +519,13 @@ Night-Time Horizon
 [The artwork shows an overcast sky and endless highway, as night comes over. If I had to guess at a genre I'd say it was synth-pop. The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player. This was a relic even before the Calamity. I've never heard of the artist, nor any of the track names I can discern.]"
 item:novel "Novel"
 item:novel/description ""
-item:novel/lore "Rebecca
+item:novel/lore "Becky
 
-by Daphne du Maurier
+by Danielle de Moore
 
 (c) 23[unreadable] [unreadable]
 
-[I remember this book. How has it survived down here? Pages are missing and some are unreadable, but there's a surprising amount intact. Even the blood-red rhododendrons on the cover have barely faded.]"
+[I remember this book. How has it survived down here? Pages are missing and some are unreadable, but there's a surprising amount intact. Even the blood-red roses on the cover have barely faded.]"
 item:newspaper "Newspaper Scrap"
 item:newspaper/description ""
 item:newspaper/lore "[missing] - Thursday, September [unreadable] [missing]
