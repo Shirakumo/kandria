@@ -63,7 +63,7 @@
 (defmethod shared-initialize :after ((task task) slots &key progress-fun)
   (typecase progress-fun
     ((or function null))
-    (T (setf (progress-fun task) (compile NIL `(lambda () (task-wrap-lexenv progress-fun)))))))
+    (T (setf (progress-fun task) (compile NIL `(lambda () ,(task-wrap-lexenv progress-fun)))))))
 
 (defmethod quest:try :around ((task task))
   (let ((fun (progress-fun task))
