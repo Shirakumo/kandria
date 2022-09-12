@@ -93,7 +93,7 @@
 ; "result of infection"
 ; "Trialed", "Western superpowers", "mid"
 ; cloud services cipher words
-; "reach IP address", 
+; "reach IP address",
 ; "data center", "@semi-servers.com"
 ; low power cipher words
 ; "Backup power at 15% and holding" - solar power / oil generators (Synthesis maintaining?)
@@ -213,7 +213,7 @@
 ; since Semi had the drug, but the Semi Sisters don't seem to use it, it suggests they've weaned themselves off of it, or these survivors were never exposed
 ; hardware damage cipher words
 ; "3.9.2368", "3.14.2368"
-; "anti-shock frame", 
+; "anti-shock frame",
 ; "ventilation", "INOPERATIVE"
 ; "COOLANT"
 ; synthesis cipher words
@@ -317,14 +317,14 @@
 | ~ player
 | | "That's "1 more terminal"(orange) left to check."(light-gray, italic)
 ; black caps cipher words
-; "read", 
-; "the potion", "#ExpediteYourLife", 
+; "read",
+; "the potion", "#ExpediteYourLife",
 ; "tablets and capsules", "sweet smell or taste"
 ; "what other drugs might be in your system"
 ; "the industry you are working in", "contract"
 ; "risks", "painkiller"
-; "lethargy", 
-; "Tricholoma", 
+; "lethargy",
+; "Tricholoma",
 ; "beta-glucanase", - from oat and barley grains
 ; cyber attack cipher words
 ; "404 Page"
@@ -336,7 +336,7 @@
 ; "Motherboard", "100C"
 ; synthesis cipher words
 ; "Biographical"
-; "a hacker collective,", "twenty-second", 
+; "a hacker collective,", "twenty-second",
 ; "dissolution", "public"
 ; "hooded robes", "cowls", "by Catholic monks"
 ; help cipher words
