@@ -73,7 +73,7 @@
         (when (< (last-progress task) res)
           (setf (last-progress task) res)
           (when (< res (full-progress task))
-            (status :note "~a (~a/~a)" (title task) res (full-progress task))))))
+            (status :note "~a (~a/~a)" (quest:title task) res (full-progress task))))))
     (call-next-method)))
 
 (defmethod quest:class-for ((storyline (eql 'quest:task))) 'task)
