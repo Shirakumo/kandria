@@ -545,7 +545,7 @@ item:helmet "Riot Helmet"
 item:helmet/description ""
 item:helmet/lore "ZPD
 
-[Not much to say: it's a black and blue masked riot helmet from the Zenith Police Department. Looking at the dents and cracks, whoever was wearing this also came out black and blue to say the least.]"
+[Not much to say: it's a black and blue masked riot helmet from the Zenith Police Department. Looking at the cracks and dents, whoever was wearing this also came out black and blue.]"
 item:tin "Food Tin"
 item:tin/description ""
 item:tin/lore "[missing]
