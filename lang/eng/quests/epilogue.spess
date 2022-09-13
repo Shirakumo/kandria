@@ -17,7 +17,7 @@
   | (:concerned)You must have taken an even bigger bump to the head than I did.
 ~ catherine
 | (:concerned)That bomb practically "exploded in our faces"(orange) - I think "they all exploded"(orange).
-| (:excited)Does that mean "we won?!"(orange)
+| (:excited)Does that mean "we won"(orange)?!
 | (:concerned)But "those blasts were bigger than they should've been"(orange).
 | I had a look around - I think they've "collapsed this whole area"(orange).
 | I hope Islay is okay.
@@ -48,10 +48,10 @@
 
 ; on waking up, is no longer immediately obvious to the character that they're in the grave (see level design change Sep 22) - however, we can assume this becomes clear to them, AND the player, once they've explored a bit on the way out
 
-# tutorial-end/walkntalk
+# walk-end/walkntalk
 ~ catherine
 | (:excited)Yes!! You're a tough cookie. Let's go.
 
-# epilogue-end/walkntalk
+# surface-end/walkntalk
 ~ catherine
 | (:concerned)I hope everyone's okay.
