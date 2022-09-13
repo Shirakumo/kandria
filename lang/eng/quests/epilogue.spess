@@ -7,9 +7,9 @@
   ~ catherine
   | (:concerned)What didn't happen.
   | I don't know how long I was out. "It's been about fifteen minutes since I woke up"(orange).
-- Not here again.
+- Where am I?
   ~ catherine
-  | (:concerned)We really took a beating to end up over here.
+  | (:concerned)Where we were, more or less.
   | I don't know how long I was out. "It's been about fifteen minutes since I woke up"(orange).
 - How many decades was I out this time?
   ~ catherine
@@ -46,9 +46,11 @@
   | You're heavier than you look. Believe me I've tried.
 ; place is unsafe, so even with concussion, it's better for Catherine to leave. You lead the way though
 
+; on waking up, is no longer immediately obvious to the character that they're in the grave (see level design change Sep 22) - however, we can assume this becomes clear to them, AND the player, once they've explored a bit on the way out
+
 # tutorial-end/walkntalk
 ~ catherine
-| (:excited)Yes!! Let's go.
+| (:excited)Yes!! You're a tough cookie. Let's go.
 
 # epilogue-end/walkntalk
 ~ catherine

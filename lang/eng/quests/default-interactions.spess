@@ -104,7 +104,7 @@
 ; (complete-p 'Q6-RETURN-TO-FI) may not be needed, as Catherine should at least a time trial giver, if not also a sidequest giver, until q10-wraw complete - added for completeness though
 ~ catherine
 ? (complete-p 'EXPLOSION)
-| | (:concerned)So we won? I hope everyone is okay.
+| | So did we win?
 |? (complete-p 'Q14-ENVOY)
 | | (:concerned)You don't belong to Zelah. You don't belong to anyone but yourself.
 |? (complete-p 'Q13-PLANTING-BOMB)
