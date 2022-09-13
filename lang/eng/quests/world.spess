@@ -176,7 +176,7 @@
 ; the character reflects while navigating deep and complex tunnels through the ground
 # task-world-all/semi-cave-east-1
 ~ player
-| "Were the inhabitants here people or rabbits? These warrens go on forever."(light-gray, italic)
+| "My history was rusty even before data loss - were these tunnels excavated solely for habitation, or were they originally mine shafts?"(light-gray, italic)
 
 ; the player can use the lanterns to recharge their jump/boost
 # task-world-all/semi-cave-east-2
