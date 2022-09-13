@@ -570,7 +570,7 @@ item:diary/description ""
 item:diary/lore "10 May
 It's hard to know if having these thoughts is normal. I feel like if I told my [unreadable] they'd call the police. I don't think your [sic] meant to visualize stabbing random [unreadable] with a six-foot sword. Am I a closet killer? I can't stop thinking that I am.
 
-Its [sic] getting worse though, these last couple of years. And the times I think I might have hurt someone (never with a sword) the more I just don't want to go out. Nothing makes you feel crazy like a 45 minute walk home from work, worrying if you checked the reception door was locked - what if it didn't close properly, then someone got in and stabbed M? That'd be on me. And then I walk aaaaaall [sic] the way back to check - and finally get home gone 7! I need to be more present, stop thinking about [unreadable] and instead actually remember what I'm doing. Unless my memory is failing like [unreadable]. It's exhausting and I feel like I'm gonna EXPLODE.
+Its [sic] getting worse though, these last couple of years. And the times I think I might have hurt someone (never with a sword) the more I just don't want to go out. Nothing makes you feel crazy like a 45-minute walk home from work in the hot sun, worrying if you checked the reception door was locked - what if it didn't close properly, then someone got in and stabbed M? That'd be on me. And then I walk aaaaaall the way back to check - and finally get home gone 7! I need to be more present, stop thinking about [unreadable] and instead actually remember what I'm doing. Unless my memory is failing like [unreadable]. It's exhausting and I feel like I'm gonna EXPLODE.
 
 H knows - I had to say something when she found me stood bolt upright staring into the corner. Fuck was I embarassed [sic], it hurts to think about. Things you do when you think no one's looking. She said it sounds like OCD, or \"the doubting disease\" - and that compulsions make obsessions worse. How's she now [sic] so much? I always thought OCD was just hygiene obsession. I did some [unreadable] online and I think she might be right though. How'd I miss this? I need to look at it more, but it would be good to put a name to all this bullshit. I think I've had this my whole life, but now it's getting worse - probably cuz the world is getting worse. Or maybe it just feels like that the older you get? What would the treatment be? If there's a cure then how many things might I have done different without getting stuck my whole life.
 
@@ -590,7 +590,7 @@ HE'S A PEOPLE PERSON - ARE YOU?
 
 (TM) Semi, 2364
 
-[With my sword I can protect and serve AND cut people's hair! More seriously, I don't think the propaganda worked. Maybe if they'd just been open and honest, acknowledged that androids were different, and talked about that.]"
+[With my sword I can protect and serve AND cut people's hair! Anyway, I don't think the propaganda worked. Maybe if they'd just been open and honest, acknowledged that androids were different, and talked about that.]"
 item:phone "Smartphone"
 item:phone/description ""
 item:phone/lore "\"EYEGER\"(bold)
@@ -604,7 +604,7 @@ S/X: EG523H8UJ901
 
 Made in Switzerland
 
-[The screen isn't cracked and it's in surprisingly good condition. There's somehow enough juice left to show the dead battery notification, but this hasn't turned on in a long time. There's no way to charge it, and no interface for an android - even if there was I probably couldn't guess the PIN.]"
+[It's in surprisingly good condition - not even the screen is cracked. There's somehow enough juice left to show the dead battery notification, but this hasn't turned on in a long time. There's no way to charge it, and no interface for an android - even if there was I probably couldn't guess the PIN.]"
 item:singing-bowl "Singing Bowl"
 item:singing-bowl/description "The metal bowl is drity, dusty, and stained. It rings an F# when hit."
 item:singing-bowl/lore "The monk was given this bowl at the begining of his monastic journey. He would ring it regularly to mark the begining and end of meditation practice sessions. 
