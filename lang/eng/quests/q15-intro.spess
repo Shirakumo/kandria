@@ -45,9 +45,6 @@
 ~ islay
 | (:nervous)It's not that.
 ~ player
-- Some of the bombs are hard to reach.
-  ~ islay
-  | Then we need to find a way.
 - Teach me how to check them.
   ~ islay
   | (:nervous)There's no time. And it's too risky if you can't figure it out.

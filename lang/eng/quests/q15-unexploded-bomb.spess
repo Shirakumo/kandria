@@ -24,13 +24,13 @@
 | (:unhappy)...
 | This "bomb has been defused"(orange)...
 | (:nervous)But I think "I can rewire its receiver"(orange).
-| (:normal)I think they've got a "bomb defusal mech"(orange) - I saw "one heading into the pump room"(orange).
+| (:normal)They've got a "bomb defusal mech"(orange) - I saw "one heading into the pump room"(orange).
 | Since you're here now you can "destroy the mech"(orange).
 | Do that "then go to the bomb in the Brother offices. Catherine, you can rewire it"(orange).
 ~ catherine
 | (:excited)Got it.
 ~ islay
-| (:nervous)"I'll go to the one past the hospital apartments."(orange)
+| (:nervous)When I'm done "I'll go to the one past the hospital apartments"(orange).
 | (:normal)And {(nametag player)}, for what it's worth: I don't think you're a traitor.
 | Now, please: I need to work.
 ~ catherine
