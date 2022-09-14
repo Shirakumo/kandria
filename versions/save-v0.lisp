@@ -208,7 +208,7 @@
       (labels ((recurse (parent)
                  (for:for ((entity over parent))
                    (unless (typep entity 'ephemeral)
-                     (leave* entity parent))
+                     (leave entity parent))
                    (when (typep entity 'container)
                      (recurse entity)))))
         (recurse region)))

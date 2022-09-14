@@ -313,9 +313,7 @@
   (stage (simple:request-font pass "Brands") area)
   (stage (framebuffer pass) area))
 
-(defmethod compile-to-pass (object (pass ui-pass)))
-(defmethod compile-into-pass (object container (pass ui-pass)))
-(defmethod remove-from-pass (object (pass ui-pass)))
+(defmethod object-renderable-p ((renderable renderable) (pass ui-pass)) NIL)
 
 ;; KLUDGE: No idea why this is necessary, fuck me.
 (defmethod simple:request-font :around ((pass ui-pass) font &key)

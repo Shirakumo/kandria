@@ -366,14 +366,6 @@ void main(){
 (defmethod experience-reward ((chunk chunk))
   100)
 
-(defmethod enter* :before ((chunk chunk) container)
-  (loop for layer across (layers chunk)
-        do (compile-into-pass layer (or (preceding-entity layer container) container) +world+)))
-
-(defmethod remove-from-pass :after ((chunk chunk) (pass shader-pass))
-  (loop for layer across (layers chunk)
-        do (remove-from-pass layer pass)))
-
 (defmethod render :around ((chunk chunk) (program shader-program))
   (cond ((show-solids chunk)
          (setf (visibility chunk) 1.0)

@@ -30,6 +30,16 @@
   (setf (shake-timer camera) 0.0)
   (setf (offset camera) (vec 0 0)))
 
+(defmethod map-visible (function (camera camera) (region region))
+  (funcall function (unit 'background +world+))
+  (bvh:do-fitting (entity (bvh region) (in-view-tester camera))
+    (funcall function entity)))
+
+(defmethod map-visible (function (camera camera) (world world))
+  (if (region world)
+      (map-visible function camera (region world))
+      (call-next-method)))
+
 (defmethod enter :after ((camera camera) (scene scene))
   (setf (target camera) (unit 'player scene))
   (when (target camera)

@@ -92,8 +92,7 @@
            (setf (active-p spawner) NIL))
          (dolist (entity (reflist spawner))
            (remhash entity +spawn-tracker+)
-           (when (slot-boundp entity 'container)
-             (leave* entity T)))
+           (leave entity T))
          (setf (reflist spawner) ()))))
 
 (defmethod done-p ((spawner spawner))
@@ -120,8 +119,7 @@
   (setf (active-p spawner) NIL)
   (dolist (entity (reflist spawner))
     (remhash entity +spawn-tracker+)
-    (when (slot-boundp entity 'container)
-      (leave* entity T))))
+    (leave entity T)))
 
 (defmethod handle ((ev switch-chunk) (spawner spawner))
   (when (active-p spawner)
@@ -158,7 +156,7 @@
   (unless (gethash (class-of entity) +spawn-cache+)
     (setf (gethash (class-of entity) +spawn-cache+) T)
     (trial:commit entity (loader +main+) :unload NIL))
-  (enter* entity container)
+  (enter entity container)
   entity)
 
 (defmethod spawn ((marker located-entity) type &rest initargs)

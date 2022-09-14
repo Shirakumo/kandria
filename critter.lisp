@@ -42,9 +42,8 @@
            (oob critter NIL)))))))
 
 (defmethod oob :after ((critter critter) next)
-  (when (and (eql :fleeing (state critter))
-             (slot-boundp critter 'container))
-    (leave* critter T)))
+  (when (and (eql :fleeing (state critter)))
+    (leave critter T)))
 
 (defmethod switch-animation :after ((critter critter) new)
   (case (name (animation critter))
@@ -93,7 +92,7 @@
 
 (defmethod switch-animation :before ((mole mole) animation)
   (when (eql (name (animation mole)) 'run)
-    (leave* mole T)))
+    (leave mole T)))
 
 (defmethod interactable-p ((critter mole)) NIL)
 

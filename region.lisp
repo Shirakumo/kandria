@@ -62,10 +62,10 @@
 (defmethod clear :after ((region region))
   (clear (bvh region)))
 
-(defmethod enter :after ((unit collider) (region region))
+(defmethod enter :after ((unit sized-entity) (region region))
   (bvh:bvh-insert (bvh region) unit))
 
-(defmethod leave :after ((unit collider) (region region))
+(defmethod leave :after ((unit sized-entity) (region region))
   (bvh:bvh-remove (bvh region) unit))
 
 (defmethod scan ((region region) target on-hit)

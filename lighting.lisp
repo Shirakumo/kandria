@@ -90,7 +90,7 @@
   (defmethod ambient ((info gi-info))
     (evaluate-light (slot-value info 'ambient))))
 
-(define-shader-pass lighting-pass (scene-pass per-object-pass hdr-output-pass)
+(define-shader-pass lighting-pass (per-object-pass hdr-output-pass)
   ((gi-a :initform (make-instance 'gi-info) :accessor gi-a)
    (gi-b :initform (make-instance 'gi-info) :accessor gi-b)
    (mix :initform 1.0 :accessor mix)
@@ -180,6 +180,9 @@
 ;;        specific one again.
 
 (defmethod object-renderable-p ((controller controller) (pass rendering-pass)) NIL)
+
+(defmethod sort-frame ((pass rendering-pass) frame)
+  (stable-sort frame #'< :key (lambda (c) (layer-index (car c)))))
 
 (defmethod prepare-pass-program :after ((pass rendering-pass) (program shader-program))
   (setf (uniform program "exposure") (exposure pass))
@@ -408,7 +411,6 @@ void main(){
 
 (defmethod handle ((ev tick) (flash flash))
   (cond ((<= (multiplier flash) 0.0)
-         (leave flash +world+)
-         (remove-from-pass flash (unit 'lighting-pass +world+)))
+         (leave flash +world+))
         (T
          (decf (multiplier flash) (* (time-scale flash) (dt ev))))))

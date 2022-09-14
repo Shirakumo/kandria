@@ -110,9 +110,9 @@
 (defmethod layer-index ((door door))
   (1- +base-layer+))
 
-(defmethod leave* :after ((door door) thing)
+(defmethod leave :after ((door door) thing)
   (when (slot-boundp (target door) 'container)
-    (leave* (target door) T)))
+    (leave (target door) T)))
 
 (define-shader-entity basic-door (door creatable)
   ()
@@ -334,9 +334,6 @@ void main(){
   (if (eql :complete (quest:status (first (interactions marker))))
       (language-string 'examine-again)
       (language-string 'examine)))
-
-(defmethod compile-to-pass (pass (marker place-marker)))
-(defmethod register-object-for-pass (pass (marker place-marker)))
 
 (defmethod (setf location) ((marker located-entity) (entity located-entity))
   (setf (location entity) (location marker)))

@@ -44,14 +44,13 @@
 (defmethod (setf child-count) :after (count (entity parent-entity))
   (loop while (< count (length (children entity)))
         for child = (pop (children entity))
-        do (when (slot-boundp child 'container)
-             (leave* child T)))
+        do (leave child T))
   (loop while (< (length (children entity)) count)
         for child = (make-child-entity entity)
         do (push child (children entity))
            (when (slot-boundp entity 'container)
              (trial:commit child (loader +main+) :unload NIL)
-             (enter* child (container entity)))))
+             (enter child (container entity)))))
 
 (defmethod stage :after ((entity parent-entity) (area staging-area))
   (when (children entity)
@@ -62,20 +61,10 @@
     (unless (slot-boundp child 'container)
       (enter child container))))
 
-(defmethod enter* :before ((entity parent-entity) (container container))
-  (dolist (child (children entity))
-    (unless (slot-boundp child 'container)
-      (enter* child container))))
-
 (defmethod leave :after ((entity parent-entity) (container container))
   (dolist (child (children entity))
     (when (slot-boundp child 'container)
       (leave child T))))
-
-(defmethod leave* :before ((entity parent-entity) (container container))
-  (dolist (child (children entity))
-    (when (slot-boundp child 'container)
-      (leave* child T))))
 
 (defclass base-entity (entity)
   ((name :initarg :name :initform NIL :type symbol :documentation "The name of the entity")))
@@ -256,8 +245,7 @@ void main(){
 (defmethod oob ((entity entity) (none null))
   (unless (or (null (region +world+)) (find-panel 'editor))
     (setf (state entity) :oob)
-    (when (slot-boundp entity 'container)
-      (leave* entity T))))
+    (leave entity T)))
 
 (defmethod (setf chunk) :after (chunk (entity game-entity))
   (when (and chunk (eql :oob (state entity)))

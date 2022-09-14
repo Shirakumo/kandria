@@ -70,7 +70,7 @@
                        (status (@formats 'fish-caught-successfully (language-string (type-of item)))))
                       (T
                        (setf (animation (unit 'player +world+)) 'stand)
-                       (leave* (fishing-line buoy) T))))
+                       (leave (fishing-line buoy) T))))
                (item
                 (v<- (location item) (location buoy))
                 (if (v= 0 vel)
@@ -125,7 +125,7 @@
   (stage (buoy line) area)
   (stage (// 'kandria 'fish) area))
 
-(defmethod enter* :after ((line fishing-line) target)
+(defmethod enter :after ((line fishing-line) target)
   (let ((chain (chain line))
         (buoy (buoy line)))
     (loop for i from 0 below (length chain)
@@ -137,11 +137,11 @@
     (setf (item buoy) NIL)
     (setf (intended-zoom (camera +world+)) 1.0)
     (vsetf (velocity buoy) (* (- (vx (location (fishing-spot line))) (vx (location line))) 0.03) 4)
-    (enter* (buoy line) target)))
+    (enter (buoy line) target)))
 
-(defmethod leave* :after ((line fishing-line) from)
+(defmethod leave :after ((line fishing-line) from)
   (when (slot-boundp (buoy line) 'container)
-    (leave* (buoy line) from)))
+    (leave (buoy line) from)))
 
 (defmethod handle ((ev tick) (fishing-line fishing-line))
   (declare (optimize speed))
@@ -189,15 +189,15 @@
        (let ((item (item (buoy line))))
          (when item
            (when (slot-boundp item 'container)
-             (leave* item T))
+             (leave item T))
            (store item player)))
        (when (slot-boundp line 'container)
-         (leave* line T)))
+         (leave line T)))
       (T
        (harmony:play (// 'sound 'fishing-big-splash))
        (setf (animation player) 'fishing-reel)
        (when (and (item buoy) (not (slot-boundp (item buoy) 'container)))
-         (enter* (item buoy) (region +world+)))
+         (enter (item buoy) (region +world+)))
        (vsetf (velocity buoy)
               (* (- (vx (location line)) (vx (location buoy))) 0.05)
               (* (- (vy (location line)) (vy (location buoy))) 0.05))
@@ -208,10 +208,10 @@
     (let ((item (item (buoy line))))
       (when item
         (when (slot-boundp item 'container)
-          (leave* item T))
+          (leave item T))
         (store item player)))
     (when (slot-boundp line 'container)
-      (leave* line T))
+      (leave line T))
     (hide (prompt player))
     (hide (prompt-b player))
     (setf (intended-zoom (camera +world+)) 1.0)

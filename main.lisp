@@ -254,7 +254,6 @@ Possible sub-commands:
     (reset (camera scene))
     (leave (region scene) scene)
     (setf (storyline scene) (make-instance 'quest:storyline))
-    (compile-to-pass scene scene)
     (trial:commit scene (loader main))
     (discard-events scene)
     (show-panel 'main-menu)))
@@ -315,4 +314,4 @@ Possible sub-commands:
         (unless (unit 'trial:fps-counter +world+)
           (enter-and-load (make-instance 'trial:fps-counter) +world+ +main+))
         (when (unit 'trial:fps-counter +world+)
-          (leave* (unit 'trial:fps-counter +world+) +world+)))))
+          (leave (unit 'trial:fps-counter +world+) +world+)))))

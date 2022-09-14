@@ -618,7 +618,7 @@ void main(){
             (if (= (frame-idx player) 543)
                 (unless visible
                   (v<- (location line) (hurtbox player))
-                  (enter* line (region +world+))))))
+                  (enter line (region +world+))))))
          (case (name (animation player))
            (fishing-loop
             (let* ((loc (vcopy (location (buoy line))))

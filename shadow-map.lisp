@@ -69,7 +69,7 @@
   (setf (size (vertex-array geometry))
         (/ (length (buffer-data (caar (bindings (vertex-array geometry))))) 2)))
 
-(define-shader-pass shadow-map-pass (single-shader-scene-pass)
+(define-shader-pass shadow-map-pass (per-object-pass single-shader-pass)
   ((name :initform 'shadow-map-pass)
    (shadow-map :port-type output :texspec (:internal-format :r8))
    (local-shade :initform 0.0 :accessor local-shade)
@@ -80,8 +80,11 @@
 (defmethod object-renderable-p ((object shadow-caster) (pass shadow-map-pass)) T)
 (defmethod object-renderable-p ((object shadow-geometry) (pass shadow-map-pass)) T)
 
-(defmethod compile-to-pass ((caster shadow-caster) (pass shadow-map-pass))
-  (compile-to-pass (shadow-geometry caster) pass))
+(defmethod enter ((caster shadow-caster) (pass shadow-map-pass))
+  (enter (shadow-geometry caster) pass))
+
+(defmethod leave ((caster shadow-caster) (pass shadow-map-pass))
+  (leave (shadow-geometry caster) pass))
 
 (defmethod render ((pass shadow-map-pass) target)
   (when (setting :display :shadows)

@@ -110,7 +110,7 @@
    (background :initform () :accessor background))
   (:buffers (kandria backgrounds)))
 
-(defmethod layer-index ((_ background)) 0)
+(defmethod layer-index ((_ background)) -1)
 
 (defmethod render ((background background) (program shader-program))
   (when (texture-b background)

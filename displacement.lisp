@@ -56,8 +56,7 @@ void main(){
         (* (initial-strength displacer)
            (- 1 (/ (clock displacer) (lifetime displacer)))))
   (when (< (lifetime displacer) (clock displacer))
-    (leave displacer T)
-    (remove-from-pass displacer (unit 'displacement-render-pass T))))
+    (leave displacer T)))
 
 (defmethod apply-transforms progn ((displacer shockwave))
   (let* ((s (- 11.0 (min 11.0 (/ 1.0 (+ 0.01 (expt (clock displacer) 1.001)))))))
@@ -104,7 +103,7 @@ void main(){
   (translate (vxy_ (location (camera +world+))))
   (scale-by 40 25 1))
 
-(define-shader-pass displacement-render-pass (scene-pass per-object-pass)
+(define-shader-pass displacement-render-pass (per-object-pass)
   ((displacement-map :port-type output :attachment :color-attachment0
                      :texspec (:internal-format :rg16f))
    (name :initform 'displacement-render-pass)))

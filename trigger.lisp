@@ -286,7 +286,7 @@
     (setf (time-scale +world+) 1.0)
     (setf (active-p prompt) NIL)))
 
-(defmethod leave* :before ((prompt action-prompt) from)
+(defmethod leave :before ((prompt action-prompt) from)
   (hide (prompt prompt)))
 
 (defclass fullscreen-prompt-trigger (trigger creatable)

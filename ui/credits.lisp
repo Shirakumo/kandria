@@ -150,7 +150,6 @@
              (reset (camera +world+))
              (leave (region +world+) +world+)
              (setf (storyline +world+) (make-instance 'quest:storyline))
-             (compile-to-pass +world+ +world+)
              (invoke-restart 'discard-events))))
     (if transition
         (transition

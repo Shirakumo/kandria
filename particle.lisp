@@ -98,7 +98,7 @@
 (defmethod handle ((ev tick) (emitter emitter))
   (let ((vio (vio emitter)))
     (cond ((= 0 (update-particle-data (buffer-data vio) (* 2 (dt ev)) (gravity emitter)))
-           (leave* emitter T))
+           (leave emitter T))
           (T
            (update-buffer-data vio T)))))
 

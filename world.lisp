@@ -130,9 +130,6 @@
   ;; KLUDGE: This suuuuckkkss
   (stage (// 'music 'battle) area))
 
-(defmethod compile-to-pass :after ((world world) (pass render-pass))
-  (register-object-for-pass pass (c2mop:ensure-finalized (find-class 'sprite-effect))))
-
 (defmethod region ((world world))
   (gethash 'region (name-map world)))
 

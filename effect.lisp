@@ -69,7 +69,7 @@
 
 (defmethod trigger ((effect shader-effect) source &key)
   (let ((region (region +world+)))
-    (enter* effect region)))
+    (enter effect region)))
 
 (defmethod render :before ((effect shader-effect) (program shader-program))
   (setf (uniform program "multiplier") (multiplier effect)))
@@ -103,8 +103,7 @@ void main(){
 
 (defmethod (setf frame-idx) :after (idx (effect sprite-effect))
   (when (= idx (1- (end (animation effect))))
-    (when (slot-boundp effect 'container)
-      (leave* effect T))))
+    (leave effect T)))
 
 (defmethod trigger :after ((effect sprite-effect) source &key direction)
   (setf (direction effect) (or direction (direction effect) (direction source)))
@@ -130,14 +129,14 @@ void main(){
       (decf (vy (location effect)) (/ (+ y- y+) 2 s))
       (setf (vertex-data effect) array)))
   (let ((region (region +world+)))
-    (enter* effect region)))
+    (enter effect region)))
 
 (defmethod handle ((ev tick) (effect text-effect))
   (incf (vy (location effect)) (* 20 (dt ev)))
   (decf (lifetime effect) (dt ev))
   (when (and (< (lifetime effect) 0f0)
              (slot-boundp effect 'container))
-    (leave* effect T)))
+    (leave effect T)))
 
 (defmethod render ((effect text-effect) (program shader-program))
   (gl:active-texture :texture0)
@@ -169,8 +168,7 @@ void main(){
                                               :texture (displacement-texture effect)
                                               :strength strength
                                               :direction direction)))
-    (enter displacer +world+)
-    (compile-into-pass displacer NIL (unit 'displacement-render-pass +world+))))
+    (enter displacer +world+)))
 
 (define-shader-entity basic-effect (sprite-effect sound-effect)
   ((offset :initform (vec 0 -7))
@@ -218,8 +216,7 @@ void main(){
                                      :bsize (vec 48 48)
                                      :size (vec 96 96)
                                      :offset (vec 0 48))))
-    (enter flash +world+)
-    (compile-into-pass flash NIL (unit 'lighting-pass +world+))))
+    (enter flash +world+)))
 
 (defmethod apply-transforms progn ((effect dash-effect))
   (translate-by 0 -16 0))
@@ -430,8 +427,7 @@ void main(){
                                      :bsize (vec 96 96)
                                      :size (vec 96 96)
                                      :offset (vec 112 96))))
-    (enter flash +world+)
-    (compile-into-pass flash NIL (unit 'lighting-pass +world+)))
+    (enter flash +world+))
   (let* ((distance (expt (vsqrdistance (location effect) (location (unit 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))
     (when (< 0.1 strength)
@@ -487,7 +483,7 @@ void main(){
 
 (defmethod render :after ((sting sting-effect) program)
   (when (<= (decf (fc sting)) 0)
-    (leave* sting T)))
+    (leave sting T)))
 
 (defmethod trigger :around ((effect sting-effect) source &key)
   (when (setting :gameplay :show-hit-stings)
@@ -525,8 +521,7 @@ void main(){
                                                 :bsize (vec 24 24)
                                                 :size (vec 48 48)
                                                 :offset (vec 64 144))))
-               (enter flash +world+)
-               (compile-into-pass flash NIL (unit 'lighting-pass +world+)))))
+               (enter flash +world+))))
 
 (define-effect climb closure-effect
   :closure (lambda (source &rest args)

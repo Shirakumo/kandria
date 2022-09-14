@@ -133,7 +133,7 @@
   (item-unlocked-p (type-of item) inventory))
 
 (defmethod kill ((item item))
-  (leave* item T))
+  (leave item T))
 
 (defmethod spawn :before ((region region) (item item) &key)
   (vsetf (velocity item)
@@ -180,15 +180,15 @@
                                                   :offset (vec 0 144))))
         (setf (light item) light)
         (setf (container light) +world+)
-        (compile-into-pass light NIL (unit 'lighting-pass +world+))))))
+        (enter light (unit 'lighting-pass +world+))))))
 
 (defmethod interact ((item item) (inventory inventory))
   (trade NIL inventory item 1)
-  (leave* item T))
+  (leave item T))
 
-(defmethod leave* :after ((item item) thing)
+(defmethod leave :after ((item item) thing)
   (when (light item)
-    (remove-from-pass (light item) (unit 'lighting-pass +world+))
+    (leave (light item) (unit 'lighting-pass +world+))
     (setf (light item) NIL)))
 
 (defmethod have ((item item) (inventory inventory))

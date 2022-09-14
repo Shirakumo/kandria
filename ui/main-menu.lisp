@@ -422,6 +422,7 @@ void main(){
     (setf (lighting (unit 'lighting-pass +world+)) (gi 'one))
     (harmony:transition (// 'music 'menu) 1.0)
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
+    (trial:commit (stage (make-instance 'star) (unit 'render +world+)) (loader +main+) :unload NIL)
     (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
     (enter-and-load (make-instance 'logo :location (vec 0 80)) +world+ +main+)
     ;; Only enter the wave if we have tesselation available.
@@ -429,11 +430,11 @@ void main(){
       (enter-and-load (make-instance 'wave) +world+ +main+))
     (dotimes (i 100)
       (let ((s (+ 8 (* 20 (/ (expt (random 10.0) 3) 1000.0)))))
-        (enter* (make-instance 'star
-                               :bsize (vec s s)
-                               :location (vec (random* 0 (* 2 (vx tsize)))
-                                              (- (vy tsize) 10 (* yspread (/ (expt (random 10.0) 3) 1000.0)))))
-                +world+))))
+        (enter (make-instance 'star
+                              :bsize (vec s s)
+                              :location (vec (random* 0 (* 2 (vx tsize)))
+                                             (- (vy tsize) 10 (* yspread (/ (expt (random 10.0) 3) 1000.0)))))
+               +world+))))
 
   (let ((report (find "report" (list-saves) :key (lambda (s) (pathname-name (file s))) :test #'string=)))
     (when report
@@ -448,7 +449,7 @@ void main(){
   (harmony:stop (// 'music 'menu))
   (for:for ((entity over +world+))
     (when (typep entity '(or star fullscreen-background logo wave))
-      (leave* entity T))))
+      (leave entity T))))
 
 (defun return-to-main-menu ()
   (let ((state (state +main+))

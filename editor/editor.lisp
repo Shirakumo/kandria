@@ -71,9 +71,6 @@
 
 (alloy:define-observable (setf entity) (entity alloy:observable))
 
-(defmethod register-object-for-pass (pass (editor editor))
-  (register-object-for-pass pass (maybe-finalize-inheritance 'trial::lines)))
-
 (defmethod initialize-instance :after ((editor editor) &key)
   (let* ((focus (make-instance 'alloy:focus-list))
          (layout (make-instance 'alloy:border-layout))
@@ -408,7 +405,7 @@
            ;;        Should probably do that as an explicit command to invoke at some point.
            ;;        Maybe at deploy time?
            (with-commit (editor)
-             ((leave* entity container)
+             ((leave entity container)
               (setf (entity editor) (region +world+)))
              ((enter-and-load entity container +main+)
               (setf (entity editor) entity)))))))
@@ -460,9 +457,9 @@
     (when (typep entity 'chunk)
       (setf (show-solids entity) T))
     (with-commit (editor)
-      ((enter* entity (unit 'region T))
+      ((enter entity (unit 'region T))
        (setf (entity editor) entity))
-      ((leave* entity (unit 'region T))
+      ((leave entity (unit 'region T))
        (setf (entity editor) (region +world+))))))
 
 (defmethod edit ((action (eql 'change-lighting)) (editor editor))

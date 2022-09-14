@@ -20,13 +20,13 @@
 (defmethod label ((tool drag)) "Drag")
 
 (defmethod (setf tool) :after ((tool drag) (editor editor))
-  (enter* (sentinel tool) +world+))
+  (enter (sentinel tool) +world+))
 
 (defmethod stage ((tool drag) (area staging-area))
   (stage (sentinel tool) area))
 
 (defmethod hide :after ((tool drag))
-  (leave* (sentinel tool) T))
+  (leave (sentinel tool) T))
 
 (defmethod handle ((ev lose-focus) (tool drag))
   (handle (make-instance 'mouse-release :button :left :pos (or (start-pos tool) (vec 0 0))) tool))
