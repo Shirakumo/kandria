@@ -49,6 +49,5 @@
 | Okay. Let's go together - "after the mech"(orange).
 ! eval (complete 'check-bomb-3)
 ! eval (deactivate 'task-reminder)
-! eval (activate (unit 'q15-boss-fight))
 ! eval (clear-pending-interactions)
 
