@@ -82,7 +82,7 @@
 ~ cerebat-trader-quest
 | ...
 | I like your directness. And I do luv a good 'aggle.
-| Alright, make me an offer.
+| Alright, make me an offer!
 ! label haggle-reset
 ~ player
 - 100.
