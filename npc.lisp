@@ -265,7 +265,7 @@
          (cond ((target-blocked-p companion)
                 ;; TODO: make it customisable.
                 (walk-n-talk (format NIL "~~ ~a
-| This doesn't look safe. I'm going to wait here for you, alright?"
+| This doesn't look safe. I'll wait here for you."
                                      (type-of npc)))
                 (setf (vx (velocity npc)) 0)
                 (setf (ai-state npc) :follow-wait)
