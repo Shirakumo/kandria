@@ -140,6 +140,8 @@ save/description "Use the phone box outside to save progress, or save from the m
 (save often!)"
 attack "Attacking"
 attack/description "Hold different directions together with a light or heavy attack for various moves"
+sidequests "Sidequests"
+sidequests/description "Explore for unfamiliar characters with \"???\" above their heads - they may have jobs for you"
 cast-line "Cast Line"
 reel-in "Reel In"
 stop-fishing "Stop"
