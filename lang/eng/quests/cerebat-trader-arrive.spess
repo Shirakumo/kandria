@@ -88,7 +88,7 @@
 - 100.
   ~ cerebat-trader-quest
   | Haha! That's a good one.
-  | ... Oh, you were serious...
+  | ... Oh, you're serious...
   | Why dontcha try again.
   < haggle-reset
 - 300.
@@ -103,9 +103,9 @@
     | You're a sly one, but alright - we 'ave a deal.
     ! eval (setf (var 'trader-bribe) 450)
   - Deal.
-  ~ cerebat-trader-quest
-  | Aha! We 'ave a deal.
-  ! eval (setf (var 'trader-bribe) 600)
+    ~ cerebat-trader-quest
+    | Aha! We 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 600)
 - 500.
   ~ cerebat-trader-quest
   | ...?
@@ -117,9 +117,9 @@
     | You're a sly one, but alright - we 'ave a deal.
     ! eval (setf (var 'trader-bribe) 550)
   - Deal.
-  ~ cerebat-trader-quest
-  | Aha! We 'ave a deal.
-  ! eval (setf (var 'trader-bribe) 600)
+    ~ cerebat-trader-quest
+    | Aha! We 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 600)
 - 700.
   ~ cerebat-trader-quest
   | ...
@@ -131,9 +131,9 @@
     | Alright - we 'ave a deal.
     ! eval (setf (var 'trader-bribe) 750)
   - Deal.
-  ~ cerebat-trader-quest
-  | Aha! We 'ave a deal.
-  ! eval (setf (var 'trader-bribe) 800)
+    ~ cerebat-trader-quest
+    | Aha! We 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 800)
 - 900.
   ~ cerebat-trader-quest
   | ...?
