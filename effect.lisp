@@ -110,6 +110,9 @@ void main(){
   (incf (vx (location effect)) (* (direction effect) (vx (offset effect))))
   (incf (vy (location effect)) (vy (offset effect))))
 
+(defmethod render :after ((effect sprite-effect) program)
+  (bvh:bvh-update (bvh (region +world+)) effect))
+
 (define-shader-entity text-effect (located-entity effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
    (font :initarg :font :initform (simple:request-font (unit 'ui-pass T) (setting :display :font)) :accessor font)
@@ -167,7 +170,7 @@ void main(){
                                               :texture (displacement-texture effect)
                                               :strength strength
                                               :direction direction)))
-    (enter displacer (region +world+))))
+    (enter displacer +world+)))
 
 (define-shader-entity basic-effect (sprite-effect sound-effect)
   ((offset :initform (vec 0 -7))
@@ -479,7 +482,8 @@ void main(){
 (define-shader-entity sting-effect (vertex-entity rotated-entity shader-effect)
   ((vertex-array :initform (// 'kandria 'sting))
    (fc :initform 5 :accessor fc)))
-
+;; FIXME: the sting effect has no "extent" so it can't be in the BVH for visibility culling
+;;        what do we do to mitigate this?
 (defmethod render :after ((sting sting-effect) program)
   (when (<= (decf (fc sting)) 0)
     (leave sting T)))

@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity displacer ()
+(define-shader-entity displacer (renderable)
   ((texture :initarg :texture :reader texture)
    (strength :initform 1f0 :initarg :strength :accessor strength)))
 
@@ -110,7 +110,8 @@ void main(){
                      :texspec (:internal-format :rg16f))
    (name :initform 'displacement-render-pass)))
 
-(defmethod stage :after ((pass displacement-render-pass) (area staging-area))
+(defmethod stage :before ((pass displacement-render-pass) (area staging-area))
+  (stage (make-instance 'shockwave) pass)
   (stage (// 'kandria '16x) area)
   (stage (// 'kandria 'scanline) area)
   (stage (// 'kandria 'shockwave) area)
@@ -118,6 +119,7 @@ void main(){
 
 (defmethod object-renderable-p ((renderable renderable) (pass displacement-render-pass)) NIL)
 (defmethod object-renderable-p ((displacer displacer) (pass displacement-render-pass)) T)
+(defmethod object-renderable-p ((displacer displacer) (pass shader-pass)) NIL)
 
 (defmethod prepare-pass-program :after ((pass displacement-render-pass) (program shader-program))
   (setf (uniform program "view_matrix") (view-matrix))
@@ -129,6 +131,8 @@ void main(){
   (gl:blend-func :one :one)
   (call-next-method)
   (gl:blend-func :src-alpha :one-minus-src-alpha))
+
+(defmethod trial:scene ((pass displacement-render-pass)) pass)
 
 (define-shader-pass displacement-pass (simple-post-effect-pass)
   ((name :initform 'displacement-pass)
@@ -145,4 +149,5 @@ void main(){
   vec3 previous = texture(previous_pass, tex_coord+displacement).rgb;
   color = vec4(previous, 1);
 }")
+
 
