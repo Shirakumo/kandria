@@ -153,10 +153,11 @@
                 do (spawn region (create)))))))
 
 (defmethod spawn ((container container) (entity entity) &key)
-  (unless (gethash (class-of entity) +spawn-cache+)
-    (setf (gethash (class-of entity) +spawn-cache+) T)
-    (trial:commit entity (loader +main+) :unload NIL))
-  (enter entity container)
+  (cond ((gethash (class-of entity) +spawn-cache+)
+         (enter entity container))
+        (T
+         (enter-and-load entity container +main+)
+         (setf (gethash (class-of entity) +spawn-cache+) T)))
   entity)
 
 (defmethod spawn ((marker located-entity) type &rest initargs)

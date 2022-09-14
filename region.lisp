@@ -62,6 +62,18 @@
 (defmethod clear :after ((region region))
   (clear (bvh region)))
 
+(defmethod enter :after ((object renderable) (region region))
+  (when (slot-boundp region 'container)
+    (loop for pass across (passes (container region))
+          do (when (object-renderable-p object pass)
+               (enter object pass)))))
+
+(defmethod leave :after ((object renderable) (region region))
+  (when (slot-boundp region 'container)
+    (loop for pass across (passes (container region))
+          do (when (object-renderable-p object pass)
+               (leave object pass)))))
+
 (defmethod enter :after ((unit sized-entity) (region region))
   (bvh:bvh-insert (bvh region) unit))
 

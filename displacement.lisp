@@ -6,6 +6,10 @@
 
 (defmethod object-renderable-p ((displacer displacer) (pass shader-pass)) NIL)
 
+(defmethod bind-textures ((displacer displacer))
+  (gl:active-texture :texture0)
+  (gl:bind-texture :texture-2d (gl-name (texture displacer))))
+
 (defmethod stage :after ((displacer displacer) (area staging-area))
   (stage (texture displacer) area))
 
@@ -13,8 +17,6 @@
   (setf (uniform program "model_matrix") (model-matrix))
   (setf (uniform program "effect_strength") (strength displacer))
   (let ((vao (// 'kandria '16x)))
-    (gl:active-texture :texture0)
-    (gl:bind-texture :texture-2d (gl-name (texture displacer)))
     (gl:bind-vertex-array (gl-name vao))
     (%gl:draw-elements (vertex-form vao) (size vao) :unsigned-int 0)
     (gl:bind-vertex-array 0)))

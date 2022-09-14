@@ -121,6 +121,9 @@
          (not (eql :respawning (state player))))))
 
 ;; Preloading
+(defmethod stage :before ((world world) (area staging-area))
+  (stage (c2mop:ensure-finalized (find-class 'sprite-effect)) (unit 'render world)))
+
 (defmethod stage :after ((world world) (area staging-area))
   (stage (// 'kandria 'placeholder) area)
   (stage (// 'kandria 'effects 'texture) area)
