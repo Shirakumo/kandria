@@ -194,7 +194,7 @@
   ~ catherine
   | She's our leader. She'll be glad to meet you, I'm sure of it.
 ~ catherine
-| Let's "get back"(orange) to "Camp"(red), find out what's happening.
+| Let's "get back to Camp"(orange), find out what's happening.
 ! eval (setf (location 'fi) (location 'shutter-2))
 ! setf (direction 'fi) -1
 ! eval (setf (location 'jack) (location 'shutter-3))

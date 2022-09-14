@@ -34,6 +34,6 @@
   | (:normal)But not everyone has fond tales to tell about androids, I guess. Their loss though.
   | But I'm sure it's not that.
 ~ catherine
-| (:concerned)We'd better find "Jack"(yellow). He'll be in "Engineering"(red).
+| (:concerned)We'd better find "Jack"(yellow). He'll be at the "Camp"(red), in "Engineering"(red).
 ! eval (activate 'q0-find-jack)
 
