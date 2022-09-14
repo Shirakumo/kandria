@@ -194,7 +194,7 @@
   ~ catherine
   | She's our leader. She'll be glad to meet you, I'm sure of it.
 ~ catherine
-| Let's "get back to Camp"(orange), find out what's happening.
+| Let's "get back to the Camp"(orange), find out what's happening.
 ! eval (setf (location 'fi) (location 'shutter-2))
 ! setf (direction 'fi) -1
 ! eval (setf (location 'jack) (location 'shutter-3))
@@ -330,7 +330,7 @@
 | Couldn't hurt to "check in with Fi"(orange). I'm sure there's something you could help her with, to show her you can be trusted.
 | "Knowing Jack he'll have something for you too"(orange) - (:concerned)if only a mouthful of abuse.
 | (:normal)But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
-| (:excited)Take a "look around and explore"(orange)! (:normal)Though it's probably best not to go too far from Camp.
+| (:excited)Take a "look around and explore"(orange)! (:normal)Though it's probably best not to go too far from the Camp.
 | Seeya later, Stranger!
 
 # main-leak-2/walkntalk

@@ -127,7 +127,7 @@
   < task-choice
 - [(not (complete-p 'sq2-mushrooms)) (Ask about the mushrooms)|]
   ~ catherine
-  | They grow in the "caves beneath Camp"(orange), in the dim light and moisture there.
+  | They grow in the "caves beneath the Camp"(orange), in the dim light and moisture there.
   | Edible mushrooms like the "flower fungus"(orange) can sustain us even if the crop fails.
   | They're all we used to eat before we moved to the surface.
   | Fibrous ones like the "rusty puffball"(orange) can also be used to weave clothing.

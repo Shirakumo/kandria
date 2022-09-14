@@ -133,7 +133,7 @@
 ~ player
 | "... She closed the connection."(light-gray, italic)
 | <-Shit.->
-| "I'd better "get back to Camp"(orange)."(light-gray, italic)
+| "I'd better "get back to the Camp"(orange)."(light-gray, italic)
 ! eval (complete 'task-return-bombs-station)
 
 ; alternate return of the quest, if go via Noka train station - slightly different wording to suit different context
@@ -153,6 +153,6 @@
 ~ player
 | "... She closed the connection."(light-gray, italic)
 | <-Shit.->
-| "I'd better "get back to Camp"(orange)."(light-gray, italic)
+| "I'd better "get back to the Camp"(orange)."(light-gray, italic)
 ! eval (complete 'task-return-bombs)
 
