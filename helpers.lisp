@@ -155,12 +155,6 @@
     (vsetf vec (vx2 loc) (vy2 loc) (vx2 bsize) (vy2 bsize))
     (scan entity vec on-hit)))
 
-;; KLUDGE: dumb to do it like this. Ideally the render passes should do it to avoid
-;;         needlessly pushing matrices around and such.
-(defmethod render :around ((entity sized-entity) (program shader-program))
-  (when (in-view-p (location entity) (bsize entity))
-    (call-next-method)))
-
 (define-shader-entity sprite-entity (vertex-entity textured-entity rotated-entity sized-entity facing-entity)
   ((vertex-array :initform (// 'kandria '1x))
    (texture :initform (// 'kandria 'placeholder) :initarg :texture :accessor albedo

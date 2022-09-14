@@ -67,9 +67,9 @@
 (defmethod trigger :after ((effect shader-effect) (source located-entity) &key location)
   (setf (location effect) (or location (vcopy (location source)))))
 
-(defmethod trigger ((effect shader-effect) source &key)
-  (let ((region (region +world+)))
-    (enter effect region)))
+(defmethod trigger :around ((effect shader-effect) source &key)
+  (call-next-method)
+  (enter effect (region +world+)))
 
 (defmethod render :before ((effect shader-effect) (program shader-program))
   (setf (uniform program "multiplier") (multiplier effect)))
@@ -128,8 +128,7 @@ void main(){
       (decf (vx (location effect)) (/ (+ x- x+) 2 s))
       (decf (vy (location effect)) (/ (+ y- y+) 2 s))
       (setf (vertex-data effect) array)))
-  (let ((region (region +world+)))
-    (enter effect region)))
+  (enter effect (region +world+)))
 
 (defmethod handle ((ev tick) (effect text-effect))
   (incf (vy (location effect)) (* 20 (dt ev)))
@@ -168,7 +167,7 @@ void main(){
                                               :texture (displacement-texture effect)
                                               :strength strength
                                               :direction direction)))
-    (enter displacer +world+)))
+    (enter displacer (region +world+))))
 
 (define-shader-entity basic-effect (sprite-effect sound-effect)
   ((offset :initform (vec 0 -7))
@@ -216,7 +215,7 @@ void main(){
                                      :bsize (vec 48 48)
                                      :size (vec 96 96)
                                      :offset (vec 0 48))))
-    (enter flash +world+)))
+    (enter flash (region +world+))))
 
 (defmethod apply-transforms progn ((effect dash-effect))
   (translate-by 0 -16 0))
@@ -427,7 +426,7 @@ void main(){
                                      :bsize (vec 96 96)
                                      :size (vec 96 96)
                                      :offset (vec 112 96))))
-    (enter flash +world+))
+    (enter flash (region +world+)))
   (let* ((distance (expt (vsqrdistance (location effect) (location (unit 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))
     (when (< 0.1 strength)

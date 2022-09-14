@@ -189,9 +189,6 @@
 (defmethod leave :after ((lantern lantern) (container container))
   (leave (light lantern) container))
 
-(defmethod enter :after ((lantern lantern) container)
-  (enter (light lantern) (unit 'lighting-pass +world+)))
-
 (defmethod (setf location) :after (loc (lantern lantern))
   (setf (slot-value (light lantern) 'location) (location lantern)))
 

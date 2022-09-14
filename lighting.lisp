@@ -411,6 +411,6 @@ void main(){
 
 (defmethod handle ((ev tick) (flash flash))
   (cond ((<= (multiplier flash) 0.0)
-         (leave flash +world+))
+         (leave flash T))
         (T
          (decf (multiplier flash) (* (time-scale flash) (dt ev))))))
