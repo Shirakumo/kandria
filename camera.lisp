@@ -31,7 +31,8 @@
   (setf (offset camera) (vec 0 0)))
 
 (defmethod map-visible (function (camera camera) (region region))
-  (funcall function (unit 'background +world+))
+  (dolist (entity (indefinite-extent-entities region))
+    (funcall function entity))
   (bvh:do-fitting (entity (bvh region) (in-view-tester camera))
     (funcall function entity)))
 

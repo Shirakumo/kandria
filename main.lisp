@@ -312,6 +312,8 @@ Possible sub-commands:
   (when +world+
     (if value
         (unless (unit 'trial:fps-counter +world+)
-          (enter-and-load (make-instance 'trial:fps-counter) +world+ +main+))
+          (enter-and-load (make-instance 'trial:fps-counter) (or (region +world+) +world+) +main+))
         (when (unit 'trial:fps-counter +world+)
-          (leave (unit 'trial:fps-counter +world+) +world+)))))
+          (leave (unit 'trial:fps-counter +world+) T)))))
+
+(defmethod layer-index ((counter fps-counter)) 100)

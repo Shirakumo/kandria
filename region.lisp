@@ -8,7 +8,8 @@
    (preview :initform NIL :initarg :preview :accessor preview)
    (chunk-graph :initform NIL :accessor chunk-graph)
    (bvh :initform (bvh:make-bvh) :reader bvh)
-   (depot :initarg :depot :accessor depot))
+   (depot :initarg :depot :accessor depot)
+   (indefinite-extent-entities :initform () :accessor indefinite-extent-entities))
   (:default-initargs
    :layer-count +layer-count+))
 
@@ -63,12 +64,16 @@
   (clear (bvh region)))
 
 (defmethod enter :after ((object renderable) (region region))
+  (unless (typep object 'sized-entity)
+    (push object (indefinite-extent-entities region)))
   (when (slot-boundp region 'container)
     (loop for pass across (passes (container region))
           do (when (object-renderable-p object pass)
                (enter object pass)))))
 
 (defmethod leave :after ((object renderable) (region region))
+  (unless (typep object 'sized-entity)
+    (setf (indefinite-extent-entities region) (delete object (indefinite-extent-entities region))))
   (when (slot-boundp region 'container)
     (loop for pass across (passes (container region))
           do (when (object-renderable-p object pass)
