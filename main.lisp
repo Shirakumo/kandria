@@ -242,6 +242,9 @@ Possible sub-commands:
   (register (make-instance 'walkntalk) scene))
 
 (defmethod load-game (state (main main))
+  ;; KLUDGE: I hate progressions so much.
+  (dolist (progression (progressions (scene main)))
+    (stop progression))
   (hide-panel '(not (or prerelease-notice hud)))
   (show-panel 'load-panel :loader (loader main))
   (render main main)

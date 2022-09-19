@@ -33,7 +33,7 @@
           (hide panel)))
       (with-button load-last-save
         (hide panel)
-        (load-state T +main+))
+        (load-game T +main+))
       (with-button return-to-main-menu
         (reset (unit 'environment +world+))
         (transition
