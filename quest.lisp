@@ -66,15 +66,17 @@
     (T (setf (progress-fun task) (compile NIL `(lambda () ,(task-wrap-lexenv progress-fun)))))))
 
 (defmethod quest:try :around ((task task))
+  (let ((progress (current-progress task))
+        (*current-task* task))
+    (when (and progress (< (last-progress task) progress))
+      (setf (last-progress task) progress)
+      (status :note "~a (~a/~a)" (quest:title task) progress (full-progress task)))
+    (call-next-method)))
+
+(defmethod current-progress ((task task))
   (let ((fun (progress-fun task))
         (*current-task* task))
-    (when fun
-      (let ((res (funcall fun)))
-        (when (< (last-progress task) res)
-          (setf (last-progress task) res)
-          (when (< res (full-progress task))
-            (status :note "~a (~a/~a)" (quest:title task) res (full-progress task))))))
-    (call-next-method)))
+    (when fun (funcall fun))))
 
 (defmethod quest:class-for ((storyline (eql 'quest:task))) 'task)
 
