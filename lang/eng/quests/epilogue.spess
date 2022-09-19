@@ -6,14 +6,14 @@
 - What happened?
   ~ catherine
   | (:concerned)What didn't happen.
-  | I don't know how long I was out. "It's been about fifteen minutes since I woke up"(orange).
+  | I don't know how long I was out. "It's been about fifteen minutes since I woke up"(orange) - I had to pull you from the rubble.
 - Where am I?
   ~ catherine
   | (:concerned)Where we were, more or less.
-  | I don't know how long I was out. "It's been about fifteen minutes since I woke up"(orange).
+  | I don't know how long I was out. "It's been about fifteen minutes since I woke up"(orange) - I had to pull you from the rubble.
 - How many decades was I out this time?
   ~ catherine
-  | None thankfully, "only about fifteen minutes"(orange). Well, that's "after I woke up"(orange).
+  | None thankfully, "only about fifteen minutes"(orange). Well, that's "after I woke up"(orange) - I had to pull you from the rubble.
   | (:concerned)You must have taken an even bigger bump to the head than I did.
 ~ catherine
 | (:concerned)That bomb practically "exploded in our faces"(orange) - I think "they all exploded"(orange).
@@ -43,7 +43,7 @@
   | Take it slow.
 - If not I don't think you can carry me.
   ~ catherine
-  | You're heavier than you look. Believe me I've tried.
+  | You're heavier than you look.
 ; place is unsafe, so even with concussion, it's better for Catherine to leave. You lead the way though
 
 ; on waking up, is no longer immediately obvious to the character that they're in the grave (see level design change Sep 22) - however, we can assume this becomes clear to them, AND the player, once they've explored a bit on the way out
