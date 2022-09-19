@@ -508,8 +508,11 @@
     (:stand 0.0)
     (T 0.5)))
 
-(define-shader-entity zelah-enemy (ground-enemy major-enemy half-solid)
+(define-shader-entity zelah-enemy (ground-enemy major-enemy half-solid dialog-entity profile)
   ((timer :initform 0f0 :accessor timer)))
+
+(defmethod shared-initialize :after ((enemy zelah-enemy) slots &key)
+  (setf (interactions enemy) ()))
 
 (defmethod movement-speed ((enemy zelah-enemy))
   (case (ai-state enemy)
