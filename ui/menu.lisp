@@ -216,12 +216,15 @@
          (alloy:point 5 10))
    :pattern colors:white)
   ((:label simple:text)
-   (alloy:margins 10 -5 5 -5)
+   (alloy:margins 10 -5 5 0)
    alloy:text
    :valign :middle
    :wrap T
    :size (alloy:un 15)
    :font (setting :display :font)))
+
+(presentations:define-update (ui task-widget)
+  (:indicator))
 
 (defclass quest-widget (alloy:vertical-linear-layout alloy:focus-element alloy:observable alloy:renderable)
   ((alloy:cell-margins :initform (alloy:margins 10 5 5 5))
@@ -236,7 +239,8 @@
     (alloy:enter description widget)
     (dolist (task (quest:active-tasks quest))
       (when (visible-p task)
-        (alloy:enter (make-instance 'task-widget :value task) widget)))))
+        (alloy:enter (make-instance 'task-widget :value task) widget)))
+    (alloy:enter "" widget)))
 
 (defmethod alloy:render :around ((renderer simple:renderer) (widget quest-widget))
   (simple:with-pushed-transforms (renderer)
