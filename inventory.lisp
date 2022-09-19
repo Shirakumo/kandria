@@ -240,7 +240,7 @@
 (define-item-category value-item)
 (define-item-category special-item)
 (define-item-category unlock-item)
-(define-item-category lore-item (unlock-item))
+(define-item-category lore-item (unlock-item special-item))
 
 (defmacro define-item ((name &rest superclasses) x y w h &rest default-initargs &key price &allow-other-keys)
   (let ((name (intern (string name) '#:org.shirakumo.fraf.kandria.item)))
