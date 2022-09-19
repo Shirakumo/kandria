@@ -183,6 +183,12 @@
   (:label
    :pattern colors:white))
 
+(defmethod alloy:suggest-size ((size alloy:size) (element label))
+  (let ((shape (presentations:find-shape 'label element)))
+    (if shape
+        (alloy:widen (alloy:suggest-size (alloy:ensure-extent (simple:bounds shape) size) shape) (alloy:margins 2))
+        size)))
+
 (defclass deferrer (alloy:renderable alloy:layout-element)
   ())
 

@@ -349,7 +349,7 @@
    :pattern colors:black
    :line-width (alloy:un 1))
   ((label simple:text)
-   (alloy:margins 10)
+   (alloy:margins 10 0)
    alloy:text
    :pattern colors:white
    :font (setting :display :font)
@@ -373,17 +373,14 @@
          (text (make-instance 'lore-text :value (if (setting :gameplay :display-swears)
                                                     (item-lore item)
                                                     (replace-swears (item-lore item))))))
-    (alloy:enter text layout :constraints `((:width 800) (:required (<= 20 :l) (<= 20 :r)) (:center :w) (:bottom 100) (:top 100)))
+    (alloy:enter text clipper)
+    (alloy:enter clipper layout :constraints `((:width 800) (:required (<= 20 :l) (<= 20 :r)) (:center :w) (:bottom 100) (:top 100)))
+    (alloy:enter scroll layout :constraints `((:width 20) (:right-of ,clipper 0) (:bottom 100) (:top 100)))
     (alloy:enter (make-instance 'item-icon :value item) layout
-                 :constraints `((:left-of ,text 10) (:align :top ,text) (:size 100 100)))
-    #++
-    (progn
-      (alloy:enter text clipper)
-      (alloy:enter clipper layout :constraints `((:width 800) (:required (<= 20 :l) (<= 20 :r)) (:center :w) (:bottom 100) (:top 100)))
-      (alloy:enter scroll layout :constraints `((:width 20) (:right-of ,clipper 0) (:bottom 100) (:top 100))))
-    (alloy:enter (make-instance 'label :value (title item)) layout :constraints `((:left 50) (:above ,text 10) (:size 500 50)))
+                 :constraints `((:left-of ,clipper 10) (:align :top ,clipper) (:size 100 100)))
+    (alloy:enter (make-instance 'label :value (title item)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 500 50)))
     (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
-      (alloy:enter back layout :constraints `((:left 50) (:below ,text 10) (:size 200 50)))
+      (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
       (alloy:enter back focus)
       (alloy:on alloy:exit (focus)
         (setf (alloy:focus focus) :strong)
