@@ -253,6 +253,8 @@ Possible sub-commands:
     (setf (state main) NIL)
     (reset (camera scene))
     (leave (region scene) scene)
+    (setf (strength (unit 'sandstorm scene)) 0.0)
+    (setf (strength (unit 'distortion scene)) 0.0)
     (setf (storyline scene) (make-instance 'quest:storyline))
     (trial:commit scene (loader main))
     (discard-events scene)
