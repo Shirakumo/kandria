@@ -92,7 +92,8 @@
                   (make-instance 'dialogue:jump :target (or (position chapter (dialogue:instructions clone)
                                                                       :key #'dialogue:label :test #'string-equal)
                                                             (error "No chapter named ~s found in ~a.~%The following chapters are defined: ~{~%  ~a~}"
-                                                                   chapter name (remove-if #'null (map 'list #'dialogue:label (dialogue:instructions clone)))))))
+                                                                   chapter name (remove-if #'null (map 'list #'dialogue:label (dialogue:instructions clone)))))
+                                                :index 0))
           (retry ()
             :report "Try reloading the spess file."
             (remhash name *cached-dialogue-assemblies*)
