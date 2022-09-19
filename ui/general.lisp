@@ -184,10 +184,20 @@
    :pattern colors:white))
 
 (defmethod alloy:suggest-size ((size alloy:size) (element label))
-  (let ((shape (presentations:find-shape 'label element)))
+  (let ((shape (or (presentations:find-shape :label element)
+                   (presentations:find-shape 'label element))))
     (if shape
-        (alloy:widen (alloy:suggest-size (alloy:ensure-extent (simple:bounds shape) size) shape) (alloy:margins 2))
+        (alloy:widen (alloy:suggest-size (alloy:ensure-extent (simple:bounds shape) size) shape)
+                     (if (typep (simple:bounds shape) 'alloy:margins) (simple:bounds shape) (alloy:margins 2)))
         size)))
+
+(defmethod alloy:ideal-size ((element label))
+  (or (call-next-method)
+      (let ((shape (or (presentations:find-shape :label element)
+                       (presentations:find-shape 'label element))))
+        (when shape
+          (alloy:widen (alloy:ideal-size shape)
+                       (if (typep (simple:bounds shape) 'alloy:margins) (simple:bounds shape) (alloy:margins 2)))))))
 
 (defclass deferrer (alloy:renderable alloy:layout-element)
   ())
