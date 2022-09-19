@@ -242,8 +242,7 @@ Possible sub-commands:
   (register (make-instance 'walkntalk) scene))
 
 (defmethod load-game (state (main main))
-  (hide-panel 'save-menu)
-  (hide-panel 'main-menu)
+  (hide-panel '(not (or prerelease-notice hud)))
   (show-panel 'load-panel :loader (loader main))
   (render main main)
   (load-state state main))
