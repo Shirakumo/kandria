@@ -33,6 +33,7 @@
                             :display-swears T
                             :pause-on-focus-loss T
                             :display-hud T
+                            :visual-safe-mode NIL
                             :allow-resuming-death NIL
                             :game-speed 1.0
                             :damage-input 1.0

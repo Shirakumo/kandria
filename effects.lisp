@@ -140,7 +140,8 @@ void main(){
 
 (defmethod (setf strength) :after (strength (pass distortion-pass))
   (unless (eq (active-p pass) (< 0 strength))
-    (setf (active-p pass) (< 0 strength))))
+    (setf (active-p pass) (and (< 0 strength)
+                               (not (setting :gameplay :visual-safe-mode))))))
 
 (defmethod stage :after ((pass distortion-pass) (area staging-area))
   (stage (texture pass) area))
@@ -207,7 +208,8 @@ void main(){
 
 (defmethod (setf strength) :after (strength (pass sandstorm-pass))
   (unless (eq (active-p pass) (< 0 strength))
-    (setf (active-p pass) (< 0 strength))))
+    (setf (active-p pass) (and (< 0 strength)
+                               (not (setting :gameplay :visual-safe-mode))))))
 
 (defmethod stage :after ((pass sandstorm-pass) (area staging-area))
   (stage (texture (port pass 'noise)) area)
@@ -264,4 +266,7 @@ void main(){
   }
 }")
 
-
+(define-setting-observer visual-safe-mode :gameplay :visual-safe-mode (value)
+  (when value
+    (setf (active-p (unit 'distortion T)) NIL)
+    (setf (active-p (unit 'sandstorm T)) NIL)))
