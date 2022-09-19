@@ -370,7 +370,9 @@
          (focus (make-instance 'alloy:focus-list))
          (clipper (make-instance 'alloy:clip-view :limit :x :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper :focus-parent focus))
-         (text (make-instance 'lore-text :value (item-lore item))))
+         (text (make-instance 'lore-text :value (if (setting :gameplay :display-swears)
+                                                    (item-lore item)
+                                                    (replace-swears (item-lore item))))))
     (alloy:enter text layout :constraints `((:width 800) (:required (<= 20 :l) (<= 20 :r)) (:center :w) (:bottom 100) (:top 100)))
     (alloy:enter (make-instance 'item-icon :value item) layout
                  :constraints `((:left-of ,text 10) (:align :top ,text) (:size 100 100)))
