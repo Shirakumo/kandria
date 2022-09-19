@@ -11,6 +11,7 @@
       (translate-by (alloy:pxx extent) (alloy:pxy extent) -1000)
       (scale-by (/ (alloy:pxw extent) 1024) (/ (alloy:pxh extent) 1024) 1)
       (translate-by 256 0 0)
+      (bind-textures picture)
       (render picture NIL))))
 
 (defmethod render :before ((picture profile-picture) (program shader-program))
