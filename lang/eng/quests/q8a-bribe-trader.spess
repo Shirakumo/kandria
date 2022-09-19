@@ -1,7 +1,7 @@
 ; character voice: London cockney
 # return-parts/parts-return
 ~ cerebat-trader-quest
-| You "ready to part with them scrap parts"(orange)? I believe we agreed "{(var 'trader-bribe)} in exchange for info on the Council."(orange).
+| You "ready to part with them scrap parts"(orange)? I believe we agreed "{(var 'trader-bribe)} in exchange for info on the Council"(orange).
 ~ player
 - Not yet.
   ~ cerebat-trader-quest

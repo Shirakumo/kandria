@@ -160,7 +160,7 @@
                              (:file "q6-return-to-fi")
                              (:file "q7-my-name")
                              (:file "q8-alex-cerebat")
-                             (:file "q8a-secret-supplies")
+                             (:file "q8a-bribe-trader")
                              (:file "q8-meet-council")
                              (:file "q9-contact-fi")
                              (:file "semi-station-marker")

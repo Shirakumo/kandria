@@ -123,20 +123,20 @@
 |   | | I would've moved on already if not for that.
 |   | | Are they true, the rumours?
 |   | ~ player
-|   | - [(complete-p 'q8a-secret-supplies) I'm afraid so - but there's a good reason.|]
+|   | - [(complete-p 'q8a-bribe-trader) I'm afraid so - but there's a good reason.|]
 |   |   ~ trader
 |   |   | Alqarf!
 |   |   | I'm sure there is. I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
-|   | - [(not (complete-p 'q8a-secret-supplies)) That's what I'm trying to find out.|]
+|   | - [(not (complete-p 'q8a-bribe-trader)) That's what I'm trying to find out.|]
 |   |   ~ trader
 |   |   | Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
-|   | -  [(complete-p 'q8a-secret-supplies) (Lie) I'm not sure.|]
+|   | -  [(complete-p 'q8a-bribe-trader) (Lie) I'm not sure.|]
 |   |   ~ trader
 |   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.
-|   | - [(not (complete-p 'q8a-secret-supplies)) I'm not sure.|]
+|   | - [(not (complete-p 'q8a-bribe-trader)) I'm not sure.|]
 |   |   ~ trader
 |   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.
-|   | - [(not (complete-p 'q8a-secret-supplies)) I don't think so.|]
+|   | - [(not (complete-p 'q8a-bribe-trader)) I don't think so.|]
 |   |   ~ trader
 |   |   | Well that's something. But I think I'll stay here a while longer, just in case.
 |   | - I can't say.
