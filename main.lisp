@@ -250,6 +250,11 @@ Possible sub-commands:
 
 (defmethod reset ((main main))
   (let ((scene (scene main)))
+    (let ((els ()))
+      (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass +world+))))
+        (when (typep el 'popup)
+          (push el els)))
+      (mapc #'hide els))
     (hide-panel '(not prerelease-notice))
     (setf (state main) NIL)
     (reset (camera scene))
