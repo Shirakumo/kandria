@@ -107,6 +107,7 @@
                               (when (deploy:deployed-p)
                                 (v:severe :kandria.save "Failed to load save state ~a: ~a" state e)
                                 (v:debug :kandria.save e)
+                                #++
                                 (invoke-restart 'reset)))))
         (clear-spawns)
         (prog1 (load-state state (scene main))
