@@ -243,9 +243,15 @@ Possible sub-commands:
 
 (defmethod load-game (state (main main))
   ;; KLUDGE: I hate progressions so much.
-  (dolist (progression (progressions (scene main)))
-    (stop progression))
-  (hide-panel '(not (or prerelease-notice hud)))
+  (let ((scene (scene main)))
+    (dolist (progression (progressions scene))
+      (unless (eq progression (progression 'transition scene))
+        (stop progression)))
+    (tagbody retry
+       (loop for panel in (panels (unit 'ui-pass scene))
+             do (unless (typep panel '(or prerelease-notice hud))
+                  (hide panel)
+                  (go retry)))))
   (show-panel 'load-panel :loader (loader main))
   (render main main)
   (load-state state main))
