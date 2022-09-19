@@ -449,6 +449,7 @@
 ; geothermal tube
 ; part of the old underground power station, which circulated water into the heat of the earth to produce steam, which in turn powered a turbine
 ; parts of it are still active, used exclusively by the Wraw faction
+; the Cerebats did cut off this water supply before the game started, leading to the Wraw invasion; but now the Wraw have taken over, the flow is running again
 # task-world-all/wraw-tube
 ~ player
 | "This was one of Trickle's geothermal power stations. The pipes carried water here for boiling."(light-gray, italic)
