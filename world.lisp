@@ -106,9 +106,10 @@
          (null (timer (find-panel 'hud))))))
 
 (defun save-point-available-p ()
-  (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
-    (when (typep object 'save-point)
-      (return T))))
+  (when (chunk (unit 'player +world+))
+    (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
+      (when (typep object 'save-point)
+        (return T)))))
 
 (defun pausing-possible-p ()
   (let ((player (unit 'player +world+)))
