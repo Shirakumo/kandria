@@ -202,6 +202,13 @@
 (defclass task-widget (label)
   ())
 
+(defmethod alloy:text ((widget task-widget))
+  (let* ((task (alloy:value widget))
+         (progress (current-progress task)))
+    (if progress
+        (format NIL "~a (~a/~a)" (quest:title task) progress (full-progress task))
+        (quest:title task))))
+
 (presentations:define-realization (ui task-widget)
   ((:indicator simple:polygon)
    (list (alloy:point 0 5)
@@ -229,7 +236,7 @@
     (alloy:enter description widget)
     (dolist (task (quest:active-tasks quest))
       (when (visible-p task)
-        (alloy:enter (make-instance 'task-widget :value (quest:title task)) widget)))))
+        (alloy:enter (make-instance 'task-widget :value task) widget)))))
 
 (defmethod alloy:render :around ((renderer simple:renderer) (widget quest-widget))
   (simple:with-pushed-transforms (renderer)
