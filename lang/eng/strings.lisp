@@ -492,7 +492,7 @@ item:palette-the-third/description "This uniform has seen many a heist."
 item:palette-error "ERROR"
 item:palette-error/description "ERROR: Missing texture pack"
 item:manual "Combat Manual"
-item:manual/description "" ;; descriptions not needed for lore relics
+item:manual/description "Essential information for combat model androids. Given my memory troubles, I should probably refresh on it."
 item:manual/lore "Combat Manual
 
 Combat models are equipped with a standard Artemis EStuB and are trained to execute a variety of directional attack moves in two types: light and heavy.
@@ -501,7 +501,7 @@ Heavy moves trade an increase in power for slower wind-up and tail-end execution
 
 Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will chain into an evade, which can be followed by a punishing counter move of either type."
 item:cd "Compact Disc"
-item:cd/description ""
+item:cd/description "The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player."
 item:cd/lore "MELITA [unreadable - Manning?]
 
 Night-Time Horizon
@@ -518,9 +518,9 @@ Night-Time Horizon
 
 (c) 2057 Recreational Records
 
-[The artwork shows an overcast sky and endless highway, as night comes over. If I had to guess at a genre I'd say it was synth-pop. The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player. This was a relic even before the Calamity. I've never heard of the artist, nor any of the track names I can discern.]"
+[The artwork shows an overcast sky and endless highway, as night comes over. If I had to guess at a genre I'd say it was synth-pop. The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player. I've never heard of the artist, nor any of the track names I can discern.]"
 item:novel "Novel"
-item:novel/description ""
+item:novel/description "Pages are missing and some are unreadable, but the blood-red roses on the cover have barely faded."
 item:novel/lore "Becky
 
 by Danielle de Moore
@@ -529,7 +529,7 @@ by Danielle de Moore
 
 [I remember this book. How has it survived down here? Pages are missing and some are unreadable, but there's a surprising amount intact. Even the blood-red roses on the cover have barely faded.]"
 item:newspaper "Newspaper Scrap"
-item:newspaper/description ""
+item:newspaper/description "The remains of an inflammatory article from the old Zenith Zodiac. Someone should have inflamed it."
 item:newspaper/lore "[missing] - Thursday, September [unreadable] [missing]
 
 ROBOTS AUTHORIZED TO [unreadable]
@@ -544,31 +544,31 @@ Speaking from her office at Semi headquarters in Boston, MA, Chief Marketing Off
 
 [The rest of the article is missing, as are the details of the publication, and the lower half of the photo and its caption: it's just a Servo's face looking at the camera. But the inflammatory journalistic style is practically a trademark of the Zenith Zodiac.]"
 item:helmet "Riot Helmet"
-item:helmet/description ""
+item:helmet/description "A dented, masked riot helmet from the Zenith Police Department."
 item:helmet/lore "ZPD
 
 [Not much to say: it's a black and blue masked riot helmet from the Zenith Police Department. Looking at the cracks and dents, whoever was wearing this also came out black and blue. Wonder if I knew them.]"
 item:tin "Food Tin"
-item:tin/description ""
+item:tin/description "Judging from the weight its contents are still inside. It's a vacuum-sealed piece of history!"
 item:tin/lore "[missing]
 
 [The label is long gone, save for the dried up remains of the glue that held it on. The tin is also rusting. But it's sealed, and judging from the weight its contents are still inside. It's a vacuum-sealed piece of history! What could be in there? I'll take a guess: baked beans.]"
 item:ball "Soccer Ball"
-item:ball/description ""
+item:ball/description "From one of the last World Cups if I recall. The material and stitching are ripped open and the bladder deflated."
 item:ball/lore "[missing] Aerofoil
 
 World Cup 2338
 
-[This must have been a souvenir - from one of the last World Cups if I recall. The material and stitching are ripped open and the bladder deflated. Still, the rainbow colours and shapes remind me of a better, more united time.]"
+[Perhaps was a souvenir - from one of the last World Cups if I recall. The material and stitching are ripped open and the bladder deflated. Still, the rainbow colours and shapes remind me of a better, more united time.]"
 item:shoe "Child's Shoe"
-item:shoe/description ""
+item:shoe/description "A child's sneaker. The manufacturer's name has rubbed off."
 item:shoe/lore "[missing] [missing]
 
 Size 3.5
 
 [It's a child's sneaker. The manufacturer's name has rubbed off; the size is the only thing I can read. This means the wearer was probably between 6 and 12 years old. It's filled with dirt; it's impossible to tell even what the original colour was.]"
 item:diary "Diary Page"
-item:diary/description ""
+item:diary/description "The rest of the book was nowhere to be found. Without the cover there's no way to know exactly what year this is from."
 item:diary/lore "10 May
 It's hard to know if having these thoughts is normal. I feel like if I told my [unreadable] they'd call the police. I don't think your [sic] meant to visualize stabbing random [unreadable] with a six-foot sword. Am I a closet killer? I can't stop thinking that I am.
 
@@ -578,9 +578,9 @@ H knows - I had to say something when she found me stood bolt upright staring in
 
 I've set a [unreadable] to book a Root doc in the morning. If I can even get a [unreadable] appointment now. Isn't it emergencies only, even with androids?
 
-[The rest of the book was nowhere to be found. Without the cover there's no way to know what year this is from. I wonder who wrote it, and what happened to them. Sounds like an infinite-loop nightmare. Maybe an android helped them.]"
+[The rest of the book was nowhere to be found. Without the cover there's no way to know exactly what year this is from. I wonder who wrote it, and what happened to them. Sounds like an infinite-loop nightmare. Maybe an android helped them.]"
 item:poster "Android Poster"
-item:poster/description ""
+item:poster/description "An old-world propaganda poster supporting androids."
 item:poster/lore "SAY HELLO TO YOUR FELLOW CITIZEN!
 
 He shares your hopes and dreams
@@ -594,7 +594,7 @@ HE'S A PEOPLE PERSON - ARE YOU?
 
 [With my sword I can protect and serve AND cut people's hair! Anyway, I don't think the propaganda worked. Maybe if they'd just been open and honest, acknowledged that androids were different, and talked about that.]"
 item:phone "Smartphone"
-item:phone/description ""
+item:phone/description "It's in surprisingly good condition - not even the screen is cracked."
 item:phone/lore "\"EYEGER\"(bold)
 \"LUCID\"(italic)
 
