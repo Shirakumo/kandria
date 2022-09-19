@@ -167,5 +167,7 @@
   (apply #'spawn (location (unit name +world+)) type initargs))
 
 (defun clear-spawns ()
+  (loop for entity being the hash-keys of +spawn-tracker+
+        do (leave entity T))
   (clrhash +spawn-cache+)
   (clrhash +spawn-tracker+))
