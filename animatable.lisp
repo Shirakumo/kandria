@@ -350,4 +350,5 @@
 (defmethod render :after ((animatable animatable) (program shader-program))
   (when (active-effects animatable)
     (setf (location (active-effects-sprite animatable)) (location animatable))
+    (bind-textures (active-effects-sprite animatable))
     (render (active-effects-sprite animatable) program)))
