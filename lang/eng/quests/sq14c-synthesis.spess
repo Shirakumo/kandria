@@ -35,7 +35,8 @@
   | "But sustained consumption pwfs tfwfsbm xfflt has recently been shown to tfwfsfmz "weaken the immune system"(orange)."
   | "Thus fatality often occurs as the sftvmu pg jogfdujpo46"
   | "Usjbmfe as a biological deterrent by Xftufso tvqfsqpxfst in the nje45twenty-fourth century."
-  | "Not surprisingly it's corrupted, but I think I've "got what I need from this one"(orange). Now I can "sleep the system"(orange) or "search for more"(orange)."(light-gray, italic)
+  | "Not surprisingly it's corrupted, but I think I've "got what I need from this one"(orange)."(light-gray, italic)
+  | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
   ! eval (setf (var 'terminal-1-clue) T)
   < terminal-1-query
 - (Search "cloud service")
@@ -62,9 +63,9 @@
   ~ player
   | "Help functions xjuiifme due to power outage: speak with b nfncfs32pg tubgg for32assistance or to sftupsf qpxfs"
   < terminal-1-query
-- [(var 'terminal-1-clue) (Sleep the system)]
+- [(var 'terminal-1-clue) (Format disk)]
   ~ player
-  | (Confirm sleep the system?)
+  | "Confirm format disk? All data will be erased."
   ~ player
   - (No)
     < terminal-1-query
@@ -146,7 +147,8 @@
   | "Story continues on p5"
   | "Not in this edition it doesn't - there aren't any more scans. Not that I want to read any more of this rag."(light-gray, italic)
   | (:embarassed)"No wonder people called it the three Zs - it puts you in a coma."
-  | "Still, it was shockingly informative for my task: I've "got what I need from this one"(orange). I can "sleep the system"(orange) or "search for more"(orange)."(light-gray, italic)
+  | "Still, it was shockingly informative for my task: I've "got what I need from this one"(orange)."(light-gray, italic)
+  | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
   ! eval (setf (var 'terminal-2-clue) T)
   < terminal-2-query
 - (Search "hardware damage")
@@ -194,9 +196,9 @@
     < terminal-2-help
   - (Return to top level)
     < terminal-2-query
-- [(var 'terminal-2-clue) (Sleep the system)]
+- [(var 'terminal-2-clue) (Format disk)]
   ~ player
-  | (Confirm sleep the system?)
+  | "Confirm format disk? All data will be erased."
   ~ player
   - (No)
     < terminal-2-query
@@ -260,11 +262,12 @@
   | ""How is it made?"(bold) The drug is derived from a "chemical synthesis of opium poppy juice and antibiotics from Usjdipmpnb furvus (black cap mushrooms"(orange))."
   | "A dbubmztu "enzyme is also required"(orange)."
   | ""Download Expediate.txt"(orange, bold) for more information."
-  | "I think I will - there's no way I can remember all those big words, and "The Synthesis needs to know exact quantities"(orange)."(light-gray, italic)
-  | "Downloading Expediate.txt..."(italic)
+  | "I think I will - half of this is corrupted. And besides, "The Synthesis needs to know exact quantities"(orange)."(light-gray, italic)
+  | ""Downloading Expediate.txt..."(orange)"
   ! eval (store 'item:synthesis-file 1)
-  | "Wow that was quick. Oh, it's only 34KB..."(light-gray, italic) (:giggle)"These legacy file types! At least it's not corrupted like the terminal logs."(light-gray, italic)
-  | "Well I've "got what I need from this one"(orange). Now I can "sleep the system"(orange) or "search for more"(orange)."(light-gray, italic)
+  | (:giggle)"Wow that was quick. Oh, it's only 34KB... Legacy file types! And it's not corrupted. Good."(light-gray, italic)
+  | (:normal)"Well I've "got what I need from this one"(orange)."(light-gray, italic)
+  | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
   ! eval (setf (var 'terminal-3-clue) T)
   < terminal-3-query
 - (Search "cyber attack")
@@ -300,9 +303,9 @@
   | ""guest3324568"(bold) left the session"
   | "Session ufsnjobufe. Chat log saved."
   < terminal-3-query
-- [(var 'terminal-3-clue) (Sleep the system)]
+- [(var 'terminal-3-clue) (Format disk)]
   ~ player
-  | (Confirm sleep the system?)
+  | "Confirm format disk? All data will be erased."
   ~ player
   - (No)
     < terminal-3-query
@@ -434,7 +437,7 @@
   | (:normal)"..."(light-gray, italic)
   | "Oh, done already? That didn't take long."(light-gray, italic)
   ~ synthesis
-  | (:grin)We have it. This recipe is... fascinating.
+  | (:grin)We have it. This recipe is... "fascinating"(italic).
   < good-end
 - (Modify the file)
   ~ player
@@ -463,7 +466,7 @@
   | Didn't you hear us? Half of that was gobbledygook.
   | (:grin)Was there corruption, or are you playing with us?
   ~ player
-  - I'm being serious.
+  - There was corruption.
   - That's everything the file contains. VERBATIM.
   ~ synthesis
   | ...
@@ -506,6 +509,8 @@
 | (:grin)We see a "new beginning. Relief of pain"(orange). We have much work to do.
 | But this is now your legacy too. "We'll share it with you"(orange) if it works.
 | "When"(italic) it works.
+
+; some endings suggest they will go and investigate the lab themselves, but ofc the player has formatted the termainls; but they couldn't access them themselves anyway. They mean they will look for other clues in the lab
 
 ; Watch your back: Semis too busy to help him get you though (Wraw-Cerebat concern) / you've helped them already - though this is always before the official Semi alliance; hollow threat anyway, as goes to lab themself and tries to brute force it; gets buried underground with Wraw at end?
 

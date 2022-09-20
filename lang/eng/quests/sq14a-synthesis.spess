@@ -19,6 +19,8 @@
 | | | But we "still need more"(orange) - bring us "{(var 'black-cap-count)}"(orange). Schnell!
 | | | "Check the settlement up there, or the caves."(orange)
 
+; they only take the minimum amount they need, as they don't want to rely on you too much; once they're recovered, they can source their own black caps
+
 # result
 ~ synthesis
 | (:grin)Danke. That is all.
