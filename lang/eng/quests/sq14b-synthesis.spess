@@ -24,6 +24,7 @@
 | There are "3 of them"(orange). You'll see. "Search the databases for black caps"(orange).
 ! eval (activate (unit 'spawner-5703))
 ! eval (activate (unit 'spawner-5705))
+! eval (activate (unit 'spawner-5704))
 
 ; reactivate world spawner again
 ; "You need them" - the recipe could help the player's allies, the Noka, survive in the desert, on the surface
