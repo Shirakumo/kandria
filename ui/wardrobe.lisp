@@ -61,9 +61,12 @@
 (define-shader-entity sprite-preview (alloy:renderable alloy:layout-element standalone-shader-entity)
   ((target :initarg :target :accessor target)))
 
+(defmethod alloy:render-needed-p ((preview sprite-preview)) T)
+
 (defmethod alloy:render ((ui ui) (preview sprite-preview))
   (call-next-method)
-  (with-pushed-matrix ((view-matrix :identity))
+  (with-pushed-matrix ((view-matrix :identity)
+                       (model-matrix :identity))
     (let* ((program (shader-program preview))
            (bounds (alloy:bounds preview))
            (scale (/ (alloy:pxh bounds) 2 (* 2 (vy (bsize (target preview)))))))
@@ -73,6 +76,7 @@
                     0)
       (scale-by scale scale 1)
       (trial::activate program)
+      (bind-textures (target preview))
       (render (target preview) program))))
 
 (define-class-shader (sprite-preview :vertex-shader)
