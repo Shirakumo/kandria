@@ -3,31 +3,7 @@
 | (:angry)You'd better shake a leg. Altogether Islay needs "10 blasting caps"(orange) and "20 charge packs"(orange) for the bomb.
 | (:sly)Have fun in "Wraw territory"(orange).
 ~ player
-| "I need to "check Wraw factories and warehouses"(orange)."(light-gray, italic)
-
-# task-deliveries/interact-islay
-~ islay
-| Did you get the components for the bomb?
-? (= 0 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)))
-| ~ islay
-| | Hurry, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).] "Search through Wraw territory"(orange).
-|?
-| ~ islay
-| | Good. I'll see these are passed to Catherine and fitted right away.
-| | "Here's your payment."(orange)
-| ? (< 0 (item-count 'item:blasting-cap))
-| | ! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
-| | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
-| | ! eval (retrieve 'item:blasting-cap T)
-| ? (< 0 (item-count 'item:charge-pack))
-| | ! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
-| | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
-| | ! eval (retrieve 'item:charge-pack T)
-|  
-| | Hurry though, {(nametag player)} - I still need: [(< 0 (var 'blasting-cap-count)) "Blasting caps: {(var 'blasting-cap-count)}"(orange).|] [(< 0 (var 'charge-pack-count)) "Charge packs: {(var 'charge-pack-count)}"(orange).] "Search through Wraw territory"(orange).
-  
-~ player
-| "I need to "check Wraw factories and warehouses"(orange)."(light-gray, italic)
+| "I need to "check Wraw factories and warehouses"(orange). I currently have: "{(item-count 'item:blasting-cap)} blasting cap"(orange), "{(item-count 'item:charge-pack)} charge pack"(orange)."(light-gray, italic)
 
 ; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb.
 # task-return-fi/fi-return-recruit
@@ -97,25 +73,32 @@
   < questions
 - I have to go.
   ~ fi
-  | If you've got "components for the bomb, take them to Islay"(orange).
+  | If you've got "all the components for the bomb, take them to Islay"(orange).
   | We'll talk again soon.
 
 # task-return/components-return
-! eval (setf (var 'blasting-cap-count) (- (var 'blasting-cap-count) (item-count 'item:blasting-cap)))
-! eval (setf (var 'charge-pack-count) (- (var 'charge-pack-count) (item-count 'item:charge-pack)))
 ~ islay
-| [(>= -3 (+ (var 'blasting-cap-count) (var 'charge-pack-count))) That's the last of the components we needed, and then some! | That's the last of the components we needed.]
-| Thank you, {(nametag player)}. "Here's your payment as promised"(orange).
-? (< 0 (item-count 'item:blasting-cap))
+| Did you get the components for the bomb?
+? (or (> 10 (item-count 'item:blasting-cap)) (> 20 (item-count 'item:charge-pack)))
+| ~ islay
+| | Hurry, {(nametag player)} - remember: "10 blasting caps"(orange) and "20 charge packs"(orange).
+| | "Search through Wraw territory."(orange)
+| ~ player
+| | "I need to "check Wraw factories and warehouses"(orange). I currently have: "{(item-count 'item:blasting-cap)} blasting cap"(orange), "{(item-count 'item:charge-pack)} charge pack"(orange)."(light-gray, italic)
+|?
+| ~ islay
+| | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) Yes. That's the last of them, and then some! | Yes. That's the last of them alright!]
+| | Thank you, {(nametag player)}. "Here's your payment per item, as promised"(orange).
 | ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
 | ! eval (retrieve 'item:blasting-cap T)
-? (< 0 (item-count 'item:charge-pack))
 | ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | ! eval (retrieve 'item:charge-pack T)
-  
+| < result
+
+# result
 ~ islay
 | I'll take the parts to Catherine so she can finish the bomb.
-| Fi, would you join Catherine and I in Engineering?
+| Fi, would you join me in Engineering?
 ~ fi
 | If you insist.
 | And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
@@ -128,4 +111,3 @@
 ! eval (reset interaction)
 ! eval (activate 'q13-intro)
 ! eval (clear-pending-interactions)
-

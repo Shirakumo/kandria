@@ -150,7 +150,7 @@
 ~ innis
 | (:sly)That's right, you be a good dog.
 ~ islay
-| (:unhappy)Innis!
+| (:unhappy)<-Innis!->
 | (:nervous)... You "can't tell Fi"(orange) - whatever the "Wraw are doing to mess with our network, it affects your FFCS"(orange) too.
 ~ player
 - (Check FFCS)
@@ -173,7 +173,7 @@
 ~ islay
 | Good luck, {(nametag player)}.
 ~ player
-| (:thinking)"I think I have a "bearing on where I might find components like these"(orange), after my last foray into Wraw territory."(light-gray, italic)
+| (:thinking)"I think I "know where I might find components like these"(orange), after my last foray into Wraw territory."(light-gray, italic)
 | (:normal)"I should "check their factories and warehouses"(orange) - I'll "update my map"(orange)."(light-gray, italic)
 ! eval (deactivate 'task-reminder)
 ! eval (activate 'q12-help-alex)
