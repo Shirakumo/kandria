@@ -182,7 +182,11 @@
 (defmethod object-renderable-p ((controller controller) (pass rendering-pass)) NIL)
 
 (defmethod sort-frame ((pass rendering-pass) frame)
-  (stable-sort frame #'< :key (lambda (c) (layer-index (car c)))))
+  (stable-sort frame #'< :key (lambda (c)
+                                (let ((object (car c)))
+                                  (etypecase object
+                                    (layer (+ 0.1 (layer-index object)))
+                                    (T (layer-index object)))))))
 
 (defmethod prepare-pass-program :after ((pass rendering-pass) (program shader-program))
   (setf (uniform program "exposure") (exposure pass))
