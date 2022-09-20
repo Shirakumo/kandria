@@ -2,36 +2,30 @@
 # return-supplies/supplies-return
 ~ synthesis
 | Where's our potion?
-? (= 0 (item-count 'item:mushroom-bad-1))
+? (> 4 (item-count 'item:mushroom-bad-1))
 | ~ synthesis
-| | Schnell! We "still need black caps"(orange) - bring us "{(var 'black-cap-count)}"(orange).
+| | Schnell! We "still need black caps - bring us 4"(orange).
 | | "Check the settlement up there, or the caves."(orange)
+| ~ player
+| | "I currently have "{(item-count 'item:mushroom-bad-1)} black cap mushrooms"(orange)."(light-gray, italic)
 |?
 | ~ synthesis
 | | (:grin)Das ist gut. Give us those black caps.
-| ? (< 0 (var 'black-cap-count))
-| | ! eval (setf (var 'black-cap-count) (- (var 'black-cap-count) (min (var 'black-cap-count) (item-count 'item:mushroom-bad-1))))
-| | ! eval (retrieve 'item:mushroom-bad-1 (item-count 'item:mushroom-bad-1))
-| ? (= 0 (var 'black-cap-count))
-| | < result
-| |?
-| | ~ synthesis
-| | | But we "still need more"(orange) - bring us "{(var 'black-cap-count)}"(orange). Schnell!
-| | | "Check the settlement up there, or the caves."(orange)
+| | ! eval (retrieve 'item:mushroom-bad-1 4)
+| < result
 
 ; they only take the minimum amount they need, as they don't want to rely on you too much; once they're recovered, they can source their own black caps
 
 # result
 ~ synthesis
-| (:grin)Danke. That is all.
-| (:normal)Give us a minute, they shouldn't take long to administer.
+| (:grin)Danke. That is them all.
+| (:normal)We need a moment, they shouldn't take long to administer.
 ~ player
 | (:embarassed)"I can't see what they're doing, but I definitely saw a needle."(light-gray, italic)
-| ...
 ~ synthesis
 | ...
 | (:grin)We are in business.
-| Now we feel like making them pay for crossing "The Synthesis"(yellow).
+| Now we feel like making them suffer for crossing "The Synthesis"(yellow).
 ~ player
 - Now you tell me about the old world.
   ~ synthesis
