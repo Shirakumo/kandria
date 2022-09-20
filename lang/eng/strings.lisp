@@ -1064,7 +1064,7 @@ Pinging genera ...                                                 OK
 [ERR ] NFCS unavailable, failed to mark route
 [INFO] Initiating core loop"
 game-intro-notice "
-This game does NOT feature any autosaving. Please save often!
+This game does NOT feature autosaving. Please save often!
 
 If you're having trouble, check out the many Gameplay Settings."
 critical-npc-death-ending "
