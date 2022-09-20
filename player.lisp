@@ -224,6 +224,8 @@ void main(){
             (transition
               (teleport)
               (issue +world+ 'force-lighting)
+              (setf (zoom (camera +world+)) 1.0)
+              (setf (intended-zoom (camera +world+)) 1.0)
               (snap-to-target (camera +world+) player)))))))
 
 (defmethod interact ((trigger teleport-trigger) (player player))
