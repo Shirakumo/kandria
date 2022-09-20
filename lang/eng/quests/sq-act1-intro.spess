@@ -41,8 +41,8 @@
 | | | (:normal)Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
 | | ! eval (retrieve 'item:mushroom-good-1 T)
 | ? (have 'item:mushroom-good-2)
-| | | (:cheer)"Rusty puffball"(red), great! These are my favourite - I made my neckerchief from them, believe it or not.
-| | | (:normal)I weaved them together with synthetic scraps; I needed a mask so their spores wouldn't give me lung disease.
+| | | (:cheer)"Rusty puffball"(red), great! I like to eat these the most - and I made my neckerchief from them, believe it or not.
+| | | (:normal)I weaved them together with synthetic scraps; I needed a mask so the spores from mature specimens wouldn't give me lung disease.
 | | ! eval (retrieve 'item:mushroom-good-2 T)
 | ? (have 'item:mushroom-bad-1)
 | | | (:disappointed)Oh, "black cap"(red)... Not a lot I can do with poisonous ones.
