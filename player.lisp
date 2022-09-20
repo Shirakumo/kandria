@@ -162,6 +162,7 @@ void main(){
     (stage (// 'sound sound) area))
   (stage (fishing-line player) area)
   (stage (stamina-wheel player) area)
+  (stage (fishing-line player) (unit 'render +world+))
   (stage (// 'kandria 'line-part) area)
   (stage (// 'kandria 'sting) area)
   (stage (// 'kandria 'lights) area))
