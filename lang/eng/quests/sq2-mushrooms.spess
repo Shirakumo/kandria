@@ -1,13 +1,18 @@
 # return-mushrooms/mushrooms-return
 ~ catherine
 | How was your mushrooming? Let's see what you've got.
-? (> 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
-| | (:normal)Oh, I don't think you've got enough yet. I need "25 puffballs or flower fungus"(orange). Keep "searching underground"(orange).
+? (> 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | Oh, I don't think you've got enough yet. I need "25 rusty puffballs or flower fungus"(orange). "Avoid black caps"(orange). Keep "searching underground"(orange).
 | | (:excited)Good luck!
+| ~ player
+| | "I currently have "{(item-count 'item:mushroom-good-1)} flower fungus"(orange), "{(item-count 'item:mushroom-good-2)} rusty puffball"(orange), and "{(item-count 'item:mushroom-bad-1)} black cap"(orange)."(light-gray, italic)
 | < end
-|? (= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
+|? (= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
 | | (:excited)Wow, you got exactly what I asked for. I guess I shouldn't be surprised that you're so precise.
-|? (< 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
+|? (< 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
 | | (:cheer)Wow, you got even more than I asked for!
 ? (have 'item:mushroom-good-1)
 | | (:excited)"Flower fungus"(red), nice! I'll get these to Fi and straight into the cooking pot.
