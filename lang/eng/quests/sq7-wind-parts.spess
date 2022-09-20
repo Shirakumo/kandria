@@ -1,40 +1,24 @@
 # return-supplies/supplies-return
 ~ catherine
-| (:excited)You got parts for the windmills? Let's see!
-? (= 0 (+ (min (var 'anemometer-count) (item-count 'item:anemometer)) (min (var 'disc-brake-count) (item-count 'item:disc-brake)) (min (var 'transformer-count) (item-count 'item:transformer))))
+| (:excited)Did you get the parts for the windmills? Let's see!
+? (or (> 5 (item-count 'item:anemometer)) (> 5 (item-count 'item:disc-brake)) (> 5 (item-count 'item:transformer)))
 | ~ catherine
-| | Ah, you don't have any. That's okay though. See what you can find while you're down in "Semis and Cerebats territory"(orange).
+| | Ah, don't worry - see what you can find in "Semi warehouses and Cerebat wind tunnels"(orange).
+| | Remember: "anemometers, disc brakes, transformers - 5 of each"(orange).
 | ~ player
-| | "Remaining quantities to find are: [(< 0 (var 'anemometer-count)) "Anemometers: {(var 'anemometer-count)}"(orange).|] [(< 0 (var 'disc-brake-count)) "Disc brakes: {(var 'disc-brake-count)}"(orange).|] [(< 0 (var 'transformer-count)) "Transformers: {(var 'transformer-count)}"(orange).]"(light-gray, italic)
+| | "I currently have: "{(item-count 'item:anemometer)} anemometer"(orange), "{(item-count 'item:disc-brake)} disc brake"(orange), "{(item-count 'item:transformer)} transformer"(orange)."(light-gray, italic)
 |?
 | ~ catherine
-| | (:excited)Cool, these are perfect - thanks!
-| ? (< 0 (var 'anemometer-count))
-| | ! eval (setf (var 'anemometer-prev-count) (var 'anemometer-count))
-| | ! eval (setf (var 'anemometer-count) (- (var 'anemometer-count) (min (var 'anemometer-count) (item-count 'item:anemometer))))
-| | ! eval (retrieve 'item:anemometer (min (var 'anemometer-prev-count) (item-count 'item:anemometer)))
-| ? (< 0 (var 'disc-brake-count))
-| | ! eval (setf (var 'disc-brake-prev-count) (var 'disc-brake-count))
-| | ! eval (setf (var 'disc-brake-count) (- (var 'disc-brake-count) (min (var 'disc-brake-count) (item-count 'item:disc-brake))))
-| | ! eval (retrieve 'item:disc-brake (min (var 'disc-brake-prev-count) (item-count 'item:disc-brake)))
-| ? (< 0 (var 'transformer-count))
-| | ! eval (setf (var 'transformer-prev-count) (var 'transformer-count))
-| | ! eval (setf (var 'transformer-count) (- (var 'transformer-count) (min (var 'transformer-count) (item-count 'item:transformer))))
-| | ! eval (retrieve 'item:transformer (min (var 'transformer-prev-count) (item-count 'item:transformer)))
-| ? (and (= 0 (var 'anemometer-count)) (= 0 (var 'disc-brake-count)) (= 0 (var 'transformer-count)))
-| | ~ catherine
-| | | (:cheer)That's all the parts I needed!
-| | | (:excited)Oh man, I can't wait to get started. Imagine seeing windmills right here on the surface...
-| | | It'll be like a fantasy kingdom come to life!
-| | | (:normal)Not to mention the energy we'll produce.
-| | | I really appreciate this, {(nametag player)}.
-| | | It must have been dangerous to get these - (:excited)you earned this "reward"(orange).
-| | ! eval (store 'item:parts 450)
-| | | (:normal)See you soon!
-| | ! eval (complete task)
-| | ! eval (reset interaction)
-| |?
-| | ~ catherine
-| | | (:excited)Keep 'em coming! Keep searching in "Semis and Cerebats territory"(orange).
-| | ~ player
-| | | "Remaining quantities to find are: [(< 0 (var 'anemometer-count)) "Anemometers: {(var 'anemometer-count)}"(orange).|] [(< 0 (var 'disc-brake-count)) "Disc brakes: {(var 'disc-brake-count)}"(orange).|] [(< 0 (var 'transformer-count)) "Transformers: {(var 'transformer-count)}"(orange).]"(light-gray, italic)
+| | (:cheer)These are perfect. Thank you!
+| ! eval (retrieve 'item:anemometer 5)
+| ! eval (retrieve 'item:disc-brake 5)
+| ! eval (retrieve 'item:transformer 5)
+| | (:excited)Oh man, I can't wait to get started. Imagine seeing windmills right here on the surface...
+| | It'll be like a fantasy kingdom come to life!
+| | (:normal)Not to mention the energy we'll produce.
+| | I really appreciate this, {(nametag player)}.
+| | It must have been dangerous to get these - (:excited)you earned this "reward"(orange).
+| ! eval (store 'item:parts 450)
+| | (:normal)See you soon!
+| ! eval (complete task)
+| ! eval (reset interaction)
