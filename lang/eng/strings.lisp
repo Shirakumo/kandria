@@ -139,7 +139,8 @@ save "Saving"
 save/description "Use the phone box outside to save progress, or save from the menu while you're near one
 (save often!)"
 attack "Attacking"
-attack/description "Hold different directions together with a light or heavy attack for various moves"
+attack/description "Hold different directions together with a light or heavy attack for various moves -
+consult your Combat Manual for more information"
 sidequests "Sidequests"
 sidequests/description "Explore for unfamiliar characters with \"???\" above their heads - they may have jobs for you"
 cast-line "Cast Line"
