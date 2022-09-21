@@ -80,7 +80,7 @@
          (layout (make-instance 'eating-constraint-layout
                                 :shapes (list (make-basic-background))))
          (data (make-instance 'alloy:accessor-data :object player :accessor 'sword-level))
-         (focus (make-instance 'alloy:focus-list)))
+         (focus (make-instance 'alloy:focus-stack :orientation :vertical)))
     (alloy:enter (make-instance 'icon :value (// 'kandria 'sword)) layout :constraints `(:center (:fill :w) (:height 200)))
     (loop for (level x y . materials) in
           '((1 100 150 (1 item:rusted-clump) (50 item:parts) (2 item:silver-ore))
@@ -94,7 +94,7 @@
     (alloy:enter (make-instance 'label :value (@ upgrade-ui-title)) layout :constraints `((:left 50) (:top 40) (:size 500 50)))
     (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
       (alloy:enter back layout :constraints `((:left 50) (:bottom 40) (:size 200 50)))
-      (alloy:enter back focus)
+      (alloy:enter back focus :layer 1)
       (alloy:on alloy:exit (focus)
         (setf (alloy:focus focus) :strong)
         (setf (alloy:focus back) :weak)))

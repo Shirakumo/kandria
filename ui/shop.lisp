@@ -153,7 +153,7 @@
            (inner (make-instance 'alloy:border-layout))
            (clipper (make-instance 'alloy:clip-view :limit :x))
            (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
-           (focus (make-instance 'alloy:focus-list))
+           (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
            (list (make-instance 'alloy:vertical-linear-layout
                                 :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
                                 :min-size (alloy:size 100 50)))
@@ -198,7 +198,7 @@
            (alloy:enter info layout :constraints `((:right 120) (:below ,inner 10) (:size 500 50))))))
       (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
         (alloy:enter back layout :constraints `((:left 50) (:below ,inner 10) (:size 200 50)))
-        (alloy:enter back focus)
+        (alloy:enter back focus :layer 1)
         (alloy:on alloy:exit (focus)
           (setf (alloy:focus focus) :strong)
           (setf (alloy:focus back) :weak)))
