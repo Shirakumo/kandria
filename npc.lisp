@@ -3,6 +3,9 @@
 (defclass npc-block-zone (ephemeral resizable sized-entity collider creatable)
   ((name :initform NIL)))
 
+(defclass map-block-zone (ephemeral resizable sized-entity collider creatable)
+  ((name :initform NIL)))
+
 (define-shader-entity npc (inventory ai-entity animatable ephemeral dialog-entity profile)
   ((bsize :initform (vec 8 15))
    (target :initform NIL :accessor target)

@@ -218,6 +218,7 @@
 (define-slot-coders (heatwave world-v0) ((location :type vec2) (bsize :type vec2)))
 (define-slot-coders (save-point world-v0) ((location :type vec2)))
 (define-slot-coders (npc-block-zone world-v0) ((location :type vec2) (bsize :type vec2)))
+(define-slot-coders (map-block-zone world-v0) ((location :type vec2) (bsize :type vec2)))
 (define-slot-coders (chest world-v0) (name (location :type vec2) item))
 (define-slot-coders (shutter world-v0) ((location :type vec2)))
 (define-slot-coders (switch world-v0) ((location :type vec2) state))
