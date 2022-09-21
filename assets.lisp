@@ -393,7 +393,7 @@
   :ambience 'ambience/camp)
 
 (define-environment (camp building)
-  :music NIL
+  :music 'music/camp
   :ambience 'ambience/desolate-building)
 
 (define-environment (region1 cave)
