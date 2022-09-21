@@ -38,9 +38,11 @@
 (defmethod render :around ((caster shadow-geometry) (program shader-program))
   (let* ((caster (slot-value caster 'caster))
          (bsize (bsize caster)))
-    ;; We increase the size of the caster and then fade it a bit in order to ensure shadows can cast onto other chunks.
-    (let ((camera (camera +world+)))
-      (setf (uniform program "strength") (clamp 0.0 (- 4 (/ (abs (- (vx (location camera)) (vx (location caster)))) (vx bsize))) 1.0))
+    ;; We fade the caster a bit in order to ensure shadows can cast onto other chunks.
+    (let* ((camera (camera +world+))
+           (view (in-view-tester camera))
+           (diff (* 0.5 (+ 600 (- (vz view) (vx view))))))
+      (setf (uniform program "strength") (- 1.0 (clamp 0.0 (/ (- (abs (- (vx (location camera)) (vx (location caster)))) (vx bsize)) diff) 1.0)))
       (call-next-method))))
 
 (defclass shadow-caster ()
@@ -94,12 +96,19 @@
              (let ((entry (aref frame (1- index))))
                (setf (car entry) object)
                (setf (cdr entry) program))))
-      (do-visible (object (trial:camera pass) (scene pass))
-        (let* ((object (when (typep object 'shadow-caster)
-                         (shadow-geometry object)))
-               (program (gethash object renderable-table)))
-          (when program
-            (store object program)))))
+      (when (region +world+)
+        (let ((container (tvec 0 0 0 0)))
+          (v<- container (in-view-tester (camera +world+)))
+          (decf (vx container) 300)
+          (decf (vy container) 300)
+          (incf (vz container) 300)
+          (incf (vw container) 300)
+          (bvh:do-fitting (object (bvh (region +world+)) container)
+            (let* ((object (when (typep object 'shadow-caster)
+                             (shadow-geometry object)))
+                   (program (gethash object renderable-table)))
+              (when program
+                (store object program)))))))
     (setf (fill-pointer frame) index)
     frame))
 
