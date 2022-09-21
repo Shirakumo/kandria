@@ -68,9 +68,10 @@
 (defmethod quest:try :around ((task task))
   (let ((progress (current-progress task))
         (*current-task* task))
-    (when (and progress (< (last-progress task) progress))
+    (when progress
       (setf (last-progress task) progress)
-      (status :note "~a (~a/~a)" (quest:title task) progress (full-progress task)))
+      (when (< (last-progress task) progress)
+        (status :note "~a (~a/~a)" (quest:title task) progress (full-progress task))))
     (call-next-method)))
 
 (defmethod current-progress ((task task))
