@@ -53,7 +53,8 @@ void main(){
    :valign :middle
    :font (setting :display :font)
    :size (alloy:un 20)
-   :pattern colors:white))
+   :pattern colors:white
+   :outline '(1.0)))
 
 (defclass advance-prompt (alloy:label) ())
 

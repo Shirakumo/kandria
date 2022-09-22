@@ -37,7 +37,8 @@
    :valign :middle
    :font (setting :display :font)
    :size (alloy:un 12)
-   :pattern colors:white))
+   :pattern colors:white
+   :outline '(1.0)))
 
 (presentations:define-update (ui nametag-element)
   (label
@@ -61,7 +62,8 @@
    :valign :middle
    :font (setting :display :font)
    :size (alloy:un 16)
-   :pattern colors:white))
+   :pattern colors:white
+   :outline '(1.0)))
 
 (presentations:define-update (ui enemy-health-bar)
   (:bar
@@ -134,7 +136,8 @@
    :valign :middle
    :font (setting :display :font)
    :size (alloy:ph 0.5)
-   :pattern colors:white))
+   :pattern colors:white
+   :outline '(1.0)))
 
 (presentations:define-update (ui boss-health-bar)
   (:bar
@@ -216,7 +219,8 @@
    :halign :end
    :valign :middle
    :font (setting :display :font)
-   :size (alloy:un 12)))
+   :size (alloy:un 12)
+   :outline '(1.0)))
 
 (presentations:define-update (ui health-bar)
   (:bar
@@ -245,7 +249,8 @@
    :font (setting :display :font)
    :valign :middle
    :halign :right
-   :size (alloy:un 16)))
+   :size (alloy:un 16)
+   :outline '(1.0)))
 
 (presentations:define-update (ui location-info)
   (:bord
@@ -264,7 +269,8 @@
    :font (setting :display :font)
    :valign :top
    :halign :right
-   :size (alloy:un 20)))
+   :size (alloy:un 20)
+   :outline '(1.0)))
 
 (presentations:define-update (ui saving-status)
   (:label
@@ -293,7 +299,8 @@
    :pattern (ecase (importance alloy:renderable)
               (:note colors:white)
               (:normal colors:white)
-              (:important colors:yellow))))
+              (:important colors:yellow))
+   :outline '(1.0)))
 
 (defmethod animation:update :after ((line status-line) dt)
   (when (and (< (timeout line) 0.0)
@@ -324,7 +331,8 @@
    :font "PromptFont"
    :valign :middle
    :halign :middle
-   :size (alloy:un 26)))
+   :size (alloy:un 26)
+   :outline '(1.0)))
 
 (presentations:define-update (ui timer-line)
   (:label :pattern colors:white))
