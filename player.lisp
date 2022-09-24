@@ -1194,6 +1194,10 @@ void main(){
              (T
               (setf (slide-time player) 0.0)))))
     (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
+    ;; KLUDGE: clamp velocity on ground to a sufficiently low amount so we
+    ;;         can't get buffeted from strong winds.
+    (when (and ground (<= (vy vel) 0.0))
+      (setf (vy vel) -0.2))
     (nv+ (frame-velocity player) vel)))
 
 ;;;; Attempt at making it more obvious when dash recharges, but... idk.
