@@ -185,7 +185,8 @@
   (stable-sort frame #'< :key (lambda (c)
                                 (let ((object (car c)))
                                   (etypecase object
-                                    (layer (+ 0.1 (layer-index object)))
+                                    (layer (+ 0.2 (layer-index object)))
+                                    (water (+ 0.1 (layer-index object)))
                                     (T (layer-index object)))))))
 
 (defmethod prepare-pass-program :after ((pass rendering-pass) (program shader-program))
