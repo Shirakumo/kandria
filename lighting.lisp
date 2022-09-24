@@ -173,12 +173,6 @@
    #++(depth :port-type output :attachment :depth-stencil-attachment
              :texspec (:width 640 :height 416))))
 
-;; FIXME: lighting in the scene currently influences lighting when the
-;;        editor is active. when editor is opened we should force the
-;;        lighting to a specific one that's neutral in the editor.
-;;        changing the active status should then switch out the chunk's
-;;        specific one again.
-
 (defmethod object-renderable-p ((controller controller) (pass rendering-pass)) NIL)
 
 (defmethod sort-frame ((pass rendering-pass) frame)
