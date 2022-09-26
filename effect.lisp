@@ -420,7 +420,7 @@ void main(){
   :voice (// 'sound 'zombie-notice))
 
 (define-shader-entity explosion-effect (displacement-effect basic-effect)
-  ((layer-index :initform 2)))
+  ((layer-index :initform 3)))
 
 (defmethod trigger :after ((effect explosion-effect) source &key)
   (let ((flash (make-instance 'flash :location (location effect)
@@ -437,7 +437,8 @@ void main(){
 
 (define-effect explosion explosion-effect
   :voice (// 'sound 'zombie-die)
-  :animation 'explosion
+  :animation 'explosion96
+  :bsize (vec 48 48)
   :particles (list (make-tile-uvs 8 18 128 128)
                    :amount 16
                    :scale 4 :scale-var 2
