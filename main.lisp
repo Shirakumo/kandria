@@ -57,7 +57,7 @@
 (defmethod update ((main main) tt dt fc)
   (let* ((scene (scene main))
          (dt (* (time-scale scene) (game-speed main) (float dt 1.0)))
-         (ev (load-time-value (make-instance 'tick))))
+         (ev (load-time-value (allocate-instance (find-class 'tick)))))
     (let ((target (expt 2 (/ (log (max 0.1 (* dt 100.0)) 2) 3)))
           (source (mixed:speed-factor (harmony:segment :speed T))))
       (setf (mixed:speed-factor (harmony:segment :speed T)) (+ (* target 0.05) (* source 0.95))))
