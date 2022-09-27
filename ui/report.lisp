@@ -8,7 +8,7 @@
 
 (org.shirakumo.fraf.trial.feedback:define-report-hook kandria ()
   (when +world+
-    `(("savestate" ,(file (save-state +world+ (make-instance 'save-state :filename "report")))))))
+    `(("savestate" ,(file (save-state +world+ (clone (state +main+) :filename "report")))))))
 
 (defclass report-panel (pausing-panel menuing-panel)
   ())

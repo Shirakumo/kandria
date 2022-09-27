@@ -790,6 +790,7 @@ world-map-menu "World Map"
 quest-menu "Log Files"
 inventory-menu "Inventory"
 options-menu "Options"
+resume-game "Continue"
 load-game-menu "Load Game"
 credits-menu "Credits"
 changelog-menu "Changelog"
@@ -911,7 +912,9 @@ dismiss-info-panel "Ok"
 dismiss-prompt-panel "Cancel"
 accept-prompt-panel "Ok"
 game-quit-reminder "Are you sure you want to quit?
-Your last save was ~d minutes ago."
+Your last save was ~d minute~:p ago. ~:*~[~;~:;~%Unsaved progress will be lost!~]"
+game-resume-reminder "Are you sure you want to quit?
+You can continue from this point later."
 save-overwrite-reminder "This will overwrite a save from
 ~a
 Are you sure?"

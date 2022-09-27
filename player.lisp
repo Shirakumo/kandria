@@ -246,7 +246,7 @@ void main(){
   (setf (direction player) +1)
   (start-animation 'phone player)
   (setf (animation save-point) 'call)
-  (save-state +main+ T)
+  (save-state +main+ T :show T)
   (status #@game-save-complete))
 
 (defmethod enter :after ((player player) (water water))

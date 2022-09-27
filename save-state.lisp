@@ -39,6 +39,17 @@
       (string< a b)
       (< (length a) (length b))))
 
+(defmethod clone ((state save-state) &rest initargs)
+  (apply #'make-instance 'save-state
+         (append initargs
+                 (list :author (author state)
+                       :id (id state)
+                       :start-time (start-time state)
+                       :save-time (save-time state)
+                       :play-time (play-time state)
+                       :image (image state)
+                       :filename (file-namestring (file state))))))
+
 (defun list-saves ()
   (sort
    (loop for file in (directory (merge-pathnames "*.zip" (config-directory)))
@@ -83,8 +94,8 @@
 (defmethod save-state :around (world target &rest args &key (version T))
   (apply #'call-next-method world target :version (ensure-version version (current-save-version)) args))
 
-(defmethod save-state ((world world) (save-state save-state) &key version)
-  (when (unit 'ui-pass world)
+(defmethod save-state ((world world) (save-state save-state) &key version show)
+  (when (and show (unit 'ui-pass world))
     (toggle-panel 'save-done))
   (v:info :kandria.save "Saving state from ~a to ~a" world save-state)
   (setf (save-time save-state) (get-universal-time))
@@ -156,3 +167,17 @@
        (trial:with-error-logging (:kandria.save)
          (org.shirakumo.fraf.trial.feedback:submit-snapshot
           (id state) (play-time state) (session-time) :trace file))))))
+
+(defun resume-state (resume &optional (main +main+))
+  (unwind-protect (load-game resume main)
+    (let ((state (find (id resume) (list-saves) :key #'id :test #'equalp)))
+      (cond ((eq state resume))
+            (state
+             (v:info :kandria.save "Resuming state ~a. Removing original resume file."
+                     (id resume))
+             (delete-file (file resume))
+             (setf (state main) state))
+            (T
+             (v:severe :kandria.save "Failed to find original save file with id ~a that this resume file is branched from! Replacing save 4."
+                       (id resume))
+             (setf (file resume) (rename-file (file resume) (make-pathname :name "4" :defaults (file resume)))))))))

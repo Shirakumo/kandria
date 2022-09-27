@@ -103,7 +103,8 @@
          player
          (svref (collisions player) 2)
          (eql :normal (state player))
-         (null (timer (find-panel 'hud))))))
+         (do-visible (entity (camera +world+) (region +world+) T)
+           (when (typep entity 'enemy) (return NIL))))))
 
 (defun save-point-available-p ()
   (when (chunk (unit 'player +world+))

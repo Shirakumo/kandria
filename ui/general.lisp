@@ -399,7 +399,7 @@
 
 (defmethod hide ((panel panel))
   (let ((ui (unit 'ui-pass T)))
-    (when (alloy:layout-tree (alloy:layout-element panel))
+    (when (slot-boundp (alloy:layout-element panel) 'alloy:layout-parent)
       (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
       (alloy:leave panel (alloy:root (alloy:focus-tree ui)))
       (setf (panels ui) (remove panel (panels ui))))

@@ -96,6 +96,8 @@
                                                                                    ,@body)
                                                    :focus-parent focus :layout-parent menu ,@initargs)))
       (when (list-saves)
+        (with-button (resume-game)
+          (resume-state (first (sort (list-saves) #'> :key #'save-time))))
         (with-button (load-game-menu)
           (show-panel 'save-menu :intent :load)))
       (with-button (new-game)
@@ -435,7 +437,7 @@ void main(){
                               :location (vec (random* 0 (* 2 (vx tsize)))
                                              (- (vy tsize) 10 (* yspread (/ (expt (random 10.0) 3) 1000.0)))))
                +world+))))
-
+  ;; Show prompt to try and resume from report save file.
   (let ((report (find "report" (list-saves) :key (lambda (s) (pathname-name (file s))) :test #'string=)))
     (when report
       (show (make-instance 'prompt-panel
