@@ -71,6 +71,7 @@
     (when progress
       (setf (last-progress task) progress)
       (when (< (last-progress task) progress)
+        (harmony:play (// 'sound 'ui-quest-update) :reset T)
         (status :note "~a (~a/~a)" (quest:title task) progress (full-progress task))))
     (call-next-method)))
 
