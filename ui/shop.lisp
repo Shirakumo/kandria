@@ -134,7 +134,7 @@
 
 (defmethod alloy:activate ((button sell-button))
   (when (active-p button)
-    (let ((marked (loop for child across (alloy:elements (alloy:focus-parent button))
+    (let ((marked (loop for child in (alloy:elements (alloy:focus-parent button))
                         when (and (typep child 'sell-button) (marked child))
                         collect child)))
       (if marked
