@@ -281,21 +281,9 @@ Possible sub-commands:
         (T
          (show-panel 'startup-screen))))
 
-(define-setting-observer video-mode :display :resolution (value)
-  (when *context*
-    (show *context* :fullscreen (setting :display :fullscreen) :mode value)))
-
-(define-setting-observer video-fullscreen :display :fullscreen (value)
-  (when *context*
-    (show *context* :fullscreen value :mode (setting :display :resolution))))
-
 (define-setting-observer video-misc :display (value)
   (when *context*
-    (destructuring-bind (&key vsync target-framerate ui-scale gamma &allow-other-keys) value
-      (setf (vsync *context*) vsync)
-      (setf (target-frame-time +main+) (typecase target-framerate
-                                         (real (/ target-framerate))
-                                         (T 0.0)))
+    (destructuring-bind (&key ui-scale gamma &allow-other-keys) value
       (with-eval-in-render-loop (+world+)
         (invoke-restart 'trial::reset-render-loop))
       (when (and gamma (unit 'render (scene +main+)))
@@ -323,13 +311,3 @@ Possible sub-commands:
 
 (define-setting-observer swank :debugging :swank (value)
   (manage-swank value))
-
-(define-setting-observer fps-counter :debugging :fps-counter (value)
-  (when +world+
-    (if value
-        (unless (unit 'trial:fps-counter +world+)
-          (enter-and-load (make-instance 'trial:fps-counter) (or (region +world+) +world+) +main+))
-        (when (unit 'trial:fps-counter +world+)
-          (leave (unit 'trial:fps-counter +world+) T)))))
-
-(defmethod layer-index ((counter fps-counter)) 100)

@@ -36,7 +36,11 @@
   (bvh:do-fitting (entity (bvh region) (in-view-tester camera))
     (funcall function entity)))
 
+(defmethod layer-index ((counter fps-counter)) 100)
+
 (defmethod map-visible (function (camera camera) (world world))
+  (let ((fps (unit 'fps-counter world)))
+    (when fps (funcall function fps)))
   (if (region world)
       (map-visible function camera (region world))
       (call-next-method)))

@@ -482,3 +482,11 @@
                         (simple:image-pattern pass (// 'kandria 'ui-background)
                                               :scaling (alloy:size (alloy:u/ (alloy:px 32) (alloy:vw 1))
                                                                    (alloy:u/ (alloy:px 32) (alloy:vh 1))))))))
+
+(define-setting-observer font :display :font ()
+  (when (unit 'ui-pass T)
+    (alloy:refresh (unit 'ui-pass T))))
+
+(define-language-change-hook ui ()
+  (when (unit 'ui-pass T)
+    (alloy:refresh (unit 'ui-pass T))))
