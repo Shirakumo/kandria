@@ -89,8 +89,9 @@
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 40)
                                                    :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (label (make-instance 'info-label :value text :layout-parent layout))
-         (button (make-instance 'popup-button :value #@dismiss-info-panel :layout-parent layout
-                                              :on-activate (lambda () (hide panel)))))
+         (button (alloy:represent (@ dismiss-info-panel) 'popup-button :layout-parent layout)))
+    (alloy:on alloy:activate (button)
+      (hide panel))
     ;; FIXME: scroll
     (alloy:finish-structure panel layout button)))
 
@@ -103,13 +104,14 @@
          (focus (make-instance 'alloy:focus-list))
          (label (make-instance 'info-label :value text :layout-parent layout))
          (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout))
-         (cancel (make-instance 'popup-button :value #@dismiss-prompt-panel :layout-parent buttons :focus-parent focus
-                                              :on-activate (lambda ()
-                                                             (hide panel)
-                                                             (when on-cancel (funcall on-cancel))))))
-    (make-instance 'popup-button :value #@accept-prompt-panel :layout-parent buttons :focus-parent focus
-                                 :on-activate (lambda () (hide panel)
-                                                (funcall on-accept)))
+         (cancel (alloy:represent (@ dismiss-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus))
+         (accept (alloy:represent (@ accept-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus)))
+    (alloy:on alloy:activate (cancel)
+      (hide panel)
+      (when on-cancel (funcall on-cancel)))
+    (alloy:on alloy:activate (accept)
+      (hide panel)
+      (funcall on-accept))
     (alloy:on alloy:exit (focus)
       (setf (alloy:focus focus) :strong)
       (setf (alloy:focus cancel) :weak))

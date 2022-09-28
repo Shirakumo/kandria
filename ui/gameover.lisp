@@ -23,8 +23,9 @@
          (buttons (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 40)))
          (header (make-instance 'header :value #@game-over-title :level 0)))
     (macrolet ((with-button (name &body body)
-                 `(make-instance 'pause-button :focus-parent focus :layout-parent buttons
-                                               :value (@ ,name) :on-activate (lambda () ,@body))))
+                 `(let ((button (alloy:represent (@ ,name) 'pause-button :focus-parent focus :layout-parent buttons)))
+                    (alloy:on alloy:activate (button)
+                      ,@body))))
       (when (setting :gameplay :allow-resuming-death)
         (with-button resume-game
           (setf (health (unit 'player T))

@@ -196,9 +196,11 @@
                                                                                                        :halign :right)))))
            (alloy:enter input layout :constraints `((:right 50) (:below ,inner 10) (:size 50 50)))
            (alloy:enter info layout :constraints `((:right 120) (:below ,inner 10) (:size 500 50))))))
-      (let ((back (make-instance 'button :value (@ go-backwards-in-ui) :on-activate (lambda () (hide panel)))))
+      (let ((back (alloy:represent (@ go-backwards-in-ui) 'button)))
         (alloy:enter back layout :constraints `((:left 50) (:below ,inner 10) (:size 200 50)))
         (alloy:enter back focus :layer 1)
+        (alloy:on alloy:activate (back)
+          (hide panel))
         (alloy:on alloy:exit (focus)
           (setf (alloy:focus focus) :strong)
           (setf (alloy:focus back) :weak)))
@@ -302,24 +304,20 @@
          (count (make-instance 'alloy:value-data :value 1))
          (wheel (make-instance 'item-wheel :data count :range (cons 0 (item-count source T)) :focus-parent focus))
          (total (make-instance 'total-counter :data count :price (price source)))
-         (ok (make-instance 'popup-button
-                            :value (@ accept-trade)
-                            :on-activate (lambda ()
-                                           (handler-case
-                                               (progn
-                                                 (retrieve T source (alloy:value count))
-                                                 (harmony:play (// 'sound 'ui-buy))
-                                                 (hide panel))
-                                             (error ()
-                                               (alloy:with-unit-parent total
-                                                 (animation:apply-animation 'too-expensive (presentations:find-shape 'label total)))
-                                               (harmony:play (// 'sound 'ui-error) :reset T))))
-                            :focus-parent focus))
-         (cancel (make-instance 'popup-button
-                                :value (@ cancel-trade)
-                                :on-activate (lambda ()
-                                               (hide panel))
-                                :focus-parent focus)))
+         (ok (alloy:represent (@ accept-trade) 'popup-button :focus-parent focus))
+         (cancel (alloy:represent (@ cancel-trade) 'popup-button :focus-parent focus)))
+    (alloy:on alloy:activate (ok)
+      (handler-case
+          (progn
+            (retrieve T source (alloy:value count))
+            (harmony:play (// 'sound 'ui-buy))
+            (hide panel))
+        (error ()
+          (alloy:with-unit-parent total
+            (animation:apply-animation 'too-expensive (presentations:find-shape 'label total)))
+          (harmony:play (// 'sound 'ui-error) :reset T))))
+    (alloy:on alloy:activate (cancel)
+      (hide panel))
     (setf (wheel panel) wheel)
     (alloy:enter (make-instance 'popup-label :value (@ trade-quantity)) layout)
     (alloy:enter wheel layout)

@@ -136,7 +136,7 @@
 (defclass icon (alloy:icon alloy:direct-value-component)
   ())
 
-(defclass button (alloy:button*)
+(defclass button (alloy:button)
   ())
 
 (presentations:define-realization (ui button)

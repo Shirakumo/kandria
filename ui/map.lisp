@@ -453,7 +453,7 @@
 (defmethod update-markers ((panel map-panel))
   (update-markers (alloy:focus-element panel)))
 
-(defclass marker-button (button)
+(defclass marker-button (alloy:button* button)
   ())
 
 (presentations:define-realization (ui marker-button)
