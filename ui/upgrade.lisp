@@ -102,3 +102,6 @@
         (setf (alloy:focus back) :weak)))
     (alloy:finish-structure panel layout focus)))
 
+(defmethod show :after ((menu upgrade-ui) &key)
+  (harmony:play (// 'sound 'ui-fast-travel-map-open))
+  (setf (alloy:index (alloy:focus-element menu)) (cons 0 0)))

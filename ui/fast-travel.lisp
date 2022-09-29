@@ -91,7 +91,7 @@
                                             (// 'kandria 'empty-save)))))))
     (let ((back (alloy:represent (@ go-backwards-in-ui) 'button)))
       (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))
-      (alloy:enter back focus)
+      (alloy:enter back focus :layer 0)
       (alloy:on alloy:activate (back)
         (hide panel))
       (alloy:on alloy:exit (focus)
@@ -103,4 +103,5 @@
   (stage (// 'kandria 'empty-save) area))
 
 (defmethod show :after ((menu fast-travel-menu) &key)
-  (harmony:play (// 'sound 'ui-fast-travel-map-open)))
+  (harmony:play (// 'sound 'ui-fast-travel-map-open))
+  (setf (alloy:index (alloy:focus-element menu)) (cons 1 0)))

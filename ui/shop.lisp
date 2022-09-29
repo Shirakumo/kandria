@@ -210,6 +210,9 @@
   (when (typep (alloy:focused (alloy:focus-element panel)) 'sell-button)
     (handle ev (alloy:focused (alloy:focus-element panel)))))
 
+(defmethod show :after ((panel sales-menu) &key)
+  (setf (alloy:index (alloy:focus-element panel)) (cons 0 0)))
+
 (defclass item-wheel (alloy:ranged-wheel)
   ())
 
