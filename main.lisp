@@ -77,9 +77,7 @@
   (setf +world+ NIL))
 
 (defmethod save-state ((main main) (state (eql T)) &rest args)
-  (unless (state main)
-    (setf (state main) (make-instance 'save-state :filename "1")))
-  (apply #'save-state main (state main) args))
+  (apply #'save-state main (or (state main) (make-instance 'save-state :filename "1")) args))
 
 (defmethod save-state ((main main) (state save-state) &rest args)
   (prog1 (apply #'save-state (scene main) state args)
