@@ -17,6 +17,7 @@
 (defmacro define-track (name file &rest args)
   `(define-asset (music ,name) trial-harmony:sound
        ,file
+     :name ,(file-namestring file)
      :repeat T
      :mixer :music
      :voice-class 'harmony:music-segment
