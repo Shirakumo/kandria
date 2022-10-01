@@ -84,13 +84,13 @@
           (nv+ loc dir)))
       ;; Camera zoom
       (let* ((z (zoom camera))
-             (int (intended-zoom camera))
-             (dir (/ (- (log int) (log z)) 10)))
-        (cond ((< (abs dir) 0.001)
-               (setf (zoom camera) int))
-              (T
-               (incf (zoom camera) dir)
-               (clamp-camera-target camera loc))))
+             (int (intended-zoom camera)))
+        (when (/= z int)
+          (let ((dir (/ (- (log int) (log z)) 10)))
+            (if (< (abs dir) 0.001)
+                (setf (zoom camera) int)
+                (incf (zoom camera) dir))
+            (clamp-camera-target camera loc))))
       ;; Camera shake
       (when (< 0 (shake-timer camera))
         (decf (shake-timer camera) dt)
