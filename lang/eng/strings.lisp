@@ -223,9 +223,9 @@ item:medium-health-pack/description "[Heals 25% HP instantly] Like a small healt
 item:large-health-pack "Large Health Pack"
 item:large-health-pack/description "[Heals 50% HP instantly] Use this to avoid spending another few decades offline."
 item:damage-shield "Damage Shield"
-item:damage-shield/description "[-20% Damage taken for 30s]"
+item:damage-shield/description "[-20% Damage taken for 30s] Hardens the synthetic fabrics in my clothing and skin to better withstand impacts."
 item:combat-booster "Combat Booster"
-item:combat-booster/description "[+20% Damage dealt for 30s]"
+item:combat-booster/description "[+20% Damage dealt for 30s] Increases the reaction rate of my fusion core to increase attack force; titanium bones and carbon muscles are also necessarily reinforced."
 item:nanomachine-salve "Nanomachine Salve"
 item:nanomachine-salve/description "[Heals 25% HP over 10s] Looks like ointment, but on closer inspection is made of many nanomachines."
 item:parts "Scrap Parts"
@@ -698,7 +698,7 @@ fish:blowfish "Blowfish"
 fish:blowfish/description "Inflates in self-defence. Doesn't everyone?
 Can be sold for scrap."
 fish:blobfish "Blobfish"
-fish:blobfish/description "If you took a human being to a depth of 4,000 feet, they'd probably look like this too.
+fish:blobfish/description "If you dropped a human being to a depth of 4,000 feet, they'd probably look like this too.
 Can be sold for scrap." ;; https://www.smithsonianmag.com/smart-news/in-defense-of-the-blobfish-why-the-worlds-ugliest-animal-isnt-as-ugly-as-you-think-it-is-6676336/
 fish:jellyfish "Jellyfish"
 fish:jellyfish/description "It's an alien. It has to be.
