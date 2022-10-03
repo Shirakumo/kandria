@@ -178,11 +178,6 @@
 ~ player
 | "My history was rusty even before data loss - were these tunnels excavated solely for habitation, or were they originally mine shafts?"(light-gray, italic)
 
-; the player can use the lanterns to recharge their jump/boost
-# task-world-all/semi-cave-east-2
-~ player
-| "It's fortunate they lit these tunnels with lanterns - the charge is more than sufficient to power my boost."(light-gray, italic)
-
 ; another old Semi factory space
 # task-world-all/semi-cave-east-3
 ~ player
