@@ -135,11 +135,11 @@
   (when (typep element 'alloy:focus-element)
     (setf (alloy:focus-element button) element)
     (when (alloy:focus-tree button)
-      (alloy::set-focus-tree element (alloy:focus-tree button))))
+      (alloy::set-focus-tree (alloy:focus-tree button) element)))
   (when (typep element 'alloy:layout-element)
     (setf (alloy:layout-element button) element)
     (when (alloy:layout-tree button)
-      (alloy::set-layout-tree element (alloy:layout-tree button)))))
+      (alloy::set-layout-tree (alloy:layout-tree button) element))))
 
 (defmethod alloy::set-focus-tree :before (value (item tab))
   (when (alloy:focus-element item)
