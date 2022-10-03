@@ -19,7 +19,7 @@
 ~ player
 | "It's "terminal 1"(red)."(light-gray, italic)
 ? (not (var 'first-one))
-| | "These are old internet servers - they're in low power mode."(light-gray, italic) (:giggle)"Glad I'm not the only computer still working."(light-gray, italic)
+| | "These are old internet servers - they're in low power mode."(light-gray, italic) (:giggle)"Good to see another working computer."(light-gray, italic)
 | | (:normal)"Though they're too primitive to even read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
   
