@@ -596,8 +596,8 @@ HE'S A PEOPLE PERSON - ARE YOU?
 [With my sword I can protect and serve AND cut people's hair! Well I don't think the propaganda worked. Maybe if they'd just been open and honest, acknowledged that androids were different, and talked about that.]"
 item:phone "Smartphone"
 item:phone/description "It's in surprisingly good condition - not even the screen is cracked."
-item:phone/lore "\"EYEGER\"(bold)
-\"LUCID\"(italic)
+item:phone/lore "EYEGER
+LUCID
 
 Battery: 0%
 

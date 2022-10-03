@@ -129,12 +129,12 @@
 - (Search "black caps")
   ~ player
   | "Gah, corruption, as expected. I can't read any of this. Though there's a partial scan of a newspaper front page:"(light-gray, italic)
-  | ""ZENITH ZONAL ZODIAC - Friday, July 21, 2367"(bold)"
-  | ""OPIATE TRIAL SUCCESS SPELLS NEW CHAPTER FOR ECONOMY"(bold)"
+  | "ZENITH ZONAL ZODIAC - Friday, July 21, 2367"
+  | "OPIATE TRIAL SUCCESS SPELLS NEW CHAPTER FOR ECONOMY"
   | "Chase Yasiri, Chief labour correspondent"
   | "The man and woman stood on the front steps of that huge glass building, hands joined and raised to the sky, are captioned as Professor Molly Jacobson and Doctor Devan Kerr."(light-gray, italic)
   | "Okay, let's see what the article has to say. Nothing good knowing the Zodiac."(light-gray, italic)
-  | ""Long-running trial a superhuman success for the increase of pain tolerance."(bold)"
+  | "Long-running trial a superhuman success for the increase of pain tolerance."
   | "Rootless have finally come good on their "new labour drug"(orange), soon to be fast-tracked to market under the brand name, "Expediate"(orange)."
   | "Core subterranean industry giants like Trickle, Artemis, Cross Section, Aegis, and Semi are all in line to receive doses as early as October."
   | "Bridges and Swift are believed to be pulling out all the stops to ensure smooth and efficient distribution."
@@ -146,7 +146,7 @@
   | "'The Guiding Light education program is already underway, to ensure the next generation understand and appreciate the clear benefits of Expediate,' said Rootless' head of PR, Tamsin Shultz."
   | "Story continues on p5"
   | "Not in this edition it doesn't - there aren't any more scans. Not that I want to read any more of this rag."(light-gray, italic)
-  | (:embarassed)"No wonder people called it the three Zs - it puts you in a coma."
+  | (:embarassed)"No wonder people called it the three Zs - it puts you in a coma."(light-gray, italic)
   | "Still, it was shockingly informative for my task: I've "got what I need from this one"(orange)."(light-gray, italic)
   | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
   ! eval (setf (var 'terminal-2-clue) T)
@@ -187,7 +187,7 @@
   - (3. I need help)
     | ~ player
     | "Also not a question, and also a little too bctusbdu for us to parse."
-    | "If you need help using this system, please select a more specific 40ps bo bduvbm41 question, or find a helpful member of staff nearby.
+    | "If you need help using this system, please select a more specific 40ps bo bduvbm41 question, or find a helpful member of staff nearby."
     | "If you seek nfejdbm ifmq, please make an appointment with your Sppumftt hfofsbm practitioner."
     < terminal-2-help
   - (5246 Ipx nvdi epft uijt dptu?)
@@ -250,18 +250,18 @@
 ~ player
 - (Search "black caps")
   ~ player
-  | "DRUG BUST - Honest information about drugs"(bold)
+  | "DRUG BUST - Honest information about drugs"
   | "E 45 most sfbe article: "Expediate"(orange)"
-  | "Expediate, also called 'uif qpujpo'. Manufactured by Rootless and marketed with the slogan '35FyqfejufZpvsMjgf'".
-  | ""What does it look, taste and smell like?"(bold) Commonly available as ubcmfut boe dbqtvmft, but also as syrups and solutions."
+  | "Expediate, also called 'uif qpujpo'. Manufactured by Rootless and marketed with the slogan '35FyqfejufZpvsMjgf'."
+  | "What does it look, taste and smell like? Commonly available as ubcmfut boe dbqtvmft, but also as syrups and solutions."
   | "Typically odourless and tasteless, but can have a txffu tnfmm ps ubtuf."
-  | ""How long does it last63"(bold) The duration of the effects depends on the quantity consumed, your size, and xibu puifs esvht njhiu cf jo zpvs tztufn."
+  | "How long does it last63 The duration of the effects depends on the quantity consumed, your size, and xibu puifs esvht njhiu cf jo zpvs tztufn."
   | "If the drug is administered through your employer, how long the effects last depends on uif joevtusz zpv bsf xpsljoh jo. Consult your dpousbdu."
-  | ""Know the sjtlt58"(bold) Properly prescribed small doses can serve as an effective qbjoljmmfs. However, many recommended doses as stipulated in employment contracts far exceed this."
+  | "Know the sjtlt58 Properly prescribed small doses can serve as an effective qbjoljmmfs. However, many recommended doses as stipulated in employment contracts far exceed this."
   | ""Typical symptoms include: vomiting, mfuibshz44 dizziness, migraines, addiction"(orange)4632However, more are being actively researched."
-  | ""How is it made?"(bold) The drug is derived from a "chemical synthesis of opium poppy juice and antibiotics from Usjdipmpnb furvus (black cap mushrooms"(orange))."
+  | "How is it made? The drug is derived from a "chemical synthesis of opium poppy juice and antibiotics from Usjdipmpnb furvus (black cap mushrooms"(orange))."
   | "A dbubmztu "enzyme is also required"(orange)."
-  | ""Download Expediate.txt"(orange, bold) for more information."
+  | ""Download Expediate.txt"(orange) for more information."
   | "I think I will - half of this is corrupted. And besides, "The Synthesis needs to know exact quantities"(orange)."(light-gray, italic)
   | ""Downloading Expediate.txt..."(orange)"
   ! eval (store 'item:synthesis-file 1)
@@ -272,7 +272,7 @@
   < terminal-3-query
 - (Search "cyber attack")
   ~ player
-  | ""524852 Qbhf not found"(bold)"
+  | "524852 Qbhf not found"
   | "Network capacity exceeded... EEPT BUUBDL SUSPECTED"
   < terminal-3-query
 - (Search "low power")
@@ -293,14 +293,14 @@
   ~ player
   | "Help system error."
   | "Huh, what's this? It's dumped some kind of chat history:"(light-gray, italic)
-  | "Welcome "guest3324568"(bold)33 You've been assigned to Sppumftt Sfq Bmbob"
-  | ""Alana:"(bold) Hi my name's Alana. What can I help you with today?"
-  | ""Bmbob58"(bold) Would you like to book an appointment with your general practitioner?"
-  | ""Alana:"(bold) Are you tujmm uifsf63"
-  | ""guest3324568:"(bold) ittssss startedd 45 mppl pvutjef"
-  | ""guest332456858"(bold) u need to go"
-  | ""Alana:"(bold) Hello?"
-  | ""guest3324568"(bold) left the session"
+  | "Welcome guest332456833 You've been assigned to Sppumftt Sfq Bmbob"
+  | "Alana: Hi my name's Alana. What can I help you with today?"
+  | "Bmbob58 Would you like to book an appointment with your general practitioner?"
+  | "Alana: Are you tujmm uifsf63"
+  | "guest3324568: ittssss startedd 45 mppl pvutjef"
+  | "guest332456858 u need to go"
+  | "Alana:) Hello?"
+  | "guest3324568 left the session"
   | "Session ufsnjobufe. Chat log saved."
   < terminal-3-query
 - [(var 'terminal-3-clue) (Format disk)]
