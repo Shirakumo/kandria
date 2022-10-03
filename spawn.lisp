@@ -25,7 +25,7 @@
 
 (defmacro define-random-draw (&environment env name &body items)
   (let ((total (float (loop for (item weight) in items
-                            do (unless (find-class item NIL env)
+                            do (unless (or (null item) (find-class item NIL env))
                                  (alexandria:simple-style-warning "Unknown item type: ~s"  item))
                             sum weight))))
     `(setf (random-drawer ',name)
