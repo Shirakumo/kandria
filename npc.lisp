@@ -765,3 +765,34 @@
   (cerebat-trader 1.0)
   (tame-wolf 0.2)
   (tame-cat 0.2))
+
+(define-price-variants trader
+  (consumable-item)
+  ;; EG: Fish get you 2x money if you sell, and cost 3x base price to buy back.
+  (fish        :sell 2.0 :buy 3.0)
+  (scrap       :sell 0.5 :buy 1.0)
+  (electronics :sell 1.0 :buy 5.0)
+  (ores        :sell 1.0 :buy 1.5)
+  (liquids     :sell 2.0 :buy 2.0)
+  (skins       :sell 1.5 :buy 2.0)
+  (T))
+
+(define-price-variants islay
+  (consumable-item)
+  (fish        :sell 0.5 :buy 1.0)
+  (scrap       :sell 1.0 :buy 1.0)
+  (electronics :sell 1.5 :buy 3.0)
+  (ores        :sell 0.5 :buy 1.5)
+  (liquids     :sell 1.0 :buy 1.0)
+  (skins       :sell 0.5 :buy 1.0)
+  (T))
+
+(define-price-variants cerebat-trader-quest
+  (consumable-item)
+  (fish        :sell 0.3 :buy 0.5)
+  (scrap       :sell 1.5 :buy 1.5)
+  (electronics :sell 2.0 :buy 2.0)
+  (ores        :sell 2.0 :buy 2.0)
+  (liquids     :sell 0.5 :buy 0.5)
+  (skins       :sell 1.0 :buy 2.0)
+  (T))

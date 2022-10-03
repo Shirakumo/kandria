@@ -120,6 +120,21 @@
 (defmethod price-for-sell ((item item) (inventory inventory))
   (price item))
 
+(defmacro define-price-variants (class &body items)
+  `(progn
+     (defmethod price-for-buy ((item item) (inventory ,class))
+       (floor
+        (* (price item)
+           (typecase item
+             ,@(loop for (item . options) in items
+                     collect `(,item ,(float (getf options :buy 1.0) 0f0)))))))
+     (defmethod price-for-sell ((item item) (inventory ,class))
+       (floor
+        (* (price item)
+           (typecase item
+             ,@(loop for (item . options) in items
+                     collect `(,item ,(float (getf options :sell 1.0) 0f0)))))))))
+
 (defmethod item-description ((item item))
   (language-string (intern (format NIL "~a/DESCRIPTION" (string (type-of item)))
                            (symbol-package (class-name (class-of item))))))
