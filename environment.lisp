@@ -201,6 +201,11 @@
 (defmethod (setf environment) (value (name symbol))
   (setf (gethash name *environments*) value))
 
+(defmethod (setf environment) (value (all (eql T)))
+  (loop for name being the hash-keys of *environments*
+        do (setf (gethash name *environments*) value))
+  value)
+
 (defun list-environments ()
   (loop for env being the hash-values of *environments*
         collect env))
