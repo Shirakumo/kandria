@@ -23,7 +23,7 @@
 | | (:normal)I weaved them together with synthetic scraps; I needed a mask so the spores from mature specimens wouldn't give me lung disease.
 | ! eval (retrieve 'item:mushroom-good-2 T)
 ? (have 'item:mushroom-bad-1)
-| | (:disappointed)Oh, "black cap"(red)... Not a lot I can do with poisonous ones.
+| | (:concerned)Oh, "black cap"(red)... Not a lot I can do with poisonous ones.
 | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
 | ! eval (retrieve 'item:mushroom-bad-1 T)
   

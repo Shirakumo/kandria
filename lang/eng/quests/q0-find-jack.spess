@@ -12,13 +12,13 @@
 ~ jack
 | (:shocked)Fuck me it speaks...
 ~ catherine
-| (:disappointed)Jack, what's wrong? Talk to me.
+| (:concerned)Jack, what's wrong? Talk to me.
 ! eval (setf (nametag (unit 'jack)) (@ jack-nametag))
 ~ jack
 | The water has failed again, and this time I don't think it's the pump. Must be a leak somewhere.
 | If we don't get it back soon we're screwed. We'll lose the whole goddamn crop.
 ~ catherine
-| (:disappointed)Shit!... I should have been here.
+| (:concerned)Shit!... I should have been here.
 ~ jack
 | Yeah you should.
 ~ catherine
@@ -47,7 +47,7 @@
   | Or people.
 - You're right to be afraid.
   ~ catherine
-  | (:disappointed)She's kidding... Aren't you?!
+  | (:concerned)She's kidding... Aren't you?!
   ~ jack
   | (:shocked)I ain't so sure...
   | (:annoyed)Androids don't exactly grow on trees. And you know what they say - they're the reason there ain't no trees any more. Or buildings.
@@ -63,7 +63,7 @@
 ~ jack
 | (:annoyed)But I'm warning you android: Touch one hair on her head and I'll bury you for another thirty years!
 ~ catherine
-| (:disappointed)Thanks "<-Dad->". We'll be going then.
+| (:concerned)Thanks "<-Dad->". We'll be going then.
 ~ jack
 | Hold on Cathy - take this walkie. "Radio if you have any trouble"(orange).
 ~ catherine

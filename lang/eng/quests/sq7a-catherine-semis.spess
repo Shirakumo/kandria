@@ -19,7 +19,7 @@
   | Is it true?
 - The Semi Sisters want you back.
   ~ catherine
-  | (:disappointed)...
+  | (:concerned)...
   ~ player
   - Do you want to go back?
     ~ catherine
@@ -44,7 +44,7 @@
   | (:concerned)You don't sound too convinced.
 - [(complete-p 'q8a-bribe-trader) They seem to be.|]
   ~ catherine
-  | (:disappointed)...
+  | (:concerned)...
   | Like we didn't have enough to worry about.
 - [(not (complete-p 'q8a-bribe-trader)) I don't know.|]
   ~ catherine

@@ -32,7 +32,7 @@
 | Weak as shit. There must be another leak. Over.
 ~ catherine
 | Alright - we'll keep looking. Over and out.
-| Come on... (:disappointed)er - you really need a name.
+| Come on... (:concerned)er - you really need a name.
 | Do androids have names?
 ~ player
 - Yes we have names!
@@ -112,8 +112,8 @@
 
 # 18-interact-catherine/interaction
 ~ catherine
-| (:disappointed)What have they done?...
-| (:concerned)Oh man, we got here just in time. They were dismantling the turbine.
+| (:concerned)What have they done?...
+| Oh man, we got here just in time. They were dismantling the turbine.
 | (:normal)I need to fix this. The "telephone's back there - call Jack and tell him what happened"(orange).
 ~ player
 - Okay.
@@ -252,7 +252,7 @@
   | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - Yes.
   ~ catherine
-  | (:disappointed)...
+  | (:concerned)...
   | (:excited)Yes, of course she has. She's a traitor.
   | (:concerned)Come on, guys!? I know I can be gullible, but do you really think I would have stuck with her if I thought that?
   | Anyway, her memories are all screwed up till the point I brought her online. She doesn't even remember her name!
@@ -270,7 +270,7 @@
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
 | (:concerned)Oh, and we'd need a working computer, which no one's had since before I was born.
-| (:disappointed)But even if we had all that, don't you think you should ask HER if taking her apart is okay?
+| But even if we had all that, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
 | I'm sorry... Stranger, wasn't it?
@@ -319,7 +319,7 @@
 ! eval (move-to 'eng-jack 'jack)
 ! eval (setf (walk 'jack) T)
 ~ catherine
-| (:disappointed)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
+| (:concerned)Urgh, adults. I mean, technically I'm an adult, but not like those dinosaurs.
 | (:normal)Oh! I almost forgot: It's our way to gift something to those that help us out.
 | Since those two aren't likely to be feeling generous, I'll "give you these spare parts"(orange).
 ! eval (store 'item:parts 200)

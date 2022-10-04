@@ -62,7 +62,7 @@
 | | | It gets you "100 scrap parts"(orange).
 | | ! eval (store 'item:parts 100)
 | |?
-| | | (:disappointed)But it's "outside bronze"(orange). I didn't know artificial muscles could get sore too.
+| | | (:concerned)But it's "outside bronze"(orange). I didn't know artificial muscles could get sore too.
 | | | (:normal)Don't worry, you can always try again. (:concerned)But I "don't think I can give you any parts for that"(orange), sorry.
   
 ~ catherine

@@ -24,7 +24,7 @@
   ~ player
   - I don't need to eat.
     ~ catherine
-    | (:disappointed)Well the rest of us aren't so lucky. Aren't so unlucky, actually.
+    | (:concerned)Well the rest of us aren't so lucky. Aren't so unlucky, actually.
   - Ah, I remember now.
     ~ catherine
     | (:concerned)Good. Well...
