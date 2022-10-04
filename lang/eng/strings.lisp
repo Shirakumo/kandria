@@ -1067,6 +1067,7 @@ Pinging genera ...                                                 OK
 [INFO] Marking route to closest service facility
 [ERR ] NFCS unavailable, failed to mark route
 [INFO] Initiating core loop"
+startup-credits-line "A game by Shinmera, Tim, Blob, Mikel, and Cai."
 game-intro-notice "
 This game does NOT feature autosaving. Please save often!
 

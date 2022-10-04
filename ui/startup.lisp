@@ -51,7 +51,7 @@
 (defmethod initialize-instance :after ((panel startup-screen) &key)
   (let* ((layout (alloy:layout-element panel)))
     (let ((page (make-instance 'org.shirakumo.alloy.layouts.constraint:layout)))
-      (alloy:enter (make-instance 'label :value "A game by Shinmera, Tim, Blob, Mikel, and Cai."
+      (alloy:enter (make-instance 'label :value (@ startup-credits-line)
                                          :style `((:label :halign :middle :size ,(alloy:un 30))))
                    page :constraints `((:fill)))
       (alloy:enter page layout))
