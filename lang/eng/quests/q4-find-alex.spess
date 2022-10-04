@@ -182,12 +182,12 @@
 ~ player
 | "This person's breath smells like diesel mixed with seaweed."(light-gray, italic)
 ~ alex
-| (:unhappy)What you looking at? <-Hic->.
+| (:angry)What you looking at? <-Hic->.
 ~ player
 - Alex?
 - (Lie) I wasn't looking at you.
   ~ alex
-  | (:unhappy)Goes away then.
+  | (:angry)Goes away then.
   ~ player
   | Are you Alex?
 - A drunk in a bar.
@@ -196,7 +196,7 @@
   ~ player
   | Are you Alex?
 ~ alex
-| (:unhappy)I ain't Alice.
+| I ain't Alice.
 ~ player
 | I said "Alex" not "Alice".
 ~ alex
@@ -211,23 +211,23 @@
 ~ player
 - My name is Stranger.
   ~ alex
-  | (:unhappy)<-Hic->. I know. You're the new hunter.
+  | <-Hic->. I know. You're the new hunter.
   | The android.
 - Fi sent me.
   ~ alex
-  | (:unhappy)<-Hic->. I know. You're the new hunter.
+  | <-Hic->. I know. You're the new hunter.
   | The android.
 - I'm an android.
   ~ alex
-  | (:unhappy)You wanna medal? <-Hic->. I know who you are. You're the new hunter.
+  | You wanna medal? <-Hic->. I know who you are. You're the new hunter.
 ~ alex
-| (:unhappy)Lemme save you some trouble. "I ain't going back"(orange).
+| Lemme save you some trouble. "I ain't going back"(orange).
 ~ player
 - Why not?
   ~ alex
-  | (:unhappy)You really gotta ask that?
+  | (:angry)You really gotta ask that?
   | ...
-  | (:angry)Alright, you asked for it: <-Hic->. You're the reason.
+  | Alright, you asked for it: <-Hic->. You're the reason.
 - It's important that you do.
   ~ alex
   | No it ain't. Far from it.
@@ -241,7 +241,7 @@
 | Do you know about the Wraw's plan to attack?
 ~ alex
 | They're always planning to attack. <-Hic->. This just Fi getting her knickers in a twist again.
-| (:unhappy)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
+| (:angry)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
 | "They're not going to get anyone's attention like that."(light-gray, italic) (:embarassed)"Oh great, now the barkeep's scowling at me too."(light-gray, italic)
 ~ player
@@ -261,7 +261,7 @@
   ? (<= 20 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 20)
   | ~ alex
-  | | (:unhappy)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
+  | | (:angry)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
   | ~ player
   | | "Oh, they're drinking it anyway."(light-gray, italic)
   |?
