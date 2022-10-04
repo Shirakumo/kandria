@@ -20,9 +20,11 @@
 
 # islay
 ; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
-; Islay soon becomes a trader, so will never need default interacts after that
+; Islay soon becomes a trader, so will never need default interacts after that (the trading is removed near the end, but is taken over by main quest dialogue for the most part, and this fallback to handle interactions while she's rewiring the other 2 bombs)
 ~ islay
-? T
+? (complete-p 'Q15-CATHERINE)
+| | (:nervous)...
+|? T
 | | Hello there.
 
 # alex
