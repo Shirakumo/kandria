@@ -57,14 +57,17 @@
 | | | And that's a "gold-standard"(orange) time!
 | | | Which means you get the maximum reward, courtesy of Innis: "750 scrap parts"(orange).
 | | ! eval (store 'item:parts 750)
+| | ! eval (status "Received 750 Scrap Parts")
 | |? (< pb silver)
 | | | And that's a "silver-standard"(orange) time!
 | | | That equates to, courtesy of Innis: "450 scrap parts"(orange).
 | | ! eval (store 'item:parts 450)
+| | ! eval (status "Received 450 Scrap Parts")
 | |? (< pb bronze)
 | | | And that's a "bronze-standard"(orange) time.
 | | | Which means you earn, courtesy of Innis: "300 scrap parts"(orange).
 | | ! eval (store 'item:parts 300)
+| | ! eval (status "Received 300 Scrap Parts")
 | |?
 | | | But it's "not even bronze-standard"(orange), I'm sorry to say.
 | | | "In the interests of plausibility, I must withhold your prize. You should probably look upset as well."(small)

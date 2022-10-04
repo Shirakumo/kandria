@@ -89,15 +89,15 @@
 | ~ islay
 | | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) Yes. That's the last of them, and then some! | Yes. That's the last of them alright!]
 | | Thank you, {(nametag player)}. "Here's your payment per item, as promised"(orange).
-| ! eval (store 'item:parts (* (item-count 'item:blasting-cap) (var 'bomb-fee)))
+| ! eval (store 'item:parts (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee)))
+| ! eval (status (concatenate 'string "Received " (write-to-string (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee))) " Scrap Parts"))
 | ! eval (retrieve 'item:blasting-cap T)
-| ! eval (store 'item:parts (* (item-count 'item:charge-pack) (var 'bomb-fee)))
 | ! eval (retrieve 'item:charge-pack T)
 | < result
 
 # result
 ~ islay
-| I'll take the parts to Catherine so she can finish up.
+| I'll take the components to Catherine so she can finish up.
 | Fi, would you join me in Engineering?
 ~ fi
 | If you insist.

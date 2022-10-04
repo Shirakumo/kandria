@@ -19,6 +19,7 @@
 | | I really appreciate this, {(nametag player)}.
 | | It must have been dangerous to get these - (:excited)you earned this "reward"(orange).
 | ! eval (store 'item:parts 450)
+| ! eval (status "Received 450 Scrap Parts")
 | | (:normal)See you soon!
 | ! eval (complete task)
 | ! eval (reset interaction)

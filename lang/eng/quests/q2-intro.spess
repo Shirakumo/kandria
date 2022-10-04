@@ -85,6 +85,7 @@
 | Alex has been our sole hunter for some time. You could be a hunter too, and more besides I think.
 | But for now, please "accept these parts"(orange) as a token of my appreciation.
 ! eval (store 'item:parts 200)
+! eval (status "Received 200 Scrap Parts")
 ~ fi
 ? (complete-p 'q3-new-home)
 | | You should "check in with Catherine"(orange) - I'm sure she'd like to see you again.
