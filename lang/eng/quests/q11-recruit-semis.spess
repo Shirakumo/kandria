@@ -18,7 +18,7 @@
   ~ innis
   | (:angry)Unless you can explain why Catherine isn't here, I've nothing more to say to you.
 ~ islay
-| (:unhappy)Sister! {(nametag player)} isn't our enemy. The Noka are not our enemy.
+| (:nervous)Sister! {(nametag player)} isn't our enemy. The Noka are not our enemy.
 ~ innis
 | (:angry)Shut up, Islay. Remember who's in charge!
 | (:normal)And anyway, this time I dinnae ken why you're here, android.
@@ -38,21 +38,21 @@
 | (:sly)... Oh, dinnae tell me you care for the Noka.
 | I never understood why they gave androids emotions. Nothing but a distraction.
 ~ islay
-| (:unhappy)Listen to her Innis, for Christ's sake!
+| (:nervous)Listen to her Innis, for Christ's sake!
 ~ innis
 | (:angry)...
 ~ islay
-| (:unhappy)The Wraw are on our doorstep. Somehow they're running interference on our network.
+| (:nervous)The Wraw are on our doorstep. Somehow they're running interference on our network.
 | We're deaf and blind.
 ~ innis
 | (:angry)It's no' your call.
 ~ islay
-| (:unhappy)Well why don't you ask our people? They see our cameras shutting down one by one, and our guns sat in storage.
+| (:nervous)Well why don't you ask our people? They see our cameras shutting down one by one, and our guns sat in storage.
 | Just what exactly is your plan, sister?
 ~ innis
 | (:angry)Are you saying you could do better?
 ~ islay
-| (:unhappy)I'm saying we need help. We need the Noka - and we need {(nametag player)}.
+| (:nervous)I'm saying we need help. We need the Noka - and we need {(nametag player)}.
 ~ innis
 | (:angry)...
 | Alright. Say we ally with the Noka. Then what?
@@ -63,7 +63,7 @@
 | I've seen their mechs and supplies too - they're considerable.
 ~ islay
 | Right. They are. But I think we stand a fighting chance if we work together.
-| (:unhappy)... And we abandon our home.
+| ... And we abandon our home.
 ~ innis
 | (:angry)No. Never.
 ~ islay
@@ -79,7 +79,7 @@
 ~ islay
 | I've improvised an explosive that could stop their advance. Collapse the tunnels completely - including the metro.
 | ... We can still use it.
-| But we're missing key components - (:unhappy)the hunters that survived barely got out with their lives, never mind the supplies we needed.
+| But we're missing key components - the hunters that survived barely got out with their lives, never mind the supplies we needed.
 ~ innis
 | (:sly)Send the android while we evacuate.
 ~ islay
@@ -114,8 +114,8 @@
     ~ innis
     | (:angry)Fuck that! And what're ya gonna spend it on when the Wraw have rolled through here?
     ~ islay
-    | (:nervous)If we stop them, life might return to normal.
-    | (:normal)But we can't afford 50 - we need those parts. "How about 35?"(orange) We do value your work, and this will be dangerous.
+    | If we stop them, life might return to normal.
+    | But we can't afford 50 - we need those parts. "How about 35?"(orange) We do value your work, and this will be dangerous.
     ~ player
     - Deal.
       ~ islay
@@ -139,8 +139,8 @@
     ~ innis
     | ...
 ~ islay
-| (:nervous)But please hurry.
-| (:normal)We'll "leave the metro running for now"(orange) to help you - but the "Wraw might use the tunnels to move their troops"(orange).
+| But please hurry.
+| We'll "leave the metro running for now"(orange) to help you - but the "Wraw might use the tunnels to move their troops"(orange).
 ~ innis
 | (:angry)Or they'll derail the trains.
 ~ islay
@@ -150,8 +150,8 @@
 ~ innis
 | (:sly)That's right, you be a good dog.
 ~ islay
-| (:unhappy)<-Innis!->
-| (:nervous)... You "can't tell Fi"(orange) - whatever the "Wraw are doing to mess with our network, it affects your FFCS"(orange) too.
+| (:nervous)<-Innis!->
+| (:normal)... You "can't tell Fi"(orange) - whatever the "Wraw are doing to mess with our network, it affects your FFCS"(orange) too.
 ~ player
 - (Check FFCS)
   ~ player

@@ -6,23 +6,23 @@
 | ~ player
 | - Why spy on the Noka?
 |   ~ islay
-|   | (:nervous)We spy on everyone. It's just what we do, it's nothing personal.
-|   | (:normal)We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill each other.
+|   | We spy on everyone. It's just what we do, it's nothing personal.
+|   | We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill each other.
 |   | For what it's worth I value our friendship with the Noka. Fi's a good leader.
 |   < talk
 | - Can you read my black box?
 |   ~ islay
 |   | You think you might have unwittingly betrayed the Noka.
-|   | We know a lot about you - but no, we can't read your black box. No one can any more. (:unhappy)I'm sorry.
-|   | (:normal)I saw what happened with the Servos in the pump room - (:nervous)whether they acted independently, or were being controlled, it's hard to say.
+|   | We know a lot about you - but no, we can't read your black box. No one can any more. I'm sorry.
+|   | I saw what happened with the Servos in the pump room - whether they acted independently, or were being controlled, it's hard to say.
 |   | An android could certainly do that though.
 |   < talk
 | - What was it like before the Calamity?
 |   ~ islay
-|   | (:unhappy)...
+|   | ...
 |   | It was another world, another lifetime.
-|   | (:normal)If you're wondering if androids destroyed the world, I can't help you.
-|   | I wasn't on the surface - (:unhappy)few of us were, that's why we're still here.
+|   | If you're wondering if androids destroyed the world, I can't help you.
+|   | I wasn't on the surface - (:nervous)few of us were, that's why we're still here.
 |   | (:normal)But I don't see how that would've been possible.
 |   | And even if androids did, I doubt very much it was their own doing. No.
 |   < talk
@@ -43,12 +43,12 @@
 |   | (:nervous)You mean apart from the lack of sunlight, and not knowing what time of day it is?
 |   | (:normal)At least we get vitamin D from mushrooms like the flower fungus, once we expose them to UV light.
 |   | Apart from that it's fine - most of us spent our lives underground even before the Calamity.
-|   | (:unhappy)Fresh air is a problem, and it's too hot - as you've probably noticed. The wind tunnels help though.
+|   | (:nervous)Fresh air is a problem, and it's too hot - as you've probably noticed. The wind tunnels help though.
 |   | (:normal)Sometimes I envy the Noka. I know living on the surface has it challenges, but it must be nice living under the sky.
 |   < talk
 | - Why are the Semi Sisters mostly women?
 |   ~ islay
-|   | (:unhappy)Why not? Though we're not a religious order, or nurses, if that's what you're thinking.
+|   | (:nervous)Why not? Though we're not a religious order, or nurses, if that's what you're thinking.
 |   | (:normal)Most who worked in the factories were women. After the Calamity we just stayed together.
 |   | And we've done better than most.
 |   | Maybe the world wouldn't have fallen apart if there were more women in charge. Present company included.
@@ -64,12 +64,12 @@
 |   ~ player
 |   - You've been spying on me again.
 |     ~ islay
-|     | (:nervous)... I'm afraid so.
-|     | (:normal)Good luck, {(nametag player)}.
+|     | ... I'm afraid so.
+|     | Good luck, {(nametag player)}.
 |   - What preparations?
 |     ~ islay
-|     | (:nervous)I'm afraid I can't share that. I'm sorry.
-|     | (:normal)Good luck, {(nametag player)}.
+|     | I'm afraid I can't share that. I'm sorry.
+|     | Good luck, {(nametag player)}.
 |   - Good luck.
 |     ~ islay
 |     | Thank you, {(nametag player)}. To you too.
@@ -77,11 +77,11 @@
 |   < talk
 | - Do androids live in the mountains?
 |   ~ islay
-|   | (:nervous)Oh, that old chestnut...
-|   | (:normal)Before the Calamity there were hundreds of thousands of androids, and more in production.
+|   | Oh, that old chestnut...
+|   | Before the Calamity there were hundreds of thousands of androids, and more in production.
 |   | Where did they all go? Were they all destroyed? - Present company excepted.
 |   | Sometimes we find the occasional Genera core; but the truth is no one knows, and we'll probably never know.
-|   | But I doubt any are living in the mountains. We'd have seen or heard something, detected a signal... (:unhappy)But there's nothing.
+|   | But I doubt any are living in the mountains. We'd have seen or heard something, detected a signal... But there's nothing.
 |   < talk
 | - I need to go.
 |   < leave

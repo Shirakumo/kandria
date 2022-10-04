@@ -2,7 +2,7 @@
 ~ fi
 | (:unsure)What is it? Should we detonate the bombs now?
 ~ islay
-| (:nervous)Zelah's still on the surface. And what if he knows about them? Won't his army have pulled back?
+| Zelah's still on the surface. And what if he knows about them? Won't his army have pulled back?
 ~ fi
 | (:annoyed)He doesn't know about them.
 ~ islay
@@ -13,22 +13,22 @@
 | If you're sure.
 ~ islay
 | I'm sure.
-| (:nervous)Here goes. Sending the signals...
+| Here goes. Sending the signals...
 | ...
 ~ fi
 | ...
 ~ islay
-| (:unhappy)"It didn't work."(orange)
+| (:nervous)"It didn't work."(orange)
 ~ fi
 | (:annoyed)What?... Why?
 ~ islay
 | (:nervous)I don't know.
-| "The signal is getting through"(orange); their comms interference isn't running yet - Zelah's probably organising his own people.
+| (:normal)"The signal is getting through"(orange); their comms interference isn't running yet - Zelah's probably organising his own people.
 ~ fi
 | (:unsure)Could they have found the bombs?
 ~ islay
 | ... Let's hope not.
-| (:unhappy)Fuck.
+| (:nervous)Fuck.
 | Someone needs to go down there.
 ~ player
 - I'll go.
@@ -39,11 +39,11 @@
   | (:happy)...
 - I guess that means me.
 ~ islay
-| No. You don't know enough about the bombs. (:nervous)It has to be "Catherine"(orange).
+| No. You don't know enough about the bombs. It has to be "Catherine"(orange).
 ~ fi
 | (:annoyed)You don't trust her?
 ~ islay
-| (:nervous)It's not that.
+| It's not that.
 ~ player
 - Teach me how to check them.
   ~ islay

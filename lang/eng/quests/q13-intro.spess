@@ -19,7 +19,7 @@
 | And we don't need any more components to do it this way - not now we've got this delivery.
 ~ islay
 | Good. Finish the assembly as quickly as you can.
-| (:nervous)... That just leaves the question of how we plant them.
+| ... That just leaves the question of how we plant them.
 ~ player
 | "Islay is looking at Fi. I think an understanding is passing between them."(light-gray, italic)
 ~ islay
@@ -89,13 +89,13 @@
 ~ fi
 | Where are they being detonated?
 ~ islay
-| (:nervous)...
+| ...
 ~ fi
 | (:unsure)Well?
 ~ islay
 | In the "Brother offices to the west of the Zenith Hub"(orange);
 | On your "low eastern border, beyond the old Rootless hospital apartments"(orange);
-| (:nervous)... In the "flooded cave beside the pump room"(orange).
+| ... In the "flooded cave beside the pump room"(orange).
 ~ fi
 | (:unsure)You're not serious?
 ~ islay
