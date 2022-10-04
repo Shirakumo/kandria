@@ -89,10 +89,10 @@
     ~ semi-roboticist
     | Of course. Here, let me "up your payment"(orange) to "500 parts"(orange) for your trouble.
     < big-reward
-- There's no need. The work was important.
+- There's no need. The work was important enough.
   ~ semi-roboticist
-  | Interesting... I mean- Not at all! Science in these parts is well funded.
-  | And besides, I'm not paying: Islay is.
+  | Interesting... I mean- You're right of course. But science in these parts is well funded.
+  | And besides, I'm not paying - Islay is!
   | Here, take it!
   < reward
 

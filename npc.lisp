@@ -654,6 +654,7 @@
    :default-interaction 'soldier
    :sprite-data (asset 'kandria 'rogue)))
 
+;; wraw drill sergeant (combat races)
 (define-shader-entity npc-soldier (paletted-npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ unknown-nametag))
@@ -661,6 +662,15 @@
    (palette-index :initform 0))
   (:default-initargs
    :sprite-data (asset 'kandria 'rogue)))
+
+;; zombie template (sq4a)
+(define-shader-entity npc-zombie (paletted-npc creatable)
+  ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (@ unknown-nametag))
+   (palette :initform (// 'kandria 'zombie-palette))
+   (palette-index :initform 0))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'zombie)))
 
 ;; WORLD NPCs (they roam)
 (define-shader-entity villager-hunter (roaming-npc creatable)

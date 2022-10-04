@@ -331,6 +331,16 @@
 |?
 | | Report for training, ye scum.
 
+# sq4a-zombie
+; Servo developing sapience and sentience as a legacy of the roboticist's investigations in sq4a
+; gender unknown
+; if complete the quest, says more developed things - delib no punctuation
+~ sq4a-zombie
+? (complete-p 'SQ4-ANALYSE-ROBOTS)
+| | [? __MWAAA__ | __GRRAAA__ | __FWAAA__ | <-MWAAA-> | <-GRRAAA-> | <-FWAAA-> | who you | who I | why you not look | we alike | it hurts | stay here | where friend | why hurt | don't want | can't think | who blame | don't go | you friend]
+|?
+| | [? __MWAAA__ | __GRRAAA__ | __FWAAA__ | <-MWAAA-> | <-GRRAAA-> | <-FWAAA->]
+
 # synthesis
 ; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
 ; used in sq14
