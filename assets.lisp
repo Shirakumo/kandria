@@ -128,7 +128,8 @@
   (wind :wrapping :repeat :min-filter :nearest :mag-filter :nearest)
   (region1-overlay :wrapping :repeat)
   (region2-overlay :wrapping :repeat)
-  (region3-overlay :wrapping :repeat))
+  (region3-overlay :wrapping :repeat)
+  (wall-overlay :wrapping :repeat))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.wav")
   (T :volume 0.4)
