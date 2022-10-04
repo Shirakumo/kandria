@@ -24,8 +24,8 @@
   | (:normal)But I'll take what we can get.
 ~ fi
 | Innis is a lot of things but she isn't stupid.
-| Just make sure you get to them first.
-| I'm going to see Sahil. "Call me when you have news."(orange)
+| Just make sure you get to them first. "Call me when you have news"(orange).
+| I'm going to try and find Sahil - no one knows where he is.
 ~ player
 | "Fi looks like she wants to say something else, but I think the moment has passed."(light-gray, italic)
 - Are you okay?
@@ -47,8 +47,6 @@
 - No promises.
 ! eval (setf (location 'trader) (location 'trader-semi-loc))
 ! eval (setf (direction 'trader) 1)
-! eval (move-to 'loc-trader (unit 'fi))
-! eval (setf (walk 'fi) T)
 ! eval (setf (location 'innis) (location 'innis-org-loc))
 ! eval (setf (direction 'innis) -1)
 ! eval (setf (location 'islay) (location 'islay-org-loc))
