@@ -641,7 +641,7 @@
 ;; placement: region 1 market areas
 
 ;; REGION 1 LOWER - silver and bronze introduced here, but can also buy from Islay in this area, once unlocked
-#| new items in this region:   
+#| new items in this region:
    silver-ore
    bronze-clump
    pure-water
@@ -707,7 +707,7 @@
 ;; REGION 2 - increase spawn frequency of bronze and silver (in caves by reducing number of other items; and in market areas too?)
 ;; - very different architecture and geology too, so whereas a lot of overlap between region 1 upper and lower, this will feel quite different
 
-#| new items in this region:   
+#| new items in this region:
  thermal-fluid (also for trader quest)
  pearl (also for trader quest)
  pristine-pelt
@@ -781,7 +781,7 @@
 ;; placement: generally more spawners and quantities per spawner here, to offset the smaller region, and to warrant non-quest trips this far down
 ;; also helps show that despite the desolate environment, the Wraw are well off
 
-#| new items in this region:   
+#| new items in this region:
 
   refined-oil - needed for later sword upgrade / Islay also sells
   hardened-alloy - needed for later sword upgrade / Islay also sells
