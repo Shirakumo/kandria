@@ -175,8 +175,8 @@
     (perform-collision-tick item (dt ev)))
   (when (light item)
     (vsetf (location (light item))
-           (vx (location item))
-           (+ 12 (vy (location item))))
+           (+ 1 (vx (location item)))
+           (+ 15 (vy (location item))))
     (when (= 0 (mod (fc ev) 10))
       (setf (multiplier (light item)) (random* 1.0 0.2)))))
 
@@ -194,8 +194,7 @@
                                                   :size (vec 64 64)
                                                   :offset (vec 0 144))))
         (setf (light item) light)
-        (setf (container light) +world+)
-        (enter light (unit 'lighting-pass +world+))))))
+        (enter light (container item))))))
 
 (defmethod interact ((item item) (inventory inventory))
   (trade NIL inventory item 1)
@@ -203,7 +202,7 @@
 
 (defmethod leave :after ((item item) thing)
   (when (light item)
-    (leave (light item) (unit 'lighting-pass +world+))
+    (leave (light item) T)
     (setf (light item) NIL)))
 
 (defmethod have ((item item) (inventory inventory))
