@@ -952,7 +952,7 @@ new-item-in-inventory "Received ~a"
 fish-caught-successfully "Caught ~a"
 station-pick-destination "Select your destination"
 new-station-unlocked "~a station has been activated."
-corrupted-map-reticle "[CORRUPTED]"
+corrupted-map-reticle "[MAP CORRUPTED]"
 ;; Cheat codes
 cheat/hello "HELLO and welcome back to video games"
 cheat/cheat-console "Cheat menu active"
