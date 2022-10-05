@@ -1081,7 +1081,7 @@ Pinging genera ...                                                 OK
 [INFO] Initiating core loop"
 startup-credits-line "A game by Shinmera, Tim, Blob, Mikel, and Cai."
 game-intro-notice "
-This game does NOT feature autosaving. Please save often!
+This game does NOT use autosaving. Please save often!
 
 If you're having trouble, check out the many Gameplay Settings."
 critical-npc-death-ending "
