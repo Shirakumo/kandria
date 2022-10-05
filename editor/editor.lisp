@@ -345,7 +345,8 @@
       (setf (background (unit 'background T)) (background 'editor))
       (reset (camera +world+))
       (setf (target (camera +world+)) (unit 'player T))
-      (update-background (unit 'background T) T))))
+      (update-background (unit 'background T) T)
+      (show-cursor *context*))))
 
 (defmethod edit ((action (eql 'load-region)) (editor editor))
   (flet ((load (path)

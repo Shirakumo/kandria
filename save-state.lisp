@@ -146,6 +146,10 @@
         (setf (strength (unit 'distortion T)) 0.0))
       (when (unit 'walkntalk world)
         (walk-n-talk NIL))
+      (let ((bg (unit 'background T)))
+        (when bg
+          (setf (background bg) (background 'black))
+          (update-background bg T)))
       (dolist (progression (progressions world))
         (reset progression))
       (setf (area-states (unit 'environment world)) NIL)
