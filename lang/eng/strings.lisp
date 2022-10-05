@@ -65,7 +65,10 @@ unsafe-region-interrupt "
 | This doesn't look safe. I'll wait here for you."
 zelah-attack-start "
 ~ zelah
-| Heh, bring it on then!"
+| You lost your damn mind?!
+| (:jovial)Alright stand back, I'll deal with this."
+;; ^ hint that you work for him, or that after the envoy, killing him would be a mistake
+;; "stand back" explains why his soldiers don't jump in to help
 ;; Places
 chunk-1840 "City Ruins"
 chunk-1893 "Storage"
@@ -1094,7 +1097,7 @@ the entire valley was wiped out in a massive fireball.
 
 Good job!"
 zelah-early-death-ending "
-With Zelah defeated, the Wraw chain of command quickly fell apart.
+With their leader defeated, the Wraw chain of command quickly fell apart.
 The valley entered an uneasy state of peace, but peace it was
 nevertheless.
 
