@@ -535,7 +535,6 @@
      (when (<= (cooldown-time enemy) 0.0)
        (case (ai-state enemy)
          (:normal
-          (setf (health enemy) 1)
           (setf (ai-state enemy) :active))
          (:active
           (let* ((player (unit 'player T))
