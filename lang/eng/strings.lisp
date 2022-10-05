@@ -54,6 +54,18 @@ villager-male-nametags ("Ajrion" "Arthur" "Avedon" "Blake Ashwell" "Brian" "Chri
 ;; Walk-n-talk blurbs
 player-hurt-while-talking "~ player
 | Ugh! Damn it!"
+default-lead-interrupt "
+~ npc
+| Where are you going? It's this way!"
+catherine-lead-interrupt "
+~ catherine
+| [? This way. | Follow me. | Keep up. | Let's go.]"
+unsafe-region-interrupt "
+~ npc
+| This doesn't look safe. I'll wait here for you."
+zelah-attack-start "
+~ zelah
+| Heh, bring it on then!"
 ;; Places
 chunk-1840 "City Ruins"
 chunk-1893 "Storage"

@@ -11,7 +11,7 @@
    (target :initform NIL :accessor target)
    (companion :initform NIL :accessor companion)
    (walk :initform NIL :accessor walk)
-   (lead-interrupt :initform "| Where are you going? It's this way!" :accessor lead-interrupt)
+   (lead-interrupt :initform (@ default-lead-interrupt) :accessor lead-interrupt)
    (nametag-element :accessor nametag-element)))
 
 (defmethod initialize-instance :after ((npc npc) &key)
@@ -243,6 +243,7 @@
                 (setf (ai-state npc) :lead-teleport))
                (T
                 (setf (path npc) NIL)
+                (setf (gethash 'npc (name-map +world+)) npc)
                 (interrupt-walk-n-talk (lead-interrupt npc))))))
       (:lead-teleport
        (setf (path npc) NIL)
@@ -267,9 +268,8 @@
        (let ((distance (vsqrdistance (location npc) (location companion))))
          (cond ((target-blocked-p companion)
                 ;; TODO: make it customisable.
-                (walk-n-talk (format NIL "~~ ~a
-| This doesn't look safe. I'll wait here for you."
-                                     (type-of npc)))
+                (setf (gethash 'npc (name-map +world+)) npc)
+                (walk-n-talk (@ unsafe-region-interrupt))
                 (setf (vx (velocity npc)) 0)
                 (setf (ai-state npc) :follow-wait)
                 (setf (state npc) :normal))
@@ -523,8 +523,7 @@
    (profile-sprite-data :initform (asset 'kandria 'catherine-profile))
    (nametag :initform (@ catherine-nametag))
    (pitch :initform 1.02)
-   (lead-interrupt :initform "~ catherine
-| [? This way. | Follow me. | Keep up. | Let's go.]"))
+   (lead-interrupt :initform (@ catherine-lead-interrupt)))
   (:default-initargs
    :sprite-data (asset 'kandria 'catherine)))
 
@@ -733,6 +732,7 @@
     (stage (// 'sound asset) area)))
 
 (defmethod hurt ((npc zelah) (player player))
+  (walk-n-talk (@ zelah-attack-start))
   (change-class npc 'zelah-enemy))
 
 ;; roaming engineers used in the questline
