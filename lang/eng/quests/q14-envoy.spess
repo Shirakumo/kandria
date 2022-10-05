@@ -1,20 +1,20 @@
-# 2-interact-zelah/interaction
+# 3-interact-zelah/interaction
 ~ zelah
 | Ah, the guest of honour. We've been waitin' for ya.
 ~ player
 - Who are you?
   ~ zelah
-  | (:jovial)I'm your worst nightmare, love.
-  | But ya can call me Zelah.
+  | (:jovial)I'm Zelah, "remember"(orange)?
 - Let me guess: Zelah.
   ~ zelah
-  | Got it in one.
+  | Good, ya "remember"(orange).
 - So you lead the Wraw?
   ~ zelah
-  | I do. And everyone else 'round here.
-  | Ya can call me Zelah.
+  | Ya know I do. I lead everyone 'round here.
+  | I'm Zelah, "remember"(orange)?
 ! eval (setf (nametag (unit 'zelah)) (@ zelah-nametag))
 ~ fi
+| (:unsure)...
 | (:annoyed)What do you want?
 ~ zelah
 | I'm here for the android. "My android"(orange).
@@ -77,5 +77,16 @@
 - You'll be dead soon.
 ~ zelah
 | Alright. We'll see ya on the battlefield.
+! eval (move-to 'wraw-surface-rally 'zelah)
+! eval (move-to 'wraw-surface-rally 'alex)
+! eval (move-to 'wraw-surface-rally 'soldier-1)
+! eval (move-to 'wraw-surface-rally 'soldier-2)
+! eval (move-to 'wraw-surface-rally 'soldier-3)
+~ islay
+| ...
+| Fi, {(nametag player)} - "come to Engineering"(orange).
+| We "need to talk"(orange).
+! eval (activate (unit 'zelah-gone))
+
 ; kent = knew (Scottish)
 ; Zelah motivation: greed, resource/people acquisition

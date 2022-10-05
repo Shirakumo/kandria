@@ -20,7 +20,7 @@
 ~ player
 | Come with me to "Engineering"(orange).
 
-# 5-interact-fi/interaction
+# 6-interact-fi/interaction
 ~ fi
 | (:annoyed)Islay's gone. I couldn't stop her.
 | She said the only way to be sure was if she checked the bombs herself.
@@ -59,7 +59,7 @@
 ~ fi
 | Okay, "take this walkie"(orange) - (:unsure)she's not responding, but she might call if she needs help.
 ! eval (store 'item:walkie-talkie-2 1)
-| "She's probably gone to the pump room"(orange) first as it's closest to the border.
+| "She's probably gone to the pump room first"(orange) because it's closest to the border.
 | She also "took the signal detonator"(orange)...
 ! eval (follow 'player 'catherine)
 
