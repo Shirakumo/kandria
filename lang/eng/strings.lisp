@@ -1102,3 +1102,4 @@ The valley entered an uneasy state of peace, but peace it was
 nevertheless.
 
 Good job!"
+;; don't name Zelah in this one, as fight could happen before you know his name (q6), and certainly before it's confirmed (q14)
