@@ -254,7 +254,7 @@
     (when (slot-boundp (prompt prompt) 'alloy:layout-parent)
       (hide (prompt prompt))))
   (when (and (interrupt prompt)
-             (active-p prompt)
+             (eql :triggered (active-p prompt))
              (< (time-scale +world+) 1.0))
     (if (<= 0.01 (time-scale +world+))
         (setf (time-scale +world+) (* (time-scale +world+) 0.95))
@@ -269,6 +269,7 @@
       ;; KLUDGE: clear dash to ensure player can always recover.
       (when (eql (action prompt) 'dash)
         (setf (dash-exhausted player) NIL))
+      (setf (active-p prompt) :triggered)
       (setf (time-scale +world+) 0.99))
     (let ((loc (vec (vx (location prompt))
                     (+ (vy (location player)) (vy (bsize player))))))
