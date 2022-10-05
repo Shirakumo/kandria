@@ -6,7 +6,7 @@
    (alert-distance :initform (* +tile-size+ (random* 8 6)) :accessor alert-distance)
    (acceleration :initform (vec 0 0) :accessor acceleration)))
 
-(defmethod layer-index ((critter critter)) (1- +base-layer+))
+(defmethod layer-index ((critter critter)) +base-layer+)
 
 (defmethod interactable-p ((critter critter))
   (eql :normal (state critter)))
