@@ -312,15 +312,20 @@ void main(){
            (etypecase thing
              (symbol (unit thing +world+))
              (entity thing)
-             (vec thing))))
+             (vec thing)))
+         (ensure-sized (x y w2 h2)
+           (if (or (< w2 32) (< h2 32))
+               (vec x y 32 32)
+               (vec x y w2 h2))))
     (let* ((thing (resolve thing))
            (test-fun (etypecase thing
                        (vec2
                         (lambda (other)
                           (< (vsqrdistance (location other) thing) (expt 64 2))))
                        (vec4
-                        (lambda (other)
-                          (contained-p (location other) thing)))
+                        (let ((thing (ensure-sized (vx thing) (vy thing) (vz thing) (vw thing))))
+                          (lambda (other)
+                            (contained-p (location other) thing))))
                        (chunk
                         (lambda (other)
                           (contained-p other thing)))
@@ -328,13 +333,16 @@ void main(){
                         (lambda (other)
                           (< (vsqrdistance (location other) (location thing)) (expt 64 2))))
                        (sized-entity
-                        (lambda (other)
-                          (contained-p thing other)))
+                        (let ((thing (ensure-sized (vx (location thing)) (vy (location thing))
+                                                   (vx (bsize thing)) (vy (bsize thing)))))
+                          (lambda (other)
+                            (contained-p thing other))))
                        (located-entity
                         (lambda (other)
                           (< (vsqrdistance (location other) (location thing)) (expt 64 2))))
                        (null
                         (lambda (other)
+                          (declare (ignore other))
                           NIL)))))
       (loop for thing in things
             always (funcall test-fun (resolve thing))))))
