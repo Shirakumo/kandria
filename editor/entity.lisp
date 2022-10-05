@@ -37,20 +37,12 @@
 (defmethod (setf place-height) (value (widget sprite-widget)))
 
 (defmethod tile-to-place ((widget sprite-widget))
-  (let ((offset (offset (entity widget)))
-        (size (size (entity widget))))
-    (list (floor (vx offset) 16) (floor (vy offset) 16)
-          (floor (vx size) 16) (floor (vy size) 16))))
+  (tile-to-place (entity widget)))
 
 (defmethod (setf tile-to-place) (tile (widget sprite-widget))
-  (destructuring-bind (x y w h) tile
-    (let ((offset (vec (* 16 x) (* 16 y)))
-          (size (vec (* 16 w) (* 16 h))))
-      (setf (offset (entity widget)) offset)
-      (setf (size (entity widget)) size)
-      (setf (bsize (entity widget)) (v/ size 2)))))
+  (setf (tile-to-place (entity widget)) tile))
 
-(alloy:define-subobject (sprite-widget tiles) ('tile-picker :widget sprite-widget))
+(alloy:define-subobject (sprite-widget tiles) ('tile-picker :widget sprite-widget :tile-size (picker-tile-size (entity sprite-widget))))
 
 (alloy:define-subcontainer (sprite-widget layout)
     (alloy:grid-layout :col-sizes '(T) :row-sizes '(T))
@@ -62,3 +54,40 @@
 
 (defmethod (setf entity) :after ((entity sprite-entity) (editor editor))
   (setf (sidebar editor) (make-instance 'sprite-widget :editor editor :side :east)))
+
+(defmethod picker-tile-size ((entity sprite-entity))
+  (vec +tile-size+ +tile-size+))
+
+(defmethod tile-to-place ((entity sprite-entity))
+  (let ((offset (offset entity))
+        (size (size entity)))
+    (list (floor (vx offset) 16) (floor (vy offset) 16)
+          (floor (vx size) 16) (floor (vy size) 16))))
+
+(defmethod (setf tile-to-place) (tile (entity sprite-entity))
+  (destructuring-bind (x y w h) tile
+    (let ((offset (vec (* 16 x) (* 16 y)))
+          (size (vec (* 16 w) (* 16 h))))
+      (setf (offset entity) offset)
+      (setf (size entity) size)
+      (setf (bsize entity) (v/ size 2)))))
+
+(defmethod (setf entity) :after ((entity grass-patch) (editor editor))
+  (setf (sidebar editor) (make-instance 'sprite-widget :editor editor :side :east)))
+
+(defmethod picker-tile-size ((entity grass-patch))
+  (vec 4 4))
+
+(defmethod tile-to-place ((entity grass-patch))
+  (let ((offset (tile-start entity))
+        (size (tile-size entity))
+        (ps (picker-tile-size entity)))
+    (list (floor (vx offset) (vx ps)) (floor (vy offset) (vy ps))
+          (floor (vx size) (vx ps)) (floor (vy size) (vy ps)))))
+
+(defmethod (setf tile-to-place) (tile (entity grass-patch))
+  (destructuring-bind (x y w h) tile
+    (let ((s (picker-tile-size entity)))
+      (setf (tile-start entity) (vec (* (vx s) x) (* (vy s) y)))
+      (setf (tile-size entity) (vec (* (vy s) w) (* (vy s) h)))
+      (setf (tile-count entity) 1))))

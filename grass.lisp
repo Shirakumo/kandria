@@ -22,7 +22,7 @@
     (leave part T)))
 
 (define-shader-entity grass-patch (lit-entity sized-entity resizable renderable listener ephemeral creatable)
-  ((texture :initform (// 'kandria 'grass) :accessor texture)
+  ((texture :initform (// 'kandria 'grass) :accessor texture :accessor albedo)
    (vertex-buffer :accessor vertex-buffer)
    (vertex-array :accessor vertex-array)
    (patches :initarg :patches :initform 16 :accessor patches :type integer)
@@ -46,6 +46,13 @@
   '(:patches :tile-size :tile-start :tile-count))
 
 (defmethod layer-index ((patch grass-patch)) (1- +base-layer+))
+
+(defmethod (setf tile-size) :after (size (patch grass-patch))
+  (resize patch (* (patches patch) (vx (tile-size patch))) (vy (tile-size patch))))
+(defmethod (setf tile-start) :after (start (patch grass-patch))
+  (resize patch (* (patches patch) (vx (tile-size patch))) (vy (tile-size patch))))
+(defmethod (setf tile-count) :after (count (patch grass-patch))
+  (resize patch (* (patches patch) (vx (tile-size patch))) (vy (tile-size patch))))
 
 (defmethod resize ((patch grass-patch) w h)
   (with-slots (tile-size tile-start tile-count) patch
