@@ -805,5 +805,5 @@ void main(){
 (defmethod stage :after ((bomb bomb) (area staging-area))
   (stage (// 'sound 'bomb-active) area))
 
-(defmethod enter :after ((bomb bomb) container)
+(defmethod handle :after ((ev tick) (bomb bomb))
   (harmony:play (// 'sound 'bomb-active) :location (location bomb)))
