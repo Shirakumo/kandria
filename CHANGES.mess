@@ -2,6 +2,72 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 0.3.1
+- Fix crash when picking up items
+  Reported by Gnuxie
+- Fix missing recall elevator in semi base
+  Reported by Jissag
+- Fix following or leading NPCs getting stuck on blast doors indefinitely
+  Reported by Hempuli
+- Fix transitions into chunks from below causing issues with wraparound
+  Reported by Stomping
+- Fix DualSense button layout on Windows
+  Reported by Justin
+- Fix gamepad inputs still being reported even when pause screen is up
+  Reported by Justin
+- Tutorial prompts still being shown even after completing the tutorial section
+  Reported by Albert Martinez
+- Fix Sahil's name still appearing as ??? after meeting him
+  Reported by Albert Martinez
+- Fix the strength of various full-screen effects to be less problematic for players with epilepsy
+  Reported by Serth
+- Fix text inputs disabling gamepad inputs entirely making it impossible to escape a text input field with the gamepad
+  Reported by Axvr
+- Fix follow AI getting confused when trying to climb certain walls
+  Reported by Arne Babenhauserheide
+- Fix follow AI having trouble climbing into engineering
+  Reported by Arne Babenhauserheide
+- Fix crash on Catherine conversation after completing the first leaks quest
+  Reported by Arne Babenhauserheide
+- Remove confusing ladder graphic in engineering
+  Reported by Arne Babenhauserheide
+- Fix Catherine being able to follow you beyond the pump room
+  Reported by Jissag
+- Fix crash when opening map while the player is outside chunk boundaries
+  Reported by Jissag
+- Fix spurious loss of gamepad or keyboard inputs
+  Reported by Serth, Nihiloss and Justin
+- Fix empty dialog boxes
+  Reported by Jissag
+- Fix camera showing regions outside the chunk bounds when zooming
+  Reported by Albert Martinez
+- Fix focus loss on some dialogue boxes
+  Reported by Arne Babenhauserheide
+- Fix re-appearing game-over screen when selecting an option before the death transition completes
+  Reported by Arne Babenhauserheide
+- Fix flickering on the wardrobe preview when on high framerates
+  Reported by Serth
+- Fix directional focus navigation confusion in various menus
+  Reported by Arne Babenhauserheide, Hempuli
+- Fix lack of music tracks in building interiors
+  Reported by Albert Martinez
+- Fix collision issues in room below pumps
+  Reported by Serth
+- Fix bad monitor powersave behaviour when using gamepads on Linux
+  Reported by Pierre Lippuner
+- Fix huge audio delay
+  Reported by Albert Martinez
+- Add an option to exit the game and continue later, without creating a true save
+  Reported by Serth and Arne Babenhauserheide
+- Fix a downwards path being hard to notice
+  Reported by Serth
+- Fix game failing to unpause on Steam Deck or Steam Big Picture
+  Reported by Duuqnd
+- Fix items spawning inside the ground and being unreachable
+  Reported by Arne Babenhauserheide
+- Fix lack of status notice message when receiving items during dialogue
+  Reported by Albert Martinez
+
 ## 0.3.0
 - Mark up save points on the map for easier navigation
   Reported by Haruspex
