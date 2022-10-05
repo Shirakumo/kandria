@@ -65,7 +65,7 @@ unsafe-region-interrupt "
 | This doesn't look safe. I'll wait here for you."
 zelah-attack-start "
 ~ zelah
-| You lost your damn mind?!
+| You lost your mind?!
 | (:jovial)Alright stand back, I'll deal with this."
 ;; ^ hint that you work for him, or that after the envoy, killing him would be a mistake
 ;; "stand back" explains why his soldiers don't jump in to help
