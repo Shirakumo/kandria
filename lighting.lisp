@@ -177,11 +177,12 @@
 
 (defmethod sort-frame ((pass rendering-pass) frame)
   (stable-sort frame #'< :key (lambda (c)
-                                (let ((object (car c)))
+                                (let* ((object (car c))
+                                       (idx (layer-index object)))
                                   (etypecase object
-                                    (layer (+ 0.2 (layer-index object)))
-                                    (water (+ 0.1 (layer-index object)))
-                                    (T (layer-index object)))))))
+                                    (layer (if (<= 2 idx) (+ idx 0.2) (- idx 0.1)))
+                                    (water (+ 0.1 idx))
+                                    (T idx))))))
 
 (defmethod prepare-pass-program :after ((pass rendering-pass) (program shader-program))
   (setf (uniform program "exposure") (exposure pass))
