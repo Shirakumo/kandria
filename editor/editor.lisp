@@ -112,9 +112,9 @@
                   ("About"))
                  zoom)))
     (setf (alt-tool editor) 'browser)
-    (setf (tool editor) 'browser)
     (setf (toolbar editor) toolbar)
     (setf (zoom editor) zoom)
+    (setf (tool editor) 'browser)
     (alloy:observe 'entity editor (lambda (value object) (setf (entity entity) value)))
     (alloy:enter menu top)
     (alloy:enter menu focus)
@@ -152,10 +152,12 @@
     tool))
 
 (defmethod (setf tool) ((tool symbol) (editor editor))
-  (setf (tool editor) (make-instance tool :editor editor)))
+  (setf (tool editor) (find-class tool)))
 
 (defmethod (setf tool) ((tool class) (editor editor))
-  (setf (tool editor) (make-instance tool :editor editor)))
+  (alloy:do-elements (element (alloy:layout-element (toolbar editor)))
+    (when (eql (class-of (alloy:active-value element)) tool)
+      (return (setf (tool editor) (alloy:active-value element))))))
 
 (defmethod (setf alt-tool) ((tool symbol) (editor editor))
   (setf (alt-tool editor) (make-instance tool :editor editor)))
@@ -171,6 +173,7 @@
   (redo (history editor) region))
 
 (defmethod stage :after ((editor editor) (area staging-area))
+  (stage (simple:request-font (unit 'ui-pass T) "Brands") area)
   (stage (background 'editor) area)
   (stage (marker editor) area))
 
@@ -244,8 +247,8 @@
 
 (defmethod (setf entity) :after (value (editor editor))
   (update-marker editor)
-  (setf (tool editor) (default-tool editor))
   (reinitialize-instance (toolbar editor) :editor editor :entity (entity editor))
+  (setf (tool editor) (default-tool editor))
   (v:info :kandria.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
 (defmethod handle :around ((ev event) (editor editor))

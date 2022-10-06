@@ -189,7 +189,7 @@
   '(paint rectangle))
 
 (defmethod applicable-tools append ((_ chunk))
-  '(line auto-tile selection move-to drag))
+  '(line auto-tile move-to drag))
 
 (defmethod default-tool ((_ chunk))
   'freeform)

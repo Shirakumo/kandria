@@ -5,7 +5,7 @@
    (end-pos :initform NIL :accessor end-pos)
    (cache :initform (cons NIL NIL) :accessor cache)))
 
-(defmethod label ((tool rectangle)) "Rectangle")
+(defmethod label ((tool rectangle)) "")
 
 (defmethod handle ((ev lose-focus) (tool rectangle))
   (handle (make-instance 'mouse-release :button :left :pos (or (end-pos tool) (vec 0 0))) tool))

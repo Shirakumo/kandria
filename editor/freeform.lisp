@@ -5,7 +5,7 @@
    (original-loc :initform NIL :accessor original-loc)
    (original-size :initform NIL :accessor original-size)))
 
-(defmethod label ((tool freeform)) "Freeform")
+(defmethod label ((tool freeform)) "")
 
 (defmethod handle ((event mouse-press) (tool freeform))
   (let ((entity (entity tool)))

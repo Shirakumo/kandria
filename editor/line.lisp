@@ -4,7 +4,7 @@
   ((start :initform NIL :accessor start)
    (stroke :initform NIL :accessor stroke)))
 
-(defmethod label ((tool line)) "Line")
+(defmethod label ((tool line)) "")
 
 (defmethod handle ((event mouse-press) (tool line))
   (cond ((retained :control)

@@ -141,7 +141,7 @@
 
 (defmethod initargs append ((trigger teleport-trigger)) '(:target))
 
-(defmethod default-tool ((trigger teleport-trigger)) (find-class 'freeform))
+(defmethod default-tool ((trigger teleport-trigger)) 'freeform)
 
 (defmethod enter :after ((trigger teleport-trigger) (region region))
   (when (primary trigger)

@@ -74,7 +74,7 @@
   ((visualizer :initform (make-instance 'node-graph-visualizer) :accessor visualizer)
    (selected :initform NIL :accessor selected)))
 
-(defmethod label ((tool move-to)) "Movement")
+(defmethod label ((tool move-to)) "")
 
 (defmethod (setf tool) :after ((tool move-to) (editor editor))
   (setf (node-graph (visualizer tool)) (entity tool))
@@ -102,7 +102,7 @@
 (defclass movement-trace (tool)
   ((marker :initform (make-instance 'marker) :accessor marker)))
 
-(defmethod label ((tool movement-trace)) "Trace")
+(defmethod label ((tool movement-trace)) "")
 
 (defmethod (setf tool) :after ((tool movement-trace) (editor editor))
   (let ((trace (movement-trace (entity tool))))

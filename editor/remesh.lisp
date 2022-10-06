@@ -3,7 +3,7 @@
 (defclass remesh (tool)
   ())
 
-(defmethod label ((tool remesh)) "Remesh")
+(defmethod label ((tool remesh)) "")
 
 (defmethod handle ((event mouse-press) (tool remesh))
   (let ((loc (mouse-world-pos (pos event))))

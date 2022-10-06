@@ -64,7 +64,7 @@
 (defclass paint (painter-tool)
   ((stroke :initform NIL :accessor stroke)))
 
-(defmethod label ((tool paint)) "Paint")
+(defmethod label ((tool paint)) "")
 
 (defmethod end-pos ((tool paint))
   (caar (stroke tool)))

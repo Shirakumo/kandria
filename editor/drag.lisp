@@ -1,13 +1,26 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity drag-sentinel (vertex-entity colored-entity sized-entity standalone-shader-entity)
+(define-shader-entity drag-sentinel (vertex-entity colored-entity located-entity standalone-shader-entity dynamic-renderable)
   ((vertex-array :initform (// 'kandria '1x))
-   (color :initform (vec 1 0 0 0.5))))
+   (color :initform (vec 1 0 0 0.5))
+   (bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize
+          :type vec2 :documentation "The bounding box half size.")))
 
 (defmethod apply-transforms progn ((sentinel drag-sentinel))
   (let ((size (bsize sentinel)))
     (translate-by (- (vx size)) (- (vy size)) 100)
     (scale-by (* 2 (vx size)) (* 2 (vy size)) 1)))
+
+(defmethod layer-index ((sentinel drag-sentinel)) 100)
+
+(defmethod scan ((entity drag-sentinel) (target vec2) on-hit)
+  (let ((w (vx2 (bsize entity)))
+        (h (vy2 (bsize entity)))
+        (loc (location entity)))
+    (when (and (<= (- (vx2 loc) w) (vx2 target) (+ (vx2 loc) w))
+               (<= (- (vy2 loc) h) (vy2 target) (+ (vy2 loc) h)))
+      (let ((hit (make-hit entity (location entity))))
+        (unless (funcall on-hit hit) hit)))))
 
 (defclass drag (tool)
   ((sentinel :initform (make-instance 'drag-sentinel) :accessor sentinel)
@@ -17,10 +30,10 @@
    (stencil :initform #((())) :accessor stencil)
    (cache :initform #() :accessor cache)))
 
-(defmethod label ((tool drag)) "Drag")
+(defmethod label ((tool drag)) "")
 
 (defmethod (setf tool) :after ((tool drag) (editor editor))
-  (enter (sentinel tool) +world+))
+  (enter (sentinel tool) (region +world+)))
 
 (defmethod stage ((tool drag) (area staging-area))
   (stage (sentinel tool) area))
