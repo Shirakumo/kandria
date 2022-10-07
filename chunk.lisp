@@ -620,6 +620,8 @@ void main(){
 
 (defmethod closest-acceptable-location ((stuffer stuffer) loc) loc)
 
+(defmethod layer-index ((stuffer stuffer)) (1+ +base-layer+))
+
 (defmethod clone ((stuffer stuffer) &rest initargs)
   (apply #'make-instance (class-of stuffer)
          (append initargs
