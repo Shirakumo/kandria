@@ -630,6 +630,14 @@ item:singing-bowl/lore "The monk was given this bowl at the begining of his mona
 Since it was one of his few posessions, it was treated with great care; the monk was careful not to drop the bowl and cleaned and polished it frequently. This behaviour continuted into the monk's old age. 
 
 One day the bowl waited attentivly to commence the morning meditation, but the monk never arrived. The bowl had to continue waiting for a long time, and never came to know what happened to the monk."
+item:painted-cylinder "Small Painted Cylinder"
+item:painted-cylinder/description "A small plastic cylinder with a very faded painting of a face covering it."
+item:painted-cylinder/lore "He was meant to be replaced. He wasn't meant to be perfect. And yet he was. 
+
+For seven months that cylinder was the perfect being. His Fleshyness, he was called. That cylinder was not merely a cylinder, but a god. They made him do all kinds of things, most of which he wasn't even designed for, and yet despite him being a cylinder of plastic, he performed these tasks admirably. Eventually his presence became not only expected, but a natural fact of life. 
+
+Unfortunately, his reign would not last. By the early days of his seventh month, his creators had finished his replacement, and he was buried, both literally and figuratively. His successor was superior in every way, but that meant little to the cylinder, because he was made of plastic."
+
 ;; Fish
 fish:crab "Crab"
 fish:crab/description "A sturdy little critter.
