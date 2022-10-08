@@ -22,6 +22,7 @@
   (handle (make-instance 'mouse-release :button :left :pos (or (end-pos tool) (vec 0 0))) tool))
 
 (defmethod handle ((event mouse-move) (tool painter-tool))
+  (setf (cursor *context*) :crosshair)
   (case (state tool)
     (:placing
      (paint-tile tool event))))

@@ -7,6 +7,17 @@
 
 (defmethod label ((tool freeform)) "")
 
+(defun near-border-p (pos entity)
+  (let* ((p (nv- (mouse-world-pos pos)
+                 (location entity)))
+         (b (bsize entity))
+         ;; Box SDF
+         (d (nv- (vabs p) b))
+         (d (+ (min 0 (max (vx d) (vy d)))
+               (vlength (vmax d 0)))))
+    ;; If close to borders, resize.
+    (< (abs d) (/ 1 (zoom (camera +world+))))))
+
 (defmethod handle ((event mouse-press) (tool freeform))
   (let ((entity (entity tool)))
     (cond ((retained :control)
@@ -18,17 +29,9 @@
           (T
            (etypecase entity
              (resizable
-              (let* ((p (nv- (mouse-world-pos (pos event))
-                             (location entity)))
-                     (b (bsize entity))
-                     ;; Box SDF
-                     (d (nv- (vabs p) b))
-                     (d (+ (min 0 (max (vx d) (vy d)))
-                           (vlength (vmax d 0)))))
-                ;; If close to borders, resize.
-                (setf (state tool) (if (< (abs d) (/ 1 (zoom (camera +world+))))
-                                       :resizing
-                                       :moving))))
+              (setf (state tool) (if (near-border-p (pos event) entity)
+                                     :resizing
+                                     :moving)))
              (located-entity
               (setf (state tool) :moving)))))
     (setf (start-pos tool) (mouse-world-pos (pos event)))
@@ -79,6 +82,7 @@
          (setf (location entity) new)
          (update-marker (editor tool)))))
     (:resizing
+     (setf (cursor *context*) :horizontal-resize)
      (let* ((entity (entity tool))
             (current (nvalign (mouse-world-pos (pos event)) +tile-size+))
             (starting (nvalign (start-pos tool) +tile-size+))
@@ -92,4 +96,9 @@
          (resize entity (* 2 (vx new-size)) (* 2 (vy new-size)))
          (when (v/= (bsize entity) old-size)
            (setf (location entity) new-pos)
-           (update-marker (editor tool))))))))
+           (update-marker (editor tool))))))
+    (T
+     (cond ((not (near-border-p (pos event) (entity tool)))
+            (setf (cursor *context*) NIL))
+           (T ;; FIXME: show proper resize direction
+            (setf (cursor *context*) :horizontal-resize))))))
