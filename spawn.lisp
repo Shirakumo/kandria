@@ -38,8 +38,10 @@
 (defmethod spawned-p (entity)
   (gethash entity +spawn-tracker+))
 
-(defun mark-as-spawned (entity)
-  (setf (gethash entity +spawn-tracker+) T))
+(defun mark-as-spawned (entity &optional clear)
+  (if clear
+      (remhash entity +spawn-tracker+)
+      (setf (gethash entity +spawn-tracker+) T)))
 
 (defclass spawner (listener sized-entity ephemeral resizable creatable)
   ((flare:name :initform (generate-name 'spawner))

@@ -195,6 +195,7 @@
                                                   :bsize (vec 32 32)
                                                   :size (vec 64 64)
                                                   :offset (vec 0 144))))
+        (mark-as-spawned light)
         (setf (light item) light)
         (enter light (container item))))))
 
@@ -204,6 +205,7 @@
 
 (defmethod leave :after ((item item) thing)
   (when (light item)
+    (mark-as-spawned (light item) T)
     (leave (light item) T)
     (setf (light item) NIL)))
 
