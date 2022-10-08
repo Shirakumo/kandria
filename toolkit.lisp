@@ -42,7 +42,7 @@
                             :exploding-wolves NIL
                             :show-splits NIL
                             :show-hit-stings T)
-                 :language :eng
+                 :language :system
                  :debugging (:show-debug-settings #+kandria-release NIL #-kandria-release T
                              :send-diagnostics T
                              :allow-editor #+kandria-release NIL #-kandria-release T

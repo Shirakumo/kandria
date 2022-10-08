@@ -293,7 +293,8 @@
         (alloy:on alloy:activate (button)
           (show-panel 'cheat-panel))))
     (with-tab language-settings
-      (control game-language (:language) 'alloy:combo-set :value-set (languages))
+      (when (rest (languages))
+        (control game-language (:language) 'trial-alloy:language))
       (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01 :grid 0.01)
       (control auto-advance-after (:gameplay :auto-advance-after) 'alloy:ranged-slider :range '(0.0 . 30.0) :step 0.1 :grid 0.1)
       (control should-auto-advance-dialog (:gameplay :auto-advance-dialog) 'alloy:checkbox)
