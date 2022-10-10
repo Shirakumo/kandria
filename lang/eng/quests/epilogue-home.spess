@@ -1,0 +1,32 @@
+# 3-interact-catherine/interaction
+~ catherine
+| (:concerned)Oh God. "The surface... everything we had... It's gone"(orange).
+| What are we gonna do? Where are we gonna go?
+| (:excited)At least there's "no Wraw - we must have buried them"(orange) big time!
+| (:concerned)Oh shit. Are those "bodies up ahead? Or people?"(orange) Please everyone be okay...
+~ player
+- Should I identify them?
+  ~ catherine
+  | (:concerned)...
+  | I don't know... Yes, I suppose.
+  ~ player
+  | "Zooming in and increasing resolution..."(light-gray, italic)
+  | It's "Fi, Jack, and Innis"(orange). "They're okay"(orange) but they look "worried sick"(orange). "Fi looks injured"(orange)...
+  | That "might be Sahil"(orange) beyond and "a few others"(orange). I "can't see Islay"(orange).
+  | There's "no Wraw, and no Alex"(orange).
+  ~ catherine
+  | (:concerned)Islay...
+- We'll find out soon enough.
+  ~ catherine
+  | (:concerned)You're right, we shouldn't waste another second - they might need us.
+- Let's keep moving.
+  ~ catherine
+  | (:concerned)You're right.
+~ catherine
+| (:concerned)"Let's go!"(orange)
+
+; the Fi injured ellipsis works if you flirted with Fi, and if not, then it works for Catherine's benefit
+
+# walk-end/walkntalk
+~ catherine
+| (:excited)Yes!! You're a tough cookie. Let's go.
