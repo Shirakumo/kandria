@@ -35,7 +35,7 @@
   (alloy:extent (alloy:w size)
                 (alloy:un 200)))
 
-(defclass credits-layout (alloy:fullscreen-layout alloy:focus-element alloy:renderable)
+(defclass credits-layout (org.shirakumo.alloy.layouts.constraint:layout alloy:focus-element alloy:renderable)
   ())
 
 (defmethod alloy:handle ((ev alloy:pointer-event) (layout credits-layout))
@@ -120,11 +120,17 @@
 (defmethod initialize-instance :after ((panel credits) &key (file (merge-pathnames "CREDITS.mess" (language-dir (setting :language)))))
   (let* ((layout (make-instance 'credits-layout))
          (credits (make-instance 'alloy:vertical-linear-layout
-                                 :layout-parent layout
                                  :min-size (alloy:size (alloy:vw 1) 100)
                                  :cell-margins (alloy:margins 10))))
+    (alloy:enter credits layout :constraints `(:fill))
     (setf (credits panel) credits)
     (from-markless (merge-pathnames file (root)) credits)
+    (let ((prompts (make-instance 'alloy:horizontal-linear-layout :align :end)))
+      (alloy:enter (make-instance 'prompt-label :value (coerce-button-string 'back)) prompts)
+      (alloy:enter (make-instance 'prompt-description :value (language-string 'back NIL)) prompts)
+      (alloy:enter (make-instance 'prompt-label :value (coerce-button-string 'skip)) prompts)
+      (alloy:enter (make-instance 'prompt-description :value (language-string 'skip NIL)) prompts)
+      (alloy:enter prompts layout :constraints `((:right 30) (:bottom 30) (:size 500 50))))
     (alloy:finish-structure panel layout layout)))
 
 (defun show-credits (&key (transition T) (state (state +main+)) on-hide)
