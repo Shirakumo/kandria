@@ -82,7 +82,7 @@
   (let* ((name (string-downcase name))
          (assembly (gethash name *cached-dialogue-assemblies*)))
     (unless assembly
-      (let ((file (merge-pathnames name (merge-pathnames "quests/a.spess" (language-dir (setting :language))))))
+      (let ((file (merge-pathnames name (merge-pathnames "quests/a.spess" (language-dir)))))
         (setf assembly (dialogue:compile* file (make-instance 'assembly)))
         (setf (gethash name *cached-dialogue-assemblies*) assembly)))
     (let ((clone (clone assembly)))
