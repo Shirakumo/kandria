@@ -17,16 +17,17 @@
 (defmacro define-track (name file &rest args)
   `(define-asset (music ,name) trial-harmony:sound
        ,file
+     ,@args
      :name ,(file-namestring file)
      :repeat T
      :mixer :music
-     :voice-class 'harmony:music-segment
-     ,@args))
+     :voice-class 'harmony:music-segment))
 
 (define-track menu #p"menu.oga"
   :voice-class 'harmony:music-segment)
 (define-track scare #p"scare.oga")
-(define-track credits #p"credits.oga")
+(define-track credits #p"credits.oga"
+  :repeat NIL)
 (define-track bar #p"bar.oga")
 (define-track battle #p"battle.oga"
   :repeat-start 4.8)

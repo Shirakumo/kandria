@@ -81,8 +81,9 @@
                           (- (offset panel) ideal)
                           (alloy:vw 1)
                           ideal))
-      (incf (offset panel) (* (alloy:to-px (alloy:un 50)) (dt ev)))
-      (when (< (+ ideal (height *context*)) (offset panel))
+      (incf (offset panel) (* (alloy:to-px (alloy:un 40)) (dt ev)))
+      ;; KLUDGE: the offset from the IDEAL seems too big??
+      (when (< 14000 (offset panel))
         (transition :kind :black (hide panel))))))
 
 (defmethod handle :after (ev (panel credits))
@@ -146,6 +147,7 @@
                  (when (typep el 'popup)
                    (push el els)))
                (mapc #'hide els))
+             (hide-panel 'main-menu)
              ;; show the end screen and the credits panel, which will hide to reveal the end screen.
              (if on-hide
                  (show-panel 'credits :on-hide on-hide)
