@@ -118,7 +118,7 @@
 (defmethod from-markless ((element string) layout)
   (alloy:enter (make-instance 'paragraph :value element) layout))
 
-(defmethod initialize-instance :after ((panel credits) &key (file (merge-pathnames "CREDITS.mess" (language-dir (setting :language)))))
+(defmethod initialize-instance :after ((panel credits) &key (file (merge-pathnames "CREDITS.mess" (language-dir))))
   (let* ((layout (make-instance 'credits-layout))
          (credits (make-instance 'alloy:vertical-linear-layout
                                  :min-size (alloy:size (alloy:vw 1) 100)
