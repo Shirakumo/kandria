@@ -27,6 +27,12 @@
     1.0)
 
   (defmethod gravity ((air air))
-    (vec 0 -15)))
+    (vec 0 -15))
+
+  (defclass vacuum (air)
+    ())
+
+  (defmethod gravity ((vacuum vacuum))
+    (vec 0 0)))
 
 (define-global +default-medium+ (make-instance 'air))

@@ -365,6 +365,9 @@
          (T 0.0))))
     (T 1.0)))
 
+(defmethod medium ((enemy drone))
+  (load-time-value (make-instance 'vacuum)))
+
 (defmethod handle-ai-states ((enemy drone) ev)
   (let* ((player (unit 'player T))
          (ploc (location player))
@@ -392,18 +395,24 @@
               (setf (ai-state enemy) :normal))
              ((and (eql :animated (state enemy))
                    (eql 'notice (name (animation enemy))))
-              (vsetf vel 0 0))
+              (nv* vel (damp* 0.97 (* 100 (dt ev)))))
              (T
               (when (< (timer enemy) 0)
                 (when (eql 'stand (name (animation enemy)))
                   (setf (ai-state enemy) :normal))
                 (start-animation 'spin-end enemy))
               (decf (timer enemy) (dt ev))
-              (let ((dir (nv* (nvunit* (v- ploc eloc)) (movement-speed enemy))))
-                (vsetf vel (vx dir) (vy dir)))))))))
+              (let ((dir (nvunit* (v- ploc eloc))))
+                (nv+ vel (nv* dir 0.02))
+                (when (<= 2.0 (vlength vel))
+                  (nv* (nvunit vel) 2.0)))))))))
 
 (defmethod hit :after ((enemy drone) location)
   (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8))))
+
+(defmethod collide :after ((enemy drone) thing hit)
+  (nvunit* (velocity enemy))
+  (nv* (velocity enemy) -2.0))
 
 (defmethod apply-transforms progn ((enemy drone))
   (translate-by 0 -12 0))
