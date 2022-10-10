@@ -55,7 +55,6 @@
    (on-hide :initarg :on-hide :initform (lambda ()) :accessor on-hide)))
 
 (defmethod show :after ((credits credits) &key)
-  #++
   (setf (override (unit 'environment +world+)) (// 'music 'credits)))
 
 (defmethod hide :after ((credits credits))
