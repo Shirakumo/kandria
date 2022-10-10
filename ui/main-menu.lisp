@@ -421,7 +421,7 @@ void main(){
          (tsize (target-size camera))
          (yspread (/ (vy tsize) 1.5)))
     (setf (lighting (unit 'lighting-pass +world+)) (gi 'one))
-    (harmony:transition (// 'music 'menu) 1.0)
+    (setf (override (unit 'environment +world+)) (// 'music 'menu))
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
     (trial:commit (stage (make-instance 'star) (unit 'render +world+)) (loader +main+) :unload NIL)
     (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
@@ -447,7 +447,7 @@ void main(){
             :height (alloy:un 300)))))
 
 (defmethod hide :after ((menu main-menu))
-  (harmony:stop (// 'music 'menu))
+  (setf (override (unit 'environment +world+)) NIL)
   (for:for ((entity over +world+))
     (when (typep entity '(or star fullscreen-background logo wave))
       (leave entity T))))
