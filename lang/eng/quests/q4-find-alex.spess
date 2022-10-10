@@ -181,6 +181,7 @@
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ! eval (setf (var 'android-soft) T)
 
+; Alex speaks London multicultural English
 ; the barkeep in this scene is female
 # find-alex-semis/alex-meet
 ~ player
@@ -240,7 +241,18 @@
 | "Innis"(yellow) even showed me the CCCTV. Semi Sisters been nice to me.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | "So why would Fi need little ol' me any more?"(orange)
-| Run along matey - <-hic-> - an' tell her to spin on that, why dontcha?
+~ player
+- Can't we both be hunters?
+  ~ alex
+  | (:angry)No we bloody can't!
+- But this is what I'm good at too.
+  ~ alex
+  | Hunting? Tough titty.
+- I'm sorry.
+  ~ alex
+  | Bit late for that.
+~ alex
+| Run along matey - <-hic-> - an' tell Fi to spin on that, why dontcha?
 ~ player
 | Do you know about the Wraw's plan to attack?
 ~ alex
