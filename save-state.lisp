@@ -175,10 +175,10 @@
 (defun resume-state (resume &optional (main +main+))
   (unwind-protect (load-game resume main)
     (let ((state (find (id resume) (list-saves) :key #'id :test #'equalp)))
-      (cond ((eq state resume))
+      (cond ((equalp (file state) (file resume)))
             (state
-             (v:info :kandria.save "Resuming state ~a. Removing original resume file."
-                     (id resume))
+             (v:info :kandria.save "Resuming state ~a. Removing original resume file ~a"
+                     (id resume) (file resume))
              (delete-file (file resume))
              (setf (state main) state))
             (T
