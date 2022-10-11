@@ -8,13 +8,13 @@
   | (:annoyed)No sense of humour. Figures.
 - What do you think?
   ~ jack
-  | (:annoyed)No. Not while you've got Fi and Cathy wrapped around your fake little finger.
+  | (:annoyed)No. Not while you've got {#@fi-nametag} and Cathy wrapped around your fake little finger.
 - I wish.
   ~ jack
-  | (:shocked)O oh, you keep talking like that and Fi will dismantle you. Wouldn't want that, would ya?
+  | (:shocked)O oh, you keep talking like that and {#@fi-nametag} will dismantle you. Wouldn't want that, would ya?
 ~ jack
 | Anyway, you can do something for me.
-| Fi wants to "scout for a new home"(orange) - I guess she's worried sick now the Wraw are breathing down our necks.
+| {#@fi-nametag} wants to "scout for a new home"(orange) - I guess she's worried sick now the Wraw are breathing down our necks.
 | Well as you can see, I'm no scout. I guess I just don't have the physique for it.
 | (:annoyed)"Alex"(yellow) is our hunter, but God knows where they are. So it's up to you... {(nametag player)}.
 ~ player

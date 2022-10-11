@@ -15,7 +15,7 @@
 | ~ catherine
 | | (:cheer)Wow, you got even more than I asked for!
 ? (have 'item:mushroom-good-1)
-| | (:excited)"Flower fungus"(red), nice! I'll get these to Fi and straight into the cooking pot.
+| | (:excited)"Flower fungus"(red), nice! I'll get these to {#@fi-nametag} and straight into the cooking pot.
 | | (:normal)Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
 | ! eval (retrieve 'item:mushroom-good-1 T)
 ? (have 'item:mushroom-good-2)

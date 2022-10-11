@@ -2,24 +2,24 @@
 
 # wraw-fi-ffcs/wraw-border
 ~ player
-| "I've crossed the Cerebat border. I should be able to call Fi now."(light-gray, italic)
-| Fi...
-| Fi...?
+| "I've crossed the Cerebat border. I should be able to call {#@fi-nametag} now."(light-gray, italic)
+| {#@fi-nametag}...
+| {#@fi-nametag}...?
 | (:thinking)"... Dammit. "FFCS still can't punch through"(orange). I think the "Wraw are definitely on the move"(orange)."(light-gray, italic)
 | (:normal)"I need to get "back to the surface"(orange). NOW."(light-gray, italic)
 
 # wraw-fi-ffcs/station-trigger
 ~ player
-| "I'm out of Wraw territory. I should be able to call Fi now."(light-gray, italic)
-| Fi...
-| Fi...?
+| "I'm out of Wraw territory. I should be able to call {#@fi-nametag} now."(light-gray, italic)
+| {#@fi-nametag}...
+| {#@fi-nametag}...?
 | (:thinking)"... Dammit. "FFCS still can't punch through"(orange). I think the "Wraw are definitely on the move"(orange)."(light-gray, italic)
 | (:normal)"I need to get "back to the surface"(orange). NOW."(light-gray, italic)
 
 # wraw-fi-ffcs/station-surface-trigger
 ~ player
 | "Home sweet home."(light-gray, italic)
-| "I should "report to Fi about the impending Wraw invasion"(orange) ASAP."(light-gray, italic)
+| "I should "report to {#@fi-nametag} about the impending Wraw invasion"(orange) ASAP."(light-gray, italic)
 
 # return-fi/talk-fi
 ~ fi
@@ -48,8 +48,8 @@
 ~ fi
 | (:unsure)I...
 ~ jack
-| Fi?...
-| (:annoyed)Fi, what do we do?
+| {#@fi-nametag}?...
+| (:annoyed){#@fi-nametag}, what do we do?
 | (:shocked)... Fuck me. We need to get outta here.
 ~ catherine
 | (:concerned)And go where exactly?

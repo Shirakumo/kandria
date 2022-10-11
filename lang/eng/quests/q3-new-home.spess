@@ -78,7 +78,7 @@
   ~ jack
   | (:annoyed)God dammit.
 ~ jack
-| Fi ain't gonna like this. (:annoyed)I suppose she'd better hear it from me, rather than from some stone-cold android.
+| {#@fi-nametag} ain't gonna like this. (:annoyed)I suppose she'd better hear it from me, rather than from some stone-cold android.
 | (:normal)Thanks for your help, but it's my problem now.
 | You want something for your labour?
 ~ player
@@ -109,13 +109,13 @@
 | ~ jack
 | | (:normal)Oh, "Cathy wants a word too"(orange).
 | | (:annoyed)Know that my threat still stands if you touch her.
-| | (:normal)"Fi's got a new job for you"(orange) as well. From what I hear, should get you outta our hair for a while. Can't wait.
+| | (:normal)"{#@fi-nametag}'s got a new job for you"(orange) as well. From what I hear, should get you outta our hair for a while. Can't wait.
 | ! eval (activate 'sq-act1-intro)
 | ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q2-seeds))
 | | ~ jack
-| | | (:normal)Speaking of "Fi, she wants to talk to you"(orange). Not a word about the scouting fail though, alright?
+| | | (:normal)Speaking of "{#@fi-nametag}, she wants to talk to you"(orange). Not a word about the scouting fail though, alright?
 |   
 | ~ jack
 | | (:normal)Don't let me be the one to help you out, either, but I heard "Sahil was back"(orange).

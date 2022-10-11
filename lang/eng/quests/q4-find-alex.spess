@@ -43,7 +43,7 @@
   ~ innis
   | (:sly)Why are you are here? I ken lots about you, but I want more.
 ~ innis
-| (:sly)What //does// Fi send her robot dog to do?
+| (:sly)What //does// {#@fi-nametag} send her robot dog to do?
 | To prove her loyalty, I think.
 ~ player
 - My business is my business.
@@ -122,7 +122,7 @@
   ~ innis
   | (:sly)Why are you are here? I ken lots about you, but I want more.
 ~ innis
-| (:sly)What //does// Fi send her robot dog to do?
+| (:sly)What //does// {#@fi-nametag} send her robot dog to do?
 | To prove her loyalty, I think.
 ~ player
 - My business is my business.
@@ -208,7 +208,7 @@
 | <-Hic->. That's what I said.
 ~ player
 | Oh boy.
-| Are you Alex from the Noka? Do you know Fi?
+| Are you Alex from the Noka? Do you know {#@fi-nametag}?
 ~ alex
 | ...
 | Yeah that's me. <-Hic->.
@@ -218,7 +218,7 @@
   ~ alex
   | <-Hic->. I know. You're the new hunter.
   | The android.
-- Fi sent me.
+- {#@fi-nametag} sent me.
   ~ alex
   | <-Hic->. I know. You're the new hunter.
   | The android.
@@ -240,7 +240,7 @@
 | (:angry)I've 'eard about you, doing my job- <-Hic->.
 | "Innis"(yellow) even showed me the CCCTV. Semi Sisters been nice to me.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-| "So why would Fi need little ol' me any more?"(orange)
+| "So why would {#@fi-nametag} need little ol' me any more?"(orange)
 ~ player
 - Can't we both be hunters?
   ~ alex
@@ -252,11 +252,11 @@
   ~ alex
   | Bit late for that.
 ~ alex
-| Run along matey - <-hic-> - an' tell Fi to spin on that, why dontcha?
+| Run along matey - <-hic-> - an' tell {#@fi-nametag} to spin on that, why dontcha?
 ~ player
 | Do you know about the Wraw's plan to attack?
 ~ alex
-| They're always planning to attack. <-Hic->. This just Fi getting her knickers in a twist again.
+| They're always planning to attack. <-Hic->. This just {#@fi-nametag} getting her knickers in a twist again.
 | (:angry)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
 ~ player
 | "They're not going to get anyone's attention like that."(light-gray, italic) (:embarassed)"Oh great, now the barkeep's scowling at me too."(light-gray, italic)

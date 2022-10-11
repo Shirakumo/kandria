@@ -1,8 +1,8 @@
 # leave-semis/fi-ffcs
 ~ player
-| "I might as well call Fi from here. There's nowhere the Semis don't have eyes and ears."(light-gray, italic)
-| (:normal)Hello, Fi, it's me.
-| ... Fi?
+| "I might as well call {#@fi-nametag} from here. There's nowhere the Semis don't have eyes and ears."(light-gray, italic)
+| (:normal)Hello, {#@fi-nametag}, it's me.
+| ... {#@fi-nametag}?
 | (:thinking)"Something's "interfering with my FFCS signal"(orange)."(light-gray, italic)
 | (:normal)"I probably have Innis to thank for that. I doubt I'll be able to use the phone either."(light-gray, italic)
 | "Alright, if they don't want me calling home, I'll "go on foot"(orange)."(light-gray, italic)

@@ -1,7 +1,7 @@
 # contact-fi/fi-ffcs-cerebat
 ~ player
 | "That should be far enough."(light-gray, italic)
-| (:normal)Fi, are you there? Can you hear me?
+| (:normal){#@fi-nametag}, are you there? Can you hear me?
 ~ fi
 | Loud and clear. Where are you?
 ~ player

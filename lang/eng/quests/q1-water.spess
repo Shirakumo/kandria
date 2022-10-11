@@ -155,7 +155,7 @@
 | (:normal)Servos, huh?... Sounds about right. It's usually them or "Rogues"(red).
 ~ jack
 | Look, "tell Cathy to get her ass back here"(orange) on the double.
-| And "you need to come too"(orange), //android// - "Fi's"(yellow) on the warpath.
+| And "you need to come too"(orange), //android// - "{#@fi-nametag}'s"(yellow) on the warpath.
 ~ player
 | "He hung up."(light-gray, italic)
 
@@ -166,17 +166,17 @@
 ~ catherine
 | What did Jack say?
 ~ player
-- He wants us to go back - Fi's on the warpath.
+- He wants us to go back - {#@fi-nametag}'s on the warpath.
 - He said well done, but...
   ~ catherine
   | But what?
   ~ player
-  | But you should get back ASAP, and I should be there too - Fi's on the warpath.
+  | But you should get back ASAP, and I should be there too - {#@fi-nametag}'s on the warpath.
 - He wasn't happy to hear me.
   ~ catherine
   | (:concerned)I can believe it. (:normal)Did he say anything else?
   ~ player
-  | That you should go back ASAP, and I should be there too - Fi's on the warpath.
+  | That you should go back ASAP, and I should be there too - {#@fi-nametag}'s on the warpath.
 ~ catherine
 | (:concerned)Well that doesn't sound good.
 ~ catherine
@@ -190,7 +190,7 @@
 - I didn't get my bearings.
   ~ catherine
   | Oh... I'm sure you'll figure it out though. It's important that you do.
-- Who's Fi?
+- Who's {#@fi-nametag}?
   ~ catherine
   | She's our leader. She'll be glad to meet you, I'm sure of it.
 ~ catherine
@@ -260,7 +260,7 @@
   | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
   | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
-| (:annoyed)Jesus, Fi... you're just gonna accept that?
+| (:annoyed)Jesus, {#@fi-nametag}... you're just gonna accept that?
 ~ fi
 | What choice do I have?
 ~ jack
@@ -326,9 +326,9 @@
 ! eval (status "Received 200 Scrap Parts")
 | It's not much, but you can "trade them"(orange) for things you might want. Or you will be able to "once Sahil gets here"(orange).
 | (:concerned)He's overdue, which is not like him at all. Maybe those Servos scared him off.
-| (:normal)Anyway, don't worry about Jack and Fi. They'll soon see what I see: (:excited)a __big__ __friendly__ __badass__ who can protect us!
+| (:normal)Anyway, don't worry about Jack and {#@fi-nametag}. They'll soon see what I see: (:excited)a __big__ __friendly__ __badass__ who can protect us!
 | (:normal)Well, I've got work to do.
-| Couldn't hurt to "check in with Fi"(orange). I'm sure there's something you could help her with, to show her you can be trusted.
+| Couldn't hurt to "check in with {#@fi-nametag}"(orange). I'm sure there's something you could help her with, to show her you can be trusted.
 | "Knowing Jack he'll have something for you too"(orange) - (:concerned)if only a mouthful of abuse.
 | (:normal)But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
 | (:excited)Take a "look around and explore"(orange)! (:normal)Though it's probably best not to go too far from the Camp.
@@ -352,4 +352,4 @@
 
 # shutter-1/walkntalk
 ~ catherine
-| Ah, no Jack or Fi... They must be "around here somewhere"(orange).
+| Ah, no Jack or {#@fi-nametag}... They must be "around here somewhere"(orange).

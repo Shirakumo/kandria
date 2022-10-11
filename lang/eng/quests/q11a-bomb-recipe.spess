@@ -98,7 +98,7 @@
 # result
 ~ islay
 | I'll take the components to Catherine so she can finish up.
-| Fi, would you join me in Engineering?
+| {#@fi-nametag}, would you join me in Engineering?
 ~ fi
 | If you insist.
 | And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.

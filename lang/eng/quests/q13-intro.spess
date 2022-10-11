@@ -21,7 +21,7 @@
 | Good. Finish the assembly as quickly as you can.
 | ... That just leaves the question of how we plant them.
 ~ player
-| "Islay is looking at Fi. I think an understanding is passing between them."(light-gray, italic)
+| "Islay is looking at {#@fi-nametag}. I think an understanding is passing between them."(light-gray, italic)
 ~ islay
 | I think you're our best shot, {(nametag player)}.
 ~ player

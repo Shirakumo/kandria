@@ -76,7 +76,7 @@
       < old-name-chosen
   - (Go back)
     < name
-- (Let Fi choose a name)
+- (Let {#@fi-nametag} choose a name)
   ~ fi
   | (:unsure)You'd let me do that? I thought you might want to choose one for yourself.
   ~ player

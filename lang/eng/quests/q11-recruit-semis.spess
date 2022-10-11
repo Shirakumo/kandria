@@ -26,10 +26,10 @@
 - I need your help.
   ~ innis
   | (:sly)What? An all-powerful android needs our help?
-  | (:normal)I dinnae think so. More like Fi needs our help.
+  | (:normal)I dinnae think so. More like {#@fi-nametag} needs our help.
 - We need your help.
   ~ innis
-  | (:sly)More like Fi needs our help.
+  | (:sly)More like {#@fi-nametag} needs our help.
   | (:normal)You dinnae need our help - you're an android.
 - We can help you.
   ~ innis
@@ -146,12 +146,12 @@
 ~ islay
 | (:nervous)Let's hope they don't.
 ~ player
-| I'll update Fi, then be on my way.
+| I'll update {#@fi-nametag}, then be on my way.
 ~ innis
 | (:sly)That's right, you be a good dog.
 ~ islay
 | (:nervous)<-Innis!->
-| (:normal)... You "can't tell Fi"(orange) - whatever the "Wraw are doing to mess with our network, it affects your FFCS"(orange) too.
+| (:normal)... You "can't tell {#@fi-nametag}"(orange) - whatever the "Wraw are doing to mess with our network, it affects your FFCS"(orange) too.
 ~ player
 - (Check FFCS)
   ~ player
@@ -162,7 +162,7 @@
   | (:angry)And you want us to trust you?
 - (Trust Islay)
 ~ islay
-| I'll explain everything to Fi once we reach the surface. "Meet us there when you have the components"(orange).
+| I'll explain everything to {#@fi-nametag} once we reach the surface. "Meet us there when you have the components"(orange).
 | You got it? This is important.
 ~ player
 - One more time.

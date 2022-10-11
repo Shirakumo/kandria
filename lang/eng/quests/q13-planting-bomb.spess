@@ -129,7 +129,7 @@
 ~ player
 - What about the bombs?
 - What problem?
-- Can I talk to Fi?
+- Can I talk to {#@fi-nametag}?
 ~ player
 | "... She closed the connection."(light-gray, italic)
 | <-Shit.->

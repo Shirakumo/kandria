@@ -30,7 +30,7 @@
 | - What do you make of this place?
 |   ~ trader
 |   | The "Noka"(red)? They're a nice bunch, what can I say?
-|   | Fi's a good person, which is rare these days.
+|   | {#@fi-nametag}'s a good person, which is rare these days.
 |   | They broke out all on their own, had enough of that Wraw bullshit.
 |   | Can't blame 'em. It was brave. It might also prove stupid.
 |   < talk
@@ -52,9 +52,9 @@
 |   |   ~ trader
 |   |   | Yeah, that figures. He doesn't like new people.
 |   |   | Heck, he still doesn't like me - I mean, what's not to love?
-|   | - Jack and Fi.
+|   | - Jack and {#@fi-nametag}.
 |   |   ~ trader
-|   |   | Oh really? I expected nothing less from Jack. Fi I'm surprised about.
+|   |   | Oh really? I expected nothing less from Jack. {#@fi-nametag} I'm surprised about.
 |   |   | Mind you, she has a lot of alqarf on her plate. Give her some time.
 |   | - Everyone.
 |   |   ~ trader

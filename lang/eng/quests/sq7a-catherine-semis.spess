@@ -5,7 +5,7 @@
 - Not good.
   ~ catherine
   | (:concerned)... Uh, how so?
-  | (:normal)You know what: don't worry about it. I'm sure you've got enough on your plate. I'll talk to Fi.
+  | (:normal)You know what: don't worry about it. I'm sure you've got enough on your plate. I'll talk to {#@fi-nametag}.
   | (:concerned)... Although there are rumours flying around, about the Wraw invading the Cerebats.
   | Is it true?
 - We've got bigger problems.
@@ -23,15 +23,15 @@
   ~ player
   - Do you want to go back?
     ~ catherine
-    | (:concerned)Not particularly. I don't know if Fi told you, but they didn't exactly look after me.
-  - Fi said you wouldn't want to go back.
+    | (:concerned)Not particularly. I don't know if {#@fi-nametag} told you, but they didn't exactly look after me.
+  - {#@fi-nametag} said you wouldn't want to go back.
     ~ catherine
     | (:concerned)She's right. They didn't exactly look after me.
   ~ catherine
   | Don't get me wrong - their skills and tools are sort of amazing. An engineer's dream.
   | (:concerned)But nah. Innis can be a real bitch. Islay too sometimes.
   | (:excited)Soon as I was old enough I hightailed it outta there.
-  | (:concerned)It was kind of stupid actually. I would have died if Fi and the others hadn't found me.
+  | (:concerned)It was kind of stupid actually. I would have died if {#@fi-nametag} and the others hadn't found me.
   | (:normal)But I'm still here!
   | (:concerned)Anyway, what about these rumours? About the Wraw invading the Cerebats?
   | Is it true?
@@ -39,7 +39,7 @@
 - [(complete-p 'q8a-bribe-trader) Yes, the Cerebats turned their water off.|]
   ~ catherine
   | (:excited)They did what? Heh, maybe they had spines after all. Still...
-- [(not (complete-p 'q8a-bribe-trader)) Fi doesn't think so.|]
+- [(not (complete-p 'q8a-bribe-trader)) {#@fi-nametag} doesn't think so.|]
   ~ catherine
   | (:concerned)You don't sound too convinced.
 - [(complete-p 'q8a-bribe-trader) They seem to be.|]
@@ -56,6 +56,6 @@
 ~ catherine
 | (:concerned)What little glue holds things together around here is thanks to the Cerebats.
 | If they're gone... then it's open season.
-| I wonder what "Fi's gonna do"(orange).
+| I wonder what "{#@fi-nametag}'s gonna do"(orange).
 
 ; these "rumours" are what soon convince Fi to send you down to investigate the Cerebats, find out if they have been invaded after all

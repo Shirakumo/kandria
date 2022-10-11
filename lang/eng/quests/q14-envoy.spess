@@ -40,12 +40,12 @@
 | An' maybe I wouldn't o' done it if you hadn't sent this thing after me.
 ~ zelah
 | Alex has merely come home - just like the rest of ya should have.
-| But no, ya betrayed your people when ya ran way, Fi. And when ya took this android in.
+| But no, ya betrayed your people when ya ran way, {#@fi-nametag}. And when ya took this android in.
 | (:jovial)I know you're fond of it.
 ~ fi
 | (:annoyed)She's not going anywhere.
 ~ jack
-| (:shocked)Fi...
+| (:shocked){#@fi-nametag}...
 ~ innis
 | (:angry)We dinnae need the android. I kent this alliance was a mistake.
 ~ islay
@@ -84,7 +84,7 @@
 ! eval (move-to 'wraw-surface-rally 'soldier-3)
 ~ islay
 | ...
-| Fi, {(nametag player)} - "come to Engineering"(orange).
+| {#@fi-nametag}, {(nametag player)} - "come to Engineering"(orange).
 | We "need to talk"(orange).
 ! eval (activate (unit 'zelah-gone))
 

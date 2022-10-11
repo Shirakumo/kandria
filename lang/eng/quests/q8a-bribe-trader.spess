@@ -48,7 +48,7 @@
 ~ player
 | (:embarassed)...
 | Shit.
-| (:normal)"I need to "contact Fi"(orange). Though first I should "put some distance between myself and this slippery fella"(orange)."(light-gray, italic)
+| (:normal)"I need to "contact {#@fi-nametag}"(orange). Though first I should "put some distance between myself and this slippery fella"(orange)."(light-gray, italic)
 ! eval (complete task)
 ! eval (reset interaction)
 ! eval (activate (unit 'fi-ffcs-cerebat-1))

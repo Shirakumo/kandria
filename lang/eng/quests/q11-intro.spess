@@ -27,7 +27,7 @@
 | Just make sure you get to them first. "Call me when you have news"(orange).
 | I'm going to try and find Sahil - no one knows where he is.
 ~ player
-| "Fi looks like she wants to say something else, but I think the moment has passed."(light-gray, italic)
+| "{#@fi-nametag} looks like she wants to say something else, but I think the moment has passed."(light-gray, italic)
 - Are you okay?
   ~ fi
   | (:happy)I'm fine. Be safe.
@@ -56,6 +56,3 @@
 | ! eval (activate 'trader-shop)
 
 ; moving Sahil back to his start location in the Semis base. Yes it's arguably closer to the frontline, but he wants strength in numbers, or to hide in a familiar corner maybe
-
-; TODO okay for Fi not to have run/climb anims here? She could be plausibly through the door so quickly that critical path players won't notice, and they'll just assume she ran ahead of them
-; she also comes back when the player is in Wraw territory so they'll never see her then either

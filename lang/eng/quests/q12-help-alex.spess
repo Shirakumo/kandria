@@ -20,13 +20,14 @@
 |   | (:angry)As God at the Last Judgement.
   
 ~ alex
-| (:angry)I can't wait to see the look on Fi's face when the Wraw come pouring out the ground.
+| (:angry)I can't wait to see the look on {#@fi-nametag}'s face when you tell her - and when the Wraw come pouring out the ground.
 ~ player
+- Tell her what?
 - What do you mean?
 - What have you done?
 ~ alex
 | "I told them the exact location o' the Noka Camp."(orange)
-| (:angry)It's the least I could do to repay you an' Fi for your loyalty.
+| (:angry)It's the least I could do to repay you an' {#@fi-nametag} for your loyalty.
 | (:normal)Now if you don't mind, I've got a battle to fight.
 | (:angry)Watch your back, {(nametag player)}.
 ! eval (setf (location 'fi) (location 'shutter-3))

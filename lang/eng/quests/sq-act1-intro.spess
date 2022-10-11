@@ -37,7 +37,7 @@
 | | (:excited)But is it me, or are those "mushrooms you're carrying"(orange)?
 | | (:excited)You're very proactive, {(nametag player)}, I like that! Let's see what you've got.
 | ? (have 'item:mushroom-good-1)
-| | | (:excited)"Flower fungus"(red), nice! I'll get these to Fi and straight into the cooking pot.
+| | | (:excited)"Flower fungus"(red), nice! I'll get these to {#@fi-nametag} and straight into the cooking pot.
 | | | (:normal)Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
 | | ! eval (retrieve 'item:mushroom-good-1 T)
 | ? (have 'item:mushroom-good-2)
@@ -58,7 +58,7 @@
 | | If we don't need them, the least you could do is "trade them with Sahil"(orange).
 | ! eval (complete 'sq2-mushrooms)
 |?
-| | (:normal)With food stocks running out, Fi wants to "forage for more mushrooms"(orange). They're good for clothing too.
+| | (:normal)With food stocks running out, {#@fi-nametag} wants to "forage for more mushrooms"(orange). They're good for clothing too.
 | | I'd say at least "25 puffballs or flower fungus"(orange) should do. "Avoid black caps"(orange) though.
 | ? (< 0 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
 | | ~ player
