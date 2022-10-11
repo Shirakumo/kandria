@@ -51,6 +51,8 @@
   (resize patch (* (patches patch) (vx (tile-size patch))) (vy (tile-size patch))))
 (defmethod (setf tile-start) :after (start (patch grass-patch))
   (resize patch (* (patches patch) (vx (tile-size patch))) (vy (tile-size patch))))
+(defmethod (setf tile-count) :around (count (patch grass-patch))
+  (call-next-method (max 1 count) patch))
 (defmethod (setf tile-count) :after (count (patch grass-patch))
   (resize patch (* (patches patch) (vx (tile-size patch))) (vy (tile-size patch))))
 
