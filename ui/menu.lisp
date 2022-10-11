@@ -613,7 +613,7 @@
                (exit ()
                  (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
                    (show (if (or (<= mins 1) (not (saving-possible-p)))
-                             (make-instance 'prompt-panel :text (@formats 'game-quit-reminder (if (< mins 60) mins "> 60"))
+                             (make-instance 'prompt-panel :text (@formats 'game-quit-reminder mins)
                                                           :on-accept #'return-to-main-menu)
                              (make-instance 'prompt-panel :text (@ game-resume-reminder)
                                                           :on-accept #'save-and-quit))
