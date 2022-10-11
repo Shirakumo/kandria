@@ -462,9 +462,9 @@
 (define-item (love-letter quest-item) 40 56 8 8)
 (define-item (headdress quest-item) 48 56 8 8)
 (define-item (tunic quest-item) 56 56 8 8)
-(define-item (synthesis-file quest-item) 40 56 8 8) ;; TODO needs icon - a legacy text file "Expediate.txt" downloaded from the lab for The Synthesis, containing the ingredients to make the drug from the old world, which improves resistance to pain and heat for underground workers. It's 34KB in size!
-(define-item (synthesis-file-1 quest-item) 40 56 8 8) ;; TODO - replace with same icon as above (modified file contents)
-(define-item (synthesis-file-2 quest-item) 40 56 8 8) ;; TODO - replace with same icon as above (partially corrupted file contents)
+(define-item (synthesis-file quest-item) 64 0 8 8)
+(define-item (synthesis-file-1 quest-item) 72 0 8 8)
+(define-item (synthesis-file-2 quest-item) 80 0 8 8)
 
 ;; VALUE-QUEST-ITEMS (can be sold)
 (define-item (mushroom-good-1 value-quest-item) 24 8 8 8
