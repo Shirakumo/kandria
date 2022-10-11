@@ -57,7 +57,7 @@
 | Word's getting around about your arrival too - you might "find some of my sisters are also willing to pay for your skills"(orange).
 | So "leave Alex to me and speak with Innis"(orange) - she's gone up to the "control room"(orange).
 | Perhaps see her as another challenge to overcome. I know I do.
-| Ta-ta for now, Stranger.
+| Ta-ta for now, {(nametag player)}.
 ! eval (stop-following 'islay)
 ! eval (move-to 'islay-alex-talk 'islay)
 ! eval (activate 'trader-semi-chat)

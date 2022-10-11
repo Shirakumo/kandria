@@ -1,6 +1,6 @@
 # talk-to-fi/talk-fi
 ~ fi
-| Greetings, Stranger.
+| Greetings, {(nametag player)}.
 ~ player
 - Can I help with anything?
   ~ fi
@@ -81,7 +81,7 @@
 ~ fi
 | (:happy)You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
-| (:normal)Know that you are earning my trust, Stranger. Perhaps you will become a part of the "Noka"(red) yourself.
+| (:normal)Know that you are earning my trust, {(nametag player)}. Perhaps you will become a part of the "Noka"(red) yourself.
 | Alex has been our sole hunter for some time. You could be a hunter too, and more besides I think.
 | But for now, please "accept these parts"(orange) as a token of my appreciation.
 ! eval (store 'item:parts 200)

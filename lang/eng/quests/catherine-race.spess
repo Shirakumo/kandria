@@ -22,7 +22,7 @@
 ? (var 'pb)
 | | Your "personal best"(orange) for this route is "{(format-relative-time pb)}"(orange).
 ~ catherine
-| (:excited)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go Stranger! | Sync your chronometer and... Go!]
+| (:excited)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go {(nametag player)}! | Sync your chronometer and... Go!]
 ! eval (complete task)
 ! eval (clear-pending-interactions)
 

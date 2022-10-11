@@ -61,11 +61,11 @@
   ~ catherine
   | I'm sure it's fine. It's probably just a little data loss.
 ~ catherine
-| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you (:excited)"__Stranger__"(yellow).
+| Well, until it comes back to you, or you decide what you'd like to be called, I'm gonna call you (:excited)"__{#@player-name-1}__"(yellow).
 ! eval (setf (nametag player) (@ player-name-1))
 | (:excited)Pretty cool, huh?
 | (:normal)Okay, we need to "follow the pipeline further down"(orange).
-| (:excited)Let's go, Stranger!
+| (:excited)Let's go, {(nametag player)}!
   
 # 4-interact-catherine/interaction
 ~ catherine
@@ -135,9 +135,9 @@
 - It's not Catherine.
   ~ jack
   | (:shocked)... You! Where's Cathy?
-- It's Stranger.
+- It's {(nametag player)}.
   ~ jack
-  | (:annoyed)Who's Stranger?
+  | (:annoyed)Who's {(nametag player)}?
   | (:shocked)... This is the android, isn't it. Where's Cathy?!
 ~ player
 | She's fixing the pump. It was sabotaged by Servo robots.
@@ -232,7 +232,7 @@
 ~ jack
 | But what do we really know about androids, Cathy? Fuck all, that's what.
 ~ catherine
-| Well, ask her. "Have you betrayed us, Stranger?"(orange)
+| Well, ask her. "Have you betrayed us, {(nametag player)}?"(orange)
 ~ player
 - No I have not.
   ~ catherine
@@ -273,7 +273,7 @@
 | But even if we had all that, don't you think you should ask HER if taking her apart is okay?
 ~ fi
 | You're right, Catherine.
-| I'm sorry... Stranger, wasn't it?
+| I'm sorry... {(nametag player)}, wasn't it?
 ~ jack
 | (:annoyed)...
 ~ fi
@@ -286,9 +286,9 @@
   | (:annoyed)Really? You're gonna let this thing call the shots?
   ~ fi
   | This "thing" is a person. And I expect you to treat her as such.
-  | I trust Catherine's judgement. For now, Stranger is our guest.
+  | I trust Catherine's judgement. For now, {(nametag player)} is our guest.
   | Nevertheless, Jack - speak with "Sahil"(yellow) when he arrives, see what he knows about androids.
-  | If Stranger is having memory problems, the least we can do is try to help her.
+  | If {(nametag player)} is having memory problems, the least we can do is try to help her.
   ~ jack
   | (:annoyed)If you insist.
 - Sure, why not.
@@ -309,9 +309,9 @@
 | (:normal)"I must consider our next course of action."(orange)
 ~ catherine
 | If there's nothing else, I'll see you both later.
-| Hey Stranger, wait here - "I want to talk"(orange).
+| Hey {(nametag player)}, wait here - "I want to talk"(orange).
 ~ fi
-| Sayonara Catherine, Stranger.
+| Sayonara Catherine, {(nametag player)}.
 ~ jack
 | You take care, Cathy.
 ! eval (move-to 'fi-farm 'fi)
@@ -332,7 +332,7 @@
 | "Knowing Jack he'll have something for you too"(orange) - (:concerned)if only a mouthful of abuse.
 | (:normal)But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
 | (:excited)Take a "look around and explore"(orange)! (:normal)Though it's probably best not to go too far from the Camp.
-| Seeya later, Stranger!
+| Seeya later, {(nametag player)}!
 
 # main-leak-2/walkntalk
 ~ catherine
@@ -348,7 +348,7 @@
 
 # eng-trigger/walkntalk
 ~ catherine
-| (:excited)"Take us home"(orange), Stranger!
+| (:excited)"Take us home"(orange), {(nametag player)}!
 
 # shutter-1/walkntalk
 ~ catherine

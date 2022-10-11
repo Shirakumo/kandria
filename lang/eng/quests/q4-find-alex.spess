@@ -36,7 +36,7 @@
 | (:normal)Come now, sister - the pinnacle of human engineering is standing before you, and that's all you can say?
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
-- My name's Stranger.
+- My name's {(nametag player)}.
   ~ innis
   | This I ken, android. (:sly)Tell me, why are you here?
 - ...
@@ -115,7 +115,7 @@
 | (:normal)Come now, sister - you're speaking with the pinnacle of human engineering, and that's all you can say?
 | (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
 ~ player
-- My name's Stranger.
+- My name's {(nametag player)}.
   ~ innis
   | This I ken, android. (:sly)Tell me, why are you here?
 - ...
@@ -174,7 +174,7 @@
 
 # find-alex-semis/islay-hint
 ~ islay
-| Hello, Stranger. It's an honour to meet you in person.
+| Hello, {(nametag player)}. It's an honour to meet you in person.
 | (:nervous)I'm sorry about my sister.
 | (:normal)If you're looking for "Alex, try the bar"(orange). It's "on the level above us"(orange).
 | Just don't tell "Innis"(yellow) I told you. She'll think I've gone soft for androids.
@@ -214,7 +214,7 @@
 | Yeah that's me. <-Hic->.
 ! eval (setf (nametag (unit 'alex)) (@ alex-nametag))
 ~ player
-- My name is Stranger.
+- My name is {(nametag player)}.
   ~ alex
   | <-Hic->. I know. You're the new hunter.
   | The android.

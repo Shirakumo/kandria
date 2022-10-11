@@ -1,7 +1,7 @@
 # find-seeds/q2-reminder
 ~ fi
 | Travel "across the surface to the east"(orange) and beneath the "Ruins - retrieve whatever seeds remain"(orange) in the cache.
-| Good luck, Stranger.
+| Good luck, {(nametag player)}.
 
 # find-seeds/seeds-arrive
 ~ player
@@ -31,7 +31,7 @@
 ~ fi
 | (:happy)You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
-| (:normal)Know that you are earning my trust, Stranger. Perhaps you will become a part of the "Noka"(red) yourself.
+| (:normal)Know that you are earning my trust, {(nametag player)}. Perhaps you will become a part of the "Noka"(red) yourself.
 | But for now, please "accept these parts"(orange) as a token of my appreciation.
 ! eval (store 'item:parts 200)
 ! eval (status "Received 200 Scrap Parts")

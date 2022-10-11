@@ -5,33 +5,33 @@
 - Who do you think I am?
 - Most likely.
 ~ trader
-| (:jolly)You're The Stranger!... (:normal)Or was it just Stranger?
+| (:jolly)You're The {#@player-name-1}!... (:normal)Or was it just {#@player-name-1}?
 ? (not (complete-p 'q7-my-name))
 | ~ player
-| - Technically it's just Stranger.
+| - Technically it's just {(nametag player)}.
 |   ~ trader
-|   | (:jolly)Right you are, Stranger!
+|   | (:jolly)Right you are, {(nametag player)}!
 | - Take your pick.
 |   ~ trader
-|   | (:jolly)But it's __YOUR__ name. Now I think about it, I'm sure it was just Stranger.
+|   | (:jolly)But it's __YOUR__ name. Now I think about it, I'm sure it was just {(nametag player)}.
 | - I used to have a different name.
 |   ~ trader
 |   | Can't remember it though, right?
-|   | Don't worry. And speaking of remembering, I'm sure it was just Stranger.
+|   | Don't worry. And speaking of remembering, I'm sure it was just {(nametag player)}.
 |?
 | ? (string= (@ player-name-1) (nametag player))
 | | ~ player
-| | - It's Stranger.
+| | - It's {(nametag player)}.
 | |   ~ trader
-| |   | (:jolly)Right you are, Stranger!
-| | - It's Stranger, but I used to have a different name.
+| |   | (:jolly)Right you are, {(nametag player)}!
+| | - It's {(nametag player)}, but I used to have a different name.
 | |   ~ trader
 | |   | Can't remember it though, right?
-| |   | (:jolly)Well it's nice to meet you, Stranger!
-| | - It's Stranger. It was never The Stranger.
+| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
+| | - It's {(nametag player)}. It was never The {(nametag player)}.
 | |   ~ trader
 | |   | Oh, my bad, habibti.
-| |   | (:jolly)Well it's nice to meet you, Stranger!
+| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 | |?
 | | ~ player
 | | - Actually now it's {(nametag player)}.
@@ -40,7 +40,7 @@
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 | |   ~ trader
 | |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
-| | - It used to be Stranger.
+| | - It used to be {#@player-name-1}.
 | |   ~ trader
 | |   | Used to be? Old Sahil got old information, huh?
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))

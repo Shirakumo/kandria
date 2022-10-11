@@ -16,7 +16,7 @@
 | Anyway, you can do something for me.
 | Fi wants to "scout for a new home"(orange) - I guess she's worried sick now the Wraw are breathing down our necks.
 | Well as you can see, I'm no scout. I guess I just don't have the physique for it.
-| (:annoyed)"Alex"(yellow) is our hunter, but God knows where they are. So it's up to you... Stranger.
+| (:annoyed)"Alex"(yellow) is our hunter, but God knows where they are. So it's up to you... {(nametag player)}.
 ~ player
 - Lucky me.
   ~ jack

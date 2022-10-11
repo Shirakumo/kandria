@@ -1,6 +1,6 @@
 # sq-act1-catherine/talk-catherine
 ~ catherine
-| Hey, Stranger. How are you?
+| Hey, {(nametag player)}. How are you?
 ~ player
 - Can I help out?
   < choices
@@ -35,7 +35,7 @@
 ? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
 | | (:normal)I was going to say we need some "mushrooms, what with food stocks running out"(orange).
 | | (:excited)But is it me, or are those "mushrooms you're carrying"(orange)?
-| | (:excited)You're very proactive, Stranger, I like that! Let's see what you've got.
+| | (:excited)You're very proactive, {(nametag player)}, I like that! Let's see what you've got.
 | ? (have 'item:mushroom-good-1)
 | | | (:excited)"Flower fungus"(red), nice! I'll get these to Fi and straight into the cooking pot.
 | | | (:normal)Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
@@ -136,7 +136,7 @@
   | We combine them with recycled synthetic clothes from the old world - like yours - and pelts from animals we hunt.
   | Just don't breathe in their spores - though I doubt they will affect you.
   | Other kinds are deadly poisonous, like the "black cap - avoid those if you can"(orange).
-  | At least "25 puffballs or flower fungus"(orange) should suffice for now. (:excited)Happy mushrooming, Stranger!
+  | At least "25 puffballs or flower fungus"(orange) should suffice for now. (:excited)Happy mushrooming, {(nametag player)}!
   < task-choice
 - (Ask about the time trials)
   ~ catherine

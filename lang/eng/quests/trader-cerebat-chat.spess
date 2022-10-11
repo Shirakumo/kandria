@@ -20,13 +20,13 @@
 |   ? (not (var 'name-known))
 |   | ~ cerebat-trader-quest
 |   | | You fink I got this far in business by sharin' my name?
-|   | | You can call me... //Stranger//.
+|   | | You can call me... //{#@cerebat-trader-nametag}//.
 |   | ! eval (setf (nametag (unit 'cerebat-trader-quest)) (@ cerebat-trader-nametag))
 |   | ~ player
 |   | - Are you for real?
 |   |   ~ cerebat-trader-quest
 |   |   | You don't like it?
-|   | - Okay, Stranger.
+|   | - Okay, {#@cerebat-trader-nametag}.
 |   | - Why did you pick that name?
 |   |   ~ cerebat-trader-quest
 |   |   | Do you like it? I just made it up.
@@ -36,10 +36,10 @@
 |   | - Nice try.
 |   |   ~ cerebat-trader-quest
 |   |   | It was wasn't it.
-|   | - [(string= (@ player-name-1) (nametag player)) (Lie) Not Stranger.|]
+|   | - [(string= (@ player-name-1) (nametag player)) (Lie) Not {#@player-name-1}.|]
 |   |   ~ cerebat-trader-quest
 |   |   | Really? Well that would be a turn up for the books if it was.
-|   | - [(not (string= (@ player-name-1) (nametag player))) Not Stranger.|]
+|   | - [(not (string= (@ player-name-1) (nametag player))) Not {#@player-name-1}.|]
 |   |   ~ cerebat-trader-quest
 |   |   | Well that would be a turn up for the books if it was.
 |   | - I don't remember my name.
@@ -49,7 +49,7 @@
 |   | < questions
 |   |?
 |   | ~ cerebat-trader-quest
-|   | | It's Stranger, innit. You need to pay closer attention, friend. What's yours?
+|   | | It's {#@cerebat-trader-nametag}, innit. You need to pay closer attention, friend. What's yours?
 |   | | Calm down, I'm just jestin'.
 |   | < questions
 | - I'm done.

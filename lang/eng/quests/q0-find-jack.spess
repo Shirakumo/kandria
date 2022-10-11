@@ -70,5 +70,5 @@
 | I will. And don't worry - we'll be back before you know it.
 | Alright, android - "let me know when you're ready to go"(orange).
 ! eval (activate 'q1-ready)
-; meet Jack for the first time - Stranger already presumes this is Jack
+; meet Jack for the first time - player already presumes this is Jack
 ; The mission here is too urgent for Catherine to think, oh, let's establish the android's name
