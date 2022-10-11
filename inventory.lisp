@@ -712,18 +712,14 @@
 ;; - very different architecture and geology too, so whereas a lot of overlap between region 1 upper and lower, this will feel quite different
 
 #| new items in this region:
- thermal-fluid (also for trader quest)
- pearl (also for trader quest)
+ thermal-fluid
+ pearl
  pristine-pelt
  memory
  heavy-rod
  light-rod
  gold-nugget
  
- prev region items also required for trader quest nearby:
- pure-water
- coolant
- black-cap
 |#
 
 (define-random-draw region2-cave
