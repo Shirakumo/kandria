@@ -83,7 +83,7 @@
                           ideal))
       (incf (offset panel) (* (alloy:to-px (alloy:un 40)) (dt ev)))
       ;; KLUDGE: the offset from the IDEAL seems too big??
-      (when (< 14000 (offset panel))
+      (when (< 13800 (print (offset panel)))
         (transition :kind :black (hide panel))))))
 
 (defmethod handle :after (ev (panel credits))
@@ -127,10 +127,10 @@
     (setf (credits panel) credits)
     (from-markless (merge-pathnames file (root)) credits)
     (let ((prompts (make-instance 'alloy:horizontal-linear-layout :align :end)))
-      (alloy:enter (make-instance 'prompt-label :value (coerce-button-string 'back)) prompts)
-      (alloy:enter (make-instance 'prompt-description :value (language-string 'back NIL)) prompts)
+      (alloy:enter (make-instance 'prompt-label :value (coerce-button-string 'toggle-menu)) prompts)
+      (alloy:enter (make-instance 'prompt-description :value (language-string 'exit-credits NIL)) prompts)
       (alloy:enter (make-instance 'prompt-label :value (coerce-button-string 'skip)) prompts)
-      (alloy:enter (make-instance 'prompt-description :value (language-string 'skip NIL)) prompts)
+      (alloy:enter (make-instance 'prompt-description :value (language-string 'faster-credits NIL)) prompts)
       (alloy:enter prompts layout :constraints `((:right 30) (:bottom 30) (:size 500 50))))
     (alloy:finish-structure panel layout layout)))
 
