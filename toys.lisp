@@ -788,6 +788,7 @@ void main(){
 
 (define-shader-entity windmill (ephemeral lit-animated-sprite creatable)
   ((name :initform NIL)
+   (bsize :initform (vec 32 64))
    (clock :initform (random 0.5))
    (trial:sprite-data :initform (asset 'kandria 'windmill))
    (layer-index :initform (1- +base-layer+) :accessor layer-index :type integer)))
