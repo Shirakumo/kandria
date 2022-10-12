@@ -25,7 +25,7 @@
 ~ synthesis
 | ...
 | (:grin)We are in business.
-| Now we feel like making them suffer for crossing "The Synthesis"(yellow).
+| Now we feel like making them suffer for crossing "{#@synthesis-nametag}"(yellow).
 ~ player
 - Now you tell me about the old world.
   ~ synthesis

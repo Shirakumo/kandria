@@ -262,7 +262,7 @@
   | "How is it made? The drug is derived from a "chemical synthesis of opium poppy juice and antibiotics from Usjdipmpnb furvus (black cap mushrooms"(orange))."
   | "A dbubmztu "enzyme is also required"(orange)."
   | ""Download Expediate.txt"(orange) for more information."
-  | "I think I will - half of this is corrupted. And besides, "The Synthesis needs to know exact quantities"(orange)."(light-gray, italic)
+  | "I think I will - half of this is corrupted. And besides, "{#@synthesis-nametag} needs to know exact quantities"(orange)."(light-gray, italic)
   | ""Downloading Expediate.txt..."(orange)"
   ! eval (store 'item:synthesis-file 1)
   | (:giggle)"Wow that was quick. Oh, it's only 34KB... Legacy file types! And it's not corrupted. Good."(light-gray, italic)
@@ -358,7 +358,7 @@
 | (:embarassed)"And it has a variety of fun "side effects"(orange), not least migraines and addiction - and perhaps even reduced immune response..."(light-gray, italic)
 | (:normal)"Oh but hey, it's also a source of vitamin D!"(light-gray, italic)
 | "So this is the information they wanted?"(light-gray, italic)
-| (:thinking)"Do I really want to "hand this over to The Synthesis"(orange)? I can see the benefits for people living underground - and on the surface. But this doesn't feel right, does it?"(light-gray, italic)
+| (:thinking)"Do I really want to "hand this over to {#@synthesis-nametag}"(orange)? I can see the benefits for people living underground - and on the surface. But this doesn't feel right, does it?"(light-gray, italic)
 | "Maybe I just don't go back."(light-gray, italic)
 ! eval (activate 'task-return)
 
