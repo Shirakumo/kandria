@@ -41,7 +41,7 @@
 | - You caused one of the leaks.
 |   ~ catherine
 |   | (:concerned)I did? From the repair before? I'm sorry.
-|   | Must be losing my edge. Please don't tell Jack. (:normal)Anyway...
+|   | Must be losing my edge. Please don't tell {#@jack-nametag}. (:normal)Anyway...
 | ~ catherine
 | | (:excited)"Hurry back"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (deactivate 'task-sq1-reminder)
@@ -90,7 +90,7 @@
 | - You caused one of the leaks.
 |   ~ catherine
 |   | (:concerned)I did? From the repair before? I'm sorry.
-|   | Must be losing my edge. Please don't tell Jack. (:normal)Anyway...
+|   | Must be losing my edge. Please don't tell {#@jack-nametag}. (:normal)Anyway...
 | ~ catherine
 | | (:excited)"Hurry back"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (deactivate 'task-sq1-reminder)
@@ -138,7 +138,7 @@
 | - You caused one of the leaks.
 |   ~ catherine
 |   | (:concerned)I did? From the repair before? I'm sorry.
-|   | Must be losing my edge. Please don't tell Jack. (:normal)Anyway...
+|   | Must be losing my edge. Please don't tell {#@jack-nametag}. (:normal)Anyway...
 | ~ catherine
 | | (:excited)"Hurry back"(orange), I've got a little something for you. [(have 'item:walkie-talkie) Over and out.|]
 | ! eval (deactivate 'task-sq1-reminder)
