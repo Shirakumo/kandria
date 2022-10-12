@@ -98,23 +98,58 @@
 | I've done the weld - good as new.
 | "Let's get down to the pump room."(orange)
 
-# 16-interact-catherine/interaction
-~ catherine
-| What the hell?!- "Servos"(red)? Here?
-~ player
-- I think we found the saboteurs.
-  ~ catherine
-  | "Do your thing!"(orange)
-- Robots with servomechanisms?
-  ~ catherine
-  | No time to explain! "Do your thing!"(orange)
-- (Fight)
+# 15-interact-catherine/interaction
+? (not (complete-p (unit 'q1-fight2)))
+| ~ catherine
+| | (:concerned)What the hell?!- "Servos"(red)? Here?
+| ~ player
+| - I think we found the saboteurs.
+|   ~ catherine
+|   | (:excited)"Do your thing!"(orange)
+| - Robots with servomechanisms?
+|   ~ catherine
+|   | (:excited)No time to explain! "Do your thing!"(orange)
+| - (Fight)
+| ! eval (setf (var 'servos-cath-know) T)
+| ! eval (override-music 'battle)
+|?
+| ~ catherine
+| | (:concerned)What the hell?!- "Let me see that pump"(orange).
+| ~ player
+| - What's wrong?
+|   ~ catherine
+|   | (:concerned)It's God damn "Servo"(red) sabotage!
+| - What do you see?
+|   ~ catherine
+|   | (:concerned)God damn "Servo"(red) sabotage!
+| - There were robots here before.
+|   ~ catherine
+|   | (:concerned)"Servos"(red)? Where are they?
+| ! eval (setf (var 'servos-early) T)
 
-# 20-interact-catherine/interaction
+
+# 19-interact-catherine/interaction
 ~ catherine
 | (:concerned)What have they done?...
 | Oh man, we got here just in time. They were dismantling the turbine.
-| (:normal)I need to fix this. The "telephone's back there - call {#@jack-nametag} and tell him what happened"(orange).
+? (var 'servos-early)
+| ~ catherine
+| | Wonder what happened to them? There are pieces all over the floor.
+| ~ player
+| - Ahem.
+|   ~ catherine
+|   | You did this?
+|   | (:excited)Wow. Now I'm //really// glad you came along.
+|   ! eval (setf (var 'servos-cath-know) T)
+| - You're looking at what happened to them.
+|   ~ catherine
+|   | ...
+|   | (:excited)Oh man. Remind me never to get on your bad side!
+|   ! eval (setf (var 'servos-cath-know) T)
+| - (Lie) Beats me.
+  
+~ catherine
+| I need to fix this. The "telephone's back there - call {#@jack-nametag} and tell him what happened"(orange).
 ~ player
 - Okay.
 - Do I have to talk to that guy?
@@ -125,7 +160,7 @@
   | Your comms system? I don't doubt that would work, but it would definitely freak {#@jack-nametag} out.
   | Use the telephone for now.
 
-# 22-interact-jack/interaction
+# 21-interact-jack/interaction
 ~ jack
 | Thank Christ. Good work, Cathy - the water's back on.
 ~ player
@@ -146,13 +181,11 @@
 ~ player
 - I took care of them.
 - In tiny pieces on the floor.
-- You don't have to worry about them.
-  ~ jack
-  | (:annoyed)Don't I? Let me guess: you trashed them.
+- Not here.
 ~ jack
 | (:annoyed)...
 | You'd better be telling the truth.
-| (:normal)Servos, huh?... Sounds about right. It's usually them or "Rogues"(red).
+| (:normal)Servos, huh?... Sounds about right. If we're not swimming in them we're swimming in "Rogues"(red).
 ~ jack
 | Look, "tell Cathy to get her ass back here"(orange) on the double.
 | And "you need to come too"(orange), //android// - "{#@fi-nametag}'s"(yellow) on the warpath.
@@ -160,7 +193,7 @@
 | "He hung up."(light-gray, italic)
 
 ; using frequent repetition of Catherine speaker tag initially here, in case she's far away at first (radio effect), but then comes closer - to refresh it
-# 25-interact-catherine/interaction
+# 24-interact-catherine/interaction
 ~ catherine
 | I jury-rigged the pump. Should be okay for a while - but it'll need a more permanent fix later.
 ~ catherine
@@ -200,7 +233,7 @@
 ! eval (setf (location 'jack) (location 'shutter-3))
 ! setf (direction 'jack) -1
 
-# 29-interact-catherine/interaction
+# 27-interact-catherine/interaction
 ! eval (stop-following 'catherine)
 ! eval (ensure-nearby 'shutter-1 'catherine)
 ! eval (setf (nametag (unit 'fi)) (@ fi-nametag))
@@ -219,8 +252,23 @@
 | (:concerned)I don't understand.
 ~ fi
 | Is it not a coincidence that you discovered it at the same time our water supply was sabotaged? Likely by the Wraw.
-~ catherine
-| But we saw the Servos, they were dismantling the pump. It wasn't her - she smashed them into little pieces!
+? (not (var 'servos-early))
+| ~ catherine
+| | But we saw the Servos, they were dismantling the pump. It wasn't her - she smashed them into little pieces!
+|? (var 'servos-cath-know)
+| ~ catherine
+| | But we saw the damage the Servos did to the pump - they'd been dismantling it.
+| | And she told me she smashed them into little pieces!
+| ~ jack
+| | And you believed it?!
+| | Look...
+|?
+| | ~ catherine
+| | But we saw the damage the Servos did to the pump - they'd been dismantling it. It wasn't her!
+| ~ jack
+| | How do you know though?
+| | And you know something else?...
+  
 ~ jack
 | Maybe this thing can control them? Did you think of that?
 ~ catherine
@@ -260,7 +308,7 @@
   | Alright. It's hardly conclusive, but for now we'd better hope {#@catherine-nametag}'s right.
   | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
-| (:annoyed)Jesus, {#@fi-nametag}... you're just gonna accept that?
+| (:shocked)Jesus, {#@fi-nametag}... you're just gonna accept that?
 ~ fi
 | What choice do I have?
 ~ jack
@@ -334,6 +382,14 @@
 | (:excited)Take a "look around and explore"(orange)! (:normal)Though it's probably best not to go too far from the Camp.
 | Seeya later, {(nametag player)}!
 
+; "And since I brought her online she's been with me the whole time" - might not be totally true at this point, but Catherine is more than happy to "white lie" for you. It also contradicts an earlier argument she made on the branch where she says you told her you'd killed the Servos - clearly she wasn't with you the whole time then. But Jack is too stupid (or angry) to pick up on that contradiction, and clearly Fi doesn't believe you were at fault too much, otherwise she'd not and let that go nor welcome you into the fold.
+; The line can't really say "been with me most of the time" either, as critical path players will have been with her the whole time
+; Catherine is perhaps then aware that you could be guilty, but she's too much your biggest fan to believe it, so it never comes up again with her
+
+; when the NPCs here talk about figuring out if the FFCS was active lately, it's to see if it was active with a view to communing with Servos, not just that it was active in itself - which of course it is active all the time during the game, which most of these NPCs come to know about. We can put this slightly clunky wording on their part down to being lay with respect to FFCS
+
+; reading between the lines here as well, and something that ties into q14-envoy, is that if the suspect you being involved with the Servos, AND that the Wraw are the attackers, then they are implying that you work for the Wraw... The player of course is none the wiser at this point, so with the inducting into the gang, the player may feel these people are dangerously letting their guard down
+
 # main-leak-2/walkntalk
 ~ catherine
 | (:excited)Catch me if you can!
@@ -344,12 +400,9 @@
 
 # q1-fight2/walkntalk
 ~ catherine
-| Smash 'em!
-
-# eng-trigger/walkntalk
-~ catherine
-| (:excited)"Take us home"(orange), {(nametag player)}!
+| (:concerned)Be careful, there might be more...
+; needs to work whether the player is fighting the Servos now, or if Catherine is running to the sabotaged pump dismayed
 
 # shutter-1/walkntalk
 ~ catherine
-| Ah, no {#@jack-nametag} or {#@fi-nametag}... They must be "around here somewhere"(orange).
+| (:excited)"Take us home"(orange), {(nametag player)}!

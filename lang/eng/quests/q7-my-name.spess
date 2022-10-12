@@ -129,3 +129,5 @@
 ! eval (activate (unit 'player-council-chamber))
 
 ; this could be a ceremony with Jack and Catherine in attendance, but it feels more personal with just you and Fi. Also, the others will acknowledge your new name later, the next time you speak to them, to suggest that word has travelled
+
+; "Do you still not remember it?" - in q1-water, the player may not have gone down a branch where Catherine tells Fi that the android can't remember her name. However, we can assume that word has gotten around to Fi by this point.
