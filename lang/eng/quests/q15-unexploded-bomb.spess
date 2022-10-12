@@ -1,13 +1,13 @@
 # task-reminder/interact-fi
 ~ fi
-| Hurry - "find Islay at the pump room and fix those bombs"(orange).
+| Hurry - "find {#@islay-nametag} at the pump room and fix those bombs"(orange).
 
 # check-bomb-3/interact-bomb
 
 # islay-person/islay-talk-bomb
 ! eval (ensure-nearby 'player 'catherine)
 ~ catherine
-| (:concerned)Islay, you're soaking wet.
+| (:concerned){#@islay-nametag}, you're soaking wet.
 ~ islay
 | (:nervous)Dammit... You shouldn't have come. I can handle this.
 ~ player

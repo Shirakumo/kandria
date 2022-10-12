@@ -12,10 +12,10 @@
   ~ catherine
   | (:excited)Me too! Somewhere without sand or soldiers. Unless it's the beach.
 ~ catherine
-| "Islay rewired the bomb and put it back in the flooded room."(orange)
+| "{#@islay-nametag} rewired the bomb and put it back in the flooded room."(orange)
 | Now "she's gone to the one near the hospital apartments"(orange).
 | (:excited)We should "get to the Brother offices and see about that last bomb"(orange).
-| Islay's counting on us.
+| {#@islay-nametag}'s counting on us.
 ! eval (follow 'player 'catherine)
 ! eval (activate 'q15-target-bomb)
 ! eval (activate (unit 'bomb-explode-1))

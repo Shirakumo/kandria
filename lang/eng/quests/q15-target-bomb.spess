@@ -24,7 +24,7 @@
 ~ player
 | "Something cut her off. What's that sound?"(light-gray, italic)
 ~ player
-- Islay?
+- {#@islay-nametag}?
 - Is that an earthquake?
 - GET DOWN!
 ! eval (deactivate (unit 'bomb-explode-1))

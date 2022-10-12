@@ -20,7 +20,7 @@
 ~ islay
 | (:nervous)Sister! {(nametag player)} isn't our enemy. The Noka are not our enemy.
 ~ innis
-| (:angry)Shut up, Islay. Remember who's in charge!
+| (:angry)Shut up, {#@islay-nametag}. Remember who's in charge!
 | (:normal)And anyway, this time I dinnae ken why you're here, android.
 ~ player
 - I need your help.
@@ -160,7 +160,7 @@
   ~ innis
   | (:sly)I think she just checked her FFCS.
   | (:angry)And you want us to trust you?
-- (Trust Islay)
+- (Trust {#@islay-nametag})
 ~ islay
 | I'll explain everything to {#@fi-nametag} once we reach the surface. "Meet us there when you have the components"(orange).
 | You got it? This is important.

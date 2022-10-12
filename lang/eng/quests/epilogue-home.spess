@@ -12,10 +12,10 @@
   ~ player
   | "Zooming in and increasing resolution..."(light-gray, italic)
   | It's "{#@fi-nametag}, {#@jack-nametag}, and {#@innis-nametag}"(orange). "They're okay"(orange) but they look "worried sick"(orange). "{#@fi-nametag} looks injured"(orange)...
-  | That "might be {#@trader-nametag}"(orange) beyond and "a few others"(orange). I "can't see Islay"(orange).
+  | That "might be {#@trader-nametag}"(orange) beyond and "a few others"(orange). I "can't see {#@islay-nametag}"(orange).
   | There's "no Wraw, and no Alex"(orange).
   ~ catherine
-  | (:concerned)Islay...
+  | (:concerned){#@islay-nametag}...
 - We'll find out soon enough.
   ~ catherine
   | (:concerned)You're right, we shouldn't waste another second - they might need us.

@@ -8,21 +8,21 @@
 
 # task-reminder/interact-fi
 ~ fi
-| Islay can remind you where to plant the bombs.
+| {#@islay-nametag} can remind you where to plant the bombs.
 | (:unsure)I'm sorry, my mind is somewhere else.
 | (:normal)One was the sunken room beside the pump, I remember that much.
 | (:unsure)Be careful, {(nametag player)}. Please.
 
 # task-reminder/interact-catherine
 ~ catherine
-| Hey, {(nametag player)}! You still good to go? Talk to Islay if you need anything.
+| Hey, {(nametag player)}! You still good to go? Talk to {#@islay-nametag} if you need anything.
 | (:excited)I can't wait to see us win, and you'll be the hero.
 | (:normal)I'm glad I got to help build the bombs. Feels like sticking it to the Wraw myself.
 | You be careful, okay?
 
 # task-reminder/interact-innis
 ~ innis
-| Islay can remind you about your task. I dinnae think I've anything to add, if she told you what she said she would.
+| {#@islay-nametag} can tell you about your task. I dinnae think I've anything to add, if she told you what she said she would.
 | (:sly)I hope I was wrong about you, android.
 
 # task-reminder/interact-jack
@@ -121,7 +121,7 @@
 ~ player
 | "That should be far enough."(light-gray, italic)
 | "Checking "FFCS... OK. I have a signal"(orange)."(light-gray, italic)
-| Islay, do you read me? The bombs are primed and in position.
+| {#@islay-nametag}, do you read me? The bombs are primed and in position.
 | ... Hello, anyone?
 | (:thinking)... The connection is open.
 ~ islay
@@ -141,7 +141,7 @@
 ~ player
 | "I'd better hurry up and call this in."(light-gray, italic)
 | "Checking "FFCS... OK. I have a signal"(orange)."(light-gray, italic)
-| Islay, do you read me? The bombs are primed and in position.
+| {#@islay-nametag}, do you read me? The bombs are primed and in position.
 | ... Hello, anyone?
 | (:thinking)... The connection is open. It might be quicker just to walk from here.
 ~ islay

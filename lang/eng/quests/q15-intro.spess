@@ -50,7 +50,7 @@
   | (:nervous)There's no time. And it's too risky if you can't figure it out.
 - {#@catherine-nametag} might get hurt.
   ~ fi
-  | (:unsure)She's only a child, Islay.
+  | (:unsure)She's only a child, {#@islay-nametag}.
   ~ islay
   | She isn't. And she knows what she's doing.
 ~ islay

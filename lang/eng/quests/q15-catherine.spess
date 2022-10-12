@@ -2,7 +2,7 @@
 ~ catherine
 | Hey, {(nametag player)}.
 ~ player
-- Islay needs to talk to you urgently.
+- {#@islay-nametag} needs to talk to you urgently.
   ~ catherine
   | (:concerned)Oh, okay.
 - You ready for another adventure?
@@ -22,7 +22,7 @@
 
 # 6-interact-fi/interaction
 ~ fi
-| (:annoyed)Islay's gone. I couldn't stop her.
+| (:annoyed){#@islay-nametag}'s gone. I couldn't stop her.
 | She said the only way to be sure was if she checked the bombs herself.
 ~ player
 - What?!
@@ -33,7 +33,7 @@
   ~ fi
   | She might surprise you.
 ~ catherine
-| (:concerned)Islay...
+| (:concerned){#@islay-nametag}...
 ~ fi
 | She did design the bombs, so if anyone can fix them it's her.
 ~ player

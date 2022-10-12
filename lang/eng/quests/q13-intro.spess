@@ -21,7 +21,7 @@
 | Good. Finish the assembly as quickly as you can.
 | ... That just leaves the question of how we plant them.
 ~ player
-| "Islay is looking at {#@fi-nametag}. I think an understanding is passing between them."(light-gray, italic)
+| "{#@islay-nametag} is looking at {#@fi-nametag}. I think an understanding is passing between them."(light-gray, italic)
 ~ islay
 | I think you're our best shot, {(nametag player)}.
 ~ player
@@ -65,7 +65,7 @@
   | {#@catherine-nametag}, how are we looking?
 - I trust {#@catherine-nametag}'s handiwork.
   ~ catherine
-  | Thank you. I've just been doing what Islay told me.
+  | Thank you. I've just been doing what {#@islay-nametag} told me.
   ~ islay
   | You're a great engineer, {#@catherine-nametag}. They're lucky to have you- //We're// lucky to have you.
   | Speaking of which, how are we looking?

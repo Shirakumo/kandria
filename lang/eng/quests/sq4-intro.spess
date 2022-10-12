@@ -51,7 +51,7 @@
 - Where are the targets?
 ~ semi-roboticist
 | The "group I'm studying"(orange) right now are in the "far east of our territory"(orange). It's kinda hard to reach, but I think you'll be fine.
-| I can "compensate you for your work"(orange), of course: "400 scrap parts"(orange). Islay generously funds this kind of research.
+| I can "compensate you for your work"(orange), of course: "400 scrap parts"(orange). {#@islay-nametag} generously funds this kind of research.
 | "I'll be waiting for you."(orange)
 | Don't get killed.
 ! eval (activate 'sq4-analyse-robots 'sq4-boss)

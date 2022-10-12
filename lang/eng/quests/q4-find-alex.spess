@@ -27,7 +27,7 @@
   | (:sly)I'll ask the questions if ya dinnae mind.
 ~ innis
 | (:sly)What //should// we do with you? I bet your "Genera core"(red) could run our entire operation.
-| What do you think, "Islay"(yellow)?
+| What do you think, "{#@islay-nametag}"(yellow)?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
 | (:nervous)I think you should leave her alone.
@@ -106,7 +106,7 @@
   | (:sly)I'll ask the questions if ya dinnae mind.
 ~ innis
 | (:sly)What //should// we do with you? I bet your "Genera core"(red) could run our entire operation.
-| What do you think, "Islay"(yellow)?
+| What do you think, "{#@islay-nametag}"(yellow)?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
 | (:nervous)I think you should leave her alone.

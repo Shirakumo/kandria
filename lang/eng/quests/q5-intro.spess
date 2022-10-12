@@ -2,7 +2,7 @@
 ~ innis
 | (:angry)What is it, android?
 ~ player
-- Islay sent me.
+- {#@islay-nametag} sent me.
   ~ innis
   | Good. Then I'll assume she told you about the jobs.
 - I'm here to help with the engineers and CCTV.
@@ -11,7 +11,7 @@
 - I found Alex.
   ~ innis
   | (:sly)Aye. It was hardly a challenge though, was it?
-  | (:normal)I take it Islay told you about the jobs? Those are real challenges.
+  | (:normal)I take it {#@islay-nametag} told you about the jobs? Those are real challenges.
 ~ innis
 | (:angry)They'd have been sorted ages ago if Alex wasn't propping up the bar.
 | (:normal)Dinnae get me wrong, I like a drink as much as the next lass. But you Noka really canna hold ya booze.
@@ -73,7 +73,7 @@
 |   - I don't know.
 |     ~ innis
 |     | (:angry)Well shut up then.
-| - Why was Islay's intel out of date?
+| - Why was {#@islay-nametag}'s intel out of date?
 |   ~ innis
 |   | We might have the technological edge 'round here, but out in the sticks news travels slowly.
 |   | I only just got word of this change myself.
@@ -118,7 +118,7 @@
   ~ innis
   | We monitor the surrounding areas, immediately above and below.
   | (:angry)Basically "4 of our cameras"(orange) on the Cerebat border have gone down, in the "distant low eastern region"(orange).
-  | (:normal)It's probably just an electrical fault. (:angry)Unfortunately the way Islay daisy-chains them together, when one goes they all go.
+  | (:normal)It's probably just an electrical fault. (:angry)Unfortunately the way {#@islay-nametag} daisy-chains them together, when one goes they all go.
   | I want you to "check them out"(orange).
   < questions
 - I've got it.

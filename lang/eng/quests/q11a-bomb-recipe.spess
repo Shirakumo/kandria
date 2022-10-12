@@ -1,6 +1,6 @@
 # task-reminder/interact-reminder-innis
 ~ innis
-| (:angry)You'd better shake a leg. Altogether Islay needs "10 blasting caps"(orange) and "20 charge packs"(orange) for the bomb.
+| (:angry)You'd better shake a leg. Altogether {#@islay-nametag} needs "10 blasting caps"(orange) and "20 charge packs"(orange) for the bomb.
 | (:sly)Have fun in "Wraw territory"(orange).
 ~ player
 | "I need to "check Wraw factories and warehouses"(orange). I currently have: "{(item-count 'item:blasting-cap)} blasting cap"(orange), "{(item-count 'item:charge-pack)} charge pack"(orange)."(light-gray, italic)
@@ -13,7 +13,7 @@
 - Thanks.
   ~ fi
   | (:happy)I'm glad you're safe.
-- Islay did most of the convincing.
+- {#@islay-nametag} did most of the convincing.
   ~ fi
   | Well, she knows {#@innis-nametag} the best I suppose.
   | But without you speaking with them, none of this would've happened.
@@ -31,15 +31,15 @@
   ~ fi
   | Yes, but you had their ear - and took the journey on dangerous roads.
 ~ fi
-| Islay told me everything, about why you couldn't call.
+| {#@islay-nametag} told me everything, about why you couldn't call.
 | All things considered, it's surprisingly calm around here.
-| (:unsure)Everyone's buying into Islay's story that we can stop the Wraw. I suppose this bomb is a convincing statement.
+| (:unsure)Everyone's buying into {#@islay-nametag}'s story that we can stop the Wraw. I suppose this bomb is a convincing statement.
 | (:normal)She's been working {#@catherine-nametag} hard to build it, that much I know. (:happy)At least our weapons are ready.
 ! label questions
 ~ player
 - You don't think we can win?
   ~ fi
-  | Islay says we have good numbers. (:unsure)But she also says she doesn't know how many the Wraw are.
+  | {#@islay-nametag} says we have good numbers. (:unsure)But she also says she doesn't know how many the Wraw are.
   | It doesn't fill me with confidence, bomb or no bomb.
   < questions
 - What weapons do we have?
@@ -57,7 +57,7 @@
     | (:happy)More than most, I think.
   - [(var 'fight-army) I still can't fight an army.| I can't fight an army.]
     ~ fi
-    | You might not have to. (:unsure)I think Islay has something special planned for you.
+    | You might not have to. (:unsure)I think {#@islay-nametag} has something special planned for you.
   < questions
 - What do you think about the bomb?
   ~ fi
@@ -68,12 +68,12 @@
   < questions
 - Who's in charge now?
   ~ fi
-  | Islay has the plan, but she's quite diplomatic. (:happy)It feels like a partnership.
+  | {#@islay-nametag} has the plan, but she's quite diplomatic. (:happy)It feels like a partnership.
   | (:annoyed)I'm not sure {#@innis-nametag} sees it that way though.
   < questions
 - I have to go.
   ~ fi
-  | If you've got "all the components for the bomb, take them to Islay"(orange).
+  | If you've got "all the components for the bomb, take them to {#@islay-nametag}"(orange).
   | We'll talk again soon.
 
 # task-return/components-return
