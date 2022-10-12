@@ -61,7 +61,7 @@
 # task-world-all/engineering-shelves
 ~ player
 ? (complete-p 'q0-find-jack)
-| | "Engineering. This is where Jack and Catherine work."(light-gray, italic)
+| | "Engineering. This is where Jack and {#@catherine-nametag} work."(light-gray, italic)
 |?
 | | "It's some sort of workshop. The technology is crude - what do they build here, tin openers?"(light-gray, italic)
 

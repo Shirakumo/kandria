@@ -39,7 +39,7 @@
   | (:happy)...
 - I guess that means me.
 ~ islay
-| No. You don't know enough about the bombs. It has to be "Catherine"(orange).
+| No. You don't know enough about the bombs. It "has to be {#@catherine-nametag}"(orange).
 ~ fi
 | (:annoyed)You don't trust her?
 ~ islay
@@ -48,13 +48,13 @@
 - Teach me how to check them.
   ~ islay
   | (:nervous)There's no time. And it's too risky if you can't figure it out.
-- Catherine might get hurt.
+- {#@catherine-nametag} might get hurt.
   ~ fi
   | (:unsure)She's only a child, Islay.
   ~ islay
   | She isn't. And she knows what she's doing.
 ~ islay
-| You could go with Catherine though, {(nametag player)}. To protect her.
+| You could go with {#@catherine-nametag} though, {(nametag player)}. To protect her.
 ~ islay
 | Please "fetch her"(orange).
 | And "let me know if you want to trade before the journey"(orange).

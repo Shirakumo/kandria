@@ -34,7 +34,7 @@
 | Islay told me everything, about why you couldn't call.
 | All things considered, it's surprisingly calm around here.
 | (:unsure)Everyone's buying into Islay's story that we can stop the Wraw. I suppose this bomb is a convincing statement.
-| (:normal)She's been working Catherine hard to build it, that much I know. (:happy)At least our weapons are ready.
+| (:normal)She's been working {#@catherine-nametag} hard to build it, that much I know. (:happy)At least our weapons are ready.
 ! label questions
 ~ player
 - You don't think we can win?
@@ -44,7 +44,7 @@
   < questions
 - What weapons do we have?
   ~ fi
-  | We've got some old, pre-Calamity guns that Catherine and Jack got working. The Semi Sisters have some too, but in better condition.
+  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and Jack got working. The Semi Sisters have some too, but in better condition.
   | I don't remember the Wraw having anything like that - they're more into swords and spears, so they can watch you die up close.
   | (:unsure)We've also got scythes, shears, and other sharp farming tools.
   | (:happy)And we've got you.
@@ -97,7 +97,7 @@
 
 # result
 ~ islay
-| I'll take the components to Catherine so she can finish up.
+| I'll take the components to {#@catherine-nametag} so she can finish up.
 | {#@fi-nametag}, would you join me in Engineering?
 ~ fi
 | If you insist.

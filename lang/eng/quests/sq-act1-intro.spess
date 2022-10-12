@@ -125,7 +125,7 @@
   | (:normal)Just "follow the red pipeline"(orange) down like we did before.
   | Judging from the pressure drop, these leaks "aren't too far away"(orange), so you'll be within radio range.
   ~ player
-  | "My FFCS indicates "3 leaks"(orange), close to the surface as Catherine said."(light-gray, italic)
+  | "My FFCS indicates "3 leaks"(orange), close to the surface as {#@catherine-nametag} said."(light-gray, italic)
   < task-choice
 - [(not (complete-p 'sq2-mushrooms)) (Ask about the mushrooms)|]
   ~ catherine

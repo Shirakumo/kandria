@@ -62,12 +62,12 @@
 - How confident?
   ~ islay
   | VERY confident.
-  | Catherine, how are we looking?
-- I trust Catherine's handiwork.
+  | {#@catherine-nametag}, how are we looking?
+- I trust {#@catherine-nametag}'s handiwork.
   ~ catherine
   | Thank you. I've just been doing what Islay told me.
   ~ islay
-  | You're a great engineer, Catherine. They're lucky to have you- //We're// lucky to have you.
+  | You're a great engineer, {#@catherine-nametag}. They're lucky to have you- //We're// lucky to have you.
   | Speaking of which, how are we looking?
 ~ catherine
 | They're ready. Here you go, {(nametag player)}.

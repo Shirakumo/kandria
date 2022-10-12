@@ -34,7 +34,7 @@
 |   | They broke out all on their own, had enough of that Wraw bullshit.
 |   | Can't blame 'em. It was brave. It might also prove stupid.
 |   < talk
-| - Catherine said you were later than expected.
+| - {#@catherine-nametag} said you were later than expected.
 |   ~ trader
 |   | Yeah, those damn Servos prowling about.
 |   | Don't get me wrong, I can handle myself. But it's not easy when you pull your own caravan.
@@ -59,10 +59,10 @@
 |   | - Everyone.
 |   |   ~ trader
 |   |   | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|   | - Everyone except you and Catherine.
+|   | - Everyone except you and {#@catherine-nametag}.
 |   |   ~ trader
 |   |   | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|   |   | I'm glad I could help though. And Catherine, well... like I said, she's a great kid.
+|   |   | I'm glad I could help though. And {#@catherine-nametag}, well... like I said, she's a great kid.
 |   | - Let's talk about something else.
 |   |   < talk
 |   | ~ trader
@@ -166,7 +166,7 @@
 |   | ~ trader
 |   | | ...
 |   | | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
-|   | | Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as Catherine.
+|   | | Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as {#@catherine-nametag}.
 |   | | I lost her on the roads, just like Celina, my ox.
 |   | | 'Cept it wasn't wolves that got her. It was people.
 |   | | Rogues, I think. Maybe a Wraw hunting pack. I wasn't really in a fit state to see who they were.

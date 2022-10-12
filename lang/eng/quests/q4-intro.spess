@@ -67,7 +67,7 @@
 # end
 ~ fi
 | See Sahil if you haven't already, and buy supplies - it will be a long journey.
-| Catherine tells me your "FFCS works with our radios"(orange). You'll be deep underground, and I'd like you to "keep in contact"(orange).
+| {#@catherine-nametag} tells me your "FFCS works with our radios"(orange). You'll be deep underground, and I'd like you to "keep in contact"(orange).
 | Like Alex has shown, falling off the grid isn't helpful.
 | So please stay in touch - you can call me day or night.
 ! eval (setf (location 'innis) 'innis-intercept)

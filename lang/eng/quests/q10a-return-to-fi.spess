@@ -112,7 +112,7 @@
 ~ jack
 | (:annoyed)So this is really happening... Well fuck.
 ~ fi
-| Catherine, go to "Storage"(red) and assemble what weapons you can find.
+| {#@catherine-nametag}, go to "Storage"(red) and assemble what weapons you can find.
 ~ catherine
 | (:excited)On it!
 ~ fi

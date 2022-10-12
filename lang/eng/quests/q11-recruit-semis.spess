@@ -5,7 +5,7 @@
 
 # task-destination/interact-innis
 ~ innis
-| (:angry)Catherine still isn't here. What's the hold up? Or do the Noka prefer drinking sand instead of water?
+| (:angry){#@catherine-nametag} still isn't here. What's the hold up? Or do the Noka prefer drinking sand instead of water?
 ~ player
 - I thought you'd have bigger things to worry about.
   ~ innis
@@ -16,7 +16,7 @@
   | (:angry)What?
 - We need to talk.
   ~ innis
-  | (:angry)Unless you can explain why Catherine isn't here, I've nothing more to say to you.
+  | (:angry)Unless you can explain why {#@catherine-nametag} isn't here, I've nothing more to say to you.
 ~ islay
 | (:nervous)Sister! {(nametag player)} isn't our enemy. The Noka are not our enemy.
 ~ innis

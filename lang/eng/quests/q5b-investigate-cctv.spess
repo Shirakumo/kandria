@@ -159,7 +159,7 @@
 | | But now you should "call {#@fi-nametag}"(orange).
 | | It's a pity you couldnae persuade Alex to come home. (:sly)I can't wait to see the look on her face when you tell her.
 | | I suppose androids canna do everything.
-| | (:angry)And tell her "we want Catherine back"(orange) too. We need her now more than ever.
+| | (:angry)And tell her "we want {#@catherine-nametag} back"(orange) too. We need her now more than ever.
 | | (:sly)If she disagrees tell her I'll "shut the water off"(orange).
 | ! eval (activate 'q6-return-to-fi)
 | ! eval (activate (unit 'fi-ffcs-1))

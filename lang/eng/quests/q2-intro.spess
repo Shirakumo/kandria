@@ -10,7 +10,7 @@
   | Something like that.
 - How's the water supply?
   ~ fi
-  | Fully-restored, thanks to yours and Catherine's efforts.
+  | Fully-restored, thanks to yours and {#@catherine-nametag}'s efforts.
   | We might well owe you our lives.
 ~ fi
 | I wanted to apologise for Jack's behaviour - and my own short-sightedness. You are our guest, and you have helped us.
@@ -88,7 +88,7 @@
 ! eval (status "Received 200 Scrap Parts")
 ~ fi
 ? (complete-p 'q3-new-home)
-| | You should "check in with Catherine"(orange) - I'm sure she'd like to see you again.
+| | You should "check in with {#@catherine-nametag}"(orange) - I'm sure she'd like to see you again.
 | | (:happy)I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
 | ! eval (activate 'sq-act1-intro)
 | ! eval (activate 'q4-intro)

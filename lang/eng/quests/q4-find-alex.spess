@@ -13,7 +13,7 @@
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!
 | Did you think ya could just waltz right through here?
-| (:sly)We've been watching you, android. You and your wee excursions with Catherine.
+| (:sly)We've been watching you, android. You and your wee excursions with {#@catherine-nametag}.
 | And now you've come to visit us. How thoughtful.
 ~ player
 - Who are you?
@@ -88,7 +88,7 @@
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!
 | Did you think ya could just waltz right through here?
-| (:sly)We've been watching you, android. You and your wee excursions with Catherine.
+| (:sly)We've been watching you, android. You and your wee excursions with {#@catherine-nametag}.
 | And now you've come to visit us. How thoughtful.
 ! label questions
 ~ player
@@ -301,7 +301,7 @@
 ~ alex
 | (:angry)You mad? I give you these an' I really would have nuffin'. <-Hic->.
 | Now get lost.
-| (:normal)Actually, before you do: Did you know it was me that found you? <-Hic->. I told Catherine where you were.
+| (:normal)Actually, before you do: Did you know it was me that found you? <-Hic->. I told {#@catherine-nametag} where you were.
 | I was just walking along an' there you were. Exposed by an earthquake I reckon. <-Hic->. I pulled you outta the rubble.
 | (:angry)Now I wish I'd kept my mouth shut an' smashed you up instead.
 ! eval (deactivate 'islay-hint)

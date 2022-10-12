@@ -15,7 +15,7 @@
 ~ catherine
 | Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras.
 ~ player
-| "Catherine looks menacing in her goggles, but she holds the welding torch with steady hands."(light-gray, italic)
+| "{#@catherine-nametag} looks menacing in her goggles, but she holds the welding torch with steady hands."(light-gray, italic)
 - (Enable UV filters)
   | "That's better - the arc has dimmed behind my filters. But not so much that I can't see the sparks as they crackle and spit."(light-gray, italic)
 - (Don't enable filters)
@@ -132,7 +132,7 @@
 - Hi.
   ~ jack
   | (:shocked)... You! Where's Cathy?
-- It's not Catherine.
+- It's not {#@catherine-nametag}.
   ~ jack
   | (:shocked)... You! Where's Cathy?
 - It's {(nametag player)}.
@@ -213,7 +213,7 @@
 ~ jack
 | (:annoyed)Something like that.
 ~ fi
-| You've done well, Catherine. An android will be a great asset to us.
+| You've done well, {#@catherine-nametag}. An android will be a great asset to us.
 | "Assuming it can be trusted."(orange)
 ~ catherine
 | (:concerned)I don't understand.
@@ -248,7 +248,7 @@
   ~ catherine
   | (:concerned)She doesn't know what she's saying - her memories are all screwed up till the point I brought her online. She doesn't even remember her name!
   ~ fi
-  | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
+  | Alright. It's hardly conclusive, but for now we'd better hope {#@catherine-nametag}'s right.
   | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 - Yes.
   ~ catherine
@@ -257,7 +257,7 @@
   | (:concerned)Come on, guys!? I know I can be gullible, but do you really think I would have stuck with her if I thought that?
   | Anyway, her memories are all screwed up till the point I brought her online. She doesn't even remember her name!
   ~ fi
-  | Alright. It's hardly conclusive, but for now we'd better hope Catherine's right.
+  | Alright. It's hardly conclusive, but for now we'd better hope {#@catherine-nametag}'s right.
   | (:annoyed)If not, then the Wraw know our location, and their hunting packs are already on their way.
 ~ jack
 | (:annoyed)Jesus, {#@fi-nametag}... you're just gonna accept that?
@@ -266,18 +266,18 @@
 ~ jack
 | Examine the thing, find out for sure.
 ~ fi
-| (:unsure)Catherine, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
+| (:unsure){#@catherine-nametag}, don't androids have a black box? Could that show us if the... FFCS was it, was active lately?
 ~ catherine
 | ... I guess we'd need to find some kind of interface port.
 | (:concerned)Oh, and we'd need a working computer, which no one's had since before I was born.
 | But even if we had all that, don't you think you should ask HER if taking her apart is okay?
 ~ fi
-| You're right, Catherine.
+| You're right, {#@catherine-nametag}.
 | I'm sorry... {(nametag player)}, wasn't it?
 ~ jack
 | (:annoyed)...
 ~ fi
-| "Would you permit Catherine to examine you"(orange), assuming we can find a way?
+| "Would you permit {#@catherine-nametag} to examine you"(orange), assuming we can find a way?
 ~ player
 - I'd rather she didn't.
   ~ fi
@@ -286,7 +286,7 @@
   | (:annoyed)Really? You're gonna let this thing call the shots?
   ~ fi
   | This "thing" is a person. And I expect you to treat her as such.
-  | I trust Catherine's judgement. For now, {(nametag player)} is our guest.
+  | I trust {#@catherine-nametag}'s judgement. For now, {(nametag player)} is our guest.
   | Nevertheless, Jack - speak with "Sahil"(yellow) when he arrives, see what he knows about androids.
   | If {(nametag player)} is having memory problems, the least we can do is try to help her.
   ~ jack
@@ -311,7 +311,7 @@
 | If there's nothing else, I'll see you both later.
 | Hey {(nametag player)}, wait here - "I want to talk"(orange).
 ~ fi
-| Sayonara Catherine, {(nametag player)}.
+| Sayonara {#@catherine-nametag}, {(nametag player)}.
 ~ jack
 | You take care, Cathy.
 ! eval (move-to 'fi-farm 'fi)

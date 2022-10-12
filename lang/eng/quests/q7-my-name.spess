@@ -18,7 +18,7 @@
 | (:thinking)No. At least not completely.
 | There are corrupted data strings in my matrix - one of them could be my name, but I'd have to guess at exactly what it was.
 ~ fi
-| Well, I think Catherine was sincere when she called you {(nametag player)}; but I wonder if that's the name you'd really choose for yourself.
+| Well, I think {#@catherine-nametag} was sincere when she called you {(nametag player)}; but I wonder if that's the name you'd really choose for yourself.
 | You're not a stranger any more.
 | Do you want to change your name?
 ! label name

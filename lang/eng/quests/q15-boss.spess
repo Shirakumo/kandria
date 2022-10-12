@@ -24,6 +24,6 @@
 
 # q15-boss-fight/walkntalk
 ~ player
-| Stay there Catherine.
+| Stay there {#@catherine-nametag}.
 ~ catherine
 | (:cheer)Holy shit!

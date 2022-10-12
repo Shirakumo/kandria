@@ -37,7 +37,7 @@
 ! eval (status "Received 200 Scrap Parts")
 ~ fi
 ? (complete-p 'q3-new-home)
-| | You should "check in with Catherine"(orange) - I'm sure she'd like to see you again.
+| | You should "check in with {#@catherine-nametag}"(orange) - I'm sure she'd like to see you again.
 | | (:happy)I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
 | ! eval (activate 'sq-act1-intro)
 | ! eval (activate 'q4-intro)

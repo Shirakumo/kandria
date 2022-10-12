@@ -61,17 +61,17 @@
 | I'm sure you did.
 | Did she say anything else?
 ~ player
-- She wants Catherine back or she's turning the water off.
+- She wants {#@catherine-nametag} back or she's turning the water off.
 - You won't like it.
   ~ fi
   | (:annoyed)I don't like anything Innis says. But I still want to hear it.
   ~ player
-  | She said she wants Catherine back or she'll turn the water off.
+  | She said she wants {#@catherine-nametag} back or she'll turn the water off.
 - (Lie) Nothing of consequence.
   ~ fi
   | (:annoyed)I'll be the judge of that.
   ~ player
-  | She said she wants Catherine back or she'll turn the water off.
+  | She said she wants {#@catherine-nametag} back or she'll turn the water off.
 ~ fi
 | (:unsure)...
 | Do you think she meant it?
@@ -83,7 +83,7 @@
 - Knowing Innis, that's a yes.
 ~ fi
 | (:annoyed)Damn.
-| Catherine was raised by the Semi Sisters, as you might have guessed from her skills.
+| {#@catherine-nametag} was raised by the Semi Sisters, as you might have guessed from her skills.
 | But she came with us when we left the Wraw.
 | She doesn't want to go back, even though I know she'd do it to help us.
 ~ player
@@ -95,7 +95,7 @@
   | I don't have to. (:annoyed)They treated her like shit. Just like they did with you.
 - She doesn't want to go back? Or you don't want her to go back?
   ~ fi
-  | Catherine is an asset, obviously she is. But she's also our friend.
+  | {#@catherine-nametag} is an asset, obviously she is. But she's also our friend.
   | (:annoyed)The Semi Sisters treated her like shit. Just like they did with you.
 ~ fi
 | (:annoyed)Innis is bluffing. She's a spy, a technocrat - a grouch! (:normal)But she's not a killer. She won't turn the water off.

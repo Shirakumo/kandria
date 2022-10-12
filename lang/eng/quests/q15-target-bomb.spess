@@ -1,13 +1,13 @@
 # bomb-explode/islay-reminder
 ~ islay
 | (:nervous)I need to concentrate on this bomb.
-| (:normal)You need to "go to the one in the Brother offices"(orange). Catherine, you can "rewire it"(orange).
+| (:normal)You need to "go to the one in the Brother offices"(orange). {#@catherine-nametag}, you can "rewire it"(orange).
 | (:nervous)HURRY!
 
 # bomb-explode/call-explode
 ! eval (ensure-nearby 'player 'catherine)
 ~ islay
-| {(nametag player)}, Catherine - the "bomb in the hospital apartments is rewired"(orange).
+| {(nametag player)}, {#@catherine-nametag} - the "bomb in the hospital apartments is rewired"(orange).
 | (:normal)How'd you get on with that mech? Over.
 ~ player
 - It's no longer a threat. Over.
