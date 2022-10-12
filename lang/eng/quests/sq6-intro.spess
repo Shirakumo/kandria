@@ -10,7 +10,7 @@
 ~ semi-partner
 | My girlfriend, "Kacey"(yellow) - she's in trouble, I'm sure of it.
 | She's a "Cerebat, not a Semi"(orange). We used to talk over long-distance radio all the time, but she's gone silent.
-| I'm "Tobias"(yellow), by the way.
+| I'm "{#@semi-partner-nametag}"(yellow), by the way.
 ! eval (setf (nametag (unit 'semi-partner)) (@ semi-partner-nametag))
 ~ player
 - {(nametag player)}.
@@ -50,7 +50,7 @@
 # read
 | "It's some kind of ink on vellum. Well I guess this is a new dark age."(light-gray, italic)
 | "I think I can decipher the scrawny handwriting:"(light-gray, italic)
-| ""Hi Kacey, it's Tobias. Sorry I can't be there with you, but I sent this messenger."(light-gray, italic)"
+| ""Hi Kacey, it's {#@semi-partner-nametag}. Sorry I can't be there with you, but I sent this messenger."(light-gray, italic)"
 | ""I hope you're okay. I miss you. I've been trying to call - I hope the long-range mods I made haven't screwed up the frequency."(light-gray, italic)"
 | ""If they have then I'm screwed because I can't undo them."(light-gray, italic)"
 | ""I'll cut to the chase (for a change): there are things happening here. Bad things."(light-gray, italic)"
@@ -59,7 +59,7 @@
 | ""I'm sorry that's not what you wanted to hear. But it will help us both stay safe."(light-gray, italic)"
 | ""When things are back to normal, maybe we could meet for real? See where things go."(light-gray, italic)"
 | ""Please call me when you can - I still want to know that you're okay."(light-gray, italic)"
-| ""All my love, Tobias x x x"(light-gray, italic)"
+| ""All my love, {#@semi-partner-nametag} x x x"(light-gray, italic)"
 | (:embarassed)""He's breaking up with her"(orange)... Damn."(light-gray, italic)
 | "Well I guess that's none of my business."(light-gray, italic)
 ! eval (activate (find-task 'sq6-deliver-letter 'read-letter))

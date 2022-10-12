@@ -24,13 +24,13 @@
 ~ player
 - My name's {(nametag player)}.
   ~ cerebat-partner
-  | Let me guess: Tobias. This reeks of his overzealousness.
-- Tobias sent me.
+  | Let me guess: {#@semi-partner-nametag}. This reeks of his overzealousness.
+- {#@semi-partner-nametag} sent me.
   ~ cerebat-partner
   | Shit. Yep, this reeks of his overzealousness. He shouldn't have done that.
 - I was sent by a Semi, who's looking for their girlfriend.
   ~ cerebat-partner
-  | Tobias then. This reeks of his overzealousness.
+  | {#@semi-partner-nametag} then. This reeks of his overzealousness.
 ~ cerebat-partner
 | Wait... Are you an android?
 ~ player
@@ -78,7 +78,7 @@
 # given
 ! eval (retrieve 'item:love-letter 1)
 ~ cerebat-partner
-| A letter? Classic Tobias. Let me see.
+| A letter? Classic {#@semi-partner-nametag}. Let me see.
 | ...
 | Heh, well at least we agree about this. Maybe we do still have something in common.
 ! label breakup
