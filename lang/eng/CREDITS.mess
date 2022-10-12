@@ -1,7 +1,7 @@
 [ image texture/logo.png ]
 
 # Shirakumo Games
-## Nicolas Hafner
+## Shinmera (Nicolas Hafner)
 producer, director, programmer, designer, artist, writer
 
 ## Tim White
@@ -37,6 +37,7 @@ Arne Babenhauserheide
 At
 Axvr
 Citizen Jake
+Chris Weisiger
 Dieting Hippo
 Felix Wilson
 Gnuxie
@@ -439,6 +440,7 @@ Selwyn Simsek
 ## Contributors
 |3b|
 Michael Fiano
+Adrian Fullmer
 
 ## Libraries
 Thanks to the various authors, maintainers, and contributors of the following libraries that Kandria makes use of:
@@ -467,4 +469,5 @@ Kandria was supported by the Pro Helvetia grant for Interactive Media and the KP
 The Steel Bank Common Lisp compiler team and all its contributors without which this would never have happened.
 Stray Fawn Studio and everyone at the Swiss Game Hub for their advice and support.
 Everyone at Zurindies for many enjoyable Saturday afternoons.
+Hempuli for the Baba likeness.
 Our families and pets for their unending support and love.
