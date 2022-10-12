@@ -116,8 +116,13 @@
 ~ catherine
 | (:excited)On it!
 ~ fi
-| I'll see what Sahil can do for us.
+| I'll find out where {#@trader-nametag} has gone.
 ! eval (move-to 'check-supplies 'catherine)
 ! eval (move-to 'eng-jack 'jack)
 ! eval (setf (walk 'jack) T)
+! eval (setf (location 'trader) (location 'trader-semi-loc))
+! eval (setf (direction 'trader) 1)
+? (not (complete-p 'trader-arrive))
+| ! eval (activate 'trader-chat)
+| ! eval (activate 'trader-shop)
 ; no reward - it's battle stations. If player needs more currency here, they need to get it from sidequests and selling to traders.

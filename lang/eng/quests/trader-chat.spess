@@ -5,7 +5,7 @@
 ~ trader
 ? (complete-p 'q13-planting-bomb)
 | | If we must, habibti.
-|? (complete-p 'q11-intro)
+|? (complete-p 'q10a-return-to-fi)
 | | ... I'm sorry, {(nametag player)}, I can't.
 | | I'll still trade though, if you want.
 |?
@@ -196,7 +196,7 @@
 |   | < talk
 | - I need to go.
 |   < leave
-|? (and (complete-p 'q10-wraw) (not (complete-p 'q11-intro)))
+|? (and (complete-p 'q10-wraw) (not (complete-p 'q10a-return-to-fi)))
 | ~ player
 | - The Wraw are coming.
 |   ~ trader

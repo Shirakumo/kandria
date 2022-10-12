@@ -45,14 +45,9 @@
 - I will.
 - You too.
 - No promises.
-! eval (setf (location 'trader) (location 'trader-semi-loc))
-! eval (setf (direction 'trader) 1)
 ! eval (setf (location 'innis) (location 'innis-org-loc))
 ! eval (setf (direction 'innis) -1)
 ! eval (setf (location 'islay) (location 'islay-org-loc))
 ! eval (setf (direction 'islay) -1)
-? (not (complete-p 'trader-arrive))
-| ! eval (activate 'trader-chat)
-| ! eval (activate 'trader-shop)
 
 ; moving Sahil back to his start location in the Semis base. Yes it's arguably closer to the frontline, but he wants strength in numbers, or to hide in a familiar corner maybe
