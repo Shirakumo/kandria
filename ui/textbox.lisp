@@ -358,3 +358,13 @@ void main(){
 
 (defmethod handle :after ((rq dialogue:target-request) (textbox textbox))
   (setf (ip textbox) (dialogue:target rq)))
+
+(defmethod reset ((textbox textbox))
+  (dialogue:reset (vm textbox))
+  (alloy:clear (choices textbox))
+  (setf (ip textbox) 0)
+  (setf (text textbox) (clear-text-string))
+  (setf (scroll-index textbox) 0)
+  (setf (pending textbox) NIL)
+  (setf (prompt textbox) NIL)
+  textbox)
