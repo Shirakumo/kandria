@@ -103,7 +103,7 @@
 | (:happy)Rogues are many in Cerebats territory - it's a market district!
 | (:normal)The Wraw might meddle with Cerebat law, but they're not invaders.
 | They want us, not the Cerebats - and certainly not the Semi Sisters.
-| Their leader, "Zelah"(yellow), takes the easy route. He doesn't fight battles, he goes after the little guy.
+| Their leader, "{#@zelah-nametag}"(yellow), takes the easy route. He doesn't fight battles, he goes after the little guy.
 ~ fi
 | (:happy)Regardless, I'm glad you're back.
 ~ player

@@ -14,6 +14,10 @@ trader-nametag "Sahil" ;; male
 innis-nametag "Innis" ;; female
 islay-nametag "Islay" ;; female
 alex-nametag "Alex" ;; non-binary
+zelah-nametag "Zelah" ;; male
+synthesis-nametag "The Synthesis" ;; gender unknown, shady character
+semi-partner-nametag "Tobias" ;; male
+cerebat-partner-nametag "Kacey" ;; female
 semi-engineer-nametag "New Chief" ;; gender unknown, engineering chief
 semi-roboticist-nametag "Roboticist" ;; female
 semi-barkeep-nametag "Barkeep" ;; non-binary
@@ -23,9 +27,6 @@ semi-patron-2-nametag "Drunk Patron" ;; female
 villager-nametag "Villager" ;; gender unknown
 hunter-nametag "Hunter" ;; gender unknown
 cerebat-trader-nametag "Stranger" ;; male trader
-synthesis-nametag "The Synthesis" ;; gender unknown, shady character
-semi-partner-nametag "Tobias" ;; male
-cerebat-partner-nametag "Kacey" ;; female
 semi-engineer-1-nametag "Heidy" ;; female
 semi-engineer-2-nametag "Anneli" ;; female
 semi-engineer-3-nametag "Till" ;; female
@@ -35,7 +36,6 @@ cerebat-good-trader-nametag "Cerebat Trader" ;; non-binary
 semi-spy-nametag "Semi Spy" ;; female
 wraw-sergeant-nametag "Wraw Drill Sergeant" ;; female
 unknown-nametag "???" ;; gender unknown
-zelah-nametag "Zelah" ;; male
 soldier-nametag "Wraw Soldier" ;; gender unknown
 player "Player"
 mech "Wraw Machine Suit Prototype" ;; gender unknown

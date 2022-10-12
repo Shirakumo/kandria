@@ -1,5 +1,5 @@
 # zelah-gone/zelah-gone-prompt
 ~ player
-| "Zelah's gone, for now."(light-gray, italic)
+| "{#@zelah-nametag}'s gone, for now."(light-gray, italic)
 | "I should "get back to {#@islay-nametag} and {#@fi-nametag} in Engineering"(orange)."(light-gray, italic)
 

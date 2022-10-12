@@ -108,7 +108,7 @@
 ? (complete-p 'EXPLOSION)
 | | So did we win?
 |? (complete-p 'Q14-ENVOY)
-| | (:concerned)You don't belong to Zelah. You don't belong to anyone but yourself.
+| | (:concerned)You don't belong to {#@zelah-nametag}. You don't belong to anyone but yourself.
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | He doesn't look so tough. (:excited)I could take him.
 |? (complete-p 'Q13-INTRO)

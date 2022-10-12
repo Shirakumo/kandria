@@ -2,7 +2,7 @@
 ~ fi
 | (:unsure)What is it? Should we detonate the bombs now?
 ~ islay
-| Zelah's still nearby. And what if he knows about them? Won't his army have pulled back?
+| {#@zelah-nametag}'s still nearby. And what if he knows about them? Won't his army have pulled back?
 ~ fi
 | (:annoyed)He doesn't know about them.
 ~ islay
@@ -23,7 +23,7 @@
 | (:annoyed)What?... Why?
 ~ islay
 | (:nervous)I don't know.
-| (:normal)"The signal is getting through"(orange); their comms interference isn't running yet - Zelah's probably organising his own people.
+| (:normal)"The signal is getting through"(orange); their comms interference isn't running yet - {#@zelah-nametag}'s probably organising his own people.
 ~ fi
 | (:unsure)Could they have found the bombs?
 ~ islay

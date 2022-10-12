@@ -4,14 +4,14 @@
 ~ player
 - Who are you?
   ~ zelah
-  | (:jovial)I'm Zelah, "remember"(orange)?
-- Let me guess: Zelah.
+  | (:jovial)I'm {#@zelah-nametag}, "remember"(orange)?
+- Let me guess: {#@zelah-nametag}.
   ~ zelah
   | Good, ya "remember"(orange).
 - So you lead the Wraw?
   ~ zelah
   | Ya know I do. I lead everyone 'round here.
-  | I'm Zelah, "remember"(orange)?
+  | I'm {#@zelah-nametag}, "remember"(orange)?
 ! eval (setf (nametag (unit 'zelah)) (@ zelah-nametag))
 ~ fi
 | (:unsure)...
