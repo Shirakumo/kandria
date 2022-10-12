@@ -46,7 +46,7 @@
 | So, you met Islay. (:unsure)What about Innis?
 ~ player
 - I met them both.
-- She's almost as bad as Jack.
+- She's almost as bad as {#@jack-nametag}.
 - How could I forget.
 ~ fi
 | (:unsure)I'm sorry you had to meet them. (:happy)At least you're still intact.

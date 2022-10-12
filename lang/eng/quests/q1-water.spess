@@ -27,7 +27,7 @@
 ~ catherine
 | That should hold it.
 ~ catherine
-| Jack, I've fixed the leak - the pipe was cracked. How's the water pressure? Over.
+| {#@jack-nametag}, I've fixed the leak - the pipe was cracked. How's the water pressure? Over.
 ~ jack
 | Weak as shit. There must be another leak. Over.
 ~ catherine
@@ -70,7 +70,7 @@
 # 4-interact-catherine/interaction
 ~ catherine
 | (:concerned)Look - the same cracks we saw on the last pipe. This isn't right.
-| Jack, I think we've got trouble. Over.
+| {#@jack-nametag}, I think we've got trouble. Over.
 ~ jack
 | What is it?
 ~ catherine
@@ -114,7 +114,7 @@
 ~ catherine
 | (:concerned)What have they done?...
 | Oh man, we got here just in time. They were dismantling the turbine.
-| (:normal)I need to fix this. The "telephone's back there - call Jack and tell him what happened"(orange).
+| (:normal)I need to fix this. The "telephone's back there - call {#@jack-nametag} and tell him what happened"(orange).
 ~ player
 - Okay.
 - Do I have to talk to that guy?
@@ -122,7 +122,7 @@
   | (:concerned)This is important. Please.
 - Can I use my FFCS instead?
   ~ catherine
-  | Your comms system? I don't doubt that would work, but it would definitely freak Jack out.
+  | Your comms system? I don't doubt that would work, but it would definitely freak {#@jack-nametag} out.
   | Use the telephone for now.
 
 # 22-interact-jack/interaction
@@ -164,7 +164,7 @@
 ~ catherine
 | I jury-rigged the pump. Should be okay for a while - but it'll need a more permanent fix later.
 ~ catherine
-| What did Jack say?
+| What did {#@jack-nametag} say?
 ~ player
 - He wants us to go back - {#@fi-nametag}'s on the warpath.
 - He said well done, but...
@@ -287,20 +287,20 @@
   ~ fi
   | This "thing" is a person. And I expect you to treat her as such.
   | I trust {#@catherine-nametag}'s judgement. For now, {(nametag player)} is our guest.
-  | Nevertheless, Jack - speak with "Sahil"(yellow) when he arrives, see what he knows about androids.
+  | Nevertheless, {#@jack-nametag} - speak with "Sahil"(yellow) when he arrives, see what he knows about androids.
   | If {(nametag player)} is having memory problems, the least we can do is try to help her.
   ~ jack
   | (:annoyed)If you insist.
 - Sure, why not.
   ~ fi
-  | Good. Jack, speak with "Sahil"(yellow) when he arrives, see what he knows about androids.
+  | Good. {#@jack-nametag}, speak with "Sahil"(yellow) when he arrives, see what he knows about androids.
   ~ jack
   | (:annoyed)If you insist.
 - As long as I'm still online afterwards.
   ~ catherine
   | Don't worry, I won't let them switch you off.
   ~ fi
-  | That's settled then. Jack, speak with "Sahil"(yellow) when he arrives, see what he knows about androids.
+  | That's settled then. {#@jack-nametag}, speak with "Sahil"(yellow) when he arrives, see what he knows about androids.
   ~ jack
   | (:annoyed)If you insist.
 ~ fi
@@ -326,10 +326,10 @@
 ! eval (status "Received 200 Scrap Parts")
 | It's not much, but you can "trade them"(orange) for things you might want. Or you will be able to "once Sahil gets here"(orange).
 | (:concerned)He's overdue, which is not like him at all. Maybe those Servos scared him off.
-| (:normal)Anyway, don't worry about Jack and {#@fi-nametag}. They'll soon see what I see: (:excited)a __big__ __friendly__ __badass__ who can protect us!
+| (:normal)Anyway, don't worry about {#@jack-nametag} and {#@fi-nametag}. They'll soon see what I see: (:excited)a __big__ __friendly__ __badass__ who can protect us!
 | (:normal)Well, I've got work to do.
 | Couldn't hurt to "check in with {#@fi-nametag}"(orange). I'm sure there's something you could help her with, to show her you can be trusted.
-| "Knowing Jack he'll have something for you too"(orange) - (:concerned)if only a mouthful of abuse.
+| "Knowing {#@jack-nametag} he'll have something for you too"(orange) - (:concerned)if only a mouthful of abuse.
 | (:normal)But right now you're a free agent. I doubt that will last very long around here, so make the most of it.
 | (:excited)Take a "look around and explore"(orange)! (:normal)Though it's probably best not to go too far from the Camp.
 | Seeya later, {(nametag player)}!
@@ -352,4 +352,4 @@
 
 # shutter-1/walkntalk
 ~ catherine
-| Ah, no Jack or {#@fi-nametag}... They must be "around here somewhere"(orange).
+| Ah, no {#@jack-nametag} or {#@fi-nametag}... They must be "around here somewhere"(orange).

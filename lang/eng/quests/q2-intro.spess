@@ -13,7 +13,7 @@
   | Fully-restored, thanks to yours and {#@catherine-nametag}'s efforts.
   | We might well owe you our lives.
 ~ fi
-| I wanted to apologise for Jack's behaviour - and my own short-sightedness. You are our guest, and you have helped us.
+| I wanted to apologise for {#@jack-nametag}'s behaviour - and my own short-sightedness. You are our guest, and you have helped us.
 | But you must also understand that as chieftain I have responsibilities. I must be diligent.
 | But I think I have a way that you can help us again.
 | Though the water is back, our crops are unlikely to survive much longer.
@@ -94,7 +94,7 @@
 | ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q3-new-home))
-| | | Oh, I've also "given Jack a special job"(orange) - something I think you'll be well-suited to help with.
+| | | Oh, I've also "given {#@jack-nametag} a special job"(orange) - something I think you'll be well-suited to help with.
 | | | He'll be in "Engineering"(orange).
 |   
 | | I also heard "Sahil is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).

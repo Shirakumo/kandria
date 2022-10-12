@@ -48,13 +48,13 @@
 |   | | (:jolly)Oh, examine you!
 |   | | Someone given you a warm welcome, have they?
 |   | ~ player
-|   | - Jack.
+|   | - {#@jack-nametag}.
 |   |   ~ trader
 |   |   | Yeah, that figures. He doesn't like new people.
 |   |   | Heck, he still doesn't like me - I mean, what's not to love?
-|   | - Jack and {#@fi-nametag}.
+|   | - {#@jack-nametag} and {#@fi-nametag}.
 |   |   ~ trader
-|   |   | Oh really? I expected nothing less from Jack. {#@fi-nametag} I'm surprised about.
+|   |   | Oh really? I expected nothing less from {#@jack-nametag}. {#@fi-nametag} I'm surprised about.
 |   |   | Mind you, she has a lot of alqarf on her plate. Give her some time.
 |   | - Everyone.
 |   |   ~ trader

@@ -2,7 +2,7 @@
 ~ jack
 | (:annoyed)Our new home ain't gonna find itself. Be seein' ya.
 ~ player
-| "Jack said I should "search across the surface in the Ruins to the east"(orange). My FFCS indicated "4 candidate locations"(orange)."(light-gray, italic)
+| "{#@jack-nametag} said I should "search across the surface in the Ruins to the east"(orange). My FFCS indicated "4 candidate locations"(orange)."(light-gray, italic)
 
 # find-home-first/new-home-site-1
 ~ player
@@ -12,7 +12,7 @@
 | "Dirt and sand has intruded through almost every crack."(light-gray, italic)
 | "It's a quicksand deathtrap."(light-gray, italic)
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
-| | (:normal)"That's the last site surveyed. I should "return to Jack"(orange) with the bad news."(light-gray, italic)
+| | (:normal)"That's the last site surveyed. I should "return to {#@jack-nametag}"(orange) with the bad news."(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
@@ -27,7 +27,7 @@
 | (:thinking)"The building's foundations appear strong, but the rest is a sand-blasted shell."(light-gray, italic)
 | "It's a no go."(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
-| | (:normal)"That's the last site surveyed. I should "return to Jack"(orange) with the bad news."(light-gray, italic)
+| | (:normal)"That's the last site surveyed. I should "return to {#@jack-nametag}"(orange) with the bad news."(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
@@ -40,7 +40,7 @@
 | (:thinking)"It's secure and concealed, and sheltered from the weather."(light-gray, italic)
 | (:normal)"But the foot of a cliff face is perhaps not the wisest choice in an area prone to earthquakes."(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
-| | (:normal)"That's the last site surveyed. I should "return to Jack"(orange) with the bad news."(light-gray, italic)
+| | (:normal)"That's the last site surveyed. I should "return to {#@jack-nametag}"(orange) with the bad news."(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))
@@ -57,7 +57,7 @@
 |?
 | | (:thinking)"But the factory offers little structural protection against the earthquakes, and many gruesome ways to impale yourself."(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
-| | (:normal)"That's the last site surveyed. I should "return to Jack"(orange) with the bad news."(light-gray, italic)
+| | (:normal)"That's the last site surveyed. I should "return to {#@jack-nametag}"(orange) with the bad news."(light-gray, italic)
 | ! eval (activate 'return-new-home)
 | ! eval (deactivate 'task-q3-reminder)
 |? (not (var 'first-home))

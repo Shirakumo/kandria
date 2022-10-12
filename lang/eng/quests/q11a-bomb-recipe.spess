@@ -44,7 +44,7 @@
   < questions
 - What weapons do we have?
   ~ fi
-  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and Jack got working. The Semi Sisters have some too, but in better condition.
+  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and {#@jack-nametag} got working. The Semi Sisters have some too, but in better condition.
   | I don't remember the Wraw having anything like that - they're more into swords and spears, so they can watch you die up close.
   | (:unsure)We've also got scythes, shears, and other sharp farming tools.
   | (:happy)And we've got you.

@@ -108,7 +108,7 @@
   ! eval (setf (var 'fight-army) T)
 ~ fi
 | We must begin preparations.
-| Jack, get on the walkie and call everyone back to the Camp.
+| {#@jack-nametag}, get on the walkie and call everyone back to the Camp.
 ~ jack
 | (:annoyed)So this is really happening... Well fuck.
 ~ fi

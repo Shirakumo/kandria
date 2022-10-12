@@ -61,7 +61,7 @@
 # task-world-all/engineering-shelves
 ~ player
 ? (complete-p 'q0-find-jack)
-| | "Engineering. This is where Jack and {#@catherine-nametag} work."(light-gray, italic)
+| | "Engineering. This is where {#@jack-nametag} and {#@catherine-nametag} work."(light-gray, italic)
 |?
 | | "It's some sort of workshop. The technology is crude - what do they build here, tin openers?"(light-gray, italic)
 
@@ -70,7 +70,7 @@
 # task-world-all/engineering-bench
 ~ player
 ? (complete-p 'q0-find-jack)
-| | "Jack's workbench. I can smell body odour - does he work here, or work out?"(light-gray, italic)
+| | "{#@jack-nametag}'s workbench. I can smell body odour - does he work here, or work out?"(light-gray, italic)
 |?
 | | "It's a workbench. Perhaps it belongs to this man - who come to think of it looks like he wants to kill me."(light-gray, italic)
 

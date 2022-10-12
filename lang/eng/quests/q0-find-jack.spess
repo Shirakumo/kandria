@@ -7,12 +7,12 @@
 | (:annoyed)Jesus... this is all we need.
 ~ player
 - Pleased to meet you.
-- Jack, I presume.
+- {#@jack-nametag}, I presume.
 - What's your problem? I'm here to help.
 ~ jack
 | (:shocked)Fuck me it speaks...
 ~ catherine
-| (:concerned)Jack, what's wrong? Talk to me.
+| (:concerned){#@jack-nametag}, what's wrong? Talk to me.
 ! eval (setf (nametag (unit 'jack)) (@ jack-nametag))
 ~ jack
 | The water has failed again, and this time I don't think it's the pump. Must be a leak somewhere.
