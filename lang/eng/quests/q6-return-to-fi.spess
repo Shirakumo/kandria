@@ -4,7 +4,7 @@
 | (:normal)Hello, {#@fi-nametag}, it's me.
 | ... {#@fi-nametag}?
 | (:thinking)"Something's "interfering with my FFCS signal"(orange)."(light-gray, italic)
-| (:normal)"I probably have Innis to thank for that. I doubt I'll be able to use the phone either."(light-gray, italic)
+| (:normal)"I probably have {#@innis-nametag} to thank for that. I doubt I'll be able to use the phone either."(light-gray, italic)
 | "Alright, if they don't want me calling home, I'll "go on foot"(orange)."(light-gray, italic)
 ? (unlocked-p (unit 'station-surface))
 | | (:giggle)"Or maybe I'll "take the train"(orange)."(light-gray, italic)
@@ -43,7 +43,7 @@
 | (:annoyed)Damn. This is not the time for this.
 | Alex has had this problem before.
 | (:normal)We'll have to leave them for now, and hope Islay can get through.
-| So, you met Islay. (:unsure)What about Innis?
+| So, you met Islay. (:unsure)What about {#@innis-nametag}?
 ~ player
 - I met them both.
 - She's almost as bad as {#@jack-nametag}.
@@ -51,7 +51,7 @@
 ~ fi
 | (:unsure)I'm sorry you had to meet them. (:happy)At least you're still intact.
 ~ player
-| Innis also thinks the Wraw have invaded the Cerebats - and that the Semi Sisters are next.
+| {#@innis-nametag} also thinks the Wraw have invaded the Cerebats - and that the Semi Sisters are next.
 ~ fi
 | (:annoyed)Does she. And what proof does she have of that?
 ~ player
@@ -64,7 +64,7 @@
 - She wants {#@catherine-nametag} back or she's turning the water off.
 - You won't like it.
   ~ fi
-  | (:annoyed)I don't like anything Innis says. But I still want to hear it.
+  | (:annoyed)I don't like anything {#@innis-nametag} says. But I still want to hear it.
   ~ player
   | She said she wants {#@catherine-nametag} back or she'll turn the water off.
 - (Lie) Nothing of consequence.
@@ -80,7 +80,7 @@
   ~ fi
   | (:unsure)I wouldn't go that far. But...
 - I think we have to assume that she did.
-- Knowing Innis, that's a yes.
+- Knowing {#@innis-nametag}, that's a yes.
 ~ fi
 | (:annoyed)Damn.
 | {#@catherine-nametag} was raised by the Semi Sisters, as you might have guessed from her skills.
@@ -98,7 +98,7 @@
   | {#@catherine-nametag} is an asset, obviously she is. But she's also our friend.
   | (:annoyed)The Semi Sisters treated her like shit. Just like they did with you.
 ~ fi
-| (:annoyed)Innis is bluffing. She's a spy, a technocrat - a grouch! (:normal)But she's not a killer. She won't turn the water off.
+| (:annoyed){#@innis-nametag} is bluffing. She's a spy, a technocrat - a grouch! (:normal)But she's not a killer. She won't turn the water off.
 | (:normal)And as for the Wraw invading the Cerebats: I know you fought Rogues, but that's not proof.
 | (:happy)Rogues are many in Cerebats territory - it's a market district!
 | (:normal)The Wraw might meddle with Cerebat law, but they're not invaders.

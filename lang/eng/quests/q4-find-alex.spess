@@ -177,7 +177,7 @@
 | Hello, {(nametag player)}. It's an honour to meet you in person.
 | (:nervous)I'm sorry about my sister.
 | (:normal)If you're looking for "Alex, try the bar"(orange). It's "on the level above us"(orange).
-| Just don't tell "Innis"(yellow) I told you. She'll think I've gone soft for androids.
+| Just don't tell "{#@innis-nametag}"(yellow) I told you. She'll think I've gone soft for androids.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ! eval (setf (var 'android-soft) T)
 
@@ -238,7 +238,7 @@
   | No it ain't. Far from it.
 ~ alex
 | (:angry)I've 'eard about you, doing my job- <-Hic->.
-| "Innis"(yellow) even showed me the CCCTV. Semi Sisters been nice to me.
+| "{#@innis-nametag}"(yellow) even showed me the CCCTV. Semi Sisters been nice to me.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 | "So why would {#@fi-nametag} need little ol' me any more?"(orange)
 ~ player

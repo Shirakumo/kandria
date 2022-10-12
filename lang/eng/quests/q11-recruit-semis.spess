@@ -38,7 +38,7 @@
 | (:sly)... Oh, dinnae tell me you care for the Noka.
 | I never understood why they gave androids emotions. Nothing but a distraction.
 ~ islay
-| (:nervous)Listen to her Innis, for Christ's sake!
+| (:nervous)Listen to her {#@innis-nametag}, for Christ's sake!
 ~ innis
 | (:angry)...
 ~ islay
@@ -150,7 +150,7 @@
 ~ innis
 | (:sly)That's right, you be a good dog.
 ~ islay
-| (:nervous)<-Innis!->
+| (:nervous)<-{#@innis-nametag}!->
 | (:normal)... You "can't tell {#@fi-nametag}"(orange) - whatever the "Wraw are doing to mess with our network, it affects your FFCS"(orange) too.
 ~ player
 - (Check FFCS)

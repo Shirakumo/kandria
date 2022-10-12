@@ -29,7 +29,7 @@
     | (:concerned)She's right. They didn't exactly look after me.
   ~ catherine
   | Don't get me wrong - their skills and tools are sort of amazing. An engineer's dream.
-  | (:concerned)But nah. Innis can be a real bitch. Islay too sometimes.
+  | (:concerned)But nah. {#@innis-nametag} can be a real bitch. Islay too sometimes.
   | (:excited)Soon as I was old enough I hightailed it outta there.
   | (:concerned)It was kind of stupid actually. I would have died if {#@fi-nametag} and the others hadn't found me.
   | (:normal)But I'm still here!

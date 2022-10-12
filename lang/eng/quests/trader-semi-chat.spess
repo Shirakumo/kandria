@@ -33,7 +33,7 @@
 | - What's happening on the Cerebat border?
 |   ~ islay
 |   | (:nervous)We're still trying to ascertain that - but we've lost more cameras since you left.
-|   | (:normal)Innis thinks we're next, but I'm not so sure.
+|   | (:normal){#@innis-nametag} thinks we're next, but I'm not so sure.
 |   | The Wraw are primitive. Maybe they're messing with the Cerebats, but they wouldn't stand a chance against our technology.
 |   | And I'm not just talking about surveillance. We have weapons.
 |   ! eval (setf (var 'semis-weapons) T)

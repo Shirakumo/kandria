@@ -33,7 +33,7 @@
 - What things?
   ~ islay
   | Well, it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
-- [(var 'android-soft) Won't Innis think you've gone soft for androids?]
+- [(var 'android-soft) Won't {#@innis-nametag} think you've gone soft for androids?]
   ~ islay
   | ... Touché.
   | I'll deal with that. But it couldn't hurt to show her what you can do, could it? Sow some seeds of diplomacy.
@@ -43,7 +43,7 @@
   | Aye, sometimes I'm right.
 - Tell that to your sister.
   ~ islay
-  | I do. Frequently. Innis has her qualities. Diplomacy isn't one of them.
+  | I do. Frequently. {#@innis-nametag} has her qualities. Diplomacy isn't one of them.
 - Diplomacy does not compute.
   ~ islay
   | Come now, you're no mere Servo. I know you understand.
@@ -55,7 +55,7 @@
 | We've got "rail engineers stuck"(orange) after a tunnel collapse in the "far high west"(orange).
 | And "4 of our CCTV cameras on the distant low eastern"(orange) Cerebat border have gone down.
 | Word's getting around about your arrival too - you might "find some of my sisters are also willing to pay for your skills"(orange).
-| So "leave Alex to me and speak with Innis"(orange) - she's gone up to the "control room"(orange).
+| So "leave Alex to me and speak with {#@innis-nametag}"(orange) - she's gone up to the "control room"(orange).
 | Perhaps see her as another challenge to overcome. I know I do.
 | Ta-ta for now, {(nametag player)}.
 ! eval (stop-following 'islay)

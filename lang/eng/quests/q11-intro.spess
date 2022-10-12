@@ -10,9 +10,9 @@
   ~ fi
   | (:happy)You're always a free agent. (:normal)But I have an important task for you.
 ~ fi
-| Innis was right about the Cerebat takeover. And if the Wraw have marched that far, then the Semi Sisters are next.
+| {#@innis-nametag} was right about the Cerebat takeover. And if the Wraw have marched that far, then the Semi Sisters are next.
 | (:annoyed)Now is no time for division - the Wraw are a threat to them as much as they are to us.
-| (:normal)I think you've come to earn "Innis' trust"(orange).
+| (:normal)I think you've come to earn "{#@innis-nametag}' trust"(orange).
 | I want you to use whatever sway you have with her and "ask her to join us"(orange).
 ~ player
 - Got it.
@@ -23,7 +23,7 @@
   | (:unsure)So they say, though I've never seen any.
   | (:normal)But I'll take what we can get.
 ~ fi
-| Innis is a lot of things but she isn't stupid.
+| {#@innis-nametag} is a lot of things but she isn't stupid.
 | Just make sure you get to them first. "Call me when you have news"(orange).
 | I'm going to try and find {#@trader-nametag} - no one knows where he is.
 ~ player

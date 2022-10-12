@@ -107,7 +107,7 @@
 | (:happy)That's settled then, "{(nametag player)}"(yellow). Welcome to the Noka.
 | (:normal)I wish we could talk, but I really need you to take this next job.
 | (:happy)Your first "official" one, no less.
-| (:unsure)It's just... I can't get what Innis said out of my head. We need to talk to the Cerebats.
+| (:unsure)It's just... I can't get what {#@innis-nametag} said out of my head. We need to talk to the Cerebats.
 | (:normal)"Go and see the Cerebat Council"(orange) in the heart of their territory, "beneath the Semi Sisters"(orange).
 | "See what you can learn"(orange). If they've been invaded by the Wraw, I think you'll know soon enough.
 ~ player

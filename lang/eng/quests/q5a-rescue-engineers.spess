@@ -6,7 +6,7 @@
 # task-engineers/engineers
 ? (not (var 'engineers-intro))
 | ~ player
-| | Innis sent me. Are you the missing Semis engineers?
+| | {#@innis-nametag} sent me. Are you the missing Semis engineers?
 | ! eval (setf (var 'engineers-intro) T)
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
@@ -25,7 +25,7 @@
 | |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | "We're the engineers you're looking for"(orange). Thank God for Innis.
+| | | "We're the engineers you're looking for"(orange). Thank God for {#@innis-nametag}.
 | | | The tunnel collapsed; we lost the chief and half the company.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
@@ -50,7 +50,7 @@
 | |   | ... As I live and breathe.
 | | - What are you doing in here?
 | | ~ semi-engineer-chief
-| | | "We're the engineers you're looking for"(orange). Thank God for Innis.
+| | | "We're the engineers you're looking for"(orange). Thank God for {#@innis-nametag}.
 | | | We lost the chief and half the company when the tunnel collapsed.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief

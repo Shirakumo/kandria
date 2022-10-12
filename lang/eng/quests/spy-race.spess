@@ -55,17 +55,17 @@
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
 | | | And that's a "gold-standard"(orange) time!
-| | | Which means you get the maximum reward, courtesy of Innis: "750 scrap parts"(orange).
+| | | Which means you get the maximum reward, courtesy of {#@innis-nametag}: "750 scrap parts"(orange).
 | | ! eval (store 'item:parts 750)
 | | ! eval (status "Received 750 Scrap Parts")
 | |? (< pb silver)
 | | | And that's a "silver-standard"(orange) time!
-| | | That equates to, courtesy of Innis: "450 scrap parts"(orange).
+| | | That equates to, courtesy of {#@innis-nametag}: "450 scrap parts"(orange).
 | | ! eval (store 'item:parts 450)
 | | ! eval (status "Received 450 Scrap Parts")
 | |? (< pb bronze)
 | | | And that's a "bronze-standard"(orange) time.
-| | | Which means you earn, courtesy of Innis: "300 scrap parts"(orange).
+| | | Which means you earn, courtesy of {#@innis-nametag}: "300 scrap parts"(orange).
 | | ! eval (store 'item:parts 300)
 | | ! eval (status "Received 300 Scrap Parts")
 | |?

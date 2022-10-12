@@ -21,12 +21,12 @@
 | "The lens is smashed, and judging from the charring on the case there's been a fire."(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | "That was the last of the down cameras. I'd better get "back to Innis"(orange) and report on the saboteurs."(light-gray, italic)
+| | | "That was the last of the down cameras. I'd better get "back to {#@innis-nametag}"(orange) and report on the saboteurs."(light-gray, italic)
 | | | (:thinking)"Then again, I could also make the most of being out this way, and "map more of the area"(orange)."(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to Innis"(orange)."(light-gray, italic)
+| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to {#@innis-nametag}"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
 | | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -37,12 +37,12 @@
 | "It's mostly in pieces on the floor, surrounded by rocks and stones."(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | "That was the last of the down cameras. I'd better get "back to Innis"(orange) and report on the saboteurs."(light-gray, italic)
+| | | "That was the last of the down cameras. I'd better get "back to {#@innis-nametag}"(orange) and report on the saboteurs."(light-gray, italic)
 | | | (:thinking)"Then again, I could also make the most of being out this way, and "map more of the area"(orange)."(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to Innis"(orange)."(light-gray, italic)
+| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to {#@innis-nametag}"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
 | | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -53,12 +53,12 @@
 | "The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit board."(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | "That was the last of the down cameras. I'd better get "back to Innis"(orange) and report on the saboteurs."(light-gray, italic)
+| | | "That was the last of the down cameras. I'd better get "back to {#@innis-nametag}"(orange) and report on the saboteurs."(light-gray, italic)
 | | | (:thinking)"Then again, I could also make the most of being out this way, and "map more of the area"(orange)."(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to Innis"(orange)."(light-gray, italic)
+| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to {#@innis-nametag}"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
 | | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
@@ -66,8 +66,8 @@
 # q5b-task-cctv-4/cctv-4
 ~ player
 | "It's "CCTV camera 4"(red)... The wiring has been cut."(light-gray, italic)
-| "Innis needs to know about this. Accessing FFCS protocols..."(light-gray, italic)
-| Hello, Innis.
+| "{#@innis-nametag} needs to know about this. Accessing FFCS protocols..."(light-gray, italic)
+| Hello, {#@innis-nametag}.
 ~ innis
 | (:angry)You! How did you reach me?...
 | (:sly)This is an FFCS broadcast, isn't it. Clever android.
@@ -113,9 +113,9 @@
 ~ player
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
 | ? (not (complete-p 'q5b-boss))
-| | | "That was also the last of the down cameras. I'd better "find the nearby saboteur and then return to Innis"(orange)."(light-gray, italic)
+| | | "That was also the last of the down cameras. I'd better "find the nearby saboteur and then return to {#@innis-nametag}"(orange)."(light-gray, italic)
 | |?
-| | | "That was also the last of the down cameras. I'd better get "back to Innis"(orange), on the double."(light-gray, italic)
+| | | "That was also the last of the down cameras. I'd better get "back to {#@innis-nametag}"(orange), on the double."(light-gray, italic)
 | | | (:thinking)"Then again, I could also make the most of being out this way, and "map more of the area"(orange)."(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
@@ -123,7 +123,7 @@
 | | "I also need to "find the other CCTV sites"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 |? (complete-p 'q5b-boss)
-| | "I'd better "check out the last of the CCTV cameras around here"(orange), then "get back to Innis"(orange) on the double."(light-gray, italic)
+| | "I'd better "check out the last of the CCTV cameras around here"(orange), then "get back to {#@innis-nametag}"(orange) on the double."(light-gray, italic)
 ; wouldnae = wouldn't (Scottish)
 ; didnae = didn't (Scottish)
 ; ken = know (Scottish)

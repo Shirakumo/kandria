@@ -15,7 +15,7 @@
   | (:happy)I'm glad you're safe.
 - Islay did most of the convincing.
   ~ fi
-  | Well, she knows Innis the best I suppose.
+  | Well, she knows {#@innis-nametag} the best I suppose.
   | But without you speaking with them, none of this would've happened.
   ~ player
   - I guess I played my part.
@@ -69,7 +69,7 @@
 - Who's in charge now?
   ~ fi
   | Islay has the plan, but she's quite diplomatic. (:happy)It feels like a partnership.
-  | (:annoyed)I'm not sure Innis sees it that way though.
+  | (:annoyed)I'm not sure {#@innis-nametag} sees it that way though.
   < questions
 - I have to go.
   ~ fi
@@ -104,7 +104,7 @@
 | And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
 ~ islay
 | I was about to add... could you join us as well, {(nametag player)}? This concerns you.
-| Innis, keep an eye on things here.
+| {#@innis-nametag}, keep an eye on things here.
 ~ innis
 | (:angry)Aye, alright.
 ! eval (complete task)
