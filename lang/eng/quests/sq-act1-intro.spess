@@ -55,7 +55,7 @@
 | ! eval (store 'item:parts 300)
 | ! eval (status "Received 300 Scrap Parts")
 | | (:normal)If you "find any more mushrooms"(orange), make sure you grab them.
-| | If we don't need them, the least you could do is "trade them with Sahil"(orange).
+| | If we don't need them, the least you could do is "trade them with {#@trader-nametag}"(orange).
 | ! eval (complete 'sq2-mushrooms)
 |?
 | | (:normal)With food stocks running out, {#@fi-nametag} wants to "forage for more mushrooms"(orange). They're good for clothing too.

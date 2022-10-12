@@ -97,7 +97,7 @@
 | | | Oh, I've also "given {#@jack-nametag} a special job"(orange) - something I think you'll be well-suited to help with.
 | | | He'll be in "Engineering"(orange).
 |   
-| | I also heard "Sahil is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
+| | I also heard "{#@trader-nametag} is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
 | | You would be wise to equip well for your work.
 | ! eval (activate 'trader-arrive)
 ! eval (complete 'q2-seeds)

@@ -25,7 +25,7 @@
 ~ fi
 | Innis is a lot of things but she isn't stupid.
 | Just make sure you get to them first. "Call me when you have news"(orange).
-| I'm going to try and find Sahil - no one knows where he is.
+| I'm going to try and find {#@trader-nametag} - no one knows where he is.
 ~ player
 | "{#@fi-nametag} looks like she wants to say something else, but I think the moment has passed."(light-gray, italic)
 - Are you okay?
@@ -49,5 +49,3 @@
 ! eval (setf (direction 'innis) -1)
 ! eval (setf (location 'islay) (location 'islay-org-loc))
 ! eval (setf (direction 'islay) -1)
-
-; moving Sahil back to his start location in the Semis base. Yes it's arguably closer to the frontline, but he wants strength in numbers, or to hide in a familiar corner maybe

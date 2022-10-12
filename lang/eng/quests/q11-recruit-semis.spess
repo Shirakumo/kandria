@@ -1,7 +1,7 @@
 # task-reminder/interact-reminder
 ~ fi
 | "Go and see the Semi Sisters, and convince them to join us."(orange)
-| (:unsure)As for me, I'm hoping Sahil is still around here somewhere.
+| (:unsure)As for me, I'm hoping {#@trader-nametag} is still around here somewhere.
 
 # task-destination/interact-innis
 ~ innis

@@ -33,7 +33,7 @@
 ! eval (store 'item:parts 300)
 ! eval (status "Received 300 Scrap Parts")
 | (:normal)If you "find any more mushrooms"(orange), make sure you grab them.
-| If we don't need them, the least you could do is "trade them with Sahil"(orange).
+| If we don't need them, the least you could do is "trade them with {#@trader-nametag}"(orange).
 | See you around, {(nametag player)}!
 ! eval (complete task)
 ! eval (reset interaction)

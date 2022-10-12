@@ -126,10 +126,10 @@
 |   | - [(complete-p 'q8a-bribe-trader) I'm afraid so - but there's a good reason.|]
 |   |   ~ trader
 |   |   | Alqarf!
-|   |   | I'm sure there is. I'd better let you get on. It sounds like you have bigger fish to fry than old Sahil.
+|   |   | I'm sure there is. I'd better let you get on. It sounds like you have bigger fish to fry than old {#@trader-nametag}.
 |   | - [(not (complete-p 'q8a-bribe-trader)) That's what I'm trying to find out.|]
 |   |   ~ trader
-|   |   | Well in that case I'd better not keep you. You have bigger fish to fry than old Sahil.
+|   |   | Well in that case I'd better not keep you. You have bigger fish to fry than old {#@trader-nametag}.
 |   | -  [(complete-p 'q8a-bribe-trader) (Lie) I'm not sure.|]
 |   |   ~ trader
 |   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.

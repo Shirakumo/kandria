@@ -36,13 +36,13 @@
 | | ~ player
 | | - Actually now it's {(nametag player)}.
 | |   ~ trader
-| |   | Old Sahil got old information, huh? I'm sorry, habibti.
+| |   | Old {#@trader-nametag} got old information, huh? I'm sorry, habibti.
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 | |   ~ trader
 | |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
 | | - It used to be {#@player-name-1}.
 | |   ~ trader
-| |   | Used to be? Old Sahil got old information, huh?
+| |   | Used to be? Old {#@trader-nametag} got old information, huh?
 | |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 | |   ~ trader
 | |   | Sorry, habibti. What is it now?
@@ -58,12 +58,12 @@
 | (:jolly)Word spreads quickly around here. And {#@catherine-nametag} couldn't stop talking about you.
 | Such a great kid, you know? A talented engineer as well. Reminds me of...
 | (:normal)Er-... well, never mind that.
-| So you've come to trade with old Sahil, eh?
+| So you've come to trade with old {#@trader-nametag}, eh?
 ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 ~ player
 - What do you sell?
   ~ trader
-  | What doesn't old Sahil sell!
+  | What doesn't old {#@trader-nametag} sell!
   | Listen: {#@catherine-nametag} told me how you helped her out down here - kicked some Servo ass by the sounds of things.
 - What do I need?
   ~ trader

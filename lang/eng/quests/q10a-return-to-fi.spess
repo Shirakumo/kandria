@@ -126,3 +126,5 @@
 | ! eval (activate 'trader-chat)
 | ! eval (activate 'trader-shop)
 ; no reward - it's battle stations. If player needs more currency here, they need to get it from sidequests and selling to traders.
+
+; moving Sahil back to his start location in the Semis base. Yes it's arguably closer to the frontline, but he wants strength in numbers, or to hide in a familiar corner maybe

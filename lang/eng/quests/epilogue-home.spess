@@ -12,7 +12,7 @@
   ~ player
   | "Zooming in and increasing resolution..."(light-gray, italic)
   | It's "{#@fi-nametag}, {#@jack-nametag}, and Innis"(orange). "They're okay"(orange) but they look "worried sick"(orange). "{#@fi-nametag} looks injured"(orange)...
-  | That "might be Sahil"(orange) beyond and "a few others"(orange). I "can't see Islay"(orange).
+  | That "might be {#@trader-nametag}"(orange) beyond and "a few others"(orange). I "can't see Islay"(orange).
   | There's "no Wraw, and no Alex"(orange).
   ~ catherine
   | (:concerned)Islay...

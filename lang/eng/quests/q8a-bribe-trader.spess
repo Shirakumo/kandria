@@ -10,7 +10,7 @@
   ~ cerebat-trader-quest
   | And whose fault is that? It ain't mine!
   ~ player
-  | "I need to generate some money. I could try "scavenging or fishing, then selling to traders like Islay and Sahil"(orange)."(light-gray, italic)
+  | "I need to generate some money. I could try "scavenging or fishing, then selling to traders like Islay and {#@trader-nametag}"(orange)."(light-gray, italic)
 - [(<= (var 'trader-bribe) (item-count 'item:parts)) I'm ready.]
   < outcome
 
