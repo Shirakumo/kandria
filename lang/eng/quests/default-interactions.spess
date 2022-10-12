@@ -255,7 +255,7 @@
 |? (complete-p 'Q10-WRAW)
 | | I hope she's okay. And thinking of me.
 |? (complete-p 'SQ6-DELIVER-LETTER)
-| | Kacey called me. We're still friends, though.
+| | {#@cerebat-partner-nametag} called me. We're still friends, though.
 |?
 | | ... Hold on, there's someone here. Over. Er, hi? Can I help you? - Can't you see I'm on a call?
 

@@ -8,7 +8,7 @@
 - I'm too busy, sorry.
   < leave
 ~ semi-partner
-| My girlfriend, "Kacey"(yellow) - she's in trouble, I'm sure of it.
+| My girlfriend, "{#@cerebat-partner-nametag}"(yellow) - she's in trouble, I'm sure of it.
 | She's a "Cerebat, not a Semi"(orange). We used to talk over long-distance radio all the time, but she's gone silent.
 | I'm "{#@semi-partner-nametag}"(yellow), by the way.
 ! eval (setf (nametag (unit 'semi-partner)) (@ semi-partner-nametag))
@@ -50,7 +50,7 @@
 # read
 | "It's some kind of ink on vellum. Well I guess this is a new dark age."(light-gray, italic)
 | "I think I can decipher the scrawny handwriting:"(light-gray, italic)
-| ""Hi Kacey, it's {#@semi-partner-nametag}. Sorry I can't be there with you, but I sent this messenger."(light-gray, italic)"
+| ""Hi {#@cerebat-partner-nametag}, it's {#@semi-partner-nametag}. Sorry I can't be there with you, but I sent this messenger."(light-gray, italic)"
 | ""I hope you're okay. I miss you. I've been trying to call - I hope the long-range mods I made haven't screwed up the frequency."(light-gray, italic)"
 | ""If they have then I'm screwed because I can't undo them."(light-gray, italic)"
 | ""I'll cut to the chase (for a change): there are things happening here. Bad things."(light-gray, italic)"

@@ -1,6 +1,6 @@
 # reminder/interact-reminder
 ~ semi-partner
-| "You're looking for Kacey in Cerebats territory"(orange). I'm sorry I can't tell you what she looks like - you'll have to "ask around"(orange).
+| "You're looking for {#@cerebat-partner-nametag} in Cerebats territory"(orange). I'm sorry I can't tell you what she looks like - you'll have to "ask around"(orange).
 | The downside of a long distance relationship... Not that I care what she looks like.
 
 # read-letter/interact-read
@@ -18,7 +18,7 @@
 ~ cerebat-partner
 | Who are you?
 ~ player
-| Kacey?
+| {#@cerebat-partner-nametag}?
 ~ cerebat-partner
 | Who wants to know?
 ~ player
@@ -44,7 +44,7 @@
   ~ cerebat-partner
   | That was hardly a no.
 ~ cerebat-partner
-| Yes, "I'm Kacey"(orange). Is he alright?
+| Yes, "I'm {#@cerebat-partner-nametag}"(orange). Is he alright?
 ! eval (setf (nametag (unit 'cerebat-partner)) (@ cerebat-partner-nametag))
 ? (var 'read-letter)
 | ~ player
