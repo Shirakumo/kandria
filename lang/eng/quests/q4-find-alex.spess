@@ -1,11 +1,11 @@
 # find-alex-reminder/q4-reminder
 ~ fi
 ? (not (complete-p 'find-alex-cerebats))
-| | Go to the "Cerebats township deep underground, find Alex and bring them back"(orange) for debriefing.
+| | Go to the "Cerebats township deep underground, find {#@alex-nametag} and bring them back"(orange) for debriefing.
 | | Watch out for the Semi Sisters on your way. They're not our enemies, but they are unpredictable.
 | | You can "access the lower levels through the floor in the pump room"(orange).
 |?
-| | (:unsure)Alex isn't with the Cerebats? That is worrying.
+| | (:unsure){#@alex-nametag} isn't with the Cerebats? That is worrying.
 | | (:normal)Well they still haven't returned. I suggest you "search the tunnels between the Semis and the Cerebats"(orange).
 | | I hope they're okay.
 
@@ -49,11 +49,11 @@
 - My business is my business.
   ~ innis
   | If that's your prerogative.
-  | But you'll be pleased to ken that "Alex is here"(orange).
-- I'm looking for someone called Alex, have you seen them?
+  | But you'll be pleased to ken that "{#@alex-nametag} is here"(orange).
+- I'm looking for someone called {#@alex-nametag}, have you seen them?
   ~ innis
   | (:sly)You see, sister, the direct approach once again yields results - and confirms my information.
-  | (:normal)You'll be pleased to ken that "Alex is here"(orange).
+  | (:normal)You'll be pleased to ken that "{#@alex-nametag} is here"(orange).
 - Fuck you.
   ~ islay
   | ...
@@ -62,7 +62,7 @@
   | I remember your kind! You think you're clever just 'cause you can mimic us.
   | You're a machine, and if I wanted I could have you pulled apart and scattered to the four corners of this valley.
   | (:normal)Now, let's try again.
-  | You'll be pleased to ken that the one you seek, "Alex, is here"(orange).
+  | You'll be pleased to ken that the one you seek, "{#@alex-nametag}, is here"(orange).
 ~ innis
 | Indulge me, would you? I want to see how smart you are.
 | See if you can "find them"(orange) for yourself.
@@ -128,11 +128,11 @@
 - My business is my business.
   ~ innis
   | If that's your prerogative.
-  | But you'll be pleased to ken that "Alex is here"(orange).
-- I'm looking for someone called Alex, have you seen them?
+  | But you'll be pleased to ken that "{#@alex-nametag} is here"(orange).
+- I'm looking for someone called {#@alex-nametag}, have you seen them?
   ~ innis
   | (:sly)You see, sister, the direct approach once again yields results - and confirms my information.
-  | (:normal)You'll be pleased to ken that "Alex is here"(orange).
+  | (:normal)You'll be pleased to ken that "{#@alex-nametag} is here"(orange).
 - Fuck you.
   ~ islay
   | ...
@@ -141,13 +141,13 @@
   | I remember your kind! You think you're clever just 'cause you can mimic us.
   | You're a machine, and if I wanted I could have you pulled apart and scattered to the four corners of this valley.
   | (:normal)Now, let's try again.
-  | You'll be pleased to ken that the one you seek, "Alex, is here"(orange).
+  | You'll be pleased to ken that the one you seek, "{#@alex-nametag}, is here"(orange).
 ~ innis
 | Indulge me, would you? I want to see how smart you are.
 | See if you can "find them"(orange) for yourself.
 ~ player
 | "She's gone. That was an FFCS broadcast, from somewhere nearby."(light-gray, italic)
-| "That means "Alex is close"(orange). Unless it's a trap."(light-gray, italic)
+| "That means "{#@alex-nametag} is close"(orange). Unless it's a trap."(light-gray, italic)
 ! eval (deactivate 'innis-stop-local)
 ! eval (deactivate (unit 'innis-stop-1))
 ! eval (deactivate (unit 'innis-stop-2))
@@ -169,14 +169,14 @@
 
 # find-alex-cerebats/player-stop-cerebats
 ~ player
-| "I don't think Alex is here."(orange, italic)
+| "I don't think {#@alex-nametag} is here."(orange, italic)
 | (:thinking)"Perhaps I missed them en route - I should "follow the path back up towards the Semi Sisters"(orange)."(light-gray, italic)
 
 # find-alex-semis/islay-hint
 ~ islay
 | Hello, {(nametag player)}. It's an honour to meet you in person.
 | (:nervous)I'm sorry about my sister.
-| (:normal)If you're looking for "Alex, try the bar"(orange). It's "on the level above us"(orange).
+| (:normal)If you're looking for "{#@alex-nametag}, try the bar"(orange). It's "on the level above us"(orange).
 | Just don't tell "{#@innis-nametag}"(yellow) I told you. She'll think I've gone soft for androids.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ! eval (setf (var 'android-soft) T)
@@ -189,26 +189,26 @@
 ~ alex
 | (:angry)What you looking at? <-Hic->.
 ~ player
-- Alex?
+- {#@alex-nametag}?
 - (Lie) I wasn't looking at you.
   ~ alex
   | (:angry)Goes away then.
   ~ player
-  | Are you Alex?
+  | Are you {#@alex-nametag}?
 - A drunk in a bar.
   ~ alex
   | (:angry)'Ow dare you.
   ~ player
-  | Are you Alex?
+  | Are you {#@alex-nametag}?
 ~ alex
 | I ain't Alice.
 ~ player
-| I said "Alex" not "Alice".
+| I said "{#@alex-nametag}" not "Alice".
 ~ alex
 | <-Hic->. That's what I said.
 ~ player
 | Oh boy.
-| Are you Alex from the Noka? Do you know {#@fi-nametag}?
+| Are you {#@alex-nametag} from the Noka? Do you know {#@fi-nametag}?
 ~ alex
 | ...
 | Yeah that's me. <-Hic->.
@@ -261,7 +261,7 @@
 ~ player
 | "They're not going to get anyone's attention like that."(light-gray, italic) (:embarassed)"Oh great, now the barkeep's scowling at me too."(light-gray, italic)
 ~ player
-- (Buy Alex another drink - 40)
+- (Buy {#@alex-nametag} another drink - 40)
   ? (<= 40 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 40)
   | ~ alex
@@ -273,7 +273,7 @@
   |?
   | ~ player
   | | (:embarassed)"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has."(light-gray, italic)
-- (Buy Alex a soft drink - 20)
+- (Buy {#@alex-nametag} a soft drink - 20)
   ? (<= 20 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 20)
   | ~ alex
@@ -285,7 +285,7 @@
   | | (:embarassed)"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has."(light-gray, italic)
 - (Don't buy them a drink)
 ~ player
-| "Whoa, Alex nearly fell over. I'm not sure they can see straight. Now they're looking at me again."(light-gray, italic)
+| "Whoa, {#@alex-nametag} nearly fell over. I'm not sure they can see straight. Now they're looking at me again."(light-gray, italic)
 ~ alex
 | You're a stenacious one, aren't ya? <-Hic->.
 ~ player

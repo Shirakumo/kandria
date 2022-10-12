@@ -93,7 +93,7 @@
 |? (complete-p 'Q11-RECRUIT-SEMIS)
 | | (:unsure)Whatever you're doing, please hurry.
 |? (complete-p 'Q4-FIND-ALEX)
-| | Any news on Alex? I still need them back.
+| | Any news on {#@alex-nametag}? I still need them back.
 |? (complete-p 'Q2-SEEDS)
 | | What are we, without food and water?
 |? (complete-p 'Q1-WATER)

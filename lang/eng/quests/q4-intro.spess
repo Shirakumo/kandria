@@ -2,9 +2,9 @@
 ~ fi
 | Okay, it's like this: The Wraw are almost certainly coming to reclaim us.
 | But we cannot defend ourselves without knowing their plans: where they'll attack, and more importantly //when//.
-| Alex was hunting in "Cerebat territory"(red) deeper underground, and might have the answers we need. It's a plentiful place of traders and diplomats.
+| {#@alex-nametag} was hunting in "Cerebat territory"(red) deeper underground, and might have the answers we need. It's a plentiful place of traders and diplomats.
 | (:unsure)But they've been gone a long time now. Too long.
-| (:normal)I want you to "find Alex and bring them back"(orange) for debriefing.
+| (:normal)I want you to "find {#@alex-nametag} and bring them back"(orange) for debriefing.
 | They've got "blonde hair, they're probably not quite as tall as you, and they've a British accent"(orange). You might have to "ask around"(orange).
 | To reach the Cerebats township you'll need to pass through lands controlled by the tech-witch "Semi Sisters"(red).
 | We have good relations so it //should// be okay. They built the infrastructure that keeps us going, like the water pump and telephones.
@@ -38,7 +38,7 @@
   < end
 # questions
 ~ player
-- (Ask about Alex)
+- (Ask about {#@alex-nametag})
   ~ fi
   | They're a hunter, like you. They've been with us from the beginning.
   | I hope you'll meet them soon - it would be nice to get to know them yourself.
@@ -68,7 +68,7 @@
 ~ fi
 | See {#@trader-nametag} if you haven't already, and buy supplies - it will be a long journey.
 | {#@catherine-nametag} tells me your "FFCS works with our radios"(orange). You'll be deep underground, and I'd like you to "keep in contact"(orange).
-| Like Alex has shown, falling off the grid isn't helpful.
+| Like {#@alex-nametag} has shown, falling off the grid isn't helpful.
 | So please stay in touch - you can call me day or night.
 ! eval (setf (location 'innis) 'innis-intercept)
 ! setf (direction 'innis) -1

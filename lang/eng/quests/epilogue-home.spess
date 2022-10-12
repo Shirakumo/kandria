@@ -13,7 +13,7 @@
   | "Zooming in and increasing resolution..."(light-gray, italic)
   | It's "{#@fi-nametag}, {#@jack-nametag}, and {#@innis-nametag}"(orange). "They're okay"(orange) but they look "worried sick"(orange). "{#@fi-nametag} looks injured"(orange)...
   | That "might be {#@trader-nametag}"(orange) beyond and "a few others"(orange). I "can't see {#@islay-nametag}"(orange).
-  | There's "no Wraw, and no Alex"(orange).
+  | There's "no Wraw, and no {#@alex-nametag}"(orange).
   ~ catherine
   | (:concerned){#@islay-nametag}...
 - We'll find out soon enough.

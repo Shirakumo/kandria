@@ -42,7 +42,7 @@
 ~ fi
 | I haven't told the others about the failing crops, but they aren't blind. I'm telling you because I think you can help.
 | There's a place "across the surface to the east"(orange) and beneath the "Ruins"(red), where we first found the seeds that you see growing here.
-| "Alex"(yellow) found it, our hunter. I want you to retrace their steps, "find the cache"(orange), and if it's still intact "recover all the seeds"(orange) that remain.
+| "{#@alex-nametag}"(yellow) found it, our hunter. I want you to retrace their steps, "find the cache"(orange), and if it's still intact "recover all the seeds"(orange) that remain.
 | If we can sow enough of them, and soon enough, then...
 | Well, let's not get ahead of ourselves, shall we.
 ? (complete-p (find-task 'world 'task-world-seeds))
@@ -64,7 +64,7 @@
 |   | I don't know about the world you came from, but I discovered long ago that it's better to make one plan at a time.
 |   | This world tries to pull you down, so you have to act quickly and roll with the punches.
 | ~ fi
-| | Alex has been our sole hunter for some time. You could be a hunter too, and more besides I think.
+| | {#@alex-nametag} has been our sole hunter for some time. You could be a hunter too, and more besides I think.
 | | Good luck.
 | ! eval (deactivate (find-task 'world 'task-world-seeds))
 | ! eval (activate 'q2-seeds)
@@ -82,7 +82,7 @@
 | (:happy)You've done well. Very well. I'll see these are sown right away.
 | This buys us hope I never thought we'd have.
 | (:normal)Know that you are earning my trust, {(nametag player)}. Perhaps you will become a part of the "Noka"(red) yourself.
-| Alex has been our sole hunter for some time. You could be a hunter too, and more besides I think.
+| {#@alex-nametag} has been our sole hunter for some time. You could be a hunter too, and more besides I think.
 | But for now, please "accept these parts"(orange) as a token of my appreciation.
 ! eval (store 'item:parts 200)
 ! eval (status "Received 200 Scrap Parts")

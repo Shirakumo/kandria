@@ -1,6 +1,6 @@
 # 3-interact-islay/interaction
 ~ islay
-| Hello again. You found Alex, I see. How are they?
+| Hello again. You found {#@alex-nametag}, I see. How are they?
 ~ player
 - Drunk as a skunk.
 - They won't cooperate.
@@ -17,7 +17,7 @@
   | No catch. I just want to help.
 - I think they're a lost cause.
   ~ islay
-  | Maybe. But were you yourself not a lost cause before Alex found you?
+  | Maybe. But were you yourself not a lost cause before {#@alex-nametag} found you?
 ~ islay
 | You should stay with us a while, give me some time. That way you won't disappoint {#@fi-nametag} by returning empty-handed.
 | And there are things you could help us with.
@@ -55,7 +55,7 @@
 | We've got "rail engineers stuck"(orange) after a tunnel collapse in the "far high west"(orange).
 | And "4 of our CCTV cameras on the distant low eastern"(orange) Cerebat border have gone down.
 | Word's getting around about your arrival too - you might "find some of my sisters are also willing to pay for your skills"(orange).
-| So "leave Alex to me and speak with {#@innis-nametag}"(orange) - she's gone up to the "control room"(orange).
+| So "leave {#@alex-nametag} to me and speak with {#@innis-nametag}"(orange) - she's gone up to the "control room"(orange).
 | Perhaps see her as another challenge to overcome. I know I do.
 | Ta-ta for now, {(nametag player)}.
 ! eval (stop-following 'islay)

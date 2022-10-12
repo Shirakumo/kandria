@@ -16,12 +16,12 @@
 
 # return-fi/talk-fi
 ~ fi
-| (:annoyed)I was starting to get worried. Why didn't you call? Where's Alex?
+| (:annoyed)I was starting to get worried. Why didn't you call? Where's {#@alex-nametag}?
 ~ player
 - I got waylaid.
   ~ fi
-  | (:annoyed)Waylaid? What was more important than bringing Alex back?
-- Alex isn't coming back yet.
+  | (:annoyed)Waylaid? What was more important than bringing {#@alex-nametag} back?
+- {#@alex-nametag} isn't coming back yet.
   ~ fi
   | (:unsure)Are they okay? What happened?
 - My FFCS couldn't cut through.
@@ -30,7 +30,7 @@
   ~ player
   | The Semis are running some kind of interference - it blocked the signal.
   ~ fi
-  | (:unsure)The Semi Sisters? You were meant to find Alex with the Cerebats.
+  | (:unsure)The Semi Sisters? You were meant to find {#@alex-nametag} with the Cerebats.
 ~ player
 | I found them in the Semi Sisters bar. Drunk. They won't budge.
 | They aren't happy that I became a hunter. They think I've stolen their job.
@@ -41,7 +41,7 @@
 | But they weren't exactly clear, or forthcoming. I let {#@islay-nametag} talk to them while I ran some errands.
 ~ fi
 | (:annoyed)Damn. This is not the time for this.
-| Alex has had this problem before.
+| {#@alex-nametag} has had this problem before.
 | (:normal)We'll have to leave them for now, and hope {#@islay-nametag} can get through.
 | So, you met {#@islay-nametag}. (:unsure)What about {#@innis-nametag}?
 ~ player

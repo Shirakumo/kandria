@@ -6,7 +6,7 @@
 | | (:angry)Why do you think?
 |?
 | ~ player
-| - Alex?
+| - {#@alex-nametag}?
 |   ~ alex
 |   | (:angry)Not for much longer.
 | - What are you doing here?
@@ -40,7 +40,7 @@
 ; could occur with either Jack and Fi alone, or with Islay if Semis are on surface now; or with Fi and Islay alone in Engineering. Either way, Islay doesn't weigh in on this Noka business, and we can assume Fi will tell her later
 # fi-task/fi-interact
 ~ fi
-| (:unsure)Alex has... betrayed us? What do you mean?
+| (:unsure){#@alex-nametag} has... betrayed us? What do you mean?
 ~ player
 | I found them in Wraw territory. They told them our location.
 ~ fi
@@ -69,11 +69,11 @@
 |   ~ fi
 |   | (:annoyed)No, I don't think he is.
 | ~ fi
-| | It was better to know about Alex sooner rather than later. At least we know what we're up against.
+| | It was better to know about {#@alex-nametag} sooner rather than later. At least we know what we're up against.
 | | Thank you, {(nametag player)}.
 |?
 | ~ fi
 | | (:unsure)I don't know what to say.
-| | (:normal)At least with Alex we know what we're up against.
+| | (:normal)At least with {#@alex-nametag} we know what we're up against.
 | | Thank you for telling me, {(nametag player)}.
 

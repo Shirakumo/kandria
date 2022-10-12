@@ -8,18 +8,18 @@
 | | ~ alex
 | | | (:angry)Oi, android! <-Hic->. I 'ear you even stole my jobs 'round 'ere now too.
 | | ~ islay
-| | | You could work together Alex, for the Noka - return to {#@fi-nametag} with {(nametag player)} and get your old life back.
+| | | You could work together {#@alex-nametag}, for the Noka - return to {#@fi-nametag} with {(nametag player)} and get your old life back.
 | | ~ alex
 | | | "{(nametag player)}", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people. Stranger to myself.
 | | | Get lost, both of you.
 | | ~ islay
 | | | Let's "leave them in peace for a while"(orange). They might feel differently once they've sobered up.
 | | | You've done a lot for us though, with little to show for it.
-| | | "Take these parts as recompense"(orange) - though hopefully soon you'll have Alex to show for it as well.
+| | | "Take these parts as recompense"(orange) - though hopefully soon you'll have {#@alex-nametag} to show for it as well.
 | | ! eval (store 'item:parts 600)
 | | ! eval (status "Received 600 Scrap Parts")
 | | ! eval (setf (var 'alex-fee) T)
-| | | [(not (complete-p 'q6-return-to-fi)) You should "get back and update {#@fi-nametag}"(orange). I'll keep an eye on Alex. | Don't worry, I'll keep an eye on them.]
+| | | [(not (complete-p 'q6-return-to-fi)) You should "get back and update {#@fi-nametag}"(orange). I'll keep an eye on {#@alex-nametag}. | Don't worry, I'll keep an eye on them.]
 | | | We'll speak again.
 | | ! eval (setf (var 'alex-done) T)
 | | ! eval (move-to 'islay-main-loc 'islay)

@@ -8,12 +8,12 @@
 - I'm here to help with the engineers and CCTV.
   ~ innis
   | Now that's more like it.
-- I found Alex.
+- I found {#@alex-nametag}.
   ~ innis
   | (:sly)Aye. It was hardly a challenge though, was it?
   | (:normal)I take it {#@islay-nametag} told you about the jobs? Those are real challenges.
 ~ innis
-| (:angry)They'd have been sorted ages ago if Alex wasn't propping up the bar.
+| (:angry)They'd have been sorted ages ago if {#@alex-nametag} wasn't propping up the bar.
 | (:normal)Dinnae get me wrong, I like a drink as much as the next lass. But you Noka really canna hold ya booze.
 | I hope you're a tad more reliable.
 ~ player
@@ -36,7 +36,7 @@
   ~ innis
   | I suppose there was never a case for androids getting pissed.
   | (:sly)War zones, ghettos, hospitals - even sweeping the streets. Not the kind of places you want inefficiency.
-- It's not Alex's fault.
+- It's not {#@alex-nametag}'s fault.
   ~ innis
   | Then whose fault is it?
   | (:angry)Life's harder than it used to be. People dinnae live in happy wee bubbles any more.
