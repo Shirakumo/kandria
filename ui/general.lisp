@@ -246,6 +246,7 @@
 (defmethod initialize-instance :after ((pass ui-pass) &key)
   (make-instance 'alloy:fullscreen-layout :layout-parent (alloy:layout-tree pass))
   (make-instance 'alloy:focus-list :focus-parent (alloy:focus-tree pass))
+  #+kandria-release
   (show (make-instance 'prerelease-notice) :ui pass))
 
 (defmethod alloy:clear :after ((pass ui-pass))
