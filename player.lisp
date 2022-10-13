@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-event player-died (event))
+
 (define-shader-entity stamina-wheel (vertex-entity standalone-shader-entity)
   ((vertex-array :initform (// 'kandria '16x))
    (visibility :initform 0.0 :accessor visibility)))
@@ -1368,6 +1370,7 @@ void main(){
     (transition (respawn player))))
 
 (defmethod respawn ((player player))
+  (issue +world+ 'player-died)
   (interrupt-movement-trace player :death T)
   ;; Actually respawn now.
   (switch-chunk (chunk player))

@@ -12,14 +12,10 @@
    (visible-p :initarg :visible :initform T :accessor visible-p)
    (experience-reward :initarg :experience-reward :initform 500 :accessor experience-reward)))
 
-(defclass quest-started (event)
-  ((quest :initarg :quest :reader quest)))
-
-(defclass quest-completed (event)
-  ((quest :initarg :quest :reader quest)))
-
-(defclass quest-failed (event)
-  ((quest :initarg :quest :reader quest)))
+(define-event quest-started (event) quest)
+(define-event quest-completed (event) quest)
+(define-event quest-failed (event) quest)
+(define-event game-over (event) ending)
 
 (alloy:make-observable '(setf clock) '(value alloy:observable))
 (alloy:make-observable '(setf quest:status) '(value alloy:observable))

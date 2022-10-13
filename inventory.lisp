@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-event item-unlocked (event) item)
+
 (defgeneric item-order (item))
 (defgeneric trade (source target item count)
   (:method-combination progn :most-specific-first))
@@ -26,7 +28,8 @@
 
 (defmethod store ((item symbol) (inventory inventory) &optional (count 1))
   (when (subtypep item 'unlock-item)
-    (setf (gethash item (unlock-table inventory)) T))
+    (setf (gethash item (unlock-table inventory)) T)
+    (issue +world+ 'item-unlocked :item item))
   (incf (gethash item (storage inventory) 0) count))
 
 (defun ensure-stored (item inventory count)
