@@ -16,7 +16,7 @@
          (d (+ (min 0 (max (vx d) (vy d)))
                (vlength (vmax d 0)))))
     ;; If close to borders, resize.
-    (< (abs d) (/ 1 (zoom (camera +world+))))))
+    (< (abs d) (/ 3.0 (zoom (camera +world+))))))
 
 (defmethod handle ((event mouse-press) (tool freeform))
   (let ((entity (entity tool)))
