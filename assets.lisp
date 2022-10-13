@@ -348,6 +348,14 @@
   :ambient-multiplier 4.0
   :ambient (vec 0.8 0.4 0.4))
 
+(define-gi lava-interior
+  :attenuation 0.5
+  :location 'player
+  :light-multiplier 4.0
+  :light (vec 2.0 1 0.5)
+  :ambient-multiplier 2.0
+  :ambient (vec 0.8 0.4 0.4))
+
 (define-gi desert
   :location :sun
   :light '(6 (0 0 0)
