@@ -314,9 +314,7 @@ void main(){
              (entity thing)
              (vec thing)))
          (ensure-sized (x y w2 h2)
-           (if (or (< w2 32) (< h2 32))
-               (vec x y 32 32)
-               (vec x y w2 h2))))
+           (vec x y (max w2 32) (max h2 32))))
     (let* ((thing (resolve thing))
            (test-fun (etypecase thing
                        (vec2
