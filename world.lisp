@@ -114,9 +114,7 @@
 
 (defun pausing-possible-p ()
   (let ((player (unit 'player +world+)))
-    (and (null (find-panel 'menuing-panel))
-         (null (find-panel 'map-panel))
-         (null (find-panel 'load-panel))
+    (and (null (find-panel '(or menuing-panel map-panel load-panel fullscreen-prompt)))
          player
          (svref (collisions player) 2)
          (not (eql :dying (state player)))
