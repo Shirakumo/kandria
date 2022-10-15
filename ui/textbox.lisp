@@ -126,7 +126,7 @@ void main(){
   (:indicator (simple:pattern :duration 0.2))
   (:background (simple:pattern :duration 0.2)))
 
-(defclass dialog-choice-list (alloy:vertical-linear-layout alloy:focus-chain)
+(defclass dialog-choice-list (alloy:vertical-linear-layout alloy:vertical-focus-list)
   ((alloy:cell-margins :initform (alloy:margins 0))
    (alloy:min-size :initform (alloy:size 35 35))))
 
