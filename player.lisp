@@ -367,7 +367,7 @@ void main(){
          (setf (state player) :animated))))
 
 #-kandria-release
-(let ((type (copy-seq '(drone zelah mech dummy zombie rogue wraw))))
+(let ((type (copy-seq '(wolf drone zelah mech dummy zombie rogue wraw))))
   (defmethod handle ((ev mouse-scroll) (player player))
     (setf type (cycle-list type))
     (status :note "Switched to spawning ~a" (first type)))
