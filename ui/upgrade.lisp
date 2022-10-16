@@ -22,13 +22,24 @@
                                           (presentations:find-shape 'requirements checkbox)))
              (harmony:play (// 'sound 'ui-error) :reset T))))))
 
+(defmethod selectable-p ((checkbox upgrade-checkbox))
+  (<= (1- (alloy:on-value checkbox)) (alloy:value checkbox)))
+
 (presentations:define-realization (ui upgrade-checkbox T)
   ((level simple:text)
    (alloy:extent (alloy:pw -1) (alloy:ph 1.11) (alloy:pw 3) 30)
    (@formats 'upgrade-ui-level (alloy:on-value alloy:renderable))
-   :pattern colors:white
+   :pattern (if (selectable-p alloy:renderable) colors:white colors:dark-gray)
    :font (setting :display :font)
    :size (alloy:un 20)
+   :halign :middle
+   :valign :middle)
+  ((improvement simple:text)
+   (alloy:extent (alloy:pw -1) -30 (alloy:pw 3) 30)
+   (@formats 'upgrade-ui-improvement (* 50 (alloy:on-value alloy:renderable)))
+   :pattern (if (selectable-p alloy:renderable) colors:white colors:dark-gray)
+   :font (setting :display :font)
+   :size (alloy:un 15)
    :halign :middle
    :valign :middle)
   ((backdrop simple:rectangle)
@@ -40,8 +51,9 @@
   ((requirements simple:text)
    (alloy:extent (alloy:pw 2.8) (alloy:ph 1.3) 500 (alloy:ph 3.7))
    (@formats 'upgrade-ui-requirements
-             (loop for (count item) in (materials alloy:renderable)
-                   collect (list count (language-string item))))
+             (loop with player = (unit 'player +world+)
+                   for (count item) in (materials alloy:renderable)
+                   collect (list (item-count item player) count (language-string item))))
    :pattern colors:white
    :font (setting :display :font)
    :size (alloy:un 15)
@@ -56,6 +68,7 @@
 
 (presentations:define-update (ui upgrade-checkbox)
   (level)
+  (improvement)
   (backdrop
    :hidden-p (not alloy:focus))
   (requirements
