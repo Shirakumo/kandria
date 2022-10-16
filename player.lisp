@@ -215,6 +215,7 @@ void main(){
                  (setf (animation (target door)) 'open)
                  (setf (air-time player) 0.0)
                  (setf (buffer player) NIL)
+                 (interrupt-movement-trace player :death NIL)
                  (setf (location player) (vec (vx location) (- (vy location) 5))))
                (enter (player)
                  (start-animation (if (facing-towards-screen-p door) 'enter 'enter-forward) player)

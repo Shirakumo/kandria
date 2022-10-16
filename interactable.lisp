@@ -310,6 +310,7 @@
        (when (<= arrive-time (incf (move-time train) (dt ev)))
          (let ((player (unit 'player +world+)))
            (v<- loc (original-location train))
+           (interrupt-movement-trace player :death NIL)
            (v<- (location player) loc)
            (place-on-ground player (location player))
            (stop player)
