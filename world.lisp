@@ -103,6 +103,7 @@
          player
          (svref (collisions player) 2)
          (eql :normal (state player))
+         (< 5 (combat-time player))
          (do-visible (entity (camera +world+) (region +world+) T)
            (when (typep entity 'enemy) (return NIL))))))
 
