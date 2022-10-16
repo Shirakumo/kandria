@@ -28,7 +28,10 @@
    (state :initarg :state :initform NIL :reader state)))
 
 (defun (setf music-state) (state area)
-  (issue +world+ 'switch-music-state :area area :state state))
+  (if (eql T area)
+      (dolist (area (delete-duplicates (mapcar #'area (list-environments))))
+        (issue +world+ 'switch-music-state :area area :state state))
+      (issue +world+ 'switch-music-state :area area :state state)))
 
 (defclass environment () ()) ; Early def
 (defclass environment-controller (unit listener)
@@ -200,11 +203,6 @@
 
 (defmethod (setf environment) (value (name symbol))
   (setf (gethash name *environments*) value))
-
-(defmethod (setf environment) (value (all (eql T)))
-  (loop for name being the hash-keys of *environments*
-        do (setf (gethash name *environments*) value))
-  value)
 
 (defun list-environments ()
   (loop for env being the hash-values of *environments*
