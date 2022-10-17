@@ -7,9 +7,8 @@
 # find-home-first/new-home-site-1
 ~ player
 | "It's "new-home candidate site 1"(red)."(light-gray, italic)
-| (:thinking)"There could be shelter in this building."(light-gray, italic)
-| (:normal)"Let's take a peek inside..."(light-gray, italic)
-| "Dirt and sand has intruded through almost every crack."(light-gray, italic)
+| (:thinking)"There could be shelter in this building. Let's take a peek inside..."(light-gray, italic)
+| (:normal)"Dirt and sand has intruded through almost every crack."(light-gray, italic)
 | "It's a quicksand deathtrap."(light-gray, italic)
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
 | | (:normal)"That's the last site surveyed. I should "return to {#@jack-nametag}"(orange) with the bad news."(light-gray, italic)
