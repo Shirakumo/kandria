@@ -76,6 +76,8 @@
 | | (:annoyed)You'd better get comfortable - we're going nowhere.
 |? (complete-p 'Q1-WATER)
 | | I've got my eye on you.
+|? (active-p 'Q1-WATER)
+| | You "going with Cathy"(orange) or what?
 |? (complete-p 'Q0-FIND-JACK)
 | | What?
 |?

@@ -35,13 +35,6 @@
 | Come on... (:concerned)er - you really need a name.
 | Do androids have names?
 ~ player
-- Yes we have names!
-  ~ catherine
-  | (:concerned)Of course you do, I'm sorry. What's yours?
-  ~ player
-  | (:thinking)That's the thing: I don't remember my name. I don't remember a lot of things.
-  ~ catherine
-  | That's okay... Don't worry. It's probably just a little data loss.
 - I don't remember my name.
   ~ catherine
   | (:concerned)Oh, really? I'm sorry.
@@ -49,6 +42,13 @@
   | (:thinking)I don't remember much else, either.
   ~ catherine
   | I'm sure it's fine. It's probably just a little data loss.
+- Yes we have names!
+  ~ catherine
+  | (:concerned)Of course you do, I'm sorry. What's yours?
+  ~ player
+  | (:thinking)That's the thing: I don't remember my name. I don't remember a lot of things.
+  ~ catherine
+  | That's okay... Don't worry. It's probably just a little data loss.
 - Is this really the time?
   ~ catherine
   | (:concerned)You're right - sorry.
