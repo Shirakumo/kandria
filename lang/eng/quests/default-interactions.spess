@@ -126,7 +126,7 @@
 |? (complete-p 'Q1-WATER)
 | | Hey {(nametag player)}!
 |? (complete-p (quest:find-named '20-GO-TO-Q1-PHONE (thing 'q1-water)))
-| | (:excited)Let's get back up there!
+| | (:excited)Let's "get back up there"(orange)!
 |? (active-p (quest:find-named '20-GO-TO-Q1-PHONE (thing 'q1-water)))
 | | Go on, "call Jack with the phone to the west"(orange). I'll just finish up here.
 |? (complete-p 'Q1-READY)
