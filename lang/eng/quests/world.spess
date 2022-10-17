@@ -176,7 +176,7 @@
 ; the character reflects while navigating deep and complex tunnels through the ground
 # task-world-all/semi-cave-east-1
 ~ player
-| "My history was rusty even before data loss - were these tunnels excavated solely for habitation, or were they originally mine shafts?"(light-gray, italic)
+| "My history was rusty even before data loss - were these tunnels excavated solely for habitation, or were they originally mineshafts?"(light-gray, italic)
 
 ; another old Semi factory space
 # task-world-all/semi-cave-east-3
