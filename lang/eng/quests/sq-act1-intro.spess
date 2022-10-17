@@ -33,7 +33,7 @@
 | You are strangely perceptive... (:excited)Man I'd love to understand how your core works.
 | (:normal)The "water pressure is off again"(orange), so you could "check the pipeline"(orange).
 ? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
-| | (:normal)I was going to say we need some "mushrooms, what with food stocks running out"(orange).
+| | (:normal)I was going to say we need some "mushrooms too, what with food stocks running out"(orange).
 | | (:excited)But is it me, or are those "mushrooms you're carrying"(orange)?
 | | (:excited)You're very proactive, {(nametag player)}, I like that! Let's see what you've got.
 | ? (have 'item:mushroom-good-1)
@@ -58,7 +58,7 @@
 | | If we don't need them, the least you could do is "trade them with {#@trader-nametag}"(orange).
 | ! eval (complete 'sq2-mushrooms)
 |?
-| | (:normal)With food stocks running out, {#@fi-nametag} wants to "forage for more mushrooms"(orange). They're good for clothing too.
+| | (:normal)With food stocks running out, {#@fi-nametag} wants to "forage for more mushrooms"(orange) too. Plus they're good for clothing.
 | | I'd say at least "25 puffballs or flower fungus"(orange) should do. "Avoid black caps"(orange) though.
 | ? (< 0 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
 | | ~ player
@@ -141,7 +141,7 @@
 - (Ask about the time trials)
   ~ catherine
   | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost-fully-functional android can do!
-  | (:normal)So yeah, we've planted old-world "beer cans around the area for you to find and return"(orange).
+  | (:normal)So yeah, we've planted old-world "beer cans around the area for you to find and bring back"(orange).
   | I'll "record your times"(orange) for posterity - this is anthropology! The "faster you are, the more parts you'll get"(orange).
   | (:excited)Pretty cool, huh?
   < task-choice
