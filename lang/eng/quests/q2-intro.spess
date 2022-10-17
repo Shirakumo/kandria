@@ -73,7 +73,7 @@
 # early-end
 ~ fi
 ! eval (retrieve 'item:seeds T)
-| (:happy)Oh my. There must be... twenty sachets. All fully stocked. Was this all of them?
+| (:happy)Oh my, you've been to the cache already? There must be... twenty sachets. All fully stocked. Was this all of them?
 ~ player
 - It was.
 - There are 24 actually.
