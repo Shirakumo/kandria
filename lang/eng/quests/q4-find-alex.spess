@@ -232,7 +232,7 @@
   ~ alex
   | (:angry)You really gotta ask that?
   | ...
-  | Alright, you asked for it: <-Hic->. You're the reason.
+  | Alright, you asked for it: <-Hic->. "You're the reason"(orange).
 - It's important that you do.
   ~ alex
   | No it ain't. Far from it.
@@ -254,7 +254,7 @@
 ~ alex
 | Run along matey - <-hic-> - an' tell {#@fi-nametag} to spin on that, why dontcha?
 ~ player
-| Do you know about the Wraw's plan to attack?
+| Do you know about the Wraw's plan to attack the Noka?
 ~ alex
 | They're always planning to attack. <-Hic->. This just {#@fi-nametag} getting her knickers in a twist again.
 | (:angry)<-Hic->. Speaking o' twists, can't a geezer get a refill 'round 'ere? __BARKEEP!__
@@ -264,11 +264,15 @@
 - (Buy {#@alex-nametag} another drink - 40)
   ? (<= 40 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 40)
+  | ! eval (status "Lost 40 Scrap Part")
   | ~ alex
   | | Ugh, thansssks. <-Hic->.
   | ~ player
-  | | "Wow, they downed it in one."(light-gray, italic)
-  | | (:embarassed)"Are they going to throw up?!... I should move."(light-gray, italic) (:normal)"Oh, they swallowed it back down. Lovely."(light-gray, italic)
+  | | "I'm not surprised the barkeep won't look at me while she pours the drink. Instead she's watching the dirty, soulless liquid slosh into Alex's can."(light-gray, italic)
+  | ~ player
+  | | "Wow, Alex downed it in one."(light-gray, italic)
+  | | (:embarassed)"Are they going to throw up?!... I should move."(light-gray, italic)
+  | | (:normal)"Oh, they swallowed it back down. Lovely."(light-gray, italic)
   | | "I'm glad that can't happen to androids."(light-gray, italic)
   |?
   | ~ player
@@ -276,6 +280,9 @@
 - (Buy {#@alex-nametag} a soft drink - 20)
   ? (<= 20 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 20)
+  | ! eval (status "Lost 20 Scrap Part")
+  | ~ player
+  | | "I'm not surprised the barkeep won't look at me while she pours the drink. Instead she's watching the rouge, carbonated liquid slosh into Alex's can. It smells like beetroot."(light-gray, italic)
   | ~ alex
   | | (:angry)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
   | ~ player

@@ -47,7 +47,7 @@
 - (Ask about the Semi Sisters)
   ~ fi
   | They're tech witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
-  | They keep the power and water on in this whole area, and don't seem to mind if we siphon off a little.
+  | They keep the power and water on in this whole area, and don't seem to mind if we siphon a little off.
   | Two sisters are in charge. It would be best to avoid them for now.
   < questions
 - (Ask about the Cerebats)
@@ -66,9 +66,9 @@
   < end
 # end
 ~ fi
-| See {#@trader-nametag} if you haven't already, and buy supplies - it will be a long journey.
+| See {#@trader-nametag} if you haven't already and buy some supplies - it will be a long journey.
 | {#@catherine-nametag} tells me your "FFCS works with our radios"(orange). You'll be deep underground, and I'd like you to "keep in contact"(orange).
-| Like {#@alex-nametag} has shown, falling off the grid isn't helpful.
+| As {#@alex-nametag} has shown, falling off the grid isn't helpful.
 | So please stay in touch - you can call me day or night.
 ! eval (setf (location 'innis) 'innis-intercept)
 ! setf (direction 'innis) -1

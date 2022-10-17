@@ -108,7 +108,7 @@
 ; a flooded room near the water pump
 # task-world-all/water-cave
 ~ player
-| (:thinking)"This sunken room must be part of their reservoir, from which the pump draws water."(light-gray, italic)
+| (:thinking)"This sunken room must be part of their reservoir, which the pump draws water from."(light-gray, italic)
 
 ; large mushrooms which the player can climb up and stand on
 # task-world-all/mush-cave-1
