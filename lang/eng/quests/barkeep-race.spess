@@ -70,7 +70,7 @@
 | | ~ semi-barkeep
 | | | It's impressive, though not unexpected. Still, here's your cut from the sweepstake: "500 scrap parts"(orange).
 | | ! eval (store 'item:parts 500)
-| | ! eval (status "Received 500 Scrap Parts")
+| | ! eval (status "Received 500 Scrap Part")
 | | | The question is, do you have even more in the tank?
 | |? (< pb silver)
 | | | That was faster than the "silver"(orange) hunter. Not bad. Though we think you can do better.
@@ -79,7 +79,7 @@
 | | ~ semi-barkeep
 | | | Here's your cut from the sweepstake: "300 scrap parts"(orange).
 | | ! eval (store 'item:parts 300)
-| | ! eval (status "Received 300 Scrap Parts")
+| | ! eval (status "Received 300 Scrap Part")
 | |? (< pb bronze)
 | | | That was faster than the "bronze"(orange) hunter. Not bad.
 | | ~ semi-patron-1
@@ -87,7 +87,7 @@
 | | ~ semi-barkeep
 | | | Here's your cut from the sweepstake, as promised: "200 scrap parts"(orange).
 | | ! eval (store 'item:parts 200)
-| | ! eval (status "Received 200 Scrap Parts")
+| | ! eval (status "Received 200 Scrap Part")
 | |?
 | | | But it's "slower than the bronze"(orange) hunter, I'm sorry to say.
 | | ~ semi-patron-2

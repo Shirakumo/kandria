@@ -485,6 +485,7 @@
 | "This is all that's left: "24 sachets"(orange). Inside each one the seeds are tiny and hard like grit."(light-gray, italic)
 | (:thinking)"Will they still grow?"(light-gray, italic)
 ! eval (store 'item:seeds 24)
+! eval (status "Received 24 Seed Sachet")
 
 ; SEMI SISTERS ENGINEERS
 

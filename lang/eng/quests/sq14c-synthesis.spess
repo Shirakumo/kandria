@@ -265,6 +265,7 @@
   | "I think I will - half of this is corrupted. And besides, "{#@synthesis-nametag} needs to know exact quantities"(orange)."(light-gray, italic)
   | ""Downloading Expediate.txt..."(orange)"
   ! eval (store 'item:synthesis-file 1)
+  ! eval (status "Received 1 Expediate.txt")
   | (:giggle)"Wow that was quick. Oh, it's only 34KB... Legacy file types! And it's not corrupted. Good."(light-gray, italic)
   | (:normal)"Well I've "got what I need from this one"(orange)."(light-gray, italic)
   | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
@@ -444,6 +445,7 @@
   | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
   | "But not before I make some subtle alterations, copy-paste-edit style. I'm no chemist, but I think changing the quantity of compounds should scupper the chemical reaction."(light-gray, italic)
   ! eval (store 'item:synthesis-file-1 1)
+  ! eval (status "Received 1 Expediate (doctored).txt")
   | (:embarassed)"Oh, they've come prepared with pencil and paper - I was hoping they might try and memorise it and forget."(light-gray, italic)
   | "The chemistry of the formula is mind-numbing: I think I'll disengage my log and let the text-to-speech algorithm do its thing."(light-gray, italic)
   | (:normal)"..."(light-gray, italic)
@@ -457,6 +459,7 @@
   | "But not before I plausibly corrupt some choice key words and quantities, similar to those corruptions I saw in the terminals."(light-gray, italic)
   | (:giggle)"Copy, paste, edit... Done. I'd like to see them get a chemical reaction out of this! Maybe it will explode."(light-gray, italic)
   ! eval (store 'item:synthesis-file-2 1)
+  ! eval (status "Received 1 Expediate (corrupted).txt")
   | (:embarassed)"Oh, they've come prepared with pencil and paper - I was hoping they might try and memorise it and forget."(light-gray, italic)
   | "The chemistry of the formula was mind-numbing, even before my corruptions: I think I'll disengage my log and let the text-to-speech algorithm do its thing."(light-gray, italic)
   | "The last thing I want to hear right now is me saying: gps b dbubmztu vtf uif tzouifujd foaznf cfub45hmvdbobtf jo uif tqfdjgjfe rvboujuz58"(light-gray, italic)
@@ -484,6 +487,7 @@
   | "But not if I delete it."(light-gray, italic)
   | (:embarassed)"Oh, they've come prepared with pencil and paper. Happy to disappoint."(light-gray, italic)
   ! eval (retrieve 'item:synthesis-file 1)
+  ! eval (status "Lost 1 Expediate.txt")
   | "File deleted."(light-gray, italic)
   ~ player
   - I don't have it any more.

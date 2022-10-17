@@ -12,6 +12,7 @@
 | ~ synthesis
 | | (:grin)Das ist gut. Give us those black caps.
 | | ! eval (retrieve 'item:mushroom-bad-1 4)
+| | ! eval (status "Lost 4 Black Cap")
 | < result
 
 ; they only take the minimum amount they need, as they don't want to rely on you too much; once they're recovered, they can source their own black caps

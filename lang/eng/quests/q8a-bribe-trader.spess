@@ -20,6 +20,7 @@
 ~ cerebat-trader-quest
 | Gimme!
 ! eval (retrieve 'item:parts (var 'trader-bribe))
+! eval (status (concatenate 'string "Lost " (write-to-string (var 'trader-bribe)) " Scrap Part"))
 | Just need a sec to count them all.
 | ...
 | Looks good to me! So we're in business.

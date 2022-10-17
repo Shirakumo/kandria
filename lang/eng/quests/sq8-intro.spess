@@ -21,6 +21,8 @@
 ~ cerebat-good-trader
 | Here, take this. It's one of the "councillor's headdresses"(orange)... I found it.
 ! eval (store 'item:headdress 1)
+! eval (status "Received 1 Headdress")
+Tobias' Letter
 ~ player
 | "It's ornate and covered in pearls."(light-gray, italic) (:embarassed)"But it's also damp and stinks of algae."(light-gray, italic)
 ~ cerebat-good-trader

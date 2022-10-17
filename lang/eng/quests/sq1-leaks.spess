@@ -154,10 +154,11 @@
 | (:cheer)The water pressure is back! I knew you could do it.
 | (:normal)Here, "take these parts"(orange) - you've earned them.
 ! eval (store 'item:parts 150)
-! eval (status "Received 150 Scrap Parts")
+! eval (status "Received 150 Scrap Part")
 ? (and (var 'take-walkie) (have 'item:walkie-talkie))
 | | I'll take the walkie back for now in case someone else needs it.
 | ! eval (retrieve 'item:walkie-talkie 1)
+| ! eval (status "Lost 1 Walkie-Talkie")
 | | Bet it was weird using such archaic technology.
 | ~ player
 | - I liked it.
@@ -207,6 +208,7 @@
       ~ catherine
       | Cool. Thank you.
       ! eval (retrieve 'item:parts 150)
+      ! eval (status "Lost 150 Scrap Part")
     - That's more than I was expecting.
       ~ catherine
       | (:concerned)Oh. Well in that case, forget it, it's fine.

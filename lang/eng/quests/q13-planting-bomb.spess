@@ -34,9 +34,11 @@
 # task-bomb-1/interact-bomb
 ~ player
 ! eval (retrieve 'item:explosive 1)
+! eval (status "Lost 1 Explosive")
 | "This is the "bomb site in the Brother offices"(red)."(light-gray, italic)
 | "Yes, next to a giant mushroom! - Might as well cover them in fungus when they come through."(light-gray, italic)
 ! eval (retrieve 'item:receiver 2)
+! eval (status "Lost 2 RF Detonator")
 | "RF detonators inserted, and we're good to go. It's ready."(light-gray, italic)
 ? (not (var 'first-bomb-done))
 | | "Checking "FFCS... No signal. Wraw interference"(orange), as expected."(light-gray, italic)
@@ -62,7 +64,9 @@
 # task-bomb-2/interact-bomb
 ~ player
 ! eval (retrieve 'item:explosive 1)
+! eval (status "Lost 1 Explosive")
 ! eval (retrieve 'item:receiver 2)
+! eval (status "Lost 2 RF Detonator")
 | "This is the "bomb site beneath the pump room"(red)."(light-gray, italic)
 | "The explosive should stick to the concrete, despite being submerged."(light-gray, italic)
 | "Thankfully the RF detonators also seem to be waterproof."(light-gray, italic)
@@ -91,10 +95,12 @@
 # task-bomb-3/interact-bomb
 ~ player
 ! eval (retrieve 'item:explosive 1)
+! eval (status "Lost 1 Explosive")
 | "This is the "bomb site beyond the hospital apartments"(red)."(light-gray, italic)
 | "Moulded onto that tile should do nicely."(light-gray, italic)
 | "Just got to push the RF detonators into the plastic. There."(light-gray, italic)
 ! eval (retrieve 'item:receiver 2)
+! eval (status "Lost 2 RF Detonator")
 | "It's ready."(light-gray, italic)
 ? (not (var 'first-bomb-done))
 | | "Checking "FFCS... No signal. Wraw interference"(orange), as expected."(light-gray, italic)

@@ -90,8 +90,10 @@
 | | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) Yes. That's the last of them, and then some! | Yes. That's the last of them alright!]
 | | Thank you, {(nametag player)}. "Here's your payment per item, as promised"(orange).
 | ! eval (store 'item:parts (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee)))
-| ! eval (status (concatenate 'string "Received " (write-to-string (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee))) " Scrap Parts"))
+| ! eval (status (concatenate 'string "Received " (write-to-string (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee))) " Scrap Part"))
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:blasting-cap)) " Blasting Cap"))
 | ! eval (retrieve 'item:blasting-cap T)
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:charge-pack)) " Charge Pack"))
 | ! eval (retrieve 'item:charge-pack T)
 | < result
 

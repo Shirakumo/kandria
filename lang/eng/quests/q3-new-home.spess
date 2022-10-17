@@ -100,7 +100,7 @@
 
 # reward
 ! eval (store 'item:parts 100)
-! eval (status "Received 100 Scrap Parts")
+! eval (status "Received 100 Scrap Part")
 < continue
 
 # continue

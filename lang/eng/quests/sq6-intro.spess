@@ -31,6 +31,7 @@
 | Thank you for this, {(nametag player)}. No one else cares, and I can't make the journey myself - not even by train.
 | Here's the "letter. Please keep it safe."(orange)
 ! eval (store 'item:love-letter 1)
+! eval (status "Received 1 Tobias' Letter")
 ! eval (activate (unit 'sq6-check-note))
 ! eval (activate 'check-note)
 ! eval (activate 'sq6-deliver-letter)

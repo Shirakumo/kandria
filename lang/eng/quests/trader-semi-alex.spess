@@ -17,7 +17,7 @@
 | | | You've done a lot for us though, with little to show for it.
 | | | "Take these parts as recompense"(orange) - though hopefully soon you'll have {#@alex-nametag} to show for it as well.
 | | ! eval (store 'item:parts 600)
-| | ! eval (status "Received 600 Scrap Parts")
+| | ! eval (status "Received 600 Scrap Part")
 | | ! eval (setf (var 'alex-fee) T)
 | | | [(not (complete-p 'q6-return-to-fi)) You should "get back and update {#@fi-nametag}"(orange). I'll keep an eye on {#@alex-nametag}. | Don't worry, I'll keep an eye on them.]
 | | | We'll speak again.
@@ -42,7 +42,7 @@
 | | | You've done a lot for us, with little to show for it.
 | | | Please "take these parts as recompense"(orange).
 | | ! eval (store 'item:parts 600)
-| | ! eval (status "Received 600 Scrap Parts")
+| | ! eval (status "Received 600 Scrap Part")
 | | ! eval (setf (var 'alex-fee) T)
 |  
 | ~ islay

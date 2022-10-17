@@ -64,6 +64,7 @@
   < tunic
 ! label tunic
 ! eval (retrieve 'item:tunic 1)
+! eval (status "Lost 1 Tunic Scrap")
 ~ cerebat-good-trader
 | This was torn from a councillor's tunic.
 | Oh God... it's covered in blood.
@@ -73,6 +74,7 @@
 ~ cerebat-good-trader
 | Do you still have the headdress?
 ! eval (retrieve 'item:headdress 1)
+! eval (status "Lost 1 Headdress")
 | Thank you. This might be all that's left of the Council.
 | ... Of "Antonio"(yellow).
 | I'm grateful, but I need some time on my own. Please.

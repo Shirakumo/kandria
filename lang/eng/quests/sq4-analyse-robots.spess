@@ -98,12 +98,12 @@
 
 # reward
 ! eval (store 'item:parts 400)
-! eval (status "Received 400 Scrap Parts")
+! eval (status "Received 400 Scrap Part")
 < end
 
 # big-reward
 ! eval (store 'item:parts 500)
-! eval (status "Received 500 Scrap Parts")
+! eval (status "Received 500 Scrap Part")
 < end
 
 # end

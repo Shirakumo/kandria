@@ -74,12 +74,14 @@
 ~ player
 | "So I've got "3 bombs"(orange), each the size of a large brick."(light-gray, italic)
 ! eval (store 'item:explosive 3)
+! eval (status "Received 3 Explosive")
 | "They resemble plastic explosives, similar to what I've seen bomb disposal teams use."(light-gray, italic)
 ~ catherine
 | Don't worry, they're shock resistant. These babies will only blow when we send the signal.
 ~ player
 | "There's also a handful of RF receivers attached to blasting caps - the detonators."(light-gray, italic)
 ! eval (store 'item:receiver 13)
+! eval (status "Received 13 RF Detonator")
 ~ catherine
 | Just "push the receivers into the explosives"(orange) once you've planted them - "2 in each to be sure"(orange).
 | This will prime the charge packs and activate the receivers.

@@ -53,17 +53,17 @@
 | | | (:cheer)How did you do that so fast? That's "gold bracket"(orange).
 | | | You get the top reward - "250 scrap parts"(orange)!
 | | ! eval (store 'item:parts 250)
-| | ! eval (status "Received 250 Scrap Parts")
+| | ! eval (status "Received 250 Scrap Part")
 | |? (< pb silver)
 | | | (:excited)That was pretty quick! "Silver bracket"(orange).
 | | | It gets you "150 scrap parts"(orange).
 | | ! eval (store 'item:parts 150)
-| | ! eval (status "Received 150 Scrap Parts")
+| | ! eval (status "Received 150 Scrap Part")
 | |? (< pb bronze)
 | | | (:excited)That wasn't bad at all - "bronze bracket"(orange).
 | | | It gets you "100 scrap parts"(orange).
 | | ! eval (store 'item:parts 100)
-| | ! eval (status "Received 100 Scrap Parts")
+| | ! eval (status "Received 100 Scrap Part")
 | |?
 | | | (:concerned)But it's "outside bronze"(orange). I didn't know artificial muscles could get sore too.
 | | | (:normal)Don't worry, you can always try again. (:concerned)But I "don't think I can give you any parts for that"(orange), sorry.

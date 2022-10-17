@@ -73,6 +73,7 @@
 # early-end
 ~ fi
 ! eval (retrieve 'item:seeds T)
+! eval (status "Lost 24 Seed Sachet")
 | (:happy)Oh my, you've been to the cache already? There must be... twenty sachets. All fully stocked. Was this all of them?
 ~ player
 - It was.
@@ -85,7 +86,7 @@
 | {#@alex-nametag} has been our sole hunter for some time. You could be a hunter too, and more besides I think.
 | But for now, please "accept these parts"(orange) as a token of my appreciation.
 ! eval (store 'item:parts 200)
-! eval (status "Received 200 Scrap Parts")
+! eval (status "Received 200 Scrap Part")
 ~ fi
 ? (complete-p 'q3-new-home)
 | | You should "check in with {#@catherine-nametag}"(orange) - I'm sure she'd like to see you again.

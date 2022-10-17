@@ -77,6 +77,7 @@
 
 # given
 ! eval (retrieve 'item:love-letter 1)
+! eval (status "Lost 1 Tobias' Letter")
 ~ cerebat-partner
 | A letter? Classic {#@semi-partner-nametag}. Let me see.
 | ...
