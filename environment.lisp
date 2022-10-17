@@ -201,8 +201,11 @@
 (defmethod environment ((name symbol))
   (gethash name *environments*))
 
-(defmethod (setf environment) (value (name symbol))
+(defmethod (setf environment) ((value environment) (name symbol))
   (setf (gethash name *environments*) value))
+
+(defun remove-environment (name)
+  (remhash name *environments*))
 
 (defun list-environments ()
   (loop for env being the hash-values of *environments*
