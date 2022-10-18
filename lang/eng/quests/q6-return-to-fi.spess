@@ -7,7 +7,7 @@
 | (:normal)"I probably have {#@innis-nametag} to thank for that. I doubt I'll be able to use the phone either."(light-gray, italic)
 | "Alright, if they don't want me calling home, I'll "go on foot"(orange)."(light-gray, italic)
 ? (unlocked-p (unit 'station-surface))
-| | (:giggle)"Or maybe I'll "take the train"(orange)."(light-gray, italic)
+| | (:giggle)"Or maybe I'll "take the train"(orange)!"(light-gray, italic)
 ! eval (activate 'return-fi)
 ! eval (deactivate (unit 'fi-ffcs-1))
 ! eval (deactivate (unit 'fi-ffcs-2))

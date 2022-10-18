@@ -151,7 +151,7 @@
 | "The Wraw."(orange)
 | There've been other signs lately that say "the Wraw have invaded the Cerebats"(orange). {#@islay-nametag} warned me about this.
 | And it looks like "we might be next"(orange).
-| Fuck.
+| Damn it.
 | (:normal)I need to speak with my sister.
 ? (complete-p 'q5a-rescue-engineers)
 | ~ innis

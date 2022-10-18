@@ -22,12 +22,11 @@
 | | | [(not (complete-p 'q6-return-to-fi)) You should "get back and update {#@fi-nametag}"(orange). I'll keep an eye on {#@alex-nametag}. | Don't worry, I'll keep an eye on them.]
 | | | We'll speak again.
 | | ! eval (setf (var 'alex-done) T)
-| | ! eval (move-to 'islay-main-loc 'islay)
 | | ! eval (clear-pending-interactions)
 | |? (var 'alex-done)
 | | ~ islay
-| | | (:nervous)They're still in the bar, (:normal)but I've told the barkeeps not to serve them.
-| | | I've got a hidden camera trained on them as well - they won't fart without me knowing about it.
+| | | See for yourself - though I've told the barkeeps not to serve them.
+| | | I need to get back to the control room soon, but I've got a hidden camera trained on them - Alex won't fart without me knowing about it.
 | |?
 | | ~ islay
 | | | Not much better I'm afraid. (:normal)I think talking is helping though.
