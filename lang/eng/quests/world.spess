@@ -182,6 +182,7 @@
 # task-world-all/semi-cave-east-3
 ~ player
 | "I think they assembled androids on this production line."(light-gray, italic)
+| "Perhaps even me."(light-gray, italic)
 
 ; a scenic picture on the wall from pre-Calamity times - now it seems as ancient as a cave painting once did
 ; And technically it is now a painting, in a cave...

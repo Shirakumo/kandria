@@ -71,7 +71,7 @@
 ~ innis
 | (:angry)You! How did you reach me?...
 | (:sly)This is an FFCS broadcast, isn't it. Clever android.
-| (:angry)Look, now isn't a good time. What do you want?
+| (:angry)Now isn't a good time. What do you want?
 ~ player
 - This is important.
   ~ innis
