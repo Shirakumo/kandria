@@ -27,11 +27,13 @@
 - It was a ruckus.
   ~ semi-roboticist
   | Hmm, yes, I can imagine. Well no, I can't imagine actually.
-- They came one at a time. Like in those old movies.
+- They came at me one at a time. Like in those old movies.
+  ~ semi-roboticist
+  | I used to love those! Interesting...
 - They weren't fighting each other, so perhaps?
   ~ semi-roboticist
   | Intriguing.
-- They were snarling - maybe that's how they communicate?
+- They were snarling - maybe that's how they communicate strategy?
   ~ semi-roboticist
   | An imaginative theory. Unproven, however.
 | "Question 3"(orange): Did any show concern for their fellow Servos?
@@ -108,7 +110,7 @@
 
 # end
 ~ semi-roboticist
-| Well, I need to compare this data with my previous findings, see what conclusions I can draw.
+| Well, I need to compare this Servo data with my previous findings, see what conclusions I can draw.
 | I'll use those to plan my next study.
 | Thank you again. Goodbye, {(nametag player)}.
 ! eval (activate (unit 'spawner-5032))
