@@ -18,7 +18,7 @@
 | (:thinking)No. At least not completely.
 | There are corrupted data strings in my matrix - one of them could be my name, but I'd have to guess at exactly what it was.
 ~ fi
-| Well, I think {#@catherine-nametag} was sincere when she called you {(nametag player)}; but I wonder if that's the name you'd really choose for yourself.
+| Well, I think {#@catherine-nametag} was sincere when she called you {(nametag player)}; but I wonder if that's really the name you'd choose for yourself.
 | You're not a stranger any more.
 | Do you want to change your name?
 ! label name
@@ -104,7 +104,7 @@
 
 # continue
 ~ fi
-| (:happy)That's settled then, "{(nametag player)}"(yellow). Welcome to the Noka.
+| (:happy)That's settled then, "{(nametag player)}"(yellow). Welcome to the Noka!
 | (:normal)I wish we could talk, but I really need you to take this next job.
 | (:happy)Your first "official" one, no less.
 | (:unsure)It's just... I can't get what {#@innis-nametag} said out of my head. We need to talk to the Cerebats.
