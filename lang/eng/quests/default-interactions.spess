@@ -127,10 +127,12 @@
 | | (:excited)Did you see Sahil yet? He's great, isn't he!
 |? (complete-p 'Q1-WATER)
 | | Hey {(nametag player)}!
-|? (complete-p (quest:find-named '20-GO-TO-Q1-PHONE (thing 'q1-water)))
+|? (complete-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
 | | (:excited)Let's "get back to the Camp"(orange)!
-|? (active-p (quest:find-named '20-GO-TO-Q1-PHONE (thing 'q1-water)))
+|? (active-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
 | | Go on, "call Jack with the phone to the west"(orange). I'll just finish up here.
+|? (active-p (quest:find-named '16-GO-TO-PUMP-BOSS-LOC (thing 'q1-water)))
+| | What are you doing?! - "Smash those Servos"(orange)!
 |? (complete-p 'Q1-READY)
 | | (:excited)Stick with me, you'll be fine.
 |?
