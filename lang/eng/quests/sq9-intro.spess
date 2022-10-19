@@ -9,7 +9,7 @@
 | I'm a hunter from the Semi Sisters. I'm undercover, but I think someone's onto me.
 ! eval (setf (nametag (unit 'semi-spy)) (@ semi-spy-nametag))
 ~ semi-spy
-| Can you assist? I need to look busy - like organising the kind of "time trials"(orange) they seem to love around here.
+| Can you assist? I need to look busy - like organising the kind of "time trials"(orange) they seem to love down here.
 ~ player
 - I'll help.
   ~ semi-spy
