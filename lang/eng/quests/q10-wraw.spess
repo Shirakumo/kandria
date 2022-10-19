@@ -1,7 +1,10 @@
 # wraw-objective/reminder
 ~ fi
 | (:unsure)You're back... I still need you to "go deep into Wraw territory"(orange) and "find out when and where {#@zelah-nametag} plans to seize us"(orange).
-| (:normal)Be safe, and "contact me as soon as you can"(orange).
+| (:normal)Try their "main chambers, in the west of their territory"(orange).
+| Be safe, and "contact me as soon as you can"(orange).
+~ player
+| "I've marked potential locations to investigate on my map."(orange, italic)
 
 ; TODO update description to match tiling
 ; a new spawn item in this area too is refined oil, which matches this description
@@ -30,5 +33,5 @@
 | ! setf (direction 'synthesis) -1
 |?
 | ~ player
-| | I need to "keep looking for more signs of their activity"(orange).
+| | I need to "consult the last place to look on my map"(orange) - "search for more signs of their activity"(orange).
 

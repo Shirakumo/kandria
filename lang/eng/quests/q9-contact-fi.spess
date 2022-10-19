@@ -54,6 +54,8 @@
 | Your "FFCS might not work so deep"(orange). But "contact me as soon as you can"(orange).
 | (:unsure)Things could change quickly down there. Although this is now your "top priority"(orange), if you have "other errands to finish, I think now is the time"(orange).
 | (:normal)Be safe.
+~ player
+| "I've marked potential locations to investigate on my map."(orange, italic)
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))
 ! eval (setf (music-state 'region3) :normal)
