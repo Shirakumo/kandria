@@ -65,11 +65,11 @@
 ? (<= (var 'trader-bribe) (item-count 'item:parts))
 | ~ player
 | | (:giggle)"Well, "I do have enough to pay him already"(orange)..."(light-gray, italic)
-| | "Alternatively I could "stock up even more, like by scavenging and fishing then selling to traders like {#@islay-nametag} and {#@trader-nametag}"(orange)."(light-gray, italic)
+| | "Alternatively I could "stock up even more, by scavenging and fishing then selling to traders like {#@trader-nametag} and {#@islay-nametag}"(orange)."(light-gray, italic)
 |?
 | ~ player
 | | "Well "I don't have enough to pay him yet - I'd better earn more scrap parts first"(orange)."(light-gray, italic)
-| | "If all else fails, scavenging and fishing then selling to traders like {#@islay-nametag} and {#@trader-nametag} should help."(orange, italic)
+| | "If all else fails, scavenging and fishing then selling to traders like {#@trader-nametag} and {#@islay-nametag} should help."(orange, italic)
 ? (active-p (find-task 'q8-meet-council 'task-search))
 | ! eval (deactivate (find-task 'q8-meet-council 'task-search))
 | ! eval (activate (find-task 'q8-meet-council 'task-search-hold))

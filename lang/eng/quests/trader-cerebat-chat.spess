@@ -9,7 +9,7 @@
 | - Why are you helping the Wraw?
 |   ~ cerebat-trader-quest
 |   | I know 'ow it looks.
-|   | But they pay well, and that's all I care about. A man's gotta make a livin'.
+|   | But they're well stocked, and that's all I care about. A man's gotta make a livin'.
 |   < questions
 | - What happened to the Cerebat Council?
 |   ~ cerebat-trader-quest
@@ -38,10 +38,10 @@
 |   |   | It was wasn't it.
 |   | - [(string= (@ player-name-1) (nametag player)) (Lie) Not {#@player-name-1}.|]
 |   |   ~ cerebat-trader-quest
-|   |   | Really? Well that would be a turn up for the books if it was.
+|   |   | Really? Well that would be a turn-up for the books if it was.
 |   | - [(not (string= (@ player-name-1) (nametag player))) Not {#@player-name-1}.|]
 |   |   ~ cerebat-trader-quest
-|   |   | Well that would be a turn up for the books if it was.
+|   |   | Well that would be a turn-up for the books if it was.
 |   | - I don't remember my name.
 |   |   ~ cerebat-trader-quest
 |   |   | I don't remember mine neither.

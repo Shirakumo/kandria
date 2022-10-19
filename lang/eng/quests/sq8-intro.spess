@@ -16,13 +16,15 @@
 | I mean, the Wraw won't like it, but at least we could mount a resistance.
 ~ player
 - I'm in.
+- Aren't the Council dead?
+  ~ cerebat-good-trader
+  | I won't believe it till I see their bodies.
 - I need to go.
   < leave
 ~ cerebat-good-trader
 | Here, take this. It's one of the "councillor's headdresses"(orange)... I found it.
 ! eval (store 'item:headdress 1)
 ! eval (status "Received 1 Headdress")
-Tobias' Letter
 ~ player
 | "It's ornate and covered in pearls."(light-gray, italic) (:embarassed)"But it's also damp and stinks of algae."(light-gray, italic)
 ~ cerebat-good-trader

@@ -23,7 +23,7 @@
 ! eval (status (concatenate 'string "Lost " (write-to-string (var 'trader-bribe)) " Scrap Part"))
 | Just need a sec to count them all.
 | ...
-| Looks good to me! So we're in business.
+| Looks good to me! Now we're in business.
 | I'll just put them to one side. Got a special customer lined up for these scrap parts.
 ~ player
 - And now my information.
@@ -37,10 +37,10 @@
   | I gotta say, I thought you mighta worked it out by now.
 ~ cerebat-trader-quest
 | The "Wraw"(orange).
-| I'm supplyin' the Wraw aren't I.
+| I'm tradin' with the Wraw aren't I.
 | It's the only good thing to come from "them movin' in"(orange), believe me. Though don't tell anyone I said that.
 | So now you know.
-| That's why you can't see the "Council. There isn't one any more"(orange).
+| That's why you can't see the "Council. There isn't one any more. They're dead"(orange).
 | Maybe "they shouldn't 'ave turned the Wraw's water off"(orange).
 | I told you they wouldn't see anyone!
 | Anyway, now I know I can trust you, I'd be "'appy to trade"(orange).

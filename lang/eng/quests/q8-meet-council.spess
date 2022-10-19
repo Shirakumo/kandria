@@ -4,12 +4,15 @@
 
 # task-find/player-council-chamber
 ~ player
-| "This would seem to be the Cerebat Council chamber, but there's "no Council"(orange)."(light-gray, italic)
+| "This would seem to be the Cerebat Council chamber..."(light-gray, italic)
+| (:thinking)"But there's "no Council"(orange)."(light-gray, italic)
 ? (not (active-p 'q8a-bribe-trader))
+| ~ player
 | | "I should "ask around, find out where they are"(orange) - "local traders might know something"(orange)."(light-gray, italic)
 | ! eval (activate 'task-search)
 | ! eval (deactivate 'task-find)
 |?
+| ~ player
 | | "Looks like I'll need to "give that trader what he wants to find out where they are"(orange)."(light-gray, italic)
 | ! eval (activate 'task-search-hold)
 | ! eval (deactivate 'task-find)

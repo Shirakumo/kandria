@@ -5,7 +5,7 @@
 ~ fi
 | Loud and clear. Where are you?
 ~ player
-| Cerebat territory. The Council are gone. They turned the Wraw's water off. The Wraw have taken over.
+| The Cerebat markets. The Council are gone. They turned the Wraw's water off. The Wraw have taken over.
 ~ fi
 | ...
 | What happened? Are you okay?
@@ -27,7 +27,7 @@
 | (:annoyed)...
 | Well, you couldn't have known.
 | But now he's our enemy.
-| (:normal)At least that explains why the Wraw invaded. Turning the water off would definitely get {#@zelah-nametag}'s attention.
+| (:normal)At least that "explains why the Wraw invaded. Turning the water off would definitely get {#@zelah-nametag}'s attention"(orange).
 | It's not just their drinking water either - they need it for their power station.
 | I knew {#@innis-nametag} was overreacting about the Wraw invading the Semi Sisters too.
 | (:unsure)But I still need to know "when and where the Wraw will try and capture us"(orange).

@@ -523,7 +523,7 @@ item:cd/lore "MELITA [unreadable - Manning?]
 Night-Time Horizon
 
 1. Blue [unreadable]
-2. Mountain Dew
+2. Mountain Few
 3. Trailer
 4. Space [unreadable]
 5. Out of Reach
@@ -534,7 +534,7 @@ Night-Time Horizon
 
 (c) 2057 Recreational Records
 
-[The artwork shows an overcast sky and endless highway, as night comes over. If I had to guess at a genre I'd say it was synth-pop. The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player. I've never heard of the artist, nor any of the track names I can discern.]"
+[The artwork shows an overcast sky and endless highway, as night comes on. If I had to guess at a genre I'd say synth-pop. The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player. I've never heard of the artist, nor any of the track names I can discern.]"
 item:novel "Novel"
 item:novel/description "Pages are missing and some are unreadable, but the blood-red roses on the cover have barely faded."
 item:novel/lore "Becky

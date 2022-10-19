@@ -321,7 +321,7 @@
 |? (complete-p 'Q7-MY-NAME)
 | | The "Council"(orange) aren't here right now, as you might have noticed. I've got my sources, but even they don't know anything.
 | | Someone said there's a "trader who might know where they are"(orange), but they didn't give me a name.
-| | Try the "middle-west backstreet, outside the abandoned bar"(orange).
+| | Try the "middle-east backstreet, outside the abandoned bar"(orange).
 |?
 | | <-Shoo->. Get out of here! What're you trying to do, blow my cover?
 
@@ -367,7 +367,7 @@
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
 | | (:grin)We know you.
 |? (complete-p 'Q7-MY-NAME)
-| | (:grin)You don't seek us - not yet. But perhaps the "stranger on the middle-west backstreet up there, is the one you seek"(orange).
+| | (:grin)You don't seek us - not yet. But perhaps the "stranger on the middle-east backstreet up there, is the one you seek"(orange).
 |?
 | | (:grin)We know you.
 

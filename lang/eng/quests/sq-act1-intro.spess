@@ -166,7 +166,6 @@
   ! eval (store 'item:walkie-talkie 1)
   ! eval (status "Received 1 Walkie-Talkie")
   ! eval (setf (var 'take-walkie) T)
-  
 ~ catherine
 | "Let me know if you need more info"(orange) - and "if you want to start a time trial"(orange).
 | (:excited)Good luck!
