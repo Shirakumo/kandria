@@ -16,7 +16,7 @@
 
 # return-fi/talk-fi
 ~ fi
-| (:annoyed)I was starting to get worried. Why didn't you call? Where's {#@alex-nametag}?
+| (:annoyed)I was starting to worry. Why didn't you call? Where's {#@alex-nametag}?
 ~ player
 - I got waylaid.
   ~ fi
