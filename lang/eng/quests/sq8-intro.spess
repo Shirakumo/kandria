@@ -22,7 +22,7 @@
 - I need to go.
   < leave
 ~ cerebat-good-trader
-| Here, take this. It's one of the "councillor's headdresses"(orange)... I found it.
+| Here, take this. It's one of the "councillors' headdresses"(orange)... I found it.
 ! eval (store 'item:headdress 1)
 ! eval (status "Received 1 Headdress")
 ~ player
@@ -31,7 +31,7 @@
 | Look for anything similar in "Wraw territory"(orange) - that's where I think they've taken them.
 ! label questions
 ~ player
-- Where did you find this?
+- Where did you find the headdress?
   ~ cerebat-good-trader
   | In a lake, nearby.
   ~ player

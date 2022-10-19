@@ -75,7 +75,7 @@
 | | | (:embarassed)"I'm not sure what my face is doing. Do I look upset?"(light-gray, italic)
   
 ~ semi-spy
-| Can I interest you in going again? Don't keep me waiting too long.
+| Can I interest you in going again? Don't put me on the back-burner here.
 ! eval (activate 'complete-it)
 
 # quit

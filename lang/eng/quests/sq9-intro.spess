@@ -9,7 +9,7 @@
 | I'm a hunter from the Semi Sisters. I'm undercover, but I think someone's onto me.
 ! eval (setf (nametag (unit 'semi-spy)) (@ semi-spy-nametag))
 ~ semi-spy
-| Can you assist? I need to look busy - like organising the kind of "time trials"(orange) they seem to love down here.
+| Can you assist? I need to look busy - like "organising the kind of "time trials"(orange) they seem to love down here" kind of busy.
 ~ player
 - I'll help.
   ~ semi-spy
@@ -25,7 +25,7 @@
 | I've mapped out this area pretty extensively, and left some hip flasks lying around.
 | "Retrieve a flask, return it to me, and I'll stop the clock."(orange)
 | I've also set some arbitrary times that I think will give you a realistic challenge - this has got to seem plausible after all.
-| I've got a generous bursary of scrap parts here from {#@innis-nametag}, so I can "reward you generously for getting involved - and for helping me out"(orange).
+| I've got a generous bursary of scrap parts here from {#@innis-nametag}, so I can "reward you generously for getting involved"(orange).
 | "Just give me a second"(orange) to make a call, then we can "begin"(orange).
 ! eval (activate 'sq9-race)
 ! eval (complete task)
