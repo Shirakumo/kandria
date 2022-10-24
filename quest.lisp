@@ -65,10 +65,10 @@
   (let ((progress (current-progress task))
         (*current-task* task))
     (when progress
-      (setf (last-progress task) progress)
       (when (< (last-progress task) progress)
         (harmony:play (// 'sound 'ui-quest-update) :reset T)
-        (status :note "~a (~a/~a)" (quest:title task) progress (full-progress task))))
+        (status :note "~a (~a/~a)" (quest:title task) progress (full-progress task)))
+      (setf (last-progress task) progress))
     (call-next-method)))
 
 (defmethod current-progress ((task task))
