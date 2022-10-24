@@ -234,7 +234,7 @@
              ((and (null (scan-collision-for elevator +world+ (vec (vx loc) (- (vy loc) (vy bsize) 1))))
                    (not (retained 'up)))
               :down)))
-      (:moving
+      ((:moving :recall)
        (cond ((< 0 (vy (velocity elevator)))
               :down)
              ((< (vy (velocity elevator)) 0)
@@ -242,7 +242,7 @@
 
 (defmethod interact ((elevator elevator) thing)
   (case (state elevator)
-    (:normal
+    ((:normal :recall)
      (case (elevator-direction elevator)
        (:up (setf (vy (velocity elevator)) +0.01))
        (:down (setf (vy (velocity elevator)) -0.01)))
