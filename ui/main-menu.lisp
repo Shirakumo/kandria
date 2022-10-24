@@ -455,6 +455,7 @@ void main(){
 (defun return-to-main-menu ()
   (let ((state (state +main+))
         (player (unit 'player +world+)))
+    (setf (active-p (find-class 'in-menu)) NIL)
     (reset (unit 'environment +world+))
     (transition
       :kind :black
