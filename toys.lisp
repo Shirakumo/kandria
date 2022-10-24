@@ -469,7 +469,7 @@
 (defmethod (setf active-p) :after (value (hider hider))
   (setf (visibility hider) (if value 1.0 0.0)))
 
-(define-shader-entity blocker (layer solid ephemeral collider creatable)
+(define-shader-entity blocker (layer solid ephemeral collider listener creatable)
   ((size :initform (vec 5 5))
    (visibility :type single-float)
    (name :initform (generate-name "BLOCKER"))
@@ -518,9 +518,9 @@
       (when (contained-p point blocker)
         blocker)))
 
-(defmethod render :before ((blocker blocker) (program shader-program))
+(defmethod handle ((ev tick) (blocker blocker))
   (when (< 0.0 (visibility blocker) 1.0)
-    (setf (visibility blocker) (max 0.0 (- (visibility blocker) 0.01)))))
+    (setf (visibility blocker) (max 0.0 (- (visibility blocker) (* 0.5 (dt ev)))))))
 
 (define-class-shader (blocker :fragment-shader)
   "uniform float visibility = 1.0;
