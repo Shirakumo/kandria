@@ -11,7 +11,7 @@
 | {#@islay-nametag} can remind you where to plant the bombs.
 | (:unsure)I'm sorry, my mind is somewhere else.
 | (:normal)One was the sunken room beside the pump, I remember that much.
-| (:unsure)Be careful, {(nametag player)}. Please.
+| (:happy)Be careful, {(nametag player)}. Please.
 
 # task-reminder/interact-catherine
 ~ catherine

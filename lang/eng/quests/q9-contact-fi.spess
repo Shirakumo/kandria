@@ -39,7 +39,7 @@
   | (:happy)And you're very good at it.
 - It'll be fun.
   ~ fi
-  | (:unsure)I'm glad you enjoy your work. But this could be dangerous. Please be careful.
+  | (:happy)I'm glad you enjoy your work. But this could be dangerous. Please be careful.
 - Do I have to?
   ~ fi
   | You always have a choice. But I need you to do this.

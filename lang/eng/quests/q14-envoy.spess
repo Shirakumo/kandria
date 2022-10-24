@@ -14,7 +14,7 @@
   | I'm {#@zelah-nametag}, "remember"(orange)?
 ! eval (setf (nametag (unit 'zelah)) (@ zelah-nametag))
 ~ fi
-| (:unsure)...
+| ...
 | (:annoyed)What do you want?
 ~ zelah
 | I'm here for the android. "My android"(orange).
