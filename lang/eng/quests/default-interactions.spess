@@ -113,7 +113,7 @@
 ~ catherine
 ? (complete-p 'EXPLOSION)
 | | So did we win?
-? (complete-p 'Q15-BOSS)
+|? (complete-p 'Q15-BOSS)
 | | (:excited)I can't believe how you took down that mech!
 |? (complete-p 'Q14-ENVOY)
 | | (:concerned)You don't belong to {#@zelah-nametag}. You don't belong to anyone but yourself.
