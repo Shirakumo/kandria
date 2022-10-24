@@ -23,10 +23,10 @@
   ~ catherine
   | (:concerned)You're right.
 ~ catherine
-| (:concerned)"Let's go!"(orange)
+| (:concerned)"Let's go."(orange)
 
 ; the Fi injured ellipsis works if you flirted with Fi, and if not, then it works for Catherine's benefit
 
 # walk-end/walkntalk
 ~ catherine
-| (:excited)Yes!! You're a tough cookie. Let's go.
+| (:excited)Yes!! Looks like you're A-okay! "Let's go"(orange).

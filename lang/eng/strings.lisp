@@ -38,7 +38,7 @@ wraw-sergeant-nametag "Wraw Drill Sergeant" ;; female
 unknown-nametag "???" ;; gender unknown
 soldier-nametag "Wraw Soldier" ;; gender unknown
 player "Player"
-mech "Wraw Machine Suit Prototype" ;; gender unknown
+mech "Wraw Machine Suit Prototype" ;; gender of driver unknown
 zelah-enemy "Wraw Leader, Zelah"
 villager-female-nametags ("Anneli" "Avedon" "Cath" "Fawn" "Heidy" "Kaitryn" "Karina" "Laura" "Leandra" "Lynne Marshall"
                                    "Maelie" "Maria" "Mandragor Mistica" "Minerva Raeck" "Mobi" "Monika" "Nathalie"
