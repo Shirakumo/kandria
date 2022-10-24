@@ -313,7 +313,7 @@
          (:approach
           (cond ((< (* +tile-size+ 20) (vlength (v- ploc eloc)))
                  (setf (ai-state enemy) :normal))
-                ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 1))
+                ((< (vlength (v- ploc eloc)) (* +tile-size+ 1))
                  (start-animation 'attack enemy))
                 (T
                  (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
@@ -489,7 +489,7 @@
            (:approach
             (cond ((< (* +tile-size+ 20) (vlength (v- ploc eloc)))
                    (setf (ai-state enemy) :normal))
-                  ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 2))
+                  ((< (vlength (v- ploc eloc)) (* +tile-size+ 2))
                    (start-animation (alexandria:random-elt '(attack attack2)) enemy))
                   ((or (svref (collisions enemy) 1)
                        (svref (collisions enemy) 3))
