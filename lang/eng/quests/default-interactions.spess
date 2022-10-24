@@ -24,6 +24,8 @@
 ~ islay
 ? (complete-p 'Q15-CATHERINE)
 | | (:nervous)...
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | Good, you're back.
 |? T
 | | Hello there.
 
