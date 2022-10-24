@@ -50,17 +50,18 @@
   | I'm afraid you need to go after her - even though she said not to follow.
   | She'll have better luck with your help.
 ~ catherine
-| Then let's go!
+| (:excited)Then let's go!
 ~ fi
 | Is your FFCS working?
 ~ player
 | "Checking FFCS..."(light-gray, italic)
 | No. "Wraw interference"(orange).
 ~ fi
-| Okay, "take this walkie"(orange) - (:unsure)she's not responding, but she might call if she needs help.
+| (:unsure)That probably means the attack is imminent...
+| (:normal)Okay, "take this walkie"(orange) - she's not responding, but "she might call if she needs help"(orange).
 ! eval (store 'item:walkie-talkie-2 1)
 ! eval (status "Received 1 Walkie-Talkie")
-| "She's probably gone to the pump room first"(orange) because it's closest to the border.
+| "She's probably gone to the pump room first"(orange) as it's closest to the border.
 | (:annoyed)She also "took the signal detonator"(orange)...
 ! eval (follow 'player 'catherine)
 
