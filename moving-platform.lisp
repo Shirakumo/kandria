@@ -200,7 +200,8 @@
          NIL)))
 
 (defmethod collide :before ((player player) (elevator elevator) hit)
-  (setf (interactable player) elevator))
+  (unless (interactable player)
+    (setf (interactable player) elevator)))
 
 (defmethod collide ((elevator elevator) (player player) hit))
 
