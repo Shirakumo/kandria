@@ -3,6 +3,7 @@
 (defclass map-element (alloy:renderable alloy:focus-element alloy:layout-element)
   ((offset :initform (vec 0 0) :accessor offset)
    (state :initform NIL :accessor state)
+   (bsize :initform (vec 0 0) :accessor bsize)
    (zoom :initform (/ 0.125 (alloy:resolution-scale (unit 'ui-pass T))) :accessor zoom)))
 
 (animation:define-animation (flash-marker :loop T)
@@ -401,6 +402,9 @@
         (incf (vy (offset map)) (- speed)))
       (when (retained 'pan-up)
         (incf (vy (offset map)) (+ speed)))
+      (when (v= 0 (bsize map))
+        (setf (bsize map) (nth-value 1 (bsize (region +world+)))))
+      (nvclamp (vxy (bsize map)) (offset map) (vzw (bsize map)))
       (when (retained 'zoom-in)
         (setf (zoom map) (clamp 0.01 (+ (zoom map) 0.001) 0.5)))
       (when (retained 'zoom-out)

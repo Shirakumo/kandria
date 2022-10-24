@@ -132,5 +132,6 @@
       (for:for ((entity over region))
         (when (typep entity 'sized-entity)
           (expand (location entity) (bsize entity)))))
-    (vec (/ (- x+ x-) 2)
-         (/ (- y+ y-) 2))))
+    (values (vec (/ (- x+ x-) 2)
+                 (/ (- y+ y-) 2))
+            (vec x- y- x+ y+))))
