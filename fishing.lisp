@@ -250,7 +250,7 @@ void main(){
 
 (defmethod item-category ((fish fish)) 'fish)
 
-(defmethod item-order ((fish fish)) 100)
+(defmethod item-order ((fish fish)) 1000)
 
 (defmethod apply-transforms progn ((fish fish))
   (translate #.(vec 0.5 0 0)))
