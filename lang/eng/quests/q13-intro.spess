@@ -95,7 +95,7 @@
 ~ fi
 | (:unsure)Well?
 ~ islay
-| In the "Brother offices to the west of the Zenith Hub"(orange);
+| In the old "Brother offices to the west of the Zenith Hub"(orange);
 | On your "low eastern border, beyond the old Rootless hospital apartments"(orange);
 | ... In the "flooded cave beside the pump room"(orange).
 ~ fi
@@ -126,7 +126,7 @@
 | (:excited)When one goes boom, they all go boom!
 ~ islay
 | (:normal)Remember where to "plant them"(orange):
-| "The Brother offices to the west of the Zenith Hub;"(orange)
+| "The old Brother offices to the west of the Zenith Hub;"(orange)
 | "The flooded room beside the pump;"(orange)
 | "East of the old Rootless hospital apartments."(orange)
 ~ player
