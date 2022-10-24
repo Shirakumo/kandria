@@ -33,7 +33,7 @@
 ~ fi
 | {#@islay-nametag} told me everything, about why you couldn't call.
 | All things considered, it's surprisingly calm around here.
-| (:unsure)Everyone's buying into {#@islay-nametag}'s story that we can stop the Wraw. I suppose this bomb is a convincing statement.
+| (:unsure)Everyone's buying into {#@islay-nametag}'s story that we can stop the Wraw. I suppose this bomb is a convincing message.
 | (:normal)She's been working {#@catherine-nametag} hard to build it, that much I know. (:happy)At least our weapons are ready.
 ! label questions
 ~ player
@@ -44,7 +44,7 @@
   < questions
 - What weapons do we have?
   ~ fi
-  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and {#@jack-nametag} got working. The Semi Sisters have some too, but in better condition.
+  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and {#@jack-nametag} got working. The Semi Sisters have some too, but in better condition and lots more of them.
   | I don't remember the Wraw having anything like that - they're more into swords and spears, so they can watch you die up close.
   | (:unsure)We've also got scythes, shears, and other sharp farming tools.
   | (:happy)And we've got you.
@@ -100,12 +100,12 @@
 # result
 ~ islay
 | I'll take the components to {#@catherine-nametag} so she can finish up.
-| {#@fi-nametag}, would you join me in Engineering?
+| {#@fi-nametag}, would you "join me in Engineering"(orange)?
 ~ fi
 | If you insist.
 | And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
 ~ islay
-| I was about to add... could you join us as well, {(nametag player)}? This concerns you.
+| I was about to add... "could you join us as well, {(nametag player)}"(orange)? This concerns you.
 | {#@innis-nametag}, keep an eye on things here.
 ~ innis
 | (:angry)Aye, alright.
