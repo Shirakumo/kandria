@@ -68,6 +68,8 @@
 | | (:annoyed){#@innis-nametag} is a real bitch, don't ya think?
 |? (complete-p 'Q10A-RETURN-TO-FI)
 | | (:annoyed)How has it come to this? HOW?
+|? (complete-p 'Q10-WRAW)
+| | You'd better have some good news for a change.
 |? (complete-p 'Q6-RETURN-TO-FI)
 | | Why is it wherever you go, trouble ain't far behind?
 |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)

@@ -24,17 +24,16 @@
 # return-fi/talk-fi
 ~ fi
 | (:unsure){(nametag player)}, we've been waiting.
-| That you didn't contact me remotely fills me with dread. What did you find?
 ~ player
 - The Wraw are coming.
   ~ jack
   | (:annoyed)We know that already - they're coming for us.
-- They've built an invasion army.
+- The Wraw have built an invasion army.
   ~ fi
   | (:unsure)...
   ~ catherine
   | (:concerned)Oh my god.
-- They're coming for the entire valley.
+- The Wraw are coming for the entire valley.
   ~ fi
   | (:unsure)What do you mean the entire valley?
 ~ player
@@ -42,15 +41,15 @@
 | And I think they're on the march.
 ~ fi
 | (:unsure)...
-| ... Mechs? They don't have mechs. And why? {#@zelah-nametag} only attacked the Cerebats over the water. He's not a warmonger.
+| ... Mechs? They don't have mechs. And why? {#@zelah-nametag} only attacked the Cerebats over water. He's not a warmonger.
 ~ jack
 | (:annoyed)He is now! He'll enslave us, or kill us.
 ~ fi
 | (:unsure)I...
 ~ jack
 | {#@fi-nametag}?...
-| (:annoyed){#@fi-nametag}, what do we do?
-| (:shocked)... Fuck me. We need to get outta here.
+| (:annoyed){#@fi-nametag}? What are we gonna do?
+| (:shocked)... Fuck me. We need to get outta here!
 ~ catherine
 | (:concerned)And go where exactly?
 | We've got old people and kids to think about.
