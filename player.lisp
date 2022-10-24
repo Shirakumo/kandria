@@ -215,7 +215,7 @@ void main(){
                  (setf (animation (target door)) 'open)
                  (setf (air-time player) 0.0)
                  (setf (buffer player) NIL)
-                 (interrupt-movement-trace player :death NIL)
+                 (interrupt-movement-trace player)
                  (setf (location player) (vec (vx location) (- (vy location) 5))))
                (enter (player)
                  (start-animation (if (facing-towards-screen-p door) 'enter 'enter-forward) player)
@@ -1461,12 +1461,13 @@ void main(){
               (respawn player)))))))
 
 (defmethod die ((player player))
-  (trigger 'explosion player)
-  (vsetf (velocity player) 0 0)
-  (setf (state player) :respawning)
-  (setf (animation player) 'dead)
-  (transition
-    (respawn player)))
+  (unless (eql (state player) :respawning)
+    (trigger 'explosion player)
+    (vsetf (velocity player) 0 0)
+    (setf (state player) :respawning)
+    (setf (animation player) 'dead)
+    (transition
+      (respawn player))))
 
 (defun player-screen-y ()
   (* (- (vy (location (unit 'player T))) (vy (location (camera +world+))))
