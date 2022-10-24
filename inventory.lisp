@@ -177,7 +177,8 @@
     (nv+ (frame-velocity item) (velocity item))
     (perform-collision-tick item (dt ev))
     (when (chunk item)
-      (loop while (< 0 (or (first (tile (location item) (chunk item))) 0))
+      (loop for tile = (or (first (tile (location item) (chunk item))) 0)
+            while (or (= 1 tile) (= 22 tile))
             do (incf (vy (location item)) 8))))
   (when (light item)
     (vsetf (location (light item))
@@ -188,7 +189,7 @@
 
 (defmethod collide :after ((item item) (block block) hit)
   (let ((normal (hit-normal hit)))
-    (when (= 1 (vy normal))
+    (when (< 0 (vy normal))
       (setf (vx (velocity item)) (* 0.95 (vx (velocity item)))))
     (when (<= (abs (vx (velocity item))) 0.1)
       (setf (vx (velocity item)) 0))
