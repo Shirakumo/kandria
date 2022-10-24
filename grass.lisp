@@ -93,7 +93,7 @@
     (let* ((player (unit 'player +world+))
            (hurt (hurtbox player))
            (tile-size (tile-size patch)))
-      (when (< 0 (vz hurt))
+      (when (and (< 0 (vz hurt)) (contained-p hurt patch))
         (let ((cuts (cut-patches patch))
               (x0 (- (vx (location patch)) (vx (bsize patch)))))
           (loop for i from (max 0 (ceiling (- (- (vx hurt) (vz hurt)) x0) (vx tile-size)))
