@@ -531,7 +531,7 @@
     (:stand 0.0)
     (T 0.5)))
 
-(define-shader-entity zelah-enemy (ground-enemy major-enemy half-solid dialog-entity profile)
+(define-shader-entity zelah-enemy (ground-enemy major-enemy half-solid dialog-entity profile ephemeral)
   ((timer :initform 0f0 :accessor timer)))
 
 (defmethod shared-initialize :after ((enemy zelah-enemy) slots &key)

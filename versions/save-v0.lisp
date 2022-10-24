@@ -379,6 +379,10 @@
     ;;         on the NPC's state machine to reconstruct the missing path.
     (setf (path npc) ())))
 
+(define-decoder (zelah-enemy save-v0) (initargs _p)
+  (call-next-method)
+  (change-class zelah-enemy 'zelah))
+
 (define-encoder (chunk save-v0) (_b _p)
   `(:unlocked-p ,(unlocked-p chunk)))
 
