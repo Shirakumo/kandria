@@ -100,7 +100,7 @@
     (show (health-bar enemy))
     (alloy:mark-for-render (health-bar enemy))))
 
-(defmethod leave :after ((enemy minor-enemy) target)
+(defmethod leave :after ((enemy minor-enemy) (container flare:container))
   (hide (health-bar enemy)))
 
 (defmethod handle :after ((ev tick) (enemy minor-enemy))
@@ -368,6 +368,9 @@
           (* 1.0 (- 1 progress)))
          (T 0.0))))
     (T 1.0)))
+
+(defmethod (setf medium) :around (value (enemy drone))
+  value)
 
 (defmethod medium ((enemy drone))
   (load-time-value (make-instance 'vacuum)))
