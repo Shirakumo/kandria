@@ -94,7 +94,8 @@
   (when (eq :falling (state platform))
     (let ((vel (frame-velocity platform)))
       (shake-camera :intensity 5)
-      (setf (state platform) :blocked)
+      (unless (typep solid 'falling-platform)
+        (setf (state platform) :blocked))
       (call-next-method)
       (vsetf vel 0 0))))
 
