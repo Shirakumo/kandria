@@ -2,7 +2,7 @@
 ~ islay
 | Here's the last of the components.
 ~ catherine
-| Oh, hey! I didn't see you there {(nametag player)}. (:excited)I knew you'd come through for us.
+| Great! - Oh, hey! I didn't see you there {(nametag player)}. (:excited)I knew you'd come through for us.
 | (:normal)Well, the bombs are almost ready.
 ~ fi
 | (:unsure)Bombs? I thought there was only one bomb.
@@ -12,7 +12,7 @@
 | (:annoyed)And you were going to tell me when?
 ~ islay
 | Now?
-| We want to collapse the tunnels they're using to move troops, while minimising damage to our common infrastructure.
+| We want to collapse the multiple tunnels they're using to move troops, while minimising damage to our common infrastructure.
 ~ fi
 | Okay, well that sounds fine to me.
 ~ catherine
@@ -34,7 +34,7 @@
   | (:unsure)...
   | I hope not.
   ~ catherine
-  | (:concerned)Me too.
+  | (:concerned)Me too - sorry, I'll get back to work.
   ~ fi
   | But you are the best we have for this, as much as I wish you weren't.
   < continue
@@ -56,7 +56,7 @@
   | Alright. How are we looking?
 - [(not (var 'brave)) It's alright. I know I don't have a choice.|]
   ~ fi
-  | (:unsure)But you do. You always did.
+  | (:happy)But you do. You always did.
   ~ islay
   | Alright. How are we looking?
 - How confident?
@@ -71,17 +71,17 @@
   | Speaking of which, how are we looking?
 ~ catherine
 | They're ready. Here you go, {(nametag player)}.
-~ player
-| "So I've got "3 bombs"(orange), each the size of a large brick."(light-gray, italic)
 ! eval (store 'item:explosive 3)
 ! eval (status "Received 3 Explosive")
+~ player
+| "So I've got "3 bombs"(orange), each the size of a large brick."(light-gray, italic)
 | "They resemble plastic explosives, similar to what I've seen bomb disposal teams use."(light-gray, italic)
 ~ catherine
 | Don't worry, they're shock resistant. These babies will only blow when we send the signal.
-~ player
-| "There's also a handful of RF receivers attached to blasting caps - the detonators."(light-gray, italic)
 ! eval (store 'item:receiver 13)
 ! eval (status "Received 13 RF Detonator")
+~ player
+| "There's also a handful of RF receivers attached to blasting caps - the detonators."(light-gray, italic)
 ~ catherine
 | Just "push the receivers into the explosives"(orange) once you've planted them - "2 in each to be sure"(orange).
 | This will prime the charge packs and activate the receivers.
@@ -114,12 +114,12 @@
 | The water in the sunken room will help do that.
 | We can repair any damage to the pump later, but it will be minimal.
 ~ fi
-| (:unsure)It sounds like I have no choice.
+| (:annoyed)It sounds like I have no choice.
 ~ islay
 | It'll work.
 ~ islay
 | Alright, {(nametag player)}: "Affix all 3 bombs, then get to a safe distance"(orange) - at least to the "Zenith Hub"(orange) I'd say.
-| Your "FFCS probably won't work at the bomb locations"(orange), as they're close to the border.
+| Your "FFCS probably won't work at the bomb locations"(orange) as they're close to the border.
 | If it does, "report in after you've planted each bomb"(orange). If not, then we'll "wait for your call from the Zenith Hub"(orange).
 | "Then we'll detonate them"(orange) in sequence, and bury the Wraw in one fell swoop.
 ~ catherine
