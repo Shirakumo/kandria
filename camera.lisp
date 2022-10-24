@@ -139,7 +139,10 @@
   ;; Ensure we scale to fit width as much as possible without showing space
   ;; outside the chunk.
   (let* ((optimal-scale (float (/ (width ev) (* 2 (vx (target-size camera))))))
-         (max-fit-scale (if (chunk camera) (/ (height ev) (vy (bsize (chunk camera))) 2) optimal-scale))
+         (max-fit-scale (if (chunk camera)
+                            (max (/ (height ev) (* 2 (- (vy (bsize (chunk camera))) 8)))
+                                 (/ (width ev) (* 2 (- (vx (bsize (chunk camera))) 8))))
+                            optimal-scale))
          (scale (max 0.0001 optimal-scale max-fit-scale)))
     (setf (view-scale camera) scale)
     (setf (vx (target-size camera)) (/ (width ev) scale 2))
