@@ -1461,7 +1461,8 @@ void main(){
               (respawn player)))))))
 
 (defmethod die ((player player))
-  (unless (eql (state player) :respawning)
+  (when (or (not (eql (state player) :respawning))
+            (not (eql 'magma-death (animation player))))
     (trigger 'explosion player)
     (vsetf (velocity player) 0 0)
     (setf (state player) :respawning)
