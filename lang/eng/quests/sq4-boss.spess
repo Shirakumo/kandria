@@ -1,5 +1,11 @@
 # 7-interact-/interaction
 ~ player
-| "Did I notice anything unusual about those Servos?"(light-gray, italic)
-| "I should "get back to the roboticist and deliver my findings"(orange)."(light-gray, italic)
+? (not (complete-p 'q11a-bomb-recipe))
+| | "Did I notice anything unusual about those Servos?"(light-gray, italic)
+| | "I should "get back to the roboticist and deliver my findings"(orange)."(light-gray, italic)
+|?
+| | "I guess those were the Servos the roboticist was studying."(light-gray, italic)
+| | "But it's "too late to report back to her now"(orange). I should get out of here."(light-gray, italic)
+| ! eval (activate (unit 'spawner-5032))
 
+; ^ invariant check

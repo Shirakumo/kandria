@@ -2,15 +2,23 @@
 ~ player
 | (:thinking)"A "scrap of tunic"(orange)... It's the "same pelt as the councillor's headdress"(orange), and "both are trimmed with pearls"(orange)."(light-gray, italic)
 | (:embarassed)"It's also "covered in blood"(orange)."(light-gray, italic)
-| "The "councillors aren't here"(orange), but I think I can scratch "site 3"(red) off my list."(light-gray, italic)
-? (not (complete-p (find-task 'sq8-find-council 'move-npc)))
+? (not (complete-p 'q11a-bomb-recipe))
 | ~ player
-| | "I need to "check the other 2 sites"(orange)."(light-gray, italic)
-| ! eval (activate (find-task 'sq8-find-council 'move-npc))
-|? (complete-p (find-task 'sq8-find-council 'site-1) (find-task 'sq8-find-council 'site-2))
-| ~ player
-| | "That was the last place to check. If the Council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
-| ! eval (activate (find-task 'sq8-find-council 'task-return))
+| | "The "councillors aren't here"(orange), but I think I can scratch "site 3"(red) off my list."(light-gray, italic)
+| ? (not (complete-p (find-task 'sq8-find-council 'move-npc)))
+| | ~ player
+| | | "I need to "check the other 2 sites"(orange)."(light-gray, italic)
+| | ! eval (activate (find-task 'sq8-find-council 'move-npc))
+| |? (complete-p (find-task 'sq8-find-council 'site-1) (find-task 'sq8-find-council 'site-2))
+| | ~ player
+| | | "That was the last place to check. If the Council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
+| | ! eval (activate (find-task 'sq8-find-council 'task-return))
+| |?
+| | ~ player
+| | | "That leaves "1 more location"(orange) to check."(light-gray, italic)
 |?
 | ~ player
-| | "That leaves "1 more location"(orange) to check."(light-gray, italic)
+| | "That doesn't bode well, but it's "too late to report back to the Cerebat trader now"(orange)."(light-gray, italic)
+| | "I should get out of here."(light-gray, italic)
+
+; ^ invariant check included
