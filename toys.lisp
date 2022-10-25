@@ -671,7 +671,7 @@ void main(){
 
 (defmethod is-collider-for :around (thing (switch switch)) NIL)
 
-(defmethod collides-p ((moving moving) (switch switch) hit)
+(defmethod collides-p ((moving player) (switch switch) hit)
   (setf (state switch) :on)
   NIL)
 
