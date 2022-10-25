@@ -197,7 +197,7 @@
 | (:giggle)"And by swim I mean activate my aquatic water jets."(light-gray, italic)
 
 ; examining one of the old-world trains refitted by the Semi Sisters
-; It was a maglev train, which has now had traditional rail wheels welded onto it, to work with the Semi's electrical railway
+; It was a maglev train, which has now had traditional rail wheels welded onto it, to work with the Semis' electrical railway
 # task-world-all/semi-train
 ~ player
 | "This is a maglev bullet train - with rail trucks welded onto its chassis!"(light-gray, italic)

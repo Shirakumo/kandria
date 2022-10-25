@@ -31,7 +31,7 @@
 | | ~ islay
 | | | Not much better I'm afraid. (:normal)I think talking is helping though.
 | | | If I can get them out of this bar it'll be a start.
-|? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q11-recruit-semis)))
 | ~ islay
 | | (:nervous)"They've gone. I don't know where"(orange). They just upped and left. Managed to evade most of our cameras.
 | | (:normal)If they've not returned to the Noka then I don't know.

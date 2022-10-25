@@ -106,10 +106,19 @@
 | And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
 ~ islay
 | I was about to add... "could you join us as well, {(nametag player)}"(orange)? This concerns you.
+| I'm afraid "your other jobs will have to wait"(orange).
 | {#@innis-nametag}, keep an eye on things here.
 ~ innis
 | (:angry)Aye, alright.
 ! eval (complete task)
 ! eval (reset interaction)
 ! eval (activate 'q13-intro)
+? (complete-p 'sq14c-synthesis)
+| ! eval (setf (location 'synthesis) 'synthesis-lab)
+| ! setf (direction 'synthesis) -1
+  
 ! eval (clear-pending-interactions)
+
+; "your other jobs will have to wait" hints that sidequests will come back in a bit - a small smoothing concession when many sidequests have potentially just been invalidated. But of course, surprise, they don't come back - but hopefully the story makes clear why that is (bombs, Wraw attack, etc.)
+
+; only move synthesis to the lab if completed the final part of the quest, to avoid spoilering their association with the lab on subsequent playthroughs (they're in the lab to either follow up on the info you gave them in sq14c, or to try and obtain it themself if you denied them the info)

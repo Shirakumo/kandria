@@ -176,7 +176,7 @@
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ npc
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | [? I hope there's something left to rebuild. | It's strange, just waiting. | With an android on our side, we can't lose. Can we? | I hope your fusion reactor is up to this fight.]
+| | [? I hope there's something left to rebuild. | It's strange, just waiting. | With an android on our side, we can't lose. Can we? | I hope your fusion reactor is up to this fight. | We spent a long time making our home down there. I hope there's something left to go back to.]
 |?
 | | [? You any good at fixing things? | You look like you know your way around a screwdriver. | I wouldn't mind seeing how you work on the inside. | What's the maximum stress tolerance of your body? | You're a regular walking toolbox aren't you. | You look like you could fight.]
 
@@ -363,10 +363,11 @@
 ; Is looking for a secret formula for a drug used by the Wraw, and used pre-Calamity for workers, which increases pain tolerance and resistance to heat, but has many bad side effect
 ; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
 ; Before q5a and q5b complete, the NPC is in an inaccessible location, so the true fallback will never play - but here for completeness / in case we move them
-; (complete-p 'SQ14-FIND-COUNCIL) has to work whether they're happy/unhappy with sq14 outcome - you helped them speed up making the drug, or hindered
-; as with others, (complete-p 'Q10-WRAW) needs to work whether you did the quest or not, and even if you never spoke to them before
+; (complete-p 'SQ14C-SYNTHESIS) has to work whether they're happy/unhappy with sq14 outcome - you helped them speed up making the drug, or hindered
+; as with others
+; (complete-p 'Q11A-BOMB-RECIPE) needs to work whether you did the quest or not, and even if you never spoke to them before - and also whether they are in the lab or still under the Cerebat base (they only get moved to the lab if you completed sq14c, to avoid spoilering the lab as linked with synthesis on subsequent playthroughs); could set the condition to be  (complete-p 'Q11A-BOMB-RECIPE 'SQ14C-SYNTHESIS) to guarantee they're in the lab, but we don't really do that with default interacts, it's less clean as would need a counter conditional - it's easy to keep the dialogue ambiguous to solve this
 ~ synthesis
-? (complete-p 'Q10-WRAW)
+? (complete-p 'Q11A-BOMB-RECIPE)
 | | (:grin)The answers are here, and we know where to look.
 |? (complete-p 'SQ14C-SYNTHESIS)
 | | (:normal)When migraines don't blur our vision, we see the way forward.

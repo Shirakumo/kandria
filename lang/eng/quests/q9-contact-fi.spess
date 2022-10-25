@@ -50,10 +50,9 @@
   ~ fi
   | (:unsure)Yes, I suppose you are. But I'm talking about their "core lands, much deeper"(orange).
 ~ fi
-| Try looking in their "main chambers, in the west of their territory"(orange) - that's a good place to start.
-| Your "FFCS might not work so deep"(orange). But "contact me as soon as you can"(orange).
-| (:unsure)Things could change quickly down there. Although this is now your "top priority"(orange), if you have "other errands to finish, I think now is the time"(orange).
-| (:normal)Be safe.
+| (:unsure)Try looking in their "main chambers, in the west of their territory"(orange) - that's a good place to start.
+| (:normal)Your "FFCS might not work so deep"(orange). But "contact me as soon as you can"(orange).
+| Be safe.
 ~ player
 | "I've marked potential locations to investigate on my map."(orange, italic)
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
