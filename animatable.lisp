@@ -162,7 +162,8 @@
   (hurt animatable (damage-output attacker)))
 
 (defmethod hurt :after ((animatable animatable) (attacker animatable))
-  (when (<= (health animatable) 0)
+  (when (and (<= (health animatable) 0)
+             (not (eql :dying (state animatable))))
     (award-experience attacker (experience-reward animatable))))
 
 (defmethod hurt ((animatable animatable) (damage integer))
