@@ -89,7 +89,7 @@
           (let* ((z (view-scale camera))
                  (int (intended-view-scale camera)))
             (when (/= z int)
-              (let ((dir (/ (- (log int) (log z)) 10)))
+              (let ((dir (/ (- (log int) (log (max z 0.0001))) 10)))
                 (if (< (abs dir) 0.001)
                     (setf (view-scale camera) int)
                     (incf (view-scale camera) dir)))
