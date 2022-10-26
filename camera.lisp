@@ -21,6 +21,12 @@
    :location (vec 0 0)
    :target-size (v* +tiles-in-view+ +tile-size+ .5)))
 
+(defmethod (setf view-scale) (value (camera camera))
+  (setf (slot-value camera 'scale) (max 0.0001 value)))
+
+(defmethod (setf zoom) (value (camera camera))
+  (setf (slot-value camera 'zoom) (max 0.0001 value)))
+
 (defmethod reset ((camera camera))
   (setf (target camera) NIL)
   (setf (chunk camera) NIL)
