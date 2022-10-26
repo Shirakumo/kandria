@@ -494,7 +494,6 @@
 ; This is dialogue with the player, not inner monologue.
 ; Conditionals determine what they say based on first of all whether you've cleared the tunnel yet that's blocking them in, and second whether you've spoken to them before.
 ; Task resolves once all the Semis move to the surface during q11a-bomb-recipe
-; TODO Semi Engineers nametag completion doesn't update live on next chat line, though does in next convo selected. Worth fixing?
 # task-world-engineers/trapped-engineers
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))

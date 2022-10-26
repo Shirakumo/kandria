@@ -31,7 +31,6 @@
 
 # alex
 ; alex, non binary - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka; speaks London multicultural English
-; TODO don't have the fallback of "hic" be possible once they've left the Semi bar at the start of act 3 (q7), as they're meant to have sobered up by then
 ~ alex
 ? (complete-p 'Q14-ENVOY)
 | | (:angry)You picked the wrong side.

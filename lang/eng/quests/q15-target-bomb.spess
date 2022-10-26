@@ -31,5 +31,4 @@
 ! eval (deactivate (unit 'bomb-explode-2))
 ! eval (activate 'explosion)
 ! eval (move :freeze player)
-; TODO animate player and catherine force crouching if player chooses "Get down"?
 ; lock player controls early in this case, before epilogue script
