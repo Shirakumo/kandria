@@ -241,13 +241,11 @@
                ((close-to-path-p (location companion) (path npc) max-distance)
                 (interrupt-walk-n-talk NIL)
                 (setf (ai-state npc) :lead-teleport))
-               (T
+               ((path npc)
                 (setf (path npc) NIL)
                 (setf (gethash 'npc (name-map +world+)) npc)
-                (unless (and (find-panel 'walkntalk)
-                             (shown-p (find-panel 'walkntalk)))
-                  (when (setting :gameplay :display-hud)
-                    (show (make-instance 'quest-indicator :target npc))))
+                (when (setting :gameplay :display-hud)
+                  (show (make-instance 'quest-indicator :target npc)))
                 (interrupt-walk-n-talk (lead-interrupt npc))))))
       (:lead-teleport
        (setf (path npc) NIL)
