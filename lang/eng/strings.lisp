@@ -1122,14 +1122,15 @@ This game does NOT use autosaving. Please save often!
 
 If you're having trouble, check out the many Gameplay Settings."
 critical-npc-death-ending "
-The android's Genera system had experienced a sudden critical
-failure, leading it to turn and kill whomever was in sight.
+The android's Genera system experienced a sudden critical
+failure, leading it to kill whomever was in sight.
 
 The failure escalated, destabilising the internal fusion core,
 and approximately 1.256 seconds after the initial failure,
 the entire valley was wiped out in a massive fireball.
 
 Good job!"
+;; hints at a Calamity cause?...
 zelah-early-death-ending "
 With their leader defeated, the Wraw chain of command quickly fell apart.
 The valley entered an uneasy state of peace, but peace it was
