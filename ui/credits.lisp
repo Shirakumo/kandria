@@ -83,7 +83,7 @@
                           ideal))
       (incf (offset panel) (* (alloy:to-px (alloy:un 40)) (dt ev)))
       ;; KLUDGE: the offset from the IDEAL seems too big??
-      (when (< 13800 (print (offset panel)))
+      (when (< 13800 (offset panel))
         (transition :kind :black (hide panel))))))
 
 (defmethod handle :after (ev (panel credits))
