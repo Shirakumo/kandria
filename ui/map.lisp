@@ -133,7 +133,7 @@
                                                  :z-index -2)))
                   (add-shape shape))
                 (let* ((bounds (alloy:extent (- (vx location) (/ 1000 2))
-                                             (+ (vy location) (/ size 2) 250)
+                                             (+ (vy location) (/ size 2) 150)
                                              1000 400))
                        (shape (simple:text renderer bounds (quest:title quest)
                                            :font (setting :display :font)
