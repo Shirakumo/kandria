@@ -219,6 +219,12 @@
   :offset (vec 0.0 2000.0)
   :lighting-strength 0.8)
 
+(define-bg desert-destroyed
+  :parallax (vec 2.0 1.0)
+  :scaling (vec 1.5 1.5)
+  :offset (vec 0.0 1920.0)
+  :lighting-strength 0.8)
+
 (define-bg debug
   :parallax (vec 2.0 1.0)
   :scaling (vec 1.5 1.5)
