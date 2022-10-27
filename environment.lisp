@@ -65,6 +65,7 @@
          (area (or (area ev) (area env)))
          (state (state ev))
          (cons (assoc area (area-states controller))))
+    (v:info :kandria.harmony "Switching music state of ~s to ~s." area state)
     (if cons
         (setf (cdr cons) state)
         (push (cons area state) (area-states controller)))
