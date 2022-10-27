@@ -74,7 +74,7 @@
       (when (music env)
         (harmony:transition (music env) state :in 5.0))
       (when (ambience env)
-        (harmony:transition (ambience env) state :in 3.0)))))
+        (harmony:transition (ambience env) state :in 3.0 :error NIL)))))
 
 (defmethod switch-environment ((controller environment-controller) (name symbol))
   (cond (name
