@@ -77,6 +77,14 @@
     (alloy:finish-structure dialog layout (choices dialog))
     (setf (interactions dialog) (interactions dialog))))
 
+(defmethod show :before ((dialog dialog) &key)
+  ;; Needs to happen before primary method as resetting state of player
+  ;; can switch the active action set.
+  (let ((player (unit 'player T)))
+    (unless (eql :crawling (state player))
+      (setf (state (unit 'player T)) :normal)
+      (setf (animation (unit 'player T)) 'stand))))
+
 (defmethod show :after ((dialog dialog) &key)
   (when (= 1.0 (intended-zoom (camera +world+)))
     (setf (intended-zoom (camera +world+)) 1.5))
@@ -84,7 +92,6 @@
   (interrupt-walk-n-talk NIL)
   (walk-n-talk NIL)
   (clear-retained)
-  (setf (animation (unit 'player T)) 'stand)
   (harmony:play (// 'sound 'ui-start-dialogue)))
 
 (defmethod hide :after ((dialog dialog))
