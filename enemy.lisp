@@ -534,14 +534,15 @@
 (define-shader-entity zelah-enemy (ground-enemy major-enemy half-solid dialog-entity profile ephemeral)
   ((timer :initform 0f0 :accessor timer)))
 
-(defmethod shared-initialize :after ((enemy zelah-enemy) slots &key)
-  (setf (interactions enemy) ()))
+(defmethod shared-initialize :after ((enemy zelah-enemy) slots &key))
 
 (defmethod movement-speed ((enemy zelah-enemy))
   (case (ai-state enemy)
     (:stand 0.0)
     (:walk (p! slowwalk-limit))
     (T (p! walk-limit))))
+
+(defmethod interactable-p ((enemy zelah-enemy)) NIL)
 
 (defmethod interrupt ((enemy zelah-enemy)) NIL)
 
