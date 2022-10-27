@@ -130,13 +130,23 @@
    :size (alloy:ph 0.75)
    :pattern colors:accent)
   ((:name simple:text)
-   (alloy:extent 10 (alloy:ph 1.0) (alloy:pw 1.0) (alloy:ph 1.5))
+   (alloy:extent 100 (alloy:ph 1.0) (alloy:pw 1.0) (alloy:ph 1.5))
    (language-string (type-of alloy:value))
    :halign :start
    :valign :middle
    :font (setting :display :font)
    :size (alloy:ph 0.5)
    :pattern colors:white
+   :outline '(1.0))
+  ((:level simple:text)
+   (alloy:extent 10 (alloy:ph 1.0) (alloy:pw 1.0) (alloy:ph 1.5))
+   (@formats 'enemy-level-string (level alloy:value))
+   :halign :start
+   :valign :middle
+   :font (setting :display :font)
+   :size (alloy:un 16)
+   :pattern (if (<= 10 (- (level alloy:value) (level (unit 'player +world+))))
+                colors:red colors:white)
    :outline '(1.0)))
 
 (presentations:define-update (ui boss-health-bar)

@@ -987,6 +987,7 @@ fish-caught-successfully "Caught ~a"
 station-pick-destination "Select your destination"
 new-station-unlocked "~a station has been activated."
 corrupted-map-reticle "[MAP CORRUPTED]"
+enemy-level-string "LVL ~d"
 ;; Cheat codes
 cheat/hello "HELLO and welcome back to video games"
 cheat/cheat-console "Cheat menu active"
