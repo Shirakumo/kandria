@@ -801,10 +801,13 @@ void main(){
 (define-shader-entity bomb (lit-animated-sprite)
   ((name :initform NIL)
    (trial:sprite-data :initform (asset 'kandria 'bomb))
-   (layer-index :initform (1- +base-layer+))))
+   (layer-index :initform (1- +base-layer+))
+   (played-p :initform NIL :accessor played-p)))
 
 (defmethod stage :after ((bomb bomb) (area staging-area))
   (stage (// 'sound 'bomb-active) area))
 
 (defmethod handle :after ((ev tick) (bomb bomb))
-  (harmony:play (// 'sound 'bomb-active) :location (location bomb)))
+  (unless (played-p bomb)
+    (harmony:play (// 'sound 'bomb-active) :location (location bomb) :reset T)
+    (setf (played-p bomb) T)))
