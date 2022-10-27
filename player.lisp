@@ -1322,7 +1322,8 @@ void main(){
               (if (< 0 (limp-time player))
                   (setf (animation player) 'limp-stand)
                   (setf (animation player) 'stand))))))
-    (cond ((eql (name (animation player)) 'slide)
+    (cond ((and (eql (name (animation player)) 'slide)
+                (< 0.1 (slide-time player)))
            (harmony:play (// 'sound 'player-wall-slide)))
           (T
            (harmony:stop (// 'sound 'player-wall-slide))))))
