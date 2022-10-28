@@ -240,11 +240,8 @@ Possible sub-commands:
   (register (make-instance 'walkntalk) scene))
 
 (defmethod load-game (state (main main))
-  ;; KLUDGE: I hate progressions so much.
   (let ((scene (scene main)))
-    (dolist (progression (progressions scene))
-      (unless (eq progression (progression 'transition scene))
-        (stop progression)))
+    (setf (action-lists scene) ())
     (tagbody retry
        (loop for panel in (panels (unit 'ui-pass scene))
              do (unless (typep panel '(or prerelease-notice hud))

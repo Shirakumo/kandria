@@ -150,8 +150,7 @@
         (when bg
           (setf (background bg) (background 'black))
           (update-background bg T)))
-      (dolist (progression (progressions world))
-        (reset progression))
+      (setf (action-lists world) ())
       (setf (area-states (unit 'environment world)) NIL)
       (let ((version (coerce-version (getf header :version))))
         (decode-payload NIL world depot version)

@@ -34,6 +34,7 @@
    (#:bvh #:org.shirakumo.fraf.trial.bvh2)
    (#:markless #:org.shirakumo.markless)
    (#:components #:org.shirakumo.markless.components)
-   (#:depot #:org.shirakumo.depot))
+   (#:depot #:org.shirakumo.depot)
+   (#:action-list #:org.shirakumo.fraf.action-list))
   (:export
    #:launch))

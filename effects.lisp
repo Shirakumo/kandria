@@ -9,7 +9,8 @@
    (on-complete :initform NIL :accessor on-complete)
    (strength :initform 0.0 :accessor strength)
    (direction :initform 0.0 :accessor direction)
-   (screen-color :initform (vec 0 0 0) :accessor screen-color)))
+   (screen-color :initform (vec 0 0 0) :accessor screen-color)
+   (action-list :initform () :accessor action-list)))
 
 (defmethod (setf kind) (kind (fade combine-pass))
   (ecase kind
@@ -32,17 +33,23 @@
   (stage (// 'sound 'ui-transition) area))
 
 (defmethod handle ((ev transition-event) (fade combine-pass))
-  (cond ((not (flare:running (progression 'transition +world+)))
+  (cond ((null (action-list fade))
          (when (eql :transition (kind ev))
            (harmony:play (// 'sound 'ui-transition)))
          (setf (kind fade) (kind ev))
          (push (on-complete ev) (on-complete fade))
-         (setf (clock (progression 'transition +world+)) 0f0)
-         (start (progression 'transition +world+)))
-        ((< (flare:clock (progression 'transition +world+)) 0.7)
+         (setf (action-list fade) (make-instance (action-list:action-list 'transition))))
+        ((< (action-list:elapsed-time (action-list fade)) 0.6)
          (push (on-complete ev) (on-complete fade)))
         (T
          (funcall (on-complete ev)))))
+
+(defmethod handle ((ev tick) (fade combine-pass))
+  (let ((action-list (action-list fade)))
+    (when action-list
+      (action-list:update action-list (dt ev))
+      (when (action-list:finished-p action-list)
+        (setf (action-list fade) NIL)))))
 
 (defmethod render :before ((fade combine-pass) (program shader-program))
   (gl:active-texture :texture0)
@@ -73,65 +80,6 @@ void main(){
   color = mix(color, o, o.a);
 }")
 
-(define-progression death
-  0.0 1.5 (distortion (set strength :from 0.0 :to 1.0 :ease circ-out))
-  1.5 1.5 (fade (call (lambda (fade clock step)
-                        (setf (direction fade) 0.0)
-                        (setf (strength fade) 0.0)
-                        (setf (kind fade) :blue))))
-  1.5 2.0 (fade (set strength :from 0.0 :to 1.0 :ease expo-in))
-  2.0 2.0 (T (call (lambda (world clock step) (show-panel 'game-over))))
-  2.0 2.5 (fade (set strength :to 0.0 :ease expo-out))
-  2.0 4.0 (distortion (set strength :from 1.0 :to 0.0 :ease circ-in)))
-
-(define-progression hurt
-  0.0 0.2 (distortion (set strength :from 0.0 :to 0.5 :ease expo-out))
-  0.2 0.3 (distortion (set strength :from 0.5 :to 0.0 :ease expo-out)))
-
-(define-progression transition
-  0.0 0.0 (fade (set direction :to 0.0))
-  0.2 0.7 (fade (set strength :from 0.0 :to 1.0))
-  0.7 1.0 (fade (call (lambda (fade clock step)
-                        (loop for func = (pop (on-complete fade))
-                              while func
-                              do (funcall func))
-                        (setf (direction fade) 1.0))))
-  1.0 1.5 (fade (set strength :from 1.0 :to 0.0)))
-
-(define-progression start-game
-  0.0 1.0 (fade (call (lambda (fade clock step)
-                        (setf (kind fade) :black)
-                        (setf (direction fade) 0.0)
-                        (setf (strength fade) (max (strength fade) 1.0)))))
-  0.0 5.0 (fade (set strength :from 1.0 :to 0.0 :ease bounce-in)))
-
-(define-progression game-end
-  0.0 0.0 (:camera (set shake-timer :to 5.0))
-  0.0 0.0 (:camera (set shake-intensity :from 0.0 :to 10.0))
-  0.2 0.3 (:camera (set shake-intensity :from 10.0 :to 0.0))
-  0.0 0.0 (sandstorm (set velocity :to 0.05))
-  1.0 1.0 (T (call (lambda (f c s) (harmony:play (// 'sound 'ambience-earthquake)))))
-  1.0 3.0 (:camera (set shake-intensity :from 0.0 :to 20.0 :ease cubic-in))
-  1.0 3.0 (sandstorm (set strength :to 0.3))
-  1.5 1.5 (T (call (lambda (f c s) (trigger 'rockslide NIL :location (v+ (location (camera +world+))
-                                                                         (v_y (bsize (camera +world+)))
-                                                                         (vec 0 300))))))
-  1.9 1.9 (T (call (lambda (f c s) (trigger 'rockslide NIL :location (v+ (location (camera +world+))
-                                                                         (v_y (bsize (camera +world+)))
-                                                                         (vec 0 300))))))
-  2.0 2.0 (T (call (lambda (f c s) (trigger 'rockslide NIL :location (v+ (location (camera +world+))
-                                                                         (v_y (bsize (camera +world+)))
-                                                                         (vec 0 300))))))
-  3.6 3.6 (fade (set strength :to 1.0))
-  4.0 5.0 (:camera (set shake-intensity :to 0.0)))
-
-(define-progression low-health
-  0.0 0.0 (fade (call (lambda (fade clock step) (setf (kind fade) :white))))
-  0.0 0.2 (fade (set strength :from 0.0 :to 0.5))
-  0.2 0.5 (fade (set strength :from 0.5 :to 0.0 :ease expo-out))
-  0.5 0.6 (T (set time-scale :from 1.0 :to 0.2 :ease quint-in))
-  1.0 1.5 (T (set time-scale :from 0.2 :to 1.0 :ease quint-out)))
-
 (define-shader-pass distortion-pass (simple-post-effect-pass)
   ((name :initform 'distortion)
    (active-p :initform NIL)
@@ -151,7 +99,6 @@ void main(){
   (gl:bind-texture :texture-2d (gl-name (texture pass)))
   (setf (uniform program "pixelfont") 0)
   (setf (uniform program "seed") (logand #xFFFF (sxhash (floor (* 2 (clock +world+))))))
-  ;; Discretize the strength progression to reduce the flicker speed.
   (setf (uniform program "strength") (strength pass)))
 
 (defmethod handle ((event event) (pass distortion-pass)))
@@ -270,3 +217,67 @@ void main(){
   (when value
     (setf (active-p (unit 'distortion T)) NIL)
     (setf (active-p (unit 'sandstorm T)) NIL)))
+
+(action-list:define-action-list death
+  (ease 1.5 (strength (u 'distortion)) :from 0.0 :to 1.0 :ease #'easing-f:out-circ)
+  (setf (direction (u 'fade)) 0.0
+        (strength (u 'fade)) 0.0
+        (kind (u 'fade)) :blue)
+  (ease 0.5 (strength (u 'fade)) :from 0.0 :to 1.0 :ease #'easing-f:in-exp)
+  (eval (show-panel 'game-over))
+  (ease 0.5 (strength (u 'fade)) :from 1.0 :to 0.0 :ease #'easing-f:out-exp)
+  (ease 2.0 (strength (u 'distortion)) :from 1.0 :to 0.0 :ease #'easing-f:in-circ))
+
+(action-list:define-action-list hurt
+  (ease 0.2 (strength (u 'distortion)) :from 0.0 :to 0.5 :ease #'easing-f:out-exp)
+  (ease 0.1 (strength (u 'distortion)) :from 0.5 :to 0.0 :ease #'easing-f:out-exp))
+
+(action-list:define-action-list transition
+  (setf (direction (u 'fade)) 0.0)
+  (ease 0.5 (strength (u 'fade)) :from 0.0 :to 1.0)
+  (delay 0.1)
+  (eval (loop for func = (pop (on-complete (u 'fade)))
+              while func
+              do (funcall func))
+        (setf (direction (u 'fade)) 1.0))
+  (delay 0.1)
+  (ease 0.5 (strength (u 'fade)) :from 1.0 :to 0.0))
+
+(action-list:define-action-list start-game
+  (setf (kind (u 'fade)) :black
+        (direction (u 'fade)) 0.0)
+  (ease 5.0 (strength (u 'fade)) :from 1.0 :to 0.0 :ease #'easing-f:in-bounce :blocking NIL)
+  (ease 1.0 (strength (u 'fade)) :from 1.0 :to 1.0))
+
+(action-list:define-action-list game-end
+  (setf (shake-timer (camera +world+)) 5.0
+        (shake-intensity (camera +world+)) 10.0
+        (velocity (u 'sandstorm)) 0.05
+        (kind (u 'fade)) :black)
+  (delay 0.2)
+  (ease 0.1 (shake-intensity (camera +world+)) :from 10.0 :to 0.0)
+  (delay 0.7)
+  (eval (harmony:play (// 'sound 'ambience-earthquake)))
+  (ease 2.0 (shake-intensity (camera +world+)) :from 0.0 :to 20.0 :ease #'easing-f:in-cubic :blocking NIL)
+  (ease 2.0 (strength (u 'sandstorm)) :from 0.0 :to 0.5 :blocking NIL)
+  (delay 0.5)
+  (eval (trigger 'rockslide NIL :location (v+ (location (camera +world+)) (v_y (bsize (camera +world+))) (vec 0 300))))
+  (delay 0.4)
+  (eval (trigger 'rockslide NIL :location (v+ (location (camera +world+)) (v_y (bsize (camera +world+))) (vec 0 300))))
+  (delay 0.1)
+  (eval (trigger 'rockslide NIL :location (v+ (location (camera +world+)) (v_y (bsize (camera +world+))) (vec 0 300))))
+  (delay 1.6)
+  (setf (strength (u 'fade)) 1.0)
+  (delay 0.4)
+  (ease 1.0 (strength (u 'sandstorm)) :from 0.5 :to 0.0 :blocking NIL)
+  (ease 1.0 (shake-intensity (camera +world+)) :from 20.0 :to 0.0))
+
+(action-list:define-action-list low-health
+  (eval (setf (kind (u 'fade)) :white))
+  (ease 0.1 (strength (u 'fade)) :from 0.0 :to 0.8                                :lanes #b010)
+  (ease 0.8 (strength (u 'fade)) :from 0.8 :to 0.0 :ease #'easing-f:in-exp        :lanes #b010)
+  (ease 0.2 (strength (u 'distortion)) :from 0.0 :to 0.7 :ease #'easing-f:out-exp :lanes #b100)
+  (ease 0.5 (time-scale +world+) :from 1.0 :to 0.2 :ease #'easing-f:in-quint      :lanes #b001)
+  (delay 1.0)
+  (ease 5.0 (strength (u 'distortion)) :from 0.7 :to 0.0 :ease #'easing-f:out-exp :lanes #b100)
+  (ease 1.0 (time-scale +world+) :from 0.2 :to 1.0 :ease #'easing-f:out-quint     :lanes #b001))

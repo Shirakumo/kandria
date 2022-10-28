@@ -11,14 +11,13 @@
    (clock-scale :initform 60.0 :accessor clock-scale)
    (update-timer :initform 0.2 :accessor update-timer)
    (timestamp :initform (initial-timestamp) :accessor timestamp)
-   (camera :initform (make-instance 'camera) :accessor camera))
+   (camera :initform (make-instance 'camera) :accessor camera)
+   (action-lists :initform NIL :accessor action-lists))
   (:default-initargs
    :depot (error "DEPOT required.")))
 
 (defmethod initialize-instance :after ((world world) &key depot)
   (enter (make-instance 'environment-controller) world)
-  (dolist (progression '(death hurt transition start-game game-end low-health))
-    (enter (progression-instance progression) world))
   (let ((sub (depot:ensure-depot (depot:entry "regions" depot))))
     (dolist (entry (depot:list-entries sub))
       (let ((depot (depot:ensure-depot entry)))
@@ -256,6 +255,9 @@
 
 (defmethod handle :after ((ev tick) (world world))
   (let ((dt (dt ev)))
+    (loop for list in (action-lists world)
+          do (action-list:update list dt))
+    (setf (action-lists world) (delete-if #'action-list:finished-p (action-lists world)))
     (unless (handler-stack world)
       (unless (find-panel 'dialog)
         (incf (timestamp world) (* (clock-scale world) dt))
@@ -265,6 +267,9 @@
       (when (<= (decf (update-timer world) dt) 0)
         (setf (update-timer world) 0.2)
         (quest:try (storyline world))))))
+
+(defun start-action-list (name &optional (scene +world+))
+  (push (make-instance (action-list:action-list name)) (action-lists scene)))
 
 (defmethod handle :after ((ev switch-chunk) (world world))
   (location-info (language-string (name (chunk ev)) NIL)))

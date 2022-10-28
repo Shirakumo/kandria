@@ -226,4 +226,6 @@
                :cl-mixed-vorbis
                :zpng
                :jsown
-               :swank))
+               :swank
+               :action-list
+               :easing))
