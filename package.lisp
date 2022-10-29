@@ -35,6 +35,7 @@
    (#:markless #:org.shirakumo.markless)
    (#:components #:org.shirakumo.markless.components)
    (#:depot #:org.shirakumo.depot)
-   (#:action-list #:org.shirakumo.fraf.action-list))
+   (#:action-list #:org.shirakumo.fraf.action-list)
+   (#:sequences #:org.shirakumo.trivial-extensible-sequences))
   (:export
    #:launch))

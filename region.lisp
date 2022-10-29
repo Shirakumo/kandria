@@ -112,8 +112,8 @@
         (when hit (return hit))))))
 
 (defmethod unit (name (region region))
-  (for:for ((entity over region))
-    (when (and (typep entity 'unit)
+  (sequences:dosequence (entity region)
+    (when (and (typep entity 'entity)
                (eql name (name entity)))
       (return entity))))
 
