@@ -44,7 +44,7 @@
              (vec (+ (vx offset) (* (- x (/ w 2) -0.5) +tile-size+))
                   (+ (vy offset) (* (- y (/ h 2) -0.5) +tile-size+)) 0)))
       (do-nodes (x y graph mesh)
-        (dolist (node (node graph x y))
+        (dolist (node (%node graph x y))
           (let ((color (node-type-color node))
                 (off (node-type-offset node)))
             (push (list (nv+ (loc x y) off) color) mesh)

@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass camera (trial:2d-camera unpausable)
-  ((flare:name :initform :camera)
+  ((name :initform :camera)
    (scale :initform 1.0 :accessor view-scale)
    (intended-scale :initform 1.0 :accessor intended-view-scale)
    (target-size :initarg :target-size :accessor target-size)

@@ -137,7 +137,7 @@ void main(){
   (incf (vy (location effect)) (* 20 (dt ev)))
   (decf (lifetime effect) (dt ev))
   (when (and (< (lifetime effect) 0f0)
-             (slot-boundp effect 'container))
+             (container effect))
     (leave effect T)))
 
 (defmethod render ((effect text-effect) (program shader-program))

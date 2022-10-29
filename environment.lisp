@@ -34,7 +34,7 @@
       (issue +world+ 'switch-music-state :area area :state state)))
 
 (defclass environment () ()) ; Early def
-(defclass environment-controller (unit listener)
+(defclass environment-controller (entity listener)
   ((name :initform 'environment)
    (environment :initarg :environment :initform NIL :accessor environment)
    (area-states :initarg :area-states :initform NIL :accessor area-states)

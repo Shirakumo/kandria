@@ -9,7 +9,7 @@
 
 (deploy:define-hook (:deploy kandria -1) (directory)
   (org.shirakumo.zippy:compress-zip
-   (pathname-utils:subdirectory (root) "world")
+   (pathname-utils:subdirectory (data-root) "world")
    (make-pathname :name "world" :type "zip" :defaults directory)
    :strip-root T :if-exists :supersede))
 

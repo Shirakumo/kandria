@@ -24,11 +24,11 @@
 (defclass collider () ())
 
 (defmethod (setf location) :after (loc (collider collider))
-  (when (slot-boundp collider 'container)
+  (when (container collider)
     (bvh:bvh-update (bvh (container collider)) collider)))
 
 (defmethod (setf bsize) :after (loc (collider collider))
-  (when (slot-boundp collider 'container)
+  (when (container collider)
     (bvh:bvh-update (bvh (container collider)) collider)))
 
 (defclass parent-entity (entity)
@@ -48,7 +48,7 @@
   (loop while (< (length (children entity)) count)
         for child = (make-child-entity entity)
         do (push child (children entity))
-           (when (slot-boundp entity 'container)
+           (when (container entity)
              (trial:commit child (loader +main+) :unload NIL)
              (enter child (container entity)))))
 
@@ -58,12 +58,12 @@
 
 (defmethod enter :after ((entity parent-entity) (container container))
   (dolist (child (children entity))
-    (unless (slot-boundp child 'container)
+    (unless (container child)
       (enter child container))))
 
 (defmethod leave :after ((entity parent-entity) (container container))
   (dolist (child (children entity))
-    (when (slot-boundp child 'container)
+    (when (container child)
       (leave child T))))
 
 (defclass base-entity (entity)

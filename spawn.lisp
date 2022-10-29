@@ -44,7 +44,7 @@
       (setf (gethash entity +spawn-tracker+) T)))
 
 (defclass spawner (listener sized-entity ephemeral resizable creatable)
-  ((flare:name :initform (generate-name 'spawner))
+  ((name :initform (generate-name 'spawner))
    (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type alloy::any)
    (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer)
    (spawn-args :initarg :spawn-args :initform NIL :accessor spawn-args :type alloy::any)
@@ -99,7 +99,7 @@
 
 (defmethod done-p ((spawner spawner))
   (loop for entity in (reflist spawner)
-        never (slot-boundp entity 'container)))
+        never (container entity)))
 
 (defmethod quest:status ((spawner spawner))
   (if (or (not (active-p spawner))

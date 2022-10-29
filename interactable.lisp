@@ -111,7 +111,7 @@
   (1- +base-layer+))
 
 (defmethod leave :after ((door door) thing)
-  (when (slot-boundp (target door) 'container)
+  (when (container (target door))
     (leave (target door) T)))
 
 (define-shader-entity basic-door (door creatable)

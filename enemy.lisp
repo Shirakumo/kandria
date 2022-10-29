@@ -100,7 +100,7 @@
     (show (health-bar enemy))
     (alloy:mark-for-render (health-bar enemy))))
 
-(defmethod leave :after ((enemy minor-enemy) (container flare:container))
+(defmethod leave :after ((enemy minor-enemy) (container container))
   (hide (health-bar enemy)))
 
 (defmethod handle :after ((ev tick) (enemy minor-enemy))

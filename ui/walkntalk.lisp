@@ -33,7 +33,7 @@
 (defclass walkntalk-layout (org.shirakumo.alloy.layouts.constraint:layout)
   ((walkntalk :initarg :walkntalk)))
 
-(defclass walkntalk (panel textbox unit)
+(defclass walkntalk (panel textbox entity)
   ((name :initform 'walkntalk)
    (interaction :initform NIL :accessor interaction)
    (interrupt :initform NIL :accessor interrupt)

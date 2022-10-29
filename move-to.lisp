@@ -65,11 +65,11 @@
   (+ x (* y (node-graph-width graph))))
 
 (declaim (inline node))
-(defun node (graph x y)
+(defun %node (graph x y)
   (the list (svref (node-graph-grid graph) (node-idx graph x y))))
 
 (declaim (inline (setf node)))
-(defun (setf node) (value graph x y)
+(defun (setf %node) (value graph x y)
   (setf (svref (node-graph-grid graph) (node-idx graph x y)) value))
 
 (defun connect-nodes (graph type ax ay bx by w h)
@@ -82,16 +82,16 @@
       (case constructor
         ((make-fall-node)
          (push (funcall constructor (node-idx graph bx by))
-               (node graph ax ay)))
+               (%node graph ax ay)))
         (T
          (push (funcall constructor (node-idx graph bx by))
-               (node graph ax ay))
+               (%node graph ax ay))
          (push (funcall constructor (node-idx graph ax ay))
-               (node graph bx by)))))))
+               (%node graph bx by)))))))
 
 (defun connect-jump (graph ax ay bx by strength)
   (push (make-jump-node (node-idx graph bx by) strength)
-        (node graph ax ay)))
+        (%node graph ax ay)))
 
 (defmacro do-nodes ((x y graph &optional (result NIL)) &body body)
   `(loop for ,y downfrom (1- (node-graph-height ,graph)) to 0

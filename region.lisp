@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass region (layered-container ephemeral)
+(defclass region (bag ephemeral)
   ((name :initform 'test :initarg :name :accessor name :type symbol)
    (author :initform "Anonymous" :initarg :author :accessor author :type string)
    (version :initform "0.0.0" :initarg :version :accessor version :type string)
@@ -9,9 +9,7 @@
    (chunk-graph :initform NIL :accessor chunk-graph)
    (bvh :initform (bvh:make-bvh) :reader bvh)
    (depot :initarg :depot :accessor depot)
-   (indefinite-extent-entities :initform () :accessor indefinite-extent-entities))
-  (:default-initargs
-   :layer-count +layer-count+))
+   (indefinite-extent-entities :initform () :accessor indefinite-extent-entities)))
 
 (defgeneric load-region (depot region))
 (defgeneric save-region (region depot &key version &allow-other-keys))
@@ -66,7 +64,7 @@
 (defmethod enter :after ((object renderable) (region region))
   (unless (typep object 'sized-entity)
     (push object (indefinite-extent-entities region)))
-  (when (slot-boundp region 'container)
+  (when (container region)
     (loop for pass across (passes (container region))
           do (when (object-renderable-p object pass)
                (enter object pass)))))
@@ -74,7 +72,7 @@
 (defmethod leave :after ((object renderable) (region region))
   (unless (typep object 'sized-entity)
     (setf (indefinite-extent-entities region) (delete object (indefinite-extent-entities region))))
-  (when (slot-boundp region 'container)
+  (when (container region)
     (loop for pass across (passes (container region))
           do (when (object-renderable-p object pass)
                (leave object pass)))))

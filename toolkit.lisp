@@ -336,7 +336,7 @@
 (defmethod entity-at-point (point thing)
   NIL)
 
-(defmethod entity-at-point (point (container flare:container))
+(defmethod entity-at-point (point (container container))
   (or (call-next-method)
       (for:for ((result as NIL)
                 (entity over container)
@@ -489,7 +489,7 @@
 (defclass unpausable () ())
 
 (defclass ephemeral (entity)
-  ((flare:name :initform (generate-name))))
+  ((name :initform (generate-name))))
 
 (defmethod save-p ((entity ephemeral))
   (name entity))
@@ -543,12 +543,12 @@
 
 (defun ensure-unit (unit)
   (etypecase unit
-    (unit unit)
+    (entity unit)
     (symbol (unit unit +world+))))
 
 (defun ensure-location (unit)
   (etypecase unit
-    (unit (location unit))
+    (entity (location unit))
     (vec unit)
     (symbol (location (unit unit +world+)))))
 

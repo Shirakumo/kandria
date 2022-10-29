@@ -28,8 +28,8 @@
     ((eql T)
      (setf (state main) (first (list-saves)))))
   (let ((depot (depot:ensure-depot (or world
-                                       (probe-file (merge-pathnames "world/" (root)))
-                                       (probe-file (merge-pathnames "world.zip" (root)))
+                                       (probe-file (merge-pathnames "world/" (data-root)))
+                                       (probe-file (merge-pathnames "world.zip" (data-root)))
                                        (when *install-root*
                                          (probe-file (merge-pathnames "world/" *install-root*)))
                                        (when *install-root*
@@ -144,7 +144,7 @@
                     (write-string info)))
           ((equal arg "credits")
            (format T "~&~a~%" (alexandria:read-file-into-string
-                               (merge-pathnames "CREDITS.mess" (root)))))
+                               (merge-pathnames "CREDITS.mess" (data-root)))))
           ((equal arg "region")
            (if args
                (launch :region (pop args))

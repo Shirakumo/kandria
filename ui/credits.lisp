@@ -128,7 +128,7 @@
                                  :cell-margins (alloy:margins 10))))
     (alloy:enter credits layout :constraints `(:fill))
     (setf (credits panel) credits)
-    (from-markless (merge-pathnames file (root)) credits)
+    (from-markless (merge-pathnames file (data-root)) credits)
     (let ((prompts (make-instance 'alloy:horizontal-linear-layout :align :end)))
       (alloy:enter (make-instance 'prompt-label :value (coerce-button-string 'toggle-menu)) prompts)
       (alloy:enter (make-instance 'prompt-description :value (language-string 'exit-credits NIL)) prompts)

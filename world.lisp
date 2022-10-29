@@ -12,7 +12,8 @@
    (update-timer :initform 0.2 :accessor update-timer)
    (timestamp :initform (initial-timestamp) :accessor timestamp)
    (camera :initform (make-instance 'camera) :accessor camera)
-   (action-lists :initform NIL :accessor action-lists))
+   (action-lists :initform NIL :accessor action-lists)
+   (clock :initform 0.0 :accessor clock))
   (:default-initargs
    :depot (error "DEPOT required.")))
 
@@ -257,6 +258,7 @@
   (let ((dt (dt ev)))
     (loop for list in (action-lists world)
           do (action-list:update list dt))
+    (incf (clock world) dt)
     (setf (action-lists world) (delete-if #'action-list:finished-p (action-lists world)))
     (unless (handler-stack world)
       (unless (find-panel 'dialog)

@@ -625,7 +625,7 @@ void main(){
          (setf (state player) :normal)))
       (:fishing
        (let* ((line (fishing-line player))
-              (visible (slot-boundp line 'container)))
+              (visible (container line)))
          (when visible
            (v<- (location line) (hurtbox player))
            ;; FIXME: If camera is near borders, duck small amount. Otherwise, duck full.

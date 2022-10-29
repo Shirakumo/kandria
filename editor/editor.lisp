@@ -58,7 +58,7 @@
 (defmethod alloy:suggest-size (size (marker marker)) size)
 
 (defclass editor (pausing-panel menuing-panel alloy:observable-object)
-  ((flare:name :initform :editor)
+  ((name :initform :editor)
    (marker :initform (make-instance 'marker) :accessor marker)
    (zoom :initform NIL :accessor zoom)
    (entity :initform NIL :accessor entity)
