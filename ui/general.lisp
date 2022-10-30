@@ -318,8 +318,8 @@
                    ui-advance-dialogue ui-no-more-to-focus
                    ui-quest-start ui-close-menu ui-dialogue-choice
                    ui-focus-next ui-open-menu ui-quest-complete
-                   ui-quest-fail ui-scroll-dialogue ui-scroll
-                   ui-start-game ui-start-dialogue ui-use-item
+                   ui-quest-fail ui-quest-update ui-scroll-dialogue
+                   ui-scroll ui-start-game ui-start-dialogue ui-use-item
                    ui-error ui-warning ui-upgrade-placeholder
                    ui-tutorial-popup ui-fast-travel-map-open
                    ui-buy ui-confirm ui-level-up ui-sell
