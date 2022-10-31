@@ -637,6 +637,15 @@ item:painted-cylinder/lore "He was meant to be replaced. He wasn't meant to be p
 For seven months that cylinder was the perfect being. His Fleshyness, he was called. That cylinder was not merely a cylinder, but a god. They made him do all kinds of things, most of which he wasn't even designed for, and yet despite him being a cylinder of plastic, he performed these tasks admirably. Eventually his presence became not only expected, but a natural fact of life. 
 
 Unfortunately, his reign would not last. By the early days of his seventh month, his creators had finished his replacement, and he was buried, both literally and figuratively. His successor was superior in every way, but that meant little to the cylinder, because he was made of plastic."
+item:board-game "Board Game"
+item:board-game/description "An old cardboard box containing several colorful plastic figurines, a deck of cards, and a large, fold-out map. The printing on the box has faded with age, and the instructions can't be read."
+item:board-game/lore "'Fun for all the family!'
+
+The game had promised, and she would always excitedly take it down out of her bedroom closet whenever her friends or cousins visited, hoping for a game. At first they'd agreed, and so she set up the board while they debated over which pieces to play as. 
+
+But after fifteen minutes of explanation had only covered a third of the rules, they'd remembered they needed to go help in the kitchen, or that they'd agreed to look at Nana's holiday photos, or it was getting a bit late, but they'd surely play next time. And so next visit they'd offer to give it a try, but as she laid out the board again, they drifted off and started watching a movie on TV instead, or gotten into an argument.
+
+But next time; next time for sure."
 
 ;; Fish
 fish:crab "Crab"

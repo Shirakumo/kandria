@@ -561,6 +561,7 @@
 
 (define-item (singing-bowl lore-item) 0 72 8 8)
 (define-item (painted-cylinder lore-item) 8 72 8 8)
+(define-item (board-game lore-item) 16 72 8 8)
 
 ;; Draws
 (define-random-draw mushrooms
