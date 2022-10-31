@@ -305,7 +305,7 @@ void main(){
 
 (defun transition-active-p ()
   (let ((pass (unit 'fade +world+)))
-    (< 0.0 (strength pass))))
+    (< 0.00001 (strength pass))))
 
 (defun nearby-p (thing &rest things)
   (flet ((resolve (thing)
