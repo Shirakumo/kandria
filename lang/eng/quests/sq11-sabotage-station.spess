@@ -1,0 +1,18 @@
+# task-reminder/reminder
+~ jack
+| (:annoyed)I said forget we talked about this!
+| (:normal)Look, it's simple: "go to the east of Wraw territory, find the water supply pipe to their geothermal power station - and smash it the fuck up"(orange).
+| You got that? Now shoo.
+
+# task-station/station-pipe
+~ player
+| ""This is the supply pipe Jack wants me to sabotage"(orange), but..."(light-gray, italic)
+| (:embarassed)"It looks like "somebody already did"(orange)."(light-gray, italic)
+| (:thinking)"That, or there's been a "terrible accident here recently"(orange) - perhaps the Wraw are pushing"(light-gray, italic) "too"(light-gray) "hard right now?"(light-gray, italic)
+| "Water could still flow down through here, but the supply would be unreliable at best -"(light-gray, italic) (:giggle)"I like to think I know a little something about leaks."(light-gray, italic)
+| (:thinking)"But the inside of the pipe is bone dry. There's also no sound from within - the "turbine is silent"(orange)."(light-gray, italic)
+| (:normal)"Jack was right - that's a "big blow to their power generation"(orange)."(light-gray, italic)
+| "Let's hope it makes a difference."(light-gray, italic)
+| "Well, that's "mission accomplished"(orange) then. Sort of."(light-gray, italic)
+
+; "somebody already did" - if done q8a by this point, then there's a strong implication here, without needing a conditional, that this could have been how the Cerebats turned the Wraw's water off - destroyed the pipe (happened before the game began, as did the Wraw invasion of Cerebats)

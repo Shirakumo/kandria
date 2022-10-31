@@ -183,6 +183,8 @@
                              (:file "sq9-race")
                              (:file "sq10-intro")
                              (:file "sq10-race")
+                             (:file "sq11-intro")
+                             (:file "sq11-sabotage-station")
                              (:file "sq14-intro")
                              (:file "sq14a-synthesis")
                              (:file "sq14b-boss")

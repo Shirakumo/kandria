@@ -60,9 +60,10 @@
 
 # jack
 ; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
+; since SQ11-SABOTAGE-STATION doesn't have a return dialogue, Jack can make some allusion to it here in the main flow - until it gets overridden by more important primary plot developments (as with sidequest NPCs)
 ~ jack
 ? (complete-p 'Q14-ENVOY)
-| | Was I wrong about you?
+| | Was I wrong about you, {(nametag player)}?
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | Look what the cat dragged in.
 |? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
@@ -71,6 +72,8 @@
 | | (:annoyed)How has it come to this? HOW?
 |? (complete-p 'Q10-WRAW)
 | | You'd better have some good news for a change.
+|? (complete-p 'SQ11-SABOTAGE-STATION)
+| | What power station? Never heard of it!
 |? (complete-p 'Q6-RETURN-TO-FI)
 | | Why is it wherever you go, trouble ain't far behind?
 |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)

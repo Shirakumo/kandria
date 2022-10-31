@@ -438,6 +438,7 @@
 ; part of the old underground power station, which circulated water into the heat of the earth to produce steam, which in turn powered a turbine
 ; parts of it are still active, used exclusively by the Wraw faction
 ; the Cerebats did cut off this water supply before the game started, leading to the Wraw invasion; but now the Wraw have taken over, the flow is running again
+; this particular pipe is damaged already, because the Wraw have been pushing too hard with their various invasion schemes (or because the Cerebats sabotaged it to cut off the water?...); this ties into Jack's sq11 when he wants you to sabotage it - however, from this cursory inspection during exploration, the PC doesn't know for sure if the pipe is still operational - it requires a closer inspection on Jack's quest to confirm this.
 # task-world-all/wraw-tube
 ~ player
 | "This was one of Trickle's geothermal power stations. The pipes carried water here for boiling."(light-gray, italic)
