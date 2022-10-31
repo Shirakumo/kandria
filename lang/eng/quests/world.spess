@@ -57,14 +57,6 @@
 ~ player
 | "The city was pulverised. What happened?"(light-gray, italic)
 
-; Engineering workshop
-# task-world-all/engineering-shelves
-~ player
-? (complete-p 'q0-find-jack)
-| | "Engineering. This is where {#@jack-nametag} and {#@catherine-nametag} work."(light-gray, italic)
-|?
-| | "It's some sort of workshop. The technology is crude - what do they build here, tin openers?"(light-gray, italic)
-
 ; Jack's workbench in the engineering workshop; "work out" = exercise/gym
 ; "who come to think of it looks like he wants to kill me." - this is before the player has met Jack, so we can imagine he's glaring at them
 # task-world-all/engineering-bench
