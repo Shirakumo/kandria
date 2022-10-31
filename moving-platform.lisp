@@ -220,9 +220,13 @@
        (setf (car (bypass-stopper elevator)) T)
        (harmony:play (// 'sound 'elevator-start) :location (location elevator))
        (harmony:play (// 'sound 'elevator-move))))
-    ((:normal :broken)
+    (:normal
      (when (find (state elevator) '(:moving :recall :should-stop))
        (harmony:play (// 'sound 'elevator-stop) :location (location elevator))
+       (harmony:stop (// 'sound 'elevator-move))))
+    (:broken
+     (when (find (state elevator) '(:moving :recall :should-stop))
+       (harmony:play (// 'sound 'elevator-broken) :location (location elevator))
        (harmony:stop (// 'sound 'elevator-move))))))
 
 (defun elevator-direction (elevator)
@@ -243,6 +247,7 @@
               :up))))))
 
 (defmethod interact ((elevator elevator) thing)
+  (setf (vy (max-speed elevator)) 2.0)
   (case (state elevator)
     ((:normal :recall)
      (case (elevator-direction elevator)
@@ -261,6 +266,7 @@
 (define-shader-entity elevator-recall (lit-sprite interactable ephemeral creatable)
   ((target :initarg :target :initform NIL :accessor target :type symbol)
    (texture :initform (// 'kandria 'elevator-recall))
+   (counter :initform (cons 0 0) :accessor counter)
    (bsize :initform (vec 8 16))
    (size :initform (vec 16 32))))
 
@@ -276,17 +282,25 @@
 (defmethod interact ((button elevator-recall) thing)
   (when (target button)
     (harmony:play (// 'sound 'elevator-recall) :reset T)
-    (interact (unit (target button) +world+) button)))
+    (let ((counter (counter button))
+          (target (unit (target button) +world+)))
+      (when (< 10 (- (get-universal-time) (car counter)))
+        (setf (car counter) (get-universal-time))
+        (setf (cdr counter) 0))
+      (case (incf (cdr counter))
+        (1
+         (interact target button)
+         (setf (vy (max-speed target)) 2.0))
+        (5
+         (setf (vy (max-speed target)) 5.0))
+        (15
+         (setf (state target) :broken))))))
 
 (defmethod interact ((elevator elevator) (button elevator-recall))
-  (case (state elevator)
-    (:broken
-     (call-next-method))
-    (T
-     (setf (target elevator) (vec (vx (location button))
-                                  (- (vy (location button))
-                                     (vy (bsize button)))))
-     (setf (state elevator) :recall))))
+  (setf (target elevator) (vec (vx (location button))
+                               (- (vy (location button))
+                                  (vy (bsize button)))))
+  (setf (state elevator) :recall))
 
 (define-shader-entity service-elevator (elevator creatable)
   ((texture :initform (// 'kandria 'service-elevator))
