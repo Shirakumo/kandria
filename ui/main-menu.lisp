@@ -454,8 +454,9 @@ void main(){
 
 (defun return-to-main-menu ()
   (let ((state (state +main+))
-        (player (unit 'player +world+)))
-    (setf (active-p (find-class 'in-menu)) NIL)
+        (player (unit 'player +world+))
+        (pauser (make-instance 'listener)))
+    (pause-game +world+ pauser)
     (reset (unit 'environment +world+))
     (transition
       :kind :black
@@ -463,5 +464,6 @@ void main(){
       (when (and state player (setting :debugging :send-diagnostics))
         (submit-trace state player)
         (setf state NIL player NIL))
+      (unpause-game +world+ pauser)
       (reset +main+)
       (invoke-restart 'discard-events))))
