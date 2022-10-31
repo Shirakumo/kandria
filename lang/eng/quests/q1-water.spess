@@ -16,9 +16,12 @@
 | Oh well, here goes. I'm gonna weld it, so best not look at the arc - don't want to fry your cameras.
 ~ player
 | "{#@catherine-nametag} looks menacing in her goggles, but she holds the welding torch with steady hands."(light-gray, italic)
+~ player
 - (Enable UV filters)
+  ~ player
   | "That's better - the arc has dimmed behind my filters. But not so much that I can't see the sparks as they crackle and spit."(light-gray, italic)
 - (Don't enable filters)
+  ~ player
   | "It's like staring into the sun. Into the centre of a cataclysm."(light-gray, italic)
   ! eval (setf (var 'q1-weld-burn) T)
   | (:embarassed)"Oops. I think that damaged my lenses."(light-gray, italic)
