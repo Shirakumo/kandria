@@ -1,11 +1,11 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass sticky-element (alloy:popup alloy:direct-value-component popup)
+(defclass sticky-element (alloy:direct-value-component)
   ((offset :initform (random* 0 16) :accessor offset)))
 
 (defmethod show ((element sticky-element) &key)
   (unless (alloy:layout-tree element)
-    (alloy:enter element (unit 'ui-pass T) :w 1 :h 1))
+    (alloy:enter element (alloy:layout-element (find-panel 'hud))))
   (alloy:with-unit-parent element
     (let* ((target (alloy:value element))
            (screen-location (world-screen-pos (vec (vx (location target))

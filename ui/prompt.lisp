@@ -32,7 +32,7 @@
 (presentations:define-update (ui prompt-description)
   (:label :pattern colors:white))
 
-(defclass prompt (alloy:popup alloy:horizontal-linear-layout alloy:renderable popup)
+(defclass prompt (alloy:horizontal-linear-layout alloy:renderable)
   ((alloy:cell-margins :initform (alloy:margins))
    (alloy:min-size :initform (alloy:size 16 16))
    (label :accessor label)
@@ -77,7 +77,7 @@
   (when description-p
     (setf (alloy:value (description prompt)) (or description "")))
   (unless (alloy:layout-tree prompt)
-    (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
+    (alloy:enter prompt (alloy:layout-element (find-panel 'hud))))
   (alloy:mark-for-render prompt)
   (alloy:with-unit-parent prompt
     (let* ((screen-location (world-screen-pos location))
