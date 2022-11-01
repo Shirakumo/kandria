@@ -625,27 +625,31 @@ Made in Switzerland
 [It's in surprisingly good condition - not even the screen is cracked. There's somehow enough juice left to show the dead battery notification, but this hasn't turned on in a long time. There's no way to charge it, and no interface for an android - even if there was I probably couldn't guess the PIN.]"
 item:singing-bowl "Singing Bowl"
 item:singing-bowl/description "The metal bowl is dirty, dusty, and stained. It rings an F# when hit."
-item:singing-bowl/lore "The monk was given this bowl at the begining of his monastic journey. He would ring it regularly to mark the begining and end of meditation practice sessions. 
+item:singing-bowl/lore "The monk was given this bowl at the begining of his monastic journey. He would ring it regularly to mark the begining and end of meditation practice sessions.
 
-Since it was one of his few posessions, it was treated with great care; the monk was careful not to drop the bowl and cleaned and polished it frequently. This behaviour continuted into the monk's old age. 
+Since it was one of his few posessions, it was treated with great care; the monk was careful not to drop the bowl, and he cleaned and polished it frequently. This behaviour continuted into the monk's old age.
 
-One day the bowl waited attentivly to commence the morning meditation, but the monk never arrived. The bowl had to continue waiting for a long time, and never came to know what happened to the monk."
+One day the bowl waited attentivly to commence the morning meditation, but the monk never arrived. The bowl waited a long time, and never came to know what happened to the monk.
+
+[The singing bowl was accompanied by this printed card, bearing the insignia of the Zenith Museum of Archaeology and Anthropology.]"
 item:painted-cylinder "Small Painted Cylinder"
-item:painted-cylinder/description "A small plastic cylinder with a very faded painting of a face covering it."
-item:painted-cylinder/lore "He was meant to be replaced. He wasn't meant to be perfect. And yet he was. 
+item:painted-cylinder/description "A small plastic cylinder covered with a very faded painting of a face."
+item:painted-cylinder/lore "He was meant to be replaced. He wasn't meant to be perfect. And yet he was.
 
-For seven months that cylinder was the perfect being. His Fleshyness, he was called. That cylinder was not merely a cylinder, but a god. They made him do all kinds of things, most of which he wasn't even designed for, and yet despite him being a cylinder of plastic, he performed these tasks admirably. Eventually his presence became not only expected, but a natural fact of life. 
+For seven months that cylinder was the perfect being. His Fleshyness, he was called. That cylinder was not merely a cylinder, but a god. They made him do all kinds of things, most of which he wasn't even designed for; and yet despite him being a cylinder of plastic, he performed these tasks admirably. Eventually his presence became not only expected, but a natural fact of life.
 
-Unfortunately, his reign would not last. By the early days of his seventh month, his creators had finished his replacement, and he was buried, both literally and figuratively. His successor was superior in every way, but that meant little to the cylinder, because he was made of plastic."
+Unfortunately, his reign would not last. By the early days of his seventh month, his creators had finished his replacement, and he was buried, both literally and figuratively. His successor was superior in every way, but that meant little to the cylinder, because he was made of plastic.
+
+[I found this scribbled note inside the cylinder. I don't know what it means. Was this some kind of time capsule?]"
 item:board-game "Board Game"
 item:board-game/description "An old cardboard box containing several colorful plastic figurines, a deck of cards, and a large, fold-out map. The printing on the box has faded with age, and the instructions can't be read."
-item:board-game/lore "'Fun for all the family!'
+item:board-game/lore "\"Fun for all the family!\" the game had promised, and she would always excitedly take it down out of her bedroom closet whenever her friends or cousins visited, hoping for a game. At first they'd agreed, and so she set up the board while they debated over which pieces to play as.
 
-The game had promised, and she would always excitedly take it down out of her bedroom closet whenever her friends or cousins visited, hoping for a game. At first they'd agreed, and so she set up the board while they debated over which pieces to play as. 
+But after fifteen minutes of explanation she'd only covered a third of the rules; then they'd remembered they needed to go help in the kitchen, or that they'd agreed to look at Nana's holiday photos - or said it was getting a bit late but they'd surely play next time. And so next visit they said they'd give it a try, but as she laid out the board again, they drifted off and started watching a movie on TV instead, or got into an argument.
 
-But after fifteen minutes of explanation had only covered a third of the rules, they'd remembered they needed to go help in the kitchen, or that they'd agreed to look at Nana's holiday photos, or it was getting a bit late, but they'd surely play next time. And so next visit they'd offer to give it a try, but as she laid out the board again, they drifted off and started watching a movie on TV instead, or gotten into an argument.
+But next time; next time for sure.
 
-But next time; next time for sure."
+[This was neatly written on a sheet of ruled notepaper, inside the game box. Maybe she hoped they'd find it next time, and read it.]"
 
 ;; Fish
 fish:crab "Crab"
