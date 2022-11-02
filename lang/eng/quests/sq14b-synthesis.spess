@@ -11,7 +11,7 @@
 - How do you know?
   ~ synthesis
   | (:grin)We know.
-- Is that a question?
+- Was that a question?
   ~ synthesis
   | ...
 - It is.
@@ -21,10 +21,10 @@
 | (:grin)Now you can "retrieve the old-world information"(orange).
 | The "lab in the far east, near the abandoned station"(orange) - the answers are there.
 | You need them, as do we. And only an android can "access the remaining working terminals"(orange).
-| There are "3 of them"(orange). You'll see. "Search the databases for black caps"(orange).
+| There are "3 of them"(orange). You'll see. "Search the databases for "black caps""(orange).
 ! eval (activate (unit 'spawner-5703))
 ! eval (activate (unit 'spawner-5705))
 ! eval (activate (unit 'spawner-5704))
 
 ; reactivate world spawner again
-; "You need them" - the recipe could help the player's allies, the Noka, survive in the desert, on the surface
+; "You need them" - the recipe could help the player's allies, the Noka, survive in the desert, on the surface; or further hinting at the Calamity cause, to either confirm android (your?) involvement, or deny it

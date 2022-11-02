@@ -12,12 +12,13 @@
 ~ synthesis
 | (:grin)We have "answers, about the old world"(orange), if you'll help us.
 ~ player
-- Do you use plural pronouns, or are there more of you?
+- Are your pronouns plural, or are there more of you?
   ~ synthesis
   | (:grin)It is only I. "Us"(italic).
 - Is this the royal "we"?
   ~ synthesis
   | Do we look like royalty?
+- Okay...
 ~ synthesis
 | (:grin)Do you want them? The answers?
 ~ player
@@ -51,7 +52,7 @@
   | Ack, that's too bad.
 ~ synthesis
 | "Bring us 4 black caps."(orange)
-| Search the "Cerebat backstreets, or even the caves"(orange).
+| "Search the Cerebat backstreets, or even the caves."(orange)
 | Schnell.
 ? (= 4 (item-count 'item:mushroom-bad-1))
 | ~ player
