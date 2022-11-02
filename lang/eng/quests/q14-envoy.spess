@@ -10,7 +10,7 @@
   | Good, ya "remember"(orange).
 - So you lead the Wraw?
   ~ zelah
-  | Ya know I do. I lead everyone 'round here.
+  | Ya know I do. I lead everyone round here.
   | I'm {#@zelah-nametag}, "remember"(orange)?
 ! eval (setf (nametag (unit 'zelah)) (@ zelah-nametag))
 ~ fi
