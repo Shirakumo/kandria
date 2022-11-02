@@ -358,6 +358,10 @@
       (with-pushed-matrix ()
         (render wheel T)))))
 
+(defmethod alloy:render :around ((ui ui) (layout hud-layout))
+  (unless (find-panel 'editor)
+    (call-next-method)))
+
 (defclass hud (panel)
   ((health :accessor health)
    (location :accessor location)
