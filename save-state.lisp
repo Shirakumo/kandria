@@ -146,6 +146,8 @@
         (setf (strength (unit 'distortion T)) 0.0))
       (when (unit 'walkntalk world)
         (walk-n-talk NIL))
+      (when (find-panel 'hud)
+        (hide-timer))
       (let ((bg (unit 'background T)))
         (when bg
           (setf (background bg) (background 'black))
