@@ -154,8 +154,8 @@ save "Saving"
 save/description "Use the phone box outside to save progress, or save from the menu while you're near one
 (save often!)"
 attack "Attacking"
-attack/description "Hold different directions together with a light or heavy attack for various moves -
-consult your Combat Manual for more information"
+attack/description "Hold different directions together with a light or heavy attack for various moves
+(consult your Combat Manual for more information)"
 sidequests "Sidequests"
 sidequests/description "Explore for unfamiliar characters with \"???\" above their heads - they may have jobs for you"
 cast-line "Cast Line"
@@ -232,9 +232,9 @@ lore-menu "Database"
 lore-item "Records"
 fish "Fish"
 item:small-health-pack "Small Health Pack"
-item:small-health-pack/description "[Heals 10% HP instantly] It contains circuit boards, clipped wires, rolls of solder, and a needle and thread to meet my repairing needs."
+item:small-health-pack/description "[Heals 10% HP instantly] It contains circuit boards, clipped wires, rolls of solder, and a needle and thread for my repairing needs."
 item:medium-health-pack "Medium Health Pack"
-item:medium-health-pack/description "[Heals 25% HP instantly] Like a small health pack, but contains more stuff."
+item:medium-health-pack/description "[Heals 25% HP instantly] Like a small health pack but contains more stuff."
 item:large-health-pack "Large Health Pack"
 item:large-health-pack/description "[Heals 50% HP instantly] Use this to avoid spending another few decades offline."
 item:damage-shield "Damage Shield"
@@ -252,8 +252,8 @@ item:satchel "Satchel"
 item:satchel/description "A bag that once contained someone's personal belongings. It's empty.
 Can be sold for scrap."
 item:screw "Screw"
-item:screw/description "Where would the world be without screws? I guess it fell apart anyway.
-Can be sold for scrap." ;; the "..." acknowledges it's a dry/crap joke
+item:screw/description "Where would the world be without screws? I guess it fell apart anyway so...
+Can be sold for scrap."
 item:bolt "Bolt"
 item:bolt/description "Useless without a nut of the same diameter.
 Can be sold for scrap."
@@ -261,7 +261,7 @@ item:nut "Nut"
 item:nut/description "Pair with a bolt to secure heavy things together. Tidier and more reusable than a screw.
 Can be sold for scrap."
 item:gear "Gear"
-item:gear/description "Gears for basic mechanical machinery. The first computers were built with these!
+item:gear/description "A gear for basic mechanical machinery. The first computers were built with these!
 Can be sold for scrap."
 item:bent-rod "Bent Rod"
 item:bent-rod/description "May have come in handy as a weapon. If it wasn't bent. And I didn't have a sword.
@@ -276,7 +276,7 @@ item:metal-ring "Metal Ring"
 item:metal-ring/description "This could have come from practically anything. Too large for a wedding ring.
 Can be sold for scrap."
 item:broken-ring "Broken Ring"
-item:broken-ring/description "A broken token, perhaps waiting to be reunited with its other half.
+item:broken-ring/description "A broken token, perhaps waiting to be reunited with its other half. Perhaps not.
 Can be sold for scrap."
 item:heavy-rod "Heavy Rod"
 item:heavy-rod/description "Some kind of strut or support? I'm no engineer that's for sure.
@@ -295,7 +295,7 @@ item:simple-circuit/description "This circuit board is quite small. It's got a f
 Can be sold for scrap."
 item:complex-circuit "Complex Circuit"
 item:complex-circuit/description "It's covered in microchips, like lichen on rock.
-Can be sold for scrap." ;; some self-loathing, fearing that androids (and thus microchips) destroyed the world?
+Can be sold for scrap."
 item:broken-circuit "Broken Circuit"
 item:broken-circuit/description "Some of these integrated circuits look like they exploded.
 Can be sold for scrap."
@@ -322,7 +322,7 @@ item:memory/description "This is pre-pre-Calamity. Can you imagine storing data 
 Can be sold for scrap."
 item:genera-core "Broken Genera Core"
 item:genera-core/description "Came from an android. The refraction matrix is cracked - there's nothing to learn here except their serial number.
-Can be sold for scrap." ;; minigame - collect dog tags? Unlock VR mission?
+Can be sold for scrap."
 item:rusted-key "Rusted Key"
 item:rusted-key/description "It would likely break in half, even if used in the correct lock.
 Can be sold for scrap."
@@ -349,7 +349,7 @@ item:hardened-alloy/description "I'm not sure about the constituent metals, alth
 Can be sold for scrap or used in upgrades."
 item:quartz-crystal "Quartz Crystal"
 item:quartz-crystal/description "It might be less valuable than gold, but it's a whole lot prettier.
-Can be sold for scrap."
+Can be sold for scrap." ;; an assumption if not sold it yet, and a statement if have sold some
 item:rusted-clump "Rusted Clump"
 item:rusted-clump/description "Was there ever a greater sign of entropy than rust? Kipple, maybe.
 Can be sold for scrap or used in upgrades." ;; reference to Do Androids Dream of Electric Sheep?, where "kipple" is a term coined by Dick: junk and waste items, which build up seemingly exponentially. Could also be a diegetic reference, as if the android has read the book.
@@ -370,7 +370,7 @@ item:crude-oil/description "Useful only for burning unless distilled for a speci
 Can be sold for scrap."
 item:refined-oil "Refined Oil"
 item:refined-oil/description "A desirable commodity since it powers most machines here. Except me.
-Can be sold for scrap or used in upgrades." ;; assuming the people distil crude oil into petroleum (relatively simple); and that the android can see this power things
+Can be sold for scrap or used in upgrades." ;; assuming the people distil crude oil into petroleum (relatively simple); and that the android can see this power things - by the time they encounter this item spawn in region 3, they have seen a lot of the world of course
 item:thermal-fluid "Thermal Fluid"
 item:thermal-fluid/description "Could have been used in any number of thermodynamic applications, including android subsystems.
 Can be sold for scrap or used in upgrades."
@@ -382,20 +382,20 @@ item:cloudy-water/description "Would require further analysis to determine the i
 Can be sold for scrap."
 item:ruined-pelt "Ruined Pelt"
 item:ruined-pelt/description "The skin of an animal, but it's shredded and missing most of its fur.
-Can be sold for scrap." ;; only works for furry animals
+Can be sold for scrap."
 item:fine-pelt "Fine Pelt"
 item:fine-pelt/description "Good-quality pelt, which could be used to make clothing - especially now synthetics aren't readily available.
 Can be sold for scrap."
 item:pristine-pelt "Pristine Pelt"
 item:pristine-pelt/description "This pelt is remarkably well-preserved, almost ornamental. Though I'd hope it gets put to more practical use.
 Can be sold for scrap."
-item:seeds "Seed Sachets"
+item:seeds "Seed Sachet"
 item:seeds/description "Unknown seeds from the old world, tucked neatly into a sachet. Or a bag of dead insects."
 item:mushroom-good-1 "Flower Fungus"
 item:mushroom-good-1/description "It's pretty. For a fungus.
 Can be sold for scrap." ;; need to work before/after Catherine explains to you what they are; best to riff off of something else, like their appearance. Though android already knows the names from the old world
 item:mushroom-good-2 "Rusty Puffball"
-item:mushroom-good-2/description "Even the mushrooms are rusting around here.
+item:mushroom-good-2/description "Even the mushrooms are rusting round here.
 Can be sold for scrap." ;; not literally, it's a joke based on their look
 item:mushroom-bad-1 "Black Cap"
 item:mushroom-bad-1/description "A fungus that looks like someone's insides if they were on the outside. That's probably what it would do to you too.
@@ -413,12 +413,10 @@ item:walkie-talkie "Walkie-Talkie"
 item:walkie-talkie/description "A one-way communications device. Over."
 item:walkie-talkie-2 "Walkie-Talkie"
 item:walkie-talkie-2/description "A one-way communications device. Over."
-item:semi-factory-key "Semi Factory Key"
-item:semi-factory-key/description "Fi gave me this key card to access the deeper Ruins, east of the Camp. \"Semi\" is written on it."
 item:can "Old Beer Can"
 item:can/description "I must return this to Catherine to complete the current race. It'll be good riddance: any odour of alcohol is long gone, but it reeks of rust."
 item:semi-genera-core "Broken Genera Core"
-item:semi-genera-core/description "I must return this to the barkeep to complete the current race. Hardly a fitting end for whomever this was part of."
+item:semi-genera-core/description "I must return this to the barkeep to complete the current race. Hardly a fitting end for whomever this was a part of."
 item:hip-flask "Hip Flask"
 item:hip-flask/description "I must return this to the spy to complete the current race. I'm not sure it's full of water... It smells like something stronger."
 item:love-letter "Tobias' Letter"
@@ -434,13 +432,13 @@ item:synthesis-file-1/description "A legacy file from the old world containing t
 item:synthesis-file-2 "Expediate (corrupted).txt"
 item:synthesis-file-2/description "A legacy file from the old world, corrupted to obscure the recipe for the drug Expediate, along with other redacted information."
 item:blasting-cap "Blasting Cap"
-item:blasting-cap/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It's a detonation device - not an explosive mushroom."
+item:blasting-cap/description "I must return sufficient quantities of these to Islay so she can complete the bomb. It's a detonation device, not an explosive mushroom."
 item:charge-pack "Charge Pack"
 item:charge-pack/description "I must return sufficient quantities of these to Islay so she can complete the bomb. This is the explosive agent itself."
 item:explosive "Explosive"
 item:explosive/description "It's made of connected charge packs, which resemble plastic explosives I've seen in the past. It's soft and malleable."
 item:receiver "RF Detonator"
-item:receiver/description "An RF receiver coupled to a blasting cap. Once inserted into a plastic explosive, it can receive a signal and detonate."
+item:receiver/description "An RF receiver coupled with a blasting cap. Once inserted into a plastic explosive, it can receive a signal and detonate."
 item:palette-model-1 "Outfit: Model 1"
 item:palette-model-1/description "The standard uniform for all civilian detective units."
 item:palette-model-2 "Outfit: Model 2"
@@ -456,11 +454,11 @@ item:palette-yorha/description "It has some strange, white dust on it."
 item:palette-wayneright "Outfit: Wayneright"
 item:palette-wayneright/description "Piano skills not included."
 item:palette-mountain "Outfit: Mountain"
-item:palette-mountain/description "This would be perfect for mountain climbing, if you just had a backpack."
+item:palette-mountain/description "This would be perfect for mountain climbing, if I just had a backpack."
 item:palette-vampire "Outfit: Vampire"
-item:palette-vampire/description "I hope this outfit doesn't give you an appetite for blood."
+item:palette-vampire/description "I hope this outfit doesn't give me an appetite for blood."
 item:palette-trek "Outfit: Trek"
-item:palette-trek/description "Ideal for space adventures."
+item:palette-trek/description "Looks like fashion to wear where no android has gone before."
 item:palette-blingee "Outfit: Blingee"
 item:palette-blingee/description "Only for the most wealthy."
 item:palette-ninja "Outfit: Ninja"
@@ -478,7 +476,7 @@ item:palette-garlic/description "Not only does this smell of garlic, just wearin
 item:palette-curly "Outfit: Curly"
 item:palette-curly/description "Matching machine pistol not included."
 item:palette-quote "Outfit: Quote"
-item:palette-quote/description "Reminds you of a certain game."
+item:palette-quote/description "Reminds me of a certain game."
 item:palette-boy "Outfit: Boy"
 item:palette-boy/description "For that classic retro look."
 item:palette-san-diego "Outfit: San Diego"
@@ -498,9 +496,9 @@ item:palette-planet/description "A uniform reserved for captains."
 item:palette-desu "Outfit: Desu"
 item:palette-desu/description "Boosts your gardening abilities."
 item:palette-dandy "Outfit: Dandy"
-item:palette-dandy/description "You'll feel positively dandy wearing this one!"
+item:palette-dandy/description "I'll feel positively dandy wearing this one!"
 item:palette-ghost "Outfit: Ghost"
-item:palette-ghost/description "With this you can hear your ghost whisper to you..."
+item:palette-ghost/description "With this I can hear my ghost whisper to me..."
 item:palette-bill "Outfit: Bill"
 item:palette-bill/description "Precisely cut for revenge missions."
 item:palette-the-third "Outfit: The Third"
@@ -513,11 +511,12 @@ item:manual/lore "Combat Manual
 
 Combat models are equipped with a standard Artemis EStuB and are trained to execute a variety of directional attack moves in two types: light and heavy.
 
-Heavy moves trade an increase in power for slower wind-up and tail-end execution speed. Both types can be performed in different directions, both in the air and on the ground. Both types can also be charged for a stronger variant.
+Heavy moves trade an increase in power for slower wind up and tail end execution speed. Both types can be performed in different directions, both in the air and on the ground. Both types can also be charged for a stronger variant.
 
 Finally, models are also equipped with evasion and countering routines. Executing a dash during combat will chain into an evade, which can be followed by a punishing counter move of either type."
 item:cd "Compact Disc"
-item:cd/description "The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player."
+item:cd/description "The case and liner notes are missing and the disc is scratched - it's unlikely to play, even if I had a CD player."
+;; see here for key to unreadable words: https://docs.google.com/spreadsheets/d/1U1NCNqimABMk-NkG-E2_uOZfLnM5S6gWC3YKliRPX8g/edit#gid=0
 item:cd/lore "MELITA [unreadable - Manning?]
 
 Night-Time Horizon
@@ -534,18 +533,18 @@ Night-Time Horizon
 
 (c) 2057 Recreational Records
 
-[The artwork shows an overcast sky and endless highway, as night comes on. If I had to guess at a genre I'd say synth-pop. The case and liner notes are missing, and the disc is scratched - it's unlikely to play, even if I had a CD player. I've never heard of the artist, nor any of the track names I can discern.]"
+[The artwork depicts an overcast sky and endless highway, as night comes on. If I had to guess at a genre I'd say synth-pop. I've never heard of the artist, nor any of the track names I can discern.]"
 item:novel "Novel"
-item:novel/description "Pages are missing and some are unreadable, but the blood-red roses on the cover have barely faded."
+item:novel/description "Pages are missing and some are unreadable, but there's a surprising amount intact."
 item:novel/lore "Becky
 
 by Danielle de Moore
 
 (c) 23[unreadable] [unreadable]
 
-[I remember this book. How has it survived down here? Pages are missing and some are unreadable, but there's a surprising amount intact. Even the blood-red roses on the cover have barely faded.]"
+[I remember this book. How has it survived down here? Even the blood-red roses on the cover have barely faded.]"
 item:newspaper "Newspaper Scrap"
-item:newspaper/description "The remains of an inflammatory article from the old Zenith Zodiac. Someone should have inflamed it."
+item:newspaper/description "The remains of an article from the old Zenith Zodiac."
 item:newspaper/lore "[missing] - Thursday, September [unreadable] [missing]
 
 ROBOTS AUTHORIZED TO [unreadable]
@@ -565,36 +564,36 @@ item:helmet/lore "ZPD
 
 [Not much to say: it's a black and blue masked riot helmet from the Zenith Police Department. Looking at the cracks and dents, whoever was wearing this also came out black and blue. Wonder if I knew them.]"
 item:tin "Food Tin"
-item:tin/description "Judging from the weight its contents are still inside. It's a vacuum-sealed piece of history!"
+item:tin/description "Judging from the weight, its contents are still inside. It's a vacuum-sealed piece of history!"
 item:tin/lore "[missing]
 
-[The label is long gone, save for the dried up remains of the glue that held it on. The tin is also rusting. But it's sealed, and judging from the weight its contents are still inside. It's a vacuum-sealed piece of history! What could be in there? I'll take a guess: baked beans.]"
+[The label is long gone, save for the dried up remains of the glue that held it on. The tin is also rusting. What could be in there? Chances are: baked beans.]"
 item:ball "Soccer Ball"
 item:ball/description "From one of the last World Cups if I recall. The material and stitching are ripped open and the bladder deflated."
 item:ball/lore "[missing] Aerofoil
 
 World Cup 2338
 
-[Perhaps was a souvenir - from one of the last World Cups if I recall. The material and stitching are ripped open and the bladder deflated. Still, the rainbow colours and shapes remind me of a better, more united time.]"
+[Probably a souvenir replica rather than a match ball. Still, I bet it was important to someone. The rainbow colours and shapes remind me of a better, more united time.]"
 item:shoe "Child's Shoe"
 item:shoe/description "A child's sneaker. The manufacturer's name has rubbed off."
 item:shoe/lore "[missing] [missing]
 
 Size 3.5
 
-[It's a child's sneaker. The manufacturer's name has rubbed off; the size is the only thing I can read. This means the wearer was probably between 6 and 12 years old. It's filled with dirt; it's impossible to tell even what the original colour was.]"
+[The size is the only thing I can read. This means the wearer, or intended wearer, was probably between 6 and 12 years old. It's filled with dirt; it's impossible to tell even what the original colour was.]"
 item:diary "Diary Page"
-item:diary/description "The rest of the book was nowhere to be found. Without the cover there's no way to know exactly what year this is from."
+item:diary/description "The rest of the book was nowhere to be found."
 item:diary/lore "10 May
-It's hard to know if having these thoughts is normal. I feel like if I told my [unreadable] they'd call the police. I don't think your [sic] meant to visualize stabbing random [unreadable] with a six-foot sword. Am I a closet killer? I can't stop thinking that I am.
+It's hard to know if having these thoughts is normal. I feel like if I told my [unreadable] they'd call the police. I don't think your [sic] meant to visualize stabbing random [unreadable] with a six-foot sword. Am I a closet killer? I can't stop thinking that I might be.
 
-Its [sic] getting worse though, these last couple of years. And the times I think I might have hurt someone (never with a sword) the more I just don't want to go out. Nothing makes you feel crazy like a 45-minute walk home from work in the hot sun, worrying if you checked the reception door was locked - what if it didn't close properly, then someone got in and stabbed M? That'd be on me. And then I walk aaaaaall the way back to check - and finally get home gone 7! I need to be more present, stop thinking about [unreadable] and instead actually remember what I'm doing. Unless my memory is failing like [unreadable]. It's exhausting and I feel like I'm gonna EXPLODE.
+Its [sic] getting worse though, these last couple of years. And the times I think I might have hurt someone (never with a sword) the more I just don't want to go out any more. Nothing makes you feel crazy like a 45-minute walk home from work in the hot sun, worrying if you checked the reception door was locked - what if it didn't close properly, then someone got in and stabbed M? That'd be on me. And then I walk aaaaaall the way back to check - and finally get home gone 7! I need to be more present, stop thinking about [unreadable] and instead actually remember what I'm doing. Unless my memory is failing like [unreadable]. It's exhausting and I feel like I'm gonna EXPLODE.
 
-H knows - I had to say something when she found me stood bolt upright staring into the corner. Fuck was I embarassed [sic], it hurts to think about. Things you do when you think no one's looking. She said it sounds like OCD, or \"the doubting disease\" - and that compulsions make obsessions worse. How's she now [sic] so much? I always thought OCD was just hygiene obsession. I did some [unreadable] online and I think she might be right though. How'd I miss this? I need to look at it more, but it would be good to put a name to all this bullshit. I think I've had this my whole life, but now it's getting worse - probably cuz the world is getting worse. Or maybe it just feels like that the older you get? What would the treatment be? If there's a cure then how many things might I have done different without getting stuck my whole life.
+H knows - I had to say something when she found me stood bolt upright staring into the corner. Fuck was I embarassed [sic], it hurts to think about. Things you do when you think no one's looking. She said it sounds like OCD, or \"the doubting disease\" - and that compulsions make obsessions worse. How's she now [sic] so much? I thought OCD was just hygiene obsession. I did some [unreadable] online and I think she might be right though. How'd I miss this? I need to look at it more, but it would be good to put a name to all this bullshit. I think I've had this my whole life, but now it's getting worse - probably cuz the world is getting worse. Or maybe it just feels like that the older you get? What would the treatment be? If there's a cure then how many things might I have done different without getting stuck my whole life.
 
 I've set a [unreadable] to book a Root doc in the morning. If I can even get a [unreadable] appointment now. Isn't it emergencies only, even with androids?
 
-[The rest of the book was nowhere to be found. Without the cover there's no way to know exactly what year this is from. I wonder who wrote it, and what happened to them. Sounds like an infinite-loop nightmare. Maybe an android helped them.]"
+[Without the book's cover there's no way to know exactly what year this is from. I wonder who wrote it, and what happened to them. Sounds like an infinite-loop nightmare. Maybe an android helped them.]"
 item:poster "Android Poster"
 item:poster/description "An old-world propaganda poster supporting androids."
 item:poster/lore "SAY HELLO TO YOUR FELLOW CITIZEN!
@@ -610,7 +609,7 @@ HE'S A PEOPLE PERSON - ARE YOU?
 
 [With my sword I can protect and serve AND cut people's hair! Well I don't think the propaganda worked. Maybe if they'd just been open and honest, acknowledged that androids were different, and talked about that.]"
 item:phone "Smartphone"
-item:phone/description "It's in surprisingly good condition - not even the screen is cracked."
+item:phone/description "It's in surprisingly good condition - the screen isn't even cracked."
 item:phone/lore "EYEGER
 LUCID
 
@@ -622,7 +621,7 @@ S/X: EG523H8UJ901
 
 Made in Switzerland
 
-[It's in surprisingly good condition - not even the screen is cracked. There's somehow enough juice left to show the dead battery notification, but this hasn't turned on in a long time. There's no way to charge it, and no interface for an android - even if there was I probably couldn't guess the PIN.]"
+[There's somehow enough juice left to show the dead battery notification, but this hasn't turned on in a long time. There's no way to charge it, and no interface for an android - even if there was I probably couldn't guess the PIN.]"
 item:singing-bowl "Singing Bowl"
 item:singing-bowl/description "The metal bowl is dirty, dusty, and stained. It rings an F# when hit."
 item:singing-bowl/lore "The monk was given this bowl at the begining of his monastic journey. He would ring it regularly to mark the begining and end of meditation practice sessions.
@@ -631,7 +630,7 @@ Since it was one of his few posessions, it was treated with great care; the monk
 
 One day the bowl waited attentivly to commence the morning meditation, but the monk never arrived. The bowl waited a long time, and never came to know what happened to the monk.
 
-[The singing bowl was accompanied by this printed card, bearing the insignia of the Zenith Museum of Archaeology and Anthropology.]"
+[The bowl was accompanied by this printed card, bearing the insignia of the Zenith Museum of Archaeology and Anthropology.]"
 item:painted-cylinder "Small Painted Cylinder"
 item:painted-cylinder/description "A small plastic cylinder covered with a very faded painting of a face."
 item:painted-cylinder/lore "He was meant to be replaced. He wasn't meant to be perfect. And yet he was.
@@ -649,7 +648,7 @@ But after fifteen minutes of explanation she'd only covered a third of the rules
 
 But next time; next time for sure.
 
-[This was neatly written on a sheet of ruled notepaper, inside the game box. Maybe she hoped they'd find it next time, and read it.]"
+[This was written neatly on a sheet of ruled notepaper, inside the game box. Maybe she hoped they'd find it next time, and read it.]"
 
 ;; Fish
 fish:crab "Crab"
@@ -674,7 +673,7 @@ fish:can "Metal Can"
 fish:can/description "An old-world can used to preserve food. But it's open and empty.
 Can be sold for scrap."
 fish:boot "Dirty Boot"
-fish:boot/description "Every fisherman's worst nightmare.
+fish:boot/description "A fisherman's worst nightmare.
 Can be sold for scrap."
 fish:can-fish "Can Fish"
 fish:can-fish/description "A species evolved to camouflage as useless junk.
@@ -686,7 +685,7 @@ fish:coelacanth "Coelacanth"
 fish:coelacanth/description "Once thought extinct, but came back from the dead - AND survived the Calamity. Then got fished.
 Can be sold for scrap."
 fish:boot-crate "Crate of Dirty Boots"
-fish:boot-crate/description "Highly-unfashionable and filled with sludge.
+fish:boot-crate/description "Highly unfashionable and filled with sludge.
 Can be sold for scrap."
 fish:megaroach "Megaroach"
 fish:megaroach/description "This was also a common android insult.
@@ -701,7 +700,7 @@ fish:piranha "Piranha"
 fish:piranha/description "Not the monster most people think it is. It's quite cute, actually.
 Can be sold for scrap." ;; a common theme emerging here: like androids
 fish:sandfish "Sandfish"
-fish:sandfish/description "The beach bum of the fish world, in a manner of speaking.
+fish:sandfish/description "The beach bum of the fish world.
 Can be sold for scrap."
 fish:ratfish "Ratfish"
 fish:ratfish/description "Just as misunderstood as its land-based namesake.
@@ -856,7 +855,7 @@ load-game-menu "Load Game"
 credits-menu "Credits"
 changelog-menu "Changelog"
 audio-settings "Audio"
-audio-output-device "Output Device"
+audio-output-device "Output device"
 audio-output-device-failed "Failed to change to the selected audio device."
 master-volume "Master"
 effect-volume "Effect"
@@ -867,7 +866,7 @@ video-settings "Video"
 screen-resolution "Resolution"
 should-application-fullscreen "Fullscreen"
 activate-vsync "Vsync"
-target-framerate "Target Framerate"
+target-framerate "Target framerate"
 gamma "Gamma"
 render-shadows "Render shadows"
 user-interface-scale-factor "UI scale"
@@ -998,7 +997,7 @@ feedback-report-submitted "Report submitted (#~d). Thank you!"
 new-item-in-inventory "Received ~a"
 fish-caught-successfully "Caught ~a"
 station-pick-destination "Select your destination"
-new-station-unlocked "~a station has been activated."
+new-station-unlocked "~a station has been activated"
 corrupted-map-reticle "[MAP CORRUPTED]"
 enemy-level-string "LVL ~d"
 ;; Cheat codes
@@ -1151,4 +1150,4 @@ The valley entered an uneasy state of peace, but peace it was
 nevertheless.
 
 Good job!"
-;; don't name Zelah in this one, as fight could happen before you know his name (q6), and certainly before it's confirmed (q14)
+;; don't name Zelah in this one, as fight could happen before you know his name (q6), and certainly before it's confirmed (q14) - it does appear on the health bar, but the player might miss this, so don't spoiler it
