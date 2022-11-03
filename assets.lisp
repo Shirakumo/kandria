@@ -193,7 +193,8 @@
   (mech-pierce :volume (db 0.0))
   (mech-land :volume (db 0.0))
   (mech-stun :volume (db 0.0))
-  (bomb-active :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3)))
+  (bomb-active :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
+  (blocker-destroy :volume (db -1)))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.4)
