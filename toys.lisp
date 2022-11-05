@@ -821,6 +821,9 @@ void main(){
 (defmethod is-collider-for ((moving moving) (door crashable-door))
   (eql 'idle (name (animation door))))
 
+(defmethod apply-transforms progn ((door crashable-door))
+  (translate-by 2 0 0))
+
 (defmethod collide ((player player) (door crashable-door) hit)
   (cond ((and (or (eql :dashing (state player))
                   (eql :animated (state player))))
