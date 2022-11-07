@@ -29,7 +29,7 @@
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | | {#@catherine-nametag}, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
-| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
+| | (:cheer)You did it - pressure is returning! That's a job well done.
 | | (:normal)Any sign of sabotage? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
@@ -78,7 +78,7 @@
 | ! eval (setf (animation (unit 'leak-2)) 'normal)
 | | {#@catherine-nametag}, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
-| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
+| | (:cheer)You did it - pressure is returning! That's a job well done.
 | | (:normal)Any sign of sabotage? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
@@ -126,7 +126,7 @@
 | ! eval (setf (animation (unit 'leak-3)) 'normal)
 | | {#@catherine-nametag}, I think I got the last leak. [(have 'item:walkie-talkie) Over.|]
 | ~ catherine
-| | (:cheer)You did it - pressure is returning! That's a job well done. [(have 'item:walkie-talkie) Over.|]
+| | (:cheer)You did it - pressure is returning! That's a job well done.
 | | (:normal)Any sign of sabotage? [(have 'item:walkie-talkie) Over.|]
 | ~ player
 | - No, all clear.
