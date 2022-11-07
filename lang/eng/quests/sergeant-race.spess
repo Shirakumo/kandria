@@ -68,7 +68,7 @@
 | | | That's nowt to be ashamed o'. Ye're just not at me calibre. Or the calibre o' any Wraw.
   
 ~ wraw-sergeant
-| Ye ain't the real deal. Keep tryin'.
+| Ye ain't the real deal yet. Keep tryin'.
 ! eval (activate 'complete-it)
 
 # quit
