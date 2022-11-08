@@ -39,7 +39,7 @@
          (setf (kind fade) (kind ev))
          (push (on-complete ev) (on-complete fade))
          (setf (action-list fade) (make-instance (action-list:action-list 'transition))))
-        ((< (action-list:elapsed-time (action-list fade)) 0.6)
+        ((< (action-list:elapsed-time (action-list fade)) 0.5)
          (push (on-complete ev) (on-complete fade)))
         (T
          (funcall (on-complete ev)))))

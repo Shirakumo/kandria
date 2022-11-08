@@ -24,14 +24,15 @@
 
 (defmethod (setf alloy:index) (index (panel swap-screen))
   (let ((layout (alloy:layout-element panel)))
-    (transition
-      :kind :black
-      (cond ((< index (alloy:element-count layout))
-             (alloy:with-unit-parent layout
-               (setf (timer panel) 0f0)
-               (setf (alloy:index layout) index)))
-            (T
-             (hide panel))))
+    (unless (eql index (alloy:index layout))
+      (transition
+        :kind :black
+        (cond ((< index (alloy:element-count layout))
+               (alloy:with-unit-parent layout
+                 (setf (timer panel) 0f0)
+                 (setf (alloy:index layout) index)))
+              (T
+               (hide panel)))))
     index))
 
 (defmethod handle ((ev tick) (screen swap-screen))
