@@ -9,6 +9,7 @@
 | | (:normal)Well they still haven't returned. I suggest you "search the tunnels between the Semis and the Cerebats"(orange).
 | | I hope they're okay.
 
+; this version might not play any more, as I think the triggers mean you will always get the "remote" version instead (see below)
 # find-alex/innis-stop-local
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!
@@ -84,6 +85,8 @@
 ; dinnae = don't (Scots)
 ; ken = know (Scots)
 
+; Similar to the "local" version above, but tweaked to suit Innis being remote.
+; The body is the same in local and remote, but remote has different start and ending dialogue (hence why can't jump to a label, as don't know which one jump back to - could set a variable to branch, but could get finicky if wanted more differences between the two; hence copy-paste-edit)
 # find-alex/innis-stop-remote
 ~ innis
 | (:angry)<-STOP-> WHERE YOU ARE!
