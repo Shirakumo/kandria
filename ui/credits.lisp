@@ -72,6 +72,7 @@
                (simple:icon
                 (deallocate (simple:image node))))))
     (traverse (credits credits)))
+  (setf (active-p (find-class 'in-menu)) T)
   (funcall (on-hide credits)))
 
 (defmethod handle ((ev tick) (panel credits))
