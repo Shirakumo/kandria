@@ -67,4 +67,5 @@
   (stage (// 'kandria 'trial-logo) area))
 
 (defmethod hide :after ((screen startup-screen))
+  (setf (active-p (find-class 'in-menu)) T)
   (show-panel 'main-menu))
