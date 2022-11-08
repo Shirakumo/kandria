@@ -174,7 +174,7 @@
 
 # find-alex-semis/islay-hint
 ~ islay
-| Hello, {(nametag player)}. It's an honour to meet you in person.
+| Hello, {(nametag player)}. It's an honour to meet you.
 | (:nervous)I'm sorry about my sister.
 | (:normal)If you're looking for "{#@alex-nametag}, try the bar"(orange). It's "on the level above us"(orange).
 | Just don't tell "{#@innis-nametag}"(yellow) I told you. She'll think I've gone soft for androids.
