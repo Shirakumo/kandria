@@ -46,13 +46,6 @@
     (incf (vy (velocity player)) 2.0)
     (stun player 0.1)))
 
-(define-shader-entity dummy (enemy half-solid immovable creatable)
-  ((bsize :initform (vec 8 16)))
-  (:default-initargs
-   :sprite-data (asset 'kandria 'dummy)))
-
-(defmethod idleable-p ((dummy dummy)) NIL)
-
 (define-shader-entity sawblade (enemy solid immovable creatable)
   ((bsize :initform (vec 16 16)))
   (:default-initargs
@@ -149,6 +142,13 @@
               (setf (animation enemy) 'walk))
              (T
               (setf (animation enemy) 'stand)))))))
+
+(define-shader-entity dummy (minor-enemy half-solid immovable creatable)
+  ((bsize :initform (vec 8 16)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'dummy)))
+
+(defmethod idleable-p ((dummy dummy)) NIL)
 
 (define-shader-entity wolf (paletted-entity ground-enemy minor-enemy half-solid creatable)
   ((jitter :initform (random* 0 +tile-size+) :accessor jitter)
