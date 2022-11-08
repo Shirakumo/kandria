@@ -57,7 +57,6 @@
 | "I've marked potential locations to investigate on my map."(orange, italic)
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))
-! eval (setf (music-state 'region3) :normal)
 
 ; Cannot give a reward here, as the player isn't in proximity to Fi. However, can sell stuff to the trader for parts.
 
