@@ -8,6 +8,9 @@
 
 (defmethod layer-index ((critter critter)) +base-layer+)
 
+(defmethod kill ((critter critter))
+  (leave critter T))
+
 (defmethod interactable-p ((critter critter))
   (eql :normal (state critter)))
 
@@ -127,6 +130,9 @@
 
 (defmethod description ((pet pet))
   (language-string 'critter))
+
+(defmethod kill ((pet pet))
+  (leave pet T))
 
 (define-shader-entity tame-wolf (paletted-entity pet creatable)
   ((palette :initform (// 'kandria 'wolf-palette))
