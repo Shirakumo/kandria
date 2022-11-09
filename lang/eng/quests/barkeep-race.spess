@@ -1,3 +1,6 @@
+; Semi Sisters barkeep, non-binary, French code switching from time to time
+; semi-patron-1 - sober, female
+; semi-patron-2 - drunk, female
 # hub
 ~ semi-barkeep
 | I knew you couldn't resist. Alright then:
@@ -55,7 +58,7 @@
 # return
 ~ semi-barkeep
 | Stop the clock!
-| Let me see the serial number on that Genera core. Yes, that's the right one. Now then...
+| Let me see the serial number on that Genera core. Oui, that's the right one. Now then...
 | Your time was: "{(format-relative-time (clock quest))}"(orange).
 ? (and pb (< pb (clock quest)))
 | | Alas that's "no improvement"(orange) on your record of "{(format-relative-time pb)}"(orange).
