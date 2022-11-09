@@ -89,7 +89,18 @@
 ~ player
 | "It's crude, but does resemble the ones I used to use."(light-gray, italic)
 | "I'm sure I can do something with it - if only poke my lenses out."(light-gray, italic)
+~ player
+- Thanks!
+  ~ trader
+  | (:jolly)Don't mention it!
+- Where did you get all that stuff?
+  ~ trader
+  | I meet all kinds of people on the road. And sometimes I just find things lying around.
+- Is it free?
+  ~ trader
+  | (:jolly)Haha, I'm afraid not. I got to make a living too.
+  | But my prices are fair, I can promise you that!
 ~ trader
-| Just "let me know when you want to buy one"(orange), okay?
-| You take it easy, habibti.
+| Just "let me know when you want to trade"(orange), okay?
+| (:jolly)You take it easy, habibti.
 ; habibti = dear, my love, buddy (Arabic) (female form)
