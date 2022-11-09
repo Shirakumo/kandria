@@ -49,8 +49,8 @@
 # find-home-fourth/new-home-site-4
 ~ player
 | "It's "new-home candidate site 4"(red)."(light-gray, italic)
-| (:thinking)"These factory cubicles would make for excellent storage, and perhaps could even be a base for Engineering."(light-gray, italic)
-| "I could clear the barbed wire so children, and the elderly and infirm could get through."(light-gray, italic)
+| (:thinking)"These factory cubicles would make for excellent storage, and could even be a base for Engineering."(light-gray, italic)
+| "I could clear the obstacles so children, and the elderly and infirm could get through."(light-gray, italic)
 ? (or (complete-p 'q2-seeds) (have 'item:seeds))
 | | (:thinking)"But its proximity to the soiled seed cache is trouble. And that's before they even consider the earthquakes."(light-gray, italic)
 |?
