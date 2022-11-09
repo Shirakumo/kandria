@@ -204,11 +204,13 @@
 | | To think, all I used to worry about was understanding Servos.
 |? (complete-p 'SQ4-ANALYSE-ROBOTS)
 | | I'm getting closer to understanding how Servos think. How //you// think too.
+|? (complete-p (find-task 'Q4-INTRO 'FIND-ALEX))
+| | "Alex"(orange)?... Don't know them, sorry. You could "ask in the bar"(orange).
 |?
 | | Can't talk now, sorry. Servo science waits for no one.
 
 # semi-barkeep
-; Semi Sisters barkeep, non-binary
+; Semi Sisters barkeep, non-binary, French code switching
 ; used in sq5
 ; Speech changes once they're on the surface as Noka allies, just before the battle
 ; "No time for drinking" - in a literal sense in that there's no time, but also because the battle is imminent, this is also not an appropriate time for drinking
@@ -218,6 +220,8 @@
 | | So this is the surface? The facilities are a little... meagre. But I see time trial potential here!
 |? (complete-p 'Q10-WRAW)
 | | No time for racing. No time for drinking either.
+|? (complete-p (find-task 'Q4-INTRO 'FIND-ALEX))
+| | Alex? Oui, "that's them over there if I'm not mistaken, propping up the other bar"(orange).
 |?
 | | Who's this fancy pants?
 
@@ -230,6 +234,8 @@
 | | Can't say I'm thrilled to be here. Where are the beer barrels for a start?
 |? (complete-p 'Q10-WRAW)
 | | I knew you'd bring trouble down on us.
+|? (complete-p (find-task 'Q4-INTRO 'FIND-ALEX))
+| | You're looking for Alex?... "Are you blind?!"(orange).
 |?
 | | I don't serve your kind.
 
@@ -244,6 +250,8 @@
 | | Even I've lost my mojo for time trials.
 |? (complete-p 'SQ5-INTRO)
 | | I've high hopes for you, android.
+|? (complete-p (find-task 'Q4-INTRO 'FIND-ALEX))
+| | That "dude over there might be Alex - with the blonde hair"(orange). Came from the surface, apparently.
 |?
 | | You the betting sort? Maybe you could be.
 
@@ -258,6 +266,8 @@
 | | Ugh, what's happenings? I think I'm gonna hurl.
 |? (complete-p 'SQ5-INTRO)
 | | Did you start the race yet? Where am I?
+|? (complete-p (find-task 'Q4-INTRO 'FIND-ALEX))
+| | Sorrys, don't know "Alex. Alice is over there though, at the bar. Other bar."(orange) How many bars are there?
 |?
 | | __CHEERS!__
 
@@ -272,8 +282,10 @@
 | | I hope she's okay. And thinking of me.
 |? (complete-p 'SQ6-DELIVER-LETTER)
 | | {#@cerebat-partner-nametag} called me. We're still friends, though.
+|? (complete-p (find-task 'Q4-INTRO 'FIND-ALEX))
+| | ... Hang on, gimme a sec. Over. ..."Try the bar if you're looking for Alex"(orange) - I overheard some folks talking about them.
 |?
-| | ... Hold on, there's someone here. Over. Er, hi? Can I help you? - Can't you see I'm on a call?
+| | ... Hold on, there's someone here. Over. ...Er, hi? Can I help you? - Can't you see I'm on a call?
 
 # cerebat-partner
 ; female Cerebat, Kacey, was in a relationship with Tobias; speaks casual
