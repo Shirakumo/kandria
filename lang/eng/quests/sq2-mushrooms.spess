@@ -3,7 +3,7 @@
 | How was your mushrooming? Let's see what you've got.
 ? (> 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
 | ~ catherine
-| | Oh, I don't think you've got enough yet. I need "25 rusty puffballs or flower fungus"(orange). "Avoid black caps"(orange). Keep "searching underground"(orange).
+| | Oh, I don't think you've got enough yet. I need "25 rusty puffballs or flower fungus"(orange). "Avoid black caps"(orange) though. Keep "searching underground"(orange).
 | | (:excited)Good luck!
 | ~ player
 | | "I currently have: "{(item-count 'item:mushroom-good-1)} flower fungus"(orange), "{(item-count 'item:mushroom-good-2)} rusty puffball"(orange), "{(item-count 'item:mushroom-bad-1)} black cap"(orange)."(light-gray, italic)
