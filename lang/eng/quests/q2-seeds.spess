@@ -8,11 +8,11 @@
 | "It's an old-world bunker. This must be the storage cache."(light-gray, italic)
 | "It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before."(light-gray, italic)
 | "Most of this is spoiled, but some of the drawers may still contain usable seeds. Let's see..."(light-gray, italic)
+! eval (store 'item:seeds 24)
+! eval (status "Received 24 Seed Sachet")
 | "This is all that's left: "24 sachets"(orange). Inside each one the seeds are tiny and hard like grit."(light-gray, italic)
 | (:thinking)"Will they still grow? I guess we'll find out."(light-gray, italic)
 | (:normal)"I should "return to {#@fi-nametag}"(orange)."(light-gray, italic)
-! eval (store 'item:seeds 24)
-! eval (status "Received 24 Seed Sachet")
 ! eval (deactivate 'q2-reminder)
 
 # return-seeds/seeds-return-fi
