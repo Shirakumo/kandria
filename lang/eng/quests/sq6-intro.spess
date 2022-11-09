@@ -17,7 +17,7 @@
 - I'm sorry. I'm sure she's okay.
 - Try not to worry.
 ~ semi-partner
-| Can you "go down there and find her? Give her this letter"(orange)?
+| Can you "go down there and find her? Give her a letter"(orange)?
 ~ player
 - Of course.
 - What does she look like?
@@ -45,7 +45,7 @@
 ~ player
 | "Curiosity might have killed the cat, but I'm an android. With nine lives."(light-gray, italic)
 ~ player
-- (Read the love letter)
+- (Read the letter)
   < read
 - (Don't read it)
 # read
