@@ -271,7 +271,8 @@
   | ~ alex
   | | Ugh, thansssks. <-Hic->.
   | ~ player
-  | | "I'm not surprised the barkeep won't look at me while she pours the drink. Instead she's watching the dirty, soulless liquid slosh into Alex's can."(light-gray, italic)
+  | | "I'm not surprised the barkeep won't look at me while she pours the drink."(light-gray, italic)
+  | | "Instead she's watching the dirty, soulless liquid slosh into Alex's can."(light-gray, italic)
   | ~ player
   | | "Wow, Alex downed it in one."(light-gray, italic)
   | | (:embarassed)"Are they going to throw up?!... I should move."(light-gray, italic)
@@ -285,7 +286,8 @@
   | ! eval (retrieve 'item:parts 20)
   | ! eval (status "Lost 20 Scrap Part")
   | ~ player
-  | | "I'm not surprised the barkeep won't look at me while she pours the drink. Instead she's watching the rouge, carbonated liquid slosh into Alex's can. It smells like beetroot."(light-gray, italic)
+  | | "I'm not surprised the barkeep won't look at me while she pours the drink."(light-gray, italic)
+  | | "Instead she's watching the rouge, carbonated liquid slosh into Alex's can. It smells like beetroot."(light-gray, italic)
   | ~ alex
   | | (:angry)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
   | ~ player
