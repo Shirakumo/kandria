@@ -204,6 +204,8 @@
 | | To think, all I used to worry about was understanding Servos.
 |? (complete-p 'SQ4-ANALYSE-ROBOTS)
 | | I'm getting closer to understanding how Servos think. How //you// think too.
+|? (complete-p 'Q4-FIND-ALEX)
+| | Can't talk now, sorry. Servo science waits for no one.
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
 | | "Alex"(orange)?... Don't know them, sorry. You could "ask in the bar"(orange).
 |?
@@ -220,6 +222,8 @@
 | | So this is the surface? The facilities are a little... meagre. But I see time trial potential here!
 |? (complete-p 'Q10-WRAW)
 | | No time for racing. No time for drinking either.
+|? (complete-p 'Q4-FIND-ALEX)
+| | Who's this fancy pants?
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
 | | Alex? Oui, "that's them over there if I'm not mistaken, propping up the other bar"(orange).
 |?
@@ -234,6 +238,8 @@
 | | Can't say I'm thrilled to be here. Where are the beer barrels for a start?
 |? (complete-p 'Q10-WRAW)
 | | I knew you'd bring trouble down on us.
+|? (complete-p 'Q4-FIND-ALEX)
+| | I don't serve your kind.
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
 | | You're looking for Alex?... "Are you blind?!"(orange).
 |?
@@ -250,6 +256,8 @@
 | | Even I've lost my mojo for time trials.
 |? (complete-p 'SQ5-INTRO)
 | | I've high hopes for you, android.
+|? (complete-p 'Q4-FIND-ALEX)
+| | You the betting sort? Maybe you could be.
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
 | | That "dude over there might be Alex - with the blonde hair"(orange). Came from the surface, apparently.
 |?
@@ -266,6 +274,8 @@
 | | Ugh, what's happenings? I think I'm gonna hurl.
 |? (complete-p 'SQ5-INTRO)
 | | Did you start the race yet? Where am I?
+|? (complete-p 'Q4-FIND-ALEX)
+| | __CHEERS!__
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
 | | Sorrys, don't know "Alex. Alice is over there though, at the bar. Other bar."(orange) How many bars are there?
 |?
@@ -282,6 +292,8 @@
 | | I hope she's okay. And thinking of me.
 |? (complete-p 'SQ6-DELIVER-LETTER)
 | | {#@cerebat-partner-nametag} called me. We're still friends, though.
+|? (complete-p 'Q4-FIND-ALEX)
+| | ... Hold on, there's someone here. Over. ...Er, hi? Can I help you? - Can't you see I'm on a call?
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
 | | ... Hang on, gimme a sec. Over. ..."Try the bar if you're looking for Alex"(orange) - I overheard some folks talking about them.
 |?
@@ -375,8 +387,7 @@
 ; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
 ; used in sq14
 ; Is looking for a secret formula for a drug used by the Wraw, and used pre-Calamity for workers, which increases pain tolerance and resistance to heat, but has many bad side effect
-; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
-; Before q5a and q5b complete, the NPC is in an inaccessible location, so the true fallback will never play - but here for completeness / in case we move them
+; Before q5a and q5b complete, the NPC is in an inaccessible location, so the true fallback will never play - but here for completeness / in case we move them (actually now they are behind a breakable door)
 ; (complete-p 'SQ14C-SYNTHESIS) has to work whether they're happy/unhappy with sq14 outcome - you helped them speed up making the drug, or hindered
 ; as with others
 ; (complete-p 'Q11A-BOMB-RECIPE) needs to work whether you did the quest or not, and even if you never spoke to them before - and also whether they are in the lab or still under the Cerebat base (they only get moved to the lab if you completed sq14c, to avoid spoilering the lab as linked with synthesis on subsequent playthroughs); could set the condition to be  (complete-p 'Q11A-BOMB-RECIPE 'SQ14C-SYNTHESIS) to guarantee they're in the lab, but we don't really do that with default interacts, it's less clean as would need a counter conditional - it's easy to keep the dialogue ambiguous to solve this
@@ -385,10 +396,6 @@
 | | (:grin)The answers are here, and we know where to look.
 |? (complete-p 'SQ14C-SYNTHESIS)
 | | (:normal)When migraines don't blur our vision, we see the way forward.
-|? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | (:grin)We know you.
-|? (complete-p 'Q7-MY-NAME)
-| | (:grin)You don't seek us - not yet. But perhaps the "stranger on the middle-east backstreet up there, is the one you seek"(orange).
 |?
 | | (:grin)We know you.
 
