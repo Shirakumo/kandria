@@ -359,7 +359,7 @@
         (render wheel T)))))
 
 (defmethod alloy:render :around ((ui ui) (layout hud-layout))
-  (unless (find-panel 'editor)
+  (unless (find-panel 'fullscreen-panel)
     (call-next-method)))
 
 (defclass hud (panel)
