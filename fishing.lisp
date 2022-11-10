@@ -67,6 +67,7 @@
                               (harmony:play (// 'sound 'fishing-rare-catch))))
                        (setf (state buoy) :show)
                        (award-experience (unit 'player +world+) (experience-reward item))
+                       (store item (unit 'player +world+))
                        (status (@formats 'fish-caught-successfully (language-string (type-of item)))))
                       (T
                        (setf (animation (unit 'player +world+)) 'stand)
@@ -213,7 +214,7 @@
       (when item
         (when (container item)
           (leave item T))
-        (store item player)))
+        (setf (item (buoy line)) NIL)))
     (leave line T)
     (hide (prompt player))
     (hide (prompt-b player))

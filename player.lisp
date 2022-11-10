@@ -116,8 +116,6 @@ void main(){
    :sprite-data (asset 'kandria 'player)))
 
 (defmethod initialize-instance :after ((player player) &key)
-  (dotimes (i 5) (store 'item:small-health-pack player))
-  (dotimes (i 2) (store 'item:medium-health-pack player))
   (setf (active-p (action-set 'in-game)) T)
   (setf (spawn-location player) (vcopy (location player))))
 
@@ -573,6 +571,7 @@ void main(){
                ground
                chunk
                (null (interactable player))
+               (eql :normal (state player))
                (typep (medium player) 'air))
       (bvh:do-fitting (entity (bvh (region +world+)) (tvec (max (- (vx loc) (* +tile-size+ 13))
                                                                 (- (vx (location chunk))
