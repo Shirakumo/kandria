@@ -61,7 +61,8 @@
     '((:normal "bar.oga")))
 
 (define-asset (music music/underground-camp) trial-harmony:environment
-    '((:normal "underground camp.oga")))
+    '((:normal "underground camp medium.oga")
+      (:ambient "underground camp ambient.oga")))
 
 (define-asset (music ambience/camp) trial-harmony:environment
     '((:normal "ambience track_ camp.ogg")))
