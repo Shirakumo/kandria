@@ -104,16 +104,16 @@ Dieses Spiel speichert nicht automatisch. Bitte speichere oft!
 Wenn du Schwierigkeiten hast, schau dir bitte die Spiele-Optionen an."
 critical-npc-death-ending "
 Das Genera System des Androided hat einen unerwarteten
-Fehler, was es dazu fuehrte alles in Sicht zu zerstoeren.
+Fehler, was es dazu führte alles in Sicht zu zerstören.
 
 Der Fehler eskalierte, was den Fusionsreaktor destabilisierte,
-und ungefaehr 1.256 Sekunden nach dem urspruenglichen
+und ungefähr 1.256 Sekunden nach dem ursprünglichen
 Fehler wurde das ganze Tal in einem massiven Feuerball
 vernichtet.
 
 Super Arbeit!"
 zelah-early-death-ending "
-Mit ihrem Fuehrer erledigt viel die Wraw Armee schnell in einen Tumult.
+Mit ihrem Führer erledigt viel die Wraw Armee schnell in einen Tumult.
 Das Tal kam zu einem instabilen und unsicheren Frieden, doch Frieden
 war es trotzdem.
 

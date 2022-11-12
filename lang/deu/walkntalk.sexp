@@ -8,8 +8,8 @@ catherine-lead-interrupt "
 | [? Hierhin! | Folg mir. | Komm schon! | Los gehts!]"
 unsafe-region-interrupt "
 ~ npc
-| Das sieht gefaehrlich aus. Ich warte hier auf dich."
+| Das sieht gefährlich aus. Ich warte hier auf dich."
 zelah-attack-start "
 ~ zelah
 | Bist du wahnsinnig?
-| (:jovial)Ok Jungs, ich kuemmer mich um das."
+| (:jovial)Ok Jungs, ich kümmer mich um das."
