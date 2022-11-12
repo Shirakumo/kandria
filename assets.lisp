@@ -23,8 +23,7 @@
      :mixer :music
      :voice-class 'harmony:music-segment))
 
-(define-track menu #p"menu.oga"
-  :voice-class 'harmony:music-segment)
+(define-track menu #p"menu.oga")
 (define-track scare #p"scare.oga")
 (define-track credits #p"credits.oga"
   :repeat NIL)
@@ -41,7 +40,7 @@
 (define-asset (music music/camp) trial-harmony:environment
     '((:normal "camp medium.oga")
       (:vocal "camp medium vocal.oga")
-      (:ambient "camp ambient.oga")))
+      (:ambient "camp ambient.oga" "camp ambient vocal.oga")))
 
 (define-asset (music music/desert) trial-harmony:environment
     '((:normal "desert medium.oga")
