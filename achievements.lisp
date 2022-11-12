@@ -1,9 +1,5 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defvar *achievements* ())
-
-(defmacro define-achievement (name &optional event &body check))
-
 (define-achievement catherine-races quest-completed
   (loop with storyline = (storyline +world+)
         for quest in '(sq3-race-1 sq3-race-2 sq3-race-3 sq3-race-4 sq3-race-5)
@@ -39,10 +35,10 @@
         always (item-unlocked-p (class-name fish) player)))
 
 (define-achievement game-complete game-over
-  (eql (ending event) :normal))
+  (eql (ending game-over) :normal))
 
 (define-achievement early-ending game-over
-  (eql (ending event) :zelah))
+  (eql (ending game-over) :zelah))
 
 (defvar *last-death-count* (cons NIL 0))
 (define-achievement persistence player-died

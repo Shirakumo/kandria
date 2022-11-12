@@ -58,6 +58,7 @@
                (:file "deploy")
                (:file "effects")
                (:file "displacement")
+               (:file "achievements")
                (:module "versions"
                 :components ((:file "v0")
                              (:file "binary-v0")
