@@ -1,0 +1,5 @@
+station-surface "Zenith Zentrale Lieferung"
+station-east-lab "Rootless Labor Z05C"
+station-semi-sisters "Guiding Light Apartments 3055"
+station-cerebats "Swift Lieferpunkt 23-605-A"
+station-wraw "Trickle Kraftwerk 52M"
