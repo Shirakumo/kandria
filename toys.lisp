@@ -838,7 +838,7 @@ void main(){
                 (setf (animation door) 'burst-right))
                ((< 0 (vx (hit-normal hit)))
                 (setf (vx (velocity door)) -4.0)
-                (setf (animation door) 'burst-right))))
+                (setf (animation door) 'burst-left))))
         (T
          (call-next-method))))
 
