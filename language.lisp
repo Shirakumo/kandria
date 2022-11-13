@@ -9,7 +9,7 @@
   (and thing (string/= "" thing) (string/= "-" thing) (string/= "<unknown>" thing)))
 
 (defun %langname (thing &rest subset)
-  (intern (format NIL "~a~{/~a~}" (string thing) subset)
+  (intern (format NIL "~:@(~a~{/~a~}~)" (string thing) subset)
           (symbol-package thing)))
 
 (defmethod extract-language ((storyline quest:storyline))
