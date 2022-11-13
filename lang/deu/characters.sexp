@@ -37,7 +37,7 @@ wraw-sergeant-nametag "Wraw Unteroffizier"
 unknown-nametag "???"
 soldier-nametag "Wraw Söldner"
 player "Spieler"
-mech "Wraw Exoskelet Prototyp"
+mech "Wraw Exoskelett Prototyp"
 zelah-enemy "Wraw Führer, Zelah"
 villager-female-nametags ("Anneli" "Avedon" "Cath" "Fawn" "Heidy" "Kaitryn" "Karina" "Laura" "Leandra" "Lynne Marshall" "Mälie" "Maria" "Mandragor Mistica" "Minerva Räck" "Mobi" "Monika" "Nathalie" "Nick" "Nola" "Ran" "Rednäl" "Sandra" "Sarah" "Sasha" "Scoopa" "Tabitha Riddle" "Alva" "Livia")
 villager-male-nametags ("Ajrion" "Arthur" "Avedon" "Blake Ashwell" "Brian" "Chris" "Codody" "Cody Shores" "Dipwood" "Dr. Grimbles" "Fabrellius" "Fawn" "Gerald" "Gosper" "Ikharios" "John McCarthy" "Johnny" "Kieron Stoff" "Luigi" "Malcolm Darby" "Mandragor Mistica" "Mcilwaft" "Murk Uglustraxi" "Nick" "Poplar" "Sasha" "Sean" "Simon" "Sina" "Tagg" "Till" "Tom" "Tom H. Cavalry" "Velho" "Vic" "Vincent" "Ajrion" "Alva" "Maglord" "Mark Carls" "Will Halliburton" "Yamamoto" "Jfred")
