@@ -1,140 +1,140 @@
-fish:crab "Crab"
-fish:crab/description "A sturdy little critter.
+fish:crab "Krabbe"
+fish:crab/description "Schnipp Schnapp AaaAA!
 Kann für Bruchteile verkauft werden."
-fish:machine-fish "Machine Fish"
-fish:machine-fish/description "Why would someone make this?
+fish:machine-fish "Maschinen Fish"
+fish:machine-fish/description "Wer macht denn sowas?
 Kann für Bruchteile verkauft werden."
-fish:salmon "Salmon"
-fish:salmon/description "Jumped upstream and then onto a fish hook.
+fish:salmon "Lachs"
+fish:salmon/description "Sprang den Fluss rauf und gleich an die Angel.
 Kann für Bruchteile verkauft werden."
-fish:shark "Shark"
-fish:shark/description "Much maligned by popular culture. I know the feeling.
+fish:shark "Haifisch"
+fish:shark/description "Das womöglich meist-misverstandene Meerestier.
 Kann für Bruchteile verkauft werden."
-fish:seabass "Sea Bass"
-fish:seabass/description "Could be any number of species, but I'm pretty sure it's edible.
+fish:seabass "Seebarsch"
+fish:seabass/description "Ein richtig harscher bursche.
 Kann für Bruchteile verkauft werden."
-fish:sneaky-seabass "Sneaky Sea Bass"
-fish:sneaky-seabass/description "This one really didn't want to get caught.
+fish:sneaky-seabass "Heimtückischer Seebarsch"
+fish:sneaky-seabass/description "Versteckt sich gerne und überrascht Angler mit einem seltenen Fang.
 Kann für Bruchteile verkauft werden."
-fish:can "Metal Can"
-fish:can/description "An old-world can used to preserve food. But it's open and empty.
+fish:can "Metallbüchse"
+fish:can/description "Leider offen und leer. Schade, hätte ein paar Aprikosen vertragen.
 Kann für Bruchteile verkauft werden."
-fish:boot "Dirty Boot"
-fish:boot/description "Every fisherman's worst nightmare.
+fish:boot "Dreckiger Stiefel"
+fish:boot/description "Der Albtraum jedes Fischers.
 Kann für Bruchteile verkauft werden."
-fish:can-fish "Can Fish"
-fish:can-fish/description "A species evolved to camouflage as useless junk.
+fish:can-fish "Büchsenfisch"
+fish:can-fish/description "Enorm gut getarnt.
 Kann für Bruchteile verkauft werden."
-fish:tire "Old Tyre"
-fish:tire/description "This belonged to a ground-based car. They were old even in the old world.
+fish:tire "Alter Reifen"
+fish:tire/description "Abfall von einem alten Auto.
 Kann für Bruchteile verkauft werden."
-fish:coelacanth "Coelacanth"
-fish:coelacanth/description "Once thought extinct, but came back from the dead - AND survived the Calamity. Then got fished.
+fish:coelacanth "Quastenflosser"
+fish:coelacanth/description "Wow, hab gemeint, dass die ausgestorben wären. Scheinbar nicht! Oder jetzt wieder?...
 Kann für Bruchteile verkauft werden."
-fish:boot-crate "Crate of Dirty Boots"
-fish:boot-crate/description "Highly-unfashionable and filled with sludge.
+fish:boot-crate "Stiefelkiste"
+fish:boot-crate/description "Eine Sammlung von Albträumen für Fischer.
 Kann für Bruchteile verkauft werden."
-fish:megaroach "Megaroach"
-fish:megaroach/description "This was also a common android insult.
+fish:megaroach "Riesenkakerlake"
+fish:megaroach/description "Wow. Die Zukunft ist echt grausig.
 Kann für Bruchteile verkauft werden."
-fish:roach "Cockroach"
-fish:roach/description "Naturally this guy survived the apocalypse.
+fish:roach "Kakerlake"
+fish:roach/description "Natürlich haben die Dinger die Katastrophe überlebt...
 Kann für Bruchteile verkauft werden."
-fish:seaweed "Seaweed"
-fish:seaweed/description "Slimy but healthy. Revolting but moreish.
+fish:seaweed "Seetang"
+fish:seaweed/description "Anscheinend soll das gesund sein? Fühlt sich merkwürdig an.
 Kann für Bruchteile verkauft werden."
 fish:piranha "Piranha"
-fish:piranha/description "Not the monster most people think it is. It's quite cute, actually.
+fish:piranha/description "Hm. Sieht nicht so aus wie ich mir es vorgestellt hatte.
 Kann für Bruchteile verkauft werden."
-fish:sandfish "Sandfish"
-fish:sandfish/description "The beach bum of the fish world, in a manner of speaking.
+fish:sandfish "Sandfisch"
+fish:sandfish/description "Klever getarnt! Man könnte meinen, ich hätte eine Hampfel Sand in den Händen.
 Kann für Bruchteile verkauft werden."
-fish:ratfish "Ratfish"
-fish:ratfish/description "Just as misunderstood as its land-based namesake.
+fish:ratfish "Rattenfisch"
+fish:ratfish/description "Woah. Was für eine interessante Kombination.
 Kann für Bruchteile verkauft werden."
-fish:shroomfish "Shroomfish"
-fish:shroomfish/description "It's covered in coral that looks more like fungus so...
+fish:shroomfish "Pilzfisch"
+fish:shroomfish/description "Eine Symbiose mit Pilzen? Was zur Hölle...
 Kann für Bruchteile verkauft werden."
-fish:diving-helmet "Diver's Helmet"
-fish:diving-helmet/description "Predates the Calamity. I hope whöver lost this did so on land.
+fish:diving-helmet "Tauchhelm"
+fish:diving-helmet/description "Womöglich über 1000 Jahre alt.
 Kann für Bruchteile verkauft werden."
-fish:three-eyed-fish "Three-Eyed Fish"
-fish:three-eyed-fish/description "If two eyes let you see in three dimensions, it follows that three let you see in four.
+fish:three-eyed-fish "Drei-Augen-Fisch"
+fish:three-eyed-fish/description "Mit zwei Augen sieht man 3D, und mit drei Augen... 4D! Macht sinn.
 Kann für Bruchteile verkauft werden."
 fish:gyofish "Gyofish"
-fish:gyofish/description "This thing is creepy! And yet... strangely compelling.
+fish:gyofish/description "Ugh. Ich kann dieses... Ding kaum anschauen. Sehr beunruhigend.
 Kann für Bruchteile verkauft werden."
-fish:ammonite "Ammonite"
-fish:ammonite/description "Not a fossilised worm that curled up when it died.
+fish:ammonite "Ammonit"
+fish:ammonite/description "Wow! Das könnte Millionen von Jahre alt sein.
 Kann für Bruchteile verkauft werden."
 fish:sand-dollar "Sand Dollar"
-fish:sand-dollar/description "Maybe I can find a raccoon to trade this with.
+fish:sand-dollar/description "Hm, vielleicht gibt es noch jemanden der das als Währung entgegen nimmt.
 Kann für Bruchteile verkauft werden."
-fish:clam "Clam"
-fish:clam/description "Bites very slowly. One for the patient angler.
+fish:clam "Venusmuschel"
+fish:clam/description "Öffnet und schliesst sich sehr langsam.
 Kann für Bruchteile verkauft werden."
 fish:dopefish "Dopefish"
-fish:dopefish/description "I think it's kinda cute.
+fish:dopefish/description "An was erinnert mich das nur wieder...?
 Kann für Bruchteile verkauft werden."
-fish:blowfish "Blowfish"
-fish:blowfish/description "Inflates in self-defence. Dösn't everyone?
+fish:blowfish "Kugelfisch"
+fish:blowfish/description "Wird grösser bei Gefahr.
 Kann für Bruchteile verkauft werden."
-fish:blobfish "Blobfish"
-fish:blobfish/description "If you dropped a human being to a depth of 4,000 feet, they'd probably look like this too.
+fish:blobfish "Blobfisch"
+fish:blobfish/description "Wenn man einen Menschen auf 4'000 Meter Tiefe bringen würde, denke ich wäre das Resultat sehr ähnlich.
 Kann für Bruchteile verkauft werden."
-fish:jellyfish "Jellyfish"
-fish:jellyfish/description "It's an alien. It has to be.
+fish:jellyfish "Qualle"
+fish:jellyfish/description "Ist das ein Alien?
 Kann für Bruchteile verkauft werden."
-fish:squid "Squid"
-fish:squid/description "Can squirt ink and change colour. People used to say they'd take over the world one day.
+fish:squid "Tintenfisch"
+fish:squid/description "Das kann nicht nur Tinte verteilen, sondern auch seine Farbe ändern!
 Kann für Bruchteile verkauft werden."
-fish:fishing-rod "Fishing Rod"
-fish:fishing-rod/description "Not as cool as my own. I wonder what happened to the fisherman.
+fish:fishing-rod "Angel"
+fish:fishing-rod/description "Hmm, leider hab ich schon eine Angel.
 Kann für Bruchteile verkauft werden."
-fish:leaflet "Holiday Leaflet"
-fish:leaflet/description "I could use a holiday myself.
+fish:leaflet "Ferienbroschüre"
+fish:leaflet/description "Ich würde auch gerne Ferien machen...
 Kann für Bruchteile verkauft werden."
-fish:shell "Shell"
-fish:shell/description "If I raise this to my ear I can hear the sea. How is that possible?
+fish:shell "Muschel"
+fish:shell/description "Wow, ich kann das Meer hören. Wie ist denn das möglich?
 Kann für Bruchteile verkauft werden."
-fish:trout "Trout"
-fish:trout/description "People used to hunt these for sport. Now it's a good meal.
+fish:trout "Forelle"
+fish:trout/description "Sehr nahrhaft.
 Kann für Bruchteile verkauft werden."
-fish:electric-eel "Electric Eel"
-fish:electric-eel/description "Talk about a cool defence mechanism.
+fish:electric-eel "Zitteraal"
+fish:electric-eel/description "Leider nicht stark genug um meine Batterien wieder zu laden.
 Kann für Bruchteile verkauft werden."
-fish:anglerfish "Anglerfish"
-fish:anglerfish/description "Oh the irony. Though not the kind of fish you expect to catch with a rod.
+fish:anglerfish "Anglerfisch"
+fish:anglerfish/description "Hah! Jetzt sieht er mal wies am anderen Ende aussieht!
 Kann für Bruchteile verkauft werden."
-fish:action-figure "Action Figurine"
-fish:action-figure/description "Hey, this is pretty cool! I like her silver hair.
+fish:action-figure "Actionfigur"
+fish:action-figure/description "Ooh, cool! Woher kommt diese Figur denn nur?
 Kann für Bruchteile verkauft werden."
-fish:swordfish "Swordfish"
-fish:swordfish/description "Well if my sword breaks down at least I have a backup.
+fish:swordfish "Schwertfisch"
+fish:swordfish/description "Hmm, ist ein bisschen flabbrig, aber vielleicht kann ich das als ein Ersatzschwert brauchen?
 Kann für Bruchteile verkauft werden."
-fish:swordfish2 "Swordfish 2.0"
-fish:swordfish2/description "Bigger, stronger, better in every way.
+fish:swordfish2 "Schwertfisch 2.0"
+fish:swordfish2/description "Grösser, stärker, besser in jeglicher Hinsicht!
 Kann für Bruchteile verkauft werden."
-fish:nameplate "Ship Nameplate"
-fish:nameplate/description "The inscribed name says \"Denali\".
+fish:nameplate "Schiff Namensschild"
+fish:nameplate/description "Der Name darauf ist \"Denali\".
 Kann für Bruchteile verkauft werden."
-fish:car-battery "Car Battery"
-fish:car-battery/description "A chemical battery once used in a pre-electric car.
+fish:car-battery "Autobatterie"
+fish:car-battery/description "Eine sehr alte Batterie, womöglich von einem alten Benzin Auto.
 Kann für Bruchteile verkauft werden."
-fish:seahorse "Seahorse"
-fish:seahorse/description "I wonder where that name came from. It dösn't resemble a horse in the slightest!
+fish:seahorse "Seepferdchen"
+fish:seahorse/description "Hm, ich weiss nicht warum das so heisst. Es sieht überhaupt nicht wie ein Pferd aus!
 Kann für Bruchteile verkauft werden."
-fish:trilobite "Trilobite"
-fish:trilobite/description "It looks like a fossilised beetle.
+fish:trilobite "Trilobit"
+fish:trilobite/description "Noch eine Fossilie.
 Kann für Bruchteile verkauft werden."
-fish:rubber-duck "Rubber Duck"
-fish:rubber-duck/description "I'm sure this trusty friend will help me figure out all sorts of issüs!
+fish:rubber-duck "Gummiente"
+fish:rubber-duck/description "Perfekt! Jetzt brauch ich nur noch etwas Seife und das perfekte Bad ist bereit.
 Kann für Bruchteile verkauft werden."
-fish:toy-submarine "Toy Submarine"
-fish:toy-submarine/description "I think there was a famous song about one of these.
+fish:toy-submarine "Uboot"
+fish:toy-submarine/description "Leider nur ein Spielzeug, und ohne jegliche Waffen.
 Kann für Bruchteile verkauft werden."
 fish:alligator "Alligator"
-fish:alligator/description "It's not a crocodile - the snout gives it away.
+fish:alligator/description "Nicht ein Krokodil! Die Schnauze ist anders.
 Kann für Bruchteile verkauft werden."
-fish:distilled-water-bottle "Bottle of Distilled Water"
-fish:distilled-water-bottle/description "Somehow this plastic bottle of distilled water has survived without a trace of contamination."
+fish:distilled-water-bottle "Destilliertes Wasser"
+fish:distilled-water-bottle/description "Wow, diese Flasche Wasser ist immernoch total destilliert, ohne jegliche Kontamination!"
