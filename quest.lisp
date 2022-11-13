@@ -296,7 +296,7 @@
                            (form-fiddle:with-body-options (body initargs) body
                              `((,name
                                 ,@initargs
-                                :title ,(format NIL "Wait for ~a to ~a." character animation)
+                                :title ,(format NIL "Wait for ~@(~a~) to ~(~a~)." character animation)
                                 :visible NIL
                                 :condition (not (eql ',animation (name (animation (unit ',character +world+)))))
                                 :on-activate (action)
@@ -308,7 +308,7 @@
                           (form-fiddle:with-body-options (body initargs) body
                             `((,name
                                ,@initargs
-                               :title ,(format NIL "Wait for ~a to arrive." character)
+                               :title ,(format NIL "Wait for ~@(~a~) to arrive." character)
                                :condition (nearby-p ',place ',character)
                                :on-complete (action ,@next)
                                (:action action
@@ -326,7 +326,7 @@
                  (:have ((item &optional (count 1)) . initargs)
                         `((,name
                            ,@initargs
-                           :title ,(format NIL "Collect ~d ~a~:p" count item)
+                           :title ,(format NIL "Collect ~d ~@(~a~:p~)" count item)
                            :condition (have ',item ,count)
                            :on-complete ,next
                            ,@(when (< 1 count)
@@ -336,8 +336,8 @@
                          (form-fiddle:with-body-options (body initargs eval) body
                            `((,name
                               ,@initargs
-                              :title ,(cond (lead (format NIL "Follow ~a to ~a" lead place))
-                                            (follow (format NIL "Lead ~a to ~a" follow place))
+                              :title ,(cond (lead (format NIL "Follow ~@(~a~) to ~@(~a~)" lead place))
+                                            (follow (format NIL "Lead ~@(~a~) to ~@(~a~)" follow place))
                                             (T (format NIL "Go to ~a" place)))
                               :condition (nearby-p ',place 'player)
                               :on-activate (action)
@@ -356,7 +356,7 @@
                                     (source (popf initargs :source)))
                                 `((,name
                                    ,@initargs
-                                   :title ,(format NIL "Listen to ~a" with)
+                                   :title ,(format NIL "Listen to ~@(~a~)" with)
                                    :condition (complete-p 'interaction)
                                    :on-activate (interaction)
                                    :on-complete ,next
@@ -371,7 +371,7 @@
                             (form-fiddle:with-body-options (body initargs (activate T)) body
                               `((,name
                                  ,@initargs
-                                 :title ,(format NIL "Complete ~{~a~^, ~}" things)
+                                 :title ,(format NIL "Complete ~{~@(~a~)~^, ~}" things)
                                  :condition (complete-p ,@(loop for thing in things
                                                                 collect (if (symbolp thing)
                                                                             `(or (unit ',thing) ',thing)
