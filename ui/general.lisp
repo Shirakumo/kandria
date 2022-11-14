@@ -430,10 +430,10 @@
   (setf (prior-action-set panel) (or (trial:active-action-set) 'in-game)))
 
 (defmethod hide :after ((panel action-set-change-panel))
-  (setf (active-p (action-set (prior-action-set panel))) T)
-  (when (eql (action-set (prior-action-set panel))
-             (action-set 'in-game))
-    (reset-retained +world+)))
+  (unless (eql (action-set (prior-action-set panel))
+               (active-action-set))
+    (clear-retained))
+  (setf (active-p (action-set (prior-action-set panel))) T))
 
 (defclass menuing-panel (action-set-change-panel fullscreen-panel)
   ())
