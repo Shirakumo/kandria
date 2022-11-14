@@ -52,7 +52,7 @@
     | Good. But there ain't no 'urry.
 - Can I get a discount?
   < haggle
-- If that's you want.
+- If that's what you want.
   ~ cerebat-trader-quest
   | It is. But there ain't no 'urry.
 ! label patient
@@ -65,7 +65,7 @@
 ? (<= (var 'trader-bribe) (item-count 'item:parts))
 | ~ player
 | | (:giggle)"Well, "I do have enough to pay him already"(orange)..."(light-gray, italic)
-| | "Alternatively I could "stock up even more, by scavenging and fishing then selling to traders like {#@trader-nametag} and {#@islay-nametag}"(orange)."(light-gray, italic)
+| | (:normal)"Alternatively I could "stock up even more, by scavenging and fishing then selling to traders like {#@trader-nametag} and {#@islay-nametag}"(orange)."(light-gray, italic)
 |?
 | ~ player
 | | "Well "I don't have enough to pay him yet - I'd better earn more scrap parts first"(orange)."(light-gray, italic)
