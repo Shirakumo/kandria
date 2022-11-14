@@ -4,7 +4,7 @@
 ~ semi-spy
 | Aha, {(nametag player)}. This is opportune timing.
 ~ player
-| "Why is she whispering? Her eyes are darting around like she was a mouse peeking from a mouse hole."(light-gray, italic)
+| "Why is she whispering? Her eyes are darting around like she's a mouse peeking from a mouse hole."(light-gray, italic)
 ~ semi-spy
 | I'm a hunter from the Semi Sisters. I'm undercover, but I think someone's onto me.
 ! eval (setf (nametag (unit 'semi-spy)) (@ semi-spy-nametag))

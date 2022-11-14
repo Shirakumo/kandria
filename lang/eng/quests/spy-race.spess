@@ -2,7 +2,7 @@
 ~ semi-spy
 | Okay, I think I'm ready.
 | Remember: "Find the hip flask, bring it back here, and I'll stop the clock"(orange).
-| And hopefully no one will be any the wiser that this is a complete farce - I'll continue to look like a bona fide Cerebat hustler.
+| And hopefully no one will be any the wiser that this is a complete farce - I'll continue to look like a bona fide Cerebat hustler!
 | I've got "5 routes"(orange) lined up for you, which you can do one at a time.
 | So, "you ready for the first race"(orange)?
 ! eval (clear-pending-interactions)
