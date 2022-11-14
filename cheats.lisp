@@ -146,13 +146,22 @@
 (define-cheat (reveal-map |i can see forever|)
   (for:for ((unit over (region +world+)))
     (when (typep unit 'chunk)
-      (setf (unlocked-p unit) T))))
+      (setf (unlocked-p unit) T)))
+  (let ((player (unit 'player T)))
+    (setf (stats-chunks-uncovered (stats player)) (stats-chunks-total (stats player)))))
 
 #-kandria-demo
 (define-cheat (unlock-fast-travel |lots and lots of trains|)
   (for:for ((unit over (region +world+)))
     (when (typep unit 'station)
       (setf (unlocked-p unit) T))))
+
+(define-cheat (unlock-achievements |overachiever|)
+  (mapc #'award (list-achievements)))
+
+(define-cheat (relock-achievements |underachiever|)
+  (dolist (achievement (list-achievements))
+    (setf (active-p achievement) NIL)))
 
 (define-cheat (show-solids |show solid tiles|)
   (let (mode)

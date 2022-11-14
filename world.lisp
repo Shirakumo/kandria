@@ -141,6 +141,9 @@
   (gethash 'region (name-map world)))
 
 (defmethod handle ((event event) (world world))
+  (with-ignored-errors-on-release (:trial.achievements "Failed handling event ~a" event)
+    (when +achievement-api+
+      (handle event +achievement-api+)))
   (let ((handler (car (handler-stack world))))
     (cond (handler
            (handle event (unit :controller world))

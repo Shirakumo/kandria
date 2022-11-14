@@ -39,10 +39,6 @@
       (org.shirakumo.zippy:move-in-memory depot))
     (setf (scene main) (make-instance 'world :depot depot))))
 
-(defmethod initialize-instance :after ((main main) &key)
-  (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
-  (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+))))
-
 (defmethod trial-harmony:server-initargs append ((main main))
   (list :mixers '((:music mixed:basic-mixer :effects ((mixed:biquad-filter :filter :lowpass :name :music-lowpass)))
                   (:effect mixed:plane-mixer))
@@ -50,9 +46,12 @@
                    (mixed:speed-change :name :speed))))
 
 (defmethod initialize-instance :after ((main main) &key region)
+  (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
+  (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
+  (setf (game-speed main) (setting :gameplay :game-speed))
+  (load-achievement-data T)
   (when region
-    (load-region region T))
-  (setf (game-speed main) (setting :gameplay :game-speed)))
+    (load-region region T)))
 
 (defmethod update ((main main) tt dt fc)
   (let* ((scene (scene main))
