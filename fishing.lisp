@@ -126,7 +126,7 @@
   (stage (buoy line) area)
   (stage (// 'kandria 'fish) area))
 
-(defmethod enter :after ((line fishing-line) target)
+(defmethod enter :after ((line fishing-line) (container container))
   (let ((chain (chain line))
         (buoy (buoy line)))
     (loop for i from 0 below (length chain)
@@ -140,7 +140,7 @@
     (vsetf (velocity buoy) (* (- (vx (location (fishing-spot line))) (vx (location line))) 0.03) 4)
     (enter (buoy line) target)))
 
-(defmethod leave :after ((line fishing-line) from)
+(defmethod leave :after ((line fishing-line) (container container))
   (when (container (buoy line))
     (leave (buoy line) from)))
 

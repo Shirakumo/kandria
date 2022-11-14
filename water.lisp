@@ -206,7 +206,7 @@ void main(){
 (defmethod enter :after ((magma magma) (container container))
   (enter (emitter magma) container))
 
-(defmethod leave :after ((magma magma) container)
+(defmethod leave :after ((magma magma) (container container))
   (leave (emitter magma) container))
 
 (defmethod drag ((magma magma))

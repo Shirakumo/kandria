@@ -207,7 +207,7 @@
   (trade NIL inventory item 1)
   (leave item T))
 
-(defmethod leave :after ((item item) thing)
+(defmethod leave :after ((item item) (container container))
   (when (light item)
     (mark-as-spawned (light item) T)
     (leave (light item) T)

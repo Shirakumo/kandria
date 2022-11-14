@@ -110,7 +110,7 @@
 (defmethod layer-index ((door door))
   (1- +base-layer+))
 
-(defmethod leave :after ((door door) thing)
+(defmethod leave :after ((door door) (container container))
   (when (container (target door))
     (leave (target door) T)))
 
@@ -207,10 +207,10 @@
 (defmethod initialize-instance :after ((station station) &key train-location)
   (v<- (location (train station)) (or train-location (location station))))
 
-(defmethod enter :after ((station station) container)
+(defmethod enter :after ((station station) (container container))
   (enter (train station) container))
 
-(defmethod leave :after ((station station) container)
+(defmethod leave :after ((station station) (container container))
   (leave (train station) container))
 
 (defmethod description ((station station))

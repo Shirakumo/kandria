@@ -107,7 +107,7 @@
   (unless (health-bar enemy)
     (setf (health-bar enemy) (make-instance 'boss-health-bar :value enemy))))
 
-(defmethod leave :after ((enemy major-enemy) target)
+(defmethod leave :after ((enemy major-enemy) (container container))
   (hide (health-bar enemy)))
 
 (defmethod (setf health) :after (value (enemy major-enemy))
