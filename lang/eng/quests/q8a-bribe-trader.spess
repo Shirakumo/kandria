@@ -56,6 +56,7 @@
 ! eval (activate (unit 'fi-ffcs-cerebat-2))
 ! eval (setf (music-state 'region1) :normal)
 ! eval (setf (music-state 'region2) :normal)
+! eval (setf (music-state 'underground-camp) :normal)
 ! eval (setf (music-state 'region3) :ambient)
 ? (active-p 'q8-meet-council)
 | ! eval (deactivate (unit 'player-council-chamber))
