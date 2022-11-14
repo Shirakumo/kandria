@@ -45,7 +45,13 @@
   | What do you think? I don't want the Wraw hanging over us a second longer.
   | I won't lie I have personal reasons too. I lost my leg thanks to the Wraw's "work ethic".
   | Betina, my wife, made this prosthetic. When I wasn't strong enough to work, they worked her to the bone instead. They killed her.
-  | ...
+  ~ player
+  - I'm sorry.
+  - Those bastards.
+    ~ jack
+    | (:annoyed)That's just what a traitor would say...
+  - The prosthetic reminds you of her...
+  ~ jack
   | Cathy says she wants to make me a new leg, a better one. But I ain't trading this one for the world.
   < questions
 - You know a lot about the Wraw...
