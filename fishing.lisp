@@ -138,11 +138,11 @@
     (setf (item buoy) NIL)
     (setf (intended-zoom (camera +world+)) 1.0)
     (vsetf (velocity buoy) (* (- (vx (location (fishing-spot line))) (vx (location line))) 0.03) 4)
-    (enter (buoy line) target)))
+    (enter (buoy line) container)))
 
 (defmethod leave :after ((line fishing-line) (container container))
   (when (container (buoy line))
-    (leave (buoy line) from)))
+    (leave (buoy line) container)))
 
 (defmethod handle ((ev tick) (fishing-line fishing-line))
   (declare (optimize speed))
