@@ -812,7 +812,7 @@ void main(){
     (harmony:play (// 'sound 'bomb-active) :location (location bomb) :reset T)
     (setf (played-p bomb) T)))
 
-(define-shader-entity crashable-door (moving lit-animated-sprite creatable)
+(define-shader-entity crashable-door (moving lit-animated-sprite creatable ephemeral)
   ((trial:sprite-data :initform (asset 'kandria 'door-burst))
    (bsize :initform (vec 8 20))))
 
