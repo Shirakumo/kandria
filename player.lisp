@@ -191,7 +191,6 @@ void main(){
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
     (when interactable
-      (discard-events +world+)
       (setf (buffer player) NIL)
       (interact interactable player))))
 

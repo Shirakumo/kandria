@@ -80,8 +80,7 @@
     (setf (alloy:index (alloy:focus-element panel)) 0)))
 
 (defmethod hide :after ((panel quick-menu))
-  (setf (time-scale +world+) 1.0)
-  (discard-events +world+))
+  (setf (time-scale +world+) 1.0))
 
 (defmethod initialize-instance :after ((panel quick-menu) &key (inventory (unit 'player T)))
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))

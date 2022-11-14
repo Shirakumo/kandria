@@ -39,8 +39,7 @@
         (reset (unit 'environment +world+))
         (transition
           :kind :black
-          (reset +main+)
-          (invoke-restart 'discard-events))))
+          (reset +main+))))
     (alloy:enter header layout
                  :constraints `((:top 50) (:left 0) (:right 0) (:height 100)))
     (alloy:enter buttons layout

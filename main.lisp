@@ -266,6 +266,7 @@ Possible sub-commands:
     (setf (storyline scene) (make-instance 'quest:storyline))
     (trial:commit scene (loader main))
     (discard-events scene)
+    (clear-retained)
     (show-panel 'main-menu)))
 
 (defmethod setup-rendering :after ((main main))

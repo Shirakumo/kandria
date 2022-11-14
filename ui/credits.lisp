@@ -161,8 +161,7 @@
              ;; Reset the camera and remove the region to reduce lag
              (reset (camera +world+))
              (leave (region +world+) +world+)
-             (setf (storyline +world+) (make-instance 'quest:storyline))
-             (invoke-restart 'discard-events))))
+             (setf (storyline +world+) (make-instance 'quest:storyline)))))
     (if transition
         (transition
           :kind :black

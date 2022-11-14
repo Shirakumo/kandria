@@ -97,9 +97,7 @@
 (defmethod hide :after ((dialog dialog))
   (when (= 1.5 (intended-zoom (camera +world+)))
     (setf (intended-zoom (camera +world+)) 1.0))
-  (setf (clock-scale +world+) (* (clock-scale +world+) 2))
-  (clear-retained)
-  (discard-events +world+))
+  (setf (clock-scale +world+) (* (clock-scale +world+) 2)))
 
 (defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
   (setf *current-task* (quest:task interaction))

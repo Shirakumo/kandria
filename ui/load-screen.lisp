@@ -83,12 +83,13 @@
           (show-panel 'load-panel :loader loader))
         (stage (unit 'ui-pass +world+) area)
         (call-next-method)
-        (clear-retained)
         (discard-events +world+ '(or trial:action input-event))
+        (clear-retained)
         (transition
           :kind :black
           (hide-panel 'load-panel)
-          (discard-events +world+ '(or trial:action input-event)))
+          (discard-events +world+ '(or trial:action input-event))
+          (clear-retained))
         (issue +world+ 'load-complete)
         (when (find-restart 'trial::reset-render-loop)
           (invoke-restart 'trial::reset-render-loop)))

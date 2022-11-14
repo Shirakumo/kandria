@@ -104,7 +104,6 @@
 
 (defmethod alloy:accept ((label input-label))
   (setf (alloy:focus (alloy:focus-parent label)) :strong)
-  (discard-events +world+)
   (alloy:focus-prev (alloy:focus-parent label)))
 
 (defmethod handle (thing (label input-label)))
