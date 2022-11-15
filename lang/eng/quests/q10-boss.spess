@@ -1,7 +1,8 @@
 # 6-interact-/interaction
 ~ player
 | (:embarassed)"So they've got working mechs... that's good."(light-gray, italic)
-| (:thinking)"They built this one from drills and turbines - there are likely many more. Perhaps I can verify what its purpose was."(light-gray, italic)
+| (:thinking)"They built this one from drills and turbines - there are likely many more."(light-gray, italic)
+| "Perhaps I can verify what its purpose was - apart from to kill me."(light-gray, italic)
 | (:normal)"There's an interface port in the remains."(light-gray, italic) (:giggle)"Just gotta stick my finger in here... Pardon me."(light-gray, italic)
 | (:normal)"Hang on, what's this?"(light-gray, italic)
 | "Investigate possibility of additional android acquisitions: "Genera"(red) in the "western mountains"(red)."
