@@ -27,7 +27,7 @@
 | ! eval (activate (unit 'station-surface-trigger))
 |?
 | ~ player
-| | "I'd better "consult the last place to look on my map"(orange) and "finish exploring this region"(orange). Hopefully there'll be no more surprises."(light-gray, italic)
+| | "I'd better "check the last place to look on my map"(orange) and "finish exploring this region"(orange). Hopefully there'll be no more surprises."(light-gray, italic)
 
 ; the mech explodes on death, but we can assume part of it remains for the player to "examine"
 ; "working mechs" - chances are you saw only wrecked mechs / parts in the Wraw area, even if only in the boss room

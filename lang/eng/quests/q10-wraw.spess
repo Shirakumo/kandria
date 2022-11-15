@@ -31,5 +31,5 @@
 | ! eval (activate (unit 'station-surface-trigger))
 |?
 | ~ player
-| | I need to "consult the last place to look on my map"(orange) - "search for more signs of their activity"(orange).
+| | I need to "check the last place to look on my map"(orange) - "search for more signs of their activity"(orange).
 
