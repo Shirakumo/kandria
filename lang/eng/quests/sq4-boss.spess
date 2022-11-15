@@ -9,3 +9,5 @@
 | ! eval (activate (unit 'spawner-5032))
 
 ; ^ invariant check
+
+; spawner will reactivate while player on screen, but is an edge case
