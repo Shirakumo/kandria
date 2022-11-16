@@ -179,7 +179,7 @@
 
 (define-shader-entity chameleon (pet)
   ((nametag-element :initform NIL)
-   (bsize :initform (vec 8 8)))
+   (bsize :initform (vec 6 2)))
   (:default-initargs :sprite-data (asset 'kandria 'critter-chameleon)))
 
 (defmethod interactable-p ((critter chameleon)) NIL)
@@ -189,7 +189,7 @@
 
 (define-shader-entity frog (pet)
   ((nametag-element :initform NIL)
-   (bsize :initform (vec 8 8)))
+   (bsize :initform (vec 2 2)))
   (:default-initargs :sprite-data (asset 'kandria 'critter-frog)))
 
 (defmethod interactable-p ((critter frog)) NIL)
