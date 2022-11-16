@@ -496,7 +496,12 @@
                    (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
                    (setf (vx vel) (* (direction enemy) (movement-speed enemy)))
                    (when (svref (collisions enemy) 2)
-                     (setf (vy vel) 3.0)))
+                     (cond ((< (vy eloc) (vy ploc))
+                            (setf (vy vel) 3.0))
+                           ((typep (svref (collisions enemy) 2) 'platform)
+                            (decf (vy eloc) 2))
+                           (T
+                            (setf (vx vel) 0.0)))))
                   (T
                    (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
                    (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))))))))
