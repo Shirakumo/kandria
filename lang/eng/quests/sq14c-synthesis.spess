@@ -20,6 +20,7 @@
 ~ player
 | "It's "terminal 1"(red)."(light-gray, italic)
 ? (not (var 'first-one))
+| | "This is one of the databases {#@synthesis-nametag} wanted me to check."(light-gray, italic)
 | | "These are old internet servers - they're in low power mode."(light-gray, italic)
 | | (:giggle)"Good to see another working computer -"(light-gray, italic) (:normal)"though they're too primitive to read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
@@ -37,7 +38,13 @@
   | "Thus fatality often occurs as the result pg jogfdujpo46"
   | "Usjbmfe as a biological deterrent by Xftufso tvqfsqpxfst in the nje32twenty-fourth century."
   | "Not surprisingly it's corrupted, but I think I've "got what I need from this one"(orange)."(light-gray, italic)
-  | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "I'll "format the disk"(orange) now I've recorded the data; it's decaying anyway, but just to be safe."(light-gray, italic)
+  | | "It's not like there's anyone else who can access it, either - at least I don't think there is."(light-gray, italic)
+  | | "Though I could still "search for more information while I can"(orange)."(light-gray, italic)
+  |?
+  | | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
+    
   ! eval (setf (var 'terminal-1-clue) T)
   < terminal-1-query
 - (Search "cloud service")
@@ -120,6 +127,7 @@
 ~ player
 | "It's "terminal 2"(red)."(light-gray, italic)
 ? (not (var 'first-one))
+| | "This is one of the databases {#@synthesis-nametag} wanted me to check."(light-gray, italic)
 | | "These are old internet servers - they're in low power mode."(light-gray, italic)
 | | (:giggle)"Good to see another working computer -"(light-gray, italic) (:normal)"though they're too primitive to read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
@@ -150,7 +158,13 @@
   | "Not in this edition it doesn't - there aren't any more scans. Not that I want to read any more of this rag."(light-gray, italic)
   | (:embarassed)"No wonder people called it the three Zs - it puts you in a coma."(light-gray, italic)
   | (:normal)"Still, it was shockingly informative for my task: I've "got what I need from this one"(orange)."(light-gray, italic)
-  | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "I'll "format the disk"(orange) now I've recorded the data; it's decaying anyway, but just to be safe."(light-gray, italic)
+  | | "It's not like there's anyone else who can access it, either - at least I don't think there is."(light-gray, italic)
+  | | "Though I could still "search for more information while I can"(orange)."(light-gray, italic)
+  |?
+  | | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
+    
   ! eval (setf (var 'terminal-2-clue) T)
   < terminal-2-query
 - (Search "hardware failure")
@@ -242,6 +256,7 @@
 ~ player
 | "It's "terminal 3"(red)."(light-gray, italic)
 ? (not (var 'first-one))
+| | "This is one of the databases {#@synthesis-nametag} wanted me to check."(light-gray, italic)
 | | "These are old internet servers - they're in low power mode."(light-gray, italic)
 | | (:giggle)"Good to see another working computer -"(light-gray, italic) (:normal)"though they're too primitive to read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
@@ -270,7 +285,13 @@
   ! eval (status "Received 1 Expediate.txt")
   | (:giggle)"Wow that was quick. Oh, it's only 34KB... Legacy file types! And it's not corrupted. Good."(light-gray, italic)
   | (:normal)"Well I've "got what I need from this one"(orange)."(light-gray, italic)
-  | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "I'll "format the disk"(orange) now I've recorded the data; it's decaying anyway, but just to be safe."(light-gray, italic)
+  | | "It's not like there's anyone else who can access it, either - at least I don't think there is."(light-gray, italic)
+  | | "Though I could still "search for more information while I can"(orange)."(light-gray, italic)
+  |?
+  | | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
+    
   ! eval (setf (var 'terminal-3-clue) T)
   < terminal-3-query
 - (Search "cyber attack")
