@@ -163,6 +163,7 @@
 (defmethod is-collider-for ((item item) thing) NIL)
 (defmethod is-collider-for ((item item) (block block)) T)
 (defmethod is-collider-for ((item item) (block stopper)) NIL)
+(defmethod is-collider-for ((item item) (solid solid)) T)
 (defmethod is-collider-for (thing (item item)) NIL)
 (defmethod is-collider-for ((moving moving) (item item)) NIL)
 (defmethod collide (thing (item item) hit) NIL)
