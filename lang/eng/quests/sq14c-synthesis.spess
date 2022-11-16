@@ -20,7 +20,7 @@
 ~ player
 | "It's "terminal 1"(red)."(light-gray, italic)
 ? (not (var 'first-one))
-| | "This is one of the databases {#@synthesis-nametag} wanted me to check."(light-gray, italic)
+| | "This is "one of the databases {#@synthesis-nametag} wanted me to check"(orange)."(light-gray, italic)
 | | "These are old internet servers - they're in low power mode."(light-gray, italic)
 | | (:giggle)"Good to see another working computer -"(light-gray, italic) (:normal)"though they're too primitive to read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
@@ -127,7 +127,7 @@
 ~ player
 | "It's "terminal 2"(red)."(light-gray, italic)
 ? (not (var 'first-one))
-| | "This is one of the databases {#@synthesis-nametag} wanted me to check."(light-gray, italic)
+| | "This is "one of the databases {#@synthesis-nametag} wanted me to check"(orange)."(light-gray, italic)
 | | "These are old internet servers - they're in low power mode."(light-gray, italic)
 | | (:giggle)"Good to see another working computer -"(light-gray, italic) (:normal)"though they're too primitive to read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
@@ -157,7 +157,7 @@
   | "Story continues on p5"
   | "Not in this edition it doesn't - there aren't any more scans. Not that I want to read any more of this rag."(light-gray, italic)
   | (:embarassed)"No wonder people called it the three Zs - it puts you in a coma."(light-gray, italic)
-  | (:normal)"Still, it was shockingly informative for my task: I've "got what I need from this one"(orange)."(light-gray, italic)
+  | (:normal)"Still, it was shockingly informative for my task: I've "got what I need from this terminal"(orange)."(light-gray, italic)
   ? (not (var 'first-one))
   | | "I'll "format the disk"(orange) now I've recorded the data; it's decaying anyway, but just to be safe."(light-gray, italic)
   | | "It's not like there's anyone else who can access it, either - at least I don't think there is."(light-gray, italic)
@@ -256,7 +256,7 @@
 ~ player
 | "It's "terminal 3"(red)."(light-gray, italic)
 ? (not (var 'first-one))
-| | "This is one of the databases {#@synthesis-nametag} wanted me to check."(light-gray, italic)
+| | "This is "one of the databases {#@synthesis-nametag} wanted me to check"(orange)."(light-gray, italic)
 | | "These are old internet servers - they're in low power mode."(light-gray, italic)
 | | (:giggle)"Good to see another working computer -"(light-gray, italic) (:normal)"though they're too primitive to read my black box."(light-gray, italic)
 | | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
@@ -279,7 +279,7 @@
   | "How is it made? The drug is derived from a "chemical synthesis of opium poppy juice and antibiotics from Usjdipmpnb furvus (black cap mushrooms)"(orange)."
   | "A dbubmztu "enzyme is also required"(orange)."
   | ""Download Expediate.txt"(orange) for more information."
-  | "I think I will - half of this is corrupted. And besides, "{#@synthesis-nametag} needs to know exact quantities"(orange)."(light-gray, italic)
+  | "I think I will - half of this is corrupted. And besides, "{#@synthesis-nametag} would need to know exact quantities"(orange) if they intend to do anything with this."(light-gray, italic)
   | ""Downloading Expediate.txt..."(orange)"
   ! eval (store 'item:synthesis-file 1)
   ! eval (status "Received 1 Expediate.txt")
@@ -381,8 +381,8 @@
 | "It "increases the human body's tolerance for pain"(orange), perhaps as an analgesic."(light-gray, italic)
 | "In theory it also "extends how long people can work without food or water (or sleep), and means they can work in more extreme temperatures"(orange)."(light-gray, italic)
 | (:embarassed)"And it has a variety of fun "side effects"(orange), not least migraines and addiction - and perhaps even reduced immune response..."(light-gray, italic)
-| (:normal)"Oh but hey, it's also a source of vitamin D!"(light-gray, italic)
-| "So this is the information they wanted?"(light-gray, italic)
+| (:giggle)"Oh but hey, it's also a source of vitamin D!"(light-gray, italic)
+| (:normal)"So this is the information they wanted?"(light-gray, italic)
 | (:thinking)"Do I really want to "hand this over to {#@synthesis-nametag}"(orange)? I can see the benefits for people living underground - and on the surface. But this doesn't feel right, does it?"(light-gray, italic)
 | "Maybe I just don't go back."(light-gray, italic)
 ! eval (activate 'task-return)
@@ -452,7 +452,7 @@
   | (:grin)That might be one side effect. But "we want unity more than we want money. This will level the playing field. And even keep the peace"(orange).
 ~ synthesis
 | (:grin)There's such a thing as a "deterrent"(orange), you know.
-| So are you going to give us the information or not?
+| "So are you going to give us the information or not?"(orange)
 ~ player
 - (Share Expediate.txt)
   ~ player
@@ -464,7 +464,7 @@
   ~ synthesis
   | (:grin)We have it. This recipe is... "fascinating"(italic).
   < good-end
-- (Modify the file)
+- (Modify and share the file)
   ~ player
   | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
   | "But not before I make some subtle alterations, copy-paste-edit style... I'm no chemist, but I think changing the quantity of compounds should scupper the chemical reaction."(light-gray, italic)
@@ -478,7 +478,7 @@
   ~ synthesis
   | We have it. This recipe is... "unexpected"(italic).
   < good-end
-- (Partially corrupt it)
+- (Corrupt and share it)
   ~ player
   | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
   | "But not before I plausibly corrupt some choice key words and quantities, similar to those corruptions I saw in the terminals."(light-gray, italic)
@@ -506,7 +506,7 @@
   | ...
   | If that is really your choice.
   < bad-end
-- (Delete the file)
+- (Delete it)
   ~ player
   | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
   | "But not if I delete it."(light-gray, italic)

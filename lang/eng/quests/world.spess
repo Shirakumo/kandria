@@ -299,7 +299,7 @@
 ; The player does know the term "Calamity" by this point
 # task-world-all/cerebat-lab-1
 ~ player
-| (:thinking)"I don't think this lab has been used since before the Calamity."(light-gray, italic)
+| "Looking at the multiple strata of dust on these surfaces, I don't think this lab has been used since before the Calamity."(light-gray, italic)
 
 ; abandoned lab, looking at an unusual sample in a glass tube (like something from Aliens)
 # task-world-all/cerebat-lab-2
