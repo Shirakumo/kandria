@@ -77,7 +77,8 @@
 (defmethod show :after ((panel quick-menu) &key)
   (setf (time-scale +world+) 0.05)
   (when (< 0 (alloy:element-count (alloy:focus-element panel)))
-    (setf (alloy:index (alloy:focus-element panel)) 0)))
+    (setf (alloy:index (alloy:focus-element panel)) 0))
+  (setf (timeout (health (find-panel 'hud))) 5.0))
 
 (defmethod hide :after ((panel quick-menu))
   (setf (time-scale +world+) 1.0))
