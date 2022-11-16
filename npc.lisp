@@ -745,6 +745,7 @@
 
 (defmethod hurt ((npc zelah) (player player))
   (walk-n-talk (@ zelah-attack-start))
+  (override-music 'battle)
   (change-class npc 'zelah-enemy))
 
 ;; roaming engineers used in the questline
