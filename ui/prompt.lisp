@@ -93,6 +93,10 @@
   (when (alloy:layout-tree prompt)
     (alloy:leave prompt T)))
 
+(defmethod alloy:render :around ((ui ui) (prompt prompt))
+  (unless (find-panel 'fullscreen-panel)
+    (call-next-method)))
+
 (defclass big-prompt (alloy:label*)
   ())
 
