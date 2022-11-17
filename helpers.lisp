@@ -4,7 +4,7 @@
 (define-pool sound :base "sound/")
 (define-pool music :base "music/")
 
-(defvar *install-root*)
+(defvar *install-root* NIL)
 
 (defun set-pool-paths-from-install (install)
   (setf *install-root* install)
