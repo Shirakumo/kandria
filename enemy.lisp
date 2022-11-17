@@ -503,7 +503,8 @@
                            (T
                             (setf (vx vel) 0.0)))))
                   (T
-                   (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
+                   (when (< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 4))
+                     (setf (direction enemy) (signum (- (vx ploc) (vx eloc)))))
                    (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))))))))
 
 (defmethod hit :after ((enemy rogue) location)
