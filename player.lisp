@@ -542,23 +542,15 @@ void main(){
                       (< (+ 2 (- (vy loc) (vy size)))
                          (+ (vy (location entity)) (vy (bsize entity)))))
              (setf (interactable player) entity)))
-          (door
-           (when (and (contained-p interactable entity)
-                      (not (eql :climbing (state player)))
-                      (interactable-p entity)
-                      (or (null closest)
-                          (<= (vsqrdistance (location entity) loc)
-                              (vsqrdistance (location closest) loc))))
-             (setf closest entity)))
           (interactable
            (when (and (contained-p interactable entity)
                       (not (eql :climbing (state player)))
                       (interactable-p entity)
                       (or (null closest)
-                          (and
-                           (<= (vsqrdistance (location entity) loc)
-                               (vsqrdistance (location closest) loc))
-                           (not (typep closest 'door)))))
+                          (< (interactable-priority closest)
+                             (interactable-priority entity))
+                          (<= (vsqrdistance (location entity) loc)
+                              (vsqrdistance (location closest) loc))))
              (setf closest entity)))
           (trigger
            (when (contained-p trigger entity)

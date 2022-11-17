@@ -169,6 +169,8 @@
 (defmethod is-collider-for ((moving moving) (item item)) NIL)
 (defmethod collide (thing (item item) hit) NIL)
 
+(defmethod interactable-priority ((item item)) 2)
+
 (defmethod interactable-p ((item item))
   (let ((vel (velocity item)))
     (and (= 0 (vx vel)) (= 0 (vy vel)))))

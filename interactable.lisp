@@ -7,6 +7,9 @@
 
 (defgeneric interact (with from))
 (defgeneric interactable-p (entity))
+(defgeneric interactable-priority (entity))
+
+(defmethod interactable-priority ((interactable interactable)) 0)
 
 (defmethod description ((interactable interactable)) "")
 (defmethod interactable-p ((entity entity)) NIL)
@@ -94,6 +97,7 @@
          (language-string 'door-down))))
 
 (defmethod interactable-p ((door door)) T)
+(defmethod interactable-priority ((door door)) 1)
 
 (defmethod default-tool ((door door)) (find-class 'freeform))
 
