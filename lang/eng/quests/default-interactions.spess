@@ -36,6 +36,8 @@
 | | (:angry)You picked the wrong side.
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | (:angry)Hello again.
+|? (complete-p 'Q13-INTRO)
+| | (:angry)The end is coming.
 |? (complete-p 'Q7-MY-NAME)
 | | (:angry)Get lost.
 |? (complete-p 'Q4-FIND-ALEX)
