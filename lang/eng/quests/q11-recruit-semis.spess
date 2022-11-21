@@ -179,10 +179,10 @@
 ~ player
 | (:thinking)"I think I "know where I might find components like these"(orange), after my last foray into Wraw territory."(light-gray, italic)
 | (:normal)"I should "check their factories and warehouses"(orange) - I'll "update my map"(orange)."(light-gray, italic)
-| I should also "finish any existing jobs for people as well"(orange) if I haven't already, before the shit hits the proverbial wind turbine.
+| "I should also "finish any existing jobs for people as well"(orange) if I haven't already, before the shit hits the proverbial wind turbine."(light-gray, italic)
 ? (or (or (active-p 'sq3-race) (complete-p 'sq3-race)) (or (active-p 'sq5-race) (complete-p 'sq5-race)) (or (active-p 'sq9-race) (complete-p 'sq9-race)) (or (active-p 'sq10-race) (complete-p 'sq10-race)))
 | ~ player
-| | Though I think it's time to retire from time trials, and hang up my speedy boots.
+| | "Though I think it's time to "retire from time trials"(orange), and hang up my speedy boots."(light-gray, italic)
   
 ! eval (deactivate 'task-reminder)
 ! eval (activate 'q12-help-alex)
