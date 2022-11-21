@@ -34,7 +34,7 @@
   | (:unsure)...
   | I hope not.
   ~ catherine
-  | (:concerned)Me too - sorry, I'll get back to work.
+  | (:concerned)Me too- Sorry, I'll get back to work.
   ~ fi
   | But you are the best we have for this, as much as I wish you weren't.
   < continue
@@ -99,7 +99,7 @@
 | On your "low eastern border, beyond the old Rootless hospital apartments"(orange);
 | ... In the "flooded cave beside the pump room"(orange).
 ~ fi
-| (:unsure)You're not serious?
+| (:annoyed)You're not serious?
 ~ islay
 | Our monitoring devices at the foot of your territory are already going offline.
 | We need to stop the Wraw here and now.
