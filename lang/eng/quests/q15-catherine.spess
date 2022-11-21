@@ -61,8 +61,10 @@
 | (:normal)Okay, "take this walkie"(orange) - she's not responding, but "she might call if she needs help"(orange).
 ! eval (store 'item:walkie-talkie-2 1)
 ! eval (status "Received 1 Walkie-Talkie")
-| "She's probably gone to the pump room first"(orange) as it's closest to the border.
+| She's probably "gone to the pump room bomb first"(orange) as it's closest to the border.
 | (:annoyed)She also "took the signal detonator"(orange)...
 ! eval (follow 'player 'catherine)
+
+; implication here that the walkie, though shorter range than FFCS (and Semis' FFCS devices) can at least cut through the interference
 
 ; it's possible (though unlikely on a crit path first playthrough) that the player will go and see Islay at the pump room bomb (via train), before triggering this convo above with Fi. However, since Islay's trade options will still be on at this point (they are neatly removed when sequence quest q15-catherine is completed, since then she's focused on the bombs) she will trade, but nothing more. And what the player can then say (or not say) above to Fi, still makes sense if they've seen Islay down there (on the map, or in person).
