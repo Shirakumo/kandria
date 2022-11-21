@@ -84,7 +84,7 @@
 ~ islay
 | (:normal)Aye, that might work. You'd need to go behind enemy lines again.
 | "The Wraw hoard this kind of stuff"(orange) - they should have plenty lying around now.
-| (:normal)We need "blasting caps"(orange) for the detonators, and "charge packs"(orange) for the explosive.
+| (:normal)We need "blasting caps"(orange) for the detonator, and "charge packs"(orange) for the explosive.
 | I think "10 of each"(orange) should be enough, allowing for a few spares.
 | Actually, make it "20 charge packs"(orange), just to be sure it has a big enough explosive yield.
 | And you'll "get paid for your efforts"(orange): I'm a trader after all.
@@ -166,7 +166,7 @@
 ~ player
 - One more time.
   ~ islay
-  | So: we need "10 blasting caps"(orange) and "20 charge packs"(orange).
+  | So: we need "10 blasting caps"(orange) and "20 charge packs"(orange) for the bomb.
   | You should find them "deep in Wraw territory"(orange). Then "meet us at the Noka Camp on the surface"(orange).
 - Got it.
 ~ islay
