@@ -179,6 +179,11 @@
 ~ player
 | (:thinking)"I think I "know where I might find components like these"(orange), after my last foray into Wraw territory."(light-gray, italic)
 | (:normal)"I should "check their factories and warehouses"(orange) - I'll "update my map"(orange)."(light-gray, italic)
+| I should also "finish any existing jobs for people as well"(orange) if I haven't already, before the shit hits the proverbial wind turbine.
+? (or (or (active-p 'sq3-race) (complete-p 'sq3-race)) (or (active-p 'sq5-race) (complete-p 'sq5-race)) (or (active-p 'sq9-race) (complete-p 'sq9-race)) (or (active-p 'sq10-race) (complete-p 'sq10-race)))
+| ~ player
+| | Though I think it's time to retire from time trials, and hang up my speedy boots.
+  
 ! eval (deactivate 'task-reminder)
 ! eval (activate 'q12-help-alex)
 ! eval (setf (location 'alex) 'alex-wraw-loc)
@@ -198,3 +203,9 @@
 ! eval (activate (unit 'bomb-charge-5))
 
 ; dinnae = don't / do not (Scottish)
+
+; "finish any existing jobs for people as well" - simpler than doing a conditional to check many sidequest statuses, and implies the character themselves will need to check their log to see what's done and not done - they aren't infallible in their memory after all (also makes no reference to starting new sidequests, since starting them is now curtailed - but had Fi warning in q11-intro)
+
+; also now has a conditional to explain why races void here, using the core log quest for each race type to check if active or complete (and thus whether unlocked actual races themselves). "Speed boots" is a non-licence infringing reference to Sonic's Power Sneakers :)
+
+; "shit hits the proverbial wind turbine" - a post-Calamity riff on the old-world phrase, "when the shit hits the fan"; player has likely seen cerebat wind turbines in the tunnels to make the joke, if not necessarily talked to Catherine about them (sq7), heard world NPCs talking about them, or found the lore interacts
