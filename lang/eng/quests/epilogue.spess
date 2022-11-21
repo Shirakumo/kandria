@@ -1,6 +1,6 @@
 # 4-interact-catherine/interaction
 ~ catherine
-| (:concerned)... Oh man, you had me worried there.
+| (:concerned)... Oh man, you had me worried there. I've been trying to reactivate you.
 | Are you okay?
 ~ player
 - What happened?
@@ -18,7 +18,7 @@
 ~ catherine
 | (:concerned)That bomb practically "exploded in our faces"(orange) - I think "they all exploded"(orange).
 | (:excited)Does that mean "we won"(orange)?!
-| (:concerned)But "those blasts were bigger than they should've been"(orange).
+| (:concerned)But "those blasts were bigger than they should've been"(orange)...
 | I had a look around - I think they've "collapsed this whole area"(orange).
 | I hope {#@islay-nametag} is okay.
 ~ player

@@ -46,7 +46,7 @@
 ~ catherine
 | (:concerned)...
 ~ catherine
-| Okay. Let's go together - "after the mech"(orange).
+| (:excited)Okay. Let's go together - "after the mech"(orange).
 ! eval (complete 'check-bomb-3)
 ! eval (deactivate 'task-reminder)
 ! eval (clear-pending-interactions)
