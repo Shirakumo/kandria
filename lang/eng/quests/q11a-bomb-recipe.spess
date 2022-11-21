@@ -44,7 +44,7 @@
   < questions
 - What weapons do we have?
   ~ fi
-  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and {#@jack-nametag} got working. The Semi Sisters have some too, but in better condition and lots more of them.
+  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and {#@jack-nametag} got working. The Semi Sisters have some too, but in better condition and lots more.
   | I don't remember the Wraw having anything like that - they're more into swords and spears, so they can watch you die up close.
   | (:unsure)We've also got scythes, shears, and other sharp farming tools.
   | (:happy)And we've got you.
@@ -106,7 +106,7 @@
 | And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
 ~ islay
 | I was about to add... "could you join us as well, {(nametag player)}"(orange)? This concerns you.
-| I'm afraid "your other jobs will have to wait"(orange).
+| I'm afraid "any of your other jobs will have to wait"(orange).
 | {#@innis-nametag}, keep an eye on things here.
 ~ innis
 | (:angry)Aye, alright.
