@@ -111,7 +111,7 @@
     | Okay then. We do value your work, and this will be dangerous.
   - Make it 50.
     ~ innis
-    | (:angry)Fuck that! And what're ya gonna spend it on when the Wraw have rolled through here?
+    | (:angry)Fuck that! And what're ya gonna spend it on after the Wraw have rolled through here?
     ~ islay
     | If we stop them, life might return to normal.
     | But we can't afford 50 - we need those parts. "How about 35?"(orange) We do value your work, and this will be dangerous.
@@ -160,6 +160,11 @@
   | (:sly)I think she just checked her FFCS.
   | (:angry)And you want us to trust you?
 - (Trust {#@islay-nametag})
+- Are you sure it's not you running interference like before?
+  ~ innis
+  | (:angry)How dare you!
+  ~ islay
+  | (:nervous)... Look, if we're going to trust one another, now is the time to start.
 ~ islay
 | I'll explain everything to {#@fi-nametag} once we reach the surface. "Meet us there when you have the components"(orange).
 | You got it? This is important.
