@@ -155,7 +155,7 @@
 - (Check FFCS)
   ~ player
   | "Checking FFCS..."(light-gray, italic)
-  | (:embarassed)"She's right. Shit."(light-gray, italic)
+  | (:embarassed)""It's blocked"(orange). Shit."(light-gray, italic)
   ~ innis
   | (:sly)I think she just checked her FFCS.
   | (:angry)And you want us to trust you?
