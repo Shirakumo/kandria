@@ -30,6 +30,10 @@
 (defmethod description ((npc npc))
   (language-string 'talk-to))
 
+(defmethod leave :after ((npc npc) (container container))
+  (when (nametag-element npc)
+    (hide (nametag-element npc))))
+
 (defmethod (setf nametag) :after (tag (npc npc))
   (when (slot-boundp npc 'nametag-element)
     (alloy:mark-for-render (nametag-element npc))))
