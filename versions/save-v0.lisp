@@ -499,3 +499,10 @@
         (ecase (getf initargs :state)
           (:open 'open)
           (:closed 'closed))))
+
+(define-encoder (bomb save-v0) (_b _p)
+  `(:location ,(encode (location bomb))))
+
+(define-decoder (bomb save-v0) (initargs _p)
+  (setf (location bomb) (decode 'vec2 (getf initargs :location)))
+  bomb)
