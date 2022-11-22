@@ -257,7 +257,7 @@ void main(){
   (delay 0.2)
   (ease 0.1 (shake-intensity (camera +world+)) :from 10.0 :to 0.0)
   (delay 0.7)
-  (eval (harmony:play (// 'sound 'ambience-earthquake)))
+  (eval (harmony:play (// 'sound 'ambience-earthquake) :volume (db -10)))
   (ease 2.0 (shake-intensity (camera +world+)) :from 0.0 :to 20.0 :ease #'easing-f:in-cubic :blocking NIL)
   (ease 2.0 (strength (u 'sandstorm)) :from 0.0 :to 0.5 :blocking NIL)
   (delay 0.5)
