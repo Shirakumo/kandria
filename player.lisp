@@ -1386,6 +1386,7 @@ void main(){
   (place-on-ground player (spawn-location player))
   (setf (state player) :normal)
   (setf (combat-time player) 100.0)
+  (setf (intended-zoom (camera +world+)) 1.0)
   (snap-to-target (camera +world+) player))
 
 (defmethod damage-output ((player player))
