@@ -246,6 +246,7 @@ void main(){
 (action-list:define-action-list start-game
   (setf (kind (u 'fade)) :black
         (direction (u 'fade)) 0.0)
+  (eval (harmony:play (// 'sound 'player-awaken)))
   (ease 5.0 (strength (u 'fade)) :from 1.0 :to 0.0 :ease #'easing-f:in-bounce :blocking NIL)
   (ease 1.0 (strength (u 'fade)) :from 1.0 :to 1.0))
 
