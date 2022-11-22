@@ -273,9 +273,10 @@ void main(){
   (ease 1.0 (shake-intensity (camera +world+)) :from 20.0 :to 0.0))
 
 (action-list:define-action-list low-health
-  (eval (setf (kind (u 'fade)) :white))
+  (eval (setf (kind (u 'fade)) :white)
+        (setf (time-scale +world+) 1.0))
   (ease 0.1 (strength (u 'fade)) :from 0.0 :to 0.8                                :lanes #b010)
-  (ease 0.8 (strength (u 'fade)) :from 0.8 :to 0.0 :ease #'easing-f:in-exp        :lanes #b010)
+  (ease 0.8 (strength (u 'fade)) :from 0.8 :to 0.0 :ease #'easing-f:out-exp       :lanes #b010)
   (ease 0.2 (strength (u 'distortion)) :from 0.0 :to 0.7 :ease #'easing-f:out-exp :lanes #b100)
   (ease 0.5 (time-scale +world+) :from 1.0 :to 0.2 :ease #'easing-f:in-quint      :lanes #b001)
   (delay 1.0)
