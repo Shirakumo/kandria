@@ -503,9 +503,13 @@
                            (T
                             (setf (vx vel) 0.0)))))
                   (T
-                   (when (< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 4))
-                     (setf (direction enemy) (signum (- (vx ploc) (vx eloc)))))
-                   (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))))))))
+                   (cond ((< (* +tile-size+ 2) (abs (- (vy ploc) (vy eloc))))
+                          (setf (vx vel) 0))
+                         ((< (* +tile-size+ 4) (abs (- (vx ploc) (vx eloc))))
+                          (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
+                          (setf (vx vel) (* (direction enemy) (movement-speed enemy))))
+                         (T
+                          (setf (vx vel) (* (direction enemy) (movement-speed enemy))))))))))))))
 
 (defmethod hit :after ((enemy rogue) location)
   (trigger 'spark enemy :location (v+ location (vrand (vec 0 0) 8))))
