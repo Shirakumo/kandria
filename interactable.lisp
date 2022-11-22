@@ -362,5 +362,5 @@ void main(){
 (defmethod interact :after ((marker bomb-marker) (player player))
   (harmony:play (// 'sound 'bomb-plant))
   (start-animation 'place-bomb 'player)
-  (spawn player 'bomb)
+  (mark-as-spawned (spawn player 'bomb) T)
   (setf (quest:active-p marker) NIL))
