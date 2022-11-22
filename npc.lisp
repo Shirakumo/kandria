@@ -12,10 +12,10 @@
    (companion :initform NIL :accessor companion)
    (walk :initform NIL :accessor walk)
    (lead-interrupt :initform (@ default-lead-interrupt) :accessor lead-interrupt)
-   (nametag-element :accessor nametag-element)))
+   (nametag-element :initform NIL :accessor nametag-element)))
 
 (defmethod initialize-instance :after ((npc npc) &key)
-  (unless (slot-boundp npc 'nametag-element)
+  (unless (nametag-element npc)
     (setf (nametag-element npc) (make-instance 'nametag-element :value npc))))
 
 (defmethod update-instance-for-different-class :before ((npc npc) (cur ai-entity) &key)
