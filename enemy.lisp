@@ -107,6 +107,11 @@
   (unless (health-bar enemy)
     (setf (health-bar enemy) (make-instance 'boss-health-bar :value enemy))))
 
+(defmethod update-instance-for-different-class :before ((enemy major-enemy) cur &key)
+  (unless (typep cur 'major-enemy)
+    (when (health-bar enemy)
+      (hide (health-bar enemy)))))
+
 (defmethod leave :after ((enemy major-enemy) (container container))
   (hide (health-bar enemy)))
 
