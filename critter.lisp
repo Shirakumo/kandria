@@ -117,6 +117,9 @@
    (nametag :initform (@ player-nametag))
    (timer :initform 0.0 :accessor timer)))
 
+(defmethod (setf nametag-element) (value (pet pet))
+  value)
+
 (defmethod interactable-p ((npc pet))
   (or (eql 'stand (name (animation npc)))
       (eql 'sit (name (animation npc)))))
