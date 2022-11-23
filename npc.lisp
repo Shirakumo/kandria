@@ -703,7 +703,7 @@
   (:default-initargs
    :default-interaction 'npc))
 
-(defmethod initialize-instance :before ((villager villager) &key)
+(defmethod shared-initialize :after ((villager villager) slots &key)
   (case (random 2)
     (0
      (setf (slot-value villager 'trial:sprite-data) (asset 'kandria 'villager-male))
