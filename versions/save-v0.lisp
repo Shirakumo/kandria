@@ -343,6 +343,7 @@
     (setf (stats player) stats)
     (setf (palette-index player) palette)
     (setf (sword-level player) sword-level)
+    (setf (combat-time player) 100.0)
     (when nametag
       (setf (nametag player) nametag))
     ;; Force state to normal to avoid being caught in save animation
