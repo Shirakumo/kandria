@@ -148,6 +148,15 @@
     (when (and (typep (svref collisions 3) 'moving-platform)
                (svref collisions 1) (< 0 (vx (velocity (svref collisions 3)))))
       (die moving))
+    ;; KLUDGE: if the entity gets badly stuck in the ground with a hitbox
+    ;;         smaller than the tile size, it will be stuck permanently.
+    ;;         Here we force it out as long as we have a solid tile at the
+    ;;         entity's position.
+    (when (and (svref collisions 0) (svref collisions 2))
+      (when (chunk moving)
+        (loop for tile = (or (first (tile loc (chunk moving))) 0)
+              while (or (= 1 tile) (= 22 tile))
+              do (incf (vy (location moving)) 8))))
     
     ;; Point test for adjacent walls
     (flet ((test (hit)
