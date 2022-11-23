@@ -119,7 +119,7 @@
     (and (null (find-panel '(or menuing-panel map-panel load-panel fullscreen-prompt)))
          player
          (if check-ground (svref (collisions player) 2) T)
-         (not (eql :moving (state player)))
+         (null (path player))
          (not (eql :dying (state player)))
          (not (eql :respawning (state player))))))
 
