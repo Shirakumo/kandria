@@ -739,7 +739,8 @@
   ((name :initform 'zelah)
    (profile-sprite-data :initform (asset 'kandria 'zelah-profile))
    (nametag :initform (@ zelah-nametag))
-   (level :initform 40))
+   (level :initform 40)
+   (bsize :initform (vec 6 15)))
   (:default-initargs :sprite-data (asset 'kandria 'zelah)))
 
 (defmethod stage :after ((enemy zelah) (area staging-area))

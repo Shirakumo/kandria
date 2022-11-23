@@ -558,7 +558,8 @@
     (T (p! walk-limit))))
 
 (defmethod interactable-p ((enemy zelah-enemy)) NIL)
-
+(defmethod is-collider-for ((enemy zelah-enemy) (block stopper)) NIL)
+(defmethod collides-p ((enemy zelah-enemy) (block stopper) hit) NIL)
 (defmethod interrupt ((enemy zelah-enemy)) NIL)
 
 (defmethod handle-ai-states ((enemy zelah-enemy) ev)
