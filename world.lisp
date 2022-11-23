@@ -114,11 +114,12 @@
       (when (typep object 'save-point)
         (return T)))))
 
-(defun pausing-possible-p ()
+(defun pausing-possible-p (&optional (check-ground T))
   (let ((player (unit 'player +world+)))
     (and (null (find-panel '(or menuing-panel map-panel load-panel fullscreen-prompt)))
          player
-         (svref (collisions player) 2)
+         (if check-ground (svref (collisions player) 2) T)
+         (not (eql :moving (state player)))
          (not (eql :dying (state player)))
          (not (eql :respawning (state player))))))
 

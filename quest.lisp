@@ -136,7 +136,7 @@
 
 (defmethod quest:try ((trigger interaction))
   (when (and (auto-trigger trigger)
-             (pausing-possible-p))
+             (pausing-possible-p NIL))
     (interact trigger T)))
 
 (defmethod quest:title ((interaction interaction))
