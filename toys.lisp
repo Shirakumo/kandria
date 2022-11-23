@@ -818,6 +818,9 @@ void main(){
 
 (defmethod layer-index ((door crashable-door)) (1+ +base-layer+))
 
+(defmethod stage ((door crashable-door) (area staging-area))
+  (stage (// 'sound 'door-crash) area))
+
 (defmethod is-collider-for ((moving moving) (door crashable-door))
   (eql 'idle (name (animation door))))
 
@@ -827,22 +830,27 @@ void main(){
 (defmethod collide ((player player) (door crashable-door) hit)
   (cond ((and (or (eql :dashing (state player))
                   (eql :animated (state player))))
-         ;; (harmony:play (// 'sound 'door-crash) :reset T)
+         (harmony:play (// 'sound 'door-crash) :reset T)
          (if (eql :dashing (state player))
              (setf (vx (velocity player)) (- (vx (velocity player)))
                    (vy (velocity player)) 1.0)
              (setf (vx (velocity player)) 0.0))
-         (setf (vy (velocity door)) 1.0)
-         (cond ((< (vx (hit-normal hit)) 0)
-                (setf (vx (velocity door)) +4.0)
-                (setf (animation door) 'burst-right))
-               ((< 0 (vx (hit-normal hit)))
-                (setf (vx (velocity door)) -4.0)
-                (setf (animation door) 'burst-left))))
+         (setf (state door) :crashing)
+         (if (< (vx (hit-normal hit)) 0)
+             (setf (animation door) 'burst-right)
+             (setf (animation door) 'burst-left)))
         (T
          (call-next-method))))
 
 (defmethod handle :before ((ev tick) (door crashable-door))
+  (case (state door)
+    (:crashing
+     (when (<= 0.05 (clock door))
+       (setf (state door) :normal)
+       (setf (vy (velocity door)) 1.0)
+       (if (eql 'burst-right (name (animation door)))
+           (setf (vx (velocity door)) +4.0)
+           (setf (vx (velocity door)) -4.0)))))
   (let ((collisions (collisions door))
         (vel (velocity door)))
     (let ((ground (svref collisions 2))

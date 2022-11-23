@@ -175,6 +175,7 @@
   (fishing-rare-catch :volume (db -1))
   (gate-lift :volume (db -2))
   (door-open :volume (db -2))
+  (door-crash :volume (db 0))
   (door-open-sliding-inside :volume (db -2))
   (door-open-sliding-outside :volume (db -2))
   (enter-water :volume (db -7))
