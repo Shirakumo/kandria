@@ -35,7 +35,7 @@
     (hide (nametag-element npc))))
 
 (defmethod (setf nametag) :after (tag (npc npc))
-  (when (slot-boundp npc 'nametag-element)
+  (when (nametag-element npc)
     (alloy:mark-for-render (nametag-element npc))))
 
 (defmethod capable-p ((npc npc) (edge jump-node)) T)
