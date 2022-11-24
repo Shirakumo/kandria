@@ -318,6 +318,7 @@
            (v<- (location player) loc)
            (place-on-ground player (location player))
            (stop player)
+           (setf (active-p (find-class 'in-game)) T)
            (setf (target (camera +world+)) player)
            (setf (state train) :normal)))))))
 
