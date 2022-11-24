@@ -213,14 +213,19 @@
                                       (output-json (make-pathname :name (format NIL "~a-profile" (pathname-name profile)) :type "json" :defaults profile))
                                       (size 1024))
   (let* ((paths (directory (merge-pathnames (format NIL "~a-*" (pathname-name profile)) profile)))
-         (names (loop for path in paths collect (aref (nth-value 1 (cl-ppcre:scan-to-strings "-(.*)" (pathname-name path))) 0))))
+         (names (loop for path in paths collect (aref (nth-value 1 (cl-ppcre:scan-to-strings "-(.*)" (pathname-name path))) 0)))
+         (tmp (make-pathname :name "tmp" :defaults output-atlas)))
     (apply #'img-montage
            (append paths
                    (list
                     "-geometry" (format NIL "~ax~a+0+0" size size)
                     "-tile" "x1"
                     "-background" "none"
-                    output-atlas)))
+                    tmp)))
+    ;; Apply drop shadow
+    (img-convert tmp
+                 "(" "-clone" "0" "-fuzz" "99%" "-alpha" "on" "-fill" "rgba(0,0,0,0.5)" "-opaque" "#000" "-page" "-30+50" "-background" "none" "-flatten" "-blur" "0x100" ")"
+                 "-compose" "dst-over" "-composite" output-atlas)
     (let ((*print-pretty* nil)
           (data `(:obj
                   ("frames"
