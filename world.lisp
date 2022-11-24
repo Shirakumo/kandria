@@ -55,6 +55,10 @@
 
 (defmethod pause-game ((world world) pauser)
   (unless (handler-stack world)
+    (let ((sfx (copy-seq (harmony:segments (harmony:segment :sources T)))))
+      (loop for segment across sfx
+            unless (typep segment 'harmony:music-segment)
+            do (harmony:stop segment)))
     (let ((segment (harmony:segment :music-lowpass T)))
       (when (< 50 (abs (- (mixed:frequency segment) 400)))
         (setf (mixed:frequency segment) 400.0)))
