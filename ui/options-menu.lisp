@@ -160,7 +160,7 @@
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout
                                 :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (bindings (make-instance 'alloy:horizontal-linear-layout :min-size (alloy:size 120 50) :cell-margins (alloy:margins)))
-         (focus (make-instance 'alloy:focus-list))
+         (focus (make-instance 'alloy:visual-focus-manager))
          (label (make-instance 'popup-label :value (language-string (alloy:value source))))
          (ok (alloy:represent (@ accept-input-change) 'popup-button))
          (cancel (alloy:represent (@ cancel-input-change) 'popup-button))
@@ -182,7 +182,8 @@
     (alloy:on alloy:activate (add)
       (let ((binding (make-instance 'input-mapping-structure)))
         (alloy:enter binding bindings)
-        (alloy:enter binding focus)))
+        (alloy:enter binding focus)
+        (setf (alloy:focus binding) :strong)))
     (dolist (mapping (find-action-mappings (alloy:value source) (case +input-source+
                                                                   (:keyboard '(or key-event mouse-event))
                                                                   (T 'gamepad-event))))
