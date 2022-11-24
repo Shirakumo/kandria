@@ -78,10 +78,6 @@
   (sort (alloy:elements container) #'split<)
   element)
 
-(defmethod (setf alloy:bounds) :after (bounds (container splits-layout))
-  (setf (slot-value (alloy:layout-parent container) 'alloy:offset) (alloy:px-point 0 (- (alloy:pxh (alloy:bounds (alloy:layout-parent container)))
-                                                                                        (alloy:pxh (alloy:bounds container))))))
-
 (defclass splits (panel)
   ((list :initform (make-instance 'splits-layout))
    (timer :initform (alloy:represent (stats-play-time (stats (unit 'player +world+))) 'split-total))))
