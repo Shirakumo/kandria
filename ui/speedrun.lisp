@@ -21,7 +21,7 @@
    :halign :start
    :valign :middle)
   ((:label simple:text)
-   (alloy:margins 0 0 0 0)
+   (alloy:margins 0 0 5 0)
    alloy:text
    :font "PromptFont"
    :size (alloy:un 12)
@@ -56,7 +56,7 @@
    (alloy:margins)
    :pattern (colored:color 0 0 0 0.8))
   ((:label simple:text)
-   (alloy:margins) alloy:text
+   (alloy:margins 0 0 5 0) alloy:text
    :font "PromptFont"
    :valign :middle
    :halign :end
