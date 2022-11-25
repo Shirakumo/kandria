@@ -1,5 +1,11 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defclass screen-gap (alloy:layout-element alloy:renderable)
+  ())
+
+(defmethod alloy:suggest-size ((size alloy:size) (screen-gap screen-gap))
+  (alloy:size (alloy:w size) (alloy:vh 1)))
+
 (defclass paragraph (label)
   ())
 
@@ -41,6 +47,10 @@
 (defmethod alloy:handle ((ev alloy:pointer-event) (layout credits-layout))
   T)
 
+(defmethod presentations:realize-renderable :after (ui (layout credits-layout))
+  (let ((scroll (alloy:index-element 0 layout)))
+    (setf (slot-value scroll 'alloy:offset) (alloy:px-point 0 most-negative-single-float))))
+
 (defmethod alloy:handle ((ev alloy:exit) (layout credits-layout)))
 
 (presentations:define-realization (ui credits-layout)
@@ -49,8 +59,7 @@
    :pattern colors:black))
 
 (defclass credits (menuing-panel)
-  ((credits :accessor credits)
-   (offset :initform -100 :accessor offset)
+  ((scroll :accessor scroll)
    (ideal :initform NIL :accessor ideal)
    (on-hide :initarg :on-hide :initform (lambda ()) :accessor on-hide)))
 
@@ -71,25 +80,22 @@
                 (map NIL #'traverse (presentations:shapes node)))
                (simple:icon
                 (deallocate (simple:image node))))))
-    (traverse (credits credits)))
+    (traverse (scroll credits)))
   (setf (active-p (find-class 'in-menu)) T)
   (funcall (on-hide credits)))
 
 (defmethod handle ((ev tick) (panel credits))
-  (when (<= (offset panel) 13800)
-    (let* ((extent (alloy:bounds (credits panel)))
-           (ideal (or (ideal panel) (setf (ideal panel) (alloy:pxh (alloy:suggest-size extent (credits panel)))))))
-      (setf (game-speed +main+) (if (retained 'skip) 30.0 1.0))
-      (alloy:with-unit-parent (alloy:layout-element panel)
-        (setf (alloy:bounds (credits panel))
-              (alloy:extent (alloy:pxx extent)
-                            (- (offset panel) ideal)
-                            (alloy:vw 1)
-                            ideal))
-        (incf (offset panel) (* (alloy:to-px (alloy:un 40)) (dt ev)))
-        ;; KLUDGE: the offset from the IDEAL seems too big??
-        (when (< 13800 (offset panel))
-          (transition :kind :black (hide panel)))))))
+  (let* ((scroll (scroll panel))
+         (offset (alloy:pxy (alloy:offset scroll))))
+    (cond ((<= offset 0)
+           (setf (game-speed +main+) (if (retained 'skip) 30.0 1.0))
+           (alloy:with-unit-parent (alloy:layout-element panel)
+             (incf offset (* (alloy:to-px (alloy:un 40)) (dt ev)))
+             (setf (alloy:offset scroll) (alloy:px-point 0 offset))
+             ;; KLUDGE: the offset from the IDEAL seems too big??
+)
+           (when (<= 0 offset)
+             (transition :kind :black (hide panel)))))))
 
 (defmethod handle :after (ev (panel credits))
   (when (or (typep ev '(or back toggle-menu))
@@ -125,12 +131,16 @@
 
 (defmethod initialize-instance :after ((panel credits) &key (file (merge-pathnames "CREDITS.mess" (language-dir))))
   (let* ((layout (make-instance 'credits-layout))
+         (scroll (make-instance 'alloy:clip-view))
          (credits (make-instance 'alloy:vertical-linear-layout
                                  :min-size (alloy:size (alloy:vw 1) 100)
-                                 :cell-margins (alloy:margins 10))))
-    (alloy:enter credits layout :constraints `(:fill))
-    (setf (credits panel) credits)
+                                 :cell-margins (alloy:margins 0))))
+    (alloy:enter scroll layout :constraints `(:fill))
+    (alloy:enter credits scroll)
+    (setf (scroll panel) scroll)
+    (alloy:enter (make-instance 'screen-gap) credits)
     (from-markless (merge-pathnames file (data-root)) credits)
+    (alloy:enter (make-instance 'screen-gap) credits)
     (let ((prompts (make-instance 'alloy:horizontal-linear-layout :align :end)))
       (alloy:enter (make-instance 'prompt-label :value (coerce-button-string 'toggle-menu)) prompts)
       (alloy:enter (make-instance 'prompt-description :value (language-string 'exit-credits NIL)) prompts)
