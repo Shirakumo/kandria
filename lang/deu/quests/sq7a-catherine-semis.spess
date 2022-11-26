@@ -1,0 +1,61 @@
+# intro/intro-chat
+~ catherine
+| (:excited)Sure, what's on your mind? How'd it go with {#@alex-nametag}?
+~ player
+- Not good.
+  ~ catherine
+  | (:concerned)... Uh, how so?
+  | (:normal)You know what: don't worry about it. I'm sure you've got enough on your plate. I'll talk to {#@fi-nametag}.
+  | (:concerned)... Although there are rumours flying around, about the Wraw invading the Cerebats.
+  | Is it true?
+- We've got bigger problems.
+  ~ catherine
+  | (:concerned)Really? Like what?
+  ~ player
+  | The Semi Sisters think the Wraw have invaded the Cerebats.
+  ~ catherine
+  | (:concerned)Oh...
+  | Shit.
+  | Is it true?
+- The Semi Sisters want you back.
+  ~ catherine
+  | (:concerned)...
+  ~ player
+  - Do you want to go back?
+    ~ catherine
+    | (:concerned)Not particularly. I don't know if {#@fi-nametag} told you, but they didn't exactly look after me.
+  - {#@fi-nametag} said you wouldn't want to go back.
+    ~ catherine
+    | (:concerned)She's right. They didn't exactly look after me.
+  ~ catherine
+  | Don't get me wrong - their skills and tools are sort of amazing. An engineer's dream.
+  | (:concerned)But nah. {#@innis-nametag} can be a real bitch. {#@islay-nametag} too sometimes.
+  | (:excited)Soon as I was old enough I hightailed it outta there.
+  | (:concerned)It was kind of stupid actually. I would have died if {#@fi-nametag} and the others hadn't found me.
+  | (:normal)But I'm still here!
+  | (:concerned)Anyway, what about these rumours? About the Wraw invading the Cerebats?
+  | Is it true?
+~ player
+- [(complete-p 'q8a-bribe-trader) Yes, the Cerebats turned their water off.|]
+  ~ catherine
+  | (:excited)They did what? Heh, maybe they had spines after all. Still...
+- [(not (complete-p 'q8a-bribe-trader)) {#@fi-nametag} doesn't think so.|]
+  ~ catherine
+  | (:concerned)You don't sound too convinced.
+- [(complete-p 'q8a-bribe-trader) They seem to be.|]
+  ~ catherine
+  | (:concerned)...
+  | Like we didn't have enough to worry about.
+- [(not (complete-p 'q8a-bribe-trader)) I don't know.|]
+  ~ catherine
+  | (:concerned)Well that's not good.
+- [(not (complete-p 'q8a-bribe-trader)) I don't think it is.|]
+  ~ catherine
+  | (:concerned)I hope you're right.
+- What does it matter?
+~ catherine
+| (:concerned)What little glue holds things together down there is thanks to the Cerebats.
+| If they're gone... then it's open season.
+| I wonder what "{#@fi-nametag}'s gonna do"(orange).
+
+; these "rumours" are what soon convince Fi to send you down to investigate the Cerebats, find out if they have been invaded after all

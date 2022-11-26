@@ -1,0 +1,69 @@
+# 3-interact-islay/interaction
+~ islay
+| Hello again. You found {#@alex-nametag}, I see. How are they?
+~ player
+- Drunk as a skunk.
+- They won't cooperate.
+- Angry.
+~ islay
+| (:nervous)... Sometimes I wonder why we make alcohol.
+| (:normal)What if I talk to them?
+~ player
+- I'd appreciate that.
+  ~ islay
+  | It's the least I can do.
+- What's the catch?
+  ~ islay
+  | No catch. I just want to help.
+- I think they're a lost cause.
+  ~ islay
+  | Maybe. But were you yourself not a lost cause before {#@alex-nametag} found you?
+~ islay
+| You should stay with us a while, give me some time. That way you won't disappoint {#@fi-nametag} by returning empty-handed.
+| And there are things you could help us with.
+~ player
+- So there is a catch.
+  ~ islay
+  | Not a catch. Think of it more like a trade.
+  | And it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+- Like you turning me into a battery?
+  ~ islay
+  | Of course not. I'm talking about errands.
+  | And it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+- What things?
+  ~ islay
+  | Well, it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
+- [(var 'android-soft) Won't {#@innis-nametag} think you've gone soft for androids?]
+  ~ islay
+  | ... Touché.
+  | I'll deal with that. But it couldn't hurt to show her what you can do, could it? Sow some seeds of diplomacy.
+~ player
+- You're right.
+  ~ islay
+  | Aye, sometimes I'm right.
+- Tell that to your sister.
+  ~ islay
+  | I do. Frequently. {#@innis-nametag} has her qualities. Diplomacy isn't one of them.
+- Diplomacy does not compute.
+  ~ islay
+  | Come now, you're no mere Servo. I know you understand.
+~ islay
+| I can sweeten the deal too.
+| I suppose I'm what you'd call the chief engineer around here. Just like {#@jack-nametag} is for the Noka. I stock many things that might be useful to you.
+| We get the usual traders visiting of course, but I'm giving you another option - and "I stock more supplies than most"(orange).
+| Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
+| We've got "rail engineers stuck"(orange) after a tunnel collapse in the "far high west"(orange).
+| And "4 of our CCTV cameras on the distant low eastern"(orange) Cerebat border have gone down.
+| Word's getting around about your arrival too - you might "find some of my sisters are also willing to pay for your skills"(orange).
+| So "leave {#@alex-nametag} to me and speak with {#@innis-nametag}"(orange) - she's gone up to the "control room"(orange).
+| Perhaps see her as another challenge to overcome. I know I do.
+| Ta-ta for now, {(nametag player)}.
+! eval (stop-following 'islay)
+! eval (move-to 'islay-alex-talk 'islay)
+! eval (activate 'trader-semi-chat)
+! eval (activate 'trader-semi-alex)
+! eval (activate 'trader-shop-semi)
+! eval (activate 'q5-intro)
+! eval (activate 'sq4-intro)
+! eval (activate 'sq5-intro)
+! eval (activate 'sq6-intro)

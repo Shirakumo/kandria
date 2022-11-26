@@ -1,0 +1,79 @@
+# alex-task/alex-interact
+? (complete-p 'q8-alex-cerebat)
+| ~ player
+| | Why are you here?
+| ~ alex
+| | (:angry)Why do you think?
+|?
+| ~ player
+| - {#@alex-nametag}?
+|   ~ alex
+|   | (:angry)Not for much longer.
+| - What are you doing here?
+|   ~ alex
+|   | (:angry)Biding my time.
+| - Are you okay?
+|   ~ alex
+|   | (:normal)Never better.
+| - Are you sober?
+|   ~ alex
+|   | (:angry)As God at the Last Judgement.
+  
+~ alex
+| (:angry)I can't wait to see the look on {#@fi-nametag}'s face when you tell her - and when the Wraw come pouring out the ground.
+~ player
+- Tell her what?
+- What do you mean?
+- What have you done?
+~ alex
+| "I told them the exact location o' the Noka Camp."(orange)
+| (:angry)It's the least I could do to repay you an' {#@fi-nametag} for your loyalty.
+| (:normal)Now if you don't mind, I've got a battle to fight.
+| (:angry)Watch your back, {(nametag player)}.
+! eval (setf (location 'fi) (location 'shutter-3))
+! eval (setf (direction 'fi) -1)
+! eval (setf (location 'jack) (location 'shutter-4))
+! eval (setf (direction 'jack) -1)
+! eval (activate 'fi-task)
+
+; optional dialogue
+; could occur with either Jack and Fi alone outside shutters (set above), or with Islay if Semis are on surface now (set during q11a) (can never happen when Fi is on surface but Jack still in engineering calling people back to base, after q10a return); or with Fi and Islay alone in Engineering. Either way, Islay doesn't weigh in on this Noka business, and we can assume Fi will tell her later
+# fi-task/fi-interact
+~ fi
+| (:unsure){#@alex-nametag} has... betrayed us? What do you mean?
+~ player
+| I found them in Wraw territory. They told them our location.
+~ fi
+| (:unsure)...
+? (not (complete-p 'q11a-bomb-recipe))
+| ~ jack
+| | (:annoyed)Why didn't ya put 'em outta their misery when you had the chance?! Who knows what else they'll tell them.
+| ~ player
+| - In cold blood?
+|   ~ jack
+|   | Androids don't have blood.
+|   ~ fi
+|   | (:annoyed)I beg to differ, {#@jack-nametag}.
+| - I'm not a killer.
+|   ~ jack
+|   | Oh really? What's your body count since you woke up?
+|   | I bet you've lost count.
+|   | Not to mention all those you killed before the Calamity.
+|   ~ fi
+|   | {(nametag player)} has helped and defended us. (:annoyed)And I won't hear your superstitions!
+|   ~ jack
+|   | (:annoyed)...
+| - Maybe you're right.
+|   ~ jack
+|   | (:shocked)...
+|   ~ fi
+|   | (:annoyed)No, I don't think he is.
+| ~ fi
+| | It was better to know about {#@alex-nametag} sooner than later. At least we know what we're up against.
+| | Thank you, {(nametag player)}.
+|?
+| ~ fi
+| | (:unsure)I don't know what to say.
+| | (:normal)At least with {#@alex-nametag} we know what we're up against.
+| | Thank you for telling me, {(nametag player)}.
+

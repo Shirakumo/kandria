@@ -1,0 +1,74 @@
+; Cerebat "good" market trader, concerned about the missing Cerebat Council
+# intro/intro-chat
+~ cerebat-good-trader
+| I don't want to bother you, but I don't know what else to do.
+~ player
+- Don't worry, I'm listening.
+- I need to leave.
+  < leave
+~ cerebat-good-trader
+| It's the "Cerebat Council - they're gone"(orange).
+| Things have "gone to shit since the Wraw moved in"(orange) - we need to restore order, before our way of life disappears forever.
+| I'm only a trader - I don't know what to do.
+! eval (setf (nametag (unit 'cerebat-good-trader)) (@ cerebat-good-trader-nametag))
+~ cerebat-good-trader
+| But if you can "find the Council, bring them back"(orange)...
+| I mean, the Wraw won't like it, but at least we could mount a resistance.
+~ player
+- I'm in.
+- Aren't the Council dead?
+  ~ cerebat-good-trader
+  | I won't believe it till I see their bodies.
+- I need to go.
+  < leave
+~ cerebat-good-trader
+| Here, take this. It's one of the "councillors' headdresses"(orange)... I found it.
+! eval (store 'item:headdress 1)
+! eval (status "Received 1 Headdress")
+~ player
+| "It's ornate and covered in pearls."(light-gray, italic) (:embarassed)"But it's also damp and stinks of algae."(light-gray, italic)
+~ cerebat-good-trader
+| "Look for anything similar in Wraw territory"(orange) - that's where I think they've taken them.
+! label questions
+~ player
+- Where did you find the headdress?
+  ~ cerebat-good-trader
+  | In a lake, nearby.
+  ~ player
+  - Could they have drowned?
+    ~ cerebat-good-trader
+    | No. Absolutely not! I mean... there weren't any bodies, so.
+  - That doesn't bode well.
+    ~ cerebat-good-trader
+    | It doesn't. But I'm hopeful.
+  < questions
+- What if the Council are dead?
+  ~ cerebat-good-trader
+  | Then I see no way forward. For the Cerebats, nor any other faction down here.
+  | They're irreplaceable. We need experience to fight the Wraw, and unity.
+  | But we're just a band of traders, each looking out for themselves.
+  ~ player
+  - You're different.
+    ~ cerebat-good-trader
+    | I suppose I am.
+    | But I'm just one person.
+  - Then I hope they're alive.
+    ~ cerebat-good-trader
+    | As do I.
+  < questions
+- How many councillors?
+  ~ cerebat-good-trader
+  | There are "8"(orange), plus the "high councillor"(orange), "Dashad"(yellow).
+  | I think the headdress is "Antonio's"(yellow).
+  < questions
+- I'm ready to go.
+~ cerebat-good-trader
+| I'll be here when you get back. Actually, no - at the rate people are disappearing...
+| Meet me in the "back alleys instead, beneath the market"(orange).
+| Stay safe.
+~ player
+| "I think my FFCS can isolate "3 Wraw locations"(orange) where the councillors are likely being held. If they're even alive."(light-gray, italic)
+! eval (complete task)
+! eval (reset interaction)
+! eval (activate (unit 'sq8-spawner))
+# leave

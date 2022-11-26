@@ -1,0 +1,147 @@
+; character voice: London cockney, male
+# talk-trader/talk-to-trader
+~ cerebat-trader-quest
+| You 'ere to trade?
+~ player
+| Where is the Cerebat Council?
+~ cerebat-trader-quest
+| ...
+| Keep ya voice down, will ya!
+| What ya wanna see them for?
+~ player
+- It's private.
+  ~ cerebat-trader-quest
+  | That so. Well just make sure it stays that way.
+- I want to ask them some questions.
+  ~ cerebat-trader-quest
+  | Piece o' friendly advice: Now is not a good time to be askin' questions.
+- I come from the Noka.
+  ~ cerebat-trader-quest
+  | The Noka? That the new faction tryin' to live on the surface?
+  | Bunch o' crazy bastards if you ask me. No offence.
+~ cerebat-trader-quest
+| Anyway, you can't see the Council - they won't see anyone.
+| But lucky for you I'm a purveyor o' fine information, as just demonstrated.
+| And I 'ave more to share.
+| But it ain't all free. A trader gotta make a livin', especially in these times.
+~ player
+- What times are those?
+  ~ cerebat-trader-quest
+  | ...
+  | Ah, good one! You nearly 'ad me there, pal!
+  | But I want somethin' first before I tell you anythin'.
+- What do you want?
+  ~ cerebat-trader-quest
+  | Oh nothin' much. Nothin' much at all, really. It's just...
+- I understand.
+  ~ cerebat-trader-quest
+  | Good. It's a simple matter o' economics, innit?
+~ cerebat-trader-quest
+| If I'm gonna risk my neck, you gotta risk yours.
+| See, the usual caravans aren't gettin' through, so it's kinda 'ard to make ends meet.
+| Let's call it... "{(var 'trader-bribe)} scrap parts"(orange), eh?
+~ player
+- So it's a bribe?
+  ~ cerebat-trader-quest
+  | No it's a trade.
+  ~ player
+  - It's too steep.
+    < haggle
+  - Okay I'll pay it.
+    ~ cerebat-trader-quest
+    | Good. But there ain't no 'urry.
+- Can I get a discount?
+  < haggle
+- If that's what you want.
+  ~ cerebat-trader-quest
+  | It is. But there ain't no 'urry.
+! label patient
+~ cerebat-trader-quest
+| "Think about it. I'll still be 'ere."(orange)
+! label goodbye
+| Don't be a stranger!
+~ player
+| "Indeed."(light-gray, italic)
+? (<= (var 'trader-bribe) (item-count 'item:parts))
+| ~ player
+| | (:giggle)"Well, "I do have enough to pay him already"(orange)..."(light-gray, italic)
+| | (:normal)"Alternatively I could "stock up even more, by scavenging and fishing then selling to traders like {#@trader-nametag} and {#@islay-nametag}"(orange)."(light-gray, italic)
+|?
+| ~ player
+| | "Well "I don't have enough to pay him yet - I'd better earn more scrap parts first"(orange)."(light-gray, italic)
+| | "If all else fails, scavenging and fishing then selling to traders like {#@trader-nametag} and {#@islay-nametag} should help."(orange, italic)
+? (active-p (find-task 'q8-meet-council 'task-search))
+| ! eval (deactivate (find-task 'q8-meet-council 'task-search))
+| ! eval (activate (find-task 'q8-meet-council 'task-search-hold))
+
+; "If all else fails" / "like by" - hinting at sidequests without banging over the head with it, since they've already been tutorialised and hinted at in dialogue several times
+; both paths also nice reminder that traders exist in case you've not traded with either yet, or even forgotten about Sahil's arrival quest
+; ofc, this guy isn't prepared to trade just yet, and it would be silly to generate the money to pay him, from him
+
+# haggle
+~ cerebat-trader-quest
+| ...
+| I like your directness. And I do luv a good 'aggle.
+| Alright, make me an offer!
+! label haggle-reset
+~ player
+- 100.
+  ~ cerebat-trader-quest
+  | Haha! That's a good one.
+  | ... Oh, you're serious...
+  | Why dontcha try again.
+  < haggle-reset
+- 300.
+  ~ cerebat-trader-quest
+  | ...?
+  | You're a bold one, aren't you.
+  | 600.
+  ~ player
+  - 450.
+    ~ cerebat-trader-quest
+    | ...
+    | You're a sly one, but alright - we 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 450)
+  - Deal.
+    ~ cerebat-trader-quest
+    | Aha! We 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 600)
+- 500.
+  ~ cerebat-trader-quest
+  | ...?
+  | 600.
+  ~ player
+  - 550.
+    ~ cerebat-trader-quest
+    | ...
+    | You're a sly one, but alright - we 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 550)
+  - Deal.
+    ~ cerebat-trader-quest
+    | Aha! We 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 600)
+- 700.
+  ~ cerebat-trader-quest
+  | ...
+  | 800.
+  ~ player
+  - 750.
+    ~ cerebat-trader-quest
+    | ...
+    | Alright - we 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 750)
+  - Deal.
+    ~ cerebat-trader-quest
+    | Aha! We 'ave a deal.
+    ! eval (setf (var 'trader-bribe) 800)
+- 900.
+  ~ cerebat-trader-quest
+  | ...?
+  | __DEAL!__
+  ! eval (setf (var 'trader-bribe) 900)
+~ cerebat-trader-quest
+| So "{(var 'trader-bribe)} scrap parts"(orange) it is!
+| But there ain't "no rush to get it. Take your time! I'll still be 'ere"(orange).
+< goodbye
+
+; technically against style to start sentences with numbers, but they need to be figures here for ease of comprehension, and it's better than styling the choices as "(Offer 100)" for example, since instead we capture the back and forth blurting of numbers that haggling involves

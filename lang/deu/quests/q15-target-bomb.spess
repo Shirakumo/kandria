@@ -1,0 +1,34 @@
+# bomb-explode/islay-reminder
+~ islay
+| (:nervous)I need to concentrate on this bomb.
+| (:normal)You need to "go to the one in the Brother offices"(orange). {#@catherine-nametag}, you can "rewire it"(orange).
+| (:nervous)HURRY!
+
+# bomb-explode/call-explode
+! eval (ensure-nearby 'player 'catherine)
+~ islay
+| {(nametag player)}, {#@catherine-nametag} - the "bomb in the hospital apartments is rewired"(orange).
+| (:normal)How'd you get on with that mech? Over.
+~ player
+- It's no longer a threat. Over.
+  ~ islay
+  | Good.
+- I kicked its ass. Over.
+  ~ islay
+  | Excellent.
+- Scratch one mech. Hopefully there aren't any more. Over.
+  ~ islay
+  | I've not seen any.
+~ islay
+| You "head for the Brother offices bomb"(orange). I'm heading for the-
+~ player
+| "Something cut her off. What's that sound?"(light-gray, italic)
+~ player
+- {#@islay-nametag}?
+- Is that an earthquake?
+- GET DOWN!
+! eval (deactivate (unit 'bomb-explode-1))
+! eval (deactivate (unit 'bomb-explode-2))
+! eval (activate 'explosion)
+! eval (move :freeze player)
+; lock player controls early in this case, before epilogue script

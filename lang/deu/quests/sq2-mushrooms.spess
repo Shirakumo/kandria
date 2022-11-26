@@ -1,0 +1,44 @@
+# return-mushrooms/mushrooms-return
+~ catherine
+| How was your mushrooming? Let's see what you've got.
+? (> 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | Oh, I don't think you've got enough yet. I need "25 rusty puffballs or flower fungus"(orange). "Avoid black caps"(orange) though. Keep "searching underground"(orange).
+| | (:excited)Good luck!
+| ~ player
+| | "I currently have: "{(item-count 'item:mushroom-good-1)} flower fungus"(orange), "{(item-count 'item:mushroom-good-2)} rusty puffball"(orange), "{(item-count 'item:mushroom-bad-1)} black cap"(orange)."(light-gray, italic)
+| < end
+|? (= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | (:excited)Wow, you got exactly what I asked for. I guess I shouldn't be surprised that you're so precise.
+|? (< 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | (:cheer)Wow, you got even more than I asked for!
+? (have 'item:mushroom-good-1)
+| | (:excited)"Flower fungus"(red), nice! I'll get these to {#@fi-nametag} and straight into the cooking pot.
+| | (:normal)Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-1)) " Flower Fungus"))
+| ! eval (retrieve 'item:mushroom-good-1 T)
+? (have 'item:mushroom-good-2)
+| | (:cheer)"Rusty puffball"(red), great! I like to eat these the most - and I made my neckerchief from them, believe it or not.
+| | (:normal)I weaved them together with synthetic scraps; I needed a mask so the spores from mature specimens wouldn't give me lung disease.
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-2)) " Rusty Puffball"))
+| ! eval (retrieve 'item:mushroom-good-2 T)
+? (have 'item:mushroom-bad-1)
+| | (:concerned)Oh, "black cap"(red)... Not a lot I can do with poisonous ones.
+| | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-bad-1)) " Black Cap"))
+| ! eval (retrieve 'item:mushroom-bad-1 T)
+  
+| (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
+| We get birds, fish and bats when we can too, but they're harder to catch. Mushrooms don't run away.
+| (:excited)We owe you big time. Here, "take these parts"(orange), you've definitely earned them.
+! eval (store 'item:parts 300)
+! eval (status "Received 300 Scrap Part")
+| (:normal)If you "find any more mushrooms"(orange), make sure you grab them.
+| If we don't need them, the least you could do is "trade them with {#@trader-nametag}"(orange).
+| See you around, {(nametag player)}!
+! eval (complete task)
+! eval (reset interaction)
+
+# end

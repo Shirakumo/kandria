@@ -1,0 +1,25 @@
+# 2-interact-catherine/interaction
+~ catherine
+| (:cheer)__Tada!__ Here we are.
+| What do you think...?
+~ player
+- The city was destroyed.
+  ~ catherine
+  | (:excited)Yay, your voice box works too.
+  | Yep. This is home.
+- It's nice.
+  ~ catherine
+  | (:excited)Yay, your voice box works too.
+  | I knew you'd love our home.
+- (Lie) It's nice.
+  ~ catherine
+  | (:excited)Yay, your voice box works too.
+  | Really? You like it? I knew you'd love our home.
+- You live here?
+  ~ catherine
+  | (:excited)Yay, your voice box works too.
+  | Yep. Pretty amazing home, huh?
+~ catherine
+| And "come look at this"(orange) - I guarantee you won't have ever seen anything like it.
+! eval (complete 'tutorial)
+! eval (activate 'q0-settlement-arrive)

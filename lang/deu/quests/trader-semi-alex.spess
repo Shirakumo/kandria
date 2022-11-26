@@ -1,0 +1,48 @@
+# chat-semi-alex/chat-semi-alex
+? (not (complete-p 'q7-my-name))
+| ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv) (not (var 'alex-done)))
+| | ~ alex
+| | | (:angry)What's the matter? Afraid to talk to me yourself, android? <-Hic->.
+| | ~ islay
+| | | The barkeep has stopped serving them, which is something.
+| | ~ alex
+| | | (:angry)Oi, android! <-Hic->. I 'ear you even stole my jobs round 'ere now too.
+| | ~ islay
+| | | You could work together {#@alex-nametag}, for the Noka - return to {#@fi-nametag} with {(nametag player)} and get your old life back.
+| | ~ alex
+| | | "{(nametag player)}", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people. Stranger to myself.
+| | | Get lost, both of you.
+| | ~ islay
+| | | Let's "leave them in peace for a while"(orange). They might feel differently once they've sobered up.
+| | | You've done a lot for us though, with little to show for it.
+| | | "Take these parts as recompense"(orange) - though hopefully soon you'll have {#@alex-nametag} to show for it as well.
+| | ! eval (store 'item:parts 600)
+| | ! eval (status "Received 600 Scrap Part")
+| | ! eval (setf (var 'alex-fee) T)
+| | | [(not (complete-p 'q6-return-to-fi)) You should "get back and update {#@fi-nametag}"(orange). I'll keep an eye on {#@alex-nametag}. | Don't worry, I'll keep an eye on them.]
+| | | We'll speak again.
+| | ! eval (setf (var 'alex-done) T)
+| | ! eval (clear-pending-interactions)
+| |? (var 'alex-done)
+| | ~ islay
+| | | See for yourself - though I've told the barkeeps not to serve them.
+| | | I need to get back to the control room soon, but I've got a hidden camera trained on them - Alex won't fart without me knowing about it.
+| |?
+| | ~ islay
+| | | Not much better I'm afraid. (:normal)I think talking is helping though.
+| | | If I can get them out of this bar it'll be a start.
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q11-recruit-semis)))
+| ~ islay
+| | (:nervous)"They've gone. I don't know where"(orange). They just upped and left. Managed to evade most of our cameras.
+| | (:normal)If they've not returned to the Noka then I don't know.
+| | I hope they're okay. And sober.
+| | I'm sorry, I should've kept a closer eye. It's not an excuse, but there's a lot happening right now.
+| ? (not (var 'alex-fee))
+| | | You've done a lot for us, with little to show for it.
+| | | Please "take these parts as recompense"(orange).
+| | ! eval (store 'item:parts 600)
+| | ! eval (status "Received 600 Scrap Part")
+| | ! eval (setf (var 'alex-fee) T)
+|  
+| ~ islay
+| | Be careful, {(nametag player)}.

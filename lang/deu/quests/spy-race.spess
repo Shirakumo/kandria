@@ -1,0 +1,81 @@
+# hub
+~ semi-spy
+| Okay, I think I'm ready.
+| Remember: "Find the hip flask, bring it back here, and I'll stop the clock"(orange).
+| And hopefully no one will be any the wiser that this is a complete farce - I'll continue to look like a bona fide Cerebat hustler!
+| I've got "5 routes"(orange) lined up for you, which you can do one at a time.
+| So, "you ready for the first race"(orange)?
+! eval (clear-pending-interactions)
+
+# start
+? (timer-quest)
+| ~ semi-spy
+| | You're "doing a time trial already"(orange)! This is highly irregular.
+| < quit
+
+~ semi-spy
+| HEAR YE, HEAR YE! A time trial is about to begin!
+| "Am I over-egging it? I'll tone it down."(small)
+| "{(quest:title (quest:find-named 'race task))}."(orange)
+| The time brackets for this route are as follows: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
+? (var 'pb)
+| | Your "personal best"(orange) for this route is "{(format-relative-time pb)}"(orange).
+~ semi-spy
+| On your marks. Get set... GO!
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+# cancel
+~ semi-spy
+| "Are you stopping the race?"(orange) That's allowed, it won't look suspicious. In fact it will look thoroughly realistic.
+| But naturally I couldn't reward you for that, as much as I would like to.
+~ player
+- No, I'll continue the race.
+  ~ semi-spy
+  | Understood. But time is ebbing away!
+- Yes, end it.
+  ~ semi-spy
+  | Consider the race over. But don't leave me in the lurch here - come back soon.
+  ! eval (activate 'cancel-it)
+
+# return
+~ semi-spy
+| Stop the clock!
+| That's my flask alright!
+~ player
+| (:embarassed)"She's gulping down whatever's inside it - I guess I'll just wait."(light-gray, italic)
+~ semi-spy
+| __Aaaaaaa__... I needed that. Alright, your time was: "{(format-relative-time (clock quest))}"(orange).
+? (and pb (< pb (clock quest)))
+| | Unfortunately you "didn't improve"(orange) on your record of "{(format-relative-time pb)}"(orange).
+| | "I've got to play fair you understand, if we're going to keep up this charade."(small)
+|?
+| ? (not (null pb))
+| | | That was a "brand-spanking-new personal best"(orange)!
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | And that's a "gold-standard"(orange) time!
+| | | Which means you get the maximum reward, courtesy of {#@innis-nametag}: "750 scrap parts"(orange).
+| | ! eval (store 'item:parts 750)
+| | ! eval (status "Received 750 Scrap Part")
+| |? (< pb silver)
+| | | And that's a "silver-standard"(orange) time!
+| | | That equates to, courtesy of {#@innis-nametag}: "450 scrap parts"(orange).
+| | ! eval (store 'item:parts 450)
+| | ! eval (status "Received 450 Scrap Part")
+| |? (< pb bronze)
+| | | And that's a "bronze-standard"(orange) time.
+| | | Which means you earn, courtesy of {#@innis-nametag}: "300 scrap parts"(orange).
+| | ! eval (store 'item:parts 300)
+| | ! eval (status "Received 300 Scrap Part")
+| |?
+| | | But it's "not even bronze-standard"(orange), I'm sorry to say.
+| | | "In the interests of plausibility, I must withhold your prize. You should probably look upset as well."(small)
+| | ~ player
+| | | (:embarassed)"I'm not sure what my face is doing. Do I look upset?"(light-gray, italic)
+  
+~ semi-spy
+| Can I interest you in going again? Don't put me on the back-burner here.
+! eval (activate 'complete-it)
+
+# quit

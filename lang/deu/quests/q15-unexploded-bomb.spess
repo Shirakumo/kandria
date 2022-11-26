@@ -1,0 +1,57 @@
+# task-reminder/interact-fi
+~ fi
+| Hurry - "find {#@islay-nametag} at the pump room and fix those bombs"(orange).
+
+# check-bomb-3/interact-bomb
+
+# islay-person/islay-talk-bomb
+! eval (ensure-nearby 'player 'catherine)
+~ catherine
+| (:concerned){#@islay-nametag}, you're soaking wet.
+~ islay
+| (:nervous)Dammit... You shouldn't have come. I can handle this.
+~ player
+- Let us help.
+  ~ catherine
+  | We can do this together. (:excited)And save time.
+- We're more efficient together.
+  ~ catherine
+  | (:excited)Right. What she said.
+- The hell you can.
+  ~ catherine
+  | (:concerned){(nametag player)}'s right. Let us help you.
+~ islay
+| (:nervous)...
+| The "receiver on this bomb has been defused"(orange)...
+| (:normal)But I think "I can rewire it"(orange) so they can't mess with it any more.
+| They've got a "bomb disposal mech"(orange) - I saw "one heading into the pump room"(orange).
+| Since you're here now you can "destroy the mech"(orange).
+| Do that "then go to the bomb in the Brother offices. {#@catherine-nametag}, you can rewire it"(orange).
+~ catherine
+| (:excited)Got it.
+~ islay
+| When I'm done "I'll go to the one beyond the hospital apartments"(orange).
+| And {(nametag player)}, for what it's worth: I don't think you're a traitor.
+| Now, please: I need to work.
+~ catherine
+| I can go to the Brother offices while you take care of the mech.
+~ player
+- We should stick together.
+- Getting yourself killed won't help us.
+- You might run into soldiers or mechs.
+~ catherine
+| (:concerned)... But I can do it.
+~ player
+| I know you can, but if you don't make it to the bomb we're in trouble.
+~ catherine
+| (:concerned)...
+~ catherine
+| (:excited)Okay. Let's go together - "after the mech"(orange).
+! eval (complete 'check-bomb-3)
+! eval (deactivate 'task-reminder)
+! eval (clear-pending-interactions)
+
+; is easier for Islay/Catherine to rewire an existing receiver to make it tamper proof, than use one of the seven vanilla receivers the player is still carrying
+
+; Islay is working on the "receiver" here, not the bomb itself, because of course the bomb sprite is still there in the flooded room!
+

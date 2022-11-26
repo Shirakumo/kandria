@@ -1,0 +1,81 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# intro/intro-chat
+~ synthesis
+| (:grin)It's time, android.
+~ player
+- ...
+- Could you sound any more mysterious?
+  ~ synthesis
+  | (:grin)Perhaps.
+- No it's not.
+  < leave
+~ synthesis
+| (:grin)We have "answers, about the old world"(orange), if you'll help us.
+~ player
+- Are your pronouns plural, or are there more of you?
+  ~ synthesis
+  | (:grin)It is only I. "Us"(italic).
+- Is this the royal "we"?
+  ~ synthesis
+  | Do we look like royalty?
+- Okay...
+~ synthesis
+| (:grin)Do you want them? The answers?
+~ player
+- What answers?
+  ~ synthesis
+  | Answers that would be valuable to you.
+- What do you want?
+- I could take those answers by force.
+  ~ synthesis
+  | (:grin)You could try. But you would fail.
+- Not interested.
+  < leave
+~ synthesis
+| Gah...
+~ player
+| "... I can hardly see their face, but they seem to be having the world's worst headache."(light-gray, italic)
+~ synthesis
+| Ack... <-AH...->
+~ player
+- Are you okay?
+- You don't look well.
+- I hope that's not contagious.
+~ synthesis
+| We need our "potion"(orange). Get it for us.
+| Do you have "black caps"(orange)? Ja, the poisonous ones.
+~ player
+- How many do you need?
+- I can get some.
+- [(<= 1 (item-count 'item:mushroom-bad-1)) (Lie) I'm afraid not.]
+  ~ synthesis
+  | Ack, that's too bad.
+~ synthesis
+| "Bring us 4 black caps."(orange)
+| "Search the Cerebat backstreets, or even the caves."(orange)
+| Schnell.
+? (= 4 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "I do "have exactly what they need already"(orange)."(light-gray, italic)
+|? (< 4 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "I do "have more than they need already"(orange)."(light-gray, italic)
+|? (< 1 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "I do "have {(item-count 'item:mushroom-bad-1)} black caps already"(orange)."(light-gray, italic)
+|? (= 1 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "Well I only "have 1 black cap at the moment"(orange) so."(light-gray, italic)
+|?
+| ~ player
+| | "I "don't have any black caps right now"(orange). Crud."(light-gray, italic)
+  
+! eval (activate 'sq14a-synthesis)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ synthesis
+| (:grin)When you're ready to know the truth, "we'll be here"(orange). But not forever.
+
+; too ill to collect them themselves

@@ -1,0 +1,45 @@
+# 3-interact-catherine/interaction
+~ catherine
+| (:concerned)Oh God. "The surface... everything we had... It's completely levelled"(orange).
+~ catherine
+| (:concerned)What are we gonna do? Where are we gonna go?
+~ catherine
+| (:excited)I "can't see any Wraw - we must have buried them"(orange) big time!
+~ catherine
+| (:concerned)Oh shit. Are those "bodies up ahead? Or people?"(orange) Please everyone be okay...
+~ player
+| "There are "people on the ground, unmoving. But others are still standing"(orange)."(light-gray, italic)
+~ player
+- Should I identify them?
+  ~ catherine
+  | (:concerned)...
+  | I don't know... Yes, I suppose.
+  < identify
+- I need to know who they are.
+  ~ catherine
+  | (:concerned)...
+  | Yeah, I guess you're right.
+  < identify
+- Let's keep moving.
+  < end
+
+# identify
+~ player
+| "Zooming in and increasing resolution..."(light-gray, italic)
+| It's "{#@fi-nametag}, {#@jack-nametag}, and {#@innis-nametag}"(orange). "They're okay"(orange) but they look "worried sick"(orange). "{#@fi-nametag}'s nursing her arm"(orange)...
+| That "might be {#@trader-nametag}"(orange) standing beyond and "a few others"(orange). I "can't see {#@islay-nametag}"(orange).
+~ catherine
+| (:concerned)Oh no...
+~ player
+| There's "no {#@alex-nametag}, and no Wraw"(orange).
+< end
+
+# end
+~ catherine
+| (:concerned)"Alright, let's go."(orange)
+
+; the Fi injured ellipsis works if you flirted with Fi, and if not, then it works for Catherine's benefit
+
+# walk-end/walkntalk
+~ catherine
+| (:excited)Yes!! Looks like you're A-okay! "Let's go"(orange).

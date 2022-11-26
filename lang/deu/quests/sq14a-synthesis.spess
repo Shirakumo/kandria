@@ -1,0 +1,69 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# return-supplies/supplies-return
+~ synthesis
+| Where's our potion?
+? (> 4 (item-count 'item:mushroom-bad-1))
+| ~ synthesis
+| | Schnell! We "still need black caps - bring us 4"(orange).
+| | "Check the settlement up there, or the caves."(orange)
+| ~ player
+| | "I currently have "{(item-count 'item:mushroom-bad-1)} black cap mushrooms"(orange)."(light-gray, italic)
+|?
+| ~ synthesis
+| | (:grin)Das ist gut. Give us those black caps.
+| | ! eval (retrieve 'item:mushroom-bad-1 4)
+| | ! eval (status "Lost 4 Black Cap")
+| < result
+
+; they only take the minimum amount they need, as they don't want to rely on you too much; once they're recovered, they can source their own black caps
+
+# result
+~ synthesis
+| (:grin)Danke. That is them all.
+| (:normal)We need a moment, they shouldn't take long to administer.
+~ player
+| (:embarassed)"I can't see what they're doing, but I definitely saw a needle."(light-gray, italic)
+~ synthesis
+| ...
+| (:grin)We are in business.
+| Now we feel like making them suffer for crossing "{#@synthesis-nametag}"(yellow).
+~ player
+- Now you tell me about the old world.
+  ~ synthesis
+  | (:grin)You can see for yourself - once it's safe.
+- Is that your name?
+  | (:grin)Our name. And our purpose. In the meantime...
+- Who should suffer?
+  ~ synthesis
+  | Bandits. "Rogues"(orange). Headless Highwaymen. Whoever gets in our way.
+  < task
+! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
+~ synthesis
+| We have our enemies: Bandits. "Rogues"(orange). Headless Highwaymen. Whoever gets in our way.
+! label task
+! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
+~ synthesis
+| They are looking for this information too, and they got close.
+| (:grin)But we took pre-emptive action: hit their camp on the Semi border. Hit it hard. Most ended, but some escaped.
+| Their new camp is to the "low east of here, in the middle of this region"(orange).
+| They want to end us. But if we die, so does our knowledge.
+| You're going to "kill them for us"(orange).
+~ player
+- I am?
+  ~ synthesis
+  | (:grin)You are if you want to know more.
+- How do I know they're the bad guys and not you?
+  ~ synthesis
+  | (:grin)You don't.
+- Here's where we part ways.
+  ~ synthesis
+  | (:grin)If it has to be like that.
+  | But "our offer still stands"(orange). We outcasts, we must stick together.
+  < end
+~ synthesis
+| (:grin)"Do what we ask and we shall proceed."(orange)
+< end
+
+# end
+! eval (complete task)
+! eval (reset interaction)

@@ -1,0 +1,70 @@
+# 2-interact-catherine/interaction
+~ catherine
+| Hey, {(nametag player)}.
+~ player
+- {#@islay-nametag} needs to talk to you urgently.
+  ~ catherine
+  | (:concerned)Oh, okay.
+- You ready for another adventure?
+  ~ catherine
+  | (:excited)With you? Always!
+- Looks like the old team is getting back together.
+  ~ catherine
+  | What, you and I?
+  | (:excited)What's the plan?
+~ player
+| "I'd better lower my vocal volume so only {#@catherine-nametag} can hear."(light-gray, italic)
+| (:embarassed)The bombs didn't detonate.
+~ catherine
+| (:concerned)<-WHAT?!->
+~ player
+| Come with me to "Engineering"(orange).
+
+# 6-interact-fi/interaction
+~ fi
+| (:annoyed){#@islay-nametag}'s gone. I couldn't stop her.
+| She said the only way to be sure was if she checked the bombs herself.
+~ player
+- What?!
+- She's too old.
+  ~ fi
+  | She might surprise you.
+- Then she's dead.
+  ~ fi
+  | She might surprise you.
+~ catherine
+| (:concerned){#@islay-nametag}...
+~ fi
+| She did design the bombs, so if anyone can fix them it's her.
+~ player
+- We should go after her.
+  ~ fi
+  | I'm afraid I agree. She'll have better luck with your help.
+  | Even though she said not to follow.
+- Did she say anything else?
+  ~ fi
+  | She said not to follow.
+  | But I think she'll have better luck with your help.
+- What now?
+  ~ fi
+  | I'm afraid you need to go after her - even though she said not to follow.
+  | She'll have better luck with your help.
+~ catherine
+| (:excited)Then let's go!
+~ fi
+| Is your FFCS working?
+~ player
+| "Checking FFCS..."(light-gray, italic)
+| No. "Wraw interference"(orange).
+~ fi
+| (:unsure)That probably means the attack is imminent...
+| (:normal)Okay, "take this walkie"(orange) - she's not responding, but "she might call if she needs help"(orange).
+! eval (store 'item:walkie-talkie-2 1)
+! eval (status "Received 1 Walkie-Talkie")
+| She's probably "gone to the pump room bomb first"(orange) as it's closest to the border.
+| (:annoyed)She also "took the signal detonator"(orange)...
+! eval (follow 'player 'catherine)
+
+; implication here that the walkie, though shorter range than FFCS (and Semis' FFCS devices) can at least cut through the interference
+
+; it's possible (though unlikely on a crit path first playthrough) that the player will go and see Islay at the pump room bomb (via train), before triggering this convo above with Fi. However, since Islay's trade options will still be on at this point (they are neatly removed when sequence quest q15-catherine is completed, since then she's focused on the bombs) she will trade, but nothing more. And what the player can then say (or not say) above to Fi, still makes sense if they've seen Islay down there (on the map, or in person).

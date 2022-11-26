@@ -1,0 +1,153 @@
+# 3-interact-islay/interaction
+~ islay
+| Here's the last of the components.
+~ catherine
+| Great! - Oh, hey! I didn't see you there {(nametag player)}. (:excited)I knew you'd come through for us.
+| (:normal)Well, the bombs are almost ready.
+~ fi
+| (:unsure)Bombs? I thought there was only one bomb.
+~ islay
+| We now think several smaller explosives will be more effective.
+~ fi
+| (:annoyed)And you were going to tell me when?
+~ islay
+| Now?
+| We want to collapse the multiple tunnels they're using to move troops, while minimising damage to our common infrastructure.
+~ fi
+| Okay, well that sounds fine to me.
+~ catherine
+| And we don't need any more components to do it this way - not now we've got this delivery.
+~ islay
+| Good. Finish the assembly as quickly as you can.
+| ... That just leaves the question of how we plant them.
+~ player
+| "{#@islay-nametag} is looking at {#@fi-nametag}. I think an understanding is passing between them."(light-gray, italic)
+~ islay
+| I think you're our best shot, {(nametag player)}.
+~ player
+- I agree.
+  < brave
+- I wouldn't have it any other way.
+  < brave
+- It's suicide, then.
+  ~ fi
+  | (:unsure)...
+  | I hope not.
+  ~ catherine
+  | (:concerned)Me too- Sorry, I'll get back to work.
+  ~ fi
+  | But you are the best we have for this, as much as I wish you weren't.
+  < continue
+
+# brave
+~ fi
+| (:unsure)...
+| (:normal)You are the best we have for this, as much as I wish you weren't.
+! eval (setf (var 'brave) T)
+< continue
+
+# continue
+~ islay
+| There's danger yes. But you can defend yourself against their soldiers.
+| And I'm confident the bombs won't detonate prematurely.
+~ player
+- [(var 'brave) I said I'll do it.|]
+  ~ islay
+  | Alright. How are we looking?
+- [(not (var 'brave)) It's alright. I know I don't have a choice.|]
+  ~ fi
+  | (:happy)But you do. You always did.
+  ~ islay
+  | Alright. How are we looking?
+- How confident?
+  ~ islay
+  | VERY confident.
+  | {#@catherine-nametag}, how are we looking?
+- I trust {#@catherine-nametag}'s handiwork.
+  ~ catherine
+  | Thank you. I've just been doing what {#@islay-nametag} told me.
+  ~ islay
+  | You're a great engineer, {#@catherine-nametag}. They're lucky to have you- //We're// lucky to have you.
+  | Speaking of which, how are we looking?
+~ catherine
+| They're ready. Here you go, {(nametag player)}.
+! eval (store 'item:explosive 3)
+! eval (status "Received 3 Explosive")
+~ player
+| "So I've got "3 bombs"(orange), each the size of a large brick."(light-gray, italic)
+| "They resemble plastic explosives, similar to what I've seen bomb disposal teams use."(light-gray, italic)
+~ catherine
+| Don't worry, they're shock resistant. These babies will only blow when we send the signal.
+! eval (store 'item:receiver 13)
+! eval (status "Received 13 RF Detonator")
+~ player
+| "There's also a handful of RF receivers attached to blasting caps - the detonators."(light-gray, italic)
+~ catherine
+| Just "push the receivers into the explosives"(orange) once you've planted them - "2 in each to be sure"(orange).
+| This will prime the charge packs and activate the receivers.
+| I've given you a few spares, just in case.
+~ islay
+| Each receiver is set to an isolated frequency, so only we can trigger them. And it should cut through the Wraw's interference.
+~ fi
+| Where are they being detonated?
+~ islay
+| ...
+~ fi
+| (:unsure)Well?
+~ islay
+| In the old "Brother offices to the west of the Zenith Hub"(orange);
+| On your "low eastern border, beyond the old Rootless hospital apartments"(orange);
+| ... In the "flooded cave beside the pump room"(orange).
+~ fi
+| (:annoyed)You're not serious?
+~ islay
+| Our monitoring devices at the foot of your territory are already going offline.
+| We need to stop the Wraw here and now.
+~ fi
+| And exploding our water pump is the way to do that?
+~ islay
+| It's our pump. We let you use it.
+~ fi
+| (:annoyed)...
+~ islay
+| And we're not destroying the pump, just the room beside it - enough to collapse the tunnels and close access.
+| The water in the sunken room will help do that.
+| We can repair any damage to the pump later, but it will be minimal.
+~ fi
+| (:annoyed)It sounds like I have no choice.
+~ islay
+| It'll work.
+~ islay
+| Alright, {(nametag player)}: "Affix all 3 bombs, then get to a safe distance"(orange) - at least to the "Zenith Hub"(orange) I'd say.
+| Your "FFCS probably won't work at the bomb locations"(orange) as they're close to the border.
+| If it does, "report in after you've planted each bomb"(orange). If not, then we'll "wait for your call from the Zenith Hub"(orange).
+| "Then we'll detonate them"(orange) in sequence, and bury the Wraw in one fell swoop.
+~ catherine
+| (:excited)When one goes boom, they all go boom!
+~ islay
+| (:normal)Remember where to "plant them"(orange):
+| "The old Brother offices to the west of the Zenith Hub;"(orange)
+| "The flooded room beside the pump;"(orange)
+| "East of the old Rootless hospital apartments."(orange)
+~ player
+- Got it.
+  ~ islay
+  | Travel well.
+  ~ catherine
+  | Bye {(nametag player)}.
+- Wish me luck.
+  ~ islay
+  | Good luck.
+  ~ catherine
+  | Good luck {(nametag player)}!
+  ~ fi
+  | You won't need it.
+- I'll be seeing you.
+  ~ fi
+  | You will.
+  ~ islay
+  | Travel well.
+  ~ catherine
+  | Bye {(nametag player)}.
+
+; the bombs assembly is finished quickly here by Catherine, but it's only 3 bombs. The process was also begun back in Semis territory before they moved to the surface, and Catherine has been finishing it off while she waited for these final components. So it didn't take much to finish them here

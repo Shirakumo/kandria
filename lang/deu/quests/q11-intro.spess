@@ -1,0 +1,52 @@
+# 1-interact-fi/interaction
+~ player
+- What can I do?
+  ~ fi
+  | (:happy)I'm glad you asked.
+- I think you forgot about me.
+  ~ fi
+  | (:happy)On the contrary.
+- Am I a free agent now?
+  ~ fi
+  | (:happy)You're always a free agent. (:normal)But I have an important task for you.
+~ fi
+| So {#@innis-nametag} was right about the Cerebat takeover - it //was// about more than just water.
+| And if the Wraw have marched that far, she's also right that the Semi Sisters are next.
+| (:annoyed)This is no time for division - the Wraw are now a threat to them as much as they are to us.
+| (:normal)I think you've come to earn "{#@innis-nametag}' trust"(orange).
+| I want you to use whatever sway you have with her and "ask the Semis to join us"(orange).
+~ player
+- Got it.
+- I wouldn't get your hopes up.
+- What if they join the Wraw?
+- [(var 'semis-weapons) They also have weapons.]
+  ~ fi
+  | (:unsure)So they say, though I've never seen any.
+  | (:normal)But I'll take what we can get.
+~ fi
+| {#@innis-nametag} isn't stupid, despite her other "qualities".
+| Just make sure you get to the Semis first. "Call me when you have news"(orange).
+| Also: things could change quickly down there. Although this is now your "top priority"(orange), if you have "other errands to do, I think now is the time"(orange).
+~ player
+| "{#@fi-nametag} looks like she wants to say something else, but I think the moment has passed."(light-gray, italic)
+- Are you okay?
+  ~ fi
+  | (:happy)I'm fine. Be safe.
+- I'll be fine.
+  ~ fi
+  | (:happy)I know you will. Be safe.
+- See you soon.
+  ~ fi
+  | (:happy)Be safe.
+- Goodbye.
+  ~ fi
+  | (:unsure)You say that with such finality.
+  | Please be safe.
+~ player
+- I will.
+- You too.
+- No promises.
+! eval (setf (location 'innis) (location 'innis-org-loc))
+! eval (setf (direction 'innis) -1)
+! eval (setf (location 'islay) (location 'islay-org-loc))
+! eval (setf (direction 'islay) -1)

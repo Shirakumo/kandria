@@ -1,0 +1,119 @@
+# leave-semis/fi-ffcs
+~ player
+| "I might as well call {#@fi-nametag} from here. There's nowhere the Semis don't have eyes and ears."(light-gray, italic)
+| (:normal)Hello, {#@fi-nametag}, it's me.
+| ... {#@fi-nametag}?
+| (:thinking)"Something's "interfering with my FFCS signal"(orange)."(light-gray, italic)
+| (:normal)"I probably have {#@innis-nametag} to thank for that. I doubt I'll be able to use the phone either."(light-gray, italic)
+| "Alright, if they don't want me calling home, I'll "go on foot"(orange)."(light-gray, italic)
+? (unlocked-p (unit 'station-surface))
+| | (:giggle)"Or maybe I'll "take the train"(orange)!"(light-gray, italic)
+! eval (activate 'return-fi)
+! eval (deactivate (unit 'fi-ffcs-1))
+! eval (deactivate (unit 'fi-ffcs-2))
+! eval (deactivate (unit 'fi-ffcs-3))
+; (unlocked-p (unit 'station-surface)) - should be force unlocked now by this point, so the check is redundant; but a good safeguard to keep
+
+# return-fi/talk-fi
+~ fi
+| (:annoyed)I was starting to worry. Why didn't you call? Where's {#@alex-nametag}?
+~ player
+- I got waylaid.
+  ~ fi
+  | (:annoyed)Waylaid? What was more important than bringing {#@alex-nametag} back?
+- {#@alex-nametag} isn't coming back yet.
+  ~ fi
+  | (:unsure)Are they okay? What happened?
+- My FFCS couldn't cut through.
+  ~ fi
+  | (:annoyed)... Why not?
+  ~ player
+  | The Semis are running some kind of interference - it blocked the signal.
+  ~ fi
+  | (:unsure)The Semi Sisters? You were meant to find {#@alex-nametag} with the Cerebats.
+~ player
+| I found them in the Semi Sisters bar, drunk. They won't cooperate.
+| They aren't happy that I became a hunter. They think I've stolen their job.
+~ fi
+| (:unsure)Oh...
+~ player
+| They did say they'd mapped the regions beneath the Semi Sisters, so they might know something about the Wraw.
+| But they weren't exactly clear, or forthcoming. I let {#@islay-nametag} talk to them while I ran some errands.
+~ fi
+| (:annoyed)Damn. This is not the time for this.
+| {#@alex-nametag} has had this problem before.
+| (:normal)We'll have to leave them for now, and hope {#@islay-nametag} can get through.
+| So, you met {#@islay-nametag}. (:unsure)What about {#@innis-nametag}?
+~ player
+- I met them both.
+- She's almost as bad as {#@jack-nametag}.
+- How could I forget.
+~ fi
+| I'm sorry you had to meet them. (:happy)At least you're still intact.
+~ player
+| {#@innis-nametag} also thinks the Wraw have invaded the Cerebats - and that the Semi Sisters are next.
+~ fi
+| (:annoyed)Does she. And what proof does she have of that?
+~ player
+| A group of Rogues crossed the Semi-Cerebat border and took down their CCTV.
+| Then I took them down.
+~ fi
+| I'm sure you did.
+| Did she say anything else?
+~ player
+- She wants {#@catherine-nametag} back or she's turning the water off.
+- You won't like it.
+  ~ fi
+  | (:annoyed)I don't like anything {#@innis-nametag} says. But I still want to hear it.
+  ~ player
+  | She said she wants {#@catherine-nametag} back or she'll turn the water off.
+- (Lie) Nothing of consequence.
+  ~ fi
+  | (:annoyed)I'll be the judge of that.
+  ~ player
+  | She said she wants {#@catherine-nametag} back or she'll turn the water off.
+~ fi
+| (:unsure)...
+| Do you think she meant it?
+~ player
+- You know her better than I do.
+  ~ fi
+  | (:unsure)I wouldn't go that far. But...
+- I think we have to assume that she did.
+- Knowing {#@innis-nametag}, that's a yes.
+~ fi
+| (:annoyed)Damn.
+| {#@catherine-nametag} was raised by the Semi Sisters, as you might have guessed from her skills.
+| But she came with us when we left the Wraw.
+| She doesn't want to go back, even though I know she'd do it to help us.
+~ player
+- Are you sure?
+  ~ fi
+  | (:annoyed)They treated her like shit. Just like they did with you.
+- Have you asked her?
+  ~ fi
+  | I don't have to. (:annoyed)They treated her like shit. Just like they did with you.
+- She doesn't want to go back? Or you don't want her to go back?
+  ~ fi
+  | {#@catherine-nametag} is an asset, obviously she is. But she's also our friend.
+  | (:annoyed)The Semi Sisters treated her like shit. Just like they did with you.
+~ fi
+| (:annoyed){#@innis-nametag} is bluffing. She's a spy, a technocrat - a grouch! (:normal)But she's not a killer. She won't turn the water off.
+| (:normal)And as for the Wraw invading the Cerebats: I know you fought Rogues, but that's not proof.
+| (:happy)Rogues are many in Cerebats territory - it's a market district!
+| (:normal)The Wraw might meddle with Cerebat law, but they're not invaders.
+| They want us, not the Cerebats - and certainly not the Semi Sisters.
+| Their leader, "{#@zelah-nametag}"(yellow), takes the easy route. He doesn't fight battles, he goes after the little guy.
+~ fi
+| (:happy)Regardless, I'm glad you're back.
+~ player
+- It's good to be back.
+- I'm glad to see you too.
+- I feel better now I'm back with you.
+  ~ fi
+  | (:happy)Me too.
+~ fi
+| (:happy)Goodbye "for now"(orange), {(nametag player)}.
+! eval (setf (music-state 'underground-camp) :ambient)
+
+; there are fewer player choices here about the events in Semis territory, as narratively at this stage the PC wants to inform Fi efficiently, and the player already knows what's happened, so there's no fun in jumping through choice hoops in how to report it a second time. However, there are fresh choices about fresh news e.g. Semis wanting Catherine back

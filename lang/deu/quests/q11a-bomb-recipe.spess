@@ -1,0 +1,124 @@
+# task-reminder/interact-reminder-innis
+~ innis
+| (:angry)You'd better shake a leg. Altogether {#@islay-nametag} needs "10 blasting caps"(orange) and "20 charge packs"(orange) for the bomb.
+| (:sly)Have fun in "Wraw territory"(orange).
+~ player
+| "I need to "check Wraw factories and warehouses"(orange). I currently have: "{(item-count 'item:blasting-cap)} blasting cap"(orange), "{(item-count 'item:charge-pack)} charge pack"(orange)."(light-gray, italic)
+
+; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb.
+# task-return-fi/fi-return-recruit
+~ fi
+| (:happy)Well done with the Semi Sisters.
+~ player
+- Thanks.
+  ~ fi
+  | (:happy)I'm glad you're safe.
+- {#@islay-nametag} did most of the convincing.
+  ~ fi
+  | Well, she knows {#@innis-nametag} the best I suppose.
+  | But without you speaking with them, none of this would've happened.
+  ~ player
+  - I guess I played my part.
+    ~ fi
+    | (:happy)An important part. And on dangerous roads.
+  - Just doing my job.
+    ~ fi
+    | (:happy)More than that I think. Especially with how dangerous the roads are now.
+  - This was your idea though.
+    ~ fi
+    | Yes, but you had their ear - and took the journey on dangerous roads.
+- It was your idea.
+  ~ fi
+  | Yes, but you had their ear - and took the journey on dangerous roads.
+~ fi
+| {#@islay-nametag} told me everything, about why you couldn't call.
+| All things considered, it's surprisingly calm around here.
+| (:unsure)Everyone's buying into {#@islay-nametag}'s story that we can stop the Wraw. I suppose this bomb is a convincing message.
+| (:normal)She's been working {#@catherine-nametag} hard to build it, that much I know. (:happy)At least our weapons are ready.
+! label questions
+~ player
+- You don't think we can win?
+  ~ fi
+  | {#@islay-nametag} says we have good numbers. (:unsure)But she also says she doesn't know how many the Wraw are.
+  | It doesn't fill me with confidence, bomb or no bomb.
+  < questions
+- What weapons do we have?
+  ~ fi
+  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and {#@jack-nametag} got working. The Semi Sisters have some too, but in better condition and lots more.
+  | I don't remember the Wraw having anything like that - they're more into swords and spears, so they can watch you die up close.
+  | (:unsure)We've also got scythes, shears, and other sharp farming tools.
+  | (:happy)And we've got you.
+  ~ player
+  - I'll do my best.
+    ~ fi
+    | (:happy)I know you will.
+  - You know it.
+    ~ fi
+    | (:happy)More than most, I think.
+  - [(var 'fight-army) I still can't fight an army.| I can't fight an army.]
+    ~ fi
+    | You might not have to. (:unsure)I think {#@islay-nametag} has something special planned for you.
+  < questions
+- What do you think about the bomb?
+  ~ fi
+  | It's a bold idea, and it might work.
+  | (:unsure)But I can't help but worry about the devastation it might cause to this whole area. To our way of life.
+  | Though I suppose the Wraw tearing through us would be even worse.
+  | (:normal)And I can't say I'm comfortable having a huge explosive assembled in the middle of our camp.
+  < questions
+- Who's in charge now?
+  ~ fi
+  | {#@islay-nametag} has the plan, but she's quite diplomatic. (:happy)It feels like a partnership.
+  | (:annoyed)I'm not sure {#@innis-nametag} sees it that way though.
+  < questions
+- I have to go.
+  ~ fi
+  | If you've got "all the components for the bomb, take them to {#@islay-nametag}"(orange).
+  | We'll talk again soon.
+
+# task-return/components-return
+~ islay
+| Did you get the components for the bomb?
+? (or (> 10 (item-count 'item:blasting-cap)) (> 20 (item-count 'item:charge-pack)))
+| ~ islay
+| | Hurry, {(nametag player)} - remember: "10 blasting caps"(orange) and "20 charge packs"(orange).
+| | "Search through Wraw territory."(orange)
+| ~ player
+| | "I need to "check Wraw factories and warehouses"(orange). I currently have: "{(item-count 'item:blasting-cap)} blasting cap"(orange), "{(item-count 'item:charge-pack)} charge pack"(orange)."(light-gray, italic)
+|?
+| ~ islay
+| | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) Yes. That's the last of them, and then some! | Yes. That's the last of them alright!]
+| | Thank you, {(nametag player)}. "Here's your payment per item, as promised"(orange).
+| ! eval (store 'item:parts (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee)))
+| ! eval (status (concatenate 'string "Received " (write-to-string (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee))) " Scrap Part"))
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:blasting-cap)) " Blasting Cap"))
+| ! eval (retrieve 'item:blasting-cap T)
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:charge-pack)) " Charge Pack"))
+| ! eval (retrieve 'item:charge-pack T)
+| < result
+
+# result
+~ islay
+| I'll take the components to {#@catherine-nametag} so she can finish up.
+| {#@fi-nametag}, would you "join me in Engineering"(orange)?
+~ fi
+| If you insist.
+| And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
+~ islay
+| I was about to add... "could you join us as well, {(nametag player)}"(orange)? This concerns you.
+| I'm afraid "any of your other jobs will have to wait"(orange).
+| {#@innis-nametag}, keep an eye on things here.
+~ innis
+| (:angry)Aye, alright.
+! eval (complete task)
+! eval (reset interaction)
+! eval (activate 'q13-intro)
+? (complete-p 'sq14c-synthesis)
+| ! eval (setf (location 'synthesis) 'synthesis-lab)
+| ! setf (direction 'synthesis) -1
+  
+! eval (clear-pending-interactions)
+
+; "your other jobs will have to wait" hints that sidequests will come back in a bit - a small smoothing concession when many sidequests have potentially just been invalidated. But of course, surprise, they don't come back - but hopefully the story makes clear why that is (bombs, Wraw attack, etc.)
+
+; only move synthesis to the lab if completed the final part of the quest, to avoid spoilering their association with the lab on subsequent playthroughs (they're in the lab to either follow up on the info you gave them in sq14c, or to try and obtain it themself if you denied them the info)
