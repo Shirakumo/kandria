@@ -178,9 +178,8 @@
     (let ((state (find (id resume) (list-saves) :key #'id :test #'equalp)))
       (cond ((equalp (file state) (file resume)))
             (state
-             (v:info :kandria.save "Resuming state ~a. Removing original resume file ~a"
+             (v:info :kandria.save "Resuming state ~a."
                      (id resume) (file resume))
-             (delete-file (file resume))
              (setf (state main) state))
             (T
              (v:severe :kandria.save "Failed to find original save file with id ~a that this resume file is branched from! Replacing save 4."
