@@ -67,11 +67,13 @@
   (stage (// 'music 'credits) area))
 
 (defmethod show :after ((credits credits) &key)
+  (harmony:seek (// 'music 'credits) 0)
   (setf (override (unit 'environment +world+)) (// 'music 'credits)))
 
 (defmethod hide :after ((credits credits))
   (setf (game-speed +main+) 1.0)
-  (setf (override (unit 'environment +world+)) NIL)
+  (when (eql (// 'music 'credits) (override (unit 'environment +world+)))
+    (setf (override (unit 'environment +world+)) NIL))
   (labels ((traverse (node)
              (typecase node
                (alloy:layout
@@ -87,15 +89,15 @@
 (defmethod handle ((ev tick) (panel credits))
   (let* ((scroll (scroll panel))
          (offset (alloy:pxy (alloy:offset scroll))))
-    (cond ((<= offset 0)
+    (cond ((< offset 0)
            (setf (game-speed +main+) (if (retained 'skip) 30.0 1.0))
-           (alloy:with-unit-parent (alloy:layout-element panel)
-             (incf offset (* (alloy:to-px (alloy:un 40)) (dt ev)))
-             (setf (alloy:offset scroll) (alloy:px-point 0 offset))
-             ;; KLUDGE: the offset from the IDEAL seems too big??
-)
-           (when (<= 0 offset)
-             (transition :kind :black (hide panel)))))))
+           (let* ((size (alloy:pxh (alloy:inner (scroll panel))))
+                  (dur (mixed:duration (trial-harmony:voice (// 'music 'credits))))
+                  (spd (* 2.0 (/ size dur))))
+             (incf offset (* spd (dt ev)))
+             (setf (alloy:offset scroll) (alloy:px-point 0 offset))))
+          ((not (harmony:active-p (trial-harmony:voice (// 'music 'credits))))
+           (transition :kind :black (hide panel))))))
 
 (defmethod handle :after (ev (panel credits))
   (when (or (typep ev '(or back toggle-menu))
