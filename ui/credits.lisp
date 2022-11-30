@@ -91,8 +91,11 @@
          (offset (alloy:pxy (alloy:offset scroll))))
     (cond ((< offset 0)
            (setf (game-speed +main+) (if (retained 'skip) 30.0 1.0))
-           (let* ((size (alloy:pxh (alloy:inner (scroll panel))))
+           (let* ((size (+ (alloy:pxh (alloy:inner (scroll panel)))
+                           (* 2 (alloy:pxh (scroll panel)))))
                   (dur (mixed:duration (trial-harmony:voice (// 'music 'credits))))
+                  ;; KLUDGE: I don't know why we have to do 2.0 here but it isn't right.
+                  ;;         1.0 is far too slow, too, though, so.... ????
                   (spd (* 2.0 (/ size dur))))
              (incf offset (* spd (dt ev)))
              (setf (alloy:offset scroll) (alloy:px-point 0 offset))))
