@@ -240,14 +240,16 @@
       :health ,(health animatable)
       :level ,(level animatable)
       :experience ,(experience animatable)
-      :stun-time ,(stun-time animatable))))
+      :stun-time ,(stun-time animatable)
+      :active-effects ,(loop for effect in (active-effects animatable) collect (class-name (class-of effect))))))
 
 (define-decoder (animatable save-v0) (initargs _p)
-  (destructuring-bind (&key location (velocity '(0 0)) direction state animation frame health (level 1) (experience 0) stun-time &allow-other-keys) initargs
+  (destructuring-bind (&key location (velocity '(0 0)) direction state animation frame health (level 1) (experience 0) stun-time active-effects &allow-other-keys) initargs
     (setf (slot-value animatable 'location) (decode 'vec2 location))
     (setf (velocity animatable) (decode 'vec2 velocity))
     (vsetf (frame-velocity animatable) 0 0)
     (setf (direction animatable) direction)
+    (setf (active-effects animatable) (mapcar #'make-instance active-effects))
     (setf (state animatable)
           (if (and (eql :animated state) (eql animation 'stand))
               :normal
