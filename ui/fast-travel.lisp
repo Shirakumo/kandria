@@ -16,7 +16,7 @@
   (cond ((unlocked-p (alloy:value button))
          (unless (eq (alloy:value button) (source button))
            (trigger (alloy:value button) (source button))
-           (harmony:play (// 'sound 'train-departing-and-arriving)))
+           (harmony:play (// 'sound 'train-departing-and-arriving) :reset T))
          (harmony:play (// 'sound 'ui-confirm))
          (hide-panel 'fast-travel-menu))
         (T
