@@ -252,7 +252,7 @@
       (control target-framerate (:display :target-framerate) 'alloy:combo-set :value-set (list :none 30 60 90 120 144 240 300))
       (control gamma (:display :gamma) 'alloy:ranged-slider :range '(1.5 . 3.0) :step 0.1)
       (control render-shadows (:display :shadows) 'alloy:checkbox)
-      (control user-interface-scale-factor (:display :ui-scale) 'alloy:ranged-slider :range '(0.25 . 2.0) :step 0.25)
+      (control user-interface-scale-factor (:display :ui-scale) 'alloy:ranged-slider :range '(0.2 . 2.0) :step 0.1)
       (control font (:display :font) 'alloy:combo-set :value-set '("PromptFont" "OpenDyslexic" "ComicSans"))
       (control display-hud (:gameplay :display-hud) 'alloy:checkbox)
       (control show-hit-sting-lines (:gameplay :show-hit-stings) 'alloy:checkbox)

@@ -484,6 +484,10 @@
   (when (unit 'ui-pass T)
     (alloy:refresh (unit 'ui-pass T))))
 
+(define-setting-observer ui-scale :display :ui-scale ()
+  (when (unit 'ui-pass T)
+    (alloy:refresh (unit 'ui-pass T))))
+
 (define-language-change-hook ui ()
   (when (unit 'ui-pass T)
     (alloy:refresh (unit 'ui-pass T))))

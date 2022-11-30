@@ -630,8 +630,8 @@ void main(){
          (case (name (animation player))
            (fishing-loop
             (let* ((loc (vcopy (location (buoy line))))
-                   (bloc (tvec (+ (vx loc) -10)
-                               (+ (vy loc) 16)))
+                   (bloc (tvec (+ (vx loc) (* -10 (setting :display :ui-scale)))
+                               (+ (vy loc) (* 16 (setting :display :ui-scale)))))
                    (tt (* 1.3 (tt ev)))
                    (t2 (+ tt (/ PI 3))))
               (nv+ loc (vec (* 5 (cos tt)) (* 3 (sin tt) (cos tt))))
