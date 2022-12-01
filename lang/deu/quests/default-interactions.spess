@@ -1,456 +1,346 @@
 # innis
-; PRIMARY NPCs
-; all lines in this file are the NPC speaking directly to the player, though some are more like musings to themselves as well
-; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
 ~ innis
 ? (complete-p 'Q14-ENVOY)
-| | (:angry)I'm watching you.
+| | 
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | (:sly)Look who it is.
+| | 
 |? (complete-p 'Q11A-BOMB-RECIPE)
-| | Who knew an android could sweet-talk an entire faction.
+| | 
 |? (complete-p 'Q7-MY-NAME)
-| | (:angry)Go away, we're busy.
+| | 
 |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
-| | (:angry)Keep hovering around me like that and I'll have you dismantled.
+| | 
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | (:sly)What's the matter, you lost?
+| | 
 |?
-| | What do you want?
+| | 
 
 # islay
-; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
-; Islay soon becomes a trader, so will never need default interacts after that (the trading is removed near the end, but is taken over by main quest dialogue for the most part, and this fallback to handle interactions while she's rewiring the other 2 bombs)
 ~ islay
 ? (complete-p 'Q15-CATHERINE)
-| | (:nervous)...
+| | 
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | Good, you're back.
+| | 
 |? T
-| | Hello there.
+| | 
 
 # alex
-; alex, non binary - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka; speaks London multicultural English
 ~ alex
 ? (complete-p 'Q14-ENVOY)
-| | (:angry)You picked the wrong side.
+| | 
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | (:angry)Hello again.
+| | 
 |? (complete-p 'Q13-INTRO)
-| | (:angry)The end is coming.
+| | 
 |? (complete-p 'Q7-MY-NAME)
-| | (:angry)Get lost.
+| | 
 |? (complete-p 'Q4-FIND-ALEX)
-| | (:angry)Don't test me, android.
+| | 
 |?
-| | (:angry)<-Hic->. Go away.
+| | 
 
 # trader
-; Sahil, trader, male, Arabic code switching; after the intro quest, default chat interacts takeover, but this is for before the quest
-; Sahil soon becomes a trader, so has no needed for more default interacts
 ~ trader
 ? T
-| | Sorry, habibti. I'm closed for business while I fix my caravan.
+| | 
 
 # cerebat-trader-quest
-; Cerebat trader from q8a, male; after the quest, default chat interacts takeover, but this is for before the quest
-; stop being nosy!
-; Soon becomes a trader, so has no needed for more default interacts
 ~ cerebat-trader-quest
 ? T
-| | Stick your big nez somewhere else!
+| | 
 
 # jack
-; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
-; since SQ11-SABOTAGE-STATION doesn't have a return dialogue, Jack can make some allusion to it here in the main flow - until it gets overridden by more important primary plot developments (as with sidequest NPCs)
 ~ jack
 ? (complete-p 'Q14-ENVOY)
-| | Was I wrong about you, {(nametag player)}?
+| | 
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | Look what the cat dragged in.
+| | 
 |? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | (:annoyed){#@innis-nametag} is a real bitch, don't ya think?
+| | 
 |? (complete-p 'Q10A-RETURN-TO-FI)
-| | (:annoyed)How has it come to this? HOW?
+| | 
 |? (complete-p 'Q10-WRAW)
-| | You'd better have some good news for a change.
+| | 
 |? (complete-p 'SQ11-SABOTAGE-STATION)
-| | What power station? Never heard of it!
+| | 
 |? (complete-p 'Q6-RETURN-TO-FI)
-| | Why is it wherever you go, trouble ain't far behind?
+| | 
 |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
-| | Oh, it's you.
+| | 
 |? (complete-p 'Q3-NEW-HOME)
-| | (:annoyed)You'd better get comfortable - we're going nowhere.
+| | 
 |? (complete-p 'Q1-WATER)
-| | I've got my eye on you.
+| | 
 |? (active-p 'Q1-WATER)
-| | You "going with Cathy"(orange) or what?
+| | 
 |? (complete-p 'Q0-FIND-JACK)
-| | What?
+| | 
 |?
-| | Who are you?
+| | 
 
 # fi
-; Fi (Noka faction leader, female) - somewhat indifferent and distanced to the player; formal, but warming to them. Japanese English accent and dialect.
 ~ fi
 ? (complete-p 'Q14-ENVOY)
-| | You're one of us.
+| | 
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | (:unsure){(nametag player)}...
+| | 
 |? (complete-p 'Q11A-BOMB-RECIPE)
-| | Hey.
+| | 
 |? (complete-p 'Q11-RECRUIT-SEMIS)
-| | (:unsure)Whatever you're doing, please hurry.
+| | 
 |? (complete-p 'Q4-FIND-ALEX)
-| | Any news on {#@alex-nametag}? I still need them back.
+| | 
 |? (complete-p 'Q2-SEEDS)
-| | What are we, without food and water?
+| | 
 |? (complete-p 'Q1-WATER)
-| | {(nametag player)}.
+| | 
 |?
-| | Konnichiwa.
+| | 
 
 # catherine
-; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
-; (complete-p 'Q6-RETURN-TO-FI) may not be needed, as Catherine should at least a time trial giver, if not also a sidequest giver, until q10-wraw complete - added for completeness though
 ~ catherine
 ? (complete-p (find-task 'EPILOGUE-HOME '3-INTERACT-CATHERINE))
-| | (:concerned)I hope everyone's okay.
+| | 
 |? (complete-p 'EXPLOSION)
-| | So did we win?
+| | 
 |? (complete-p 'Q15-BOSS)
-| | (:excited)I can't believe how you took down that mech!
+| | 
 |? (complete-p 'Q14-ENVOY)
-| | (:concerned)You don't belong to {#@zelah-nametag}. You don't belong to anyone but yourself.
+| | 
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | He doesn't look so tough. (:excited)I could take him.
+| | 
 |? (complete-p 'Q13-INTRO)
-| | (:excited)Whatever you do, don't blow yourself up.
+| | 
 |? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | (:concerned)Sorry, {(nametag player)} - I need to concentrate.
+| | 
 |? (complete-p 'Q10A-RETURN-TO-FI)
-| | We'll be fine. I just know we'll be fine.
+| | 
 |? (complete-p 'Q10-WRAW)
-| | (:excited)Oh man, am I glad to see you!
+| | 
 |? (complete-p 'Q6-RETURN-TO-FI)
-| | (:concerned)I don't like this, living with all this doubt.
+| | 
 |? (complete-p 'TRADER-ARRIVE)
-| | (:excited)Did you see {#@trader-nametag} yet? He's great isn't he!
+| | 
 |? (complete-p 'Q1-WATER)
-| | Hey {(nametag player)}!
+| | 
 |? (complete-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
-| | (:excited)Let's "get back to the Camp"(orange)!
+| | 
 |? (active-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
-| | Go on, "call Jack on the phone back there"(orange). I'll just finish up here.
+| | 
 |? (active-p (quest:find-named '16-GO-TO-PUMP-BOSS-LOC (thing 'q1-water)))
-| | What are you doing?! - "Smash those Servos"(orange)!
+| | 
 |? (complete-p 'Q1-READY)
-| | (:excited)Stick with me, you'll be fine.
+| | 
 |?
-| | You okay?
+| | 
 
 # zelah
-; male, main antagonist, leader of the Wraw faction. Northern British accent/dialect
-; "Keep going" is deliberately ambiguous - are you working for him, that's why he says this (as encouragement); or are you not, and he doesn't like you, so is telling you to move along? He says in q14-envoy that you are working for him, but are you really?
-; Speech changes after the envoy confrontation, just before the battle
 ~ zelah
 ? (complete-p 'Q14-ENVOY)
-| | It's too late for you. It's too late for them too.
+| | 
 |?
-| | Keep going.
-
-; SIDEQUEST NPC
-
-; speech that updates based on major plot events e.g. q10 and q11a, needs to also work whether the player did the sidequest involving that NPC or not (and if not, remember their name will still show as "???" so can't give clues as to who they are - teasing content for a following playthrough maybe)
+| | 
 
 # semi-engineer-team
-; mix of engineers of different genders who were involved in the tunnel collapse
-; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest (q5a)
-; Don't spoiler the engineers' realisation of you being an android - save that for the new chief
-; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ npc
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | [? After all that work on the railway... Now this. | I'm used to welding rails not cleaning guns. | You're the one that saved us, aren't you.]
+| | 
 |? (not (active-p (unit 'blocker-engineers)))
-| | [? It feels good to be free. | I need a lie down after that shift. | I can't thank you enough for clearing the tunnel. Thank you thank you thank you! | If I don't see another cave for the rest of my life, it'll be too soon!]
+| | 
 |?
-| | [? "Talk to the new chief."(orange) | It's been a long shift. | "The new chief's the one you want."(orange) | An... android? Nah, can't be. That's impossible. | I'd "check in with the new chief"(orange).]
+| | 
 
 # semi-engineer-base
-; mix of engineers of different genders to be found around the Semis base
-; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ npc
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | [? I hope there's something left to rebuild. | It's strange, just waiting. | With an android on our side we can't lose. Can we? | I hope your fusion reactor is up to this fight. | We spent a long time making our home down there. I hope there's something left to go back to.]
+| | 
 |?
-| | [? You any good at fixing things? | You look like you know your way around a screwdriver. | I wouldn't mind seeing how you work on the inside. | What's the maximum stress tolerance of your body? | You're a regular walking toolbox aren't you. | You look like you can fight.]
+| | 
 
 # soldier
-; mix of soldiers of different genders who follow Zelah around, serving as his bodyguards
-; Speech changes after the envoy confrontation, just before the battle
 ~ npc
 ? (complete-p 'Q14-ENVOY)
-| | [? I'm not afraid of an android. | You look like a detective, not a soldier. Or maybe a nurse. | Zelah owns you, android. | Go away. | We'll be seeing you soon. And your friends.]
+| | 
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | Step away.
+| | 
 |?
-| | [? Huh? | Yeah? | What?]
+| | 
 
 # semi-roboticist
-; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
-; used in sq4
-; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-roboticist
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | We could really use some Servos on our side, right about now.
+| | 
 |? (complete-p 'Q10-WRAW)
-| | To think, all I used to worry about was understanding Servos.
+| | 
 |? (complete-p 'SQ4-ANALYSE-ROBOTS)
-| | I'm getting closer to understanding how Servos think. How //you// think too.
+| | 
 |? (complete-p 'Q4-FIND-ALEX)
-| | Can't talk now, sorry. Servo science waits for no one.
+| | 
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | "Alex"(orange)?... Don't know them, sorry. You could "ask in the bar"(orange).
+| | 
 |?
-| | Can't talk now, sorry. Servo science waits for no one.
+| | 
 
 # semi-barkeep
-; Semi Sisters barkeep, non-binary, French code switching
-; used in sq5
-; Speech changes once they're on the surface as Noka allies, just before the battle
-; "No time for drinking" - in a literal sense in that there's no time, but also because the battle is imminent, this is also not an appropriate time for drinking
-; Soon becomes a time trail giver, so has no needed for more default interacts - but a brief window after sidequest is closed after q10
 ~ semi-barkeep
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | So this is the surface? The facilities are a little... meagre. But I see time trial potential here!
+| | 
 |? (complete-p 'Q10-WRAW)
-| | No time for racing. No time for drinking either.
+| | 
 |? (complete-p 'Q4-FIND-ALEX)
-| | Who's this fancy pants?
+| | 
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | Alex? Oui, "that's them over there if I'm not mistaken, propping up the other bar"(orange).
+| | 
 |?
-| | Who's this fancy pants?
+| | 
 
 # semi-barkeep-2
-; female barkeep (other barkeep)
-; world NPC
-; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-barkeep-2
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | Can't say I'm thrilled to be here. Where are the beer barrels for a start?
+| | 
 |? (complete-p 'Q10-WRAW)
-| | I knew you'd bring trouble down on us.
+| | 
 |? (complete-p 'Q4-FIND-ALEX)
-| | I don't serve your kind.
+| | 
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | You're looking for Alex?... "Are you blind?!"(orange).
+| | 
 |?
-| | I don't serve your kind.
+| | 
 
 # semi-patron-1
-; female, sober
-; used in sq5
-; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-patron-1
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | Tends to put things in perspective, doesn't it? War, I mean. We never knew how good we had it.
+| | 
 |? (complete-p 'Q10-WRAW)
-| | Even I've lost my mojo for time trials.
+| | 
 |? (complete-p 'SQ5-INTRO)
-| | I've high hopes for you, android.
+| | 
 |? (complete-p 'Q4-FIND-ALEX)
-| | You the betting sort? Maybe you could be.
+| | 
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | That "dude over there might be Alex - with the blonde hair"(orange). Came from the surface, apparently.
+| | 
 |?
-| | You the betting sort? Maybe you could be.
+| | 
 
 # semi-patron-2
-; female, drunk (deliberate typos)
-; used in sq5
-; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-patron-2
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | Where's the goddamn bar around here?
+| | 
 |? (complete-p 'Q10-WRAW)
-| | Ugh, what's happenings? I think I'm gonna hurl.
+| | 
 |? (complete-p 'SQ5-INTRO)
-| | Did you start the race yet? Where am I?
+| | 
 |? (complete-p 'Q4-FIND-ALEX)
-| | __CHEERS!__
+| | 
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | Sorrys, don't know "Alex. Alice is over there though, at the bar. Other bar."(orange) How many bars are there?
+| | 
 |?
-| | __CHEERS!__
+| | 
 
 # semi-partner
-; male Semi, Tobias, was in a relationship with Kacey; speaks informal
-; used in sq6
-; Speech changes once they're on the surface as Noka allies, just before the battle
 ~ semi-partner
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | I'm going nowhere without her.
+| | 
 |? (complete-p 'Q10-WRAW)
-| | I hope she's okay. And thinking of me.
+| | 
 |? (complete-p 'SQ6-DELIVER-LETTER)
-| | {#@cerebat-partner-nametag} called me. We're still friends, though.
+| | 
 |? (complete-p 'Q4-FIND-ALEX)
-| | ... Hold on, there's someone here. Over. ...Er, hi? Can I help you? - Can't you see I'm on a call?
+| | 
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | ... Hang on, gimme a sec. Over. ..."Try the bar if you're looking for Alex"(orange) - I overheard some folks talking about them.
+| | 
 |?
-| | ... Hold on, there's someone here. Over. ...Er, hi? Can I help you? - Can't you see I'm on a call?
+| | 
 
 # cerebat-partner
-; female Cerebat, Kacey, was in a relationship with Tobias; speaks casual
-; used in sq6
-; Speech changes once you know of the Wraw invasion
-; (complete-p 'Q7-MY-NAME) though the (complete-p 'CEREBAT-TRADER-ARRIVE) check is written ambigious so works whether you've completed the sidequest or not
 ~ cerebat-partner
 ? (complete-p 'Q10-WRAW)
-| | So the world's gone to shit again. Great.
+| | 
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | Why don't you draw a picture? It'll last longer.
+| | 
 |? (complete-p 'Q7-MY-NAME)
-| | The "Council"(orange)? They can stay lost for all I care, fat lot of good they've done.
-| | It's their fault this place is crawling with snivelling swindlers, like that "guy in the backstreet above here"(orange).
+| | 
+| | 
 |? (complete-p 'SQ6-DELIVER-LETTER)
-| | You understand privacy, yes?
+| | 
 |?
-| | Keep walking, pal.
+| | 
 
 # cerebat-good-trader
-; non-binary, Cerebat trader who's concerned for the well-being of the missing Cerebat Council; well spoken
-; used in sq8
-; Speech changes once you know of the Wraw invasion
-; "I need some time alone." - grieving over the seeming confirmed loss of the Cerebat Council, especially Antonio
-; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
 ~ cerebat-good-trader
 ? (complete-p 'Q10-WRAW)
-| | I'm still here. Somehow. Be well.
+| | 
 |? (complete-p 'SQ8-FIND-COUNCIL)
-| | I need some time.
+| | 
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | I'll find the Council. They'll see.
+| | 
 |? (complete-p 'Q7-MY-NAME)
-| | It seems we have a vested interest in finding the "Council"(orange). Perhaps soon you can assist me.
-| | Though you could do worse than trying to wring something from that "insidious chap in the backstreet below here"(orange).
-| | Either that, or just wring his neck.
+| | 
+| | 
+| | 
 |?
-| | I've got a lot on my mind, sorry.
+| | 
 
 # semi-spy
-; female, Semi Sisters spy deep in Cerebat territory, and organising races for the player to help themselves blend in undercover; formal speaker
-; used in sq9
-; Speech changes once they're on the surface as Noka allies, just before the battle
-; "Talk about out of the frying pan and into the burning sun" (riff off of "out of the frying pan and into the fire"); it could be night-time, but we can assume the heat of the sun's influence remains at night
-; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
 ~ semi-spy
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | What kind of hellhole is this? Talk about out of the frying pan and into the burning hot sun.
+| | 
 |? (complete-p 'Q10-WRAW)
-| | The Cerebats have bigger things on their minds right now - which suits me just fine.
+| | 
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | I told you nothing, alright. Nothing!
+| | 
 |? (complete-p 'Q7-MY-NAME)
-| | The "Council"(orange) aren't here right now, as you might have noticed. I've got my sources, but even they don't know anything.
-| | Someone said there's a "trader who might know where they are"(orange), but they didn't give me a name.
-| | Try the "middle-east backstreet, outside the abandoned bar"(orange).
+| | 
+| | 
+| | 
 |?
-| | <-Shoo->. Get out of here! What're you trying to do, blow my cover?
+| | 
 
 # wraw-sergeant
-; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
-; Northern accent, similar to Zelah
-; used in sq10
-; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
 ~ wraw-sergeant
 ? (complete-p 'Q10-WRAW)
-| | Ye missed the boat, buddy.
+| | 
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | How'd ye slip through the net? The barracks are //that// way.
+| | 
 |? (complete-p 'Q7-MY-NAME)
-| | If ye want a one-way ticket to the bowels of the earth, you keeping asking about the "Council"(orange).
-| | Who'd ye think I am, that "scummy nameless trader"(orange) who skulks around the "upper backstreets"(orange)?
+| | 
+| | 
 |?
-| | Report for training, ye scum.
+| | 
 
 # sq4a-zombie
-; Servo developing sapience and sentience as a legacy of the roboticist's investigations in sq4a
-; gender unknown
-; if complete the quest, says more developed things - delib no punctuation
 ~ sq4a-zombie
 ? (complete-p 'SQ4-ANALYSE-ROBOTS)
-| | [? __MWAAA__ | __GRRAAA__ | __FWAAA__ | <-MWAAA-> | <-GRRAAA-> | <-FWAAA-> | who you | who I | why you not look | we alike | it hurts | stay here | where friend | why hurt | don't want | can't think | who blame | don't go | you friend]
+| | 
 |?
-| | [? __MWAAA__ | __GRRAAA__ | __FWAAA__ | <-MWAAA-> | <-GRRAAA-> | <-FWAAA->]
+| | 
 
 # synthesis
-; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
-; used in sq14
-; Is looking for a secret formula for a drug used by the Wraw, and used pre-Calamity for workers, which increases pain tolerance and resistance to heat, but has many bad side effect
-; Before q5a and q5b complete, the NPC is in an inaccessible location, so the true fallback will never play - but here for completeness / in case we move them (actually now they are behind a breakable door)
-; (complete-p 'SQ14C-SYNTHESIS) has to work whether they're happy/unhappy with sq14 outcome - you helped them speed up making the drug, or hindered
-; as with others
-; (complete-p 'Q11A-BOMB-RECIPE) needs to work whether you did the quest or not, and even if you never spoke to them before - and also whether they are in the lab or still under the Cerebat base (they only get moved to the lab if you completed sq14c, to avoid spoilering the lab as linked with synthesis on subsequent playthroughs); could set the condition to be  (complete-p 'Q11A-BOMB-RECIPE 'SQ14C-SYNTHESIS) to guarantee they're in the lab, but we don't really do that with default interacts, it's less clean as would need a counter conditional - it's easy to keep the dialogue ambiguous to solve this
 ~ synthesis
 ? (complete-p 'Q11A-BOMB-RECIPE)
-| | (:grin)The answers are here, and we know where to look.
+| | 
 |? (complete-p 'SQ14C-SYNTHESIS)
-| | (:normal)When migraines don't blur our vision, we see the way forward.
+| | 
 |?
-| | (:grin)We know you.
+| | 
 
-; WORLD NPC
-
-; Generic NPCs, gender unknown, split per region
-; generic voice, no sign of strong accent or dialect, drunk, etc. as needs to work across the same and multiple NPCs
-; try and evoke the senses from time to time in the world building: sight, sound, smell, touch, taste
-
-; use the fallback for each area to do the most world building, sensory detail, etc before the plot conditionals steer the content
-; contradictory statements can be made in the same block, since it's rare the player will click on the same NPC many times - but even if they do, we can assume the NPC has changed their mind, or is sounding out different perspectives
-; surface = Semi Sisters after moved to surface (Noka don't have surface NPCs); region 1 = Semi Sisters before moved to surface; region 2 = Cerebats; region 3 = Wraw
-
-; final catch-all is just in case any NPCs slip through the net - generic region-independent replies (though no NPCs should be using these)
-
-; CONTENT GUIDE (could also branch here based on main quest state):
-; Semis (region 1): initially Semis world building; after q6, acknowledge word spread that Wraw invading Cerebats; after q10 when you (and they) have confirmed Wraw's wider invasion plans the speech reflects this; after q11a task when moved to surface, reflect this (covered by surface check)
-; The Semis also have intel on you as an android, so most recognise you
-; In a nutshell: life, habits
-
-; Cerebats: can tease from the beginning that something is afoot (as no visible Council after all - though at that time they could just not be in session), but don't spoiler the Wraw invasion reveal in q5a - can focus more on world building here too; q6 can tease about the Council not being around, and to keep asking, to help with main plot; once things have progressed to q10 complete and the player and Semis know about wider Wraw invasion, the Cerebats can hint at this, that plans are happening/afoot
-; The Cerebats don't know who you are, android or otherwise.
-; Having Cerebats (and Wraw) vageuly acknowledge the invasion after (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV) is fine, though doesn't count as evidence (hearsay), hence why it's not brought up when you might then return to Fi in q6, and she's asking for proof
-; In a nutshell: trading, politics
-
-; Wraw (mix in with Cerebat ones): can tease from the beginning that something is afoot, but don't spoiler the q1 reveal that they're after the Noka, nor the q5a reveal that they've invaded the Cerebats; after q10 complete when the invasion of the entire valley is afoot, they can hint that things are happening.
-; Can also hint about the poison/potion done to Wraw subjects, which ties into Synthesis quest - just don't spoiler too much e.g. explicit black cap association
-; The Wraw don't need a conditional for (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV), since although the Cerebats are covering things up a little before this time, the Wraw are clearer about having taken over the Cerebats from the start (albeit things remaining ambiguous for the player)
-; Zelah, the Wraw leader, has potentially known about you from early on in the game (or has he? We're never clear on this); but his inner circle, and certainly not the average Wraw villager, don't know who you are
-; In a nutshell: work work work
-
-; |? (eql 'region1 (subregion 'player))
-; | ? (complete-p 'Q10-WRAW) - this will also play for any non-engineer semis NPCs spawned below ground after they're moved to the surface in q11a e.g. in the Zenith hub upper, maybe in the Noka interiors too
 # npc
 ~ npc
 ? (eql 'surface (subregion 'player))
-| | [? Okay, maybe now's the time to get angry and change things. | I've never been in battle. What's it like? | How have these guys managed to survive up here? Well if they can, we can. | It feels good to have friends. I like these Noka. | So this is what {#@catherine-nametag} left us for. She's been keeping busy, I see. | Is it true {#@catherine-nametag} found you somewhere round here? | Everyone's busy doing something. At least it stops the mind from wandering. | It smells different up here. Cleaner, but also deadlier. | Looks like these folks tried growing crops. And failed. We could help them with that. | Who's that guy frowning at everyone? I think his name was John. | These Noka are more resourceful than I thought - maybe we do stand a chance. | This place is seriously lacking amenities, but there's no doubting their spirit. | So, you live here too? | I hope we get to go home soon. | I left my entire life back there. I guess it's gone now. | A lot has changed, and quickly. I don't do well with change. | I think we lost people en route. And this is only the beginning. | There's something about the sky. It just sort of... puts things in perspective, if you know what I mean. | I've been living in subscrapers so long I'd forgotten what a skyscraper looked like. | Birdsong... That almost makes it all worthwhile. | Can you hear it? The wind is angry. | Thank God the water's running - you could dehydrate without realising in this heat. | How do you live up here? It feels like the ground is melting. | The Noka don't have much, but they're willing to share.]
+| | 
 |? (eql 'region1 (subregion 'player))
 | ? (complete-p 'Q10-WRAW)
-| | | [? Who knew the Wraw had this in them? | I think we could bring the Wraw a fair fight - defeat them, even. But not if they conquer half the valley! | Suddenly I don't feel settled any more. What's going to happen? | I guess it's that time again to find a new normal. Good job we're used to it. | I'm gonna fight. If the Wraw come through these tunnels I'll stop them dead in their tracks. | I'm not worried about me - it's my family, they can't fight. | Now we find out how strong our friendships really are. | I knew we should have assembled an army - hopefully our hunters can handle whatever's coming. | I've got pets to worry about, never mind parents and children. | This will all pass soon, won't it? | I think our leaders have lost the plot. | Are we safe here? Can't we just stay inside? No one's telling me anything. | Are you here to defend us? | After everything we've built, then this happens. | I know this doesn't make sense, but I can hear the fear - or rather, not hear it. | My palms are clammy, are yours? That's never a good sign.]
+| | | 
 | |? (complete-p 'Q6-RETURN-TO-FI)
-| | | [? The Wraw wouldn't dare cross our border. No, I don't want to hear about that. | Didn't the Wraw always manipulate the Cerebats though? Nothing's changed, really. | If now isn't the time to dust off our guns, I don't know when is. 'Course, I got my own. | I think morale has taken a hit around here lately. If only I could do something to cheer people up. | After all we've been through, surely things can't get any worse. | Invasions and an android, what's the world coming too? | Are you an {#@innis-nametag} or an {#@islay-nametag} person? | Whatever happens, if we stick together we'll be alright. | I think the Wraw might have underestimated us. | Things could be worse: we could be living on the surface. | Sometimes Rogues are just Rogues - what's all the fuss about? | People need to calm the hell down. We've all got jobs to do, so we should just do them. | The water's still flowing, so it can't be that bad. | People should just chill - go read a book, play a tune. No need to get all worked up.]
+| | | 
 | |?
-| | | [? Wow! It's you. I've heard a lot about you. | I swear to God, if I have to fix another leak I'm gonna kill someone. | Those Servos are getting closer by the day - if you ask me we need automated turrets. | What to do when everyone's getting older, and no one's having kids... Not that this is a fit world for kids. | Pretty impressive place, ain't it? Not bad for a bunch of \"old biddies\". | I'm knackered. But there's a drink with my name on it - and a cold shower. | Our hunters say it's too quiet out there, but surely that's a good sign? | You look like you could be valuable. | What exactly are you made out of? | Have you got any medical supplies? We don't value them enough around here. | Sometimes I wonder if I'd be better off still working the production line. | You can't be an android... Can you? | Watch your back - people don't like androids, unless they're offering up their parts. | So tell me: did androids destroy the world? | I used to assemble the likes of you - I know everything about you, from how to attach your \"skin\", to the resolution of those cameras you call eyes. | I know how to activate you. And deactivate you. | It's too hot - we need to reroute some of those wind tunnels. | You came from the surface - you don't stink of sweat, you see. I know it's hot up there, but at least you've got the breeze. | I'm sick of eating fish - can't we get frogs instead? | Is it true there are birds on the surface? | Thank God they built these subscrapers as well as they did - otherwise we'd have nowhere. | You ever eaten a tomato fresh from the vine? Take a trip to hydroponics and indulge. | I heard someone found a working CD player in a Cerebat cave. Imagine being able to play one, instead of just pretending. | If you ever find a book on your travels, our library could always use another one.]
+| | | 
 |? (eql 'region2 (subregion 'player))
 | ? (complete-p 'Q10-WRAW)
-| | | [? What do you want? | It's too late to pick a side. | It's quiet now. It's never been this quiet around here. | I'm not sure things will go back to the way they were. | I'm shipping out soon. I'm gonna miss this place. | They've ravaged this place. Taken everything. | The markets are an empty husk of what they used to be. The people too. | I'd get out now if I were you. | If they've not rounded you up yet, then you're on borrowed time. | How did this happen? Could we have done anything different? | I thought the others would sort this mess out. I think they thought the same. | The Council might not be dead - no one saw their bodies. Not that there was much to see when they were here. | So that's all we are now: meat for the grinder. | You want my opinion? The Council fucked up. Big time. | Watch where you're going - this ain't no playground. | Mind your dainty ass - if I didn't have work to do I'd whup it. | I'm sorry, I didn't order room service. Heh. | Unless you want to duel, get lost. | Most call 'em black caps, but to me they're magic mushrooms. How else do you explain our longevity? | The potion's fine for me - just the usual headaches and nausea. At least I won't starve. | Enjoy it - the peace before victory, I mean. | What are you? A new class of Servo? | I didn't know they made mechs like you. You don't look very strong. | Don't just stand there, we're mobilising. | Make yourself useful or go jump in the magma. | Who are you meant to be, some kind of femme fatale? Get real. | If you don't know where the back-road tunnels are, then you're not meant to know!... What do these idiots take me for? | You hear that? That's the sound of soldiers with a purpose. I suggest you find yours. | Oil and smoke. Smells like war to me. | Winning a battle is a numbers game. And I count more of us than them. | They'll soon see our way of life is better. Not that they have a choice. | Once they've remembered what the potion can do, they won't want to live without it. | Don't they //want// to share our power grid? Spiteful fucks. | Take your potion and report to your post. Slacker. | I wonder if the roar of battle will be more tolerable than the constant drone of the power station. | You don't look like a loyal subject of the Wraw. What are you doing here? | You notice that taste in your mouth? It means the potion's working. It means we're going to win. | Why must people always resist? The future's unity, not division. We're just speeding things along. | Sometimes the heat down there gets so stifling, it hits you like a thick, brick wall. Not here though. | How dare these meddling 'Bats mess with our water. What were they thinking?]
+| | | 
 | |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
-| | | [? Word of warning: stop asking questions. | Sorry, we're closed. | Market day ain't today. | We're fresh out of good humour I'm afraid. | I'd keep schtum about the Council if I were you. | Might I recommend exploring the caves - there's more to see than around this shithole. | Get lost - and I mean that with the sincerest of kindness. | That's not the kind of question you should be asking right now. | Law and order - it's a thin line. Easy to cross. | When survival's at stake people don't follow the rules. Can you blame 'em? | Councils change like the seasons. It's just the way it is. | Supplies aren't arriving and tempers are fraying. So don't take it personally when I say this: Piss off. | Keep your head down and shut up. | There's two kinds of people here: those with a friend on the Council, and those without. | Someone might know something about what's going on. But it ain't me. | Nothing's gonna change around here while corruption rules the roost. | Even the black market is drying up - but I never told you that. | Tell me why we live down here again... | Without the potion I'd have died years ago. | Are you one of the new recruits? | We've barely enough room and resource for ourselves - we don't need more mouths to feed! | Like we need help from another faction! | We're better 'cause we get things done. | We're physically stronger and can work longer shifts - that's what the potion does for us. | Where would we be without black caps - a little more than just vitamin D, eh? | I couldn't hear myself think down there. Imagine living and working inside an internal combustion engine and you've got some idea. | I know we're rolling in geothermal power, but we can't support everyone. Unless they're going down there to break their backs as well. | We might have jewels aplenty, but we still don't get far without water. The potion helps though. | We know why the old world failed. And it won't happen again - not on our watch.]
+| | | 
 | |?
-| | | [? Supplies are thin on the ground right now, sorry. | Who are you? You don't look like a trader. | Welcome to our underground paradise! | Always nice to see new faces. We pride ourselves here on diversity and inclusion - not to mention our diversity of goods, flora, and fauna! | Have you seen the sights? This place is huge! Just be careful in the wind tunnels. | I shouted my head off in the caverns - the echo lasted for ages! | I think this is the most oxygenated place in the valley. Suck it up! Just avoid the garbage while you do. | Taste that sweet sweet air. Or is it just my perfume? | Okay so it's a little humid. And it's not uncommon for mould to ravage our inventory. But there's nowhere better to live down here I promise you that. | Forget rats and bats! We eat fish and frogs in these parts. | I'm waiting for the Council to enter session - I've got questions and I want answers! | Don't mess with your leaders is my advice. | You're not sweating. Who are you? | Nice sword. | Your clothes... I've never seen anything like them. Wanna swap?]
+| | | 
 |?
-| | [? Haven't seen you around before. | ... | Sorry, I'm busy. | Uh. Hi? | Leave me alone. | You look kinda strange. | Excuse me. | No time to chat.]
-; these final fallbacks should never play, because every interactable world NPC is at least in the surface, region 1, or region 2 (none in region 3) - but keeping for safety
+| | 

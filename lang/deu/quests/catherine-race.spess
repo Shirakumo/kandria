@@ -1,75 +1,75 @@
 # hub
 ~ catherine
-| So the "races"(orange), yes: "Find the can"(orange) that we've planted.
-| (:excited)"Grab it, bring it back here, and I'll stop the clock"(orange). The "faster you are, the more parts you'll get"(orange)!
-| (:normal)We've got "5 routes"(orange) for you. Once you've "completed one I'll tell you about the next"(orange). Them's the rules.
-| You can try routes as many times as you want, but you'll "only get a reward on later runs if you beat your previous best time"(orange).
-| We've also got "riddles"(orange) for each location, to give you a clue. Figuring these out might slow you down at first.
-| But once you know where they are, (:excited)you'll be clocking even faster times I'm sure.
-| (:normal)We'll "start with Route 1"(orange), which is easy. (:excited)Just "say when you're ready"(orange). This is sooo exciting!
+| 
+| 
+| 
+| 
+| 
+| 
+| 
 ! eval (clear-pending-interactions)
 
 # start
 ? (timer-quest)
 | ~ catherine
-| | (:concerned)Looks like you're "already on the clock"(orange) for a time trial. You've got to "finish or stop that one first"(orange).
+| | 
 | < quit
 
 ~ catherine
-| (:cheer)Alright, let's race!
-| (:excited)"{(quest:title (quest:find-named 'race task))}."(orange)
-| (:normal)The time brackets are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
+| 
+| 
+| 
 ? (var 'pb)
-| | Your "personal best"(orange) for this route is "{(format-relative-time pb)}"(orange).
+| | 
 ~ catherine
-| (:excited)[? Time starts... Now! | Ready?... Set... Go! | Three... Two... One... Go {(nametag player)}! | Sync your chronometer and... Go!]
+| 
 ! eval (complete task)
 ! eval (clear-pending-interactions)
 
 # cancel
 ~ catherine
-| "You want to stop the race"(orange)? I can't give you any scrap parts if we do that, and I won't log your time.
+| 
 ~ player
-- No, I'll continue the race.
+- 
   ~ catherine
-  | Sure thing (:excited)- the clock is ticking!
-- Yes, end it.
+  | 
+- 
   ~ catherine
-  | No worries. (:excited)Let's do this again soon.
+  | 
   ! eval (activate 'cancel-it)
 
 # return
 ~ catherine
-| (:cheer)Stop the clock!
-| (:excited)That's the correct can alright - nice.
-| (:normal)Your time was: "{(format-relative-time (clock quest))}"(orange).
+| 
+| 
+| 
 ? (and pb (< pb (clock quest)))
-| | (:concerned)Ah damn, "no improvement"(orange) on your record of "{(format-relative-time pb)}"(orange) I'm afraid.
+| | 
 |?
 | ? (not (null pb))
-| | | (:cheer)That's a "new personal best"(orange)!
+| | | 
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
-| | | (:cheer)How did you do that so fast? That's "gold bracket"(orange).
-| | | You get the top reward - "250 scrap parts"(orange)!
+| | | 
+| | | 
 | | ! eval (store 'item:parts 250)
 | | ! eval (status "Received 250 Scrap Part")
 | |? (< pb silver)
-| | | (:excited)That was pretty quick! "Silver bracket"(orange).
-| | | It gets you "150 scrap parts"(orange).
+| | | 
+| | | 
 | | ! eval (store 'item:parts 150)
 | | ! eval (status "Received 150 Scrap Part")
 | |? (< pb bronze)
-| | | (:excited)That wasn't bad at all - "bronze bracket"(orange).
-| | | It gets you "100 scrap parts"(orange).
+| | | 
+| | | 
 | | ! eval (store 'item:parts 100)
 | | ! eval (status "Received 100 Scrap Part")
 | |?
-| | | (:concerned)But it's "outside bronze"(orange). I didn't know artificial muscles could get sore too.
-| | | (:normal)Don't worry, you can always try again. (:concerned)But I "don't think I can give you any parts for that"(orange), sorry.
+| | | 
+| | | 
   
 ~ catherine
-| (:excited)Let's do this again soon!
+| 
 ! eval (activate 'complete-it)
 
 # quit
